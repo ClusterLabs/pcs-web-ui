@@ -6,7 +6,7 @@ import Page from "../components/Page.js"
 
 const mapStateToProps = (state) => {
   return {
-    cluster: state.cluster,
+    clusterProperties: state.clusterProperties,
   }
 };
 

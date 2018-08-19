@@ -1,7 +1,7 @@
 import {call, cancel, cancelled, fork, put, take} from "redux-saga/effects";
 import {delay} from "redux-saga";
 
-import {withAuthCare} from "../login/sagas.js"
+import {withAuthCare} from "../../scenes/login/sagas.js"
 
 import * as clusterActions from "./actions"
 import * as clusterTypes from "./constants"
@@ -11,6 +11,22 @@ const SYNC_DELAY = 20 * 1000;//ms
 
 export const transformClusterData = (apiData) => ({
   name: apiData.cluster_name,
+  nodeList: apiData.node_list.map(node => ({
+    name: node.name,
+    status: node.status,
+  })),
+  resourceList: apiData.resource_list
+    .filter(resource => ! resource.stonith)
+    .map(resource => ({
+      name: resource.id,
+    }))
+  ,
+  stonithList: apiData.resource_list
+    .filter(resource => resource.stonith)
+    .map(stonith => ({
+      name: stonith.id,
+    }))
+  ,
 })
 
 export function* clusterDataSync(clusterName){

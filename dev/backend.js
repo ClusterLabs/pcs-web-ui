@@ -50,6 +50,28 @@ app.get('/managec/third/cluster_status', (req, res) => {
   cluster_status("third", req, res)
 });
 
+const cluster_properties = (name, req, res) => {
+  if(state.login.logged === false){
+    res.status(401).send(state.login.noauthorized);
+    return;
+  }
+
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(state.properties_map[name]));
+};
+
+app.get('/managec/first/cluster_properties', (req, res) => {
+  cluster_properties("first", req, res)
+});
+
+app.get('/managec/second/cluster_properties', (req, res) => {
+  cluster_properties("second", req, res)
+});
+
+app.get('/managec/third/cluster_properties', (req, res) => {
+  cluster_properties("third", req, res)
+});
+
 app.get('/ui/logout', (req, res) => {
   state.login.logged = false
   res.send("OK")

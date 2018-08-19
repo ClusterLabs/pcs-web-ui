@@ -1,21 +1,23 @@
 import React from 'react';
 
-import ClusterOverview from "./ClusterOverview.js"
 import ClusterTopMenu from "../../../components/cluster/TopMenu.js"
 import ClusterPageContent from "../../../components/cluster/PageContent.js"
+import NodeList from "./NodeList.js"
 
-export default ({cluster, match}) => (
+const ClusterNodesPage = ({cluster, match}) => (
   <React.Fragment>
 
-    <ClusterTopMenu clusterName={cluster.name}/>
+    <ClusterTopMenu clusterName={cluster.name} clusterSection="Nodes"/>
 
     <ClusterPageContent
       clusterUrlId={match.params.name}
       clusterName={cluster.name}
-      activeMenu="overview"
+      activeMenu="nodes"
     >
-      <ClusterOverview cluster={cluster}/>
+      <NodeList
+        nodeList={cluster.nodeList}
+      />
     </ClusterPageContent>
-
   </React.Fragment>
 );
+export default ClusterNodesPage;

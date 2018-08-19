@@ -1,20 +1,22 @@
 import React from 'react';
 
-import ClusterOverview from "./ClusterOverview.js"
 import ClusterTopMenu from "../../../components/cluster/TopMenu.js"
 import ClusterPageContent from "../../../components/cluster/PageContent.js"
+import StonithList from "./StonithList.js"
 
 export default ({cluster, match}) => (
   <React.Fragment>
 
-    <ClusterTopMenu clusterName={cluster.name}/>
+    <ClusterTopMenu clusterName={cluster.name} clusterSection="Stonith"/>
 
     <ClusterPageContent
       clusterUrlId={match.params.name}
       clusterName={cluster.name}
-      activeMenu="overview"
+      activeMenu="stonith"
     >
-      <ClusterOverview cluster={cluster}/>
+      <StonithList
+        stonithList={cluster.stonithList}
+      />
     </ClusterPageContent>
 
   </React.Fragment>

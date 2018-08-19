@@ -1,0 +1,6 @@
+export const FETCH_CLUSTER_PROPERTIES
+  = "/cluster-properties/FETCH_CLUSTER_PROPERTIES"
+;
+export const FETCH_CLUSTER_PROPERTIES_SUCCESS 
+  = "/cluster-properties/FETCH_CLUSTER_PROPERTIES_SUCCESS"
+;
