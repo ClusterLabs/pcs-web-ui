@@ -28,6 +28,28 @@ app.get('/clusters_overview', (req, res) => {
   res.send(JSON.stringify(state.dashboard));
 });
 
+const cluster_status = (name, req, res) => {
+  if(state.login.logged === false){
+    res.status(401).send(state.login.noauthorized);
+    return;
+  }
+
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(state.status_map[name]));
+};
+
+app.get('/managec/first/cluster_status', (req, res) => {
+  cluster_status("first", req, res)
+});
+
+app.get('/managec/second/cluster_status', (req, res) => {
+  cluster_status("second", req, res)
+});
+
+app.get('/managec/third/cluster_status', (req, res) => {
+  cluster_status("third", req, res)
+});
+
 app.get('/ui/logout', (req, res) => {
   state.login.logged = false
   res.send("OK")

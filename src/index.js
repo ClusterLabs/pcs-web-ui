@@ -7,11 +7,11 @@ import App from './App';
 import './index.css';
 // import registerServiceWorker from './registerServiceWorker';
 import { unregister } from './registerServiceWorker';
-import store from "./services/store"
+import store, {history} from "./services/store"
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App history={history}/>
   </Provider>,
   document.getElementById('root')
 );

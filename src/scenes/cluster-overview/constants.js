@@ -1,0 +1,3 @@
+export const SYNC_CLUSTER_DATA = "/cluster/SYNC_CLUSTER_DATA";
+export const FETCH_CLUSTER_DATA_SUCCESS = "/cluster/FETCH_CLUSTER_DATA_SUCCESS";
+export const SYNC_CLUSTER_DATA_STOP = "/cluster/SYNC_CLUSTER_DATA_STOP";

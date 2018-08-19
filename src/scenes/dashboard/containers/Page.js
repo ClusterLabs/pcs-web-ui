@@ -2,23 +2,18 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 
 import * as actions from "../actions.js"
-import {logout} from "../../login/actions.js"
-import DashboardPage from "../components/DashboardPage.js"
+import Page from "../components/Page.js"
 
 const mapStateToProps = (state) => {
   return {
     dashboard: state.dashboard,
-    global: {
-      loginRequired: state.login.required,
-    }
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(actions, dispatch),
-    globalActions: bindActionCreators({logout}, dispatch)
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+export default connect(mapStateToProps, mapDispatchToProps)(Page);

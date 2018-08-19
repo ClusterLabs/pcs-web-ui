@@ -4,8 +4,8 @@ import * as loginActions from "./actions"
 import * as loginTypes from "./constants"
 import * as api from "./api.js"
 
-export function* withAuthCare(apiCall){
-  const responseFirstAttempt = yield call(apiCall);
+export function* withAuthCare(apiCall, ...args){
+  const responseFirstAttempt = yield call(apiCall, ...args);
   if(responseFirstAttempt.status !== 401){
     return responseFirstAttempt;
   }
@@ -16,7 +16,7 @@ export function* withAuthCare(apiCall){
 
   yield take(loginTypes.LOGIN_SUCCESS)
 
-  const responseSecondAttempt = yield call(apiCall);
+  const responseSecondAttempt = yield call(apiCall, ...args);
   if(responseSecondAttempt.status !== 401){
     return responseSecondAttempt;
   }
