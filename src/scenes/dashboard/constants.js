@@ -1,0 +1,4 @@
+export const FETCH_DASHBOARD_DATA = "/dashboard/FETCH_DASHBOARD_DATA";
+export const FETCH_DASHBOARD_DATA_SUCCESS =
+  "/dashboard/FETCH_DASHBOARD_DATA_SUCCESS"
+;
