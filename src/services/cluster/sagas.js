@@ -5,7 +5,7 @@ import {withAuthCare} from "../../scenes/login/sagas.js"
 
 import * as clusterActions from "./actions"
 import * as clusterTypes from "./constants"
-import * as api from "./api.js"
+import * as api from "../api.js"
 
 const SYNC_DELAY = 20 * 1000;//ms
 
@@ -34,8 +34,8 @@ export function* clusterDataSync(clusterName){
     while(true){
       const response = yield call(
         withAuthCare,
-        api.fetchClusterData,
-        clusterName,
+        api.getForJson,
+        `/managec/${clusterName}/cluster_status`,
       )
       const clusterData = yield call(transformClusterData, response.data)
       yield put(clusterActions.fetchClusterDataSuccess(clusterData));

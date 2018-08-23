@@ -91,8 +91,8 @@ const clusterStatus = (name) => ({
   "quorate":false,
   "status":"error",
   "node_list":[
-    node(1, "ant"),
-    node(2, "bee"),
+    node(0, "ant"),
+    node(1, "bee"),
   ],
   "resource_list":[
     resource("R1", "ocf", "heartbeat", "Dummy", /*stonith*/false),
@@ -633,7 +633,7 @@ const clusterProperties = () => ({
   }
 })
 
-module.exports = {
+let defaultState = {
   login: {
     logged: true,
     ajaxId: "1533967169-76",
@@ -664,4 +664,12 @@ module.exports = {
     "second": clusterProperties(),
     "third": clusterProperties(),
   },
+  nodes_to_add: [
+    {name: "cat", port: "2224"},
+  ],
+}
+
+module.exports = {
+  defaultState,
+  node,
 }

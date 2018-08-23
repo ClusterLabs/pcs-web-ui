@@ -2,14 +2,14 @@ import deepmerge from "deepmerge";
 import nightmare from 'nightmare';
 import request from "request-promise-native";
 
-import defaultState from "../../../dev/state.js";
+import stateTool from "../../../dev/state.js";
 
 async function setup(diff){
   const headers = {method: 'POST', 'cache-control': 'no-cache'};
   let options = {
     uri: 'http://localhost:5000/test-set-state',
     method: 'POST',
-    json: deepmerge(defaultState, diff),
+    json: deepmerge(stateTool.defaultState, diff),
   };
   let response = await request(options);
 }
@@ -76,11 +76,11 @@ describe('login form', function(){
     await page
       .type(
         `${promptSelector} input[name=username]`,
-        defaultState.login.username
+        stateTool.defaultState.login.username
       )
       .type(
         `${promptSelector} input[name=password]`,
-        defaultState.login.password
+        stateTool.defaultState.login.password
       )
       .click(`${promptSelector} button[name=login]`)
       .wait(logoutSelector)

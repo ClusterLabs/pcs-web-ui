@@ -2,7 +2,7 @@ import {call, put, takeEvery, take} from 'redux-saga/effects'
 
 import * as loginActions from "./actions"
 import * as loginTypes from "./constants"
-import * as api from "./api.js"
+import * as api from "../../services/api.js"
 
 export function* withAuthCare(apiCall, ...args){
   const responseFirstAttempt = yield call(apiCall, ...args);
@@ -26,13 +26,17 @@ export function* withAuthCare(apiCall, ...args){
 
 export function* logout(){
   // TODO check success...
-  yield call(api.logout);
+  yield call(api.getForText, "/ui/logout");
   yield put(loginActions.logoutSuccess())
 }
 
 export function* login(action){
   const {payload: {username, password}} = action
-  const loginResponse = yield call(api.login, username, password)
+  const loginResponse = yield call(
+    api.postParamsForText,
+    "/ui/login",
+    {username, password}
+  )
   if(loginResponse.status === 401){
     yield put(loginActions.loginFailed())
   }else{

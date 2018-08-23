@@ -6,6 +6,7 @@ import DashboardPage from "./scenes/dashboard/containers/Page"
 import clusterConnect from "./services/cluster/common_connector.js"
 import ClusterPage from "./scenes/cluster-overview/components/Page"
 import ClusterNodesPage from "./scenes/cluster-node-list/components/Page"
+import ClusterNodeAddPage from "./scenes/cluster-node-add/containers/Page"
 import ClusterResourceListPage from "./scenes/cluster-resource-list/components/Page";
 import ClusterStonithListPage from "./scenes/cluster-stonith-list/components/Page";
 import ClusterPropertiesPage from "./scenes/cluster-properties/containers/Page";
@@ -24,6 +25,10 @@ class App extends Component {
             <Route
               exact path="/cluster/:name/nodes"
               component={clusterConnect(ClusterNodesPage)}
+            />
+            <Route
+              exact path="/cluster/:name/node-add"
+              component={clusterConnect(ClusterNodeAddPage)}
             />
             <Route
               exact path="/cluster/:name/resources"

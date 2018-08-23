@@ -1,4 +1,6 @@
 import React from 'react';
+import {Menu} from 'semantic-ui-react'
+import {Link} from "react-router-dom";
 
 import ClusterTopMenu from "../../../components/cluster/TopMenu.js"
 import ClusterPageContent from "../../../components/cluster/PageContent.js"
@@ -14,6 +16,11 @@ const ClusterNodesPage = ({cluster, match}) => (
       clusterName={cluster.name}
       activeMenu="nodes"
     >
+      <Menu>
+        <Menu.Item name="node-add">
+          <Link to={`/cluster/${cluster.name}/node-add`}>Add</Link>
+        </Menu.Item>
+      </Menu>
       <NodeList
         nodeList={cluster.nodeList}
       />

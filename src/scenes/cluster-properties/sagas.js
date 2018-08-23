@@ -4,7 +4,7 @@ import {withAuthCare} from "../login/sagas.js"
 
 import * as actions from "./actions"
 import * as types from "./constants"
-import * as api from "./api.js"
+import * as api from "../../services/api.js"
 
 export const transformClusterProperties = (clusterName, apiData) => ({
   clusterName,
@@ -31,8 +31,8 @@ export const transformClusterProperties = (clusterName, apiData) => ({
 export function* fetchClusterProperties({payload: {clusterName}}){
   const response = yield call(
     withAuthCare,
-    api.fetchClusterProperties,
-    clusterName,
+    api.getForJson,
+    `/managec/${clusterName}/cluster_properties`,
   )
   const clusterProperties = yield call(
     transformClusterProperties,

@@ -4,7 +4,7 @@ import {withAuthCare} from "../login/sagas.js"
 
 import * as dashboardActions from "./actions"
 import * as dashboardTypes from "./constants"
-import * as api from "./api.js"
+import * as api from "../../services/api.js"
 
 export const transformDashboardData = (apiData) => ({
   clusterList: apiData.cluster_list.map(
@@ -13,7 +13,11 @@ export const transformDashboardData = (apiData) => ({
 })
 
 export function* fetchDashboardData(){
-  const response = yield call(withAuthCare, api.fetchDashboardData)
+  const response = yield call(
+    withAuthCare,
+    api.getForJson,
+    "/clusters_overview"
+  )
   const dashboardData = yield call(transformDashboardData, response.data)
   yield put(dashboardActions.fetchDashboardDataSuccess(dashboardData));
 }

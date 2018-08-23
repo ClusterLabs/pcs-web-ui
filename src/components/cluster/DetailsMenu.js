@@ -4,11 +4,7 @@ import {Link} from "react-router-dom";
 
 const Item = ({active, name, label, link}) => (
   <Menu.Item name={name} active={active === name}>
-    {
-      active === name
-      ? label
-      : <Link to={link}>{label}</Link>
-    }
+    <Link to={link}>{label}</Link>
   </Menu.Item>
 );
 
