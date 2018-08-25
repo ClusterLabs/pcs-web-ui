@@ -9,9 +9,18 @@ let jsonParser = bodyParser.json();
 
 const port = process.env.PORT || 5000;
 
-let loggedIn = false;
-
 let state = defaultState;
+
+function checkLogin(req, res, next){
+  const not_checked_paths = ["/ui/login", "/ui/logout", "/test-set-state"]
+  if (state.login.logged === false && ! not_checked_paths.includes(req.path)){
+    res.status(401).send(state.login.noauthorized);
+    return;
+  }
+  next();
+};
+
+app.use(checkLogin);
 
 app.post('/test-set-state', jsonParser, (req, res) => {
   state = req.body;
@@ -19,57 +28,19 @@ app.post('/test-set-state', jsonParser, (req, res) => {
 });
 
 app.get('/clusters_overview', (req, res) => {
-  if(state.login.logged === false){
-    res.status(401).send(state.login.noauthorized);
-    return;
-  }
-
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify(state.dashboard));
 });
 
-const cluster_status = (name, req, res) => {
-  if(state.login.logged === false){
-    res.status(401).send(state.login.noauthorized);
-    return;
-  }
-
+app.get('/managec/:clusterName/cluster_status', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(state.status_map[name]));
-};
-
-app.get('/managec/first/cluster_status', (req, res) => {
-  cluster_status("first", req, res)
+  res.send(JSON.stringify(state.status_map[req.params.clusterName]));
 });
 
-app.get('/managec/second/cluster_status', (req, res) => {
-  cluster_status("second", req, res)
-});
 
-app.get('/managec/third/cluster_status', (req, res) => {
-  cluster_status("third", req, res)
-});
-
-const cluster_properties = (name, req, res) => {
-  if(state.login.logged === false){
-    res.status(401).send(state.login.noauthorized);
-    return;
-  }
-
+app.get('/managec/:clusterName/cluster_properties', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify(state.properties_map[name]));
-};
-
-app.get('/managec/first/cluster_properties', (req, res) => {
-  cluster_properties("first", req, res)
-});
-
-app.get('/managec/second/cluster_properties', (req, res) => {
-  cluster_properties("second", req, res)
-});
-
-app.get('/managec/third/cluster_properties', (req, res) => {
-  cluster_properties("third", req, res)
+  res.send(JSON.stringify(state.properties_map[req.params.clusterName]));
 });
 
 app.get('/ui/logout', (req, res) => {
