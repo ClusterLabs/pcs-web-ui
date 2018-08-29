@@ -1,12 +1,11 @@
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-
-import * as actions from "../actions.js"
-import Page from "../components/Page.js"
+import NotificationContainer from "../components/NotificationContainer.js";
+import * as actions from "../actions.js";
 
 const mapStateToProps = (state) => {
   return {
-    clusterNodeAdd: state.clusterNodeAdd,
+    notifications: state.notifications,
   }
 };
 
@@ -16,4 +15,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NotificationContainer);

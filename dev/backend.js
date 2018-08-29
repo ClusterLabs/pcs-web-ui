@@ -62,7 +62,7 @@ app.post(
             )
           )
           state.nodes_to_add.splice(nodeIndex, 1);
-          res.send("Node added successfully.")
+          setTimeout(() => res.send("Node added successfully."), 2000);
           return;
         }
       }
@@ -75,7 +75,10 @@ app.get('/clusters_overview', (req, res) => {
 });
 
 app.get('/managec/:clusterName/cluster_status', (req, res) => {
-  sendJson(res, state.status_map[req.params.clusterName])
+  setTimeout(
+    () => sendJson(res, state.status_map[req.params.clusterName]),
+    1000
+  );
 });
 
 

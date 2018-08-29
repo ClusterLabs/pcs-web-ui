@@ -22,6 +22,16 @@
   font-size: large;
 }
 
+#Notifications {
+  position: fixed;
+  top: 42px;
+  right: 10px;
+  zIndex: 1000;
+  width: 350px;
+  maxWidt: 400px;
+  margin: auto;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

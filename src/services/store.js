@@ -7,7 +7,9 @@ import rootSaga from "./sagas.js"
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware({
+  sagaMonitor: window.__SAGA_MONITOR_EXTENSION__
+});
 
 const history = createBrowserHistory({basename: "/ui/"})
 

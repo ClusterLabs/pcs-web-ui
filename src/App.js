@@ -12,6 +12,7 @@ import ClusterStonithListPage from "./scenes/cluster-stonith-list/components/Pag
 import ClusterPropertiesPage from "./scenes/cluster-properties/containers/Page";
 import ClusterAclPage from "./scenes/cluster-acl/components/Page";
 import Login from "./scenes/login/containers/Login"
+import NotificationContainer from "./scenes/notifications/containers/NotificationContainer.js"
 
 import './App.css';
 
@@ -53,6 +54,7 @@ class App extends Component {
             <Route render={() => (<div>404</div>)} />
           </Switch>
           <Login/>
+          <NotificationContainer/>
         </React.Fragment>
        </ConnectedRouter>
     );

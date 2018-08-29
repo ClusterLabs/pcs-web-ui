@@ -5,7 +5,7 @@ import ClusterTopMenu from "../../../components/cluster/TopMenu.js"
 import ClusterPageContent from "../../../components/cluster/PageContent.js"
 import ClusterNodeAddForm from "./ClusterNodeAddForm.js"
 
-const ClusterNodesPage = ({cluster, match, nodeAddActions, clusterNodeAdd}) => (
+const ClusterNodesPage = ({cluster, match, actions, clusterNodeAdd}) => (
   <React.Fragment>
 
     <ClusterTopMenu clusterName={cluster.name} clusterSection="Add node"/>
@@ -18,7 +18,7 @@ const ClusterNodesPage = ({cluster, match, nodeAddActions, clusterNodeAdd}) => (
       <Header as="h2">Add node</Header>
       <Segment>
         <ClusterNodeAddForm
-          actions={nodeAddActions}
+          actions={actions}
           clusterName={cluster.name}
           clusterNodeAdd={clusterNodeAdd}
         />

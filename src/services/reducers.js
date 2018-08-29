@@ -4,6 +4,7 @@ import dashboard from "../scenes/dashboard/reducer"
 import cluster from "./cluster/reducer"
 import clusterProperties from "../scenes/cluster-properties/reducer"
 import clusterNodeAdd from "../scenes/cluster-node-add/reducer"
+import notifications from "../scenes/notifications/reducer.js"
 
 const reducer = combineReducers({
   dashboard,
@@ -11,6 +12,7 @@ const reducer = combineReducers({
   cluster,
   clusterProperties,
   clusterNodeAdd,
+  notifications,
 })
 
 export default reducer;
