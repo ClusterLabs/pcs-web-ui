@@ -1,8 +1,9 @@
 import React from 'react';
 import {Container, Loader, Breadcrumb} from 'semantic-ui-react'
 
+import TopMenu from "~/components/TopMenu.js"
+
 import Dashboard from "./Dashboard.js"
-import TopMenu from "../../../components/TopMenu.js"
 
 export default class Page extends React.Component{
   componentDidMount(){

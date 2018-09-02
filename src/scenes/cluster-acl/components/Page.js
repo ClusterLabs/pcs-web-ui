@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ClusterTopMenu from "../../../components/cluster/TopMenu.js"
-import ClusterPageContent from "../../../components/cluster/PageContent.js"
+import ClusterTopMenu from "~/components/cluster/TopMenu.js"
+import ClusterPageContent from "~/components/cluster/PageContent.js"
 
 export default ({cluster, match}) => (
   <React.Fragment>

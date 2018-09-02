@@ -1,8 +1,9 @@
 import {call, put, takeEvery, take} from 'redux-saga/effects'
 
+import * as api from "~/services/api.js"
+
 import * as loginActions from "./actions"
 import * as loginTypes from "./constants"
-import * as api from "../../services/api.js"
 
 export function* withAuthCare(apiCall, ...args){
   const responseFirstAttempt = yield call(apiCall, ...args);

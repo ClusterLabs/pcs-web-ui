@@ -1,10 +1,10 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 
-import {withAuthCare} from "../login/sagas.js"
+import * as api from "~/services/api.js"
+import {withAuthCare} from "~/scenes/login/sagas.js"
 
 import * as dashboardActions from "./actions"
 import * as dashboardTypes from "./constants"
-import * as api from "../../services/api.js"
 
 export const transformDashboardData = (apiData) => ({
   clusterList: apiData.cluster_list.map(

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import ClusterTopMenu from "../../../components/cluster/TopMenu.js"
-import ClusterPageContent from "../../../components/cluster/PageContent.js"
+import ClusterPageContent from "~/components/cluster/PageContent.js"
+import ClusterTopMenu from "~/components/cluster/TopMenu.js"
+
 import Properties from "./Properties.js"
 
 export default class Page extends React.Component{

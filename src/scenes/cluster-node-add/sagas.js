@@ -1,11 +1,12 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {push} from 'connected-react-router'
 
-import * as constants from "./constants";
-import * as api from "../../services/api.js";
+import * as api from "~/services/api.js";
+import * as clusterActions from "~/services/cluster/actions.js";
+import * as notificationActions from "~/scenes/notifications/actions.js";
+
 import * as actions from "./actions.js";
-import * as clusterActions from "../../services/cluster/actions.js";
-import * as notificationActions from "../../scenes/notifications/actions.js";
+import * as constants from "./constants";
 
 
 export function* addNode({payload: {clusterName, nodeData}}){

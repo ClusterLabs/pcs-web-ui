@@ -1,10 +1,10 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 
-import {withAuthCare} from "../login/sagas.js"
+import * as api from "~/services/api.js"
+import {withAuthCare} from "~/scenes/login/sagas.js"
 
 import * as actions from "./actions"
 import * as types from "./constants"
-import * as api from "../../services/api.js"
 
 export const transformClusterProperties = (clusterName, apiData) => ({
   clusterName,

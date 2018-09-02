@@ -2,8 +2,9 @@ import React from 'react';
 import {Menu} from 'semantic-ui-react'
 import {Link} from "react-router-dom";
 
-import ClusterTopMenu from "../../../components/cluster/TopMenu.js"
-import ClusterPageContent from "../../../components/cluster/PageContent.js"
+import ClusterPageContent from "~/components/cluster/PageContent.js"
+import ClusterTopMenu from "~/components/cluster/TopMenu.js"
+
 import NodeList from "./NodeList.js"
 
 const ClusterNodesPage = ({cluster, match}) => (

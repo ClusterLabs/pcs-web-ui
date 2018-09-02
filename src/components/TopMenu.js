@@ -1,7 +1,7 @@
 import React from 'react';
 import {Menu} from 'semantic-ui-react'
 
-import LogoutMenuItem from "../scenes/login/containers/LogoutMenuItem.js"
+import LogoutMenuItem from "~/scenes/login/containers/LogoutMenuItem.js"
 
 const TopMenu = ({breadcrumbs}) => (
   <Menu inverted>
