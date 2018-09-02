@@ -6,7 +6,7 @@ import * as clusterActions from "~/services/cluster/actions.js";
 import * as notificationActions from "~/scenes/notifications/actions.js";
 
 import * as actions from "./actions.js";
-import * as constants from "./constants";
+import * as types from "./constants";
 
 
 export function* addNode({payload: {clusterName, nodeData}}){
@@ -47,5 +47,5 @@ export function* addNode({payload: {clusterName, nodeData}}){
 }
 
 export default [
-  takeEvery(constants.ADD_NODE, addNode),
+  takeEvery(types.ADD_NODE, addNode),
 ];

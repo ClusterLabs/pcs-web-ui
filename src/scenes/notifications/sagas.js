@@ -2,7 +2,7 @@ import {call, put, takeEvery} from 'redux-saga/effects'
 import {delay} from "redux-saga";
 
 import * as actions from "./actions"
-import * as constants from "./constants"
+import * as types from "./constants"
 
 
 function* planClosing({ payload: { id: notificationId } }) {
@@ -11,5 +11,5 @@ function* planClosing({ payload: { id: notificationId } }) {
 }
 
 export default [
-  takeEvery(constants.TO_SUCCESS, planClosing),
+  takeEvery(types.TO_SUCCESS, planClosing),
 ];

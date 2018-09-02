@@ -1,4 +1,4 @@
-import * as constants from "./constants"
+import * as types from "./constants"
 
 const defaultState = {
   authRequired: false,
@@ -6,11 +6,11 @@ const defaultState = {
 
 export default function dashboard(state=defaultState, action) {
   switch(action.type){
-    case constants.AUTH_REQUIRED: return {
+    case types.AUTH_REQUIRED: return {
       ...state,
       authRequired: true,
     }
-    case constants.STOP_REQUIRE_AUTH_DATA_CHANGED: return {
+    case types.STOP_REQUIRE_AUTH_DATA_CHANGED: return {
       ...state,
       authRequired: false,
     }

@@ -1,9 +1,9 @@
-import * as constants from "./constants"
+import * as types from "./constants"
 
 let nextId = 1;
 
 export const createWaiting = (message) => ({
-  type: constants.CREATE_WAITING,
+  type: types.CREATE_WAITING,
   payload: {
     id: nextId++,
     type: "INFO",
@@ -12,12 +12,12 @@ export const createWaiting = (message) => ({
 });
 
 export const destroy = (id) => ({
-  type: constants.DESTROY,
+  type: types.DESTROY,
   payload: {id}
 });
 
 export const toSuccess = (id, message) => ({
-  type: constants.TO_SUCCESS,
+  type: types.TO_SUCCESS,
   payload: {
     id,
     type: "SUCCESS",
@@ -26,7 +26,7 @@ export const toSuccess = (id, message) => ({
 })
 
 export const toError = (id, message) => ({
-  type: constants.TO_ERROR,
+  type: types.TO_ERROR,
   payload: {
     id,
     type: "ERROR",
