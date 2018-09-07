@@ -26,6 +26,7 @@ function sendJson(res, obj){
 };
 
 app.use(checkLogin);
+app.use((req,res,next) => setTimeout(next, 800));
 
 app.post('/test-set-state', jsonParser, (req, res) => {
   state = req.body;
@@ -36,7 +37,7 @@ app.get('/manage/check_pcsd_status', (req, res) => {
   const name = req.query.nodes;
   const port = req.query[`port-${req.query.nodes}`];
   for(let node of state.nodes_to_add){
-    if(name == node.name && port == node.port){
+    if(name === node.name && port === node.port){
       sendJson(res, {[name]: "Online"})
       return;
     }
@@ -53,8 +54,8 @@ app.post(
 
     for(let nodeIndex in state.nodes_to_add){
       let node = state.nodes_to_add[nodeIndex];
-      if(name == node.name){
-        if(port == node.port){
+      if(name === node.name){
+        if(port === node.port){
           state.status_map[req.params.clusterName].node_list.push(
             stateTool.node(
               state.status_map[req.params.clusterName].node_list.length,
@@ -71,22 +72,27 @@ app.post(
 );
 
 app.get('/clusters_overview', (req, res) => {
+  // res.status(401).send(state.login.noauthorized);
+  // res.status(500).send("SOMETHING GOT WRONG");
+  // sendJson(res, {malformed: "data"})
+  // res.send("OK")
   sendJson(res, state.dashboard)
 });
 
 app.get('/managec/:clusterName/cluster_status', (req, res) => {
-  setTimeout(
-    () => sendJson(res, state.status_map[req.params.clusterName]),
-    1000
-  );
+  // res.status(500).send("SOMETHING GOT WRONG");
+  sendJson(res, state.status_map[req.params.clusterName]);
 });
 
 
 app.get('/managec/:clusterName/cluster_properties', (req, res) => {
+  // res.status(500).send("SOMETHING GOT WRONG");
   sendJson(res, state.properties_map[req.params.clusterName])
 });
 
 app.get('/ui/logout', (req, res) => {
+  // res.status(500).send("SOMETHING GOT WRONG");
+  // res.status(401).send(state.login.noauthorized);
   state.login.logged = false
   res.send("OK")
 });
@@ -97,6 +103,7 @@ app.post('/ui/login', urlencodedParser, (req, res) => {
     &&
     req.body.password == state.login.password
   ){
+    // res.status(500).send("SOMETHING GOT WRONG");
     state.login.logged = true
     res.send(state.login.ajaxId)
     return

@@ -1,13 +1,14 @@
 import {call, cancel, cancelled, fork, put, take} from "redux-saga/effects";
 import {delay} from "redux-saga";
 
-import {withAuthCare} from "../../scenes/login/sagas.js"
+import * as api from "~/services/api.js"
+import * as auth from "~/services/auth/sagas.js"
+import * as notify from "~/scenes/notifications/actions.js";
 
-import * as clusterActions from "./actions"
-import * as clusterTypes from "./constants"
-import * as api from "../api.js"
+import * as actions from "./actions"
+import * as types from "./constants"
 
-const SYNC_DELAY = 20 * 1000;//ms
+const SYNC_DELAY = 5 * 1000;//ms
 
 export const transformClusterData = (apiData) => ({
   name: apiData.cluster_name,
@@ -29,19 +30,24 @@ export const transformClusterData = (apiData) => ({
   ,
 })
 
-export function* clusterDataSync(clusterName){
-  try {
-    while(true){
-      const response = yield call(
-        withAuthCare,
-        api.getForJson,
-        `/managec/${clusterName}/cluster_status`,
-      )
-      const clusterData = yield call(transformClusterData, response.data)
-      yield put(clusterActions.fetchClusterDataSuccess(clusterData));
-      yield call(delay, SYNC_DELAY);
+function* fetchClusterData(clusterName){
+  const clusterData = yield call(
+    auth.getJson,
+    `/managec/${clusterName}/cluster_status`,
+    {
+      transform: transformClusterData,
     }
-  } finally {
+  )
+  yield put(actions.fetchClusterDataSuccess(clusterData));
+}
+
+export function* clusterDataSync(clusterName){
+  try{
+    while(true){
+      yield call(delay, SYNC_DELAY);
+      yield put(actions.refreshClusterData(clusterName))
+    }
+  }finally{
     if (yield cancelled()){
       //console.log(`Sync data for '${clusterName}' cancelled`);
     }
@@ -49,17 +55,47 @@ export function* clusterDataSync(clusterName){
 }
 
 export function* clusterDataSyncManage(){
-  let action = yield take(clusterTypes.SYNC_CLUSTER_DATA);
-  let syncTask = yield fork(clusterDataSync, action.payload.clusterName)
+  let syncTask = null;
 
   while(true){
-    let action = yield take([
-      clusterTypes.SYNC_CLUSTER_DATA,
-      clusterTypes.SYNC_CLUSTER_DATA_STOP,
-    ]);
-    yield cancel(syncTask)
-    if(action.type === clusterTypes.SYNC_CLUSTER_DATA){
-      syncTask = yield fork(clusterDataSync, action.payload.clusterName)
+    const {payload: {clusterName}} = yield take(types.SYNC_CLUSTER_DATA);
+
+    try{
+      yield call(fetchClusterData, clusterName);
+    }catch(error){
+      yield put(actions.fetchClusterDataFailed(api.fail(error)));
+    }
+
+    syncTask = yield fork(clusterDataSync, clusterName)
+
+    while(syncTask){
+      let action = yield take([
+        types.SYNC_CLUSTER_DATA,
+        types.SYNC_CLUSTER_DATA_STOP,
+        types.REFRESH_CLUSTER_DATA,
+      ]);
+
+      if(action.type === types.REFRESH_CLUSTER_DATA){
+        try{
+          yield call(fetchClusterData, clusterName);
+        }catch(error){
+          yield put(notify.error(
+            `Cannot sync data for cluster '${clusterName}': ${error.message}`,
+            {disappear: 2000}
+          ))
+        }
+        continue;
+      }
+
+      yield cancel(syncTask)
+
+      if(action.type === types.SYNC_CLUSTER_DATA){
+        syncTask = yield fork(clusterDataSync, action.payload.clusterName)
+      }
+
+      if(action.type === types.SYNC_CLUSTER_DATA_STOP){
+        syncTask = null;
+      }
     }
   }
 }

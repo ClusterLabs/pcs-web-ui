@@ -1,7 +1,6 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 
-import * as api from "~/services/api.js"
-import {withAuthCare} from "~/scenes/login/sagas.js"
+import * as auth from "~/services/auth/sagas.js"
 
 import * as actions from "./actions"
 import * as types from "./constants"
@@ -29,17 +28,18 @@ export const transformClusterProperties = (clusterName, apiData) => ({
 });
 
 export function* fetchClusterProperties({payload: {clusterName}}){
-  const response = yield call(
-    withAuthCare,
-    api.getForJson,
-    `/managec/${clusterName}/cluster_properties`,
-  )
-  const clusterProperties = yield call(
-    transformClusterProperties,
-    clusterName,
-    response.data
-  );
-  yield put(actions.fetchClusterPropertiesSuccess(clusterProperties));
+  try{
+    const clusterProperties = yield call(
+      auth.getJson,
+      `/managec/${clusterName}/cluster_properties`,
+      {
+        transform: data => transformClusterProperties(clusterName, data),
+      }
+    )
+    yield put(actions.fetchClusterPropertiesSuccess(clusterProperties));
+  }catch(error){
+    yield put(actions.fetchClusterPropertiesFailed(error));
+  }
 }
 
 export default [

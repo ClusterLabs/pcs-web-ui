@@ -2,29 +2,29 @@ import React from 'react';
 import {Header, Segment} from 'semantic-ui-react'
 
 import ClusterTopMenu from "~/components/cluster/TopMenu.js"
-import ClusterPageContent from "~/components/cluster/PageContent.js"
+import ClusterDataPage from "~/components/cluster/ClusterDataPage.js"
 
 import ClusterNodeAddForm from "./ClusterNodeAddForm.js"
 
 const ClusterNodesPage = ({cluster, match, actions, clusterNodeAdd}) => (
   <React.Fragment>
 
-    <ClusterTopMenu clusterName={cluster.name} clusterSection="Add node"/>
+    <ClusterTopMenu clusterName={match.params.name} clusterSection="Add node"/>
 
-    <ClusterPageContent
+    <ClusterDataPage
       clusterUrlId={match.params.name}
-      clusterName={cluster.name}
+      cluster={cluster}
       activeMenu="nodes"
     >
       <Header as="h2">Add node</Header>
       <Segment>
         <ClusterNodeAddForm
           actions={actions}
-          clusterName={cluster.name}
+          clusterName={cluster.data.name}
           clusterNodeAdd={clusterNodeAdd}
         />
       </Segment>
-    </ClusterPageContent>
+    </ClusterDataPage>
   </React.Fragment>
 );
 export default ClusterNodesPage;

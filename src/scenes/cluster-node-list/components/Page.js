@@ -2,30 +2,30 @@ import React from 'react';
 import {Menu} from 'semantic-ui-react'
 import {Link} from "react-router-dom";
 
-import ClusterPageContent from "~/components/cluster/PageContent.js"
+import ClusterDataPage from "~/components/cluster/ClusterDataPage.js"
 import ClusterTopMenu from "~/components/cluster/TopMenu.js"
 
 import NodeList from "./NodeList.js"
 
-const ClusterNodesPage = ({cluster, match}) => (
+const ClusterNodesPage = ({cluster, match, actions}) => (
   <React.Fragment>
 
-    <ClusterTopMenu clusterName={cluster.name} clusterSection="Nodes"/>
+    <ClusterTopMenu clusterName={match.params.name} clusterSection="Nodes"/>
 
-    <ClusterPageContent
+    <ClusterDataPage
       clusterUrlId={match.params.name}
-      clusterName={cluster.name}
+      cluster={cluster}
       activeMenu="nodes"
     >
       <Menu>
         <Menu.Item name="node-add">
-          <Link to={`/cluster/${cluster.name}/node-add`}>Add</Link>
+          <Link to={`/cluster/${cluster.data.name}/node-add`}>Add</Link>
         </Menu.Item>
       </Menu>
       <NodeList
-        nodeList={cluster.nodeList}
+        nodeList={cluster.data.nodeList}
       />
-    </ClusterPageContent>
+    </ClusterDataPage>
   </React.Fragment>
 );
 export default ClusterNodesPage;

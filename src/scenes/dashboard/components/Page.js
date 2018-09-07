@@ -2,6 +2,7 @@ import React from 'react';
 import {Container, Loader, Breadcrumb} from 'semantic-ui-react'
 
 import TopMenu from "~/components/TopMenu.js"
+import LoadPageProblem from "~/components/LoadPageProblem"
 
 import Dashboard from "./Dashboard.js"
 
@@ -19,12 +20,26 @@ export default class Page extends React.Component{
         }/>
         <Container>
           {
-            this.props.dashboard.loaded
-            ? <Dashboard
+            this.props.dashboard.fetch.result === true
+            &&
+            <Dashboard
                 dashboard={this.props.dashboard}
                 actions={this.props.actions}
               />
-            : <Loader active>Loading dashboard data.</Loader>
+          }
+          {
+            this.props.dashboard.fetch.result === undefined
+            &&
+            <Loader active>Loading dashboard data.</Loader>
+          }
+          {
+            typeof this.props.dashboard.fetch.result === 'object'
+            &&
+            <LoadPageProblem
+              retry={this.props.actions.fetchDashboardData}
+              header="Cannot load dashboard data"
+              error={this.props.dashboard.fetch.result}
+            />
           }
         </Container>
       </React.Fragment>

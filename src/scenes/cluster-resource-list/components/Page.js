@@ -1,24 +1,25 @@
 import React from 'react';
 
-import ClusterPageContent from "~/components/cluster/PageContent.js"
+import ClusterDataPage from "~/components/cluster/ClusterDataPage.js"
 import ClusterTopMenu from "~/components/cluster/TopMenu.js"
 
 import ResourceList from "./ResourceList.js"
 
-const ClusterResourcesPage = ({cluster, match}) => (
+const ClusterResourcesPage = ({cluster, match, actions}) => (
   <React.Fragment>
 
-    <ClusterTopMenu clusterName={cluster.name} clusterSection="Resources"/>
+    <ClusterTopMenu clusterName={match.params.name} clusterSection="Resources"/>
 
-    <ClusterPageContent
+    <ClusterDataPage
       clusterUrlId={match.params.name}
-      clusterName={cluster.name}
+      cluster={cluster}
       activeMenu="resources"
+      actions={actions}
     >
       <ResourceList
-        resourceList={cluster.resourceList}
+        resourceList={cluster.data.resourceList}
       />
-    </ClusterPageContent>
+    </ClusterDataPage>
 
   </React.Fragment>
 );

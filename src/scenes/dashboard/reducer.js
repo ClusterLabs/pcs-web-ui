@@ -1,7 +1,9 @@
 import * as types from "./constants"
 
 const defaultState = {
-  loaded: false,
+  fetch: {
+    result: undefined,
+  },
   dashboardData: {
     clusterList: [],
   }
@@ -9,9 +11,18 @@ const defaultState = {
 
 export default function dashboard(state=defaultState, action) {
   switch(action.type){
+    case types.FETCH_DASHBOARD_DATA: return {
+      ...state,
+      fetch: {result: undefined},
+    }
     case types.FETCH_DASHBOARD_DATA_SUCCESS: return {
-      loaded: true,
+      fetch: {result: true},
       dashboardData: action.payload,
+    }
+    case types.FETCH_DASHBOARD_DATA_FAILED:
+      return {
+      ...state,
+      fetch: {result: action.payload},
     }
     default: return state
   }

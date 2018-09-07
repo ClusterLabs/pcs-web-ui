@@ -1,3 +1,4 @@
+import * as authTypes from "~/services/auth/constants"
 import * as types from "./constants"
 
 const defaultState = {
@@ -8,7 +9,7 @@ const defaultState = {
 
 export default function login(state=defaultState, action) {
   switch(action.type){
-    case types.REQUIRE_LOGIN: return {
+    case authTypes.AUTH_REQUIRED: return {
       ...state,
       required: true,
       acceptLoginData: true,
@@ -17,7 +18,7 @@ export default function login(state=defaultState, action) {
       ...state,
       acceptLoginData: false,
     }
-    case types.LOGIN_SUCCESS: return {
+    case authTypes.AUTH_SUCCESS: return {
       required: false,
       acceptLoginData: false,
       failed: false,
@@ -25,7 +26,7 @@ export default function login(state=defaultState, action) {
     case types.LOGIN_FAILED: return {
       required: true,
       acceptLoginData: true,
-      failed: true,
+      failed: action.payload,
     }
     case types.LOGOUT_SUCCESS: return {
       required: true,

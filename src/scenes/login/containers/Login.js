@@ -21,7 +21,17 @@ class LoginComponent extends Component{
       >
         <Modal.Header>Please sign in</Modal.Header>
         <Modal.Content>
-          {login.failed && <Message negative>Bad username or password</Message>}
+          {
+            typeof login.failed === "object"
+            &&
+            <Message negative>
+              {
+                login.failed.badCredentials
+                  ? "Bad username or password"
+                  : login.failed.message
+              }
+            </Message>
+          }
           <Form>
             <Form.Input type="text"
               label="Username"

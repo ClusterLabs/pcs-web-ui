@@ -5,8 +5,14 @@ const rootImport = ['root-import', {
   rootPathSuffix: 'src',
 }];
 
-module.exports = function override(config, env) {
+
+function override(config, env) {
   config = injectBabelPlugin(rootImport, config);
 
   return config;
+}
+
+module.exports = {
+  webpack: override,
+  jest: override,
 }

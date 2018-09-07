@@ -1,7 +1,8 @@
 import React from 'react';
 
-import ClusterPageContent from "~/components/cluster/PageContent.js"
+import ClusterPageContent from "~/components/cluster/ClusterPageContent.js"
 import ClusterTopMenu from "~/components/cluster/TopMenu.js"
+import DataLoadingPage from "~/components/DataLoadingPage";
 
 import Properties from "./Properties.js"
 
@@ -10,20 +11,27 @@ export default class Page extends React.Component{
     this.props.actions.fetchClusterProperties(this.props.match.params.name);
   }
   render(){
+    const clusterProperties = this.props.clusterProperties;
+    const initialLoading = clusterProperties.ui.initialLoading;
+    const clusterName = this.props.match.params.name;
     return (
       <React.Fragment>
         <ClusterTopMenu
-          clusterName={this.props.clusterProperties.clusterName}
+          clusterName={clusterName}
           clusterSection="Cluster properties"
         />
 
-        <ClusterPageContent
-          clusterUrlId={this.props.match.params.name}
-          clusterName={this.props.clusterProperties.clusterName}
-          activeMenu="properties"
+        <DataLoadingPage
+          loadingStatus={initialLoading.status}
+          loadingMsg={`Loading properties of the cluster '${clusterName}'.`}
+          errorHeader={`Cannot load properties of cluster '${clusterName}'`}
+          errorMsg={initialLoading.errorMsg}
+          retry={() => this.props.actions.fetchClusterProperties(clusterName)}
         >
-          <Properties properties={this.props.clusterProperties.properties} />
-        </ClusterPageContent>
+          <ClusterPageContent clusterName={clusterName} activeMenu="properties">
+            <Properties properties={clusterProperties.properties}/>
+          </ClusterPageContent>
+        </DataLoadingPage>
       </React.Fragment>
     )
   }

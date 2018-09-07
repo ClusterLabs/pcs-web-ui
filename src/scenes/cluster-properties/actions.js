@@ -10,3 +10,7 @@ export const fetchClusterPropertiesSuccess = (properties) => ({
   payload: properties,
 });
 
+export const fetchClusterPropertiesFailed = (error) => ({
+  type: types.FETCH_CLUSTER_PROPERTIES_FAILED,
+  payload: error,
+});

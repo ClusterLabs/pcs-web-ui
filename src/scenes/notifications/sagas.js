@@ -4,12 +4,18 @@ import {delay} from "redux-saga";
 import * as actions from "./actions"
 import * as types from "./constants"
 
+const DEFAULT_TTL = 300;
 
-function* planClosing({ payload: { id: notificationId } }) {
-  yield call(delay, 3000);
+function* planClosing({payload: {id: notificationId, disappear: ttl}}){
+  if( ! ttl){
+    return;
+  }
+  let wait = ttl === true ? DEFAULT_TTL : ttl;
+  yield call(delay, wait);
   yield put(actions.destroy(notificationId));
 }
 
 export default [
-  takeEvery(types.TO_SUCCESS, planClosing),
+  takeEvery(types.CREATE, planClosing),
+  takeEvery(types.UPDATE, planClosing),
 ];

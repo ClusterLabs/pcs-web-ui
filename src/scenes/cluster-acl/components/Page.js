@@ -1,22 +1,22 @@
 import React from 'react';
 
 import ClusterTopMenu from "~/components/cluster/TopMenu.js"
-import ClusterPageContent from "~/components/cluster/PageContent.js"
+import ClusterDataPage from "~/components/cluster/ClusterDataPage.js"
 
-export default ({cluster, match}) => (
+export default ({cluster, match, actions}) => (
   <React.Fragment>
 
     <ClusterTopMenu
-      clusterName={cluster.name}
+      clusterName={match.params.name}
       clusterSection="Access control list"
     />
 
-    <ClusterPageContent
+    <ClusterDataPage
       clusterUrlId={match.params.name}
-      clusterName={cluster.name}
+      cluster={cluster}
       activeMenu="acl"
     >
-    </ClusterPageContent>
+    </ClusterDataPage>
 
   </React.Fragment>
 );

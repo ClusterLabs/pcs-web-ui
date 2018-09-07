@@ -1,20 +1,13 @@
 import * as types from "./constants"
 
-export const requireLogin = () => ({
-  type: types.REQUIRE_LOGIN,
-});
-
-export const loginSuccess = () => ({
-  type: types.LOGIN_SUCCESS,
-});
-
-export const loginFailed = () => ({
+export const loginFailed = ({badCredentials, message=""}) => ({
   type: types.LOGIN_FAILED,
+  payload: {badCredentials, message},
 });
 
 export const enterCredentials = (username, password) => ({
   type: types.ENTER_CREDENTIALS,
-  payload: { username, password }
+  payload: {username, password}
 });
 
 export const logout = () => ({

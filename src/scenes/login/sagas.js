@@ -1,51 +1,54 @@
-import {call, put, takeEvery, take} from 'redux-saga/effects'
+import {call, put, takeEvery} from 'redux-saga/effects'
 
 import * as api from "~/services/api.js"
+import * as notify from "~/scenes/notifications/actions.js";
+import * as authActions from "~/services/auth/actions";
 
-import * as loginActions from "./actions"
-import * as loginTypes from "./constants"
-
-export function* withAuthCare(apiCall, ...args){
-  const responseFirstAttempt = yield call(apiCall, ...args);
-  if(responseFirstAttempt.status !== 401){
-    return responseFirstAttempt;
-  }
-
-  // TODO conflict with others - make flag, fist turn flag others
-  // only wait for success
-  yield put(loginActions.requireLogin())
-
-  yield take(loginTypes.LOGIN_SUCCESS)
-
-  const responseSecondAttempt = yield call(apiCall, ...args);
-  if(responseSecondAttempt.status !== 401){
-    return responseSecondAttempt;
-  }
-
-  console.log("TODO: api call failed 401 even after successfull login");
-}
+import * as types from "./constants";
+import * as actions from "./actions";
 
 export function* logout(){
-  // TODO check success...
-  yield call(api.getForText, "/ui/logout");
-  yield put(loginActions.logoutSuccess())
-}
+  try{
+    var notice = yield put(notify.info(`Trying to logout`))
 
-export function* login(action){
-  const {payload: {username, password}} = action
-  const loginResponse = yield call(
-    api.postParamsForText,
-    "/ui/login",
-    {username, password}
-  )
-  if(loginResponse.status === 401){
-    yield put(loginActions.loginFailed())
-  }else{
-    yield put(loginActions.loginSuccess())
+    yield call(api.getForText, "/ui/logout");
+
+    yield put(notify.toSuccess(notice, {
+      message: `Success logout`,
+      disappear: 1000,
+    }));
+    yield put(actions.logoutSuccess())
+  }catch(error){
+    if(api.isUnauthorizedError(error)){
+      // Ok we are already somehow loged out.
+      yield put(notify.toSuccess(notice, {
+        message: `Already logged out`,
+        disappear: 1000,
+      }));
+      yield put(actions.logoutSuccess())
+    }else{
+      yield put(notify.toError(notice, {
+        message: `Cannot logout: ${error.message}`
+      }));
+    }
   }
 }
 
+export function* login({payload: {username, password}}){
+  try{
+    yield call(api.postParamsForText, "/ui/login", {username, password})
+    yield put(authActions.authSuccess())
+  }catch(error){
+    const failInfo = api.isUnauthorizedError(error)
+      ? {badCredentials: true}
+      : {badCredentials: false, message: error.message}
+    ;
+    yield put(actions.loginFailed(failInfo))
+  }
+}
+
+
 export default [
-  takeEvery(loginTypes.LOGOUT, logout),
-  takeEvery(loginTypes.ENTER_CREDENTIALS,login)
+  takeEvery(types.LOGOUT, logout),
+  takeEvery(types.ENTER_CREDENTIALS, login),
 ];

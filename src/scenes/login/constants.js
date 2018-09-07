@@ -1,5 +1,3 @@
-export const REQUIRE_LOGIN = "/login/REQUIRE_LOGIN"
-export const LOGIN_SUCCESS = "/login/LOGIN_SUCCESS"
 export const LOGIN_FAILED = "/login/LOGIN_FAILED"
 export const ENTER_CREDENTIALS = "/login/ENTER_CREDENTIALS"
 export const LOGOUT = "/login/LOGOUT"
