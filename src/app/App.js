@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
-import { ConnectedRouter } from 'connected-react-router'
-import { Switch, Route } from 'react-router'
+import React, {Component} from 'react';
+import {ConnectedRouter} from 'connected-react-router'
+import {Switch, Route} from 'react-router'
+import {Provider} from 'react-redux'
+
+import setupStore from "app/services/store"
 
 import DashboardPage from "./scenes/dashboard/containers/Page"
 import clusterConnect from "./services/cluster/common_connector.js"
@@ -18,45 +21,53 @@ import './App.css';
 
 class App extends Component {
   render(){
+    const storeInfo = this.props.storeInfo
+      ? this.props.storeInfo
+      : setupStore("/ui/")
+    ;
     return (
-      <ConnectedRouter history={this.props.history}>
-        <React.Fragment>
-          <Switch>
-            <Route exact path="/" component={DashboardPage} />
-            <Route
-              exact path="/cluster/:name/nodes"
-              component={clusterConnect(ClusterNodesPage)}
-            />
-            <Route
-              exact path="/cluster/:name/node-add"
-              component={clusterConnect(ClusterNodeAddPage)}
-            />
-            <Route
-              exact path="/cluster/:name/resources"
-              component={clusterConnect(ClusterResourceListPage)}
-            />
-            <Route
-              exact path="/cluster/:name/stonith"
-              component={clusterConnect(ClusterStonithListPage)}
-            />
-            <Route
-              exact path="/cluster/:name/properties"
-              component={ClusterPropertiesPage}
-            />
-            <Route
-              exact path="/cluster/:name/acl"
-              component={clusterConnect(ClusterAclPage)}
-            />
-            <Route
-              exact path="/cluster/:name"
-              component={clusterConnect(ClusterPage)}
-            />
-            <Route render={() => (<div>404</div>)} />
-          </Switch>
-          <Login/>
-          <NotificationContainer/>
-        </React.Fragment>
-       </ConnectedRouter>
+      <Provider store={storeInfo.store}>
+        <ConnectedRouter history={storeInfo.history}>
+          <React.Fragment>
+            <Switch>
+              <Route exact path="/" component={DashboardPage} />
+              <Route
+                exact path="/cluster/:name/nodes"
+                component={clusterConnect(ClusterNodesPage)}
+              />
+              <Route
+                exact path="/cluster/:name/node-add"
+                component={clusterConnect(ClusterNodeAddPage)}
+              />
+              <Route
+                exact path="/cluster/:name/resources"
+                component={clusterConnect(ClusterResourceListPage)}
+              />
+              <Route
+                exact path="/cluster/:name/stonith"
+                component={clusterConnect(ClusterStonithListPage)}
+              />
+              <Route
+                exact path="/cluster/:name/properties"
+                component={ClusterPropertiesPage}
+              />
+              <Route
+                exact path="/cluster/:name/acl"
+                component={clusterConnect(ClusterAclPage)}
+              />
+              <Route
+                exact path="/cluster/:name"
+                component={clusterConnect(ClusterPage)}
+              />
+              <Route
+                render={() => <div>404</div>}
+              />
+            </Switch>
+            <Login/>
+            <NotificationContainer/>
+          </React.Fragment>
+         </ConnectedRouter>
+      </Provider>
     );
   }
 }
