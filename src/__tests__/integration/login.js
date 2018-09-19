@@ -9,7 +9,10 @@ async function setup(diff){
   let options = {
     uri: 'http://localhost:5000/test-set-state',
     method: 'POST',
-    json: deepmerge(stateTool.defaultState, diff),
+    json: deepmerge(
+      stateTool.defaultState,
+      deepmerge({request: {delay: false}}, diff)
+    ),
   };
   let response = await request(options);
 }

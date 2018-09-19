@@ -26,7 +26,9 @@ function sendJson(res, obj){
 };
 
 app.use(checkLogin);
-app.use((req,res,next) => setTimeout(next, 800));
+if(state.request.delay){
+  app.use((req,res,next) => setTimeout(next, state.request.delay));
+}
 
 app.post('/test-set-state', jsonParser, (req, res) => {
   state = req.body;

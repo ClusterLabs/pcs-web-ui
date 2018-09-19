@@ -19,7 +19,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --testPathPattern=src/app",
+    "testi": "react-scripts test --runInBand --testPathPattern=src/__tests__/integration",
+    "testa": "react-scripts test --env=jsdom --runInBand",
     "eject": "react-scripts eject",
     "server": "nodemon --watch ./ dev/backend.js"
   },

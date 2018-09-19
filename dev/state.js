@@ -634,6 +634,9 @@ const clusterProperties = () => ({
 })
 
 let defaultState = {
+  request: {
+    delay: 800,
+  },
   login: {
     logged: true,
     ajaxId: "1533967169-76",
