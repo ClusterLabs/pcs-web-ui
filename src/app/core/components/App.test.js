@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import setupStore from "app/services/store"
+import setupStore from "app/core/store.js";
 
 import App from './App';
 

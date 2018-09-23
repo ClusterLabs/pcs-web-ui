@@ -1,6 +1,6 @@
 import {call, put, take} from 'redux-saga/effects'
 
-import * as api from "app/services/api.js"
+import * as api from "app/core/api.js"
 
 import * as types from "./constants"
 import * as actions from "./actions"
@@ -12,6 +12,7 @@ export const stillUnauthorizedError = url => new Error(
 export function* getJson(url, options={}){
   try{
     const responseFirstAttempt = yield call(api.getJson, url, options);
+    yield put(actions.authVerified())
     return responseFirstAttempt;
   }catch(error){
     if( ! api.isUnauthorizedError(error)){
@@ -26,6 +27,7 @@ export function* getJson(url, options={}){
   // ...and then second attempt.
   try{
     const responseSecondAttempt = yield call(api.getJson, url, options);
+    yield put(actions.authVerified())
     return responseSecondAttempt;
   }catch(error){
     if(api.isUnauthorizedError(error)){

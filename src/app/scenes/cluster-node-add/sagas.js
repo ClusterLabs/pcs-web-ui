@@ -1,7 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import * as router from 'connected-react-router'
 
-import * as api from "app/services/api.js";
+import * as api from "app/core/api.js";
 import * as auth from "app/services/auth/sagas.js"
 import * as clusterActions from "app/services/cluster/actions.js";
 import * as notify from "app/scenes/notifications/actions.js";

@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {Button, Modal, Form, Message} from 'semantic-ui-react'
+import {Button, Modal, Form, Message} from 'semantic-ui-react';
 
-import * as actions from "../actions.js"
-
-class LoginComponent extends Component{
+class Login extends Component{
   state = {
       username: "",
       password: "",
@@ -66,22 +62,5 @@ class LoginComponent extends Component{
     )
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    login: state.login,
-  }
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(actions, dispatch),
-  }
-};
-
-const Login = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LoginComponent);
 
 export default Login;

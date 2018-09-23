@@ -1,6 +1,6 @@
 import {testSaga} from 'redux-saga-test-plan';
 
-import * as api from "app/services/api.js"
+import * as api from "app/core/api.js"
 import * as authActions from "app/services/auth/actions";
 
 import {login} from "./sagas.js"

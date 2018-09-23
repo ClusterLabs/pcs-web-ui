@@ -1,7 +1,7 @@
 import {call, cancel, cancelled, fork, put, take} from "redux-saga/effects";
 import {delay} from "redux-saga";
 
-import * as api from "app/services/api.js"
+import * as api from "app/core/api.js"
 import * as auth from "app/services/auth/sagas.js"
 import * as notify from "app/scenes/notifications/actions.js";
 

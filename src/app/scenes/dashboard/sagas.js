@@ -1,6 +1,6 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 
-import * as api from "app/services/api.js"
+import * as api from "app/core/api.js"
 import * as auth from "app/services/auth/sagas.js"
 
 import * as dashboardActions from "./actions"

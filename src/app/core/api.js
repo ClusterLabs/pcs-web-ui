@@ -84,7 +84,7 @@ const checkResponse = response => {
 
 export const httpParams = keyValueObject => (
   Object.keys(keyValueObject)
-    .map(key => 
+    .map(key =>
       `${encodeURIComponent(key)}=${encodeURIComponent(keyValueObject[key])}`
     )
     .join('&')

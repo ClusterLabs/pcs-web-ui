@@ -1,7 +1,7 @@
 import {call, put, take} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
 
-import * as api from "app/services/api.js"
+import * as api from "app/core/api.js"
 
 import {getJson, stillUnauthorizedError} from "./sagas.js"
 import * as actions from "./actions"
@@ -16,6 +16,7 @@ describe('getJson', function() {
 
     testSaga(getJson, url, options).next()
       .call(api.getJson, url, options).next(result)
+      .put(actions.authVerified()).next()
       .returns(result)
     ;
   });
@@ -41,6 +42,7 @@ describe('getJson', function() {
       .put(actions.authRequired()).next()
       .take(types.AUTH_SUCCESS).next(actions.authSuccess())
       .call(api.getJson, url, options).next(result)
+      .put(actions.authVerified()).next()
       .returns(result)
     ;
   });
