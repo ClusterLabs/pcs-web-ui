@@ -1,16 +1,16 @@
-import React from 'react';
-import {Menu} from 'semantic-ui-react'
-import {Link} from "react-router-dom";
+import React from "react";
+import { Menu } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
-import ClusterDataPage from "app/components/cluster/ClusterDataPage.js"
-import ClusterTopMenu from "app/components/cluster/TopMenu.js"
+import ClusterDataPage from "app/components/cluster/ClusterDataPage";
+import ClusterTopMenu from "app/components/cluster/TopMenu";
 
-import NodeList from "./NodeList.js"
+import NodeList from "./NodeList";
 
-const ClusterNodesPage = ({cluster, match, actions}) => (
+const ClusterNodesPage = ({ cluster, match }) => (
   <React.Fragment>
 
-    <ClusterTopMenu clusterName={match.params.name} clusterSection="Nodes"/>
+    <ClusterTopMenu clusterName={match.params.name} clusterSection="Nodes" />
 
     <ClusterDataPage
       clusterUrlId={match.params.name}

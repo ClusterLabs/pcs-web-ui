@@ -1,4 +1,4 @@
-import * as types from "./constants"
+import * as types from "./constants";
 
 const defaultState = {
   ui: {
@@ -6,7 +6,7 @@ const defaultState = {
       status: "none", // none, process, error
       name: "",
       errorMsg: "",
-    }
+    },
   },
   data: {
     name: "",
@@ -16,18 +16,18 @@ const defaultState = {
   },
 };
 
-export default function dashboard(state=defaultState, action) {
-  switch(action.type){
+export default function dashboard(state = defaultState, action) {
+  switch (action.type) {
     case types.SYNC_CLUSTER_DATA: return {
       ...defaultState,
       ui: {
         initialLoading: {
           status: "process",
           name: action.payload.clusterName,
-          errorMsg: ""
-        }
-      }
-    }
+          errorMsg: "",
+        },
+      },
+    };
     case types.FETCH_CLUSTER_DATA_SUCCESS: return {
       ...state,
       data: action.payload,
@@ -35,24 +35,24 @@ export default function dashboard(state=defaultState, action) {
         initialLoading: {
           status: "none",
           name: action.payload.name,
-          errorMsg: ""
-        }
-      }
-    }
+          errorMsg: "",
+        },
+      },
+    };
     case types.FETCH_CLUSTER_DATA_FAILED: return (
       state.ui.initialLoading.status === "process"
-        ?  {
+        ? {
           ...state,
           ui: {
             initialLoading: {
               status: "error",
               name: state.ui.initialLoading.name,
-              errorMsg: action.payload
-            }
-          }
+              errorMsg: action.payload,
+            },
+          },
         }
         : state
-      )
-    default: return state
+    );
+    default: return state;
   }
 }

@@ -1,7 +1,7 @@
-import React from 'react';
-import {Table} from 'semantic-ui-react'
+import React from "react";
+import { Table } from "semantic-ui-react";
 
-const ClusterNodeList = ({nodeList}) => (
+const ClusterNodeList = ({ nodeList }) => (
   <Table striped>
     <Table.Header>
       <Table.Row>

@@ -1,27 +1,26 @@
 import deepmerge from "deepmerge";
-import nightmare from 'nightmare';
+import nightmare from "nightmare";
 import request from "request-promise-native";
 
-import stateTool from "../../../dev/state.js";
+import stateTool from "../../../dev/state";
 
-async function setup(diff){
-  const headers = {method: 'POST', 'cache-control': 'no-cache'};
-  let options = {
-    uri: 'http://localhost:5000/test-set-state',
-    method: 'POST',
+async function setup(diff) {
+  const options = {
+    uri: "http://localhost:5000/test-set-state",
+    method: "POST",
     json: deepmerge(
       stateTool.defaultState,
-      deepmerge({request: {delay: false}}, diff)
+      deepmerge({ request: { delay: false } }, diff),
     ),
   };
-  let response = await request(options);
+  await request(options);
 }
 
-function visit(path){
-  return nightmare().goto('http://localhost:3000').wait()
+function visit(path) {
+  return nightmare().goto(`http://localhost:3000${path}`).wait();
 }
 
-function check(fn, onFail){
+function check(fn, onFail) {
   // Something similar to https://github.com/facebook/jest/issues/6619 happens.
   // When fn contains something like expect(exists).toBe(false) while exists is
   // "true" then failed test appear, then disapper (it is redrawn) and then only
@@ -32,67 +31,67 @@ function check(fn, onFail){
   // appear.
   // Will see if this will be fixed. This workaround lets fail test and write
   // failed assertion to identify the problem.
-  try{
-    fn()
-  }catch(e){
+  try {
+    fn();
+  } catch (e) {
     onFail(e);
   }
 }
 
-describe('login form', function(){
+describe("login form", () => {
   const promptSelector = "[data-role=login-prompt]";
   const logoutSelector = "[data-role=logout]";
 
-  it('is not shown and can logout when user is logged', async function(done){
-    await setup({login: {logged: true}})
-    const page = visit("/")
+  it("is not shown and can logout when user is logged", async (done) => {
+    await setup({ login: { logged: true } });
+    const page = visit("/");
 
-    let loginPromptExists = await page.exists(promptSelector);
-    check(() => {expect(loginPromptExists).toBe(false)}, done.fail);
+    const loginPromptExists = await page.exists(promptSelector);
+    check(() => { expect(loginPromptExists).toBe(false); }, done.fail);
 
-    let logoutButtonExists = await page.exists(logoutSelector)
-    check(() => {expect(logoutButtonExists).toBe(true)}, done.fail)
+    let logoutButtonExists = await page.exists(logoutSelector);
+    check(() => { expect(logoutButtonExists).toBe(true); }, done.fail);
 
     await page
       .click(logoutSelector)
       .wait(promptSelector)
     ;
 
-    logoutButtonExists = await page.exists(logoutSelector)
-    check(() => {expect(logoutButtonExists).toBe(false)}, done.fail)
+    logoutButtonExists = await page.exists(logoutSelector);
+    check(() => { expect(logoutButtonExists).toBe(false); }, done.fail);
 
     page.end();
     done();
   });
 
-  it('is shown and usable when user is not logged', async function(done){
-    await setup({login: {logged: false}})
+  it("is shown and usable when user is not logged", async (done) => {
+    await setup({ login: { logged: false } });
 
-    const page = visit("/")
+    const page = visit("/");
 
-    let loginPromptExists = await page.exists(promptSelector)
-    check(() => {expect(loginPromptExists).toBe(true)}, done.fail)
+    let loginPromptExists = await page.exists(promptSelector);
+    check(() => { expect(loginPromptExists).toBe(true); }, done.fail);
 
-    const logoutButtonExists = await page.exists(logoutSelector)
-    check(() => {expect(logoutButtonExists).toBe(false)}, done.fail)
+    const logoutButtonExists = await page.exists(logoutSelector);
+    check(() => { expect(logoutButtonExists).toBe(false); }, done.fail);
 
     await page
       .type(
         `${promptSelector} input[name=username]`,
-        stateTool.defaultState.login.username
+        stateTool.defaultState.login.username,
       )
       .type(
         `${promptSelector} input[name=password]`,
-        stateTool.defaultState.login.password
+        stateTool.defaultState.login.password,
       )
       .click(`${promptSelector} button[name=login]`)
       .wait(logoutSelector)
     ;
 
     loginPromptExists = await page.exists(promptSelector);
-    check(() => {expect(loginPromptExists).toBe(false)}, done.fail);
+    check(() => { expect(loginPromptExists).toBe(false); }, done.fail);
 
     page.end();
     done();
-  })
-})
+  });
+});

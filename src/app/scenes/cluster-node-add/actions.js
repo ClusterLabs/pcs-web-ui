@@ -1,9 +1,9 @@
-import * as types from "./constants"
+import * as types from "./constants";
 
 // nodeData -> name, port, autoOn
-export const addNode = ({clusterName, nodeData}) => ({
+export const addNode = ({ clusterName, nodeData }) => ({
   type: types.ADD_NODE,
-  payload: {clusterName, nodeData},
+  payload: { clusterName, nodeData },
 });
 
 export const authRequired = () => ({

@@ -1,14 +1,14 @@
-import React from 'react';
-import {Menu} from 'semantic-ui-react'
+import React from "react";
+import { Menu } from "semantic-ui-react";
 
-import LogoutMenuItem from "app/scenes/login/containers/LogoutMenuItem.js"
+import LogoutMenuItem from "app/scenes/login/containers/LogoutMenuItem";
 
-const TopMenu = ({breadcrumbs}) => (
+const TopMenu = ({ breadcrumbs }) => (
   <Menu inverted>
     <Menu.Item>
-    {breadcrumbs}
+      {breadcrumbs}
     </Menu.Item>
-    <LogoutMenuItem/>
+    <LogoutMenuItem />
   </Menu>
 );
 export default TopMenu;

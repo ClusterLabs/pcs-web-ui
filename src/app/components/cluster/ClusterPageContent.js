@@ -1,8 +1,8 @@
-import React from 'react';
-import {Grid, Header} from 'semantic-ui-react'
+import React from "react";
+import { Grid, Header } from "semantic-ui-react";
 
 
-import DetailMenu from "./DetailsMenu.js"
+import DetailMenu from "./DetailsMenu";
 
 const ClusterPageContent = ({
   clusterName,
@@ -14,7 +14,7 @@ const ClusterPageContent = ({
     <Grid>
 
       <Grid.Column width={4}>
-        <DetailMenu active={activeMenu} clusterName={clusterName}/>
+        <DetailMenu active={activeMenu} clusterName={clusterName} />
       </Grid.Column>
 
       <Grid.Column width={12}>
@@ -23,5 +23,5 @@ const ClusterPageContent = ({
 
     </Grid>
   </React.Fragment>
-)
+);
 export default ClusterPageContent;

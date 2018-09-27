@@ -1,4 +1,4 @@
-import * as types from "./constants"
+import * as types from "./constants";
 
 export const authRequired = () => ({
   type: types.AUTH_REQUIRED,

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 import DataLoadingPage from "app/components/DataLoadingPage";
 
-import ClusterPageContent from "./ClusterPageContent"
+import ClusterPageContent from "./ClusterPageContent";
 
 const ClusterDataPage = ({
   clusterUrlId,
@@ -22,11 +22,9 @@ const ClusterDataPage = ({
     errorMsg={cluster.ui.initialLoading.errorMsg}
     retry={() => actions.syncClusterData(clusterUrlId)}
   >
-    <ClusterPageContent
-      clusterName={cluster.data.name}
-      activeMenu={activeMenu}
-      children={children}
-    />
+    <ClusterPageContent clusterName={cluster.data.name} activeMenu={activeMenu}>
+      {children}
+    </ClusterPageContent>
   </DataLoadingPage>
-)
+);
 export default ClusterDataPage;

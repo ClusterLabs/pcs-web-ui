@@ -1,9 +1,9 @@
-import React from 'react';
-import {Table} from 'semantic-ui-react'
-import {Link} from "react-router-dom";
+import React from "react";
+import { Table } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 
-export default ({dashboard, actions}) => (
+export default ({ dashboard }) => (
   <React.Fragment>
     <Table striped>
       <Table.Header>
@@ -13,13 +13,13 @@ export default ({dashboard, actions}) => (
       </Table.Header>
 
       <Table.Body>
-      {dashboard.dashboardData.clusterList.map(cluster => (
-        <Table.Row key={cluster.name}>
-          <Table.Cell>
-            <Link to={`/cluster/${cluster.name}`}>{cluster.name}</Link>
-          </Table.Cell>
-        </Table.Row>
-      ))}
+        {dashboard.dashboardData.clusterList.map(cluster => (
+          <Table.Row key={cluster.name}>
+            <Table.Cell>
+              <Link to={`/cluster/${cluster.name}`}>{cluster.name}</Link>
+            </Table.Cell>
+          </Table.Row>
+        ))}
       </Table.Body>
     </Table>
   </React.Fragment>

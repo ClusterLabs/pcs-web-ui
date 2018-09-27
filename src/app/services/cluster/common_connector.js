@@ -1,43 +1,48 @@
-import React, {createElement} from 'react';
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+import React, { createElement } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import * as actions from "./actions.js"
+import * as clusterActions from "./actions";
 
 
-class Page extends React.Component{
-  componentDidMount(){
-    this.props.actions.syncClusterData(this.props.match.params.name);
+class Page extends React.Component {
+  componentDidMount() {
+    const { actions, match } = this.props;
+    actions.syncClusterData(match.params.name);
   }
-  componentWillUnmount(){
-    this.props.actions.syncClusterDataStop();
+
+  componentWillUnmount() {
+    const { actions } = this.props;
+    actions.syncClusterDataStop();
   }
-  render(){
-    return createElement(this.props.concretePage, {
-      cluster: this.props.cluster,
-      actions: this.props.actions,
-      match: this.props.match
+
+  render() {
+    const {
+      concretePage,
+      cluster,
+      actions,
+      match,
+    } = this.props;
+    return createElement(concretePage, {
+      cluster,
+      actions,
+      match,
     });
   }
 }
 
 export default (PageComponent) => {
-  const mapStateToProps = (state) => {
-    return {
-      cluster: state.cluster,
-      concretePage: PageComponent,
-    }
-  };
+  const mapStateToProps = state => ({
+    cluster: state.cluster,
+    concretePage: PageComponent,
+  });
 
-  const mapDispatchToProps = (dispatch) => {
-    return {
-      actions: bindActionCreators(actions, dispatch),
-    }
-  };
+  const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(clusterActions, dispatch),
+  });
 
   return connect(
     mapStateToProps,
     mapDispatchToProps,
   )(Page);
-}
-
+};

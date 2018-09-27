@@ -1,30 +1,15 @@
-import React from 'react';
-import {Menu} from 'semantic-ui-react'
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import {logout} from "../actions.js"
+import LogoutMenuItem from "../components/LogoutMenuItem";
+import { logout } from "../actions";
 
-const LogoutMenuItem = ({loginRequired, logout}) => (
-    ! loginRequired
-    ? <Menu.Item name='Logout'
-        data-role="logout"
-        onClick={logout}
-        position="right"
-      />
-    : null
-)
+const mapStateToProps = state => ({
+  loginRequired: state.login.required,
+});
 
-const mapStateToProps = (state) => {
-  return {
-    loginRequired: state.login.required,
-  }
-};
+const mapDispatchToProps = dispatch => ({
+  logout: bindActionCreators(logout, dispatch),
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: bindActionCreators(logout, dispatch),
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps,)(LogoutMenuItem);
+export default connect(mapStateToProps, mapDispatchToProps)(LogoutMenuItem);

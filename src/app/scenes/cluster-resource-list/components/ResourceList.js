@@ -1,7 +1,7 @@
-import React from 'react';
-import {Table} from 'semantic-ui-react'
+import React from "react";
+import { Table } from "semantic-ui-react";
 
-const ClusterResourceList = ({resourceList}) => (
+const ClusterResourceList = ({ resourceList }) => (
   <Table striped>
     <Table.Header>
       <Table.Row>
@@ -18,5 +18,5 @@ const ClusterResourceList = ({resourceList}) => (
       ))}
     </Table.Body>
   </Table>
-)
+);
 export default ClusterResourceList;

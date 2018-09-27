@@ -1,7 +1,7 @@
-import React from 'react';
-import {Header, Segment, Table} from 'semantic-ui-react'
+import React from "react";
+import { Header, Segment, Table } from "semantic-ui-react";
 
-export default ({cluster}) => (
+export default ({ cluster }) => (
   <Segment data-role="cluster-overview">
     <Header as="h2">Settings</Header>
     <Table definition>

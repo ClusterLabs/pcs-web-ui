@@ -1,15 +1,17 @@
-import React from 'react';
-import {Header, Segment} from 'semantic-ui-react'
+import React from "react";
+import { Header, Segment } from "semantic-ui-react";
 
-import ClusterTopMenu from "app/components/cluster/TopMenu.js"
-import ClusterDataPage from "app/components/cluster/ClusterDataPage.js"
+import ClusterTopMenu from "app/components/cluster/TopMenu";
+import ClusterDataPage from "app/components/cluster/ClusterDataPage";
 
-import ClusterNodeAddForm from "./ClusterNodeAddForm.js"
+import ClusterNodeAddForm from "./ClusterNodeAddForm";
 
-const ClusterNodesPage = ({cluster, match, actions, clusterNodeAdd}) => (
+const ClusterNodesPage = ({
+  cluster, match, actions, clusterNodeAdd,
+}) => (
   <React.Fragment>
 
-    <ClusterTopMenu clusterName={match.params.name} clusterSection="Add node"/>
+    <ClusterTopMenu clusterName={match.params.name} clusterSection="Add node" />
 
     <ClusterDataPage
       clusterUrlId={match.params.name}

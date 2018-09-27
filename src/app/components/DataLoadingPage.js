@@ -1,7 +1,7 @@
-import React from 'react';
-import {Container, Loader} from 'semantic-ui-react'
+import React from "react";
+import { Container, Loader } from "semantic-ui-react";
 
-import LoadPageProblem from "app/components/LoadPageProblem"
+import LoadPageProblem from "app/components/LoadPageProblem";
 
 const DataLoadingPage = ({
   loadingStatus,
@@ -12,13 +12,13 @@ const DataLoadingPage = ({
   retry,
 }) => (
   <Container>
-  {loadingStatus === "none" && children}
-  {loadingStatus === "process" && <Loader active>{loadingMsg}</Loader>}
-  {
+    {loadingStatus === "none" && children}
+    {loadingStatus === "process" && <Loader active>{loadingMsg}</Loader>}
+    {
     loadingStatus === "error"
     &&
     <LoadPageProblem retry={retry} header={errorHeader} error={errorMsg} />
   }
   </Container>
-)
+);
 export default DataLoadingPage;

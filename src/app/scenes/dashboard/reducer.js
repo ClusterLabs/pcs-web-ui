@@ -1,4 +1,4 @@
-import * as types from "./constants"
+import * as types from "./constants";
 
 const defaultState = {
   fetch: {
@@ -6,24 +6,24 @@ const defaultState = {
   },
   dashboardData: {
     clusterList: [],
-  }
+  },
 };
 
-export default function dashboard(state=defaultState, action) {
-  switch(action.type){
+export default function dashboard(state = defaultState, action) {
+  switch (action.type) {
     case types.FETCH_DASHBOARD_DATA: return {
       ...state,
-      fetch: {result: undefined},
-    }
+      fetch: { result: undefined },
+    };
     case types.FETCH_DASHBOARD_DATA_SUCCESS: return {
-      fetch: {result: true},
+      fetch: { result: true },
       dashboardData: action.payload,
-    }
+    };
     case types.FETCH_DASHBOARD_DATA_FAILED:
       return {
-      ...state,
-      fetch: {result: action.payload},
-    }
-    default: return state
+        ...state,
+        fetch: { result: action.payload },
+      };
+    default: return state;
   }
 }

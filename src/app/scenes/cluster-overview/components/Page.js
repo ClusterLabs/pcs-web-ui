@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import ClusterDataPage from "app/components/cluster/ClusterDataPage.js"
-import ClusterTopMenu from "app/components/cluster/TopMenu.js"
+import ClusterDataPage from "app/components/cluster/ClusterDataPage";
+import ClusterTopMenu from "app/components/cluster/TopMenu";
 
-import ClusterOverview from "./ClusterOverview.js"
+import ClusterOverview from "./ClusterOverview";
 
-export default ({cluster, match, actions}) => (
+export default ({ cluster, match, actions }) => (
   <React.Fragment>
 
-    <ClusterTopMenu clusterName={match.params.name}/>
+    <ClusterTopMenu clusterName={match.params.name} />
 
     <ClusterDataPage
       clusterUrlId={match.params.name}
@@ -16,7 +16,7 @@ export default ({cluster, match, actions}) => (
       activeMenu="overview"
       actions={actions}
     >
-      <ClusterOverview cluster={cluster.data}/>
+      <ClusterOverview cluster={cluster.data} />
     </ClusterDataPage>
 
   </React.Fragment>

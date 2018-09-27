@@ -1,18 +1,18 @@
-import {call, put, takeEvery} from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 
-import * as auth from "app/services/auth/sagas.js"
+import * as auth from "app/services/auth/sagas";
 
-import * as actions from "./actions"
-import * as types from "./constants"
+import * as actions from "./actions";
+import * as types from "./constants";
 
 export const transformClusterProperties = (clusterName, apiData) => ({
   clusterName,
-  properties: Object.keys(apiData).map(key => {
+  properties: Object.keys(apiData).map((key) => {
     const apiProperty = apiData[key];
-    let property = {
+    const property = {
       name: apiProperty.name,
       advanced: apiProperty.advanced,
-      defaultValue: apiProperty["default"],
+      defaultValue: apiProperty.default,
       shortDesc: apiProperty.shortdesc,
       longDesc: apiProperty.longdesc,
       label: apiProperty.readable_name,
@@ -20,24 +20,24 @@ export const transformClusterProperties = (clusterName, apiData) => ({
       type: apiProperty.type,
       value: apiProperty.value,
     };
-    if(apiProperty.type === "enum"){
-      property.enum = apiProperty.enum
+    if (apiProperty.type === "enum") {
+      property.enum = apiProperty.enum;
     }
     return property;
   }),
 });
 
-export function* fetchClusterProperties({payload: {clusterName}}){
-  try{
+export function* fetchClusterProperties({ payload: { clusterName } }) {
+  try {
     const clusterProperties = yield call(
       auth.getJson,
       `/managec/${clusterName}/cluster_properties`,
       {
         transform: data => transformClusterProperties(clusterName, data),
-      }
-    )
+      },
+    );
     yield put(actions.fetchClusterPropertiesSuccess(clusterProperties));
-  }catch(error){
+  } catch (error) {
     yield put(actions.fetchClusterPropertiesFailed(error));
   }
 }

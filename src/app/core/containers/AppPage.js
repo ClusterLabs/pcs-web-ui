@@ -1,20 +1,16 @@
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import * as actions from "app/scenes/login/actions.js";
+import * as actions from "app/scenes/login/actions";
 
-import AppPage from "../components/AppPage.js";
+import AppPage from "../components/AppPage";
 
-const mapStateToProps = (state) => {
-  return {
-    login: state.login,
-  }
-};
+const mapStateToProps = state => ({
+  login: state.login,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loginActions: bindActionCreators(actions, dispatch),
-  }
-};
+const mapDispatchToProps = dispatch => ({
+  loginActions: bindActionCreators(actions, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppPage);

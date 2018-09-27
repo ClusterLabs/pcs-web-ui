@@ -1,7 +1,7 @@
-import React from 'react';
-import {Table} from 'semantic-ui-react'
+import React from "react";
+import { Table } from "semantic-ui-react";
 
-export default ({stonithList}) => (
+export default ({ stonithList }) => (
   <Table striped>
     <Table.Header>
       <Table.Row>
@@ -18,4 +18,4 @@ export default ({stonithList}) => (
       ))}
     </Table.Body>
   </Table>
-)
+);
