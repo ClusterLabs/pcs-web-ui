@@ -1,6 +1,6 @@
 import React from "react";
 import { ConnectedRouter } from "connected-react-router";
-import { Switch, Route } from "react-router";
+import { Switch, Route, withRouter } from "react-router";
 
 import DashboardPage from "app/scenes/dashboard/containers/Page";
 import clusterConnect from "app/services/cluster/common_connector";
@@ -15,6 +15,8 @@ import ClusterPropertiesPage
   from "app/scenes/cluster-properties/containers/Page";
 import ClusterAclPage from "app/scenes/cluster-acl/components/Page";
 
+const ConnClusterNodeAddPage = withRouter(clusterConnect(ClusterNodeAddPage));
+
 const RoutedPage = ({ history }) => (
   <ConnectedRouter history={history}>
     <Switch>
@@ -27,7 +29,7 @@ const RoutedPage = ({ history }) => (
       <Route
         exact
         path="/cluster/:name/node-add"
-        component={clusterConnect(ClusterNodeAddPage)}
+        render={() => <ConnClusterNodeAddPage />}
       />
       <Route
         exact
