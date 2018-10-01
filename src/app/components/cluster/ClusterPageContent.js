@@ -17,7 +17,7 @@ const ClusterPageContent = ({
         <DetailMenu active={activeMenu} clusterName={clusterName} />
       </Grid.Column>
 
-      <Grid.Column width={12}>
+      <Grid.Column width={12} stretched>
         {children}
       </Grid.Column>
 

@@ -7,7 +7,6 @@ import ClusterOverview from "./ClusterOverview";
 
 export default ({ cluster, match, actions }) => (
   <React.Fragment>
-
     <ClusterTopMenu clusterName={match.params.name} />
 
     <ClusterDataPage

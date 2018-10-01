@@ -3,13 +3,19 @@ import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const Item = ({ active, name, label, link }) => (
-  <Menu.Item name={name} active={active === name}>
-    <Link to={link}>{label}</Link>
+  <Menu.Item
+    name={name}
+    active={active === name}
+    as={Link}
+    to={link}
+    color="blue"
+  >
+    {label}
   </Menu.Item>
 );
 
 const ClusterDetailMenu = ({ active, clusterName }) => (
-  <Menu vertical>
+  <Menu vertical fluid>
     <Item
       name="overview"
       label="Overview"
