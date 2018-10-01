@@ -2,18 +2,20 @@ import React, { createElement } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import * as clusterActions from "./actions";
+import * as rawDataLoadActions from "app/services/data-load/actions";
 
+import * as clusterActions from "./actions";
 
 class Page extends React.Component {
   componentDidMount() {
-    const { actions, match } = this.props;
-    actions.syncClusterData(match.params.name);
-  }
-
-  componentWillUnmount() {
-    const { actions } = this.props;
-    actions.syncClusterDataStop();
+    const { match, dataLoadActions } = this.props;
+    dataLoadActions.setUpDataReading({
+      reloadCluster: {
+        specificator: match.params.name,
+        start: clusterActions.syncClusterData(match.params.name),
+        stop: clusterActions.syncClusterDataStop(),
+      },
+    });
   }
 
   render() {
@@ -39,6 +41,7 @@ export default (PageComponent) => {
 
   const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(clusterActions, dispatch),
+    dataLoadActions: bindActionCreators(rawDataLoadActions, dispatch),
   });
 
   return connect(

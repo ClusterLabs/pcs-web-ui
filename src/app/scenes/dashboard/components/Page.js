@@ -5,11 +5,18 @@ import TopMenu from "app/components/TopMenu";
 import LoadPageProblem from "app/components/LoadPageProblem";
 
 import Dashboard from "./Dashboard";
+import * as dashboardActions from "../actions";
 
 export default class Page extends React.Component {
   componentDidMount() {
-    const { actions } = this.props;
-    actions.fetchDashboardData();
+    const { dataLoadActions } = this.props;
+
+    dataLoadActions.setUpDataReading({
+      reloadDashboard: {
+        start: dashboardActions.syncDashboardData(),
+        stop: dashboardActions.syncDashboardDataStop(),
+      },
+    });
   }
 
   render() {

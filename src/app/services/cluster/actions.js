@@ -1,8 +1,7 @@
 import * as types from "./constants";
 
-export const refreshClusterData = clusterName => ({
+export const refreshClusterData = () => ({
   type: types.REFRESH_CLUSTER_DATA,
-  payload: { clusterName },
 });
 
 export const syncClusterData = clusterName => ({

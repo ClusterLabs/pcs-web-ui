@@ -56,6 +56,7 @@ module.exports = {
     'operator-linebreak': ['error', 'before', { overrides: {
       '=': 'none',
       "&&": "ignore",
+      "||": "ignore",
     } }],
   },
   parserOptions: {
