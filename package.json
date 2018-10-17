@@ -32,6 +32,7 @@
   "proxy": "http://localhost:5000",
   "devDependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
     "concurrently": "^3.6.1",
     "deepmerge": "^2.1.1",
     "eslint-config-airbnb": "^17.1.0",
@@ -40,8 +41,10 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "express": "^4.16.3",
+    "mocha": "^5.2.0",
     "nightmare": "^3.0.1",
     "nodemon": "^1.18.3",
+    "puppeteer": "^1.9.0",
     "redux-saga-test-plan": "^3.7.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5"

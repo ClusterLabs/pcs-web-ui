@@ -1,3 +1,4 @@
+/*
 import deepmerge from "deepmerge";
 import nightmare from "nightmare";
 import request from "request-promise-native";
@@ -95,3 +96,4 @@ describe("login form", () => {
     done();
   });
 });
+*/
