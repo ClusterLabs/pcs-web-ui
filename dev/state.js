@@ -638,7 +638,7 @@ const defaultState = {
     delay: 800,
   },
   login: {
-    logged: true,
+    logged: false,
     ajaxId: "1533967169-76",
     noauthorized: '{"notauthorized":"true"}',
     username: "hacluster",

@@ -18,9 +18,9 @@ export const destroy = id => ({
   payload: { id },
 });
 
-export const update = (notice, noticeUpdate) => ({
+export const update = (item, noticeUpdate) => ({
   type: types.UPDATE,
-  payload: Object.assign({}, notice.payload, noticeUpdate),
+  payload: Object.assign({}, item.payload, noticeUpdate),
 });
 
 // Sugar

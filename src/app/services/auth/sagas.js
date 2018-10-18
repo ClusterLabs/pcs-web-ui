@@ -20,7 +20,7 @@ export function* getJson(url, options = {}) {
     }
   }
 
-  // Ok, we got 401. So, ask for a and wait for login success...
+  // Ok, we got 401. So, ask for credentials and wait for login success...
   yield put(actions.authRequired());
   yield take(types.AUTH_SUCCESS);
 

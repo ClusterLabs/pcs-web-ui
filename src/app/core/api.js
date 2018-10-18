@@ -4,7 +4,7 @@ const ajaxHeaders = {
 
 export class ApiBadStatus extends Error {
   constructor(statusCode, text) {
-    super(`Server returned the http status error ${statusCode}`);
+    super(`Server returned the http status error ${statusCode} (${text})`);
     Error.captureStackTrace(this, ApiBadStatus);
     this.name = "ApiBadStatus";
     this.statusCode = statusCode;

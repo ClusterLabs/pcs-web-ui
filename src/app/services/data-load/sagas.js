@@ -36,7 +36,7 @@ export function* dataLoadManage({
   while (true) {
     const { type, payload } = yield take([START, STOP, REFRESH, SUCCESS, FAIL]);
     if (type === START && syncStarted) {
-      console.warn("Syns requested when already started! Action ignored.");
+      console.warn("Sync requested when already started! Action ignored.");
       continue;
     }
     if (type !== START && !syncStarted) {
