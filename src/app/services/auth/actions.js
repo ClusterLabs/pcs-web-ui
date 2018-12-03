@@ -7,7 +7,3 @@ export const authRequired = () => ({
 export const authSuccess = () => ({
   type: types.AUTH_SUCCESS,
 });
-
-export const authVerified = () => ({
-  type: types.AUTH_VERIFIED,
-});

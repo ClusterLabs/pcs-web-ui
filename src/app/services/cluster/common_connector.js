@@ -1,51 +1,48 @@
-import React, { createElement } from "react";
-import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { compose } from "recompose";
 
+import { loadDataOnMount } from "app/services/data-load/hoc";
 import * as rawDataLoadActions from "app/services/data-load/actions";
+import { withPageLoading, withClusterSidebar } from "app/components";
 
 import * as clusterActions from "./actions";
 
-class Page extends React.Component {
-  componentDidMount() {
-    const { match, dataLoadActions } = this.props;
-    dataLoadActions.setUpDataReading({
-      reloadCluster: {
-        specificator: match.params.name,
-        start: clusterActions.syncClusterData(match.params.name),
-        stop: clusterActions.syncClusterDataStop(),
-      },
-    });
-  }
+const mapStateToProps = state => ({
+  cluster: state.cluster,
+});
 
-  render() {
-    const {
-      concretePage,
-      cluster,
-      actions,
-      match,
-    } = this.props;
-    return createElement(concretePage, {
-      cluster,
-      actions,
-      match,
-    });
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(clusterActions, dispatch),
+  dataLoadActions: bindActionCreators(rawDataLoadActions, dispatch),
+});
 
-export default (PageComponent) => {
-  const mapStateToProps = state => ({
-    cluster: state.cluster,
-    concretePage: PageComponent,
-  });
+const withClusterState = connect(mapStateToProps, mapDispatchToProps);
 
-  const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(clusterActions, dispatch),
-    dataLoadActions: bindActionCreators(rawDataLoadActions, dispatch),
-  });
+const withClusterDataLoad = loadDataOnMount(({ clusterName }) => ({
+  reloadCluster: {
+    specificator: clusterName,
+    start: clusterActions.syncClusterData(clusterName),
+    stop: clusterActions.syncClusterDataStop(),
+  },
+}));
 
-  return connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(Page);
-};
+const withLoadingState = withPageLoading(
+  ({ cluster }) => cluster.ui.initialLoading.status !== "none",
+  ({ cluster, clusterName }) => ({
+    loadingMsg: `Loading data for cluster: ${clusterName}`,
+    isError: cluster.ui.initialLoading.status === "error",
+    errorMsg: cluster.ui.initialLoading.errorMsg.message,
+    // TODO retry does not work
+    retry: () => clusterActions.syncClusterData(clusterName),
+  }),
+  withClusterSidebar,
+);
+
+const routableClusterConnect = compose(
+  withClusterState,
+  withClusterDataLoad,
+  withLoadingState,
+);
+
+export default routableClusterConnect;

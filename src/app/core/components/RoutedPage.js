@@ -1,60 +1,59 @@
 import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route, withRouter } from "react-router";
+import { compose, withProps } from "recompose";
 
-import DashboardPage from "app/scenes/dashboard/containers/Page";
-import clusterConnect from "app/services/cluster/common_connector";
-import ClusterPage from "app/scenes/cluster-overview/components/Page";
-import ClusterNodesPage from "app/scenes/cluster-node-list/components/Page";
-import ClusterNodeAddPage from "app/scenes/cluster-node-add/containers/Page";
-import ClusterResourceListPage
-  from "app/scenes/cluster-resource-list/components/Page";
-import ClusterStonithListPage
-  from "app/scenes/cluster-stonith-list/components/Page";
-import ClusterPropertiesPage
-  from "app/scenes/cluster-properties/containers/Page";
-import ClusterAclPage from "app/scenes/cluster-acl/components/Page";
+import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
+import ClusterOverview
+  from "app/scenes/cluster-overview/components/ClusterOverviewPage";
+import ClusterNodes
+  from "app/scenes/cluster-node-list/components/ClusterNodesPage";
+import ClusterResourceList
+  from "app/scenes/cluster-resource-list/components/ClusterResourceListPage";
+import ClusterStonithList
+  from "app/scenes/cluster-stonith-list/components/ClusterStonithListPage";
+import ClusterProperties from "app/scenes/cluster-properties/components/Page";
 
-const ConnClusterNodeAddPage = withRouter(clusterConnect(ClusterNodeAddPage));
+const addClusterName = withProps(
+  ({ match }) => ({ clusterName: match.params.clusterName }),
+);
+
+const withClusterName = component => () => React.createElement(
+  compose(withRouter, addClusterName)(component),
+);
 
 const RoutedPage = ({ history }) => (
   <ConnectedRouter history={history}>
     <Switch>
-      <Route exact path="/" component={DashboardPage} />
       <Route
         exact
-        path="/cluster/:name/nodes"
-        component={clusterConnect(ClusterNodesPage)}
+        path="/"
+        render={() => <DashboardPage />}
       />
       <Route
         exact
-        path="/cluster/:name/node-add"
-        render={() => <ConnClusterNodeAddPage />}
+        path="/cluster/:clusterName/nodes"
+        render={withClusterName(ClusterNodes)}
       />
       <Route
         exact
-        path="/cluster/:name/resources"
-        component={clusterConnect(ClusterResourceListPage)}
+        path="/cluster/:clusterName/resources"
+        render={withClusterName(ClusterResourceList)}
       />
       <Route
         exact
-        path="/cluster/:name/stonith"
-        component={clusterConnect(ClusterStonithListPage)}
+        path="/cluster/:clusterName/stonith"
+        render={withClusterName(ClusterStonithList)}
       />
       <Route
         exact
-        path="/cluster/:name/properties"
-        component={ClusterPropertiesPage}
+        path="/cluster/:clusterName/properties"
+        render={withClusterName(ClusterProperties)}
       />
       <Route
         exact
-        path="/cluster/:name/acl"
-        component={clusterConnect(ClusterAclPage)}
-      />
-      <Route
-        exact
-        path="/cluster/:name"
-        component={clusterConnect(ClusterPage)}
+        path="/cluster/:clusterName"
+        render={withClusterName(ClusterOverview)}
       />
       <Route
         render={() => <div>404</div>}

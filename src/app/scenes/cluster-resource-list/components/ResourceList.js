@@ -1,22 +1,16 @@
 import React from "react";
-import { Table } from "semantic-ui-react";
+import { DataList } from "@patternfly/react-core";
+
+import Resource from "./Resource";
 
 const ClusterResourceList = ({ resourceList }) => (
-  <Table striped>
-    <Table.Header>
-      <Table.Row>
-        <Table.HeaderCell>Name</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
-
-
-    <Table.Body>
-      {resourceList.map(resource => (
-        <Table.Row key={resource.name}>
-          <Table.Cell>{resource.name}</Table.Cell>
-        </Table.Row>
-      ))}
-    </Table.Body>
-  </Table>
+  <DataList aria-label="Cluster resource list">
+    {resourceList.map(resource => (
+      <Resource
+        key={resource.name}
+        resource={resource}
+      />
+    ))}
+  </DataList>
 );
 export default ClusterResourceList;

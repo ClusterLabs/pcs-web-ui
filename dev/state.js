@@ -635,10 +635,10 @@ const clusterProperties = () => ({
 
 const defaultState = {
   request: {
-    delay: 800,
+    delay: 1200,
   },
   login: {
-    logged: false,
+    logged: true,
     ajaxId: "1533967169-76",
     noauthorized: '{"notauthorized":"true"}',
     username: "hacluster",

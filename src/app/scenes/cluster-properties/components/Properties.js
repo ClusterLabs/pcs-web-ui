@@ -1,20 +1,28 @@
 import React from "react";
-import { Table } from "semantic-ui-react";
+import {
+  Form,
+  FormGroup,
+  TextInput,
+} from "@patternfly/react-core";
 
 const ClusterProperties = ({ properties }) => (
-  <Table striped>
-    <Table.Body>
-      {properties.filter(property => !property.advanced).map(property => (
-        <Table.Row key={property.name}>
-          <Table.Cell>{property.label}</Table.Cell>
-        </Table.Row>
-      ))}
-      {properties.filter(property => property.advanced).map(property => (
-        <Table.Row key={property.name}>
-          <Table.Cell>{property.label}</Table.Cell>
-        </Table.Row>
-      ))}
-    </Table.Body>
-  </Table>
+  <Form isHorizontal>
+    {properties.map(property => (
+      <FormGroup
+        key={property.name}
+        label={`${property.label}:`}
+        fieldId={`cluster-property-${property.name}`}
+      >
+        <TextInput
+          isRequired
+          type="text"
+          id={`cluster-property-value-${property.name}`}
+          name={property.name}
+          value=""
+        />
+      </FormGroup>
+    ))}
+
+  </Form>
 );
 export default ClusterProperties;

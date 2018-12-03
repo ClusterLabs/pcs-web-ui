@@ -1,72 +1,66 @@
-import React, { Component } from "react";
+import React from "react";
+import { withStateHandlers } from "recompose";
 import {
-  Button, Form, Message, Container, Header, Segment, Menu,
-} from "semantic-ui-react";
+  LoginForm,
+  LoginPage,
+  BackgroundImage,
+} from "@patternfly/react-core";
 
-class Login extends Component {
-  state = {
+const withCredentials = withStateHandlers(
+  () => ({
     username: "",
     password: "",
-  }
+  }),
+  {
+    setUsername: () => value => ({ username: value }),
+    setPassword: () => value => ({ password: value }),
+  },
+);
 
-  render() {
-    const { login, actions } = this.props;
-    const { username, password } = this.state;
-    return (
-      <React.Fragment>
-        <Menu inverted />
-        <Container>
-          <Header>HA Cluster Configuration</Header>
-          {
-            typeof login.failed === "object"
-            && (
-              <Message negative>
-                {
-                  login.failed.badCredentials
-                    ? "Bad username or password"
-                    : login.failed.message
-                }
-              </Message>
-            )
-          }
-          {
-            login.logoutApplied
-            &&
-            <Message success>You have been successfully logged out</Message>
-          }
-          <Segment data-role="login-prompt">
-            <Form>
-              <Form.Input
-                type="text"
-                label="Username"
-                name="username"
-                value={username}
-                onChange={e => this.setState({ username: e.target.value })}
-              />
-              <Form.Input
-                type="password"
-                label="Password"
-                name="password"
-                value={password}
-                onChange={e => this.setState({ password: e.target.value })}
-              />
-            </Form>
-            <Button
-              type="submit"
-              name="login"
-              onClick={() => actions.enterCredentials(username, password)}
-              positive
-              labelPosition="right"
-              icon="checkmark"
-              content="Login"
-              disabled={!login.acceptLoginData}
-              loading={!login.acceptLoginData}
-            />
-          </Segment>
-        </Container>
-      </React.Fragment>
-    );
-  }
-}
 
-export default Login;
+const Login = ({
+  username,
+  password,
+  setUsername,
+  setPassword,
+  login,
+  actions,
+}) => (
+  <React.Fragment>
+    <BackgroundImage src={{}} />
+    <LoginPage
+      loginTitle="Please log in"
+      textContent="HA Cluster Management"
+    >
+      {
+        typeof login.failed === "object"
+        &&
+        (
+          <form className="pf-c-form">
+            <div className="pf-c-form__helper-text pf-m-error">
+              {
+                login.failed.badCredentials
+                  ? "The username or password you entered is incorect"
+                  : login.failed.message
+              }
+            </div>
+          </form>
+        )
+      }
+      <LoginForm
+        usernameLabel="Username"
+        usernameValue={username}
+        onChangeUsername={value => setUsername(value)}
+        isValidUsername
+        passwordLabel="Password"
+        passwordValue={password}
+        onChangePassword={value => setPassword(value)}
+        isValidPassword
+        isLoginButtonDisabled={!login.acceptLoginData}
+        onLoginButtonClick={() => actions.enterCredentials(username, password)}
+      />
+    </LoginPage>
+  </React.Fragment>
+);
+
+export default withCredentials(Login);

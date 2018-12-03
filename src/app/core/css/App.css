@@ -22,14 +22,17 @@
   font-size: large;
 }
 
-#Notifications {
+#notifications {
   position: fixed;
-  top: 42px;
+  top: 85px;
   right: 10px;
-  zIndex: 1000;
+  z-index: 100;
   width: 350px;
   maxWidt: 400px;
   margin: auto;
+}
+#notifications .notification-item{
+  margin-bottom: 10px;
 }
 
 @keyframes App-logo-spin {

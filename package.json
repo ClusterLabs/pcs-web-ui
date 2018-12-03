@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@patternfly/patternfly-next": "^1.0.101",
+    "@patternfly/react-core": "1.43.6",
+    "@patternfly/react-tokens": "1.9.1",
     "connected-react-router": "^6.0.0",
     "history": "^4.7.2",
     "react": "^16.6.3",
@@ -10,11 +13,10 @@
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
+    "react-scripts": "^2.1.2",
+    "recompose": "^0.30.0",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2",
-    "semantic-ui-css": "^2.3.3",
-    "semantic-ui-react": "^0.82.1",
     "validator": "^10.9.0"
   },
   "scripts": {
@@ -24,7 +26,7 @@
     "testi": "react-scripts test --runInBand --testPathPattern=src/__tests__/integration",
     "testa": "react-scripts test --env=jsdom --runInBand",
     "eject": "react-scripts eject",
-    "server": "nodemon --watch ./ dev/backend.js"
+    "server": "nodemon --watch dev/ dev/backend.js"
   },
   "homepage": "/ui/",
   "proxy": "http://localhost:5000",

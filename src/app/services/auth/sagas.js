@@ -12,7 +12,6 @@ export const stillUnauthorizedError = url => new Error(
 export function* getJson(url, options = {}) {
   try {
     const responseFirstAttempt = yield call(api.getJson, url, options);
-    yield put(actions.authVerified());
     return responseFirstAttempt;
   } catch (error) {
     if (!api.isUnauthorizedError(error)) {
@@ -27,7 +26,6 @@ export function* getJson(url, options = {}) {
   // ...and then second attempt.
   try {
     const responseSecondAttempt = yield call(api.getJson, url, options);
-    yield put(actions.authVerified());
     return responseSecondAttempt;
   } catch (error) {
     if (api.isUnauthorizedError(error)) {

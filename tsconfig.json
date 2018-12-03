@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "checkJs": true,
+        "jsx": "react",
+        "moduleResolution": "node",
+        "paths": {
+          "app/*": ["./src/app/*"]
+        }
+    }
+}

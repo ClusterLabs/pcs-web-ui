@@ -1,40 +1,57 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { compose, lifecycle } from "recompose";
 
-import ClusterPageContent from "app/components/cluster/ClusterPageContent";
-import ClusterTopMenu from "app/components/cluster/TopMenu";
-import DataLoadingPage from "app/components/DataLoadingPage";
+import {
+  Page,
+  ClusterPage,
+  withClusterSidebar,
+  withPageLoading,
+} from "app/components";
 
+import * as clusterPropertiesActions from "../actions";
 import Properties from "./Properties";
 
-export default class Page extends React.Component {
+const withClusterPropertiesState = connect(
+  state => ({
+    clusterProperties: state.clusterProperties,
+  }),
+  dispatch => ({
+    actions: bindActionCreators(clusterPropertiesActions, dispatch),
+  }),
+);
+
+const withClusterPropertiesDataLoad = lifecycle({
   componentDidMount() {
-    const { actions, match } = this.props;
-    actions.fetchClusterProperties(match.params.name);
-  }
+    const { actions, clusterName } = this.props;
+    actions.fetchClusterProperties(clusterName);
+  },
+});
 
-  render() {
-    const { clusterProperties, match, actions } = this.props;
-    const { initialLoading } = clusterProperties.ui;
-    const clusterName = match.params.name;
-    return (
-      <React.Fragment>
-        <ClusterTopMenu
-          clusterName={clusterName}
-          clusterSection="Cluster properties"
-        />
+const withLoadingState = withPageLoading(
+  ({ clusterProperties }) => clusterProperties.ui.initialLoading.status !== "none",
+  ({ clusterName, clusterProperties, actions }) => ({
+    loadingMsg: `Loading properties for cluster: ${clusterName}`,
+    isError: clusterProperties.ui.initialLoading.status === "error",
+    errorMsg: clusterProperties.ui.initialLoading.errorMsg.message,
+    // TODO retry does not work
+    retry: () => actions.syncClusterData(clusterName),
+  }),
+  withClusterSidebar,
+);
 
-        <DataLoadingPage
-          loadingStatus={initialLoading.status}
-          loadingMsg={`Loading properties of the cluster '${clusterName}'.`}
-          errorHeader={`Cannot load properties of cluster '${clusterName}'`}
-          errorMsg={initialLoading.errorMsg}
-          retry={() => actions.fetchClusterProperties(clusterName)}
-        >
-          <ClusterPageContent clusterName={clusterName} activeMenu="properties">
-            <Properties properties={clusterProperties.properties} />
-          </ClusterPageContent>
-        </DataLoadingPage>
-      </React.Fragment>
-    );
-  }
-}
+const ClusterPropertiesPage = ({ clusterProperties, clusterName }) => (
+  <ClusterPage clusterName={clusterName}>
+    <Page.Section>
+      <Page.Title size="xl">Cluster properties</Page.Title>
+      <Properties properties={clusterProperties.properties} />
+    </Page.Section>
+  </ClusterPage>
+);
+
+export default compose(
+  withClusterPropertiesState,
+  withClusterPropertiesDataLoad,
+  withLoadingState,
+)(ClusterPropertiesPage);
