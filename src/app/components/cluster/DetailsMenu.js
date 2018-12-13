@@ -2,7 +2,12 @@ import React from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-const Item = ({ active, name, label, link }) => (
+const Item = ({
+  active,
+  name,
+  label,
+  link,
+}) => (
   <Menu.Item
     name={name}
     active={active === name}
@@ -53,5 +58,5 @@ const ClusterDetailMenu = ({ active, clusterName }) => (
       link={`/cluster/${clusterName}/acl`}
     />
   </Menu>
-  );
+);
 export default ClusterDetailMenu;

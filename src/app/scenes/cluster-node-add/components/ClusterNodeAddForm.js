@@ -26,9 +26,21 @@ class ClusterNodeAddForm extends React.Component {
     },
   }
 
-  setVisited = (name) => {
-    const { visited } = this.state;
-    this.setState({ visited: { ...visited, [name]: true } });
+  validators = {
+    nodename: (value) => {
+      const errors = [];
+      if (isEmpty(value)) {
+        errors.push("Node name cannot be empty");
+      }
+      return errors;
+    },
+    pcsdport: (value) => {
+      const errors = [];
+      if (!isEmpty(value) && !isPort(value)) {
+        errors.push(`${value} is not valid port`);
+      }
+      return errors;
+    },
   }
 
   nodeChanged = (event, { name, value }) => {
@@ -50,21 +62,9 @@ class ClusterNodeAddForm extends React.Component {
     this.setState({ form: formNext, errors });
   }
 
-  validators = {
-    nodename: (value) => {
-      const errors = [];
-      if (isEmpty(value)) {
-        errors.push("Node name cannot be empty");
-      }
-      return errors;
-    },
-    pcsdport: (value) => {
-      const errors = [];
-      if (!isEmpty(value) && !isPort(value)) {
-        errors.push(`${value} is not valid port`);
-      }
-      return errors;
-    },
+  setVisited = (name) => {
+    const { visited } = this.state;
+    this.setState({ visited: { ...visited, [name]: true } });
   }
 
   validate = (form, currentField = undefined) => {

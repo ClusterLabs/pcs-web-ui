@@ -1,5 +1,10 @@
 import React from "react";
-import { Button, Segment, Message, Icon } from "semantic-ui-react";
+import {
+  Button,
+  Segment,
+  Message,
+  Icon,
+} from "semantic-ui-react";
 
 const LoadDataProblem = ({ retry, header, error }) => (
   <Segment clearing>

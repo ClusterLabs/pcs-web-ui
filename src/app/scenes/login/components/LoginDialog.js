@@ -1,13 +1,20 @@
 import React, { Component } from "react";
-import { Button, Modal, Form, Message } from "semantic-ui-react";
+import {
+  Button,
+  Modal,
+  Form,
+  Message,
+} from "semantic-ui-react";
 
 class Login extends Component {
   state = {
     username: "",
     password: "",
   }
+
   render() {
     const { login, actions } = this.props;
+    const { username, password } = this.state;
     return (
       <Modal
         data-role="login-prompt"
@@ -19,28 +26,29 @@ class Login extends Component {
         <Modal.Content>
           {
             typeof login.failed === "object"
-            &&
-            <Message negative>
-              {
-                login.failed.badCredentials
-                  ? "Bad username or password"
-                  : login.failed.message
-              }
-            </Message>
+            && (
+              <Message negative>
+                {
+                  login.failed.badCredentials
+                    ? "Bad username or password"
+                    : login.failed.message
+                }
+              </Message>
+            )
           }
           <Form>
             <Form.Input
               type="text"
               label="Username"
               name="username"
-              value={this.state.username}
+              value={username}
               onChange={e => this.setState({ username: e.target.value })}
             />
             <Form.Input
               type="password"
               label="Password"
               name="password"
-              value={this.state.password}
+              value={password}
               onChange={e => this.setState({ password: e.target.value })}
             />
           </Form>
@@ -49,10 +57,7 @@ class Login extends Component {
           <Button
             type="submit"
             name="login"
-            onClick={() => actions.enterCredentials(
-              this.state.username,
-              this.state.password,
-            )}
+            onClick={() => actions.enterCredentials(username, password)}
             positive
             labelPosition="right"
             icon="checkmark"

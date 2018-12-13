@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
 
 import login from "app/scenes/login/reducer";
 import dashboard from "app/scenes/dashboard/reducer";
@@ -7,7 +8,8 @@ import clusterProperties from "app/scenes/cluster-properties/reducer";
 import clusterNodeAdd from "app/scenes/cluster-node-add/reducer";
 import notifications from "app/scenes/notifications/reducer";
 
-const reducer = combineReducers({
+export default history => combineReducers({
+  router: connectRouter(history),
   dashboard,
   login,
   cluster,
@@ -15,5 +17,3 @@ const reducer = combineReducers({
   clusterNodeAdd,
   notifications,
 });
-
-export default reducer;

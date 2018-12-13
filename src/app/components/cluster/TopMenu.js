@@ -5,20 +5,20 @@ import { Link } from "react-router-dom";
 import TopMenu from "../TopMenu";
 
 const ClusterTopMenu = ({ clusterName, children, clusterSection }) => (
-  <TopMenu breadcrumbs={
+  <TopMenu breadcrumbs={(
     <Breadcrumb>
       <Breadcrumb.Section as={() => <Link to="/">Clusters</Link>} />
       <Breadcrumb.Divider as={() => <span> / </span>} />
       <Breadcrumb.Section
         as={() => (
-            children || clusterSection
+          children || clusterSection
             ? <Link to={`/cluster/${clusterName}`}>{clusterName}</Link>
             : clusterName
-          )}
+        )}
       />
       {
-          clusterSection
-          &&
+        clusterSection
+        && (
           <React.Fragment>
             <Breadcrumb.Divider as={() => <span> / </span>} />
             <Breadcrumb.Section
@@ -26,8 +26,8 @@ const ClusterTopMenu = ({ clusterName, children, clusterSection }) => (
               as={() => <span>{clusterSection}</span>}
             />
           </React.Fragment>
-
-        }
+        )
+      }
       {
           children
           &&
@@ -35,7 +35,7 @@ const ClusterTopMenu = ({ clusterName, children, clusterSection }) => (
         }
       {children}
     </Breadcrumb>
-    }
+)}
   />
-  );
+);
 export default ClusterTopMenu;

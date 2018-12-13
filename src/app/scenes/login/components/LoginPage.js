@@ -8,8 +8,10 @@ class Login extends Component {
     username: "",
     password: "",
   }
+
   render() {
     const { login, actions } = this.props;
+    const { username, password } = this.state;
     return (
       <React.Fragment>
         <Menu inverted />
@@ -17,14 +19,15 @@ class Login extends Component {
           <Header>HA Cluster Configuration</Header>
           {
             typeof login.failed === "object"
-            &&
-            <Message negative>
-              {
-                login.failed.badCredentials
-                  ? "Bad username or password"
-                  : login.failed.message
-              }
-            </Message>
+            && (
+              <Message negative>
+                {
+                  login.failed.badCredentials
+                    ? "Bad username or password"
+                    : login.failed.message
+                }
+              </Message>
+            )
           }
           {
             login.logoutApplied
@@ -37,24 +40,21 @@ class Login extends Component {
                 type="text"
                 label="Username"
                 name="username"
-                value={this.state.username}
+                value={username}
                 onChange={e => this.setState({ username: e.target.value })}
               />
               <Form.Input
                 type="password"
                 label="Password"
                 name="password"
-                value={this.state.password}
+                value={password}
                 onChange={e => this.setState({ password: e.target.value })}
               />
             </Form>
             <Button
               type="submit"
               name="login"
-              onClick={() => actions.enterCredentials(
-                this.state.username,
-                this.state.password,
-              )}
+              onClick={() => actions.enterCredentials(username, password)}
               positive
               labelPosition="right"
               icon="checkmark"
