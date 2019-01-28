@@ -18,7 +18,7 @@ const ClusterOverview = ({ cluster }) => (
         id="simple-form-name"
         name="simple-form-name"
         aria-describedby="simple-form-name-helper"
-        value={cluster.data.name}
+        value={cluster.name}
       />
     </FormGroup>
 

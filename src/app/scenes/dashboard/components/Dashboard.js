@@ -9,7 +9,7 @@ import {
 
 export default ({ dashboard }) => (
   <DataList aria-label="Cluster list">
-    {dashboard.dashboardData.clusterList.map(cluster => (
+    {dashboard.clusterList.map(cluster => (
       <DataListItem
         key={cluster.name}
         aria-labelledby={cluster.name}

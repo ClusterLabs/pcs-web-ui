@@ -10,7 +10,7 @@ const defaultState = {
   properties: [],
 };
 
-export default function dashboard(state = defaultState, action) {
+export default (state = defaultState, action) => {
   switch (action.type) {
     case types.FETCH_CLUSTER_PROPERTIES: return {
       ...state,
@@ -41,4 +41,12 @@ export default function dashboard(state = defaultState, action) {
     };
     default: return state;
   }
-}
+};
+
+export const dataFetch = state => ({
+  isSuccess: state.clusterProperties.ui.initialLoading.status === "none",
+  isError: state.clusterProperties.ui.initialLoading.status === "error",
+  errorMessage: state.clusterProperties.ui.initialLoading.errorMsg.message,
+});
+
+export const clusterProperties = state => state.clusterProperties.properties;

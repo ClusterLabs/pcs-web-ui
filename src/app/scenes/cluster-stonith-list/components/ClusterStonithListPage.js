@@ -6,10 +6,10 @@ import { Page, ClusterPage } from "app/components";
 import ClusterStonithList from "./ClusterStonithList";
 
 export const ClusterStonithListPage = ({ cluster }) => (
-  <ClusterPage clusterName={cluster.data.name}>
+  <ClusterPage clusterName={cluster.name}>
     <Page.Section>
       <ClusterStonithList
-        stonithList={cluster.data.stonithList}
+        stonithList={cluster.stonithList}
       />
     </Page.Section>
   </ClusterPage>

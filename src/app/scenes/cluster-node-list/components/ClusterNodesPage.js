@@ -6,10 +6,10 @@ import { Page, ClusterPage } from "app/components";
 import ClusterNodeList from "./ClusterNodeList";
 
 export const ClusterNodesPage = ({ cluster }) => (
-  <ClusterPage clusterName={cluster.data.name}>
+  <ClusterPage clusterName={cluster.name}>
     <Page.Section>
       <ClusterNodeList
-        nodeList={cluster.data.nodeList}
+        nodeList={cluster.nodeList}
       />
     </Page.Section>
   </ClusterPage>

@@ -9,7 +9,7 @@ const defaultState = {
   },
 };
 
-export default function dashboard(state = defaultState, action) {
+export default (state = defaultState, action) => {
   switch (action.type) {
     case types.FETCH_DASHBOARD_DATA: return {
       ...state,
@@ -26,4 +26,11 @@ export default function dashboard(state = defaultState, action) {
       };
     default: return state;
   }
-}
+};
+
+export const dashboard = state => state.dashboard.dashboardData;
+export const dataFetch = state => ({
+  isSuccess: state.dashboard.fetch.result !== undefined,
+  isError: typeof state.dashboard.fetch.result === "object",
+  errorMessage: state.dashboard.fetch.result,
+});

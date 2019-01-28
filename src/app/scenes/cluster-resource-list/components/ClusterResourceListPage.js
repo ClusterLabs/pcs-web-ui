@@ -6,10 +6,10 @@ import { Page, ClusterPage } from "app/components";
 import ResourceList from "./ResourceList";
 
 export const ClusterResourceListPage = ({ cluster }) => (
-  <ClusterPage clusterName={cluster.data.name}>
+  <ClusterPage clusterName={cluster.name}>
     <Page.Section>
       <ResourceList
-        resourceList={cluster.data.resourceList}
+        resourceList={cluster.resourceList}
       />
     </Page.Section>
   </ClusterPage>

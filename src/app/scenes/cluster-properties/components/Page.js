@@ -11,11 +11,13 @@ import {
 } from "app/components";
 
 import * as clusterPropertiesActions from "../actions";
+import * as selectors from "../reducer";
 import Properties from "./Properties";
 
 const withClusterPropertiesState = connect(
   state => ({
-    clusterProperties: state.clusterProperties,
+    clusterProperties: selectors.clusterProperties(state),
+    dataFetch: selectors.dataFetch(state),
   }),
   dispatch => ({
     actions: bindActionCreators(clusterPropertiesActions, dispatch),
@@ -29,12 +31,12 @@ const withClusterPropertiesDataLoad = lifecycle({
   },
 });
 
-const withLoadingState = withPageLoading(
-  ({ clusterProperties }) => clusterProperties.ui.initialLoading.status !== "none",
-  ({ clusterName, clusterProperties, actions }) => ({
+const withViewForNoData = withPageLoading(
+  ({ dataFetch }) => !dataFetch.isSuccess,
+  ({ dataFetch, clusterName, actions }) => ({
     loadingMsg: `Loading properties for cluster: ${clusterName}`,
-    isError: clusterProperties.ui.initialLoading.status === "error",
-    errorMsg: clusterProperties.ui.initialLoading.errorMsg.message,
+    isError: dataFetch.isError,
+    errorMessage: dataFetch.errorMessage,
     // TODO retry does not work
     retry: () => actions.syncClusterData(clusterName),
   }),
@@ -45,7 +47,7 @@ const ClusterPropertiesPage = ({ clusterProperties, clusterName }) => (
   <ClusterPage clusterName={clusterName}>
     <Page.Section>
       <Page.Title size="xl">Cluster properties</Page.Title>
-      <Properties properties={clusterProperties.properties} />
+      <Properties properties={clusterProperties} />
     </Page.Section>
   </ClusterPage>
 );
@@ -53,5 +55,5 @@ const ClusterPropertiesPage = ({ clusterProperties, clusterName }) => (
 export default compose(
   withClusterPropertiesState,
   withClusterPropertiesDataLoad,
-  withLoadingState,
+  withViewForNoData,
 )(ClusterPropertiesPage);

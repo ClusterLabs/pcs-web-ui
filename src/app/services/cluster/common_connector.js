@@ -7,19 +7,21 @@ import * as rawDataLoadActions from "app/services/data-load/actions";
 import { withPageLoading, withClusterSidebar } from "app/components";
 
 import * as clusterActions from "./actions";
+import * as selectors from "./reducer";
 
-const mapStateToProps = state => ({
-  cluster: state.cluster,
-});
+const withClusterState = connect(
+  state => ({
+    cluster: selectors.cluster(state),
+    dataFetch: selectors.clusterDataFetch(state),
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(clusterActions, dispatch),
-  dataLoadActions: bindActionCreators(rawDataLoadActions, dispatch),
-});
+  }),
+  dispatch => ({
+    actions: bindActionCreators(clusterActions, dispatch),
+    dataLoadActions: bindActionCreators(rawDataLoadActions, dispatch),
+  }),
+);
 
-const withClusterState = connect(mapStateToProps, mapDispatchToProps);
-
-const withClusterDataLoad = loadDataOnMount(({ clusterName }) => ({
+const withDataFetch = loadDataOnMount(({ clusterName }) => ({
   reloadCluster: {
     specificator: clusterName,
     start: clusterActions.syncClusterData(clusterName),
@@ -27,12 +29,12 @@ const withClusterDataLoad = loadDataOnMount(({ clusterName }) => ({
   },
 }));
 
-const withLoadingState = withPageLoading(
-  ({ cluster }) => cluster.ui.initialLoading.status !== "none",
-  ({ cluster, clusterName }) => ({
+const withViewForNoData = withPageLoading(
+  ({ dataFetch }) => !dataFetch.isSuccess,
+  ({ dataFetch, clusterName }) => ({
     loadingMsg: `Loading data for cluster: ${clusterName}`,
-    isError: cluster.ui.initialLoading.status === "error",
-    errorMsg: cluster.ui.initialLoading.errorMsg.message,
+    isError: dataFetch.isError,
+    errorMessage: dataFetch.errorMessage,
     // TODO retry does not work
     retry: () => clusterActions.syncClusterData(clusterName),
   }),
@@ -41,8 +43,8 @@ const withLoadingState = withPageLoading(
 
 const routableClusterConnect = compose(
   withClusterState,
-  withClusterDataLoad,
-  withLoadingState,
+  withDataFetch,
+  withViewForNoData,
 );
 
 export default routableClusterConnect;

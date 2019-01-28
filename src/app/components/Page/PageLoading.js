@@ -13,7 +13,7 @@ import {
 export const PageLoading = ({
   loadingMsg,
   isError,
-  errorMsg,
+  errorMessage,
   retry,
   sidebarNavigation,
 }) => (
@@ -24,7 +24,7 @@ export const PageLoading = ({
           ? (
             <React.Fragment>
               <div>
-                {`Error: ${errorMsg}`}
+                {`Error: ${errorMessage}`}
               </div>
               <Button onClick={retry}>Retry</Button>
             </React.Fragment>

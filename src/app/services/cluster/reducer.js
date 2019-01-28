@@ -16,7 +16,7 @@ const defaultState = {
   },
 };
 
-export default function dashboard(state = defaultState, action) {
+export default (state = defaultState, action) => {
   switch (action.type) {
     case types.SYNC_CLUSTER_DATA: return {
       ...defaultState,
@@ -55,4 +55,12 @@ export default function dashboard(state = defaultState, action) {
     );
     default: return state;
   }
-}
+};
+
+export const clusterDataFetch = state => ({
+  isSuccess: state.cluster.ui.initialLoading.status === "none",
+  isError: state.cluster.ui.initialLoading.status === "error",
+  errorMessage: state.cluster.ui.initialLoading.errorMsg.message,
+});
+
+export const cluster = state => state.cluster.data;
