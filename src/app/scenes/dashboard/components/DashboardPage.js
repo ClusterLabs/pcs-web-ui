@@ -1,12 +1,16 @@
 import React from "react";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 
 import withDataLoadOnMount from "app/services/data-load/hoc";
 import { Page, withViewForNoData } from "app/components";
 
-import * as dashboardActions from "../actions";
+/* eslint-disable no-shadow */
+import {
+  syncDashboardData,
+  syncDashboardDataStop,
+  fetchDashboardData,
+} from "../actions";
 import * as selectors from "../reducer";
 import Dashboard from "./Dashboard";
 
@@ -15,28 +19,26 @@ const withDashboardState = connect(
     dashboard: selectors.dashboard(state),
     dataFetch: selectors.dataFetch(state),
   }),
-  dispatch => ({
-    actions: bindActionCreators(dashboardActions, dispatch),
-  }),
+  { fetchDashboardData },
 );
 
 const withDashboardDataLoad = withDataLoadOnMount(() => ({
   reloadDashboard: {
     // Pure actions (without dispatch binding) here. Start/Stop should be
     // plain objects because they are used in saga.
-    start: dashboardActions.syncDashboardData(),
-    stop: dashboardActions.syncDashboardDataStop(),
+    start: syncDashboardData(),
+    stop: syncDashboardDataStop(),
   },
 }));
 
 const withViewForNoDashboardData = withViewForNoData(
-  ({ actions, dataFetch }) => ({
+  ({ dataFetch, fetchDashboardData }) => ({
     isSuccess: dataFetch.isSuccess,
     loadingMessage: "Loading dashboard data",
     isError: dataFetch.isError,
     errorMessage: dataFetch.errorMessage,
     // TODO retry does not work
-    retry: () => actions.fetchDashboardData,
+    retry: () => fetchDashboardData,
   }),
 );
 
