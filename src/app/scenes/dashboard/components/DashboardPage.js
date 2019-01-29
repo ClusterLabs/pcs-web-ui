@@ -5,7 +5,7 @@ import { compose } from "recompose";
 
 import * as rawDataLoadActions from "app/services/data-load/actions";
 import { loadDataOnMount } from "app/services/data-load/hoc";
-import { Page, withPageLoading } from "app/components";
+import { Page, withViewForNoData } from "app/components";
 
 import * as dashboardActions from "../actions";
 import * as selectors from "../reducer";
@@ -29,10 +29,10 @@ const withDashboardDataLoad = loadDataOnMount(() => ({
   },
 }));
 
-const withViewForNoDashboardData = withPageLoading(
-  ({ dataFetch }) => !dataFetch.isSuccess,
+const withViewForNoDashboardData = withViewForNoData(
   ({ actions, dataFetch }) => ({
-    loadingMsg: "Loading dashboard data",
+    isSuccess: dataFetch.isSuccess,
+    loadingMessage: "Loading dashboard data",
     isError: dataFetch.isError,
     errorMessage: dataFetch.errorMessage,
     // TODO retry does not work

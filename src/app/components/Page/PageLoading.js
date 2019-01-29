@@ -3,15 +3,8 @@ import { Button } from "@patternfly/react-core";
 
 import { Page, Spinner } from "app/components";
 
-import {
-  compose,
-  branch,
-  renderComponent,
-  withProps,
-} from "recompose";
-
 export const PageLoading = ({
-  loadingMsg,
+  loadingMessage,
   isError,
   errorMessage,
   retry,
@@ -29,13 +22,31 @@ export const PageLoading = ({
               <Button onClick={retry}>Retry</Button>
             </React.Fragment>
           )
-          : <Spinner text={loadingMsg} />
+          : <Spinner text={loadingMessage} />
       }
     </Page.Section>
   </Page>
 );
 
-export const withPageLoading = (test, getProps, container = (x => x)) => branch(
-  test,
-  compose(withProps(getProps), container, renderComponent(PageLoading)),
+export const withViewForNoData = (
+  (getDataFetchProps, container = (x => x)) => BasePageComponent => (props) => {
+    const {
+      isSuccess,
+      isError,
+      loadingMessage,
+      errorMessage,
+      retry,
+    } = getDataFetchProps(props);
+
+    if (isSuccess) {
+      return React.createFactory(BasePageComponent)(props);
+    }
+
+    return React.createFactory(container(PageLoading))({
+      loadingMessage,
+      isError,
+      errorMessage,
+      retry,
+    });
+  }
 );

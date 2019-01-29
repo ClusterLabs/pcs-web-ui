@@ -4,7 +4,7 @@ import { compose } from "recompose";
 
 import { loadDataOnMount } from "app/services/data-load/hoc";
 import * as rawDataLoadActions from "app/services/data-load/actions";
-import { withPageLoading, withClusterSidebar } from "app/components";
+import { withViewForNoData, withClusterSidebar } from "app/components";
 
 import * as clusterActions from "./actions";
 import * as selectors from "./reducer";
@@ -29,10 +29,10 @@ const withDataFetch = loadDataOnMount(({ clusterName }) => ({
   },
 }));
 
-const withViewForNoData = withPageLoading(
-  ({ dataFetch }) => !dataFetch.isSuccess,
+const withViewForNoClusterData = withViewForNoData(
   ({ dataFetch, clusterName }) => ({
-    loadingMsg: `Loading data for cluster: ${clusterName}`,
+    isSuccess: dataFetch.isSuccess,
+    loadingMessage: `Loading data for cluster: ${clusterName}`,
     isError: dataFetch.isError,
     errorMessage: dataFetch.errorMessage,
     // TODO retry does not work
@@ -44,7 +44,7 @@ const withViewForNoData = withPageLoading(
 const routableClusterConnect = compose(
   withClusterState,
   withDataFetch,
-  withViewForNoData,
+  withViewForNoClusterData,
 );
 
 export default routableClusterConnect;

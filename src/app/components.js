@@ -4,11 +4,12 @@ import ClusterPage, { withClusterSidebar }
 import ClusterNavigation
   from "app/components/ClusterNavigation/ClusterNavigation";
 import Spinner from "app/components/Spinner";
-import { PageLoading, withPageLoading } from "app/components/Page/PageLoading";
+import { PageLoading, withViewForNoData }
+  from "app/components/Page/PageLoading";
 
 export {
   withClusterSidebar,
-  withPageLoading,
+  withViewForNoData,
 
   ClusterNavigation,
   ClusterPage,

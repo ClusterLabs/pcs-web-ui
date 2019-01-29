@@ -7,7 +7,7 @@ import {
   Page,
   ClusterPage,
   withClusterSidebar,
-  withPageLoading,
+  withViewForNoData,
 } from "app/components";
 
 import * as clusterPropertiesActions from "../actions";
@@ -31,12 +31,12 @@ const withClusterPropertiesDataLoad = lifecycle({
   },
 });
 
-const withViewForNoData = withPageLoading(
-  ({ dataFetch }) => !dataFetch.isSuccess,
+const withViewForNoPropertiesData = withViewForNoData(
   ({ dataFetch, clusterName, actions }) => ({
-    loadingMsg: `Loading properties for cluster: ${clusterName}`,
+    isSuccess: dataFetch.isSuccess,
     isError: dataFetch.isError,
     errorMessage: dataFetch.errorMessage,
+    loadingMessage: `Loading properties for cluster: ${clusterName}`,
     // TODO retry does not work
     retry: () => actions.syncClusterData(clusterName),
   }),
@@ -55,5 +55,5 @@ const ClusterPropertiesPage = ({ clusterProperties, clusterName }) => (
 export default compose(
   withClusterPropertiesState,
   withClusterPropertiesDataLoad,
-  withViewForNoData,
+  withViewForNoPropertiesData,
 )(ClusterPropertiesPage);
