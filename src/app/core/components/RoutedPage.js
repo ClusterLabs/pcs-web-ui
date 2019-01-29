@@ -12,7 +12,8 @@ import ClusterResourceList
   from "app/scenes/cluster-resource-list/components/ClusterResourceListPage";
 import ClusterStonithList
   from "app/scenes/cluster-stonith-list/components/ClusterStonithListPage";
-import ClusterProperties from "app/scenes/cluster-properties/components/Page";
+import ClusterProperties
+  from "app/scenes/cluster-properties/components/ClusterPropertiesPage";
 
 const addClusterName = withProps(
   ({ match }) => ({ clusterName: match.params.clusterName }),
