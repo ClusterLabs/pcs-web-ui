@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 
-import withDataLoadOnMount from "app/services/data-load/hoc";
+import withDataSyncStartOnMount from "app/services/data-load/hoc";
 import { Page, withViewForNoData } from "app/components";
 
 /* eslint-disable no-shadow */
@@ -22,7 +22,7 @@ const withDashboardState = connect(
   { fetchDashboardData },
 );
 
-const withDashboardDataLoad = withDataLoadOnMount(() => ({
+const withDashboardDataLoad = withDataSyncStartOnMount(() => ({
   reloadDashboard: {
     // Pure actions (without dispatch binding) here. Start/Stop should be
     // plain objects because they are used in saga.

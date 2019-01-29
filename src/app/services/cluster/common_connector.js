@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { compose } from "recompose";
 
-import withDataLoadOnMount from "app/services/data-load/hoc";
+import withDataSyncStartOnMount from "app/services/data-load/hoc";
 import { withViewForNoData, withClusterSidebar } from "app/components";
 
 /* eslint-disable no-shadow */
@@ -16,7 +16,7 @@ const withClusterState = connect(
   { syncClusterData },
 );
 
-const withDataFetch = withDataLoadOnMount(({ clusterName }) => ({
+const withDataFetch = withDataSyncStartOnMount(({ clusterName }) => ({
   reloadCluster: {
     specificator: clusterName,
     // Pure actions (without dispatch binding) here. Start/Stop should be

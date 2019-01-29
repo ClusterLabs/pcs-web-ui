@@ -3,7 +3,7 @@ import { compose, lifecycle } from "recompose";
 
 import { setUpDataReading } from "app/services/data-load/actions";
 
-const withDataLoadOnMount = getDataReadingSetup => compose(
+const withDataSyncStartOnMount = getDataReadingSetup => compose(
   connect(null, { setUpDataReading }),
   lifecycle({
     componentDidMount() {
@@ -12,4 +12,4 @@ const withDataLoadOnMount = getDataReadingSetup => compose(
   }),
 );
 
-export default withDataLoadOnMount;
+export default withDataSyncStartOnMount;
