@@ -2,8 +2,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 
-import { loadDataOnMount } from "app/services/data-load/hoc";
-import * as rawDataLoadActions from "app/services/data-load/actions";
+import withDataLoadOnMount from "app/services/data-load/hoc";
 import { withViewForNoData, withClusterSidebar } from "app/components";
 
 import * as clusterActions from "./actions";
@@ -17,26 +16,27 @@ const withClusterState = connect(
   }),
   dispatch => ({
     actions: bindActionCreators(clusterActions, dispatch),
-    dataLoadActions: bindActionCreators(rawDataLoadActions, dispatch),
   }),
 );
 
-const withDataFetch = loadDataOnMount(({ clusterName }) => ({
+const withDataFetch = withDataLoadOnMount(({ clusterName }) => ({
   reloadCluster: {
     specificator: clusterName,
+    // Pure actions (without dispatch binding) here. Start/Stop should be
+    // plain objects because they are used in saga.
     start: clusterActions.syncClusterData(clusterName),
     stop: clusterActions.syncClusterDataStop(),
   },
 }));
 
 const withViewForNoClusterData = withViewForNoData(
-  ({ dataFetch, clusterName }) => ({
+  ({ dataFetch, clusterName, actions }) => ({
     isSuccess: dataFetch.isSuccess,
     loadingMessage: `Loading data for cluster: ${clusterName}`,
     isError: dataFetch.isError,
     errorMessage: dataFetch.errorMessage,
     // TODO retry does not work
-    retry: () => clusterActions.syncClusterData(clusterName),
+    retry: () => actions.syncClusterData(clusterName),
   }),
 );
 

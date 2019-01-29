@@ -3,8 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { compose } from "recompose";
 
-import * as rawDataLoadActions from "app/services/data-load/actions";
-import { loadDataOnMount } from "app/services/data-load/hoc";
+import withDataLoadOnMount from "app/services/data-load/hoc";
 import { Page, withViewForNoData } from "app/components";
 
 import * as dashboardActions from "../actions";
@@ -18,12 +17,13 @@ const withDashboardState = connect(
   }),
   dispatch => ({
     actions: bindActionCreators(dashboardActions, dispatch),
-    dataLoadActions: bindActionCreators(rawDataLoadActions, dispatch),
   }),
 );
 
-const withDashboardDataLoad = loadDataOnMount(() => ({
+const withDashboardDataLoad = withDataLoadOnMount(() => ({
   reloadDashboard: {
+    // Pure actions (without dispatch binding) here. Start/Stop should be
+    // plain objects because they are used in saga.
     start: dashboardActions.syncDashboardData(),
     stop: dashboardActions.syncDashboardDataStop(),
   },
