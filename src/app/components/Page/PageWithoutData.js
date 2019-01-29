@@ -3,7 +3,7 @@ import { Button } from "@patternfly/react-core";
 
 import { Page, Spinner } from "app/components";
 
-export const PageLoading = ({
+const PageWithoutData = ({
   loadingMessage,
   isError,
   errorMessage,
@@ -28,25 +28,16 @@ export const PageLoading = ({
   </Page>
 );
 
-export const withViewForNoData = (
-  (getDataFetchProps, container = (x => x)) => BasePageComponent => (props) => {
-    const {
-      isSuccess,
-      isError,
-      loadingMessage,
-      errorMessage,
-      retry,
-    } = getDataFetchProps(props);
+const withViewForNoData = (
+  getDataFetchProps => BasePageComponent => (props) => {
+    const { isSuccess, ...noDataProps } = getDataFetchProps(props);
 
     if (isSuccess) {
-      return React.createFactory(BasePageComponent)(props);
+      return React.createElement(BasePageComponent, props);
     }
 
-    return React.createFactory(container(PageLoading))({
-      loadingMessage,
-      isError,
-      errorMessage,
-      retry,
-    });
+    return React.createElement(PageWithoutData, { ...props, ...noDataProps });
   }
 );
+
+export default withViewForNoData;

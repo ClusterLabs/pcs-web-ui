@@ -5,7 +5,6 @@ import { compose, lifecycle } from "recompose";
 
 import {
   Page,
-  ClusterPage,
   withClusterSidebar,
   withViewForNoData,
 } from "app/components";
@@ -40,20 +39,20 @@ const withViewForNoPropertiesData = withViewForNoData(
     // TODO retry does not work
     retry: () => actions.syncClusterData(clusterName),
   }),
-  withClusterSidebar,
 );
 
-const ClusterPropertiesPage = ({ clusterProperties, clusterName }) => (
-  <ClusterPage clusterName={clusterName}>
+const ClusterPropertiesPage = ({ clusterProperties, sidebarNavigation }) => (
+  <Page sidebarNavigation={sidebarNavigation}>
     <Page.Section>
       <Page.Title size="xl">Cluster properties</Page.Title>
       <Properties properties={clusterProperties} />
     </Page.Section>
-  </ClusterPage>
+  </Page>
 );
 
 export default compose(
   withClusterPropertiesState,
   withClusterPropertiesDataLoad,
+  withClusterSidebar,
   withViewForNoPropertiesData,
 )(ClusterPropertiesPage);

@@ -38,12 +38,12 @@ const withViewForNoClusterData = withViewForNoData(
     // TODO retry does not work
     retry: () => clusterActions.syncClusterData(clusterName),
   }),
-  withClusterSidebar,
 );
 
 const routableClusterConnect = compose(
   withClusterState,
   withDataFetch,
+  withClusterSidebar,
   withViewForNoClusterData,
 );
 

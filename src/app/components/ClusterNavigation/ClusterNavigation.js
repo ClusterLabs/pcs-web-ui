@@ -1,8 +1,6 @@
 import React from "react";
-import {
-  Nav,
-  NavList,
-} from "@patternfly/react-core";
+import { withProps } from "recompose";
+import { Nav, NavList } from "@patternfly/react-core";
 
 import ClusterNavigationItem from "./ClusterNavigationItem";
 
@@ -33,4 +31,9 @@ const ClusterNavigation = ({ clusterName }) => (
   </Nav>
 );
 
-export default ClusterNavigation;
+
+const withClusterSidebar = withProps(({ clusterName }) => ({
+  sidebarNavigation: <ClusterNavigation clusterName={clusterName} />,
+}));
+
+export default withClusterSidebar;

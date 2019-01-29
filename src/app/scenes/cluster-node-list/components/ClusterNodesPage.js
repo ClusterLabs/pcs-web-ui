@@ -1,18 +1,18 @@
 import React from "react";
 
 import routableClusterConnect from "app/services/cluster/common_connector";
-import { Page, ClusterPage } from "app/components";
+import { Page } from "app/components";
 
 import ClusterNodeList from "./ClusterNodeList";
 
-export const ClusterNodesPage = ({ cluster }) => (
-  <ClusterPage clusterName={cluster.name}>
+export const ClusterNodesPage = ({ cluster, sidebarNavigation }) => (
+  <Page sidebarNavigation={sidebarNavigation}>
     <Page.Section>
       <ClusterNodeList
         nodeList={cluster.nodeList}
       />
     </Page.Section>
-  </ClusterPage>
+  </Page>
 );
 
 export default routableClusterConnect(ClusterNodesPage);
