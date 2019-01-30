@@ -1,8 +1,16 @@
-import { compose, withStateHandlers } from "recompose";
+import React, { createElement } from "react";
+import {
+  Page as PfPage,
+  BackgroundImage,
+  PageSidebar,
+  PageSection,
+  Title,
+} from "@patternfly/react-core";
+import { withStateHandlers } from "recompose";
 import { global_breakpoint_md as breakpointMd } from "@patternfly/react-tokens";
-import { PageSection, Title } from "@patternfly/react-core";
 
-import PageView from "./PageView";
+import PageHeader from "./PageHeader";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
 const withNavigationToggle = withStateHandlers(
   {
@@ -14,13 +22,52 @@ const withNavigationToggle = withStateHandlers(
     ),
   },
   {
-    onNavToggle: ({ isNavOpen }) => () => ({
-      isNavOpen: !isNavOpen,
-    }),
+    onNavToggle: ({ isNavOpen }) => () => ({ isNavOpen: !isNavOpen }),
   },
 );
 
-const Page = compose(withNavigationToggle)(PageView);
+const SimplePage = ({ children }) => (
+  <PfPage header={createElement(PageHeader)}>
+    {children}
+  </PfPage>
+);
+
+const PageWithSidebarView = ({
+  children,
+  onNavToggle,
+  isNavOpen,
+  sidebarNavigation,
+}) => (
+  <PfPage
+    header={createElement(PageHeader, { showNavToggle: true, onNavToggle })}
+    sidebar={createElement(PageSidebar, { nav: sidebarNavigation, isNavOpen })}
+  >
+    {children}
+  </PfPage>
+);
+
+const PageWithSidebar = withNavigationToggle(PageWithSidebarView);
+
+const Page = ({ children, sidebarNavigation }) => (
+  <React.Fragment>
+    <BackgroundImage src={{}} />
+    {
+      sidebarNavigation
+        ? (
+          <PageWithSidebar sidebarNavigation={sidebarNavigation}>
+            <Breadcrumbs />
+            {children}
+          </PageWithSidebar>
+        )
+        : (
+          <SimplePage>
+            <Breadcrumbs />
+            {children}
+          </SimplePage>
+        )
+    }
+  </React.Fragment>
+);
 
 Page.Section = PageSection;
 Page.Title = Title;
