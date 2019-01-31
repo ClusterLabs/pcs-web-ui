@@ -10,8 +10,8 @@ import * as selectors from "./reducer";
 
 const withClusterState = connect(
   state => ({
-    cluster: selectors.cluster(state),
-    dataFetch: selectors.clusterDataFetch(state),
+    cluster: selectors.getCluster(state),
+    dataFetch: selectors.getClusterDataFetch(state),
   }),
   { syncClusterData },
 );

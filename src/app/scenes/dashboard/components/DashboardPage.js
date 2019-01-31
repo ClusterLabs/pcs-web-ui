@@ -16,8 +16,8 @@ import Dashboard from "./Dashboard";
 
 const withDashboardState = connect(
   state => ({
-    dashboard: selectors.dashboard(state),
-    dataFetch: selectors.dataFetch(state),
+    dashboard: selectors.getDashboard(state),
+    dataFetch: selectors.getDashboardDataFetch(state),
   }),
   { fetchDashboardData },
 );

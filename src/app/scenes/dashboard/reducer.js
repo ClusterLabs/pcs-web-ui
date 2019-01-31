@@ -1,36 +1,31 @@
+import { combineReducers } from "redux";
+
+import { createDataFetchReducer, createDataFetchSelector }
+  from "app/services/data-load/initial-fetch-reducer";
+
 import * as types from "./constants";
 
-const defaultState = {
-  fetch: {
-    result: undefined,
-  },
-  dashboardData: {
-    clusterList: [],
-  },
+const dashboardDataDefaultState = {
+  clusterList: [],
 };
 
-export default (state = defaultState, action) => {
+const dashboardData = (state = dashboardDataDefaultState, action) => {
   switch (action.type) {
-    case types.FETCH_DASHBOARD_DATA: return {
-      ...state,
-      fetch: { result: undefined },
-    };
-    case types.FETCH_DASHBOARD_DATA_SUCCESS: return {
-      fetch: { result: true },
-      dashboardData: action.payload,
-    };
-    case types.FETCH_DASHBOARD_DATA_FAILED:
-      return {
-        ...state,
-        fetch: { result: action.payload },
-      };
+    case types.FETCH_DASHBOARD_DATA_SUCCESS: return action.payload;
     default: return state;
   }
 };
 
-export const dashboard = state => state.dashboard.dashboardData;
-export const dataFetch = state => ({
-  isSuccess: state.dashboard.fetch.result !== undefined,
-  isError: typeof state.dashboard.fetch.result === "object",
-  errorMessage: state.dashboard.fetch.result,
+export default combineReducers({
+  dashboardData,
+  dataFetch: createDataFetchReducer({
+    START: types.SYNC_DASHBOARD_DATA,
+    SUCCESS: types.FETCH_DASHBOARD_DATA_SUCCESS,
+    FAIL: types.FETCH_DASHBOARD_DATA_FAILED,
+  }),
 });
+
+export const getDashboard = state => state.dashboard.dashboardData;
+export const getDashboardDataFetch = createDataFetchSelector(
+  state => state.dashboard.dataFetch,
+);

@@ -1,66 +1,36 @@
+import { combineReducers } from "redux";
+
+import { createDataFetchReducer, createDataFetchSelector }
+  from "app/services/data-load/initial-fetch-reducer";
+
 import * as types from "./constants";
 
-const defaultState = {
-  ui: {
-    initialLoading: {
-      status: "none", // none, process, error
-      name: "",
-      errorMsg: "",
-    },
-  },
-  data: {
-    name: "",
-    nodeList: [],
-    resourceList: [],
-    stonithList: [],
-  },
+const clusterStatusDefaultState = {
+  name: "",
+  nodeList: [],
+  resourceList: [],
+  stonithList: [],
 };
 
-export default (state = defaultState, action) => {
+const clusterStatus = (state = clusterStatusDefaultState, action) => {
   switch (action.type) {
-    case types.SYNC_CLUSTER_DATA: return {
-      ...defaultState,
-      ui: {
-        initialLoading: {
-          status: "process",
-          name: action.payload.clusterName,
-          errorMsg: "",
-        },
-      },
-    };
-    case types.FETCH_CLUSTER_DATA_SUCCESS: return {
-      ...state,
-      data: action.payload,
-      ui: {
-        initialLoading: {
-          status: "none",
-          name: action.payload.name,
-          errorMsg: "",
-        },
-      },
-    };
-    case types.FETCH_CLUSTER_DATA_FAILED: return (
-      state.ui.initialLoading.status === "process"
-        ? {
-          ...state,
-          ui: {
-            initialLoading: {
-              status: "error",
-              name: state.ui.initialLoading.name,
-              errorMsg: action.payload,
-            },
-          },
-        }
-        : state
-    );
+    case types.FETCH_CLUSTER_DATA_SUCCESS: return action.payload;
     default: return state;
   }
 };
 
-export const clusterDataFetch = state => ({
-  isSuccess: state.cluster.ui.initialLoading.status === "none",
-  isError: state.cluster.ui.initialLoading.status === "error",
-  errorMessage: state.cluster.ui.initialLoading.errorMsg.message,
+export default combineReducers({
+  clusterStatus,
+  dataFetch: createDataFetchReducer({
+    START: types.SYNC_CLUSTER_DATA,
+    SUCCESS: types.FETCH_CLUSTER_DATA_SUCCESS,
+    FAIL: types.FETCH_CLUSTER_DATA_SUCCESS,
+  }),
 });
 
-export const cluster = state => state.cluster.data;
+
+export const getClusterDataFetch = createDataFetchSelector(
+  state => state.cluster.dataFetch,
+);
+
+export const getCluster = state => state.cluster.clusterStatus;

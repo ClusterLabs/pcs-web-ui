@@ -15,8 +15,8 @@ import Properties from "./Properties";
 
 const withClusterPropertiesState = connect(
   state => ({
-    clusterProperties: selectors.clusterProperties(state),
-    dataFetch: selectors.dataFetch(state),
+    clusterProperties: selectors.getClusterProperties(state),
+    dataFetch: selectors.getClusterPropertiesDataFetch(state),
   }),
   dispatch => ({
     actions: bindActionCreators(clusterPropertiesActions, dispatch),
