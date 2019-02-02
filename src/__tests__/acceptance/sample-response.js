@@ -12,18 +12,18 @@ const responses = {
   clusters_overview: {
     cluster_list: [
       {
-        cluster_name: "first"
+        cluster_name: "first",
       },
       {
-        cluster_name: "second"
+        cluster_name: "second",
       },
       {
-        cluster_name: "third"
+        cluster_name: "third",
       },
       {
-        cluster_name: "last"
-      }
-    ]
+        cluster_name: "last",
+      },
+    ],
   },
   cluster_status_first: {
     cluster_name: "first",
@@ -40,15 +40,15 @@ const responses = {
           id: "location-R1-bat28-10",
           node: "bat28",
           rsc: "R1",
-          score: "10"
-        }
-      ]
+          score: "10",
+        },
+      ],
     },
     cluster_settings: {
       "have-watchdog": "false",
       "dc-version": "1.1.18-2.fc28.1-2b07d5c5a9",
       "cluster-infrastructure": "corosync",
-      "cluster-name": "zoo28"
+      "cluster-name": "zoo28",
     },
     need_ring1_address: false,
     is_cman_with_udpu_transport: false,
@@ -56,7 +56,7 @@ const responses = {
       role: {},
       group: {},
       user: {},
-      target: {}
+      target: {},
     },
     username: "hacluster",
     fence_levels: {},
@@ -69,43 +69,40 @@ const responses = {
     pacemaker_online: ["ape28"],
     pacemaker_offline: ["bat28"],
     pacemaker_standby: [],
-    status_version: "2"
-  }
+    status_version: "2",
+  },
 };
 
 function getPollyServer(page, testName) {
-  const polly = new Polly("datatest", {
+  const polly = new Polly(testName, {
     adapters: ["puppeteer"],
     adapterOptions: {
-      puppeteer: { page }
+      puppeteer: { page },
     },
     persister: ["fs"],
     persisterOptions: {
       fs: {
-        recordingsDir: path.join(__dirname, "recordings")
-      }
-    }
+        recordingsDir: path.join(__dirname, "recordings"),
+      },
+    },
   });
 
-  return {
-    server: polly.server,
-    polly
-  };
+  return { server: polly.server, polly };
 }
 
-describe("sample test of the UI - response", function() {
+describe("sample test of the UI - response", () => {
   let page;
 
-  before(async function() {
-    page = await browser.newPage();
+  before(async () => {
+    page = await global.browser.newPage();
     await page.setRequestInterception(true);
   });
 
-  after(async function() {
+  after(async () => {
     await page.close();
   });
 
-  it("should have the correct page title", async function() {
+  it("should have the correct page title", async () => {
     const { server, polly } = getPollyServer(page, "checkTitle");
 
     server.host("http://localhost:3000", () => {
@@ -118,26 +115,25 @@ describe("sample test of the UI - response", function() {
 
     expect(await page.title()).to.eql("HA Cluster UI");
 
-    const CLUSTER_SELECTOR = "table tr td a";
+    const CLUSTER_SELECTOR = "[data-role='cluster-list'] [data-role-key]";
 
     await page.waitFor(CLUSTER_SELECTOR);
 
-    const hrefTitles = await page.$$eval(CLUSTER_SELECTOR, el =>
-      el.map(e => e.textContent)
+    const hrefTitles = await page.$$eval(
+      CLUSTER_SELECTOR,
+      el => el.map(e => e.attributes["data-role-key"].value),
     );
 
     expect(hrefTitles).to.have.lengthOf(4);
     expect(hrefTitles[0]).to.equal("first");
+    expect(hrefTitles[1]).to.equal("second");
     expect(hrefTitles[2]).to.equal("third");
 
     //    await polly.flush();
     await polly.stop();
   });
 
-  it("should redirect to the selected cluster", async function() {
-    const CLUSTER_SELECTOR = "table tr td";
-    const TITLE_SELECTOR = "h1";
-
+  it("should redirect to the selected cluster", async () => {
     const { polly, server } = getPollyServer(page, "checkTitle");
 
     server.host("http://localhost:3000", () => {
@@ -150,16 +146,13 @@ describe("sample test of the UI - response", function() {
       });
     });
 
+    const CLUSTER_SELECTOR = "[data-role='cluster-list'] [data-role-key]";
     await page.goto("http://localhost:3000");
     await page.waitFor(CLUSTER_SELECTOR);
-    await page.click(CLUSTER_SELECTOR + ":nth-child(1) a");
-    await page.waitFor(TITLE_SELECTOR);
-    const title = await page.$eval(TITLE_SELECTOR, el => el.textContent);
-
-    expect(title).to.equal("Cluster: first");
+    await page.click(`${CLUSTER_SELECTOR}:nth-child(1) a`);
     expect(page.url()).to.equal("http://localhost:3000/ui/cluster/first");
 
-    //    await polly.flush();
+    await polly.flush();
     await polly.stop();
   });
 });
