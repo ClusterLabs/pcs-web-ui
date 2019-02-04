@@ -20,7 +20,7 @@ export const createDataFetchReducer = types => (state = initState, action) => {
       errorMsg: "",
     };
     case types.FAIL: return (
-      state.ui.initialLoading.status === fetchStatus.IN_PROGRESS
+      state.status === fetchStatus.IN_PROGRESS
         ? {
           status: fetchStatus.ERROR,
           errorMsg: action.payload,
