@@ -5,7 +5,9 @@
   "dependencies": {
     "@patternfly/patternfly-next": "^1.0.101",
     "@patternfly/react-core": "1.43.6",
-    "@patternfly/react-tokens": "1.9.1",
+    "@patternfly/react-icons": "^2.10.5",
+    "@patternfly/react-styles": "^2.3.0",
+    "@patternfly/react-tokens": "^1.9.1",
     "connected-react-router": "^6.0.0",
     "history": "^4.7.2",
     "react": "^16.6.3",
@@ -27,7 +29,7 @@
     "testa": "react-scripts test --env=jsdom --runInBand",
     "tests": "NODE_PATH=src/ mocha src/app/test/bootstrap.js --no-timeouts --recursive src/app/scenes/**/test/*.js",
     "eject": "react-scripts eject",
-    "server": "NODE_PATH=src/ nodemon --watch dev/ dev/backend.js"
+    "server": "NODE_PATH=src/ nodemon --watch dev/ --watch src/app dev/backend.js"
   },
   "homepage": "/ui/",
   "proxy": "http://localhost:5000",
@@ -62,6 +64,8 @@
     "not op_mini all"
   ],
   "standard": {
-    "env": [ "mocha" ]
+    "env": [
+      "mocha"
+    ]
   }
 }

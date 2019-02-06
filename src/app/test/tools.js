@@ -15,7 +15,7 @@ const interceptByScenario = (server, scenario) => {
   });
 };
 
-function getPollyServer(page, testName) {
+const getPollyServer = (page, testName = "test") => {
   const polly = new Polly(testName, {
     adapters: ["puppeteer"],
     adapterOptions: {
@@ -30,9 +30,14 @@ function getPollyServer(page, testName) {
   });
 
   return { server: polly.server, polly };
-}
+};
+
+const url = (urlPath = "/") => `http://localhost:3000/ui${urlPath}`;
+const link = pathRest => `/ui${pathRest}`;
 
 module.exports = {
   getPollyServer,
   interceptByScenario,
+  url,
+  link,
 };

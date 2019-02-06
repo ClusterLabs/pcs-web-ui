@@ -1,11 +1,25 @@
 const { expect } = require("chai");
 
-const { getPollyServer, interceptByScenario } = require("app/test/tools");
+const {
+  getPollyServer,
+  interceptByScenario,
+  url,
+  link,
+} = require("app/test/tools");
 
-const { display, goToCluster } = require("./backend-scenarios.js");
+const { displayMulti, goToCluster } = require("./backend-scenarios.js");
 
 describe("Dashboard scene", () => {
   let page;
+  let polly;
+  let server;
+  const CLUSTERS_SELECTOR = "[data-role='cluster-list'] [data-role='cluster']";
+
+  const renderClustersFromScenario = async (scenario) => {
+    interceptByScenario(server, scenario);
+    await page.goto(url());
+    await page.waitFor(CLUSTERS_SELECTOR);
+  };
 
   before(async () => {
     page = await global.browser.newPage();
@@ -16,40 +30,75 @@ describe("Dashboard scene", () => {
     await page.close();
   });
 
-  it("should render correct information", async () => {
-    const { server, polly } = getPollyServer(page, "checkTitle");
+  beforeEach(() => {
+    ({ server, polly } = getPollyServer(page));
+  });
 
-    interceptByScenario(server, display);
-
-    await page.goto("http://localhost:3000");
-    expect(await page.title()).to.eql("HA Cluster UI");
-
-    const CLUSTER_SELECTOR = "[data-role='cluster-list'] [data-role-key]";
-    await page.waitFor(CLUSTER_SELECTOR);
-    const hrefTitles = await page.$$eval(
-      CLUSTER_SELECTOR,
-      el => el.map(e => e.attributes["data-role-key"].value),
-    );
-    expect(hrefTitles).to.have.lengthOf(2);
-    expect(hrefTitles[0]).to.equal("first");
-    expect(hrefTitles[1]).to.equal("second");
-
+  afterEach(async () => {
     await polly.flush();
     await polly.stop();
   });
 
+  it("should render multiple cluster information", async () => {
+    await renderClustersFromScenario(displayMulti);
+
+    const clusterInfoList = await page.$$eval(
+      CLUSTERS_SELECTOR,
+      clusterElements => clusterElements.map(e => ({
+        name: e.querySelector("[data-role='detail-link']").textContent,
+        link: e.querySelector("[data-role='detail-link']")
+          .attributes.href.value
+        ,
+        status: e.querySelector("[data-role='status']")
+          .attributes["data-role-key"].value
+        ,
+        nodes: {
+          total: e.querySelector("[data-role='nodes'] [data-role='total']")
+            .textContent
+          ,
+          link: e.querySelector("[data-role='nodes'] [data-role='link']")
+            .attributes.href.value
+          ,
+        },
+        resources: {
+          total: e
+            .querySelector("[data-role='resources'] [data-role='total']")
+            .textContent
+          ,
+        },
+      })),
+    );
+    expect(clusterInfoList).to.eql([
+      {
+        name: "cluster-1",
+        link: link("/cluster/cluster-1"),
+        status: "ok",
+        nodes: {
+          total: "2",
+          link: link("/cluster/cluster-1/nodes"),
+        },
+        resources: {
+          total: "1",
+        },
+      },
+      {
+        name: "cluster-2",
+        link: link("/cluster/cluster-2"),
+        status: "warning",
+        nodes: {
+          total: "3",
+          link: link("/cluster/cluster-2/nodes"),
+        },
+        resources: {
+          total: "1",
+        },
+      },
+    ]);
+  });
+
   it("should allow to go to cluster detail", async () => {
-    const { polly, server } = getPollyServer(page, "checkTitle");
-
-    interceptByScenario(server, goToCluster);
-
-    const CLUSTER_SELECTOR = "[data-role='cluster-list'] [data-role-key]";
-    await page.goto("http://localhost:3000");
-    await page.waitFor(CLUSTER_SELECTOR);
-    await page.click(`${CLUSTER_SELECTOR}:nth-child(1) a`);
-    expect(page.url()).to.equal("http://localhost:3000/ui/cluster/first");
-
-    await polly.flush();
-    await polly.stop();
+    await renderClustersFromScenario(goToCluster);
+    await page.click(`${CLUSTERS_SELECTOR}:nth-child(1) a`);
+    expect(page.url()).to.equal(url("/cluster/cluster-1"));
   });
 });

@@ -39,6 +39,8 @@ module.exports = {
     // https://eslint.org/docs/rules/semi-style
     'semi-style': 'off',
 
+    "comma-style": [2, "first", {exceptions: {ArrayExpression: true, ObjectExpression: true} }],
+
     // disallow use of the continue statement
     // https://eslint.org/docs/rules/no-continue
     'no-continue': 'off',

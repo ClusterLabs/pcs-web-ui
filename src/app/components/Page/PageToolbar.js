@@ -53,7 +53,7 @@ const PageToolbarView = (
           isOpen={isDropdownOpen}
           toggle={(
             <DropdownToggle onToggle={onDropdownToggle}>
-              Hacluster
+              hacluster
             </DropdownToggle>
           )}
           dropdownItems={[
