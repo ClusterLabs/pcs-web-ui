@@ -6,6 +6,8 @@
 
 # testing
 /coverage
+/src/app/scenes/*/test/recordings/
+/src/app/test/recordings/
 
 # production
 /build
