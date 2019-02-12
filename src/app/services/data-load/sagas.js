@@ -1,7 +1,6 @@
-import { delay } from "redux-saga";
 import {
   all,
-  call,
+  delay,
   cancel,
   cancelled,
   fork,
@@ -15,7 +14,7 @@ const SYNC_DELAY = 5 * 1000;// ms
 
 export function* timer(action) {
   try {
-    yield call(delay, SYNC_DELAY);
+    yield delay(SYNC_DELAY);
     yield put(action);
   } finally {
     if (yield cancelled()) {
