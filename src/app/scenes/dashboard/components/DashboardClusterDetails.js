@@ -16,6 +16,10 @@ const DashboardClusterDetails = ({ cluster }) => (
       resourceList={cluster.resourceList}
     />
 
+    <DashboardClusterDetailResources
+      resourceList={cluster.stonithList}
+      isStonith
+    />
 
   </React.Fragment>
 );

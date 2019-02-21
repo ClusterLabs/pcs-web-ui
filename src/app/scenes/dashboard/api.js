@@ -38,7 +38,7 @@ export const transformClustersOverview = apiData => ({
       .filter(stonith => stonith.stonith)
       .map(stonith => ({
         id: stonith.id,
-        status: stonith.status,
+        status: mapResourceStatus(stonith.status),
       }))
     ,
   })),

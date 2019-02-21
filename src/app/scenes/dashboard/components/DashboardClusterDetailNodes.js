@@ -1,50 +1,21 @@
 import React from "react";
-import { StyleSheet, css } from "@patternfly/react-styles";
-import {
-  global_warning_color_200 as warningColor,
-  global_success_color_200 as successColor,
-} from "@patternfly/react-tokens";
 
 import { NODE } from "app/services/cluster/status-constants";
 import { mapConstants } from "app/utils";
+import { StatusSign } from "app/components";
 
 import DashboardClusterDetailItems from "./DashboardClusterDetailItems";
 
-const styles = StyleSheet.create({
-  success: {
-    color: successColor.var,
-  },
-  warning: {
-    color: warningColor.var,
-  },
-  unknown: {
-    color: warningColor.var,
-  },
-  card: {
-    "margin-top": "1rem!important",
-  },
-});
-
 const { STATUS, QUORUM } = NODE;
 
-const getStatusText = mapConstants("unknown", {
-  [STATUS.ONLINE]: "online",
-  [STATUS.OFFLINE]: "offline",
+const getStatusSign = mapConstants(StatusSign.Unknown, {
+  [STATUS.ONLINE]: StatusSign.Online,
+  [STATUS.OFFLINE]: StatusSign.Offline,
 });
 
-const getStatusClass = mapConstants(styles.unknown, {
-  [STATUS.ONLINE]: styles.success,
-  [STATUS.OFFLINE]: styles.warning,
-});
-
-const getQuorumText = mapConstants("unknown", {
-  [QUORUM.YES]: "yes",
-  [QUORUM.NO]: "no",
-});
-
-const getQuorumClass = mapConstants(styles.unknown, {
-  [QUORUM.YES]: styles.success,
-  [QUORUM.NO]: styles.warning,
+const getQuorumSign = mapConstants(StatusSign.Unknown, {
+  [QUORUM.YES]: StatusSign.Success,
+  [QUORUM.NO]: StatusSign.Error,
 });
 
 const compareItems = (a, b) => {
@@ -79,14 +50,8 @@ const DashboardClusterDetailNodes = ({ nodeList }) => (
     compareItems={compareItems}
     itemToRow={node => [
       node.name,
-      {
-        title: getStatusText(node.status),
-        props: { className: css(getStatusClass(node.status)) },
-      },
-      {
-        title: getQuorumText(node.quorum),
-        props: { className: css(getQuorumClass(node.quorum)) },
-      },
+      { title: React.createElement(getStatusSign(node.status)) },
+      { title: React.createElement(getQuorumSign(node.quorum)) },
     ]}
     itemType="Nodes"
     noItemMessage="No node"
