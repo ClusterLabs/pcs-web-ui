@@ -2,22 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {
   CheckCircleIcon,
-  ErrorCircleOIcon,
+  ExclamationCircleIcon,
   UnknownIcon,
-  WarningTriangleIcon,
+  ExclamationTriangleIcon,
 } from "@patternfly/react-icons";
 
-import DashboardClusterWarning from "./DashboardClusterWarning";
 
 const DashboardClusterOverview = ({ cluster }) => (
-  <React.Fragment>
-    <Link data-role="detail-link" to={`/cluster/${cluster.name}`}>
-      {cluster.name}
-    </Link>
-    <DashboardClusterWarning
-      warningList={cluster.warningList.map(warning => warning)}
-    />
-  </React.Fragment>
+  <Link
+    id={`dashboard-cluster-${cluster.name}`}
+    data-role="detail-link"
+    to={`/cluster/${cluster.name}`}
+  >
+    {cluster.name}
+  </Link>
 );
 
 DashboardClusterOverview.Icon = ({ status }) => {
@@ -30,14 +28,14 @@ DashboardClusterOverview.Icon = ({ status }) => {
       />
     );
     case "error": return (
-      <ErrorCircleOIcon
+      <ExclamationCircleIcon
         color="#c00"
         data-role="status"
         data-role-key="error"
       />
     );
     case "warning": return (
-      <WarningTriangleIcon
+      <ExclamationTriangleIcon
         color="#795600"
         data-role="status"
         data-role-key="warning"

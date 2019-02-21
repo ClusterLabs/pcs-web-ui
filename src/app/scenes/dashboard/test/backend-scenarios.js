@@ -7,6 +7,7 @@ const node = (id, diff) => deepmerge({
   id,
   name: `node-${id}`,
   status: "online",
+  quorum: true,
 }, diff || {});
 
 const resource = (id, diff) => deepmerge({
@@ -34,11 +35,11 @@ const clusterOk = cluster("cluster-1", "ok", {
 });
 
 const clusterWarn = cluster("cluster-2", "warning", {
-  node_list: [node(1), node(2), node(3, { status: "offline" })],
+  node_list: [node(1), node(2), node(3, { status: "offline", quorum: false })],
   resource_list: [resource("R1", { status: "blocked" })],
   warning_list: [
     { message: "No fencing configured in the cluster" },
-    { message: "Not authorized against node(s) node-1, node-3" },
+    { message: "Not authorized against node(s) node-3" },
   ],
 });
 

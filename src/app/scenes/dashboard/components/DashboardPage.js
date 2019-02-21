@@ -42,10 +42,10 @@ const withViewForNoDashboardData = withViewForNoData(
   }),
 );
 
-const DashboardPageView = ({ dashboard, actions }) => (
+const DashboardPageView = ({ dashboard }) => (
   <Page>
     <Page.Section>
-      <Dashboard dashboard={dashboard} actions={actions} />
+      <Dashboard dashboard={dashboard} />
     </Page.Section>
   </Page>
 );

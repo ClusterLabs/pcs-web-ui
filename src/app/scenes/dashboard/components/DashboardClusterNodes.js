@@ -2,16 +2,21 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ContainerNodeIcon } from "@patternfly/react-icons";
 
+import { NODE } from "app/services/cluster/status-constants";
+
 import DashboardClusterWarning from "./DashboardClusterWarning";
 
 const getAggregations = (nodeList) => {
-  const offline = nodeList.filter(n => n.status === "offline").length;
+  const warningList = [];
+
+  const offline = nodeList.filter(n => n.status === NODE.STATUS.OFFLINE).length;
+  if (offline > 0) {
+    warningList.push(`${offline} node${offline > 1 ? "s" : ""} offline`);
+  }
+
   return {
     total: nodeList.length,
-    warningList: offline > 0
-      ? [`${offline} node${offline > 1 ? "s" : ""} offline`]
-      : []
-    ,
+    warningList,
   };
 };
 

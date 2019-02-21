@@ -2,16 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CogIcon } from "@patternfly/react-icons";
 
+import { RESOURCE } from "app/services/cluster/status-constants";
+
 import DashboardClusterWarning from "./DashboardClusterWarning";
 
 const getAggregations = (resourceList) => {
-  const blocked = resourceList.filter(r => r.status === "blocked").length;
+  const warningList = [];
+
+  const blocked = resourceList.filter(
+    r => r.status === RESOURCE.STATUS.BLOCKED,
+  ).length;
+
+  if (blocked > 0) {
+    warningList.push(`${blocked} resource${blocked > 1 ? "s" : ""} blocked`);
+  }
+
   return {
     total: resourceList.length,
-    warningList: blocked > 0
-      ? [`${blocked} resource${blocked > 1 ? "s" : ""} blocked`]
-      : []
-    ,
+    warningList,
   };
 };
 

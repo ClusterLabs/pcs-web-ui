@@ -12,35 +12,13 @@ import { dataLoadManage } from "app/services/data-load/sagas";
 
 import * as actions from "./actions";
 import * as types from "./constants";
+import { transformClustersOverview } from "./api";
+
 
 export function* fetchDashboardData(onErrorAction) {
   try {
     const dashboardData = yield call(auth.getJson, "/clusters_overview", {
-      transform: apiData => ({
-        clusterList: apiData.cluster_list.map(cluster => ({
-          name: cluster.cluster_name,
-          status: cluster.status,
-          nodeList: cluster.node_list.map(node => ({
-            name: node.name,
-            status: node.status,
-          })),
-          warningList: cluster.warning_list.map(warning => warning.message),
-          resourceList: cluster.resource_list
-            .filter(resource => !resource.stonith)
-            .map(resource => ({
-              id: resource.id,
-              status: resource.status,
-            }))
-          ,
-          stonithList: cluster.resource_list
-            .filter(stonith => stonith.stonith)
-            .map(stonith => ({
-              id: stonith.id,
-              status: stonith.status,
-            }))
-          ,
-        })),
-      }),
+      transform: transformClustersOverview,
     });
     yield put(actions.fetchDashboardDataSuccess(dashboardData));
   } catch (error) {
