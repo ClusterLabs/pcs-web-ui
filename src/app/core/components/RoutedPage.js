@@ -15,6 +15,8 @@ import ClusterStonithList
 import ClusterProperties
   from "app/scenes/cluster-properties/components/ClusterPropertiesPage";
 
+import Scratch from "./Scratch";
+
 const addClusterName = withProps(
   ({ match }) => ({ clusterName: match.params.clusterName }),
 );
@@ -26,6 +28,11 @@ const withClusterName = component => () => React.createElement(
 const RoutedPage = ({ history }) => (
   <ConnectedRouter history={history}>
     <Switch>
+      <Route
+        exact
+        path="/scratch"
+        render={() => <Scratch />}
+      />
       <Route
         exact
         path="/"
