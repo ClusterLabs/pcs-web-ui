@@ -5,6 +5,10 @@ import {
   global_warning_color_100 as warningBorderColor,
 } from "@patternfly/react-tokens";
 
+import { ISSUE } from "app/services/cluster/status-constants";
+
+/* eslint-disable react/no-array-index-key */
+
 const styles = StyleSheet.create({
   alertTail: {
     "margin-top": "0.6em",
@@ -15,18 +19,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const DashboardClusterDetailIssues = ({ warningList }) => (
+const mapSeverityToVariant = severity => (
+  severity === ISSUE.ERROR ? "danger" : "warning"
+);
+
+
+const DashboardClusterDetailIssues = ({ issueList }) => (
   <React.Fragment>
-    {warningList.map((warning, i) => (
+    {issueList.map((issue, i) => (
       <Alert
-        variant="warning"
-        title={warning}
+        variant={mapSeverityToVariant(issue.severity)}
+        title={issue.message}
         className={
           i > 0
             ? css(styles.alert, styles.alertTail)
             : css(styles.alert)
         }
-        key={warning}
+        key={`${i}:${issue.message}`}
       />
     ))}
   </React.Fragment>

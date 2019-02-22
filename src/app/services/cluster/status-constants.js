@@ -25,3 +25,8 @@ export const STATUS = {
   ERROR: "cluster/status/error",
   UNKNOWN: "cluster/status/unknown",
 };
+
+export const ISSUE = {
+  ERROR: "cluster/issue/error",
+  WARNING: "cluster/issue/warning",
+};

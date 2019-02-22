@@ -24,6 +24,7 @@ const cluster = (name, status, diff) => deepmerge(
     status,
     node_list: [node(1), node(2)],
     warning_list: [],
+    error_list: [],
     resource_list: [],
   },
   diff || {},
@@ -34,12 +35,15 @@ const clusterOk = cluster("cluster-1", "ok", {
   resource_list: [resource("R1"), stonith("F1")],
 });
 
-const clusterWarn = cluster("cluster-2", "warning", {
+const clusterWarn = cluster("cluster-2", "error", {
   node_list: [node(1), node(2), node(3, { status: "offline", quorum: false })],
   resource_list: [resource("R1", { status: "blocked" })],
   warning_list: [
     { message: "No fencing configured in the cluster" },
     { message: "Not authorized against node(s) node-3" },
+  ],
+  error_list: [
+    { message: "Unable to connect to the cluster." },
   ],
 });
 

@@ -6,7 +6,7 @@ import DashboardClusterDetailIssues from "./DashboardClusterDetailIssues";
 
 const DashboardClusterDetails = ({ cluster }) => (
   <React.Fragment>
-    <DashboardClusterDetailIssues warningList={cluster.warningList} />
+    <DashboardClusterDetailIssues issueList={cluster.issueList} />
 
     <DashboardClusterDetailNodes
       nodeList={cluster.nodeList}

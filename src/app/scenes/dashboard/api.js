@@ -23,6 +23,11 @@ const mapResourceStatus = mapConstants(CLUSTER.RESOURCE.STATUS.UNKNOWN, {
   blocked: CLUSTER.RESOURCE.STATUS.BLOCKED,
 });
 
+const mapIssue = severity => issue => ({
+  severity,
+  message: issue.message,
+});
+
 /* eslint-disable import/prefer-default-export */
 export const transformClustersOverview = apiData => ({
   clusterList: apiData.cluster_list.map(cluster => ({
@@ -33,7 +38,9 @@ export const transformClustersOverview = apiData => ({
       status: mapNodeStatus(node.status),
       quorum: mapNodeQuorum(node.quorum),
     })),
-    warningList: cluster.warning_list.map(warning => warning.message),
+    issueList: cluster.error_list.map(mapIssue(CLUSTER.ISSUE.ERROR))
+      .concat(cluster.warning_list.map(mapIssue(CLUSTER.ISSUE.WARNING)))
+    ,
     resourceList: cluster.resource_list
       .filter(resource => !resource.stonith)
       .map(resource => ({
