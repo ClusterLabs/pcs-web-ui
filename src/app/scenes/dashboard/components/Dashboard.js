@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  DataList,
-} from "@patternfly/react-core";
+import { DataList } from "@patternfly/react-core";
 
 import DashboardCluster from "./DashboardCluster";
 

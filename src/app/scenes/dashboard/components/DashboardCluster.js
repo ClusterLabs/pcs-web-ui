@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   DataListCell,
   DataListContent,
@@ -8,12 +9,12 @@ import {
 
 import DashboardClusterNodes from "./DashboardClusterNodes";
 import DashboardClusterResources from "./DashboardClusterResources";
-import DashboardClusterOverview from "./DashboardClusterOverview";
+import DashboardClusterStatusIcon from "./DashboardClusterStatusIcon";
 import DashboardClusterStonith from "./DashboardClusterStonith";
 import DashboardClusterDetails from "./DashboardClusterDetails";
 
 export default ({ cluster }) => {
-  const [isExpanded, setExpanded] = React.useState(true);
+  const [isExpanded, setExpanded] = React.useState(false);
   return (
     <DataListItem
       data-role="cluster"
@@ -30,10 +31,16 @@ export default ({ cluster }) => {
         aria-label="Toggle details for"
       />
       <div className="pf-c-data-list__check">
-        <DashboardClusterOverview.Icon status={cluster.status} />
+        <DashboardClusterStatusIcon status={cluster.status} />
       </div>
       <DataListCell width={2}>
-        <DashboardClusterOverview cluster={cluster} />
+        <Link
+          id={`dashboard-cluster-${cluster.name}`}
+          data-role="detail-link"
+          to={`/cluster/${cluster.name}`}
+        >
+          {cluster.name}
+        </Link>
       </DataListCell>
       <DataListCell>
         <DashboardClusterNodes

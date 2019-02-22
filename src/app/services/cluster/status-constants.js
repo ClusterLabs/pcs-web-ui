@@ -1,20 +1,27 @@
 export const NODE = {
   QUORUM: {
-    YES: "node/quorum/yes",
-    NO: "node/quorum/no",
-    UNKNOWN: "node/quorum/unknown",
+    YES: "cluster/node/quorum/yes",
+    NO: "cluster/node/quorum/no",
+    UNKNOWN: "cluster/node/quorum/unknown",
   },
   STATUS: {
-    ONLINE: "node/status/online",
-    OFFLINE: "node/status/offline",
-    UNKNOWN: "node/status/unknown",
+    ONLINE: "cluster/node/status/online",
+    OFFLINE: "cluster/node/status/offline",
+    UNKNOWN: "cluster/node/status/unknown",
   },
 };
 
 export const RESOURCE = {
   STATUS: {
-    RUNNING: "resource/status/running",
-    BLOCKED: "resource/status/blocked",
-    UNKNOWN: "resource/status/unknown",
+    RUNNING: "cluster/resource/status/running",
+    BLOCKED: "cluster/resource/status/blocked",
+    UNKNOWN: "cluster/resource/status/unknown",
   },
+};
+
+export const STATUS = {
+  OK: "cluster/status/ok",
+  WARNING: "cluster/status/warning",
+  ERROR: "cluster/status/error",
+  UNKNOWN: "cluster/status/unknown",
 };

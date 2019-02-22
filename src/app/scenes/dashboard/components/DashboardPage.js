@@ -13,6 +13,7 @@ import {
 } from "../actions";
 import * as selectors from "../reducer";
 import Dashboard from "./Dashboard";
+import DashboardAggregations from "./DashboardAggregations";
 
 const withDashboardState = connect(
   state => ({
@@ -42,8 +43,12 @@ const withViewForNoDashboardData = withViewForNoData(
   }),
 );
 
+
 const DashboardPageView = ({ dashboard }) => (
   <Page>
+    <Page.Section>
+      <DashboardAggregations dashboard={dashboard} />
+    </Page.Section>
     <Page.Section>
       <Dashboard dashboard={dashboard} />
     </Page.Section>

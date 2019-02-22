@@ -4,7 +4,6 @@ import withClusterSidebar
 import Spinner from "app/components/Spinner";
 import withViewForNoData
   from "app/components/Page/PageWithoutData";
-import LabelWithIcon from "app/components/LabelWithIcon";
 import * as StatusSign from "app/components/StatusSign";
 
 export {
@@ -13,6 +12,5 @@ export {
 
   Page,
   Spinner,
-  LabelWithIcon,
   StatusSign,
 };

@@ -1,26 +1,33 @@
-import * as CLUSTER_STATUS from "app/services/cluster/status-constants";
+import * as CLUSTER from "app/services/cluster/status-constants";
 import { mapConstants } from "app/utils";
 
-const mapNodeQuorum = mapConstants(CLUSTER_STATUS.NODE.QUORUM.UNKNOWN, {
-  [true]: CLUSTER_STATUS.NODE.QUORUM.YES,
-  [false]: CLUSTER_STATUS.NODE.QUORUM.NO,
+const mapClusterStatus = mapConstants(CLUSTER.STATUS.UNKNOWN, {
+  ok: CLUSTER.STATUS.OK,
+  warning: CLUSTER.STATUS.WARNING,
+  error: CLUSTER.STATUS.ERROR,
+  UNKNOWN: CLUSTER.STATUS.UNKNOWN,
 });
 
-const mapNodeStatus = mapConstants(CLUSTER_STATUS.NODE.STATUS.UNKNOWN, {
-  online: CLUSTER_STATUS.NODE.STATUS.ONLINE,
-  offline: CLUSTER_STATUS.NODE.STATUS.OFFLINE,
+const mapNodeQuorum = mapConstants(CLUSTER.NODE.QUORUM.UNKNOWN, {
+  [true]: CLUSTER.NODE.QUORUM.YES,
+  [false]: CLUSTER.NODE.QUORUM.NO,
 });
 
-const mapResourceStatus = mapConstants(CLUSTER_STATUS.RESOURCE.STATUS.UNKNOWN, {
-  running: CLUSTER_STATUS.RESOURCE.STATUS.RUNNING,
-  blocked: CLUSTER_STATUS.RESOURCE.STATUS.BLOCKED,
+const mapNodeStatus = mapConstants(CLUSTER.NODE.STATUS.UNKNOWN, {
+  online: CLUSTER.NODE.STATUS.ONLINE,
+  offline: CLUSTER.NODE.STATUS.OFFLINE,
+});
+
+const mapResourceStatus = mapConstants(CLUSTER.RESOURCE.STATUS.UNKNOWN, {
+  running: CLUSTER.RESOURCE.STATUS.RUNNING,
+  blocked: CLUSTER.RESOURCE.STATUS.BLOCKED,
 });
 
 /* eslint-disable import/prefer-default-export */
 export const transformClustersOverview = apiData => ({
   clusterList: apiData.cluster_list.map(cluster => ({
     name: cluster.cluster_name,
-    status: cluster.status,
+    status: mapClusterStatus(cluster.status),
     nodeList: cluster.node_list.map(node => ({
       name: node.name,
       status: mapNodeStatus(node.status),
