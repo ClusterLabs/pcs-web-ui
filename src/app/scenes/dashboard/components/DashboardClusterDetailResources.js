@@ -11,6 +11,7 @@ const { STATUS } = RESOURCE;
 const getStatusSign = mapConstants(StatusSign.Unknown, {
   [STATUS.RUNNING]: StatusSign.Running,
   [STATUS.BLOCKED]: StatusSign.Blocked,
+  [STATUS.FAILED]: StatusSign.Failed,
 });
 
 const compareItems = (a, b) => {

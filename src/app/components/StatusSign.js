@@ -9,6 +9,7 @@ import {
   CheckIcon,
   QuestionIcon,
   BanIcon,
+  ErrorCircleOIcon,
   TimesIcon,
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -79,4 +80,8 @@ export const Unknown = () => (
 
 export const Blocked = () => (
   <Base icon={BanIcon} label="blocked" color={pallete.error} />
+);
+
+export const Failed = () => (
+  <Base icon={ErrorCircleOIcon} label="failed" color={pallete.error} />
 );

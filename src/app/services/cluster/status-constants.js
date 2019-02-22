@@ -15,6 +15,7 @@ export const RESOURCE = {
   STATUS: {
     RUNNING: "cluster/resource/status/running",
     BLOCKED: "cluster/resource/status/blocked",
+    FAILED: "cluster/resource/status/failed",
     UNKNOWN: "cluster/resource/status/unknown",
   },
 };

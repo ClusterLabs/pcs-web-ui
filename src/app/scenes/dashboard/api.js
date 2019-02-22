@@ -21,6 +21,7 @@ const mapNodeStatus = mapConstants(CLUSTER.NODE.STATUS.UNKNOWN, {
 const mapResourceStatus = mapConstants(CLUSTER.RESOURCE.STATUS.UNKNOWN, {
   running: CLUSTER.RESOURCE.STATUS.RUNNING,
   blocked: CLUSTER.RESOURCE.STATUS.BLOCKED,
+  failed: CLUSTER.RESOURCE.STATUS.FAILED,
 });
 
 const mapIssue = severity => issue => ({
