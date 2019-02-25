@@ -40,12 +40,13 @@ const withViewForNoDashboardData = withViewForNoData(
     errorMessage: dataFetch.errorMessage,
     // TODO retry does not work
     retry: () => fetchDashboardData,
+    breadcrumbs: false,
   }),
 );
 
 
 const DashboardPageView = ({ dashboard }) => (
-  <Page>
+  <Page breadcrumbs={false}>
     <Page.Section>
       <DashboardAggregations dashboard={dashboard} />
     </Page.Section>

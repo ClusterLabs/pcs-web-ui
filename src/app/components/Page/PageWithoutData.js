@@ -9,8 +9,9 @@ const PageWithoutData = ({
   errorMessage,
   retry,
   sidebarNavigation,
+  breadcrumbs = true,
 }) => (
-  <Page sidebarNavigation={sidebarNavigation}>
+  <Page sidebarNavigation={sidebarNavigation} breadcrumbs={breadcrumbs}>
     <Page.Section>
       {
         isError
