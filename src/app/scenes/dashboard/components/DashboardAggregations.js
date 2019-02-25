@@ -1,19 +1,27 @@
 import React from "react";
-import { Level, LevelItem } from "@patternfly/react-core";
 import { ClusterIcon } from "@patternfly/react-icons";
 
 import { StatusSign } from "app/components";
 import { STATUS } from "app/services/cluster/status-constants";
+import { StyleSheet, css } from "@patternfly/react-styles";
 
 import AggregationCard from "./DashboardAggregationCard";
 import StatusIcon from "./DashboardClusterStatusIcon";
 
+const styles = StyleSheet.create({
+  aggregation: {
+    float: "left",
+    "padding-left": "2rem",
+    "padding-right": "2rem",
+  },
+});
+
 const AggregationLevel = ({ children, ...rest }) => (
-  <LevelItem>
+  <div className={css(styles.aggregation)}>
     <AggregationCard {...rest}>
       {children}
     </AggregationCard>
-  </LevelItem>
+  </div>
 );
 
 const DashboardAggregations = ({ dashboard }) => {
@@ -21,27 +29,41 @@ const DashboardAggregations = ({ dashboard }) => {
     dashboard.clusterList.filter(cluster => cluster.status === status).length
   );
   return (
-    <Level>
-      <AggregationLevel number={dashboard.clusterList.length}>
+    <React.Fragment>
+      <AggregationLevel
+        number={dashboard.clusterList.length}
+        description="Clusters total"
+      >
         <StatusSign.Base
           icon={ClusterIcon}
-          color="black"
-          label="total clusters"
+          color="#d1d1d1"
         />
       </AggregationLevel>
-      <AggregationLevel number={clusterCount(STATUS.OK)}>
-        <StatusIcon status={STATUS.OK} label="with ok state" />
+      <AggregationLevel
+        number={clusterCount(STATUS.OK)}
+        description="Clusters with OK status"
+      >
+        <StatusIcon status={STATUS.OK} label="" />
       </AggregationLevel>
-      <AggregationLevel number={clusterCount(STATUS.WARNING)}>
-        <StatusIcon status={STATUS.WARNING} label="with warning" />
+      <AggregationLevel
+        number={clusterCount(STATUS.WARNING)}
+        description="Clusters with warnings"
+      >
+        <StatusIcon status={STATUS.WARNING} />
       </AggregationLevel>
-      <AggregationLevel number={clusterCount(STATUS.ERROR)}>
-        <StatusIcon status={STATUS.ERROR} label="with with error" />
+      <AggregationLevel
+        number={clusterCount(STATUS.ERROR)}
+        description="Clusters with errors"
+      >
+        <StatusIcon status={STATUS.ERROR} />
       </AggregationLevel>
-      <AggregationLevel number={clusterCount(STATUS.UNKNOWN)}>
-        <StatusIcon status={STATUS.UNKNOWN} label="unknown status" />
+      <AggregationLevel
+        number={clusterCount(STATUS.UNKNOWN)}
+        description="Clusters with unknown status"
+      >
+        <StatusIcon status={STATUS.UNKNOWN} />
       </AggregationLevel>
-    </Level>
+    </React.Fragment>
   );
 };
 

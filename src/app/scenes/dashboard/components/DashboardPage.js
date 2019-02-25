@@ -47,7 +47,7 @@ const withViewForNoDashboardData = withViewForNoData(
 
 const DashboardPageView = ({ dashboard }) => (
   <Page breadcrumbs={false}>
-    <Page.Section>
+    <Page.Section variant="dark">
       <DashboardAggregations dashboard={dashboard} />
     </Page.Section>
     <Page.Section>

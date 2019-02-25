@@ -1,11 +1,5 @@
 import React from "react";
 import {
-  global_danger_color_200 as dangerColor,
-  global_warning_color_200 as warningColor,
-  global_success_color_200 as successColor,
-  global_disabled_color_100 as unknownColor,
-} from "@patternfly/react-tokens";
-import {
   CheckIcon,
   QuestionIcon,
   BanIcon,
@@ -18,12 +12,7 @@ import {
 } from "@patternfly/react-icons";
 import { StyleSheet, css } from "@patternfly/react-styles";
 
-const pallete = {
-  success: successColor.var,
-  error: dangerColor.var,
-  unknown: unknownColor.var,
-  warning: warningColor.var,
-};
+import * as pallete from "app/components/pallete";
 
 const styles = StyleSheet.create({
   label: {
@@ -45,27 +34,27 @@ export const Base = ({ icon: Icon, color, label = "" }) => (
 );
 
 export const Success = ({ label = "" }) => (
-  <Base icon={CheckIcon} label={label} color={pallete.success} />
+  <Base icon={CheckIcon} label={label} color={pallete.SUCCESS} />
 );
 
 export const Error = ({ label = "" }) => (
-  <Base icon={TimesIcon} label={label} color={pallete.error} />
+  <Base icon={TimesIcon} label={label} color={pallete.ERROR} />
 );
 
 export const SuccessAggregation = ({ label = "" }) => (
-  <Base icon={CheckCircleIcon} label={label} color={pallete.success} />
+  <Base icon={CheckCircleIcon} label={label} color={pallete.SUCCESS} />
 );
 
 export const WarningAggregation = ({ label = "" }) => (
-  <Base icon={ExclamationTriangleIcon} label={label} color={pallete.warning} />
+  <Base icon={ExclamationTriangleIcon} label={label} color={pallete.WARNING} />
 );
 
 export const ErrorAggregation = ({ label = "" }) => (
-  <Base icon={ExclamationCircleIcon} label={label} color={pallete.error} />
+  <Base icon={ExclamationCircleIcon} label={label} color={pallete.ERROR} />
 );
 
 export const UnknownAggregation = ({ label = "" }) => (
-  <Base icon={QuestionCircleIcon} label={label} color={pallete.unknown} />
+  <Base icon={QuestionCircleIcon} label={label} color={pallete.UNKNOWN} />
 );
 
 export const Online = () => <Success label="online" />;
@@ -75,13 +64,13 @@ export const Offline = () => <Error label="offline" />;
 export const Running = () => <Success label="running" />;
 
 export const Unknown = () => (
-  <Base icon={QuestionIcon} label="unknown" color={pallete.unknown} />
+  <Base icon={QuestionIcon} label="unknown" color={pallete.UNKNOWN} />
 );
 
 export const Blocked = () => (
-  <Base icon={BanIcon} label="blocked" color={pallete.error} />
+  <Base icon={BanIcon} label="blocked" color={pallete.ERROR} />
 );
 
 export const Failed = () => (
-  <Base icon={ErrorCircleOIcon} label="failed" color={pallete.error} />
+  <Base icon={ErrorCircleOIcon} label="failed" color={pallete.ERROR} />
 );

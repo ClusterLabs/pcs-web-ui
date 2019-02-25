@@ -1,29 +1,28 @@
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-} from "@patternfly/react-core";
 import { StyleSheet, css } from "@patternfly/react-styles";
+import { Tooltip } from "@patternfly/react-core";
+
+import * as pallete from "app/components/pallete";
 
 const styles = StyleSheet.create({
+  number: {
+    "padding-left": "0.5rem",
+  },
   aggregationBody: {
     "text-align": "center",
     "font-size": "130%",
     "font-weight": "bold",
+    color: pallete.DARKEN_WHITE,
   },
 });
 
-
-const DashboardAggregationCard = ({ number, children }) => (
-  <Card>
-    <CardHeader>
+const DashboardAggregationCard = ({ number, children, description }) => (
+  <Tooltip content={description}>
+    <div className={css(styles.aggregationBody)}>
       {children}
-    </CardHeader>
-    <CardBody className={css(styles.aggregationBody)}>
       <span className={css(styles.number)}>{number}</span>
-    </CardBody>
-  </Card>
+    </div>
+  </Tooltip>
 );
 
 export default DashboardAggregationCard;
