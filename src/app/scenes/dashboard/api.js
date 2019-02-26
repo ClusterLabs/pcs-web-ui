@@ -29,6 +29,11 @@ const mapIssue = severity => issue => ({
   message: issue.message,
 });
 
+const transformIssues = element => [
+  ...element.error_list.map(mapIssue(CLUSTER.ISSUE.ERROR)),
+  ...element.warning_list.map(mapIssue(CLUSTER.ISSUE.WARNING)),
+];
+
 /* eslint-disable import/prefer-default-export */
 export const transformClustersOverview = apiData => ({
   clusterList: apiData.cluster_list.map(cluster => ({
@@ -38,15 +43,15 @@ export const transformClustersOverview = apiData => ({
       name: node.name,
       status: mapNodeStatus(node.status),
       quorum: mapNodeQuorum(node.quorum),
+      issueList: transformIssues(node),
     })),
-    issueList: cluster.error_list.map(mapIssue(CLUSTER.ISSUE.ERROR))
-      .concat(cluster.warning_list.map(mapIssue(CLUSTER.ISSUE.WARNING)))
-    ,
+    issueList: transformIssues(cluster),
     resourceList: cluster.resource_list
       .filter(resource => !resource.stonith)
       .map(resource => ({
         id: resource.id,
         status: mapResourceStatus(resource.status),
+        issueList: transformIssues(resource),
       }))
     ,
     stonithList: cluster.resource_list
@@ -54,6 +59,7 @@ export const transformClustersOverview = apiData => ({
       .map(stonith => ({
         id: stonith.id,
         status: mapResourceStatus(stonith.status),
+        issueList: transformIssues(stonith),
       }))
     ,
   })),

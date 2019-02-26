@@ -9,6 +9,7 @@ import {
   ExclamationCircleIcon,
   QuestionCircleIcon,
   ExclamationTriangleIcon,
+  WarningTriangleIcon,
 } from "@patternfly/react-icons";
 import { StyleSheet, css } from "@patternfly/react-styles";
 
@@ -39,6 +40,10 @@ export const Success = ({ label = "" }) => (
 
 export const Error = ({ label = "" }) => (
   <Base icon={TimesIcon} label={label} color={pallete.ERROR} />
+);
+
+export const Warning = ({ label = "" }) => (
+  <Base icon={WarningTriangleIcon} label={label} color={pallete.WARNING} />
 );
 
 export const SuccessAggregation = ({ label = "" }) => (

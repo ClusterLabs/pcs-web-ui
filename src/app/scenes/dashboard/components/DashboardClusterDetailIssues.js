@@ -30,6 +30,8 @@ const mapSeverityToColor = severity => (
   severity === ISSUE.ERROR ? styles.error : styles.warning
 );
 
+const issueKey = (issue, index) => `${index}:${issue.message}`;
+
 
 const DashboardClusterDetailIssues = ({ issueList }) => (
   <React.Fragment>
@@ -49,7 +51,7 @@ const DashboardClusterDetailIssues = ({ issueList }) => (
               mapSeverityToColor(issue.severity),
             )
         }
-        key={`${i}:${issue.message}`}
+        key={issueKey(issue, i)}
       />
     ))}
   </React.Fragment>

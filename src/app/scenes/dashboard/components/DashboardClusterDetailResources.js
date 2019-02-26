@@ -5,6 +5,7 @@ import { mapConstants } from "app/utils";
 import { StatusSign } from "app/components";
 
 import DashboardClusterDetailItems from "./DashboardClusterDetailItems";
+import DashboardIssueTooltip from "./DashboardIssueTooltip";
 
 const { STATUS } = RESOURCE;
 
@@ -26,6 +27,16 @@ const compareItems = (a, b) => {
   return a.name.toUpperCase() - b.name.toUpperCase();
 };
 
+const withIssues = (resource, content) => (
+  resource.issueList.length > 0
+    ? (
+      <DashboardIssueTooltip issueList={resource.issueList}>
+        <span>{content}</span>
+      </DashboardIssueTooltip>
+    )
+    : content
+);
+
 const DashboardClusterDetailsResources = ({
   resourceList,
   isStonith = false,
@@ -36,8 +47,15 @@ const DashboardClusterDetailsResources = ({
     isItemOk={resource => resource.status === STATUS.RUNNING}
     compareItems={compareItems}
     itemToRow={resource => [
-      resource.id,
-      { title: React.createElement(getStatusSign(resource.status)) },
+      {
+        title: withIssues(resource, resource.id),
+      },
+      {
+        title: withIssues(
+          resource,
+          React.createElement(getStatusSign(resource.status)),
+        ),
+      },
     ]}
     itemType={isStonith ? "Fence agents" : "Resources"}
     noItemMessage={isStonith ? "No fence agent" : "No resources"}
