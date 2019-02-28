@@ -46,13 +46,13 @@ export function* dataLoadManage({
       case START:
         syncStarted = true;
         takeStartPayload(payload);
-        tasks.fetch = yield fork(...initFetch());
+        tasks.fetch = yield initFetch();
         break;
 
       case SUCCESS: case FAIL:
         if (fetchFast) {
           fetchFast = false;
-          tasks.fetch = yield fork(...fetch());
+          tasks.fetch = yield fetch();
         } else {
           tasks.fetch = undefined;
           tasks.timer = yield fork(timer, refreshAction);
@@ -66,7 +66,7 @@ export function* dataLoadManage({
         if (tasks.fetch) {
           fetchFast = true;
         } else {
-          tasks.fetch = yield fork(...fetch());
+          tasks.fetch = yield fetch();
         }
         break;
 

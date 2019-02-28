@@ -33,14 +33,14 @@ const getDashboardDataSyncOptions = () => ({
   FAIL: types.FETCH_DASHBOARD_DATA_FAILED,
   refreshAction: actions.refreshDashboardData(),
   takeStartPayload: () => {},
-  initFetch: () => [
+  initFetch: () => fork(
     fetchDashboardData,
     error => actions.fetchDashboardDataFailed(api.fail(error)),
-  ],
-  fetch: () => [fetchDashboardData, error => notify.error(
+  ),
+  fetch: () => fork(fetchDashboardData, error => notify.error(
     `Cannot sync dashboard data: ${error.message}`,
     { disappear: 2000 },
-  )],
+  )),
 });
 
 export default [

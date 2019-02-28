@@ -44,6 +44,7 @@ function* fetchClusterData(clusterName, onErrorAction) {
 
 const getClusterDataSyncOptions = () => {
   let clusterName = "";
+  /* eslint-disable prefer-destructuring */
   return {
     START: types.SYNC_CLUSTER_DATA,
     STOP: types.SYNC_CLUSTER_DATA_STOP,
@@ -51,13 +52,13 @@ const getClusterDataSyncOptions = () => {
     FAIL: types.FETCH_CLUSTER_DATA_FAILED,
     refreshAction: actions.refreshClusterData(),
     takeStartPayload: (payload) => { clusterName = payload.clusterName; },
-    initFetch: () => [fetchClusterData, clusterName, error => (
+    initFetch: () => fork(fetchClusterData, clusterName, error => (
       actions.fetchClusterDataFailed(api.fail(error))
-    )],
-    fetch: () => [fetchClusterData, clusterName, error => notify.error(
+    )),
+    fetch: () => fork(fetchClusterData, clusterName, error => notify.error(
       `Cannot sync data for cluster '${clusterName}': ${error.message}`,
       { disappear: 2000 },
-    )],
+    )),
   };
 };
 
