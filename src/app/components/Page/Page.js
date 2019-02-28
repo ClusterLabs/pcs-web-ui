@@ -48,7 +48,7 @@ const PageWithSidebarView = ({
 
 const PageWithSidebar = withNavigationToggle(PageWithSidebarView);
 
-const Page = ({ children, sidebarNavigation, breadcrumbs = true }) => (
+const Page = ({ children, sidebarNavigation = null, breadcrumbs = true }) => (
   <React.Fragment>
     <BackgroundImage src={{}} />
     {

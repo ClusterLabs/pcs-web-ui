@@ -5,7 +5,11 @@ import withDataSyncStartOnMount from "app/services/data-load/hoc";
 import { withViewForNoData, withClusterSidebar } from "app/components";
 
 /* eslint-disable no-shadow */
-import { syncClusterData, syncClusterDataStop } from "./actions";
+import {
+  syncClusterData,
+  syncClusterDataStop,
+  refreshClusterData,
+} from "./actions";
 import * as selectors from "./reducer";
 
 const withClusterState = connect(
@@ -13,7 +17,7 @@ const withClusterState = connect(
     cluster: selectors.getCluster(state),
     dataFetch: selectors.getClusterDataFetch(state),
   }),
-  { syncClusterData },
+  { refreshClusterData },
 );
 
 const withDataFetch = withDataSyncStartOnMount(({ clusterName }) => ({
@@ -27,13 +31,13 @@ const withDataFetch = withDataSyncStartOnMount(({ clusterName }) => ({
 }));
 
 const withViewForNoClusterData = withViewForNoData(
-  ({ dataFetch, clusterName, syncClusterData }) => ({
+  ({ dataFetch, clusterName, refreshClusterData }) => ({
     isSuccess: dataFetch.isSuccess,
     loadingMessage: `Loading data for cluster: ${clusterName}`,
     isError: dataFetch.isError,
     errorMessage: dataFetch.errorMessage,
     // TODO retry does not work
-    retry: () => syncClusterData(clusterName),
+    retry: () => refreshClusterData(clusterName),
   }),
 );
 

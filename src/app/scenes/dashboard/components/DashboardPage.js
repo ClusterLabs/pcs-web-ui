@@ -9,7 +9,7 @@ import { Page, withViewForNoData } from "app/components";
 import {
   syncDashboardData,
   syncDashboardDataStop,
-  fetchDashboardData,
+  refreshDashboardData,
 } from "../actions";
 import * as selectors from "../reducer";
 import Dashboard from "./Dashboard";
@@ -20,7 +20,7 @@ const withDashboardState = connect(
     dashboard: selectors.getDashboard(state),
     dataFetch: selectors.getDashboardDataFetch(state),
   }),
-  { fetchDashboardData },
+  { refreshDashboardData },
 );
 
 const withDashboardDataLoad = withDataSyncStartOnMount(() => ({
@@ -33,13 +33,13 @@ const withDashboardDataLoad = withDataSyncStartOnMount(() => ({
 }));
 
 const withViewForNoDashboardData = withViewForNoData(
-  ({ dataFetch, fetchDashboardData }) => ({
+  ({ dataFetch, refreshDashboardData }) => ({
     isSuccess: dataFetch.isSuccess,
     loadingMessage: "Loading dashboard data",
     isError: dataFetch.isError,
     errorMessage: dataFetch.errorMessage,
     // TODO retry does not work
-    retry: () => fetchDashboardData,
+    retry: () => refreshDashboardData(),
     breadcrumbs: false,
   }),
 );

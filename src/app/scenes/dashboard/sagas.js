@@ -1,4 +1,5 @@
 import {
+  all,
   call,
   fork,
   put,
@@ -22,7 +23,7 @@ export function* fetchDashboardData(onErrorAction) {
     });
     yield put(actions.fetchDashboardDataSuccess(dashboardData));
   } catch (error) {
-    yield put(onErrorAction(error));
+    yield all(onErrorAction(error).map(action => put(action)));
   }
 }
 
@@ -35,12 +36,18 @@ const getDashboardDataSyncOptions = () => ({
   takeStartPayload: () => {},
   initFetch: () => fork(
     fetchDashboardData,
-    error => actions.fetchDashboardDataFailed(api.fail(error)),
+    error => [actions.fetchDashboardDataFailed(api.fail(error))],
   ),
-  fetch: () => fork(fetchDashboardData, error => notify.error(
-    `Cannot sync dashboard data: ${error.message}`,
-    { disappear: 2000 },
-  )),
+  fetch: () => fork(
+    fetchDashboardData,
+    error => [
+      notify.error(
+        `Cannot sync dashboard data: ${error.message}`,
+        { disappear: 3000 },
+      ),
+      actions.fetchDashboardDataFailed(api.fail(error)),
+    ],
+  ),
 });
 
 export default [
