@@ -40,6 +40,7 @@
     "@pollyjs/core": "^1.2.0",
     "@pollyjs/persister-fs": "^1.2.0",
     "@pollyjs/persister-rest": "^1.2.0",
+    "babel-plugin-module-resolver": "^3.2.0",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "concurrently": "^3.6.1",

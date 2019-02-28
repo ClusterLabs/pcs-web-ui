@@ -3,8 +3,9 @@
         "checkJs": true,
         "jsx": "react",
         "moduleResolution": "node",
+        "baseUrl": ".",
         "paths": {
-          "app/*": ["./src/app/*"]
+          "*": ["src/*"]
         }
     }
 }
