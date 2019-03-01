@@ -2,15 +2,15 @@ import React from "react";
 import {
   LoginForm,
   LoginPage,
-  BackgroundImage,
 } from "@patternfly/react-core";
+import { BackgroundImage } from "app/components";
 
 const Login = ({ login, actions }) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   return (
     <React.Fragment>
-      <BackgroundImage src={{}} />
+      <BackgroundImage />
       <LoginPage
         loginTitle="Please log in"
         textContent="HA Cluster Management"

@@ -1,13 +1,13 @@
 import React, { createElement } from "react";
 import {
   Page as PfPage,
-  BackgroundImage,
   PageSidebar,
   PageSection,
   Title,
 } from "@patternfly/react-core";
 import { global_breakpoint_md as breakpointMd } from "@patternfly/react-tokens";
 
+import BackgroundImage from "./BackgroundImage";
 import PageHeader from "./PageHeader";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
@@ -41,7 +41,7 @@ const PageWithSidebar = ({ children, sidebarNavigation }) => {
 
 const Page = ({ children, sidebarNavigation = null, breadcrumbs = true }) => (
   <React.Fragment>
-    <BackgroundImage src={{}} />
+    <BackgroundImage />
     {
       sidebarNavigation
         ? (

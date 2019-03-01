@@ -1,4 +1,5 @@
 import Page from "app/components/Page/Page";
+import BackgroundImage from "app/components/Page/BackgroundImage";
 import withClusterSidebar
   from "app/components/ClusterNavigation/ClusterNavigation";
 import Spinner from "app/components/Spinner";
@@ -11,6 +12,7 @@ export {
   withViewForNoData,
 
   Page,
+  BackgroundImage,
   Spinner,
   StatusSign,
 };
