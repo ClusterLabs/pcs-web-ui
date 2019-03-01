@@ -34,10 +34,6 @@ const getDashboardDataSyncOptions = () => ({
   FAIL: types.FETCH_DASHBOARD_DATA_FAILED,
   refreshAction: actions.refreshDashboardData(),
   takeStartPayload: () => {},
-  initFetch: () => fork(
-    fetchDashboardData,
-    error => [actions.fetchDashboardDataFailed(api.fail(error))],
-  ),
   fetch: () => fork(
     fetchDashboardData,
     error => [

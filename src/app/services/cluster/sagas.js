@@ -57,18 +57,13 @@ const getClusterDataSyncOptions = () => {
     FAIL: types.FETCH_CLUSTER_DATA_FAILED,
     refreshAction: actions.refreshClusterData(),
     takeStartPayload: (payload) => { clusterName = payload.clusterName; },
-    initFetch: () => fork(
-      fetchClusterData,
-      clusterName,
-      error => [actions.fetchClusterDataFailed(api.fail(error))],
-    ),
     fetch: () => fork(
       fetchClusterData,
       clusterName,
       error => [
         notify.error(
           `Cannot sync data for cluster '${clusterName}': ${error.message}`,
-          { disappear: 2000 },
+          { disappear: 3000 },
         ),
         actions.fetchClusterDataFailed(api.fail(error)),
       ],

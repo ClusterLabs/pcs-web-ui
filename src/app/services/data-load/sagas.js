@@ -24,7 +24,7 @@ export function* timer(action) {
 }
 
 export function* dataLoadManage({
-  START, STOP, SUCCESS, FAIL, refreshAction, takeStartPayload, initFetch, fetch,
+  START, STOP, SUCCESS, FAIL, refreshAction, takeStartPayload, fetch,
 }) { /* eslint-disable no-constant-condition, no-console */
   let syncStarted = false;
   let fetchFast = false;
@@ -46,7 +46,7 @@ export function* dataLoadManage({
       case START:
         syncStarted = true;
         takeStartPayload(payload);
-        tasks.fetch = yield initFetch();
+        tasks.fetch = yield fetch();
         break;
 
       case SUCCESS: case FAIL:

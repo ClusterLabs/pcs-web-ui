@@ -8,7 +8,6 @@ import { withViewForNoData, withClusterSidebar } from "app/components";
 import {
   syncClusterData,
   syncClusterDataStop,
-  refreshClusterData,
 } from "./actions";
 import * as selectors from "./reducer";
 
@@ -17,7 +16,6 @@ const withClusterState = connect(
     cluster: selectors.getCluster(state),
     dataFetch: selectors.getClusterDataFetch(state),
   }),
-  { refreshClusterData },
 );
 
 const withDataFetch = withDataSyncStartOnMount(({ clusterName }) => ({
@@ -31,13 +29,9 @@ const withDataFetch = withDataSyncStartOnMount(({ clusterName }) => ({
 }));
 
 const withViewForNoClusterData = withViewForNoData(
-  ({ dataFetch, clusterName, refreshClusterData }) => ({
+  ({ dataFetch, clusterName }) => ({
     isSuccess: dataFetch.isSuccess,
     loadingMessage: `Loading data for cluster: ${clusterName}`,
-    isError: dataFetch.isError,
-    errorMessage: dataFetch.errorMessage,
-    // TODO retry does not work
-    retry: () => refreshClusterData(clusterName),
   }),
 );
 

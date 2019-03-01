@@ -31,13 +31,9 @@ const withClusterPropertiesDataLoad = lifecycle({
 });
 
 const withViewForNoPropertiesData = withViewForNoData(
-  ({ dataFetch, clusterName, actions }) => ({
+  ({ dataFetch, clusterName }) => ({
     isSuccess: dataFetch.isSuccess,
-    isError: dataFetch.isError,
-    errorMessage: dataFetch.errorMessage,
     loadingMessage: `Loading properties for cluster: ${clusterName}`,
-    // TODO retry does not work
-    retry: () => actions.syncClusterData(clusterName),
   }),
 );
 
