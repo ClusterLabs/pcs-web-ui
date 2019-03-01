@@ -1,7 +1,6 @@
 import React from "react";
 import { ConnectedRouter } from "connected-react-router";
-import { Switch, Route, withRouter } from "react-router";
-import { compose, withProps } from "recompose";
+import { Switch, Route } from "react-router";
 
 import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
 import ClusterOverview
@@ -17,12 +16,8 @@ import ClusterProperties
 
 import Scratch from "./Scratch";
 
-const addClusterName = withProps(
-  ({ match }) => ({ clusterName: match.params.clusterName }),
-);
-
-const withClusterName = component => () => React.createElement(
-  compose(withRouter, addClusterName)(component),
+const withClusterName = ClusterComponent => ({ match }) => (
+  <ClusterComponent clusterName={match.params.clusterName} />
 );
 
 const RoutedPage = ({ history }) => (
@@ -64,7 +59,7 @@ const RoutedPage = ({ history }) => (
         render={withClusterName(ClusterOverview)}
       />
       <Route
-        render={() => <div>404</div>}
+        render={() => (<div>404</div>)}
       />
     </Switch>
   </ConnectedRouter>

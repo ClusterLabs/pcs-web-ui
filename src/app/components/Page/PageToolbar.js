@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { compose, withStateHandlers } from "recompose";
 import {
   Dropdown,
   DropdownItem,
@@ -12,59 +10,41 @@ import {
 } from "@patternfly/react-core";
 
 
-import { logout } from "app/scenes/login/actions";
-
-const withDropdown = withStateHandlers(
-  {
-    isDropdownOpen: false,
-  },
-  {
-    onDropdownSelect: ({ isDropdownOpen }) => () => ({
-      isDropdownOpen: !isDropdownOpen,
-    }),
-    onDropdownToggle: () => isDropdownOpen => ({
-      isDropdownOpen,
-    }),
-  },
-);
+import * as actions from "app/scenes/login/actions";
 
 const withLogout = connect(
-  () => ({}),
-  dispatch => ({
-    actions: bindActionCreators({ logout }, dispatch),
-  }),
+  null,
+  { logout: actions.logout },
 );
 
-const PageToolbarView = (
-  {
-    onDropdownSelect,
-    isDropdownOpen,
-    onDropdownToggle,
-    actions,
-  },
-) => (
-  <Toolbar>
-    <ToolbarGroup>
-      <ToolbarItem>
-        <Dropdown
-          isPlain
-          position="right"
-          onSelect={onDropdownSelect}
-          isOpen={isDropdownOpen}
-          toggle={(
-            <DropdownToggle onToggle={onDropdownToggle}>
-              hacluster
-            </DropdownToggle>
-          )}
-          dropdownItems={[
-            <DropdownItem key="0" onClick={actions.logout}>
-              Logout
-            </DropdownItem>,
-          ]}
-        />
-      </ToolbarItem>
-    </ToolbarGroup>
-  </Toolbar>
-);
+const PageToolbarView = ({ logout }) => {
+  const [isDropdownOpen, setDropdownOpen] = React.useState(false);
+  return (
+    <Toolbar>
+      <ToolbarGroup>
+        <ToolbarItem>
+          <Dropdown
+            isPlain
+            position="right"
+            onSelect={() => setDropdownOpen(!isDropdownOpen)}
+            isOpen={isDropdownOpen}
+            toggle={(
+              <DropdownToggle onToggle={() => setDropdownOpen(!isDropdownOpen)}>
+                hacluster
+              </DropdownToggle>
+            )}
+            dropdownItems={[
+              (
+                <DropdownItem key="0" onClick={logout}>
+                  Logout
+                </DropdownItem>
+              ),
+            ]}
+          />
+        </ToolbarItem>
+      </ToolbarGroup>
+    </Toolbar>
+  );
+};
 
-export default compose(withDropdown, withLogout)(PageToolbarView);
+export default withLogout(PageToolbarView);

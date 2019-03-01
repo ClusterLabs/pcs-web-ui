@@ -6,25 +6,10 @@ import {
   PageSection,
   Title,
 } from "@patternfly/react-core";
-import { withStateHandlers } from "recompose";
 import { global_breakpoint_md as breakpointMd } from "@patternfly/react-tokens";
 
 import PageHeader from "./PageHeader";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
-
-const withNavigationToggle = withStateHandlers(
-  {
-    // Set initial isNavOpen state based on window width
-    isNavOpen: (
-      typeof window !== "undefined"
-      &&
-      window.innerWidth >= parseInt(breakpointMd.value, 10)
-    ),
-  },
-  {
-    onNavToggle: ({ isNavOpen }) => () => ({ isNavOpen: !isNavOpen }),
-  },
-);
 
 const SimplePage = ({ children }) => (
   <PfPage header={createElement(PageHeader)}>
@@ -32,21 +17,27 @@ const SimplePage = ({ children }) => (
   </PfPage>
 );
 
-const PageWithSidebarView = ({
-  children,
-  onNavToggle,
-  isNavOpen,
-  sidebarNavigation,
-}) => (
-  <PfPage
-    header={createElement(PageHeader, { showNavToggle: true, onNavToggle })}
-    sidebar={createElement(PageSidebar, { nav: sidebarNavigation, isNavOpen })}
-  >
-    {children}
-  </PfPage>
-);
-
-const PageWithSidebar = withNavigationToggle(PageWithSidebarView);
+const PageWithSidebar = ({ children, sidebarNavigation }) => {
+  const [isNavOpen, onNavToggle] = React.useState(
+    typeof window !== "undefined"
+    &&
+    window.innerWidth >= parseInt(breakpointMd.value, 10),
+  );
+  return (
+    <PfPage
+      header={createElement(PageHeader, {
+        showNavToggle: true,
+        onNavToggle: () => onNavToggle(!isNavOpen),
+      })}
+      sidebar={createElement(PageSidebar, {
+        nav: sidebarNavigation,
+        isNavOpen,
+      })}
+    >
+      {children}
+    </PfPage>
+  );
+};
 
 const Page = ({ children, sidebarNavigation = null, breadcrumbs = true }) => (
   <React.Fragment>
