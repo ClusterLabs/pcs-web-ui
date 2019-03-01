@@ -11,8 +11,6 @@ import ClusterResourceList
   from "app/scenes/cluster-resource-list/components/ClusterResourceListPage";
 import ClusterStonithList
   from "app/scenes/cluster-stonith-list/components/ClusterStonithListPage";
-import ClusterProperties
-  from "app/scenes/cluster-properties/components/ClusterPropertiesPage";
 
 import Scratch from "./Scratch";
 
@@ -47,11 +45,6 @@ const RoutedPage = ({ history }) => (
         exact
         path="/cluster/:clusterName/stonith"
         render={withClusterName(ClusterStonithList)}
-      />
-      <Route
-        exact
-        path="/cluster/:clusterName/properties"
-        render={withClusterName(ClusterProperties)}
       />
       <Route
         exact

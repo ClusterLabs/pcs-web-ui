@@ -1,18 +1,26 @@
 import React from "react";
 
-import routableClusterConnect from "app/services/cluster/common_connector";
-import { Page } from "app/components";
+import withClusterState from "app/services/cluster/withClusterState";
+import { PageSectionDataLoading, ClusterPage } from "app/components";
 
 import ClusterNodeList from "./ClusterNodeList";
 
-export const ClusterNodesPage = ({ cluster, sidebarNavigation }) => (
-  <Page sidebarNavigation={sidebarNavigation}>
-    <Page.Section>
-      <ClusterNodeList
-        nodeList={cluster.nodeList}
-      />
-    </Page.Section>
-  </Page>
-);
+export const ClusterNodesPage = ({
+  clusterName,
+  cluster,
+  useClusterSync,
+  dataLoaded,
+}) => {
+  useClusterSync(clusterName);
+  return (
+    <ClusterPage clusterName={clusterName}>
+      <PageSectionDataLoading done={dataLoaded}>
+        <ClusterNodeList
+          nodeList={cluster.nodeList}
+        />
+      </PageSectionDataLoading>
+    </ClusterPage>
+  );
+};
 
-export default routableClusterConnect(ClusterNodesPage);
+export default withClusterState(ClusterNodesPage);

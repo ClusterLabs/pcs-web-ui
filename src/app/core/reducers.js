@@ -4,7 +4,6 @@ import { connectRouter } from "connected-react-router";
 import login from "app/scenes/login/reducer";
 import dashboard from "app/scenes/dashboard/reducer";
 import cluster from "app/services/cluster/reducer";
-import clusterProperties from "app/scenes/cluster-properties/reducer";
 import notifications from "app/scenes/notifications/reducer";
 
 export default history => combineReducers({
@@ -12,6 +11,5 @@ export default history => combineReducers({
   dashboard,
   login,
   cluster,
-  clusterProperties,
   notifications,
 });

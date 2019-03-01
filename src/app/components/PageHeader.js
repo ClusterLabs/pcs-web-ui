@@ -1,6 +1,5 @@
 import React from "react";
 import { withRouter } from "react-router";
-import { compose } from "recompose";
 import { connect } from "react-redux";
 import * as routerActions from "connected-react-router";
 import { PageHeader as PfPageHeader } from "@patternfly/react-core";
@@ -30,4 +29,6 @@ const PageHeader = ({
   />
 );
 
-export default compose(withRouter, withPush)(PageHeader);
+const HeaderWithPush = withPush(PageHeader);
+
+export default withRouter(HeaderWithPush);

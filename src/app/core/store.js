@@ -7,19 +7,13 @@ import createRootReducer from "./reducers";
 import rootSaga from "./sagas";
 
 const setupStore = (basename) => {
-  /* eslint no-underscore-dangle: [
-       "error", { "allow": [
-         "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__",
-         "__SAGA_MONITOR_EXTENSION__"
-       ] }
-     ]
-  */
+  /* eslint-disable dot-notation */
   const composeEnhancers = (
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] || compose
   );
 
   const sagaMiddleware = createSagaMiddleware({
-    sagaMonitor: window.__SAGA_MONITOR_EXTENSION__,
+    sagaMonitor: window["__SAGA_MONITOR_EXTENSION__"],
   });
 
   const history = createBrowserHistory({ basename });
