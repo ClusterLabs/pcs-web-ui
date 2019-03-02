@@ -18,7 +18,7 @@ export function* timer(action) {
     yield put(action);
   } finally {
     if (yield cancelled()) {
-      // console.log(`Sync data for '${clusterName}' cancelled`);
+      // console.log(`Sync data cancelled`);
     }
   }
 }

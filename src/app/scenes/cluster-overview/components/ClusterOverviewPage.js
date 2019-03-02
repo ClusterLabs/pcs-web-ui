@@ -7,14 +7,14 @@ import { ClusterPage, PageSectionDataLoading } from "app/components";
 import ClusterOverview from "./ClusterOverview";
 
 export const ClusterOverviewPage = ({
-  clusterName,
+  clusterUrlName,
   cluster,
   useClusterSync,
   dataLoaded,
 }) => {
-  useClusterSync(clusterName);
+  useClusterSync(clusterUrlName);
   return (
-    <ClusterPage clusterName={clusterName}>
+    <ClusterPage clusterUrlName={clusterUrlName}>
       <PageSectionDataLoading done={dataLoaded}>
         <Title size="xl">Settings</Title>
         <ClusterOverview cluster={cluster} />

@@ -23,14 +23,14 @@ const getAggregations = (resourceList) => {
   };
 };
 
-const resourcesLink = clusterName => `/cluster/${clusterName}/resources`;
+const resourcesLink = clusterUrlName => `/cluster/${clusterUrlName}/resources`;
 
-const DashboardClusterResources = ({ resourceList, clusterName }) => {
+const DashboardClusterResources = ({ resourceList, clusterUrlName }) => {
   const { total, warningList } = getAggregations(resourceList);
   return (
     <React.Fragment>
       <div data-role="resources">
-        <Link data-role="link" to={resourcesLink(clusterName)}>
+        <Link data-role="link" to={resourcesLink(clusterUrlName)}>
           <CogIcon />
           <span>&nbsp;&nbsp;</span>
           <strong data-role="total">{total}</strong>

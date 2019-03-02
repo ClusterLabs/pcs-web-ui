@@ -13,7 +13,7 @@ import DashboardClusterStatusIcon from "./DashboardClusterStatusIcon";
 import DashboardClusterStonith from "./DashboardClusterStonith";
 import DashboardClusterDetails from "./DashboardClusterDetails";
 
-export default ({ cluster }) => {
+const DashboardCluster = ({ cluster }) => {
   const [isExpanded, setExpanded] = React.useState(false);
   return (
     <DataListItem
@@ -37,7 +37,7 @@ export default ({ cluster }) => {
         <Link
           id={`dashboard-cluster-${cluster.name}`}
           data-role="detail-link"
-          to={`/cluster/${cluster.name}`}
+          to={`/cluster/${cluster.urlName}`}
         >
           {cluster.name}
         </Link>
@@ -45,19 +45,19 @@ export default ({ cluster }) => {
       <DataListCell>
         <DashboardClusterNodes
           nodeList={cluster.nodeList}
-          clusterName={cluster.name}
+          clusterUrlName={cluster.urlName}
         />
       </DataListCell>
       <DataListCell>
         <DashboardClusterResources
           resourceList={cluster.resourceList}
-          clusterName={cluster.name}
+          clusterUrlName={cluster.urlName}
         />
       </DataListCell>
       <DataListCell>
         <DashboardClusterStonith
           stonithList={cluster.stonithList}
-          clusterName={cluster.name}
+          clusterUrlName={cluster.urlName}
         />
       </DataListCell>
       {
@@ -70,3 +70,4 @@ export default ({ cluster }) => {
     </DataListItem>
   );
 };
+export default DashboardCluster;

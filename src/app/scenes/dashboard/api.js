@@ -38,6 +38,7 @@ const transformIssues = element => [
 export const transformClustersOverview = apiData => ({
   clusterList: apiData.cluster_list.map(cluster => ({
     name: cluster.cluster_name,
+    urlName: cluster.cluster_name,
     status: mapClusterStatus(cluster.status),
     nodeList: cluster.node_list.map(node => ({
       name: node.name,

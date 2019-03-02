@@ -47,7 +47,7 @@ app.get("/manage/check_pcsd_status", (req, res) => {
   sendJson(res, { name: "Unable to authenticate" });
 });
 app.post(
-  "/managec/:clusterName/add_node_to_cluster",
+  "/managec/:clusterUrlName/add_node_to_cluster",
   urlencodedParser,
   urlencodedParser, (req, res) => {
     const name = req.body.new_nodename;
@@ -61,9 +61,9 @@ app.post(
       const node = state.nodesToAdd[nodeIndex];
       if (name === node.name) {
         if (nodePort === node.port) {
-          state.status_map[req.params.clusterName].node_list.push(
+          state.status_map[req.params.clusterUrlName].node_list.push(
             stateTool.node(
-              state.status_map[req.params.clusterName].node_list.length,
+              state.status_map[req.params.clusterUrlName].node_list.length,
               name,
             ),
           );
@@ -84,15 +84,15 @@ app.get("/clusters_overview", (req, res) => {
   sendJson(res, state.dashboard);
 });
 
-app.get("/managec/:clusterName/cluster_status", (req, res) => {
+app.get("/managec/:clusterUrlName/cluster_status", (req, res) => {
   // res.status(500).send("SOMETHING GOT WRONG");
-  sendJson(res, state.status_map[req.params.clusterName]);
+  sendJson(res, state.status_map[req.params.clusterUrlName]);
 });
 
 
-app.get("/managec/:clusterName/cluster_properties", (req, res) => {
+app.get("/managec/:clusterUrlName/cluster_properties", (req, res) => {
   // res.status(500).send("SOMETHING GOT WRONG");
-  sendJson(res, state.properties_map[req.params.clusterName]);
+  sendJson(res, state.properties_map[req.params.clusterUrlName]);
 });
 
 app.get("/ui/logout", (req, res) => {

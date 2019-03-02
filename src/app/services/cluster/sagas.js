@@ -32,11 +32,11 @@ export const transformClusterData = apiData => ({
   ,
 });
 
-function* fetchClusterData(clusterName, onErrorAction) {
+function* fetchClusterData(clusterUrlName, onErrorAction) {
   try {
     const clusterData = yield call(
       auth.getJson,
-      `/managec/${clusterName}/cluster_status`,
+      `/managec/${clusterUrlName}/cluster_status`,
       {
         transform: transformClusterData,
       },
@@ -48,7 +48,7 @@ function* fetchClusterData(clusterName, onErrorAction) {
 }
 
 const getClusterDataSyncOptions = () => {
-  let clusterName = "";
+  let clusterUrlName = "";
   /* eslint-disable prefer-destructuring */
   return {
     START: types.SYNC_CLUSTER_DATA,
@@ -56,13 +56,13 @@ const getClusterDataSyncOptions = () => {
     SUCCESS: types.FETCH_CLUSTER_DATA_SUCCESS,
     FAIL: types.FETCH_CLUSTER_DATA_FAILED,
     refreshAction: actions.refreshClusterData(),
-    takeStartPayload: (payload) => { clusterName = payload.clusterName; },
+    takeStartPayload: (payload) => { clusterUrlName = payload.clusterUrlName; },
     fetch: () => fork(
       fetchClusterData,
-      clusterName,
+      clusterUrlName,
       error => [
         notify.error(
-          `Cannot sync data for cluster '${clusterName}': ${error.message}`,
+          `Cannot sync data for cluster '${clusterUrlName}': ${error.message}`,
           { disappear: 3000 },
         ),
         actions.fetchClusterDataFailed(api.fail(error)),

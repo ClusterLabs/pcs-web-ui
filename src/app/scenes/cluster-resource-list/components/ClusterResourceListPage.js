@@ -6,14 +6,14 @@ import { ClusterPage, PageSectionDataLoading } from "app/components";
 import ResourceList from "./ResourceList";
 
 export const ClusterResourceListPage = ({
-  clusterName,
+  clusterUrlName,
   cluster,
   useClusterSync,
   dataLoaded,
 }) => {
-  useClusterSync(clusterName);
+  useClusterSync(clusterUrlName);
   return (
-    <ClusterPage clusterName={clusterName}>
+    <ClusterPage clusterUrlName={clusterUrlName}>
       <PageSectionDataLoading done={dataLoaded}>
         <ResourceList
           resourceList={cluster.resourceList}

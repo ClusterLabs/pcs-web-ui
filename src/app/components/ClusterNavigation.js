@@ -3,23 +3,23 @@ import { Nav, NavList } from "@patternfly/react-core";
 
 import ClusterNavigationItem from "./ClusterNavigationItem";
 
-const ClusterNavigation = ({ clusterName }) => (
+const ClusterNavigation = ({ clusterUrlName }) => (
   <Nav aria-label="ClusterNavigation">
     <NavList>
       <ClusterNavigationItem
-        to={`/cluster/${clusterName}`}
+        to={`/cluster/${clusterUrlName}`}
         label="Overview"
       />
       <ClusterNavigationItem
-        to={`/cluster/${clusterName}/nodes`}
+        to={`/cluster/${clusterUrlName}/nodes`}
         label="Nodes"
       />
       <ClusterNavigationItem
-        to={`/cluster/${clusterName}/resources`}
+        to={`/cluster/${clusterUrlName}/resources`}
         label="Resources"
       />
       <ClusterNavigationItem
-        to={`/cluster/${clusterName}/stonith`}
+        to={`/cluster/${clusterUrlName}/stonith`}
         label="Stonith"
       />
     </NavList>

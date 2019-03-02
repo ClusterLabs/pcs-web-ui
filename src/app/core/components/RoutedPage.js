@@ -15,7 +15,7 @@ import ClusterStonithList
 import Scratch from "./Scratch";
 
 const withClusterName = ClusterComponent => ({ match }) => (
-  <ClusterComponent clusterName={match.params.clusterName} />
+  <ClusterComponent clusterUrlName={match.params.clusterUrlName} />
 );
 
 const RoutedPage = ({ history }) => (
@@ -33,22 +33,22 @@ const RoutedPage = ({ history }) => (
       />
       <Route
         exact
-        path="/cluster/:clusterName/nodes"
+        path="/cluster/:clusterUrlName/nodes"
         render={withClusterName(ClusterNodes)}
       />
       <Route
         exact
-        path="/cluster/:clusterName/resources"
+        path="/cluster/:clusterUrlName/resources"
         render={withClusterName(ClusterResourceList)}
       />
       <Route
         exact
-        path="/cluster/:clusterName/stonith"
+        path="/cluster/:clusterUrlName/stonith"
         render={withClusterName(ClusterStonithList)}
       />
       <Route
         exact
-        path="/cluster/:clusterName"
+        path="/cluster/:clusterUrlName"
         render={withClusterName(ClusterOverview)}
       />
       <Route

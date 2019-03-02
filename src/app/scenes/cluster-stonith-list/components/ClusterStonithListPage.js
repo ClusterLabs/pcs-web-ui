@@ -6,14 +6,14 @@ import { ClusterPage, PageSectionDataLoading } from "app/components";
 import ClusterStonithList from "./ClusterStonithList";
 
 export const ClusterStonithListPage = ({
-  clusterName,
+  clusterUrlName,
   cluster,
   useClusterSync,
   dataLoaded,
 }) => {
-  useClusterSync(clusterName);
+  useClusterSync(clusterUrlName);
   return (
-    <ClusterPage clusterName={clusterName}>
+    <ClusterPage clusterUrlName={clusterUrlName}>
       <PageSectionDataLoading done={dataLoaded}>
         <ClusterStonithList
           stonithList={cluster.stonithList}
