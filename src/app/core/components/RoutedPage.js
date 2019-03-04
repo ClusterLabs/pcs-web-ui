@@ -1,7 +1,6 @@
 import React from "react";
 import { ConnectedRouter } from "connected-react-router";
-import { Switch, Route, withRouter } from "react-router";
-import { compose, withProps } from "recompose";
+import { Switch, Route } from "react-router";
 
 import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
 import ClusterOverview
@@ -12,15 +11,11 @@ import ClusterResourceList
   from "app/scenes/cluster-resource-list/components/ClusterResourceListPage";
 import ClusterStonithList
   from "app/scenes/cluster-stonith-list/components/ClusterStonithListPage";
-import ClusterProperties
-  from "app/scenes/cluster-properties/components/ClusterPropertiesPage";
 
-const addClusterName = withProps(
-  ({ match }) => ({ clusterName: match.params.clusterName }),
-);
+import Scratch from "./Scratch";
 
-const withClusterName = component => () => React.createElement(
-  compose(withRouter, addClusterName)(component),
+const withClusterName = ClusterComponent => ({ match }) => (
+  <ClusterComponent clusterUrlName={match.params.clusterUrlName} />
 );
 
 const RoutedPage = ({ history }) => (
@@ -28,36 +23,36 @@ const RoutedPage = ({ history }) => (
     <Switch>
       <Route
         exact
+        path="/scratch"
+        render={() => <Scratch />}
+      />
+      <Route
+        exact
         path="/"
         render={() => <DashboardPage />}
       />
       <Route
         exact
-        path="/cluster/:clusterName/nodes"
+        path="/cluster/:clusterUrlName/nodes"
         render={withClusterName(ClusterNodes)}
       />
       <Route
         exact
-        path="/cluster/:clusterName/resources"
+        path="/cluster/:clusterUrlName/resources"
         render={withClusterName(ClusterResourceList)}
       />
       <Route
         exact
-        path="/cluster/:clusterName/stonith"
+        path="/cluster/:clusterUrlName/stonith"
         render={withClusterName(ClusterStonithList)}
       />
       <Route
         exact
-        path="/cluster/:clusterName/properties"
-        render={withClusterName(ClusterProperties)}
-      />
-      <Route
-        exact
-        path="/cluster/:clusterName"
+        path="/cluster/:clusterUrlName"
         render={withClusterName(ClusterOverview)}
       />
       <Route
-        render={() => <div>404</div>}
+        render={() => (<div>404</div>)}
       />
     </Switch>
   </ConnectedRouter>

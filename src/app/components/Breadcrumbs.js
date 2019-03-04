@@ -5,12 +5,23 @@ import {
   PageSectionVariants,
   Breadcrumb,
 } from "@patternfly/react-core";
+import { StyleSheet, css } from "@patternfly/react-styles";
 
 import BreadcrumbItem from "./BreadcrumbItem";
 
+const styles = StyleSheet.create({
+  breadcrumbSection: {
+    "padding-top": "0.7rem!important",
+    "padding-bottom": "0.7rem!important",
+  },
+});
+
 /* eslint-disable react/no-array-index-key */
 const BreadcrumbsView = ({ urlParts }) => (
-  <PageSection variant={PageSectionVariants.light}>
+  <PageSection
+    variant={PageSectionVariants.light}
+    className={css(styles.breadcrumbSection)}
+  >
     <Breadcrumb>
       {
         urlParts.length < 1

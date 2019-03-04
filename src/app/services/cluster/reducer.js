@@ -24,7 +24,7 @@ export default combineReducers({
   dataFetch: createDataFetchReducer({
     START: types.SYNC_CLUSTER_DATA,
     SUCCESS: types.FETCH_CLUSTER_DATA_SUCCESS,
-    FAIL: types.FETCH_CLUSTER_DATA_SUCCESS,
+    FAIL: types.FETCH_CLUSTER_DATA_FAILED,
   }),
 });
 

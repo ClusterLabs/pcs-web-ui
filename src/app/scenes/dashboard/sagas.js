@@ -1,4 +1,5 @@
 import {
+  all,
   call,
   fork,
   put,
@@ -12,19 +13,17 @@ import { dataLoadManage } from "app/services/data-load/sagas";
 
 import * as actions from "./actions";
 import * as types from "./constants";
+import { transformClustersOverview } from "./api";
+
 
 export function* fetchDashboardData(onErrorAction) {
   try {
     const dashboardData = yield call(auth.getJson, "/clusters_overview", {
-      transform: apiData => ({
-        clusterList: apiData.cluster_list.map(
-          cluster => ({ name: cluster.cluster_name }),
-        ),
-      }),
+      transform: transformClustersOverview,
     });
     yield put(actions.fetchDashboardDataSuccess(dashboardData));
   } catch (error) {
-    yield put(onErrorAction(error));
+    yield all(onErrorAction(error).map(action => put(action)));
   }
 }
 
@@ -35,14 +34,16 @@ const getDashboardDataSyncOptions = () => ({
   FAIL: types.FETCH_DASHBOARD_DATA_FAILED,
   refreshAction: actions.refreshDashboardData(),
   takeStartPayload: () => {},
-  initFetch: () => [
+  fetch: () => fork(
     fetchDashboardData,
-    error => actions.fetchDashboardDataFailed(api.fail(error)),
-  ],
-  fetch: () => [fetchDashboardData, error => notify.error(
-    `Cannot sync dashboard data: ${error.message}`,
-    { disappear: 2000 },
-  )],
+    error => [
+      notify.error(
+        `Cannot sync dashboard data: ${error.message}`,
+        { disappear: 3000 },
+      ),
+      actions.fetchDashboardDataFailed(api.fail(error)),
+    ],
+  ),
 });
 
 export default [

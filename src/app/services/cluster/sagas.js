@@ -1,4 +1,9 @@
-import { call, fork, put } from "redux-saga/effects";
+import {
+  all,
+  call,
+  fork,
+  put,
+} from "redux-saga/effects";
 
 import * as api from "app/core/api";
 import * as auth from "app/services/auth/sagas";
@@ -27,37 +32,42 @@ export const transformClusterData = apiData => ({
   ,
 });
 
-function* fetchClusterData(clusterName, onErrorAction) {
+function* fetchClusterData(clusterUrlName, onErrorAction) {
   try {
     const clusterData = yield call(
       auth.getJson,
-      `/managec/${clusterName}/cluster_status`,
+      `/managec/${clusterUrlName}/cluster_status`,
       {
         transform: transformClusterData,
       },
     );
     yield put(actions.fetchClusterDataSuccess(clusterData));
   } catch (error) {
-    yield put(onErrorAction(error));
+    yield all(onErrorAction(error).map(action => put(action)));
   }
 }
 
 const getClusterDataSyncOptions = () => {
-  let clusterName = "";
+  let clusterUrlName = "";
+  /* eslint-disable prefer-destructuring */
   return {
     START: types.SYNC_CLUSTER_DATA,
     STOP: types.SYNC_CLUSTER_DATA_STOP,
     SUCCESS: types.FETCH_CLUSTER_DATA_SUCCESS,
     FAIL: types.FETCH_CLUSTER_DATA_FAILED,
     refreshAction: actions.refreshClusterData(),
-    takeStartPayload: (payload) => { clusterName = payload.clusterName; },
-    initFetch: () => [fetchClusterData, clusterName, error => (
-      actions.fetchClusterDataFailed(api.fail(error))
-    )],
-    fetch: () => [fetchClusterData, clusterName, error => notify.error(
-      `Cannot sync data for cluster '${clusterName}': ${error.message}`,
-      { disappear: 2000 },
-    )],
+    takeStartPayload: (payload) => { clusterUrlName = payload.clusterUrlName; },
+    fetch: () => fork(
+      fetchClusterData,
+      clusterUrlName,
+      error => [
+        notify.error(
+          `Cannot sync data for cluster '${clusterUrlName}': ${error.message}`,
+          { disappear: 3000 },
+        ),
+        actions.fetchClusterDataFailed(api.fail(error)),
+      ],
+    ),
   };
 };
 

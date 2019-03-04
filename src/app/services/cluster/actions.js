@@ -4,9 +4,9 @@ export const refreshClusterData = () => ({
   type: types.REFRESH_CLUSTER_DATA,
 });
 
-export const syncClusterData = clusterName => ({
+export const syncClusterData = clusterUrlName => ({
   type: types.SYNC_CLUSTER_DATA,
-  payload: { clusterName },
+  payload: { clusterUrlName },
 });
 
 export const fetchClusterDataSuccess = clusterData => ({

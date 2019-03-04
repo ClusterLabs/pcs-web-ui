@@ -1,58 +1,61 @@
 import React from "react";
 import { connect } from "react-redux";
-import { compose } from "recompose";
+import { Page, PageSection } from "@patternfly/react-core";
 
-import withDataSyncStartOnMount from "app/services/data-load/hoc";
-import { Page, withViewForNoData } from "app/components";
+import { setUpDataReading } from "app/services/data-load/actions";
+import {
+  PageSectionDataLoading,
+  PageHeader,
+  BackgroundImage,
+} from "app/components";
 
 /* eslint-disable no-shadow */
-import {
-  syncDashboardData,
-  syncDashboardDataStop,
-  fetchDashboardData,
-} from "../actions";
+import { syncDashboardData, syncDashboardDataStop } from "../actions";
 import * as selectors from "../reducer";
 import Dashboard from "./Dashboard";
+import DashboardAggregations from "./DashboardAggregations";
+
+const useDashboardSync = dispatch => React.useEffect(
+  () => {
+    dispatch(
+      setUpDataReading({
+        reloadDashboard: {
+          // Pure actions (without dispatch binding) here. Start/Stop should
+          // be plain objects because they are used in saga.
+          start: syncDashboardData(),
+          stop: syncDashboardDataStop(),
+        },
+      }),
+    );
+  },
+  ["dashboard"],
+);
 
 const withDashboardState = connect(
   state => ({
     dashboard: selectors.getDashboard(state),
-    dataFetch: selectors.getDashboardDataFetch(state),
+    dataLoaded: selectors.getDashboardDataFetch(state).isSuccess,
   }),
-  { fetchDashboardData },
-);
-
-const withDashboardDataLoad = withDataSyncStartOnMount(() => ({
-  reloadDashboard: {
-    // Pure actions (without dispatch binding) here. Start/Stop should be
-    // plain objects because they are used in saga.
-    start: syncDashboardData(),
-    stop: syncDashboardDataStop(),
-  },
-}));
-
-const withViewForNoDashboardData = withViewForNoData(
-  ({ dataFetch, fetchDashboardData }) => ({
-    isSuccess: dataFetch.isSuccess,
-    loadingMessage: "Loading dashboard data",
-    isError: dataFetch.isError,
-    errorMessage: dataFetch.errorMessage,
-    // TODO retry does not work
-    retry: () => fetchDashboardData,
+  dispatch => ({
+    useDashboardSync: () => useDashboardSync(dispatch),
   }),
 );
 
-const DashboardPageView = ({ dashboard, actions }) => (
-  <Page>
-    <Page.Section>
-      <Dashboard dashboard={dashboard} actions={actions} />
-    </Page.Section>
-  </Page>
-);
+const DashboardPageView = ({ dashboard, dataLoaded, useDashboardSync }) => {
+  useDashboardSync();
+  return (
+    <React.Fragment>
+      <BackgroundImage />
+      <Page header={<PageHeader />}>
+        <PageSection variant="dark">
+          <DashboardAggregations dashboard={dashboard} />
+        </PageSection>
+        <PageSectionDataLoading done={dataLoaded}>
+          <Dashboard dashboard={dashboard} />
+        </PageSectionDataLoading>
+      </Page>
+    </React.Fragment>
+  );
+};
 
-
-export default compose(
-  withDashboardState,
-  withDashboardDataLoad,
-  withViewForNoDashboardData,
-)(DashboardPageView);
+export default withDashboardState(DashboardPageView);

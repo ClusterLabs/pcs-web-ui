@@ -15,7 +15,10 @@ const scenarioByName = (scenarioName) => {
 
 const runScenario = (scenarioName) => {
   scenarioByName(scenarioName).forEach((call) => {
-    app[call.method.toLowerCase()](call.url, call.handler);
+    app[call.method.toLowerCase()](
+      call.url,
+      (req, res) => { setTimeout(() => call.handler(req, res), 1000); },
+    );
   });
 
   return app;

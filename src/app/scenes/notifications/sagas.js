@@ -1,5 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-import { delay } from "redux-saga";
+import { delay, put, takeEvery } from "redux-saga/effects";
 
 import * as actions from "./actions";
 import * as types from "./constants";
@@ -11,7 +10,7 @@ function* planClosing({ payload: { id: notificationId, disappear: ttl } }) {
     return;
   }
   const wait = ttl === true ? DEFAULT_TTL : ttl;
-  yield call(delay, wait);
+  yield delay(wait);
   yield put(actions.destroy(notificationId));
 }
 

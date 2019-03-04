@@ -4,20 +4,22 @@
   "private": true,
   "dependencies": {
     "@patternfly/patternfly-next": "^1.0.101",
-    "@patternfly/react-core": "1.43.6",
-    "@patternfly/react-tokens": "1.9.1",
-    "connected-react-router": "^6.0.0",
+    "@patternfly/react-core": "2.1.4",
+    "@patternfly/react-icons": "^3.0.2",
+    "@patternfly/react-styles": "^2.3.2",
+    "@patternfly/react-table": "^1.0.7",
+    "@patternfly/react-tokens": "^2.0.0",
+    "connected-react-router": "^6.3.0",
     "history": "^4.7.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.2",
-    "recompose": "^0.30.0",
+    "react-scripts": "^2.1.4",
     "redux": "^4.0.1",
-    "redux-saga": "^0.16.2",
-    "validator": "^10.9.0"
+    "redux-saga": "^1.0.1",
+    "validator": "^10.11.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,7 +29,7 @@
     "testa": "react-scripts test --env=jsdom --runInBand",
     "tests": "NODE_PATH=src/ mocha src/app/test/bootstrap.js --no-timeouts --recursive src/app/scenes/**/test/*.js",
     "eject": "react-scripts eject",
-    "server": "NODE_PATH=src/ nodemon --watch dev/ dev/backend.js"
+    "server": "NODE_PATH=src/ nodemon --watch dev/ --watch src/app dev/backend.js"
   },
   "homepage": "/ui/",
   "proxy": "http://localhost:5000",
@@ -37,6 +39,7 @@
     "@pollyjs/core": "^1.2.0",
     "@pollyjs/persister-fs": "^1.2.0",
     "@pollyjs/persister-rest": "^1.2.0",
+    "babel-plugin-module-resolver": "^3.2.0",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "concurrently": "^3.6.1",
@@ -62,6 +65,8 @@
     "not op_mini all"
   ],
   "standard": {
-    "env": [ "mocha" ]
+    "env": [
+      "mocha"
+    ]
   }
 }

@@ -16,9 +16,8 @@ const NotificationContainer = ({ notifications, actions }) => (
         <Alert
           variant={typeVariantMap[type]}
           onClose={() => actions.destroy(id)}
-        >
-          {message}
-        </Alert>
+          title={message}
+        />
       </li>
     ))}
   </ul>
