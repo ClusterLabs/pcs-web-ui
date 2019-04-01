@@ -23,7 +23,7 @@ function* checkAuthentication(action) {
         "/manage/check_auth_against_nodes",
         {
           params: {
-            node_list: [nodeName],
+            "node_list[]": nodeName,
           },
         },
       ),
@@ -62,7 +62,7 @@ function* addCluster(action) {
     const nodeName = action.payload;
     yield call(
       auth.postParamsForText,
-      "/manage/addexistingcluster",
+      "/manage/existingcluster",
       {
         params: {
           "node-name": nodeName,

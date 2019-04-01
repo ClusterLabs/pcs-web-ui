@@ -70,7 +70,7 @@ const verifyAuthRequest = (record, nodeName, password, addr, port) => {
 
 const verifyCheckAuthRequest = (record, nodeName) => {
   expect(record.length).to.eql(1);
-  expect(record[0].query).to.eql({ node_list: nodeName });
+  expect(record[0].query).to.eql({ node_list: [nodeName] });
 };
 
 const verifyAddRequest = (record, nodeName) => {

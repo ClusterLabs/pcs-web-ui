@@ -12,7 +12,7 @@ const checkAuth = handler => ({
 });
 
 const addCluster = handler => ({
-  url: "/manage/addexistingcluster",
+  url: "/manage/existingcluster",
   method: POST,
   middleParams: [urlencodedParser],
   handler,
