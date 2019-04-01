@@ -1,6 +1,5 @@
 const deepmerge = require("deepmerge");
 
-const GET = "get";
 const overwriteMerge = (destArr, srcArr/* , opts */) => srcArr;
 
 const node = (id, diff) => deepmerge({
@@ -63,26 +62,10 @@ const clusterError = cluster("cluster-2", "error", {
   ]),
 });
 
-const clustersOverview = response => ({
-  url: "/clusters_overview",
-  method: GET,
-  handler: (_, res) => { res.json(response); },
-});
-
-const clusterStatus = response => ({
-  url: `/managec/${response.cluster_name}/cluster_status`,
-  method: GET,
-  handler: (_, res) => {
-    res.json(response);
-  },
-});
-
 module.exports = {
-  displayMulti: [
-    clustersOverview({ cluster_list: [clusterOk, clusterError] }),
-  ],
-  goToCluster: [
-    clustersOverview({ cluster_list: [clusterOk] }),
-    clusterStatus(clusterOk),
-  ],
+  cluster: {
+    ok: clusterOk,
+    error: clusterError,
+  },
+  dashboard: clusterStatusList => ({ cluster_list: clusterStatusList }),
 };

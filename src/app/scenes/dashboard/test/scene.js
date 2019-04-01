@@ -1,48 +1,46 @@
 const { expect } = require("chai");
+const { page } = require("app/test/store");
 
 const {
-  getPollyServer,
-  interceptByScenario,
+  getPollyManager,
   url,
   link,
 } = require("app/test/tools");
+const responses = require("./responses");
+const requests = require("./requests");
 
-const { displayMulti, goToCluster } = require("./backend-scenarios.js");
+const CLUSTERS_SELECTOR = "[data-role='cluster-list'] [data-role='cluster']";
 
+const pollyManager = getPollyManager(() => page());
+
+const scenarios = {
+  simpleCluster: [
+    requests.overview((req, res) => {
+      res.json(responses.dashboard([responses.cluster.ok]));
+    }),
+    requests.status((req, res) => {
+      res.json(responses.cluster.ok);
+    }),
+  ],
+  multipleCluster: [
+    requests.overview((req, res) => {
+      res.json(responses.dashboard([
+        responses.cluster.ok,
+        responses.cluster.error,
+      ]));
+    }),
+  ],
+};
 describe("Dashboard scene", () => {
-  let page;
-  let polly;
-  let server;
-  const CLUSTERS_SELECTOR = "[data-role='cluster-list'] [data-role='cluster']";
-
-  const renderClustersFromScenario = async (scenario) => {
-    interceptByScenario(server, scenario);
-    await page.goto(url());
-    await page.waitFor(CLUSTERS_SELECTOR);
-  };
-
-  before(async () => {
-    page = await global.browser.newPage();
-    await page.setRequestInterception(true);
-  });
-
-  after(async () => {
-    await page.close();
-  });
-
-  beforeEach(() => {
-    ({ server, polly } = getPollyServer(page));
-  });
-
-  afterEach(async () => {
-    await polly.flush();
-    await polly.stop();
-  });
+  afterEach(async () => { await pollyManager().stop(); });
 
   it("should render multiple cluster information", async () => {
-    await renderClustersFromScenario(displayMulti);
+    pollyManager().reset(scenarios.multipleCluster);
 
-    const clusterInfoList = await page.$$eval(
+    await page().goto(url());
+    await page().waitFor(CLUSTERS_SELECTOR);
+
+    const clusterInfoList = await page().$$eval(
       CLUSTERS_SELECTOR,
       clusterElements => clusterElements.map(e => ({
         name: e.querySelector("[data-role='detail-link']").textContent,
@@ -68,6 +66,7 @@ describe("Dashboard scene", () => {
         },
       })),
     );
+
     expect(clusterInfoList).to.eql([
       {
         name: "cluster-1",
@@ -84,7 +83,7 @@ describe("Dashboard scene", () => {
       {
         name: "cluster-2",
         link: link("/cluster/cluster-2"),
-        status: "warning",
+        status: "error",
         nodes: {
           total: "3",
           link: link("/cluster/cluster-2/nodes"),
@@ -97,8 +96,21 @@ describe("Dashboard scene", () => {
   });
 
   it("should allow to go to cluster detail", async () => {
-    await renderClustersFromScenario(goToCluster);
-    await page.click(`${CLUSTERS_SELECTOR}:nth-child(1) a`);
-    expect(page.url()).to.equal(url("/cluster/cluster-1"));
+    pollyManager().reset(scenarios.simpleCluster);
+
+    await page().goto(url());
+    await page().waitFor(CLUSTERS_SELECTOR);
+    await page().click(`${CLUSTERS_SELECTOR}:nth-child(1) a`);
+    expect(page().url()).to.equal(url("/cluster/cluster-1"));
+  });
+
+  it("should allow to add existing cluster", async () => {
+    pollyManager().reset(scenarios.simpleCluster);
+
+    const actionSelector = "[data-role='add-cluster']";
+    await page().goto(url());
+    await page().waitFor(actionSelector);
+    await page().click(actionSelector);
+    expect(page().url()).to.equal(url("/add-cluster"));
   });
 });

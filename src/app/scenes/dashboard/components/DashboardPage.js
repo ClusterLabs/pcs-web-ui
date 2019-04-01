@@ -14,6 +14,7 @@ import { syncDashboardData, syncDashboardDataStop } from "../actions";
 import * as selectors from "../reducer";
 import Dashboard from "./Dashboard";
 import DashboardAggregations from "./DashboardAggregations";
+import DashboardToolbar from "./DashboardToolbar";
 
 const useDashboardSync = dispatch => React.useEffect(
   () => {
@@ -28,7 +29,7 @@ const useDashboardSync = dispatch => React.useEffect(
       }),
     );
   },
-  ["dashboard"],
+  [],
 );
 
 const withDashboardState = connect(
@@ -41,7 +42,7 @@ const withDashboardState = connect(
   }),
 );
 
-const DashboardPageView = ({ dashboard, dataLoaded, useDashboardSync }) => {
+const DashboardPage = ({ dashboard, dataLoaded, useDashboardSync }) => {
   useDashboardSync();
   return (
     <React.Fragment>
@@ -49,6 +50,9 @@ const DashboardPageView = ({ dashboard, dataLoaded, useDashboardSync }) => {
       <Page header={<PageHeader />}>
         <PageSection variant="dark">
           <DashboardAggregations dashboard={dashboard} />
+        </PageSection>
+        <PageSection>
+          <DashboardToolbar />
         </PageSection>
         <PageSectionDataLoading done={dataLoaded}>
           <Dashboard dashboard={dashboard} />
@@ -58,4 +62,4 @@ const DashboardPageView = ({ dashboard, dataLoaded, useDashboardSync }) => {
   );
 };
 
-export default withDashboardState(DashboardPageView);
+export default withDashboardState(DashboardPage);

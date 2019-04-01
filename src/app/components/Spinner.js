@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Spinner.css";
 
-export default ({ text }) => (
+export default ({ text, ...rest }) => (
   <React.Fragment>
     <div
       style={{
@@ -17,6 +17,7 @@ export default ({ text }) => (
         position: "relative",
         width: "24px",
       }}
+      {...rest}
     />
     <div
       style={{ marginTop: "10px", textAlign: "center" }}

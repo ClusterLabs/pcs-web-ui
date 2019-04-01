@@ -37,7 +37,9 @@ export function* logout() {
 
 export function* login({ payload: { username, password } }) {
   try {
-    yield call(api.postParamsForText, "/ui/login", { username, password });
+    yield call(api.postParamsForText, "/ui/login", {
+      params: { username, password },
+    });
     yield put(authActions.authSuccess());
   } catch (error) {
     const failInfo = api.isUnauthorizedError(error)

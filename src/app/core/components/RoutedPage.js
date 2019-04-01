@@ -12,6 +12,9 @@ import ClusterResourceList
 import ClusterStonithList
   from "app/scenes/cluster-stonith-list/components/ClusterStonithListPage";
 
+import AddClusterPage
+  from "app/scenes/dashboard-add-cluster/components/AddClusterPage";
+
 import Scratch from "./Scratch";
 
 const withClusterName = ClusterComponent => ({ match }) => (
@@ -25,6 +28,11 @@ const RoutedPage = ({ history }) => (
         exact
         path="/scratch"
         render={() => <Scratch />}
+      />
+      <Route
+        exact
+        path="/add-cluster"
+        render={() => <AddClusterPage />}
       />
       <Route
         exact

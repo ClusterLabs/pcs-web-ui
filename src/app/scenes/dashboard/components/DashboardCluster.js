@@ -42,19 +42,19 @@ const DashboardCluster = ({ cluster }) => {
           {cluster.name}
         </Link>
       </DataListCell>
-      <DataListCell>
+      <DataListCell width={1}>
         <DashboardClusterNodes
           nodeList={cluster.nodeList}
           clusterUrlName={cluster.urlName}
         />
       </DataListCell>
-      <DataListCell>
+      <DataListCell width={1}>
         <DashboardClusterResources
           resourceList={cluster.resourceList}
           clusterUrlName={cluster.urlName}
         />
       </DataListCell>
-      <DataListCell>
+      <DataListCell width={1}>
         <DashboardClusterStonith
           stonithList={cluster.stonithList}
           clusterUrlName={cluster.urlName}
@@ -62,7 +62,10 @@ const DashboardCluster = ({ cluster }) => {
       </DataListCell>
       {
         isExpanded && (
-          <DataListContent aria-label="Primary Content Details">
+          <DataListContent
+            isHidden={false}
+            aria-label="Primary Content Details"
+          >
             <DashboardClusterDetails cluster={cluster} />
           </DataListContent>
         )

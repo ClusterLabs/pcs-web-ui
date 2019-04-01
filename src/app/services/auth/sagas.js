@@ -9,9 +9,12 @@ export const stillUnauthorizedError = url => new Error(
   `Still got unauthorized from '${url}' after successfull authorization.`,
 );
 
-export function* getJson(url, options = {}) {
+const decorateApiMethod = apiMethod => function* AuthMethod(
+  url,
+  options = {},
+) {
   try {
-    const responseFirstAttempt = yield call(api.getJson, url, options);
+    const responseFirstAttempt = yield call(apiMethod, url, options);
     return responseFirstAttempt;
   } catch (error) {
     if (!api.isUnauthorizedError(error)) {
@@ -25,7 +28,7 @@ export function* getJson(url, options = {}) {
 
   // ...and then second attempt.
   try {
-    const responseSecondAttempt = yield call(api.getJson, url, options);
+    const responseSecondAttempt = yield call(apiMethod, url, options);
     return responseSecondAttempt;
   } catch (error) {
     if (api.isUnauthorizedError(error)) {
@@ -33,4 +36,7 @@ export function* getJson(url, options = {}) {
     }
     throw error;
   }
-}
+};
+
+export const getJson = decorateApiMethod(api.getJson);
+export const postParamsForText = decorateApiMethod(api.postParamsForText);

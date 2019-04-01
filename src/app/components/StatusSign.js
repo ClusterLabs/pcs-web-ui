@@ -21,8 +21,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Base = ({ icon: Icon, color, label = "" }) => (
-  <span style={{ color }}>
+export const Base = ({
+  icon: Icon,
+  color,
+  label = "",
+  ...rest
+}) => (
+  <span style={{ color }} {...rest}>
     <Icon />
     {
       label && (
@@ -34,48 +39,98 @@ export const Base = ({ icon: Icon, color, label = "" }) => (
   </span>
 );
 
-export const Success = ({ label = "" }) => (
-  <Base icon={CheckIcon} label={label} color={pallete.SUCCESS} />
+export const Success = ({ label = "", ...rest }) => (
+  <Base
+    icon={CheckIcon}
+    label={label}
+    color={pallete.SUCCESS}
+    {...rest}
+  />
 );
 
-export const Error = ({ label = "" }) => (
-  <Base icon={TimesIcon} label={label} color={pallete.ERROR} />
+export const Error = ({ label = "", ...rest }) => (
+  <Base
+    icon={TimesIcon}
+    label={label}
+    color={pallete.ERROR}
+    {...rest}
+  />
 );
 
-export const Warning = ({ label = "" }) => (
-  <Base icon={WarningTriangleIcon} label={label} color={pallete.WARNING} />
+export const Warning = ({ label = "", ...rest }) => (
+  <Base
+    icon={WarningTriangleIcon}
+    label={label}
+    color={pallete.WARNING}
+    {...rest}
+  />
 );
 
-export const SuccessAggregation = ({ label = "" }) => (
-  <Base icon={CheckCircleIcon} label={label} color={pallete.SUCCESS} />
+export const SuccessAggregation = ({ label = "", ...rest }) => (
+  <Base
+    icon={CheckCircleIcon}
+    label={label}
+    color={pallete.SUCCESS}
+    {...rest}
+  />
 );
 
-export const WarningAggregation = ({ label = "" }) => (
-  <Base icon={ExclamationTriangleIcon} label={label} color={pallete.WARNING} />
+export const WarningAggregation = ({ label = "", ...rest }) => (
+  <Base
+    icon={ExclamationTriangleIcon}
+    label={label}
+    color={pallete.WARNING}
+    {...rest}
+  />
 );
 
-export const ErrorAggregation = ({ label = "" }) => (
-  <Base icon={ExclamationCircleIcon} label={label} color={pallete.ERROR} />
+export const ErrorAggregation = ({ label = "", ...rest }) => (
+  <Base
+    icon={ExclamationCircleIcon}
+    label={label}
+    color={pallete.ERROR}
+    {...rest}
+  />
 );
 
-export const UnknownAggregation = ({ label = "" }) => (
-  <Base icon={QuestionCircleIcon} label={label} color={pallete.UNKNOWN} />
+export const UnknownAggregation = ({ label = "", ...rest }) => (
+  <Base
+    icon={QuestionCircleIcon}
+    label={label}
+    color={pallete.UNKNOWN}
+    {...rest}
+  />
 );
 
-export const Online = () => <Success label="online" />;
+export const Online = ({ ...rest }) => <Success label="online" {...rest} />;
 
-export const Offline = () => <Error label="offline" />;
+export const Offline = ({ ...rest }) => <Error label="offline" {...rest} />;
 
-export const Running = () => <Success label="running" />;
+export const Running = ({ ...rest }) => <Success label="running" {...rest} />;
 
-export const Unknown = () => (
-  <Base icon={QuestionIcon} label="unknown" color={pallete.UNKNOWN} />
+export const Unknown = ({ ...rest }) => (
+  <Base
+    icon={QuestionIcon}
+    label="unknown"
+    color={pallete.UNKNOWN}
+    {...rest}
+  />
 );
 
-export const Blocked = () => (
-  <Base icon={BanIcon} label="blocked" color={pallete.ERROR} />
+export const Blocked = ({ ...rest }) => (
+  <Base
+    icon={BanIcon}
+    label="blocked"
+    color={pallete.ERROR}
+    {...rest}
+  />
 );
 
-export const Failed = () => (
-  <Base icon={ErrorCircleOIcon} label="failed" color={pallete.ERROR} />
+export const Failed = ({ ...rest }) => (
+  <Base
+    icon={ErrorCircleOIcon}
+    label="failed"
+    color={pallete.ERROR}
+    {...rest}
+  />
 );

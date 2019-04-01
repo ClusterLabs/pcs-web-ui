@@ -3,12 +3,15 @@ const ajaxHeaders = {
 };
 
 export class ApiBadStatus extends Error {
-  constructor(statusCode, text) {
-    super(`Server returned the http status error ${statusCode} (${text})`);
+  constructor(statusCode, text, body) {
+    super(
+      `Server returned the http status error ${statusCode} (${text}): ${body}`,
+    );
     Error.captureStackTrace(this, ApiBadStatus);
     this.name = "ApiBadStatus";
     this.statusCode = statusCode;
     this.text = text;
+    this.body = body;
   }
 }
 
@@ -62,29 +65,34 @@ export function fail(error) {
   };
 }
 
-const checkResponse = (response) => {
+const checkResponse = async (response) => {
   if (!response.ok) {
-    throw new ApiBadStatus(response.status, response.statusText);
+    throw new ApiBadStatus(
+      response.status,
+      response.statusText,
+      await response.text(),
+    );
   }
   return response;
 };
 
 export const httpParams = keyValueObject => (
   Object.keys(keyValueObject)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(keyValueObject[key])}`)
+    .map(key => (
+      `${encodeURIComponent(key)}=${encodeURIComponent(keyValueObject[key])}`
+    ))
     .join("&")
 );
 
 const getUrl = (path, params) => (
-  params.length > 0 ? `${path}?${httpParams(params)}` : path
+  Object.keys(params).length > 0 ? `${path}?${httpParams(params)}` : path
 );
-
 
 export const getJson = async (
   url,
   { params = {}, transform = undefined } = {},
 ) => {
-  const response = checkResponse(
+  const response = await checkResponse(
     await fetch(getUrl(url, params), { headers: ajaxHeaders }),
   );
 
@@ -109,15 +117,15 @@ export const getJson = async (
 };
 
 export const getForText = async (url, { params = {} } = {}) => {
-  const response = checkResponse(
+  const response = await checkResponse(
     await fetch(getUrl(url, params), { headers: ajaxHeaders }),
   );
 
   return response.text();
 };
 
-export const postParamsForText = async (url, params) => {
-  const response = checkResponse(await fetch(url, {
+export const postParamsForText = async (url, { params = {} } = {}) => {
+  const response = await checkResponse(await fetch(url, {
     method: "post",
     headers: {
       ...ajaxHeaders,
