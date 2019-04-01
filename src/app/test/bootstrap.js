@@ -1,24 +1,30 @@
 const puppeteer = require("puppeteer");
-const { expect } = require("chai");
-
-const { browserOriginal, expectOriginal } = global;
+const {
+  setPage,
+  browser,
+  browserSetUp,
+  browserTearDown,
+} = require("./store");
 
 const puppeteerOptions = {
   headless: true,
-  slowMo: 100,
-  timeout: 10000,
+  defaultViewport: {
+    width: 1200,
+    height: 800,
+  },
+  // slowMo: 100,
+  timeout: 12000,
+  // dumpio: true,
 };
 
-// expose variables
 before(async () => {
-  global.expect = expect;
-  global.browser = await puppeteer.launch(puppeteerOptions);
+  browserSetUp(await puppeteer.launch(puppeteerOptions));
+  const [browserPage] = await browser().pages();
+  await browserPage.setRequestInterception(true);
+  setPage(browserPage);
 });
 
-// close browser and reset global variables
 after(() => {
-  global.browser.close();
-
-  global.browser = browserOriginal;
-  global.expect = expectOriginal;
+  browser().close();
+  browserTearDown();
 });

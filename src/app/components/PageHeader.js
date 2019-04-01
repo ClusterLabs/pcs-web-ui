@@ -1,16 +1,17 @@
 import React from "react";
 import { withRouter } from "react-router";
-import { connect } from "react-redux";
-import * as routerActions from "connected-react-router";
 import { PageHeader as PfPageHeader } from "@patternfly/react-core";
+
+import { connect } from "react-redux";
+import { push } from "connected-react-router";
 
 import PageToolbar from "./PageToolbar";
 
-const withPush = connect(null, { push: routerActions.push });
+const withGoHome = connect(null, { goHome: () => push("/") });
 
 const PageHeader = ({
   history,
-  push,
+  goHome,
   showNavToggle,
   onNavToggle,
 }) => (
@@ -23,12 +24,12 @@ const PageHeader = ({
       href: history.createHref({ pathname: "/" }),
       onClick: (e) => {
         e.preventDefault();
-        push("/");
+        goHome();
       },
     }}
   />
 );
 
-const HeaderWithPush = withPush(PageHeader);
+const HeaderWithPush = withGoHome(PageHeader);
 
 export default withRouter(HeaderWithPush);

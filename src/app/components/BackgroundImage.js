@@ -12,7 +12,7 @@ import b576x2x from "@patternfly/patternfly-next/assets/images/pfbg_576@2x.jpg";
 import backgroundFilter
   from "@patternfly/patternfly-next/assets/images/background-filter.svg";
 
-const images = {
+export const BackgroundImageSources = {
   [BackgroundImageSrc.lg]: b1200,
   [BackgroundImageSrc.sm]: b768,
   [BackgroundImageSrc.sm2x]: b768x2x,
@@ -22,7 +22,7 @@ const images = {
 };
 
 const BackgroundImage = () => (
-  <PfBackgroundImage src={images} />
+  <PfBackgroundImage src={BackgroundImageSources} />
 );
 
 export default BackgroundImage;
