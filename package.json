@@ -10,7 +10,6 @@
     "@patternfly/react-styles": "^2.3.5",
     "@patternfly/react-table": "^1.0.33",
     "@patternfly/react-tokens": "^2.0.0",
-    "@pollyjs/persister-local-storage": "^2.1.0",
     "connected-react-router": "^6.3.2",
     "history": "^4.9.0",
     "react": "^16.8.6",
