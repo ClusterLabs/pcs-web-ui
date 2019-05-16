@@ -23,16 +23,6 @@
     "redux-saga": "^1.0.2",
     "validator": "^10.11.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom --testPathPattern=src/app",
-    "testi": "react-scripts test --runInBand --testPathPattern=src/__tests__/integration",
-    "testa": "react-scripts test --env=jsdom --runInBand",
-    "tests": "NODE_PATH=src/ mocha src/app/test/bootstrap.js --no-timeouts --recursive src/app/scenes/**/test/*.js",
-    "eject": "react-scripts eject",
-    "server": "NODE_PATH=src/ nodemon --watch dev/ --watch src/app dev/backend.js"
-  },
   "homepage": "/ui/",
   "proxy": "http://localhost:5000",
   "devDependencies": {
