@@ -1,4 +1,4 @@
-VERSION=$(shell node -e "console.log(require('./package.json').version)")
+LAST_COMMIT_HASH=$(shell git rev-parse HEAD)
 
 start:
 	npx react-scripts start
@@ -43,7 +43,7 @@ pack-modules:
 	node_modules/chai \
 	node_modules/nodemon \
 	
-	tar -Jcf pcs-web-ui-node-modules-${VERSION}.tar.xz node_modules
+	tar -Jcf pcs-web-ui-node-modules-${LAST_COMMIT_HASH}.tar.xz node_modules
 	rm -r node_modules
 	if [ -d "node_modules.backup" ]; then mv node_modules.backup node_modules; fi
 	ls -l *.tar.xz
