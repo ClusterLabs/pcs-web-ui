@@ -1,5 +1,8 @@
+VERSION=$(shell node -e "console.log(require('./package.json').version)")
+
 start:
 	npx react-scripts start
+
 
 # Some files are removed from build directory:
 # service-worker.js
@@ -25,17 +28,45 @@ build:
 	rm -f build/images/favicon.png
 	find build/images -type d -empty -delete
 
+
+# prepare tarball with node modules that are necessary to build the application
+pack-modules:
+	if [ -d "node_modules" ]; then mv node_modules node_modules.backup; fi
+	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npx npm ci
+	rm -r \
+	node_modules/puppeteer \
+	node_modules/electron \
+	node_modules/electron-download \
+	node_modules/nightmare \
+	node_modules/mocha \
+	node_modules/@pollyjs \
+	node_modules/chai \
+	node_modules/nodemon \
+	
+	tar -Jcf pcs-web-ui-node-modules-${VERSION}.tar.xz node_modules
+	rm -r node_modules
+	if [ -d "node_modules.backup" ]; then mv node_modules.backup node_modules; fi
+	ls -l *.tar.xz
+
+
 server:
 	NODE_PATH=src/ npx nodemon --watch dev/ --watch src/app dev/backend.js $(SCENARIO)
+
 
 test:
 	npx react-scripts test --env=jsdom --testPathPattern=src/app
 
+
 testi:
 	npx react-scripts test --runInBand --testPathPattern=src/__tests__/integration
+
 
 testa:
 	npx react-scripts test --env=jsdom --runInBand
 
+
 tests:
 	NODE_PATH=src/ npx mocha src/app/test/bootstrap.js --no-timeouts --recursive src/app/scenes/**/test/*.js
+
+
+.PHONY: test
