@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "target": "es5",
         "checkJs": true,
         "jsx": "react",
         "moduleResolution": "node",

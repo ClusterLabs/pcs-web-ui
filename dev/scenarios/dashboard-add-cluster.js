@@ -1,5 +1,5 @@
 /* eslint-disable import/no-dynamic-require */
-const scenes = "../src/app/scenes";
+const scenes = "../../src/app/scenes";
 const dashboardResponses = require(`${scenes}/dashboard/test/responses`);
 const dashboardRequests = require(`${scenes}/dashboard/test/requests`);
 

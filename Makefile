@@ -50,7 +50,7 @@ pack-modules:
 
 
 server:
-	NODE_PATH=src/ npx nodemon --watch dev/ --watch src/app dev/backend.js $(SCENARIO)
+	@NODE_PATH=src/ node dev/backend.js --scenario=$(SCENARIO) --interactive
 
 
 test:
