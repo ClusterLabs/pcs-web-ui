@@ -1,12 +1,8 @@
 /* eslint-disable import/no-dynamic-require */
-const bodyParser = require("body-parser");
-
 const app = "../../src/app";
+const loginRequests = require(`${app}/scenes/login/test/requests`);
 const dashboardRequests = require(`${app}/scenes/dashboard/test/requests`);
 const dashboardResponses = require(`${app}/scenes/dashboard/test/responses`);
-const { get, post } = require(`${app}/test/scenarios`);
-
-const parser = bodyParser.urlencoded({ extended: false });
 
 let isLoggedIn = false;
 
@@ -18,7 +14,7 @@ const dashboardOverview = dashboardRequests.overview((req, res) => {
   }
 });
 
-const login = post("/ui/login", parser, (req, res) => {
+const login = loginRequests.login((req, res) => {
   if (req.body.username === "hacluster" && req.body.password === "hh") {
     isLoggedIn = true;
     res.send("1533967169-76"); // an ajax id, not important for this app
@@ -27,7 +23,7 @@ const login = post("/ui/login", parser, (req, res) => {
   res.status(401).send('{"notauthorized":"true"}');
 });
 
-const logout = get("/ui/logout", (req, res) => {
+const logout = loginRequests.logout((req, res) => {
   isLoggedIn = false;
   res.send("OK");
 });

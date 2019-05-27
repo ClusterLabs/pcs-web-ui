@@ -57,16 +57,13 @@ test:
 	npx react-scripts test --env=jsdom --testPathPattern=src/app
 
 
-testi:
-	npx react-scripts test --runInBand --testPathPattern=src/__tests__/integration
-
-
 testa:
 	npx react-scripts test --env=jsdom --runInBand
 
 
 tests:
-	NODE_PATH=src/ npx mocha src/app/test/bootstrap.js --no-timeouts --recursive src/app/scenes/**/test/*.js
+	NODE_PATH=src/ npx mocha src/app/test/bootstrap.js \
+		--no-timeouts --recursive --watch src/app/scenes/**/test/*.js
 
 
 .PHONY: test

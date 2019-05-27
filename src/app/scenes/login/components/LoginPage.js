@@ -31,6 +31,7 @@ const Login = ({ login, actions }) => {
           )
         }
         <LoginForm
+          data-role="login-form"
           usernameLabel="Username"
           usernameValue={username}
           onChangeUsername={value => setUsername(value)}
