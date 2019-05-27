@@ -1,35 +1,44 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   LoginForm,
   LoginPage,
 } from "@patternfly/react-core";
 import { BackgroundImage } from "app/components";
 
-const Login = ({ login, actions }) => {
+import * as actions from "../actions";
+import * as selectors from "../reducer";
+
+const withState = connect(
+  state => ({
+    failed: selectors.failed(state),
+    failMessage: selectors.failMessage(state),
+    isAcceptingLoginData: selectors.isAcceptingLoginData(state),
+  }),
+  {
+    enterCredentials: actions.enterCredentials,
+  },
+);
+
+const Login = ({
+  failed,
+  failMessage,
+  isAcceptingLoginData,
+  enterCredentials,
+}) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   return (
     <React.Fragment>
       <BackgroundImage />
-      <LoginPage
-        loginTitle="Please log in"
-        textContent="HA Cluster Management"
-      >
-        {
-          typeof login.failed === "object"
-          &&
-          (
-            <form className="pf-c-form">
-              <div className="pf-c-form__helper-text pf-m-error">
-                {
-                  login.failed.badCredentials
-                    ? "The username or password you entered is incorect"
-                    : login.failed.message
-                }
-              </div>
-            </form>
-          )
-        }
+      <LoginPage loginTitle="Please log in" textContent="HA Cluster Management">
+        {failed && (
+          <form className="pf-c-form">
+            <div className="pf-c-form__helper-text pf-m-error">
+              {failMessage}
+            </div>
+          </form>
+        )}
         <LoginForm
           data-role="login-form"
           usernameLabel="Username"
@@ -40,14 +49,12 @@ const Login = ({ login, actions }) => {
           passwordValue={password}
           onChangePassword={value => setPassword(value)}
           isValidPassword
-          isLoginButtonDisabled={!login.acceptLoginData}
-          onLoginButtonClick={
-            () => actions.enterCredentials(username, password)
-          }
+          isLoginButtonDisabled={!isAcceptingLoginData}
+          onLoginButtonClick={() => enterCredentials(username, password)}
         />
       </LoginPage>
     </React.Fragment>
   );
 };
 
-export default Login;
+export default withState(Login);

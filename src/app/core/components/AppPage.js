@@ -1,20 +1,28 @@
 import React from "react";
+import { connect } from "react-redux";
 
-import RoutedPage from "app/core/components/RoutedPage";
 import LoginPage from "app/scenes/login/components/LoginPage";
-import NotificationContainer
+import * as selectors from "app/scenes/login/reducer";
+import Notifications
   from "app/scenes/notifications/containers/NotificationContainer";
-// import "../css/App.css";
 
-const AppPage = ({ history, login, loginActions }) => (
-  login.required
-    ? <LoginPage login={login} actions={loginActions} />
+import RoutedPage from "./RoutedPage";
+
+const withLoginRequirement = connect(
+  state => ({
+    loginRequired: selectors.loginRequired(state),
+  }),
+);
+
+const AppPage = ({ history, loginRequired }) => (
+  loginRequired
+    ? <LoginPage />
     : (
       <React.Fragment>
         <RoutedPage history={history} />
-        <NotificationContainer />
+        <Notifications />
       </React.Fragment>
     )
 );
 
-export default AppPage;
+export default withLoginRequirement(AppPage);
