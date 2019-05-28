@@ -29,13 +29,16 @@ const PageToolbarView = ({ logout }) => {
             onSelect={() => setDropdownOpen(!isDropdownOpen)}
             isOpen={isDropdownOpen}
             toggle={(
-              <DropdownToggle onToggle={() => setDropdownOpen(!isDropdownOpen)}>
+              <DropdownToggle
+                onToggle={() => setDropdownOpen(!isDropdownOpen)}
+                data-role="user-menu"
+              >
                 hacluster
               </DropdownToggle>
             )}
             dropdownItems={[
               (
-                <DropdownItem key="0" onClick={logout}>
+                <DropdownItem key="0" onClick={logout} data-role="logout">
                   Logout
                 </DropdownItem>
               ),

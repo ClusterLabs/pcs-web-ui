@@ -22,6 +22,7 @@ class PollyManager {
       adapterOptions: {
         puppeteer: { page },
       },
+      recordFailedRequests: true,
       persister: ["fs"],
       persisterOptions: {
         fs: {

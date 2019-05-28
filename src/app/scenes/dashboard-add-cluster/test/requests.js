@@ -1,32 +1,14 @@
 const bodyParser = require("body-parser");
+const { get, post } = require("app/test/scenarios");
 
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
-const GET = "get";
-const POST = "post";
-
-const checkAuth = handler => ({
-  url: "/manage/check_auth_against_nodes",
-  method: GET,
-  handler,
-});
-
-const addCluster = handler => ({
-  url: "/manage/existingcluster",
-  method: POST,
-  middleParams: [urlencodedParser],
-  handler,
-});
-
-const authenticate = handler => ({
-  url: "/manage/auth_gui_against_nodes",
-  method: POST,
-  middleParams: [urlencodedParser],
-  handler,
-});
+const parser = bodyParser.urlencoded({ extended: false });
 
 module.exports = {
-  addCluster,
-  authenticate,
-  checkAuth,
+  addCluster: handler => post("/manage/existingcluster", parser, handler),
+  authenticate: handler => post(
+    "/manage/auth_gui_against_nodes",
+    parser,
+    handler,
+  ),
+  checkAuth: handler => get("/manage/check_auth_against_nodes", handler),
 };
