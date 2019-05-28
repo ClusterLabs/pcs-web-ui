@@ -10,7 +10,7 @@ import {
 
 import * as types from "./constants";
 
-const SYNC_DELAY = 5 * 1000;// ms
+const SYNC_DELAY = 30 * 1000;// ms
 
 export function* timer(action) {
   try {
