@@ -57,8 +57,8 @@ const DashboardClusterDetailsResources = ({
         ),
       },
     ]}
-    itemType={isStonith ? "Fence agents" : "Resources"}
-    noItemMessage={isStonith ? "No fence agent" : "No resources"}
+    itemType={isStonith ? "Fence devices" : "Resources"}
+    noItemMessage={isStonith ? "No fence devices" : "No resources"}
   />
 );
 

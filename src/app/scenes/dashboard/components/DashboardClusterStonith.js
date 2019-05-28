@@ -9,7 +9,7 @@ const DashboardClusterStonith = ({ stonithList, clusterUrlName }) => (
         <PowerOffIcon />
         <span>&nbsp;&nbsp;</span>
         <strong>{stonithList.length}</strong>
-        <span> fence agents</span>
+        <span> fence devices</span>
       </Link>
     </div>
   </React.Fragment>
