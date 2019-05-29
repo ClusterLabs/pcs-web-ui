@@ -50,7 +50,10 @@ const Login = ({
           onChangePassword={value => setPassword(value)}
           isValidPassword
           isLoginButtonDisabled={!isAcceptingLoginData}
-          onLoginButtonClick={() => enterCredentials(username, password)}
+          onLoginButtonClick={(e) => {
+            e.preventDefault();
+            enterCredentials(username, password);
+          }}
         />
       </LoginPage>
     </React.Fragment>
