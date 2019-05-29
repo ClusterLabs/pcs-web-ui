@@ -2,12 +2,25 @@ const ajaxHeaders = {
   "X-Requested-With": "XMLHttpRequest",
 };
 
+const captureStackTrace = (error, errorClass, message) => {
+  if (Error.hasOwnProperty('captureStackTrace')) { // V8
+    Error.captureStackTrace(error, errorClass);
+  } else {
+    Object.defineProperty(error, 'stack', {
+      // enumerable: true,
+      writable: true,
+      configurable: true,
+      value: (new Error(message)).stack,
+    });
+  }
+};
+
 export class ApiBadStatus extends Error {
   constructor(statusCode, text, body) {
     super(
       `Server returned the http status error ${statusCode} (${text}): ${body}`,
     );
-    Error.captureStackTrace(this, ApiBadStatus);
+    captureStackTrace(this, ApiBadStatus, body);
     this.name = "ApiBadStatus";
     this.statusCode = statusCode;
     this.text = text;
@@ -18,7 +31,7 @@ export class ApiBadStatus extends Error {
 class ApiNotExpectedJson extends Error {
   constructor(text) {
     super("Not expected json in server response");
-    Error.captureStackTrace(this, ApiBadStatus);
+    captureStackTrace(this, ApiNotExpectedJson, text);
     this.name = "ApiNotExpectedJson";
     this.text = text;
   }
@@ -27,7 +40,7 @@ class ApiNotExpectedJson extends Error {
 class ApiTransformationError extends Error {
   constructor(message, transformFnName, data) {
     super(message);
-    Error.captureStackTrace(this, ApiTransformationError);
+    captureStackTrace(this, ApiTransformationError, message);
     this.name = "ApiTransformationError";
     this.transformFnName = transformFnName;
     this.data = data;
