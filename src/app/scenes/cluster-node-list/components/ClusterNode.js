@@ -1,17 +1,20 @@
 import React from "react";
 import {
   DataListItem,
+  DataListItemRow,
   DataListCell,
 } from "@patternfly/react-core";
 
 const ClusterNode = ({ nodeName, status }) => (
   <DataListItem aria-labelledby={nodeName}>
-    <DataListCell>
-      {nodeName}
-    </DataListCell>
-    <DataListCell>
-      {status}
-    </DataListCell>
+    <DataListItemRow>
+      <DataListCell>
+        {nodeName}
+      </DataListCell>
+      <DataListCell>
+        {status}
+      </DataListCell>
+    </DataListItemRow>
   </DataListItem>
 );
 export default ClusterNode;

@@ -5,6 +5,7 @@ import {
   DataListContent,
   DataListItem,
   DataListToggle,
+  DataListItemRow,
 } from "@patternfly/react-core";
 
 import DashboardClusterNodes from "./DashboardClusterNodes";
@@ -21,47 +22,50 @@ const DashboardCluster = ({ cluster }) => {
       aria-labelledby={cluster.name}
       isExpanded={isExpanded}
     >
-      <DataListToggle
-        id={`dashboard-cluster-${cluster.name}-toggle`}
-        onClick={() => setExpanded(!isExpanded)}
-        isExpanded={isExpanded}
-        aria-labelledby={
-          `dashboard-cluster-${cluster.name}-toggle dashboard-cluster-${cluster.name}`
-        }
-        aria-label="Toggle details for"
-      />
-      <div className="pf-c-data-list__check">
-        <DashboardClusterStatusIcon status={cluster.status} />
-      </div>
-      <DataListCell width={2}>
-        <Link
-          id={`dashboard-cluster-${cluster.name}`}
-          data-role="detail-link"
-          to={`/cluster/${cluster.urlName}`}
-        >
-          {cluster.name}
-        </Link>
-      </DataListCell>
-      <DataListCell width={1}>
-        <DashboardClusterNodes
-          nodeList={cluster.nodeList}
-          clusterUrlName={cluster.urlName}
+      <DataListItemRow>
+        <DataListToggle
+          id={`dashboard-cluster-${cluster.name}-toggle`}
+          onClick={() => setExpanded(!isExpanded)}
+          isExpanded={isExpanded}
+          aria-labelledby={
+            `dashboard-cluster-${cluster.name}-toggle dashboard-cluster-${cluster.name}`
+          }
+          aria-label="Toggle details for"
         />
-      </DataListCell>
-      <DataListCell width={1}>
-        <DashboardClusterResources
-          resourceList={cluster.resourceList}
-          clusterUrlName={cluster.urlName}
-        />
-      </DataListCell>
-      <DataListCell width={1}>
-        <DashboardClusterStonith
-          stonithList={cluster.stonithList}
-          clusterUrlName={cluster.urlName}
-        />
-      </DataListCell>
+        <DataListCell isIcon key="icon" width={1}>
+          <DashboardClusterStatusIcon status={cluster.status} />
+        </DataListCell>
+        <DataListCell width={2}>
+          <Link
+            id={`dashboard-cluster-${cluster.name}`}
+            data-role="detail-link"
+            to={`/cluster/${cluster.urlName}`}
+          >
+            {cluster.name}
+          </Link>
+        </DataListCell>
+        <DataListCell width={1}>
+          <DashboardClusterNodes
+            nodeList={cluster.nodeList}
+            clusterUrlName={cluster.urlName}
+          />
+        </DataListCell>
+        <DataListCell width={1}>
+          <DashboardClusterResources
+            resourceList={cluster.resourceList}
+            clusterUrlName={cluster.urlName}
+          />
+        </DataListCell>
+        <DataListCell width={1}>
+          <DashboardClusterStonith
+            stonithList={cluster.stonithList}
+            clusterUrlName={cluster.urlName}
+          />
+        </DataListCell>
+      </DataListItemRow>
       {
         isExpanded && (
+
           <DataListContent
             isHidden={false}
             aria-label="Primary Content Details"

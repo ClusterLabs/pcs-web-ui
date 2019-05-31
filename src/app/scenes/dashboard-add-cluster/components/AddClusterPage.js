@@ -4,7 +4,6 @@ import { push } from "connected-react-router";
 import { Wizard } from "@patternfly/react-core";
 
 import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
-import { BackgroundImageSources } from "app/components";
 
 import { stepAuthStates } from "../constants";
 import * as selectors from "../reducer";
@@ -52,8 +51,6 @@ const AddClusterPage = ({
         title="Add existing cluster"
         description="Add existing cluster wizard"
         steps={steps}
-        backgroundImgSrc={BackgroundImageSources}
-        lastStepButtonText="Close"
       />
     </React.Fragment>
   );
