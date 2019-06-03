@@ -46,11 +46,11 @@ export default function login(state = defaultState, action) {
   }
 }
 
-export const failed = state => typeof state.login.failed === "object";
+export const failed = state => typeof state.failed === "object";
 export const failMessage = state => (
-  state.login.failed.badCredentials
+  state.failed.badCredentials
     ? "The username or password you entered is incorect"
-    : state.login.failed.message
+    : state.failed.message
 );
-export const isAcceptingLoginData = state => state.login.acceptLoginData;
-export const loginRequired = state => state.login.required;
+export const isAcceptingLoginData = state => state.acceptLoginData;
+export const loginRequired = state => state.required;

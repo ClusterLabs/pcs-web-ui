@@ -5,7 +5,7 @@ import { setUpDataReading } from "app/services/data-load/actions";
 
 /* eslint-disable no-shadow */
 import { syncClusterData, syncClusterDataStop } from "./actions";
-import * as selectors from "./reducer";
+import { selectors } from "./plugin";
 
 const setupClusterReading = clusterUrlName => setUpDataReading({
   reloadCluster: {

@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { Spinner } from "app/components";
 import { Success, Error } from "app/components/StatusSign";
 
-import * as selectors from "../reducer";
+import { selectors } from "../plugin";
 import { stepAuthStates } from "../constants";
 import * as actions from "../actions";
 import AddClusterAuthRequired from "./AddClusterAuthRequired";

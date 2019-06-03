@@ -25,7 +25,7 @@ export default combineReducers({
   }),
 });
 
-export const getDashboard = state => state.dashboard.dashboardData;
+export const getDashboard = state => state.dashboardData;
 export const getDashboardDataFetch = createDataFetchSelector(
-  state => state.dashboard.dataFetch,
+  state => state.dataFetch,
 );

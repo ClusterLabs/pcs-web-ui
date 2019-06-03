@@ -1,32 +1,45 @@
 import { createBrowserHistory } from "history";
-import { routerMiddleware } from "connected-react-router";
-import { createStore, applyMiddleware, compose } from "redux";
+import { routerMiddleware, connectRouter } from "connected-react-router";
+import {
+  createStore,
+  applyMiddleware,
+  compose,
+  combineReducers,
+} from "redux";
 import createSagaMiddleware from "redux-saga";
+import { all } from "redux-saga/effects";
 
-import createRootReducer from "./reducers";
-import rootSaga from "./sagas";
+import { registerPlugins } from "./plug-tools";
+import plugins from "./plugins";
+
+/* global window */
+/* eslint-disable dot-notation */
+const composeMiddleware = (
+  window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] || compose
+);
+
+const sagaMiddleware = createSagaMiddleware({
+  sagaMonitor: window["__SAGA_MONITOR_EXTENSION__"],
+});
+
+const { reducers, sagas } = registerPlugins(plugins);
 
 const setupStore = (basename) => {
-  /* eslint-disable dot-notation */
-  const composeEnhancers = (
-    window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] || compose
-  );
-
-  const sagaMiddleware = createSagaMiddleware({
-    sagaMonitor: window["__SAGA_MONITOR_EXTENSION__"],
-  });
-
   const history = createBrowserHistory({ basename });
-
   const store = createStore(
-    createRootReducer(history),
-    composeEnhancers(applyMiddleware(
+    combineReducers({
+      router: connectRouter(history),
+      ...reducers,
+    }),
+    composeMiddleware(applyMiddleware(
       routerMiddleware(history),
       sagaMiddleware,
     )),
   );
 
-  sagaMiddleware.run(rootSaga);
+  sagaMiddleware.run(function* rootSaga() {
+    yield all(sagas);
+  });
 
   return { store, history };
 };

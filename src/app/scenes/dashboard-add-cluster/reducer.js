@@ -59,12 +59,10 @@ const stateError = (state = "", action) => {
   }
 };
 
-const localState = state => state.addExistingCluster;
-
-export const getNodeName = state => localState(state).nodeName;
-export const getStepAuthState = state => localState(state).stepAuthState;
-export const getStepAddState = state => localState(state).stepAddState;
-export const getStateError = state => localState(state).stateError;
+export const getNodeName = state => state.nodeName;
+export const getStepAuthState = state => state.stepAuthState;
+export const getStepAddState = state => state.stepAddState;
+export const getStateError = state => state.stateError;
 
 export default combineReducers({
   nodeName,

@@ -6,7 +6,7 @@ import { Wizard } from "@patternfly/react-core";
 import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
 
 import { stepAuthStates } from "../constants";
-import * as selectors from "../reducer";
+import { selectors } from "../plugin";
 import * as actions from "../actions";
 import AddClusterStepAuth from "./AddClusterStepAuth";
 import AddClusterStepAdd from "./AddClusterStepAdd";

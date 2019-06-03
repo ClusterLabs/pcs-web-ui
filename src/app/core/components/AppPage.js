@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import LoginPage from "app/scenes/login/components/LoginPage";
-import * as selectors from "app/scenes/login/reducer";
+import { selectors } from "app/scenes/login/plugin";
 import Notifications
   from "app/scenes/notifications/containers/NotificationContainer";
 

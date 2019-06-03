@@ -7,7 +7,7 @@ import {
 import { BackgroundImage } from "app/components";
 
 import * as actions from "../actions";
-import * as selectors from "../reducer";
+import { selectors } from "../plugin";
 
 const withState = connect(
   state => ({

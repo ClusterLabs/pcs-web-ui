@@ -30,7 +30,7 @@ export default combineReducers({
 
 
 export const getClusterDataFetch = createDataFetchSelector(
-  state => state.cluster.dataFetch,
+  state => state.dataFetch,
 );
 
-export const getCluster = state => state.cluster.clusterStatus;
+export const getCluster = state => state.clusterStatus;

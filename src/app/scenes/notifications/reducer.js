@@ -12,3 +12,5 @@ export default function notifications(state = defaultState, action) {
     default: return state;
   }
 }
+
+export const getNotifications = state => state;

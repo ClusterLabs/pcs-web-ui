@@ -11,7 +11,7 @@ import {
 
 /* eslint-disable no-shadow */
 import { syncDashboardData, syncDashboardDataStop } from "../actions";
-import * as selectors from "../reducer";
+import { selectors } from "../plugin";
 import Dashboard from "./Dashboard";
 import DashboardAggregations from "./DashboardAggregations";
 import DashboardToolbar from "./DashboardToolbar";
