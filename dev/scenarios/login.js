@@ -6,13 +6,20 @@ const dashboardResponses = require(`${app}/scenes/dashboard/test/responses`);
 
 let isLoggedIn = false;
 
-const dashboardOverview = dashboardRequests.overview((req, res) => {
+const jsonOr401 = result => (req, res) => {
   if (isLoggedIn) {
-    res.json(dashboardResponses.dashboard([]));
+    res.json(result);
   } else {
     res.status(401).send();
   }
-});
+};
+
+const dashboardOverview = dashboardRequests.overview(jsonOr401(
+  dashboardResponses.dashboard([
+    dashboardResponses.cluster.ok,
+    dashboardResponses.cluster.error,
+  ]),
+));
 
 const login = loginRequests.login((req, res) => {
   if (req.body.username === "hacluster" && req.body.password === "hh") {
@@ -33,5 +40,6 @@ module.exports = {
     dashboardOverview,
     login,
     logout,
+    dashboardRequests.status(jsonOr401(dashboardResponses.cluster.ok)),
   ],
 };

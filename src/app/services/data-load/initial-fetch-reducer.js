@@ -1,3 +1,5 @@
+import * as authTypes from "app/services/auth/constants";
+
 const fetchStatus = {
   NOT_STARTED: "NOT_STARTED",
   IN_PROGRESS: "IN_PROGRESS",
@@ -27,6 +29,7 @@ export const createDataFetchReducer = types => (state = initState, action) => {
         }
         : state
     );
+    case authTypes.AUTH_REQUIRED: return initState;
     default: return state;
   }
 };

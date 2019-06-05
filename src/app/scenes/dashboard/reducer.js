@@ -3,6 +3,8 @@ import { combineReducers } from "redux";
 import { createDataFetchReducer, createDataFetchSelector }
   from "app/services/data-load/initial-fetch-reducer";
 
+import * as authTypes from "app/services/auth/constants";
+
 import * as types from "./constants";
 
 const dashboardDataDefaultState = {
@@ -12,6 +14,7 @@ const dashboardDataDefaultState = {
 const dashboardData = (state = dashboardDataDefaultState, action) => {
   switch (action.type) {
     case types.FETCH_DASHBOARD_DATA_SUCCESS: return action.payload;
+    case authTypes.AUTH_REQUIRED: return dashboardDataDefaultState;
     default: return state;
   }
 };

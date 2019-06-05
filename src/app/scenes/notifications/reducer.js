@@ -1,3 +1,5 @@
+import * as authTypes from "app/services/auth/constants";
+
 import * as types from "./constants";
 
 const defaultState = [];
@@ -9,6 +11,7 @@ export default function notifications(state = defaultState, action) {
     case types.DESTROY: return state.filter(n => n.id !== action.payload.id);
     case types.UPDATE:
       return state.map(n => (n.id === action.payload.id ? action.payload : n));
+    case authTypes.AUTH_REQUIRED: return defaultState;
     default: return state;
   }
 }
