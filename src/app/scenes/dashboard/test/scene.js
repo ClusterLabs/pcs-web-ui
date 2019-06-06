@@ -6,8 +6,8 @@ const {
   url,
   link,
 } = require("app/test/tools");
+const endpoints = require("dev/api/endpoints");
 const responses = require("./responses");
-const requests = require("./requests");
 
 const CLUSTERS_SELECTOR = "[data-role='cluster-list'] [data-role='cluster']";
 
@@ -15,15 +15,15 @@ const pollyManager = getPollyManager(() => page());
 
 const scenarios = {
   simpleCluster: [
-    requests.overview((req, res) => {
+    endpoints.clustersOverview((req, res) => {
       res.json(responses.dashboard([responses.cluster.ok]));
     }),
-    requests.status((req, res) => {
+    endpoints.clusterStatus((req, res) => {
       res.json(responses.cluster.ok);
     }),
   ],
   multipleCluster: [
-    requests.overview((req, res) => {
+    endpoints.clustersOverview((req, res) => {
       res.json(responses.dashboard([
         responses.cluster.ok,
         responses.cluster.error,

@@ -1,5 +1,4 @@
-const loginRequests = require("app/scenes/login/test/requests");
-const dashboardRequests = require("app/scenes/dashboard/test/requests");
+const endpoints = require("dev/api/endpoints");
 const dashboardResponses = require("app/scenes/dashboard/test/responses");
 
 let isLoggedIn = false;
@@ -12,14 +11,14 @@ const jsonOr401 = result => (req, res) => {
   }
 };
 
-const dashboardOverview = dashboardRequests.overview(jsonOr401(
+const clustersOverview = endpoints.clustersOverview(jsonOr401(
   dashboardResponses.dashboard([
     dashboardResponses.cluster.ok,
     dashboardResponses.cluster.error,
   ]),
 ));
 
-const login = loginRequests.login((req, res) => {
+const login = endpoints.login((req, res) => {
   if (req.body.username === "hacluster" && req.body.password === "hh") {
     isLoggedIn = true;
     res.send("1533967169-76"); // an ajax id, not important for this app
@@ -28,16 +27,16 @@ const login = loginRequests.login((req, res) => {
   res.status(401).send('{"notauthorized":"true"}');
 });
 
-const logout = loginRequests.logout((req, res) => {
+const logout = endpoints.logout((req, res) => {
   isLoggedIn = false;
   res.send("OK");
 });
 
 module.exports = {
   noLogged: [
-    dashboardOverview,
+    clustersOverview,
     login,
     logout,
-    dashboardRequests.status(jsonOr401(dashboardResponses.cluster.ok)),
+    endpoints.clusterStatus(jsonOr401(dashboardResponses.cluster.ok)),
   ],
 };

@@ -52,7 +52,7 @@ const getPollyManager = getPage => () => {
   return pollyManagerInstance;
 };
 
-const addRecording = (requests) => {
+const spyRequests = (requests) => {
   const records = {};
   const newRequests = {};
 
@@ -66,7 +66,7 @@ const addRecording = (requests) => {
   return [newRequests, records];
 };
 
-const clearRecords = (records) => {
+const clearSpyLog = (records) => {
   /* eslint-disable no-param-reassign */
   Object.keys(records).forEach((name) => {
     delete records[name];
@@ -77,6 +77,6 @@ module.exports = {
   getPollyManager,
   url,
   link,
-  addRecording,
-  clearRecords,
+  spyRequests,
+  clearSpyLog,
 };

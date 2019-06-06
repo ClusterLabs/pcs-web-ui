@@ -1,9 +1,8 @@
 const dashboardResponses = require("app/scenes/dashboard/test/responses");
-const dashboardRequests = require("app/scenes/dashboard/test/requests");
 
-const requests = require("app/scenes/dashboard-add-cluster/test/requests");
+const endpoints = require("dev/api/endpoints");
 
-const checkAuth = () => requests.checkAuth((req, res) => {
+const checkAuth = () => endpoints.checkAuthAgainstNodes((req, res) => {
   const nodeList = Array.isArray(req.query.node_list)
     ? req.query.node_list
     : [req.query.node_list]
@@ -28,7 +27,7 @@ const checkAuth = () => requests.checkAuth((req, res) => {
   res.json(result);
 });
 
-const authenticateNodes = () => requests.authenticate((req, res) => {
+const authenticate = () => endpoints.authenticateAgainstNodes((req, res) => {
   const { nodes } = JSON.parse(req.body.data_json);
 
   const expectedError = Object.keys(nodes).reduce(
@@ -63,7 +62,7 @@ const authenticateNodes = () => requests.authenticate((req, res) => {
 });
 
 const addCluster = () => (
-  requests.addCluster((req, res) => {
+  endpoints.addCluster((req, res) => {
     const nodeName = req.body["node-name"];
     if (nodeName === "ab") {
       res.status(400).send([
@@ -79,15 +78,15 @@ const addCluster = () => (
   })
 );
 
-const dashboardOverview = dashboardRequests.overview((req, res) => {
+const clustersOverview = endpoints.clustersOverview((req, res) => {
   res.json(dashboardResponses.dashboard([]));
 });
 
 module.exports = {
   variousNodes: [
-    dashboardOverview,
+    clustersOverview,
     checkAuth(),
     addCluster(),
-    authenticateNodes(),
+    authenticate(),
   ],
 };

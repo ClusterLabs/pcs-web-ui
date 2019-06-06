@@ -1,11 +1,11 @@
 const responses = require("app/scenes/dashboard/test/responses");
-const requests = require("app/scenes/dashboard/test/requests");
+const endpoints = require("dev/api/endpoints");
 
-const clustersOverview = response => requests.overview(
+const clustersOverview = response => endpoints.clustersOverview(
   (req, res) => { res.json(response); },
 );
 
-const clusterStatus = response => requests.status(
+const clusterStatus = response => endpoints.clusterStatus(
   (req, res) => { res.json(response); },
 );
 

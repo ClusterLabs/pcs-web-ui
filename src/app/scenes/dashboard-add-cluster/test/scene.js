@@ -3,13 +3,12 @@ const { page } = require("app/test/store");
 const {
   url,
   getPollyManager,
-  addRecording,
-  clearRecords,
+  spyRequests,
+  clearSpyLog,
 } = require("app/test/tools");
 
 const dashboardResponses = require("app/scenes/dashboard/test/responses");
-const dashboardRequests = require("app/scenes/dashboard/test/requests");
-const [requests, records] = addRecording(require("./requests"));
+const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 
 const role = name => `[data-role=${name}]`;
 const WIZARD_SELECTOR = role("add-cluster-wizard");
@@ -52,9 +51,9 @@ const authFailed = async () => {
   expect(await isButtonNextDisabled()).to.equal(true);
 };
 
-const verifyAuthRequest = (record, nodeName, password, addr, port) => {
-  expect(record.length).to.eql(1);
-  expect(record[0].body).to.eql(
+const verifyAuthRequest = (spyLog, nodeName, password, addr, port) => {
+  expect(spyLog.length).to.eql(1);
+  expect(spyLog[0].body).to.eql(
     `data_json=${
       encodeURIComponent(JSON.stringify({
         nodes: {
@@ -68,17 +67,17 @@ const verifyAuthRequest = (record, nodeName, password, addr, port) => {
   );
 };
 
-const verifyCheckAuthRequest = (record, nodeName) => {
-  expect(record.length).to.eql(1);
-  expect(record[0].query).to.eql({ node_list: [nodeName] });
+const verifyCheckAuthRequest = (spyLog, nodeName) => {
+  expect(spyLog.length).to.eql(1);
+  expect(spyLog[0].query).to.eql({ node_list: [nodeName] });
 };
 
-const verifyAddRequest = (record, nodeName) => {
-  expect(record.length).to.eql(1);
-  expect(record[0].body).to.eql(`node-name=${nodeName}`);
+const verifyAddRequest = (spyLog, nodeName) => {
+  expect(spyLog.length).to.eql(1);
+  expect(spyLog[0].body).to.eql(`node-name=${nodeName}`);
 };
 
-const getDashboard = dashboardRequests.overview(
+const getDashboard = endpoints.clustersOverview(
   (req, res) => { res.json(dashboardResponses.dashboard([])); },
 );
 
@@ -89,34 +88,36 @@ describe("Add existing cluster", () => {
   const port = "1234";
 
   afterEach(async () => {
-    clearRecords(records);
+    clearSpyLog(spy);
     await pollyManager().stop();
   });
 
   it("should succesfully add cluster", async () => {
     pollyManager().reset([
       getDashboard,
-      requests.checkAuth((req, res) => res.json({ [nodeName]: "Online" })),
-      requests.addCluster((req, res) => res.send("")),
+      endpoints.checkAuthAgainstNodes(
+        (req, res) => res.json({ [nodeName]: "Online" }),
+      ),
+      endpoints.addCluster((req, res) => res.send("")),
     ]);
 
     await enterNodeName(nodeName);
     await goThroughAddStepSuccessfully();
 
-    verifyCheckAuthRequest(records.checkAuth, nodeName);
-    verifyAddRequest(records.addCluster, nodeName);
+    verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
+    verifyAddRequest(spy.addCluster, nodeName);
   });
 
   it("should succesfully add cluster with authentication", async () => {
     pollyManager().reset([
       getDashboard,
-      requests.checkAuth((req, res) => res.json({
+      endpoints.checkAuthAgainstNodes((req, res) => res.json({
         [nodeName]: "Unable to authenticate",
       })),
-      requests.authenticate(
+      endpoints.authenticateAgainstNodes(
         (req, res) => res.json({ node_auth_error: { [nodeName]: 0 } }),
       ),
-      requests.addCluster((req, res) => res.send("")),
+      endpoints.addCluster((req, res) => res.send("")),
     ]);
 
     await enterNodeName(nodeName);
@@ -124,51 +125,61 @@ describe("Add existing cluster", () => {
     await fillAuthenticationForm(password, addr, port);
     await goThroughAddStepSuccessfully();
 
-    verifyCheckAuthRequest(records.checkAuth, nodeName);
-    verifyAuthRequest(records.authenticate, nodeName, password, addr, port);
-    verifyAddRequest(records.addCluster, nodeName);
+    verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
+    verifyAuthRequest(
+      spy.authenticateAgainstNodes,
+      nodeName,
+      password,
+      addr,
+      port,
+    );
+    verifyAddRequest(spy.addCluster, nodeName);
   });
 
   it("should display error when auth check crash on backend", async () => {
     pollyManager().reset([
       getDashboard,
-      requests.checkAuth((req, res) => res.status(500).send("WRONG")),
+      endpoints.checkAuthAgainstNodes(
+        (req, res) => res.status(500).send("WRONG"),
+      ),
     ]);
 
     await enterNodeName(nodeName);
     await authFailed();
-    verifyCheckAuthRequest(records.checkAuth, nodeName);
+    verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
   });
 
   it("should display error when auth check response is nonesense", async () => {
     pollyManager().reset([
       getDashboard,
-      requests.checkAuth((req, res) => res.json("nonsense")),
+      endpoints.checkAuthAgainstNodes((req, res) => res.json("nonsense")),
     ]);
 
     await enterNodeName(nodeName);
     await authFailed();
-    verifyCheckAuthRequest(records.checkAuth, nodeName);
+    verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
   });
 
   it("should display error when auth check response is offline", async () => {
     pollyManager().reset([
       getDashboard,
-      requests.checkAuth((req, res) => res.json({ [nodeName]: "Offline" })),
+      endpoints.checkAuthAgainstNodes(
+        (req, res) => res.json({ [nodeName]: "Offline" }),
+      ),
     ]);
 
     await enterNodeName(nodeName);
     await authFailed();
-    verifyCheckAuthRequest(records.checkAuth, nodeName);
+    verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
   });
 
   it("should display error when authentication fails", async () => {
     pollyManager().reset([
       getDashboard,
-      requests.checkAuth((req, res) => res.json({
+      endpoints.checkAuthAgainstNodes((req, res) => res.json({
         [nodeName]: "Unable to authenticate",
       })),
-      requests.authenticate(
+      endpoints.authenticateAgainstNodes(
         (req, res) => res.json({ node_auth_error: { [nodeName]: 1 } }),
       ),
     ]);
@@ -178,15 +189,23 @@ describe("Add existing cluster", () => {
     await fillAuthenticationForm(password, addr, port);
     await page().waitFor(wizzard(role("authentication-failed")));
 
-    verifyCheckAuthRequest(records.checkAuth, nodeName);
-    verifyAuthRequest(records.authenticate, nodeName, password, addr, port);
+    verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
+    verifyAuthRequest(
+      spy.authenticateAgainstNodes,
+      nodeName,
+      password,
+      addr,
+      port,
+    );
   });
 
   it("should display error when cluster add fails", async () => {
     pollyManager().reset([
       getDashboard,
-      requests.checkAuth((req, res) => res.json({ [nodeName]: "Online" })),
-      requests.addCluster((req, res) => res.status(400).send(
+      endpoints.checkAuthAgainstNodes(
+        (req, res) => res.json({ [nodeName]: "Online" }),
+      ),
+      endpoints.addCluster((req, res) => res.status(400).send(
         "Configuration conflict detected.",
       )),
     ]);
@@ -196,7 +215,7 @@ describe("Add existing cluster", () => {
     await page().click(wizzard("footer [type='submit']"));
     await page().waitFor(wizzard(role("add-cluster-error-message")));
 
-    verifyCheckAuthRequest(records.checkAuth, nodeName);
-    verifyAddRequest(records.addCluster, nodeName);
+    verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
+    verifyAddRequest(spy.addCluster, nodeName);
   });
 });
