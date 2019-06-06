@@ -1,9 +1,7 @@
-/* eslint-disable import/no-dynamic-require */
-const scenes = "../../src/app/scenes";
-const dashboardResponses = require(`${scenes}/dashboard/test/responses`);
-const dashboardRequests = require(`${scenes}/dashboard/test/requests`);
+const dashboardResponses = require("app/scenes/dashboard/test/responses");
+const dashboardRequests = require("app/scenes/dashboard/test/requests");
 
-const requests = require(`${scenes}/dashboard-add-cluster/test/requests`);
+const requests = require("app/scenes/dashboard-add-cluster/test/requests");
 
 const checkAuth = () => requests.checkAuth((req, res) => {
   const nodeList = Array.isArray(req.query.node_list)

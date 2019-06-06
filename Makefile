@@ -50,7 +50,7 @@ pack-modules:
 
 
 server:
-	@NODE_PATH=src/ node dev/backend.js --scenario=$(SCENARIO) --interactive
+	@NODE_PATH=src/ node src/dev/backend.js --scenario=$(SCENARIO) --interactive
 
 
 test:

@@ -1,8 +1,6 @@
-/* eslint-disable import/no-dynamic-require */
-const app = "../../src/app";
-const loginRequests = require(`${app}/scenes/login/test/requests`);
-const dashboardRequests = require(`${app}/scenes/dashboard/test/requests`);
-const dashboardResponses = require(`${app}/scenes/dashboard/test/responses`);
+const loginRequests = require("app/scenes/login/test/requests");
+const dashboardRequests = require("app/scenes/dashboard/test/requests");
+const dashboardResponses = require("app/scenes/dashboard/test/responses");
 
 let isLoggedIn = false;
 

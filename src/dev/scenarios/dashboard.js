@@ -1,7 +1,5 @@
-/* eslint-disable import/no-dynamic-require */
-const scenes = "../../src/app/scenes";
-const responses = require(`${scenes}/dashboard/test/responses`);
-const requests = require(`${scenes}/dashboard/test/requests`);
+const responses = require("app/scenes/dashboard/test/responses");
+const requests = require("app/scenes/dashboard/test/requests");
 
 const clustersOverview = response => requests.overview(
   (req, res) => { res.json(response); },
