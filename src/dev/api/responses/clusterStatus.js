@@ -14,7 +14,7 @@ const node = (id, diff) => deepmerge({
 const resource = (id, diff) => deepmerge({
   id,
   status: "running",
-  stonit: false,
+  stonith: false,
   warning_list: [],
   error_list: [],
 }, diff || {});
@@ -63,9 +63,6 @@ const clusterError = cluster("cluster-2", "error", {
 });
 
 module.exports = {
-  cluster: {
-    ok: clusterOk,
-    error: clusterError,
-  },
-  dashboard: clusterStatusList => ({ cluster_list: clusterStatusList }),
+  ok: clusterOk,
+  error: clusterError,
 };

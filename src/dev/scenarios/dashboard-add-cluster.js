@@ -1,11 +1,7 @@
-/* eslint-disable import/no-dynamic-require */
-const scenes = "../../src/app/scenes";
-const dashboardResponses = require(`${scenes}/dashboard/test/responses`);
-const dashboardRequests = require(`${scenes}/dashboard/test/requests`);
+const endpoints = require("dev/api/endpoints");
+const responses = require("dev/api/responses/all");
 
-const requests = require(`${scenes}/dashboard-add-cluster/test/requests`);
-
-const checkAuth = () => requests.checkAuth((req, res) => {
+const checkAuth = endpoints.checkAuthAgainstNodes((req, res) => {
   const nodeList = Array.isArray(req.query.node_list)
     ? req.query.node_list
     : [req.query.node_list]
@@ -30,7 +26,7 @@ const checkAuth = () => requests.checkAuth((req, res) => {
   res.json(result);
 });
 
-const authenticateNodes = () => requests.authenticate((req, res) => {
+const authenticate = endpoints.authenticateAgainstNodes((req, res) => {
   const { nodes } = JSON.parse(req.body.data_json);
 
   const expectedError = Object.keys(nodes).reduce(
@@ -64,32 +60,30 @@ const authenticateNodes = () => requests.authenticate((req, res) => {
   });
 });
 
-const addCluster = () => (
-  requests.addCluster((req, res) => {
-    const nodeName = req.body["node-name"];
-    if (nodeName === "ab") {
-      res.status(400).send([
-        "Configuration conflict detected.",
-        "Some nodes had a newer configuration than the local node."
-          + " Local node's configuration was updated."
-          + "  Please repeat the last action if appropriate."
-        ,
-      ].join("\n\n"));
-    } else {
-      res.send("");
-    }
-  })
-);
+const addCluster = endpoints.addCluster((req, res) => {
+  const nodeName = req.body["node-name"];
+  if (nodeName === "ab") {
+    res.status(400).send([
+      "Configuration conflict detected.",
+      "Some nodes had a newer configuration than the local node."
+        + " Local node's configuration was updated."
+        + "  Please repeat the last action if appropriate."
+      ,
+    ].join("\n\n"));
+  } else {
+    res.send("");
+  }
+});
 
-const dashboardOverview = dashboardRequests.overview((req, res) => {
-  res.json(dashboardResponses.dashboard([]));
+const clustersOverview = endpoints.clustersOverview((req, res) => {
+  res.json(responses.clustersOverview.empty);
 });
 
 module.exports = {
   variousNodes: [
-    dashboardOverview,
-    checkAuth(),
-    addCluster(),
-    authenticateNodes(),
+    clustersOverview,
+    checkAuth,
+    addCluster,
+    authenticate,
   ],
 };

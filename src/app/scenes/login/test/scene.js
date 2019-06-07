@@ -1,15 +1,12 @@
 const { expect } = require("chai");
-const { page } = require("app/test/store");
 
-const {
-  getPollyManager,
-  addRecording,
-  url,
-} = require("app/test/tools");
+const { page } = require("test/store");
+const { getPollyManager } = require("test/tools/pollyManager");
+const { url } = require("test/tools/backendAddress");
+const { spyRequests } = require("test/tools/endpointSpy");
 
-const dashboardResponses = require("app/scenes/dashboard/test/responses");
-const dashboardRequests = require("app/scenes/dashboard/test/requests");
-const [requests, records] = addRecording(require("./requests"));
+const responses = require("dev/api/responses/all");
+const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 
 const pollyManager = getPollyManager(() => page());
 
@@ -23,10 +20,10 @@ describe("Login scene", () => {
 
   it("should be rendered and can send credentials", async () => {
     pollyManager().reset([
-      dashboardRequests.overview((req, res) => {
+      endpoints.clustersOverview((req, res) => {
         res.status(401).send();
       }),
-      requests.login((req, res) => res.send("ajax-id-not-important")),
+      endpoints.login((req, res) => res.send("ajax-id-not-important")),
     ]);
     const username = "hacluster";
     const password = "hh";
@@ -37,8 +34,8 @@ describe("Login scene", () => {
     await page().type(loginForm('[name="pf-login-password-id"]'), password);
     await page().click(loginForm('button[type="submit"]'));
 
-    expect(records.login.length).to.eql(1);
-    expect(records.login[0].body).to.eql("username=hacluster&password=hh");
+    expect(spy.login.length).to.eql(1);
+    expect(spy.login[0].body).to.eql("username=hacluster&password=hh");
   });
 });
 
@@ -50,10 +47,10 @@ describe("Logout", () => {
 
   it("should call logout on backend after click", async () => {
     pollyManager().reset([
-      dashboardRequests.overview((req, res) => {
-        res.json(dashboardResponses.dashboard([]));
+      endpoints.clustersOverview((req, res) => {
+        res.json(responses.clustersOverview.empty);
       }),
-      requests.logout((req, res) => res.send("OK")),
+      endpoints.logout((req, res) => res.send("OK")),
     ]);
     await page().goto(url());
     await page().waitFor(MENU_SELECTOR);
@@ -61,6 +58,6 @@ describe("Logout", () => {
     await page().waitFor(LOGOUT_SELECTOR);
     await page().click(LOGOUT_SELECTOR);
 
-    expect(records.logout.length).to.eql(1);
+    expect(spy.logout.length).to.eql(1);
   });
 });

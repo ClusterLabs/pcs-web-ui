@@ -1,13 +1,11 @@
 const { expect } = require("chai");
-const { page } = require("app/test/store");
 
-const {
-  getPollyManager,
-  url,
-  link,
-} = require("app/test/tools");
-const responses = require("./responses");
-const requests = require("./requests");
+const { page } = require("test/store");
+const { getPollyManager } = require("test/tools/pollyManager");
+const { url, link } = require("test/tools/backendAddress");
+
+const endpoints = require("dev/api/endpoints");
+const responses = require("dev/api/responses/all");
 
 const CLUSTERS_SELECTOR = "[data-role='cluster-list'] [data-role='cluster']";
 
@@ -15,22 +13,25 @@ const pollyManager = getPollyManager(() => page());
 
 const scenarios = {
   simpleCluster: [
-    requests.overview((req, res) => {
-      res.json(responses.dashboard([responses.cluster.ok]));
+    endpoints.clustersOverview((req, res) => {
+      res.json(responses.clustersOverview.withClusters([
+        responses.clusterStatus.ok,
+      ]));
     }),
-    requests.status((req, res) => {
-      res.json(responses.cluster.ok);
+    endpoints.clusterStatus((req, res) => {
+      res.json(responses.clusterStatus.ok);
     }),
   ],
   multipleCluster: [
-    requests.overview((req, res) => {
-      res.json(responses.dashboard([
-        responses.cluster.ok,
-        responses.cluster.error,
+    endpoints.clustersOverview((req, res) => {
+      res.json(responses.clustersOverview.withClusters([
+        responses.clusterStatus.ok,
+        responses.clusterStatus.error,
       ]));
     }),
   ],
 };
+
 describe("Dashboard scene", () => {
   afterEach(async () => { await pollyManager().stop(); });
 

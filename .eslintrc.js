@@ -23,7 +23,13 @@ module.exports = {
     // "import/extensions": [2, { "js": "always", "jsx": "always" }],
     "import/extensions": ["error", "never", { "packages": "always" }],
 
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/test/*.js", "dev/**/*.js"]}],
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        "**/test/*.js",
+        "src/dev/**/*.js",
+        "src/test/**/*.js",
+      ]
+    }],
 
     // specify the maximum length of a line in your program
     // https://eslint.org/docs/rules/max-len
