@@ -1,11 +1,7 @@
 const { expect } = require("chai");
-const { page } = require("app/test/store");
+const { page } = require("test/store");
 
-const {
-  getPollyManager,
-  url,
-  link,
-} = require("app/test/tools");
+const { getPollyManager, url, link } = require("test/tools");
 const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 

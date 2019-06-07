@@ -1,11 +1,11 @@
 const { expect } = require("chai");
-const { page } = require("app/test/store");
+const { page } = require("test/store");
 const {
   url,
   getPollyManager,
   spyRequests,
   clearSpyLog,
-} = require("app/test/tools");
+} = require("test/tools");
 
 const responses = require("dev/api/responses/all");
 const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));

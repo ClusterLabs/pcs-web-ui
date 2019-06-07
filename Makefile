@@ -62,7 +62,7 @@ testa:
 
 
 tests:
-	NODE_PATH=src/ npx mocha src/app/test/bootstrap.js \
+	NODE_PATH=src/ npx mocha src/test/bootstrap.js \
 		--no-timeouts --recursive --watch src/app/scenes/**/test/*.js
 
 
