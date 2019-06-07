@@ -7,7 +7,7 @@ const {
   url,
 } = require("app/test/tools");
 
-const dashboardResponses = require("app/scenes/dashboard/test/responses");
+const responses = require("dev/api/responses/all");
 const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 
 const pollyManager = getPollyManager(() => page());
@@ -50,7 +50,7 @@ describe("Logout", () => {
   it("should call logout on backend after click", async () => {
     pollyManager().reset([
       endpoints.clustersOverview((req, res) => {
-        res.json(dashboardResponses.dashboard([]));
+        res.json(responses.clustersOverview.empty);
       }),
       endpoints.logout((req, res) => res.send("OK")),
     ]);

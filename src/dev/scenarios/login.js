@@ -1,5 +1,5 @@
 const endpoints = require("dev/api/endpoints");
-const dashboardResponses = require("app/scenes/dashboard/test/responses");
+const responses = require("dev/api/responses/all");
 
 let isLoggedIn = false;
 
@@ -12,9 +12,9 @@ const jsonOr401 = result => (req, res) => {
 };
 
 const clustersOverview = endpoints.clustersOverview(jsonOr401(
-  dashboardResponses.dashboard([
-    dashboardResponses.cluster.ok,
-    dashboardResponses.cluster.error,
+  responses.clustersOverview.withClusters([
+    responses.clusterStatus.ok,
+    responses.clusterStatus.error,
   ]),
 ));
 
@@ -37,6 +37,6 @@ module.exports = {
     clustersOverview,
     login,
     logout,
-    endpoints.clusterStatus(jsonOr401(dashboardResponses.cluster.ok)),
+    endpoints.clusterStatus(jsonOr401(responses.clusterStatus.ok)),
   ],
 };

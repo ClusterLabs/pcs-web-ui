@@ -1,8 +1,7 @@
-const dashboardResponses = require("app/scenes/dashboard/test/responses");
-
 const endpoints = require("dev/api/endpoints");
+const responses = require("dev/api/responses/all");
 
-const checkAuth = () => endpoints.checkAuthAgainstNodes((req, res) => {
+const checkAuth = endpoints.checkAuthAgainstNodes((req, res) => {
   const nodeList = Array.isArray(req.query.node_list)
     ? req.query.node_list
     : [req.query.node_list]
@@ -27,7 +26,7 @@ const checkAuth = () => endpoints.checkAuthAgainstNodes((req, res) => {
   res.json(result);
 });
 
-const authenticate = () => endpoints.authenticateAgainstNodes((req, res) => {
+const authenticate = endpoints.authenticateAgainstNodes((req, res) => {
   const { nodes } = JSON.parse(req.body.data_json);
 
   const expectedError = Object.keys(nodes).reduce(
@@ -61,32 +60,30 @@ const authenticate = () => endpoints.authenticateAgainstNodes((req, res) => {
   });
 });
 
-const addCluster = () => (
-  endpoints.addCluster((req, res) => {
-    const nodeName = req.body["node-name"];
-    if (nodeName === "ab") {
-      res.status(400).send([
-        "Configuration conflict detected.",
-        "Some nodes had a newer configuration than the local node."
-          + " Local node's configuration was updated."
-          + "  Please repeat the last action if appropriate."
-        ,
-      ].join("\n\n"));
-    } else {
-      res.send("");
-    }
-  })
-);
+const addCluster = endpoints.addCluster((req, res) => {
+  const nodeName = req.body["node-name"];
+  if (nodeName === "ab") {
+    res.status(400).send([
+      "Configuration conflict detected.",
+      "Some nodes had a newer configuration than the local node."
+        + " Local node's configuration was updated."
+        + "  Please repeat the last action if appropriate."
+      ,
+    ].join("\n\n"));
+  } else {
+    res.send("");
+  }
+});
 
 const clustersOverview = endpoints.clustersOverview((req, res) => {
-  res.json(dashboardResponses.dashboard([]));
+  res.json(responses.clustersOverview.empty);
 });
 
 module.exports = {
   variousNodes: [
     clustersOverview,
-    checkAuth(),
-    addCluster(),
-    authenticate(),
+    checkAuth,
+    addCluster,
+    authenticate,
   ],
 };

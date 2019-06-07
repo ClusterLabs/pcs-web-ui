@@ -7,7 +7,7 @@ const {
   clearSpyLog,
 } = require("app/test/tools");
 
-const dashboardResponses = require("app/scenes/dashboard/test/responses");
+const responses = require("dev/api/responses/all");
 const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 
 const role = name => `[data-role=${name}]`;
@@ -78,7 +78,7 @@ const verifyAddRequest = (spyLog, nodeName) => {
 };
 
 const getDashboard = endpoints.clustersOverview(
-  (req, res) => { res.json(dashboardResponses.dashboard([])); },
+  (req, res) => { res.json(responses.clustersOverview.empty); },
 );
 
 describe("Add existing cluster", () => {
