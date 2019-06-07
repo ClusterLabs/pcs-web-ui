@@ -1,11 +1,9 @@
 const { expect } = require("chai");
+
 const { page } = require("test/store");
-const {
-  url,
-  getPollyManager,
-  spyRequests,
-  clearSpyLog,
-} = require("test/tools");
+const { getPollyManager } = require("test/tools/pollyManager");
+const { url } = require("test/tools/backendAddress");
+const { spyRequests, clearSpyLog } = require("test/tools/endpointSpy");
 
 const responses = require("dev/api/responses/all");
 const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));

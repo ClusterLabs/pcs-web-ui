@@ -4,11 +4,11 @@ const PuppeteerAdapter = require("@pollyjs/adapter-puppeteer");
 const FsPersister = require("@pollyjs/persister-fs");
 const { Polly } = require("@pollyjs/core");
 
+const { HOST } = require("./backendAddress");
+
 Polly.register(PuppeteerAdapter);
 Polly.register(FsPersister);
 
-const url = (urlPath = "/") => `http://localhost:3000/ui${urlPath}`;
-const link = pathRest => `/ui${pathRest}`;
 
 class PollyManager {
   constructor(page) {
@@ -31,7 +31,7 @@ class PollyManager {
       },
     });
 
-    this.polly.server.host("http://localhost:3000", () => {
+    this.polly.server.host(HOST, () => {
       scenario.forEach((call) => {
         this.polly.server[call.method](call.url).intercept(call.handler);
       });
@@ -52,31 +52,6 @@ const getPollyManager = getPage => () => {
   return pollyManagerInstance;
 };
 
-const spyRequests = (requests) => {
-  const records = {};
-  const newRequests = {};
-
-  Object.keys(requests).forEach((name) => {
-    newRequests[name] = handler => requests[name]((req, res) => {
-      records[name] = [...(records[name] || []), req];
-      handler(req, res);
-    });
-  });
-
-  return [newRequests, records];
-};
-
-const clearSpyLog = (records) => {
-  /* eslint-disable no-param-reassign */
-  Object.keys(records).forEach((name) => {
-    delete records[name];
-  });
-};
-
 module.exports = {
   getPollyManager,
-  url,
-  link,
-  spyRequests,
-  clearSpyLog,
 };

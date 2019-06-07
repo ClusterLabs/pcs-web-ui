@@ -1,7 +1,9 @@
 const { expect } = require("chai");
-const { page } = require("test/store");
 
-const { getPollyManager, url, link } = require("test/tools");
+const { page } = require("test/store");
+const { getPollyManager } = require("test/tools/pollyManager");
+const { url, link } = require("test/tools/backendAddress");
+
 const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 
@@ -29,6 +31,7 @@ const scenarios = {
     }),
   ],
 };
+
 describe("Dashboard scene", () => {
   afterEach(async () => { await pollyManager().stop(); });
 
