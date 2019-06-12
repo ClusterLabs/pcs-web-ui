@@ -56,9 +56,7 @@ class Scenario {
 
 const runServer = scenarioName => {
   childProcess.execSync(
-    "npx nodemon --watch src/dev/ --watch src/app "
-      +`src/dev/backend.js --scenario=${scenarioName}`
-    ,
+    `npx nodemon --watch src/ src/dev/backend.js --scenario=${scenarioName}`,
     { stdio: ['inherit', 'inherit', 'inherit'] },
   );
 };
