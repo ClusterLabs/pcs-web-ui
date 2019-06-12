@@ -65,5 +65,8 @@ tests:
 	NODE_PATH=src/ npx mocha src/test/bootstrap.js \
 		--no-timeouts --recursive --watch src/app/scenes/**/test/*.js
 
+clean:
+	rm -rf build
+	rm pcs-web-ui-node-modules-*.tar.xz
 
 .PHONY: test build
