@@ -66,4 +66,4 @@ tests:
 		--no-timeouts --recursive --watch src/app/scenes/**/test/*.js
 
 
-.PHONY: test
+.PHONY: test build
