@@ -90,7 +90,7 @@ describe("Dashboard scene", () => {
           link: link("/cluster/cluster-2/nodes"),
         },
         resources: {
-          total: "1",
+          total: "2",
         },
       },
     ]);

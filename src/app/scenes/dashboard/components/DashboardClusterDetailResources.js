@@ -24,7 +24,7 @@ const compareItems = (a, b) => {
     return -1;
   }
 
-  return a.name.toUpperCase() - b.name.toUpperCase();
+  return a.id.toUpperCase() - b.id.toUpperCase();
 };
 
 const withIssues = (resource, content) => (

@@ -52,6 +52,7 @@ const clusterError = cluster("cluster-2", "error", {
         "Failed to start R1 on Tue Feb 26 10:07:50 2019 on node node-3:",
       ]),
     }),
+    resource("R2", { status: "blocked" }),
   ],
   warning_list: issues([
     "No fencing configured in the cluster",
