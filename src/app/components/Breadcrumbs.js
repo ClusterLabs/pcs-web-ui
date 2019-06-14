@@ -7,6 +7,8 @@ import {
 } from "@patternfly/react-core";
 import { StyleSheet, css } from "@patternfly/react-styles";
 
+import { selectors } from "app/core/routerPlugin";
+
 import BreadcrumbItem from "./BreadcrumbItem";
 
 const styles = StyleSheet.create({
@@ -40,11 +42,7 @@ const BreadcrumbsView = ({ urlParts }) => (
 );
 
 const withUrlParts = connect(state => ({
-  urlParts: state.router.location.pathname
-    .replace(/\/$/, "")
-    .split("/")
-    .slice(1)
-  ,
+  urlParts: selectors.getPathName(state).replace(/\/$/, "").split("/").slice(1),
 }));
 
 export default withUrlParts(BreadcrumbsView);

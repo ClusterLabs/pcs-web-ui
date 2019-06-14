@@ -1,5 +1,5 @@
 import { createBrowserHistory } from "history";
-import { routerMiddleware, connectRouter } from "connected-react-router";
+import { routerMiddleware } from "connected-react-router";
 import {
   createStore,
   applyMiddleware,
@@ -22,15 +22,12 @@ const sagaMiddleware = createSagaMiddleware({
   sagaMonitor: window["__SAGA_MONITOR_EXTENSION__"],
 });
 
-const { reducers, sagas } = registerPlugins(plugins);
 
 const setupStore = (basename) => {
   const history = createBrowserHistory({ basename });
+  const { reducers, sagas } = registerPlugins(plugins(history));
   const store = createStore(
-    combineReducers({
-      router: connectRouter(history),
-      ...reducers,
-    }),
+    combineReducers(reducers),
     composeMiddleware(applyMiddleware(
       routerMiddleware(history),
       sagaMiddleware,
