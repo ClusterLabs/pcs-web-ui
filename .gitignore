@@ -7,7 +7,7 @@
 # testing
 /coverage
 /src/app/scenes/*/test/recordings/
-/src/test/recordings/
+/src/test/tools/recordings/
 
 # production
 /build
