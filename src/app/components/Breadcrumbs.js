@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   PageSection,
   PageSectionVariants,
@@ -19,30 +19,31 @@ const styles = StyleSheet.create({
 });
 
 /* eslint-disable react/no-array-index-key */
-const BreadcrumbsView = ({ urlParts }) => (
-  <PageSection
-    variant={PageSectionVariants.light}
-    className={css(styles.breadcrumbSection)}
-  >
-    <Breadcrumb>
-      {
-        urlParts.length < 1
-          ? <BreadcrumbItem to="/" label="Clusters" isActive />
-          : urlParts.map((part, i) => (
-            <BreadcrumbItem
-              key={i}
-              to={i === 0 ? "/" : `/${urlParts.slice(0, i + 1).join("/")}`}
-              label={part === "cluster" ? "Clusters" : part}
-              isActive={i === urlParts.length - 1}
-            />
-          ))
-      }
-    </Breadcrumb>
-  </PageSection>
-);
+const BreadcrumbsView = () => {
+  const urlParts = useSelector(state => (
+    selectors.getPathName(state).replace(/\/$/, "").split("/").slice(1)
+  ));
+  return (
+    <PageSection
+      variant={PageSectionVariants.light}
+      className={css(styles.breadcrumbSection)}
+    >
+      <Breadcrumb>
+        {
+          urlParts.length < 1
+            ? <BreadcrumbItem to="/" label="Clusters" isActive />
+            : urlParts.map((part, i) => (
+              <BreadcrumbItem
+                key={i}
+                to={i === 0 ? "/" : `/${urlParts.slice(0, i + 1).join("/")}`}
+                label={part === "cluster" ? "Clusters" : part}
+                isActive={i === urlParts.length - 1}
+              />
+            ))
+        }
+      </Breadcrumb>
+    </PageSection>
+  );
+};
 
-const withUrlParts = connect(state => ({
-  urlParts: selectors.getPathName(state).replace(/\/$/, "").split("/").slice(1),
-}));
-
-export default withUrlParts(BreadcrumbsView);
+export default BreadcrumbsView;

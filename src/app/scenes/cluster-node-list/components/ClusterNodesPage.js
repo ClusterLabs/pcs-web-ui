@@ -1,17 +1,12 @@
 import React from "react";
 
-import withClusterState from "app/services/cluster/withClusterState";
+import useClusterState from "app/services/cluster/useClusterState";
 import { PageSectionDataLoading, ClusterPage } from "app/components";
 
 import ClusterNodeList from "./ClusterNodeList";
 
-export const ClusterNodesPage = ({
-  clusterUrlName,
-  cluster,
-  useClusterSync,
-  dataLoaded,
-}) => {
-  useClusterSync(clusterUrlName);
+export const ClusterNodesPage = ({ clusterUrlName }) => {
+  const { cluster, dataLoaded } = useClusterState(clusterUrlName);
   return (
     <ClusterPage clusterUrlName={clusterUrlName}>
       <PageSectionDataLoading done={dataLoaded}>
@@ -23,4 +18,4 @@ export const ClusterNodesPage = ({
   );
 };
 
-export default withClusterState(ClusterNodesPage);
+export default ClusterNodesPage;

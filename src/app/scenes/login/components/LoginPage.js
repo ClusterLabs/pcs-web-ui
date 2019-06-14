@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   LoginForm,
   LoginPage,
@@ -9,25 +9,13 @@ import { BackgroundImage } from "app/components";
 import * as actions from "../actions";
 import { selectors } from "../plugin";
 
-const withState = connect(
-  state => ({
-    failed: selectors.failed(state),
-    failMessage: selectors.failMessage(state),
-    isAcceptingLoginData: selectors.isAcceptingLoginData(state),
-  }),
-  {
-    enterCredentials: actions.enterCredentials,
-  },
-);
-
-const Login = ({
-  failed,
-  failMessage,
-  isAcceptingLoginData,
-  enterCredentials,
-}) => {
+const Login = () => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const failed = useSelector(selectors.failed);
+  const failMessage = useSelector(selectors.failMessage);
+  const isAcceptingLoginData = useSelector(selectors.isAcceptingLoginData);
+  const dispatch = useDispatch();
   return (
     <React.Fragment>
       <BackgroundImage />
@@ -52,7 +40,7 @@ const Login = ({
           isLoginButtonDisabled={!isAcceptingLoginData}
           onLoginButtonClick={(e) => {
             e.preventDefault();
-            enterCredentials(username, password);
+            dispatch(actions.enterCredentials(username, password));
           }}
         />
       </LoginPage>
@@ -60,4 +48,4 @@ const Login = ({
   );
 };
 
-export default withState(Login);
+export default Login;

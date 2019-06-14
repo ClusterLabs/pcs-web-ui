@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Dropdown,
   DropdownItem,
@@ -12,13 +12,9 @@ import {
 
 import * as actions from "app/scenes/login/actions";
 
-const withLogout = connect(
-  null,
-  { logout: actions.logout },
-);
-
-const PageToolbarView = ({ logout }) => {
+const PageToolbarView = () => {
   const [isDropdownOpen, setDropdownOpen] = React.useState(false);
+  const dispatch = useDispatch();
   return (
     <Toolbar>
       <ToolbarGroup>
@@ -38,7 +34,11 @@ const PageToolbarView = ({ logout }) => {
             )}
             dropdownItems={[
               (
-                <DropdownItem key="0" onClick={logout} data-role="logout">
+                <DropdownItem
+                  key="0"
+                  onClick={() => dispatch(actions.logout())}
+                  data-role="logout"
+                >
                   Logout
                 </DropdownItem>
               ),
@@ -50,4 +50,4 @@ const PageToolbarView = ({ logout }) => {
   );
 };
 
-export default withLogout(PageToolbarView);
+export default PageToolbarView;

@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import {
   Button,
   FormGroup,
@@ -9,9 +10,10 @@ import {
 import { Spinner } from "app/components";
 import { Warning, Error } from "app/components/StatusSign";
 
+import * as actions from "../actions";
+
 const AddClusterAuthRequired = ({
   nodeName,
-  authenticateNode,
   authenticationInProgress,
   authenticationError,
 }) => {
@@ -19,6 +21,7 @@ const AddClusterAuthRequired = ({
   const [customAddrPort, setCustomAddrPort] = React.useState(false);
   const [address, setAddress] = React.useState("");
   const [port, setPort] = React.useState("");
+  const dispatch = useDispatch();
   return (
     <React.Fragment>
       <Warning
@@ -91,9 +94,9 @@ const AddClusterAuthRequired = ({
           : (
             <Button
               variant="primary"
-              onClick={
-                () => authenticateNode(nodeName, password, address, port)
-              }
+              onClick={() => dispatch(
+                actions.authenticateNode(nodeName, password, address, port),
+              )}
               data-role="authenticate-node"
             >
               Authenticate node

@@ -5,27 +5,26 @@ import {
   ToolbarGroup,
   ToolbarItem,
 } from "@patternfly/react-core";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 
-const withPushLocations = connect(null, {
-  addExistingCluster: () => push("/add-cluster"),
-});
+const DashboardToolbar = () => {
+  const dispatch = useDispatch();
+  return (
+    <Toolbar>
+      <ToolbarGroup>
+        <ToolbarItem>
+          <Button
+            variant="primary"
+            onClick={() => dispatch(push("/add-cluster"))}
+            data-role="add-cluster"
+          >
+            Add existing cluster
+          </Button>
+        </ToolbarItem>
+      </ToolbarGroup>
+    </Toolbar>
+  );
+};
 
-const DashboardToolbar = ({ addExistingCluster }) => (
-  <Toolbar>
-    <ToolbarGroup>
-      <ToolbarItem>
-        <Button
-          variant="primary"
-          onClick={addExistingCluster}
-          data-role="add-cluster"
-        >
-          Add existing cluster
-        </Button>
-      </ToolbarItem>
-    </ToolbarGroup>
-  </Toolbar>
-);
-
-export default withPushLocations(DashboardToolbar);
+export default DashboardToolbar;

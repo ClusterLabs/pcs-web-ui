@@ -1,17 +1,12 @@
 import React from "react";
 
-import withClusterState from "app/services/cluster/withClusterState";
+import useClusterState from "app/services/cluster/useClusterState";
 import { ClusterPage, PageSectionDataLoading } from "app/components";
 
 import ClusterStonithList from "./ClusterStonithList";
 
-export const ClusterStonithListPage = ({
-  clusterUrlName,
-  cluster,
-  useClusterSync,
-  dataLoaded,
-}) => {
-  useClusterSync(clusterUrlName);
+export const ClusterStonithListPage = ({ clusterUrlName }) => {
+  const { cluster, dataLoaded } = useClusterState(clusterUrlName);
   return (
     <ClusterPage clusterUrlName={clusterUrlName}>
       <PageSectionDataLoading done={dataLoaded}>
@@ -23,4 +18,4 @@ export const ClusterStonithListPage = ({
   );
 };
 
-export default withClusterState(ClusterStonithListPage);
+export default ClusterStonithListPage;

@@ -1,9 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { setUpDataReading } from "app/services/data-load/actions";
 
-/* eslint-disable no-shadow */
 import { syncClusterData, syncClusterDataStop } from "./actions";
 import { selectors } from "./plugin";
 
@@ -17,21 +16,14 @@ const setupClusterReading = clusterUrlName => setUpDataReading({
   },
 });
 
-const useClusterSync = (dispatch, clusterUrlName) => React.useEffect(
-  () => {
-    dispatch(setupClusterReading(clusterUrlName));
-  },
-  [clusterUrlName],
-);
-
-const withClusterState = connect(
-  state => ({
-    cluster: selectors.getCluster(state),
-    dataLoaded: selectors.getClusterDataFetch(state).isSuccess,
-  }),
-  dispatch => ({
-    useClusterSync: clusterUrlName => useClusterSync(dispatch, clusterUrlName),
-  }),
-);
-
-export default withClusterState;
+export default (clusterUrlName) => {
+  const dispatch = useDispatch();
+  React.useEffect(
+    () => { dispatch(setupClusterReading(clusterUrlName)); },
+    [clusterUrlName],
+  );
+  return {
+    cluster: useSelector(selectors.getCluster),
+    dataLoaded: useSelector(selectors.areDataLoaded),
+  };
+};
