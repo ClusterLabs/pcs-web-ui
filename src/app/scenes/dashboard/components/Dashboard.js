@@ -1,12 +1,22 @@
 import React from "react";
-import { DataList } from "@patternfly/react-core";
+
+import { Table } from "app/components";
 
 import DashboardCluster from "./DashboardCluster";
 
 export default ({ dashboard }) => (
-  <DataList aria-label="Cluster list" data-role="cluster-list">
+  <Table isExpandable data-role="cluster-list">
+    <thead>
+      <tr>
+        <th>Clusters</th>
+        <th>Issues</th>
+        <th>Nodes</th>
+        <th>Resources</th>
+        <th>Fence devices</th>
+      </tr>
+    </thead>
     {dashboard.clusterList.map(cluster => (
-      <DashboardCluster cluster={cluster} key={cluster.name} />
+      <DashboardCluster key={cluster.name} cluster={cluster} />
     ))}
-  </DataList>
+  </Table>
 );

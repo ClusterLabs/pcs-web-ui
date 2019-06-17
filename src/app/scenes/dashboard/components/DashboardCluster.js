@@ -1,41 +1,57 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  DataListCell,
-  DataListContent,
-  DataListItem,
-  DataListToggle,
-  DataListItemRow,
-} from "@patternfly/react-core";
 
-import DashboardClusterNodes from "./DashboardClusterNodes";
-import DashboardClusterResources from "./DashboardClusterResources";
-import DashboardClusterStatusIcon from "./DashboardClusterStatusIcon";
-import DashboardClusterStonith from "./DashboardClusterStonith";
-import DashboardClusterDetails from "./DashboardClusterDetails";
+import { Table } from "app/components";
+
+import DashboardNodeList from "./DashboardNodeList";
+import DashboardResourceList from "./DashboardResourceList";
+import DashboardFenceDeviceList from "./DashboardFenceDeviceList";
+import DashboardIssueList from "./DashboardIssueList";
+
+const COLUMNS = {
+  ISSUES: "ISSUES",
+  NODES: "NODES",
+  RESOURCES: "RESOURCES",
+  FENCE_DEVICES: "FENCE_DEVICES",
+};
+const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
+const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
 const DashboardCluster = ({ cluster }) => {
-  const [isExpanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState("");
+
+  const Summary = React.useCallback(
+    ({ expandKey, children, ...rest }) => (
+      <Table.ExpansionToggle
+        expanded={expanded === expandKey}
+        onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
+        {...rest}
+      >
+        {children}
+      </Table.ExpansionToggle>
+    ),
+    [expanded, setExpanded],
+  );
+
+  const Detail = React.useCallback(
+    ({ expandKey, children, padding = false }) => (
+      expanded !== expandKey ? null : (
+        <Table.ExpandedContent colSpan={CELL_COUNT} padding={padding}>
+          {children}
+        </Table.ExpandedContent>
+      )
+    ),
+    [expanded],
+  );
+
   return (
-    <DataListItem
+    <Table.Body
+      isExpanded={EXPANDABLE_COLUMNS.includes(expanded)}
       data-role="cluster"
-      aria-labelledby={cluster.name}
-      isExpanded={isExpanded}
+      data-role-key={cluster.name}
     >
-      <DataListItemRow>
-        <DataListToggle
-          id={`dashboard-cluster-${cluster.name}-toggle`}
-          onClick={() => setExpanded(!isExpanded)}
-          isExpanded={isExpanded}
-          aria-labelledby={
-            `dashboard-cluster-${cluster.name}-toggle dashboard-cluster-${cluster.name}`
-          }
-          aria-label="Toggle details for"
-        />
-        <DataListCell isIcon key="icon" width={1}>
-          <DashboardClusterStatusIcon status={cluster.status} />
-        </DataListCell>
-        <DataListCell width={2}>
+      <tr>
+        <th>
           <Link
             id={`dashboard-cluster-${cluster.name}`}
             data-role="detail-link"
@@ -43,38 +59,46 @@ const DashboardCluster = ({ cluster }) => {
           >
             {cluster.name}
           </Link>
-        </DataListCell>
-        <DataListCell width={1}>
-          <DashboardClusterNodes
-            nodeList={cluster.nodeList}
-            clusterUrlName={cluster.urlName}
-          />
-        </DataListCell>
-        <DataListCell width={1}>
-          <DashboardClusterResources
-            resourceList={cluster.resourceList}
-            clusterUrlName={cluster.urlName}
-          />
-        </DataListCell>
-        <DataListCell width={1}>
-          <DashboardClusterStonith
-            stonithList={cluster.stonithList}
-            clusterUrlName={cluster.urlName}
-          />
-        </DataListCell>
-      </DataListItemRow>
-      {
-        isExpanded && (
-
-          <DataListContent
-            isHidden={false}
-            aria-label="Primary Content Details"
-          >
-            <DashboardClusterDetails cluster={cluster} />
-          </DataListContent>
-        )
-      }
-    </DataListItem>
+        </th>
+        <Summary
+          expandKey={COLUMNS.ISSUES}
+          data-role="issues-total"
+        >
+          {cluster.issueList.length}
+        </Summary>
+        <Summary
+          expandKey={COLUMNS.NODES}
+          data-role="nodes-total"
+        >
+          {cluster.nodeList.length}
+        </Summary>
+        <Summary
+          expandKey={COLUMNS.RESOURCES}
+          data-role="resources-total"
+        >
+          {cluster.resourceList.length}
+        </Summary>
+        <Summary
+          expandKey={COLUMNS.FENCE_DEVICES}
+          data-role="fence-devices-total"
+        >
+          {cluster.stonithList.length}
+        </Summary>
+      </tr>
+      <Detail expandKey={COLUMNS.ISSUES}>
+        <DashboardIssueList issueList={cluster.issueList} />
+      </Detail>
+      <Detail expandKey={COLUMNS.NODES}>
+        <DashboardNodeList nodeList={cluster.nodeList} />
+      </Detail>
+      <Detail expandKey={COLUMNS.RESOURCES}>
+        <DashboardResourceList resourceList={cluster.resourceList} />
+      </Detail>
+      <Detail expandKey={COLUMNS.FENCE_DEVICES}>
+        <DashboardFenceDeviceList fenceDeviceList={cluster.stonithList} />
+      </Detail>
+    </Table.Body>
   );
 };
+
 export default DashboardCluster;

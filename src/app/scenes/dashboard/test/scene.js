@@ -7,7 +7,15 @@ const { url, link } = require("test/tools/backendAddress");
 const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 
+
 const CLUSTERS_SELECTOR = "[data-role='cluster-list'] [data-role='cluster']";
+const clusters = (selectors = "") => `${CLUSTERS_SELECTOR} ${selectors}`.trim();
+const cluster1 = (selectors = "") => (
+  `${CLUSTERS_SELECTOR}[data-role-key='cluster-1'] ${selectors}`.trim()
+);
+const cluster2 = (selectors = "") => (
+  `${CLUSTERS_SELECTOR}[data-role-key='cluster-2'] ${selectors}`.trim()
+);
 
 const pollyManager = getPollyManager(() => page());
 
@@ -32,77 +40,68 @@ const scenarios = {
   ],
 };
 
-describe("Dashboard scene", () => {
+describe.only("Dashboard scene", () => {
   afterEach(async () => { await pollyManager().stop(); });
 
   it("should render multiple cluster information", async () => {
     pollyManager().reset(scenarios.multipleCluster);
 
     await page().goto(url());
-    await page().waitFor(CLUSTERS_SELECTOR);
+    await page().waitFor(clusters());
 
     const clusterInfoList = await page().$$eval(
-      CLUSTERS_SELECTOR,
+      clusters(),
       clusterElements => clusterElements.map(e => ({
         name: e.querySelector("[data-role='detail-link']").textContent,
         link: e.querySelector("[data-role='detail-link']")
           .attributes.href.value
         ,
-        status: e.querySelector("[data-role='status']")
-          .attributes["data-role-key"].value
+        issuesTotal: e.querySelector("[data-role='issues-total']").textContent,
+        nodesTotal: e.querySelector("[data-role='nodes-total']").textContent,
+        resourcesTotal: e.querySelector("[data-role='resources-total']")
+          .textContent
         ,
-        nodes: {
-          total: e.querySelector("[data-role='nodes'] [data-role='total']")
-            .textContent
-          ,
-          link: e.querySelector("[data-role='nodes'] [data-role='link']")
-            .attributes.href.value
-          ,
-        },
-        resources: {
-          total: e
-            .querySelector("[data-role='resources'] [data-role='total']")
-            .textContent
-          ,
-        },
+        fenceDevicesTotal: e.querySelector("[data-role='fence-devices-total']")
+          .textContent
+        ,
+
       })),
     );
 
+    const response2Info = (response) => ({
+      name: response.cluster_name,
+      link: link(`/cluster/${response.cluster_name}`),
+      issuesTotal: (response.error_list.length + response.warning_list.length)
+        .toString()
+      ,
+      nodesTotal: response.node_list.length.toString(),
+      resourcesTotal: response.resource_list.filter(r => !r.stonith).length
+        .toString()
+      ,
+      fenceDevicesTotal: response.resource_list.filter(r => r.stonith).length
+        .toString()
+      ,
+    });
+
     expect(clusterInfoList).to.eql([
-      {
-        name: "cluster-1",
-        link: link("/cluster/cluster-1"),
-        status: "ok",
-        nodes: {
-          total: "2",
-          link: link("/cluster/cluster-1/nodes"),
-        },
-        resources: {
-          total: "1",
-        },
-      },
-      {
-        name: "cluster-2",
-        link: link("/cluster/cluster-2"),
-        status: "error",
-        nodes: {
-          total: "3",
-          link: link("/cluster/cluster-2/nodes"),
-        },
-        resources: {
-          total: "2",
-        },
-      },
+      response2Info(responses.clusterStatus.ok),
+      response2Info(responses.clusterStatus.error),
     ]);
   });
 
-  it("should allow to go to cluster detail", async () => {
-    pollyManager().reset(scenarios.simpleCluster);
+  it("should allow to display empty cluster issues", async () => {
+    pollyManager().reset(scenarios.multipleCluster);
 
     await page().goto(url());
-    await page().waitFor(CLUSTERS_SELECTOR);
-    await page().click(`${CLUSTERS_SELECTOR}:nth-child(1) a`);
-    expect(page().url()).to.equal(url("/cluster/cluster-1"));
+    await page().waitFor(cluster1());
+    await page().click(cluster1("[data-role='issues-total'] button"));
+    await page().waitFor(cluster1("[data-role='issues-status']"));
+
+    const clusterStatuses = await page().$$eval(
+      cluster1("[data-role='issues-status']"),
+      statuses => statuses.map(e => e.dataset.roleValue),
+    );
+    expect(clusterStatuses).to.eql(["ok"]);
   });
 
   it("should allow to add existing cluster", async () => {
