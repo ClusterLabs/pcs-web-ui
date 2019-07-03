@@ -1,11 +1,9 @@
 import React from "react";
 import { Stack, StackItem } from "@patternfly/react-core";
-import { StyledConstants, StyledBox } from "@patternfly/react-styled-system";
 
 import { ISSUE } from "app/services/cluster/status-constants";
 import { InlineAlert } from "app/components";
 
-const { space } = StyledConstants;
 
 const mapSeverityToVariant = severity => (
   severity === ISSUE.ERROR ? "danger" : "warning"
@@ -23,22 +21,21 @@ const summaryStatus = issueList => issueList.reduce(
 );
 
 const DashboardIssueList = ({ issueList }) => (
-  <StyledBox
-    m={space.lg}
+  <Stack
+    gutter="sm"
+    style={{ margin: "1rem" }}
     data-role="issues-status"
     data-role-value={summaryStatus(issueList)}
   >
-    <Stack gutter="sm">
-      {issueList.map((issue, i) => (
-        <StackItem key={issueKey(issue, i)} isFilled>
-          <InlineAlert
-            variant={mapSeverityToVariant(issue.severity)}
-            title={issue.message}
-          />
-        </StackItem>
-      ))}
-    </Stack>
-  </StyledBox>
+    {issueList.map((issue, i) => (
+      <StackItem key={issueKey(issue, i)} isFilled>
+        <InlineAlert
+          variant={mapSeverityToVariant(issue.severity)}
+          title={issue.message}
+        />
+      </StackItem>
+    ))}
+  </Stack>
 );
 
 export default DashboardIssueList;
