@@ -40,7 +40,7 @@ const scenarios = {
   ],
 };
 
-describe.only("Dashboard scene", () => {
+describe("Dashboard scene", () => {
   afterEach(async () => { await pollyManager().stop(); });
 
   it("should render multiple cluster information", async () => {
@@ -87,6 +87,32 @@ describe.only("Dashboard scene", () => {
       response2Info(responses.clusterStatus.ok),
       response2Info(responses.clusterStatus.error),
     ]);
+  });
+
+  it("should allow to display cluster issues", async () => {
+    pollyManager().reset(scenarios.multipleCluster);
+    await page().goto(url());
+    await page().waitFor(cluster2());
+    await page().click(cluster2("[data-role='issues-total'] button"));
+    await page().waitFor(cluster2("[data-role='issues-status']"));
+
+    const issues = await page().$$eval(
+      cluster2("[data-role='issues-status']"),
+      issuesBoxes => issuesBoxes.map(e => ({
+        status: e.dataset.roleValue,
+        alerts: Array.from(e.querySelectorAll("[aria-label='cluster issue']>*"))
+          .map(ae => ae.textContent)
+        ,
+      })),
+    );
+    expect(issues).to.eql([{
+      status: "error",
+      alerts: [
+        "danger alert: Unable to connect to the cluster.",
+        "warning alert: No fencing configured in the cluster",
+        "warning alert: Not authorized against node(s) node-3",
+      ],
+    }]);
   });
 
   it("should allow to display empty cluster issues", async () => {

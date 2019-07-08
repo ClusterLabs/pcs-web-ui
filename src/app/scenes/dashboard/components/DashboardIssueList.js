@@ -28,7 +28,7 @@ const DashboardIssueList = ({ issueList }) => (
     data-role-value={summaryStatus(issueList)}
   >
     {issueList.map((issue, i) => (
-      <StackItem key={issueKey(issue, i)} isFilled>
+      <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">
         <InlineAlert
           variant={mapSeverityToVariant(issue.severity)}
           title={issue.message}

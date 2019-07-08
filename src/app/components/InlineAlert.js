@@ -16,24 +16,17 @@ const variantIcons = {
 
 const InlineAlert = ({ variant, title }) => {
   const Icon = variantIcons[variant];
-  const capitalizedVariant = (
-    `${variant[0].toUpperCase()}${variant.slice(1).toLowerCase()}`
-  );
   return (
     <div
       className={`pf-c-alert pf-m-inline pf-m-${variant}`}
-      aria-label={
-        `${capitalizedVariant} Alert`
-      }
+      aria-label={`${variant} alert`}
     >
       <div className="pf-c-alert__icon">
         <Icon />
       </div>
       <h4 className="pf-c-alert__title">
-        <span className="pf-screen-reader">
-          {`${capitalizedVariant} alert:`}
-        </span>
-        {title}
+        <span className="pf-screen-reader">{`${variant} alert: `}</span>
+        <span aria-label="alert title">{title}</span>
       </h4>
     </div>
   );
