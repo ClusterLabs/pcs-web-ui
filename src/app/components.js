@@ -7,6 +7,7 @@ import PageSectionDataLoading from "app/components/PageSectionDataLoading";
 import * as StatusSign from "app/components/StatusSign";
 import Table from "app/components/table/Table";
 import InlineAlert from "app/components/InlineAlert";
+import StatusIco from "app/components/StatusIco";
 
 export {
   BackgroundImage,
@@ -18,4 +19,5 @@ export {
   StatusSign,
   Table,
   InlineAlert,
+  StatusIco,
 };

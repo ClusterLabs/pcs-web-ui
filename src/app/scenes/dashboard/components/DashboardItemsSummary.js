@@ -1,29 +1,12 @@
 import React from "react";
-import {
-  ExclamationCircleIcon,
-  QuestionCircleIcon,
-  ExclamationTriangleIcon,
-} from "@patternfly/react-icons";
-import * as pallete from "app/components/pallete";
 
-const StatusIco = ({ status }) => {
-  switch (status) {
-    case "ok": return null;
-    case "error":
-      return <div><ExclamationCircleIcon color={pallete.ERROR} /></div>;
-    case "warning": return (
-      <div>
-        <ExclamationTriangleIcon color={pallete.WARNING_LIGHT} />
-      </div>
-    );
-    default:
-      return <div><QuestionCircleIcon color={pallete.UNKNOWN} /></div>;
-  }
-};
+import { StatusIco } from "app/components";
+
+const { STATUS_MAP } = StatusIco;
 
 const DashboardItemsSummary = ({ items, itemsToStatus }) => {
   const status = itemsToStatus(items);
-  if (status === "ok") {
+  if (status === STATUS_MAP.OK) {
     return <React.Fragment>{items.length}</React.Fragment>;
   }
   return (

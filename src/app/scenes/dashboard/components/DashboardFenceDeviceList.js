@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Table } from "app/components";
+import { Table, StatusIco } from "app/components";
 import { RESOURCE } from "app/services/cluster/status-constants";
 import { mapConstants } from "app/utils";
 
@@ -15,18 +15,22 @@ const formatStatus = mapConstants("unknown", {
 export const fenceDeviceToSummaryStatus = nodeList => nodeList.reduce(
   (sumStatus, resource) => {
     if (
-      sumStatus === "error"
+      sumStatus === StatusIco.STATUS_MAP.ERROR
       ||
       [STATUS.BLOCKED, STATUS.FAILED].includes(resource.status)
     ) {
-      return "error";
+      return StatusIco.STATUS_MAP.ERROR;
     }
-    if (sumStatus === "unknown" || resource.status !== STATUS.RUNNING) {
-      return "unknown";
+    if (
+      sumStatus === StatusIco.STATUS_MAP.UNKNOWN
+      ||
+      resource.status !== STATUS.RUNNING
+    ) {
+      return StatusIco.STATUS_MAP.UNKNOWN;
     }
-    return "ok";
+    return StatusIco.STATUS_MAP.OK;
   },
-  "ok",
+  StatusIco.STATUS_MAP.OK,
 );
 
 

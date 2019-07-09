@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Table } from "app/components";
+import { Table, StatusIco } from "app/components";
 import { NODE } from "app/services/cluster/status-constants";
 import { mapConstants } from "app/utils";
 
@@ -18,24 +18,32 @@ const formatQuorum = mapConstants("unknown", {
 
 export const nodesToSummaryStatus = nodeList => nodeList.reduce(
   (sumStatus, node) => {
-    if (sumStatus === "error" || node.status === STATUS.OFFLINE) {
-      return "error";
-    }
-    if (sumStatus === "warning" || node.quorum === QUORUM.NO) {
-      return "warning";
+    if (
+      sumStatus === StatusIco.STATUS_MAP.ERROR
+      ||
+      node.status === STATUS.OFFLINE
+    ) {
+      return StatusIco.STATUS_MAP.ERROR;
     }
     if (
-      sumStatus === "unknown"
+      sumStatus === StatusIco.STATUS_MAP.WARNING
+      ||
+      node.quorum === QUORUM.NO
+    ) {
+      return StatusIco.STATUS_MAP.WARNING;
+    }
+    if (
+      sumStatus === StatusIco.STATUS_MAP.UNKNOWN
       ||
       node.status !== STATUS.ONLINE
       ||
       node.quorum !== QUORUM.YES
     ) {
-      return "unknown";
+      return StatusIco.STATUS_MAP.UNKNOWN;
     }
-    return "ok";
+    return StatusIco.STATUS_MAP.OK;
   },
-  "ok",
+  StatusIco.STATUS_MAP.OK,
 );
 const DashboardNodeList = ({ nodeList }) => (
   <Table isCompact isBorderless>
