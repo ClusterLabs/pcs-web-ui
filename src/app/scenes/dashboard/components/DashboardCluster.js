@@ -21,41 +21,41 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
+const getSummary = (expanded, setExpanded) => ({
+  expandKey,
+  items,
+  itemsToStatus,
+  ...rest
+}) => (
+  <Table.ExpansionToggle
+    expanded={expanded === expandKey}
+    onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
+    {...rest}
+  >
+    <DashboardItemsSummary
+      items={items}
+      itemsToStatus={itemsToStatus}
+    />
+  </Table.ExpansionToggle>
+);
+
+const getDetail = expanded => ({ expandKey, children }) => (
+  expanded !== expandKey ? null : (
+    <Table.ExpandedContent colSpan={CELL_COUNT}>
+      {children}
+    </Table.ExpandedContent>
+  )
+);
+
 const DashboardCluster = ({ cluster }) => {
   const [expanded, setExpanded] = React.useState("");
 
   const Summary = React.useCallback(
-    ({
-      expandKey,
-      children,
-      items,
-      itemsToStatus,
-      ...rest
-    }) => (
-      <Table.ExpansionToggle
-        expanded={expanded === expandKey}
-        onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
-        {...rest}
-      >
-        <DashboardItemsSummary
-          items={items}
-          itemsToStatus={itemsToStatus}
-        />
-      </Table.ExpansionToggle>
-    ),
+    getSummary(expanded, setExpanded),
     [expanded, setExpanded],
   );
 
-  const Detail = React.useCallback(
-    ({ expandKey, children, padding = false }) => (
-      expanded !== expandKey ? null : (
-        <Table.ExpandedContent colSpan={CELL_COUNT} padding={padding}>
-          {children}
-        </Table.ExpandedContent>
-      )
-    ),
-    [expanded],
-  );
+  const Detail = React.useCallback(getDetail(expanded), [expanded]);
 
   return (
     <Table.Body
