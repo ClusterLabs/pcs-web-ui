@@ -16,6 +16,27 @@ const formatQuorum = mapConstants("unknown", {
   [QUORUM.NO]: "no",
 });
 
+export const nodesToSummaryStatus = nodeList => nodeList.reduce(
+  (sumStatus, node) => {
+    if (sumStatus === "error" || node.status === STATUS.OFFLINE) {
+      return "error";
+    }
+    if (sumStatus === "warning" || node.quorum === QUORUM.NO) {
+      return "warning";
+    }
+    if (
+      sumStatus === "unknown"
+      ||
+      node.status !== STATUS.ONLINE
+      ||
+      node.quorum !== QUORUM.YES
+    ) {
+      return "unknown";
+    }
+    return "ok";
+  },
+  "ok",
+);
 const DashboardNodeList = ({ nodeList }) => (
   <Table isCompact isBorderless>
     <thead>

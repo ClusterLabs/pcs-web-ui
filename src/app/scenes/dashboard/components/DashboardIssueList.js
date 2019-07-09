@@ -12,7 +12,8 @@ const mapSeverityToText = severity => (
   severity === ISSUE.ERROR ? "error" : "warning"
 );
 const issueKey = (issue, index) => `${index}:${issue.message}`;
-const summaryStatus = issueList => issueList.reduce(
+
+export const issuesToSummaryStatus = issueList => issueList.reduce(
   (sumStatus, issue) => (sumStatus === "error"
     ? sumStatus
     : mapSeverityToText(issue.severity)
@@ -25,7 +26,7 @@ const DashboardIssueList = ({ issueList }) => (
     gutter="sm"
     style={{ margin: "1rem" }}
     data-role="issues-status"
-    data-role-value={summaryStatus(issueList)}
+    data-role-value={issuesToSummaryStatus(issueList)}
   >
     {issueList.map((issue, i) => (
       <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">

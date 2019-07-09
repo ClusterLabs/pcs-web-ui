@@ -12,6 +12,24 @@ const formatStatus = mapConstants("unknown", {
   [STATUS.FAILED]: "failed",
 });
 
+export const fenceDeviceToSummaryStatus = nodeList => nodeList.reduce(
+  (sumStatus, resource) => {
+    if (
+      sumStatus === "error"
+      ||
+      [STATUS.BLOCKED, STATUS.FAILED].includes(resource.status)
+    ) {
+      return "error";
+    }
+    if (sumStatus === "unknown" || resource.status !== STATUS.RUNNING) {
+      return "unknown";
+    }
+    return "ok";
+  },
+  "ok",
+);
+
+
 const DashboardFenceDeviceList = ({ fenceDeviceList }) => (
   <Table isCompact isBorderless>
     <thead>

@@ -12,6 +12,23 @@ const formatStatus = mapConstants("unknown", {
   [STATUS.FAILED]: "failed",
 });
 
+export const resourcesToSummaryStatus = nodeList => nodeList.reduce(
+  (sumStatus, resource) => {
+    if (
+      sumStatus === "error"
+      ||
+      [STATUS.BLOCKED, STATUS.FAILED].includes(resource.status)
+    ) {
+      return "error";
+    }
+    if (sumStatus === "unknown" || resource.status !== STATUS.RUNNING) {
+      return "unknown";
+    }
+    return "ok";
+  },
+  "ok",
+);
+
 const DashboardResourceList = ({ resourceList }) => (
   <Table isCompact isBorderless>
     <thead>
