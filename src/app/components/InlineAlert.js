@@ -14,12 +14,13 @@ const variantIcons = {
   info: InfoCircleIcon,
 };
 
-const InlineAlert = ({ variant, title }) => {
+const InlineAlert = ({ variant, title, ...rest }) => {
   const Icon = variantIcons[variant];
   return (
     <div
       className={`pf-c-alert pf-m-inline pf-m-${variant}`}
       aria-label={`${variant} alert`}
+      {...rest}
     >
       <div className="pf-c-alert__icon">
         <Icon />

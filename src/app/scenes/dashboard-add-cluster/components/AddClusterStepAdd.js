@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { Spinner } from "app/components";
-import { Success, Error } from "app/components/StatusSign";
+import { Spinner, InlineAlert } from "app/components";
 
 import { selectors } from "../plugin";
 import { stepAddStates } from "../constants";
@@ -22,9 +21,10 @@ const AddClusterAddStep = () => {
         ].includes(state)
         &&
         (
-          <Success
+          <InlineAlert
+            variant="success"
+            title="Cluster has been added."
             data-role="add-cluster-success"
-            label="Cluster has been added."
           />
         )
       }
@@ -35,8 +35,9 @@ const AddClusterAddStep = () => {
         />
       )}
       {state === stepAddStates.ERROR && (
-        <Error
-          label={errorMessages.join("\n")}
+        <InlineAlert
+          variant="danger"
+          title={errorMessages.join("\n")}
           data-role="add-cluster-error-message"
         />
       )}
