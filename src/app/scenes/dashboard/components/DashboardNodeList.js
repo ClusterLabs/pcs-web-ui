@@ -16,35 +16,19 @@ const formatQuorum = mapConstants("unknown", {
   [QUORUM.NO]: "no",
 });
 
-export const nodesToSummaryStatus = nodeList => nodeList.reduce(
-  (sumStatus, node) => {
-    if (
-      sumStatus === StatusIco.STATUS_MAP.ERROR
-      ||
-      node.status === STATUS.OFFLINE
-    ) {
-      return StatusIco.STATUS_MAP.ERROR;
-    }
-    if (
-      sumStatus === StatusIco.STATUS_MAP.WARNING
-      ||
-      node.quorum === QUORUM.NO
-    ) {
-      return StatusIco.STATUS_MAP.WARNING;
-    }
-    if (
-      sumStatus === StatusIco.STATUS_MAP.UNKNOWN
-      ||
-      node.status !== STATUS.ONLINE
-      ||
-      node.quorum !== QUORUM.YES
-    ) {
-      return StatusIco.STATUS_MAP.UNKNOWN;
-    }
+export const nodesToSummaryStatus = StatusIco.itemsToSummaryStatus((node) => {
+  if (node.status === STATUS.OFFLINE) {
+    return StatusIco.STATUS_MAP.ERROR;
+  }
+  if (node.quorum === QUORUM.NO) {
+    return StatusIco.STATUS_MAP.WARNING;
+  }
+  if (node.status === STATUS.ONLINE && node.quorum === QUORUM.YES) {
     return StatusIco.STATUS_MAP.OK;
-  },
-  StatusIco.STATUS_MAP.OK,
-);
+  }
+  return StatusIco.STATUS_MAP.UNKNOWN;
+});
+
 const DashboardNodeList = ({ nodeList }) => (
   <Table isCompact isBorderless>
     <thead>

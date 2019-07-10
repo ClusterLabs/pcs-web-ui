@@ -12,25 +12,14 @@ const formatStatus = mapConstants("unknown", {
   [STATUS.FAILED]: "failed",
 });
 
-export const resourcesToSummaryStatus = nodeList => nodeList.reduce(
-  (sumStatus, resource) => {
-    if (
-      sumStatus === StatusIco.STATUS_MAP.ERROR
-      ||
-      [STATUS.BLOCKED, STATUS.FAILED].includes(resource.status)
-    ) {
-      return StatusIco.STATUS_MAP.ERROR;
-    }
-    if (
-      sumStatus === StatusIco.STATUS_MAP.UNKNOWN
-      ||
-      resource.status !== STATUS.RUNNING
-    ) {
-      return StatusIco.STATUS_MAP.UNKNOWN;
-    }
-    return StatusIco.STATUS_MAP.OK;
-  },
-  StatusIco.STATUS_MAP.OK,
+const statusToStatusIco = mapConstants(StatusIco.STATUS_MAP.UNKNOWN, {
+  [STATUS.BLOCKED]: StatusIco.STATUS_MAP.ERROR,
+  [STATUS.FAILED]: StatusIco.STATUS_MAP.ERROR,
+  [STATUS.RUNNING]: StatusIco.STATUS_MAP.OK,
+});
+
+export const resourcesToSummaryStatus = StatusIco.itemsToSummaryStatus(
+  resource => statusToStatusIco(resource.status),
 );
 
 const DashboardResourceList = ({ resourceList }) => (
