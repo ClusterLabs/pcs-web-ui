@@ -1,10 +1,11 @@
 import React from "react";
-import ExpandableRow from "./ExpandableRow";
 
-export default ({ colSpan, children, padding = false }) => (
-  <ExpandableRow>
+const ExpandedContent = ({ colSpan, children, padding = false }) => (
+  <tr className="pf-c-table__expandable-row pf-m-expanded">
     <td colSpan={colSpan} className={!padding ? "pf-m-no-padding" : null}>
       {children}
     </td>
-  </ExpandableRow>
+  </tr>
 );
+
+export default ExpandedContent;

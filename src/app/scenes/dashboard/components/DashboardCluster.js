@@ -20,43 +20,22 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
-const getSummary = (expanded, setExpanded) => ({
-  expandKey,
-  itemsCount,
-  summaryStatus,
-  ...rest
-}) => (
-  <Table.ExpansionToggle
-    expanded={expanded === expandKey}
-    onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
-    {...rest}
-  >
-    {summaryStatus === StatusIco.STATUS_MAP.OK ? itemsCount : (
-      <React.Fragment>
-        <div>{itemsCount}</div>
-        <div><StatusIco status={summaryStatus} /></div>
-      </React.Fragment>
-    )}
-  </Table.ExpansionToggle>
-);
-
-const getDetail = expanded => ({ expandKey, children }) => (
-  expanded !== expandKey ? null : (
-    <Table.ExpandedContent colSpan={CELL_COUNT}>
-      {children}
-    </Table.ExpandedContent>
-  )
-);
+const Summary = ({ itemsCount, summaryStatus }) => {
+  if (summaryStatus === StatusIco.STATUS_MAP.OK) {
+    return itemsCount;
+  }
+  return (
+    <React.Fragment>
+      <div>{itemsCount}</div>
+      <div><StatusIco status={summaryStatus} /></div>
+    </React.Fragment>
+  );
+};
 
 const DashboardCluster = ({ cluster }) => {
-  const [expanded, setExpanded] = React.useState("");
-
-  const Summary = React.useCallback(
-    getSummary(expanded, setExpanded),
-    [expanded, setExpanded],
-  );
-
-  const Detail = React.useCallback(getDetail(expanded), [expanded]);
+  const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
+    contentSpan: CELL_COUNT,
+  });
 
   return (
     <Table.Body
@@ -74,43 +53,46 @@ const DashboardCluster = ({ cluster }) => {
             {cluster.name}
           </Link>
         </th>
-        <Summary
-          expandKey={COLUMNS.ISSUES}
-          data-role="issues-total"
-          itemsCount={cluster.issueList.length}
-          summaryStatus={issuesToSummaryStatus(cluster.issueList)}
-        />
-        <Summary
-          expandKey={COLUMNS.NODES}
-          data-role="nodes-total"
-          itemsCount={cluster.nodeList.length}
-          summaryStatus={nodesToSummaryStatus(cluster.nodeList)}
-        />
-        <Summary
-          expandKey={COLUMNS.RESOURCES}
-          data-role="resources-total"
-          itemsCount={cluster.resourceList.length}
-          summaryStatus={resourcesToSummaryStatus(cluster.resourceList)}
-        />
-        <Summary
+        <Toggle expandKey={COLUMNS.ISSUES} data-role="issues-total">
+          <Summary
+            itemsCount={cluster.issueList.length}
+            summaryStatus={issuesToSummaryStatus(cluster.issueList)}
+          />
+        </Toggle>
+        <Toggle expandKey={COLUMNS.NODES} data-role="nodes-total">
+          <Summary
+            itemsCount={cluster.nodeList.length}
+            summaryStatus={nodesToSummaryStatus(cluster.nodeList)}
+          />
+        </Toggle>
+        <Toggle expandKey={COLUMNS.RESOURCES} data-role="resources-total">
+          <Summary
+            itemsCount={cluster.resourceList.length}
+            summaryStatus={resourcesToSummaryStatus(cluster.resourceList)}
+          />
+        </Toggle>
+        <Toggle
           expandKey={COLUMNS.FENCE_DEVICES}
           data-role="fence-devices-total"
-          itemsCount={cluster.stonithList.length}
-          summaryStatus={fenceDeviceToSummaryStatus(cluster.stonithList)}
-        />
+        >
+          <Summary
+            itemsCount={cluster.stonithList.length}
+            summaryStatus={fenceDeviceToSummaryStatus(cluster.stonithList)}
+          />
+        </Toggle>
       </tr>
-      <Detail expandKey={COLUMNS.ISSUES}>
+      <Content expandKey={COLUMNS.ISSUES}>
         <DashboardIssueList issueList={cluster.issueList} />
-      </Detail>
-      <Detail expandKey={COLUMNS.NODES}>
+      </Content>
+      <Content expandKey={COLUMNS.NODES}>
         <DashboardNodeList nodeList={cluster.nodeList} />
-      </Detail>
-      <Detail expandKey={COLUMNS.RESOURCES}>
+      </Content>
+      <Content expandKey={COLUMNS.RESOURCES}>
         <DashboardResourceList resourceList={cluster.resourceList} />
-      </Detail>
-      <Detail expandKey={COLUMNS.FENCE_DEVICES}>
+      </Content>
+      <Content expandKey={COLUMNS.FENCE_DEVICES}>
         <DashboardFenceDeviceList fenceDeviceList={cluster.stonithList} />
-      </Detail>
+      </Content>
     </Table.Body>
   );
 };

@@ -1,15 +1,16 @@
 import React from "react";
 
-export default ({
+const ExpansionToggle = ({
   expanded,
-  onClick,
+  setExpanded,
+  expandKey,
   children,
   ...rest
 }) => {
   const tdClassNames = [
     "pf-c-table__compound-expansion-toggle",
   ];
-  if (expanded) {
+  if (expanded === expandKey) {
     tdClassNames.push("pf-m-expanded");
   }
 
@@ -27,10 +28,12 @@ export default ({
         style={{ display: "flex" }}
         type="button"
         className={buttonClassNames.join(" ")}
-        onClick={onClick}
+        onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
       >
         {children}
       </button>
     </td>
   );
 };
+
+export default ExpansionToggle;

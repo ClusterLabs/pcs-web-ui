@@ -1,9 +1,7 @@
 import React from "react";
 
 import SortableTh from "./SortableTh";
-import ExpansionToggle from "./ExpansionToggle";
-import ExpandableRow from "./ExpandableRow";
-import ExpandedContent from "./ExpandedContent";
+import Expansion from "./Expansion";
 import Body from "./Body";
 
 const Table = ({
@@ -34,9 +32,7 @@ const Table = ({
 };
 
 Table.Body = Body;
-Table.ExpansionToggle = ExpansionToggle;
-Table.ExpandableRow = ExpandableRow;
-Table.ExpandedContent = ExpandedContent;
+Table.Expansion = Expansion;
 Table.SortableTh = SortableTh;
 
 export default Table;
