@@ -37,11 +37,18 @@ const cluster = (name, status, diff) => deepmerge(
 );
 
 const clusterOk = cluster("cluster-1", "ok", {
-  resource_list: [resource("R1"), stonith("F1")],
+  resource_list: [
+    resource("R1"),
+    stonith("F1"),
+  ],
 });
 
 const clusterError = cluster("cluster-2", "error", {
-  node_list: [node(1), node(2), node(3, { status: "offline", quorum: false })],
+  node_list: [
+    node(1),
+    node(2, { status: "unknown", quorum: false }),
+    node(3, { status: "unknown", quorum: "unknown" })
+  ],
   resource_list: [
     resource("R1", {
       status: "blocked",
@@ -52,7 +59,9 @@ const clusterError = cluster("cluster-2", "error", {
         "Failed to start R1 on Tue Feb 26 10:07:50 2019 on node node-3:",
       ]),
     }),
-    resource("R2", { status: "blocked" }),
+    resource("R2", { status: "failed" }),
+    stonith("F1"),
+    stonith("F2", { status: "failed" }),
   ],
   warning_list: issues([
     "No fencing configured in the cluster",

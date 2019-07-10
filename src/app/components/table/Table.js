@@ -1,5 +1,6 @@
 import React from "react";
 
+import SortableTh from "./SortableTh";
 import ExpansionToggle from "./ExpansionToggle";
 import ExpandableRow from "./ExpandableRow";
 import ExpandedContent from "./ExpandedContent";
@@ -36,5 +37,6 @@ Table.Body = Body;
 Table.ExpansionToggle = ExpansionToggle;
 Table.ExpandableRow = ExpandableRow;
 Table.ExpandedContent = ExpandedContent;
+Table.SortableTh = SortableTh;
 
 export default Table;
