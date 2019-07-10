@@ -2,24 +2,19 @@ import React from "react";
 import { Stack, StackItem } from "@patternfly/react-core";
 
 import { ISSUE } from "app/services/cluster/status-constants";
-import { InlineAlert } from "app/components";
+import { InlineAlert, StatusIco } from "app/components";
 
 
 const mapSeverityToVariant = severity => (
   severity === ISSUE.ERROR ? "danger" : "warning"
 );
-const mapSeverityToText = severity => (
-  severity === ISSUE.ERROR ? "error" : "warning"
-);
 const issueKey = (issue, index) => `${index}:${issue.message}`;
 
-export const issuesToSummaryStatus = issueList => issueList.reduce(
-  (sumStatus, issue) => (sumStatus === "error"
-    ? sumStatus
-    : mapSeverityToText(issue.severity)
-  ),
-  "ok",
-);
+export const issuesToSummaryStatus = StatusIco.itemsToSummaryStatus(issue => (
+  issue.severity === ISSUE.ERROR
+    ? StatusIco.STATUS_MAP.ERROR
+    : StatusIco.STATUS_MAP.WARNING
+));
 
 const DashboardIssueList = ({ issueList }) => (
   <Stack
