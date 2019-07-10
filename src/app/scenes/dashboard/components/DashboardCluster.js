@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Table } from "app/components";
+import { Table, StatusIco } from "app/components";
 
-import DashboardItemsSummary from "./DashboardItemsSummary";
 import DashboardNodeList, { nodesToSummaryStatus }
   from "./DashboardNodeList";
 import DashboardResourceList, { resourcesToSummaryStatus }
@@ -23,8 +22,8 @@ const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
 const getSummary = (expanded, setExpanded) => ({
   expandKey,
-  items,
-  itemsToStatus,
+  itemsCount,
+  summaryStatus,
   ...rest
 }) => (
   <Table.ExpansionToggle
@@ -32,10 +31,12 @@ const getSummary = (expanded, setExpanded) => ({
     onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
     {...rest}
   >
-    <DashboardItemsSummary
-      items={items}
-      itemsToStatus={itemsToStatus}
-    />
+    {summaryStatus === StatusIco.STATUS_MAP.OK ? itemsCount : (
+      <React.Fragment>
+        <div>{itemsCount}</div>
+        <div><StatusIco status={summaryStatus} /></div>
+      </React.Fragment>
+    )}
   </Table.ExpansionToggle>
 );
 
@@ -76,26 +77,26 @@ const DashboardCluster = ({ cluster }) => {
         <Summary
           expandKey={COLUMNS.ISSUES}
           data-role="issues-total"
-          items={cluster.issueList}
-          itemsToStatus={issuesToSummaryStatus}
+          itemsCount={cluster.issueList.length}
+          summaryStatus={issuesToSummaryStatus(cluster.issueList)}
         />
         <Summary
           expandKey={COLUMNS.NODES}
           data-role="nodes-total"
-          items={cluster.nodeList}
-          itemsToStatus={nodesToSummaryStatus}
+          itemsCount={cluster.nodeList.length}
+          summaryStatus={nodesToSummaryStatus(cluster.nodeList)}
         />
         <Summary
           expandKey={COLUMNS.RESOURCES}
           data-role="resources-total"
-          items={cluster.resourceList}
-          itemsToStatus={resourcesToSummaryStatus}
+          itemsCount={cluster.resourceList.length}
+          summaryStatus={resourcesToSummaryStatus(cluster.resourceList)}
         />
         <Summary
           expandKey={COLUMNS.FENCE_DEVICES}
           data-role="fence-devices-total"
-          items={cluster.stonithList}
-          itemsToStatus={fenceDeviceToSummaryStatus}
+          itemsCount={cluster.stonithList.length}
+          summaryStatus={fenceDeviceToSummaryStatus(cluster.stonithList)}
         />
       </tr>
       <Detail expandKey={COLUMNS.ISSUES}>
