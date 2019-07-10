@@ -1,19 +1,27 @@
 import React from "react";
 
-import { Table, StatusIco } from "app/components";
+import { Table, StatusIco, StatusSign } from "app/components";
 import { NODE } from "app/services/cluster/status-constants";
 import { mapConstants } from "app/utils";
 
 const { STATUS, QUORUM } = NODE;
 
-const formatStatus = mapConstants("unknown", {
-  [STATUS.ONLINE]: "online",
-  [STATUS.OFFLINE]: "offline",
+const statusLabel = mapConstants("Unknown", {
+  [STATUS.ONLINE]: "Online",
+  [STATUS.OFFLINE]: "Offline",
+});
+const statusToStatusIco = mapConstants(StatusIco.STATUS_MAP.UNKNOWN, {
+  [STATUS.ONLINE]: StatusIco.STATUS_MAP.OK,
+  [STATUS.OFFLINE]: StatusIco.STATUS_MAP.ERROR,
 });
 
-const formatQuorum = mapConstants("unknown", {
-  [QUORUM.YES]: "yes",
-  [QUORUM.NO]: "no",
+const quorumLabel = mapConstants("Unknown", {
+  [QUORUM.YES]: "Yes",
+  [QUORUM.NO]: "No",
+});
+const quorumToStatusIco = mapConstants(StatusIco.STATUS_MAP.UNKNOWN, {
+  [QUORUM.YES]: StatusIco.STATUS_MAP.OK,
+  [QUORUM.NO]: StatusIco.STATUS_MAP.WARNING,
 });
 
 export const nodesToSummaryStatus = StatusIco.itemsToSummaryStatus((node) => {
@@ -42,8 +50,18 @@ const DashboardNodeList = ({ nodeList }) => (
       {nodeList.map(node => (
         <tr key={node.name}>
           <td>{node.name}</td>
-          <td>{formatStatus(node.status)}</td>
-          <td>{formatQuorum(node.quorum)}</td>
+          <td>
+            <StatusSign
+              status={statusToStatusIco(node.status)}
+              label={statusLabel(node.status)}
+            />
+          </td>
+          <td>
+            <StatusSign
+              status={quorumToStatusIco(node.quorum)}
+              label={quorumLabel(node.quorum)}
+            />
+          </td>
         </tr>
       ))}
     </tbody>

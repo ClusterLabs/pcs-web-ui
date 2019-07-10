@@ -1,15 +1,15 @@
 import React from "react";
 
-import { Table, StatusIco } from "app/components";
+import { Table, StatusIco, StatusSign } from "app/components";
 import { RESOURCE } from "app/services/cluster/status-constants";
 import { mapConstants } from "app/utils";
 
 const { STATUS } = RESOURCE;
 
-const formatStatus = mapConstants("unknown", {
-  [STATUS.RUNNING]: "running",
-  [STATUS.BLOCKED]: "blocked",
-  [STATUS.FAILED]: "failed",
+const statusLabel = mapConstants("Unknown", {
+  [STATUS.RUNNING]: "Running",
+  [STATUS.BLOCKED]: "Blocked",
+  [STATUS.FAILED]: "Failed",
 });
 
 const statusToStatusIco = mapConstants(StatusIco.STATUS_MAP.UNKNOWN, {
@@ -34,7 +34,12 @@ const DashboardResourceList = ({ resourceList }) => (
       {resourceList.map(resource => (
         <tr key={resource.id}>
           <td>{resource.id}</td>
-          <td>{formatStatus(resource.status)}</td>
+          <td>
+            <StatusSign
+              status={statusToStatusIco(resource.status)}
+              label={statusLabel(resource.status)}
+            />
+          </td>
         </tr>
       ))}
     </tbody>
