@@ -7,8 +7,7 @@ import {
 } from "@patternfly/react-core";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Spinner } from "app/components";
-import { Success, Error } from "app/components/StatusSign";
+import { Spinner, InlineAlert } from "app/components";
 
 import { selectors } from "../plugin";
 import { stepAuthStates } from "../constants";
@@ -58,8 +57,9 @@ const AddClusterStepAuth = () => {
       )}
 
       {authState === stepAuthStates.ALREADY_AUTHENTICATED && (
-        <Success
-          label="Node is authenticated. You can add the cluster now."
+        <InlineAlert
+          variant="success"
+          title="Node is authenticated. You can add the cluster now."
           data-role="auth-success-message"
         />
       )}
@@ -85,7 +85,11 @@ const AddClusterStepAuth = () => {
         )
       }
       {authState === stepAuthStates.ERROR && (
-        <Error data-role="auth-error-message" label={stateError} />
+        <InlineAlert
+          variant="danger"
+          title={stateError}
+          data-role="auth-error-message"
+        />
       )}
     </Form>
   );

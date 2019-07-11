@@ -13,10 +13,10 @@ const checkAuth = endpoints.checkAuthAgainstNodes((req, res) => {
   }
 
   const nodesStates = {
-    a: "Online",
-    ab: "Online",
-    b: "Unable to authenticate",
-    c: "nonsense",
+    ok: "Online",
+    conflict: "Online",
+    "no-auth": "Unable to authenticate",
+    nonsense: "nonsense",
   };
 
   const result = nodeList.reduce(
@@ -62,7 +62,7 @@ const authenticate = endpoints.authenticateAgainstNodes((req, res) => {
 
 const addCluster = endpoints.addCluster((req, res) => {
   const nodeName = req.body["node-name"];
-  if (nodeName === "ab") {
+  if (nodeName === "conflict") {
     res.status(400).send([
       "Configuration conflict detected.",
       "Some nodes had a newer configuration than the local node."

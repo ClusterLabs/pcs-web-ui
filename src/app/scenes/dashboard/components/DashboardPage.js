@@ -1,6 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Page, PageSection } from "@patternfly/react-core";
+import {
+  Page,
+  PageSection,
+} from "@patternfly/react-core";
+/* eslint-disable no-unused-vars */
+// this is a temporary hack to load table styles to page...
+import { Table } from "@patternfly/react-table";
+/* eslint-enable no-unused-vars */
 
 import { setUpDataReading } from "app/services/data-load/actions";
 import {
@@ -12,8 +19,7 @@ import {
 /* eslint-disable no-shadow */
 import { syncDashboardData, syncDashboardDataStop } from "../actions";
 import { selectors } from "../plugin";
-import Dashboard from "./Dashboard";
-import DashboardAggregations from "./DashboardAggregations";
+import UxDashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
 
 const useDashboardSync = () => {
@@ -46,14 +52,11 @@ const DashboardPage = () => {
     <React.Fragment>
       <BackgroundImage />
       <Page header={<PageHeader />}>
-        <PageSection variant="dark">
-          <DashboardAggregations dashboard={dashboard} />
-        </PageSection>
         <PageSection>
           <DashboardToolbar />
         </PageSection>
         <PageSectionDataLoading done={dataLoaded}>
-          <Dashboard dashboard={dashboard} />
+          <UxDashboard dashboard={dashboard} />
         </PageSectionDataLoading>
       </Page>
     </React.Fragment>
