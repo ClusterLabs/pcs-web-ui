@@ -14,6 +14,8 @@ module.exports = {
     clustersOverview(responses.clustersOverview.withClusters([
       responses.clusterStatus.ok,
       responses.clusterStatus.error,
+      responses.clusterStatus.big,
+      responses.clusterStatus.ok2,
     ])),
   ],
   goToCluster: [
