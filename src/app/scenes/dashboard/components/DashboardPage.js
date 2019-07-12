@@ -19,7 +19,7 @@ import {
 /* eslint-disable no-shadow */
 import { syncDashboardData, syncDashboardDataStop } from "../actions";
 import { selectors } from "../plugin";
-import UxDashboard from "./Dashboard";
+import Dashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
 
 const useDashboardSync = () => {
@@ -56,7 +56,7 @@ const DashboardPage = () => {
           <DashboardToolbar />
         </PageSection>
         <PageSectionDataLoading done={dataLoaded}>
-          <UxDashboard dashboard={dashboard} />
+          <Dashboard dashboard={dashboard} />
         </PageSectionDataLoading>
       </Page>
     </React.Fragment>
