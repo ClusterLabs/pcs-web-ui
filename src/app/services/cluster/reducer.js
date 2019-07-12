@@ -11,7 +11,7 @@ const clusterStatusDefaultState = {
   name: "",
   nodeList: [],
   resourceList: [],
-  stonithList: [],
+  fenceDeviceList: [],
 };
 
 const clusterStatus = (state = clusterStatusDefaultState, action) => {

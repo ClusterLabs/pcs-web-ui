@@ -11,7 +11,7 @@ export const ClusterStonithListPage = ({ clusterUrlName }) => {
     <ClusterPage clusterUrlName={clusterUrlName}>
       <PageSectionDataLoading done={dataLoaded}>
         <ClusterStonithList
-          stonithList={cluster.stonithList}
+          fenceDeviceList={cluster.fenceDeviceList}
         />
       </PageSectionDataLoading>
     </ClusterPage>

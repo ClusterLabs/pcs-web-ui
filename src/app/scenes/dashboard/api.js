@@ -55,7 +55,7 @@ export const transformClustersOverview = apiData => ({
         issueList: transformIssues(resource),
       }))
     ,
-    stonithList: cluster.resource_list
+    fenceDeviceList: cluster.resource_list
       .filter(stonith => stonith.stonith)
       .map(stonith => ({
         id: stonith.id,

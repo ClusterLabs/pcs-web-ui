@@ -24,7 +24,7 @@ export const transformClusterData = apiData => ({
     .map(resource => ({
       name: resource.id,
     })),
-  stonithList: apiData.resource_list
+  fenceDeviceList: apiData.resource_list
     .filter(resource => resource.stonith)
     .map(stonith => ({
       name: stonith.id,

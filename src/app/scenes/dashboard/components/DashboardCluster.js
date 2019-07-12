@@ -76,8 +76,8 @@ const DashboardCluster = ({ cluster }) => {
           data-role="fence-devices-total"
         >
           <Summary
-            itemsCount={cluster.stonithList.length}
-            summaryStatus={fenceDeviceToSummaryStatus(cluster.stonithList)}
+            itemsCount={cluster.fenceDeviceList.length}
+            summaryStatus={fenceDeviceToSummaryStatus(cluster.fenceDeviceList)}
           />
         </Toggle>
       </tr>
@@ -91,7 +91,7 @@ const DashboardCluster = ({ cluster }) => {
         <DashboardResourceList resourceList={cluster.resourceList} />
       </Content>
       <Content expandKey={COLUMNS.FENCE_DEVICES}>
-        <DashboardFenceDeviceList fenceDeviceList={cluster.stonithList} />
+        <DashboardFenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
       </Content>
     </Table.Body>
   );

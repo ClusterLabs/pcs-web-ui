@@ -38,8 +38,8 @@ const compareByColumn = (column) => {
       - severity(resourcesToSummaryStatus(b.resourceList))
     );
     case COLUMNS.FENCE_DEVICES: return (a, b) => (
-      severity(fenceDeviceToSummaryStatus(a.stonithList))
-      - severity(fenceDeviceToSummaryStatus(b.stonithList))
+      severity(fenceDeviceToSummaryStatus(a.fenceDeviceList))
+      - severity(fenceDeviceToSummaryStatus(b.fenceDeviceList))
     );
     default: return (a, b) => compareStrings(a.name, b.name);
   }
