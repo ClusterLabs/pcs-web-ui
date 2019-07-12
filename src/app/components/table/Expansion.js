@@ -26,7 +26,7 @@ const useExpansion = ({ contentSpan }) => {
         {children}
       </ExpandedContent>
     )),
-    [expanded],
+    [expanded, contentSpan],
   );
 
   return {

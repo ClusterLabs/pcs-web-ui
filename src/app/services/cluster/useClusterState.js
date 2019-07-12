@@ -20,7 +20,7 @@ export default (clusterUrlName) => {
   const dispatch = useDispatch();
   React.useEffect(
     () => { dispatch(setupClusterReading(clusterUrlName)); },
-    [clusterUrlName],
+    [clusterUrlName, dispatch],
   );
   return {
     cluster: useSelector(selectors.getCluster),

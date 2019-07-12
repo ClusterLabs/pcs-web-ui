@@ -4,7 +4,7 @@
         "checkJs": true,
         "jsx": "react",
         "moduleResolution": "node",
-        "baseUrl": ".",
+        "baseUrl": "src",
         "paths": {
           "*": ["src/*"]
         },
