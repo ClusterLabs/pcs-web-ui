@@ -8,10 +8,13 @@ const mapClusterStatus = mapConstants(CLUSTER.STATUS.UNKNOWN, {
   UNKNOWN: CLUSTER.STATUS.UNKNOWN,
 });
 
-const mapNodeQuorum = mapConstants(CLUSTER.NODE.QUORUM.UNKNOWN, {
-  [true]: CLUSTER.NODE.QUORUM.YES,
-  [false]: CLUSTER.NODE.QUORUM.NO,
-});
+const mapNodeQuorum = (quorum) => {
+  switch (quorum) {
+    case true: return CLUSTER.NODE.QUORUM.YES;
+    case false: return CLUSTER.NODE.QUORUM.NO;
+    default: return CLUSTER.NODE.QUORUM.UNKNOWN;
+  }
+};
 
 const mapNodeStatus = mapConstants(CLUSTER.NODE.STATUS.UNKNOWN, {
   online: CLUSTER.NODE.STATUS.ONLINE,
