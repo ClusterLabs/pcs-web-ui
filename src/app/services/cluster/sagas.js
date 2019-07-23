@@ -13,35 +13,13 @@ import { dataLoadManage } from "app/services/data-load/sagas";
 import * as actions from "./actions";
 import * as types from "./constants";
 
-export const transformClusterData = apiData => ({
-  name: apiData.cluster_name,
-  nodeList: apiData.node_list.map(node => ({
-    name: node.name,
-    status: node.status,
-  })),
-  resourceList: apiData.resource_list
-    .filter(resource => !resource.stonith)
-    .map(resource => ({
-      name: resource.id,
-    })),
-  fenceDeviceList: apiData.resource_list
-    .filter(resource => resource.stonith)
-    .map(stonith => ({
-      name: stonith.id,
-    }))
-  ,
-});
-
 function* fetchClusterData(clusterUrlName, onErrorAction) {
   try {
-    const clusterData = yield call(
+    const apiClusterState = yield call(
       auth.getJson,
       `/managec/${clusterUrlName}/cluster_status`,
-      {
-        transform: transformClusterData,
-      },
     );
-    yield put(actions.fetchClusterDataSuccess(clusterData));
+    yield put(actions.fetchClusterDataSuccess(apiClusterState));
   } catch (error) {
     yield all(onErrorAction(error).map(action => put(action)));
   }

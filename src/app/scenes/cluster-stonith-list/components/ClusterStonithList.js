@@ -7,7 +7,7 @@ const ClusterStonithList = ({ fenceDeviceList }) => (
   <DataList aria-label="Cluster stonith list">
     {fenceDeviceList.map(stonith => (
       <ClusterStonith
-        key={stonith.name}
+        key={stonith.id}
         stonith={stonith}
       />
     ))}

@@ -12,16 +12,13 @@ import * as notify from "app/scenes/notifications/actions";
 import { dataLoadManage } from "app/services/data-load/sagas";
 
 import * as actions from "./actions";
-import * as types from "./constants";
-import { transformClustersOverview } from "./api";
+import * as types from "./types";
 
 
 export function* fetchDashboardData(onErrorAction) {
   try {
-    const dashboardData = yield call(auth.getJson, "/clusters_overview", {
-      transform: transformClustersOverview,
-    });
-    yield put(actions.fetchDashboardDataSuccess(dashboardData));
+    const apiClusterOverview = yield call(auth.getJson, "/clusters_overview");
+    yield put(actions.fetchDashboardDataSuccess(apiClusterOverview));
   } catch (error) {
     yield all(onErrorAction(error).map(action => put(action)));
   }
@@ -41,7 +38,7 @@ const getDashboardDataSyncOptions = () => ({
         `Cannot sync dashboard data: ${error.message}`,
         { disappear: 3000 },
       ),
-      actions.fetchDashboardDataFailed(api.fail(error)),
+      actions.fetchDashboardDataFailed(api.fail(error).message),
     ],
   ),
 });

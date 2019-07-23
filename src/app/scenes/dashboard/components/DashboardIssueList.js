@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack, StackItem } from "@patternfly/react-core";
 
-import { ISSUE } from "app/services/cluster/status-constants";
+import { ISSUE } from "app/services/cluster/types";
 import { InlineAlert, StatusIco } from "app/components";
 
 

@@ -1,17 +1,21 @@
-import * as types from "./constants";
+import { ApiClustersOverview } from "app/backend/clusterOverviewTypes";
+
+import * as types from "./types";
 
 export const fetchDashboardData = () => ({
   type: types.FETCH_DASHBOARD_DATA,
 });
 
-export const fetchDashboardDataSuccess = dashboardData => ({
+export const fetchDashboardDataSuccess = (
+  apiClusterOverview: ApiClustersOverview,
+): types.ActionTypes => ({
   type: types.FETCH_DASHBOARD_DATA_SUCCESS,
-  payload: dashboardData,
+  payload: { apiClusterOverview },
 });
 
-export const fetchDashboardDataFailed = error => ({
+export const fetchDashboardDataFailed = (errorMessage: string) => ({
   type: types.FETCH_DASHBOARD_DATA_FAILED,
-  payload: error,
+  payload: { errorMessage },
 });
 
 export const refreshDashboardData = () => ({

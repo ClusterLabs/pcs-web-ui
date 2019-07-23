@@ -53,7 +53,7 @@ module.exports = {
 
     // only .jsx files may have JSX
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
-    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', ".js"] }],
+    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', ".js", ".tsx"] }],
 
     // TODO start check it when flow arrive
     'react/prop-types': 'off',
