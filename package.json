@@ -13,6 +13,7 @@
     "@types/node": "^12.6.2",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.1.1",
     "connected-react-router": "^6.3.2",
     "history": "^4.9.0",
     "react": "^16.8.6",
