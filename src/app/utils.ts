@@ -1,7 +1,8 @@
-export const mapConstants = (
-  defaultValue: number|string,
-  constantMap: { [key: string]: number|string },
-) => (constant: string) => (
+/* eslint-disable indent */
+export const mapConstants = <Ti extends number|string, To>(
+  defaultValue: To,
+  constantMap: { [key in Ti]: To },
+) => (constant: Ti): To => (
   constantMap[constant] !== undefined ? constantMap[constant] : defaultValue
 );
 
