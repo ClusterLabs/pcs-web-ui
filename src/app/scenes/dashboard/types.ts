@@ -1,7 +1,5 @@
-import { AuthRequired } from "app/services/auth/constants";
 import { ClusterStatus } from "app/services/cluster/types";
 import * as initialFetchTypes from "app/services/data-load/initialFetchTypes";
-import { ApiClustersOverview } from "app/backend/clusterOverviewTypes";
 
 export const FETCH_DASHBOARD_DATA = "/dashboard/FETCH_DASHBOARD_DATA";
 export const FETCH_DASHBOARD_DATA_SUCCESS = "/dashboard/FETCH_DASHBOARD_DATA_SUCCESS"
@@ -12,21 +10,6 @@ export const REFRESH_DASHBOARD_DATA = "/dashboard/REFRESH_DASHBOARD_DATA";
 export const SYNC_DASHBOARD_DATA = "/dashboard/SYNC_DASHBOARD_DATA";
 export const SYNC_DASHBOARD_DATA_STOP = "/dashboard/SYNC_DASHBOARD_DATA_STOP";
 
-
-interface FetchDashboardDataAction {
-  type: typeof FETCH_DASHBOARD_DATA,
-}
-
-interface FetchDashboardDataSuccess {
-  type: typeof FETCH_DASHBOARD_DATA_SUCCESS,
-  payload: { apiClusterOverview: ApiClustersOverview },
-}
-
-export type ActionTypes = (
-  | FetchDashboardDataAction
-  | FetchDashboardDataSuccess
-  | AuthRequired
-);
 export interface DashboardState {
   clusterList: ClusterStatus[],
 }

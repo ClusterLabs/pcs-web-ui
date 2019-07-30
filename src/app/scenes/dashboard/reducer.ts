@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers, Reducer } from "redux";
 
 import { createDataFetchReducer, createDataFetchSelector }
   from "app/services/data-load/initial-fetch-reducer";
@@ -8,7 +8,6 @@ import * as authTypes from "app/services/auth/constants";
 import {
   DashboardState,
   State,
-  ActionTypes,
   FETCH_DASHBOARD_DATA_SUCCESS,
   FETCH_DASHBOARD_DATA_FAILED,
   SYNC_DASHBOARD_DATA,
@@ -20,9 +19,9 @@ const dashboardStateDefault: DashboardState = {
   clusterList: [],
 };
 
-const dashboardState = (
-  state: DashboardState = dashboardStateDefault,
-  action: ActionTypes,
+const dashboardState: Reducer<DashboardState> = (
+  state = dashboardStateDefault,
+  action,
 ) => {
   switch (action.type) {
     case FETCH_DASHBOARD_DATA_SUCCESS:

@@ -1,31 +1,26 @@
 import { ApiClustersOverview } from "app/backend/clusterOverviewTypes";
+import { action } from "typesafe-actions";
 
 import * as types from "./types";
 
-export const fetchDashboardData = () => ({
-  type: types.FETCH_DASHBOARD_DATA,
-});
+export const fetchDashboardData = () => action(types.FETCH_DASHBOARD_DATA);
 
 export const fetchDashboardDataSuccess = (
   apiClusterOverview: ApiClustersOverview,
-): types.ActionTypes => ({
-  type: types.FETCH_DASHBOARD_DATA_SUCCESS,
-  payload: { apiClusterOverview },
-});
+) => action(
+  types.FETCH_DASHBOARD_DATA_SUCCESS,
+  { apiClusterOverview },
+);
 
-export const fetchDashboardDataFailed = (errorMessage: string) => ({
-  type: types.FETCH_DASHBOARD_DATA_FAILED,
-  payload: { errorMessage },
-});
+export const fetchDashboardDataFailed = (errorMessage: string) => action(
+  types.FETCH_DASHBOARD_DATA_FAILED,
+  { errorMessage },
+);
 
-export const refreshDashboardData = () => ({
-  type: types.REFRESH_DASHBOARD_DATA,
-});
+export const refreshDashboardData = () => action(types.REFRESH_DASHBOARD_DATA);
 
-export const syncDashboardData = () => ({
-  type: types.SYNC_DASHBOARD_DATA,
-});
+export const syncDashboardData = () => action(types.SYNC_DASHBOARD_DATA);
 
-export const syncDashboardDataStop = () => ({
-  type: types.SYNC_DASHBOARD_DATA_STOP,
-});
+export const syncDashboardDataStop = () => action(
+  types.SYNC_DASHBOARD_DATA_STOP,
+);
