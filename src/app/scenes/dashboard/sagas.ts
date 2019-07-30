@@ -1,9 +1,9 @@
+import { AnyAction } from "redux";
 import {
   all,
   call,
   fork,
   put,
-  takeEvery,
 } from "redux-saga/effects";
 
 import * as api from "app/core/api";
@@ -15,7 +15,9 @@ import * as actions from "./actions";
 import * as types from "./types";
 
 
-export function* fetchDashboardData(onErrorAction) {
+export function* fetchDashboardData(
+  onErrorAction: (error: Error) => AnyAction[],
+) {
   try {
     const apiClusterOverview = yield call(auth.getJson, "/clusters_overview");
     yield put(actions.fetchDashboardDataSuccess(apiClusterOverview));
@@ -33,7 +35,7 @@ const getDashboardDataSyncOptions = () => ({
   takeStartPayload: () => {},
   fetch: () => fork(
     fetchDashboardData,
-    error => [
+    (error: Error) => [
       notify.error(
         `Cannot sync dashboard data: ${error.message}`,
         { disappear: 3000 },
@@ -44,6 +46,5 @@ const getDashboardDataSyncOptions = () => ({
 });
 
 export default [
-  takeEvery(types.FETCH_DASHBOARD_DATA, fetchDashboardData),
   fork(dataLoadManage, getDashboardDataSyncOptions()),
 ];

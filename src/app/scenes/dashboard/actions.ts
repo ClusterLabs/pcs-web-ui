@@ -3,8 +3,6 @@ import { action } from "typesafe-actions";
 
 import * as types from "./types";
 
-export const fetchDashboardData = () => action(types.FETCH_DASHBOARD_DATA);
-
 export const fetchDashboardDataSuccess = (
   apiClusterOverview: ApiClustersOverview,
 ) => action(
