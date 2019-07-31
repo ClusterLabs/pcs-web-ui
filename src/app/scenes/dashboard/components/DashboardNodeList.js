@@ -1,37 +1,36 @@
 import React from "react";
 
 import { Table, StatusIco, StatusSign } from "app/components";
-import { NODE } from "app/services/cluster/status-constants";
+import { NODE_STATUS, NODE_QUORUM }
+  from "app/services/cluster/types";
 import { mapConstants, compareStrings } from "app/utils";
 
-const { STATUS, QUORUM } = NODE;
-
 const statusLabel = mapConstants("Unknown", {
-  [STATUS.ONLINE]: "Online",
-  [STATUS.OFFLINE]: "Offline",
+  [NODE_STATUS.ONLINE]: "Online",
+  [NODE_STATUS.OFFLINE]: "Offline",
 });
 const statusToStatusIco = mapConstants(StatusIco.STATUS_MAP.UNKNOWN, {
-  [STATUS.ONLINE]: StatusIco.STATUS_MAP.OK,
-  [STATUS.OFFLINE]: StatusIco.STATUS_MAP.ERROR,
+  [NODE_STATUS.ONLINE]: StatusIco.STATUS_MAP.OK,
+  [NODE_STATUS.OFFLINE]: StatusIco.STATUS_MAP.ERROR,
 });
 
 const quorumLabel = mapConstants("Unknown", {
-  [QUORUM.YES]: "Yes",
-  [QUORUM.NO]: "No",
+  [NODE_QUORUM.YES]: "Yes",
+  [NODE_QUORUM.NO]: "No",
 });
 const quorumToStatusIco = mapConstants(StatusIco.STATUS_MAP.UNKNOWN, {
-  [QUORUM.YES]: StatusIco.STATUS_MAP.OK,
-  [QUORUM.NO]: StatusIco.STATUS_MAP.WARNING,
+  [NODE_QUORUM.YES]: StatusIco.STATUS_MAP.OK,
+  [NODE_QUORUM.NO]: StatusIco.STATUS_MAP.WARNING,
 });
 
 export const nodesToSummaryStatus = StatusIco.itemsToSummaryStatus((node) => {
-  if (node.status === STATUS.OFFLINE) {
+  if (node.status === NODE_STATUS.OFFLINE) {
     return StatusIco.STATUS_MAP.ERROR;
   }
-  if (node.quorum === QUORUM.NO) {
+  if (node.quorum === NODE_QUORUM.NO) {
     return StatusIco.STATUS_MAP.WARNING;
   }
-  if (node.status === STATUS.ONLINE && node.quorum === QUORUM.YES) {
+  if (node.status === NODE_STATUS.ONLINE && node.quorum === NODE_QUORUM.YES) {
     return StatusIco.STATUS_MAP.OK;
   }
   return StatusIco.STATUS_MAP.UNKNOWN;
@@ -44,13 +43,13 @@ const COLUMNS = {
 };
 
 const quorumSeverity = mapConstants(1, {
-  [QUORUM.YES]: 0,
-  [QUORUM.NO]: 2,
+  [NODE_QUORUM.YES]: 0,
+  [NODE_QUORUM.NO]: 2,
 });
 
 const statusSeverity = mapConstants(1, {
-  [STATUS.ONLINE]: 0,
-  [STATUS.OFFLINE]: 2,
+  [NODE_STATUS.ONLINE]: 0,
+  [NODE_STATUS.OFFLINE]: 2,
 });
 
 const compareByColumn = (column) => {

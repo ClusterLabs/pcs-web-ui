@@ -1,8 +1,12 @@
-export const mapConstants = (defaultValue, constantMap) => constant => (
+/* eslint-disable indent */
+export const mapConstants = <Ti extends number|string, To>(
+  defaultValue: To,
+  constantMap: { [key in Ti]: To },
+) => (constant: Ti): To => (
   constantMap[constant] !== undefined ? constantMap[constant] : defaultValue
 );
 
-export const compareStrings = (a, b) => {
+export const compareStrings = (a: string, b: string): number => {
   const upperA = a.toUpperCase();
   const upperB = b.toUpperCase();
   if (upperA < upperB) {

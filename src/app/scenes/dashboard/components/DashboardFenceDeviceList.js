@@ -1,21 +1,19 @@
 import React from "react";
 
 import { Table, StatusIco, StatusSign } from "app/components";
-import { RESOURCE } from "app/services/cluster/status-constants";
+import { RESOURCE_STATUS } from "app/services/cluster/types";
 import { mapConstants, compareStrings } from "app/utils";
 
-const { STATUS } = RESOURCE;
-
 const statusLabel = mapConstants("unknown", {
-  [STATUS.RUNNING]: "running",
-  [STATUS.BLOCKED]: "blocked",
-  [STATUS.FAILED]: "failed",
+  [RESOURCE_STATUS.RUNNING]: "running",
+  [RESOURCE_STATUS.BLOCKED]: "blocked",
+  [RESOURCE_STATUS.FAILED]: "failed",
 });
 
 const statusToStatusIco = mapConstants(StatusIco.STATUS_MAP.UNKNOWN, {
-  [STATUS.BLOCKED]: StatusIco.STATUS_MAP.ERROR,
-  [STATUS.FAILED]: StatusIco.STATUS_MAP.ERROR,
-  [STATUS.RUNNING]: StatusIco.STATUS_MAP.OK,
+  [RESOURCE_STATUS.BLOCKED]: StatusIco.STATUS_MAP.ERROR,
+  [RESOURCE_STATUS.FAILED]: StatusIco.STATUS_MAP.ERROR,
+  [RESOURCE_STATUS.RUNNING]: StatusIco.STATUS_MAP.OK,
 });
 
 const COLUMNS = {
@@ -24,9 +22,9 @@ const COLUMNS = {
 };
 
 const statusSeverity = mapConstants(1, {
-  [STATUS.FAILED]: 3,
-  [STATUS.BLOCKED]: 2,
-  [STATUS.RUNNING]: 0,
+  [RESOURCE_STATUS.FAILED]: 3,
+  [RESOURCE_STATUS.BLOCKED]: 2,
+  [RESOURCE_STATUS.RUNNING]: 0,
 });
 
 

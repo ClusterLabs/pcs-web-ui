@@ -9,9 +9,9 @@ export const syncClusterData = clusterUrlName => ({
   payload: { clusterUrlName },
 });
 
-export const fetchClusterDataSuccess = clusterData => ({
+export const fetchClusterDataSuccess = apiClusterState => ({
   type: types.FETCH_CLUSTER_DATA_SUCCESS,
-  payload: clusterData,
+  payload: { apiClusterState },
 });
 
 export const fetchClusterDataFailed = error => ({

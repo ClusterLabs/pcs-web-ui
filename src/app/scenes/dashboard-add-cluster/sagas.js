@@ -8,7 +8,7 @@ import {
 
 import * as auth from "app/services/auth/sagas";
 
-import * as dashboardTypes from "app/scenes/dashboard/constants";
+import { FETCH_DASHBOARD_DATA_SUCCESS } from "app/scenes/dashboard/types";
 import { refreshDashboardData } from "app/scenes/dashboard/actions";
 
 import { actionTypes } from "./constants";
@@ -71,7 +71,7 @@ function* addCluster(action) {
     );
     yield put(actions.reloadDashboard());
     yield put(refreshDashboardData());
-    yield take(dashboardTypes.FETCH_DASHBOARD_DATA_SUCCESS);
+    yield take(FETCH_DASHBOARD_DATA_SUCCESS);
     yield put(actions.addClusterSuccess([]));
   } catch (error) {
     if (error.name === "ApiBadStatus" && error.statusCode === 400) {
