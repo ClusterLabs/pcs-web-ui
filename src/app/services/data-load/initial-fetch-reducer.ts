@@ -1,41 +1,42 @@
+import { Reducer } from "redux";
 import * as authTypes from "app/services/auth/constants";
-import * as types from "./initialFetchTypes";
+import { InitialFetchState, FetchStatus } from "./initialFetchTypes";
 
 interface ErrorMsg {
   name: string,
   message: string,
 }
 
-const initState: types.InitialFetchState = {
-  status: types.FetchStatus.NOT_STARTED,
+const initState: InitialFetchState = {
+  status: FetchStatus.NOT_STARTED,
   errorMsg: "",
 };
 
-interface DataFetchTypes {
+interface FetchTypes {
   START: string,
   SUCCESS: string,
   FAIL: string,
 }
 
 export const createDataFetchReducer = (
-  dataFetchTypes: DataFetchTypes,
-) => (
-  state: types.InitialFetchState = initState,
-  action: types.ActionTypes,
-): types.InitialFetchState => {
+  fetchTypes: FetchTypes,
+): Reducer<InitialFetchState> => (
+  state = initState,
+  action,
+): InitialFetchState => {
   switch (action.type) {
-    case dataFetchTypes.START: return {
-      status: types.FetchStatus.IN_PROGRESS,
+    case fetchTypes.START: return {
+      status: FetchStatus.IN_PROGRESS,
       errorMsg: "",
     };
-    case dataFetchTypes.SUCCESS: return {
-      status: types.FetchStatus.SUCCESS,
+    case fetchTypes.SUCCESS: return {
+      status: FetchStatus.SUCCESS,
       errorMsg: "",
     };
-    case dataFetchTypes.FAIL: return (
-      state.status === types.FetchStatus.IN_PROGRESS
+    case fetchTypes.FAIL: return (
+      state.status === FetchStatus.IN_PROGRESS
         ? {
-          status: types.FetchStatus.ERROR,
+          status: FetchStatus.ERROR,
           errorMsg: action.payload.errorMessage,
         }
         : state
@@ -46,9 +47,9 @@ export const createDataFetchReducer = (
 };
 
 export const createDataFetchSelector = (
-  getFetchState: (state: any) => types.InitialFetchState,
+  getFetchState: (state: any) => InitialFetchState,
 ) => (state: any) => ({
-  isSuccess: getFetchState(state).status === types.FetchStatus.SUCCESS,
-  isError: getFetchState(state).status === types.FetchStatus.ERROR,
+  isSuccess: getFetchState(state).status === FetchStatus.SUCCESS,
+  isError: getFetchState(state).status === FetchStatus.ERROR,
   errorMessage: getFetchState(state).errorMsg,
 });
