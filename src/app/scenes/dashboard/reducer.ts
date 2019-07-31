@@ -7,7 +7,7 @@ import * as authTypes from "app/services/auth/constants";
 
 import {
   DashboardState,
-  State,
+  DashboardPageState,
   FETCH_DASHBOARD_DATA_SUCCESS,
   FETCH_DASHBOARD_DATA_FAILED,
   SYNC_DASHBOARD_DATA,
@@ -31,7 +31,7 @@ const dashboardState: Reducer<DashboardState> = (
   }
 };
 
-export default combineReducers({
+export default combineReducers<DashboardPageState>({
   dashboardState,
   dataFetchState: createDataFetchReducer({
     START: SYNC_DASHBOARD_DATA,
@@ -40,7 +40,7 @@ export default combineReducers({
   }),
 });
 
-export const getDashboard = (state: State) => state.dashboardState;
+export const getDashboard = (state: DashboardPageState) => state.dashboardState;
 export const getDashboardDataFetch = createDataFetchSelector(
-  (state: State) => state.dataFetchState,
+  (state: DashboardPageState) => state.dataFetchState,
 );

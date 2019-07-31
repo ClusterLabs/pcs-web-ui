@@ -6,7 +6,7 @@ interface ErrorMsg {
   message: string,
 }
 
-const initState: types.State = {
+const initState: types.InitialFetchState = {
   status: types.FetchStatus.NOT_STARTED,
   errorMsg: "",
 };
@@ -20,9 +20,9 @@ interface DataFetchTypes {
 export const createDataFetchReducer = (
   dataFetchTypes: DataFetchTypes,
 ) => (
-  state: types.State = initState,
+  state: types.InitialFetchState = initState,
   action: types.ActionTypes,
-): types.State => {
+): types.InitialFetchState => {
   switch (action.type) {
     case dataFetchTypes.START: return {
       status: types.FetchStatus.IN_PROGRESS,
@@ -46,7 +46,7 @@ export const createDataFetchReducer = (
 };
 
 export const createDataFetchSelector = (
-  getFetchState: (state: any) => types.State,
+  getFetchState: (state: any) => types.InitialFetchState,
 ) => (state: any) => ({
   isSuccess: getFetchState(state).status === types.FetchStatus.SUCCESS,
   isError: getFetchState(state).status === types.FetchStatus.ERROR,

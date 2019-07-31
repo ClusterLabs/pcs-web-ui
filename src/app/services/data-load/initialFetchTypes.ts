@@ -26,7 +26,7 @@ export enum FetchStatus {
   ERROR = "ERROR",
 }
 
-export interface State {
+export interface InitialFetchState {
   status: FetchStatus,
   errorMsg: string,
 }

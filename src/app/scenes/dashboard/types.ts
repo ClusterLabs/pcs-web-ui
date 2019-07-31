@@ -1,5 +1,5 @@
 import { ClusterStatus } from "app/services/cluster/types";
-import * as initialFetchTypes from "app/services/data-load/initialFetchTypes";
+import { InitialFetchState } from "app/services/data-load/initialFetchTypes";
 
 export const FETCH_DASHBOARD_DATA_SUCCESS = "/dashboard/FETCH_DASHBOARD_DATA_SUCCESS"
 ;
@@ -13,7 +13,7 @@ export interface DashboardState {
   clusterList: ClusterStatus[],
 }
 
-export interface State {
+export interface DashboardPageState {
   dashboardState: DashboardState,
-  dataFetchState: initialFetchTypes.State,
+  dataFetchState: InitialFetchState,
 }
