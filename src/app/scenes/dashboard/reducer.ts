@@ -3,11 +3,15 @@ import { combineReducers, Reducer } from "redux";
 import { createDataFetchReducer, createDataFetchSelector }
   from "app/services/data-load/initial-fetch-reducer";
 
-import * as authTypes from "app/services/auth/constants";
+import {
+  AuthRequired,
+  AUTH_REQUIRED,
+} from "app/services/auth/constants";
 
 import {
   DashboardState,
   DashboardPageState,
+  FetchDashboardDataSuccessAction,
   FETCH_DASHBOARD_DATA_SUCCESS,
   FETCH_DASHBOARD_DATA_FAILED,
   SYNC_DASHBOARD_DATA,
@@ -21,12 +25,12 @@ const dashboardStateDefault: DashboardState = {
 
 const dashboardState: Reducer<DashboardState> = (
   state = dashboardStateDefault,
-  action,
+  action: FetchDashboardDataSuccessAction|AuthRequired,
 ) => {
   switch (action.type) {
     case FETCH_DASHBOARD_DATA_SUCCESS:
       return overviewApiToState(action.payload.apiClusterOverview);
-    case authTypes.AUTH_REQUIRED: return dashboardStateDefault;
+    case AUTH_REQUIRED: return dashboardStateDefault;
     default: return state;
   }
 };

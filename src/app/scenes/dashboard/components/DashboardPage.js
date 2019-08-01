@@ -17,7 +17,11 @@ import {
 } from "app/components";
 
 /* eslint-disable no-shadow */
-import { syncDashboardData, syncDashboardDataStop } from "../actions";
+import {
+  SYNC_DASHBOARD_DATA,
+  SYNC_DASHBOARD_DATA_STOP,
+} from "../types";
+
 import { selectors } from "../plugin";
 import Dashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
@@ -31,8 +35,8 @@ const useDashboardSync = () => {
           reloadDashboard: {
             // Pure actions (without dispatch binding) here. Start/Stop should
             // be plain objects because they are used in saga.
-            start: syncDashboardData(),
-            stop: syncDashboardDataStop(),
+            start: { type: SYNC_DASHBOARD_DATA },
+            stop: { type: SYNC_DASHBOARD_DATA_STOP },
           },
         }),
       );
