@@ -7,15 +7,28 @@ import {
 } from "redux-saga/effects";
 
 import * as auth from "app/services/auth/sagas";
-
 import { FETCH_DASHBOARD_DATA_SUCCESS } from "app/scenes/dashboard/types";
 import { refreshDashboardData } from "app/scenes/dashboard/actions";
 
-import { actionTypes } from "./constants";
-import * as actions from "./actions";
+import { actionTypes } from "./types";
+
+const {
+  ADD_CLUSTER,
+  ADD_CLUSTER_ERROR,
+  ADD_CLUSTER_SUCCESS,
+  AUTHENTICATE_NODE,
+  AUTHENTICATE_NODE_SUCCESS,
+  AUTHENTICATE_NODE_FAILED,
+  CHECK_AUTH,
+  CHECK_AUTH_ERROR,
+  CHECK_AUTH_NO_AUTH,
+  CHECK_AUTH_OK,
+  RELOAD_DASHBOARD,
+  UPDATE_NODE_NAME,
+} = actionTypes;
 
 function* checkAuthentication(action) {
-  const nodeName = action.payload;
+  const { nodeName } = action.payload;
   try {
     const { nodesStatusMap } = yield race({
       nodesStatusMap: call(
@@ -27,39 +40,54 @@ function* checkAuthentication(action) {
           },
         },
       ),
-      cancel: take(actionTypes.UPDATE_NODE_NAME),
+      cancel: take(UPDATE_NODE_NAME),
     });
 
     if (nodesStatusMap) {
       const nodeStatus = nodesStatusMap[nodeName];
       if (nodeStatus === "Online") {
-        yield put(actions.checkAuthOk());
+        yield put({ type: CHECK_AUTH_OK });
         return;
       }
       if (nodeStatus === "Unable to authenticate") {
-        yield put(actions.checkAuthNoAuth());
+        yield put({ type: CHECK_AUTH_NO_AUTH });
         return;
       }
       if (nodeStatus === "Offline") {
-        yield put(actions.checkAuthError(
-          `Cannot connect to the node '${nodeName}'. Is the node online?`,
-        ));
+        yield put({
+          type: CHECK_AUTH_ERROR,
+          payload: {
+            message: (
+              `Cannot connect to the node '${nodeName}'. Is the node online?`
+            ),
+          },
+        });
         return;
       }
-      yield put(actions.checkAuthError(
-        `Unexpected backend response: '${JSON.stringify(nodesStatusMap)}'`,
-      ));
+      yield put({
+        type: CHECK_AUTH_ERROR,
+        payload: {
+          message: (
+            `Unexpected backend response: '${JSON.stringify(nodesStatusMap)}'`
+          ),
+        },
+      });
     }
   } catch (error) {
-    yield put(actions.checkAuthError(
-      `Error during communication with the backend: '${error.message}'`,
-    ));
+      yield put({
+        type: CHECK_AUTH_ERROR,
+        payload: {
+          message: (
+            `Error during communication with the backend: '${error.message}'`
+          ),
+        },
+      });
   }
 }
 
 function* addCluster(action) {
   try {
-    const nodeName = action.payload;
+    const nodeName = action.payload.nodeName;
     yield call(
       auth.postParamsForText,
       "/manage/existingcluster",
@@ -69,16 +97,24 @@ function* addCluster(action) {
         },
       },
     );
-    yield put(actions.reloadDashboard());
+    yield put({ type: RELOAD_DASHBOARD });
     yield put(refreshDashboardData());
     yield take(FETCH_DASHBOARD_DATA_SUCCESS);
-    yield put(actions.addClusterSuccess([]));
+    yield put({
+      type: ADD_CLUSTER_SUCCESS,
+      payload: { warningMessages: [] },
+    });
   } catch (error) {
-    if (error.name === "ApiBadStatus" && error.statusCode === 400) {
-      yield put(actions.addClusterError([error.body]));
-    } else {
-      yield put(actions.addClusterError([error.message]));
-    }
+    yield put({
+      type: ADD_CLUSTER_ERROR,
+      payload: {
+        message: (
+          error.name === "ApiBadStatus" && error.statusCode === 400
+            ? error.body
+            : error.message
+        ),
+      }
+    })
   }
 }
 
@@ -108,7 +144,7 @@ function* authenticateNode(action) {
           },
         },
       ),
-      cancel: take(actionTypes.UPDATE_NODE_NAME),
+      cancel: take(UPDATE_NODE_NAME),
     });
 
     if (authResult) {
@@ -118,28 +154,37 @@ function* authenticateNode(action) {
         ||
         result.node_auth_error[nodeName] === undefined
       ) {
-        yield put(actions.authenticateNodeFailed(
-          `Unexpected backend response: ${authResult}`,
-        ));
+        yield put({
+          type: AUTHENTICATE_NODE_FAILED,
+          payload: {
+            message: `Unexpected backend response: ${authResult}`,
+          },
+        });
         return;
       }
 
       yield put(
         result.node_auth_error[nodeName] === 0
-          ? actions.authenticateNodeSuccess()
-          : actions.authenticateNodeFailed(
-            `Authentication of node '${nodeName}' failed.`,
-          )
+          ? { type: AUTHENTICATE_NODE_SUCCESS }
+          : {
+              type: AUTHENTICATE_NODE_FAILED,
+              payload: {
+                message: `Authentication of node '${nodeName}' failed.`,
+              },
+            }
         ,
       );
     }
   } catch (error) {
-    yield put(actions.authenticateNodeFailed([error.message]));
+    yield put({
+      type: AUTHENTICATE_NODE_FAILED,
+      payload: { message: error.message },
+    });
   }
 }
 
 export default [
-  takeEvery(actionTypes.CHECK_AUTH, checkAuthentication),
-  takeEvery(actionTypes.ADD_CLUSTER, addCluster),
-  takeEvery(actionTypes.AUTHENTICATE_NODE, authenticateNode),
+  takeEvery(CHECK_AUTH, checkAuthentication),
+  takeEvery(ADD_CLUSTER, addCluster),
+  takeEvery(AUTHENTICATE_NODE, authenticateNode),
 ];

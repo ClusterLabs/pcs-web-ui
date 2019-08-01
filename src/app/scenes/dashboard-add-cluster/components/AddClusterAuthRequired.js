@@ -9,7 +9,9 @@ import {
 
 import { Spinner, InlineAlert } from "app/components";
 
-import * as actions from "../actions";
+import { actionTypes } from "../types";
+
+const { AUTHENTICATE_NODE } = actionTypes;
 
 const AddClusterAuthRequired = ({
   nodeName,
@@ -98,9 +100,15 @@ const AddClusterAuthRequired = ({
           : (
             <Button
               variant="primary"
-              onClick={() => dispatch(
-                actions.authenticateNode(nodeName, password, address, port),
-              )}
+              onClick={() => dispatch({
+                type: AUTHENTICATE_NODE,
+                payload: {
+                  nodeName,
+                  password,
+                  address,
+                  port,
+                },
+              })}
               data-role="authenticate-node"
             >
               Authenticate node

@@ -5,11 +5,12 @@ import { Wizard } from "@patternfly/react-core";
 
 import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
 
-import { stepAuthStates } from "../constants";
+import { AUTH_STATE, actionTypes } from "../types";
 import { selectors } from "../plugin";
-import * as actions from "../actions";
 import AddClusterStepAuth from "./AddClusterStepAuth";
 import AddClusterStepAdd from "./AddClusterStepAdd";
+
+const { ADD_CLUSTER } = actionTypes;
 
 const AddClusterPage = () => {
   const stepAuthState = useSelector(selectors.getStepAuthState);
@@ -20,7 +21,7 @@ const AddClusterPage = () => {
     {
       name: "Node authentication",
       component: <AddClusterStepAuth />,
-      enableNext: stepAuthState === stepAuthStates.ALREADY_AUTHENTICATED,
+      enableNext: stepAuthState === AUTH_STATE.ALREADY_AUTHENTICATED,
     },
     {
       name: "Add cluster",
@@ -33,7 +34,10 @@ const AddClusterPage = () => {
       <Wizard
         data-role="add-cluster-wizard"
         isOpen
-        onNext={() => dispatch(actions.addCluster(nodeName))}
+        onNext={() => dispatch({
+          type: ADD_CLUSTER,
+          payload: { nodeName },
+        })}
         onClose={() => dispatch(push("/"))}
         title="Add existing cluster"
         description="Add existing cluster wizard"

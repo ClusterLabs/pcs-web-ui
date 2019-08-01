@@ -4,20 +4,20 @@ import { useSelector } from "react-redux";
 import { Spinner, InlineAlert } from "app/components";
 
 import { selectors } from "../plugin";
-import { stepAddStates } from "../constants";
+import { ADD_STATE } from "../types";
 
 const AddClusterAddStep = () => {
   const state = useSelector(selectors.getStepAddState);
-  const errorMessages = useSelector(selectors.getStateError);
+  const errorMessage = useSelector(selectors.getStateError);
   return (
     <React.Fragment>
-      {state === stepAddStates.STARTED &&
+      {state === ADD_STATE.STARTED &&
         <Spinner data-role="waiting-add" text="adding existing cluster..." />
       }
       {
         [
-          stepAddStates.DASHBOARD_RELOADING,
-          stepAddStates.SUCCESS,
+          ADD_STATE.DASHBOARD_RELOADING,
+          ADD_STATE.SUCCESS,
         ].includes(state)
         &&
         (
@@ -28,16 +28,16 @@ const AddClusterAddStep = () => {
           />
         )
       }
-      {state === stepAddStates.DASHBOARD_RELOADING && (
+      {state === ADD_STATE.DASHBOARD_RELOADING && (
         <Spinner
           data-role="waiting-reload"
           text="waiting for dashboard reload"
         />
       )}
-      {state === stepAddStates.ERROR && (
+      {state === ADD_STATE.ERROR && (
         <InlineAlert
           variant="danger"
-          title={errorMessages.join("\n")}
+          title={errorMessage}
           data-role="add-cluster-error-message"
         />
       )}
