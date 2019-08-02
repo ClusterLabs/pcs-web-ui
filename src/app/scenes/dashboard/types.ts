@@ -26,6 +26,10 @@ export interface FetchDashboardDataFailedAction {
   }
 }
 
+export interface RefreshDashboardDataAction {
+  type: typeof REFRESH_DASHBOARD_DATA,
+}
+
 export interface DashboardState {
   clusterList: ClusterStatus[],
 }
