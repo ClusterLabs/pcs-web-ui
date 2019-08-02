@@ -17,10 +17,7 @@ import {
 } from "app/components";
 
 /* eslint-disable no-shadow */
-import {
-  SYNC_DASHBOARD_DATA,
-  SYNC_DASHBOARD_DATA_STOP,
-} from "../types";
+import { DashboardActionType } from "../types";
 
 import { selectors } from "../plugin";
 import Dashboard from "./Dashboard";
@@ -34,8 +31,8 @@ const useDashboardSync = () => {
         type: SET_UP_DATA_READING,
         payload: {
           reloadDashboard: {
-            start: { type: SYNC_DASHBOARD_DATA },
-            stop: { type: SYNC_DASHBOARD_DATA_STOP },
+            start: { type: DashboardActionType.SYNC_DASHBOARD_DATA },
+            stop: { type: DashboardActionType.SYNC_DASHBOARD_DATA_STOP },
           },
         },
       });

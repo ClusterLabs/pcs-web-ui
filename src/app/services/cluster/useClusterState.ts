@@ -5,11 +5,15 @@ import { SET_UP_DATA_READING } from "app/services/data-load/types";
 import { RootState } from "app/core/rootState";
 
 import {
-  SYNC_CLUSTER_DATA,
-  SYNC_CLUSTER_DATA_STOP,
+  ClusterActionType,
   ClusterServiceState,
 } from "./types";
 import { selectors } from "./plugin";
+
+const {
+  SYNC_CLUSTER_DATA,
+  SYNC_CLUSTER_DATA_STOP,
+} = ClusterActionType;
 
 const useClusterState = (clusterUrlName: string) => {
   const dispatch = useDispatch();

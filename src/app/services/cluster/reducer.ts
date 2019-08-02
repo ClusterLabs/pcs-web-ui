@@ -3,17 +3,13 @@ import { combineReducers, Reducer } from "redux";
 import { AuthRequired, AUTH_REQUIRED } from "app/services/auth/constants";
 
 import {
+  ClusterActionType,
   ClusterState,
   ClusterServiceState,
-  FetchClusterDataSuccessAction,
-  FetchClusterDataFailedAction,
-  SyncClusterDataAction,
   CLUSTER_STATUS,
-  FETCH_CLUSTER_DATA_SUCCESS,
-  SYNC_CLUSTER_DATA,
-  FETCH_CLUSTER_DATA_FAILED,
   FETCH_STATUS,
 } from "./types";
+import * as ClusterAction from "./actions";
 import clusterApiToState from "./apiToState";
 
 const clusterStatusDefault: ClusterState = {
@@ -28,10 +24,10 @@ const clusterStatusDefault: ClusterState = {
 
 const clusterState: Reducer<ClusterState> = (
   state = clusterStatusDefault,
-  action: FetchClusterDataSuccessAction|AuthRequired,
+  action: ClusterAction.FetchClusterDataSuccess|AuthRequired,
 ) => {
   switch (action.type) {
-    case FETCH_CLUSTER_DATA_SUCCESS:
+    case ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS:
       return clusterApiToState(action.payload.apiClusterStatus);
     case AUTH_REQUIRED: return clusterStatusDefault;
     default: return state;
@@ -41,16 +37,17 @@ const clusterState: Reducer<ClusterState> = (
 const dataFetchState: Reducer<FETCH_STATUS> = (
   state = FETCH_STATUS.NOT_STARTED,
   action: (
-    |SyncClusterDataAction
-    |FetchClusterDataSuccessAction
-    |FetchClusterDataFailedAction
+    |ClusterAction.SyncClusterData
+    |ClusterAction.FetchClusterDataSuccess
+    |ClusterAction.FetchClusterDataFailed
     |AuthRequired
   ),
 ) => {
   switch (action.type) {
-    case SYNC_CLUSTER_DATA: return FETCH_STATUS.IN_PROGRESS;
-    case FETCH_CLUSTER_DATA_SUCCESS: return FETCH_STATUS.SUCCESS;
-    case FETCH_CLUSTER_DATA_FAILED: return (
+    case ClusterActionType.SYNC_CLUSTER_DATA: return FETCH_STATUS.IN_PROGRESS;
+    case ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS:
+      return FETCH_STATUS.SUCCESS;
+    case ClusterActionType.FETCH_CLUSTER_DATA_FAILED: return (
       state === FETCH_STATUS.IN_PROGRESS
         ? FETCH_STATUS.ERROR
         : state

@@ -1,39 +1,10 @@
-import { ApiClusterStatus } from "app/backend/clusterStatusTypes";
-
-export const REFRESH_CLUSTER_DATA = "/cluster/REFRESH_CLUSTER_DATA";
-export const SYNC_CLUSTER_DATA = "/cluster/SYNC_CLUSTER_DATA";
-export const FETCH_CLUSTER_DATA_SUCCESS = "/cluster/FETCH_CLUSTER_DATA_SUCCESS";
-export const FETCH_CLUSTER_DATA_FAILED = "/cluster/FETCH_CLUSTER_DATA_FAILED";
-export const SYNC_CLUSTER_DATA_STOP = "/cluster/SYNC_CLUSTER_DATA_STOP";
-
-export interface RefreshClusterDataAction {
-  type: typeof REFRESH_CLUSTER_DATA,
+export enum ClusterActionType {
+  FETCH_CLUSTER_DATA_SUCCESS = "/cluster/FETCH_CLUSTER_DATA_SUCCESS",
+  REFRESH_CLUSTER_DATA = "/cluster/REFRESH_CLUSTER_DATA",
+  SYNC_CLUSTER_DATA = "/cluster/SYNC_CLUSTER_DATA",
+  SYNC_CLUSTER_DATA_STOP = "/cluster/SYNC_CLUSTER_DATA_STOP",
+  FETCH_CLUSTER_DATA_FAILED = "/cluster/FETCH_CLUSTER_DATA_FAILED",
 }
-
-export interface SyncClusterDataPayload {
-  clusterUrlName: string,
-}
-
-export interface SyncClusterDataAction {
-  type: typeof SYNC_CLUSTER_DATA,
-  payload: SyncClusterDataPayload,
-}
-
-export interface SyncClusterDataStopAction {
-  type: typeof SYNC_CLUSTER_DATA_STOP,
-}
-
-export interface FetchClusterDataSuccessAction {
-  type: typeof FETCH_CLUSTER_DATA_SUCCESS,
-  payload: {
-    apiClusterStatus: ApiClusterStatus,
-  },
-}
-
-export interface FetchClusterDataFailedAction{
-  type: typeof FETCH_CLUSTER_DATA_FAILED,
-}
-
 
 export enum NODE_QUORUM {
   YES = "cluster/node/quorum/yes",

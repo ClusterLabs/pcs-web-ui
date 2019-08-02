@@ -5,14 +5,10 @@ import { AuthRequired, AUTH_REQUIRED } from "app/services/auth/constants";
 import {
   DashboardState,
   DashboardPageState,
-  FetchDashboardDataSuccessAction,
-  FetchDashboardDataFailedAction,
-  SyncDashboardDataAction,
-  FETCH_DASHBOARD_DATA_SUCCESS,
-  FETCH_DASHBOARD_DATA_FAILED,
-  SYNC_DASHBOARD_DATA,
+  DashboardActionType,
   FETCH_STATUS,
 } from "./types";
+import * as DashboardAction from "./actions";
 import overviewApiToState from "./overviewApiToState";
 
 const dashboardStateDefault: DashboardState = {
@@ -21,10 +17,10 @@ const dashboardStateDefault: DashboardState = {
 
 const dashboardState: Reducer<DashboardState> = (
   state = dashboardStateDefault,
-  action: FetchDashboardDataSuccessAction|AuthRequired,
+  action: DashboardAction.FetchDashboardDataSuccess|AuthRequired,
 ) => {
   switch (action.type) {
-    case FETCH_DASHBOARD_DATA_SUCCESS:
+    case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS:
       return overviewApiToState(action.payload.apiClusterOverview);
     case AUTH_REQUIRED: return dashboardStateDefault;
     default: return state;
@@ -34,16 +30,18 @@ const dashboardState: Reducer<DashboardState> = (
 const dataFetchState: Reducer<FETCH_STATUS> = (
   state = FETCH_STATUS.NOT_STARTED,
   action: (
-    |SyncDashboardDataAction
-    |FetchDashboardDataSuccessAction
-    |FetchDashboardDataFailedAction
+    |DashboardAction.SyncDashboardData
+    |DashboardAction.FetchDashboardDataSuccess
+    |DashboardAction.FetchDashboardDataFailed
     |AuthRequired
   ),
 ) => {
   switch (action.type) {
-    case SYNC_DASHBOARD_DATA: return FETCH_STATUS.IN_PROGRESS;
-    case FETCH_DASHBOARD_DATA_SUCCESS: return FETCH_STATUS.SUCCESS;
-    case FETCH_DASHBOARD_DATA_FAILED: return (
+    case DashboardActionType.SYNC_DASHBOARD_DATA:
+      return FETCH_STATUS.IN_PROGRESS;
+    case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS:
+      return FETCH_STATUS.SUCCESS;
+    case DashboardActionType.FETCH_DASHBOARD_DATA_FAILED: return (
       state === FETCH_STATUS.IN_PROGRESS
         ? FETCH_STATUS.ERROR
         : state

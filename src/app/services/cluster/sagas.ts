@@ -10,15 +10,9 @@ import * as auth from "app/services/auth/sagas";
 import * as notify from "app/scenes/notifications/actions";
 import { dataLoadManage } from "app/services/data-load/sagas";
 
-import {
-  SYNC_CLUSTER_DATA,
-  SYNC_CLUSTER_DATA_STOP,
-  FETCH_CLUSTER_DATA_SUCCESS,
-  FETCH_CLUSTER_DATA_FAILED,
-  REFRESH_CLUSTER_DATA,
-  SyncClusterDataPayload,
-  FetchClusterDataFailedAction,
-} from "./types";
+import { ClusterActionType } from "./types";
+
+import * as ClusterAction from "./actions";
 
 function* fetchClusterData(
   clusterUrlName: string,
@@ -29,7 +23,7 @@ function* fetchClusterData(
       `/managec/${clusterUrlName}/cluster_status`,
     );
     yield put({
-      type: FETCH_CLUSTER_DATA_SUCCESS,
+      type: ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS,
       payload: { apiClusterStatus },
     });
   } catch (error) {
@@ -39,7 +33,9 @@ function* fetchClusterData(
         `Cannot sync data for cluster '${clusterUrlName}': ${errorMessage}`,
         { disappear: 3000 },
       )),
-      put<FetchClusterDataFailedAction>({ type: FETCH_CLUSTER_DATA_FAILED }),
+      put<ClusterAction.FetchClusterDataFailed>({
+        type: ClusterActionType.FETCH_CLUSTER_DATA_FAILED,
+      }),
     ]);
   }
 }
@@ -47,12 +43,12 @@ function* fetchClusterData(
 const getClusterDataSyncOptions = () => {
   let clusterUrlName = "";
   return {
-    START: SYNC_CLUSTER_DATA,
-    STOP: SYNC_CLUSTER_DATA_STOP,
-    SUCCESS: FETCH_CLUSTER_DATA_SUCCESS,
-    FAIL: FETCH_CLUSTER_DATA_FAILED,
-    refreshAction: { type: REFRESH_CLUSTER_DATA },
-    takeStartPayload: (payload: SyncClusterDataPayload) => {
+    START: ClusterActionType.SYNC_CLUSTER_DATA,
+    STOP: ClusterActionType.SYNC_CLUSTER_DATA_STOP,
+    SUCCESS: ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS,
+    FAIL: ClusterActionType.FETCH_CLUSTER_DATA_FAILED,
+    refreshAction: { type: ClusterActionType.REFRESH_CLUSTER_DATA },
+    takeStartPayload: (payload: ClusterAction.SyncClusterDataPayload) => {
       ({ clusterUrlName } = payload);
     },
     fetch: () => fork(fetchClusterData, clusterUrlName),
