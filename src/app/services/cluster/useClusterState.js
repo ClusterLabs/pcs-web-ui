@@ -1,25 +1,28 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setUpDataReading } from "app/services/data-load/actions";
+import { SET_UP_DATA_READING } from "app/services/data-load/types";
 
 import { syncClusterData, syncClusterDataStop } from "./actions";
 import { selectors } from "./plugin";
 
-const setupClusterReading = clusterUrlName => setUpDataReading({
-  reloadCluster: {
-    specificator: clusterUrlName,
-    // Pure actions (without dispatch binding) here. Start/Stop should be
-    // plain objects because they are used in saga.
-    start: syncClusterData(clusterUrlName),
-    stop: syncClusterDataStop(),
-  },
-});
-
 export default (clusterUrlName) => {
   const dispatch = useDispatch();
   React.useEffect(
-    () => { dispatch(setupClusterReading(clusterUrlName)); },
+    () => {
+      dispatch({
+        type: SET_UP_DATA_READING,
+        payload: {
+          reloadCluster: {
+            specificator: clusterUrlName,
+            // Pure actions (without dispatch binding) here. Start/Stop should
+            // be plain objects because they are used in saga.
+            start: syncClusterData(clusterUrlName),
+            stop: syncClusterDataStop(),
+          },
+        },
+      });
+    },
     [clusterUrlName, dispatch],
   );
   return {

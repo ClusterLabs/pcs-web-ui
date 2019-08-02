@@ -9,7 +9,7 @@ import {
 import { Table } from "@patternfly/react-table";
 /* eslint-enable no-unused-vars */
 
-import { setUpDataReading } from "app/services/data-load/actions";
+import { SET_UP_DATA_READING } from "app/services/data-load/types";
 import {
   PageSectionDataLoading,
   PageHeader,
@@ -30,16 +30,15 @@ const useDashboardSync = () => {
   const dispatch = useDispatch();
   React.useEffect(
     () => {
-      dispatch(
-        setUpDataReading({
+      dispatch({
+        type: SET_UP_DATA_READING,
+        payload: {
           reloadDashboard: {
-            // Pure actions (without dispatch binding) here. Start/Stop should
-            // be plain objects because they are used in saga.
             start: { type: SYNC_DASHBOARD_DATA },
             stop: { type: SYNC_DASHBOARD_DATA_STOP },
           },
-        }),
-      );
+        },
+      });
     },
     [dispatch],
   );

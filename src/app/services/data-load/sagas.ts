@@ -1,3 +1,5 @@
+import { AnyAction } from "redux";
+import { Task } from "redux-saga";
 import {
   all,
   delay,
@@ -6,13 +8,19 @@ import {
   fork,
   put,
   take,
+  ForkEffect,
 } from "redux-saga/effects";
 
-import * as types from "./constants";
+
+import {
+  SET_UP_DATA_READING,
+  ReadingDefinition,
+  SetupReadingAction,
+} from "./types";
 
 const SYNC_DELAY = 30 * 1000;// ms
 
-export function* timer(action) {
+export function* timer(action: AnyAction) {
   try {
     yield delay(SYNC_DELAY);
     yield put(action);
@@ -23,12 +31,33 @@ export function* timer(action) {
   }
 }
 
+interface DataLoadProps {
+  START: any,
+  STOP: any,
+  SUCCESS: any,
+  FAIL: any,
+  refreshAction: AnyAction,
+  takeStartPayload: (payload: any) => void,
+  fetch: () => ForkEffect,
+}
+
+interface LoadTasks {
+  fetch: Task | undefined,
+  timer: Task | undefined,
+}
+
 export function* dataLoadManage({
-  START, STOP, SUCCESS, FAIL, refreshAction, takeStartPayload, fetch,
-}) { /* eslint-disable no-constant-condition, no-console */
+  START,
+  STOP,
+  SUCCESS,
+  FAIL,
+  refreshAction,
+  takeStartPayload,
+  fetch,
+}: DataLoadProps) { /* eslint-disable no-constant-condition, no-console */
   let syncStarted = false;
   let fetchFast = false;
-  const tasks = { fetch: undefined, timer: undefined };
+  const tasks: LoadTasks = { fetch: undefined, timer: undefined };
 
   const { type: REFRESH } = refreshAction;
 
@@ -79,14 +108,25 @@ export function* dataLoadManage({
   }
 }
 
+type StopReadingMap = Record<string, {
+  specificator?: any,
+  stop: AnyAction,
+}>
+
 export function* setUpDataReading() {
-  let stops = {};
-  const stop = name => put(stops[name].stop);
-  const stopSpecificator = name => stops[name].specificator;
-  const start = (readings, name) => put(readings[name].start);
+  let stops: StopReadingMap = {};
+  const stop = (name: string) => put(stops[name].stop);
+  const stopSpecificator = (name: string) => stops[name].specificator;
+  const start = (
+    readings: Record<string, ReadingDefinition>,
+    name: string,
+  ) => put(readings[name].start);
+
   /* eslint-disable no-constant-condition */
   while (true) {
-    const { payload: readings } = yield take(types.SET_UP_DATA_READING);
+    const { payload: readings } = yield take<SetupReadingAction>(
+      SET_UP_DATA_READING,
+    );
     const newNames = Object.keys(readings);
     const oldNames = Object.keys(stops);
 
