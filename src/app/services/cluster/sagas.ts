@@ -1,4 +1,3 @@
-import { AnyAction } from "redux";
 import {
   all,
   call,
@@ -17,12 +16,12 @@ import {
   FETCH_CLUSTER_DATA_SUCCESS,
   FETCH_CLUSTER_DATA_FAILED,
   REFRESH_CLUSTER_DATA,
-  SyncCLusterDataPayload,
+  SyncClusterDataPayload,
+  FetchClusterDataFailedAction,
 } from "./types";
 
 function* fetchClusterData(
   clusterUrlName: string,
-  onErrorAction: (error: Error) => AnyAction[],
 ) {
   try {
     const apiClusterStatus = yield call(
@@ -34,7 +33,14 @@ function* fetchClusterData(
       payload: { apiClusterStatus },
     });
   } catch (error) {
-    yield all(onErrorAction(error).map(action => put(action)));
+    const errorMessage = api.fail(error).message;
+    yield all([
+      put(notify.error(
+        `Cannot sync data for cluster '${clusterUrlName}': ${errorMessage}`,
+        { disappear: 3000 },
+      )),
+      put<FetchClusterDataFailedAction>({ type: FETCH_CLUSTER_DATA_FAILED }),
+    ]);
   }
 }
 
@@ -46,26 +52,10 @@ const getClusterDataSyncOptions = () => {
     SUCCESS: FETCH_CLUSTER_DATA_SUCCESS,
     FAIL: FETCH_CLUSTER_DATA_FAILED,
     refreshAction: { type: REFRESH_CLUSTER_DATA },
-    takeStartPayload: (payload: SyncCLusterDataPayload) => {
-      /* eslint-disable prefer-destructuring */
-      clusterUrlName = payload.clusterUrlName;
+    takeStartPayload: (payload: SyncClusterDataPayload) => {
+      ({ clusterUrlName } = payload);
     },
-    fetch: () => fork(
-      fetchClusterData,
-      clusterUrlName,
-      (error: Error) => [
-        notify.error(
-          `Cannot sync data for cluster '${clusterUrlName}': ${error.message}`,
-          { disappear: 3000 },
-        ),
-        {
-          type: FETCH_CLUSTER_DATA_FAILED,
-          payload: {
-            errorMsg: api.fail(error).message,
-          },
-        },
-      ],
-    ),
+    fetch: () => fork(fetchClusterData, clusterUrlName),
   };
 };
 

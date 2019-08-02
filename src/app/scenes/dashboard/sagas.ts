@@ -1,4 +1,3 @@
-import { AnyAction } from "redux";
 import {
   all,
   call,
@@ -22,9 +21,7 @@ import {
 } from "./types";
 
 
-export function* fetchDashboardData(
-  onErrorActions: (error: Error) => AnyAction[],
-) {
+export function* fetchDashboardData() {
   try {
     const apiClusterOverview = yield call(auth.getJson, "/clusters_overview");
     yield put<FetchDashboardDataSuccessAction>({
@@ -32,7 +29,16 @@ export function* fetchDashboardData(
       payload: { apiClusterOverview },
     });
   } catch (error) {
-    yield all(onErrorActions(error).map(action => put(action)));
+    const errorMessage = api.fail(error).message;
+    yield all([
+      put(notify.error(
+        `Cannot sync dashboard data: ${errorMessage}`,
+        { disappear: 3000 },
+      )),
+      put<FetchDashboardDataFailedAction>(
+        { type: FETCH_DASHBOARD_DATA_FAILED },
+      ),
+    ]);
   }
 }
 
@@ -43,19 +49,7 @@ const getDashboardDataSyncOptions = () => ({
   FAIL: FETCH_DASHBOARD_DATA_FAILED,
   refreshAction: { type: REFRESH_DASHBOARD_DATA },
   takeStartPayload: () => {},
-  fetch: () => fork(
-    fetchDashboardData,
-    (error: Error) => [
-      notify.error(
-        `Cannot sync dashboard data: ${error.message}`,
-        { disappear: 3000 },
-      ),
-      {
-        type: FETCH_DASHBOARD_DATA_FAILED,
-        payload: { errorMessage: api.fail(error).message },
-      } as FetchDashboardDataFailedAction,
-    ],
-  ),
+  fetch: () => fork(fetchDashboardData),
 });
 
 export default [

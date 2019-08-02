@@ -1,22 +1,18 @@
 import { combineReducers, Reducer } from "redux";
 
-import {
-  createDataFetchReducer,
-  createDataFetchSelector,
-} from "app/services/data-load/initial-fetch-reducer";
-import {
-  AuthRequired,
-  AUTH_REQUIRED,
-} from "app/services/auth/constants";
+import { AuthRequired, AUTH_REQUIRED } from "app/services/auth/constants";
 
 import {
   ClusterState,
   ClusterServiceState,
   FetchClusterDataSuccessAction,
+  FetchClusterDataFailedAction,
+  SyncClusterDataAction,
   CLUSTER_STATUS,
   FETCH_CLUSTER_DATA_SUCCESS,
   SYNC_CLUSTER_DATA,
   FETCH_CLUSTER_DATA_FAILED,
+  FETCH_STATUS,
 } from "./types";
 import clusterApiToState from "./apiToState";
 
@@ -42,18 +38,35 @@ const clusterState: Reducer<ClusterState> = (
   }
 };
 
-export default combineReducers({
+const dataFetchState: Reducer<FETCH_STATUS> = (
+  state = FETCH_STATUS.NOT_STARTED,
+  action: (
+    |SyncClusterDataAction
+    |FetchClusterDataSuccessAction
+    |FetchClusterDataFailedAction
+    |AuthRequired
+  ),
+) => {
+  switch (action.type) {
+    case SYNC_CLUSTER_DATA: return FETCH_STATUS.IN_PROGRESS;
+    case FETCH_CLUSTER_DATA_SUCCESS: return FETCH_STATUS.SUCCESS;
+    case FETCH_CLUSTER_DATA_FAILED: return (
+      state === FETCH_STATUS.IN_PROGRESS
+        ? FETCH_STATUS.ERROR
+        : state
+    );
+    case AUTH_REQUIRED: return FETCH_STATUS.NOT_STARTED;
+    default: return state;
+  }
+};
+
+export default combineReducers<ClusterServiceState>({
   clusterState,
-  dataFetch: createDataFetchReducer({
-    START: SYNC_CLUSTER_DATA,
-    SUCCESS: FETCH_CLUSTER_DATA_SUCCESS,
-    FAIL: FETCH_CLUSTER_DATA_FAILED,
-  }),
+  dataFetchState,
 });
 
-
 export const areDataLoaded = (state: ClusterServiceState) => (
-  createDataFetchSelector(cs => cs.dataFetch)(state).isSuccess
+  state.dataFetchState === FETCH_STATUS.SUCCESS
 );
 
 export const getCluster = (state: ClusterServiceState) => state.clusterState;

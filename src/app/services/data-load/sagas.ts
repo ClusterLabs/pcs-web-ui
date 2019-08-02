@@ -15,7 +15,7 @@ import {
 import {
   SET_UP_DATA_READING,
   ReadingDefinition,
-  SetupReadingAction,
+  SetupDataReadingAction,
 } from "./types";
 
 const SYNC_DELAY = 30 * 1000;// ms
@@ -124,7 +124,7 @@ export function* setUpDataReading() {
 
   /* eslint-disable no-constant-condition */
   while (true) {
-    const { payload: readings } = yield take<SetupReadingAction>(
+    const { payload: readings } = yield take<SetupDataReadingAction>(
       SET_UP_DATA_READING,
     );
     const newNames = Object.keys(readings);

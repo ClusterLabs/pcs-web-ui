@@ -1,17 +1,17 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  SET_UP_DATA_READING,
-} from "app/services/data-load/types";
+import { SET_UP_DATA_READING } from "app/services/data-load/types";
+import { RootState } from "app/core/rootState";
 
 import {
   SYNC_CLUSTER_DATA,
   SYNC_CLUSTER_DATA_STOP,
+  ClusterServiceState,
 } from "./types";
 import { selectors } from "./plugin";
 
-export default (clusterUrlName: string) => {
+const useClusterState = (clusterUrlName: string) => {
   const dispatch = useDispatch();
   React.useEffect(
     () => {
@@ -29,7 +29,8 @@ export default (clusterUrlName: string) => {
     [clusterUrlName, dispatch],
   );
   return {
-    cluster: useSelector(selectors.getCluster),
-    dataLoaded: useSelector(selectors.areDataLoaded),
+    cluster: useSelector<RootState, ClusterServiceState>(selectors.getCluster),
+    dataLoaded: useSelector<RootState, boolean>(selectors.areDataLoaded),
   };
 };
+export default useClusterState;

@@ -1,4 +1,3 @@
-import { InitialFetchState } from "app/services/data-load/initialFetchTypes";
 import { ApiClusterStatus } from "app/backend/clusterStatusTypes";
 
 export const REFRESH_CLUSTER_DATA = "/cluster/REFRESH_CLUSTER_DATA";
@@ -11,31 +10,28 @@ export interface RefreshClusterDataAction {
   type: typeof REFRESH_CLUSTER_DATA,
 }
 
-export interface SyncCLusterDataPayload {
+export interface SyncClusterDataPayload {
   clusterUrlName: string,
 }
 
-export interface SyncCLusterDataAction {
+export interface SyncClusterDataAction {
   type: typeof SYNC_CLUSTER_DATA,
-  payload: SyncCLusterDataPayload,
+  payload: SyncClusterDataPayload,
 }
 
-export interface SyncCLusterDataStopAction {
+export interface SyncClusterDataStopAction {
   type: typeof SYNC_CLUSTER_DATA_STOP,
 }
 
 export interface FetchClusterDataSuccessAction {
   type: typeof FETCH_CLUSTER_DATA_SUCCESS,
   payload: {
-    apiClusterStatus: ApiClusterStatus
+    apiClusterStatus: ApiClusterStatus,
   },
 }
 
-export interface FetchClusterDataFailedAction {
+export interface FetchClusterDataFailedAction{
   type: typeof FETCH_CLUSTER_DATA_FAILED,
-  payload: {
-    errorMsg: string
-  },
 }
 
 
@@ -111,7 +107,14 @@ export interface ClusterState {
   issueList: Issue[],
 }
 
+export enum FETCH_STATUS {
+  NOT_STARTED = "NOT_STARTED",
+  IN_PROGRESS = "IN_PROGRESS",
+  SUCCESS = "SUCCESS",
+  ERROR = "ERROR",
+}
+
 export interface ClusterServiceState {
   clusterState: ClusterState,
-  dataFetchState: InitialFetchState,
+  dataFetchState: FETCH_STATUS,
 }

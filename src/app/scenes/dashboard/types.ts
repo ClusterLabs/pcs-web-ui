@@ -1,6 +1,5 @@
 import { ClusterState } from "app/services/cluster/types";
 import { ApiClustersOverview } from "app/backend/clusterOverviewTypes";
-import { InitialFetchState } from "app/services/data-load/initialFetchTypes";
 
 export const FETCH_DASHBOARD_DATA_SUCCESS = (
   "/dashboard/FETCH_DASHBOARD_DATA_SUCCESS"
@@ -21,13 +20,21 @@ export interface FetchDashboardDataSuccessAction {
 
 export interface FetchDashboardDataFailedAction {
   type: typeof FETCH_DASHBOARD_DATA_FAILED,
-  payload: {
-    errorMessage: string,
-  }
 }
 
 export interface RefreshDashboardDataAction {
   type: typeof REFRESH_DASHBOARD_DATA,
+}
+
+export interface SyncDashboardDataAction {
+  type: typeof SYNC_DASHBOARD_DATA,
+}
+
+export enum FETCH_STATUS {
+  NOT_STARTED = "NOT_STARTED",
+  IN_PROGRESS = "IN_PROGRESS",
+  SUCCESS = "SUCCESS",
+  ERROR = "ERROR",
 }
 
 export interface DashboardState {
@@ -36,5 +43,5 @@ export interface DashboardState {
 
 export interface DashboardPageState {
   dashboardState: DashboardState,
-  dataFetchState: InitialFetchState,
+  dataFetchState: FETCH_STATUS,
 }

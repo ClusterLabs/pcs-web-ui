@@ -47,9 +47,7 @@ const useDashboardSync = () => {
 const DashboardPage = () => {
   useDashboardSync();
   const dashboard = useSelector(selectors.getDashboard);
-  const dataLoaded = useSelector(
-    state => selectors.getDashboardDataFetch(state).isSuccess,
-  );
+  const dataLoaded = useSelector(selectors.areDataLoaded);
 
   return (
     <React.Fragment>
