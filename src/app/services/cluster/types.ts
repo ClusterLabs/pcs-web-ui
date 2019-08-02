@@ -1,3 +1,44 @@
+import { InitialFetchState } from "app/services/data-load/initialFetchTypes";
+import { ApiClusterStatus } from "app/backend/clusterStatusTypes";
+
+export const REFRESH_CLUSTER_DATA = "/cluster/REFRESH_CLUSTER_DATA";
+export const SYNC_CLUSTER_DATA = "/cluster/SYNC_CLUSTER_DATA";
+export const FETCH_CLUSTER_DATA_SUCCESS = "/cluster/FETCH_CLUSTER_DATA_SUCCESS";
+export const FETCH_CLUSTER_DATA_FAILED = "/cluster/FETCH_CLUSTER_DATA_FAILED";
+export const SYNC_CLUSTER_DATA_STOP = "/cluster/SYNC_CLUSTER_DATA_STOP";
+
+export interface RefreshClusterDataAction {
+  type: typeof REFRESH_CLUSTER_DATA,
+}
+
+export interface SyncCLusterDataPayload {
+  clusterUrlName: string,
+}
+
+export interface SyncCLusterDataAction {
+  type: typeof SYNC_CLUSTER_DATA,
+  payload: SyncCLusterDataPayload,
+}
+
+export interface SyncCLusterDataStopAction {
+  type: typeof SYNC_CLUSTER_DATA_STOP,
+}
+
+export interface FetchClusterDataSuccessAction {
+  type: typeof FETCH_CLUSTER_DATA_SUCCESS,
+  payload: {
+    apiClusterStatus: ApiClusterStatus
+  },
+}
+
+export interface FetchClusterDataFailedAction {
+  type: typeof FETCH_CLUSTER_DATA_FAILED,
+  payload: {
+    errorMsg: string
+  },
+}
+
+
 export enum NODE_QUORUM {
   YES = "cluster/node/quorum/yes",
   NO = "cluster/node/quorum/no",
@@ -60,7 +101,7 @@ export interface FenceDevice {
   issueList: Issue[],
 }
 
-export interface ClusterStatus {
+export interface ClusterState {
   name: string,
   urlName: string,
   status: CLUSTER_STATUS,
@@ -68,4 +109,9 @@ export interface ClusterStatus {
   resourceList: Resource[],
   fenceDeviceList: FenceDevice[],
   issueList: Issue[],
+}
+
+export interface ClusterServiceState {
+  clusterState: ClusterState,
+  dataFetchState: InitialFetchState,
 }

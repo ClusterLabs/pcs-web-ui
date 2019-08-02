@@ -1,4 +1,4 @@
-import { ClusterStatus } from "app/services/cluster/types";
+import { ClusterState } from "app/services/cluster/types";
 import { ApiClustersOverview } from "app/backend/clusterOverviewTypes";
 import { InitialFetchState } from "app/services/data-load/initialFetchTypes";
 
@@ -31,7 +31,7 @@ export interface RefreshDashboardDataAction {
 }
 
 export interface DashboardState {
-  clusterList: ClusterStatus[],
+  clusterList: ClusterState[],
 }
 
 export interface DashboardPageState {
