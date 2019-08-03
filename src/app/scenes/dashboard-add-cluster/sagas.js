@@ -9,7 +9,7 @@ import {
 import * as auth from "app/services/auth/sagas";
 import { DashboardActionType } from "app/scenes/dashboard/types";
 
-import { actionTypes } from "./types";
+import { ClusterAddActionTypes } from "./types";
 
 const {
   ADD_CLUSTER,
@@ -24,7 +24,7 @@ const {
   CHECK_AUTH_OK,
   RELOAD_DASHBOARD,
   UPDATE_NODE_NAME,
-} = actionTypes;
+} = ClusterAddActionTypes;
 
 function* checkAuthentication(action) {
   const { nodeName } = action.payload;

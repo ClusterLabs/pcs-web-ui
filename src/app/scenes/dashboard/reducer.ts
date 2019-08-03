@@ -15,10 +15,11 @@ const dashboardStateDefault: DashboardState = {
   clusterList: [],
 };
 
-const dashboardState: Reducer<DashboardState> = (
-  state = dashboardStateDefault,
-  action: DashboardAction.FetchDashboardDataSuccess|AuthRequired,
-) => {
+const dashboardState: Reducer<
+  DashboardState,
+  |DashboardAction.FetchDashboardDataSuccess
+  |AuthRequired
+> = (state = dashboardStateDefault, action) => {
   switch (action.type) {
     case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS:
       return overviewApiToState(action.payload.apiClusterOverview);
@@ -27,15 +28,13 @@ const dashboardState: Reducer<DashboardState> = (
   }
 };
 
-const dataFetchState: Reducer<FETCH_STATUS> = (
-  state = FETCH_STATUS.NOT_STARTED,
-  action: (
-    |DashboardAction.SyncDashboardData
-    |DashboardAction.FetchDashboardDataSuccess
-    |DashboardAction.FetchDashboardDataFailed
-    |AuthRequired
-  ),
-) => {
+const dataFetchState: Reducer<
+  FETCH_STATUS,
+  |DashboardAction.SyncDashboardData
+  |DashboardAction.FetchDashboardDataSuccess
+  |DashboardAction.FetchDashboardDataFailed
+  |AuthRequired
+> = (state = FETCH_STATUS.NOT_STARTED, action) => {
   switch (action.type) {
     case DashboardActionType.SYNC_DASHBOARD_DATA:
       return FETCH_STATUS.IN_PROGRESS;

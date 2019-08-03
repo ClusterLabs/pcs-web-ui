@@ -1,16 +1,35 @@
 import { combineReducers, Reducer } from "redux";
 import {
-  actionTypes as types,
+  ClusterAddActionTypes,
   AUTH_STATE,
   ADD_STATE,
   NodeName,
   StateError,
   DashboardAddClusterPageState,
 } from "./types";
+import * as ClusterAddActions from "./actions";
 
-const nodeName: Reducer<NodeName> = (state = "", action) => {
+const {
+  ADD_CLUSTER,
+  ADD_CLUSTER_SUCCESS,
+  ADD_CLUSTER_ERROR,
+  AUTHENTICATE_NODE,
+  AUTHENTICATE_NODE_FAILED,
+  AUTHENTICATE_NODE_SUCCESS,
+  CHECK_AUTH,
+  CHECK_AUTH_ERROR,
+  CHECK_AUTH_NO_AUTH,
+  CHECK_AUTH_OK,
+  RELOAD_DASHBOARD,
+  UPDATE_NODE_NAME,
+} = ClusterAddActionTypes;
+
+const nodeName: Reducer<
+  NodeName,
+  ClusterAddActions.UpdateNodeName
+> = (state = "", action) => {
   switch (action.type) {
-    case types.UPDATE_NODE_NAME: return action.payload;
+    case ClusterAddActionTypes.UPDATE_NODE_NAME: return action.payload.nodeName;
     default: return state;
   }
 };
@@ -20,16 +39,16 @@ const stepAuthState: Reducer<AUTH_STATE> = (
   action,
 ) => {
   switch (action.type) {
-    case types.UPDATE_NODE_NAME: return AUTH_STATE.INITIAL;
-    case types.CHECK_AUTH: return AUTH_STATE.CHECKING;
-    case types.CHECK_AUTH_OK: return AUTH_STATE.ALREADY_AUTHENTICATED;
-    case types.CHECK_AUTH_NO_AUTH: return AUTH_STATE.NOT_AUTHENTICATED;
-    case types.CHECK_AUTH_ERROR: return AUTH_STATE.ERROR;
-    case types.AUTHENTICATE_NODE:
+    case UPDATE_NODE_NAME: return AUTH_STATE.INITIAL;
+    case CHECK_AUTH: return AUTH_STATE.CHECKING;
+    case CHECK_AUTH_OK: return AUTH_STATE.ALREADY_AUTHENTICATED;
+    case CHECK_AUTH_NO_AUTH: return AUTH_STATE.NOT_AUTHENTICATED;
+    case CHECK_AUTH_ERROR: return AUTH_STATE.ERROR;
+    case AUTHENTICATE_NODE:
       return AUTH_STATE.AUTHENTICATION_IN_PROGRESS;
-    case types.AUTHENTICATE_NODE_SUCCESS:
+    case AUTHENTICATE_NODE_SUCCESS:
       return AUTH_STATE.ALREADY_AUTHENTICATED;
-    case types.AUTHENTICATE_NODE_FAILED:
+    case AUTHENTICATE_NODE_FAILED:
       return AUTH_STATE.AUTHENTICATION_FAILED;
     default: return state;
   }
@@ -40,28 +59,28 @@ const stepAddState: Reducer<ADD_STATE> = (
   action,
 ) => {
   switch (action.type) {
-    case types.ADD_CLUSTER: return ADD_STATE.STARTED;
-    case types.RELOAD_DASHBOARD: return ADD_STATE.DASHBOARD_RELOADING;
-    case types.ADD_CLUSTER_SUCCESS: return ADD_STATE.SUCCESS;
-    case types.ADD_CLUSTER_ERROR: return ADD_STATE.ERROR;
+    case ADD_CLUSTER: return ADD_STATE.STARTED;
+    case RELOAD_DASHBOARD: return ADD_STATE.DASHBOARD_RELOADING;
+    case ADD_CLUSTER_SUCCESS: return ADD_STATE.SUCCESS;
+    case ADD_CLUSTER_ERROR: return ADD_STATE.ERROR;
     default: return state;
   }
 };
 
 const stateError: Reducer<StateError> = (state = "", action) => {
   switch (action.type) {
-    case types.UPDATE_NODE_NAME:
-    case types.CHECK_AUTH:
-    case types.CHECK_AUTH_OK:
-    case types.CHECK_AUTH_NO_AUTH:
-    case types.ADD_CLUSTER:
-    case types.RELOAD_DASHBOARD:
-    case types.ADD_CLUSTER_SUCCESS:
-    case types.AUTHENTICATE_NODE:
+    case UPDATE_NODE_NAME:
+    case CHECK_AUTH:
+    case CHECK_AUTH_OK:
+    case CHECK_AUTH_NO_AUTH:
+    case ADD_CLUSTER:
+    case RELOAD_DASHBOARD:
+    case ADD_CLUSTER_SUCCESS:
+    case AUTHENTICATE_NODE:
       return "";
-    case types.CHECK_AUTH_ERROR:
-    case types.ADD_CLUSTER_ERROR:
-    case types.AUTHENTICATE_NODE_FAILED:
+    case CHECK_AUTH_ERROR:
+    case ADD_CLUSTER_ERROR:
+    case AUTHENTICATE_NODE_FAILED:
       return action.payload.message;
 
     default: return state;

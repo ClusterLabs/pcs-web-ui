@@ -10,10 +10,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { Spinner, InlineAlert } from "app/components";
 
 import { selectors } from "../plugin";
-import { AUTH_STATE, actionTypes } from "../types";
+import { AUTH_STATE, ClusterAddActionTypes } from "../types";
 import AddClusterAuthRequired from "./AddClusterAuthRequired";
 
-const { UPDATE_NODE_NAME, CHECK_AUTH } = actionTypes;
+const { UPDATE_NODE_NAME, CHECK_AUTH } = ClusterAddActionTypes;
 
 const helperText = (
   "Enter the name of a node in a cluster that you would like to manage"
@@ -40,17 +40,14 @@ const AddClusterStepAuth = () => {
           value={nodeName}
           onChange={currentNodeName => dispatch({
             type: UPDATE_NODE_NAME,
-            payload: currentNodeName,
+            payload: { nodeName: currentNodeName },
           })}
         />
       </FormGroup>
       {authState === AUTH_STATE.INITIAL && (
         <Button
           variant="primary"
-          onClick={() => dispatch({
-            type: CHECK_AUTH,
-            payload: { nodeName },
-          })}
+          onClick={() => dispatch({ type: CHECK_AUTH, payload: { nodeName } })}
           isDisabled={nodeName.length < 1}
           data-role="check-node-authentication"
         >
