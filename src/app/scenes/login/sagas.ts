@@ -4,8 +4,8 @@ import * as api from "app/core/api";
 import * as notify from "app/scenes/notifications/actions";
 import * as authActions from "app/services/auth/actions";
 
-import * as types from "./constants";
-import * as actions from "./actions";
+import { LoginActionType } from "./types";
+import * as LoginAction from "./actions";
 
 export function* logout() {
   let notice;
@@ -18,7 +18,9 @@ export function* logout() {
       message: "Success logout",
       disappear: 1000,
     }));
-    yield put(actions.logoutSuccess());
+    yield put<LoginAction.logoutSuccess>({
+      type: LoginActionType.LOGOUT_SUCCESS,
+    });
   } catch (error) {
     if (api.isUnauthorizedError(error)) {
       // Ok we are already somehow loged out.
@@ -26,7 +28,9 @@ export function* logout() {
         message: "Already logged out",
         disappear: 1000,
       }));
-      yield put(actions.logoutSuccess());
+      yield put<LoginAction.logoutSuccess>({
+        type: LoginActionType.LOGOUT_SUCCESS,
+      });
     } else {
       yield put(notify.toError(notice, {
         message: `Cannot logout: ${error.message}`,
@@ -35,23 +39,27 @@ export function* logout() {
   }
 }
 
-export function* login({ payload: { username, password } }) {
+export function* login(
+  { payload: { username, password } }: LoginAction.enterCredentials,
+) {
   try {
     yield call(api.postParamsForText, "/ui/login", {
       params: { username, password },
     });
     yield put(authActions.authSuccess());
   } catch (error) {
-    const failInfo = api.isUnauthorizedError(error)
-      ? { badCredentials: true }
-      : { badCredentials: false, message: error.message }
-    ;
-    yield put(actions.loginFailed(failInfo));
+    yield put<LoginAction.loginFailed>({
+      type: LoginActionType.LOGIN_FAILED,
+      payload: {
+        badCredentials: api.isUnauthorizedError(error),
+        message: api.isUnauthorizedError(error) ? "" : error.message,
+      },
+    });
   }
 }
 
 
 export default [
-  takeEvery(types.LOGOUT, logout),
-  takeEvery(types.ENTER_CREDENTIALS, login),
+  takeEvery(LoginActionType.LOGOUT, logout),
+  takeEvery(LoginActionType.ENTER_CREDENTIALS, login),
 ];

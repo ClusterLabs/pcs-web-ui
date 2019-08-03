@@ -12,7 +12,7 @@ import {
 import * as ClusterAction from "./actions";
 import clusterApiToState from "./apiToState";
 
-const clusterStatusDefault: ClusterState = {
+const clusterStatusDefault = {
   name: "",
   urlName: "",
   status: CLUSTER_STATUS.UNKNOWN,
@@ -22,10 +22,10 @@ const clusterStatusDefault: ClusterState = {
   issueList: [],
 };
 
-const clusterState: Reducer<ClusterState> = (
-  state = clusterStatusDefault,
-  action: ClusterAction.FetchClusterDataSuccess|AuthRequired,
-) => {
+const clusterState: Reducer<
+  ClusterState,
+  ClusterAction.FetchClusterDataSuccess|AuthRequired
+> = (state = clusterStatusDefault, action) => {
   switch (action.type) {
     case ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS:
       return clusterApiToState(action.payload.apiClusterStatus);

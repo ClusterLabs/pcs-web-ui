@@ -10,7 +10,7 @@ import {
 } from "@patternfly/react-core";
 
 
-import * as actions from "app/scenes/login/actions";
+import { LoginActionType } from "app/scenes/login/types";
 
 const PageToolbarView = () => {
   const [isDropdownOpen, setDropdownOpen] = React.useState(false);
@@ -36,7 +36,7 @@ const PageToolbarView = () => {
               (
                 <DropdownItem
                   key="0"
-                  onClick={() => dispatch(actions.logout())}
+                  onClick={() => dispatch({ type: LoginActionType.LOGOUT })}
                   data-role="logout"
                 >
                   Logout
