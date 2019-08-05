@@ -7,7 +7,9 @@ import {
 
 import * as api from "app/core/api";
 import * as auth from "app/services/auth/sagas";
-import * as notify from "app/scenes/notifications/actions";
+import * as NotificationActionCreator
+  from "app/scenes/notifications/actionCreators";
+import * as NotificationAction from "app/scenes/notifications/actions";
 import { dataLoadManage } from "app/services/data-load/sagas";
 
 import { ClusterActionType } from "./types";
@@ -22,16 +24,15 @@ function* fetchClusterData(
       auth.getJson,
       `/managec/${clusterUrlName}/cluster_status`,
     );
-    yield put({
+    yield put<ClusterAction.FetchClusterDataSuccess>({
       type: ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS,
       payload: { apiClusterStatus },
     });
   } catch (error) {
     const errorMessage = api.fail(error).message;
     yield all([
-      put(notify.error(
+      put<NotificationAction.Create>(NotificationActionCreator.error(
         `Cannot sync data for cluster '${clusterUrlName}': ${errorMessage}`,
-        { disappear: 3000 },
       )),
       put<ClusterAction.FetchClusterDataFailed>({
         type: ClusterActionType.FETCH_CLUSTER_DATA_FAILED,

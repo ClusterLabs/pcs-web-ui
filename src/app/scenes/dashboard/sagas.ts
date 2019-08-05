@@ -7,7 +7,9 @@ import {
 
 import * as api from "app/core/api";
 import * as auth from "app/services/auth/sagas";
-import * as notify from "app/scenes/notifications/actions";
+import * as NotificationActionCreator
+  from "app/scenes/notifications/actionCreators";
+import * as NotificationAction from "app/scenes/notifications/actions";
 import { dataLoadManage } from "app/services/data-load/sagas";
 
 import { DashboardActionType } from "./types";
@@ -23,9 +25,8 @@ export function* fetchDashboardData() {
   } catch (error) {
     const errorMessage = api.fail(error).message;
     yield all([
-      put(notify.error(
+      put<NotificationAction.Create>(NotificationActionCreator.error(
         `Cannot sync dashboard data: ${errorMessage}`,
-        { disappear: 3000 },
       )),
       put<DashboardAction.FetchDashboardDataFailed>(
         { type: DashboardActionType.FETCH_DASHBOARD_DATA_FAILED },
