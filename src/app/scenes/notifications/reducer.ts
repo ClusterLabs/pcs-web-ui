@@ -1,23 +1,21 @@
 import { Reducer } from "redux";
-import { AuthRequired, AUTH_REQUIRED } from "app/services/auth/constants";
+import { AuthActionType } from "app/services/auth/types";
+import * as AuthAction from "app/services/auth/actions";
 
 import { NotificationActionType, Notification } from "./types";
 import * as NotificationAction from "./actions";
 
-const notifications: Reducer<Notification[]> = (
-  state = [],
-  action: (
+const notifications: Reducer<Notification[], (
     | NotificationAction.Create
     | NotificationAction.Destroy
-    | AuthRequired
-  ),
-) => {
+    | AuthAction.AuthRequired
+)> = (state = [], action) => {
   switch (action.type) {
     case NotificationActionType.CREATE:
       return [...state, action.payload.notification];
     case NotificationActionType.DESTROY:
       return state.filter(n => n.id !== action.payload.id);
-    case AUTH_REQUIRED: return [];
+    case AuthActionType.AUTH_REQUIRED: return [];
     default: return state;
   }
 };

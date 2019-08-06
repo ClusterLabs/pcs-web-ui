@@ -4,7 +4,8 @@ import * as api from "app/core/api";
 import * as NotificationActionCreator
   from "app/scenes/notifications/actionCreators";
 import * as NotificationAction from "app/scenes/notifications/actions";
-import * as authActions from "app/services/auth/actions";
+import * as AuthAction from "app/services/auth/actions";
+import { AuthActionType } from "app/services/auth/types";
 
 import { LoginActionType } from "./types";
 import * as LoginAction from "./actions";
@@ -47,7 +48,7 @@ export function* login(
     yield call(api.postParamsForText, "/ui/login", {
       params: { username, password },
     });
-    yield put(authActions.authSuccess());
+    yield put<AuthAction.AuthSuccess>({ type: AuthActionType.AUTH_SUCCESS });
   } catch (error) {
     yield put<LoginAction.loginFailed>({
       type: LoginActionType.LOGIN_FAILED,

@@ -1,11 +1,8 @@
 import { Reducer } from "redux";
 
-import {
-  AuthRequired,
-  AuthSuccess,
-  AUTH_REQUIRED,
-  AUTH_SUCCESS,
-} from "app/services/auth/constants";
+import * as AuthAction from "app/services/auth/actions";
+
+import { AuthActionType } from "app/services/auth/types";
 
 import { LoginActionType, LoginState } from "./types";
 import * as LoginAction from "./actions";
@@ -21,14 +18,14 @@ const defaultState = {
 
 const loginState: Reducer<
   LoginState,
-  | AuthRequired
-  | AuthSuccess
+  | AuthAction.AuthRequired
+  | AuthAction.AuthSuccess
   | LoginAction.enterCredentials
   | LoginAction.loginFailed
   | LoginAction.logoutSuccess
 > = (state = defaultState, action) => {
   switch (action.type) {
-    case AUTH_REQUIRED: return {
+    case AuthActionType.AUTH_REQUIRED: return {
       ...state,
       required: true,
       acceptLoginData: true,
@@ -37,7 +34,7 @@ const loginState: Reducer<
       ...state,
       acceptLoginData: false,
     };
-    case AUTH_SUCCESS: return {
+    case AuthActionType.AUTH_SUCCESS: return {
       ...state,
       required: false,
       acceptLoginData: false,

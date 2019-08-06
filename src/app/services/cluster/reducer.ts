@@ -1,6 +1,7 @@
 import { combineReducers, Reducer } from "redux";
 
-import { AuthRequired, AUTH_REQUIRED } from "app/services/auth/constants";
+import { AuthActionType } from "app/services/auth/types";
+import * as AuthAction from "app/services/auth/actions";
 
 import {
   ClusterActionType,
@@ -22,27 +23,24 @@ const clusterStatusDefault = {
   issueList: [],
 };
 
-const clusterState: Reducer<
-  ClusterState,
-  ClusterAction.FetchClusterDataSuccess|AuthRequired
-> = (state = clusterStatusDefault, action) => {
+const clusterState: Reducer<ClusterState, (
+  |ClusterAction.FetchClusterDataSuccess
+  |AuthAction.AuthRequired
+)> = (state = clusterStatusDefault, action) => {
   switch (action.type) {
     case ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS:
       return clusterApiToState(action.payload.apiClusterStatus);
-    case AUTH_REQUIRED: return clusterStatusDefault;
+    case AuthActionType.AUTH_REQUIRED: return clusterStatusDefault;
     default: return state;
   }
 };
 
-const dataFetchState: Reducer<FETCH_STATUS> = (
-  state = FETCH_STATUS.NOT_STARTED,
-  action: (
+const dataFetchState: Reducer<FETCH_STATUS, (
     |ClusterAction.SyncClusterData
     |ClusterAction.FetchClusterDataSuccess
     |ClusterAction.FetchClusterDataFailed
-    |AuthRequired
-  ),
-) => {
+    |AuthAction.AuthRequired
+)> = (state = FETCH_STATUS.NOT_STARTED, action) => {
   switch (action.type) {
     case ClusterActionType.SYNC_CLUSTER_DATA: return FETCH_STATUS.IN_PROGRESS;
     case ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS:
@@ -52,7 +50,7 @@ const dataFetchState: Reducer<FETCH_STATUS> = (
         ? FETCH_STATUS.ERROR
         : state
     );
-    case AUTH_REQUIRED: return FETCH_STATUS.NOT_STARTED;
+    case AuthActionType.AUTH_REQUIRED: return FETCH_STATUS.NOT_STARTED;
     default: return state;
   }
 };

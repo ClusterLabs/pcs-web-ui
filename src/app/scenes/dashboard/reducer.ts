@@ -1,6 +1,7 @@
 import { combineReducers, Reducer } from "redux";
 
-import { AuthRequired, AUTH_REQUIRED } from "app/services/auth/constants";
+import { AuthActionType } from "app/services/auth/types";
+import * as AuthAction from "app/services/auth/actions";
 
 import {
   DashboardState,
@@ -15,26 +16,24 @@ const dashboardStateDefault: DashboardState = {
   clusterList: [],
 };
 
-const dashboardState: Reducer<
-  DashboardState,
+const dashboardState: Reducer<DashboardState, (
   |DashboardAction.FetchDashboardDataSuccess
-  |AuthRequired
-> = (state = dashboardStateDefault, action) => {
+  |AuthAction.AuthRequired
+)> = (state = dashboardStateDefault, action) => {
   switch (action.type) {
     case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS:
       return overviewApiToState(action.payload.apiClusterOverview);
-    case AUTH_REQUIRED: return dashboardStateDefault;
+    case AuthActionType.AUTH_REQUIRED: return dashboardStateDefault;
     default: return state;
   }
 };
 
-const dataFetchState: Reducer<
-  FETCH_STATUS,
+const dataFetchState: Reducer<FETCH_STATUS, (
   |DashboardAction.SyncDashboardData
   |DashboardAction.FetchDashboardDataSuccess
   |DashboardAction.FetchDashboardDataFailed
-  |AuthRequired
-> = (state = FETCH_STATUS.NOT_STARTED, action) => {
+  |AuthAction.AuthRequired
+)> = (state = FETCH_STATUS.NOT_STARTED, action) => {
   switch (action.type) {
     case DashboardActionType.SYNC_DASHBOARD_DATA:
       return FETCH_STATUS.IN_PROGRESS;
@@ -45,7 +44,7 @@ const dataFetchState: Reducer<
         ? FETCH_STATUS.ERROR
         : state
     );
-    case AUTH_REQUIRED: return FETCH_STATUS.NOT_STARTED;
+    case AuthActionType.AUTH_REQUIRED: return FETCH_STATUS.NOT_STARTED;
     default: return state;
   }
 };

@@ -2,12 +2,7 @@ import { call, put, take } from "redux-saga/effects";
 
 import * as api from "app/core/api";
 
-import * as types from "./constants";
-import * as actions from "./actions";
-
-export const stillUnauthorizedError = url => new Error(
-  `Still got unauthorized from '${url}' after successfull authorization.`,
-);
+import { AuthActionType } from "./types";
 
 const decorateApiMethod = apiMethod => function* AuthMethod(
   url,
@@ -23,8 +18,8 @@ const decorateApiMethod = apiMethod => function* AuthMethod(
   }
 
   // Ok, we got 401. So, ask for credentials and wait for login success...
-  yield put(actions.authRequired());
-  yield take(types.AUTH_SUCCESS);
+  yield put({ type: AuthActionType.AUTH_REQUIRED });
+  yield take(AuthActionType.AUTH_SUCCESS);
 
   // ...and then second attempt.
   try {
@@ -32,7 +27,9 @@ const decorateApiMethod = apiMethod => function* AuthMethod(
     return responseSecondAttempt;
   } catch (error) {
     if (api.isUnauthorizedError(error)) {
-      throw stillUnauthorizedError(url);
+      throw new Error(
+        `Still got unauthorized from '${url}' after successfull authorization.`,
+      );
     }
     throw error;
   }

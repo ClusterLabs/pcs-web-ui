@@ -1,9 +1,9 @@
-import * as types from "./constants";
+import { AuthActionType } from "./types";
 
-export const authRequired = (): types.AuthRequired => ({
-  type: types.AUTH_REQUIRED,
-});
+export interface AuthRequired{
+  type: typeof AuthActionType.AUTH_REQUIRED,
+}
 
-export const authSuccess = () => ({
-  type: types.AUTH_SUCCESS,
-});
+export interface AuthSuccess{
+  type: typeof AuthActionType.AUTH_SUCCESS,
+}
