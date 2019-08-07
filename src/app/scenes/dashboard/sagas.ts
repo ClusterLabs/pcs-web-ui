@@ -23,7 +23,7 @@ export function* fetchDashboardData() {
       payload: { apiClusterOverview },
     });
   } catch (error) {
-    const errorMessage = api.fail(error).message;
+    const errorMessage = api.error.failMessage(error);
     yield all([
       put<NotificationAction.Create>(NotificationActionCreator.error(
         `Cannot sync dashboard data: ${errorMessage}`,

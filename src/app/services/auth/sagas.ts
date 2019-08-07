@@ -4,15 +4,17 @@ import * as api from "app/core/api";
 
 import { AuthActionType } from "./types";
 
-const decorateApiMethod = apiMethod => function* AuthMethod(
-  url,
-  options = {},
+const decorateApiMethod = (
+  apiMethod: api.types.ApiCall,
+) => function* AuthMethod(
+  url: string,
+  params: api.types.ApiParams = {},
 ) {
   try {
-    const responseFirstAttempt = yield call(apiMethod, url, options);
+    const responseFirstAttempt = yield call(apiMethod, url, params);
     return responseFirstAttempt;
   } catch (error) {
-    if (!api.isUnauthorizedError(error)) {
+    if (!api.error.isUnauthorizedError(error)) {
       throw error;
     }
   }
@@ -23,10 +25,10 @@ const decorateApiMethod = apiMethod => function* AuthMethod(
 
   // ...and then second attempt.
   try {
-    const responseSecondAttempt = yield call(apiMethod, url, options);
+    const responseSecondAttempt = yield call(apiMethod, url, params);
     return responseSecondAttempt;
   } catch (error) {
-    if (api.isUnauthorizedError(error)) {
+    if (api.error.isUnauthorizedError(error)) {
       throw new Error(
         `Still got unauthorized from '${url}' after successfull authorization.`,
       );
@@ -35,5 +37,5 @@ const decorateApiMethod = apiMethod => function* AuthMethod(
   }
 };
 
-export const getJson = decorateApiMethod(api.getJson);
-export const postParamsForText = decorateApiMethod(api.postParamsForText);
+export const getJson = decorateApiMethod(api.call.getJson);
+export const postForText = decorateApiMethod(api.call.postForText);

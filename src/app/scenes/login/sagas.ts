@@ -16,7 +16,7 @@ export function* logout() {
       NotificationActionCreator.info("Trying to logout"),
     );
 
-    yield call(api.getForText, "/ui/logout");
+    yield call(api.call.getForText, "/ui/logout");
 
     yield put<NotificationAction.Create>(
       NotificationActionCreator.success("Success logout"),
@@ -25,7 +25,7 @@ export function* logout() {
       type: LoginActionType.LOGOUT_SUCCESS,
     });
   } catch (error) {
-    if (api.isUnauthorizedError(error)) {
+    if (api.error.isUnauthorizedError(error)) {
       // Ok we are already somehow loged out.
       yield put<NotificationAction.Create>(
         NotificationActionCreator.success("Already logged out"),
@@ -45,21 +45,18 @@ export function* login(
   { payload: { username, password } }: LoginAction.enterCredentials,
 ) {
   try {
-    yield call(api.postParamsForText, "/ui/login", {
-      params: { username, password },
-    });
+    yield call(api.call.postForText, "/ui/login", { username, password });
     yield put<AuthAction.AuthSuccess>({ type: AuthActionType.AUTH_SUCCESS });
   } catch (error) {
     yield put<LoginAction.loginFailed>({
       type: LoginActionType.LOGIN_FAILED,
       payload: {
-        badCredentials: api.isUnauthorizedError(error),
-        message: api.isUnauthorizedError(error) ? "" : error.message,
+        badCredentials: api.error.isUnauthorizedError(error),
+        message: api.error.isUnauthorizedError(error) ? "" : error.message,
       },
     });
   }
 }
-
 
 export default [
   takeEvery(LoginActionType.LOGOUT, logout),

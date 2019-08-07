@@ -33,11 +33,7 @@ function* checkAuthentication(action) {
       nodesStatusMap: call(
         auth.getJson,
         "/manage/check_auth_against_nodes",
-        {
-          params: {
-            "node_list[]": nodeName,
-          },
-        },
+        { "node_list[]": nodeName },
       ),
       cancel: take(UPDATE_NODE_NAME),
     });
@@ -88,13 +84,9 @@ function* addCluster(action) {
   try {
     const nodeName = action.payload.nodeName;
     yield call(
-      auth.postParamsForText,
+      auth.postForText,
       "/manage/existingcluster",
-      {
-        params: {
-          "node-name": nodeName,
-        },
-      },
+      { "node-name": nodeName },
     );
     yield put({ type: RELOAD_DASHBOARD });
     yield put({ type: DashboardActionType.REFRESH_DASHBOARD_DATA });
@@ -128,19 +120,17 @@ function* authenticateNode(action) {
   try {
     const { authResult } = yield race({
       authResult: call(
-        auth.postParamsForText,
+        auth.postForText,
         "/manage/auth_gui_against_nodes",
         {
-          params: {
-            data_json: JSON.stringify({
-              nodes: {
-                [nodeName]: {
-                  password,
-                  dest_list: [{ addr, port }],
-                },
+          data_json: JSON.stringify({
+            nodes: {
+              [nodeName]: {
+                password,
+                dest_list: [{ addr, port }],
               },
-            }),
-          },
+            },
+          }),
         },
       ),
       cancel: take(UPDATE_NODE_NAME),

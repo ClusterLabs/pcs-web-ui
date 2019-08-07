@@ -29,7 +29,7 @@ function* fetchClusterData(
       payload: { apiClusterStatus },
     });
   } catch (error) {
-    const errorMessage = api.fail(error).message;
+    const errorMessage = api.error.failMessage(error);
     yield all([
       put<NotificationAction.Create>(NotificationActionCreator.error(
         `Cannot sync data for cluster '${clusterUrlName}': ${errorMessage}`,

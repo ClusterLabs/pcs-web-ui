@@ -19,6 +19,7 @@ module.exports = {
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unresolved.md
     'import/no-unresolved': ['off', { commonjs: true, caseSensitive: true }],
     'import/prefer-default-export': "off",
+    "lines-between-class-members": "off",
 
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
     // "import/extensions": [2, { "js": "always", "jsx": "always" }],
