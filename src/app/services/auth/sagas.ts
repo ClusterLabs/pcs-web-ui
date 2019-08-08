@@ -1,4 +1,5 @@
 import { call, put, take } from "redux-saga/effects";
+import { SagaIterator } from "redux-saga";
 
 import * as api from "app/core/api";
 
@@ -6,10 +7,10 @@ import { AuthActionType } from "./types";
 
 const decorateApiMethod = (
   apiMethod: api.types.ApiCall,
-) => function* AuthMethod(
+): api.types.ApiCall => function* AuthMethod(
   url: string,
   params: api.types.ApiParams = {},
-) {
+): SagaIterator {
   try {
     const responseFirstAttempt = yield call(apiMethod, url, params);
     return responseFirstAttempt;

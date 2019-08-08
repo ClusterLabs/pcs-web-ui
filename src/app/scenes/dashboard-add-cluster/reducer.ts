@@ -1,6 +1,6 @@
 import { combineReducers, Reducer } from "redux";
 import {
-  ClusterAddActionTypes,
+  ClusterAddActionType,
   AUTH_STATE,
   ADD_STATE,
   NodeName,
@@ -22,14 +22,14 @@ const {
   CHECK_AUTH_OK,
   RELOAD_DASHBOARD,
   UPDATE_NODE_NAME,
-} = ClusterAddActionTypes;
+} = ClusterAddActionType;
 
 const nodeName: Reducer<
   NodeName,
   ClusterAddActions.UpdateNodeName
 > = (state = "", action) => {
   switch (action.type) {
-    case ClusterAddActionTypes.UPDATE_NODE_NAME: return action.payload.nodeName;
+    case ClusterAddActionType.UPDATE_NODE_NAME: return action.payload.nodeName;
     default: return state;
   }
 };

@@ -1,21 +1,21 @@
-import { ClusterAddActionTypes } from "./types";
+import { ClusterAddActionType } from "./types";
 
 export interface AddClusterSuccess {
-  type: typeof ClusterAddActionTypes.ADD_CLUSTER_SUCCESS,
+  type: typeof ClusterAddActionType.ADD_CLUSTER_SUCCESS,
   payload: {
     warningMessages: string[],
   },
 }
 
-export interface AddClusterErrorAction {
-  type: typeof ClusterAddActionTypes.ADD_CLUSTER_ERROR,
+export interface AddClusterError {
+  type: typeof ClusterAddActionType.ADD_CLUSTER_ERROR,
   payload: {
     message: string,
   }
 }
 
-export interface AuthenticateNodeAction {
-  type: typeof ClusterAddActionTypes.AUTHENTICATE_NODE,
+export interface AuthenticateNode {
+  type: typeof ClusterAddActionType.AUTHENTICATE_NODE,
   payload: {
     nodeName: string,
     password: string,
@@ -25,51 +25,51 @@ export interface AuthenticateNodeAction {
   }
 }
 
-export interface AuthenticateNodeSuccessAction {
-  type: typeof ClusterAddActionTypes.AUTHENTICATE_NODE_SUCCESS,
+export interface AuthenticateNodeSuccess {
+  type: typeof ClusterAddActionType.AUTHENTICATE_NODE_SUCCESS,
 }
 
-export interface AuthenticateNodeFailedAction {
-  type: typeof ClusterAddActionTypes.AUTHENTICATE_NODE_FAILED,
+export interface AuthenticateNodeFailed {
+  type: typeof ClusterAddActionType.AUTHENTICATE_NODE_FAILED,
   payload: {
     message: string,
   }
 }
 
 export interface AddCluster {
-  type: typeof ClusterAddActionTypes.ADD_CLUSTER,
+  type: typeof ClusterAddActionType.ADD_CLUSTER,
   payload: {
     nodeName: string,
   },
 }
 
 export interface CheckAuth {
-  type: typeof ClusterAddActionTypes.CHECK_AUTH,
+  type: typeof ClusterAddActionType.CHECK_AUTH,
   payload: {
     nodeName: string
   },
 }
 
 export interface CheckAuthOk {
-  type: typeof ClusterAddActionTypes.CHECK_AUTH_OK,
+  type: typeof ClusterAddActionType.CHECK_AUTH_OK,
 }
 
 export interface CheckAuthNoAuth {
-  type: typeof ClusterAddActionTypes.CHECK_AUTH_NO_AUTH,
+  type: typeof ClusterAddActionType.CHECK_AUTH_NO_AUTH,
 }
 
 export interface CheckAuthError {
-  type: typeof ClusterAddActionTypes.CHECK_AUTH_ERROR,
+  type: typeof ClusterAddActionType.CHECK_AUTH_ERROR,
   payload: {
     message: string,
   }
 }
 
 export interface ReloadDashboard {
-  type: typeof ClusterAddActionTypes.RELOAD_DASHBOARD,
+  type: typeof ClusterAddActionType.RELOAD_DASHBOARD,
 }
 
 export interface UpdateNodeName {
-  type: typeof ClusterAddActionTypes.UPDATE_NODE_NAME,
+  type: typeof ClusterAddActionType.UPDATE_NODE_NAME,
   payload: { nodeName: string },
 }

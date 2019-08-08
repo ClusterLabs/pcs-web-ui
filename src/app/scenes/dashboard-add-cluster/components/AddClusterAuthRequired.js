@@ -9,9 +9,9 @@ import {
 
 import { Spinner, InlineAlert } from "app/components";
 
-import { ClusterAddActionTypes } from "../types";
+import { ClusterAddActionType } from "../types";
 
-const { AUTHENTICATE_NODE } = ClusterAddActionTypes;
+const { AUTHENTICATE_NODE } = ClusterAddActionType;
 
 const AddClusterAuthRequired = ({
   nodeName,

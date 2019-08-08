@@ -1,4 +1,4 @@
-export enum ClusterAddActionTypes {
+export enum ClusterAddActionType {
   UPDATE_NODE_NAME = "/add-cluster/UPDATE_NODE_NAME",
   CHECK_AUTH = "/add-cluster/CHECK_AUTH",
   CHECK_AUTH_OK = "/add-cluster/CHECK_AUTH_OK",

@@ -10,10 +10,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { Spinner, InlineAlert } from "app/components";
 
 import { selectors } from "../plugin";
-import { AUTH_STATE, ClusterAddActionTypes } from "../types";
+import { AUTH_STATE, ClusterAddActionType } from "../types";
 import AddClusterAuthRequired from "./AddClusterAuthRequired";
 
-const { UPDATE_NODE_NAME, CHECK_AUTH } = ClusterAddActionTypes;
+const { UPDATE_NODE_NAME, CHECK_AUTH } = ClusterAddActionType;
 
 const helperText = (
   "Enter the name of a node in a cluster that you would like to manage"

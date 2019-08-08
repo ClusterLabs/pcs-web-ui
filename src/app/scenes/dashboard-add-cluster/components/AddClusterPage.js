@@ -5,12 +5,12 @@ import { Wizard } from "@patternfly/react-core";
 
 import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
 
-import { AUTH_STATE, ClusterAddActionTypes } from "../types";
+import { AUTH_STATE, ClusterAddActionType } from "../types";
 import { selectors } from "../plugin";
 import AddClusterStepAuth from "./AddClusterStepAuth";
 import AddClusterStepAdd from "./AddClusterStepAdd";
 
-const { ADD_CLUSTER } = ClusterAddActionTypes;
+const { ADD_CLUSTER } = ClusterAddActionType;
 
 const AddClusterPage = () => {
   const stepAuthState = useSelector(selectors.getStepAuthState);
