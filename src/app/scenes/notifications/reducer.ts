@@ -2,10 +2,10 @@ import { Reducer } from "redux";
 import { AuthActionType } from "app/services/auth/types";
 import * as AuthAction from "app/services/auth/actions";
 
-import { NotificationActionType, Notification } from "./types";
+import { NotificationActionType, NotificationState } from "./types";
 import * as NotificationAction from "./actions";
 
-const notifications: Reducer<Notification[], (
+const notifications: Reducer<NotificationState, (
     | NotificationAction.Create
     | NotificationAction.Destroy
     | AuthAction.AuthRequired
@@ -22,4 +22,4 @@ const notifications: Reducer<Notification[], (
 
 export default notifications;
 
-export const getNotifications = (state: Notification[]) => state;
+export const getNotifications = (state: NotificationState) => state;

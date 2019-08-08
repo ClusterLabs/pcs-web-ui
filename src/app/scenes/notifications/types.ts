@@ -14,3 +14,5 @@ export interface Notification {
   severity: NotificationSeverity,
   message: string,
 }
+
+export type NotificationState = Notification[];
