@@ -1,12 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { Switch } from "react-router";
+import { renderRoutes } from "react-router-config";
 
 import LoginPage from "app/scenes/login/components/LoginPage";
 import * as selectors from "app/scenes/login/selectors";
 import Notifications
   from "app/scenes/notifications/components/NotificationContainer";
 
-import RoutedPage from "./RoutedPage";
+import { routes } from "../plug";
 
 const AppPage = ({ history }) => {
   const loginRequired = useSelector(selectors.loginRequired);
@@ -15,7 +18,11 @@ const AppPage = ({ history }) => {
       ? <LoginPage />
       : (
         <React.Fragment>
-          <RoutedPage history={history} />
+          <ConnectedRouter history={history}>
+            <Switch>
+              {renderRoutes(routes)}
+            </Switch>
+          </ConnectedRouter>
           <Notifications />
         </React.Fragment>
       )
