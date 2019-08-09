@@ -18,9 +18,7 @@ const composeMiddleware = (
   window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] || compose
 );
 
-const sagaMiddleware = createSagaMiddleware({
-  sagaMonitor: window["__SAGA_MONITOR_EXTENSION__"],
-});
+const sagaMiddleware = createSagaMiddleware();
 
 
 const setupStore = (basename) => {
