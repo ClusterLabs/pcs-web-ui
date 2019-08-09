@@ -2,18 +2,12 @@ import React from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router";
 
-import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
-import ClusterOverview
-  from "app/scenes/cluster-overview/components/ClusterOverviewPage";
-import ClusterNodes
-  from "app/scenes/cluster-node-list/components/ClusterNodesPage";
-import ClusterResourceList
-  from "app/scenes/cluster-resource-list/components/ClusterResourceListPage";
-import ClusterStonithList
-  from "app/scenes/cluster-stonith-list/components/ClusterStonithListPage";
-
-import AddClusterPage
-  from "app/scenes/dashboard-add-cluster/components/AddClusterPage";
+import { DashboardPage } from "app/scenes/dashboard";
+import { ClusterOverviewPage } from "app/scenes/cluster-overview";
+import { ClusterNodesPage } from "app/scenes/cluster-node-list";
+import { ClusterResourceListPage } from "app/scenes/cluster-resource-list";
+import { ClusterStonithListPage } from "app/scenes/cluster-stonith-list";
+import { AddClusterPage } from "app/scenes/dashboard-add-cluster";
 
 import Scratch from "./Scratch";
 
@@ -42,22 +36,22 @@ const RoutedPage = ({ history }) => (
       <Route
         exact
         path="/cluster/:clusterUrlName/nodes"
-        render={withClusterName(ClusterNodes)}
+        render={withClusterName(ClusterNodesPage)}
       />
       <Route
         exact
         path="/cluster/:clusterUrlName/resources"
-        render={withClusterName(ClusterResourceList)}
+        render={withClusterName(ClusterResourceListPage)}
       />
       <Route
         exact
         path="/cluster/:clusterUrlName/stonith"
-        render={withClusterName(ClusterStonithList)}
+        render={withClusterName(ClusterStonithListPage)}
       />
       <Route
         exact
         path="/cluster/:clusterUrlName"
-        render={withClusterName(ClusterOverview)}
+        render={withClusterName(ClusterOverviewPage)}
       />
       <Route
         render={() => (<div>404</div>)}
