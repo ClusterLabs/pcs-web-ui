@@ -6,7 +6,7 @@ import {
 } from "@patternfly/react-core";
 import { BackgroundImage } from "app/components";
 
-import * as actions from "../actions";
+import { LoginActionType } from "../types";
 import { selectors } from "../plugin";
 
 const Login = () => {
@@ -40,7 +40,10 @@ const Login = () => {
           isLoginButtonDisabled={!isAcceptingLoginData}
           onLoginButtonClick={(e) => {
             e.preventDefault();
-            dispatch(actions.enterCredentials(username, password));
+            dispatch({
+              type: LoginActionType.ENTER_CREDENTIALS,
+              payload: { username, password },
+            });
           }}
         />
       </LoginPage>

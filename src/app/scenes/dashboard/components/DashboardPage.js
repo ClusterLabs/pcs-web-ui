@@ -9,7 +9,7 @@ import {
 import { Table } from "@patternfly/react-table";
 /* eslint-enable no-unused-vars */
 
-import { setUpDataReading } from "app/services/data-load/actions";
+import { SET_UP_DATA_READING } from "app/services/data-load/types";
 import {
   PageSectionDataLoading,
   PageHeader,
@@ -17,7 +17,8 @@ import {
 } from "app/components";
 
 /* eslint-disable no-shadow */
-import { syncDashboardData, syncDashboardDataStop } from "../actions";
+import { DashboardActionType } from "../types";
+
 import { selectors } from "../plugin";
 import Dashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
@@ -26,16 +27,15 @@ const useDashboardSync = () => {
   const dispatch = useDispatch();
   React.useEffect(
     () => {
-      dispatch(
-        setUpDataReading({
+      dispatch({
+        type: SET_UP_DATA_READING,
+        payload: {
           reloadDashboard: {
-            // Pure actions (without dispatch binding) here. Start/Stop should
-            // be plain objects because they are used in saga.
-            start: syncDashboardData(),
-            stop: syncDashboardDataStop(),
+            start: { type: DashboardActionType.SYNC_DASHBOARD_DATA },
+            stop: { type: DashboardActionType.SYNC_DASHBOARD_DATA_STOP },
           },
-        }),
-      );
+        },
+      });
     },
     [dispatch],
   );
@@ -44,9 +44,7 @@ const useDashboardSync = () => {
 const DashboardPage = () => {
   useDashboardSync();
   const dashboard = useSelector(selectors.getDashboard);
-  const dataLoaded = useSelector(
-    state => selectors.getDashboardDataFetch(state).isSuccess,
-  );
+  const dataLoaded = useSelector(selectors.areDataLoaded);
 
   return (
     <React.Fragment>

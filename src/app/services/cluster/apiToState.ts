@@ -9,7 +9,7 @@ import {
 } from "app/backend/clusterStatusTypes";
 
 import {
-  ClusterStatus,
+  ClusterState,
   CLUSTER_STATUS,
   FENCE_DEVICE_STATUS,
   ISSUE,
@@ -73,7 +73,7 @@ const transformIssues = (element: ApiWithIssues) => [
   ...element.warning_list.map(mapIssue(ISSUE.WARNING)),
 ];
 
-const apiToState = (apiClusterStatus: ApiClusterStatus): ClusterStatus => ({
+const apiToState = (apiClusterStatus: ApiClusterStatus): ClusterState => ({
   name: apiClusterStatus.cluster_name,
   urlName: apiClusterStatus.cluster_name,
   status: mapClusterStatus(apiClusterStatus.status),

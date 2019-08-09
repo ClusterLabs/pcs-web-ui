@@ -1,46 +1,69 @@
 import { combineReducers, Reducer } from "redux";
 
-import { createDataFetchReducer, createDataFetchSelector }
-  from "app/services/data-load/initial-fetch-reducer";
-
-import * as authTypes from "app/services/auth/constants";
+import { AuthActionType } from "app/services/auth/types";
+import * as AuthAction from "app/services/auth/actions";
+import { Selector } from "app/core/types";
 
 import {
   DashboardState,
-  State,
-  FETCH_DASHBOARD_DATA_SUCCESS,
-  FETCH_DASHBOARD_DATA_FAILED,
-  SYNC_DASHBOARD_DATA,
+  DashboardPageState,
+  DashboardActionType,
+  FETCH_STATUS,
 } from "./types";
-
+import * as DashboardAction from "./actions";
 import overviewApiToState from "./overviewApiToState";
 
 const dashboardStateDefault: DashboardState = {
   clusterList: [],
 };
 
-const dashboardState: Reducer<DashboardState> = (
-  state = dashboardStateDefault,
-  action,
-) => {
+const dashboardState: Reducer<DashboardState, (
+  |DashboardAction.FetchDashboardDataSuccess
+  |AuthAction.AuthRequired
+)> = (state = dashboardStateDefault, action) => {
   switch (action.type) {
-    case FETCH_DASHBOARD_DATA_SUCCESS:
+    case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS:
       return overviewApiToState(action.payload.apiClusterOverview);
-    case authTypes.AUTH_REQUIRED: return dashboardStateDefault;
+    case AuthActionType.AUTH_REQUIRED: return dashboardStateDefault;
     default: return state;
   }
 };
 
-export default combineReducers({
-  dashboardState,
-  dataFetchState: createDataFetchReducer({
-    START: SYNC_DASHBOARD_DATA,
-    SUCCESS: FETCH_DASHBOARD_DATA_SUCCESS,
-    FAIL: FETCH_DASHBOARD_DATA_FAILED,
-  }),
-});
+const dataFetchState: Reducer<FETCH_STATUS, (
+  |DashboardAction.SyncDashboardData
+  |DashboardAction.FetchDashboardDataSuccess
+  |DashboardAction.FetchDashboardDataFailed
+  |AuthAction.AuthRequired
+)> = (state = FETCH_STATUS.NOT_STARTED, action) => {
+  switch (action.type) {
+    case DashboardActionType.SYNC_DASHBOARD_DATA:
+      return FETCH_STATUS.IN_PROGRESS;
+    case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS:
+      return FETCH_STATUS.SUCCESS;
+    case DashboardActionType.FETCH_DASHBOARD_DATA_FAILED: return (
+      state === FETCH_STATUS.IN_PROGRESS
+        ? FETCH_STATUS.ERROR
+        : state
+    );
+    case AuthActionType.AUTH_REQUIRED: return FETCH_STATUS.NOT_STARTED;
+    default: return state;
+  }
+};
 
-export const getDashboard = (state: State) => state.dashboardState;
-export const getDashboardDataFetch = createDataFetchSelector(
-  (state: State) => state.dataFetchState,
+const getDashboard: Selector<DashboardPageState, DashboardState> = (
+  state => state.dashboardState
 );
+
+const areDataLoaded: Selector<DashboardPageState, boolean> = (
+  state => state.dataFetchState === FETCH_STATUS.SUCCESS
+);
+
+export const selectors = {
+  getDashboard,
+  areDataLoaded,
+};
+
+export default combineReducers<DashboardPageState>({
+  dashboardState,
+  dataFetchState,
+});

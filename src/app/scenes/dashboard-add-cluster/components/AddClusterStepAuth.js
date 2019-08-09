@@ -10,9 +10,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { Spinner, InlineAlert } from "app/components";
 
 import { selectors } from "../plugin";
-import { stepAuthStates } from "../constants";
-import * as actions from "../actions";
+import { AUTH_STATE, ClusterAddActionType } from "../types";
 import AddClusterAuthRequired from "./AddClusterAuthRequired";
+
+const { UPDATE_NODE_NAME, CHECK_AUTH } = ClusterAddActionType;
 
 const helperText = (
   "Enter the name of a node in a cluster that you would like to manage"
@@ -37,26 +38,27 @@ const AddClusterStepAuth = () => {
           name="node-name"
           aria-describedby="Node name for add existing cluster operation"
           value={nodeName}
-          onChange={currentNodeName => dispatch(
-            actions.updateNodeName(currentNodeName),
-          )}
+          onChange={currentNodeName => dispatch({
+            type: UPDATE_NODE_NAME,
+            payload: { nodeName: currentNodeName },
+          })}
         />
       </FormGroup>
-      {authState === stepAuthStates.INITIAL && (
+      {authState === AUTH_STATE.INITIAL && (
         <Button
           variant="primary"
-          onClick={() => dispatch(actions.checkAuth(nodeName))}
+          onClick={() => dispatch({ type: CHECK_AUTH, payload: { nodeName } })}
           isDisabled={nodeName.length < 1}
           data-role="check-node-authentication"
         >
           Check authentication
         </Button>
       )}
-      {authState === stepAuthStates.CHECKING && (
+      {authState === AUTH_STATE.CHECKING && (
         <Spinner text="Checking authentication" data-role="waiting-auth" />
       )}
 
-      {authState === stepAuthStates.ALREADY_AUTHENTICATED && (
+      {authState === AUTH_STATE.ALREADY_AUTHENTICATED && (
         <InlineAlert
           variant="success"
           title="Node is authenticated. You can add the cluster now."
@@ -65,26 +67,26 @@ const AddClusterStepAuth = () => {
       )}
       {
         [
-          stepAuthStates.NOT_AUTHENTICATED,
-          stepAuthStates.AUTHENTICATION_IN_PROGRESS,
-          stepAuthStates.AUTHENTICATION_FAILED,
+          AUTH_STATE.NOT_AUTHENTICATED,
+          AUTH_STATE.AUTHENTICATION_IN_PROGRESS,
+          AUTH_STATE.AUTHENTICATION_FAILED,
         ].includes(authState)
         &&
         (
           <AddClusterAuthRequired
             nodeName={nodeName}
             authenticationInProgress={
-              authState === stepAuthStates.AUTHENTICATION_IN_PROGRESS
+              authState === AUTH_STATE.AUTHENTICATION_IN_PROGRESS
             }
             authenticationError={
-              authState === stepAuthStates.AUTHENTICATION_FAILED
+              authState === AUTH_STATE.AUTHENTICATION_FAILED
                 ? stateError
                 : ""
             }
           />
         )
       }
-      {authState === stepAuthStates.ERROR && (
+      {authState === AUTH_STATE.ERROR && (
         <InlineAlert
           variant="danger"
           title={stateError}

@@ -2,14 +2,14 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Alert } from "@patternfly/react-core";
 
-import * as msgTypes from "../msgTypes";
+import { NotificationSeverity } from "../types";
 import { selectors } from "../plugin";
-import * as actions from "../actions";
+import * as NotificationActionCreator from "../actionCreators";
 
-const typeVariantMap = {
-  [msgTypes.SUCCESS]: "success",
-  [msgTypes.ERROR]: "danger",
-  [msgTypes.INFO]: "info",
+const severityVariantMap = {
+  [NotificationSeverity.SUCCESS]: "success",
+  [NotificationSeverity.ERROR]: "danger",
+  [NotificationSeverity.INFO]: "info",
 };
 
 const NotificationContainer = () => {
@@ -17,11 +17,11 @@ const NotificationContainer = () => {
   const dispatch = useDispatch();
   return (
     <ul id="notifications">
-      {notifications.map(({ id, type, message }) => (
+      {notifications.map(({ id, severity, message }) => (
         <li className="notification-item" key={id}>
           <Alert
-            variant={typeVariantMap[type]}
-            onClose={() => dispatch(actions.destroy(id))}
+            variant={severityVariantMap[severity]}
+            onClose={() => dispatch(NotificationActionCreator.destroy(id))}
             title={message}
           />
         </li>

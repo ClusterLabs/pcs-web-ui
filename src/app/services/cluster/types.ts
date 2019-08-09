@@ -1,3 +1,11 @@
+export enum ClusterActionType {
+  FETCH_CLUSTER_DATA_SUCCESS = "/cluster/FETCH_CLUSTER_DATA_SUCCESS",
+  REFRESH_CLUSTER_DATA = "/cluster/REFRESH_CLUSTER_DATA",
+  SYNC_CLUSTER_DATA = "/cluster/SYNC_CLUSTER_DATA",
+  SYNC_CLUSTER_DATA_STOP = "/cluster/SYNC_CLUSTER_DATA_STOP",
+  FETCH_CLUSTER_DATA_FAILED = "/cluster/FETCH_CLUSTER_DATA_FAILED",
+}
+
 export enum NODE_QUORUM {
   YES = "cluster/node/quorum/yes",
   NO = "cluster/node/quorum/no",
@@ -60,7 +68,7 @@ export interface FenceDevice {
   issueList: Issue[],
 }
 
-export interface ClusterStatus {
+export interface ClusterState {
   name: string,
   urlName: string,
   status: CLUSTER_STATUS,
@@ -68,4 +76,16 @@ export interface ClusterStatus {
   resourceList: Resource[],
   fenceDeviceList: FenceDevice[],
   issueList: Issue[],
+}
+
+export enum FETCH_STATUS {
+  NOT_STARTED = "NOT_STARTED",
+  IN_PROGRESS = "IN_PROGRESS",
+  SUCCESS = "SUCCESS",
+  ERROR = "ERROR",
+}
+
+export interface ClusterServiceState {
+  clusterState: ClusterState,
+  dataFetchState: FETCH_STATUS,
 }
