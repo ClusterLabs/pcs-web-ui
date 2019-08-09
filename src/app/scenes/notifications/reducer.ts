@@ -21,5 +21,3 @@ const notifications: Reducer<NotificationState, (
 };
 
 export default notifications;
-
-export const getNotifications = (state: NotificationState) => state;

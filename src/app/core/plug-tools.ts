@@ -6,9 +6,9 @@ import {
   RegisteredPlugins,
   RootSelector,
   RootStateKeys,
+  RootState,
   Selector,
 } from "./types";
-import { RootState } from "./rootState";
 
 export const registerPlugins = (
   plugins: Record<RootStateKeys, Plugin>,

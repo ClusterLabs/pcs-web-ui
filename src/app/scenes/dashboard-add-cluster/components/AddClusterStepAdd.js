@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { Spinner, InlineAlert } from "app/components";
 
-import { selectors } from "../plugin";
+import * as selectors from "../selectors";
 import { ADD_STATE } from "../types";
 
 const AddClusterAddStep = () => {

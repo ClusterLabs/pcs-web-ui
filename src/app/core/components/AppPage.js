@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import LoginPage from "app/scenes/login/components/LoginPage";
-import { selectors } from "app/scenes/login/plugin";
+import * as selectors from "app/scenes/login/selectors";
 import Notifications
   from "app/scenes/notifications/components/NotificationContainer";
 

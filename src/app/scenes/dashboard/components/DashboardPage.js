@@ -19,7 +19,7 @@ import {
 /* eslint-disable no-shadow */
 import { DashboardActionType } from "../types";
 
-import { selectors } from "../plugin";
+import * as selectors from "../selectors";
 import Dashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
 

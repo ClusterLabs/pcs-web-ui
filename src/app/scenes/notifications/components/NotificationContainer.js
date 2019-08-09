@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Alert } from "@patternfly/react-core";
 
 import { NotificationSeverity } from "../types";
-import { selectors } from "../plugin";
+import * as selectors from "../selectors";
 import * as NotificationActionCreator from "../actionCreators";
 
 const severityVariantMap = {

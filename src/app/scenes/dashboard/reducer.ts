@@ -2,7 +2,6 @@ import { combineReducers, Reducer } from "redux";
 
 import { AuthActionType } from "app/services/auth/types";
 import * as AuthAction from "app/services/auth/actions";
-import { Selector } from "app/core/types";
 
 import {
   DashboardState,
@@ -48,19 +47,6 @@ const dataFetchState: Reducer<FETCH_STATUS, (
     case AuthActionType.AUTH_REQUIRED: return FETCH_STATUS.NOT_STARTED;
     default: return state;
   }
-};
-
-const getDashboard: Selector<DashboardPageState, DashboardState> = (
-  state => state.dashboardState
-);
-
-const areDataLoaded: Selector<DashboardPageState, boolean> = (
-  state => state.dataFetchState === FETCH_STATUS.SUCCESS
-);
-
-export const selectors = {
-  getDashboard,
-  areDataLoaded,
 };
 
 export default combineReducers<DashboardPageState>({

@@ -7,7 +7,7 @@ import {
 import { BackgroundImage } from "app/components";
 
 import { LoginActionType } from "../types";
-import { selectors } from "../plugin";
+import * as selectors from "../selectors";
 
 const Login = () => {
   const [username, setUsername] = React.useState("");
