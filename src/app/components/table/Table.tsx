@@ -4,13 +4,19 @@ import SortableTh from "./SortableTh";
 import Expansion from "./Expansion";
 import Body from "./Body";
 
-const Table = ({
-  children,
-  isCompact = false,
-  isBorderless = false,
-  isExpandable = false,
-  ...rest
-}) => {
+const Table = (
+  {
+    children,
+    isCompact = false,
+    isBorderless = false,
+    isExpandable = false,
+    ...rest
+  }: React.PropsWithChildren<{
+    isCompact?: boolean,
+    isBorderless?: boolean,
+    isExpandable?: boolean,
+  }>,
+) => {
   const classNameList = [
     "pf-c-table",
     "pf-m-grid-md",

@@ -7,7 +7,9 @@ import BackgroundImage from "./BackgroundImage";
 import PageHeader from "./PageHeader";
 import Breadcrumbs from "./Breadcrumbs";
 
-const ClusterPage = ({ children, clusterUrlName }) => {
+const ClusterPage = ({ children, clusterUrlName }: React.PropsWithChildren<{
+  clusterUrlName: string,
+}>) => {
   const [isNavOpen, onNavToggle] = React.useState(
     typeof window !== "undefined"
     &&

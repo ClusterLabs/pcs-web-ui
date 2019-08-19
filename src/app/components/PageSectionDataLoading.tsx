@@ -3,7 +3,9 @@ import { PageSection } from "@patternfly/react-core";
 
 import Spinner from "./Spinner";
 
-const PageSectionDataLoading = ({ done, children, ...rest }) => (
+const PageSectionDataLoading = (
+  { done, children, ...rest }: React.PropsWithChildren<{ done: boolean }>,
+) => (
   <PageSection {...rest}>
     {
       done
