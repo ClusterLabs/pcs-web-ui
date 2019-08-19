@@ -1,8 +1,6 @@
 import React from "react";
 
-/* eslint-disable no-empty-pattern, no-multi-spaces */
-
-const Scratch = ({  }) => (
+const Scratch = () => (
   <React.Fragment>
     SCRATCH
   </React.Fragment>
