@@ -2,13 +2,13 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { SET_UP_DATA_READING } from "app/services/data-load/types";
-import { RootState } from "app/core/rootState";
+import { RootState } from "app/core/types";
 
 import {
   ClusterActionType,
-  ClusterServiceState,
+  ClusterState,
 } from "./types";
-import { selectors } from "./plugin";
+import * as selectors from "./selectors";
 
 const {
   SYNC_CLUSTER_DATA,
@@ -33,7 +33,7 @@ const useClusterState = (clusterUrlName: string) => {
     [clusterUrlName, dispatch],
   );
   return {
-    cluster: useSelector<RootState, ClusterServiceState>(selectors.getCluster),
+    cluster: useSelector<RootState, ClusterState>(selectors.getCluster),
     dataLoaded: useSelector<RootState, boolean>(selectors.areDataLoaded),
   };
 };

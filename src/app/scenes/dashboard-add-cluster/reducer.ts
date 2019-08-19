@@ -87,22 +87,6 @@ const stateError: Reducer<StateError> = (state = "", action) => {
   }
 };
 
-export const getNodeName = (
-  state: DashboardAddClusterPageState,
-) => state.nodeName;
-
-export const getStepAuthState = (
-  state: DashboardAddClusterPageState,
-) => state.stepAuthState;
-
-export const getStepAddState = (
-  state: DashboardAddClusterPageState,
-) => state.stepAddState;
-
-export const getStateError = (
-  state: DashboardAddClusterPageState,
-) => state.stateError;
-
 export default combineReducers<DashboardAddClusterPageState>({
   nodeName,
   stepAuthState,

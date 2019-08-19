@@ -59,9 +59,3 @@ export default combineReducers<ClusterServiceState>({
   clusterState,
   dataFetchState,
 });
-
-export const areDataLoaded = (state: ClusterServiceState) => (
-  state.dataFetchState === FETCH_STATUS.SUCCESS
-);
-
-export const getCluster = (state: ClusterServiceState) => state.clusterState;

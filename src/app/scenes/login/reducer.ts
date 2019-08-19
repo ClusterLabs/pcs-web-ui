@@ -1,7 +1,6 @@
 import { Reducer } from "redux";
 
 import * as AuthAction from "app/services/auth/actions";
-
 import { AuthActionType } from "app/services/auth/types";
 
 import { LoginActionType, LoginState } from "./types";
@@ -64,14 +63,3 @@ const loginState: Reducer<
 };
 
 export default loginState;
-
-export const failed = (state: LoginState) => typeof state.failed;
-export const failMessage = (state: LoginState) => (
-  state.badCredentials
-    ? "The username or password you entered is incorect"
-    : state.errorMessage
-);
-export const isAcceptingLoginData = (state: LoginState) => (
-  state.acceptLoginData
-);
-export const loginRequired = (state: LoginState) => state.required;
