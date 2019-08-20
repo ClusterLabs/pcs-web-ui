@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Spinner.css";
 
-export default ({ text, ...rest }) => (
+export default ({ text, ...rest }: { text: string }) => (
   <React.Fragment>
     <div
       style={{

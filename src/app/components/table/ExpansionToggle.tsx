@@ -1,12 +1,18 @@
 import React from "react";
 
-const ExpansionToggle = ({
-  expanded,
-  setExpanded,
-  expandKey,
-  children,
-  ...rest
-}) => {
+function ExpansionToggle(
+  {
+    expanded,
+    setExpanded,
+    expandKey,
+    children,
+    ...rest
+  }: React.PropsWithChildren<{
+    expanded: string,
+    setExpanded: (key: string) => void,
+    expandKey: string,
+  }>,
+) {
   const tdClassNames = [
     "pf-c-table__compound-expansion-toggle",
   ];
@@ -22,6 +28,7 @@ const ExpansionToggle = ({
   ];
   // TODO display: flex is supposed to be applied by pf-l-split, however
   // display: inline-block from pf-c-button is applied
+  // so display: flex is used explicitly
   return (
     <td className={tdClassNames.join(" ")} {...rest}>
       <button
@@ -34,6 +41,6 @@ const ExpansionToggle = ({
       </button>
     </td>
   );
-};
+}
 
 export default ExpansionToggle;

@@ -42,17 +42,22 @@ export const fenceDeviceToSummaryStatus = StatusIco.itemsToSummaryStatus(
 );
 
 const DashboardFenceDeviceList = ({ fenceDeviceList }) => {
-  const {
-    compareItems,
-    SortableTh,
-  } = Table.SortableTh.useSorting(COLUMNS.NAME);
+  const { sortState, compareItems } = Table.SortableTh.useSorting(COLUMNS.NAME);
 
   return (
     <Table isCompact isBorderless>
       <thead>
         <tr>
-          <SortableTh columnName={COLUMNS.NAME}>Fence device</SortableTh>
-          <SortableTh columnName={COLUMNS.STATUS} startDesc>Status</SortableTh>
+          <Table.SortableTh columnName={COLUMNS.NAME} sortState={sortState}>
+            Fence device
+          </Table.SortableTh>
+          <Table.SortableTh
+            columnName={COLUMNS.STATUS}
+            sortState={sortState}
+            startDesc
+          >
+            Status
+          </Table.SortableTh>
         </tr>
       </thead>
       <tbody>

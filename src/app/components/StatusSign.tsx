@@ -2,7 +2,11 @@ import React from "react";
 
 import StatusIco from "./StatusIco";
 
-const StatusSign = ({ status, label, showOkIco = false }) => (
+const StatusSign = ({ status, label, showOkIco = false }: {
+  status: any,
+  label: string,
+  showOkIco: boolean,
+}) => (
   <React.Fragment>
     {(showOkIco || status !== StatusIco.STATUS_MAP.OK) && (
       <React.Fragment>

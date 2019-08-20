@@ -3,7 +3,9 @@ import React from "react";
 import ExpansionToggle from "./ExpansionToggle";
 import ExpandedContent from "./ExpandedContent";
 
-const useExpansion = ({ contentSpan }) => {
+const useExpansion = ({ contentSpan }: React.PropsWithChildren<{
+  contentSpan: number,
+}>) => {
   const [expanded, setExpanded] = React.useState("");
 
   const Toggle = React.useCallback(

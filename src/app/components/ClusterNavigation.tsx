@@ -3,7 +3,7 @@ import { Nav, NavList } from "@patternfly/react-core";
 
 import ClusterNavigationItem from "./ClusterNavigationItem";
 
-const ClusterNavigation = ({ clusterUrlName }) => (
+const ClusterNavigation = ({ clusterUrlName }: { clusterUrlName: string }) => (
   <Nav aria-label="ClusterNavigation">
     <NavList>
       <ClusterNavigationItem

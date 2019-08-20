@@ -8,6 +8,7 @@ import {
 import { StyleSheet, css } from "@patternfly/react-styles";
 
 import * as selectors from "app/core/selectors";
+import { RootState } from "app/core/types";
 
 import BreadcrumbItem from "./BreadcrumbItem";
 
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
 
 /* eslint-disable react/no-array-index-key */
 const BreadcrumbsView = () => {
-  const urlParts = useSelector(state => (
+  const urlParts = useSelector((state: RootState) => (
     selectors.getPathName(state).replace(/\/$/, "").split("/").slice(1)
   ));
   return (

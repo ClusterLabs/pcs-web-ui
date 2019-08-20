@@ -4,7 +4,10 @@ import { useSelector } from "react-redux";
 
 import * as selectors from "app/core/selectors";
 
-const ClusterNavigationItemView = ({ to, label }) => {
+const ClusterNavigationItemView = ({ to, label }: {
+  to: string,
+  label: string,
+}) => {
   const pathname = useSelector(selectors.getPathName);
   return (
     <li className="pf-c-nav__item">

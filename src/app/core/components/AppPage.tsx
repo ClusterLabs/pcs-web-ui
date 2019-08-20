@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch } from "react-router";
 import { renderRoutes } from "react-router-config";
+import { History } from "history";
 
 import LoginPage from "app/scenes/login/components/LoginPage";
 import * as selectors from "app/scenes/login/selectors";
@@ -11,7 +12,7 @@ import Notifications
 
 import { routes } from "../plug";
 
-const AppPage = ({ history }) => {
+const AppPage = ({ history }: { history: History }) => {
   const loginRequired = useSelector(selectors.loginRequired);
   return (
     loginRequired
