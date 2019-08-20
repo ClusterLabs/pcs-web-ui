@@ -46,23 +46,43 @@ const compareByColumn = (column) => {
 };
 
 export default ({ dashboard }) => {
-  const {
-    compareItems,
-    SortableTh,
-  } = Table.SortableTh.useSorting();
+  const { sortState, compareItems } = Table.SortableTh.useSorting();
+
   return (
     <Table isExpandable data-role="cluster-list">
       <thead>
         <tr>
-          <SortableTh columnName={COLUMNS.NAME}>Clusters</SortableTh>
-          <SortableTh columnName={COLUMNS.ISSUES} startDesc>Issues</SortableTh>
-          <SortableTh columnName={COLUMNS.NODES} startDesc>Nodes</SortableTh>
-          <SortableTh columnName={COLUMNS.RESOURCES} startDesc>
+          <Table.SortableTh columnName={COLUMNS.NAME} sortState={sortState}>
+            Clusters
+          </Table.SortableTh>
+          <Table.SortableTh
+            columnName={COLUMNS.ISSUES}
+            sortState={sortState}
+            startDesc
+          >
+            Issues
+          </Table.SortableTh>
+          <Table.SortableTh
+            columnName={COLUMNS.NODES}
+            sortState={sortState}
+            startDesc
+          >
+            Nodes
+          </Table.SortableTh>
+          <Table.SortableTh
+            columnName={COLUMNS.RESOURCES}
+            sortState={sortState}
+            startDesc
+          >
             Resources
-          </SortableTh>
-          <SortableTh columnName={COLUMNS.FENCE_DEVICES} startDesc>
+          </Table.SortableTh>
+          <Table.SortableTh
+            columnName={COLUMNS.FENCE_DEVICES}
+            sortState={sortState}
+            startDesc
+          >
             Fence devices
-          </SortableTh>
+          </Table.SortableTh>
         </tr>
       </thead>
       {dashboard.clusterList

@@ -1,8 +1,7 @@
 import React from "react";
 
 import { Table, StatusIco, StatusSign } from "app/components";
-import { NODE_STATUS, NODE_QUORUM }
-  from "app/services/cluster/types";
+import { NODE_STATUS, NODE_QUORUM } from "app/services/cluster/types";
 import { mapConstants, compareStrings } from "app/utils";
 
 const statusLabel = mapConstants("Unknown", {
@@ -65,18 +64,28 @@ const compareByColumn = (column) => {
 };
 
 const DashboardNodeList = ({ nodeList }) => {
-  const {
-    compareItems,
-    SortableTh,
-  } = Table.SortableTh.useSorting(COLUMNS.NAME);
-
+  const { sortState, compareItems } = Table.SortableTh.useSorting(COLUMNS.NAME);
   return (
     <Table isCompact isBorderless>
       <thead>
         <tr>
-          <SortableTh columnName={COLUMNS.NAME}>Node</SortableTh>
-          <SortableTh columnName={COLUMNS.STATUS} startDesc>Status</SortableTh>
-          <SortableTh columnName={COLUMNS.QUORUM} startDesc>Quorum</SortableTh>
+          <Table.SortableTh columnName={COLUMNS.NAME} sortState={sortState}>
+            Node
+          </Table.SortableTh>
+          <Table.SortableTh
+            columnName={COLUMNS.STATUS}
+            sortState={sortState}
+            startDesc
+          >
+            Status
+          </Table.SortableTh>
+          <Table.SortableTh
+            columnName={COLUMNS.QUORUM}
+            sortState={sortState}
+            startDesc
+          >
+            Quorum
+          </Table.SortableTh>
         </tr>
       </thead>
       <tbody>

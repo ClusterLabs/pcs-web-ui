@@ -8,15 +8,12 @@ import {
 
 const SortableTh = ({
   children,
+  sortState,
   columnName,
-  sortColumn,
-  setSortColumn,
-  direction,
-  setDirection,
   startDesc = false,
 }) => {
   const classNameList = ["pf-c-table__sort"];
-  if (sortColumn === columnName) {
+  if (sortState.sortColumn === columnName) {
     classNameList.push("pf-m-selected");
   }
   return (
@@ -25,11 +22,15 @@ const SortableTh = ({
         type="button"
         className="pf-c-button pf-m-plain"
         onClick={() => {
-          setSortColumn(columnName);
           const firstDirection = startDesc ? "desc" : "asc";
           const nextDirection = startDesc ? "asc" : "desc";
-          setDirection(
-            (sortColumn === columnName && direction === firstDirection)
+          sortState.change(
+            columnName,
+            (
+              sortState.sortColumn === columnName
+              &&
+              sortState.direction === firstDirection
+            )
               ? nextDirection
               : firstDirection
             ,
@@ -38,13 +39,23 @@ const SortableTh = ({
       >
         {children}
         <span className="pf-c-table__sort-indicator">
-          {sortColumn !== columnName && <ArrowsAltVIcon />}
-          {sortColumn === columnName && direction === "asc" && (
-            <LongArrowAltUpIcon />
-          )}
-          {sortColumn === columnName && direction === "desc" && (
-            <LongArrowAltDownIcon />
-          )}
+          {sortState.sortColumn !== columnName && <ArrowsAltVIcon />}
+          {
+            sortState.sortColumn === columnName
+            &&
+            sortState.direction === "asc"
+            && (
+              <LongArrowAltUpIcon />
+            )
+          }
+          {
+            sortState.sortColumn === columnName
+            &&
+            sortState.direction === "desc"
+            && (
+              <LongArrowAltDownIcon />
+            )
+          }
         </span>
       </button>
     </th>
@@ -58,25 +69,19 @@ const useSorting = (initialColumn = "", initialDirection = "asc") => {
     const compare = compareByColumn(column);
     return direction === "desc" ? (a, b) => compare(b, a) : compare;
   };
-  const BoundSortableTh = React.useCallback(
-    ({ children, columnName, startDesc = false }) => (
-      <SortableTh
-        columnName={columnName}
-        sortColumn={column}
-        setSortColumn={setColumn}
-        direction={direction}
-        setDirection={setDirection}
-        startDesc={startDesc}
-      >
-        {children}
-      </SortableTh>
-    ),
-    [column, setColumn, direction, setDirection],
+  const change = React.useCallback(
+    (columnName, sortDirection) => {
+      setColumn(columnName);
+      setDirection(sortDirection);
+    },
+    [setColumn, setDirection],
   );
   return {
-    column,
-    direction,
-    SortableTh: BoundSortableTh,
+    sortState: {
+      column,
+      direction,
+      change,
+    },
     compareItems,
   };
 };
