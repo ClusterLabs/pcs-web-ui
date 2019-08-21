@@ -5,7 +5,7 @@ import StatusIco from "./StatusIco";
 const StatusSign = ({ status, label, showOkIco = false }: {
   status: any,
   label: string,
-  showOkIco: boolean,
+  showOkIco?: boolean,
 }) => (
   <React.Fragment>
     {(showOkIco || status !== StatusIco.STATUS_MAP.OK) && (

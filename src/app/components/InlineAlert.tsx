@@ -43,4 +43,6 @@ const InlineAlert = ({ variant, title, ...rest }: {
   );
 };
 
+InlineAlert.Variant = Variant;
+
 export default InlineAlert;
