@@ -4,10 +4,6 @@ import {
   Page,
   PageSection,
 } from "@patternfly/react-core";
-/* eslint-disable no-unused-vars */
-// this is a temporary hack to load table styles to page...
-import { Table } from "@patternfly/react-table";
-/* eslint-enable no-unused-vars */
 
 import { SET_UP_DATA_READING } from "app/services/data-load/types";
 import {
