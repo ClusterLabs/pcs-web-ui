@@ -3,13 +3,10 @@ import {
   DataListItem,
   DataListCell,
 } from "@patternfly/react-core";
+
 import { Resource } from "app/services/cluster/types";
 
-export interface Props {
-  resource: Resource
-}
-
-const ResourceListItem = ({ resource: { id } }: Props) => (
+const ResourceListItem = ({ resource: { id } }: { resource: Resource }) => (
   <DataListItem aria-labelledby={id}>
     <DataListCell>
       {id}
