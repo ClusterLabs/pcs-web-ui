@@ -7,8 +7,3 @@ export interface ReadingDefinition {
   stop: AnyAction,
   specificator?: any,
 }
-
-export interface SetupDataReadingAction extends AnyAction {
-  type: typeof SET_UP_DATA_READING,
-  payload: Record<string, ReadingDefinition>,
-}

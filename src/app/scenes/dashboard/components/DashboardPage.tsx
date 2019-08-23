@@ -6,6 +6,7 @@ import {
 } from "@patternfly/react-core";
 
 import { SET_UP_DATA_READING } from "app/services/data-load/types";
+import { SetupDataReading } from "app/services/data-load/actions";
 import {
   PageSectionDataLoading,
   PageHeader,
@@ -14,7 +15,6 @@ import {
 
 /* eslint-disable no-shadow */
 import { DashboardActionType } from "../types";
-
 import * as selectors from "../selectors";
 import Dashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
@@ -23,7 +23,7 @@ const useDashboardSync = () => {
   const dispatch = useDispatch();
   React.useEffect(
     () => {
-      dispatch({
+      dispatch<SetupDataReading>({
         type: SET_UP_DATA_READING,
         payload: {
           reloadDashboard: {

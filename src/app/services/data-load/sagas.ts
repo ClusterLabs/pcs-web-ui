@@ -12,11 +12,8 @@ import {
 } from "redux-saga/effects";
 
 
-import {
-  SET_UP_DATA_READING,
-  ReadingDefinition,
-  SetupDataReadingAction,
-} from "./types";
+import { SET_UP_DATA_READING, ReadingDefinition } from "./types";
+import { SetupDataReading } from "./actions";
 
 const SYNC_DELAY = 30 * 1000;// ms
 
@@ -124,7 +121,7 @@ export function* setUpDataReading() {
 
   /* eslint-disable no-constant-condition */
   while (true) {
-    const { payload: readings } = yield take<SetupDataReadingAction>(
+    const { payload: readings } = yield take<SetupDataReading>(
       SET_UP_DATA_READING,
     );
     const newNames = Object.keys(readings);
