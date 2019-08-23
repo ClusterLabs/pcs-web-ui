@@ -27,7 +27,7 @@ const AddClusterAuthRequired = (
   const [port, setPort] = React.useState("");
   const dispatch = useDispatch();
   return (
-    <React.Fragment>
+    <>
       <InlineAlert
         variant="warning"
         title={
@@ -66,7 +66,7 @@ const AddClusterAuthRequired = (
         aria-label="Use custom address and port switch"
       />
       { customAddrPort && (
-        <React.Fragment>
+        <>
           <FormGroup
             label="Address"
             fieldId="add-cluster-address"
@@ -95,7 +95,7 @@ const AddClusterAuthRequired = (
               onChange={value => setPort(value)}
             />
           </FormGroup>
-        </React.Fragment>
+        </>
       )}
       {
         authenticationInProgress
@@ -119,7 +119,7 @@ const AddClusterAuthRequired = (
 
           )
       }
-    </React.Fragment>
+    </>
   );
 };
 

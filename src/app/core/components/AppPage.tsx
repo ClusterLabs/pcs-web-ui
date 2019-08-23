@@ -18,14 +18,14 @@ const AppPage = ({ history }: { history: History }) => {
     loginRequired
       ? <LoginPage />
       : (
-        <React.Fragment>
+        <>
           <ConnectedRouter history={history}>
             <Switch>
               {renderRoutes(routes)}
             </Switch>
           </ConnectedRouter>
           <Notifications />
-        </React.Fragment>
+        </>
       )
   );
 };

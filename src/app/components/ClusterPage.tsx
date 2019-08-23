@@ -16,7 +16,7 @@ const ClusterPage = ({ children, clusterUrlName }: React.PropsWithChildren<{
     window.innerWidth >= parseInt(breakpointMd.value, 10),
   );
   return (
-    <React.Fragment>
+    <>
       <BackgroundImage />
       <Page
         header={(
@@ -35,7 +35,7 @@ const ClusterPage = ({ children, clusterUrlName }: React.PropsWithChildren<{
         <Breadcrumbs />
         {children}
       </Page>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -10,7 +10,7 @@ const AddClusterAddStep = () => {
   const state = useSelector(selectors.getStepAddState);
   const errorMessage = useSelector(selectors.getStateError);
   return (
-    <React.Fragment>
+    <>
       {state === ADD_STATE.STARTED &&
         <Spinner data-role="waiting-add" text="adding existing cluster..." />
       }
@@ -41,7 +41,7 @@ const AddClusterAddStep = () => {
           data-role="add-cluster-error-message"
         />
       )}
-    </React.Fragment>
+    </>
   );
 };
 

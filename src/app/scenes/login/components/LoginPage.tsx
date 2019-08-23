@@ -18,7 +18,7 @@ const Login = () => {
   const isAcceptingLoginData = useSelector(selectors.isAcceptingLoginData);
   const dispatch = useDispatch();
   return (
-    <React.Fragment>
+    <>
       <BackgroundImage />
       <LoginPage loginTitle="Please log in" textContent="HA Cluster Management">
         {failed && (
@@ -48,7 +48,7 @@ const Login = () => {
           }}
         />
       </LoginPage>
-    </React.Fragment>
+    </>
   );
 };
 

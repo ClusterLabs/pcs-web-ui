@@ -28,7 +28,7 @@ const AddClusterPage = () => {
     },
   ];
   return (
-    <React.Fragment>
+    <>
       <DashboardPage />
       <Wizard
         data-role="add-cluster-wizard"
@@ -42,7 +42,7 @@ const AddClusterPage = () => {
         description="Add existing cluster wizard"
         steps={steps}
       />
-    </React.Fragment>
+    </>
   );
 };
 

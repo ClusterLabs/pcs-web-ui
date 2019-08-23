@@ -27,13 +27,13 @@ const Summary = ({ itemsCount, summaryStatus }: {
   summaryStatus: StatusIco.STATUS_MAP,
 }) => {
   if (summaryStatus === StatusIco.STATUS_MAP.OK) {
-    return <React.Fragment>{itemsCount}</React.Fragment>;
+    return <>{itemsCount}</>;
   }
   return (
-    <React.Fragment>
+    <>
       <div>{itemsCount}</div>
       <div><StatusIco status={summaryStatus} /></div>
-    </React.Fragment>
+    </>
   );
 };
 

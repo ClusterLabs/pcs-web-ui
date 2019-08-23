@@ -43,7 +43,7 @@ const DashboardPage = () => {
   const dataLoaded = useSelector(selectors.areDataLoaded);
 
   return (
-    <React.Fragment>
+    <>
       <BackgroundImage />
       <Page header={<PageHeader />}>
         <PageSection>
@@ -53,7 +53,7 @@ const DashboardPage = () => {
           <Dashboard dashboard={dashboard} />
         </PageSectionDataLoading>
       </Page>
-    </React.Fragment>
+    </>
   );
 };
 

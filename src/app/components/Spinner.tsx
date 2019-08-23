@@ -3,7 +3,7 @@ import React from "react";
 import "./Spinner.css";
 
 export default ({ text, ...rest }: { text: string }) => (
-  <React.Fragment>
+  <>
     <div
       style={{
         animation: "pcs-spin .6s infinite linear",
@@ -24,5 +24,5 @@ export default ({ text, ...rest }: { text: string }) => (
     >
       {text}
     </div>
-  </React.Fragment>
+  </>
 );
