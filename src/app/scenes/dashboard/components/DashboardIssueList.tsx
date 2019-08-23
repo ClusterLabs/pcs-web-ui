@@ -6,9 +6,7 @@ import { InlineAlert, StatusIco } from "app/components";
 
 
 const mapSeverityToVariant = (severity: ISSUE) => (
-  severity === ISSUE.ERROR
-    ? InlineAlert.Variant.danger
-    : InlineAlert.Variant.warning
+  severity === ISSUE.ERROR ? "danger" : "warning"
 );
 const issueKey = (issue: Issue, index: any) => `${index}:${issue.message}`;
 
