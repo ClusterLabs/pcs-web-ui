@@ -3,19 +3,21 @@ import React from "react";
 import useClusterState from "app/services/cluster/useClusterState";
 import { ClusterPage, PageSectionDataLoading } from "app/components";
 
-import ResourceList from "./ResourceList";
+import ClusterStonithList from "./ClusterStonithList";
 
-const ClusterResourceListPage = ({ clusterUrlName }) => {
+const ClusterStonithListPage = ({ clusterUrlName }: {
+  clusterUrlName: string,
+}) => {
   const { cluster, dataLoaded } = useClusterState(clusterUrlName);
   return (
     <ClusterPage clusterUrlName={clusterUrlName}>
       <PageSectionDataLoading done={dataLoaded}>
-        <ResourceList
-          resourceList={cluster.resourceList}
+        <ClusterStonithList
+          fenceDeviceList={cluster.fenceDeviceList}
         />
       </PageSectionDataLoading>
     </ClusterPage>
   );
 };
 
-export default ClusterResourceListPage;
+export default ClusterStonithListPage;

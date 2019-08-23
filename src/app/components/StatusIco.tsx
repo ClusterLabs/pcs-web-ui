@@ -16,7 +16,7 @@ enum STATUS_MAP {
 }
 
 function itemsToSummaryStatus<T>(itemToStatusIco: (item: T) => STATUS_MAP) {
-  return (itemList: T[]) => itemList.reduce(
+  return (itemList: T[]) => itemList.reduce<STATUS_MAP>(
     (sumStatus, item) => {
       const statuses = [itemToStatusIco(item), sumStatus];
       if (statuses.includes(STATUS_MAP.ERROR)) {

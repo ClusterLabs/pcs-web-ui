@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import { Table, StatusIco } from "app/components";
+import { ClusterState } from "app/services/cluster/types";
 
 import DashboardNodeList, { nodesToSummaryStatus }
   from "./DashboardNodeList";
@@ -20,9 +22,12 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
-const Summary = ({ itemsCount, summaryStatus }) => {
+const Summary = ({ itemsCount, summaryStatus }: {
+  itemsCount: number,
+  summaryStatus: StatusIco.STATUS_MAP,
+}) => {
   if (summaryStatus === StatusIco.STATUS_MAP.OK) {
-    return itemsCount;
+    return <React.Fragment>{itemsCount}</React.Fragment>;
   }
   return (
     <React.Fragment>
@@ -32,7 +37,7 @@ const Summary = ({ itemsCount, summaryStatus }) => {
   );
 };
 
-const DashboardCluster = ({ cluster }) => {
+const DashboardCluster = ({ cluster }: { cluster: ClusterState }) => {
   const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
   });

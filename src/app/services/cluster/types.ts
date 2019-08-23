@@ -26,10 +26,10 @@ export enum RESOURCE_STATUS {
 }
 
 export enum FENCE_DEVICE_STATUS {
-  RUNNING = "cluster/resource/status/running",
-  BLOCKED = "cluster/resource/status/blocked",
-  FAILED = "cluster/resource/status/failed",
-  UNKNOWN = "cluster/resource/status/unknown",
+  RUNNING = "cluster/fence-device/status/running",
+  BLOCKED = "cluster/fence-device/status/blocked",
+  FAILED = "cluster/fence-device/status/failed",
+  UNKNOWN = "cluster/fence-device/status/unknown",
 }
 
 export enum CLUSTER_STATUS {

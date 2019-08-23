@@ -9,15 +9,18 @@ import {
 
 import { Spinner, InlineAlert } from "app/components";
 
-import { ClusterAddActionType } from "../types";
+import { AuthenticateNode } from "../actions";
+import { ClusterAddActionType, NodeName, StateError } from "../types";
 
 const { AUTHENTICATE_NODE } = ClusterAddActionType;
 
-const AddClusterAuthRequired = ({
-  nodeName,
-  authenticationInProgress,
-  authenticationError,
-}) => {
+const AddClusterAuthRequired = (
+  { nodeName, authenticationInProgress, authenticationError }: {
+    nodeName: NodeName,
+    authenticationInProgress: boolean,
+    authenticationError: StateError,
+  },
+) => {
   const [password, setPassword] = React.useState("");
   const [customAddrPort, setCustomAddrPort] = React.useState(false);
   const [address, setAddress] = React.useState("");
@@ -100,7 +103,7 @@ const AddClusterAuthRequired = ({
           : (
             <Button
               variant="primary"
-              onClick={() => dispatch({
+              onClick={() => dispatch<AuthenticateNode>({
                 type: AUTHENTICATE_NODE,
                 payload: {
                   nodeName,

@@ -1,22 +1,24 @@
 import React from "react";
 import { Stack, StackItem } from "@patternfly/react-core";
 
-import { ISSUE } from "app/services/cluster/types";
+import { ISSUE, Issue } from "app/services/cluster/types";
 import { InlineAlert, StatusIco } from "app/components";
 
 
-const mapSeverityToVariant = severity => (
+const mapSeverityToVariant = (severity: ISSUE) => (
   severity === ISSUE.ERROR ? "danger" : "warning"
 );
-const issueKey = (issue, index) => `${index}:${issue.message}`;
+const issueKey = (issue: Issue, index: any) => `${index}:${issue.message}`;
 
-export const issuesToSummaryStatus = StatusIco.itemsToSummaryStatus(issue => (
-  issue.severity === ISSUE.ERROR
-    ? StatusIco.STATUS_MAP.ERROR
-    : StatusIco.STATUS_MAP.WARNING
-));
+export const issuesToSummaryStatus = StatusIco.itemsToSummaryStatus(
+  (issue: Issue) => (
+    issue.severity === ISSUE.ERROR
+      ? StatusIco.STATUS_MAP.ERROR
+      : StatusIco.STATUS_MAP.WARNING
+  ),
+);
 
-const DashboardIssueList = ({ issueList }) => (
+const DashboardIssueList = ({ issueList }: { issueList: Issue[] }) => (
   <Stack
     gutter="sm"
     style={{ margin: "1rem" }}

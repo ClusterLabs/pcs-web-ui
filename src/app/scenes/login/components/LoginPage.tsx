@@ -7,6 +7,7 @@ import {
 import { BackgroundImage } from "app/components";
 
 import { LoginActionType } from "../types";
+import { EnterCredentials } from "../actions";
 import * as selectors from "../selectors";
 
 const Login = () => {
@@ -40,7 +41,7 @@ const Login = () => {
           isLoginButtonDisabled={!isAcceptingLoginData}
           onLoginButtonClick={(e) => {
             e.preventDefault();
-            dispatch({
+            dispatch<EnterCredentials>({
               type: LoginActionType.ENTER_CREDENTIALS,
               payload: { username, password },
             });

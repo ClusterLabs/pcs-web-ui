@@ -6,7 +6,9 @@ import { ClusterPage, PageSectionDataLoading } from "app/components";
 
 import ClusterOverview from "./ClusterOverview";
 
-const ClusterOverviewPage = ({ clusterUrlName }) => {
+const ClusterOverviewPage = ({ clusterUrlName }: {
+  clusterUrlName: string
+}) => {
   const { cluster, dataLoaded } = useClusterState(clusterUrlName);
   return (
     <ClusterPage clusterUrlName={clusterUrlName}>

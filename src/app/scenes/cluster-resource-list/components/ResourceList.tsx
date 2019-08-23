@@ -5,11 +5,9 @@ import { Resource } from "app/services/cluster/types";
 
 import ResourceListItem from "./ResourceListItem";
 
-export interface Props {
+const ClusterResourceList = ({ resourceList }: {
   resourceList: Resource[],
-}
-
-const ClusterResourceList = ({ resourceList }: Props) => (
+}) => (
   <DataList aria-label="Cluster resource list">
     {resourceList.map(resource => (
       <ResourceListItem

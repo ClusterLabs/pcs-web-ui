@@ -7,22 +7,15 @@ import {
   InfoCircleIcon,
 } from "@patternfly/react-icons";
 
-enum Variant {
-  success = "success",
-  danger = "danger",
-  warning = "warning",
-  info = "info",
-}
-
 const variantIcons = {
-  [Variant.success]: CheckCircleIcon,
-  [Variant.danger]: ExclamationCircleIcon,
-  [Variant.warning]: ExclamationTriangleIcon,
-  [Variant.info]: InfoCircleIcon,
+  success: CheckCircleIcon,
+  danger: ExclamationCircleIcon,
+  warning: ExclamationTriangleIcon,
+  info: InfoCircleIcon,
 };
 
 const InlineAlert = ({ variant, title, ...rest }: {
-  variant: Variant,
+  variant: "success"|"danger"|"warning"|"info",
   title: string,
 }) => {
   const Icon = variantIcons[variant];
@@ -42,5 +35,7 @@ const InlineAlert = ({ variant, title, ...rest }: {
     </div>
   );
 };
+
+// InlineAlert.Variant = Variant;
 
 export default InlineAlert;

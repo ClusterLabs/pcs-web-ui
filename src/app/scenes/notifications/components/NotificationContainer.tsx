@@ -1,15 +1,17 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Alert } from "@patternfly/react-core";
+import { Alert, AlertActionCloseButton } from "@patternfly/react-core";
 
 import { NotificationSeverity } from "../types";
 import * as selectors from "../selectors";
 import * as NotificationActionCreator from "../actionCreators";
 
-const severityVariantMap = {
-  [NotificationSeverity.SUCCESS]: "success",
-  [NotificationSeverity.ERROR]: "danger",
-  [NotificationSeverity.INFO]: "info",
+const severityToVariant = (severity: NotificationSeverity) => {
+  switch (severity) {
+    case NotificationSeverity.SUCCESS: return "success";
+    case NotificationSeverity.ERROR: return "danger";
+    default: return "info";
+  }
 };
 
 const NotificationContainer = () => {
@@ -20,8 +22,12 @@ const NotificationContainer = () => {
       {notifications.map(({ id, severity, message }) => (
         <li className="notification-item" key={id}>
           <Alert
-            variant={severityVariantMap[severity]}
-            onClose={() => dispatch(NotificationActionCreator.destroy(id))}
+            variant={severityToVariant(severity)}
+            action={(
+              <AlertActionCloseButton
+                onClose={() => dispatch(NotificationActionCreator.destroy(id))}
+              />
+            )}
             title={message}
           />
         </li>

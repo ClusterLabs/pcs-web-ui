@@ -10,8 +10,8 @@ import PageToolbar from "./PageToolbar";
 
 interface Props extends RouteComponentProps {
   history: History,
-  showNavToggle: boolean,
-  onNavToggle: () => void,
+  showNavToggle?: boolean,
+  onNavToggle?: () => void,
 }
 
 const PageHeader = ({ history, showNavToggle, onNavToggle }: Props) => {

@@ -19,9 +19,9 @@ const loginState: Reducer<
   LoginState,
   | AuthAction.AuthRequired
   | AuthAction.AuthSuccess
-  | LoginAction.enterCredentials
-  | LoginAction.loginFailed
-  | LoginAction.logoutSuccess
+  | LoginAction.EnterCredentials
+  | LoginAction.LoginFailed
+  | LoginAction.LogoutSuccess
 > = (state = defaultState, action) => {
   switch (action.type) {
     case AuthActionType.AUTH_REQUIRED: return {

@@ -5,7 +5,12 @@ import {
   DataListCell,
 } from "@patternfly/react-core";
 
-const ClusterNode = ({ nodeName, status }) => (
+import { NODE_STATUS } from "app/services/cluster/types";
+
+const ClusterNode = ({ nodeName, status }: {
+  nodeName: string,
+  status: NODE_STATUS,
+}) => (
   <DataListItem aria-labelledby={nodeName}>
     <DataListItemRow>
       <DataListCell>

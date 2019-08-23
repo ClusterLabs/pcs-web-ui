@@ -6,7 +6,9 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-const ClusterOverview = ({ cluster }) => (
+import { ClusterState } from "app/services/cluster/types";
+
+const ClusterOverview = ({ cluster }: { cluster: ClusterState }) => (
   <Form>
     <FormGroup
       label="Cluster name"

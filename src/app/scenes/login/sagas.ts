@@ -21,7 +21,7 @@ export function* logout() {
     yield put<NotificationAction.Create>(
       NotificationActionCreator.success("Success logout"),
     );
-    yield put<LoginAction.logoutSuccess>({
+    yield put<LoginAction.LogoutSuccess>({
       type: LoginActionType.LOGOUT_SUCCESS,
     });
   } catch (error) {
@@ -30,7 +30,7 @@ export function* logout() {
       yield put<NotificationAction.Create>(
         NotificationActionCreator.success("Already logged out"),
       );
-      yield put<LoginAction.logoutSuccess>({
+      yield put<LoginAction.LogoutSuccess>({
         type: LoginActionType.LOGOUT_SUCCESS,
       });
     } else {
@@ -42,13 +42,13 @@ export function* logout() {
 }
 
 export function* login(
-  { payload: { username, password } }: LoginAction.enterCredentials,
+  { payload: { username, password } }: LoginAction.EnterCredentials,
 ) {
   try {
     yield call(api.call.postForText, "/ui/login", { username, password });
     yield put<AuthAction.AuthSuccess>({ type: AuthActionType.AUTH_SUCCESS });
   } catch (error) {
-    yield put<LoginAction.loginFailed>({
+    yield put<LoginAction.LoginFailed>({
       type: LoginActionType.LOGIN_FAILED,
       payload: {
         badCredentials: api.error.isUnauthorizedError(error),

@@ -1,6 +1,6 @@
 import { LoginActionType } from "./types";
 
-export interface loginFailed {
+export interface LoginFailed {
   type: typeof LoginActionType.LOGIN_FAILED,
   payload: {
     badCredentials: boolean,
@@ -8,7 +8,7 @@ export interface loginFailed {
   }
 }
 
-export interface enterCredentials {
+export interface EnterCredentials {
   type: typeof LoginActionType.ENTER_CREDENTIALS,
   payload: {
     username: string,
@@ -16,10 +16,10 @@ export interface enterCredentials {
   }
 }
 
-export interface logout {
+export interface Logout {
   type: typeof LoginActionType.LOGOUT,
 }
 
-export interface logoutSuccess {
+export interface LogoutSuccess {
   type: typeof LoginActionType.LOGOUT_SUCCESS,
 }

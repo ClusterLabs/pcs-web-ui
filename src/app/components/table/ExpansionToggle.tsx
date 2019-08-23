@@ -26,13 +26,9 @@ function ExpansionToggle(
     "pf-m-gutter",
     "pf-l-split",
   ];
-  // TODO display: flex is supposed to be applied by pf-l-split, however
-  // display: inline-block from pf-c-button is applied
-  // so display: flex is used explicitly
   return (
     <td className={tdClassNames.join(" ")} {...rest}>
       <button
-        style={{ display: "flex" }}
         type="button"
         className={buttonClassNames.join(" ")}
         onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
