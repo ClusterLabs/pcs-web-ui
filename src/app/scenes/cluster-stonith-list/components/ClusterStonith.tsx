@@ -4,7 +4,11 @@ import {
   DataListCell,
 } from "@patternfly/react-core";
 
-const ClusterStonith = ({ stonith: { id } }) => (
+import { FenceDevice } from "app/services/cluster/types";
+
+const ClusterStonith = ({ fenceDevice: { id } }: {
+  fenceDevice: FenceDevice,
+}) => (
   <DataListItem aria-labelledby={id}>
     <DataListCell>
       {id}

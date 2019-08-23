@@ -5,7 +5,9 @@ import { ClusterPage, PageSectionDataLoading } from "app/components";
 
 import ClusterStonithList from "./ClusterStonithList";
 
-const ClusterStonithListPage = ({ clusterUrlName }) => {
+const ClusterStonithListPage = ({ clusterUrlName }: {
+  clusterUrlName: string,
+}) => {
   const { cluster, dataLoaded } = useClusterState(clusterUrlName);
   return (
     <ClusterPage clusterUrlName={clusterUrlName}>
