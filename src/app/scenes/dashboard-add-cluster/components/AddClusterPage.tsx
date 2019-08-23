@@ -6,11 +6,10 @@ import { Wizard } from "@patternfly/react-core";
 import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
 
 import { AUTH_STATE, ClusterAddActionType } from "../types";
+import { AddCluster } from "../actions";
 import * as selectors from "../selectors";
 import AddClusterStepAuth from "./AddClusterStepAuth";
 import AddClusterStepAdd from "./AddClusterStepAdd";
-
-const { ADD_CLUSTER } = ClusterAddActionType;
 
 const AddClusterPage = () => {
   const stepAuthState = useSelector(selectors.getStepAuthState);
@@ -34,8 +33,8 @@ const AddClusterPage = () => {
       <Wizard
         data-role="add-cluster-wizard"
         isOpen
-        onNext={() => dispatch({
-          type: ADD_CLUSTER,
+        onNext={() => dispatch<AddCluster>({
+          type: ClusterAddActionType.ADD_CLUSTER,
           payload: { nodeName },
         })}
         onClose={() => dispatch(push("/"))}

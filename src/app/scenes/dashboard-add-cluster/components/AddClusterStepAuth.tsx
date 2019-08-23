@@ -11,9 +11,8 @@ import { Spinner, InlineAlert } from "app/components";
 
 import * as selectors from "../selectors";
 import { AUTH_STATE, ClusterAddActionType } from "../types";
+import { UpdateNodeName, CheckAuth } from "../actions";
 import AddClusterAuthRequired from "./AddClusterAuthRequired";
-
-const { UPDATE_NODE_NAME, CHECK_AUTH } = ClusterAddActionType;
 
 const helperText = (
   "Enter the name of a node in a cluster that you would like to manage"
@@ -38,8 +37,8 @@ const AddClusterStepAuth = () => {
           name="node-name"
           aria-describedby="Node name for add existing cluster operation"
           value={nodeName}
-          onChange={currentNodeName => dispatch({
-            type: UPDATE_NODE_NAME,
+          onChange={currentNodeName => dispatch<UpdateNodeName>({
+            type: ClusterAddActionType.UPDATE_NODE_NAME,
             payload: { nodeName: currentNodeName },
           })}
         />
@@ -47,7 +46,10 @@ const AddClusterStepAuth = () => {
       {authState === AUTH_STATE.INITIAL && (
         <Button
           variant="primary"
-          onClick={() => dispatch({ type: CHECK_AUTH, payload: { nodeName } })}
+          onClick={() => dispatch<CheckAuth>({
+            type: ClusterAddActionType.CHECK_AUTH,
+            payload: { nodeName },
+          })}
           isDisabled={nodeName.length < 1}
           data-role="check-node-authentication"
         >
