@@ -11,11 +11,7 @@ const mapSeverityToVariant = (severity: ISSUE) => (
 const issueKey = (issue: Issue, index: any) => `${index}:${issue.message}`;
 
 export const issuesToSummaryStatus = StatusIco.itemsToSummaryStatus(
-  (issue: Issue) => (
-    issue.severity === "ERROR"
-      ? StatusIco.STATUS_MAP.ERROR
-      : StatusIco.STATUS_MAP.WARNING
-  ),
+  (issue: Issue) => (issue.severity === "ERROR" ? "ERROR" : "WARNING"),
 );
 
 const DashboardIssueList = ({ issueList }: { issueList: Issue[] }) => (

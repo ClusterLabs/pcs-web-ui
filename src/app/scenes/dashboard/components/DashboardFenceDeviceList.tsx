@@ -13,12 +13,14 @@ const statusLabel = (status: FENCE_DEVICE_STATUS) => {
   }
 };
 
-const statusToStatusIco = (status: FENCE_DEVICE_STATUS) => {
+const statusToStatusIco = (
+  status: FENCE_DEVICE_STATUS,
+): React.ComponentProps<typeof StatusIco>["status"] => {
   switch (status) {
-    case "BLOCKED": return StatusIco.STATUS_MAP.ERROR;
-    case "FAILED": return StatusIco.STATUS_MAP.ERROR;
-    case "RUNNING": return StatusIco.STATUS_MAP.OK;
-    default: return StatusIco.STATUS_MAP.UNKNOWN;
+    case "BLOCKED": return "ERROR";
+    case "FAILED": return "ERROR";
+    case "RUNNING": return "OK";
+    default: return "UNKNOWN";
   }
 };
 
@@ -35,7 +37,6 @@ const statusSeverity = (status: FENCE_DEVICE_STATUS) => {
     default: return 1;
   }
 };
-
 
 const compareByColumn = (column: COLUMNS) => {
   switch (column) {

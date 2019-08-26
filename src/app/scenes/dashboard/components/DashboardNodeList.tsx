@@ -12,11 +12,13 @@ const statusLabel = (status: NODE_STATUS) => {
   }
 };
 
-const statusToStatusIco = (status: NODE_STATUS) => {
+type DisplayableStatus = React.ComponentProps<typeof StatusIco>["status"];
+
+const statusToStatusIco = (status: NODE_STATUS): DisplayableStatus => {
   switch (status) {
-    case "ONLINE": return StatusIco.STATUS_MAP.OK;
-    case "OFFLINE": return StatusIco.STATUS_MAP.ERROR;
-    default: return StatusIco.STATUS_MAP.UNKNOWN;
+    case "ONLINE": return "OK";
+    case "OFFLINE": return "ERROR";
+    default: return "UNKNOWN";
   }
 };
 
@@ -28,11 +30,11 @@ const quorumLabel = (quorum: NODE_QUORUM) => {
   }
 };
 
-const quorumToStatusIco = (quorum: NODE_QUORUM) => {
+const quorumToStatusIco = (quorum: NODE_QUORUM): DisplayableStatus => {
   switch (quorum) {
-    case "YES": return StatusIco.STATUS_MAP.OK;
-    case "NO": return StatusIco.STATUS_MAP.WARNING;
-    default: return StatusIco.STATUS_MAP.UNKNOWN;
+    case "YES": return "OK";
+    case "NO": return "WARNING";
+    default: return "UNKNOWN";
   }
 };
 
@@ -40,15 +42,15 @@ const quorumToStatusIco = (quorum: NODE_QUORUM) => {
 export const nodesToSummaryStatus = StatusIco.itemsToSummaryStatus(
   (node: Node) => {
     if (node.status === "OFFLINE") {
-      return StatusIco.STATUS_MAP.ERROR;
+      return "ERROR";
     }
     if (node.quorum === "NO") {
-      return StatusIco.STATUS_MAP.WARNING;
+      return "WARNING";
     }
     if (node.status === "ONLINE" && node.quorum === "YES") {
-      return StatusIco.STATUS_MAP.OK;
+      return "OK";
     }
-    return StatusIco.STATUS_MAP.UNKNOWN;
+    return "UNKNOWN";
   },
 );
 

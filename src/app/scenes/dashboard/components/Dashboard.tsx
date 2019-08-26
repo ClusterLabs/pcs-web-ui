@@ -19,11 +19,13 @@ enum COLUMNS {
   FENCE_DEVICES = "FENCE_DEVICES",
 }
 
-const severity = (statusIco: StatusIco.STATUS_MAP) => {
+const severity = (
+  statusIco: React.ComponentProps<typeof StatusIco>["status"],
+): number => {
   switch (statusIco) {
-    case StatusIco.STATUS_MAP.ERROR: return 3;
-    case StatusIco.STATUS_MAP.WARNING: return 2;
-    case StatusIco.STATUS_MAP.OK: return 0;
+    case "ERROR": return 3;
+    case "WARNING": return 2;
+    case "OK": return 0;
     default: return 1;
   }
 };

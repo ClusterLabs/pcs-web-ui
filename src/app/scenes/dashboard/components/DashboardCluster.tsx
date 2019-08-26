@@ -24,9 +24,9 @@ const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
 const Summary = ({ itemsCount, summaryStatus }: {
   itemsCount: number,
-  summaryStatus: StatusIco.STATUS_MAP,
+  summaryStatus: React.ComponentProps<typeof StatusIco>["status"],
 }) => {
-  if (summaryStatus === StatusIco.STATUS_MAP.OK) {
+  if (summaryStatus === "OK") {
     return <>{itemsCount}</>;
   }
   return (
