@@ -6,43 +6,12 @@ export enum ClusterActionType {
   FETCH_CLUSTER_DATA_FAILED = "/cluster/FETCH_CLUSTER_DATA_FAILED",
 }
 
-export enum NODE_QUORUM {
-  YES = "cluster/node/quorum/yes",
-  NO = "cluster/node/quorum/no",
-  UNKNOWN = "cluster/node/quorum/unknown",
-}
-
-export enum NODE_STATUS {
-  ONLINE = "cluster/node/status/online",
-  OFFLINE = "cluster/node/status/offline",
-  UNKNOWN = "cluster/node/status/unknown",
-}
-
-export enum RESOURCE_STATUS {
-  RUNNING = "cluster/resource/status/running",
-  BLOCKED = "cluster/resource/status/blocked",
-  FAILED = "cluster/resource/status/failed",
-  UNKNOWN = "cluster/resource/status/unknown",
-}
-
-export enum FENCE_DEVICE_STATUS {
-  RUNNING = "cluster/fence-device/status/running",
-  BLOCKED = "cluster/fence-device/status/blocked",
-  FAILED = "cluster/fence-device/status/failed",
-  UNKNOWN = "cluster/fence-device/status/unknown",
-}
-
-export enum CLUSTER_STATUS {
-  OK = "cluster/status/ok",
-  WARNING = "cluster/status/warning",
-  ERROR = "cluster/status/error",
-  UNKNOWN = "cluster/status/unknown",
-}
-
-export enum ISSUE {
-  ERROR = "cluster/issue/error",
-  WARNING = "cluster/issue/warning",
-}
+export type NODE_QUORUM = "YES"|"NO"|"UNKNOWN";
+export type NODE_STATUS = "ONLINE"|"OFFLINE"|"UNKNOWN";
+export type RESOURCE_STATUS = "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN";
+export type FENCE_DEVICE_STATUS = "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN";
+export type CLUSTER_STATUS = "OK"|"WARNING"|"ERROR"|"UNKNOWN";
+export type ISSUE = "ERROR"|"WARNING";
 
 export interface Issue {
   severity: ISSUE,
@@ -78,12 +47,7 @@ export interface ClusterState {
   issueList: Issue[],
 }
 
-export enum FETCH_STATUS {
-  NOT_STARTED = "NOT_STARTED",
-  IN_PROGRESS = "IN_PROGRESS",
-  SUCCESS = "SUCCESS",
-  ERROR = "ERROR",
-}
+export type FETCH_STATUS = "NOT_STARTED"|"IN_PROGRESS"|"SUCCESS"|"ERROR";
 
 export interface ClusterServiceState {
   clusterState: ClusterState,

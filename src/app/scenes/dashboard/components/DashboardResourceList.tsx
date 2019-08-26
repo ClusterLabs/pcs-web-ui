@@ -6,27 +6,27 @@ import { compareStrings } from "app/utils";
 
 const statusLabel = (status: RESOURCE_STATUS) => {
   switch (status) {
-    case RESOURCE_STATUS.RUNNING: return "Running";
-    case RESOURCE_STATUS.BLOCKED: return "Blocked";
-    case RESOURCE_STATUS.FAILED: return "Failed";
+    case "RUNNING": return "Running";
+    case "BLOCKED": return "Blocked";
+    case "FAILED": return "Failed";
     default: return "Unknown";
   }
 };
 
 const statusToStatusIco = (status: RESOURCE_STATUS) => {
   switch (status) {
-    case RESOURCE_STATUS.BLOCKED: return StatusIco.STATUS_MAP.ERROR;
-    case RESOURCE_STATUS.FAILED: return StatusIco.STATUS_MAP.ERROR;
-    case RESOURCE_STATUS.RUNNING: return StatusIco.STATUS_MAP.OK;
+    case "BLOCKED": return StatusIco.STATUS_MAP.ERROR;
+    case "FAILED": return StatusIco.STATUS_MAP.ERROR;
+    case "RUNNING": return StatusIco.STATUS_MAP.OK;
     default: return StatusIco.STATUS_MAP.UNKNOWN;
   }
 };
 
 const statusSeverity = (status: RESOURCE_STATUS) => {
   switch (status) {
-    case RESOURCE_STATUS.BLOCKED: return 2;
-    case RESOURCE_STATUS.FAILED: return 3;
-    case RESOURCE_STATUS.RUNNING: return 0;
+    case "BLOCKED": return 2;
+    case "FAILED": return 3;
+    case "RUNNING": return 0;
     default: return 1;
   }
 };

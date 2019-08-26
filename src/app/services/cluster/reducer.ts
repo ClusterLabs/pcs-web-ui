@@ -7,16 +7,15 @@ import {
   ClusterActionType,
   ClusterState,
   ClusterServiceState,
-  CLUSTER_STATUS,
   FETCH_STATUS,
 } from "./types";
 import * as ClusterAction from "./actions";
 import clusterApiToState from "./apiToState";
 
-const clusterStatusDefault = {
+const clusterStatusDefault: ClusterState = {
   name: "",
   urlName: "",
-  status: CLUSTER_STATUS.UNKNOWN,
+  status: "UNKNOWN",
   nodeList: [],
   resourceList: [],
   fenceDeviceList: [],
@@ -40,17 +39,17 @@ const dataFetchState: Reducer<FETCH_STATUS, (
     |ClusterAction.FetchClusterDataSuccess
     |ClusterAction.FetchClusterDataFailed
     |AuthAction.AuthRequired
-)> = (state = FETCH_STATUS.NOT_STARTED, action) => {
+)> = (state = "NOT_STARTED", action) => {
   switch (action.type) {
-    case ClusterActionType.SYNC_CLUSTER_DATA: return FETCH_STATUS.IN_PROGRESS;
+    case ClusterActionType.SYNC_CLUSTER_DATA: return "IN_PROGRESS";
     case ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS:
-      return FETCH_STATUS.SUCCESS;
+      return "SUCCESS";
     case ClusterActionType.FETCH_CLUSTER_DATA_FAILED: return (
-      state === FETCH_STATUS.IN_PROGRESS
-        ? FETCH_STATUS.ERROR
+      state === "IN_PROGRESS"
+        ? "ERROR"
         : state
     );
-    case AuthActionType.AUTH_REQUIRED: return FETCH_STATUS.NOT_STARTED;
+    case AuthActionType.AUTH_REQUIRED: return "NOT_STARTED";
     default: return state;
   }
 };

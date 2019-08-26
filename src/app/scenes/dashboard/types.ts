@@ -8,12 +8,7 @@ export enum DashboardActionType {
   SYNC_DASHBOARD_DATA_STOP = "/dashboard/SYNC_DASHBOARD_DATA_STOP",
 }
 
-export enum FETCH_STATUS {
-  NOT_STARTED = "NOT_STARTED",
-  IN_PROGRESS = "IN_PROGRESS",
-  SUCCESS = "SUCCESS",
-  ERROR = "ERROR",
-}
+export type FETCH_STATUS = "NOT_STARTED"|"IN_PROGRESS"|"SUCCESS"|"ERROR"
 
 export interface DashboardState {
   clusterList: ClusterState[],

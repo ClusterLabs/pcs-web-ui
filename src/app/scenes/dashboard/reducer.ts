@@ -33,18 +33,13 @@ const dataFetchState: Reducer<FETCH_STATUS, (
   |DashboardAction.FetchDashboardDataSuccess
   |DashboardAction.FetchDashboardDataFailed
   |AuthAction.AuthRequired
-)> = (state = FETCH_STATUS.NOT_STARTED, action) => {
+)> = (state = "NOT_STARTED", action) => {
   switch (action.type) {
-    case DashboardActionType.SYNC_DASHBOARD_DATA:
-      return FETCH_STATUS.IN_PROGRESS;
-    case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS:
-      return FETCH_STATUS.SUCCESS;
-    case DashboardActionType.FETCH_DASHBOARD_DATA_FAILED: return (
-      state === FETCH_STATUS.IN_PROGRESS
-        ? FETCH_STATUS.ERROR
-        : state
-    );
-    case AuthActionType.AUTH_REQUIRED: return FETCH_STATUS.NOT_STARTED;
+    case DashboardActionType.SYNC_DASHBOARD_DATA: return "IN_PROGRESS";
+    case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS: return "SUCCESS";
+    case DashboardActionType.FETCH_DASHBOARD_DATA_FAILED:
+      return state === "IN_PROGRESS" ? "ERROR" : state;
+    case AuthActionType.AUTH_REQUIRED: return "NOT_STARTED";
     default: return state;
   }
 };

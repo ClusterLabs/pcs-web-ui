@@ -6,32 +6,32 @@ import { compareStrings } from "app/utils";
 
 const statusLabel = (status: NODE_STATUS) => {
   switch (status) {
-    case NODE_STATUS.ONLINE: return "Online";
-    case NODE_STATUS.OFFLINE: return "Offline";
+    case "ONLINE": return "Online";
+    case "OFFLINE": return "Offline";
     default: return "Unknown";
   }
 };
 
 const statusToStatusIco = (status: NODE_STATUS) => {
   switch (status) {
-    case NODE_STATUS.ONLINE: return StatusIco.STATUS_MAP.OK;
-    case NODE_STATUS.OFFLINE: return StatusIco.STATUS_MAP.ERROR;
+    case "ONLINE": return StatusIco.STATUS_MAP.OK;
+    case "OFFLINE": return StatusIco.STATUS_MAP.ERROR;
     default: return StatusIco.STATUS_MAP.UNKNOWN;
   }
 };
 
 const quorumLabel = (quorum: NODE_QUORUM) => {
   switch (quorum) {
-    case NODE_QUORUM.YES: return "Yes";
-    case NODE_QUORUM.NO: return "No";
+    case "YES": return "Yes";
+    case "NO": return "No";
     default: return "Unknown";
   }
 };
 
 const quorumToStatusIco = (quorum: NODE_QUORUM) => {
   switch (quorum) {
-    case NODE_QUORUM.YES: return StatusIco.STATUS_MAP.OK;
-    case NODE_QUORUM.NO: return StatusIco.STATUS_MAP.WARNING;
+    case "YES": return StatusIco.STATUS_MAP.OK;
+    case "NO": return StatusIco.STATUS_MAP.WARNING;
     default: return StatusIco.STATUS_MAP.UNKNOWN;
   }
 };
@@ -39,13 +39,13 @@ const quorumToStatusIco = (quorum: NODE_QUORUM) => {
 
 export const nodesToSummaryStatus = StatusIco.itemsToSummaryStatus(
   (node: Node) => {
-    if (node.status === NODE_STATUS.OFFLINE) {
+    if (node.status === "OFFLINE") {
       return StatusIco.STATUS_MAP.ERROR;
     }
-    if (node.quorum === NODE_QUORUM.NO) {
+    if (node.quorum === "NO") {
       return StatusIco.STATUS_MAP.WARNING;
     }
-    if (node.status === NODE_STATUS.ONLINE && node.quorum === NODE_QUORUM.YES) {
+    if (node.status === "ONLINE" && node.quorum === "YES") {
       return StatusIco.STATUS_MAP.OK;
     }
     return StatusIco.STATUS_MAP.UNKNOWN;
@@ -60,16 +60,16 @@ enum COLUMNS {
 
 const quorumSeverity = (quorum: NODE_QUORUM) => {
   switch (quorum) {
-    case NODE_QUORUM.YES: return 0;
-    case NODE_QUORUM.NO: return 2;
+    case "YES": return 0;
+    case "NO": return 2;
     default: return 1;
   }
 };
 
 const statusSeverity = (status: NODE_STATUS) => {
   switch (status) {
-    case NODE_STATUS.ONLINE: return 0;
-    case NODE_STATUS.OFFLINE: return 2;
+    case "ONLINE": return 0;
+    case "OFFLINE": return 2;
     default: return 1;
   }
 };

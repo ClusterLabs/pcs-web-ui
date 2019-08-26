@@ -6,13 +6,13 @@ import { InlineAlert, StatusIco } from "app/components";
 
 
 const mapSeverityToVariant = (severity: ISSUE) => (
-  severity === ISSUE.ERROR ? "danger" : "warning"
+  severity === "ERROR" ? "danger" : "warning"
 );
 const issueKey = (issue: Issue, index: any) => `${index}:${issue.message}`;
 
 export const issuesToSummaryStatus = StatusIco.itemsToSummaryStatus(
   (issue: Issue) => (
-    issue.severity === ISSUE.ERROR
+    issue.severity === "ERROR"
       ? StatusIco.STATUS_MAP.ERROR
       : StatusIco.STATUS_MAP.WARNING
   ),

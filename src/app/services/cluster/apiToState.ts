@@ -18,37 +18,37 @@ import {
   RESOURCE_STATUS,
 } from "./types";
 
-const mapClusterStatus = (status: ApiClusterStatusFlag) => {
+const mapClusterStatus = (status: ApiClusterStatusFlag): CLUSTER_STATUS => {
   switch (status) {
-    case "ok": return CLUSTER_STATUS.OK;
-    case "warning": return CLUSTER_STATUS.WARNING;
-    case "error": return CLUSTER_STATUS.ERROR;
-    default: return CLUSTER_STATUS.UNKNOWN;
+    case "ok": return "OK";
+    case "warning": return "WARNING";
+    case "error": return "ERROR";
+    default: return "UNKNOWN";
   }
 };
 
 const mapNodeQuorum = (quorum: ApiQuorum): NODE_QUORUM => {
   switch (quorum) {
-    case true: return NODE_QUORUM.YES;
-    case false: return NODE_QUORUM.NO;
-    default: return NODE_QUORUM.UNKNOWN;
+    case true: return "YES";
+    case false: return "NO";
+    default: return "UNKNOWN";
   }
 };
 
 const mapNodeStatus = (status: ApiNodeStatus): NODE_STATUS => {
   switch (status) {
-    case "online": return NODE_STATUS.ONLINE;
-    case "offline": return NODE_STATUS.OFFLINE;
-    default: return NODE_STATUS.UNKNOWN;
+    case "online": return "ONLINE";
+    case "offline": return "OFFLINE";
+    default: return "UNKNOWN";
   }
 };
 
 const mapResourceStatus = (status: ApiResourceStatus): RESOURCE_STATUS => {
   switch (status) {
-    case "running": return RESOURCE_STATUS.RUNNING;
-    case "blocked": return RESOURCE_STATUS.BLOCKED;
-    case "failed": return RESOURCE_STATUS.FAILED;
-    default: return RESOURCE_STATUS.UNKNOWN;
+    case "running": return "RUNNING";
+    case "blocked": return "BLOCKED";
+    case "failed": return "FAILED";
+    default: return "UNKNOWN";
   }
 };
 
@@ -56,10 +56,10 @@ const mapFenceDeviceStatus = (
   status: ApiResourceStatus,
 ): FENCE_DEVICE_STATUS => {
   switch (status) {
-    case "running": return FENCE_DEVICE_STATUS.RUNNING;
-    case "blocked": return FENCE_DEVICE_STATUS.BLOCKED;
-    case "failed": return FENCE_DEVICE_STATUS.FAILED;
-    default: return FENCE_DEVICE_STATUS.UNKNOWN;
+    case "running": return "RUNNING";
+    case "blocked": return "BLOCKED";
+    case "failed": return "FAILED";
+    default: return "UNKNOWN";
   }
 };
 
@@ -69,8 +69,8 @@ const mapIssue = (severity: ISSUE) => (issue: ApiIssue) => ({
 });
 
 const transformIssues = (element: ApiWithIssues) => [
-  ...element.error_list.map(mapIssue(ISSUE.ERROR)),
-  ...element.warning_list.map(mapIssue(ISSUE.WARNING)),
+  ...element.error_list.map(mapIssue("ERROR")),
+  ...element.warning_list.map(mapIssue("WARNING")),
 ];
 
 const apiToState = (apiClusterStatus: ApiClusterStatus): ClusterState => ({

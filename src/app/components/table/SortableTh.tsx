@@ -15,7 +15,7 @@ interface SortState {
   change: (c: Column, d: Direction) => void,
 }
 
-const SortableTh = (
+function SortableTh<C extends Column>(
   {
     children,
     sortState,
@@ -23,10 +23,10 @@ const SortableTh = (
     startDesc = false,
   }: React.PropsWithChildren<{
     sortState: SortState,
-    columnName: Column,
+    columnName: C,
     startDesc?: boolean,
   }>,
-) => {
+) {
   const classNameList = ["pf-c-table__sort"];
   if (sortState.column === columnName) {
     classNameList.push("pf-m-selected");
@@ -75,7 +75,7 @@ const SortableTh = (
       </button>
     </th>
   );
-};
+}
 
 const useSorting = (
   initialColumn: Column = "",
