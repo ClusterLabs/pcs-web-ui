@@ -6,21 +6,21 @@ import { Spinner, InlineAlert } from "app/components";
 import * as selectors from "../selectors";
 import { ADD_STATE } from "../types";
 
+const clusterHasBeenAddedStates: ADD_STATE[] = [
+  "DASHBOARD_RELOADING",
+  "SUCCESS",
+];
+
 const AddClusterAddStep = () => {
   const state = useSelector(selectors.getStepAddState);
   const errorMessage = useSelector(selectors.getStateError);
   return (
     <>
-      {state === ADD_STATE.STARTED &&
+      {state === "STARTED" &&
         <Spinner data-role="waiting-add" text="adding existing cluster..." />
       }
       {
-        [
-          ADD_STATE.DASHBOARD_RELOADING,
-          ADD_STATE.SUCCESS,
-        ].includes(state)
-        &&
-        (
+        clusterHasBeenAddedStates.includes(state) && (
           <InlineAlert
             variant="success"
             title="Cluster has been added."
@@ -28,13 +28,13 @@ const AddClusterAddStep = () => {
           />
         )
       }
-      {state === ADD_STATE.DASHBOARD_RELOADING && (
+      {state === "DASHBOARD_RELOADING" && (
         <Spinner
           data-role="waiting-reload"
           text="waiting for dashboard reload"
         />
       )}
-      {state === ADD_STATE.ERROR && (
+      {state === "ERROR" && (
         <InlineAlert
           variant="danger"
           title={errorMessage}

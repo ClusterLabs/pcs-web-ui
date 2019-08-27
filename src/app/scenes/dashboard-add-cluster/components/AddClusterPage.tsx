@@ -5,7 +5,7 @@ import { Wizard } from "@patternfly/react-core";
 
 import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
 
-import { AUTH_STATE, ClusterAddActionType } from "../types";
+import { ClusterAddActionType } from "../types";
 import { AddCluster } from "../actions";
 import * as selectors from "../selectors";
 import AddClusterStepAuth from "./AddClusterStepAuth";
@@ -20,7 +20,7 @@ const AddClusterPage = () => {
     {
       name: "Node authentication",
       component: <AddClusterStepAuth />,
-      enableNext: stepAuthState === AUTH_STATE.ALREADY_AUTHENTICATED,
+      enableNext: stepAuthState === "ALREADY_AUTHENTICATED",
     },
     {
       name: "Add cluster",

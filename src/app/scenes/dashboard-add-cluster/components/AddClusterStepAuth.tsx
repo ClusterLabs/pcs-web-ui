@@ -18,6 +18,12 @@ const helperText = (
   "Enter the name of a node in a cluster that you would like to manage"
 );
 
+const authRequiredStates: AUTH_STATE[] = [
+  "NOT_AUTHENTICATED",
+  "AUTHENTICATION_IN_PROGRESS",
+  "AUTHENTICATION_FAILED",
+];
+
 const AddClusterStepAuth = () => {
   const authState = useSelector(selectors.getStepAuthState);
   const nodeName = useSelector(selectors.getNodeName);
@@ -43,7 +49,7 @@ const AddClusterStepAuth = () => {
           })}
         />
       </FormGroup>
-      {authState === AUTH_STATE.INITIAL && (
+      {authState === "INITIAL" && (
         <Button
           variant="primary"
           onClick={() => dispatch<CheckAuth>({
@@ -56,11 +62,11 @@ const AddClusterStepAuth = () => {
           Check authentication
         </Button>
       )}
-      {authState === AUTH_STATE.CHECKING && (
+      {authState === "CHECKING" && (
         <Spinner text="Checking authentication" data-role="waiting-auth" />
       )}
 
-      {authState === AUTH_STATE.ALREADY_AUTHENTICATED && (
+      {authState === "ALREADY_AUTHENTICATED" && (
         <InlineAlert
           variant="success"
           title="Node is authenticated. You can add the cluster now."
@@ -68,27 +74,21 @@ const AddClusterStepAuth = () => {
         />
       )}
       {
-        [
-          AUTH_STATE.NOT_AUTHENTICATED,
-          AUTH_STATE.AUTHENTICATION_IN_PROGRESS,
-          AUTH_STATE.AUTHENTICATION_FAILED,
-        ].includes(authState)
-        &&
-        (
+        authRequiredStates.includes(authState) && (
           <AddClusterAuthRequired
             nodeName={nodeName}
             authenticationInProgress={
-              authState === AUTH_STATE.AUTHENTICATION_IN_PROGRESS
+              authState === "AUTHENTICATION_IN_PROGRESS"
             }
             authenticationError={
-              authState === AUTH_STATE.AUTHENTICATION_FAILED
+              authState === "AUTHENTICATION_FAILED"
                 ? stateError
                 : ""
             }
           />
         )
       }
-      {authState === AUTH_STATE.ERROR && (
+      {authState === "ERROR" && (
         <InlineAlert
           variant="danger"
           title={stateError}
