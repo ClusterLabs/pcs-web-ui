@@ -7,22 +7,21 @@ import {
 } from "@patternfly/react-icons";
 
 type Direction = "asc" | "desc";
-type Column = string;
 
-interface SortState {
-  column: Column,
+interface SortState<COLUMN> {
+  column: COLUMN|"",
   direction: Direction,
-  change: (c: Column, d: Direction) => void,
+  change: (c: COLUMN, d: Direction) => void,
 }
 
-function SortableTh<C extends Column>(
+function SortableTh<C extends string>(
   {
     children,
     sortState,
     columnName,
     startDesc = false,
   }: React.PropsWithChildren<{
-    sortState: SortState,
+    sortState: SortState<C>,
     columnName: C,
     startDesc?: boolean,
   }>,
@@ -77,32 +76,52 @@ function SortableTh<C extends Column>(
   );
 }
 
-const useSorting = (
-  initialColumn: Column = "",
+function useSorting<COLUMN extends string>(
+  initialColumn: COLUMN|"" = "",
   initialDirection: Direction = "asc",
-) => {
+) {
   const [column, setColumn] = React.useState(initialColumn);
   const [direction, setDirection] = React.useState(initialDirection);
 
   const compareItems = (
-    compareByColumn: (column: any) => (a: any, b: any) => number,
+    compareByColumn: (column: COLUMN|"") => (a: any, b: any) => number,
   ) => {
     const compare = compareByColumn(column);
     return direction === "desc" ? (a: any, b: any) => compare(b, a) : compare;
   };
 
   const change = React.useCallback(
-    (columnName, sortDirection) => {
+    (columnName: COLUMN, sortDirection: Direction) => {
       setColumn(columnName);
       setDirection(sortDirection);
     },
     [setColumn, setDirection],
   );
-  return {
-    sortState: { column, direction, change },
-    compareItems,
-  };
-};
+  const sortState: SortState<COLUMN> = { column, direction, change };
+  return { sortState, compareItems };
+}
+
+
+// A helper that allows specify collumns types for both, SortableTh component
+// and useSorting hook at once.
+function bindColumns<COLUMN extends string>() {
+  const SortableColumn = (
+    { children, ...args }:
+      React.PropsWithChildren<React.ComponentProps<SortableTh>>
+    ,
+  ) => (
+    <SortableTh<COLUMN> {...args}>{children}</SortableTh>
+  );
+
+  const useBoundSorting = (
+    initialColumn: COLUMN|"" = "",
+    initialDirection: Direction = "asc",
+  ) => useSorting<COLUMN>(initialColumn, initialDirection);
+
+  SortableColumn.useSorting = useBoundSorting;
+  return SortableColumn;
+}
 
 SortableTh.useSorting = useSorting;
+SortableTh.bindColumns = bindColumns;
 export default SortableTh;

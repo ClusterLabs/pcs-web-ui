@@ -11,13 +11,7 @@ import { resourcesToSummaryStatus } from "./DashboardResourceList";
 import { fenceDeviceToSummaryStatus } from "./DashboardFenceDeviceList";
 import { DashboardState } from "../types";
 
-enum COLUMNS {
-  NAME = "NAME",
-  ISSUES = "ISSUES",
-  NODES = "NODES",
-  RESOURCES = "RESOURCES",
-  FENCE_DEVICES = "FENCE_DEVICES",
-}
+type COLUMNS = "NAME"|"ISSUES"|"NODES"|"RESOURCES"|"FENCE_DEVICES";
 
 const severity = (
   statusIco: React.ComponentProps<typeof StatusIco>["status"],
@@ -30,21 +24,21 @@ const severity = (
   }
 };
 
-const compareByColumn = (column: COLUMNS) => {
+const compareByColumn = (column: COLUMNS|"") => {
   switch (column) {
-    case COLUMNS.ISSUES: return (a: ClusterState, b: ClusterState) => (
+    case "ISSUES": return (a: ClusterState, b: ClusterState) => (
       severity(issuesToSummaryStatus(a.issueList))
       - severity(issuesToSummaryStatus(b.issueList))
     );
-    case COLUMNS.NODES: return (a: ClusterState, b: ClusterState) => (
+    case "NODES": return (a: ClusterState, b: ClusterState) => (
       severity(nodesToSummaryStatus(a.nodeList))
       - severity(nodesToSummaryStatus(b.nodeList))
     );
-    case COLUMNS.RESOURCES: return (a: ClusterState, b: ClusterState) => (
+    case "RESOURCES": return (a: ClusterState, b: ClusterState) => (
       severity(resourcesToSummaryStatus(a.resourceList))
       - severity(resourcesToSummaryStatus(b.resourceList))
     );
-    case COLUMNS.FENCE_DEVICES: return (a: ClusterState, b: ClusterState) => (
+    case "FENCE_DEVICES": return (a: ClusterState, b: ClusterState) => (
       severity(fenceDeviceToSummaryStatus(a.fenceDeviceList))
       - severity(fenceDeviceToSummaryStatus(b.fenceDeviceList))
     );
@@ -55,44 +49,33 @@ const compareByColumn = (column: COLUMNS) => {
   }
 };
 
-export default ({ dashboard }: { dashboard: DashboardState }) => {
-  const { sortState, compareItems } = Table.SortableTh.useSorting();
+const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
 
+export default ({ dashboard }: { dashboard: DashboardState }) => {
+  const { sortState, compareItems } = SortableTh.useSorting();
   return (
     <Table isExpandable data-role="cluster-list">
       <thead>
         <tr>
-          <Table.SortableTh columnName={COLUMNS.NAME} sortState={sortState}>
+          <SortableTh columnName="NAME" sortState={sortState}>
             Clusters
-          </Table.SortableTh>
-          <Table.SortableTh
-            columnName={COLUMNS.ISSUES}
-            sortState={sortState}
-            startDesc
-          >
+          </SortableTh>
+          <SortableTh columnName="ISSUES" sortState={sortState} startDesc>
             Issues
-          </Table.SortableTh>
-          <Table.SortableTh
-            columnName={COLUMNS.NODES}
-            sortState={sortState}
-            startDesc
-          >
+          </SortableTh>
+          <SortableTh columnName="NODES" sortState={sortState} startDesc>
             Nodes
-          </Table.SortableTh>
-          <Table.SortableTh
-            columnName={COLUMNS.RESOURCES}
-            sortState={sortState}
-            startDesc
-          >
+          </SortableTh>
+          <SortableTh columnName="RESOURCES" sortState={sortState} startDesc>
             Resources
-          </Table.SortableTh>
-          <Table.SortableTh
-            columnName={COLUMNS.FENCE_DEVICES}
+          </SortableTh>
+          <SortableTh
+            columnName="FENCE_DEVICES"
             sortState={sortState}
             startDesc
           >
             Fence devices
-          </Table.SortableTh>
+          </SortableTh>
         </tr>
       </thead>
       {dashboard.clusterList

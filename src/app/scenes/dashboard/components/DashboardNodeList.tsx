@@ -54,11 +54,7 @@ export const nodesToSummaryStatus = StatusIco.itemsToSummaryStatus(
   },
 );
 
-enum COLUMNS {
-  NAME = "NAME",
-  STATUS = "STATUS",
-  QUORUM = "QUORUM",
-}
+type COLUMNS = "NAME"|"STATUS"|"QUORUM";
 
 const quorumSeverity = (quorum: NODE_QUORUM) => {
   switch (quorum) {
@@ -76,41 +72,35 @@ const statusSeverity = (status: NODE_STATUS) => {
   }
 };
 
-const compareByColumn = (column: COLUMNS) => {
+const compareByColumn = (column: COLUMNS|"") => {
   switch (column) {
-    case COLUMNS.QUORUM: return (a: Node, b: Node) => (
+    case "QUORUM": return (a: Node, b: Node) => (
       quorumSeverity(a.quorum) - quorumSeverity(b.quorum)
     );
-    case COLUMNS.STATUS: return (a: Node, b: Node) => (
+    case "STATUS": return (a: Node, b: Node) => (
       statusSeverity(a.status) - statusSeverity(b.status)
     );
     default: return (a: Node, b: Node) => compareStrings(a.name, b.name);
   }
 };
 
+const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
+
 const DashboardNodeList = ({ nodeList }: { nodeList: Node[] }) => {
-  const { sortState, compareItems } = Table.SortableTh.useSorting(COLUMNS.NAME);
+  const { sortState, compareItems } = SortableTh.useSorting("NAME");
   return (
     <Table isCompact isBorderless>
       <thead>
         <tr>
-          <Table.SortableTh columnName={COLUMNS.NAME} sortState={sortState}>
+          <SortableTh columnName="NAME" sortState={sortState}>
             Node
-          </Table.SortableTh>
-          <Table.SortableTh
-            columnName={COLUMNS.STATUS}
-            sortState={sortState}
-            startDesc
-          >
+          </SortableTh>
+          <SortableTh columnName="STATUS" sortState={sortState} startDesc>
             Status
-          </Table.SortableTh>
-          <Table.SortableTh
-            columnName={COLUMNS.QUORUM}
-            sortState={sortState}
-            startDesc
-          >
+          </SortableTh>
+          <SortableTh columnName="QUORUM" sortState={sortState} startDesc>
             Quorum
-          </Table.SortableTh>
+          </SortableTh>
         </tr>
       </thead>
       <tbody>

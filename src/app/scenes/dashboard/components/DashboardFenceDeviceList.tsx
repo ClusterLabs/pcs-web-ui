@@ -24,10 +24,7 @@ const statusToStatusIco = (
   }
 };
 
-enum COLUMNS {
-  NAME = "NAME",
-  STATUS = "STATUS",
-}
+type COLUMNS = "NAME"|"STATUS";
 
 const statusSeverity = (status: FENCE_DEVICE_STATUS) => {
   switch (status) {
@@ -38,9 +35,9 @@ const statusSeverity = (status: FENCE_DEVICE_STATUS) => {
   }
 };
 
-const compareByColumn = (column: COLUMNS) => {
+const compareByColumn = (column: COLUMNS|"") => {
   switch (column) {
-    case COLUMNS.STATUS: return (a: FenceDevice, b: FenceDevice) => (
+    case "STATUS": return (a: FenceDevice, b: FenceDevice) => (
       statusSeverity(a.status) - statusSeverity(b.status)
     );
     default: return (
@@ -54,25 +51,22 @@ export const fenceDeviceToSummaryStatus = StatusIco.itemsToSummaryStatus(
   (fenceDevice: FenceDevice) => statusToStatusIco(fenceDevice.status),
 );
 
+const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
+
 const DashboardFenceDeviceList = ({ fenceDeviceList }: {
   fenceDeviceList: FenceDevice[],
 }) => {
-  const { sortState, compareItems } = Table.SortableTh.useSorting(COLUMNS.NAME);
-
+  const { sortState, compareItems } = SortableTh.useSorting("NAME");
   return (
     <Table isCompact isBorderless>
       <thead>
         <tr>
-          <Table.SortableTh columnName={COLUMNS.NAME} sortState={sortState}>
+          <SortableTh columnName="NAME" sortState={sortState}>
             Fence device
-          </Table.SortableTh>
-          <Table.SortableTh
-            columnName={COLUMNS.STATUS}
-            sortState={sortState}
-            startDesc
-          >
+          </SortableTh>
+          <SortableTh columnName="STATUS" sortState={sortState} startDesc>
             Status
-          </Table.SortableTh>
+          </SortableTh>
         </tr>
       </thead>
       <tbody>
