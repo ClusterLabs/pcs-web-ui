@@ -1,20 +1,18 @@
 import { ApiClusterStatus } from "app/backend/clusterStatusTypes";
 
-import { ClusterActionType } from "./types";
-
 export interface FetchClusterDataSuccess {
-  type: typeof ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS,
+  type: "CLUSTER_DATA.FETCH.SUCCESS",
   payload: {
     apiClusterStatus: ApiClusterStatus,
   },
 }
 
 export interface FetchClusterDataFailed{
-  type: typeof ClusterActionType.FETCH_CLUSTER_DATA_FAILED,
+  type: "CLUSTER_DATA.FETCH.FAILED",
 }
 
 export interface RefreshClusterData {
-  type: typeof ClusterActionType.REFRESH_CLUSTER_DATA,
+  type: "CLUSTER_DATA.REFRESH",
 }
 
 export interface SyncClusterDataPayload {
@@ -22,10 +20,10 @@ export interface SyncClusterDataPayload {
 }
 
 export interface SyncClusterData {
-  type: typeof ClusterActionType.SYNC_CLUSTER_DATA,
+  type: "CLUSTER_DATA.SYNC",
   payload: SyncClusterDataPayload,
 }
 
 export interface SyncClusterDataStop {
-  type: typeof ClusterActionType.SYNC_CLUSTER_DATA_STOP,
+  type: "CLUSTER_DATA.SYNC.STOP",
 }

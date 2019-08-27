@@ -12,20 +12,16 @@ import * as NotificationActionCreator
 import * as NotificationAction from "app/scenes/notifications/actions";
 import { dataLoadManage } from "app/services/data-load/sagas";
 
-import { ClusterActionType } from "./types";
-
 import * as ClusterAction from "./actions";
 
-function* fetchClusterData(
-  clusterUrlName: string,
-) {
+function* fetchClusterData(clusterUrlName: string) {
   try {
     const apiClusterStatus = yield call(
       auth.getJson,
       `/managec/${clusterUrlName}/cluster_status`,
     );
     yield put<ClusterAction.FetchClusterDataSuccess>({
-      type: ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS,
+      type: "CLUSTER_DATA.FETCH.SUCCESS",
       payload: { apiClusterStatus },
     });
   } catch (error) {
@@ -35,20 +31,34 @@ function* fetchClusterData(
         `Cannot sync data for cluster '${clusterUrlName}': ${errorMessage}`,
       )),
       put<ClusterAction.FetchClusterDataFailed>({
-        type: ClusterActionType.FETCH_CLUSTER_DATA_FAILED,
+        type: "CLUSTER_DATA.FETCH.FAILED",
       }),
     ]);
   }
 }
 
+const START: ClusterAction.SyncClusterData["type"] = ("CLUSTER_DATA.SYNC");
+const SUCCESS: ClusterAction.FetchClusterDataSuccess["type"] = (
+  "CLUSTER_DATA.FETCH.SUCCESS"
+);
+const STOP: ClusterAction.SyncClusterDataStop["type"] = (
+  "CLUSTER_DATA.SYNC.STOP"
+);
+const FAIL: ClusterAction.FetchClusterDataFailed["type"] = (
+  "CLUSTER_DATA.FETCH.FAILED"
+);
+const refreshAction: ClusterAction.RefreshClusterData = {
+  type: "CLUSTER_DATA.REFRESH",
+};
+
 const getClusterDataSyncOptions = () => {
   let clusterUrlName = "";
   return {
-    START: ClusterActionType.SYNC_CLUSTER_DATA,
-    STOP: ClusterActionType.SYNC_CLUSTER_DATA_STOP,
-    SUCCESS: ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS,
-    FAIL: ClusterActionType.FETCH_CLUSTER_DATA_FAILED,
-    refreshAction: { type: ClusterActionType.REFRESH_CLUSTER_DATA },
+    START,
+    STOP,
+    SUCCESS,
+    FAIL,
+    refreshAction,
     takeStartPayload: (payload: ClusterAction.SyncClusterDataPayload) => {
       ({ clusterUrlName } = payload);
     },

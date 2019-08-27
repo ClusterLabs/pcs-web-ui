@@ -3,12 +3,7 @@ import { combineReducers, Reducer } from "redux";
 import { AuthActionType } from "app/services/auth/types";
 import * as AuthAction from "app/services/auth/actions";
 
-import {
-  ClusterActionType,
-  ClusterState,
-  ClusterServiceState,
-  FETCH_STATUS,
-} from "./types";
+import { ClusterState, ClusterServiceState, FETCH_STATUS } from "./types";
 import * as ClusterAction from "./actions";
 import clusterApiToState from "./apiToState";
 
@@ -27,7 +22,7 @@ const clusterState: Reducer<ClusterState, (
   |AuthAction.AuthRequired
 )> = (state = clusterStatusDefault, action) => {
   switch (action.type) {
-    case ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS:
+    case "CLUSTER_DATA.FETCH.SUCCESS":
       return clusterApiToState(action.payload.apiClusterStatus);
     case AuthActionType.AUTH_REQUIRED: return clusterStatusDefault;
     default: return state;
@@ -41,10 +36,9 @@ const dataFetchState: Reducer<FETCH_STATUS, (
     |AuthAction.AuthRequired
 )> = (state = "NOT_STARTED", action) => {
   switch (action.type) {
-    case ClusterActionType.SYNC_CLUSTER_DATA: return "IN_PROGRESS";
-    case ClusterActionType.FETCH_CLUSTER_DATA_SUCCESS:
-      return "SUCCESS";
-    case ClusterActionType.FETCH_CLUSTER_DATA_FAILED: return (
+    case "CLUSTER_DATA.SYNC": return "IN_PROGRESS";
+    case "CLUSTER_DATA.FETCH.SUCCESS": return "SUCCESS";
+    case "CLUSTER_DATA.FETCH.FAILED": return (
       state === "IN_PROGRESS"
         ? "ERROR"
         : state
