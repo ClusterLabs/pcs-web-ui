@@ -1,9 +1,7 @@
-import { AuthActionType } from "./types";
-
 export interface AuthRequired{
-  type: typeof AuthActionType.AUTH_REQUIRED,
+  type: "AUTH.REQUIRED",
 }
 
 export interface AuthSuccess{
-  type: typeof AuthActionType.AUTH_SUCCESS,
+  type: "AUTH.SUCCESS",
 }

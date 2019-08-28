@@ -3,7 +3,7 @@ import { SagaIterator } from "redux-saga";
 
 import * as api from "app/core/api";
 
-import { AuthActionType } from "./types";
+import * as AuthAction from "./actions";
 
 const decorateApiMethod = (
   apiMethod: api.types.ApiCall,
@@ -21,8 +21,9 @@ const decorateApiMethod = (
   }
 
   // Ok, we got 401. So, ask for credentials and wait for login success...
-  yield put({ type: AuthActionType.AUTH_REQUIRED });
-  yield take(AuthActionType.AUTH_SUCCESS);
+  yield put<AuthAction.AuthRequired>({ type: "AUTH.REQUIRED" });
+  const authSuccess: AuthAction.AuthSuccess["type"] = "AUTH.SUCCESS";
+  yield take(authSuccess);
 
   // ...and then second attempt.
   try {

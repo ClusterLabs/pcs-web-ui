@@ -1,6 +1,5 @@
 import { combineReducers, Reducer } from "redux";
 
-import { AuthActionType } from "app/services/auth/types";
 import * as AuthAction from "app/services/auth/actions";
 
 import { ClusterState, ClusterServiceState, FETCH_STATUS } from "./types";
@@ -24,7 +23,7 @@ const clusterState: Reducer<ClusterState, (
   switch (action.type) {
     case "CLUSTER_DATA.FETCH.SUCCESS":
       return clusterApiToState(action.payload.apiClusterStatus);
-    case AuthActionType.AUTH_REQUIRED: return clusterStatusDefault;
+    case "AUTH.REQUIRED": return clusterStatusDefault;
     default: return state;
   }
 };
@@ -43,7 +42,7 @@ const dataFetchState: Reducer<FETCH_STATUS, (
         ? "ERROR"
         : state
     );
-    case AuthActionType.AUTH_REQUIRED: return "NOT_STARTED";
+    case "AUTH.REQUIRED": return "NOT_STARTED";
     default: return state;
   }
 };

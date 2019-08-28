@@ -1,6 +1,5 @@
 import { combineReducers, Reducer } from "redux";
 
-import { AuthActionType } from "app/services/auth/types";
 import * as AuthAction from "app/services/auth/actions";
 
 import {
@@ -23,7 +22,7 @@ const dashboardState: Reducer<DashboardState, (
   switch (action.type) {
     case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS:
       return overviewApiToState(action.payload.apiClusterOverview);
-    case AuthActionType.AUTH_REQUIRED: return dashboardStateDefault;
+    case "AUTH.REQUIRED": return dashboardStateDefault;
     default: return state;
   }
 };
@@ -39,7 +38,7 @@ const dataFetchState: Reducer<FETCH_STATUS, (
     case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS: return "SUCCESS";
     case DashboardActionType.FETCH_DASHBOARD_DATA_FAILED:
       return state === "IN_PROGRESS" ? "ERROR" : state;
-    case AuthActionType.AUTH_REQUIRED: return "NOT_STARTED";
+    case "AUTH.REQUIRED": return "NOT_STARTED";
     default: return state;
   }
 };
