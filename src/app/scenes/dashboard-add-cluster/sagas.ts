@@ -7,7 +7,6 @@ import {
 } from "redux-saga/effects";
 
 import * as auth from "app/services/auth/sagas";
-import { DashboardActionType } from "app/scenes/dashboard/types";
 import * as DashboardAction from "app/scenes/dashboard/actions";
 
 import { ClusterAddActionType } from "./types";
@@ -83,9 +82,12 @@ function* addCluster({ payload: { nodeName } }: ClusterAddAction.AddCluster) {
       type: ClusterAddActionType.RELOAD_DASHBOARD,
     });
     yield put<DashboardAction.RefreshDashboardData>({
-      type: DashboardActionType.REFRESH_DASHBOARD_DATA,
+      type: "DASHBOARD_DATA.REFRESH",
     });
-    yield take(DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS);
+    const fetchSuccess: DashboardAction.FetchDashboardDataSuccess["type"] = (
+      "DASHBOARD_DATA.FETCH.SUCCESS"
+    );
+    yield take(fetchSuccess);
     yield put<ClusterAddAction.AddClusterSuccess>({
       type: ClusterAddActionType.ADD_CLUSTER_SUCCESS,
       payload: { warningMessages: [] },

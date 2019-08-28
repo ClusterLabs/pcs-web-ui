@@ -12,14 +12,13 @@ import * as NotificationActionCreator
 import * as NotificationAction from "app/scenes/notifications/actions";
 import { dataLoadManage } from "app/services/data-load/sagas";
 
-import { DashboardActionType } from "./types";
 import * as DashboardAction from "./actions";
 
 export function* fetchDashboardData() {
   try {
     const apiClusterOverview = yield call(auth.getJson, "/clusters_overview");
     yield put<DashboardAction.FetchDashboardDataSuccess>({
-      type: DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS,
+      type: "DASHBOARD_DATA.FETCH.SUCCESS",
       payload: { apiClusterOverview },
     });
   } catch (error) {
@@ -29,18 +28,33 @@ export function* fetchDashboardData() {
         `Cannot sync dashboard data: ${errorMessage}`,
       )),
       put<DashboardAction.FetchDashboardDataFailed>(
-        { type: DashboardActionType.FETCH_DASHBOARD_DATA_FAILED },
+        { type: "DASHBOARD_DATA.FETCH.FAILED" },
       ),
     ]);
   }
 }
 
+const START: DashboardAction.SyncDashboardData["type"] = "DASHBOARD_DATA.SYNC";
+const STOP: DashboardAction.SyncDashboardDataStop["type"] = (
+  "DASHBOARD_DATA.SYNC.STOP"
+);
+const SUCCESS: DashboardAction.FetchDashboardDataSuccess["type"] = (
+  "DASHBOARD_DATA.FETCH.SUCCESS"
+);
+const FAIL: DashboardAction.FetchDashboardDataFailed["type"] = (
+  "DASHBOARD_DATA.FETCH.FAILED"
+);
+
+const refreshAction: DashboardAction.RefreshDashboardData = {
+  type: "DASHBOARD_DATA.REFRESH",
+};
+
 const getDashboardDataSyncOptions = () => ({
-  START: DashboardActionType.SYNC_DASHBOARD_DATA,
-  STOP: DashboardActionType.SYNC_DASHBOARD_DATA_STOP,
-  SUCCESS: DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS,
-  FAIL: DashboardActionType.FETCH_DASHBOARD_DATA_FAILED,
-  refreshAction: { type: DashboardActionType.REFRESH_DASHBOARD_DATA },
+  START,
+  STOP,
+  SUCCESS,
+  FAIL,
+  refreshAction,
   takeStartPayload: () => {},
   fetch: () => fork(fetchDashboardData),
 });

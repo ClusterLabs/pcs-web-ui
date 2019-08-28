@@ -1,22 +1,24 @@
 import { ApiClustersOverview } from "app/backend/clusterOverviewTypes";
 
-import { DashboardActionType } from "./types";
-
 export interface FetchDashboardDataSuccess {
-  type: typeof DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS,
+  type: "DASHBOARD_DATA.FETCH.SUCCESS",
   payload: {
     apiClusterOverview: ApiClustersOverview,
   },
 }
 
 export interface FetchDashboardDataFailed {
-  type: typeof DashboardActionType.FETCH_DASHBOARD_DATA_FAILED,
+  type: "DASHBOARD_DATA.FETCH.FAILED",
 }
 
 export interface RefreshDashboardData {
-  type: typeof DashboardActionType.REFRESH_DASHBOARD_DATA,
+  type: "DASHBOARD_DATA.REFRESH",
 }
 
 export interface SyncDashboardData {
-  type: typeof DashboardActionType.SYNC_DASHBOARD_DATA,
+  type: "DASHBOARD_DATA.SYNC",
+}
+
+export interface SyncDashboardDataStop {
+  type: "DASHBOARD_DATA.SYNC.STOP",
 }

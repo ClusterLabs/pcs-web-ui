@@ -5,7 +5,6 @@ import * as AuthAction from "app/services/auth/actions";
 import {
   DashboardState,
   DashboardPageState,
-  DashboardActionType,
   FETCH_STATUS,
 } from "./types";
 import * as DashboardAction from "./actions";
@@ -20,7 +19,7 @@ const dashboardState: Reducer<DashboardState, (
   |AuthAction.AuthRequired
 )> = (state = dashboardStateDefault, action) => {
   switch (action.type) {
-    case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS:
+    case "DASHBOARD_DATA.FETCH.SUCCESS":
       return overviewApiToState(action.payload.apiClusterOverview);
     case "AUTH.REQUIRED": return dashboardStateDefault;
     default: return state;
@@ -34,9 +33,9 @@ const dataFetchState: Reducer<FETCH_STATUS, (
   |AuthAction.AuthRequired
 )> = (state = "NOT_STARTED", action) => {
   switch (action.type) {
-    case DashboardActionType.SYNC_DASHBOARD_DATA: return "IN_PROGRESS";
-    case DashboardActionType.FETCH_DASHBOARD_DATA_SUCCESS: return "SUCCESS";
-    case DashboardActionType.FETCH_DASHBOARD_DATA_FAILED:
+    case "DASHBOARD_DATA.SYNC": return "IN_PROGRESS";
+    case "DASHBOARD_DATA.FETCH.SUCCESS": return "SUCCESS";
+    case "DASHBOARD_DATA.FETCH.FAILED":
       return state === "IN_PROGRESS" ? "ERROR" : state;
     case "AUTH.REQUIRED": return "NOT_STARTED";
     default: return state;

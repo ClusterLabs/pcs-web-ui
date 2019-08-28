@@ -14,10 +14,18 @@ import {
 } from "app/components";
 
 /* eslint-disable no-shadow */
-import { DashboardActionType } from "../types";
+import * as DashboardAction from "../actions";
 import * as selectors from "../selectors";
 import Dashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
+
+const start: DashboardAction.SyncDashboardData = {
+  type: "DASHBOARD_DATA.SYNC",
+};
+
+const stop: DashboardAction.SyncDashboardDataStop = {
+  type: "DASHBOARD_DATA.SYNC.STOP",
+};
 
 const useDashboardSync = () => {
   const dispatch = useDispatch();
@@ -26,10 +34,7 @@ const useDashboardSync = () => {
       dispatch<SetupDataReading>({
         type: SET_UP_DATA_READING,
         payload: {
-          reloadDashboard: {
-            start: { type: DashboardActionType.SYNC_DASHBOARD_DATA },
-            stop: { type: DashboardActionType.SYNC_DASHBOARD_DATA_STOP },
-          },
+          reloadDashboard: { start, stop },
         },
       });
     },
