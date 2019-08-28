@@ -2,7 +2,7 @@ import { Reducer } from "redux";
 
 import * as AuthAction from "app/services/auth/actions";
 
-import { LoginActionType, LoginState } from "./types";
+import { LoginState } from "./types";
 import * as LoginAction from "./actions";
 
 const defaultState = {
@@ -14,21 +14,20 @@ const defaultState = {
   errorMessage: "",
 };
 
-const loginState: Reducer<
-  LoginState,
+const loginState: Reducer<LoginState, (
   | AuthAction.AuthRequired
   | AuthAction.AuthSuccess
   | LoginAction.EnterCredentials
   | LoginAction.LoginFailed
   | LoginAction.LogoutSuccess
-> = (state = defaultState, action) => {
+)> = (state = defaultState, action) => {
   switch (action.type) {
     case "AUTH.REQUIRED": return {
       ...state,
       required: true,
       acceptLoginData: true,
     };
-    case LoginActionType.ENTER_CREDENTIALS: return {
+    case "ENTER_CREDENTIALS": return {
       ...state,
       acceptLoginData: false,
     };
@@ -40,7 +39,7 @@ const loginState: Reducer<
       badCredentials: false,
       errorMessage: "",
     };
-    case LoginActionType.LOGIN_FAILED: return {
+    case "LOGIN.FAILED": return {
       ...state,
       required: true,
       acceptLoginData: true,
@@ -48,7 +47,7 @@ const loginState: Reducer<
       badCredentials: action.payload.badCredentials,
       errorMessage: action.payload.message,
     };
-    case LoginActionType.LOGOUT_SUCCESS: return {
+    case "LOGIN.SUCCESS": return {
       ...state,
       logoutApplied: true,
       required: true,
