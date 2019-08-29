@@ -106,7 +106,7 @@ describe("Dashboard scene", () => {
       })),
     );
     expect(issues).to.eql([{
-      status: "error",
+      status: "ERROR",
       alerts: [
         "danger alert: Unable to connect to the cluster.",
         "warning alert: No fencing configured in the cluster",
@@ -127,7 +127,7 @@ describe("Dashboard scene", () => {
       cluster1("[data-role='issues-status']"),
       statuses => statuses.map(e => e.dataset.roleValue),
     );
-    expect(clusterStatuses).to.eql(["ok"]);
+    expect(clusterStatuses).to.eql(["OK"]);
   });
 
   it("should allow to add existing cluster", async () => {
