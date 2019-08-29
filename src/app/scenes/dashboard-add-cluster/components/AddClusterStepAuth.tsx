@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Spinner, InlineAlert } from "app/components";
 
 import * as selectors from "../selectors";
-import { AUTH_STATE, ClusterAddActionType } from "../types";
+import { AUTH_STATE } from "../types";
 import { UpdateNodeName, CheckAuth } from "../actions";
 import AddClusterAuthRequired from "./AddClusterAuthRequired";
 
@@ -44,7 +44,7 @@ const AddClusterStepAuth = () => {
           aria-describedby="Node name for add existing cluster operation"
           value={nodeName}
           onChange={currentNodeName => dispatch<UpdateNodeName>({
-            type: ClusterAddActionType.UPDATE_NODE_NAME,
+            type: "ADD_CLUSTER.NODE_NAME.UPDATE",
             payload: { nodeName: currentNodeName },
           })}
         />
@@ -53,7 +53,7 @@ const AddClusterStepAuth = () => {
         <Button
           variant="primary"
           onClick={() => dispatch<CheckAuth>({
-            type: ClusterAddActionType.CHECK_AUTH,
+            type: "ADD_CLUSTER.CHECK_AUTH",
             payload: { nodeName },
           })}
           isDisabled={nodeName.length < 1}

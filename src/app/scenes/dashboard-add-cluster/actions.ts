@@ -1,21 +1,26 @@
-import { ClusterAddActionType } from "./types";
+export interface AddCluster {
+  type: "ADD_CLUSTER.ADD_CLUSTER",
+  payload: {
+    nodeName: string,
+  },
+}
 
 export interface AddClusterSuccess {
-  type: typeof ClusterAddActionType.ADD_CLUSTER_SUCCESS,
+  type: "ADD_CLUSTER.ADD_CLUSTER.SUCCESS",
   payload: {
     warningMessages: string[],
   },
 }
 
 export interface AddClusterError {
-  type: typeof ClusterAddActionType.ADD_CLUSTER_ERROR,
+  type: "ADD_CLUSTER.ADD_CLUSTER.ERROR",
   payload: {
     message: string,
   }
 }
 
 export interface AuthenticateNode {
-  type: typeof ClusterAddActionType.AUTHENTICATE_NODE,
+  type: "ADD_CLUSTER.AUTHENTICATE_NODE",
   payload: {
     nodeName: string,
     password: string,
@@ -26,50 +31,43 @@ export interface AuthenticateNode {
 }
 
 export interface AuthenticateNodeSuccess {
-  type: typeof ClusterAddActionType.AUTHENTICATE_NODE_SUCCESS,
+  type: "ADD_CLUSTER.AUTHENTICATE_NODE.SUCCESS",
 }
 
 export interface AuthenticateNodeFailed {
-  type: typeof ClusterAddActionType.AUTHENTICATE_NODE_FAILED,
+  type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
   payload: {
     message: string,
   }
 }
 
-export interface AddCluster {
-  type: typeof ClusterAddActionType.ADD_CLUSTER,
-  payload: {
-    nodeName: string,
-  },
-}
-
 export interface CheckAuth {
-  type: typeof ClusterAddActionType.CHECK_AUTH,
+  type: "ADD_CLUSTER.CHECK_AUTH",
   payload: {
     nodeName: string
   },
 }
 
 export interface CheckAuthOk {
-  type: typeof ClusterAddActionType.CHECK_AUTH_OK,
+  type: "ADD_CLUSTER.CHECK_AUTH.OK",
 }
 
 export interface CheckAuthNoAuth {
-  type: typeof ClusterAddActionType.CHECK_AUTH_NO_AUTH,
+  type: "ADD_CLUSTER.CHECK_AUTH.NO_AUTH",
 }
 
 export interface CheckAuthError {
-  type: typeof ClusterAddActionType.CHECK_AUTH_ERROR,
+  type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
   payload: {
     message: string,
   }
 }
 
 export interface ReloadDashboard {
-  type: typeof ClusterAddActionType.RELOAD_DASHBOARD,
+  type: "ADD_CLUSTER.RELOAD_DASHBOARD",
 }
 
 export interface UpdateNodeName {
-  type: typeof ClusterAddActionType.UPDATE_NODE_NAME,
+  type: "ADD_CLUSTER.NODE_NAME.UPDATE",
   payload: { nodeName: string },
 }
