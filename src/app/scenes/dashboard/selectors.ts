@@ -1,9 +1,9 @@
-import { Selector, RootState, RootStateKey } from "app/core/types";
+import { Selector, RootState } from "app/core/types";
 
 import { DashboardState, DashboardPageState } from "./types";
 
 const localState: Selector<RootState, DashboardPageState> = (
-  state => state[RootStateKey.Dashboard]
+  state => state.dashboard
 );
 
 export const getDashboard: Selector<RootState, DashboardState> = (

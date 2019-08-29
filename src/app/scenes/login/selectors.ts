@@ -1,10 +1,8 @@
-import { Selector, RootState, RootStateKey } from "app/core/types";
+import { Selector, RootState } from "app/core/types";
 
 import { LoginState } from "./types";
 
-const localState: Selector<RootState, LoginState> = (
-  state => state[RootStateKey.Login]
-);
+const localState: Selector<RootState, LoginState> = state => state.login;
 
 export const failed: Selector<RootState, boolean> = (
   state => localState(state).failed

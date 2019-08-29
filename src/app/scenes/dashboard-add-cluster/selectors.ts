@@ -1,4 +1,4 @@
-import { Selector, RootState, RootStateKey } from "app/core/types";
+import { Selector, RootState } from "app/core/types";
 
 import {
   NodeName,
@@ -9,7 +9,7 @@ import {
 } from "./types";
 
 const localState: Selector<RootState, DashboardAddClusterPageState> = (
-  state => state[RootStateKey.AddExistingCluster]
+  state => state.addExistingCluster
 );
 
 export const getNodeName: Selector<RootState, NodeName> = (

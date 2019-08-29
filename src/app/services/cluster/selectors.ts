@@ -1,4 +1,4 @@
-import { Selector, RootState, RootStateKey } from "app/core/types";
+import { Selector, RootState } from "app/core/types";
 
 import {
   ClusterServiceState,
@@ -7,7 +7,7 @@ import {
 } from "./types";
 
 const localState: Selector<RootState, ClusterServiceState> = (
-  state => state[RootStateKey.Cluster]
+  state => state.cluster
 );
 
 const fetchStatusSuccess: FETCH_STATUS = "SUCCESS";
