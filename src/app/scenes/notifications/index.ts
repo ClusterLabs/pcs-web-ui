@@ -1,7 +1,8 @@
 import reducer from "./reducer";
-import sagas from "./sagas";
+import sagas, { putNotification } from "./sagas";
 
 export {
   reducer,
   sagas,
+  putNotification,
 };

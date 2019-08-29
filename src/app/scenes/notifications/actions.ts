@@ -1,14 +1,14 @@
-import { NotificationActionType, Notification } from "./types";
+import { Notification } from "./types";
 
 export interface Create {
-  type: typeof NotificationActionType.CREATE,
+  type: "NOTIFICATION.CREATE",
   payload: {
     notification: Notification,
   }
 }
 
 export interface Destroy {
-  type: typeof NotificationActionType.DESTROY,
+  type: "NOTIFICATION.DESTROY",
   payload: {
     id: number,
   }
