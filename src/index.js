@@ -5,6 +5,7 @@ import "@patternfly/react-core/dist/styles/base.css";
 // used for more lightweight components.  But styles are not loaded when
 // paternfly-react Table component is not used. So, table styles are explicitly
 // linked here until better way is discovered.
+import "@patternfly/patternfly/layouts/Split/split.css";
 import "@patternfly/patternfly/components/Table/table.css";
 
 import App from "app/core/components/App";
