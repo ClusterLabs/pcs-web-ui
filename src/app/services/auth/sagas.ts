@@ -1,7 +1,7 @@
 import { call, put, take } from "redux-saga/effects";
 import { SagaIterator } from "redux-saga";
 
-import * as api from "app/core/api";
+import * as api from "app/common/api";
 
 import * as AuthAction from "./actions";
 

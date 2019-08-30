@@ -1,4 +1,4 @@
-import { ApiClusterStatus } from "app/backend/clusterStatusTypes";
+import { ApiClusterStatus } from "app/common/backend/clusterStatusTypes";
 
 export interface FetchClusterDataSuccess {
   type: "CLUSTER_DATA.FETCH.SUCCESS",

@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Table, StatusIco, StatusSign } from "app/components";
+import { Table, StatusIco, StatusSign } from "app/common/components";
 import { RESOURCE_STATUS, Resource } from "app/services/cluster/types";
-import { compareStrings } from "app/utils";
+import { compareStrings } from "app/common/utils";
 
 const statusLabel = (status: RESOURCE_STATUS) => {
   switch (status) {

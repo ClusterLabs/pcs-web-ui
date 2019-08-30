@@ -1,4 +1,4 @@
-import { ApiClustersOverview } from "app/backend/clusterOverviewTypes";
+import { ApiClustersOverview } from "app/common/backend/clusterOverviewTypes";
 
 export interface FetchDashboardDataSuccess {
   type: "DASHBOARD_DATA.FETCH.SUCCESS",

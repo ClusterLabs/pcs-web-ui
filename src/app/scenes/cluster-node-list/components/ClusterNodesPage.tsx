@@ -1,7 +1,7 @@
 import React from "react";
 
 import useClusterState from "app/services/cluster/useClusterState";
-import { PageSectionDataLoading, ClusterPage } from "app/components";
+import { PageSectionDataLoading, ClusterPage } from "app/common/components";
 
 import ClusterNodeList from "./ClusterNodeList";
 

@@ -1,4 +1,4 @@
-import { ApiClustersOverview } from "app/backend/clusterOverviewTypes";
+import { ApiClustersOverview } from "app/common/backend/clusterOverviewTypes";
 import clusterApiToState from "app/services/cluster/apiToState";
 
 import { DashboardState } from "./types";

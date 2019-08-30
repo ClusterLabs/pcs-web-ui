@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Table, StatusIco } from "app/components";
-import { compareStrings } from "app/utils";
+import { Table, StatusIco } from "app/common/components";
+import { compareStrings } from "app/common/utils";
 import { ClusterState } from "app/services/cluster/types";
 
 import DashboardCluster from "./DashboardCluster";

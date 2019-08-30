@@ -7,7 +7,7 @@ import {
 } from "@patternfly/react-core";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Spinner, InlineAlert } from "app/components";
+import { Spinner, InlineAlert } from "app/common/components";
 
 import * as selectors from "../selectors";
 import { AUTH_STATE } from "../types";

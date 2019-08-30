@@ -2,7 +2,7 @@ import React from "react";
 import { Stack, StackItem } from "@patternfly/react-core";
 
 import { ISSUE, Issue } from "app/services/cluster/types";
-import { InlineAlert, StatusIco } from "app/components";
+import { InlineAlert, StatusIco } from "app/common/components";
 
 
 const mapSeverityToVariant = (severity: ISSUE) => (

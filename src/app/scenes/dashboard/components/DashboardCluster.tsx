@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Table, StatusIco } from "app/components";
+import { Table, StatusIco } from "app/common/components";
 import { ClusterState } from "app/services/cluster/types";
 
 import DashboardNodeList, { nodesToSummaryStatus }

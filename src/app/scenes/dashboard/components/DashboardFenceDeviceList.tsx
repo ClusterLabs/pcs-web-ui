@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Table, StatusIco, StatusSign } from "app/components";
+import { Table, StatusIco, StatusSign } from "app/common/components";
 import { FENCE_DEVICE_STATUS, FenceDevice } from "app/services/cluster/types";
-import { compareStrings } from "app/utils";
+import { compareStrings } from "app/common/utils";
 
 const statusLabel = (status: FENCE_DEVICE_STATUS) => {
   switch (status) {

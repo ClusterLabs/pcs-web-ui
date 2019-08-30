@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { Spinner, InlineAlert } from "app/components";
+import { Spinner, InlineAlert } from "app/common/components";
 
 import * as selectors from "../selectors";
 import { ADD_STATE } from "../types";

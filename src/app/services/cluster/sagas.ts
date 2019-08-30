@@ -5,7 +5,7 @@ import {
   put,
 } from "redux-saga/effects";
 
-import * as api from "app/core/api";
+import * as api from "app/common/api";
 import * as auth from "app/services/auth/sagas";
 import { putNotification } from "app/scenes/notifications";
 import { dataLoadManage } from "app/services/data-load/sagas";

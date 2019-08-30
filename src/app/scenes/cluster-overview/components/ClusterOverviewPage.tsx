@@ -2,7 +2,7 @@ import React from "react";
 import { Title } from "@patternfly/react-core";
 
 import useClusterState from "app/services/cluster/useClusterState";
-import { ClusterPage, PageSectionDataLoading } from "app/components";
+import { ClusterPage, PageSectionDataLoading } from "app/common/components";
 
 import ClusterOverview from "./ClusterOverview";
 

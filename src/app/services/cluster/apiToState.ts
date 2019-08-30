@@ -6,7 +6,7 @@ import {
   ApiQuorum,
   ApiResourceStatus,
   ApiWithIssues,
-} from "app/backend/clusterStatusTypes";
+} from "app/common/backend/clusterStatusTypes";
 
 import {
   ClusterState,

@@ -6,7 +6,7 @@ import {
   takeEvery,
 } from "redux-saga/effects";
 
-import { typeIs } from "app/utils";
+import { typeIs } from "app/common/utils";
 import * as auth from "app/services/auth/sagas";
 import * as DashboardAction from "app/scenes/dashboard/actions";
 

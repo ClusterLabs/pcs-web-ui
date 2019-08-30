@@ -11,7 +11,7 @@ import {
   PageSectionDataLoading,
   PageHeader,
   BackgroundImage,
-} from "app/components";
+} from "app/common/components";
 
 /* eslint-disable no-shadow */
 import * as DashboardAction from "../actions";

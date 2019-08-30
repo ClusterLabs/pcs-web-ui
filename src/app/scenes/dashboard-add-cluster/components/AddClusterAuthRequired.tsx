@@ -7,7 +7,7 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { Spinner, InlineAlert } from "app/components";
+import { Spinner, InlineAlert } from "app/common/components";
 
 import { AuthenticateNode } from "../actions";
 import { NodeName, StateError } from "../types";

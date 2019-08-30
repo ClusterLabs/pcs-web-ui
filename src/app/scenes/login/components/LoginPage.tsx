@@ -4,7 +4,7 @@ import {
   LoginForm,
   LoginPage,
 } from "@patternfly/react-core";
-import { BackgroundImage } from "app/components";
+import { BackgroundImage } from "app/common/components";
 
 import * as LoginAction from "../actions";
 import * as selectors from "../selectors";
