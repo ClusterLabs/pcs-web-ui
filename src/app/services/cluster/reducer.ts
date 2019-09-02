@@ -14,6 +14,12 @@ const clusterStatusDefault: ClusterState = {
   resourceList: [],
   fenceDeviceList: [],
   issueList: [],
+  summary: {
+    nodesSeverity: "UNKNOWN",
+    resourcesSeverity: "UNKNOWN",
+    fenceDevicesSeverity: "UNKNOWN",
+    issusSeverity: "UNKNOWN",
+  },
 };
 
 const clusterState: Reducer<ClusterState, (

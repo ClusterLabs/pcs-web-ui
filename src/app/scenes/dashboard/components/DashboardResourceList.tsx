@@ -1,50 +1,22 @@
 import React from "react";
 
-import { Table, StatusIco, StatusSign } from "app/common/components";
-import { RESOURCE_STATUS, Resource } from "app/services/cluster/types";
-import { compareStrings } from "app/common/utils";
-
-const statusLabel = (status: RESOURCE_STATUS) => {
-  switch (status) {
-    case "RUNNING": return "Running";
-    case "BLOCKED": return "Blocked";
-    case "FAILED": return "Failed";
-    default: return "Unknown";
-  }
-};
-
-const statusToStatusIco = (
-  status: RESOURCE_STATUS,
-): React.ComponentProps<typeof StatusIco>["status"] => {
-  switch (status) {
-    case "BLOCKED": return "ERROR";
-    case "FAILED": return "ERROR";
-    case "RUNNING": return "OK";
-    default: return "UNKNOWN";
-  }
-};
-
-const statusSeverity = (status: RESOURCE_STATUS) => {
-  switch (status) {
-    case "BLOCKED": return 2;
-    case "FAILED": return 3;
-    case "RUNNING": return 0;
-    default: return 1;
-  }
-};
-
-export const resourcesToSummaryStatus = StatusIco.itemsToSummaryStatus(
-  (resource: Resource) => statusToStatusIco(resource.status),
-);
+import { Table, StatusSign } from "app/common/components";
+import { Resource } from "app/services/cluster/types";
+import { compareStrings, toLabel, statusSeverity } from "app/common/utils";
 
 type COLUMNS = "NAME"|"STATUS";
 
-const compareByColumn = (column: COLUMNS|"") => {
+const compareByColumn = (
+  column: COLUMNS|"",
+): (
+  (a: Resource, b: Resource) => number
+) => {
   switch (column) {
-    case "STATUS": return (a: Resource, b: Resource) => (
-      statusSeverity(a.status) - statusSeverity(b.status)
+    case "STATUS": return (a, b) => statusSeverity.compare(
+      a.statusSeverity,
+      b.statusSeverity,
     );
-    default: return (a: Resource, b: Resource) => compareStrings(a.id, b.id);
+    default: return (a, b) => compareStrings(a.id, b.id);
   }
 };
 
@@ -73,8 +45,8 @@ const DashboardResourceList = ({ resourceList }: {
             <td>{resource.id}</td>
             <td>
               <StatusSign
-                status={statusToStatusIco(resource.status)}
-                label={statusLabel(resource.status)}
+                status={resource.statusSeverity}
+                label={toLabel(resource.status)}
               />
             </td>
           </tr>

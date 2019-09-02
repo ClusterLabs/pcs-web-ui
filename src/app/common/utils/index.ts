@@ -1,3 +1,5 @@
+import * as statusSeverity from "./statusSeverity";
+
 // tool for enfoce type of literal.
 // Consider e.g. with `take` from redux-saga:
 // `take("ACTION_KEY");`
@@ -19,4 +21,12 @@ export const compareStrings = (a: string, b: string): number => {
     return 1;
   }
   return 0;
+};
+
+export const toLabel = (flag: string) => (
+  flag[0].toUpperCase() + flag.slice(1).toLowerCase()
+);
+
+export {
+  statusSeverity,
 };

@@ -11,7 +11,7 @@ export interface ApiWithIssues {
 
 export type ApiQuorum = boolean|"unknown";
 
-export type ApiNodeStatus = "online"|"offline"|string;
+export type ApiNodeStatus = "online"|"offline";
 
 export interface ApiNode extends ApiWithIssues {
   name: string,
@@ -27,11 +27,9 @@ export interface ApiResource extends ApiWithIssues {
   status: ApiResourceStatus,
 }
 
-export type ApiClusterStatusFlag = "ok"|"warning"|"error"|string;
-
 export interface ApiClusterStatus extends ApiWithIssues{
   cluster_name: string,
-  status: ApiClusterStatusFlag,
+  status: "ok"|"warning"|"error"|string,
   node_list: ApiNode[],
   resource_list: ApiResource[],
 }

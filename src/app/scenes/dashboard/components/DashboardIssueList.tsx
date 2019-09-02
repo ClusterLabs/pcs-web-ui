@@ -2,7 +2,8 @@ import React from "react";
 import { Stack, StackItem } from "@patternfly/react-core";
 
 import { ISSUE, Issue } from "app/services/cluster/types";
-import { InlineAlert, StatusIco } from "app/common/components";
+import { InlineAlert } from "app/common/components";
+import { StatusSeverity } from "app/common/types";
 
 
 const mapSeverityToVariant = (severity: ISSUE) => (
@@ -10,16 +11,15 @@ const mapSeverityToVariant = (severity: ISSUE) => (
 );
 const issueKey = (issue: Issue, index: any) => `${index}:${issue.message}`;
 
-export const issuesToSummaryStatus = StatusIco.itemsToSummaryStatus(
-  (issue: Issue) => (issue.severity === "ERROR" ? "ERROR" : "WARNING"),
-);
-
-const DashboardIssueList = ({ issueList }: { issueList: Issue[] }) => (
+const DashboardIssueList = ({ issueList, summaryStatus }: {
+  issueList: Issue[],
+  summaryStatus: StatusSeverity,
+}) => (
   <Stack
     gutter="sm"
     style={{ margin: "1rem" }}
     data-role="issues-status"
-    data-role-value={issuesToSummaryStatus(issueList)}
+    data-role-value={summaryStatus}
   >
     {issueList.map((issue, i) => (
       <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">

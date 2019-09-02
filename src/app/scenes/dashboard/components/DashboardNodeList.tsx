@@ -1,86 +1,22 @@
 import React from "react";
 
-import { Table, StatusIco, StatusSign } from "app/common/components";
-import { NODE_STATUS, NODE_QUORUM, Node } from "app/services/cluster/types";
-import { compareStrings } from "app/common/utils";
-
-const statusLabel = (status: NODE_STATUS) => {
-  switch (status) {
-    case "ONLINE": return "Online";
-    case "OFFLINE": return "Offline";
-    default: return "Unknown";
-  }
-};
-
-type DisplayableStatus = React.ComponentProps<typeof StatusIco>["status"];
-
-const statusToStatusIco = (status: NODE_STATUS): DisplayableStatus => {
-  switch (status) {
-    case "ONLINE": return "OK";
-    case "OFFLINE": return "ERROR";
-    default: return "UNKNOWN";
-  }
-};
-
-const quorumLabel = (quorum: NODE_QUORUM) => {
-  switch (quorum) {
-    case "YES": return "Yes";
-    case "NO": return "No";
-    default: return "Unknown";
-  }
-};
-
-const quorumToStatusIco = (quorum: NODE_QUORUM): DisplayableStatus => {
-  switch (quorum) {
-    case "YES": return "OK";
-    case "NO": return "WARNING";
-    default: return "UNKNOWN";
-  }
-};
-
-
-export const nodesToSummaryStatus = StatusIco.itemsToSummaryStatus(
-  (node: Node) => {
-    if (node.status === "OFFLINE") {
-      return "ERROR";
-    }
-    if (node.quorum === "NO") {
-      return "WARNING";
-    }
-    if (node.status === "ONLINE" && node.quorum === "YES") {
-      return "OK";
-    }
-    return "UNKNOWN";
-  },
-);
+import { Table, StatusSign } from "app/common/components";
+import { Node } from "app/services/cluster/types";
+import { compareStrings, statusSeverity, toLabel } from "app/common/utils";
 
 type COLUMNS = "NAME"|"STATUS"|"QUORUM";
 
-const quorumSeverity = (quorum: NODE_QUORUM) => {
-  switch (quorum) {
-    case "YES": return 0;
-    case "NO": return 2;
-    default: return 1;
-  }
-};
-
-const statusSeverity = (status: NODE_STATUS) => {
-  switch (status) {
-    case "ONLINE": return 0;
-    case "OFFLINE": return 2;
-    default: return 1;
-  }
-};
-
-const compareByColumn = (column: COLUMNS|"") => {
+const compareByColumn = (column: COLUMNS|""): (a: Node, b: Node) => number => {
   switch (column) {
-    case "QUORUM": return (a: Node, b: Node) => (
-      quorumSeverity(a.quorum) - quorumSeverity(b.quorum)
+    case "QUORUM": return (a, b) => statusSeverity.compare(
+      a.quorumSeverity,
+      b.quorumSeverity,
     );
-    case "STATUS": return (a: Node, b: Node) => (
-      statusSeverity(a.status) - statusSeverity(b.status)
+    case "STATUS": return (a, b) => statusSeverity.compare(
+      a.statusSeverity,
+      b.statusSeverity,
     );
-    default: return (a: Node, b: Node) => compareStrings(a.name, b.name);
+    default: return (a, b) => compareStrings(a.name, b.name);
   }
 };
 
@@ -109,14 +45,14 @@ const DashboardNodeList = ({ nodeList }: { nodeList: Node[] }) => {
             <td>{node.name}</td>
             <td>
               <StatusSign
-                status={statusToStatusIco(node.status)}
-                label={statusLabel(node.status)}
+                status={node.statusSeverity}
+                label={toLabel(node.status)}
               />
             </td>
             <td>
               <StatusSign
-                status={quorumToStatusIco(node.quorum)}
-                label={quorumLabel(node.quorum)}
+                status={node.quorumSeverity}
+                label={toLabel(node.quorum)}
               />
             </td>
           </tr>

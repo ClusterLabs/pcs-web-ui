@@ -4,14 +4,10 @@ import { Link } from "react-router-dom";
 import { Table, StatusIco } from "app/common/components";
 import { ClusterState } from "app/services/cluster/types";
 
-import DashboardNodeList, { nodesToSummaryStatus }
-  from "./DashboardNodeList";
-import DashboardResourceList, { resourcesToSummaryStatus }
-  from "./DashboardResourceList";
-import DashboardFenceDeviceList, { fenceDeviceToSummaryStatus }
-  from "./DashboardFenceDeviceList";
-import DashboardIssueList, { issuesToSummaryStatus }
-  from "./DashboardIssueList";
+import DashboardNodeList from "./DashboardNodeList";
+import DashboardResourceList from "./DashboardResourceList";
+import DashboardFenceDeviceList from "./DashboardFenceDeviceList";
+import DashboardIssueList from "./DashboardIssueList";
 
 const COLUMNS = {
   ISSUES: "ISSUES",
@@ -61,19 +57,19 @@ const DashboardCluster = ({ cluster }: { cluster: ClusterState }) => {
         <Toggle expandKey={COLUMNS.ISSUES} data-role="issues-total">
           <Summary
             itemsCount={cluster.issueList.length}
-            summaryStatus={issuesToSummaryStatus(cluster.issueList)}
+            summaryStatus={cluster.summary.issusSeverity}
           />
         </Toggle>
         <Toggle expandKey={COLUMNS.NODES} data-role="nodes-total">
           <Summary
             itemsCount={cluster.nodeList.length}
-            summaryStatus={nodesToSummaryStatus(cluster.nodeList)}
+            summaryStatus={cluster.summary.nodesSeverity}
           />
         </Toggle>
         <Toggle expandKey={COLUMNS.RESOURCES} data-role="resources-total">
           <Summary
             itemsCount={cluster.resourceList.length}
-            summaryStatus={resourcesToSummaryStatus(cluster.resourceList)}
+            summaryStatus={cluster.summary.resourcesSeverity}
           />
         </Toggle>
         <Toggle
@@ -82,12 +78,15 @@ const DashboardCluster = ({ cluster }: { cluster: ClusterState }) => {
         >
           <Summary
             itemsCount={cluster.fenceDeviceList.length}
-            summaryStatus={fenceDeviceToSummaryStatus(cluster.fenceDeviceList)}
+            summaryStatus={cluster.summary.fenceDevicesSeverity}
           />
         </Toggle>
       </tr>
       <Content expandKey={COLUMNS.ISSUES}>
-        <DashboardIssueList issueList={cluster.issueList} />
+        <DashboardIssueList
+          issueList={cluster.issueList}
+          summaryStatus={cluster.summary.issusSeverity}
+        />
       </Content>
       <Content expandKey={COLUMNS.NODES}>
         <DashboardNodeList nodeList={cluster.nodeList} />

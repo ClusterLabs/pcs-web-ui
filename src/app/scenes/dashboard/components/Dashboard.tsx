@@ -1,51 +1,37 @@
 import React from "react";
 
-import { Table, StatusIco } from "app/common/components";
-import { compareStrings } from "app/common/utils";
+import { Table } from "app/common/components";
+import { compareStrings, statusSeverity } from "app/common/utils";
 import { ClusterState } from "app/services/cluster/types";
 
 import DashboardCluster from "./DashboardCluster";
-import { issuesToSummaryStatus } from "./DashboardIssueList";
-import { nodesToSummaryStatus } from "./DashboardNodeList";
-import { resourcesToSummaryStatus } from "./DashboardResourceList";
-import { fenceDeviceToSummaryStatus } from "./DashboardFenceDeviceList";
 import { DashboardState } from "../types";
 
 type COLUMNS = "NAME"|"ISSUES"|"NODES"|"RESOURCES"|"FENCE_DEVICES";
 
-const severity = (
-  statusIco: React.ComponentProps<typeof StatusIco>["status"],
-): number => {
-  switch (statusIco) {
-    case "ERROR": return 3;
-    case "WARNING": return 2;
-    case "OK": return 0;
-    default: return 1;
-  }
-};
-
-const compareByColumn = (column: COLUMNS|"") => {
+const compareByColumn = (
+  column: COLUMNS|"",
+): (
+  (a: ClusterState, b: ClusterState) => number
+) => {
   switch (column) {
-    case "ISSUES": return (a: ClusterState, b: ClusterState) => (
-      severity(issuesToSummaryStatus(a.issueList))
-      - severity(issuesToSummaryStatus(b.issueList))
+    case "ISSUES": return (a, b) => statusSeverity.compare(
+      a.summary.issusSeverity,
+      b.summary.issusSeverity,
     );
-    case "NODES": return (a: ClusterState, b: ClusterState) => (
-      severity(nodesToSummaryStatus(a.nodeList))
-      - severity(nodesToSummaryStatus(b.nodeList))
+    case "NODES": return (a, b) => statusSeverity.compare(
+      a.summary.nodesSeverity,
+      b.summary.nodesSeverity,
     );
-    case "RESOURCES": return (a: ClusterState, b: ClusterState) => (
-      severity(resourcesToSummaryStatus(a.resourceList))
-      - severity(resourcesToSummaryStatus(b.resourceList))
+    case "RESOURCES": return (a, b) => statusSeverity.compare(
+      a.summary.resourcesSeverity,
+      b.summary.resourcesSeverity,
     );
-    case "FENCE_DEVICES": return (a: ClusterState, b: ClusterState) => (
-      severity(fenceDeviceToSummaryStatus(a.fenceDeviceList))
-      - severity(fenceDeviceToSummaryStatus(b.fenceDeviceList))
+    case "FENCE_DEVICES": return (a, b) => statusSeverity.compare(
+      a.summary.fenceDevicesSeverity,
+      b.summary.fenceDevicesSeverity,
     );
-    default: return (
-      a: ClusterState,
-      b: ClusterState,
-    ) => compareStrings(a.name, b.name);
+    default: return (a, b) => compareStrings(a.name, b.name);
   }
 };
 
