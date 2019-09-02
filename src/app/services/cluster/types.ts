@@ -1,36 +1,29 @@
 import { StatusSeverity } from "app/common/types";
 
-export type NODE_QUORUM = "YES"|"NO"|"UNKNOWN";
-export type NODE_STATUS = "ONLINE"|"OFFLINE"|"UNKNOWN";
-export type RESOURCE_STATUS = "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN";
-export type FENCE_DEVICE_STATUS = "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN";
-export type CLUSTER_STATUS = "OK"|"WARNING"|"ERROR"|"UNKNOWN";
-export type ISSUE = "ERROR"|"WARNING";
-
 export interface Issue {
-  severity: ISSUE,
+  severity: "ERROR"|"WARNING",
   message: string,
 }
 
 export interface Node {
   name: string,
-  status: NODE_STATUS,
+  status: "ONLINE"|"OFFLINE"|"UNKNOWN",
   statusSeverity: StatusSeverity,
-  quorum: NODE_QUORUM,
+  quorum: "YES"|"NO"|"UNKNOWN",
   quorumSeverity: StatusSeverity,
   issueList: Issue[],
 }
 
 export interface Resource {
   id: string,
-  status: RESOURCE_STATUS,
+  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN",
   statusSeverity: StatusSeverity,
   issueList: Issue[],
 }
 
 export interface FenceDevice {
   id: string,
-  status: FENCE_DEVICE_STATUS,
+  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN",
   statusSeverity: StatusSeverity,
   issueList: Issue[],
 }
@@ -38,7 +31,7 @@ export interface FenceDevice {
 export interface ClusterState {
   name: string,
   urlName: string,
-  status: CLUSTER_STATUS,
+  status: "OK"|"WARNING"|"ERROR"|"UNKNOWN",
   nodeList: Node[],
   resourceList: Resource[],
   fenceDeviceList: FenceDevice[],

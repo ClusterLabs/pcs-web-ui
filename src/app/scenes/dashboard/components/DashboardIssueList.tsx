@@ -1,12 +1,12 @@
 import React from "react";
 import { Stack, StackItem } from "@patternfly/react-core";
 
-import { ISSUE, Issue } from "app/services/cluster/types";
+import { Issue } from "app/services/cluster/types";
 import { InlineAlert } from "app/common/components";
 import { StatusSeverity } from "app/common/types";
 
 
-const mapSeverityToVariant = (severity: ISSUE) => (
+const mapSeverityToVariant = (severity: Issue["severity"]) => (
   severity === "ERROR" ? "danger" : "warning"
 );
 const issueKey = (issue: Issue, index: any) => `${index}:${issue.message}`;

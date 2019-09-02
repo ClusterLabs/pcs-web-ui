@@ -16,12 +16,11 @@ import {
   Node,
   Resource,
   FenceDevice,
-  CLUSTER_STATUS,
 } from "./types";
 
 const mapClusterStatus = (
   status: ApiClusterStatus["status"],
-): CLUSTER_STATUS => {
+): ClusterState["status"] => {
   switch (status) {
     case "ok": return "OK";
     case "warning": return "WARNING";
