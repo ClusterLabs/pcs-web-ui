@@ -1,16 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Page,
-  PageSection,
-} from "@patternfly/react-core";
+import { PageSection } from "@patternfly/react-core";
 
 import { SET_UP_DATA_READING } from "app/services/data-load/types";
 import { SetupDataReading } from "app/services/data-load/actions";
 import {
   PageSectionDataLoading,
-  PageHeader,
-  BackgroundImage,
+  Page,
 } from "app/common/components";
 
 /* eslint-disable no-shadow */
@@ -48,17 +44,14 @@ const DashboardPage = () => {
   const dataLoaded = useSelector(selectors.areDataLoaded);
 
   return (
-    <>
-      <BackgroundImage />
-      <Page header={<PageHeader />}>
-        <PageSection>
-          <DashboardToolbar />
-        </PageSection>
-        <PageSectionDataLoading done={dataLoaded}>
-          <Dashboard dashboard={dashboard} />
-        </PageSectionDataLoading>
-      </Page>
-    </>
+    <Page>
+      <PageSection>
+        <DashboardToolbar />
+      </PageSection>
+      <PageSectionDataLoading done={dataLoaded}>
+        <Dashboard dashboard={dashboard} />
+      </PageSectionDataLoading>
+    </Page>
   );
 };
 
