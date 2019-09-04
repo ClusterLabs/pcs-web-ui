@@ -28,7 +28,7 @@ const createTabUrlMap = (
     label: "Resources",
   },
   fenceDevices: {
-    url: `/cluster/${clusterUrlName}/stonith`,
+    url: `/cluster/${clusterUrlName}/fence-devices`,
     label: "Fence Devices",
   },
 });

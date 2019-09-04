@@ -6,7 +6,7 @@ import {
 
 import { FenceDevice } from "app/services/cluster/types";
 
-const ClusterStonith = ({ fenceDevice: { id } }: {
+const ClusterFenceDevice = ({ fenceDevice: { id } }: {
   fenceDevice: FenceDevice,
 }) => (
   <DataListItem aria-labelledby={id}>
@@ -15,4 +15,4 @@ const ClusterStonith = ({ fenceDevice: { id } }: {
     </DataListCell>
   </DataListItem>
 );
-export default ClusterStonith;
+export default ClusterFenceDevice;

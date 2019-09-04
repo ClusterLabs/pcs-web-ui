@@ -13,7 +13,7 @@ import * as dataLoad from "app/services/data-load";
 import { ClusterOverviewPage } from "app/scenes/cluster-overview";
 import { ClusterNodesPage } from "app/scenes/cluster-node-list";
 import { ClusterResourceListPage } from "app/scenes/cluster-resource-list";
-import { ClusterStonithListPage } from "app/scenes/cluster-stonith-list";
+import { ClusterFenceDevicesPage } from "app/scenes/cluster-fence-devices";
 
 import { RootState } from "./types";
 import Scratch from "./components/Scratch";
@@ -67,8 +67,8 @@ const routes = [
   },
   {
     exact: true,
-    path: "/cluster/:clusterUrlName/stonith",
-    render: withClusterUrlName(ClusterStonithListPage),
+    path: "/cluster/:clusterUrlName/fence-devices",
+    render: withClusterUrlName(ClusterFenceDevicesPage),
   },
   {
     exact: true,

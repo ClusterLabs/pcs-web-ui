@@ -4,9 +4,9 @@ import useClusterState from "app/services/cluster/useClusterState";
 import { Page, PageSectionDataLoading } from "app/common/components";
 import { ClusterTabsSection } from "app/services/cluster";
 
-import ClusterStonithList from "./ClusterStonithList";
+import ClusterFenceDeviceList from "./ClusterFenceDeviceList";
 
-const ClusterStonithListPage = ({ clusterUrlName }: {
+const ClusterFenceDevicesPage = ({ clusterUrlName }: {
   clusterUrlName: string,
 }) => {
   const { cluster, dataLoaded } = useClusterState(clusterUrlName);
@@ -17,7 +17,7 @@ const ClusterStonithListPage = ({ clusterUrlName }: {
         currentTab="fenceDevices"
       />
       <PageSectionDataLoading done={dataLoaded}>
-        <ClusterStonithList
+        <ClusterFenceDeviceList
           fenceDeviceList={cluster.fenceDeviceList}
         />
       </PageSectionDataLoading>
@@ -25,4 +25,4 @@ const ClusterStonithListPage = ({ clusterUrlName }: {
   );
 };
 
-export default ClusterStonithListPage;
+export default ClusterFenceDevicesPage;
