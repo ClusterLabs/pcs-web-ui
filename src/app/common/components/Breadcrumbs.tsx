@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 /* eslint-disable react/no-array-index-key */
 const BreadcrumbsView = () => {
   const urlParts = useSelector((state: RootState) => (
-    selectors.getPathName(state).replace(/\/$/, "").split("/").slice(1)
+    selectors.getPathName(state).replace(/\/$/, "").split("/").slice(1, 3)
   ));
   return (
     <PageSection
