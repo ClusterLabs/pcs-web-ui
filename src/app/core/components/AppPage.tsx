@@ -6,14 +6,14 @@ import { renderRoutes } from "react-router-config";
 import { History } from "history";
 
 import LoginPage from "app/scenes/login/components/LoginPage";
-import * as selectors from "app/scenes/login/selectors";
+import * as loginSelectors from "app/scenes/login/selectors";
 import Notifications
   from "app/scenes/notifications/components/NotificationContainer";
 
 import { routes } from "../plug";
 
 const AppPage = ({ history }: { history: History }) => {
-  const loginRequired = useSelector(selectors.loginRequired);
+  const loginRequired = useSelector(loginSelectors.loginRequired);
   return (
     loginRequired
       ? <LoginPage />

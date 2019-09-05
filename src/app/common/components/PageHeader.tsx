@@ -19,7 +19,7 @@ const PageHeader = ({ history, showNavToggle, onNavToggle }: Props) => {
   return (
     <PfPageHeader
       logo="HA Cluster Management"
-      toolbar={React.createElement(PageToolbar)}
+      toolbar={<PageToolbar />}
       showNavToggle={showNavToggle}
       onNavToggle={onNavToggle}
       logoProps={{
