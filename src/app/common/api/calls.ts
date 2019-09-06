@@ -50,7 +50,7 @@ export const getForText = async (url: string, params: ApiParams = {}) => {
     await fetch(getUrl(url, params), { headers: ajaxHeaders }),
   );
 
-  return response.text();
+  return await response.text();
 };
 
 export const postForText = async (
@@ -65,5 +65,5 @@ export const postForText = async (
     },
     body: httpParams(params),
   }));
-  return response.text();
+  return await response.text();
 };

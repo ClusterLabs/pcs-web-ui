@@ -4,4 +4,7 @@ export interface AuthRequired{
 
 export interface AuthSuccess{
   type: "AUTH.SUCCESS",
+  payload: {
+    username: string,
+  }
 }

@@ -4,6 +4,7 @@ import { connectRouter } from "connected-react-router";
 import { History } from "history";
 import { all } from "redux-saga/effects";
 
+import * as username from "app/services/username";
 import * as login from "app/scenes/login";
 import * as dashboard from "app/scenes/dashboard";
 import * as cluster from "app/services/cluster";
@@ -20,6 +21,7 @@ import Scratch from "./components/Scratch";
 import withClusterUrlName from "./components/withClusterUrlName";
 
 const rootReducer = (history: History) => combineReducers<RootState>({
+  username: username.reducer,
   router: connectRouter(history),
   dashboard: dashboard.reducer,
   addExistingCluster: addExistingCluster.reducer,
@@ -30,6 +32,7 @@ const rootReducer = (history: History) => combineReducers<RootState>({
 
 function* rootSaga() {
   yield all([
+    ...username.sagas,
     ...login.sagas,
     ...dataLoad.sagas,
     ...dashboard.sagas,

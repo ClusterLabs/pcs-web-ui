@@ -47,7 +47,7 @@ const loginState: Reducer<LoginState, (
       badCredentials: action.payload.badCredentials,
       errorMessage: action.payload.message,
     };
-    case "LOGIN.SUCCESS": return {
+    case "LOGOUT.SUCCESS": return {
       ...state,
       logoutApplied: true,
       required: true,

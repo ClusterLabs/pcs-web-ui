@@ -14,12 +14,12 @@ export function* logout() {
     yield call(api.call.getForText, "/ui/logout");
 
     yield putNotification("SUCCESS", "Success logout");
-    yield put<LoginAction.LogoutSuccess>({ type: "LOGIN.SUCCESS" });
+    yield put<LoginAction.LogoutSuccess>({ type: "LOGOUT.SUCCESS" });
   } catch (error) {
     if (api.error.isUnauthorizedError(error)) {
       // Ok we are already somehow loged out.
       yield putNotification("SUCCESS", "Already logged out");
-      yield put<LoginAction.LogoutSuccess>({ type: "LOGIN.SUCCESS" });
+      yield put<LoginAction.LogoutSuccess>({ type: "LOGOUT.SUCCESS" });
     } else {
       yield putNotification("ERROR", `Cannot logout: ${error.message}`);
     }
@@ -31,7 +31,10 @@ export function* login(
 ) {
   try {
     yield call(api.call.postForText, "/ui/login", { username, password });
-    yield put<AuthAction.AuthSuccess>({ type: "AUTH.SUCCESS" });
+    yield put<AuthAction.AuthSuccess>({
+      type: "AUTH.SUCCESS",
+      payload: { username },
+    });
   } catch (error) {
     yield put<LoginAction.LoginFailed>({
       type: "LOGIN.FAILED",

@@ -10,10 +10,12 @@ import {
 } from "@patternfly/react-core";
 
 import * as LoginAction from "app/scenes/login/actions";
+import { useUsername } from "app/services/username";
 
 const PageToolbarView = () => {
   const [isDropdownOpen, setDropdownOpen] = React.useState(false);
   const dispatch = useDispatch();
+  const username = useUsername();
   return (
     <Toolbar>
       <ToolbarGroup>
@@ -28,7 +30,7 @@ const PageToolbarView = () => {
                 onToggle={() => setDropdownOpen(!isDropdownOpen)}
                 data-role="user-menu"
               >
-                hacluster
+                {username}
               </DropdownToggle>
             )}
             dropdownItems={[

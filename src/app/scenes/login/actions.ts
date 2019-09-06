@@ -19,5 +19,5 @@ export interface Logout {
 }
 
 export interface LogoutSuccess {
-  type: "LOGIN.SUCCESS",
+  type: "LOGOUT.SUCCESS",
 }

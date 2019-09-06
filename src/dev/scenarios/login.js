@@ -24,6 +24,11 @@ const login = endpoints.login((req, res) => {
     res.send("1533967169-76"); // an ajax id, not important for this app
     return;
   }
+  if (req.body.username === "user1" && req.body.password === "uu") {
+    isLoggedIn = true;
+    res.send("1234567890-12"); // an ajax id, not important for this app
+    return;
+  }
   res.status(401).send('{"notauthorized":"true"}');
 });
 
