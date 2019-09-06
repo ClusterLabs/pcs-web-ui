@@ -11,9 +11,10 @@ import {
   ForkEffect,
 } from "redux-saga/effects";
 
+import { typeIs } from "app/common/utils";
 
-import { SET_UP_DATA_READING, ReadingDefinition } from "./types";
-import { SetupDataReading } from "./actions";
+import { ReadingDefinition } from "./types";
+import * as DataReadingAction from "./actions";
 
 const SYNC_DELAY = 30 * 1000;// ms
 
@@ -121,8 +122,8 @@ export function* setUpDataReading() {
 
   /* eslint-disable no-constant-condition */
   while (true) {
-    const { payload: readings } = yield take<SetupDataReading>(
-      SET_UP_DATA_READING,
+    const { payload: readings } = yield take(
+      typeIs<DataReadingAction.SetupDataReading["type"]>("DATA_READING.SET_UP"),
     );
     const newNames = Object.keys(readings);
     const oldNames = Object.keys(stops);

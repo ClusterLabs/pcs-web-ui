@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { SET_UP_DATA_READING } from "app/services/data-load/types";
-import { SetupDataReading } from "app/services/data-load/actions";
+import * as DataReadingAction from "app/services/data-load/actions";
 
 import * as ClusterAction from "./actions";
 import * as selectors from "./selectors";
@@ -24,8 +23,8 @@ const useClusterState = (clusterUrlName: string) => {
 
   React.useEffect(
     () => {
-      dispatch<SetupDataReading>({
-        type: SET_UP_DATA_READING,
+      dispatch<DataReadingAction.SetupDataReading>({
+        type: "DATA_READING.SET_UP",
         payload: {
           reloadCluster: { specificator: clusterUrlName, start, stop },
         },

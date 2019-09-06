@@ -1,8 +1,8 @@
 import { AnyAction } from "redux";
 
-import { SET_UP_DATA_READING, ReadingDefinition } from "./types";
+import { ReadingDefinition } from "./types";
 
 export interface SetupDataReading extends AnyAction {
-  type: typeof SET_UP_DATA_READING,
+  type: "DATA_READING.SET_UP",
   payload: Record<string, ReadingDefinition>,
 }
