@@ -10,13 +10,13 @@ const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 
 const role = name => `[data-role=${name}]`;
 const WIZARD_SELECTOR = role("add-cluster-wizard");
-const wizzard = (selectors = "") => `${WIZARD_SELECTOR} ${selectors}`.trim();
+const wizard = (selectors = "") => `${WIZARD_SELECTOR} ${selectors}`.trim();
 
 const pollyManager = getPollyManager(() => page());
 
 const isButtonNextDisabled = async () => {
   const isDisabled = await page().$eval(
-    wizzard("footer [type='submit']"),
+    wizard("footer [type='submit']"),
     buttonNext => buttonNext.attributes.disabled !== undefined,
   );
   return isDisabled;
@@ -24,28 +24,28 @@ const isButtonNextDisabled = async () => {
 
 const enterNodeName = async (name) => {
   await page().goto(url("/add-cluster"));
-  await page().waitFor(wizzard());
+  await page().waitFor(wizard());
 
-  await page().type(wizzard("[name='node-name']"), name);
-  await page().click(wizzard(role("check-node-authentication")));
+  await page().type(wizard("[name='node-name']"), name);
+  await page().click(wizard(role("check-node-authentication")));
 };
 
 const goThroughAddStepSuccessfully = async () => {
-  await page().waitFor(wizzard(role("auth-success-message")));
-  await page().click(wizzard("footer [type='submit']"));
-  await page().waitFor(wizzard(role("add-cluster-success")));
+  await page().waitFor(wizard(role("auth-success-message")));
+  await page().click(wizard("footer [type='submit']"));
+  await page().waitFor(wizard(role("add-cluster-success")));
 };
 
 const fillAuthenticationForm = async (passwordValue, addrValue, portValue) => {
-  await page().click(wizzard("#add-cluster-use-custom-address-port"));
-  await page().type(wizzard("[name='password']"), passwordValue);
-  await page().type(wizzard("[name='address']"), addrValue);
-  await page().type(wizzard("[name='port']"), portValue);
-  await page().click(wizzard(role("authenticate-node")));
+  await page().click(wizard("#add-cluster-use-custom-address-port"));
+  await page().type(wizard("[name='password']"), passwordValue);
+  await page().type(wizard("[name='address']"), addrValue);
+  await page().type(wizard("[name='port']"), portValue);
+  await page().click(wizard(role("authenticate-node")));
 };
 
 const authFailed = async () => {
-  await page().waitFor(wizzard(role("auth-error-message")));
+  await page().waitFor(wizard(role("auth-error-message")));
   expect(await isButtonNextDisabled()).to.equal(true);
 };
 
@@ -119,7 +119,7 @@ describe("Add existing cluster", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page().waitFor(wizzard(role("auth-form")));
+    await page().waitFor(wizard(role("auth-form")));
     await fillAuthenticationForm(password, addr, port);
     await goThroughAddStepSuccessfully();
 
@@ -183,9 +183,9 @@ describe("Add existing cluster", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page().waitFor(wizzard(role("auth-form")));
+    await page().waitFor(wizard(role("auth-form")));
     await fillAuthenticationForm(password, addr, port);
-    await page().waitFor(wizzard(role("authentication-failed")));
+    await page().waitFor(wizard(role("authentication-failed")));
 
     verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
     verifyAuthRequest(
@@ -209,9 +209,9 @@ describe("Add existing cluster", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page().waitFor(wizzard(role("auth-success-message")));
-    await page().click(wizzard("footer [type='submit']"));
-    await page().waitFor(wizzard(role("add-cluster-error-message")));
+    await page().waitFor(wizard(role("auth-success-message")));
+    await page().click(wizard("footer [type='submit']"));
+    await page().waitFor(wizard(role("add-cluster-error-message")));
 
     verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
     verifyAddRequest(spy.addCluster, nodeName);
