@@ -9,27 +9,21 @@ export interface ApiWithIssues {
   warning_list: ApiIssue[],
 }
 
-export type ApiQuorum = boolean|"unknown";
-
-export type ApiNodeStatus = "online"|"offline";
-
 export interface ApiNode extends ApiWithIssues {
   name: string,
-  status: ApiNodeStatus,
-  quorum: ApiQuorum,
+  status: "unknown"|"online"|"offline",
+  quorum: boolean|"unknown",
 }
-
-export type ApiResourceStatus = "running"|"blocked"|"failed"|string;
 
 export interface ApiResource extends ApiWithIssues {
   id: string,
   stonith: boolean,
-  status: ApiResourceStatus,
+  status: "running"|"blocked"|"failed"|string,
 }
 
 export interface ApiClusterStatus extends ApiWithIssues{
   cluster_name: string,
-  status: "ok"|"warning"|"error"|string,
+  status: "unknown"|"ok"|"warning"|"error"|string,
   node_list: ApiNode[],
   resource_list: ApiResource[],
 }

@@ -3,7 +3,6 @@ import {
   ApiIssue,
   ApiNode,
   ApiResource,
-  ApiResourceStatus,
   ApiWithIssues,
 } from "app/common/backend/clusterStatusTypes";
 
@@ -93,7 +92,7 @@ const nodesToSummarySeverity = statusSeverity.itemsToSummarySeverity(
 
 // Resources
 const mapPcmkResourceStatus = (
-  status: ApiResourceStatus,
+  status: ApiResource["status"],
 ): Resource["status"] |FenceDevice["status"] => {
   switch (status) {
     case "running": return "RUNNING";
