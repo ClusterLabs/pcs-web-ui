@@ -1,0 +1,3 @@
+#!/bin/sh
+sed -i "s#repository.engineering.redhat.com/nexus/repository/##g" package-lock.json
+git add package-lock.json

@@ -1,8 +1,12 @@
+NEXUS="https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
 LAST_COMMIT_HASH=$(shell git rev-parse HEAD)
 
-start:
-	npx react-scripts start
+ifndef NEXUS_REPO
+	NEXUS_REPO=true
+endif
 
+app:
+	npx react-scripts start
 
 # Some files are removed from build directory:
 # service-worker.js
@@ -42,14 +46,14 @@ pack-modules:
 	node_modules/@pollyjs \
 	node_modules/chai \
 	node_modules/nodemon \
-	
+
 	tar -Jcf pcs-web-ui-node-modules-${LAST_COMMIT_HASH}.tar.xz node_modules
 	rm -r node_modules
 	if [ -d "node_modules.backup" ]; then mv node_modules.backup node_modules; fi
 	ls -l *.tar.xz
 
 
-server:
+dev:
 	@NODE_PATH=src/ node src/dev/backend.js --scenario=$(SCENARIO) --interactive
 
 
@@ -68,5 +72,21 @@ tests:
 clean:
 	rm -rf build
 	rm pcs-web-ui-node-modules-*.tar.xz
+
+init:
+ifeq ($(NEXUS_REPO),true)
+	@echo "Use \`make init NEXUS_REPO=false\` not to use the Nexus repo."
+	@read -p "Specify path to a Nexus repo certificate: " cert; \
+	echo "registry="${NEXUS} > .npmrc; \
+	echo cafile=$$cert >> .npmrc
+	@cp .githooks/pre-commit .git/hooks/pre-commit
+else
+	@echo "If you will need reinit with the Nexus repo run \`make init\`"
+endif
+	@npm install
+ifeq ($(NEXUS_REPO),true)
+	@sed -i \
+	"s#repository.engineering.redhat.com/nexus/repository/##g" package-lock.json
+endif
 
 .PHONY: test build

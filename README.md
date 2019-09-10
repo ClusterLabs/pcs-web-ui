@@ -12,16 +12,15 @@ Pacemaker configuration tool.
 
 * `git clone <repository-url>` this repository
 * change into the new directory
-* `npm install`
+* `make init`
 
 ## Development
 ### Running dev environment
 
-* `make start`
-* `make server SCENARIO=<backend scenario>`
+* `make app`
+* `make dev`
     * dev backend doesn't run fully featured backend mock
     * it runs only scenario with limited features
-    * all possible scenarios are listed by launching only `make server`
 * Open http://localhost:3000 to view it in the browser
 
 ### Running tests
