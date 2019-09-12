@@ -11,7 +11,7 @@ import * as cluster from "app/services/cluster";
 import * as addExistingCluster from "app/scenes/dashboard-add-cluster";
 import * as notifications from "app/scenes/notifications";
 import * as dataLoad from "app/services/data-load";
-import { ClusterOverviewPage } from "app/scenes/cluster-overview";
+import { ClusterDetailPage } from "app/scenes/cluster-detail";
 import { ClusterNodesPage } from "app/scenes/cluster-node-list";
 import { ClusterResourceListPage } from "app/scenes/cluster-resource-list";
 import { ClusterFenceDevicesPage } from "app/scenes/cluster-fence-devices";
@@ -76,7 +76,7 @@ const routes = [
   {
     exact: true,
     path: "/cluster/:clusterUrlName",
-    render: withClusterUrlName(ClusterOverviewPage),
+    render: withClusterUrlName(ClusterDetailPage),
   },
   { render: () => <div>404</div> },
 ];

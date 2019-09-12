@@ -5,7 +5,7 @@ import useClusterState from "app/services/cluster/useClusterState";
 import { Page, PageSectionDataLoading } from "app/common/components";
 import { ClusterTabsSection } from "app/services/cluster";
 
-const ClusterOverviewPage = ({ clusterUrlName }: {
+const ClusterDetailPage = ({ clusterUrlName }: {
   clusterUrlName: string
 }) => {
   const { cluster, dataLoaded } = useClusterState(clusterUrlName);
@@ -13,7 +13,7 @@ const ClusterOverviewPage = ({ clusterUrlName }: {
     <Page>
       <ClusterTabsSection
         clusterUrlName={clusterUrlName}
-        currentTab="overview"
+        currentTab="detail"
       />
       <PageSectionDataLoading done={dataLoaded}>
         <Title size="xl">{cluster.name}</Title>
@@ -22,4 +22,4 @@ const ClusterOverviewPage = ({ clusterUrlName }: {
   );
 };
 
-export default ClusterOverviewPage;
+export default ClusterDetailPage;

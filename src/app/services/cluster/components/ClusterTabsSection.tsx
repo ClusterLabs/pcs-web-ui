@@ -3,21 +3,19 @@ import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 import { PageSection, Tab, Tabs } from "@patternfly/react-core";
 
-type ClusterSection = "overview"|"nodes"|"resources"|"fenceDevices";
-
 interface TabSetting {
   url: string,
   label: string,
 }
 
-type TABS = "overview"|"nodes"|"resources"|"fenceDevices";
+type TABS = "detail"|"nodes"|"resources"|"fenceDevices";
 
 const createTabUrlMap = (
   clusterUrlName: string,
 ) => (): Record<TABS, TabSetting> => ({
-  overview: {
+  detail: {
     url: `/cluster/${clusterUrlName}`,
-    label: "Overview",
+    label: "Detail",
   },
   nodes: {
     url: `/cluster/${clusterUrlName}/nodes`,
