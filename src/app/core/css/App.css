@@ -1,3 +1,7 @@
+html, body, #root {
+  height: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -22,6 +26,8 @@
   font-size: large;
 }
 
+/* NOTIFICATIONS -------------------------------------------------------------*/
+
 #notifications {
   position: fixed;
   top: 85px;
@@ -35,7 +41,50 @@
   margin-bottom: 10px;
 }
 
+/* SPINNER -------------------------------------------------------------------*/
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* TREE-DETAIL VIEW ----------------------------------------------------------*/
+
+/* TODO rem breakpoints would be better than px breakpoints */
+
+/* At larger viewport heights, the page header will be fixed, and scrolling in each panel is independent */
+@media screen and (min-height: 50rem) {
+  .pf-c-page__main-section.pf-m-fill.ha-m-full-height {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+  }
+}
+
+/* styles for layout of split view */
+.ha-c-panel__tree-view {
+  width: 35rem;
+}
+@media screen and (max-width: 70rem) {
+  .ha-c-panel__tree-view {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+/* The tree view panel is designed to shrink and grow in height as the user expands/collapses nodes.
+   If the contents overflow the screen, the card touches the bottom. This is the max-height property.
+   The max-height is calculated from the height of the parent container plus the size of the bottom padding
+   of the page. */
+.pf-c-card.ha-c-panel__tree-view {
+  overflow: auto;
+  max-height: calc(100% + var(--pf-c-page__main-section--PaddingBottom));
+}
+/* The details panel is designed to fill the height regardless of height of contents.
+   If the contents do not need to scroll, then consistent padding displays around the edges of the card
+   But if the contents overflow the screen and require scrolling, then the card touches the bottom of the window. */
+.pf-c-card.ha-c-panel__details-view {
+  overflow: auto;
+  min-height: 100%;
+  max-height: calc(100% + var(--pf-c-page__main-section--PaddingBottom));
 }

@@ -14,11 +14,15 @@ import * as dataLoad from "app/services/data-load";
 import { ClusterDetailPage } from "app/scenes/cluster-detail";
 import { ClusterNodesPage } from "app/scenes/cluster-node-list";
 import { ClusterResourceListPage } from "app/scenes/cluster-resource-list";
+import { ClusterResourceDetailPage } from "app/scenes/cluster-resource-detail";
 import { ClusterFenceDevicesPage } from "app/scenes/cluster-fence-devices";
 
 import { RootState } from "./types";
 import Scratch from "./components/Scratch";
-import withClusterUrlName from "./components/withClusterUrlName";
+import {
+  withClusterUrlName,
+  withResourceUrlName,
+} from "./components/withClusterUrlName";
 
 const rootReducer = (history: History) => combineReducers<RootState>({
   username: username.reducer,
@@ -67,6 +71,11 @@ const routes = [
     exact: true,
     path: "/cluster/:clusterUrlName/resources",
     render: withClusterUrlName(ClusterResourceListPage),
+  },
+  {
+    exact: true,
+    path: "/cluster/:clusterUrlName/resources/:resourceUrlName",
+    render: withResourceUrlName(ClusterResourceDetailPage),
   },
   {
     exact: true,

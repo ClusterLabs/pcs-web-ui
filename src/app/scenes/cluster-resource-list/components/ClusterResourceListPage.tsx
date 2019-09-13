@@ -19,6 +19,9 @@ const ClusterResourceListPage = ({ clusterUrlName }: {
       <PageSectionDataLoading done={dataLoaded}>
         <ResourceList
           resourceList={cluster.resourceList}
+          createResourceDetailUrl={
+            ResourceList.createResourceDetailUrl(clusterUrlName)
+          }
         />
       </PageSectionDataLoading>
     </Page>
