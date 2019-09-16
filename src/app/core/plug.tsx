@@ -19,10 +19,7 @@ import { ClusterFenceDevicesPage } from "app/scenes/cluster-fence-devices";
 
 import { RootState } from "./types";
 import Scratch from "./components/Scratch";
-import {
-  withClusterUrlName,
-  withResourceUrlName,
-} from "./components/withClusterUrlName";
+import { withUrlArgs } from "./components/withClusterUrlName";
 
 const rootReducer = (history: History) => combineReducers<RootState>({
   username: username.reducer,
@@ -65,27 +62,30 @@ const routes = [
   {
     exact: true,
     path: "/cluster/:clusterUrlName/nodes",
-    render: withClusterUrlName(ClusterNodesPage),
+    render: withUrlArgs(["clusterUrlName"], ClusterNodesPage),
   },
   {
     exact: true,
     path: "/cluster/:clusterUrlName/resources",
-    render: withClusterUrlName(ClusterResourceListPage),
+    render: withUrlArgs(["clusterUrlName"], ClusterResourceListPage),
   },
   {
     exact: true,
     path: "/cluster/:clusterUrlName/resources/:resourceUrlName",
-    render: withResourceUrlName(ClusterResourceDetailPage),
+    render: withUrlArgs(
+      ["clusterUrlName", "resourceUrlName"],
+      ClusterResourceDetailPage,
+    ),
   },
   {
     exact: true,
     path: "/cluster/:clusterUrlName/fence-devices",
-    render: withClusterUrlName(ClusterFenceDevicesPage),
+    render: withUrlArgs(["clusterUrlName"], ClusterFenceDevicesPage),
   },
   {
     exact: true,
     path: "/cluster/:clusterUrlName",
-    render: withClusterUrlName(ClusterDetailPage),
+    render: withUrlArgs(["clusterUrlName"], ClusterDetailPage),
   },
   { render: () => <div>404</div> },
 ];
