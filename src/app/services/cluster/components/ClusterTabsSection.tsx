@@ -8,7 +8,7 @@ interface TabSetting {
   label: string,
 }
 
-type TABS = "detail"|"nodes"|"resources"|"fenceDevices";
+export type TABS = "detail"|"nodes"|"resources"|"fenceDevices";
 
 const createTabUrlMap = (
   clusterUrlName: string,
@@ -31,12 +31,10 @@ const createTabUrlMap = (
   },
 });
 
-const ClusterTabsSection = (
-  { clusterUrlName, currentTab, children }: React.PropsWithChildren<{
-    clusterUrlName: string,
-    currentTab: TABS,
-  }>,
-) => {
+const ClusterTabsSection = ({ clusterUrlName, currentTab }: {
+  clusterUrlName: string,
+  currentTab: TABS,
+}) => {
   const dispatch = useDispatch();
   const tabSettingsMap = React.useMemo(
     createTabUrlMap(clusterUrlName),
@@ -54,19 +52,13 @@ const ClusterTabsSection = (
           }
         }}
       >
-        {Object.keys(tabSettingsMap).map((key) => {
-          const tab = key as TABS;
-          if (key === currentTab) {
-            return (
-              <Tab key={key} eventKey={key} title={tabSettingsMap[tab].label}>
-                {children}
-              </Tab>
-            );
-          }
-          return (
-            <Tab key={key} eventKey={key} title={tabSettingsMap[tab].label} />
-          );
-        })}
+        {Object.keys(tabSettingsMap).map(key => (
+          <Tab
+            key={key}
+            eventKey={key}
+            title={tabSettingsMap[key as TABS].label}
+          />
+        ))}
       </Tabs>
     </PageSection>
   );

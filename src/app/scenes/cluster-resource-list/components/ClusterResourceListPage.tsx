@@ -1,8 +1,6 @@
 import React from "react";
 
-import useClusterState from "app/services/cluster/useClusterState";
-import { Page, PageSectionDataLoading } from "app/common/components";
-import { ClusterTabsSection } from "app/services/cluster";
+import { ClusterPage, useClusterState } from "app/services/cluster";
 
 import ResourceList from "./ResourceList";
 
@@ -11,20 +9,18 @@ const ClusterResourceListPage = ({ clusterUrlName }: {
 }) => {
   const { cluster, dataLoaded } = useClusterState(clusterUrlName);
   return (
-    <Page>
-      <ClusterTabsSection
-        clusterUrlName={clusterUrlName}
-        currentTab="resources"
+    <ClusterPage
+      clusterUrlName={clusterUrlName}
+      clusterDataLoaded={dataLoaded}
+      currentTab="resources"
+    >
+      <ResourceList
+        resourceList={cluster.resourceList}
+        createResourceDetailUrl={
+          ResourceList.createResourceDetailUrl(clusterUrlName)
+        }
       />
-      <PageSectionDataLoading done={dataLoaded}>
-        <ResourceList
-          resourceList={cluster.resourceList}
-          createResourceDetailUrl={
-            ResourceList.createResourceDetailUrl(clusterUrlName)
-          }
-        />
-      </PageSectionDataLoading>
-    </Page>
+    </ClusterPage>
   );
 };
 
