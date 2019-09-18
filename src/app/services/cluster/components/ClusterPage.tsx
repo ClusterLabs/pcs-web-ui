@@ -1,8 +1,16 @@
 import React from "react";
+import { PageSection } from "@patternfly/react-core";
 
-import { Page, PageSectionDataLoading } from "app/common/components";
+import { Page, PageSectionDataLoading, UrlTabs } from "app/common/components";
 
-import ClusterTabsSection, { TABS } from "./ClusterTabsSection";
+const labelUrlCreateMap = {
+  Detail: (clusterUrlName: string) => `/cluster/${clusterUrlName}`,
+  Nodes: (clusterUrlName: string) => `/cluster/${clusterUrlName}/nodes`,
+  Resources: (clusterUrlName: string) => `/cluster/${clusterUrlName}/resources`,
+  "Fence Devices": (clusterUrlName: string) => (
+    `/cluster/${clusterUrlName}/fence-devices`
+  ),
+};
 
 const ClusterPage = (
   {
@@ -14,22 +22,33 @@ const ClusterPage = (
   }:React.PropsWithChildren<{
     clusterUrlName: string,
     clusterDataLoaded: boolean,
-    currentTab: TABS,
+    currentTab: keyof typeof labelUrlCreateMap,
     pageSectionClassName?: string,
   }>,
-) => (
-  <Page>
-    <ClusterTabsSection
-      clusterUrlName={clusterUrlName}
-      currentTab={currentTab}
-    />
-    <PageSectionDataLoading
-      done={clusterDataLoaded}
-      className={pageSectionClassName}
-    >
-      {children}
-    </PageSectionDataLoading>
-  </Page>
-);
+) => {
+  const tabSettingsMap = React.useMemo(
+    UrlTabs.createLabelUrlMap(
+      labelUrlCreateMap,
+      (toUrl: (clusterUrlName: string) => string) => toUrl(clusterUrlName),
+    ),
+    [clusterUrlName],
+  );
+  return (
+    <Page>
+      <PageSection variant="light">
+        <UrlTabs
+          tabSettingsMap={tabSettingsMap}
+          currentTab={currentTab}
+        />
+      </PageSection>
+      <PageSectionDataLoading
+        done={clusterDataLoaded}
+        className={pageSectionClassName}
+      >
+        {children}
+      </PageSectionDataLoading>
+    </Page>
+  );
+};
 
 export default ClusterPage;

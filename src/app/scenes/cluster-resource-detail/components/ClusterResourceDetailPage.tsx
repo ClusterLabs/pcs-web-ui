@@ -22,7 +22,7 @@ const ClusterResourceDetailPage = ({ clusterUrlName, resourceUrlName }: {
     <ClusterPage
       clusterUrlName={clusterUrlName}
       clusterDataLoaded={dataLoaded}
-      currentTab="resources"
+      currentTab="Resources"
       pageSectionClassName="ha-m-full-height pf-m-fill"
     >
       <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">

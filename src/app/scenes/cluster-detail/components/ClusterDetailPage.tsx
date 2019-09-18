@@ -11,7 +11,7 @@ const ClusterDetailPage = ({ clusterUrlName }: {
     <ClusterPage
       clusterUrlName={clusterUrlName}
       clusterDataLoaded={dataLoaded}
-      currentTab="detail"
+      currentTab="Detail"
     >
       <Title size="xl">{cluster.name}</Title>
     </ClusterPage>

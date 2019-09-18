@@ -12,7 +12,7 @@ const ClusterResourceListPage = ({ clusterUrlName }: {
     <ClusterPage
       clusterUrlName={clusterUrlName}
       clusterDataLoaded={dataLoaded}
-      currentTab="resources"
+      currentTab="Resources"
     >
       <ResourceList
         resourceList={cluster.resourceList}

@@ -12,7 +12,7 @@ const ClusterFenceDevicesPage = ({ clusterUrlName }: {
     <ClusterPage
       clusterUrlName={clusterUrlName}
       clusterDataLoaded={dataLoaded}
-      currentTab="fenceDevices"
+      currentTab="Fence Devices"
     >
       <ClusterFenceDeviceList
         fenceDeviceList={cluster.fenceDeviceList}

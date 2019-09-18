@@ -10,7 +10,7 @@ const ClusterNodesPage = ({ clusterUrlName }: { clusterUrlName: string }) => {
     <ClusterPage
       clusterUrlName={clusterUrlName}
       clusterDataLoaded={dataLoaded}
-      currentTab="nodes"
+      currentTab="Nodes"
     >
       <ClusterNodeList
         nodeList={cluster.nodeList}
