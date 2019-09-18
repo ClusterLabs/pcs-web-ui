@@ -8,8 +8,8 @@ import { TimesIcon } from "@patternfly/react-icons";
 import { push } from "connected-react-router";
 import { useDispatch } from "react-redux";
 
+import * as url from "app/common/urls";
 import { ClusterPage, useClusterState } from "app/services/cluster";
-
 import { ResourceList } from "app/scenes/cluster-resource-list/";
 
 const ClusterResourceDetailPage = ({ clusterUrlName, resourceUrlName }: {
@@ -44,7 +44,7 @@ const ClusterResourceDetailPage = ({ clusterUrlName, resourceUrlName }: {
                 onClick={
                   (e: React.SyntheticEvent) => {
                     e.preventDefault();
-                    dispatch(push(`/cluster/${clusterUrlName}/resources`));
+                    dispatch(push(url.clusterResources(clusterUrlName)));
                   }
                 }
               >

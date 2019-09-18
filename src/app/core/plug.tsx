@@ -4,6 +4,7 @@ import { connectRouter } from "connected-react-router";
 import { History } from "history";
 import { all } from "redux-saga/effects";
 
+import * as url from "app/common/urls";
 import * as username from "app/services/username";
 import * as login from "app/scenes/login";
 import * as dashboard from "app/scenes/dashboard";
@@ -61,17 +62,17 @@ const routes = [
   },
   {
     exact: true,
-    path: "/cluster/:clusterUrlName/nodes",
+    path: url.clusterNodes(":clusterUrlName"),
     render: withUrlArgs(["clusterUrlName"], ClusterNodesPage),
   },
   {
     exact: true,
-    path: "/cluster/:clusterUrlName/resources",
+    path: url.clusterResources(":clusterUrlName"),
     render: withUrlArgs(["clusterUrlName"], ClusterResourceListPage),
   },
   {
     exact: true,
-    path: "/cluster/:clusterUrlName/resources/:resourceUrlName",
+    path: url.resourcesDetail(":clusterUrlName", ":resourceUrlName"),
     render: withUrlArgs(
       ["clusterUrlName", "resourceUrlName"],
       ClusterResourceDetailPage,
@@ -79,12 +80,12 @@ const routes = [
   },
   {
     exact: true,
-    path: "/cluster/:clusterUrlName/fence-devices",
+    path: url.clusterFenceDevices(":clusterUrlName"),
     render: withUrlArgs(["clusterUrlName"], ClusterFenceDevicesPage),
   },
   {
     exact: true,
-    path: "/cluster/:clusterUrlName",
+    path: url.clusterDetail(":clusterUrlName"),
     render: withUrlArgs(["clusterUrlName"], ClusterDetailPage),
   },
   { render: () => <div>404</div> },

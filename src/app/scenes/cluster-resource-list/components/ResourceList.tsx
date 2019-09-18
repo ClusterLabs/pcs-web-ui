@@ -4,9 +4,10 @@ import {
   DataListItem,
   DataListCell,
 } from "@patternfly/react-core";
-
 import { Resource } from "app/services/cluster/types";
 import { Link } from "react-router-dom";
+
+import * as url from "app/common/urls";
 
 const ClusterResourceList = ({ resourceList, createResourceDetailUrl }: {
   resourceList: Resource[],
@@ -24,8 +25,9 @@ const ClusterResourceList = ({ resourceList, createResourceDetailUrl }: {
 );
 
 ClusterResourceList.createResourceDetailUrl = (
-  (clusterUrlName: string) => (resourceUrlName: string) => (
-    `/cluster/${clusterUrlName}/resources/${resourceUrlName}`
+  (clusterUrlName: string) => (resourceUrlName: string) => url.resourcesDetail(
+    clusterUrlName,
+    resourceUrlName,
   )
 );
 
