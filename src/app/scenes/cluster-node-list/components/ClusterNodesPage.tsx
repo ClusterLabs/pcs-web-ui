@@ -5,11 +5,10 @@ import { ClusterPage, useClusterState } from "app/services/cluster";
 import ClusterNodeList from "./ClusterNodeList";
 
 const ClusterNodesPage = ({ clusterUrlName }: { clusterUrlName: string }) => {
-  const { cluster, dataLoaded } = useClusterState(clusterUrlName);
+  const { cluster } = useClusterState(clusterUrlName);
   return (
     <ClusterPage
       clusterUrlName={clusterUrlName}
-      clusterDataLoaded={dataLoaded}
       currentTab="Nodes"
     >
       <ClusterNodeList

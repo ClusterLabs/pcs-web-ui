@@ -6,11 +6,10 @@ import { ClusterPage, useClusterState } from "app/services/cluster";
 const ClusterDetailPage = ({ clusterUrlName }: {
   clusterUrlName: string
 }) => {
-  const { cluster, dataLoaded } = useClusterState(clusterUrlName);
+  const { cluster } = useClusterState(clusterUrlName);
   return (
     <ClusterPage
       clusterUrlName={clusterUrlName}
-      clusterDataLoaded={dataLoaded}
       currentTab="Detail"
     >
       <Title size="xl">{cluster.name}</Title>

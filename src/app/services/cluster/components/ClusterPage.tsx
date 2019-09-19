@@ -1,8 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { PageSection } from "@patternfly/react-core";
 
 import { Page, PageSectionDataLoading, UrlTabs } from "app/common/components";
 import * as url from "app/common/urls";
+
+import * as selectors from "../selectors";
 
 const labelUrlCreateMap = {
   Detail: url.clusterDetail,
@@ -14,17 +17,16 @@ const labelUrlCreateMap = {
 const ClusterPage = (
   {
     clusterUrlName,
-    clusterDataLoaded,
     currentTab,
     pageSectionClassName = "",
     children,
   }:React.PropsWithChildren<{
     clusterUrlName: string,
-    clusterDataLoaded: boolean,
     currentTab: keyof typeof labelUrlCreateMap,
     pageSectionClassName?: string,
   }>,
 ) => {
+  const dataLoaded = useSelector(selectors.areDataLoaded);
   const tabSettingsMap = React.useMemo(
     UrlTabs.createLabelUrlMap(
       labelUrlCreateMap,
@@ -41,7 +43,7 @@ const ClusterPage = (
         />
       </PageSection>
       <PageSectionDataLoading
-        done={clusterDataLoaded}
+        done={dataLoaded}
         className={pageSectionClassName}
       >
         {children}

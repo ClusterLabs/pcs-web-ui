@@ -7,11 +7,10 @@ import ResourceList from "./ResourceList";
 const ClusterResourceListPage = ({ clusterUrlName }: {
   clusterUrlName: string,
 }) => {
-  const { cluster, dataLoaded } = useClusterState(clusterUrlName);
+  const { cluster } = useClusterState(clusterUrlName);
   return (
     <ClusterPage
       clusterUrlName={clusterUrlName}
-      clusterDataLoaded={dataLoaded}
       currentTab="Resources"
     >
       <ResourceList

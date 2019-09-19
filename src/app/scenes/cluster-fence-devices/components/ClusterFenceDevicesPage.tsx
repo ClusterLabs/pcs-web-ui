@@ -7,11 +7,10 @@ import ClusterFenceDeviceList from "./ClusterFenceDeviceList";
 const ClusterFenceDevicesPage = ({ clusterUrlName }: {
   clusterUrlName: string,
 }) => {
-  const { cluster, dataLoaded } = useClusterState(clusterUrlName);
+  const { cluster } = useClusterState(clusterUrlName);
   return (
     <ClusterPage
       clusterUrlName={clusterUrlName}
-      clusterDataLoaded={dataLoaded}
       currentTab="Fence Devices"
     >
       <ClusterFenceDeviceList

@@ -16,12 +16,11 @@ const ClusterResourceDetailPage = ({ clusterUrlName, resourceUrlName }: {
   clusterUrlName: string,
   resourceUrlName: string,
 }) => {
-  const { cluster, dataLoaded } = useClusterState(clusterUrlName);
+  const { cluster } = useClusterState(clusterUrlName);
   const dispatch = useDispatch();
   return (
     <ClusterPage
       clusterUrlName={clusterUrlName}
-      clusterDataLoaded={dataLoaded}
       currentTab="Resources"
       pageSectionClassName="ha-m-full-height pf-m-fill"
     >
