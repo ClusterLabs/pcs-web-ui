@@ -14,6 +14,7 @@ const node = (id, diff) => deepmerge({
 const resource = (id, diff) => deepmerge({
   id,
   status: "running",
+  class_type: "primitive",
   stonith: false,
   warning_list: [],
   error_list: [],
@@ -21,7 +22,26 @@ const resource = (id, diff) => deepmerge({
 
 const issues = list => list.map(message => ({ message }));
 
-const stonith = (id, diff) => resource(id, { ...diff, stonith: true });
+const stonith = (id, diff) => resource(id, {
+  ...diff,
+  class_type: "stonith",
+  stonith: true,
+});
+
+const group = (id, resources, diff) => deepmerge({
+  id,
+  status: "running",
+  class_type: "group",
+  members: resources,
+}, diff || {});
+
+const clone = (id, member, diff) => deepmerge({
+  id,
+  status: "running",
+  class_type: "clone",
+  member,
+}, diff || {});
+
 
 const cluster = (name, status, diff) => deepmerge(
   {
@@ -40,6 +60,21 @@ const clusterOk = clusterName => cluster(clusterName, "ok", {
   resource_list: [
     resource("R1"),
     stonith("F1"),
+  ],
+});
+
+const resourceTree = cluster("resource-tree", "ok", {
+  resource_list: [
+    resource("A"),
+    group("GROUP-1", [
+      resource("B"),
+      resource("C"),
+    ]),
+    clone("Clone-1", group("GROUP-2", [
+      resource("D"),
+      resource("E"),
+    ])),
+    clone("Clone-2", resource("F")),
   ],
 });
 
@@ -122,4 +157,5 @@ module.exports = {
   error: clusterError,
   big: clusterBig,
   ok2: clusterOk("cluster-4"),
+  resourceTree: resourceTree,
 };

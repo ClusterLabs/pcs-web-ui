@@ -3,6 +3,8 @@ import {
   ApiIssue,
   ApiNode,
   ApiResource,
+  ApiStonith,
+  ApiResourcePcmkPrimitive,
   ApiWithIssues,
 } from "app/common/backend/clusterStatusTypes";
 
@@ -102,7 +104,9 @@ const mapPcmkResourceStatus = (
   }
 };
 
-const pcmkResouceToSeverity = (resource: ApiResource): StatusSeverity => {
+const pcmkResouceToSeverity = (
+  resource: ApiResourcePcmkPrimitive,
+): StatusSeverity => {
   switch (resource.status) {
     case "blocked": return "ERROR";
     case "failed": return "ERROR";
@@ -128,8 +132,12 @@ const issuesToSummarySeverity = (
 };
 
 const apiToState = (apiClusterStatus: ApiClusterStatus): ClusterState => {
-  const resources = apiClusterStatus.resource_list.filter(r => !r.stonith);
-  const fenceDevices = apiClusterStatus.resource_list.filter(r => r.stonith);
+  const resources = apiClusterStatus.resource_list.filter(
+    (r): r is ApiResource => r.class_type === "primitive",
+  );
+  const fenceDevices = apiClusterStatus.resource_list.filter(
+    (r): r is ApiStonith => r.class_type === "stonith",
+  );
   return {
     name: apiClusterStatus.cluster_name,
     urlName: apiClusterStatus.cluster_name,
