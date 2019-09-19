@@ -1,9 +1,9 @@
 import React from "react";
 
-import { useClusterState } from "app/services/cluster";
 import { ResourceDetailPage } from "app/scenes/cluster-resource-detail";
+import { useClusterState } from "app/services/cluster";
 
-const ClusterResourceDetailPage = ({ clusterUrlName, resourceUrlName }: {
+const ClusterResourceAttributesPage = ({ clusterUrlName, resourceUrlName }: {
   clusterUrlName: string,
   resourceUrlName: string,
 }) => {
@@ -12,11 +12,11 @@ const ClusterResourceDetailPage = ({ clusterUrlName, resourceUrlName }: {
     <ResourceDetailPage
       clusterUrlName={clusterUrlName}
       resourceUrlName={resourceUrlName}
-      currentTab="Details"
+      currentTab="Attributes"
     >
-      Details
+      Attributes
     </ResourceDetailPage>
   );
 };
 
-export default ClusterResourceDetailPage;
+export default ClusterResourceAttributesPage;

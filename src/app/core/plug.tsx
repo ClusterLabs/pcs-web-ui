@@ -16,6 +16,9 @@ import { ClusterDetailPage } from "app/scenes/cluster-detail";
 import { ClusterNodesPage } from "app/scenes/cluster-node-list";
 import { ClusterResourceListPage } from "app/scenes/cluster-resource-list";
 import { ClusterResourceDetailPage } from "app/scenes/cluster-resource-detail";
+import {
+  ClusterResourceAttributesPage,
+} from "app/scenes/cluster-resource-attributes";
 import { ClusterFenceDevicesPage } from "app/scenes/cluster-fence-devices";
 
 import { RootState } from "./types";
@@ -76,6 +79,14 @@ const routes = [
     render: withUrlArgs(
       ["clusterUrlName", "resourceUrlName"],
       ClusterResourceDetailPage,
+    ),
+  },
+  {
+    exact: true,
+    path: url.resourcesAttributes(":clusterUrlName", ":resourceUrlName"),
+    render: withUrlArgs(
+      ["clusterUrlName", "resourceUrlName"],
+      ClusterResourceAttributesPage,
     ),
   },
   {

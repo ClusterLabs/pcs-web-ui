@@ -15,3 +15,8 @@ export const resourcesDetail = (
   clusterUrlName: string,
   resourceUrlName: string,
 ) => `/cluster/${clusterUrlName}/resources/${resourceUrlName}`;
+
+export const resourcesAttributes = (
+  clusterUrlName: string,
+  resourceUrlName: string,
+) => `/cluster/${clusterUrlName}/resources/${resourceUrlName}/attributes`;
