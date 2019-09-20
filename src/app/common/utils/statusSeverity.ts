@@ -1,25 +1,18 @@
 import { StatusSeverity } from "../types";
 
-export function itemsToSummarySeverity<T>(
-  itemToStatus: (item: T) => StatusSeverity,
-) {
-  return (itemList: T[]) => itemList.reduce<StatusSeverity>(
-    (sumStatus, item) => {
-      const statuses = [itemToStatus(item), sumStatus];
-      if (statuses.includes("ERROR")) {
-        return "ERROR";
-      }
-      if (statuses.includes("WARNING")) {
-        return "WARNING";
-      }
-      if (statuses.includes("UNKNOWN")) {
-        return "UNKNOWN";
-      }
-      return "OK";
-    },
-    "OK",
-  );
-}
+export const max = (a: StatusSeverity, b: StatusSeverity): StatusSeverity => {
+  const statuses = [a, b];
+  if (statuses.includes("ERROR")) {
+    return "ERROR";
+  }
+  if (statuses.includes("WARNING")) {
+    return "WARNING";
+  }
+  if (statuses.includes("UNKNOWN")) {
+    return "UNKNOWN";
+  }
+  return "OK";
+};
 
 const severity = (status: StatusSeverity): number => {
   switch (status) {

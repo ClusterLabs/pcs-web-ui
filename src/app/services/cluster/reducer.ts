@@ -4,7 +4,7 @@ import * as AuthAction from "app/services/auth/actions";
 
 import { ClusterState, ClusterServiceState, FETCH_STATUS } from "./types";
 import * as ClusterAction from "./actions";
-import clusterApiToState from "./apiToState";
+import { apiToState as clusterApiToState } from "./apiToState";
 
 const clusterStatusDefault: ClusterState = {
   name: "",

@@ -15,37 +15,37 @@ export interface ApiNode extends ApiWithIssues {
   quorum: boolean|"unknown",
 }
 
-export interface ApiResourceLike extends ApiWithIssues {
+export interface ApiResourceBase extends ApiWithIssues {
   id: string,
   class_type: string,
   status: "running"|"blocked"|"failed"|string,
 }
 
-export interface ApiResource extends ApiResourceLike {
+export interface ApiPrimitive extends ApiResourceBase {
   class_type: "primitive",
   stonith: false,
 }
 
-export interface ApiStonith extends ApiResourceLike {
+export interface ApiStonith extends ApiResourceBase {
   class_type: "stonith",
   stonith: true,
 }
 
-export type ApiResourcePcmkPrimitive = ApiResource|ApiStonith;
-
-export interface ApiGroup extends ApiResourceLike {
+export interface ApiGroup extends ApiResourceBase {
   class_type: "group",
-  members: ApiResourcePcmkPrimitive[],
+  members: ApiResource[],
 }
 
-export interface ApiClone extends ApiResourceLike {
+export interface ApiClone extends ApiResourceBase {
   class_type: "clone",
-  member: ApiResourcePcmkPrimitive|ApiGroup,
+  member: ApiPrimitive|ApiGroup,
 }
+
+export type ApiResource = ApiPrimitive|ApiGroup|ApiClone|ApiStonith;
 
 export interface ApiClusterStatus extends ApiWithIssues{
   cluster_name: string,
   status: "unknown"|"ok"|"warning"|"error"|string,
   node_list: ApiNode[],
-  resource_list: (ApiResourcePcmkPrimitive|ApiGroup|ApiClone)[],
+  resource_list: ApiResource[],
 }

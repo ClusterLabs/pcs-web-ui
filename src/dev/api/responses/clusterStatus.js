@@ -33,6 +33,8 @@ const group = (id, resources, diff) => deepmerge({
   status: "running",
   class_type: "group",
   members: resources,
+  warning_list: [],
+  error_list: [],
 }, diff || {});
 
 const clone = (id, member, diff) => deepmerge({
@@ -40,6 +42,8 @@ const clone = (id, member, diff) => deepmerge({
   status: "running",
   class_type: "clone",
   member,
+  warning_list: [],
+  error_list: [],
 }, diff || {});
 
 

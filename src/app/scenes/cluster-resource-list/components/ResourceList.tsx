@@ -4,13 +4,13 @@ import {
   DataListItem,
   DataListCell,
 } from "@patternfly/react-core";
-import { Resource } from "app/services/cluster/types";
+import { ResourceTreeItem } from "app/services/cluster/types";
 import { Link } from "react-router-dom";
 
 import * as url from "app/common/urls";
 
 const ClusterResourceList = ({ resourceList, createResourceDetailUrl }: {
-  resourceList: Resource[],
+  resourceList: ResourceTreeItem[],
   createResourceDetailUrl: (id: string) => string,
 }) => (
   <DataList aria-label="Cluster resource list">
