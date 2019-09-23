@@ -57,7 +57,7 @@ export interface ClusterState {
     nodesSeverity: StatusSeverity,
     resourcesSeverity: StatusSeverity,
     fenceDevicesSeverity: StatusSeverity,
-    issusSeverity: StatusSeverity,
+    issuesSeverity: StatusSeverity,
   },
 }
 

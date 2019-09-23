@@ -18,7 +18,7 @@ const transformStatus = (
 
 const issuesToSummarySeverity = (
   apiClusterStatus: ApiClusterStatus,
-): ClusterState["summary"]["issusSeverity"] => {
+): ClusterState["summary"]["issuesSeverity"] => {
   if (apiClusterStatus.error_list.length > 0) {
     return "ERROR";
   }
@@ -51,7 +51,7 @@ const apiToState = (apiClusterStatus: ApiClusterStatus): ClusterState => {
       resourcesSeverity,
       fenceDevicesSeverity,
       nodesSeverity,
-      issusSeverity: issuesToSummarySeverity(apiClusterStatus),
+      issuesSeverity: issuesToSummarySeverity(apiClusterStatus),
     },
   };
 };

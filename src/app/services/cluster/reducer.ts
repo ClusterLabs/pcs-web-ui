@@ -18,7 +18,7 @@ const clusterStatusDefault: ClusterState = {
     nodesSeverity: "UNKNOWN",
     resourcesSeverity: "UNKNOWN",
     fenceDevicesSeverity: "UNKNOWN",
-    issusSeverity: "UNKNOWN",
+    issuesSeverity: "UNKNOWN",
   },
 };
 

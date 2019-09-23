@@ -57,7 +57,7 @@ const DashboardCluster = ({ cluster }: { cluster: ClusterState }) => {
         <Toggle expandKey={COLUMNS.ISSUES} data-role="issues-total">
           <Summary
             itemsCount={cluster.issueList.length}
-            summaryStatus={cluster.summary.issusSeverity}
+            summaryStatus={cluster.summary.issuesSeverity}
           />
         </Toggle>
         <Toggle expandKey={COLUMNS.NODES} data-role="nodes-total">
@@ -85,7 +85,7 @@ const DashboardCluster = ({ cluster }: { cluster: ClusterState }) => {
       <Content expandKey={COLUMNS.ISSUES}>
         <DashboardIssueList
           issueList={cluster.issueList}
-          summaryStatus={cluster.summary.issusSeverity}
+          summaryStatus={cluster.summary.issuesSeverity}
         />
       </Content>
       <Content expandKey={COLUMNS.NODES}>
