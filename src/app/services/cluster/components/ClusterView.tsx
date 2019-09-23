@@ -14,7 +14,7 @@ const labelUrlCreateMap = {
   "Fence Devices": url.clusterFenceDevices,
 };
 
-const ClusterPage = (
+const ClusterView = (
   {
     clusterUrlName,
     currentTab,
@@ -52,4 +52,4 @@ const ClusterPage = (
   );
 };
 
-export default ClusterPage;
+export default ClusterView;

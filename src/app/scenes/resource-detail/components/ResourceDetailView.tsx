@@ -13,7 +13,7 @@ import { push } from "connected-react-router";
 import * as url from "app/common/urls";
 import { UrlTabs } from "app/common/components";
 import {
-  ClusterPage,
+  ClusterView,
   selectors as clusterSelectors,
 } from "app/services/cluster";
 import { ResourceTree } from "app/scenes/resource-tree";
@@ -47,7 +47,7 @@ const ResourceDetailView = (
     [clusterUrlName],
   );
   return (
-    <ClusterPage
+    <ClusterView
       clusterUrlName={clusterUrlName}
       currentTab="Resources"
       pageSectionClassName="ha-m-full-height pf-m-fill"
@@ -91,7 +91,7 @@ const ResourceDetailView = (
           </Stack>
         </div>
       </div>
-    </ClusterPage>
+    </ClusterView>
   );
 };
 

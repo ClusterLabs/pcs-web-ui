@@ -1,13 +1,13 @@
 import React from "react";
 
-import { ClusterPage, useClusterState } from "app/services/cluster";
+import { ClusterView, useClusterState } from "app/services/cluster";
 
 import ResourceTree from "./ResourceTree";
 
 const ResourceTreePage = ({ clusterUrlName }: { clusterUrlName: string }) => {
   const { cluster } = useClusterState(clusterUrlName);
   return (
-    <ClusterPage
+    <ClusterView
       clusterUrlName={clusterUrlName}
       currentTab="Resources"
     >
@@ -17,7 +17,7 @@ const ResourceTreePage = ({ clusterUrlName }: { clusterUrlName: string }) => {
           ResourceTree.createResourceDetailUrl(clusterUrlName)
         }
       />
-    </ClusterPage>
+    </ClusterView>
   );
 };
 
