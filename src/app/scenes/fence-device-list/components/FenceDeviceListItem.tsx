@@ -6,7 +6,7 @@ import {
 
 import { FenceDevice } from "app/services/cluster/types";
 
-const ClusterFenceDevice = ({ fenceDevice: { id } }: {
+const FenceDeviceListItem = ({ fenceDevice: { id } }: {
   fenceDevice: FenceDevice,
 }) => (
   <DataListItem aria-labelledby={id}>
@@ -15,4 +15,4 @@ const ClusterFenceDevice = ({ fenceDevice: { id } }: {
     </DataListCell>
   </DataListItem>
 );
-export default ClusterFenceDevice;
+export default FenceDeviceListItem;

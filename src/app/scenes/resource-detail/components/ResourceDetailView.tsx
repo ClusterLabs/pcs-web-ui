@@ -16,14 +16,14 @@ import {
   ClusterPage,
   selectors as clusterSelectors,
 } from "app/services/cluster";
-import { ResourceTree } from "app/scenes/cluster-resource-list/";
+import { ResourceTree } from "app/scenes/resource-tree";
 
 const labelUrlCreateMap = {
   Details: url.resourcesDetail,
   Attributes: url.resourcesAttributes,
 };
 
-const ResourceDetailPage = (
+const ResourceDetailView = (
   {
     clusterUrlName,
     resourceUrlName,
@@ -95,4 +95,4 @@ const ResourceDetailPage = (
   );
 };
 
-export default ResourceDetailPage;
+export default ResourceDetailView;

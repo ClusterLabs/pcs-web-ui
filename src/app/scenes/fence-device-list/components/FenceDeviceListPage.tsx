@@ -2,9 +2,9 @@ import React from "react";
 
 import { ClusterPage, useClusterState } from "app/services/cluster";
 
-import ClusterFenceDeviceList from "./ClusterFenceDeviceList";
+import FenceDeviceList from "./FenceDeviceList";
 
-const ClusterFenceDevicesPage = ({ clusterUrlName }: {
+const FenceDeviceListPage = ({ clusterUrlName }: {
   clusterUrlName: string,
 }) => {
   const { cluster } = useClusterState(clusterUrlName);
@@ -13,11 +13,11 @@ const ClusterFenceDevicesPage = ({ clusterUrlName }: {
       clusterUrlName={clusterUrlName}
       currentTab="Fence Devices"
     >
-      <ClusterFenceDeviceList
+      <FenceDeviceList
         fenceDeviceList={cluster.fenceDeviceList}
       />
     </ClusterPage>
   );
 };
 
-export default ClusterFenceDevicesPage;
+export default FenceDeviceListPage;

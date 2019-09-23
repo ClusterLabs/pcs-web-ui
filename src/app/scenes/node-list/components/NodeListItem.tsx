@@ -7,7 +7,7 @@ import {
 
 import { Node } from "app/services/cluster/types";
 
-const ClusterNode = ({ nodeName, status }: {
+const NodeListItem = ({ nodeName, status }: {
   nodeName: string,
   status: Node["status"],
 }) => (
@@ -22,4 +22,4 @@ const ClusterNode = ({ nodeName, status }: {
     </DataListItemRow>
   </DataListItem>
 );
-export default ClusterNode;
+export default NodeListItem;

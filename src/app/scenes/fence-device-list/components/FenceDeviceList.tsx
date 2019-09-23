@@ -3,18 +3,18 @@ import { DataList } from "@patternfly/react-core";
 
 import { FenceDevice } from "app/services/cluster/types";
 
-import ClusterFenceDevice from "./ClusterFenceDevice";
+import FenceDeviceListItem from "./FenceDeviceListItem";
 
-const ClusterFenceDeviceList = ({ fenceDeviceList }: {
+const FenceDeviceList = ({ fenceDeviceList }: {
   fenceDeviceList: FenceDevice[],
 }) => (
   <DataList aria-label="Cluster fence device list">
     {fenceDeviceList.map(fenceDevice => (
-      <ClusterFenceDevice
+      <FenceDeviceListItem
         key={fenceDevice.id}
         fenceDevice={fenceDevice}
       />
     ))}
   </DataList>
 );
-export default ClusterFenceDeviceList;
+export default FenceDeviceList;

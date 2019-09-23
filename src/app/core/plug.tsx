@@ -13,13 +13,11 @@ import * as addExistingCluster from "app/scenes/dashboard-add-cluster";
 import * as notifications from "app/scenes/notifications";
 import * as dataLoad from "app/services/data-load";
 import { ClusterDetailPage } from "app/scenes/cluster-detail";
-import { ClusterNodesPage } from "app/scenes/cluster-node-list";
-import { ResourceTreePage } from "app/scenes/cluster-resource-list";
-import { ClusterResourceDetailPage } from "app/scenes/cluster-resource-detail";
-import {
-  ClusterResourceAttributesPage,
-} from "app/scenes/cluster-resource-attributes";
-import { ClusterFenceDevicesPage } from "app/scenes/cluster-fence-devices";
+import { NodeListPage } from "app/scenes/node-list";
+import { ResourceTreePage } from "app/scenes/resource-tree";
+import { ResourceDetailPage } from "app/scenes/resource-detail";
+import { ResourceAttributesPage } from "app/scenes/resource-attributes";
+import { FenceDeviceListPage } from "app/scenes/fence-device-list";
 
 import { RootState } from "./types";
 import Scratch from "./components/Scratch";
@@ -66,7 +64,7 @@ const routes = [
   {
     exact: true,
     path: url.clusterNodes(":clusterUrlName"),
-    render: withUrlArgs(["clusterUrlName"], ClusterNodesPage),
+    render: withUrlArgs(["clusterUrlName"], NodeListPage),
   },
   {
     exact: true,
@@ -78,7 +76,7 @@ const routes = [
     path: url.resourcesDetail(":clusterUrlName", ":resourceUrlName"),
     render: withUrlArgs(
       ["clusterUrlName", "resourceUrlName"],
-      ClusterResourceDetailPage,
+      ResourceDetailPage,
     ),
   },
   {
@@ -86,13 +84,13 @@ const routes = [
     path: url.resourcesAttributes(":clusterUrlName", ":resourceUrlName"),
     render: withUrlArgs(
       ["clusterUrlName", "resourceUrlName"],
-      ClusterResourceAttributesPage,
+      ResourceAttributesPage,
     ),
   },
   {
     exact: true,
     path: url.clusterFenceDevices(":clusterUrlName"),
-    render: withUrlArgs(["clusterUrlName"], ClusterFenceDevicesPage),
+    render: withUrlArgs(["clusterUrlName"], FenceDeviceListPage),
   },
   {
     exact: true,

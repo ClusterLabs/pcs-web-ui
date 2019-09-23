@@ -3,12 +3,12 @@ import { DataList } from "@patternfly/react-core";
 
 import { Node } from "app/services/cluster/types";
 
-import ClusterNode from "./ClusterNode";
+import NodeListItem from "./NodeListItem";
 
-const ClusterNodeList = ({ nodeList }: { nodeList: Node[] }) => (
+const NodeList = ({ nodeList }: { nodeList: Node[] }) => (
   <DataList aria-label="Cluster node list">
     {nodeList.map(node => (
-      <ClusterNode
+      <NodeListItem
         key={node.name}
         nodeName={node.name}
         status={node.status}
@@ -16,4 +16,4 @@ const ClusterNodeList = ({ nodeList }: { nodeList: Node[] }) => (
     ))}
   </DataList>
 );
-export default ClusterNodeList;
+export default NodeList;

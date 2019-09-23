@@ -1,22 +1,22 @@
 import React from "react";
 
 import { useClusterState } from "app/services/cluster";
-import { ResourceDetailPage } from "app/scenes/cluster-resource-detail";
+import { ResourceDetailView } from "app/scenes/resource-detail";
 
-const ClusterResourceDetailPage = ({ clusterUrlName, resourceUrlName }: {
+const ResourceDetailPage = ({ clusterUrlName, resourceUrlName }: {
   clusterUrlName: string,
   resourceUrlName: string,
 }) => {
   useClusterState(clusterUrlName);
   return (
-    <ResourceDetailPage
+    <ResourceDetailView
       clusterUrlName={clusterUrlName}
       resourceUrlName={resourceUrlName}
       currentTab="Details"
     >
       Details
-    </ResourceDetailPage>
+    </ResourceDetailView>
   );
 };
 
-export default ClusterResourceDetailPage;
+export default ResourceDetailPage;
