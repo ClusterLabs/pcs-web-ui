@@ -21,11 +21,16 @@ const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
   clone: Clone,
   createResourceDetailUrl: (id: string) => string,
 }) => {
+  const [expanded, setExpanded] = React.useState(false);
   const label = clone.id;
   return (
-    <DataListItem aria-labelledby={label} isExpanded>
+    <DataListItem aria-labelledby={label} isExpanded={expanded}>
       <DataListItemRow>
-        <DataListToggle id={`resource-tree-${label}`} />
+        <DataListToggle
+          id={`resource-tree-${label}`}
+          isExpanded={expanded}
+          onClick={() => setExpanded(!expanded)}
+        />
         <DataListItemCells
           dataListCells={[
             <DataListCell key={label}>
@@ -35,29 +40,31 @@ const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
             </DataListCell>,
             <DataListCell key={`${label}.type`}>
               <span>Type </span>
-              <strong>Group</strong>
+              <strong>Clone</strong>
             </DataListCell>,
           ]}
         />
       </DataListItemRow>
-      <DataListContent aria-label={`resources-of-group-${clone.id}`}>
-        <DataList aria-label={`Group ${clone.id} resource list`}>
-          {clone.member.itemType === "resource" && (
-            <ResourceTreeItemPrimitive
-              key={clone.member.id}
-              resource={clone.member}
-              createResourceDetailUrl={createResourceDetailUrl}
-            />
-          )}
-          {clone.member.itemType === "group" && (
-            <ResourceTreeItemGroup
-              key={clone.member.id}
-              group={clone.member}
-              createResourceDetailUrl={createResourceDetailUrl}
-            />
-          )}
-        </DataList>
-      </DataListContent>
+      {expanded && (
+        <DataListContent aria-label={`resources-of-group-${clone.id}`}>
+          <DataList aria-label={`Group ${clone.id} resource list`}>
+            {clone.member.itemType === "resource" && (
+              <ResourceTreeItemPrimitive
+                key={clone.member.id}
+                resource={clone.member}
+                createResourceDetailUrl={createResourceDetailUrl}
+              />
+            )}
+            {clone.member.itemType === "group" && (
+              <ResourceTreeItemGroup
+                key={clone.member.id}
+                group={clone.member}
+                createResourceDetailUrl={createResourceDetailUrl}
+              />
+            )}
+          </DataList>
+        </DataListContent>
+      )}
     </DataListItem>
   );
 };

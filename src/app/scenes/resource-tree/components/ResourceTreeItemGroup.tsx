@@ -18,11 +18,16 @@ const ResourceTreeItemGroup = ({ group, createResourceDetailUrl }: {
   group: Group,
   createResourceDetailUrl: (id: string) => string,
 }) => {
+  const [expanded, setExpanded] = React.useState(false);
   const label = group.id;
   return (
-    <DataListItem aria-labelledby={label} isExpanded>
+    <DataListItem aria-labelledby={label} isExpanded={expanded}>
       <DataListItemRow>
-        <DataListToggle id={`resource-tree-${label}`} />
+        <DataListToggle
+          id={`resource-tree-${label}`}
+          isExpanded={expanded}
+          onClick={() => setExpanded(!expanded)}
+        />
         <DataListItemCells
           dataListCells={[
             <DataListCell key={label}>
@@ -32,22 +37,24 @@ const ResourceTreeItemGroup = ({ group, createResourceDetailUrl }: {
             </DataListCell>,
             <DataListCell key={`${label}.type`}>
               <span>Type </span>
-              <strong>Clone</strong>
+              <strong>Group</strong>
             </DataListCell>,
           ]}
         />
       </DataListItemRow>
-      <DataListContent aria-label={`resources-of-group-${group.id}`}>
-        <DataList aria-label={`Group ${group.id} resource list`}>
-          {group.resources.map(resource => (
-            <ResourceTreeItemPrimitive
-              key={resource.id}
-              resource={resource}
-              createResourceDetailUrl={createResourceDetailUrl}
-            />
-          ))}
-        </DataList>
-      </DataListContent>
+      {expanded && (
+        <DataListContent aria-label={`resources-of-group-${group.id}`}>
+          <DataList aria-label={`Group ${group.id} resource list`}>
+            {group.resources.map(resource => (
+              <ResourceTreeItemPrimitive
+                key={resource.id}
+                resource={resource}
+                createResourceDetailUrl={createResourceDetailUrl}
+              />
+            ))}
+          </DataList>
+        </DataListContent>
+      )}
     </DataListItem>
   );
 };
