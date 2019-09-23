@@ -24,6 +24,9 @@ export interface ResourceTreeItemBase {
 
 export interface Resource extends ResourceTreeItemBase {
   itemType: "resource",
+  class: string,
+  provider: string,
+  type: string,
 }
 
 export interface Group extends ResourceTreeItemBase {

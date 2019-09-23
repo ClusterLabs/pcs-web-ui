@@ -15,6 +15,9 @@ const resource = (id, diff) => deepmerge({
   id,
   status: "running",
   class_type: "primitive",
+  class: "ocf",
+  provider: "heartbeat",
+  type: "Dummy",
   stonith: false,
   warning_list: [],
   error_list: [],
@@ -69,7 +72,7 @@ const clusterOk = clusterName => cluster(clusterName, "ok", {
 
 const resourceTree = cluster("resource-tree", "ok", {
   resource_list: [
-    resource("A"),
+    resource("A", { type: "apache" }),
     group("GROUP-1", [
       resource("B"),
       resource("C"),

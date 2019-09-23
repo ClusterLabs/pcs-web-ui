@@ -44,6 +44,9 @@ const toResource = (apiResource: ApiPrimitive): Resource => ({
   status: transformStatus(apiResource.status),
   statusSeverity: toSeverity(apiResource),
   issueList: transformIssues(apiResource),
+  class: apiResource.class,
+  provider: apiResource.provider,
+  type: apiResource.type,
 });
 
 const toResourceTreeGroup = (apiGroup: ApiGroup): Group|undefined => {

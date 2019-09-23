@@ -8,10 +8,10 @@ import {
   DataListCell,
 } from "@patternfly/react-core";
 
-import { ResourceTreeItem } from "app/services/cluster/types";
+import { Resource } from "app/services/cluster/types";
 
 const ResourceTreeItemPrimitive = ({ resource, createResourceDetailUrl }: {
-  resource: ResourceTreeItem,
+  resource: Resource,
   createResourceDetailUrl: (id: string) => string,
 }) => {
   const label = resource.id;
@@ -31,7 +31,8 @@ const ResourceTreeItemPrimitive = ({ resource, createResourceDetailUrl }: {
             </DataListCell>,
             <DataListCell key={`${label}.type`}>
               <span>Type </span>
-              <strong>Primitive</strong>
+              <strong>{resource.type}</strong>
+              <span>{` (${resource.class}:${resource.provider})`}</span>
             </DataListCell>,
           ]}
         />

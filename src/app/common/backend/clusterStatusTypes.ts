@@ -24,6 +24,9 @@ export interface ApiResourceBase extends ApiWithIssues {
 export interface ApiPrimitive extends ApiResourceBase {
   class_type: "primitive",
   stonith: false,
+  class: string,
+  provider: string,
+  type: string,
 }
 
 export interface ApiStonith extends ApiResourceBase {
