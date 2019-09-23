@@ -1,26 +1,45 @@
 import React from "react";
 import {
   DataList,
-  DataListItem,
-  DataListCell,
 } from "@patternfly/react-core";
 import { ResourceTreeItem } from "app/services/cluster/types";
-import { Link } from "react-router-dom";
 
 import * as url from "app/common/urls";
+
+import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
+import ResourceTreeItemClone from "./ResourceTreeItemClone";
+import ResourceTreeItemGroup from "./ResourceTreeItemGroup";
 
 const ClusterResourceTree = ({ resourceTree, createResourceDetailUrl }: {
   resourceTree: ResourceTreeItem[],
   createResourceDetailUrl: (id: string) => string,
 }) => (
-  <DataList aria-label="Cluster resource list">
-    {resourceTree.map(resource => (
-      <DataListItem key={resource.id} aria-labelledby={resource.id}>
-        <DataListCell>
-          <Link to={createResourceDetailUrl(resource.id)}>{resource.id}</Link>
-        </DataListCell>
-      </DataListItem>
-    ))}
+  <DataList aria-label="Cluster resource list" className="ha-c-tree-view">
+    {resourceTree.map((resourceTreeItem) => {
+      switch (resourceTreeItem.itemType) {
+        case "resource": return (
+          <ResourceTreeItemPrimitive
+            key={resourceTreeItem.id}
+            resource={resourceTreeItem}
+            createResourceDetailUrl={createResourceDetailUrl}
+          />
+        );
+        case "group": return (
+          <ResourceTreeItemGroup
+            key={resourceTreeItem.id}
+            group={resourceTreeItem}
+            createResourceDetailUrl={createResourceDetailUrl}
+          />
+        );
+        case "clone": default: return (
+          <ResourceTreeItemClone
+            key={resourceTreeItem.id}
+            clone={resourceTreeItem}
+            createResourceDetailUrl={createResourceDetailUrl}
+          />
+        );
+      }
+    })}
   </DataList>
 );
 

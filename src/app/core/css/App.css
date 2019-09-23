@@ -88,3 +88,127 @@ html, body, #root {
   min-height: 100%;
   max-height: calc(100% + var(--pf-c-page__main-section--PaddingBottom));
 }
+
+
+/* RESOURC TREE --------------------------------------------------------------*/
+.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__item-row {
+  --pf-c-data-list__item-action--MarginLeft: var(--pf-global--spacer--md);
+} /* decreases horizontal spacing in split layout */
+
+/* Styles for extending the DataList to create a tree view */
+/* TODO: test that the toggle indentation works in IE. */
+.ha-c-tree-view.pf-c-data-list,
+.ha-c-tree-view .pf-c-data-list {
+  --pf-c-data-list__item-control--MarginRight: var(--pf-global--spacer--md);
+  --ha-c-data-list__toggle--TotalWidth: calc(1em + var(--pf-c-data-list__item-control--MarginRight) + (var(--pf-global--spacer--md)));
+} /* The second variable creates the spacing needed to indent the toggle by one level 
+     (i.e. the variable represents the size of one toggle, and therefore the size of the indentation)
+     The md spacer occurs twice for button padding, one on left and one on right, but
+     only one is used in the TotalWidth variable. 
+     The other instance of global--spacer--md is used for left margin on the data list itself */
+
+/* NOTE: additional rulesets are needed to support additional levels */
+[data-level="2"] .pf-c-data-list__toggle {
+  padding-left: var(--ha-c-data-list__toggle--TotalWidth);
+}
+[data-level="3"] .pf-c-data-list__toggle {
+  padding-left: calc(var(--ha-c-data-list__toggle--TotalWidth) *2);
+}
+[data-level="4"] .pf-c-data-list__toggle {
+  padding-left: calc(var(--ha-c-data-list__toggle--TotalWidth) *3);
+}
+.pf-c-data-list[data-level] {
+  margin-left: var(--pf-global--spacer--md);
+  --pf-c-data-list--BorderTopColor: transparent;
+  --pf-c-data-list--BorderBottomColor: transparent;
+}
+
+.ha-c-tree-view .pf-c-data-list__toggle {
+  border-right: var(--pf-global--BorderWidth--sm) solid var(--pf-c-data-list__item-item--BorderTopColor);
+}
+
+/* expand buttons are included for all nodes, but only visible for nodes with children */
+.pf-c-data-list__item-control[aria-hidden="true"] .pf-c-button {
+  visibility: hidden;
+}
+
+/* selected status is also included for all nodes, but only visible for the active node */
+.ha-c-tree-view__selected-status {
+  margin-left: var(--pf-c-data-list__item-action--MarginLeft);
+  padding-top: var(--pf-c-data-list__cell--PaddingTop);
+  color: var(--pf-global--active-color--100);
+  visibility: hidden;
+}
+.ha-c-tree-view__selected-status.ha-m-active {
+  visibility: visible;
+}
+
+.ha-c-tree-view .pf-c-data-list__cell + .pf-c-data-list__cell {
+  flex: 0 0 calc(45vw - 10rem);
+  margin-left: auto;
+  white-space: nowrap;
+} /* sets spacing for Type column */
+.ha-c-data-list__item-status {
+  flex: 0 0 10rem;
+  margin-left: auto;
+  padding-top: var(--pf-c-data-list__cell--PaddingTop);
+} /* sets spacing for Status column */
+
+@media screen and (max-width: 62rem) {
+  .ha-c-tree-view .pf-c-data-list__item-content {
+    display: grid;
+    width: 100%;
+    grid-template-columns: auto 1fr;
+    padding-bottom: 0;
+  }
+  .ha-c-tree-view .pf-c-data-list__cell {
+    padding-bottom: var(--pf-global--spacer--xs);
+  }
+  .ha-c-tree-view .pf-c-data-list__cell + .pf-c-data-list__cell {
+    margin-left: 0;
+  }
+  .ha-c-tree-view .pf-c-data-list__cell:last-child {
+    padding-top: 0;
+    padding-bottom: var(--pf-global--spacer--md);
+  }
+}
+/* similar styles used for the max-width breakpoint above are used for the split screen */
+.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__item-content {
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto 1fr;
+  padding-bottom: 0;
+}
+.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__cell {
+  padding-bottom: var(--pf-global--spacer--xs);
+}
+.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__cell + .pf-c-data-list__cell {
+  margin-left: 0;
+}
+.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__cell:last-child {
+  padding-top: 0;
+  padding-bottom: var(--pf-global--spacer--md);
+}
+/* In the split screen layout, only the status icon is visible. */
+.ha-c-tree-view:not(.ha-m-full-width) .ha-c-data-list__item-status {
+  flex-basis: 1rem;
+}
+.ha-c-tree-view:not(.ha-m-full-width) .ha-c-data-list__item-status svg + * {
+  position: fixed;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+} /* These property styles hide the text description of the status svg icon from the screen, */
+/* but keep contents accessible to assistive technology */
+
+
+/* Attributes form - radio button spacing */
+.ha-c-radio {
+  align-items: flex-start;
+}
+.ha-c-radio .pf-c-radio__input {
+  min-height: calc(var(--pf-global--LineHeight--md) * 1rem);
+}
+.ha-c-radio .pf-c-radio__label {
+  line-height: var(--pf-global--LineHeight--md);
+}
