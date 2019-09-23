@@ -16,7 +16,7 @@ import {
   ClusterPage,
   selectors as clusterSelectors,
 } from "app/services/cluster";
-import { ResourceList } from "app/scenes/cluster-resource-list/";
+import { ResourceTree } from "app/scenes/cluster-resource-list/";
 
 const labelUrlCreateMap = {
   Details: url.resourcesDetail,
@@ -54,10 +54,10 @@ const ResourceDetailPage = (
     >
       <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">
         <div className="pf-c-card ha-c-panel__tree-view">
-          <ResourceList
-            resourceList={cluster.resourceList}
+          <ResourceTree
+            resourceTree={cluster.resourceTree}
             createResourceDetailUrl={
-              ResourceList.createResourceDetailUrl(clusterUrlName)
+              ResourceTree.createResourceDetailUrl(clusterUrlName)
             }
           />
         </div>

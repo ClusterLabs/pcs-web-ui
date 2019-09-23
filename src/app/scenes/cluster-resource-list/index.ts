@@ -1,7 +1,7 @@
-import ClusterResourceListPage from "./components/ClusterResourceListPage";
-import ResourceList from "./components/ResourceList";
+import ResourceTreePage from "./components/ResourceTreePage";
+import ResourceTree from "./components/ResourceTree";
 
 export {
-  ClusterResourceListPage,
-  ResourceList,
+  ResourceTreePage,
+  ResourceTree,
 };

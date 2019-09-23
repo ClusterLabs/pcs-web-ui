@@ -45,7 +45,7 @@ const apiToState = (apiClusterStatus: ApiClusterStatus): ClusterState => {
     status: transformStatus(apiClusterStatus.status),
     nodeList,
     issueList: transformIssues(apiClusterStatus),
-    resourceList: resourceTree,
+    resourceTree,
     fenceDeviceList,
     summary: {
       resourcesSeverity,

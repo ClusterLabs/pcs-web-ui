@@ -68,7 +68,7 @@ const DashboardCluster = ({ cluster }: { cluster: ClusterState }) => {
         </Toggle>
         <Toggle expandKey={COLUMNS.RESOURCES} data-role="resources-total">
           <Summary
-            itemsCount={cluster.resourceList.length}
+            itemsCount={cluster.resourceTree.length}
             summaryStatus={cluster.summary.resourcesSeverity}
           />
         </Toggle>
@@ -92,7 +92,7 @@ const DashboardCluster = ({ cluster }: { cluster: ClusterState }) => {
         <DashboardNodeList nodeList={cluster.nodeList} />
       </Content>
       <Content expandKey={COLUMNS.RESOURCES}>
-        <DashboardResourceList resourceList={cluster.resourceList} />
+        <DashboardResourceList resourceList={cluster.resourceTree} />
       </Content>
       <Content expandKey={COLUMNS.FENCE_DEVICES}>
         <DashboardFenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />

@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 
 import * as url from "app/common/urls";
 
-const ClusterResourceList = ({ resourceList, createResourceDetailUrl }: {
-  resourceList: ResourceTreeItem[],
+const ClusterResourceTree = ({ resourceTree, createResourceDetailUrl }: {
+  resourceTree: ResourceTreeItem[],
   createResourceDetailUrl: (id: string) => string,
 }) => (
   <DataList aria-label="Cluster resource list">
-    {resourceList.map(resource => (
+    {resourceTree.map(resource => (
       <DataListItem key={resource.id} aria-labelledby={resource.id}>
         <DataListCell>
           <Link to={createResourceDetailUrl(resource.id)}>{resource.id}</Link>
@@ -24,11 +24,11 @@ const ClusterResourceList = ({ resourceList, createResourceDetailUrl }: {
   </DataList>
 );
 
-ClusterResourceList.createResourceDetailUrl = (
+ClusterResourceTree.createResourceDetailUrl = (
   (clusterUrlName: string) => (resourceUrlName: string) => url.resourcesDetail(
     clusterUrlName,
     resourceUrlName,
   )
 );
 
-export default ClusterResourceList;
+export default ClusterResourceTree;

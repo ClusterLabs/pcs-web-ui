@@ -14,7 +14,7 @@ import * as notifications from "app/scenes/notifications";
 import * as dataLoad from "app/services/data-load";
 import { ClusterDetailPage } from "app/scenes/cluster-detail";
 import { ClusterNodesPage } from "app/scenes/cluster-node-list";
-import { ClusterResourceListPage } from "app/scenes/cluster-resource-list";
+import { ResourceTreePage } from "app/scenes/cluster-resource-list";
 import { ClusterResourceDetailPage } from "app/scenes/cluster-resource-detail";
 import {
   ClusterResourceAttributesPage,
@@ -71,7 +71,7 @@ const routes = [
   {
     exact: true,
     path: url.clusterResources(":clusterUrlName"),
-    render: withUrlArgs(["clusterUrlName"], ClusterResourceListPage),
+    render: withUrlArgs(["clusterUrlName"], ResourceTreePage),
   },
   {
     exact: true,

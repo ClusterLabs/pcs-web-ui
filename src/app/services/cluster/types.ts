@@ -50,7 +50,7 @@ export interface ClusterState {
   urlName: string,
   status: "OK"|"WARNING"|"ERROR"|"UNKNOWN",
   nodeList: Node[],
-  resourceList: ResourceTreeItem[],
+  resourceTree: ResourceTreeItem[],
   fenceDeviceList: FenceDevice[],
   issueList: Issue[],
   summary: {

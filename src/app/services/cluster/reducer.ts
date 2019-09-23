@@ -11,7 +11,7 @@ const clusterStatusDefault: ClusterState = {
   urlName: "",
   status: "UNKNOWN",
   nodeList: [],
-  resourceList: [],
+  resourceTree: [],
   fenceDeviceList: [],
   issueList: [],
   summary: {
