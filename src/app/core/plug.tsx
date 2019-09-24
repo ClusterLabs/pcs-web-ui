@@ -8,13 +8,13 @@ import * as url from "app/common/urls";
 import * as username from "app/services/username";
 import * as login from "app/scenes/login";
 import * as dashboard from "app/scenes/dashboard";
+import * as resourceTree from "app/scenes/resource-tree";
 import * as cluster from "app/services/cluster";
 import * as addExistingCluster from "app/scenes/dashboard-add-cluster";
 import * as notifications from "app/scenes/notifications";
 import * as dataLoad from "app/services/data-load";
 import { ClusterDetailPage } from "app/scenes/cluster-detail";
 import { NodeListPage } from "app/scenes/node-list";
-import { ResourceTreePage } from "app/scenes/resource-tree";
 import { ResourceDetailPage } from "app/scenes/resource-detail";
 import { ResourceAttributesPage } from "app/scenes/resource-attributes";
 import { FenceDeviceListPage } from "app/scenes/fence-device-list";
@@ -29,6 +29,7 @@ const rootReducer = (history: History) => combineReducers<RootState>({
   dashboard: dashboard.reducer,
   addExistingCluster: addExistingCluster.reducer,
   cluster: cluster.reducer,
+  resourceTree: resourceTree.reducer,
   login: login.reducer,
   notifications: notifications.reducer,
 });
@@ -69,7 +70,7 @@ const routes = [
   {
     exact: true,
     path: url.clusterResources(":clusterUrlName"),
-    render: withUrlArgs(["clusterUrlName"], ResourceTreePage),
+    render: withUrlArgs(["clusterUrlName"], resourceTree.ResourceTreePage),
   },
   {
     exact: true,
