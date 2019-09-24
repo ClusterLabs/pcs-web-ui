@@ -12,24 +12,21 @@ import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 const ResourceTreeItemPrimitive = ({ resource, createResourceDetailUrl }: {
   resource: Resource,
   createResourceDetailUrl: (id: string) => string,
-}) => {
-  const label = resource.id;
-  return (
-    <DataListItem aria-labelledby={label}>
-      <DataListItemRow>
-        <DataListToggle
-          id={`resource-tree-${label}`}
-          aria-hidden="true"
-        />
-        <ResourceTreeItemDescription
-          itemId={resource.id}
-          detailUrl={createResourceDetailUrl(resource.id)}
-          type={resource.type}
-          typeDescription={`${resource.class}:${resource.provider}`}
-        />
-      </DataListItemRow>
-    </DataListItem>
-  );
-};
+}) => (
+  <DataListItem aria-labelledby={resource.id}>
+    <DataListItemRow>
+      <DataListToggle
+        id={`resource-tree-${resource.id}`}
+        aria-hidden="true"
+      />
+      <ResourceTreeItemDescription
+        itemId={resource.id}
+        detailUrl={createResourceDetailUrl(resource.id)}
+        type={resource.type}
+        typeDescription={`${resource.class}:${resource.provider}`}
+      />
+    </DataListItemRow>
+  </DataListItem>
+);
 
 export default ResourceTreeItemPrimitive;
