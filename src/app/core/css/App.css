@@ -108,14 +108,11 @@ html, body, #root {
      The other instance of global--spacer--md is used for left margin on the data list itself */
 
 /* NOTE: additional rulesets are needed to support additional levels */
-[data-level="2"] .pf-c-data-list__toggle {
+[data-level="1"] .pf-c-data-list__toggle {
   padding-left: var(--ha-c-data-list__toggle--TotalWidth);
 }
-[data-level="3"] .pf-c-data-list__toggle {
+[data-level="2"] .pf-c-data-list__toggle {
   padding-left: calc(var(--ha-c-data-list__toggle--TotalWidth) *2);
-}
-[data-level="4"] .pf-c-data-list__toggle {
-  padding-left: calc(var(--ha-c-data-list__toggle--TotalWidth) *3);
 }
 .pf-c-data-list[data-level] {
   margin-left: var(--pf-global--spacer--md);

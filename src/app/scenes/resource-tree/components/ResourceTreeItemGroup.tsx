@@ -14,10 +14,13 @@ import { Group } from "app/services/cluster/types";
 
 import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
 
-const ResourceTreeItemGroup = ({ group, createResourceDetailUrl }: {
-  group: Group,
-  createResourceDetailUrl: (id: string) => string,
-}) => {
+const ResourceTreeItemGroup = (
+  { group, createResourceDetailUrl, nestedLevel = 0 }: {
+    group: Group,
+    createResourceDetailUrl: (id: string) => string,
+    nestedLevel?: number,
+  },
+) => {
   const [expanded, setExpanded] = React.useState(false);
   const label = group.id;
   return (
@@ -43,8 +46,14 @@ const ResourceTreeItemGroup = ({ group, createResourceDetailUrl }: {
         />
       </DataListItemRow>
       {expanded && (
-        <DataListContent aria-label={`resources-of-group-${group.id}`}>
-          <DataList aria-label={`Group ${group.id} resource list`}>
+        <DataListContent
+          aria-label={`resources-of-group-${group.id}`}
+          noPadding
+        >
+          <DataList
+            aria-label={`Group ${group.id} resource list`}
+            data-level={1 + nestedLevel}
+          >
             {group.resources.map(resource => (
               <ResourceTreeItemPrimitive
                 key={resource.id}

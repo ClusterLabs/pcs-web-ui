@@ -46,8 +46,14 @@ const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
         />
       </DataListItemRow>
       {expanded && (
-        <DataListContent aria-label={`resources-of-group-${clone.id}`}>
-          <DataList aria-label={`Group ${clone.id} resource list`}>
+        <DataListContent
+          aria-label={`resources-of-group-${clone.id}`}
+          noPadding
+        >
+          <DataList
+            aria-label={`Group ${clone.id} resource list`}
+            data-level="1"
+          >
             {clone.member.itemType === "resource" && (
               <ResourceTreeItemPrimitive
                 key={clone.member.id}
@@ -60,6 +66,7 @@ const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
                 key={clone.member.id}
                 group={clone.member}
                 createResourceDetailUrl={createResourceDetailUrl}
+                nestedLevel={1}
               />
             )}
           </DataList>
