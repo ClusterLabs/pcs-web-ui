@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   DataListItem,
   DataListItemRow,
   DataListToggle,
-  DataListItemCells,
-  DataListCell,
 } from "@patternfly/react-core";
 
 import { Resource } from "app/services/cluster/types";
+
+import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 
 const ResourceTreeItemPrimitive = ({ resource, createResourceDetailUrl }: {
   resource: Resource,
@@ -22,19 +21,11 @@ const ResourceTreeItemPrimitive = ({ resource, createResourceDetailUrl }: {
           id={`resource-tree-${label}`}
           aria-hidden="true"
         />
-        <DataListItemCells
-          dataListCells={[
-            <DataListCell key={label}>
-              <Link to={createResourceDetailUrl(resource.id)}>
-                <strong>{label}</strong>
-              </Link>
-            </DataListCell>,
-            <DataListCell key={`${label}.type`}>
-              <span>Type </span>
-              <strong>{resource.type}</strong>
-              <span>{` (${resource.class}:${resource.provider})`}</span>
-            </DataListCell>,
-          ]}
+        <ResourceTreeItemDescription
+          itemId={resource.id}
+          detailUrl={createResourceDetailUrl(resource.id)}
+          type={resource.type}
+          typeDescription={`${resource.class}:${resource.provider}`}
         />
       </DataListItemRow>
     </DataListItem>
