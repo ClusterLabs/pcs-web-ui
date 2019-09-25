@@ -15,11 +15,36 @@ export interface ApiNode extends ApiWithIssues {
   quorum: boolean|"unknown",
 }
 
-export interface ApiResource extends ApiWithIssues {
+export interface ApiResourceBase extends ApiWithIssues {
   id: string,
-  stonith: boolean,
+  class_type: string,
   status: "running"|"blocked"|"failed"|string,
 }
+
+export interface ApiPrimitive extends ApiResourceBase {
+  class_type: "primitive",
+  stonith: false,
+  class: string,
+  provider: string,
+  type: string,
+}
+
+export interface ApiStonith extends ApiResourceBase {
+  class_type: "stonith",
+  stonith: true,
+}
+
+export interface ApiGroup extends ApiResourceBase {
+  class_type: "group",
+  members: ApiResource[],
+}
+
+export interface ApiClone extends ApiResourceBase {
+  class_type: "clone",
+  member: ApiPrimitive|ApiGroup,
+}
+
+export type ApiResource = ApiPrimitive|ApiGroup|ApiClone|ApiStonith;
 
 export interface ApiClusterStatus extends ApiWithIssues{
   cluster_name: string,

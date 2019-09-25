@@ -14,12 +14,32 @@ export interface Node {
   issueList: Issue[],
 }
 
-export interface Resource {
+export interface ResourceTreeItemBase {
   id: string,
+  itemType: string,
   status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN",
   statusSeverity: StatusSeverity,
   issueList: Issue[],
 }
+
+export interface Resource extends ResourceTreeItemBase {
+  itemType: "resource",
+  class: string,
+  provider: string,
+  type: string,
+}
+
+export interface Group extends ResourceTreeItemBase {
+  itemType: "group",
+  resources: Resource[],
+}
+
+export interface Clone extends ResourceTreeItemBase {
+  itemType: "clone",
+  member: Resource|Group;
+}
+
+export type ResourceTreeItem = Resource|Group|Clone;
 
 export interface FenceDevice {
   id: string,
@@ -33,14 +53,14 @@ export interface ClusterState {
   urlName: string,
   status: "OK"|"WARNING"|"ERROR"|"UNKNOWN",
   nodeList: Node[],
-  resourceList: Resource[],
+  resourceTree: ResourceTreeItem[],
   fenceDeviceList: FenceDevice[],
   issueList: Issue[],
   summary: {
     nodesSeverity: StatusSeverity,
     resourcesSeverity: StatusSeverity,
     fenceDevicesSeverity: StatusSeverity,
-    issusSeverity: StatusSeverity,
+    issuesSeverity: StatusSeverity,
   },
 }
 

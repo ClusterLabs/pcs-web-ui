@@ -8,18 +8,16 @@ import * as url from "app/common/urls";
 import * as username from "app/services/username";
 import * as login from "app/scenes/login";
 import * as dashboard from "app/scenes/dashboard";
+import * as resourceTree from "app/scenes/resource-tree";
 import * as cluster from "app/services/cluster";
 import * as addExistingCluster from "app/scenes/dashboard-add-cluster";
 import * as notifications from "app/scenes/notifications";
 import * as dataLoad from "app/services/data-load";
 import { ClusterDetailPage } from "app/scenes/cluster-detail";
-import { ClusterNodesPage } from "app/scenes/cluster-node-list";
-import { ClusterResourceListPage } from "app/scenes/cluster-resource-list";
-import { ClusterResourceDetailPage } from "app/scenes/cluster-resource-detail";
-import {
-  ClusterResourceAttributesPage,
-} from "app/scenes/cluster-resource-attributes";
-import { ClusterFenceDevicesPage } from "app/scenes/cluster-fence-devices";
+import { NodeListPage } from "app/scenes/node-list";
+import { ResourceDetailPage } from "app/scenes/resource-detail";
+import { ResourceAttributesPage } from "app/scenes/resource-attributes";
+import { FenceDeviceListPage } from "app/scenes/fence-device-list";
 
 import { RootState } from "./types";
 import Scratch from "./components/Scratch";
@@ -31,6 +29,7 @@ const rootReducer = (history: History) => combineReducers<RootState>({
   dashboard: dashboard.reducer,
   addExistingCluster: addExistingCluster.reducer,
   cluster: cluster.reducer,
+  resourceTree: resourceTree.reducer,
   login: login.reducer,
   notifications: notifications.reducer,
 });
@@ -66,19 +65,19 @@ const routes = [
   {
     exact: true,
     path: url.clusterNodes(":clusterUrlName"),
-    render: withUrlArgs(["clusterUrlName"], ClusterNodesPage),
+    render: withUrlArgs(["clusterUrlName"], NodeListPage),
   },
   {
     exact: true,
     path: url.clusterResources(":clusterUrlName"),
-    render: withUrlArgs(["clusterUrlName"], ClusterResourceListPage),
+    render: withUrlArgs(["clusterUrlName"], resourceTree.ResourceTreePage),
   },
   {
     exact: true,
     path: url.resourcesDetail(":clusterUrlName", ":resourceUrlName"),
     render: withUrlArgs(
       ["clusterUrlName", "resourceUrlName"],
-      ClusterResourceDetailPage,
+      ResourceDetailPage,
     ),
   },
   {
@@ -86,13 +85,13 @@ const routes = [
     path: url.resourcesAttributes(":clusterUrlName", ":resourceUrlName"),
     render: withUrlArgs(
       ["clusterUrlName", "resourceUrlName"],
-      ClusterResourceAttributesPage,
+      ResourceAttributesPage,
     ),
   },
   {
     exact: true,
     path: url.clusterFenceDevices(":clusterUrlName"),
-    render: withUrlArgs(["clusterUrlName"], ClusterFenceDevicesPage),
+    render: withUrlArgs(["clusterUrlName"], FenceDeviceListPage),
   },
   {
     exact: true,

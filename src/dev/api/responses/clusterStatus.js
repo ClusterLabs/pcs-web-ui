@@ -14,6 +14,10 @@ const node = (id, diff) => deepmerge({
 const resource = (id, diff) => deepmerge({
   id,
   status: "running",
+  class_type: "primitive",
+  class: "ocf",
+  provider: "heartbeat",
+  type: "Dummy",
   stonith: false,
   warning_list: [],
   error_list: [],
@@ -21,7 +25,30 @@ const resource = (id, diff) => deepmerge({
 
 const issues = list => list.map(message => ({ message }));
 
-const stonith = (id, diff) => resource(id, { ...diff, stonith: true });
+const stonith = (id, diff) => resource(id, {
+  ...diff,
+  class_type: "stonith",
+  stonith: true,
+});
+
+const group = (id, resources, diff) => deepmerge({
+  id,
+  status: "running",
+  class_type: "group",
+  members: resources,
+  warning_list: [],
+  error_list: [],
+}, diff || {});
+
+const clone = (id, member, diff) => deepmerge({
+  id,
+  status: "running",
+  class_type: "clone",
+  member,
+  warning_list: [],
+  error_list: [],
+}, diff || {});
+
 
 const cluster = (name, status, diff) => deepmerge(
   {
@@ -40,6 +67,29 @@ const clusterOk = clusterName => cluster(clusterName, "ok", {
   resource_list: [
     resource("R1"),
     stonith("F1"),
+  ],
+});
+
+const resourceTree = cluster("resource-tree", "ok", {
+  resource_list: [
+    resource("A", { type: "apache" }),
+    group("GROUP-1", [
+      resource("B"),
+      resource("C"),
+    ]),
+    clone(
+      "Clone-1",
+      group(
+        "GROUP-2",
+        [
+          resource("D", { status: "blocked" }),
+          resource("E", { status: "blocked" }),
+        ],
+        { status: "blocked" }
+      ),
+      { status: "blocked" }
+    ),
+    clone("Clone-2", resource("F")),
   ],
 });
 
@@ -122,4 +172,5 @@ module.exports = {
   error: clusterError,
   big: clusterBig,
   ok2: clusterOk("cluster-4"),
+  resourceTree: resourceTree,
 };

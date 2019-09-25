@@ -16,8 +16,8 @@ const compareByColumn = (
 ) => {
   switch (column) {
     case "ISSUES": return (a, b) => statusSeverity.compare(
-      a.summary.issusSeverity,
-      b.summary.issusSeverity,
+      a.summary.issuesSeverity,
+      b.summary.issuesSeverity,
     );
     case "NODES": return (a, b) => statusSeverity.compare(
       a.summary.nodesSeverity,

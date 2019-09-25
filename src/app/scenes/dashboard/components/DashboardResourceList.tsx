@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Table, StatusSign } from "app/common/components";
-import { Resource } from "app/services/cluster/types";
+import { ResourceTreeItem } from "app/services/cluster/types";
 import { compareStrings, toLabel, statusSeverity } from "app/common/utils";
 
 type COLUMNS = "NAME"|"STATUS";
@@ -9,7 +9,7 @@ type COLUMNS = "NAME"|"STATUS";
 const compareByColumn = (
   column: COLUMNS|"",
 ): (
-  (a: Resource, b: Resource) => number
+  (a: ResourceTreeItem, b: ResourceTreeItem) => number
 ) => {
   switch (column) {
     case "STATUS": return (a, b) => statusSeverity.compare(
@@ -23,7 +23,7 @@ const compareByColumn = (
 const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
 
 const DashboardResourceList = ({ resourceList }: {
-  resourceList: Resource[],
+  resourceList: ResourceTreeItem[],
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting("NAME");
 

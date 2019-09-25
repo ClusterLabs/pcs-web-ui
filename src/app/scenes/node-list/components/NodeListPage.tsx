@@ -1,20 +1,21 @@
 import React from "react";
-import { Title } from "@patternfly/react-core";
 
 import { ClusterView, useClusterState } from "app/services/cluster";
 
-const ClusterDetailPage = ({ clusterUrlName }: {
-  clusterUrlName: string
-}) => {
+import NodeList from "./NodeList";
+
+const NodeListPage = ({ clusterUrlName }: { clusterUrlName: string }) => {
   const { cluster } = useClusterState(clusterUrlName);
   return (
     <ClusterView
       clusterUrlName={clusterUrlName}
-      currentTab="Detail"
+      currentTab="Nodes"
     >
-      <Title size="xl">{cluster.name}</Title>
+      <NodeList
+        nodeList={cluster.nodeList}
+      />
     </ClusterView>
   );
 };
 
-export default ClusterDetailPage;
+export default NodeListPage;

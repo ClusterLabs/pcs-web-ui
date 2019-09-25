@@ -4,21 +4,21 @@ import * as AuthAction from "app/services/auth/actions";
 
 import { ClusterState, ClusterServiceState, FETCH_STATUS } from "./types";
 import * as ClusterAction from "./actions";
-import clusterApiToState from "./apiToState";
+import { apiToState as clusterApiToState } from "./apiToState";
 
 const clusterStatusDefault: ClusterState = {
   name: "",
   urlName: "",
   status: "UNKNOWN",
   nodeList: [],
-  resourceList: [],
+  resourceTree: [],
   fenceDeviceList: [],
   issueList: [],
   summary: {
     nodesSeverity: "UNKNOWN",
     resourcesSeverity: "UNKNOWN",
     fenceDevicesSeverity: "UNKNOWN",
-    issusSeverity: "UNKNOWN",
+    issuesSeverity: "UNKNOWN",
   },
 };
 

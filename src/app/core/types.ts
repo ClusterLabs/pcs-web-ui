@@ -5,6 +5,7 @@ import { UsernameState } from "app/services/username/types";
 import { DashboardPageState } from "app/scenes/dashboard/types";
 import { LoginState } from "app/scenes/login/types";
 import { NotificationState } from "app/scenes/notifications/types";
+import { ResourceTreeState } from "app/scenes/resource-tree/types";
 import {
   DashboardAddClusterPageState,
 } from "app/scenes/dashboard-add-cluster/types";
@@ -15,6 +16,7 @@ export interface RootState {
   dashboard: DashboardPageState,
   addExistingCluster: DashboardAddClusterPageState,
   cluster: ClusterServiceState,
+  resourceTree: ResourceTreeState,
   login: LoginState,
   notifications: NotificationState,
 }

@@ -16,7 +16,7 @@ const StatusSign = (
         {" "}
       </>
     )}
-    {label}
+    <span>{label}</span>
   </>
 );
 
