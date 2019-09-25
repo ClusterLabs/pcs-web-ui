@@ -10,11 +10,19 @@ import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
 import ResourceTreeItemClone from "./ResourceTreeItemClone";
 import ResourceTreeItemGroup from "./ResourceTreeItemGroup";
 
-const ClusterResourceTree = ({ resourceTree, createResourceDetailUrl }: {
+const ClusterResourceTree = ({
+  resourceTree,
+  createResourceDetailUrl,
+  compact = false,
+}: {
   resourceTree: ResourceTreeItem[],
   createResourceDetailUrl: (id: string) => string,
+  compact?: boolean,
 }) => (
-  <DataList aria-label="Cluster resource list" className="ha-c-tree-view">
+  <DataList
+    aria-label="Cluster resource list"
+    className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
+  >
     {resourceTree.map((resourceTreeItem) => {
       switch (resourceTreeItem.itemType) {
         case "resource": return (

@@ -13,7 +13,7 @@ const ResourceTreeItemGroup = (
   },
 ) => (
   <ResourceTreeItemExpandableLayout
-    resourceId={group.id}
+    resourceTreeItem={group}
     resourceDetailUrl={createResourceDetailUrl(group.id)}
     nestedAriaLabel={`Group ${group.id}: resources`}
     nestingDepth={1 + nestedLevel}

@@ -77,10 +77,18 @@ const resourceTree = cluster("resource-tree", "ok", {
       resource("B"),
       resource("C"),
     ]),
-    clone("Clone-1", group("GROUP-2", [
-      resource("D"),
-      resource("E"),
-    ])),
+    clone(
+      "Clone-1",
+      group(
+        "GROUP-2",
+        [
+          resource("D", { status: "blocked" }),
+          resource("E", { status: "blocked" }),
+        ],
+        { status: "blocked" }
+      ),
+      { status: "blocked" }
+    ),
     clone("Clone-2", resource("F")),
   ],
 });

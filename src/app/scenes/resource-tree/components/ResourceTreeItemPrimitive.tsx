@@ -20,7 +20,7 @@ const ResourceTreeItemPrimitive = ({ resource, createResourceDetailUrl }: {
         aria-hidden="true"
       />
       <ResourceTreeItemDescription
-        itemId={resource.id}
+        resourceTreeItem={resource}
         detailUrl={createResourceDetailUrl(resource.id)}
         type={resource.type}
         typeDescription={`${resource.class}:${resource.provider}`}

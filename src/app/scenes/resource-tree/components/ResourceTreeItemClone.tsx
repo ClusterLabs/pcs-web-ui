@@ -13,7 +13,7 @@ const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
   createResourceDetailUrl: (id: string) => string,
 }) => (
   <ResourceTreeItemExpandableLayout
-    resourceId={clone.id}
+    resourceTreeItem={clone}
     resourceDetailUrl={createResourceDetailUrl(clone.id)}
     nestedAriaLabel={`Clone ${clone.id}: member`}
     nestingDepth={1}

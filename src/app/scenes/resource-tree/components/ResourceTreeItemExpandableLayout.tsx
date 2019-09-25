@@ -6,40 +6,44 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
+import { ResourceTreeItem } from "app/services/cluster/types";
+
 import * as selectors from "../selectors";
 import * as ResourceTreeAction from "../actions";
 import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 import ResourceTreeNested from "./ResourceTreeNested";
 
 const ResourceTreeItemExpandableLayout = ({
-  resourceId,
+  resourceTreeItem,
   resourceDetailUrl,
   nestedAriaLabel,
   nestingDepth,
   children,
 }: React.PropsWithChildren<{
-  resourceId: string,
+  resourceTreeItem: ResourceTreeItem,
   resourceDetailUrl: string,
   nestingDepth: number,
   nestedAriaLabel: string,
 }>) => {
   const dispatch = useDispatch();
-  const expanded = useSelector(selectors.getOpenedItems).includes(resourceId);
+  const expanded = useSelector(selectors.getOpenedItems).includes(
+    resourceTreeItem.id,
+  );
   return (
-    <DataListItem aria-labelledby={resourceId} isExpanded={expanded}>
+    <DataListItem aria-labelledby={resourceTreeItem.id} isExpanded={expanded}>
       <DataListItemRow>
         <DataListToggle
-          id={`resource-tree-${resourceId}`}
+          id={`resource-tree-${resourceTreeItem.id}`}
           isExpanded={expanded}
           onClick={
             () => dispatch<ResourceTreeAction.ToggleItem>({
               type: "RESOURCE_TREE.ITEM.TOGGLE",
-              payload: { itemId: resourceId },
+              payload: { itemId: resourceTreeItem.id },
             })
           }
         />
         <ResourceTreeItemDescription
-          itemId={resourceId}
+          resourceTreeItem={resourceTreeItem}
           detailUrl={resourceDetailUrl}
           type="Clone"
         />
