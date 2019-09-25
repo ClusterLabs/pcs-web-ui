@@ -4,10 +4,14 @@ import {
   DataListItemCells,
   DataListCell,
 } from "@patternfly/react-core";
+import { ArrowCircleRightIcon } from "@patternfly/react-icons";
+
 
 import { StatusSign } from "app/common/components";
 import { toLabel } from "app/common/utils";
 import { ResourceTreeItem } from "app/services/cluster/types";
+
+import { useSelectedResource } from "./SelectedResourceContext";
 
 const ResourceTreeItemDescription = ({
   resourceTreeItem,
@@ -19,30 +23,43 @@ const ResourceTreeItemDescription = ({
   type: string,
   detailUrl: string,
   typeDescription?: string,
-}) => (
-  <>
-    <DataListItemCells
-      dataListCells={[
-        <DataListCell key={resourceTreeItem.id}>
-          <Link to={detailUrl}>
-            <strong>{resourceTreeItem.id}</strong>
-          </Link>
-        </DataListCell>,
-        <DataListCell key={`${resourceTreeItem.id}.type`}>
-          <span>Type </span>
-          <strong>{type}</strong>
-          {typeDescription && <span>{` (${typeDescription})`}</span>}
-        </DataListCell>,
-      ]}
-    />
-    <div className="ha-c-data-list__item-status">
-      <StatusSign
-        status={resourceTreeItem.statusSeverity}
-        label={toLabel(resourceTreeItem.status)}
-        showOkIco
+}) => {
+  const selectedResourceId = useSelectedResource();
+  const isSelected = selectedResourceId === resourceTreeItem.id;
+  return (
+    <>
+      <DataListItemCells
+        dataListCells={[
+          <DataListCell key={resourceTreeItem.id}>
+            <Link to={detailUrl}>
+              <strong>{resourceTreeItem.id}</strong>
+            </Link>
+          </DataListCell>,
+          <DataListCell key={`${resourceTreeItem.id}.type`}>
+            <span>Type </span>
+            <strong>{type}</strong>
+            {typeDescription && <span>{` (${typeDescription})`}</span>}
+          </DataListCell>,
+        ]}
       />
-    </div>
-  </>
-);
+      <div className="ha-c-data-list__item-status">
+        <StatusSign
+          status={resourceTreeItem.statusSeverity}
+          label={toLabel(resourceTreeItem.status)}
+          showOkIco
+        />
+      </div>
+      {selectedResourceId && (
+        <div
+          className={
+            `ha-c-tree-view__selected-status${isSelected ? " ha-m-active" : ""}`
+          }
+        >
+          <ArrowCircleRightIcon />
+        </div>
+      )}
+    </>
+  );
+};
 
 export default ResourceTreeItemDescription;
