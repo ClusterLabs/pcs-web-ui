@@ -44,7 +44,7 @@ const ResourceDetailView = (
         toUrl: (clusterUrlName: string, resourceUrlName: string) => string,
       ) => toUrl(clusterUrlName, resourceUrlName),
     ),
-    [clusterUrlName],
+    [clusterUrlName, resourceUrlName],
   );
   return (
     <ClusterView
