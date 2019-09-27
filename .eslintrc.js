@@ -9,33 +9,33 @@ module.exports = {
   },
   extends: [
     "react-app",
-    'airbnb',
+    "airbnb",
   ],
   rules: {
     // specify whether double or single quotes should be used
-    quotes: ['error', 'double', { avoidEscape: true }],
+    quotes: ["error", "double", { avoidEscape: true }],
 
     // ensure imports point to files/modules that can be resolved
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unresolved.md
-    'import/no-unresolved': ['off', { commonjs: true, caseSensitive: true }],
-    'import/prefer-default-export': "off",
+    "import/no-unresolved": ["off", { commonjs: true, caseSensitive: true }],
+    "import/prefer-default-export": "off",
     "lines-between-class-members": "off",
 
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
     // "import/extensions": [2, { "js": "always", "jsx": "always" }],
-    "import/extensions": ["error", "never", { "packages": "always" }],
+    "import/extensions": ["error", "never", { packages: "always" }],
 
     "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": [
+      devDependencies: [
         "**/test/*.js",
         "src/dev/**/*.js",
         "src/test/**/*.js",
-      ]
+      ],
     }],
 
     // specify the maximum length of a line in your program
     // https://eslint.org/docs/rules/max-len
-    'max-len': ['error', 80, 2, {
+    "max-len": ["error", 80, 2, {
       ignoreUrls: true,
       ignoreComments: false,
       ignoreRegExpLiterals: true,
@@ -45,37 +45,39 @@ module.exports = {
 
     // Enforce location of semicolons
     // https://eslint.org/docs/rules/semi-style
-    'semi-style': 'off',
+    "semi-style": "off",
 
-    "comma-style": [2, "first", {exceptions: {ArrayExpression: true, ObjectExpression: true} }],
+    "comma-style": [2, "first", { exceptions: { ArrayExpression: true, ObjectExpression: true } }],
 
     // disallow use of the continue statement
     // https://eslint.org/docs/rules/no-continue
-    'no-continue': 'off',
+    "no-continue": "off",
 
     // only .jsx files may have JSX
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
-    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', ".js", ".tsx"] }],
+    "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".js", ".tsx"] }],
 
     // TODO start check it when flow arrive
-    'react/prop-types': 'off',
+    "react/prop-types": "off",
 
     // disallow use of unary operators, ++ and --
     // https://eslint.org/docs/rules/no-plusplus
-    'no-plusplus': 'off',
+    "no-plusplus": "off",
 
     // Requires operator at the beginning of the line in multiline statements
     // https://eslint.org/docs/rules/operator-linebreak
-    'operator-linebreak': ['error', 'before', { overrides: {
-      '=': 'none',
-      "&&": "ignore",
-      "||": "ignore",
-    } }],
+    "operator-linebreak": ["error", "before", {
+      overrides: {
+        "=": "none",
+        "&&": "ignore",
+        "||": "ignore",
+      },
+    }],
   },
   parserOptions: {
     ecmaFeatures: {
-      'jsx': true,
+      jsx: true,
     },
     loggerFn: false,
-  }
+  },
 };
