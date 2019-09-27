@@ -89,4 +89,7 @@ ifeq ($(NEXUS_REPO),true)
 	"s#repository.engineering.redhat.com/nexus/repository/##g" package-lock.json
 endif
 
+lint:
+	npx eslint --fix "src/app/**/*.ts*"
+
 .PHONY: test build

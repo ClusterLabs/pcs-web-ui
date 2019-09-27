@@ -75,6 +75,7 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: {
       'jsx': true,
-    }
+    },
+    loggerFn: false,
   }
 };
