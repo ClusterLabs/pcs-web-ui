@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router";
 import {
   DataListItemCells,
   DataListCell,
@@ -10,8 +11,6 @@ import { ArrowCircleRightIcon } from "@patternfly/react-icons";
 import { StatusSign } from "app/common/components";
 import { toLabel } from "app/common/utils";
 import { ResourceTreeItem } from "app/services/cluster/types";
-
-import { useSelectedResource } from "./SelectedResourceContext";
 
 const ResourceTreeItemDescription = ({
   resourceTreeItem,
@@ -24,7 +23,7 @@ const ResourceTreeItemDescription = ({
   detailUrl: string,
   typeDescription?: string,
 }) => {
-  const selectedResourceId = useSelectedResource();
+  const { resourceUrlName: selectedResourceId } = useParams();
   const isSelected = selectedResourceId === resourceTreeItem.id;
   return (
     <>
