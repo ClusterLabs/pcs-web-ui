@@ -30,7 +30,8 @@ export interface ApiPrimitive extends ApiResourceBase {
 }
 
 export interface ApiStonith extends ApiResourceBase {
-  class_type: "stonith",
+  class_type: "primitive",
+  class: "stonith",
   stonith: true,
 }
 

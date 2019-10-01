@@ -105,11 +105,28 @@ export const analyzeApiResources = (
       toSeverity(apiResource),
     );
     switch (apiResource.class_type) {
-      case "primitive": return {
-        ...analyzed,
-        resourceTree: [...analyzed.resourceTree, toResource(apiResource)],
-        resourcesSeverity: maxResourcesSeverity(),
-      };
+      case "primitive":
+        if (apiResource.class === "stonith") {
+          return {
+            ...analyzed,
+            fenceDeviceList: [
+              ...analyzed.fenceDeviceList,
+              toFenceDevice(apiResource as ApiStonith),
+            ],
+            fenceDevicesSeverity: statusSeverity.max(
+              analyzed.fenceDevicesSeverity,
+              toSeverity(apiResource),
+            ),
+          };
+        }
+        return {
+          ...analyzed,
+          resourceTree: [
+            ...analyzed.resourceTree,
+            toResource(apiResource as ApiPrimitive),
+          ],
+          resourcesSeverity: maxResourcesSeverity(),
+        };
 
       case "group": {
         const group = toResourceTreeGroup(apiResource);
@@ -121,7 +138,7 @@ export const analyzeApiResources = (
         };
       }
 
-      case "clone": {
+      case "clone": default: {
         const clone = toResourceTreeClone(apiResource);
         // don't care about clone with stonith only...
         return clone === undefined ? analyzed : {
@@ -130,18 +147,6 @@ export const analyzeApiResources = (
           resourcesSeverity: maxResourcesSeverity(),
         };
       }
-
-      case "stonith": default: return {
-        ...analyzed,
-        fenceDeviceList: [
-          ...analyzed.fenceDeviceList,
-          toFenceDevice(apiResource),
-        ],
-        fenceDevicesSeverity: statusSeverity.max(
-          analyzed.fenceDevicesSeverity,
-          toSeverity(apiResource),
-        ),
-      };
     }
   },
   {
