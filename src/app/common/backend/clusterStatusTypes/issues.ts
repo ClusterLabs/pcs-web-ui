@@ -3,7 +3,7 @@
 export interface ApiIssue {
   message: string,
   type?: string;
-  node_list: string[];
+  node_list?: string[];
 }
 
 export interface ApiWithIssues {
