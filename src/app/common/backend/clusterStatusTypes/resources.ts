@@ -166,7 +166,6 @@ some attributes are set internally in backend (unique, managed, failed,
 failure_ignored are gained from crm_mon status) but then they are filtered out
 and not propagated to response:
   unique: boolean;
-  promotable: boolean;
   masters_unknown: boolean;
   masters: string[];
   slaves: string[];
@@ -181,6 +180,7 @@ warning_list
 export interface ApiClone extends ApiResourceBase {
   class_type: "clone",
   member: ApiPrimitive|ApiGroup,
+  promotable: boolean;
 }
 
 export type ApiResource = ApiPrimitive|ApiGroup|ApiClone|ApiStonith;
