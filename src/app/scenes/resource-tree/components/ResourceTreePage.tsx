@@ -1,24 +1,20 @@
 import React from "react";
 
-import { ClusterView, useClusterState } from "app/services/cluster";
+import { ClusterView } from "app/services/cluster";
 
 import ResourceTree from "./ResourceTree";
 
-const ResourceTreePage = ({ clusterUrlName }: { clusterUrlName: string }) => {
-  const { cluster } = useClusterState(clusterUrlName);
-  return (
-    <ClusterView
-      clusterUrlName={clusterUrlName}
-      currentTab="Resources"
-    >
+const ResourceTreePage = ({ clusterUrlName }: { clusterUrlName: string }) => (
+  <ClusterView clusterUrlName={clusterUrlName} currentTab="Resources">
+    {cluster => (
       <ResourceTree
         resourceTree={cluster.resourceTree}
         createResourceDetailUrl={
           ResourceTree.createResourceDetailUrl(clusterUrlName)
         }
       />
-    </ClusterView>
-  );
-};
+    )}
+  </ClusterView>
+);
 
 export default ResourceTreePage;

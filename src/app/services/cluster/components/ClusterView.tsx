@@ -1,11 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { PageSection } from "@patternfly/react-core";
 
-import { Page, PageSectionDataLoading, UrlTabs } from "app/common/components";
+import { Page, UrlTabs, Spinner } from "app/common/components";
 import * as url from "app/common/urls";
+import { ClusterState } from "app/services/cluster/types";
 
-import * as selectors from "../selectors";
+import useClusterState from "../useClusterState";
+
 
 const labelUrlCreateMap = {
   Detail: url.clusterDetail,
@@ -20,13 +21,14 @@ const ClusterView = (
     currentTab,
     pageSectionClassName = "",
     children,
-  }:React.PropsWithChildren<{
+  }:{
     clusterUrlName: string,
     currentTab: keyof typeof labelUrlCreateMap,
     pageSectionClassName?: string,
-  }>,
+    children: (cluster: ClusterState) => JSX.Element,
+  },
 ) => {
-  const dataLoaded = useSelector(selectors.areDataLoaded);
+  const { cluster, dataLoaded } = useClusterState(clusterUrlName);
   const tabSettingsMap = React.useMemo(
     UrlTabs.createLabelUrlMap(
       labelUrlCreateMap,
@@ -42,12 +44,10 @@ const ClusterView = (
           currentTab={currentTab}
         />
       </PageSection>
-      <PageSectionDataLoading
-        done={dataLoaded}
-        className={pageSectionClassName}
-      >
-        {children}
-      </PageSectionDataLoading>
+      <PageSection className={pageSectionClassName}>
+        {!dataLoaded && <Spinner text="Loading data" />}
+        {dataLoaded && children && children(cluster)}
+      </PageSection>
     </Page>
   );
 };
