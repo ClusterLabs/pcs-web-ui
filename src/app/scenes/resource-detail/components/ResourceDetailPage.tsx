@@ -14,7 +14,9 @@ const ResourceDetailPage = ({ clusterUrlName, resourceUrlName }: {
       resourceUrlName={resourceUrlName}
       currentTab="Details"
     >
-      Details
+      {resourceTreeItem => (
+        "Details"
+      )}
     </ResourceDetailView>
   );
 };

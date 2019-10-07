@@ -63,6 +63,7 @@ module.exports = {
     // disallow use of unary operators, ++ and --
     // https://eslint.org/docs/rules/no-plusplus
     "no-plusplus": "off",
+    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
 
     // Requires operator at the beginning of the line in multiline statements
     // https://eslint.org/docs/rules/operator-linebreak
