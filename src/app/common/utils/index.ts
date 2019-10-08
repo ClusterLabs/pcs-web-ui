@@ -1,4 +1,5 @@
 import * as statusSeverity from "./statusSeverity";
+import * as tabRoutes from "./tabRoutes";
 
 // tool for enfoce type of literal.
 // Consider e.g. with `take` from redux-saga:
@@ -27,6 +28,11 @@ export const toLabel = (flag: string) => (
   flag[0].toUpperCase() + flag.slice(1).toLowerCase()
 );
 
+export const join = (urlPrefix: string, path: string = "") => (
+  `${urlPrefix.endsWith("/") ? urlPrefix.slice(0, -1) : urlPrefix}/${path}`
+);
+
 export {
   statusSeverity,
+  tabRoutes,
 };

@@ -1,13 +1,17 @@
 import React from "react";
+import { PageSection } from "@patternfly/react-core";
 
-import { ClusterView } from "app/services/cluster";
+import { ClusterState } from "app/services/cluster/types";
 
 import NodeList from "./NodeList";
 
-const NodeListPage = ({ clusterUrlName }: { clusterUrlName: string }) => (
-  <ClusterView clusterUrlName={clusterUrlName} currentTab="Nodes">
-    {cluster => <NodeList nodeList={cluster.nodeList} />}
-  </ClusterView>
+const NodeListPage = ({ cluster, urlPrefix }:{
+  cluster: ClusterState;
+  urlPrefix: string;
+}) => (
+  <PageSection>
+    <NodeList nodeList={cluster.nodeList} />
+  </PageSection>
 );
 
 export default NodeListPage;

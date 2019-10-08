@@ -1,20 +1,25 @@
 import React from "react";
+import { PageSection } from "@patternfly/react-core";
+import { useSelector } from "react-redux";
 
-import { ClusterView } from "app/services/cluster";
+import { selectors } from "app/services/cluster";
 
 import ResourceTree from "./ResourceTree";
 
-const ResourceTreePage = ({ clusterUrlName }: { clusterUrlName: string }) => (
-  <ClusterView clusterUrlName={clusterUrlName} currentTab="Resources">
-    {cluster => (
+const ResourceTreePage = () => {
+  const cluster = useSelector(selectors.getCluster);
+  return (
+    <PageSection>
       <ResourceTree
+        compact
         resourceTree={cluster.resourceTree}
         createResourceDetailUrl={
-          ResourceTree.createResourceDetailUrl(clusterUrlName)
+          ResourceTree.createResourceDetailUrl(cluster.urlName)
         }
       />
-    )}
-  </ClusterView>
-);
+
+    </PageSection>
+  );
+};
 
 export default ResourceTreePage;

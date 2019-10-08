@@ -1,33 +1,40 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
-import { Switch } from "react-router";
-import { renderRoutes } from "react-router-config";
-import { History } from "history";
+import { useRouteMatch } from "react-router";
 
-import LoginPage from "app/scenes/login/components/LoginPage";
-import * as loginSelectors from "app/scenes/login/selectors";
-import Notifications
-  from "app/scenes/notifications/components/NotificationContainer";
+import { DashboardPage } from "app/scenes/dashboard";
+import { AddClusterPage } from "app/scenes/dashboard-add-cluster";
+import { ClusterDetailPage } from "app/scenes/cluster-detail";
 
-import { routes } from "../plug";
+import Scratch from "./Scratch";
 
-const AppPage = ({ history }: { history: History }) => {
-  const loginRequired = useSelector(loginSelectors.loginRequired);
-  return (
-    loginRequired
-      ? <LoginPage />
-      : (
-        <>
-          <ConnectedRouter history={history}>
-            <Switch>
-              {renderRoutes(routes)}
-            </Switch>
-          </ConnectedRouter>
-          <Notifications />
-        </>
-      )
-  );
+const AppPage = () => {
+  const dashboard = useRouteMatch({ exact: true, path: "/" });
+  const addCluster = useRouteMatch({ exact: true, path: "/add-cluster" });
+  const cluster = useRouteMatch<{name: string}>("/cluster/:name");
+  const scratch = useRouteMatch({ exact: true, path: "/scratch" });
+
+  if (cluster) {
+    return (
+      <ClusterDetailPage
+        clusterUrlName={cluster.params.name}
+        urlPrefix={cluster.url}
+      />
+    );
+  }
+
+  if (dashboard) {
+    return <DashboardPage />;
+  }
+
+  if (addCluster) {
+    return <AddClusterPage />;
+  }
+
+  if (scratch) {
+    return <Scratch />;
+  }
+
+  return <div>404</div>;
 };
 
 export default AppPage;

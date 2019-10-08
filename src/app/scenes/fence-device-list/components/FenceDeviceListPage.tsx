@@ -1,18 +1,19 @@
 import React from "react";
+import { PageSection } from "@patternfly/react-core";
 
-import { ClusterView } from "app/services/cluster";
+import { ClusterState } from "app/services/cluster/types";
 
 import FenceDeviceList from "./FenceDeviceList";
 
-const FenceDeviceListPage = ({ clusterUrlName }: {
-  clusterUrlName: string,
-}) => (
-  <ClusterView
-    clusterUrlName={clusterUrlName}
-    currentTab="Fence Devices"
-  >
-    {cluster => <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />}
-  </ClusterView>
-);
+const FenceDeviceListPage = ({ cluster, urlPrefix }:{
+  cluster: ClusterState;
+  urlPrefix: string;
+}) => {
+  return (
+    <PageSection>
+      <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
+    </PageSection>
+  );
+};
 
 export default FenceDeviceListPage;
