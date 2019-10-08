@@ -9,14 +9,12 @@ const ResourceDetailView = (
   {
     clusterUrlName,
     resourceUrlName,
-    currentTab,
+    tabs,
     children,
   }: {
     clusterUrlName: string,
     resourceUrlName: string,
-    currentTab:
-      React.ComponentProps<typeof ResourceDetailViewLayout>["currentTab"]
-    ,
+    tabs: React.ComponentProps<typeof ResourceDetailViewLayout>["tabs"],
     children: React.ComponentProps<typeof ResourceDetailViewLayout>["children"],
   },
 ) => (
@@ -40,7 +38,7 @@ const ResourceDetailView = (
           <ResourceDetailViewLayout
             cluster={cluster}
             resourceUrlName={resourceUrlName}
-            currentTab={currentTab}
+            tabs={tabs}
           >
             {children}
           </ResourceDetailViewLayout>

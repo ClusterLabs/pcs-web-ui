@@ -1,17 +1,13 @@
 import React from "react";
-import { StackItem } from "@patternfly/react-core";
 
 import * as url from "app/common/urls";
 import { UrlTabs } from "app/common/components";
 
 const labelUrlCreateMap = {
   Details: url.resourcesDetail,
-  Attributes: url.resourcesAttributes,
 };
 
-export type ResourceDetailTab = keyof typeof labelUrlCreateMap;
-
-const ResourceDetailSectionTabs = (
+const ResourceDetailTabsGroup = (
   {
     clusterUrlName,
     resourceUrlName,
@@ -19,7 +15,7 @@ const ResourceDetailSectionTabs = (
   }: {
     clusterUrlName: string,
     resourceUrlName: string,
-    currentTab: ResourceDetailTab,
+    currentTab: keyof typeof labelUrlCreateMap,
   },
 ) => {
   const tabSettingsMap = React.useMemo(
@@ -31,11 +27,7 @@ const ResourceDetailSectionTabs = (
     ),
     [clusterUrlName, resourceUrlName],
   );
-  return (
-    <StackItem>
-      <UrlTabs tabSettingsMap={tabSettingsMap} currentTab={currentTab} />
-    </StackItem>
-  );
+  return <UrlTabs tabSettingsMap={tabSettingsMap} currentTab={currentTab} />;
 };
 
-export default ResourceDetailSectionTabs;
+export default ResourceDetailTabsGroup;

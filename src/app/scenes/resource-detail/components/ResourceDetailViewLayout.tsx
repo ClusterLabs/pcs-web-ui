@@ -10,7 +10,6 @@ import {
 import { ClusterState, ResourceTreeItem } from "app/services/cluster/types";
 
 import * as selector from "../selectors";
-import ResourceDetailSectionTabs from "./ResourceDetailSectionTabs";
 import ResourceDetailViewClose from "./ResourceDetailViewClose";
 import ResourceDetailViewCaption from "./ResourceDetailViewCaption";
 
@@ -18,14 +17,14 @@ const ResourceDetailViewLayout = (
   {
     cluster,
     resourceUrlName,
-    currentTab,
+    tabs,
     children,
   }: {
     cluster: ClusterState,
     resourceUrlName: string,
-    currentTab:
-      React.ComponentProps<typeof ResourceDetailSectionTabs>["currentTab"]
-    ,
+    tabs: (
+      (resource: ResourceTreeItem) => JSX.Element|JSX.Element[]|string|null
+    ),
     children: (resource: ResourceTreeItem) => JSX.Element|JSX.Element[]|string,
   },
 ) => {
@@ -43,15 +42,10 @@ const ResourceDetailViewLayout = (
           </LevelItem>
         </Level>
       </StackItem>
-      <StackItem>
-        {resource && (
-          <ResourceDetailSectionTabs
-            clusterUrlName={cluster.urlName}
-            resourceUrlName={resource.id}
-            currentTab={currentTab}
-          />
-        )}
-      </StackItem>
+      {resource && tabs && (() => {
+        const resourceTabs = tabs(resource);
+        return !resourceTabs ? null : <StackItem>{resourceTabs}</StackItem>;
+      })()}
       <StackItem>
         {!resource && `Resource "${resourceUrlName}" does not exist.`}
         {resource && children(resource)}

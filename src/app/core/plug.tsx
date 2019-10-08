@@ -15,7 +15,7 @@ import * as notifications from "app/scenes/notifications";
 import * as dataLoad from "app/services/data-load";
 import { ClusterDetailPage } from "app/scenes/cluster-detail";
 import { NodeListPage } from "app/scenes/node-list";
-import { ResourceDetailPage } from "app/scenes/resource-detail";
+import * as resourceDetail from "app/scenes/resource-detail";
 import { ResourceAttributesPage } from "app/scenes/resource-attributes";
 import { FenceDeviceListPage } from "app/scenes/fence-device-list";
 
@@ -43,6 +43,7 @@ function* rootSaga() {
     ...cluster.sagas,
     ...addExistingCluster.sagas,
     ...notifications.sagas,
+    ...resourceDetail.sagas,
   ]);
 }
 
@@ -77,7 +78,7 @@ const routes = [
     path: url.resourcesDetail(":clusterUrlName", ":resourceUrlName"),
     render: withUrlArgs(
       ["clusterUrlName", "resourceUrlName"],
-      ResourceDetailPage,
+      resourceDetail.ResourceDetailPage,
     ),
   },
   {
