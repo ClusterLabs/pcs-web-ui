@@ -22,8 +22,8 @@ export interface ResourceTreeItemBase {
   issueList: Issue[],
 }
 
-export interface Resource extends ResourceTreeItemBase {
-  itemType: "resource",
+export interface Primitive extends ResourceTreeItemBase {
+  itemType: "primitive",
   class: string,
   provider: string,
   type: string,
@@ -31,15 +31,15 @@ export interface Resource extends ResourceTreeItemBase {
 
 export interface Group extends ResourceTreeItemBase {
   itemType: "group",
-  resources: Resource[],
+  resources: Primitive[],
 }
 
 export interface Clone extends ResourceTreeItemBase {
   itemType: "clone",
-  member: Resource|Group;
+  member: Primitive|Group;
 }
 
-export type ResourceTreeItem = Resource|Group|Clone;
+export type ResourceTreeItem = Primitive|Group|Clone;
 
 export interface FenceDevice {
   id: string,

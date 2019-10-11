@@ -21,7 +21,7 @@ const ResourceTreeItemGroup = (
     {group.resources.map(resource => (
       <ResourceTreeItemPrimitive
         key={resource.id}
-        resource={resource}
+        primitive={resource}
         createResourceDetailUrl={createResourceDetailUrl}
       />
     ))}

@@ -51,7 +51,7 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
                 />
               </ResourceDetailLayout>
             )}
-            {resourceTreeItem && resourceTreeItem.itemType === "resource" && (
+            {resourceTreeItem && resourceTreeItem.itemType === "primitive" && (
               <ResourceDetailPrimitive
                 primitive={resourceTreeItem}
                 urlPrefix={urlPrefix}

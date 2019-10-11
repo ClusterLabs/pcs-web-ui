@@ -18,10 +18,10 @@ const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
     nestedAriaLabel={`Clone ${clone.id}: member`}
     nestingDepth={1}
   >
-    {clone.member.itemType === "resource" && (
+    {clone.member.itemType === "primitive" && (
       <ResourceTreeItemPrimitive
         key={clone.member.id}
-        resource={clone.member}
+        primitive={clone.member}
         createResourceDetailUrl={createResourceDetailUrl}
       />
     )}

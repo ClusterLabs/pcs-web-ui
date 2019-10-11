@@ -9,7 +9,7 @@ import { StatusSeverity } from "app/common/types";
 import { typeIs, statusSeverity } from "app/common/utils";
 
 import {
-  Resource,
+  Primitive,
   ResourceTreeItem,
   FenceDevice,
   Group,
@@ -20,7 +20,7 @@ import { transformIssues } from "./issues";
 
 const transformStatus = (
   status: ApiResource["status"],
-): Resource["status"]|FenceDevice["status"] => {
+): Primitive["status"]|FenceDevice["status"] => {
   switch (status) {
     case "running": return "RUNNING";
     case "blocked": return "BLOCKED";
@@ -38,9 +38,9 @@ const toSeverity = (resource: ApiResource): StatusSeverity => {
   }
 };
 
-const toResource = (apiResource: ApiPrimitive): Resource => ({
+const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   id: apiResource.id,
-  itemType: "resource",
+  itemType: "primitive",
   status: transformStatus(apiResource.status),
   statusSeverity: toSeverity(apiResource),
   issueList: transformIssues(apiResource),
@@ -63,7 +63,7 @@ const toResourceTreeGroup = (apiGroup: ApiGroup): Group|undefined => {
   return {
     id: apiGroup.id,
     itemType: "group",
-    resources: primitiveMembers.map(toResource),
+    resources: primitiveMembers.map(toPrimitive),
     status: transformStatus(apiGroup.status),
     statusSeverity: toSeverity(apiGroup),
     issueList: transformIssues(apiGroup),
@@ -72,7 +72,7 @@ const toResourceTreeGroup = (apiGroup: ApiGroup): Group|undefined => {
 
 const toResourceTreeClone = (apiClone: ApiClone): Clone|undefined => {
   const member = apiClone.member.class_type === "primitive"
-    ? toResource(apiClone.member)
+    ? toPrimitive(apiClone.member)
     : toResourceTreeGroup(apiClone.member)
   ;
 
@@ -123,7 +123,7 @@ export const analyzeApiResources = (
           ...analyzed,
           resourceTree: [
             ...analyzed.resourceTree,
-            toResource(apiResource as ApiPrimitive),
+            toPrimitive(apiResource as ApiPrimitive),
           ],
           resourcesSeverity: maxResourcesSeverity(),
         };

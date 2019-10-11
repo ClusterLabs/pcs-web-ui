@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouteMatch } from "react-router";
 
-import { Resource } from "app/services/cluster/types";
+import { Primitive } from "app/services/cluster/types";
 import { tabRoutes, join } from "app/common/utils";
 import { UrlTabs } from "app/common/components";
 import { PrimitiveAttributesPage } from "app/scenes/primitive-attributes";
@@ -9,7 +9,7 @@ import { PrimitiveAttributesPage } from "app/scenes/primitive-attributes";
 import ResourceDetailLayout from "./ResourceDetailLayout";
 
 const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
-  primitive: Resource;
+  primitive: Primitive;
   urlPrefix: string;
   closeUrl: string;
 }) => {

@@ -25,10 +25,10 @@ const ClusterResourceTree = ({
   >
     {resourceTree.map((resourceTreeItem) => {
       switch (resourceTreeItem.itemType) {
-        case "resource": return (
+        case "primitive": return (
           <ResourceTreeItemPrimitive
             key={resourceTreeItem.id}
-            resource={resourceTreeItem}
+            primitive={resourceTreeItem}
             createResourceDetailUrl={createResourceDetailUrl}
           />
         );

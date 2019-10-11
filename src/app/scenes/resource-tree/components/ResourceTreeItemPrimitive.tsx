@@ -5,25 +5,25 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { Resource } from "app/services/cluster/types";
+import { Primitive } from "app/services/cluster/types";
 
 import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 
-const ResourceTreeItemPrimitive = ({ resource, createResourceDetailUrl }: {
-  resource: Resource,
+const ResourceTreeItemPrimitive = ({ primitive, createResourceDetailUrl }: {
+  primitive: Primitive,
   createResourceDetailUrl: (id: string) => string,
 }) => (
-  <DataListItem aria-labelledby={resource.id}>
+  <DataListItem aria-labelledby={primitive.id}>
     <DataListItemRow>
       <DataListToggle
-        id={`resource-tree-${resource.id}`}
+        id={`resource-tree-${primitive.id}`}
         aria-hidden="true"
       />
       <ResourceTreeItemDescription
-        resourceTreeItem={resource}
-        detailUrl={createResourceDetailUrl(resource.id)}
-        type={resource.type}
-        typeDescription={`${resource.class}:${resource.provider}`}
+        resourceTreeItem={primitive}
+        detailUrl={createResourceDetailUrl(primitive.id)}
+        type={primitive.type}
+        typeDescription={`${primitive.class}:${primitive.provider}`}
       />
     </DataListItemRow>
   </DataListItem>

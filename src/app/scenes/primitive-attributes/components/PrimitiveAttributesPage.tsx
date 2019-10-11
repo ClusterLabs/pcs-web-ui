@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Resource } from "app/services/cluster/types";
+import { Primitive } from "app/services/cluster/types";
 
 const PrimitiveAttributesPage = ({ primitive }: {
-  primitive: Resource,
+  primitive: Primitive,
 }) => (
   <>
     Attributes
