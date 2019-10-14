@@ -1,9 +1,9 @@
 import React from "react";
 import { Stack, StackItem } from "@patternfly/react-core";
 
-import { Issue } from "app/services/cluster/types";
 import { InlineAlert } from "app/common/components";
-import { StatusSeverity } from "app/common/types";
+
+import { Issue } from "../types";
 
 
 const mapSeverityToVariant = (severity: Issue["severity"]) => (
@@ -11,15 +11,14 @@ const mapSeverityToVariant = (severity: Issue["severity"]) => (
 );
 const issueKey = (issue: Issue, index: any) => `${index}:${issue.message}`;
 
-const DashboardIssueList = ({ issueList, summaryStatus }: {
+const IssueList = ({ issueList, margin = false }: {
   issueList: Issue[],
-  summaryStatus: StatusSeverity,
+  margin?: boolean,
 }) => (
   <Stack
     gutter="sm"
-    style={{ margin: "1rem" }}
+    style={{ margin: margin ? "1rem" : "none" }}
     data-role="issues-status"
-    data-role-value={summaryStatus}
   >
     {issueList.map((issue, i) => (
       <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">
@@ -32,4 +31,4 @@ const DashboardIssueList = ({ issueList, summaryStatus }: {
   </Stack>
 );
 
-export default DashboardIssueList;
+export default IssueList;

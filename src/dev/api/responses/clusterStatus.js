@@ -27,7 +27,8 @@ const issues = list => list.map(message => ({ message }));
 
 const stonith = (id, diff) => resource(id, {
   ...diff,
-  class_type: "stonith",
+  class_type: "primitive",
+  class: "stonith",
   stonith: true,
 });
 
@@ -72,7 +73,14 @@ const clusterOk = clusterName => cluster(clusterName, "ok", {
 
 const resourceTree = cluster("resource-tree", "ok", {
   resource_list: [
-    resource("A", { type: "apache" }),
+    resource("A", {
+      type: "apache",
+      error_list: [
+        {
+          message: "Failed to monitor A on Mon Oct 14 14:00:07 CEST 2019",
+        },
+      ],
+    }),
     group("GROUP-1", [
       resource("B"),
       resource("C"),
@@ -87,7 +95,14 @@ const resourceTree = cluster("resource-tree", "ok", {
         ],
         { status: "blocked" }
       ),
-      { status: "blocked" }
+      {
+        status: "blocked",
+        error_list: [
+          {
+            message: "Failed to monitor GROUP-1 on Mon Oct 14 14:00:07 CEST 2019",
+          },
+        ],
+      },
     ),
     clone("Clone-2", resource("F")),
   ],

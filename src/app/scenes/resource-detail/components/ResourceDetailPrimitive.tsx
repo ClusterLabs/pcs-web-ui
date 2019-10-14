@@ -4,7 +4,10 @@ import { useRouteMatch } from "react-router";
 import { Primitive } from "app/services/cluster/types";
 import { tabRoutes, join } from "app/common/utils";
 import { UrlTabs } from "app/common/components";
-import { PrimitiveAttributesPage } from "app/scenes/primitive-attributes";
+import {
+  PrimitiveAttributes,
+  PrimitiveDetail,
+} from "app/scenes/resource-primitive";
 
 import ResourceDetailLayout from "./ResourceDetailLayout";
 
@@ -35,10 +38,10 @@ const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && (
-        <>Primitive detail</>
+        <PrimitiveDetail primitive={primitive} />
       )}
       {tab === "Attributes" && (
-        <PrimitiveAttributesPage primitive={primitive} />
+        <PrimitiveAttributes primitive={primitive} />
       )}
     </ResourceDetailLayout>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 import { Primitive } from "app/services/cluster/types";
 
-const PrimitiveAttributesPage = ({ primitive }: {
+const PrimitiveAttributes = ({ primitive }: {
   primitive: Primitive,
 }) => (
   <>
@@ -10,4 +10,4 @@ const PrimitiveAttributesPage = ({ primitive }: {
   </>
 );
 
-export default PrimitiveAttributesPage;
+export default PrimitiveAttributes;

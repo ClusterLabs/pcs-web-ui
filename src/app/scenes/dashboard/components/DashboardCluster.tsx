@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 import { Table, StatusIco } from "app/common/components";
 import { ClusterState } from "app/services/cluster/types";
+import { IssueList } from "app/services/cluster";
 
 import DashboardNodeList from "./DashboardNodeList";
 import DashboardResourceList from "./DashboardResourceList";
 import DashboardFenceDeviceList from "./DashboardFenceDeviceList";
-import DashboardIssueList from "./DashboardIssueList";
 
 const COLUMNS = {
   ISSUES: "ISSUES",
@@ -83,10 +83,7 @@ const DashboardCluster = ({ cluster }: { cluster: ClusterState }) => {
         </Toggle>
       </tr>
       <Content expandKey={COLUMNS.ISSUES}>
-        <DashboardIssueList
-          issueList={cluster.issueList}
-          summaryStatus={cluster.summary.issuesSeverity}
-        />
+        <IssueList margin issueList={cluster.issueList} />
       </Content>
       <Content expandKey={COLUMNS.NODES}>
         <DashboardNodeList nodeList={cluster.nodeList} />
