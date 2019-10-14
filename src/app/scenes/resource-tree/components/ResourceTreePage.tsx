@@ -11,7 +11,6 @@ const ResourceTreePage = () => {
   return (
     <PageSection>
       <ResourceTree
-        compact
         resourceTree={cluster.resourceTree}
         createResourceDetailUrl={
           ResourceTree.createResourceDetailUrl(cluster.urlName)

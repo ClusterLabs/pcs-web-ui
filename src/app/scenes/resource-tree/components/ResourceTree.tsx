@@ -10,7 +10,7 @@ import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
 import ResourceTreeItemClone from "./ResourceTreeItemClone";
 import ResourceTreeItemGroup from "./ResourceTreeItemGroup";
 
-const ClusterResourceTree = ({
+const ResourceTree = ({
   resourceTree,
   createResourceDetailUrl,
   compact = false,
@@ -51,11 +51,11 @@ const ClusterResourceTree = ({
   </DataList>
 );
 
-ClusterResourceTree.createResourceDetailUrl = (
+ResourceTree.createResourceDetailUrl = (
   (clusterUrlName: string) => (resourceUrlName: string) => url.resourcesDetail(
     clusterUrlName,
     resourceUrlName,
   )
 );
 
-export default ClusterResourceTree;
+export default ResourceTree;
