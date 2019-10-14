@@ -4,6 +4,7 @@ import { useRouteMatch } from "react-router";
 import { Clone } from "app/services/cluster/types";
 import { tabRoutes, join } from "app/common/utils";
 import { UrlTabs } from "app/common/components";
+import { CloneDetail } from "app/scenes/resource-clone";
 
 import ResourceDetailLayout from "./ResourceDetailLayout";
 
@@ -29,7 +30,9 @@ const ResourceDetailGroup = ({ clone, urlPrefix, closeUrl }: {
       )}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
-      Group
+      {tab === "Detail" && (
+        <CloneDetail clone={clone} />
+      )}
     </ResourceDetailLayout>
   );
 };

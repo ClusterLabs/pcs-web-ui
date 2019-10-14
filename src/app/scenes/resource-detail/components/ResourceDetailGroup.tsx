@@ -4,6 +4,7 @@ import { useRouteMatch } from "react-router";
 import { Group } from "app/services/cluster/types";
 import { tabRoutes, join } from "app/common/utils";
 import { UrlTabs } from "app/common/components";
+import { GroupDetail } from "app/scenes/resource-group";
 
 import ResourceDetailLayout from "./ResourceDetailLayout";
 
@@ -29,7 +30,9 @@ const ResourceDetailGroup = ({ group, urlPrefix, closeUrl }: {
       )}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
-      Group
+      {tab === "Detail" && (
+        <GroupDetail group={group} />
+      )}
     </ResourceDetailLayout>
   );
 };

@@ -99,7 +99,7 @@ const resourceTree = cluster("resource-tree", "ok", {
         status: "blocked",
         error_list: [
           {
-            message: "Failed to monitor GROUP-1 on Mon Oct 14 14:00:07 CEST 2019",
+            message: "Failed to monitor Clone-1 on Mon Oct 14 14:00:07 CEST 2019",
           },
         ],
       },
