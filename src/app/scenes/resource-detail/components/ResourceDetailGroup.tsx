@@ -7,6 +7,7 @@ import { UrlTabs } from "app/common/components";
 import { GroupDetail } from "app/scenes/resource-group";
 
 import ResourceDetailLayout from "./ResourceDetailLayout";
+import ResourceDetailCaption from "./ResourceDetailCaption";
 
 const ResourceDetailGroup = ({ group, urlPrefix, closeUrl }: {
   group: Group;
@@ -22,12 +23,7 @@ const ResourceDetailGroup = ({ group, urlPrefix, closeUrl }: {
   return (
     <ResourceDetailLayout
       closeUrl={closeUrl}
-      caption={(
-        <>
-          <span>Group </span>
-          <strong>{group.id}</strong>
-        </>
-      )}
+      caption={<ResourceDetailCaption resourceId={group.id} type="group" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && (

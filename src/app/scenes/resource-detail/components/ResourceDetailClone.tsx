@@ -7,6 +7,7 @@ import { UrlTabs } from "app/common/components";
 import { CloneDetail } from "app/scenes/resource-clone";
 
 import ResourceDetailLayout from "./ResourceDetailLayout";
+import ResourceDetailCaption from "./ResourceDetailCaption";
 
 const ResourceDetailGroup = ({ clone, urlPrefix, closeUrl }: {
   clone: Clone;
@@ -22,12 +23,7 @@ const ResourceDetailGroup = ({ clone, urlPrefix, closeUrl }: {
   return (
     <ResourceDetailLayout
       closeUrl={closeUrl}
-      caption={(
-        <>
-          <span>Clone </span>
-          <strong>{clone.id}</strong>
-        </>
-      )}
+      caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && (

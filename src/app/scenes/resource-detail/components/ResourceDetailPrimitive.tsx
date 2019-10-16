@@ -10,6 +10,7 @@ import {
 } from "app/scenes/resource-primitive";
 
 import ResourceDetailLayout from "./ResourceDetailLayout";
+import ResourceDetailCaption from "./ResourceDetailCaption";
 
 const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
   primitive: Primitive;
@@ -28,12 +29,10 @@ const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
     <ResourceDetailLayout
       closeUrl={closeUrl}
       caption={(
-        <>
-          <strong>{`${primitive.id}: `}</strong>
-          <span>
-            {`${primitive.type} (${primitive.class}:${primitive.provider})`}
-          </span>
-        </>
+        <ResourceDetailCaption
+          resourceId={primitive.id}
+          type={primitive.type}
+        />
       )}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
