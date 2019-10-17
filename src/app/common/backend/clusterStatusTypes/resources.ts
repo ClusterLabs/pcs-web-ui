@@ -70,7 +70,8 @@ parent_id
 */
 interface ApiResourceBase extends ApiWithIssues {
   id: ApiResourceId;
-  class_type: string,
+  class_type: string;
+  agentname: string;
   status: "running"|"partially running"|"disabled"|"failed"|"blocked"|"unknown";
   meta_attr: ApiNVPair[];
   disabled: boolean;

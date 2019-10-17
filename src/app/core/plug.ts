@@ -12,6 +12,7 @@ import * as addExistingCluster from "app/scenes/dashboard-add-cluster";
 import * as notifications from "app/scenes/notifications";
 import * as dataLoad from "app/services/data-load";
 import * as resourceDetail from "app/scenes/resource-detail";
+import * as resourcePrimitive from "app/scenes/resource-primitive";
 
 import { RootState } from "./types";
 
@@ -22,6 +23,7 @@ const rootReducer = (history: History) => combineReducers<RootState>({
   addExistingCluster: addExistingCluster.reducer,
   cluster: cluster.reducer,
   resourceTree: resourceTree.reducer,
+  resourcePrimitive: resourcePrimitive.reducer,
   login: login.reducer,
   notifications: notifications.reducer,
 });
@@ -36,6 +38,7 @@ function* rootSaga() {
     ...addExistingCluster.sagas,
     ...notifications.sagas,
     ...resourceDetail.sagas,
+    ...resourcePrimitive.sagas,
   ]);
 }
 

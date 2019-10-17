@@ -19,6 +19,7 @@ const resource = (id, diff) => deepmerge({
   provider: "heartbeat",
   type: "Dummy",
   stonith: false,
+  instance_attr: [],
   warning_list: [],
   error_list: [],
 }, diff || {});
@@ -80,6 +81,13 @@ const resourceTree = cluster("resource-tree", "ok", {
           message: "Failed to monitor A on Mon Oct 14 14:00:07 CEST 2019",
         },
       ],
+      instance_attr: [
+        {
+          id: "A-instance_attributes-configfile",
+          name: "configfile",
+          value: "/etc/apache/httpd.conf",
+        },
+      ]
     }),
     group("GROUP-1", [
       resource("B"),

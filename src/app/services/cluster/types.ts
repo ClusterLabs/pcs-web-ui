@@ -1,5 +1,11 @@
 import { StatusSeverity } from "app/common/types";
 
+export interface NVPair {
+  id: string,
+  name: string,
+  value: string,
+}
+
 export interface Issue {
   severity: "ERROR"|"WARNING",
   message: string,
@@ -27,6 +33,7 @@ export interface Primitive extends ResourceTreeItemBase {
   class: string,
   provider: string,
   type: string,
+  instanceAttributes: NVPair[],
 }
 
 export interface Group extends ResourceTreeItemBase {

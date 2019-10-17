@@ -36,4 +36,8 @@ module.exports = {
     "/manage/check_auth_against_nodes",
     handler,
   ),
+  getResourceAgentMetadata: handler => get(
+    "/managec/:clusterUrlName/get_resource_agent_metadata",
+    handler,
+  ),
 };
