@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Alert } from "@patternfly/react-core";
 
 import { Primitive, NVPair } from "app/services/cluster/types";
 import { Spinner } from "app/common/components";
@@ -25,7 +26,11 @@ const PrimitiveAttributes = ({ primitive }: {
 
   return (
     <div className="pf-c-content">
-      {resourceAgent && (
+      {
+        resourceAgent
+        &&
+        ["LOADED", "RELOADING"].includes(resourceAgent.loadStatus)
+        && (
         <dl>
           {resourceAgent.parameters.map(parameter => (
             <React.Fragment key={parameter.name}>
@@ -40,9 +45,18 @@ const PrimitiveAttributes = ({ primitive }: {
             </React.Fragment>
           ))}
         </dl>
-      )}
-      {!resourceAgent && (
+        )}
+      {(!resourceAgent || resourceAgent.loadStatus === "LOADING") && (
         <Spinner text="Loading resource agent data" />
+      )}
+      {resourceAgent && resourceAgent.loadStatus === "FAILED" && (
+        <Alert
+          isInline
+          variant="danger"
+          title={
+            `Cannot load metadata of resource agent "${primitive.class}:${primitive.provider}:${primitive.type}"`
+          }
+        />
       )}
     </div>
   );

@@ -6,6 +6,7 @@ export interface ResourceAgentParameter {
 }
 
 export interface ResourceAgentMetadata {
+  loadStatus: "LOADING"|"LOADED"|"RELOADING"|"FAILED";
   parameters: ResourceAgentParameter[];
 }
 

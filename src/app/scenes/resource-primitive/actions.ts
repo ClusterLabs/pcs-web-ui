@@ -14,3 +14,10 @@ export interface LoadResourceAgentSuccess {
     apiAgentMetadata: ApiAgentMetadata;
   }
 }
+
+export interface LoadResourceAgentFailed {
+  type: "RESOURCE_AGENT.LOAD.FAILED";
+  payload: {
+    agentName: string;
+  }
+}
