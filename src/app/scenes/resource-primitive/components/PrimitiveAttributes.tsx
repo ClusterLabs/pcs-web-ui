@@ -11,7 +11,7 @@ const PrimitiveAttributes = ({ primitive }: {
   primitive: Primitive,
 }) => {
   const resourceAgent = useSelector(selectors.getResourceAgent(
-    `${primitive.class}:${primitive.provider}:${primitive.type}`,
+    primitive.agentName,
   ));
 
   // TODO who win in pacemaker? Last? First?
@@ -54,7 +54,7 @@ const PrimitiveAttributes = ({ primitive }: {
           isInline
           variant="danger"
           title={
-            `Cannot load metadata of resource agent "${primitive.class}:${primitive.provider}:${primitive.type}"`
+            `Cannot load metadata of resource agent "${primitive.agentName}"`
           }
         />
       )}

@@ -33,6 +33,7 @@ export interface Primitive extends ResourceTreeItemBase {
   class: string,
   provider: string,
   type: string,
+  agentName: string;
   instanceAttributes: NVPair[],
 }
 

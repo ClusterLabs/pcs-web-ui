@@ -32,10 +32,7 @@ const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
   // user doesn't need to wait when he needs it.
   const cluster = useSelector(clusterSelector.getCluster);
-  useResourceAgent(
-    cluster.urlName,
-    `${primitive.class}:${primitive.provider}:${primitive.type}`,
-  );
+  useResourceAgent(cluster.urlName, primitive.agentName);
 
   return (
     <ResourceDetailLayout

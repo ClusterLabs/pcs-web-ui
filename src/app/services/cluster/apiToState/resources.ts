@@ -47,6 +47,7 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   class: apiResource.class,
   provider: apiResource.provider,
   type: apiResource.type,
+  agentName: `${apiResource.class}:${apiResource.provider}:${apiResource.type}`,
   instanceAttributes: apiResource.instance_attr,
 });
 
