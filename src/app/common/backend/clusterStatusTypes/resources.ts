@@ -53,7 +53,7 @@ interface ApiResourceStatus {
   orphaned: boolean;
   failure_ignored: boolean;
   nodes_running_on: number;
-  panding: string;
+  pending: string;
   node: {
     name: string;
     id: string;
