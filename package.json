@@ -27,8 +27,7 @@
     "react-scripts": "3.0.1",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
-    "typescript": "^3.5.3",
-    "validator": "^10.11.0"
+    "typescript": "^3.5.3"
   },
   "homepage": "/ui/",
   "proxy": "http://localhost:5000",
