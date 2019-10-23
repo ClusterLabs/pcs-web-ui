@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Alert } from "@patternfly/react-core";
 
-import { Primitive, NVPair } from "app/services/cluster/types";
+import { Primitive } from "app/services/cluster/types";
 import { Spinner } from "app/common/components";
 
 import * as selectors from "../selectors";
@@ -13,16 +13,6 @@ const PrimitiveAttributes = ({ primitive }: {
   const resourceAgent = useSelector(selectors.getResourceAgent(
     primitive.agentName,
   ));
-
-  // TODO who win in pacemaker? Last? First?
-  // TODO store instance attributes directly in state
-  const configuredParams = primitive.instanceAttributes.reduce(
-    (attrMap, nvpair) => ({
-      ...attrMap,
-      [nvpair.name]: nvpair,
-    }),
-    {} as Record<NVPair["name"], NVPair>,
-  );
 
   return (
     <div className="pf-c-content">
@@ -37,8 +27,8 @@ const PrimitiveAttributes = ({ primitive }: {
               <dt>{parameter.name}</dt>
               <dd>
                 {
-                  parameter.name in configuredParams
-                    ? configuredParams[parameter.name].value
+                  parameter.name in primitive.instanceAttributes
+                    ? primitive.instanceAttributes[parameter.name].value
                     : ""
               }
               </dd>

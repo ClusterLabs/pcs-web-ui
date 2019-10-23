@@ -1,8 +1,7 @@
 import { StatusSeverity } from "app/common/types";
 
-export interface NVPair {
+export interface InstanceAttribute {
   id: string,
-  name: string,
   value: string,
 }
 
@@ -34,7 +33,7 @@ export interface Primitive extends ResourceTreeItemBase {
   provider: string,
   type: string,
   agentName: string;
-  instanceAttributes: NVPair[],
+  instanceAttributes: Record<string, InstanceAttribute>,
 }
 
 export interface Group extends ResourceTreeItemBase {

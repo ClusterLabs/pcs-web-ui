@@ -48,7 +48,14 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   provider: apiResource.provider,
   type: apiResource.type,
   agentName: `${apiResource.class}:${apiResource.provider}:${apiResource.type}`,
-  instanceAttributes: apiResource.instance_attr,
+  // Decision: Last instance_attr wins!
+  instanceAttributes: apiResource.instance_attr.reduce(
+    (attrMap, nvpair) => ({
+      ...attrMap,
+      [nvpair.name]: { id: nvpair.id, value: nvpair.value },
+    }),
+    {},
+  ),
 });
 
 const toResourceTreeGroup = (apiGroup: ApiGroup): Group|undefined => {
