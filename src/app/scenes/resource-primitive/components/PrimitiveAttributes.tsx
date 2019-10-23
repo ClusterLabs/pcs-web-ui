@@ -6,6 +6,7 @@ import { Primitive } from "app/services/cluster/types";
 import { Spinner } from "app/common/components";
 
 import * as selectors from "../selectors";
+import PrimitiveParameter from "./PrimitiveParameter";
 
 const PrimitiveAttributes = ({ primitive }: {
   primitive: Primitive,
@@ -23,16 +24,11 @@ const PrimitiveAttributes = ({ primitive }: {
         && (
         <dl>
           {resourceAgent.parameters.map(parameter => (
-            <React.Fragment key={parameter.name}>
-              <dt>{parameter.name}</dt>
-              <dd>
-                {
-                  parameter.name in primitive.instanceAttributes
-                    ? primitive.instanceAttributes[parameter.name].value
-                    : ""
-              }
-              </dd>
-            </React.Fragment>
+            <PrimitiveParameter
+              key={parameter.name}
+              instanceAttributes={primitive.instanceAttributes}
+              resourceAgentParameter={parameter}
+            />
           ))}
         </dl>
         )}
