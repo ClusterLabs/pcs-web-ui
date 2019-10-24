@@ -72,7 +72,7 @@ const clusterOk = clusterName => cluster(clusterName, "ok", {
   ],
 });
 
-const resourceTree = cluster("resource-tree", "ok", {
+const resourceTree = cluster("resourceTree", "ok", {
   resource_list: [
     resource("A", {
       type: "apache",
@@ -116,7 +116,7 @@ const resourceTree = cluster("resource-tree", "ok", {
   ],
 });
 
-const clusterError = cluster("cluster-2", "error", {
+const clusterError = cluster("error", "error", {
   node_list: [
     node(1),
     node(2, { status: "unknown", quorum: false }),
@@ -145,7 +145,7 @@ const clusterError = cluster("cluster-2", "error", {
   ]),
 });
 
-const clusterBig = cluster("cluster-3", "error", {
+const clusterBig = cluster("big", "error", {
   node_list: [
     node(1),
     node(2, { status: "unknown", quorum: "unknown" }),
@@ -190,14 +190,14 @@ const clusterBig = cluster("cluster-3", "error", {
   ]),
 });
 
-const empty = cluster("cluster-empty", "error", { node_list: [node(1)] });
+const empty = cluster("empty", "error", { node_list: [node(1)] });
 
 
 module.exports = {
-  ok: clusterOk("cluster-1"),
+  ok: clusterOk("ok"),
   error: clusterError,
   big: clusterBig,
-  ok2: clusterOk("cluster-4"),
+  ok2: clusterOk("ok1"),
   resourceTree: resourceTree,
   empty,
 };
