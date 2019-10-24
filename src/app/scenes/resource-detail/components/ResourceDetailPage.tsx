@@ -35,6 +35,7 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
             createResourceDetailUrl={
               ResourceTree.createResourceDetailUrl(cluster.urlName)
             }
+            selectedResourceId={resourceUrlName}
           />
         </div>
         <div className="pf-c-card pf-m-flex-1 ha-c-panel__details-view">

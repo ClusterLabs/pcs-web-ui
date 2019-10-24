@@ -9,45 +9,50 @@ import * as url from "app/common/urls";
 import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
 import ResourceTreeItemClone from "./ResourceTreeItemClone";
 import ResourceTreeItemGroup from "./ResourceTreeItemGroup";
+import { SelectedResourceProvider } from "./SelectedResourceContext";
 
 const ResourceTree = ({
   resourceTree,
   createResourceDetailUrl,
   compact = false,
+  selectedResourceId = "",
 }: {
   resourceTree: ResourceTreeItem[],
   createResourceDetailUrl: (id: string) => string,
   compact?: boolean,
+  selectedResourceId?: string,
 }) => (
   <DataList
     aria-label="Cluster resource list"
     className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
   >
-    {resourceTree.map((resourceTreeItem) => {
-      switch (resourceTreeItem.itemType) {
-        case "primitive": return (
-          <ResourceTreeItemPrimitive
-            key={resourceTreeItem.id}
-            primitive={resourceTreeItem}
-            createResourceDetailUrl={createResourceDetailUrl}
-          />
-        );
-        case "group": return (
-          <ResourceTreeItemGroup
-            key={resourceTreeItem.id}
-            group={resourceTreeItem}
-            createResourceDetailUrl={createResourceDetailUrl}
-          />
-        );
-        case "clone": default: return (
-          <ResourceTreeItemClone
-            key={resourceTreeItem.id}
-            clone={resourceTreeItem}
-            createResourceDetailUrl={createResourceDetailUrl}
-          />
-        );
-      }
-    })}
+    <SelectedResourceProvider value={selectedResourceId}>
+      {resourceTree.map((resourceTreeItem) => {
+        switch (resourceTreeItem.itemType) {
+          case "primitive": return (
+            <ResourceTreeItemPrimitive
+              key={resourceTreeItem.id}
+              primitive={resourceTreeItem}
+              createResourceDetailUrl={createResourceDetailUrl}
+            />
+          );
+          case "group": return (
+            <ResourceTreeItemGroup
+              key={resourceTreeItem.id}
+              group={resourceTreeItem}
+              createResourceDetailUrl={createResourceDetailUrl}
+            />
+          );
+          case "clone": default: return (
+            <ResourceTreeItemClone
+              key={resourceTreeItem.id}
+              clone={resourceTreeItem}
+              createResourceDetailUrl={createResourceDetailUrl}
+            />
+          );
+        }
+      })}
+    </SelectedResourceProvider>
   </DataList>
 );
 
