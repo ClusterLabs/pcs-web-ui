@@ -1,8 +1,6 @@
 import React from "react";
 import { Stack, StackItem, Alert } from "@patternfly/react-core";
 
-import { InlineAlert } from "app/common/components";
-
 import { Issue } from "../types";
 
 
@@ -22,7 +20,8 @@ const IssueList = ({ issueList, margin = false }: {
   >
     {issueList.map((issue, i) => (
       <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">
-        <InlineAlert
+        <Alert
+          isInline
           variant={mapSeverityToVariant(issue.severity)}
           title={issue.message}
         />
