@@ -16,6 +16,7 @@ module.exports = {
       responses.clusterStatus.error,
       responses.clusterStatus.big,
       responses.clusterStatus.ok2,
+      responses.clusterStatus.empty,
     ])),
   ],
   goToCluster: [

@@ -190,10 +190,14 @@ const clusterBig = cluster("cluster-3", "error", {
   ]),
 });
 
+const empty = cluster("cluster-empty", "error", { node_list: [node(1)] });
+
+
 module.exports = {
   ok: clusterOk("cluster-1"),
   error: clusterError,
   big: clusterBig,
   ok2: clusterOk("cluster-4"),
   resourceTree: resourceTree,
+  empty,
 };
