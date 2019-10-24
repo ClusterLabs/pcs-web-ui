@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, StackItem } from "@patternfly/react-core";
+import { Stack, StackItem, Alert } from "@patternfly/react-core";
 
 import { InlineAlert } from "app/common/components";
 
@@ -28,6 +28,11 @@ const IssueList = ({ issueList, margin = false }: {
         />
       </StackItem>
     ))}
+    {issueList.length === 0 && (
+      <StackItem isFilled aria-label="no cluster issue">
+        <Alert variant="info" isInline title="No issue" />
+      </StackItem>
+    )}
   </Stack>
 );
 
