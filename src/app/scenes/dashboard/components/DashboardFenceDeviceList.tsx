@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Table, StatusSign } from "app/common/components";
+import { Table, StatusSign, NoItemCase } from "app/common/components";
 import { FenceDevice } from "app/services/cluster/types";
 import { compareStrings, toLabel, statusSeverity } from "app/common/utils";
 
@@ -26,6 +26,9 @@ const DashboardFenceDeviceList = ({ fenceDeviceList }: {
   fenceDeviceList: FenceDevice[],
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting("NAME");
+  if (fenceDeviceList.length === 0) {
+    return <NoItemCase message="No fence device is configured." />;
+  }
   return (
     <Table isCompact isBorderless>
       <thead>
