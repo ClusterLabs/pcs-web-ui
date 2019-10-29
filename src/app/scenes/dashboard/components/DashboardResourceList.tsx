@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Table, StatusSign } from "app/common/components";
+import { Table, StatusSign, NoItemCase } from "app/common/components";
 import { ResourceTreeItem } from "app/services/cluster/types";
 import { compareStrings, toLabel, statusSeverity } from "app/common/utils";
 
@@ -26,6 +26,10 @@ const DashboardResourceList = ({ resourceList }: {
   resourceList: ResourceTreeItem[],
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting("NAME");
+
+  if (resourceList.length === 0) {
+    return <NoItemCase message="No resource is configured." />;
+  }
 
   return (
     <Table isCompact isBorderless>

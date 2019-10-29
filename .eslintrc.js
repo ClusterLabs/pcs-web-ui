@@ -20,6 +20,8 @@ module.exports = {
     "import/no-unresolved": ["off", { commonjs: true, caseSensitive: true }],
     "import/prefer-default-export": "off",
     "lines-between-class-members": "off",
+    // It creates messy diff when there is need to switch from => ( to => {
+    "arrow-body-style": "off",
 
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
     // "import/extensions": [2, { "js": "always", "jsx": "always" }],

@@ -1,7 +1,6 @@
 import React from "react";
-import { Stack, StackItem } from "@patternfly/react-core";
-
-import { InlineAlert } from "app/common/components";
+import { Stack, StackItem, Alert } from "@patternfly/react-core";
+import { NoItemCase } from "app/common/components";
 
 import { Issue } from "../types";
 
@@ -14,21 +13,32 @@ const issueKey = (issue: Issue, index: any) => `${index}:${issue.message}`;
 const IssueList = ({ issueList, margin = false }: {
   issueList: Issue[],
   margin?: boolean,
-}) => (
-  <Stack
-    gutter="sm"
-    style={{ margin: margin ? "1rem" : "none" }}
-    data-role="issues-status"
-  >
-    {issueList.map((issue, i) => (
-      <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">
-        <InlineAlert
-          variant={mapSeverityToVariant(issue.severity)}
-          title={issue.message}
-        />
+}) => {
+  if (issueList.length === 0) {
+    return <NoItemCase message="No issue." />;
+  }
+  return (
+    <Stack
+      gutter="sm"
+      style={{ margin: margin ? "1rem" : "none" }}
+      data-role="issues-status"
+    >
+      {issueList.map((issue, i) => (
+        <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">
+          <Alert
+            isInline
+            variant={mapSeverityToVariant(issue.severity)}
+            title={issue.message}
+          />
+        </StackItem>
+      ))}
+      {issueList.length === 0 && (
+      <StackItem isFilled aria-label="no cluster issue">
+        <Alert variant="info" isInline title="No issue" />
       </StackItem>
-    ))}
-  </Stack>
-);
+      )}
+    </Stack>
+  );
+};
 
 export default IssueList;

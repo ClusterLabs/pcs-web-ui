@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Alert } from "@patternfly/react-core";
 
-import { Spinner, InlineAlert } from "app/common/components";
+import { Spinner } from "app/common/components";
 
 import * as selectors from "../selectors";
 import { ADD_STATE } from "../types";
@@ -21,7 +22,8 @@ const AddClusterAddStep = () => {
       }
       {
         clusterHasBeenAddedStates.includes(state) && (
-          <InlineAlert
+          <Alert
+            isInline
             variant="success"
             title="Cluster has been added."
             data-role="add-cluster-success"
@@ -35,7 +37,8 @@ const AddClusterAddStep = () => {
         />
       )}
       {state === "ERROR" && (
-        <InlineAlert
+        <Alert
+          isInline
           variant="danger"
           title={errorMessage}
           data-role="add-cluster-error-message"

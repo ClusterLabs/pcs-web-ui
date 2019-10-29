@@ -5,9 +5,10 @@ import {
   FormGroup,
   Switch,
   TextInput,
+  Alert,
 } from "@patternfly/react-core";
 
-import { Spinner, InlineAlert } from "app/common/components";
+import { Spinner } from "app/common/components";
 
 import { AuthenticateNode } from "../actions";
 import { NodeName, StateError } from "../types";
@@ -26,14 +27,16 @@ const AddClusterAuthRequired = (
   const dispatch = useDispatch();
   return (
     <>
-      <InlineAlert
+      <Alert
+        isInline
         variant="warning"
         title={
           `Node '${nodeName}' is not authenticated. Please authenticate it.`
         }
       />
       {authenticationError && (
-        <InlineAlert
+        <Alert
+          isInline
           variant="danger"
           title={authenticationError}
           data-role="authentication-failed"
