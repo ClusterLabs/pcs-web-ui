@@ -48,6 +48,7 @@ interface ApiResourceStatus {
   resource_agent: string;
   managed: boolean;
   failed: boolean;
+  target_role?: "Started"|"Stopped"|"Master"|"Slave";
   role: "Started"|"Stopped"|"Master"|"Slave";
   active: boolean;
   orphaned: boolean;
