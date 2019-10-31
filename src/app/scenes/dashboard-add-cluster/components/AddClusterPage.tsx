@@ -1,16 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { push } from "connected-react-router";
 import { Wizard } from "@patternfly/react-core";
-
-import DashboardPage from "app/scenes/dashboard/components/DashboardPage";
 
 import * as ClusterAddAction from "../actions";
 import * as selectors from "../selectors";
 import AddClusterStepAuth from "./AddClusterStepAuth";
 import AddClusterStepAdd from "./AddClusterStepAdd";
 
-const AddClusterPage = () => {
+const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
   const stepAuthState = useSelector(selectors.getStepAuthState);
   const nodeName = useSelector(selectors.getNodeName);
   const dispatch = useDispatch();
@@ -27,21 +24,18 @@ const AddClusterPage = () => {
     },
   ];
   return (
-    <>
-      <DashboardPage />
-      <Wizard
-        data-role="add-cluster-wizard"
-        isOpen
-        onNext={() => dispatch<ClusterAddAction.AddCluster>({
-          type: "ADD_CLUSTER.ADD_CLUSTER",
-          payload: { nodeName },
-        })}
-        onClose={() => dispatch(push("/"))}
-        title="Add existing cluster"
-        description="Add existing cluster wizard"
-        steps={steps}
-      />
-    </>
+    <Wizard
+      data-role="add-cluster-wizard"
+      isOpen
+      onNext={() => dispatch<ClusterAddAction.AddCluster>({
+        type: "ADD_CLUSTER.ADD_CLUSTER",
+        payload: { nodeName },
+      })}
+      onClose={onClose}
+      title="Add existing cluster"
+      description="Add existing cluster wizard"
+      steps={steps}
+    />
   );
 };
 

@@ -37,7 +37,7 @@ const useDashboardSync = () => {
   );
 };
 
-const DashboardPage = () => {
+const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
   useDashboardSync();
   const dashboard = useSelector(selectors.getDashboard);
   const dataLoaded = useSelector(selectors.areDataLoaded);
@@ -45,7 +45,7 @@ const DashboardPage = () => {
   return (
     <Page>
       <PageSection>
-        <DashboardToolbar />
+        <DashboardToolbar urlPrefix={urlPrefix} />
       </PageSection>
       <PageSectionDataLoading done={dataLoaded}>
         <Dashboard dashboard={dashboard} />
