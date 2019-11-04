@@ -1,8 +1,11 @@
 import React from "react";
 import { Stack, StackItem, Alert } from "@patternfly/react-core";
 
-const NoItemCase = ({ message }: { message: string }) => (
-  <Stack gutter="sm" style={{ margin: "1rem" }}>
+const NoItemCase = ({ message, margin = true }: {
+  message: string;
+  margin?: boolean;
+}) => (
+  <Stack gutter="sm" style={{ margin: margin ? "1rem" : "none" }}>
     <StackItem isFilled>
       <Alert
         isInline
