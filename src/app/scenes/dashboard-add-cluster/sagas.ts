@@ -24,7 +24,7 @@ function* checkAuthentication(
       nodesStatusMap: call(
         auth.getJson,
         "/manage/check_auth_against_nodes",
-        { "node_list[]": nodeName },
+        [["node_list[]", nodeName]],
       ),
       cancel: take(UpdateNodeNameActionType),
     });
@@ -80,7 +80,7 @@ function* addCluster({ payload: { nodeName } }: ClusterAddAction.AddCluster) {
     yield call(
       auth.postForText,
       "/manage/existingcluster",
-      { "node-name": nodeName },
+      [["node-name", nodeName]],
     );
     yield put<ClusterAddAction.ReloadDashboard>({
       type: "ADD_CLUSTER.RELOAD_DASHBOARD",
@@ -125,16 +125,16 @@ function* authenticateNode({
       authResult: call(
         auth.postForText,
         "/manage/auth_gui_against_nodes",
-        {
-          data_json: JSON.stringify({
+        [
+          ["data_json", JSON.stringify({
             nodes: {
               [nodeName]: {
                 password,
                 dest_list: [{ addr, port }],
               },
             },
-          }),
-        },
+          })],
+        ],
       ),
       cancel: take(UpdateNodeNameActionType),
     });

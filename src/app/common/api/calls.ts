@@ -16,19 +16,16 @@ const checkResponse = async (response: Response) => {
   return response;
 };
 
-const httpParams = (params: ApiParams): string => (
-  Object.keys(params)
-    .map(key => (
-      `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
-    ))
-    .join("&")
-);
+const httpParams = (params: ApiParams): string => params
+  .map(p => `${encodeURIComponent(p[0])}=${encodeURIComponent(p[1])}`)
+  .join("&")
+;
 
 const getUrl = (path: string, params: ApiParams): string => (
-  Object.keys(params).length > 0 ? `${path}?${httpParams(params)}` : path
+  params.length > 0 ? `${path}?${httpParams(params)}` : path
 );
 
-export const getJson = async (url: string, params: ApiParams = {}) => {
+export const getJson = async (url: string, params: ApiParams = []) => {
   const response = await checkResponse(
     await fetch(getUrl(url, params), { headers: ajaxHeaders }),
   );
@@ -45,7 +42,7 @@ export const getJson = async (url: string, params: ApiParams = {}) => {
   return data;
 };
 
-export const getForText = async (url: string, params: ApiParams = {}) => {
+export const getForText = async (url: string, params: ApiParams = []) => {
   const response = await checkResponse(
     await fetch(getUrl(url, params), { headers: ajaxHeaders }),
   );
@@ -55,7 +52,7 @@ export const getForText = async (url: string, params: ApiParams = {}) => {
 
 export const postForText = async (
   url: string,
-  params: ApiParams = {},
+  params: ApiParams = [],
 ) => {
   const response = await checkResponse(await fetch(url, {
     method: "post",

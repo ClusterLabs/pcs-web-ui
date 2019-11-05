@@ -19,7 +19,7 @@ function* loadResourceAgent(
   const apiAgentMetadata: ApiAgentMetadata = yield call(
     auth.getJson,
     `/managec/${clusterUrlName}/get_resource_agent_metadata`,
-    { agent: agentName },
+    [["agent", agentName]],
   );
 
   if (apiAgentMetadata.name !== agentName) {
