@@ -9,7 +9,14 @@ import {
 import { typeIs } from "app/common/utils";
 import * as auth from "app/services/auth/sagas";
 import * as DashboardAction from "app/scenes/dashboard/actions";
+import {
+  checkAuthAgainstNodes,
+  CheckAuthNodeResult,
+} from "app/common/backend/checkAuthAgainstNodes";
 
+import {
+  AuthGuiAgainstNodes,
+} from "app/common/backend/AuthGuiAgainstNodes";
 import * as ClusterAddAction from "./actions";
 
 const UpdateNodeNameActionType:ClusterAddAction.UpdateNodeName["type"] = (
@@ -20,47 +27,45 @@ function* checkAuthentication(
   { payload: { nodeName } }: ClusterAddAction.CheckAuth,
 ) {
   try {
-    const { nodesStatusMap } = yield race({
-      nodesStatusMap: call(
-        auth.getJson,
-        "/manage/check_auth_against_nodes",
-        [["node_list[]", nodeName]],
-      ),
+    const { response } = yield race({
+      response: call(checkAuthAgainstNodes, [nodeName]),
       cancel: take(UpdateNodeNameActionType),
     });
 
-    if (nodesStatusMap) {
-      const nodeStatus = nodesStatusMap[nodeName];
-      if (nodeStatus === "Online") {
-        yield put<ClusterAddAction.CheckAuthOk>({
-          type: "ADD_CLUSTER.CHECK_AUTH.OK",
-        });
-        return;
-      }
-      if (nodeStatus === "Unable to authenticate") {
-        yield put<ClusterAddAction.CheckAuthNoAuth>({
-          type: "ADD_CLUSTER.CHECK_AUTH.NO_AUTH",
-        });
-        return;
-      }
-      if (nodeStatus === "Offline") {
-        yield put<ClusterAddAction.CheckAuthError>({
-          type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
-          payload: {
-            message: (
-              `Cannot connect to the node '${nodeName}'. Is the node online?`
-            ),
-          },
-        });
-        return;
-      }
+    if (!response) {
+      return;
+    }
+
+    const { errors, nodesStatusMap } = response;
+    const nodeStatus: CheckAuthNodeResult = nodesStatusMap[nodeName];
+    if (errors.length > 0) {
+      yield put<ClusterAddAction.CheckAuthError>({
+        type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
+        payload: {
+          message: ([
+            "Unexpected backend response:",
+            `'${JSON.stringify(nodesStatusMap)}'`,
+            "errors:",
+            errors,
+          ].join("\n")),
+        },
+      });
+    } else if (nodeStatus === "Online") {
+      yield put<ClusterAddAction.CheckAuthOk>({
+        type: "ADD_CLUSTER.CHECK_AUTH.OK",
+      });
+    } else if (nodeStatus === "Offline") {
       yield put<ClusterAddAction.CheckAuthError>({
         type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
         payload: {
           message: (
-            `Unexpected backend response: '${JSON.stringify(nodesStatusMap)}'`
+            `Cannot connect to the node '${nodeName}'. Is the node online?`
           ),
         },
+      });
+    } else { // Unable to authenticate
+      yield put<ClusterAddAction.CheckAuthNoAuth>({
+        type: "ADD_CLUSTER.CHECK_AUTH.NO_AUTH",
       });
     }
   } catch (error) {
@@ -116,50 +121,42 @@ function* authenticateNode({
   const {
     nodeName,
     password,
-    address: addr,
+    address,
     port,
   } = payload;
 
   try {
-    const { authResult } = yield race({
-      authResult: call(
-        auth.postForText,
-        "/manage/auth_gui_against_nodes",
-        [
-          ["data_json", JSON.stringify({
-            nodes: {
-              [nodeName]: {
-                password,
-                dest_list: [{ addr, port }],
-              },
-            },
-          })],
-        ],
-      ),
+    const { response } = yield race({
+      response: call(AuthGuiAgainstNodes, {
+        [nodeName]: {
+          password,
+          destinations: [{ address, port }],
+        },
+      }),
       cancel: take(UpdateNodeNameActionType),
     });
 
-    if (authResult) {
-      const result = JSON.parse(authResult);
-      if (
-        result.node_auth_error === undefined
-        ||
-        result.node_auth_error[nodeName] === undefined
-      ) {
-        yield put<ClusterAddAction.AuthenticateNodeFailed>({
-          type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
-          payload: {
-            message: `Unexpected backend response: ${authResult}`,
-          },
-        });
-        return;
-      }
+    if (!response) {
+      return;
+    }
 
+    const { errors, authResultMap, text } = response;
+    if (errors.length > 0) {
+      yield put<ClusterAddAction.AuthenticateNodeFailed>({
+        type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
+        payload: {
+          message: (
+            `Unexpected backend response:\n${text}\n`
+              + `errors:\n ${errors}`
+          ),
+        },
+      });
+    } else {
       yield put<
         | ClusterAddAction.AuthenticateNodeSuccess
         | ClusterAddAction.AuthenticateNodeFailed
       >(
-        result.node_auth_error[nodeName] === 0
+        authResultMap[nodeName] === 0
           ? { type: "ADD_CLUSTER.AUTHENTICATE_NODE.SUCCESS" }
           : {
             type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
