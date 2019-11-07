@@ -7,8 +7,8 @@ import {
 } from "redux-saga/effects";
 
 import { typeIs } from "app/common/utils";
-import * as auth from "app/services/auth/sagas";
 import * as DashboardAction from "app/scenes/dashboard/actions";
+import { existingCluster } from "app/common/backend/ExistingCluster";
 import {
   checkAuthAgainstNodes,
   CheckAuthNodeResult,
@@ -17,6 +17,7 @@ import {
 import {
   AuthGuiAgainstNodes,
 } from "app/common/backend/AuthGuiAgainstNodes";
+
 import * as ClusterAddAction from "./actions";
 
 const UpdateNodeNameActionType:ClusterAddAction.UpdateNodeName["type"] = (
@@ -82,11 +83,7 @@ function* checkAuthentication(
 
 function* addCluster({ payload: { nodeName } }: ClusterAddAction.AddCluster) {
   try {
-    yield call(
-      auth.postForText,
-      "/manage/existingcluster",
-      [["node-name", nodeName]],
-    );
+    yield call(existingCluster, nodeName);
     yield put<ClusterAddAction.ReloadDashboard>({
       type: "ADD_CLUSTER.RELOAD_DASHBOARD",
     });
