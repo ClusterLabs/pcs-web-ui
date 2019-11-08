@@ -4,8 +4,10 @@ import {
   put,
 } from "redux-saga/effects";
 
-import { ApiAgentMetadata } from "app/common/backend/resourceAgentMetadata";
-import * as auth from "app/services/auth/sagas";
+import {
+  getResourceAgentMetadata,
+  getResourceAgentMetadataResult,
+} from "app/common/backend/getResourceAgentMetadata";
 import { typeIs } from "app/common/utils";
 
 import * as ResourcePrimitiveAction from "./actions";
@@ -16,24 +18,24 @@ function* loadResourceAgent(
     payload: { agentName, clusterUrlName },
   }: ResourcePrimitiveAction.LoadResourceAgent,
 ) {
-  const apiAgentMetadata: ApiAgentMetadata = yield call(
-    auth.getJson,
-    `/managec/${clusterUrlName}/get_resource_agent_metadata`,
-    [["agent", agentName]],
+  const result: getResourceAgentMetadataResult = yield call(
+    getResourceAgentMetadata,
+    clusterUrlName,
+    agentName,
   );
 
-  if (apiAgentMetadata.name !== agentName) {
+  if (result.errors) {
     yield put<ResourcePrimitiveAction.LoadResourceAgentFailed>({
       type: "RESOURCE_AGENT.LOAD.FAILED",
       payload: { agentName },
     });
-
+    // TODO display information about this in notifications
     return;
   }
 
   yield put<ResourcePrimitiveAction.LoadResourceAgentSuccess>({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
-    payload: { apiAgentMetadata },
+    payload: { apiAgentMetadata: result.response },
   });
 }
 
