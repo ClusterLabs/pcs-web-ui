@@ -137,7 +137,7 @@ function* authenticateNode({
       result: call(authGuiAgainstNodes, {
         [nodeName]: {
           password,
-          destinations: [{ address, port }],
+          dest_list: [{ addr: address, port }],
         },
       }),
       cancel: take(UpdateNodeNameActionType),

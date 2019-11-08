@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import * as t from "io-ts";
 import { isRight } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
@@ -28,33 +29,16 @@ export type AuthGuiAgainstNodesResult = t.TypeOf<
 export function* authGuiAgainstNodes(
   nodeMap: Record<string, {
     password: string;
-    destinations: {
-      address: string,
+    dest_list: {
+      addr: string,
       port: string,
     }[];
   }>,
 ): ApiCallGeneratorResult<AuthGuiAgainstNodesResult> {
-  const nodeMapToAuth = {
-    nodes: Object.keys(nodeMap).reduce(
-      (nodes, nodeName) => ({
-        ...nodes,
-        [nodeName]: {
-          password: nodeMap[nodeName].password,
-          dest_list: nodeMap[nodeName].destinations.map(
-            destination => ({
-              addr: destination.address,
-              port: destination.port,
-            }),
-          ),
-        },
-      }),
-      {},
-    ),
-  };
   try {
     const raw = yield auth.postForJson(
       "/manage/auth_gui_against_nodes",
-      [["data_json", JSON.stringify(nodeMapToAuth)]],
+      [["data_json", JSON.stringify({ nodes: nodeMap })]],
     );
     return createResult<AuthGuiAgainstNodesResult>(
       raw,
