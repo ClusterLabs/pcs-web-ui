@@ -8,7 +8,7 @@ import {
 
 import { typeIs } from "app/common/utils";
 import * as DashboardAction from "app/scenes/dashboard/actions";
-import { existingCluster } from "app/common/backend/ExistingCluster";
+import { existingCluster } from "app/common/backend/existingCluster";
 import {
   checkAuthAgainstNodes,
   CheckAuthAgainstNodesResult,
@@ -18,7 +18,7 @@ import { ApiCallResult } from "app/common/backend/result";
 import {
   authGuiAgainstNodes,
   AuthGuiAgainstNodesResult,
-} from "app/common/backend/AuthGuiAgainstNodes";
+} from "app/common/backend/authGuiAgainstNodes";
 
 import * as ClusterAddAction from "./actions";
 
