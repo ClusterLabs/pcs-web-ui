@@ -25,6 +25,8 @@ const getUrl = (path: string, params: ApiParams): string => (
   params.length > 0 ? `${path}?${httpParams(params)}` : path
 );
 
+// TODO duplicities
+
 export const getJson = async (url: string, params: ApiParams = []) => {
   const response = await checkResponse(
     await fetch(getUrl(url, params), { headers: ajaxHeaders }),
@@ -33,7 +35,6 @@ export const getJson = async (url: string, params: ApiParams = []) => {
   const text = await response.text();
   let data;
   try {
-    // var - to be visible outside the try block
     data = JSON.parse(text);
   } catch (e) {
     throw new ApiNotExpectedJson(text);
@@ -63,4 +64,13 @@ export const postForText = async (
     body: httpParams(params),
   }));
   return response.text();
+};
+
+export const postForJson = async (url: string, params: ApiParams = []) => {
+  const text = await postForText(url, params);
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    throw new ApiNotExpectedJson(text);
+  }
 };

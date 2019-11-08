@@ -41,3 +41,4 @@ const decorateApiMethod = (
 
 export const getJson = decorateApiMethod(api.call.getJson);
 export const postForText = decorateApiMethod(api.call.postForText);
+export const postForJson = decorateApiMethod(api.call.postForJson);

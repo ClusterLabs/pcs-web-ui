@@ -3,6 +3,7 @@ import { isRight } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
 
 import * as auth from "app/services/auth/sagas";
+import * as api from "app/common/api";
 
 import { validateSameNodes } from "./utils";
 import { ApiCallGeneratorResult, createResult } from "./result";
@@ -50,21 +51,22 @@ export function* authGuiAgainstNodes(
       {},
     ),
   };
-  const raw = yield auth.postForText(
-    "/manage/auth_gui_against_nodes",
-    [["data_json", JSON.stringify(nodeMapToAuth)]],
-  );
-
   try {
-    const authResult = JSON.parse(raw || "");
-    return createResult<AuthGuiAgainstNodesResult>(
-      authResult,
-      validate(Object.keys(nodeMap), authResult),
+    const raw = yield auth.postForJson(
+      "/manage/auth_gui_against_nodes",
+      [["data_json", JSON.stringify(nodeMapToAuth)]],
     );
-  } catch (e) {
     return createResult<AuthGuiAgainstNodesResult>(
       raw,
-      ["Response is not in expected json format"],
+      validate(Object.keys(nodeMap), raw),
     );
+  } catch (e) {
+    if (e instanceof api.error.ApiNotExpectedJson) {
+      return createResult<AuthGuiAgainstNodesResult>(
+        e.text,
+        ["Response is not in expected json format"],
+      );
+    }
+    throw e;
   }
 }
