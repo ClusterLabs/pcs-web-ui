@@ -11,11 +11,13 @@ import * as DashboardAction from "app/scenes/dashboard/actions";
 import { existingCluster } from "app/common/backend/ExistingCluster";
 import {
   checkAuthAgainstNodes,
-  CheckAuthNodeResult,
+  CheckAuthAgainstNodesResult,
 } from "app/common/backend/checkAuthAgainstNodes";
+import { ApiCallResult } from "app/common/backend/result";
 
 import {
-  AuthGuiAgainstNodes,
+  authGuiAgainstNodes,
+  AuthGuiAgainstNodesResult,
 } from "app/common/backend/AuthGuiAgainstNodes";
 
 import * as ClusterAddAction from "./actions";
@@ -28,30 +30,35 @@ function* checkAuthentication(
   { payload: { nodeName } }: ClusterAddAction.CheckAuth,
 ) {
   try {
-    const { response } = yield race({
-      response: call(checkAuthAgainstNodes, [nodeName]),
+    const { result, cancel }: {
+      result: ApiCallResult<CheckAuthAgainstNodesResult>,
+      cancel: any,
+    } = yield race({
+      result: call(checkAuthAgainstNodes, [nodeName]),
       cancel: take(UpdateNodeNameActionType),
     });
 
-    if (!response) {
+    if (cancel) {
       return;
     }
 
-    const { errors, nodesStatusMap } = response;
-    const nodeStatus: CheckAuthNodeResult = nodesStatusMap[nodeName];
-    if (errors.length > 0) {
+    if (!result.valid) {
       yield put<ClusterAddAction.CheckAuthError>({
         type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
         payload: {
           message: ([
             "Unexpected backend response:",
-            `'${JSON.stringify(nodesStatusMap)}'`,
+            `'${JSON.stringify(result.raw)}'`,
             "errors:",
-            errors,
+            result.errors,
           ].join("\n")),
         },
       });
-    } else if (nodeStatus === "Online") {
+      return;
+    }
+
+    const nodeStatus = result.response[nodeName];
+    if (nodeStatus === "Online") {
       yield put<ClusterAddAction.CheckAuthOk>({
         type: "ADD_CLUSTER.CHECK_AUTH.OK",
       });
@@ -123,8 +130,11 @@ function* authenticateNode({
   } = payload;
 
   try {
-    const { response } = yield race({
-      response: call(AuthGuiAgainstNodes, {
+    const { result, cancel }: {
+      result: ApiCallResult<AuthGuiAgainstNodesResult>,
+      cancel: any,
+    } = yield race({
+      result: call(authGuiAgainstNodes, {
         [nodeName]: {
           password,
           destinations: [{ address, port }],
@@ -133,18 +143,17 @@ function* authenticateNode({
       cancel: take(UpdateNodeNameActionType),
     });
 
-    if (!response) {
+    if (cancel) {
       return;
     }
 
-    const { errors, authResultMap, text } = response;
-    if (errors.length > 0) {
+    if (!result.valid) {
       yield put<ClusterAddAction.AuthenticateNodeFailed>({
         type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
         payload: {
           message: (
-            `Unexpected backend response:\n${text}\n`
-              + `errors:\n ${errors}`
+            `Unexpected backend response:\n${result.raw}\n`
+              + `errors:\n ${result.errors}`
           ),
         },
       });
@@ -153,7 +162,7 @@ function* authenticateNode({
         | ClusterAddAction.AuthenticateNodeSuccess
         | ClusterAddAction.AuthenticateNodeFailed
       >(
-        authResultMap[nodeName] === 0
+        result.response.node_auth_error[nodeName] === 0
           ? { type: "ADD_CLUSTER.AUTHENTICATE_NODE.SUCCESS" }
           : {
             type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",

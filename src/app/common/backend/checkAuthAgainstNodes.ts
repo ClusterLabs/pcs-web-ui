@@ -5,14 +5,13 @@ import { PathReporter } from "io-ts/lib/PathReporter";
 import * as auth from "app/services/auth/sagas";
 
 import { validateSameNodes } from "./utils";
+import { ApiCallGeneratorResult, createResult } from "./result";
 
-const TCheckAuthNodeResult = t.keyof({
+const TCheckAuthAgainstNodesResult = t.record(t.string, t.keyof({
   Online: null,
   Offline: null,
   "Unable to authenticate": null,
-});
-
-const TCheckAuthResult = t.record(t.string, TCheckAuthNodeResult);
+}));
 
 const validate = (nodeList: string[], response: any) => {
   if (typeof response !== "object") {
@@ -25,24 +24,28 @@ const validate = (nodeList: string[], response: any) => {
     return errors;
   }
 
-  const result = TCheckAuthResult.decode(response);
+  const result = TCheckAuthAgainstNodesResult.decode(response);
   if (!isRight(result)) {
     return PathReporter.report(result);
   }
   return [];
 };
 
-export type CheckAuthNodeResult = t.TypeOf<typeof TCheckAuthNodeResult>;
+export type CheckAuthAgainstNodesResult = t.TypeOf<
+  typeof TCheckAuthAgainstNodesResult
+>;
 
-export function* checkAuthAgainstNodes(nodeList: string[]) {
+export function* checkAuthAgainstNodes(
+  nodeList: string[],
+): ApiCallGeneratorResult<CheckAuthAgainstNodesResult> {
   const uniqueNodeList = Array.from(new Set(nodeList));
-  const nodesStatusMap = yield auth.getJson(
+  const raw = yield auth.getJson(
     "/manage/check_auth_against_nodes",
     uniqueNodeList.map(node => ["node_list[]", node]),
   );
 
-  return {
-    errors: validate(uniqueNodeList, nodesStatusMap),
-    nodesStatusMap,
-  };
+  return createResult<CheckAuthAgainstNodesResult>(
+    raw,
+    validate(uniqueNodeList, raw),
+  );
 }

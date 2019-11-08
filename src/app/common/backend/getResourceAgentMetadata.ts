@@ -5,6 +5,8 @@ import { PathReporter } from "io-ts/lib/PathReporter";
 
 import * as auth from "app/services/auth/sagas";
 
+import { ApiCallGeneratorResult, createResult } from "./result";
+
 /*
 TODO obsoletes
 */
@@ -43,34 +45,14 @@ const validate = (requestedAgentName: string, response: any) => {
 
 export type ApiAgentMetadata = t.TypeOf<typeof TAgentMetadata>;
 
-interface valid {
-  errors: null;
-  rawResponse: any;
-  response: ApiAgentMetadata;
-}
-
-interface invalid {
-  errors: string[];
-  rawResponse: any;
-  response: null;
-}
-
-export type getResourceAgentMetadataResult = valid|invalid;
-
 export function* getResourceAgentMetadata(
   clusterUrlName:string,
   agentName:string,
-): IterableIterator<getResourceAgentMetadataResult> {
-  const rawResponse: unknown = yield auth.getJson(
+): ApiCallGeneratorResult<ApiAgentMetadata> {
+  const raw = yield auth.getJson(
     `/managec/${clusterUrlName}/get_resource_agent_metadata`,
     [["agent", agentName]],
   );
 
-  const errors = validate(agentName, rawResponse);
-
-  return {
-    errors: errors.length === 0 ? null : errors,
-    rawResponse,
-    response: errors.length === 0 ? rawResponse as ApiAgentMetadata : null,
-  };
+  return createResult<ApiAgentMetadata>(raw, validate(agentName, raw));
 }

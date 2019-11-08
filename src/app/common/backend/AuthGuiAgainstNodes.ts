@@ -5,18 +5,14 @@ import { PathReporter } from "io-ts/lib/PathReporter";
 import * as auth from "app/services/auth/sagas";
 
 import { validateSameNodes } from "./utils";
+import { ApiCallGeneratorResult, createResult } from "./result";
 
-const TAuthGuiAgainstNodesResult = t.record(t.string, t.number);
-const TAuthGuiAgainstNodesResultFull = t.type({
-  node_auth_error: TAuthGuiAgainstNodesResult,
+const TAuthGuiAgainstNodesResult = t.type({
+  node_auth_error: t.record(t.string, t.number),
 });
 
-export type AuthGuiAgainstNodesResult = t.TypeOf<
-  typeof TAuthGuiAgainstNodesResult
->;
-
 const validate = (nodeList: string[], response: any) => {
-  const result = TAuthGuiAgainstNodesResultFull.decode(response);
+  const result = TAuthGuiAgainstNodesResult.decode(response);
   if (!isRight(result)) {
     return PathReporter.report(result);
   }
@@ -24,7 +20,11 @@ const validate = (nodeList: string[], response: any) => {
   return validateSameNodes(nodeList, Object.keys(response.node_auth_error));
 };
 
-export function* AuthGuiAgainstNodes(
+export type AuthGuiAgainstNodesResult = t.TypeOf<
+  typeof TAuthGuiAgainstNodesResult
+>;
+
+export function* authGuiAgainstNodes(
   nodeMap: Record<string, {
     password: string;
     destinations: {
@@ -32,7 +32,7 @@ export function* AuthGuiAgainstNodes(
       port: string,
     }[];
   }>,
-) {
+): ApiCallGeneratorResult<AuthGuiAgainstNodesResult> {
   const nodeMapToAuth = {
     nodes: Object.keys(nodeMap).reduce(
       (nodes, nodeName) => ({
@@ -50,21 +50,21 @@ export function* AuthGuiAgainstNodes(
       {},
     ),
   };
-  const text = yield auth.postForText(
+  const raw = yield auth.postForText(
     "/manage/auth_gui_against_nodes",
     [["data_json", JSON.stringify(nodeMapToAuth)]],
   );
 
-  let errors;
-  let authResultMap = null;
   try {
-    const authResult = JSON.parse(text);
-    errors = validate(Object.keys(nodeMap), authResult);
-    if (errors.length === 0) {
-      authResultMap = authResult.node_auth_error;
-    }
+    const authResult = JSON.parse(raw || "");
+    return createResult<AuthGuiAgainstNodesResult>(
+      authResult,
+      validate(Object.keys(nodeMap), authResult),
+    );
   } catch (e) {
-    errors = ["Response is not in expected json format"];
+    return createResult<AuthGuiAgainstNodesResult>(
+      raw,
+      ["Response is not in expected json format"],
+    );
   }
-  return { errors, text, authResultMap };
 }

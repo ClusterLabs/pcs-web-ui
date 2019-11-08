@@ -6,9 +6,10 @@ import {
 
 import {
   getResourceAgentMetadata,
-  getResourceAgentMetadataResult,
+  ApiAgentMetadata,
 } from "app/common/backend/getResourceAgentMetadata";
 import { typeIs } from "app/common/utils";
+import { ApiCallResult } from "app/common/backend/result";
 
 import * as ResourcePrimitiveAction from "./actions";
 
@@ -18,13 +19,13 @@ function* loadResourceAgent(
     payload: { agentName, clusterUrlName },
   }: ResourcePrimitiveAction.LoadResourceAgent,
 ) {
-  const result: getResourceAgentMetadataResult = yield call(
+  const result: ApiCallResult<ApiAgentMetadata> = yield call(
     getResourceAgentMetadata,
     clusterUrlName,
     agentName,
   );
 
-  if (result.errors) {
+  if (!result.valid) {
     yield put<ResourcePrimitiveAction.LoadResourceAgentFailed>({
       type: "RESOURCE_AGENT.LOAD.FAILED",
       payload: { agentName },
