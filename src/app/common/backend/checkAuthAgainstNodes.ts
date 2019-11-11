@@ -2,10 +2,10 @@ import * as t from "io-ts";
 import { isRight } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
 
-import * as auth from "app/services/auth/sagas";
-
+import * as api from "app/common/api";
 import { validateSameNodes } from "./utils";
-import { ApiCallGeneratorResult, createResult } from "./result";
+import { ApiCallResult, createResult } from "./result";
+import { dealWithNoAuth } from "./dealWithNoAuth";
 
 const TCheckAuthAgainstNodesResult = t.record(t.string, t.keyof({
   Online: null,
@@ -31,21 +31,19 @@ const validate = (nodeList: string[], response: any) => {
   return [];
 };
 
-export type CheckAuthAgainstNodesResult = t.TypeOf<
-  typeof TCheckAuthAgainstNodesResult
->;
+export type Result = t.TypeOf<typeof TCheckAuthAgainstNodesResult>;
 
-export function* checkAuthAgainstNodes(
+export const call = dealWithNoAuth(async (
   nodeList: string[],
-): ApiCallGeneratorResult<CheckAuthAgainstNodesResult> {
+): Promise<ApiCallResult<Result>> => {
   const uniqueNodeList = Array.from(new Set(nodeList));
-  const raw = yield auth.getJson(
+  const raw = await api.call.getJson(
     "/manage/check_auth_against_nodes",
     uniqueNodeList.map(node => ["node_list[]", node]),
   );
 
-  return createResult<CheckAuthAgainstNodesResult>(
+  return createResult<Result>(
     raw,
     validate(uniqueNodeList, raw),
   );
-}
+});

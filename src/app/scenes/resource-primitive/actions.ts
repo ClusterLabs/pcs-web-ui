@@ -1,4 +1,4 @@
-import { ApiAgentMetadata } from "app/common/backend/getResourceAgentMetadata";
+import { getResourceAgentMetadata } from "app/common/backend";
 
 export interface LoadResourceAgent {
   type: "RESOURCE_AGENT.LOAD";
@@ -11,7 +11,7 @@ export interface LoadResourceAgent {
 export interface LoadResourceAgentSuccess {
   type: "RESOURCE_AGENT.LOAD.SUCCESS";
   payload: {
-    apiAgentMetadata: ApiAgentMetadata;
+    apiAgentMetadata: getResourceAgentMetadata.Result;
   }
 }
 

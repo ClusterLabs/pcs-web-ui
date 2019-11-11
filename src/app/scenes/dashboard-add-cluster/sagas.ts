@@ -8,17 +8,13 @@ import {
 
 import { typeIs } from "app/common/utils";
 import * as DashboardAction from "app/scenes/dashboard/actions";
-import { existingCluster } from "app/common/backend/existingCluster";
-import {
-  checkAuthAgainstNodes,
-  CheckAuthAgainstNodesResult,
-} from "app/common/backend/checkAuthAgainstNodes";
-import { ApiCallResult } from "app/common/backend/result";
 
 import {
   authGuiAgainstNodes,
-  AuthGuiAgainstNodesResult,
-} from "app/common/backend/authGuiAgainstNodes";
+  checkAuthAgainstNodes,
+  existingCluster,
+  ApiCallResult,
+} from "app/common/backend";
 
 import * as ClusterAddAction from "./actions";
 
@@ -30,15 +26,14 @@ function* checkAuthentication(
   { payload: { nodeName } }: ClusterAddAction.CheckAuth,
 ) {
   try {
-    const { result, cancel }: {
-      result: ApiCallResult<CheckAuthAgainstNodesResult>,
-      cancel: any,
+    const { result }: {
+      result: ApiCallResult<checkAuthAgainstNodes.Result>,
     } = yield race({
-      result: call(checkAuthAgainstNodes, [nodeName]),
+      result: call(checkAuthAgainstNodes.call, [nodeName]),
       cancel: take(UpdateNodeNameActionType),
     });
 
-    if (cancel) {
+    if (!result) {
       return;
     }
 
@@ -90,7 +85,7 @@ function* checkAuthentication(
 
 function* addCluster({ payload: { nodeName } }: ClusterAddAction.AddCluster) {
   try {
-    yield call(existingCluster, nodeName);
+    yield call(existingCluster.call, nodeName);
     yield put<ClusterAddAction.ReloadDashboard>({
       type: "ADD_CLUSTER.RELOAD_DASHBOARD",
     });
@@ -128,13 +123,11 @@ function* authenticateNode({
     address,
     port,
   } = payload;
-
   try {
-    const { result, cancel }: {
-      result: ApiCallResult<AuthGuiAgainstNodesResult>,
-      cancel: any,
+    const { result }: {
+      result: ApiCallResult<authGuiAgainstNodes.Result>,
     } = yield race({
-      result: call(authGuiAgainstNodes, {
+      result: call(authGuiAgainstNodes.call, {
         [nodeName]: {
           password,
           dest_list: [{ addr: address, port }],
@@ -143,7 +136,7 @@ function* authenticateNode({
       cancel: take(UpdateNodeNameActionType),
     });
 
-    if (cancel) {
+    if (!result) {
       return;
     }
 
@@ -157,8 +150,10 @@ function* authenticateNode({
           ),
         },
       });
-    } else {
-      yield put<
+      return;
+    }
+
+    yield put<
         | ClusterAddAction.AuthenticateNodeSuccess
         | ClusterAddAction.AuthenticateNodeFailed
       >(
@@ -172,7 +167,6 @@ function* authenticateNode({
           }
         ,
       );
-    }
   } catch (error) {
     yield put<ClusterAddAction.AuthenticateNodeFailed>({
       type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",

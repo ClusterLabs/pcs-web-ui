@@ -5,7 +5,7 @@ interface Valid<T> {
   response: T;
 }
 
-interface Invalid {
+export interface Invalid {
   valid: false;
   errors: string[];
   raw: any;
@@ -14,16 +14,16 @@ interface Invalid {
 
 export type ApiCallResult<T> = Valid<T>|Invalid;
 
-export type ApiCallGeneratorResult<T> = IterableIterator<ApiCallResult<T>>;
+export const createResultInvalid = (raw: any, errors: string[]): Invalid => ({
+  valid: false,
+  response: null,
+  errors,
+  raw,
+});
 
 export function createResult<T>(raw: any, errors: string[]): ApiCallResult<T> {
   if (errors.length > 0) {
-    return {
-      valid: false,
-      response: null,
-      errors,
-      raw,
-    };
+    return createResultInvalid(raw, errors);
   }
   return {
     valid: true,

@@ -1,8 +1,14 @@
-import * as auth from "app/services/auth/sagas";
+import * as api from "app/common/api";
 
-export function* existingCluster(nodeName: string) {
-  yield auth.postForText(
+import { dealWithNoAuth } from "./dealWithNoAuth";
+import { createResult } from "./result";
+
+export const call = dealWithNoAuth(async (
+  nodeName: string,
+) => {
+  const raw = await api.call.postForText(
     "/manage/existingcluster",
     [["node-name", nodeName]],
   );
-}
+  return createResult<string>(raw, []);
+});

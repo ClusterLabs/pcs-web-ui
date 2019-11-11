@@ -3,11 +3,12 @@ import * as t from "io-ts";
 import { isRight } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
 
-import * as auth from "app/services/auth/sagas";
 import * as api from "app/common/api";
 
 import { validateSameNodes } from "./utils";
-import { ApiCallGeneratorResult, createResult } from "./result";
+import { dealWithNoAuth } from "./dealWithNoAuth";
+import { dealWithInvalidJson } from "./dealWithInvalidJson";
+import { ApiCallResult, createResult } from "./result";
 
 const TAuthGuiAgainstNodesResult = t.type({
   node_auth_error: t.record(t.string, t.number),
@@ -22,11 +23,9 @@ const validate = (nodeList: string[], response: any) => {
   return validateSameNodes(nodeList, Object.keys(response.node_auth_error));
 };
 
-export type AuthGuiAgainstNodesResult = t.TypeOf<
-  typeof TAuthGuiAgainstNodesResult
->;
+export type Result = t.TypeOf<typeof TAuthGuiAgainstNodesResult>;
 
-export function* authGuiAgainstNodes(
+export const call = dealWithNoAuth(dealWithInvalidJson(async (
   nodeMap: Record<string, {
     password: string;
     dest_list: {
@@ -34,23 +33,10 @@ export function* authGuiAgainstNodes(
       port: string,
     }[];
   }>,
-): ApiCallGeneratorResult<AuthGuiAgainstNodesResult> {
-  try {
-    const raw = yield auth.postForJson(
-      "/manage/auth_gui_against_nodes",
-      [["data_json", JSON.stringify({ nodes: nodeMap })]],
-    );
-    return createResult<AuthGuiAgainstNodesResult>(
-      raw,
-      validate(Object.keys(nodeMap), raw),
-    );
-  } catch (e) {
-    if (e instanceof api.error.ApiNotExpectedJson) {
-      return createResult<AuthGuiAgainstNodesResult>(
-        e.text,
-        ["Response is not in expected json format"],
-      );
-    }
-    throw e;
-  }
-}
+): Promise<ApiCallResult<Result>> => {
+  const raw = await api.call.postForJson(
+    "/manage/auth_gui_against_nodes",
+    [["data_json", JSON.stringify({ nodes: nodeMap })]],
+  );
+  return createResult<Result>(raw, validate(Object.keys(nodeMap), raw));
+}));

@@ -3,9 +3,9 @@ import * as t from "io-ts";
 import { isRight } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
 
-import * as auth from "app/services/auth/sagas";
-
-import { ApiCallGeneratorResult, createResult } from "./result";
+import * as api from "app/common/api";
+import { ApiCallResult, createResult } from "./result";
+import { dealWithNoAuth } from "./dealWithNoAuth";
 
 /*
 TODO obsoletes
@@ -34,7 +34,7 @@ const validate = (requestedAgentName: string, response: any) => {
     return PathReporter.report(result);
   }
 
-  const agentMetadata: ApiAgentMetadata = response;
+  const agentMetadata: Result = response;
   if (agentMetadata.name !== requestedAgentName) {
     return [
       `Expected agent ${requestedAgentName} but got ${agentMetadata.name}`,
@@ -43,16 +43,15 @@ const validate = (requestedAgentName: string, response: any) => {
   return [];
 };
 
-export type ApiAgentMetadata = t.TypeOf<typeof TAgentMetadata>;
+export type Result = t.TypeOf<typeof TAgentMetadata>;
 
-export function* getResourceAgentMetadata(
+export const call = dealWithNoAuth(async (
   clusterUrlName:string,
   agentName:string,
-): ApiCallGeneratorResult<ApiAgentMetadata> {
-  const raw = yield auth.getJson(
+): Promise<ApiCallResult<Result>> => {
+  const raw = await api.call.getJson(
     `/managec/${clusterUrlName}/get_resource_agent_metadata`,
     [["agent", agentName]],
   );
-
-  return createResult<ApiAgentMetadata>(raw, validate(agentName, raw));
-}
+  return createResult<Result>(raw, validate(agentName, raw));
+});
