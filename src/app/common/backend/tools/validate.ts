@@ -1,3 +1,15 @@
+import * as t from "io-ts";
+import { isRight } from "fp-ts/lib/Either";
+import { PathReporter } from "io-ts/lib/PathReporter";
+
+export function validateShape<A, O, I>(response: any, shape: t.Type<A, O, I>) {
+  const result = shape.decode(response);
+  if (!isRight(result)) {
+    return PathReporter.report(result);
+  }
+  return [];
+}
+
 export const validateSameNodes = (
   expected: string[],
   given: string[],

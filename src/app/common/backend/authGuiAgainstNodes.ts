@@ -1,31 +1,34 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
-import { isRight } from "fp-ts/lib/Either";
-import { PathReporter } from "io-ts/lib/PathReporter";
 
 import * as api from "app/common/api";
 
-import { validateSameNodes } from "./utils";
-import { dealWithNoAuth } from "./dealWithNoAuth";
-import { dealWithInvalidJson } from "./dealWithInvalidJson";
-import { ApiCallResult, createResult } from "./result";
+import {
+  ApiCall,
+  createResult,
+  validateShape,
+  validateSameNodes,
+  dealWithNoAuth,
+  dealWithInvalidJson,
+} from "./tools";
 
 const TAuthGuiAgainstNodesResult = t.type({
   node_auth_error: t.record(t.string, t.number),
 });
 
 const validate = (nodeList: string[], response: any) => {
-  const result = TAuthGuiAgainstNodesResult.decode(response);
-  if (!isRight(result)) {
-    return PathReporter.report(result);
+  const errors = validateShape(response, TAuthGuiAgainstNodesResult);
+  if (errors.length > 0) {
+    return errors;
   }
 
-  return validateSameNodes(nodeList, Object.keys(response.node_auth_error));
+  const nodeMap: Result = response;
+  return validateSameNodes(nodeList, Object.keys(nodeMap.node_auth_error));
 };
 
 export type Result = t.TypeOf<typeof TAuthGuiAgainstNodesResult>;
 
-export const call = dealWithNoAuth(dealWithInvalidJson(async (
+export const apiCall: ApiCall<Result> = async (
   nodeMap: Record<string, {
     password: string;
     dest_list: {
@@ -33,10 +36,12 @@ export const call = dealWithNoAuth(dealWithInvalidJson(async (
       port: string,
     }[];
   }>,
-): Promise<ApiCallResult<Result>> => {
+) => {
   const raw = await api.call.postForJson(
     "/manage/auth_gui_against_nodes",
     [["data_json", JSON.stringify({ nodes: nodeMap })]],
   );
   return createResult<Result>(raw, validate(Object.keys(nodeMap), raw));
-}));
+};
+
+export const call = dealWithNoAuth(dealWithInvalidJson(apiCall));

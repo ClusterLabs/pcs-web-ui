@@ -4,13 +4,12 @@ import { SagaIterator } from "redux-saga";
 import * as api from "app/common/api";
 import * as AuthAction from "app/services/auth/actions";
 
-export function dealWithNoAuth<
-  R,
-  Fn extends(...args: any[]) => Promise<R>
->(apiCallFn: Fn) {
-  function* decorated(...args: Parameters<Fn>): SagaIterator {
+import { ApiCall } from "./result";
+
+export function dealWithNoAuth< R, F extends ApiCall<R>>(fn: F) {
+  return function* callApi(...args: Parameters<F>): SagaIterator {
     try {
-      const responseFirstAttempt = yield call(apiCallFn, ...args);
+      const responseFirstAttempt = yield call(fn, ...args);
       return responseFirstAttempt;
     } catch (error) {
       if (!api.error.isUnauthorizedError(error)) {
@@ -24,7 +23,7 @@ export function dealWithNoAuth<
     yield take(authSuccess);
     // ...and then second attempt.
     try {
-      const responseSecondAttempt = yield call(apiCallFn, ...args);
+      const responseSecondAttempt = yield call(fn, ...args);
       return responseSecondAttempt;
     } catch (error) {
       if (api.error.isUnauthorizedError(error)) {
@@ -34,6 +33,5 @@ export function dealWithNoAuth<
       }
       throw error;
     }
-  }
-  return decorated;
+  };
 }

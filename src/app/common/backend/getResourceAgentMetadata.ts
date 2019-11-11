@@ -1,11 +1,14 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
-import { isRight } from "fp-ts/lib/Either";
-import { PathReporter } from "io-ts/lib/PathReporter";
 
 import * as api from "app/common/api";
-import { ApiCallResult, createResult } from "./result";
-import { dealWithNoAuth } from "./dealWithNoAuth";
+
+import {
+  ApiCall,
+  createResult,
+  dealWithNoAuth,
+  validateShape,
+} from "./tools";
 
 /*
 TODO obsoletes
@@ -29,11 +32,10 @@ const TAgentMetadata = t.type({
 });
 
 const validate = (requestedAgentName: string, response: any) => {
-  const result = TAgentMetadata.decode(response);
-  if (!isRight(result)) {
-    return PathReporter.report(result);
+  const errors = validateShape(response, TAgentMetadata);
+  if (errors.length > 0) {
+    return errors;
   }
-
   const agentMetadata: Result = response;
   if (agentMetadata.name !== requestedAgentName) {
     return [
@@ -45,13 +47,15 @@ const validate = (requestedAgentName: string, response: any) => {
 
 export type Result = t.TypeOf<typeof TAgentMetadata>;
 
-export const call = dealWithNoAuth(async (
+const apiCall: ApiCall<Result> = async (
   clusterUrlName:string,
   agentName:string,
-): Promise<ApiCallResult<Result>> => {
+) => {
   const raw = await api.call.getJson(
     `/managec/${clusterUrlName}/get_resource_agent_metadata`,
     [["agent", agentName]],
   );
   return createResult<Result>(raw, validate(agentName, raw));
-});
+};
+
+export const call = dealWithNoAuth(apiCall);

@@ -13,6 +13,9 @@ export interface Invalid {
 }
 
 export type ApiCallResult<T> = Valid<T>|Invalid;
+export type ApiCall<R, P extends Array<any> = any[]> = (
+  (...args: P) => Promise<ApiCallResult<R>>
+);
 
 export const createResultInvalid = (raw: any, errors: string[]): Invalid => ({
   valid: false,

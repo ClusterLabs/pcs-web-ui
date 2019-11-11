@@ -1,14 +1,13 @@
 import * as api from "app/common/api";
 
-import { dealWithNoAuth } from "./dealWithNoAuth";
-import { createResult } from "./result";
+import { createResult, dealWithNoAuth, ApiCall } from "./tools";
 
-export const call = dealWithNoAuth(async (
-  nodeName: string,
-) => {
+const apiCall: ApiCall<string> = async (nodeName: string) => {
   const raw = await api.call.postForText(
     "/manage/existingcluster",
     [["node-name", nodeName]],
   );
   return createResult<string>(raw, []);
-});
+};
+
+export const call = dealWithNoAuth(apiCall);
