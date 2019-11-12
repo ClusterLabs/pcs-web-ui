@@ -7,6 +7,7 @@ import {
   ApiCall,
   createResult,
   validateShape,
+  dealWithInvalidJson,
 } from "./tools";
 
 /*
@@ -50,11 +51,15 @@ const getResourceAgentMetadata: ApiCall<Result> = async (
   clusterUrlName:string,
   agentName:string,
 ) => {
-  const raw = await api.call.getJson(
-    `/managec/${clusterUrlName}/get_resource_agent_metadata`,
-    [["agent", agentName]],
-  );
-  return createResult<Result>(raw, validate(agentName, raw));
+  try {
+    const raw = await api.call.getJson(
+      `/managec/${clusterUrlName}/get_resource_agent_metadata`,
+      [["agent", agentName]],
+    );
+    return createResult<Result>(raw, validate(agentName, raw));
+  } catch (e) {
+    return dealWithInvalidJson(e);
+  }
 };
 
 export default getResourceAgentMetadata;
