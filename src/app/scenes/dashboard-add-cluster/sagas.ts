@@ -13,7 +13,8 @@ import {
   authGuiAgainstNodes,
   checkAuthAgainstNodes,
   existingCluster,
-  ApiCallResult,
+  ApiResult,
+  authSafe,
 } from "app/common/backend";
 
 import * as ClusterAddAction from "./actions";
@@ -27,9 +28,9 @@ function* checkAuthentication(
 ) {
   try {
     const { result }: {
-      result: ApiCallResult<checkAuthAgainstNodes.Result>,
+      result: ApiResult<typeof checkAuthAgainstNodes>,
     } = yield race({
-      result: call(checkAuthAgainstNodes.call, [nodeName]),
+      result: call(authSafe(checkAuthAgainstNodes), [nodeName]),
       cancel: take(UpdateNodeNameActionType),
     });
 
@@ -85,7 +86,7 @@ function* checkAuthentication(
 
 function* addCluster({ payload: { nodeName } }: ClusterAddAction.AddCluster) {
   try {
-    yield call(existingCluster.call, nodeName);
+    yield call(authSafe(existingCluster), nodeName);
     yield put<ClusterAddAction.ReloadDashboard>({
       type: "ADD_CLUSTER.RELOAD_DASHBOARD",
     });
@@ -125,9 +126,9 @@ function* authenticateNode({
   } = payload;
   try {
     const { result }: {
-      result: ApiCallResult<authGuiAgainstNodes.Result>,
+      result: ApiResult<typeof authGuiAgainstNodes>,
     } = yield race({
-      result: call(authGuiAgainstNodes.call, {
+      result: call(authSafe(authGuiAgainstNodes), {
         [nodeName]: {
           password,
           dest_list: [{ addr: address, port }],

@@ -1,14 +1,20 @@
-import * as authGuiAgainstNodes from "./authGuiAgainstNodes";
-import * as checkAuthAgainstNodes from "./checkAuthAgainstNodes";
-import * as existingCluster from "./existingCluster";
-import * as getResourceAgentMetadata from "./getResourceAgentMetadata";
-import { ApiCallResult as ApiCallResultType } from "./tools";
+import authGuiAgainstNodes from "./authGuiAgainstNodes";
+import checkAuthAgainstNodes from "./checkAuthAgainstNodes";
+import existingCluster from "./existingCluster";
+import getResourceAgentMetadata from "./getResourceAgentMetadata";
+import {
+  ApiResponse as ApiResponseType,
+  ApiResult as ApiResultType,
+  authSafe,
+} from "./tools";
 
-export type ApiCallResult<T> = ApiCallResultType<T>;
+export type ApiResponse<T> = ApiResponseType<T>;
+export type ApiResult<T> = ApiResultType<T>;
 
 export {
   authGuiAgainstNodes,
   checkAuthAgainstNodes,
   existingCluster,
   getResourceAgentMetadata,
+  authSafe,
 };

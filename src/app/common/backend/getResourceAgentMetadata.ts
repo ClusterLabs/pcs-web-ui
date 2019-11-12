@@ -6,7 +6,6 @@ import * as api from "app/common/api";
 import {
   ApiCall,
   createResult,
-  dealWithNoAuth,
   validateShape,
 } from "./tools";
 
@@ -45,9 +44,9 @@ const validate = (requestedAgentName: string, response: any) => {
   return [];
 };
 
-export type Result = t.TypeOf<typeof TAgentMetadata>;
+type Result = t.TypeOf<typeof TAgentMetadata>;
 
-const apiCall: ApiCall<Result> = async (
+const getResourceAgentMetadata: ApiCall<Result> = async (
   clusterUrlName:string,
   agentName:string,
 ) => {
@@ -58,4 +57,4 @@ const apiCall: ApiCall<Result> = async (
   return createResult<Result>(raw, validate(agentName, raw));
 };
 
-export const call = dealWithNoAuth(apiCall);
+export default getResourceAgentMetadata;

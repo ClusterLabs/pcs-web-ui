@@ -5,7 +5,6 @@ import * as api from "app/common/api";
 import {
   ApiCall,
   createResult,
-  dealWithNoAuth,
   validateShape,
   validateSameNodes,
 } from "./tools";
@@ -31,9 +30,9 @@ const validate = (nodeList: string[], response: any) => {
   return [];
 };
 
-export type Result = t.TypeOf<typeof TCheckAuthAgainstNodesResult>;
+type Result = t.TypeOf<typeof TCheckAuthAgainstNodesResult>;
 
-export const apiCall: ApiCall<Result> = async (nodeList: string[]) => {
+const checkAuthAgainstNodes: ApiCall<Result> = async (nodeList: string[]) => {
   const uniqueNodeList = Array.from(new Set(nodeList));
   const raw = await api.call.getJson(
     "/manage/check_auth_against_nodes",
@@ -43,4 +42,4 @@ export const apiCall: ApiCall<Result> = async (nodeList: string[]) => {
   return createResult<Result>(raw, validate(uniqueNodeList, raw));
 };
 
-export const call = dealWithNoAuth(apiCall);
+export default checkAuthAgainstNodes;

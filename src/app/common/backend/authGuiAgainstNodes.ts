@@ -8,8 +8,6 @@ import {
   createResult,
   validateShape,
   validateSameNodes,
-  dealWithNoAuth,
-  dealWithInvalidJson,
 } from "./tools";
 
 const TAuthGuiAgainstNodesResult = t.type({
@@ -26,9 +24,9 @@ const validate = (nodeList: string[], response: any) => {
   return validateSameNodes(nodeList, Object.keys(nodeMap.node_auth_error));
 };
 
-export type Result = t.TypeOf<typeof TAuthGuiAgainstNodesResult>;
+type Result = t.TypeOf<typeof TAuthGuiAgainstNodesResult>;
 
-export const apiCall: ApiCall<Result> = async (
+const authGuiAgainstNodes: ApiCall<Result> = async (
   nodeMap: Record<string, {
     password: string;
     dest_list: {
@@ -44,4 +42,4 @@ export const apiCall: ApiCall<Result> = async (
   return createResult<Result>(raw, validate(Object.keys(nodeMap), raw));
 };
 
-export const call = dealWithNoAuth(dealWithInvalidJson(apiCall));
+export default authGuiAgainstNodes;

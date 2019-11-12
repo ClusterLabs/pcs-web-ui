@@ -6,7 +6,7 @@ import * as AuthAction from "app/services/auth/actions";
 
 import { ApiCall } from "./result";
 
-export function dealWithNoAuth< R, F extends ApiCall<R>>(fn: F) {
+export function authSafe< R, F extends ApiCall<R>>(fn: F) {
   return function* callApi(...args: Parameters<F>): SagaIterator {
     try {
       const responseFirstAttempt = yield call(fn, ...args);

@@ -6,7 +6,8 @@ import {
 
 import {
   getResourceAgentMetadata,
-  ApiCallResult,
+  ApiResult,
+  authSafe,
 } from "app/common/backend";
 import { typeIs } from "app/common/utils";
 
@@ -18,8 +19,8 @@ function* loadResourceAgent(
     payload: { agentName, clusterUrlName },
   }: ResourcePrimitiveAction.LoadResourceAgent,
 ) {
-  const result: ApiCallResult<getResourceAgentMetadata.Result> = yield call(
-    getResourceAgentMetadata.call,
+  const result: ApiResult<typeof getResourceAgentMetadata> = yield call(
+    authSafe(getResourceAgentMetadata),
     clusterUrlName,
     agentName,
   );

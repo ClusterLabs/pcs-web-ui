@@ -1,24 +1,26 @@
 import {
   createResult,
   createResultInvalid,
-  ApiCallResult as ApiCallResultType,
   ApiCall as ApiCallType,
+  ApiResponse as ApiResponseType,
+  ApiResult as ApiResultType,
 } from "./result";
 
 import {
   validateSameNodes,
   validateShape,
 } from "./validate";
-import { dealWithNoAuth } from "./dealWithNoAuth";
+import { authSafe } from "./dealWithNoAuth";
 import { dealWithInvalidJson } from "./dealWithInvalidJson";
 
-export type ApiCallResult<T> = ApiCallResultType<T>;
 export type ApiCall<T> = ApiCallType<T>;
+export type ApiResponse<T> = ApiResponseType<T>;
+export type ApiResult<T> = ApiResultType<T>;
 
 export {
   createResult,
   createResultInvalid,
-  dealWithNoAuth,
+  authSafe,
   dealWithInvalidJson,
   validateSameNodes,
   validateShape,
