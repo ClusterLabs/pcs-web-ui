@@ -1,12 +1,17 @@
 /* eslint-disable camelcase */
+import * as t from "io-ts";
 
-export interface ApiIssue {
-  message: string,
-  type?: string;
-  node_list?: string[];
-}
+export const TApiIssue = t.intersection([
+  t.type({
+    message: t.string,
+  }),
+  t.partial({
+    type: t.string,
+    node_list: t.array(t.string),
+  }),
+]);
 
-export interface ApiWithIssues {
-  error_list: ApiIssue[],
-  warning_list: ApiIssue[],
-}
+export const TApiWithIssues = t.type({
+  error_list: t.array(TApiIssue),
+  warning_list: t.array(TApiIssue),
+});

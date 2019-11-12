@@ -1,45 +1,46 @@
 /* eslint-disable camelcase */
+import * as t from "io-ts";
+
 /*
 datasource:/cib/configuration/constraints
 TODO add attributes according .rng. (to ApiLocation, ApiResourceAttributes, ...)
 warning: there are relations between attributes - things will be more
 complicated!
 */
-interface ApiLocationBase {
-  rule_string: string;
-  "rsc-pattern": string;
-  rsc: string;
-}
 
-interface ApiLocationRef extends ApiLocationBase{
-  "id-ref": string;
-}
+const TApiLocationBase = t.type({
+  rule_string: t.string,
+  "rsc-pattern": t.string,
+  rsc: t.string,
+});
 
-interface ApiLocation extends ApiLocationBase{
-  id: string;
-  score: number|"INFINITY"|"-INFINITY";
-}
+const TApiLocationRef = t.intersection([TApiLocationBase, t.type({
+  "id-ref": t.string,
+})]);
 
-interface ApiResourceSetAttributes {
-  [resource_set_attribute: string]: string;
-}
+const TApiLocation = t.intersection([TApiLocationBase, t.type({
+  id: t.string,
+  score: t.union([t.number, t.keyof({ INFINITY: null, "-INFINITY": null })]),
+})]);
 
-interface ApiResourceSet {
-  id: string;
-  resources: string[];
-}
+const TApiResourceSetAttributes = t.record(t.string, t.string);
 
-interface ApiConstraintSet {
-  sets: (ApiResourceSet & ApiResourceSetAttributes)[];
-}
+const TApiResourceSet = t.type({
+  id: t.string,
+  resources: t.array(t.string),
+});
 
-interface ApiConstraintAttributes {
-  [constraint_attribute: string]: string;
-}
+const TApiConstraintSet = t.type({
+  sets: t.array(t.intersection([TApiResourceSet, TApiResourceSetAttributes])),
+});
 
-export interface ApiConstraints {
-  rsc_location: (ApiLocationRef|ApiLocation)[];
-  rsc_colocation: (ApiConstraintSet|ApiConstraintAttributes)[];
-  rsc_order: (ApiConstraintSet|ApiConstraintAttributes)[];
-  rsc_ticket: (ApiConstraintSet|ApiConstraintAttributes)[];
-}
+const TApiConstraintAttributes = t.record(t.string, t.string);
+
+export const TApiConstraints = t.type({
+  rsc_location: t.array(t.union([TApiLocationRef, TApiLocation])),
+  rsc_colocation: t.array(
+    t.union([TApiConstraintSet, TApiConstraintAttributes]),
+  ),
+  rsc_order: t.array(t.union([TApiConstraintSet, TApiConstraintAttributes])),
+  rsc_ticket: t.array(t.union([TApiConstraintSet, TApiConstraintAttributes])),
+});

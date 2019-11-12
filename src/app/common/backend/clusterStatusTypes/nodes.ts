@@ -1,15 +1,17 @@
 /* eslint-disable camelcase */
-import { ApiWithIssues } from "./issues";
-import { ApiNVPair } from "./nvsets";
+import * as t from "io-ts";
+
+import { TApiWithIssues } from "./issues";
+import { TApiNVPair } from "./nvsets";
 
 // tools like `systemctl` or `service` are used for getting services info
-interface ApiNodeService {
-  installed: boolean;
-  runnning: boolean;
-  enabled: boolean;
-}
+const TApiNodeService = t.type({
+  installed: t.boolean,
+  runnning: t.boolean,
+  enabled: t.boolean,
+});
 
-export type ApiNodeName = string;
+export const TApiNodeName = t.string;
 /*
 name
   taken from result of `corosync-cmapctl runtime.votequorum.this_node_id`
@@ -44,33 +46,31 @@ warning_list
     from this very node "check" to all cluster node is called; some node(s) had
     "notauthorized" or "notoken" in response
 */
-export interface ApiNode extends ApiWithIssues {
-  name: string,
-  status: "standby"|"online"|"offline";
-  quorum: boolean,
-  uptime: string;
-  services: {
-    pacemaker: ApiNodeService;
-    pacemaker_remote: ApiNodeService;
-    corosync: ApiNodeService;
-    pcsd: ApiNodeService;
-    sbd: ApiNodeService;
-  },
-  corosync: boolean,
-  corosync_enabled: boolean,
-  pacemaker: boolean,
-  pacemaker_enabled: boolean,
-  pcsd_enabled: boolean,
-  sbd_config: {
-  },
-}
+export const TApiNode = t.intersection([TApiWithIssues, t.type({
+  name: t.string,
+  status: t.keyof({ standby: null, online: null, offline: null }),
+  quorum: t.boolean,
+  uptime: t.string,
+  services: t.type({
+    pacemaker: TApiNodeService,
+    pacemaker_remote: TApiNodeService,
+    corosync: TApiNodeService,
+    pcsd: TApiNodeService,
+    sbd: TApiNodeService,
+  }),
+  corosync: t.boolean,
+  corosync_enabled: t.boolean,
+  pacemaker: t.boolean,
+  pacemaker_enabled: t.boolean,
+  pcsd_enabled: t.boolean,
+  sbd_config: t.type({
+  }),
+})]);
 
 // datasource: /cib/configuration/nodes/node/instance_attributes/nvpair
-export interface ApiNodeAttributes {
-  [uname: string]: ApiNVPair[],
-}
+// The key of record is "uname".
+export const TApiNodeAttributes = t.record(t.string, t.array(TApiNVPair));
 
 // datasource: /cib/configuration/nodes/node/utilization/nvpair
-export interface ApiNodesUtilization {
-  [uname: string]: ApiNVPair[],
-}
+// The key of record is "uname".
+export const TApiNodesUtilization = t.record(t.string, t.array(TApiNVPair));
