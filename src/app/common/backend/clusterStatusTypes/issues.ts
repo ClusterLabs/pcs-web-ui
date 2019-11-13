@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-export const TApiIssue = t.intersection([
+export const ApiIssue = t.intersection([
   t.type({
     message: t.string,
   }),
@@ -11,7 +11,7 @@ export const TApiIssue = t.intersection([
   }),
 ]);
 
-export const TApiWithIssues = t.type({
-  error_list: t.array(TApiIssue),
-  warning_list: t.array(TApiIssue),
+export const ApiWithIssues = t.type({
+  error_list: t.array(ApiIssue),
+  warning_list: t.array(ApiIssue),
 });

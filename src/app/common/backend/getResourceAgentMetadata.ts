@@ -13,7 +13,7 @@ import {
 /*
 TODO obsoletes
 */
-const TApiAgentParameter = t.type({
+const ApiAgentParameter = t.type({
   name: t.string,
   shortdesc: t.string,
   longdesc: t.string,
@@ -26,13 +26,13 @@ const TApiAgentParameter = t.type({
   pcs_deprecated_warning: t.string,
 });
 
-const TAgentMetadata = t.type({
+const ApiAgentMetadata = t.type({
   name: t.string,
-  parameters: t.array(TApiAgentParameter),
+  parameters: t.array(ApiAgentParameter),
 });
 
 const validate = (requestedAgentName: string, response: any) => {
-  const errors = validateShape(response, TAgentMetadata);
+  const errors = validateShape(response, ApiAgentMetadata);
   if (errors.length > 0) {
     return errors;
   }
@@ -45,7 +45,7 @@ const validate = (requestedAgentName: string, response: any) => {
   return [];
 };
 
-type Result = t.TypeOf<typeof TAgentMetadata>;
+type Result = t.TypeOf<typeof ApiAgentMetadata>;
 
 const getResourceAgentMetadata: ApiCall<Result> = async (
   clusterUrlName:string,

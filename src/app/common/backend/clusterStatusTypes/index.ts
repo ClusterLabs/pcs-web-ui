@@ -1,23 +1,23 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import { TApiIssue, TApiWithIssues } from "./issues";
-import { TApiNode } from "./nodes";
+import { ApiIssue, ApiWithIssues } from "./issues";
+import { ApiNode } from "./nodes";
 import {
-  TApiPrimitive,
-  TApiResource,
-  TApiClone,
-  TApiGroup,
-  TApiStonith,
+  ApiPrimitive,
+  ApiResource,
+  ApiClone,
+  ApiGroup,
+  ApiStonith,
 } from "./resources";
-import { TApiClusterStatus } from "./cluster";
+import { ApiClusterStatus } from "./cluster";
 
-export type ApiPrimitive = t.TypeOf<typeof TApiPrimitive>;
-export type ApiResource = t.TypeOf<typeof TApiResource>;
-export type ApiClone = t.TypeOf<typeof TApiClone>;
-export type ApiGroup = t.TypeOf<typeof TApiGroup>;
-export type ApiStonith = t.TypeOf<typeof TApiStonith>;
-export type ApiIssue = t.TypeOf<typeof TApiIssue>;
-export type ApiWithIssues = t.TypeOf<typeof TApiWithIssues>;
-export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
-export type ApiNode = t.TypeOf<typeof TApiNode>;
+export type ApiPrimitive = t.TypeOf<typeof ApiPrimitive>;
+export type ApiResource = t.TypeOf<typeof ApiResource>;
+export type ApiClone = t.TypeOf<typeof ApiClone>;
+export type ApiGroup = t.TypeOf<typeof ApiGroup>;
+export type ApiStonith = t.TypeOf<typeof ApiStonith>;
+export type ApiIssue = t.TypeOf<typeof ApiIssue>;
+export type ApiWithIssues = t.TypeOf<typeof ApiWithIssues>;
+export type ApiClusterStatus = t.TypeOf<typeof ApiClusterStatus>;
+export type ApiNode = t.TypeOf<typeof ApiNode>;

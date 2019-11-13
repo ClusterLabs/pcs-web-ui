@@ -8,39 +8,39 @@ warning: there are relations between attributes - things will be more
 complicated!
 */
 
-const TApiLocationBase = t.type({
+const ApiLocationBase = t.type({
   rule_string: t.string,
   "rsc-pattern": t.string,
   rsc: t.string,
 });
 
-const TApiLocationRef = t.intersection([TApiLocationBase, t.type({
+const ApiLocationRef = t.intersection([ApiLocationBase, t.type({
   "id-ref": t.string,
 })]);
 
-const TApiLocation = t.intersection([TApiLocationBase, t.type({
+const ApiLocation = t.intersection([ApiLocationBase, t.type({
   id: t.string,
   score: t.union([t.number, t.keyof({ INFINITY: null, "-INFINITY": null })]),
 })]);
 
-const TApiResourceSetAttributes = t.record(t.string, t.string);
+const ApiResourceSetAttributes = t.record(t.string, t.string);
 
-const TApiResourceSet = t.type({
+const ApiResourceSet = t.type({
   id: t.string,
   resources: t.array(t.string),
 });
 
-const TApiConstraintSet = t.type({
-  sets: t.array(t.intersection([TApiResourceSet, TApiResourceSetAttributes])),
+const ApiConstraintSet = t.type({
+  sets: t.array(t.intersection([ApiResourceSet, ApiResourceSetAttributes])),
 });
 
-const TApiConstraintAttributes = t.record(t.string, t.string);
+const ApiConstraintAttributes = t.record(t.string, t.string);
 
-export const TApiConstraints = t.type({
-  rsc_location: t.array(t.union([TApiLocationRef, TApiLocation])),
+export const ApiConstraints = t.type({
+  rsc_location: t.array(t.union([ApiLocationRef, ApiLocation])),
   rsc_colocation: t.array(
-    t.union([TApiConstraintSet, TApiConstraintAttributes]),
+    t.union([ApiConstraintSet, ApiConstraintAttributes]),
   ),
-  rsc_order: t.array(t.union([TApiConstraintSet, TApiConstraintAttributes])),
-  rsc_ticket: t.array(t.union([TApiConstraintSet, TApiConstraintAttributes])),
+  rsc_order: t.array(t.union([ApiConstraintSet, ApiConstraintAttributes])),
+  rsc_ticket: t.array(t.union([ApiConstraintSet, ApiConstraintAttributes])),
 });

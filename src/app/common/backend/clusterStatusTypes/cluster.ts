@@ -1,23 +1,23 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import { TApiWithIssues } from "./issues";
-import { TApiAcl } from "./acls";
-import { TApiAlert } from "./alerts";
-import { TApiConstraints } from "./constraints";
-import { TApiResource, TApiResourceId } from "./resources";
+import { ApiWithIssues } from "./issues";
+import { ApiAcl } from "./acls";
+import { ApiAlert } from "./alerts";
+import { ApiConstraints } from "./constraints";
+import { ApiResource, ApiResourceId } from "./resources";
 import {
-  TApiNodeName,
-  TApiNode,
-  TApiNodeAttributes,
-  TApiNodesUtilization,
+  ApiNodeName,
+  ApiNode,
+  ApiNodeAttributes,
+  ApiNodesUtilization,
 } from "./nodes";
 
 /*
 datasource: /cib/configuration/fencing-topology/fencing-level
 The key of record is a target.
 */
-const TApiFencingLevels = t.record(t.string, t.type({
+const ApiFencingLevels = t.record(t.string, t.type({
   level: t.string,
   devices: t.array(t.string),
 }));
@@ -27,7 +27,7 @@ const TApiFencingLevels = t.record(t.string, t.type({
 datasource: /cib/configuration/crm_config//nvpair
 The key of record is a attribute name.
 */
-const TApiSettings = t.record(t.string, t.string);
+const ApiSettings = t.record(t.string, t.string);
 
 
 /*
@@ -76,15 +76,15 @@ quorate
 node_list
   all nodes no matter what status
 */
-export const TApiClusterStatus = t.intersection([
-  TApiWithIssues,
+export const ApiClusterStatus = t.intersection([
+  ApiWithIssues,
   t.type({
     available_features: t.array(t.string),
     cluster_name: t.string,
-    node_list: t.array(TApiNode),
+    node_list: t.array(ApiNode),
     pcsd_capabilities: t.array(t.string),
     quorate: t.boolean,
-    resource_list: t.array(TApiResource),
+    resource_list: t.array(ApiResource),
     status: t.keyof({
       unknown: null,
       ok: null,
@@ -93,20 +93,20 @@ export const TApiClusterStatus = t.intersection([
     }),
   }),
   t.partial({
-    acls: TApiAcl,
-    alerts: t.array(TApiAlert),
-    cluster_settings: TApiSettings,
-    constraints: TApiConstraints,
-    corosync_offline: t.array(TApiNodeName),
-    corosync_online: t.array(TApiNodeName),
-    fence_levels: TApiFencingLevels,
-    groups: t.array(TApiResourceId),
-    known_nodes: t.array(TApiNodeName),
-    node_attr: TApiNodeAttributes,
-    nodes_utilization: TApiNodesUtilization,
-    pacemaker_offline: t.array(TApiNodeName),
-    pacemaker_online: t.array(TApiNodeName),
-    pacemaker_standby: t.array(TApiNodeName),
+    acls: ApiAcl,
+    alerts: t.array(ApiAlert),
+    cluster_settings: ApiSettings,
+    constraints: ApiConstraints,
+    corosync_offline: t.array(ApiNodeName),
+    corosync_online: t.array(ApiNodeName),
+    fence_levels: ApiFencingLevels,
+    groups: t.array(ApiResourceId),
+    known_nodes: t.array(ApiNodeName),
+    node_attr: ApiNodeAttributes,
+    nodes_utilization: ApiNodesUtilization,
+    pacemaker_offline: t.array(ApiNodeName),
+    pacemaker_online: t.array(ApiNodeName),
+    pacemaker_standby: t.array(ApiNodeName),
     status_version: t.string,
     username: t.string,
   }),

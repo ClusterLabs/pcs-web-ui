@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import { TApiWithIssues } from "./issues";
-import { TApiNVPair } from "./nvsets";
+import { ApiWithIssues } from "./issues";
+import { ApiNVPair } from "./nvsets";
 
 /*
 datasource: /cib/status/node_state/lrm/lrm_resources/lrm_resource/lrm_rsc_op
@@ -16,7 +16,7 @@ on_node
   if on_node taken from element attribute is empty it is searched for parent
   `node_state`. If such parent is found then its attribute `uname` is used.
 */
-const TApiResourceOperation = t.type({
+const ApiResourceOperation = t.type({
   id: t.string,
   call_id: t.number,
   crm_debug_origin: t.union([t.string, t.null]),
@@ -39,25 +39,25 @@ const TApiResourceOperation = t.type({
   transition_magic: t.union([t.string, t.null]),
 });
 
-export const TApiResourceId = t.string;
+export const ApiResourceId = t.string;
 
 /*
 datasource: crm_mon: /crm_mon/resources//resource
 most attributes taken from xml element attributes
 */
-const TApiRole = t.keyof({
+const ApiRole = t.keyof({
   Started: null,
   Stopped: null,
   Master: null,
   Slave: null,
 });
-const TApiResourceStatus = t.intersection([
+const ApiResourceStatus = t.intersection([
   t.type({
-    id: TApiResourceId,
+    id: ApiResourceId,
     resource_agent: t.string,
     managed: t.boolean,
     failed: t.boolean,
-    role: TApiRole,
+    role: ApiRole,
     active: t.boolean,
     orphaned: t.boolean,
     failure_ignored: t.boolean,
@@ -70,7 +70,7 @@ const TApiResourceStatus = t.intersection([
     }),
   }),
   t.partial({
-    target_role: TApiRole,
+    target_role: ApiRole,
   }),
 ]);
 
@@ -81,8 +81,8 @@ parent_id
   id of parent resource (group, clone); it is used internally in backend, for
   web ui is meaningless
 */
-const TApiResourceBase = t.intersection([TApiWithIssues, t.type({
-  id: TApiResourceId,
+const ApiResourceBase = t.intersection([ApiWithIssues, t.type({
+  id: ApiResourceId,
   class_type: t.string,
   agentname: t.string,
   status: t.keyof({
@@ -93,7 +93,7 @@ const TApiResourceBase = t.intersection([TApiWithIssues, t.type({
     blocked: null,
     unknown: null,
   }),
-  meta_attr: t.array(TApiNVPair),
+  meta_attr: t.array(ApiNVPair),
   disabled: t.boolean,
   parent_id: t.union([t.string, t.null]),
 })]);
@@ -118,16 +118,16 @@ status (evaluated in following order - first win)
   status can be modifeid during operation analysis aftermath
     * failed - when status was blocked and failed operation detected
 */
-const TApiPrimitiveBase = t.intersection([TApiResourceBase, t.type({
+const ApiPrimitiveBase = t.intersection([ApiResourceBase, t.type({
   class_type: t.literal("primitive"),
   class: t.string,
   provider: t.union([t.string, t.null]),
   type: t.string,
   stonith: t.boolean,
-  instance_attr: t.array(TApiNVPair),
-  crm_status: t.array(TApiResourceStatus),
-  operations: t.array(TApiResourceOperation),
-  utilization: t.array(TApiNVPair),
+  instance_attr: t.array(ApiNVPair),
+  crm_status: t.array(ApiResourceStatus),
+  operations: t.array(ApiResourceOperation),
+  utilization: t.array(ApiNVPair),
 })]);
 
 /*
@@ -135,7 +135,7 @@ class
   must not be "stonith" - but how to express it in typescript, I haven't found
   a way (only some proposal)
 */
-export const TApiPrimitive = t.intersection([TApiPrimitiveBase, t.type({
+export const ApiPrimitive = t.intersection([ApiPrimitiveBase, t.type({
   stonith: t.literal(false),
   provider: t.string,
 })]);
@@ -149,7 +149,7 @@ warning_list
   potentially dangerous, please consider using "onoff"
     for eache meta_attribute with name `method` and value `cycle`
 */
-export const TApiStonith = t.intersection([TApiPrimitiveBase, t.type({
+export const ApiStonith = t.intersection([ApiPrimitiveBase, t.type({
   class: t.literal("stonith"),
   stonith: t.literal(true),
   provider: t.null,
@@ -163,9 +163,9 @@ status (evaluated in following order - first win)
     one of resources (except first) is in "disabled", "blocked", "failed"
   * running - by default
 */
-export const TApiGroup = t.intersection([TApiResourceBase, t.type({
+export const ApiGroup = t.intersection([ApiResourceBase, t.type({
   class_type: t.literal("group"),
-  members: t.array(t.union([TApiPrimitive, TApiStonith])),
+  members: t.array(t.union([ApiPrimitive, ApiStonith])),
 })]);
 
 /*
@@ -198,15 +198,15 @@ warning_list
     type: "no_master";
     promotable without promoted primitive and not disabled
 */
-export const TApiClone = t.intersection([TApiResourceBase, t.type({
+export const ApiClone = t.intersection([ApiResourceBase, t.type({
   class_type: t.literal("clone"),
-  member: t.union([TApiPrimitive, TApiGroup]),
+  member: t.union([ApiPrimitive, ApiGroup]),
   promotable: t.boolean,
 })]);
 
-export const TApiResource = t.union([
-  TApiPrimitive,
-  TApiGroup,
-  TApiClone,
-  TApiStonith,
+export const ApiResource = t.union([
+  ApiPrimitive,
+  ApiGroup,
+  ApiClone,
+  ApiStonith,
 ]);

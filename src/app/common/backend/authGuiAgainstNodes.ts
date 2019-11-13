@@ -10,12 +10,12 @@ import {
   validateSameNodes,
 } from "./tools";
 
-const TAuthGuiAgainstNodesResult = t.type({
+const ApiAuthGuiAgainstNodes = t.type({
   node_auth_error: t.record(t.string, t.number),
 });
 
 const validate = (nodeList: string[], response: any) => {
-  const errors = validateShape(response, TAuthGuiAgainstNodesResult);
+  const errors = validateShape(response, ApiAuthGuiAgainstNodes);
   if (errors.length > 0) {
     return errors;
   }
@@ -24,7 +24,7 @@ const validate = (nodeList: string[], response: any) => {
   return validateSameNodes(nodeList, Object.keys(nodeMap.node_auth_error));
 };
 
-type Result = t.TypeOf<typeof TAuthGuiAgainstNodesResult>;
+type Result = t.TypeOf<typeof ApiAuthGuiAgainstNodes>;
 
 const authGuiAgainstNodes: ApiCall<Result> = async (
   nodeMap: Record<string, {

@@ -1,17 +1,17 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import { TApiWithIssues } from "./issues";
-import { TApiNVPair } from "./nvsets";
+import { ApiWithIssues } from "./issues";
+import { ApiNVPair } from "./nvsets";
 
 // tools like `systemctl` or `service` are used for getting services info
-const TApiNodeService = t.type({
+const ApiNodeService = t.type({
   installed: t.boolean,
   runnning: t.boolean,
   enabled: t.boolean,
 });
 
-export const TApiNodeName = t.string;
+export const ApiNodeName = t.string;
 /*
 name
   taken from result of `corosync-cmapctl runtime.votequorum.this_node_id`
@@ -46,17 +46,17 @@ warning_list
     from this very node "check" to all cluster node is called; some node(s) had
     "notauthorized" or "notoken" in response
 */
-export const TApiNode = t.intersection([TApiWithIssues, t.type({
+export const ApiNode = t.intersection([ApiWithIssues, t.type({
   name: t.string,
   status: t.keyof({ standby: null, online: null, offline: null }),
   quorum: t.boolean,
   uptime: t.string,
   services: t.type({
-    pacemaker: TApiNodeService,
-    pacemaker_remote: TApiNodeService,
-    corosync: TApiNodeService,
-    pcsd: TApiNodeService,
-    sbd: TApiNodeService,
+    pacemaker: ApiNodeService,
+    pacemaker_remote: ApiNodeService,
+    corosync: ApiNodeService,
+    pcsd: ApiNodeService,
+    sbd: ApiNodeService,
   }),
   corosync: t.boolean,
   corosync_enabled: t.boolean,
@@ -69,8 +69,8 @@ export const TApiNode = t.intersection([TApiWithIssues, t.type({
 
 // datasource: /cib/configuration/nodes/node/instance_attributes/nvpair
 // The key of record is "uname".
-export const TApiNodeAttributes = t.record(t.string, t.array(TApiNVPair));
+export const ApiNodeAttributes = t.record(t.string, t.array(ApiNVPair));
 
 // datasource: /cib/configuration/nodes/node/utilization/nvpair
 // The key of record is "uname".
-export const TApiNodesUtilization = t.record(t.string, t.array(TApiNVPair));
+export const ApiNodesUtilization = t.record(t.string, t.array(ApiNVPair));
