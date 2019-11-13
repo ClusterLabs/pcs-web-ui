@@ -5,7 +5,7 @@ const childProcess = require("child_process");
 const inquirer = require("inquirer");
 const { argv } = require("yargs")
   .string("scenario")
-  .number("delay").default("delay", 1000)
+  .number("delay").default("delay", 700)
 ;
 
 const SCENARIO_DIR = `${__dirname}/scenarios`

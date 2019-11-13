@@ -7,7 +7,7 @@ import { ApiNVPair } from "./nvsets";
 // tools like `systemctl` or `service` are used for getting services info
 const ApiNodeService = t.type({
   installed: t.boolean,
-  runnning: t.boolean,
+  running: t.boolean,
   enabled: t.boolean,
 });
 

@@ -62,12 +62,12 @@ const ApiResourceStatus = t.intersection([
     orphaned: t.boolean,
     failure_ignored: t.boolean,
     nodes_running_on: t.number,
-    pending: t.string,
-    node: t.type({
+    pending: t.union([t.string, t.null]),
+    node: t.union([t.null, t.type({
       name: t.string,
       id: t.string,
       cached: t.boolean,
-    }),
+    })]),
   }),
   t.partial({
     target_role: ApiRole,
@@ -84,7 +84,6 @@ parent_id
 const ApiResourceBase = t.intersection([ApiWithIssues, t.type({
   id: ApiResourceId,
   class_type: t.string,
-  agentname: t.string,
   status: t.keyof({
     running: null,
     "partially running": null,
@@ -120,6 +119,7 @@ status (evaluated in following order - first win)
 */
 const ApiPrimitiveBase = t.intersection([ApiResourceBase, t.type({
   class_type: t.literal("primitive"),
+  agentname: t.string,
   class: t.string,
   provider: t.union([t.string, t.null]),
   type: t.string,

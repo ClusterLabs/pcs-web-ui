@@ -8,11 +8,15 @@ warning: there are relations between attributes - things will be more
 complicated!
 */
 
-const ApiLocationBase = t.type({
-  rule_string: t.string,
-  "rsc-pattern": t.string,
-  rsc: t.string,
-});
+const ApiLocationBase = t.intersection([
+  t.type({
+    rsc: t.string,
+  }),
+  t.partial({
+    "rsc-pattern": t.string,
+    rule_string: t.string,
+  }),
+]);
 
 const ApiLocationRef = t.intersection([ApiLocationBase, t.type({
   "id-ref": t.string,
@@ -36,7 +40,7 @@ const ApiConstraintSet = t.type({
 
 const ApiConstraintAttributes = t.record(t.string, t.string);
 
-export const ApiConstraints = t.type({
+export const ApiConstraints = t.partial({
   rsc_location: t.array(t.union([ApiLocationRef, ApiLocation])),
   rsc_colocation: t.array(
     t.union([ApiConstraintSet, ApiConstraintAttributes]),

@@ -10,7 +10,7 @@ import {
   ApiGroup,
   ApiStonith,
 } from "./resources";
-import { ApiClusterStatus } from "./cluster";
+import { ApiClusterStatus as TApiClusterStatus } from "./cluster";
 
 export type ApiPrimitive = t.TypeOf<typeof ApiPrimitive>;
 export type ApiResource = t.TypeOf<typeof ApiResource>;
@@ -19,5 +19,9 @@ export type ApiGroup = t.TypeOf<typeof ApiGroup>;
 export type ApiStonith = t.TypeOf<typeof ApiStonith>;
 export type ApiIssue = t.TypeOf<typeof ApiIssue>;
 export type ApiWithIssues = t.TypeOf<typeof ApiWithIssues>;
-export type ApiClusterStatus = t.TypeOf<typeof ApiClusterStatus>;
+export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
 export type ApiNode = t.TypeOf<typeof ApiNode>;
+
+export {
+  TApiClusterStatus,
+};

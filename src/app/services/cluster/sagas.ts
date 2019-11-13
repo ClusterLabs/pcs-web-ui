@@ -6,21 +6,41 @@ import {
 } from "redux-saga/effects";
 
 import * as api from "app/common/api";
-import * as auth from "app/services/auth/sagas";
 import { putNotification } from "app/scenes/notifications";
 import { dataLoadManage } from "app/services/data-load/sagas";
+import { clusterStatus, authSafe, ApiResult } from "app/common/backend";
 
 import * as ClusterAction from "./actions";
 
 function* fetchClusterData(clusterUrlName: string) {
   try {
-    const apiClusterStatus = yield call(
-      auth.getJson,
-      `/managec/${clusterUrlName}/cluster_status`,
+    const result: ApiResult<typeof clusterStatus> = yield call(
+      authSafe(clusterStatus),
+      clusterUrlName,
     );
+    if (!result.valid) {
+      /* eslint-disable no-console */
+      console.error(
+        "Cannot sync data for cluster. Invalid response from backend. Errors:",
+        result.errors,
+      );
+      yield all([
+        putNotification(
+          "ERROR",
+          `Cannot sync data for cluster '${clusterUrlName}'. `
+            + "Details are listed in the browser console."
+          ,
+        ),
+        put<ClusterAction.FetchClusterDataFailed>({
+          type: "CLUSTER_DATA.FETCH.FAILED",
+        }),
+      ]);
+      return;
+    }
+
     yield put<ClusterAction.FetchClusterDataSuccess>({
       type: "CLUSTER_DATA.FETCH.SUCCESS",
-      payload: { apiClusterStatus },
+      payload: { apiClusterStatus: result.response },
     });
   } catch (error) {
     const errorMessage = api.error.failMessage(error);
