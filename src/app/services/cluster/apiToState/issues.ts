@@ -1,7 +1,7 @@
 import {
   ApiIssue,
   ApiWithIssues,
-} from "app/common/backend/clusterStatusTypes";
+} from "app/common/backend/types/clusterStatus";
 
 import { Issue } from "../types";
 

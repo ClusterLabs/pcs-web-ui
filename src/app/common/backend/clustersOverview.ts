@@ -9,7 +9,7 @@ import {
 import {
   ApiClustersOverview,
   TApiClustersOverview,
-} from "./clusterOverviewTypes";
+} from "./types/clusterOverview";
 
 const clustersOverview: ApiCall<ApiClustersOverview> = async () => {
   try {

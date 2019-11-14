@@ -4,7 +4,7 @@ import {
   ApiClone,
   ApiGroup,
   ApiStonith,
-} from "app/common/backend/clusterStatusTypes";
+} from "app/common/backend/types/clusterStatus";
 import { StatusSeverity } from "app/common/types";
 import { typeIs, statusSeverity } from "app/common/utils";
 

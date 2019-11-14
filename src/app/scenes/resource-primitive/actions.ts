@@ -1,7 +1,4 @@
-import {
-  getResourceAgentMetadata,
-  ApiResponse,
-} from "app/common/backend";
+import { getResourceAgentMetadata, ApiResponse } from "app/common/backend";
 
 export interface LoadResourceAgent {
   type: "RESOURCE_AGENT.LOAD";

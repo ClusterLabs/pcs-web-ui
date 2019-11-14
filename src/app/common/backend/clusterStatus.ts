@@ -6,7 +6,7 @@ import {
   dealWithInvalidJson,
 } from "./tools";
 
-import { ApiClusterStatus, TApiClusterStatus } from "./clusterStatusTypes";
+import { ApiClusterStatus, TApiClusterStatus } from "./types/clusterStatus";
 
 const clusterStatus: ApiCall<ApiClusterStatus> = async (
   clusterUrlName:string,
