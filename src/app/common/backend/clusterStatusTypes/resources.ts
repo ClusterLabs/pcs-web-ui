@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+import * as t from "io-ts";
+
 import { ApiWithIssues } from "./issues";
 import { ApiNVPair } from "./nvsets";
 
@@ -14,53 +16,63 @@ on_node
   if on_node taken from element attribute is empty it is searched for parent
   `node_state`. If such parent is found then its attribute `uname` is used.
 */
-interface ApiResourceOperation {
-  id: string,
-  call_id: number,
-  crm_debug_origin: string|null,
-  crm_feature_set: string|null,
-  exec_time: number,
-  exit_reason: string|null,
-  interval: number,
-  last_rc_change: number,
-  last_run: number,
-  on_node: string|null,
-  op_digest: string|null,
-  operation_key: string|null,
-  operation: string|null,
-  op_force_restart: string|null,
-  op_restart_digest: string|null,
-  op_status: number,
-  queue_time: number,
-  rc_code: number,
-  transition_key: string|null,
-  transition_magic: string|null,
-}
+const ApiResourceOperation = t.type({
+  id: t.string,
+  call_id: t.number,
+  crm_debug_origin: t.union([t.string, t.null]),
+  crm_feature_set: t.union([t.string, t.null]),
+  exec_time: t.number,
+  exit_reason: t.union([t.string, t.null]),
+  interval: t.number,
+  last_rc_change: t.number,
+  last_run: t.number,
+  on_node: t.union([t.string, t.null]),
+  op_digest: t.union([t.string, t.null]),
+  operation_key: t.union([t.string, t.null]),
+  operation: t.union([t.string, t.null]),
+  op_force_restart: t.union([t.string, t.null]),
+  op_restart_digest: t.union([t.string, t.null]),
+  op_status: t.number,
+  queue_time: t.number,
+  rc_code: t.number,
+  transition_key: t.union([t.string, t.null]),
+  transition_magic: t.union([t.string, t.null]),
+});
 
-export type ApiResourceId = string;
+export const ApiResourceId = t.string;
 
 /*
 datasource: crm_mon: /crm_mon/resources//resource
 most attributes taken from xml element attributes
 */
-interface ApiResourceStatus {
-  id: ApiResourceId;
-  resource_agent: string;
-  managed: boolean;
-  failed: boolean;
-  target_role?: "Started"|"Stopped"|"Master"|"Slave";
-  role: "Started"|"Stopped"|"Master"|"Slave";
-  active: boolean;
-  orphaned: boolean;
-  failure_ignored: boolean;
-  nodes_running_on: number;
-  pending: string;
-  node: {
-    name: string;
-    id: string;
-    cached: boolean;
-  };
-}
+const ApiRole = t.keyof({
+  Started: null,
+  Stopped: null,
+  Master: null,
+  Slave: null,
+});
+const ApiResourceStatus = t.intersection([
+  t.type({
+    id: ApiResourceId,
+    resource_agent: t.string,
+    managed: t.boolean,
+    failed: t.boolean,
+    role: ApiRole,
+    active: t.boolean,
+    orphaned: t.boolean,
+    failure_ignored: t.boolean,
+    nodes_running_on: t.number,
+    pending: t.union([t.string, t.null]),
+    node: t.union([t.null, t.type({
+      name: t.string,
+      id: t.string,
+      cached: t.boolean,
+    })]),
+  }),
+  t.partial({
+    target_role: ApiRole,
+  }),
+]);
 
 /*
 disabled
@@ -69,15 +81,21 @@ parent_id
   id of parent resource (group, clone); it is used internally in backend, for
   web ui is meaningless
 */
-interface ApiResourceBase extends ApiWithIssues {
-  id: ApiResourceId;
-  class_type: string;
-  agentname: string;
-  status: "running"|"partially running"|"disabled"|"failed"|"blocked"|"unknown";
-  meta_attr: ApiNVPair[];
-  disabled: boolean;
-  parent_id: null|string;
-}
+const ApiResourceBase = t.intersection([ApiWithIssues, t.type({
+  id: ApiResourceId,
+  class_type: t.string,
+  status: t.keyof({
+    running: null,
+    "partially running": null,
+    disabled: null,
+    failed: null,
+    blocked: null,
+    unknown: null,
+  }),
+  meta_attr: t.array(ApiNVPair),
+  disabled: t.boolean,
+  parent_id: t.union([t.string, t.null]),
+})]);
 
 /*
 error_list, warning_list
@@ -99,27 +117,28 @@ status (evaluated in following order - first win)
   status can be modifeid during operation analysis aftermath
     * failed - when status was blocked and failed operation detected
 */
-interface ApiPrimitiveBase extends ApiResourceBase {
-  class_type: "primitive",
-  class: string,
-  provider: string|null,
-  type: string,
-  stonith: boolean,
-  instance_attr: ApiNVPair[];
-  crm_status: ApiResourceStatus[];
-  operations: ApiResourceOperation[];
-  utilization: ApiNVPair[];
-}
+const ApiPrimitiveBase = t.intersection([ApiResourceBase, t.type({
+  class_type: t.literal("primitive"),
+  agentname: t.string,
+  class: t.string,
+  provider: t.union([t.string, t.null]),
+  type: t.string,
+  stonith: t.boolean,
+  instance_attr: t.array(ApiNVPair),
+  crm_status: t.array(ApiResourceStatus),
+  operations: t.array(ApiResourceOperation),
+  utilization: t.array(ApiNVPair),
+})]);
 
 /*
 class
   must not be "stonith" - but how to express it in typescript, I haven't found
   a way (only some proposal)
 */
-export interface ApiPrimitive extends ApiPrimitiveBase {
-  stonith: false,
-  provider: string,
-}
+export const ApiPrimitive = t.intersection([ApiPrimitiveBase, t.type({
+  stonith: t.literal(false),
+  provider: t.string,
+})]);
 
 /*
 warning_list
@@ -130,11 +149,11 @@ warning_list
   potentially dangerous, please consider using "onoff"
     for eache meta_attribute with name `method` and value `cycle`
 */
-export interface ApiStonith extends ApiPrimitiveBase {
-  class: "stonith",
-  stonith: true,
-  provider: null;
-}
+export const ApiStonith = t.intersection([ApiPrimitiveBase, t.type({
+  class: t.literal("stonith"),
+  stonith: t.literal(true),
+  provider: t.null,
+})]);
 
 /*
 status (evaluated in following order - first win)
@@ -144,10 +163,10 @@ status (evaluated in following order - first win)
     one of resources (except first) is in "disabled", "blocked", "failed"
   * running - by default
 */
-export interface ApiGroup extends ApiResourceBase {
-  class_type: "group",
-  members: ApiResource[],
-}
+export const ApiGroup = t.intersection([ApiResourceBase, t.type({
+  class_type: t.literal("group"),
+  members: t.array(t.union([ApiPrimitive, ApiStonith])),
+})]);
 
 /*
 datasources
@@ -179,10 +198,15 @@ warning_list
     type: "no_master";
     promotable without promoted primitive and not disabled
 */
-export interface ApiClone extends ApiResourceBase {
-  class_type: "clone",
-  member: ApiPrimitive|ApiGroup,
-  promotable: boolean;
-}
+export const ApiClone = t.intersection([ApiResourceBase, t.type({
+  class_type: t.literal("clone"),
+  member: t.union([ApiPrimitive, ApiGroup]),
+  promotable: t.boolean,
+})]);
 
-export type ApiResource = ApiPrimitive|ApiGroup|ApiClone|ApiStonith;
+export const ApiResource = t.union([
+  ApiPrimitive,
+  ApiGroup,
+  ApiClone,
+  ApiStonith,
+]);

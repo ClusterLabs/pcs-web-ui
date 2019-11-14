@@ -30,7 +30,10 @@ export function* login(
   { payload: { username, password } }: LoginAction.EnterCredentials,
 ) {
   try {
-    yield call(api.call.postForText, "/ui/login", { username, password });
+    yield call(api.call.postForText, "/ui/login", [
+      ["username", username],
+      ["password", password],
+    ]);
     yield put<AuthAction.AuthSuccess>({
       type: "AUTH.SUCCESS",
       payload: { username },

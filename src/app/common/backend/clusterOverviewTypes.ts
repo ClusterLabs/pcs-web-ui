@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
-/* eslint-disable import/prefer-default-export */
+import * as t from "io-ts";
 
-import { ApiClusterStatus } from "./clusterStatusTypes";
+import { TApiClusterStatus } from "./clusterStatusTypes";
 
-export interface ApiClustersOverview {
-  cluster_list: ApiClusterStatus[],
-}
+export const TApiClustersOverview = t.type({
+  cluster_list: t.array(TApiClusterStatus),
+});
+export type ApiClustersOverview = t.TypeOf<typeof TApiClustersOverview>;

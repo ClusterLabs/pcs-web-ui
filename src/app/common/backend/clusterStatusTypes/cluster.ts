@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+import * as t from "io-ts";
+
 import { ApiWithIssues } from "./issues";
 import { ApiAcl } from "./acls";
 import { ApiAlert } from "./alerts";
@@ -13,18 +15,19 @@ import {
 
 /*
 datasource: /cib/configuration/fencing-topology/fencing-level
+The key of record is a target.
 */
-interface ApiFencingLevels {
-  [target: string]: { level: string, devices: string }[],
-}
+const ApiFencingLevels = t.record(t.string, t.type({
+  level: t.string,
+  devices: t.array(t.string),
+}));
 
 
 /*
 datasource: /cib/configuration/crm_config//nvpair
+The key of record is a attribute name.
 */
-interface ApiSettings {
-  [attribute: string]: string;
-}
+const ApiSettings = t.record(t.string, t.string);
 
 
 /*
@@ -73,28 +76,38 @@ quorate
 node_list
   all nodes no matter what status
 */
-export interface ApiClusterStatus extends ApiWithIssues{
-  acls?: ApiAcl;
-  alerts?: ApiAlert[];
-  available_features: string[];
-  cluster_name: string;
-  cluster_settings?: ApiSettings;
-  constraints?: ApiConstraints;
-  corosync_offline?: ApiNodeName[];
-  corosync_online?: ApiNodeName[];
-  fence_levels?: ApiFencingLevels;
-  groups?: ApiResourceId[];
-  known_nodes?: ApiNodeName[];
-  node_attr?: ApiNodeAttributes;
-  node_list: ApiNode[];
-  nodes_utilization?: ApiNodesUtilization,
-  pacemaker_offline?: ApiNodeName[];
-  pacemaker_online?: ApiNodeName[];
-  pacemaker_standby?: ApiNodeName[];
-  pcsd_capabilities: string[];
-  quorate: boolean;
-  resource_list: ApiResource[];
-  status: "unknown"|"ok"|"warning"|"error";
-  status_version?: string;
-  username?: string;
-}
+export const ApiClusterStatus = t.intersection([
+  ApiWithIssues,
+  t.type({
+    available_features: t.array(t.string),
+    cluster_name: t.string,
+    node_list: t.array(ApiNode),
+    pcsd_capabilities: t.array(t.string),
+    quorate: t.boolean,
+    resource_list: t.array(ApiResource),
+    status: t.keyof({
+      unknown: null,
+      ok: null,
+      warning: null,
+      error: null,
+    }),
+  }),
+  t.partial({
+    acls: ApiAcl,
+    alerts: t.array(ApiAlert),
+    cluster_settings: ApiSettings,
+    constraints: ApiConstraints,
+    corosync_offline: t.array(ApiNodeName),
+    corosync_online: t.array(ApiNodeName),
+    fence_levels: ApiFencingLevels,
+    groups: t.array(ApiResourceId),
+    known_nodes: t.array(ApiNodeName),
+    node_attr: ApiNodeAttributes,
+    nodes_utilization: ApiNodesUtilization,
+    pacemaker_offline: t.array(ApiNodeName),
+    pacemaker_online: t.array(ApiNodeName),
+    pacemaker_standby: t.array(ApiNodeName),
+    status_version: t.string,
+    username: t.string,
+  }),
+]);

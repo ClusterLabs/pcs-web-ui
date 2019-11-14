@@ -1,45 +1,50 @@
 /* eslint-disable camelcase */
+import * as t from "io-ts";
+
 /*
 datasource:/cib/configuration/constraints
 TODO add attributes according .rng. (to ApiLocation, ApiResourceAttributes, ...)
 warning: there are relations between attributes - things will be more
 complicated!
 */
-interface ApiLocationBase {
-  rule_string: string;
-  "rsc-pattern": string;
-  rsc: string;
-}
 
-interface ApiLocationRef extends ApiLocationBase{
-  "id-ref": string;
-}
+const ApiLocationBase = t.intersection([
+  t.type({
+    rsc: t.string,
+  }),
+  t.partial({
+    "rsc-pattern": t.string,
+    rule_string: t.string,
+  }),
+]);
 
-interface ApiLocation extends ApiLocationBase{
-  id: string;
-  score: number|"INFINITY"|"-INFINITY";
-}
+const ApiLocationRef = t.intersection([ApiLocationBase, t.type({
+  "id-ref": t.string,
+})]);
 
-interface ApiResourceSetAttributes {
-  [resource_set_attribute: string]: string;
-}
+const ApiLocation = t.intersection([ApiLocationBase, t.type({
+  id: t.string,
+  score: t.union([t.number, t.keyof({ INFINITY: null, "-INFINITY": null })]),
+})]);
 
-interface ApiResourceSet {
-  id: string;
-  resources: string[];
-}
+const ApiResourceSetAttributes = t.record(t.string, t.string);
 
-interface ApiConstraintSet {
-  sets: (ApiResourceSet & ApiResourceSetAttributes)[];
-}
+const ApiResourceSet = t.type({
+  id: t.string,
+  resources: t.array(t.string),
+});
 
-interface ApiConstraintAttributes {
-  [constraint_attribute: string]: string;
-}
+const ApiConstraintSet = t.type({
+  sets: t.array(t.intersection([ApiResourceSet, ApiResourceSetAttributes])),
+});
 
-export interface ApiConstraints {
-  rsc_location: (ApiLocationRef|ApiLocation)[];
-  rsc_colocation: (ApiConstraintSet|ApiConstraintAttributes)[];
-  rsc_order: (ApiConstraintSet|ApiConstraintAttributes)[];
-  rsc_ticket: (ApiConstraintSet|ApiConstraintAttributes)[];
-}
+const ApiConstraintAttributes = t.record(t.string, t.string);
+
+export const ApiConstraints = t.partial({
+  rsc_location: t.array(t.union([ApiLocationRef, ApiLocation])),
+  rsc_colocation: t.array(
+    t.union([ApiConstraintSet, ApiConstraintAttributes]),
+  ),
+  rsc_order: t.array(t.union([ApiConstraintSet, ApiConstraintAttributes])),
+  rsc_ticket: t.array(t.union([ApiConstraintSet, ApiConstraintAttributes])),
+});

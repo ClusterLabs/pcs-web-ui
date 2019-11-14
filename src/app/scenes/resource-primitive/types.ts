@@ -2,7 +2,7 @@ export interface ResourceAgentParameter {
   name: string;
   shortdesc: string;
   longdesc: string;
-  default: string|null;
+  default: string|number|null;
 }
 
 export interface ResourceAgentMetadata {

@@ -9,7 +9,7 @@ const decorateApiMethod = (
   apiMethod: api.types.ApiCall,
 ): api.types.ApiCall => function* AuthMethod(
   url: string,
-  params: api.types.ApiParams = {},
+  params: api.types.ApiParams = [],
 ): SagaIterator {
   try {
     const responseFirstAttempt = yield call(apiMethod, url, params);
@@ -41,3 +41,4 @@ const decorateApiMethod = (
 
 export const getJson = decorateApiMethod(api.call.getJson);
 export const postForText = decorateApiMethod(api.call.postForText);
+export const postForJson = decorateApiMethod(api.call.postForJson);
