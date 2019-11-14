@@ -2,6 +2,7 @@ import authGuiAgainstNodes from "./authGuiAgainstNodes";
 import checkAuthAgainstNodes from "./checkAuthAgainstNodes";
 import existingCluster from "./existingCluster";
 import clusterStatus from "./clusterStatus";
+import clustersOverview from "./clustersOverview";
 import getResourceAgentMetadata from "./getResourceAgentMetadata";
 import {
   ApiResponse as ApiResponseType,
@@ -18,5 +19,6 @@ export {
   existingCluster,
   getResourceAgentMetadata,
   clusterStatus,
+  clustersOverview,
   authSafe,
 };
