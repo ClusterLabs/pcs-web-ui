@@ -9,7 +9,7 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import * as LoginAction from "app/scenes/login/actions";
+import { Action } from "app/common/actions";
 import { useUsername } from "app/services/username";
 
 const PageToolbarView = () => {
@@ -37,9 +37,7 @@ const PageToolbarView = () => {
               (
                 <DropdownItem
                   key="0"
-                  onClick={
-                    () => dispatch<LoginAction.Logout>({ type: "LOGOUT" })
-                  }
+                  onClick={() => dispatch<Action>({ type: "LOGOUT" })}
                   data-role="logout"
                 >
                   Logout

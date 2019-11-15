@@ -1,14 +1,12 @@
 import { Reducer } from "redux";
-import * as AuthAction from "app/services/auth/actions";
+import { Action } from "app/common/actions";
 
 import { NotificationState } from "./types";
-import * as NotificationAction from "./actions";
 
-const notifications: Reducer<NotificationState, (
-    | NotificationAction.Create
-    | NotificationAction.Destroy
-    | AuthAction.AuthRequired
-)> = (state = [], action) => {
+const notifications: Reducer<NotificationState, Action> = (
+  state = [],
+  action,
+) => {
   switch (action.type) {
     case "NOTIFICATION.CREATE":
       return [...state, action.payload.notification];

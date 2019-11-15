@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as ResourcePrimitiveAction from "./actions";
+
+import { Action } from "app/common/actions";
 
 import * as selectors from "./selectors";
 
@@ -10,7 +11,7 @@ const useResourceAgent = (clusterUrlName: string, agentName: string) => {
   React.useEffect(
     () => {
       if (!resourceAgent) {
-        dispatch<ResourcePrimitiveAction.LoadResourceAgent>({
+        dispatch<Action>({
           type: "RESOURCE_AGENT.LOAD",
           payload: { agentName, clusterUrlName },
         });

@@ -2,9 +2,9 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Alert, AlertActionCloseButton } from "@patternfly/react-core";
 
+import { Action } from "app/common/actions";
 import { Notification } from "../types";
 import * as selectors from "../selectors";
-import * as NotificationAction from "../actions";
 
 const severityToVariant = (severity: Notification["severity"]) => {
   switch (severity) {
@@ -25,7 +25,7 @@ const NotificationContainer = () => {
             variant={severityToVariant(severity)}
             action={(
               <AlertActionCloseButton
-                onClose={() => dispatch<NotificationAction.Destroy>({
+                onClose={() => dispatch<Action>({
                   type: "NOTIFICATION.DESTROY",
                   payload: { id },
                 })}

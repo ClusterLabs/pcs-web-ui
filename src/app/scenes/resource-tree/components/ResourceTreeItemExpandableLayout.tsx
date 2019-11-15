@@ -7,9 +7,9 @@ import {
 } from "@patternfly/react-core";
 
 import { ResourceTreeItem } from "app/services/cluster/types";
+import { Action } from "app/common/actions";
 
 import * as selectors from "../selectors";
-import * as ResourceTreeAction from "../actions";
 import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 import ResourceTreeNested from "./ResourceTreeNested";
 
@@ -36,7 +36,7 @@ const ResourceTreeItemExpandableLayout = ({
           id={`resource-tree-${resourceTreeItem.id}`}
           isExpanded={expanded}
           onClick={
-            () => dispatch<ResourceTreeAction.ToggleItem>({
+            () => dispatch<Action>({
               type: "RESOURCE_TREE.ITEM.TOGGLE",
               payload: { itemId: resourceTreeItem.id },
             })

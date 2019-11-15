@@ -1,11 +1,10 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
-import { typeIs } from "app/common/utils";
 import { putNotification } from "app/scenes/notifications";
+import { Action, actionType } from "app/common/actions";
 import * as api from "app/common/api";
-import * as AuthAction from "app/services/auth/actions";
 
-import * as LoginAction from "./actions";
+import { LoginActions } from "./actions";
 
 export function* logout() {
   try {
@@ -14,12 +13,12 @@ export function* logout() {
     yield call(api.call.getForText, "/ui/logout");
 
     yield putNotification("SUCCESS", "Success logout");
-    yield put<LoginAction.LogoutSuccess>({ type: "LOGOUT.SUCCESS" });
+    yield put<Action>({ type: "LOGOUT.SUCCESS" });
   } catch (error) {
     if (api.error.isUnauthorizedError(error)) {
       // Ok we are already somehow loged out.
       yield putNotification("SUCCESS", "Already logged out");
-      yield put<LoginAction.LogoutSuccess>({ type: "LOGOUT.SUCCESS" });
+      yield put<Action>({ type: "LOGOUT.SUCCESS" });
     } else {
       yield putNotification("ERROR", `Cannot logout: ${error.message}`);
     }
@@ -27,19 +26,19 @@ export function* logout() {
 }
 
 export function* login(
-  { payload: { username, password } }: LoginAction.EnterCredentials,
+  { payload: { username, password } }: LoginActions["EnterCredentials"],
 ) {
   try {
     yield call(api.call.postForText, "/ui/login", [
       ["username", username],
       ["password", password],
     ]);
-    yield put<AuthAction.AuthSuccess>({
+    yield put<Action>({
       type: "AUTH.SUCCESS",
       payload: { username },
     });
   } catch (error) {
-    yield put<LoginAction.LoginFailed>({
+    yield put<Action>({
       type: "LOGIN.FAILED",
       payload: {
         badCredentials: api.error.isUnauthorizedError(error),
@@ -50,9 +49,6 @@ export function* login(
 }
 
 export default [
-  takeEvery(typeIs<LoginAction.Logout["type"]>("LOGOUT"), logout),
-  takeEvery(
-    typeIs<LoginAction.EnterCredentials["type"]>("ENTER_CREDENTIALS"),
-    login,
-  ),
+  takeEvery(actionType("LOGOUT"), logout),
+  takeEvery(actionType("ENTER_CREDENTIALS"), login),
 ];

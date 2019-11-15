@@ -1,23 +1,22 @@
 import { combineReducers, Reducer } from "redux";
 
-import * as AuthAction from "app/services/auth/actions";
+import { Action } from "app/common/actions";
 
 import {
   DashboardState,
   DashboardPageState,
   FETCH_STATUS,
 } from "./types";
-import * as DashboardAction from "./actions";
 import overviewApiToState from "./overviewApiToState";
 
 const dashboardStateDefault: DashboardState = {
   clusterList: [],
 };
 
-const dashboardState: Reducer<DashboardState, (
-  |DashboardAction.FetchDashboardDataSuccess
-  |AuthAction.AuthRequired
-)> = (state = dashboardStateDefault, action) => {
+const dashboardState: Reducer<DashboardState, Action> = (
+  state = dashboardStateDefault,
+  action,
+) => {
   switch (action.type) {
     case "DASHBOARD_DATA.FETCH.SUCCESS":
       return overviewApiToState(action.payload.apiClusterOverview);
@@ -26,12 +25,10 @@ const dashboardState: Reducer<DashboardState, (
   }
 };
 
-const dataFetchState: Reducer<FETCH_STATUS, (
-  |DashboardAction.SyncDashboardData
-  |DashboardAction.FetchDashboardDataSuccess
-  |DashboardAction.FetchDashboardDataFailed
-  |AuthAction.AuthRequired
-)> = (state = "NOT_STARTED", action) => {
+const dataFetchState: Reducer<FETCH_STATUS, Action> = (
+  state = "NOT_STARTED",
+  action,
+) => {
   switch (action.type) {
     case "DASHBOARD_DATA.SYNC": return "IN_PROGRESS";
     case "DASHBOARD_DATA.FETCH.SUCCESS": return "SUCCESS";

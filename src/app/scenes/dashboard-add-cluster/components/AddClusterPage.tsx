@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Wizard } from "@patternfly/react-core";
 
-import * as ClusterAddAction from "../actions";
+import { Action } from "app/common/actions";
 import * as selectors from "../selectors";
 import AddClusterStepAuth from "./AddClusterStepAuth";
 import AddClusterStepAdd from "./AddClusterStepAdd";
@@ -27,7 +27,7 @@ const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
     <Wizard
       data-role="add-cluster-wizard"
       isOpen
-      onNext={() => dispatch<ClusterAddAction.AddCluster>({
+      onNext={() => dispatch<Action>({
         type: "ADD_CLUSTER.ADD_CLUSTER",
         payload: { nodeName },
       })}

@@ -7,10 +7,11 @@ import {
 
 import * as api from "app/common/api";
 import { putNotification } from "app/scenes/notifications";
-import { dataLoadManage } from "app/services/data-load/sagas";
+import { dataLoadManage, DataLoadProps } from "app/services/data-load/sagas";
 import { clusterStatus, authSafe, ApiResult } from "app/common/backend";
 
-import * as ClusterAction from "./actions";
+import { Action } from "app/common/actions";
+import { ClusterActions } from "./actions";
 
 function* fetchClusterData(clusterUrlName: string) {
   try {
@@ -31,14 +32,12 @@ function* fetchClusterData(clusterUrlName: string) {
             + "Details are listed in the browser console."
           ,
         ),
-        put<ClusterAction.FetchClusterDataFailed>({
-          type: "CLUSTER_DATA.FETCH.FAILED",
-        }),
+        put<Action>({ type: "CLUSTER_DATA.FETCH.FAILED" }),
       ]);
       return;
     }
 
-    yield put<ClusterAction.FetchClusterDataSuccess>({
+    yield put<Action>({
       type: "CLUSTER_DATA.FETCH.SUCCESS",
       payload: { apiClusterStatus: result.response },
     });
@@ -49,38 +48,24 @@ function* fetchClusterData(clusterUrlName: string) {
         "ERROR",
         `Cannot sync data for cluster '${clusterUrlName}': ${errorMessage}`,
       ),
-      put<ClusterAction.FetchClusterDataFailed>({
-        type: "CLUSTER_DATA.FETCH.FAILED",
-      }),
+      put<Action>({ type: "CLUSTER_DATA.FETCH.FAILED" }),
     ]);
   }
 }
 
-const START: ClusterAction.SyncClusterData["type"] = ("CLUSTER_DATA.SYNC");
-const SUCCESS: ClusterAction.FetchClusterDataSuccess["type"] = (
-  "CLUSTER_DATA.FETCH.SUCCESS"
-);
-const STOP: ClusterAction.SyncClusterDataStop["type"] = (
-  "CLUSTER_DATA.SYNC.STOP"
-);
-const FAIL: ClusterAction.FetchClusterDataFailed["type"] = (
-  "CLUSTER_DATA.FETCH.FAILED"
-);
-const refreshAction: ClusterAction.RefreshClusterData = {
-  type: "CLUSTER_DATA.REFRESH",
-};
-
-const getClusterDataSyncOptions = () => {
+const getClusterDataSyncOptions = (): DataLoadProps => {
   let clusterUrlName = "";
   return {
-    START,
-    STOP,
-    SUCCESS,
-    FAIL,
-    refreshAction,
-    takeStartPayload: (payload: ClusterAction.SyncClusterDataPayload) => {
-      ({ clusterUrlName } = payload);
-    },
+    START: "CLUSTER_DATA.SYNC",
+    STOP: "CLUSTER_DATA.SYNC.STOP",
+    SUCCESS: "CLUSTER_DATA.FETCH.SUCCESS",
+    FAIL: "CLUSTER_DATA.FETCH.FAILED",
+    refreshAction: { type: "CLUSTER_DATA.REFRESH" },
+    takeStartPayload: (
+      (payload: ClusterActions["SyncClusterData"]["payload"]) => {
+        ({ clusterUrlName } = payload);
+      }
+    ),
     fetch: () => fork(fetchClusterData, clusterUrlName),
   };
 };

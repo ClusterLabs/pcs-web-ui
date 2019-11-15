@@ -1,13 +1,13 @@
 import { Reducer, combineReducers } from "redux";
 
-import { ResourcePrimitiveState } from "./types";
-import * as ResourcePrimitiveAction from "./actions";
+import { Action } from "app/common/actions";
 
-const storage: Reducer<ResourcePrimitiveState["storage"], (
-  | ResourcePrimitiveAction.LoadResourceAgent
-  | ResourcePrimitiveAction.LoadResourceAgentSuccess
-  | ResourcePrimitiveAction.LoadResourceAgentFailed
-)> = (state = {}, action) => {
+import { ResourcePrimitiveState } from "./types";
+
+const storage: Reducer<ResourcePrimitiveState["storage"], Action> = (
+  state = {},
+  action,
+) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LOAD": return {
       ...state,

@@ -2,34 +2,27 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PageSection } from "@patternfly/react-core";
 
-import * as DataReadingAction from "app/services/data-load/actions";
 import {
   PageSectionDataLoading,
   Page,
 } from "app/common/components";
+import { Action } from "app/common/actions";
 
-/* eslint-disable no-shadow */
-import * as DashboardAction from "../actions";
 import * as selectors from "../selectors";
 import Dashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
-
-const start: DashboardAction.SyncDashboardData = {
-  type: "DASHBOARD_DATA.SYNC",
-};
-
-const stop: DashboardAction.SyncDashboardDataStop = {
-  type: "DASHBOARD_DATA.SYNC.STOP",
-};
 
 const useDashboardSync = () => {
   const dispatch = useDispatch();
   React.useEffect(
     () => {
-      dispatch<DataReadingAction.SetupDataReading>({
+      dispatch<Action>({
         type: "DATA_READING.SET_UP",
         payload: {
-          reloadDashboard: { start, stop },
+          reloadDashboard: {
+            start: { type: "DASHBOARD_DATA.SYNC" },
+            stop: { type: "DASHBOARD_DATA.SYNC.STOP" },
+          },
         },
       });
     },

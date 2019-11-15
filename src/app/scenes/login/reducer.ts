@@ -1,9 +1,8 @@
 import { Reducer } from "redux";
 
-import * as AuthAction from "app/services/auth/actions";
+import { Action } from "app/common/actions";
 
 import { LoginState } from "./types";
-import * as LoginAction from "./actions";
 
 const defaultState = {
   required: false,
@@ -14,13 +13,10 @@ const defaultState = {
   errorMessage: "",
 };
 
-const loginState: Reducer<LoginState, (
-  | AuthAction.AuthRequired
-  | AuthAction.AuthSuccess
-  | LoginAction.EnterCredentials
-  | LoginAction.LoginFailed
-  | LoginAction.LogoutSuccess
-)> = (state = defaultState, action) => {
+const loginState: Reducer<LoginState, Action> = (
+  state = defaultState,
+  action,
+) => {
   switch (action.type) {
     case "AUTH.REQUIRED": return {
       ...state,

@@ -1,15 +1,17 @@
 import { Notification } from "./types";
 
-export interface Create {
-  type: "NOTIFICATION.CREATE",
-  payload: {
-    notification: Notification,
-  }
-}
+export type NotificationActions = {
+  Create: {
+    type: "NOTIFICATION.CREATE",
+    payload: {
+      notification: Notification,
+    }
+  };
 
-export interface Destroy {
-  type: "NOTIFICATION.DESTROY",
-  payload: {
-    id: number,
-  }
+  Destroy: {
+    type: "NOTIFICATION.DESTROY",
+    payload: {
+      id: number,
+    }
+  };
 }

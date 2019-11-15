@@ -10,7 +10,7 @@ import {
 
 import { Spinner } from "app/common/components";
 
-import { AuthenticateNode } from "../actions";
+import { Action } from "app/common/actions";
 import { NodeName, StateError } from "../types";
 
 const AddClusterAuthRequired = (
@@ -104,7 +104,7 @@ const AddClusterAuthRequired = (
           : (
             <Button
               variant="primary"
-              onClick={() => dispatch<AuthenticateNode>({
+              onClick={() => dispatch<Action>({
                 type: "ADD_CLUSTER.AUTHENTICATE_NODE",
                 payload: {
                   nodeName,

@@ -6,8 +6,7 @@ import {
   takeEvery,
 } from "redux-saga/effects";
 
-import { typeIs } from "app/common/utils";
-import * as DashboardAction from "app/scenes/dashboard/actions";
+import { Action, actionType } from "app/common/actions";
 
 import {
   authGuiAgainstNodes,
@@ -17,21 +16,17 @@ import {
   authSafe,
 } from "app/common/backend";
 
-import * as ClusterAddAction from "./actions";
-
-const UpdateNodeNameActionType:ClusterAddAction.UpdateNodeName["type"] = (
-  "ADD_CLUSTER.NODE_NAME.UPDATE"
-);
+import { AddClusterActions } from "./actions";
 
 function* checkAuthentication(
-  { payload: { nodeName } }: ClusterAddAction.CheckAuth,
+  { payload: { nodeName } }: AddClusterActions["CheckAuth"],
 ) {
   try {
     const { result }: {
       result: ApiResult<typeof checkAuthAgainstNodes>,
     } = yield race({
       result: call(authSafe(checkAuthAgainstNodes), [nodeName]),
-      cancel: take(UpdateNodeNameActionType),
+      cancel: take(actionType("ADD_CLUSTER.NODE_NAME.UPDATE")),
     });
 
     if (!result) {
@@ -39,7 +34,7 @@ function* checkAuthentication(
     }
 
     if (!result.valid) {
-      yield put<ClusterAddAction.CheckAuthError>({
+      yield put<Action>({
         type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
         payload: {
           message: ([
@@ -55,11 +50,12 @@ function* checkAuthentication(
 
     const nodeStatus = result.response[nodeName];
     if (nodeStatus === "Online") {
-      yield put<ClusterAddAction.CheckAuthOk>({
-        type: "ADD_CLUSTER.CHECK_AUTH.OK",
-      });
-    } else if (nodeStatus === "Offline") {
-      yield put<ClusterAddAction.CheckAuthError>({
+      yield put<Action>({ type: "ADD_CLUSTER.CHECK_AUTH.OK" });
+      return;
+    }
+
+    if (nodeStatus === "Offline") {
+      yield put<Action>({
         type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
         payload: {
           message: (
@@ -67,13 +63,13 @@ function* checkAuthentication(
           ),
         },
       });
-    } else { // Unable to authenticate
-      yield put<ClusterAddAction.CheckAuthNoAuth>({
-        type: "ADD_CLUSTER.CHECK_AUTH.NO_AUTH",
-      });
+      return;
     }
+
+    // Unable to authenticate
+    yield put<Action>({ type: "ADD_CLUSTER.CHECK_AUTH.NO_AUTH" });
   } catch (error) {
-    yield put<ClusterAddAction.CheckAuthError>({
+    yield put<Action>({
       type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
       payload: {
         message: (
@@ -84,25 +80,22 @@ function* checkAuthentication(
   }
 }
 
-function* addCluster({ payload: { nodeName } }: ClusterAddAction.AddCluster) {
+function* addCluster(
+  { payload: { nodeName } }: AddClusterActions["AddCluster"],
+) {
   try {
     yield call(authSafe(existingCluster), nodeName);
-    yield put<ClusterAddAction.ReloadDashboard>({
+    yield put<Action>({
       type: "ADD_CLUSTER.RELOAD_DASHBOARD",
     });
-    yield put<DashboardAction.RefreshDashboardData>({
-      type: "DASHBOARD_DATA.REFRESH",
-    });
-    const fetchSuccess: DashboardAction.FetchDashboardDataSuccess["type"] = (
-      "DASHBOARD_DATA.FETCH.SUCCESS"
-    );
-    yield take(fetchSuccess);
-    yield put<ClusterAddAction.AddClusterSuccess>({
+    yield put<Action>({ type: "DASHBOARD_DATA.REFRESH" });
+    yield take(actionType("DASHBOARD_DATA.FETCH.SUCCESS"));
+    yield put<Action>({
       type: "ADD_CLUSTER.ADD_CLUSTER.SUCCESS",
       payload: { warningMessages: [] },
     });
   } catch (error) {
-    yield put<ClusterAddAction.AddClusterError>({
+    yield put<Action>({
       type: "ADD_CLUSTER.ADD_CLUSTER.ERROR",
       payload: {
         message: (
@@ -116,14 +109,13 @@ function* addCluster({ payload: { nodeName } }: ClusterAddAction.AddCluster) {
 }
 
 function* authenticateNode({
-  payload,
-}: ClusterAddAction.AuthenticateNode) {
-  const {
+  payload: {
     nodeName,
     password,
     address,
     port,
-  } = payload;
+  },
+}: AddClusterActions["AuthenticateNode"]) {
   try {
     const { result }: {
       result: ApiResult<typeof authGuiAgainstNodes>,
@@ -134,7 +126,7 @@ function* authenticateNode({
           dest_list: [{ addr: address, port }],
         },
       }),
-      cancel: take(UpdateNodeNameActionType),
+      cancel: take(actionType("ADD_CLUSTER.NODE_NAME.UPDATE")),
     });
 
     if (!result) {
@@ -142,7 +134,7 @@ function* authenticateNode({
     }
 
     if (!result.valid) {
-      yield put<ClusterAddAction.AuthenticateNodeFailed>({
+      yield put<Action>({
         type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
         payload: {
           message: (
@@ -154,22 +146,19 @@ function* authenticateNode({
       return;
     }
 
-    yield put<
-        | ClusterAddAction.AuthenticateNodeSuccess
-        | ClusterAddAction.AuthenticateNodeFailed
-      >(
-        result.response.node_auth_error[nodeName] === 0
-          ? { type: "ADD_CLUSTER.AUTHENTICATE_NODE.SUCCESS" }
-          : {
-            type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
-            payload: {
-              message: `Authentication of node '${nodeName}' failed.`,
-            },
-          }
-        ,
-      );
+    yield put<Action>(
+      result.response.node_auth_error[nodeName] === 0
+        ? { type: "ADD_CLUSTER.AUTHENTICATE_NODE.SUCCESS" }
+        : {
+          type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
+          payload: {
+            message: `Authentication of node '${nodeName}' failed.`,
+          },
+        }
+      ,
+    );
   } catch (error) {
-    yield put<ClusterAddAction.AuthenticateNodeFailed>({
+    yield put<Action>({
       type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
       payload: { message: error.message },
     });
@@ -177,18 +166,7 @@ function* authenticateNode({
 }
 
 export default [
-  takeEvery(
-    typeIs<ClusterAddAction.CheckAuth["type"]>("ADD_CLUSTER.CHECK_AUTH"),
-    checkAuthentication,
-  ),
-  takeEvery(
-    typeIs<ClusterAddAction.AddCluster["type"]>("ADD_CLUSTER.ADD_CLUSTER"),
-    addCluster,
-  ),
-  takeEvery(
-    typeIs<ClusterAddAction.AuthenticateNode["type"]>(
-      "ADD_CLUSTER.AUTHENTICATE_NODE",
-    ),
-    authenticateNode,
-  ),
+  takeEvery(actionType("ADD_CLUSTER.CHECK_AUTH"), checkAuthentication),
+  takeEvery(actionType("ADD_CLUSTER.ADD_CLUSTER"), addCluster),
+  takeEvery(actionType("ADD_CLUSTER.AUTHENTICATE_NODE"), authenticateNode),
 ];

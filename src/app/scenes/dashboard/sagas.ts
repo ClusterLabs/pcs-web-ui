@@ -7,10 +7,10 @@ import {
 
 import * as api from "app/common/api";
 import { putNotification } from "app/scenes/notifications";
-import { dataLoadManage } from "app/services/data-load/sagas";
+import { dataLoadManage, DataLoadProps } from "app/services/data-load/sagas";
 import { clustersOverview, authSafe, ApiResult } from "app/common/backend";
 
-import * as DashboardAction from "./actions";
+import { Action } from "app/common/actions";
 
 export function* fetchDashboardData() {
   try {
@@ -30,13 +30,13 @@ export function* fetchDashboardData() {
             + "Details are listed in the browser console."
           ,
         ),
-        put<DashboardAction.FetchDashboardDataFailed>(
+        put<Action>(
           { type: "DASHBOARD_DATA.FETCH.FAILED" },
         ),
       ]);
       return;
     }
-    yield put<DashboardAction.FetchDashboardDataSuccess>({
+    yield put<Action>({
       type: "DASHBOARD_DATA.FETCH.SUCCESS",
       payload: { apiClusterOverview: result.response },
     });
@@ -44,34 +44,19 @@ export function* fetchDashboardData() {
     const errorMessage = api.error.failMessage(error);
     yield all([
       putNotification("ERROR", `Cannot sync dashboard data: ${errorMessage}`),
-      put<DashboardAction.FetchDashboardDataFailed>(
+      put<Action>(
         { type: "DASHBOARD_DATA.FETCH.FAILED" },
       ),
     ]);
   }
 }
 
-const START: DashboardAction.SyncDashboardData["type"] = "DASHBOARD_DATA.SYNC";
-const STOP: DashboardAction.SyncDashboardDataStop["type"] = (
-  "DASHBOARD_DATA.SYNC.STOP"
-);
-const SUCCESS: DashboardAction.FetchDashboardDataSuccess["type"] = (
-  "DASHBOARD_DATA.FETCH.SUCCESS"
-);
-const FAIL: DashboardAction.FetchDashboardDataFailed["type"] = (
-  "DASHBOARD_DATA.FETCH.FAILED"
-);
-
-const refreshAction: DashboardAction.RefreshDashboardData = {
-  type: "DASHBOARD_DATA.REFRESH",
-};
-
-const getDashboardDataSyncOptions = () => ({
-  START,
-  STOP,
-  SUCCESS,
-  FAIL,
-  refreshAction,
+const getDashboardDataSyncOptions = (): DataLoadProps => ({
+  START: "DASHBOARD_DATA.SYNC",
+  STOP: "DASHBOARD_DATA.SYNC.STOP",
+  SUCCESS: "DASHBOARD_DATA.FETCH.SUCCESS",
+  FAIL: "DASHBOARD_DATA.FETCH.FAILED",
+  refreshAction: { type: "DASHBOARD_DATA.REFRESH" },
   takeStartPayload: () => {},
   fetch: () => fork(fetchDashboardData),
 });

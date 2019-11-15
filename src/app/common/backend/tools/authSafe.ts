@@ -2,7 +2,7 @@ import { call, put, take } from "redux-saga/effects";
 import { SagaIterator } from "redux-saga";
 
 import * as api from "app/common/api";
-import * as AuthAction from "app/services/auth/actions";
+import { Action, actionType } from "app/common/actions";
 
 import { ApiCall } from "./result";
 
@@ -18,9 +18,8 @@ export function authSafe< R, F extends ApiCall<R>>(fn: F) {
     }
 
     // Ok, we got 401. So, ask for credentials and wait for login success...
-    yield put<AuthAction.AuthRequired>({ type: "AUTH.REQUIRED" });
-    const authSuccess: AuthAction.AuthSuccess["type"] = "AUTH.SUCCESS";
-    yield take(authSuccess);
+    yield put<Action>({ type: "AUTH.REQUIRED" });
+    yield take(actionType("AUTH.SUCCESS"));
     // ...and then second attempt.
     try {
       const responseSecondAttempt = yield call(fn, ...args);

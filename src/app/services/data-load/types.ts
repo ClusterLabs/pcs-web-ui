@@ -1,7 +1,7 @@
-import { AnyAction } from "redux";
+import { Action } from "app/common/actions";
 
 export interface ReadingDefinition {
-  start: AnyAction,
-  stop: AnyAction,
+  start: Action,
+  stop: Action,
   specificator?: any,
 }

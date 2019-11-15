@@ -1,4 +1,5 @@
 import { combineReducers, Reducer } from "redux";
+import { Action } from "app/common/actions";
 import {
   AUTH_STATE,
   ADD_STATE,
@@ -6,28 +7,18 @@ import {
   StateError,
   DashboardAddClusterPageState,
 } from "./types";
-import * as ClusterAddAction from "./actions";
 
-const nodeName: Reducer<
-  NodeName,
-  ClusterAddAction.UpdateNodeName
-> = (state = "", action) => {
+const nodeName: Reducer<NodeName, Action> = (state = "", action) => {
   switch (action.type) {
     case "ADD_CLUSTER.NODE_NAME.UPDATE": return action.payload.nodeName;
     default: return state;
   }
 };
 
-const stepAuthState: Reducer<AUTH_STATE, (
-  |ClusterAddAction.UpdateNodeName
-  |ClusterAddAction.CheckAuth
-  |ClusterAddAction.CheckAuthOk
-  |ClusterAddAction.CheckAuthError
-  |ClusterAddAction.CheckAuthNoAuth
-  |ClusterAddAction.AuthenticateNode
-  |ClusterAddAction.AuthenticateNodeSuccess
-  |ClusterAddAction.AuthenticateNodeFailed
-)> = (state = "INITIAL", action) => {
+const stepAuthState: Reducer<AUTH_STATE, Action> = (
+  state = "INITIAL",
+  action,
+) => {
   switch (action.type) {
     case "ADD_CLUSTER.NODE_NAME.UPDATE": return "INITIAL";
     case "ADD_CLUSTER.CHECK_AUTH": return "CHECKING";
@@ -42,12 +33,10 @@ const stepAuthState: Reducer<AUTH_STATE, (
   }
 };
 
-const stepAddState: Reducer<ADD_STATE, (
-  | ClusterAddAction.AddCluster
-  | ClusterAddAction.ReloadDashboard
-  | ClusterAddAction.AddClusterSuccess
-  | ClusterAddAction.AddClusterError
-)> = (state = "STARTED", action) => {
+const stepAddState: Reducer<ADD_STATE, Action> = (
+  state = "STARTED",
+  action,
+) => {
   switch (action.type) {
     case "ADD_CLUSTER.ADD_CLUSTER": return "STARTED";
     case "ADD_CLUSTER.RELOAD_DASHBOARD": return "DASHBOARD_RELOADING";
@@ -57,19 +46,7 @@ const stepAddState: Reducer<ADD_STATE, (
   }
 };
 
-const stateError: Reducer<StateError, (
-  | ClusterAddAction.ReloadDashboard
-  | ClusterAddAction.UpdateNodeName
-  | ClusterAddAction.CheckAuth
-  | ClusterAddAction.CheckAuthOk
-  | ClusterAddAction.CheckAuthError
-  | ClusterAddAction.CheckAuthNoAuth
-  | ClusterAddAction.AddCluster
-  | ClusterAddAction.AddClusterSuccess
-  | ClusterAddAction.AddClusterError
-  | ClusterAddAction.AuthenticateNodeFailed
-  | ClusterAddAction.AuthenticateNode
-)> = (state = "", action) => {
+const stateError: Reducer<StateError, Action> = (state = "", action) => {
   switch (action.type) {
     case "ADD_CLUSTER.NODE_NAME.UPDATE":
     case "ADD_CLUSTER.CHECK_AUTH":

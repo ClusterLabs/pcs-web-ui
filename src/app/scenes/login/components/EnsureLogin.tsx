@@ -6,7 +6,7 @@ import {
 } from "@patternfly/react-core";
 import { BackgroundImage } from "app/common/components";
 
-import * as LoginAction from "../actions";
+import { Action } from "app/common/actions";
 import * as selectors from "../selectors";
 
 const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {
@@ -44,7 +44,7 @@ const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {
           isLoginButtonDisabled={!isAcceptingLoginData}
           onLoginButtonClick={(e) => {
             e.preventDefault();
-            dispatch<LoginAction.EnterCredentials>({
+            dispatch<Action>({
               type: "ENTER_CREDENTIALS",
               payload: { username, password },
             });

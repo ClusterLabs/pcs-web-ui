@@ -1,10 +1,12 @@
-export interface LoadUsername {
-  type: "USERNAME.LOAD",
-}
+export type UsernameActions = {
+  LoadUsername: {
+    type: "USERNAME.LOAD",
+  };
 
-export interface SetUsername {
-  type: "USERNAME.SET",
-  payload: {
-    username: string,
-  }
+  SetUsername: {
+    type: "USERNAME.SET",
+    payload: {
+      username: string,
+    }
+  };
 }

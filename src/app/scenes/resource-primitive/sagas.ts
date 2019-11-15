@@ -9,16 +9,14 @@ import {
   ApiResult,
   authSafe,
 } from "app/common/backend";
-import { typeIs } from "app/common/utils";
+import { Action, actionType } from "app/common/actions";
 
-import * as ResourcePrimitiveAction from "./actions";
+import { PrimitiveResourceActions } from "./actions";
 
 
-function* loadResourceAgent(
-  {
-    payload: { agentName, clusterUrlName },
-  }: ResourcePrimitiveAction.LoadResourceAgent,
-) {
+function* loadResourceAgent({
+  payload: { agentName, clusterUrlName },
+}: PrimitiveResourceActions["LoadResourceAgent"]) {
   const result: ApiResult<typeof getResourceAgentMetadata> = yield call(
     authSafe(getResourceAgentMetadata),
     clusterUrlName,
@@ -26,7 +24,7 @@ function* loadResourceAgent(
   );
 
   if (!result.valid) {
-    yield put<ResourcePrimitiveAction.LoadResourceAgentFailed>({
+    yield put<Action>({
       type: "RESOURCE_AGENT.LOAD.FAILED",
       payload: { agentName },
     });
@@ -34,17 +32,12 @@ function* loadResourceAgent(
     return;
   }
 
-  yield put<ResourcePrimitiveAction.LoadResourceAgentSuccess>({
+  yield put<Action>({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
     payload: { apiAgentMetadata: result.response },
   });
 }
 
 export default [
-  takeEvery(
-    typeIs<ResourcePrimitiveAction.LoadResourceAgent["type"]>(
-      "RESOURCE_AGENT.LOAD",
-    ),
-    loadResourceAgent,
-  ),
+  takeEvery(actionType("RESOURCE_AGENT.LOAD"), loadResourceAgent),
 ];

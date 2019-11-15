@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { Action } from "app/common/actions";
+
 import * as selectors from "./selectors";
-import * as UsernameAction from "./actions";
 
 const useUsername = () => {
   const username = useSelector(selectors.getUsername);
@@ -11,7 +12,7 @@ const useUsername = () => {
   React.useEffect(
     () => {
       if (!usernameLoaded) {
-        dispatch<UsernameAction.LoadUsername>({ type: "USERNAME.LOAD" });
+        dispatch<Action>({ type: "USERNAME.LOAD" });
       }
     },
     [usernameLoaded, dispatch],

@@ -1,12 +1,12 @@
+import { Action } from "app/common/actions";
 import { Notification } from "./types";
-import * as NotificationAction from "./actions";
 
 let nextId = 1;
 
 export const create = (
   severity: Notification["severity"],
   message: string,
-): NotificationAction.Create => ({
+): Action => ({
   type: "NOTIFICATION.CREATE",
   payload: {
     notification: {
@@ -17,7 +17,7 @@ export const create = (
   },
 });
 
-export const destroy = (id: number): NotificationAction.Destroy => ({
+export const destroy = (id: number): Action => ({
   type: "NOTIFICATION.DESTROY",
   payload: { id },
 });

@@ -1,4 +1,3 @@
-import { AnyAction } from "redux";
 import { Task } from "redux-saga";
 import {
   all,
@@ -11,14 +10,13 @@ import {
   ForkEffect,
 } from "redux-saga/effects";
 
-import { typeIs } from "app/common/utils";
+import { Action, actionType } from "app/common/actions";
 
 import { ReadingDefinition } from "./types";
-import * as DataReadingAction from "./actions";
 
 const SYNC_DELAY = 30 * 1000;// ms
 
-export function* timer(action: AnyAction) {
+export function* timer(action: Action) {
   try {
     yield delay(SYNC_DELAY);
     yield put(action);
@@ -29,12 +27,12 @@ export function* timer(action: AnyAction) {
   }
 }
 
-interface DataLoadProps {
-  START: any,
-  STOP: any,
-  SUCCESS: any,
-  FAIL: any,
-  refreshAction: AnyAction,
+export interface DataLoadProps {
+  START: Action["type"],
+  STOP: Action["type"],
+  SUCCESS: Action["type"],
+  FAIL: Action["type"],
+  refreshAction: Action,
   takeStartPayload: (payload: any) => void,
   fetch: () => ForkEffect,
 }
@@ -108,7 +106,7 @@ export function* dataLoadManage({
 
 type StopReadingMap = Record<string, {
   specificator?: any,
-  stop: AnyAction,
+  stop: Action,
 }>
 
 export function* setUpDataReading() {
@@ -122,9 +120,7 @@ export function* setUpDataReading() {
 
   /* eslint-disable no-constant-condition */
   while (true) {
-    const { payload: readings } = yield take(
-      typeIs<DataReadingAction.SetupDataReading["type"]>("DATA_READING.SET_UP"),
-    );
+    const { payload: readings } = yield take(actionType("DATA_READING.SET_UP"));
     const newNames = Object.keys(readings);
     const oldNames = Object.keys(stops);
 
