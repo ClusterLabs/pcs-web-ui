@@ -11,6 +11,9 @@ import "@patternfly/react-styles/css/layouts/Flex/flex.css";
 import "@patternfly/react-styles/css/utilities/Flex/flex.css";
 import "@patternfly/react-styles/css/utilities/Spacing/spacing.css";
 import "@patternfly/react-styles/css/utilities/Sizing/sizing.css";
+import "@patternfly/react-styles/css/components/AlertGroup/alert-group.css";
+import "@patternfly/react-styles/css/components/Card/card.css";
+import "@patternfly/react-styles/css/components/Content/content.css";
 
 import App from "app/core/components/App";
 
