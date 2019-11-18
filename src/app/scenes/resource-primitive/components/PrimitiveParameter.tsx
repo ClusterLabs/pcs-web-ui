@@ -1,4 +1,10 @@
 import React from "react";
+import { QuestionCircleIcon } from "@patternfly/react-icons";
+import { Popover } from "@patternfly/react-core";
+import {
+  global_disabled_color_100 as helpColor,
+} from "@patternfly/react-tokens";
+
 
 import { Primitive } from "app/services/cluster/types";
 
@@ -9,7 +15,20 @@ const PrimitiveParameter = ({ resourceAgentParameter, instanceAttributes }: {
   instanceAttributes: Primitive["instanceAttributes"];
 }) => (
   <>
-    <dt>{resourceAgentParameter.name}</dt>
+    <dt>
+      {`${resourceAgentParameter.name} `}
+      <Popover
+        headerContent={resourceAgentParameter.name}
+        bodyContent={resourceAgentParameter.longdesc}
+        footerContent={
+          !resourceAgentParameter.default ? null : (
+            `Default value: ${resourceAgentParameter.default}`
+          )
+        }
+      >
+        <QuestionCircleIcon color={helpColor.var} />
+      </Popover>
+    </dt>
     {resourceAgentParameter.name in instanceAttributes && (
       <dd>{instanceAttributes[resourceAgentParameter.name].value}</dd>
     )}
