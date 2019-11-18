@@ -18,7 +18,7 @@ const PrimitiveParameter = ({ resourceAgentParameter, instanceAttributes }: {
     <dt>
       {`${resourceAgentParameter.name} `}
       <Popover
-        headerContent={resourceAgentParameter.name}
+        headerContent={resourceAgentParameter.shortdesc}
         bodyContent={resourceAgentParameter.longdesc}
         footerContent={
           !resourceAgentParameter.default ? null : (
