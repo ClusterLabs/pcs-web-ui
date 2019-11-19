@@ -1,17 +1,17 @@
 import React from "react";
 import { useRouteMatch } from "react-router";
 
-import { Clone } from "app/services/cluster/types";
+import { Group } from "app/services/cluster/types";
 import { tabRoutes, join } from "app/common/utils";
 import {
   UrlTabs,
   DetailLayout,
   ResourceDetailCaption,
 } from "app/common/components";
-import { CloneDetail } from "app/scenes/resource-clone";
+import GroupDetail from "./GroupDetail";
 
-const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
-  clone: Clone;
+const GroupPage = ({ group, urlPrefix, onClose }: {
+  group: Group;
   urlPrefix: string;
   onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {
@@ -24,14 +24,14 @@ const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
   return (
     <DetailLayout
       onClose={onClose}
-      caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
+      caption={<ResourceDetailCaption resourceId={group.id} type="group" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && (
-        <CloneDetail clone={clone} />
+        <GroupDetail group={group} />
       )}
     </DetailLayout>
   );
 };
 
-export default ResourceDetailGroup;
+export default GroupPage;

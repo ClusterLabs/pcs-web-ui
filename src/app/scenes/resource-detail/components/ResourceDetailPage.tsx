@@ -10,11 +10,11 @@ import { push } from "connected-react-router";
 import { selectors as clusterSelector } from "app/services/cluster";
 import { ResourceTree } from "app/scenes/resource-tree";
 import { DetailLayout } from "app/common/components";
+import { PrimitivePage } from "app/scenes/resource-primitive";
+import { GroupPage } from "app/scenes/resource-group";
+import { ClonePage } from "app/scenes/resource-clone";
 
 import * as selector from "../selectors";
-import ResourceDetailPrimitive from "./ResourceDetailPrimitive";
-import ResourceDetailGroup from "./ResourceDetailGroup";
-import ResourceDetailClone from "./ResourceDetailClone";
 
 const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
   resourceUrlName: string;
@@ -59,21 +59,21 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
               </DetailLayout>
             )}
             {resourceTreeItem && resourceTreeItem.itemType === "primitive" && (
-              <ResourceDetailPrimitive
+              <PrimitivePage
                 primitive={resourceTreeItem}
                 urlPrefix={urlPrefix}
                 onClose={onClose}
               />
             )}
             {resourceTreeItem && resourceTreeItem.itemType === "group" && (
-              <ResourceDetailGroup
+              <GroupPage
                 group={resourceTreeItem}
                 urlPrefix={urlPrefix}
                 onClose={onClose}
               />
             )}
             {resourceTreeItem && resourceTreeItem.itemType === "clone" && (
-              <ResourceDetailClone
+              <ClonePage
                 clone={resourceTreeItem}
                 urlPrefix={urlPrefix}
                 onClose={onClose}

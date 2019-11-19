@@ -1,5 +1,5 @@
-import CloneDetail from "./components/CloneDetail";
+import ClonePage from "./components/ClonePage";
 
 export {
-  CloneDetail,
+  ClonePage,
 };

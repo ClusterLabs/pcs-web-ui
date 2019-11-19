@@ -10,13 +10,12 @@ import {
   DetailLayout,
   ResourceDetailCaption,
 } from "app/common/components";
-import {
-  PrimitiveAttributes,
-  PrimitiveDetail,
-  useResourceAgent,
-} from "app/scenes/resource-primitive";
 
-const ResourceDetailPrimitive = ({ primitive, urlPrefix, onClose }: {
+import PrimitiveAttributes from "./PrimitiveAttributes";
+import PrimitiveDetail from "./PrimitiveDetail";
+import useResourceAgent from "../useResourceAgent";
+
+const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
   primitive: Primitive;
   urlPrefix: string;
   onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
@@ -56,4 +55,4 @@ const ResourceDetailPrimitive = ({ primitive, urlPrefix, onClose }: {
   );
 };
 
-export default ResourceDetailPrimitive;
+export default PrimitivePage;
