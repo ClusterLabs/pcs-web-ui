@@ -5,20 +5,21 @@ import { selectors as clusterSelector } from "app/services/cluster";
 
 import { Primitive } from "app/services/cluster/types";
 import { tabRoutes, join } from "app/common/utils";
-import { UrlTabs } from "app/common/components";
+import {
+  UrlTabs,
+  DetailLayout,
+  ResourceDetailCaption,
+} from "app/common/components";
 import {
   PrimitiveAttributes,
   PrimitiveDetail,
   useResourceAgent,
 } from "app/scenes/resource-primitive";
 
-import ResourceDetailLayout from "./ResourceDetailLayout";
-import ResourceDetailCaption from "./ResourceDetailCaption";
-
 const ResourceDetailPrimitive = ({ primitive, urlPrefix, onClose }: {
   primitive: Primitive;
   urlPrefix: string;
-  onClose: React.ComponentProps<typeof ResourceDetailLayout>["onClose"],
+  onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {
   const urlMap = {
     Detail: join(urlPrefix),
@@ -35,7 +36,7 @@ const ResourceDetailPrimitive = ({ primitive, urlPrefix, onClose }: {
   useResourceAgent(cluster.urlName, primitive.agentName);
 
   return (
-    <ResourceDetailLayout
+    <DetailLayout
       onClose={onClose}
       caption={(
         <ResourceDetailCaption
@@ -51,7 +52,7 @@ const ResourceDetailPrimitive = ({ primitive, urlPrefix, onClose }: {
       {tab === "Attributes" && (
         <PrimitiveAttributes primitive={primitive} />
       )}
-    </ResourceDetailLayout>
+    </DetailLayout>
   );
 };
 

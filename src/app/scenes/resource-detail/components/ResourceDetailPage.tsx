@@ -9,9 +9,9 @@ import { push } from "connected-react-router";
 
 import { selectors as clusterSelector } from "app/services/cluster";
 import { ResourceTree } from "app/scenes/resource-tree";
+import { DetailLayout } from "app/common/components";
 
 import * as selector from "../selectors";
-import ResourceDetailLayout from "./ResourceDetailLayout";
 import ResourceDetailPrimitive from "./ResourceDetailPrimitive";
 import ResourceDetailGroup from "./ResourceDetailGroup";
 import ResourceDetailClone from "./ResourceDetailClone";
@@ -47,7 +47,7 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
         <div className="pf-c-card pf-m-flex-1 ha-c-panel__details-view">
           <Stack gutter="md" className="pf-u-m-md">
             {!resourceTreeItem && (
-              <ResourceDetailLayout
+              <DetailLayout
                 onClose={onClose}
                 caption={<strong>{resourceUrlName}</strong>}
               >
@@ -56,7 +56,7 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
                   variant="danger"
                   title={`Resource "${resourceUrlName}" does not exist.`}
                 />
-              </ResourceDetailLayout>
+              </DetailLayout>
             )}
             {resourceTreeItem && resourceTreeItem.itemType === "primitive" && (
               <ResourceDetailPrimitive
