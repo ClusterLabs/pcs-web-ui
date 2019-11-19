@@ -9,10 +9,10 @@ import { CloneDetail } from "app/scenes/resource-clone";
 import ResourceDetailLayout from "./ResourceDetailLayout";
 import ResourceDetailCaption from "./ResourceDetailCaption";
 
-const ResourceDetailGroup = ({ clone, urlPrefix, closeUrl }: {
+const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
   clone: Clone;
   urlPrefix: string;
-  closeUrl: string;
+  onClose: React.ComponentProps<typeof ResourceDetailLayout>["onClose"],
 }) => {
   const urlMap = {
     Detail: join(urlPrefix),
@@ -22,7 +22,7 @@ const ResourceDetailGroup = ({ clone, urlPrefix, closeUrl }: {
   });
   return (
     <ResourceDetailLayout
-      closeUrl={closeUrl}
+      onClose={onClose}
       caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >

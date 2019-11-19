@@ -15,10 +15,10 @@ import {
 import ResourceDetailLayout from "./ResourceDetailLayout";
 import ResourceDetailCaption from "./ResourceDetailCaption";
 
-const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
+const ResourceDetailPrimitive = ({ primitive, urlPrefix, onClose }: {
   primitive: Primitive;
   urlPrefix: string;
-  closeUrl: string;
+  onClose: React.ComponentProps<typeof ResourceDetailLayout>["onClose"],
 }) => {
   const urlMap = {
     Detail: join(urlPrefix),
@@ -36,7 +36,7 @@ const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
 
   return (
     <ResourceDetailLayout
-      closeUrl={closeUrl}
+      onClose={onClose}
       caption={(
         <ResourceDetailCaption
           resourceId={primitive.id}

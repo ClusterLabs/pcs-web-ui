@@ -10,13 +10,13 @@ import ResourceDetailClose from "./ResourceDetailClose";
 
 const ResourceDetailLayout = ({
   caption,
-  closeUrl,
+  onClose,
   tabs = null,
   children,
 }: React.PropsWithChildren<{
+  onClose: React.ComponentProps<typeof ResourceDetailClose>["onClose"],
   caption: JSX.Element|JSX.Element[]|string;
   tabs?: JSX.Element|JSX.Element[]|string|null;
-  closeUrl: string;
 }>) => (
   <Stack gutter="md" className="pf-u-m-md">
     <StackItem>
@@ -25,7 +25,7 @@ const ResourceDetailLayout = ({
           {caption}
         </LevelItem>
         <LevelItem>
-          <ResourceDetailClose closeUrl={closeUrl} />
+          <ResourceDetailClose onClose={onClose} />
         </LevelItem>
       </Level>
     </StackItem>

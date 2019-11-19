@@ -1,10 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   PageSection,
   Stack,
   Alert,
 } from "@patternfly/react-core";
+import { push } from "connected-react-router";
 
 import { selectors as clusterSelector } from "app/services/cluster";
 import { ResourceTree } from "app/scenes/resource-tree";
@@ -24,6 +25,11 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
     selector.getSelectedResource(resourceUrlName),
   );
   const cluster = useSelector(clusterSelector.getCluster);
+  const dispatch = useDispatch();
+  const onClose = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(push(closeUrl));
+  };
 
   return (
     <PageSection className="ha-m-full-height pf-m-fill">
@@ -42,7 +48,7 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
           <Stack gutter="md" className="pf-u-m-md">
             {!resourceTreeItem && (
               <ResourceDetailLayout
-                closeUrl={closeUrl}
+                onClose={onClose}
                 caption={<strong>{resourceUrlName}</strong>}
               >
                 <Alert
@@ -56,21 +62,21 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
               <ResourceDetailPrimitive
                 primitive={resourceTreeItem}
                 urlPrefix={urlPrefix}
-                closeUrl={closeUrl}
+                onClose={onClose}
               />
             )}
             {resourceTreeItem && resourceTreeItem.itemType === "group" && (
               <ResourceDetailGroup
                 group={resourceTreeItem}
                 urlPrefix={urlPrefix}
-                closeUrl={closeUrl}
+                onClose={onClose}
               />
             )}
             {resourceTreeItem && resourceTreeItem.itemType === "clone" && (
               <ResourceDetailClone
                 clone={resourceTreeItem}
                 urlPrefix={urlPrefix}
-                closeUrl={closeUrl}
+                onClose={onClose}
               />
             )}
           </Stack>
