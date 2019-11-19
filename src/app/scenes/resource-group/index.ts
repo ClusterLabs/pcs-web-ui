@@ -1,5 +1,5 @@
-import GroupDetail from "./components/GroupDetail";
+import GroupPage from "./components/GroupPage";
 
 export {
-  GroupDetail,
+  GroupPage,
 };

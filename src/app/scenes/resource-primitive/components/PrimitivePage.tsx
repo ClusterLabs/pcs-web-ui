@@ -5,20 +5,20 @@ import { selectors as clusterSelector } from "app/services/cluster";
 
 import { Primitive } from "app/services/cluster/types";
 import { tabRoutes, join } from "app/common/utils";
-import { UrlTabs } from "app/common/components";
 import {
-  PrimitiveAttributes,
-  PrimitiveDetail,
-  useResourceAgent,
-} from "app/scenes/resource-primitive";
+  UrlTabs,
+  DetailLayout,
+  ResourceDetailCaption,
+} from "app/common/components";
 
-import ResourceDetailLayout from "./ResourceDetailLayout";
-import ResourceDetailCaption from "./ResourceDetailCaption";
+import PrimitiveAttributes from "./PrimitiveAttributes";
+import PrimitiveDetail from "./PrimitiveDetail";
+import useResourceAgent from "../useResourceAgent";
 
-const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
+const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
   primitive: Primitive;
   urlPrefix: string;
-  closeUrl: string;
+  onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {
   const urlMap = {
     Detail: join(urlPrefix),
@@ -35,8 +35,8 @@ const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
   useResourceAgent(cluster.urlName, primitive.agentName);
 
   return (
-    <ResourceDetailLayout
-      closeUrl={closeUrl}
+    <DetailLayout
+      onClose={onClose}
       caption={(
         <ResourceDetailCaption
           resourceId={primitive.id}
@@ -51,8 +51,8 @@ const ResourceDetailPrimitive = ({ primitive, urlPrefix, closeUrl }: {
       {tab === "Attributes" && (
         <PrimitiveAttributes primitive={primitive} />
       )}
-    </ResourceDetailLayout>
+    </DetailLayout>
   );
 };
 
-export default ResourceDetailPrimitive;
+export default PrimitivePage;

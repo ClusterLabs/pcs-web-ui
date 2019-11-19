@@ -3,16 +3,17 @@ import { useRouteMatch } from "react-router";
 
 import { Group } from "app/services/cluster/types";
 import { tabRoutes, join } from "app/common/utils";
-import { UrlTabs } from "app/common/components";
-import { GroupDetail } from "app/scenes/resource-group";
+import {
+  UrlTabs,
+  DetailLayout,
+  ResourceDetailCaption,
+} from "app/common/components";
+import GroupDetail from "./GroupDetail";
 
-import ResourceDetailLayout from "./ResourceDetailLayout";
-import ResourceDetailCaption from "./ResourceDetailCaption";
-
-const ResourceDetailGroup = ({ group, urlPrefix, closeUrl }: {
+const GroupPage = ({ group, urlPrefix, onClose }: {
   group: Group;
   urlPrefix: string;
-  closeUrl: string;
+  onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {
   const urlMap = {
     Detail: join(urlPrefix),
@@ -21,16 +22,16 @@ const ResourceDetailGroup = ({ group, urlPrefix, closeUrl }: {
     Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
   });
   return (
-    <ResourceDetailLayout
-      closeUrl={closeUrl}
+    <DetailLayout
+      onClose={onClose}
       caption={<ResourceDetailCaption resourceId={group.id} type="group" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && (
         <GroupDetail group={group} />
       )}
-    </ResourceDetailLayout>
+    </DetailLayout>
   );
 };
 
-export default ResourceDetailGroup;
+export default GroupPage;

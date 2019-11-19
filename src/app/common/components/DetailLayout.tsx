@@ -1,22 +1,22 @@
 import React from "react";
 import {
+  Button,
   Level,
   LevelItem,
   Stack,
   StackItem,
 } from "@patternfly/react-core";
+import { TimesIcon } from "@patternfly/react-icons";
 
-import ResourceDetailClose from "./ResourceDetailClose";
-
-const ResourceDetailLayout = ({
+const DetailLayout = ({
   caption,
-  closeUrl,
+  onClose,
   tabs = null,
   children,
 }: React.PropsWithChildren<{
+  onClose: (e: React.SyntheticEvent) => void;
   caption: JSX.Element|JSX.Element[]|string;
   tabs?: JSX.Element|JSX.Element[]|string|null;
-  closeUrl: string;
 }>) => (
   <Stack gutter="md" className="pf-u-m-md">
     <StackItem>
@@ -25,7 +25,9 @@ const ResourceDetailLayout = ({
           {caption}
         </LevelItem>
         <LevelItem>
-          <ResourceDetailClose closeUrl={closeUrl} />
+          <Button variant="plain" aria-label="Close panel" onClick={onClose}>
+            <TimesIcon />
+          </Button>
         </LevelItem>
       </Level>
     </StackItem>
@@ -36,4 +38,4 @@ const ResourceDetailLayout = ({
   </Stack>
 );
 
-export default ResourceDetailLayout;
+export default DetailLayout;
