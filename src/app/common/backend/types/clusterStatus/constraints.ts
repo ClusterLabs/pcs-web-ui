@@ -8,28 +8,21 @@ warning: there are relations between attributes - things will be more
 complicated!
 */
 
-const ApiRole = t.keyof({
-  Stopped: null,
-  Started: null,
-  Master: null,
-  Slave: null,
-});
 
 /*
-rule_string is always present. It does not follow rng schema, however the ruby
-  backend does it that way.
+rule_string does not follow rng schema, however the ruby backend does it that
+way.
 */
 const ApiLocation = t.intersection([
   t.type({
     id: t.string,
-    rule_string: t.string,
   }),
   t.union([
     t.type({ rsc: t.string }),
     t.type({ "rsc-pattern": t.string }),
   ]),
   t.union([
-    t.type({ "id-ref": t.string }),
+    t.type({ rule_string: t.string }),
     t.type({
       node: t.string,
       score: t.union([
@@ -39,7 +32,12 @@ const ApiLocation = t.intersection([
     }),
   ]),
   t.partial({
-    role: ApiRole,
+    role: t.keyof({
+      Stopped: null,
+      Started: null,
+      Master: null,
+      Slave: null,
+    }),
     "resource-discovery": t.keyof({
       always: null,
       never: null,
@@ -54,16 +52,17 @@ set ends up with "rsc" equals to null.
 */
 const ApiLocationSet = t.type({ rsc: t.null });
 
-
-const ApiResourceSetAttributes = t.record(t.string, t.string);
-
-const ApiResourceSet = t.type({
-  id: t.string,
-  resources: t.array(t.string),
-});
-
+/*
+There are remaining resource set attributes besides the "sets" attribute.
+*/
 const ApiConstraintSet = t.type({
-  sets: t.array(t.intersection([ApiResourceSet, ApiResourceSetAttributes])),
+  sets: t.array(t.intersection([
+    t.type({
+      id: t.string,
+      resources: t.array(t.string),
+    }),
+    t.record(t.string, t.string),
+  ])),
 });
 
 const ApiConstraintAttributes = t.record(t.string, t.string);
@@ -71,7 +70,6 @@ const ApiConstraintAttributes = t.record(t.string, t.string);
 export const ApiConstraints = t.partial({
   rsc_location: t.array(t.union([
     ApiLocation,
-    ApiConstraintAttributes, // when no rules, no sets there
     ApiLocationSet,
   ])),
   rsc_colocation: t.array(
