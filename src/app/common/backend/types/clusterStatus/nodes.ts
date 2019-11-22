@@ -48,7 +48,12 @@ warning_list
 */
 export const ApiNode = t.intersection([ApiWithIssues, t.type({
   name: t.string,
-  status: t.keyof({ standby: null, online: null, offline: null }),
+  status: t.keyof({
+    standby: null,
+    online: null,
+    offline: null,
+    unknown: null,
+  }),
   quorum: t.boolean,
   uptime: t.string,
   services: t.type({
