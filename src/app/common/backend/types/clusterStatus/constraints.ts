@@ -12,13 +12,15 @@ complicated!
 /*
 rule_string does not follow rng schema, however the ruby backend does it that
 way.
+In backend sets inside locations are ignored. Location constraint with resource
+set ends up with "rsc" equals to null.
 */
-const ApiLocation = t.intersection([
+export const ApiLocation = t.intersection([
   t.type({
     id: t.string,
   }),
   t.union([
-    t.type({ rsc: t.string }),
+    t.type({ rsc: t.union([t.string, t.null]) }),
     t.type({ "rsc-pattern": t.string }),
   ]),
   t.union([
@@ -47,12 +49,6 @@ const ApiLocation = t.intersection([
 ]);
 
 /*
-In backend sets inside locations are ignored. Location constraint with resource
-set ends up with "rsc" equals to null.
-*/
-const ApiLocationSet = t.type({ rsc: t.null });
-
-/*
 There are remaining resource set attributes besides the "sets" attribute.
 */
 const ApiConstraintSet = t.type({
@@ -68,10 +64,7 @@ const ApiConstraintSet = t.type({
 const ApiConstraintAttributes = t.record(t.string, t.string);
 
 export const ApiConstraints = t.partial({
-  rsc_location: t.array(t.union([
-    ApiLocation,
-    ApiLocationSet,
-  ])),
+  rsc_location: t.array(ApiLocation),
   rsc_colocation: t.array(
     t.union([ApiConstraintSet, ApiConstraintAttributes]),
   ),

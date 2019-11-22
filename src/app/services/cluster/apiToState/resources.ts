@@ -18,6 +18,7 @@ import {
 } from "../types";
 
 import { transformIssues } from "./issues";
+import { ResourceIdConstraintsMap } from "./constraints";
 
 export const transformStatus = (
   status: ApiResource["status"],
@@ -41,26 +42,6 @@ export const statusToSeverity = (
   }
 };
 
-const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
-  id: apiResource.id,
-  itemType: "primitive",
-  status: transformStatus(apiResource.status),
-  statusSeverity: statusToSeverity(apiResource.status),
-  issueList: transformIssues(apiResource),
-  class: apiResource.class,
-  provider: apiResource.provider,
-  type: apiResource.type,
-  agentName: `${apiResource.class}:${apiResource.provider}:${apiResource.type}`,
-  // Decision: Last instance_attr wins!
-  instanceAttributes: apiResource.instance_attr.reduce(
-    (attrMap, nvpair) => ({
-      ...attrMap,
-      [nvpair.name]: { id: nvpair.id, value: nvpair.value },
-    }),
-    {},
-  ),
-});
-
 export const filterPrimitive = (
   candidateList: (ApiPrimitive|ApiStonith)[],
 ): ApiPrimitive[] => (
@@ -69,42 +50,70 @@ export const filterPrimitive = (
   )
 );
 
-const toResourceTreeGroup = (apiGroup: ApiGroup): Group|undefined => {
+
+const bindConstraints = (constraints: ResourceIdConstraintsMap) => {
+  const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
+    id: apiResource.id,
+    itemType: "primitive",
+    status: transformStatus(apiResource.status),
+    statusSeverity: statusToSeverity(apiResource.status),
+    issueList: transformIssues(apiResource),
+    class: apiResource.class,
+    provider: apiResource.provider,
+    type: apiResource.type,
+    agentName: `${apiResource.class}:${apiResource.provider}:${apiResource.type}`,
+    // Decision: Last instance_attr wins!
+    instanceAttributes: apiResource.instance_attr.reduce(
+      (attrMap, nvpair) => ({
+        ...attrMap,
+        [nvpair.name]: { id: nvpair.id, value: nvpair.value },
+      }),
+      {},
+    ),
+    constraints: constraints[apiResource.id] || [],
+  });
+
+  const toGroup = (apiGroup: ApiGroup): Group|undefined => {
   // Theoreticaly, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
-  const primitiveMembers = filterPrimitive(apiGroup.members);
-  // ...and accept only groups with some primitive resources.
-  if (primitiveMembers.length === 0) {
-    return undefined;
-  }
+    const primitiveMembers = filterPrimitive(apiGroup.members);
+    // ...and accept only groups with some primitive resources.
+    if (primitiveMembers.length === 0) {
+      return undefined;
+    }
 
-  return {
-    id: apiGroup.id,
-    itemType: "group",
-    resources: primitiveMembers.map(toPrimitive),
-    status: transformStatus(apiGroup.status),
-    statusSeverity: statusToSeverity(apiGroup.status),
-    issueList: transformIssues(apiGroup),
+    return {
+      id: apiGroup.id,
+      itemType: "group",
+      resources: primitiveMembers.map(p => toPrimitive(p)),
+      status: transformStatus(apiGroup.status),
+      statusSeverity: statusToSeverity(apiGroup.status),
+      issueList: transformIssues(apiGroup),
+      constraints: constraints[apiGroup.id] || [],
+    };
   };
-};
 
-const toResourceTreeClone = (apiClone: ApiClone): Clone|undefined => {
-  const member = apiClone.member.class_type === "primitive"
-    ? toPrimitive(apiClone.member)
-    : toResourceTreeGroup(apiClone.member)
+  const toClone = (apiClone: ApiClone): Clone|undefined => {
+    const member = apiClone.member.class_type === "primitive"
+      ? toPrimitive(apiClone.member)
+      : toGroup(apiClone.member)
   ;
 
-  if (member === undefined) {
-    return undefined;
-  }
-  return {
-    id: apiClone.id,
-    itemType: "clone",
-    member,
-    status: transformStatus(apiClone.status),
-    statusSeverity: statusToSeverity(apiClone.status),
-    issueList: transformIssues(apiClone),
+    if (member === undefined) {
+      return undefined;
+    }
+    return {
+      id: apiClone.id,
+      itemType: "clone",
+      member,
+      status: transformStatus(apiClone.status),
+      statusSeverity: statusToSeverity(apiClone.status),
+      issueList: transformIssues(apiClone),
+      constraints: constraints[apiClone.id] || [],
+    };
   };
+
+  return { toClone, toGroup, toPrimitive };
 };
 
 const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
@@ -116,61 +125,67 @@ const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
 
 export const analyzeApiResources = (
   apiResourceList: ApiResource[],
-) => apiResourceList.reduce(
-  (analyzed, apiResource) => {
-    const maxResourcesSeverity = () => statusSeverity.max(
-      analyzed.resourcesSeverity,
-      statusToSeverity(apiResource.status),
-    );
-    switch (apiResource.class_type) {
-      case "primitive":
-        if (apiResource.class === "stonith") {
+  assignedConstraints: ResourceIdConstraintsMap,
+) => {
+  const { toPrimitive, toClone, toGroup } = bindConstraints(
+    assignedConstraints,
+  );
+  return apiResourceList.reduce(
+    (analyzed, apiResource) => {
+      const maxResourcesSeverity = () => statusSeverity.max(
+        analyzed.resourcesSeverity,
+        statusToSeverity(apiResource.status),
+      );
+      switch (apiResource.class_type) {
+        case "primitive":
+          if (apiResource.class === "stonith") {
+            return {
+              ...analyzed,
+              fenceDeviceList: [
+                ...analyzed.fenceDeviceList,
+                toFenceDevice(apiResource as ApiStonith),
+              ],
+              fenceDevicesSeverity: statusSeverity.max(
+                analyzed.fenceDevicesSeverity,
+                statusToSeverity(apiResource.status),
+              ),
+            };
+          }
           return {
             ...analyzed,
-            fenceDeviceList: [
-              ...analyzed.fenceDeviceList,
-              toFenceDevice(apiResource as ApiStonith),
+            resourceTree: [
+              ...analyzed.resourceTree,
+              toPrimitive(apiResource as ApiPrimitive),
             ],
-            fenceDevicesSeverity: statusSeverity.max(
-              analyzed.fenceDevicesSeverity,
-              statusToSeverity(apiResource.status),
-            ),
+            resourcesSeverity: maxResourcesSeverity(),
+          };
+
+        case "group": {
+          const group = toGroup(apiResource);
+          // don't care about group of stonith only...
+          return group === undefined ? analyzed : {
+            ...analyzed,
+            resourceTree: [...analyzed.resourceTree, group],
+            resourcesSeverity: maxResourcesSeverity(),
           };
         }
-        return {
-          ...analyzed,
-          resourceTree: [
-            ...analyzed.resourceTree,
-            toPrimitive(apiResource as ApiPrimitive),
-          ],
-          resourcesSeverity: maxResourcesSeverity(),
-        };
 
-      case "group": {
-        const group = toResourceTreeGroup(apiResource);
-        // don't care about group of stonith only...
-        return group === undefined ? analyzed : {
-          ...analyzed,
-          resourceTree: [...analyzed.resourceTree, group],
-          resourcesSeverity: maxResourcesSeverity(),
-        };
+        case "clone": default: {
+          const clone = toClone(apiResource);
+          // don't care about clone with stonith only...
+          return clone === undefined ? analyzed : {
+            ...analyzed,
+            resourceTree: [...analyzed.resourceTree, clone],
+            resourcesSeverity: maxResourcesSeverity(),
+          };
+        }
       }
-
-      case "clone": default: {
-        const clone = toResourceTreeClone(apiResource);
-        // don't care about clone with stonith only...
-        return clone === undefined ? analyzed : {
-          ...analyzed,
-          resourceTree: [...analyzed.resourceTree, clone],
-          resourcesSeverity: maxResourcesSeverity(),
-        };
-      }
-    }
-  },
-  {
-    resourceTree: typeIs<ResourceTreeItem[]>([]),
-    resourcesSeverity: typeIs<StatusSeverity>("OK"),
-    fenceDeviceList: typeIs<FenceDevice[]>([]),
-    fenceDevicesSeverity: typeIs<StatusSeverity>("OK"),
-  },
-);
+    },
+    {
+      resourceTree: typeIs<ResourceTreeItem[]>([]),
+      resourcesSeverity: typeIs<StatusSeverity>("OK"),
+      fenceDeviceList: typeIs<FenceDevice[]>([]),
+      fenceDevicesSeverity: typeIs<StatusSeverity>("OK"),
+    },
+  );
+};

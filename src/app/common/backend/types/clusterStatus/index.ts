@@ -9,6 +9,10 @@ import {
   ApiNodeName as TApiNodeName,
 } from "./nodes";
 import {
+  ApiConstraints,
+  ApiLocation,
+} from "./constraints";
+import {
   ApiPrimitive,
   ApiResource as TApiResource,
   ApiClone,
@@ -30,6 +34,8 @@ export type ApiIssue = t.TypeOf<typeof ApiIssue>;
 export type ApiWithIssues = t.TypeOf<typeof TApiWithIssues>;
 export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
 export type ApiNode = t.TypeOf<typeof ApiNode>;
+export type ApiConstraints = t.TypeOf<typeof ApiConstraints>;
+export type ApiLocation = t.TypeOf<typeof ApiLocation>;
 
 export {
   TApiClusterName,

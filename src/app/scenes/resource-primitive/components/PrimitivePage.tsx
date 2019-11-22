@@ -13,7 +13,7 @@ import {
 
 import PrimitiveAttributes from "./PrimitiveAttributes";
 import PrimitiveDetail from "./PrimitiveDetail";
-import PrimitiveConstraints from "./PrimitiveConstraints";
+import PrimitiveConstraintList from "./PrimitiveConstraintList";
 import useResourceAgent from "../useResourceAgent";
 
 const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
@@ -55,7 +55,7 @@ const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
         <PrimitiveAttributes primitive={primitive} />
       )}
       {tab === "Constraints" && (
-        <PrimitiveConstraints primitive={primitive} />
+        <PrimitiveConstraintList primitive={primitive} />
       )}
 
     </DetailLayout>

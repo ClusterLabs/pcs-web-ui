@@ -99,6 +99,7 @@ const cluster = (name, status, diff) => deepmerge(
     warning_list: [],
     error_list: [],
     resource_list: [],
+    constraints: {},
   },
   diff || {},
   { arrayMerge: overwriteMerge },
@@ -153,6 +154,34 @@ const resourceTree = cluster("resourceTree", "ok", {
     ),
     clone("Clone-2", resource("F")),
   ],
+  constraints: {
+    rsc_colocation: [
+      {
+        id: "colocation-A-G1-INFINITY",
+        rsc: "A",
+        score: "INFINITY",
+        "with-rsc": "GROUP-1",
+      }
+    ],
+    rsc_location: [
+      {
+        id: "cli-prefer-A",
+        node: "node-1",
+        role: "Started",
+        rsc: "A",
+        score: "INFINITY"
+      }
+    ],
+    "rsc_order": [
+      {
+        "first": "A",
+        "first-action": "start",
+        "id": "order-A-G1-mandatory",
+        "then": "GROUP-1",
+        "then-action": "start"
+      }
+    ]
+  }
 });
 
 const clusterError = cluster("error", "error", {
