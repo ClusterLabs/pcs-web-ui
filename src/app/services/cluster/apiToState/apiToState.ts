@@ -1,11 +1,14 @@
-import { ApiClusterStatus } from "app/common/backend/types/clusterStatus";
+import {
+  ApiClusterStatus,
+  ApiIssue,
+} from "app/common/backend/types/clusterStatus";
 
 import { ClusterState } from "../types";
 import { transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
 
-const transformStatus = (
+export const transformStatus = (
   status: ApiClusterStatus["status"],
 ): ClusterState["status"] => {
   switch (status) {
@@ -16,19 +19,22 @@ const transformStatus = (
   }
 };
 
-const issuesToSummarySeverity = (
-  apiClusterStatus: ApiClusterStatus,
+export const issuesToSummarySeverity = (
+  errorList: ApiIssue[],
+  warningList: ApiIssue[],
 ): ClusterState["summary"]["issuesSeverity"] => {
-  if (apiClusterStatus.error_list.length > 0) {
+  if (errorList.length > 0) {
     return "ERROR";
   }
-  if (apiClusterStatus.warning_list.length > 0) {
+  if (warningList.length > 0) {
     return "WARNING";
   }
   return "OK";
 };
 
-const apiToState = (apiClusterStatus: ApiClusterStatus): ClusterState => {
+export const apiToState = (
+  apiClusterStatus: ApiClusterStatus,
+): ClusterState => {
   const {
     resourceTree,
     resourcesSeverity,
@@ -51,9 +57,10 @@ const apiToState = (apiClusterStatus: ApiClusterStatus): ClusterState => {
       resourcesSeverity,
       fenceDevicesSeverity,
       nodesSeverity,
-      issuesSeverity: issuesToSummarySeverity(apiClusterStatus),
+      issuesSeverity: issuesToSummarySeverity(
+        apiClusterStatus.error_list,
+        apiClusterStatus.warning_list,
+      ),
     },
   };
 };
-
-export default apiToState;

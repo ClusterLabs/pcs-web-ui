@@ -10,19 +10,24 @@ export interface Issue {
   message: string,
 }
 
+export type NodeStatusFlag = "ONLINE"|"OFFLINE"|"UNKNOWN";
+export type NodeQuorumFlag = "YES"|"NO"|"UNKNOWN";
+
 export interface Node {
   name: string,
-  status: "ONLINE"|"OFFLINE"|"UNKNOWN",
+  status: NodeStatusFlag,
   statusSeverity: StatusSeverity,
-  quorum: "YES"|"NO"|"UNKNOWN",
+  quorum: NodeQuorumFlag,
   quorumSeverity: StatusSeverity,
   issueList: Issue[],
 }
 
+export type ResourceStatusFlag = "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN";
+
 export interface ResourceTreeItemBase {
   id: string,
   itemType: string,
-  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN",
+  status: ResourceStatusFlag,
   statusSeverity: StatusSeverity,
   issueList: Issue[],
 }
@@ -50,7 +55,7 @@ export type ResourceTreeItem = Primitive|Group|Clone;
 
 export interface FenceDevice {
   id: string,
-  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN",
+  status: ResourceStatusFlag,
   statusSeverity: StatusSeverity,
   issueList: Issue[],
 }

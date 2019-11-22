@@ -22,6 +22,13 @@ const ApiFencingLevels = t.record(t.string, t.type({
   devices: t.array(t.string),
 }));
 
+export const ApiClusterStatusFlag = t.keyof({
+  unknown: null,
+  ok: null,
+  warning: null,
+  error: null,
+});
+
 
 /*
 datasource: /cib/configuration/crm_config//nvpair
@@ -29,7 +36,7 @@ The key of record is a attribute name.
 */
 const ApiSettings = t.record(t.string, t.string);
 
-
+export const ApiClusterName = t.string;
 /*
 status (aggregation attribute)
  * unknown
@@ -80,17 +87,12 @@ export const ApiClusterStatus = t.intersection([
   ApiWithIssues,
   t.type({
     available_features: t.array(t.string),
-    cluster_name: t.string,
+    cluster_name: ApiClusterName,
     node_list: t.array(ApiNode),
     pcsd_capabilities: t.array(t.string),
     quorate: t.boolean,
     resource_list: t.array(ApiResource),
-    status: t.keyof({
-      unknown: null,
-      ok: null,
-      warning: null,
-      error: null,
-    }),
+    status: ApiClusterStatusFlag,
   }),
   t.partial({
     acls: ApiAcl,

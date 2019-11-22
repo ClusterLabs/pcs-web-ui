@@ -12,6 +12,15 @@ const ApiNodeService = t.type({
 });
 
 export const ApiNodeName = t.string;
+
+export const ApiNodeStatus = t.keyof({
+  standby: null,
+  online: null,
+  offline: null,
+  unknown: null,
+});
+
+export const ApiNodeQuorum = t.union([t.boolean, t.null]);
 /*
 name
   taken from result of `corosync-cmapctl runtime.votequorum.this_node_id`
@@ -47,14 +56,9 @@ warning_list
     "notauthorized" or "notoken" in response
 */
 export const ApiNode = t.intersection([ApiWithIssues, t.type({
-  name: t.string,
-  status: t.keyof({
-    standby: null,
-    online: null,
-    offline: null,
-    unknown: null,
-  }),
-  quorum: t.boolean,
+  name: ApiNodeName,
+  status: ApiNodeStatus,
+  quorum: ApiNodeQuorum,
   uptime: t.string,
   services: t.type({
     pacemaker: ApiNodeService,

@@ -9,6 +9,7 @@ import { StatusSeverity } from "app/common/types";
 import { typeIs, statusSeverity } from "app/common/utils";
 
 import {
+  ResourceStatusFlag,
   Primitive,
   ResourceTreeItem,
   FenceDevice,
@@ -18,9 +19,9 @@ import {
 
 import { transformIssues } from "./issues";
 
-const transformStatus = (
+export const transformStatus = (
   status: ApiResource["status"],
-): Primitive["status"]|FenceDevice["status"] => {
+): ResourceStatusFlag => {
   switch (status) {
     case "running": return "RUNNING";
     case "blocked": return "BLOCKED";
@@ -29,8 +30,10 @@ const transformStatus = (
   }
 };
 
-const toSeverity = (resource: ApiResource): StatusSeverity => {
-  switch (resource.status) {
+export const statusToSeverity = (
+  status: ApiResource["status"],
+): StatusSeverity => {
+  switch (status) {
     case "blocked": return "ERROR";
     case "failed": return "ERROR";
     case "running": return "OK";
@@ -42,7 +45,7 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   id: apiResource.id,
   itemType: "primitive",
   status: transformStatus(apiResource.status),
-  statusSeverity: toSeverity(apiResource),
+  statusSeverity: statusToSeverity(apiResource.status),
   issueList: transformIssues(apiResource),
   class: apiResource.class,
   provider: apiResource.provider,
@@ -58,12 +61,18 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   ),
 });
 
+export const filterPrimitive = (
+  candidateList: (ApiPrimitive|ApiStonith)[],
+): ApiPrimitive[] => (
+  candidateList.filter(
+    (m): m is ApiPrimitive => m.class_type === "primitive",
+  )
+);
+
 const toResourceTreeGroup = (apiGroup: ApiGroup): Group|undefined => {
   // Theoreticaly, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
-  const primitiveMembers = apiGroup.members.filter(
-    (m): m is ApiPrimitive => m.class_type === "primitive",
-  );
+  const primitiveMembers = filterPrimitive(apiGroup.members);
   // ...and accept only groups with some primitive resources.
   if (primitiveMembers.length === 0) {
     return undefined;
@@ -74,7 +83,7 @@ const toResourceTreeGroup = (apiGroup: ApiGroup): Group|undefined => {
     itemType: "group",
     resources: primitiveMembers.map(toPrimitive),
     status: transformStatus(apiGroup.status),
-    statusSeverity: toSeverity(apiGroup),
+    statusSeverity: statusToSeverity(apiGroup.status),
     issueList: transformIssues(apiGroup),
   };
 };
@@ -93,7 +102,7 @@ const toResourceTreeClone = (apiClone: ApiClone): Clone|undefined => {
     itemType: "clone",
     member,
     status: transformStatus(apiClone.status),
-    statusSeverity: toSeverity(apiClone),
+    statusSeverity: statusToSeverity(apiClone.status),
     issueList: transformIssues(apiClone),
   };
 };
@@ -101,7 +110,7 @@ const toResourceTreeClone = (apiClone: ApiClone): Clone|undefined => {
 const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
   id: apiFenceDevice.id,
   status: transformStatus(apiFenceDevice.status),
-  statusSeverity: toSeverity(apiFenceDevice),
+  statusSeverity: statusToSeverity(apiFenceDevice.status),
   issueList: transformIssues(apiFenceDevice),
 });
 
@@ -111,7 +120,7 @@ export const analyzeApiResources = (
   (analyzed, apiResource) => {
     const maxResourcesSeverity = () => statusSeverity.max(
       analyzed.resourcesSeverity,
-      toSeverity(apiResource),
+      statusToSeverity(apiResource.status),
     );
     switch (apiResource.class_type) {
       case "primitive":
@@ -124,7 +133,7 @@ export const analyzeApiResources = (
             ],
             fenceDevicesSeverity: statusSeverity.max(
               analyzed.fenceDevicesSeverity,
-              toSeverity(apiResource),
+              statusToSeverity(apiResource.status),
             ),
           };
         }
