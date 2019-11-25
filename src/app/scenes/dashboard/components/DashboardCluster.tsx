@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Table, StatusIco } from "app/common/components";
-import { ClusterState } from "app/services/cluster/types";
 import { IssueList } from "app/services/cluster";
+
+import { ClusterState } from "../types";
 
 import DashboardNodeList from "./DashboardNodeList";
 import DashboardResourceList from "./DashboardResourceList";

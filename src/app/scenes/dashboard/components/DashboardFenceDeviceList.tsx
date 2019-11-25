@@ -1,8 +1,9 @@
 import React from "react";
 
 import { Table, StatusSign, NoItemCase } from "app/common/components";
-import { FenceDevice } from "app/services/cluster/types";
 import { compareStrings, toLabel, statusSeverity } from "app/common/utils";
+
+import { FenceDevice } from "../types";
 
 type COLUMNS = "NAME"|"STATUS";
 

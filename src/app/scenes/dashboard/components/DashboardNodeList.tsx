@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Table, StatusSign } from "app/common/components";
-import { Node } from "app/services/cluster/types";
 import { compareStrings, statusSeverity, toLabel } from "app/common/utils";
+import { Node } from "../types";
 
 type COLUMNS = "NAME"|"STATUS"|"QUORUM";
 

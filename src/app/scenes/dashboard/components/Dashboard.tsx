@@ -2,10 +2,9 @@ import React from "react";
 
 import { Table } from "app/common/components";
 import { compareStrings, statusSeverity } from "app/common/utils";
-import { ClusterState } from "app/services/cluster/types";
 
 import DashboardCluster from "./DashboardCluster";
-import { DashboardState } from "../types";
+import { DashboardState, ClusterState } from "../types";
 
 type COLUMNS = "NAME"|"ISSUES"|"NODES"|"RESOURCES"|"FENCE_DEVICES";
 

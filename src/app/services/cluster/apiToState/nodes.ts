@@ -2,10 +2,10 @@ import { ApiNode } from "app/common/backend/types/clusterStatus";
 import { statusSeverity } from "app/common/utils";
 import { StatusSeverity } from "app/common/types";
 
-import { Node } from "../types";
+import { NodeStatusFlag, NodeQuorumFlag } from "../types";
 import { transformIssues } from "./issues";
 
-const mapStatus = (status: ApiNode["status"]): Node["status"] => {
+export const mapStatus = (status: ApiNode["status"]): NodeStatusFlag => {
   switch (status) {
     case "online": return "ONLINE";
     case "offline": return "OFFLINE";
@@ -13,9 +13,9 @@ const mapStatus = (status: ApiNode["status"]): Node["status"] => {
   }
 };
 
-const statusToSeverity = (
+export const statusToSeverity = (
   status: ApiNode["status"],
-): Node["statusSeverity"] => {
+): StatusSeverity => {
   switch (status) {
     case "online": return "OK";
     case "offline": return "ERROR";
@@ -23,7 +23,7 @@ const statusToSeverity = (
   }
 };
 
-const mapQuorum = (quorum: ApiNode["quorum"]): Node["quorum"] => {
+export const mapQuorum = (quorum: ApiNode["quorum"]): NodeQuorumFlag => {
   switch (quorum) {
     case true: return "YES";
     case false: return "NO";
@@ -31,9 +31,7 @@ const mapQuorum = (quorum: ApiNode["quorum"]): Node["quorum"] => {
   }
 };
 
-const quorumToSeverity = (
-  quorum: ApiNode["quorum"],
-): Node["quorumSeverity"] => {
+export const quorumToSeverity = (quorum: ApiNode["quorum"]): StatusSeverity => {
   switch (quorum) {
     case true: return "OK";
     case false: return "WARNING";
@@ -41,17 +39,20 @@ const quorumToSeverity = (
   }
 };
 
-const toMaxSeverity = (lastMaxSeverity: StatusSeverity, apiNode: ApiNode) => {
-  if (apiNode.status === "offline") {
+export const toSeverity = (
+  status: ApiNode["status"],
+  quorum: ApiNode["quorum"],
+) => {
+  if (status === "offline") {
     return "ERROR";
   }
-  if (apiNode.quorum === false) {
-    return statusSeverity.max(lastMaxSeverity, "WARNING");
+  if (quorum === false) {
+    return "WARNING";
   }
-  if (apiNode.status === "online" && apiNode.quorum === true) {
-    return statusSeverity.max(lastMaxSeverity, "OK");
+  if (status === "online" && quorum === true) {
+    return "OK";
   }
-  return statusSeverity.max(lastMaxSeverity, "UNKNOWN");
+  return "UNKNOWN";
 };
 
 const toNode = (apiNode: ApiNode) => ({
@@ -65,5 +66,11 @@ const toNode = (apiNode: ApiNode) => ({
 
 export const processApiNodes = (apiNodeList: ApiNode[]) => ({
   nodeList: apiNodeList.map(toNode),
-  nodesSeverity: apiNodeList.reduce<StatusSeverity>(toMaxSeverity, "OK"),
+  nodesSeverity: apiNodeList.reduce<StatusSeverity>(
+    (lastMaxSeverity, node) => statusSeverity.max(
+      lastMaxSeverity,
+      toSeverity(node.status, node.quorum),
+    ),
+    "OK",
+  ),
 });

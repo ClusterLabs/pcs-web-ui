@@ -12,6 +12,15 @@ const ApiNodeService = t.type({
 });
 
 export const ApiNodeName = t.string;
+
+export const ApiNodeStatus = t.keyof({
+  standby: null,
+  online: null,
+  offline: null,
+  unknown: null,
+});
+
+export const ApiNodeQuorum = t.union([t.boolean, t.null]);
 /*
 name
   taken from result of `corosync-cmapctl runtime.votequorum.this_node_id`
@@ -46,31 +55,31 @@ warning_list
     from this very node "check" to all cluster node is called; some node(s) had
     "notauthorized" or "notoken" in response
 */
-export const ApiNode = t.intersection([ApiWithIssues, t.type({
-  name: t.string,
-  status: t.keyof({
-    standby: null,
-    online: null,
-    offline: null,
-    unknown: null,
+export const ApiNode = t.intersection([
+  ApiWithIssues,
+  t.type({
+    name: ApiNodeName,
+    status: ApiNodeStatus,
   }),
-  quorum: t.boolean,
-  uptime: t.string,
-  services: t.type({
-    pacemaker: ApiNodeService,
-    pacemaker_remote: ApiNodeService,
-    corosync: ApiNodeService,
-    pcsd: ApiNodeService,
-    sbd: ApiNodeService,
+  t.partial({
+    quorum: ApiNodeQuorum,
+    uptime: t.string,
+    services: t.type({
+      pacemaker: ApiNodeService,
+      pacemaker_remote: ApiNodeService,
+      corosync: ApiNodeService,
+      pcsd: ApiNodeService,
+      sbd: ApiNodeService,
+    }),
+    corosync: t.boolean,
+    corosync_enabled: t.boolean,
+    pacemaker: t.boolean,
+    pacemaker_enabled: t.boolean,
+    pcsd_enabled: t.boolean,
+    sbd_config: t.type({
+    }),
   }),
-  corosync: t.boolean,
-  corosync_enabled: t.boolean,
-  pacemaker: t.boolean,
-  pacemaker_enabled: t.boolean,
-  pcsd_enabled: t.boolean,
-  sbd_config: t.type({
-  }),
-})]);
+]);
 
 // datasource: /cib/configuration/nodes/node/instance_attributes/nvpair
 // The key of record is "uname".

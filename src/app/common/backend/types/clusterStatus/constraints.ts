@@ -8,24 +8,52 @@ warning: there are relations between attributes - things will be more
 complicated!
 */
 
-const ApiLocationBase = t.intersection([
+const ApiRole = t.keyof({
+  Stopped: null,
+  Started: null,
+  Master: null,
+  Slave: null,
+});
+
+/*
+rule_string is always present. It does not follow rng schema, however the ruby
+  backend does it that way.
+*/
+const ApiLocation = t.intersection([
   t.type({
-    rsc: t.string,
-  }),
-  t.partial({
-    "rsc-pattern": t.string,
+    id: t.string,
     rule_string: t.string,
+  }),
+  t.union([
+    t.type({ rsc: t.string }),
+    t.type({ "rsc-pattern": t.string }),
+  ]),
+  t.union([
+    t.type({ "id-ref": t.string }),
+    t.type({
+      node: t.string,
+      score: t.union([
+        t.number,
+        t.keyof({ INFINITY: null, "-INFINITY": null }),
+      ]),
+    }),
+  ]),
+  t.partial({
+    role: ApiRole,
+    "resource-discovery": t.keyof({
+      always: null,
+      never: null,
+      exclusive: null,
+    }),
   }),
 ]);
 
-const ApiLocationRef = t.intersection([ApiLocationBase, t.type({
-  "id-ref": t.string,
-})]);
+/*
+In backend sets inside locations are ignored. Location constraint with resource
+set ends up with "rsc" equals to null.
+*/
+const ApiLocationSet = t.type({ rsc: t.null });
 
-const ApiLocation = t.intersection([ApiLocationBase, t.type({
-  id: t.string,
-  score: t.union([t.number, t.keyof({ INFINITY: null, "-INFINITY": null })]),
-})]);
 
 const ApiResourceSetAttributes = t.record(t.string, t.string);
 
@@ -41,7 +69,11 @@ const ApiConstraintSet = t.type({
 const ApiConstraintAttributes = t.record(t.string, t.string);
 
 export const ApiConstraints = t.partial({
-  rsc_location: t.array(t.union([ApiLocationRef, ApiLocation])),
+  rsc_location: t.array(t.union([
+    ApiLocation,
+    ApiConstraintAttributes, // when no rules, no sets there
+    ApiLocationSet,
+  ])),
   rsc_colocation: t.array(
     t.union([ApiConstraintSet, ApiConstraintAttributes]),
   ),

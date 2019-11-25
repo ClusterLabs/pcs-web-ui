@@ -1,7 +1,14 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import { TApiClusterStatus } from "../clusterStatus";
+import { ApiResource } from "app/common/backend/types/clusterStatus";
+
+import { ApiNode } from "./nodes";
+import { ApiClusterStatus as TApiClusterStatus } from "./cluster";
+
+export type ApiResource = ApiResource;
+export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
+export type ApiNode = t.TypeOf<typeof ApiNode>;
 
 export const TApiClustersOverview = t.type({
   cluster_list: t.array(TApiClusterStatus),
