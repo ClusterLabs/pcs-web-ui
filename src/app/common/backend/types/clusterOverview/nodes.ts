@@ -9,8 +9,13 @@ import {
 } from "app/common/backend/types/clusterStatus";
 
 // It is simplified version of node from cluster status
-export const ApiNode = t.intersection([ApiWithIssues, t.type({
-  name: ApiNodeName,
-  status: ApiNodeStatus,
-  quorum: ApiNodeQuorum,
-})]);
+export const ApiNode = t.intersection([
+  ApiWithIssues,
+  t.type({
+    name: ApiNodeName,
+    status: ApiNodeStatus,
+  }),
+  t.partial({
+    quorum: ApiNodeQuorum,
+  }),
+]);
