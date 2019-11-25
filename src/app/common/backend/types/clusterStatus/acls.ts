@@ -6,9 +6,11 @@ const ApiAclRoleId = t.string;
 TODO complete attributes according rng schemes
 datasource: /cib/configuration/acls/*
 The keys of records are "id".
+
+In the case of not running cluster acls are empty object.
 */
 
-export const ApiAcl = t.type({
+export const ApiAcl = t.partial({
   role: t.record(t.string, t.type({
     description: t.string,
     permissions: t.array(t.string),

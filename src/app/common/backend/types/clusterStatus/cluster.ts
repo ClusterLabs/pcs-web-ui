@@ -38,6 +38,8 @@ const ApiSettings = t.record(t.string, t.string);
 
 export const ApiClusterName = t.string;
 /*
+alerts - null it the case of not running cluster
+
 status (aggregation attribute)
  * unknown
     | no node that is assigned to a cluster in pcs_settings currently belongs
@@ -96,7 +98,7 @@ export const ApiClusterStatus = t.intersection([
   }),
   t.partial({
     acls: ApiAcl,
-    alerts: t.array(ApiAlert),
+    alerts: t.union([t.array(ApiAlert), t.null]),
     cluster_settings: ApiSettings,
     constraints: ApiConstraints,
     corosync_offline: t.array(ApiNodeName),
