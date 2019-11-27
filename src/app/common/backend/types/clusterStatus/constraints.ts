@@ -1,6 +1,27 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
+const ApiScore = t.union([
+  t.number,
+  t.keyof({ INFINITY: null, "-INFINITY": null }),
+]);
+
+/*
+It is not the full common rule. It is just shortened version which attributes
+are mixed into location constraint in the backend.
+*/
+export const ApiLocationRule = t.union([
+  t.type({ "id-ref": t.string }),
+  t.intersection([
+    t.type({ id: t.string }),
+    t.union([
+      t.type({ score: ApiScore }),
+      t.type({ "score-attribute": t.string }),
+    ]),
+  ]),
+  t.partial({ role: t.string }),
+]);
+
 /*
 datasource:/cib/configuration/constraints
 TODO add attributes according .rng. (to ApiLocation, ApiResourceAttributes, ...)
@@ -24,13 +45,13 @@ export const ApiLocation = t.intersection([
     t.type({ "rsc-pattern": t.string }),
   ]),
   t.union([
-    t.type({ rule_string: t.string }),
+    t.intersection([
+      t.type({ rule_string: t.string }),
+      ApiLocationRule,
+    ]),
     t.type({
       node: t.string,
-      score: t.union([
-        t.number,
-        t.keyof({ INFINITY: null, "-INFINITY": null }),
-      ]),
+      score: ApiScore,
     }),
   ]),
   t.partial({
