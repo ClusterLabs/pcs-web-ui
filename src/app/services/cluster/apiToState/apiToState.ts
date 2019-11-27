@@ -7,7 +7,7 @@ import { ClusterState } from "../types";
 import { transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
-import { transformConstraints } from "./constraints";
+import { convertConstraints } from "./constraints";
 
 export const transformStatus = (
   status: ApiClusterStatus["status"],
@@ -36,17 +36,12 @@ export const issuesToSummarySeverity = (
 export const apiToState = (
   apiClusterStatus: ApiClusterStatus,
 ): ClusterState => {
-  // TODO unassigned constraints are ignored for now...
-  const { assigned } = transformConstraints(apiClusterStatus.constraints);
   const {
     resourceTree,
     resourcesSeverity,
     fenceDeviceList,
     fenceDevicesSeverity,
-  } = analyzeApiResources(
-    apiClusterStatus.resource_list,
-    assigned,
-  );
+  } = analyzeApiResources(apiClusterStatus.resource_list);
   const {
     nodeList,
     nodesSeverity,
@@ -59,6 +54,7 @@ export const apiToState = (
     issueList: transformIssues(apiClusterStatus),
     resourceTree,
     fenceDeviceList,
+    constraints: convertConstraints(apiClusterStatus.constraints),
     summary: {
       resourcesSeverity,
       fenceDevicesSeverity,

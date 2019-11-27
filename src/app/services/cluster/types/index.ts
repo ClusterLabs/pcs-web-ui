@@ -1,7 +1,8 @@
 import { StatusSeverity } from "app/common/types";
 
-import { Constraint } from "./constraints";
+import { Constraint, ResourceRelation } from "./constraints";
 
+export type ResourceRelation = ResourceRelation;
 export type Constraint = Constraint;
 
 export interface InstanceAttribute {
@@ -34,7 +35,6 @@ export interface ResourceTreeItemBase {
   status: ResourceStatusFlag,
   statusSeverity: StatusSeverity,
   issueList: Issue[],
-  constraints: Constraint[],
 }
 
 export interface Primitive extends ResourceTreeItemBase {
@@ -72,6 +72,7 @@ export interface ClusterState {
   nodeList: Node[],
   resourceTree: ResourceTreeItem[],
   fenceDeviceList: FenceDevice[],
+  constraints: Constraint[],
   issueList: Issue[],
   summary: {
     nodesSeverity: StatusSeverity,

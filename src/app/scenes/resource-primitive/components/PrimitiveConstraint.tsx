@@ -20,7 +20,7 @@ const PrimitiveConstraint = ({ constraint }: {
   if ("node" in constraint) {
     fields.push(...[
       <DataListCell key="node">
-        <span id="pref-1">
+        <span>
           {"Node "}
           <strong>{constraint.node}</strong>
         </span>

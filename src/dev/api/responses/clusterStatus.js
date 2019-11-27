@@ -170,6 +170,18 @@ const resourceTree = cluster("resourceTree", "ok", {
         role: "Started",
         rsc: "A",
         score: "INFINITY"
+      },
+      {
+        id: "G-prefer-node-1",
+        node: "node-1",
+        "rsc-pattern": "G.*",
+        score: "INFINITY",
+      },
+      {
+        id: "cli-prefer-A-1",
+        rule_string: "date gt 2019-11-28 and date lt 2019-12-01",
+        role: "Started",
+        rsc: "A",
       }
     ],
     "rsc_order": [

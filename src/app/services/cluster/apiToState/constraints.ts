@@ -2,47 +2,57 @@ import {
   ApiClusterStatus,
   ApiLocation,
 } from "app/common/backend/types/clusterStatus";
-import { types } from "app/services/cluster";
+import { Constraint, ResourceRelation } from "../types";
 
-const apiToLocation = (apiLocation: ApiLocation): types.Constraint => (
-  "node" in apiLocation
+const apiLocationToResourceRelation = (
+  apiLocation: ApiLocation,
+): ResourceRelation => {
+  if ("rsc-pattern" in apiLocation) {
+    return {
+      type: "PATTERN",
+      value: apiLocation["rsc-pattern"],
+    };
+  }
+
+  if (!apiLocation.rsc) {
+    return {
+      type: "UNKNOWN",
+      value: null,
+    };
+  }
+
+  return {
+    type: "RESOURCE-ID",
+    value: apiLocation.rsc,
+  };
+};
+
+const apiToLocation = (apiLocation: ApiLocation): Constraint => {
+  return "node" in apiLocation
     ? {
       type: "LOCATION",
+      resourceRelation: apiLocationToResourceRelation(apiLocation),
       id: apiLocation.id,
       node: apiLocation.node,
       score: apiLocation.score,
     }
     : {
-      type: "LOCATION",
+      type: "LOCATION-RULE",
+      resourceRelation: apiLocationToResourceRelation(apiLocation),
       id: apiLocation.id,
-      rule: apiLocation.rule_string,
-    }
-);
+      ruleString: apiLocation.rule_string,
+    };
+};
 
-export type ResourceIdConstraintsMap = Record<string, types.Constraint[]>;
+export type ResourceIdConstraintsMap = Record<string, Constraint[]>;
 
-export const transformConstraints = (
-  constraints: ApiClusterStatus["constraints"],
+export const convertConstraints = (
+  apiConstraints: ApiClusterStatus["constraints"],
 ) => {
-  const assigned: ResourceIdConstraintsMap = {};
-  const unassigned: types.Constraint[] = [];
-
-  if (!constraints) {
-    return { assigned, unassigned };
+  if (!apiConstraints) {
+    return [];
   }
-
-  if (constraints.rsc_location) {
-    constraints.rsc_location.forEach((apiLocation) => {
-      if ("rsc" in apiLocation && apiLocation.rsc) {
-        assigned[apiLocation.rsc] = [
-          ...(assigned[apiLocation.rsc] || []),
-          apiToLocation(apiLocation),
-        ];
-      } else {
-        unassigned.push(apiToLocation(apiLocation));
-      }
-    });
-  }
-
-  return { assigned, unassigned };
+  return [
+    ...(apiConstraints.rsc_location || []).map(apiToLocation),
+  ];
 };
