@@ -161,6 +161,20 @@ const resourceTree = cluster("resourceTree", "ok", {
         rsc: "A",
         score: "INFINITY",
         "with-rsc": "GROUP-1",
+      },
+      {
+        id: "colocation-A-G1-INFINITY-2",
+        score: "INFINITY",
+        sets: [
+          {
+            id: "rs-colocation-A-G1-INFINITY-2-1",
+            resources: ["A", "GROUP-1"],
+          },
+          {
+            id: "rs-colocation-A-G1-INFINITY-2-2",
+            resources: ["B", "C"],
+          },
+        ]
       }
     ],
     rsc_location: [

@@ -18,7 +18,7 @@ export type RuleScore = (
     value: Score;
   }
   |{
-    type: "SCORE-ATTRIBUTE";
+    type: "SCORE.ATTRIBUTE";
     value: string;
   }
 )
@@ -28,6 +28,27 @@ type ConstraintLocationBase = {
   id: string;
 }
 
+type ColocationResource = {
+  id: string;
+  role?: Role;
+  instance?: number;
+}
+
+type Reference = { referenceId: string; }
+
+type ConstraintAction = "start"|"promote"|"demote"|"stop"
+
+export type ResourceSet = Reference | {
+  id: string;
+  sequential?: boolean;
+  requireAll?: boolean;
+  ordering?: "group"|"listed";
+  action?: ConstraintAction;
+  role?: Role;
+  score?: Score;
+  resourceIdList: string[];
+}
+
 export type ConstraintLocation = ConstraintLocationBase & {
   type: "LOCATION";
   score: Score;
@@ -35,18 +56,37 @@ export type ConstraintLocation = ConstraintLocationBase & {
 }
 
 export type ConstraintLocationRule = ConstraintLocationBase & {
-  type: "LOCATION-RULE";
+  type: "LOCATION.RULE";
   ruleString: string;
   ruleScore: RuleScore;
 }
 
 export type ConstraintLocationRuleRef = ConstraintLocationBase & {
-  type: "LOCATION-RULE-REFERENCE";
+  type: "LOCATION.RULE.REFERENCE";
   referencedRuleId: string;
 }
+
+export type ConstraintColocation = {
+  type: "COLOCATION";
+  id: string;
+  firstResource: ColocationResource;
+  secondResource: ColocationResource;
+  score?: Score;
+  nodeAttribute?: string;
+};
+
+export type ConstraintColocationSet = {
+  type: "COLOCATION.SET";
+  id: string;
+  sets: ResourceSet[];
+  score?: Score;
+};
+
 
 export type Constraint = (
   |ConstraintLocation
   |ConstraintLocationRule
   |ConstraintLocationRuleRef
+  |ConstraintColocation
+  |ConstraintColocationSet
 );

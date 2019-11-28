@@ -5,7 +5,8 @@ import { ApiWithIssues } from "./issues";
 import { ApiAcl } from "./acls";
 import { ApiAlert } from "./alerts";
 import { ApiConstraints } from "./constraints";
-import { ApiResource, ApiResourceId } from "./resources";
+import { ApiResource } from "./resources";
+import { ApiResourceId } from "./common";
 import {
   ApiNodeName,
   ApiNode,

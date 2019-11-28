@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
+import { ApiId, ApiResourceId } from "./common";
 import { ApiWithIssues } from "./issues";
 import { ApiNVPair } from "./nvsets";
 
@@ -17,7 +18,7 @@ on_node
   `node_state`. If such parent is found then its attribute `uname` is used.
 */
 const ApiResourceOperation = t.type({
-  id: t.string,
+  id: ApiId,
   call_id: t.number,
   crm_debug_origin: t.union([t.string, t.null]),
   crm_feature_set: t.union([t.string, t.null]),
@@ -38,8 +39,6 @@ const ApiResourceOperation = t.type({
   transition_key: t.union([t.string, t.null]),
   transition_magic: t.union([t.string, t.null]),
 });
-
-export const ApiResourceId = t.string;
 
 /*
 datasource: crm_mon: /crm_mon/resources//resource

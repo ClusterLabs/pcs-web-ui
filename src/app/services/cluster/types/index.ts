@@ -1,8 +1,11 @@
 import { StatusSeverity } from "app/common/types";
 
 import {
+  ResourceSet,
   Constraint,
   ConstraintLocation,
+  ConstraintColocation,
+  ConstraintColocationSet,
   ConstraintLocationRule,
   ConstraintLocationRuleRef,
   ResourceRelation,
@@ -12,9 +15,12 @@ import {
 export type ResourceRelation = ResourceRelation;
 export type Constraint = Constraint;
 export type ConstraintLocation = ConstraintLocation;
+export type ConstraintColocation = ConstraintColocation;
+export type ConstraintColocationSet = ConstraintColocationSet;
 export type ConstraintLocationRule = ConstraintLocationRule;
 export type ConstraintLocationRuleRef = ConstraintLocationRuleRef;
 export type RuleScore = RuleScore;
+export type ResourceSet = ResourceSet;
 
 export interface InstanceAttribute {
   id: string,

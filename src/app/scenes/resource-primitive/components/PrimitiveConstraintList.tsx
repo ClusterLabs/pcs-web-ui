@@ -5,6 +5,8 @@ import { DataList } from "@patternfly/react-core";
 import { Primitive } from "app/services/cluster/types";
 
 import ConstraintLocation from "./ConstraintLocation";
+import ConstraintColocation from "./ConstraintColocation";
+import ConstraintColocationSet from "./ConstraintColocationSet";
 import ConstraintLocationRule from "./ConstraintLocationRule";
 import * as selectors from "../selectors";
 
@@ -24,8 +26,20 @@ const PrimitiveConstraintList = ({ primitive }: {
               key={constraint.id}
             />
           );
-          case "LOCATION-RULE": return (
+          case "LOCATION.RULE": return (
             <ConstraintLocationRule
+              constraint={constraint}
+              key={constraint.id}
+            />
+          );
+          case "COLOCATION": return (
+            <ConstraintColocation
+              constraint={constraint}
+              key={constraint.id}
+            />
+          );
+          case "COLOCATION.SET": return (
+            <ConstraintColocationSet
               constraint={constraint}
               key={constraint.id}
             />
