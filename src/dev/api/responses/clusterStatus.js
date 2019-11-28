@@ -182,6 +182,13 @@ const resourceTree = cluster("resourceTree", "ok", {
         rule_string: "date gt 2019-11-28 and date lt 2019-12-01",
         role: "Started",
         rsc: "A",
+        score: "INFINITY",
+      },
+      {
+        id: "cli-prefer-A-2",
+        rule_string: "",
+        rsc: "A",
+        "id-ref": "somewhere else",
       }
     ],
     "rsc_order": [

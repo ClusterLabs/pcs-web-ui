@@ -10,14 +10,12 @@ const ApiScore = t.union([
 It is not the full common rule. It is just shortened version which attributes
 are mixed into location constraint in the backend.
 */
-export const ApiLocationRule = t.union([
-  t.type({ "id-ref": t.string }),
-  t.intersection([
-    t.type({ id: t.string }),
-    t.union([
-      t.type({ score: ApiScore }),
-      t.type({ "score-attribute": t.string }),
-    ]),
+export const ApiLocationRuleReference = t.type({ "id-ref": t.string });
+export const ApiLocationRule = t.intersection([
+  t.type({ id: t.string }),
+  t.union([
+    t.type({ score: ApiScore }),
+    t.type({ "score-attribute": t.string }),
   ]),
   t.partial({ role: t.string }),
 ]);
@@ -47,7 +45,7 @@ export const ApiLocation = t.intersection([
   t.union([
     t.intersection([
       t.type({ rule_string: t.string }),
-      ApiLocationRule,
+      t.union([ApiLocationRule, ApiLocationRuleReference]),
     ]),
     t.type({
       node: t.string,

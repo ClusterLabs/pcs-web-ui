@@ -2,28 +2,51 @@ type Score = "INFINITY"|"-INFINITY"|number;
 type Role = "Stopped"|"Started"|"Master"|"Slave";
 
 export type ResourceRelation = (
-  {
+  |{
     type: "RESOURCE-ID"|"PATTERN";
     value: string;
-  } | {
+  }
+  |{
     type: "UNKNOWN";
     value: null;
   }
-);
+)
 
-type Location = {
-  type: "LOCATION";
+export type RuleScore = (
+  |{
+    type: "SCORE";
+    value: Score;
+  }
+  |{
+    type: "SCORE-ATTRIBUTE";
+    value: string;
+  }
+)
+
+type ConstraintLocationBase = {
   resourceRelation: ResourceRelation;
   id: string;
+}
+
+export type ConstraintLocation = ConstraintLocationBase & {
+  type: "LOCATION";
   score: Score;
   node: string;
 }
 
-type LocationRule = {
+export type ConstraintLocationRule = ConstraintLocationBase & {
   type: "LOCATION-RULE";
-  resourceRelation: ResourceRelation;
-  id: string;
   ruleString: string;
+  ruleScore: RuleScore;
 }
 
-export type Constraint = Location|LocationRule;
+export type ConstraintLocationRuleRef = ConstraintLocationBase & {
+  type: "LOCATION-RULE-REFERENCE";
+  referencedRuleId: string;
+}
+
+export type Constraint = (
+  |ConstraintLocation
+  |ConstraintLocationRule
+  |ConstraintLocationRuleRef
+);

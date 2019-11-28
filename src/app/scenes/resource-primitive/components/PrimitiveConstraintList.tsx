@@ -4,7 +4,8 @@ import { DataList } from "@patternfly/react-core";
 
 import { Primitive } from "app/services/cluster/types";
 
-import PrimitiveConstraint from "./PrimitiveConstraint";
+import ConstraintLocation from "./ConstraintLocation";
+import ConstraintLocationRule from "./ConstraintLocationRule";
 import * as selectors from "../selectors";
 
 const PrimitiveConstraintList = ({ primitive }: {
@@ -15,9 +16,23 @@ const PrimitiveConstraintList = ({ primitive }: {
   );
   return (
     <DataList aria-label={`Constraints of resource ${primitive.id}`}>
-      {constraintList.map(constraint => (
-        <PrimitiveConstraint constraint={constraint} key={constraint.id} />
-      ))}
+      {constraintList.map((constraint) => {
+        switch (constraint.type) {
+          case "LOCATION": return (
+            <ConstraintLocation
+              constraint={constraint}
+              key={constraint.id}
+            />
+          );
+          case "LOCATION-RULE": return (
+            <ConstraintLocationRule
+              constraint={constraint}
+              key={constraint.id}
+            />
+          );
+          default: return null;
+        }
+      })}
     </DataList>
   );
 };

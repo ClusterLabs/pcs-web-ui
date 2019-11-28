@@ -1,8 +1,13 @@
 import {
   ApiClusterStatus,
   ApiLocation,
+  ApiLocationRule,
 } from "app/common/backend/types/clusterStatus";
-import { Constraint, ResourceRelation } from "../types";
+import {
+  Constraint,
+  ResourceRelation,
+  RuleScore,
+} from "../types";
 
 const apiLocationToResourceRelation = (
   apiLocation: ApiLocation,
@@ -27,21 +32,46 @@ const apiLocationToResourceRelation = (
   };
 };
 
+const apiLocationToRuleScore = (
+  apiLocationRule: ApiLocationRule,
+): RuleScore => {
+  if ("score" in apiLocationRule) {
+    return {
+      type: "SCORE",
+      value: apiLocationRule.score,
+    };
+  }
+  return {
+    type: "SCORE-ATTRIBUTE",
+    value: apiLocationRule["score-attribute"],
+  };
+};
+
 const apiToLocation = (apiLocation: ApiLocation): Constraint => {
-  return "node" in apiLocation
-    ? {
+  if ("node" in apiLocation) {
+    return {
       type: "LOCATION",
       resourceRelation: apiLocationToResourceRelation(apiLocation),
       id: apiLocation.id,
       node: apiLocation.node,
       score: apiLocation.score,
-    }
-    : {
-      type: "LOCATION-RULE",
-      resourceRelation: apiLocationToResourceRelation(apiLocation),
-      id: apiLocation.id,
-      ruleString: apiLocation.rule_string,
     };
+  }
+  if ("id-ref" in apiLocation) {
+    return {
+      type: "LOCATION-RULE-REFERENCE",
+      id: apiLocation.id,
+      referencedRuleId: apiLocation["id-ref"],
+      resourceRelation: apiLocationToResourceRelation(apiLocation),
+    };
+  }
+  return {
+    type: "LOCATION-RULE",
+    resourceRelation: apiLocationToResourceRelation(apiLocation),
+    id: apiLocation.id,
+    ruleString: apiLocation.rule_string,
+    ruleScore: apiLocationToRuleScore(apiLocation),
+  };
 };
 
 export type ResourceIdConstraintsMap = Record<string, Constraint[]>;
