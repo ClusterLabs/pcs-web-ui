@@ -7,8 +7,9 @@ import {
 } from "@patternfly/react-core";
 import { types } from "app/services/cluster";
 
-const ConstraintColocation = ({ constraint }: {
-  constraint: types.ConstraintColocation,
+const ConstraintColocation = ({ constraint, resourceId }: {
+  constraint: types.ConstraintColocation;
+  resourceId: string;
 }) => {
   return (
     <DataListItem aria-labelledby={`Location constraint ${constraint.id}`}>
@@ -24,7 +25,13 @@ const ConstraintColocation = ({ constraint }: {
           <DataListCell key="node">
             <span>
               {"With resource "}
-              <strong>{constraint.secondResource.id}</strong>
+              <strong>
+                {
+                  constraint.firstResource.id === resourceId
+                    ? constraint.secondResource.id
+                    : constraint.firstResource.id
+                }
+              </strong>
             </span>
           </DataListCell>,
 

@@ -35,6 +35,7 @@ const PrimitiveConstraintList = ({ primitive }: {
           case "COLOCATION": return (
             <ConstraintColocation
               constraint={constraint}
+              resourceId={primitive.id}
               key={constraint.id}
             />
           );

@@ -112,7 +112,7 @@ const apiToColocation = (apiColocation: ApiColocation): Constraint => {
       role: apiColocation["rsc-role"],
     },
     secondResource: {
-      id: apiColocation.rsc,
+      id: apiColocation["with-rsc"],
       instance: apiColocation["with-rsc-instance"],
       role: apiColocation["with-rsc-role"],
     },
