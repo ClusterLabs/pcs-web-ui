@@ -10,10 +10,10 @@ import {
   DetailLayout,
   ResourceDetailCaption,
 } from "app/common/components";
+import { ResourceConstraintList } from "app/scenes/constraints";
 
 import PrimitiveAttributes from "./PrimitiveAttributes";
 import PrimitiveDetail from "./PrimitiveDetail";
-import PrimitiveConstraintList from "./PrimitiveConstraintList";
 import useResourceAgent from "../useResourceAgent";
 
 const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
@@ -55,7 +55,7 @@ const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
         <PrimitiveAttributes primitive={primitive} />
       )}
       {tab === "Constraints" && (
-        <PrimitiveConstraintList primitive={primitive} />
+        <ResourceConstraintList primitive={primitive} />
       )}
 
     </DetailLayout>

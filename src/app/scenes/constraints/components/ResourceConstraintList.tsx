@@ -10,7 +10,7 @@ import ConstraintColocationSet from "./ConstraintColocationSet";
 import ConstraintLocationRule from "./ConstraintLocationRule";
 import * as selectors from "../selectors";
 
-const PrimitiveConstraintList = ({ primitive }: {
+const ResourceConstraintList = ({ primitive }: {
   primitive: Primitive,
 }) => {
   const constraintList = useSelector(
@@ -52,4 +52,4 @@ const PrimitiveConstraintList = ({ primitive }: {
   );
 };
 
-export default PrimitiveConstraintList;
+export default ResourceConstraintList;
