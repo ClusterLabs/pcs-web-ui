@@ -1,3 +1,8 @@
+import {
+  ApiOrderKind,
+  ApiConstraintAction,
+} from "app/common/backend/types/clusterStatus";
+
 type Score = "INFINITY"|"-INFINITY"|number;
 type Role = "Stopped"|"Started"|"Master"|"Slave";
 
@@ -66,22 +71,48 @@ export type ConstraintLocationRuleRef = ConstraintLocationBase & {
   referencedRuleId: string;
 }
 
-export type ConstraintColocation = {
-  type: "COLOCATION";
+type ConstraintColocationBase = {
   id: string;
+  score?: Score;
+}
+
+export type ConstraintColocation = ConstraintColocationBase & {
+  type: "COLOCATION";
   firstResource: ColocationResource;
   secondResource: ColocationResource;
-  score?: Score;
   nodeAttribute?: string;
 };
 
-export type ConstraintColocationSet = {
+export type ConstraintColocationSet = ConstraintColocationBase & {
   type: "COLOCATION.SET";
-  id: string;
   sets: ResourceSet[];
-  score?: Score;
 };
 
+type OrderResource = {
+  id: string;
+  action?: ApiConstraintAction;
+  instance?: number;
+}
+
+type ConstraintOrderBase = {
+  id: string;
+  symmetrical?: boolean;
+  requireAll?: boolean;
+} & (
+  | { score?: Score }
+  | { kind?: ApiOrderKind }
+)
+
+export type ConstraintOrder = ConstraintOrderBase & {
+  type: "ORDER";
+  firstResource: OrderResource;
+  thenResource: OrderResource;
+}
+
+export type ConstraintOrderSet = ConstraintOrderBase & {
+  type: "ORDER.SET";
+  sets: ResourceSet[];
+}
 
 export type Constraint = (
   |ConstraintLocation
@@ -89,4 +120,6 @@ export type Constraint = (
   |ConstraintLocationRuleRef
   |ConstraintColocation
   |ConstraintColocationSet
+  |ConstraintOrder
+  |ConstraintOrderSet
 );

@@ -2,6 +2,7 @@ import {
   ApiClusterStatus,
   ApiLocation,
   ApiColocation,
+  ApiOrder,
   ApiLocationRule,
   ApiResourceSet,
 } from "app/common/backend/types/clusterStatus";
@@ -121,6 +122,34 @@ const apiToColocation = (apiColocation: ApiColocation): Constraint => {
   };
 };
 
+const apiToOrder = (apiOrder: ApiOrder): Constraint => {
+  if ("sets" in apiOrder) {
+    return {
+      type: "ORDER.SET",
+      id: apiOrder.id,
+      symmetrical: apiOrder.symmetrical,
+      requireAll: apiOrder["require-all"],
+      sets: apiOrder.sets.map(apiToResourceSet),
+      ...("score" in apiOrder ? { score: apiOrder.score } : {}),
+      ...("kind" in apiOrder ? { kind: apiOrder.kind } : {}),
+    };
+  }
+  return {
+    type: "ORDER",
+    id: apiOrder.id,
+    firstResource: {
+      id: apiOrder.first,
+      action: apiOrder["first-action"],
+      instance: apiOrder["first-instance"],
+    },
+    thenResource: {
+      id: apiOrder.then,
+      action: apiOrder["then-action"],
+      instance: apiOrder["then-instance"],
+    },
+  };
+};
+
 export type ResourceIdConstraintsMap = Record<string, Constraint[]>;
 
 export const convertConstraints = (
@@ -132,5 +161,6 @@ export const convertConstraints = (
   return [
     ...(apiConstraints.rsc_location || []).map(apiToLocation),
     ...(apiConstraints.rsc_colocation || []).map(apiToColocation),
+    ...(apiConstraints.rsc_order || []).map(apiToOrder),
   ];
 };

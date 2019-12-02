@@ -8,6 +8,8 @@ import {
   ConstraintColocationSet,
   ConstraintLocationRule,
   ConstraintLocationRuleRef,
+  ConstraintOrder,
+  ConstraintOrderSet,
   ResourceRelation,
   RuleScore,
 } from "./constraints";
@@ -19,6 +21,8 @@ export type ConstraintColocation = ConstraintColocation;
 export type ConstraintColocationSet = ConstraintColocationSet;
 export type ConstraintLocationRule = ConstraintLocationRule;
 export type ConstraintLocationRuleRef = ConstraintLocationRuleRef;
+export type ConstraintOrder = ConstraintOrder;
+export type ConstraintOrderSet = ConstraintOrderSet;
 export type RuleScore = RuleScore;
 export type ResourceSet = ResourceSet;
 

@@ -1,42 +1,22 @@
 import React from "react";
-import {
-  DataListItem,
-  DataListCell,
-  DataListItemRow,
-  DataListItemCells,
-} from "@patternfly/react-core";
 import { types } from "app/services/cluster";
+
+import ConstraintRow from "./ConstraintRow";
+import ConstraintCell from "./ConstraintCell";
 
 const ConstraintLocationRule = ({ constraint }: {
   constraint: types.ConstraintLocationRule,
 }) => {
   return (
-    <DataListItem aria-labelledby={`Location constraint ${constraint.id}`}>
-      <DataListItemRow>
-        <DataListItemCells dataListCells={[
-
-          <DataListCell key="type">
-            <span>Type</span>
-            {" "}
-            <strong>Location (rule)</strong>
-          </DataListCell>,
-
-          <DataListCell key="rule">
-            <span>
-              {"Rule "}
-              <strong>{constraint.ruleString}</strong>
-            </span>
-          </DataListCell>,
-
-          <DataListCell key="score">
-            <span>Score </span>
-            <strong>{constraint.ruleScore.value}</strong>
-          </DataListCell>,
-
-        ]}
-        />
-      </DataListItemRow>
-    </DataListItem>
+    <ConstraintRow aria-labelledby={`Location constraint ${constraint.id}`}>
+      <ConstraintCell key="type" label="Type" value="Location (rule)" />
+      <ConstraintCell key="rule" label="Rule" value={constraint.ruleString} />
+      <ConstraintCell
+        key="score"
+        label="Score"
+        value={constraint.ruleScore.value}
+      />
+    </ConstraintRow>
   );
 };
 

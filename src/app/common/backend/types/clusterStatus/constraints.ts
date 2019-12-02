@@ -15,11 +15,17 @@ const ApiRole = t.keyof({
   Slave: null,
 });
 
-const ApiConstraintAction = t.keyof({
+export const ApiConstraintAction = t.keyof({
   start: null,
   promote: null,
   demote: null,
   stop: null,
+});
+
+export const ApiOrderKind = t.keyof({
+  Optional: null,
+  Mandatory: null,
+  Serialize: null,
 });
 
 export const ApiReference = t.type({ "id-ref": ApiId });
@@ -121,6 +127,33 @@ export const ApiColocation = t.intersection([
   ]),
 ]);
 
+export const ApiOrder = t.intersection([
+  t.type({ id: ApiId }),
+  t.partial({
+    symmetrical: t.boolean,
+    "require-all": t.boolean,
+  }),
+  t.union([
+    t.partial({ score: ApiScore }),
+    t.partial({ kind: ApiOrderKind }),
+  ]),
+  t.union([
+    t.type({ sets: t.array(ApiResourceSet) }),
+    t.intersection([
+      t.type({
+        first: ApiId,
+        then: ApiId,
+      }),
+      t.partial({
+        "first-action": ApiConstraintAction,
+        "then-action": ApiConstraintAction,
+        "first-instance": t.number,
+        "then-instance": t.number,
+      }),
+    ]),
+  ]),
+]);
+
 /*
 There are remaining resource set attributes besides the "sets" attribute.
 */
@@ -139,6 +172,6 @@ const ApiConstraintAttributes = t.record(t.string, t.string);
 export const ApiConstraints = t.partial({
   rsc_location: t.array(ApiLocation),
   rsc_colocation: t.array(ApiColocation),
-  rsc_order: t.array(t.union([ApiConstraintSet, ApiConstraintAttributes])),
+  rsc_order: t.array(ApiOrder),
   rsc_ticket: t.array(t.union([ApiConstraintSet, ApiConstraintAttributes])),
 });

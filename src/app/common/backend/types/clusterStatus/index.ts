@@ -12,9 +12,12 @@ import {
   ApiConstraints,
   ApiLocation,
   ApiColocation,
+  ApiOrder,
   ApiLocationRule,
   ApiReference,
   ApiResourceSet,
+  ApiOrderKind,
+  ApiConstraintAction,
 } from "./constraints";
 import {
   ApiPrimitive,
@@ -41,9 +44,12 @@ export type ApiNode = t.TypeOf<typeof ApiNode>;
 export type ApiConstraints = t.TypeOf<typeof ApiConstraints>;
 export type ApiLocation = t.TypeOf<typeof ApiLocation>;
 export type ApiColocation = t.TypeOf<typeof ApiColocation>;
+export type ApiOrder = t.TypeOf<typeof ApiOrder>;
 export type ApiLocationRule = t.TypeOf<typeof ApiLocationRule>;
 export type ApiResourceSet = t.TypeOf<typeof ApiResourceSet>;
 export type ApiReference = t.TypeOf<typeof ApiReference>;
+export type ApiOrderKind = t.TypeOf<typeof ApiOrderKind>;
+export type ApiConstraintAction = t.TypeOf<typeof ApiConstraintAction>;
 
 export {
   TApiClusterName,

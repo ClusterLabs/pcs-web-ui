@@ -203,7 +203,7 @@ const resourceTree = cluster("resourceTree", "ok", {
         rule_string: "",
         rsc: "A",
         "id-ref": "somewhere else",
-      }
+      },
     ],
     "rsc_order": [
       {
@@ -212,7 +212,23 @@ const resourceTree = cluster("resourceTree", "ok", {
         "id": "order-A-G1-mandatory",
         "then": "GROUP-1",
         "then-action": "start"
-      }
+      },
+      {
+        id: "A-then-G1",
+        symetrical: true,
+        "require-all": true,
+        score: "INFINITY",
+        first: "A",
+        then: "GROUP-1",
+      },
+      {
+        id: "Clone-1-then-A",
+        symetrical: false,
+        "require-all": false,
+        score: "INFINITY",
+        first: "Clone-1",
+        then: "A",
+      },
     ]
   }
 });

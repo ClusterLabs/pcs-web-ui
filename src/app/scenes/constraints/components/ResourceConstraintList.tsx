@@ -5,9 +5,10 @@ import { DataList } from "@patternfly/react-core";
 import { Primitive } from "app/services/cluster/types";
 
 import ConstraintLocation from "./ConstraintLocation";
+import ConstraintLocationRule from "./ConstraintLocationRule";
 import ConstraintColocation from "./ConstraintColocation";
 import ConstraintColocationSet from "./ConstraintColocationSet";
-import ConstraintLocationRule from "./ConstraintLocationRule";
+import ConstraintOrder from "./ConstraintOrder";
 import * as selectors from "../selectors";
 
 const ResourceConstraintList = ({ primitive }: {
@@ -42,6 +43,13 @@ const ResourceConstraintList = ({ primitive }: {
           case "COLOCATION.SET": return (
             <ConstraintColocationSet
               constraint={constraint}
+              key={constraint.id}
+            />
+          );
+          case "ORDER": return (
+            <ConstraintOrder
+              constraint={constraint}
+              resourceId={primitive.id}
               key={constraint.id}
             />
           );

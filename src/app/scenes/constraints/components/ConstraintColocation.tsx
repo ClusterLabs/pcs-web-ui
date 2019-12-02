@@ -1,48 +1,28 @@
 import React from "react";
-import {
-  DataListItem,
-  DataListCell,
-  DataListItemRow,
-  DataListItemCells,
-} from "@patternfly/react-core";
+
 import { types } from "app/services/cluster";
+
+import ConstraintRow from "./ConstraintRow";
+import ConstraintCell from "./ConstraintCell";
 
 const ConstraintColocation = ({ constraint, resourceId }: {
   constraint: types.ConstraintColocation;
   resourceId: string;
 }) => {
   return (
-    <DataListItem aria-labelledby={`Location constraint ${constraint.id}`}>
-      <DataListItemRow>
-        <DataListItemCells dataListCells={[
-
-          <DataListCell key="type">
-            <span>Type</span>
-            {" "}
-            <strong>Colocation</strong>
-          </DataListCell>,
-
-          <DataListCell key="node">
-            <span>
-              {"With resource "}
-              <strong>
-                {
-                  constraint.firstResource.id === resourceId
-                    ? constraint.secondResource.id
-                    : constraint.firstResource.id
-                }
-              </strong>
-            </span>
-          </DataListCell>,
-
-          <DataListCell key="score">
-            <span>Score </span>
-            <strong>{constraint.score}</strong>
-          </DataListCell>,
-        ]}
-        />
-      </DataListItemRow>
-    </DataListItem>
+    <ConstraintRow aria-labelledby={`Colocation constraint ${constraint.id}`}>
+      <ConstraintCell key="type" label="Type" value="Colocation" />
+      <ConstraintCell
+        key="node"
+        label="With resource"
+        value={
+          constraint.firstResource.id === resourceId
+            ? constraint.secondResource.id
+            : constraint.firstResource.id
+        }
+      />
+      <ConstraintCell key="score" label="Score" value={constraint.score} />
+    </ConstraintRow>
   );
 };
 

@@ -15,7 +15,7 @@ export const getConstraintsForResource = (
   )
   ||
   (
-    constraint.type === "COLOCATION"
+    (constraint.type === "COLOCATION")
     &&
     (
       constraint.firstResource.id === resource.id
@@ -32,5 +32,15 @@ export const getConstraintsForResource = (
       &&
       resourceSet.resourceIdList.includes(resource.id)
     ))
+  )
+  ||
+  (
+    constraint.type === "ORDER"
+    &&
+    (
+      constraint.firstResource.id === resource.id
+      ||
+      constraint.thenResource.id === resource.id
+    )
   )
 ));
