@@ -4,28 +4,16 @@ import { types } from "app/services/cluster";
 
 import ConstraintRow from "./ConstraintRow";
 import ConstraintCell from "./ConstraintCell";
+import ConstraintCellResourceSet from "./ConstraintCellResourceSet";
 
 const ConstraintColocationSet = ({ constraint }: {
   constraint: types.ConstraintColocationSet,
 }) => {
   return (
     <ConstraintRow aria-labelledby={`Colocation constraint ${constraint.id}`}>
-      <ConstraintCell key="type" label="Type" value="Colocation" />
-      <ConstraintCell key="node" label="Set">
-        {constraint.sets.map((resourceSet) => {
-          if ("referenceId" in resourceSet) {
-            return null;
-          }
-          return (
-            <div key={resourceSet.id}>
-              {resourceSet.resourceIdList.map(resourceId => (
-                <span key={resourceId}>{`${resourceId} `}</span>
-              ))}
-            </div>
-          );
-        })}
-      </ConstraintCell>
-      <ConstraintCell key="score" label="Score" value={constraint.score} />
+      <ConstraintCell label="Type" value="Colocation (set)" />
+      <ConstraintCellResourceSet resourceSetList={constraint.sets} />
+      <ConstraintCell label="Score" value={constraint.score} />
     </ConstraintRow>
   );
 };
