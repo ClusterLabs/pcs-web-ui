@@ -11,9 +11,8 @@ const ConstraintRowColocation = ({ constraint, resourceId }: {
 }) => {
   return (
     <ConstraintRow aria-labelledby={`Colocation constraint ${constraint.id}`}>
-      <ConstraintCell key="type" label="Type" value="Colocation" />
+      <ConstraintCell label="Type" value="Colocation" />
       <ConstraintCell
-        key="node"
         label="With resource"
         value={
           constraint.firstResource.id === resourceId
@@ -21,7 +20,7 @@ const ConstraintRowColocation = ({ constraint, resourceId }: {
             : constraint.firstResource.id
         }
       />
-      <ConstraintCell key="score" label="Score" value={constraint.score} />
+      <ConstraintCell label="Score" value={constraint.score} />
     </ConstraintRow>
   );
 };

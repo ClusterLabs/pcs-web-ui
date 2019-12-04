@@ -13,11 +13,7 @@ const ConstraintRowOrderSet = ({ constraint }: {
     <ConstraintRow aria-labelledby={`Order constraint ${constraint.id}`}>
       <ConstraintCell label="Type" value="Order (set)" />
       <ConstraintCellResourceSet resourceSetList={constraint.sets} />
-      <ConstraintCell
-        key="symmetrical"
-        label="Symetrical"
-        value={constraint.symmetrical}
-      />
+      <ConstraintCell label="Symetrical" value={constraint.symmetrical} />
     </ConstraintRow>
   );
 };

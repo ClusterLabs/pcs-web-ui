@@ -11,26 +11,14 @@ const ConstraintRowOrder = ({ constraint, resourceId }: {
 }) => {
   return (
     <ConstraintRow aria-labelledby={`Order constraint ${constraint.id}`}>
-      <ConstraintCell key="type" label="Type" value="Order" />
+      <ConstraintCell label="Type" value="Order" />
       {constraint.firstResource.id === resourceId && (
-        <ConstraintCell
-          key="before-after"
-          label="Before"
-          value={constraint.thenResource.id}
-        />
+        <ConstraintCell label="Before" value={constraint.thenResource.id} />
       )}
       {constraint.firstResource.id !== resourceId && (
-        <ConstraintCell
-          key="before-after"
-          label="After"
-          value={constraint.firstResource.id}
-        />
+        <ConstraintCell label="After" value={constraint.firstResource.id} />
       )}
-      <ConstraintCell
-        key="symmetrical"
-        label="Symetrical"
-        value={constraint.symmetrical}
-      />
+      <ConstraintCell label="Symetrical" value={constraint.symmetrical} />
     </ConstraintRow>
   );
 };

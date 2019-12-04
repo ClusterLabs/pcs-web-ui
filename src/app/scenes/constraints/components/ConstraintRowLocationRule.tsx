@@ -9,13 +9,9 @@ const ConstraintRowLocationRule = ({ constraint }: {
 }) => {
   return (
     <ConstraintRow aria-labelledby={`Location constraint ${constraint.id}`}>
-      <ConstraintCell key="type" label="Type" value="Location (rule)" />
-      <ConstraintCell key="rule" label="Rule" value={constraint.ruleString} />
-      <ConstraintCell
-        key="score"
-        label="Score"
-        value={constraint.ruleScore.value}
-      />
+      <ConstraintCell label="Type" value="Location (rule)" />
+      <ConstraintCell label="Rule" value={constraint.ruleString} />
+      <ConstraintCell label="Score" value={constraint.ruleScore.value} />
     </ConstraintRow>
   );
 };
