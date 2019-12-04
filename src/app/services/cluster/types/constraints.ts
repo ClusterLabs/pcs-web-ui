@@ -1,10 +1,9 @@
 import {
-  ApiOrderKind,
   ApiConstraintAction,
+  ApiConstraintOrderKind,
+  ApiConstraintRole,
+  ApiScore,
 } from "app/common/backend/types/clusterStatus";
-
-type Score = "INFINITY"|"-INFINITY"|number;
-type Role = "Stopped"|"Started"|"Master"|"Slave";
 
 export type ResourceRelation = (
   |{
@@ -20,7 +19,7 @@ export type ResourceRelation = (
 export type RuleScore = (
   |{
     type: "SCORE";
-    value: Score;
+    value: ApiScore;
   }
   |{
     type: "SCORE.ATTRIBUTE";
@@ -35,7 +34,7 @@ type ConstraintLocationBase = {
 
 type ColocationResource = {
   id: string;
-  role?: Role;
+  role?: ApiConstraintRole;
   instance?: number;
 }
 
@@ -49,14 +48,14 @@ export type ResourceSet = Reference | {
   requireAll?: boolean;
   ordering?: "group"|"listed";
   action?: ConstraintAction;
-  role?: Role;
-  score?: Score;
+  role?: ApiConstraintRole;
+  score?: ApiScore;
   resourceIdList: string[];
 }
 
 export type ConstraintLocation = ConstraintLocationBase & {
   type: "LOCATION";
-  score: Score;
+  score: ApiScore;
   node: string;
 }
 
@@ -73,7 +72,7 @@ export type ConstraintLocationRuleRef = ConstraintLocationBase & {
 
 type ConstraintColocationBase = {
   id: string;
-  score?: Score;
+  score?: ApiScore;
 }
 
 export type ConstraintColocation = ConstraintColocationBase & {
@@ -99,8 +98,8 @@ type ConstraintOrderBase = {
   symmetrical?: boolean;
   requireAll?: boolean;
 } & (
-  | { score?: Score }
-  | { kind?: ApiOrderKind }
+  | { score?: ApiScore }
+  | { kind?: ApiConstraintOrderKind }
 )
 
 export type ConstraintOrder = ConstraintOrderBase & {

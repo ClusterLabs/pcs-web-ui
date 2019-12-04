@@ -1,14 +1,9 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import { ApiId, ApiResourceId } from "./common";
+import { ApiId, ApiResourceId, ApiScore } from "./common";
 
-const ApiScore = t.union([
-  t.number,
-  t.keyof({ INFINITY: null, "-INFINITY": null }),
-]);
-
-const ApiRole = t.keyof({
+export const ApiConstraintRole = t.keyof({
   Stopped: null,
   Started: null,
   Master: null,
@@ -22,16 +17,16 @@ export const ApiConstraintAction = t.keyof({
   stop: null,
 });
 
-export const ApiOrderKind = t.keyof({
+export const ApiConstraintOrderKind = t.keyof({
   Optional: null,
   Mandatory: null,
   Serialize: null,
 });
 
-export const ApiReference = t.type({ "id-ref": ApiId });
+const ApiConstraintIdReference = t.type({ "id-ref": ApiId });
 
-export const ApiResourceSet = t.union([
-  ApiReference,
+export const ApiConstraintResourceSet = t.union([
+  ApiConstraintIdReference,
   t.intersection([
     t.type({
       id: ApiId,
@@ -45,7 +40,7 @@ export const ApiResourceSet = t.union([
         listed: null,
       }),
       action: ApiConstraintAction,
-      role: ApiRole,
+      role: ApiConstraintRole,
       score: ApiScore,
     }),
   ]),
@@ -56,7 +51,7 @@ export const ApiResourceSet = t.union([
 It is not the full common rule. It is just shortened version which attributes
 are mixed into location constraint in the backend.
 */
-export const ApiLocationRule = t.intersection([
+export const ApiConstraintLocationRule = t.intersection([
   t.type({ id: ApiId }),
   t.union([
     t.type({ score: ApiScore }),
@@ -79,7 +74,7 @@ way.
 In backend sets inside locations are ignored. Location constraint with resource
 set ends up with "rsc" equals to null.
 */
-export const ApiLocation = t.intersection([
+export const ApiConstraintLocation = t.intersection([
   t.type({ id: ApiId }),
   t.union([
     t.type({ rsc: t.union([t.string, t.null]) }),
@@ -88,7 +83,7 @@ export const ApiLocation = t.intersection([
   t.union([
     t.intersection([
       t.type({ rule_string: t.string }),
-      t.union([ApiLocationRule, ApiReference]),
+      t.union([ApiConstraintLocationRule, ApiConstraintIdReference]),
     ]),
     t.type({
       node: t.string,
@@ -96,7 +91,7 @@ export const ApiLocation = t.intersection([
     }),
   ]),
   t.partial({
-    role: ApiRole,
+    role: ApiConstraintRole,
     "resource-discovery": t.keyof({
       always: null,
       never: null,
@@ -109,17 +104,17 @@ export const ApiLocation = t.intersection([
 The element lifetime with rules is not currently present in the backend
 response.
 */
-export const ApiColocation = t.intersection([
+export const ApiConstraintColocation = t.intersection([
   t.type({ id: ApiId }),
   t.partial({ score: ApiScore }),
   t.union([
-    t.type({ sets: t.array(ApiResourceSet) }),
+    t.type({ sets: t.array(ApiConstraintResourceSet) }),
     t.intersection([
       t.type({ rsc: t.string, "with-rsc": t.string }),
       t.partial({
         "node-attribute": t.string,
-        "rsc-role": ApiRole,
-        "with-rsc-role": ApiRole,
+        "rsc-role": ApiConstraintRole,
+        "with-rsc-role": ApiConstraintRole,
         "rsc-instance": t.number,
         "with-rsc-instance": t.number,
       }),
@@ -127,7 +122,7 @@ export const ApiColocation = t.intersection([
   ]),
 ]);
 
-export const ApiOrder = t.intersection([
+export const ApiConstraintOrder = t.intersection([
   t.type({ id: ApiId }),
   t.partial({
     symmetrical: t.boolean,
@@ -135,10 +130,10 @@ export const ApiOrder = t.intersection([
   }),
   t.union([
     t.partial({ score: ApiScore }),
-    t.partial({ kind: ApiOrderKind }),
+    t.partial({ kind: ApiConstraintOrderKind }),
   ]),
   t.union([
-    t.type({ sets: t.array(ApiResourceSet) }),
+    t.type({ sets: t.array(ApiConstraintResourceSet) }),
     t.intersection([
       t.type({
         first: ApiId,
@@ -170,8 +165,8 @@ const ApiConstraintSet = t.type({
 const ApiConstraintAttributes = t.record(t.string, t.string);
 
 export const ApiConstraints = t.partial({
-  rsc_location: t.array(ApiLocation),
-  rsc_colocation: t.array(ApiColocation),
-  rsc_order: t.array(ApiOrder),
+  rsc_location: t.array(ApiConstraintLocation),
+  rsc_colocation: t.array(ApiConstraintColocation),
+  rsc_order: t.array(ApiConstraintOrder),
   rsc_ticket: t.array(t.union([ApiConstraintSet, ApiConstraintAttributes])),
 });

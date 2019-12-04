@@ -1,10 +1,10 @@
 import {
   ApiClusterStatus,
-  ApiLocation,
-  ApiColocation,
-  ApiOrder,
-  ApiLocationRule,
-  ApiResourceSet,
+  ApiConstraintLocation,
+  ApiConstraintColocation,
+  ApiConstraintOrder,
+  ApiConstraintLocationRule,
+  ApiConstraintResourceSet,
 } from "app/common/backend/types/clusterStatus";
 import {
   Constraint,
@@ -14,7 +14,7 @@ import {
 } from "../types";
 
 const apiLocationToResourceRelation = (
-  apiLocation: ApiLocation,
+  apiLocation: ApiConstraintLocation,
 ): ResourceRelation => {
   if ("rsc-pattern" in apiLocation) {
     return {
@@ -37,7 +37,7 @@ const apiLocationToResourceRelation = (
 };
 
 const apiLocationToRuleScore = (
-  apiLocationRule: ApiLocationRule,
+  apiLocationRule: ApiConstraintLocationRule,
 ): RuleScore => {
   if ("score" in apiLocationRule) {
     return {
@@ -51,7 +51,7 @@ const apiLocationToRuleScore = (
   };
 };
 
-const apiToLocation = (apiLocation: ApiLocation): Constraint => {
+const apiToLocation = (apiLocation: ApiConstraintLocation): Constraint => {
   if ("node" in apiLocation) {
     return {
       type: "LOCATION",
@@ -78,7 +78,7 @@ const apiToLocation = (apiLocation: ApiLocation): Constraint => {
   };
 };
 
-const apiToResourceSet = (apiSet: ApiResourceSet): ResourceSet => {
+const apiToResourceSet = (apiSet: ApiConstraintResourceSet): ResourceSet => {
   if ("id-ref" in apiSet) {
     return { referenceId: apiSet["id-ref"] };
   }
@@ -94,7 +94,9 @@ const apiToResourceSet = (apiSet: ApiResourceSet): ResourceSet => {
   };
 };
 
-const apiToColocation = (apiColocation: ApiColocation): Constraint => {
+const apiToColocation = (
+  apiColocation: ApiConstraintColocation,
+): Constraint => {
   if ("sets" in apiColocation) {
     return {
       type: "COLOCATION.SET",
@@ -122,7 +124,7 @@ const apiToColocation = (apiColocation: ApiColocation): Constraint => {
   };
 };
 
-const apiToOrder = (apiOrder: ApiOrder): Constraint => {
+const apiToOrder = (apiOrder: ApiConstraintOrder): Constraint => {
   if ("sets" in apiOrder) {
     return {
       type: "ORDER.SET",
