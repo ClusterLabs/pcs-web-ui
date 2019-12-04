@@ -5,7 +5,7 @@ import { types } from "app/services/cluster";
 import ConstraintRow from "./ConstraintRow";
 import ConstraintCell from "./ConstraintCell";
 
-const ConstraintOrder = ({ constraint, resourceId }: {
+const ConstraintRowOrder = ({ constraint, resourceId }: {
   constraint: types.ConstraintOrder;
   resourceId: string;
 }) => {
@@ -35,4 +35,4 @@ const ConstraintOrder = ({ constraint, resourceId }: {
   );
 };
 
-export default ConstraintOrder;
+export default ConstraintRowOrder;

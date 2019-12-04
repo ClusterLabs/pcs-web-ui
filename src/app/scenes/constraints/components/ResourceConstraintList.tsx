@@ -4,12 +4,12 @@ import { DataList } from "@patternfly/react-core";
 
 import { Primitive } from "app/services/cluster/types";
 
-import ConstraintLocation from "./ConstraintLocation";
-import ConstraintLocationRule from "./ConstraintLocationRule";
-import ConstraintColocation from "./ConstraintColocation";
-import ConstraintColocationSet from "./ConstraintColocationSet";
-import ConstraintOrder from "./ConstraintOrder";
-import ConstraintOrderSet from "./ConstraintOrderSet";
+import ConstraintRowLocation from "./ConstraintRowLocation";
+import ConstraintRowLocationRule from "./ConstraintRowLocationRule";
+import ConstraintRowColocation from "./ConstraintRowColocation";
+import ConstraintRowColocationSet from "./ConstraintRowColocationSet";
+import ConstraintRowOrder from "./ConstraintRowOrder";
+import ConstraintRowOrderSet from "./ConstraintRowOrderSet";
 import * as selectors from "../selectors";
 
 const ResourceConstraintList = ({ primitive }: {
@@ -23,39 +23,39 @@ const ResourceConstraintList = ({ primitive }: {
       {constraintList.map((constraint) => {
         switch (constraint.type) {
           case "LOCATION": return (
-            <ConstraintLocation
+            <ConstraintRowLocation
               constraint={constraint}
               key={constraint.id}
             />
           );
           case "LOCATION.RULE": return (
-            <ConstraintLocationRule
+            <ConstraintRowLocationRule
               constraint={constraint}
               key={constraint.id}
             />
           );
           case "COLOCATION": return (
-            <ConstraintColocation
+            <ConstraintRowColocation
               constraint={constraint}
               resourceId={primitive.id}
               key={constraint.id}
             />
           );
           case "COLOCATION.SET": return (
-            <ConstraintColocationSet
+            <ConstraintRowColocationSet
               constraint={constraint}
               key={constraint.id}
             />
           );
           case "ORDER": return (
-            <ConstraintOrder
+            <ConstraintRowOrder
               constraint={constraint}
               resourceId={primitive.id}
               key={constraint.id}
             />
           );
           case "ORDER.SET": return (
-            <ConstraintOrderSet
+            <ConstraintRowOrderSet
               constraint={constraint}
               key={constraint.id}
             />

@@ -5,7 +5,7 @@ import { types } from "app/services/cluster";
 import ConstraintRow from "./ConstraintRow";
 import ConstraintCell from "./ConstraintCell";
 
-const ConstraintLocation = ({ constraint }: {
+const ConstraintRowLocation = ({ constraint }: {
   constraint: types.ConstraintLocation,
 }) => {
   return (
@@ -17,4 +17,4 @@ const ConstraintLocation = ({ constraint }: {
   );
 };
 
-export default ConstraintLocation;
+export default ConstraintRowLocation;

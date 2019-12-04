@@ -6,7 +6,7 @@ import ConstraintRow from "./ConstraintRow";
 import ConstraintCell from "./ConstraintCell";
 import ConstraintCellResourceSet from "./ConstraintCellResourceSet";
 
-const ConstraintOrderSet = ({ constraint }: {
+const ConstraintRowOrderSet = ({ constraint }: {
   constraint: types.ConstraintOrderSet,
 }) => {
   return (
@@ -22,4 +22,4 @@ const ConstraintOrderSet = ({ constraint }: {
   );
 };
 
-export default ConstraintOrderSet;
+export default ConstraintRowOrderSet;

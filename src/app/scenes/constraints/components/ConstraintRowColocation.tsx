@@ -5,7 +5,7 @@ import { types } from "app/services/cluster";
 import ConstraintRow from "./ConstraintRow";
 import ConstraintCell from "./ConstraintCell";
 
-const ConstraintColocation = ({ constraint, resourceId }: {
+const ConstraintRowColocation = ({ constraint, resourceId }: {
   constraint: types.ConstraintColocation;
   resourceId: string;
 }) => {
@@ -26,4 +26,4 @@ const ConstraintColocation = ({ constraint, resourceId }: {
   );
 };
 
-export default ConstraintColocation;
+export default ConstraintRowColocation;

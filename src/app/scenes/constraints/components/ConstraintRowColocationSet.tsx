@@ -6,7 +6,7 @@ import ConstraintRow from "./ConstraintRow";
 import ConstraintCell from "./ConstraintCell";
 import ConstraintCellResourceSet from "./ConstraintCellResourceSet";
 
-const ConstraintColocationSet = ({ constraint }: {
+const ConstraintRowColocationSet = ({ constraint }: {
   constraint: types.ConstraintColocationSet,
 }) => {
   return (
@@ -18,4 +18,4 @@ const ConstraintColocationSet = ({ constraint }: {
   );
 };
 
-export default ConstraintColocationSet;
+export default ConstraintRowColocationSet;
