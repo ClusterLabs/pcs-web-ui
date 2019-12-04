@@ -12,7 +12,7 @@ import ConstraintRowOrder from "./ConstraintRowOrder";
 import ConstraintRowOrderSet from "./ConstraintRowOrderSet";
 import * as selectors from "../selectors";
 
-const ResourceConstraintList = ({ primitive }: {
+const ConstraintListResource = ({ primitive }: {
   primitive: Primitive,
 }) => {
   const constraintList = useSelector(
@@ -67,4 +67,4 @@ const ResourceConstraintList = ({ primitive }: {
   );
 };
 
-export default ResourceConstraintList;
+export default ConstraintListResource;

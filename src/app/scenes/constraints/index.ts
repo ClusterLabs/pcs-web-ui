@@ -1,5 +1,5 @@
-import ResourceConstraintList from "./components/ResourceConstraintList";
+import ConstraintListResource from "./components/ConstraintListResource";
 
 export {
-  ResourceConstraintList,
+  ConstraintListResource,
 };
