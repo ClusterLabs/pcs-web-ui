@@ -1,5 +1,14 @@
 import { RootState } from "app/core/types";
-import { ResourceTreeItem } from "app/services/cluster/types";
+import { ResourceTreeItem, ResourceSet } from "app/services/cluster/types";
+
+
+const setsContainResourceId = (sets: ResourceSet[], resourceId: string) => (
+  sets.some(resourceSet => (
+    "resourceIdList" in resourceSet
+    &&
+    resourceSet.resourceIdList.includes(resourceId)
+  ))
+);
 
 export const getConstraintsForResource = (
   resource: ResourceTreeItem,
@@ -27,11 +36,7 @@ export const getConstraintsForResource = (
   (
     constraint.type === "COLOCATION.SET"
     &&
-    constraint.sets.some(resourceSet => (
-      "resourceIdList" in resourceSet
-      &&
-      resourceSet.resourceIdList.includes(resource.id)
-    ))
+    setsContainResourceId(constraint.sets, resource.id)
   )
   ||
   (
@@ -42,5 +47,11 @@ export const getConstraintsForResource = (
       ||
       constraint.thenResource.id === resource.id
     )
+  )
+  ||
+  (
+    constraint.type === "ORDER.SET"
+    &&
+    setsContainResourceId(constraint.sets, resource.id)
   )
 ));

@@ -225,10 +225,24 @@ const resourceTree = cluster("resourceTree", "ok", {
         id: "Clone-1-then-A",
         symetrical: false,
         "require-all": false,
-        score: "INFINITY",
+        kind: "Mandatory",
         first: "Clone-1",
         then: "A",
       },
+      {
+        id: "order-A-G1-INFINITY-2",
+        score: "INFINITY",
+        sets: [
+          {
+            id: "rs-order-A-G1-INFINITY-2-1",
+            resources: ["A", "GROUP-1"],
+          },
+          {
+            id: "rs-order-A-G1-INFINITY-2-2",
+            resources: ["B", "C"],
+          },
+        ]
+      }
     ]
   }
 });

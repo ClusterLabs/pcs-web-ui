@@ -9,6 +9,7 @@ import ConstraintLocationRule from "./ConstraintLocationRule";
 import ConstraintColocation from "./ConstraintColocation";
 import ConstraintColocationSet from "./ConstraintColocationSet";
 import ConstraintOrder from "./ConstraintOrder";
+import ConstraintOrderSet from "./ConstraintOrderSet";
 import * as selectors from "../selectors";
 
 const ResourceConstraintList = ({ primitive }: {
@@ -50,6 +51,12 @@ const ResourceConstraintList = ({ primitive }: {
             <ConstraintOrder
               constraint={constraint}
               resourceId={primitive.id}
+              key={constraint.id}
+            />
+          );
+          case "ORDER.SET": return (
+            <ConstraintOrderSet
+              constraint={constraint}
               key={constraint.id}
             />
           );
