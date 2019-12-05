@@ -4,6 +4,7 @@ import { types } from "app/services/cluster";
 
 import ConstraintRow from "./ConstraintRow";
 import ConstraintCell from "./ConstraintCell";
+import ConstraintCellOrderScoreKind from "./ConstraintCellOrderScoreKind";
 
 const ConstraintRowOrder = ({ constraint, resourceId }: {
   constraint: types.ConstraintOrder;
@@ -18,7 +19,7 @@ const ConstraintRowOrder = ({ constraint, resourceId }: {
       {constraint.firstResource.id !== resourceId && (
         <ConstraintCell label="After" value={constraint.firstResource.id} />
       )}
-      <ConstraintCell label="Symetrical" value={constraint.symmetrical} />
+      <ConstraintCellOrderScoreKind constraint={constraint} />
     </ConstraintRow>
   );
 };
