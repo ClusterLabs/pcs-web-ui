@@ -3,21 +3,21 @@ import * as t from "io-ts";
 
 import { ApiId, ApiResourceId, ApiScore } from "./common";
 
-export const ApiConstraintRole = t.keyof({
+const ApiConstraintRole = t.keyof({
   Stopped: null,
   Started: null,
   Master: null,
   Slave: null,
 });
 
-export const ApiConstraintAction = t.keyof({
+const ApiConstraintAction = t.keyof({
   start: null,
   promote: null,
   demote: null,
   stop: null,
 });
 
-export const ApiConstraintOrderKind = t.keyof({
+const ApiConstraintOrderKind = t.keyof({
   Optional: null,
   Mandatory: null,
   Serialize: null,
@@ -51,7 +51,7 @@ export const ApiConstraintResourceSet = t.union([
 It is not the full common rule. It is just shortened version which attributes
 are mixed into location constraint in the backend.
 */
-export const ApiConstraintLocationRule = t.intersection([
+const ApiConstraintLocationRule = t.intersection([
   t.type({ id: ApiId }),
   t.union([
     t.type({ score: ApiScore }),
