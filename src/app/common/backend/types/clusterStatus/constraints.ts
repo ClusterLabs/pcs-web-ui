@@ -25,6 +25,13 @@ const ApiConstraintOrderKind = t.keyof({
 
 const ApiConstraintIdReference = t.type({ "id-ref": ApiId });
 
+const ApiConstraintTicketLossPolicy = t.keyof({
+  stop: null,
+  demote: null,
+  fence: null,
+  freeze: null,
+});
+
 export const ApiConstraintResourceSet = t.union([
   ApiConstraintIdReference,
   t.intersection([
@@ -149,24 +156,24 @@ export const ApiConstraintOrder = t.intersection([
   ]),
 ]);
 
-/*
-There are remaining resource set attributes besides the "sets" attribute.
-*/
-const ApiConstraintSet = t.type({
-  sets: t.array(t.intersection([
-    t.type({
-      id: ApiId,
-      resources: t.array(t.string),
-    }),
-    t.record(t.string, t.string),
-  ])),
-});
-
-const ApiConstraintAttributes = t.record(t.string, t.string);
+export const ApiConstraintTicket = t.intersection([
+  t.type({
+    id: ApiId,
+    ticket: t.string,
+  }),
+  t.union([
+    t.type({ sets: t.array(ApiConstraintResourceSet) }),
+    t.intersection([
+      t.type({ rsc: t.string }),
+      t.partial({ "rsc-role": ApiConstraintRole }),
+    ]),
+  ]),
+  t.partial({ "loss-policy": ApiConstraintTicketLossPolicy }),
+]);
 
 export const ApiConstraints = t.partial({
   rsc_location: t.array(ApiConstraintLocation),
   rsc_colocation: t.array(ApiConstraintColocation),
   rsc_order: t.array(ApiConstraintOrder),
-  rsc_ticket: t.array(t.union([ApiConstraintSet, ApiConstraintAttributes])),
+  rsc_ticket: t.array(ApiConstraintTicket),
 });

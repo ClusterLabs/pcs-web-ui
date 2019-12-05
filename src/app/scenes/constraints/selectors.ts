@@ -5,6 +5,7 @@ type Pack = (
   |{ type: "LOCATION", constraint: types.ConstraintLocation }
   |{ type: "COLOCATION", constraint: types.ConstraintColocation }
   |{ type: "ORDER", constraint: types.ConstraintOrder }
+  |{ type: "TICKET", constraint: types.ConstraintTicket }
 );
 
 const setsContainId = (sets: types.ConstraintResourceSet[], id: string) => (
@@ -52,9 +53,19 @@ export const getConstraintsForResource = (
     .map(constraint => ({ type: "ORDER", constraint }))
   ;
 
+  const tickets: Pack[] = (constraintMap.rsc_ticket || [])
+    .filter(c => (
+      ("sets" in c && setsContainId(c.sets, resource.id))
+      ||
+      ("rsc" in c && c.rsc === resource.id)
+    ))
+    .map(constraint => ({ type: "TICKET", constraint }))
+  ;
+
   return [
     ...locations,
     ...colocations,
     ...orders,
+    ...tickets,
   ];
 };

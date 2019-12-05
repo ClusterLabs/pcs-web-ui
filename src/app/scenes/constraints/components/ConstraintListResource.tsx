@@ -7,6 +7,7 @@ import { Primitive } from "app/services/cluster/types";
 import ConstraintRowLocation from "./ConstraintRowLocation";
 import ConstraintRowColocation from "./ConstraintRowColocation";
 import ConstraintRowOrder from "./ConstraintRowOrder";
+import ConstraintRowTicket from "./ConstraintRowTicket";
 import * as selectors from "../selectors";
 
 const ConstraintListResource = ({ primitive }: {
@@ -29,6 +30,12 @@ const ConstraintListResource = ({ primitive }: {
             <ConstraintRowColocation
               constraint={pack.constraint}
               resourceId={primitive.id}
+              key={pack.constraint.id}
+            />
+          );
+          case "TICKET": return (
+            <ConstraintRowTicket
+              constraint={pack.constraint}
               key={pack.constraint.id}
             />
           );

@@ -12,6 +12,7 @@ import {
   ApiConstraintColocation,
   ApiConstraintLocation,
   ApiConstraintOrder,
+  ApiConstraintTicket,
   ApiConstraintResourceSet,
   ApiConstraints,
 } from "./constraints";
@@ -37,6 +38,7 @@ export type ApiConstraintResourceSet = t.TypeOf<
   typeof ApiConstraintResourceSet
 >;
 export type ApiConstraints = t.TypeOf<typeof ApiConstraints>;
+export type ApiConstraintTicket = t.TypeOf<typeof ApiConstraintTicket>;
 export type ApiGroup = t.TypeOf<typeof ApiGroup>;
 export type ApiIssue = t.TypeOf<typeof ApiIssue>;
 export type ApiNode = t.TypeOf<typeof ApiNode>;

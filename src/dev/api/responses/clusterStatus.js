@@ -243,7 +243,30 @@ const resourceTree = cluster("resourceTree", "ok", {
           },
         ]
       }
-    ]
+    ],
+    "rsc_ticket": [
+      {
+        id: "A-ticket",
+        ticket: "ABC",
+        rsc: "A",
+        "rsc-role": "Started",
+      },
+      {
+        id: "ticket-A-G1-INFINITY-2",
+        ticket: "ABC",
+        "loss-policy": "stop",
+        sets: [
+          {
+            id: "rs-ticket-A-G1-INFINITY-2-1",
+            resources: ["A", "GROUP-1"],
+          },
+          {
+            id: "rs-ticket-A-G1-INFINITY-2-2",
+            resources: ["B", "C"],
+          },
+        ],
+      }
+    ],
   }
 });
 
