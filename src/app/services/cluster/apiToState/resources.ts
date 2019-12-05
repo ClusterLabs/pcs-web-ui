@@ -41,6 +41,15 @@ export const statusToSeverity = (
   }
 };
 
+export const filterPrimitive = (
+  candidateList: (ApiPrimitive|ApiStonith)[],
+): ApiPrimitive[] => (
+  candidateList.filter(
+    (m): m is ApiPrimitive => m.class_type === "primitive",
+  )
+);
+
+
 const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   id: apiResource.id,
   itemType: "primitive",
@@ -61,15 +70,7 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   ),
 });
 
-export const filterPrimitive = (
-  candidateList: (ApiPrimitive|ApiStonith)[],
-): ApiPrimitive[] => (
-  candidateList.filter(
-    (m): m is ApiPrimitive => m.class_type === "primitive",
-  )
-);
-
-const toResourceTreeGroup = (apiGroup: ApiGroup): Group|undefined => {
+const toGroup = (apiGroup: ApiGroup): Group|undefined => {
   // Theoreticaly, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
   const primitiveMembers = filterPrimitive(apiGroup.members);
@@ -81,17 +82,17 @@ const toResourceTreeGroup = (apiGroup: ApiGroup): Group|undefined => {
   return {
     id: apiGroup.id,
     itemType: "group",
-    resources: primitiveMembers.map(toPrimitive),
+    resources: primitiveMembers.map(p => toPrimitive(p)),
     status: transformStatus(apiGroup.status),
     statusSeverity: statusToSeverity(apiGroup.status),
     issueList: transformIssues(apiGroup),
   };
 };
 
-const toResourceTreeClone = (apiClone: ApiClone): Clone|undefined => {
+const toClone = (apiClone: ApiClone): Clone|undefined => {
   const member = apiClone.member.class_type === "primitive"
     ? toPrimitive(apiClone.member)
-    : toResourceTreeGroup(apiClone.member)
+    : toGroup(apiClone.member)
   ;
 
   if (member === undefined) {
@@ -147,7 +148,7 @@ export const analyzeApiResources = (
         };
 
       case "group": {
-        const group = toResourceTreeGroup(apiResource);
+        const group = toGroup(apiResource);
         // don't care about group of stonith only...
         return group === undefined ? analyzed : {
           ...analyzed,
@@ -157,7 +158,7 @@ export const analyzeApiResources = (
       }
 
       case "clone": default: {
-        const clone = toResourceTreeClone(apiResource);
+        const clone = toClone(apiResource);
         // don't care about clone with stonith only...
         return clone === undefined ? analyzed : {
           ...analyzed,

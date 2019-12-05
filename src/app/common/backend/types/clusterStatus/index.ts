@@ -9,6 +9,14 @@ import {
   ApiNodeName as TApiNodeName,
 } from "./nodes";
 import {
+  ApiConstraintColocation,
+  ApiConstraintLocation,
+  ApiConstraintOrder,
+  ApiConstraintTicket,
+  ApiConstraintResourceSet,
+  ApiConstraints,
+} from "./constraints";
+import {
   ApiPrimitive,
   ApiResource as TApiResource,
   ApiClone,
@@ -21,15 +29,23 @@ import {
   ApiClusterName as TApiClusterName,
 } from "./cluster";
 
+export type ApiClone = t.TypeOf<typeof ApiClone>;
+export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
+export type ApiConstraintColocation = t.TypeOf<typeof ApiConstraintColocation>;
+export type ApiConstraintLocation = t.TypeOf<typeof ApiConstraintLocation>;
+export type ApiConstraintOrder = t.TypeOf<typeof ApiConstraintOrder>;
+export type ApiConstraintResourceSet = t.TypeOf<
+  typeof ApiConstraintResourceSet
+>;
+export type ApiConstraints = t.TypeOf<typeof ApiConstraints>;
+export type ApiConstraintTicket = t.TypeOf<typeof ApiConstraintTicket>;
+export type ApiGroup = t.TypeOf<typeof ApiGroup>;
+export type ApiIssue = t.TypeOf<typeof ApiIssue>;
+export type ApiNode = t.TypeOf<typeof ApiNode>;
 export type ApiPrimitive = t.TypeOf<typeof ApiPrimitive>;
 export type ApiResource = t.TypeOf<typeof TApiResource>;
-export type ApiClone = t.TypeOf<typeof ApiClone>;
-export type ApiGroup = t.TypeOf<typeof ApiGroup>;
 export type ApiStonith = t.TypeOf<typeof ApiStonith>;
-export type ApiIssue = t.TypeOf<typeof ApiIssue>;
 export type ApiWithIssues = t.TypeOf<typeof TApiWithIssues>;
-export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
-export type ApiNode = t.TypeOf<typeof ApiNode>;
 
 export {
   TApiClusterName,

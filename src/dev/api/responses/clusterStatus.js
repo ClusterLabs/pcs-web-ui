@@ -99,6 +99,7 @@ const cluster = (name, status, diff) => deepmerge(
     warning_list: [],
     error_list: [],
     resource_list: [],
+    constraints: {},
   },
   diff || {},
   { arrayMerge: overwriteMerge },
@@ -153,6 +154,120 @@ const resourceTree = cluster("resourceTree", "ok", {
     ),
     clone("Clone-2", resource("F")),
   ],
+  constraints: {
+    rsc_colocation: [
+      {
+        id: "colocation-A-G1-INFINITY",
+        rsc: "A",
+        score: "INFINITY",
+        "with-rsc": "GROUP-1",
+      },
+      {
+        id: "colocation-A-G1-INFINITY-2",
+        score: "INFINITY",
+        sets: [
+          {
+            id: "rs-colocation-A-G1-INFINITY-2-1",
+            resources: ["A", "GROUP-1"],
+          },
+          {
+            id: "rs-colocation-A-G1-INFINITY-2-2",
+            resources: ["B", "C"],
+          },
+        ]
+      }
+    ],
+    rsc_location: [
+      {
+        id: "cli-prefer-A",
+        node: "node-1",
+        role: "Started",
+        rsc: "A",
+        score: "INFINITY"
+      },
+      {
+        id: "G-prefer-node-1",
+        node: "node-1",
+        "rsc-pattern": "G.*",
+        score: "INFINITY",
+      },
+      {
+        id: "cli-prefer-A-1",
+        rule_string: "date gt 2019-11-28 and date lt 2019-12-01",
+        role: "Started",
+        rsc: "A",
+        score: "INFINITY",
+      },
+      {
+        id: "cli-prefer-A-2",
+        rule_string: "",
+        rsc: "A",
+        "id-ref": "somewhere else",
+      },
+    ],
+    "rsc_order": [
+      {
+        "first": "A",
+        "first-action": "start",
+        "id": "order-A-G1-mandatory",
+        "then": "GROUP-1",
+        "then-action": "start"
+      },
+      {
+        id: "A-then-G1",
+        symetrical: true,
+        "require-all": true,
+        score: "INFINITY",
+        first: "A",
+        then: "GROUP-1",
+      },
+      {
+        id: "Clone-1-then-A",
+        symetrical: false,
+        "require-all": false,
+        kind: "Mandatory",
+        first: "Clone-1",
+        then: "A",
+      },
+      {
+        id: "order-A-G1-INFINITY-2",
+        score: "INFINITY",
+        sets: [
+          {
+            id: "rs-order-A-G1-INFINITY-2-1",
+            resources: ["A", "GROUP-1"],
+          },
+          {
+            id: "rs-order-A-G1-INFINITY-2-2",
+            resources: ["B", "C"],
+          },
+        ]
+      }
+    ],
+    "rsc_ticket": [
+      {
+        id: "A-ticket",
+        ticket: "ABC",
+        rsc: "A",
+        "rsc-role": "Started",
+      },
+      {
+        id: "ticket-A-G1-INFINITY-2",
+        ticket: "ABC",
+        "loss-policy": "stop",
+        sets: [
+          {
+            id: "rs-ticket-A-G1-INFINITY-2-1",
+            resources: ["A", "GROUP-1"],
+          },
+          {
+            id: "rs-ticket-A-G1-INFINITY-2-2",
+            resources: ["B", "C"],
+          },
+        ],
+      }
+    ],
+  }
 });
 
 const clusterError = cluster("error", "error", {

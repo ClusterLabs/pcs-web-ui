@@ -10,6 +10,7 @@ import {
   DetailLayout,
   ResourceDetailCaption,
 } from "app/common/components";
+import { ConstraintListResource } from "app/scenes/constraints";
 
 import PrimitiveAttributes from "./PrimitiveAttributes";
 import PrimitiveDetail from "./PrimitiveDetail";
@@ -23,10 +24,12 @@ const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
   const urlMap = {
     Detail: join(urlPrefix),
     Attributes: join(urlPrefix, "attributes"),
+    Constraints: join(urlPrefix, "constraints"),
   };
   const { tab } = tabRoutes.selectCurrent<keyof typeof urlMap>("Detail", {
     Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
     Attributes: useRouteMatch(urlMap.Attributes),
+    Constraints: useRouteMatch(urlMap.Constraints),
   });
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
@@ -51,6 +54,10 @@ const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
       {tab === "Attributes" && (
         <PrimitiveAttributes primitive={primitive} />
       )}
+      {tab === "Constraints" && (
+        <ConstraintListResource primitive={primitive} />
+      )}
+
     </DetailLayout>
   );
 };

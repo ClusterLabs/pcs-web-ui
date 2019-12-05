@@ -53,6 +53,7 @@ export const apiToState = (
     issueList: transformIssues(apiClusterStatus),
     resourceTree,
     fenceDeviceList,
+    constraints: apiClusterStatus.constraints,
     summary: {
       resourcesSeverity,
       fenceDevicesSeverity,

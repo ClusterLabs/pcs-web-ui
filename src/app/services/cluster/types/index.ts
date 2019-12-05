@@ -1,4 +1,18 @@
 import { StatusSeverity } from "app/common/types";
+import {
+  ApiConstraints,
+  ApiConstraintColocation,
+  ApiConstraintLocation,
+  ApiConstraintOrder,
+  ApiConstraintTicket,
+  ApiConstraintResourceSet,
+} from "app/common/backend/types/clusterStatus";
+
+export type ConstraintLocation = ApiConstraintLocation;
+export type ConstraintColocation = ApiConstraintColocation;
+export type ConstraintOrder = ApiConstraintOrder;
+export type ConstraintResourceSet = ApiConstraintResourceSet;
+export type ConstraintTicket = ApiConstraintTicket;
 
 export interface InstanceAttribute {
   id: string,
@@ -67,6 +81,7 @@ export interface ClusterState {
   nodeList: Node[],
   resourceTree: ResourceTreeItem[],
   fenceDeviceList: FenceDevice[],
+  constraints?: ApiConstraints,
   issueList: Issue[],
   summary: {
     nodesSeverity: StatusSeverity,
