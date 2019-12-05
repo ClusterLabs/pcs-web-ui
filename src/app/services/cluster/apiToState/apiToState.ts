@@ -7,7 +7,6 @@ import { ClusterState } from "../types";
 import { transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
-import { convertConstraints } from "./constraints";
 
 export const transformStatus = (
   status: ApiClusterStatus["status"],
@@ -54,7 +53,7 @@ export const apiToState = (
     issueList: transformIssues(apiClusterStatus),
     resourceTree,
     fenceDeviceList,
-    constraints: convertConstraints(apiClusterStatus.constraints),
+    constraints: apiClusterStatus.constraints,
     summary: {
       resourcesSeverity,
       fenceDevicesSeverity,

@@ -13,7 +13,6 @@ const clusterStatusDefault: ClusterState = {
   resourceTree: [],
   fenceDeviceList: [],
   issueList: [],
-  constraints: [],
   summary: {
     nodesSeverity: "UNKNOWN",
     resourcesSeverity: "UNKNOWN",

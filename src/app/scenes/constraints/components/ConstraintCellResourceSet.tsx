@@ -4,17 +4,17 @@ import { types } from "app/services/cluster";
 import ConstraintCell from "./ConstraintCell";
 
 const ConstraintCellResourceSet = ({ resourceSetList }: {
-  resourceSetList: types.ResourceSet[],
+  resourceSetList: types.ConstraintResourceSet[],
 }) => {
   return (
     <ConstraintCell label="Set">
       {resourceSetList.map((resourceSet) => {
-        if ("referenceId" in resourceSet) {
+        if ("id-ref" in resourceSet) {
           return null;
         }
         return (
           <div key={resourceSet.id}>
-            {resourceSet.resourceIdList.map(resourceId => (
+            {resourceSet.resources.map(resourceId => (
               <span key={resourceId}>{`${resourceId} `}</span>
             ))}
           </div>

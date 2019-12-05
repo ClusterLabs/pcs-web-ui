@@ -5,7 +5,7 @@ import { types } from "app/services/cluster";
 import ConstraintCell from "./ConstraintCell";
 
 const ConstraintCellOrderScoreKind = ({ constraint }: {
-  constraint: types.ConstraintOrder|types.ConstraintOrderSet;
+  constraint: types.ConstraintOrder;
 }) => {
   // score and kind are mutually exclusive
   if ("score" in constraint) {

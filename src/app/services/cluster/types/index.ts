@@ -1,30 +1,16 @@
 import { StatusSeverity } from "app/common/types";
-
 import {
-  ResourceSet,
-  Constraint,
-  ConstraintLocation,
-  ConstraintColocation,
-  ConstraintColocationSet,
-  ConstraintLocationRule,
-  ConstraintLocationRuleRef,
-  ConstraintOrder,
-  ConstraintOrderSet,
-  ResourceRelation,
-  RuleScore,
-} from "./constraints";
+  ApiConstraints,
+  ApiConstraintColocation,
+  ApiConstraintLocation,
+  ApiConstraintOrder,
+  ApiConstraintResourceSet,
+} from "app/common/backend/types/clusterStatus";
 
-export type ResourceRelation = ResourceRelation;
-export type Constraint = Constraint;
-export type ConstraintLocation = ConstraintLocation;
-export type ConstraintColocation = ConstraintColocation;
-export type ConstraintColocationSet = ConstraintColocationSet;
-export type ConstraintLocationRule = ConstraintLocationRule;
-export type ConstraintLocationRuleRef = ConstraintLocationRuleRef;
-export type ConstraintOrder = ConstraintOrder;
-export type ConstraintOrderSet = ConstraintOrderSet;
-export type RuleScore = RuleScore;
-export type ResourceSet = ResourceSet;
+export type ConstraintLocation = ApiConstraintLocation;
+export type ConstraintColocation = ApiConstraintColocation;
+export type ConstraintOrder = ApiConstraintOrder;
+export type ConstraintResourceSet = ApiConstraintResourceSet;
 
 export interface InstanceAttribute {
   id: string,
@@ -93,7 +79,7 @@ export interface ClusterState {
   nodeList: Node[],
   resourceTree: ResourceTreeItem[],
   fenceDeviceList: FenceDevice[],
-  constraints: Constraint[],
+  constraints?: ApiConstraints,
   issueList: Issue[],
   summary: {
     nodesSeverity: StatusSeverity,
