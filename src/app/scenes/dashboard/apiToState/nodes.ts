@@ -1,4 +1,4 @@
-import { ApiNode } from "app/common/backend/types/clusterOverview";
+import { ApiNode } from "app/backend/types/clusterOverview";
 import { apiToState as clusterApiToState } from "app/services/cluster";
 import { statusSeverity } from "app/common/utils";
 import { StatusSeverity } from "app/common/types";

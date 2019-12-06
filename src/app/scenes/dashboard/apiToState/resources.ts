@@ -1,4 +1,4 @@
-import { ApiResource } from "app/common/backend/types/clusterOverview";
+import { ApiResource } from "app/backend/types/clusterOverview";
 import { StatusSeverity } from "app/common/types";
 import { typeIs, statusSeverity } from "app/common/utils";
 import { apiToState as clusterApiToState } from "app/services/cluster";

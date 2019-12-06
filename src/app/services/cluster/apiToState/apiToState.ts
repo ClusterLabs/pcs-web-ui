@@ -1,7 +1,7 @@
 import {
   ApiClusterStatus,
   ApiIssue,
-} from "app/common/backend/types/clusterStatus";
+} from "app/backend/types/clusterStatus";
 
 import { ClusterState } from "../types";
 import { transformIssues } from "./issues";

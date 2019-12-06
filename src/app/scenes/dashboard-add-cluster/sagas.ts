@@ -14,7 +14,7 @@ import {
   existingCluster,
   ApiResult,
   authSafe,
-} from "app/common/backend";
+} from "app/backend";
 
 
 function* checkAuthentication(

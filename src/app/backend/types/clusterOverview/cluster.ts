@@ -6,7 +6,7 @@ import {
   TApiWithIssues as ApiWithIssues,
   TApiResource as ApiResource,
   TApiClusterName as ApiClusterName,
-} from "app/common/backend/types/clusterStatus";
+} from "app/backend/types/clusterStatus";
 
 import { ApiNode } from "./nodes";
 

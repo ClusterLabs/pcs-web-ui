@@ -8,7 +8,7 @@ import {
   getResourceAgentMetadata,
   ApiResult,
   authSafe,
-} from "app/common/backend";
+} from "app/backend";
 
 import { Action, actionType, PrimitiveResourceActions } from "app/actions";
 

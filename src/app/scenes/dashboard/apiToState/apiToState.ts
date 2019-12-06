@@ -1,4 +1,4 @@
-import { ApiClusterStatus } from "app/common/backend/types/clusterOverview";
+import { ApiClusterStatus } from "app/backend/types/clusterOverview";
 import { apiToState as clusterApiToState } from "app/services/cluster";
 import { ClusterState } from "../types";
 import { analyzeApiResources } from "./resources";

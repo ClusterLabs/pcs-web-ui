@@ -1,4 +1,4 @@
-import { clusterStatus, ApiResponse } from "app/common/backend";
+import { clusterStatus, ApiResponse } from "app/backend";
 
 export type ClusterActions = {
   FetchClusterDataSuccess: {

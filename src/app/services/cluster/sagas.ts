@@ -8,7 +8,7 @@ import {
 import { failMessage } from "app/backend";
 import { putNotification } from "app/scenes/notifications";
 import { dataLoadManage, DataLoadProps } from "app/services/data-load/sagas";
-import { clusterStatus, authSafe, ApiResult } from "app/common/backend";
+import { clusterStatus, authSafe, ApiResult } from "app/backend";
 
 import { Action, ClusterActions } from "app/actions";
 

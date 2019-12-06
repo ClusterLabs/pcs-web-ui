@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import { ApiResource } from "app/common/backend/types/clusterStatus";
+import { ApiResource } from "app/backend/types/clusterStatus";
 
 import { ApiNode } from "./nodes";
 import { ApiClusterStatus as TApiClusterStatus } from "./cluster";

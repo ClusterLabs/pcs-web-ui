@@ -1,4 +1,4 @@
-import { clustersOverview, ApiResponse } from "app/common/backend";
+import { clustersOverview, ApiResponse } from "app/backend";
 
 export type DashboardActions = {
   FetchDashboardDataSuccess: {

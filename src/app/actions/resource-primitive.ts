@@ -1,4 +1,4 @@
-import { getResourceAgentMetadata, ApiResponse } from "app/common/backend";
+import { getResourceAgentMetadata, ApiResponse } from "app/backend";
 
 export type PrimitiveResourceActions = {
   LoadResourceAgent: {

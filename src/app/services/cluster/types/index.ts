@@ -6,7 +6,7 @@ import {
   ApiConstraintOrder,
   ApiConstraintTicket,
   ApiConstraintResourceSet,
-} from "app/common/backend/types/clusterStatus";
+} from "app/backend/types/clusterStatus";
 
 export type ConstraintLocation = ApiConstraintLocation;
 export type ConstraintColocation = ApiConstraintColocation;
