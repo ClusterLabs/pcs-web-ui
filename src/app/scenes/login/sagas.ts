@@ -1,10 +1,9 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
 import { putNotification } from "app/scenes/notifications";
-import { Action, actionType } from "app/actions";
+import { Action, actionType, LoginActions } from "app/actions";
 import * as api from "app/common/api";
 
-import { LoginActions } from "./actions";
 
 export function* logout() {
   try {

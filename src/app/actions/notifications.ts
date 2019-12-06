@@ -1,10 +1,12 @@
-import { Notification } from "./types";
-
 export type NotificationActions = {
   Create: {
     type: "NOTIFICATION.CREATE",
     payload: {
-      notification: Notification,
+      notification: {
+        id: number,
+        severity: "INFO"|"SUCCESS"|"ERROR",
+        message: string,
+      },
     }
   };
 

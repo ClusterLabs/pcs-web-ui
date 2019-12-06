@@ -10,8 +10,7 @@ import { putNotification } from "app/scenes/notifications";
 import { dataLoadManage, DataLoadProps } from "app/services/data-load/sagas";
 import { clusterStatus, authSafe, ApiResult } from "app/common/backend";
 
-import { Action } from "app/actions";
-import { ClusterActions } from "./actions";
+import { Action, ClusterActions } from "app/actions";
 
 function* fetchClusterData(clusterUrlName: string) {
   try {

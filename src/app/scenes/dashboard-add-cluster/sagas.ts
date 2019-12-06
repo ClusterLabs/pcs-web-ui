@@ -6,7 +6,7 @@ import {
   takeEvery,
 } from "redux-saga/effects";
 
-import { Action, actionType } from "app/actions";
+import { Action, actionType, AddClusterActions } from "app/actions";
 
 import {
   authGuiAgainstNodes,
@@ -16,7 +16,6 @@ import {
   authSafe,
 } from "app/common/backend";
 
-import { AddClusterActions } from "./actions";
 
 function* checkAuthentication(
   { payload: { nodeName } }: AddClusterActions["CheckAuth"],

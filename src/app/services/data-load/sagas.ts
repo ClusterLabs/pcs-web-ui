@@ -10,9 +10,7 @@ import {
   ForkEffect,
 } from "redux-saga/effects";
 
-import { Action, actionType } from "app/actions";
-
-import { ReadingDefinition } from "./types";
+import { Action, actionType, SetupDataReading } from "app/actions";
 
 const SYNC_DELAY = 30 * 1000;// ms
 
@@ -104,23 +102,16 @@ export function* dataLoadManage({
   }
 }
 
-type StopReadingMap = Record<string, {
-  specificator?: any,
-  stop: Action,
-}>
-
 export function* setUpDataReading() {
-  let stops: StopReadingMap = {};
+  let stops: Record<string, { specificator?: any, stop: Action }> = {};
   const stop = (name: string) => put(stops[name].stop);
   const stopSpecificator = (name: string) => stops[name].specificator;
-  const start = (
-    readings: Record<string, ReadingDefinition>,
-    name: string,
-  ) => put(readings[name].start);
 
   /* eslint-disable no-constant-condition */
   while (true) {
-    const { payload: readings } = yield take(actionType("DATA_READING.SET_UP"));
+    const { payload: readings }: SetupDataReading = yield take(
+      actionType("DATA_READING.SET_UP"),
+    );
     const newNames = Object.keys(readings);
     const oldNames = Object.keys(stops);
 
@@ -130,7 +121,7 @@ export function* setUpDataReading() {
         ||
         readings[name].specificator !== stopSpecificator(name)
       ))
-      .map(name => stop(name))
+      .map(stop)
     ;
 
     const startActions = newNames
@@ -139,7 +130,7 @@ export function* setUpDataReading() {
         ||
         readings[name].specificator !== stopSpecificator(name)
       ))
-      .map(name => start(readings, name))
+      .map(name => put(readings[name].start))
     ;
 
     stops = newNames.reduce(

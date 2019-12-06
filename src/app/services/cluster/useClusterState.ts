@@ -1,16 +1,16 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Action } from "app/actions";
+import { Action, LeafAction } from "app/actions";
 
 import * as selectors from "./selectors";
 
-const stop: Action = { type: "CLUSTER_DATA.SYNC.STOP" };
+const stop: LeafAction = { type: "CLUSTER_DATA.SYNC.STOP" };
 
 const useClusterState = (clusterUrlName: string) => {
   const dispatch = useDispatch();
 
-  const start = React.useMemo<Action>(
+  const start = React.useMemo<LeafAction>(
     () => ({
       type: "CLUSTER_DATA.SYNC",
       payload: { clusterUrlName },

@@ -5,9 +5,7 @@ import {
 import { push } from "connected-react-router";
 
 import { putNotification } from "app/scenes/notifications";
-import { actionType } from "app/actions";
-
-import { ResourceDetailActions } from "./actions";
+import { actionType, ResourceDetailActions } from "app/actions";
 
 function* correctView({
   payload: { resourceId, viewName, url },

@@ -9,9 +9,8 @@ import {
   ApiResult,
   authSafe,
 } from "app/common/backend";
-import { Action, actionType } from "app/actions";
 
-import { PrimitiveResourceActions } from "./actions";
+import { Action, actionType, PrimitiveResourceActions } from "app/actions";
 
 
 function* loadResourceAgent({

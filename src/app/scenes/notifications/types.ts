@@ -1,7 +1,7 @@
-export interface Notification {
-  id: number,
-  severity: "INFO"|"SUCCESS"|"ERROR",
-  message: string,
-}
+import { NotificationActions } from "app/actions";
+
+export type Notification
+  = NotificationActions["Create"]["payload"]["notification"]
+;
 
 export type NotificationState = Notification[];

@@ -1,26 +1,29 @@
-import { AddClusterActions } from "app/scenes/dashboard-add-cluster/actions";
-import { AuthActions } from "app/services/auth/actions";
-import { ClusterActions } from "app/services/cluster/actions";
-import { DashboardActions } from "app/scenes/dashboard/actions";
-import { DataLoadActions } from "app/services/data-load/actions";
-import { LoginActions } from "app/scenes/login/actions";
-import { NotificationActions } from "app/scenes/notifications/actions";
-import { ResourceDetailActions } from "app/scenes/resource-detail/actions";
-import { ResourceTreeActions } from "app/scenes/resource-tree/actions";
-import { UsernameActions } from "app/services/username/actions";
-import {
-  PrimitiveResourceActions,
-} from "app/scenes/resource-primitive/actions";
+import { AddClusterActions } from "./dashboard-add-cluster";
+import { AuthActions } from "./auth";
+import { ClusterActions } from "./cluster";
+import { DashboardActions } from "./dashboard";
+import { LoginActions } from "./login";
+import { NotificationActions } from "./notifications";
+import { ResourceDetailActions } from "./resource-detail";
+import { ResourceTreeActions } from "./resource-tree";
+import { UsernameActions } from "./username";
+import { PrimitiveResourceActions } from "./resource-primitive";
 
+export type AddClusterActions = AddClusterActions;
+export type AuthActions = AuthActions;
+export type ClusterActions = ClusterActions;
+export type LoginActions = LoginActions;
+export type NotificationActions = NotificationActions;
+export type ResourceDetailActions = ResourceDetailActions;
+export type PrimitiveResourceActions = PrimitiveResourceActions;
 
 type Union<A> = A[keyof A];
 
-export type Action = (
+export type LeafAction = (
   | Union<AddClusterActions>
   | Union<AuthActions>
   | Union<ClusterActions>
   | Union<DashboardActions>
-  | Union<DataLoadActions>
   | Union<LoginActions>
   | Union<NotificationActions>
   | Union<ResourceDetailActions>
@@ -29,6 +32,15 @@ export type Action = (
   | Union<PrimitiveResourceActions>
 );
 
-export function actionType(value: Action["type"]) {
-  return value;
+export type SetupDataReading = {
+    type: "DATA_READING.SET_UP",
+    payload: Record<string, {
+      start: LeafAction,
+      stop: LeafAction,
+      specificator?: any,
+    }>,
 }
+
+export type Action = LeafAction|SetupDataReading;
+
+export const actionType = (value: Action["type"]) => value;

@@ -6,8 +6,7 @@ import {
   takeEvery,
 } from "redux-saga/effects";
 
-import { Action, actionType } from "app/actions";
-import { AuthActions } from "app/services/auth/actions";
+import { Action, actionType, AuthActions } from "app/actions";
 
 const USERNAME_STORAGE_KEY = "username";
 
