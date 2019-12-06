@@ -32,6 +32,11 @@ const ApiConstraintTicketLossPolicy = t.keyof({
   freeze: null,
 });
 
+const ApiConstraintResourceSetOrdering = t.keyof({
+  group: null,
+  listed: null,
+});
+
 export const ApiConstraintResourceSet = t.union([
   ApiConstraintIdReference,
   t.intersection([
@@ -42,10 +47,7 @@ export const ApiConstraintResourceSet = t.union([
     t.partial({
       sequential: t.boolean,
       "require-all": t.boolean,
-      ordering: t.keyof({
-        group: null,
-        listed: null,
-      }),
+      ordering: ApiConstraintResourceSetOrdering,
       action: ApiConstraintAction,
       role: ApiConstraintRole,
       score: ApiScore,
