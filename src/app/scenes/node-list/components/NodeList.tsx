@@ -8,11 +8,7 @@ import NodeListItem from "./NodeListItem";
 const NodeList = ({ nodeList }: { nodeList: Node[] }) => (
   <DataList aria-label="Cluster node list">
     {nodeList.map(node => (
-      <NodeListItem
-        key={node.name}
-        nodeName={node.name}
-        status={node.status}
-      />
+      <NodeListItem key={node.name} node={node} />
     ))}
   </DataList>
 );
