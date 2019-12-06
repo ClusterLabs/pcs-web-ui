@@ -1,14 +1,44 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Title, PageSection } from "@patternfly/react-core";
+import {
+  PageSection,
+  Card,
+  CardBody,
+  CardHeader,
+  Stack,
+  StackItem,
+} from "@patternfly/react-core";
 
-import { selectors } from "app/services/cluster";
+import { StatusSign } from "app/common/components";
+
+import { selectors, IssueList } from "app/services/cluster";
 
 const ClusterDetail = () => {
   const cluster = useSelector(selectors.getCluster);
   return (
     <PageSection>
-      <Title size="xl">{cluster.name}</Title>
+      <Card>
+        <CardHeader>
+          {"Cluster "}
+          <strong>{cluster.name}</strong>
+        </CardHeader>
+        <CardBody>
+          <Stack gutter="md" className="pf-u-m-md">
+            <StackItem>
+              <span>
+                {"Status "}
+                <StatusSign
+                  status={cluster.statusSeverity}
+                  label={<strong>{cluster.status}</strong>}
+                />
+              </span>
+            </StackItem>
+            <StackItem>
+              <IssueList issueList={cluster.issueList} />
+            </StackItem>
+          </Stack>
+        </CardBody>
+      </Card>
     </PageSection>
   );
 };

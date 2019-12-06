@@ -8,6 +8,17 @@ import { transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
 
+const statusToSeverity = (
+  status: ApiClusterStatus["status"],
+): ClusterState["statusSeverity"] => {
+  switch (status) {
+    case "ok": return "OK";
+    case "warning": return "WARNING";
+    case "error": return "ERROR";
+    default: return "UNKNOWN";
+  }
+};
+
 export const transformStatus = (
   status: ApiClusterStatus["status"],
 ): ClusterState["status"] => {
@@ -49,6 +60,7 @@ export const apiToState = (
     name: apiClusterStatus.cluster_name,
     urlName: apiClusterStatus.cluster_name,
     status: transformStatus(apiClusterStatus.status),
+    statusSeverity: statusToSeverity(apiClusterStatus.status),
     nodeList,
     issueList: transformIssues(apiClusterStatus),
     resourceTree,

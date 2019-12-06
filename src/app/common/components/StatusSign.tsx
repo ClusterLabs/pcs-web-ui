@@ -5,7 +5,7 @@ import StatusIco from "./StatusIco";
 const StatusSign = (
   { status, label, showOkIco = false }:
   React.ComponentProps<typeof StatusIco> & {
-    label: string,
+    label: string|JSX.Element,
     showOkIco?: boolean,
   },
 ) => (

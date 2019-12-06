@@ -9,6 +9,7 @@ const clusterStatusDefault: ClusterState = {
   name: "",
   urlName: "",
   status: "UNKNOWN",
+  statusSeverity: "UNKNOWN",
   nodeList: [],
   resourceTree: [],
   fenceDeviceList: [],
