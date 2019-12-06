@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { DataList } from "@patternfly/react-core";
 
+import { NoItemCase } from "app/common/components";
 import { ResourceTreeItem } from "app/services/cluster/types";
 
 import ConstraintRowLocation from "./ConstraintRowLocation";
@@ -16,6 +17,9 @@ const ConstraintListResource = ({ resource }: {
   const constraintPacks = useSelector(
     selectors.getConstraintsForResource(resource),
   );
+  if (constraintPacks.length === 0) {
+    return <NoItemCase margin={false} message="No constraint is configured." />;
+  }
   return (
     <DataList aria-label={`Constraints of resource ${resource.id}`}>
       {constraintPacks.map((pack) => {
