@@ -72,6 +72,7 @@ export interface FenceDevice {
   status: ResourceStatusFlag,
   statusSeverity: StatusSeverity,
   issueList: Issue[],
+  type: string,
 }
 
 export interface ClusterState {

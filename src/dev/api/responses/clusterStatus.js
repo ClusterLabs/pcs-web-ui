@@ -58,6 +58,7 @@ const stonith = (id, diff) => resource(id, {
   ...diff,
   class_type: "primitive",
   class: "stonith",
+  type: "fence_xvm",
   stonith: true,
   provider: null,
 });

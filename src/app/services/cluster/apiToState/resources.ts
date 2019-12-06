@@ -110,6 +110,7 @@ const toClone = (apiClone: ApiClone): Clone|undefined => {
 
 const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
   id: apiFenceDevice.id,
+  type: apiFenceDevice.type,
   status: transformStatus(apiFenceDevice.status),
   statusSeverity: statusToSeverity(apiFenceDevice.status),
   issueList: transformIssues(apiFenceDevice),
