@@ -1,4 +1,4 @@
-import * as api from "app/common/api";
+import { getJson } from "app/backend";
 import {
   ApiCall,
   createResult,
@@ -12,7 +12,7 @@ const clusterStatus: ApiCall<ApiClusterStatus> = async (
   clusterUrlName:string,
 ) => {
   try {
-    const raw = await api.call.getJson(
+    const raw = await getJson(
       `/managec/${clusterUrlName}/cluster_status`,
     );
     return createResult<ApiClusterStatus>(

@@ -1,4 +1,4 @@
-import * as api from "app/common/api";
+import { getJson } from "app/backend";
 import {
   ApiCall,
   createResult,
@@ -13,7 +13,7 @@ import {
 
 const clustersOverview: ApiCall<ApiClustersOverview> = async () => {
   try {
-    const raw = await api.call.getJson("/clusters_overview");
+    const raw = await getJson("/clusters_overview");
     return createResult<ApiClustersOverview>(
       raw,
       validateShape(raw, TApiClustersOverview),

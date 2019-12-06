@@ -1,7 +1,7 @@
 import { call, put, take } from "redux-saga/effects";
 import { SagaIterator } from "redux-saga";
 
-import * as api from "app/common/api";
+import { isUnauthorizedError } from "app/backend";
 import { Action, actionType } from "app/actions";
 
 import { ApiCall } from "./result";
@@ -12,7 +12,7 @@ export function authSafe< R, F extends ApiCall<R>>(fn: F) {
       const responseFirstAttempt = yield call(fn, ...args);
       return responseFirstAttempt;
     } catch (error) {
-      if (!api.error.isUnauthorizedError(error)) {
+      if (!isUnauthorizedError(error)) {
         throw error;
       }
     }
@@ -25,7 +25,7 @@ export function authSafe< R, F extends ApiCall<R>>(fn: F) {
       const responseSecondAttempt = yield call(fn, ...args);
       return responseSecondAttempt;
     } catch (error) {
-      if (api.error.isUnauthorizedError(error)) {
+      if (isUnauthorizedError(error)) {
         throw new Error(
           "Still got unauthorized after successfull authorization.",
         );

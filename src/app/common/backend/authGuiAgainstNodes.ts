@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import * as api from "app/common/api";
+import { postForJson } from "app/backend";
 
 import {
   ApiCall,
@@ -35,7 +35,7 @@ const authGuiAgainstNodes: ApiCall<Result> = async (
     }[];
   }>,
 ) => {
-  const raw = await api.call.postForJson(
+  const raw = await postForJson(
     "/manage/auth_gui_against_nodes",
     [["data_json", JSON.stringify({ nodes: nodeMap })]],
   );

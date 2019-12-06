@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import * as api from "app/common/api";
+import { getJson } from "app/backend";
 
 import {
   ApiCall,
@@ -34,7 +34,7 @@ type Result = t.TypeOf<typeof ApiCheckAuthAgainstNodes>;
 
 const checkAuthAgainstNodes: ApiCall<Result> = async (nodeList: string[]) => {
   const uniqueNodeList = Array.from(new Set(nodeList));
-  const raw = await api.call.getJson(
+  const raw = await getJson(
     "/manage/check_auth_against_nodes",
     uniqueNodeList.map(node => ["node_list[]", node]),
   );

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import * as api from "app/common/api";
+import { getJson } from "app/backend";
 
 import {
   ApiCall,
@@ -52,7 +52,7 @@ const getResourceAgentMetadata: ApiCall<Result> = async (
   agentName:string,
 ) => {
   try {
-    const raw = await api.call.getJson(
+    const raw = await getJson(
       `/managec/${clusterUrlName}/get_resource_agent_metadata`,
       [["agent", agentName]],
     );

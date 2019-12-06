@@ -5,7 +5,7 @@ import {
   put,
 } from "redux-saga/effects";
 
-import * as api from "app/common/api";
+import { failMessage } from "app/backend";
 import { putNotification } from "app/scenes/notifications";
 import { dataLoadManage, DataLoadProps } from "app/services/data-load/sagas";
 import { clustersOverview, authSafe, ApiResult } from "app/common/backend";
@@ -41,7 +41,7 @@ export function* fetchDashboardData() {
       payload: { apiClusterOverview: result.response },
     });
   } catch (error) {
-    const errorMessage = api.error.failMessage(error);
+    const errorMessage = failMessage(error);
     yield all([
       putNotification("ERROR", `Cannot sync dashboard data: ${errorMessage}`),
       put<Action>(

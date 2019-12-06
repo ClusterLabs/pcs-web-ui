@@ -5,7 +5,7 @@ import {
   put,
 } from "redux-saga/effects";
 
-import * as api from "app/common/api";
+import { failMessage } from "app/backend";
 import { putNotification } from "app/scenes/notifications";
 import { dataLoadManage, DataLoadProps } from "app/services/data-load/sagas";
 import { clusterStatus, authSafe, ApiResult } from "app/common/backend";
@@ -41,7 +41,7 @@ function* fetchClusterData(clusterUrlName: string) {
       payload: { apiClusterStatus: result.response },
     });
   } catch (error) {
-    const errorMessage = api.error.failMessage(error);
+    const errorMessage = failMessage(error);
     yield all([
       putNotification(
         "ERROR",

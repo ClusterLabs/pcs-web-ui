@@ -2,19 +2,19 @@ import { call, put, takeEvery } from "redux-saga/effects";
 
 import { putNotification } from "app/scenes/notifications";
 import { Action, actionType, LoginActions } from "app/actions";
-import * as api from "app/common/api";
+import { isUnauthorizedError, getForText, postForText } from "app/backend";
 
 
 export function* logout() {
   try {
     yield putNotification("INFO", "Trying to logout");
 
-    yield call(api.call.getForText, "/ui/logout");
+    yield call(getForText, "/ui/logout");
 
     yield putNotification("SUCCESS", "Success logout");
     yield put<Action>({ type: "LOGOUT.SUCCESS" });
   } catch (error) {
-    if (api.error.isUnauthorizedError(error)) {
+    if (isUnauthorizedError(error)) {
       // Ok we are already somehow loged out.
       yield putNotification("SUCCESS", "Already logged out");
       yield put<Action>({ type: "LOGOUT.SUCCESS" });
@@ -28,7 +28,7 @@ export function* login(
   { payload: { username, password } }: LoginActions["EnterCredentials"],
 ) {
   try {
-    yield call(api.call.postForText, "/ui/login", [
+    yield call(postForText, "/ui/login", [
       ["username", username],
       ["password", password],
     ]);
@@ -40,8 +40,8 @@ export function* login(
     yield put<Action>({
       type: "LOGIN.FAILED",
       payload: {
-        badCredentials: api.error.isUnauthorizedError(error),
-        message: api.error.isUnauthorizedError(error) ? "" : error.message,
+        badCredentials: isUnauthorizedError(error),
+        message: isUnauthorizedError(error) ? "" : error.message,
       },
     });
   }
