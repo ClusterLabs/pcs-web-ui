@@ -8,6 +8,8 @@ import {
   DetailLayout,
   ResourceDetailCaption,
 } from "app/common/components";
+import { ConstraintListResource } from "app/scenes/constraints";
+
 import GroupDetail from "./GroupDetail";
 
 const GroupPage = ({ group, urlPrefix, onClose }: {
@@ -17,9 +19,11 @@ const GroupPage = ({ group, urlPrefix, onClose }: {
 }) => {
   const urlMap = {
     Detail: join(urlPrefix),
+    Constraints: join(urlPrefix, "constraints"),
   };
   const { tab } = tabRoutes.selectCurrent<keyof typeof urlMap>("Detail", {
     Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
+    Constraints: useRouteMatch(urlMap.Constraints),
   });
   return (
     <DetailLayout
@@ -29,6 +33,9 @@ const GroupPage = ({ group, urlPrefix, onClose }: {
     >
       {tab === "Detail" && (
         <GroupDetail group={group} />
+      )}
+      {tab === "Constraints" && (
+        <ConstraintListResource resource={group} />
       )}
     </DetailLayout>
   );

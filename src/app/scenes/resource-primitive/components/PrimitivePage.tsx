@@ -55,7 +55,7 @@ const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
         <PrimitiveAttributes primitive={primitive} />
       )}
       {tab === "Constraints" && (
-        <ConstraintListResource primitive={primitive} />
+        <ConstraintListResource resource={primitive} />
       )}
 
     </DetailLayout>

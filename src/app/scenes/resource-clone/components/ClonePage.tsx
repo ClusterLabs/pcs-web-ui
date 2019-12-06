@@ -8,6 +8,8 @@ import {
   DetailLayout,
   ResourceDetailCaption,
 } from "app/common/components";
+import { ConstraintListResource } from "app/scenes/constraints";
+
 import CloneDetail from "./CloneDetail";
 
 const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
@@ -17,9 +19,11 @@ const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
 }) => {
   const urlMap = {
     Detail: join(urlPrefix),
+    Constraints: join(urlPrefix, "constraints"),
   };
   const { tab } = tabRoutes.selectCurrent<keyof typeof urlMap>("Detail", {
     Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
+    Constraints: useRouteMatch(urlMap.Constraints),
   });
   return (
     <DetailLayout
@@ -29,6 +33,9 @@ const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
     >
       {tab === "Detail" && (
         <CloneDetail clone={clone} />
+      )}
+      {tab === "Constraints" && (
+        <ConstraintListResource resource={clone} />
       )}
     </DetailLayout>
   );

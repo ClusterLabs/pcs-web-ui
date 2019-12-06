@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { DataList } from "@patternfly/react-core";
 
-import { Primitive } from "app/services/cluster/types";
+import { ResourceTreeItem } from "app/services/cluster/types";
 
 import ConstraintRowLocation from "./ConstraintRowLocation";
 import ConstraintRowColocation from "./ConstraintRowColocation";
@@ -10,15 +10,15 @@ import ConstraintRowOrder from "./ConstraintRowOrder";
 import ConstraintRowTicket from "./ConstraintRowTicket";
 import * as selectors from "../selectors";
 
-const ConstraintListResource = ({ primitive }: {
-  primitive: Primitive,
+const ConstraintListResource = ({ resource }: {
+  resource: ResourceTreeItem,
 }) => {
-  const constraintList = useSelector(
-    selectors.getConstraintsForResource(primitive),
+  const constraintPacks = useSelector(
+    selectors.getConstraintsForResource(resource),
   );
   return (
-    <DataList aria-label={`Constraints of resource ${primitive.id}`}>
-      {constraintList.map((pack) => {
+    <DataList aria-label={`Constraints of resource ${resource.id}`}>
+      {constraintPacks.map((pack) => {
         switch (pack.type) {
           case "LOCATION": return (
             <ConstraintRowLocation
@@ -29,7 +29,7 @@ const ConstraintListResource = ({ primitive }: {
           case "COLOCATION": return (
             <ConstraintRowColocation
               constraint={pack.constraint}
-              resourceId={primitive.id}
+              resourceId={resource.id}
               key={pack.constraint.id}
             />
           );
@@ -42,7 +42,7 @@ const ConstraintListResource = ({ primitive }: {
           case "ORDER": default: return (
             <ConstraintRowOrder
               constraint={pack.constraint}
-              resourceId={primitive.id}
+              resourceId={resource.id}
               key={pack.constraint.id}
             />
           );
