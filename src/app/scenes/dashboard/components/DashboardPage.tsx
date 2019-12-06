@@ -6,7 +6,7 @@ import {
   PageSectionDataLoading,
   Page,
 } from "app/common/components";
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 
 import * as selectors from "../selectors";
 import Dashboard from "./Dashboard";

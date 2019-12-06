@@ -1,6 +1,6 @@
 import { Reducer, combineReducers } from "redux";
 
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 
 import { ResourcePrimitiveState } from "./types";
 

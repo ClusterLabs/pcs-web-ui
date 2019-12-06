@@ -1,6 +1,6 @@
 import { combineReducers, Reducer } from "redux";
 
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 
 import { ClusterState, ClusterServiceState, FETCH_STATUS } from "./types";
 import { apiToState as clusterApiToState } from "./apiToState";

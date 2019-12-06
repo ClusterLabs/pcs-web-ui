@@ -1,4 +1,4 @@
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 
 export interface ReadingDefinition {
   start: Action,

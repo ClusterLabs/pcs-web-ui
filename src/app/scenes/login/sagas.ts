@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
 import { putNotification } from "app/scenes/notifications";
-import { Action, actionType } from "app/common/actions";
+import { Action, actionType } from "app/actions";
 import * as api from "app/common/api";
 
 import { LoginActions } from "./actions";

@@ -10,7 +10,7 @@ import {
 
 import { Spinner } from "app/common/components";
 
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 import { NodeName, StateError } from "../types";
 
 const AddClusterAuthRequired = (

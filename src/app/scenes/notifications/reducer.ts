@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 
 import { NotificationState } from "./types";
 

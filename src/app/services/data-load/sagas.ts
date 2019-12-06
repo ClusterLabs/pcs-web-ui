@@ -10,7 +10,7 @@ import {
   ForkEffect,
 } from "redux-saga/effects";
 
-import { Action, actionType } from "app/common/actions";
+import { Action, actionType } from "app/actions";
 
 import { ReadingDefinition } from "./types";
 

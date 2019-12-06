@@ -9,7 +9,7 @@ import {
   ApiResult,
   authSafe,
 } from "app/common/backend";
-import { Action, actionType } from "app/common/actions";
+import { Action, actionType } from "app/actions";
 
 import { PrimitiveResourceActions } from "./actions";
 

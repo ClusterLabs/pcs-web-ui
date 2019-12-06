@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 
 import * as selectors from "./selectors";
 

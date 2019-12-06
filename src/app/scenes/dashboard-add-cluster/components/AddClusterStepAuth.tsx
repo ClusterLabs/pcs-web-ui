@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Spinner } from "app/common/components";
 
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 import * as selectors from "../selectors";
 import { AUTH_STATE } from "../types";
 import AddClusterAuthRequired from "./AddClusterAuthRequired";

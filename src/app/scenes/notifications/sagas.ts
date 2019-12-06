@@ -1,6 +1,6 @@
 import { delay, put, takeEvery } from "redux-saga/effects";
 
-import { Action, actionType } from "app/common/actions";
+import { Action, actionType } from "app/actions";
 
 import { Notification } from "./types";
 import { create as createNotification } from "./actionCreators";

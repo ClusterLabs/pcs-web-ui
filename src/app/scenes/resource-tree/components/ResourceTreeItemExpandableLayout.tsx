@@ -7,7 +7,7 @@ import {
 } from "@patternfly/react-core";
 
 import { ResourceTreeItem } from "app/services/cluster/types";
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 
 import * as selectors from "../selectors";
 import ResourceTreeItemDescription from "./ResourceTreeItemDescription";

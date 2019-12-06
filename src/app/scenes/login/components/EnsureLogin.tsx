@@ -6,7 +6,7 @@ import {
 } from "@patternfly/react-core";
 import { BackgroundImage } from "app/common/components";
 
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 import * as selectors from "../selectors";
 
 const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {

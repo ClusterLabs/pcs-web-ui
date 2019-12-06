@@ -2,7 +2,7 @@ import { call, put, take } from "redux-saga/effects";
 import { SagaIterator } from "redux-saga";
 
 import * as api from "app/common/api";
-import { Action, actionType } from "app/common/actions";
+import { Action, actionType } from "app/actions";
 
 import { ApiCall } from "./result";
 

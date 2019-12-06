@@ -1,5 +1,5 @@
 import { combineReducers, Reducer } from "redux";
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 import {
   AUTH_STATE,
   ADD_STATE,

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Alert, AlertActionCloseButton } from "@patternfly/react-core";
 
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 import { Notification } from "../types";
 import * as selectors from "../selectors";
 

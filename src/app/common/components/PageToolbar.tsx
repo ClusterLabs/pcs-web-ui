@@ -9,7 +9,7 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 import { useUsername } from "app/services/username";
 
 const PageToolbarView = () => {

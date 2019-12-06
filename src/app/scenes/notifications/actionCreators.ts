@@ -1,4 +1,4 @@
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 import { Notification } from "./types";
 
 let nextId = 1;

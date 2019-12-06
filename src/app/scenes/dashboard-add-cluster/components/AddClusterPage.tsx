@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Wizard } from "@patternfly/react-core";
 
-import { Action } from "app/common/actions";
+import { Action } from "app/actions";
 import * as selectors from "../selectors";
 import AddClusterStepAuth from "./AddClusterStepAuth";
 import AddClusterStepAdd from "./AddClusterStepAdd";

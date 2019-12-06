@@ -5,7 +5,7 @@ import {
 import { push } from "connected-react-router";
 
 import { putNotification } from "app/scenes/notifications";
-import { actionType } from "app/common/actions";
+import { actionType } from "app/actions";
 
 import { ResourceDetailActions } from "./actions";
 
