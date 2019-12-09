@@ -19,11 +19,12 @@ import getResourceAgentMetadata from "./getResourceAgentMetadata";
 import {
   ApiResponse as ApiResponseType,
   ApiResult as ApiResultType,
-  authSafe,
+  ApiCall,
 } from "./tools";
 
 export type ApiResponse<T> = ApiResponseType<T>;
 export type ApiResult<T> = ApiResultType<T>;
+export type ApiCall<T> = ApiCall<T>;
 
 
 export {
@@ -41,5 +42,4 @@ export {
   getResourceAgentMetadata,
   clusterStatus,
   clustersOverview,
-  authSafe,
 };

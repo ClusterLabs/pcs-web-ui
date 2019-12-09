@@ -4,14 +4,13 @@ import {
   put,
 } from "redux-saga/effects";
 
+import { Action, actionType, PrimitiveResourceActions } from "app/actions";
 import {
   getResourceAgentMetadata,
   ApiResult,
-  authSafe,
 } from "app/backend";
 
-import { Action, actionType, PrimitiveResourceActions } from "app/actions";
-
+import { authSafe } from "./authSafe";
 
 function* loadResourceAgent({
   payload: { agentName, clusterUrlName },

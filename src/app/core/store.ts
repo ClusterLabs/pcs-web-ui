@@ -3,7 +3,8 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { routerMiddleware } from "connected-react-router";
 import createSagaMiddleware from "redux-saga";
 
-import { rootReducer, rootSaga } from "./plug";
+import { rootSaga } from "app/store/sagas";
+import { rootReducer } from "./plug";
 
 /* global window */
 /* eslint-disable no-underscore-dangle */

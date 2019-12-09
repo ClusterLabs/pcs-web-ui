@@ -13,8 +13,9 @@ import {
   checkAuthAgainstNodes,
   existingCluster,
   ApiResult,
-  authSafe,
 } from "app/backend";
+
+import { authSafe } from "./authSafe";
 
 
 function* checkAuthentication(

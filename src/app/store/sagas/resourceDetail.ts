@@ -4,8 +4,9 @@ import {
 } from "redux-saga/effects";
 import { push } from "connected-react-router";
 
-import { putNotification } from "app/scenes/notifications";
 import { actionType, ResourceDetailActions } from "app/actions";
+
+import { putNotification } from "./notifications";
 
 function* correctView({
   payload: { resourceId, viewName, url },

@@ -5,14 +5,18 @@ import {
   put,
 } from "redux-saga/effects";
 
-import { failMessage } from "app/backend";
-import { putNotification } from "app/scenes/notifications";
-import { dataLoadManage, DataLoadProps } from "app/services/data-load/sagas";
-import { clustersOverview, authSafe, ApiResult } from "app/backend";
-
 import { Action } from "app/actions";
+import {
+  clustersOverview,
+  ApiResult,
+  failMessage,
+} from "app/backend";
 
-export function* fetchDashboardData() {
+import { putNotification } from "./notifications";
+import { dataLoadManage, DataLoadProps } from "./dataLoad";
+import { authSafe } from "./authSafe";
+
+function* fetchDashboardData() {
   try {
     const result: ApiResult<typeof clustersOverview> = yield call(
       authSafe(clustersOverview),

@@ -5,12 +5,16 @@ import {
   put,
 } from "redux-saga/effects";
 
-import { failMessage } from "app/backend";
-import { putNotification } from "app/scenes/notifications";
-import { dataLoadManage, DataLoadProps } from "app/services/data-load/sagas";
-import { clusterStatus, authSafe, ApiResult } from "app/backend";
-
 import { Action, ClusterActions } from "app/actions";
+import {
+  clusterStatus,
+  ApiResult,
+  failMessage,
+} from "app/backend";
+
+import { putNotification } from "./notifications";
+import { dataLoadManage, DataLoadProps } from "./dataLoad";
+import { authSafe } from "./authSafe";
 
 function* fetchClusterData(clusterUrlName: string) {
   try {

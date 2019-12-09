@@ -10,7 +10,6 @@ import {
   validateSameNodes,
   validateShape,
 } from "./validate";
-import { authSafe } from "./authSafe";
 import { dealWithInvalidJson } from "./dealWithInvalidJson";
 
 export type ApiCall<T> = ApiCallType<T>;
@@ -20,7 +19,6 @@ export type ApiResult<T> = ApiResultType<T>;
 export {
   createResult,
   createResultInvalid,
-  authSafe,
   dealWithInvalidJson,
   validateSameNodes,
   validateShape,
