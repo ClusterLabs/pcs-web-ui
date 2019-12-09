@@ -9,9 +9,9 @@ import {
 import { StatusSign } from "app/common/components";
 import { toLabel } from "app/common/utils";
 
-import { Node } from "app/services/cluster/types";
+import { types } from "app/store";
 
-const NodeListItem = ({ node }: { node: Node }) => (
+const NodeListItem = ({ node }: { node: types.cluster.Node }) => (
   <DataListItem aria-labelledby={node.name}>
     <DataListItemRow>
       <DataListItemCells

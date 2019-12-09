@@ -2,7 +2,7 @@ import React from "react";
 import { PageSection } from "@patternfly/react-core";
 import { useSelector } from "react-redux";
 
-import { selectors } from "app/services/cluster";
+import { selectors } from "app/store";
 
 import ResourceTree from "./ResourceTree";
 

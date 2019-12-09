@@ -2,7 +2,7 @@ import React from "react";
 import {
   DataList,
 } from "@patternfly/react-core";
-import { ResourceTreeItem } from "app/services/cluster/types";
+import { types } from "app/store";
 
 import * as url from "app/common/urls";
 import { NoItemCase } from "app/common/components";
@@ -18,7 +18,7 @@ const ResourceTree = ({
   compact = false,
   selectedResourceId = "",
 }: {
-  resourceTree: ResourceTreeItem[],
+  resourceTree: types.cluster.ResourceTreeItem[],
   createResourceDetailUrl: (id: string) => string,
   compact?: boolean,
   selectedResourceId?: string,

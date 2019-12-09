@@ -8,7 +8,7 @@ import {
 } from "app/common/components";
 import { Action } from "app/actions";
 
-import * as selectors from "../selectors";
+import { selectors } from "app/store";
 import Dashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
 
@@ -33,7 +33,7 @@ const useDashboardSync = () => {
 const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
   useDashboardSync();
   const dashboard = useSelector(selectors.getDashboard);
-  const dataLoaded = useSelector(selectors.areDataLoaded);
+  const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
 
   return (
     <Page>

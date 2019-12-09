@@ -1,18 +1,21 @@
 import React from "react";
 
 import { Table, StatusSign } from "app/common/components";
-import { compareStrings, statusSeverity, toLabel } from "app/common/utils";
-import { Node } from "../types";
+import { types } from "app/store";
+import { compareStatusSeverity } from "app/view/utils";
+import { compareStrings, toLabel } from "app/common/utils";
+
+type Node = types.dashboard.Node;
 
 type COLUMNS = "NAME"|"STATUS"|"QUORUM";
 
 const compareByColumn = (column: COLUMNS|""): (a: Node, b: Node) => number => {
   switch (column) {
-    case "QUORUM": return (a, b) => statusSeverity.compare(
+    case "QUORUM": return (a, b) => compareStatusSeverity(
       a.quorumSeverity,
       b.quorumSeverity,
     );
-    case "STATUS": return (a, b) => statusSeverity.compare(
+    case "STATUS": return (a, b) => compareStatusSeverity(
       a.statusSeverity,
       b.statusSeverity,
     );

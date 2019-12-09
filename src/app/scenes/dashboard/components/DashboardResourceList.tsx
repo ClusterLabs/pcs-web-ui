@@ -1,19 +1,22 @@
 import React from "react";
 
 import { Table, StatusSign, NoItemCase } from "app/common/components";
-import { compareStrings, toLabel, statusSeverity } from "app/common/utils";
-
-import { ResourceTreeItem } from "../types";
+import { compareStatusSeverity } from "app/view/utils";
+import { compareStrings, toLabel } from "app/common/utils";
+import { types } from "app/store";
 
 type COLUMNS = "NAME"|"STATUS";
 
 const compareByColumn = (
   column: COLUMNS|"",
 ): (
-  (a: ResourceTreeItem, b: ResourceTreeItem) => number
+  (
+    a: types.dashboard.ResourceTreeItem,
+    b: types.dashboard.ResourceTreeItem,
+  ) => number
 ) => {
   switch (column) {
-    case "STATUS": return (a, b) => statusSeverity.compare(
+    case "STATUS": return (a, b) => compareStatusSeverity(
       a.statusSeverity,
       b.statusSeverity,
     );
@@ -24,7 +27,7 @@ const compareByColumn = (
 const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
 
 const DashboardResourceList = ({ resourceList }: {
-  resourceList: ResourceTreeItem[],
+  resourceList: types.dashboard.ResourceTreeItem[],
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting("NAME");
 

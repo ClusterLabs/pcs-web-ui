@@ -1,13 +1,13 @@
 import React from "react";
 
-import { types } from "app/services/cluster";
+import { types } from "app/store";
 
 import ConstraintRow from "./ConstraintRow";
 import ConstraintCell from "./ConstraintCell";
 import ConstraintCellResourceSet from "./ConstraintCellResourceSet";
 
 const ConstraintRowColocation = ({ constraint }: {
-  constraint: types.ConstraintTicket;
+  constraint: types.cluster.ConstraintTicket;
 }) => {
   if ("sets" in constraint) {
     return (

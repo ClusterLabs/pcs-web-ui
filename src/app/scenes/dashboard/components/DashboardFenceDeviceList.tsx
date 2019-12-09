@@ -1,19 +1,20 @@
 import React from "react";
 
 import { Table, StatusSign, NoItemCase } from "app/common/components";
-import { compareStrings, toLabel, statusSeverity } from "app/common/utils";
+import { compareStrings, toLabel } from "app/common/utils";
+import { compareStatusSeverity } from "app/view/utils";
 
-import { FenceDevice } from "../types";
+import { types } from "app/store";
 
 type COLUMNS = "NAME"|"STATUS";
 
 const compareByColumn = (
   column: COLUMNS|"",
 ): (
-  (a: FenceDevice, b: FenceDevice) => number
+  (a: types.dashboard.FenceDevice, b: types.dashboard.FenceDevice) => number
 ) => {
   switch (column) {
-    case "STATUS": return (a, b) => statusSeverity.compare(
+    case "STATUS": return (a, b) => compareStatusSeverity(
       a.statusSeverity,
       b.statusSeverity,
     );
@@ -24,7 +25,7 @@ const compareByColumn = (
 const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
 
 const DashboardFenceDeviceList = ({ fenceDeviceList }: {
-  fenceDeviceList: FenceDevice[],
+  fenceDeviceList: types.dashboard.FenceDevice[],
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting("NAME");
   if (fenceDeviceList.length === 0) {

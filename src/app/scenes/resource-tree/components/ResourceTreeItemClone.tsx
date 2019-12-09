@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Clone } from "app/services/cluster/types";
+import { types } from "app/store";
 
 import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
 import ResourceTreeItemGroup from "./ResourceTreeItemGroup";
@@ -9,7 +9,7 @@ import ResourceTreeItemExpandableLayout
 
 
 const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
-  clone: Clone,
+  clone: types.cluster.Clone,
   createResourceDetailUrl: (id: string) => string,
 }) => (
   <ResourceTreeItemExpandableLayout

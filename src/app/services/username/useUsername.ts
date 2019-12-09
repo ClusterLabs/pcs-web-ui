@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Action } from "app/actions";
 
-import * as selectors from "./selectors";
+import { selectors } from "app/store";
 
 const useUsername = () => {
   const username = useSelector(selectors.getUsername);
-  const usernameLoaded = useSelector(selectors.loaded);
+  const usernameLoaded = useSelector(selectors.usernameLoaded);
   const dispatch = useDispatch();
   React.useEffect(
     () => {

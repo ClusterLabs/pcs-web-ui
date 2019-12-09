@@ -3,19 +3,18 @@ import { useSelector } from "react-redux";
 import { DataList } from "@patternfly/react-core";
 
 import { NoItemCase } from "app/common/components";
-import { ResourceTreeItem } from "app/services/cluster/types";
+import { types, selectors } from "app/store";
 
 import ConstraintRowLocation from "./ConstraintRowLocation";
 import ConstraintRowColocation from "./ConstraintRowColocation";
 import ConstraintRowOrder from "./ConstraintRowOrder";
 import ConstraintRowTicket from "./ConstraintRowTicket";
-import * as selectors from "../selectors";
 
 const ConstraintListResource = ({ resource }: {
-  resource: ResourceTreeItem,
+  resource: types.cluster.ResourceTreeItem,
 }) => {
   const constraintPacks = useSelector(
-    selectors.getConstraintsForResource(resource),
+    selectors.resourceGetConstraints(resource),
   );
   if (constraintPacks.length === 0) {
     return <NoItemCase margin={false} message="No constraint is configured." />;

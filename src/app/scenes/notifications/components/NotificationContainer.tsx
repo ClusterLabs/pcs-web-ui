@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Alert, AlertActionCloseButton } from "@patternfly/react-core";
 
 import { Action } from "app/actions";
-import { Notification } from "../types";
-import * as selectors from "../selectors";
+import { selectors, types } from "app/store";
 
-const severityToVariant = (severity: Notification["severity"]) => {
+const severityToVariant = (severity: types.Notification["severity"]) => {
   switch (severity) {
     case "SUCCESS": return "success";
     case "ERROR": return "danger";

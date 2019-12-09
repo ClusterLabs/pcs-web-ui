@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Wizard } from "@patternfly/react-core";
 
 import { Action } from "app/actions";
-import * as selectors from "../selectors";
+import { selectors } from "app/store";
 import AddClusterStepAuth from "./AddClusterStepAuth";
 import AddClusterStepAdd from "./AddClusterStepAdd";
 
 const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
-  const stepAuthState = useSelector(selectors.getStepAuthState);
-  const nodeName = useSelector(selectors.getNodeName);
+  const stepAuthState = useSelector(selectors.addClusterGetStepAuthState);
+  const nodeName = useSelector(selectors.addClusterGetNodeName);
   const dispatch = useDispatch();
 
   const steps = [

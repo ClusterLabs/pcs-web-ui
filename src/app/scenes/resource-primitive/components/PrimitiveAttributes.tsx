@@ -2,14 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Alert } from "@patternfly/react-core";
 
-import { Primitive } from "app/services/cluster/types";
+import { types, selectors } from "app/store";
 import { Spinner } from "app/common/components";
 
-import * as selectors from "../selectors";
 import PrimitiveParameter from "./PrimitiveParameter";
 
 const PrimitiveAttributes = ({ primitive }: {
-  primitive: Primitive,
+  primitive: types.cluster.Primitive,
 }) => {
   const resourceAgent = useSelector(selectors.getResourceAgent(
     primitive.agentName,

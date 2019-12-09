@@ -1,13 +1,13 @@
 import React from "react";
 import { useRouteMatch } from "react-router";
 
-import { ClusterState } from "app/services/cluster/types";
+import { types } from "app/store";
 import { ResourceDetailPage } from "app/scenes/resource-detail";
 import { ResourceTreePage } from "app/scenes/resource-tree";
 
 
 const ClusterDetailResources = ({ cluster, urlPrefix }:{
-  cluster: ClusterState;
+  cluster: types.cluster.ClusterState;
   urlPrefix: string;
 }) => {
   const detail = useRouteMatch<{resourceUrlName: string}>(

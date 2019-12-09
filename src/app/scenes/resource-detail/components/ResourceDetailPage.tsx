@@ -7,14 +7,12 @@ import {
 } from "@patternfly/react-core";
 import { push } from "connected-react-router";
 
-import { selectors as clusterSelector } from "app/services/cluster";
+import { selectors } from "app/store";
 import { ResourceTree } from "app/scenes/resource-tree";
 import { DetailLayout } from "app/common/components";
 import { PrimitivePage } from "app/scenes/resource-primitive";
 import { GroupPage } from "app/scenes/resource-group";
 import { ClonePage } from "app/scenes/resource-clone";
-
-import * as selector from "../selectors";
 
 const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
   resourceUrlName: string;
@@ -22,9 +20,9 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, closeUrl }: {
   closeUrl: string;
 }) => {
   const resourceTreeItem = useSelector(
-    selector.getSelectedResource(resourceUrlName),
+    selectors.getSelectedResource(resourceUrlName),
   );
-  const cluster = useSelector(clusterSelector.getCluster);
+  const cluster = useSelector(selectors.getCluster);
   const dispatch = useDispatch();
   const onClose = (e: React.SyntheticEvent) => {
     e.preventDefault();

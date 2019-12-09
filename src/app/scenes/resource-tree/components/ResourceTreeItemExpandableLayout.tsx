@@ -6,10 +6,9 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { ResourceTreeItem } from "app/services/cluster/types";
+import { types, selectors } from "app/store";
 import { Action } from "app/actions";
 
-import * as selectors from "../selectors";
 import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 import ResourceTreeNested from "./ResourceTreeNested";
 
@@ -20,13 +19,13 @@ const ResourceTreeItemExpandableLayout = ({
   nestingDepth,
   children,
 }: React.PropsWithChildren<{
-  resourceTreeItem: ResourceTreeItem,
+  resourceTreeItem: types.cluster.ResourceTreeItem,
   resourceDetailUrl: string,
   nestingDepth: number,
   nestedAriaLabel: string,
 }>) => {
   const dispatch = useDispatch();
-  const expanded = useSelector(selectors.getOpenedItems).includes(
+  const expanded = useSelector(selectors.resourceTreeGetOpenedItems).includes(
     resourceTreeItem.id,
   );
   return (

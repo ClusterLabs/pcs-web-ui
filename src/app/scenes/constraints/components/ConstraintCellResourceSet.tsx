@@ -1,10 +1,10 @@
 import React from "react";
-import { types } from "app/services/cluster";
+import { types } from "app/store";
 
 import ConstraintCell from "./ConstraintCell";
 
 const ConstraintCellResourceSet = ({ resourceSetList }: {
-  resourceSetList: types.ConstraintResourceSet[],
+  resourceSetList: types.cluster.ConstraintResourceSet[],
 }) => {
   return (
     <ConstraintCell label="Set">

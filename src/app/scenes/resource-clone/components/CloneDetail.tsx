@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Clone } from "app/services/cluster/types";
+import { types } from "app/store";
 import { IssueList } from "app/services/cluster";
 
 const CloneDetail = ({ clone }: {
-  clone: Clone,
+  clone: types.cluster.Clone,
 }) => (
   <IssueList issueList={clone.issueList} />
 );

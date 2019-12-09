@@ -11,13 +11,13 @@ import {
 import { Spinner } from "app/common/components";
 
 import { Action } from "app/actions";
-import { NodeName, StateError } from "../types";
+import { types } from "app/store";
 
 const AddClusterAuthRequired = (
   { nodeName, authenticationInProgress, authenticationError }: {
-    nodeName: NodeName,
+    nodeName: types.addCluster.NodeName,
     authenticationInProgress: boolean,
-    authenticationError: StateError,
+    authenticationError: types.addCluster.StateError,
   },
 ) => {
   const [password, setPassword] = React.useState("");

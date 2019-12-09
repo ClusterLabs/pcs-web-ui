@@ -1,9 +1,8 @@
 import React from "react";
 import { useRouteMatch } from "react-router";
 import { useSelector } from "react-redux";
-import { selectors as clusterSelector } from "app/services/cluster";
+import { selectors, types } from "app/store";
 
-import { Primitive } from "app/services/cluster/types";
 import { tabRoutes, join } from "app/common/utils";
 import {
   UrlTabs,
@@ -17,7 +16,7 @@ import PrimitiveDetail from "./PrimitiveDetail";
 import useResourceAgent from "../useResourceAgent";
 
 const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
-  primitive: Primitive;
+  primitive: types.cluster.Primitive;
   urlPrefix: string;
   onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {
@@ -34,7 +33,7 @@ const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
   // user doesn't need to wait when he needs it.
-  const cluster = useSelector(clusterSelector.getCluster);
+  const cluster = useSelector(selectors.getCluster);
   useResourceAgent(cluster.urlName, primitive.agentName);
 
   return (

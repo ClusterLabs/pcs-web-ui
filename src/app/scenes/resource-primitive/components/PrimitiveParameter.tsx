@@ -5,14 +5,11 @@ import {
   global_disabled_color_100 as helpColor,
 } from "@patternfly/react-tokens";
 
-
-import { Primitive } from "app/services/cluster/types";
-
-import { ResourceAgentParameter } from "../types";
+import { types } from "app/store";
 
 const PrimitiveParameter = ({ resourceAgentParameter, instanceAttributes }: {
-  resourceAgentParameter: ResourceAgentParameter;
-  instanceAttributes: Primitive["instanceAttributes"];
+  resourceAgentParameter: types.resourceAgents.ResourceAgentParameter;
+  instanceAttributes: types.cluster.Primitive["instanceAttributes"];
 }) => (
   <>
     <dt>

@@ -1,13 +1,13 @@
 import React from "react";
 import { DataList } from "@patternfly/react-core";
 
-import { FenceDevice } from "app/services/cluster/types";
+import { types } from "app/store";
 import { NoItemCase } from "app/common/components";
 
 import FenceDeviceListItem from "./FenceDeviceListItem";
 
 const FenceDeviceList = ({ fenceDeviceList }: {
-  fenceDeviceList: FenceDevice[],
+  fenceDeviceList: types.cluster.FenceDevice[],
 }) => {
   if (fenceDeviceList.length === 0) {
     return <NoItemCase message="No fence device is configured." />;

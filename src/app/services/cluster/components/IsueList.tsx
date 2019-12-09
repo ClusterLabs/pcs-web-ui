@@ -2,16 +2,18 @@ import React from "react";
 import { Stack, StackItem, Alert } from "@patternfly/react-core";
 import { NoItemCase } from "app/common/components";
 
-import { Issue } from "../types";
+import { types } from "app/store";
 
 
-const mapSeverityToVariant = (severity: Issue["severity"]) => (
+const mapSeverityToVariant = (severity: types.cluster.Issue["severity"]) => (
   severity === "ERROR" ? "danger" : "warning"
 );
-const issueKey = (issue: Issue, index: any) => `${index}:${issue.message}`;
+const issueKey = (issue: types.cluster.Issue, index: any) => (
+  `${index}:${issue.message}`
+);
 
 const IssueList = ({ issueList, margin = false }: {
-  issueList: Issue[],
+  issueList: types.cluster.Issue[],
   margin?: boolean,
 }) => {
   if (issueList.length === 0) {

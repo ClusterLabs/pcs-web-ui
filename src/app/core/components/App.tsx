@@ -6,7 +6,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { EnsureLogin } from "app/scenes/login";
 import { Notifications } from "app/scenes/notifications/";
 
-import { setupStore } from "../store";
+import { setupStore } from "app/store";
 import AppPage from "./AppPage";
 import "../css/App.css";
 

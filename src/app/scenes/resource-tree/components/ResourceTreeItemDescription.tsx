@@ -8,7 +8,7 @@ import { ArrowCircleRightIcon } from "@patternfly/react-icons";
 
 import { StatusSign } from "app/common/components";
 import { toLabel } from "app/common/utils";
-import { ResourceTreeItem } from "app/services/cluster/types";
+import { types } from "app/store";
 
 import { useSelectedResource } from "./SelectedResourceContext";
 
@@ -18,7 +18,7 @@ const ResourceTreeItemDescription = ({
   detailUrl,
   typeDescription = "",
 }: {
-  resourceTreeItem: ResourceTreeItem,
+  resourceTreeItem: types.cluster.ResourceTreeItem,
   type: string,
   detailUrl: string,
   typeDescription?: string,

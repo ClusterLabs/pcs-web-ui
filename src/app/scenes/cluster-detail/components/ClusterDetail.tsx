@@ -11,7 +11,8 @@ import {
 
 import { StatusSign } from "app/common/components";
 
-import { selectors, IssueList } from "app/services/cluster";
+import { IssueList } from "app/services/cluster";
+import { selectors } from "app/store";
 
 const ClusterDetail = () => {
   const cluster = useSelector(selectors.getCluster);

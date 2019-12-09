@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Primitive } from "app/services/cluster/types";
+import { types } from "app/store";
 import { IssueList } from "app/services/cluster";
 
 const PrimitiveDetail = ({ primitive }: {
-  primitive: Primitive,
+  primitive: types.cluster.Primitive,
 }) => (
   <IssueList issueList={primitive.issueList} />
 );

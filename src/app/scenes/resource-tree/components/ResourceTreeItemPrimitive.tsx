@@ -5,12 +5,12 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { Primitive } from "app/services/cluster/types";
+import { types } from "app/store";
 
 import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 
 const ResourceTreeItemPrimitive = ({ primitive, createResourceDetailUrl }: {
-  primitive: Primitive,
+  primitive: types.cluster.Primitive,
   createResourceDetailUrl: (id: string) => string,
 }) => (
   <DataListItem aria-labelledby={primitive.id}>

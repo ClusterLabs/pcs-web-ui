@@ -7,8 +7,7 @@ import {
 } from "@patternfly/react-core";
 import { StyleSheet, css } from "@patternfly/react-styles";
 
-import * as selectors from "app/core/selectors";
-import { RootState } from "app/core/types";
+import { selectors } from "app/store";
 
 import BreadcrumbItem from "./BreadcrumbItem";
 
@@ -21,9 +20,11 @@ const styles = StyleSheet.create({
 
 /* eslint-disable react/no-array-index-key */
 const BreadcrumbsView = () => {
-  const urlParts = useSelector((state: RootState) => (
-    selectors.getPathName(state).replace(/\/$/, "").split("/").slice(1, 3)
-  ));
+  const urlParts = useSelector(selectors.getLocationPathname)
+    .replace(/\/$/, "")
+    .split("/")
+    .slice(1, 3)
+  ;
   return (
     <PageSection
       variant={PageSectionVariants.light}

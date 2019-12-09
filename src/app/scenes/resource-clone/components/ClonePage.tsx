@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouteMatch } from "react-router";
 
-import { Clone } from "app/services/cluster/types";
+import { types } from "app/store";
 import { tabRoutes, join } from "app/common/utils";
 import {
   UrlTabs,
@@ -13,7 +13,7 @@ import { ConstraintListResource } from "app/scenes/constraints";
 import CloneDetail from "./CloneDetail";
 
 const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
-  clone: Clone;
+  clone: types.cluster.Clone;
   urlPrefix: string;
   onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {

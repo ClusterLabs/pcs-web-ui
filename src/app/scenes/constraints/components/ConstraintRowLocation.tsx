@@ -1,11 +1,11 @@
 import React from "react";
 
-import { types } from "app/services/cluster";
+import { types } from "app/store";
 
 import ConstraintRow from "./ConstraintRow";
 import ConstraintCell from "./ConstraintCell";
 
-const getScore = (constraint: types.ConstraintLocation) => {
+const getScore = (constraint: types.cluster.ConstraintLocation) => {
   if ("score" in constraint) {
     return constraint.score;
   }
@@ -18,7 +18,7 @@ const getScore = (constraint: types.ConstraintLocation) => {
 };
 
 const ConstraintRowLocation = ({ constraint }: {
-  constraint: types.ConstraintLocation,
+  constraint: types.cluster.ConstraintLocation,
 }) => {
   const ariaLabel = `Location constraint ${constraint.id}`;
   if ("node" in constraint) {

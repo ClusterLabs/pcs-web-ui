@@ -1,12 +1,12 @@
 import React from "react";
 import { PageSection } from "@patternfly/react-core";
 
-import { ClusterState } from "app/services/cluster/types";
+import { types } from "app/store";
 
 import NodeList from "./NodeList";
 
 const NodeListPage = ({ cluster, urlPrefix }:{
-  cluster: ClusterState;
+  cluster: types.cluster.ClusterState;
   urlPrefix: string;
 }) => (
   <PageSection>

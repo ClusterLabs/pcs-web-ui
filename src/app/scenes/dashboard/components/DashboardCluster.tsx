@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import { Table, StatusIco } from "app/common/components";
 import { IssueList } from "app/services/cluster";
+import { types } from "app/store";
 
-import { ClusterState } from "../types";
 
 import DashboardNodeList from "./DashboardNodeList";
 import DashboardResourceList from "./DashboardResourceList";
@@ -34,7 +34,9 @@ const Summary = ({ itemsCount, summaryStatus }: {
   );
 };
 
-const DashboardCluster = ({ cluster }: { cluster: ClusterState }) => {
+const DashboardCluster = ({ cluster }: {
+  cluster: types.dashboard.ClusterState,
+}) => {
   const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
   });

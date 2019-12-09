@@ -6,12 +6,12 @@ import {
   DataListCell,
 } from "@patternfly/react-core";
 
-import { FenceDevice } from "app/services/cluster/types";
+import { types } from "app/store";
 import { StatusSign } from "app/common/components";
 import { toLabel } from "app/common/utils";
 
 const FenceDeviceListItem = ({ fenceDevice }: {
-  fenceDevice: FenceDevice,
+  fenceDevice: types.cluster.FenceDevice,
 }) => (
   <DataListItem aria-labelledby={fenceDevice.id}>
     <DataListItemRow>

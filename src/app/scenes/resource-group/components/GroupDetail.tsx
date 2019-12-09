@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Group } from "app/services/cluster/types";
+import { types } from "app/store";
 import { IssueList } from "app/services/cluster";
 
 const GroupDetail = ({ group }: {
-  group: Group,
+  group: types.cluster.Group,
 }) => (
   <IssueList issueList={group.issueList} />
 );

@@ -11,24 +11,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { Spinner } from "app/common/components";
 
 import { Action } from "app/actions";
-import * as selectors from "../selectors";
-import { AUTH_STATE } from "../types";
+import { selectors } from "app/store";
+import { types } from "app/store";
 import AddClusterAuthRequired from "./AddClusterAuthRequired";
 
 const helperText = (
   "Enter the name of a node in a cluster that you would like to manage"
 );
 
-const authRequiredStates: AUTH_STATE[] = [
+const authRequiredStates: types.addCluster.AUTH_STATE[] = [
   "NOT_AUTHENTICATED",
   "AUTHENTICATION_IN_PROGRESS",
   "AUTHENTICATION_FAILED",
 ];
 
 const AddClusterStepAuth = () => {
-  const authState = useSelector(selectors.getStepAuthState);
-  const nodeName = useSelector(selectors.getNodeName);
-  const stateError = useSelector(selectors.getStateError);
+  const authState = useSelector(selectors.addClusterGetStepAuthState);
+  const nodeName = useSelector(selectors.addClusterGetNodeName);
+  const stateError = useSelector(selectors.addClusterGetStateError);
   const dispatch = useDispatch();
   return (
     <Form>

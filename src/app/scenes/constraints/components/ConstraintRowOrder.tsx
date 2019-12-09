@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/services/cluster";
+import { types } from "app/store";
 import ConstraintCellResourceSet from "./ConstraintCellResourceSet";
 
 import ConstraintRow from "./ConstraintRow";
@@ -8,7 +8,7 @@ import ConstraintCell from "./ConstraintCell";
 import ConstraintCellOrderScoreKind from "./ConstraintCellOrderScoreKind";
 
 const ConstraintRowOrder = ({ constraint, resourceId }: {
-  constraint: types.ConstraintOrder;
+  constraint: types.cluster.ConstraintOrder;
   resourceId: string;
 }) => {
   if ("sets" in constraint) {

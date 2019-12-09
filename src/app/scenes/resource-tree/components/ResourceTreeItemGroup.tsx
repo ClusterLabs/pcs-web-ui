@@ -1,5 +1,5 @@
 import React from "react";
-import { Group } from "app/services/cluster/types";
+import { types } from "app/store";
 
 import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
 import ResourceTreeItemExpandableLayout
@@ -7,7 +7,7 @@ import ResourceTreeItemExpandableLayout
 
 const ResourceTreeItemGroup = (
   { group, createResourceDetailUrl, nestedLevel = 0 }: {
-    group: Group,
+    group: types.cluster.Group,
     createResourceDetailUrl: (id: string) => string,
     nestedLevel?: number,
   },

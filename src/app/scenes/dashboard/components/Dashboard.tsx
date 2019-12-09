@@ -1,32 +1,34 @@
 import React from "react";
 
 import { Table } from "app/common/components";
-import { compareStrings, statusSeverity } from "app/common/utils";
+import { compareStrings } from "app/common/utils";
+import { compareStatusSeverity } from "app/view/utils";
 
+import { types } from "app/store";
 import DashboardCluster from "./DashboardCluster";
-import { DashboardState, ClusterState } from "../types";
+
 
 type COLUMNS = "NAME"|"ISSUES"|"NODES"|"RESOURCES"|"FENCE_DEVICES";
 
 const compareByColumn = (
   column: COLUMNS|"",
 ): (
-  (a: ClusterState, b: ClusterState) => number
+  (a: types.dashboard.ClusterState, b: types.dashboard.ClusterState) => number
 ) => {
   switch (column) {
-    case "ISSUES": return (a, b) => statusSeverity.compare(
+    case "ISSUES": return (a, b) => compareStatusSeverity(
       a.summary.issuesSeverity,
       b.summary.issuesSeverity,
     );
-    case "NODES": return (a, b) => statusSeverity.compare(
+    case "NODES": return (a, b) => compareStatusSeverity(
       a.summary.nodesSeverity,
       b.summary.nodesSeverity,
     );
-    case "RESOURCES": return (a, b) => statusSeverity.compare(
+    case "RESOURCES": return (a, b) => compareStatusSeverity(
       a.summary.resourcesSeverity,
       b.summary.resourcesSeverity,
     );
-    case "FENCE_DEVICES": return (a, b) => statusSeverity.compare(
+    case "FENCE_DEVICES": return (a, b) => compareStatusSeverity(
       a.summary.fenceDevicesSeverity,
       b.summary.fenceDevicesSeverity,
     );
@@ -36,7 +38,9 @@ const compareByColumn = (
 
 const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
 
-export default ({ dashboard }: { dashboard: DashboardState }) => {
+export default ({ dashboard }: {
+  dashboard: types.dashboard.DashboardState
+}) => {
   const { sortState, compareItems } = SortableTh.useSorting();
   return (
     <Table isExpandable data-role="cluster-list">

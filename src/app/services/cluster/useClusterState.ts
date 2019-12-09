@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Action, LeafAction } from "app/actions";
 
-import * as selectors from "./selectors";
+import { selectors } from "app/store";
 
 const stop: LeafAction = { type: "CLUSTER_DATA.SYNC.STOP" };
 
@@ -31,7 +31,7 @@ const useClusterState = (clusterUrlName: string) => {
   );
   return {
     cluster: useSelector(selectors.getCluster),
-    dataLoaded: useSelector(selectors.areDataLoaded),
+    dataLoaded: useSelector(selectors.clusterAreDataLoaded),
   };
 };
 export default useClusterState;

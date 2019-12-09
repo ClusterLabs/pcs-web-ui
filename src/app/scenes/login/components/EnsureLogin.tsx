@@ -7,17 +7,17 @@ import {
 import { BackgroundImage } from "app/common/components";
 
 import { Action } from "app/actions";
-import * as selectors from "../selectors";
+import { selectors } from "app/store";
 
 const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const failed = useSelector(selectors.failed);
-  const failMessage = useSelector(selectors.failMessage);
-  const isAcceptingLoginData = useSelector(selectors.isAcceptingLoginData);
+  const failed = useSelector(selectors.loginIsFailed);
+  const failMessage = useSelector(selectors.loginGetFailMessage);
+  const isAcceptingLoginData = useSelector(selectors.loginIsAcceptingData);
   const dispatch = useDispatch();
 
-  if (!useSelector(selectors.loginRequired)) {
+  if (!useSelector(selectors.loginIsRequired)) {
     return <>{children}</>;
   }
   return (

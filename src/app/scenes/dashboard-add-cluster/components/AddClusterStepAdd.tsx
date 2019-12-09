@@ -4,17 +4,16 @@ import { Alert } from "@patternfly/react-core";
 
 import { Spinner } from "app/common/components";
 
-import * as selectors from "../selectors";
-import { ADD_STATE } from "../types";
+import { selectors, types } from "app/store";
 
-const clusterHasBeenAddedStates: ADD_STATE[] = [
+const clusterHasBeenAddedStates: types.addCluster.ADD_STATE[] = [
   "DASHBOARD_RELOADING",
   "SUCCESS",
 ];
 
 const AddClusterAddStep = () => {
-  const state = useSelector(selectors.getStepAddState);
-  const errorMessage = useSelector(selectors.getStateError);
+  const state = useSelector(selectors.addClusterGetStepAddState);
+  const errorMessage = useSelector(selectors.addClusterGetStateError);
   return (
     <>
       {state === "STARTED" &&

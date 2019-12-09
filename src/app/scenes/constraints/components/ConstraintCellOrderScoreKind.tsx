@@ -1,11 +1,11 @@
 import React from "react";
 
-import { types } from "app/services/cluster";
+import { types } from "app/store";
 
 import ConstraintCell from "./ConstraintCell";
 
 const ConstraintCellOrderScoreKind = ({ constraint }: {
-  constraint: types.ConstraintOrder;
+  constraint: types.cluster.ConstraintOrder;
 }) => {
   // score and kind are mutually exclusive
   if ("score" in constraint) {
