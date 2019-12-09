@@ -1,4 +1,4 @@
-import { ApiNotExpectedJson } from "app/backend";
+import { ApiNotExpectedJson } from "../errors";
 import { createResultInvalid } from "./result";
 
 export const dealWithInvalidJson = (e: Error) => {

@@ -6,7 +6,7 @@ import {
   TApiNodeQuorum as ApiNodeQuorum,
   TApiNodeName as ApiNodeName,
   TApiWithIssues as ApiWithIssues,
-} from "app/backend/types/clusterStatus";
+} from "../clusterStatus";
 
 // It is simplified version of node from cluster status
 export const ApiNode = t.intersection([

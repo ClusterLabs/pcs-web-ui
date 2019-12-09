@@ -1,4 +1,4 @@
-import { postForText } from "app/backend";
+import { postForText } from "./calls";
 
 import { createResult, ApiCall } from "./tools";
 

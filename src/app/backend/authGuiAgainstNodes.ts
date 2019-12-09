@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import { postForJson } from "app/backend";
+import { postForJson } from "./calls";
 
 import {
   ApiCall,

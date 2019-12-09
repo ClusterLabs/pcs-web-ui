@@ -1,13 +1,10 @@
 import {
   failMessage,
   isUnauthorizedError,
-  ApiNotExpectedJson,
 } from "./errors";
 import {
   getForText,
-  getJson,
   postForText,
-  postForJson,
 } from "./calls";
 
 import authGuiAgainstNodes from "./authGuiAgainstNodes";
@@ -29,12 +26,9 @@ export type ApiCall<T> = ApiCall<T>;
 
 export {
   failMessage,
-  ApiNotExpectedJson,
   isUnauthorizedError,
   getForText,
-  getJson,
   postForText,
-  postForJson,
 
   authGuiAgainstNodes,
   checkAuthAgainstNodes,

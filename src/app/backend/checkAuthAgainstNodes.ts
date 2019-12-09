@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { getJson } from "app/backend";
+import { getJson } from "./calls";
 
 import {
   ApiCall,
