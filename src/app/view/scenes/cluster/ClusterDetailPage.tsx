@@ -8,8 +8,8 @@ import { useClusterState } from "app/view/hooks";
 
 import { NodeListPage } from "./nodes";
 import { FenceDeviceListPage } from "./fenceDevices";
+import { ClusterDetailResources } from "./resources";
 import ClusterDetail from "./ClusterDetail";
-import ClusterDetailResources from "./ClusterDetailResources";
 
 const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
   clusterUrlName: string;
