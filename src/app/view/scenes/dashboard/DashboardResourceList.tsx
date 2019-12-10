@@ -2,7 +2,9 @@ import React from "react";
 
 import { types } from "app/store";
 import { Table, StatusSign, NoItemCase } from "app/view/common";
-import { compareStatusSeverity, compareStrings, toLabel } from "app/view/utils";
+import { toLabel } from "app/view/utils";
+
+import { compareStatusSeverity, compareStrings } from "./utils";
 
 type COLUMNS = "NAME"|"STATUS";
 

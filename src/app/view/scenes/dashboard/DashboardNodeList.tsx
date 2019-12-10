@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Table, StatusSign } from "app/view/common";
 import { types } from "app/store";
-import { compareStatusSeverity, compareStrings, toLabel } from "app/view/utils";
+import { Table, StatusSign } from "app/view/common";
+import { toLabel } from "app/view/utils";
+import { compareStatusSeverity, compareStrings } from "./utils";
 
 type Node = types.dashboard.Node;
 

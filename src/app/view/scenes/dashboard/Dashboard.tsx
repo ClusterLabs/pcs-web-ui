@@ -2,8 +2,8 @@ import React from "react";
 
 import { types } from "app/store";
 import { Table } from "app/view/common";
-import { compareStatusSeverity, compareStrings } from "app/view/utils";
 
+import { compareStatusSeverity, compareStrings } from "./utils";
 import DashboardCluster from "./DashboardCluster";
 
 
