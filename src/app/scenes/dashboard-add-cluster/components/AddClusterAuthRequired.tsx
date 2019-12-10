@@ -8,7 +8,7 @@ import {
   Alert,
 } from "@patternfly/react-core";
 
-import { Spinner } from "app/common/components";
+import { Spinner } from "app/view/common";
 
 import { Action } from "app/actions";
 import { types } from "app/store";

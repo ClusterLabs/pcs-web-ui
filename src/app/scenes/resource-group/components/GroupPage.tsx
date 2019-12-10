@@ -7,7 +7,7 @@ import {
   UrlTabs,
   DetailLayout,
   ResourceDetailCaption,
-} from "app/common/components";
+} from "app/view/common";
 import { ConstraintListResource } from "app/scenes/constraints";
 
 import GroupDetail from "./GroupDetail";

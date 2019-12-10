@@ -8,7 +8,7 @@ import {
 } from "@patternfly/react-core";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Spinner } from "app/common/components";
+import { Spinner } from "app/view/common";
 
 import { Action } from "app/actions";
 import { selectors } from "app/store";

@@ -5,7 +5,7 @@ import {
 import { types } from "app/store";
 
 import * as url from "app/common/urls";
-import { NoItemCase } from "app/common/components";
+import { NoItemCase } from "app/view/common";
 
 import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
 import ResourceTreeItemClone from "./ResourceTreeItemClone";

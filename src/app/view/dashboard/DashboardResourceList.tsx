@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Table, StatusSign, NoItemCase } from "app/common/components";
+import { Table, StatusSign, NoItemCase } from "app/view/common";
 import { compareStatusSeverity } from "app/view/utils";
 import { compareStrings, toLabel } from "app/common/utils";
 import { types } from "app/store";

@@ -9,7 +9,7 @@ import { push } from "connected-react-router";
 
 import { selectors } from "app/store";
 import { ResourceTree } from "app/scenes/resource-tree";
-import { DetailLayout } from "app/common/components";
+import { DetailLayout } from "app/view/common";
 import { PrimitivePage } from "app/scenes/resource-primitive";
 import { GroupPage } from "app/scenes/resource-group";
 import { ClonePage } from "app/scenes/resource-clone";

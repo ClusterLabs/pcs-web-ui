@@ -9,7 +9,7 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import { StatusSign } from "app/common/components";
+import { StatusSign } from "app/view/common";
 
 import { IssueList } from "app/services/cluster";
 import { selectors } from "app/store";

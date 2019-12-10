@@ -6,7 +6,7 @@ import {
 } from "@patternfly/react-core";
 import { ArrowCircleRightIcon } from "@patternfly/react-icons";
 
-import { StatusSign } from "app/common/components";
+import { StatusSign } from "app/view/common";
 import { toLabel } from "app/common/utils";
 import { types } from "app/store";
 

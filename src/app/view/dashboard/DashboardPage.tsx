@@ -5,7 +5,7 @@ import { PageSection } from "@patternfly/react-core";
 import {
   PageSectionDataLoading,
   Page,
-} from "app/common/components";
+} from "app/view/common";
 import { Action } from "app/actions";
 
 import { selectors } from "app/store";

@@ -2,7 +2,7 @@ import React from "react";
 import { DataList } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import { NoItemCase } from "app/common/components";
+import { NoItemCase } from "app/view/common";
 
 import FenceDeviceListItem from "./FenceDeviceListItem";
 

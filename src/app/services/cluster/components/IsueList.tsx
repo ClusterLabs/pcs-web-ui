@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, StackItem, Alert } from "@patternfly/react-core";
-import { NoItemCase } from "app/common/components";
+import { NoItemCase } from "app/view/common";
 
 import { types } from "app/store";
 

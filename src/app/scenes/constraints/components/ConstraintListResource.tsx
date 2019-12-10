@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { DataList } from "@patternfly/react-core";
 
-import { NoItemCase } from "app/common/components";
+import { NoItemCase } from "app/view/common";
 import { types, selectors } from "app/store";
 
 import ConstraintRowLocation from "./ConstraintRowLocation";

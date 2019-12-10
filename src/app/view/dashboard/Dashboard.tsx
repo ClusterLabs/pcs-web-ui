@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Table } from "app/common/components";
+import { Table } from "app/view/common";
 import { compareStrings } from "app/common/utils";
 import { compareStatusSeverity } from "app/view/utils";
 

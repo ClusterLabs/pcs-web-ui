@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Alert } from "@patternfly/react-core";
 
 import { types, selectors } from "app/store";
-import { Spinner } from "app/common/components";
+import { Spinner } from "app/view/common";
 
 import PrimitiveParameter from "./PrimitiveParameter";
 

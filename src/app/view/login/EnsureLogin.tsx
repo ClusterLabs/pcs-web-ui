@@ -4,7 +4,7 @@ import { LoginForm, LoginPage } from "@patternfly/react-core";
 
 import { Action } from "app/actions";
 import { selectors } from "app/store";
-import { BackgroundImage } from "app/common/components";
+import { BackgroundImage } from "app/view/common";
 
 const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {
   const [username, setUsername] = React.useState("");

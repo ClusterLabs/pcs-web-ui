@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Table, StatusIco } from "app/common/components";
+import { Table, StatusIco } from "app/view/common";
 import { IssueList } from "app/services/cluster";
 import { types } from "app/store";
 

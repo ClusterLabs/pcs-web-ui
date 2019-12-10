@@ -2,7 +2,7 @@ import React from "react";
 import { PageSection } from "@patternfly/react-core";
 import { useRouteMatch } from "react-router";
 
-import { Page, Spinner, UrlTabs } from "app/common/components";
+import { Page, Spinner, UrlTabs } from "app/view/common";
 import { useClusterState } from "app/services/cluster";
 import { NodeListPage } from "app/scenes/node-list";
 import { FenceDeviceListPage } from "app/scenes/fence-device-list";
