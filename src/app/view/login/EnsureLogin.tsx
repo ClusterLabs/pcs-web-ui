@@ -1,13 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  LoginForm,
-  LoginPage,
-} from "@patternfly/react-core";
-import { BackgroundImage } from "app/common/components";
+import { LoginForm, LoginPage } from "@patternfly/react-core";
 
 import { Action } from "app/actions";
 import { selectors } from "app/store";
+import { BackgroundImage } from "app/common/components";
 
 const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {
   const [username, setUsername] = React.useState("");

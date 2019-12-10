@@ -3,12 +3,12 @@ import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 
-import { EnsureLogin } from "app/scenes/login";
-import { Notifications } from "app/scenes/notifications/";
-
 import { setupStore } from "app/store";
+
+import { Notifications } from "./notifications";
+import { EnsureLogin } from "./login";
 import AppPage from "./AppPage";
-import "../css/App.css";
+import "./App.css";
 
 
 const history = createBrowserHistory({ basename: "/ui/" });
