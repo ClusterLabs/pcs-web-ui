@@ -2,9 +2,7 @@ import React from "react";
 import { useRouteMatch } from "react-router";
 
 import { ClusterDetailPage } from "./clusterDetail";
-
 import { DashboardPage } from "./dashboard";
-
 import Scratch from "./Scratch";
 
 const AppPage = () => {
