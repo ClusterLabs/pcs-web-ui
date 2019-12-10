@@ -10,7 +10,8 @@ import { useRouteMatch } from "react-router";
 import { push } from "connected-react-router";
 
 import { join } from "app/view/utils";
-import { AddClusterPage } from "app/scenes/dashboard-add-cluster";
+
+import { AddClusterPage } from "./addCluster";
 
 const DashboardToolbar = ({ urlPrefix }: { urlPrefix: string }) => {
   const dispatch = useDispatch();

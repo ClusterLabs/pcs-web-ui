@@ -2,9 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Alert } from "@patternfly/react-core";
 
-import { Spinner } from "app/view/common";
-
 import { selectors, types } from "app/store";
+import { Spinner } from "app/view/common";
 
 const clusterHasBeenAddedStates: types.addCluster.ADD_STATE[] = [
   "DASHBOARD_RELOADING",

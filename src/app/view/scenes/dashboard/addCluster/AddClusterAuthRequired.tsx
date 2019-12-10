@@ -8,10 +8,9 @@ import {
   Alert,
 } from "@patternfly/react-core";
 
-import { Spinner } from "app/view/common";
-
 import { Action } from "app/actions";
 import { types } from "app/store";
+import { Spinner } from "app/view/common";
 
 const AddClusterAuthRequired = (
   { nodeName, authenticationInProgress, authenticationError }: {

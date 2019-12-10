@@ -3,6 +3,7 @@ import React from "react";
 import { types } from "app/store";
 import { Table, StatusSign } from "app/view/common";
 import { toLabel } from "app/view/utils";
+
 import { compareStatusSeverity, compareStrings } from "./utils";
 
 type Node = types.dashboard.Node;

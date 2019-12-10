@@ -8,11 +8,10 @@ import {
 } from "@patternfly/react-core";
 import { useSelector, useDispatch } from "react-redux";
 
+import { Action } from "app/actions";
+import { types, selectors } from "app/store";
 import { Spinner } from "app/view/common";
 
-import { Action } from "app/actions";
-import { selectors } from "app/store";
-import { types } from "app/store";
 import AddClusterAuthRequired from "./AddClusterAuthRequired";
 
 const helperText = (

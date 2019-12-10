@@ -4,6 +4,7 @@ import { Wizard } from "@patternfly/react-core";
 
 import { Action } from "app/actions";
 import { selectors } from "app/store";
+
 import AddClusterStepAuth from "./AddClusterStepAuth";
 import AddClusterStepAdd from "./AddClusterStepAdd";
 
