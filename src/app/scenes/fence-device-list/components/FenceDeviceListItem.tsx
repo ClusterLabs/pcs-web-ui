@@ -8,7 +8,7 @@ import {
 
 import { types } from "app/store";
 import { StatusSign } from "app/view/common";
-import { toLabel } from "app/common/utils";
+import { toLabel } from "app/view/utils";
 
 const FenceDeviceListItem = ({ fenceDevice }: {
   fenceDevice: types.cluster.FenceDevice,

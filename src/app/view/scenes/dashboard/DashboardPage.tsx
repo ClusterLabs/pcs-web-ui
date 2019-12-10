@@ -2,13 +2,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PageSection } from "@patternfly/react-core";
 
-import {
-  PageSectionDataLoading,
-  Page,
-} from "app/view/common";
 import { Action } from "app/actions";
-
 import { selectors } from "app/store";
+import { PageSectionDataLoading, Page } from "app/view/common";
+
 import Dashboard from "./Dashboard";
 import DashboardToolbar from "./DashboardToolbar";
 

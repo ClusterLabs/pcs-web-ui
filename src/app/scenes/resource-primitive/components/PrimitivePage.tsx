@@ -1,14 +1,10 @@
 import React from "react";
 import { useRouteMatch } from "react-router";
 import { useSelector } from "react-redux";
-import { selectors, types } from "app/store";
 
-import { tabRoutes, join } from "app/common/utils";
-import {
-  UrlTabs,
-  DetailLayout,
-  ResourceDetailCaption,
-} from "app/view/common";
+import { selectors, types } from "app/store";
+import { tabRoutes, join } from "app/view/utils";
+import { UrlTabs, DetailLayout, ResourceDetailCaption } from "app/view/common";
 import { ConstraintListResource } from "app/scenes/constraints";
 
 import PrimitiveAttributes from "./PrimitiveAttributes";

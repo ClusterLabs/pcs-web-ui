@@ -4,7 +4,6 @@ import {
 } from "@patternfly/react-core";
 import { types } from "app/store";
 
-import * as url from "app/common/urls";
 import { NoItemCase } from "app/view/common";
 
 import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
@@ -64,9 +63,8 @@ const ResourceTree = ({
 };
 
 ResourceTree.createResourceDetailUrl = (
-  (clusterUrlName: string) => (resourceUrlName: string) => url.resourcesDetail(
-    clusterUrlName,
-    resourceUrlName,
+  (clusterUrlName: string) => (resourceUrlName: string) => (
+    `/cluster/${clusterUrlName}/resources/${resourceUrlName}`
   )
 );
 

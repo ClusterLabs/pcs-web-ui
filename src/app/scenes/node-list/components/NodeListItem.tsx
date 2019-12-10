@@ -6,10 +6,10 @@ import {
   DataListCell,
 } from "@patternfly/react-core";
 
-import { StatusSign } from "app/view/common";
-import { toLabel } from "app/common/utils";
-
 import { types } from "app/store";
+
+import { StatusSign } from "app/view/common";
+import { toLabel } from "app/view/utils";
 
 const NodeListItem = ({ node }: { node: types.cluster.Node }) => (
   <DataListItem aria-labelledby={node.name}>

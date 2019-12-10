@@ -3,10 +3,10 @@ import { PageSection } from "@patternfly/react-core";
 import { useRouteMatch } from "react-router";
 
 import { Page, Spinner, UrlTabs } from "app/view/common";
+import { tabRoutes, join } from "app/view/utils";
 import { useClusterState } from "app/services/cluster";
 import { NodeListPage } from "app/scenes/node-list";
 import { FenceDeviceListPage } from "app/scenes/fence-device-list";
-import { tabRoutes, join } from "app/common/utils";
 
 import ClusterDetail from "./ClusterDetail";
 import ClusterDetailResources from "./ClusterDetailResources";

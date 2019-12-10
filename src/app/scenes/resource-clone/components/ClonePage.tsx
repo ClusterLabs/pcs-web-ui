@@ -2,7 +2,7 @@ import React from "react";
 import { useRouteMatch } from "react-router";
 
 import { types } from "app/store";
-import { tabRoutes, join } from "app/common/utils";
+import { tabRoutes, join } from "app/view/utils";
 import {
   UrlTabs,
   DetailLayout,
