@@ -4,9 +4,10 @@ import { Alert } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import { DetailLayout } from "app/view/common";
-import { PrimitivePage } from "app/scenes/resource-primitive";
-import { GroupPage } from "app/scenes/resource-group";
-import { ClonePage } from "app/scenes/resource-clone";
+
+import { ClonePage } from "./clone";
+import { GroupPage } from "./group";
+import { PrimitivePage } from "./primitive";
 
 const ResourceDetailPage = ({ resourceUrlName, urlPrefix, onClose }: {
   resourceUrlName: string;

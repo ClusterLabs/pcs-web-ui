@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import { selectors, types } from "app/store";
 import { tabRoutes, join } from "app/view/utils";
 import { UrlTabs, DetailLayout, ResourceDetailCaption } from "app/view/common";
-import { ConstraintListResource } from "app/scenes/constraints";
 
+import { ConstraintListResource } from "../constraints";
 import PrimitiveAttributes from "./PrimitiveAttributes";
 import PrimitiveDetail from "./PrimitiveDetail";
-import useResourceAgent from "../useResourceAgent";
+import useResourceAgent from "./useResourceAgent";
 
 const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
   primitive: types.cluster.Primitive;

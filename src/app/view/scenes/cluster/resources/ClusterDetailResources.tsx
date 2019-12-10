@@ -6,7 +6,7 @@ import { push } from "connected-react-router";
 
 import { types } from "app/store";
 import { ResourceTree } from "./tree";
-import { ResourceDetailPage } from "./detail";
+import ResourceDetailPage from "./ResourceDetailPage";
 
 
 const ClusterDetailResources = ({ cluster, urlPrefix }:{

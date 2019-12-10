@@ -8,12 +8,12 @@ import {
   DetailLayout,
   ResourceDetailCaption,
 } from "app/view/common";
-import { ConstraintListResource } from "app/scenes/constraints";
 
-import GroupDetail from "./GroupDetail";
+import { ConstraintListResource } from "../constraints";
+import CloneDetail from "./CloneDetail";
 
-const GroupPage = ({ group, urlPrefix, onClose }: {
-  group: types.cluster.Group;
+const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
+  clone: types.cluster.Clone;
   urlPrefix: string;
   onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {
@@ -28,17 +28,17 @@ const GroupPage = ({ group, urlPrefix, onClose }: {
   return (
     <DetailLayout
       onClose={onClose}
-      caption={<ResourceDetailCaption resourceId={group.id} type="group" />}
+      caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && (
-        <GroupDetail group={group} />
+        <CloneDetail clone={clone} />
       )}
       {tab === "Constraints" && (
-        <ConstraintListResource resource={group} />
+        <ConstraintListResource resource={clone} />
       )}
     </DetailLayout>
   );
 };
 
-export default GroupPage;
+export default ResourceDetailGroup;
