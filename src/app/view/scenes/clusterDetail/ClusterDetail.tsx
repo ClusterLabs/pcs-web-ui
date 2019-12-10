@@ -9,10 +9,8 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import { StatusSign } from "app/view/common";
-
-import { IssueList } from "app/services/cluster";
 import { selectors } from "app/store";
+import { StatusSign, IssueList } from "app/view/common";
 
 const ClusterDetail = () => {
   const cluster = useSelector(selectors.getCluster);

@@ -10,6 +10,7 @@ import Breadcrumbs from "./Breadcrumbs";
 import UrlTabs from "./UrlTabs";
 import DetailLayout from "./DetailLayout";
 import ResourceDetailCaption from "./ResourceDetailCaption";
+import IssueList from "./IsueList";
 
 export {
   BackgroundImage,
@@ -25,4 +26,5 @@ export {
   StatusIco,
   UrlTabs,
   ResourceDetailCaption,
+  IssueList,
 };

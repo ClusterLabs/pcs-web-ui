@@ -1,7 +1,7 @@
 import React from "react";
 
 import { types } from "app/store";
-import { IssueList } from "app/services/cluster";
+import { IssueList } from "app/view/common";
 
 const PrimitiveDetail = ({ primitive }: {
   primitive: types.cluster.Primitive,

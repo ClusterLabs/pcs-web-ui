@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Table, StatusIco } from "app/view/common";
-import { IssueList } from "app/services/cluster";
 import { types } from "app/store";
-
+import { Table, StatusIco, IssueList } from "app/view/common";
 
 import DashboardNodeList from "./DashboardNodeList";
 import DashboardResourceList from "./DashboardResourceList";
 import DashboardFenceDeviceList from "./DashboardFenceDeviceList";
+
 
 const COLUMNS = {
   ISSUES: "ISSUES",

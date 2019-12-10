@@ -4,7 +4,7 @@ import { useRouteMatch } from "react-router";
 
 import { Page, Spinner, UrlTabs } from "app/view/common";
 import { tabRoutes, join } from "app/view/utils";
-import { useClusterState } from "app/services/cluster";
+import { useClusterState } from "app/view/hooks";
 import { NodeListPage } from "app/scenes/node-list";
 import { FenceDeviceListPage } from "app/scenes/fence-device-list";
 
