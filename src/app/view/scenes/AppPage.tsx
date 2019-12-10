@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouteMatch } from "react-router";
 
-import { ClusterDetailPage } from "./clusterDetail";
+import { ClusterDetailPage } from "./cluster";
 import { DashboardPage } from "./dashboard";
 import Scratch from "./Scratch";
 
