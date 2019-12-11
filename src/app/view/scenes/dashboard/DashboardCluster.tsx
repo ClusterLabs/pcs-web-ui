@@ -91,7 +91,7 @@ const DashboardCluster = ({ cluster }: {
         <DashboardNodeList nodeList={cluster.nodeList} />
       </Content>
       <Content expandKey={COLUMNS.RESOURCES}>
-        <DashboardResourceList resourceList={cluster.resourceTree} />
+        <DashboardResourceList cluster={cluster} />
       </Content>
       <Content expandKey={COLUMNS.FENCE_DEVICES}>
         <DashboardFenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />

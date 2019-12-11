@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { types } from "app/store";
 import { Table, StatusSign, NoItemCase } from "app/view/common";
@@ -27,12 +28,12 @@ const compareByColumn = (
 
 const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
 
-const DashboardResourceList = ({ resourceList }: {
-  resourceList: types.dashboard.ResourceTreeItem[],
+const DashboardResourceList = ({ cluster }: {
+  cluster: types.dashboard.ClusterState,
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting("NAME");
 
-  if (resourceList.length === 0) {
+  if (cluster.resourceTree.length === 0) {
     return <NoItemCase message="No resource is configured." />;
   }
 
@@ -49,17 +50,25 @@ const DashboardResourceList = ({ resourceList }: {
         </tr>
       </thead>
       <tbody>
-        {resourceList.sort(compareItems(compareByColumn)).map(resource => (
-          <tr key={resource.id}>
-            <td>{resource.id}</td>
-            <td>
-              <StatusSign
-                status={resource.statusSeverity}
-                label={toLabel(resource.status)}
-              />
-            </td>
-          </tr>
-        ))}
+        {cluster.resourceTree.sort(compareItems(compareByColumn)).map(
+          resource => (
+            <tr key={resource.id}>
+              <td>
+                <Link
+                  to={`/cluster/${cluster.urlName}/resources/${resource.id}`}
+                >
+                  {resource.id}
+                </Link>
+              </td>
+              <td>
+                <StatusSign
+                  status={resource.statusSeverity}
+                  label={toLabel(resource.status)}
+                />
+              </td>
+            </tr>
+          ),
+        )}
       </tbody>
     </Table>
   );
