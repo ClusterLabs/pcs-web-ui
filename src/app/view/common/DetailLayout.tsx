@@ -19,22 +19,20 @@ const DetailLayout = ({
   tabs?: JSX.Element|JSX.Element[]|string|null;
 }>) => (
   <Stack gutter="md" className="pf-u-m-md">
-    <Stack gutter="md" className="pf-u-m-md">
-      <StackItem>
-        <Level>
-          <LevelItem>
-            {caption}
-          </LevelItem>
-          <LevelItem>
-            <Button variant="plain" aria-label="Close panel" onClick={onClose}>
-              <TimesIcon />
-            </Button>
-          </LevelItem>
-        </Level>
-      </StackItem>
-      {tabs && (<StackItem>{tabs}</StackItem>)}
-      {children}
-    </Stack>
+    <StackItem>
+      <Level>
+        <LevelItem>
+          {caption}
+        </LevelItem>
+        <LevelItem>
+          <Button variant="plain" aria-label="Close panel" onClick={onClose}>
+            <TimesIcon />
+          </Button>
+        </LevelItem>
+      </Level>
+    </StackItem>
+    {tabs && (<StackItem>{tabs}</StackItem>)}
+    {children}
   </Stack>
 );
 
