@@ -33,9 +33,7 @@ const DetailLayout = ({
         </Level>
       </StackItem>
       {tabs && (<StackItem>{tabs}</StackItem>)}
-      <StackItem>
-        {children}
-      </StackItem>
+      {children}
     </Stack>
   </Stack>
 );

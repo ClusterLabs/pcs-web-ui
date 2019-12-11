@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Alert } from "@patternfly/react-core";
+import { Alert, StackItem } from "@patternfly/react-core";
 
 import { types, selectors } from "app/store";
 import { Spinner } from "app/view/common";
@@ -15,8 +15,9 @@ const PrimitiveAttributes = ({ primitive }: {
   ));
 
   return (
-    <div className="pf-c-content">
-      {
+    <StackItem>
+      <div className="pf-c-content">
+        {
         resourceAgent
         &&
         ["LOADED", "RELOADING"].includes(resourceAgent.loadStatus)
@@ -31,10 +32,10 @@ const PrimitiveAttributes = ({ primitive }: {
           ))}
         </dl>
         )}
-      {(!resourceAgent || resourceAgent.loadStatus === "LOADING") && (
+        {(!resourceAgent || resourceAgent.loadStatus === "LOADING") && (
         <Spinner text="Loading resource agent data" />
-      )}
-      {resourceAgent && resourceAgent.loadStatus === "FAILED" && (
+        )}
+        {resourceAgent && resourceAgent.loadStatus === "FAILED" && (
         <Alert
           isInline
           variant="danger"
@@ -42,8 +43,9 @@ const PrimitiveAttributes = ({ primitive }: {
             `Cannot load metadata of resource agent "${primitive.agentName}"`
           }
         />
-      )}
-    </div>
+        )}
+      </div>
+    </StackItem>
   );
 };
 

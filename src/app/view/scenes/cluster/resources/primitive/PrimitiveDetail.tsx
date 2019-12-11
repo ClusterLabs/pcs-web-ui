@@ -1,4 +1,5 @@
 import React from "react";
+import { StackItem } from "@patternfly/react-core";
 
 import { types } from "app/store";
 import { IssueList } from "app/view/common";
@@ -6,7 +7,9 @@ import { IssueList } from "app/view/common";
 const PrimitiveDetail = ({ primitive }: {
   primitive: types.cluster.Primitive,
 }) => (
-  <IssueList issueList={primitive.issueList} />
+  <StackItem>
+    <IssueList issueList={primitive.issueList} />
+  </StackItem>
 );
 
 export default PrimitiveDetail;

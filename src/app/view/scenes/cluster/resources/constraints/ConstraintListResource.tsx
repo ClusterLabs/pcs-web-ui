@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { DataList } from "@patternfly/react-core";
+import { DataList, StackItem } from "@patternfly/react-core";
 
 import { NoItemCase } from "app/view/common";
 import { types, selectors } from "app/store";
@@ -17,41 +17,47 @@ const ConstraintListResource = ({ resource }: {
     selectors.resourceGetConstraints(resource),
   );
   if (constraintPacks.length === 0) {
-    return <NoItemCase margin={false} message="No constraint is configured." />;
+    return (
+      <StackItem>
+        <NoItemCase margin={false} message="No constraint is configured." />
+      </StackItem>
+    );
   }
   return (
-    <DataList aria-label={`Constraints of resource ${resource.id}`}>
-      {constraintPacks.map((pack) => {
-        switch (pack.type) {
-          case "LOCATION": return (
-            <ConstraintRowLocation
-              constraint={pack.constraint}
-              key={pack.constraint.id}
-            />
-          );
-          case "COLOCATION": return (
-            <ConstraintRowColocation
-              constraint={pack.constraint}
-              resourceId={resource.id}
-              key={pack.constraint.id}
-            />
-          );
-          case "TICKET": return (
-            <ConstraintRowTicket
-              constraint={pack.constraint}
-              key={pack.constraint.id}
-            />
-          );
-          case "ORDER": default: return (
-            <ConstraintRowOrder
-              constraint={pack.constraint}
-              resourceId={resource.id}
-              key={pack.constraint.id}
-            />
-          );
-        }
-      })}
-    </DataList>
+    <StackItem>
+      <DataList aria-label={`Constraints of resource ${resource.id}`}>
+        {constraintPacks.map((pack) => {
+          switch (pack.type) {
+            case "LOCATION": return (
+              <ConstraintRowLocation
+                constraint={pack.constraint}
+                key={pack.constraint.id}
+              />
+            );
+            case "COLOCATION": return (
+              <ConstraintRowColocation
+                constraint={pack.constraint}
+                resourceId={resource.id}
+                key={pack.constraint.id}
+              />
+            );
+            case "TICKET": return (
+              <ConstraintRowTicket
+                constraint={pack.constraint}
+                key={pack.constraint.id}
+              />
+            );
+            case "ORDER": default: return (
+              <ConstraintRowOrder
+                constraint={pack.constraint}
+                resourceId={resource.id}
+                key={pack.constraint.id}
+              />
+            );
+          }
+        })}
+      </DataList>
+    </StackItem>
   );
 };
 

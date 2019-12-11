@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "@patternfly/react-core";
+import { Alert, StackItem } from "@patternfly/react-core";
 
 import { DetailLayout } from "app/view/common";
 
@@ -12,11 +12,13 @@ const ResourceDoesNotExists = ({ resourceUrlName, onClose }: {
       onClose={onClose}
       caption={<strong>{resourceUrlName}</strong>}
     >
-      <Alert
-        isInline
-        variant="danger"
-        title={`Resource "${resourceUrlName}" does not exist.`}
-      />
+      <StackItem>
+        <Alert
+          isInline
+          variant="danger"
+          title={`Resource "${resourceUrlName}" does not exist.`}
+        />
+      </StackItem>
     </DetailLayout>
   );
 };
