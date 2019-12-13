@@ -7,7 +7,7 @@ import { tabRoutes, join } from "app/view/utils";
 import { UrlTabs, DetailLayout, ResourceDetailCaption } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
-import PrimitiveAttributes from "./PrimitiveAttributes";
+import { PrimitiveAttributes } from "./attributes";
 import PrimitiveDetail from "./PrimitiveDetail";
 import useResourceAgent from "./useResourceAgent";
 

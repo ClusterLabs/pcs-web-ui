@@ -76,6 +76,8 @@ module.exports = {
         "||": "ignore",
       },
     }],
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/label-has-associated-control": "off",
   },
   parserOptions: {
     ecmaFeatures: {
