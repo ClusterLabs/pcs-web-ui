@@ -31,6 +31,15 @@ const PrimitiveAttributesEdit = ({
       {} as Record<string, any>,
     ),
   );
+  const [userParameters, setUserParameters] = React.useState(initialParameters);
+
+  const updateParam = React.useCallback(
+    (key: keyof typeof userParameters, value: string) => setUserParameters({
+      ...userParameters, [key]: value,
+    }),
+    [userParameters],
+  );
+
   return (
     <StackItem>
       <Form isHorizontal>
@@ -38,11 +47,8 @@ const PrimitiveAttributesEdit = ({
           <PrimitiveAttributesItemEdit
             key={parameter.name}
             label={parameter.name}
-            value={
-              parameter.name in initialParameters
-                ? initialParameters[parameter.name].value
-                : ""
-            }
+            value={userParameters[parameter.name].value}
+            onChange={updateParam}
           />
         ))}
         <ActionGroup>
