@@ -22,4 +22,12 @@ export type PrimitiveResourceActions = {
       agentName: string;
     }
   };
+
+  UpdateInstanceAttributes: {
+    type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES";
+    payload: {
+      resourceId: string;
+      attributes: Record<string, string>;
+    }
+  }
 }

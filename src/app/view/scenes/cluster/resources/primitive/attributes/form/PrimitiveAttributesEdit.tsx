@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Action } from "app/actions";
 import {
   ActionGroup,
   Button,
@@ -19,12 +21,13 @@ const PrimitiveAttributesEdit = ({
   resourceAgentParameters: types.resourceAgents.ResourceAgentParameter[];
   close: () => void;
 }) => {
+  const dispatch = useDispatch();
   const [initialParameters] = React.useState(
     resourceAgentParameters.reduce(
       (a, p) => ({
         ...a,
         [p.name]: p.name in primitive.instanceAttributes
-          ? primitive.instanceAttributes[p.name]
+          ? primitive.instanceAttributes[p.name].value
           : ""
         ,
       }),
@@ -47,11 +50,23 @@ const PrimitiveAttributesEdit = ({
           <PrimitiveAttributesItemEdit
             key={parameter.name}
             label={parameter.name}
-            value={userParameters[parameter.name].value}
+            value={userParameters[parameter.name]}
             onChange={updateParam}
           />
         ))}
         <ActionGroup>
+          <Button
+            variant="primary"
+            onClick={() => dispatch<Action>({
+              type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
+              payload: {
+                resourceId: primitive.id,
+                attributes: userParameters,
+              },
+            })}
+          >
+            Save attributes
+          </Button>
           <Button variant="secondary" onClick={close}>Cancel</Button>
         </ActionGroup>
       </Form>
