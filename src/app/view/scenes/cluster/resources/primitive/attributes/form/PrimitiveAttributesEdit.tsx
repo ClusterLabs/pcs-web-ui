@@ -9,6 +9,7 @@ import {
 } from "@patternfly/react-core";
 
 import { types } from "app/store";
+import { useSelectedCluster } from "app/view/scenes/cluster";
 
 import PrimitiveAttributesItemEdit from "./PrimitiveAttributesItemEdit";
 
@@ -43,6 +44,8 @@ const PrimitiveAttributesEdit = ({
     [userParameters],
   );
 
+  const clusterUrlName = useSelectedCluster();
+
   return (
     <StackItem>
       <Form isHorizontal>
@@ -62,6 +65,7 @@ const PrimitiveAttributesEdit = ({
               payload: {
                 resourceId: primitive.id,
                 attributes: userParameters,
+                clusterUrlName,
               },
             })}
           >

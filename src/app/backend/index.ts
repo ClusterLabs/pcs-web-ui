@@ -13,6 +13,7 @@ import existingCluster from "./existingCluster";
 import clusterStatus from "./clusterStatus";
 import clustersOverview from "./clustersOverview";
 import getResourceAgentMetadata from "./getResourceAgentMetadata";
+import updateResource from "./updateResource";
 import {
   ApiResponse as ApiResponseType,
   ApiResult as ApiResultType,
@@ -36,4 +37,5 @@ export {
   getResourceAgentMetadata,
   clusterStatus,
   clustersOverview,
+  updateResource,
 };

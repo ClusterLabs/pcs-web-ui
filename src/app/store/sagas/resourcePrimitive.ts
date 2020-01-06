@@ -7,6 +7,7 @@ import {
 import { Action, actionType, PrimitiveResourceActions } from "app/actions";
 import {
   getResourceAgentMetadata,
+  updateResource,
   ApiResult,
 } from "app/backend";
 
@@ -36,6 +37,28 @@ function* loadResourceAgent({
   });
 }
 
+function* updateInstanceAttributes({
+  payload: { resourceId, attributes, clusterUrlName },
+}: PrimitiveResourceActions["UpdateInstanceAttributes"]) {
+  try {
+    yield call(
+      authSafe(updateResource),
+      clusterUrlName,
+      resourceId,
+      attributes,
+    );
+    yield put<Action>({
+      type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.SUCCESS",
+    });
+  } catch (error) {
+    console.log("FAILED", error);
+  }
+}
+
 export default [
   takeEvery(actionType("RESOURCE_AGENT.LOAD"), loadResourceAgent),
+  takeEvery(
+    actionType("RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES"),
+    updateInstanceAttributes,
+  ),
 ];

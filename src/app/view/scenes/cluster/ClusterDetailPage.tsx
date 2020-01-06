@@ -10,6 +10,7 @@ import { NodeListPage } from "./nodes";
 import { FenceDeviceListPage } from "./fenceDevices";
 import { ClusterDetailResources } from "./resources";
 import ClusterDetail from "./ClusterDetail";
+import { SelectedClusterProvider } from "./SelectedClusterContext";
 
 const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
   clusterUrlName: string;
@@ -37,7 +38,7 @@ const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
         <UrlTabs tabSettingsMap={urlMap} currentTab={tab} />
       </PageSection>
       {dataLoaded && (
-        <>
+        <SelectedClusterProvider value={clusterUrlName}>
           {tab === "Detail" && (
             <ClusterDetail />
           )}
@@ -50,7 +51,7 @@ const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
           {tab === "Fence Devices" && (
             <FenceDeviceListPage cluster={cluster} urlPrefix={url} />
           )}
-        </>
+        </SelectedClusterProvider>
       )}
       {!dataLoaded && (
         <PageSection>
