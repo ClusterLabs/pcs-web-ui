@@ -10,6 +10,7 @@ import {
   updateResource,
   ApiResult,
 } from "app/backend";
+import { putNotification } from "./notifications";
 
 import { authSafe } from "./authSafe";
 
@@ -40,6 +41,10 @@ function* loadResourceAgent({
 function* updateInstanceAttributes({
   payload: { resourceId, attributes, clusterUrlName },
 }: PrimitiveResourceActions["UpdateInstanceAttributes"]) {
+  yield putNotification(
+    "INFO",
+    `Update instance attributes of resource "${resourceId}" requested`,
+  );
   try {
     yield call(
       authSafe(updateResource),
@@ -51,7 +56,12 @@ function* updateInstanceAttributes({
       type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.SUCCESS",
     });
   } catch (error) {
-    console.log("FAILED", error);
+    yield putNotification(
+      "ERROR",
+      `Cannot update instance attributes of resource "${resourceId}": ${
+        error.message
+      }`,
+    );
   }
 }
 
