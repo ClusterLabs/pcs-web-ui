@@ -60,14 +60,17 @@ const PrimitiveAttributesEdit = ({
         <ActionGroup>
           <Button
             variant="primary"
-            onClick={() => dispatch<Action>({
-              type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
-              payload: {
-                resourceId: primitive.id,
-                attributes: userParameters,
-                clusterUrlName,
-              },
-            })}
+            onClick={() => {
+              dispatch<Action>({
+                type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
+                payload: {
+                  resourceId: primitive.id,
+                  attributes: userParameters,
+                  clusterUrlName,
+                },
+              });
+              close();
+            }}
           >
             Save attributes
           </Button>
