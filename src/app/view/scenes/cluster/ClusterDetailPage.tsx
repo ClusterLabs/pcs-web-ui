@@ -1,6 +1,13 @@
 import React from "react";
-import { PageSection } from "@patternfly/react-core";
+import {
+  PageSection,
+  Breadcrumb,
+  BreadcrumbItem,
+  Stack,
+  StackItem,
+} from "@patternfly/react-core";
 import { useRouteMatch } from "react-router";
+import { Link } from "react-router-dom";
 
 import { Page, Spinner, UrlTabs } from "app/view/common";
 import { tabRoutes, join } from "app/view/utils";
@@ -35,7 +42,21 @@ const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
   return (
     <Page>
       <PageSection variant="light">
-        <UrlTabs tabSettingsMap={urlMap} currentTab={tab} />
+        <Stack gutter="md">
+          <StackItem>
+            <Breadcrumb>
+              <BreadcrumbItem component="span">
+                <Link to="/">Clusters</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem isActive>
+                {clusterUrlName}
+              </BreadcrumbItem>
+            </Breadcrumb>
+          </StackItem>
+          <StackItem>
+            <UrlTabs tabSettingsMap={urlMap} currentTab={tab} />
+          </StackItem>
+        </Stack>
       </PageSection>
       {dataLoaded && (
         <SelectedClusterProvider value={clusterUrlName}>

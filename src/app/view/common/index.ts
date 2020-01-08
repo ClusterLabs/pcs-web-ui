@@ -6,7 +6,6 @@ import PageSectionDataLoading from "./PageSectionDataLoading";
 import StatusSign from "./StatusSign";
 import Table from "./table/Table";
 import StatusIco from "./StatusIco";
-import Breadcrumbs from "./Breadcrumbs";
 import UrlTabs from "./UrlTabs";
 import DetailLayout from "./DetailLayout";
 import ResourceDetailCaption from "./ResourceDetailCaption";
@@ -15,7 +14,6 @@ import IssueList from "./IsueList";
 export {
   BackgroundImage,
   BackgroundImageSources,
-  Breadcrumbs,
   DetailLayout,
   NoItemCase,
   Page,

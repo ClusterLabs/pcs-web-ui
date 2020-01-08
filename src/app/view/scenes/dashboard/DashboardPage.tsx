@@ -1,6 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { PageSection } from "@patternfly/react-core";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  PageSection,
+  Stack,
+  StackItem,
+} from "@patternfly/react-core";
 
 import { Action } from "app/actions";
 import { selectors } from "app/store";
@@ -34,8 +40,19 @@ const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
 
   return (
     <Page>
-      <PageSection>
-        <DashboardToolbar urlPrefix={urlPrefix} />
+      <PageSection variant="light">
+        <Stack gutter="md">
+          <StackItem>
+            <Breadcrumb>
+              <BreadcrumbItem isActive>
+                Clusters
+              </BreadcrumbItem>
+            </Breadcrumb>
+          </StackItem>
+          <StackItem>
+            <DashboardToolbar urlPrefix={urlPrefix} />
+          </StackItem>
+        </Stack>
       </PageSection>
       <PageSectionDataLoading done={dataLoaded}>
         <Dashboard dashboard={dashboard} />
