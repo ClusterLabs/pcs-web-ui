@@ -8,7 +8,7 @@ import {
 } from "./tools";
 
 const ApiUpdateResource = t.partial({
-  error: t.string,
+  error: t.literal("true"),
   stdout: t.string,
   stderr: t.string,
 });
