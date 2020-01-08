@@ -35,6 +35,7 @@ const useDashboardSync = () => {
 
 const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
   useDashboardSync();
+  const dispatch = useDispatch();
   const dashboard = useSelector(selectors.getDashboard);
   const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
 
@@ -44,7 +45,12 @@ const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
         <Stack gutter="md">
           <StackItem>
             <Breadcrumb>
-              <BreadcrumbItem isActive>
+              <BreadcrumbItem
+                isActive
+                onClick={() => dispatch<Action>({
+                  type: "DASHBOARD_DATA.REFRESH",
+                })}
+              >
                 Clusters
               </BreadcrumbItem>
             </Breadcrumb>

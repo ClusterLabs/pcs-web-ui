@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import {
   PageSection,
   Breadcrumb,
@@ -9,6 +10,7 @@ import {
 import { useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 
+import { Action } from "app/actions";
 import { Page, Spinner, UrlTabs } from "app/view/common";
 import { tabRoutes, join } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
@@ -23,6 +25,7 @@ const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
   clusterUrlName: string;
   urlPrefix: string;
 }) => {
+  const dispatch = useDispatch();
   const { dataLoaded, cluster } = useClusterState(clusterUrlName);
 
   const urlMap = {
@@ -48,7 +51,12 @@ const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
               <BreadcrumbItem component="span">
                 <Link to="/">Clusters</Link>
               </BreadcrumbItem>
-              <BreadcrumbItem isActive>
+              <BreadcrumbItem
+                isActive
+                onClick={() => dispatch<Action>({
+                  type: "CLUSTER_DATA.REFRESH",
+                })}
+              >
                 {clusterUrlName}
               </BreadcrumbItem>
             </Breadcrumb>
