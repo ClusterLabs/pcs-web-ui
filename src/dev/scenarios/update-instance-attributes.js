@@ -5,11 +5,19 @@ const clustersOverview = response => endpoints.clustersOverview(
   (req, res) => { res.json(response); },
 );
 
+let clusterStatusLoadCount = 0;
 const clusterStatus = (responseMap = {}) => endpoints.clusterStatus(
   (req, res) => {
     const clusterName = req.params.clusterUrlName;
     if (Object.keys(responseMap).includes(clusterName)) {
-      res.json(responseMap[clusterName]);
+      const response = responseMap[clusterName];
+      if (clusterStatusLoadCount++ > 4) {
+        response.resource_list[0].instance_attr[0] = {
+          ...response.resource_list[0].instance_attr[0],
+          value: "/etc/httpd/httpd.conf",
+        };
+      }
+      res.json(response);
     } else {
       res.status(404).send("Not found");
     }

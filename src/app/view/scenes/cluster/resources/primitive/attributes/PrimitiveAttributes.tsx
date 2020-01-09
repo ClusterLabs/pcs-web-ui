@@ -9,7 +9,7 @@ import LoadedResourceAgent from "./LoadedResourceAgent";
 const PrimitiveAttributes = ({ primitive }: {
   primitive: types.cluster.Primitive,
 }) => {
-  const [isEditing, setIsEditing] = React.useState(false);
+  const [isEditing, setIsEditing] = React.useState(true);
   return (
     <LoadedResourceAgent agentName={primitive.agentName}>
       {(resourceAgent: types.resourceAgents.ResourceAgentMetadata) => {

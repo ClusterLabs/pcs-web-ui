@@ -53,7 +53,13 @@ const PrimitiveAttributesEdit = ({
           <PrimitiveAttributesItemEdit
             key={parameter.name}
             label={parameter.name}
-            value={userParameters[parameter.name]}
+            userValue={userParameters[parameter.name]}
+            initialValue={initialParameters[parameter.name]}
+            remoteValue={
+              parameter.name in primitive.instanceAttributes
+                ? primitive.instanceAttributes[parameter.name].value
+                : ""
+            }
             onChange={updateParam}
           />
         ))}
