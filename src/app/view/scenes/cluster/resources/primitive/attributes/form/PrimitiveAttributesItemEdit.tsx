@@ -7,6 +7,7 @@ import {
 } from "@patternfly/react-core";
 
 import AttributeDecisionFormGroup from "./AttributeDecisionFormGroup";
+import AttributeDecisionRadio from "./AttributeDecisionRadio";
 
 
 const PrimitiveAttributesItemEdit = ({
@@ -27,13 +28,25 @@ const PrimitiveAttributesItemEdit = ({
     <AttributeDecisionFormGroup label={label}>
       <Stack>
         {remoteValue !== initialValue && (
-          <StackItem className="pf-u-mb-sm">
-            <Alert
-              variant="warning"
-              isInline
-              title="Another user provided a new value for this field."
-            />
-          </StackItem>
+          <>
+            <StackItem className="pf-u-mb-sm">
+              <Alert
+                variant="warning"
+                isInline
+                title="Another user provided a new value for this field."
+              />
+            </StackItem>
+            <StackItem className="pf-u-mt-sm">
+              <AttributeDecisionRadio
+                id={`remote-value-${label}`}
+                name={label}
+                ariaLabel={`Use concurent value: ${remoteValue}`}
+                value={remoteValue}
+              >
+                <strong>{remoteValue}</strong>
+              </AttributeDecisionRadio>
+            </StackItem>
+          </>
         )}
         <StackItem>
           <TextInput
