@@ -128,6 +128,11 @@ const resourceTree = cluster("resourceTree", "ok", {
           name: "configfile",
           value: "/etc/apache/httpd.conf",
         },
+        {
+          id: "A-instance_attributes-httpd",
+          name: "httpd",
+          value: "/usr/sbin/httpd",
+        },
       ]
     }),
     group("GROUP-1", [

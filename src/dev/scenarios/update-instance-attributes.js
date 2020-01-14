@@ -16,6 +16,9 @@ const clusterStatus = (responseMap = {}) => endpoints.clusterStatus(
           ...response.resource_list[0].instance_attr[0],
           value: "/etc/httpd/httpd.conf",
         };
+        response.resource_list[0].instance_attr = (
+          response.resource_list[0].instance_attr.filter((attr, i) => i !== 1)
+        );
       }
       res.json(response);
     } else {

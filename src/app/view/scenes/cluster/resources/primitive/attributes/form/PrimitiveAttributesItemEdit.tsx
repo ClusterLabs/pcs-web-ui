@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Alert,
   Stack,
   StackItem,
   TextInput,
@@ -8,6 +7,8 @@ import {
 
 import AttributeDecisionFormGroup from "./AttributeDecisionFormGroup";
 import AttributeDecisionRadio from "./AttributeDecisionRadio";
+import AttributeDecisionLabelRemote from "./AttributeDecisionLabelRemote";
+import AttributeConflictWarning from "./AttributeConflictWarning";
 
 const PrimitiveAttributesItemEdit = ({
   label,
@@ -25,17 +26,14 @@ const PrimitiveAttributesItemEdit = ({
   const id = `resource-attribute-${label}`;
   const decideName = `rc-instance-attr-choice-${label}`;
   const decideIdRemote = `${decideName}-remote`;
+  const decideIdUser = `${decideName}-user`;
   return (
     <AttributeDecisionFormGroup label={label}>
       <Stack>
         {remoteValue !== initialValue && (
           <>
             <StackItem className="pf-u-mb-sm">
-              <Alert
-                variant="warning"
-                isInline
-                title="Another user provided a new value for this field."
-              />
+              <AttributeConflictWarning remoteValue={remoteValue} />
             </StackItem>
             <StackItem className="pf-u-mt-sm">
               <AttributeDecisionRadio
@@ -43,18 +41,17 @@ const PrimitiveAttributesItemEdit = ({
                 name={decideName}
                 ariaLabel={`Use concurent value: ${remoteValue}`}
               >
-                <label className="pf-c-radio__label" htmlFor={decideIdRemote}>
-                  Use the new value
-                </label>
-                <br />
-                <strong>{remoteValue}</strong>
+                <AttributeDecisionLabelRemote
+                  htmlFor={decideIdRemote}
+                  remoteValue={remoteValue}
+                />
               </AttributeDecisionRadio>
             </StackItem>
           </>
         )}
         <StackItem className="pf-u-mt-sm">
           <AttributeDecisionRadio
-            id={`${decideName}-user`}
+            id={decideIdUser}
             name={decideName}
             ariaLabel={`Use a user value: ${userValue}`}
             active={remoteValue !== initialValue}
@@ -62,7 +59,9 @@ const PrimitiveAttributesItemEdit = ({
             <span className="pf-c-radio__label pf-u-w-100">
               {remoteValue !== initialValue && (
                 <>
-                  <label htmlFor={id}>Use the following value</label>
+                  <label className="pf-c-radio__label" htmlFor={decideIdUser}>
+                    Use the following value
+                  </label>
                   <br />
                 </>
               )}
