@@ -2,24 +2,26 @@ import React from "react";
 
 const AttributeDecisionRadio = (
   {
-    id, name, ariaLabel, value, children,
+    id, name, ariaLabel, children, active = true,
   }: React.PropsWithChildren<{
     id: string;
     name: string;
     ariaLabel: string;
-    value: string;
+    active?: boolean;
 }>,
 ) => {
   return (
-    <div className="pf-c-radio ha-c-radio">
-      <input
-        className="pf-c-radio__input"
-        type="radio"
-        id={id}
-        name={name}
-        required
-        aria-label={ariaLabel}
-      />
+    <div className={active ? "pf-c-radio ha-c-radio" : ""}>
+      {active && (
+        <input
+          className="pf-c-radio__input"
+          type="radio"
+          id={id}
+          name={name}
+          required
+          aria-label={ariaLabel}
+        />
+      )}
       {children}
     </div>
   );

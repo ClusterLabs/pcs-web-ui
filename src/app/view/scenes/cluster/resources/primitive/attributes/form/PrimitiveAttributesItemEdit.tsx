@@ -9,7 +9,6 @@ import {
 import AttributeDecisionFormGroup from "./AttributeDecisionFormGroup";
 import AttributeDecisionRadio from "./AttributeDecisionRadio";
 
-
 const PrimitiveAttributesItemEdit = ({
   label,
   userValue,
@@ -24,6 +23,8 @@ const PrimitiveAttributesItemEdit = ({
   onChange: (key: string, value: string) => void;
 }) => {
   const id = `resource-attribute-${label}`;
+  const decideName = `rc-instance-attr-choice-${label}`;
+  const decideIdRemote = `${decideName}-remote`;
   return (
     <AttributeDecisionFormGroup label={label}>
       <Stack>
@@ -38,15 +39,11 @@ const PrimitiveAttributesItemEdit = ({
             </StackItem>
             <StackItem className="pf-u-mt-sm">
               <AttributeDecisionRadio
-                id={`remote-value-${label}`}
-                name={label}
+                id={decideIdRemote}
+                name={decideName}
                 ariaLabel={`Use concurent value: ${remoteValue}`}
-                value={remoteValue}
               >
-                <label
-                  className="pf-c-radio__label"
-                  htmlFor={`remote-value-${label}`}
-                >
+                <label className="pf-c-radio__label" htmlFor={decideIdRemote}>
                   Use the new value
                 </label>
                 <br />
@@ -56,17 +53,12 @@ const PrimitiveAttributesItemEdit = ({
           </>
         )}
         <StackItem className="pf-u-mt-sm">
-          <div className={remoteValue !== initialValue ? "pf-c-radio ha-c-radio" : ""}>
-            {remoteValue !== initialValue && (
-              <input
-                className="pf-c-radio__input"
-                type="radio"
-                id={id}
-                name={label}
-                required
-                aria-label={label}
-              />
-            )}
+          <AttributeDecisionRadio
+            id={`${decideName}-user`}
+            name={decideName}
+            ariaLabel={`Use a user value: ${userValue}`}
+            active={remoteValue !== initialValue}
+          >
             <span className="pf-c-radio__label pf-u-w-100">
               {remoteValue !== initialValue && (
                 <>
@@ -84,7 +76,7 @@ const PrimitiveAttributesItemEdit = ({
                 }
               />
             </span>
-          </div>
+          </AttributeDecisionRadio>
         </StackItem>
       </Stack>
     </AttributeDecisionFormGroup>
