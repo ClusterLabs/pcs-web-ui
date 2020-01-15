@@ -17,7 +17,7 @@ const PrimitiveAttributes = ({ primitive }: {
           return (
             <PrimitiveAttributesEdit
               primitive={primitive}
-              resourceAgentParameters={resourceAgent.parameters}
+              resourceAgentParams={resourceAgent.parameters}
               close={() => setIsEditing(false)}
             />
           );

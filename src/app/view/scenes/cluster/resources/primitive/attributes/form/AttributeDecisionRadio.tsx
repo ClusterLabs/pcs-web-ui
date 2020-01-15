@@ -2,11 +2,12 @@ import React from "react";
 
 const AttributeDecisionRadio = (
   {
-    id, name, ariaLabel, children, active = true,
+    id, name, ariaLabel, children, onSelect, active = true,
   }: React.PropsWithChildren<{
     id: string;
     name: string;
     ariaLabel: string;
+    onSelect: () => void;
     active?: boolean;
 }>,
 ) => {
@@ -20,6 +21,7 @@ const AttributeDecisionRadio = (
           name={name}
           required
           aria-label={ariaLabel}
+          onChange={onSelect}
         />
       )}
       {children}

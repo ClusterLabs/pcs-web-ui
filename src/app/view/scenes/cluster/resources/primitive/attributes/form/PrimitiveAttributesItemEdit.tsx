@@ -16,12 +16,16 @@ const PrimitiveAttributesItemEdit = ({
   initialValue,
   remoteValue,
   onChange,
+  chooseRemoteUse,
+  chooseValueUse,
 }: {
   label: string;
   userValue: string;
   initialValue: string;
   remoteValue: string;
-  onChange: (key: string, value: string) => void;
+  onChange: (value: string) => void;
+  chooseRemoteUse: () => void;
+  chooseValueUse: () => void;
 }) => {
   const id = `resource-attribute-${label}`;
   const decideName = `rc-instance-attr-choice-${label}`;
@@ -40,6 +44,7 @@ const PrimitiveAttributesItemEdit = ({
                 id={decideIdRemote}
                 name={decideName}
                 ariaLabel={`Use concurent value: ${remoteValue}`}
+                onSelect={chooseRemoteUse}
               >
                 <AttributeDecisionLabelRemote
                   htmlFor={decideIdRemote}
@@ -54,6 +59,7 @@ const PrimitiveAttributesItemEdit = ({
             id={decideIdUser}
             name={decideName}
             ariaLabel={`Use a user value: ${userValue}`}
+            onSelect={chooseValueUse}
             active={remoteValue !== initialValue}
           >
             <span className="pf-c-radio__label pf-u-w-100">
@@ -70,9 +76,7 @@ const PrimitiveAttributesItemEdit = ({
                 id={id}
                 name={id}
                 defaultValue={userValue}
-                onChange={
-                  (updatedValue: string) => onChange(label, updatedValue)
-                }
+                onChange={onChange}
               />
             </span>
           </AttributeDecisionRadio>

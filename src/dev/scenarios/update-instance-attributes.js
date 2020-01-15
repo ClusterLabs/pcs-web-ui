@@ -11,7 +11,7 @@ const clusterStatus = (responseMap = {}) => endpoints.clusterStatus(
     const clusterName = req.params.clusterUrlName;
     if (Object.keys(responseMap).includes(clusterName)) {
       const response = responseMap[clusterName];
-      if (clusterStatusLoadCount++ > 4) {
+      if (clusterStatusLoadCount++ > 0) {
         response.resource_list[0].instance_attr[0] = {
           ...response.resource_list[0].instance_attr[0],
           value: "/etc/httpd/httpd.conf",

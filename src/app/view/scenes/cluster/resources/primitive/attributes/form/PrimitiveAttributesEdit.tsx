@@ -13,54 +13,97 @@ import { useSelectedCluster } from "app/view/scenes/cluster";
 
 import PrimitiveAttributesItemEdit from "./PrimitiveAttributesItemEdit";
 
-const PrimitiveAttributesEdit = ({
-  primitive,
-  resourceAgentParameters,
-  close,
-}: {
+type FormAttr = {
+  value: string;
+  initial: string;
+  srcChoice: "undecided"|"remote"|"user";
+}
+
+const instanceAttr = (primitive: types.cluster.Primitive, name: string) => (
+  name in primitive.instanceAttributes
+    ? primitive.instanceAttributes[name].value
+    : ""
+);
+
+const collectUpdatedAttrs = (
+  formMap: Record<string, FormAttr>,
+  primitive: types.cluster.Primitive,
+) => Object.keys(formMap).reduce(
+  (a, n) => {
+    if (
+      (
+        instanceAttr(primitive, n) === formMap[n].initial
+        &&
+        formMap[n].value !== formMap[n].initial
+      )
+      ||
+      formMap[n].srcChoice === "user"
+    ) {
+      return { ...a, [n]: formMap[n].value };
+    }
+    return a;
+  },
+  {} as Record<string, any>,
+);
+
+const hasUndecidedSrc = (
+  formMap: Record<string, FormAttr>,
+  primitive: types.cluster.Primitive,
+) => Object.keys(formMap).some(n => (
+  instanceAttr(primitive, n) !== formMap[n].initial
+  &&
+  formMap[n].srcChoice === "undecided"
+));
+
+const PrimitiveAttributesEdit = ({ primitive, resourceAgentParams, close }: {
   primitive: types.cluster.Primitive;
-  resourceAgentParameters: types.resourceAgents.ResourceAgentParameter[];
+  resourceAgentParams: types.resourceAgents.ResourceAgentParameter[];
   close: () => void;
 }) => {
+  const clusterUrlName = useSelectedCluster();
+
   const dispatch = useDispatch();
-  const [initialParameters] = React.useState(
-    resourceAgentParameters.reduce(
-      (a, p) => ({
-        ...a,
-        [p.name]: p.name in primitive.instanceAttributes
-          ? primitive.instanceAttributes[p.name].value
-          : ""
-        ,
-      }),
-      {} as Record<string, any>,
-    ),
+
+  const [formMap, setFormMap] = React.useState<Record<string, FormAttr>>(
+    resourceAgentParams.reduce((a, p) => ({
+      ...a,
+      [p.name]: {
+        initial: instanceAttr(primitive, p.name),
+        value: instanceAttr(primitive, p.name),
+        conflictDecision: "undecided",
+      },
+    }), {}),
   );
-  const [userParameters, setUserParameters] = React.useState(initialParameters);
 
   const updateParam = React.useCallback(
-    (key: keyof typeof userParameters, value: string) => setUserParameters({
-      ...userParameters, [key]: value,
+    (key: string) => (value: FormAttr["value"]) => setFormMap({
+      ...formMap,
+      [key]: { ...formMap[key], value },
     }),
-    [userParameters],
+    [formMap, setFormMap],
   );
 
-  const clusterUrlName = useSelectedCluster();
+  const chooseSrc = React.useCallback(
+    (key: string, srcChoice: FormAttr["srcChoice"]) => () => setFormMap({
+      ...formMap,
+      [key]: { ...formMap[key], srcChoice },
+    }),
+    [formMap, setFormMap],
+  );
 
   return (
     <StackItem>
       <Form isHorizontal>
-        {resourceAgentParameters.map(parameter => (
+        {resourceAgentParams.map(parameter => (
           <PrimitiveAttributesItemEdit
             key={parameter.name}
             label={parameter.name}
-            userValue={userParameters[parameter.name]}
-            initialValue={initialParameters[parameter.name]}
-            remoteValue={
-              parameter.name in primitive.instanceAttributes
-                ? primitive.instanceAttributes[parameter.name].value
-                : ""
-            }
-            onChange={updateParam}
+            userValue={formMap[parameter.name].value}
+            initialValue={formMap[parameter.name].initial}
+            remoteValue={instanceAttr(primitive, parameter.name)}
+            onChange={updateParam(parameter.name)}
+            chooseRemoteUse={chooseSrc(parameter.name, "remote")}
+            chooseValueUse={chooseSrc(parameter.name, "user")}
           />
         ))}
         <ActionGroup>
@@ -70,13 +113,14 @@ const PrimitiveAttributesEdit = ({
               dispatch<Action>({
                 type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
                 payload: {
-                  resourceId: primitive.id,
-                  attributes: userParameters,
                   clusterUrlName,
+                  resourceId: primitive.id,
+                  attributes: collectUpdatedAttrs(formMap, primitive),
                 },
               });
               close();
             }}
+            isDisabled={hasUndecidedSrc(formMap, primitive)}
           >
             Save attributes
           </Button>
