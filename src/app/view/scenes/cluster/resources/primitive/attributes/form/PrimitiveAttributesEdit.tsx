@@ -5,7 +5,6 @@ import {
   ActionGroup,
   Button,
   Form,
-  StackItem,
 } from "@patternfly/react-core";
 
 import { types } from "app/store";
@@ -92,42 +91,40 @@ const PrimitiveAttributesEdit = ({ primitive, resourceAgentParams, close }: {
   );
 
   return (
-    <StackItem>
-      <Form isHorizontal>
-        {resourceAgentParams.map(parameter => (
-          <PrimitiveAttributesItemEdit
-            key={parameter.name}
-            label={parameter.name}
-            userValue={formMap[parameter.name].value}
-            initialValue={formMap[parameter.name].initial}
-            remoteValue={instanceAttr(primitive, parameter.name)}
-            onChange={updateParam(parameter.name)}
-            chooseRemoteUse={chooseSrc(parameter.name, "remote")}
-            chooseValueUse={chooseSrc(parameter.name, "user")}
-          />
-        ))}
-        <ActionGroup>
-          <Button
-            variant="primary"
-            onClick={() => {
-              dispatch<Action>({
-                type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
-                payload: {
-                  clusterUrlName,
-                  resourceId: primitive.id,
-                  attributes: collectUpdatedAttrs(formMap, primitive),
-                },
-              });
-              close();
-            }}
-            isDisabled={hasUndecidedSrc(formMap, primitive)}
-          >
+    <Form isHorizontal>
+      {resourceAgentParams.map(parameter => (
+        <PrimitiveAttributesItemEdit
+          key={parameter.name}
+          label={parameter.name}
+          userValue={formMap[parameter.name].value}
+          initialValue={formMap[parameter.name].initial}
+          remoteValue={instanceAttr(primitive, parameter.name)}
+          onChange={updateParam(parameter.name)}
+          chooseRemoteUse={chooseSrc(parameter.name, "remote")}
+          chooseValueUse={chooseSrc(parameter.name, "user")}
+        />
+      ))}
+      <ActionGroup>
+        <Button
+          variant="primary"
+          onClick={() => {
+            dispatch<Action>({
+              type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
+              payload: {
+                clusterUrlName,
+                resourceId: primitive.id,
+                attributes: collectUpdatedAttrs(formMap, primitive),
+              },
+            });
+            close();
+          }}
+          isDisabled={hasUndecidedSrc(formMap, primitive)}
+        >
             Save attributes
-          </Button>
-          <Button variant="secondary" onClick={close}>Cancel</Button>
-        </ActionGroup>
-      </Form>
-    </StackItem>
+        </Button>
+        <Button variant="secondary" onClick={close}>Cancel</Button>
+      </ActionGroup>
+    </Form>
   );
 };
 

@@ -17,11 +17,13 @@ const PrimitiveAttributes = ({ primitive }: {
       {(resourceAgent: types.resourceAgents.ResourceAgentMetadata) => {
         if (isEditing) {
           return (
-            <PrimitiveAttributesEdit
-              primitive={primitive}
-              resourceAgentParams={resourceAgent.parameters}
-              close={() => setIsEditing(false)}
-            />
+            <StackItem>
+              <PrimitiveAttributesEdit
+                primitive={primitive}
+                resourceAgentParams={resourceAgent.parameters}
+                close={() => setIsEditing(false)}
+              />
+            </StackItem>
           );
         }
 
