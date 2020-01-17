@@ -7,7 +7,7 @@ import { tabRoutes, join } from "app/view/utils";
 import { UrlTabs, DetailLayout, ResourceDetailCaption } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
-import { PrimitiveAttributes } from "./attributes";
+import { PrimitiveAttrsView } from "./attributes";
 import PrimitiveDetail from "./PrimitiveDetail";
 import useResourceAgent from "./useResourceAgent";
 
@@ -47,7 +47,7 @@ const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
         <PrimitiveDetail primitive={primitive} />
       )}
       {tab === "Attributes" && (
-        <PrimitiveAttributes primitive={primitive} />
+        <PrimitiveAttrsView primitive={primitive} />
       )}
       {tab === "Constraints" && (
         <ConstraintListResource resource={primitive} />

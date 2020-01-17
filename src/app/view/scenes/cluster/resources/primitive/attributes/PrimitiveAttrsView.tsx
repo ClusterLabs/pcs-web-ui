@@ -2,13 +2,13 @@ import React from "react";
 import { StackItem } from "@patternfly/react-core";
 
 import { types } from "app/store";
+import { LoadedResourceAgent } from "app/view/common";
 
-import PrimitiveAttributesView from "./PrimitiveAttributesView";
-import { PrimitiveAttributesEdit } from "./form";
-import LoadedResourceAgent from "./LoadedResourceAgent";
-import PrimitiveAttributesToolbar from "./PrimitiveAttributesToolbar";
+import PrimitiveAttrsList from "./PrimitiveAttrsList";
+import PrimitiveAttrsForm from "./PrimitiveAttrsForm";
+import PrimitiveAttrsToolbar from "./PrimitiveAttrsToolbar";
 
-const PrimitiveAttributes = ({ primitive }: {
+const PrimitiveAttrsView = ({ primitive }: {
   primitive: types.cluster.Primitive,
 }) => {
   const [isEditing, setIsEditing] = React.useState(true);
@@ -18,7 +18,7 @@ const PrimitiveAttributes = ({ primitive }: {
         if (isEditing) {
           return (
             <StackItem>
-              <PrimitiveAttributesEdit
+              <PrimitiveAttrsForm
                 primitive={primitive}
                 resourceAgentParams={resourceAgent.parameters}
                 close={() => setIsEditing(false)}
@@ -30,10 +30,10 @@ const PrimitiveAttributes = ({ primitive }: {
         return (
           <>
             <StackItem>
-              <PrimitiveAttributesToolbar edit={() => setIsEditing(true)} />
+              <PrimitiveAttrsToolbar edit={() => setIsEditing(true)} />
             </StackItem>
             <StackItem>
-              <PrimitiveAttributesView
+              <PrimitiveAttrsList
                 primitive={primitive}
                 resourceAgentParameters={resourceAgent.parameters}
               />
@@ -45,4 +45,4 @@ const PrimitiveAttributes = ({ primitive }: {
   );
 };
 
-export default PrimitiveAttributes;
+export default PrimitiveAttrsView;

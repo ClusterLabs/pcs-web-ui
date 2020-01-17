@@ -1,5 +1,5 @@
-import PrimitiveAttributes from "./PrimitiveAttributes";
+import PrimitiveAttrsView from "./PrimitiveAttrsView";
 
 export {
-  PrimitiveAttributes,
+  PrimitiveAttrsView,
 };

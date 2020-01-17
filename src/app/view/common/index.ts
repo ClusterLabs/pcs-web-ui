@@ -10,6 +10,7 @@ import UrlTabs from "./UrlTabs";
 import DetailLayout from "./DetailLayout";
 import ResourceDetailCaption from "./ResourceDetailCaption";
 import IssueList from "./IsueList";
+import LoadedResourceAgent from "./LoadedResourceAgent";
 
 export {
   BackgroundImage,
@@ -25,4 +26,5 @@ export {
   UrlTabs,
   ResourceDetailCaption,
   IssueList,
+  LoadedResourceAgent,
 };

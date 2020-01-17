@@ -1,7 +1,9 @@
 import React from "react";
 import { Alert } from "@patternfly/react-core";
 
-const AttributeConflictWarning = ({ remoteValue }: { remoteValue: string }) => {
+const PrimitiveAttrsFormItemWarning = ({ remoteValue }: {
+  remoteValue: string;
+}) => {
   return (
     <Alert
       variant="warning"
@@ -15,4 +17,4 @@ const AttributeConflictWarning = ({ remoteValue }: { remoteValue: string }) => {
   );
 };
 
-export default AttributeConflictWarning;
+export default PrimitiveAttrsFormItemWarning;

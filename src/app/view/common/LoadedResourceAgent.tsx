@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import { Alert } from "@patternfly/react-core";
 
 import { types, selectors } from "app/store";
-import { Spinner } from "app/view/common";
+
+import Spinner from "./Spinner";
 
 const LoadedResourceAgent = ({ agentName, children }: {
   agentName: string;

@@ -10,7 +10,7 @@ import {
 import { types } from "app/store";
 import { useSelectedCluster } from "app/view/scenes/cluster";
 
-import PrimitiveAttributesItemEdit from "./PrimitiveAttributesItemEdit";
+import PrimitiveAttrsFormItem from "./PrimitiveAttrsFormItem";
 
 type FormAttr = {
   value: string;
@@ -54,7 +54,7 @@ const hasUndecidedSrc = (
   formMap[n].srcChoice === "undecided"
 ));
 
-const PrimitiveAttributesEdit = ({ primitive, resourceAgentParams, close }: {
+const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
   primitive: types.cluster.Primitive;
   resourceAgentParams: types.resourceAgents.ResourceAgentParameter[];
   close: () => void;
@@ -93,7 +93,7 @@ const PrimitiveAttributesEdit = ({ primitive, resourceAgentParams, close }: {
   return (
     <Form isHorizontal>
       {resourceAgentParams.map(parameter => (
-        <PrimitiveAttributesItemEdit
+        <PrimitiveAttrsFormItem
           key={parameter.name}
           label={parameter.name}
           userValue={formMap[parameter.name].value}
@@ -128,4 +128,4 @@ const PrimitiveAttributesEdit = ({ primitive, resourceAgentParams, close }: {
   );
 };
 
-export default PrimitiveAttributesEdit;
+export default PrimitiveAttrsForm;

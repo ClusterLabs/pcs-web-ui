@@ -1,6 +1,6 @@
 import React from "react";
 
-const AttributeDecisionRadio = (
+const PrimitiveAttrsFormItemRadio = (
   {
     id, name, ariaLabel, children, onSelect, active = true,
   }: React.PropsWithChildren<{
@@ -29,4 +29,4 @@ const AttributeDecisionRadio = (
   );
 };
 
-export default AttributeDecisionRadio;
+export default PrimitiveAttrsFormItemRadio;

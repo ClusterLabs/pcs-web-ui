@@ -2,9 +2,9 @@ import React from "react";
 
 import { types } from "app/store";
 
-import PrimitiveParameter from "./PrimitiveParameter";
+import PrimitiveAttrsListItem from "./PrimitiveAttrsListItem";
 
-const PrimitiveAttributesView = ({ primitive, resourceAgentParameters }: {
+const PrimitiveAttrsList = ({ primitive, resourceAgentParameters }: {
   primitive: types.cluster.Primitive;
   resourceAgentParameters: types.resourceAgents.ResourceAgentParameter[];
 }) => {
@@ -12,7 +12,7 @@ const PrimitiveAttributesView = ({ primitive, resourceAgentParameters }: {
     <div className="pf-c-content">
       <dl>
         {resourceAgentParameters.map(parameter => (
-          <PrimitiveParameter
+          <PrimitiveAttrsListItem
             key={parameter.name}
             instanceAttributes={primitive.instanceAttributes}
             resourceAgentParameter={parameter}
@@ -23,4 +23,4 @@ const PrimitiveAttributesView = ({ primitive, resourceAgentParameters }: {
   );
 };
 
-export default PrimitiveAttributesView;
+export default PrimitiveAttrsList;

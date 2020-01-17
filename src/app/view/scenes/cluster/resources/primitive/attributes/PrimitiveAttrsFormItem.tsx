@@ -5,12 +5,12 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import AttributeDecisionFormGroup from "./AttributeDecisionFormGroup";
-import AttributeDecisionRadio from "./AttributeDecisionRadio";
-import AttributeDecisionLabelRemote from "./AttributeDecisionLabelRemote";
-import AttributeConflictWarning from "./AttributeConflictWarning";
+import PrimitiveAttrsFormItemLayout from "./PrimitiveAttrsFormItemLayout";
+import PrimitiveAttrsFormItemRadio from "./PrimitiveAttrsFormItemRadio";
+import PrimitiveAttrsFormItemLabel from "./PrimitiveAttrsFormItemLabel";
+import PrimitiveAttrsFormItemWarning from "./PrimitiveAttrsFormItemWarning";
 
-const PrimitiveAttributesItemEdit = ({
+const PrimitiveAttrsFormItem = ({
   label,
   userValue,
   initialValue,
@@ -32,30 +32,30 @@ const PrimitiveAttributesItemEdit = ({
   const decideIdRemote = `${decideName}-remote`;
   const decideIdUser = `${decideName}-user`;
   return (
-    <AttributeDecisionFormGroup label={label}>
+    <PrimitiveAttrsFormItemLayout label={label}>
       <Stack>
         {remoteValue !== initialValue && (
           <>
             <StackItem className="pf-u-mb-sm">
-              <AttributeConflictWarning remoteValue={remoteValue} />
+              <PrimitiveAttrsFormItemWarning remoteValue={remoteValue} />
             </StackItem>
             <StackItem className="pf-u-mt-sm">
-              <AttributeDecisionRadio
+              <PrimitiveAttrsFormItemRadio
                 id={decideIdRemote}
                 name={decideName}
                 ariaLabel={`Use concurent value: ${remoteValue}`}
                 onSelect={chooseRemoteUse}
               >
-                <AttributeDecisionLabelRemote
+                <PrimitiveAttrsFormItemLabel
                   htmlFor={decideIdRemote}
                   remoteValue={remoteValue}
                 />
-              </AttributeDecisionRadio>
+              </PrimitiveAttrsFormItemRadio>
             </StackItem>
           </>
         )}
         <StackItem className="pf-u-mt-sm">
-          <AttributeDecisionRadio
+          <PrimitiveAttrsFormItemRadio
             id={decideIdUser}
             name={decideName}
             ariaLabel={`Use a user value: ${userValue}`}
@@ -79,11 +79,11 @@ const PrimitiveAttributesItemEdit = ({
                 onChange={onChange}
               />
             </span>
-          </AttributeDecisionRadio>
+          </PrimitiveAttrsFormItemRadio>
         </StackItem>
       </Stack>
-    </AttributeDecisionFormGroup>
+    </PrimitiveAttrsFormItemLayout>
   );
 };
 
-export default PrimitiveAttributesItemEdit;
+export default PrimitiveAttrsFormItem;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const AttributeDecisionLabelRemote = ({ htmlFor, remoteValue }: {
+const PrimitiveAttrsFormItemLabel = ({ htmlFor, remoteValue }: {
   htmlFor: string;
   remoteValue: string;
 }) => {
@@ -22,4 +22,4 @@ const AttributeDecisionLabelRemote = ({ htmlFor, remoteValue }: {
   );
 };
 
-export default AttributeDecisionLabelRemote;
+export default PrimitiveAttrsFormItemLabel;

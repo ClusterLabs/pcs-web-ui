@@ -7,10 +7,12 @@ import {
 
 import { types } from "app/store";
 
-const PrimitiveParameter = ({ resourceAgentParameter, instanceAttributes }: {
-  resourceAgentParameter: types.resourceAgents.ResourceAgentParameter;
-  instanceAttributes: types.cluster.Primitive["instanceAttributes"];
-}) => (
+const PrimitiveAttrsListItem = (
+  { resourceAgentParameter, instanceAttributes }: {
+    resourceAgentParameter: types.resourceAgents.ResourceAgentParameter;
+    instanceAttributes: types.cluster.Primitive["instanceAttributes"];
+  },
+) => (
   <>
     <dt>
       {`${resourceAgentParameter.name} `}
@@ -43,4 +45,4 @@ const PrimitiveParameter = ({ resourceAgentParameter, instanceAttributes }: {
   </>
 );
 
-export default PrimitiveParameter;
+export default PrimitiveAttrsListItem;

@@ -6,7 +6,7 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-const PrimitiveAttributesToolbar = ({ edit }: {edit: () => void}) => {
+const PrimitiveAttrsToolbar = ({ edit }: {edit: () => void}) => {
   return (
     <Toolbar className="pf-l-toolbar">
       <ToolbarGroup>
@@ -18,4 +18,4 @@ const PrimitiveAttributesToolbar = ({ edit }: {edit: () => void}) => {
   );
 };
 
-export default PrimitiveAttributesToolbar;
+export default PrimitiveAttrsToolbar;

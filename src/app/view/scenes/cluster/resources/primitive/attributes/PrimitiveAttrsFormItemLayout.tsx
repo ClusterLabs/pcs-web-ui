@@ -1,8 +1,13 @@
 import React from "react";
 
-const AttributeDecisionLabel = ({ label, children }: React.PropsWithChildren<{
-  label: string;
-}>) => {
+const PrimitiveAttrsFormItemLayout = (
+  {
+    label,
+    children,
+  }: React.PropsWithChildren<{
+    label: string;
+  }>,
+) => {
   return (
     <div className="pf-c-form__group">
       <span className="pf-c-form__label pf-u-pt-md">
@@ -25,4 +30,4 @@ const AttributeDecisionLabel = ({ label, children }: React.PropsWithChildren<{
   );
 };
 
-export default AttributeDecisionLabel;
+export default PrimitiveAttrsFormItemLayout;
