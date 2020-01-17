@@ -15,7 +15,7 @@ const PrimitiveAttrsList = ({ primitive, resourceAgentParameters }: {
           <PrimitiveAttrsListItem
             key={parameter.name}
             instanceAttributes={primitive.instanceAttributes}
-            resourceAgentParameter={parameter}
+            resourceAgentParam={parameter}
           />
         ))}
       </dl>

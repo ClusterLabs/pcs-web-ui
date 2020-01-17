@@ -11,6 +11,7 @@ import { types } from "app/store";
 import { useSelectedCluster } from "app/view/scenes/cluster";
 
 import PrimitiveAttrsFormItem from "./PrimitiveAttrsFormItem";
+import PrimitiveAttrsFormItemLayout from "./PrimitiveAttrsFormItemLayout";
 
 type FormAttr = {
   value: string;
@@ -93,16 +94,20 @@ const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
   return (
     <Form isHorizontal>
       {resourceAgentParams.map(parameter => (
-        <PrimitiveAttrsFormItem
+        <PrimitiveAttrsFormItemLayout
+          resourceAgentParam={parameter}
           key={parameter.name}
-          label={parameter.name}
-          userValue={formMap[parameter.name].value}
-          initialValue={formMap[parameter.name].initial}
-          remoteValue={instanceAttr(primitive, parameter.name)}
-          onChange={updateParam(parameter.name)}
-          chooseRemoteUse={chooseSrc(parameter.name, "remote")}
-          chooseValueUse={chooseSrc(parameter.name, "user")}
-        />
+        >
+          <PrimitiveAttrsFormItem
+            label={parameter.name}
+            userValue={formMap[parameter.name].value}
+            initialValue={formMap[parameter.name].initial}
+            remoteValue={instanceAttr(primitive, parameter.name)}
+            onChange={updateParam(parameter.name)}
+            chooseRemoteUse={chooseSrc(parameter.name, "remote")}
+            chooseValueUse={chooseSrc(parameter.name, "user")}
+          />
+        </PrimitiveAttrsFormItemLayout>
       ))}
       <ActionGroup>
         <Button
