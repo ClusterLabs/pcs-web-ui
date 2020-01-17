@@ -69,7 +69,7 @@ const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
       [p.name]: {
         initial: instanceAttr(primitive, p.name),
         value: instanceAttr(primitive, p.name),
-        conflictDecision: "undecided",
+        srcChoice: "undecided",
       },
     }), {}),
   );
