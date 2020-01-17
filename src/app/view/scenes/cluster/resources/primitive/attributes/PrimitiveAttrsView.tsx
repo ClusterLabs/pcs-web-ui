@@ -11,7 +11,7 @@ import PrimitiveAttrsToolbar from "./PrimitiveAttrsToolbar";
 const PrimitiveAttrsView = ({ primitive }: {
   primitive: types.cluster.Primitive,
 }) => {
-  const [isEditing, setIsEditing] = React.useState(true);
+  const [isEditing, setIsEditing] = React.useState(false);
   return (
     <LoadedResourceAgent agentName={primitive.agentName}>
       {(resourceAgent: types.resourceAgents.ResourceAgentMetadata) => {
