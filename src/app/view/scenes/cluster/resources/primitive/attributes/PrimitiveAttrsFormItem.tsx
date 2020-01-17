@@ -10,7 +10,7 @@ import PrimitiveAttrsFormItemLabel from "./PrimitiveAttrsFormItemLabel";
 import PrimitiveAttrsFormItemWarning from "./PrimitiveAttrsFormItemWarning";
 
 const PrimitiveAttrsFormItem = ({
-  label,
+  id,
   userValue,
   initialValue,
   remoteValue,
@@ -18,7 +18,7 @@ const PrimitiveAttrsFormItem = ({
   chooseRemoteUse,
   chooseValueUse,
 }: {
-  label: string;
+  id: string;
   userValue: string;
   initialValue: string;
   remoteValue: string;
@@ -26,8 +26,7 @@ const PrimitiveAttrsFormItem = ({
   chooseRemoteUse: () => void;
   chooseValueUse: () => void;
 }) => {
-  const id = `resource-attribute-${label}`;
-  const decideName = `rc-instance-attr-choice-${label}`;
+  const decideName = `${id}-choice`;
   const decideIdRemote = `${decideName}-remote`;
   const decideIdUser = `${decideName}-user`;
   return (

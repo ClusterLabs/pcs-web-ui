@@ -99,7 +99,7 @@ const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
           key={parameter.name}
         >
           <PrimitiveAttrsFormItem
-            label={parameter.name}
+            id={`resource-instance-attribute-${parameter.name}`}
             userValue={formMap[parameter.name].value}
             initialValue={formMap[parameter.name].initial}
             remoteValue={instanceAttr(primitive, parameter.name)}
@@ -125,7 +125,7 @@ const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
           }}
           isDisabled={hasUndecidedSrc(formMap, primitive)}
         >
-            Save attributes
+          Save attributes
         </Button>
         <Button variant="secondary" onClick={close}>Cancel</Button>
       </ActionGroup>
