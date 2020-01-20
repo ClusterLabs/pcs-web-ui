@@ -9,20 +9,19 @@ import {
 import { types, selectors } from "app/store";
 import { Action } from "app/actions";
 
-import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 import ResourceTreeNested from "./ResourceTreeNested";
 
 const ResourceTreeItemExpandableLayout = ({
   resourceTreeItem,
-  resourceDetailUrl,
   nestedAriaLabel,
   nestingDepth,
+  itemDescription,
   children,
 }: React.PropsWithChildren<{
   resourceTreeItem: types.cluster.ResourceTreeItem,
-  resourceDetailUrl: string,
   nestingDepth: number,
   nestedAriaLabel: string,
+  itemDescription: JSX.Element;
 }>) => {
   const dispatch = useDispatch();
   const expanded = useSelector(selectors.resourceTreeGetOpenedItems).includes(
@@ -41,11 +40,7 @@ const ResourceTreeItemExpandableLayout = ({
             })
           }
         />
-        <ResourceTreeItemDescription
-          resourceTreeItem={resourceTreeItem}
-          detailUrl={resourceDetailUrl}
-          type="Clone"
-        />
+        {itemDescription}
       </DataListItemRow>
       {expanded && (
         <ResourceTreeNested

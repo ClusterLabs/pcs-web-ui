@@ -6,6 +6,7 @@ import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
 import ResourceTreeItemGroup from "./ResourceTreeItemGroup";
 import ResourceTreeItemExpandableLayout
   from "./ResourceTreeItemExpandableLayout";
+import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 
 
 const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
@@ -14,9 +15,15 @@ const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
 }) => (
   <ResourceTreeItemExpandableLayout
     resourceTreeItem={clone}
-    resourceDetailUrl={createResourceDetailUrl(clone.id)}
     nestedAriaLabel={`Clone ${clone.id}: member`}
     nestingDepth={1}
+    itemDescription={(
+      <ResourceTreeItemDescription
+        resourceTreeItem={clone}
+        detailUrl={createResourceDetailUrl(clone.id)}
+        type="Clone"
+      />
+    )}
   >
     {clone.member.itemType === "primitive" && (
       <ResourceTreeItemPrimitive

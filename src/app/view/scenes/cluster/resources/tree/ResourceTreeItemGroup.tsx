@@ -4,6 +4,7 @@ import { types } from "app/store";
 import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
 import ResourceTreeItemExpandableLayout
   from "./ResourceTreeItemExpandableLayout";
+import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
 
 const ResourceTreeItemGroup = (
   { group, createResourceDetailUrl, nestedLevel = 0 }: {
@@ -14,9 +15,15 @@ const ResourceTreeItemGroup = (
 ) => (
   <ResourceTreeItemExpandableLayout
     resourceTreeItem={group}
-    resourceDetailUrl={createResourceDetailUrl(group.id)}
     nestedAriaLabel={`Group ${group.id}: resources`}
     nestingDepth={1 + nestedLevel}
+    itemDescription={(
+      <ResourceTreeItemDescription
+        resourceTreeItem={group}
+        detailUrl={createResourceDetailUrl(group.id)}
+        type="Group"
+      />
+    )}
   >
     {group.resources.map(resource => (
       <ResourceTreeItemPrimitive
