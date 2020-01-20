@@ -93,7 +93,7 @@ export const ApiClusterStatus = t.intersection([
     cluster_name: ApiClusterName,
     node_list: t.array(ApiNode),
     pcsd_capabilities: t.array(t.string),
-    quorate: t.boolean,
+    quorate: t.union([t.boolean, t.null]),
     resource_list: t.array(ApiResource),
     status: ApiClusterStatusFlag,
   }),
