@@ -40,4 +40,9 @@ module.exports = {
     "/managec/:clusterUrlName/get_resource_agent_metadata",
     handler,
   ),
+  updateResource: handler => post(
+    "/managec/:clusterUrlName/update_resource",
+    parser,
+    handler,
+  ),
 };

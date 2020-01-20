@@ -1,6 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { PageSection } from "@patternfly/react-core";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  PageSection,
+  Stack,
+  StackItem,
+} from "@patternfly/react-core";
 
 import { Action } from "app/actions";
 import { selectors } from "app/store";
@@ -29,13 +35,30 @@ const useDashboardSync = () => {
 
 const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
   useDashboardSync();
+  const dispatch = useDispatch();
   const dashboard = useSelector(selectors.getDashboard);
   const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
 
   return (
     <Page>
-      <PageSection>
-        <DashboardToolbar urlPrefix={urlPrefix} />
+      <PageSection variant="light">
+        <Stack gutter="md">
+          <StackItem>
+            <Breadcrumb>
+              <BreadcrumbItem
+                isActive
+                onClick={() => dispatch<Action>({
+                  type: "DASHBOARD_DATA.REFRESH",
+                })}
+              >
+                Clusters
+              </BreadcrumbItem>
+            </Breadcrumb>
+          </StackItem>
+          <StackItem>
+            <DashboardToolbar urlPrefix={urlPrefix} />
+          </StackItem>
+        </Stack>
       </PageSection>
       <PageSectionDataLoading done={dataLoaded}>
         <Dashboard dashboard={dashboard} />

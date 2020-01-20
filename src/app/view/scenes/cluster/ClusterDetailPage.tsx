@@ -1,7 +1,16 @@
 import React from "react";
-import { PageSection } from "@patternfly/react-core";
+import { useDispatch } from "react-redux";
+import {
+  PageSection,
+  Breadcrumb,
+  BreadcrumbItem,
+  Stack,
+  StackItem,
+} from "@patternfly/react-core";
 import { useRouteMatch } from "react-router";
+import { Link } from "react-router-dom";
 
+import { Action } from "app/actions";
 import { Page, Spinner, UrlTabs } from "app/view/common";
 import { tabRoutes, join } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
@@ -10,11 +19,13 @@ import { NodeListPage } from "./nodes";
 import { FenceDeviceListPage } from "./fenceDevices";
 import { ClusterDetailResources } from "./resources";
 import ClusterDetail from "./ClusterDetail";
+import { SelectedClusterProvider } from "./SelectedClusterContext";
 
 const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
   clusterUrlName: string;
   urlPrefix: string;
 }) => {
+  const dispatch = useDispatch();
   const { dataLoaded, cluster } = useClusterState(clusterUrlName);
 
   const urlMap = {
@@ -34,10 +45,29 @@ const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
   return (
     <Page>
       <PageSection variant="light">
-        <UrlTabs tabSettingsMap={urlMap} currentTab={tab} />
+        <Stack gutter="md">
+          <StackItem>
+            <Breadcrumb>
+              <BreadcrumbItem component="span">
+                <Link to="/">Clusters</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem
+                isActive
+                onClick={() => dispatch<Action>({
+                  type: "CLUSTER_DATA.REFRESH",
+                })}
+              >
+                {clusterUrlName}
+              </BreadcrumbItem>
+            </Breadcrumb>
+          </StackItem>
+          <StackItem>
+            <UrlTabs tabSettingsMap={urlMap} currentTab={tab} />
+          </StackItem>
+        </Stack>
       </PageSection>
       {dataLoaded && (
-        <>
+        <SelectedClusterProvider value={clusterUrlName}>
           {tab === "Detail" && (
             <ClusterDetail />
           )}
@@ -50,7 +80,7 @@ const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
           {tab === "Fence Devices" && (
             <FenceDeviceListPage cluster={cluster} urlPrefix={url} />
           )}
-        </>
+        </SelectedClusterProvider>
       )}
       {!dataLoaded && (
         <PageSection>

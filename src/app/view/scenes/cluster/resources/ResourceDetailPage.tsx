@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Alert } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { DetailLayout } from "app/view/common";
 
+import ResourceDoesNotExists from "./ResourceDoesNotExists";
 import { ClonePage } from "./clone";
 import { GroupPage } from "./group";
 import { PrimitivePage } from "./primitive";
@@ -12,7 +11,7 @@ import { PrimitivePage } from "./primitive";
 const ResourceDetailPage = ({ resourceUrlName, urlPrefix, onClose }: {
   resourceUrlName: string;
   urlPrefix: string;
-  onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
+  onClose: (e: React.SyntheticEvent) => void;
 }) => {
   const resourceTreeItem = useSelector(
     selectors.getSelectedResource(resourceUrlName),
@@ -20,16 +19,10 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, onClose }: {
 
   if (!resourceTreeItem) {
     return (
-      <DetailLayout
+      <ResourceDoesNotExists
         onClose={onClose}
-        caption={<strong>{resourceUrlName}</strong>}
-      >
-        <Alert
-          isInline
-          variant="danger"
-          title={`Resource "${resourceUrlName}" does not exist.`}
-        />
-      </DetailLayout>
+        resourceUrlName={resourceUrlName}
+      />
     );
   }
 
