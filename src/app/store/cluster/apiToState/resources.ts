@@ -27,6 +27,7 @@ export const transformStatus = (
     case "running": return "RUNNING";
     case "blocked": return "BLOCKED";
     case "failed": return "FAILED";
+    case "disabled": return "DISABLED";
     default: return "UNKNOWN";
   }
 };
@@ -37,6 +38,7 @@ export const statusToSeverity = (
   switch (status) {
     case "blocked": return "ERROR";
     case "failed": return "ERROR";
+    case "disabled": return "WARNING";
     case "running": return "OK";
     default: return "UNKNOWN";
   }

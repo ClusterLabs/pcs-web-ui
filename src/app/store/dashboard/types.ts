@@ -12,14 +12,14 @@ export interface Node {
 export interface ResourceTreeItem {
   id: string,
   itemType: "primitive"|"group"|"clone",
-  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN",
+  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN"|"DISABLED",
   statusSeverity: types.StatusSeverity,
   issueList: types.Issue[],
 }
 
 export interface FenceDevice {
   id: string,
-  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN",
+  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN"|"DISABLED",
   statusSeverity: types.StatusSeverity,
   issueList: types.Issue[],
 }

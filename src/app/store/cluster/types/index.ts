@@ -37,7 +37,9 @@ export interface Node {
   issueList: Issue[],
 }
 
-export type ResourceStatusFlag = "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN";
+export type ResourceStatusFlag = (
+  "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN"|"DISABLED"
+);
 
 export interface ResourceTreeItemBase {
   id: string,
