@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Action } from "app/actions";
 import {
   ActionGroup,
+  Alert,
   Button,
   Form,
 } from "@patternfly/react-core";
@@ -55,6 +56,13 @@ const hasUndecidedSrc = (
   formMap[n].srcChoice === "undecided"
 ));
 
+const hasBackendChange = (
+  formMap: Record<string, FormAttr>,
+  primitive: types.cluster.Primitive,
+) => Object.keys(formMap).some(n => (
+  instanceAttr(primitive, n) !== formMap[n].initial
+));
+
 export const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
   primitive: types.cluster.Primitive;
   resourceAgentParams: types.resourceAgents.ResourceAgentParameter[];
@@ -93,6 +101,19 @@ export const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
 
   return (
     <Form isHorizontal>
+      {hasBackendChange(formMap, primitive) && (
+        <Alert
+          variant="warning"
+          isInline
+          title={
+            "One or more values in this form were updated by another user after"
+            + " you opened the form."
+          }
+        >
+          Values that were updated will require an additional input from you on
+          which value to use.
+        </Alert>
+      )}
       {resourceAgentParams.map(parameter => (
         <PrimitiveAttrsFormItemLayout
           resourceAgentParam={parameter}
