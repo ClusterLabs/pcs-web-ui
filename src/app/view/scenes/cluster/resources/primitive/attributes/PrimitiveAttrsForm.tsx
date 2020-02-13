@@ -117,6 +117,10 @@ export const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
       {resourceAgentParams.map(parameter => (
         <PrimitiveAttrsFormItemLayout
           resourceAgentParam={parameter}
+          required={
+            formMap[parameter.name].initial
+            !== instanceAttr(primitive, parameter.name)
+          }
           key={parameter.name}
         >
           <PrimitiveAttrsFormItem

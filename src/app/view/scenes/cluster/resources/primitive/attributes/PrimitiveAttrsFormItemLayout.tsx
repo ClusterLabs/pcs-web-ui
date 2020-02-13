@@ -5,7 +5,8 @@ import { types } from "app/store";
 import { PrimitiveAttrsHelpPopover } from "./PrimitiveAttrsHelpPopover";
 
 export const PrimitiveAttrsFormItemLayout = (
-  { resourceAgentParam, children }: React.PropsWithChildren<{
+  { resourceAgentParam, required, children }: React.PropsWithChildren<{
+    required: boolean;
     resourceAgentParam: types.resourceAgents.ResourceAgentParameter;
   }>,
 ) => {
@@ -15,10 +16,12 @@ export const PrimitiveAttrsFormItemLayout = (
         <span className="pf-c-form__label-text">
           {resourceAgentParam.name}
         </span>
-        <span className="pf-c-form__label-required" aria-hidden="true">
-          &#42;
-          {" "}
-        </span>
+        {required && (
+          <span className="pf-c-form__label-required" aria-hidden="true">
+            &#42;
+          </span>
+        )}
+        {" "}
         <PrimitiveAttrsHelpPopover resourceAgentParam={resourceAgentParam} />
       </span>
       <div
