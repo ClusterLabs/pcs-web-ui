@@ -1,4 +1,4 @@
-import ClonePage from "./ClonePage";
+import { ClonePage } from "./ClonePage";
 
 export {
   ClonePage,

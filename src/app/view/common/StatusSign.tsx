@@ -1,8 +1,8 @@
 import React from "react";
 
-import StatusIco from "./StatusIco";
+import { StatusIco } from "./StatusIco";
 
-const StatusSign = (
+export const StatusSign = (
   { status, label, showOkIco = false }:
   React.ComponentProps<typeof StatusIco> & {
     label: string|JSX.Element,
@@ -19,5 +19,3 @@ const StatusSign = (
     <span>{label}</span>
   </>
 );
-
-export default StatusSign;

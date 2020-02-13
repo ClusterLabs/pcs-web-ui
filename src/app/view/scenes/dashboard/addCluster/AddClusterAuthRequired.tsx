@@ -12,7 +12,7 @@ import { Action } from "app/actions";
 import { types } from "app/store";
 import { Spinner } from "app/view/common";
 
-const AddClusterAuthRequired = (
+export const AddClusterAuthRequired = (
   { nodeName, authenticationInProgress, authenticationError }: {
     nodeName: types.addCluster.NodeName,
     authenticationInProgress: boolean,
@@ -122,5 +122,3 @@ const AddClusterAuthRequired = (
     </>
   );
 };
-
-export default AddClusterAuthRequired;

@@ -1,4 +1,4 @@
-import FenceDeviceListPage from "./FenceDeviceListPage";
+import { FenceDeviceListPage } from "./FenceDeviceListPage";
 
 export {
   FenceDeviceListPage,

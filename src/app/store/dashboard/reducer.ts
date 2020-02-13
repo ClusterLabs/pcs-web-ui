@@ -7,7 +7,7 @@ import {
   DashboardPageState,
   FETCH_STATUS,
 } from "./types";
-import overviewApiToState from "./overviewApiToState";
+import { overviewApiToState } from "./overviewApiToState";
 
 const dashboardStateDefault: DashboardState = {
   clusterList: [],

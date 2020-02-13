@@ -32,7 +32,9 @@ const validate = (nodeList: string[], response: any) => {
 
 type Result = t.TypeOf<typeof ApiCheckAuthAgainstNodes>;
 
-const checkAuthAgainstNodes: ApiCall<Result> = async (nodeList: string[]) => {
+export const checkAuthAgainstNodes: ApiCall<Result> = async (
+  nodeList: string[],
+) => {
   const uniqueNodeList = Array.from(new Set(nodeList));
   const raw = await getJson(
     "/manage/check_auth_against_nodes",
@@ -41,5 +43,3 @@ const checkAuthAgainstNodes: ApiCall<Result> = async (nodeList: string[]) => {
 
   return createResult<Result>(raw, validate(uniqueNodeList, raw));
 };
-
-export default checkAuthAgainstNodes;

@@ -1,9 +1,9 @@
 import React from "react";
 import { types } from "app/store";
 
-import ConstraintCell from "./ConstraintCell";
+import { ConstraintCell } from "./ConstraintCell";
 
-const ConstraintCellResourceSet = ({ resourceSetList }: {
+export const ConstraintCellResourceSet = ({ resourceSetList }: {
   resourceSetList: types.cluster.ConstraintResourceSet[],
 }) => {
   return (
@@ -23,5 +23,3 @@ const ConstraintCellResourceSet = ({ resourceSetList }: {
     </ConstraintCell>
   );
 };
-
-export default ConstraintCellResourceSet;

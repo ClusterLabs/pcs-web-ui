@@ -4,11 +4,11 @@ import { StackItem } from "@patternfly/react-core";
 import { types } from "app/store";
 import { LoadedResourceAgent } from "app/view/common";
 
-import PrimitiveAttrsList from "./PrimitiveAttrsList";
-import PrimitiveAttrsForm from "./PrimitiveAttrsForm";
-import PrimitiveAttrsToolbar from "./PrimitiveAttrsToolbar";
+import { PrimitiveAttrsList } from "./PrimitiveAttrsList";
+import { PrimitiveAttrsForm } from "./PrimitiveAttrsForm";
+import { PrimitiveAttrsToolbar } from "./PrimitiveAttrsToolbar";
 
-const PrimitiveAttrsView = ({ primitive }: {
+export const PrimitiveAttrsView = ({ primitive }: {
   primitive: types.cluster.Primitive,
 }) => {
   const [isEditing, setIsEditing] = React.useState(false);
@@ -44,5 +44,3 @@ const PrimitiveAttrsView = ({ primitive }: {
     </LoadedResourceAgent>
   );
 };
-
-export default PrimitiveAttrsView;

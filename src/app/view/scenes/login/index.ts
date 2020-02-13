@@ -1,4 +1,4 @@
-import EnsureLogin from "./EnsureLogin";
+import { EnsureLogin } from "./EnsureLogin";
 
 export {
   EnsureLogin,

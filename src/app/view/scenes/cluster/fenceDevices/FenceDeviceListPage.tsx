@@ -3,9 +3,9 @@ import { PageSection } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import FenceDeviceList from "./FenceDeviceList";
+import { FenceDeviceList } from "./FenceDeviceList";
 
-const FenceDeviceListPage = ({ cluster, urlPrefix }:{
+export const FenceDeviceListPage = ({ cluster, urlPrefix }:{
   cluster: types.cluster.ClusterState;
   urlPrefix: string;
 }) => {
@@ -15,5 +15,3 @@ const FenceDeviceListPage = ({ cluster, urlPrefix }:{
     </PageSection>
   );
 };
-
-export default FenceDeviceListPage;

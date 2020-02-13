@@ -3,9 +3,9 @@ import { PageSection } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import NodeList from "./NodeList";
+import { NodeList } from "./NodeList";
 
-const NodeListPage = ({ cluster, urlPrefix }:{
+export const NodeListPage = ({ cluster, urlPrefix }:{
   cluster: types.cluster.ClusterState;
   urlPrefix: string;
 }) => (
@@ -13,5 +13,3 @@ const NodeListPage = ({ cluster, urlPrefix }:{
     <NodeList nodeList={cluster.nodeList} />
   </PageSection>
 );
-
-export default NodeListPage;

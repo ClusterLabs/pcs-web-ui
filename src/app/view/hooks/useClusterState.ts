@@ -7,7 +7,7 @@ import { selectors } from "app/store";
 
 const stop: LeafAction = { type: "CLUSTER_DATA.SYNC.STOP" };
 
-const useClusterState = (clusterUrlName: string) => {
+export const useClusterState = (clusterUrlName: string) => {
   const dispatch = useDispatch();
 
   const start = React.useMemo<LeafAction>(
@@ -34,4 +34,3 @@ const useClusterState = (clusterUrlName: string) => {
     dataLoaded: useSelector(selectors.clusterAreDataLoaded),
   };
 };
-export default useClusterState;

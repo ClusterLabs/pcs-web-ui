@@ -10,9 +10,9 @@ import {
 } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
-import CloneDetail from "./CloneDetail";
+import { CloneDetail } from "./CloneDetail";
 
-const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
+export const ClonePage = ({ clone, urlPrefix, onClose }: {
   clone: types.cluster.Clone;
   urlPrefix: string;
   onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
@@ -40,5 +40,3 @@ const ResourceDetailGroup = ({ clone, urlPrefix, onClose }: {
     </DetailLayout>
   );
 };
-
-export default ResourceDetailGroup;

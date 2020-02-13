@@ -1,4 +1,4 @@
-import GroupPage from "./GroupPage";
+import { GroupPage } from "./GroupPage";
 
 export {
   GroupPage,

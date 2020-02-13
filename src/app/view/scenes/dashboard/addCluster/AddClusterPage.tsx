@@ -5,10 +5,10 @@ import { Wizard } from "@patternfly/react-core";
 import { Action } from "app/actions";
 import { selectors } from "app/store";
 
-import AddClusterStepAuth from "./AddClusterStepAuth";
-import AddClusterStepAdd from "./AddClusterStepAdd";
+import { AddClusterStepAuth } from "./AddClusterStepAuth";
+import { AddClusterStepAdd } from "./AddClusterStepAdd";
 
-const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
+export const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
   const stepAuthState = useSelector(selectors.addClusterGetStepAuthState);
   const nodeName = useSelector(selectors.addClusterGetNodeName);
   const dispatch = useDispatch();
@@ -39,5 +39,3 @@ const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
     />
   );
 };
-
-export default AddClusterPage;

@@ -8,10 +8,10 @@ import { UrlTabs, DetailLayout, ResourceDetailCaption } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
 import { PrimitiveAttrsView } from "./attributes";
-import PrimitiveDetail from "./PrimitiveDetail";
-import useResourceAgent from "./useResourceAgent";
+import { PrimitiveDetail } from "./PrimitiveDetail";
+import { useResourceAgent } from "./useResourceAgent";
 
-const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
+export const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
   primitive: types.cluster.Primitive;
   urlPrefix: string;
   onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
@@ -56,5 +56,3 @@ const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
     </DetailLayout>
   );
 };
-
-export default PrimitivePage;

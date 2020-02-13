@@ -1,4 +1,4 @@
-import ClusterDetailResources from "./ClusterDetailResources";
+import { ClusterDetailResources } from "./ClusterDetailResources";
 
 export {
   ClusterDetailResources,

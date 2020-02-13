@@ -1,6 +1,6 @@
 import React from "react";
 
-const PrimitiveAttrsFormItemLabel = ({ htmlFor, remoteValue }: {
+export const PrimitiveAttrsFormItemLabel = ({ htmlFor, remoteValue }: {
   htmlFor: string;
   remoteValue: string;
 }) => {
@@ -21,5 +21,3 @@ const PrimitiveAttrsFormItemLabel = ({ htmlFor, remoteValue }: {
     </>
   );
 };
-
-export default PrimitiveAttrsFormItemLabel;

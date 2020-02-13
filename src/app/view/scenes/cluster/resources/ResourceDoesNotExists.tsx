@@ -3,7 +3,7 @@ import { Alert, StackItem } from "@patternfly/react-core";
 
 import { DetailLayout } from "app/view/common";
 
-const ResourceDoesNotExists = ({ resourceUrlName, onClose }: {
+export const ResourceDoesNotExists = ({ resourceUrlName, onClose }: {
   resourceUrlName: string;
   onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {
@@ -22,5 +22,3 @@ const ResourceDoesNotExists = ({ resourceUrlName, onClose }: {
     </DetailLayout>
   );
 };
-
-export default ResourceDoesNotExists;

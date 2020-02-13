@@ -12,8 +12,8 @@ import { Action } from "app/actions";
 import { selectors } from "app/store";
 import { PageSectionDataLoading, Page } from "app/view/common";
 
-import Dashboard from "./Dashboard";
-import DashboardToolbar from "./DashboardToolbar";
+import { Dashboard } from "./Dashboard";
+import { DashboardToolbar } from "./DashboardToolbar";
 
 const useDashboardSync = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const useDashboardSync = () => {
   );
 };
 
-const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
+export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
   useDashboardSync();
   const dispatch = useDispatch();
   const dashboard = useSelector(selectors.getDashboard);
@@ -66,5 +66,3 @@ const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
     </Page>
   );
 };
-
-export default DashboardPage;

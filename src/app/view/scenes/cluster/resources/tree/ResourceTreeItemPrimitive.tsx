@@ -7,12 +7,14 @@ import {
 
 import { types } from "app/store";
 
-import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
+import { ResourceTreeItemDescription } from "./ResourceTreeItemDescription";
 
-const ResourceTreeItemPrimitive = ({ primitive, createResourceDetailUrl }: {
-  primitive: types.cluster.Primitive,
-  createResourceDetailUrl: (id: string) => string,
-}) => (
+export const ResourceTreeItemPrimitive = (
+  { primitive, createResourceDetailUrl }: {
+    primitive: types.cluster.Primitive,
+    createResourceDetailUrl: (id: string) => string,
+  },
+) => (
   <DataListItem aria-labelledby={primitive.id}>
     <DataListItemRow>
       <DataListToggle
@@ -28,5 +30,3 @@ const ResourceTreeItemPrimitive = ({ primitive, createResourceDetailUrl }: {
     </DataListItemRow>
   </DataListItem>
 );
-
-export default ResourceTreeItemPrimitive;

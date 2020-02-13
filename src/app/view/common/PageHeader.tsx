@@ -6,7 +6,7 @@ import { History } from "history";
 import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 
-import PageToolbar from "./PageToolbar";
+import { PageToolbar } from "./PageToolbar";
 
 interface Props extends RouteComponentProps {
   history: History,
@@ -14,7 +14,9 @@ interface Props extends RouteComponentProps {
   onNavToggle?: () => void,
 }
 
-const PageHeader = ({ history, showNavToggle, onNavToggle }: Props) => {
+const PageHeaderComponent = (
+  { history, showNavToggle, onNavToggle }: Props,
+) => {
   const dispatch = useDispatch();
   return (
     <PfPageHeader
@@ -33,4 +35,4 @@ const PageHeader = ({ history, showNavToggle, onNavToggle }: Props) => {
   );
 };
 
-export default withRouter(PageHeader);
+export const PageHeader = withRouter(PageHeaderComponent);

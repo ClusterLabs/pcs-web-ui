@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function ExpansionToggle(
+export function ExpansionToggle(
   {
     expanded,
     setExpanded,
@@ -49,5 +49,3 @@ function ExpansionToggle(
     </td>
   );
 }
-
-export default ExpansionToggle;

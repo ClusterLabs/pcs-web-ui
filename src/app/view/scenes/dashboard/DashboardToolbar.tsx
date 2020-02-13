@@ -13,7 +13,7 @@ import { join } from "app/view/utils";
 
 import { AddClusterPage } from "./addCluster";
 
-const DashboardToolbar = ({ urlPrefix }: { urlPrefix: string }) => {
+export const DashboardToolbar = ({ urlPrefix }: { urlPrefix: string }) => {
   const dispatch = useDispatch();
   const toDashboard = () => dispatch(push(urlPrefix));
 
@@ -36,5 +36,3 @@ const DashboardToolbar = ({ urlPrefix }: { urlPrefix: string }) => {
     </Toolbar>
   );
 };
-
-export default DashboardToolbar;

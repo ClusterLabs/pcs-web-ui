@@ -4,7 +4,7 @@ import {
   DataListContent,
 } from "@patternfly/react-core";
 
-const ResourceTreeNested = ({
+export const ResourceTreeNested = ({
   ariaLabel,
   nestingDepth,
   children,
@@ -24,5 +24,3 @@ const ResourceTreeNested = ({
     </DataList>
   </DataListContent>
 );
-
-export default ResourceTreeNested;

@@ -10,7 +10,7 @@ import { types } from "app/store";
 import { StatusSign } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
-const FenceDeviceListItem = ({ fenceDevice }: {
+export const FenceDeviceListItem = ({ fenceDevice }: {
   fenceDevice: types.cluster.FenceDevice,
 }) => (
   <DataListItem aria-labelledby={fenceDevice.id}>
@@ -38,4 +38,3 @@ const FenceDeviceListItem = ({ fenceDevice }: {
     </DataListItemRow>
   </DataListItem>
 );
-export default FenceDeviceListItem;

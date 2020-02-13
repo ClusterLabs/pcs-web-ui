@@ -5,7 +5,7 @@ import { Action } from "app/actions";
 
 import { selectors } from "app/store";
 
-const useResourceAgent = (clusterUrlName: string, agentName: string) => {
+export const useResourceAgent = (clusterUrlName: string, agentName: string) => {
   const resourceAgent = useSelector(selectors.getResourceAgent(agentName));
   const dispatch = useDispatch();
   React.useEffect(
@@ -23,5 +23,3 @@ const useResourceAgent = (clusterUrlName: string, agentName: string) => {
     resourceAgent,
   };
 };
-
-export default useResourceAgent;

@@ -10,8 +10,8 @@ import {
 import { types } from "app/store";
 import { useSelectedCluster } from "app/view/scenes/cluster";
 
-import PrimitiveAttrsFormItem from "./PrimitiveAttrsFormItem";
-import PrimitiveAttrsFormItemLayout from "./PrimitiveAttrsFormItemLayout";
+import { PrimitiveAttrsFormItem } from "./PrimitiveAttrsFormItem";
+import { PrimitiveAttrsFormItemLayout } from "./PrimitiveAttrsFormItemLayout";
 
 type FormAttr = {
   value: string;
@@ -55,7 +55,7 @@ const hasUndecidedSrc = (
   formMap[n].srcChoice === "undecided"
 ));
 
-const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
+export const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
   primitive: types.cluster.Primitive;
   resourceAgentParams: types.resourceAgents.ResourceAgentParameter[];
   close: () => void;
@@ -132,5 +132,3 @@ const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
     </Form>
   );
 };
-
-export default PrimitiveAttrsForm;

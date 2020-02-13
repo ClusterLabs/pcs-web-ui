@@ -124,4 +124,6 @@ function bindColumns<COLUMN extends string>() {
 
 SortableTh.useSorting = useSorting;
 SortableTh.bindColumns = bindColumns;
-export default SortableTh;
+export {
+  SortableTh,
+};

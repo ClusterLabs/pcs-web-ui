@@ -1,6 +1,6 @@
 import React from "react";
 
-const Body = (
+export const Body = (
   { children, isExpanded = false, ...rest }:
     React.PropsWithChildren<{ isExpanded: boolean, }>
   ,
@@ -18,5 +18,3 @@ const Body = (
     </tbody>
   );
 };
-
-export default Body;

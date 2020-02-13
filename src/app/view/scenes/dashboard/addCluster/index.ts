@@ -1,4 +1,4 @@
-import AddClusterPage from "./AddClusterPage";
+import { AddClusterPage } from "./AddClusterPage";
 
 export {
   AddClusterPage,

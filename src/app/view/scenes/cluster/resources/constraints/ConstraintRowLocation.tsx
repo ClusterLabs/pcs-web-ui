@@ -2,8 +2,8 @@ import React from "react";
 
 import { types } from "app/store";
 
-import ConstraintRow from "./ConstraintRow";
-import ConstraintCell from "./ConstraintCell";
+import { ConstraintRow } from "./ConstraintRow";
+import { ConstraintCell } from "./ConstraintCell";
 
 const getScore = (constraint: types.cluster.ConstraintLocation) => {
   if ("score" in constraint) {
@@ -17,7 +17,7 @@ const getScore = (constraint: types.cluster.ConstraintLocation) => {
   return "";
 };
 
-const ConstraintRowLocation = ({ constraint }: {
+export const ConstraintRowLocation = ({ constraint }: {
   constraint: types.cluster.ConstraintLocation,
 }) => {
   const ariaLabel = `Location constraint ${constraint.id}`;
@@ -38,5 +38,3 @@ const ConstraintRowLocation = ({ constraint }: {
     </ConstraintRow>
   );
 };
-
-export default ConstraintRowLocation;

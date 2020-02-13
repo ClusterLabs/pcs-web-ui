@@ -10,7 +10,7 @@ const clusterHasBeenAddedStates: types.addCluster.ADD_STATE[] = [
   "SUCCESS",
 ];
 
-const AddClusterAddStep = () => {
+export const AddClusterStepAdd = () => {
   const state = useSelector(selectors.addClusterGetStepAddState);
   const errorMessage = useSelector(selectors.addClusterGetStateError);
   return (
@@ -45,5 +45,3 @@ const AddClusterAddStep = () => {
     </>
   );
 };
-
-export default AddClusterAddStep;

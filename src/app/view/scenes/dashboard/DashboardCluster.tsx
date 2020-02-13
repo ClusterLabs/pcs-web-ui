@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { types } from "app/store";
 import { Table, StatusIco, IssueList } from "app/view/common";
 
-import DashboardNodeList from "./DashboardNodeList";
-import DashboardResourceList from "./DashboardResourceList";
-import DashboardFenceDeviceList from "./DashboardFenceDeviceList";
+import { DashboardNodeList } from "./DashboardNodeList";
+import { DashboardResourceList } from "./DashboardResourceList";
+import { DashboardFenceDeviceList } from "./DashboardFenceDeviceList";
 
 
 const COLUMNS = {
@@ -33,7 +33,7 @@ const Summary = ({ itemsCount, summaryStatus }: {
   );
 };
 
-const DashboardCluster = ({ cluster }: {
+export const DashboardCluster = ({ cluster }: {
   cluster: types.dashboard.ClusterState,
 }) => {
   const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
@@ -99,5 +99,3 @@ const DashboardCluster = ({ cluster }: {
     </Table.Body>
   );
 };
-
-export default DashboardCluster;

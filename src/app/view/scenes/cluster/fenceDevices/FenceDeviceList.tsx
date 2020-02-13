@@ -4,9 +4,9 @@ import { DataList } from "@patternfly/react-core";
 import { types } from "app/store";
 import { NoItemCase } from "app/view/common";
 
-import FenceDeviceListItem from "./FenceDeviceListItem";
+import { FenceDeviceListItem } from "./FenceDeviceListItem";
 
-const FenceDeviceList = ({ fenceDeviceList }: {
+export const FenceDeviceList = ({ fenceDeviceList }: {
   fenceDeviceList: types.cluster.FenceDevice[],
 }) => {
   if (fenceDeviceList.length === 0) {
@@ -23,4 +23,3 @@ const FenceDeviceList = ({ fenceDeviceList }: {
     </DataList>
   );
 };
-export default FenceDeviceList;

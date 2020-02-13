@@ -1,9 +1,9 @@
 import React from "react";
 import { PageSection } from "@patternfly/react-core";
 
-import Spinner from "./Spinner";
+import { Spinner } from "./Spinner";
 
-const PageSectionDataLoading = (
+export const PageSectionDataLoading = (
   { done, children, ...rest }: React.PropsWithChildren<
     React.ComponentProps<typeof PageSection> & { done: boolean }
   >,
@@ -16,5 +16,3 @@ const PageSectionDataLoading = (
     }
   </PageSection>
 );
-
-export default PageSectionDataLoading;

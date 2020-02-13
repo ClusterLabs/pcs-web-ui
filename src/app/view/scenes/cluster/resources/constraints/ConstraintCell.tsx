@@ -1,7 +1,7 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-const ConstraintCell = (
+export const ConstraintCell = (
   { label, value, children }: React.PropsWithChildren<{
     label: string,
     value?: string|number|boolean|undefined|null
@@ -19,5 +19,3 @@ const ConstraintCell = (
     </DataListCell>
   );
 };
-
-export default ConstraintCell;

@@ -6,10 +6,10 @@ import { push } from "connected-react-router";
 
 import { types } from "app/store";
 import { ResourceTree } from "./tree";
-import ResourceDetailPage from "./ResourceDetailPage";
+import { ResourceDetailPage } from "./ResourceDetailPage";
 
 
-const ClusterDetailResources = ({ cluster, urlPrefix }:{
+export const ClusterDetailResources = ({ cluster, urlPrefix }:{
   cluster: types.cluster.ClusterState;
   urlPrefix: string;
 }) => {
@@ -59,5 +59,3 @@ const ClusterDetailResources = ({ cluster, urlPrefix }:{
     </PageSection>
   );
 };
-
-export default ClusterDetailResources;

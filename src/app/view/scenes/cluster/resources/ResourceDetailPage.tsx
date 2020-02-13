@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
 
-import ResourceDoesNotExists from "./ResourceDoesNotExists";
+import { ResourceDoesNotExists } from "./ResourceDoesNotExists";
 import { ClonePage } from "./clone";
 import { GroupPage } from "./group";
 import { PrimitivePage } from "./primitive";
 
-const ResourceDetailPage = ({ resourceUrlName, urlPrefix, onClose }: {
+export const ResourceDetailPage = ({ resourceUrlName, urlPrefix, onClose }: {
   resourceUrlName: string;
   urlPrefix: string;
   onClose: (e: React.SyntheticEvent) => void;
@@ -50,5 +50,3 @@ const ResourceDetailPage = ({ resourceUrlName, urlPrefix, onClose }: {
     );
   }
 };
-
-export default ResourceDetailPage;

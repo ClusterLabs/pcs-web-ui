@@ -12,7 +12,7 @@ import { toLabel } from "app/view/utils";
 
 import { useSelectedResource } from "./SelectedResourceContext";
 
-const ResourceTreeItemDescription = ({
+export const ResourceTreeItemDescription = ({
   resourceTreeItem,
   type,
   detailUrl,
@@ -60,5 +60,3 @@ const ResourceTreeItemDescription = ({
     </>
   );
 };
-
-export default ResourceTreeItemDescription;

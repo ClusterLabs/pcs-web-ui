@@ -6,12 +6,12 @@ import { types } from "app/store";
 
 import { NoItemCase } from "app/view/common";
 
-import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
-import ResourceTreeItemClone from "./ResourceTreeItemClone";
-import ResourceTreeItemGroup from "./ResourceTreeItemGroup";
+import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
+import { ResourceTreeItemClone } from "./ResourceTreeItemClone";
+import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
 import { SelectedResourceProvider } from "./SelectedResourceContext";
 
-const ResourceTree = ({
+export const ResourceTree = ({
   resourceTree,
   createResourceDetailUrl,
   compact = false,
@@ -67,5 +67,3 @@ ResourceTree.createResourceDetailUrl = (
     `/cluster/${clusterUrlName}/resources/${resourceUrlName}`
   )
 );
-
-export default ResourceTree;

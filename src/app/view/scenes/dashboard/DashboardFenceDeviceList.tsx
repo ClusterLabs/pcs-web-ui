@@ -24,7 +24,7 @@ const compareByColumn = (
 
 const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
 
-const DashboardFenceDeviceList = ({ fenceDeviceList }: {
+export const DashboardFenceDeviceList = ({ fenceDeviceList }: {
   fenceDeviceList: types.dashboard.FenceDevice[],
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting("NAME");
@@ -61,5 +61,3 @@ const DashboardFenceDeviceList = ({ fenceDeviceList }: {
     </Table>
   );
 };
-
-export default DashboardFenceDeviceList;

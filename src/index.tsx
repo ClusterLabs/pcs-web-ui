@@ -16,6 +16,6 @@ import "@patternfly/react-styles/css/components/Card/card.css";
 import "@patternfly/react-styles/css/components/Content/content.css";
 import "@patternfly/react-styles/css/components/Radio/radio.css";
 
-import App from "app/view/scenes/App";
+import { App } from "app/view/scenes/App";
 
 ReactDOM.render(<App />, document.getElementById("root"));

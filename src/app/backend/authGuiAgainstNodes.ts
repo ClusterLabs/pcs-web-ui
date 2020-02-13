@@ -26,7 +26,7 @@ const validate = (nodeList: string[], response: any) => {
 
 type Result = t.TypeOf<typeof ApiAuthGuiAgainstNodes>;
 
-const authGuiAgainstNodes: ApiCall<Result> = async (
+export const authGuiAgainstNodes: ApiCall<Result> = async (
   nodeMap: Record<string, {
     password: string;
     dest_list: {
@@ -41,5 +41,3 @@ const authGuiAgainstNodes: ApiCall<Result> = async (
   );
   return createResult<Result>(raw, validate(Object.keys(nodeMap), raw));
 };
-
-export default authGuiAgainstNodes;

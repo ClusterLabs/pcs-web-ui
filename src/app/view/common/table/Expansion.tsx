@@ -1,7 +1,7 @@
 import React from "react";
 
-import ExpansionToggle from "./ExpansionToggle";
-import ExpandedContent from "./ExpandedContent";
+import { ExpansionToggle } from "./ExpansionToggle";
+import { ExpandedContent } from "./ExpandedContent";
 
 const useExpansion = ({ contentSpan }: React.PropsWithChildren<{
   contentSpan: number,
@@ -38,7 +38,7 @@ const useExpansion = ({ contentSpan }: React.PropsWithChildren<{
   };
 };
 
-export default {
+export const Expansion = {
   useExpansion,
   Toggle: ExpansionToggle,
   Content: ExpandedContent,

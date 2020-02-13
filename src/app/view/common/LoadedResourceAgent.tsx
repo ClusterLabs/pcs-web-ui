@@ -4,9 +4,9 @@ import { Alert } from "@patternfly/react-core";
 
 import { types, selectors } from "app/store";
 
-import Spinner from "./Spinner";
+import { Spinner } from "./Spinner";
 
-const LoadedResourceAgent = ({ agentName, children }: {
+export const LoadedResourceAgent = ({ agentName, children }: {
   agentName: string;
   children: (ra: types.resourceAgents.ResourceAgentMetadata) => JSX.Element;
 }) => {
@@ -29,5 +29,3 @@ const LoadedResourceAgent = ({ agentName, children }: {
     />
   );
 };
-
-export default LoadedResourceAgent;

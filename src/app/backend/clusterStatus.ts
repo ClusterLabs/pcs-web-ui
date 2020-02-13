@@ -8,7 +8,7 @@ import {
 
 import { ApiClusterStatus, TApiClusterStatus } from "./types/clusterStatus";
 
-const clusterStatus: ApiCall<ApiClusterStatus> = async (
+export const clusterStatus: ApiCall<ApiClusterStatus> = async (
   clusterUrlName:string,
 ) => {
   try {
@@ -23,5 +23,3 @@ const clusterStatus: ApiCall<ApiClusterStatus> = async (
     return dealWithInvalidJson(e);
   }
 };
-
-export default clusterStatus;

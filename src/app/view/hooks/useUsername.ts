@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Action } from "app/actions";
 import { selectors } from "app/store";
 
-const useUsername = () => {
+export const useUsername = () => {
   const username = useSelector(selectors.getUsername);
   const usernameLoaded = useSelector(selectors.usernameLoaded);
   const dispatch = useDispatch();
@@ -18,5 +18,3 @@ const useUsername = () => {
   );
   return username;
 };
-
-export default useUsername;

@@ -2,14 +2,14 @@ import React from "react";
 
 import { types } from "app/store";
 
-import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
-import ResourceTreeItemGroup from "./ResourceTreeItemGroup";
-import ResourceTreeItemExpandableLayout
+import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
+import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
+import { ResourceTreeItemExpandableLayout }
   from "./ResourceTreeItemExpandableLayout";
-import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
+import { ResourceTreeItemDescription } from "./ResourceTreeItemDescription";
 
 
-const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
+export const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
   clone: types.cluster.Clone,
   createResourceDetailUrl: (id: string) => string,
 }) => (
@@ -42,5 +42,3 @@ const ResourceTreeItemClone = ({ clone, createResourceDetailUrl }: {
     )}
   </ResourceTreeItemExpandableLayout>
 );
-
-export default ResourceTreeItemClone;

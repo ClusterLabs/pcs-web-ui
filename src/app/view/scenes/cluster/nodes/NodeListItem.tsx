@@ -11,7 +11,7 @@ import { types } from "app/store";
 import { StatusSign } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
-const NodeListItem = ({ node }: { node: types.cluster.Node }) => (
+export const NodeListItem = ({ node }: { node: types.cluster.Node }) => (
   <DataListItem aria-labelledby={node.name}>
     <DataListItemRow>
       <DataListItemCells
@@ -42,4 +42,3 @@ const NodeListItem = ({ node }: { node: types.cluster.Node }) => (
     </DataListItemRow>
   </DataListItem>
 );
-export default NodeListItem;

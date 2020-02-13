@@ -15,7 +15,7 @@ const ApiUpdateResource = t.partial({
 type Result = t.TypeOf<typeof ApiUpdateResource>;
 
 
-const updateResource: ApiCall<Result> = async (
+export const updateResource: ApiCall<Result> = async (
   clusterUrlName: string,
   resourceId: string,
   attributes: Record<string, string>,
@@ -32,5 +32,3 @@ const updateResource: ApiCall<Result> = async (
   );
   return createResult<Result>(raw, validateShape(raw, ApiUpdateResource));
 };
-
-export default updateResource;

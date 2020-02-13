@@ -7,13 +7,13 @@ import { setupStore } from "app/store";
 
 import { Notifications } from "./notifications";
 import { EnsureLogin } from "./login";
-import AppPage from "./AppPage";
+import { AppPage } from "./AppPage";
 import "./App.css";
 
 
 const history = createBrowserHistory({ basename: "/ui/" });
 
-const App = ({ store = setupStore(history) }) => (
+export const App = ({ store = setupStore(history) }) => (
   <Provider store={store}>
     <EnsureLogin>
       <ConnectedRouter history={history}>
@@ -23,5 +23,3 @@ const App = ({ store = setupStore(history) }) => (
     </EnsureLogin>
   </Provider>
 );
-
-export default App;

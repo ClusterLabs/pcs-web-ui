@@ -1,4 +1,4 @@
-import ConstraintListResource from "./ConstraintListResource";
+import { ConstraintListResource } from "./ConstraintListResource";
 
 export {
   ConstraintListResource,

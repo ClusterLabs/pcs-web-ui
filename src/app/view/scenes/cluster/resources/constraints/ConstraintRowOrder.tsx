@@ -1,13 +1,13 @@
 import React from "react";
 
 import { types } from "app/store";
-import ConstraintCellResourceSet from "./ConstraintCellResourceSet";
+import { ConstraintCellResourceSet } from "./ConstraintCellResourceSet";
 
-import ConstraintRow from "./ConstraintRow";
-import ConstraintCell from "./ConstraintCell";
-import ConstraintCellOrderScoreKind from "./ConstraintCellOrderScoreKind";
+import { ConstraintRow } from "./ConstraintRow";
+import { ConstraintCell } from "./ConstraintCell";
+import { ConstraintCellOrderScoreKind } from "./ConstraintCellOrderScoreKind";
 
-const ConstraintRowOrder = ({ constraint, resourceId }: {
+export const ConstraintRowOrder = ({ constraint, resourceId }: {
   constraint: types.cluster.ConstraintOrder;
   resourceId: string;
 }) => {
@@ -33,5 +33,3 @@ const ConstraintRowOrder = ({ constraint, resourceId }: {
     </ConstraintRow>
   );
 };
-
-export default ConstraintRowOrder;

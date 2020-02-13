@@ -4,7 +4,7 @@ import { types } from "app/store";
 import { Table } from "app/view/common";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
-import DashboardCluster from "./DashboardCluster";
+import { DashboardCluster } from "./DashboardCluster";
 
 
 type COLUMNS = "NAME"|"ISSUES"|"NODES"|"RESOURCES"|"FENCE_DEVICES";
@@ -37,7 +37,7 @@ const compareByColumn = (
 
 const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
 
-export default ({ dashboard }: {
+export const Dashboard = ({ dashboard }: {
   dashboard: types.dashboard.DashboardState
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting();

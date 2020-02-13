@@ -4,10 +4,8 @@ import { apiToState } from "./apiToState/apiToState";
 import { DashboardState } from "./types";
 
 
-const transformClustersOverview = (
+export const overviewApiToState = (
   apiClusterOverview: ApiClustersOverview,
 ): DashboardState => ({
   clusterList: apiClusterOverview.cluster_list.map(apiToState),
 });
-
-export default transformClustersOverview;

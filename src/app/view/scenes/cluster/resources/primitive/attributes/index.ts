@@ -1,4 +1,4 @@
-import PrimitiveAttrsView from "./PrimitiveAttrsView";
+import { PrimitiveAttrsView } from "./PrimitiveAttrsView";
 
 export {
   PrimitiveAttrsView,

@@ -2,9 +2,9 @@ import React from "react";
 
 import { types } from "app/store";
 
-import PrimitiveAttrsHelpPopover from "./PrimitiveAttrsHelpPopover";
+import { PrimitiveAttrsHelpPopover } from "./PrimitiveAttrsHelpPopover";
 
-const PrimitiveAttrsFormItemLayout = (
+export const PrimitiveAttrsFormItemLayout = (
   { resourceAgentParam, children }: React.PropsWithChildren<{
     resourceAgentParam: types.resourceAgents.ResourceAgentParameter;
   }>,
@@ -31,5 +31,3 @@ const PrimitiveAttrsFormItemLayout = (
     </div>
   );
 };
-
-export default PrimitiveAttrsFormItemLayout;

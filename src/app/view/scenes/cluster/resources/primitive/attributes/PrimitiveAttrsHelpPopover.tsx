@@ -7,7 +7,7 @@ import {
 
 import { types } from "app/store";
 
-const PrimitiveAttrsHelpPopover = ({ resourceAgentParam }: {
+export const PrimitiveAttrsHelpPopover = ({ resourceAgentParam }: {
   resourceAgentParam: types.resourceAgents.ResourceAgentParameter;
 }) => {
   return (
@@ -24,5 +24,3 @@ const PrimitiveAttrsHelpPopover = ({ resourceAgentParam }: {
     </Popover>
   );
 };
-
-export default PrimitiveAttrsHelpPopover;

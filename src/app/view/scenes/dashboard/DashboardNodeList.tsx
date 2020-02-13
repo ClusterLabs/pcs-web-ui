@@ -26,7 +26,7 @@ const compareByColumn = (column: COLUMNS|""): (a: Node, b: Node) => number => {
 
 const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
 
-const DashboardNodeList = ({ nodeList }: { nodeList: Node[] }) => {
+export const DashboardNodeList = ({ nodeList }: { nodeList: Node[] }) => {
   const { sortState, compareItems } = SortableTh.useSorting("NAME");
   return (
     <Table isCompact isBorderless>
@@ -65,5 +65,3 @@ const DashboardNodeList = ({ nodeList }: { nodeList: Node[] }) => {
     </Table>
   );
 };
-
-export default DashboardNodeList;

@@ -1,12 +1,12 @@
 import React from "react";
 import { types } from "app/store";
 
-import ResourceTreeItemPrimitive from "./ResourceTreeItemPrimitive";
-import ResourceTreeItemExpandableLayout
+import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
+import { ResourceTreeItemExpandableLayout }
   from "./ResourceTreeItemExpandableLayout";
-import ResourceTreeItemDescription from "./ResourceTreeItemDescription";
+import { ResourceTreeItemDescription } from "./ResourceTreeItemDescription";
 
-const ResourceTreeItemGroup = (
+export const ResourceTreeItemGroup = (
   { group, createResourceDetailUrl, nestedLevel = 0 }: {
     group: types.cluster.Group,
     createResourceDetailUrl: (id: string) => string,
@@ -34,5 +34,3 @@ const ResourceTreeItemGroup = (
     ))}
   </ResourceTreeItemExpandableLayout>
 );
-
-export default ResourceTreeItemGroup;

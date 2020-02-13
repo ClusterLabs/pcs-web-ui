@@ -11,7 +11,9 @@ import { types } from "app/store";
 import * as pallete from "./pallete";
 
 
-const StatusIco = ({ status }: { status: types.cluster.StatusSeverity }) => {
+export const StatusIco = ({ status }: {
+  status: types.cluster.StatusSeverity
+}) => {
   switch (status) {
     case "OK": return <OkIcon />;
     case "ERROR": return <ExclamationCircleIcon color={pallete.ERROR} />;
@@ -21,5 +23,3 @@ const StatusIco = ({ status }: { status: types.cluster.StatusSeverity }) => {
     default: return <QuestionCircleIcon color={pallete.UNKNOWN} />;
   }
 };
-
-export default StatusIco;

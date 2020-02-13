@@ -12,7 +12,7 @@ import {
 import { Action } from "app/actions";
 import { useUsername } from "app/view/hooks";
 
-const PageToolbarView = () => {
+export const PageToolbar = () => {
   const [isDropdownOpen, setDropdownOpen] = React.useState(false);
   const dispatch = useDispatch();
   const username = useUsername();
@@ -50,5 +50,3 @@ const PageToolbarView = () => {
     </Toolbar>
   );
 };
-
-export default PageToolbarView;

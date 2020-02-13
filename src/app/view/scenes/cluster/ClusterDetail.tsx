@@ -12,7 +12,7 @@ import {
 import { selectors } from "app/store";
 import { StatusSign, IssueList } from "app/view/common";
 
-const ClusterDetail = () => {
+export const ClusterDetail = () => {
   const cluster = useSelector(selectors.getCluster);
   return (
     <PageSection>
@@ -41,5 +41,3 @@ const ClusterDetail = () => {
     </PageSection>
   );
 };
-
-export default ClusterDetail;

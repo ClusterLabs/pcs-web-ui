@@ -1,11 +1,9 @@
 import React from "react";
 
-const Scratch = () => {
+export const Scratch = () => {
   return (
     <>
     SCRATCH
     </>
   );
 };
-
-export default Scratch;

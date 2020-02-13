@@ -13,7 +13,7 @@ const severityToVariant = (severity: types.Notification["severity"]) => {
   }
 };
 
-const NotificationContainer = () => {
+export const NotificationContainer = () => {
   const notifications = useSelector(selectors.getNotifications);
   const dispatch = useDispatch();
   return (
@@ -37,5 +37,3 @@ const NotificationContainer = () => {
     </ul>
   );
 };
-
-export default NotificationContainer;

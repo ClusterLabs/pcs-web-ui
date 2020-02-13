@@ -1,4 +1,4 @@
-import Notifications from "./NotificationContainer";
+import { NotificationContainer as Notifications } from "./NotificationContainer";
 
 export {
   Notifications,

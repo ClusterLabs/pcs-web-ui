@@ -10,9 +10,9 @@ import {
 } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
-import GroupDetail from "./GroupDetail";
+import {GroupDetail} from "./GroupDetail";
 
-const GroupPage = ({ group, urlPrefix, onClose }: {
+export const GroupPage = ({ group, urlPrefix, onClose }: {
   group: types.cluster.Group;
   urlPrefix: string;
   onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
@@ -40,5 +40,3 @@ const GroupPage = ({ group, urlPrefix, onClose }: {
     </DetailLayout>
   );
 };
-
-export default GroupPage;

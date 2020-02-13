@@ -1,4 +1,4 @@
-import ClusterDetailPage from "./ClusterDetailPage";
+import { ClusterDetailPage } from "./ClusterDetailPage";
 import { useSelectedCluster } from "./SelectedClusterContext";
 
 export {

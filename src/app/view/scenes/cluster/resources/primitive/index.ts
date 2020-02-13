@@ -1,4 +1,4 @@
-import PrimitivePage from "./PrimitivePage";
+import { PrimitivePage } from "./PrimitivePage";
 
 export {
   PrimitivePage,

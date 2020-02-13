@@ -11,7 +11,7 @@ import {
   TApiClustersOverview,
 } from "./types/clusterOverview";
 
-const clustersOverview: ApiCall<ApiClustersOverview> = async () => {
+export const clustersOverview: ApiCall<ApiClustersOverview> = async () => {
   try {
     const raw = await getJson("/clusters_overview");
     return createResult<ApiClustersOverview>(
@@ -22,5 +22,3 @@ const clustersOverview: ApiCall<ApiClustersOverview> = async () => {
     return dealWithInvalidJson(e);
   }
 };
-
-export default clustersOverview;

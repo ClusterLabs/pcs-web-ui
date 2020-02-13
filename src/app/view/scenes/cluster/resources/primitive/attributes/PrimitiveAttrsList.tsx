@@ -2,9 +2,9 @@ import React from "react";
 
 import { types } from "app/store";
 
-import PrimitiveAttrsListItem from "./PrimitiveAttrsListItem";
+import { PrimitiveAttrsListItem } from "./PrimitiveAttrsListItem";
 
-const PrimitiveAttrsList = ({ primitive, resourceAgentParameters }: {
+export const PrimitiveAttrsList = ({ primitive, resourceAgentParameters }: {
   primitive: types.cluster.Primitive;
   resourceAgentParameters: types.resourceAgents.ResourceAgentParameter[];
 }) => {
@@ -22,5 +22,3 @@ const PrimitiveAttrsList = ({ primitive, resourceAgentParameters }: {
     </div>
   );
 };
-
-export default PrimitiveAttrsList;

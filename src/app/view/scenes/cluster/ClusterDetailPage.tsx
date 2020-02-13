@@ -18,10 +18,10 @@ import { useClusterState } from "app/view/hooks";
 import { NodeListPage } from "./nodes";
 import { FenceDeviceListPage } from "./fenceDevices";
 import { ClusterDetailResources } from "./resources";
-import ClusterDetail from "./ClusterDetail";
+import { ClusterDetail } from "./ClusterDetail";
 import { SelectedClusterProvider } from "./SelectedClusterContext";
 
-const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
+export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
   clusterUrlName: string;
   urlPrefix: string;
 }) => {
@@ -90,5 +90,3 @@ const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
     </Page>
   );
 };
-
-export default ClusterDetailPage;

@@ -2,11 +2,11 @@ import React from "react";
 
 import { types } from "app/store";
 
-import ConstraintRow from "./ConstraintRow";
-import ConstraintCell from "./ConstraintCell";
-import ConstraintCellResourceSet from "./ConstraintCellResourceSet";
+import { ConstraintRow } from "./ConstraintRow";
+import { ConstraintCell } from "./ConstraintCell";
+import { ConstraintCellResourceSet } from "./ConstraintCellResourceSet";
 
-const ConstraintRowColocation = ({ constraint }: {
+export const ConstraintRowTicket = ({ constraint }: {
   constraint: types.cluster.ConstraintTicket;
 }) => {
   if ("sets" in constraint) {
@@ -25,5 +25,3 @@ const ConstraintRowColocation = ({ constraint }: {
     </ConstraintRow>
   );
 };
-
-export default ConstraintRowColocation;

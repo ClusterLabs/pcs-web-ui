@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 import { Tab, Tabs } from "@patternfly/react-core";
 
-function UrlTabs<T extends {[key:string]: string}>(
+export function UrlTabs<T extends {[key:string]: string}>(
   { tabSettingsMap, currentTab }: {
     tabSettingsMap: T,
     currentTab: keyof T,
@@ -30,5 +30,3 @@ function UrlTabs<T extends {[key:string]: string}>(
     </Tabs>
   );
 }
-
-export default UrlTabs;

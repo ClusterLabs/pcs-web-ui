@@ -1,8 +1,8 @@
 import React from "react";
 
-import SortableTh from "./SortableTh";
-import Expansion from "./Expansion";
-import Body from "./Body";
+import { SortableTh } from "./SortableTh";
+import { Expansion } from "./Expansion";
+import { Body } from "./Body";
 
 const Table = (
   {
@@ -41,4 +41,6 @@ Table.Body = Body;
 Table.Expansion = Expansion;
 Table.SortableTh = SortableTh;
 
-export default Table;
+export {
+  Table,
+};

@@ -2,9 +2,9 @@ import React from "react";
 
 import { types } from "app/store";
 
-import PrimitiveAttrsHelpPopover from "./PrimitiveAttrsHelpPopover";
+import { PrimitiveAttrsHelpPopover } from "./PrimitiveAttrsHelpPopover";
 
-const PrimitiveAttrsListItem = (
+export const PrimitiveAttrsListItem = (
   { resourceAgentParam, instanceAttributes }: {
     resourceAgentParam: types.resourceAgents.ResourceAgentParameter;
     instanceAttributes: types.cluster.Primitive["instanceAttributes"];
@@ -31,5 +31,3 @@ const PrimitiveAttrsListItem = (
     }
   </>
 );
-
-export default PrimitiveAttrsListItem;

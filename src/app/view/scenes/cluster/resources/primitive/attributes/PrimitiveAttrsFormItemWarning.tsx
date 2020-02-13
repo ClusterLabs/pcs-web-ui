@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert } from "@patternfly/react-core";
 
-const PrimitiveAttrsFormItemWarning = ({ remoteValue }: {
+export const PrimitiveAttrsFormItemWarning = ({ remoteValue }: {
   remoteValue: string;
 }) => {
   return (
@@ -16,5 +16,3 @@ const PrimitiveAttrsFormItemWarning = ({ remoteValue }: {
     />
   );
 };
-
-export default PrimitiveAttrsFormItemWarning;

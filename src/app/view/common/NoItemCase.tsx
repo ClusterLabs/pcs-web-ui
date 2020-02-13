@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack, StackItem, Alert } from "@patternfly/react-core";
 
-const NoItemCase = ({ message, margin = true }: {
+export const NoItemCase = ({ message, margin = true }: {
   message: string;
   margin?: boolean;
 }) => (
@@ -15,5 +15,3 @@ const NoItemCase = ({ message, margin = true }: {
     </StackItem>
   </Stack>
 );
-
-export default NoItemCase;

@@ -5,7 +5,7 @@ import {
   DataListItemCells,
 } from "@patternfly/react-core";
 
-const ConstraintRow = ({
+export const ConstraintRow = ({
   "aria-labelledby": ariaLabelledBy,
   children,
 }: React.PropsWithChildren<{
@@ -20,5 +20,3 @@ const ConstraintRow = ({
     </DataListItem>
   );
 };
-
-export default ConstraintRow;

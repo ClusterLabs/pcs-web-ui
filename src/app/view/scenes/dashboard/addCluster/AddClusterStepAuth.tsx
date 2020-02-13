@@ -12,7 +12,7 @@ import { Action } from "app/actions";
 import { types, selectors } from "app/store";
 import { Spinner } from "app/view/common";
 
-import AddClusterAuthRequired from "./AddClusterAuthRequired";
+import { AddClusterAuthRequired } from "./AddClusterAuthRequired";
 
 const helperText = (
   "Enter the name of a node in a cluster that you would like to manage"
@@ -24,7 +24,7 @@ const authRequiredStates: types.addCluster.AUTH_STATE[] = [
   "AUTHENTICATION_FAILED",
 ];
 
-const AddClusterStepAuth = () => {
+export const AddClusterStepAuth = () => {
   const authState = useSelector(selectors.addClusterGetStepAuthState);
   const nodeName = useSelector(selectors.addClusterGetNodeName);
   const stateError = useSelector(selectors.addClusterGetStateError);
@@ -100,5 +100,3 @@ const AddClusterStepAuth = () => {
     </Form>
   );
 };
-
-export default AddClusterStepAuth;

@@ -1,4 +1,4 @@
-import NodeListPage from "./NodeListPage";
+import { NodeListPage } from "./NodeListPage";
 
 export {
   NodeListPage,

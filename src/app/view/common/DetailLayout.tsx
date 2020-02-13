@@ -8,7 +8,7 @@ import {
 } from "@patternfly/react-core";
 import { TimesIcon } from "@patternfly/react-icons";
 
-const DetailLayout = ({
+export const DetailLayout = ({
   caption,
   onClose,
   tabs = null,
@@ -35,5 +35,3 @@ const DetailLayout = ({
     {children}
   </Stack>
 );
-
-export default DetailLayout;

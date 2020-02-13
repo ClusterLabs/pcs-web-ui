@@ -1,6 +1,6 @@
 import React from "react";
 
-const ExpandedContent = (
+export const ExpandedContent = (
   { colSpan, children, padding = false }: React.PropsWithChildren<{
     colSpan: number,
     padding?: boolean,
@@ -12,5 +12,3 @@ const ExpandedContent = (
     </td>
   </tr>
 );
-
-export default ExpandedContent;

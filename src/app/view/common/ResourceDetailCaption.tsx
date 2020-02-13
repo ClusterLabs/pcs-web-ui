@@ -1,6 +1,6 @@
 import React from "react";
 
-const ResourceDetailCaption = ({ resourceId, type }: {
+export const ResourceDetailCaption = ({ resourceId, type }: {
   resourceId: string;
   type: string;
 }) => (
@@ -9,5 +9,3 @@ const ResourceDetailCaption = ({ resourceId, type }: {
     <span>{`(${type})`}</span>
   </>
 );
-
-export default ResourceDetailCaption;

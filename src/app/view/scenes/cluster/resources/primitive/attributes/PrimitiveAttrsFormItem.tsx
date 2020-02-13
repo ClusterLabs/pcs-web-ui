@@ -5,11 +5,11 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import PrimitiveAttrsFormItemRadio from "./PrimitiveAttrsFormItemRadio";
-import PrimitiveAttrsFormItemLabel from "./PrimitiveAttrsFormItemLabel";
-import PrimitiveAttrsFormItemWarning from "./PrimitiveAttrsFormItemWarning";
+import { PrimitiveAttrsFormItemRadio } from "./PrimitiveAttrsFormItemRadio";
+import { PrimitiveAttrsFormItemLabel } from "./PrimitiveAttrsFormItemLabel";
+import { PrimitiveAttrsFormItemWarning } from "./PrimitiveAttrsFormItemWarning";
 
-const PrimitiveAttrsFormItem = ({
+export const PrimitiveAttrsFormItem = ({
   id,
   userValue,
   initialValue,
@@ -81,5 +81,3 @@ const PrimitiveAttrsFormItem = ({
     </Stack>
   );
 };
-
-export default PrimitiveAttrsFormItem;

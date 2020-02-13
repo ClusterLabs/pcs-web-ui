@@ -47,7 +47,7 @@ const validate = (requestedAgentName: string, response: any) => {
 
 type Result = t.TypeOf<typeof ApiAgentMetadata>;
 
-const getResourceAgentMetadata: ApiCall<Result> = async (
+export const getResourceAgentMetadata: ApiCall<Result> = async (
   clusterUrlName:string,
   agentName:string,
 ) => {
@@ -61,5 +61,3 @@ const getResourceAgentMetadata: ApiCall<Result> = async (
     return dealWithInvalidJson(e);
   }
 };
-
-export default getResourceAgentMetadata;

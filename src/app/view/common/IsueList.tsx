@@ -12,7 +12,7 @@ const issueKey = (issue: types.cluster.Issue, index: any) => (
   `${index}:${issue.message}`
 );
 
-const IssueList = ({ issueList, margin = false }: {
+export const IssueList = ({ issueList, margin = false }: {
   issueList: types.cluster.Issue[],
   margin?: boolean,
 }) => {
@@ -42,5 +42,3 @@ const IssueList = ({ issueList, margin = false }: {
     </Stack>
   );
 };
-
-export default IssueList;

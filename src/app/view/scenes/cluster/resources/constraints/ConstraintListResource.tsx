@@ -5,12 +5,12 @@ import { DataList, StackItem } from "@patternfly/react-core";
 import { NoItemCase } from "app/view/common";
 import { types, selectors } from "app/store";
 
-import ConstraintRowLocation from "./ConstraintRowLocation";
-import ConstraintRowColocation from "./ConstraintRowColocation";
-import ConstraintRowOrder from "./ConstraintRowOrder";
-import ConstraintRowTicket from "./ConstraintRowTicket";
+import { ConstraintRowLocation } from "./ConstraintRowLocation";
+import { ConstraintRowColocation } from "./ConstraintRowColocation";
+import { ConstraintRowOrder } from "./ConstraintRowOrder";
+import { ConstraintRowTicket } from "./ConstraintRowTicket";
 
-const ConstraintListResource = ({ resource }: {
+export const ConstraintListResource = ({ resource }: {
   resource: types.cluster.ResourceTreeItem,
 }) => {
   const constraintPacks = useSelector(
@@ -60,5 +60,3 @@ const ConstraintListResource = ({ resource }: {
     </StackItem>
   );
 };
-
-export default ConstraintListResource;

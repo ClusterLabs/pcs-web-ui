@@ -9,9 +9,9 @@ import {
 import { types, selectors } from "app/store";
 import { Action } from "app/actions";
 
-import ResourceTreeNested from "./ResourceTreeNested";
+import { ResourceTreeNested } from "./ResourceTreeNested";
 
-const ResourceTreeItemExpandableLayout = ({
+export const ResourceTreeItemExpandableLayout = ({
   resourceTreeItem,
   nestedAriaLabel,
   nestingDepth,
@@ -53,5 +53,3 @@ const ResourceTreeItemExpandableLayout = ({
     </DataListItem>
   );
 };
-
-export default ResourceTreeItemExpandableLayout;

@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Spinner.css";
 
-export default ({ text, ...rest }: { text: string }) => (
+export const Spinner = ({ text, ...rest }: { text: string }) => (
   <>
     <div
       style={{

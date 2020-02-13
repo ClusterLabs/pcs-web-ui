@@ -3,9 +3,9 @@ import { useRouteMatch } from "react-router";
 
 import { ClusterDetailPage } from "./cluster";
 import { DashboardPage } from "./dashboard";
-import Scratch from "./Scratch";
+import { Scratch } from "./Scratch";
 
-const AppPage = () => {
+export const AppPage = () => {
   const cluster = useRouteMatch<{name: string}>("/cluster/:name");
   const scratch = useRouteMatch({ exact: true, path: "/scratch" });
 
@@ -23,5 +23,3 @@ const AppPage = () => {
 
   return <DashboardPage urlPrefix="/" />;
 };
-
-export default AppPage;

@@ -21,8 +21,6 @@ export const BackgroundImageSources = {
   [BackgroundImageSrc.filter]: `${backgroundFilter}#image_overlay`,
 };
 
-const BackgroundImage = () => (
+export const BackgroundImage = () => (
   <PfBackgroundImage src={BackgroundImageSources} />
 );
-
-export default BackgroundImage;

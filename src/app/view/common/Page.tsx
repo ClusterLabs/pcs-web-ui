@@ -3,10 +3,10 @@ import {
   Page as PfPage,
 } from "@patternfly/react-core";
 
-import BackgroundImage from "./BackgroundImage";
-import PageHeader from "./PageHeader";
+import { BackgroundImage } from "./BackgroundImage";
+import { PageHeader } from "./PageHeader";
 
-const Page = ({ children, breadcrumbs = null }: React.PropsWithChildren<{
+export const Page = ({ children, breadcrumbs = null }: React.PropsWithChildren<{
   breadcrumbs?: JSX.Element|null;
 }>) => {
   return (
@@ -18,5 +18,3 @@ const Page = ({ children, breadcrumbs = null }: React.PropsWithChildren<{
     </>
   );
 };
-
-export default Page;
