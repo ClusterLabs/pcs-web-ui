@@ -18,7 +18,7 @@ export const NotificationContainer = () => {
   const dispatch = useDispatch();
   return (
     <ul id="notifications">
-      {notifications.map(({ id, severity, message }) => (
+      {notifications.reverse().map(({ id, severity, message }) => (
         <li className="notification-item" key={id}>
           <Alert
             variant={severityToVariant(severity)}
