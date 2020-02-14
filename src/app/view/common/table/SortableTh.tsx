@@ -101,29 +101,7 @@ function useSorting<COLUMN extends string>(
   return { sortState, compareItems };
 }
 
-
-// A helper that allows specify collumns types for both, SortableTh component
-// and useSorting hook at once.
-function bindColumns<COLUMN extends string>() {
-  const SortableColumn = (
-    { children, ...args }:
-      React.PropsWithChildren<React.ComponentProps<SortableTh>>
-    ,
-  ) => (
-    <SortableTh<COLUMN> {...args}>{children}</SortableTh>
-  );
-
-  const useBoundSorting = (
-    initialColumn: COLUMN|"" = "",
-    initialDirection: Direction = "asc",
-  ) => useSorting<COLUMN>(initialColumn, initialDirection);
-
-  SortableColumn.useSorting = useBoundSorting;
-  return SortableColumn;
-}
-
 SortableTh.useSorting = useSorting;
-SortableTh.bindColumns = bindColumns;
 export {
   SortableTh,
 };

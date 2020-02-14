@@ -1,35 +1,41 @@
-import { AddClusterActions } from "./dashboard-add-cluster";
-import { AuthActions } from "./auth";
-import { ClusterActions } from "./cluster";
+import {
+  AddClusterActions as TAddClusterActions,
+} from "./dashboard-add-cluster";
+import { AuthActions as TAuthActions } from "./auth";
+import { ClusterActions as TClusterActions } from "./cluster";
 import { DashboardActions } from "./dashboard";
-import { LoginActions } from "./login";
-import { NotificationActions } from "./notifications";
-import { ResourceDetailActions } from "./resource-detail";
+import { LoginActions as TLoginActions } from "./login";
+import { NotificationActions as TNotificationActions } from "./notifications";
+import {
+  ResourceDetailActions as TResourceDetailActions,
+} from "./resource-detail";
 import { ResourceTreeActions } from "./resource-tree";
 import { UsernameActions } from "./username";
-import { PrimitiveResourceActions } from "./resource-primitive";
+import {
+  PrimitiveResourceActions as TPrimitiveResourceActions,
+} from "./resource-primitive";
 
-export type AddClusterActions = AddClusterActions;
-export type AuthActions = AuthActions;
-export type ClusterActions = ClusterActions;
-export type LoginActions = LoginActions;
-export type NotificationActions = NotificationActions;
-export type ResourceDetailActions = ResourceDetailActions;
-export type PrimitiveResourceActions = PrimitiveResourceActions;
+export type AddClusterActions = TAddClusterActions;
+export type AuthActions = TAuthActions;
+export type ClusterActions = TClusterActions;
+export type LoginActions = TLoginActions;
+export type NotificationActions = TNotificationActions;
+export type ResourceDetailActions = TResourceDetailActions;
+export type PrimitiveResourceActions = TPrimitiveResourceActions;
 
 type Union<A> = A[keyof A];
 
 export type LeafAction = (
-  | Union<AddClusterActions>
-  | Union<AuthActions>
-  | Union<ClusterActions>
+  | Union<TAddClusterActions>
+  | Union<TAuthActions>
+  | Union<TClusterActions>
   | Union<DashboardActions>
-  | Union<LoginActions>
-  | Union<NotificationActions>
-  | Union<ResourceDetailActions>
+  | Union<TLoginActions>
+  | Union<TNotificationActions>
+  | Union<TResourceDetailActions>
   | Union<ResourceTreeActions>
   | Union<UsernameActions>
-  | Union<PrimitiveResourceActions>
+  | Union<TPrimitiveResourceActions>
 );
 
 export type SetupDataReading = {

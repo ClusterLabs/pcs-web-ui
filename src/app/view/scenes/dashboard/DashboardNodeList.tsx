@@ -24,10 +24,10 @@ const compareByColumn = (column: COLUMNS|""): (a: Node, b: Node) => number => {
   }
 };
 
-const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
+const { SortableTh } = Table;
 
 export const DashboardNodeList = ({ nodeList }: { nodeList: Node[] }) => {
-  const { sortState, compareItems } = SortableTh.useSorting("NAME");
+  const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (
     <Table isCompact isBorderless>
       <thead>

@@ -35,12 +35,12 @@ const compareByColumn = (
   }
 };
 
-const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
+const { SortableTh } = Table;
 
 export const Dashboard = ({ dashboard }: {
   dashboard: types.dashboard.DashboardState
 }) => {
-  const { sortState, compareItems } = SortableTh.useSorting();
+  const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (
     <Table isExpandable data-role="cluster-list">
       <thead>
