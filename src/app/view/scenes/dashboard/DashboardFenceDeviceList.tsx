@@ -22,12 +22,12 @@ const compareByColumn = (
   }
 };
 
-const SortableTh = Table.SortableTh.bindColumns<COLUMNS>();
+const { SortableTh } = Table;
 
 export const DashboardFenceDeviceList = ({ fenceDeviceList }: {
   fenceDeviceList: types.dashboard.FenceDevice[],
 }) => {
-  const { sortState, compareItems } = SortableTh.useSorting("NAME");
+  const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   if (fenceDeviceList.length === 0) {
     return <NoItemCase message="No fence device is configured." />;
   }
