@@ -27,8 +27,8 @@ const Summary = ({ itemsCount, summaryStatus }: {
   }
   return (
     <>
-      <div>{itemsCount}</div>
-      <div><StatusIco status={summaryStatus} /></div>
+      <span className="pf-u-pr-lg">{itemsCount}</span>
+      <StatusIco status={summaryStatus} />
     </>
   );
 };
