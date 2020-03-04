@@ -18,7 +18,7 @@ export const DetailLayout = ({
   caption: JSX.Element|JSX.Element[]|string;
   tabs?: JSX.Element|JSX.Element[]|string|null;
 }>) => (
-  <Stack gutter="md" className="pf-u-m-md">
+  <Stack gutter="md" className="pf-u-p-md">
     <StackItem>
       <Level>
         <LevelItem>
