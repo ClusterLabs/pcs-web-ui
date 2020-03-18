@@ -8,6 +8,9 @@ const {
 
 const puppeteerOptions = {
   headless: true,
+  args: [
+    "--auto-open-devtools-for-tabs",
+  ],
   defaultViewport: {
     width: 1200,
     height: 800,
