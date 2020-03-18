@@ -17,7 +17,13 @@ export const IssueList = ({ issueList, margin = false }: {
   margin?: boolean,
 }) => {
   if (issueList.length === 0) {
-    return <NoItemCase message="No issue." margin={margin} />;
+    return(
+      <NoItemCase
+        message="No issue."
+        margin={margin}
+        role="issues-status"
+      />
+    );
   }
   return (
     <Stack

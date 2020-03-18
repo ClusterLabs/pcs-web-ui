@@ -10,11 +10,11 @@ const responses = require("dev/api/responses/all");
 
 const CLUSTERS_SELECTOR = "[data-role='cluster-list'] [data-role='cluster']";
 const clusters = (selectors = "") => `${CLUSTERS_SELECTOR} ${selectors}`.trim();
-const cluster1 = (selectors = "") => (
-  `${CLUSTERS_SELECTOR}[data-role-key='cluster-1'] ${selectors}`.trim()
+const clusterOk = (selectors = "") => (
+  `${CLUSTERS_SELECTOR}[data-role-key='ok'] ${selectors}`.trim()
 );
-const cluster2 = (selectors = "") => (
-  `${CLUSTERS_SELECTOR}[data-role-key='cluster-2'] ${selectors}`.trim()
+const clusterError = (selectors = "") => (
+  `${CLUSTERS_SELECTOR}[data-role-key='error'] ${selectors}`.trim()
 );
 
 const pollyManager = getPollyManager(() => page());
@@ -84,33 +84,31 @@ describe("Dashboard scene", () => {
     });
 
     expect(clusterInfoList).to.eql([
-      response2Info(responses.clusterStatus.ok),
       response2Info(responses.clusterStatus.error),
+      response2Info(responses.clusterStatus.ok),
     ]);
   });
 
   it("should allow to display cluster issues", async () => {
     pollyManager().reset(scenarios.multipleCluster);
     await page().goto(url());
-    await page().waitFor(cluster2());
-    await page().click(cluster2("[data-role='issues-total'] button"));
-    await page().waitFor(cluster2("[data-role='issues-status']"));
+    await page().waitFor(clusterError());
+    await page().click(clusterError("[data-role='issues-total'] button"));
+    await page().waitFor(clusterError("[data-role='issues-status']"));
 
     const issues = await page().$$eval(
-      cluster2("[data-role='issues-status']"),
+      clusterError("[data-role='issues-status']"),
       issuesBoxes => issuesBoxes.map(e => ({
-        status: e.dataset.roleValue,
         alerts: Array.from(e.querySelectorAll("[aria-label='cluster issue']>*"))
           .map(ae => ae.textContent)
         ,
       })),
     );
     expect(issues).to.eql([{
-      status: "ERROR",
       alerts: [
-        "danger alert: Unable to connect to the cluster.",
-        "warning alert: No fencing configured in the cluster",
-        "warning alert: Not authorized against node(s) node-3",
+        "Danger alert:Unable to connect to the cluster.",
+        "Warning alert:No fencing configured in the cluster",
+        "Warning alert:Not authorized against node(s) node-3",
       ],
     }]);
   });
@@ -119,15 +117,10 @@ describe("Dashboard scene", () => {
     pollyManager().reset(scenarios.multipleCluster);
 
     await page().goto(url());
-    await page().waitFor(cluster1());
-    await page().click(cluster1("[data-role='issues-total'] button"));
-    await page().waitFor(cluster1("[data-role='issues-status']"));
-
-    const clusterStatuses = await page().$$eval(
-      cluster1("[data-role='issues-status']"),
-      statuses => statuses.map(e => e.dataset.roleValue),
-    );
-    expect(clusterStatuses).to.eql(["OK"]);
+    await page().waitFor(clusterOk());
+    await page().click(clusterOk("[data-role='issues-total'] button"));
+    // just check that it exists
+    await page().waitFor(clusterOk("[data-role='issues-status']"));
   });
 
   it("should allow to add existing cluster", async () => {
