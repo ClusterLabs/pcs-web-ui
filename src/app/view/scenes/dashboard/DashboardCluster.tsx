@@ -43,41 +43,36 @@ export const DashboardCluster = ({ cluster }: {
   return (
     <Table.Body
       isExpanded={EXPANDABLE_COLUMNS.includes(expanded)}
-      data-role="cluster"
-      data-role-key={cluster.name}
+      aria-label={`Cluster ${cluster.name}`}
     >
-      <tr>
-        <th>
+      <tr role="row">
+        <th role="rowheader" data-label="name">
           <Link
             id={`dashboard-cluster-${cluster.name}`}
-            data-role="detail-link"
             to={`/cluster/${cluster.urlName}`}
           >
             {cluster.name}
           </Link>
         </th>
-        <Toggle expandKey={COLUMNS.ISSUES} data-role="issues-total">
+        <Toggle expandKey={COLUMNS.ISSUES} data-label="issues">
           <Summary
             itemsCount={cluster.issueList.length}
             summaryStatus={cluster.summary.issuesSeverity}
           />
         </Toggle>
-        <Toggle expandKey={COLUMNS.NODES} data-role="nodes-total">
+        <Toggle expandKey={COLUMNS.NODES} data-label="nodes">
           <Summary
             itemsCount={cluster.nodeList.length}
             summaryStatus={cluster.summary.nodesSeverity}
           />
         </Toggle>
-        <Toggle expandKey={COLUMNS.RESOURCES} data-role="resources-total">
+        <Toggle expandKey={COLUMNS.RESOURCES} data-label="resources">
           <Summary
             itemsCount={cluster.resourceTree.length}
             summaryStatus={cluster.summary.resourcesSeverity}
           />
         </Toggle>
-        <Toggle
-          expandKey={COLUMNS.FENCE_DEVICES}
-          data-role="fence-devices-total"
-        >
+        <Toggle expandKey={COLUMNS.FENCE_DEVICES} data-label="fence-devices">
           <Summary
             itemsCount={cluster.fenceDeviceList.length}
             summaryStatus={cluster.summary.fenceDevicesSeverity}

@@ -1,15 +1,15 @@
 import React from "react";
 import { Stack, StackItem, Alert } from "@patternfly/react-core";
 
-export const NoItemCase = ({ message, margin = true, role = "" }: {
+export const NoItemCase = ({ message, margin = true, ...rest }: {
   message: string;
   margin?: boolean;
-  role?: string;
 }) => (
+  /* eslint-disable react/jsx-props-no-spreading */
   <Stack
     gutter="sm"
     style={{ margin: margin ? "1rem" : "none" }}
-    data-role={role}
+    {...rest}
   >
     <StackItem isFilled>
       <Alert

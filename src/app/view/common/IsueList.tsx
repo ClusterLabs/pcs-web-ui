@@ -21,7 +21,7 @@ export const IssueList = ({ issueList, margin = false }: {
       <NoItemCase
         message="No issue."
         margin={margin}
-        role="issues-status"
+        aria-label="Issues status"
       />
     );
   }
@@ -29,7 +29,7 @@ export const IssueList = ({ issueList, margin = false }: {
     <Stack
       gutter="sm"
       style={{ margin: margin ? "1rem" : "none" }}
-      data-role="issues-status"
+      aria-label="Issues status"
     >
       {issueList.map((issue, i) => (
         <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">

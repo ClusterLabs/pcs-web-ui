@@ -38,11 +38,10 @@ export const AddClusterAuthRequired = (
           isInline
           variant="danger"
           title={authenticationError}
-          data-role="authentication-failed"
+          aria-label="Error authentication"
         />
       )}
       <FormGroup
-        data-role="auth-form"
         isRequired
         label="Password"
         fieldId="add-cluster-password"
@@ -55,7 +54,7 @@ export const AddClusterAuthRequired = (
           name="password"
           aria-describedby="Password for user 'hacluster' to authenticate nodes"
           value={password}
-          onChange={value => setPassword(value)}
+          onChange={(value) => setPassword(value)}
         />
       </FormGroup>
       <Switch
@@ -78,7 +77,7 @@ export const AddClusterAuthRequired = (
               name="address"
               aria-describedby="An address via which pcsd will communicate with the node"
               value={address}
-              onChange={value => setAddress(value)}
+              onChange={(value) => setAddress(value)}
             />
           </FormGroup>
           <FormGroup
@@ -92,7 +91,7 @@ export const AddClusterAuthRequired = (
               name="port"
               aria-describedby="A port via which pcsd will communicate with the node"
               value={port}
-              onChange={value => setPort(value)}
+              onChange={(value) => setPort(value)}
             />
           </FormGroup>
         </>
@@ -112,7 +111,7 @@ export const AddClusterAuthRequired = (
                   port,
                 },
               })}
-              data-role="authenticate-node"
+              aria-label="Authenticate node"
             >
               Authenticate node
             </Button>

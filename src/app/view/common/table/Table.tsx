@@ -31,7 +31,8 @@ const Table = (
     classNameList.push("pf-m-expandable");
   }
   return (
-    <table className={classNameList.join(" ")} {...rest}>
+    /* eslint-disable react/jsx-props-no-spreading */
+    <table role="grid" className={classNameList.join(" ")} {...rest}>
       {children}
     </table>
   );

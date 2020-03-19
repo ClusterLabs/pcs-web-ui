@@ -15,31 +15,26 @@ export const AddClusterStepAdd = () => {
   const errorMessage = useSelector(selectors.addClusterGetStateError);
   return (
     <>
-      {state === "STARTED" &&
-        <Spinner data-role="waiting-add" text="adding existing cluster..." />
-      }
+      {state === "STARTED" && <Spinner text="adding existing cluster..." />}
       {
         clusterHasBeenAddedStates.includes(state) && (
           <Alert
             isInline
             variant="success"
             title="Cluster has been added."
-            data-role="add-cluster-success"
+            aria-label="Success add cluster"
           />
         )
       }
       {state === "DASHBOARD_RELOADING" && (
-        <Spinner
-          data-role="waiting-reload"
-          text="waiting for dashboard reload"
-        />
+        <Spinner text="waiting for dashboard reload" />
       )}
       {state === "ERROR" && (
         <Alert
           isInline
           variant="danger"
           title={errorMessage}
-          data-role="add-cluster-error-message"
+          aria-label="Error add cluster"
         />
       )}
     </>

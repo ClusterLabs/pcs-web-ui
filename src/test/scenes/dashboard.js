@@ -8,13 +8,12 @@ const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 
 
-const CLUSTERS_SELECTOR = "[data-role='cluster-list'] [data-role='cluster']";
-const clusters = (selectors = "") => `${CLUSTERS_SELECTOR} ${selectors}`.trim();
+const CLUSTERS_SELECTOR = "[aria-label='Cluster list'] [aria-label^='Cluster']";
 const clusterOk = (selectors = "") => (
-  `${CLUSTERS_SELECTOR}[data-role-key='ok'] ${selectors}`.trim()
+  `${CLUSTERS_SELECTOR}[aria-label$='ok'] ${selectors}`.trim()
 );
 const clusterError = (selectors = "") => (
-  `${CLUSTERS_SELECTOR}[data-role-key='error'] ${selectors}`.trim()
+  `${CLUSTERS_SELECTOR}[aria-label$='error'] ${selectors}`.trim()
 );
 
 const pollyManager = getPollyManager(() => page());
@@ -47,21 +46,17 @@ describe("Dashboard scene", () => {
     pollyManager().reset(scenarios.multipleCluster);
 
     await page().goto(url());
-    await page().waitFor(clusters());
+    await page().waitFor(CLUSTERS_SELECTOR);
 
     const clusterInfoList = await page().$$eval(
-      clusters(),
+      CLUSTERS_SELECTOR,
       clusterElements => clusterElements.map(e => ({
-        name: e.querySelector("[data-role='detail-link']").textContent,
-        link: e.querySelector("[data-role='detail-link']")
-          .attributes.href.value
-        ,
-        issuesTotal: e.querySelector("[data-role='issues-total']").textContent,
-        nodesTotal: e.querySelector("[data-role='nodes-total']").textContent,
-        resourcesTotal: e.querySelector("[data-role='resources-total']")
-          .textContent
-        ,
-        fenceDevicesTotal: e.querySelector("[data-role='fence-devices-total']")
+        name: e.querySelector("[data-label='name']").textContent,
+        link: e.querySelector("[data-label='name'] a").attributes.href.value,
+        issuesTotal: e.querySelector("[data-label='issues']").textContent,
+        nodesTotal: e.querySelector("[data-label='nodes']").textContent,
+        resourcesTotal: e.querySelector("[data-label='resources']").textContent,
+        fenceDevicesTotal: e.querySelector("[data-label='fence-devices']")
           .textContent
         ,
 
@@ -92,12 +87,12 @@ describe("Dashboard scene", () => {
   it("should allow to display cluster issues", async () => {
     pollyManager().reset(scenarios.multipleCluster);
     await page().goto(url());
-    await page().waitFor(clusterError());
-    await page().click(clusterError("[data-role='issues-total'] button"));
-    await page().waitFor(clusterError("[data-role='issues-status']"));
+    await page().waitFor(CLUSTERS_SELECTOR);
+    await page().click(clusterError("[data-label='issues'] button"));
+    await page().waitFor(clusterError("[aria-label='Issues status']"));
 
     const issues = await page().$$eval(
-      clusterError("[data-role='issues-status']"),
+      clusterError("[aria-label='Issues status']"),
       issuesBoxes => issuesBoxes.map(e => ({
         alerts: Array.from(e.querySelectorAll("[aria-label='cluster issue']>*"))
           .map(ae => ae.textContent)
@@ -117,16 +112,18 @@ describe("Dashboard scene", () => {
     pollyManager().reset(scenarios.multipleCluster);
 
     await page().goto(url());
-    await page().waitFor(clusterOk());
-    await page().click(clusterOk("[data-role='issues-total'] button"));
+    await page().waitFor(CLUSTERS_SELECTOR);
+    await page().click(clusterOk("[data-label='issues'] button"));
     // just check that it exists
-    await page().waitFor(clusterOk("[data-role='issues-status']"));
+    await page().waitFor(clusterOk("[aria-label='Issues status']"));
   });
 
   it("should allow to add existing cluster", async () => {
     pollyManager().reset(scenarios.simpleCluster);
 
-    const actionSelector = "[data-role='add-cluster']";
+    const actionSelector = (
+      "[aria-label='Dashboard toolbar'] [aria-label='Add cluster']"
+    );
     await page().goto(url());
     await page().waitFor(actionSelector);
     await page().click(actionSelector);

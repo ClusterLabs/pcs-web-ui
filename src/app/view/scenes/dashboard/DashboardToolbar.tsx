@@ -20,13 +20,13 @@ export const DashboardToolbar = ({ urlPrefix }: { urlPrefix: string }) => {
   const addClusterUrl = join(urlPrefix, "add-cluster");
   const addCluster = useRouteMatch({ exact: true, path: addClusterUrl });
   return (
-    <Toolbar>
+    <Toolbar aria-label="Dashboard toolbar">
       <ToolbarGroup>
         <ToolbarItem>
           <Button
             variant="primary"
             onClick={() => dispatch(push(addClusterUrl))}
-            data-role="add-cluster"
+            aria-label="Add cluster"
           >
             Add existing cluster
           </Button>

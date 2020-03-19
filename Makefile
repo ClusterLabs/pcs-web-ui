@@ -67,7 +67,7 @@ testa:
 
 tests:
 	NODE_PATH=src/ npx mocha src/test/bootstrap.js \
-		--no-timeouts --recursive --watch src/test/scenes/*.js
+		--no-timeouts --recursive --watch --watch-files src/app/,src/test/ src/test/scenes/*.js
 
 clean:
 	rm -rf build

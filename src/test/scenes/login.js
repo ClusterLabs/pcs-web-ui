@@ -11,9 +11,8 @@ const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 const pollyManager = getPollyManager(() => page());
 
 describe("Login scene", () => {
-  const LOGIN_FORM_SELECTOR = '[data-role="login-form"]';
   const loginForm = (selectors = "") => (
-    `${LOGIN_FORM_SELECTOR} ${selectors}`.trim()
+    `[aria-label="Login form"] ${selectors}`.trim()
   );
 
   afterEach(async () => { await pollyManager().stop(); });
@@ -40,8 +39,8 @@ describe("Login scene", () => {
 });
 
 describe("Logout", () => {
-  const MENU_SELECTOR = '[data-role="user-menu"]';
-  const LOGOUT_SELECTOR = '[data-role="logout"]';
+  const MENU_SELECTOR = '[aria-label="User menu"]';
+  const LOGOUT_SELECTOR = '[aria-label="Logout action"]';
 
   afterEach(async () => { await pollyManager().stop(); });
 
