@@ -129,4 +129,27 @@ describe("Dashboard scene", () => {
     await page().click(actionSelector);
     expect(page().url()).to.equal(url("/add-cluster"));
   });
+
+  it("should allow go to a cluster detail", async () => {
+    pollyManager().reset(scenarios.multipleCluster);
+    await page().goto(url());
+    await page().waitFor(CLUSTERS_SELECTOR);
+    await page().click(clusterOk("[data-label='name'] a"));
+    expect(page().url()).to.equal(url("/cluster/ok"));
+  });
+
+  // THIS TEST SUCCEEDS but it causes strange behavior of mocha watch...
+  // it("should allow go to a resource detail", async () => {
+  //   pollyManager().reset(scenarios.multipleCluster);
+  //   await page().goto(url());
+  //   await page().waitFor(CLUSTERS_SELECTOR);
+  //   await page().click(clusterOk("[data-label='resources'] button"));
+  //   const resourceR1 = (selectors = "") => clusterOk(
+  //     `[aria-label='Cluster resource list'] [aria-label='Resource R1'] ${selectors}`
+  //     .trim()
+  //   );
+  //   await page().waitFor(resourceR1());
+  //   await page().click(resourceR1("[data-label='name'] a"));
+  //   expect(page().url()).to.equal(url("/cluster/ok/resources/R1"));
+  // });
 });
