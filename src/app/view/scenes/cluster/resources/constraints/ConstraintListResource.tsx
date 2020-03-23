@@ -1,8 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { DataList, StackItem } from "@patternfly/react-core";
+import {
+  DataList,
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateIcon,
+  StackItem,
+  Title,
+} from "@patternfly/react-core";
+import { PlusCircleIcon } from "@patternfly/react-icons";
 
-import { NoItemCase } from "app/view/common";
 import { types, selectors } from "app/store";
 
 import { ConstraintRowLocation } from "./ConstraintRowLocation";
@@ -19,7 +26,13 @@ export const ConstraintListResource = ({ resource }: {
   if (constraintPacks.length === 0) {
     return (
       <StackItem>
-        <NoItemCase margin={false} message="No constraint is configured." />
+        <EmptyState style={{ margin: "auto" }}>
+          <EmptyStateIcon icon={PlusCircleIcon} />
+          <Title size="lg"> No constraint is configured. </Title>
+          <EmptyStateBody>
+            You don&apos;t have any configured constraint here.
+          </EmptyStateBody>
+        </EmptyState>
       </StackItem>
     );
   }
