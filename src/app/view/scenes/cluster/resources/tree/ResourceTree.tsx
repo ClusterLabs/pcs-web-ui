@@ -1,10 +1,13 @@
 import React from "react";
 import {
   DataList,
+  Title,
+  EmptyState,
+  EmptyStateIcon,
+  EmptyStateBody,
 } from "@patternfly/react-core";
 import { types } from "app/store";
-
-import { NoItemCase } from "app/view/common";
+import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemClone } from "./ResourceTreeItemClone";
@@ -23,7 +26,15 @@ export const ResourceTree = ({
   selectedResourceId?: string,
 }) => {
   if (resourceTree.length === 0) {
-    return <NoItemCase message="No resource is configured." />;
+    return (
+      <EmptyState style={{ margin: "auto" }}>
+        <EmptyStateIcon icon={PlusCircleIcon} />
+        <Title size="lg"> No resource is configured. </Title>
+        <EmptyStateBody>
+          You don&apos;t have any configured resources here.
+        </EmptyStateBody>
+      </EmptyState>
+    );
   }
 
   return (
