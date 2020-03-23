@@ -10,7 +10,7 @@ export const FenceDeviceListPage = ({ cluster, urlPrefix }:{
   urlPrefix: string;
 }) => {
   return (
-    <PageSection>
+    <PageSection aria-label="Cluster fence devices">
       <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
     </PageSection>
   );

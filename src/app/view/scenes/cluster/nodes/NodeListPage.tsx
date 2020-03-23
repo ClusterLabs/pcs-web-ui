@@ -9,7 +9,7 @@ export const NodeListPage = ({ cluster, urlPrefix }:{
   cluster: types.cluster.ClusterState;
   urlPrefix: string;
 }) => (
-  <PageSection>
+  <PageSection aria-label="Cluster node list">
     <NodeList nodeList={cluster.nodeList} />
   </PageSection>
 );

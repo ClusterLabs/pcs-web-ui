@@ -62,7 +62,11 @@ export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
             </Breadcrumb>
           </StackItem>
           <StackItem>
-            <UrlTabs tabSettingsMap={urlMap} currentTab={tab} />
+            <UrlTabs
+              tabSettingsMap={urlMap}
+              currentTab={tab}
+              label="Cluster tabs"
+            />
           </StackItem>
         </Stack>
       </PageSection>

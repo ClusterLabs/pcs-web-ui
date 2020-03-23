@@ -4,12 +4,17 @@ import { push } from "connected-react-router";
 import { Tab, Tabs } from "@patternfly/react-core";
 
 export function UrlTabs<T extends {[key:string]: string}>(
-  { tabSettingsMap, currentTab }: {
+  { tabSettingsMap, currentTab, label="" }: {
     tabSettingsMap: T,
     currentTab: keyof T,
+    label?: string,
   },
 ) {
   const dispatch = useDispatch();
+  const rest: Record<string, string> = {}
+  if (label.length > 0) {
+    rest["aria-label"] = label;
+  }
   return (
     <Tabs
       activeKey={currentTab as string}
@@ -19,6 +24,7 @@ export function UrlTabs<T extends {[key:string]: string}>(
           dispatch(push(tabSettingsMap[selectedTab]));
         }
       }}
+      {...rest}
     >
       {Object.keys(tabSettingsMap).map(key => (
         <Tab

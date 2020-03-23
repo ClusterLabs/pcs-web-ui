@@ -15,7 +15,7 @@ import { StatusSign, IssueList } from "app/view/common";
 export const ClusterDetail = () => {
   const cluster = useSelector(selectors.getCluster);
   return (
-    <PageSection>
+    <PageSection aria-label="Cluster detail">
       <Card>
         <CardHeader>
           {"Cluster "}
