@@ -33,7 +33,7 @@ export const ClusterDetail = () => {
               </span>
             </StackItem>
             <StackItem>
-              <IssueList issueList={cluster.issueList} />
+              <IssueList issueList={cluster.issueList} hideEmpty />
             </StackItem>
           </Stack>
         </CardBody>

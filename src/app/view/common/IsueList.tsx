@@ -1,8 +1,18 @@
 import React from "react";
-import { Stack, StackItem, Alert } from "@patternfly/react-core";
-import { NoItemCase } from "app/view/common";
+import {
+  Stack,
+  StackItem,
+  Alert,
+  Title,
+  EmptyState,
+  EmptyStateIcon,
+  EmptyStateBody,
+} from "@patternfly/react-core";
+import { CheckCircleIcon } from '@patternfly/react-icons';
 
 import { types } from "app/store";
+
+import * as pallete from "./pallete";
 
 
 const mapSeverityToVariant = (severity: types.cluster.Issue["severity"]) => (
@@ -12,17 +22,25 @@ const issueKey = (issue: types.cluster.Issue, index: any) => (
   `${index}:${issue.message}`
 );
 
-export const IssueList = ({ issueList, margin = false }: {
+export const IssueList = ({ issueList, margin = false, hideEmpty = false }: {
   issueList: types.cluster.Issue[],
   margin?: boolean,
+  hideEmpty?: boolean,
 }) => {
   if (issueList.length === 0) {
+    if (hideEmpty) {
+      return null;
+    }
     return(
-      <NoItemCase
-        message="No issue."
-        margin={margin}
+      <EmptyState
+        variant="small"
         aria-label="Issues status"
-      />
+        style={{margin: "auto"}}
+      >
+        <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
+        <Title size="lg">No issues</Title>
+        <EmptyStateBody>Pcsd has not detected any issue here</EmptyStateBody>
+      </EmptyState>
     );
   }
   return (

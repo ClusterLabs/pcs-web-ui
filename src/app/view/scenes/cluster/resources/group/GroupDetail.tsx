@@ -8,6 +8,6 @@ export const GroupDetail = ({ group }: {
   group: types.cluster.Group,
 }) => (
   <StackItem>
-    <IssueList issueList={group.issueList} />
+    <IssueList issueList={group.issueList} hideEmpty />
   </StackItem>
 );
