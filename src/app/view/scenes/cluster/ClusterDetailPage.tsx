@@ -4,6 +4,10 @@ import {
   PageSection,
   Breadcrumb,
   BreadcrumbItem,
+  EmptyState,
+  EmptyStateIcon,
+  Spinner,
+  Title,
   Stack,
   StackItem,
 } from "@patternfly/react-core";
@@ -11,7 +15,7 @@ import { useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 
 import { Action } from "app/actions";
-import { Page, Spinner, UrlTabs } from "app/view/common";
+import { Page, UrlTabs } from "app/view/common";
 import { tabRoutes, join } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
 
@@ -88,7 +92,10 @@ export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
       )}
       {!dataLoaded && (
         <PageSection>
-          <Spinner text="Loading cluster data" />
+          <EmptyState style={{ margin: "auto" }}>
+            <EmptyStateIcon variant="container" component={Spinner} />
+            <Title size="lg">Loading cluster data</Title>
+          </EmptyState>
         </PageSection>
       )}
     </Page>

@@ -1,16 +1,19 @@
 import React from "react";
 import {
   Alert,
+  Button,
+  EmptyState,
+  EmptyStateIcon,
   Form,
   FormGroup,
+  Spinner,
   TextInput,
-  Button,
+  Title,
 } from "@patternfly/react-core";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Action } from "app/actions";
 import { types, selectors } from "app/store";
-import { Spinner } from "app/view/common";
 
 import { AddClusterAuthRequired } from "./AddClusterAuthRequired";
 
@@ -62,7 +65,12 @@ export const AddClusterStepAuth = () => {
           Check authentication
         </Button>
       )}
-      {authState === "CHECKING" && <Spinner text="Checking authentication" />}
+      {authState === "CHECKING" && (
+        <EmptyState style={{ margin: "auto" }}>
+          <EmptyStateIcon variant="container" component={Spinner} />
+          <Title size="lg">Checking authentication</Title>
+        </EmptyState>
+      )}
 
       {authState === "ALREADY_AUTHENTICATED" && (
         <Alert
