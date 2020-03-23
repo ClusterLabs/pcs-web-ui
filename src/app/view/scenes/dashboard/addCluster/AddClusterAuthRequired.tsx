@@ -1,16 +1,19 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import {
+  Alert,
   Button,
   FormGroup,
+  EmptyState,
+  EmptyStateIcon,
+  Spinner,
   Switch,
   TextInput,
-  Alert,
+  Title,
 } from "@patternfly/react-core";
 
 import { Action } from "app/actions";
 import { types } from "app/store";
-import { Spinner } from "app/view/common";
 
 export const AddClusterAuthRequired = (
   { nodeName, authenticationInProgress, authenticationError }: {
@@ -98,7 +101,12 @@ export const AddClusterAuthRequired = (
       )}
       {
         authenticationInProgress
-          ? <Spinner text="Authenticating node" />
+          ? (
+            <EmptyState style={{ margin: "auto" }}>
+              <EmptyStateIcon variant="container" component={Spinner} />
+              <Title size="lg">Authenticating node</Title>
+            </EmptyState>
+          )
           : (
             <Button
               variant="primary"

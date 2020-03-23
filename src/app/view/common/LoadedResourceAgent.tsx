@@ -1,10 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Alert } from "@patternfly/react-core";
+import {
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateIcon,
+  Spinner,
+  Title,
+} from "@patternfly/react-core";
+import { ExclamationCircleIcon } from "@patternfly/react-icons";
 
 import { types, selectors } from "app/store";
 
-import { Spinner } from "./Spinner";
+// import { Spinner } from "./Spinner";
+import * as pallete from "./pallete";
 
 export const LoadedResourceAgent = ({ agentName, children }: {
   agentName: string;
@@ -13,7 +21,12 @@ export const LoadedResourceAgent = ({ agentName, children }: {
   const resourceAgent = useSelector(selectors.getResourceAgent(agentName));
 
   if (!resourceAgent || resourceAgent.loadStatus === "LOADING") {
-    return <Spinner text="Loading resource agent data" />;
+    return (
+      <EmptyState style={{ margin: "auto" }}>
+        <EmptyStateIcon variant="container" component={Spinner} />
+        <Title size="lg">{`Loading resource agent "${agentName}" data`}</Title>
+      </EmptyState>
+    );
   }
 
   if (["LOADED", "RELOADING"].includes(resourceAgent.loadStatus)) {
@@ -22,10 +35,14 @@ export const LoadedResourceAgent = ({ agentName, children }: {
 
   // resourceAgent.loadStatus === "FAILED"
   return (
-    <Alert
-      isInline
-      variant="danger"
-      title={`Cannot load metadata of resource agent "${agentName}"`}
-    />
+    <EmptyState style={{ margin: "auto" }}>
+      <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
+      <Title size="lg">
+        Cannot load data
+      </Title>
+      <EmptyStateBody>
+        {`Cannot load metadata of resource agent "${agentName}"`}
+      </EmptyStateBody>
+    </EmptyState>
   );
 };

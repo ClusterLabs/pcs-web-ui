@@ -8,6 +8,6 @@ export const CloneDetail = ({ clone }: {
   clone: types.cluster.Clone,
 }) => (
   <StackItem>
-    <IssueList issueList={clone.issueList} />
+    <IssueList issueList={clone.issueList} hideEmpty />
   </StackItem>
 );

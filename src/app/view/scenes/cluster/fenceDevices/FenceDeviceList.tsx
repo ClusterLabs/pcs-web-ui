@@ -1,8 +1,14 @@
 import React from "react";
-import { DataList } from "@patternfly/react-core";
+import {
+  DataList,
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateIcon,
+  Title,
+} from "@patternfly/react-core";
+import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types } from "app/store";
-import { NoItemCase } from "app/view/common";
 
 import { FenceDeviceListItem } from "./FenceDeviceListItem";
 
@@ -10,11 +16,19 @@ export const FenceDeviceList = ({ fenceDeviceList }: {
   fenceDeviceList: types.cluster.FenceDevice[],
 }) => {
   if (fenceDeviceList.length === 0) {
-    return <NoItemCase message="No fence device is configured." />;
+    return (
+      <EmptyState style={{ margin: "auto" }}>
+        <EmptyStateIcon icon={PlusCircleIcon} />
+        <Title size="lg"> No fence device is configured. </Title>
+        <EmptyStateBody>
+          You don&apos;t have any configured fence device here.
+        </EmptyStateBody>
+      </EmptyState>
+    );
   }
   return (
     <DataList aria-label="Cluster fence device list">
-      {fenceDeviceList.map(fenceDevice => (
+      {fenceDeviceList.map((fenceDevice) => (
         <FenceDeviceListItem
           key={fenceDevice.id}
           fenceDevice={fenceDevice}

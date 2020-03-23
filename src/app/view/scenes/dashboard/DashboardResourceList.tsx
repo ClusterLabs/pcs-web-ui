@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateIcon,
+  Title,
+} from "@patternfly/react-core";
+import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types } from "app/store";
-import { Table, StatusSign, NoItemCase } from "app/view/common";
+import { Table, StatusSign } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
@@ -34,7 +41,15 @@ export const DashboardResourceList = ({ cluster }: {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
 
   if (cluster.resourceTree.length === 0) {
-    return <NoItemCase message="No resource is configured." />;
+    return (
+      <EmptyState style={{ margin: "auto" }}>
+        <EmptyStateIcon icon={PlusCircleIcon} />
+        <Title size="lg"> No resource is configured. </Title>
+        <EmptyStateBody>
+          You don&apos;t have any configured resources here.
+        </EmptyStateBody>
+      </EmptyState>
+    );
   }
 
   return (

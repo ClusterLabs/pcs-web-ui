@@ -1,7 +1,14 @@
 import React from "react";
+import {
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateIcon,
+  Title,
+} from "@patternfly/react-core";
+import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types } from "app/store";
-import { Table, StatusSign, NoItemCase } from "app/view/common";
+import { Table, StatusSign } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
@@ -29,7 +36,15 @@ export const DashboardFenceDeviceList = ({ fenceDeviceList }: {
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   if (fenceDeviceList.length === 0) {
-    return <NoItemCase message="No fence device is configured." />;
+    return (
+      <EmptyState style={{ margin: "auto" }}>
+        <EmptyStateIcon icon={PlusCircleIcon} />
+        <Title size="lg"> No fence device is configured. </Title>
+        <EmptyStateBody>
+          You don&apos;t have any configured fence device here.
+        </EmptyStateBody>
+      </EmptyState>
+    );
   }
   return (
     <Table isCompact isBorderless>
@@ -45,7 +60,7 @@ export const DashboardFenceDeviceList = ({ fenceDeviceList }: {
       </thead>
       <tbody>
         {fenceDeviceList.sort(compareItems(compareByColumn)).map(
-          fenceDevice => (
+          (fenceDevice) => (
             <tr key={fenceDevice.id}>
               <td>{fenceDevice.id}</td>
               <td>

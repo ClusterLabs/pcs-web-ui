@@ -8,6 +8,6 @@ export const PrimitiveDetail = ({ primitive }: {
   primitive: types.cluster.Primitive,
 }) => (
   <StackItem>
-    <IssueList issueList={primitive.issueList} />
+    <IssueList issueList={primitive.issueList} hideEmpty />
   </StackItem>
 );

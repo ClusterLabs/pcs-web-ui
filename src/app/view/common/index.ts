@@ -1,7 +1,5 @@
 import { BackgroundImage, BackgroundImageSources } from "./BackgroundImage";
 import { Page } from "./Page";
-import { NoItemCase } from "./NoItemCase";
-import { Spinner } from "./Spinner";
 import { PageSectionDataLoading } from "./PageSectionDataLoading";
 import { StatusSign } from "./StatusSign";
 import { Table } from "./table/Table";
@@ -16,10 +14,8 @@ export {
   BackgroundImage,
   BackgroundImageSources,
   DetailLayout,
-  NoItemCase,
   Page,
   PageSectionDataLoading,
-  Spinner,
   StatusSign,
   Table,
   StatusIco,

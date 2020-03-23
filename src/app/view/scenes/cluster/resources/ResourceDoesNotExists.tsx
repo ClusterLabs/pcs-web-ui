@@ -1,5 +1,12 @@
 import React from "react";
-import { Alert, StackItem } from "@patternfly/react-core";
+import {
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateIcon,
+  Title,
+  StackItem,
+} from "@patternfly/react-core";
+import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { DetailLayout } from "app/view/common";
 
@@ -13,11 +20,15 @@ export const ResourceDoesNotExists = ({ resourceUrlName, onClose }: {
       caption={<strong>{resourceUrlName}</strong>}
     >
       <StackItem>
-        <Alert
-          isInline
-          variant="danger"
-          title={`Resource "${resourceUrlName}" does not exist.`}
-        />
+        <EmptyState style={{ margin: "auto" }}>
+          <EmptyStateIcon icon={PlusCircleIcon} />
+          <Title size="lg">
+            {`Resource "${resourceUrlName}" does not exist.`}
+          </Title>
+          <EmptyStateBody>
+            {`You don't have configured resource "${resourceUrlName}" here.`}
+          </EmptyStateBody>
+        </EmptyState>
       </StackItem>
     </DetailLayout>
   );

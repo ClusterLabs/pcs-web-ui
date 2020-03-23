@@ -1,9 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Alert } from "@patternfly/react-core";
+import {
+  Alert,
+  EmptyState,
+  EmptyStateIcon,
+  Spinner,
+  Title,
+} from "@patternfly/react-core";
 
 import { selectors, types } from "app/store";
-import { Spinner } from "app/view/common";
 
 const clusterHasBeenAddedStates: types.addCluster.ADD_STATE[] = [
   "DASHBOARD_RELOADING",
@@ -15,7 +20,12 @@ export const AddClusterStepAdd = () => {
   const errorMessage = useSelector(selectors.addClusterGetStateError);
   return (
     <>
-      {state === "STARTED" && <Spinner text="adding existing cluster..." />}
+      {state === "STARTED" && (
+      <EmptyState style={{ margin: "auto" }}>
+        <EmptyStateIcon variant="container" component={Spinner} />
+        <Title size="lg">Adding existing cluster</Title>
+      </EmptyState>
+      )}
       {
         clusterHasBeenAddedStates.includes(state) && (
           <Alert
@@ -27,7 +37,10 @@ export const AddClusterStepAdd = () => {
         )
       }
       {state === "DASHBOARD_RELOADING" && (
-        <Spinner text="waiting for dashboard reload" />
+        <EmptyState style={{ margin: "auto" }}>
+          <EmptyStateIcon variant="container" component={Spinner} />
+          <Title size="lg">Waiting for dashboard reload</Title>
+        </EmptyState>
       )}
       {state === "ERROR" && (
         <Alert
