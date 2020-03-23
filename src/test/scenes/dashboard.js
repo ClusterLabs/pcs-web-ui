@@ -8,13 +8,12 @@ const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 
 
-const CLUSTERS_SELECTOR = "[data-role='cluster-list'] [data-role='cluster']";
-const clusters = (selectors = "") => `${CLUSTERS_SELECTOR} ${selectors}`.trim();
-const cluster1 = (selectors = "") => (
-  `${CLUSTERS_SELECTOR}[data-role-key='cluster-1'] ${selectors}`.trim()
+const CLUSTERS_SELECTOR = "[aria-label='Cluster list'] [aria-label^='Cluster']";
+const clusterOk = (selectors = "") => (
+  `${CLUSTERS_SELECTOR}[aria-label$='ok'] ${selectors}`.trim()
 );
-const cluster2 = (selectors = "") => (
-  `${CLUSTERS_SELECTOR}[data-role-key='cluster-2'] ${selectors}`.trim()
+const clusterError = (selectors = "") => (
+  `${CLUSTERS_SELECTOR}[aria-label$='error'] ${selectors}`.trim()
 );
 
 const pollyManager = getPollyManager(() => page());
@@ -47,21 +46,17 @@ describe("Dashboard scene", () => {
     pollyManager().reset(scenarios.multipleCluster);
 
     await page().goto(url());
-    await page().waitFor(clusters());
+    await page().waitFor(CLUSTERS_SELECTOR);
 
     const clusterInfoList = await page().$$eval(
-      clusters(),
+      CLUSTERS_SELECTOR,
       clusterElements => clusterElements.map(e => ({
-        name: e.querySelector("[data-role='detail-link']").textContent,
-        link: e.querySelector("[data-role='detail-link']")
-          .attributes.href.value
-        ,
-        issuesTotal: e.querySelector("[data-role='issues-total']").textContent,
-        nodesTotal: e.querySelector("[data-role='nodes-total']").textContent,
-        resourcesTotal: e.querySelector("[data-role='resources-total']")
-          .textContent
-        ,
-        fenceDevicesTotal: e.querySelector("[data-role='fence-devices-total']")
+        name: e.querySelector("[data-label='name']").textContent,
+        link: e.querySelector("[data-label='name'] a").attributes.href.value,
+        issuesTotal: e.querySelector("[data-label='issues']").textContent,
+        nodesTotal: e.querySelector("[data-label='nodes']").textContent,
+        resourcesTotal: e.querySelector("[data-label='resources']").textContent,
+        fenceDevicesTotal: e.querySelector("[data-label='fence-devices']")
           .textContent
         ,
 
@@ -84,33 +79,31 @@ describe("Dashboard scene", () => {
     });
 
     expect(clusterInfoList).to.eql([
-      response2Info(responses.clusterStatus.ok),
       response2Info(responses.clusterStatus.error),
+      response2Info(responses.clusterStatus.ok),
     ]);
   });
 
   it("should allow to display cluster issues", async () => {
     pollyManager().reset(scenarios.multipleCluster);
     await page().goto(url());
-    await page().waitFor(cluster2());
-    await page().click(cluster2("[data-role='issues-total'] button"));
-    await page().waitFor(cluster2("[data-role='issues-status']"));
+    await page().waitFor(CLUSTERS_SELECTOR);
+    await page().click(clusterError("[data-label='issues'] button"));
+    await page().waitFor(clusterError("[aria-label='Issues status']"));
 
     const issues = await page().$$eval(
-      cluster2("[data-role='issues-status']"),
+      clusterError("[aria-label='Issues status']"),
       issuesBoxes => issuesBoxes.map(e => ({
-        status: e.dataset.roleValue,
         alerts: Array.from(e.querySelectorAll("[aria-label='cluster issue']>*"))
           .map(ae => ae.textContent)
         ,
       })),
     );
     expect(issues).to.eql([{
-      status: "ERROR",
       alerts: [
-        "danger alert: Unable to connect to the cluster.",
-        "warning alert: No fencing configured in the cluster",
-        "warning alert: Not authorized against node(s) node-3",
+        "Danger alert:Unable to connect to the cluster.",
+        "Warning alert:No fencing configured in the cluster",
+        "Warning alert:Not authorized against node(s) node-3",
       ],
     }]);
   });
@@ -119,24 +112,44 @@ describe("Dashboard scene", () => {
     pollyManager().reset(scenarios.multipleCluster);
 
     await page().goto(url());
-    await page().waitFor(cluster1());
-    await page().click(cluster1("[data-role='issues-total'] button"));
-    await page().waitFor(cluster1("[data-role='issues-status']"));
-
-    const clusterStatuses = await page().$$eval(
-      cluster1("[data-role='issues-status']"),
-      statuses => statuses.map(e => e.dataset.roleValue),
-    );
-    expect(clusterStatuses).to.eql(["OK"]);
+    await page().waitFor(CLUSTERS_SELECTOR);
+    await page().click(clusterOk("[data-label='issues'] button"));
+    // just check that it exists
+    await page().waitFor(clusterOk("[aria-label='Issues status']"));
   });
 
   it("should allow to add existing cluster", async () => {
     pollyManager().reset(scenarios.simpleCluster);
 
-    const actionSelector = "[data-role='add-cluster']";
+    const actionSelector = (
+      "[aria-label='Dashboard toolbar'] [aria-label='Add cluster']"
+    );
     await page().goto(url());
     await page().waitFor(actionSelector);
     await page().click(actionSelector);
     expect(page().url()).to.equal(url("/add-cluster"));
   });
+
+  it("should allow go to a cluster detail", async () => {
+    pollyManager().reset(scenarios.multipleCluster);
+    await page().goto(url());
+    await page().waitFor(CLUSTERS_SELECTOR);
+    await page().click(clusterOk("[data-label='name'] a"));
+    expect(page().url()).to.equal(url("/cluster/ok"));
+  });
+
+  // THIS TEST SUCCEEDS but it causes strange behavior of mocha watch...
+  // it("should allow go to a resource detail", async () => {
+  //   pollyManager().reset(scenarios.multipleCluster);
+  //   await page().goto(url());
+  //   await page().waitFor(CLUSTERS_SELECTOR);
+  //   await page().click(clusterOk("[data-label='resources'] button"));
+  //   const resourceR1 = (selectors = "") => clusterOk(
+  //     `[aria-label='Cluster resource list'] [aria-label='Resource R1'] ${selectors}`
+  //     .trim()
+  //   );
+  //   await page().waitFor(resourceR1());
+  //   await page().click(resourceR1("[data-label='name'] a"));
+  //   expect(page().url()).to.equal(url("/cluster/ok/resources/R1"));
+  // });
 });

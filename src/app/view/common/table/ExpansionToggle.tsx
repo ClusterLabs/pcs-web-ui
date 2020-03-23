@@ -21,6 +21,7 @@ export function ExpansionToggle(
   }
 
   return (
+    /* eslint-disable react/jsx-props-no-spreading */
     <td className={tdClassNames.join(" ")} {...rest}>
       <button
         type="button"

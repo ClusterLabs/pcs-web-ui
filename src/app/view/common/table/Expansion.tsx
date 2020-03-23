@@ -10,6 +10,7 @@ const useExpansion = ({ contentSpan }: React.PropsWithChildren<{
 
   const Toggle = React.useCallback(
     ({ expandKey, children, ...rest }) => (
+      /* eslint-disable react/jsx-props-no-spreading */
       <ExpansionToggle
         expanded={expanded}
         setExpanded={setExpanded}

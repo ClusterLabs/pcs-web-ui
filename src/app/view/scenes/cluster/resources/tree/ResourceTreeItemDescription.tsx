@@ -29,14 +29,20 @@ export const ResourceTreeItemDescription = ({
     <>
       <DataListItemCells
         dataListCells={[
-          <DataListCell key={resourceTreeItem.id}>
-            <Link to={detailUrl}>
+          <DataListCell
+            key={resourceTreeItem.id}
+            aria-label="Resource name"
+          >
+            <Link
+              to={detailUrl}
+              id={`resource-tree-item-${resourceTreeItem.id}`}
+            >
               <strong>{resourceTreeItem.id}</strong>
             </Link>
           </DataListCell>,
           <DataListCell key={`${resourceTreeItem.id}.type`}>
             <span>Type </span>
-            <strong>{type}</strong>
+            <strong aria-label="Resource type">{type}</strong>
             {typeDescription && <span>{` (${typeDescription})`}</span>}
           </DataListCell>,
         ]}

@@ -6,8 +6,12 @@ export const ExpandedContent = (
     padding?: boolean,
   }>,
 ) => (
-  <tr className="pf-c-table__expandable-row pf-m-expanded">
-    <td colSpan={colSpan} className={!padding ? "pf-m-no-padding" : ""}>
+  <tr role="row" className="pf-c-table__expandable-row pf-m-expanded">
+    <td
+      role="cell"
+      colSpan={colSpan}
+      className={!padding ? "pf-m-no-padding" : ""}
+    >
       {children}
     </td>
   </tr>

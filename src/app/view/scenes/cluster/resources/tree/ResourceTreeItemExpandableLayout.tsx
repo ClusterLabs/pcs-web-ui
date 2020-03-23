@@ -28,10 +28,14 @@ export const ResourceTreeItemExpandableLayout = ({
     resourceTreeItem.id,
   );
   return (
-    <DataListItem aria-labelledby={resourceTreeItem.id} isExpanded={expanded}>
-      <DataListItemRow>
+    <DataListItem
+      aria-labelledby={`resource-tree-item-${resourceTreeItem.id}`}
+      isExpanded={expanded}
+    >
+      <DataListItemRow aria-label={`Resource item ${resourceTreeItem.id}`}>
         <DataListToggle
-          id={`resource-tree-${resourceTreeItem.id}`}
+          aria-label="Resource toggle"
+          id={`resource-tree-toggle-${resourceTreeItem.id}`}
           isExpanded={expanded}
           onClick={
             () => dispatch<Action>({

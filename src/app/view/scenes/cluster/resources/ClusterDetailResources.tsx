@@ -20,7 +20,10 @@ export const ClusterDetailResources = ({ cluster, urlPrefix }:{
 
   if (detail) {
     return (
-      <PageSection className="ha-m-full-height pf-m-fill">
+      <PageSection
+        className="ha-m-full-height pf-m-fill"
+        aria-label="Cluster resources"
+      >
         <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">
           <div className="pf-c-card ha-c-panel__tree-view">
             <ResourceTree
@@ -48,7 +51,7 @@ export const ClusterDetailResources = ({ cluster, urlPrefix }:{
   }
 
   return (
-    <PageSection>
+    <PageSection aria-label="Cluster resources">
       <ResourceTree
         resourceTree={cluster.resourceTree}
         createResourceDetailUrl={

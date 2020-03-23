@@ -17,13 +17,19 @@ export const IssueList = ({ issueList, margin = false }: {
   margin?: boolean,
 }) => {
   if (issueList.length === 0) {
-    return <NoItemCase message="No issue." margin={margin} />;
+    return(
+      <NoItemCase
+        message="No issue."
+        margin={margin}
+        aria-label="Issues status"
+      />
+    );
   }
   return (
     <Stack
       gutter="sm"
       style={{ margin: margin ? "1rem" : "none" }}
-      data-role="issues-status"
+      aria-label="Issues status"
     >
       {issueList.map((issue, i) => (
         <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">

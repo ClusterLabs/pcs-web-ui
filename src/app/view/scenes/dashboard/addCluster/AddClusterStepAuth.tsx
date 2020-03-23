@@ -30,20 +30,20 @@ export const AddClusterStepAuth = () => {
   const stateError = useSelector(selectors.addClusterGetStateError);
   const dispatch = useDispatch();
   return (
-    <Form>
+    <Form aria-label="Check node authetication form">
       <FormGroup
         label="Node name"
-        fieldId="add-cluster-node-name"
+        fieldId="cluster-add-node-name"
         helperText={helperText}
       >
         <TextInput
           isRequired
           type="text"
+          aria-labelledby="cluster-add-node-name"
           id="add-cluster-node-name"
           name="node-name"
-          aria-describedby="Node name for add existing cluster operation"
           value={nodeName}
-          onChange={currentNodeName => dispatch<Action>({
+          onChange={(currentNodeName) => dispatch<Action>({
             type: "ADD_CLUSTER.NODE_NAME.UPDATE",
             payload: { nodeName: currentNodeName },
           })}
@@ -52,26 +52,24 @@ export const AddClusterStepAuth = () => {
       {authState === "INITIAL" && (
         <Button
           variant="primary"
+          aria-label="Check authentication"
           onClick={() => dispatch<Action>({
             type: "ADD_CLUSTER.CHECK_AUTH",
             payload: { nodeName },
           })}
           isDisabled={nodeName.length < 1}
-          data-role="check-node-authentication"
         >
           Check authentication
         </Button>
       )}
-      {authState === "CHECKING" && (
-        <Spinner text="Checking authentication" data-role="waiting-auth" />
-      )}
+      {authState === "CHECKING" && <Spinner text="Checking authentication" />}
 
       {authState === "ALREADY_AUTHENTICATED" && (
         <Alert
           isInline
           variant="success"
           title="Node is authenticated. You can add the cluster now."
-          data-role="auth-success-message"
+          aria-label="Success authentication check"
         />
       )}
       {
@@ -94,7 +92,7 @@ export const AddClusterStepAuth = () => {
           isInline
           variant="danger"
           title={stateError}
-          data-role="auth-error-message"
+          aria-label="Error authentication check"
         />
       )}
     </Form>

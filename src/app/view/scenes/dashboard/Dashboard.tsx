@@ -42,25 +42,41 @@ export const Dashboard = ({ dashboard }: {
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (
-    <Table isExpandable data-role="cluster-list">
+    <Table isExpandable aria-label="Cluster list">
       <thead>
         <tr>
-          <SortableTh columnName="NAME" sortState={sortState}>
+          <SortableTh columnName="NAME" sortState={sortState} data-label="name">
             Clusters
           </SortableTh>
-          <SortableTh columnName="ISSUES" sortState={sortState} startDesc>
+          <SortableTh
+            columnName="ISSUES"
+            sortState={sortState}
+            startDesc
+            data-label="issues"
+          >
             Issues
           </SortableTh>
-          <SortableTh columnName="NODES" sortState={sortState} startDesc>
+          <SortableTh
+            columnName="NODES"
+            sortState={sortState}
+            startDesc
+            data-label="nodes"
+          >
             Nodes
           </SortableTh>
-          <SortableTh columnName="RESOURCES" sortState={sortState} startDesc>
+          <SortableTh
+            columnName="RESOURCES"
+            sortState={sortState}
+            startDesc
+            data-label="resources"
+          >
             Resources
           </SortableTh>
           <SortableTh
             columnName="FENCE_DEVICES"
             sortState={sortState}
             startDesc
+            data-label="fence-devices"
           >
             Fence devices
           </SortableTh>
@@ -68,10 +84,9 @@ export const Dashboard = ({ dashboard }: {
       </thead>
       {dashboard.clusterList
         .sort(compareItems(compareByColumn))
-        .map(cluster => (
+        .map((cluster) => (
           <DashboardCluster key={cluster.name} cluster={cluster} />
-        ))
-      }
+        ))}
     </Table>
   );
 };

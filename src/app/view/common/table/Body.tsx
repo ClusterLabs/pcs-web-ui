@@ -10,6 +10,7 @@ export const Body = (
     classNameList.push("pf-m-expanded");
   }
   return (
+    /* eslint-disable react/jsx-props-no-spreading */
     <tbody
       className={classNameList.length > 0 ? classNameList.join(" ") : ""}
       {...rest}

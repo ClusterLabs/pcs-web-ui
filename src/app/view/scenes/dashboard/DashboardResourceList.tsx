@@ -38,29 +38,34 @@ export const DashboardResourceList = ({ cluster }: {
   }
 
   return (
-    <Table isCompact isBorderless>
+    <Table isCompact isBorderless aria-label="Cluster resource list">
       <thead>
         <tr>
-          <SortableTh columnName="NAME" sortState={sortState}>
+          <SortableTh columnName="NAME" sortState={sortState} data-label="name">
             Resource
           </SortableTh>
-          <SortableTh columnName="STATUS" sortState={sortState} startDesc>
+          <SortableTh
+            columnName="STATUS"
+            sortState={sortState}
+            startDesc
+            data-label="status"
+          >
             Status
           </SortableTh>
         </tr>
       </thead>
       <tbody>
         {cluster.resourceTree.sort(compareItems(compareByColumn)).map(
-          resource => (
-            <tr key={resource.id}>
-              <td>
+          (resource) => (
+            <tr key={resource.id} aria-label={`Resource ${resource.id}`}>
+              <td data-label="name">
                 <Link
                   to={`/cluster/${cluster.urlName}/resources/${resource.id}`}
                 >
                   {resource.id}
                 </Link>
               </td>
-              <td>
+              <td data-label="status">
                 <StatusSign
                   status={resource.statusSeverity}
                   label={toLabel(resource.status)}

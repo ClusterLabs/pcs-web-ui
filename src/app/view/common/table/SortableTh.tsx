@@ -20,6 +20,7 @@ function SortableTh<C extends string>(
     sortState,
     columnName,
     startDesc = false,
+    ...rest
   }: React.PropsWithChildren<{
     sortState: SortState<C>,
     columnName: C,
@@ -31,7 +32,8 @@ function SortableTh<C extends string>(
     classNameList.push("pf-m-selected");
   }
   return (
-    <th className={classNameList.join(" ")}>
+    /* eslint-disable react/jsx-props-no-spreading */
+    <th className={classNameList.join(" ")} {...rest}>
       <button
         type="button"
         className="pf-c-button pf-m-plain"
