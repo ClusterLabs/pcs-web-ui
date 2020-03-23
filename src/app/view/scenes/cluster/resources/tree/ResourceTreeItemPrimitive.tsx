@@ -15,10 +15,11 @@ export const ResourceTreeItemPrimitive = (
     createResourceDetailUrl: (id: string) => string,
   },
 ) => (
-  <DataListItem aria-labelledby={primitive.id}>
-    <DataListItemRow>
+  <DataListItem aria-labelledby={`resource-tree-item-${primitive.id}`}>
+    <DataListItemRow aria-label={`Resource item ${primitive.id}`}>
       <DataListToggle
-        id={`resource-tree-${primitive.id}`}
+        aria-label="Resource toggle"
+        id={`resource-tree-toggle-${primitive.id}`}
         aria-hidden="true"
       />
       <ResourceTreeItemDescription
