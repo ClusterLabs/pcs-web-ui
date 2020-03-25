@@ -27,7 +27,6 @@ export const ClusterDetailResources = ({ cluster, urlPrefix }:{
         <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">
           <div className="pf-c-card ha-c-panel__tree-view">
             <ResourceTree
-              compact
               resourceTree={cluster.resourceTree}
               clusterUrlName={cluster.urlName}
               selectedResourceId={detail.params.resourceUrlName}

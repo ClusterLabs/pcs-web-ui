@@ -17,12 +17,10 @@ import { ResourceTreeContextProvider } from "./ResourceTreeContext";
 export const ResourceTree = ({
   resourceTree,
   clusterUrlName,
-  compact = false,
   selectedResourceId = "",
 }: {
   resourceTree: types.cluster.ResourceTreeItem[],
   clusterUrlName: string;
-  compact?: boolean,
   selectedResourceId?: string,
 }) => {
   if (resourceTree.length === 0) {
@@ -40,7 +38,9 @@ export const ResourceTree = ({
   return (
     <DataList
       aria-label="Cluster resource list"
-      className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
+      className={
+        `ha-c-tree-view${selectedResourceId !== "" ? "" : " ha-m-full-width"}`
+      }
     >
       <ResourceTreeContextProvider
         value={{ selectedResourceId, clusterUrlName }}
