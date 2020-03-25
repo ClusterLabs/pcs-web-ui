@@ -13,13 +13,11 @@ export const ResourceTreeItem = ({
   resourceId,
   statusList,
   type,
-  detailUrl,
   typeDescription,
 }: {
   resourceId: string;
   statusList: types.cluster.ResourceStatusInfo[];
   type: string,
-  detailUrl: string,
   typeDescription: string,
 }) => {
   return (
@@ -34,7 +32,6 @@ export const ResourceTreeItem = ({
           resourceId={resourceId}
           statusList={statusList}
           type={type}
-          detailUrl={detailUrl}
           typeDescription={typeDescription}
         />
       </DataListItemRow>

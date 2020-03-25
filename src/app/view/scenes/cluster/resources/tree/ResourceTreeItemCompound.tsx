@@ -18,14 +18,12 @@ export const ResourceTreeItemCompound = ({
   nestingDepth,
   statusList,
   type,
-  detailUrl,
   children,
 }: React.PropsWithChildren<{
   resourceId: string;
   nestingDepth: number,
   statusList: types.cluster.ResourceStatusInfo[];
   type: string,
-  detailUrl: string,
 }>) => {
   const dispatch = useDispatch();
   const expanded = useSelector(selectors.resourceTreeGetOpenedItems).includes(
@@ -53,7 +51,6 @@ export const ResourceTreeItemCompound = ({
           resourceId={resourceId}
           statusList={statusList}
           type={type}
-          detailUrl={detailUrl}
         />
       </DataListItemRow>
       {expanded && (

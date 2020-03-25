@@ -1,12 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const ResourceTreeCellName = ({ resourceId, detailUrl }: {
+import { useResourceTreeContext } from "./ResourceTreeContext";
+
+export const ResourceTreeCellName = ({ resourceId }: {
   resourceId: string;
-  detailUrl: string;
 }) => {
+  const { clusterUrlName } = useResourceTreeContext();
   return (
-    <Link to={detailUrl} id={`resource-tree-item-${resourceId}`}>
+    <Link
+      to={`/cluster/${clusterUrlName}/resources/${resourceId}`}
+      id={`resource-tree-item-${resourceId}`}
+    >
       <strong>{resourceId}</strong>
     </Link>
   );

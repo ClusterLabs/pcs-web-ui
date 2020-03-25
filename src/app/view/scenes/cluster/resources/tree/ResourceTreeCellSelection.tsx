@@ -1,12 +1,12 @@
 import React from "react";
 import { ArrowCircleRightIcon } from "@patternfly/react-icons";
 
-import { useSelectedResource } from "./SelectedResourceContext";
+import { useResourceTreeContext } from "./ResourceTreeContext";
 
 export const ResourceTreeCellSelection = ({ resourceId }: {
   resourceId: string;
 }) => {
-  const selectedResourceId = useSelectedResource();
+  const { selectedResourceId } = useResourceTreeContext();
   const isSelected = selectedResourceId === resourceId;
   if (selectedResourceId === "") {
     return null;

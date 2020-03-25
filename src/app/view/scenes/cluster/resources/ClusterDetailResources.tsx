@@ -29,9 +29,7 @@ export const ClusterDetailResources = ({ cluster, urlPrefix }:{
             <ResourceTree
               compact
               resourceTree={cluster.resourceTree}
-              createResourceDetailUrl={
-                ResourceTree.createResourceDetailUrl(cluster.urlName)
-              }
+              clusterUrlName={cluster.urlName}
               selectedResourceId={detail.params.resourceUrlName}
             />
           </div>
@@ -54,9 +52,7 @@ export const ClusterDetailResources = ({ cluster, urlPrefix }:{
     <PageSection aria-label="Cluster resources">
       <ResourceTree
         resourceTree={cluster.resourceTree}
-        createResourceDetailUrl={
-          ResourceTree.createResourceDetailUrl(cluster.urlName)
-        }
+        clusterUrlName={cluster.urlName}
       />
 
     </PageSection>
