@@ -13,6 +13,7 @@ import {
   ResourceStatusFlag,
   Primitive,
   ResourceTreeItem,
+  ResourceStatusInfo,
   FenceDevice,
   Group,
   Clone,
@@ -52,12 +53,31 @@ export const filterPrimitive = (
   )
 );
 
+const buildPrimitiveStatusInfoList = (
+  apiPrimitive: ApiPrimitive
+): ResourceStatusInfo[]  => {
+  const infoList: ResourceStatusInfo[] = [{
+    label: transformStatus(apiPrimitive.status),
+    severity: statusToSeverity(apiPrimitive.status),
+  }];
+
+  if (apiPrimitive.crm_status.some(s => !s.managed)) {
+    infoList.push({
+      label: "UNMANAGED",
+      severity: "WARNING",
+    })
+  }
+
+  return infoList;
+};
+
 
 const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   id: apiResource.id,
   itemType: "primitive",
   status: transformStatus(apiResource.status),
   statusSeverity: statusToSeverity(apiResource.status),
+  statusInfoList: buildPrimitiveStatusInfoList(apiResource),
   issueList: transformIssues(apiResource),
   class: apiResource.class,
   provider: apiResource.provider,
@@ -88,6 +108,7 @@ const toGroup = (apiGroup: ApiGroup): Group|undefined => {
     resources: primitiveMembers.map(p => toPrimitive(p)),
     status: transformStatus(apiGroup.status),
     statusSeverity: statusToSeverity(apiGroup.status),
+    statusInfoList: [],
     issueList: transformIssues(apiGroup),
   };
 };
@@ -107,6 +128,7 @@ const toClone = (apiClone: ApiClone): Clone|undefined => {
     member,
     status: transformStatus(apiClone.status),
     statusSeverity: statusToSeverity(apiClone.status),
+    statusInfoList: [],
     issueList: transformIssues(apiClone),
   };
 };

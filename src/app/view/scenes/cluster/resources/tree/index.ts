@@ -1,4 +1,4 @@
-import {ResourceTree} from "./ResourceTree";
+import { ResourceTree } from "./ResourceTree";
 
 export {
   ResourceTree,

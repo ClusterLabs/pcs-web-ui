@@ -9,7 +9,7 @@ export const StatusSign = (
     showOkIco?: boolean,
   },
 ) => (
-  <>
+  <div>
     {(showOkIco || status !== "OK") && (
       <>
         <StatusIco status={status} />
@@ -17,5 +17,5 @@ export const StatusSign = (
       </>
     )}
     <span>{label}</span>
-  </>
+  </div>
 );

@@ -2,9 +2,7 @@ import React from "react";
 import { types } from "app/store";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
-import { ResourceTreeItemExpandableLayout }
-  from "./ResourceTreeItemExpandableLayout";
-import { ResourceTreeItemDescription } from "./ResourceTreeItemDescription";
+import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
 
 export const ResourceTreeItemGroup = (
   { group, createResourceDetailUrl, nestedLevel = 0 }: {
@@ -13,24 +11,19 @@ export const ResourceTreeItemGroup = (
     nestedLevel?: number,
   },
 ) => (
-  <ResourceTreeItemExpandableLayout
-    resourceTreeItem={group}
-    nestedAriaLabel={`Group ${group.id}: resources`}
+  <ResourceTreeItemCompound
+    resourceId={group.id}
     nestingDepth={1 + nestedLevel}
-    itemDescription={(
-      <ResourceTreeItemDescription
-        resourceTreeItem={group}
-        detailUrl={createResourceDetailUrl(group.id)}
-        type="Group"
-      />
-    )}
+    statusList={[{ label: group.status, severity: group.statusSeverity }]}
+    detailUrl={createResourceDetailUrl(group.id)}
+    type="Group"
   >
-    {group.resources.map(resource => (
+    {group.resources.map((resource) => (
       <ResourceTreeItemPrimitive
         key={resource.id}
         primitive={resource}
         createResourceDetailUrl={createResourceDetailUrl}
       />
     ))}
-  </ResourceTreeItemExpandableLayout>
+  </ResourceTreeItemCompound>
 );

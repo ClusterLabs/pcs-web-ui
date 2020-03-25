@@ -41,11 +41,17 @@ export type ResourceStatusFlag = (
   "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN"|"DISABLED"
 );
 
+export type ResourceStatusInfo = {
+  label: string;
+  severity: StatusSeverity;
+};
+
 export interface ResourceTreeItemBase {
   id: string,
   itemType: string,
   status: ResourceStatusFlag,
   statusSeverity: StatusSeverity,
+  statusInfoList: ResourceStatusInfo[];
   issueList: Issue[],
 }
 

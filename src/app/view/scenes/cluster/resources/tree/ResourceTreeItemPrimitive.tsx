@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  DataListItem,
-  DataListItemRow,
-  DataListToggle,
-} from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import { ResourceTreeItemDescription } from "./ResourceTreeItemDescription";
+import { ResourceTreeItem } from "./ResourceTreeItem";
 
 export const ResourceTreeItemPrimitive = (
   { primitive, createResourceDetailUrl }: {
@@ -15,19 +10,11 @@ export const ResourceTreeItemPrimitive = (
     createResourceDetailUrl: (id: string) => string,
   },
 ) => (
-  <DataListItem aria-labelledby={`resource-tree-item-${primitive.id}`}>
-    <DataListItemRow aria-label={`Resource item ${primitive.id}`}>
-      <DataListToggle
-        aria-label="Resource toggle"
-        id={`resource-tree-toggle-${primitive.id}`}
-        aria-hidden="true"
-      />
-      <ResourceTreeItemDescription
-        resourceTreeItem={primitive}
-        detailUrl={createResourceDetailUrl(primitive.id)}
-        type={primitive.type}
-        typeDescription={`${primitive.class}:${primitive.provider}`}
-      />
-    </DataListItemRow>
-  </DataListItem>
+  <ResourceTreeItem
+    resourceId={primitive.id}
+    statusList={primitive.statusInfoList}
+    detailUrl={createResourceDetailUrl(primitive.id)}
+    type={primitive.type}
+    typeDescription={`${primitive.class}:${primitive.provider}`}
+  />
 );

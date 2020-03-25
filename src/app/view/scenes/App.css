@@ -149,6 +149,7 @@ html, body, #root {
   flex: 0 0 10rem;
   margin-left: auto;
   padding-top: var(--pf-c-data-list__cell--PaddingTop);
+  padding-bottom: var(--pf-c-data-list__item-content--PaddingBottom);
 } /* sets spacing for Status column */
 
 @media screen and (max-width: 62rem) {
