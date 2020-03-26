@@ -11,7 +11,7 @@ export const ResourceTreeItemGroup = ({ group, nestedLevel = 0 }: {
   <ResourceTreeItemCompound
     resourceId={group.id}
     nestingDepth={1 + nestedLevel}
-    statusList={[{ label: group.status, severity: group.statusSeverity }]}
+    statusList={group.statusInfoList}
     type="Group"
   >
     {group.resources.map((resource) => (

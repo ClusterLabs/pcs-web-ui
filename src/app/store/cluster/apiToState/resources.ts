@@ -71,7 +71,6 @@ const buildPrimitiveStatusInfoList = (
   return infoList;
 };
 
-
 const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   id: apiResource.id,
   itemType: "primitive",
@@ -93,6 +92,18 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   ),
 });
 
+const buildGroupStatusInfoList = (
+  apiGroup: ApiGroup,
+  members: ApiPrimitive[],
+): ResourceStatusInfo[]  => {
+  const infoList: ResourceStatusInfo[] = [{
+    label: transformStatus(apiGroup.status),
+    severity: statusToSeverity(apiGroup.status),
+  }];
+
+  return infoList;
+};
+
 const toGroup = (apiGroup: ApiGroup): Group|undefined => {
   // Theoreticaly, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
@@ -108,9 +119,20 @@ const toGroup = (apiGroup: ApiGroup): Group|undefined => {
     resources: primitiveMembers.map(p => toPrimitive(p)),
     status: transformStatus(apiGroup.status),
     statusSeverity: statusToSeverity(apiGroup.status),
-    statusInfoList: [],
+    statusInfoList: buildGroupStatusInfoList(apiGroup, primitiveMembers),
     issueList: transformIssues(apiGroup),
   };
+};
+
+const buildCloneStatusInfoList = (
+  apiClone: ApiClone,
+): ResourceStatusInfo[]  => {
+  const infoList: ResourceStatusInfo[] = [{
+    label: transformStatus(apiClone.status),
+    severity: statusToSeverity(apiClone.status),
+  }];
+
+  return infoList;
 };
 
 const toClone = (apiClone: ApiClone): Clone|undefined => {
@@ -128,7 +150,7 @@ const toClone = (apiClone: ApiClone): Clone|undefined => {
     member,
     status: transformStatus(apiClone.status),
     statusSeverity: statusToSeverity(apiClone.status),
-    statusInfoList: [],
+    statusInfoList: buildCloneStatusInfoList(apiClone),
     issueList: transformIssues(apiClone),
   };
 };
