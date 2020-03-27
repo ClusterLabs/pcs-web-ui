@@ -3,9 +3,9 @@ import React from "react";
 import { StatusIco } from "./StatusIco";
 
 export const StatusSign = (
-  { status, label, showOkIco = false }:
+  { status, label = "", showOkIco = false }:
   React.ComponentProps<typeof StatusIco> & {
-    label: string|JSX.Element,
+    label?: string|JSX.Element,
     showOkIco?: boolean,
   },
 ) => (
@@ -16,6 +16,6 @@ export const StatusSign = (
         {" "}
       </>
     )}
-    <span>{label}</span>
+    {label !== "" && <span>{label}</span>}
   </div>
 );

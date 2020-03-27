@@ -4,12 +4,16 @@ import { types } from "app/store";
 import { StatusSign } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
+import { useResourceTreeContext } from "./ResourceTreeContext";
+
 export const ResourceTreeCellStatus = ({ status }: {
   status: types.cluster.ResourceStatus;
 }) => {
+  const { compact } = useResourceTreeContext();
   return (
     <div className="ha-c-data-list__item-status">
-      {status.infoList.map((statusInfo) => (
+      {compact && <StatusSign status={status.maxSeverity} showOkIco />}
+      {!compact && status.infoList.map((statusInfo) => (
         <StatusSign
           status={statusInfo.severity}
           label={toLabel(statusInfo.label)}

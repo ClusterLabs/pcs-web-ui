@@ -35,15 +35,15 @@ export const ResourceTree = ({
     );
   }
 
+  const compact = selectedResourceId !== "";
+
   return (
     <DataList
       aria-label="Cluster resource list"
-      className={
-        `ha-c-tree-view${selectedResourceId !== "" ? "" : " ha-m-full-width"}`
-      }
+      className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
     >
       <ResourceTreeContextProvider
-        value={{ selectedResourceId, clusterUrlName }}
+        value={{ selectedResourceId, clusterUrlName, compact }}
       >
         {resourceTree.map((resourceTreeItem) => {
           switch (resourceTreeItem.itemType) {
