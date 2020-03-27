@@ -20,8 +20,8 @@ const compareByColumn = (
   column: COLUMNS|"",
 ): (
   (
-    a: types.dashboard.ResourceTreeItem,
-    b: types.dashboard.ResourceTreeItem,
+    a: types.cluster.ResourceTreeItem,
+    b: types.cluster.ResourceTreeItem,
   ) => number
 ) => {
   switch (column) {
@@ -81,10 +81,12 @@ export const DashboardResourceList = ({ cluster }: {
                 </Link>
               </td>
               <td data-label="status">
-                <StatusSign
-                  status={resource.statusSeverity}
-                  label={toLabel(resource.status)}
-                />
+                {resource.statusInfoList.map((status) => (
+                  <StatusSign
+                    status={status.severity}
+                    label={toLabel(status.label)}
+                  />
+                ))}
               </td>
             </tr>
           ),

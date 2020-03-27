@@ -10,6 +10,13 @@ const resourceTree = cluster("resourceTree", "ok", {
   resource_list: [
     resource("A", {
       type: "apache",
+      status: "disabled",
+      crm_status: [
+        resourceStatus("D", {
+          managed: false,
+          target_role: "Stopped",
+        }),
+      ],
       error_list: [
         {
           message: "Failed to monitor A on Mon Oct 14 14:00:07 CEST 2019",

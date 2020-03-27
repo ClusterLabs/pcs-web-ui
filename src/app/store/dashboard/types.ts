@@ -9,14 +9,6 @@ export interface Node {
   issueList: types.Issue[],
 }
 
-export interface ResourceTreeItem {
-  id: string,
-  itemType: "primitive"|"group"|"clone",
-  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN"|"DISABLED",
-  statusSeverity: types.StatusSeverity,
-  issueList: types.Issue[],
-}
-
 export interface FenceDevice {
   id: string,
   status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN"|"DISABLED",
@@ -29,7 +21,7 @@ export interface ClusterState {
   urlName: string,
   status: "OK"|"WARNING"|"ERROR"|"UNKNOWN",
   nodeList: Node[],
-  resourceTree: ResourceTreeItem[],
+  resourceTree: types.ResourceTreeItem[],
   fenceDeviceList: FenceDevice[],
   issueList: types.Issue[],
   summary: {
