@@ -16,13 +16,13 @@ import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
 export const ResourceTreeItemCompound = ({
   resourceId,
   nestingDepth,
-  statusList,
+  status,
   type,
   children,
 }: React.PropsWithChildren<{
   resourceId: string;
   nestingDepth: number,
-  statusList: types.cluster.ResourceStatusInfo[];
+  status: types.cluster.ResourceStatus;
   type: string,
 }>) => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ export const ResourceTreeItemCompound = ({
         />
         <ResourceTreeItemCells
           resourceId={resourceId}
-          statusList={statusList}
+          status={status}
           type={type}
         />
       </DataListItemRow>

@@ -13,12 +13,12 @@ import { ResourceTreeCellSelection } from "./ResourceTreeCellSelection";
 
 export const ResourceTreeItemCells = ({
   resourceId,
-  statusList,
+  status,
   type,
   typeDescription = "",
 }: {
   resourceId: string;
-  statusList: types.cluster.ResourceStatusInfo[];
+  status: types.cluster.ResourceStatus;
   type: string,
   typeDescription?: string,
 }) => {
@@ -41,7 +41,7 @@ export const ResourceTreeItemCells = ({
           </DataListCell>,
         ]}
       />
-      <ResourceTreeCellStatus statusList={statusList} />
+      <ResourceTreeCellStatus status={status} />
       <ResourceTreeCellSelection resourceId={resourceId} />
     </>
   );

@@ -26,8 +26,8 @@ const compareByColumn = (
 ) => {
   switch (column) {
     case "STATUS": return (a, b) => compareStatusSeverity(
-      a.statusSeverity,
-      b.statusSeverity,
+      a.status.maxSeverity,
+      b.status.maxSeverity,
     );
     default: return (a, b) => compareStrings(a.id, b.id);
   }
@@ -81,7 +81,7 @@ export const DashboardResourceList = ({ cluster }: {
                 </Link>
               </td>
               <td data-label="status">
-                {resource.statusInfoList.map((status) => (
+                {resource.status.infoList.map((status) => (
                   <StatusSign
                     status={status.severity}
                     label={toLabel(status.label)}

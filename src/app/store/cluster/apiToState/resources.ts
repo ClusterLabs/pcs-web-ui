@@ -14,6 +14,7 @@ import {
   Primitive,
   ResourceTreeItem,
   ResourceStatusInfo,
+  ResourceStatus,
   FenceDevice,
   Group,
   Clone,
@@ -53,9 +54,9 @@ export const filterPrimitive = (
   )
 );
 
-const buildPrimitiveStatusInfoList = (
-  apiPrimitive: ApiPrimitive
-): ResourceStatusInfo[]  => {
+const buildPrimitiveStatuInfoList = (
+  apiPrimitive: ApiPrimitive,
+): ResourceStatusInfo[] => {
   const infoList: ResourceStatusInfo[] = [{
     label: apiPrimitive.status,
     severity: statusToSeverity(apiPrimitive.status),
@@ -71,16 +72,25 @@ const buildPrimitiveStatusInfoList = (
   return infoList;
 };
 
+const buildStatus = (statusInfoList: ResourceStatusInfo[]): ResourceStatus => ({
+  infoList: statusInfoList,
+  maxSeverity: statusInfoList.reduce<StatusSeverity>(
+    (maxSeverity, info) =>  statusSeverity.max(maxSeverity, info.severity),
+    "OK",
+  ),
+});
+
 const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   id: apiResource.id,
   itemType: "primitive",
-  statusSeverity: statusToSeverity(apiResource.status),
-  statusInfoList: buildPrimitiveStatusInfoList(apiResource),
+  status: buildStatus(buildPrimitiveStatuInfoList(apiResource)),
   issueList: transformIssues(apiResource),
   class: apiResource.class,
   provider: apiResource.provider,
   type: apiResource.type,
-  agentName: `${apiResource.class}:${apiResource.provider}:${apiResource.type}`,
+  agentName:
+    `${apiResource.class}:${apiResource.provider}:${apiResource.type}`
+  ,
   // Decision: Last instance_attr wins!
   instanceAttributes: apiResource.instance_attr.reduce(
     (attrMap, nvpair) => ({
@@ -94,7 +104,7 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
 const buildGroupStatusInfoList = (
   apiGroup: ApiGroup,
   members: ApiPrimitive[],
-): ResourceStatusInfo[]  => {
+): ResourceStatusInfo[] => {
   const infoList: ResourceStatusInfo[] = [{
     label: apiGroup.status,
     severity: statusToSeverity(apiGroup.status),
@@ -116,8 +126,9 @@ const toGroup = (apiGroup: ApiGroup): Group|undefined => {
     id: apiGroup.id,
     itemType: "group",
     resources: primitiveMembers.map(p => toPrimitive(p)),
-    statusSeverity: statusToSeverity(apiGroup.status),
-    statusInfoList: buildGroupStatusInfoList(apiGroup, primitiveMembers),
+    status: buildStatus(
+      buildGroupStatusInfoList(apiGroup, primitiveMembers),
+    ),
     issueList: transformIssues(apiGroup),
   };
 };
@@ -142,12 +153,12 @@ const toClone = (apiClone: ApiClone): Clone|undefined => {
   if (member === undefined) {
     return undefined;
   }
+
   return {
     id: apiClone.id,
     itemType: "clone",
     member,
-    statusSeverity: statusToSeverity(apiClone.status),
-    statusInfoList: buildCloneStatusInfoList(apiClone),
+    status: buildStatus(buildCloneStatusInfoList(apiClone)),
     issueList: transformIssues(apiClone),
   };
 };

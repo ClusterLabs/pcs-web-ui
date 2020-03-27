@@ -9,7 +9,7 @@ export const ResourceTreeItemPrimitive = ({ primitive }: {
 }) => (
   <ResourceTreeItem
     resourceId={primitive.id}
-    statusList={primitive.statusInfoList}
+    status={primitive.status}
     type={primitive.type}
     typeDescription={`${primitive.class}:${primitive.provider}`}
   />

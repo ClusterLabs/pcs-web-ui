@@ -11,12 +11,12 @@ import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
 
 export const ResourceTreeItem = ({
   resourceId,
-  statusList,
+  status,
   type,
   typeDescription,
 }: {
   resourceId: string;
-  statusList: types.cluster.ResourceStatusInfo[];
+  status: types.cluster.ResourceStatus;
   type: string,
   typeDescription: string,
 }) => {
@@ -30,7 +30,7 @@ export const ResourceTreeItem = ({
         />
         <ResourceTreeItemCells
           resourceId={resourceId}
-          statusList={statusList}
+          status={status}
           type={type}
           typeDescription={typeDescription}
         />

@@ -46,11 +46,15 @@ export type ResourceStatusInfo = {
   severity: StatusSeverity;
 };
 
+export type ResourceStatus = {
+  maxSeverity: StatusSeverity;
+  infoList: ResourceStatusInfo[];
+}
+
 export interface ResourceTreeItemBase {
   id: string,
   itemType: string,
-  statusSeverity: StatusSeverity,
-  statusInfoList: ResourceStatusInfo[];
+  status: ResourceStatus;
   issueList: Issue[],
 }
 

@@ -14,7 +14,7 @@ export const ResourceTreeItemClone = ({ clone }: {
     <ResourceTreeItemCompound
       resourceId={clone.id}
       nestingDepth={1}
-      statusList={clone.statusInfoList}
+      status={clone.status}
       type="Clone"
     >
       {clone.member.itemType === "primitive" && (
