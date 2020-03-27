@@ -10,7 +10,7 @@ import * as statusSeverity from "./statusSeverity";
 
 import {
   StatusSeverity,
-  ResourceStatusFlag,
+  FenceDeviceStatusFlag,
   Primitive,
   ResourceTreeItem,
   ResourceStatusInfo,
@@ -23,7 +23,7 @@ import { transformIssues } from "./issues";
 
 export const transformStatus = (
   status: ApiResource["status"],
-): ResourceStatusFlag => {
+): FenceDeviceStatusFlag => {
   switch (status) {
     case "running": return "RUNNING";
     case "blocked": return "BLOCKED";
@@ -57,7 +57,7 @@ const buildPrimitiveStatusInfoList = (
   apiPrimitive: ApiPrimitive
 ): ResourceStatusInfo[]  => {
   const infoList: ResourceStatusInfo[] = [{
-    label: transformStatus(apiPrimitive.status),
+    label: apiPrimitive.status,
     severity: statusToSeverity(apiPrimitive.status),
   }];
 
@@ -74,7 +74,6 @@ const buildPrimitiveStatusInfoList = (
 const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   id: apiResource.id,
   itemType: "primitive",
-  status: transformStatus(apiResource.status),
   statusSeverity: statusToSeverity(apiResource.status),
   statusInfoList: buildPrimitiveStatusInfoList(apiResource),
   issueList: transformIssues(apiResource),
@@ -97,7 +96,7 @@ const buildGroupStatusInfoList = (
   members: ApiPrimitive[],
 ): ResourceStatusInfo[]  => {
   const infoList: ResourceStatusInfo[] = [{
-    label: transformStatus(apiGroup.status),
+    label: apiGroup.status,
     severity: statusToSeverity(apiGroup.status),
   }];
 
@@ -117,7 +116,6 @@ const toGroup = (apiGroup: ApiGroup): Group|undefined => {
     id: apiGroup.id,
     itemType: "group",
     resources: primitiveMembers.map(p => toPrimitive(p)),
-    status: transformStatus(apiGroup.status),
     statusSeverity: statusToSeverity(apiGroup.status),
     statusInfoList: buildGroupStatusInfoList(apiGroup, primitiveMembers),
     issueList: transformIssues(apiGroup),
@@ -128,7 +126,7 @@ const buildCloneStatusInfoList = (
   apiClone: ApiClone,
 ): ResourceStatusInfo[]  => {
   const infoList: ResourceStatusInfo[] = [{
-    label: transformStatus(apiClone.status),
+    label: apiClone.status,
     severity: statusToSeverity(apiClone.status),
   }];
 
@@ -148,7 +146,6 @@ const toClone = (apiClone: ApiClone): Clone|undefined => {
     id: apiClone.id,
     itemType: "clone",
     member,
-    status: transformStatus(apiClone.status),
     statusSeverity: statusToSeverity(apiClone.status),
     statusInfoList: buildCloneStatusInfoList(apiClone),
     issueList: transformIssues(apiClone),
