@@ -26,15 +26,11 @@ export const ResourceTreeItemCells = ({
     <>
       <DataListItemCells
         dataListCells={[
-          <DataListCell aria-label="Resource name">
-            <ResourceTreeCellName
-              key={resourceId}
-              resourceId={resourceId}
-            />
+          <DataListCell aria-label="Resource name" key={resourceId}>
+            <ResourceTreeCellName resourceId={resourceId} />
           </DataListCell>,
-          <DataListCell>
+          <DataListCell key={`${resourceId}.type`}>
             <ResourceTreeCellType
-              key={`${resourceId}.type`}
               type={type}
               typeDescription={typeDescription}
             />
