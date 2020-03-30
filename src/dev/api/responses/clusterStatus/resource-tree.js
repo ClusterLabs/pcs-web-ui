@@ -12,7 +12,7 @@ const resourceTree = cluster("resourceTree", "ok", {
       type: "apache",
       status: "disabled",
       crm_status: [
-        resourceStatus("D", {
+        resourceStatus("A", {
           managed: false,
           target_role: "Stopped",
         }),
@@ -36,8 +36,24 @@ const resourceTree = cluster("resourceTree", "ok", {
       ],
     }),
     group("GROUP-1", [
-      resource("B"),
-      resource("C"),
+      resource("B", {
+        status: "disabled",
+        crm_status: [
+          resourceStatus("B", {
+            target_role: "Stopped",
+          }),
+        ],
+      }),
+      resource("C", {
+        status: "disabled",
+        crm_status: [
+          resourceStatus("B", {
+            managed: false,
+            target_role: "Stopped",
+          }),
+        ],
+      }),
+      resource("C2"),
     ]),
     clone(
       "Clone-1",

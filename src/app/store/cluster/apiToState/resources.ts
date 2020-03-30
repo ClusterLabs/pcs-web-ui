@@ -63,10 +63,7 @@ const buildPrimitiveStatuInfoList = (
   }];
 
   if (apiPrimitive.crm_status.some(s => !s.managed)) {
-    infoList.push({
-      label: "UNMANAGED",
-      severity: "WARNING",
-    })
+    infoList.push({ label: "UNMANAGED", severity: "WARNING" })
   }
 
   return infoList;
@@ -103,14 +100,47 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
 
 const buildGroupStatusInfoList = (
   apiGroup: ApiGroup,
-  members: ApiPrimitive[],
+  members: Primitive[],
 ): ResourceStatusInfo[] => {
-  const infoList: ResourceStatusInfo[] = [{
-    label: apiGroup.status,
-    severity: statusToSeverity(apiGroup.status),
-  }];
 
-  return infoList;
+  if (members.length === 0) {
+    return [{ label: "NO MEMBERS", severity: "WARNING" }];
+  }
+
+  const maxSeverity = members.reduce<StatusSeverity>(
+    (maxSeverity, primitive) =>  statusSeverity.max(
+      maxSeverity,
+      primitive.status.maxSeverity,
+    ),
+    "OK",
+  )
+
+  if (maxSeverity === "OK") {
+    return [{ label: "RUNNING", severity: "OK" }];
+  }
+
+  const counts: Record<string, number> = members.reduce<Record<string, number>>(
+    (counts, primitive) => {
+      primitive.status.infoList
+        .filter(info => info.severity === maxSeverity)
+        .map(info => info.label)
+        .forEach(label => {
+          counts[label] = label in counts ? counts[label] + 1 : 1;
+        })
+      ;
+      return counts;
+    },
+    {},
+  );
+
+  if (Object.keys(counts).length === 0) {
+    return [{ label: "UNKNOWN STATUS OF MEMBERS", severity: "WARNING" }];
+  }
+
+  return Object.keys(counts).map(label => ({
+    label: `${counts[label]}/${members.length} ${label}`,
+    severity: maxSeverity,
+  }));
 };
 
 const toGroup = (apiGroup: ApiGroup): Group|undefined => {
@@ -122,13 +152,12 @@ const toGroup = (apiGroup: ApiGroup): Group|undefined => {
     return undefined;
   }
 
+  const resources = primitiveMembers.map(p => toPrimitive(p));
   return {
     id: apiGroup.id,
     itemType: "group",
-    resources: primitiveMembers.map(p => toPrimitive(p)),
-    status: buildStatus(
-      buildGroupStatusInfoList(apiGroup, primitiveMembers),
-    ),
+    resources,
+    status: buildStatus(buildGroupStatusInfoList(apiGroup, resources)),
     issueList: transformIssues(apiGroup),
   };
 };
