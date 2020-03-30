@@ -46,6 +46,29 @@ const resourceStatus = (id, diff) => deepmerge({
   node: null,
 }, diff || {})
 
+const operation = (id, diff) => deepmerge({
+  id,
+  call_id: 1,
+  crm_debug_origin: null,
+  crm_feature_set: null,
+  exec_time: 10,
+  exit_reason: null,
+  interval: 30,
+  last_rc_change: 35,
+  last_run: 40,
+  on_node: null,
+  op_digest: null,
+  operation_key: null,
+  operation: null,
+  op_force_restart: null,
+  op_restart_digest: null,
+  op_status: 20,
+  queue_time: 50,
+  rc_code: 0,
+  transition_key: null,
+  transition_magic: null,
+}, diff || {});
+
 const resource = (id, diff) => deepmerge({
   id,
   status: "running",
@@ -129,4 +152,5 @@ module.exports = {
   clone,
   cluster,
   resourceStatus,
+  operation,
 }

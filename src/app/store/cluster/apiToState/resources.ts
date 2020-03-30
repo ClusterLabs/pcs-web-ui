@@ -57,16 +57,48 @@ export const filterPrimitive = (
 const buildPrimitiveStatuInfoList = (
   apiPrimitive: ApiPrimitive,
 ): ResourceStatusInfo[] => {
-  const infoList: ResourceStatusInfo[] = [{
-    label: apiPrimitive.status,
-    severity: statusToSeverity(apiPrimitive.status),
-  }];
+  const infoList: ResourceStatusInfo[] = [];
 
+  // warning
   if (apiPrimitive.crm_status.some(s => !s.managed)) {
     infoList.push({ label: "UNMANAGED", severity: "WARNING" })
   }
 
-  return infoList;
+  if (apiPrimitive.meta_attr.some(ma => (
+    ma.name === "target-role"
+    &&
+    ma.value.toLowerCase() === "stopped"
+  ))) {
+    infoList.push({ label: "DISABLED", severity: "WARNING" })
+  }
+
+  if (infoList.length > 0) {
+    return infoList;
+  }
+
+  // ok
+  if (apiPrimitive.crm_status.some(s => s.active)) {
+    return [{ label: "RUNNING", severity: "OK" }];
+  }
+
+  // error
+  if (
+    apiPrimitive.crm_status.some(s => s.failed)
+    ||
+    apiPrimitive.operations.some(o => !(
+      o.rc_code === 0
+      ||
+      // 7: OCF_NOT_RUNNING: The resource is safely stopped.
+      (o.operation === "monitor" && o.rc_code === 7)
+      ||
+      // 8: OCF_RUNNING_MASTER: The resource is running in master mode.
+      // 193: PCMK_OCF_UNKNOWN: The resource operation is still in progress.
+      [8, 193].includes(o.rc_code)
+    ))
+  ) {
+    return [{ label: "FAILED", severity: "ERROR" }];
+  }
+  return [{ label: "BLOCKED", severity: "ERROR" }];
 };
 
 const buildStatus = (statusInfoList: ResourceStatusInfo[]): ResourceStatus => ({

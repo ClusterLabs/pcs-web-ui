@@ -2,6 +2,7 @@ const {
   node, resource, issues, stonith, cluster,
 } = require("./tools");
 const { resourceTree } = require("./resource-tree");
+const { resourcesForTest } = require("./resources-for-test");
 
 const clusterOk = (clusterName) => cluster(clusterName, "ok", {
   resource_list: [
@@ -92,5 +93,6 @@ module.exports = {
   big: clusterBig,
   ok2: clusterOk("ok2"),
   resourceTree,
+  resourcesForTest,
   empty,
 };

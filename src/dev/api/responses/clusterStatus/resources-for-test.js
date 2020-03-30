@@ -4,10 +4,9 @@ const {
   clone,
   cluster,
   resourceStatus,
-  operation,
 } = require("./tools");
 
-const resourceTree = cluster("resourceTree", "ok", {
+const resourcesForTest = cluster("resourcesForTest", "ok", {
   resource_list: [
     resource("A", {
       type: "apache",
@@ -41,39 +40,6 @@ const resourceTree = cluster("resourceTree", "ok", {
         },
       ],
     }),
-    resource("A-failed", {
-      type: "apache",
-      status: "failed",
-      crm_status: [
-        resourceStatus("A-failed", {
-          failed: true,
-          active: false,
-        }),
-      ],
-    }),
-    resource("A-op-failed", {
-      type: "apache",
-      status: "failed",
-      crm_status: [
-        resourceStatus("A-op-failed", {
-          active: false,
-        }),
-      ],
-      operations: [
-        operation("A-op-failed-operation", {
-          rc_code: 1,
-        }),
-      ],
-    }),
-    resource("A-blocked", {
-      type: "apache",
-      status: "blocked",
-      crm_status: [
-        resourceStatus("A-op-failed", {
-          active: false,
-        }),
-      ],
-    }),
     group("GROUP-1", [
       resource("B", {
         status: "disabled",
@@ -94,11 +60,6 @@ const resourceTree = cluster("resourceTree", "ok", {
           resourceStatus("C", {
             managed: false,
           }),
-        ],
-      }),
-      resource("C2", {
-        crm_status: [
-          resourceStatus("C2-ok"),
         ],
       }),
     ]),
@@ -247,4 +208,4 @@ const resourceTree = cluster("resourceTree", "ok", {
   },
 });
 
-module.exports = { resourceTree };
+module.exports = { resourcesForTest };

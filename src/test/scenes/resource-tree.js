@@ -12,7 +12,7 @@ const pollyManager = getPollyManager(() => page());
 const scenarios = {
   cluster: [
     endpoints.clusterStatus((req, res) => {
-      res.json(responses.clusterStatus.resourceTree);
+      res.json(responses.clusterStatus.resourcesForTest);
     }),
   ],
 };
