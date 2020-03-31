@@ -1,27 +1,30 @@
 /* eslint-disable camelcase */
 import * as t from "io-ts";
 
-import { ApiIssue, ApiWithIssues as TApiWithIssues } from "./issues";
 import {
-  ApiNode,
+  ApiIssue as TApiIssue,
+  ApiWithIssues as TApiWithIssues,
+} from "./issues";
+import {
+  ApiNode as TApiNode,
   ApiNodeStatus as TApiNodeStatus,
   ApiNodeQuorum as TApiNodeQuorum,
   ApiNodeName as TApiNodeName,
 } from "./nodes";
 import {
-  ApiConstraintColocation,
-  ApiConstraintLocation,
-  ApiConstraintOrder,
-  ApiConstraintTicket,
-  ApiConstraintResourceSet,
-  ApiConstraints,
+  ApiConstraintColocation as TApiConstraintColocation,
+  ApiConstraintLocation as TApiConstraintLocation,
+  ApiConstraintOrder as TApiConstraintOrder,
+  ApiConstraintTicket as TApiConstraintTicket,
+  ApiConstraintResourceSet as TApiConstraintResourceSet,
+  ApiConstraints as TApiConstraints,
 } from "./constraints";
 import {
-  ApiPrimitive,
+  ApiPrimitive as TApiPrimitive,
   ApiResource as TApiResource,
-  ApiClone,
-  ApiGroup,
-  ApiStonith,
+  ApiClone as TApiClone,
+  ApiGroup as TApiGroup,
+  ApiStonith as TApiStonith,
   ApiResourceBase as TApiResourceBase,
 } from "./resources";
 import {
@@ -30,23 +33,23 @@ import {
   ApiClusterName as TApiClusterName,
 } from "./cluster";
 
-export type ApiClone = t.TypeOf<typeof ApiClone>;
+export type ApiClone = t.TypeOf<typeof TApiClone>;
 export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
-export type ApiConstraintColocation = t.TypeOf<typeof ApiConstraintColocation>;
-export type ApiConstraintLocation = t.TypeOf<typeof ApiConstraintLocation>;
-export type ApiConstraintOrder = t.TypeOf<typeof ApiConstraintOrder>;
+export type ApiConstraintColocation = t.TypeOf<typeof TApiConstraintColocation>;
+export type ApiConstraintLocation = t.TypeOf<typeof TApiConstraintLocation>;
+export type ApiConstraintOrder = t.TypeOf<typeof TApiConstraintOrder>;
 export type ApiConstraintResourceSet = t.TypeOf<
-  typeof ApiConstraintResourceSet
+  typeof TApiConstraintResourceSet
 >;
-export type ApiConstraints = t.TypeOf<typeof ApiConstraints>;
-export type ApiConstraintTicket = t.TypeOf<typeof ApiConstraintTicket>;
-export type ApiGroup = t.TypeOf<typeof ApiGroup>;
-export type ApiIssue = t.TypeOf<typeof ApiIssue>;
-export type ApiNode = t.TypeOf<typeof ApiNode>;
-export type ApiPrimitive = t.TypeOf<typeof ApiPrimitive>;
+export type ApiConstraints = t.TypeOf<typeof TApiConstraints>;
+export type ApiConstraintTicket = t.TypeOf<typeof TApiConstraintTicket>;
+export type ApiGroup = t.TypeOf<typeof TApiGroup>;
+export type ApiIssue = t.TypeOf<typeof TApiIssue>;
+export type ApiNode = t.TypeOf<typeof TApiNode>;
 export type ApiResourceBase = t.TypeOf<typeof TApiResourceBase>;
+export type ApiPrimitive = t.TypeOf<typeof TApiPrimitive>;
 export type ApiResource = t.TypeOf<typeof TApiResource>;
-export type ApiStonith = t.TypeOf<typeof ApiStonith>;
+export type ApiStonith = t.TypeOf<typeof TApiStonith>;
 export type ApiWithIssues = t.TypeOf<typeof TApiWithIssues>;
 
 export {
