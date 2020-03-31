@@ -1,4 +1,5 @@
 import {
+  ApiResourceBase,
   ApiPrimitive,
   ApiResource,
   ApiClone,
@@ -54,6 +55,14 @@ export const filterPrimitive = (
   )
 );
 
+const isDisabled = (apiResource: ApiResourceBase) => apiResource.meta_attr.some(
+  apiMetaAttribute => (
+    apiMetaAttribute.name === "target-role"
+    &&
+    apiMetaAttribute.value.toLowerCase() === "stopped"
+  )
+);
+
 const buildPrimitiveStatuInfoList = (
   apiPrimitive: ApiPrimitive,
 ): ResourceStatusInfo[] => {
@@ -64,11 +73,7 @@ const buildPrimitiveStatuInfoList = (
     infoList.push({ label: "UNMANAGED", severity: "WARNING" })
   }
 
-  if (apiPrimitive.meta_attr.some(ma => (
-    ma.name === "target-role"
-    &&
-    ma.value.toLowerCase() === "stopped"
-  ))) {
+  if (isDisabled(apiPrimitive)) {
     infoList.push({ label: "DISABLED", severity: "WARNING" })
   }
 
@@ -101,13 +106,16 @@ const buildPrimitiveStatuInfoList = (
   return [{ label: "BLOCKED", severity: "ERROR" }];
 };
 
-const buildStatus = (statusInfoList: ResourceStatusInfo[]): ResourceStatus => ({
-  infoList: statusInfoList,
-  maxSeverity: statusInfoList.reduce<StatusSeverity>(
+const buildStatus = (statusInfoList: ResourceStatusInfo[]): ResourceStatus => {
+  const maxSeverity = statusInfoList.reduce<StatusSeverity>(
     (maxSeverity, info) =>  statusSeverity.max(maxSeverity, info.severity),
     "OK",
-  ),
-});
+  );
+  return {
+    infoList: statusInfoList.filter(si => si.severity === maxSeverity),
+    maxSeverity,
+  };
+};
 
 const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   id: apiResource.id,
@@ -135,8 +143,14 @@ const buildGroupStatusInfoList = (
   members: Primitive[],
 ): ResourceStatusInfo[] => {
 
+  const infoList: ResourceStatusInfo[] = [];
+  if (isDisabled(apiGroup)) {
+    infoList.push({ label: "DISABLED", severity: "WARNING" });
+  }
+
   if (members.length === 0) {
-    return [{ label: "NO MEMBERS", severity: "WARNING" }];
+    infoList.push({ label: "NO MEMBERS", severity: "WARNING" });
+    return infoList;
   }
 
   const maxSeverity = members.reduce<StatusSeverity>(
@@ -147,8 +161,10 @@ const buildGroupStatusInfoList = (
     "OK",
   )
 
+  //TODO members should not be OK when group is disabled
   if (maxSeverity === "OK") {
-    return [{ label: "RUNNING", severity: "OK" }];
+    infoList.push({ label: "RUNNING", severity: "OK" });
+    return infoList;
   }
 
   const counts: Record<string, number> = members.reduce<Record<string, number>>(
@@ -166,7 +182,8 @@ const buildGroupStatusInfoList = (
   );
 
   if (Object.keys(counts).length === 0) {
-    return [{ label: "UNKNOWN STATUS OF MEMBERS", severity: "WARNING" }];
+    infoList.push({ label: "UNKNOWN STATUS OF MEMBERS", severity: "WARNING" });
+    return infoList;
   }
 
   return Object.keys(counts).map(label => ({

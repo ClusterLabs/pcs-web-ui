@@ -80,7 +80,7 @@ parent_id
   id of parent resource (group, clone); it is used internally in backend, for
   web ui is meaningless
 */
-const ApiResourceBase = t.intersection([ApiWithIssues, t.type({
+export const ApiResourceBase = t.intersection([ApiWithIssues, t.type({
   id: ApiResourceId,
   class_type: t.string,
   status: t.keyof({
