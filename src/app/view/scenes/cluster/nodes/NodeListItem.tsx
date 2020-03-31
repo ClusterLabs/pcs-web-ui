@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   DataListItem,
   DataListItemCells,
@@ -18,7 +19,12 @@ export const NodeListItem = ({ node }: { node: types.cluster.Node }) => (
         dataListCells={(
           <>
             <DataListCell>
-              {node.name}
+              <Link
+                to={`/cluster/resourceTree/nodes/${node.name}`}
+                id={`resource-tree-item-${node.name}`}
+              >
+                <strong>{node.name}</strong>
+              </Link>
             </DataListCell>
             <DataListCell>
               {"Status "}
