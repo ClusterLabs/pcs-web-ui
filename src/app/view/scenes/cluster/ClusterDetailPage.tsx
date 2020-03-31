@@ -15,10 +15,9 @@ import { useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 
 import { Action } from "app/actions";
-import { Page, UrlTabs } from "app/view/common";
+import { Page, UrlTabs, GroupDetailView } from "app/view/common";
 import { tabRoutes, join } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
-import { GroupDetailView } from "app/view/common/clusterGroupDetail";
 
 import { NodeList, NodeDetailPage } from "./nodes";
 import { FenceDeviceListPage } from "./fenceDevices";
@@ -77,23 +76,19 @@ export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
       </PageSection>
       {dataLoaded && (
         <SelectedClusterProvider value={clusterUrlName}>
-          {tab === "Detail" && (
-            <ClusterDetail />
-          )}
+          {tab === "Detail" && <ClusterDetail />}
           {tab === "Resources" && (
             <GroupDetailView
-              cluster={cluster}
               urlPrefix={url}
-              GroupComponent={ResourceTree}
-              DetailComponent={ResourceDetailPage}
+              groupCard={<ResourceTree cluster={cluster} />}
+              detailCard={<ResourceDetailPage />}
             />
           )}
           {tab === "Nodes" && (
             <GroupDetailView
-              cluster={cluster}
               urlPrefix={url}
-              GroupComponent={NodeList}
-              DetailComponent={NodeDetailPage}
+              groupCard={<NodeList cluster={cluster} />}
+              detailCard={<NodeDetailPage />}
             />
           )}
           {tab === "Fence Devices" && (

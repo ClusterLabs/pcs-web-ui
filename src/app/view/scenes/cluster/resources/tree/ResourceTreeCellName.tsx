@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { useResourceTreeContext } from "./ResourceTreeContext";
+import { useGroupDetailViewContext } from "app/view/common";
 
 export const ResourceTreeCellName = ({ resourceId }: {
   resourceId: string;
 }) => {
-  const { clusterUrlName } = useResourceTreeContext();
+  const { urlPrefix } = useGroupDetailViewContext();
   return (
     <Link
-      to={`/cluster/${clusterUrlName}/resources/${resourceId}`}
+      to={`${urlPrefix}/${resourceId}`}
       id={`resource-tree-item-${resourceId}`}
     >
       <strong>{resourceId}</strong>

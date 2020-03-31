@@ -5,7 +5,11 @@ import { StatusSign } from "./StatusSign";
 import { Table } from "./table/Table";
 import { StatusIco } from "./StatusIco";
 import { UrlTabs } from "./UrlTabs";
-import { DetailLayout } from "./DetailLayout";
+import {
+  DetailLayout,
+  useGroupDetailViewContext,
+  GroupDetailView,
+} from "./clusterGroupDetail";
 import { ResourceDetailCaption } from "./ResourceDetailCaption";
 import { IssueList } from "./IsueList";
 import { LoadedResourceAgent } from "./LoadedResourceAgent";
@@ -14,6 +18,8 @@ export {
   BackgroundImage,
   BackgroundImageSources,
   DetailLayout,
+  useGroupDetailViewContext,
+  GroupDetailView,
   Page,
   PageSectionDataLoading,
   StatusSign,

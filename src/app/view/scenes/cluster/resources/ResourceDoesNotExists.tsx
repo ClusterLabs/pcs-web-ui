@@ -10,15 +10,11 @@ import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { DetailLayout } from "app/view/common";
 
-export const ResourceDoesNotExists = ({ resourceUrlName, onClose }: {
+export const ResourceDoesNotExists = ({ resourceUrlName }: {
   resourceUrlName: string;
-  onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {
   return (
-    <DetailLayout
-      onClose={onClose}
-      caption={<strong>{resourceUrlName}</strong>}
-    >
+    <DetailLayout caption={<strong>{resourceUrlName}</strong>}>
       <StackItem>
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon icon={PlusCircleIcon} />

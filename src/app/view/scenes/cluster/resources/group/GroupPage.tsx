@@ -5,21 +5,20 @@ import { types } from "app/store";
 import { tabRoutes, join } from "app/view/utils";
 import {
   UrlTabs,
-  DetailLayout,
   ResourceDetailCaption,
+  useGroupDetailViewContext,
+  DetailLayout,
 } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
-import {GroupDetail} from "./GroupDetail";
+import { GroupDetail } from "./GroupDetail";
 
-export const GroupPage = ({ group, urlPrefix, onClose }: {
-  group: types.cluster.Group;
-  urlPrefix: string;
-  onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
-}) => {
+export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
+  const { urlPrefix } = useGroupDetailViewContext();
+  const resourceUrlPrefix = join(urlPrefix, group.id);
   const urlMap = {
-    Detail: join(urlPrefix),
-    Constraints: join(urlPrefix, "constraints"),
+    Detail: join(resourceUrlPrefix),
+    Constraints: join(resourceUrlPrefix, "constraints"),
   };
   const { tab } = tabRoutes.selectCurrent<keyof typeof urlMap>("Detail", {
     Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
@@ -27,7 +26,6 @@ export const GroupPage = ({ group, urlPrefix, onClose }: {
   });
   return (
     <DetailLayout
-      onClose={onClose}
       caption={<ResourceDetailCaption resourceId={group.id} type="group" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
