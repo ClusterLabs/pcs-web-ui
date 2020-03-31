@@ -5,16 +5,22 @@ import { PageSection } from "@patternfly/react-core";
 import { push } from "connected-react-router";
 
 import { types } from "app/store";
-import { ResourceTree } from "./tree";
-import { ResourceDetailPage } from "./ResourceDetailPage";
 
+import { GroupComponentProps, DetailComponentProps } from "./types";
 
-export const ClusterDetailResources = ({ cluster, urlPrefix }:{
+export const GroupDetailView = ({
+  cluster,
+  urlPrefix,
+  GroupComponent,
+  DetailComponent,
+}: {
   cluster: types.cluster.ClusterState;
   urlPrefix: string;
+  GroupComponent: React.ComponentType<GroupComponentProps>,
+  DetailComponent: React.ComponentType<DetailComponentProps>,
 }) => {
-  const detail = useRouteMatch<{resourceUrlName: string}>(
-    `${urlPrefix}/:resourceUrlName/`,
+  const detail = useRouteMatch<{detailUrlName: string}>(
+    `${urlPrefix}/:detailUrlName/`,
   );
   const dispatch = useDispatch();
 
@@ -26,15 +32,14 @@ export const ClusterDetailResources = ({ cluster, urlPrefix }:{
       >
         <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">
           <div className="pf-c-card ha-c-panel__tree-view">
-            <ResourceTree
-              resourceTree={cluster.resourceTree}
-              clusterUrlName={cluster.urlName}
-              selectedResourceId={detail.params.resourceUrlName}
+            <GroupComponent
+              cluster={cluster}
+              detailUrlName={detail.params.detailUrlName}
             />
           </div>
           <div className="pf-c-card pf-m-flex-1 ha-c-panel__details-view">
-            <ResourceDetailPage
-              resourceUrlName={detail.params.resourceUrlName}
+            <DetailComponent
+              detailUrlName={detail.params.detailUrlName}
               urlPrefix={detail.url}
               onClose={(e: React.SyntheticEvent) => {
                 e.preventDefault();
@@ -49,11 +54,7 @@ export const ClusterDetailResources = ({ cluster, urlPrefix }:{
 
   return (
     <PageSection aria-label="Cluster resources">
-      <ResourceTree
-        resourceTree={cluster.resourceTree}
-        clusterUrlName={cluster.urlName}
-      />
-
+      <GroupComponent cluster={cluster} />
     </PageSection>
   );
 };

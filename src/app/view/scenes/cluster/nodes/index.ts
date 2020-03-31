@@ -1,5 +1,7 @@
-import { NodeListPage } from "./NodeListPage";
+import { NodeList } from "./NodeList";
+import { NodeDetailPage } from "./NodeDetailPage";
 
 export {
-  NodeListPage,
+  NodeList,
+  NodeDetailPage,
 };

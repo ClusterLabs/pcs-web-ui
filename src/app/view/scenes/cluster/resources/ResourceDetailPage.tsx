@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
+import { DetailComponentProps } from "app/view/common/clusterGroupDetail";
 import { selectors } from "app/store";
 
 import { ResourceDoesNotExists } from "./ResourceDoesNotExists";
@@ -8,20 +9,20 @@ import { ClonePage } from "./clone";
 import { GroupPage } from "./group";
 import { PrimitivePage } from "./primitive";
 
-export const ResourceDetailPage = ({ resourceUrlName, urlPrefix, onClose }: {
-  resourceUrlName: string;
-  urlPrefix: string;
-  onClose: (e: React.SyntheticEvent) => void;
-}) => {
+export const ResourceDetailPage = ({
+  detailUrlName,
+  urlPrefix,
+  onClose,
+}: DetailComponentProps) => {
   const resourceTreeItem = useSelector(
-    selectors.getSelectedResource(resourceUrlName),
+    selectors.getSelectedResource(detailUrlName),
   );
 
   if (!resourceTreeItem) {
     return (
       <ResourceDoesNotExists
         onClose={onClose}
-        resourceUrlName={resourceUrlName}
+        resourceUrlName={detailUrlName}
       />
     );
   }

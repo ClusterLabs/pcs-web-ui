@@ -1,5 +1,7 @@
-import { ClusterDetailResources } from "./ClusterDetailResources";
+import { ResourceTree } from "./tree";
+import { ResourceDetailPage } from "./ResourceDetailPage";
 
 export {
-  ClusterDetailResources,
+  ResourceTree,
+  ResourceDetailPage,
 };

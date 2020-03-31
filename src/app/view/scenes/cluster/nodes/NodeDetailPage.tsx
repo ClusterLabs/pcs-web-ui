@@ -8,16 +8,18 @@ import {
 } from "@patternfly/react-core";
 import { TimesIcon } from "@patternfly/react-icons";
 
-export const NodeDetailPage = ({ caption, onClose }: {
-  caption: JSX.Element|JSX.Element[]|string;
-  onClose: (e: React.SyntheticEvent) => void;
-}) => {
+import { DetailComponentProps } from "app/view/common/clusterGroupDetail";
+
+export const NodeDetailPage = ({
+  detailUrlName,
+  onClose,
+}: DetailComponentProps) => {
   return (
     <Stack gutter="md" className="pf-u-p-md">
       <StackItem>
         <Level>
           <LevelItem>
-            {caption}
+            {detailUrlName}
           </LevelItem>
           <LevelItem>
             <Button variant="plain" aria-label="Close panel" onClick={onClose}>

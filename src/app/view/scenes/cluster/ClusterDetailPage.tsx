@@ -18,10 +18,11 @@ import { Action } from "app/actions";
 import { Page, UrlTabs } from "app/view/common";
 import { tabRoutes, join } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
+import { GroupDetailView } from "app/view/common/clusterGroupDetail";
 
-import { NodeListPage } from "./nodes";
+import { NodeList, NodeDetailPage } from "./nodes";
 import { FenceDeviceListPage } from "./fenceDevices";
-import { ClusterDetailResources } from "./resources";
+import { ResourceTree, ResourceDetailPage } from "./resources";
 import { ClusterDetail } from "./ClusterDetail";
 import { SelectedClusterProvider } from "./SelectedClusterContext";
 
@@ -80,10 +81,20 @@ export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
             <ClusterDetail />
           )}
           {tab === "Resources" && (
-            <ClusterDetailResources cluster={cluster} urlPrefix={url} />
+            <GroupDetailView
+              cluster={cluster}
+              urlPrefix={url}
+              GroupComponent={ResourceTree}
+              DetailComponent={ResourceDetailPage}
+            />
           )}
           {tab === "Nodes" && (
-            <NodeListPage cluster={cluster} urlPrefix={url} />
+            <GroupDetailView
+              cluster={cluster}
+              urlPrefix={url}
+              GroupComponent={NodeList}
+              DetailComponent={NodeDetailPage}
+            />
           )}
           {tab === "Fence Devices" && (
             <FenceDeviceListPage cluster={cluster} urlPrefix={url} />

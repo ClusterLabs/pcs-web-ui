@@ -6,8 +6,9 @@ import {
   EmptyStateIcon,
   EmptyStateBody,
 } from "@patternfly/react-core";
-import { types } from "app/store";
 import { PlusCircleIcon } from "@patternfly/react-icons";
+
+import { GroupComponentProps } from "app/view/common/clusterGroupDetail";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemClone } from "./ResourceTreeItemClone";
@@ -15,15 +16,10 @@ import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
 import { ResourceTreeContextProvider } from "./ResourceTreeContext";
 
 export const ResourceTree = ({
-  resourceTree,
-  clusterUrlName,
-  selectedResourceId = "",
-}: {
-  resourceTree: types.cluster.ResourceTreeItem[],
-  clusterUrlName: string;
-  selectedResourceId?: string,
-}) => {
-  if (resourceTree.length === 0) {
+  cluster,
+  detailUrlName = "",
+}: GroupComponentProps) => {
+  if (cluster.resourceTree.length === 0) {
     return (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon icon={PlusCircleIcon} />
@@ -35,7 +31,7 @@ export const ResourceTree = ({
     );
   }
 
-  const compact = selectedResourceId !== "";
+  const compact = detailUrlName !== "";
 
   return (
     <DataList
@@ -43,9 +39,13 @@ export const ResourceTree = ({
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
     >
       <ResourceTreeContextProvider
-        value={{ selectedResourceId, clusterUrlName, compact }}
+        value={{
+          selectedResourceId: detailUrlName,
+          clusterUrlName: cluster.urlName,
+          compact,
+        }}
       >
-        {resourceTree.map((resourceTreeItem) => {
+        {cluster.resourceTree.map((resourceTreeItem) => {
           switch (resourceTreeItem.itemType) {
             case "primitive": return (
               <ResourceTreeItemPrimitive
