@@ -149,6 +149,7 @@ html, body, #root {
   flex: 0 0 10rem;
   margin-left: auto;
   padding-top: var(--pf-c-data-list__cell--PaddingTop);
+  padding-bottom: var(--pf-c-data-list__item-content--PaddingBottom);
 } /* sets spacing for Status column */
 
 @media screen and (max-width: 62rem) {
@@ -198,6 +199,19 @@ html, body, #root {
 } /* These property styles hide the text description of the status svg icon from the screen, */
 /* but keep contents accessible to assistive technology */
 
+/* Composite Status component */
+.ha-u-status-danger {
+  color: var(--pf-global--danger-color--100)
+}
+.ha-u-status-warning {
+  color: var(--pf-global--warning-color--100)
+}
+.ha-u-status-success {
+  color: var(--pf-global--success-color--100)
+}
+.ha-u-status-unknown {
+  color: var(--pf-global--icon--Color--light)
+}
 
 /* Attributes form - radio button spacing */
 .ha-c-radio {

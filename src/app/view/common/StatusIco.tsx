@@ -3,23 +3,22 @@ import {
   ExclamationCircleIcon,
   QuestionCircleIcon,
   ExclamationTriangleIcon,
-  OkIcon,
+  CheckCircleIcon,
 } from "@patternfly/react-icons";
 
 import { types } from "app/store";
-
-import * as pallete from "./pallete";
-
 
 export const StatusIco = ({ status }: {
   status: types.cluster.StatusSeverity
 }) => {
   switch (status) {
-    case "OK": return <OkIcon />;
-    case "ERROR": return <ExclamationCircleIcon color={pallete.ERROR} />;
-    case "WARNING": return (
-      <ExclamationTriangleIcon color={pallete.WARNING_LIGHT} />
+    case "OK": return <CheckCircleIcon className="ha-u-status-success" />;
+    case "ERROR": return (
+      <ExclamationCircleIcon className="ha-u-status-danger" />
     );
-    default: return <QuestionCircleIcon color={pallete.UNKNOWN} />;
+    case "WARNING": return (
+      <ExclamationTriangleIcon className="ha-u-status-warning" />
+    );
+    default: return <QuestionCircleIcon className="ha-u-status-unknown" />;
   }
 };

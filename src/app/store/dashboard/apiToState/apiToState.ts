@@ -1,7 +1,6 @@
 import { ApiClusterStatus } from "app/backend/types/clusterOverview";
 import { apiToState as clusterApiToState } from "../../cluster";
 import { ClusterState } from "../types";
-import { analyzeApiResources } from "./resources";
 
 import { processApiNodes } from "./nodes";
 
@@ -13,7 +12,7 @@ export const apiToState = (
     resourcesSeverity,
     fenceDeviceList,
     fenceDevicesSeverity,
-  } = analyzeApiResources(apiClusterStatus.resource_list);
+  } = clusterApiToState.analyzeApiResources(apiClusterStatus.resource_list);
   const {
     nodeList,
     nodesSeverity,

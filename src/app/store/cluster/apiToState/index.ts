@@ -14,12 +14,14 @@ import {
   filterPrimitive,
   transformStatus as resourceTransformStatus,
   statusToSeverity as resourceStatusToSeverity,
+  analyzeApiResources,
 } from "./resources";
 import { transformIssues } from "./issues";
 
 import { max as maxStatusSeverity } from "./statusSeverity";
 
 export {
+  analyzeApiResources,
   apiToState,
   filterPrimitive,
   clusterTransforStatus,

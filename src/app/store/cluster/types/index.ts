@@ -37,15 +37,24 @@ export interface Node {
   issueList: Issue[],
 }
 
-export type ResourceStatusFlag = (
+export type FenceDeviceStatusFlag = (
   "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN"|"DISABLED"
 );
+
+export type ResourceStatusInfo = {
+  label: string;
+  severity: StatusSeverity;
+};
+
+export type ResourceStatus = {
+  maxSeverity: StatusSeverity;
+  infoList: ResourceStatusInfo[];
+}
 
 export interface ResourceTreeItemBase {
   id: string,
   itemType: string,
-  status: ResourceStatusFlag,
-  statusSeverity: StatusSeverity,
+  status: ResourceStatus;
   issueList: Issue[],
 }
 
@@ -72,7 +81,7 @@ export type ResourceTreeItem = Primitive|Group|Clone;
 
 export interface FenceDevice {
   id: string,
-  status: ResourceStatusFlag,
+  status: FenceDeviceStatusFlag,
   statusSeverity: StatusSeverity,
   issueList: Issue[],
   type: string,

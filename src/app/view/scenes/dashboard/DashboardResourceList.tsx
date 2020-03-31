@@ -20,14 +20,14 @@ const compareByColumn = (
   column: COLUMNS|"",
 ): (
   (
-    a: types.dashboard.ResourceTreeItem,
-    b: types.dashboard.ResourceTreeItem,
+    a: types.cluster.ResourceTreeItem,
+    b: types.cluster.ResourceTreeItem,
   ) => number
 ) => {
   switch (column) {
     case "STATUS": return (a, b) => compareStatusSeverity(
-      a.statusSeverity,
-      b.statusSeverity,
+      a.status.maxSeverity,
+      b.status.maxSeverity,
     );
     default: return (a, b) => compareStrings(a.id, b.id);
   }
@@ -81,10 +81,12 @@ export const DashboardResourceList = ({ cluster }: {
                 </Link>
               </td>
               <td data-label="status">
-                <StatusSign
-                  status={resource.statusSeverity}
-                  label={toLabel(resource.status)}
-                />
+                {resource.status.infoList.map((status) => (
+                  <StatusSign
+                    status={status.severity}
+                    label={toLabel(status.label)}
+                  />
+                ))}
               </td>
             </tr>
           ),

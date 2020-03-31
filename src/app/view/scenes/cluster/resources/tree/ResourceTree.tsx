@@ -12,17 +12,15 @@ import { PlusCircleIcon } from "@patternfly/react-icons";
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemClone } from "./ResourceTreeItemClone";
 import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
-import { SelectedResourceProvider } from "./SelectedResourceContext";
+import { ResourceTreeContextProvider } from "./ResourceTreeContext";
 
 export const ResourceTree = ({
   resourceTree,
-  createResourceDetailUrl,
-  compact = false,
+  clusterUrlName,
   selectedResourceId = "",
 }: {
   resourceTree: types.cluster.ResourceTreeItem[],
-  createResourceDetailUrl: (id: string) => string,
-  compact?: boolean,
+  clusterUrlName: string;
   selectedResourceId?: string,
 }) => {
   if (resourceTree.length === 0) {
@@ -37,44 +35,39 @@ export const ResourceTree = ({
     );
   }
 
+  const compact = selectedResourceId !== "";
+
   return (
     <DataList
       aria-label="Cluster resource list"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
     >
-      <SelectedResourceProvider value={selectedResourceId}>
+      <ResourceTreeContextProvider
+        value={{ selectedResourceId, clusterUrlName, compact }}
+      >
         {resourceTree.map((resourceTreeItem) => {
           switch (resourceTreeItem.itemType) {
             case "primitive": return (
               <ResourceTreeItemPrimitive
                 key={resourceTreeItem.id}
                 primitive={resourceTreeItem}
-                createResourceDetailUrl={createResourceDetailUrl}
               />
             );
             case "group": return (
               <ResourceTreeItemGroup
                 key={resourceTreeItem.id}
                 group={resourceTreeItem}
-                createResourceDetailUrl={createResourceDetailUrl}
               />
             );
             case "clone": default: return (
               <ResourceTreeItemClone
                 key={resourceTreeItem.id}
                 clone={resourceTreeItem}
-                createResourceDetailUrl={createResourceDetailUrl}
               />
             );
           }
         })}
-      </SelectedResourceProvider>
+      </ResourceTreeContextProvider>
     </DataList>
   );
 };
-
-ResourceTree.createResourceDetailUrl = (
-  (clusterUrlName: string) => (resourceUrlName: string) => (
-    `/cluster/${clusterUrlName}/resources/${resourceUrlName}`
-  )
-);
