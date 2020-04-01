@@ -5,11 +5,9 @@ import { types } from "app/store";
 
 import { NodeListItem } from "./NodeListItem";
 
-export const NodeList = ({ cluster }: {
-  cluster: types.cluster.ClusterState,
-}) => (
+export const NodeList = ({ nodeList }: { nodeList: types.cluster.Node[] }) => (
   <DataList aria-label="Cluster node list">
-    {cluster.nodeList.map((node) => (
+    {nodeList.map((node) => (
       <NodeListItem key={node.name} node={node} />
     ))}
   </DataList>

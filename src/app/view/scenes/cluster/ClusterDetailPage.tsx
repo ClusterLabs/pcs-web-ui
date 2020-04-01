@@ -80,14 +80,14 @@ export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
           {tab === "Resources" && (
             <GroupDetailView
               urlPrefix={url}
-              groupCard={<ResourceTree cluster={cluster} />}
+              groupCard={<ResourceTree resourceTree={cluster.resourceTree} />}
               detailCard={<ResourceDetailPage />}
             />
           )}
           {tab === "Nodes" && (
             <GroupDetailView
               urlPrefix={url}
-              groupCard={<NodeList cluster={cluster} />}
+              groupCard={<NodeList nodeList={cluster.nodeList} />}
               detailCard={<NodeDetailPage />}
             />
           )}

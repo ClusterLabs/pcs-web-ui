@@ -16,12 +16,12 @@ import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemClone } from "./ResourceTreeItemClone";
 import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
 
-export const ResourceTree = ({ cluster }: {
-  cluster: types.cluster.ClusterState,
+export const ResourceTree = ({ resourceTree }: {
+  resourceTree: types.cluster.ResourceTreeItem[],
 }) => {
   const { compact } = useGroupDetailViewContext();
 
-  if (cluster.resourceTree.length === 0) {
+  if (resourceTree.length === 0) {
     return (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon icon={PlusCircleIcon} />
@@ -38,7 +38,7 @@ export const ResourceTree = ({ cluster }: {
       aria-label="Cluster resource list"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
     >
-      {cluster.resourceTree.map((resourceTreeItem) => {
+      {resourceTree.map((resourceTreeItem) => {
         switch (resourceTreeItem.itemType) {
           case "primitive": return (
             <ResourceTreeItemPrimitive
