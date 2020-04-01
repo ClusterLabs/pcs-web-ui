@@ -20,7 +20,7 @@ import { tabRoutes, join } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
 
 import { NodeList, NodeDetailPage } from "./nodes";
-import { FenceDeviceListPage } from "./fenceDevices";
+import { FenceDeviceList, FenceDeviceDetailPage } from "./fenceDevices";
 import { ResourceTree, ResourceDetailPage } from "./resources";
 import { ClusterDetail } from "./ClusterDetail";
 import { SelectedClusterProvider } from "./SelectedClusterContext";
@@ -92,7 +92,13 @@ export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
             />
           )}
           {tab === "Fence Devices" && (
-            <FenceDeviceListPage cluster={cluster} urlPrefix={url} />
+            <GroupDetailView
+              urlPrefix={url}
+              detailCard={<FenceDeviceDetailPage />}
+              groupCard={(
+                <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
+              )}
+            />
           )}
         </SelectedClusterProvider>
       )}
