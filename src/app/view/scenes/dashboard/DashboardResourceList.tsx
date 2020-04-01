@@ -81,8 +81,10 @@ export const DashboardResourceList = ({ cluster }: {
                 </Link>
               </td>
               <td data-label="status">
-                {resource.status.infoList.map((status) => (
+                {resource.status.infoList.map((status, i) => (
+                  /* eslint-disable react/no-array-index-key */
                   <StatusSign
+                    key={i}
                     status={status.severity}
                     label={toLabel(status.label)}
                   />
