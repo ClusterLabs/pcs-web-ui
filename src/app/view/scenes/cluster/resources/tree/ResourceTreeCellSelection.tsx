@@ -1,14 +1,14 @@
 import React from "react";
 import { ArrowCircleRightIcon } from "@patternfly/react-icons";
 
-import { useResourceTreeContext } from "./ResourceTreeContext";
+import { useGroupDetailViewContext } from "app/view/common";
 
 export const ResourceTreeCellSelection = ({ resourceId }: {
   resourceId: string;
 }) => {
-  const { selectedResourceId } = useResourceTreeContext();
-  const isSelected = selectedResourceId === resourceId;
-  if (selectedResourceId === "") {
+  const { selectedItemUrlName } = useGroupDetailViewContext();
+  const isSelected = selectedItemUrlName === resourceId;
+  if (selectedItemUrlName === "") {
     return null;
   }
   return (

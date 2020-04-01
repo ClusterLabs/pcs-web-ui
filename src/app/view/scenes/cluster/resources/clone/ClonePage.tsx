@@ -5,21 +5,20 @@ import { types } from "app/store";
 import { tabRoutes, join } from "app/view/utils";
 import {
   UrlTabs,
-  DetailLayout,
   ResourceDetailCaption,
+  useGroupDetailViewContext,
+  DetailLayout,
 } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
 import { CloneDetail } from "./CloneDetail";
 
-export const ClonePage = ({ clone, urlPrefix, onClose }: {
-  clone: types.cluster.Clone;
-  urlPrefix: string;
-  onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
-}) => {
+export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
+  const { urlPrefix } = useGroupDetailViewContext();
+  const resourceUrlPrefix = join(urlPrefix, clone.id);
   const urlMap = {
-    Detail: join(urlPrefix),
-    Constraints: join(urlPrefix, "constraints"),
+    Detail: resourceUrlPrefix,
+    Constraints: join(resourceUrlPrefix, "constraints"),
   };
   const { tab } = tabRoutes.selectCurrent<keyof typeof urlMap>("Detail", {
     Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
@@ -27,7 +26,6 @@ export const ClonePage = ({ clone, urlPrefix, onClose }: {
   });
   return (
     <DetailLayout
-      onClose={onClose}
       caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >

@@ -4,22 +4,23 @@ import { useSelector } from "react-redux";
 
 import { selectors, types } from "app/store";
 import { tabRoutes, join } from "app/view/utils";
-import { UrlTabs, DetailLayout, ResourceDetailCaption } from "app/view/common";
+import { UrlTabs, ResourceDetailCaption } from "app/view/common";
+import { useGroupDetailViewContext, DetailLayout } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
 import { PrimitiveAttrsView } from "./attributes";
 import { PrimitiveDetail } from "./PrimitiveDetail";
 import { useResourceAgent } from "./useResourceAgent";
 
-export const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
+export const PrimitivePage = ({ primitive }: {
   primitive: types.cluster.Primitive;
-  urlPrefix: string;
-  onClose: React.ComponentProps<typeof DetailLayout>["onClose"],
 }) => {
+  const { urlPrefix } = useGroupDetailViewContext();
+  const resourceUrlPrefix = join(urlPrefix, primitive.id);
   const urlMap = {
-    Detail: join(urlPrefix),
-    Attributes: join(urlPrefix, "attributes"),
-    Constraints: join(urlPrefix, "constraints"),
+    Detail: resourceUrlPrefix,
+    Attributes: join(resourceUrlPrefix, "attributes"),
+    Constraints: join(resourceUrlPrefix, "constraints"),
   };
   const { tab } = tabRoutes.selectCurrent<keyof typeof urlMap>("Detail", {
     Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
@@ -34,7 +35,6 @@ export const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
 
   return (
     <DetailLayout
-      onClose={onClose}
       caption={(
         <ResourceDetailCaption
           resourceId={primitive.id}
@@ -43,16 +43,9 @@ export const PrimitivePage = ({ primitive, urlPrefix, onClose }: {
       )}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
-      {tab === "Detail" && (
-        <PrimitiveDetail primitive={primitive} />
-      )}
-      {tab === "Attributes" && (
-        <PrimitiveAttrsView primitive={primitive} />
-      )}
-      {tab === "Constraints" && (
-        <ConstraintListResource resource={primitive} />
-      )}
-
+      {tab === "Detail" && <PrimitiveDetail primitive={primitive} />}
+      {tab === "Attributes" && <PrimitiveAttrsView primitive={primitive} />}
+      {tab === "Constraints" && <ConstraintListResource resource={primitive} />}
     </DetailLayout>
   );
 };

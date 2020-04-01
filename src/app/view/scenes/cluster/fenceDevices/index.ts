@@ -1,5 +1,7 @@
-import { FenceDeviceListPage } from "./FenceDeviceListPage";
+import { FenceDeviceList } from "./FenceDeviceList";
+import { FenceDeviceDetailPage } from "./FenceDeviceDetailPage";
 
 export {
-  FenceDeviceListPage,
+  FenceDeviceList,
+  FenceDeviceDetailPage,
 };

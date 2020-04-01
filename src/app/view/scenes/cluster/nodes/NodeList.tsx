@@ -7,7 +7,7 @@ import { NodeListItem } from "./NodeListItem";
 
 export const NodeList = ({ nodeList }: { nodeList: types.cluster.Node[] }) => (
   <DataList aria-label="Cluster node list">
-    {nodeList.map(node => (
+    {nodeList.map((node) => (
       <NodeListItem key={node.name} node={node} />
     ))}
   </DataList>

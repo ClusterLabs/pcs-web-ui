@@ -15,13 +15,13 @@ import { useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 
 import { Action } from "app/actions";
-import { Page, UrlTabs } from "app/view/common";
+import { Page, UrlTabs, GroupDetailView } from "app/view/common";
 import { tabRoutes, join } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
 
-import { NodeListPage } from "./nodes";
-import { FenceDeviceListPage } from "./fenceDevices";
-import { ClusterDetailResources } from "./resources";
+import { NodeList, NodeDetailPage } from "./nodes";
+import { FenceDeviceList, FenceDeviceDetailPage } from "./fenceDevices";
+import { ResourceTree, ResourceDetailPage } from "./resources";
 import { ClusterDetail } from "./ClusterDetail";
 import { SelectedClusterProvider } from "./SelectedClusterContext";
 
@@ -76,17 +76,29 @@ export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
       </PageSection>
       {dataLoaded && (
         <SelectedClusterProvider value={clusterUrlName}>
-          {tab === "Detail" && (
-            <ClusterDetail />
-          )}
+          {tab === "Detail" && <ClusterDetail />}
           {tab === "Resources" && (
-            <ClusterDetailResources cluster={cluster} urlPrefix={url} />
+            <GroupDetailView
+              urlPrefix={url}
+              groupCard={<ResourceTree resourceTree={cluster.resourceTree} />}
+              detailCard={<ResourceDetailPage />}
+            />
           )}
           {tab === "Nodes" && (
-            <NodeListPage cluster={cluster} urlPrefix={url} />
+            <GroupDetailView
+              urlPrefix={url}
+              groupCard={<NodeList nodeList={cluster.nodeList} />}
+              detailCard={<NodeDetailPage />}
+            />
           )}
           {tab === "Fence Devices" && (
-            <FenceDeviceListPage cluster={cluster} urlPrefix={url} />
+            <GroupDetailView
+              urlPrefix={url}
+              detailCard={<FenceDeviceDetailPage />}
+              groupCard={(
+                <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
+              )}
+            />
           )}
         </SelectedClusterProvider>
       )}
