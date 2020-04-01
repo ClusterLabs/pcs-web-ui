@@ -12,9 +12,9 @@ const Table = (
     isExpandable = false,
     ...rest
   }: React.PropsWithChildren<{
-    isCompact?: boolean,
-    isBorderless?: boolean,
-    isExpandable?: boolean,
+    isCompact?: boolean;
+    isBorderless?: boolean;
+    isExpandable?: boolean;
   }>,
 ) => {
   const classNameList = [

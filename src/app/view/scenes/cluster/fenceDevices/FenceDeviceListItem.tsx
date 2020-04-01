@@ -12,7 +12,7 @@ import { StatusSign, useGroupDetailViewContext } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
 export const FenceDeviceListItem = ({ fenceDevice }: {
-  fenceDevice: types.cluster.FenceDevice,
+  fenceDevice: types.cluster.FenceDevice;
 }) => {
   const { urlPrefix } = useGroupDetailViewContext();
   return (

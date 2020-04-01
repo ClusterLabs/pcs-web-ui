@@ -5,8 +5,8 @@ import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
 
 export const ResourceTreeItemGroup = ({ group, nestedLevel = 0 }: {
-  group: types.cluster.Group,
-  nestedLevel?: number,
+  group: types.cluster.Group;
+  nestedLevel?: number;
 }) => (
   <ResourceTreeItemCompound
     resourceId={group.id}
@@ -14,7 +14,7 @@ export const ResourceTreeItemGroup = ({ group, nestedLevel = 0 }: {
     status={group.status}
     type="Group"
   >
-    {group.resources.map((resource) => (
+    {group.resources.map(resource => (
       <ResourceTreeItemPrimitive key={resource.id} primitive={resource} />
     ))}
   </ResourceTreeItemCompound>

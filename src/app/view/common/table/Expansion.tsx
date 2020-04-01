@@ -4,7 +4,7 @@ import { ExpansionToggle } from "./ExpansionToggle";
 import { ExpandedContent } from "./ExpandedContent";
 
 const useExpansion = ({ contentSpan }: React.PropsWithChildren<{
-  contentSpan: number,
+  contentSpan: number;
 }>) => {
   const [expanded, setExpanded] = React.useState("");
 

@@ -44,6 +44,7 @@ const collectUpdatedAttrs = (
     }
     return a;
   },
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   {} as Record<string, any>,
 );
 

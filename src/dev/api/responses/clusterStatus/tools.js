@@ -44,7 +44,7 @@ const resourceStatus = (id, diff) => deepmerge({
   nodes_running_on: 1,
   pending: null,
   node: null,
-}, diff || {})
+}, diff || {});
 
 const operation = (id, diff) => deepmerge({
   id,
@@ -153,4 +153,4 @@ module.exports = {
   cluster,
   resourceStatus,
   operation,
-}
+};

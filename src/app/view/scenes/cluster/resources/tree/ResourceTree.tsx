@@ -16,9 +16,11 @@ import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemClone } from "./ResourceTreeItemClone";
 import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
 
-export const ResourceTree = ({ resourceTree }: {
-  resourceTree: types.cluster.ResourceTreeItem[],
-}) => {
+type Props = {
+  resourceTree: types.cluster.ResourceTreeItem[];
+}
+
+export const ResourceTree: React.FC<Props> = ({ resourceTree }: Props) => {
   const { compact } = useGroupDetailViewContext();
 
   if (resourceTree.length === 0) {

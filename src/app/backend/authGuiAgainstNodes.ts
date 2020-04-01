@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import * as t from "io-ts";
 
 import { postForJson } from "./calls";
@@ -14,6 +13,7 @@ const ApiAuthGuiAgainstNodes = t.type({
   node_auth_error: t.record(t.string, t.number),
 });
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const validate = (nodeList: string[], response: any) => {
   const errors = validateShape(response, ApiAuthGuiAgainstNodes);
   if (errors.length > 0) {
@@ -30,8 +30,8 @@ export const authGuiAgainstNodes: ApiCall<Result> = async (
   nodeMap: Record<string, {
     password: string;
     dest_list: {
-      addr: string,
-      port: string,
+      addr: string;
+      port: string;
     }[];
   }>,
 ) => {

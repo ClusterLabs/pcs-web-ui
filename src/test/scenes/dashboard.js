@@ -63,7 +63,7 @@ describe("Dashboard scene", () => {
       })),
     );
 
-    const response2Info = (response) => ({
+    const response2Info = response => ({
       name: response.cluster_name,
       link: link(`/cluster/${response.cluster_name}`),
       issuesTotal: (response.error_list.length + response.warning_list.length)
@@ -145,8 +145,10 @@ describe("Dashboard scene", () => {
   //   await page().waitFor(CLUSTERS_SELECTOR);
   //   await page().click(clusterOk("[data-label='resources'] button"));
   //   const resourceR1 = (selectors = "") => clusterOk(
-  //     `[aria-label='Cluster resource list'] [aria-label='Resource R1'] ${selectors}`
-  //     .trim()
+  //     (
+  //       "[aria-label='Cluster resource list'] [aria-label='Resource R1']"
+  //       + ${selectors}
+  //     ).trim()
   //   );
   //   await page().waitFor(resourceR1());
   //   await page().click(resourceR1("[data-label='name'] a"));

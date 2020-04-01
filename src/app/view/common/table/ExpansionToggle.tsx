@@ -8,9 +8,9 @@ export function ExpansionToggle(
     children,
     ...rest
   }: React.PropsWithChildren<{
-    expanded: string,
-    setExpanded: (key: string) => void,
-    expandKey: string,
+    expanded: string;
+    setExpanded: (key: string) => void;
+    expandKey: string;
   }>,
 ) {
   const tdClassNames = [

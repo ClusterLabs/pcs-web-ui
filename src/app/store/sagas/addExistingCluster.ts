@@ -17,13 +17,12 @@ import {
 
 import { authSafe } from "./authSafe";
 
-
 function* checkAuthentication(
   { payload: { nodeName } }: AddClusterActions["CheckAuth"],
 ) {
   try {
     const { result }: {
-      result: ApiResult<typeof checkAuthAgainstNodes>,
+      result: ApiResult<typeof checkAuthAgainstNodes>;
     } = yield race({
       result: call(authSafe(checkAuthAgainstNodes), [nodeName]),
       cancel: take(actionType("ADD_CLUSTER.NODE_NAME.UPDATE")),
@@ -118,11 +117,12 @@ function* authenticateNode({
 }: AddClusterActions["AuthenticateNode"]) {
   try {
     const { result }: {
-      result: ApiResult<typeof authGuiAgainstNodes>,
+      result: ApiResult<typeof authGuiAgainstNodes>;
     } = yield race({
       result: call(authSafe(authGuiAgainstNodes), {
         [nodeName]: {
           password,
+          /* eslint-disable @typescript-eslint/camelcase */
           dest_list: [{ addr: address, port }],
         },
       }),

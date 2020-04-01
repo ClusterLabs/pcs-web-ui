@@ -20,7 +20,7 @@ const scenarios = {
 const currentTab = async () => {
   const currentTablist = await page().$$eval(
     "[aria-label='Cluster tabs']",
-    (tabs) => tabs.map((e) => (e.querySelector(".pf-m-current").textContent)),
+    tabs => tabs.map(e => (e.querySelector(".pf-m-current").textContent)),
   );
   expect(currentTablist.length).to.be.eql(1);
   return currentTablist[0];

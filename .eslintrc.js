@@ -1,5 +1,10 @@
 module.exports = {
-  parser: "babel-eslint",
+  root: true,
+  parser: "@typescript-eslint/parser",
+  plugins: [
+    'react',
+    '@typescript-eslint',
+  ],
   env: {
     browser: true,
     jest: true,
@@ -8,6 +13,11 @@ module.exports = {
     mocha: true,
   },
   extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
     "react-app",
     "airbnb",
   ],
@@ -22,6 +32,7 @@ module.exports = {
     "lines-between-class-members": "off",
     // It creates messy diff when there is need to switch from => ( to => {
     "arrow-body-style": "off",
+    "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
 
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
     // "import/extensions": [2, { "js": "always", "jsx": "always" }],
@@ -85,4 +96,46 @@ module.exports = {
     },
     loggerFn: false,
   },
+  overrides: [
+    {
+      files: ["src/react-app-env.d.ts"],
+      rules: {
+           "spaced-comment": "off",
+        }
+    },
+    {
+      files: [
+        "src/dev/**/*.{js,ts,tsx}",
+        "src/test/**/*.{js,ts,tsx}",
+      ],
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+        camelcase: "off",
+        "@typescript-eslint/camelcase": "off",
+      }
+    },
+    {
+      files: [
+        "src/app/backend/**/*.{js,ts,tsx}",
+      ],
+      rules: {
+        // There are many backend data that uses snake case...
+        camelcase: "off",
+        "@typescript-eslint/camelcase": "off",
+      }
+    },
+    {
+      files: [
+        // Explicit funtion return type for generators is not required.
+        "src/app/store/sagas/**/*.{js,ts,tsx}",
+        // TODO Exclude ts files from here (i.e. apply the rule). Don't use the
+        // rule for tsx - we don't want to write React.FC<Props> for each
+        // component.
+        "src/**/*.{js,tsx,ts}",
+      ],
+      rules: {
+        "@typescript-eslint/explicit-function-return-type": "off",
+      }
+    },
+  ]
 };

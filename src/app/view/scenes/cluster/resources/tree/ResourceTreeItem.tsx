@@ -17,8 +17,8 @@ export const ResourceTreeItem = ({
 }: {
   resourceId: string;
   status: types.cluster.ResourceStatus;
-  type: string,
-  typeDescription: string,
+  type: string;
+  typeDescription: string;
 }) => {
   return (
     <DataListItem aria-labelledby={`resource-tree-item-${resourceId}`}>

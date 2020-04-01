@@ -9,7 +9,7 @@ import {
 import { types } from "app/store";
 
 export const StatusIco = ({ status }: {
-  status: types.cluster.StatusSeverity
+  status: types.cluster.StatusSeverity;
 }) => {
   switch (status) {
     case "OK": return <CheckCircleIcon className="ha-u-status-success" />;

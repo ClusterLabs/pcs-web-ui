@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 
 import { selectors, types } from "app/store";
 import { tabRoutes, join } from "app/view/utils";
-import { UrlTabs, ResourceDetailCaption } from "app/view/common";
-import { useGroupDetailViewContext, DetailLayout } from "app/view/common";
+import {
+  UrlTabs, ResourceDetailCaption, useGroupDetailViewContext, DetailLayout,
+} from "app/view/common";
+
 
 import { ConstraintListResource } from "../constraints";
 import { PrimitiveAttrsView } from "./attributes";

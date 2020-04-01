@@ -36,7 +36,7 @@ const compareByColumn = (
 const { SortableTh } = Table;
 
 export const DashboardResourceList = ({ cluster }: {
-  cluster: types.dashboard.ClusterState,
+  cluster: types.dashboard.ClusterState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
 
@@ -71,7 +71,7 @@ export const DashboardResourceList = ({ cluster }: {
       </thead>
       <tbody>
         {cluster.resourceTree.sort(compareItems(compareByColumn)).map(
-          (resource) => (
+          resource => (
             <tr key={resource.id} aria-label={`Resource ${resource.id}`}>
               <td data-label="name">
                 <Link

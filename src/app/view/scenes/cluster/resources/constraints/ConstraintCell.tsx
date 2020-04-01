@@ -3,8 +3,8 @@ import { DataListCell } from "@patternfly/react-core";
 
 export const ConstraintCell = (
   { label, value, children }: React.PropsWithChildren<{
-    label: string,
-    value?: string|number|boolean|undefined|null
+    label: string;
+    value?: string|number|boolean|undefined|null;
   }>,
 ) => {
   return (

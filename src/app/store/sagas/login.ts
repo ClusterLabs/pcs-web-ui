@@ -5,7 +5,6 @@ import { isUnauthorizedError, getForText, postForText } from "app/backend";
 
 import { putNotification } from "./notifications";
 
-
 export function* logout() {
   try {
     yield putNotification("INFO", "Trying to logout");

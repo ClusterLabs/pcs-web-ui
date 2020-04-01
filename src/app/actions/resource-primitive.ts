@@ -13,14 +13,14 @@ export type PrimitiveResourceActions = {
     type: "RESOURCE_AGENT.LOAD.SUCCESS";
     payload: {
       apiAgentMetadata: ApiResponse<typeof getResourceAgentMetadata>;
-    }
+    };
   };
 
   LoadResourceAgentFailed: {
     type: "RESOURCE_AGENT.LOAD.FAILED";
     payload: {
       agentName: string;
-    }
+    };
   };
 
   UpdateInstanceAttributes: {
@@ -29,7 +29,7 @@ export type PrimitiveResourceActions = {
       clusterUrlName: string;
       resourceId: string;
       attributes: Record<string, string>;
-    }
+    };
   };
 
   UpdateInstanceAttributesSuccess: {

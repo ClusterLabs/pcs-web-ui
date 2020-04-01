@@ -39,14 +39,14 @@ export type LeafAction = (
 );
 
 export type SetupDataReading = {
-    type: "DATA_READING.SET_UP",
+    type: "DATA_READING.SET_UP";
     payload: Record<string, {
-      start: LeafAction,
-      stop: LeafAction,
-      specificator?: any,
-    }>,
+      start: LeafAction;
+      stop: LeafAction;
+      specificator?: string;
+    }>;
 }
 
 export type Action = LeafAction|SetupDataReading;
 
-export const actionType = (value: Action["type"]) => value;
+export const actionType = (value: Action["type"]): Action["type"] => value;

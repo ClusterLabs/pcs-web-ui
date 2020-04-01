@@ -21,9 +21,9 @@ export const ResourceTreeItemCompound = ({
   children,
 }: React.PropsWithChildren<{
   resourceId: string;
-  nestingDepth: number,
+  nestingDepth: number;
   status: types.cluster.ResourceStatus;
-  type: string,
+  type: string;
 }>) => {
   const dispatch = useDispatch();
   const expanded = useSelector(selectors.resourceTreeGetOpenedItems).includes(

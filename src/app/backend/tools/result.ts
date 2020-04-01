@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface Valid<T> {
   valid: true;
   errors: string[];

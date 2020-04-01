@@ -9,9 +9,9 @@ import { push } from "connected-react-router";
 import { PageToolbar } from "./PageToolbar";
 
 interface Props extends RouteComponentProps {
-  history: History,
-  showNavToggle?: boolean,
-  onNavToggle?: () => void,
+  history: History;
+  showNavToggle?: boolean;
+  onNavToggle?: () => void;
 }
 
 const PageHeaderComponent = (

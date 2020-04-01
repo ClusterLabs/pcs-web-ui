@@ -19,8 +19,8 @@ const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
 const Summary = ({ itemsCount, summaryStatus }: {
-  itemsCount: number,
-  summaryStatus: React.ComponentProps<typeof StatusIco>["status"],
+  itemsCount: number;
+  summaryStatus: React.ComponentProps<typeof StatusIco>["status"];
 }) => {
   if (summaryStatus === "OK") {
     return <>{itemsCount}</>;
@@ -34,7 +34,7 @@ const Summary = ({ itemsCount, summaryStatus }: {
 };
 
 export const DashboardCluster = ({ cluster }: {
-  cluster: types.dashboard.ClusterState,
+  cluster: types.dashboard.ClusterState;
 }) => {
   const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,

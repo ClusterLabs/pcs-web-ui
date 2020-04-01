@@ -5,8 +5,8 @@ import { StatusIco } from "./StatusIco";
 export const StatusSign = (
   { status, label = "", showOkIco = false }:
   React.ComponentProps<typeof StatusIco> & {
-    label?: string|JSX.Element,
-    showOkIco?: boolean,
+    label?: string|JSX.Element;
+    showOkIco?: boolean;
   },
 ) => (
   <div>

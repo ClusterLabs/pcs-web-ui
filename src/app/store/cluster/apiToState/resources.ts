@@ -55,11 +55,13 @@ export const filterPrimitive = (
   )
 );
 
-const isDisabled = (apiResource: ApiResourceBase) => apiResource.meta_attr.some(
-  apiMetaAttribute => (
-    apiMetaAttribute.name === "target-role"
+const isDisabled = (apiResource: ApiResourceBase): boolean => (
+  apiResource.meta_attr.some(
+    apiMetaAttribute => (
+      apiMetaAttribute.name === "target-role"
     &&
     apiMetaAttribute.value.toLowerCase() === "stopped"
+    ),
   )
 );
 
@@ -70,11 +72,11 @@ const buildPrimitiveStatuInfoList = (
 
   // warning
   if (apiPrimitive.crm_status.some(s => !s.managed)) {
-    infoList.push({ label: "UNMANAGED", severity: "WARNING" })
+    infoList.push({ label: "UNMANAGED", severity: "WARNING" });
   }
 
   if (isDisabled(apiPrimitive)) {
-    infoList.push({ label: "DISABLED", severity: "WARNING" })
+    infoList.push({ label: "DISABLED", severity: "WARNING" });
   }
 
   if (infoList.length > 0) {
@@ -108,7 +110,7 @@ const buildPrimitiveStatuInfoList = (
 
 const buildStatus = (statusInfoList: ResourceStatusInfo[]): ResourceStatus => {
   const maxSeverity = statusInfoList.reduce<StatusSeverity>(
-    (maxSeverity, info) =>  statusSeverity.max(maxSeverity, info.severity),
+    (severity, info) => statusSeverity.max(severity, info.severity),
     "OK",
   );
   return {
@@ -142,7 +144,6 @@ const buildGroupStatusInfoList = (
   apiGroup: ApiGroup,
   members: Primitive[],
 ): ResourceStatusInfo[] => {
-
   const infoList: ResourceStatusInfo[] = [];
   if (isDisabled(apiGroup)) {
     infoList.push({ label: "DISABLED", severity: "WARNING" });
@@ -154,40 +155,43 @@ const buildGroupStatusInfoList = (
   }
 
   const maxSeverity = members.reduce<StatusSeverity>(
-    (maxSeverity, primitive) =>  statusSeverity.max(
-      maxSeverity,
+    (severity, primitive) => statusSeverity.max(
+      severity,
       primitive.status.maxSeverity,
     ),
     "OK",
-  )
+  );
 
-  //TODO members should not be OK when group is disabled
+  // TODO members should not be OK when group is disabled
   if (maxSeverity === "OK") {
     infoList.push({ label: "RUNNING", severity: "OK" });
     return infoList;
   }
 
-  const counts: Record<string, number> = members.reduce<Record<string, number>>(
-    (counts, primitive) => {
-      primitive.status.infoList
-        .filter(info => info.severity === maxSeverity)
-        .map(info => info.label)
-        .forEach(label => {
-          counts[label] = label in counts ? counts[label] + 1 : 1;
-        })
-      ;
-      return counts;
-    },
-    {},
+  const labelCounts: Record<string, number> = (
+    members.reduce<Record<string, number>>(
+      (counts, primitive) => {
+        const nextCounts = { ...counts };
+        primitive.status.infoList
+          .filter(info => info.severity === maxSeverity)
+          .map(info => info.label)
+          .forEach((label) => {
+            nextCounts[label] = label in counts ? counts[label] + 1 : 1;
+          })
+        ;
+        return nextCounts;
+      },
+      {},
+    )
   );
 
-  if (Object.keys(counts).length === 0) {
+  if (Object.keys(labelCounts).length === 0) {
     infoList.push({ label: "UNKNOWN STATUS OF MEMBERS", severity: "WARNING" });
     return infoList;
   }
 
-  Object.keys(counts).forEach(label => infoList.push({
-    label: `${counts[label]}/${members.length} ${label}`,
+  Object.keys(labelCounts).forEach(label => infoList.push({
+    label: `${labelCounts[label]}/${members.length} ${label}`,
     severity: maxSeverity,
   }));
   return infoList;
@@ -214,7 +218,7 @@ const toGroup = (apiGroup: ApiGroup): Group|undefined => {
 
 const buildCloneStatusInfoList = (
   apiClone: ApiClone,
-): ResourceStatusInfo[]  => {
+): ResourceStatusInfo[] => {
   const infoList: ResourceStatusInfo[] = [{
     label: apiClone.status,
     severity: statusToSeverity(apiClone.status),
@@ -250,68 +254,70 @@ const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
   issueList: transformIssues(apiFenceDevice),
 });
 
+type AnalyzedResources = {
+  resourceTree: ResourceTreeItem[];
+  resourcesSeverity: StatusSeverity;
+  fenceDeviceList: FenceDevice[];
+  fenceDevicesSeverity: StatusSeverity;
+}
+
 export const analyzeApiResources = (
   apiResourceList: ApiResource[],
-) => apiResourceList.reduce<{
-    resourceTree: ResourceTreeItem[],
-    resourcesSeverity: StatusSeverity,
-    fenceDeviceList: FenceDevice[],
-    fenceDevicesSeverity: StatusSeverity,
-  }>(
-    (analyzed, apiResource) => {
-      const maxResourcesSeverity = () => statusSeverity.max(
-        analyzed.resourcesSeverity,
-        statusToSeverity(apiResource.status),
-      );
-      switch (apiResource.class_type) {
-        case "primitive":
-          if (apiResource.class === "stonith") {
-            return {
-              ...analyzed,
-              fenceDeviceList: [
-                ...analyzed.fenceDeviceList,
-                toFenceDevice(apiResource as ApiStonith),
-              ],
-              fenceDevicesSeverity: statusSeverity.max(
-                analyzed.fenceDevicesSeverity,
-                statusToSeverity(apiResource.status),
-              ),
-            };
-          }
+): AnalyzedResources => apiResourceList.reduce<AnalyzedResources>(
+  (analyzed, apiResource) => {
+    const maxResourcesSeverity = (): StatusSeverity => statusSeverity.max(
+      analyzed.resourcesSeverity,
+      statusToSeverity(apiResource.status),
+    );
+    switch (apiResource.class_type) {
+      case "primitive":
+        if (apiResource.class === "stonith") {
           return {
             ...analyzed,
-            resourceTree: [
-              ...analyzed.resourceTree,
-              toPrimitive(apiResource as ApiPrimitive),
+            fenceDeviceList: [
+              ...analyzed.fenceDeviceList,
+              toFenceDevice(apiResource as ApiStonith),
             ],
-            resourcesSeverity: maxResourcesSeverity(),
-          };
-
-        case "group": {
-          const group = toGroup(apiResource);
-          // don't care about group of stonith only...
-          return group === undefined ? analyzed : {
-            ...analyzed,
-            resourceTree: [...analyzed.resourceTree, group],
-            resourcesSeverity: maxResourcesSeverity(),
+            fenceDevicesSeverity: statusSeverity.max(
+              analyzed.fenceDevicesSeverity,
+              statusToSeverity(apiResource.status),
+            ),
           };
         }
+        return {
+          ...analyzed,
+          resourceTree: [
+            ...analyzed.resourceTree,
+            toPrimitive(apiResource as ApiPrimitive),
+          ],
+          resourcesSeverity: maxResourcesSeverity(),
+        };
 
-        case "clone": default: {
-          const clone = toClone(apiResource);
-          // don't care about clone with stonith only...
-          return clone === undefined ? analyzed : {
-            ...analyzed,
-            resourceTree: [...analyzed.resourceTree, clone],
-            resourcesSeverity: maxResourcesSeverity(),
-          };
-        }
+      case "group": {
+        const group = toGroup(apiResource);
+        // don't care about group of stonith only...
+        return group === undefined ? analyzed : {
+          ...analyzed,
+          resourceTree: [...analyzed.resourceTree, group],
+          resourcesSeverity: maxResourcesSeverity(),
+        };
       }
-    },
-    {
-      resourceTree: [],
-      resourcesSeverity: "OK",
-      fenceDeviceList: [],
-      fenceDevicesSeverity: "OK",
-    },
-  );
+
+      case "clone": default: {
+        const clone = toClone(apiResource);
+        // don't care about clone with stonith only...
+        return clone === undefined ? analyzed : {
+          ...analyzed,
+          resourceTree: [...analyzed.resourceTree, clone],
+          resourcesSeverity: maxResourcesSeverity(),
+        };
+      }
+    }
+  },
+  {
+    resourceTree: [],
+    resourcesSeverity: "OK",
+    fenceDeviceList: [],
+    fenceDevicesSeverity: "OK",
+  },
+);

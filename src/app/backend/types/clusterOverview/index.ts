@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import * as t from "io-ts";
 
 import { ApiResource as TApiResource } from "../clusterStatus";

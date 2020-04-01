@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 const captureStackTraceAlternative = (error: Error, message: string): void => {
   Object.defineProperty(error, "stack", {
     // enumerable: true,

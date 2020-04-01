@@ -46,7 +46,7 @@ export const AddClusterStepAuth = () => {
           id="add-cluster-node-name"
           name="node-name"
           value={nodeName}
-          onChange={(currentNodeName) => dispatch<Action>({
+          onChange={currentNodeName => dispatch<Action>({
             type: "ADD_CLUSTER.NODE_NAME.UPDATE",
             payload: { nodeName: currentNodeName },
           })}

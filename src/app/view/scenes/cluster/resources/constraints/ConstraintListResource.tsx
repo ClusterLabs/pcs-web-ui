@@ -18,7 +18,7 @@ import { ConstraintRowOrder } from "./ConstraintRowOrder";
 import { ConstraintRowTicket } from "./ConstraintRowTicket";
 
 export const ConstraintListResource = ({ resource }: {
-  resource: types.cluster.ResourceTreeItem,
+  resource: types.cluster.ResourceTreeItem;
 }) => {
   const constraintPacks = useSelector(
     selectors.resourceGetConstraints(resource),

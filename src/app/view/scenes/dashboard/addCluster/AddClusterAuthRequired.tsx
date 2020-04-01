@@ -17,9 +17,9 @@ import { types } from "app/store";
 
 export const AddClusterAuthRequired = (
   { nodeName, authenticationInProgress, authenticationError }: {
-    nodeName: types.addCluster.NodeName,
-    authenticationInProgress: boolean,
-    authenticationError: types.addCluster.StateError,
+    nodeName: types.addCluster.NodeName;
+    authenticationInProgress: boolean;
+    authenticationError: types.addCluster.StateError;
   },
 ) => {
   const [password, setPassword] = React.useState("");
@@ -57,7 +57,7 @@ export const AddClusterAuthRequired = (
           name="password"
           aria-describedby="Password for user 'hacluster' to authenticate nodes"
           value={password}
-          onChange={(value) => setPassword(value)}
+          onChange={value => setPassword(value)}
         />
       </FormGroup>
       <Switch
@@ -80,7 +80,7 @@ export const AddClusterAuthRequired = (
               name="address"
               aria-describedby="An address via which pcsd will communicate with the node"
               value={address}
-              onChange={(value) => setAddress(value)}
+              onChange={value => setAddress(value)}
             />
           </FormGroup>
           <FormGroup
@@ -94,7 +94,7 @@ export const AddClusterAuthRequired = (
               name="port"
               aria-describedby="A port via which pcsd will communicate with the node"
               value={port}
-              onChange={(value) => setPort(value)}
+              onChange={value => setPort(value)}
             />
           </FormGroup>
         </>

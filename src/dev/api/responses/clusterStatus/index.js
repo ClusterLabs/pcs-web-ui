@@ -4,7 +4,7 @@ const {
 const { resourceTree } = require("./resource-tree");
 const { resourcesForTest } = require("./resources-for-test");
 
-const clusterOk = (clusterName) => cluster(clusterName, "ok", {
+const clusterOk = clusterName => cluster(clusterName, "ok", {
   resource_list: [
     resource("R1"),
     stonith("F1"),

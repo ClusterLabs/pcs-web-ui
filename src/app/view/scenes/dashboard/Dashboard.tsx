@@ -38,7 +38,7 @@ const compareByColumn = (
 const { SortableTh } = Table;
 
 export const Dashboard = ({ dashboard }: {
-  dashboard: types.dashboard.DashboardState
+  dashboard: types.dashboard.DashboardState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (
@@ -84,7 +84,7 @@ export const Dashboard = ({ dashboard }: {
       </thead>
       {dashboard.clusterList
         .sort(compareItems(compareByColumn))
-        .map((cluster) => (
+        .map(cluster => (
           <DashboardCluster key={cluster.name} cluster={cluster} />
         ))}
     </Table>

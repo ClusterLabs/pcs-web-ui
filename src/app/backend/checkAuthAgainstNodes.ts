@@ -15,6 +15,7 @@ const ApiCheckAuthAgainstNodes = t.record(t.string, t.keyof({
   "Unable to authenticate": null,
 }));
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const validate = (nodeList: string[], response: any) => {
   let errors = validateShape(response, ApiCheckAuthAgainstNodes);
   if (errors.length > 0) {

@@ -3,18 +3,19 @@ import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 import { Tab, Tabs } from "@patternfly/react-core";
 
-export function UrlTabs<T extends {[key:string]: string}>(
-  { tabSettingsMap, currentTab, label="" }: {
-    tabSettingsMap: T,
-    currentTab: keyof T,
-    label?: string,
+export function UrlTabs<T extends {[key: string]: string}>(
+  { tabSettingsMap, currentTab, label = "" }: {
+    tabSettingsMap: T;
+    currentTab: keyof T;
+    label?: string;
   },
 ) {
   const dispatch = useDispatch();
-  const rest: Record<string, string> = {}
+  const rest: Record<string, string> = {};
   if (label.length > 0) {
     rest["aria-label"] = label;
   }
+  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <Tabs
       activeKey={currentTab as string}

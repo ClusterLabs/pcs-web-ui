@@ -26,18 +26,19 @@ export function* timer(action: Action) {
 }
 
 export interface DataLoadProps {
-  START: Action["type"],
-  STOP: Action["type"],
-  SUCCESS: Action["type"],
-  FAIL: Action["type"],
-  refreshAction: Action,
-  takeStartPayload: (payload: any) => void,
-  fetch: () => ForkEffect,
+  START: Action["type"];
+  STOP: Action["type"];
+  SUCCESS: Action["type"];
+  FAIL: Action["type"];
+  refreshAction: Action;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  takeStartPayload: (payload: any) => void;
+  fetch: () => ForkEffect;
 }
 
 interface LoadTasks {
-  fetch: Task | undefined,
-  timer: Task | undefined,
+  fetch: Task | undefined;
+  timer: Task | undefined;
 }
 
 export function* dataLoadManage({
@@ -103,7 +104,7 @@ export function* dataLoadManage({
 }
 
 export function* setUpDataReading() {
-  let stops: Record<string, { specificator?: any, stop: Action }> = {};
+  let stops: Record<string, { specificator?: any; stop: Action }> = {};
   const stop = (name: string) => put(stops[name].stop);
   const stopSpecificator = (name: string) => stops[name].specificator;
 

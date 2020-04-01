@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import * as t from "io-ts";
 
 import { getJson } from "./calls";
@@ -31,6 +30,7 @@ const ApiAgentMetadata = t.type({
   parameters: t.array(ApiAgentParameter),
 });
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const validate = (requestedAgentName: string, response: any) => {
   const errors = validateShape(response, ApiAgentMetadata);
   if (errors.length > 0) {
@@ -48,8 +48,8 @@ const validate = (requestedAgentName: string, response: any) => {
 type Result = t.TypeOf<typeof ApiAgentMetadata>;
 
 export const getResourceAgentMetadata: ApiCall<Result> = async (
-  clusterUrlName:string,
-  agentName:string,
+  clusterUrlName: string,
+  agentName: string,
 ) => {
   try {
     const raw = await getJson(

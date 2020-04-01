@@ -7,14 +7,16 @@ import { rootSaga } from "app/store/sagas";
 import { rootReducer } from "./rootState";
 
 /* global window */
-/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-underscore-dangle, @typescript-eslint/no-explicit-any */
 const composeMiddleware = (
   (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 );
 
 const sagaMiddleware = createSagaMiddleware();
 
-export const setupStore = (history: History) => {
+export const setupStore = (
+  history: History,
+): ReturnType<typeof createStore> => {
   const store = createStore(
     rootReducer(history),
     composeMiddleware(applyMiddleware(

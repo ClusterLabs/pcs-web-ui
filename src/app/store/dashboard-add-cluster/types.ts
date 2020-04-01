@@ -19,8 +19,8 @@ export type NodeName = string;
 export type StateError = string;
 
 export interface DashboardAddClusterPageState {
-  nodeName: NodeName,
-  stepAuthState: AUTH_STATE,
-  stepAddState: ADD_STATE,
-  stateError: StateError,
+  nodeName: NodeName;
+  stepAuthState: AUTH_STATE;
+  stepAddState: ADD_STATE;
+  stateError: StateError;
 }

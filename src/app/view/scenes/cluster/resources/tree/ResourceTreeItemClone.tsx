@@ -8,7 +8,7 @@ import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
 
 
 export const ResourceTreeItemClone = ({ clone }: {
-  clone: types.cluster.Clone,
+  clone: types.cluster.Clone;
 }) => {
   return (
     <ResourceTreeItemCompound

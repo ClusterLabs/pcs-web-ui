@@ -9,7 +9,7 @@ import {
 import { ApiClusterStatus, TApiClusterStatus } from "./types/clusterStatus";
 
 export const clusterStatus: ApiCall<ApiClusterStatus> = async (
-  clusterUrlName:string,
+  clusterUrlName: string,
 ) => {
   try {
     const raw = await getJson(

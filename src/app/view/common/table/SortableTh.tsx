@@ -9,9 +9,9 @@ import {
 type Direction = "asc" | "desc";
 
 interface SortState<COLUMN> {
-  column: COLUMN|"",
-  direction: Direction,
-  change: (c: COLUMN, d: Direction) => void,
+  column: COLUMN|"";
+  direction: Direction;
+  change: (c: COLUMN, d: Direction) => void;
 }
 
 function SortableTh<C extends string>(
@@ -22,9 +22,9 @@ function SortableTh<C extends string>(
     startDesc = false,
     ...rest
   }: React.PropsWithChildren<{
-    sortState: SortState<C>,
-    columnName: C,
-    startDesc?: boolean,
+    sortState: SortState<C>;
+    columnName: C;
+    startDesc?: boolean;
   }>,
 ) {
   const classNameList = ["pf-c-table__sort"];
@@ -85,6 +85,7 @@ function useSorting<COLUMN extends string>(
   const [column, setColumn] = React.useState(initialColumn);
   const [direction, setDirection] = React.useState(initialDirection);
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const compareItems = (
     compareByColumn: (column: COLUMN|"") => (a: any, b: any) => number,
   ) => {

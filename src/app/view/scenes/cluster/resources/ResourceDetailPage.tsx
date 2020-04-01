@@ -9,7 +9,7 @@ import { ClonePage } from "./clone";
 import { GroupPage } from "./group";
 import { PrimitivePage } from "./primitive";
 
-export const ResourceDetailPage = () => {
+export const ResourceDetailPage: React.FC<{}> = () => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
   const resourceTreeItem = useSelector(
     selectors.getSelectedResource(selectedItemUrlName),

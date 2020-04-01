@@ -9,8 +9,7 @@ export const PrimitiveAttrsFormItemLabel = ({ htmlFor, remoteValue }: {
       <label className="pf-c-radio__label" htmlFor={htmlFor}>
         {remoteValue.length > 0
           ? "Use the new value"
-          : "Keep the value removed"
-      }
+          : "Keep the value removed"}
       </label>
       {remoteValue.length > 0 && (
       <>

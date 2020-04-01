@@ -32,7 +32,7 @@ const compareByColumn = (
 const { SortableTh } = Table;
 
 export const DashboardFenceDeviceList = ({ fenceDeviceList }: {
-  fenceDeviceList: types.dashboard.FenceDevice[],
+  fenceDeviceList: types.dashboard.FenceDevice[];
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   if (fenceDeviceList.length === 0) {
@@ -60,7 +60,7 @@ export const DashboardFenceDeviceList = ({ fenceDeviceList }: {
       </thead>
       <tbody>
         {fenceDeviceList.sort(compareItems(compareByColumn)).map(
-          (fenceDevice) => (
+          fenceDevice => (
             <tr key={fenceDevice.id}>
               <td>{fenceDevice.id}</td>
               <td>

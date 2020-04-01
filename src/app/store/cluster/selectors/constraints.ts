@@ -10,10 +10,10 @@ import {
 } from "../types";
 
 type Pack = (
-  |{ type: "LOCATION", constraint: ConstraintLocation }
-  |{ type: "COLOCATION", constraint: ConstraintColocation }
-  |{ type: "ORDER", constraint: ConstraintOrder }
-  |{ type: "TICKET", constraint: ConstraintTicket }
+  |{ type: "LOCATION"; constraint: ConstraintLocation }
+  |{ type: "COLOCATION"; constraint: ConstraintColocation }
+  |{ type: "ORDER"; constraint: ConstraintOrder }
+  |{ type: "TICKET"; constraint: ConstraintTicket }
 );
 
 const setsContainId = (sets: ConstraintResourceSet[], id: string) => (

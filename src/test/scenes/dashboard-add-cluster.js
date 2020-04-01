@@ -10,7 +10,7 @@ const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 
 const WIZARD_SELECTOR = "[aria-label='Add cluster wizard']";
 const wizard = (selectors = "") => `${WIZARD_SELECTOR} ${selectors}`.trim();
-const wizardAria = (label) => wizard(`[aria-label="${label}"]`);
+const wizardAria = label => wizard(`[aria-label="${label}"]`);
 const checkAuthForm = (selectors = "") => (
   `${wizardAria("Check node authetication form")} ${selectors}`.trim()
 );
@@ -20,7 +20,7 @@ const pollyManager = getPollyManager(() => page());
 const isButtonNextDisabled = async () => {
   const isDisabled = await page().$eval(
     wizard("footer [type='submit']"),
-    (buttonNext) => buttonNext.attributes.disabled !== undefined,
+    buttonNext => buttonNext.attributes.disabled !== undefined,
   );
   return isDisabled;
 };

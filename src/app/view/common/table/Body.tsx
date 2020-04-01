@@ -2,7 +2,7 @@ import React from "react";
 
 export const Body = (
   { children, isExpanded = false, ...rest }:
-    React.PropsWithChildren<{ isExpanded: boolean, }>
+    React.PropsWithChildren<{ isExpanded: boolean }>
   ,
 ) => {
   const classNameList = [];

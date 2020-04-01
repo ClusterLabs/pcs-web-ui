@@ -30,7 +30,7 @@ describe("Resource tree", () => {
     await page().waitFor(RESOURCE_LIST_SELECTOR);
     const topLevelResources = await page().$$eval(
       `${RESOURCE_LIST_SELECTOR} [aria-label^='Resource item ']`,
-      (resourceElements) => resourceElements.map((e) => ({
+      resourceElements => resourceElements.map(e => ({
         id: e.querySelector("[aria-label='Resource name']").textContent,
         type: e.querySelector("[aria-label='Resource type']").textContent,
       })),
@@ -54,7 +54,7 @@ describe("Resource tree", () => {
 
     const topLevelResources = await page().$$eval(
       `${RESOURCE_LIST_SELECTOR} [aria-label^='Resource item ']`,
-      (resourceElements) => resourceElements.map((e) => ({
+      resourceElements => resourceElements.map(e => ({
         id: e.querySelector("[aria-label='Resource name']").textContent,
         type: e.querySelector("[aria-label='Resource type']").textContent,
       })),

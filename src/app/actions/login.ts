@@ -1,25 +1,25 @@
 export type LoginActions = {
   LoginFailed: {
-    type: "LOGIN.FAILED",
+    type: "LOGIN.FAILED";
     payload: {
-      badCredentials: boolean,
-      message: string,
-    }
+      badCredentials: boolean;
+      message: string;
+    };
   };
 
   EnterCredentials: {
-    type: "ENTER_CREDENTIALS",
+    type: "ENTER_CREDENTIALS";
     payload: {
-      username: string,
-      password: string,
-    }
+      username: string;
+      password: string;
+    };
   };
 
   Logout: {
-    type: "LOGOUT",
+    type: "LOGOUT";
   };
 
   LogoutSuccess: {
-    type: "LOGOUT.SUCCESS",
+    type: "LOGOUT.SUCCESS";
   };
 }
