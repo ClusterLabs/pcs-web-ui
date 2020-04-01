@@ -186,10 +186,11 @@ const buildGroupStatusInfoList = (
     return infoList;
   }
 
-  return Object.keys(counts).map(label => ({
+  Object.keys(counts).forEach(label => infoList.push({
     label: `${counts[label]}/${members.length} ${label}`,
     severity: maxSeverity,
   }));
+  return infoList;
 };
 
 const toGroup = (apiGroup: ApiGroup): Group|undefined => {

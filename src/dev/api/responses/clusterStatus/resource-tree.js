@@ -74,34 +74,44 @@ const resourceTree = cluster("resourceTree", "ok", {
         }),
       ],
     }),
-    group("GROUP-1", [
-      resource("B", {
-        status: "disabled",
+    group(
+      "GROUP-1",
+      [
+        resource("B", {
+          status: "disabled",
+          meta_attr: [{
+            id: "B-target-role-stopped",
+            name: "target-role",
+            value: "Stopped",
+          }],
+        }),
+        resource("C", {
+          status: "disabled",
+          meta_attr: [{
+            id: "C-target-role-stopped",
+            name: "target-role",
+            value: "Stopped",
+          }],
+          crm_status: [
+            resourceStatus("C", {
+              managed: false,
+            }),
+          ],
+        }),
+        resource("C2", {
+          crm_status: [
+            resourceStatus("C2-ok"),
+          ],
+        }),
+      ],
+      {
         meta_attr: [{
-          id: "B-target-role-stopped",
+          id: "GROUP-1-target-role-stopped",
           name: "target-role",
           value: "Stopped",
         }],
-      }),
-      resource("C", {
-        status: "disabled",
-        meta_attr: [{
-          id: "C-target-role-stopped",
-          name: "target-role",
-          value: "Stopped",
-        }],
-        crm_status: [
-          resourceStatus("C", {
-            managed: false,
-          }),
-        ],
-      }),
-      resource("C2", {
-        crm_status: [
-          resourceStatus("C2-ok"),
-        ],
-      }),
-    ]),
+      },
+    ),
     clone(
       "Clone-1",
       group(
