@@ -1,9 +1,9 @@
 import {
-  global_success_color_200 as successColor,
   global_danger_color_100 as dangerColor,
+  global_danger_color_100 as dangerColorLight,
+  global_success_color_200 as successColor,
   global_disabled_color_100 as unknownColor,
   global_warning_color_200 as warningColor,
-  global_danger_color_100 as dangerColorLight,
   global_warning_color_100 as warningColorLight,
 } from "@patternfly/react-tokens";
 

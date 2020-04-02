@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -34,18 +36,22 @@ html, body, #root {
   right: 10px;
   z-index: 100;
   width: 350px;
-  maxWidt: 400px;
+  maxwidt: 400px;
   margin: auto;
 }
-#notifications .notification-item{
+#notifications .notification-item {
   margin-bottom: 10px;
 }
 
 /* SPINNER -------------------------------------------------------------------*/
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* TREE-DETAIL VIEW ----------------------------------------------------------*/
@@ -89,7 +95,6 @@ html, body, #root {
   max-height: calc(100% + var(--pf-c-page__main-section--PaddingBottom));
 }
 
-
 /* RESOURC TREE --------------------------------------------------------------*/
 .ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__item-row {
   --pf-c-data-list__item-action--MarginLeft: var(--pf-global--spacer--md);
@@ -100,7 +105,10 @@ html, body, #root {
 .ha-c-tree-view.pf-c-data-list,
 .ha-c-tree-view .pf-c-data-list {
   --pf-c-data-list__item-control--MarginRight: var(--pf-global--spacer--md);
-  --ha-c-data-list__toggle--TotalWidth: calc(1em + var(--pf-c-data-list__item-control--MarginRight) + (var(--pf-global--spacer--md)));
+  --ha-c-data-list__toggle--TotalWidth: calc(
+    1em + var(--pf-c-data-list__item-control--MarginRight) +
+      (var(--pf-global--spacer--md))
+  );
 } /* The second variable creates the spacing needed to indent the toggle by one level 
      (i.e. the variable represents the size of one toggle, and therefore the size of the indentation)
      The md spacer occurs twice for button padding, one on left and one on right, but
@@ -112,7 +120,7 @@ html, body, #root {
   padding-left: var(--ha-c-data-list__toggle--TotalWidth);
 }
 [data-level="2"] .pf-c-data-list__toggle {
-  padding-left: calc(var(--ha-c-data-list__toggle--TotalWidth) *2);
+  padding-left: calc(var(--ha-c-data-list__toggle--TotalWidth) * 2);
 }
 .pf-c-data-list[data-level] {
   margin-left: var(--pf-global--spacer--md);
@@ -121,7 +129,8 @@ html, body, #root {
 }
 
 .ha-c-tree-view .pf-c-data-list__toggle {
-  border-right: var(--pf-global--BorderWidth--sm) solid var(--pf-c-data-list__item-item--BorderTopColor);
+  border-right: var(--pf-global--BorderWidth--sm) solid
+    var(--pf-c-data-list__item-item--BorderTopColor);
 }
 
 /* expand buttons are included for all nodes, but only visible for nodes with children */
@@ -180,7 +189,9 @@ html, body, #root {
 .ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__cell {
   padding-bottom: var(--pf-global--spacer--xs);
 }
-.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__cell + .pf-c-data-list__cell {
+.ha-c-tree-view:not(.ha-m-full-width)
+  .pf-c-data-list__cell
+  + .pf-c-data-list__cell {
   margin-left: 0;
 }
 .ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__cell:last-child {
@@ -194,23 +205,23 @@ html, body, #root {
 .ha-c-tree-view:not(.ha-m-full-width) .ha-c-data-list__item-status svg + * {
   position: fixed;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
 } /* These property styles hide the text description of the status svg icon from the screen, */
 /* but keep contents accessible to assistive technology */
 
 /* Composite Status component */
 .ha-u-status-danger {
-  color: var(--pf-global--danger-color--100)
+  color: var(--pf-global--danger-color--100);
 }
 .ha-u-status-warning {
-  color: var(--pf-global--warning-color--100)
+  color: var(--pf-global--warning-color--100);
 }
 .ha-u-status-success {
-  color: var(--pf-global--success-color--100)
+  color: var(--pf-global--success-color--100);
 }
 .ha-u-status-unknown {
-  color: var(--pf-global--icon--Color--light)
+  color: var(--pf-global--icon--Color--light);
 }
 
 /* Attributes form - radio button spacing */

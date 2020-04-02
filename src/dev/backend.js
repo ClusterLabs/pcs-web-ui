@@ -6,20 +6,23 @@ const childProcess = require("child_process");
 const inquirer = require("inquirer");
 const { argv } = require("yargs")
   .string("scenario")
-  .number("delay").default("delay", 400)
-;
+  .number("delay")
+  .default("delay", 400);
 
 const SCENARIO_DIR = `${__dirname}/scenarios`;
 
-const getScenarios = () => fs.readdirSync(SCENARIO_DIR).reduce(
-  (scenarioList, fileName) => [
-    ...scenarioList,
-    ...Object.keys(require(`${SCENARIO_DIR}/${fileName}`)).map(scenario => (
-      `${fileName.replace(/\.[^/.]+$/, "")}.${scenario}`
-    )),
-  ],
-  [],
-);
+const getScenarios = () =>
+  fs
+    .readdirSync(SCENARIO_DIR)
+    .reduce(
+      (scenarioList, fileName) => [
+        ...scenarioList,
+        ...Object.keys(require(`${SCENARIO_DIR}/${fileName}`)).map(
+          scenario => `${fileName.replace(/\.[^/.]+$/, "")}.${scenario}`,
+        ),
+      ],
+      [],
+    );
 
 class Scenario {
   /* eslint-disable no-underscore-dangle */
@@ -63,27 +66,28 @@ const runServer = (scenarioName) => {
   );
 };
 
-const promptScenario = () => inquirer
-  .prompt([{
-    type: "list",
-    name: "scenario",
-    message: "Please select scenario",
-    choices: getScenarios(),
-  }])
-  .then(answers => answers.scenario)
-  .then(runServer)
-  .catch(() => { process.exit(0); })
-;
-
+const promptScenario = () =>
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "scenario",
+        message: "Please select scenario",
+        choices: getScenarios(),
+      },
+    ])
+    .then(answers => answers.scenario)
+    .then(runServer)
+    .catch(() => {
+      process.exit(0);
+    });
 const addAppHandlers = (app, scenarioHandlers, delay) => {
   scenarioHandlers.forEach(({
     method, url, middleParams, handler,
   }) => {
-    app[method.toLowerCase()](
-      url,
-      ...(middleParams || []),
-      (req, res) => { setTimeout(() => handler(req, res), delay); },
-    );
+    app[method.toLowerCase()](url, ...(middleParams || []), (req, res) => {
+      setTimeout(() => handler(req, res), delay);
+    });
   });
 };
 

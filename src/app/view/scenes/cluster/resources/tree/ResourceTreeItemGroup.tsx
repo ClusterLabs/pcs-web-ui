@@ -4,7 +4,10 @@ import { types } from "app/store";
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
 
-export const ResourceTreeItemGroup = ({ group, nestedLevel = 0 }: {
+export const ResourceTreeItemGroup = ({
+  group,
+  nestedLevel = 0,
+}: {
   group: types.cluster.Group;
   nestedLevel?: number;
 }) => (

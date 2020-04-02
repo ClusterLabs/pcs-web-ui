@@ -72,4 +72,4 @@ export type AddClusterActions = {
     type: "ADD_CLUSTER.NODE_NAME.UPDATE";
     payload: { nodeName: string };
   };
-}
+};

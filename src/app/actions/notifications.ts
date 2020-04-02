@@ -4,7 +4,7 @@ export type NotificationActions = {
     payload: {
       notification: {
         id: number;
-        severity: "INFO"|"SUCCESS"|"ERROR";
+        severity: "INFO" | "SUCCESS" | "ERROR";
         message: string;
       };
     };
@@ -16,4 +16,4 @@ export type NotificationActions = {
       id: number;
     };
   };
-}
+};

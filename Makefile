@@ -92,4 +92,7 @@ endif
 lint:
 	npx eslint --fix --ext .js,.ts,.tsx src/
 
+fmt:
+	npx prettier-eslint "$(PWD)/src/**/*.*" --write
+
 .PHONY: test build

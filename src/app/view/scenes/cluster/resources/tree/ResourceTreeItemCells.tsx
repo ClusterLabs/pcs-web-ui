@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  DataListItemCells,
-  DataListCell,
-} from "@patternfly/react-core";
+import { DataListCell, DataListItemCells } from "@patternfly/react-core";
 
 import { types } from "app/store";
 

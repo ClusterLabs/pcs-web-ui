@@ -1,10 +1,10 @@
 import * as t from "io-ts";
 
 import {
-  TApiClusterStatusFlag as ApiClusterStatusFlag,
-  TApiWithIssues as ApiWithIssues,
-  TApiResource as ApiResource,
   TApiClusterName as ApiClusterName,
+  TApiClusterStatusFlag as ApiClusterStatusFlag,
+  TApiResource as ApiResource,
+  TApiWithIssues as ApiWithIssues,
 } from "../clusterStatus";
 
 import { ApiNode } from "./nodes";

@@ -5,8 +5,8 @@ import { postForJson } from "./calls";
 import {
   ApiCall,
   createResult,
-  validateShape,
   validateSameNodes,
+  validateShape,
 } from "./tools";
 
 const ApiAuthGuiAgainstNodes = t.type({
@@ -27,17 +27,19 @@ const validate = (nodeList: string[], response: any) => {
 type Result = t.TypeOf<typeof ApiAuthGuiAgainstNodes>;
 
 export const authGuiAgainstNodes: ApiCall<Result> = async (
-  nodeMap: Record<string, {
-    password: string;
-    dest_list: {
-      addr: string;
-      port: string;
-    }[];
-  }>,
+  nodeMap: Record<
+    string,
+    {
+      password: string;
+      dest_list: {
+        addr: string;
+        port: string;
+      }[];
+    }
+  >,
 ) => {
-  const raw = await postForJson(
-    "/manage/auth_gui_against_nodes",
-    [["data_json", JSON.stringify({ nodes: nodeMap })]],
-  );
+  const raw = await postForJson("/manage/auth_gui_against_nodes", [
+    ["data_json", JSON.stringify({ nodes: nodeMap })],
+  ]);
   return createResult<Result>(raw, validate(Object.keys(nodeMap), raw));
 };

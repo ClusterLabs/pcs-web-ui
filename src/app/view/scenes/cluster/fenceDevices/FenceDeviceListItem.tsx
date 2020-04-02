@@ -1,9 +1,9 @@
 import React from "react";
 import {
+  DataListCell,
   DataListItem,
   DataListItemCells,
   DataListItemRow,
-  DataListCell,
 } from "@patternfly/react-core";
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,9 @@ import { types } from "app/store";
 import { StatusSign, useGroupDetailViewContext } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
-export const FenceDeviceListItem = ({ fenceDevice }: {
+export const FenceDeviceListItem = ({
+  fenceDevice,
+}: {
   fenceDevice: types.cluster.FenceDevice;
 }) => {
   const { urlPrefix } = useGroupDetailViewContext();
@@ -19,7 +21,7 @@ export const FenceDeviceListItem = ({ fenceDevice }: {
     <DataListItem aria-labelledby={fenceDevice.id}>
       <DataListItemRow>
         <DataListItemCells
-          dataListCells={(
+          dataListCells={
             <>
               <DataListCell>
                 <Link
@@ -41,7 +43,7 @@ export const FenceDeviceListItem = ({ fenceDevice }: {
                 />
               </DataListCell>
             </>
-        )}
+          }
         />
       </DataListItemRow>
     </DataListItem>

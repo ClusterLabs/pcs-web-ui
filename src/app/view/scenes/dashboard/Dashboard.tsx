@@ -6,38 +6,47 @@ import { Table } from "app/view/common";
 import { compareStatusSeverity, compareStrings } from "./utils";
 import { DashboardCluster } from "./DashboardCluster";
 
-
-type COLUMNS = "NAME"|"ISSUES"|"NODES"|"RESOURCES"|"FENCE_DEVICES";
+type COLUMNS = "NAME" | "ISSUES" | "NODES" | "RESOURCES" | "FENCE_DEVICES";
 
 const compareByColumn = (
-  column: COLUMNS|"",
-): (
-  (a: types.dashboard.ClusterState, b: types.dashboard.ClusterState) => number
+  column: COLUMNS | "",
+): ((
+  a: types.dashboard.ClusterState,
+  b: types.dashboard.ClusterState,
+) => number
 ) => {
   switch (column) {
-    case "ISSUES": return (a, b) => compareStatusSeverity(
-      a.summary.issuesSeverity,
-      b.summary.issuesSeverity,
-    );
-    case "NODES": return (a, b) => compareStatusSeverity(
-      a.summary.nodesSeverity,
-      b.summary.nodesSeverity,
-    );
-    case "RESOURCES": return (a, b) => compareStatusSeverity(
-      a.summary.resourcesSeverity,
-      b.summary.resourcesSeverity,
-    );
-    case "FENCE_DEVICES": return (a, b) => compareStatusSeverity(
-      a.summary.fenceDevicesSeverity,
-      b.summary.fenceDevicesSeverity,
-    );
-    default: return (a, b) => compareStrings(a.name, b.name);
+    case "ISSUES":
+      return (a, b) =>
+        compareStatusSeverity(
+          a.summary.issuesSeverity,
+          b.summary.issuesSeverity,
+        );
+    case "NODES":
+      return (a, b) =>
+        compareStatusSeverity(a.summary.nodesSeverity, b.summary.nodesSeverity);
+    case "RESOURCES":
+      return (a, b) =>
+        compareStatusSeverity(
+          a.summary.resourcesSeverity,
+          b.summary.resourcesSeverity,
+        );
+    case "FENCE_DEVICES":
+      return (a, b) =>
+        compareStatusSeverity(
+          a.summary.fenceDevicesSeverity,
+          b.summary.fenceDevicesSeverity,
+        );
+    default:
+      return (a, b) => compareStrings(a.name, b.name);
   }
 };
 
 const { SortableTh } = Table;
 
-export const Dashboard = ({ dashboard }: {
+export const Dashboard = ({
+  dashboard,
+}: {
   dashboard: types.dashboard.DashboardState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");

@@ -7,8 +7,8 @@ import { StatusIco } from "./StatusIco";
 import { UrlTabs } from "./UrlTabs";
 import {
   DetailLayout,
-  useGroupDetailViewContext,
   GroupDetailView,
+  useGroupDetailViewContext,
 } from "./clusterGroupDetail";
 import { ResourceDetailCaption } from "./ResourceDetailCaption";
 import { IssueList } from "./IsueList";

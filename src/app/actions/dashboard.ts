@@ -1,4 +1,4 @@
-import { clustersOverview, ApiResponse } from "app/backend";
+import { ApiResponse, clustersOverview } from "app/backend";
 
 export type DashboardActions = {
   FetchDashboardDataSuccess: {
@@ -15,4 +15,4 @@ export type DashboardActions = {
   SyncDashboardData: { type: "DASHBOARD_DATA.SYNC" };
 
   SyncDashboardDataStop: { type: "DASHBOARD_DATA.SYNC.STOP" };
-}
+};

@@ -9,12 +9,12 @@ const openedItems: Reducer<ResourceTreeState["openedItems"], Action> = (
   action,
 ) => {
   switch (action.type) {
-    case "RESOURCE_TREE.ITEM.TOGGLE": return (
-      state.includes(action.payload.itemId)
+    case "RESOURCE_TREE.ITEM.TOGGLE":
+      return state.includes(action.payload.itemId)
         ? state.filter(id => id !== action.payload.itemId)
-        : [...state, action.payload.itemId]
-    );
-    default: return state;
+        : [...state, action.payload.itemId];
+    default:
+      return state;
   }
 };
 

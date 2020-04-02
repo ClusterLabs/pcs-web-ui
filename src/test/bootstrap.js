@@ -1,16 +1,11 @@
 const puppeteer = require("puppeteer");
 const {
-  setPage,
-  browser,
-  browserSetUp,
-  browserTearDown,
+  setPage, browser, browserSetUp, browserTearDown,
 } = require("./store");
 
 const puppeteerOptions = {
   headless: true,
-  args: [
-    "--auto-open-devtools-for-tabs",
-  ],
+  args: ["--auto-open-devtools-for-tabs"],
   defaultViewport: {
     width: 1200,
     height: 800,

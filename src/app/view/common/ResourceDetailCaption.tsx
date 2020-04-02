@@ -1,6 +1,9 @@
 import React from "react";
 
-export const ResourceDetailCaption = ({ resourceId, type }: {
+export const ResourceDetailCaption = ({
+  resourceId,
+  type,
+}: {
   resourceId: string;
   type: string;
 }) => (

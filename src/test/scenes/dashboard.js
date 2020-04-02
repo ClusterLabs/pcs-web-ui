@@ -7,23 +7,20 @@ const { url, link } = require("test/tools/backendAddress");
 const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 
-
 const CLUSTERS_SELECTOR = "[aria-label='Cluster list'] [aria-label^='Cluster']";
-const clusterOk = (selectors = "") => (
-  `${CLUSTERS_SELECTOR}[aria-label$='ok'] ${selectors}`.trim()
-);
-const clusterError = (selectors = "") => (
-  `${CLUSTERS_SELECTOR}[aria-label$='error'] ${selectors}`.trim()
-);
+const clusterOk = (selectors = "") =>
+  `${CLUSTERS_SELECTOR}[aria-label$='ok'] ${selectors}`.trim();
+const clusterError = (selectors = "") =>
+  `${CLUSTERS_SELECTOR}[aria-label$='error'] ${selectors}`.trim();
 
 const pollyManager = getPollyManager(() => page());
 
 const scenarios = {
   simpleCluster: [
     endpoints.clustersOverview((req, res) => {
-      res.json(responses.clustersOverview.withClusters([
-        responses.clusterStatus.ok,
-      ]));
+      res.json(
+        responses.clustersOverview.withClusters([responses.clusterStatus.ok]),
+      );
     }),
     endpoints.clusterStatus((req, res) => {
       res.json(responses.clusterStatus.ok);
@@ -31,16 +28,20 @@ const scenarios = {
   ],
   multipleCluster: [
     endpoints.clustersOverview((req, res) => {
-      res.json(responses.clustersOverview.withClusters([
-        responses.clusterStatus.ok,
-        responses.clusterStatus.error,
-      ]));
+      res.json(
+        responses.clustersOverview.withClusters([
+          responses.clusterStatus.ok,
+          responses.clusterStatus.error,
+        ]),
+      );
     }),
   ],
 };
 
 describe("Dashboard scene", () => {
-  afterEach(async () => { await pollyManager().stop(); });
+  afterEach(async () => {
+    await pollyManager().stop();
+  });
 
   it("should render multiple cluster information", async () => {
     pollyManager().reset(scenarios.multipleCluster);
@@ -50,32 +51,32 @@ describe("Dashboard scene", () => {
 
     const clusterInfoList = await page().$$eval(
       CLUSTERS_SELECTOR,
-      clusterElements => clusterElements.map(e => ({
-        name: e.querySelector("[data-label='name']").textContent,
-        link: e.querySelector("[data-label='name'] a").attributes.href.value,
-        issuesTotal: e.querySelector("[data-label='issues']").textContent,
-        nodesTotal: e.querySelector("[data-label='nodes']").textContent,
-        resourcesTotal: e.querySelector("[data-label='resources']").textContent,
-        fenceDevicesTotal: e.querySelector("[data-label='fence-devices']")
-          .textContent
-        ,
-
-      })),
+      clusterElements =>
+        clusterElements.map(e => ({
+          name: e.querySelector("[data-label='name']").textContent,
+          link: e.querySelector("[data-label='name'] a").attributes.href.value,
+          issuesTotal: e.querySelector("[data-label='issues']").textContent,
+          nodesTotal: e.querySelector("[data-label='nodes']").textContent,
+          resourcesTotal: e.querySelector("[data-label='resources']")
+            .textContent,
+          fenceDevicesTotal: e.querySelector("[data-label='fence-devices']")
+            .textContent,
+        })),
     );
 
     const response2Info = response => ({
       name: response.cluster_name,
       link: link(`/cluster/${response.cluster_name}`),
-      issuesTotal: (response.error_list.length + response.warning_list.length)
-        .toString()
-      ,
+      issuesTotal: (
+        response.error_list.length + response.warning_list.length
+      ).toString(),
       nodesTotal: response.node_list.length.toString(),
-      resourcesTotal: response.resource_list.filter(r => !r.stonith).length
-        .toString()
-      ,
-      fenceDevicesTotal: response.resource_list.filter(r => r.stonith).length
-        .toString()
-      ,
+      resourcesTotal: response.resource_list
+        .filter(r => !r.stonith)
+        .length.toString(),
+      fenceDevicesTotal: response.resource_list
+        .filter(r => r.stonith)
+        .length.toString(),
     });
 
     expect(clusterInfoList).to.eql([
@@ -93,19 +94,22 @@ describe("Dashboard scene", () => {
 
     const issues = await page().$$eval(
       clusterError("[aria-label='Issues status']"),
-      issuesBoxes => issuesBoxes.map(e => ({
-        alerts: Array.from(e.querySelectorAll("[aria-label='cluster issue']>*"))
-          .map(ae => ae.textContent)
-        ,
-      })),
+      issuesBoxes =>
+        issuesBoxes.map(e => ({
+          alerts: Array.from(
+            e.querySelectorAll("[aria-label='cluster issue']>*"),
+          ).map(ae => ae.textContent),
+        })),
     );
-    expect(issues).to.eql([{
-      alerts: [
-        "Danger alert:Unable to connect to the cluster.",
-        "Warning alert:No fencing configured in the cluster",
-        "Warning alert:Not authorized against node(s) node-3",
-      ],
-    }]);
+    expect(issues).to.eql([
+      {
+        alerts: [
+          "Danger alert:Unable to connect to the cluster.",
+          "Warning alert:No fencing configured in the cluster",
+          "Warning alert:Not authorized against node(s) node-3",
+        ],
+      },
+    ]);
   });
 
   it("should allow to display empty cluster issues", async () => {
@@ -121,9 +125,8 @@ describe("Dashboard scene", () => {
   it("should allow to add existing cluster", async () => {
     pollyManager().reset(scenarios.simpleCluster);
 
-    const actionSelector = (
-      "[aria-label='Dashboard toolbar'] [aria-label='Add cluster']"
-    );
+    const actionSelector =
+      "[aria-label='Dashboard toolbar'] [aria-label='Add cluster']";
     await page().goto(url());
     await page().waitFor(actionSelector);
     await page().click(actionSelector);

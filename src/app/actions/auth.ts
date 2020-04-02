@@ -7,4 +7,4 @@ export type AuthActions = {
       username: string;
     };
   };
-}
+};

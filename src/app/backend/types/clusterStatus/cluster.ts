@@ -7,9 +7,9 @@ import { ApiConstraints } from "./constraints";
 import { ApiResource } from "./resources";
 import { ApiResourceId } from "./common";
 import {
-  ApiNodeName,
   ApiNode,
   ApiNodeAttributes,
+  ApiNodeName,
   ApiNodesUtilization,
 } from "./nodes";
 
@@ -17,10 +17,13 @@ import {
 datasource: /cib/configuration/fencing-topology/fencing-level
 The key of record is a target.
 */
-const ApiFencingLevels = t.record(t.string, t.type({
-  level: t.string,
-  devices: t.array(t.string),
-}));
+const ApiFencingLevels = t.record(
+  t.string,
+  t.type({
+    level: t.string,
+    devices: t.array(t.string),
+  }),
+);
 
 export const ApiClusterStatusFlag = t.keyof({
   unknown: null,
@@ -28,7 +31,6 @@ export const ApiClusterStatusFlag = t.keyof({
   warning: null,
   error: null,
 });
-
 
 /*
 datasource: /cib/configuration/crm_config//nvpair

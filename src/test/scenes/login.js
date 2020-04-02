@@ -11,11 +11,12 @@ const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 const pollyManager = getPollyManager(() => page());
 
 describe("Login scene", () => {
-  const loginForm = (selectors = "") => (
-    `[aria-label="Login form"] ${selectors}`.trim()
-  );
+  const loginForm = (selectors = "") =>
+    `[aria-label="Login form"] ${selectors}`.trim();
 
-  afterEach(async () => { await pollyManager().stop(); });
+  afterEach(async () => {
+    await pollyManager().stop();
+  });
 
   it("should be rendered and can send credentials", async () => {
     pollyManager().reset([
@@ -42,7 +43,9 @@ describe("Logout", () => {
   const MENU_SELECTOR = '[aria-label="User menu"]';
   const LOGOUT_SELECTOR = '[aria-label="Logout action"]';
 
-  afterEach(async () => { await pollyManager().stop(); });
+  afterEach(async () => {
+    await pollyManager().stop();
+  });
 
   it("should call logout on backend after click", async () => {
     pollyManager().reset([

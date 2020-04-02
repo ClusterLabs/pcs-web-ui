@@ -3,13 +3,15 @@ import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 import { Tab, Tabs } from "@patternfly/react-core";
 
-export function UrlTabs<T extends {[key: string]: string}>(
-  { tabSettingsMap, currentTab, label = "" }: {
-    tabSettingsMap: T;
-    currentTab: keyof T;
-    label?: string;
-  },
-) {
+export function UrlTabs<T extends { [key: string]: string }>({
+  tabSettingsMap,
+  currentTab,
+  label = "",
+}: {
+  tabSettingsMap: T;
+  currentTab: keyof T;
+  label?: string;
+}) {
   const dispatch = useDispatch();
   const rest: Record<string, string> = {};
   if (label.length > 0) {
@@ -28,11 +30,7 @@ export function UrlTabs<T extends {[key: string]: string}>(
       {...rest}
     >
       {Object.keys(tabSettingsMap).map(key => (
-        <Tab
-          key={key}
-          eventKey={key}
-          title={key}
-        />
+        <Tab key={key} eventKey={key} title={key} />
       ))}
     </Tabs>
   );

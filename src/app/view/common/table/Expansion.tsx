@@ -3,7 +3,9 @@ import React from "react";
 import { ExpansionToggle } from "./ExpansionToggle";
 import { ExpandedContent } from "./ExpandedContent";
 
-const useExpansion = ({ contentSpan }: React.PropsWithChildren<{
+const useExpansion = ({
+  contentSpan,
+}: React.PropsWithChildren<{
   contentSpan: number;
 }>) => {
   const [expanded, setExpanded] = React.useState("");
@@ -24,11 +26,10 @@ const useExpansion = ({ contentSpan }: React.PropsWithChildren<{
   );
 
   const Content = React.useCallback(
-    ({ expandKey, children }) => (expanded !== expandKey ? null : (
-      <ExpandedContent colSpan={contentSpan}>
-        {children}
-      </ExpandedContent>
-    )),
+    ({ expandKey, children }) =>
+      (expanded !== expandKey ? null : (
+        <ExpandedContent colSpan={contentSpan}>{children}</ExpandedContent>
+      )),
     [expanded, contentSpan],
   );
 

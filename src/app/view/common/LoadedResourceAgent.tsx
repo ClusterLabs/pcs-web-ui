@@ -9,12 +9,15 @@ import {
 } from "@patternfly/react-core";
 import { ExclamationCircleIcon } from "@patternfly/react-icons";
 
-import { types, selectors } from "app/store";
+import { selectors, types } from "app/store";
 
 // import { Spinner } from "./Spinner";
 import * as pallete from "./pallete";
 
-export const LoadedResourceAgent = ({ agentName, children }: {
+export const LoadedResourceAgent = ({
+  agentName,
+  children,
+}: {
   agentName: string;
   children: (ra: types.resourceAgents.ResourceAgentMetadata) => JSX.Element;
 }) => {
@@ -37,9 +40,7 @@ export const LoadedResourceAgent = ({ agentName, children }: {
   return (
     <EmptyState style={{ margin: "auto" }}>
       <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
-      <Title size="lg">
-        Cannot load data
-      </Title>
+      <Title size="lg">Cannot load data</Title>
       <EmptyStateBody>
         {`Cannot load metadata of resource agent "${agentName}"`}
       </EmptyStateBody>

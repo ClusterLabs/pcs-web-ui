@@ -1,12 +1,8 @@
-import { combineReducers, Reducer } from "redux";
+import { Reducer, combineReducers } from "redux";
 
 import { Action } from "app/actions";
 
-import {
-  DashboardState,
-  DashboardPageState,
-  FETCH_STATUS,
-} from "./types";
+import { DashboardPageState, DashboardState, FETCH_STATUS } from "./types";
 import { overviewApiToState } from "./overviewApiToState";
 
 const dashboardStateDefault: DashboardState = {
@@ -20,8 +16,10 @@ const dashboardState: Reducer<DashboardState, Action> = (
   switch (action.type) {
     case "DASHBOARD_DATA.FETCH.SUCCESS":
       return overviewApiToState(action.payload.apiClusterOverview);
-    case "AUTH.REQUIRED": return dashboardStateDefault;
-    default: return state;
+    case "AUTH.REQUIRED":
+      return dashboardStateDefault;
+    default:
+      return state;
   }
 };
 
@@ -30,12 +28,16 @@ const dataFetchState: Reducer<FETCH_STATUS, Action> = (
   action,
 ) => {
   switch (action.type) {
-    case "DASHBOARD_DATA.SYNC": return "IN_PROGRESS";
-    case "DASHBOARD_DATA.FETCH.SUCCESS": return "SUCCESS";
+    case "DASHBOARD_DATA.SYNC":
+      return "IN_PROGRESS";
+    case "DASHBOARD_DATA.FETCH.SUCCESS":
+      return "SUCCESS";
     case "DASHBOARD_DATA.FETCH.FAILED":
       return state === "IN_PROGRESS" ? "ERROR" : state;
-    case "AUTH.REQUIRED": return "NOT_STARTED";
-    default: return state;
+    case "AUTH.REQUIRED":
+      return "NOT_STARTED";
+    default:
+      return state;
   }
 };
 

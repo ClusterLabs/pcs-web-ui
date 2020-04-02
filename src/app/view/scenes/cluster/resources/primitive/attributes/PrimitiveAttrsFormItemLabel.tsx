@@ -1,6 +1,9 @@
 import React from "react";
 
-export const PrimitiveAttrsFormItemLabel = ({ htmlFor, remoteValue }: {
+export const PrimitiveAttrsFormItemLabel = ({
+  htmlFor,
+  remoteValue,
+}: {
   htmlFor: string;
   remoteValue: string;
 }) => {
@@ -12,10 +15,10 @@ export const PrimitiveAttrsFormItemLabel = ({ htmlFor, remoteValue }: {
           : "Keep the value removed"}
       </label>
       {remoteValue.length > 0 && (
-      <>
-        <br />
-        <strong>{remoteValue}</strong>
-      </>
+        <>
+          <br />
+          <strong>{remoteValue}</strong>
+        </>
       )}
     </>
   );

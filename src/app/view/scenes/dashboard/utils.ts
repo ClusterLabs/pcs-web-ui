@@ -4,19 +4,21 @@ type StatusSeverity = types.cluster.StatusSeverity;
 
 const severity = (status: StatusSeverity): number => {
   switch (status) {
-    case "ERROR": return 3;
-    case "WARNING": return 2;
-    case "OK": return 0;
-    default: return 1;
+    case "ERROR":
+      return 3;
+    case "WARNING":
+      return 2;
+    case "OK":
+      return 0;
+    default:
+      return 1;
   }
 };
 
 export const compareStatusSeverity = (
   a: StatusSeverity,
   b: StatusSeverity,
-): number => (
-  severity(a) - severity(b)
-);
+): number => severity(a) - severity(b);
 
 export const compareStrings = (a: string, b: string): number => {
   const upperA = a.toUpperCase();

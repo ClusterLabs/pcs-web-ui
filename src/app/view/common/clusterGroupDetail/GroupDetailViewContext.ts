@@ -7,6 +7,5 @@ const GroupDetailViewContext = React.createContext({
 });
 
 export const GroupDetailViewContextProvider = GroupDetailViewContext.Provider;
-export const useGroupDetailViewContext = (
-  () => React.useContext(GroupDetailViewContext)
-);
+export const useGroupDetailViewContext = () =>
+  React.useContext(GroupDetailViewContext);

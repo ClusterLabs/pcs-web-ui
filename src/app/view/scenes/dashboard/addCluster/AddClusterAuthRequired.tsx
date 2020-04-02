@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import {
   Alert,
   Button,
-  FormGroup,
   EmptyState,
   EmptyStateIcon,
+  FormGroup,
   Spinner,
   Switch,
   TextInput,
@@ -15,13 +15,15 @@ import {
 import { Action } from "app/actions";
 import { types } from "app/store";
 
-export const AddClusterAuthRequired = (
-  { nodeName, authenticationInProgress, authenticationError }: {
-    nodeName: types.addCluster.NodeName;
-    authenticationInProgress: boolean;
-    authenticationError: types.addCluster.StateError;
-  },
-) => {
+export const AddClusterAuthRequired = ({
+  nodeName,
+  authenticationInProgress,
+  authenticationError,
+}: {
+  nodeName: types.addCluster.NodeName;
+  authenticationInProgress: boolean;
+  authenticationError: types.addCluster.StateError;
+}) => {
   const [password, setPassword] = React.useState("");
   const [customAddrPort, setCustomAddrPort] = React.useState(false);
   const [address, setAddress] = React.useState("");
@@ -33,6 +35,7 @@ export const AddClusterAuthRequired = (
         isInline
         variant="warning"
         title={
+          // prettier-ignore
           `Node '${nodeName}' is not authenticated. Please authenticate it.`
         }
       />
@@ -67,7 +70,7 @@ export const AddClusterAuthRequired = (
         onChange={() => setCustomAddrPort(!customAddrPort)}
         aria-label="Use custom address and port switch"
       />
-      { customAddrPort && (
+      {customAddrPort && (
         <>
           <FormGroup
             label="Address"
@@ -99,33 +102,30 @@ export const AddClusterAuthRequired = (
           </FormGroup>
         </>
       )}
-      {
-        authenticationInProgress
-          ? (
-            <EmptyState style={{ margin: "auto" }}>
-              <EmptyStateIcon variant="container" component={Spinner} />
-              <Title size="lg">Authenticating node</Title>
-            </EmptyState>
-          )
-          : (
-            <Button
-              variant="primary"
-              onClick={() => dispatch<Action>({
-                type: "ADD_CLUSTER.AUTHENTICATE_NODE",
-                payload: {
-                  nodeName,
-                  password,
-                  address,
-                  port,
-                },
-              })}
-              aria-label="Authenticate node"
-            >
-              Authenticate node
-            </Button>
-
-          )
-      }
+      {authenticationInProgress ? (
+        <EmptyState style={{ margin: "auto" }}>
+          <EmptyStateIcon variant="container" component={Spinner} />
+          <Title size="lg">Authenticating node</Title>
+        </EmptyState>
+      ) : (
+        <Button
+          variant="primary"
+          onClick={() =>
+            dispatch<Action>({
+              type: "ADD_CLUSTER.AUTHENTICATE_NODE",
+              payload: {
+                nodeName,
+                password,
+                address,
+                port,
+              },
+            })
+          }
+          aria-label="Authenticate node"
+        >
+          Authenticate node
+        </Button>
+      )}
     </>
   );
 };

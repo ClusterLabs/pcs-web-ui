@@ -1,18 +1,18 @@
 import { Task } from "redux-saga";
 import {
+  ForkEffect,
   all,
-  delay,
   cancel,
   cancelled,
+  delay,
   fork,
   put,
   take,
-  ForkEffect,
 } from "redux-saga/effects";
 
-import { Action, actionType, SetupDataReading } from "app/actions";
+import { Action, SetupDataReading, actionType } from "app/actions";
 
-const SYNC_DELAY = 30 * 1000;// ms
+const SYNC_DELAY = 30 * 1000; // ms
 
 export function* timer(action: Action) {
   try {
@@ -49,7 +49,8 @@ export function* dataLoadManage({
   refreshAction,
   takeStartPayload,
   fetch,
-}: DataLoadProps) { /* eslint-disable no-constant-condition, no-console */
+}: DataLoadProps) {
+  /* eslint-disable no-constant-condition, no-console */
   let syncStarted = false;
   let fetchFast = false;
   const tasks: LoadTasks = { fetch: undefined, timer: undefined };
@@ -73,7 +74,8 @@ export function* dataLoadManage({
         tasks.fetch = yield fetch();
         break;
 
-      case SUCCESS: case FAIL:
+      case SUCCESS:
+      case FAIL:
         if (fetchFast) {
           fetchFast = false;
           tasks.fetch = yield fetch();
@@ -96,7 +98,11 @@ export function* dataLoadManage({
 
       case STOP:
         syncStarted = false;
-        yield all(Object.values(tasks).filter(t => t).map(t => cancel(t)));
+        yield all(
+          Object.values(tasks)
+            .filter(t => t)
+            .map(t => cancel(t)),
+        );
         break;
       // no default
     }
@@ -117,22 +123,20 @@ export function* setUpDataReading() {
     const oldNames = Object.keys(stops);
 
     const stopActions = oldNames
-      .filter(name => (
-        !newNames.includes(name)
-        ||
-        readings[name].specificator !== stopSpecificator(name)
-      ))
-      .map(stop)
-    ;
+      .filter(
+        name =>
+          !newNames.includes(name)
+          || readings[name].specificator !== stopSpecificator(name),
+      )
+      .map(stop);
 
     const startActions = newNames
-      .filter(name => (
-        !oldNames.includes(name)
-        ||
-        readings[name].specificator !== stopSpecificator(name)
-      ))
-      .map(name => put(readings[name].start))
-    ;
+      .filter(
+        name =>
+          !oldNames.includes(name)
+          || readings[name].specificator !== stopSpecificator(name),
+      )
+      .map(name => put(readings[name].start));
 
     stops = newNames.reduce(
       (nextStops, name) => ({
@@ -149,6 +153,4 @@ export function* setUpDataReading() {
   }
 }
 
-export default [
-  fork(setUpDataReading),
-];
+export default [fork(setUpDataReading)];

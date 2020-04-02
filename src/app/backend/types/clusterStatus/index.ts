@@ -6,30 +6,30 @@ import {
 } from "./issues";
 import {
   ApiNode as TApiNode,
-  ApiNodeStatus as TApiNodeStatus,
-  ApiNodeQuorum as TApiNodeQuorum,
   ApiNodeName as TApiNodeName,
+  ApiNodeQuorum as TApiNodeQuorum,
+  ApiNodeStatus as TApiNodeStatus,
 } from "./nodes";
 import {
   ApiConstraintColocation as TApiConstraintColocation,
   ApiConstraintLocation as TApiConstraintLocation,
   ApiConstraintOrder as TApiConstraintOrder,
-  ApiConstraintTicket as TApiConstraintTicket,
   ApiConstraintResourceSet as TApiConstraintResourceSet,
+  ApiConstraintTicket as TApiConstraintTicket,
   ApiConstraints as TApiConstraints,
 } from "./constraints";
 import {
-  ApiPrimitive as TApiPrimitive,
-  ApiResource as TApiResource,
   ApiClone as TApiClone,
   ApiGroup as TApiGroup,
-  ApiStonith as TApiStonith,
+  ApiPrimitive as TApiPrimitive,
+  ApiResource as TApiResource,
   ApiResourceBase as TApiResourceBase,
+  ApiStonith as TApiStonith,
 } from "./resources";
 import {
+  ApiClusterName as TApiClusterName,
   ApiClusterStatus as TApiClusterStatus,
   ApiClusterStatusFlag as TApiClusterStatusFlag,
-  ApiClusterName as TApiClusterName,
 } from "./cluster";
 
 export type ApiClone = t.TypeOf<typeof TApiClone>;

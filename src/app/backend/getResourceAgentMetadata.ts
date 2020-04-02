@@ -5,8 +5,8 @@ import { getJson } from "./calls";
 import {
   ApiCall,
   createResult,
-  validateShape,
   dealWithInvalidJson,
+  validateShape,
 } from "./tools";
 
 /*

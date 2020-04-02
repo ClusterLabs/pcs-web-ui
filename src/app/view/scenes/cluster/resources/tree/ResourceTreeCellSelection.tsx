@@ -3,7 +3,9 @@ import { ArrowCircleRightIcon } from "@patternfly/react-icons";
 
 import { useGroupDetailViewContext } from "app/view/common";
 
-export const ResourceTreeCellSelection = ({ resourceId }: {
+export const ResourceTreeCellSelection = ({
+  resourceId,
+}: {
   resourceId: string;
 }) => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
@@ -13,9 +15,9 @@ export const ResourceTreeCellSelection = ({ resourceId }: {
   }
   return (
     <div
-      className={
-        `ha-c-tree-view__selected-status${isSelected ? " ha-m-active" : ""}`
-      }
+      className={`ha-c-tree-view__selected-status${
+        isSelected ? " ha-m-active" : ""
+      }`}
     >
       <ArrowCircleRightIcon />
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,27 +10,24 @@ import {
 
 import { Action } from "app/actions";
 import { selectors } from "app/store";
-import { PageSectionDataLoading, Page } from "app/view/common";
+import { Page, PageSectionDataLoading } from "app/view/common";
 
 import { Dashboard } from "./Dashboard";
 import { DashboardToolbar } from "./DashboardToolbar";
 
 const useDashboardSync = () => {
   const dispatch = useDispatch();
-  React.useEffect(
-    () => {
-      dispatch<Action>({
-        type: "DATA_READING.SET_UP",
-        payload: {
-          reloadDashboard: {
-            start: { type: "DASHBOARD_DATA.SYNC" },
-            stop: { type: "DASHBOARD_DATA.SYNC.STOP" },
-          },
+  React.useEffect(() => {
+    dispatch<Action>({
+      type: "DATA_READING.SET_UP",
+      payload: {
+        reloadDashboard: {
+          start: { type: "DASHBOARD_DATA.SYNC" },
+          stop: { type: "DASHBOARD_DATA.SYNC.STOP" },
         },
-      });
-    },
-    [dispatch],
-  );
+      },
+    });
+  }, [dispatch]);
 };
 
 export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
@@ -47,9 +44,11 @@ export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
             <Breadcrumb>
               <BreadcrumbItem
                 isActive
-                onClick={() => dispatch<Action>({
-                  type: "DASHBOARD_DATA.REFRESH",
-                })}
+                onClick={() =>
+                  dispatch<Action>({
+                    type: "DASHBOARD_DATA.REFRESH",
+                  })
+                }
               >
                 Clusters
               </BreadcrumbItem>

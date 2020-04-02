@@ -22,4 +22,4 @@ export type LoginActions = {
   LogoutSuccess: {
     type: "LOGOUT.SUCCESS";
   };
-}
+};

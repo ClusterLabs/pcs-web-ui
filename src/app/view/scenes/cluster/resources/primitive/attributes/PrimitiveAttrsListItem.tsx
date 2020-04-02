@@ -4,12 +4,13 @@ import { types } from "app/store";
 
 import { PrimitiveAttrsHelpPopover } from "./PrimitiveAttrsHelpPopover";
 
-export const PrimitiveAttrsListItem = (
-  { resourceAgentParam, instanceAttributes }: {
-    resourceAgentParam: types.resourceAgents.ResourceAgentParameter;
-    instanceAttributes: types.cluster.Primitive["instanceAttributes"];
-  },
-) => (
+export const PrimitiveAttrsListItem = ({
+  resourceAgentParam,
+  instanceAttributes,
+}: {
+  resourceAgentParam: types.resourceAgents.ResourceAgentParameter;
+  instanceAttributes: types.cluster.Primitive["instanceAttributes"];
+}) => (
   <>
     <dt>
       {`${resourceAgentParam.name} `}
@@ -18,16 +19,12 @@ export const PrimitiveAttrsListItem = (
     {resourceAgentParam.name in instanceAttributes && (
       <dd>{instanceAttributes[resourceAgentParam.name].value}</dd>
     )}
-    {
-      !(resourceAgentParam.name in instanceAttributes)
-      &&
-      resourceAgentParam.default
-      && (
+    {!(resourceAgentParam.name in instanceAttributes)
+      && resourceAgentParam.default && (
         <dd style={{ color: "var(--pf-global--Color--200)" }}>
           <div>{resourceAgentParam.default}</div>
           <div style={{ fontStyle: "italic" }}>Default value</div>
         </dd>
-      )
-    }
+    )}
   </>
 );

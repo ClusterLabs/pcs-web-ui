@@ -1,9 +1,9 @@
 import * as t from "io-ts";
 
 import {
-  TApiNodeStatus as ApiNodeStatus,
-  TApiNodeQuorum as ApiNodeQuorum,
   TApiNodeName as ApiNodeName,
+  TApiNodeQuorum as ApiNodeQuorum,
+  TApiNodeStatus as ApiNodeStatus,
   TApiWithIssues as ApiWithIssues,
 } from "../clusterStatus";
 

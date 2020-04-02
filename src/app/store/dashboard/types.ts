@@ -11,7 +11,7 @@ export interface Node {
 
 export interface FenceDevice {
   id: string;
-  status: "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN"|"DISABLED";
+  status: "RUNNING" | "BLOCKED" | "FAILED" | "UNKNOWN" | "DISABLED";
   statusSeverity: types.StatusSeverity;
   issueList: types.Issue[];
 }
@@ -19,7 +19,7 @@ export interface FenceDevice {
 export interface ClusterState {
   name: string;
   urlName: string;
-  status: "OK"|"WARNING"|"ERROR"|"UNKNOWN";
+  status: "OK" | "WARNING" | "ERROR" | "UNKNOWN";
   nodeList: Node[];
   resourceTree: types.ResourceTreeItem[];
   fenceDeviceList: FenceDevice[];
@@ -32,7 +32,7 @@ export interface ClusterState {
   };
 }
 
-export type FETCH_STATUS = "NOT_STARTED"|"IN_PROGRESS"|"SUCCESS"|"ERROR"
+export type FETCH_STATUS = "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "ERROR";
 
 export interface DashboardState {
   clusterList: ClusterState[];

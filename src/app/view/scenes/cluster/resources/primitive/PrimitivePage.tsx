@@ -3,18 +3,22 @@ import { useRouteMatch } from "react-router";
 import { useSelector } from "react-redux";
 
 import { selectors, types } from "app/store";
-import { tabRoutes, join } from "app/view/utils";
+import { join, tabRoutes } from "app/view/utils";
 import {
-  UrlTabs, ResourceDetailCaption, useGroupDetailViewContext, DetailLayout,
+  DetailLayout,
+  ResourceDetailCaption,
+  UrlTabs,
+  useGroupDetailViewContext,
 } from "app/view/common";
-
 
 import { ConstraintListResource } from "../constraints";
 import { PrimitiveAttrsView } from "./attributes";
 import { PrimitiveDetail } from "./PrimitiveDetail";
 import { useResourceAgent } from "./useResourceAgent";
 
-export const PrimitivePage = ({ primitive }: {
+export const PrimitivePage = ({
+  primitive,
+}: {
   primitive: types.cluster.Primitive;
 }) => {
   const { urlPrefix } = useGroupDetailViewContext();
@@ -37,12 +41,12 @@ export const PrimitivePage = ({ primitive }: {
 
   return (
     <DetailLayout
-      caption={(
+      caption={
         <ResourceDetailCaption
           resourceId={primitive.id}
           type={primitive.type}
         />
-      )}
+      }
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && <PrimitiveDetail primitive={primitive} />}

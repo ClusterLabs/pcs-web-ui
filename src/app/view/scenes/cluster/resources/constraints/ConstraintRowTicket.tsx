@@ -6,7 +6,9 @@ import { ConstraintRow } from "./ConstraintRow";
 import { ConstraintCell } from "./ConstraintCell";
 import { ConstraintCellResourceSet } from "./ConstraintCellResourceSet";
 
-export const ConstraintRowTicket = ({ constraint }: {
+export const ConstraintRowTicket = ({
+  constraint,
+}: {
   constraint: types.cluster.ConstraintTicket;
 }) => {
   if ("sets" in constraint) {

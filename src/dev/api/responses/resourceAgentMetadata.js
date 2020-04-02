@@ -3,7 +3,8 @@ const ok = {
   parameters: [
     {
       name: "configfile",
-      longdesc: "The full pathname of the Apache configuration file.\nThis file is parsed to provide defaults for various other\nresource agent parameters.",
+      longdesc:
+        "The full pathname of the Apache configuration file.\nThis file is parsed to provide defaults for various other\nresource agent parameters.",
       shortdesc: "configuration file path",
       type: "string",
       default: "/etc/httpd/conf/httpd.conf",
@@ -29,7 +30,8 @@ const ok = {
     },
     {
       name: "port",
-      longdesc: "A port number that we can probe for status information\nusing the statusurl.\nThis will default to the port number found in the\nconfiguration file, or 80, if none can be found\nin the configuration file.",
+      longdesc:
+        "A port number that we can probe for status information\nusing the statusurl.\nThis will default to the port number found in the\nconfiguration file, or 80, if none can be found\nin the configuration file.",
       shortdesc: "httpd port",
       type: "integer",
       default: null,
@@ -42,7 +44,8 @@ const ok = {
     },
     {
       name: "statusurl",
-      longdesc: "The URL to monitor (the apache server status page by default).\nIf left unspecified, it will be inferred from\nthe apache configuration file.\n\nIf you set this, make sure that it succeeds *only* from the\nlocalhost (127.0.0.1). Otherwise, it may happen that the cluster\ncomplains about the resource being active on multiple nodes.",
+      longdesc:
+        "The URL to monitor (the apache server status page by default).\nIf left unspecified, it will be inferred from\nthe apache configuration file.\n\nIf you set this, make sure that it succeeds *only* from the\nlocalhost (127.0.0.1). Otherwise, it may happen that the cluster\ncomplains about the resource being active on multiple nodes.",
       shortdesc: "url name",
       type: "string",
       default: null,
@@ -55,10 +58,12 @@ const ok = {
     },
     {
       name: "testregex",
-      longdesc: "Regular expression to match in the output of statusurl.\nCase insensitive.",
+      longdesc:
+        "Regular expression to match in the output of statusurl.\nCase insensitive.",
       shortdesc: "monitor regular expression",
       type: "string",
-      default: "exists, but impossible to show in a human readable format (try grep testregex)",
+      default:
+        "exists, but impossible to show in a human readable format (try grep testregex)",
       required: false,
       advanced: false,
       deprecated: false,
@@ -68,7 +73,8 @@ const ok = {
     },
     {
       name: "client",
-      longdesc: "Client to use to query to Apache. If not specified, the RA will\ntry to find one on the system. Currently, wget and curl are\nsupported. For example, you can set this parameter to \"curl\" if\nyou prefer that to wget.",
+      longdesc:
+        'Client to use to query to Apache. If not specified, the RA will\ntry to find one on the system. Currently, wget and curl are\nsupported. For example, you can set this parameter to "curl" if\nyou prefer that to wget.',
       shortdesc: "http client",
       type: "string",
       default: "",
@@ -81,7 +87,8 @@ const ok = {
     },
     {
       name: "testurl",
-      longdesc: "URL to test. If it does not start with \"http\", then it's\nconsidered to be relative to the Listen address.",
+      longdesc:
+        'URL to test. If it does not start with "http", then it\'s\nconsidered to be relative to the Listen address.',
       shortdesc: "test url",
       type: "string",
       default: null,
@@ -94,7 +101,8 @@ const ok = {
     },
     {
       name: "testregex10",
-      longdesc: "Regular expression to match in the output of testurl.\nCase insensitive.",
+      longdesc:
+        "Regular expression to match in the output of testurl.\nCase insensitive.",
       shortdesc: "extended monitor regular expression",
       type: "string",
       default: null,
@@ -107,7 +115,8 @@ const ok = {
     },
     {
       name: "testconffile",
-      longdesc: "A file which contains test configuration. Could be useful if\nyou have to check more than one web application or in case sensitive\ninfo should be passed as arguments (passwords). Furthermore, \nusing a config file is the only way to specify certain\nparameters.\n\nPlease see README.webapps for examples and file description.",
+      longdesc:
+        "A file which contains test configuration. Could be useful if\nyou have to check more than one web application or in case sensitive\ninfo should be passed as arguments (passwords). Furthermore, \nusing a config file is the only way to specify certain\nparameters.\n\nPlease see README.webapps for examples and file description.",
       shortdesc: "test configuration file",
       type: "string",
       default: null,
@@ -133,7 +142,8 @@ const ok = {
     },
     {
       name: "options",
-      longdesc: "Extra options to apply when starting apache. See man httpd(8).",
+      longdesc:
+        "Extra options to apply when starting apache. See man httpd(8).",
       shortdesc: "command line options",
       type: "string",
       default: null,
@@ -146,7 +156,8 @@ const ok = {
     },
     {
       name: "envfiles",
-      longdesc: "Files (one or more) which contain extra environment variables.\nIf you want to prevent script from reading the default file, set\nthis parameter to empty string.",
+      longdesc:
+        "Files (one or more) which contain extra environment variables.\nIf you want to prevent script from reading the default file, set\nthis parameter to empty string.",
       shortdesc: "environment settings files",
       type: "string",
       default: "/etc/apache2/envvars",
@@ -159,7 +170,8 @@ const ok = {
     },
     {
       name: "use_ipv6",
-      longdesc: "We will try to detect if the URL (for monitor) is IPv6, but if\nthat doesn't work set this to true to enforce IPv6.",
+      longdesc:
+        "We will try to detect if the URL (for monitor) is IPv6, but if\nthat doesn't work set this to true to enforce IPv6.",
       shortdesc: "use ipv6 with http clients",
       type: "boolean",
       default: "false",
@@ -172,8 +184,10 @@ const ok = {
     },
     {
       name: "trace_ra",
-      longdesc: "Set to 1 to turn on resource agent tracing (expect large output) The trace output will be saved to trace_file, if set, or by default to $HA_VARRUN/ra_trace/<type>/<id>.<action>.<timestamp> e.g. $HA_VARRUN/ra_trace/oracle/db.start.2012-11-27.08:37:08",
-      shortdesc: "Set to 1 to turn on resource agent tracing (expect large output)",
+      longdesc:
+        "Set to 1 to turn on resource agent tracing (expect large output) The trace output will be saved to trace_file, if set, or by default to $HA_VARRUN/ra_trace/<type>/<id>.<action>.<timestamp> e.g. $HA_VARRUN/ra_trace/oracle/db.start.2012-11-27.08:37:08",
+      shortdesc:
+        "Set to 1 to turn on resource agent tracing (expect large output)",
       type: "integer",
       default: 0,
       required: false,

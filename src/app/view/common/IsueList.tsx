@@ -1,12 +1,12 @@
 import React from "react";
 import {
+  Alert,
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateIcon,
   Stack,
   StackItem,
-  Alert,
   Title,
-  EmptyState,
-  EmptyStateIcon,
-  EmptyStateBody,
 } from "@patternfly/react-core";
 import { CheckCircleIcon } from "@patternfly/react-icons";
 
@@ -14,15 +14,17 @@ import { types } from "app/store";
 
 import * as pallete from "./pallete";
 
+const mapSeverityToVariant = (severity: types.cluster.Issue["severity"]) =>
+  (severity === "ERROR" ? "danger" : "warning");
 
-const mapSeverityToVariant = (severity: types.cluster.Issue["severity"]) => (
-  severity === "ERROR" ? "danger" : "warning"
-);
-const issueKey = (issue: types.cluster.Issue, index: string|number) => (
-  `${index}:${issue.message}`
-);
+const issueKey = (issue: types.cluster.Issue, index: string | number) =>
+  `${index}:${issue.message}`;
 
-export const IssueList = ({ issueList, margin = false, hideEmpty = false }: {
+export const IssueList = ({
+  issueList,
+  margin = false,
+  hideEmpty = false,
+}: {
   issueList: types.cluster.Issue[];
   margin?: boolean;
   hideEmpty?: boolean;
@@ -59,9 +61,9 @@ export const IssueList = ({ issueList, margin = false, hideEmpty = false }: {
         </StackItem>
       ))}
       {issueList.length === 0 && (
-      <StackItem isFilled aria-label="no cluster issue">
-        <Alert variant="info" isInline title="No issue" />
-      </StackItem>
+        <StackItem isFilled aria-label="no cluster issue">
+          <Alert variant="info" isInline title="No issue" />
+        </StackItem>
       )}
     </Stack>
   );

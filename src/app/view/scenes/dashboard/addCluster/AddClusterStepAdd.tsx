@@ -21,21 +21,19 @@ export const AddClusterStepAdd = () => {
   return (
     <>
       {state === "STARTED" && (
-      <EmptyState style={{ margin: "auto" }}>
-        <EmptyStateIcon variant="container" component={Spinner} />
-        <Title size="lg">Adding existing cluster</Title>
-      </EmptyState>
+        <EmptyState style={{ margin: "auto" }}>
+          <EmptyStateIcon variant="container" component={Spinner} />
+          <Title size="lg">Adding existing cluster</Title>
+        </EmptyState>
       )}
-      {
-        clusterHasBeenAddedStates.includes(state) && (
-          <Alert
-            isInline
-            variant="success"
-            title="Cluster has been added."
-            aria-label="Success add cluster"
-          />
-        )
-      }
+      {clusterHasBeenAddedStates.includes(state) && (
+        <Alert
+          isInline
+          variant="success"
+          title="Cluster has been added."
+          aria-label="Success add cluster"
+        />
+      )}
       {state === "DASHBOARD_RELOADING" && (
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon variant="container" component={Spinner} />

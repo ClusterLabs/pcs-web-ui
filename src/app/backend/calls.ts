@@ -1,4 +1,4 @@
-import { ApiNotExpectedJson, ApiBadStatus } from "./errors";
+import { ApiBadStatus, ApiNotExpectedJson } from "./errors";
 import { ApiParams } from "./types";
 
 const ajaxHeaders = {
@@ -16,14 +16,13 @@ const checkResponse = async (response: Response) => {
   return response;
 };
 
-const httpParams = (params: ApiParams): string => params
-  .map(p => `${encodeURIComponent(p[0])}=${encodeURIComponent(p[1])}`)
-  .join("&")
-;
+const httpParams = (params: ApiParams): string =>
+  params
+    .map(p => `${encodeURIComponent(p[0])}=${encodeURIComponent(p[1])}`)
+    .join("&");
 
-const getUrl = (path: string, params: ApiParams): string => (
-  params.length > 0 ? `${path}?${httpParams(params)}` : path
-);
+const getUrl = (path: string, params: ApiParams): string =>
+  (params.length > 0 ? `${path}?${httpParams(params)}` : path);
 
 // TODO duplicities
 
@@ -51,18 +50,17 @@ export const getForText = async (url: string, params: ApiParams = []) => {
   return response.text();
 };
 
-export const postForText = async (
-  url: string,
-  params: ApiParams = [],
-) => {
-  const response = await checkResponse(await fetch(url, {
-    method: "post",
-    headers: {
-      ...ajaxHeaders,
-      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-    },
-    body: httpParams(params),
-  }));
+export const postForText = async (url: string, params: ApiParams = []) => {
+  const response = await checkResponse(
+    await fetch(url, {
+      method: "post",
+      headers: {
+        ...ajaxHeaders,
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      },
+      body: httpParams(params),
+    }),
+  );
   return response.text();
 };
 

@@ -1,13 +1,14 @@
 const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 
-const clustersOverview = response => endpoints.clustersOverview(
-  (req, res) => { res.json(response); },
-);
+const clustersOverview = response =>
+  endpoints.clustersOverview((req, res) => {
+    res.json(response);
+  });
 
 let clusterStatusLoadCount = 0;
-const clusterStatus = (responseMap = {}) => endpoints.clusterStatus(
-  (req, res) => {
+const clusterStatus = (responseMap = {}) =>
+  endpoints.clusterStatus((req, res) => {
     const clusterName = req.params.clusterUrlName;
     if (Object.keys(responseMap).includes(clusterName)) {
       const response = responseMap[clusterName];
@@ -16,6 +17,7 @@ const clusterStatus = (responseMap = {}) => endpoints.clusterStatus(
           ...response.resource_list[0].instance_attr[0],
           value: "/etc/httpd/httpd.conf",
         };
+        // prettier-ignore
         response.resource_list[0].instance_attr = (
           response.resource_list[0].instance_attr.filter((attr, i) => i !== 1)
         );
@@ -24,11 +26,11 @@ const clusterStatus = (responseMap = {}) => endpoints.clusterStatus(
     } else {
       res.status(404).send("Not found");
     }
-  },
-);
-const getResourceAgentMetadata = response => endpoints.getResourceAgentMetadata(
-  (req, res) => { res.json(response); },
-);
+  });
+const getResourceAgentMetadata = response =>
+  endpoints.getResourceAgentMetadata((req, res) => {
+    res.json(response);
+  });
 
 const updateResource = endpoints.updateResource((req, res) => {
   /* eslint-disable no-underscore-dangle */
@@ -53,9 +55,11 @@ const updateResource = endpoints.updateResource((req, res) => {
 
 module.exports = {
   noConflict: [
-    clustersOverview(responses.clustersOverview.withClusters([
-      responses.clusterStatus.resourceTree,
-    ])),
+    clustersOverview(
+      responses.clustersOverview.withClusters([
+        responses.clusterStatus.resourceTree,
+      ]),
+    ),
     clusterStatus({
       resourceTree: responses.clusterStatus.resourceTree,
     }),

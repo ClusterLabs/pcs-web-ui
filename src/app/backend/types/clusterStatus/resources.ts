@@ -61,11 +61,14 @@ const ApiResourceStatus = t.intersection([
     failure_ignored: t.boolean,
     nodes_running_on: t.number,
     pending: t.union([t.string, t.null]),
-    node: t.union([t.null, t.type({
-      name: t.string,
-      id: t.string,
-      cached: t.boolean,
-    })]),
+    node: t.union([
+      t.null,
+      t.type({
+        name: t.string,
+        id: t.string,
+        cached: t.boolean,
+      }),
+    ]),
   }),
   t.partial({
     target_role: ApiRole,
@@ -79,21 +82,24 @@ parent_id
   id of parent resource (group, clone); it is used internally in backend, for
   web ui is meaningless
 */
-export const ApiResourceBase = t.intersection([ApiWithIssues, t.type({
-  id: ApiResourceId,
-  class_type: t.string,
-  status: t.keyof({
-    running: null,
-    "partially running": null,
-    disabled: null,
-    failed: null,
-    blocked: null,
-    unknown: null,
+export const ApiResourceBase = t.intersection([
+  ApiWithIssues,
+  t.type({
+    id: ApiResourceId,
+    class_type: t.string,
+    status: t.keyof({
+      running: null,
+      "partially running": null,
+      disabled: null,
+      failed: null,
+      blocked: null,
+      unknown: null,
+    }),
+    meta_attr: t.array(ApiNVPair),
+    disabled: t.boolean,
+    parent_id: t.union([t.string, t.null]),
   }),
-  meta_attr: t.array(ApiNVPair),
-  disabled: t.boolean,
-  parent_id: t.union([t.string, t.null]),
-})]);
+]);
 
 /*
 error_list, warning_list
@@ -115,28 +121,34 @@ status (evaluated in following order - first win)
   status can be modifeid during operation analysis aftermath
     * failed - when status was blocked and failed operation detected
 */
-const ApiPrimitiveBase = t.intersection([ApiResourceBase, t.type({
-  class_type: t.literal("primitive"),
-  agentname: t.string,
-  class: t.string,
-  provider: t.union([t.string, t.null]),
-  type: t.string,
-  stonith: t.boolean,
-  instance_attr: t.array(ApiNVPair),
-  crm_status: t.array(ApiResourceStatus),
-  operations: t.array(ApiResourceOperation),
-  utilization: t.array(ApiNVPair),
-})]);
+const ApiPrimitiveBase = t.intersection([
+  ApiResourceBase,
+  t.type({
+    class_type: t.literal("primitive"),
+    agentname: t.string,
+    class: t.string,
+    provider: t.union([t.string, t.null]),
+    type: t.string,
+    stonith: t.boolean,
+    instance_attr: t.array(ApiNVPair),
+    crm_status: t.array(ApiResourceStatus),
+    operations: t.array(ApiResourceOperation),
+    utilization: t.array(ApiNVPair),
+  }),
+]);
 
 /*
 class
   must not be "stonith" - but how to express it in typescript, I haven't found
   a way (only some proposal)
 */
-export const ApiPrimitive = t.intersection([ApiPrimitiveBase, t.type({
-  stonith: t.literal(false),
-  provider: t.string,
-})]);
+export const ApiPrimitive = t.intersection([
+  ApiPrimitiveBase,
+  t.type({
+    stonith: t.literal(false),
+    provider: t.string,
+  }),
+]);
 
 /*
 warning_list
@@ -147,11 +159,14 @@ warning_list
   potentially dangerous, please consider using "onoff"
     for eache meta_attribute with name `method` and value `cycle`
 */
-export const ApiStonith = t.intersection([ApiPrimitiveBase, t.type({
-  class: t.literal("stonith"),
-  stonith: t.literal(true),
-  provider: t.null,
-})]);
+export const ApiStonith = t.intersection([
+  ApiPrimitiveBase,
+  t.type({
+    class: t.literal("stonith"),
+    stonith: t.literal(true),
+    provider: t.null,
+  }),
+]);
 
 /*
 status (evaluated in following order - first win)
@@ -161,10 +176,13 @@ status (evaluated in following order - first win)
     one of resources (except first) is in "disabled", "blocked", "failed"
   * running - by default
 */
-export const ApiGroup = t.intersection([ApiResourceBase, t.type({
-  class_type: t.literal("group"),
-  members: t.array(t.union([ApiPrimitive, ApiStonith])),
-})]);
+export const ApiGroup = t.intersection([
+  ApiResourceBase,
+  t.type({
+    class_type: t.literal("group"),
+    members: t.array(t.union([ApiPrimitive, ApiStonith])),
+  }),
+]);
 
 /*
 datasources
@@ -196,11 +214,14 @@ warning_list
     type: "no_master";
     promotable without promoted primitive and not disabled
 */
-export const ApiClone = t.intersection([ApiResourceBase, t.type({
-  class_type: t.literal("clone"),
-  member: t.union([ApiPrimitive, ApiGroup]),
-  promotable: t.boolean,
-})]);
+export const ApiClone = t.intersection([
+  ApiResourceBase,
+  t.type({
+    class_type: t.literal("clone"),
+    member: t.union([ApiPrimitive, ApiGroup]),
+    promotable: t.boolean,
+  }),
+]);
 
 export const ApiResource = t.union([
   ApiPrimitive,

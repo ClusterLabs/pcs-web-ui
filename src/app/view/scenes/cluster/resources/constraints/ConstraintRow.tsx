@@ -1,8 +1,8 @@
 import React from "react";
 import {
   DataListItem,
-  DataListItemRow,
   DataListItemCells,
+  DataListItemRow,
 } from "@patternfly/react-core";
 
 export const ConstraintRow = ({

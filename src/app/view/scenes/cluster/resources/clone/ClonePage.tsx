@@ -2,12 +2,12 @@ import React from "react";
 import { useRouteMatch } from "react-router";
 
 import { types } from "app/store";
-import { tabRoutes, join } from "app/view/utils";
+import { join, tabRoutes } from "app/view/utils";
 import {
-  UrlTabs,
-  ResourceDetailCaption,
-  useGroupDetailViewContext,
   DetailLayout,
+  ResourceDetailCaption,
+  UrlTabs,
+  useGroupDetailViewContext,
 } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
@@ -29,12 +29,8 @@ export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
       caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
-      {tab === "Detail" && (
-        <CloneDetail clone={clone} />
-      )}
-      {tab === "Constraints" && (
-        <ConstraintListResource resource={clone} />
-      )}
+      {tab === "Detail" && <CloneDetail clone={clone} />}
+      {tab === "Constraints" && <ConstraintListResource resource={clone} />}
     </DetailLayout>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, RouteComponentProps } from "react-router";
+import { RouteComponentProps, withRouter } from "react-router";
 import { PageHeader as PfPageHeader } from "@patternfly/react-core";
 import { History } from "history";
 
@@ -14,9 +14,11 @@ interface Props extends RouteComponentProps {
   onNavToggle?: () => void;
 }
 
-const PageHeaderComponent = (
-  { history, showNavToggle, onNavToggle }: Props,
-) => {
+const PageHeaderComponent = ({
+  history,
+  showNavToggle,
+  onNavToggle,
+}: Props) => {
   const dispatch = useDispatch();
   return (
     <PfPageHeader

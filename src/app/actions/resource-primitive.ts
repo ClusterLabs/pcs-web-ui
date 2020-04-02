@@ -1,4 +1,4 @@
-import { getResourceAgentMetadata, ApiResponse } from "app/backend";
+import { ApiResponse, getResourceAgentMetadata } from "app/backend";
 
 export type PrimitiveResourceActions = {
   LoadResourceAgent: {
@@ -39,4 +39,4 @@ export type PrimitiveResourceActions = {
   UpdateInstanceAttributesFailed: {
     type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.FAILED";
   };
-}
+};

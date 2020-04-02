@@ -8,30 +8,34 @@ import {
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types } from "app/store";
-import { Table, StatusSign } from "app/view/common";
+import { StatusSign, Table } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
 
-type COLUMNS = "NAME"|"STATUS";
+type COLUMNS = "NAME" | "STATUS";
 
 const compareByColumn = (
-  column: COLUMNS|"",
-): (
-  (a: types.dashboard.FenceDevice, b: types.dashboard.FenceDevice) => number
+  column: COLUMNS | "",
+): ((
+  a: types.dashboard.FenceDevice,
+  b: types.dashboard.FenceDevice,
+) => number
 ) => {
   switch (column) {
-    case "STATUS": return (a, b) => compareStatusSeverity(
-      a.statusSeverity,
-      b.statusSeverity,
-    );
-    default: return (a, b) => compareStrings(a.id, b.id);
+    case "STATUS":
+      return (a, b) =>
+        compareStatusSeverity(a.statusSeverity, b.statusSeverity);
+    default:
+      return (a, b) => compareStrings(a.id, b.id);
   }
 };
 
 const { SortableTh } = Table;
 
-export const DashboardFenceDeviceList = ({ fenceDeviceList }: {
+export const DashboardFenceDeviceList = ({
+  fenceDeviceList,
+}: {
   fenceDeviceList: types.dashboard.FenceDevice[];
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
@@ -59,8 +63,9 @@ export const DashboardFenceDeviceList = ({ fenceDeviceList }: {
         </tr>
       </thead>
       <tbody>
-        {fenceDeviceList.sort(compareItems(compareByColumn)).map(
-          fenceDevice => (
+        {fenceDeviceList
+          .sort(compareItems(compareByColumn))
+          .map(fenceDevice => (
             <tr key={fenceDevice.id}>
               <td>{fenceDevice.id}</td>
               <td>
@@ -70,8 +75,7 @@ export const DashboardFenceDeviceList = ({ fenceDeviceList }: {
                 />
               </td>
             </tr>
-          ),
-        )}
+          ))}
       </tbody>
     </Table>
   );

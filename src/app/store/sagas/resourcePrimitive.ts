@@ -1,14 +1,10 @@
-import {
-  call,
-  takeEvery,
-  put,
-} from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 
-import { Action, actionType, PrimitiveResourceActions } from "app/actions";
+import { Action, PrimitiveResourceActions, actionType } from "app/actions";
 import {
+  ApiResult,
   getResourceAgentMetadata,
   updateResource,
-  ApiResult,
 } from "app/backend";
 import { putNotification } from "./notifications";
 
@@ -44,10 +40,7 @@ function* updateInstanceAttributesFailed(resourceId: string, message: string) {
   });
   yield putNotification(
     "ERROR",
-    `Update instance attributes of resource "${
-      resourceId
-    }" failed:\n ${message}`,
-
+    `Update instance attributes of resource "${resourceId}" failed:\n ${message}`,
   );
 }
 
@@ -76,9 +69,7 @@ function* updateInstanceAttributes({
     if (result.response.error === "true") {
       yield updateInstanceAttributesFailed(
         resourceId,
-        `backend error :\nstdout: ${result.response.stdout}\nstderr: ${
-          result.response.stderr
-        }`,
+        `backend error :\nstdout: ${result.response.stdout}\nstderr: ${result.response.stderr}`,
       );
       return;
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Action, LeafAction } from "app/actions";
 
@@ -18,17 +18,14 @@ export const useClusterState = (clusterUrlName: string) => {
     [clusterUrlName],
   );
 
-  React.useEffect(
-    () => {
-      dispatch<Action>({
-        type: "DATA_READING.SET_UP",
-        payload: {
-          reloadCluster: { specificator: clusterUrlName, start, stop },
-        },
-      });
-    },
-    [clusterUrlName, start, dispatch],
-  );
+  React.useEffect(() => {
+    dispatch<Action>({
+      type: "DATA_READING.SET_UP",
+      payload: {
+        reloadCluster: { specificator: clusterUrlName, start, stop },
+      },
+    });
+  }, [clusterUrlName, start, dispatch]);
   return {
     cluster: useSelector(selectors.getCluster),
     dataLoaded: useSelector(selectors.clusterAreDataLoaded),

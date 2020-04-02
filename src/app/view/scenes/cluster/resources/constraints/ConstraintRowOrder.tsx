@@ -7,7 +7,10 @@ import { ConstraintRow } from "./ConstraintRow";
 import { ConstraintCell } from "./ConstraintCell";
 import { ConstraintCellOrderScoreKind } from "./ConstraintCellOrderScoreKind";
 
-export const ConstraintRowOrder = ({ constraint, resourceId }: {
+export const ConstraintRowOrder = ({
+  constraint,
+  resourceId,
+}: {
   constraint: types.cluster.ConstraintOrder;
   resourceId: string;
 }) => {

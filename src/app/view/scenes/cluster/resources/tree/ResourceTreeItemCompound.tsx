@@ -8,7 +8,7 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { types, selectors } from "app/store";
+import { selectors, types } from "app/store";
 import { Action } from "app/actions";
 
 import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
@@ -40,8 +40,8 @@ export const ResourceTreeItemCompound = ({
           aria-label="Resource toggle"
           id={`resource-tree-toggle-${resourceId}`}
           isExpanded={expanded}
-          onClick={
-            () => dispatch<Action>({
+          onClick={() =>
+            dispatch<Action>({
               type: "RESOURCE_TREE.ITEM.TOGGLE",
               payload: { itemId: resourceId },
             })

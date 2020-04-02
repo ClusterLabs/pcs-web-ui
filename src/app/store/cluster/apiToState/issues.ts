@@ -1,7 +1,4 @@
-import {
-  ApiIssue,
-  ApiWithIssues,
-} from "app/backend/types/clusterStatus";
+import { ApiIssue, ApiWithIssues } from "app/backend/types/clusterStatus";
 
 import { Issue } from "../types";
 

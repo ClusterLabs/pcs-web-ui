@@ -1,21 +1,17 @@
 import React from "react";
 
-export function ExpansionToggle(
-  {
-    expanded,
-    setExpanded,
-    expandKey,
-    children,
-    ...rest
-  }: React.PropsWithChildren<{
-    expanded: string;
-    setExpanded: (key: string) => void;
-    expandKey: string;
-  }>,
-) {
-  const tdClassNames = [
-    "pf-c-table__compound-expansion-toggle",
-  ];
+export function ExpansionToggle({
+  expanded,
+  setExpanded,
+  expandKey,
+  children,
+  ...rest
+}: React.PropsWithChildren<{
+  expanded: string;
+  setExpanded: (key: string) => void;
+  expandKey: string;
+}>) {
+  const tdClassNames = ["pf-c-table__compound-expansion-toggle"];
   if (expanded === expandKey) {
     tdClassNames.push("pf-m-expanded");
   }

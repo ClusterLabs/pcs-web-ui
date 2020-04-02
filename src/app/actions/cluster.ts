@@ -1,4 +1,4 @@
-import { clusterStatus, ApiResponse } from "app/backend";
+import { ApiResponse, clusterStatus } from "app/backend";
 
 export type ClusterActions = {
   FetchClusterDataSuccess: {
@@ -26,4 +26,4 @@ export type ClusterActions = {
   SyncClusterDataStop: {
     type: "CLUSTER_DATA.SYNC.STOP";
   };
-}
+};

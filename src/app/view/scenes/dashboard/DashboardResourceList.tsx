@@ -9,33 +9,34 @@ import {
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types } from "app/store";
-import { Table, StatusSign } from "app/view/common";
+import { StatusSign, Table } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
 
-type COLUMNS = "NAME"|"STATUS";
+type COLUMNS = "NAME" | "STATUS";
 
 const compareByColumn = (
-  column: COLUMNS|"",
-): (
-  (
-    a: types.cluster.ResourceTreeItem,
-    b: types.cluster.ResourceTreeItem,
-  ) => number
+  column: COLUMNS | "",
+): ((
+  a: types.cluster.ResourceTreeItem,
+  b: types.cluster.ResourceTreeItem,
+) => number
 ) => {
   switch (column) {
-    case "STATUS": return (a, b) => compareStatusSeverity(
-      a.status.maxSeverity,
-      b.status.maxSeverity,
-    );
-    default: return (a, b) => compareStrings(a.id, b.id);
+    case "STATUS":
+      return (a, b) =>
+        compareStatusSeverity(a.status.maxSeverity, b.status.maxSeverity);
+    default:
+      return (a, b) => compareStrings(a.id, b.id);
   }
 };
 
 const { SortableTh } = Table;
 
-export const DashboardResourceList = ({ cluster }: {
+export const DashboardResourceList = ({
+  cluster,
+}: {
   cluster: types.dashboard.ClusterState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
@@ -70,8 +71,9 @@ export const DashboardResourceList = ({ cluster }: {
         </tr>
       </thead>
       <tbody>
-        {cluster.resourceTree.sort(compareItems(compareByColumn)).map(
-          resource => (
+        {cluster.resourceTree
+          .sort(compareItems(compareByColumn))
+          .map(resource => (
             <tr key={resource.id} aria-label={`Resource ${resource.id}`}>
               <td data-label="name">
                 <Link
@@ -91,8 +93,7 @@ export const DashboardResourceList = ({ cluster }: {
                 ))}
               </td>
             </tr>
-          ),
-        )}
+          ))}
       </tbody>
     </Table>
   );

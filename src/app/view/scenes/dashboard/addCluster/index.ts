@@ -1,5 +1,3 @@
 import { AddClusterPage } from "./AddClusterPage";
 
-export {
-  AddClusterPage,
-};
+export { AddClusterPage };

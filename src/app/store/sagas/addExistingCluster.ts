@@ -1,27 +1,25 @@
 import {
-  call,
-  put,
-  race,
-  take,
-  takeEvery,
+  call, put, race, take, takeEvery,
 } from "redux-saga/effects";
 
-import { Action, actionType, AddClusterActions } from "app/actions";
+import { Action, AddClusterActions, actionType } from "app/actions";
 
 import {
+  ApiResult,
   authGuiAgainstNodes,
   checkAuthAgainstNodes,
   existingCluster,
-  ApiResult,
 } from "app/backend";
 
 import { authSafe } from "./authSafe";
 
-function* checkAuthentication(
-  { payload: { nodeName } }: AddClusterActions["CheckAuth"],
-) {
+function* checkAuthentication({
+  payload: { nodeName },
+}: AddClusterActions["CheckAuth"]) {
   try {
-    const { result }: {
+    const {
+      result,
+    }: {
       result: ApiResult<typeof checkAuthAgainstNodes>;
     } = yield race({
       result: call(authSafe(checkAuthAgainstNodes), [nodeName]),
@@ -36,12 +34,12 @@ function* checkAuthentication(
       yield put<Action>({
         type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
         payload: {
-          message: ([
+          message: [
             "Unexpected backend response:",
             `'${JSON.stringify(result.raw)}'`,
             "errors:",
             result.errors,
-          ].join("\n")),
+          ].join("\n"),
         },
       });
       return;
@@ -57,6 +55,7 @@ function* checkAuthentication(
       yield put<Action>({
         type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
         payload: {
+          // prettier-ignore
           message: (
             `Cannot connect to the node '${nodeName}'. Is the node online?`
           ),
@@ -71,6 +70,7 @@ function* checkAuthentication(
     yield put<Action>({
       type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
       payload: {
+        // prettier-ignore
         message: (
           `Error during communication with the backend: '${error.message}'`
         ),
@@ -79,9 +79,9 @@ function* checkAuthentication(
   }
 }
 
-function* addCluster(
-  { payload: { nodeName } }: AddClusterActions["AddCluster"],
-) {
+function* addCluster({
+  payload: { nodeName },
+}: AddClusterActions["AddCluster"]) {
   try {
     yield call(authSafe(existingCluster), nodeName);
     yield put<Action>({
@@ -97,11 +97,10 @@ function* addCluster(
     yield put<Action>({
       type: "ADD_CLUSTER.ADD_CLUSTER.ERROR",
       payload: {
-        message: (
+        message:
           error.name === "ApiBadStatus" && error.statusCode === 400
             ? error.body
-            : error.message
-        ),
+            : error.message,
       },
     });
   }
@@ -109,14 +108,13 @@ function* addCluster(
 
 function* authenticateNode({
   payload: {
-    nodeName,
-    password,
-    address,
-    port,
+    nodeName, password, address, port,
   },
 }: AddClusterActions["AuthenticateNode"]) {
   try {
-    const { result }: {
+    const {
+      result,
+    }: {
       result: ApiResult<typeof authGuiAgainstNodes>;
     } = yield race({
       result: call(authSafe(authGuiAgainstNodes), {
@@ -137,9 +135,10 @@ function* authenticateNode({
       yield put<Action>({
         type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
         payload: {
+          // prettier-ignore
           message: (
             `Unexpected backend response:\n${result.raw}\n`
-              + `errors:\n ${result.errors}`
+            + `errors:\n ${result.errors}`
           ),
         },
       });
@@ -154,8 +153,7 @@ function* authenticateNode({
           payload: {
             message: `Authentication of node '${nodeName}' failed.`,
           },
-        }
-      ,
+        },
     );
   } catch (error) {
     yield put<Action>({

@@ -1,10 +1,10 @@
 import { call, put, take } from "redux-saga/effects";
 import { SagaIterator } from "redux-saga";
 
-import { isUnauthorizedError, ApiCall } from "app/backend";
+import { ApiCall, isUnauthorizedError } from "app/backend";
 import { Action, actionType } from "app/actions";
 
-export function authSafe< R, F extends ApiCall<R>>(fn: F) {
+export function authSafe<R, F extends ApiCall<R>>(fn: F) {
   return function* callApi(...args: Parameters<F>): SagaIterator {
     try {
       const responseFirstAttempt = yield call(fn, ...args);

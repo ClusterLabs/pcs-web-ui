@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
-import { Action, actionType, LoginActions } from "app/actions";
-import { isUnauthorizedError, getForText, postForText } from "app/backend";
+import { Action, LoginActions, actionType } from "app/actions";
+import { getForText, isUnauthorizedError, postForText } from "app/backend";
 
 import { putNotification } from "./notifications";
 
@@ -24,9 +24,9 @@ export function* logout() {
   }
 }
 
-export function* login(
-  { payload: { username, password } }: LoginActions["EnterCredentials"],
-) {
+export function* login({
+  payload: { username, password },
+}: LoginActions["EnterCredentials"]) {
   try {
     yield call(postForText, "/ui/login", [
       ["username", username],

@@ -9,4 +9,4 @@ export type UsernameActions = {
       username: string;
     };
   };
-}
+};
