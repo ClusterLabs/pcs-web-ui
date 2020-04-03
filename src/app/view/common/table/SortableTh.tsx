@@ -1,32 +1,30 @@
 import React from "react";
 
 import {
-  LongArrowAltUpIcon,
-  LongArrowAltDownIcon,
   ArrowsAltVIcon,
+  LongArrowAltDownIcon,
+  LongArrowAltUpIcon,
 } from "@patternfly/react-icons";
 
 type Direction = "asc" | "desc";
 
 interface SortState<COLUMN> {
-  column: COLUMN|"",
-  direction: Direction,
-  change: (c: COLUMN, d: Direction) => void,
+  column: COLUMN | "";
+  direction: Direction;
+  change: (c: COLUMN, d: Direction) => void;
 }
 
-function SortableTh<C extends string>(
-  {
-    children,
-    sortState,
-    columnName,
-    startDesc = false,
-    ...rest
-  }: React.PropsWithChildren<{
-    sortState: SortState<C>,
-    columnName: C,
-    startDesc?: boolean,
-  }>,
-) {
+function SortableTh<C extends string>({
+  children,
+  sortState,
+  columnName,
+  startDesc = false,
+  ...rest
+}: React.PropsWithChildren<{
+  sortState: SortState<C>;
+  columnName: C;
+  startDesc?: boolean;
+}>) {
   const classNameList = ["pf-c-table__sort"];
   if (sortState.column === columnName) {
     classNameList.push("pf-m-selected");
@@ -42,36 +40,21 @@ function SortableTh<C extends string>(
           const nextDirection = startDesc ? "asc" : "desc";
           sortState.change(
             columnName,
-            (
-              sortState.column === columnName
-              &&
-              sortState.direction === firstDirection
-            )
+            sortState.column === columnName
+              && sortState.direction === firstDirection
               ? nextDirection
-              : firstDirection
-            ,
+              : firstDirection,
           );
         }}
       >
         {children}
         <span className="pf-c-table__sort-indicator">
           {sortState.column !== columnName && <ArrowsAltVIcon />}
-          {
-            sortState.column === columnName
-            &&
-            sortState.direction === "asc"
-            && (
-              <LongArrowAltUpIcon />
-            )
-          }
-          {
-            sortState.column === columnName
-            &&
-            sortState.direction === "desc"
-            && (
-              <LongArrowAltDownIcon />
-            )
-          }
+          {sortState.column === columnName && sortState.direction === "asc" && (
+            <LongArrowAltUpIcon />
+          )}
+          {sortState.column === columnName
+            && sortState.direction === "desc" && <LongArrowAltDownIcon />}
         </span>
       </button>
     </th>
@@ -79,14 +62,15 @@ function SortableTh<C extends string>(
 }
 
 function useSorting<COLUMN extends string>(
-  initialColumn: COLUMN|"" = "",
+  initialColumn: COLUMN | "" = "",
   initialDirection: Direction = "asc",
 ) {
   const [column, setColumn] = React.useState(initialColumn);
   const [direction, setDirection] = React.useState(initialDirection);
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const compareItems = (
-    compareByColumn: (column: COLUMN|"") => (a: any, b: any) => number,
+    compareByColumn: (column: COLUMN | "") => (a: any, b: any) => number,
   ) => {
     const compare = compareByColumn(column);
     return direction === "desc" ? (a: any, b: any) => compare(b, a) : compare;
@@ -104,6 +88,4 @@ function useSorting<COLUMN extends string>(
 }
 
 SortableTh.useSorting = useSorting;
-export {
-  SortableTh,
-};
+export { SortableTh };

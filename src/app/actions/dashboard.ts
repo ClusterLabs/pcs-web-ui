@@ -1,11 +1,11 @@
-import { clustersOverview, ApiResponse } from "app/backend";
+import { ApiResponse, clustersOverview } from "app/backend";
 
 export type DashboardActions = {
   FetchDashboardDataSuccess: {
-    type: "DASHBOARD_DATA.FETCH.SUCCESS",
+    type: "DASHBOARD_DATA.FETCH.SUCCESS";
     payload: {
-      apiClusterOverview: ApiResponse<typeof clustersOverview>,
-    },
+      apiClusterOverview: ApiResponse<typeof clustersOverview>;
+    };
   };
 
   FetchDashboardDataFailed: { type: "DASHBOARD_DATA.FETCH.FAILED" };
@@ -15,4 +15,4 @@ export type DashboardActions = {
   SyncDashboardData: { type: "DASHBOARD_DATA.SYNC" };
 
   SyncDashboardDataStop: { type: "DASHBOARD_DATA.SYNC.STOP" };
-}
+};

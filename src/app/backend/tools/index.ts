@@ -1,15 +1,12 @@
 import {
-  createResult,
-  createResultInvalid,
   ApiCall as ApiCallType,
   ApiResponse as ApiResponseType,
   ApiResult as ApiResultType,
+  createResult,
+  createResultInvalid,
 } from "./result";
 
-import {
-  validateSameNodes,
-  validateShape,
-} from "./validate";
+import { validateSameNodes, validateShape } from "./validate";
 import { dealWithInvalidJson } from "./dealWithInvalidJson";
 
 export type ApiCall<T> = ApiCallType<T>;

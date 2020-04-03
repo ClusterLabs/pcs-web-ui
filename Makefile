@@ -90,6 +90,9 @@ ifeq ($(NEXUS_REPO),true)
 endif
 
 lint:
-	npx eslint --fix "src/app/**/*.ts*"
+	npx eslint --fix --ext .js,.ts,.tsx src/
+
+fmt:
+	npx prettier-eslint "$(PWD)/src/**/*.*" --write
 
 .PHONY: test build

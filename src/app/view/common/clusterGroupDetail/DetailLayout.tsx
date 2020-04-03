@@ -17,8 +17,8 @@ export const DetailLayout = ({
   tabs = null,
   children,
 }: React.PropsWithChildren<{
-  caption: JSX.Element|JSX.Element[]|string;
-  tabs?: JSX.Element|JSX.Element[]|string|null;
+  caption: JSX.Element | JSX.Element[] | string;
+  tabs?: JSX.Element | JSX.Element[] | string | null;
 }>) => {
   const { urlPrefix } = useGroupDetailViewContext();
   const dispatch = useDispatch();
@@ -27,9 +27,7 @@ export const DetailLayout = ({
     <Stack gutter="md" className="pf-u-p-md">
       <StackItem>
         <Level>
-          <LevelItem>
-            {caption}
-          </LevelItem>
+          <LevelItem>{caption}</LevelItem>
           <LevelItem>
             <Button
               variant="plain"
@@ -44,7 +42,7 @@ export const DetailLayout = ({
           </LevelItem>
         </Level>
       </StackItem>
-      {tabs && (<StackItem>{tabs}</StackItem>)}
+      {tabs && <StackItem>{tabs}</StackItem>}
       {children}
     </Stack>
   );

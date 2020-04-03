@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginForm, LoginPage } from "@patternfly/react-core";
 
 import { Action } from "app/actions";
@@ -32,11 +32,11 @@ export const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {
           aria-label="Login form"
           usernameLabel="Username"
           usernameValue={username}
-          onChangeUsername={(value) => setUsername(value)}
+          onChangeUsername={value => setUsername(value)}
           isValidUsername
           passwordLabel="Password"
           passwordValue={password}
-          onChangePassword={(value) => setPassword(value)}
+          onChangePassword={value => setPassword(value)}
           isValidPassword
           isLoginButtonDisabled={!isAcceptingLoginData}
           onLoginButtonClick={(e) => {

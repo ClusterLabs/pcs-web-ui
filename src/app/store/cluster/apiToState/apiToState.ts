@@ -1,7 +1,4 @@
-import {
-  ApiClusterStatus,
-  ApiIssue,
-} from "app/backend/types/clusterStatus";
+import { ApiClusterStatus, ApiIssue } from "app/backend/types/clusterStatus";
 
 import { ClusterState } from "../types";
 import { transformIssues } from "./issues";
@@ -12,10 +9,14 @@ const statusToSeverity = (
   status: ApiClusterStatus["status"],
 ): ClusterState["statusSeverity"] => {
   switch (status) {
-    case "ok": return "OK";
-    case "warning": return "WARNING";
-    case "error": return "ERROR";
-    default: return "UNKNOWN";
+    case "ok":
+      return "OK";
+    case "warning":
+      return "WARNING";
+    case "error":
+      return "ERROR";
+    default:
+      return "UNKNOWN";
   }
 };
 
@@ -23,10 +24,14 @@ export const transformStatus = (
   status: ApiClusterStatus["status"],
 ): ClusterState["status"] => {
   switch (status) {
-    case "ok": return "OK";
-    case "warning": return "WARNING";
-    case "error": return "ERROR";
-    default: return "UNKNOWN";
+    case "ok":
+      return "OK";
+    case "warning":
+      return "WARNING";
+    case "error":
+      return "ERROR";
+    default:
+      return "UNKNOWN";
   }
 };
 
@@ -52,10 +57,9 @@ export const apiToState = (
     fenceDeviceList,
     fenceDevicesSeverity,
   } = analyzeApiResources(apiClusterStatus.resource_list);
-  const {
-    nodeList,
-    nodesSeverity,
-  } = processApiNodes(apiClusterStatus.node_list);
+  const { nodeList, nodesSeverity } = processApiNodes(
+    apiClusterStatus.node_list,
+  );
   return {
     name: apiClusterStatus.cluster_name,
     urlName: apiClusterStatus.cluster_name,

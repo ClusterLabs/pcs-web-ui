@@ -1,8 +1,10 @@
+/* eslint-disable max-classes-per-file */
 const captureStackTraceAlternative = (error: Error, message: string): void => {
   Object.defineProperty(error, "stack", {
     // enumerable: true,
     writable: true,
     configurable: true,
+    // prettier-ignore
     value: (new Error(message)).stack,
   });
 };
@@ -54,6 +56,7 @@ export function isUnauthorizedError<T extends Error>(error: T) {
 
 export function failMessage<T extends Error>(error: T): string {
   if (error instanceof ApiBadStatus) {
+    // prettier-ignore
     return (
       `Server returned http status error ${error.statusCode} (${error.text})`
     );

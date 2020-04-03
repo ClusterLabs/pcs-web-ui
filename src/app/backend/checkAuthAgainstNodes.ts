@@ -5,16 +5,20 @@ import { getJson } from "./calls";
 import {
   ApiCall,
   createResult,
-  validateShape,
   validateSameNodes,
+  validateShape,
 } from "./tools";
 
-const ApiCheckAuthAgainstNodes = t.record(t.string, t.keyof({
-  Online: null,
-  Offline: null,
-  "Unable to authenticate": null,
-}));
+const ApiCheckAuthAgainstNodes = t.record(
+  t.string,
+  t.keyof({
+    Online: null,
+    Offline: null,
+    "Unable to authenticate": null,
+  }),
+);
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const validate = (nodeList: string[], response: any) => {
   let errors = validateShape(response, ApiCheckAuthAgainstNodes);
   if (errors.length > 0) {

@@ -1,16 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
+  DataListCell,
   DataListItem,
   DataListItemCells,
   DataListItemRow,
-  DataListCell,
 } from "@patternfly/react-core";
 
 import { types } from "app/store";
 import { StatusSign, useGroupDetailViewContext } from "app/view/common";
 import { toLabel } from "app/view/utils";
-
 
 export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
   const { urlPrefix } = useGroupDetailViewContext();
@@ -18,7 +17,7 @@ export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
     <DataListItem aria-labelledby={node.name}>
       <DataListItemRow>
         <DataListItemCells
-          dataListCells={(
+          dataListCells={
             <>
               <DataListCell>
                 <Link
@@ -45,7 +44,7 @@ export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
                 />
               </DataListCell>
             </>
-        )}
+          }
         />
       </DataListItemRow>
     </DataListItem>

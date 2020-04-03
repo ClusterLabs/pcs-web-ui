@@ -1,31 +1,34 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import {
-  PageSection,
   Breadcrumb,
   BreadcrumbItem,
   EmptyState,
   EmptyStateIcon,
+  PageSection,
   Spinner,
-  Title,
   Stack,
   StackItem,
+  Title,
 } from "@patternfly/react-core";
 import { useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 
 import { Action } from "app/actions";
-import { Page, UrlTabs, GroupDetailView } from "app/view/common";
-import { tabRoutes, join } from "app/view/utils";
+import { GroupDetailView, Page, UrlTabs } from "app/view/common";
+import { join, tabRoutes } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
 
-import { NodeList, NodeDetailPage } from "./nodes";
-import { FenceDeviceList, FenceDeviceDetailPage } from "./fenceDevices";
-import { ResourceTree, ResourceDetailPage } from "./resources";
+import { NodeDetailPage, NodeList } from "./nodes";
+import { FenceDeviceDetailPage, FenceDeviceList } from "./fenceDevices";
+import { ResourceDetailPage, ResourceTree } from "./resources";
 import { ClusterDetail } from "./ClusterDetail";
 import { SelectedClusterProvider } from "./SelectedClusterContext";
 
-export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
+export const ClusterDetailPage = ({
+  clusterUrlName,
+  urlPrefix,
+}: {
   clusterUrlName: string;
   urlPrefix: string;
 }) => {
@@ -57,9 +60,11 @@ export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
               </BreadcrumbItem>
               <BreadcrumbItem
                 isActive
-                onClick={() => dispatch<Action>({
-                  type: "CLUSTER_DATA.REFRESH",
-                })}
+                onClick={() =>
+                  dispatch<Action>({
+                    type: "CLUSTER_DATA.REFRESH",
+                  })
+                }
               >
                 {clusterUrlName}
               </BreadcrumbItem>
@@ -95,9 +100,9 @@ export const ClusterDetailPage = ({ clusterUrlName, urlPrefix }: {
             <GroupDetailView
               urlPrefix={url}
               detailCard={<FenceDeviceDetailPage />}
-              groupCard={(
+              groupCard={
                 <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
-              )}
+              }
             />
           )}
         </SelectedClusterProvider>

@@ -10,17 +10,16 @@ const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 
 const WIZARD_SELECTOR = "[aria-label='Add cluster wizard']";
 const wizard = (selectors = "") => `${WIZARD_SELECTOR} ${selectors}`.trim();
-const wizardAria = (label) => wizard(`[aria-label="${label}"]`);
-const checkAuthForm = (selectors = "") => (
-  `${wizardAria("Check node authetication form")} ${selectors}`.trim()
-);
+const wizardAria = label => wizard(`[aria-label="${label}"]`);
+const checkAuthForm = (selectors = "") =>
+  `${wizardAria("Check node authetication form")} ${selectors}`.trim();
 
 const pollyManager = getPollyManager(() => page());
 
 const isButtonNextDisabled = async () => {
   const isDisabled = await page().$eval(
     wizard("footer [type='submit']"),
-    (buttonNext) => buttonNext.attributes.disabled !== undefined,
+    buttonNext => buttonNext.attributes.disabled !== undefined,
   );
   return isDisabled;
 };
@@ -57,16 +56,16 @@ const authFailed = async () => {
 const verifyAuthRequest = (spyLog, nodeName, password, addr, port) => {
   expect(spyLog.length).to.eql(1);
   expect(spyLog[0].body).to.eql(
-    `data_json=${
-      encodeURIComponent(JSON.stringify({
+    `data_json=${encodeURIComponent(
+      JSON.stringify({
         nodes: {
           [nodeName]: {
             password,
             dest_list: [{ addr, port }],
           },
         },
-      }))
-    }`,
+      }),
+    )}`,
   );
 };
 
@@ -80,9 +79,9 @@ const verifyAddRequest = (spyLog, nodeName) => {
   expect(spyLog[0].body).to.eql(`node-name=${nodeName}`);
 };
 
-const getDashboard = endpoints.clustersOverview(
-  (req, res) => { res.json(responses.clustersOverview.empty); },
-);
+const getDashboard = endpoints.clustersOverview((req, res) => {
+  res.json(responses.clustersOverview.empty);
+});
 
 describe("Add existing cluster wizard", () => {
   const nodeName = "nodeA";
@@ -98,9 +97,8 @@ describe("Add existing cluster wizard", () => {
   it("should succesfully add cluster", async () => {
     pollyManager().reset([
       getDashboard,
-      endpoints.checkAuthAgainstNodes(
-        (req, res) => res.json({ [nodeName]: "Online" }),
-      ),
+      endpoints.checkAuthAgainstNodes((req, res) =>
+        res.json({ [nodeName]: "Online" })),
       endpoints.addCluster((req, res) => res.send("")),
     ]);
 
@@ -114,12 +112,12 @@ describe("Add existing cluster wizard", () => {
   it("should succesfully add cluster with authentication", async () => {
     pollyManager().reset([
       getDashboard,
-      endpoints.checkAuthAgainstNodes((req, res) => res.json({
-        [nodeName]: "Unable to authenticate",
-      })),
-      endpoints.authenticateAgainstNodes(
-        (req, res) => res.json({ node_auth_error: { [nodeName]: 0 } }),
-      ),
+      endpoints.checkAuthAgainstNodes((req, res) =>
+        res.json({
+          [nodeName]: "Unable to authenticate",
+        })),
+      endpoints.authenticateAgainstNodes((req, res) =>
+        res.json({ node_auth_error: { [nodeName]: 0 } })),
       endpoints.addCluster((req, res) => res.send("")),
     ]);
 
@@ -142,9 +140,8 @@ describe("Add existing cluster wizard", () => {
   it("should display error when auth check crash on backend", async () => {
     pollyManager().reset([
       getDashboard,
-      endpoints.checkAuthAgainstNodes(
-        (req, res) => res.status(500).send("WRONG"),
-      ),
+      endpoints.checkAuthAgainstNodes((req, res) =>
+        res.status(500).send("WRONG")),
     ]);
 
     await enterNodeName(nodeName);
@@ -166,9 +163,8 @@ describe("Add existing cluster wizard", () => {
   it("should display error when auth check response is offline", async () => {
     pollyManager().reset([
       getDashboard,
-      endpoints.checkAuthAgainstNodes(
-        (req, res) => res.json({ [nodeName]: "Offline" }),
-      ),
+      endpoints.checkAuthAgainstNodes((req, res) =>
+        res.json({ [nodeName]: "Offline" })),
     ]);
 
     await enterNodeName(nodeName);
@@ -179,12 +175,12 @@ describe("Add existing cluster wizard", () => {
   it("should display error when authentication fails", async () => {
     pollyManager().reset([
       getDashboard,
-      endpoints.checkAuthAgainstNodes((req, res) => res.json({
-        [nodeName]: "Unable to authenticate",
-      })),
-      endpoints.authenticateAgainstNodes(
-        (req, res) => res.json({ node_auth_error: { [nodeName]: 1 } }),
-      ),
+      endpoints.checkAuthAgainstNodes((req, res) =>
+        res.json({
+          [nodeName]: "Unable to authenticate",
+        })),
+      endpoints.authenticateAgainstNodes((req, res) =>
+        res.json({ node_auth_error: { [nodeName]: 1 } })),
     ]);
 
     await enterNodeName(nodeName);
@@ -205,12 +201,10 @@ describe("Add existing cluster wizard", () => {
   it("should display error when cluster add fails", async () => {
     pollyManager().reset([
       getDashboard,
-      endpoints.checkAuthAgainstNodes(
-        (req, res) => res.json({ [nodeName]: "Online" }),
-      ),
-      endpoints.addCluster((req, res) => res.status(400).send(
-        "Configuration conflict detected.",
-      )),
+      endpoints.checkAuthAgainstNodes((req, res) =>
+        res.json({ [nodeName]: "Online" })),
+      endpoints.addCluster((req, res) =>
+        res.status(400).send("Configuration conflict detected.")),
     ]);
 
     await enterNodeName(nodeName);

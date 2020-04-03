@@ -10,13 +10,14 @@ import {
   TextInput,
   Title,
 } from "@patternfly/react-core";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Action } from "app/actions";
-import { types, selectors } from "app/store";
+import { selectors, types } from "app/store";
 
 import { AddClusterAuthRequired } from "./AddClusterAuthRequired";
 
+// prettier-ignore
 const helperText = (
   "Enter the name of a node in a cluster that you would like to manage"
 );
@@ -46,20 +47,24 @@ export const AddClusterStepAuth = () => {
           id="add-cluster-node-name"
           name="node-name"
           value={nodeName}
-          onChange={(currentNodeName) => dispatch<Action>({
-            type: "ADD_CLUSTER.NODE_NAME.UPDATE",
-            payload: { nodeName: currentNodeName },
-          })}
+          onChange={currentNodeName =>
+            dispatch<Action>({
+              type: "ADD_CLUSTER.NODE_NAME.UPDATE",
+              payload: { nodeName: currentNodeName },
+            })
+          }
         />
       </FormGroup>
       {authState === "INITIAL" && (
         <Button
           variant="primary"
           aria-label="Check authentication"
-          onClick={() => dispatch<Action>({
-            type: "ADD_CLUSTER.CHECK_AUTH",
-            payload: { nodeName },
-          })}
+          onClick={() =>
+            dispatch<Action>({
+              type: "ADD_CLUSTER.CHECK_AUTH",
+              payload: { nodeName },
+            })
+          }
           isDisabled={nodeName.length < 1}
         >
           Check authentication
@@ -80,21 +85,15 @@ export const AddClusterStepAuth = () => {
           aria-label="Success authentication check"
         />
       )}
-      {
-        authRequiredStates.includes(authState) && (
-          <AddClusterAuthRequired
-            nodeName={nodeName}
-            authenticationInProgress={
-              authState === "AUTHENTICATION_IN_PROGRESS"
-            }
-            authenticationError={
-              authState === "AUTHENTICATION_FAILED"
-                ? stateError
-                : ""
-            }
-          />
-        )
-      }
+      {authRequiredStates.includes(authState) && (
+        <AddClusterAuthRequired
+          nodeName={nodeName}
+          authenticationInProgress={authState === "AUTHENTICATION_IN_PROGRESS"}
+          authenticationError={
+            authState === "AUTHENTICATION_FAILED" ? stateError : ""
+          }
+        />
+      )}
       {authState === "ERROR" && (
         <Alert
           isInline

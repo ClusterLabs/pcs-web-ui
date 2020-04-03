@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import * as t from "io-ts";
 
 export const ApiIssue = t.intersection([

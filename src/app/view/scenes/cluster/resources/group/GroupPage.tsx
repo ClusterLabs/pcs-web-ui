@@ -2,12 +2,12 @@ import React from "react";
 import { useRouteMatch } from "react-router";
 
 import { types } from "app/store";
-import { tabRoutes, join } from "app/view/utils";
+import { join, tabRoutes } from "app/view/utils";
 import {
-  UrlTabs,
-  ResourceDetailCaption,
-  useGroupDetailViewContext,
   DetailLayout,
+  ResourceDetailCaption,
+  UrlTabs,
+  useGroupDetailViewContext,
 } from "app/view/common";
 
 import { ConstraintListResource } from "../constraints";
@@ -29,12 +29,8 @@ export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
       caption={<ResourceDetailCaption resourceId={group.id} type="group" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
-      {tab === "Detail" && (
-        <GroupDetail group={group} />
-      )}
-      {tab === "Constraints" && (
-        <ConstraintListResource resource={group} />
-      )}
+      {tab === "Detail" && <GroupDetail group={group} />}
+      {tab === "Constraints" && <ConstraintListResource resource={group} />}
     </DetailLayout>
   );
 };

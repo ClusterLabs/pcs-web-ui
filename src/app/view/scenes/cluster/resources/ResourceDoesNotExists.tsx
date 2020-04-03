@@ -3,14 +3,16 @@ import {
   EmptyState,
   EmptyStateBody,
   EmptyStateIcon,
-  Title,
   StackItem,
+  Title,
 } from "@patternfly/react-core";
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { DetailLayout } from "app/view/common";
 
-export const ResourceDoesNotExists = ({ resourceUrlName }: {
+export const ResourceDoesNotExists = ({
+  resourceUrlName,
+}: {
   resourceUrlName: string;
 }) => {
   return (

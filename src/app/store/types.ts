@@ -10,17 +10,17 @@ import { ResourceTreeState } from "./resourceTree/types";
 import { UsernameState } from "./username/types";
 
 export interface RootState {
-  addExistingCluster: DashboardAddClusterPageState,
-  cluster: ClusterServiceState,
-  dashboard: DashboardPageState,
-  login: LoginState,
-  notifications: NotificationState,
-  resourceAgents: ResourcePrimitiveState,
-  resourceTree: ResourceTreeState,
-  router: RouterState,
-  username: UsernameState,
+  addExistingCluster: DashboardAddClusterPageState;
+  cluster: ClusterServiceState;
+  dashboard: DashboardPageState;
+  login: LoginState;
+  notifications: NotificationState;
+  resourceAgents: ResourcePrimitiveState;
+  resourceTree: ResourceTreeState;
+  router: RouterState;
+  username: UsernameState;
 }
 
 export interface Selector<Selected, State = RootState> {
-  (state: State): Selected,
+  (state: State): Selected;
 }

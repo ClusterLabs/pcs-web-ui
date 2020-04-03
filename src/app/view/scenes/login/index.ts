@@ -1,5 +1,3 @@
 import { EnsureLogin } from "./EnsureLogin";
 
-export {
-  EnsureLogin,
-};
+export { EnsureLogin };

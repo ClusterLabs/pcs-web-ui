@@ -4,7 +4,10 @@ import { types } from "app/store";
 
 import { PrimitiveAttrsListItem } from "./PrimitiveAttrsListItem";
 
-export const PrimitiveAttrsList = ({ primitive, resourceAgentParameters }: {
+export const PrimitiveAttrsList = ({
+  primitive,
+  resourceAgentParameters,
+}: {
   primitive: types.cluster.Primitive;
   resourceAgentParameters: types.resourceAgents.ResourceAgentParameter[];
 }) => {

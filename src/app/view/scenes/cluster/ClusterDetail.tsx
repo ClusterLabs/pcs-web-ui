@@ -1,16 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import {
-  PageSection,
   Card,
   CardBody,
   CardHeader,
+  PageSection,
   Stack,
   StackItem,
 } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { StatusSign, IssueList } from "app/view/common";
+import { IssueList, StatusSign } from "app/view/common";
 
 export const ClusterDetail = () => {
   const cluster = useSelector(selectors.getCluster);

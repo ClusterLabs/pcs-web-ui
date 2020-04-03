@@ -1,9 +1,5 @@
 const {
-  resource,
-  group,
-  clone,
-  cluster,
-  resourceStatus,
+  resource, group, clone, cluster, resourceStatus,
 } = require("./tools");
 
 const resourcesForTest = cluster("resourcesForTest", "ok", {
@@ -17,11 +13,13 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
           target_role: "Stopped",
         }),
       ],
-      meta_attr: [{
-        id: "A-target-role-stopped",
-        name: "target-role",
-        value: "Stopped",
-      }],
+      meta_attr: [
+        {
+          id: "A-target-role-stopped",
+          name: "target-role",
+          value: "Stopped",
+        },
+      ],
       error_list: [
         {
           message: "Failed to monitor A on Mon Oct 14 14:00:07 CEST 2019",
@@ -43,19 +41,23 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
     group("GROUP-1", [
       resource("B", {
         status: "disabled",
-        meta_attr: [{
-          id: "B-target-role-stopped",
-          name: "target-role",
-          value: "Stopped",
-        }],
+        meta_attr: [
+          {
+            id: "B-target-role-stopped",
+            name: "target-role",
+            value: "Stopped",
+          },
+        ],
       }),
       resource("C", {
         status: "disabled",
-        meta_attr: [{
-          id: "C-target-role-stopped",
-          name: "target-role",
-          value: "Stopped",
-        }],
+        meta_attr: [
+          {
+            id: "C-target-role-stopped",
+            name: "target-role",
+            value: "Stopped",
+          },
+        ],
         crm_status: [
           resourceStatus("C", {
             managed: false,
@@ -85,7 +87,8 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
         status: "blocked",
         error_list: [
           {
-            message: "Failed to monitor Clone-1 on Mon Oct 14 14:00:07 CEST 2019",
+            message:
+              "Failed to monitor Clone-1 on Mon Oct 14 14:00:07 CEST 2019",
           },
         ],
       },

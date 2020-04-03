@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import {
   Alert,
   Button,
-  FormGroup,
   EmptyState,
   EmptyStateIcon,
+  FormGroup,
   Spinner,
   Switch,
   TextInput,
@@ -15,13 +15,15 @@ import {
 import { Action } from "app/actions";
 import { types } from "app/store";
 
-export const AddClusterAuthRequired = (
-  { nodeName, authenticationInProgress, authenticationError }: {
-    nodeName: types.addCluster.NodeName,
-    authenticationInProgress: boolean,
-    authenticationError: types.addCluster.StateError,
-  },
-) => {
+export const AddClusterAuthRequired = ({
+  nodeName,
+  authenticationInProgress,
+  authenticationError,
+}: {
+  nodeName: types.addCluster.NodeName;
+  authenticationInProgress: boolean;
+  authenticationError: types.addCluster.StateError;
+}) => {
   const [password, setPassword] = React.useState("");
   const [customAddrPort, setCustomAddrPort] = React.useState(false);
   const [address, setAddress] = React.useState("");
@@ -33,6 +35,7 @@ export const AddClusterAuthRequired = (
         isInline
         variant="warning"
         title={
+          // prettier-ignore
           `Node '${nodeName}' is not authenticated. Please authenticate it.`
         }
       />
@@ -57,7 +60,7 @@ export const AddClusterAuthRequired = (
           name="password"
           aria-describedby="Password for user 'hacluster' to authenticate nodes"
           value={password}
-          onChange={(value) => setPassword(value)}
+          onChange={value => setPassword(value)}
         />
       </FormGroup>
       <Switch
@@ -67,7 +70,7 @@ export const AddClusterAuthRequired = (
         onChange={() => setCustomAddrPort(!customAddrPort)}
         aria-label="Use custom address and port switch"
       />
-      { customAddrPort && (
+      {customAddrPort && (
         <>
           <FormGroup
             label="Address"
@@ -80,7 +83,7 @@ export const AddClusterAuthRequired = (
               name="address"
               aria-describedby="An address via which pcsd will communicate with the node"
               value={address}
-              onChange={(value) => setAddress(value)}
+              onChange={value => setAddress(value)}
             />
           </FormGroup>
           <FormGroup
@@ -94,38 +97,35 @@ export const AddClusterAuthRequired = (
               name="port"
               aria-describedby="A port via which pcsd will communicate with the node"
               value={port}
-              onChange={(value) => setPort(value)}
+              onChange={value => setPort(value)}
             />
           </FormGroup>
         </>
       )}
-      {
-        authenticationInProgress
-          ? (
-            <EmptyState style={{ margin: "auto" }}>
-              <EmptyStateIcon variant="container" component={Spinner} />
-              <Title size="lg">Authenticating node</Title>
-            </EmptyState>
-          )
-          : (
-            <Button
-              variant="primary"
-              onClick={() => dispatch<Action>({
-                type: "ADD_CLUSTER.AUTHENTICATE_NODE",
-                payload: {
-                  nodeName,
-                  password,
-                  address,
-                  port,
-                },
-              })}
-              aria-label="Authenticate node"
-            >
-              Authenticate node
-            </Button>
-
-          )
-      }
+      {authenticationInProgress ? (
+        <EmptyState style={{ margin: "auto" }}>
+          <EmptyStateIcon variant="container" component={Spinner} />
+          <Title size="lg">Authenticating node</Title>
+        </EmptyState>
+      ) : (
+        <Button
+          variant="primary"
+          onClick={() =>
+            dispatch<Action>({
+              type: "ADD_CLUSTER.AUTHENTICATE_NODE",
+              payload: {
+                nodeName,
+                password,
+                address,
+                port,
+              },
+            })
+          }
+          aria-label="Authenticate node"
+        >
+          Authenticate node
+        </Button>
+      )}
     </>
   );
 };

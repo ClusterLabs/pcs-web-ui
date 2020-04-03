@@ -9,7 +9,6 @@ const { HOST } = require("./backendAddress");
 Polly.register(PuppeteerAdapter);
 Polly.register(FsPersister);
 
-
 class PollyManager {
   constructor(page) {
     this.page = page;

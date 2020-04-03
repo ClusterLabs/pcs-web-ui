@@ -4,23 +4,18 @@ import { SortableTh } from "./SortableTh";
 import { Expansion } from "./Expansion";
 import { Body } from "./Body";
 
-const Table = (
-  {
-    children,
-    isCompact = false,
-    isBorderless = false,
-    isExpandable = false,
-    ...rest
-  }: React.PropsWithChildren<{
-    isCompact?: boolean,
-    isBorderless?: boolean,
-    isExpandable?: boolean,
-  }>,
-) => {
-  const classNameList = [
-    "pf-c-table",
-    "pf-m-grid-md",
-  ];
+const Table = ({
+  children,
+  isCompact = false,
+  isBorderless = false,
+  isExpandable = false,
+  ...rest
+}: React.PropsWithChildren<{
+  isCompact?: boolean;
+  isBorderless?: boolean;
+  isExpandable?: boolean;
+}>) => {
+  const classNameList = ["pf-c-table", "pf-m-grid-md"];
   if (isCompact) {
     classNameList.push("pf-m-compact");
   }
@@ -42,6 +37,4 @@ Table.Body = Body;
 Table.Expansion = Expansion;
 Table.SortableTh = SortableTh;
 
-export {
-  Table,
-};
+export { Table };

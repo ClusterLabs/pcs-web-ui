@@ -17,8 +17,10 @@ const getScore = (constraint: types.cluster.ConstraintLocation) => {
   return "";
 };
 
-export const ConstraintRowLocation = ({ constraint }: {
-  constraint: types.cluster.ConstraintLocation,
+export const ConstraintRowLocation = ({
+  constraint,
+}: {
+  constraint: types.cluster.ConstraintLocation;
 }) => {
   const ariaLabel = `Location constraint ${constraint.id}`;
   if ("node" in constraint) {

@@ -18,11 +18,13 @@ const resourceTree = cluster("resourceTree", "ok", {
           target_role: "Stopped",
         }),
       ],
-      meta_attr: [{
-        id: "A-target-role-stopped",
-        name: "target-role",
-        value: "Stopped",
-      }],
+      meta_attr: [
+        {
+          id: "A-target-role-stopped",
+          name: "target-role",
+          value: "Stopped",
+        },
+      ],
       error_list: [
         {
           message: "Failed to monitor A on Mon Oct 14 14:00:07 CEST 2019",
@@ -79,19 +81,23 @@ const resourceTree = cluster("resourceTree", "ok", {
       [
         resource("B", {
           status: "disabled",
-          meta_attr: [{
-            id: "B-target-role-stopped",
-            name: "target-role",
-            value: "Stopped",
-          }],
+          meta_attr: [
+            {
+              id: "B-target-role-stopped",
+              name: "target-role",
+              value: "Stopped",
+            },
+          ],
         }),
         resource("C", {
           status: "disabled",
-          meta_attr: [{
-            id: "C-target-role-stopped",
-            name: "target-role",
-            value: "Stopped",
-          }],
+          meta_attr: [
+            {
+              id: "C-target-role-stopped",
+              name: "target-role",
+              value: "Stopped",
+            },
+          ],
           crm_status: [
             resourceStatus("C", {
               managed: false,
@@ -99,17 +105,17 @@ const resourceTree = cluster("resourceTree", "ok", {
           ],
         }),
         resource("C2", {
-          crm_status: [
-            resourceStatus("C2-ok"),
-          ],
+          crm_status: [resourceStatus("C2-ok")],
         }),
       ],
       {
-        meta_attr: [{
-          id: "GROUP-1-target-role-stopped",
-          name: "target-role",
-          value: "Stopped",
-        }],
+        meta_attr: [
+          {
+            id: "GROUP-1-target-role-stopped",
+            name: "target-role",
+            value: "Stopped",
+          },
+        ],
       },
     ),
     clone(
@@ -134,7 +140,8 @@ const resourceTree = cluster("resourceTree", "ok", {
         status: "blocked",
         error_list: [
           {
-            message: "Failed to monitor Clone-1 on Mon Oct 14 14:00:07 CEST 2019",
+            message:
+              "Failed to monitor Clone-1 on Mon Oct 14 14:00:07 CEST 2019",
           },
         ],
       },

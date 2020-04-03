@@ -13,10 +13,9 @@ export const apiToState = (
     fenceDeviceList,
     fenceDevicesSeverity,
   } = clusterApiToState.analyzeApiResources(apiClusterStatus.resource_list);
-  const {
-    nodeList,
-    nodesSeverity,
-  } = processApiNodes(apiClusterStatus.node_list);
+  const { nodeList, nodesSeverity } = processApiNodes(
+    apiClusterStatus.node_list,
+  );
   return {
     name: apiClusterStatus.cluster_name,
     urlName: apiClusterStatus.cluster_name,

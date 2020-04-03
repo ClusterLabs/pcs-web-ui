@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import * as t from "io-ts";
 
 import { ApiId, ApiResourceId, ApiScore } from "./common";
@@ -55,7 +54,6 @@ export const ApiConstraintResourceSet = t.union([
   ]),
 ]);
 
-
 /*
 It is not the full common rule. It is just shortened version which attributes
 are mixed into location constraint in the backend.
@@ -75,7 +73,6 @@ TODO add attributes according .rng. (to ApiLocation, ApiResourceAttributes, ...)
 warning: there are relations between attributes - things will be more
 complicated!
 */
-
 
 /*
 rule_string does not follow rng schema, however the ruby backend does it that

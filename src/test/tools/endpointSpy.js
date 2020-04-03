@@ -3,10 +3,11 @@ const spyRequests = (requests) => {
   const newRequests = {};
 
   Object.keys(requests).forEach((name) => {
-    newRequests[name] = handler => requests[name]((req, res) => {
-      records[name] = [...(records[name] || []), req];
-      handler(req, res);
-    });
+    newRequests[name] = handler =>
+      requests[name]((req, res) => {
+        records[name] = [...(records[name] || []), req];
+        handler(req, res);
+      });
   });
 
   return [newRequests, records];

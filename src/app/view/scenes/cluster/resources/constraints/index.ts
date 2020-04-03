@@ -1,5 +1,3 @@
 import { ConstraintListResource } from "./ConstraintListResource";
 
-export {
-  ConstraintListResource,
-};
+export { ConstraintListResource };

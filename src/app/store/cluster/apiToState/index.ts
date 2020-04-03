@@ -1,20 +1,20 @@
 import {
   apiToState,
-  issuesToSummarySeverity,
   transformStatus as clusterTransforStatus,
+  issuesToSummarySeverity,
 } from "./apiToState";
 import {
-  mapStatus as nodeMapStatus,
-  statusToSeverity as nodeStatusToSeverity,
   mapQuorum as nodeMapQuorum,
+  mapStatus as nodeMapStatus,
   quorumToSeverity as nodeQuorumToSeverity,
+  statusToSeverity as nodeStatusToSeverity,
   toSeverity as nodeToSeverity,
 } from "./nodes";
 import {
-  filterPrimitive,
-  transformStatus as resourceTransformStatus,
-  statusToSeverity as resourceStatusToSeverity,
   analyzeApiResources,
+  filterPrimitive,
+  statusToSeverity as resourceStatusToSeverity,
+  transformStatus as resourceTransformStatus,
 } from "./resources";
 import { transformIssues } from "./issues";
 

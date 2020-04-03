@@ -1,19 +1,12 @@
 import {
-  all,
-  call,
-  fork,
-  put,
+  all, call, fork, put,
 } from "redux-saga/effects";
 
 import { Action, ClusterActions } from "app/actions";
-import {
-  clusterStatus,
-  ApiResult,
-  failMessage,
-} from "app/backend";
+import { ApiResult, clusterStatus, failMessage } from "app/backend";
 
 import { putNotification } from "./notifications";
-import { dataLoadManage, DataLoadProps } from "./dataLoad";
+import { DataLoadProps, dataLoadManage } from "./dataLoad";
 import { authSafe } from "./authSafe";
 
 function* fetchClusterData(clusterUrlName: string) {
@@ -32,8 +25,7 @@ function* fetchClusterData(clusterUrlName: string) {
         putNotification(
           "ERROR",
           `Cannot sync data for cluster '${clusterUrlName}'. `
-            + "Details are listed in the browser console."
-          ,
+            + "Details are listed in the browser console.",
         ),
         put<Action>({ type: "CLUSTER_DATA.FETCH.FAILED" }),
       ]);
@@ -65,14 +57,12 @@ const getClusterDataSyncOptions = (): DataLoadProps => {
     FAIL: "CLUSTER_DATA.FETCH.FAILED",
     refreshAction: { type: "CLUSTER_DATA.REFRESH" },
     takeStartPayload: (
-      (payload: ClusterActions["SyncClusterData"]["payload"]) => {
-        ({ clusterUrlName } = payload);
-      }
-    ),
+      payload: ClusterActions["SyncClusterData"]["payload"],
+    ) => {
+      ({ clusterUrlName } = payload);
+    },
     fetch: () => fork(fetchClusterData, clusterUrlName),
   };
 };
 
-export default [
-  fork(dataLoadManage, getClusterDataSyncOptions()),
-];
+export default [fork(dataLoadManage, getClusterDataSyncOptions())];

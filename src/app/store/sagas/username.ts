@@ -1,12 +1,8 @@
 import {
-  put,
-  call,
-  race,
-  take,
-  takeEvery,
+  call, put, race, take, takeEvery,
 } from "redux-saga/effects";
 
-import { Action, actionType, AuthActions } from "app/actions";
+import { Action, AuthActions, actionType } from "app/actions";
 
 const USERNAME_STORAGE_KEY = "username";
 

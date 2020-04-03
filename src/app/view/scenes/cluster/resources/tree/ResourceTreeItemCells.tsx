@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  DataListItemCells,
-  DataListCell,
-} from "@patternfly/react-core";
+import { DataListCell, DataListItemCells } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
@@ -19,8 +16,8 @@ export const ResourceTreeItemCells = ({
 }: {
   resourceId: string;
   status: types.cluster.ResourceStatus;
-  type: string,
-  typeDescription?: string,
+  type: string;
+  typeDescription?: string;
 }) => {
   return (
     <>

@@ -4,8 +4,10 @@ import { types } from "app/store";
 
 import { ResourceTreeItem } from "./ResourceTreeItem";
 
-export const ResourceTreeItemPrimitive = ({ primitive }: {
-  primitive: types.cluster.Primitive,
+export const ResourceTreeItemPrimitive = ({
+  primitive,
+}: {
+  primitive: types.cluster.Primitive;
 }) => (
   <ResourceTreeItem
     resourceId={primitive.id}

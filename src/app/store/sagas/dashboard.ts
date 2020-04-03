@@ -1,19 +1,12 @@
 import {
-  all,
-  call,
-  fork,
-  put,
+  all, call, fork, put,
 } from "redux-saga/effects";
 
 import { Action } from "app/actions";
-import {
-  clustersOverview,
-  ApiResult,
-  failMessage,
-} from "app/backend";
+import { ApiResult, clustersOverview, failMessage } from "app/backend";
 
 import { putNotification } from "./notifications";
-import { dataLoadManage, DataLoadProps } from "./dataLoad";
+import { DataLoadProps, dataLoadManage } from "./dataLoad";
 import { authSafe } from "./authSafe";
 
 function* fetchDashboardData() {
@@ -31,12 +24,9 @@ function* fetchDashboardData() {
         putNotification(
           "ERROR",
           "Cannot sync dashboard data."
-            + "Details are listed in the browser console."
-          ,
+            + "Details are listed in the browser console.",
         ),
-        put<Action>(
-          { type: "DASHBOARD_DATA.FETCH.FAILED" },
-        ),
+        put<Action>({ type: "DASHBOARD_DATA.FETCH.FAILED" }),
       ]);
       return;
     }
@@ -48,9 +38,7 @@ function* fetchDashboardData() {
     const errorMessage = failMessage(error);
     yield all([
       putNotification("ERROR", `Cannot sync dashboard data: ${errorMessage}`),
-      put<Action>(
-        { type: "DASHBOARD_DATA.FETCH.FAILED" },
-      ),
+      put<Action>({ type: "DASHBOARD_DATA.FETCH.FAILED" }),
     ]);
   }
 }
@@ -61,10 +49,9 @@ const getDashboardDataSyncOptions = (): DataLoadProps => ({
   SUCCESS: "DASHBOARD_DATA.FETCH.SUCCESS",
   FAIL: "DASHBOARD_DATA.FETCH.FAILED",
   refreshAction: { type: "DASHBOARD_DATA.REFRESH" },
+  /* eslint-disable @typescript-eslint/no-empty-function */
   takeStartPayload: () => {},
   fetch: () => fork(fetchDashboardData),
 });
 
-export default [
-  fork(dataLoadManage, getDashboardDataSyncOptions()),
-];
+export default [fork(dataLoadManage, getDashboardDataSyncOptions())];

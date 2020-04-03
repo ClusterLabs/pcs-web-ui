@@ -2,7 +2,7 @@ import { match as Match } from "react-router";
 
 export function selectCurrent<T extends string>(
   defaultTab: T,
-  routes: Record<T, Match|null>,
+  routes: Record<T, Match | null>,
 ) {
   const entries = Object.entries(routes);
   const currentRoute = entries.find(r => r[1] !== null);
@@ -15,6 +15,5 @@ export function selectCurrent<T extends string>(
     : {
       tab: defaultTab,
       url: "/",
-    }
-  ;
+    };
 }

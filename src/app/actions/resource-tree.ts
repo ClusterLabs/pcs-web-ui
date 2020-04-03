@@ -1,8 +1,8 @@
 export type ResourceTreeActions = {
   ToggleItem: {
-    type: "RESOURCE_TREE.ITEM.TOGGLE",
+    type: "RESOURCE_TREE.ITEM.TOGGLE";
     payload: {
-      itemId: string,
-    }
+      itemId: string;
+    };
   };
-}
+};

@@ -1,40 +1,50 @@
 import { ApiNode } from "app/backend/types/clusterStatus";
 import * as statusSeverity from "./statusSeverity";
 
-import { NodeStatusFlag, NodeQuorumFlag, StatusSeverity } from "../types";
+import { NodeQuorumFlag, NodeStatusFlag, StatusSeverity } from "../types";
 import { transformIssues } from "./issues";
 
 export const mapStatus = (status: ApiNode["status"]): NodeStatusFlag => {
   switch (status) {
-    case "online": return "ONLINE";
-    case "offline": return "OFFLINE";
-    default: return "UNKNOWN";
+    case "online":
+      return "ONLINE";
+    case "offline":
+      return "OFFLINE";
+    default:
+      return "UNKNOWN";
   }
 };
 
-export const statusToSeverity = (
-  status: ApiNode["status"],
-): StatusSeverity => {
+export const statusToSeverity = (status: ApiNode["status"]): StatusSeverity => {
   switch (status) {
-    case "online": return "OK";
-    case "offline": return "ERROR";
-    default: return "UNKNOWN";
+    case "online":
+      return "OK";
+    case "offline":
+      return "ERROR";
+    default:
+      return "UNKNOWN";
   }
 };
 
 export const mapQuorum = (quorum: ApiNode["quorum"]): NodeQuorumFlag => {
   switch (quorum) {
-    case true: return "YES";
-    case false: return "NO";
-    default: return "UNKNOWN";
+    case true:
+      return "YES";
+    case false:
+      return "NO";
+    default:
+      return "UNKNOWN";
   }
 };
 
 export const quorumToSeverity = (quorum: ApiNode["quorum"]): StatusSeverity => {
   switch (quorum) {
-    case true: return "OK";
-    case false: return "WARNING";
-    default: return "UNKNOWN";
+    case true:
+      return "OK";
+    case false:
+      return "WARNING";
+    default:
+      return "UNKNOWN";
   }
 };
 
@@ -66,10 +76,8 @@ const toNode = (apiNode: ApiNode) => ({
 export const processApiNodes = (apiNodeList: ApiNode[]) => ({
   nodeList: apiNodeList.map(toNode),
   nodesSeverity: apiNodeList.reduce<StatusSeverity>(
-    (lastMaxSeverity, node) => statusSeverity.max(
-      lastMaxSeverity,
-      toSeverity(node.status, node.quorum),
-    ),
+    (lastMaxSeverity, node) =>
+      statusSeverity.max(lastMaxSeverity, toSeverity(node.status, node.quorum)),
     "OK",
   ),
 });

@@ -1,3 +1,3 @@
 export interface ResourceTreeState {
-  openedItems: string[],
+  openedItems: string[];
 }

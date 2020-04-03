@@ -6,7 +6,7 @@ import { DashboardPage } from "./dashboard";
 import { Scratch } from "./Scratch";
 
 export const AppPage = () => {
-  const cluster = useRouteMatch<{name: string}>("/cluster/:name");
+  const cluster = useRouteMatch<{ name: string }>("/cluster/:name");
   const scratch = useRouteMatch({ exact: true, path: "/scratch" });
 
   if (cluster) {

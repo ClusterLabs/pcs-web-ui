@@ -6,7 +6,10 @@ import { ConstraintRow } from "./ConstraintRow";
 import { ConstraintCell } from "./ConstraintCell";
 import { ConstraintCellResourceSet } from "./ConstraintCellResourceSet";
 
-export const ConstraintRowColocation = ({ constraint, resourceId }: {
+export const ConstraintRowColocation = ({
+  constraint,
+  resourceId,
+}: {
   constraint: types.cluster.ConstraintColocation;
   resourceId: string;
 }) => {

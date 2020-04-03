@@ -1,15 +1,17 @@
 import { delay, put, takeEvery } from "redux-saga/effects";
 
-import { Action, actionType, NotificationActions } from "app/actions";
+import { Action, NotificationActions, actionType } from "app/actions";
 
 const DISPLAY_MSECONDS = 8000;
 let nextId = 1;
 
 type CreateNotification = NotificationActions["Create"];
 
-function* limitNotificationLife(
-  { payload: { notification: { id } } }: CreateNotification,
-) {
+function* limitNotificationLife({
+  payload: {
+    notification: { id },
+  },
+}: CreateNotification) {
   yield delay(DISPLAY_MSECONDS);
   yield put<Action>({
     type: "NOTIFICATION.DESTROY",

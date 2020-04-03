@@ -2,12 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { types } from "app/store";
-import { Table, StatusIco, IssueList } from "app/view/common";
+import { IssueList, StatusIco, Table } from "app/view/common";
 
 import { DashboardNodeList } from "./DashboardNodeList";
 import { DashboardResourceList } from "./DashboardResourceList";
 import { DashboardFenceDeviceList } from "./DashboardFenceDeviceList";
-
 
 const COLUMNS = {
   ISSUES: "ISSUES",
@@ -18,9 +17,12 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
-const Summary = ({ itemsCount, summaryStatus }: {
-  itemsCount: number,
-  summaryStatus: React.ComponentProps<typeof StatusIco>["status"],
+const Summary = ({
+  itemsCount,
+  summaryStatus,
+}: {
+  itemsCount: number;
+  summaryStatus: React.ComponentProps<typeof StatusIco>["status"];
 }) => {
   if (summaryStatus === "OK") {
     return <>{itemsCount}</>;
@@ -33,8 +35,10 @@ const Summary = ({ itemsCount, summaryStatus }: {
   );
 };
 
-export const DashboardCluster = ({ cluster }: {
-  cluster: types.dashboard.ClusterState,
+export const DashboardCluster = ({
+  cluster,
+}: {
+  cluster: types.dashboard.ClusterState;
 }) => {
   const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,

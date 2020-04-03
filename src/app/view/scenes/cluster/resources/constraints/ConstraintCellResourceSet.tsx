@@ -3,8 +3,10 @@ import { types } from "app/store";
 
 import { ConstraintCell } from "./ConstraintCell";
 
-export const ConstraintCellResourceSet = ({ resourceSetList }: {
-  resourceSetList: types.cluster.ConstraintResourceSet[],
+export const ConstraintCellResourceSet = ({
+  resourceSetList,
+}: {
+  resourceSetList: types.cluster.ConstraintResourceSet[];
 }) => {
   return (
     <ConstraintCell label="Set">

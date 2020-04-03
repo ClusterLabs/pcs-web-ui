@@ -2,10 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Action } from "app/actions";
 import {
-  ActionGroup,
-  Alert,
-  Button,
-  Form,
+  ActionGroup, Alert, Button, Form,
 } from "@patternfly/react-core";
 
 import { types } from "app/store";
@@ -17,53 +14,56 @@ import { PrimitiveAttrsFormItemLayout } from "./PrimitiveAttrsFormItemLayout";
 type FormAttr = {
   value: string;
   initial: string;
-  srcChoice: "undecided"|"remote"|"user";
-}
+  srcChoice: "undecided" | "remote" | "user";
+};
 
-const instanceAttr = (primitive: types.cluster.Primitive, name: string) => (
-  name in primitive.instanceAttributes
+const instanceAttr = (primitive: types.cluster.Primitive, name: string) =>
+  (name in primitive.instanceAttributes
     ? primitive.instanceAttributes[name].value
-    : ""
-);
+    : "");
 
 const collectUpdatedAttrs = (
   formMap: Record<string, FormAttr>,
   primitive: types.cluster.Primitive,
-) => Object.keys(formMap).reduce(
-  (a, n) => {
-    if (
-      (
-        instanceAttr(primitive, n) === formMap[n].initial
-        &&
-        formMap[n].value !== formMap[n].initial
-      )
-      ||
-      formMap[n].srcChoice === "user"
-    ) {
-      return { ...a, [n]: formMap[n].value };
-    }
-    return a;
-  },
-  {} as Record<string, any>,
-);
+) =>
+  Object.keys(formMap).reduce(
+    (a, n) => {
+      if (
+        (instanceAttr(primitive, n) === formMap[n].initial
+          && formMap[n].value !== formMap[n].initial)
+        || formMap[n].srcChoice === "user"
+      ) {
+        return { ...a, [n]: formMap[n].value };
+      }
+      return a;
+    },
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    {} as Record<string, any>,
+  );
 
 const hasUndecidedSrc = (
   formMap: Record<string, FormAttr>,
   primitive: types.cluster.Primitive,
-) => Object.keys(formMap).some(n => (
-  instanceAttr(primitive, n) !== formMap[n].initial
-  &&
-  formMap[n].srcChoice === "undecided"
-));
+) =>
+  Object.keys(formMap).some(
+    n =>
+      instanceAttr(primitive, n) !== formMap[n].initial
+      && formMap[n].srcChoice === "undecided",
+  );
 
 const hasBackendChange = (
   formMap: Record<string, FormAttr>,
   primitive: types.cluster.Primitive,
-) => Object.keys(formMap).some(n => (
-  instanceAttr(primitive, n) !== formMap[n].initial
-));
+) =>
+  Object.keys(formMap).some(
+    n => instanceAttr(primitive, n) !== formMap[n].initial,
+  );
 
-export const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
+export const PrimitiveAttrsForm = ({
+  primitive,
+  resourceAgentParams,
+  close,
+}: {
   primitive: types.cluster.Primitive;
   resourceAgentParams: types.resourceAgents.ResourceAgentParameter[];
   close: () => void;
@@ -73,29 +73,34 @@ export const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
   const dispatch = useDispatch();
 
   const [formMap, setFormMap] = React.useState<Record<string, FormAttr>>(
-    resourceAgentParams.reduce((a, p) => ({
-      ...a,
-      [p.name]: {
-        initial: instanceAttr(primitive, p.name),
-        value: instanceAttr(primitive, p.name),
-        srcChoice: "undecided",
-      },
-    }), {}),
+    resourceAgentParams.reduce(
+      (a, p) => ({
+        ...a,
+        [p.name]: {
+          initial: instanceAttr(primitive, p.name),
+          value: instanceAttr(primitive, p.name),
+          srcChoice: "undecided",
+        },
+      }),
+      {},
+    ),
   );
 
   const updateParam = React.useCallback(
-    (key: string) => (value: FormAttr["value"]) => setFormMap({
-      ...formMap,
-      [key]: { ...formMap[key], value },
-    }),
+    (key: string) => (value: FormAttr["value"]) =>
+      setFormMap({
+        ...formMap,
+        [key]: { ...formMap[key], value },
+      }),
     [formMap, setFormMap],
   );
 
   const chooseSrc = React.useCallback(
-    (key: string, srcChoice: FormAttr["srcChoice"]) => () => setFormMap({
-      ...formMap,
-      [key]: { ...formMap[key], srcChoice },
-    }),
+    (key: string, srcChoice: FormAttr["srcChoice"]) => () =>
+      setFormMap({
+        ...formMap,
+        [key]: { ...formMap[key], srcChoice },
+      }),
     [formMap, setFormMap],
   );
 
@@ -152,7 +157,9 @@ export const PrimitiveAttrsForm = ({ primitive, resourceAgentParams, close }: {
         >
           Save attributes
         </Button>
-        <Button variant="secondary" onClick={close}>Cancel</Button>
+        <Button variant="secondary" onClick={close}>
+          Cancel
+        </Button>
       </ActionGroup>
     </Form>
   );

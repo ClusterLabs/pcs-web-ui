@@ -1,10 +1,10 @@
 import {
-  ApiConstraints,
   ApiConstraintColocation,
   ApiConstraintLocation,
   ApiConstraintOrder,
-  ApiConstraintTicket,
   ApiConstraintResourceSet,
+  ApiConstraintTicket,
+  ApiConstraints,
 } from "app/backend/types/clusterStatus";
 
 export type ConstraintLocation = ApiConstraintLocation;
@@ -14,32 +14,35 @@ export type ConstraintResourceSet = ApiConstraintResourceSet;
 export type ConstraintTicket = ApiConstraintTicket;
 
 export interface InstanceAttribute {
-  id: string,
-  value: string,
+  id: string;
+  value: string;
 }
 
 export interface Issue {
-  severity: "ERROR"|"WARNING",
-  message: string,
+  severity: "ERROR" | "WARNING";
+  message: string;
 }
 
-export type NodeStatusFlag = "ONLINE"|"OFFLINE"|"UNKNOWN";
-export type NodeQuorumFlag = "YES"|"NO"|"UNKNOWN";
+export type NodeStatusFlag = "ONLINE" | "OFFLINE" | "UNKNOWN";
+export type NodeQuorumFlag = "YES" | "NO" | "UNKNOWN";
 
-export type StatusSeverity = "OK"|"ERROR"|"WARNING"|"UNKNOWN";
+export type StatusSeverity = "OK" | "ERROR" | "WARNING" | "UNKNOWN";
 
 export interface Node {
-  name: string,
-  status: NodeStatusFlag,
-  statusSeverity: StatusSeverity,
-  quorum: NodeQuorumFlag,
-  quorumSeverity: StatusSeverity,
-  issueList: Issue[],
+  name: string;
+  status: NodeStatusFlag;
+  statusSeverity: StatusSeverity;
+  quorum: NodeQuorumFlag;
+  quorumSeverity: StatusSeverity;
+  issueList: Issue[];
 }
 
-export type FenceDeviceStatusFlag = (
-  "RUNNING"|"BLOCKED"|"FAILED"|"UNKNOWN"|"DISABLED"
-);
+export type FenceDeviceStatusFlag =
+  | "RUNNING"
+  | "BLOCKED"
+  | "FAILED"
+  | "UNKNOWN"
+  | "DISABLED";
 
 export type ResourceStatusInfo = {
   label: string;
@@ -49,65 +52,65 @@ export type ResourceStatusInfo = {
 export type ResourceStatus = {
   maxSeverity: StatusSeverity;
   infoList: ResourceStatusInfo[];
-}
+};
 
 export interface ResourceTreeItemBase {
-  id: string,
-  itemType: string,
+  id: string;
+  itemType: string;
   status: ResourceStatus;
-  issueList: Issue[],
+  issueList: Issue[];
 }
 
 export interface Primitive extends ResourceTreeItemBase {
-  itemType: "primitive",
-  class: string,
-  provider: string,
-  type: string,
+  itemType: "primitive";
+  class: string;
+  provider: string;
+  type: string;
   agentName: string;
-  instanceAttributes: Record<string, InstanceAttribute>,
+  instanceAttributes: Record<string, InstanceAttribute>;
 }
 
 export interface Group extends ResourceTreeItemBase {
-  itemType: "group",
-  resources: Primitive[],
+  itemType: "group";
+  resources: Primitive[];
 }
 
 export interface Clone extends ResourceTreeItemBase {
-  itemType: "clone",
-  member: Primitive|Group;
+  itemType: "clone";
+  member: Primitive | Group;
 }
 
-export type ResourceTreeItem = Primitive|Group|Clone;
+export type ResourceTreeItem = Primitive | Group | Clone;
 
 export interface FenceDevice {
-  id: string,
-  status: FenceDeviceStatusFlag,
-  statusSeverity: StatusSeverity,
-  issueList: Issue[],
-  type: string,
+  id: string;
+  status: FenceDeviceStatusFlag;
+  statusSeverity: StatusSeverity;
+  issueList: Issue[];
+  type: string;
 }
 
 export interface ClusterState {
-  name: string,
-  urlName: string,
-  status: "OK"|"WARNING"|"ERROR"|"UNKNOWN",
-  statusSeverity: StatusSeverity,
-  nodeList: Node[],
-  resourceTree: ResourceTreeItem[],
-  fenceDeviceList: FenceDevice[],
-  constraints?: ApiConstraints,
-  issueList: Issue[],
+  name: string;
+  urlName: string;
+  status: "OK" | "WARNING" | "ERROR" | "UNKNOWN";
+  statusSeverity: StatusSeverity;
+  nodeList: Node[];
+  resourceTree: ResourceTreeItem[];
+  fenceDeviceList: FenceDevice[];
+  constraints?: ApiConstraints;
+  issueList: Issue[];
   summary: {
-    nodesSeverity: StatusSeverity,
-    resourcesSeverity: StatusSeverity,
-    fenceDevicesSeverity: StatusSeverity,
-    issuesSeverity: StatusSeverity,
-  },
+    nodesSeverity: StatusSeverity;
+    resourcesSeverity: StatusSeverity;
+    fenceDevicesSeverity: StatusSeverity;
+    issuesSeverity: StatusSeverity;
+  };
 }
 
-export type FETCH_STATUS = "NOT_STARTED"|"IN_PROGRESS"|"SUCCESS"|"ERROR";
+export type FETCH_STATUS = "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "ERROR";
 
 export interface ClusterServiceState {
-  clusterState: ClusterState,
-  dataFetchState: FETCH_STATUS,
+  clusterState: ClusterState;
+  dataFetchState: FETCH_STATUS;
 }

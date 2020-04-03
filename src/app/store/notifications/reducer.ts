@@ -12,8 +12,10 @@ const notifications: Reducer<NotificationState, Action> = (
       return [...state, action.payload.notification];
     case "NOTIFICATION.DESTROY":
       return state.filter(n => n.id !== action.payload.id);
-    case "AUTH.REQUIRED": return [];
-    default: return state;
+    case "AUTH.REQUIRED":
+      return [];
+    default:
+      return state;
   }
 };
 

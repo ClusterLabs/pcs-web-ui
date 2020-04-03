@@ -2,19 +2,17 @@ import { getJson } from "./calls";
 import {
   ApiCall,
   createResult,
-  validateShape,
   dealWithInvalidJson,
+  validateShape,
 } from "./tools";
 
 import { ApiClusterStatus, TApiClusterStatus } from "./types/clusterStatus";
 
 export const clusterStatus: ApiCall<ApiClusterStatus> = async (
-  clusterUrlName:string,
+  clusterUrlName: string,
 ) => {
   try {
-    const raw = await getJson(
-      `/managec/${clusterUrlName}/cluster_status`,
-    );
+    const raw = await getJson(`/managec/${clusterUrlName}/cluster_status`);
     return createResult<ApiClusterStatus>(
       raw,
       validateShape(raw, TApiClusterStatus),

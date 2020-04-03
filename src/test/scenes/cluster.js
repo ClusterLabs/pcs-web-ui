@@ -20,7 +20,7 @@ const scenarios = {
 const currentTab = async () => {
   const currentTablist = await page().$$eval(
     "[aria-label='Cluster tabs']",
-    (tabs) => tabs.map((e) => (e.querySelector(".pf-m-current").textContent)),
+    tabs => tabs.map(e => e.querySelector(".pf-m-current").textContent),
   );
   expect(currentTablist.length).to.be.eql(1);
   return currentTablist[0];
@@ -35,7 +35,9 @@ const checkClusterTab = async (clusterUrl, currentTabLabel, expectedAria) => {
 };
 
 describe("Cluster scene", () => {
-  afterEach(async () => { await pollyManager().stop(); });
+  afterEach(async () => {
+    await pollyManager().stop();
+  });
 
   it("should show detail tab of cluster by default", async () => {
     await checkClusterTab("/cluster/ok", "Detail", "Cluster detail");

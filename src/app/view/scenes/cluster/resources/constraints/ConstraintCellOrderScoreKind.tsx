@@ -4,7 +4,9 @@ import { types } from "app/store";
 
 import { ConstraintCell } from "./ConstraintCell";
 
-export const ConstraintCellOrderScoreKind = ({ constraint }: {
+export const ConstraintCellOrderScoreKind = ({
+  constraint,
+}: {
   constraint: types.cluster.ConstraintOrder;
 }) => {
   // score and kind are mutually exclusive

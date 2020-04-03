@@ -11,12 +11,14 @@ const jsonOr401 = result => (req, res) => {
   }
 };
 
-const clustersOverview = endpoints.clustersOverview(jsonOr401(
-  responses.clustersOverview.withClusters([
-    responses.clusterStatus.ok,
-    responses.clusterStatus.error,
-  ]),
-));
+const clustersOverview = endpoints.clustersOverview(
+  jsonOr401(
+    responses.clustersOverview.withClusters([
+      responses.clusterStatus.ok,
+      responses.clusterStatus.error,
+    ]),
+  ),
+);
 
 const login = endpoints.login((req, res) => {
   if (req.body.username === "hacluster" && req.body.password === "hh") {

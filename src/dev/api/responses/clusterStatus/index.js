@@ -4,12 +4,10 @@ const {
 const { resourceTree } = require("./resource-tree");
 const { resourcesForTest } = require("./resources-for-test");
 
-const clusterOk = (clusterName) => cluster(clusterName, "ok", {
-  resource_list: [
-    resource("R1"),
-    stonith("F1"),
-  ],
-});
+const clusterOk = clusterName =>
+  cluster(clusterName, "ok", {
+    resource_list: [resource("R1"), stonith("F1")],
+  });
 
 const clusterError = cluster("error", "error", {
   node_list: [
@@ -35,9 +33,7 @@ const clusterError = cluster("error", "error", {
     "No fencing configured in the cluster",
     "Not authorized against node(s) node-3",
   ]),
-  error_list: issues([
-    "Unable to connect to the cluster.",
-  ]),
+  error_list: issues(["Unable to connect to the cluster."]),
 });
 
 const clusterBig = cluster("big", "error", {

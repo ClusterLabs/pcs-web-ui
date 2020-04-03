@@ -2,7 +2,6 @@ import { ApiNode } from "app/backend/types/clusterOverview";
 
 import { apiToState as clusterApiToState, types } from "../../cluster";
 
-
 const toNode = (apiNode: ApiNode) => ({
   name: apiNode.name,
   status: clusterApiToState.nodeMapStatus(apiNode.status),
@@ -15,10 +14,11 @@ const toNode = (apiNode: ApiNode) => ({
 export const processApiNodes = (apiNodeList: ApiNode[]) => ({
   nodeList: apiNodeList.map(toNode),
   nodesSeverity: apiNodeList.reduce<types.StatusSeverity>(
-    (lastMaxSeverity, node) => clusterApiToState.maxStatusSeverity(
-      lastMaxSeverity,
-      clusterApiToState.nodeToSeverity(node.status, node.quorum),
-    ),
+    (lastMaxSeverity, node) =>
+      clusterApiToState.maxStatusSeverity(
+        lastMaxSeverity,
+        clusterApiToState.nodeToSeverity(node.status, node.quorum),
+      ),
     "OK",
   ),
 });

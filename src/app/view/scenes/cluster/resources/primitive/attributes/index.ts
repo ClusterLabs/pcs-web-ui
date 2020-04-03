@@ -1,5 +1,3 @@
 import { PrimitiveAttrsView } from "./PrimitiveAttrsView";
 
-export {
-  PrimitiveAttrsView,
-};
+export { PrimitiveAttrsView };

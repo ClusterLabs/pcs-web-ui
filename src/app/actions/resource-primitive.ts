@@ -1,4 +1,4 @@
-import { getResourceAgentMetadata, ApiResponse } from "app/backend";
+import { ApiResponse, getResourceAgentMetadata } from "app/backend";
 
 export type PrimitiveResourceActions = {
   LoadResourceAgent: {
@@ -13,14 +13,14 @@ export type PrimitiveResourceActions = {
     type: "RESOURCE_AGENT.LOAD.SUCCESS";
     payload: {
       apiAgentMetadata: ApiResponse<typeof getResourceAgentMetadata>;
-    }
+    };
   };
 
   LoadResourceAgentFailed: {
     type: "RESOURCE_AGENT.LOAD.FAILED";
     payload: {
       agentName: string;
-    }
+    };
   };
 
   UpdateInstanceAttributes: {
@@ -29,7 +29,7 @@ export type PrimitiveResourceActions = {
       clusterUrlName: string;
       resourceId: string;
       attributes: Record<string, string>;
-    }
+    };
   };
 
   UpdateInstanceAttributesSuccess: {
@@ -39,4 +39,4 @@ export type PrimitiveResourceActions = {
   UpdateInstanceAttributesFailed: {
     type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.FAILED";
   };
-}
+};

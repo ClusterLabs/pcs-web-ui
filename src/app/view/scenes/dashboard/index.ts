@@ -1,5 +1,3 @@
 import { DashboardPage } from "./DashboardPage";
 
-export {
-  DashboardPage,
-};
+export { DashboardPage };

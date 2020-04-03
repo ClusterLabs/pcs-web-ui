@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Wizard } from "@patternfly/react-core";
 
 import { Action } from "app/actions";
@@ -28,10 +28,12 @@ export const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
     <Wizard
       aria-label="Add cluster wizard"
       isOpen
-      onNext={() => dispatch<Action>({
-        type: "ADD_CLUSTER.ADD_CLUSTER",
-        payload: { nodeName },
-      })}
+      onNext={() =>
+        dispatch<Action>({
+          type: "ADD_CLUSTER.ADD_CLUSTER",
+          payload: { nodeName },
+        })
+      }
       onClose={onClose}
       title="Add existing cluster"
       description="Add existing cluster wizard"

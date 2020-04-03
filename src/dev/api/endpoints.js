@@ -22,27 +22,15 @@ module.exports = {
   login: handler => post("/ui/login", parser, handler),
   logout: handler => get("/ui/logout", handler),
   clustersOverview: handler => get("/clusters_overview", handler),
-  clusterStatus: handler => get(
-    "/managec/:clusterUrlName/cluster_status",
-    handler,
-  ),
+  clusterStatus: handler =>
+    get("/managec/:clusterUrlName/cluster_status", handler),
   addCluster: handler => post("/manage/existingcluster", parser, handler),
-  authenticateAgainstNodes: handler => post(
-    "/manage/auth_gui_against_nodes",
-    parser,
-    handler,
-  ),
-  checkAuthAgainstNodes: handler => get(
-    "/manage/check_auth_against_nodes",
-    handler,
-  ),
-  getResourceAgentMetadata: handler => get(
-    "/managec/:clusterUrlName/get_resource_agent_metadata",
-    handler,
-  ),
-  updateResource: handler => post(
-    "/managec/:clusterUrlName/update_resource",
-    parser,
-    handler,
-  ),
+  authenticateAgainstNodes: handler =>
+    post("/manage/auth_gui_against_nodes", parser, handler),
+  checkAuthAgainstNodes: handler =>
+    get("/manage/check_auth_against_nodes", handler),
+  getResourceAgentMetadata: handler =>
+    get("/managec/:clusterUrlName/get_resource_agent_metadata", handler),
+  updateResource: handler =>
+    post("/managec/:clusterUrlName/update_resource", parser, handler),
 };

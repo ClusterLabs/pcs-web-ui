@@ -7,4 +7,4 @@ export type ResourceDetailActions = {
       url: string;
     };
   };
-}
+};

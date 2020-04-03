@@ -17,12 +17,13 @@ const scenarios = {
   ],
 };
 
-const RESOURCE_LIST_SELECTOR = (
-  "[aria-label='Cluster resources'] [aria-label='Cluster resource list']"
-);
+const RESOURCE_LIST_SELECTOR =
+  "[aria-label='Cluster resources'] [aria-label='Cluster resource list']";
 
 describe("Resource tree", () => {
-  afterEach(async () => { await pollyManager().stop(); });
+  afterEach(async () => {
+    await pollyManager().stop();
+  });
 
   it("should show unexpanded resource tree", async () => {
     pollyManager().reset(scenarios.cluster);
@@ -30,10 +31,11 @@ describe("Resource tree", () => {
     await page().waitFor(RESOURCE_LIST_SELECTOR);
     const topLevelResources = await page().$$eval(
       `${RESOURCE_LIST_SELECTOR} [aria-label^='Resource item ']`,
-      (resourceElements) => resourceElements.map((e) => ({
-        id: e.querySelector("[aria-label='Resource name']").textContent,
-        type: e.querySelector("[aria-label='Resource type']").textContent,
-      })),
+      resourceElements =>
+        resourceElements.map(e => ({
+          id: e.querySelector("[aria-label='Resource name']").textContent,
+          type: e.querySelector("[aria-label='Resource type']").textContent,
+        })),
     );
     expect(topLevelResources).to.be.eql([
       { id: "A", type: "apache" },
@@ -45,19 +47,20 @@ describe("Resource tree", () => {
 
   it("should show expanded group", async () => {
     pollyManager().reset(scenarios.cluster);
-    const GROUP_SELECTOR = (
-      `${RESOURCE_LIST_SELECTOR} [aria-label='Resource item GROUP-1']`
-    );
+    // prettier-ignore
+    const GROUP_SELECTOR =
+      `${RESOURCE_LIST_SELECTOR} [aria-label='Resource item GROUP-1']`;
     await page().goto(url("/cluster/ok/resources"));
     await page().waitFor(GROUP_SELECTOR);
     await page().click(`${GROUP_SELECTOR} [aria-label='Resource toggle']`);
 
     const topLevelResources = await page().$$eval(
       `${RESOURCE_LIST_SELECTOR} [aria-label^='Resource item ']`,
-      (resourceElements) => resourceElements.map((e) => ({
-        id: e.querySelector("[aria-label='Resource name']").textContent,
-        type: e.querySelector("[aria-label='Resource type']").textContent,
-      })),
+      resourceElements =>
+        resourceElements.map(e => ({
+          id: e.querySelector("[aria-label='Resource name']").textContent,
+          type: e.querySelector("[aria-label='Resource type']").textContent,
+        })),
     );
     expect(topLevelResources).to.be.eql([
       { id: "A", type: "apache" },

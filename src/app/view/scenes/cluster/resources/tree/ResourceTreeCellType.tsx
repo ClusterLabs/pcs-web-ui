@@ -1,6 +1,9 @@
 import React from "react";
 
-export const ResourceTreeCellType = ({ type, typeDescription = "" }: {
+export const ResourceTreeCellType = ({
+  type,
+  typeDescription = "",
+}: {
   type: string;
   typeDescription?: string;
 }) => {

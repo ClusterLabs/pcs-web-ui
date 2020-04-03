@@ -8,8 +8,10 @@ import { PrimitiveAttrsList } from "./PrimitiveAttrsList";
 import { PrimitiveAttrsForm } from "./PrimitiveAttrsForm";
 import { PrimitiveAttrsToolbar } from "./PrimitiveAttrsToolbar";
 
-export const PrimitiveAttrsView = ({ primitive }: {
-  primitive: types.cluster.Primitive,
+export const PrimitiveAttrsView = ({
+  primitive,
+}: {
+  primitive: types.cluster.Primitive;
 }) => {
   const [isEditing, setIsEditing] = React.useState(false);
   return (

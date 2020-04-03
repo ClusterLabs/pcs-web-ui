@@ -1,16 +1,19 @@
 import React from "react";
 
-export const PrimitiveAttrsFormItemRadio = (
-  {
-    id, name, ariaLabel, children, onSelect, active = true,
-  }: React.PropsWithChildren<{
-    id: string;
-    name: string;
-    ariaLabel: string;
-    onSelect: () => void;
-    active?: boolean;
-  }>,
-) => {
+export const PrimitiveAttrsFormItemRadio = ({
+  id,
+  name,
+  ariaLabel,
+  children,
+  onSelect,
+  active = true,
+}: React.PropsWithChildren<{
+  id: string;
+  name: string;
+  ariaLabel: string;
+  onSelect: () => void;
+  active?: boolean;
+}>) => {
   return (
     <div className={active ? "pf-c-radio ha-c-radio" : ""}>
       {active && (

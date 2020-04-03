@@ -10,7 +10,6 @@ import { EnsureLogin } from "./login";
 import { AppPage } from "./AppPage";
 import "./App.css";
 
-
 const history = createBrowserHistory({ basename: "/ui/" });
 
 export const App = ({ store = setupStore(history) }) => (

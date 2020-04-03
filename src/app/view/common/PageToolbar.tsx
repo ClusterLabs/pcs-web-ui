@@ -26,21 +26,19 @@ export const PageToolbar = () => {
             position="right"
             onSelect={() => setDropdownOpen(!isDropdownOpen)}
             isOpen={isDropdownOpen}
-            toggle={(
+            toggle={
               <DropdownToggle onToggle={() => setDropdownOpen(!isDropdownOpen)}>
                 {username}
               </DropdownToggle>
-            )}
+            }
             dropdownItems={[
-              (
-                <DropdownItem
-                  aria-label="Logout action"
-                  key="0"
-                  onClick={() => dispatch<Action>({ type: "LOGOUT" })}
-                >
-                  Logout
-                </DropdownItem>
-              ),
+              <DropdownItem
+                aria-label="Logout action"
+                key="0"
+                onClick={() => dispatch<Action>({ type: "LOGOUT" })}
+              >
+                Logout
+              </DropdownItem>,
             ]}
           />
         </ToolbarItem>

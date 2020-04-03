@@ -12,8 +12,10 @@ import { types } from "app/store";
 
 import { FenceDeviceListItem } from "./FenceDeviceListItem";
 
-export const FenceDeviceList = ({ fenceDeviceList }: {
-  fenceDeviceList: types.cluster.FenceDevice[],
+export const FenceDeviceList = ({
+  fenceDeviceList,
+}: {
+  fenceDeviceList: types.cluster.FenceDevice[];
 }) => {
   if (fenceDeviceList.length === 0) {
     return (
@@ -28,11 +30,8 @@ export const FenceDeviceList = ({ fenceDeviceList }: {
   }
   return (
     <DataList aria-label="Cluster fence device list">
-      {fenceDeviceList.map((fenceDevice) => (
-        <FenceDeviceListItem
-          key={fenceDevice.id}
-          fenceDevice={fenceDevice}
-        />
+      {fenceDeviceList.map(fenceDevice => (
+        <FenceDeviceListItem key={fenceDevice.id} fenceDevice={fenceDevice} />
       ))}
     </DataList>
   );

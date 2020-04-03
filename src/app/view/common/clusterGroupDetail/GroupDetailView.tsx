@@ -10,10 +10,10 @@ export const GroupDetailView = ({
   detailCard,
 }: {
   urlPrefix: string;
-  groupCard: JSX.Element,
-  detailCard: JSX.Element,
+  groupCard: JSX.Element;
+  detailCard: JSX.Element;
 }) => {
-  const detail = useRouteMatch<{detailUrlName: string}>(
+  const detail = useRouteMatch<{ detailUrlName: string }>(
     `${urlPrefix}/:detailUrlName/`,
   );
 
@@ -31,9 +31,7 @@ export const GroupDetailView = ({
               selectedItemUrlName: detail.params.detailUrlName,
             }}
           >
-            <div className="pf-c-card ha-c-panel__tree-view">
-              {groupCard}
-            </div>
+            <div className="pf-c-card ha-c-panel__tree-view">{groupCard}</div>
             <div className="pf-c-card pf-m-flex-1 ha-c-panel__details-view">
               {detailCard}
             </div>

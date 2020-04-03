@@ -6,9 +6,10 @@ import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
 import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
 
-
-export const ResourceTreeItemClone = ({ clone }: {
-  clone: types.cluster.Clone,
+export const ResourceTreeItemClone = ({
+  clone,
+}: {
+  clone: types.cluster.Clone;
 }) => {
   return (
     <ResourceTreeItemCompound

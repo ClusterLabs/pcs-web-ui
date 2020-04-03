@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Stack,
-  StackItem,
-  TextInput,
-} from "@patternfly/react-core";
+import { Stack, StackItem, TextInput } from "@patternfly/react-core";
 
 import { PrimitiveAttrsFormItemRadio } from "./PrimitiveAttrsFormItemRadio";
 import { PrimitiveAttrsFormItemLabel } from "./PrimitiveAttrsFormItemLabel";
