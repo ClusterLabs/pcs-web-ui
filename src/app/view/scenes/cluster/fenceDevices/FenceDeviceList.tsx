@@ -29,7 +29,7 @@ export const FenceDeviceList = ({
     );
   }
   return (
-    <DataList aria-label="Cluster fence device list">
+    <DataList aria-label="Cluster fence devices">
       {fenceDeviceList.map(fenceDevice => (
         <FenceDeviceListItem key={fenceDevice.id} fenceDevice={fenceDevice} />
       ))}
