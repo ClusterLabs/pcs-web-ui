@@ -9,6 +9,7 @@ import {
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types } from "app/store";
+import { useGroupDetailViewContext } from "app/view/common";
 
 import { FenceDeviceListItem } from "./FenceDeviceListItem";
 
@@ -17,6 +18,8 @@ export const FenceDeviceList = ({
 }: {
   fenceDeviceList: types.cluster.FenceDevice[];
 }) => {
+  const { compact } = useGroupDetailViewContext();
+
   if (fenceDeviceList.length === 0) {
     return (
       <EmptyState style={{ margin: "auto" }}>
@@ -29,7 +32,10 @@ export const FenceDeviceList = ({
     );
   }
   return (
-    <DataList aria-label="Cluster fence devices">
+    <DataList
+      aria-label="Cluster fence devices"
+      className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
+    >
       {fenceDeviceList.map(fenceDevice => (
         <FenceDeviceListItem key={fenceDevice.id} fenceDevice={fenceDevice} />
       ))}

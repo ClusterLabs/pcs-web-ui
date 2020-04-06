@@ -225,9 +225,10 @@ const buildCloneStatusInfoList = (apiClone: ApiClone): ResourceStatusInfo[] => {
 };
 
 const toClone = (apiClone: ApiClone): Clone | undefined => {
-  const member = apiClone.member.class_type === "primitive"
-    ? toPrimitive(apiClone.member)
-    : toGroup(apiClone.member);
+  const member =
+    apiClone.member.class_type === "primitive"
+      ? toPrimitive(apiClone.member)
+      : toGroup(apiClone.member);
 
   if (member === undefined) {
     return undefined;
