@@ -21,7 +21,7 @@ export const PageToolbar = () => {
       <ToolbarGroup>
         <ToolbarItem>
           <Dropdown
-            aria-label="User menu"
+            data-test="menu-user"
             isPlain
             position="right"
             onSelect={() => setDropdownOpen(!isDropdownOpen)}
@@ -33,7 +33,7 @@ export const PageToolbar = () => {
             }
             dropdownItems={[
               <DropdownItem
-                aria-label="Logout action"
+                data-test="logout"
                 key="0"
                 onClick={() => dispatch<Action>({ type: "LOGOUT" })}
               >

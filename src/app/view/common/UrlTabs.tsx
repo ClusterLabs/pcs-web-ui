@@ -13,10 +13,6 @@ export function UrlTabs<T extends { [key: string]: string }>({
   label?: string;
 }) {
   const dispatch = useDispatch();
-  const rest: Record<string, string> = {};
-  if (label.length > 0) {
-    rest["aria-label"] = label;
-  }
   /* eslint-disable react/jsx-props-no-spreading */
   return (
     <Tabs
@@ -27,7 +23,7 @@ export function UrlTabs<T extends { [key: string]: string }>({
           dispatch(push(tabSettingsMap[selectedTab]));
         }
       }}
-      {...rest}
+      data-test={`tabs ${label}`}
     >
       {Object.keys(tabSettingsMap).map(key => (
         <Tab key={key} eventKey={key} title={key} />

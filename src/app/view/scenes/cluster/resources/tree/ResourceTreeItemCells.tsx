@@ -23,7 +23,7 @@ export const ResourceTreeItemCells = ({
     <>
       <DataListItemCells
         dataListCells={[
-          <DataListCell aria-label="Resource name" key={resourceId}>
+          <DataListCell key={resourceId}>
             <ResourceTreeCellName resourceId={resourceId} />
           </DataListCell>,
           <DataListCell key={`${resourceId}.type`}>

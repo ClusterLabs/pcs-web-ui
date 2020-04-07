@@ -29,7 +29,7 @@ export const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {
           </form>
         )}
         <LoginForm
-          aria-label="Login form"
+          data-test="form-login"
           usernameLabel="Username"
           usernameValue={username}
           onChangeUsername={value => setUsername(value)}

@@ -14,7 +14,7 @@ export const ResourceTreeCellName = ({
       to={`${urlPrefix}/${resourceId}`}
       id={`resource-tree-item-${resourceId}`}
     >
-      <strong>{resourceId}</strong>
+      <strong data-test="resource-tree-item-name">{resourceId}</strong>
     </Link>
   );
 };

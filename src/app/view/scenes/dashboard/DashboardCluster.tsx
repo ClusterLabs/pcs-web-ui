@@ -1,8 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { types } from "app/store";
-import { IssueList, StatusIco, Table } from "app/view/common";
+import { IssueList, Link, StatusIco, Table } from "app/view/common";
 
 import { DashboardNodeList } from "./DashboardNodeList";
 import { DashboardResourceList } from "./DashboardResourceList";
@@ -47,10 +46,10 @@ export const DashboardCluster = ({
   return (
     <Table.Body
       isExpanded={EXPANDABLE_COLUMNS.includes(expanded)}
-      aria-label={`Cluster ${cluster.name}`}
+      data-test={`cluster ${cluster.name}`}
     >
       <tr role="row">
-        <th role="rowheader" data-label="name">
+        <th role="rowheader" data-test="name">
           <Link
             id={`dashboard-cluster-${cluster.name}`}
             to={`/cluster/${cluster.urlName}`}
@@ -58,25 +57,25 @@ export const DashboardCluster = ({
             {cluster.name}
           </Link>
         </th>
-        <Toggle expandKey={COLUMNS.ISSUES} data-label="issues">
+        <Toggle expandKey={COLUMNS.ISSUES} data-test="issues">
           <Summary
             itemsCount={cluster.issueList.length}
             summaryStatus={cluster.summary.issuesSeverity}
           />
         </Toggle>
-        <Toggle expandKey={COLUMNS.NODES} data-label="nodes">
+        <Toggle expandKey={COLUMNS.NODES} data-test="nodes">
           <Summary
             itemsCount={cluster.nodeList.length}
             summaryStatus={cluster.summary.nodesSeverity}
           />
         </Toggle>
-        <Toggle expandKey={COLUMNS.RESOURCES} data-label="resources">
+        <Toggle expandKey={COLUMNS.RESOURCES} data-test="resources">
           <Summary
             itemsCount={cluster.resourceTree.length}
             summaryStatus={cluster.summary.resourcesSeverity}
           />
         </Toggle>
-        <Toggle expandKey={COLUMNS.FENCE_DEVICES} data-label="fence-devices">
+        <Toggle expandKey={COLUMNS.FENCE_DEVICES} data-test="fence-devices">
           <Summary
             itemsCount={cluster.fenceDeviceList.length}
             summaryStatus={cluster.summary.fenceDevicesSeverity}

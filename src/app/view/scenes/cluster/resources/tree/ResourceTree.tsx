@@ -36,7 +36,8 @@ export const ResourceTree = ({
 
   return (
     <DataList
-      aria-label="Cluster resource list"
+      data-test="cluster-resources"
+      aria-label="Cluster resources"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
     >
       {resourceTree.map((resourceTreeItem) => {

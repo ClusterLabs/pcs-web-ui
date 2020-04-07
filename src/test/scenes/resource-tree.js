@@ -3,6 +3,7 @@ const { expect } = require("chai");
 const { page } = require("test/store");
 const { getPollyManager } = require("test/tools/pollyManager");
 const { url } = require("test/tools/backendAddress");
+const { dt } = require("test/tools/selectors");
 
 const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
@@ -17,8 +18,7 @@ const scenarios = {
   ],
 };
 
-const RESOURCE_LIST_SELECTOR =
-  "[aria-label='Cluster resources'] [aria-label='Cluster resource list']";
+const RESOURCE_TREE = dt("cluster-resources");
 
 describe("Resource tree", () => {
   afterEach(async () => {
@@ -28,13 +28,15 @@ describe("Resource tree", () => {
   it("should show unexpanded resource tree", async () => {
     pollyManager().reset(scenarios.cluster);
     await page().goto(url("/cluster/ok/resources"));
-    await page().waitFor(RESOURCE_LIST_SELECTOR);
+    await page().waitFor(RESOURCE_TREE);
     const topLevelResources = await page().$$eval(
-      `${RESOURCE_LIST_SELECTOR} [aria-label^='Resource item ']`,
+      dt(RESOURCE_TREE, "^resource-tree-item "),
       resourceElements =>
         resourceElements.map(e => ({
-          id: e.querySelector("[aria-label='Resource name']").textContent,
-          type: e.querySelector("[aria-label='Resource type']").textContent,
+          id: e.querySelector("[data-test='resource-tree-item-name']")
+            .textContent,
+          type: e.querySelector("[data-test='resource-tree-item-type']")
+            .textContent,
         })),
     );
     expect(topLevelResources).to.be.eql([
@@ -48,18 +50,19 @@ describe("Resource tree", () => {
   it("should show expanded group", async () => {
     pollyManager().reset(scenarios.cluster);
     // prettier-ignore
-    const GROUP_SELECTOR =
-      `${RESOURCE_LIST_SELECTOR} [aria-label='Resource item GROUP-1']`;
+    const GROUP = dt(RESOURCE_TREE, "^resource-tree-item GROUP-1");
     await page().goto(url("/cluster/ok/resources"));
-    await page().waitFor(GROUP_SELECTOR);
-    await page().click(`${GROUP_SELECTOR} [aria-label='Resource toggle']`);
+    await page().waitFor(GROUP);
+    await page().click(dt(GROUP, "resource-tree-item-toggle"));
 
     const topLevelResources = await page().$$eval(
-      `${RESOURCE_LIST_SELECTOR} [aria-label^='Resource item ']`,
+      dt(RESOURCE_TREE, "^resource-tree-item "),
       resourceElements =>
         resourceElements.map(e => ({
-          id: e.querySelector("[aria-label='Resource name']").textContent,
-          type: e.querySelector("[aria-label='Resource type']").textContent,
+          id: e.querySelector("[data-test='resource-tree-item-name']")
+            .textContent,
+          type: e.querySelector("[data-test='resource-tree-item-type']")
+            .textContent,
         })),
     );
     expect(topLevelResources).to.be.eql([

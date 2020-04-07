@@ -13,6 +13,7 @@ import {
 import { ResourceDetailCaption } from "./ResourceDetailCaption";
 import { IssueList } from "./IsueList";
 import { LoadedResourceAgent } from "./LoadedResourceAgent";
+import { Link } from "./Link";
 
 export {
   BackgroundImage,
@@ -29,4 +30,5 @@ export {
   ResourceDetailCaption,
   IssueList,
   LoadedResourceAgent,
+  Link,
 };

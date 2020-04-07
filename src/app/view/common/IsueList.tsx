@@ -36,7 +36,7 @@ export const IssueList = ({
     return (
       <EmptyState
         variant="small"
-        aria-label="Issues status"
+        data-test="issues-status"
         style={{ margin: "auto" }}
       >
         <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
@@ -49,14 +49,15 @@ export const IssueList = ({
     <Stack
       gutter="sm"
       style={{ margin: margin ? "1rem" : "none" }}
-      aria-label="Issues status"
+      data-test="issues-status"
     >
       {issueList.map((issue, i) => (
-        <StackItem key={issueKey(issue, i)} isFilled aria-label="cluster issue">
+        <StackItem key={issueKey(issue, i)} isFilled>
           <Alert
             isInline
             variant={mapSeverityToVariant(issue.severity)}
             title={issue.message}
+            data-test={`cluster-issue ${issue.severity} ${issue.message}`}
           />
         </StackItem>
       ))}
