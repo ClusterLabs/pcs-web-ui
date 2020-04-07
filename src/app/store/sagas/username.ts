@@ -1,6 +1,4 @@
-import {
-  call, put, race, take, takeEvery,
-} from "redux-saga/effects";
+import { call, put, race, take, takeEvery } from "redux-saga/effects";
 
 import { Action, AuthActions, actionType } from "app/actions";
 

@@ -1,6 +1,4 @@
-const {
-  resource, group, clone, cluster, resourceStatus,
-} = require("./tools");
+const { resource, group, clone, cluster, resourceStatus } = require("./tools");
 
 const resourcesForTest = cluster("resourcesForTest", "ok", {
   resource_list: [

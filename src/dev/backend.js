@@ -82,9 +82,7 @@ const promptScenario = () =>
       process.exit(0);
     });
 const addAppHandlers = (app, scenarioHandlers, delay) => {
-  scenarioHandlers.forEach(({
-    method, url, middleParams, handler,
-  }) => {
+  scenarioHandlers.forEach(({ method, url, middleParams, handler }) => {
     app[method.toLowerCase()](url, ...(middleParams || []), (req, res) => {
       setTimeout(() => handler(req, res), delay);
     });

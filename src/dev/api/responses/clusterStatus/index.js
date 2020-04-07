@@ -1,6 +1,4 @@
-const {
-  node, resource, issues, stonith, cluster,
-} = require("./tools");
+const { node, resource, issues, stonith, cluster } = require("./tools");
 const { resourceTree } = require("./resource-tree");
 const { resourcesForTest } = require("./resources-for-test");
 

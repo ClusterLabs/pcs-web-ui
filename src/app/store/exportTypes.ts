@@ -6,6 +6,4 @@ import * as resourceAgents from "./resourceAgents/types";
 
 export type Notification = TNotification;
 
-export {
-  cluster, dashboard, addCluster, resourceAgents,
-};
+export { cluster, dashboard, addCluster, resourceAgents };

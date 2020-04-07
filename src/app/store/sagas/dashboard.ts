@@ -1,6 +1,4 @@
-import {
-  all, call, fork, put,
-} from "redux-saga/effects";
+import { all, call, fork, put } from "redux-saga/effects";
 
 import { Action } from "app/actions";
 import { ApiResult, clustersOverview, failMessage } from "app/backend";

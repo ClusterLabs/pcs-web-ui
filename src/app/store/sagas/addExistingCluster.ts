@@ -1,6 +1,4 @@
-import {
-  call, put, race, take, takeEvery,
-} from "redux-saga/effects";
+import { call, put, race, take, takeEvery } from "redux-saga/effects";
 
 import { Action, AddClusterActions, actionType } from "app/actions";
 
@@ -107,9 +105,7 @@ function* addCluster({
 }
 
 function* authenticateNode({
-  payload: {
-    nodeName, password, address, port,
-  },
+  payload: { nodeName, password, address, port },
 }: AddClusterActions["AuthenticateNode"]) {
   try {
     const {

@@ -1,8 +1,6 @@
 import { Selector } from "../types";
 
-import {
-  ADD_STATE, AUTH_STATE, NodeName, StateError,
-} from "./types";
+import { ADD_STATE, AUTH_STATE, NodeName, StateError } from "./types";
 
 export const getNodeName: Selector<NodeName> = state =>
   state.addExistingCluster.nodeName;
