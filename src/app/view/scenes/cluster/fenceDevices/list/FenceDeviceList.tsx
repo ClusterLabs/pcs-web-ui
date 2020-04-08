@@ -33,6 +33,7 @@ export const FenceDeviceList = ({
   }
   return (
     <DataList
+      data-test="cluster-fence-devices"
       aria-label="Cluster fence devices"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
     >

@@ -19,10 +19,7 @@ export const GroupDetailView = ({
 
   if (detail) {
     return (
-      <PageSection
-        className="ha-m-full-height pf-m-fill"
-        aria-label="Cluster resources"
-      >
+      <PageSection className="ha-m-full-height pf-m-fill">
         <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">
           <GroupDetailViewContextProvider
             value={{
@@ -42,7 +39,7 @@ export const GroupDetailView = ({
   }
 
   return (
-    <PageSection aria-label="Cluster resources">
+    <PageSection>
       <GroupDetailViewContextProvider
         value={{
           urlPrefix,

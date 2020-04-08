@@ -34,7 +34,7 @@ export const AddClusterStepAuth = () => {
   const stateError = useSelector(selectors.addClusterGetStateError);
   const dispatch = useDispatch();
   return (
-    <Form aria-label="Check node authetication form">
+    <Form data-test="form-auth-check">
       <FormGroup
         label="Node name"
         fieldId="cluster-add-node-name"
@@ -46,6 +46,7 @@ export const AddClusterStepAuth = () => {
           aria-labelledby="cluster-add-node-name"
           id="add-cluster-node-name"
           name="node-name"
+          data-test="node-name"
           value={nodeName}
           onChange={currentNodeName =>
             dispatch<Action>({
@@ -58,7 +59,7 @@ export const AddClusterStepAuth = () => {
       {authState === "INITIAL" && (
         <Button
           variant="primary"
-          aria-label="Check authentication"
+          data-test="auth-check"
           onClick={() =>
             dispatch<Action>({
               type: "ADD_CLUSTER.CHECK_AUTH",
@@ -82,7 +83,7 @@ export const AddClusterStepAuth = () => {
           isInline
           variant="success"
           title="Node is authenticated. You can add the cluster now."
-          aria-label="Success authentication check"
+          data-test="auth-check-success"
         />
       )}
       {authRequiredStates.includes(authState) && (
@@ -99,7 +100,7 @@ export const AddClusterStepAuth = () => {
           isInline
           variant="danger"
           title={stateError}
-          aria-label="Error authentication check"
+          data-test="auth-check-error"
         />
       )}
     </Form>

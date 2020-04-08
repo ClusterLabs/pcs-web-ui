@@ -51,7 +51,7 @@ export const Dashboard = ({
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (
-    <Table isExpandable aria-label="Cluster list">
+    <Table isExpandable aria-label="Cluster list" data-test="cluster-list">
       <thead>
         <tr>
           <SortableTh columnName="NAME" sortState={sortState} data-label="name">

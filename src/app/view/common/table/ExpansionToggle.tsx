@@ -23,6 +23,7 @@ export function ExpansionToggle({
         type="button"
         className="pf-c-button pf-m-link"
         onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
+        data-test="expansion-button"
       >
         {children}
       </button>

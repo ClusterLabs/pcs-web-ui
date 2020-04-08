@@ -31,7 +31,7 @@ export const AddClusterStepAdd = () => {
           isInline
           variant="success"
           title="Cluster has been added."
-          aria-label="Success add cluster"
+          data-test="add-success"
         />
       )}
       {state === "DASHBOARD_RELOADING" && (
@@ -45,7 +45,7 @@ export const AddClusterStepAdd = () => {
           isInline
           variant="danger"
           title={errorMessage}
-          aria-label="Error add cluster"
+          data-test="add-error"
         />
       )}
     </>

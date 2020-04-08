@@ -4,6 +4,7 @@ const { page } = require("test/store");
 const { getPollyManager } = require("test/tools/pollyManager");
 const { url } = require("test/tools/backendAddress");
 const { spyRequests } = require("test/tools/endpointSpy");
+const { dt } = require("test/tools/selectors");
 
 const responses = require("dev/api/responses/all");
 const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
@@ -11,8 +12,7 @@ const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 const pollyManager = getPollyManager(() => page());
 
 describe("Login scene", () => {
-  const loginForm = (selectors = "") =>
-    `[aria-label="Login form"] ${selectors}`.trim();
+  const FORM_LOGIN = dt("form-login");
 
   afterEach(async () => {
     await pollyManager().stop();
@@ -29,10 +29,16 @@ describe("Login scene", () => {
     const password = "hh";
 
     await page().goto(url());
-    await page().waitFor(loginForm());
-    await page().type(loginForm('[name="pf-login-username-id"]'), username);
-    await page().type(loginForm('[name="pf-login-password-id"]'), password);
-    await page().click(loginForm('button[type="submit"]'));
+    await page().waitFor(FORM_LOGIN);
+    await page().type(
+      dt(FORM_LOGIN, '[name="pf-login-username-id"]'),
+      username,
+    );
+    await page().type(
+      dt(FORM_LOGIN, '[name="pf-login-password-id"]'),
+      password,
+    );
+    await page().click(dt(FORM_LOGIN, 'button[type="submit"]'));
 
     expect(spy.login.length).to.eql(1);
     expect(spy.login[0].body).to.eql("username=hacluster&password=hh");
@@ -40,8 +46,8 @@ describe("Login scene", () => {
 });
 
 describe("Logout", () => {
-  const MENU_SELECTOR = '[aria-label="User menu"]';
-  const LOGOUT_SELECTOR = '[aria-label="Logout action"]';
+  const MENU = dt("menu-user");
+  const LOGOUT = dt(MENU, "logout");
 
   afterEach(async () => {
     await pollyManager().stop();
@@ -55,10 +61,10 @@ describe("Logout", () => {
       endpoints.logout((req, res) => res.send("OK")),
     ]);
     await page().goto(url());
-    await page().waitFor(MENU_SELECTOR);
-    await page().click(MENU_SELECTOR);
-    await page().waitFor(LOGOUT_SELECTOR);
-    await page().click(LOGOUT_SELECTOR);
+    await page().waitFor(MENU);
+    await page().click(MENU);
+    await page().waitFor(LOGOUT);
+    await page().click(LOGOUT);
 
     expect(spy.logout.length).to.eql(1);
   });

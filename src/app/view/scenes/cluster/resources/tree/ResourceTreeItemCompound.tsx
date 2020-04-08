@@ -35,9 +35,9 @@ export const ResourceTreeItemCompound = ({
       aria-labelledby={`resource-tree-item-${resourceId}`}
       isExpanded={expanded}
     >
-      <DataListItemRow aria-label={`Resource item ${resourceId}`}>
+      <DataListItemRow data-test={`resource-tree-item ${resourceId}`}>
         <DataListToggle
-          aria-label="Resource toggle"
+          data-test="resource-tree-item-toggle"
           id={`resource-tree-toggle-${resourceId}`}
           isExpanded={expanded}
           onClick={() =>

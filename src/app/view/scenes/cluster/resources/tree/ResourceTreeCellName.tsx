@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-import { useGroupDetailViewContext } from "app/view/common";
+import { Link, useGroupDetailViewContext } from "app/view/common";
 
 export const ResourceTreeCellName = ({
   resourceId,
@@ -14,7 +13,7 @@ export const ResourceTreeCellName = ({
       to={`${urlPrefix}/${resourceId}`}
       id={`resource-tree-item-${resourceId}`}
     >
-      <strong>{resourceId}</strong>
+      <strong data-test="resource-tree-item-name">{resourceId}</strong>
     </Link>
   );
 };

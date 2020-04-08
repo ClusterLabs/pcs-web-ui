@@ -26,7 +26,7 @@ export const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
   ];
   return (
     <Wizard
-      aria-label="Add cluster wizard"
+      data-test="wizard-add-cluster"
       isOpen
       onNext={() =>
         dispatch<Action>({

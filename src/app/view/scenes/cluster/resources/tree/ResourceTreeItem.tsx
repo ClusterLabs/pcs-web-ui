@@ -22,7 +22,7 @@ export const ResourceTreeItem = ({
 }) => {
   return (
     <DataListItem aria-labelledby={`resource-tree-item-${resourceId}`}>
-      <DataListItemRow aria-label={`Resource item ${resourceId}`}>
+      <DataListItemRow data-test={`resource-tree-item ${resourceId}`}>
         <DataListToggle
           aria-label="Resource toggle"
           id={`resource-tree-toggle-${resourceId}`}

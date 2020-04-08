@@ -8,7 +8,7 @@ import {
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types } from "app/store";
-import { StatusSign, Table } from "app/view/common";
+import { Link, StatusSign, Table } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
@@ -34,12 +34,12 @@ const compareByColumn = (
 const { SortableTh } = Table;
 
 export const DashboardFenceDeviceList = ({
-  fenceDeviceList,
+  cluster,
 }: {
-  fenceDeviceList: types.dashboard.FenceDevice[];
+  cluster: types.dashboard.ClusterState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
-  if (fenceDeviceList.length === 0) {
+  if (cluster.fenceDeviceList.length === 0) {
     return (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon icon={PlusCircleIcon} />
@@ -51,7 +51,7 @@ export const DashboardFenceDeviceList = ({
     );
   }
   return (
-    <Table isCompact isBorderless>
+    <Table isCompact isBorderless data-test="fence-device-list">
       <thead>
         <tr>
           <SortableTh columnName="NAME" sortState={sortState}>
@@ -63,11 +63,20 @@ export const DashboardFenceDeviceList = ({
         </tr>
       </thead>
       <tbody>
-        {fenceDeviceList
+        {cluster.fenceDeviceList
           .sort(compareItems(compareByColumn))
           .map(fenceDevice => (
-            <tr key={fenceDevice.id}>
-              <td>{fenceDevice.id}</td>
+            <tr
+              key={fenceDevice.id}
+              data-test={`fence-device ${fenceDevice.id}`}
+            >
+              <td data-test="name">
+                <Link
+                  to={`/cluster/${cluster.urlName}/fence-devices/${fenceDevice.id}`}
+                >
+                  {fenceDevice.id}
+                </Link>
+              </td>
               <td>
                 <StatusSign
                   status={fenceDevice.statusSeverity}

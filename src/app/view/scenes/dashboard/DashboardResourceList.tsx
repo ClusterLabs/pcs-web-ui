@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   EmptyState,
   EmptyStateBody,
@@ -9,7 +8,7 @@ import {
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types } from "app/store";
-import { StatusSign, Table } from "app/view/common";
+import { Link, StatusSign, Table } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
@@ -54,7 +53,7 @@ export const DashboardResourceList = ({
   }
 
   return (
-    <Table isCompact isBorderless aria-label="Cluster resource list">
+    <Table isCompact isBorderless data-test="resource-list">
       <thead>
         <tr>
           <SortableTh columnName="NAME" sortState={sortState} data-label="name">
@@ -74,8 +73,8 @@ export const DashboardResourceList = ({
         {cluster.resourceTree
           .sort(compareItems(compareByColumn))
           .map(resource => (
-            <tr key={resource.id} aria-label={`Resource ${resource.id}`}>
-              <td data-label="name">
+            <tr key={resource.id} data-test={`resource ${resource.id}`}>
+              <td data-test="name">
                 <Link
                   to={`/cluster/${cluster.urlName}/resources/${resource.id}`}
                 >

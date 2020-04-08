@@ -4,21 +4,20 @@ const { page } = require("test/store");
 const { getPollyManager } = require("test/tools/pollyManager");
 const { url } = require("test/tools/backendAddress");
 const { spyRequests, clearSpyLog } = require("test/tools/endpointSpy");
+const { dt } = require("test/tools/selectors");
 
 const responses = require("dev/api/responses/all");
 const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 
-const WIZARD_SELECTOR = "[aria-label='Add cluster wizard']";
-const wizard = (selectors = "") => `${WIZARD_SELECTOR} ${selectors}`.trim();
-const wizardAria = label => wizard(`[aria-label="${label}"]`);
-const checkAuthForm = (selectors = "") =>
-  `${wizardAria("Check node authetication form")} ${selectors}`.trim();
+const WIZARD = dt("wizard-add-cluster");
+const WIZARD_BUTTON_NEXT = dt(WIZARD, "footer [type='submit']");
+const FORM_CHECK_AUTH = dt(WIZARD, "form-auth-check");
 
 const pollyManager = getPollyManager(() => page());
 
 const isButtonNextDisabled = async () => {
   const isDisabled = await page().$eval(
-    wizard("footer [type='submit']"),
+    WIZARD_BUTTON_NEXT,
     buttonNext => buttonNext.attributes.disabled !== undefined,
   );
   return isDisabled;
@@ -26,30 +25,28 @@ const isButtonNextDisabled = async () => {
 
 const enterNodeName = async (name) => {
   await page().goto(url("/add-cluster"));
-  await page().waitFor(checkAuthForm());
+  await page().waitFor(FORM_CHECK_AUTH);
 
-  await page().type(checkAuthForm("[name='node-name']"), name);
-  await page().click(checkAuthForm("[aria-label='Check authentication']"));
+  await page().type(dt(FORM_CHECK_AUTH, "node-name"), name);
+  await page().click(dt(FORM_CHECK_AUTH, "auth-check"));
 };
 
 const goThroughAddStepSuccessfully = async () => {
-  await page().waitFor(
-    checkAuthForm("[aria-label='Success authentication check']"),
-  );
-  await page().click(wizard("footer [type='submit']"));
-  await page().waitFor(wizardAria("Success add cluster"));
+  await page().waitFor(dt(FORM_CHECK_AUTH, "auth-check-success"));
+  await page().click(WIZARD_BUTTON_NEXT);
+  await page().waitFor(dt(WIZARD, "add-success"));
 };
 
 const fillAuthenticationForm = async (passwordValue, addrValue, portValue) => {
-  await page().click(wizardAria("Use custom address and port switch"));
-  await page().type(wizard("[name='password']"), passwordValue);
-  await page().type(wizard("[name='address']"), addrValue);
-  await page().type(wizard("[name='port']"), portValue);
-  await page().click(wizardAria("Authenticate node"));
+  await page().click(dt(WIZARD, "use-custom-address"));
+  await page().type(dt(WIZARD, "password"), passwordValue);
+  await page().type(dt(WIZARD, "address"), addrValue);
+  await page().type(dt(WIZARD, "port"), portValue);
+  await page().click(dt(FORM_CHECK_AUTH, "auth-node"));
 };
 
 const authFailed = async () => {
-  await page().waitFor(wizardAria("Error authentication check"));
+  await page().waitFor(dt(WIZARD, "auth-check-error"));
   expect(await isButtonNextDisabled()).to.equal(true);
 };
 
@@ -122,7 +119,7 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page().waitFor(checkAuthForm("[name='password']"));
+    await page().waitFor(dt(FORM_CHECK_AUTH, "password"));
     await fillAuthenticationForm(password, addr, port);
     await goThroughAddStepSuccessfully();
 
@@ -184,9 +181,9 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page().waitFor(checkAuthForm("[name='password']"));
+    await page().waitFor(dt(FORM_CHECK_AUTH, "password"));
     await fillAuthenticationForm(password, addr, port);
-    await page().waitFor(wizardAria("Error authentication"));
+    await page().waitFor(dt(WIZARD, "auth-error"));
 
     verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
     verifyAuthRequest(
@@ -208,9 +205,9 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page().waitFor(wizardAria("Success authentication check"));
-    await page().click(wizard("footer [type='submit']"));
-    await page().waitFor(wizardAria("Error add cluster"));
+    await page().waitFor(dt(WIZARD, "auth-check-success"));
+    await page().click(WIZARD_BUTTON_NEXT);
+    await page().waitFor(dt(WIZARD, "add-error"));
 
     verifyCheckAuthRequest(spy.checkAuthAgainstNodes, nodeName);
     verifyAddRequest(spy.addCluster, nodeName);

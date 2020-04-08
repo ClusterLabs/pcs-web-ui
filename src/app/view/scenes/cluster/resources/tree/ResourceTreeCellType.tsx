@@ -10,7 +10,7 @@ export const ResourceTreeCellType = ({
   return (
     <>
       <span>Type </span>
-      <strong aria-label="Resource type">{type}</strong>
+      <strong data-test="resource-tree-item-type">{type}</strong>
       {typeDescription && <span>{` (${typeDescription})`}</span>}
     </>
   );
