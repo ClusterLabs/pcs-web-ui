@@ -52,6 +52,14 @@ const selectResource = async (resourceId) => {
       "resource-tree-item-name",
     ),
   );
+  await page().waitFor(dt(`resource-detail ${resourceId}`));
+  await page().waitFor(
+    dt(
+      RESOURCE_TREE,
+      `resource-tree-item ${resourceId}`,
+      "resource-tree-item-selection",
+    ),
+  );
 };
 
 const RESOURCES_UNEXPANDED = [
@@ -61,7 +69,7 @@ const RESOURCES_UNEXPANDED = [
   { id: "Clone-2", type: "Clone" },
 ];
 
-describe.only("Resource tree", () => {
+describe("Resource tree", () => {
   afterEach(async () => {
     await pollyManager().stop();
   });
@@ -111,18 +119,15 @@ describe.only("Resource tree", () => {
   it("should show primitive resource detail", async () => {
     await displayResources();
     await selectResource("A");
-    await page().waitFor(dt("resource-detail A"));
   });
 
   it("should show group detail", async () => {
     await displayResources();
     await selectResource("GROUP-1");
-    await page().waitFor(dt("resource-detail GROUP-1"));
   });
 
   it("should show clone detail", async () => {
     await displayResources();
     await selectResource("Clone-1");
-    await page().waitFor(dt("resource-detail Clone-1"));
   });
 });
