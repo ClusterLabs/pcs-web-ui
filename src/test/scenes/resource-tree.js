@@ -34,7 +34,7 @@ const inspectResources = async () =>
     })),
   );
 
-const expandResource = async (resourceId) => {
+const toggleExpansion = async (resourceId) => {
   await page().click(
     dt(
       RESOURCE_TREE,
@@ -54,6 +54,13 @@ const selectResource = async (resourceId) => {
   );
 };
 
+const RESOURCES_UNEXPANDED = [
+  { id: "A", type: "apache" },
+  { id: "GROUP-1", type: "Group" },
+  { id: "Clone-1", type: "Clone" },
+  { id: "Clone-2", type: "Clone" },
+];
+
 describe.only("Resource tree", () => {
   afterEach(async () => {
     await pollyManager().stop();
@@ -65,17 +72,12 @@ describe.only("Resource tree", () => {
 
   it("should show unexpanded resource tree", async () => {
     await displayResources();
-    expect(await inspectResources()).to.be.eql([
-      { id: "A", type: "apache" },
-      { id: "GROUP-1", type: "Group" },
-      { id: "Clone-1", type: "Clone" },
-      { id: "Clone-2", type: "Clone" },
-    ]);
+    expect(await inspectResources()).to.be.eql(RESOURCES_UNEXPANDED);
   });
 
   it("should show expanded group", async () => {
     await displayResources();
-    await expandResource("GROUP-1");
+    await toggleExpansion("GROUP-1");
     expect(await inspectResources()).to.be.eql([
       { id: "A", type: "apache" },
       { id: "GROUP-1", type: "Group" },
@@ -84,12 +86,14 @@ describe.only("Resource tree", () => {
       { id: "Clone-1", type: "Clone" },
       { id: "Clone-2", type: "Clone" },
     ]);
+    await toggleExpansion("GROUP-1");
+    expect(await inspectResources()).to.be.eql(RESOURCES_UNEXPANDED);
   });
 
   it("should show expanded clone with group", async () => {
     await displayResources();
-    await expandResource("Clone-1");
-    await expandResource("GROUP-2");
+    await toggleExpansion("Clone-1");
+    await toggleExpansion("GROUP-2");
     expect(await inspectResources()).to.be.eql([
       { id: "A", type: "apache" },
       { id: "GROUP-1", type: "Group" },
@@ -99,6 +103,9 @@ describe.only("Resource tree", () => {
       { id: "E", type: "Dummy" },
       { id: "Clone-2", type: "Clone" },
     ]);
+    await toggleExpansion("GROUP-2");
+    await toggleExpansion("Clone-1");
+    expect(await inspectResources()).to.be.eql(RESOURCES_UNEXPANDED);
   });
 
   it("should show primitive resource detail", async () => {
