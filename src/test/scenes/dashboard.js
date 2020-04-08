@@ -8,23 +8,13 @@ const { dt } = require("test/tools/selectors");
 const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 
-const CLUSTERS_SELECTOR = dt("cluster-list", "^cluster ");
+const CLUSTERS = dt("cluster-list", "^cluster ");
 const CLUSTER_OK = dt("cluster-list", "cluster ok");
 const CLUSTER_ERROR = dt("cluster-list", "cluster error");
 
 const pollyManager = getPollyManager(() => page());
 
 const scenarios = {
-  simpleCluster: [
-    endpoints.clustersOverview((req, res) => {
-      res.json(
-        responses.clustersOverview.withClusters([responses.clusterStatus.ok]),
-      );
-    }),
-    endpoints.clusterStatus((req, res) => {
-      res.json(responses.clusterStatus.ok);
-    }),
-  ],
   multipleCluster: [
     endpoints.clustersOverview((req, res) => {
       res.json(
@@ -34,7 +24,24 @@ const scenarios = {
         ]),
       );
     }),
+    endpoints.clusterStatus((req, res) => {
+      res.json(responses.clusterStatus.ok);
+    }),
+    endpoints.getResourceAgentMetadata((req, res) => {
+      res.json(responses.resourceAgentMetadata.ok);
+    }),
   ],
+};
+
+const displayClusters = async () => {
+  await page().goto(url());
+  await page().waitFor(CLUSTERS);
+};
+
+const waitForMetadata = async () => {
+  await page().waitForResponse((response) => {
+    return response.url().includes("get_resource_agent_metadata");
+  });
 };
 
 describe("Dashboard scene", () => {
@@ -42,25 +49,21 @@ describe("Dashboard scene", () => {
     await pollyManager().stop();
   });
 
-  it("should render multiple cluster information", async () => {
+  beforeEach(async () => {
     pollyManager().reset(scenarios.multipleCluster);
+  });
 
-    await page().goto(url());
-    await page().waitFor(CLUSTERS_SELECTOR);
-
-    const clusterInfoList = await page().$$eval(
-      CLUSTERS_SELECTOR,
-      clusterElements =>
-        clusterElements.map(e => ({
-          name: e.querySelector("[data-test='name']").textContent,
-          issuesTotal: e.querySelector("[data-test='issues']").textContent,
-          nodesTotal: e.querySelector("[data-test='nodes']").textContent,
-          resourcesTotal: e.querySelector("[data-test='resources']")
-            .textContent,
-          fenceDevicesTotal: e.querySelector("[data-test='fence-devices']")
-            .textContent,
-        })),
-    );
+  it("should render multiple cluster information", async () => {
+    await displayClusters();
+    const clusterInfoList = await page().$$eval(CLUSTERS, clusterElements =>
+      clusterElements.map(e => ({
+        name: e.querySelector("[data-test='name']").textContent,
+        issuesTotal: e.querySelector("[data-test='issues']").textContent,
+        nodesTotal: e.querySelector("[data-test='nodes']").textContent,
+        resourcesTotal: e.querySelector("[data-test='resources']").textContent,
+        fenceDevicesTotal: e.querySelector("[data-test='fence-devices']")
+          .textContent,
+      })));
 
     const response2Info = response => ({
       name: response.cluster_name,
@@ -83,9 +86,7 @@ describe("Dashboard scene", () => {
   });
 
   it("should allow to display cluster issues", async () => {
-    pollyManager().reset(scenarios.multipleCluster);
-    await page().goto(url());
-    await page().waitFor(CLUSTERS_SELECTOR);
+    await displayClusters();
     await page().click(dt(CLUSTER_ERROR, "issues", "expansion-button"));
     await page().waitFor(dt(CLUSTER_ERROR, "issues-status"));
 
@@ -110,18 +111,13 @@ describe("Dashboard scene", () => {
   });
 
   it("should allow to display empty cluster issues", async () => {
-    pollyManager().reset(scenarios.multipleCluster);
-
-    await page().goto(url());
-    await page().waitFor(CLUSTERS_SELECTOR);
+    await displayClusters();
     await page().click(dt(CLUSTER_OK, "issues", "expansion-button"));
     // just check that it exists
     await page().waitFor(dt(CLUSTER_OK, "issues-status"));
   });
 
   it("should allow to add existing cluster", async () => {
-    pollyManager().reset(scenarios.simpleCluster);
-
     const actionSelector = dt("dashboard-toolbar", "add-cluster");
     await page().goto(url());
     await page().waitFor(actionSelector);
@@ -130,23 +126,19 @@ describe("Dashboard scene", () => {
   });
 
   it("should allow go to a cluster detail", async () => {
-    pollyManager().reset(scenarios.multipleCluster);
-    await page().goto(url());
-    await page().waitFor(CLUSTERS_SELECTOR);
+    await displayClusters();
     await page().click(dt(CLUSTER_OK, "name", "link"));
     expect(page().url()).to.equal(url("/cluster/ok"));
   });
 
-  // THIS TEST SUCCEEDS but it causes strange behavior of mocha watch...
-  // it("should allow go to a resource detail", async () => {
-  //   pollyManager().reset(scenarios.multipleCluster);
-  //   await page().goto(url());
-  //   await page().waitFor(CLUSTERS_SELECTOR);
-  //   await page().click(dt(CLUSTER_OK, "resources", "expansion-button"));
-  //
-  //   const RESOURCE_R1 = dt(CLUSTER_OK, "resource-list", "resource R1");
-  //   await page().waitFor(RESOURCE_R1);
-  //   await page().click(dt(RESOURCE_R1, "name", "link"));
-  //   expect(page().url()).to.equal(url("/cluster/ok/resources/R1"));
-  // });
+  it("should allow go to a resource detail", async () => {
+    await displayClusters();
+    await page().click(dt(CLUSTER_OK, "resources", "expansion-button"));
+
+    const RESOURCE_R1 = dt(CLUSTER_OK, "resource-list", "resource R1");
+    await page().waitFor(RESOURCE_R1);
+    await page().click(dt(RESOURCE_R1, "name", "link"));
+    expect(page().url()).to.equal(url("/cluster/ok/resources/R1"));
+    await waitForMetadata();
+  });
 });
