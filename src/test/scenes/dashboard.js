@@ -44,7 +44,7 @@ const waitForMetadata = async () => {
   });
 };
 
-describe.only("Dashboard scene", () => {
+describe("Dashboard scene", () => {
   afterEach(async () => {
     await pollyManager().stop();
   });
@@ -150,5 +150,15 @@ describe.only("Dashboard scene", () => {
     await page().waitFor(NODE_1);
     await page().click(dt(NODE_1, "name", "link"));
     expect(page().url()).to.equal(url("/cluster/ok/nodes/node-1"));
+  });
+
+  it("should allow go to a fence device detail", async () => {
+    await displayClusters();
+    await page().click(dt(CLUSTER_OK, "fence-devices", "expansion-button"));
+
+    const NODE_1 = dt(CLUSTER_OK, "fence-device-list", "fence-device F1");
+    await page().waitFor(NODE_1);
+    await page().click(dt(NODE_1, "name", "link"));
+    expect(page().url()).to.equal(url("/cluster/ok/fence-devices/F1"));
   });
 });

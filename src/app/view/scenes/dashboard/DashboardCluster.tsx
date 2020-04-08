@@ -92,7 +92,7 @@ export const DashboardCluster = ({
         <DashboardResourceList cluster={cluster} />
       </Content>
       <Content expandKey={COLUMNS.FENCE_DEVICES}>
-        <DashboardFenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
+        <DashboardFenceDeviceList cluster={cluster} />
       </Content>
     </Table.Body>
   );
