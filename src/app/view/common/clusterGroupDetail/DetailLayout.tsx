@@ -16,6 +16,7 @@ export const DetailLayout = ({
   caption,
   tabs = null,
   children,
+  ...rest
 }: React.PropsWithChildren<{
   caption: JSX.Element | JSX.Element[] | string;
   tabs?: JSX.Element | JSX.Element[] | string | null;
@@ -24,7 +25,8 @@ export const DetailLayout = ({
   const dispatch = useDispatch();
 
   return (
-    <Stack gutter="md" className="pf-u-p-md">
+    /* eslint-disable react/jsx-props-no-spreading */
+    <Stack gutter="md" className="pf-u-p-md" {...rest}>
       <StackItem>
         <Level>
           <LevelItem>{caption}</LevelItem>

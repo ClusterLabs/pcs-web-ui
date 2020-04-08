@@ -28,6 +28,7 @@ export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
     <DetailLayout
       caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
+      data-test={`resource-detail ${clone.id}`}
     >
       {tab === "Detail" && <CloneDetail clone={clone} />}
       {tab === "Constraints" && <ConstraintListResource resource={clone} />}
