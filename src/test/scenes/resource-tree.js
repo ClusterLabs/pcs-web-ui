@@ -20,26 +20,42 @@ const scenarios = {
 
 const RESOURCE_TREE = dt("cluster-resources");
 
+const displayResources = async () => {
+  await page().goto(url("/cluster/ok/resources"));
+  await page().waitFor(RESOURCE_TREE);
+};
+
+const inspectResources = async () =>
+  page().$$eval(dt(RESOURCE_TREE, "^resource-tree-item "), resourceElements =>
+    resourceElements.map(e => ({
+      id: e.querySelector("[data-test='resource-tree-item-name']").textContent,
+      type: e.querySelector("[data-test='resource-tree-item-type']")
+        .textContent,
+    })),
+  );
+
+const expandResource = async (resourceId) => {
+  await page().click(
+    dt(
+      RESOURCE_TREE,
+      `^resource-tree-item ${resourceId}`,
+      "resource-tree-item-toggle",
+    ),
+  );
+};
+
 describe("Resource tree", () => {
   afterEach(async () => {
     await pollyManager().stop();
   });
 
-  it("should show unexpanded resource tree", async () => {
+  beforeEach(() => {
     pollyManager().reset(scenarios.cluster);
-    await page().goto(url("/cluster/ok/resources"));
-    await page().waitFor(RESOURCE_TREE);
-    const topLevelResources = await page().$$eval(
-      dt(RESOURCE_TREE, "^resource-tree-item "),
-      resourceElements =>
-        resourceElements.map(e => ({
-          id: e.querySelector("[data-test='resource-tree-item-name']")
-            .textContent,
-          type: e.querySelector("[data-test='resource-tree-item-type']")
-            .textContent,
-        })),
-    );
-    expect(topLevelResources).to.be.eql([
+  });
+
+  it("should show unexpanded resource tree", async () => {
+    await displayResources();
+    expect(await inspectResources()).to.be.eql([
       { id: "A", type: "apache" },
       { id: "GROUP-1", type: "Group" },
       { id: "Clone-1", type: "Clone" },
@@ -48,29 +64,29 @@ describe("Resource tree", () => {
   });
 
   it("should show expanded group", async () => {
-    pollyManager().reset(scenarios.cluster);
-    // prettier-ignore
-    const GROUP = dt(RESOURCE_TREE, "^resource-tree-item GROUP-1");
-    await page().goto(url("/cluster/ok/resources"));
-    await page().waitFor(GROUP);
-    await page().click(dt(GROUP, "resource-tree-item-toggle"));
-
-    const topLevelResources = await page().$$eval(
-      dt(RESOURCE_TREE, "^resource-tree-item "),
-      resourceElements =>
-        resourceElements.map(e => ({
-          id: e.querySelector("[data-test='resource-tree-item-name']")
-            .textContent,
-          type: e.querySelector("[data-test='resource-tree-item-type']")
-            .textContent,
-        })),
-    );
-    expect(topLevelResources).to.be.eql([
+    await displayResources();
+    await expandResource("GROUP-1");
+    expect(await inspectResources()).to.be.eql([
       { id: "A", type: "apache" },
       { id: "GROUP-1", type: "Group" },
       { id: "B", type: "Dummy" },
       { id: "C", type: "Dummy" },
       { id: "Clone-1", type: "Clone" },
+      { id: "Clone-2", type: "Clone" },
+    ]);
+  });
+
+  it("should show expanded clone with group", async () => {
+    await displayResources();
+    await expandResource("Clone-1");
+    await expandResource("GROUP-2");
+    expect(await inspectResources()).to.be.eql([
+      { id: "A", type: "apache" },
+      { id: "GROUP-1", type: "Group" },
+      { id: "Clone-1", type: "Clone" },
+      { id: "GROUP-2", type: "Group" },
+      { id: "D", type: "Dummy" },
+      { id: "E", type: "Dummy" },
       { id: "Clone-2", type: "Clone" },
     ]);
   });

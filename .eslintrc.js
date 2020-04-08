@@ -29,6 +29,7 @@ module.exports = {
     // It creates messy diff when there is need to switch from => ( to => {
     "arrow-body-style": "off",
     "arrow-parens": ["error", "as-needed", { requireForBlockBody: true }],
+    "function-paren-newline": "off",
     "object-curly-newline": "off",
 
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
