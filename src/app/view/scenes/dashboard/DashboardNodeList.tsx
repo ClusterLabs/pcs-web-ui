@@ -1,18 +1,16 @@
 import React from "react";
 
 import { types } from "app/store";
-import { StatusSign, Table } from "app/view/common";
+import { Link, StatusSign, Table } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
-
-type Node = types.dashboard.Node;
 
 type COLUMNS = "NAME" | "STATUS" | "QUORUM";
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((a: Node, b: Node) => number
+): ((a: types.dashboard.Node, b: types.dashboard.Node) => number
 ) => {
   switch (column) {
     case "QUORUM":
@@ -28,10 +26,14 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardNodeList = ({ nodeList }: { nodeList: Node[] }) => {
+export const DashboardNodeList = ({
+  cluster,
+}: {
+  cluster: types.dashboard.ClusterState;
+}) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (
-    <Table isCompact isBorderless>
+    <Table isCompact isBorderless data-test="node-list">
       <thead>
         <tr>
           <SortableTh columnName="NAME" sortState={sortState}>
@@ -46,9 +48,13 @@ export const DashboardNodeList = ({ nodeList }: { nodeList: Node[] }) => {
         </tr>
       </thead>
       <tbody>
-        {nodeList.sort(compareItems(compareByColumn)).map(node => (
-          <tr key={node.name}>
-            <td>{node.name}</td>
+        {cluster.nodeList.sort(compareItems(compareByColumn)).map(node => (
+          <tr key={node.name} data-test={`node ${node.name}`}>
+            <td data-test="name">
+              <Link to={`/cluster/${cluster.urlName}/nodes/${node.name}`}>
+                {node.name}
+              </Link>
+            </td>
             <td>
               <StatusSign
                 status={node.statusSeverity}

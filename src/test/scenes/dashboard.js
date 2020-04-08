@@ -44,7 +44,7 @@ const waitForMetadata = async () => {
   });
 };
 
-describe("Dashboard scene", () => {
+describe.only("Dashboard scene", () => {
   afterEach(async () => {
     await pollyManager().stop();
   });
@@ -140,5 +140,15 @@ describe("Dashboard scene", () => {
     await page().click(dt(RESOURCE_R1, "name", "link"));
     expect(page().url()).to.equal(url("/cluster/ok/resources/R1"));
     await waitForMetadata();
+  });
+
+  it("should allow go to a node detail", async () => {
+    await displayClusters();
+    await page().click(dt(CLUSTER_OK, "nodes", "expansion-button"));
+
+    const NODE_1 = dt(CLUSTER_OK, "node-list", "node node-1");
+    await page().waitFor(NODE_1);
+    await page().click(dt(NODE_1, "name", "link"));
+    expect(page().url()).to.equal(url("/cluster/ok/nodes/node-1"));
   });
 });

@@ -86,7 +86,7 @@ export const DashboardCluster = ({
         <IssueList margin issueList={cluster.issueList} />
       </Content>
       <Content expandKey={COLUMNS.NODES}>
-        <DashboardNodeList nodeList={cluster.nodeList} />
+        <DashboardNodeList cluster={cluster} />
       </Content>
       <Content expandKey={COLUMNS.RESOURCES}>
         <DashboardResourceList cluster={cluster} />
