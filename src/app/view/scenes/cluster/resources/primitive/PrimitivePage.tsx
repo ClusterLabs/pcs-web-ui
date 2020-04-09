@@ -1,9 +1,8 @@
 import React from "react";
-import { useRouteMatch } from "react-router";
 import { useSelector } from "react-redux";
 
 import { selectors, types } from "app/store";
-import { join, tabRoutes } from "app/view/utils";
+import { analyzeRoutes, join, useMatch } from "app/view/utils";
 import {
   DetailLayout,
   ResourceDetailCaption,
@@ -23,15 +22,11 @@ export const PrimitivePage = ({
 }) => {
   const { urlPrefix } = useGroupDetailViewContext();
   const resourceUrlPrefix = join(urlPrefix, primitive.id);
-  const urlMap = {
-    Detail: resourceUrlPrefix,
-    Attributes: join(resourceUrlPrefix, "attributes"),
-    Constraints: join(resourceUrlPrefix, "constraints"),
-  };
-  const { tab } = tabRoutes.selectCurrent<keyof typeof urlMap>("Detail", {
-    Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
-    Attributes: useRouteMatch(urlMap.Attributes),
-    Constraints: useRouteMatch(urlMap.Constraints),
+
+  const { tab, urlMap } = analyzeRoutes("Detail", {
+    Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
+    Attributes: useMatch(join(resourceUrlPrefix, "attributes")),
+    Constraints: useMatch(join(resourceUrlPrefix, "constraints")),
   });
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
