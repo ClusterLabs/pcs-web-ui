@@ -5,9 +5,28 @@ const {
   cluster,
   resourceStatus,
   operation,
+  node,
 } = require("./tools");
 
 const resourceTree = cluster("resourceTree", "ok", {
+  node_list: [
+    node(1),
+    node(2, {
+      error_list: [
+        {
+          message: "Test error",
+        },
+      ],
+      warning_list: [
+        {
+          message: "Test warning 1",
+        },
+        {
+          message: "Test warning 2",
+        },
+      ],
+    }),
+  ],
   resource_list: [
     resource("A", {
       type: "apache",

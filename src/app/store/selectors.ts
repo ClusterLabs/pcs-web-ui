@@ -3,6 +3,7 @@ import { getUsername, loaded as usernameLoaded } from "./username/selectors";
 import {
   areDataLoaded as clusterAreDataLoaded,
   getCluster,
+  getSelectedNode,
   getSelectedResource,
 } from "./cluster/selectors/cluster";
 import { resourceGetConstraints } from "./cluster/selectors/constraints";
@@ -37,6 +38,7 @@ export {
   clusterAreDataLoaded,
   getCluster,
   getSelectedResource,
+  getSelectedNode,
   getDashboard,
   dashboardAreDataLoaded,
   resourceGetConstraints,
