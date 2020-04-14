@@ -1,5 +1,5 @@
 import { Selector } from "../../types";
-import { ClusterState, FETCH_STATUS, ResourceTreeItem } from "../types";
+import { ClusterState, FETCH_STATUS, Node, ResourceTreeItem } from "../types";
 
 const fetchStatusSuccess: FETCH_STATUS = "SUCCESS";
 
@@ -44,3 +44,8 @@ export const getSelectedResource = (
 
   return undefined;
 };
+
+export const getSelectedNode = (
+  name: string,
+): Selector<Node | undefined> => state =>
+  getCluster(state).nodeList.find(node => node.name === name);

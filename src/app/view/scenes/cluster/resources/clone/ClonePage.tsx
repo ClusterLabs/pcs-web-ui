@@ -1,8 +1,7 @@
 import React from "react";
-import { useRouteMatch } from "react-router";
 
 import { types } from "app/store";
-import { join, tabRoutes } from "app/view/utils";
+import { analyzeRoutes, join, useMatch } from "app/view/utils";
 import {
   DetailLayout,
   ResourceDetailCaption,
@@ -16,13 +15,9 @@ import { CloneDetail } from "./CloneDetail";
 export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
   const { urlPrefix } = useGroupDetailViewContext();
   const resourceUrlPrefix = join(urlPrefix, clone.id);
-  const urlMap = {
-    Detail: resourceUrlPrefix,
-    Constraints: join(resourceUrlPrefix, "constraints"),
-  };
-  const { tab } = tabRoutes.selectCurrent<keyof typeof urlMap>("Detail", {
-    Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
-    Constraints: useRouteMatch(urlMap.Constraints),
+  const { tab, urlMap } = analyzeRoutes("Detail", {
+    Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
+    Constraints: useMatch(join(resourceUrlPrefix, "constraints")),
   });
   return (
     <DetailLayout

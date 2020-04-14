@@ -11,12 +11,11 @@ import {
   StackItem,
   Title,
 } from "@patternfly/react-core";
-import { useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
 
 import { Action } from "app/actions";
 import { GroupDetailView, Page, UrlTabs } from "app/view/common";
-import { join, tabRoutes } from "app/view/utils";
+import { analyzeRoutes, join, useMatch } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
 
 import { NodeDetailPage, NodeList } from "./nodes";
@@ -35,18 +34,11 @@ export const ClusterDetailPage = ({
   const dispatch = useDispatch();
   const { dataLoaded, cluster } = useClusterState(clusterUrlName);
 
-  const urlMap = {
-    Detail: join(urlPrefix),
-    Nodes: join(urlPrefix, "nodes"),
-    Resources: join(urlPrefix, "resources"),
-    "Fence Devices": join(urlPrefix, "fence-devices"),
-  };
-
-  const { tab, url } = tabRoutes.selectCurrent<keyof typeof urlMap>("Detail", {
-    Detail: useRouteMatch({ path: urlMap.Detail, exact: true }),
-    Resources: useRouteMatch(urlMap.Resources),
-    Nodes: useRouteMatch(urlMap.Nodes),
-    "Fence Devices": useRouteMatch(urlMap["Fence Devices"]),
+  const { tab, urlMap, url } = analyzeRoutes("Detail", {
+    Detail: useMatch({ path: join(urlPrefix), exact: true }),
+    Nodes: useMatch(join(urlPrefix, "nodes")),
+    Resources: useMatch(join(urlPrefix, "resources")),
+    "Fence Devices": useMatch(join(urlPrefix, "fence-devices")),
   });
 
   return (
