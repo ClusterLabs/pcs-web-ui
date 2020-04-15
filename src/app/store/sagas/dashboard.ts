@@ -46,7 +46,7 @@ const getDashboardDataSyncOptions = (): DataLoadProps => ({
   STOP: "DASHBOARD_DATA.SYNC.STOP",
   SUCCESS: "DASHBOARD_DATA.FETCH.SUCCESS",
   FAIL: "DASHBOARD_DATA.FETCH.FAILED",
-  refreshAction: { type: "DASHBOARD_DATA.REFRESH" },
+  refresh: () => ({ type: "DASHBOARD_DATA.REFRESH" }),
   /* eslint-disable @typescript-eslint/no-empty-function */
   takeStartPayload: () => {},
   fetch: () => fork(fetchDashboardData),

@@ -25,14 +25,20 @@ function* fetchClusterData(clusterUrlName: string) {
           `Cannot sync data for cluster '${clusterUrlName}'. `
             + "Details are listed in the browser console.",
         ),
-        put<Action>({ type: "CLUSTER_DATA.FETCH.FAILED" }),
+        put<Action>({
+          type: "CLUSTER_DATA.FETCH.FAILED",
+          payload: { clusterUrlName },
+        }),
       ]);
       return;
     }
 
     yield put<Action>({
       type: "CLUSTER_DATA.FETCH.SUCCESS",
-      payload: { apiClusterStatus: result.response },
+      payload: {
+        clusterUrlName,
+        apiClusterStatus: result.response,
+      },
     });
   } catch (error) {
     const errorMessage = failMessage(error);
@@ -41,7 +47,10 @@ function* fetchClusterData(clusterUrlName: string) {
         "ERROR",
         `Cannot sync data for cluster '${clusterUrlName}': ${errorMessage}`,
       ),
-      put<Action>({ type: "CLUSTER_DATA.FETCH.FAILED" }),
+      put<Action>({
+        type: "CLUSTER_DATA.FETCH.FAILED",
+        payload: { clusterUrlName },
+      }),
     ]);
   }
 }
@@ -53,7 +62,10 @@ const getClusterDataSyncOptions = (): DataLoadProps => {
     STOP: "CLUSTER_DATA.SYNC.STOP",
     SUCCESS: "CLUSTER_DATA.FETCH.SUCCESS",
     FAIL: "CLUSTER_DATA.FETCH.FAILED",
-    refreshAction: { type: "CLUSTER_DATA.REFRESH" },
+    refresh: (clusterName = "") => ({
+      type: "CLUSTER_DATA.REFRESH",
+      payload: { clusterUrlName: clusterName },
+    }),
     takeStartPayload: (
       payload: ClusterActions["SyncClusterData"]["payload"],
     ) => {

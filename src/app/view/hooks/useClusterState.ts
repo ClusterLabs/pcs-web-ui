@@ -5,14 +5,20 @@ import { Action, LeafAction } from "app/actions";
 
 import { selectors } from "app/store";
 
-const stop: LeafAction = { type: "CLUSTER_DATA.SYNC.STOP" };
-
 export const useClusterState = (clusterUrlName: string) => {
   const dispatch = useDispatch();
 
   const start = React.useMemo<LeafAction>(
     () => ({
       type: "CLUSTER_DATA.SYNC",
+      payload: { clusterUrlName },
+    }),
+    [clusterUrlName],
+  );
+
+  const stop = React.useMemo<LeafAction>(
+    () => ({
+      type: "CLUSTER_DATA.SYNC.STOP",
       payload: { clusterUrlName },
     }),
     [clusterUrlName],
@@ -25,7 +31,7 @@ export const useClusterState = (clusterUrlName: string) => {
         reloadCluster: { specificator: clusterUrlName, start, stop },
       },
     });
-  }, [clusterUrlName, start, dispatch]);
+  }, [clusterUrlName, start, dispatch, stop]);
   return {
     cluster: useSelector(selectors.getCluster),
     dataLoaded: useSelector(selectors.clusterAreDataLoaded),

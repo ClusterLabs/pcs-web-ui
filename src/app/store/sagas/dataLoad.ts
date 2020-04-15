@@ -30,7 +30,7 @@ export interface DataLoadProps {
   STOP: Action["type"];
   SUCCESS: Action["type"];
   FAIL: Action["type"];
-  refreshAction: Action;
+  refresh: (identifier?: string) => Action;
   /* eslint-disable @typescript-eslint/no-explicit-any */
   takeStartPayload: (payload: any) => void;
   fetch: () => ForkEffect;
@@ -46,7 +46,7 @@ export function* dataLoadManage({
   STOP,
   SUCCESS,
   FAIL,
-  refreshAction,
+  refresh,
   takeStartPayload,
   fetch,
 }: DataLoadProps) {
@@ -55,7 +55,7 @@ export function* dataLoadManage({
   let fetchFast = false;
   const tasks: LoadTasks = { fetch: undefined, timer: undefined };
 
-  const { type: REFRESH } = refreshAction;
+  const { type: REFRESH } = refresh();
 
   while (true) {
     const { type, payload } = yield take([START, STOP, REFRESH, SUCCESS, FAIL]);
@@ -81,7 +81,7 @@ export function* dataLoadManage({
           tasks.fetch = yield fetch();
         } else {
           tasks.fetch = undefined;
-          tasks.timer = yield fork(timer, refreshAction);
+          tasks.timer = yield fork(timer, refresh());
         }
         break;
 

@@ -55,6 +55,7 @@ export const ClusterDetailPage = ({
                 onClick={() =>
                   dispatch<Action>({
                     type: "CLUSTER_DATA.REFRESH",
+                    payload: { clusterUrlName },
                   })
                 }
               >

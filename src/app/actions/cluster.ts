@@ -5,15 +5,22 @@ export type ClusterActions = {
     type: "CLUSTER_DATA.FETCH.SUCCESS";
     payload: {
       apiClusterStatus: ApiResponse<typeof clusterStatus>;
+      clusterUrlName: string;
     };
   };
 
   FetchClusterDataFailed: {
     type: "CLUSTER_DATA.FETCH.FAILED";
+    payload: {
+      clusterUrlName: string;
+    };
   };
 
   RefreshClusterData: {
     type: "CLUSTER_DATA.REFRESH";
+    payload: {
+      clusterUrlName: string;
+    };
   };
 
   SyncClusterData: {
@@ -25,5 +32,8 @@ export type ClusterActions = {
 
   SyncClusterDataStop: {
     type: "CLUSTER_DATA.SYNC.STOP";
+    payload: {
+      clusterUrlName: string;
+    };
   };
 };
