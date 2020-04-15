@@ -6,6 +6,7 @@ import { checkAuthAgainstNodes } from "./checkAuthAgainstNodes";
 import { existingCluster } from "./existingCluster";
 import { clusterStatus } from "./clusterStatus";
 import { clustersOverview } from "./clustersOverview";
+import { importedClusterList } from "./importedClusterList";
 import { getResourceAgentMetadata } from "./getResourceAgentMetadata";
 import { updateResource } from "./updateResource";
 import {
@@ -29,5 +30,6 @@ export {
   getResourceAgentMetadata,
   clusterStatus,
   clustersOverview,
+  importedClusterList,
   updateResource,
 };

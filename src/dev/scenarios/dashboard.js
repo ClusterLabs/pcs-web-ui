@@ -6,6 +6,11 @@ const clustersOverview = response =>
     res.json(response);
   });
 
+const importedClusterList = response =>
+  endpoints.importedClusterList((req, res) => {
+    res.json(response);
+  });
+
 const clusterStatus = (responseMap = {}) =>
   endpoints.clusterStatus((req, res) => {
     const clusterName = req.params.clusterUrlName;
@@ -31,6 +36,16 @@ module.exports = {
         responses.clusterStatus.ok2,
         responses.clusterStatus.empty,
         responses.clusterStatus.resourceTree,
+      ]),
+    ),
+    importedClusterList(
+      responses.importedClusterList.withClusters([
+        responses.clusterStatus.ok.cluster_name,
+        responses.clusterStatus.error.cluster_name,
+        responses.clusterStatus.big.cluster_name,
+        responses.clusterStatus.ok2.cluster_name,
+        responses.clusterStatus.empty.cluster_name,
+        responses.clusterStatus.resourceTree.cluster_name,
       ]),
     ),
     clusterStatus({
