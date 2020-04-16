@@ -4,7 +4,7 @@ import { Action } from "app/actions";
 import { ApiResult, clustersOverview, failMessage } from "app/backend";
 
 import { putNotification } from "./notifications";
-import { DataLoadProps, dataLoadManage } from "./dataLoad";
+import { dataLoadManage } from "./dataLoad";
 import { authSafe } from "./authSafe";
 
 function* fetchDashboardData() {
@@ -41,15 +41,15 @@ function* fetchDashboardData() {
   }
 }
 
-const getDashboardDataSyncOptions = (): DataLoadProps => ({
+const REFRESH = "DASHBOARD_DATA.REFRESH";
+const dashboardDataSyncOptions: Parameters<typeof dataLoadManage>[0] = {
   START: "DASHBOARD_DATA.SYNC",
   STOP: "DASHBOARD_DATA.SYNC.STOP",
+  REFRESH,
   SUCCESS: "DASHBOARD_DATA.FETCH.SUCCESS",
   FAIL: "DASHBOARD_DATA.FETCH.FAILED",
-  refresh: () => ({ type: "DASHBOARD_DATA.REFRESH" }),
-  /* eslint-disable @typescript-eslint/no-empty-function */
-  takeStartPayload: () => {},
-  fetch: () => fork(fetchDashboardData),
-});
+  refresh: () => ({ type: REFRESH }),
+  fetch: fetchDashboardData,
+};
 
-export default [fork(dataLoadManage, getDashboardDataSyncOptions())];
+export default [fork(dataLoadManage, dashboardDataSyncOptions)];

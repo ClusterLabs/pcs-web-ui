@@ -1,6 +1,5 @@
 import { Task } from "redux-saga";
 import {
-  ForkEffect,
   all,
   cancel,
   cancelled,
@@ -25,91 +24,91 @@ export function* timer(action: Action) {
   }
 }
 
-export interface DataLoadProps {
-  START: Action["type"];
-  STOP: Action["type"];
-  SUCCESS: Action["type"];
-  FAIL: Action["type"];
-  refresh: (identifier?: string) => Action;
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  takeStartPayload: (payload: any) => void;
-  fetch: () => ForkEffect;
-}
-
-interface LoadTasks {
-  fetch: Task | undefined;
-  timer: Task | undefined;
-}
-
 export function* dataLoadManage({
   START,
   STOP,
+  REFRESH,
   SUCCESS,
   FAIL,
   refresh,
-  takeStartPayload,
   fetch,
-}: DataLoadProps) {
+  getSyncId = null,
+}: {
+  START: Action["type"];
+  STOP: Action["type"];
+  REFRESH: Action["type"];
+  SUCCESS: Action["type"];
+  FAIL: Action["type"];
+  refresh: (id?: string) => Action;
+  // It seems it selects definition of 'fork' with saga on 2nd place (index 1)
+  fetch: Parameters<typeof fork>[1];
+  getSyncId?: ((action: Action) => string) | null;
+}) {
   /* eslint-disable no-constant-condition, no-console */
-  let syncStarted = false;
-  let fetchFast = false;
-  const tasks: LoadTasks = { fetch: undefined, timer: undefined };
-
-  const { type: REFRESH } = refresh();
+  const syncMap: Record<
+    string,
+    {
+      fetchASAP: boolean;
+      fetch: Task | null;
+      timer: Task | null;
+    }
+  > = {};
 
   while (true) {
-    const { type, payload } = yield take([START, STOP, REFRESH, SUCCESS, FAIL]);
-    if (type === START && syncStarted) {
-      console.warn("Sync requested when already started! Action ignored.");
+    const action = yield take([START, STOP, REFRESH, SUCCESS, FAIL]);
+    const id = getSyncId ? getSyncId(action) : "";
+    if (action.type === START) {
+      if (id in syncMap) {
+        console.warn("Sync requested when already started! Action ignored.");
+        continue;
+      }
+      syncMap[id] = {
+        fetchASAP: false,
+        fetch: yield fork(fetch, id),
+        timer: null,
+      };
       continue;
     }
-    if (type !== START && !syncStarted) {
-      console.warn(`Sync not started but '${type}' detected! Action ignored.`);
+
+    if (!(id in syncMap)) {
+      console.warn(`Sync not started! Action '${action.type}' ignored.`);
       continue;
     }
-    switch (type) {
-      case START:
-        syncStarted = true;
-        takeStartPayload(payload);
-        tasks.fetch = yield fetch();
-        break;
 
-      case SUCCESS:
-      case FAIL:
-        if (fetchFast) {
-          fetchFast = false;
-          tasks.fetch = yield fetch();
-        } else {
-          tasks.fetch = undefined;
-          tasks.timer = yield fork(timer, refresh());
-        }
-        break;
+    if ([SUCCESS, FAIL].includes(action.type)) {
+      if (syncMap[id].fetchASAP) {
+        syncMap[id].fetchASAP = false;
+        syncMap[id].fetch = yield fork(fetch, id);
+      } else {
+        syncMap[id].fetch = null;
+        syncMap[id].timer = yield fork(timer, refresh(id));
+      }
+    }
 
-      case REFRESH:
-        if (tasks.timer) {
-          yield cancel(tasks.timer);
-        }
-        if (tasks.fetch) {
-          fetchFast = true;
-        } else {
-          tasks.fetch = yield fetch();
-        }
-        break;
+    if (action.type === REFRESH) {
+      if (syncMap[id].timer) {
+        yield cancel(syncMap[id].timer as Task);
+      }
+      if (syncMap[id].fetch) {
+        syncMap[id].fetchASAP = true;
+      } else {
+        syncMap[id].fetch = yield fork(fetch, id);
+      }
+    }
 
-      case STOP:
-        syncStarted = false;
-        yield all(
-          Object.values(tasks)
-            .filter(t => t)
-            .map(t => cancel(t)),
-        );
-        break;
-      // no default
+    if (action.type === STOP) {
+      yield all(
+        [syncMap[id].fetch, syncMap[id].timer]
+          .filter(t => t)
+          .map(t => cancel(t as Task)),
+      );
+      delete syncMap[id];
     }
   }
 }
 
 export function* setUpDataReading() {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   let stops: Record<string, { specificator?: any; stop: Action }> = {};
   const stop = (name: string) => put(stops[name].stop);
   const stopSpecificator = (name: string) => stops[name].specificator;

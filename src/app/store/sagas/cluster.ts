@@ -1,10 +1,10 @@
 import { all, call, fork, put } from "redux-saga/effects";
 
-import { Action, ClusterActions } from "app/actions";
+import { Action } from "app/actions";
 import { ApiResult, clusterStatus, failMessage } from "app/backend";
 
 import { putNotification } from "./notifications";
-import { DataLoadProps, dataLoadManage } from "./dataLoad";
+import { dataLoadManage } from "./dataLoad";
 import { authSafe } from "./authSafe";
 
 function* fetchClusterData(clusterUrlName: string) {
@@ -55,24 +55,30 @@ function* fetchClusterData(clusterUrlName: string) {
   }
 }
 
-const getClusterDataSyncOptions = (): DataLoadProps => {
-  let clusterUrlName = "";
-  return {
-    START: "CLUSTER_DATA.SYNC",
-    STOP: "CLUSTER_DATA.SYNC.STOP",
-    SUCCESS: "CLUSTER_DATA.FETCH.SUCCESS",
-    FAIL: "CLUSTER_DATA.FETCH.FAILED",
-    refresh: (clusterName = "") => ({
-      type: "CLUSTER_DATA.REFRESH",
-      payload: { clusterUrlName: clusterName },
-    }),
-    takeStartPayload: (
-      payload: ClusterActions["SyncClusterData"]["payload"],
-    ) => {
-      ({ clusterUrlName } = payload);
-    },
-    fetch: () => fork(fetchClusterData, clusterUrlName),
-  };
+const REFRESH = "CLUSTER_DATA.REFRESH";
+const clusterDataSyncOptions: Parameters<typeof dataLoadManage>[0] = {
+  START: "CLUSTER_DATA.SYNC",
+  STOP: "CLUSTER_DATA.SYNC.STOP",
+  REFRESH,
+  SUCCESS: "CLUSTER_DATA.FETCH.SUCCESS",
+  FAIL: "CLUSTER_DATA.FETCH.FAILED",
+  refresh: (clusterName = "") => ({
+    type: REFRESH,
+    payload: { clusterUrlName: clusterName },
+  }),
+  fetch: fetchClusterData,
+  getSyncId: (action: Action) => {
+    switch (action.type) {
+      case "CLUSTER_DATA.SYNC":
+      case "CLUSTER_DATA.SYNC.STOP":
+      case "CLUSTER_DATA.FETCH.SUCCESS":
+      case "CLUSTER_DATA.FETCH.FAILED":
+      case "CLUSTER_DATA.REFRESH":
+        return action.payload.clusterUrlName;
+      default:
+        return "";
+    }
+  },
 };
 
-export default [fork(dataLoadManage, getClusterDataSyncOptions())];
+export default [fork(dataLoadManage, clusterDataSyncOptions)];
