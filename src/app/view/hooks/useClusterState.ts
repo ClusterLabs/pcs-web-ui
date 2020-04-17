@@ -33,7 +33,7 @@ export const useClusterState = (clusterUrlName: string) => {
     });
   }, [clusterUrlName, start, dispatch, stop]);
   return {
-    cluster: useSelector(selectors.getCluster),
-    dataLoaded: useSelector(selectors.clusterAreDataLoaded),
+    cluster: useSelector(selectors.getCluster(clusterUrlName)),
+    dataLoaded: useSelector(selectors.clusterAreDataLoaded(clusterUrlName)),
   };
 };

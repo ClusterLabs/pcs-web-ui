@@ -1,4 +1,5 @@
 import { Selector } from "../../types";
+import { getCluster } from "./cluster";
 
 import {
   ConstraintColocation,
@@ -22,9 +23,10 @@ const setsContainId = (sets: ConstraintResourceSet[], id: string) =>
   );
 
 export const resourceGetConstraints = (
+  clusterUrlName: string,
   resource: ResourceTreeItem,
 ): Selector<Pack[]> => (state) => {
-  const constraintMap = state.cluster.clusterState.constraints;
+  const constraintMap = getCluster(clusterUrlName)(state).constraints;
   if (!constraintMap) {
     return [];
   }

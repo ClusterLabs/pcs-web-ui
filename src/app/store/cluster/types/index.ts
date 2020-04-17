@@ -114,3 +114,5 @@ export interface ClusterServiceState {
   clusterState: ClusterState;
   dataFetchState: FETCH_STATUS;
 }
+
+export type ClusterStorage = Record<string, ClusterServiceState>;

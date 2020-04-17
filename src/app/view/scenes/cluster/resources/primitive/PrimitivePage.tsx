@@ -1,7 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
-import { selectors, types } from "app/store";
+import { types } from "app/store";
 import { analyzeRoutes, join, useMatch } from "app/view/utils";
 import {
   DetailLayout,
@@ -9,6 +8,7 @@ import {
   UrlTabs,
   useGroupDetailViewContext,
 } from "app/view/common";
+import { useSelectedCluster } from "app/view/scenes/cluster";
 
 import { ConstraintListResource } from "../constraints";
 import { PrimitiveAttrsView } from "./attributes";
@@ -31,8 +31,7 @@ export const PrimitivePage = ({
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
   // user doesn't need to wait when he needs it.
-  const cluster = useSelector(selectors.getCluster);
-  useResourceAgent(cluster.urlName, primitive.agentName);
+  useResourceAgent(useSelectedCluster(), primitive.agentName);
 
   return (
     <DetailLayout
