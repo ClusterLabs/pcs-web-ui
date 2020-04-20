@@ -57,15 +57,12 @@ dev:
 	@NODE_PATH=src/ node src/dev/backend.js --scenario=$(SCENARIO) --interactive
 
 
-test:
-	npx react-scripts test --env=jsdom --testPathPattern=src/app
+#unit tests
+testu:
+	npx react-scripts test --env=jsdom --testPathPattern=src/test
 
-
-testa:
-	npx react-scripts test --env=jsdom --runInBand
-
-
-tests:
+#end2end tests
+teste:
 	NODE_PATH=src/ npx mocha src/test/bootstrap.js \
 		--no-timeouts --recursive --watch --watch-files src/app/,src/test/ src/test/scenes/*.js
 

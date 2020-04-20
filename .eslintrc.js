@@ -53,6 +53,7 @@ module.exports = {
           "**/test/*.js",
           "src/dev/**/*.js",
           "src/test/**/*.js",
+          "src/test/**/*.ts",
         ],
       },
     ],

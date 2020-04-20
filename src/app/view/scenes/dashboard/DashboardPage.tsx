@@ -20,12 +20,13 @@ const useDashboardSync = () => {
   React.useEffect(() => {
     dispatch<Action>({
       type: "DATA_READING.SET_UP",
-      payload: {
-        reloadDashboard: {
+      payload: [
+        {
+          specificator: "syncDashboard",
           start: { type: "DASHBOARD_DATA.SYNC" },
           stop: { type: "DASHBOARD_DATA.SYNC.STOP" },
         },
-      },
+      ],
     });
   }, [dispatch]);
 };

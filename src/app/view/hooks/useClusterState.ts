@@ -27,9 +27,13 @@ export const useClusterState = (clusterUrlName: string) => {
   React.useEffect(() => {
     dispatch<Action>({
       type: "DATA_READING.SET_UP",
-      payload: {
-        reloadCluster: { specificator: clusterUrlName, start, stop },
-      },
+      payload: [
+        {
+          specificator: `syncCluster:${clusterUrlName}`,
+          start,
+          stop,
+        },
+      ],
     });
   }, [clusterUrlName, start, dispatch, stop]);
   return {
