@@ -3,13 +3,14 @@ import { getUsername, loaded as usernameLoaded } from "./username/selectors";
 import {
   areDataLoaded as clusterAreDataLoaded,
   getCluster,
+  getClusterMap,
   getSelectedNode,
   getSelectedResource,
 } from "./cluster/selectors/cluster";
 import { resourceGetConstraints } from "./cluster/selectors/constraints";
 import {
   areDataLoaded as dashboardAreDataLoaded,
-  getDashboard,
+  getImportedClusterList,
 } from "./dashboard/selectors";
 
 import {
@@ -37,9 +38,10 @@ export {
   usernameLoaded,
   clusterAreDataLoaded,
   getCluster,
+  getClusterMap,
   getSelectedResource,
   getSelectedNode,
-  getDashboard,
+  getImportedClusterList,
   dashboardAreDataLoaded,
   resourceGetConstraints,
   addClusterGetNodeName,

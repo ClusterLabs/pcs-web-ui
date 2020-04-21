@@ -2,22 +2,21 @@ import { Reducer, combineReducers } from "redux";
 
 import { Action } from "app/actions";
 
-import { DashboardPageState, DashboardState, FETCH_STATUS } from "./types";
-import { overviewApiToState } from "./overviewApiToState";
+import {
+  ClusterNameListState,
+  DashboardPageState,
+  FETCH_STATUS,
+} from "./types";
 
-const dashboardStateDefault: DashboardState = {
-  clusterList: [],
-};
-
-const dashboardState: Reducer<DashboardState, Action> = (
-  state = dashboardStateDefault,
+const clusterNameListState: Reducer<ClusterNameListState, Action> = (
+  state = [],
   action,
 ) => {
   switch (action.type) {
     case "DASHBOARD_DATA.FETCH.SUCCESS":
-      return overviewApiToState(action.payload.apiClusterOverview);
+      return action.payload.clusterNameList;
     case "AUTH.REQUIRED":
-      return dashboardStateDefault;
+      return [];
     default:
       return state;
   }
@@ -29,7 +28,7 @@ const dataFetchState: Reducer<FETCH_STATUS, Action> = (
 ) => {
   switch (action.type) {
     case "DASHBOARD_DATA.SYNC":
-      return "IN_PROGRESS";
+      return state === "SUCCESS" ? "SUCCESS" : "IN_PROGRESS";
     case "DASHBOARD_DATA.FETCH.SUCCESS":
       return "SUCCESS";
     case "DASHBOARD_DATA.FETCH.FAILED":
@@ -42,6 +41,6 @@ const dataFetchState: Reducer<FETCH_STATUS, Action> = (
 };
 
 export default combineReducers<DashboardPageState>({
-  dashboardState,
+  clusterNameListState,
   dataFetchState,
 });

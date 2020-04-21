@@ -1,10 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-import { types } from "app/store";
+import { selectors, types } from "app/store";
 import { Table } from "app/view/common";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
 import { DashboardCluster } from "./DashboardCluster";
+import { DashboardLoadingCluster } from "./DashboardLoadingCluster";
 
 type COLUMNS = "NAME" | "ISSUES" | "NODES" | "RESOURCES" | "FENCE_DEVICES";
 
@@ -13,8 +15,7 @@ const compareByColumn = (
 ): ((
   a: types.dashboard.ClusterState,
   b: types.dashboard.ClusterState,
-) => number
-) => {
+) => number) => {
   switch (column) {
     case "ISSUES":
       return (a, b) =>
@@ -45,11 +46,14 @@ const compareByColumn = (
 const { SortableTh } = Table;
 
 export const Dashboard = ({
-  dashboard,
+  importedClusterNameList,
 }: {
-  dashboard: types.dashboard.DashboardState;
+  importedClusterNameList: types.dashboard.ClusterNameListState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
+  const clusterMap = useSelector(
+    selectors.getClusterMap(importedClusterNameList),
+  );
   return (
     <Table isExpandable aria-label="Cluster list" data-test="cluster-list">
       <thead>
@@ -91,11 +95,19 @@ export const Dashboard = ({
           </SortableTh>
         </tr>
       </thead>
-      {dashboard.clusterList
+      {Object.keys(clusterMap)
+        .map(name => clusterMap[name].cluster)
         .sort(compareItems(compareByColumn))
-        .map(cluster => (
-          <DashboardCluster key={cluster.name} cluster={cluster} />
-        ))}
+        .map(cluster =>
+          (clusterMap[cluster.urlName].isLoaded ? (
+            <DashboardCluster key={cluster.urlName} cluster={cluster} />
+          ) : (
+            <DashboardLoadingCluster
+              key={cluster.urlName}
+              clusterUrlName={cluster.urlName}
+            />
+          )),
+        )}
     </Table>
   );
 };

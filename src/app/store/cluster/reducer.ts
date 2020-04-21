@@ -9,23 +9,7 @@ import {
   FETCH_STATUS,
 } from "./types";
 import { apiToState as clusterApiToState } from "./apiToState";
-
-const clusterStatusDefault: ClusterState = {
-  name: "",
-  urlName: "",
-  status: "UNKNOWN",
-  statusSeverity: "UNKNOWN",
-  nodeList: [],
-  resourceTree: [],
-  fenceDeviceList: [],
-  issueList: [],
-  summary: {
-    nodesSeverity: "UNKNOWN",
-    resourcesSeverity: "UNKNOWN",
-    fenceDevicesSeverity: "UNKNOWN",
-    issuesSeverity: "UNKNOWN",
-  },
-};
+import { clusterStatusDefault } from "./clusterStatusDefault";
 
 const clusterState: Reducer<ClusterState, Action> = (
   state = clusterStatusDefault,
@@ -45,7 +29,7 @@ const dataFetchState: Reducer<FETCH_STATUS, Action> = (
 ) => {
   switch (action.type) {
     case "CLUSTER_DATA.SYNC":
-      return "IN_PROGRESS";
+      return state === "SUCCESS" ? "SUCCESS" : "IN_PROGRESS";
     case "CLUSTER_DATA.FETCH.SUCCESS":
       return "SUCCESS";
     case "CLUSTER_DATA.FETCH.FAILED":

@@ -1,7 +1,7 @@
 import { all, call, fork, put } from "redux-saga/effects";
 
-import { Action } from "app/actions";
-import { ApiResult, clustersOverview, failMessage } from "app/backend";
+import { Action, SetupDataReading } from "app/actions";
+import { ApiResult, failMessage, importedClusterList } from "app/backend";
 
 import { putNotification } from "./notifications";
 import { dataLoadManage } from "./dataLoad";
@@ -9,8 +9,8 @@ import { authSafe } from "./authSafe";
 
 function* fetchDashboardData() {
   try {
-    const result: ApiResult<typeof clustersOverview> = yield call(
-      authSafe(clustersOverview),
+    const result: ApiResult<typeof importedClusterList> = yield call(
+      authSafe(importedClusterList),
     );
     if (!result.valid) {
       /* eslint-disable no-console */
@@ -28,9 +28,36 @@ function* fetchDashboardData() {
       ]);
       return;
     }
+    const clusterNameList = result.response.cluster_list.map(
+      cluster => cluster.name,
+    );
     yield put<Action>({
       type: "DASHBOARD_DATA.FETCH.SUCCESS",
-      payload: { apiClusterOverview: result.response },
+      payload: { clusterNameList },
+    });
+
+    yield put<Action>({
+      type: "DATA_READING.SET_UP",
+      payload: [
+        {
+          specificator: "syncDashboard",
+          start: { type: "DASHBOARD_DATA.SYNC" },
+          stop: { type: "DASHBOARD_DATA.SYNC.STOP" },
+        },
+        ...clusterNameList.map(
+          (clusterUrlName): SetupDataReading["payload"][0] => ({
+            specificator: `syncCluster:${clusterUrlName}`,
+            start: {
+              type: "CLUSTER_DATA.SYNC",
+              payload: { clusterUrlName },
+            },
+            stop: {
+              type: "CLUSTER_DATA.SYNC.STOP",
+              payload: { clusterUrlName },
+            },
+          }),
+        ),
+      ],
     });
   } catch (error) {
     const errorMessage = failMessage(error);

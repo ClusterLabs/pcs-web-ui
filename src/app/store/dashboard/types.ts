@@ -38,7 +38,9 @@ export interface DashboardState {
   clusterList: ClusterState[];
 }
 
+export type ClusterNameListState = string[];
+
 export interface DashboardPageState {
-  dashboardState: DashboardState;
+  clusterNameListState: ClusterNameListState;
   dataFetchState: FETCH_STATUS;
 }

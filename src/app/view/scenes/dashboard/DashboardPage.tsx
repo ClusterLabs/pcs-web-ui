@@ -34,7 +34,7 @@ const useDashboardSync = () => {
 export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
   useDashboardSync();
   const dispatch = useDispatch();
-  const dashboard = useSelector(selectors.getDashboard);
+  const importedClusterNameList = useSelector(selectors.getImportedClusterList);
   const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
 
   return (
@@ -61,7 +61,7 @@ export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
         </Stack>
       </PageSection>
       <PageSectionDataLoading done={dataLoaded}>
-        <Dashboard dashboard={dashboard} />
+        <Dashboard importedClusterNameList={importedClusterNameList} />
       </PageSectionDataLoading>
     </Page>
   );

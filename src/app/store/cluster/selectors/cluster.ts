@@ -1,4 +1,5 @@
 import { Selector } from "../../types";
+import { clusterStatusDefault } from "../clusterStatusDefault";
 import { ClusterState, FETCH_STATUS, Node, ResourceTreeItem } from "../types";
 
 const fetchStatusSuccess: FETCH_STATUS = "SUCCESS";
@@ -11,7 +12,26 @@ export const areDataLoaded = (
 export const getCluster = (
   clusterUrlName: string,
 ): Selector<ClusterState> => state =>
-  state.clusterStorage[clusterUrlName]?.clusterState;
+  state.clusterStorage[clusterUrlName]?.clusterState ?? clusterStatusDefault;
+
+type ClusterInfo = { cluster: ClusterState; isLoaded: boolean };
+export function getClusterMap<T extends string>(
+  clusterList: T[],
+): Selector<Record<T, ClusterInfo>> {
+  return state =>
+    clusterList.reduce<Record<T, ClusterInfo>>(
+      (map, name) => ({
+        ...map,
+        [name]: {
+          cluster: areDataLoaded(name)(state)
+            ? getCluster(name)(state)
+            : { ...clusterStatusDefault, name, urlName: name },
+          isLoaded: areDataLoaded(name)(state),
+        },
+      }),
+      {} as Record<T, ClusterInfo>,
+    );
+}
 
 const findInTopLevelAndGroup = (resource: ResourceTreeItem, id: string) => {
   if (resource.id === id) {

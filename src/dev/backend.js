@@ -7,7 +7,9 @@ const inquirer = require("inquirer");
 const { argv } = require("yargs")
   .string("scenario")
   .number("delay")
-  .default("delay", 400);
+  .default("delay", 300)
+  .number("delayRandom")
+  .default("delayRandom", 100);
 
 const SCENARIO_DIR = `${__dirname}/scenarios`;
 
@@ -81,10 +83,13 @@ const promptScenario = () =>
     .catch(() => {
       process.exit(0);
     });
-const addAppHandlers = (app, scenarioHandlers, delay) => {
+const addAppHandlers = (app, scenarioHandlers, delay, delayRandom) => {
   scenarioHandlers.forEach(({ method, url, middleParams, handler }) => {
     app[method.toLowerCase()](url, ...(middleParams || []), (req, res) => {
-      setTimeout(() => handler(req, res), delay);
+      setTimeout(
+        () => handler(req, res),
+        delay + Math.floor(delayRandom * Math.random()),
+      );
     });
   });
 };
@@ -107,6 +112,6 @@ const addAppHandlers = (app, scenarioHandlers, delay) => {
   }
   const port = process.env.PORT || 5000;
   const app = express();
-  addAppHandlers(app, scenario.handlers, argv.delay);
+  addAppHandlers(app, scenario.handlers, argv.delay, argv.delayRandom);
   app.listen(port, () => console.log(`Listening on port ${port}`));
 })(argv);
