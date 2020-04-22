@@ -20,8 +20,7 @@ const compareByColumn = (
 ): ((
   a: types.cluster.ResourceTreeItem,
   b: types.cluster.ResourceTreeItem,
-) => number
-) => {
+) => number) => {
   switch (column) {
     case "STATUS":
       return (a, b) =>

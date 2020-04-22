@@ -95,7 +95,8 @@ describe("Add existing cluster wizard", () => {
     pollyManager().reset([
       getDashboard,
       endpoints.checkAuthAgainstNodes((req, res) =>
-        res.json({ [nodeName]: "Online" })),
+        res.json({ [nodeName]: "Online" }),
+      ),
       endpoints.addCluster((req, res) => res.send("")),
     ]);
 
@@ -112,9 +113,11 @@ describe("Add existing cluster wizard", () => {
       endpoints.checkAuthAgainstNodes((req, res) =>
         res.json({
           [nodeName]: "Unable to authenticate",
-        })),
+        }),
+      ),
       endpoints.authenticateAgainstNodes((req, res) =>
-        res.json({ node_auth_error: { [nodeName]: 0 } })),
+        res.json({ node_auth_error: { [nodeName]: 0 } }),
+      ),
       endpoints.addCluster((req, res) => res.send("")),
     ]);
 
@@ -138,7 +141,8 @@ describe("Add existing cluster wizard", () => {
     pollyManager().reset([
       getDashboard,
       endpoints.checkAuthAgainstNodes((req, res) =>
-        res.status(500).send("WRONG")),
+        res.status(500).send("WRONG"),
+      ),
     ]);
 
     await enterNodeName(nodeName);
@@ -161,7 +165,8 @@ describe("Add existing cluster wizard", () => {
     pollyManager().reset([
       getDashboard,
       endpoints.checkAuthAgainstNodes((req, res) =>
-        res.json({ [nodeName]: "Offline" })),
+        res.json({ [nodeName]: "Offline" }),
+      ),
     ]);
 
     await enterNodeName(nodeName);
@@ -175,9 +180,11 @@ describe("Add existing cluster wizard", () => {
       endpoints.checkAuthAgainstNodes((req, res) =>
         res.json({
           [nodeName]: "Unable to authenticate",
-        })),
+        }),
+      ),
       endpoints.authenticateAgainstNodes((req, res) =>
-        res.json({ node_auth_error: { [nodeName]: 1 } })),
+        res.json({ node_auth_error: { [nodeName]: 1 } }),
+      ),
     ]);
 
     await enterNodeName(nodeName);
@@ -199,9 +206,11 @@ describe("Add existing cluster wizard", () => {
     pollyManager().reset([
       getDashboard,
       endpoints.checkAuthAgainstNodes((req, res) =>
-        res.json({ [nodeName]: "Online" })),
+        res.json({ [nodeName]: "Online" }),
+      ),
       endpoints.addCluster((req, res) =>
-        res.status(400).send("Configuration conflict detected.")),
+        res.status(400).send("Configuration conflict detected."),
+      ),
     ]);
 
     await enterNodeName(nodeName);

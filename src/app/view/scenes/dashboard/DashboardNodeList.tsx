@@ -10,8 +10,7 @@ type COLUMNS = "NAME" | "STATUS" | "QUORUM";
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((a: types.dashboard.Node, b: types.dashboard.Node) => number
-) => {
+): ((a: types.dashboard.Node, b: types.dashboard.Node) => number) => {
   switch (column) {
     case "QUORUM":
       return (a, b) =>

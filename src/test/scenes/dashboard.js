@@ -63,7 +63,8 @@ describe("Dashboard scene", () => {
         resourcesTotal: e.querySelector("[data-test='resources']").textContent,
         fenceDevicesTotal: e.querySelector("[data-test='fence-devices']")
           .textContent,
-      })));
+      })),
+    );
 
     const response2Info = response => ({
       name: response.cluster_name,

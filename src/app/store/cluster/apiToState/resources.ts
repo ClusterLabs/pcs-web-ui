@@ -190,7 +190,8 @@ const buildGroupStatusInfoList = (
     infoList.push({
       label: `${labelCounts[label]}/${members.length} ${label}`,
       severity: maxSeverity,
-    }));
+    }),
+  );
   return infoList;
 };
 

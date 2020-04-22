@@ -20,8 +20,7 @@ const compareByColumn = (
 ): ((
   a: types.dashboard.FenceDevice,
   b: types.dashboard.FenceDevice,
-) => number
-) => {
+) => number) => {
   switch (column) {
     case "STATUS":
       return (a, b) =>

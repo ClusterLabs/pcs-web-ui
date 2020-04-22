@@ -9,9 +9,11 @@ import {
 } from "./tools";
 
 const ApiImportedClusterList = t.type({
-  cluster_list: t.array(t.type({
-    name: t.string,
-  })),
+  cluster_list: t.array(
+    t.type({
+      name: t.string,
+    }),
+  ),
 });
 
 type Result = t.TypeOf<typeof ApiImportedClusterList>;

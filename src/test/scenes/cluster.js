@@ -20,7 +20,8 @@ const scenarios = {
 
 const currentTab = async () => {
   const currentTablist = await page().$$eval(dt("tabs cluster"), tabs =>
-    tabs.map(e => e.querySelector(".pf-m-current").textContent));
+    tabs.map(e => e.querySelector(".pf-m-current").textContent),
+  );
   expect(currentTablist.length).to.be.eql(1);
   return currentTablist[0];
 };
