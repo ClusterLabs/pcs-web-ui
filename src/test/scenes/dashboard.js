@@ -16,16 +16,20 @@ const pollyManager = getPollyManager(() => page());
 
 const scenarios = {
   multipleCluster: [
-    endpoints.clustersOverview((req, res) => {
+    endpoints.importedClusterList((req, res) => {
       res.json(
-        responses.clustersOverview.withClusters([
-          responses.clusterStatus.ok,
-          responses.clusterStatus.error,
+        responses.importedClusterList.withClusters([
+          responses.clusterStatus.ok.cluster_name,
+          responses.clusterStatus.error.cluster_name,
         ]),
       );
     }),
     endpoints.clusterStatus((req, res) => {
-      res.json(responses.clusterStatus.ok);
+      res.json(
+        req.params.clusterUrlName === "ok"
+          ? responses.clusterStatus.ok
+          : responses.clusterStatus.error,
+      );
     }),
     endpoints.getResourceAgentMetadata((req, res) => {
       res.json(responses.resourceAgentMetadata.ok);
@@ -35,7 +39,7 @@ const scenarios = {
 
 const displayClusters = async () => {
   await page().goto(url());
-  await page().waitFor(CLUSTERS);
+  await page().waitFor([CLUSTER_OK, CLUSTER_ERROR].join(","));
 };
 
 const waitForMetadata = async () => {

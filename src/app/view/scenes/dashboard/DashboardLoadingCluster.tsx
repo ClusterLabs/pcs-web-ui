@@ -9,7 +9,7 @@ export const DashboardLoadingCluster = ({
   clusterUrlName: string;
 }) => {
   return (
-    <Table.Body data-test={`cluster ${clusterUrlName}`}>
+    <Table.Body data-test={`cluster-loading ${clusterUrlName}`}>
       <tr role="row">
         <th role="rowheader" data-test="name">
           <Link

@@ -76,8 +76,8 @@ const verifyAddRequest = (spyLog, nodeName) => {
   expect(spyLog[0].body).to.eql(`node-name=${nodeName}`);
 };
 
-const getDashboard = endpoints.clustersOverview((req, res) => {
-  res.json(responses.clustersOverview.empty);
+const getDashboard = endpoints.importedClusterList((req, res) => {
+  res.json(responses.importedClusterList.empty);
 });
 
 describe("Add existing cluster wizard", () => {
