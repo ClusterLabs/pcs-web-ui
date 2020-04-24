@@ -44,14 +44,11 @@ export type LeafAction = (
 
 export type SetupDataReading = {
   type: "DATA_READING.SET_UP";
-  payload: Record<
-    string,
-    {
-      start: LeafAction;
-      stop: LeafAction;
-      specificator?: string;
-    }
-  >;
+  payload: {
+    specificator: string;
+    start: LeafAction;
+    stop: LeafAction;
+  }[];
 };
 
 export type Action = LeafAction | SetupDataReading;

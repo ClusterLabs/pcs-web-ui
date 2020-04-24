@@ -15,6 +15,9 @@ const scenarios = {
     endpoints.clusterStatus((req, res) => {
       res.json(responses.clusterStatus.resourcesForTest);
     }),
+    endpoints.getResourceAgentMetadata((req, res) => {
+      res.json(responses.resourceAgentMetadata.ok);
+    }),
   ],
 };
 

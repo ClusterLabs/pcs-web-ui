@@ -20,8 +20,7 @@ const compareByColumn = (
 ): ((
   a: types.cluster.ResourceTreeItem,
   b: types.cluster.ResourceTreeItem,
-) => number
-) => {
+) => number) => {
   switch (column) {
     case "STATUS":
       return (a, b) =>
@@ -33,10 +32,10 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardResourceList = ({
+export const DashboardClusterResources = ({
   cluster,
 }: {
-  cluster: types.dashboard.ClusterState;
+  cluster: types.cluster.ClusterState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
 

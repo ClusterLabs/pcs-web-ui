@@ -20,7 +20,7 @@ const statusToSeverity = (
   }
 };
 
-export const transformStatus = (
+const transformStatus = (
   status: ApiClusterStatus["status"],
 ): ClusterState["status"] => {
   switch (status) {
@@ -35,7 +35,7 @@ export const transformStatus = (
   }
 };
 
-export const issuesToSummarySeverity = (
+const issuesToSummarySeverity = (
   errorList: ApiIssue[],
   warningList: ApiIssue[],
 ): ClusterState["summary"]["issuesSeverity"] => {

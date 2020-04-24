@@ -1,6 +1,5 @@
 import { Task } from "redux-saga";
 import {
-  ForkEffect,
   all,
   cancel,
   cancelled,
@@ -10,7 +9,7 @@ import {
   take,
 } from "redux-saga/effects";
 
-import { Action, SetupDataReading, actionType } from "app/actions";
+import { Action, LeafAction, SetupDataReading, actionType } from "app/actions";
 
 const SYNC_DELAY = 30 * 1000; // ms
 
@@ -25,131 +24,131 @@ export function* timer(action: Action) {
   }
 }
 
-export interface DataLoadProps {
-  START: Action["type"];
-  STOP: Action["type"];
-  SUCCESS: Action["type"];
-  FAIL: Action["type"];
-  refreshAction: Action;
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  takeStartPayload: (payload: any) => void;
-  fetch: () => ForkEffect;
-}
-
-interface LoadTasks {
-  fetch: Task | undefined;
-  timer: Task | undefined;
-}
-
 export function* dataLoadManage({
   START,
   STOP,
+  REFRESH,
   SUCCESS,
   FAIL,
-  refreshAction,
-  takeStartPayload,
+  refresh,
   fetch,
-}: DataLoadProps) {
+  getSyncId = null,
+}: {
+  START: Action["type"];
+  STOP: Action["type"];
+  REFRESH: Action["type"];
+  SUCCESS: Action["type"];
+  FAIL: Action["type"];
+  refresh: (id?: string) => Action;
+  // It seems it selects definition of 'fork' with saga on 2nd place (index 1)
+  fetch: Parameters<typeof fork>[1];
+  getSyncId?: ((action: Action) => string) | null;
+}) {
   /* eslint-disable no-constant-condition, no-console */
-  let syncStarted = false;
-  let fetchFast = false;
-  const tasks: LoadTasks = { fetch: undefined, timer: undefined };
-
-  const { type: REFRESH } = refreshAction;
+  const syncMap: Record<
+    string,
+    {
+      fetchASAP: boolean;
+      fetch: Task | null;
+      timer: Task | null;
+    }
+  > = {};
 
   while (true) {
-    const { type, payload } = yield take([START, STOP, REFRESH, SUCCESS, FAIL]);
-    if (type === START && syncStarted) {
-      console.warn("Sync requested when already started! Action ignored.");
+    const action = yield take([START, STOP, REFRESH, SUCCESS, FAIL]);
+    const id = getSyncId ? getSyncId(action) : "";
+    if (action.type === START) {
+      if (id in syncMap) {
+        console.warn("Sync requested when already started! Action ignored.");
+        continue;
+      }
+      syncMap[id] = {
+        fetchASAP: false,
+        fetch: yield fork(fetch, id),
+        timer: null,
+      };
       continue;
     }
-    if (type !== START && !syncStarted) {
-      console.warn(`Sync not started but '${type}' detected! Action ignored.`);
+
+    if (!(id in syncMap)) {
+      console.warn(`Sync not started! Action '${action.type}' ignored.`);
       continue;
     }
-    switch (type) {
-      case START:
-        syncStarted = true;
-        takeStartPayload(payload);
-        tasks.fetch = yield fetch();
-        break;
 
-      case SUCCESS:
-      case FAIL:
-        if (fetchFast) {
-          fetchFast = false;
-          tasks.fetch = yield fetch();
-        } else {
-          tasks.fetch = undefined;
-          tasks.timer = yield fork(timer, refreshAction);
-        }
-        break;
+    if ([SUCCESS, FAIL].includes(action.type)) {
+      if (syncMap[id].fetchASAP) {
+        syncMap[id].fetchASAP = false;
+        syncMap[id].fetch = yield fork(fetch, id);
+      } else {
+        syncMap[id].fetch = null;
+        syncMap[id].timer = yield fork(timer, refresh(id));
+      }
+    }
 
-      case REFRESH:
-        if (tasks.timer) {
-          yield cancel(tasks.timer);
-        }
-        if (tasks.fetch) {
-          fetchFast = true;
-        } else {
-          tasks.fetch = yield fetch();
-        }
-        break;
+    if (action.type === REFRESH) {
+      if (syncMap[id].timer) {
+        yield cancel(syncMap[id].timer as Task);
+      }
+      if (syncMap[id].fetch) {
+        syncMap[id].fetchASAP = true;
+      } else {
+        syncMap[id].fetch = yield fork(fetch, id);
+      }
+    }
 
-      case STOP:
-        syncStarted = false;
-        yield all(
-          Object.values(tasks)
-            .filter(t => t)
-            .map(t => cancel(t)),
-        );
-        break;
-      // no default
+    if (action.type === STOP) {
+      yield all(
+        [syncMap[id].fetch, syncMap[id].timer]
+          .filter(t => t)
+          .map(t => cancel(t as Task)),
+      );
+      delete syncMap[id];
     }
   }
 }
 
+type Stop = { stop: LeafAction; specificator: string };
+
+export const takeNewLoadings = (
+  readings: SetupDataReading["payload"],
+  stops: Stop[],
+) => {
+  const newNames = readings.map(r => r.specificator);
+  const oldNames = stops.map(s => s.specificator);
+
+  return {
+    startActions: readings
+      .filter(r => !oldNames.includes(r.specificator))
+      .map(r => r.start),
+    stopActions: stops
+      .filter(s => !newNames.includes(s.specificator))
+      .map(s => s.stop),
+    nextStops: readings.map(r => ({
+      stop: r.stop,
+      specificator: r.specificator,
+    })),
+  };
+};
+
 export function* setUpDataReading() {
-  let stops: Record<string, { specificator?: any; stop: Action }> = {};
-  const stop = (name: string) => put(stops[name].stop);
-  const stopSpecificator = (name: string) => stops[name].specificator;
+  let stops: Stop[] = [];
 
   /* eslint-disable no-constant-condition */
   while (true) {
-    const { payload: readings }: SetupDataReading = yield take(
+    const { payload }: SetupDataReading = yield take(
       actionType("DATA_READING.SET_UP"),
     );
-    const newNames = Object.keys(readings);
-    const oldNames = Object.keys(stops);
-
-    const stopActions = oldNames
-      .filter(
-        name =>
-          !newNames.includes(name)
-          || readings[name].specificator !== stopSpecificator(name),
-      )
-      .map(stop);
-
-    const startActions = newNames
-      .filter(
-        name =>
-          !oldNames.includes(name)
-          || readings[name].specificator !== stopSpecificator(name),
-      )
-      .map(name => put(readings[name].start));
-
-    stops = newNames.reduce(
-      (nextStops, name) => ({
-        ...nextStops,
-        [name]: {
-          stop: readings[name].stop,
-          specificator: readings[name].specificator,
-        },
-      }),
-      {},
+    const { startActions, stopActions, nextStops } = takeNewLoadings(
+      payload,
+      stops,
     );
 
-    yield all([...stopActions, ...startActions]);
+    stops = nextStops;
+
+    yield all([
+      ...stopActions.map(a => put(a)),
+      ...startActions.map(a => put(a)),
+    ]);
   }
 }
 

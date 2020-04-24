@@ -4,7 +4,7 @@ import * as statusSeverity from "./statusSeverity";
 import { NodeQuorumFlag, NodeStatusFlag, StatusSeverity } from "../types";
 import { transformIssues } from "./issues";
 
-export const mapStatus = (status: ApiNode["status"]): NodeStatusFlag => {
+const mapStatus = (status: ApiNode["status"]): NodeStatusFlag => {
   switch (status) {
     case "online":
       return "ONLINE";
@@ -15,7 +15,7 @@ export const mapStatus = (status: ApiNode["status"]): NodeStatusFlag => {
   }
 };
 
-export const statusToSeverity = (status: ApiNode["status"]): StatusSeverity => {
+const statusToSeverity = (status: ApiNode["status"]): StatusSeverity => {
   switch (status) {
     case "online":
       return "OK";
@@ -26,7 +26,7 @@ export const statusToSeverity = (status: ApiNode["status"]): StatusSeverity => {
   }
 };
 
-export const mapQuorum = (quorum: ApiNode["quorum"]): NodeQuorumFlag => {
+const mapQuorum = (quorum: ApiNode["quorum"]): NodeQuorumFlag => {
   switch (quorum) {
     case true:
       return "YES";
@@ -37,7 +37,7 @@ export const mapQuorum = (quorum: ApiNode["quorum"]): NodeQuorumFlag => {
   }
 };
 
-export const quorumToSeverity = (quorum: ApiNode["quorum"]): StatusSeverity => {
+const quorumToSeverity = (quorum: ApiNode["quorum"]): StatusSeverity => {
   switch (quorum) {
     case true:
       return "OK";
@@ -48,10 +48,7 @@ export const quorumToSeverity = (quorum: ApiNode["quorum"]): StatusSeverity => {
   }
 };
 
-export const toSeverity = (
-  status: ApiNode["status"],
-  quorum: ApiNode["quorum"],
-) => {
+const toSeverity = (status: ApiNode["status"], quorum: ApiNode["quorum"]) => {
   if (status === "offline") {
     return "ERROR";
   }

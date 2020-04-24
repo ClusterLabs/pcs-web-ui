@@ -20,7 +20,7 @@ describe("Login scene", () => {
 
   it("should be rendered and can send credentials", async () => {
     pollyManager().reset([
-      endpoints.clustersOverview((req, res) => {
+      endpoints.importedClusterList((req, res) => {
         res.status(401).send();
       }),
       endpoints.login((req, res) => res.send("ajax-id-not-important")),
@@ -55,8 +55,8 @@ describe("Logout", () => {
 
   it("should call logout on backend after click", async () => {
     pollyManager().reset([
-      endpoints.clustersOverview((req, res) => {
-        res.json(responses.clustersOverview.empty);
+      endpoints.importedClusterList((req, res) => {
+        res.json(responses.importedClusterList.empty);
       }),
       endpoints.logout((req, res) => res.send("OK")),
     ]);

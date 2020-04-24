@@ -1,10 +1,8 @@
-import { ApiResponse, clustersOverview } from "app/backend";
-
 export type DashboardActions = {
   FetchDashboardDataSuccess: {
     type: "DASHBOARD_DATA.FETCH.SUCCESS";
     payload: {
-      apiClusterOverview: ApiResponse<typeof clustersOverview>;
+      clusterNameList: string[];
     };
   };
 

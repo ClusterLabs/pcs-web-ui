@@ -1,9 +1,9 @@
 import { Selector } from "../types";
 
-import { DashboardState } from "./types";
+import { ClusterNameListState } from "./types";
 
-export const getDashboard: Selector<DashboardState> = state =>
-  state.dashboard.dashboardState;
+export const getImportedClusterList: Selector<ClusterNameListState> = state =>
+  state.dashboard.clusterNameListState;
 
 export const areDataLoaded: Selector<boolean> = state =>
   state.dashboard.dataFetchState === "SUCCESS";

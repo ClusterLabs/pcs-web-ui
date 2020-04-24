@@ -12,7 +12,7 @@ import { Action } from "app/actions";
 import { selectors } from "app/store";
 import { Page, PageSectionDataLoading } from "app/view/common";
 
-import { Dashboard } from "./Dashboard";
+import { DashboardClusterList } from "./clusterList";
 import { DashboardToolbar } from "./DashboardToolbar";
 
 const useDashboardSync = () => {
@@ -20,12 +20,13 @@ const useDashboardSync = () => {
   React.useEffect(() => {
     dispatch<Action>({
       type: "DATA_READING.SET_UP",
-      payload: {
-        reloadDashboard: {
+      payload: [
+        {
+          specificator: "syncDashboard",
           start: { type: "DASHBOARD_DATA.SYNC" },
           stop: { type: "DASHBOARD_DATA.SYNC.STOP" },
         },
-      },
+      ],
     });
   }, [dispatch]);
 };
@@ -33,7 +34,7 @@ const useDashboardSync = () => {
 export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
   useDashboardSync();
   const dispatch = useDispatch();
-  const dashboard = useSelector(selectors.getDashboard);
+  const importedClusterNameList = useSelector(selectors.getImportedClusterList);
   const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
 
   return (
@@ -60,7 +61,9 @@ export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
         </Stack>
       </PageSection>
       <PageSectionDataLoading done={dataLoaded}>
-        <Dashboard dashboard={dashboard} />
+        <DashboardClusterList
+          importedClusterNameList={importedClusterNameList}
+        />
       </PageSectionDataLoading>
     </Page>
   );

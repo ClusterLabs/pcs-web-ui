@@ -11,9 +11,10 @@ import {
 
 import { selectors } from "app/store";
 import { IssueList, StatusSign } from "app/view/common";
+import { useSelectedCluster } from "app/view/scenes/cluster";
 
 export const ClusterDetail = () => {
-  const cluster = useSelector(selectors.getCluster);
+  const cluster = useSelector(selectors.getCluster(useSelectedCluster()));
   return (
     <PageSection data-test="cluster-detail">
       <Card>

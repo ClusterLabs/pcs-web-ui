@@ -17,11 +17,7 @@ type COLUMNS = "NAME" | "STATUS";
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((
-  a: types.dashboard.FenceDevice,
-  b: types.dashboard.FenceDevice,
-) => number
-) => {
+): ((a: types.cluster.FenceDevice, b: types.cluster.FenceDevice) => number) => {
   switch (column) {
     case "STATUS":
       return (a, b) =>
@@ -33,10 +29,10 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardFenceDeviceList = ({
+export const DashboardClusterFenceDevices = ({
   cluster,
 }: {
-  cluster: types.dashboard.ClusterState;
+  cluster: types.cluster.ClusterState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   if (cluster.fenceDeviceList.length === 0) {

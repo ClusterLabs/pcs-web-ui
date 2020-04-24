@@ -1,13 +1,40 @@
 import { Selector } from "../../types";
-import { ClusterState, FETCH_STATUS, Node, ResourceTreeItem } from "../types";
+import { clusterStatusDefault } from "../clusterStatusDefault";
+import { ClusterServiceState, Node, ResourceTreeItem } from "../types";
 
-const fetchStatusSuccess: FETCH_STATUS = "SUCCESS";
+const fetchStatusSuccess: ClusterServiceState["dataFetchState"] = "SUCCESS";
 
-export const areDataLoaded: Selector<boolean> = state =>
-  state.cluster.dataFetchState === fetchStatusSuccess;
+export const areDataLoaded = (
+  clusterUrlName: string,
+): Selector<boolean> => state =>
+  state.clusterStorage[clusterUrlName]?.dataFetchState === fetchStatusSuccess;
 
-export const getCluster: Selector<ClusterState> = state =>
-  state.cluster.clusterState;
+export const getCluster = (
+  clusterUrlName: string,
+): Selector<ClusterServiceState["clusterState"]> => state =>
+  state.clusterStorage[clusterUrlName]?.clusterState ?? clusterStatusDefault;
+
+type ClusterInfo = {
+  cluster: ClusterServiceState["clusterState"];
+  isLoaded: boolean;
+};
+export function getClusterMap<T extends string>(
+  clusterList: T[],
+): Selector<Record<T, ClusterInfo>> {
+  return state =>
+    clusterList.reduce<Record<T, ClusterInfo>>(
+      (map, name) => ({
+        ...map,
+        [name]: {
+          cluster: areDataLoaded(name)(state)
+            ? getCluster(name)(state)
+            : { ...clusterStatusDefault, name, urlName: name },
+          isLoaded: areDataLoaded(name)(state),
+        },
+      }),
+      {} as Record<T, ClusterInfo>,
+    );
+}
 
 const findInTopLevelAndGroup = (resource: ResourceTreeItem, id: string) => {
   if (resource.id === id) {
@@ -25,9 +52,10 @@ const findInTopLevelAndGroup = (resource: ResourceTreeItem, id: string) => {
 };
 
 export const getSelectedResource = (
+  clusterUrlName: string,
   id: string,
 ): Selector<ResourceTreeItem | undefined> => (state) => {
-  const cluster = getCluster(state);
+  const cluster = getCluster(clusterUrlName)(state);
   for (const resource of cluster.resourceTree) {
     const matched = findInTopLevelAndGroup(resource, id);
     if (matched) {
@@ -46,6 +74,7 @@ export const getSelectedResource = (
 };
 
 export const getSelectedNode = (
+  clusterUrlName: string,
   name: string,
 ): Selector<Node | undefined> => state =>
-  getCluster(state).nodeList.find(node => node.name === name);
+  getCluster(clusterUrlName)(state).nodeList.find(node => node.name === name);

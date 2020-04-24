@@ -1,6 +1,6 @@
 import { RouterState } from "connected-react-router";
 
-import { ClusterServiceState } from "./cluster/types";
+import { ClusterStorage } from "./cluster/types";
 import { DashboardAddClusterPageState } from "./dashboard-add-cluster/types";
 import { DashboardPageState } from "./dashboard/types";
 import { LoginState } from "./login/types";
@@ -11,7 +11,7 @@ import { UsernameState } from "./username/types";
 
 export interface RootState {
   addExistingCluster: DashboardAddClusterPageState;
-  cluster: ClusterServiceState;
+  clusterStorage: ClusterStorage;
   dashboard: DashboardPageState;
   login: LoginState;
   notifications: NotificationState;

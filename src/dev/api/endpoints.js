@@ -22,6 +22,7 @@ module.exports = {
   login: handler => post("/ui/login", parser, handler),
   logout: handler => get("/ui/logout", handler),
   clustersOverview: handler => get("/clusters_overview", handler),
+  importedClusterList: handler => get("/imported-cluster-list", handler),
   clusterStatus: handler =>
     get("/managec/:clusterUrlName/cluster_status", handler),
   addCluster: handler => post("/manage/existingcluster", parser, handler),

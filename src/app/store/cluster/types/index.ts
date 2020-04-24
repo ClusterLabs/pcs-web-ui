@@ -13,7 +13,7 @@ export type ConstraintOrder = ApiConstraintOrder;
 export type ConstraintResourceSet = ApiConstraintResourceSet;
 export type ConstraintTicket = ApiConstraintTicket;
 
-export interface InstanceAttribute {
+interface InstanceAttribute {
   id: string;
   value: string;
 }
@@ -54,7 +54,7 @@ export type ResourceStatus = {
   infoList: ResourceStatusInfo[];
 };
 
-export interface ResourceTreeItemBase {
+interface ResourceTreeItemBase {
   id: string;
   itemType: string;
   status: ResourceStatus;
@@ -108,9 +108,9 @@ export interface ClusterState {
   };
 }
 
-export type FETCH_STATUS = "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "ERROR";
-
 export interface ClusterServiceState {
   clusterState: ClusterState;
-  dataFetchState: FETCH_STATUS;
+  dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "ERROR";
 }
+
+export type ClusterStorage = Record<string, ClusterServiceState>;

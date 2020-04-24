@@ -11,6 +11,7 @@ import {
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { selectors, types } from "app/store";
+import { useSelectedCluster } from "app/view/scenes/cluster";
 
 import { ConstraintRowLocation } from "./ConstraintRowLocation";
 import { ConstraintRowColocation } from "./ConstraintRowColocation";
@@ -23,7 +24,7 @@ export const ConstraintListResource = ({
   resource: types.cluster.ResourceTreeItem;
 }) => {
   const constraintPacks = useSelector(
-    selectors.resourceGetConstraints(resource),
+    selectors.resourceGetConstraints(useSelectedCluster(), resource),
   );
   if (constraintPacks.length === 0) {
     return (

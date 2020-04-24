@@ -4,7 +4,7 @@ import { History } from "history";
 
 import login from "./login/reducer";
 import addExistingCluster from "./dashboard-add-cluster/reducer";
-import cluster from "./cluster/reducer";
+import clusterStorage from "./cluster/reducer";
 import dashboard from "./dashboard/reducer";
 import username from "./username/reducer";
 import notifications from "./notifications/reducer";
@@ -19,7 +19,7 @@ const rootReducer = (history: History) =>
     router: connectRouter(history),
     dashboard,
     addExistingCluster,
-    cluster,
+    clusterStorage,
     resourceTree,
     resourceAgents,
     login,
