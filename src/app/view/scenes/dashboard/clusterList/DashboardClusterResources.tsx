@@ -35,7 +35,7 @@ const { SortableTh } = Table;
 export const DashboardClusterResources = ({
   cluster,
 }: {
-  cluster: types.dashboard.ClusterState;
+  cluster: types.cluster.ClusterState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
 

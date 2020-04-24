@@ -10,7 +10,7 @@ type COLUMNS = "NAME" | "STATUS" | "QUORUM";
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((a: types.dashboard.Node, b: types.dashboard.Node) => number) => {
+): ((a: types.cluster.Node, b: types.cluster.Node) => number) => {
   switch (column) {
     case "QUORUM":
       return (a, b) =>
@@ -28,7 +28,7 @@ const { SortableTh } = Table;
 export const DashboardClusterNodes = ({
   cluster,
 }: {
-  cluster: types.dashboard.ClusterState;
+  cluster: types.cluster.ClusterState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (

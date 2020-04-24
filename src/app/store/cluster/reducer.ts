@@ -2,16 +2,11 @@ import { Reducer, combineReducers } from "redux";
 
 import { Action } from "app/actions";
 
-import {
-  ClusterServiceState,
-  ClusterState,
-  ClusterStorage,
-  FETCH_STATUS,
-} from "./types";
+import { ClusterServiceState, ClusterStorage } from "./types";
 import { apiToState as clusterApiToState } from "./apiToState";
 import { clusterStatusDefault } from "./clusterStatusDefault";
 
-const clusterState: Reducer<ClusterState, Action> = (
+const clusterState: Reducer<ClusterServiceState["clusterState"], Action> = (
   state = clusterStatusDefault,
   action,
 ) => {
@@ -23,7 +18,7 @@ const clusterState: Reducer<ClusterState, Action> = (
   }
 };
 
-const dataFetchState: Reducer<FETCH_STATUS, Action> = (
+const dataFetchState: Reducer<ClusterServiceState["dataFetchState"], Action> = (
   state = "NOT_STARTED",
   action,
 ) => {

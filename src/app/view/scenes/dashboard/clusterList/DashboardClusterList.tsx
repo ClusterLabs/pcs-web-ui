@@ -13,8 +13,8 @@ type COLUMNS = "NAME" | "ISSUES" | "NODES" | "RESOURCES" | "FENCE_DEVICES";
 const compareByColumn = (
   column: COLUMNS | "",
 ): ((
-  a: types.dashboard.ClusterState,
-  b: types.dashboard.ClusterState,
+  a: types.cluster.ClusterState,
+  b: types.cluster.ClusterState,
 ) => number) => {
   switch (column) {
     case "ISSUES":

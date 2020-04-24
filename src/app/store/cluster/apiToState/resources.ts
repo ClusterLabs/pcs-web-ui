@@ -23,7 +23,7 @@ import {
 
 import { transformIssues } from "./issues";
 
-export const transformStatus = (
+const transformStatus = (
   status: ApiResource["status"],
 ): FenceDeviceStatusFlag => {
   switch (status) {
@@ -40,9 +40,7 @@ export const transformStatus = (
   }
 };
 
-export const statusToSeverity = (
-  status: ApiResource["status"],
-): StatusSeverity => {
+const statusToSeverity = (status: ApiResource["status"]): StatusSeverity => {
   switch (status) {
     case "blocked":
       return "ERROR";
@@ -57,7 +55,7 @@ export const statusToSeverity = (
   }
 };
 
-export const filterPrimitive = (
+const filterPrimitive = (
   candidateList: (ApiPrimitive | ApiStonith)[],
 ): ApiPrimitive[] =>
   candidateList.filter((m): m is ApiPrimitive => m.class_type === "primitive");

@@ -1,8 +1,8 @@
 import { Selector } from "../../types";
 import { clusterStatusDefault } from "../clusterStatusDefault";
-import { ClusterState, FETCH_STATUS, Node, ResourceTreeItem } from "../types";
+import { ClusterServiceState, Node, ResourceTreeItem } from "../types";
 
-const fetchStatusSuccess: FETCH_STATUS = "SUCCESS";
+const fetchStatusSuccess: ClusterServiceState["dataFetchState"] = "SUCCESS";
 
 export const areDataLoaded = (
   clusterUrlName: string,
@@ -11,10 +11,13 @@ export const areDataLoaded = (
 
 export const getCluster = (
   clusterUrlName: string,
-): Selector<ClusterState> => state =>
+): Selector<ClusterServiceState["clusterState"]> => state =>
   state.clusterStorage[clusterUrlName]?.clusterState ?? clusterStatusDefault;
 
-type ClusterInfo = { cluster: ClusterState; isLoaded: boolean };
+type ClusterInfo = {
+  cluster: ClusterServiceState["clusterState"];
+  isLoaded: boolean;
+};
 export function getClusterMap<T extends string>(
   clusterList: T[],
 ): Selector<Record<T, ClusterInfo>> {

@@ -21,7 +21,7 @@ const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 export const DashboardCluster = ({
   cluster,
 }: {
-  cluster: types.dashboard.ClusterState;
+  cluster: types.cluster.ClusterState;
 }) => {
   const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
