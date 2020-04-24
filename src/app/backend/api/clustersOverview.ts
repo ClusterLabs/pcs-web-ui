@@ -1,15 +1,15 @@
-import { getJson } from "./calls";
+import { getJson } from "../calls";
 import {
   ApiCall,
   createResult,
   dealWithInvalidJson,
   validateShape,
-} from "./tools";
+} from "../tools";
 
 import {
   ApiClustersOverview,
   TApiClustersOverview,
-} from "./types/clusterOverview";
+} from "../types/clusterOverview";
 
 export const clustersOverview: ApiCall<ApiClustersOverview> = async () => {
   try {

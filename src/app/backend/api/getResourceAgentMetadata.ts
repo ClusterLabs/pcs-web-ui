@@ -1,13 +1,13 @@
 import * as t from "io-ts";
 
-import { getJson } from "./calls";
+import { getJson } from "../calls";
 
 import {
   ApiCall,
   createResult,
   dealWithInvalidJson,
   validateShape,
-} from "./tools";
+} from "../tools";
 
 /*
 TODO obsoletes

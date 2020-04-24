@@ -1,14 +1,14 @@
 import { failMessage, isUnauthorizedError } from "./errors";
 import { getForText, postForText } from "./calls";
 
-import { authGuiAgainstNodes } from "./authGuiAgainstNodes";
-import { checkAuthAgainstNodes } from "./checkAuthAgainstNodes";
-import { existingCluster } from "./existingCluster";
-import { clusterStatus } from "./clusterStatus";
-import { clustersOverview } from "./clustersOverview";
-import { importedClusterList } from "./importedClusterList";
-import { getResourceAgentMetadata } from "./getResourceAgentMetadata";
-import { updateResource } from "./updateResource";
+import { authGuiAgainstNodes } from "./api/authGuiAgainstNodes";
+import { checkAuthAgainstNodes } from "./api/checkAuthAgainstNodes";
+import { existingCluster } from "./api/existingCluster";
+import { clusterStatus } from "./api/clusterStatus";
+import { clustersOverview } from "./api/clustersOverview";
+import { importedClusterList } from "./api/importedClusterList";
+import { getResourceAgentMetadata } from "./api/getResourceAgentMetadata";
+import { updateResource } from "./api/updateResource";
 import {
   ApiCall as ApiCallType,
   ApiResponse as ApiResponseType,

@@ -1,13 +1,13 @@
 import * as t from "io-ts";
 
-import { postForJson } from "./calls";
+import { postForJson } from "../calls";
 
 import {
   ApiCall,
   createResult,
   validateSameNodes,
   validateShape,
-} from "./tools";
+} from "../tools";
 
 const ApiAuthGuiAgainstNodes = t.type({
   node_auth_error: t.record(t.string, t.number),

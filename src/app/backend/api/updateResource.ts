@@ -1,7 +1,7 @@
 import * as t from "io-ts";
 
-import { postForJson } from "./calls";
-import { ApiCall, createResult, validateShape } from "./tools";
+import { postForJson } from "../calls";
+import { ApiCall, createResult, validateShape } from "../tools";
 
 const ApiUpdateResource = t.partial({
   error: t.literal("true"),
