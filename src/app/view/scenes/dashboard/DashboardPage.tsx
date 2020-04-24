@@ -12,7 +12,7 @@ import { Action } from "app/actions";
 import { selectors } from "app/store";
 import { Page, PageSectionDataLoading } from "app/view/common";
 
-import { Dashboard } from "./Dashboard";
+import { Dashboard } from "./clusterList";
 import { DashboardToolbar } from "./DashboardToolbar";
 
 const useDashboardSync = () => {
