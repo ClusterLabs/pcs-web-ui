@@ -1,9 +1,10 @@
 import React from "react";
 import { Spinner } from "@patternfly/react-core";
 
-import { Link, Table } from "app/view/common";
+import { Table } from "app/view/common";
+import { DashboardClusterCellName } from "./DashboardClusterCellName";
 
-export const DashboardLoadingCluster = ({
+export const DashboardClusterLoading = ({
   clusterUrlName,
 }: {
   clusterUrlName: string;
@@ -11,14 +12,7 @@ export const DashboardLoadingCluster = ({
   return (
     <Table.Body data-test={`cluster-loading ${clusterUrlName}`}>
       <tr role="row">
-        <th role="rowheader" data-test="name">
-          <Link
-            id={`dashboard-cluster-${clusterUrlName}`}
-            to={`/cluster/${clusterUrlName}`}
-          >
-            {clusterUrlName}
-          </Link>
-        </th>
+        <DashboardClusterCellName clusterUrlName={clusterUrlName} />
         <td colSpan={4}>
           <Spinner size="md" />
         </td>

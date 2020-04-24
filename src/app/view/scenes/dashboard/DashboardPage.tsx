@@ -12,7 +12,7 @@ import { Action } from "app/actions";
 import { selectors } from "app/store";
 import { Page, PageSectionDataLoading } from "app/view/common";
 
-import { Dashboard } from "./clusterList";
+import { DashboardClusterList } from "./clusterList";
 import { DashboardToolbar } from "./DashboardToolbar";
 
 const useDashboardSync = () => {
@@ -61,7 +61,9 @@ export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
         </Stack>
       </PageSection>
       <PageSectionDataLoading done={dataLoaded}>
-        <Dashboard importedClusterNameList={importedClusterNameList} />
+        <DashboardClusterList
+          importedClusterNameList={importedClusterNameList}
+        />
       </PageSectionDataLoading>
     </Page>
   );

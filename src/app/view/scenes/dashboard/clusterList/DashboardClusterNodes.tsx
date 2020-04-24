@@ -25,7 +25,7 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardNodeList = ({
+export const DashboardClusterNodes = ({
   cluster,
 }: {
   cluster: types.dashboard.ClusterState;

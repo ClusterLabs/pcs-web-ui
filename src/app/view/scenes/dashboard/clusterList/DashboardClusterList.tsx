@@ -6,7 +6,7 @@ import { Table } from "app/view/common";
 
 import { compareStatusSeverity, compareStrings } from "./utils";
 import { DashboardCluster } from "./DashboardCluster";
-import { DashboardLoadingCluster } from "./DashboardLoadingCluster";
+import { DashboardClusterLoading } from "./DashboardClusterLoading";
 
 type COLUMNS = "NAME" | "ISSUES" | "NODES" | "RESOURCES" | "FENCE_DEVICES";
 
@@ -45,7 +45,7 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const Dashboard = ({
+export const DashboardClusterList = ({
   importedClusterNameList,
 }: {
   importedClusterNameList: types.dashboard.ClusterNameListState;
@@ -102,7 +102,7 @@ export const Dashboard = ({
           (clusterMap[cluster.urlName].isLoaded ? (
             <DashboardCluster key={cluster.urlName} cluster={cluster} />
           ) : (
-            <DashboardLoadingCluster
+            <DashboardClusterLoading
               key={cluster.urlName}
               clusterUrlName={cluster.urlName}
             />

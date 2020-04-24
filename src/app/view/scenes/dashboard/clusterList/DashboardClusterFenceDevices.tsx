@@ -18,13 +18,13 @@ type COLUMNS = "NAME" | "STATUS";
 const compareByColumn = (
   column: COLUMNS | "",
 ): ((
-  a: types.cluster.ResourceTreeItem,
-  b: types.cluster.ResourceTreeItem,
+  a: types.dashboard.FenceDevice,
+  b: types.dashboard.FenceDevice,
 ) => number) => {
   switch (column) {
     case "STATUS":
       return (a, b) =>
-        compareStatusSeverity(a.status.maxSeverity, b.status.maxSeverity);
+        compareStatusSeverity(a.statusSeverity, b.statusSeverity);
     default:
       return (a, b) => compareStrings(a.id, b.id);
   }
@@ -32,63 +32,55 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardResourceList = ({
+export const DashboardClusterFenceDevices = ({
   cluster,
 }: {
   cluster: types.dashboard.ClusterState;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
-
-  if (cluster.resourceTree.length === 0) {
+  if (cluster.fenceDeviceList.length === 0) {
     return (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon icon={PlusCircleIcon} />
-        <Title size="lg"> No resource is configured. </Title>
+        <Title size="lg"> No fence device is configured. </Title>
         <EmptyStateBody>
-          You don&apos;t have any configured resources here.
+          You don&apos;t have any configured fence device here.
         </EmptyStateBody>
       </EmptyState>
     );
   }
-
   return (
-    <Table isCompact isBorderless data-test="resource-list">
+    <Table isCompact isBorderless data-test="fence-device-list">
       <thead>
         <tr>
-          <SortableTh columnName="NAME" sortState={sortState} data-label="name">
-            Resource
+          <SortableTh columnName="NAME" sortState={sortState}>
+            Fence device
           </SortableTh>
-          <SortableTh
-            columnName="STATUS"
-            sortState={sortState}
-            startDesc
-            data-label="status"
-          >
+          <SortableTh columnName="STATUS" sortState={sortState} startDesc>
             Status
           </SortableTh>
         </tr>
       </thead>
       <tbody>
-        {cluster.resourceTree
+        {cluster.fenceDeviceList
           .sort(compareItems(compareByColumn))
-          .map(resource => (
-            <tr key={resource.id} data-test={`resource ${resource.id}`}>
+          .map(fenceDevice => (
+            <tr
+              key={fenceDevice.id}
+              data-test={`fence-device ${fenceDevice.id}`}
+            >
               <td data-test="name">
                 <Link
-                  to={`/cluster/${cluster.urlName}/resources/${resource.id}`}
+                  to={`/cluster/${cluster.urlName}/fence-devices/${fenceDevice.id}`}
                 >
-                  {resource.id}
+                  {fenceDevice.id}
                 </Link>
               </td>
-              <td data-label="status">
-                {resource.status.infoList.map((status, i) => (
-                  /* eslint-disable react/no-array-index-key */
-                  <StatusSign
-                    key={i}
-                    status={status.severity}
-                    label={toLabel(status.label)}
-                  />
-                ))}
+              <td>
+                <StatusSign
+                  status={fenceDevice.statusSeverity}
+                  label={toLabel(fenceDevice.status)}
+                />
               </td>
             </tr>
           ))}
