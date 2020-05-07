@@ -5,6 +5,7 @@ import {
   ApiConstraintResourceSet,
   ApiConstraintTicket,
   ApiConstraints,
+  ApiResourceStatus,
 } from "app/backend/types/clusterStatus";
 
 export type ConstraintLocation = ApiConstraintLocation;
@@ -68,6 +69,7 @@ export interface Primitive extends ResourceTreeItemBase {
   type: string;
   agentName: string;
   instanceAttributes: Record<string, InstanceAttribute>;
+  crmStatusList: ApiResourceStatus[];
 }
 
 export interface Group extends ResourceTreeItemBase {

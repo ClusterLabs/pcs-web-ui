@@ -49,7 +49,8 @@ const ApiRole = t.keyof({
   Master: null,
   Slave: null,
 });
-const ApiResourceStatus = t.intersection([
+
+export const ApiResourceStatus = t.intersection([
   t.type({
     id: ApiResourceId,
     resource_agent: t.string,

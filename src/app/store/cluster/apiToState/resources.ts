@@ -138,6 +138,7 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
     }),
     {},
   ),
+  crmStatusList: apiResource.crm_status,
 });
 
 const buildGroupStatusInfoList = (

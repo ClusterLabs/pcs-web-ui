@@ -33,6 +33,7 @@ const resourceTree = cluster("resourceTree", "ok", {
       status: "disabled",
       crm_status: [
         resourceStatus("A", {
+          resource_agent: "ocf:heartbeat:apache",
           managed: false,
           target_role: "Stopped",
         }),
