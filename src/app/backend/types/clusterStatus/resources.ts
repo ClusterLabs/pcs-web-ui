@@ -50,7 +50,7 @@ const ApiRole = t.keyof({
   Slave: null,
 });
 
-export const ApiResourceStatus = t.intersection([
+export const ApiResourceCrmStatus = t.intersection([
   t.type({
     id: ApiResourceId,
     resource_agent: t.string,
@@ -132,7 +132,7 @@ const ApiPrimitiveBase = t.intersection([
     type: t.string,
     stonith: t.boolean,
     instance_attr: t.array(ApiNVPair),
-    crm_status: t.array(ApiResourceStatus),
+    crm_status: t.array(ApiResourceCrmStatus),
     operations: t.array(ApiResourceOperation),
     utilization: t.array(ApiNVPair),
   }),
