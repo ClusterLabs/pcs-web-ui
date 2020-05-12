@@ -92,6 +92,25 @@ export interface FenceDevice {
   type: string;
 }
 
+export type ResourceOnNodeStatus = {
+  resource: {
+    id: string;
+  };
+  node: null | {
+    name: string;
+  };
+  managed: boolean;
+  failed: boolean;
+  role: string;
+  active: boolean;
+  orphaned: boolean;
+  failureIgnored: boolean;
+  nodesRunningOn: number;
+  pending: string | null;
+  blocked: boolean;
+  targetRole?: string;
+};
+
 export interface ClusterState {
   name: string;
   urlName: string;
@@ -108,6 +127,7 @@ export interface ClusterState {
     fenceDevicesSeverity: StatusSeverity;
     issuesSeverity: StatusSeverity;
   };
+  resourceOnNodeStatusList: ResourceOnNodeStatus[];
 }
 
 export interface ClusterServiceState {

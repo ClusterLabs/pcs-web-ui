@@ -15,6 +15,7 @@ import {
   FenceDeviceStatusFlag,
   Group,
   Primitive,
+  ResourceOnNodeStatus,
   ResourceStatus,
   ResourceStatusInfo,
   ResourceTreeItem,
@@ -141,6 +142,31 @@ const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
   crmStatusList: apiResource.crm_status,
 });
 
+const takeResourceOnNodeStatus = (
+  apiResource: ApiPrimitive,
+): ResourceOnNodeStatus[] =>
+  apiResource.crm_status.map(
+    (crmStatus): ResourceOnNodeStatus => ({
+      resource: { id: apiResource.id },
+      node:
+        crmStatus.node === null
+          ? null
+          : {
+            name: crmStatus.node.name,
+          },
+      active: crmStatus.active,
+      failed: crmStatus.failed,
+      failureIgnored: crmStatus.failure_ignored,
+      managed: crmStatus.managed,
+      targetRole: crmStatus.target_role,
+      role: crmStatus.role,
+      pending: crmStatus.pending,
+      orphaned: crmStatus.orphaned,
+      nodesRunningOn: crmStatus.nodes_running_on,
+      blocked: apiResource.status === "blocked",
+    }),
+  );
+
 const buildGroupStatusInfoList = (
   apiGroup: ApiGroup,
   members: Primitive[],
@@ -256,6 +282,7 @@ type AnalyzedResources = {
   resourcesSeverity: StatusSeverity;
   fenceDeviceList: FenceDevice[];
   fenceDevicesSeverity: StatusSeverity;
+  resourceOnNodeStatusList: ResourceOnNodeStatus[];
 };
 
 export const analyzeApiResources = (
@@ -290,6 +317,10 @@ export const analyzeApiResources = (
               toPrimitive(apiResource as ApiPrimitive),
             ],
             resourcesSeverity: maxResourcesSeverity(),
+            resourceOnNodeStatusList: [
+              ...analyzed.resourceOnNodeStatusList,
+              ...takeResourceOnNodeStatus(apiResource as ApiPrimitive),
+            ],
           };
 
         case "group": {
@@ -323,5 +354,6 @@ export const analyzeApiResources = (
       resourcesSeverity: "OK",
       fenceDeviceList: [],
       fenceDevicesSeverity: "OK",
+      resourceOnNodeStatusList: [],
     },
   );

@@ -2,6 +2,8 @@ import { getLocationPathname } from "./router/selectors";
 import { getUsername, loaded as usernameLoaded } from "./username/selectors";
 import {
   areDataLoaded as clusterAreDataLoaded,
+  crmStatusForNode,
+  crmStatusForPrimitive,
   getCluster,
   getClusterMap,
   getSelectedNode,
@@ -37,6 +39,8 @@ export {
   getUsername,
   usernameLoaded,
   clusterAreDataLoaded,
+  crmStatusForNode,
+  crmStatusForPrimitive,
   getCluster,
   getClusterMap,
   getSelectedResource,

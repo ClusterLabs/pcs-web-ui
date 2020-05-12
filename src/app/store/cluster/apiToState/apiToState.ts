@@ -56,6 +56,7 @@ export const apiToState = (
     resourcesSeverity,
     fenceDeviceList,
     fenceDevicesSeverity,
+    resourceOnNodeStatusList,
   } = analyzeApiResources(apiClusterStatus.resource_list);
   const { nodeList, nodesSeverity } = processApiNodes(
     apiClusterStatus.node_list,
@@ -70,6 +71,7 @@ export const apiToState = (
     resourceTree,
     fenceDeviceList,
     constraints: apiClusterStatus.constraints,
+    resourceOnNodeStatusList,
     summary: {
       resourcesSeverity,
       fenceDevicesSeverity,
