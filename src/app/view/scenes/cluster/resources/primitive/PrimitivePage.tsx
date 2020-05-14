@@ -8,7 +8,7 @@ import {
   UrlTabs,
   useGroupDetailViewContext,
 } from "app/view/common";
-import { useSelectedCluster } from "app/view/scenes/cluster";
+import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 import { ConstraintListResource } from "../constraints";
 import { PrimitiveAttrsView } from "./attributes";
@@ -31,7 +31,7 @@ export const PrimitivePage = ({
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
   // user doesn't need to wait when he needs it.
-  useResourceAgent(useSelectedCluster(), primitive.agentName);
+  useResourceAgent(useSelectedClusterName(), primitive.agentName);
 
   return (
     <DetailLayout

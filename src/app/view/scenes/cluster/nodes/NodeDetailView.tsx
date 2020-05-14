@@ -4,11 +4,14 @@ import { useSelector } from "react-redux";
 
 import { selectors, types } from "app/store";
 import { IssueList } from "app/view/common";
-import { CrmStatusTable, useSelectedCluster } from "app/view/scenes/cluster";
+import {
+  CrmStatusTable,
+  useSelectedClusterName,
+} from "app/view/scenes/cluster";
 
 export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
   const crmStatusList = useSelector(
-    selectors.crmStatusForNode(useSelectedCluster(), node.name),
+    selectors.crmStatusForNode(useSelectedClusterName(), node.name),
   );
   return (
     <>

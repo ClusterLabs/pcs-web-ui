@@ -1,5 +1,5 @@
 import { ClusterDetailPage } from "./ClusterDetailPage";
-import { useSelectedCluster } from "./SelectedClusterContext";
+import { useSelectedClusterName } from "./SelectedClusterContext";
 import { CrmStatusTable } from "./CrmStatusTable";
 
-export { ClusterDetailPage, useSelectedCluster, CrmStatusTable };
+export { ClusterDetailPage, useSelectedClusterName, CrmStatusTable };

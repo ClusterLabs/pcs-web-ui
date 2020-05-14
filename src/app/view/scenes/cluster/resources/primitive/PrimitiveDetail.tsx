@@ -4,7 +4,10 @@ import { useSelector } from "react-redux";
 
 import { selectors, types } from "app/store";
 import { IssueList } from "app/view/common";
-import { CrmStatusTable, useSelectedCluster } from "app/view/scenes/cluster";
+import {
+  CrmStatusTable,
+  useSelectedClusterName,
+} from "app/view/scenes/cluster";
 
 export const PrimitiveDetail = ({
   primitive,
@@ -12,7 +15,7 @@ export const PrimitiveDetail = ({
   primitive: types.cluster.Primitive;
 }) => {
   const crmStatusList = useSelector(
-    selectors.crmStatusForPrimitive(useSelectedCluster(), primitive.id),
+    selectors.crmStatusForPrimitive(useSelectedClusterName(), primitive.id),
   );
   return (
     <>

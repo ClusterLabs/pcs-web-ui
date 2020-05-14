@@ -9,10 +9,10 @@ import {
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { DetailLayout } from "app/view/common";
-import { useSelectedCluster } from "app/view/scenes/cluster";
+import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 export const NodeDoesNotExists = ({ nodeUrlName }: { nodeUrlName: string }) => {
-  const clusterUrlName = useSelectedCluster();
+  const clusterUrlName = useSelectedClusterName();
   return (
     <DetailLayout caption={<strong>{nodeUrlName}</strong>}>
       <StackItem>

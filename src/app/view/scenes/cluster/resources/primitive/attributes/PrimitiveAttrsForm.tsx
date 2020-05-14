@@ -4,7 +4,7 @@ import { Action } from "app/actions";
 import { ActionGroup, Alert, Button, Form } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import { useSelectedCluster } from "app/view/scenes/cluster";
+import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 import { PrimitiveAttrsFormItem } from "./PrimitiveAttrsFormItem";
 import { PrimitiveAttrsFormItemLayout } from "./PrimitiveAttrsFormItemLayout";
@@ -66,7 +66,7 @@ export const PrimitiveAttrsForm = ({
   resourceAgentParams: types.resourceAgents.ResourceAgentParameter[];
   close: () => void;
 }) => {
-  const clusterUrlName = useSelectedCluster();
+  const clusterUrlName = useSelectedClusterName();
 
   const dispatch = useDispatch();
 
