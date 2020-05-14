@@ -3,15 +3,16 @@ import { StackItem, Text, TextContent } from "@patternfly/react-core";
 import { useSelector } from "react-redux";
 
 import { selectors, types } from "app/store";
-import { IssueList } from "app/view/common";
+import { IssueList, Link } from "app/view/common";
 import {
   CrmStatusTable,
   useSelectedClusterName,
 } from "app/view/scenes/cluster";
 
 export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
+  const clusterName = useSelectedClusterName();
   const crmStatusList = useSelector(
-    selectors.crmStatusForNode(useSelectedClusterName(), node.name),
+    selectors.crmStatusForNode(clusterName, node.name),
   );
   return (
     <>
@@ -26,7 +27,13 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
           crmStatusList={crmStatusList}
           rowObject={{
             header: "Resource",
-            cell: crmStatus => crmStatus.resource.id,
+            cell: crmStatus => (
+              <Link
+                to={`/cluster/${clusterName}/resources/${crmStatus.resource.id}`}
+              >
+                {crmStatus.resource.id}
+              </Link>
+            ),
           }}
         />
       </StackItem>
