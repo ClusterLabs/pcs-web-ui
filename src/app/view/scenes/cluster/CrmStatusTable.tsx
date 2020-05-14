@@ -19,7 +19,7 @@ export const CrmStatusTable = ({
     <Table>
       <thead>
         <tr>
-          <th data-label="RowObject">{rowObject.header}</th>
+          <th data-label={rowObject.header}>{rowObject.header}</th>
           <th data-label="Active">Active</th>
           <th data-label="Failed">Failed</th>
           <th data-label="Blocked">Blocked</th>
@@ -34,7 +34,7 @@ export const CrmStatusTable = ({
         {crmStatusList.map((crmStatus, i) => (
           /* eslint-disable react/no-array-index-key */
           <tr key={i}>
-            <th data-label="RowObject">{rowObject.cell(crmStatus)}</th>
+            <th data-label={rowObject.header}>{rowObject.cell(crmStatus)}</th>
             <td data-label="Active">
               {crmStatus.active ? (
                 <StatusSign status="OK" label="Yes" showOkIco />
