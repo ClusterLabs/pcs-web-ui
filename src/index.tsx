@@ -7,6 +7,7 @@ import "@patternfly/react-core/dist/styles/base.css";
 // linked here until better way is discovered.
 import "@patternfly/patternfly/layouts/Split/split.css";
 import "@patternfly/patternfly/components/Table/table.css";
+import "@patternfly/patternfly/components/Table/table-grid.css";
 import "@patternfly/react-styles/css/layouts/Flex/flex.css";
 import "@patternfly/react-styles/css/utilities/Flex/flex.css";
 import "@patternfly/react-styles/css/utilities/Spacing/spacing.css";

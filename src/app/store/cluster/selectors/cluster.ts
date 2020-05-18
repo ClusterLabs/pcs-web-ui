@@ -1,6 +1,11 @@
 import { Selector } from "../../types";
 import { clusterStatusDefault } from "../clusterStatusDefault";
-import { ClusterServiceState, Node, ResourceTreeItem } from "../types";
+import {
+  ClusterServiceState,
+  Node,
+  ResourceOnNodeStatus,
+  ResourceTreeItem,
+} from "../types";
 
 const fetchStatusSuccess: ClusterServiceState["dataFetchState"] = "SUCCESS";
 
@@ -78,3 +83,19 @@ export const getSelectedNode = (
   name: string,
 ): Selector<Node | undefined> => state =>
   getCluster(clusterUrlName)(state).nodeList.find(node => node.name === name);
+
+export const crmStatusForPrimitive = (
+  clusterUrlName: string,
+  primitiveId: string,
+): Selector<ResourceOnNodeStatus[]> => state =>
+  getCluster(clusterUrlName)(state).resourceOnNodeStatusList.filter(
+    s => s.resource.id === primitiveId,
+  );
+
+export const crmStatusForNode = (
+  clusterUrlName: string,
+  nodeName: string,
+): Selector<ResourceOnNodeStatus[]> => state =>
+  getCluster(clusterUrlName)(state).resourceOnNodeStatusList.filter(
+    s => s.node?.name === nodeName,
+  );

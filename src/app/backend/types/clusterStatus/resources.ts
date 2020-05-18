@@ -42,20 +42,17 @@ const ApiResourceOperation = t.type({
 /*
 datasource: crm_mon: /crm_mon/resources//resource
 most attributes taken from xml element attributes
+
+role/target_role - originally limited set to {Started, Stopped, Master, Slave}
+  but e.g. "Starting" value has been detected. So, any string is allowed now.
 */
-const ApiRole = t.keyof({
-  Started: null,
-  Stopped: null,
-  Master: null,
-  Slave: null,
-});
-const ApiResourceStatus = t.intersection([
+export const ApiResourceCrmStatus = t.intersection([
   t.type({
     id: ApiResourceId,
     resource_agent: t.string,
     managed: t.boolean,
     failed: t.boolean,
-    role: ApiRole,
+    role: t.string,
     active: t.boolean,
     orphaned: t.boolean,
     failure_ignored: t.boolean,
@@ -71,7 +68,7 @@ const ApiResourceStatus = t.intersection([
     ]),
   }),
   t.partial({
-    target_role: ApiRole,
+    target_role: t.string,
   }),
 ]);
 
@@ -131,7 +128,7 @@ const ApiPrimitiveBase = t.intersection([
     type: t.string,
     stonith: t.boolean,
     instance_attr: t.array(ApiNVPair),
-    crm_status: t.array(ApiResourceStatus),
+    crm_status: t.array(ApiResourceCrmStatus),
     operations: t.array(ApiResourceOperation),
     utilization: t.array(ApiNVPair),
   }),

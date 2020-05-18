@@ -24,6 +24,7 @@ import {
   ApiPrimitive as TApiPrimitive,
   ApiResource as TApiResource,
   ApiResourceBase as TApiResourceBase,
+  ApiResourceCrmStatus as TApiResourceCrmStatus,
   ApiStonith as TApiStonith,
 } from "./resources";
 import {
@@ -49,6 +50,7 @@ export type ApiResourceBase = t.TypeOf<typeof TApiResourceBase>;
 export type ApiPrimitive = t.TypeOf<typeof TApiPrimitive>;
 export type ApiResource = t.TypeOf<typeof TApiResource>;
 export type ApiStonith = t.TypeOf<typeof TApiStonith>;
+export type ApiResourceCrmStatus = t.TypeOf<typeof TApiResourceCrmStatus>;
 export type ApiWithIssues = t.TypeOf<typeof TApiWithIssues>;
 
 export {

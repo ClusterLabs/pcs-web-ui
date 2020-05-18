@@ -7,7 +7,7 @@ import {
   UrlTabs,
   useGroupDetailViewContext,
 } from "app/view/common";
-import { useSelectedCluster } from "app/view/scenes/cluster";
+import { useSelectedClusterName } from "app/view/scenes/cluster";
 import { analyzeRoutes, join, useMatch } from "app/view/utils";
 
 import { NodeDetailView } from "./NodeDetailView";
@@ -17,7 +17,7 @@ export const NodeDetailPage = () => {
   const { selectedItemUrlName, urlPrefix } = useGroupDetailViewContext();
 
   const node = useSelector(
-    selectors.getSelectedNode(useSelectedCluster(), selectedItemUrlName),
+    selectors.getSelectedNode(useSelectedClusterName(), selectedItemUrlName),
   );
 
   const nodeUrlPrefix = join(urlPrefix, selectedItemUrlName);

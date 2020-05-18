@@ -15,4 +15,5 @@ export const clusterStatusDefault: ClusterState = {
     fenceDevicesSeverity: "UNKNOWN",
     issuesSeverity: "UNKNOWN",
   },
+  resourceOnNodeStatusList: [],
 };
