@@ -1,4 +1,4 @@
-import { ApiNode } from "app/backend/types/clusterStatus";
+import { ApiNode, ApiNodeQuorum } from "app/backend/types/clusterStatus";
 import * as statusSeverity from "./statusSeverity";
 
 import { NodeQuorumFlag, NodeStatusFlag, StatusSeverity } from "../types";
@@ -26,7 +26,7 @@ const statusToSeverity = (status: ApiNode["status"]): StatusSeverity => {
   }
 };
 
-const mapQuorum = (quorum: ApiNode["quorum"]): NodeQuorumFlag => {
+const mapQuorum = (quorum: ApiNodeQuorum): NodeQuorumFlag => {
   switch (quorum) {
     case true:
       return "YES";
@@ -37,7 +37,7 @@ const mapQuorum = (quorum: ApiNode["quorum"]): NodeQuorumFlag => {
   }
 };
 
-const quorumToSeverity = (quorum: ApiNode["quorum"]): StatusSeverity => {
+const quorumToSeverity = (quorum: ApiNodeQuorum): StatusSeverity => {
   switch (quorum) {
     case true:
       return "OK";
@@ -48,7 +48,7 @@ const quorumToSeverity = (quorum: ApiNode["quorum"]): StatusSeverity => {
   }
 };
 
-const toSeverity = (status: ApiNode["status"], quorum: ApiNode["quorum"]) => {
+const toSeverity = (status: ApiNode["status"], quorum: ApiNodeQuorum) => {
   if (status === "offline") {
     return "ERROR";
   }
@@ -65,8 +65,9 @@ const toNode = (apiNode: ApiNode) => ({
   name: apiNode.name,
   status: mapStatus(apiNode.status),
   statusSeverity: statusToSeverity(apiNode.status),
-  quorum: mapQuorum(apiNode.quorum),
-  quorumSeverity: quorumToSeverity(apiNode.quorum),
+  quorum: apiNode.status !== "unknown" ? mapQuorum(apiNode.quorum) : "UNKNOWN",
+  quorumSeverity:
+    apiNode.status !== "unknown" ? quorumToSeverity(apiNode.quorum) : "UNKNOWN",
   issueList: transformIssues(apiNode),
 });
 
@@ -74,7 +75,12 @@ export const processApiNodes = (apiNodeList: ApiNode[]) => ({
   nodeList: apiNodeList.map(toNode),
   nodesSeverity: apiNodeList.reduce<StatusSeverity>(
     (lastMaxSeverity, node) =>
-      statusSeverity.max(lastMaxSeverity, toSeverity(node.status, node.quorum)),
+      statusSeverity.max(
+        lastMaxSeverity,
+        node.status !== "unknown"
+          ? toSeverity(node.status, node.quorum)
+          : "UNKNOWN",
+      ),
     "OK",
   ),
 });

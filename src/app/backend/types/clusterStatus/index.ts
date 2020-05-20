@@ -8,7 +8,7 @@ import {
   ApiNode as TApiNode,
   ApiNodeName as TApiNodeName,
   ApiNodeQuorum as TApiNodeQuorum,
-  ApiNodeStatus as TApiNodeStatus,
+  ApiNodeService as TApiNodeService,
 } from "./nodes";
 import {
   ApiConstraintColocation as TApiConstraintColocation,
@@ -46,6 +46,7 @@ export type ApiConstraintTicket = t.TypeOf<typeof TApiConstraintTicket>;
 export type ApiGroup = t.TypeOf<typeof TApiGroup>;
 export type ApiIssue = t.TypeOf<typeof TApiIssue>;
 export type ApiNode = t.TypeOf<typeof TApiNode>;
+export type ApiNodeQuorum = t.TypeOf<typeof TApiNodeQuorum>;
 export type ApiResourceBase = t.TypeOf<typeof TApiResourceBase>;
 export type ApiPrimitive = t.TypeOf<typeof TApiPrimitive>;
 export type ApiResource = t.TypeOf<typeof TApiResource>;
@@ -59,7 +60,7 @@ export {
   TApiClusterStatusFlag,
   TApiNodeName,
   TApiNodeQuorum,
-  TApiNodeStatus,
+  TApiNodeService,
   TApiResource,
   TApiWithIssues,
 };
