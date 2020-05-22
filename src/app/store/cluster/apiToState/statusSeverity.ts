@@ -8,8 +8,5 @@ export const max = (a: StatusSeverity, b: StatusSeverity): StatusSeverity => {
   if (statuses.includes("WARNING")) {
     return "WARNING";
   }
-  if (statuses.includes("UNKNOWN")) {
-    return "UNKNOWN";
-  }
   return "OK";
 };

@@ -42,7 +42,7 @@ const clusterBig = cluster("big", "error", {
     node(4),
     node(5, { status: "offline", quorum: false }),
     node(6),
-    node(7),
+    node(7, { status: "unknown" }),
     node(8, { status: "offline", quorum: false }),
     node(9, { status: "offline", quorum: false }),
   ],

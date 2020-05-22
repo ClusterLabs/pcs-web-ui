@@ -21,7 +21,7 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
       </StackItem>
       <StackItem>
         <TextContent>
-          <Text component="h1"> Statuses of resources running on node </Text>
+          <Text component="h1">Resources on node</Text>
         </TextContent>
         <CrmStatusTable
           crmStatusList={crmStatusList}
@@ -36,6 +36,11 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
             ),
           }}
         />
+      </StackItem>
+      <StackItem>
+        <TextContent>
+          <Text component="h1"> Cluster Daemons </Text>
+        </TextContent>
       </StackItem>
     </>
   );

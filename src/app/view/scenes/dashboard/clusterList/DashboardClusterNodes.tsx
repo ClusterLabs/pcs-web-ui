@@ -8,16 +8,29 @@ import { compareStatusSeverity, compareStrings } from "./utils";
 
 type COLUMNS = "NAME" | "STATUS" | "QUORUM";
 
+const quorumSeverity = (
+  node: types.cluster.Node,
+): types.cluster.StatusSeverity =>
+  (node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.quorumSeverity);
+
+const statusSeverity = (
+  node: types.cluster.Node,
+): types.cluster.StatusSeverity =>
+  (node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.statusSeverity);
+
+const quorum = (node: types.cluster.Node): string =>
+  (node.status === "DATA_NOT_PROVIDED" ? "Unknown" : node.quorum);
+
 const compareByColumn = (
   column: COLUMNS | "",
 ): ((a: types.cluster.Node, b: types.cluster.Node) => number) => {
   switch (column) {
     case "QUORUM":
       return (a, b) =>
-        compareStatusSeverity(a.quorumSeverity, b.quorumSeverity);
+        compareStatusSeverity(quorumSeverity(a), quorumSeverity(b));
     case "STATUS":
       return (a, b) =>
-        compareStatusSeverity(a.statusSeverity, b.statusSeverity);
+        compareStatusSeverity(statusSeverity(a), statusSeverity(b));
     default:
       return (a, b) => compareStrings(a.name, b.name);
   }
@@ -56,14 +69,14 @@ export const DashboardClusterNodes = ({
             </td>
             <td>
               <StatusSign
-                status={node.statusSeverity}
+                status={statusSeverity(node)}
                 label={toLabel(node.status)}
               />
             </td>
             <td>
               <StatusSign
-                status={node.quorumSeverity}
-                label={toLabel(node.quorum)}
+                status={quorumSeverity(node)}
+                label={toLabel(quorum(node))}
               />
             </td>
           </tr>

@@ -5,6 +5,7 @@ import {
   ApiConstraintResourceSet,
   ApiConstraintTicket,
   ApiConstraints,
+  ApiNodeServiceMap,
   ApiResourceCrmStatus,
 } from "app/backend/types/clusterStatus";
 
@@ -24,25 +25,31 @@ export interface Issue {
   message: string;
 }
 
-export type NodeStatusFlag = "ONLINE" | "OFFLINE" | "UNKNOWN";
-export type NodeQuorumFlag = "YES" | "NO" | "UNKNOWN";
+export type NodeStatusFlag = "ONLINE" | "OFFLINE" | "STANDBY";
+export type NodeQuorumFlag = "YES" | "NO";
 
-export type StatusSeverity = "OK" | "ERROR" | "WARNING" | "UNKNOWN";
+export type StatusSeverity = "OK" | "ERROR" | "WARNING";
 
-export interface Node {
-  name: string;
-  status: NodeStatusFlag;
-  statusSeverity: StatusSeverity;
-  quorum: NodeQuorumFlag;
-  quorumSeverity: StatusSeverity;
-  issueList: Issue[];
-}
+export type Node =
+  | {
+      name: string;
+      status: NodeStatusFlag;
+      statusSeverity: StatusSeverity;
+      quorum: NodeQuorumFlag;
+      quorumSeverity: StatusSeverity;
+      issueList: Issue[];
+      services: ApiNodeServiceMap;
+    }
+  | {
+      name: string;
+      status: "DATA_NOT_PROVIDED";
+      issueList: Issue[];
+    };
 
 export type FenceDeviceStatusFlag =
   | "RUNNING"
   | "BLOCKED"
   | "FAILED"
-  | "UNKNOWN"
   | "DISABLED";
 
 export type ResourceStatusInfo = {
@@ -111,11 +118,12 @@ export type ResourceOnNodeStatus = {
   targetRole?: string;
 };
 
+/*
+ status in ApiCLusterStatus is not taken here. There is not real need for it.
+*/
 export interface ClusterState {
   name: string;
   urlName: string;
-  status: "OK" | "WARNING" | "ERROR" | "UNKNOWN";
-  statusSeverity: StatusSeverity;
   nodeList: Node[];
   resourceTree: ResourceTreeItem[];
   fenceDeviceList: FenceDevice[];

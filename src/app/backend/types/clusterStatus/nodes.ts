@@ -10,7 +10,21 @@ export const ApiNodeService = t.type({
   enabled: t.boolean,
 });
 
+export const ApiNodeServiceMap = t.type({
+  pacemaker: ApiNodeService,
+  pacemaker_remote: ApiNodeService,
+  corosync: ApiNodeService,
+  pcsd: ApiNodeService,
+  sbd: ApiNodeService,
+});
+
 export const ApiNodeName = t.string;
+
+export const ApiNodeStatus = t.keyof({
+  standby: null,
+  online: null,
+  offline: null,
+});
 
 export const ApiNodeQuorum = t.union([t.boolean, t.null]);
 /*
@@ -57,16 +71,10 @@ export const ApiNode = t.intersection([
       status: t.keyof({ unknown: null }),
     }),
     t.type({
-      status: t.keyof({ standby: null, online: null, offline: null }),
+      status: ApiNodeStatus,
       quorum: ApiNodeQuorum,
       uptime: t.string,
-      services: t.type({
-        pacemaker: ApiNodeService,
-        pacemaker_remote: ApiNodeService,
-        corosync: ApiNodeService,
-        pcsd: ApiNodeService,
-        sbd: ApiNodeService,
-      }),
+      services: ApiNodeServiceMap,
       corosync: t.boolean,
       corosync_enabled: t.boolean,
       pacemaker: t.boolean,

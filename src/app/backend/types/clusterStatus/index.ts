@@ -9,6 +9,8 @@ import {
   ApiNodeName as TApiNodeName,
   ApiNodeQuorum as TApiNodeQuorum,
   ApiNodeService as TApiNodeService,
+  ApiNodeServiceMap as TApiNodeServiceMap,
+  ApiNodeStatus as TApiNodeStatus,
 } from "./nodes";
 import {
   ApiConstraintColocation as TApiConstraintColocation,
@@ -47,6 +49,8 @@ export type ApiGroup = t.TypeOf<typeof TApiGroup>;
 export type ApiIssue = t.TypeOf<typeof TApiIssue>;
 export type ApiNode = t.TypeOf<typeof TApiNode>;
 export type ApiNodeQuorum = t.TypeOf<typeof TApiNodeQuorum>;
+export type ApiNodeServiceMap = t.TypeOf<typeof TApiNodeServiceMap>;
+export type ApiNodeStatus = t.TypeOf<typeof TApiNodeStatus>;
 export type ApiResourceBase = t.TypeOf<typeof TApiResourceBase>;
 export type ApiPrimitive = t.TypeOf<typeof TApiPrimitive>;
 export type ApiResource = t.TypeOf<typeof TApiResource>;
@@ -61,6 +65,7 @@ export {
   TApiNodeName,
   TApiNodeQuorum,
   TApiNodeService,
+  TApiNodeServiceMap,
   TApiResource,
   TApiWithIssues,
 };
