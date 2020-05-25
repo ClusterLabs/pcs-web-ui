@@ -61,8 +61,8 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
           />
         )}
       </StackItem>
-      {node.status === "DATA_NOT_PROVIDED" && (
-        <StackItem>
+      <StackItem>
+        {node.status === "DATA_NOT_PROVIDED" && (
           <EmptyState style={{ margin: "auto" }}>
             <EmptyStateIcon
               icon={ExclamationCircleIcon}
@@ -73,16 +73,16 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
               {`Data for node ${node.name} are not provided by backend`}
             </EmptyStateBody>
           </EmptyState>
-        </StackItem>
-      )}
-      {node.status !== "DATA_NOT_PROVIDED" && (
-        <StackItem>
-          <TextContent>
-            <Text component="h1"> Cluster Daemons </Text>
-          </TextContent>
-          <NodeDaemonTable services={node.services} />
-        </StackItem>
-      )}
+        )}
+        {node.status !== "DATA_NOT_PROVIDED" && (
+          <>
+            <TextContent>
+              <Text component="h1"> Cluster Daemons </Text>
+            </TextContent>
+            <NodeDaemonTable services={node.services} />
+          </>
+        )}
+      </StackItem>
     </>
   );
 };
