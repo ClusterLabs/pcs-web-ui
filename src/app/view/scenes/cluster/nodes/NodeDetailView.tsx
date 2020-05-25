@@ -9,7 +9,7 @@ import {
   TextContent,
   Title,
 } from "@patternfly/react-core";
-import { ExclamationCircleIcon } from "@patternfly/react-icons";
+import { ExclamationCircleIcon, SearchIcon } from "@patternfly/react-icons";
 
 import { selectors, types } from "app/store";
 import { IssueList, Link, pallete } from "app/view/common";
@@ -34,19 +34,32 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
         <TextContent>
           <Text component="h1">Resources on node</Text>
         </TextContent>
-        <CrmStatusTable
-          crmStatusList={crmStatusList}
-          rowObject={{
-            header: "Resource",
-            cell: crmStatus => (
-              <Link
-                to={`/cluster/${clusterName}/resources/${crmStatus.resource.id}`}
-              >
-                {crmStatus.resource.id}
-              </Link>
-            ),
-          }}
-        />
+
+        {crmStatusList.length === 0 && (
+          <EmptyState style={{ margin: "auto" }}>
+            <EmptyStateIcon icon={SearchIcon} color={pallete.UNKNOWN} />
+            <Title size="lg">{`No resource running on node ${node.name}.`}</Title>
+            <EmptyStateBody>
+              {`No resource running on node ${node.name}.`}
+            </EmptyStateBody>
+          </EmptyState>
+        )}
+
+        {crmStatusList.length > 0 && (
+          <CrmStatusTable
+            crmStatusList={crmStatusList}
+            rowObject={{
+              header: "Resource",
+              cell: crmStatus => (
+                <Link
+                  to={`/cluster/${clusterName}/resources/${crmStatus.resource.id}`}
+                >
+                  {crmStatus.resource.id}
+                </Link>
+              ),
+            }}
+          />
+        )}
       </StackItem>
       {node.status === "DATA_NOT_PROVIDED" && (
         <StackItem>
