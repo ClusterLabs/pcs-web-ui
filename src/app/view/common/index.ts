@@ -14,6 +14,7 @@ import { ResourceDetailCaption } from "./ResourceDetailCaption";
 import { IssueList } from "./IsueList";
 import { LoadedResourceAgent } from "./LoadedResourceAgent";
 import { Link } from "./Link";
+import * as pallete from "./pallete";
 
 export {
   BackgroundImage,
@@ -31,4 +32,5 @@ export {
   IssueList,
   LoadedResourceAgent,
   Link,
+  pallete,
 };

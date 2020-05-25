@@ -5,6 +5,7 @@ import {
   ApiConstraintResourceSet,
   ApiConstraintTicket,
   ApiConstraints,
+  ApiNodeService,
   ApiNodeServiceMap,
   ApiResourceCrmStatus,
 } from "app/backend/types/clusterStatus";
@@ -29,6 +30,9 @@ export type NodeStatusFlag = "ONLINE" | "OFFLINE" | "STANDBY";
 export type NodeQuorumFlag = "YES" | "NO";
 
 export type StatusSeverity = "OK" | "ERROR" | "WARNING";
+
+export type NodeService = ApiNodeService;
+export type NodeServiceMap = ApiNodeServiceMap;
 
 export type Node =
   | {

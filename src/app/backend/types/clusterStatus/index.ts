@@ -50,6 +50,7 @@ export type ApiIssue = t.TypeOf<typeof TApiIssue>;
 export type ApiNode = t.TypeOf<typeof TApiNode>;
 export type ApiNodeQuorum = t.TypeOf<typeof TApiNodeQuorum>;
 export type ApiNodeServiceMap = t.TypeOf<typeof TApiNodeServiceMap>;
+export type ApiNodeService = t.TypeOf<typeof TApiNodeService>;
 export type ApiNodeStatus = t.TypeOf<typeof TApiNodeStatus>;
 export type ApiResourceBase = t.TypeOf<typeof TApiResourceBase>;
 export type ApiPrimitive = t.TypeOf<typeof TApiPrimitive>;

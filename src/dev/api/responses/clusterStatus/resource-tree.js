@@ -10,7 +10,35 @@ const {
 
 const resourceTree = cluster("resourceTree", "ok", {
   node_list: [
-    node(1),
+    node(1, {
+      services: {
+        pacemaker: {
+          installed: true,
+          running: false,
+          enabled: true,
+        },
+        pacemaker_remote: {
+          installed: false,
+          running: false,
+          enabled: false,
+        },
+        corosync: {
+          installed: true,
+          running: true,
+          enabled: true,
+        },
+        pcsd: {
+          installed: true,
+          running: true,
+          enabled: false,
+        },
+        sbd: {
+          installed: false,
+          running: false,
+          enabled: false,
+        },
+      },
+    }),
     node(2, {
       error_list: [
         {
