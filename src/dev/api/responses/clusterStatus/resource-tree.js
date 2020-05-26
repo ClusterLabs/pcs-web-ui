@@ -327,6 +327,16 @@ const resourceTree = cluster("resourceTree", "ok", {
       },
     ],
   },
+  pacemaker_standby: ["node-1"],
+  node_attr: {
+    "node-1": [
+      {
+        id: "node-1-attr",
+        name: "maintenance",
+        value: "yes",
+      },
+    ],
+  },
 });
 
 module.exports = { resourceTree };

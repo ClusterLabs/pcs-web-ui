@@ -34,16 +34,24 @@ export type StatusSeverity = "OK" | "ERROR" | "WARNING";
 export type NodeService = ApiNodeService;
 export type NodeServiceMap = ApiNodeServiceMap;
 
+export type ConnectedNode = {
+  name: string;
+  status: NodeStatusFlag;
+  statusSeverity: StatusSeverity;
+  quorum: NodeQuorumFlag;
+  quorumSeverity: StatusSeverity;
+  issueList: Issue[];
+  services: ApiNodeServiceMap;
+  clusterServices: {
+    pacemaker: {
+      standby: boolean;
+      maintenance: boolean;
+    };
+  };
+};
+
 export type Node =
-  | {
-      name: string;
-      status: NodeStatusFlag;
-      statusSeverity: StatusSeverity;
-      quorum: NodeQuorumFlag;
-      quorumSeverity: StatusSeverity;
-      issueList: Issue[];
-      services: ApiNodeServiceMap;
-    }
+  | ConnectedNode
   | {
       name: string;
       status: "DATA_NOT_PROVIDED";

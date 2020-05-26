@@ -1,4 +1,5 @@
 import {
+  ApiClusterStatus,
   ApiNode,
   ApiNodeQuorum,
   ApiNodeStatus,
@@ -44,7 +45,10 @@ const toSeverity = (status: ApiNodeStatus, quorum: ApiNodeQuorum) => {
   return "WARNING";
 };
 
-const toNode = (apiNode: ApiNode): Node =>
+const isCibTrue = (value: string): boolean =>
+  ["true", "on", "yes", "y", "1"].includes(value.toLowerCase());
+
+const toNode = (apiNode: ApiNode, apiClusterStatus: ApiClusterStatus): Node =>
   (apiNode.status === "unknown"
     ? {
       name: apiNode.name,
@@ -59,6 +63,18 @@ const toNode = (apiNode: ApiNode): Node =>
       quorumSeverity: quorumToSeverity(apiNode.quorum),
       issueList: transformIssues(apiNode),
       services: apiNode.services,
+      clusterServices: {
+        pacemaker: {
+          standby:
+              apiClusterStatus.pacemaker_standby?.includes(apiNode.name)
+              ?? false,
+          maintenance: isCibTrue(
+              apiClusterStatus.node_attr?.[apiNode.name]?.find(
+                attr => attr.name === "maintenance",
+              )?.value ?? "",
+          ),
+        },
+      },
     });
 
 const countNodesSeverity = (apiNodeList: ApiNode[]): StatusSeverity => {
@@ -78,10 +94,11 @@ const countNodesSeverity = (apiNodeList: ApiNode[]): StatusSeverity => {
 
 export const processApiNodes = (
   apiNodeList: ApiNode[],
+  apiClusterStatus: ApiClusterStatus,
 ): {
   nodeList: Node[];
   nodesSeverity: StatusSeverity;
 } => ({
-  nodeList: apiNodeList.map(toNode),
+  nodeList: apiNodeList.map(node => toNode(node, apiClusterStatus)),
   nodesSeverity: countNodesSeverity(apiNodeList),
 });

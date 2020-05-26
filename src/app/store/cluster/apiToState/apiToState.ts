@@ -30,6 +30,7 @@ export const apiToState = (
   } = analyzeApiResources(apiClusterStatus.resource_list);
   const { nodeList, nodesSeverity } = processApiNodes(
     apiClusterStatus.node_list,
+    apiClusterStatus,
   );
   return {
     name: apiClusterStatus.cluster_name,

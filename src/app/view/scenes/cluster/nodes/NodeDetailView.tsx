@@ -19,6 +19,7 @@ import {
 } from "app/view/scenes/cluster";
 
 import { NodeDaemonTable } from "./NodeDaemonTable";
+import { NodeClusterServicesView } from "./services";
 
 export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
   const clusterName = useSelectedClusterName();
@@ -61,8 +62,8 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
           />
         )}
       </StackItem>
-      <StackItem>
-        {node.status === "DATA_NOT_PROVIDED" && (
+      {node.status === "DATA_NOT_PROVIDED" && (
+        <StackItem>
           <EmptyState style={{ margin: "auto" }}>
             <EmptyStateIcon
               icon={ExclamationCircleIcon}
@@ -73,16 +74,21 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
               {`Data for node ${node.name} are not provided by backend`}
             </EmptyStateBody>
           </EmptyState>
-        )}
-        {node.status !== "DATA_NOT_PROVIDED" && (
-          <>
+        </StackItem>
+      )}
+      {node.status !== "DATA_NOT_PROVIDED" && (
+        <>
+          <StackItem>
             <TextContent>
-              <Text component="h1"> Cluster Daemons </Text>
+              <Text component="h1"> Node Daemons </Text>
             </TextContent>
             <NodeDaemonTable services={node.services} />
-          </>
-        )}
-      </StackItem>
+          </StackItem>
+          <StackItem>
+            <NodeClusterServicesView node={node} />
+          </StackItem>
+        </>
+      )}
     </>
   );
 };
