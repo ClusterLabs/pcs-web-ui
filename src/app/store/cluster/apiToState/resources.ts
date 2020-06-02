@@ -219,22 +219,22 @@ const buildGroupStatusInfoList = (
   return infoList;
 };
 
-const toGroup = (apiGroup: ApiGroup): Group | undefined => {
+const toGroup = (
+  apiGroup: ApiGroup,
+): { group: Group; apiPrimitiveList: ApiPrimitive[] } => {
   // Theoreticaly, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
-  const primitiveMembers = filterPrimitive(apiGroup.members);
-  // ...and accept only groups with some primitive resources.
-  if (primitiveMembers.length === 0) {
-    return undefined;
-  }
-
-  const resources = primitiveMembers.map(p => toPrimitive(p));
+  const apiPrimitiveList = filterPrimitive(apiGroup.members);
+  const resources = apiPrimitiveList.map(p => toPrimitive(p));
   return {
-    id: apiGroup.id,
-    itemType: "group",
-    resources,
-    status: buildStatus(buildGroupStatusInfoList(apiGroup, resources)),
-    issueList: transformIssues(apiGroup),
+    apiPrimitiveList,
+    group: {
+      id: apiGroup.id,
+      itemType: "group",
+      resources,
+      status: buildStatus(buildGroupStatusInfoList(apiGroup, resources)),
+      issueList: transformIssues(apiGroup),
+    },
   };
 };
 
@@ -249,22 +249,27 @@ const buildCloneStatusInfoList = (apiClone: ApiClone): ResourceStatusInfo[] => {
   return infoList;
 };
 
-const toClone = (apiClone: ApiClone): Clone | undefined => {
-  const member =
-    apiClone.member.class_type === "primitive"
-      ? toPrimitive(apiClone.member)
-      : toGroup(apiClone.member);
-
-  if (member === undefined) {
-    return undefined;
+const toClone = (
+  apiClone: ApiClone,
+): { clone: Clone; apiPrimitiveList: ApiPrimitive[] } => {
+  let member: Primitive | Group;
+  let apiPrimitiveList: ApiPrimitive[] = [];
+  if (apiClone.member.class_type === "primitive") {
+    member = toPrimitive(apiClone.member);
+    apiPrimitiveList = [apiClone.member];
+  } else {
+    ({ apiPrimitiveList, group: member } = toGroup(apiClone.member));
   }
 
   return {
-    id: apiClone.id,
-    itemType: "clone",
-    member,
-    status: buildStatus(buildCloneStatusInfoList(apiClone)),
-    issueList: transformIssues(apiClone),
+    apiPrimitiveList,
+    clone: {
+      id: apiClone.id,
+      itemType: "clone",
+      member,
+      status: buildStatus(buildCloneStatusInfoList(apiClone)),
+      issueList: transformIssues(apiClone),
+    },
   };
 };
 
@@ -323,28 +328,42 @@ export const analyzeApiResources = (
           };
 
         case "group": {
-          const group = toGroup(apiResource);
-          // don't care about group of stonith only...
-          return group === undefined
-            ? analyzed
-            : {
-              ...analyzed,
-              resourceTree: [...analyzed.resourceTree, group],
-              resourcesSeverity: maxResourcesSeverity(),
-            };
+          if (filterPrimitive(apiResource.members).length === 0) {
+            // don't care about group of stonith only...
+            return analyzed;
+          }
+          const { apiPrimitiveList, group } = toGroup(apiResource);
+
+          return {
+            ...analyzed,
+            resourceTree: [...analyzed.resourceTree, group],
+            resourcesSeverity: maxResourcesSeverity(),
+            resourceOnNodeStatusList: [
+              ...analyzed.resourceOnNodeStatusList,
+              ...apiPrimitiveList.map(takeResourceOnNodeStatus).flat(),
+            ],
+          };
         }
 
         case "clone":
         default: {
-          const clone = toClone(apiResource);
-          // don't care about clone with stonith only...
-          return clone === undefined
-            ? analyzed
-            : {
-              ...analyzed,
-              resourceTree: [...analyzed.resourceTree, clone],
-              resourcesSeverity: maxResourcesSeverity(),
-            };
+          if (
+            apiResource.member.class_type === "group"
+            && filterPrimitive(apiResource.member.members).length === 0
+          ) {
+            // don't care about clone with group of stonith only...
+            return analyzed;
+          }
+          const { apiPrimitiveList, clone } = toClone(apiResource);
+          return {
+            ...analyzed,
+            resourceTree: [...analyzed.resourceTree, clone],
+            resourcesSeverity: maxResourcesSeverity(),
+            resourceOnNodeStatusList: [
+              ...analyzed.resourceOnNodeStatusList,
+              ...apiPrimitiveList.map(takeResourceOnNodeStatus).flat(),
+            ],
+          };
         }
       }
     },
