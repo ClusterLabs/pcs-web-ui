@@ -28,16 +28,15 @@ const transformStatus = (
   status: ApiResource["status"],
 ): FenceDeviceStatusFlag => {
   switch (status) {
-    case "running":
-      return "RUNNING";
     case "blocked":
       return "BLOCKED";
     case "failed":
       return "FAILED";
     case "disabled":
       return "DISABLED";
+    case "running":
     default:
-      return "UNKNOWN";
+      return "RUNNING";
   }
 };
 
@@ -48,11 +47,11 @@ const statusToSeverity = (status: ApiResource["status"]): StatusSeverity => {
     case "failed":
       return "ERROR";
     case "disabled":
+    case "partially running":
       return "WARNING";
     case "running":
-      return "OK";
     default:
-      return "UNKNOWN";
+      return "OK";
   }
 };
 

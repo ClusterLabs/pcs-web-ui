@@ -5,7 +5,6 @@ import { authGuiAgainstNodes } from "./api/authGuiAgainstNodes";
 import { checkAuthAgainstNodes } from "./api/checkAuthAgainstNodes";
 import { existingCluster } from "./api/existingCluster";
 import { clusterStatus } from "./api/clusterStatus";
-import { clustersOverview } from "./api/clustersOverview";
 import { importedClusterList } from "./api/importedClusterList";
 import { getResourceAgentMetadata } from "./api/getResourceAgentMetadata";
 import { updateResource } from "./api/updateResource";
@@ -29,7 +28,6 @@ export {
   existingCluster,
   getResourceAgentMetadata,
   clusterStatus,
-  clustersOverview,
   importedClusterList,
   updateResource,
 };

@@ -2,7 +2,7 @@ import { types } from "app/store";
 
 type StatusSeverity = types.cluster.StatusSeverity;
 
-const severity = (status: StatusSeverity): number => {
+export const severity = (status: StatusSeverity): number => {
   switch (status) {
     case "ERROR":
       return 3;

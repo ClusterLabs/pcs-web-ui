@@ -8,6 +8,8 @@ import {
   ApiNode as TApiNode,
   ApiNodeName as TApiNodeName,
   ApiNodeQuorum as TApiNodeQuorum,
+  ApiNodeService as TApiNodeService,
+  ApiNodeServiceMap as TApiNodeServiceMap,
   ApiNodeStatus as TApiNodeStatus,
 } from "./nodes";
 import {
@@ -46,6 +48,10 @@ export type ApiConstraintTicket = t.TypeOf<typeof TApiConstraintTicket>;
 export type ApiGroup = t.TypeOf<typeof TApiGroup>;
 export type ApiIssue = t.TypeOf<typeof TApiIssue>;
 export type ApiNode = t.TypeOf<typeof TApiNode>;
+export type ApiNodeQuorum = t.TypeOf<typeof TApiNodeQuorum>;
+export type ApiNodeServiceMap = t.TypeOf<typeof TApiNodeServiceMap>;
+export type ApiNodeService = t.TypeOf<typeof TApiNodeService>;
+export type ApiNodeStatus = t.TypeOf<typeof TApiNodeStatus>;
 export type ApiResourceBase = t.TypeOf<typeof TApiResourceBase>;
 export type ApiPrimitive = t.TypeOf<typeof TApiPrimitive>;
 export type ApiResource = t.TypeOf<typeof TApiResource>;
@@ -59,7 +65,8 @@ export {
   TApiClusterStatusFlag,
   TApiNodeName,
   TApiNodeQuorum,
-  TApiNodeStatus,
+  TApiNodeService,
+  TApiNodeServiceMap,
   TApiResource,
   TApiWithIssues,
 };

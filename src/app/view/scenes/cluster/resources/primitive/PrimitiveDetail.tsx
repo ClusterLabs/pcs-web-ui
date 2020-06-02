@@ -1,9 +1,19 @@
 import React from "react";
-import { StackItem, Text, TextContent } from "@patternfly/react-core";
+import {
+  EmptyState,
+  EmptyStateBody,
+  EmptyStateIcon,
+  StackItem,
+  Text,
+  TextContent,
+  Title,
+} from "@patternfly/react-core";
 import { useSelector } from "react-redux";
 
+import { SearchIcon } from "@patternfly/react-icons";
+
 import { selectors, types } from "app/store";
-import { IssueList, Link } from "app/view/common";
+import { IssueList, Link, pallete } from "app/view/common";
 import {
   CrmStatusTable,
   useSelectedClusterName,
@@ -27,20 +37,33 @@ export const PrimitiveDetail = ({
         <TextContent>
           <Text component="h1"> Resource status on nodes </Text>
         </TextContent>
-        <CrmStatusTable
-          crmStatusList={crmStatusList}
-          rowObject={{
-            header: "Node",
-            cell: crmStatus =>
-              (!crmStatus.node ? null : (
-                <Link
-                  to={`/cluster/${clusterName}/nodes/${crmStatus.node.name}`}
-                >
-                  {crmStatus.node.name}
-                </Link>
-              )),
-          }}
-        />
+
+        {crmStatusList.length === 0 && (
+          <EmptyState style={{ margin: "auto" }}>
+            <EmptyStateIcon icon={SearchIcon} color={pallete.UNKNOWN} />
+            <Title size="lg">{`No resource ${primitive.id} status info found.`}</Title>
+            <EmptyStateBody>
+              {`No resource ${primitive.id} status info found.`}
+            </EmptyStateBody>
+          </EmptyState>
+        )}
+
+        {crmStatusList.length > 0 && (
+          <CrmStatusTable
+            crmStatusList={crmStatusList}
+            rowObject={{
+              header: "Node",
+              cell: crmStatus =>
+                (!crmStatus.node ? null : (
+                  <Link
+                    to={`/cluster/${clusterName}/nodes/${crmStatus.node.name}`}
+                  >
+                    {crmStatus.node.name}
+                  </Link>
+                )),
+            }}
+          />
+        )}
       </StackItem>
     </>
   );

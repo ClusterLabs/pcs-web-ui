@@ -84,14 +84,6 @@ export const ApiResourceBase = t.intersection([
   t.type({
     id: ApiResourceId,
     class_type: t.string,
-    status: t.keyof({
-      running: null,
-      "partially running": null,
-      disabled: null,
-      failed: null,
-      blocked: null,
-      unknown: null,
-    }),
     meta_attr: t.array(ApiNVPair),
     disabled: t.boolean,
     parent_id: t.union([t.string, t.null]),
@@ -121,6 +113,12 @@ status (evaluated in following order - first win)
 const ApiPrimitiveBase = t.intersection([
   ApiResourceBase,
   t.type({
+    status: t.keyof({
+      running: null,
+      disabled: null,
+      failed: null,
+      blocked: null,
+    }),
     class_type: t.literal("primitive"),
     agentname: t.string,
     class: t.string,
@@ -168,7 +166,7 @@ export const ApiStonith = t.intersection([
 /*
 status (evaluated in following order - first win)
   * disabled - disabled is true
-  * status of the first member - if the member is not in "running", "unknown"
+  * status of the first member - if the member is not in "running"
   * partially running
     one of resources (except first) is in "disabled", "blocked", "failed"
   * running - by default
@@ -176,6 +174,13 @@ status (evaluated in following order - first win)
 export const ApiGroup = t.intersection([
   ApiResourceBase,
   t.type({
+    status: t.keyof({
+      running: null,
+      "partially running": null,
+      disabled: null,
+      failed: null,
+      blocked: null,
+    }),
     class_type: t.literal("group"),
     members: t.array(t.union([ApiPrimitive, ApiStonith])),
   }),
@@ -214,6 +219,13 @@ warning_list
 export const ApiClone = t.intersection([
   ApiResourceBase,
   t.type({
+    status: t.keyof({
+      running: null,
+      "partially running": null,
+      disabled: null,
+      failed: null,
+      blocked: null,
+    }),
     class_type: t.literal("clone"),
     member: t.union([ApiPrimitive, ApiGroup]),
     promotable: t.boolean,

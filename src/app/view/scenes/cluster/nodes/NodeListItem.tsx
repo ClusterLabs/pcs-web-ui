@@ -30,7 +30,11 @@ export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
               <DataListCell>
                 {"Status "}
                 <StatusSign
-                  status={node.statusSeverity}
+                  status={
+                    node.status === "DATA_NOT_PROVIDED"
+                      ? "WARNING"
+                      : node.statusSeverity
+                  }
                   label={<strong>{toLabel(node.status)}</strong>}
                   showOkIco
                 />
@@ -38,8 +42,18 @@ export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
               <DataListCell>
                 {"Quorum "}
                 <StatusSign
-                  status={node.quorumSeverity}
-                  label={<strong>{toLabel(node.quorum)}</strong>}
+                  status={
+                    node.status === "DATA_NOT_PROVIDED"
+                      ? "WARNING"
+                      : node.quorumSeverity
+                  }
+                  label={
+                    <strong>
+                      {node.status === "DATA_NOT_PROVIDED"
+                        ? "Unknown"
+                        : toLabel(node.quorum)}
+                    </strong>
+                  }
                   showOkIco
                 />
               </DataListCell>

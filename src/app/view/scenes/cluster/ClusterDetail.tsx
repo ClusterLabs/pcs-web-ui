@@ -10,7 +10,7 @@ import {
 } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { IssueList, StatusSign } from "app/view/common";
+import { IssueList } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 export const ClusterDetail = () => {
@@ -24,15 +24,6 @@ export const ClusterDetail = () => {
         </CardHeader>
         <CardBody>
           <Stack gutter="md" className="pf-u-m-md">
-            <StackItem>
-              <span>
-                {"Status "}
-                <StatusSign
-                  status={cluster.statusSeverity}
-                  label={<strong>{cluster.status}</strong>}
-                />
-              </span>
-            </StackItem>
             <StackItem>
               <IssueList issueList={cluster.issueList} hideEmpty />
             </StackItem>
