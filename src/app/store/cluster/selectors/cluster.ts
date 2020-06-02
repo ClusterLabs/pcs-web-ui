@@ -86,10 +86,10 @@ export const getSelectedNode = (
 
 export const crmStatusForPrimitive = (
   clusterUrlName: string,
-  primitiveId: string,
+  primitiveIds: string[],
 ): Selector<ResourceOnNodeStatus[]> => state =>
-  getCluster(clusterUrlName)(state).resourceOnNodeStatusList.filter(
-    s => s.resource.id === primitiveId,
+  getCluster(clusterUrlName)(state).resourceOnNodeStatusList.filter(s =>
+    primitiveIds.includes(s.resource.id),
   );
 
 export const crmStatusForNode = (

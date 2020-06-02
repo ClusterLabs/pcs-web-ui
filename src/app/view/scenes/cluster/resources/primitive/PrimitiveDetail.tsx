@@ -26,7 +26,7 @@ export const PrimitiveDetail = ({
 }) => {
   const clusterName = useSelectedClusterName();
   const crmStatusList = useSelector(
-    selectors.crmStatusForPrimitive(useSelectedClusterName(), primitive.id),
+    selectors.crmStatusForPrimitive(useSelectedClusterName(), [primitive.id]),
   );
   return (
     <>
