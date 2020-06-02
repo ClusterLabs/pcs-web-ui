@@ -3,15 +3,21 @@ import React from "react";
 import { types } from "app/store";
 import { StatusSign, Table } from "app/view/common";
 
+type ResourceOnNodeStatus = types.cluster.ResourceOnNodeStatus;
+
+const isRoleOk = (crmStatus: ResourceOnNodeStatus): boolean =>
+  crmStatus.role === crmStatus.targetRole
+  || crmStatus.role.toLowerCase() === "started";
+
 export const CrmStatusTable = ({
   crmStatusList,
   rowObject,
 }: {
-  crmStatusList: types.cluster.ResourceOnNodeStatus[];
+  crmStatusList: ResourceOnNodeStatus[];
   rowObject: {
     header: string;
     cell: (
-      crmStatus: types.cluster.ResourceOnNodeStatus,
+      crmStatus: ResourceOnNodeStatus,
     ) => JSX.Element | string | undefined | null;
   };
 }) => {
@@ -65,7 +71,7 @@ export const CrmStatusTable = ({
             </td>
             <td data-label="Target-role">{crmStatus.targetRole}</td>
             <td data-label="Role">
-              {crmStatus.role === crmStatus.targetRole ? (
+              {isRoleOk(crmStatus) ? (
                 <StatusSign status="OK" label={crmStatus.role} showOkIco />
               ) : (
                 <StatusSign status="WARNING" label={crmStatus.role} />

@@ -153,6 +153,30 @@ const resourceTree = cluster("resourceTree", "ok", {
               value: "Stopped",
             },
           ],
+          crm_status: [
+            resourceStatus("B", {
+              resource_agent: "ocf:heartbeat:Dummy",
+              managed: true,
+              target_role: "",
+              role: "Started",
+              node: {
+                id: "1",
+                name: "node-1",
+                cached: false,
+              },
+            }),
+            resourceStatus("B", {
+              resource_agent: "ocf:heartbeat:Dummy",
+              managed: true,
+              target_role: "",
+              role: "Stopped",
+              node: {
+                id: "2",
+                name: "node-2",
+                cached: false,
+              },
+            }),
+          ],
         }),
         resource("C", {
           status: "disabled",
