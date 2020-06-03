@@ -1,8 +1,10 @@
 import React from "react";
 import {
+  Alert,
   EmptyState,
   EmptyStateBody,
   EmptyStateIcon,
+  Expandable,
   StackItem,
   Text,
   TextContent,
@@ -13,7 +15,8 @@ import { useSelector } from "react-redux";
 import { SearchIcon } from "@patternfly/react-icons";
 
 import { selectors, types } from "app/store";
-import { IssueList, Link, pallete } from "app/view/common";
+import { IssueList, Link, LoadedResourceAgent, pallete } from "app/view/common";
+
 import {
   CrmStatusTable,
   useSelectedClusterName,
@@ -31,6 +34,27 @@ export const PrimitiveDetail = ({
   return (
     <>
       <StackItem>
+        <TextContent>
+          <Text component="h1"> Description </Text>
+        </TextContent>
+
+        <LoadedResourceAgent agentName={primitive.agentName}>
+          {(resourceAgent: types.resourceAgents.ResourceAgentMetadata) => (
+            <Alert isInline title={primitive.agentName} variant="info">
+              {resourceAgent.shortdesc}
+              <Expandable toggleText="Long description">
+                <p>{resourceAgent.longdesc}</p>
+              </Expandable>
+            </Alert>
+          )}
+        </LoadedResourceAgent>
+      </StackItem>
+      <StackItem>
+        {primitive.issueList.length > 0 && (
+          <TextContent>
+            <Text component="h1"> Issues </Text>
+          </TextContent>
+        )}
         <IssueList issueList={primitive.issueList} hideEmpty />
       </StackItem>
       <StackItem>

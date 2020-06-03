@@ -27,6 +27,8 @@ const ApiAgentParameter = t.type({
 
 const ApiAgentMetadata = t.type({
   name: t.string,
+  shortdesc: t.string,
+  longdesc: t.string,
   parameters: t.array(ApiAgentParameter),
 });
 

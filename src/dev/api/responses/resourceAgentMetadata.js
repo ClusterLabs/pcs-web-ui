@@ -1,5 +1,8 @@
 const ok = {
   name: "ocf:heartbeat:apache",
+  shortdesc: "Manages an Apache Web server instance",
+  longdesc:
+    "This is the resource agent for the Apache Web server.\nThis resource agent operates both version 1.x and version 2.x Apache\nservers.\n\nThe start operation ends with a loop in which monitor is\nrepeatedly called to make sure that the server started and that\nit is operational. Hence, if the monitor operation does not\nsucceed within the start operation timeout, the apache resource\nwill end with an error status.\n\nThe monitor operation by default loads the server status page\nwhich depends on the mod_status module and the corresponding\nconfiguration file (usually /etc/apache2/mod_status.conf).\nMake sure that the server status page works and that the access\nis allowed *only* from localhost (address 127.0.0.1).\nSee the statusurl and testregex attributes for more details.\n\nSee also http://httpd.apache.org/",
   parameters: [
     {
       name: "configfile",

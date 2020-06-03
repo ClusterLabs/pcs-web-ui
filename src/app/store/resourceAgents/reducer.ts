@@ -20,6 +20,8 @@ const storage: Reducer<ResourcePrimitiveState["storage"], Action> = (
           : {
             loadStatus: "LOADING",
             parameters: [],
+            shortdesc: "",
+            longdesc: "",
           },
       };
     case "RESOURCE_AGENT.LOAD.SUCCESS":
@@ -28,6 +30,8 @@ const storage: Reducer<ResourcePrimitiveState["storage"], Action> = (
         [action.payload.apiAgentMetadata.name]: {
           loadStatus: "LOADED",
           parameters: action.payload.apiAgentMetadata.parameters,
+          shortdesc: action.payload.apiAgentMetadata.shortdesc,
+          longdesc: action.payload.apiAgentMetadata.longdesc,
         },
       };
     case "RESOURCE_AGENT.LOAD.FAILED":
@@ -36,6 +40,8 @@ const storage: Reducer<ResourcePrimitiveState["storage"], Action> = (
         [action.payload.agentName]: {
           loadStatus: "FAILED",
           parameters: [],
+          shortdesc: "",
+          longdesc: "",
         },
       };
     default:
