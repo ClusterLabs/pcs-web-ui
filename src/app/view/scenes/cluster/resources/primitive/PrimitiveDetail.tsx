@@ -41,10 +41,19 @@ export const PrimitiveDetail = ({
         <LoadedResourceAgent agentName={primitive.agentName}>
           {(resourceAgent: types.resourceAgents.ResourceAgentMetadata) => (
             <Alert isInline title={primitive.agentName} variant="info">
-              {resourceAgent.shortdesc}
-              <Expandable toggleText="Long description">
-                <p>{resourceAgent.longdesc}</p>
-              </Expandable>
+              <TextContent>
+                <Text component="p">
+                  {resourceAgent.shortdesc}
+                  <Expandable toggleText="Full description">
+                    {resourceAgent.longdesc.split("\n\n").map((line, i) => (
+                      /* eslint-disable react/no-array-index-key */
+                      <Text component="p" key={i}>
+                        {line}
+                      </Text>
+                    ))}
+                  </Expandable>
+                </Text>
+              </TextContent>
             </Alert>
           )}
         </LoadedResourceAgent>
