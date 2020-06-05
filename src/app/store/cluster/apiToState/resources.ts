@@ -14,6 +14,7 @@ import {
   FenceDevice,
   FenceDeviceStatusFlag,
   Group,
+  Issue,
   Primitive,
   ResourceOnNodeStatus,
   ResourceStatus,
@@ -69,25 +70,43 @@ const isDisabled = (apiResource: ApiResourceBase): boolean =>
 
 const buildPrimitiveStatuInfoList = (
   apiPrimitive: ApiPrimitive,
-): ResourceStatusInfo[] => {
+): {
+  resourceStatusInfo: ResourceStatusInfo[];
+  issues: Issue[];
+} => {
   const infoList: ResourceStatusInfo[] = [];
+  const issues: Issue[] = [];
 
   // warning
   if (apiPrimitive.crm_status.some(s => !s.managed)) {
+    issues.push({
+      severity: "WARNING",
+      message: "Resource is unmanaged",
+    });
     infoList.push({ label: "UNMANAGED", severity: "WARNING" });
   }
 
   if (isDisabled(apiPrimitive)) {
+    issues.push({
+      severity: "WARNING",
+      message: "Resource is disabled",
+    });
     infoList.push({ label: "DISABLED", severity: "WARNING" });
   }
 
   if (infoList.length > 0) {
-    return infoList;
+    return {
+      resourceStatusInfo: infoList,
+      issues,
+    };
   }
 
   // ok
   if (apiPrimitive.crm_status.some(s => s.active)) {
-    return [{ label: "RUNNING", severity: "OK" }];
+    return {
+      resourceStatusInfo: [{ label: "RUNNING", severity: "OK" }],
+      issues,
+    };
   }
 
   // error
@@ -105,9 +124,15 @@ const buildPrimitiveStatuInfoList = (
         ),
     )
   ) {
-    return [{ label: "FAILED", severity: "ERROR" }];
+    return {
+      resourceStatusInfo: [{ label: "FAILED", severity: "ERROR" }],
+      issues: [{ severity: "ERROR", message: "Resource failed" }],
+    };
   }
-  return [{ label: "BLOCKED", severity: "ERROR" }];
+  return {
+    resourceStatusInfo: [{ label: "BLOCKED", severity: "ERROR" }],
+    issues: [{ severity: "ERROR", message: "Resource is blocked" }],
+  };
 };
 
 const buildStatus = (statusInfoList: ResourceStatusInfo[]): ResourceStatus => {
@@ -121,25 +146,30 @@ const buildStatus = (statusInfoList: ResourceStatusInfo[]): ResourceStatus => {
   };
 };
 
-const toPrimitive = (apiResource: ApiPrimitive): Primitive => ({
-  id: apiResource.id,
-  itemType: "primitive",
-  status: buildStatus(buildPrimitiveStatuInfoList(apiResource)),
-  issueList: transformIssues(apiResource),
-  class: apiResource.class,
-  provider: apiResource.provider,
-  type: apiResource.type,
-  agentName: `${apiResource.class}:${apiResource.provider}:${apiResource.type}`,
-  // Decision: Last instance_attr wins!
-  instanceAttributes: apiResource.instance_attr.reduce(
-    (attrMap, nvpair) => ({
-      ...attrMap,
-      [nvpair.name]: { id: nvpair.id, value: nvpair.value },
-    }),
-    {},
-  ),
-  crmStatusList: apiResource.crm_status,
-});
+const toPrimitive = (apiResource: ApiPrimitive): Primitive => {
+  const { resourceStatusInfo, issues } = buildPrimitiveStatuInfoList(
+    apiResource,
+  );
+  return {
+    id: apiResource.id,
+    itemType: "primitive",
+    status: buildStatus(resourceStatusInfo),
+    issueList: transformIssues(apiResource).concat(issues),
+    class: apiResource.class,
+    provider: apiResource.provider,
+    type: apiResource.type,
+    agentName: `${apiResource.class}:${apiResource.provider}:${apiResource.type}`,
+    // Decision: Last instance_attr wins!
+    instanceAttributes: apiResource.instance_attr.reduce(
+      (attrMap, nvpair) => ({
+        ...attrMap,
+        [nvpair.name]: { id: nvpair.id, value: nvpair.value },
+      }),
+      {},
+    ),
+    crmStatusList: apiResource.crm_status,
+  };
+};
 
 const takeResourceOnNodeStatus = (
   apiResource: ApiPrimitive,

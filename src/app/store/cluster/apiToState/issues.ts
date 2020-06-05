@@ -7,7 +7,7 @@ const mapIssue = (severity: Issue["severity"]) => (issue: ApiIssue) => ({
   message: issue.message,
 });
 
-export const transformIssues = (element: ApiWithIssues) => [
+export const transformIssues = (element: ApiWithIssues): Issue[] => [
   ...element.error_list.map(mapIssue("ERROR")),
   ...element.warning_list.map(mapIssue("WARNING")),
 ];
