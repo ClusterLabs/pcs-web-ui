@@ -88,7 +88,6 @@ export interface Primitive extends ResourceTreeItemBase {
   type: string;
   agentName: string;
   instanceAttributes: Record<string, InstanceAttribute>;
-  crmStatusList: ApiResourceCrmStatus[];
 }
 
 export interface Group extends ResourceTreeItemBase {
