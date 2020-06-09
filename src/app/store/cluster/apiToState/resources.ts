@@ -186,12 +186,12 @@ const takeResourceOnNodeStatus = (
       failed: crmStatus.failed,
       failureIgnored: crmStatus.failure_ignored,
       managed: crmStatus.managed,
-      targetRole: crmStatus.target_role,
+      targetRole: crmStatus.target_role ?? undefined,
       role: crmStatus.role,
       pending: crmStatus.pending,
       orphaned: crmStatus.orphaned,
       nodesRunningOn: crmStatus.nodes_running_on,
-      blocked: apiResource.status === "blocked",
+      blocked: crmStatus.blocked === true,
     }),
   );
 

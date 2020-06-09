@@ -68,7 +68,8 @@ export const ApiResourceCrmStatus = t.intersection([
     ]),
   }),
   t.partial({
-    target_role: t.string,
+    target_role: t.union([t.string, t.null]),
+    blocked: t.union([t.boolean, t.null]),
   }),
 ]);
 
