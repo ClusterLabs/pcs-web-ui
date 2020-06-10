@@ -7,7 +7,8 @@ type ResourceOnNodeStatus = types.cluster.ResourceOnNodeStatus;
 
 const isRoleOk = (crmStatus: ResourceOnNodeStatus): boolean =>
   crmStatus.role === crmStatus.targetRole
-  || crmStatus.role.toLowerCase() === "started";
+  || (!crmStatus.targetRole
+    && ["started", "master", "slave"].includes(crmStatus.role.toLowerCase()));
 
 export const CrmStatusTable = ({
   crmStatusList,

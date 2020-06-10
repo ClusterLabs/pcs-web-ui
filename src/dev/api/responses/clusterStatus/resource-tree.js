@@ -74,8 +74,7 @@ const resourceTree = cluster("resourceTree", "ok", {
         resourceStatus("A", {
           resource_agent: "ocf:heartbeat:apache",
           managed: true,
-          target_role: "Started",
-          role: "Stopped",
+          role: "Master",
           node: {
             id: "2",
             name: "node-2",
