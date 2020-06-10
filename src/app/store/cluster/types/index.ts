@@ -7,7 +7,6 @@ import {
   ApiConstraints,
   ApiNodeService,
   ApiNodeServiceMap,
-  ApiResourceCrmStatus,
 } from "app/backend/types/clusterStatus";
 
 export type ConstraintLocation = ApiConstraintLocation;
