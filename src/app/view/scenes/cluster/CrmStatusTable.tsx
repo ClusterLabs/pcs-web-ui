@@ -10,6 +10,9 @@ const isRoleOk = (crmStatus: ResourceOnNodeStatus): boolean =>
   || (!crmStatus.targetRole
     && ["started", "master", "slave"].includes(crmStatus.role.toLowerCase()));
 
+const isTargetRoleOk = (targetRole: string): boolean =>
+  ["started", "master"].includes(targetRole.toLowerCase());
+
 export const CrmStatusTable = ({
   crmStatusList,
   rowObject,
@@ -70,7 +73,20 @@ export const CrmStatusTable = ({
                 <StatusSign status="WARNING" label="Unmanaged" />
               )}
             </td>
-            <td data-label="Target-role">{crmStatus.targetRole}</td>
+            <td data-label="Target-role">
+              {!crmStatus.targetRole && crmStatus.targetRole}
+              {crmStatus.targetRole && isTargetRoleOk(crmStatus.targetRole) && (
+                <StatusSign
+                  status="OK"
+                  label={crmStatus.targetRole}
+                  showOkIco
+                />
+              )}
+              {crmStatus.targetRole
+                && !isTargetRoleOk(crmStatus.targetRole) && (
+                  <StatusSign status="WARNING" label={crmStatus.targetRole} />
+              )}
+            </td>
             <td data-label="Role">
               {isRoleOk(crmStatus) ? (
                 <StatusSign status="OK" label={crmStatus.role} showOkIco />
