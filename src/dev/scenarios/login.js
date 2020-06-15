@@ -20,6 +20,15 @@ const clustersOverview = endpoints.clustersOverview(
   ),
 );
 
+const importedClusterList = endpoints.importedClusterList(
+  jsonOr401(
+    responses.importedClusterList.withClusters([
+      responses.clusterStatus.ok,
+      responses.clusterStatus.error,
+    ]),
+  ),
+);
+
 const login = endpoints.login((req, res) => {
   if (req.body.username === "hacluster" && req.body.password === "hh") {
     isLoggedIn = true;
@@ -42,6 +51,7 @@ const logout = endpoints.logout((req, res) => {
 module.exports = {
   noLogged: [
     clustersOverview,
+    importedClusterList,
     login,
     logout,
     endpoints.clusterStatus(jsonOr401(responses.clusterStatus.ok)),
