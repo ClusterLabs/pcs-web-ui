@@ -64,6 +64,9 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
       </StackItem>
       {node.status === "DATA_NOT_PROVIDED" && (
         <StackItem>
+          <TextContent>
+            <Text component="h1"> Node Daemons </Text>
+          </TextContent>
           <EmptyState style={{ margin: "auto" }}>
             <EmptyStateIcon
               icon={ExclamationCircleIcon}
