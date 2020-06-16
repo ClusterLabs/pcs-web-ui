@@ -6,7 +6,7 @@ import {
 } from "app/backend/types/clusterStatus";
 import * as statusSeverity from "./statusSeverity";
 
-import { Node, NodeQuorumFlag, NodeStatusFlag, StatusSeverity } from "../types";
+import { Node, NodeStatusFlag, StatusSeverity } from "../types";
 import { transformIssues } from "./issues";
 
 const mapStatus = (status: ApiNodeStatus): NodeStatusFlag => {
@@ -28,9 +28,6 @@ const statusToSeverity = (status: ApiNodeStatus): StatusSeverity => {
   }
   return "OK";
 };
-
-const mapQuorum = (quorum: ApiNodeQuorum): NodeQuorumFlag =>
-  (quorum ? "YES" : "NO");
 
 const quorumToSeverity = (quorum: ApiNodeQuorum): StatusSeverity =>
   (quorum ? "OK" : "WARNING");
@@ -59,7 +56,7 @@ const toNode = (apiNode: ApiNode, apiClusterStatus: ApiClusterStatus): Node =>
       name: apiNode.name,
       status: mapStatus(apiNode.status),
       statusSeverity: statusToSeverity(apiNode.status),
-      quorum: mapQuorum(apiNode.quorum),
+      quorum: !!apiNode.quorum,
       quorumSeverity: quorumToSeverity(apiNode.quorum),
       issueList: transformIssues(apiNode),
       services: apiNode.services,

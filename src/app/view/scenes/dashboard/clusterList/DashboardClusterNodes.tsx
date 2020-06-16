@@ -18,8 +18,13 @@ const statusSeverity = (
 ): types.cluster.StatusSeverity =>
   (node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.statusSeverity);
 
-const quorum = (node: types.cluster.Node): string =>
-  (node.status === "DATA_NOT_PROVIDED" ? "Unknown" : node.quorum);
+const quorum = (node: types.cluster.Node): string => {
+  if (node.status === "DATA_NOT_PROVIDED") {
+    return "Unknown";
+  }
+
+  return node.quorum ? "Yes" : "No";
+};
 
 const compareByColumn = (
   column: COLUMNS | "",

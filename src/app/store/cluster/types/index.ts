@@ -26,7 +26,6 @@ export interface Issue {
 }
 
 export type NodeStatusFlag = "ONLINE" | "OFFLINE" | "STANDBY";
-export type NodeQuorumFlag = "YES" | "NO";
 
 export type StatusSeverity = "OK" | "ERROR" | "WARNING";
 
@@ -37,7 +36,7 @@ export type ConnectedNode = {
   name: string;
   status: NodeStatusFlag;
   statusSeverity: StatusSeverity;
-  quorum: NodeQuorumFlag;
+  quorum: boolean;
   quorumSeverity: StatusSeverity;
   issueList: Issue[];
   services: ApiNodeServiceMap;

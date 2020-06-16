@@ -28,7 +28,6 @@ export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
                 </Link>
               </DataListCell>
               <DataListCell>
-                {"Status "}
                 <StatusSign
                   status={
                     node.status === "DATA_NOT_PROVIDED"
@@ -40,7 +39,6 @@ export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
                 />
               </DataListCell>
               <DataListCell>
-                {"Quorum "}
                 <StatusSign
                   status={
                     node.status === "DATA_NOT_PROVIDED"
@@ -50,8 +48,9 @@ export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
                   label={
                     <strong>
                       {node.status === "DATA_NOT_PROVIDED"
-                        ? "Unknown"
-                        : toLabel(node.quorum)}
+                        && "Unknown quorum status"}
+                      {node.status !== "DATA_NOT_PROVIDED"
+                        && (node.quorum ? "Has quorum" : "Does not have quorum")}
                     </strong>
                   }
                   showOkIco
