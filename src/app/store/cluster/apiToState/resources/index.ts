@@ -7,8 +7,7 @@ import {
   ApiStonith,
 } from "app/backend/types/clusterStatus";
 
-import * as statusSeverity from "./statusSeverity";
-
+import * as statusSeverity from "../statusSeverity";
 import {
   Clone,
   FenceDevice,
@@ -21,9 +20,8 @@ import {
   ResourceStatusInfo,
   ResourceTreeItem,
   StatusSeverity,
-} from "../types";
-
-import { transformIssues } from "./issues";
+} from "../../types";
+import { transformIssues } from "../issues";
 
 const transformStatus = (
   status: ApiResource["status"],
