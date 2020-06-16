@@ -1,10 +1,10 @@
 import React from "react";
 
-import { types } from "app/store";
+import { types, utils } from "app/store";
 import { Link, StatusSign, Table } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
-import { compareStatusSeverity, compareStrings } from "./utils";
+import { compareStrings } from "./utils";
 
 type COLUMNS = "NAME" | "STATUS" | "QUORUM";
 
@@ -32,10 +32,10 @@ const compareByColumn = (
   switch (column) {
     case "QUORUM":
       return (a, b) =>
-        compareStatusSeverity(quorumSeverity(a), quorumSeverity(b));
+        utils.compareStatusSeverity(quorumSeverity(a), quorumSeverity(b));
     case "STATUS":
       return (a, b) =>
-        compareStatusSeverity(statusSeverity(a), statusSeverity(b));
+        utils.compareStatusSeverity(statusSeverity(a), statusSeverity(b));
     default:
       return (a, b) => compareStrings(a.name, b.name);
   }

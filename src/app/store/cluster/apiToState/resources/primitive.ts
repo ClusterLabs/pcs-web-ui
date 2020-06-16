@@ -30,22 +30,6 @@ const buildStatusInfoList = (
     infoList.push({ label: "DISABLED", severity: "WARNING" });
   }
 
-  if (infoList.length > 0) {
-    return {
-      resourceStatusInfo: infoList,
-      issues,
-    };
-  }
-
-  // ok
-  if (apiPrimitive.crm_status.some(s => s.active)) {
-    return {
-      resourceStatusInfo: [{ label: "RUNNING", severity: "OK" }],
-      issues,
-    };
-  }
-
-  // error
   if (
     apiPrimitive.crm_status.some(s => s.failed)
     || apiPrimitive.operations.some(
@@ -60,14 +44,24 @@ const buildStatusInfoList = (
         ),
     )
   ) {
+    issues.push({ severity: "ERROR", message: "Resource failed" });
+    infoList.push({ label: "FAILED", severity: "ERROR" });
+  } else if (!apiPrimitive.crm_status.some(s => s.active)) {
+    issues.push({ severity: "ERROR", message: "Resource is blocked" });
+    infoList.push({ label: "BLOCKED", severity: "ERROR" });
+  }
+
+  if (infoList.length > 0) {
     return {
-      resourceStatusInfo: [{ label: "FAILED", severity: "ERROR" }],
-      issues: [{ severity: "ERROR", message: "Resource failed" }],
+      resourceStatusInfo: infoList,
+      issues,
     };
   }
+
+  // ok
   return {
-    resourceStatusInfo: [{ label: "BLOCKED", severity: "ERROR" }],
-    issues: [{ severity: "ERROR", message: "Resource is blocked" }],
+    resourceStatusInfo: [{ label: "RUNNING", severity: "OK" }],
+    issues,
   };
 };
 

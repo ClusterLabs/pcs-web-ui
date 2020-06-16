@@ -1,12 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { selectors, types } from "app/store";
+import { selectors, types, utils } from "app/store";
 import { Table } from "app/view/common";
 
-import { compareStatusSeverity, compareStrings } from "./utils";
+
+import { compareStrings } from "./utils";
 import { DashboardCluster } from "./DashboardCluster";
 import { DashboardClusterLoading } from "./DashboardClusterLoading";
+
+const { compareStatusSeverity } = utils;
 
 type COLUMNS = "NAME" | "ISSUES" | "NODES" | "RESOURCES" | "FENCE_DEVICES";
 

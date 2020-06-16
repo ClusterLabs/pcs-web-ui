@@ -9,6 +9,11 @@ import { transformIssues } from "../issues";
 import { toPrimitive } from "./primitive";
 import { buildStatus, getMaxSeverity, isDisabled } from "./statusInfoList";
 
+type Counts = {
+  errors: Record<string, number>;
+  warnings: Record<string, number>;
+};
+
 const buildStatusInfoList = (
   apiGroup: ApiGroup,
   members: Primitive[],
@@ -27,32 +32,43 @@ const buildStatusInfoList = (
 
   // TODO members should not be OK when group is disabled
   if (maxSeverity === "OK") {
-    infoList.push({ label: "RUNNING", severity: "OK" });
+    if (infoList.length < 1) {
+      infoList.push({ label: "RUNNING", severity: "OK" });
+    }
     return infoList;
   }
 
-  const labelCounts: Record<string, number> = members.reduce<
-    Record<string, number>
-  >((counts, primitive) => {
-    const nextCounts = { ...counts };
-    primitive.status.infoList
-      .filter(info => info.severity === maxSeverity)
-      .map(info => info.label)
-      .forEach((label) => {
-        nextCounts[label] = label in counts ? counts[label] + 1 : 1;
-      });
-    return nextCounts;
-  }, {});
+  const labelCounts: Counts = members.reduce<Counts>(
+    (counts, primitive) => {
+      const nextCounts = { ...counts };
+      primitive.status.infoList
+        // .filter(info => info.severity === maxSeverity)
+        // .map(info => info.label)
+        .forEach((info: ResourceStatusInfo) => {
+          const key = info.severity === "ERROR" ? "errors" : "warnings";
+          nextCounts[key][info.label] =
+            info.label in counts ? counts.errors[info.label] + 1 : 1;
+        });
+      return nextCounts;
+    },
+    { errors: {}, warnings: {} },
+  );
 
   if (Object.keys(labelCounts).length === 0) {
     infoList.push({ label: "UNKNOWN STATUS OF MEMBERS", severity: "WARNING" });
     return infoList;
   }
 
-  Object.keys(labelCounts).forEach(label =>
+  Object.keys(labelCounts.errors).forEach(label =>
     infoList.push({
-      label: `${labelCounts[label]}/${members.length} ${label}`,
-      severity: maxSeverity,
+      label: `${labelCounts.errors[label]}/${members.length} ${label}`,
+      severity: "ERROR",
+    }),
+  );
+  Object.keys(labelCounts.warnings).forEach(label =>
+    infoList.push({
+      label: `${labelCounts.warnings[label]}/${members.length} ${label}`,
+      severity: "WARNING",
     }),
   );
   return infoList;

@@ -176,6 +176,11 @@ const resourceTree = cluster("resourceTree", "ok", {
               },
             }),
           ],
+          operations: [
+            operation("B-op-failed-operation", {
+              rc_code: 1,
+            }),
+          ],
         }),
         resource("C", {
           status: "disabled",

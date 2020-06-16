@@ -27,10 +27,12 @@ export function getMaxSeverity<T>(
 export const buildStatus = (
   statusInfoList: ResourceStatusInfo[],
 ): ResourceStatus => {
-  const maxSeverity = getMaxSeverity(statusInfoList, info => info.severity);
   return {
-    infoList: statusInfoList.filter(si => si.severity === maxSeverity),
-    maxSeverity,
+    infoList: statusInfoList.sort(
+      (i1, i2) =>
+        statusSeverity.compareStatusSeverity(i1.severity, i2.severity) * -1,
+    ),
+    maxSeverity: getMaxSeverity(statusInfoList, info => info.severity),
   };
 };
 

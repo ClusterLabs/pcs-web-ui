@@ -7,11 +7,11 @@ import {
 } from "@patternfly/react-core";
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
-import { types } from "app/store";
+import { types, utils } from "app/store";
 import { Link, StatusSign, Table } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
-import { compareStatusSeverity, compareStrings } from "./utils";
+import { compareStrings } from "./utils";
 
 type COLUMNS = "NAME" | "STATUS";
 
@@ -24,7 +24,7 @@ const compareByColumn = (
   switch (column) {
     case "STATUS":
       return (a, b) =>
-        compareStatusSeverity(a.status.maxSeverity, b.status.maxSeverity);
+        utils.compareStatusSeverity(a.status.maxSeverity, b.status.maxSeverity);
     default:
       return (a, b) => compareStrings(a.id, b.id);
   }
