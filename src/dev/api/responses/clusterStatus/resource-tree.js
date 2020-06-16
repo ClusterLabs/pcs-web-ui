@@ -1,5 +1,6 @@
 const {
   resource,
+  stonith,
   group,
   clone,
   cluster,
@@ -240,6 +241,7 @@ const resourceTree = cluster("resourceTree", "ok", {
       },
     ),
     clone("Clone-2", resource("F")),
+    stonith("F1"),
   ],
   constraints: {
     rsc_colocation: [

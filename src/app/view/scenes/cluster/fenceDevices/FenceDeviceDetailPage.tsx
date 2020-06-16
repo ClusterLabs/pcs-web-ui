@@ -1,7 +1,44 @@
 import React from "react";
-import { DetailLayout, useGroupDetailViewContext } from "app/view/common";
+import { useSelector } from "react-redux";
+
+import { selectors } from "app/store";
+import {
+  DetailLayout,
+  UrlTabs,
+  useGroupDetailViewContext,
+} from "app/view/common";
+import { useSelectedClusterName } from "app/view/scenes/cluster";
+import { analyzeRoutes, join, useMatch } from "app/view/utils";
+
+import { FenceDeviceDetailView } from "./FenceDeviceDetailView";
+import { FenceDeviceDoesNotExists } from "./FenceDeviceDoesNotExists";
 
 export const FenceDeviceDetailPage = () => {
-  const { selectedItemUrlName } = useGroupDetailViewContext();
-  return <DetailLayout caption={selectedItemUrlName} />;
+  const { selectedItemUrlName, urlPrefix } = useGroupDetailViewContext();
+
+  const fenceDevice = useSelector(
+    selectors.getSelectedFenceDevice(
+      useSelectedClusterName(),
+      selectedItemUrlName,
+    ),
+  );
+
+  const nodeUrlPrefix = join(urlPrefix, selectedItemUrlName);
+  const { tab, urlMap } = analyzeRoutes("Detail", {
+    Detail: useMatch({ path: nodeUrlPrefix, exact: true }),
+  });
+
+  if (!fenceDevice) {
+    return (
+      <FenceDeviceDoesNotExists fenceDeviceUrlName={selectedItemUrlName} />
+    );
+  }
+  return (
+    <DetailLayout
+      caption={selectedItemUrlName}
+      tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
+    >
+      {tab === "Detail" && <FenceDeviceDetailView fenceDevice={fenceDevice} />}
+    </DetailLayout>
+  );
 };

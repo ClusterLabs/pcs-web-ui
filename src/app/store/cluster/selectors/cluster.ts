@@ -2,6 +2,7 @@ import { Selector } from "../../types";
 import { clusterStatusDefault } from "../clusterStatusDefault";
 import {
   ClusterServiceState,
+  FenceDevice,
   Node,
   ResourceOnNodeStatus,
   ResourceTreeItem,
@@ -77,6 +78,12 @@ export const getSelectedResource = (
 
   return undefined;
 };
+
+export const getSelectedFenceDevice = (
+  clusterUrlName: string,
+  id: string,
+): Selector<FenceDevice | undefined> => state =>
+  getCluster(clusterUrlName)(state).fenceDeviceList.find(fd => fd.id === id);
 
 export const getSelectedNode = (
   clusterUrlName: string,

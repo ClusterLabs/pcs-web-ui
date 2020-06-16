@@ -6,6 +6,7 @@ import {
   crmStatusForPrimitive,
   getCluster,
   getClusterMap,
+  getSelectedFenceDevice,
   getSelectedNode,
   getSelectedResource,
 } from "./cluster/selectors/cluster";
@@ -43,6 +44,7 @@ export {
   crmStatusForPrimitive,
   getCluster,
   getClusterMap,
+  getSelectedFenceDevice,
   getSelectedResource,
   getSelectedNode,
   getImportedClusterList,
