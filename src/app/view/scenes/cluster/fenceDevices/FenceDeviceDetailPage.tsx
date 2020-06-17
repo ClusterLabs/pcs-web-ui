@@ -23,9 +23,9 @@ export const FenceDeviceDetailPage = () => {
     ),
   );
 
-  const nodeUrlPrefix = join(urlPrefix, selectedItemUrlName);
+  const fenceDeviceUrlPrefix = join(urlPrefix, selectedItemUrlName);
   const { tab, urlMap } = analyzeRoutes("Detail", {
-    Detail: useMatch({ path: nodeUrlPrefix, exact: true }),
+    Detail: useMatch({ path: fenceDeviceUrlPrefix, exact: true }),
   });
 
   if (!fenceDevice) {

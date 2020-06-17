@@ -111,7 +111,7 @@ const stonith = (id, diff) =>
     ...diff,
     class_type: "primitive",
     class: "stonith",
-    type: "fence_xvm",
+    type: "fence_apc",
     stonith: true,
     provider: null,
   });

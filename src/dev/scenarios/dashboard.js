@@ -26,6 +26,11 @@ const getResourceAgentMetadata = response =>
     res.json(response);
   });
 
+const getFenceAgentMetadata = response =>
+  endpoints.getFenceAgentMetadata((req, res) => {
+    res.json(response);
+  });
+
 module.exports = {
   displayMulti: [
     clustersOverview(
@@ -57,5 +62,6 @@ module.exports = {
       resourceTree: responses.clusterStatus.resourceTree,
     }),
     getResourceAgentMetadata(responses.resourceAgentMetadata.ok),
+    getFenceAgentMetadata(responses.fenceAgentMetadata.ok),
   ],
 };

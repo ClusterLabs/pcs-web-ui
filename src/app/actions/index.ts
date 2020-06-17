@@ -18,6 +18,8 @@ import {
   PrimitiveResourceActions as TPrimitiveResourceActions,
 } from "./resource-primitive";
 
+import { FenceAgentActions as TFenceAgentActions } from "./fence-agent";
+
 export type AddClusterActions = TAddClusterActions;
 export type AuthActions = TAuthActions;
 export type ClusterActions = TClusterActions;
@@ -25,6 +27,7 @@ export type LoginActions = TLoginActions;
 export type NotificationActions = TNotificationActions;
 export type ResourceDetailActions = TResourceDetailActions;
 export type PrimitiveResourceActions = TPrimitiveResourceActions;
+export type FenceAgentActions = TFenceAgentActions;
 
 type Union<A> = A[keyof A];
 
@@ -40,6 +43,7 @@ export type LeafAction = (
   | Union<ResourceTreeActions>
   | Union<UsernameActions>
   | Union<TPrimitiveResourceActions>
+  | Union<TFenceAgentActions>
 );
 
 export type SetupDataReading = {

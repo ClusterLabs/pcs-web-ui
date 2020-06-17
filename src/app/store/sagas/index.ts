@@ -8,6 +8,7 @@ import login from "./login";
 import notifications from "./notifications";
 import resourceDetail from "./resourceDetail";
 import resourcePrimitive from "./resourcePrimitive";
+import fenceAgentMetadata from "./fenceAgentMetadata";
 import username from "./username";
 
 function* rootSaga() {
@@ -21,6 +22,7 @@ function* rootSaga() {
     ...notifications,
     ...resourceDetail,
     ...resourcePrimitive,
+    ...fenceAgentMetadata,
   ]);
 }
 

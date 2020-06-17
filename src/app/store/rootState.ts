@@ -9,6 +9,7 @@ import dashboard from "./dashboard/reducer";
 import username from "./username/reducer";
 import notifications from "./notifications/reducer";
 import resourceAgents from "./resourceAgents/reducer";
+import fenceAgents from "./fenceAgents/reducer";
 import resourceTree from "./resourceTree/reducer";
 
 import { RootState } from "./types";
@@ -22,6 +23,7 @@ const rootReducer = (history: History) =>
     clusterStorage,
     resourceTree,
     resourceAgents,
+    fenceAgents,
     login,
     notifications,
   });

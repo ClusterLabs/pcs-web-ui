@@ -7,6 +7,7 @@ import { existingCluster } from "./api/existingCluster";
 import { clusterStatus } from "./api/clusterStatus";
 import { importedClusterList } from "./api/importedClusterList";
 import { getResourceAgentMetadata } from "./api/getResourceAgentMetadata";
+import { getFenceAgentMetadata } from "./api/getFenceAgentMetadata";
 import { updateResource } from "./api/updateResource";
 import {
   ApiCall as ApiCallType,
@@ -27,6 +28,7 @@ export {
   checkAuthAgainstNodes,
   existingCluster,
   getResourceAgentMetadata,
+  getFenceAgentMetadata,
   clusterStatus,
   importedClusterList,
   updateResource,

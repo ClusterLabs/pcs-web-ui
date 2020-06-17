@@ -34,6 +34,7 @@ import { getOpenedItems as resourceTreeGetOpenedItems } from "./resourceTree/sel
 
 import { getNotifications } from "./notifications/selectors";
 import { getResourceAgent } from "./resourceAgents/selectors";
+import { getFenceAgent } from "./fenceAgents/selectors";
 
 export {
   getLocationPathname,
@@ -60,5 +61,6 @@ export {
   loginIsRequired,
   getNotifications,
   getResourceAgent,
+  getFenceAgent,
   resourceTreeGetOpenedItems,
 };

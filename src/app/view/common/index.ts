@@ -13,6 +13,7 @@ import {
 import { ResourceDetailCaption } from "./ResourceDetailCaption";
 import { IssueList } from "./IsueList";
 import { LoadedResourceAgent } from "./LoadedResourceAgent";
+import { LoadedFenceAgent } from "./LoadedFenceAgent";
 import { Link } from "./Link";
 import * as pallete from "./pallete";
 
@@ -31,6 +32,7 @@ export {
   ResourceDetailCaption,
   IssueList,
   LoadedResourceAgent,
+  LoadedFenceAgent,
   Link,
   pallete,
 };

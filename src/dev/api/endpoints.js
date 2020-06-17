@@ -32,6 +32,8 @@ module.exports = {
     get("/manage/check_auth_against_nodes", handler),
   getResourceAgentMetadata: handler =>
     get("/managec/:clusterUrlName/get_resource_agent_metadata", handler),
+  getFenceAgentMetadata: handler =>
+    get("/managec/:clusterUrlName/get_fence_agent_metadata", handler),
   updateResource: handler =>
     post("/managec/:clusterUrlName/update_resource", parser, handler),
 };

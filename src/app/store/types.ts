@@ -7,12 +7,14 @@ import { LoginState } from "./login/types";
 import { NotificationState } from "./notifications/types";
 import { ResourcePrimitiveState } from "./resourceAgents/types";
 import { ResourceTreeState } from "./resourceTree/types";
+import { FenceState } from "./fenceAgents/types";
 import { UsernameState } from "./username/types";
 
 export interface RootState {
   addExistingCluster: DashboardAddClusterPageState;
   clusterStorage: ClusterStorage;
   dashboard: DashboardPageState;
+  fenceAgents: FenceState;
   login: LoginState;
   notifications: NotificationState;
   resourceAgents: ResourcePrimitiveState;

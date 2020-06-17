@@ -26,4 +26,5 @@ export const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
   status: transformStatus(apiFenceDevice.status),
   statusSeverity: statusToSeverity(apiFenceDevice.status),
   issueList: transformIssues(apiFenceDevice),
+  agentName: `${apiFenceDevice.class}:${apiFenceDevice.type}`,
 });

@@ -105,6 +105,7 @@ export interface FenceDevice {
   status: FenceDeviceStatusFlag;
   statusSeverity: StatusSeverity;
   issueList: Issue[];
+  agentName: string;
   type: string;
 }
 
