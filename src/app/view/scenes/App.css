@@ -200,7 +200,7 @@ body,
 }
 /* In the split screen layout, only the status icon is visible. */
 .ha-c-tree-view:not(.ha-m-full-width) .ha-c-data-list__item-status {
-  flex-basis: 1rem;
+  flex-basis: 2.5rem;
 }
 .ha-c-tree-view:not(.ha-m-full-width) .ha-c-data-list__item-status svg + * {
   position: fixed;
