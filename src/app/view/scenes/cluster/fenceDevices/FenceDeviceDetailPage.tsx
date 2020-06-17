@@ -26,6 +26,7 @@ export const FenceDeviceDetailPage = () => {
   const fenceDeviceUrlPrefix = join(urlPrefix, selectedItemUrlName);
   const { tab, urlMap } = analyzeRoutes("Detail", {
     Detail: useMatch({ path: fenceDeviceUrlPrefix, exact: true }),
+    Arguments: useMatch(join(fenceDeviceUrlPrefix, "arguments")),
   });
 
   if (!fenceDevice) {
@@ -39,6 +40,7 @@ export const FenceDeviceDetailPage = () => {
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && <FenceDeviceDetailView fenceDevice={fenceDevice} />}
+      {tab === "Arguments" && <div />}
     </DetailLayout>
   );
 };
