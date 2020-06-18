@@ -16,6 +16,10 @@ import { LoadedResourceAgent } from "./LoadedResourceAgent";
 import { LoadedFenceAgent } from "./LoadedFenceAgent";
 import { Link } from "./Link";
 import * as pallete from "./pallete";
+import {
+  PcmkAgentAttrsHelpPopover,
+  PcmkAgentAttrsList,
+} from "./pcmkAgent/attributes";
 
 export {
   BackgroundImage,
@@ -29,6 +33,8 @@ export {
   Table,
   StatusIco,
   UrlTabs,
+  PcmkAgentAttrsList,
+  PcmkAgentAttrsHelpPopover,
   ResourceDetailCaption,
   IssueList,
   LoadedResourceAgent,

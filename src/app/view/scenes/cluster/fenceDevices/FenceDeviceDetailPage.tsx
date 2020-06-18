@@ -11,6 +11,7 @@ import { useSelectedClusterName } from "app/view/scenes/cluster";
 import { analyzeRoutes, join, useMatch } from "app/view/utils";
 
 import { FenceDeviceDetailView } from "./FenceDeviceDetailView";
+import { FenceDeviceArgumentsView } from "./arguments/FenceDeviceArgumentsView";
 import { FenceDeviceDoesNotExists } from "./FenceDeviceDoesNotExists";
 
 export const FenceDeviceDetailPage = () => {
@@ -40,7 +41,9 @@ export const FenceDeviceDetailPage = () => {
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && <FenceDeviceDetailView fenceDevice={fenceDevice} />}
-      {tab === "Arguments" && <div />}
+      {tab === "Arguments" && (
+        <FenceDeviceArgumentsView fenceDevice={fenceDevice} />
+      )}
     </DetailLayout>
   );
 };

@@ -1,8 +1,7 @@
 import React from "react";
 
 import { types } from "app/store";
-
-import { PrimitiveAttrsHelpPopover } from "./PrimitiveAttrsHelpPopover";
+import { PcmkAgentAttrsHelpPopover } from "app/view/common";
 
 export const PrimitiveAttrsFormItemLayout = ({
   resourceAgentParam,
@@ -22,7 +21,7 @@ export const PrimitiveAttrsFormItemLayout = ({
           </span>
         )}
         {" "}
-        <PrimitiveAttrsHelpPopover resourceAgentParam={resourceAgentParam} />
+        <PcmkAgentAttrsHelpPopover resourceAgentParam={resourceAgentParam} />
       </span>
       <div
         className="pf-c-form__horizontal-group"

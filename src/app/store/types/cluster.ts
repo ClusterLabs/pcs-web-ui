@@ -15,7 +15,7 @@ export type ConstraintOrder = ApiConstraintOrder;
 export type ConstraintResourceSet = ApiConstraintResourceSet;
 export type ConstraintTicket = ApiConstraintTicket;
 
-interface InstanceAttribute {
+export interface AgentAttribute {
   id: string;
   value: string;
 }
@@ -85,7 +85,7 @@ export interface Primitive extends ResourceTreeItemBase {
   provider: string;
   type: string;
   agentName: string;
-  instanceAttributes: Record<string, InstanceAttribute>;
+  instanceAttributes: Record<string, AgentAttribute>;
 }
 
 export interface Group extends ResourceTreeItemBase {
@@ -107,6 +107,7 @@ export interface FenceDevice {
   issueList: Issue[];
   agentName: string;
   type: string;
+  arguments: Record<string, AgentAttribute>;
 }
 
 export type ResourceOnNodeStatus = {

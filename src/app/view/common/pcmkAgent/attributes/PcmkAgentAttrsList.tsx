@@ -2,22 +2,22 @@ import React from "react";
 
 import { types } from "app/store";
 
-import { PrimitiveAttrsListItem } from "./PrimitiveAttrsListItem";
+import { PcmkAgentAttrsListItem } from "./PcmkAgentAttrsListItem";
 
-export const PrimitiveAttrsList = ({
-  primitive,
+export const PcmkAgentAttrsList = ({
+  agentAttributes,
   resourceAgentParameters,
 }: {
-  primitive: types.cluster.Primitive;
-  resourceAgentParameters: types.pcmkAgents.ResourceAgentParameter[];
+  agentAttributes: Record<string, types.cluster.AgentAttribute>;
+  resourceAgentParameters: types.pcmkAgents.AgentParameter[];
 }) => {
   return (
     <div className="pf-c-content">
       <dl>
         {resourceAgentParameters.map(parameter => (
-          <PrimitiveAttrsListItem
+          <PcmkAgentAttrsListItem
             key={parameter.name}
-            instanceAttributes={primitive.instanceAttributes}
+            agentAttributes={agentAttributes}
             resourceAgentParam={parameter}
           />
         ))}
