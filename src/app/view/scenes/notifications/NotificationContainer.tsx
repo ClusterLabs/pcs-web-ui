@@ -5,7 +5,9 @@ import { Alert, AlertActionCloseButton } from "@patternfly/react-core";
 import { Action } from "app/actions";
 import { selectors, types } from "app/store";
 
-const severityToVariant = (severity: types.Notification["severity"]) => {
+const severityToVariant = (
+  severity: types.notifications.Notification["severity"],
+) => {
   switch (severity) {
     case "SUCCESS":
       return "success";

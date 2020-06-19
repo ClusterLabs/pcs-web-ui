@@ -1,3 +1,3 @@
-import { compareStatusSeverity } from "./cluster/apiToState/statusSeverity";
+import { compareStatusSeverity } from "./state/cluster/apiToState/statusSeverity";
 
 export { compareStatusSeverity };

@@ -4,7 +4,7 @@ import { routerMiddleware } from "connected-react-router";
 import createSagaMiddleware from "redux-saga";
 
 import { rootSaga } from "app/store/sagas";
-import { rootReducer } from "./rootState";
+import { rootReducer } from "./state/root";
 
 /* global window */
 /* eslint-disable no-underscore-dangle, @typescript-eslint/no-explicit-any */
