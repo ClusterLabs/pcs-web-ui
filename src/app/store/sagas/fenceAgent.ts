@@ -1,4 +1,5 @@
 import { call, put, takeEvery } from "redux-saga/effects";
+
 import { Action, FenceAgentActions, actionType } from "app/actions";
 import { ApiResult, getFenceAgentMetadata } from "app/backend";
 
