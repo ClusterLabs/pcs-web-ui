@@ -39,7 +39,7 @@ export const PrimitiveDetail = ({
         </TextContent>
 
         <LoadedResourceAgent agentName={primitive.agentName}>
-          {(resourceAgent: types.resourceAgents.ResourceAgentMetadata) => (
+          {(resourceAgent: types.pcmkAgents.ResourceAgent) => (
             <Alert isInline title={primitive.agentName} variant="info">
               <TextContent>
                 <Text component="p">

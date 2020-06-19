@@ -19,7 +19,7 @@ export const LoadedFenceAgent = ({
   children,
 }: {
   agentName: string;
-  children: (fa: types.fenceAgents.FenceAgentMetadata) => JSX.Element;
+  children: (fa: types.pcmkAgents.FenceAgent) => JSX.Element;
 }) => {
   const fenceAgent = useSelector(selectors.getFenceAgent(agentName));
 

@@ -4,9 +4,8 @@ import * as cluster from "./cluster";
 import * as dashboard from "./dashboard";
 import * as addCluster from "./dashboard-add-cluster";
 import * as notifications from "./notifications";
-import * as resourceAgents from "./resourceAgents";
 import * as resourceTree from "./resourceTree";
-import * as fenceAgents from "./fenceAgents";
+import * as pcmkAgents from "./pcmkAgents";
 import * as login from "./login";
 import * as username from "./username";
 
@@ -14,10 +13,9 @@ export interface RootState {
   addExistingCluster: addCluster.DashboardAddClusterPageState;
   clusterStorage: cluster.ClusterStorage;
   dashboard: dashboard.DashboardPageState;
-  fenceAgents: fenceAgents.FenceState;
+  pcmkAgents: pcmkAgents.FenceAgentsStorage;
   login: login.LoginState;
   notifications: notifications.NotificationState;
-  resourceAgents: resourceAgents.ResourcePrimitiveState;
   resourceTree: resourceTree.ResourceTreeState;
   router: RouterState;
   username: username.UsernameState;
@@ -34,7 +32,6 @@ export {
   login,
   username,
   notifications,
-  resourceAgents,
   resourceTree,
-  fenceAgents,
+  pcmkAgents,
 };

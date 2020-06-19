@@ -1,14 +1,15 @@
-import { Reducer, combineReducers } from "redux";
+import { Reducer } from "redux";
 
 import { Action } from "app/actions";
 import { types } from "app/store";
 
-const storage: Reducer<
-  types.resourceAgents.ResourcePrimitiveState["storage"],
-  Action
-> = (state = {}, action) => {
+const storage: Reducer<types.pcmkAgents.FenceAgentsStorage, Action> = (
+  state = {},
+  action,
+) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LOAD":
+    case "FENCE_AGENT.LOAD":
       return {
         ...state,
         [action.payload.agentName]: state[action.payload.agentName]
@@ -24,6 +25,7 @@ const storage: Reducer<
           },
       };
     case "RESOURCE_AGENT.LOAD.SUCCESS":
+    case "FENCE_AGENT.LOAD.SUCCESS":
       return {
         ...state,
         [action.payload.apiAgentMetadata.name]: {
@@ -33,6 +35,7 @@ const storage: Reducer<
           longdesc: action.payload.apiAgentMetadata.longdesc,
         },
       };
+    case "FENCE_AGENT.LOAD.FAILED":
     case "RESOURCE_AGENT.LOAD.FAILED":
       return {
         ...state,
@@ -48,6 +51,4 @@ const storage: Reducer<
   }
 };
 
-export default combineReducers({
-  storage,
-});
+export default storage;

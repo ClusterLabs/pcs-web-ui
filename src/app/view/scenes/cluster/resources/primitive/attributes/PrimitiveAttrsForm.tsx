@@ -63,7 +63,7 @@ export const PrimitiveAttrsForm = ({
   close,
 }: {
   primitive: types.cluster.Primitive;
-  resourceAgentParams: types.resourceAgents.ResourceAgentParameter[];
+  resourceAgentParams: types.pcmkAgents.ResourceAgentParameter[];
   close: () => void;
 }) => {
   const clusterUrlName = useSelectedClusterName();

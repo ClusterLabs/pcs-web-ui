@@ -9,7 +9,7 @@ export const PrimitiveAttrsList = ({
   resourceAgentParameters,
 }: {
   primitive: types.cluster.Primitive;
-  resourceAgentParameters: types.resourceAgents.ResourceAgentParameter[];
+  resourceAgentParameters: types.pcmkAgents.ResourceAgentParameter[];
 }) => {
   return (
     <div className="pf-c-content">

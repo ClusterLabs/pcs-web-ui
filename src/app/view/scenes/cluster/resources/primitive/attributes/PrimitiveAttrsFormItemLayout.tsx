@@ -10,7 +10,7 @@ export const PrimitiveAttrsFormItemLayout = ({
   children,
 }: React.PropsWithChildren<{
   required: boolean;
-  resourceAgentParam: types.resourceAgents.ResourceAgentParameter;
+  resourceAgentParam: types.pcmkAgents.ResourceAgentParameter;
 }>) => {
   return (
     <div className="pf-c-form__group">

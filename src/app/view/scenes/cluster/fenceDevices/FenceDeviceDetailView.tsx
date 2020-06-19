@@ -27,7 +27,7 @@ export const FenceDeviceDetailView = ({
         </TextContent>
 
         <LoadedFenceAgent agentName={fenceDevice.agentName}>
-          {(fenceAgent: types.fenceAgents.FenceAgentMetadata) => (
+          {(fenceAgent: types.pcmkAgents.FenceAgent) => (
             <Alert isInline title={fenceDevice.agentName} variant="info">
               <TextContent>
                 <Text component="p">

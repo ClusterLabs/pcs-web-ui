@@ -16,7 +16,7 @@ export const PrimitiveAttrsView = ({
   const [isEditing, setIsEditing] = React.useState(false);
   return (
     <LoadedResourceAgent agentName={primitive.agentName}>
-      {(resourceAgent: types.resourceAgents.ResourceAgentMetadata) => {
+      {(resourceAgent: types.pcmkAgents.ResourceAgent) => {
         if (isEditing) {
           return (
             <StackItem>

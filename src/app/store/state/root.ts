@@ -9,8 +9,7 @@ import clusterStorage from "./cluster/reducer";
 import dashboard from "./dashboard/reducer";
 import username from "./username/reducer";
 import notifications from "./notifications/reducer";
-import resourceAgents from "./resourceAgents/reducer";
-import fenceAgents from "./fenceAgents/reducer";
+import pcmkAgents from "./pcmkAgents/reducer";
 import resourceTree from "./resourceTree/reducer";
 
 const rootReducer = (history: History) =>
@@ -21,8 +20,7 @@ const rootReducer = (history: History) =>
     addExistingCluster,
     clusterStorage,
     resourceTree,
-    resourceAgents,
-    fenceAgents,
+    pcmkAgents,
     login,
     notifications,
   });

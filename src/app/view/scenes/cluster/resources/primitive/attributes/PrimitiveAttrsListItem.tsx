@@ -8,7 +8,7 @@ export const PrimitiveAttrsListItem = ({
   resourceAgentParam,
   instanceAttributes,
 }: {
-  resourceAgentParam: types.resourceAgents.ResourceAgentParameter;
+  resourceAgentParam: types.pcmkAgents.ResourceAgentParameter;
   instanceAttributes: types.cluster.Primitive["instanceAttributes"];
 }) => (
   <>

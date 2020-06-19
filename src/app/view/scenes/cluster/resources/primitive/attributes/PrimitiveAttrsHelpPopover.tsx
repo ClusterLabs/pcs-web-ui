@@ -11,7 +11,7 @@ import { types } from "app/store";
 export const PrimitiveAttrsHelpPopover = ({
   resourceAgentParam,
 }: {
-  resourceAgentParam: types.resourceAgents.ResourceAgentParameter;
+  resourceAgentParam: types.pcmkAgents.ResourceAgentParameter;
 }) => {
   return (
     <Popover

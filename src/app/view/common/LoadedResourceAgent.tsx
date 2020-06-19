@@ -19,7 +19,7 @@ export const LoadedResourceAgent = ({
   children,
 }: {
   agentName: string;
-  children: (ra: types.resourceAgents.ResourceAgentMetadata) => JSX.Element;
+  children: (ra: types.pcmkAgents.ResourceAgent) => JSX.Element;
 }) => {
   const resourceAgent = useSelector(selectors.getResourceAgent(agentName));
 
