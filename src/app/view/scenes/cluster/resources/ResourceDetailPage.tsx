@@ -13,7 +13,10 @@ import { PrimitivePage } from "./primitive";
 export const ResourceDetailPage = () => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
   const resourceTreeItem = useSelector(
-    selectors.getSelectedResource(useSelectedClusterName(), selectedItemUrlName),
+    selectors.getSelectedResource(
+      useSelectedClusterName(),
+      selectedItemUrlName,
+    ),
   );
 
   if (!resourceTreeItem) {

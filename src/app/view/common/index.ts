@@ -12,9 +12,14 @@ import {
 } from "./clusterGroupDetail";
 import { ResourceDetailCaption } from "./ResourceDetailCaption";
 import { IssueList } from "./IsueList";
-import { LoadedResourceAgent } from "./LoadedResourceAgent";
 import { Link } from "./Link";
 import * as pallete from "./pallete";
+import {
+  LoadedPcmkAgent,
+  PcmkAgentAttrsHelpPopover,
+  PcmkAgentAttrsList,
+  PcmkAgentDescription,
+} from "./pcmkAgent";
 
 export {
   BackgroundImage,
@@ -28,9 +33,12 @@ export {
   Table,
   StatusIco,
   UrlTabs,
+  PcmkAgentAttrsList,
+  PcmkAgentAttrsHelpPopover,
+  PcmkAgentDescription,
   ResourceDetailCaption,
   IssueList,
-  LoadedResourceAgent,
+  LoadedPcmkAgent,
   Link,
   pallete,
 };

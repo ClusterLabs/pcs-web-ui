@@ -1,38 +1,10 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
 import { Action, PrimitiveResourceActions, actionType } from "app/actions";
-import {
-  ApiResult,
-  getResourceAgentMetadata,
-  updateResource,
-} from "app/backend";
+import { ApiResult, updateResource } from "app/backend";
 import { putNotification } from "./notifications";
 
 import { authSafe } from "./authSafe";
-
-function* loadResourceAgent({
-  payload: { agentName, clusterUrlName },
-}: PrimitiveResourceActions["LoadResourceAgent"]) {
-  const result: ApiResult<typeof getResourceAgentMetadata> = yield call(
-    authSafe(getResourceAgentMetadata),
-    clusterUrlName,
-    agentName,
-  );
-
-  if (!result.valid) {
-    yield put<Action>({
-      type: "RESOURCE_AGENT.LOAD.FAILED",
-      payload: { agentName },
-    });
-    // TODO display information about this in notifications
-    return;
-  }
-
-  yield put<Action>({
-    type: "RESOURCE_AGENT.LOAD.SUCCESS",
-    payload: { apiAgentMetadata: result.response },
-  });
-}
 
 function* updateInstanceAttributesFailed(resourceId: string, message: string) {
   yield put<Action>({
@@ -87,7 +59,6 @@ function* updateInstanceAttributes({
 }
 
 export default [
-  takeEvery(actionType("RESOURCE_AGENT.LOAD"), loadResourceAgent),
   takeEvery(
     actionType("RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES"),
     updateInstanceAttributes,

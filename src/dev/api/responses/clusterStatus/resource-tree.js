@@ -1,5 +1,6 @@
 const {
   resource,
+  stonith,
   group,
   clone,
   cluster,
@@ -240,6 +241,13 @@ const resourceTree = cluster("resourceTree", "ok", {
       },
     ),
     clone("Clone-2", resource("F")),
+    stonith("F1", {
+      error_list: [
+        {
+          message: "Example fail of fence agent",
+        },
+      ],
+    }),
   ],
   constraints: {
     rsc_colocation: [

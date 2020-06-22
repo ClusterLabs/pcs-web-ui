@@ -1,10 +1,8 @@
 import React from "react";
 import {
-  Alert,
   EmptyState,
   EmptyStateBody,
   EmptyStateIcon,
-  Expandable,
   StackItem,
   Text,
   TextContent,
@@ -15,7 +13,13 @@ import { useSelector } from "react-redux";
 import { SearchIcon } from "@patternfly/react-icons";
 
 import { selectors, types } from "app/store";
-import { IssueList, Link, LoadedResourceAgent, pallete } from "app/view/common";
+import {
+  IssueList,
+  Link,
+  LoadedPcmkAgent,
+  PcmkAgentDescription,
+  pallete,
+} from "app/view/common";
 
 import {
   CrmStatusTable,
@@ -38,25 +42,11 @@ export const PrimitiveDetail = ({
           <Text component="h1"> Description </Text>
         </TextContent>
 
-        <LoadedResourceAgent agentName={primitive.agentName}>
-          {(resourceAgent: types.resourceAgents.ResourceAgentMetadata) => (
-            <Alert isInline title={primitive.agentName} variant="info">
-              <TextContent>
-                <Text component="p">
-                  {resourceAgent.shortdesc}
-                  <Expandable toggleText="Full description">
-                    {resourceAgent.longdesc.split("\n\n").map((line, i) => (
-                      /* eslint-disable react/no-array-index-key */
-                      <Text component="p" key={i}>
-                        {line}
-                      </Text>
-                    ))}
-                  </Expandable>
-                </Text>
-              </TextContent>
-            </Alert>
+        <LoadedPcmkAgent agentName={primitive.agentName}>
+          {(agent: types.pcmkAgents.Agent) => (
+            <PcmkAgentDescription agent={agent} />
           )}
-        </LoadedResourceAgent>
+        </LoadedPcmkAgent>
       </StackItem>
       <StackItem>
         {primitive.issueList.length > 0 && (
