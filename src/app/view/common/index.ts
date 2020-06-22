@@ -18,6 +18,7 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsHelpPopover,
   PcmkAgentAttrsList,
+  PcmkAgentDescription,
 } from "./pcmkAgent";
 
 export {
@@ -34,6 +35,7 @@ export {
   UrlTabs,
   PcmkAgentAttrsList,
   PcmkAgentAttrsHelpPopover,
+  PcmkAgentDescription,
   ResourceDetailCaption,
   IssueList,
   LoadedPcmkAgent,

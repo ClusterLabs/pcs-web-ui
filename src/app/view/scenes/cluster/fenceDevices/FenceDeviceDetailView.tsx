@@ -1,15 +1,13 @@
 import React from "react";
-import {
-  Alert,
-  Expandable,
-  StackItem,
-  Text,
-  TextContent,
-} from "@patternfly/react-core";
+import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
 import { types } from "app/store";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
-import { IssueList, LoadedPcmkAgent } from "app/view/common";
+import {
+  IssueList,
+  LoadedPcmkAgent,
+  PcmkAgentDescription,
+} from "app/view/common";
 
 import { useFenceAgent } from "./useFenceAgent";
 
@@ -27,25 +25,9 @@ export const FenceDeviceDetailView = ({
         </TextContent>
 
         <LoadedPcmkAgent agentName={fenceDevice.agentName}>
-          {(agent: types.pcmkAgents.Agent) => {
-            return (
-              <Alert isInline title={fenceDevice.agentName} variant="info">
-                <TextContent>
-                  <Text component="p">
-                    {agent.shortdesc}
-                    <Expandable toggleText="Full description">
-                      {agent.longdesc.split("\n\n").map((line, i) => (
-                        /* eslint-disable react/no-array-index-key */
-                        <Text component="p" key={i}>
-                          {line}
-                        </Text>
-                      ))}
-                    </Expandable>
-                  </Text>
-                </TextContent>
-              </Alert>
-            );
-          }}
+          {(agent: types.pcmkAgents.Agent) => (
+            <PcmkAgentDescription agent={agent} />
+          )}
         </LoadedPcmkAgent>
       </StackItem>
       <StackItem>

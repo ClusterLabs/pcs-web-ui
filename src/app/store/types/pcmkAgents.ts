@@ -6,6 +6,7 @@ export type AgentParameter = {
 };
 export type Agent = {
   loadStatus: "LOADING" | "LOADED" | "RELOADING" | "FAILED";
+  name: string;
   shortdesc: string;
   longdesc: string;
   parameters: AgentParameter[];

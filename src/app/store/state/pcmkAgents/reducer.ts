@@ -19,6 +19,7 @@ const storage: Reducer<types.pcmkAgents.AgentsStorage, Action> = (
           }
           : {
             loadStatus: "LOADING",
+            name: action.payload.agentName,
             parameters: [],
             shortdesc: "",
             longdesc: "",
@@ -30,6 +31,7 @@ const storage: Reducer<types.pcmkAgents.AgentsStorage, Action> = (
         ...state,
         [action.payload.apiAgentMetadata.name]: {
           loadStatus: "LOADED",
+          name: action.payload.apiAgentMetadata.name,
           parameters: action.payload.apiAgentMetadata.parameters,
           shortdesc: action.payload.apiAgentMetadata.shortdesc,
           longdesc: action.payload.apiAgentMetadata.longdesc,
@@ -41,6 +43,7 @@ const storage: Reducer<types.pcmkAgents.AgentsStorage, Action> = (
         ...state,
         [action.payload.agentName]: {
           loadStatus: "FAILED",
+          name: action.payload.agentName,
           parameters: [],
           shortdesc: "",
           longdesc: "",
