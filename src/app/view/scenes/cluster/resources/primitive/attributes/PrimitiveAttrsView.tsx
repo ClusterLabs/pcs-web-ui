@@ -2,7 +2,7 @@ import React from "react";
 import { StackItem } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import { LoadedResourceAgent, PcmkAgentAttrsList } from "app/view/common";
+import { LoadedPcmkAgent, PcmkAgentAttrsList } from "app/view/common";
 
 import { PrimitiveAttrsForm } from "./PrimitiveAttrsForm";
 import { PrimitiveAttrsToolbar } from "./PrimitiveAttrsToolbar";
@@ -14,14 +14,14 @@ export const PrimitiveAttrsView = ({
 }) => {
   const [isEditing, setIsEditing] = React.useState(false);
   return (
-    <LoadedResourceAgent agentName={primitive.agentName}>
-      {(resourceAgent: types.pcmkAgents.ResourceAgent) => {
+    <LoadedPcmkAgent agentName={primitive.agentName}>
+      {(agent: types.pcmkAgents.Agent) => {
         if (isEditing) {
           return (
             <StackItem>
               <PrimitiveAttrsForm
                 primitive={primitive}
-                resourceAgentParams={resourceAgent.parameters}
+                resourceAgentParams={agent.parameters}
                 close={() => setIsEditing(false)}
               />
             </StackItem>
@@ -36,12 +36,12 @@ export const PrimitiveAttrsView = ({
             <StackItem>
               <PcmkAgentAttrsList
                 agentAttributes={primitive.instanceAttributes}
-                resourceAgentParameters={resourceAgent.parameters}
+                resourceAgentParameters={agent.parameters}
               />
             </StackItem>
           </>
         );
       }}
-    </LoadedResourceAgent>
+    </LoadedPcmkAgent>
   );
 };

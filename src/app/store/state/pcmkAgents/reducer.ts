@@ -3,7 +3,7 @@ import { Reducer } from "redux";
 import { Action } from "app/actions";
 import { types } from "app/store";
 
-const storage: Reducer<types.pcmkAgents.FenceAgentsStorage, Action> = (
+const storage: Reducer<types.pcmkAgents.AgentsStorage, Action> = (
   state = {},
   action,
 ) => {

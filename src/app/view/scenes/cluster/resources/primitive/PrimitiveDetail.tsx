@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { SearchIcon } from "@patternfly/react-icons";
 
 import { selectors, types } from "app/store";
-import { IssueList, Link, LoadedResourceAgent, pallete } from "app/view/common";
+import { IssueList, Link, LoadedPcmkAgent, pallete } from "app/view/common";
 
 import {
   CrmStatusTable,
@@ -38,14 +38,14 @@ export const PrimitiveDetail = ({
           <Text component="h1"> Description </Text>
         </TextContent>
 
-        <LoadedResourceAgent agentName={primitive.agentName}>
-          {(resourceAgent: types.pcmkAgents.ResourceAgent) => (
+        <LoadedPcmkAgent agentName={primitive.agentName}>
+          {(agent: types.pcmkAgents.Agent) => (
             <Alert isInline title={primitive.agentName} variant="info">
               <TextContent>
                 <Text component="p">
-                  {resourceAgent.shortdesc}
+                  {agent.shortdesc}
                   <Expandable toggleText="Full description">
-                    {resourceAgent.longdesc.split("\n\n").map((line, i) => (
+                    {agent.longdesc.split("\n\n").map((line, i) => (
                       /* eslint-disable react/no-array-index-key */
                       <Text component="p" key={i}>
                         {line}
@@ -56,7 +56,7 @@ export const PrimitiveDetail = ({
               </TextContent>
             </Alert>
           )}
-        </LoadedResourceAgent>
+        </LoadedPcmkAgent>
       </StackItem>
       <StackItem>
         {primitive.issueList.length > 0 && (

@@ -13,7 +13,6 @@ export type Agent = {
 
 export type ResourceAgentParameter = AgentParameter;
 export type ResourceAgent = Agent;
-export type ResourceAgentsStorage = Record<string, ResourceAgent>;
 
 export type FenceAgentParameter = AgentParameter & {
   deprecated: boolean;
@@ -21,6 +20,7 @@ export type FenceAgentParameter = AgentParameter & {
 export type FenceAgent = Agent & {
   parameters: FenceAgentParameter[];
 };
-export type FenceAgentsStorage = Record<string, FenceAgent>;
 
-export type AgentsStorage = ResourceAgentsStorage | FenceAgentsStorage;
+export type StoredAgent = ResourceAgent | FenceAgent;
+
+export type AgentsStorage = Record<string, StoredAgent>;

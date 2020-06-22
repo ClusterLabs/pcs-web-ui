@@ -13,7 +13,7 @@ export interface RootState {
   addExistingCluster: addCluster.DashboardAddClusterPageState;
   clusterStorage: cluster.ClusterStorage;
   dashboard: dashboard.DashboardPageState;
-  pcmkAgents: pcmkAgents.FenceAgentsStorage;
+  pcmkAgents: pcmkAgents.AgentsStorage;
   login: login.LoginState;
   notifications: notifications.NotificationState;
   resourceTree: resourceTree.ResourceTreeState;

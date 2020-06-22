@@ -33,7 +33,7 @@ import {
 import { getOpenedItems as resourceTreeGetOpenedItems } from "./resourceTree/selectors";
 
 import { getNotifications } from "./notifications/selectors";
-import { getFenceAgent, getResourceAgent } from "./pcmkAgents/selectors";
+import { getPcmkAgent } from "./pcmkAgents/selectors";
 
 export {
   getLocationPathname,
@@ -59,7 +59,6 @@ export {
   loginIsAcceptingData,
   loginIsRequired,
   getNotifications,
-  getResourceAgent,
-  getFenceAgent,
+  getPcmkAgent,
   resourceTreeGetOpenedItems,
 };

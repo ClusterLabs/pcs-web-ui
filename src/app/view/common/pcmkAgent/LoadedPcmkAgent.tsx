@@ -12,37 +12,37 @@ import { ExclamationCircleIcon } from "@patternfly/react-icons";
 import { selectors, types } from "app/store";
 
 // import { Spinner } from "./Spinner";
-import * as pallete from "./pallete";
+import * as pallete from "../pallete";
 
-export const LoadedFenceAgent = ({
+export const LoadedPcmkAgent = ({
   agentName,
   children,
 }: {
   agentName: string;
-  children: (fa: types.pcmkAgents.FenceAgent) => JSX.Element;
+  children: (ra: types.pcmkAgents.Agent) => JSX.Element;
 }) => {
-  const fenceAgent = useSelector(selectors.getFenceAgent(agentName));
+  const agent = useSelector(selectors.getPcmkAgent(agentName));
 
-  if (!fenceAgent || fenceAgent.loadStatus === "LOADING") {
+  if (!agent || agent.loadStatus === "LOADING") {
     return (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon variant="container" component={Spinner} />
-        <Title size="lg">{`Loading fence agent "${agentName}" data`}</Title>
+        <Title size="lg">{`Loading agent "${agentName}" data`}</Title>
       </EmptyState>
     );
   }
 
-  if (["LOADED", "RELOADING"].includes(fenceAgent.loadStatus)) {
-    return children(fenceAgent);
+  if (["LOADED", "RELOADING"].includes(agent.loadStatus)) {
+    return children(agent);
   }
 
-  // fenceAgent.loadStatus === "FAILED"
+  // agent.loadStatus === "FAILED"
   return (
     <EmptyState style={{ margin: "auto" }}>
       <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
       <Title size="lg">Cannot load data</Title>
       <EmptyStateBody>
-        {`Cannot load metadata of fence agent "${agentName}"`}
+        {`Cannot load metadata of agent "${agentName}"`}
       </EmptyStateBody>
     </EmptyState>
   );

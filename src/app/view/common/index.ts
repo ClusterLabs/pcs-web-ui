@@ -12,14 +12,13 @@ import {
 } from "./clusterGroupDetail";
 import { ResourceDetailCaption } from "./ResourceDetailCaption";
 import { IssueList } from "./IsueList";
-import { LoadedResourceAgent } from "./LoadedResourceAgent";
-import { LoadedFenceAgent } from "./LoadedFenceAgent";
 import { Link } from "./Link";
 import * as pallete from "./pallete";
 import {
+  LoadedPcmkAgent,
   PcmkAgentAttrsHelpPopover,
   PcmkAgentAttrsList,
-} from "./pcmkAgent/attributes";
+} from "./pcmkAgent";
 
 export {
   BackgroundImage,
@@ -37,8 +36,7 @@ export {
   PcmkAgentAttrsHelpPopover,
   ResourceDetailCaption,
   IssueList,
-  LoadedResourceAgent,
-  LoadedFenceAgent,
+  LoadedPcmkAgent,
   Link,
   pallete,
 };

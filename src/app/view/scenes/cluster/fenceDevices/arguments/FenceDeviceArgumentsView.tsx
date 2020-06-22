@@ -3,7 +3,7 @@ import { StackItem } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import { LoadedFenceAgent, PcmkAgentAttrsList } from "app/view/common";
+import { LoadedPcmkAgent, PcmkAgentAttrsList } from "app/view/common";
 
 export const FenceDeviceArgumentsView = ({
   fenceDevice,
@@ -11,15 +11,17 @@ export const FenceDeviceArgumentsView = ({
   fenceDevice: types.cluster.FenceDevice;
 }) => {
   return (
-    <LoadedFenceAgent agentName={fenceDevice.agentName}>
-      {(fenceAgent: types.pcmkAgents.FenceAgent) => (
-        <StackItem>
-          <PcmkAgentAttrsList
-            agentAttributes={fenceDevice.arguments}
-            resourceAgentParameters={fenceAgent.parameters}
-          />
-        </StackItem>
-      )}
-    </LoadedFenceAgent>
+    <LoadedPcmkAgent agentName={fenceDevice.agentName}>
+      {(agent: types.pcmkAgents.Agent) => {
+        return (
+          <StackItem>
+            <PcmkAgentAttrsList
+              agentAttributes={fenceDevice.arguments}
+              resourceAgentParameters={agent.parameters}
+            />
+          </StackItem>
+        );
+      }}
+    </LoadedPcmkAgent>
   );
 };
