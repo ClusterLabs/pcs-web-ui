@@ -21,10 +21,28 @@ export const useMatch = (path: string | RouteProps): Match => ({
   url: typeof path === "string" ? path : path.path,
 });
 
-export function analyzeRoutes<T extends Record<string, Match>>(
+export function useRoutesAnalysis<T extends Record<string, Match>>(
   defaultTab: keyof T,
   routes: T,
 ): Analyzed<T> {
+  // if we would like to remember last url under tab e.g.
+  // cluster/resourceTree/fence-devices/F1/arguments
+  // instead of just
+  // cluster/resourceTree/fence-devices/
+  //
+  // we need to:
+  // import { useLocation } from "react-router";
+  //
+  // then here:
+  // const currentLocation = useLocation().pathname;
+  // const matchingUrl = Object.keys(routes).reduce<string | null>(
+  //   (url, name) => (routes[name].match ? routes[name].url : url),
+  //   null,
+  // );
+  // now we can put {matchingUrl: currentLocation} to global state
+  // we can also load this map here and use right url to url map...
+  // (we do not forget to put action to remove item when
+  // matchingUrl === currentLocation to keep this map small)
   return Object.keys(routes).reduce<Analyzed<T>>(
     (analyzed, name) => {
       const { match } = routes[name];

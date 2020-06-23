@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { selectors, types, utils } from "app/store";
 import { Table } from "app/view/common";
 
-
 import { compareStrings } from "./utils";
 import { DashboardCluster } from "./DashboardCluster";
 import { DashboardClusterLoading } from "./DashboardClusterLoading";

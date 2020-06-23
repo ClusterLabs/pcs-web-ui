@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 import { Action } from "app/actions";
 import { GroupDetailView, Page, UrlTabs } from "app/view/common";
-import { analyzeRoutes, join, useMatch } from "app/view/utils";
+import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
 
 import { NodeDetailPage, NodeList } from "./nodes";
@@ -34,7 +34,7 @@ export const ClusterDetailPage = ({
   const dispatch = useDispatch();
   const { dataLoaded, cluster } = useClusterState(clusterUrlName);
 
-  const { tab, urlMap, url } = analyzeRoutes("Detail", {
+  const { tab, urlMap, url } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: join(urlPrefix), exact: true }),
     Nodes: useMatch(join(urlPrefix, "nodes")),
     Resources: useMatch(join(urlPrefix, "resources")),

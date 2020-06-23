@@ -6,7 +6,7 @@ import {
   UrlTabs,
   useGroupDetailViewContext,
 } from "app/view/common";
-import { analyzeRoutes, join, useMatch } from "app/view/utils";
+import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 import { useFenceAgent } from "./useFenceAgent";
@@ -21,7 +21,7 @@ export const FenceDeviceView = ({
   useFenceAgent(useSelectedClusterName(), fenceDevice.agentName);
   const { urlPrefix } = useGroupDetailViewContext();
   const fenceDeviceUrlPrefix = join(urlPrefix, fenceDevice.id);
-  const { tab, urlMap } = analyzeRoutes("Detail", {
+  const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: fenceDeviceUrlPrefix, exact: true }),
     Arguments: useMatch(join(fenceDeviceUrlPrefix, "arguments")),
   });

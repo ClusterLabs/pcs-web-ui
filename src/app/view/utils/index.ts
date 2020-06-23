@@ -1,4 +1,4 @@
-import { analyzeRoutes, useMatch } from "./tabRoutes";
+import { useMatch, useRoutesAnalysis } from "./tabRoutes";
 
 export const toLabel = (flag: string) =>
   (flag[0].toUpperCase() + flag.slice(1).toLowerCase()).replace(/_/g, " ");
@@ -6,4 +6,4 @@ export const toLabel = (flag: string) =>
 export const join = (urlPrefix: string, path = "") =>
   `${urlPrefix.endsWith("/") ? urlPrefix.slice(0, -1) : urlPrefix}/${path}`;
 
-export { analyzeRoutes, useMatch };
+export { useRoutesAnalysis, useMatch };

@@ -8,7 +8,7 @@ import {
   useGroupDetailViewContext,
 } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
-import { analyzeRoutes, join, useMatch } from "app/view/utils";
+import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 
 import { NodeDetailView } from "./NodeDetailView";
 import { NodeDoesNotExists } from "./NodeDoesNotExists";
@@ -21,7 +21,7 @@ export const NodeDetailPage = () => {
   );
 
   const nodeUrlPrefix = join(urlPrefix, selectedItemUrlName);
-  const { tab, urlMap } = analyzeRoutes("Detail", {
+  const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: nodeUrlPrefix, exact: true }),
   });
 

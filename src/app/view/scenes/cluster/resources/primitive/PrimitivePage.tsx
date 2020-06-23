@@ -1,7 +1,7 @@
 import React from "react";
 
 import { types } from "app/store";
-import { analyzeRoutes, join, useMatch } from "app/view/utils";
+import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 import {
   DetailLayout,
   ResourceDetailCaption,
@@ -23,7 +23,7 @@ export const PrimitivePage = ({
   const { urlPrefix } = useGroupDetailViewContext();
   const resourceUrlPrefix = join(urlPrefix, primitive.id);
 
-  const { tab, urlMap } = analyzeRoutes("Detail", {
+  const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
     Attributes: useMatch(join(resourceUrlPrefix, "attributes")),
     Constraints: useMatch(join(resourceUrlPrefix, "constraints")),
