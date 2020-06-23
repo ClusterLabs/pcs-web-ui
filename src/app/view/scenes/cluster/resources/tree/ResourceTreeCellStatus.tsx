@@ -48,7 +48,7 @@ export const ResourceTreeCellStatus = ({
         {getSeverityCounts(status.infoList).map((sc: SeverityCount) => (
           <div className="ha-c-data-list__item-status">
             <StatusIco key={sc.severity} status={sc.severity} />
-            {` ${sc.count}`}
+            {sc.severity !== "OK" && ` ${sc.count}`}
           </div>
         ))}
       </>
