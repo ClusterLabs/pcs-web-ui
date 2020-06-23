@@ -8,11 +8,15 @@ import {
 } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import { StatusSign, useGroupDetailViewContext } from "app/view/common";
+import {
+  SelectionIndicatorInGroup,
+  StatusSign,
+  useGroupDetailViewContext,
+} from "app/view/common";
 import { toLabel } from "app/view/utils";
 
 export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
-  const { urlPrefix } = useGroupDetailViewContext();
+  const { urlPrefix, selectedItemUrlName } = useGroupDetailViewContext();
   return (
     <DataListItem aria-labelledby={node.name}>
       <DataListItemRow>
@@ -59,6 +63,11 @@ export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
             </>
           }
         />
+        {selectedItemUrlName !== "" && (
+          <SelectionIndicatorInGroup
+            isSelected={node.name === selectedItemUrlName}
+          />
+        )}
       </DataListItemRow>
     </DataListItem>
   );

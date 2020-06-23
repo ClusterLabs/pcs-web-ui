@@ -2,11 +2,14 @@ import React from "react";
 import { DataListCell, DataListItemCells } from "@patternfly/react-core";
 
 import { types } from "app/store";
+import {
+  SelectionIndicatorInGroup,
+  useGroupDetailViewContext,
+} from "app/view/common";
 
 import { ResourceTreeCellName } from "./ResourceTreeCellName";
 import { ResourceTreeCellType } from "./ResourceTreeCellType";
 import { ResourceTreeCellStatus } from "./ResourceTreeCellStatus";
-import { ResourceTreeCellSelection } from "./ResourceTreeCellSelection";
 
 export const ResourceTreeItemCells = ({
   resourceId,
@@ -19,6 +22,7 @@ export const ResourceTreeItemCells = ({
   type: string;
   typeDescription?: string;
 }) => {
+  const { selectedItemUrlName } = useGroupDetailViewContext();
   return (
     <>
       <DataListItemCells
@@ -35,7 +39,11 @@ export const ResourceTreeItemCells = ({
         ]}
       />
       <ResourceTreeCellStatus status={status} />
-      <ResourceTreeCellSelection resourceId={resourceId} />
+      {selectedItemUrlName !== "" && (
+        <SelectionIndicatorInGroup
+          isSelected={resourceId === selectedItemUrlName}
+        />
+      )}
     </>
   );
 };

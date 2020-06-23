@@ -20,6 +20,7 @@ import {
   PcmkAgentAttrsList,
   PcmkAgentDescription,
 } from "./pcmkAgent";
+import { SelectionIndicatorInGroup } from "./SelectionIndicatorInGroup";
 
 export {
   BackgroundImage,
@@ -39,6 +40,7 @@ export {
   ResourceDetailCaption,
   IssueList,
   LoadedPcmkAgent,
+  SelectionIndicatorInGroup,
   Link,
   pallete,
 };

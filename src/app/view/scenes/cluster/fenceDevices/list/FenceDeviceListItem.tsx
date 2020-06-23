@@ -7,6 +7,10 @@ import {
 } from "@patternfly/react-core";
 
 import { types } from "app/store";
+import {
+  SelectionIndicatorInGroup,
+  useGroupDetailViewContext,
+} from "app/view/common";
 
 import { FenceDeviceListCellStatus } from "./FenceDeviceListCellStatus";
 import { FenceDeviceListCellName } from "./FenceDeviceListCellName";
@@ -17,6 +21,7 @@ export const FenceDeviceListItem = ({
 }: {
   fenceDevice: types.cluster.FenceDevice;
 }) => {
+  const { selectedItemUrlName } = useGroupDetailViewContext();
   return (
     <DataListItem aria-labelledby={fenceDevice.id}>
       <DataListItemRow>
@@ -33,6 +38,11 @@ export const FenceDeviceListItem = ({
           }
         />
         <FenceDeviceListCellStatus fenceDevice={fenceDevice} />
+        {selectedItemUrlName !== "" && (
+          <SelectionIndicatorInGroup
+            isSelected={fenceDevice.id === selectedItemUrlName}
+          />
+        )}
       </DataListItemRow>
     </DataListItem>
   );
