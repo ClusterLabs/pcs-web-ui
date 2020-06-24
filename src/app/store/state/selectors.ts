@@ -12,7 +12,6 @@ import {
 } from "./cluster/selectors/cluster";
 import {
   getConstraints,
-  resourceGetConstraints,
 } from "./cluster/selectors/constraints";
 import {
   areDataLoaded as dashboardAreDataLoaded,
@@ -53,7 +52,6 @@ export {
   getImportedClusterList,
   dashboardAreDataLoaded,
   getConstraints,
-  resourceGetConstraints,
   addClusterGetNodeName,
   addClusterGetStepAuthState,
   addClusterGetStateError,
