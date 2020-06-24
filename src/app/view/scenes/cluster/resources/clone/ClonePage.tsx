@@ -9,7 +9,6 @@ import {
   useGroupDetailViewContext,
 } from "app/view/common";
 
-import { ConstraintListResource } from "../constraints";
 import { CloneDetail } from "./CloneDetail";
 
 export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
@@ -17,7 +16,6 @@ export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
   const resourceUrlPrefix = join(urlPrefix, clone.id);
   const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
-    Constraints: useMatch(join(resourceUrlPrefix, "constraints")),
   });
   return (
     <DetailLayout
@@ -26,7 +24,6 @@ export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
       data-test={`resource-detail ${clone.id}`}
     >
       {tab === "Detail" && <CloneDetail clone={clone} />}
-      {tab === "Constraints" && <ConstraintListResource resource={clone} />}
     </DetailLayout>
   );
 };

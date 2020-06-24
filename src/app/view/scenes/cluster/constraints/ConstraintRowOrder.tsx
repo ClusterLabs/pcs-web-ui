@@ -1,19 +1,20 @@
 import React from "react";
 
 import { types } from "app/store";
-import { ConstraintCellResourceSet } from "./ConstraintCellResourceSet";
+import { Link } from "app/view/common";
+import { useSelectedClusterName } from "app/view/scenes/cluster";
 
+import { ConstraintCellResourceSet } from "./ConstraintCellResourceSet";
 import { ConstraintRow } from "./ConstraintRow";
 import { ConstraintCell } from "./ConstraintCell";
 import { ConstraintCellOrderScoreKind } from "./ConstraintCellOrderScoreKind";
 
 export const ConstraintRowOrder = ({
   constraint,
-  resourceId,
 }: {
   constraint: types.cluster.ConstraintOrder;
-  resourceId: string;
 }) => {
+  const clusterName = useSelectedClusterName();
   if ("sets" in constraint) {
     return (
       <ConstraintRow aria-labelledby={`Order constraint ${constraint.id}`}>
@@ -26,12 +27,16 @@ export const ConstraintRowOrder = ({
   return (
     <ConstraintRow aria-labelledby={`Order constraint ${constraint.id}`}>
       <ConstraintCell label="Type" value="Order" />
-      {constraint.first === resourceId && (
-        <ConstraintCell label="Before" value={constraint.then} />
-      )}
-      {constraint.then === resourceId && (
-        <ConstraintCell label="After" value={constraint.first} />
-      )}
+      <ConstraintCell label="First">
+        <Link to={`/cluster/${clusterName}/resources/${constraint.first}`}>
+          {constraint.first}
+        </Link>
+      </ConstraintCell>
+      <ConstraintCell label="Then">
+        <Link to={`/cluster/${clusterName}/resources/${constraint.then}`}>
+          {constraint.then}
+        </Link>
+      </ConstraintCell>
       <ConstraintCellOrderScoreKind constraint={constraint} />
     </ConstraintRow>
   );

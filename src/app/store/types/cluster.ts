@@ -154,4 +154,10 @@ export interface ClusterServiceState {
   dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "ERROR";
 }
 
+export type ConstraintPack =
+  | { type: "LOCATION"; constraint: ConstraintLocation }
+  | { type: "COLOCATION"; constraint: ConstraintColocation }
+  | { type: "ORDER"; constraint: ConstraintOrder }
+  | { type: "TICKET"; constraint: ConstraintTicket };
+
 export type ClusterStorage = Record<string, ClusterServiceState>;

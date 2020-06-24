@@ -21,6 +21,7 @@ import { useClusterState } from "app/view/hooks";
 import { NodeDetailPage, NodeList } from "./nodes";
 import { FenceDeviceDetailPage, FenceDeviceList } from "./fenceDevices";
 import { ResourceDetailPage, ResourceTree } from "./resources";
+import { ConstraintsPage } from "./constraints";
 import { ClusterDetail } from "./ClusterDetail";
 import { SelectedClusterProvider } from "./SelectedClusterContext";
 
@@ -39,6 +40,7 @@ export const ClusterDetailPage = ({
     Nodes: useMatch(join(urlPrefix, "nodes")),
     Resources: useMatch(join(urlPrefix, "resources")),
     "Fence Devices": useMatch(join(urlPrefix, "fence-devices")),
+    Constraints: useMatch(join(urlPrefix, "constraints")),
   });
 
   return (
@@ -93,6 +95,9 @@ export const ClusterDetailPage = ({
                 <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
               }
             />
+          )}
+          {tab === "Constraints" && (
+            <ConstraintsPage clusterUrlName={clusterUrlName} />
           )}
         </SelectedClusterProvider>
       )}

@@ -1,47 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import {
-  DataList,
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
-  StackItem,
-  Title,
-} from "@patternfly/react-core";
-import { PlusCircleIcon } from "@patternfly/react-icons";
+import { DataList, StackItem } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
-import { useSelectedClusterName } from "app/view/scenes/cluster";
+import { types } from "app/store";
 
 import { ConstraintRowLocation } from "./ConstraintRowLocation";
 import { ConstraintRowColocation } from "./ConstraintRowColocation";
 import { ConstraintRowOrder } from "./ConstraintRowOrder";
 import { ConstraintRowTicket } from "./ConstraintRowTicket";
 
-export const ConstraintListResource = ({
-  resource,
+export const ConstraintList = ({
+  constraintPacks,
 }: {
-  resource: types.cluster.ResourceTreeItem;
+  constraintPacks: types.cluster.ConstraintPack[];
 }) => {
-  const constraintPacks = useSelector(
-    selectors.resourceGetConstraints(useSelectedClusterName(), resource),
-  );
-  if (constraintPacks.length === 0) {
-    return (
-      <StackItem>
-        <EmptyState style={{ margin: "auto" }}>
-          <EmptyStateIcon icon={PlusCircleIcon} />
-          <Title size="lg"> No constraint is configured. </Title>
-          <EmptyStateBody>
-            You don&apos;t have any configured constraint here.
-          </EmptyStateBody>
-        </EmptyState>
-      </StackItem>
-    );
-  }
   return (
     <StackItem>
-      <DataList aria-label={`Constraints of resource ${resource.id}`}>
+      <DataList aria-label="Constraints">
         {constraintPacks.map((pack) => {
           switch (pack.type) {
             case "LOCATION":
@@ -55,7 +29,6 @@ export const ConstraintListResource = ({
               return (
                 <ConstraintRowColocation
                   constraint={pack.constraint}
-                  resourceId={resource.id}
                   key={pack.constraint.id}
                 />
               );
@@ -71,7 +44,6 @@ export const ConstraintListResource = ({
               return (
                 <ConstraintRowOrder
                   constraint={pack.constraint}
-                  resourceId={resource.id}
                   key={pack.constraint.id}
                 />
               );

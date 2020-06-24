@@ -9,7 +9,6 @@ import {
   useGroupDetailViewContext,
 } from "app/view/common";
 
-import { ConstraintListResource } from "../constraints";
 import { GroupDetail } from "./GroupDetail";
 
 export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
@@ -17,7 +16,6 @@ export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
   const resourceUrlPrefix = join(urlPrefix, group.id);
   const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
-    Constraints: useMatch(join(resourceUrlPrefix, "constraints")),
   });
   return (
     <DetailLayout
@@ -26,7 +24,6 @@ export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
       data-test={`resource-detail ${group.id}`}
     >
       {tab === "Detail" && <GroupDetail group={group} />}
-      {tab === "Constraints" && <ConstraintListResource resource={group} />}
     </DetailLayout>
   );
 };

@@ -2,12 +2,6 @@ import { types } from "app/store";
 import { Selector } from "app/store/types";
 import { getCluster } from "./cluster";
 
-type Pack =
-  | { type: "LOCATION"; constraint: types.cluster.ConstraintLocation }
-  | { type: "COLOCATION"; constraint: types.cluster.ConstraintColocation }
-  | { type: "ORDER"; constraint: types.cluster.ConstraintOrder }
-  | { type: "TICKET"; constraint: types.cluster.ConstraintTicket };
-
 const setsContainId = (
   sets: types.cluster.ConstraintResourceSet[],
   id: string,
@@ -17,20 +11,56 @@ const setsContainId = (
       "resources" in resourceSet && resourceSet.resources.includes(id),
   );
 
+export const getConstraints = (
+  clusterUrlName: string,
+): Selector<types.cluster.ConstraintPack[]> => (state) => {
+  const constraintMap = getCluster(clusterUrlName)(state).constraints;
+  if (!constraintMap) {
+    return [];
+  }
+  const locations: types.cluster.ConstraintPack[] = (
+    constraintMap.rsc_location || []
+  ).map(constraint => ({ type: "LOCATION", constraint }));
+
+  const colocations: types.cluster.ConstraintPack[] = (
+    constraintMap.rsc_colocation || []
+  ).map(constraint => ({ type: "COLOCATION", constraint }));
+
+  const orders: types.cluster.ConstraintPack[] = (
+    constraintMap.rsc_order || []
+  ).map(constraint => ({
+    type: "ORDER",
+    constraint,
+  }));
+
+  const tickets: types.cluster.ConstraintPack[] = (
+    constraintMap.rsc_ticket || []
+  ).map(constraint => ({
+    type: "TICKET",
+    constraint,
+  }));
+
+  return [...locations, ...colocations, ...orders, ...tickets];
+};
+
 export const resourceGetConstraints = (
   clusterUrlName: string,
   resource: types.cluster.ResourceTreeItem,
-): Selector<Pack[]> => (state) => {
+): Selector<types.cluster.ConstraintPack[]> => (state) => {
   const constraintMap = getCluster(clusterUrlName)(state).constraints;
   if (!constraintMap) {
     return [];
   }
 
-  const locations: Pack[] = (constraintMap.rsc_location || [])
+  const locations: types.cluster.ConstraintPack[] = (
+    constraintMap.rsc_location || []
+  )
     .filter(c => "rsc" in c && c.rsc === resource.id)
     .map(constraint => ({ type: "LOCATION", constraint }));
 
-  const colocations: Pack[] = (constraintMap.rsc_colocation || [])
+  const colocations: types.cluster.ConstraintPack[] = (
+    constraintMap.rsc_colocation || []
+  )
     .filter(
       c =>
         ("sets" in c && setsContainId(c.sets, resource.id))
@@ -39,7 +69,7 @@ export const resourceGetConstraints = (
     )
     .map(constraint => ({ type: "COLOCATION", constraint }));
 
-  const orders: Pack[] = (constraintMap.rsc_order || [])
+  const orders: types.cluster.ConstraintPack[] = (constraintMap.rsc_order || [])
     .filter(
       c =>
         ("sets" in c && setsContainId(c.sets, resource.id))
@@ -48,7 +78,9 @@ export const resourceGetConstraints = (
     )
     .map(constraint => ({ type: "ORDER", constraint }));
 
-  const tickets: Pack[] = (constraintMap.rsc_ticket || [])
+  const tickets: types.cluster.ConstraintPack[] = (
+    constraintMap.rsc_ticket || []
+  )
     .filter(
       c =>
         ("sets" in c && setsContainId(c.sets, resource.id))
