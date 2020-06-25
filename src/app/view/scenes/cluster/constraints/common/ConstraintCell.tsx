@@ -1,6 +1,8 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
+import { ConstraintValue } from "./ConstraintValue";
+
 export const ConstraintCell = ({
   label,
   value,
@@ -11,13 +13,9 @@ export const ConstraintCell = ({
 }>) => {
   return (
     <DataListCell key="type">
-      <span>
-        {`${label} `}
-        <strong>
-          {children && children}
-          {!children && value}
-        </strong>
-      </span>
+      <ConstraintValue label={label} value={value} block={false}>
+        {children}
+      </ConstraintValue>
     </DataListCell>
   );
 };

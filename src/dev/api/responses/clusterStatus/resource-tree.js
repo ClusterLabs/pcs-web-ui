@@ -269,6 +269,9 @@ const resourceTree = cluster("resourceTree", "ok", {
             id: "rs-colocation-A-G1-INFINITY-2-2",
             resources: ["B", "C"],
           },
+          {
+            "id-ref": "reused-rules",
+          },
         ],
       },
     ],

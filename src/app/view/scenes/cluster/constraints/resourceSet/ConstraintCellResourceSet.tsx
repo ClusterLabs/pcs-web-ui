@@ -3,7 +3,7 @@ import { types } from "app/store";
 import { Link } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
-import { ConstraintCell } from "./ConstraintCell";
+import { ConstraintCell } from "../common";
 
 export const ConstraintCellResourceSet = ({
   resourceSetList,

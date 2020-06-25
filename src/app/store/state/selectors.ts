@@ -10,9 +10,7 @@ import {
   getSelectedNode,
   getSelectedResource,
 } from "./cluster/selectors/cluster";
-import {
-  getConstraints,
-} from "./cluster/selectors/constraints";
+import { getConstraints } from "./cluster/selectors/constraints";
 import {
   areDataLoaded as dashboardAreDataLoaded,
   getImportedClusterList,

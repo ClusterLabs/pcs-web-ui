@@ -2,7 +2,7 @@ import React from "react";
 
 import { types } from "app/store";
 
-import { ConstraintCell } from "./ConstraintCell";
+import { ConstraintCell } from "./common";
 
 export const ConstraintCellOrderScoreKind = ({
   constraint,
