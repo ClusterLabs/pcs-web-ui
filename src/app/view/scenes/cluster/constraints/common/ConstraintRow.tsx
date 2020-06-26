@@ -29,13 +29,14 @@ export const ConstraintRow = ({
           isExpanded={showDetails}
           id={`constraint-row-${id}`}
           aria-controls="ex-expand1"
+          aria-hidden={content === null}
         />
         <DataListItemCells dataListCells={dataListCells} />
       </DataListItemRow>
       <DataListContent
         aria-label="Primary Content Details"
         id="ex-expand1"
-        isHidden={!showDetails}
+        isHidden={content === null || !showDetails}
       >
         {content}
       </DataListContent>
