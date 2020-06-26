@@ -7,7 +7,7 @@ import {
 } from "@patternfly/react-core";
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
-import { types, utils } from "app/store";
+import { types, utils, url } from "app/store";
 import { Link, StatusSign, Table } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
@@ -75,7 +75,7 @@ export const DashboardClusterResources = ({
             <tr key={resource.id} data-test={`resource ${resource.id}`}>
               <td data-test="name">
                 <Link
-                  to={`/cluster/${cluster.urlName}/resources/${resource.id}`}
+                  to={url.cluster.resources(cluster.urlName, resource.id)}
                 />
               </td>
               <td data-label="status">

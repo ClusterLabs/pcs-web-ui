@@ -1,7 +1,7 @@
 import React from "react";
 import { DataListItem, DataListItemRow } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { types, url } from "app/store";
 import { Link } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
@@ -26,7 +26,7 @@ export const ConstraintResourceSetRow = ({
                 {resourceSet.resources.map(resourceId => (
                   <Link
                     key={resourceId}
-                    to={`/cluster/${clusterName}/resources/${resourceId}`}
+                    to={url.cluster.nodes(clusterName, resourceId)}
                   />
                 ))}
               </div>

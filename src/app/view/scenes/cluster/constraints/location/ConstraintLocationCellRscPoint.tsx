@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { types, url } from "app/store";
 import { Link } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
@@ -18,7 +18,9 @@ export const ConstraintLocationCellRscPoint = ({
     <>
       {"rsc" in constraint && (
         <ConstraintCell label="Resource">
-          <Link to={`/cluster/${clusterName}/resources/${constraint.rsc}`} />
+          {constraint.rsc && (
+            <Link to={url.cluster.resources(clusterName, constraint.rsc)} />
+          )}
         </ConstraintCell>
       )}
       {"rsc-pattern" in constraint && (

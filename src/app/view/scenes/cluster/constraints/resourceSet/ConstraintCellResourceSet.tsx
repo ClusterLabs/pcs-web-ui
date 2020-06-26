@@ -1,5 +1,5 @@
 import React from "react";
-import { types } from "app/store";
+import { types, url } from "app/store";
 import { Link } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
@@ -22,7 +22,7 @@ export const ConstraintCellResourceSet = ({
             {resourceSet.resources.map(resourceId => (
               <Link
                 key={resourceId}
-                to={`/cluster/${clusterName}/resources/${resourceId}`}
+                to={url.cluster.resources(clusterName, resourceId)}
               />
             ))}
           </div>

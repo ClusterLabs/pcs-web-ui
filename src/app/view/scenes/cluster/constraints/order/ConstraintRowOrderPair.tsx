@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { types, url } from "app/store";
 import { Link } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
@@ -21,12 +21,10 @@ export const ConstraintRowOrderPair = ({
         <>
           <ConstraintCell label="Type" value="Order" />
           <ConstraintCell label="First">
-            <Link
-              to={`/cluster/${clusterName}/resources/${constraint.first}`}
-            />
+            <Link to={url.cluster.resources(clusterName, constraint.first)} />
           </ConstraintCell>
           <ConstraintCell label="Then">
-            <Link to={`/cluster/${clusterName}/resources/${constraint.then}`} />
+            <Link to={url.cluster.resources(clusterName, constraint.then)} />
           </ConstraintCell>
           <ConstraintCellOrderScoreKind constraint={constraint} />
         </>

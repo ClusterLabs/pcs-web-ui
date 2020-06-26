@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { types, url } from "app/store";
 import { Link } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
@@ -20,7 +20,7 @@ export const ConstraintRowLocationNode = ({
         <>
           <ConstraintCell label="Type" value="Location" />
           <ConstraintCell label="Node">
-            <Link to={`/cluster/${clusterName}/nodes/${constraint.node}`} />
+            <Link to={url.cluster.nodes(clusterName, constraint.node)} />
           </ConstraintCell>
           <ConstraintLocationCellRscPoint constraint={constraint} />
           <ConstraintCell label="Score" value={constraint.score} />

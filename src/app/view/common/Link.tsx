@@ -1,7 +1,9 @@
 import React from "react";
 import { Link as RRLink } from "react-router-dom";
 
-export const Link = (props: React.ComponentProps<typeof RRLink>) => {
+type Props = React.ComponentProps<typeof RRLink>;
+
+export const Link = (props: Props) => {
   /* eslint-disable react/jsx-props-no-spreading */
   /* eslint-disable react/destructuring-assignment */
   if (!props.children && props.to) {

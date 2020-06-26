@@ -11,7 +11,7 @@ import {
 } from "@patternfly/react-core";
 import { ExclamationCircleIcon, SearchIcon } from "@patternfly/react-icons";
 
-import { selectors, types } from "app/store";
+import { selectors, types, url } from "app/store";
 import { IssueList, Link, pallete } from "app/view/common";
 import {
   CrmStatusTable,
@@ -53,7 +53,7 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
               header: "Resource",
               cell: crmStatus => (
                 <Link
-                  to={`/cluster/${clusterName}/resources/${crmStatus.resource.id}`}
+                  to={url.cluster.resources(clusterName, crmStatus.resource.id)}
                 />
               ),
             }}
