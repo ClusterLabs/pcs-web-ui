@@ -4,38 +4,17 @@ import { types } from "app/store";
 import { Link } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
-import { ConstraintCell, ConstraintRow, ConstraintValue } from "./common";
-import {
-  ConstraintCellResourceSet,
-  ConstraintResourceSetList,
-} from "./resourceSet";
+import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
 
-export const ConstraintRowColocation = ({
+export const ConstraintRowColocationPair = ({
   constraint,
 }: {
-  constraint: types.cluster.ConstraintColocation;
+  constraint: types.cluster.ConstraintColocationPair;
 }) => {
   const clusterName = useSelectedClusterName();
-  if ("sets" in constraint) {
-    return (
-      <ConstraintRow
-        aria-labelledby={`Colocation constraint ${constraint.id}`}
-        dataListCells={
-          <>
-            <ConstraintCell label="Type" value="Colocation (set)" />
-            <ConstraintCellResourceSet resourceSetList={constraint.sets} />
-            <ConstraintCell label="Score" value={constraint.score} />
-          </>
-        }
-        content={
-          <ConstraintResourceSetList resourceSetList={constraint.sets} />
-        }
-      />
-    );
-  }
   return (
     <ConstraintRow
-      aria-labelledby={`Colocation constraint ${constraint.id}`}
+      id={constraint.id}
       dataListCells={
         <>
           <ConstraintCell label="Type" value="Colocation" />

@@ -4,50 +4,19 @@ import { types } from "app/store";
 import { Link } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
-import {
-  ConstraintCellResourceSet,
-  ConstraintResourceSetList,
-} from "./resourceSet";
-import { ConstraintCell, ConstraintRow, ConstraintValue } from "./common";
+import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
 
 import { ConstraintCellOrderScoreKind } from "./ConstraintCellOrderScoreKind";
 
-export const ConstraintRowOrder = ({
+export const ConstraintRowOrderPair = ({
   constraint,
 }: {
-  constraint: types.cluster.ConstraintOrder;
+  constraint: types.cluster.ConstraintOrderPair;
 }) => {
   const clusterName = useSelectedClusterName();
-  if ("sets" in constraint) {
-    return (
-      <ConstraintRow
-        aria-labelledby={`Order constraint ${constraint.id}`}
-        dataListCells={
-          <>
-            <ConstraintCell label="Type" value="Order (set)" />
-            <ConstraintCellResourceSet resourceSetList={constraint.sets} />
-            <ConstraintCellOrderScoreKind constraint={constraint} />
-          </>
-        }
-        content={
-          <>
-            <ConstraintValue
-              label="Symetrical"
-              value={constraint.symmetrical}
-            />
-            <ConstraintValue
-              label="Require all"
-              value={constraint["require-all"]}
-            />
-            <ConstraintResourceSetList resourceSetList={constraint.sets} />
-          </>
-        }
-      />
-    );
-  }
   return (
     <ConstraintRow
-      aria-labelledby={`Order constraint ${constraint.id}`}
+      id={constraint.id}
       dataListCells={
         <>
           <ConstraintCell label="Type" value="Order" />

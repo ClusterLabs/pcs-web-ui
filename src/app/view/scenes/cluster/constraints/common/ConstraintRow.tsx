@@ -8,11 +8,13 @@ import {
 } from "@patternfly/react-core";
 
 export const ConstraintRow = ({
-  "aria-labelledby": ariaLabelledBy,
+  id = "",
+  "aria-labelledby": ariaLabelledBy = "Constraint",
   dataListCells,
   content = null,
 }: React.PropsWithChildren<{
-  "aria-labelledby": string;
+  id?: string;
+  "aria-labelledby"?: string;
   content?: JSX.Element | null;
   dataListCells: React.ComponentProps<
     typeof DataListItemCells
@@ -25,7 +27,7 @@ export const ConstraintRow = ({
         <DataListToggle
           onClick={() => setShowDetails(!showDetails)}
           isExpanded={showDetails}
-          id="ex-toggle1"
+          id={`constraint-row-${id}`}
           aria-controls="ex-expand1"
         />
         <DataListItemCells dataListCells={dataListCells} />
