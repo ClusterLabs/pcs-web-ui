@@ -19,16 +19,12 @@ export const ConstraintRowColocationPair = ({
         <>
           <ConstraintCell label="Type" value="Colocation" />
           <ConstraintCell label="Resource">
-            <Link to={`/cluster/${clusterName}/resources/${constraint.rsc}`}>
-              {constraint.rsc}
-            </Link>
+            <Link to={`/cluster/${clusterName}/resources/${constraint.rsc}`} />
           </ConstraintCell>
           <ConstraintCell label="With resource">
             <Link
               to={`/cluster/${clusterName}/resources/${constraint["with-rsc"]}`}
-            >
-              {constraint["with-rsc"]}
-            </Link>
+            />
           </ConstraintCell>
           <ConstraintCell label="Score" value={constraint.score} />
         </>

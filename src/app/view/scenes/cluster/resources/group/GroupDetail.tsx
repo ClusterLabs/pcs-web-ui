@@ -59,17 +59,13 @@ export const GroupDetail = ({ group }: { group: types.cluster.Group }) => {
                 <>
                   <Link
                     to={`/cluster/${clusterName}/resources/${crmStatus.resource.id}`}
-                  >
-                    {crmStatus.resource.id}
-                  </Link>
+                  />
                   {crmStatus.node && (
                     <>
                       <span>{" / "}</span>
                       <Link
                         to={`/cluster/${clusterName}/nodes/${crmStatus.node.name}`}
-                      >
-                        {crmStatus.node.name}
-                      </Link>
+                      />
                     </>
                   )}
                 </>

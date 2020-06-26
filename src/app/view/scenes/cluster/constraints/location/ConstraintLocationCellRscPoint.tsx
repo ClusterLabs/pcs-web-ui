@@ -18,9 +18,7 @@ export const ConstraintLocationCellRscPoint = ({
     <>
       {"rsc" in constraint && (
         <ConstraintCell label="Resource">
-          <Link to={`/cluster/${clusterName}/resources/${constraint.rsc}`}>
-            {constraint.rsc}
-          </Link>
+          <Link to={`/cluster/${clusterName}/resources/${constraint.rsc}`} />
         </ConstraintCell>
       )}
       {"rsc-pattern" in constraint && (

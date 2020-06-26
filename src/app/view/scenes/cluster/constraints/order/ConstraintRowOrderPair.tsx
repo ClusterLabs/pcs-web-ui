@@ -21,14 +21,12 @@ export const ConstraintRowOrderPair = ({
         <>
           <ConstraintCell label="Type" value="Order" />
           <ConstraintCell label="First">
-            <Link to={`/cluster/${clusterName}/resources/${constraint.first}`}>
-              {constraint.first}
-            </Link>
+            <Link
+              to={`/cluster/${clusterName}/resources/${constraint.first}`}
+            />
           </ConstraintCell>
           <ConstraintCell label="Then">
-            <Link to={`/cluster/${clusterName}/resources/${constraint.then}`}>
-              {constraint.then}
-            </Link>
+            <Link to={`/cluster/${clusterName}/resources/${constraint.then}`} />
           </ConstraintCell>
           <ConstraintCellOrderScoreKind constraint={constraint} />
         </>

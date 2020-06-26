@@ -80,9 +80,7 @@ export const PrimitiveDetail = ({
                 (!crmStatus.node ? null : (
                   <Link
                     to={`/cluster/${clusterName}/nodes/${crmStatus.node.name}`}
-                  >
-                    {crmStatus.node.name}
-                  </Link>
+                  />
                 )),
             }}
           />

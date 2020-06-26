@@ -20,9 +20,7 @@ export const ConstraintRowTicketResource = ({
           <ConstraintCell label="Type" value="Ticket" />
           <ConstraintCell label="Ticket" value={constraint.ticket} />
           <ConstraintCell label="Resource">
-            <Link to={`/cluster/${clusterName}/resources/${constraint.rsc}`}>
-              {constraint.rsc}
-            </Link>
+            <Link to={`/cluster/${clusterName}/resources/${constraint.rsc}`} />
           </ConstraintCell>
         </>
       }

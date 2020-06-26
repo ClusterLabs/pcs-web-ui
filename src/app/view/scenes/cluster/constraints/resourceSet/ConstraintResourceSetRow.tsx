@@ -27,9 +27,7 @@ export const ConstraintResourceSetRow = ({
                   <Link
                     key={resourceId}
                     to={`/cluster/${clusterName}/resources/${resourceId}`}
-                  >
-                    {`${resourceId} `}
-                  </Link>
+                  />
                 ))}
               </div>
             </ConstraintCell>

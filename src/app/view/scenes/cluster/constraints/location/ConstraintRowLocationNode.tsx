@@ -20,9 +20,7 @@ export const ConstraintRowLocationNode = ({
         <>
           <ConstraintCell label="Type" value="Location" />
           <ConstraintCell label="Node">
-            <Link to={`/cluster/${clusterName}/nodes/${constraint.node}`}>
-              {constraint.node}
-            </Link>
+            <Link to={`/cluster/${clusterName}/nodes/${constraint.node}`} />
           </ConstraintCell>
           <ConstraintLocationCellRscPoint constraint={constraint} />
           <ConstraintCell label="Score" value={constraint.score} />

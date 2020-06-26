@@ -68,9 +68,7 @@ export const DashboardClusterNodes = ({
         {cluster.nodeList.sort(compareItems(compareByColumn)).map(node => (
           <tr key={node.name} data-test={`node ${node.name}`}>
             <td data-test="name">
-              <Link to={`/cluster/${cluster.urlName}/nodes/${node.name}`}>
-                {node.name}
-              </Link>
+              <Link to={`/cluster/${cluster.urlName}/nodes/${node.name}`} />
             </td>
             <td>
               <StatusSign

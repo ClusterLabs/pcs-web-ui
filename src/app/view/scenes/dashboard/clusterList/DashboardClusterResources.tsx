@@ -76,9 +76,7 @@ export const DashboardClusterResources = ({
               <td data-test="name">
                 <Link
                   to={`/cluster/${cluster.urlName}/resources/${resource.id}`}
-                >
-                  {resource.id}
-                </Link>
+                />
               </td>
               <td data-label="status">
                 {resource.status.infoList.map((status, i) => (

@@ -69,9 +69,7 @@ export const DashboardClusterFenceDevices = ({
               <td data-test="name">
                 <Link
                   to={`/cluster/${cluster.urlName}/fence-devices/${fenceDevice.id}`}
-                >
-                  {fenceDevice.id}
-                </Link>
+                />
               </td>
               <td>
                 <StatusSign

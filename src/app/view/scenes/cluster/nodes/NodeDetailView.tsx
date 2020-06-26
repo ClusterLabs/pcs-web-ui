@@ -54,9 +54,7 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
               cell: crmStatus => (
                 <Link
                   to={`/cluster/${clusterName}/resources/${crmStatus.resource.id}`}
-                >
-                  {crmStatus.resource.id}
-                </Link>
+                />
               ),
             }}
           />
