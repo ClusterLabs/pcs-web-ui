@@ -1,19 +1,27 @@
 import {
-  ApiConstraintColocation,
-  ApiConstraintLocation,
-  ApiConstraintOrder,
+  ApiConstraintColocationPair,
+  ApiConstraintColocationSet,
+  ApiConstraintLocationNode,
+  ApiConstraintLocationRule,
+  ApiConstraintOrderPair,
+  ApiConstraintOrderSet,
   ApiConstraintResourceSet,
-  ApiConstraintTicket,
+  ApiConstraintTicketResource,
+  ApiConstraintTicketSet,
   ApiConstraints,
   ApiNodeService,
   ApiNodeServiceMap,
 } from "app/backend/types/clusterStatus";
 
-export type ConstraintLocation = ApiConstraintLocation;
-export type ConstraintColocation = ApiConstraintColocation;
-export type ConstraintOrder = ApiConstraintOrder;
+export type ConstraintLocationNode = ApiConstraintLocationNode;
+export type ConstraintLocationRule = ApiConstraintLocationRule;
+export type ConstraintColocationPair = ApiConstraintColocationPair;
+export type ConstraintColocationSet = ApiConstraintColocationSet;
+export type ConstraintOrderPair = ApiConstraintOrderPair;
+export type ConstraintOrderSet = ApiConstraintOrderSet;
 export type ConstraintResourceSet = ApiConstraintResourceSet;
-export type ConstraintTicket = ApiConstraintTicket;
+export type ConstraintTicketResource = ApiConstraintTicketResource;
+export type ConstraintTicketSet = ApiConstraintTicketSet;
 
 export interface AgentAttribute {
   id: string;
@@ -155,9 +163,13 @@ export interface ClusterServiceState {
 }
 
 export type ConstraintPack =
-  | { type: "LOCATION"; constraint: ConstraintLocation }
-  | { type: "COLOCATION"; constraint: ConstraintColocation }
-  | { type: "ORDER"; constraint: ConstraintOrder }
-  | { type: "TICKET"; constraint: ConstraintTicket };
+  | { type: "LOCATION_NODE"; constraint: ConstraintLocationNode }
+  | { type: "LOCATION_RULE"; constraint: ConstraintLocationRule }
+  | { type: "COLOCATION_PAIR"; constraint: ConstraintColocationPair }
+  | { type: "COLOCATION_SET"; constraint: ConstraintColocationSet }
+  | { type: "ORDER_PAIR"; constraint: ConstraintOrderPair }
+  | { type: "ORDER_SET"; constraint: ConstraintOrderSet }
+  | { type: "TICKET_RESOURCE"; constraint: ConstraintTicketResource }
+  | { type: "TICKET_SET"; constraint: ConstraintTicketSet };
 
 export type ClusterStorage = Record<string, ClusterServiceState>;

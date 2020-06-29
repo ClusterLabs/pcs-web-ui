@@ -11,7 +11,7 @@ import {
 } from "@patternfly/react-core";
 import { SearchIcon } from "@patternfly/react-icons";
 
-import { selectors, types } from "app/store";
+import { selectors, types, url } from "app/store";
 import { IssueList, Link, pallete } from "app/view/common";
 
 import {
@@ -58,18 +58,16 @@ export const GroupDetail = ({ group }: { group: types.cluster.Group }) => {
               cell: crmStatus => (
                 <>
                   <Link
-                    to={`/cluster/${clusterName}/resources/${crmStatus.resource.id}`}
-                  >
-                    {crmStatus.resource.id}
-                  </Link>
+                    to={
+                      url.cluster.resources(clusterName, crmStatus.resource.id)
+                    }
+                  />
                   {crmStatus.node && (
                     <>
                       <span>{" / "}</span>
                       <Link
-                        to={`/cluster/${clusterName}/nodes/${crmStatus.node.name}`}
-                      >
-                        {crmStatus.node.name}
-                      </Link>
+                        to={url.cluster.nodes(clusterName, crmStatus.node.name)}
+                      />
                     </>
                   )}
                 </>

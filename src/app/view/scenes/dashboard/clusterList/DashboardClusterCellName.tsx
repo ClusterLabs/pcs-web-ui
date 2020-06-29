@@ -1,5 +1,6 @@
 import React from "react";
 
+import { url } from "app/store";
 import { Link } from "app/view/common";
 
 export const DashboardClusterCellName = ({
@@ -9,7 +10,7 @@ export const DashboardClusterCellName = ({
 }) => {
   return (
     <th role="rowheader" data-test="name">
-      <Link to={`/cluster/${clusterUrlName}`}>{clusterUrlName}</Link>
+      <Link to={url.cluster.detail(clusterUrlName)} />
     </th>
   );
 };

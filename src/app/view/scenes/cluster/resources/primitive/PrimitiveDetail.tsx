@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 
 import { SearchIcon } from "@patternfly/react-icons";
 
-import { selectors, types } from "app/store";
+import { selectors, types, url } from "app/store";
 import {
   IssueList,
   Link,
@@ -79,10 +79,8 @@ export const PrimitiveDetail = ({
               cell: crmStatus =>
                 (!crmStatus.node ? null : (
                   <Link
-                    to={`/cluster/${clusterName}/nodes/${crmStatus.node.name}`}
-                  >
-                    {crmStatus.node.name}
-                  </Link>
+                    to={url.cluster.nodes(clusterName, crmStatus.node.name)}
+                  />
                 )),
             }}
           />

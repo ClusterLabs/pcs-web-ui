@@ -9,27 +9,37 @@ export const getConstraints = (
   if (!constraintMap) {
     return [];
   }
-  const locations: types.cluster.ConstraintPack[] = (
+  const locationsNode: types.cluster.ConstraintPack[] = (
     constraintMap.rsc_location || []
-  ).map(constraint => ({ type: "LOCATION", constraint }));
+  ).map(constraint =>
+    ("node" in constraint
+      ? { type: "LOCATION_NODE", constraint }
+      : { type: "LOCATION_RULE", constraint }),
+  );
 
   const colocations: types.cluster.ConstraintPack[] = (
     constraintMap.rsc_colocation || []
-  ).map(constraint => ({ type: "COLOCATION", constraint }));
+  ).map(constraint =>
+    ("sets" in constraint
+      ? { type: "COLOCATION_SET", constraint }
+      : { type: "COLOCATION_PAIR", constraint }),
+  );
 
   const orders: types.cluster.ConstraintPack[] = (
     constraintMap.rsc_order || []
-  ).map(constraint => ({
-    type: "ORDER",
-    constraint,
-  }));
+  ).map(constraint =>
+    ("sets" in constraint
+      ? { type: "ORDER_SET", constraint }
+      : { type: "ORDER_PAIR", constraint }),
+  );
 
   const tickets: types.cluster.ConstraintPack[] = (
     constraintMap.rsc_ticket || []
-  ).map(constraint => ({
-    type: "TICKET",
-    constraint,
-  }));
+  ).map(constraint =>
+    ("sets" in constraint
+      ? { type: "TICKET_SET", constraint }
+      : { type: "TICKET_RESOURCE", constraint }),
+  );
 
-  return [...locations, ...colocations, ...orders, ...tickets];
+  return [...locationsNode, ...colocations, ...orders, ...tickets];
 };

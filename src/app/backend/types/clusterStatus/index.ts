@@ -13,11 +13,15 @@ import {
   ApiNodeStatus as TApiNodeStatus,
 } from "./nodes";
 import {
-  ApiConstraintColocation as TApiConstraintColocation,
-  ApiConstraintLocation as TApiConstraintLocation,
-  ApiConstraintOrder as TApiConstraintOrder,
+  ApiConstraintColocationPair as TApiConstraintColocationPair,
+  ApiConstraintColocationSet as TApiConstraintColocationSet,
+  ApiConstraintLocationNode as TApiConstraintLocationNode,
+  ApiConstraintLocationRule as TApiConstraintLocationRule,
+  ApiConstraintOrderPair as TApiConstraintOrderPair,
+  ApiConstraintOrderSet as TApiConstraintOrderSet,
   ApiConstraintResourceSet as TApiConstraintResourceSet,
-  ApiConstraintTicket as TApiConstraintTicket,
+  ApiConstraintTicketResource as TApiConstraintTicketResource,
+  ApiConstraintTicketSet as TApiConstraintTicketSet,
   ApiConstraints as TApiConstraints,
 } from "./constraints";
 import {
@@ -37,14 +41,28 @@ import {
 
 export type ApiClone = t.TypeOf<typeof TApiClone>;
 export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
-export type ApiConstraintColocation = t.TypeOf<typeof TApiConstraintColocation>;
-export type ApiConstraintLocation = t.TypeOf<typeof TApiConstraintLocation>;
-export type ApiConstraintOrder = t.TypeOf<typeof TApiConstraintOrder>;
+export type ApiConstraintColocationPair = t.TypeOf<
+  typeof TApiConstraintColocationPair
+>;
+export type ApiConstraintColocationSet = t.TypeOf<
+  typeof TApiConstraintColocationSet
+>;
+export type ApiConstraintLocationNode = t.TypeOf<
+  typeof TApiConstraintLocationNode
+>;
+export type ApiConstraintLocationRule = t.TypeOf<
+  typeof TApiConstraintLocationRule
+>;
+export type ApiConstraintOrderPair = t.TypeOf<typeof TApiConstraintOrderPair>;
+export type ApiConstraintOrderSet = t.TypeOf<typeof TApiConstraintOrderSet>;
 export type ApiConstraintResourceSet = t.TypeOf<
   typeof TApiConstraintResourceSet
 >;
 export type ApiConstraints = t.TypeOf<typeof TApiConstraints>;
-export type ApiConstraintTicket = t.TypeOf<typeof TApiConstraintTicket>;
+export type ApiConstraintTicketResource = t.TypeOf<
+  typeof TApiConstraintTicketResource
+>;
+export type ApiConstraintTicketSet = t.TypeOf<typeof TApiConstraintTicketSet>;
 export type ApiGroup = t.TypeOf<typeof TApiGroup>;
 export type ApiIssue = t.TypeOf<typeof TApiIssue>;
 export type ApiNode = t.TypeOf<typeof TApiNode>;
