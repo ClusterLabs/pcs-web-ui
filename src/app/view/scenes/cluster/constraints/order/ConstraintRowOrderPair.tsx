@@ -1,4 +1,5 @@
 import React from "react";
+import { Gallery, GalleryItem } from "@patternfly/react-core";
 
 import { types, url } from "app/store";
 import { Link } from "app/view/common";
@@ -7,6 +8,7 @@ import { useSelectedClusterName } from "app/view/scenes/cluster";
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
 
 import { ConstraintCellOrderScoreKind } from "./ConstraintCellOrderScoreKind";
+import { ConstraintCardOrderResource } from "./ConstraintCardOrderResource";
 
 export const ConstraintRowOrderPair = ({
   constraint,
@@ -36,22 +38,24 @@ export const ConstraintRowOrderPair = ({
             label="Require all"
             value={constraint["require-all"]}
           />
-          <ConstraintValue
-            label="First action"
-            value={constraint["first-action"]}
-          />
-          <ConstraintValue
-            label="Then action"
-            value={constraint["then-action"]}
-          />
-          <ConstraintValue
-            label="First instance"
-            value={constraint["first-instance"]}
-          />
-          <ConstraintValue
-            label="Then instance"
-            value={constraint["then-instance"]}
-          />
+          <Gallery gutter="lg">
+            <GalleryItem>
+              <ConstraintCardOrderResource
+                label="First resource"
+                id={constraint.first}
+                action={constraint["first-action"]}
+                instance={constraint["first-instance"]}
+              />
+            </GalleryItem>
+            <GalleryItem>
+              <ConstraintCardOrderResource
+                label="Then resource"
+                id={constraint.then}
+                action={constraint["then-action"]}
+                instance={constraint["then-instance"]}
+              />
+            </GalleryItem>
+          </Gallery>
         </>
       }
     />
