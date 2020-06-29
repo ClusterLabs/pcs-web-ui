@@ -1,10 +1,12 @@
 import React from "react";
+import { Gallery, GalleryItem } from "@patternfly/react-core";
 
 import { types, url } from "app/store";
 import { Link } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
+import { ConstraintCardColocationResource } from "./ConstraintCardColocationResource";
 
 export const ConstraintRowColocationPair = ({
   constraint,
@@ -35,22 +37,24 @@ export const ConstraintRowColocationPair = ({
             label="Node attribute"
             value={constraint["node-attribute"]}
           />
-          <ConstraintValue
-            label="Resource role"
-            value={constraint["rsc-role"]}
-          />
-          <ConstraintValue
-            label="With resource role"
-            value={constraint["with-rsc-role"]}
-          />
-          <ConstraintValue
-            label="Resource instance"
-            value={constraint["rsc-instance"]}
-          />
-          <ConstraintValue
-            label="With resource instance"
-            value={constraint["with-rsc-instance"]}
-          />
+          <Gallery gutter="lg">
+            <GalleryItem>
+              <ConstraintCardColocationResource
+                label="Resource"
+                id={constraint.rsc}
+                role={constraint["rsc-role"]}
+                instance={constraint["rsc-instance"]}
+              />
+            </GalleryItem>
+            <GalleryItem>
+              <ConstraintCardColocationResource
+                label="With resource"
+                id={constraint["with-rsc"]}
+                role={constraint["with-rsc-role"]}
+                instance={constraint["with-rsc-instance"]}
+              />
+            </GalleryItem>
+          </Gallery>
         </>
       }
     />
