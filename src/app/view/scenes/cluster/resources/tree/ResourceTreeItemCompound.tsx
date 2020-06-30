@@ -54,7 +54,7 @@ export const ResourceTreeItemCompound = ({
         />
       </DataListItemRow>
       {expanded && (
-        <DataListContent aria-label={label} noPadding>
+        <DataListContent aria-label={label} hasNoPadding>
           <DataList aria-label={label} data-level={nestingDepth}>
             {children}
           </DataList>

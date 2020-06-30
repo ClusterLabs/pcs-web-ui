@@ -19,12 +19,14 @@ export const ConstraintCellResourceSet = ({
         }
         return (
           <div key={resourceSet.id}>
-            {resourceSet.resources.map(resourceId => (
-              <Link
-                key={resourceId}
-                to={url.cluster.resources(clusterName, resourceId)}
-              />
-            ))}
+            {resourceSet.resources
+              .map<React.ReactNode>(resourceId => (
+                <Link
+                  key={resourceId}
+                  to={url.cluster.resources(clusterName, resourceId)}
+                />
+              ))
+              .reduce((prev, curr) => [prev, " ", curr])}
           </div>
         );
       })}

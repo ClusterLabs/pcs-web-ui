@@ -46,7 +46,7 @@ export const ClusterDetailPage = ({
   return (
     <Page>
       <PageSection variant="light">
-        <Stack gutter="md">
+        <Stack hasGutter>
           <StackItem>
             <Breadcrumb>
               <BreadcrumbItem component="span">
@@ -105,7 +105,9 @@ export const ClusterDetailPage = ({
         <PageSection>
           <EmptyState style={{ margin: "auto" }}>
             <EmptyStateIcon variant="container" component={Spinner} />
-            <Title size="lg">Loading cluster data</Title>
+            <Title size="lg" headingLevel="h3">
+              Loading cluster data
+            </Title>
           </EmptyState>
         </PageSection>
       )}

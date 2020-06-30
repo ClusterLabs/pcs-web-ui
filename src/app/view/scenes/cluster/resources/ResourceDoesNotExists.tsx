@@ -20,7 +20,7 @@ export const ResourceDoesNotExists = ({
       <StackItem>
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon icon={PlusCircleIcon} />
-          <Title size="lg">
+          <Title size="lg" headingLevel="h3">
             {`Resource "${resourceUrlName}" does not exist.`}
           </Title>
           <EmptyStateBody>

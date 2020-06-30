@@ -27,7 +27,9 @@ export const LoadedPcmkAgent = ({
     return (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon variant="container" component={Spinner} />
-        <Title size="lg">{`Loading agent "${agentName}" data`}</Title>
+        <Title size="lg" headingLevel="h3">
+          {`Loading agent "${agentName}" data`}
+        </Title>
       </EmptyState>
     );
   }
@@ -40,7 +42,9 @@ export const LoadedPcmkAgent = ({
   return (
     <EmptyState style={{ margin: "auto" }}>
       <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
-      <Title size="lg">Cannot load data</Title>
+      <Title size="lg" headingLevel="h3">
+        Cannot load data
+      </Title>
       <EmptyStateBody>
         {`Cannot load metadata of agent "${agentName}"`}
       </EmptyStateBody>

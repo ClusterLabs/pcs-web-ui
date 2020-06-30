@@ -39,7 +39,11 @@ export const DashboardClusterFenceDevices = ({
     return (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon icon={PlusCircleIcon} />
-        <Title size="lg"> No fence device is configured. </Title>
+        <Title size="lg" headingLevel="h3">
+          {" "}
+          No fence device is configured.
+          {" "}
+        </Title>
         <EmptyStateBody>
           You don&apos;t have any configured fence device here.
         </EmptyStateBody>

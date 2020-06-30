@@ -11,7 +11,11 @@ export const ConstraintsEmpty = () => {
   return (
     <EmptyState style={{ margin: "auto" }}>
       <EmptyStateIcon icon={PlusCircleIcon} />
-      <Title size="lg"> No constraint is configured. </Title>
+      <Title size="lg" headingLevel="h3">
+        {" "}
+        No constraint is configured.
+        {" "}
+      </Title>
       <EmptyStateBody>
         You don&apos;t have any configured constraint here.
       </EmptyStateBody>

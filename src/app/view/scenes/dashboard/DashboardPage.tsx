@@ -40,7 +40,7 @@ export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
   return (
     <Page>
       <PageSection variant="light">
-        <Stack gutter="md">
+        <Stack hasGutter>
           <StackItem>
             <Breadcrumb>
               <BreadcrumbItem

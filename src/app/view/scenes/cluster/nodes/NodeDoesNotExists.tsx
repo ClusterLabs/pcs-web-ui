@@ -18,7 +18,9 @@ export const NodeDoesNotExists = ({ nodeUrlName }: { nodeUrlName: string }) => {
       <StackItem>
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon icon={PlusCircleIcon} />
-          <Title size="lg">{`Node "${nodeUrlName}" does not exist.`}</Title>
+          <Title size="lg" headingLevel="h3">
+            {`Node "${nodeUrlName}" does not exist.`}
+          </Title>
           <EmptyStateBody>
             {`Node "${nodeUrlName}"`
               + ` is not a member of cluster ${clusterUrlName}.`}

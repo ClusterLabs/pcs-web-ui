@@ -21,7 +21,9 @@ export const PageSectionDataLoading = ({
     ) : (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon variant="container" component={Spinner} />
-        <Title size="lg">Loading data</Title>
+        <Title size="lg" headingLevel="h3">
+          Loading data
+        </Title>
       </EmptyState>
     )}
   </PageSection>

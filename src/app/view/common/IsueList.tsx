@@ -40,14 +40,16 @@ export const IssueList = ({
         style={{ margin: "auto" }}
       >
         <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
-        <Title size="lg">No issues</Title>
+        <Title size="lg" headingLevel="h3">
+          No issues
+        </Title>
         <EmptyStateBody>Pcsd has not detected any issue here</EmptyStateBody>
       </EmptyState>
     );
   }
   return (
     <Stack
-      gutter="sm"
+      hasGutter
       style={{ margin: margin ? "1rem" : "none" }}
       data-test="issues-status"
     >

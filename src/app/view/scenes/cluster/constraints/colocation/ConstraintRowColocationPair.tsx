@@ -37,7 +37,7 @@ export const ConstraintRowColocationPair = ({
             label="Node attribute"
             value={constraint["node-attribute"]}
           />
-          <Gallery gutter="lg">
+          <Gallery hasGutter>
             <GalleryItem>
               <ConstraintCardColocationResource
                 label="Resource"

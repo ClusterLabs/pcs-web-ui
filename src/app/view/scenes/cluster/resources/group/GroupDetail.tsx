@@ -41,7 +41,7 @@ export const GroupDetail = ({ group }: { group: types.cluster.Group }) => {
         {crmStatusList.length === 0 && (
           <EmptyState style={{ margin: "auto" }}>
             <EmptyStateIcon icon={SearchIcon} color={pallete.UNKNOWN} />
-            <Title size="lg">
+            <Title size="lg" headingLevel="h3">
               {`No status info for resources of group ${group.id} found.`}
             </Title>
             <EmptyStateBody>
@@ -58,9 +58,10 @@ export const GroupDetail = ({ group }: { group: types.cluster.Group }) => {
               cell: crmStatus => (
                 <>
                   <Link
-                    to={
-                      url.cluster.resources(clusterName, crmStatus.resource.id)
-                    }
+                    to={url.cluster.resources(
+                      clusterName,
+                      crmStatus.resource.id,
+                    )}
                   />
                   {crmStatus.node && (
                     <>

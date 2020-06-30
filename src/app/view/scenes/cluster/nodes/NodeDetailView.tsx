@@ -39,7 +39,9 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
         {crmStatusList.length === 0 && (
           <EmptyState style={{ margin: "auto" }}>
             <EmptyStateIcon icon={SearchIcon} color={pallete.UNKNOWN} />
-            <Title size="lg">{`No resource running on node ${node.name}.`}</Title>
+            <Title size="lg" headingLevel="h3">
+              {`No resource running on node ${node.name}.`}
+            </Title>
             <EmptyStateBody>
               {`No resource running on node ${node.name}.`}
             </EmptyStateBody>
@@ -70,7 +72,12 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
               icon={ExclamationCircleIcon}
               color={pallete.ERROR}
             />
-            <Title size="lg">{`No data for node ${node.name}.`}</Title>
+            <Title
+              size="lg"
+              headingLevel="h3"
+            >
+              {`No data for node ${node.name}.`}
+            </Title>
             <EmptyStateBody>
               {`Data for node ${node.name} are not provided by backend`}
             </EmptyStateBody>

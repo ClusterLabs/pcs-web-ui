@@ -108,7 +108,9 @@ export const AddClusterAuthRequired = ({
       {authenticationInProgress ? (
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon variant="container" component={Spinner} />
-          <Title size="lg">Authenticating node</Title>
+          <Title size="lg" headingLevel="h3">
+            Authenticating node
+          </Title>
         </EmptyState>
       ) : (
         <Button

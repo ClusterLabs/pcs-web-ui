@@ -23,12 +23,14 @@ export const ConstraintResourceSetRow = ({
           <>
             <ConstraintCell label="Resources">
               <div key={resourceSet.id}>
-                {resourceSet.resources.map(resourceId => (
-                  <Link
-                    key={resourceId}
-                    to={url.cluster.nodes(clusterName, resourceId)}
-                  />
-                ))}
+                {resourceSet.resources
+                  .map<React.ReactNode>(resourceId => (
+                    <Link
+                      key={resourceId}
+                      to={url.cluster.nodes(clusterName, resourceId)}
+                    />
+                  ))
+                  .reduce((prev, curr) => [prev, " ", curr])}
               </div>
             </ConstraintCell>
             <ConstraintCell label="Sequential" value={resourceSet.sequential} />

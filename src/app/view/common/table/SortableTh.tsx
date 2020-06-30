@@ -34,7 +34,7 @@ function SortableTh<C extends string>({
     <th className={classNameList.join(" ")} {...rest}>
       <button
         type="button"
-        className="pf-c-button pf-m-plain"
+        className="pf-c-table__button"
         onClick={() => {
           const firstDirection = startDesc ? "desc" : "asc";
           const nextDirection = startDesc ? "asc" : "desc";

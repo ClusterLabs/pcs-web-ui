@@ -38,7 +38,7 @@ export const ConstraintRowOrderPair = ({
             label="Require all"
             value={constraint["require-all"]}
           />
-          <Gallery gutter="lg">
+          <Gallery hasGutter>
             <GalleryItem>
               <ConstraintCardOrderResource
                 label="First resource"

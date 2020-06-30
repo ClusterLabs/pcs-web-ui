@@ -12,7 +12,7 @@ export const NodeClusterServicesView = ({
   node: types.cluster.ConnectedNode;
 }) => {
   return (
-    <Gallery gutter="lg">
+    <Gallery hasGutter>
       <GalleryItem>
         <NodeServiceCard label="Pacemaker">
           <NodeServiceFlag

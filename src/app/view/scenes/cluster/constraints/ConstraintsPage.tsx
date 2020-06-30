@@ -23,7 +23,7 @@ export const ConstraintsPage = ({
     <PageSection>
       <Card>
         <CardBody>
-          <Stack gutter="md">
+          <Stack hasGutter>
             {constraintPacks.length === 0 && (
               <StackItem>
                 <ConstraintsEmpty />

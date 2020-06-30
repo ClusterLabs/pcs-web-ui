@@ -22,7 +22,12 @@ export const FenceDeviceDoesNotExists = ({
       <StackItem>
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon icon={PlusCircleIcon} />
-          <Title size="lg">{`Fence devicce "${fenceDeviceUrlName}" does not exist.`}</Title>
+          <Title
+            size="lg"
+            headingLevel="h3"
+          >
+            {`Fence devicce "${fenceDeviceUrlName}" does not exist.`}
+          </Title>
           <EmptyStateBody>
             {`Fence device "${fenceDeviceUrlName}"`
               + ` does not exists in cluster ${clusterUrlName}.`}

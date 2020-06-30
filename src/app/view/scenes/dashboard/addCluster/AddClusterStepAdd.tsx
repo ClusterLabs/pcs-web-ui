@@ -23,7 +23,9 @@ export const AddClusterStepAdd = () => {
       {state === "STARTED" && (
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon variant="container" component={Spinner} />
-          <Title size="lg">Adding existing cluster</Title>
+          <Title size="lg" headingLevel="h3">
+            Adding existing cluster
+          </Title>
         </EmptyState>
       )}
       {clusterHasBeenAddedStates.includes(state) && (
@@ -37,7 +39,9 @@ export const AddClusterStepAdd = () => {
       {state === "DASHBOARD_RELOADING" && (
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon variant="container" component={Spinner} />
-          <Title size="lg">Waiting for dashboard reload</Title>
+          <Title size="lg" headingLevel="h3">
+            Waiting for dashboard reload
+          </Title>
         </EmptyState>
       )}
       {state === "ERROR" && (

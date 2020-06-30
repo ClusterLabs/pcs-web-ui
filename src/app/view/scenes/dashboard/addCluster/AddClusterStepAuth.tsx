@@ -74,7 +74,9 @@ export const AddClusterStepAuth = () => {
       {authState === "CHECKING" && (
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon variant="container" component={Spinner} />
-          <Title size="lg">Checking authentication</Title>
+          <Title size="lg" headingLevel="h3">
+            Checking authentication
+          </Title>
         </EmptyState>
       )}
 

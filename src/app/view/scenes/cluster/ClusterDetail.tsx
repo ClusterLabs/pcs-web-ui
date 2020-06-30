@@ -19,11 +19,14 @@ export const ClusterDetail = () => {
     <PageSection data-test="cluster-detail">
       <Card>
         <CardHeader>
-          {"Cluster "}
-          <strong>{cluster.name}</strong>
+          <span>
+            Cluster
+            {" "}
+            <strong>{cluster.name}</strong>
+          </span>
         </CardHeader>
         <CardBody>
-          <Stack gutter="md" className="pf-u-m-md">
+          <Stack hasGutter className="pf-u-m-md">
             <StackItem>
               <IssueList issueList={cluster.issueList} hideEmpty />
             </StackItem>

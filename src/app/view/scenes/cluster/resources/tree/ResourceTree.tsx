@@ -26,7 +26,11 @@ export const ResourceTree = ({
     return (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon icon={PlusCircleIcon} />
-        <Title size="lg"> No resource is configured. </Title>
+        <Title size="lg" headingLevel="h3">
+          {" "}
+          No resource is configured.
+          {" "}
+        </Title>
         <EmptyStateBody>
           You don&apos;t have any configured resources here.
         </EmptyStateBody>

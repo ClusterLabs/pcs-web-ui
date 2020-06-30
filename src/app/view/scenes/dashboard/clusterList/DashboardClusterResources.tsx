@@ -7,7 +7,7 @@ import {
 } from "@patternfly/react-core";
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
-import { types, utils, url } from "app/store";
+import { types, url, utils } from "app/store";
 import { Link, StatusSign, Table } from "app/view/common";
 import { toLabel } from "app/view/utils";
 
@@ -43,7 +43,11 @@ export const DashboardClusterResources = ({
     return (
       <EmptyState style={{ margin: "auto" }}>
         <EmptyStateIcon icon={PlusCircleIcon} />
-        <Title size="lg"> No resource is configured. </Title>
+        <Title size="lg" headingLevel="h3">
+          {" "}
+          No resource is configured.
+          {" "}
+        </Title>
         <EmptyStateBody>
           You don&apos;t have any configured resources here.
         </EmptyStateBody>

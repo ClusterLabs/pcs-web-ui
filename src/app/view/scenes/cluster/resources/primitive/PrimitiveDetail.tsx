@@ -64,7 +64,12 @@ export const PrimitiveDetail = ({
         {crmStatusList.length === 0 && (
           <EmptyState style={{ margin: "auto" }}>
             <EmptyStateIcon icon={SearchIcon} color={pallete.UNKNOWN} />
-            <Title size="lg">{`No resource ${primitive.id} status info found.`}</Title>
+            <Title
+              size="lg"
+              headingLevel="h3"
+            >
+              {`No resource ${primitive.id} status info found.`}
+            </Title>
             <EmptyStateBody>
               {`No resource ${primitive.id} status info found.`}
             </EmptyStateBody>

@@ -27,7 +27,7 @@ export const NotificationContainer = () => {
         <li className="notification-item" key={id}>
           <Alert
             variant={severityToVariant(severity)}
-            action={
+            actionClose={
               <AlertActionCloseButton
                 onClose={() =>
                   dispatch<Action>({

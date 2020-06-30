@@ -26,7 +26,7 @@ export const DetailLayout = ({
 
   return (
     /* eslint-disable react/jsx-props-no-spreading */
-    <Stack gutter="md" className="pf-u-p-md" {...rest}>
+    <Stack hasGutter className="pf-u-p-md" {...rest}>
       <StackItem>
         <Level>
           <LevelItem>{caption}</LevelItem>

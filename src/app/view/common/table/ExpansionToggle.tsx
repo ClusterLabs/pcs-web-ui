@@ -21,7 +21,7 @@ export function ExpansionToggle({
     <td className={tdClassNames.join(" ")} {...rest}>
       <button
         type="button"
-        className="pf-c-button pf-m-link"
+        className="pf-c-table__button pf-m-link"
         onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
         data-test="expansion-button"
       >

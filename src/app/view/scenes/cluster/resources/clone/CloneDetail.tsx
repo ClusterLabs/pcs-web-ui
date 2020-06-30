@@ -41,7 +41,7 @@ export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {
         {crmStatusList.length === 0 && (
           <EmptyState style={{ margin: "auto" }}>
             <EmptyStateIcon icon={SearchIcon} color={pallete.UNKNOWN} />
-            <Title size="lg">
+            <Title size="lg" headingLevel="h3">
               {`No status info for clone ${clone.id} found.`}
             </Title>
             <EmptyStateBody>
@@ -58,9 +58,10 @@ export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {
               cell: crmStatus => (
                 <>
                   <Link
-                    to={
-                      url.cluster.resources(clusterName, crmStatus.resource.id)
-                    }
+                    to={url.cluster.resources(
+                      clusterName,
+                      crmStatus.resource.id,
+                    )}
                   />
                   {crmStatus.node && (
                     <>

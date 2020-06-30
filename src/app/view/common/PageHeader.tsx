@@ -1,6 +1,9 @@
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
-import { PageHeader as PfPageHeader } from "@patternfly/react-core";
+import {
+  PageHeaderTools,
+  PageHeader as PfPageHeader,
+} from "@patternfly/react-core";
 import { History } from "history";
 
 import { useDispatch } from "react-redux";
@@ -23,7 +26,11 @@ const PageHeaderComponent = ({
   return (
     <PfPageHeader
       logo="HA Cluster Management"
-      toolbar={<PageToolbar />}
+      headerTools={
+        <PageHeaderTools>
+          <PageToolbar />
+        </PageHeaderTools>
+      }
       showNavToggle={showNavToggle}
       onNavToggle={onNavToggle}
       logoProps={{
