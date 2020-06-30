@@ -264,6 +264,7 @@ const resourceTree = cluster("resourceTree", "ok", {
           {
             id: "rs-colocation-A-G1-INFINITY-2-1",
             resources: ["A", "GROUP-1"],
+            sequential: "false",
           },
           {
             id: "rs-colocation-A-G1-INFINITY-2-2",
@@ -313,16 +314,16 @@ const resourceTree = cluster("resourceTree", "ok", {
       },
       {
         id: "A-then-G1",
-        symetrical: true,
-        "require-all": true,
+        symetrical: "true",
+        "require-all": "true",
         score: "INFINITY",
         first: "A",
         then: "GROUP-1",
       },
       {
         id: "Clone-1-then-A",
-        symetrical: false,
-        "require-all": false,
+        symetrical: "false",
+        "require-all": "false",
         kind: "Mandatory",
         first: "Clone-1",
         then: "A",

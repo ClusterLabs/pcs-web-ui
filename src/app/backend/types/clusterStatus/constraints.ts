@@ -50,8 +50,10 @@ export const ApiConstraintResourceSet = t.union([
       resources: t.array(ApiResourceId),
     }),
     t.partial({
-      sequential: t.boolean,
-      "require-all": t.boolean,
+      // sequential and require-all should be booleans, however, strings come
+      // from backend
+      sequential: t.string,
+      "require-all": t.string,
       ordering: ApiConstraintResourceSetOrdering,
       action: ApiConstraintAction,
       role: ApiConstraintRole,
@@ -151,8 +153,10 @@ export const ApiConstraintColocationSet = t.intersection([
 export const ApiConstraintOrder = t.intersection([
   t.type({ id: ApiId }),
   t.partial({
-    symmetrical: t.boolean,
-    "require-all": t.boolean,
+    // symmetrical and require-all should be booleans, however, strings come
+    // from backend
+    symmetrical: t.string,
+    "require-all": t.string,
   }),
   t.union([
     t.partial({ score: ApiScore }),
