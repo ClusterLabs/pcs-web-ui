@@ -281,7 +281,7 @@ const resourceTree = cluster("resourceTree", "ok", {
         node: "node-1",
         role: "Started",
         rsc: "A",
-        score: "INFINITY",
+        score: "150",
       },
       {
         id: "G-prefer-node-1",
