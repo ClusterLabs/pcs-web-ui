@@ -21,6 +21,8 @@ module.exports = {
     // specify whether double or single quotes should be used
     quotes: ["error", "double", { avoidEscape: true }],
 
+    "no-unused-vars": ["error", { argsIgnorePattern: "^dummy" }],
+
     // ensure imports point to files/modules that can be resolved
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unresolved.md
     "import/no-unresolved": ["off", { commonjs: true, caseSensitive: true }],

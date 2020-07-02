@@ -13,6 +13,11 @@ export const PrimitiveAttrsView = ({
   primitive: types.cluster.Primitive;
 }) => {
   const [isEditing, setIsEditing] = React.useState(false);
+  const [importances, setImportances] = React.useState({
+    Required: true,
+    Optional: true,
+    Advanced: false,
+  });
   return (
     <LoadedPcmkAgent agentName={primitive.agentName}>
       {(agent: types.pcmkAgents.Agent) => {
@@ -31,12 +36,24 @@ export const PrimitiveAttrsView = ({
         return (
           <>
             <StackItem>
-              <PrimitiveAttrsToolbar edit={() => setIsEditing(true)} />
+              <PrimitiveAttrsToolbar
+                edit={() => setIsEditing(true)}
+                importances={importances}
+                setImportances={setImportances}
+              />
             </StackItem>
             <StackItem>
               <PcmkAgentAttrsList
                 agentAttributes={primitive.instanceAttributes}
-                resourceAgentParameters={agent.parameters}
+                resourceAgentParameters={agent.parameters.filter(
+                  p =>
+                    (!importances.Advanced
+                      && !importances.Optional
+                      && !importances.Required)
+                    || ((!p.advanced || importances.Advanced)
+                      && (!p.required || importances.Required)
+                      && (p.required || p.advanced || importances.Optional)),
+                )}
               />
             </StackItem>
           </>
