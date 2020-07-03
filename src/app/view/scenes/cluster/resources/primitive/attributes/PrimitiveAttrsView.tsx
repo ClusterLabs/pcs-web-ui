@@ -18,6 +18,7 @@ export const PrimitiveAttrsView = ({
     Optional: true,
     Advanced: false,
   });
+  const [attributeNameSearch, setAttributeNameSearch] = React.useState("");
   return (
     <LoadedPcmkAgent agentName={primitive.agentName}>
       {(agent: types.pcmkAgents.Agent) => {
@@ -38,6 +39,8 @@ export const PrimitiveAttrsView = ({
             <StackItem>
               <PrimitiveAttrsToolbar
                 edit={() => setIsEditing(true)}
+                attributeNameSearch={attributeNameSearch}
+                setAttributeNameSearch={setAttributeNameSearch}
                 importances={importances}
                 setImportances={setImportances}
               />
@@ -47,12 +50,15 @@ export const PrimitiveAttrsView = ({
                 agentAttributes={primitive.instanceAttributes}
                 resourceAgentParameters={agent.parameters.filter(
                   p =>
-                    (!importances.Advanced
+                    ((!importances.Advanced
                       && !importances.Optional
                       && !importances.Required)
-                    || ((!p.advanced || importances.Advanced)
-                      && (!p.required || importances.Required)
-                      && (p.required || p.advanced || importances.Optional)),
+                      || ((!p.advanced || importances.Advanced)
+                        && (!p.required || importances.Required)
+                        && (p.required || p.advanced || importances.Optional)))
+                    && p.name
+                      .toLowerCase()
+                      .startsWith(attributeNameSearch.toLowerCase()),
                 )}
               />
             </StackItem>
