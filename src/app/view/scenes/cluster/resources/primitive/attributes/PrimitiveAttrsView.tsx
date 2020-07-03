@@ -19,18 +19,42 @@ export const PrimitiveAttrsView = ({
     Advanced: false,
   });
   const [attributeNameSearch, setAttributeNameSearch] = React.useState("");
+  const filterParameters = React.useCallback(
+    (parameters: types.pcmkAgents.AgentParameter[]) =>
+      parameters.filter(
+        p =>
+          ((!importances.Advanced
+            && !importances.Optional
+            && !importances.Required)
+            || ((!p.advanced || importances.Advanced)
+              && (!p.required || importances.Required)
+              && (p.required || p.advanced || importances.Optional)))
+          && p.name.toLowerCase().startsWith(attributeNameSearch.toLowerCase()),
+      ),
+    [attributeNameSearch, importances],
+  );
   return (
     <LoadedPcmkAgent agentName={primitive.agentName}>
       {(agent: types.pcmkAgents.Agent) => {
         if (isEditing) {
           return (
-            <StackItem>
-              <PrimitiveAttrsForm
-                primitive={primitive}
-                resourceAgentParams={agent.parameters}
-                close={() => setIsEditing(false)}
-              />
-            </StackItem>
+            <>
+              <StackItem>
+                <PrimitiveAttrsToolbar
+                  attributeNameSearch={attributeNameSearch}
+                  setAttributeNameSearch={setAttributeNameSearch}
+                  importances={importances}
+                  setImportances={setImportances}
+                />
+              </StackItem>
+              <StackItem>
+                <PrimitiveAttrsForm
+                  primitive={primitive}
+                  resourceAgentParams={filterParameters(agent.parameters)}
+                  close={() => setIsEditing(false)}
+                />
+              </StackItem>
+            </>
           );
         }
 
@@ -38,7 +62,9 @@ export const PrimitiveAttrsView = ({
           <>
             <StackItem>
               <PrimitiveAttrsToolbar
-                edit={() => setIsEditing(true)}
+                actions={{
+                  "Edit Attributes": () => setIsEditing(true),
+                }}
                 attributeNameSearch={attributeNameSearch}
                 setAttributeNameSearch={setAttributeNameSearch}
                 importances={importances}
@@ -48,18 +74,7 @@ export const PrimitiveAttrsView = ({
             <StackItem>
               <PcmkAgentAttrsList
                 agentAttributes={primitive.instanceAttributes}
-                resourceAgentParameters={agent.parameters.filter(
-                  p =>
-                    ((!importances.Advanced
-                      && !importances.Optional
-                      && !importances.Required)
-                      || ((!p.advanced || importances.Advanced)
-                        && (!p.required || importances.Required)
-                        && (p.required || p.advanced || importances.Optional)))
-                    && p.name
-                      .toLowerCase()
-                      .startsWith(attributeNameSearch.toLowerCase()),
-                )}
+                resourceAgentParameters={filterParameters(agent.parameters)}
               />
             </StackItem>
           </>

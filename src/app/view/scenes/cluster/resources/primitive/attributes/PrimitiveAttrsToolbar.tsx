@@ -14,13 +14,13 @@ import { FilterGroups } from "app/view/common";
 import { SearchIcon } from "@patternfly/react-icons";
 
 export function PrimitiveAttrsToolbar<T extends Record<string, boolean>>({
-  edit,
+  actions = {},
   attributeNameSearch,
   setAttributeNameSearch,
   importances,
   setImportances,
 }: {
-  edit: () => void;
+  actions?: Record<string, () => void>;
   attributeNameSearch: string;
   setAttributeNameSearch: (attributeNameSearch: string) => void;
   importances: T;
@@ -62,7 +62,11 @@ export function PrimitiveAttrsToolbar<T extends Record<string, boolean>>({
         </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarItem>
-            <Button onClick={edit}>Edit Attributes</Button>
+            {Object.keys(actions).map(label => (
+              <Button key={label} onClick={actions[label]}>
+                {label}
+              </Button>
+            ))}
           </ToolbarItem>
         </ToolbarGroup>
       </ToolbarContent>
