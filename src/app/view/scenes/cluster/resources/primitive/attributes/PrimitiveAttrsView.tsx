@@ -17,13 +17,7 @@ export const PrimitiveAttrsView = ({
   primitive: types.cluster.Primitive;
 }) => {
   const [isEditing, setIsEditing] = React.useState(false);
-  const {
-    importances,
-    setImportances,
-    attributeNameSearch,
-    setAttributeNameSearch,
-    filterParameters,
-  } = usePcmkAgentAttrsFilter();
+  const { filters, filterParameters } = usePcmkAgentAttrsFilter();
   return (
     <LoadedPcmkAgent agentName={primitive.agentName}>
       {(agent: types.pcmkAgents.Agent) => {
@@ -31,12 +25,7 @@ export const PrimitiveAttrsView = ({
           return (
             <>
               <StackItem>
-                <PcmkAgentAttrsToolbar
-                  attributeNameSearch={attributeNameSearch}
-                  setAttributeNameSearch={setAttributeNameSearch}
-                  importances={importances}
-                  setImportances={setImportances}
-                />
+                <PcmkAgentAttrsToolbar filters={filters} />
               </StackItem>
               <StackItem>
                 <PrimitiveAttrsForm
@@ -56,10 +45,7 @@ export const PrimitiveAttrsView = ({
                 actions={{
                   "Edit Attributes": () => setIsEditing(true),
                 }}
-                attributeNameSearch={attributeNameSearch}
-                setAttributeNameSearch={setAttributeNameSearch}
-                importances={importances}
-                setImportances={setImportances}
+                filters={filters}
               />
             </StackItem>
             <StackItem>

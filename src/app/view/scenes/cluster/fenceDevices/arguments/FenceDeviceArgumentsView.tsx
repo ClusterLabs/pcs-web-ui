@@ -15,25 +15,14 @@ export const FenceDeviceArgumentsView = ({
 }: {
   fenceDevice: types.cluster.FenceDevice;
 }) => {
-  const {
-    importances,
-    setImportances,
-    attributeNameSearch,
-    setAttributeNameSearch,
-    filterParameters,
-  } = usePcmkAgentAttrsFilter();
+  const { filters, filterParameters } = usePcmkAgentAttrsFilter();
   return (
     <LoadedPcmkAgent agentName={fenceDevice.agentName}>
       {(agent: types.pcmkAgents.Agent) => {
         return (
           <>
             <StackItem>
-              <PcmkAgentAttrsToolbar
-                attributeNameSearch={attributeNameSearch}
-                setAttributeNameSearch={setAttributeNameSearch}
-                importances={importances}
-                setImportances={setImportances}
-              />
+              <PcmkAgentAttrsToolbar filters={filters} />
             </StackItem>
             <StackItem>
               <PcmkAgentAttrsList

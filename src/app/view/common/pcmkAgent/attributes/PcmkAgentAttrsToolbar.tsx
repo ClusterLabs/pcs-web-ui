@@ -9,25 +9,23 @@ import {
   ToolbarGroup,
   ToolbarItem,
 } from "@patternfly/react-core";
-
-import { FilterGroups } from "app/view/common";
 import { SearchIcon } from "@patternfly/react-icons";
 
-export function PcmkAgentAttrsToolbar<T extends Record<string, boolean>>({
+import { FilterGroups } from "app/view/common";
+
+import { pcmkAgentAttrsFiltersTypes } from "./pcmkAgentAttrsFiltersTypes";
+
+export function PcmkAgentAttrsToolbar({
   actions = {},
-  attributeNameSearch,
-  setAttributeNameSearch,
-  importances,
-  setImportances,
+  filters,
 }: {
   actions?: Record<string, () => void>;
-  attributeNameSearch: string;
-  setAttributeNameSearch: (attributeNameSearch: string) => void;
-  importances: T;
-  setImportances: (i: T) => void;
+  filters: pcmkAgentAttrsFiltersTypes;
 }) {
   const clearAllFilters = () =>
-    setImportances(FilterGroups.unselectAllOptions(importances));
+    filters.importances.set(
+      FilterGroups.unselectAllOptions(filters.importances.values),
+    );
 
   return (
     <Toolbar
@@ -42,8 +40,8 @@ export function PcmkAgentAttrsToolbar<T extends Record<string, boolean>>({
               id="agent-attributes-name"
               type="search"
               aria-label="search by attribute name"
-              onChange={(value: string) => setAttributeNameSearch(value)}
-              value={attributeNameSearch}
+              onChange={filters.nameSearch.set}
+              value={filters.nameSearch.value}
             />
             <Button
               variant={ButtonVariant.control}
@@ -56,8 +54,8 @@ export function PcmkAgentAttrsToolbar<T extends Record<string, boolean>>({
         <ToolbarGroup variant="filter-group">
           <FilterGroups
             name="Importance"
-            options={importances}
-            setSelected={setImportances}
+            options={filters.importances.values}
+            setSelected={filters.importances.set}
           />
         </ToolbarGroup>
         <ToolbarGroup>
