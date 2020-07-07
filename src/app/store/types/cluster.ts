@@ -60,6 +60,7 @@ export type ConnectedNode = {
 
 export type Node = {
   utilization: NVPair[];
+  attributes: NVPair[];
 } & (
   | ConnectedNode
   | {

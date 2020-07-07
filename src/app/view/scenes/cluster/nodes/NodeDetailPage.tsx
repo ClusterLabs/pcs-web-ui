@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectors } from "app/store";
 import {
   DetailLayout,
+  NVPairListView,
   UrlTabs,
   UtilizationView,
   useGroupDetailViewContext,
@@ -24,6 +25,7 @@ export const NodeDetailPage = () => {
   const nodeUrlPrefix = join(urlPrefix, selectedItemUrlName);
   const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: nodeUrlPrefix, exact: true }),
+    Attributes: useMatch(join(nodeUrlPrefix, "attributes")),
     Utilization: useMatch(join(nodeUrlPrefix, "utilization")),
   });
 
@@ -37,6 +39,9 @@ export const NodeDetailPage = () => {
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && <NodeDetailView node={node} />}
+      {tab === "Attributes" && (
+        <NVPairListView nvPairListView={node.attributes} />
+      )}
       {tab === "Utilization" && (
         <UtilizationView utilizationParams={node.utilization} />
       )}

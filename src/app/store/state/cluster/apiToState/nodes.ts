@@ -58,6 +58,7 @@ const toNode = (
       status: "DATA_NOT_PROVIDED",
       issueList: transformIssues(apiNode),
       utilization: apiClusterStatus.nodes_utilization?.[apiNode.name] ?? [],
+      attributes: apiClusterStatus.node_attr?.[apiNode.name] ?? [],
     }
     : {
       name: apiNode.name,
@@ -80,6 +81,7 @@ const toNode = (
         },
       },
       utilization: apiClusterStatus.nodes_utilization?.[apiNode.name] ?? [],
+      attributes: apiClusterStatus.node_attr?.[apiNode.name] ?? [],
     });
 
 const countNodesSeverity = (
