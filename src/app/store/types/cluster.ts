@@ -23,6 +23,7 @@ export type ConstraintOrderSet = ApiConstraintOrderSet;
 export type ConstraintResourceSet = ApiConstraintResourceSet;
 export type ConstraintTicketResource = ApiConstraintTicketResource;
 export type ConstraintTicketSet = ApiConstraintTicketSet;
+export type NVPair = ApiNVPair;
 
 export interface AgentAttribute {
   id: string;
@@ -57,13 +58,16 @@ export type ConnectedNode = {
   };
 };
 
-export type Node =
+export type Node = {
+  utilization: NVPair[];
+} & (
   | ConnectedNode
   | {
       name: string;
       status: "DATA_NOT_PROVIDED";
       issueList: Issue[];
-    };
+    }
+);
 
 export type FenceDeviceStatusFlag =
   | "RUNNING"
@@ -95,7 +99,7 @@ export interface Primitive extends ResourceTreeItemBase {
   type: string;
   agentName: string;
   instanceAttributes: Record<string, AgentAttribute>;
-  utilization: ApiNVPair[];
+  utilization: NVPair[];
 }
 
 export interface Group extends ResourceTreeItemBase {

@@ -162,6 +162,7 @@ const cluster = (name, status, diff) =>
       error_list: [],
       resource_list: [],
       constraints: {},
+      nodes_utilization: {},
     },
     diff || {},
     { arrayMerge: overwriteMerge },

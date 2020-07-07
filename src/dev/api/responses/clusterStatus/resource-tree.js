@@ -56,6 +56,20 @@ const resourceTree = cluster("resourceTree", "ok", {
       ],
     }),
   ],
+  nodes_utilization: {
+    "node-1": [
+      {
+        id: "Node-1-utilization-cpu-2",
+        name: "cpu",
+        value: "2",
+      },
+      {
+        id: "Node-1-utilization-memory-4096",
+        name: "memory",
+        value: "4096",
+      },
+    ],
+  },
   resource_list: [
     resource("A", {
       type: "apache",

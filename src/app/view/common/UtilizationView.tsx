@@ -3,10 +3,10 @@ import { Alert, StackItem, TextContent } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-export const PrimitiveUtilizationView = ({
-  primitive,
+export const UtilizationView = ({
+  utilizationParams,
 }: {
-  primitive: types.cluster.Primitive;
+  utilizationParams: types.cluster.NVPair[];
 }) => {
   return (
     <>
@@ -23,10 +23,10 @@ export const PrimitiveUtilizationView = ({
       <StackItem>
         <div className="pf-c-content">
           <dl>
-            {primitive.utilization.map(u => (
-              <React.Fragment key={u.id}>
-                <dt>{u.name}</dt>
-                <dd>{u.value}</dd>
+            {utilizationParams.map(p => (
+              <React.Fragment key={p.id}>
+                <dt>{p.name}</dt>
+                <dd>{p.value}</dd>
               </React.Fragment>
             ))}
           </dl>

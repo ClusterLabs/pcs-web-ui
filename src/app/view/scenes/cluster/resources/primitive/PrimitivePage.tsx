@@ -6,12 +6,12 @@ import {
   DetailLayout,
   ResourceDetailCaption,
   UrlTabs,
+  UtilizationView,
   useGroupDetailViewContext,
 } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 import { PrimitiveAttrsView } from "./attributes";
-import { PrimitiveUtilizationView } from "./utilization";
 import { PrimitiveDetail } from "./PrimitiveDetail";
 import { useResourceAgent } from "./useResourceAgent";
 
@@ -47,7 +47,7 @@ export const PrimitivePage = ({
       {tab === "Detail" && <PrimitiveDetail primitive={primitive} />}
       {tab === "Attributes" && <PrimitiveAttrsView primitive={primitive} />}
       {tab === "Utilization" && (
-        <PrimitiveUtilizationView primitive={primitive} />
+        <UtilizationView utilizationParams={primitive.utilization} />
       )}
     </DetailLayout>
   );
