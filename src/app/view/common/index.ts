@@ -24,6 +24,7 @@ import {
 } from "./pcmkAgent";
 import { SelectionIndicatorInGroup } from "./SelectionIndicatorInGroup";
 import { FilterGroups } from "./FilterGroups";
+import { UtilizationView } from "./UtilizationView";
 
 export {
   BackgroundImage,
@@ -49,4 +50,5 @@ export {
   SelectionIndicatorInGroup,
   Link,
   pallete,
+  UtilizationView,
 };

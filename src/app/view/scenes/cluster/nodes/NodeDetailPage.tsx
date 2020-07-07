@@ -5,6 +5,7 @@ import { selectors } from "app/store";
 import {
   DetailLayout,
   UrlTabs,
+  UtilizationView,
   useGroupDetailViewContext,
 } from "app/view/common";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
@@ -23,6 +24,7 @@ export const NodeDetailPage = () => {
   const nodeUrlPrefix = join(urlPrefix, selectedItemUrlName);
   const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: nodeUrlPrefix, exact: true }),
+    Utilization: useMatch(join(nodeUrlPrefix, "utilization")),
   });
 
   if (!node) {
@@ -35,6 +37,9 @@ export const NodeDetailPage = () => {
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
     >
       {tab === "Detail" && <NodeDetailView node={node} />}
+      {tab === "Utilization" && (
+        <UtilizationView utilizationParams={node.utilization} />
+      )}
     </DetailLayout>
   );
 };
