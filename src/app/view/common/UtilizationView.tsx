@@ -3,6 +3,8 @@ import { Alert, StackItem, TextContent } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
+import { NVPairListView } from "./NVPairListView";
+
 export const UtilizationView = ({
   utilizationParams,
 }: {
@@ -21,16 +23,7 @@ export const UtilizationView = ({
         </Alert>
       </StackItem>
       <StackItem>
-        <div className="pf-c-content">
-          <dl>
-            {utilizationParams.map(p => (
-              <React.Fragment key={p.id}>
-                <dt>{p.name}</dt>
-                <dd>{p.value}</dd>
-              </React.Fragment>
-            ))}
-          </dl>
-        </div>
+        <NVPairListView nvPairListView={utilizationParams} />
       </StackItem>
     </>
   );

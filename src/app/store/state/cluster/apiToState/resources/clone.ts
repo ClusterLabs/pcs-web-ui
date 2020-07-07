@@ -39,6 +39,7 @@ export const toClone = (
       member,
       status: buildStatus(buildStatusInfoList(apiClone)),
       issueList: transformIssues(apiClone),
+      metaAttributes: apiClone.meta_attr,
     },
   };
 };

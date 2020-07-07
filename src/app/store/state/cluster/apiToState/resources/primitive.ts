@@ -87,5 +87,6 @@ export const toPrimitive = (
       {},
     ),
     utilization: apiResource.utilization,
+    metaAttributes: apiResource.meta_attr,
   };
 };

@@ -4,6 +4,7 @@ import { types } from "app/store";
 import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 import {
   DetailLayout,
+  NVPairListView,
   ResourceDetailCaption,
   UrlTabs,
   useGroupDetailViewContext,
@@ -16,6 +17,7 @@ export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
   const resourceUrlPrefix = join(urlPrefix, clone.id);
   const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
+    Meta: useMatch(join(resourceUrlPrefix, "meta-attributes")),
   });
   return (
     <DetailLayout
@@ -24,6 +26,9 @@ export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
       data-test={`resource-detail ${clone.id}`}
     >
       {tab === "Detail" && <CloneDetail clone={clone} />}
+      {tab === "Meta" && (
+        <NVPairListView nvPairListView={clone.metaAttributes} />
+      )}
     </DetailLayout>
   );
 };
