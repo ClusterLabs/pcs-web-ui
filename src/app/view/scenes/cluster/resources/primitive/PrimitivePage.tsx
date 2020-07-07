@@ -11,6 +11,7 @@ import {
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 import { PrimitiveAttrsView } from "./attributes";
+import { PrimitiveUtilizationView } from "./utilization";
 import { PrimitiveDetail } from "./PrimitiveDetail";
 import { useResourceAgent } from "./useResourceAgent";
 
@@ -25,6 +26,7 @@ export const PrimitivePage = ({
   const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
     Attributes: useMatch(join(resourceUrlPrefix, "attributes")),
+    Utilization: useMatch(join(resourceUrlPrefix, "utilization")),
   });
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
@@ -44,6 +46,9 @@ export const PrimitivePage = ({
     >
       {tab === "Detail" && <PrimitiveDetail primitive={primitive} />}
       {tab === "Attributes" && <PrimitiveAttrsView primitive={primitive} />}
+      {tab === "Utilization" && (
+        <PrimitiveUtilizationView primitive={primitive} />
+      )}
     </DetailLayout>
   );
 };

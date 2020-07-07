@@ -9,6 +9,7 @@ import {
   ApiConstraintTicketResource,
   ApiConstraintTicketSet,
   ApiConstraints,
+  ApiNVPair,
   ApiNodeService,
   ApiNodeServiceMap,
 } from "app/backend/types/clusterStatus";
@@ -94,6 +95,7 @@ export interface Primitive extends ResourceTreeItemBase {
   type: string;
   agentName: string;
   instanceAttributes: Record<string, AgentAttribute>;
+  utilization: ApiNVPair[];
 }
 
 export interface Group extends ResourceTreeItemBase {

@@ -86,5 +86,6 @@ export const toPrimitive = (
       }),
       {},
     ),
+    utilization: apiResource.utilization,
   };
 };

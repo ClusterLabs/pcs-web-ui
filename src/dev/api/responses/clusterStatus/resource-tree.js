@@ -90,6 +90,18 @@ const resourceTree = cluster("resourceTree", "ok", {
           value: "Stopped",
         },
       ],
+      utilization: [
+        {
+          id: "A-utilization-cpu-2",
+          name: "cpu",
+          value: "2",
+        },
+        {
+          id: "A-utilization-memory-4096",
+          name: "memory",
+          value: "4096",
+        },
+      ],
       error_list: [
         {
           message: "Failed to monitor A on Mon Oct 14 14:00:07 CEST 2019",

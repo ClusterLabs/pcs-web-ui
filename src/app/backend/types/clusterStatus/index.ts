@@ -38,6 +38,7 @@ import {
   ApiClusterStatus as TApiClusterStatus,
   ApiClusterStatusFlag as TApiClusterStatusFlag,
 } from "./cluster";
+import { ApiNVPair as TApiNVPair } from "./nvsets";
 
 export type ApiClone = t.TypeOf<typeof TApiClone>;
 export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
@@ -76,6 +77,7 @@ export type ApiResource = t.TypeOf<typeof TApiResource>;
 export type ApiStonith = t.TypeOf<typeof TApiStonith>;
 export type ApiResourceCrmStatus = t.TypeOf<typeof TApiResourceCrmStatus>;
 export type ApiWithIssues = t.TypeOf<typeof TApiWithIssues>;
+export type ApiNVPair = t.TypeOf<typeof TApiNVPair>;
 
 export {
   TApiClusterName,
