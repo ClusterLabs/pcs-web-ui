@@ -94,6 +94,7 @@ export const toGroup = (
       resources,
       status: buildStatus(buildStatusInfoList(apiGroup, resources)),
       issueList: transformIssues(apiGroup),
+      metaAttributes: apiGroup.meta_attr,
     },
   };
 };

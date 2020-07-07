@@ -25,6 +25,7 @@ import {
 import { SelectionIndicatorInGroup } from "./SelectionIndicatorInGroup";
 import { FilterGroups } from "./FilterGroups";
 import { UtilizationView } from "./UtilizationView";
+import { NVPairListView } from "./NVPairListView";
 
 export {
   BackgroundImage,
@@ -51,4 +52,5 @@ export {
   Link,
   pallete,
   UtilizationView,
+  NVPairListView,
 };

@@ -89,6 +89,7 @@ interface ResourceTreeItemBase {
   id: string;
   itemType: string;
   status: ResourceStatus;
+  metaAttributes: NVPair[];
   issueList: Issue[];
 }
 

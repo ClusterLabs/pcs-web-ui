@@ -4,6 +4,7 @@ import { types } from "app/store";
 import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 import {
   DetailLayout,
+  NVPairListView,
   ResourceDetailCaption,
   UrlTabs,
   UtilizationView,
@@ -27,6 +28,7 @@ export const PrimitivePage = ({
     Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
     Attributes: useMatch(join(resourceUrlPrefix, "attributes")),
     Utilization: useMatch(join(resourceUrlPrefix, "utilization")),
+    Meta: useMatch(join(resourceUrlPrefix, "meta-attributes")),
   });
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
@@ -48,6 +50,9 @@ export const PrimitivePage = ({
       {tab === "Attributes" && <PrimitiveAttrsView primitive={primitive} />}
       {tab === "Utilization" && (
         <UtilizationView utilizationParams={primitive.utilization} />
+      )}
+      {tab === "Meta" && (
+        <NVPairListView nvPairListView={primitive.metaAttributes} />
       )}
     </DetailLayout>
   );

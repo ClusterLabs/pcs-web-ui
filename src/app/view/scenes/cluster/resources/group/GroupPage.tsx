@@ -4,6 +4,7 @@ import { types } from "app/store";
 import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 import {
   DetailLayout,
+  NVPairListView,
   ResourceDetailCaption,
   UrlTabs,
   useGroupDetailViewContext,
@@ -16,6 +17,7 @@ export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
   const resourceUrlPrefix = join(urlPrefix, group.id);
   const { tab, urlMap } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
+    Meta: useMatch(join(resourceUrlPrefix, "meta-attributes")),
   });
   return (
     <DetailLayout
@@ -24,6 +26,9 @@ export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
       data-test={`resource-detail ${group.id}`}
     >
       {tab === "Detail" && <GroupDetail group={group} />}
+      {tab === "Meta" && (
+        <NVPairListView nvPairListView={group.metaAttributes} />
+      )}
     </DetailLayout>
   );
 };
