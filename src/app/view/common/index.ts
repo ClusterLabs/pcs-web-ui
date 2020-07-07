@@ -18,7 +18,9 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsHelpPopover,
   PcmkAgentAttrsList,
+  PcmkAgentAttrsToolbar,
   PcmkAgentDescription,
+  usePcmkAgentAttrsFilter,
 } from "./pcmkAgent";
 import { SelectionIndicatorInGroup } from "./SelectionIndicatorInGroup";
 import { FilterGroups } from "./FilterGroups";
@@ -39,6 +41,8 @@ export {
   PcmkAgentAttrsList,
   PcmkAgentAttrsHelpPopover,
   PcmkAgentDescription,
+  PcmkAgentAttrsToolbar,
+  usePcmkAgentAttrsFilter,
   ResourceDetailCaption,
   IssueList,
   LoadedPcmkAgent,

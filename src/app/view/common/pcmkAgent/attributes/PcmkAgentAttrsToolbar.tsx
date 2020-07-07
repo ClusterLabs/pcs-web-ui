@@ -13,7 +13,7 @@ import {
 import { FilterGroups } from "app/view/common";
 import { SearchIcon } from "@patternfly/react-icons";
 
-export function PrimitiveAttrsToolbar<T extends Record<string, boolean>>({
+export function PcmkAgentAttrsToolbar<T extends Record<string, boolean>>({
   actions = {},
   attributeNameSearch,
   setAttributeNameSearch,
