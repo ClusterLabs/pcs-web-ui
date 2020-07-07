@@ -18,15 +18,19 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsHelpPopover,
   PcmkAgentAttrsList,
+  PcmkAgentAttrsToolbar,
   PcmkAgentDescription,
+  usePcmkAgentAttrsFilter,
 } from "./pcmkAgent";
 import { SelectionIndicatorInGroup } from "./SelectionIndicatorInGroup";
+import { FilterGroups } from "./FilterGroups";
 
 export {
   BackgroundImage,
   BackgroundImageSources,
   DetailLayout,
   useGroupDetailViewContext,
+  FilterGroups,
   GroupDetailView,
   Page,
   PageSectionDataLoading,
@@ -37,6 +41,8 @@ export {
   PcmkAgentAttrsList,
   PcmkAgentAttrsHelpPopover,
   PcmkAgentDescription,
+  PcmkAgentAttrsToolbar,
+  usePcmkAgentAttrsFilter,
   ResourceDetailCaption,
   IssueList,
   LoadedPcmkAgent,

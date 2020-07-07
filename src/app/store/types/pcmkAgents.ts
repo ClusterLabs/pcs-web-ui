@@ -3,6 +3,8 @@ export type AgentParameter = {
   shortdesc: string;
   longdesc: string;
   default: string | number | null;
+  advanced: boolean;
+  required: boolean;
 };
 export type Agent = {
   loadStatus: "LOADING" | "LOADED" | "RELOADING" | "FAILED";
