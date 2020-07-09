@@ -9,6 +9,7 @@ import * as pcmkAgents from "./pcmkAgents";
 import * as login from "./login";
 import * as username from "./username";
 import * as clusterStorage from "./clusterStorage";
+import * as clusterProperties from "./clusterProperties";
 
 export interface RootState {
   addExistingCluster: addCluster.DashboardAddClusterPageState;
@@ -27,6 +28,7 @@ export interface Selector<Selected, State = RootState> {
 export {
   addCluster,
   cluster,
+  clusterProperties,
   clusterStorage,
   dashboard,
   login,

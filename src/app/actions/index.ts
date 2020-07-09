@@ -22,6 +22,8 @@ import { ResourceAgentActions as TResourceAgentActions } from "./resource-agent"
 
 import { FenceAgentActions as TFenceAgentActions } from "./fence-agent";
 
+import { ClusterPropertiesActions as TClusterPropertiesActions } from "./clusterProperties";
+
 export type AddClusterActions = TAddClusterActions;
 export type AuthActions = TAuthActions;
 export type ClusterActions = TClusterActions;
@@ -31,6 +33,7 @@ export type ResourceDetailActions = TResourceDetailActions;
 export type PrimitiveResourceActions = TPrimitiveResourceActions;
 export type ResourceAgentActions = TResourceAgentActions;
 export type FenceAgentActions = TFenceAgentActions;
+export type ClusterPropertiesActions = TClusterPropertiesActions;
 
 type Union<A> = A[keyof A];
 
@@ -48,6 +51,7 @@ export type LeafAction = (
   | Union<TPrimitiveResourceActions>
   | Union<TResourceAgentActions>
   | Union<TFenceAgentActions>
+  | Union<TClusterPropertiesActions>
 );
 
 export type SetupDataReading = {

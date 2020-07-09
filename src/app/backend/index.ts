@@ -9,6 +9,7 @@ import { importedClusterList } from "./api/importedClusterList";
 import { getResourceAgentMetadata } from "./api/getResourceAgentMetadata";
 import { getFenceAgentMetadata } from "./api/getFenceAgentMetadata";
 import { updateResource } from "./api/updateResource";
+import { clusterProperties } from "./api/clusterProperties";
 import {
   ApiCall as ApiCallType,
   ApiResponse as ApiResponseType,
@@ -32,4 +33,5 @@ export {
   clusterStatus,
   importedClusterList,
   updateResource,
+  clusterProperties,
 };

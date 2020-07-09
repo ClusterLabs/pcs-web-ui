@@ -7,11 +7,13 @@ import { types } from "app/store";
 import { clusterStatus } from "./clusterStatus/reducer";
 import pcmkAgents from "./pcmkAgents/reducer";
 import resourceTree from "./resourceTree/reducer";
+import clusterProperties from "./clusterProperties/reducer";
 
 const cluster = combineReducers<types.clusterStorage.Item>({
   clusterStatus,
   pcmkAgents,
   resourceTree,
+  clusterProperties,
 });
 
 const clusterStorage: Reducer<types.clusterStorage.Map, Action> = (
