@@ -17,7 +17,7 @@ function* loadFenceAgent({
   if (!result.valid) {
     yield put<Action>({
       type: "FENCE_AGENT.LOAD.FAILED",
-      payload: { agentName },
+      payload: { agentName, clusterUrlName },
     });
     // TODO display information about this in notifications
     return;
@@ -25,7 +25,7 @@ function* loadFenceAgent({
 
   yield put<Action>({
     type: "FENCE_AGENT.LOAD.SUCCESS",
-    payload: { apiAgentMetadata: result.response },
+    payload: { apiAgentMetadata: result.response, clusterUrlName },
   });
 }
 export default [takeEvery(actionType("FENCE_AGENT.LOAD"), loadFenceAgent)];

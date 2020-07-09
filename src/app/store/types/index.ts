@@ -8,12 +8,12 @@ import * as resourceTree from "./resourceTree";
 import * as pcmkAgents from "./pcmkAgents";
 import * as login from "./login";
 import * as username from "./username";
+import * as clusterStorage from "./clusterStorage";
 
 export interface RootState {
   addExistingCluster: addCluster.DashboardAddClusterPageState;
-  clusterStorage: cluster.ClusterStorage;
+  clusterStorage: clusterStorage.Map;
   dashboard: dashboard.DashboardPageState;
-  pcmkAgents: pcmkAgents.AgentsStorage;
   login: login.LoginState;
   notifications: notifications.NotificationState;
   resourceTree: resourceTree.ResourceTreeState;
@@ -28,6 +28,7 @@ export interface Selector<Selected, State = RootState> {
 export {
   addCluster,
   cluster,
+  clusterStorage,
   dashboard,
   login,
   username,

@@ -6,7 +6,9 @@ import { Action } from "app/actions";
 import { selectors } from "app/store";
 
 export const useResourceAgent = (clusterUrlName: string, agentName: string) => {
-  const resourceAgent = useSelector(selectors.getPcmkAgent(agentName));
+  const resourceAgent = useSelector(
+    selectors.getPcmkAgent(clusterUrlName, agentName),
+  );
   const dispatch = useDispatch();
   React.useEffect(() => {
     if (!resourceAgent) {

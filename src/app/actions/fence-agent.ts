@@ -12,6 +12,7 @@ export type FenceAgentActions = {
   LoadFenceAgentSuccess: {
     type: "FENCE_AGENT.LOAD.SUCCESS";
     payload: {
+      clusterUrlName: string;
       apiAgentMetadata: ApiResponse<typeof getFenceAgentMetadata>;
     };
   };
@@ -19,6 +20,7 @@ export type FenceAgentActions = {
   LoadFenceAgentFailed: {
     type: "FENCE_AGENT.LOAD.FAILED";
     payload: {
+      clusterUrlName: string;
       agentName: string;
     };
   };

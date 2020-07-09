@@ -6,7 +6,9 @@ import { Action } from "app/actions";
 import { selectors } from "app/store";
 
 export const useFenceAgent = (clusterUrlName: string, agentName: string) => {
-  const fenceAgent = useSelector(selectors.getPcmkAgent(agentName));
+  const fenceAgent = useSelector(
+    selectors.getPcmkAgent(clusterUrlName, agentName),
+  );
   const dispatch = useDispatch();
   React.useEffect(() => {
     if (!fenceAgent) {

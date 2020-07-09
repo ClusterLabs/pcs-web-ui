@@ -8,6 +8,7 @@ import {
   PcmkAgentAttrsToolbar,
   usePcmkAgentAttrsFilter,
 } from "app/view/common";
+import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 import { PrimitiveAttrsForm } from "./PrimitiveAttrsForm";
 
@@ -16,10 +17,14 @@ export const PrimitiveAttrsView = ({
 }: {
   primitive: types.cluster.Primitive;
 }) => {
+  const clusterName = useSelectedClusterName();
   const [isEditing, setIsEditing] = React.useState(false);
   const { filters, filterParameters } = usePcmkAgentAttrsFilter();
   return (
-    <LoadedPcmkAgent agentName={primitive.agentName}>
+    <LoadedPcmkAgent
+      clusterUrlName={clusterName}
+      agentName={primitive.agentName}
+    >
       {(agent: types.pcmkAgents.Agent) => {
         if (isEditing) {
           return (

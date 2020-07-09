@@ -8,11 +8,14 @@ import {
   PcmkAgentDescription,
 } from "app/view/common";
 
+import { useSelectedClusterName } from "app/view/scenes/cluster";
+
 export const FenceDeviceDetailView = ({
   fenceDevice,
 }: {
   fenceDevice: types.cluster.FenceDevice;
 }) => {
+  const clusterName = useSelectedClusterName();
   return (
     <>
       <StackItem>
@@ -20,7 +23,10 @@ export const FenceDeviceDetailView = ({
           <Text component="h1"> Description </Text>
         </TextContent>
 
-        <LoadedPcmkAgent agentName={fenceDevice.agentName}>
+        <LoadedPcmkAgent
+          clusterUrlName={clusterName}
+          agentName={fenceDevice.agentName}
+        >
           {(agent: types.pcmkAgents.Agent) => (
             <PcmkAgentDescription agent={agent} />
           )}
