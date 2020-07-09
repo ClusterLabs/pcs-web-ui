@@ -30,7 +30,7 @@ import {
   loginRequired as loginIsRequired,
 } from "./login/selectors";
 
-import { getOpenedItems as resourceTreeGetOpenedItems } from "./resourceTree/selectors";
+import { getOpenedItems as resourceTreeGetOpenedItems } from "./cluster/resourceTree/selectors";
 
 import { getNotifications } from "./notifications/selectors";
 import { getPcmkAgent } from "./cluster/pcmkAgents/selectors";

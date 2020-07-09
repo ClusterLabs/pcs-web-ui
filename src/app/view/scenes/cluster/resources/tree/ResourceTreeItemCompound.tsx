@@ -11,6 +11,8 @@ import {
 import { selectors, types } from "app/store";
 import { Action } from "app/actions";
 
+import { useSelectedClusterName } from "app/view/scenes/cluster";
+
 import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
 
 export const ResourceTreeItemCompound = ({
@@ -25,10 +27,11 @@ export const ResourceTreeItemCompound = ({
   status: types.cluster.ResourceStatus;
   type: string;
 }>) => {
+  const clusterName = useSelectedClusterName();
   const dispatch = useDispatch();
-  const expanded = useSelector(selectors.resourceTreeGetOpenedItems).includes(
-    resourceId,
-  );
+  const expanded = useSelector(
+    selectors.resourceTreeGetOpenedItems(clusterName),
+  ).includes(resourceId);
   const label = `Members of resource item ${resourceId}`;
   return (
     <DataListItem
@@ -43,7 +46,7 @@ export const ResourceTreeItemCompound = ({
           onClick={() =>
             dispatch<Action>({
               type: "RESOURCE_TREE.ITEM.TOGGLE",
-              payload: { itemId: resourceId },
+              payload: { itemId: resourceId, clusterUrlName: clusterName },
             })
           }
         />

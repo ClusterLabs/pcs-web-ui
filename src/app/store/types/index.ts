@@ -16,7 +16,6 @@ export interface RootState {
   dashboard: dashboard.DashboardPageState;
   login: login.LoginState;
   notifications: notifications.NotificationState;
-  resourceTree: resourceTree.ResourceTreeState;
   router: RouterState;
   username: username.UsernameState;
 }

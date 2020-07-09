@@ -6,10 +6,12 @@ import { types } from "app/store";
 
 import { clusterStatus } from "./clusterStatus/reducer";
 import pcmkAgents from "./pcmkAgents/reducer";
+import resourceTree from "./resourceTree/reducer";
 
 const cluster = combineReducers<types.clusterStorage.Item>({
   clusterStatus,
   pcmkAgents,
+  resourceTree,
 });
 
 const clusterStorage: Reducer<types.clusterStorage.Map, Action> = (
@@ -26,6 +28,7 @@ const clusterStorage: Reducer<types.clusterStorage.Map, Action> = (
     case "FENCE_AGENT.LOAD":
     case "FENCE_AGENT.LOAD.SUCCESS":
     case "FENCE_AGENT.LOAD.FAILED":
+    case "RESOURCE_TREE.ITEM.TOGGLE":
       /* eslint-disable no-case-declarations */
       const name = action.payload.clusterUrlName;
       return {

@@ -9,7 +9,6 @@ import clusterStorage from "./cluster/reducer";
 import dashboard from "./dashboard/reducer";
 import username from "./username/reducer";
 import notifications from "./notifications/reducer";
-import resourceTree from "./resourceTree/reducer";
 
 const rootReducer = (history: History) =>
   combineReducers<RootState>({
@@ -18,7 +17,6 @@ const rootReducer = (history: History) =>
     dashboard,
     addExistingCluster,
     clusterStorage,
-    resourceTree,
     login,
     notifications,
   });
