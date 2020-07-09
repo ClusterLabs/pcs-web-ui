@@ -31,6 +31,9 @@ const clusterStorage: Reducer<types.clusterStorage.Map, Action> = (
     case "FENCE_AGENT.LOAD.SUCCESS":
     case "FENCE_AGENT.LOAD.FAILED":
     case "RESOURCE_TREE.ITEM.TOGGLE":
+    case "CLUSTER_PROPERTIES.LOAD":
+    case "CLUSTER_PROPERTIES.LOAD.SUCCESS":
+    case "CLUSTER_PROPERTIES.LOAD.FAILED":
       /* eslint-disable no-case-declarations */
       const name = action.payload.clusterUrlName;
       return {
