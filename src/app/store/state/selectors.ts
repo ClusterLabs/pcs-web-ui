@@ -9,8 +9,8 @@ import {
   getSelectedFenceDevice,
   getSelectedNode,
   getSelectedResource,
-} from "./cluster/selectors/cluster";
-import { getConstraints } from "./cluster/selectors/constraints";
+} from "./cluster/clusterStatus/selectors/cluster";
+import { getConstraints } from "./cluster/clusterStatus/selectors/constraints";
 import {
   areDataLoaded as dashboardAreDataLoaded,
   getImportedClusterList,

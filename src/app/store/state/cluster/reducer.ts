@@ -3,40 +3,11 @@ import { Reducer, combineReducers } from "redux";
 import { Action } from "app/actions";
 
 import { types } from "app/store";
-import { apiToState as clusterApiToState } from "./apiToState";
-import { clusterStatusDefault } from "./clusterStatusDefault";
 
-const clusterState: Reducer<
-  types.cluster.ClusterServiceState["clusterState"],
-  Action
-> = (state = clusterStatusDefault, action) => {
-  switch (action.type) {
-    case "CLUSTER_DATA.FETCH.SUCCESS":
-      return clusterApiToState(action.payload.apiClusterStatus);
-    default:
-      return state;
-  }
-};
+import { clusterStatus } from "./clusterStatus/reducer";
 
-const dataFetchState: Reducer<
-  types.cluster.ClusterServiceState["dataFetchState"],
-  Action
-> = (state = "NOT_STARTED", action) => {
-  switch (action.type) {
-    case "CLUSTER_DATA.SYNC":
-      return state === "SUCCESS" ? "SUCCESS" : "IN_PROGRESS";
-    case "CLUSTER_DATA.FETCH.SUCCESS":
-      return "SUCCESS";
-    case "CLUSTER_DATA.FETCH.FAILED":
-      return state === "IN_PROGRESS" ? "ERROR" : state;
-    default:
-      return state;
-  }
-};
-
-const clusterStorageItem = combineReducers<types.cluster.ClusterServiceState>({
-  clusterState,
-  dataFetchState,
+const cluster = combineReducers<types.cluster.AppClusterState>({
+  clusterStatus,
 });
 
 const clusterStorage: Reducer<types.cluster.ClusterStorage, Action> = (
@@ -47,12 +18,11 @@ const clusterStorage: Reducer<types.cluster.ClusterStorage, Action> = (
     case "CLUSTER_DATA.SYNC":
     case "CLUSTER_DATA.FETCH.SUCCESS":
     case "CLUSTER_DATA.FETCH.FAILED":
+      /* eslint-disable no-case-declarations */
+      const name = action.payload.clusterUrlName;
       return {
         ...state,
-        [action.payload.clusterUrlName]: clusterStorageItem(
-          state[action.payload.clusterUrlName],
-          action,
-        ),
+        [name]: cluster(state[name], action),
       };
     case "AUTH.REQUIRED":
       return {};
