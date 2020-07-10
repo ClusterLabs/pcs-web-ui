@@ -20,11 +20,10 @@ import {
   SelectedClusterProvider,
   UrlTabs,
   join,
+  useClusterState,
   useMatch,
   useRoutesAnalysis,
 } from "app/view";
-
-import { useClusterState } from "app/view/hooks";
 
 import { NodeDetailPage, NodeList } from "./nodes";
 import { FenceDeviceDetailPage, FenceDeviceList } from "./fenceDevices";

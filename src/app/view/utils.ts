@@ -1,5 +1,3 @@
-export * from "./tabRoutes";
-
 export const toLabel = (flag: string) =>
   (flag[0].toUpperCase() + flag.slice(1).toLowerCase()).replace(/_/g, " ");
 
