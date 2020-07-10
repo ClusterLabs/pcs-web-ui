@@ -2,8 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
-import { useGroupDetailViewContext } from "app/view";
-import { useSelectedClusterName } from "app/scenes";
+import { useGroupDetailViewContext, useSelectedClusterName } from "app/view";
 
 import { FenceDeviceDoesNotExists } from "./FenceDeviceDoesNotExists";
 import { FenceDeviceView } from "./FenceDeviceView";

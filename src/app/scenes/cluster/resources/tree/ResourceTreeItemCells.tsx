@@ -2,10 +2,7 @@ import React from "react";
 import { DataListCell, DataListItemCells } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import {
-  SelectionIndicatorInGroup,
-  useGroupDetailViewContext,
-} from "app/view";
+import { SelectionIndicatorInGroup, useGroupDetailViewContext } from "app/view";
 
 import { ResourceTreeCellName } from "./ResourceTreeCellName";
 import { ResourceTreeCellType } from "./ResourceTreeCellType";

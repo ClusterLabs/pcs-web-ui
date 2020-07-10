@@ -12,8 +12,13 @@ import {
 import { SearchIcon } from "@patternfly/react-icons";
 
 import { selectors, types, url } from "app/store";
-import { CrmStatusTable, IssueList, Link, pallete } from "app/view";
-import { useSelectedClusterName } from "app/scenes";
+import {
+  CrmStatusTable,
+  IssueList,
+  Link,
+  pallete,
+  useSelectedClusterName,
+} from "app/view";
 
 export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {
   const clusterName = useSelectedClusterName();

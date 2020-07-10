@@ -8,8 +8,7 @@ import {
 } from "@patternfly/react-core";
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
-import { DetailLayout } from "app/view";
-import { useSelectedClusterName } from "app/scenes";
+import { DetailLayout, useSelectedClusterName } from "app/view";
 
 export const FenceDeviceDoesNotExists = ({
   fenceDeviceUrlName,

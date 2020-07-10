@@ -11,7 +11,7 @@ import {
 import { selectors, types } from "app/store";
 import { Action } from "app/actions";
 
-import { useSelectedClusterName } from "app/scenes";
+import { useSelectedClusterName } from "app/view";
 
 import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { types, url } from "app/store";
-import { Link } from "app/view";
-import { useSelectedClusterName } from "app/scenes";
+import { Link, useSelectedClusterName } from "app/view";
 
 import { ConstraintCell } from "../common";
 

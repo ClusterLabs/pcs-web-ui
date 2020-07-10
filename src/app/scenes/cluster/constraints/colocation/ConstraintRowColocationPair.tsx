@@ -2,8 +2,7 @@ import React from "react";
 import { Gallery, GalleryItem } from "@patternfly/react-core";
 
 import { types, url } from "app/store";
-import { Link } from "app/view";
-import { useSelectedClusterName } from "app/scenes";
+import { Link, useSelectedClusterName } from "app/view";
 
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
 import { ConstraintCardColocationResource } from "./ConstraintCardColocationResource";

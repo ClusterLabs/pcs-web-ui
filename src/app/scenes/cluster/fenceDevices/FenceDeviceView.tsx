@@ -1,10 +1,14 @@
 import React from "react";
 
 import { types } from "app/store";
-import { DetailLayout, UrlTabs, useGroupDetailViewContext } from "app/view";
+import {
+  DetailLayout,
+  UrlTabs,
+  useGroupDetailViewContext,
+  useSelectedClusterName,
+} from "app/view";
 import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 
-import { useSelectedClusterName } from "app/scenes";
 import { useFenceAgent } from "./useFenceAgent";
 import { FenceDeviceDetailView } from "./FenceDeviceDetailView";
 import { FenceDeviceArgumentsView } from "./arguments/FenceDeviceArgumentsView";

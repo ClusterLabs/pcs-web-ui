@@ -7,10 +7,7 @@ import {
 } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import {
-  SelectionIndicatorInGroup,
-  useGroupDetailViewContext,
-} from "app/view";
+import { SelectionIndicatorInGroup, useGroupDetailViewContext } from "app/view";
 
 import { FenceDeviceListCellStatus } from "./FenceDeviceListCellStatus";
 import { FenceDeviceListCellName } from "./FenceDeviceListCellName";

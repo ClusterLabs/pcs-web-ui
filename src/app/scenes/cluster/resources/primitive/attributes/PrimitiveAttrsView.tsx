@@ -7,8 +7,8 @@ import {
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
   usePcmkAgentAttrsFilter,
+  useSelectedClusterName,
 } from "app/view";
-import { useSelectedClusterName } from "app/scenes";
 
 import { PrimitiveAttrsForm } from "./PrimitiveAttrsForm";
 

@@ -6,9 +6,8 @@ import {
   IssueList,
   LoadedPcmkAgent,
   PcmkAgentDescription,
+  useSelectedClusterName,
 } from "app/view";
-
-import { useSelectedClusterName } from "app/scenes";
 
 export const FenceDeviceDetailView = ({
   fenceDevice,

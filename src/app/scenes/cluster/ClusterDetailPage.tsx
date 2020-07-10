@@ -14,7 +14,12 @@ import {
 import { Link } from "react-router-dom";
 
 import { Action } from "app/actions";
-import { GroupDetailView, Page, UrlTabs } from "app/view";
+import {
+  GroupDetailView,
+  Page,
+  SelectedClusterProvider,
+  UrlTabs,
+} from "app/view";
 import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
 
@@ -24,7 +29,6 @@ import { ResourceDetailPage, ResourceTree } from "./resources";
 import { ConstraintsPage } from "./constraints";
 import { ClusterPropertiesPage } from "./properties";
 import { ClusterDetail } from "./ClusterDetail";
-import { SelectedClusterProvider } from "./SelectedClusterContext";
 
 export const ClusterDetailPage = ({
   clusterUrlName,

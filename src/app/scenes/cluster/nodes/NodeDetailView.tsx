@@ -12,8 +12,13 @@ import {
 import { ExclamationCircleIcon, SearchIcon } from "@patternfly/react-icons";
 
 import { selectors, types, url } from "app/store";
-import { IssueList, Link, pallete, CrmStatusTable } from "app/view";
-import { useSelectedClusterName } from "app/scenes";
+import {
+  CrmStatusTable,
+  IssueList,
+  Link,
+  pallete,
+  useSelectedClusterName,
+} from "app/view";
 
 import { NodeDaemonTable } from "./NodeDaemonTable";
 import { NodeClusterServicesView } from "./services";

@@ -4,7 +4,7 @@ import { Action } from "app/actions";
 import { ActionGroup, Alert, Button, Form } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import { useSelectedClusterName } from "app/scenes";
+import { useSelectedClusterName } from "app/view";
 
 import { PrimitiveAttrsFormItem } from "./PrimitiveAttrsFormItem";
 import { PrimitiveAttrsFormItemLayout } from "./PrimitiveAttrsFormItemLayout";

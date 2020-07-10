@@ -2,8 +2,7 @@ import React from "react";
 import { Card, CardBody } from "@patternfly/react-core";
 
 import { url } from "app/store";
-import { Link } from "app/view";
-import { useSelectedClusterName } from "app/scenes";
+import { Link, useSelectedClusterName } from "app/view";
 
 import { ConstraintValue } from "../common";
 

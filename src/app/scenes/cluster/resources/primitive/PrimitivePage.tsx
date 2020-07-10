@@ -9,8 +9,8 @@ import {
   UrlTabs,
   UtilizationView,
   useGroupDetailViewContext,
+  useSelectedClusterName,
 } from "app/view";
-import { useSelectedClusterName } from "app/scenes";
 
 import { PrimitiveAttrsView } from "./attributes";
 import { PrimitiveDetail } from "./PrimitiveDetail";

@@ -20,9 +20,8 @@ import {
   LoadedPcmkAgent,
   PcmkAgentDescription,
   pallete,
+  useSelectedClusterName,
 } from "app/view";
-
-import { useSelectedClusterName } from "app/scenes";
 
 export const PrimitiveDetail = ({
   primitive,

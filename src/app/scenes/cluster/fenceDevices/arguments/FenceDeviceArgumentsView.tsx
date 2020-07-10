@@ -8,9 +8,8 @@ import {
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
   usePcmkAgentAttrsFilter,
+  useSelectedClusterName,
 } from "app/view";
-
-import { useSelectedClusterName } from "app/scenes";
 
 export const FenceDeviceArgumentsView = ({
   fenceDevice,
