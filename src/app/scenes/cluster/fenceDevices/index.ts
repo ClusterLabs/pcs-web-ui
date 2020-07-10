@@ -1,4 +1,2 @@
-import { FenceDeviceList } from "./list";
-import { FenceDeviceDetailPage } from "./FenceDeviceDetailPage";
-
-export { FenceDeviceList, FenceDeviceDetailPage };
+export * from "./list";
+export * from "./FenceDeviceDetailPage";

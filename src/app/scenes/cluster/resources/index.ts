@@ -1,4 +1,2 @@
-import { ResourceTree } from "./tree";
-import { ResourceDetailPage } from "./ResourceDetailPage";
-
-export { ResourceTree, ResourceDetailPage };
+export * from "./tree";
+export * from "./ResourceDetailPage";

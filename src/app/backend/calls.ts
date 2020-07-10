@@ -1,5 +1,6 @@
 import { ApiBadStatus, ApiNotExpectedJson } from "./errors";
-import { ApiParams } from "./types";
+
+type ApiParams = [string, string][];
 
 const ajaxHeaders = {
   "X-Requested-With": "XMLHttpRequest",

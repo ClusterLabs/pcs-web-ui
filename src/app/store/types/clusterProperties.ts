@@ -1,6 +1,6 @@
-import { ApiClusterProperty } from "app/backend/types/clusterProperties";
+import { types } from "app/backend";
 
-export type ClusterProperty = ApiClusterProperty;
+export type ClusterProperty = types.clusterProperties.ApiClusterProperty;
 export type ClusterProperties = ClusterProperty[];
 
 export type ClusterPropertiesService = {

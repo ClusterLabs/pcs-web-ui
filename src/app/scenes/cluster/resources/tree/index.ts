@@ -1,3 +1,1 @@
-import { ResourceTree } from "./ResourceTree";
-
-export { ResourceTree };
+export * from "./ResourceTree";

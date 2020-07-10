@@ -1,3 +1,1 @@
-import { EnsureLogin } from "./EnsureLogin";
-
-export { EnsureLogin };
+export * from "./EnsureLogin";

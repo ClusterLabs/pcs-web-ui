@@ -1,4 +1,2 @@
-import { ConstraintRowOrderPair } from "./ConstraintRowOrderPair";
-import { ConstraintRowOrderSet } from "./ConstraintRowOrderSet";
-
-export { ConstraintRowOrderPair, ConstraintRowOrderSet };
+export * from "./ConstraintRowOrderPair";
+export * from "./ConstraintRowOrderSet";

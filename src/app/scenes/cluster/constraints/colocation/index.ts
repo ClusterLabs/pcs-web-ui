@@ -1,4 +1,2 @@
-import { ConstraintRowColocationPair } from "./ConstraintRowColocationPair";
-import { ConstraintRowColocationSet } from "./ConstraintRowColocationSet";
-
-export { ConstraintRowColocationPair, ConstraintRowColocationSet };
+export * from "./ConstraintRowColocationPair";
+export * from "./ConstraintRowColocationSet";

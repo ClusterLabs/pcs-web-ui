@@ -1,6 +1,8 @@
-import { ApiIssue, ApiWithIssues } from "app/backend/types/clusterStatus";
-
+import { types as backendTypes } from "app/backend";
 import { types } from "app/store";
+
+type ApiIssue = backendTypes.clusterStatus.ApiIssue;
+type ApiWithIssues = backendTypes.clusterStatus.ApiWithIssues;
 
 const mapIssue = (severity: types.cluster.Issue["severity"]) => (
   issue: ApiIssue,

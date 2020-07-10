@@ -1,8 +1,10 @@
-import { ApiPrimitive } from "app/backend/types/clusterStatus";
-
+import { types as backendTypes } from "app/backend";
 import { types } from "app/store";
+
 import { transformIssues } from "../issues";
 import { buildStatus, isDisabled } from "./statusInfoList";
+
+type ApiPrimitive = backendTypes.clusterStatus.ApiPrimitive;
 
 const buildStatusInfoList = (
   apiPrimitive: ApiPrimitive,

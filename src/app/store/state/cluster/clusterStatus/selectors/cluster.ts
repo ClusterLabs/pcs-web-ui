@@ -6,7 +6,7 @@ import { clusterStatusDefault } from "../clusterStatusDefault";
 const fetchStatusSuccess: types.cluster.ClusterStatusService["dataFetchState"] =
   "SUCCESS";
 
-export const areDataLoaded = (
+export const clusterAreDataLoaded = (
   clusterUrlName: string,
 ): Selector<boolean> => state =>
   state.clusterStorage[clusterUrlName]?.clusterStatus?.dataFetchState
@@ -30,10 +30,10 @@ export function getClusterMap<T extends string>(
       (map, name) => ({
         ...map,
         [name]: {
-          cluster: areDataLoaded(name)(state)
+          cluster: clusterAreDataLoaded(name)(state)
             ? getCluster(name)(state)
             : { ...clusterStatusDefault, name, urlName: name },
-          isLoaded: areDataLoaded(name)(state),
+          isLoaded: clusterAreDataLoaded(name)(state),
         },
       }),
       {} as Record<T, ClusterInfo>,

@@ -1,4 +1,2 @@
-import { NodeList } from "./NodeList";
-import { NodeDetailPage } from "./NodeDetailPage";
-
-export { NodeList, NodeDetailPage };
+export * from "./NodeList";
+export * from "./NodeDetailPage";

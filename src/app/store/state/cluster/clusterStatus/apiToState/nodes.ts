@@ -1,13 +1,13 @@
-import {
-  ApiClusterStatus,
-  ApiNode,
-  ApiNodeQuorum,
-  ApiNodeStatus,
-} from "app/backend/types/clusterStatus";
+import { types as backendTypes } from "app/backend";
 import { types } from "app/store";
 import * as statusSeverity from "./statusSeverity";
 
 import { transformIssues } from "./issues";
+
+type ApiClusterStatus = backendTypes.clusterStatus.ApiClusterStatus;
+type ApiNode = backendTypes.clusterStatus.ApiNode;
+type ApiNodeQuorum = backendTypes.clusterStatus.ApiNodeQuorum;
+type ApiNodeStatus = backendTypes.clusterStatus.ApiNodeStatus;
 
 const mapStatus = (status: ApiNodeStatus): types.cluster.NodeStatusFlag => {
   if (status === "standby") {

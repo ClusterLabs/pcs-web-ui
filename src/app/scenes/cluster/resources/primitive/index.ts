@@ -1,3 +1,1 @@
-import { PrimitivePage } from "./PrimitivePage";
-
-export { PrimitivePage };
+export * from "./PrimitivePage";

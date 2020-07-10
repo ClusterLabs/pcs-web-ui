@@ -1,3 +1,1 @@
-import { NodeClusterServicesView } from "./NodeClusterServicesView";
-
-export { NodeClusterServicesView };
+export * from "./NodeClusterServicesView";

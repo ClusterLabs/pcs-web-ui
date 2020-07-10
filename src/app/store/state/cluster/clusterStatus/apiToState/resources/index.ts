@@ -1,8 +1,4 @@
-import {
-  ApiPrimitive,
-  ApiResource,
-  ApiStonith,
-} from "app/backend/types/clusterStatus";
+import { types as backendTypes } from "app/backend";
 import { types } from "app/store";
 
 import * as statusSeverity from "../statusSeverity";
@@ -11,6 +7,10 @@ import { filterPrimitive, toGroup } from "./group";
 import { toClone } from "./clone";
 import { toFenceDevice } from "./fenceDevice";
 import { statusToSeverity } from "./statusInfoList";
+
+type ApiPrimitive = backendTypes.clusterStatus.ApiPrimitive;
+type ApiResource = backendTypes.clusterStatus.ApiResource;
+type ApiStonith = backendTypes.clusterStatus.ApiStonith;
 
 const takeResourceOnNodeStatus = (
   apiResource: ApiPrimitive,

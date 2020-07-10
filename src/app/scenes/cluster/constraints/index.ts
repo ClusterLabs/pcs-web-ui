@@ -1,3 +1,1 @@
-import { ConstraintsPage } from "./ConstraintsPage";
-
-export { ConstraintsPage };
+export * from "./ConstraintsPage";

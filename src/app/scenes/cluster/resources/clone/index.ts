@@ -1,3 +1,1 @@
-import { ClonePage } from "./ClonePage";
-
-export { ClonePage };
+export * from "./ClonePage";

@@ -11,7 +11,7 @@ import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 
 import { useFenceAgent } from "./useFenceAgent";
 import { FenceDeviceDetailView } from "./FenceDeviceDetailView";
-import { FenceDeviceArgumentsView } from "./arguments/FenceDeviceArgumentsView";
+import { FenceDeviceArgumentsView } from "./arguments";
 
 export const FenceDeviceView = ({
   fenceDevice,

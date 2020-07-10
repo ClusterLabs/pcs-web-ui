@@ -1,18 +1,18 @@
-import {
-  ApiConstraintColocationPair,
-  ApiConstraintColocationSet,
-  ApiConstraintLocationNode,
-  ApiConstraintLocationRule,
-  ApiConstraintOrderPair,
-  ApiConstraintOrderSet,
-  ApiConstraintResourceSet,
-  ApiConstraintTicketResource,
-  ApiConstraintTicketSet,
-  ApiConstraints,
-  ApiNVPair,
-  ApiNodeService,
-  ApiNodeServiceMap,
-} from "app/backend/types/clusterStatus";
+import { types as t } from "app/backend";
+
+type ApiConstraintColocationPair = t.clusterStatus.ApiConstraintColocationPair;
+type ApiConstraintColocationSet = t.clusterStatus.ApiConstraintColocationSet;
+type ApiConstraintLocationNode = t.clusterStatus.ApiConstraintLocationNode;
+type ApiConstraintLocationRule = t.clusterStatus.ApiConstraintLocationRule;
+type ApiConstraintOrderPair = t.clusterStatus.ApiConstraintOrderPair;
+type ApiConstraintOrderSet = t.clusterStatus.ApiConstraintOrderSet;
+type ApiConstraintResourceSet = t.clusterStatus.ApiConstraintResourceSet;
+type ApiConstraintTicketResource = t.clusterStatus.ApiConstraintTicketResource;
+type ApiConstraintTicketSet = t.clusterStatus.ApiConstraintTicketSet;
+type ApiConstraints = t.clusterStatus.ApiConstraints;
+type ApiNVPair = t.clusterStatus.ApiNVPair;
+type ApiNodeService = t.clusterStatus.ApiNodeService;
+type ApiNodeServiceMap = t.clusterStatus.ApiNodeServiceMap;
 
 export type ConstraintLocationNode = ApiConstraintLocationNode;
 export type ConstraintLocationRule = ApiConstraintLocationRule;

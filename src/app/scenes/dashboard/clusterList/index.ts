@@ -1,3 +1,1 @@
-import { DashboardClusterList } from "./DashboardClusterList";
-
-export { DashboardClusterList };
+export * from "./DashboardClusterList";

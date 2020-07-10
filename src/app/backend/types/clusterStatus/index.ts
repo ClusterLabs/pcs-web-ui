@@ -1,12 +1,10 @@
-import * as t from "io-ts";
-
+import { TypeOf } from "io-ts";
 import {
   ApiIssue as TApiIssue,
   ApiWithIssues as TApiWithIssues,
 } from "./issues";
 import {
   ApiNode as TApiNode,
-  ApiNodeName as TApiNodeName,
   ApiNodeQuorum as TApiNodeQuorum,
   ApiNodeService as TApiNodeService,
   ApiNodeServiceMap as TApiNodeServiceMap,
@@ -30,63 +28,45 @@ import {
   ApiPrimitive as TApiPrimitive,
   ApiResource as TApiResource,
   ApiResourceBase as TApiResourceBase,
-  ApiResourceCrmStatus as TApiResourceCrmStatus,
   ApiStonith as TApiStonith,
 } from "./resources";
-import {
-  ApiClusterName as TApiClusterName,
-  ApiClusterStatus as TApiClusterStatus,
-  ApiClusterStatusFlag as TApiClusterStatusFlag,
-} from "./cluster";
+import { ApiClusterStatus as TApiClusterStatus } from "./cluster";
 import { ApiNVPair as TApiNVPair } from "./nvsets";
 
-export type ApiClone = t.TypeOf<typeof TApiClone>;
-export type ApiClusterStatus = t.TypeOf<typeof TApiClusterStatus>;
-export type ApiConstraintColocationPair = t.TypeOf<
+export type ApiClone = TypeOf<typeof TApiClone>;
+export type ApiClusterStatus = TypeOf<typeof TApiClusterStatus>;
+export type ApiConstraintColocationPair = TypeOf<
   typeof TApiConstraintColocationPair
 >;
-export type ApiConstraintColocationSet = t.TypeOf<
+export type ApiConstraintColocationSet = TypeOf<
   typeof TApiConstraintColocationSet
 >;
-export type ApiConstraintLocationNode = t.TypeOf<
+export type ApiConstraintLocationNode = TypeOf<
   typeof TApiConstraintLocationNode
 >;
-export type ApiConstraintLocationRule = t.TypeOf<
+export type ApiConstraintLocationRule = TypeOf<
   typeof TApiConstraintLocationRule
 >;
-export type ApiConstraintOrderPair = t.TypeOf<typeof TApiConstraintOrderPair>;
-export type ApiConstraintOrderSet = t.TypeOf<typeof TApiConstraintOrderSet>;
-export type ApiConstraintResourceSet = t.TypeOf<
-  typeof TApiConstraintResourceSet
->;
-export type ApiConstraints = t.TypeOf<typeof TApiConstraints>;
-export type ApiConstraintTicketResource = t.TypeOf<
+export type ApiConstraintOrderPair = TypeOf<typeof TApiConstraintOrderPair>;
+export type ApiConstraintOrderSet = TypeOf<typeof TApiConstraintOrderSet>;
+export type ApiConstraintResourceSet = TypeOf<typeof TApiConstraintResourceSet>;
+export type ApiConstraints = TypeOf<typeof TApiConstraints>;
+export type ApiConstraintTicketResource = TypeOf<
   typeof TApiConstraintTicketResource
 >;
-export type ApiConstraintTicketSet = t.TypeOf<typeof TApiConstraintTicketSet>;
-export type ApiGroup = t.TypeOf<typeof TApiGroup>;
-export type ApiIssue = t.TypeOf<typeof TApiIssue>;
-export type ApiNode = t.TypeOf<typeof TApiNode>;
-export type ApiNodeQuorum = t.TypeOf<typeof TApiNodeQuorum>;
-export type ApiNodeServiceMap = t.TypeOf<typeof TApiNodeServiceMap>;
-export type ApiNodeService = t.TypeOf<typeof TApiNodeService>;
-export type ApiNodeStatus = t.TypeOf<typeof TApiNodeStatus>;
-export type ApiResourceBase = t.TypeOf<typeof TApiResourceBase>;
-export type ApiPrimitive = t.TypeOf<typeof TApiPrimitive>;
-export type ApiResource = t.TypeOf<typeof TApiResource>;
-export type ApiStonith = t.TypeOf<typeof TApiStonith>;
-export type ApiResourceCrmStatus = t.TypeOf<typeof TApiResourceCrmStatus>;
-export type ApiWithIssues = t.TypeOf<typeof TApiWithIssues>;
-export type ApiNVPair = t.TypeOf<typeof TApiNVPair>;
+export type ApiConstraintTicketSet = TypeOf<typeof TApiConstraintTicketSet>;
+export type ApiGroup = TypeOf<typeof TApiGroup>;
+export type ApiIssue = TypeOf<typeof TApiIssue>;
+export type ApiNode = TypeOf<typeof TApiNode>;
+export type ApiNodeQuorum = TypeOf<typeof TApiNodeQuorum>;
+export type ApiNodeServiceMap = TypeOf<typeof TApiNodeServiceMap>;
+export type ApiNodeService = TypeOf<typeof TApiNodeService>;
+export type ApiNodeStatus = TypeOf<typeof TApiNodeStatus>;
+export type ApiResourceBase = TypeOf<typeof TApiResourceBase>;
+export type ApiPrimitive = TypeOf<typeof TApiPrimitive>;
+export type ApiResource = TypeOf<typeof TApiResource>;
+export type ApiStonith = TypeOf<typeof TApiStonith>;
+export type ApiWithIssues = TypeOf<typeof TApiWithIssues>;
+export type ApiNVPair = TypeOf<typeof TApiNVPair>;
 
-export {
-  TApiClusterName,
-  TApiClusterStatus,
-  TApiClusterStatusFlag,
-  TApiNodeName,
-  TApiNodeQuorum,
-  TApiNodeService,
-  TApiNodeServiceMap,
-  TApiResource,
-  TApiWithIssues,
-};
+export { TApiClusterStatus };

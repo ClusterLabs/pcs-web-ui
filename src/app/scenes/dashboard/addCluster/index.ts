@@ -1,3 +1,1 @@
-import { AddClusterPage } from "./AddClusterPage";
-
-export { AddClusterPage };
+export * from "./AddClusterPage";

@@ -1,3 +1,1 @@
-import { ClusterDetailPage } from "./ClusterDetailPage";
-
-export { ClusterDetailPage };
+export * from "./ClusterDetailPage";

@@ -1,3 +1,1 @@
-import { GroupPage } from "./GroupPage";
-
-export { GroupPage };
+export * from "./GroupPage";

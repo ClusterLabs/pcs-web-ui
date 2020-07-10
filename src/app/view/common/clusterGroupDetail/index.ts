@@ -1,5 +1,3 @@
-import { GroupDetailView } from "./GroupDetailView";
-import { useGroupDetailViewContext } from "./GroupDetailViewContext";
-import { DetailLayout } from "./DetailLayout";
-
-export { GroupDetailView, useGroupDetailViewContext, DetailLayout };
+export * from "./DetailLayout";
+export * from "./GroupDetailView";
+export * from "./GroupDetailViewContext";

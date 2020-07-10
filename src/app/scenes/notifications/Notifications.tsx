@@ -18,7 +18,7 @@ const severityToVariant = (
   }
 };
 
-export const NotificationContainer = () => {
+export const Notifications = () => {
   const notifications = useSelector(selectors.getNotifications);
   const dispatch = useDispatch();
   return (
