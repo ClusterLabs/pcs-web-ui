@@ -12,8 +12,7 @@ import {
   Title,
 } from "@patternfly/react-core";
 
-import { Action } from "app/actions";
-import { types } from "app/store";
+import { Action, types } from "app/store";
 
 export const AddClusterAuthRequired = ({
   nodeName,

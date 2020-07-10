@@ -2,7 +2,7 @@ import { call, put, take } from "redux-saga/effects";
 import { SagaIterator } from "redux-saga";
 
 import { ApiCall, isUnauthorizedError } from "app/backend";
-import { Action, actionType } from "app/actions";
+import { Action, actionType } from "app/store/actions";
 
 export function authSafe<R, F extends ApiCall<R>>(fn: F) {
   return function* callApi(...args: Parameters<F>): SagaIterator {

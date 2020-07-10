@@ -9,7 +9,12 @@ import {
   take,
 } from "redux-saga/effects";
 
-import { Action, LeafAction, SetupDataReading, actionType } from "app/actions";
+import {
+  Action,
+  LeafAction,
+  SetupDataReading,
+  actionType,
+} from "app/store/actions";
 
 const SYNC_DELAY = 30 * 1000; // ms
 

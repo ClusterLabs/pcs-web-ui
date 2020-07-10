@@ -1,14 +1,16 @@
 import React from "react";
 
 import { types } from "app/store";
-import { DetailLayout, NVPairListView, ResourceDetailCaption,
+import {
+  DetailLayout,
+  NVPairListView,
+  ResourceDetailCaption,
   UrlTabs,
   join,
   useGroupDetailViewContext,
   useMatch,
   useRoutesAnalysis,
 } from "app/view";
-
 
 import { GroupDetail } from "./GroupDetail";
 

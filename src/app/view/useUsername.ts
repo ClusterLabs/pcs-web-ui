@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Action } from "app/actions";
-import { selectors } from "app/store";
+import { Action, selectors } from "app/store";
 
 export const useUsername = () => {
   const username = useSelector(selectors.getUsername);

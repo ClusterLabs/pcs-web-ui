@@ -2,8 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, AlertActionCloseButton } from "@patternfly/react-core";
 
-import { Action } from "app/actions";
-import { selectors, types } from "app/store";
+import { Action, selectors, types } from "app/store";
 
 const severityToVariant = (
   severity: types.notifications.Notification["severity"],

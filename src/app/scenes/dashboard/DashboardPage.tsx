@@ -8,8 +8,7 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import { Action } from "app/actions";
-import { selectors } from "app/store";
+import { Action, selectors } from "app/store";
 import { Page, PageSectionDataLoading } from "app/view";
 
 import { DashboardClusterList } from "./clusterList";

@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 
-import { Action } from "app/actions";
 import { types } from "app/store";
+import { Action } from "app/store/actions";
 
 const defaultState = {
   required: false,

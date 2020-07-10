@@ -12,8 +12,7 @@ import {
 } from "@patternfly/react-core";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Action } from "app/actions";
-import { selectors, types } from "app/store";
+import { Action, selectors, types } from "app/store";
 
 import { AddClusterAuthRequired } from "./AddClusterAuthRequired";
 

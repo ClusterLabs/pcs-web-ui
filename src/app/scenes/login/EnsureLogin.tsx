@@ -2,8 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginForm, LoginPage } from "@patternfly/react-core";
 
-import { Action } from "app/actions";
-import { selectors } from "app/store";
+import { Action, selectors } from "app/store";
 import { BackgroundImage } from "app/view";
 
 export const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {

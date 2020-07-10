@@ -1,7 +1,7 @@
 import { put, takeEvery } from "redux-saga/effects";
 import { push } from "connected-react-router";
 
-import { ResourceDetailActions, actionType } from "app/actions";
+import { ResourceDetailActions, actionType } from "app/store/actions";
 
 import { putNotification } from "./notifications";
 

@@ -1,7 +1,10 @@
 import React from "react";
 
 import { types } from "app/store";
-import { DetailLayout, NVPairListView, ResourceDetailCaption,
+import {
+  DetailLayout,
+  NVPairListView,
+  ResourceDetailCaption,
   UrlTabs,
   UtilizationView,
   join,
@@ -10,7 +13,6 @@ import { DetailLayout, NVPairListView, ResourceDetailCaption,
   useRoutesAnalysis,
   useSelectedClusterName,
 } from "app/view";
-
 
 import { PrimitiveAttrsView } from "./attributes";
 import { PrimitiveDetail } from "./PrimitiveDetail";

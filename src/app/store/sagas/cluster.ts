@@ -1,7 +1,7 @@
 import { all, call, fork, put } from "redux-saga/effects";
 
-import { Action } from "app/actions";
 import { ApiResult, clusterStatus, failMessage } from "app/backend";
+import { Action } from "app/store/actions";
 
 import { putNotification } from "./notifications";
 import { dataLoadManage } from "./dataLoad";

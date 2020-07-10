@@ -13,7 +13,7 @@ import {
 } from "@patternfly/react-core";
 import { Link } from "react-router-dom";
 
-import { Action } from "app/actions";
+import { Action } from "app/store";
 import {
   GroupDetailView,
   Page,

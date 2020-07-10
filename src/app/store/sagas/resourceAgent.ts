@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
-import { Action, ResourceAgentActions, actionType } from "app/actions";
 import { ApiResult, getResourceAgentMetadata } from "app/backend";
+import { Action, ResourceAgentActions, actionType } from "app/store/actions";
 
 import { authSafe } from "./authSafe";
 

@@ -1,7 +1,11 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
-import { Action, ClusterPropertiesActions, actionType } from "app/actions";
 import { ApiResult, clusterProperties } from "app/backend";
+import {
+  Action,
+  ClusterPropertiesActions,
+  actionType,
+} from "app/store/actions";
 
 import { authSafe } from "./authSafe";
 

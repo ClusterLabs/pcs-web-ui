@@ -8,8 +8,7 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
-import { Action } from "app/actions";
+import { Action, selectors, types } from "app/store";
 
 import { useSelectedClusterName } from "app/view";
 

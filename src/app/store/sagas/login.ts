@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
-import { Action, LoginActions, actionType } from "app/actions";
 import { getForText, isUnauthorizedError, postForText } from "app/backend";
+import { Action, LoginActions, actionType } from "app/store/actions";
 
 import { putNotification } from "./notifications";
 

@@ -1,6 +1,10 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
-import { Action, PrimitiveResourceActions, actionType } from "app/actions";
+import {
+  Action,
+  PrimitiveResourceActions,
+  actionType,
+} from "app/store/actions";
 import { ApiResult, updateResource } from "app/backend";
 import { putNotification } from "./notifications";
 

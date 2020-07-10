@@ -1,9 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Action } from "app/actions";
 import { ActionGroup, Alert, Button, Form } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { Action, types } from "app/store";
 import { useSelectedClusterName } from "app/view";
 
 import { PrimitiveAttrsFormItem } from "./PrimitiveAttrsFormItem";

@@ -1,13 +1,12 @@
 import { call, put, race, take, takeEvery } from "redux-saga/effects";
 
-import { Action, AddClusterActions, actionType } from "app/actions";
-
 import {
   ApiResult,
   authGuiAgainstNodes,
   checkAuthAgainstNodes,
   existingCluster,
 } from "app/backend";
+import { Action, AddClusterActions, actionType } from "app/store/actions";
 
 import { authSafe } from "./authSafe";
 
