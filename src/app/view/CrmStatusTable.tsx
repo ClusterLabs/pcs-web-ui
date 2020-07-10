@@ -1,7 +1,8 @@
 import React from "react";
 
 import { types } from "app/store";
-import { StatusSign, Table } from "app/view";
+import { StatusSign } from "./StatusSign";
+import { Table } from "./table";
 
 type ResourceOnNodeStatus = types.cluster.ResourceOnNodeStatus;
 

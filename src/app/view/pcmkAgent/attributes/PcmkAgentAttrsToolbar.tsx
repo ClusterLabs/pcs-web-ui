@@ -11,7 +11,7 @@ import {
 } from "@patternfly/react-core";
 import { SearchIcon } from "@patternfly/react-icons";
 
-import { FilterGroups } from "app/view";
+import { FilterGroups } from "app/view/FilterGroups";
 
 import { pcmkAgentAttrsFiltersTypes } from "./pcmkAgentAttrsFiltersTypes";
 

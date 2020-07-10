@@ -10,7 +10,7 @@ import {
 } from "@patternfly/react-core";
 
 import { Action } from "app/store";
-import { useUsername } from "app/view";
+import { useUsername } from "app/view/useUsername";
 
 export const PageToolbar = () => {
   const [isDropdownOpen, setDropdownOpen] = React.useState(false);

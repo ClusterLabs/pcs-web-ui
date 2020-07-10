@@ -17,7 +17,7 @@ export * from "./SelectedClusterContext";
 export * from "./SelectionIndicatorInGroup";
 export * from "./StatusIco";
 export * from "./StatusSign";
-export * from "./table/Table";
+export * from "./table";
 export * from "./tabRoutes";
 export * from "./UrlTabs";
 export * from "./useClusterState";
