@@ -12,7 +12,7 @@ export type ClusterPropertiesActions = {
     type: "CLUSTER_PROPERTIES.LOAD.SUCCESS";
     payload: {
       clusterUrlName: string;
-      apiClusterPropertis: ApiResponse<typeof clusterProperties>;
+      apiClusterProperties: ApiResponse<typeof clusterProperties>;
     };
   };
 

@@ -35,6 +35,8 @@ import { getOpenedItems as resourceTreeGetOpenedItems } from "./cluster/resource
 import { getNotifications } from "./notifications/selectors";
 import { getPcmkAgent } from "./cluster/pcmkAgents/selectors";
 
+import { getClusterProperties } from "./cluster/clusterProperties/selectors";
+
 export {
   getLocationPathname,
   getUsername,
@@ -61,4 +63,5 @@ export {
   getNotifications,
   getPcmkAgent,
   resourceTreeGetOpenedItems,
+  getClusterProperties,
 };

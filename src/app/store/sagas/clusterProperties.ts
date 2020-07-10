@@ -24,7 +24,7 @@ function* loadClusterProperties({
 
   yield put<Action>({
     type: "CLUSTER_PROPERTIES.LOAD.SUCCESS",
-    payload: { apiClusterPropertis: result.response, clusterUrlName },
+    payload: { apiClusterProperties: result.response, clusterUrlName },
   });
 }
 export default [

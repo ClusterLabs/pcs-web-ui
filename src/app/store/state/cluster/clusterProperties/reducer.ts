@@ -4,12 +4,16 @@ import { Action } from "app/actions";
 import { types } from "app/store";
 
 const data: Reducer<types.clusterProperties.ClusterProperties, Action> = (
-  state = {},
+  state = [],
   action,
 ) => {
   switch (action.type) {
-    case "CLUSTER_PROPERTIES.LOAD.SUCCESS":
-      return action.payload.apiClusterPropertis;
+    case "CLUSTER_PROPERTIES.LOAD.SUCCESS": {
+      const { apiClusterProperties } = action.payload;
+      return Object.keys(apiClusterProperties).map(
+        n => apiClusterProperties[n],
+      );
+    }
     default:
       return state;
   }
