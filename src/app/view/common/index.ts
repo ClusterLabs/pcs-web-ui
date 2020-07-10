@@ -26,10 +26,12 @@ import { SelectionIndicatorInGroup } from "./SelectionIndicatorInGroup";
 import { FilterGroups } from "./FilterGroups";
 import { UtilizationView } from "./UtilizationView";
 import { NVPairListView } from "./NVPairListView";
+import { CrmStatusTable } from "./CrmStatusTable";
 
 export {
   BackgroundImage,
   BackgroundImageSources,
+  CrmStatusTable,
   DetailLayout,
   useGroupDetailViewContext,
   FilterGroups,
