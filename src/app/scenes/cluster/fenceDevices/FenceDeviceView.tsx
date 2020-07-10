@@ -4,10 +4,12 @@ import { types } from "app/store";
 import {
   DetailLayout,
   UrlTabs,
+  join,
   useGroupDetailViewContext,
+  useMatch,
+  useRoutesAnalysis,
   useSelectedClusterName,
 } from "app/view";
-import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 
 import { useFenceAgent } from "./useFenceAgent";
 import { FenceDeviceDetailView } from "./FenceDeviceDetailView";

@@ -1,8 +1,7 @@
 import React from "react";
 
 import { types, url, utils } from "app/store";
-import { Link, StatusSign, Table } from "app/view";
-import { toLabel } from "app/view/utils";
+import { Link, StatusSign, Table, toLabel } from "app/view";
 
 import { compareStrings } from "./utils";
 

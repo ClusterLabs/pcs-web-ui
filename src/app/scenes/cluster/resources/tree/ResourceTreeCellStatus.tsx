@@ -1,8 +1,12 @@
 import React from "react";
 
 import { types } from "app/store";
-import { StatusIco, StatusSign, useGroupDetailViewContext } from "app/view";
-import { toLabel } from "app/view/utils";
+import {
+  StatusIco,
+  StatusSign,
+  toLabel,
+  useGroupDetailViewContext,
+} from "app/view";
 
 type StatusSeverity = types.cluster.StatusSeverity;
 type SeverityCount = { severity: StatusSeverity; count: number };

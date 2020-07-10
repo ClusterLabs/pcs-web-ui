@@ -19,8 +19,11 @@ import {
   Page,
   SelectedClusterProvider,
   UrlTabs,
+  join,
+  useMatch,
+  useRoutesAnalysis,
 } from "app/view";
-import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
+
 import { useClusterState } from "app/view/hooks";
 
 import { NodeDetailPage, NodeList } from "./nodes";

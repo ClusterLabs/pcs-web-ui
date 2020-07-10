@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { useRouteMatch } from "react-router";
 import { push } from "connected-react-router";
 
-import { join } from "app/view/utils";
+import { join } from "app/view";
 
 import { AddClusterPage } from "./addCluster";
 

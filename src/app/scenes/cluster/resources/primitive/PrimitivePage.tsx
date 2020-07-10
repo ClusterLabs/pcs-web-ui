@@ -1,16 +1,16 @@
 import React from "react";
 
 import { types } from "app/store";
-import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
-import {
-  DetailLayout,
-  NVPairListView,
-  ResourceDetailCaption,
+import { DetailLayout, NVPairListView, ResourceDetailCaption,
   UrlTabs,
   UtilizationView,
+  join,
   useGroupDetailViewContext,
+  useMatch,
+  useRoutesAnalysis,
   useSelectedClusterName,
 } from "app/view";
+
 
 import { PrimitiveAttrsView } from "./attributes";
 import { PrimitiveDetail } from "./PrimitiveDetail";

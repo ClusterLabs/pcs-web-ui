@@ -7,10 +7,12 @@ import {
   NVPairListView,
   UrlTabs,
   UtilizationView,
+  join,
   useGroupDetailViewContext,
+  useMatch,
+  useRoutesAnalysis,
   useSelectedClusterName,
 } from "app/view";
-import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 
 import { NodeDetailView } from "./NodeDetailView";
 import { NodeDoesNotExists } from "./NodeDoesNotExists";

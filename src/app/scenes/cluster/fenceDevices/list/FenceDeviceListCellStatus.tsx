@@ -1,8 +1,7 @@
 import React from "react";
 
-import { StatusSign, useGroupDetailViewContext } from "app/view";
+import { StatusSign, toLabel, useGroupDetailViewContext } from "app/view";
 import { types } from "app/store";
-import { toLabel } from "app/view/utils";
 
 export const FenceDeviceListCellStatus = ({
   fenceDevice,

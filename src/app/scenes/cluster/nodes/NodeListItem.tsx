@@ -11,9 +11,9 @@ import { types } from "app/store";
 import {
   SelectionIndicatorInGroup,
   StatusSign,
+  toLabel,
   useGroupDetailViewContext,
 } from "app/view";
-import { toLabel } from "app/view/utils";
 
 export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {
   const { urlPrefix, selectedItemUrlName } = useGroupDetailViewContext();
