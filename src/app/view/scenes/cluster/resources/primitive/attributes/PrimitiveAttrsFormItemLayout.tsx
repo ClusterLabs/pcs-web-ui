@@ -1,7 +1,7 @@
 import React from "react";
 
 import { types } from "app/store";
-import { PcmkAgentAttrsHelpPopover } from "app/view/common";
+import { PcmkAgentAttrsHelpPopover } from "app/view";
 
 export const PrimitiveAttrsFormItemLayout = ({
   resourceAgentParam,

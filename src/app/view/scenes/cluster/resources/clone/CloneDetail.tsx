@@ -12,7 +12,7 @@ import {
 import { SearchIcon } from "@patternfly/react-icons";
 
 import { selectors, types, url } from "app/store";
-import { IssueList, Link, pallete } from "app/view/common";
+import { IssueList, Link, pallete } from "app/view";
 import {
   CrmStatusTable,
   useSelectedClusterName,

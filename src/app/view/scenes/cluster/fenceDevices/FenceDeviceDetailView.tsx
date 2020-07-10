@@ -6,7 +6,7 @@ import {
   IssueList,
   LoadedPcmkAgent,
   PcmkAgentDescription,
-} from "app/view/common";
+} from "app/view";
 
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 

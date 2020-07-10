@@ -5,7 +5,7 @@ import {
   StatusIco,
   StatusSign,
   useGroupDetailViewContext,
-} from "app/view/common";
+} from "app/view";
 import { toLabel } from "app/view/utils";
 
 type StatusSeverity = types.cluster.StatusSeverity;

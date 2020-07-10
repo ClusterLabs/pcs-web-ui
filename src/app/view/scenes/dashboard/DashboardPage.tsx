@@ -10,7 +10,7 @@ import {
 
 import { Action } from "app/actions";
 import { selectors } from "app/store";
-import { Page, PageSectionDataLoading } from "app/view/common";
+import { Page, PageSectionDataLoading } from "app/view";
 
 import { DashboardClusterList } from "./clusterList";
 import { DashboardToolbar } from "./DashboardToolbar";

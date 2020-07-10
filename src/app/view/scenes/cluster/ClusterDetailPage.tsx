@@ -14,7 +14,7 @@ import {
 import { Link } from "react-router-dom";
 
 import { Action } from "app/actions";
-import { GroupDetailView, Page, UrlTabs } from "app/view/common";
+import { GroupDetailView, Page, UrlTabs } from "app/view";
 import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 import { useClusterState } from "app/view/hooks";
 

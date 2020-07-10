@@ -7,7 +7,7 @@ import {
   TextContent,
 } from "@patternfly/react-core";
 
-import { Table } from "app/view/common";
+import { Table } from "app/view";
 
 export const NodeServiceCard = ({
   label,

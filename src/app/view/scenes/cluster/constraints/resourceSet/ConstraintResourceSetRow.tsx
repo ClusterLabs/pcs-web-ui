@@ -2,7 +2,7 @@ import React from "react";
 import { DataListItem, DataListItemRow } from "@patternfly/react-core";
 
 import { types, url } from "app/store";
-import { Link } from "app/view/common";
+import { Link } from "app/view";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 import { ConstraintCell } from "../common";

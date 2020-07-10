@@ -8,7 +8,7 @@ import {
   ResourceDetailCaption,
   UrlTabs,
   useGroupDetailViewContext,
-} from "app/view/common";
+} from "app/view";
 
 import { GroupDetail } from "./GroupDetail";
 

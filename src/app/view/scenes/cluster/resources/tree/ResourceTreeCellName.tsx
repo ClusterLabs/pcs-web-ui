@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link, useGroupDetailViewContext } from "app/view/common";
+import { Link, useGroupDetailViewContext } from "app/view";
 
 export const ResourceTreeCellName = ({
   resourceId,

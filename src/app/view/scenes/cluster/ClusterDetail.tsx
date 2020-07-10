@@ -10,7 +10,7 @@ import {
 } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { IssueList } from "app/view/common";
+import { IssueList } from "app/view";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 
 export const ClusterDetail = () => {

@@ -19,7 +19,7 @@ import {
   LoadedPcmkAgent,
   PcmkAgentDescription,
   pallete,
-} from "app/view/common";
+} from "app/view";
 
 import {
   CrmStatusTable,

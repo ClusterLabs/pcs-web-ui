@@ -9,7 +9,7 @@ import {
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types } from "app/store";
-import { useGroupDetailViewContext } from "app/view/common";
+import { useGroupDetailViewContext } from "app/view";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemClone } from "./ResourceTreeItemClone";

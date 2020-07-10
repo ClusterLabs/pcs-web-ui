@@ -8,7 +8,7 @@ import {
 } from "@patternfly/react-core";
 import { PlusCircleIcon } from "@patternfly/react-icons";
 
-import { DetailLayout } from "app/view/common";
+import { DetailLayout } from "app/view";
 
 export const ResourceDoesNotExists = ({
   resourceUrlName,

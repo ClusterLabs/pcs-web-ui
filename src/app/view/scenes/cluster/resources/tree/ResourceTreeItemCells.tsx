@@ -5,7 +5,7 @@ import { types } from "app/store";
 import {
   SelectionIndicatorInGroup,
   useGroupDetailViewContext,
-} from "app/view/common";
+} from "app/view";
 
 import { ResourceTreeCellName } from "./ResourceTreeCellName";
 import { ResourceTreeCellType } from "./ResourceTreeCellType";

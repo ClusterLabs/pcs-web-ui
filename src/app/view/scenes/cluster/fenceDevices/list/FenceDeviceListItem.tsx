@@ -10,7 +10,7 @@ import { types } from "app/store";
 import {
   SelectionIndicatorInGroup,
   useGroupDetailViewContext,
-} from "app/view/common";
+} from "app/view";
 
 import { FenceDeviceListCellStatus } from "./FenceDeviceListCellStatus";
 import { FenceDeviceListCellName } from "./FenceDeviceListCellName";

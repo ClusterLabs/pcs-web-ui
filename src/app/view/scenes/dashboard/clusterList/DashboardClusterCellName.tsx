@@ -1,7 +1,7 @@
 import React from "react";
 
 import { url } from "app/store";
-import { Link } from "app/view/common";
+import { Link } from "app/view";
 
 export const DashboardClusterCellName = ({
   clusterUrlName,

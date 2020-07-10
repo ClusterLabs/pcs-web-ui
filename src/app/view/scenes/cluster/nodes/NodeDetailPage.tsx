@@ -8,7 +8,7 @@ import {
   UrlTabs,
   UtilizationView,
   useGroupDetailViewContext,
-} from "app/view/common";
+} from "app/view";
 import { useSelectedClusterName } from "app/view/scenes/cluster";
 import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 

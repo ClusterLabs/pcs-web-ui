@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { types } from "app/store";
-import { useGroupDetailViewContext } from "app/view/common";
+import { useGroupDetailViewContext } from "app/view";
 
 export const FenceDeviceListCellName = ({
   fenceDevice,

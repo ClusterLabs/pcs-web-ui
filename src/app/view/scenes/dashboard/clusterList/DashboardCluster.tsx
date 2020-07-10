@@ -1,7 +1,7 @@
 import React from "react";
 
 import { types } from "app/store";
-import { IssueList, Table } from "app/view/common";
+import { IssueList, Table } from "app/view";
 
 import { DashboardClusterNodes } from "./DashboardClusterNodes";
 import { DashboardClusterResources } from "./DashboardClusterResources";

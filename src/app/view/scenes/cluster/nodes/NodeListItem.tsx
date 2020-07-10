@@ -12,7 +12,7 @@ import {
   SelectionIndicatorInGroup,
   StatusSign,
   useGroupDetailViewContext,
-} from "app/view/common";
+} from "app/view";
 import { toLabel } from "app/view/utils";
 
 export const NodeListItem = ({ node }: { node: types.cluster.Node }) => {

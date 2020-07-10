@@ -5,7 +5,7 @@ import {
   DetailLayout,
   UrlTabs,
   useGroupDetailViewContext,
-} from "app/view/common";
+} from "app/view";
 import { join, useMatch, useRoutesAnalysis } from "app/view/utils";
 
 import { useSelectedClusterName } from "app/view/scenes/cluster";

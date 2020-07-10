@@ -1,7 +1,7 @@
 import React from "react";
 
 import { types } from "app/store";
-import { Table } from "app/view/common";
+import { Table } from "app/view";
 
 import { NodeDaemonTr } from "./NodeDaemonTr";
 
