@@ -9,8 +9,8 @@ import {
   getSelectedFenceDevice,
   getSelectedNode,
   getSelectedResource,
-} from "./cluster/selectors/cluster";
-import { getConstraints } from "./cluster/selectors/constraints";
+} from "./cluster/clusterStatus/selectors/cluster";
+import { getConstraints } from "./cluster/clusterStatus/selectors/constraints";
 import {
   areDataLoaded as dashboardAreDataLoaded,
   getImportedClusterList,
@@ -30,10 +30,12 @@ import {
   loginRequired as loginIsRequired,
 } from "./login/selectors";
 
-import { getOpenedItems as resourceTreeGetOpenedItems } from "./resourceTree/selectors";
+import { getOpenedItems as resourceTreeGetOpenedItems } from "./cluster/resourceTree/selectors";
 
 import { getNotifications } from "./notifications/selectors";
-import { getPcmkAgent } from "./pcmkAgents/selectors";
+import { getPcmkAgent } from "./cluster/pcmkAgents/selectors";
+
+import { getClusterProperties } from "./cluster/clusterProperties/selectors";
 
 export {
   getLocationPathname,
@@ -61,4 +63,5 @@ export {
   getNotifications,
   getPcmkAgent,
   resourceTreeGetOpenedItems,
+  getClusterProperties,
 };

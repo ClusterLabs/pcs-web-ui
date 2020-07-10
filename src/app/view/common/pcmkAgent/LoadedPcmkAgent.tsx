@@ -15,13 +15,15 @@ import { selectors, types } from "app/store";
 import * as pallete from "../pallete";
 
 export const LoadedPcmkAgent = ({
+  clusterUrlName,
   agentName,
   children,
 }: {
+  clusterUrlName: string;
   agentName: string;
   children: (ra: types.pcmkAgents.Agent) => JSX.Element;
 }) => {
-  const agent = useSelector(selectors.getPcmkAgent(agentName));
+  const agent = useSelector(selectors.getPcmkAgent(clusterUrlName, agentName));
 
   if (!agent || agent.loadStatus === "LOADING") {
     return (

@@ -32,7 +32,7 @@ const { SortableTh } = Table;
 export const DashboardClusterFenceDevices = ({
   cluster,
 }: {
-  cluster: types.cluster.ClusterState;
+  cluster: types.cluster.ClusterStatus;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   if (cluster.fenceDeviceList.length === 0) {

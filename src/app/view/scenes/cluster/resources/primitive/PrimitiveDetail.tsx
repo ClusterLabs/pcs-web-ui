@@ -42,7 +42,10 @@ export const PrimitiveDetail = ({
           <Text component="h1"> Description </Text>
         </TextContent>
 
-        <LoadedPcmkAgent agentName={primitive.agentName}>
+        <LoadedPcmkAgent
+          clusterUrlName={clusterName}
+          agentName={primitive.agentName}
+        >
           {(agent: types.pcmkAgents.Agent) => (
             <PcmkAgentDescription agent={agent} />
           )}
@@ -64,10 +67,7 @@ export const PrimitiveDetail = ({
         {crmStatusList.length === 0 && (
           <EmptyState style={{ margin: "auto" }}>
             <EmptyStateIcon icon={SearchIcon} color={pallete.UNKNOWN} />
-            <Title
-              size="lg"
-              headingLevel="h3"
-            >
+            <Title size="lg" headingLevel="h3">
               {`No resource ${primitive.id} status info found.`}
             </Title>
             <EmptyStateBody>

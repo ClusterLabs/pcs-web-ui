@@ -17,7 +17,7 @@ function* loadResourceAgent({
   if (!result.valid) {
     yield put<Action>({
       type: "RESOURCE_AGENT.LOAD.FAILED",
-      payload: { agentName },
+      payload: { agentName, clusterUrlName },
     });
     // TODO display information about this in notifications
     return;
@@ -25,7 +25,7 @@ function* loadResourceAgent({
 
   yield put<Action>({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
-    payload: { apiAgentMetadata: result.response },
+    payload: { apiAgentMetadata: result.response, clusterUrlName },
   });
 }
 

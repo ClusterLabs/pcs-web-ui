@@ -11,6 +11,7 @@ import resourcePrimitive from "./resourcePrimitive";
 import resourceAgent from "./resourceAgent";
 import fenceAgent from "./fenceAgent";
 import username from "./username";
+import clusterProperties from "./clusterProperties";
 
 function* rootSaga() {
   yield all([
@@ -19,6 +20,7 @@ function* rootSaga() {
     ...dataLoad,
     ...dashboard,
     ...cluster,
+    ...clusterProperties,
     ...addExistingCluster,
     ...notifications,
     ...resourceDetail,

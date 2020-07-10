@@ -12,6 +12,7 @@ export type ResourceAgentActions = {
   LoadResourceAgentSuccess: {
     type: "RESOURCE_AGENT.LOAD.SUCCESS";
     payload: {
+      clusterUrlName: string;
       apiAgentMetadata: ApiResponse<typeof getResourceAgentMetadata>;
     };
   };
@@ -19,6 +20,7 @@ export type ResourceAgentActions = {
   LoadResourceAgentFailed: {
     type: "RESOURCE_AGENT.LOAD.FAILED";
     payload: {
+      clusterUrlName: string;
       agentName: string;
     };
   };

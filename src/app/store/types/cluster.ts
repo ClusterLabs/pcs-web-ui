@@ -145,10 +145,20 @@ export type ResourceOnNodeStatus = {
   targetRole?: string;
 };
 
+export type ConstraintPack =
+  | { type: "LOCATION_NODE"; constraint: ConstraintLocationNode }
+  | { type: "LOCATION_RULE"; constraint: ConstraintLocationRule }
+  | { type: "COLOCATION_PAIR"; constraint: ConstraintColocationPair }
+  | { type: "COLOCATION_SET"; constraint: ConstraintColocationSet }
+  | { type: "ORDER_PAIR"; constraint: ConstraintOrderPair }
+  | { type: "ORDER_SET"; constraint: ConstraintOrderSet }
+  | { type: "TICKET_RESOURCE"; constraint: ConstraintTicketResource }
+  | { type: "TICKET_SET"; constraint: ConstraintTicketSet };
+
 /*
  status in ApiCLusterStatus is not taken here. There is not real need for it.
 */
-export interface ClusterState {
+export interface ClusterStatus {
   name: string;
   urlName: string;
   nodeList: Node[];
@@ -165,19 +175,7 @@ export interface ClusterState {
   resourceOnNodeStatusList: ResourceOnNodeStatus[];
 }
 
-export interface ClusterServiceState {
-  clusterState: ClusterState;
+export interface ClusterStatusService {
+  clusterData: ClusterStatus;
   dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "ERROR";
 }
-
-export type ConstraintPack =
-  | { type: "LOCATION_NODE"; constraint: ConstraintLocationNode }
-  | { type: "LOCATION_RULE"; constraint: ConstraintLocationRule }
-  | { type: "COLOCATION_PAIR"; constraint: ConstraintColocationPair }
-  | { type: "COLOCATION_SET"; constraint: ConstraintColocationSet }
-  | { type: "ORDER_PAIR"; constraint: ConstraintOrderPair }
-  | { type: "ORDER_SET"; constraint: ConstraintOrderSet }
-  | { type: "TICKET_RESOURCE"; constraint: ConstraintTicketResource }
-  | { type: "TICKET_SET"; constraint: ConstraintTicketSet };
-
-export type ClusterStorage = Record<string, ClusterServiceState>;

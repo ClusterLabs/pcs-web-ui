@@ -1,6 +1,6 @@
 import { types } from "app/store";
 
-export const clusterStatusDefault: types.cluster.ClusterState = {
+export const clusterStatusDefault: types.cluster.ClusterStatus = {
   name: "",
   urlName: "",
   nodeList: [],

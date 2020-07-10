@@ -34,6 +34,8 @@ module.exports = {
     get("/managec/:clusterUrlName/get_resource_agent_metadata", handler),
   getFenceAgentMetadata: handler =>
     get("/managec/:clusterUrlName/get_fence_agent_metadata", handler),
+  clusterProperties: handler =>
+    get("/managec/:clusterUrlName/cluster_properties", handler),
   updateResource: handler =>
     post("/managec/:clusterUrlName/update_resource", parser, handler),
 };

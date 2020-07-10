@@ -5,7 +5,7 @@ import { transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
 
-type ClusterState = types.cluster.ClusterState;
+type ClusterState = types.cluster.ClusterStatus;
 const issuesToSummarySeverity = (
   errorList: ApiIssue[],
   warningList: ApiIssue[],
