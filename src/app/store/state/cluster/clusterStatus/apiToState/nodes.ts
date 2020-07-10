@@ -1,7 +1,7 @@
 import { types as backendTypes } from "app/backend";
-import { types } from "app/store";
-import * as statusSeverity from "./statusSeverity";
+import * as types from "app/store/types";
 
+import * as statusSeverity from "./statusSeverity";
 import { transformIssues } from "./issues";
 
 type ApiClusterStatus = backendTypes.clusterStatus.ApiClusterStatus;

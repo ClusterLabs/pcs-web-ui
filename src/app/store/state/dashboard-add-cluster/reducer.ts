@@ -1,7 +1,7 @@
 import { Reducer, combineReducers } from "redux";
 
-import { types } from "app/store";
 import { Action } from "app/store/actions";
+import * as types from "app/store/types";
 
 const nodeName: Reducer<types.addCluster.NodeName, Action> = (
   state = "",

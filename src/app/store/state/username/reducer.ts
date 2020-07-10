@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 
-import { types } from "app/store";
 import { Action } from "app/store/actions";
+import * as types from "app/store/types";
 
 const auth: Reducer<types.username.UsernameState, Action> = (
   state = "",

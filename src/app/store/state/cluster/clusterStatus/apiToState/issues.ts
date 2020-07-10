@@ -1,5 +1,5 @@
 import { types as backendTypes } from "app/backend";
-import { types } from "app/store";
+import * as types from "app/store/types";
 
 type ApiIssue = backendTypes.clusterStatus.ApiIssue;
 type ApiWithIssues = backendTypes.clusterStatus.ApiWithIssues;

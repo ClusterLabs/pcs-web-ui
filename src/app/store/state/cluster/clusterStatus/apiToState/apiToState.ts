@@ -1,6 +1,7 @@
 import { types as backendTypes } from "app/backend";
 
-import { types } from "app/store";
+import * as types from "app/store/types";
+
 import { transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";

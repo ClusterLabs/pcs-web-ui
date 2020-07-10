@@ -1,4 +1,4 @@
-import { types } from "app/store";
+import * as types from "app/store/types";
 import { Selector } from "app/store/types";
 
 import { clusterStatusDefault } from "../clusterStatusDefault";
