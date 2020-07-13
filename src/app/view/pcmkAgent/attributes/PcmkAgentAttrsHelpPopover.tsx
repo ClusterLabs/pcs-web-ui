@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AttributeHelpPopover } from "app/view/AttributeHelpPopover";
+import { AttributeHelpPopover } from "app/view/attributes";
 
 import { types } from "app/store";
 

@@ -1,8 +1,13 @@
 import React from "react";
 
 import { types } from "app/store";
+import {
+  AttributeList,
+  AttributeName,
+  AttributeValue,
+} from "app/view/attributes";
 
-import { PcmkAgentAttrsListItem } from "./PcmkAgentAttrsListItem";
+import { PcmkAgentAttrsHelpPopover } from "./PcmkAgentAttrsHelpPopover";
 
 export const PcmkAgentAttrsList = ({
   agentAttributes,
@@ -12,16 +17,18 @@ export const PcmkAgentAttrsList = ({
   resourceAgentParameters: types.pcmkAgents.AgentParameter[];
 }) => {
   return (
-    <div className="pf-c-content">
-      <dl>
-        {resourceAgentParameters.map(parameter => (
-          <PcmkAgentAttrsListItem
-            key={parameter.name}
-            agentAttributes={agentAttributes}
-            resourceAgentParam={parameter}
+    <AttributeList attributes={resourceAgentParameters}>
+      {parameter => (
+        <React.Fragment key={parameter.name}>
+          <AttributeName name={parameter.name}>
+            <PcmkAgentAttrsHelpPopover resourceAgentParam={parameter} />
+          </AttributeName>
+          <AttributeValue
+            value={agentAttributes[parameter.name]?.value}
+            defaultValue={parameter.default}
           />
-        ))}
-      </dl>
-    </div>
+        </React.Fragment>
+      )}
+    </AttributeList>
   );
 };
