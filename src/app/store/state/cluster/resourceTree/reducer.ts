@@ -1,7 +1,7 @@
 import { Reducer, combineReducers } from "redux";
 
-import { Action } from "app/actions";
-import { types } from "app/store";
+import { Action } from "app/store/actions";
+import * as types from "app/store/types";
 
 const openedItems: Reducer<
   types.resourceTree.ResourceTreeState["openedItems"],

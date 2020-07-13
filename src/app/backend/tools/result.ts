@@ -6,7 +6,7 @@ interface Valid<T> {
   response: T;
 }
 
-export interface Invalid {
+interface Invalid {
   valid: false;
   errors: string[];
   raw: any;

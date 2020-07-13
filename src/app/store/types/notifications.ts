@@ -1,4 +1,4 @@
-import { NotificationActions } from "app/actions";
+import { NotificationActions } from "app/store/actions";
 
 export type Notification = NotificationActions["Create"]["payload"]["notification"];
 

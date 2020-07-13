@@ -1,13 +1,13 @@
-import {
-  ApiGroup,
-  ApiPrimitive,
-  ApiStonith,
-} from "app/backend/types/clusterStatus";
+import { types as backendTypes } from "app/backend";
+import * as types from "app/store/types";
 
-import { types } from "app/store";
 import { transformIssues } from "../issues";
 import { toPrimitive } from "./primitive";
 import { buildStatus, getMaxSeverity, isDisabled } from "./statusInfoList";
+
+type ApiGroup = backendTypes.clusterStatus.ApiGroup;
+type ApiPrimitive = backendTypes.clusterStatus.ApiPrimitive;
+type ApiStonith = backendTypes.clusterStatus.ApiStonith;
 
 type Counts = {
   errors: Record<string, number>;

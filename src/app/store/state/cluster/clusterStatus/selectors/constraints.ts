@@ -1,5 +1,6 @@
-import { types } from "app/store";
+import * as types from "app/store/types";
 import { Selector } from "app/store/types";
+
 import { getCluster } from "./cluster";
 
 export const getConstraints = (

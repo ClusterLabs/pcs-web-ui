@@ -1,6 +1,6 @@
 import { delay, put, takeEvery } from "redux-saga/effects";
 
-import { Action, NotificationActions, actionType } from "app/actions";
+import { Action, NotificationActions, actionType } from "app/store/actions";
 
 const DISPLAY_MSECONDS = 8000;
 let nextId = 1;

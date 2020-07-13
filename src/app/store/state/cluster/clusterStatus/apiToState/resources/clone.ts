@@ -1,10 +1,13 @@
-import { ApiClone, ApiPrimitive } from "app/backend/types/clusterStatus";
+import { types as backendTypes } from "app/backend";
+import * as types from "app/store/types";
 
-import { types } from "app/store";
 import { transformIssues } from "../issues";
 import { toPrimitive } from "./primitive";
 import { toGroup } from "./group";
 import { buildStatus, statusToSeverity } from "./statusInfoList";
+
+type ApiClone = backendTypes.clusterStatus.ApiClone;
+type ApiPrimitive = backendTypes.clusterStatus.ApiPrimitive;
 
 const buildStatusInfoList = (
   apiClone: ApiClone,
@@ -21,7 +24,10 @@ const buildStatusInfoList = (
 
 export const toClone = (
   apiClone: ApiClone,
-): { clone: types.cluster.Clone; apiPrimitiveList: ApiPrimitive[] } => {
+): {
+  clone: types.cluster.Clone;
+  apiPrimitiveList: ApiPrimitive[];
+} => {
   let member: types.cluster.Clone["member"];
   let apiPrimitiveList: ApiPrimitive[] = [];
   if (apiClone.member.class_type === "primitive") {

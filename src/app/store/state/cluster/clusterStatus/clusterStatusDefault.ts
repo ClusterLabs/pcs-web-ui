@@ -1,4 +1,4 @@
-import { types } from "app/store";
+import * as types from "app/store/types";
 
 export const clusterStatusDefault: types.cluster.ClusterStatus = {
   name: "",

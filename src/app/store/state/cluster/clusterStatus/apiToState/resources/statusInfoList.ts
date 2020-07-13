@@ -1,7 +1,10 @@
-import { ApiResource, ApiResourceBase } from "app/backend/types/clusterStatus";
-import { types } from "app/store";
+import { types as backendTypes } from "app/backend";
+import * as types from "app/store/types";
 
 import * as statusSeverity from "../statusSeverity";
+
+type ApiResource = backendTypes.clusterStatus.ApiResource;
+type ApiResourceBase = backendTypes.clusterStatus.ApiResourceBase;
 
 export const isDisabled = (apiResource: ApiResourceBase): boolean =>
   apiResource.meta_attr.some(

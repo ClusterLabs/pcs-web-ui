@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-export const TApiClusterProperty = t.intersection([
+const TApiClusterProperty = t.intersection([
   t.type({
     advanced: t.boolean,
     default: t.string,
