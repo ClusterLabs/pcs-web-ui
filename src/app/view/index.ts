@@ -2,6 +2,7 @@ import * as pallete from "./pallete";
 
 export { pallete };
 
+export * from "./AttributeHelpPopover";
 export * from "./BackgroundImage";
 export * from "./clusterGroupDetail";
 export * from "./CrmStatusTable";

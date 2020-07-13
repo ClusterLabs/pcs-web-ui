@@ -1,10 +1,6 @@
 import React from "react";
-import { QuestionCircleIcon } from "@patternfly/react-icons";
-import { Popover } from "@patternfly/react-core";
-// prettier-ignore
-import {
-  global_disabled_color_100 as helpColor,
-} from "@patternfly/react-tokens";
+
+import { AttributeHelpPopover } from "app/view/AttributeHelpPopover";
 
 import { types } from "app/store";
 
@@ -14,16 +10,10 @@ export const PcmkAgentAttrsHelpPopover = ({
   resourceAgentParam: types.pcmkAgents.AgentParameter;
 }) => {
   return (
-    <Popover
-      headerContent={resourceAgentParam.shortdesc}
-      bodyContent={resourceAgentParam.longdesc}
-      footerContent={
-        !resourceAgentParam.default
-          ? null
-          : `Default value: ${resourceAgentParam.default}`
-      }
-    >
-      <QuestionCircleIcon color={helpColor.var} />
-    </Popover>
+    <AttributeHelpPopover
+      header={resourceAgentParam.shortdesc}
+      body={resourceAgentParam.longdesc}
+      defaultValue={resourceAgentParam.default}
+    />
   );
 };
