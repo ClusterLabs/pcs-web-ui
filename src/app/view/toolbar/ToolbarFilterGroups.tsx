@@ -16,16 +16,35 @@ function unselectAllOptions<T extends Record<string, boolean>>(options: T): T {
   );
 }
 
-export function FilterGroups<T extends Record<string, boolean>>({
+function allOrIncludedGroupMembers<T extends string>({
+  groupInclusionMap,
+  groupMembershipMap,
+}: {
+  groupInclusionMap: Record<T, boolean>;
+  groupMembershipMap: Record<T, boolean>;
+}) {
+  const groupList = Object.keys(groupInclusionMap) as Array<T>;
+  return (
+    groupList.every(group => !groupInclusionMap[group])
+    || groupList.some(
+      group => groupInclusionMap[group] && groupMembershipMap[group],
+    )
+  );
+}
+
+function useState<T extends string>(initialValue: Record<T, boolean>) {
+  return React.useState(initialValue);
+}
+
+export function ToolbarFilterGroups<T extends string>({
   name,
-  options,
-  setSelected,
+  filterState,
 }: {
   name: string;
-  options: T;
-  setSelected: (selected: T) => void;
+  filterState: ReturnType<typeof useState>;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [options, setSelected] = filterState;
 
   const select = React.useCallback(
     (
@@ -34,7 +53,7 @@ export function FilterGroups<T extends Record<string, boolean>>({
     ) =>
       setSelected({
         ...options,
-        [value.toString()]: !options[value.toString()],
+        [value.toString()]: !options[value.toString() as keyof typeof options],
       }),
     [options, setSelected],
   );
@@ -51,9 +70,11 @@ export function FilterGroups<T extends Record<string, boolean>>({
     [options, setSelected],
   );
 
+  const groupList = Object.keys(options) as Array<keyof typeof options>;
+
   return (
     <ToolbarFilter
-      chips={Object.keys(options).filter(k => options[k])}
+      chips={groupList.filter(group => options[group])}
       deleteChip={unselect}
       deleteChipGroup={unselectAll}
       categoryName={name}
@@ -63,7 +84,7 @@ export function FilterGroups<T extends Record<string, boolean>>({
         aria-label={name}
         onToggle={() => setIsOpen(!isOpen)}
         onSelect={select}
-        selections={Object.keys(options).filter(n => options[n])}
+        selections={groupList.filter(group => options[group])}
         isOpen={isOpen}
         placeholderText={name}
       >
@@ -75,4 +96,6 @@ export function FilterGroups<T extends Record<string, boolean>>({
   );
 }
 
-FilterGroups.unselectAllOptions = unselectAllOptions;
+ToolbarFilterGroups.unselectAllOptions = unselectAllOptions;
+ToolbarFilterGroups.allOrIncludedGroupMembers = allOrIncludedGroupMembers;
+ToolbarFilterGroups.useState = useState;

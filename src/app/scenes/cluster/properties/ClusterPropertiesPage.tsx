@@ -11,6 +11,7 @@ import {
 import { selectors } from "app/store";
 
 import { ClusterPropertiesList } from "./ClusterPropertiesList";
+import { ClusterPropertiesToolbar } from "./ClusterPropertiesToolbar";
 
 export const ClusterPropertiesPage = ({
   clusterUrlName,
@@ -20,6 +21,7 @@ export const ClusterPropertiesPage = ({
   const clusterProperties = useSelector(
     selectors.getClusterProperties(clusterUrlName),
   );
+  const { filterState, filterParameters } = ClusterPropertiesToolbar.useState();
 
   return (
     <PageSection>
@@ -27,8 +29,13 @@ export const ClusterPropertiesPage = ({
         <CardBody>
           <Stack hasGutter>
             <StackItem>
+              <ClusterPropertiesToolbar filterState={filterState} />
+            </StackItem>
+            <StackItem>
               {clusterProperties.length > 0 && (
-                <ClusterPropertiesList clusterProperties={clusterProperties} />
+                <ClusterPropertiesList
+                  clusterProperties={filterParameters(clusterProperties)}
+                />
               )}
             </StackItem>
           </Stack>

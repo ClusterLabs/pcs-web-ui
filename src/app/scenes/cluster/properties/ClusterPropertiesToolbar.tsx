@@ -3,43 +3,41 @@ import React from "react";
 import { types } from "app/store";
 import { ToolbarFilterTextGroupPair } from "app/view/toolbar";
 
-type AgentParameter = types.pcmkAgents.AgentParameter;
+type ClusterProperty = types.clusterProperties.ClusterProperty;
 
 const useState = (): {
   filterState: ReturnType<
     typeof ToolbarFilterTextGroupPair.useState
   >["filterState"];
-  filterParameters: (parameters: AgentParameter[]) => AgentParameter[];
+  filterParameters: (parameters: ClusterProperty[]) => ClusterProperty[];
 } =>
   ToolbarFilterTextGroupPair.useState(
     {
-      Required: true,
-      Optional: true,
       Advanced: false,
+      Basic: true,
     },
     p => ({
       Advanced: p.advanced,
-      Required: p.required,
-      Optional: !p.required && !p.advanced,
+      Basic: !p.advanced,
     }),
-    p => p.name,
+    p => p.readable_name,
   );
 
-export const PcmkAgentAttrsToolbar = ({
+export function ClusterPropertiesToolbar({
   actions = {},
   filterState,
 }: {
-  actions?: React.ComponentProps<typeof ToolbarFilterTextGroupPair>["actions"];
+  actions?: Record<string, () => void>;
   filterState: ReturnType<typeof useState>["filterState"];
-}) => {
+}) {
   return (
     <ToolbarFilterTextGroupPair
-      textSearchId="agent-attributes-name"
+      textSearchId="cluster-properties-name"
       groupName="Importance"
       filterState={filterState}
       actions={actions}
     />
   );
-};
+}
 
-PcmkAgentAttrsToolbar.useState = useState;
+ClusterPropertiesToolbar.useState = useState;

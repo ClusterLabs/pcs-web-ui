@@ -6,7 +6,6 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
-  usePcmkAgentAttrsFilter,
   useSelectedClusterName,
 } from "app/view";
 
@@ -19,7 +18,7 @@ export const PrimitiveAttrsView = ({
 }) => {
   const clusterName = useSelectedClusterName();
   const [isEditing, setIsEditing] = React.useState(false);
-  const { filters, filterParameters } = usePcmkAgentAttrsFilter();
+  const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState();
   return (
     <LoadedPcmkAgent
       clusterUrlName={clusterName}
@@ -30,7 +29,7 @@ export const PrimitiveAttrsView = ({
           return (
             <>
               <StackItem>
-                <PcmkAgentAttrsToolbar filters={filters} />
+                <PcmkAgentAttrsToolbar filterState={filterState} />
               </StackItem>
               <StackItem>
                 <PrimitiveAttrsForm
@@ -50,7 +49,7 @@ export const PrimitiveAttrsView = ({
                 actions={{
                   "Edit Attributes": () => setIsEditing(true),
                 }}
-                filters={filters}
+                filterState={filterState}
               />
             </StackItem>
             <StackItem>

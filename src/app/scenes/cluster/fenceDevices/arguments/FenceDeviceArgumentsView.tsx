@@ -7,7 +7,6 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
-  usePcmkAgentAttrsFilter,
   useSelectedClusterName,
 } from "app/view";
 
@@ -17,7 +16,7 @@ export const FenceDeviceArgumentsView = ({
   fenceDevice: types.cluster.FenceDevice;
 }) => {
   const clusterName = useSelectedClusterName();
-  const { filters, filterParameters } = usePcmkAgentAttrsFilter();
+  const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState();
   return (
     <LoadedPcmkAgent
       clusterUrlName={clusterName}
@@ -27,7 +26,7 @@ export const FenceDeviceArgumentsView = ({
         return (
           <>
             <StackItem>
-              <PcmkAgentAttrsToolbar filters={filters} />
+              <PcmkAgentAttrsToolbar filterState={filterState} />
             </StackItem>
             <StackItem>
               <PcmkAgentAttrsList
