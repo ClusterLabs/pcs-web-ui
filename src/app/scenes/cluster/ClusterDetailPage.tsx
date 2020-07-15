@@ -27,7 +27,7 @@ import {
 
 import { NodeDetailPage, NodeList } from "./nodes";
 import { FenceDeviceDetailPage, FenceDeviceList } from "./fenceDevices";
-import { ResourceDetailPage, ResourceTree } from "./resources";
+import { ResourcesPage } from "./resources";
 import { ConstraintsPage } from "./constraints";
 import { ClusterPropertiesPage } from "./properties";
 import { ClusterDetail } from "./ClusterDetail";
@@ -81,13 +81,7 @@ export const ClusterDetailPage = ({
       {dataLoaded && (
         <SelectedClusterProvider value={clusterUrlName}>
           {tab === "Detail" && <ClusterDetail />}
-          {tab === "Resources" && (
-            <GroupDetailView
-              urlPrefix={url}
-              groupCard={<ResourceTree resourceTree={cluster.resourceTree} />}
-              detailCard={<ResourceDetailPage />}
-            />
-          )}
+          {tab === "Resources" && <ResourcesPage urlPrefix={url} />}
           {tab === "Nodes" && (
             <GroupDetailView
               urlPrefix={url}
