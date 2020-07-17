@@ -1,16 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Button } from "@patternfly/react-core";
 
-import {
-  ClusterSectionToolbar,
-  GroupDetailView,
-  useSelectedClusterName,
-} from "app/view";
+import { GroupDetailView, useSelectedClusterName } from "app/view";
 import { selectors } from "app/store";
 
 import { ResourceDetailPage } from "./ResourceDetailPage";
 import { ResourceTree } from "./tree/ResourceTree";
+import { ResourcesToolbar } from "./ResourcesToolbar";
 
 export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
   const clusterStatus = useSelector(
@@ -18,9 +14,7 @@ export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
   );
   return (
     <>
-      <ClusterSectionToolbar>
-        <Button>Add Resource</Button>
-      </ClusterSectionToolbar>
+      <ResourcesToolbar />
       <GroupDetailView
         urlPrefix={urlPrefix}
         groupCard={<ResourceTree resourceTree={clusterStatus.resourceTree} />}
