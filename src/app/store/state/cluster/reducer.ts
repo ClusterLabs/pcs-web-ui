@@ -7,12 +7,14 @@ import { clusterStatus } from "./clusterStatus/reducer";
 import pcmkAgents from "./pcmkAgents/reducer";
 import resourceTree from "./resourceTree/reducer";
 import clusterProperties from "./clusterProperties/reducer";
+import resourceAgentMap from "./resourceAgentList/reducer";
 
 const cluster = combineReducers<types.clusterStorage.Item>({
   clusterStatus,
   pcmkAgents,
   resourceTree,
   clusterProperties,
+  resourceAgentMap,
 });
 
 const clusterStorage: Reducer<types.clusterStorage.Map, Action> = (
@@ -33,6 +35,9 @@ const clusterStorage: Reducer<types.clusterStorage.Map, Action> = (
     case "CLUSTER_PROPERTIES.LOAD":
     case "CLUSTER_PROPERTIES.LOAD.SUCCESS":
     case "CLUSTER_PROPERTIES.LOAD.FAILED":
+    case "RESOURCE_AGENT_LIST.LOAD":
+    case "RESOURCE_AGENT_LIST.LOAD.SUCCESS":
+    case "RESOURCE_AGENT_LIST.LOAD.FAILED":
       /* eslint-disable no-case-declarations */
       const name = action.payload.clusterUrlName;
       return {

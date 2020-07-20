@@ -37,6 +37,10 @@ export const useClusterState = (clusterUrlName: string) => {
       type: "CLUSTER_PROPERTIES.LOAD",
       payload: { clusterUrlName },
     });
+    dispatch<Action>({
+      type: "RESOURCE_AGENT_LIST.LOAD",
+      payload: { clusterUrlName },
+    });
   }, [clusterUrlName, start, dispatch, stop]);
   return {
     cluster: useSelector(selectors.getCluster(clusterUrlName)),
