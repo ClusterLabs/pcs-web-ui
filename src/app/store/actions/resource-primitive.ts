@@ -1,4 +1,11 @@
 export type PrimitiveResourceActions = {
+  CreateResource: {
+    type: "RESOURCE.PRIMITIVE.CREATE";
+    payload: {
+      resourceName: string;
+      agentName: string;
+    };
+  };
   UpdateInstanceAttributes: {
     type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES";
     payload: {

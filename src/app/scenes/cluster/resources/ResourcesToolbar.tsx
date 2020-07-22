@@ -7,7 +7,10 @@ import { parse, stringifyUrl } from "query-string";
 
 import { ClusterSectionToolbar } from "app/view";
 
-import { ResourceAddWizard } from "./wizardAddResource";
+import {
+  PrimitiveCreateWizardContextProvider,
+  ResourceAddWizard,
+} from "./wizardAddResource";
 
 export const ResourcesToolbar = () => {
   const dispatch = useDispatch();
@@ -34,9 +37,11 @@ export const ResourcesToolbar = () => {
         Add Resource
       </Button>
       {params.wizard === "add-resource" && (
-        <ResourceAddWizard
-          onClose={() => dispatch(push(addResourceWizardUrlClose))}
-        />
+        <PrimitiveCreateWizardContextProvider>
+          <ResourceAddWizard
+            onClose={() => dispatch(push(addResourceWizardUrlClose))}
+          />
+        </PrimitiveCreateWizardContextProvider>
       )}
     </ClusterSectionToolbar>
   );
