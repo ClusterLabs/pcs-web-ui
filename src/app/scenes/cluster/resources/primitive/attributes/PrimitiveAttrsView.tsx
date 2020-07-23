@@ -34,7 +34,10 @@ export const PrimitiveAttrsView = ({
               <StackItem>
                 <PrimitiveAttrsForm
                   primitive={primitive}
-                  resourceAgentParams={filterParameters(agent.parameters)}
+                  resourceAgentParams={agent.parameters}
+                  displayNames={filterParameters(agent.parameters).map(
+                    p => p.name,
+                  )}
                   close={() => setIsEditing(false)}
                 />
               </StackItem>

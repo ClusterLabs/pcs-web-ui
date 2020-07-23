@@ -59,10 +59,12 @@ const hasBackendChange = (
 export const PrimitiveAttrsForm = ({
   primitive,
   resourceAgentParams,
+  displayNames,
   close,
 }: {
   primitive: types.cluster.Primitive;
   resourceAgentParams: types.pcmkAgents.ResourceAgentParameter[];
+  displayNames: string[];
   close: () => void;
 }) => {
   const clusterUrlName = useSelectedClusterName();
@@ -116,26 +118,28 @@ export const PrimitiveAttrsForm = ({
           which value to use.
         </Alert>
       )}
-      {resourceAgentParams.map(parameter => (
-        <PrimitiveAttrsFormItemLayout
-          resourceAgentParam={parameter}
-          required={
-            formMap[parameter.name].initial
-            !== instanceAttr(primitive, parameter.name)
-          }
-          key={parameter.name}
-        >
-          <PrimitiveAttrsFormItem
-            id={`resource-instance-attribute-${parameter.name}`}
-            userValue={formMap[parameter.name].value}
-            initialValue={formMap[parameter.name].initial}
-            remoteValue={instanceAttr(primitive, parameter.name)}
-            onChange={updateParam(parameter.name)}
-            chooseRemoteUse={chooseSrc(parameter.name, "remote")}
-            chooseValueUse={chooseSrc(parameter.name, "user")}
-          />
-        </PrimitiveAttrsFormItemLayout>
-      ))}
+      {resourceAgentParams
+        .filter(parameter => displayNames.includes(parameter.name))
+        .map(parameter => (
+          <PrimitiveAttrsFormItemLayout
+            resourceAgentParam={parameter}
+            required={
+              formMap[parameter.name].initial
+              !== instanceAttr(primitive, parameter.name)
+            }
+            key={parameter.name}
+          >
+            <PrimitiveAttrsFormItem
+              id={`resource-instance-attribute-${parameter.name}`}
+              userValue={formMap[parameter.name].value}
+              initialValue={formMap[parameter.name].initial}
+              remoteValue={instanceAttr(primitive, parameter.name)}
+              onChange={updateParam(parameter.name)}
+              chooseRemoteUse={chooseSrc(parameter.name, "remote")}
+              chooseValueUse={chooseSrc(parameter.name, "user")}
+            />
+          </PrimitiveAttrsFormItemLayout>
+        ))}
       <ActionGroup>
         <Button
           variant="primary"
