@@ -18,7 +18,8 @@ export const ResourceAddWizard = ({ onClose }: { onClose: () => void }) => {
     <Wizard
       data-test="wizard-add-resource"
       isOpen
-      onClose={() => {
+      onClose={onClose}
+      onSave={() => {
         dispatch<Action>({
           type: "RESOURCE.PRIMITIVE.CREATE",
           payload: { agentName, resourceName, clusterUrlName },
