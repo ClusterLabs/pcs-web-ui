@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Wizard } from "@patternfly/react-core";
 
 import { Action } from "app/store";
+import { useSelectedClusterName } from "app/view";
 
 import { ResourceAddWizardS1 } from "./ResourceAddWizardS1";
 import { usePrimitiveCreateWizardContext } from "./PrimitiveCreateWizardContext";
@@ -12,6 +13,7 @@ export const ResourceAddWizard = ({ onClose }: { onClose: () => void }) => {
   const {
     state: { agentName, resourceName },
   } = usePrimitiveCreateWizardContext();
+  const clusterUrlName = useSelectedClusterName();
   return (
     <Wizard
       data-test="wizard-add-resource"
@@ -19,7 +21,7 @@ export const ResourceAddWizard = ({ onClose }: { onClose: () => void }) => {
       onClose={() => {
         dispatch<Action>({
           type: "RESOURCE.PRIMITIVE.CREATE",
-          payload: { agentName, resourceName },
+          payload: { agentName, resourceName, clusterUrlName },
         });
         onClose();
       }}
