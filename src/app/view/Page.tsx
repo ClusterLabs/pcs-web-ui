@@ -6,9 +6,7 @@ import { PageHeader } from "./PageHeader";
 
 export const Page = ({
   children,
-  breadcrumbs = null,
 }: React.PropsWithChildren<{
-  breadcrumbs?: JSX.Element | null;
 }>) => {
   return (
     <>

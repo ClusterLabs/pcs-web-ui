@@ -1,11 +1,6 @@
 const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 
-const clustersOverview = response =>
-  endpoints.clustersOverview((req, res) => {
-    res.json(response);
-  });
-
 const importedClusterList = response =>
   endpoints.importedClusterList((req, res) => {
     res.json(response);
@@ -41,39 +36,41 @@ const clusterProperties = response =>
     res.json(response);
   });
 
+const updateResource = endpoints.updateResource((req, res) => {
+  /* eslint-disable no-underscore-dangle */
+  switch (req.body.name) {
+    case "fail":
+      res.status(500).send("SOMETHING WRONG");
+      break;
+    case "invalid":
+      res.json("invalid");
+      break;
+    case "err":
+      res.json({
+        error: "true",
+        stderr: "Stderr output",
+        stdout: "Stdout output",
+      });
+      break;
+    default:
+      res.json({});
+  }
+});
+
 module.exports = {
-  displayMulti: [
-    clustersOverview(
-      responses.clustersOverview.withClusters([
-        responses.clusterStatus.ok,
-        responses.clusterStatus.error,
-        responses.clusterStatus.big,
-        responses.clusterStatus.ok2,
-        responses.clusterStatus.empty,
-        responses.clusterStatus.resourceTree,
-      ]),
-    ),
+  all: [
     importedClusterList(
       responses.importedClusterList.withClusters([
-        responses.clusterStatus.ok.cluster_name,
-        responses.clusterStatus.error.cluster_name,
-        responses.clusterStatus.big.cluster_name,
-        responses.clusterStatus.ok2.cluster_name,
-        responses.clusterStatus.empty.cluster_name,
         responses.clusterStatus.resourceTree.cluster_name,
       ]),
     ),
     clusterStatus({
-      ok: responses.clusterStatus.ok,
-      error: responses.clusterStatus.error,
-      big: responses.clusterStatus.big,
-      ok2: responses.clusterStatus.ok2,
-      empty: responses.clusterStatus.empty,
       resourceTree: responses.clusterStatus.resourceTree,
     }),
     getResourceAgentList(responses.resourceAgentList.ok),
     getResourceAgentMetadata(responses.resourceAgentMetadata.ok),
     getFenceAgentMetadata(responses.fenceAgentMetadata.ok),
     clusterProperties(responses.clusterProperties.ok),
+    updateResource,
   ],
 };

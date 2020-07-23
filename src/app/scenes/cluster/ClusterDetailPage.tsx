@@ -1,8 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
   EmptyState,
   EmptyStateIcon,
   PageSection,
@@ -11,9 +8,7 @@ import {
   StackItem,
   Title,
 } from "@patternfly/react-core";
-import { Link } from "react-router-dom";
 
-import { Action } from "app/store";
 import {
   GroupDetailView,
   Page,
@@ -27,10 +22,11 @@ import {
 
 import { NodeDetailPage, NodeList } from "./nodes";
 import { FenceDeviceDetailPage, FenceDeviceList } from "./fenceDevices";
-import { ResourceDetailPage, ResourceTree } from "./resources";
+import { ResourcesPage } from "./resources";
 import { ConstraintsPage } from "./constraints";
 import { ClusterPropertiesPage } from "./properties";
 import { ClusterDetail } from "./ClusterDetail";
+import { ClusterDetailBreadcrumb } from "./ClusterDetailBreadcrumb";
 
 export const ClusterDetailPage = ({
   clusterUrlName,
@@ -39,7 +35,6 @@ export const ClusterDetailPage = ({
   clusterUrlName: string;
   urlPrefix: string;
 }) => {
-  const dispatch = useDispatch();
   const { dataLoaded, cluster } = useClusterState(clusterUrlName);
 
   const { tab, urlMap, url } = useRoutesAnalysis("Detail", {
@@ -56,22 +51,7 @@ export const ClusterDetailPage = ({
       <PageSection variant="light">
         <Stack hasGutter>
           <StackItem>
-            <Breadcrumb>
-              <BreadcrumbItem component="span">
-                <Link to="/">Clusters</Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem
-                isActive
-                onClick={() =>
-                  dispatch<Action>({
-                    type: "CLUSTER_DATA.REFRESH",
-                    payload: { clusterUrlName },
-                  })
-                }
-              >
-                {clusterUrlName}
-              </BreadcrumbItem>
-            </Breadcrumb>
+            <ClusterDetailBreadcrumb clusterUrlName={clusterUrlName} />
           </StackItem>
           <StackItem>
             <UrlTabs tabSettingsMap={urlMap} currentTab={tab} label="cluster" />
@@ -81,13 +61,7 @@ export const ClusterDetailPage = ({
       {dataLoaded && (
         <SelectedClusterProvider value={clusterUrlName}>
           {tab === "Detail" && <ClusterDetail />}
-          {tab === "Resources" && (
-            <GroupDetailView
-              urlPrefix={url}
-              groupCard={<ResourceTree resourceTree={cluster.resourceTree} />}
-              detailCard={<ResourceDetailPage />}
-            />
-          )}
+          {tab === "Resources" && <ResourcesPage urlPrefix={url} />}
           {tab === "Nodes" && (
             <GroupDetailView
               urlPrefix={url}

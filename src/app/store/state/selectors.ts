@@ -1,3 +1,4 @@
+export * from "./cluster/resourceAgentList/selectors";
 export * from "./cluster/clusterProperties/selectors";
 export * from "./cluster/clusterStatus/selectors/cluster";
 export * from "./cluster/clusterStatus/selectors/constraints";

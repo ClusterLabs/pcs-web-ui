@@ -25,3 +25,4 @@ export * from "./useClusterState";
 export * from "./useUsername";
 export * from "./UtilizationView";
 export * from "./utils";
+export * from "./ClusterSectionToolbar";

@@ -10,6 +10,7 @@ import * as login from "./login";
 import * as username from "./username";
 import * as clusterStorage from "./clusterStorage";
 import * as clusterProperties from "./clusterProperties";
+import * as resourceAgentList from "./resourceAgentList";
 
 export interface RootState {
   addExistingCluster: addCluster.DashboardAddClusterPageState;
@@ -36,4 +37,5 @@ export {
   notifications,
   resourceTree,
   pcmkAgents,
+  resourceAgentList,
 };
