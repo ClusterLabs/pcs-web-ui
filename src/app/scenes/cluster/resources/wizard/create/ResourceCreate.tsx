@@ -5,14 +5,14 @@ import { Wizard } from "@patternfly/react-core";
 import { Action } from "app/store";
 import { useSelectedClusterName } from "app/view";
 
-import { ResourceAddWizardS1 } from "./ResourceAddWizardS1";
-import { usePrimitiveCreateWizardContext } from "./PrimitiveCreateWizardContext";
+import { ResourceCreateStep1 } from "./ResourceCreateStep1";
+import { useResourceCreateContext } from "./ResourceCreateContext";
 
-export const ResourceAddWizard = ({ onClose }: { onClose: () => void }) => {
+export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useDispatch();
   const {
     state: { agentName, resourceName },
-  } = usePrimitiveCreateWizardContext();
+  } = useResourceCreateContext();
   const clusterUrlName = useSelectedClusterName();
   return (
     <Wizard
@@ -31,7 +31,7 @@ export const ResourceAddWizard = ({ onClose }: { onClose: () => void }) => {
       steps={[
         {
           name: "Name and type",
-          component: <ResourceAddWizardS1 />,
+          component: <ResourceCreateStep1 />,
           nextButtonText: "Create resource",
         },
       ]}

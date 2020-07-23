@@ -41,7 +41,7 @@ const reducer = (state: State, action: Actions): State => {
   }
 };
 
-export const PrimitiveCreateWizardContextProvider = ({
+export const ResourceCreateContextProvider = ({
   children,
 }: React.PropsWithChildren<{}>) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
@@ -50,4 +50,4 @@ export const PrimitiveCreateWizardContextProvider = ({
   );
 };
 
-export const usePrimitiveCreateWizardContext = () => React.useContext(Context);
+export const useResourceCreateContext = () => React.useContext(Context);

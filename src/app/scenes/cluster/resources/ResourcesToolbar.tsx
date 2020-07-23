@@ -2,47 +2,44 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import { push } from "connected-react-router";
-import { Button } from "@patternfly/react-core";
 import { parse, stringifyUrl } from "query-string";
 
 import { ClusterSectionToolbar } from "app/view";
 
-import {
-  PrimitiveCreateWizardContextProvider,
-  ResourceAddWizard,
-} from "./wizardAddResource";
+import { ResourceCreateToolbarItem } from "./wizard";
 
-export const ResourcesToolbar = () => {
+const useWizardOpenState = (wizardKey: string) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const params = parse(location.search);
-  const addResourceWizardUrl = stringifyUrl({
+  const openUrl = stringifyUrl({
     url: location.pathname,
-    query: { ...params, wizard: "add-resource" },
+    query: { ...params, wizard: wizardKey },
   });
 
   const { wizard, ...withoutWizard } = params;
-  const addResourceWizardUrlClose = stringifyUrl({
+  const closeUrl = stringifyUrl({
     url: location.pathname,
     query: withoutWizard,
   });
 
+  return {
+    open: () => dispatch(push(openUrl)),
+    close: () => dispatch(push(closeUrl)),
+    isOpened: params.wizard === wizardKey,
+  };
+};
+
+export const ResourcesToolbar = () => {
+  const resourceCreate = useWizardOpenState("create-resource");
+
   return (
     <ClusterSectionToolbar>
-      <Button
-        variant="primary"
-        onClick={() => dispatch(push(addResourceWizardUrl))}
-        data-test="add-cluster"
-      >
-        Add Resource
-      </Button>
-      {params.wizard === "add-resource" && (
-        <PrimitiveCreateWizardContextProvider>
-          <ResourceAddWizard
-            onClose={() => dispatch(push(addResourceWizardUrlClose))}
-          />
-        </PrimitiveCreateWizardContextProvider>
-      )}
+      <ResourceCreateToolbarItem
+        open={resourceCreate.open}
+        close={resourceCreate.close}
+        isOpened={resourceCreate.isOpened}
+      />
     </ClusterSectionToolbar>
   );
 };

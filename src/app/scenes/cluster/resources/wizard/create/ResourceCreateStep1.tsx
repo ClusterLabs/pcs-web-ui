@@ -7,14 +7,14 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { usePrimitiveCreateWizardContext } from "./PrimitiveCreateWizardContext";
-import { ResourceAddWizardS1TypeSelect } from "./ResourceAddWizardS1TypeSelect";
+import { useResourceCreateContext } from "./ResourceCreateContext";
+import { ResourceCreateStep1TypeSelect } from "./ResourceCreateStep1TypeSelect";
 
-export const ResourceAddWizardS1 = () => {
+export const ResourceCreateStep1 = () => {
   const {
     dispatch,
     state: { agentName, resourceName },
-  } = usePrimitiveCreateWizardContext();
+  } = useResourceCreateContext();
 
   const onSelect = (value: string) => {
     dispatch({
@@ -63,7 +63,7 @@ export const ResourceAddWizardS1 = () => {
           fieldId="new-resource-agent-name"
           helperText="Please select resource agent"
         >
-          <ResourceAddWizardS1TypeSelect
+          <ResourceCreateStep1TypeSelect
             onSelect={onSelect}
             onClear={onClear}
             agentName={agentName}
