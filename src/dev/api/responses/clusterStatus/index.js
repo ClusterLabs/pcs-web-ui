@@ -9,7 +9,7 @@ const clusterOk = clusterName =>
 
 const clusterError = cluster("error", "error", {
   node_list: [
-    node(1),
+    node(1, { sbd_config: null }),
     node(2, { status: "offline", quorum: false }),
     node(3, { status: "offline", quorum: false }),
   ],

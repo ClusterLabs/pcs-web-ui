@@ -80,7 +80,7 @@ export const ApiNode = t.intersection([
       pacemaker: t.boolean,
       pacemaker_enabled: t.boolean,
       pcsd_enabled: t.boolean,
-      sbd_config: t.type({}),
+      sbd_config: t.union([t.type({}), t.null]),
     }),
   ]),
 ]);
