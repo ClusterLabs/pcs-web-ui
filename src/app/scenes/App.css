@@ -36,7 +36,7 @@ body,
   right: 10px;
   z-index: 100;
   width: 350px;
-  maxwidt: 400px;
+  max-width: 400px;
   margin: auto;
 }
 #notifications .notification-item {
