@@ -8,7 +8,9 @@ type ResourceAgentMap = types.resourceAgentList.ResourceAgentMap;
 const data: Reducer<ResourceAgentMap, Action> = (state = {}, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT_LIST.LOAD.SUCCESS":
-      return action.payload.apiResourceAgentList.reduce<ResourceAgentMap>(
+      return Object.values(action.payload.apiResourceAgentMap).reduce<
+        ResourceAgentMap
+      >(
         (resourceAgentMap, apiResourceAgent) => ({
           ...resourceAgentMap,
           [apiResourceAgent.class_provider]: [

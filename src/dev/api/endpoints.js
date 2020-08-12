@@ -30,8 +30,8 @@ module.exports = {
     post("/manage/auth_gui_against_nodes", parser, handler),
   checkAuthAgainstNodes: handler =>
     get("/manage/check_auth_against_nodes", handler),
-  getResourceAgentList: handler =>
-    get("/managec/:clusterUrlName/get_resource_agent_list", handler),
+  getAvailResourceAgents: handler =>
+    get("/managec/:clusterUrlName/get_avail_resource_agents", handler),
   getResourceAgentMetadata: handler =>
     get("/managec/:clusterUrlName/get_resource_agent_metadata", handler),
   getFenceAgentMetadata: handler =>

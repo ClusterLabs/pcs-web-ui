@@ -9,24 +9,27 @@ import {
   validateShape,
 } from "../tools";
 
-const ApiResourceAgentList = t.array(
+const ApiResourceAgentMap = t.record(
+  t.string,
   t.type({
     full_name: t.string,
     class_provider: t.string,
+    class: t.string,
+    provider: t.union([t.string, t.null]),
     type: t.string,
   }),
 );
 
-type Result = t.TypeOf<typeof ApiResourceAgentList>;
+type Result = t.TypeOf<typeof ApiResourceAgentMap>;
 
-export const getResourceAgentList: ApiCall<Result> = async (
+export const getAvailResourceAgents: ApiCall<Result> = async (
   clusterUrlName: string,
 ) => {
   try {
     const raw = await getJson(
-      `/managec/${clusterUrlName}/get_resource_agent_list`,
+      `/managec/${clusterUrlName}/get_avail_resource_agents`,
     );
-    return createResult<Result>(raw, validateShape(raw, ApiResourceAgentList));
+    return createResult<Result>(raw, validateShape(raw, ApiResourceAgentMap));
   } catch (e) {
     return dealWithInvalidJson(e);
   }

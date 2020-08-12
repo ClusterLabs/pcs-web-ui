@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 
-import { ApiResult, getResourceAgentList } from "app/backend";
+import { ApiResult, getAvailResourceAgents } from "app/backend";
 import {
   Action,
   ResourceAgentListActions,
@@ -12,8 +12,8 @@ import { authSafe } from "./authSafe";
 function* loadResourceAgentList({
   payload: { clusterUrlName },
 }: ResourceAgentListActions["LoadResourceAgentList"]) {
-  const result: ApiResult<typeof getResourceAgentList> = yield call(
-    authSafe(getResourceAgentList),
+  const result: ApiResult<typeof getAvailResourceAgents> = yield call(
+    authSafe(getAvailResourceAgents),
     clusterUrlName,
   );
 
@@ -28,7 +28,7 @@ function* loadResourceAgentList({
 
   yield put<Action>({
     type: "RESOURCE_AGENT_LIST.LOAD.SUCCESS",
-    payload: { apiResourceAgentList: result.response, clusterUrlName },
+    payload: { apiResourceAgentMap: result.response, clusterUrlName },
   });
 }
 export default [

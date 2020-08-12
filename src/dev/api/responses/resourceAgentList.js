@@ -1,2960 +1,4143 @@
-const ok = [
-  {
+/* eslint-disable no-dupe-keys */
+const ok = {
+  "lsb:anamon": {
     full_name: "lsb:anamon",
     class_provider: "lsb",
+    class: "lsb",
+    provider: null,
     type: "anamon",
   },
-  {
+  "ocf:heartbeat:apache": {
     full_name: "ocf:heartbeat:apache",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "apache",
   },
-  {
+  "ocf:heartbeat:aws-vpc-move-ip": {
     full_name: "ocf:heartbeat:aws-vpc-move-ip",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "aws-vpc-move-ip",
   },
-  {
+  "ocf:heartbeat:awseip": {
     full_name: "ocf:heartbeat:awseip",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "awseip",
   },
-  {
+  "ocf:heartbeat:awsvip": {
     full_name: "ocf:heartbeat:awsvip",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "awsvip",
   },
-  {
+  "ocf:heartbeat:azure-lb": {
     full_name: "ocf:heartbeat:azure-lb",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "azure-lb",
   },
-  {
+  "ocf:heartbeat:conntrackd": {
     full_name: "ocf:heartbeat:conntrackd",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "conntrackd",
   },
-  {
+  "ocf:heartbeat:CTDB": {
     full_name: "ocf:heartbeat:CTDB",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "CTDB",
   },
-  {
+  "ocf:heartbeat:db2": {
     full_name: "ocf:heartbeat:db2",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "db2",
   },
-  {
+  "ocf:heartbeat:Delay": {
     full_name: "ocf:heartbeat:Delay",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "Delay",
   },
-  {
+  "ocf:heartbeat:dhcpd": {
     full_name: "ocf:heartbeat:dhcpd",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "dhcpd",
   },
-  {
+  "ocf:heartbeat:docker": {
     full_name: "ocf:heartbeat:docker",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "docker",
   },
-  {
+  "ocf:heartbeat:Dummy": {
     full_name: "ocf:heartbeat:Dummy",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "Dummy",
   },
-  {
+  "ocf:heartbeat:ethmonitor": {
     full_name: "ocf:heartbeat:ethmonitor",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "ethmonitor",
   },
-  {
+  "ocf:heartbeat:exportfs": {
     full_name: "ocf:heartbeat:exportfs",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "exportfs",
   },
-  {
+  "ocf:heartbeat:Filesystem": {
     full_name: "ocf:heartbeat:Filesystem",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "Filesystem",
   },
-  {
+  "ocf:heartbeat:galera": {
     full_name: "ocf:heartbeat:galera",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "galera",
   },
-  {
+  "ocf:heartbeat:garbd": {
     full_name: "ocf:heartbeat:garbd",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "garbd",
   },
-  {
+  "ocf:heartbeat:iface-vlan": {
     full_name: "ocf:heartbeat:iface-vlan",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "iface-vlan",
   },
-  {
+  "ocf:heartbeat:IPaddr": {
     full_name: "ocf:heartbeat:IPaddr",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "IPaddr",
   },
-  {
+  "ocf:heartbeat:IPaddr2": {
     full_name: "ocf:heartbeat:IPaddr2",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "IPaddr2",
   },
-  {
+  "ocf:heartbeat:IPsrcaddr": {
     full_name: "ocf:heartbeat:IPsrcaddr",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "IPsrcaddr",
   },
-  {
+  "ocf:heartbeat:iSCSILogicalUnit": {
     full_name: "ocf:heartbeat:iSCSILogicalUnit",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "iSCSILogicalUnit",
   },
-  {
+  "ocf:heartbeat:iSCSITarget": {
     full_name: "ocf:heartbeat:iSCSITarget",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "iSCSITarget",
   },
-  {
+  "ocf:heartbeat:LVM-activate": {
     full_name: "ocf:heartbeat:LVM-activate",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "LVM-activate",
   },
-  {
+  "ocf:heartbeat:lvmlockd": {
     full_name: "ocf:heartbeat:lvmlockd",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "lvmlockd",
   },
-  {
+  "ocf:heartbeat:MailTo": {
     full_name: "ocf:heartbeat:MailTo",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "MailTo",
   },
-  {
+  "ocf:heartbeat:mysql": {
     full_name: "ocf:heartbeat:mysql",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "mysql",
   },
-  {
+  "ocf:heartbeat:nagios": {
     full_name: "ocf:heartbeat:nagios",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "nagios",
   },
-  {
+  "ocf:heartbeat:named": {
     full_name: "ocf:heartbeat:named",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "named",
   },
-  {
+  "ocf:heartbeat:nfsnotify": {
     full_name: "ocf:heartbeat:nfsnotify",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "nfsnotify",
   },
-  {
+  "ocf:heartbeat:nfsserver": {
     full_name: "ocf:heartbeat:nfsserver",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "nfsserver",
   },
-  {
+  "ocf:heartbeat:nginx": {
     full_name: "ocf:heartbeat:nginx",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "nginx",
   },
-  {
+  "ocf:heartbeat:NodeUtilization": {
     full_name: "ocf:heartbeat:NodeUtilization",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "NodeUtilization",
   },
-  {
+  "ocf:heartbeat:oraasm": {
     full_name: "ocf:heartbeat:oraasm",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "oraasm",
   },
-  {
+  "ocf:heartbeat:oracle": {
     full_name: "ocf:heartbeat:oracle",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "oracle",
   },
-  {
+  "ocf:heartbeat:oralsnr": {
     full_name: "ocf:heartbeat:oralsnr",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "oralsnr",
   },
-  {
+  "ocf:heartbeat:pgsql": {
     full_name: "ocf:heartbeat:pgsql",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "pgsql",
   },
-  {
+  "ocf:heartbeat:podman": {
     full_name: "ocf:heartbeat:podman",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "podman",
   },
-  {
+  "ocf:heartbeat:portblock": {
     full_name: "ocf:heartbeat:portblock",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "portblock",
   },
-  {
+  "ocf:heartbeat:postfix": {
     full_name: "ocf:heartbeat:postfix",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "postfix",
   },
-  {
+  "ocf:heartbeat:rabbitmq-cluster": {
     full_name: "ocf:heartbeat:rabbitmq-cluster",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "rabbitmq-cluster",
   },
-  {
+  "ocf:heartbeat:redis": {
     full_name: "ocf:heartbeat:redis",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "redis",
   },
-  {
+  "ocf:heartbeat:Route": {
     full_name: "ocf:heartbeat:Route",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "Route",
   },
-  {
+  "ocf:heartbeat:rsyncd": {
     full_name: "ocf:heartbeat:rsyncd",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "rsyncd",
   },
-  {
+  "ocf:heartbeat:SendArp": {
     full_name: "ocf:heartbeat:SendArp",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "SendArp",
   },
-  {
+  "ocf:heartbeat:slapd": {
     full_name: "ocf:heartbeat:slapd",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "slapd",
   },
-  {
+  "ocf:heartbeat:Squid": {
     full_name: "ocf:heartbeat:Squid",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "Squid",
   },
-  {
+  "ocf:heartbeat:sybaseASE": {
     full_name: "ocf:heartbeat:sybaseASE",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "sybaseASE",
   },
-  {
+  "ocf:heartbeat:symlink": {
     full_name: "ocf:heartbeat:symlink",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "symlink",
   },
-  {
+  "ocf:heartbeat:tomcat": {
     full_name: "ocf:heartbeat:tomcat",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "tomcat",
   },
-  {
+  "ocf:heartbeat:vdo-vol": {
     full_name: "ocf:heartbeat:vdo-vol",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "vdo-vol",
   },
-  {
+  "ocf:heartbeat:VirtualDomain": {
     full_name: "ocf:heartbeat:VirtualDomain",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "VirtualDomain",
   },
-  {
+  "ocf:heartbeat:Xinetd": {
     full_name: "ocf:heartbeat:Xinetd",
     class_provider: "ocf:heartbeat",
+    class: "ocf",
+    provider: "heartbeat",
     type: "Xinetd",
   },
-  {
+  "ocf:openstack:nova-compute-wait": {
     full_name: "ocf:openstack:nova-compute-wait",
     class_provider: "ocf:openstack",
+    class: "ocf",
+    provider: "openstack",
     type: "nova-compute-wait",
   },
-  {
+  "ocf:openstack:NovaEvacuate": {
     full_name: "ocf:openstack:NovaEvacuate",
     class_provider: "ocf:openstack",
+    class: "ocf",
+    provider: "openstack",
     type: "NovaEvacuate",
   },
-  {
+  "ocf:pacemaker:attribute": {
     full_name: "ocf:pacemaker:attribute",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "attribute",
   },
-  {
+  "ocf:pacemaker:ClusterMon": {
     full_name: "ocf:pacemaker:ClusterMon",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "ClusterMon",
   },
-  {
+  "ocf:pacemaker:controld": {
     full_name: "ocf:pacemaker:controld",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "controld",
   },
-  {
+  "ocf:pacemaker:Dummy": {
     full_name: "ocf:pacemaker:Dummy",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "Dummy",
   },
-  {
+  "ocf:pacemaker:HealthCPU": {
     full_name: "ocf:pacemaker:HealthCPU",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "HealthCPU",
   },
-  {
+  "ocf:pacemaker:HealthIOWait": {
     full_name: "ocf:pacemaker:HealthIOWait",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "HealthIOWait",
   },
-  {
+  "ocf:pacemaker:HealthSMART": {
     full_name: "ocf:pacemaker:HealthSMART",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "HealthSMART",
   },
-  {
+  "ocf:pacemaker:ifspeed": {
     full_name: "ocf:pacemaker:ifspeed",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "ifspeed",
   },
-  {
+  "ocf:pacemaker:ping": {
     full_name: "ocf:pacemaker:ping",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "ping",
   },
-  {
+  "ocf:pacemaker:pingd": {
     full_name: "ocf:pacemaker:pingd",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "pingd",
   },
-  {
+  "ocf:pacemaker:remote": {
     full_name: "ocf:pacemaker:remote",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "remote",
   },
-  {
+  "ocf:pacemaker:Stateful": {
     full_name: "ocf:pacemaker:Stateful",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "Stateful",
   },
-  {
+  "ocf:pacemaker:SysInfo": {
     full_name: "ocf:pacemaker:SysInfo",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "SysInfo",
   },
-  {
+  "ocf:pacemaker:SystemHealth": {
     full_name: "ocf:pacemaker:SystemHealth",
     class_provider: "ocf:pacemaker",
+    class: "ocf",
+    provider: "pacemaker",
     type: "SystemHealth",
   },
-  {
+  "service:-.mount": {
     full_name: "service:-.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "-.mount",
   },
-  {
+  "service:anamon": {
     full_name: "service:anamon",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "anamon",
   },
-  {
+  "service:anamon": {
     full_name: "service:anamon",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "anamon",
   },
-  {
+  "service:arp-ethers": {
     full_name: "service:arp-ethers",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "arp-ethers",
   },
-  {
+  "service:atd": {
     full_name: "service:atd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "atd",
   },
-  {
+  "service:auditd": {
     full_name: "service:auditd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "auditd",
   },
-  {
+  "service:auth-rpcgss-module": {
     full_name: "service:auth-rpcgss-module",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "auth-rpcgss-module",
   },
-  {
+  "service:autofs": {
     full_name: "service:autofs",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "autofs",
   },
-  {
+  "service:autovt@": {
     full_name: "service:autovt@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "autovt@",
   },
-  {
+  "service:blk-availability": {
     full_name: "service:blk-availability",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "blk-availability",
   },
-  {
+  "service:boot.mount": {
     full_name: "service:boot.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "boot.mount",
   },
-  {
+  "service:btimed": {
     full_name: "service:btimed",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "btimed",
   },
-  {
+  "service:btimed.socket": {
     full_name: "service:btimed.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "btimed.socket",
   },
-  {
+  "service:chrony-dnssrv@": {
     full_name: "service:chrony-dnssrv@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "chrony-dnssrv@",
   },
-  {
+  "service:chrony-dnssrv@.timer": {
     full_name: "service:chrony-dnssrv@.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "chrony-dnssrv@.timer",
   },
-  {
+  "service:chrony-wait": {
     full_name: "service:chrony-wait",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "chrony-wait",
   },
-  {
+  "service:chronyd": {
     full_name: "service:chronyd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "chronyd",
   },
-  {
+  "service:console-getty": {
     full_name: "service:console-getty",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "console-getty",
   },
-  {
+  "service:container-getty@": {
     full_name: "service:container-getty@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "container-getty@",
   },
-  {
+  "service:corosync": {
     full_name: "service:corosync",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "corosync",
   },
-  {
+  "service:corosync-notifyd": {
     full_name: "service:corosync-notifyd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "corosync-notifyd",
   },
-  {
+  "service:cpupower": {
     full_name: "service:cpupower",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "cpupower",
   },
-  {
+  "service:crm_mon": {
     full_name: "service:crm_mon",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "crm_mon",
   },
-  {
+  "service:crond": {
     full_name: "service:crond",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "crond",
   },
-  {
+  "service:cups": {
     full_name: "service:cups",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "cups",
   },
-  {
+  "service:cups-browsed": {
     full_name: "service:cups-browsed",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "cups-browsed",
   },
-  {
+  "service:cups.path": {
     full_name: "service:cups.path",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "cups.path",
   },
-  {
+  "service:cups.socket": {
     full_name: "service:cups.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "cups.socket",
   },
-  {
+  "service:dbus": {
     full_name: "service:dbus",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dbus",
   },
-  {
+  "service:dbus-org.freedesktop.hostname1": {
     full_name: "service:dbus-org.freedesktop.hostname1",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dbus-org.freedesktop.hostname1",
   },
-  {
+  "service:dbus-org.freedesktop.locale1": {
     full_name: "service:dbus-org.freedesktop.locale1",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dbus-org.freedesktop.locale1",
   },
-  {
+  "service:dbus-org.freedesktop.login1": {
     full_name: "service:dbus-org.freedesktop.login1",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dbus-org.freedesktop.login1",
   },
-  {
+  "service:dbus-org.freedesktop.nm-dispatcher": {
     full_name: "service:dbus-org.freedesktop.nm-dispatcher",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dbus-org.freedesktop.nm-dispatcher",
   },
-  {
+  "service:dbus-org.freedesktop.portable1": {
     full_name: "service:dbus-org.freedesktop.portable1",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dbus-org.freedesktop.portable1",
   },
-  {
+  "service:dbus-org.freedesktop.timedate1": {
     full_name: "service:dbus-org.freedesktop.timedate1",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dbus-org.freedesktop.timedate1",
   },
-  {
+  "service:dbus.socket": {
     full_name: "service:dbus.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dbus.socket",
   },
-  {
+  "service:debug-shell": {
     full_name: "service:debug-shell",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "debug-shell",
   },
-  {
+  "service:dev-hugepages.mount": {
     full_name: "service:dev-hugepages.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dev-hugepages.mount",
   },
-  {
+  "service:dev-mqueue.mount": {
     full_name: "service:dev-mqueue.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dev-mqueue.mount",
   },
-  {
+  "service:dlm": {
     full_name: "service:dlm",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dlm",
   },
-  {
+  "service:dm-event": {
     full_name: "service:dm-event",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dm-event",
   },
-  {
+  "service:dm-event.socket": {
     full_name: "service:dm-event.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dm-event.socket",
   },
-  {
+  "service:dnf-makecache": {
     full_name: "service:dnf-makecache",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dnf-makecache",
   },
-  {
+  "service:dnf-makecache.timer": {
     full_name: "service:dnf-makecache.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dnf-makecache.timer",
   },
-  {
+  "service:dracut-cmdline": {
     full_name: "service:dracut-cmdline",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dracut-cmdline",
   },
-  {
+  "service:dracut-initqueue": {
     full_name: "service:dracut-initqueue",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dracut-initqueue",
   },
-  {
+  "service:dracut-mount": {
     full_name: "service:dracut-mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dracut-mount",
   },
-  {
+  "service:dracut-pre-mount": {
     full_name: "service:dracut-pre-mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dracut-pre-mount",
   },
-  {
+  "service:dracut-pre-pivot": {
     full_name: "service:dracut-pre-pivot",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dracut-pre-pivot",
   },
-  {
+  "service:dracut-pre-trigger": {
     full_name: "service:dracut-pre-trigger",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dracut-pre-trigger",
   },
-  {
+  "service:dracut-pre-udev": {
     full_name: "service:dracut-pre-udev",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dracut-pre-udev",
   },
-  {
+  "service:dracut-shutdown": {
     full_name: "service:dracut-shutdown",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "dracut-shutdown",
   },
-  {
+  "service:emergency": {
     full_name: "service:emergency",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "emergency",
   },
-  {
+  "service:fstrim": {
     full_name: "service:fstrim",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "fstrim",
   },
-  {
+  "service:fstrim.timer": {
     full_name: "service:fstrim.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "fstrim.timer",
   },
-  {
+  "service:geoclue": {
     full_name: "service:geoclue",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "geoclue",
   },
-  {
+  "service:getty@": {
     full_name: "service:getty@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "getty@",
   },
-  {
+  "service:grub-boot-indeterminate": {
     full_name: "service:grub-boot-indeterminate",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "grub-boot-indeterminate",
   },
-  {
+  "service:gssproxy": {
     full_name: "service:gssproxy",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "gssproxy",
   },
-  {
+  "service:halt-local": {
     full_name: "service:halt-local",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "halt-local",
   },
-  {
+  "service:import-state": {
     full_name: "service:import-state",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "import-state",
   },
-  {
+  "service:initrd-cleanup": {
     full_name: "service:initrd-cleanup",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "initrd-cleanup",
   },
-  {
+  "service:initrd-parse-etc": {
     full_name: "service:initrd-parse-etc",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "initrd-parse-etc",
   },
-  {
+  "service:initrd-switch-root": {
     full_name: "service:initrd-switch-root",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "initrd-switch-root",
   },
-  {
+  "service:initrd-udevadm-cleanup-db": {
     full_name: "service:initrd-udevadm-cleanup-db",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "initrd-udevadm-cleanup-db",
   },
-  {
+  "service:iprdump": {
     full_name: "service:iprdump",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iprdump",
   },
-  {
+  "service:iprinit": {
     full_name: "service:iprinit",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iprinit",
   },
-  {
+  "service:iprupdate": {
     full_name: "service:iprupdate",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iprupdate",
   },
-  {
+  "service:irqbalance": {
     full_name: "service:irqbalance",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "irqbalance",
   },
-  {
+  "service:iscsi": {
     full_name: "service:iscsi",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iscsi",
   },
-  {
+  "service:iscsi-onboot": {
     full_name: "service:iscsi-onboot",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iscsi-onboot",
   },
-  {
+  "service:iscsi-shutdown": {
     full_name: "service:iscsi-shutdown",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iscsi-shutdown",
   },
-  {
+  "service:iscsid": {
     full_name: "service:iscsid",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iscsid",
   },
-  {
+  "service:iscsid.socket": {
     full_name: "service:iscsid.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iscsid.socket",
   },
-  {
+  "service:iscsiuio": {
     full_name: "service:iscsiuio",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iscsiuio",
   },
-  {
+  "service:iscsiuio.socket": {
     full_name: "service:iscsiuio.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "iscsiuio.socket",
   },
-  {
+  "service:kdump": {
     full_name: "service:kdump",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "kdump",
   },
-  {
+  "service:kmod-static-nodes": {
     full_name: "service:kmod-static-nodes",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "kmod-static-nodes",
   },
-  {
+  "service:ldconfig": {
     full_name: "service:ldconfig",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "ldconfig",
   },
-  {
+  "service:loadmodules": {
     full_name: "service:loadmodules",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "loadmodules",
   },
-  {
+  "service:lvm2-lvmpolld": {
     full_name: "service:lvm2-lvmpolld",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "lvm2-lvmpolld",
   },
-  {
+  "service:lvm2-lvmpolld.socket": {
     full_name: "service:lvm2-lvmpolld.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "lvm2-lvmpolld.socket",
   },
-  {
+  "service:lvm2-monitor": {
     full_name: "service:lvm2-monitor",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "lvm2-monitor",
   },
-  {
+  "service:lvm2-pvscan@": {
     full_name: "service:lvm2-pvscan@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "lvm2-pvscan@",
   },
-  {
+  "service:lvmlockd": {
     full_name: "service:lvmlockd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "lvmlockd",
   },
-  {
+  "service:lvmlocks": {
     full_name: "service:lvmlocks",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "lvmlocks",
   },
-  {
+  "service:man-db-cache-update": {
     full_name: "service:man-db-cache-update",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "man-db-cache-update",
   },
-  {
+  "service:messagebus": {
     full_name: "service:messagebus",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "messagebus",
   },
-  {
+  "service:microcode": {
     full_name: "service:microcode",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "microcode",
   },
-  {
+  "service:mnt-redhat.mount": {
     full_name: "service:mnt-redhat.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "mnt-redhat.mount",
   },
-  {
+  "service:multipathd": {
     full_name: "service:multipathd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "multipathd",
   },
-  {
+  "service:multipathd.socket": {
     full_name: "service:multipathd.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "multipathd.socket",
   },
-  {
+  "service:NetworkManager": {
     full_name: "service:NetworkManager",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "NetworkManager",
   },
-  {
+  "service:NetworkManager-dispatcher": {
     full_name: "service:NetworkManager-dispatcher",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "NetworkManager-dispatcher",
   },
-  {
+  "service:NetworkManager-wait-online": {
     full_name: "service:NetworkManager-wait-online",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "NetworkManager-wait-online",
   },
-  {
+  "service:nfs-blkmap": {
     full_name: "service:nfs-blkmap",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "nfs-blkmap",
   },
-  {
+  "service:nfs-convert": {
     full_name: "service:nfs-convert",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "nfs-convert",
   },
-  {
+  "service:nfs-idmapd": {
     full_name: "service:nfs-idmapd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "nfs-idmapd",
   },
-  {
+  "service:nfs-mountd": {
     full_name: "service:nfs-mountd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "nfs-mountd",
   },
-  {
+  "service:nfs-server": {
     full_name: "service:nfs-server",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "nfs-server",
   },
-  {
+  "service:nfs-utils": {
     full_name: "service:nfs-utils",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "nfs-utils",
   },
-  {
+  "service:nis-domainname": {
     full_name: "service:nis-domainname",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "nis-domainname",
   },
-  {
+  "service:pacemaker": {
     full_name: "service:pacemaker",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pacemaker",
   },
-  {
+  "service:pcs_snmp_agent": {
     full_name: "service:pcs_snmp_agent",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pcs_snmp_agent",
   },
-  {
+  "service:pcsd": {
     full_name: "service:pcsd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pcsd",
   },
-  {
+  "service:pcsd-ruby": {
     full_name: "service:pcsd-ruby",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pcsd-ruby",
   },
-  {
+  "service:pesign": {
     full_name: "service:pesign",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pesign",
   },
-  {
+  "service:plymouth-halt": {
     full_name: "service:plymouth-halt",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "plymouth-halt",
   },
-  {
+  "service:plymouth-kexec": {
     full_name: "service:plymouth-kexec",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "plymouth-kexec",
   },
-  {
+  "service:plymouth-poweroff": {
     full_name: "service:plymouth-poweroff",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "plymouth-poweroff",
   },
-  {
+  "service:plymouth-quit": {
     full_name: "service:plymouth-quit",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "plymouth-quit",
   },
-  {
+  "service:plymouth-quit-wait": {
     full_name: "service:plymouth-quit-wait",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "plymouth-quit-wait",
   },
-  {
+  "service:plymouth-read-write": {
     full_name: "service:plymouth-read-write",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "plymouth-read-write",
   },
-  {
+  "service:plymouth-reboot": {
     full_name: "service:plymouth-reboot",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "plymouth-reboot",
   },
-  {
+  "service:plymouth-start": {
     full_name: "service:plymouth-start",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "plymouth-start",
   },
-  {
+  "service:plymouth-switch-root": {
     full_name: "service:plymouth-switch-root",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "plymouth-switch-root",
   },
-  {
+  "service:pmcd": {
     full_name: "service:pmcd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmcd",
   },
-  {
+  "service:pmie": {
     full_name: "service:pmie",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmie",
   },
-  {
+  "service:pmie_check": {
     full_name: "service:pmie_check",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmie_check",
   },
-  {
+  "service:pmie_check.timer": {
     full_name: "service:pmie_check.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmie_check.timer",
   },
-  {
+  "service:pmie_daily": {
     full_name: "service:pmie_daily",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmie_daily",
   },
-  {
+  "service:pmie_daily.timer": {
     full_name: "service:pmie_daily.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmie_daily.timer",
   },
-  {
+  "service:pmlogger": {
     full_name: "service:pmlogger",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger",
   },
-  {
+  "service:pmlogger_check": {
     full_name: "service:pmlogger_check",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_check",
   },
-  {
+  "service:pmlogger_check.timer": {
     full_name: "service:pmlogger_check.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_check.timer",
   },
-  {
+  "service:pmlogger_daily": {
     full_name: "service:pmlogger_daily",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_daily",
   },
-  {
+  "service:pmlogger_daily-poll": {
     full_name: "service:pmlogger_daily-poll",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_daily-poll",
   },
-  {
+  "service:pmlogger_daily-poll.timer": {
     full_name: "service:pmlogger_daily-poll.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_daily-poll.timer",
   },
-  {
+  "service:pmlogger_daily.timer": {
     full_name: "service:pmlogger_daily.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_daily.timer",
   },
-  {
+  "service:pmlogger_daily_report": {
     full_name: "service:pmlogger_daily_report",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_daily_report",
   },
-  {
+  "service:pmlogger_daily_report-poll": {
     full_name: "service:pmlogger_daily_report-poll",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_daily_report-poll",
   },
-  {
+  "service:pmlogger_daily_report-poll.timer": {
     full_name: "service:pmlogger_daily_report-poll.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_daily_report-poll.timer",
   },
-  {
+  "service:pmlogger_daily_report.timer": {
     full_name: "service:pmlogger_daily_report.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmlogger_daily_report.timer",
   },
-  {
+  "service:pmproxy": {
     full_name: "service:pmproxy",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "pmproxy",
   },
-  {
+  "service:polkit": {
     full_name: "service:polkit",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "polkit",
   },
-  {
+  "service:postfix": {
     full_name: "service:postfix",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "postfix",
   },
-  {
+  "service:proc-fs-nfsd.mount": {
     full_name: "service:proc-fs-nfsd.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "proc-fs-nfsd.mount",
   },
-  {
+  "service:proc-sys-fs-binfmt_misc.mount": {
     full_name: "service:proc-sys-fs-binfmt_misc.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "proc-sys-fs-binfmt_misc.mount",
   },
-  {
+  "service:qarshd.socket": {
     full_name: "service:qarshd.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "qarshd.socket",
   },
-  {
+  "service:qarshd@": {
     full_name: "service:qarshd@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "qarshd@",
   },
-  {
+  "service:qemu-guest-agent": {
     full_name: "service:qemu-guest-agent",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "qemu-guest-agent",
   },
-  {
+  "service:quotaon": {
     full_name: "service:quotaon",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "quotaon",
   },
-  {
+  "service:rc-local": {
     full_name: "service:rc-local",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rc-local",
   },
-  {
+  "service:rdisc": {
     full_name: "service:rdisc",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rdisc",
   },
-  {
+  "service:rescue": {
     full_name: "service:rescue",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rescue",
   },
-  {
+  "service:restraintd": {
     full_name: "service:restraintd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "restraintd",
   },
-  {
+  "service:rhnsd": {
     full_name: "service:rhnsd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rhnsd",
   },
-  {
+  "service:rhsm": {
     full_name: "service:rhsm",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rhsm",
   },
-  {
+  "service:rhsm-facts": {
     full_name: "service:rhsm-facts",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rhsm-facts",
   },
-  {
+  "service:rhsmcertd": {
     full_name: "service:rhsmcertd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rhsmcertd",
   },
-  {
+  "service:rngd": {
     full_name: "service:rngd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rngd",
   },
-  {
+  "service:rngd-wake-threshold": {
     full_name: "service:rngd-wake-threshold",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rngd-wake-threshold",
   },
-  {
+  "service:rpc-gssd": {
     full_name: "service:rpc-gssd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rpc-gssd",
   },
-  {
+  "service:rpc-statd": {
     full_name: "service:rpc-statd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rpc-statd",
   },
-  {
+  "service:rpc-statd-notify": {
     full_name: "service:rpc-statd-notify",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rpc-statd-notify",
   },
-  {
+  "service:rpcbind": {
     full_name: "service:rpcbind",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rpcbind",
   },
-  {
+  "service:rpcbind.socket": {
     full_name: "service:rpcbind.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rpcbind.socket",
   },
-  {
+  "service:rsyslog": {
     full_name: "service:rsyslog",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "rsyslog",
   },
-  {
+  "service:sbd": {
     full_name: "service:sbd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sbd",
   },
-  {
+  "service:sbd_remote": {
     full_name: "service:sbd_remote",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sbd_remote",
   },
-  {
+  "service:selinux-autorelabel": {
     full_name: "service:selinux-autorelabel",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "selinux-autorelabel",
   },
-  {
+  "service:selinux-autorelabel-mark": {
     full_name: "service:selinux-autorelabel-mark",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "selinux-autorelabel-mark",
   },
-  {
+  "service:serial-getty@": {
     full_name: "service:serial-getty@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "serial-getty@",
   },
-  {
+  "service:sshd": {
     full_name: "service:sshd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sshd",
   },
-  {
+  "service:sshd-keygen@": {
     full_name: "service:sshd-keygen@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sshd-keygen@",
   },
-  {
+  "service:sshd.socket": {
     full_name: "service:sshd.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sshd.socket",
   },
-  {
+  "service:sshd@": {
     full_name: "service:sshd@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sshd@",
   },
-  {
+  "service:sssd": {
     full_name: "service:sssd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd",
   },
-  {
+  "service:sssd-autofs": {
     full_name: "service:sssd-autofs",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-autofs",
   },
-  {
+  "service:sssd-autofs.socket": {
     full_name: "service:sssd-autofs.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-autofs.socket",
   },
-  {
+  "service:sssd-kcm": {
     full_name: "service:sssd-kcm",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-kcm",
   },
-  {
+  "service:sssd-kcm.socket": {
     full_name: "service:sssd-kcm.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-kcm.socket",
   },
-  {
+  "service:sssd-nss": {
     full_name: "service:sssd-nss",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-nss",
   },
-  {
+  "service:sssd-nss.socket": {
     full_name: "service:sssd-nss.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-nss.socket",
   },
-  {
+  "service:sssd-pac": {
     full_name: "service:sssd-pac",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-pac",
   },
-  {
+  "service:sssd-pac.socket": {
     full_name: "service:sssd-pac.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-pac.socket",
   },
-  {
+  "service:sssd-pam": {
     full_name: "service:sssd-pam",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-pam",
   },
-  {
+  "service:sssd-pam-priv.socket": {
     full_name: "service:sssd-pam-priv.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-pam-priv.socket",
   },
-  {
+  "service:sssd-pam.socket": {
     full_name: "service:sssd-pam.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-pam.socket",
   },
-  {
+  "service:sssd-ssh": {
     full_name: "service:sssd-ssh",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-ssh",
   },
-  {
+  "service:sssd-ssh.socket": {
     full_name: "service:sssd-ssh.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-ssh.socket",
   },
-  {
+  "service:sssd-sudo": {
     full_name: "service:sssd-sudo",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-sudo",
   },
-  {
+  "service:sssd-sudo.socket": {
     full_name: "service:sssd-sudo.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sssd-sudo.socket",
   },
-  {
+  "service:sys-fs-fuse-connections.mount": {
     full_name: "service:sys-fs-fuse-connections.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sys-fs-fuse-connections.mount",
   },
-  {
+  "service:sys-kernel-config.mount": {
     full_name: "service:sys-kernel-config.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sys-kernel-config.mount",
   },
-  {
+  "service:sys-kernel-debug.mount": {
     full_name: "service:sys-kernel-debug.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "sys-kernel-debug.mount",
   },
-  {
+  "service:syslog": {
     full_name: "service:syslog",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "syslog",
   },
-  {
+  "service:syslog.socket": {
     full_name: "service:syslog.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "syslog.socket",
   },
-  {
+  "service:system-update-cleanup": {
     full_name: "service:system-update-cleanup",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "system-update-cleanup",
   },
-  {
+  "service:systemd-ask-password-console": {
     full_name: "service:systemd-ask-password-console",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-ask-password-console",
   },
-  {
+  "service:systemd-ask-password-console.path": {
     full_name: "service:systemd-ask-password-console.path",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-ask-password-console.path",
   },
-  {
+  "service:systemd-ask-password-plymouth": {
     full_name: "service:systemd-ask-password-plymouth",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-ask-password-plymouth",
   },
-  {
+  "service:systemd-ask-password-plymouth.path": {
     full_name: "service:systemd-ask-password-plymouth.path",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-ask-password-plymouth.path",
   },
-  {
+  "service:systemd-ask-password-wall": {
     full_name: "service:systemd-ask-password-wall",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-ask-password-wall",
   },
-  {
+  "service:systemd-ask-password-wall.path": {
     full_name: "service:systemd-ask-password-wall.path",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-ask-password-wall.path",
   },
-  {
+  "service:systemd-backlight@": {
     full_name: "service:systemd-backlight@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-backlight@",
   },
-  {
+  "service:systemd-binfmt": {
     full_name: "service:systemd-binfmt",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-binfmt",
   },
-  {
+  "service:systemd-coredump.socket": {
     full_name: "service:systemd-coredump.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-coredump.socket",
   },
-  {
+  "service:systemd-coredump@": {
     full_name: "service:systemd-coredump@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-coredump@",
   },
-  {
+  "service:systemd-exit": {
     full_name: "service:systemd-exit",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-exit",
   },
-  {
+  "service:systemd-firstboot": {
     full_name: "service:systemd-firstboot",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-firstboot",
   },
-  {
+  "service:systemd-fsck-root": {
     full_name: "service:systemd-fsck-root",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-fsck-root",
   },
-  {
+  "service:systemd-fsck@": {
     full_name: "service:systemd-fsck@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-fsck@",
   },
-  {
+  "service:systemd-halt": {
     full_name: "service:systemd-halt",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-halt",
   },
-  {
+  "service:systemd-hibernate": {
     full_name: "service:systemd-hibernate",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-hibernate",
   },
-  {
+  "service:systemd-hibernate-resume@": {
     full_name: "service:systemd-hibernate-resume@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-hibernate-resume@",
   },
-  {
+  "service:systemd-hostnamed": {
     full_name: "service:systemd-hostnamed",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-hostnamed",
   },
-  {
+  "service:systemd-hwdb-update": {
     full_name: "service:systemd-hwdb-update",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-hwdb-update",
   },
-  {
+  "service:systemd-hybrid-sleep": {
     full_name: "service:systemd-hybrid-sleep",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-hybrid-sleep",
   },
-  {
+  "service:systemd-initctl": {
     full_name: "service:systemd-initctl",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-initctl",
   },
-  {
+  "service:systemd-initctl.socket": {
     full_name: "service:systemd-initctl.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-initctl.socket",
   },
-  {
+  "service:systemd-journal-catalog-update": {
     full_name: "service:systemd-journal-catalog-update",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-journal-catalog-update",
   },
-  {
+  "service:systemd-journal-flush": {
     full_name: "service:systemd-journal-flush",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-journal-flush",
   },
-  {
+  "service:systemd-journald": {
     full_name: "service:systemd-journald",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-journald",
   },
-  {
+  "service:systemd-journald-audit.socket": {
     full_name: "service:systemd-journald-audit.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-journald-audit.socket",
   },
-  {
+  "service:systemd-journald-dev-log.socket": {
     full_name: "service:systemd-journald-dev-log.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-journald-dev-log.socket",
   },
-  {
+  "service:systemd-journald.socket": {
     full_name: "service:systemd-journald.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-journald.socket",
   },
-  {
+  "service:systemd-kexec": {
     full_name: "service:systemd-kexec",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-kexec",
   },
-  {
+  "service:systemd-localed": {
     full_name: "service:systemd-localed",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-localed",
   },
-  {
+  "service:systemd-logind": {
     full_name: "service:systemd-logind",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-logind",
   },
-  {
+  "service:systemd-machine-id-commit": {
     full_name: "service:systemd-machine-id-commit",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-machine-id-commit",
   },
-  {
+  "service:systemd-modules-load": {
     full_name: "service:systemd-modules-load",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-modules-load",
   },
-  {
+  "service:systemd-portabled": {
     full_name: "service:systemd-portabled",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-portabled",
   },
-  {
+  "service:systemd-poweroff": {
     full_name: "service:systemd-poweroff",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-poweroff",
   },
-  {
+  "service:systemd-quotacheck": {
     full_name: "service:systemd-quotacheck",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-quotacheck",
   },
-  {
+  "service:systemd-random-seed": {
     full_name: "service:systemd-random-seed",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-random-seed",
   },
-  {
+  "service:systemd-reboot": {
     full_name: "service:systemd-reboot",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-reboot",
   },
-  {
+  "service:systemd-remount-fs": {
     full_name: "service:systemd-remount-fs",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-remount-fs",
   },
-  {
+  "service:systemd-resolved": {
     full_name: "service:systemd-resolved",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-resolved",
   },
-  {
+  "service:systemd-rfkill": {
     full_name: "service:systemd-rfkill",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-rfkill",
   },
-  {
+  "service:systemd-rfkill.socket": {
     full_name: "service:systemd-rfkill.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-rfkill.socket",
   },
-  {
+  "service:systemd-suspend": {
     full_name: "service:systemd-suspend",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-suspend",
   },
-  {
+  "service:systemd-suspend-then-hibernate": {
     full_name: "service:systemd-suspend-then-hibernate",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-suspend-then-hibernate",
   },
-  {
+  "service:systemd-sysctl": {
     full_name: "service:systemd-sysctl",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-sysctl",
   },
-  {
+  "service:systemd-sysusers": {
     full_name: "service:systemd-sysusers",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-sysusers",
   },
-  {
+  "service:systemd-timedated": {
     full_name: "service:systemd-timedated",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-timedated",
   },
-  {
+  "service:systemd-tmpfiles-clean": {
     full_name: "service:systemd-tmpfiles-clean",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-tmpfiles-clean",
   },
-  {
+  "service:systemd-tmpfiles-clean.timer": {
     full_name: "service:systemd-tmpfiles-clean.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-tmpfiles-clean.timer",
   },
-  {
+  "service:systemd-tmpfiles-setup": {
     full_name: "service:systemd-tmpfiles-setup",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-tmpfiles-setup",
   },
-  {
+  "service:systemd-tmpfiles-setup-dev": {
     full_name: "service:systemd-tmpfiles-setup-dev",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-tmpfiles-setup-dev",
   },
-  {
+  "service:systemd-udev-settle": {
     full_name: "service:systemd-udev-settle",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-udev-settle",
   },
-  {
+  "service:systemd-udev-trigger": {
     full_name: "service:systemd-udev-trigger",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-udev-trigger",
   },
-  {
+  "service:systemd-udevd": {
     full_name: "service:systemd-udevd",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-udevd",
   },
-  {
+  "service:systemd-udevd-control.socket": {
     full_name: "service:systemd-udevd-control.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-udevd-control.socket",
   },
-  {
+  "service:systemd-udevd-kernel.socket": {
     full_name: "service:systemd-udevd-kernel.socket",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-udevd-kernel.socket",
   },
-  {
+  "service:systemd-update-done": {
     full_name: "service:systemd-update-done",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-update-done",
   },
-  {
+  "service:systemd-update-utmp": {
     full_name: "service:systemd-update-utmp",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-update-utmp",
   },
-  {
+  "service:systemd-update-utmp-runlevel": {
     full_name: "service:systemd-update-utmp-runlevel",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-update-utmp-runlevel",
   },
-  {
+  "service:systemd-user-sessions": {
     full_name: "service:systemd-user-sessions",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-user-sessions",
   },
-  {
+  "service:systemd-vconsole-setup": {
     full_name: "service:systemd-vconsole-setup",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-vconsole-setup",
   },
-  {
+  "service:systemd-volatile-root": {
     full_name: "service:systemd-volatile-root",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "systemd-volatile-root",
   },
-  {
+  "service:teamd@": {
     full_name: "service:teamd@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "teamd@",
   },
-  {
+  "service:timedatex": {
     full_name: "service:timedatex",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "timedatex",
   },
-  {
+  "service:tmp.mount": {
     full_name: "service:tmp.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "tmp.mount",
   },
-  {
+  "service:tuned": {
     full_name: "service:tuned",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "tuned",
   },
-  {
+  "service:unbound-anchor": {
     full_name: "service:unbound-anchor",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "unbound-anchor",
   },
-  {
+  "service:unbound-anchor.timer": {
     full_name: "service:unbound-anchor.timer",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "unbound-anchor.timer",
   },
-  {
+  "service:user-runtime-dir@": {
     full_name: "service:user-runtime-dir@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "user-runtime-dir@",
   },
-  {
+  "service:user@": {
     full_name: "service:user@",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "user@",
   },
-  {
+  "service:var-lib-nfs-rpc_pipefs.mount": {
     full_name: "service:var-lib-nfs-rpc_pipefs.mount",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "var-lib-nfs-rpc_pipefs.mount",
   },
-  {
+  "service:vdo": {
     full_name: "service:vdo",
     class_provider: "service",
+    class: "service",
+    provider: null,
     type: "vdo",
   },
-  {
+  "systemd:-.mount": {
     full_name: "systemd:-.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "-.mount",
   },
-  {
+  "systemd:anamon": {
     full_name: "systemd:anamon",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "anamon",
   },
-  {
+  "systemd:arp-ethers": {
     full_name: "systemd:arp-ethers",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "arp-ethers",
   },
-  {
+  "systemd:atd": {
     full_name: "systemd:atd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "atd",
   },
-  {
+  "systemd:auditd": {
     full_name: "systemd:auditd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "auditd",
   },
-  {
+  "systemd:auth-rpcgss-module": {
     full_name: "systemd:auth-rpcgss-module",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "auth-rpcgss-module",
   },
-  {
+  "systemd:autofs": {
     full_name: "systemd:autofs",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "autofs",
   },
-  {
+  "systemd:autovt@": {
     full_name: "systemd:autovt@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "autovt@",
   },
-  {
+  "systemd:blk-availability": {
     full_name: "systemd:blk-availability",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "blk-availability",
   },
-  {
+  "systemd:boot.mount": {
     full_name: "systemd:boot.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "boot.mount",
   },
-  {
+  "systemd:btimed": {
     full_name: "systemd:btimed",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "btimed",
   },
-  {
+  "systemd:btimed.socket": {
     full_name: "systemd:btimed.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "btimed.socket",
   },
-  {
+  "systemd:chrony-dnssrv@": {
     full_name: "systemd:chrony-dnssrv@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "chrony-dnssrv@",
   },
-  {
+  "systemd:chrony-dnssrv@.timer": {
     full_name: "systemd:chrony-dnssrv@.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "chrony-dnssrv@.timer",
   },
-  {
+  "systemd:chrony-wait": {
     full_name: "systemd:chrony-wait",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "chrony-wait",
   },
-  {
+  "systemd:chronyd": {
     full_name: "systemd:chronyd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "chronyd",
   },
-  {
+  "systemd:console-getty": {
     full_name: "systemd:console-getty",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "console-getty",
   },
-  {
+  "systemd:container-getty@": {
     full_name: "systemd:container-getty@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "container-getty@",
   },
-  {
+  "systemd:corosync": {
     full_name: "systemd:corosync",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "corosync",
   },
-  {
+  "systemd:corosync-notifyd": {
     full_name: "systemd:corosync-notifyd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "corosync-notifyd",
   },
-  {
+  "systemd:cpupower": {
     full_name: "systemd:cpupower",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "cpupower",
   },
-  {
+  "systemd:crm_mon": {
     full_name: "systemd:crm_mon",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "crm_mon",
   },
-  {
+  "systemd:crond": {
     full_name: "systemd:crond",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "crond",
   },
-  {
+  "systemd:cups": {
     full_name: "systemd:cups",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "cups",
   },
-  {
+  "systemd:cups-browsed": {
     full_name: "systemd:cups-browsed",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "cups-browsed",
   },
-  {
+  "systemd:cups.path": {
     full_name: "systemd:cups.path",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "cups.path",
   },
-  {
+  "systemd:cups.socket": {
     full_name: "systemd:cups.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "cups.socket",
   },
-  {
+  "systemd:dbus": {
     full_name: "systemd:dbus",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dbus",
   },
-  {
+  "systemd:dbus-org.freedesktop.hostname1": {
     full_name: "systemd:dbus-org.freedesktop.hostname1",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dbus-org.freedesktop.hostname1",
   },
-  {
+  "systemd:dbus-org.freedesktop.locale1": {
     full_name: "systemd:dbus-org.freedesktop.locale1",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dbus-org.freedesktop.locale1",
   },
-  {
+  "systemd:dbus-org.freedesktop.login1": {
     full_name: "systemd:dbus-org.freedesktop.login1",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dbus-org.freedesktop.login1",
   },
-  {
+  "systemd:dbus-org.freedesktop.nm-dispatcher": {
     full_name: "systemd:dbus-org.freedesktop.nm-dispatcher",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dbus-org.freedesktop.nm-dispatcher",
   },
-  {
+  "systemd:dbus-org.freedesktop.portable1": {
     full_name: "systemd:dbus-org.freedesktop.portable1",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dbus-org.freedesktop.portable1",
   },
-  {
+  "systemd:dbus-org.freedesktop.timedate1": {
     full_name: "systemd:dbus-org.freedesktop.timedate1",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dbus-org.freedesktop.timedate1",
   },
-  {
+  "systemd:dbus.socket": {
     full_name: "systemd:dbus.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dbus.socket",
   },
-  {
+  "systemd:debug-shell": {
     full_name: "systemd:debug-shell",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "debug-shell",
   },
-  {
+  "systemd:dev-hugepages.mount": {
     full_name: "systemd:dev-hugepages.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dev-hugepages.mount",
   },
-  {
+  "systemd:dev-mqueue.mount": {
     full_name: "systemd:dev-mqueue.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dev-mqueue.mount",
   },
-  {
+  "systemd:dlm": {
     full_name: "systemd:dlm",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dlm",
   },
-  {
+  "systemd:dm-event": {
     full_name: "systemd:dm-event",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dm-event",
   },
-  {
+  "systemd:dm-event.socket": {
     full_name: "systemd:dm-event.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dm-event.socket",
   },
-  {
+  "systemd:dnf-makecache": {
     full_name: "systemd:dnf-makecache",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dnf-makecache",
   },
-  {
+  "systemd:dnf-makecache.timer": {
     full_name: "systemd:dnf-makecache.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dnf-makecache.timer",
   },
-  {
+  "systemd:dracut-cmdline": {
     full_name: "systemd:dracut-cmdline",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dracut-cmdline",
   },
-  {
+  "systemd:dracut-initqueue": {
     full_name: "systemd:dracut-initqueue",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dracut-initqueue",
   },
-  {
+  "systemd:dracut-mount": {
     full_name: "systemd:dracut-mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dracut-mount",
   },
-  {
+  "systemd:dracut-pre-mount": {
     full_name: "systemd:dracut-pre-mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dracut-pre-mount",
   },
-  {
+  "systemd:dracut-pre-pivot": {
     full_name: "systemd:dracut-pre-pivot",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dracut-pre-pivot",
   },
-  {
+  "systemd:dracut-pre-trigger": {
     full_name: "systemd:dracut-pre-trigger",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dracut-pre-trigger",
   },
-  {
+  "systemd:dracut-pre-udev": {
     full_name: "systemd:dracut-pre-udev",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dracut-pre-udev",
   },
-  {
+  "systemd:dracut-shutdown": {
     full_name: "systemd:dracut-shutdown",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "dracut-shutdown",
   },
-  {
+  "systemd:emergency": {
     full_name: "systemd:emergency",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "emergency",
   },
-  {
+  "systemd:fstrim": {
     full_name: "systemd:fstrim",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "fstrim",
   },
-  {
+  "systemd:fstrim.timer": {
     full_name: "systemd:fstrim.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "fstrim.timer",
   },
-  {
+  "systemd:geoclue": {
     full_name: "systemd:geoclue",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "geoclue",
   },
-  {
+  "systemd:getty@": {
     full_name: "systemd:getty@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "getty@",
   },
-  {
+  "systemd:grub-boot-indeterminate": {
     full_name: "systemd:grub-boot-indeterminate",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "grub-boot-indeterminate",
   },
-  {
+  "systemd:gssproxy": {
     full_name: "systemd:gssproxy",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "gssproxy",
   },
-  {
+  "systemd:halt-local": {
     full_name: "systemd:halt-local",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "halt-local",
   },
-  {
+  "systemd:import-state": {
     full_name: "systemd:import-state",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "import-state",
   },
-  {
+  "systemd:initrd-cleanup": {
     full_name: "systemd:initrd-cleanup",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "initrd-cleanup",
   },
-  {
+  "systemd:initrd-parse-etc": {
     full_name: "systemd:initrd-parse-etc",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "initrd-parse-etc",
   },
-  {
+  "systemd:initrd-switch-root": {
     full_name: "systemd:initrd-switch-root",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "initrd-switch-root",
   },
-  {
+  "systemd:initrd-udevadm-cleanup-db": {
     full_name: "systemd:initrd-udevadm-cleanup-db",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "initrd-udevadm-cleanup-db",
   },
-  {
+  "systemd:iprdump": {
     full_name: "systemd:iprdump",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iprdump",
   },
-  {
+  "systemd:iprinit": {
     full_name: "systemd:iprinit",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iprinit",
   },
-  {
+  "systemd:iprupdate": {
     full_name: "systemd:iprupdate",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iprupdate",
   },
-  {
+  "systemd:irqbalance": {
     full_name: "systemd:irqbalance",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "irqbalance",
   },
-  {
+  "systemd:iscsi": {
     full_name: "systemd:iscsi",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iscsi",
   },
-  {
+  "systemd:iscsi-onboot": {
     full_name: "systemd:iscsi-onboot",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iscsi-onboot",
   },
-  {
+  "systemd:iscsi-shutdown": {
     full_name: "systemd:iscsi-shutdown",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iscsi-shutdown",
   },
-  {
+  "systemd:iscsid": {
     full_name: "systemd:iscsid",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iscsid",
   },
-  {
+  "systemd:iscsid.socket": {
     full_name: "systemd:iscsid.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iscsid.socket",
   },
-  {
+  "systemd:iscsiuio": {
     full_name: "systemd:iscsiuio",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iscsiuio",
   },
-  {
+  "systemd:iscsiuio.socket": {
     full_name: "systemd:iscsiuio.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "iscsiuio.socket",
   },
-  {
+  "systemd:kdump": {
     full_name: "systemd:kdump",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "kdump",
   },
-  {
+  "systemd:kmod-static-nodes": {
     full_name: "systemd:kmod-static-nodes",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "kmod-static-nodes",
   },
-  {
+  "systemd:ldconfig": {
     full_name: "systemd:ldconfig",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "ldconfig",
   },
-  {
+  "systemd:loadmodules": {
     full_name: "systemd:loadmodules",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "loadmodules",
   },
-  {
+  "systemd:lvm2-lvmpolld": {
     full_name: "systemd:lvm2-lvmpolld",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "lvm2-lvmpolld",
   },
-  {
+  "systemd:lvm2-lvmpolld.socket": {
     full_name: "systemd:lvm2-lvmpolld.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "lvm2-lvmpolld.socket",
   },
-  {
+  "systemd:lvm2-monitor": {
     full_name: "systemd:lvm2-monitor",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "lvm2-monitor",
   },
-  {
+  "systemd:lvm2-pvscan@": {
     full_name: "systemd:lvm2-pvscan@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "lvm2-pvscan@",
   },
-  {
+  "systemd:lvmlockd": {
     full_name: "systemd:lvmlockd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "lvmlockd",
   },
-  {
+  "systemd:lvmlocks": {
     full_name: "systemd:lvmlocks",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "lvmlocks",
   },
-  {
+  "systemd:man-db-cache-update": {
     full_name: "systemd:man-db-cache-update",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "man-db-cache-update",
   },
-  {
+  "systemd:messagebus": {
     full_name: "systemd:messagebus",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "messagebus",
   },
-  {
+  "systemd:microcode": {
     full_name: "systemd:microcode",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "microcode",
   },
-  {
+  "systemd:mnt-redhat.mount": {
     full_name: "systemd:mnt-redhat.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "mnt-redhat.mount",
   },
-  {
+  "systemd:multipathd": {
     full_name: "systemd:multipathd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "multipathd",
   },
-  {
+  "systemd:multipathd.socket": {
     full_name: "systemd:multipathd.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "multipathd.socket",
   },
-  {
+  "systemd:NetworkManager": {
     full_name: "systemd:NetworkManager",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "NetworkManager",
   },
-  {
+  "systemd:NetworkManager-dispatcher": {
     full_name: "systemd:NetworkManager-dispatcher",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "NetworkManager-dispatcher",
   },
-  {
+  "systemd:NetworkManager-wait-online": {
     full_name: "systemd:NetworkManager-wait-online",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "NetworkManager-wait-online",
   },
-  {
+  "systemd:nfs-blkmap": {
     full_name: "systemd:nfs-blkmap",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "nfs-blkmap",
   },
-  {
+  "systemd:nfs-convert": {
     full_name: "systemd:nfs-convert",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "nfs-convert",
   },
-  {
+  "systemd:nfs-idmapd": {
     full_name: "systemd:nfs-idmapd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "nfs-idmapd",
   },
-  {
+  "systemd:nfs-mountd": {
     full_name: "systemd:nfs-mountd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "nfs-mountd",
   },
-  {
+  "systemd:nfs-server": {
     full_name: "systemd:nfs-server",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "nfs-server",
   },
-  {
+  "systemd:nfs-utils": {
     full_name: "systemd:nfs-utils",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "nfs-utils",
   },
-  {
+  "systemd:nis-domainname": {
     full_name: "systemd:nis-domainname",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "nis-domainname",
   },
-  {
+  "systemd:pacemaker": {
     full_name: "systemd:pacemaker",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pacemaker",
   },
-  {
+  "systemd:pcs_snmp_agent": {
     full_name: "systemd:pcs_snmp_agent",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pcs_snmp_agent",
   },
-  {
+  "systemd:pcsd": {
     full_name: "systemd:pcsd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pcsd",
   },
-  {
+  "systemd:pcsd-ruby": {
     full_name: "systemd:pcsd-ruby",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pcsd-ruby",
   },
-  {
+  "systemd:pesign": {
     full_name: "systemd:pesign",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pesign",
   },
-  {
+  "systemd:plymouth-halt": {
     full_name: "systemd:plymouth-halt",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "plymouth-halt",
   },
-  {
+  "systemd:plymouth-kexec": {
     full_name: "systemd:plymouth-kexec",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "plymouth-kexec",
   },
-  {
+  "systemd:plymouth-poweroff": {
     full_name: "systemd:plymouth-poweroff",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "plymouth-poweroff",
   },
-  {
+  "systemd:plymouth-quit": {
     full_name: "systemd:plymouth-quit",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "plymouth-quit",
   },
-  {
+  "systemd:plymouth-quit-wait": {
     full_name: "systemd:plymouth-quit-wait",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "plymouth-quit-wait",
   },
-  {
+  "systemd:plymouth-read-write": {
     full_name: "systemd:plymouth-read-write",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "plymouth-read-write",
   },
-  {
+  "systemd:plymouth-reboot": {
     full_name: "systemd:plymouth-reboot",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "plymouth-reboot",
   },
-  {
+  "systemd:plymouth-start": {
     full_name: "systemd:plymouth-start",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "plymouth-start",
   },
-  {
+  "systemd:plymouth-switch-root": {
     full_name: "systemd:plymouth-switch-root",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "plymouth-switch-root",
   },
-  {
+  "systemd:pmcd": {
     full_name: "systemd:pmcd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmcd",
   },
-  {
+  "systemd:pmie": {
     full_name: "systemd:pmie",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmie",
   },
-  {
+  "systemd:pmie_check": {
     full_name: "systemd:pmie_check",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmie_check",
   },
-  {
+  "systemd:pmie_check.timer": {
     full_name: "systemd:pmie_check.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmie_check.timer",
   },
-  {
+  "systemd:pmie_daily": {
     full_name: "systemd:pmie_daily",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmie_daily",
   },
-  {
+  "systemd:pmie_daily.timer": {
     full_name: "systemd:pmie_daily.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmie_daily.timer",
   },
-  {
+  "systemd:pmlogger": {
     full_name: "systemd:pmlogger",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger",
   },
-  {
+  "systemd:pmlogger_check": {
     full_name: "systemd:pmlogger_check",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_check",
   },
-  {
+  "systemd:pmlogger_check.timer": {
     full_name: "systemd:pmlogger_check.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_check.timer",
   },
-  {
+  "systemd:pmlogger_daily": {
     full_name: "systemd:pmlogger_daily",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_daily",
   },
-  {
+  "systemd:pmlogger_daily-poll": {
     full_name: "systemd:pmlogger_daily-poll",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_daily-poll",
   },
-  {
+  "systemd:pmlogger_daily-poll.timer": {
     full_name: "systemd:pmlogger_daily-poll.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_daily-poll.timer",
   },
-  {
+  "systemd:pmlogger_daily.timer": {
     full_name: "systemd:pmlogger_daily.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_daily.timer",
   },
-  {
+  "systemd:pmlogger_daily_report": {
     full_name: "systemd:pmlogger_daily_report",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_daily_report",
   },
-  {
+  "systemd:pmlogger_daily_report-poll": {
     full_name: "systemd:pmlogger_daily_report-poll",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_daily_report-poll",
   },
-  {
+  "systemd:pmlogger_daily_report-poll.timer": {
     full_name: "systemd:pmlogger_daily_report-poll.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_daily_report-poll.timer",
   },
-  {
+  "systemd:pmlogger_daily_report.timer": {
     full_name: "systemd:pmlogger_daily_report.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmlogger_daily_report.timer",
   },
-  {
+  "systemd:pmproxy": {
     full_name: "systemd:pmproxy",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "pmproxy",
   },
-  {
+  "systemd:polkit": {
     full_name: "systemd:polkit",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "polkit",
   },
-  {
+  "systemd:postfix": {
     full_name: "systemd:postfix",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "postfix",
   },
-  {
+  "systemd:proc-fs-nfsd.mount": {
     full_name: "systemd:proc-fs-nfsd.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "proc-fs-nfsd.mount",
   },
-  {
+  "systemd:proc-sys-fs-binfmt_misc.mount": {
     full_name: "systemd:proc-sys-fs-binfmt_misc.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "proc-sys-fs-binfmt_misc.mount",
   },
-  {
+  "systemd:qarshd.socket": {
     full_name: "systemd:qarshd.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "qarshd.socket",
   },
-  {
+  "systemd:qarshd@": {
     full_name: "systemd:qarshd@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "qarshd@",
   },
-  {
+  "systemd:qemu-guest-agent": {
     full_name: "systemd:qemu-guest-agent",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "qemu-guest-agent",
   },
-  {
+  "systemd:quotaon": {
     full_name: "systemd:quotaon",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "quotaon",
   },
-  {
+  "systemd:rc-local": {
     full_name: "systemd:rc-local",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rc-local",
   },
-  {
+  "systemd:rdisc": {
     full_name: "systemd:rdisc",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rdisc",
   },
-  {
+  "systemd:rescue": {
     full_name: "systemd:rescue",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rescue",
   },
-  {
+  "systemd:restraintd": {
     full_name: "systemd:restraintd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "restraintd",
   },
-  {
+  "systemd:rhnsd": {
     full_name: "systemd:rhnsd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rhnsd",
   },
-  {
+  "systemd:rhsm": {
     full_name: "systemd:rhsm",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rhsm",
   },
-  {
+  "systemd:rhsm-facts": {
     full_name: "systemd:rhsm-facts",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rhsm-facts",
   },
-  {
+  "systemd:rhsmcertd": {
     full_name: "systemd:rhsmcertd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rhsmcertd",
   },
-  {
+  "systemd:rngd": {
     full_name: "systemd:rngd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rngd",
   },
-  {
+  "systemd:rngd-wake-threshold": {
     full_name: "systemd:rngd-wake-threshold",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rngd-wake-threshold",
   },
-  {
+  "systemd:rpc-gssd": {
     full_name: "systemd:rpc-gssd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rpc-gssd",
   },
-  {
+  "systemd:rpc-statd": {
     full_name: "systemd:rpc-statd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rpc-statd",
   },
-  {
+  "systemd:rpc-statd-notify": {
     full_name: "systemd:rpc-statd-notify",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rpc-statd-notify",
   },
-  {
+  "systemd:rpcbind": {
     full_name: "systemd:rpcbind",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rpcbind",
   },
-  {
+  "systemd:rpcbind.socket": {
     full_name: "systemd:rpcbind.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rpcbind.socket",
   },
-  {
+  "systemd:rsyslog": {
     full_name: "systemd:rsyslog",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "rsyslog",
   },
-  {
+  "systemd:sbd": {
     full_name: "systemd:sbd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sbd",
   },
-  {
+  "systemd:sbd_remote": {
     full_name: "systemd:sbd_remote",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sbd_remote",
   },
-  {
+  "systemd:selinux-autorelabel": {
     full_name: "systemd:selinux-autorelabel",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "selinux-autorelabel",
   },
-  {
+  "systemd:selinux-autorelabel-mark": {
     full_name: "systemd:selinux-autorelabel-mark",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "selinux-autorelabel-mark",
   },
-  {
+  "systemd:serial-getty@": {
     full_name: "systemd:serial-getty@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "serial-getty@",
   },
-  {
+  "systemd:sshd": {
     full_name: "systemd:sshd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sshd",
   },
-  {
+  "systemd:sshd-keygen@": {
     full_name: "systemd:sshd-keygen@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sshd-keygen@",
   },
-  {
+  "systemd:sshd.socket": {
     full_name: "systemd:sshd.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sshd.socket",
   },
-  {
+  "systemd:sshd@": {
     full_name: "systemd:sshd@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sshd@",
   },
-  {
+  "systemd:sssd": {
     full_name: "systemd:sssd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd",
   },
-  {
+  "systemd:sssd-autofs": {
     full_name: "systemd:sssd-autofs",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-autofs",
   },
-  {
+  "systemd:sssd-autofs.socket": {
     full_name: "systemd:sssd-autofs.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-autofs.socket",
   },
-  {
+  "systemd:sssd-kcm": {
     full_name: "systemd:sssd-kcm",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-kcm",
   },
-  {
+  "systemd:sssd-kcm.socket": {
     full_name: "systemd:sssd-kcm.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-kcm.socket",
   },
-  {
+  "systemd:sssd-nss": {
     full_name: "systemd:sssd-nss",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-nss",
   },
-  {
+  "systemd:sssd-nss.socket": {
     full_name: "systemd:sssd-nss.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-nss.socket",
   },
-  {
+  "systemd:sssd-pac": {
     full_name: "systemd:sssd-pac",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-pac",
   },
-  {
+  "systemd:sssd-pac.socket": {
     full_name: "systemd:sssd-pac.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-pac.socket",
   },
-  {
+  "systemd:sssd-pam": {
     full_name: "systemd:sssd-pam",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-pam",
   },
-  {
+  "systemd:sssd-pam-priv.socket": {
     full_name: "systemd:sssd-pam-priv.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-pam-priv.socket",
   },
-  {
+  "systemd:sssd-pam.socket": {
     full_name: "systemd:sssd-pam.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-pam.socket",
   },
-  {
+  "systemd:sssd-ssh": {
     full_name: "systemd:sssd-ssh",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-ssh",
   },
-  {
+  "systemd:sssd-ssh.socket": {
     full_name: "systemd:sssd-ssh.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-ssh.socket",
   },
-  {
+  "systemd:sssd-sudo": {
     full_name: "systemd:sssd-sudo",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-sudo",
   },
-  {
+  "systemd:sssd-sudo.socket": {
     full_name: "systemd:sssd-sudo.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sssd-sudo.socket",
   },
-  {
+  "systemd:sys-fs-fuse-connections.mount": {
     full_name: "systemd:sys-fs-fuse-connections.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sys-fs-fuse-connections.mount",
   },
-  {
+  "systemd:sys-kernel-config.mount": {
     full_name: "systemd:sys-kernel-config.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sys-kernel-config.mount",
   },
-  {
+  "systemd:sys-kernel-debug.mount": {
     full_name: "systemd:sys-kernel-debug.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "sys-kernel-debug.mount",
   },
-  {
+  "systemd:syslog": {
     full_name: "systemd:syslog",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "syslog",
   },
-  {
+  "systemd:syslog.socket": {
     full_name: "systemd:syslog.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "syslog.socket",
   },
-  {
+  "systemd:system-update-cleanup": {
     full_name: "systemd:system-update-cleanup",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "system-update-cleanup",
   },
-  {
+  "systemd:systemd-ask-password-console": {
     full_name: "systemd:systemd-ask-password-console",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-ask-password-console",
   },
-  {
+  "systemd:systemd-ask-password-console.path": {
     full_name: "systemd:systemd-ask-password-console.path",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-ask-password-console.path",
   },
-  {
+  "systemd:systemd-ask-password-plymouth": {
     full_name: "systemd:systemd-ask-password-plymouth",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-ask-password-plymouth",
   },
-  {
+  "systemd:systemd-ask-password-plymouth.path": {
     full_name: "systemd:systemd-ask-password-plymouth.path",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-ask-password-plymouth.path",
   },
-  {
+  "systemd:systemd-ask-password-wall": {
     full_name: "systemd:systemd-ask-password-wall",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-ask-password-wall",
   },
-  {
+  "systemd:systemd-ask-password-wall.path": {
     full_name: "systemd:systemd-ask-password-wall.path",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-ask-password-wall.path",
   },
-  {
+  "systemd:systemd-backlight@": {
     full_name: "systemd:systemd-backlight@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-backlight@",
   },
-  {
+  "systemd:systemd-binfmt": {
     full_name: "systemd:systemd-binfmt",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-binfmt",
   },
-  {
+  "systemd:systemd-coredump.socket": {
     full_name: "systemd:systemd-coredump.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-coredump.socket",
   },
-  {
+  "systemd:systemd-coredump@": {
     full_name: "systemd:systemd-coredump@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-coredump@",
   },
-  {
+  "systemd:systemd-exit": {
     full_name: "systemd:systemd-exit",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-exit",
   },
-  {
+  "systemd:systemd-firstboot": {
     full_name: "systemd:systemd-firstboot",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-firstboot",
   },
-  {
+  "systemd:systemd-fsck-root": {
     full_name: "systemd:systemd-fsck-root",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-fsck-root",
   },
-  {
+  "systemd:systemd-fsck@": {
     full_name: "systemd:systemd-fsck@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-fsck@",
   },
-  {
+  "systemd:systemd-halt": {
     full_name: "systemd:systemd-halt",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-halt",
   },
-  {
+  "systemd:systemd-hibernate": {
     full_name: "systemd:systemd-hibernate",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-hibernate",
   },
-  {
+  "systemd:systemd-hibernate-resume@": {
     full_name: "systemd:systemd-hibernate-resume@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-hibernate-resume@",
   },
-  {
+  "systemd:systemd-hostnamed": {
     full_name: "systemd:systemd-hostnamed",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-hostnamed",
   },
-  {
+  "systemd:systemd-hwdb-update": {
     full_name: "systemd:systemd-hwdb-update",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-hwdb-update",
   },
-  {
+  "systemd:systemd-hybrid-sleep": {
     full_name: "systemd:systemd-hybrid-sleep",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-hybrid-sleep",
   },
-  {
+  "systemd:systemd-initctl": {
     full_name: "systemd:systemd-initctl",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-initctl",
   },
-  {
+  "systemd:systemd-initctl.socket": {
     full_name: "systemd:systemd-initctl.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-initctl.socket",
   },
-  {
+  "systemd:systemd-journal-catalog-update": {
     full_name: "systemd:systemd-journal-catalog-update",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-journal-catalog-update",
   },
-  {
+  "systemd:systemd-journal-flush": {
     full_name: "systemd:systemd-journal-flush",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-journal-flush",
   },
-  {
+  "systemd:systemd-journald": {
     full_name: "systemd:systemd-journald",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-journald",
   },
-  {
+  "systemd:systemd-journald-audit.socket": {
     full_name: "systemd:systemd-journald-audit.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-journald-audit.socket",
   },
-  {
+  "systemd:systemd-journald-dev-log.socket": {
     full_name: "systemd:systemd-journald-dev-log.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-journald-dev-log.socket",
   },
-  {
+  "systemd:systemd-journald.socket": {
     full_name: "systemd:systemd-journald.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-journald.socket",
   },
-  {
+  "systemd:systemd-kexec": {
     full_name: "systemd:systemd-kexec",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-kexec",
   },
-  {
+  "systemd:systemd-localed": {
     full_name: "systemd:systemd-localed",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-localed",
   },
-  {
+  "systemd:systemd-logind": {
     full_name: "systemd:systemd-logind",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-logind",
   },
-  {
+  "systemd:systemd-machine-id-commit": {
     full_name: "systemd:systemd-machine-id-commit",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-machine-id-commit",
   },
-  {
+  "systemd:systemd-modules-load": {
     full_name: "systemd:systemd-modules-load",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-modules-load",
   },
-  {
+  "systemd:systemd-portabled": {
     full_name: "systemd:systemd-portabled",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-portabled",
   },
-  {
+  "systemd:systemd-poweroff": {
     full_name: "systemd:systemd-poweroff",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-poweroff",
   },
-  {
+  "systemd:systemd-quotacheck": {
     full_name: "systemd:systemd-quotacheck",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-quotacheck",
   },
-  {
+  "systemd:systemd-random-seed": {
     full_name: "systemd:systemd-random-seed",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-random-seed",
   },
-  {
+  "systemd:systemd-reboot": {
     full_name: "systemd:systemd-reboot",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-reboot",
   },
-  {
+  "systemd:systemd-remount-fs": {
     full_name: "systemd:systemd-remount-fs",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-remount-fs",
   },
-  {
+  "systemd:systemd-resolved": {
     full_name: "systemd:systemd-resolved",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-resolved",
   },
-  {
+  "systemd:systemd-rfkill": {
     full_name: "systemd:systemd-rfkill",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-rfkill",
   },
-  {
+  "systemd:systemd-rfkill.socket": {
     full_name: "systemd:systemd-rfkill.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-rfkill.socket",
   },
-  {
+  "systemd:systemd-suspend": {
     full_name: "systemd:systemd-suspend",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-suspend",
   },
-  {
+  "systemd:systemd-suspend-then-hibernate": {
     full_name: "systemd:systemd-suspend-then-hibernate",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-suspend-then-hibernate",
   },
-  {
+  "systemd:systemd-sysctl": {
     full_name: "systemd:systemd-sysctl",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-sysctl",
   },
-  {
+  "systemd:systemd-sysusers": {
     full_name: "systemd:systemd-sysusers",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-sysusers",
   },
-  {
+  "systemd:systemd-timedated": {
     full_name: "systemd:systemd-timedated",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-timedated",
   },
-  {
+  "systemd:systemd-tmpfiles-clean": {
     full_name: "systemd:systemd-tmpfiles-clean",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-tmpfiles-clean",
   },
-  {
+  "systemd:systemd-tmpfiles-clean.timer": {
     full_name: "systemd:systemd-tmpfiles-clean.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-tmpfiles-clean.timer",
   },
-  {
+  "systemd:systemd-tmpfiles-setup": {
     full_name: "systemd:systemd-tmpfiles-setup",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-tmpfiles-setup",
   },
-  {
+  "systemd:systemd-tmpfiles-setup-dev": {
     full_name: "systemd:systemd-tmpfiles-setup-dev",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-tmpfiles-setup-dev",
   },
-  {
+  "systemd:systemd-udev-settle": {
     full_name: "systemd:systemd-udev-settle",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-udev-settle",
   },
-  {
+  "systemd:systemd-udev-trigger": {
     full_name: "systemd:systemd-udev-trigger",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-udev-trigger",
   },
-  {
+  "systemd:systemd-udevd": {
     full_name: "systemd:systemd-udevd",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-udevd",
   },
-  {
+  "systemd:systemd-udevd-control.socket": {
     full_name: "systemd:systemd-udevd-control.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-udevd-control.socket",
   },
-  {
+  "systemd:systemd-udevd-kernel.socket": {
     full_name: "systemd:systemd-udevd-kernel.socket",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-udevd-kernel.socket",
   },
-  {
+  "systemd:systemd-update-done": {
     full_name: "systemd:systemd-update-done",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-update-done",
   },
-  {
+  "systemd:systemd-update-utmp": {
     full_name: "systemd:systemd-update-utmp",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-update-utmp",
   },
-  {
+  "systemd:systemd-update-utmp-runlevel": {
     full_name: "systemd:systemd-update-utmp-runlevel",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-update-utmp-runlevel",
   },
-  {
+  "systemd:systemd-user-sessions": {
     full_name: "systemd:systemd-user-sessions",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-user-sessions",
   },
-  {
+  "systemd:systemd-vconsole-setup": {
     full_name: "systemd:systemd-vconsole-setup",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-vconsole-setup",
   },
-  {
+  "systemd:systemd-volatile-root": {
     full_name: "systemd:systemd-volatile-root",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "systemd-volatile-root",
   },
-  {
+  "systemd:teamd@": {
     full_name: "systemd:teamd@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "teamd@",
   },
-  {
+  "systemd:timedatex": {
     full_name: "systemd:timedatex",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "timedatex",
   },
-  {
+  "systemd:tmp.mount": {
     full_name: "systemd:tmp.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "tmp.mount",
   },
-  {
+  "systemd:tuned": {
     full_name: "systemd:tuned",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "tuned",
   },
-  {
+  "systemd:unbound-anchor": {
     full_name: "systemd:unbound-anchor",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "unbound-anchor",
   },
-  {
+  "systemd:unbound-anchor.timer": {
     full_name: "systemd:unbound-anchor.timer",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "unbound-anchor.timer",
   },
-  {
+  "systemd:user-runtime-dir@": {
     full_name: "systemd:user-runtime-dir@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "user-runtime-dir@",
   },
-  {
+  "systemd:user@": {
     full_name: "systemd:user@",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "user@",
   },
-  {
+  "systemd:var-lib-nfs-rpc_pipefs.mount": {
     full_name: "systemd:var-lib-nfs-rpc_pipefs.mount",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "var-lib-nfs-rpc_pipefs.mount",
   },
-  {
+  "systemd:vdo": {
     full_name: "systemd:vdo",
     class_provider: "systemd",
+    class: "systemd",
+    provider: null,
     type: "vdo",
   },
-];
+};
 module.exports = {
   ok,
 };

@@ -27,7 +27,7 @@ const getResourceAgentMetadata = response =>
   });
 
 const getResourceAgentList = response =>
-  endpoints.getResourceAgentList((req, res) => {
+  endpoints.getAvailResourceAgents((req, res) => {
     res.json(response);
   });
 
