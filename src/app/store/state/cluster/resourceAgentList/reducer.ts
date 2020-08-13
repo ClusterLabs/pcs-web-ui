@@ -5,13 +5,17 @@ import * as types from "app/store/types";
 
 type ResourceAgentMap = types.resourceAgentList.ResourceAgentMap;
 
+function getAgents<T>(agentMap: Record<string, T>): T[] {
+  return Object.values(agentMap);
+}
+
 const data: Reducer<ResourceAgentMap, Action> = (state = {}, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT_LIST.LOAD.SUCCESS":
-      return Object.values(action.payload.apiResourceAgentMap).reduce<
+      return getAgents(action.payload.apiResourceAgentMap).reduce<
         ResourceAgentMap
       >(
-        (resourceAgentMap, apiResourceAgent) => ({
+        (resourceAgentMap: ResourceAgentMap, apiResourceAgent) => ({
           ...resourceAgentMap,
           [apiResourceAgent.class_provider]: [
             ...(resourceAgentMap[apiResourceAgent.class_provider] ?? []),
