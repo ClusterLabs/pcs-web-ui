@@ -140,6 +140,7 @@ module.exports = {
     ],
     "jsx-a11y/label-has-for": "off",
     "jsx-a11y/label-has-associated-control": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
   },
   parserOptions: {
     ecmaFeatures: {
