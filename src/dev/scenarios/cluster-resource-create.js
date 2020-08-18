@@ -1,5 +1,5 @@
-const endpoints = require("dev/api/endpoints");
-const responses = require("dev/api/responses/all");
+import * as endpoints from "dev/api/endpoints";
+import * as responses from "dev/api/responses/all";
 
 const importedClusterList = response =>
   endpoints.importedClusterList((req, res) => {

@@ -1,10 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies, no-console */
 /* eslint-disable global-require, import/no-dynamic-require */
-const express = require("express");
-const fs = require("fs");
-const childProcess = require("child_process");
-const inquirer = require("inquirer");
-const { argv } = require("yargs")
+import express from "express";
+import * as fs from "fs";
+import * as childProcess from "child_process";
+import * as inquirer from "inquirer";
+import yargs from "yargs";
+
+const { argv } = yargs
   .string("scenario")
   .number("delay")
   .default("delay", 300)
@@ -63,7 +65,7 @@ class Scenario {
 
 const runServer = (scenarioName) => {
   childProcess.execSync(
-    `npx nodemon --watch src/ src/dev/backend.js --scenario=${scenarioName}`,
+    `npx nodemon -r esm --watch src/ src/dev/backend.js --scenario=${scenarioName}`,
     { stdio: ["inherit", "inherit", "inherit"] },
   );
 };
