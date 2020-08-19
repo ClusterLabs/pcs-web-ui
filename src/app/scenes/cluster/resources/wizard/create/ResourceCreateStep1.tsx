@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Form,
   FormGroup,
@@ -7,33 +8,36 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { useResourceCreateContext } from "./ResourceCreateContext";
+import { useSelectedClusterName } from "app/view";
+
+import { Action, selectors } from "app/store";
 import { ResourceCreateStep1TypeSelect } from "./ResourceCreateStep1TypeSelect";
 
 export const ResourceCreateStep1 = () => {
-  const {
-    dispatch,
-    state: { agentName, resourceName },
-  } = useResourceCreateContext();
+  const dispatch = useDispatch();
+  const clusterUrlName = useSelectedClusterName();
+  const { agentName, resourceName } = useSelector(
+    selectors.getWizardResourceCreateState(clusterUrlName),
+  );
 
   const onSelect = (value: string) => {
-    dispatch({
-      type: "SET_AGENT_NAME",
-      payload: { agentName: value.toString() },
+    dispatch<Action>({
+      type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME",
+      payload: { clusterUrlName, agentName: value.toString() },
     });
   };
 
   const onClear = () => {
-    dispatch({
-      type: "SET_AGENT_NAME",
-      payload: { agentName: "" },
+    dispatch<Action>({
+      type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME",
+      payload: { clusterUrlName, agentName: "" },
     });
   };
 
   const changeResourceName = (value: string) =>
-    dispatch({
-      type: "SET_RESOURCE_NAME",
-      payload: { resourceName: value },
+    dispatch<Action>({
+      type: "RESOURCE.PRIMITIVE.CREATE.SET_RESOURCE_NAME",
+      payload: { clusterUrlName, resourceName: value },
     });
 
   return (

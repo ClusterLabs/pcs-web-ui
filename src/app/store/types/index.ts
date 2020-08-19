@@ -11,6 +11,7 @@ import * as username from "./username";
 import * as clusterStorage from "./clusterStorage";
 import * as clusterProperties from "./clusterProperties";
 import * as resourceAgentList from "./resourceAgentList";
+import * as wizardResourceCreate from "./wizardResourceCreate";
 
 export interface RootState {
   addExistingCluster: addCluster.DashboardAddClusterPageState;
@@ -38,4 +39,5 @@ export {
   resourceTree,
   pcmkAgents,
   resourceAgentList,
+  wizardResourceCreate,
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { ResourceCreateContextProvider } from "./ResourceCreateContext";
 import { ResourceCreate } from "./ResourceCreate";
 
 export const ResourceCreateToolbarItem = ({
@@ -18,11 +17,7 @@ export const ResourceCreateToolbarItem = ({
       <Button variant="primary" onClick={open} data-test="resource-create">
         Create Resource
       </Button>
-      {isOpened && (
-        <ResourceCreateContextProvider>
-          <ResourceCreate onClose={close} />
-        </ResourceCreateContextProvider>
-      )}
+      {isOpened && <ResourceCreate onClose={close} />}
     </>
   );
 };
