@@ -53,3 +53,6 @@ export const clusterProperties = handler =>
 
 export const updateResource = handler =>
   post("/managec/:clusterUrlName/update_resource", parser, handler);
+
+export const resourceCreate = handler =>
+  post("/managec/:clusterUrlName/resource-create", parser, handler);

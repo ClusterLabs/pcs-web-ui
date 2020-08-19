@@ -5,7 +5,7 @@ import {
   PrimitiveResourceActions,
   actionType,
 } from "app/store/actions";
-import { ApiResult, createResource, updateResource } from "app/backend";
+import { ApiResult, resourceCreate, updateResource } from "app/backend";
 import { putNotification } from "./notifications";
 
 import { authSafe } from "./authSafe";
@@ -82,7 +82,7 @@ function* updateInstanceAttributes({
   }
 }
 
-function* createResourceSaga({
+function* resourceCreateSaga({
   payload: { agentName, resourceName, clusterUrlName },
 }: PrimitiveResourceActions["CreateResource"]) {
   yield putNotification(
@@ -90,8 +90,8 @@ function* createResourceSaga({
     `Creation of resource "${resourceName}" requested`,
   );
   try {
-    const result: ApiResult<typeof createResource> = yield call(
-      authSafe(createResource),
+    const result: ApiResult<typeof resourceCreate> = yield call(
+      authSafe(resourceCreate),
       {
         clusterUrlName,
         resourceName,
@@ -99,6 +99,11 @@ function* createResourceSaga({
       },
     );
     if (!result.valid) {
+      /* eslint-disable no-console */
+      console.error(
+        "Invalid library response from backend. Errors:",
+        result.errors,
+      );
       yield createResourceFailed({
         clusterUrlName,
         resourceName,
@@ -107,12 +112,11 @@ function* createResourceSaga({
       return;
     }
 
-    if (result.response.error === "true") {
-      const { stdout, stderr } = result.response;
+    if (result.response.status !== "success") {
       yield createResourceFailed({
         clusterUrlName,
         resourceName,
-        message: `backend error :\nstdout: ${stdout}\nstderr: ${stderr}`,
+        message: result.response.status_msg || "",
       });
       return;
     }
@@ -139,5 +143,5 @@ export default [
     actionType("RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES"),
     updateInstanceAttributes,
   ),
-  takeEvery(actionType("RESOURCE.PRIMITIVE.CREATE"), createResourceSaga),
+  takeEvery(actionType("RESOURCE.PRIMITIVE.CREATE"), resourceCreateSaga),
 ];
