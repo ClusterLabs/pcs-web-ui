@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Form,
   FormGroup,
@@ -8,16 +8,15 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { useSelectedClusterName } from "app/view";
+import { useClusterSelector } from "app/view";
 
 import { Action, selectors } from "app/store";
 import { ResourceCreateStep1TypeSelect } from "./ResourceCreateStep1TypeSelect";
 
 export const ResourceCreateStep1 = () => {
   const dispatch = useDispatch();
-  const clusterUrlName = useSelectedClusterName();
-  const { agentName, resourceName } = useSelector(
-    selectors.getWizardResourceCreateState(clusterUrlName),
+  const [{ agentName, resourceName }, clusterUrlName] = useClusterSelector(
+    selectors.getWizardResourceCreateState,
   );
 
   const onSelect = (value: string) => {

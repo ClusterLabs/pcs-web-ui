@@ -8,7 +8,6 @@ import {
   TextContent,
   Title,
 } from "@patternfly/react-core";
-import { useSelector } from "react-redux";
 
 import { SearchIcon } from "@patternfly/react-icons";
 
@@ -20,7 +19,7 @@ import {
   LoadedPcmkAgent,
   PcmkAgentDescription,
   pallete,
-  useSelectedClusterName,
+  useClusterSelector,
 } from "app/view";
 
 export const PrimitiveDetail = ({
@@ -28,10 +27,10 @@ export const PrimitiveDetail = ({
 }: {
   primitive: types.cluster.Primitive;
 }) => {
-  const clusterName = useSelectedClusterName();
-  const crmStatusList = useSelector(
-    selectors.crmStatusForPrimitive(useSelectedClusterName(), [primitive.id]),
-  );
+  const [
+    crmStatusList,
+    clusterName,
+  ] = useClusterSelector(selectors.crmStatusForPrimitive, [primitive.id]);
   return (
     <>
       <StackItem>

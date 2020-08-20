@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
   Card,
   CardBody,
@@ -10,10 +9,10 @@ import {
 } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { IssueList, useSelectedClusterName } from "app/view";
+import { IssueList, useClusterSelector } from "app/view";
 
 export const ClusterDetail = () => {
-  const cluster = useSelector(selectors.getCluster(useSelectedClusterName()));
+  const [cluster] = useClusterSelector(selectors.getCluster);
   return (
     <PageSection data-test="cluster-detail">
       <Card>

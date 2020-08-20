@@ -8,10 +8,9 @@ import {
   useGroupDetailViewContext,
   useMatch,
   useRoutesAnalysis,
-  useSelectedClusterName,
 } from "app/view";
 
-import { useFenceAgent } from "./useFenceAgent";
+import { useClusterFenceAgent } from "./useFenceAgent";
 import { FenceDeviceDetailView } from "./FenceDeviceDetailView";
 import { FenceDeviceArgumentsView } from "./arguments";
 
@@ -20,7 +19,7 @@ export const FenceDeviceView = ({
 }: {
   fenceDevice: types.cluster.FenceDevice;
 }) => {
-  useFenceAgent(useSelectedClusterName(), fenceDevice.agentName);
+  useClusterFenceAgent(fenceDevice.agentName);
   const { urlPrefix } = useGroupDetailViewContext();
   const fenceDeviceUrlPrefix = join(urlPrefix, fenceDevice.id);
   const { tab, urlMap } = useRoutesAnalysis("Detail", {

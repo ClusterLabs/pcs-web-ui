@@ -1,11 +1,13 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Action, selectors } from "app/store";
+import { useClusterSelector } from "app/view";
 
-export const useFenceAgent = (clusterUrlName: string, agentName: string) => {
-  const fenceAgent = useSelector(
-    selectors.getPcmkAgent(clusterUrlName, agentName),
+export const useClusterFenceAgent = (agentName: string) => {
+  const [fenceAgent, clusterUrlName] = useClusterSelector(
+    selectors.getPcmkAgent,
+    agentName,
   );
   const dispatch = useDispatch();
   React.useEffect(() => {

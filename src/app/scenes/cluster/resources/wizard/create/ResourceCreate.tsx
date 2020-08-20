@@ -1,17 +1,16 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Wizard } from "@patternfly/react-core";
 
 import { Action, selectors } from "app/store";
-import { useSelectedClusterName } from "app/view";
+import { useClusterSelector } from "app/view";
 
 import { ResourceCreateStep1 } from "./ResourceCreateStep1";
 
 export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useDispatch();
-  const clusterUrlName = useSelectedClusterName();
-  const { agentName, resourceName } = useSelector(
-    selectors.getWizardResourceCreateState(clusterUrlName),
+  const [{ agentName, resourceName }, clusterUrlName] = useClusterSelector(
+    selectors.getWizardResourceCreateState,
   );
   return (
     <Wizard

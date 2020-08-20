@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
   EmptyState,
   EmptyStateBody,
@@ -17,18 +16,15 @@ import {
   IssueList,
   Link,
   pallete,
-  useSelectedClusterName,
+  useClusterSelector,
 } from "app/view";
 
 export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {
-  const clusterName = useSelectedClusterName();
-  const crmStatusList = useSelector(
-    selectors.crmStatusForPrimitive(
-      useSelectedClusterName(),
-      clone.member.itemType === "primitive"
-        ? [clone.member.id]
-        : clone.member.resources.map(r => r.id),
-    ),
+  const [crmStatusList, clusterName] = useClusterSelector(
+    selectors.crmStatusForPrimitive,
+    clone.member.itemType === "primitive"
+      ? [clone.member.id]
+      : clone.member.resources.map(r => r.id),
   );
   return (
     <>

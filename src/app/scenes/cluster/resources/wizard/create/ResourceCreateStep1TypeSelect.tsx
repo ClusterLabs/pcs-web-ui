@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
   Select,
   SelectGroup,
@@ -9,7 +8,7 @@ import {
 } from "@patternfly/react-core";
 
 import { selectors, types } from "app/store";
-import { useSelectedClusterName } from "app/view";
+import { useClusterSelector } from "app/view";
 
 type ResourceAgentMap = types.resourceAgentList.ResourceAgentMap;
 
@@ -58,9 +57,8 @@ export const ResourceCreateStep1TypeSelect = ({
   agentName: string;
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { filteredResourceAgentMap, onFilter } = useFiltering(
-    useSelector(selectors.getResourceAgentMap(useSelectedClusterName())),
-  );
+  const [resourceAgentMap] = useClusterSelector(selectors.getResourceAgentMap);
+  const { filteredResourceAgentMap, onFilter } = useFiltering(resourceAgentMap);
 
   const select = React.useCallback(
     (

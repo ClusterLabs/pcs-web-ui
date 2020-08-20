@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   DataList,
   DataListContent,
@@ -10,7 +10,7 @@ import {
 
 import { Action, selectors, types } from "app/store";
 
-import { useSelectedClusterName } from "app/view";
+import { useClusterSelector } from "app/view";
 
 import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
 
@@ -26,11 +26,11 @@ export const ResourceTreeItemCompound = ({
   status: types.cluster.ResourceStatus;
   type: string;
 }>) => {
-  const clusterName = useSelectedClusterName();
   const dispatch = useDispatch();
-  const expanded = useSelector(
-    selectors.resourceTreeGetOpenedItems(clusterName),
-  ).includes(resourceId);
+  const [opened, clusterName] = useClusterSelector(
+    selectors.resourceTreeGetOpenedItems,
+  );
+  const expanded = opened.includes(resourceId);
   const label = `Members of resource item ${resourceId}`;
   return (
     <DataListItem
