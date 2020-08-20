@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import {
   Dropdown,
   DropdownItem,
@@ -9,7 +8,7 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import { Action } from "app/store";
+import { useDispatch } from "app/store";
 import { useUsername } from "app/view/useUsername";
 
 export const PageToolbar = () => {
@@ -35,7 +34,7 @@ export const PageToolbar = () => {
               <DropdownItem
                 data-test="logout"
                 key="0"
-                onClick={() => dispatch<Action>({ type: "LOGOUT" })}
+                onClick={() => dispatch({ type: "LOGOUT" })}
               >
                 Logout
               </DropdownItem>,

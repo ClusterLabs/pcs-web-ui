@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import {
   Alert,
   Button,
@@ -12,7 +11,7 @@ import {
   Title,
 } from "@patternfly/react-core";
 
-import { Action, types } from "app/store";
+import { types, useDispatch } from "app/store";
 
 export const AddClusterAuthRequired = ({
   nodeName,
@@ -115,7 +114,7 @@ export const AddClusterAuthRequired = ({
         <Button
           variant="primary"
           onClick={() =>
-            dispatch<Action>({
+            dispatch({
               type: "ADD_CLUSTER.AUTHENTICATE_NODE",
               payload: {
                 nodeName,

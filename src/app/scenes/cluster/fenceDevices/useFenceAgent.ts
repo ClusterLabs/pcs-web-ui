@@ -1,7 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 
-import { Action, selectors } from "app/store";
+import { selectors, useDispatch } from "app/store";
 import { useClusterSelector } from "app/view";
 
 export const useClusterFenceAgent = (agentName: string) => {
@@ -12,7 +11,7 @@ export const useClusterFenceAgent = (agentName: string) => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     if (!fenceAgent) {
-      dispatch<Action>({
+      dispatch({
         type: "FENCE_AGENT.LOAD",
         payload: { agentName, clusterUrlName },
       });

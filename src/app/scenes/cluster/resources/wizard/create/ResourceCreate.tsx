@@ -1,8 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Wizard } from "@patternfly/react-core";
 
-import { Action, selectors } from "app/store";
+import { selectors, useDispatch } from "app/store";
 import { useClusterSelector } from "app/view";
 
 import { ResourceCreateStep1 } from "./ResourceCreateStep1";
@@ -18,7 +17,7 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
       isOpen
       onClose={onClose}
       onSave={() => {
-        dispatch<Action>({
+        dispatch({
           type: "RESOURCE.PRIMITIVE.CREATE",
           payload: { agentName, resourceName, clusterUrlName },
         });

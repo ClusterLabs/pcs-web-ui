@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import {
   Form,
   FormGroup,
@@ -10,7 +9,7 @@ import {
 
 import { useClusterSelector } from "app/view";
 
-import { Action, selectors } from "app/store";
+import { selectors, useDispatch } from "app/store";
 import { ResourceCreateStep1TypeSelect } from "./ResourceCreateStep1TypeSelect";
 
 export const ResourceCreateStep1 = () => {
@@ -20,21 +19,21 @@ export const ResourceCreateStep1 = () => {
   );
 
   const onSelect = (value: string) => {
-    dispatch<Action>({
+    dispatch({
       type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME",
       payload: { clusterUrlName, agentName: value.toString() },
     });
   };
 
   const onClear = () => {
-    dispatch<Action>({
+    dispatch({
       type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME",
       payload: { clusterUrlName, agentName: "" },
     });
   };
 
   const changeResourceName = (value: string) =>
-    dispatch<Action>({
+    dispatch({
       type: "RESOURCE.PRIMITIVE.CREATE.SET_RESOURCE_NAME",
       payload: { clusterUrlName, resourceName: value },
     });

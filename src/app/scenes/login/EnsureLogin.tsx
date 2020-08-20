@@ -1,11 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { LoginForm, LoginPage } from "@patternfly/react-core";
 
-import { Action, selectors } from "app/store";
+import { selectors, useDispatch, useSelector } from "app/store";
 import { BackgroundImage } from "app/view";
 
-export const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {
+export const EnsureLogin = ({ children }: React.PropsWithChildren<unknown>) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const failed = useSelector(selectors.loginIsFailed);
@@ -40,7 +39,7 @@ export const EnsureLogin = ({ children }: React.PropsWithChildren<{}>) => {
           isLoginButtonDisabled={!isAcceptingLoginData}
           onLoginButtonClick={(e) => {
             e.preventDefault();
-            dispatch<Action>({
+            dispatch({
               type: "ENTER_CREDENTIALS",
               payload: { username, password },
             });

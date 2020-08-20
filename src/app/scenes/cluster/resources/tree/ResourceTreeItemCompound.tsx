@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import {
   DataList,
   DataListContent,
@@ -8,8 +7,7 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { Action, selectors, types } from "app/store";
-
+import { selectors, types, useDispatch } from "app/store";
 import { useClusterSelector } from "app/view";
 
 import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
@@ -43,7 +41,7 @@ export const ResourceTreeItemCompound = ({
           id={`resource-tree-toggle-${resourceId}`}
           isExpanded={expanded}
           onClick={() =>
-            dispatch<Action>({
+            dispatch({
               type: "RESOURCE_TREE.ITEM.TOGGLE",
               payload: { itemId: resourceId, clusterUrlName: clusterName },
             })

@@ -1,7 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 
-import { Action, selectors } from "app/store";
+import { selectors, useDispatch, useSelector } from "app/store";
 
 export const useUsername = () => {
   const username = useSelector(selectors.getUsername);
@@ -9,7 +8,7 @@ export const useUsername = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     if (!usernameLoaded) {
-      dispatch<Action>({ type: "USERNAME.LOAD" });
+      dispatch({ type: "USERNAME.LOAD" });
     }
   }, [usernameLoaded, dispatch]);
   return username;
