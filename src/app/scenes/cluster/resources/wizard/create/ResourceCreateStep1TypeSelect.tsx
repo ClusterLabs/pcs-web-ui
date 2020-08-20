@@ -62,7 +62,7 @@ export const ResourceCreateStep1TypeSelect = ({
 
   const select = React.useCallback(
     (
-      event: React.MouseEvent | React.ChangeEvent,
+      _event: React.MouseEvent | React.ChangeEvent,
       value: string | SelectOptionObject,
     ) => {
       onSelect(value.toString());
