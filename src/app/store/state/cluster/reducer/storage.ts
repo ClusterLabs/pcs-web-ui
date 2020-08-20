@@ -3,12 +3,12 @@ import { Reducer, combineReducers } from "redux";
 import { Action } from "app/store/actions";
 import * as types from "app/store/types";
 
-import { clusterStatus } from "./clusterStatus/reducer";
-import pcmkAgents from "./pcmkAgents/reducer";
-import resourceTree from "./resourceTree/reducer";
-import clusterProperties from "./clusterProperties/reducer";
-import resourceAgentMap from "./resourceAgentList/reducer";
-import wizardResourceCreate from "./resourceWizardCreate/reducer";
+import clusterStatus from "./clusterStatus";
+import pcmkAgents from "./pcmkAgents";
+import resourceTree from "./resourceTree";
+import clusterProperties from "./properties";
+import resourceAgentMap from "./resourceAgentMap";
+import wizardResourceCreate from "./resourceWizardCreate";
 
 const cluster = combineReducers<types.clusterStorage.Item>({
   clusterStatus,

@@ -3,8 +3,23 @@ import { Reducer, combineReducers } from "redux";
 import { Action } from "app/store/actions";
 import * as types from "app/store/types";
 
-import { apiToState as clusterApiToState } from "./apiToState";
-import { clusterStatusDefault } from "./clusterStatusDefault";
+import { apiToState as clusterApiToState } from "./apiToState/apiToState";
+
+export const clusterStatusDefault: types.cluster.ClusterStatus = {
+  name: "",
+  urlName: "",
+  nodeList: [],
+  resourceTree: [],
+  fenceDeviceList: [],
+  issueList: [],
+  summary: {
+    nodesSeverity: "OK",
+    resourcesSeverity: "OK",
+    fenceDevicesSeverity: "OK",
+    issuesSeverity: "OK",
+  },
+  resourceOnNodeStatusList: [],
+};
 
 const clusterData: Reducer<
   types.cluster.ClusterStatusService["clusterData"],
@@ -34,9 +49,8 @@ const dataFetchState: Reducer<
   }
 };
 
-export const clusterStatus = combineReducers<
-  types.cluster.ClusterStatusService
->({
+const clusterStatus = combineReducers<types.cluster.ClusterStatusService>({
   clusterData,
   dataFetchState,
 });
+export default clusterStatus;

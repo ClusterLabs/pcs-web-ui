@@ -3,7 +3,7 @@ import { applyMiddleware, compose, createStore } from "redux";
 import { routerMiddleware } from "connected-react-router";
 import createSagaMiddleware from "redux-saga";
 
-import { rootSaga } from "app/store/sagas";
+import { rootSaga } from "./sagas";
 import { rootReducer } from "./state/root";
 
 /* global window */

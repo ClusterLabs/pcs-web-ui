@@ -1,12 +1,8 @@
 import * as types from "app/store/types";
-import { Selector } from "app/store/types";
+import { clusterStatusSelector } from "./helpers";
 
-import { getCluster } from "./cluster";
-
-export const getConstraints = (
-  clusterUrlName: string,
-): Selector<types.cluster.ConstraintPack[]> => (state) => {
-  const constraintMap = getCluster(clusterUrlName)(state).constraints;
+export const getConstraints = clusterStatusSelector((clusterStatus) => {
+  const constraintMap = clusterStatus.constraints;
   if (!constraintMap) {
     return [];
   }
@@ -43,4 +39,4 @@ export const getConstraints = (
   );
 
   return [...locationsNode, ...colocations, ...orders, ...tickets];
-};
+});
