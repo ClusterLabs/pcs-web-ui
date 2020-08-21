@@ -1,7 +1,5 @@
-import { Reducer, combineReducers } from "redux";
-
 import { types } from "app/backend";
-import { Action } from "app/store/actions";
+import { Reducer, combineReducers } from "app/store/redux";
 
 export type ClusterProperty = types.clusterProperties.ApiClusterProperty;
 
@@ -13,7 +11,7 @@ export type ClusterPropertiesService = {
   };
 };
 
-const data: Reducer<ClusterProperty[], Action> = (state = [], action) => {
+const data: Reducer<ClusterProperty[]> = (state = [], action) => {
   switch (action.type) {
     case "CLUSTER_PROPERTIES.LOAD.SUCCESS": {
       const { apiClusterProperties } = action.payload;
@@ -26,7 +24,7 @@ const data: Reducer<ClusterProperty[], Action> = (state = [], action) => {
   }
 };
 
-const fetchState: Reducer<ClusterPropertiesService["fetchState"], Action> = (
+const fetchState: Reducer<ClusterPropertiesService["fetchState"]> = (
   state = { current: "NOT_STARTED", alreadyLoaded: false },
   action,
 ) => {

@@ -1,6 +1,4 @@
-import { Reducer, combineReducers } from "redux";
-
-import { Action } from "app/store/actions";
+import { Reducer, combineReducers } from "app/store/redux";
 
 import { apiToState } from "./apiToState";
 import { ClusterStatus, ClusterStatusService } from "./types";
@@ -21,7 +19,7 @@ export const clusterStatusDefault: ClusterStatus = {
   resourceOnNodeStatusList: [],
 };
 
-const clusterData: Reducer<ClusterStatusService["clusterData"], Action> = (
+const clusterData: Reducer<ClusterStatusService["clusterData"]> = (
   state = clusterStatusDefault,
   action,
 ) => {
@@ -33,10 +31,10 @@ const clusterData: Reducer<ClusterStatusService["clusterData"], Action> = (
   }
 };
 
-const dataFetchState: Reducer<
-  ClusterStatusService["dataFetchState"],
-  Action
-> = (state = "NOT_STARTED", action) => {
+const dataFetchState: Reducer<ClusterStatusService["dataFetchState"]> = (
+  state = "NOT_STARTED",
+  action,
+) => {
   switch (action.type) {
     case "CLUSTER_DATA.SYNC":
       return state === "SUCCESS" ? "SUCCESS" : "IN_PROGRESS";

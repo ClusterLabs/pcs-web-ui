@@ -1,12 +1,10 @@
-import { Reducer, combineReducers } from "redux";
-
-import { Action } from "app/store/actions";
+import { Reducer, combineReducers } from "app/store/redux";
 
 export interface ResourceTreeState {
   openedItems: string[];
 }
 
-const openedItems: Reducer<ResourceTreeState["openedItems"], Action> = (
+const openedItems: Reducer<ResourceTreeState["openedItems"]> = (
   state = [],
   action,
 ) => {

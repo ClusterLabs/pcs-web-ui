@@ -115,7 +115,6 @@ function* authenticateNode({
       result: call(authSafe(authGuiAgainstNodes), {
         [nodeName]: {
           password,
-          /* eslint-disable @typescript-eslint/camelcase */
           dest_list: [{ addr: address, port }],
         },
       }),

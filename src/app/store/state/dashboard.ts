@@ -1,6 +1,4 @@
-import { Reducer, combineReducers } from "redux";
-
-import { Action } from "app/store/actions";
+import { Reducer, combineReducers } from "app/store/redux";
 
 export type ClusterNameListState = string[];
 
@@ -9,10 +7,10 @@ export interface DashboardPageState {
   dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "ERROR";
 }
 
-const clusterNameListState: Reducer<
-  DashboardPageState["clusterNameListState"],
-  Action
-> = (state = [], action) => {
+const clusterNameListState: Reducer<DashboardPageState["clusterNameListState"]> = (
+  state = [],
+  action,
+) => {
   switch (action.type) {
     case "DASHBOARD_DATA.FETCH.SUCCESS":
       return action.payload.clusterNameList;
@@ -23,7 +21,7 @@ const clusterNameListState: Reducer<
   }
 };
 
-const dataFetchState: Reducer<DashboardPageState["dataFetchState"], Action> = (
+const dataFetchState: Reducer<DashboardPageState["dataFetchState"]> = (
   state = "NOT_STARTED",
   action,
 ) => {

@@ -1,6 +1,4 @@
-import { Reducer, combineReducers } from "redux";
-
-import { Action } from "app/store/actions";
+import { Reducer, combineReducers } from "app/store/redux";
 
 export type AUTH_STATE =
   | "INITIAL"
@@ -23,7 +21,7 @@ export interface DashboardAddClusterPageState {
   stateError: StateError;
 }
 
-const nodeName: Reducer<NodeName, Action> = (state = "", action) => {
+const nodeName: Reducer<NodeName> = (state = "", action) => {
   switch (action.type) {
     case "ADD_CLUSTER.NODE_NAME.UPDATE":
       return action.payload.nodeName;
@@ -32,10 +30,7 @@ const nodeName: Reducer<NodeName, Action> = (state = "", action) => {
   }
 };
 
-const stepAuthState: Reducer<AUTH_STATE, Action> = (
-  state = "INITIAL",
-  action,
-) => {
+const stepAuthState: Reducer<AUTH_STATE> = (state = "INITIAL", action) => {
   switch (action.type) {
     case "ADD_CLUSTER.NODE_NAME.UPDATE":
       return "INITIAL";
@@ -58,10 +53,7 @@ const stepAuthState: Reducer<AUTH_STATE, Action> = (
   }
 };
 
-const stepAddState: Reducer<ADD_STATE, Action> = (
-  state = "STARTED",
-  action,
-) => {
+const stepAddState: Reducer<ADD_STATE> = (state = "STARTED", action) => {
   switch (action.type) {
     case "ADD_CLUSTER.ADD_CLUSTER":
       return "STARTED";
@@ -76,7 +68,7 @@ const stepAddState: Reducer<ADD_STATE, Action> = (
   }
 };
 
-const stateError: Reducer<StateError, Action> = (state = "", action) => {
+const stateError: Reducer<StateError> = (state = "", action) => {
   switch (action.type) {
     case "ADD_CLUSTER.NODE_NAME.UPDATE":
     case "ADD_CLUSTER.CHECK_AUTH":

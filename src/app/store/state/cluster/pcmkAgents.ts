@@ -1,6 +1,4 @@
-import { Reducer } from "redux";
-
-import { Action } from "app/store/actions";
+import { Reducer } from "app/store/redux";
 
 export type AgentParameter = {
   name: string;
@@ -32,7 +30,7 @@ export type StoredAgent = ResourceAgent | FenceAgent;
 
 export type AgentsStorage = Record<string, StoredAgent>;
 
-const storage: Reducer<AgentsStorage, Action> = (state = {}, action) => {
+const storage: Reducer<AgentsStorage> = (state = {}, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LOAD":
     case "FENCE_AGENT.LOAD":

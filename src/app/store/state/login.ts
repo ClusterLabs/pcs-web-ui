@@ -1,6 +1,4 @@
-import { Reducer } from "redux";
-
-import { Action } from "app/store/actions";
+import { Reducer } from "app/store/redux";
 
 export interface LoginState {
   // Detected that authorization is required.
@@ -24,10 +22,7 @@ const defaultState = {
   errorMessage: "",
 };
 
-const loginState: Reducer<LoginState, Action> = (
-  state = defaultState,
-  action,
-) => {
+const loginState: Reducer<LoginState> = (state = defaultState, action) => {
   switch (action.type) {
     case "AUTH.REQUIRED":
       return {

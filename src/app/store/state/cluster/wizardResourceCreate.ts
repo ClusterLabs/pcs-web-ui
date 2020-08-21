@@ -1,6 +1,4 @@
-import { Reducer } from "redux";
-
-import { Action } from "app/store/actions";
+import { Reducer } from "app/store/redux";
 
 export type WizardResourceCreate = {
   agentName: string;
@@ -12,7 +10,7 @@ const initialState: WizardResourceCreate = {
   agentName: "",
 };
 
-const wizardResourceCreate: Reducer<WizardResourceCreate, Action> = (
+const wizardResourceCreate: Reducer<WizardResourceCreate> = (
   state = initialState,
   action,
 ) => {

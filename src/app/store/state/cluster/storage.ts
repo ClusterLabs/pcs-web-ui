@@ -1,6 +1,4 @@
-import { Reducer, combineReducers } from "redux";
-
-import { Action } from "app/store/actions";
+import { Reducer, combineReducers } from "app/store/redux";
 
 import clusterStatus, { types as clusterStatusTypes } from "./clusterStatus";
 import pcmkAgents, { AgentsStorage } from "./pcmkAgents";
@@ -31,10 +29,7 @@ const clusterStorageItem = combineReducers<ClusterStorageItem>({
   wizardResourceCreate,
 });
 
-const clusterStorage: Reducer<ClusterStorageMap, Action> = (
-  state = {},
-  action,
-) => {
+const clusterStorage: Reducer<ClusterStorageMap> = (state = {}, action) => {
   switch (action.type) {
     case "CLUSTER_DATA.SYNC":
     case "CLUSTER_DATA.FETCH.SUCCESS":
