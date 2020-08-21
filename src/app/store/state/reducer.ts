@@ -1,0 +1,33 @@
+import { combineReducers } from "redux";
+import { RouterState, connectRouter } from "connected-react-router";
+import { History } from "history";
+
+import dashboard, { DashboardPageState } from "./dashboard";
+import addExistingCluster, {
+  DashboardAddClusterPageState,
+} from "./dashboardAddCluster";
+import notifications, { NotificationState } from "./notifications";
+import login, { LoginState } from "./login";
+import username, { UsernameState } from "./username";
+import clusterStorageReducer, * as clusterStorage from "./cluster/storage";
+
+export interface RootState {
+  addExistingCluster: DashboardAddClusterPageState;
+  clusterStorage: clusterStorage.ClusterStorageMap;
+  dashboard: DashboardPageState;
+  login: LoginState;
+  notifications: NotificationState;
+  router: RouterState;
+  username: UsernameState;
+}
+
+export default (history: History) =>
+  combineReducers<RootState>({
+    username,
+    router: connectRouter(history),
+    dashboard,
+    addExistingCluster,
+    clusterStorage: clusterStorageReducer,
+    login,
+    notifications,
+  });

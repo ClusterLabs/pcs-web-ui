@@ -10,7 +10,7 @@ import {
 import { selectors, types } from "app/store";
 import { useClusterSelector } from "app/view";
 
-type ResourceAgentMap = types.resourceAgentList.ResourceAgentMap;
+type ResourceAgentMap = types.resourceAgentMap.ResourceAgentMap;
 
 const filterSources = (
   search: string,
