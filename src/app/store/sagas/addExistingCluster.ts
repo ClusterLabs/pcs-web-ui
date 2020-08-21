@@ -1,13 +1,12 @@
-import { call, put, race, take, takeEvery } from "redux-saga/effects";
-
 import {
   ApiResult,
   authGuiAgainstNodes,
   checkAuthAgainstNodes,
   existingCluster,
 } from "app/backend";
-import { Action, AddClusterActions, actionType } from "app/store/actions";
+import { AddClusterActions } from "app/store/actions";
 
+import { call, put, race, take, takeEvery } from "./effects";
 import { authSafe } from "./authSafe";
 
 function* checkAuthentication({
@@ -20,7 +19,7 @@ function* checkAuthentication({
       result: ApiResult<typeof checkAuthAgainstNodes>;
     } = yield race({
       result: call(authSafe(checkAuthAgainstNodes), [nodeName]),
-      cancel: take(actionType("ADD_CLUSTER.NODE_NAME.UPDATE")),
+      cancel: take("ADD_CLUSTER.NODE_NAME.UPDATE"),
     });
 
     if (!result) {
@@ -28,7 +27,7 @@ function* checkAuthentication({
     }
 
     if (!result.valid) {
-      yield put<Action>({
+      yield put({
         type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
         payload: {
           message: [
@@ -44,12 +43,12 @@ function* checkAuthentication({
 
     const nodeStatus = result.response[nodeName];
     if (nodeStatus === "Online") {
-      yield put<Action>({ type: "ADD_CLUSTER.CHECK_AUTH.OK" });
+      yield put({ type: "ADD_CLUSTER.CHECK_AUTH.OK" });
       return;
     }
 
     if (nodeStatus === "Offline") {
-      yield put<Action>({
+      yield put({
         type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
         payload: {
           // prettier-ignore
@@ -62,9 +61,9 @@ function* checkAuthentication({
     }
 
     // Unable to authenticate
-    yield put<Action>({ type: "ADD_CLUSTER.CHECK_AUTH.NO_AUTH" });
+    yield put({ type: "ADD_CLUSTER.CHECK_AUTH.NO_AUTH" });
   } catch (error) {
-    yield put<Action>({
+    yield put({
       type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
       payload: {
         // prettier-ignore
@@ -81,17 +80,17 @@ function* addCluster({
 }: AddClusterActions["AddCluster"]) {
   try {
     yield call(authSafe(existingCluster), nodeName);
-    yield put<Action>({
+    yield put({
       type: "ADD_CLUSTER.RELOAD_DASHBOARD",
     });
-    yield put<Action>({ type: "DASHBOARD_DATA.REFRESH" });
-    yield take(actionType("DASHBOARD_DATA.FETCH.SUCCESS"));
-    yield put<Action>({
+    yield put({ type: "DASHBOARD_DATA.REFRESH" });
+    yield take("DASHBOARD_DATA.FETCH.SUCCESS");
+    yield put({
       type: "ADD_CLUSTER.ADD_CLUSTER.SUCCESS",
       payload: { warningMessages: [] },
     });
   } catch (error) {
-    yield put<Action>({
+    yield put({
       type: "ADD_CLUSTER.ADD_CLUSTER.ERROR",
       payload: {
         message:
@@ -118,7 +117,7 @@ function* authenticateNode({
           dest_list: [{ addr: address, port }],
         },
       }),
-      cancel: take(actionType("ADD_CLUSTER.NODE_NAME.UPDATE")),
+      cancel: take("ADD_CLUSTER.NODE_NAME.UPDATE"),
     });
 
     if (!result) {
@@ -126,7 +125,7 @@ function* authenticateNode({
     }
 
     if (!result.valid) {
-      yield put<Action>({
+      yield put({
         type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
         payload: {
           // prettier-ignore
@@ -139,7 +138,7 @@ function* authenticateNode({
       return;
     }
 
-    yield put<Action>(
+    yield put(
       result.response.node_auth_error[nodeName] === 0
         ? { type: "ADD_CLUSTER.AUTHENTICATE_NODE.SUCCESS" }
         : {
@@ -150,7 +149,7 @@ function* authenticateNode({
         },
     );
   } catch (error) {
-    yield put<Action>({
+    yield put({
       type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
       payload: { message: error.message },
     });
@@ -158,7 +157,7 @@ function* authenticateNode({
 }
 
 export default [
-  takeEvery(actionType("ADD_CLUSTER.CHECK_AUTH"), checkAuthentication),
-  takeEvery(actionType("ADD_CLUSTER.ADD_CLUSTER"), addCluster),
-  takeEvery(actionType("ADD_CLUSTER.AUTHENTICATE_NODE"), authenticateNode),
+  takeEvery("ADD_CLUSTER.CHECK_AUTH", checkAuthentication),
+  takeEvery("ADD_CLUSTER.ADD_CLUSTER", addCluster),
+  takeEvery("ADD_CLUSTER.AUTHENTICATE_NODE", authenticateNode),
 ];

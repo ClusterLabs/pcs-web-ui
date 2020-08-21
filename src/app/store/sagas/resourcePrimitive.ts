@@ -1,17 +1,12 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-
-import {
-  Action,
-  PrimitiveResourceActions,
-  actionType,
-} from "app/store/actions";
+import { PrimitiveResourceActions } from "app/store/actions";
 import { ApiResult, resourceCreate, updateResource } from "app/backend";
-import { putNotification } from "./notifications";
 
+import { call, put, takeEvery } from "./effects";
+import { putNotification } from "./notifications";
 import { authSafe } from "./authSafe";
 
 function* updateInstanceAttributesFailed(resourceId: string, message: string) {
-  yield put<Action>({
+  yield put({
     type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.FAILED",
   });
   yield putNotification(
@@ -29,7 +24,7 @@ function* createResourceFailed({
   resourceName: string;
   message: string;
 }) {
-  yield put<Action>({
+  yield put({
     type: "RESOURCE.PRIMITIVE.CREATE.FAILED",
     payload: { clusterUrlName, resourceName },
   });
@@ -70,7 +65,7 @@ function* updateInstanceAttributes({
       return;
     }
 
-    yield put<Action>({
+    yield put({
       type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.SUCCESS",
     });
     yield putNotification(
@@ -121,7 +116,7 @@ function* resourceCreateSaga({
       return;
     }
 
-    yield put<Action>({
+    yield put({
       type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS",
       payload: { clusterUrlName, resourceName },
     });
@@ -140,8 +135,8 @@ function* resourceCreateSaga({
 
 export default [
   takeEvery(
-    actionType("RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES"),
+    "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
     updateInstanceAttributes,
   ),
-  takeEvery(actionType("RESOURCE.PRIMITIVE.CREATE"), resourceCreateSaga),
+  takeEvery("RESOURCE.PRIMITIVE.CREATE", resourceCreateSaga),
 ];

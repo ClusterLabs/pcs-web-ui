@@ -1,20 +1,8 @@
 import { Task } from "redux-saga";
-import {
-  all,
-  cancel,
-  cancelled,
-  delay,
-  fork,
-  put,
-  take,
-} from "redux-saga/effects";
 
-import {
-  Action,
-  LeafAction,
-  SetupDataReading,
-  actionType,
-} from "app/store/actions";
+import { Action, LeafAction, SetupDataReading } from "app/store/actions";
+
+import { all, cancel, cancelled, delay, fork, put, take } from "./effects";
 
 const SYNC_DELAY = 30 * 1000; // ms
 
@@ -140,9 +128,7 @@ export function* setUpDataReading() {
 
   /* eslint-disable no-constant-condition */
   while (true) {
-    const { payload }: SetupDataReading = yield take(
-      actionType("DATA_READING.SET_UP"),
-    );
+    const { payload }: SetupDataReading = yield take("DATA_READING.SET_UP");
     const { startActions, stopActions, nextStops } = takeNewLoadings(
       payload,
       stops,

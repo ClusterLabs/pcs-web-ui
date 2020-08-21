@@ -1,6 +1,6 @@
-import { delay, put, takeEvery } from "redux-saga/effects";
+import { NotificationActions } from "app/store/actions";
 
-import { Action, NotificationActions, actionType } from "app/store/actions";
+import { delay, put, takeEvery } from "./effects";
 
 const DISPLAY_MSECONDS = 8000;
 let nextId = 1;
@@ -13,7 +13,7 @@ function* limitNotificationLife({
   },
 }: CreateNotification) {
   yield delay(DISPLAY_MSECONDS);
-  yield put<Action>({
+  yield put({
     type: "NOTIFICATION.DESTROY",
     payload: { id },
   });
@@ -23,7 +23,7 @@ export function* putNotification(
   severity: CreateNotification["payload"]["notification"]["severity"],
   message: string,
 ) {
-  return yield put<Action>({
+  return yield put({
     type: "NOTIFICATION.CREATE",
     payload: {
       notification: {
@@ -35,6 +35,4 @@ export function* putNotification(
   });
 }
 
-export default [
-  takeEvery(actionType("NOTIFICATION.CREATE"), limitNotificationLife),
-];
+export default [takeEvery("NOTIFICATION.CREATE", limitNotificationLife)];

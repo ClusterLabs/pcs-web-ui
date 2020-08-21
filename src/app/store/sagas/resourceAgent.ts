@@ -1,8 +1,7 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-
 import { ApiResult, getResourceAgentMetadata } from "app/backend";
-import { Action, ResourceAgentActions, actionType } from "app/store/actions";
+import { ResourceAgentActions } from "app/store/actions";
 
+import { call, put, takeEvery } from "./effects";
 import { authSafe } from "./authSafe";
 
 function* loadResourceAgent({
@@ -15,7 +14,7 @@ function* loadResourceAgent({
   );
 
   if (!result.valid) {
-    yield put<Action>({
+    yield put({
       type: "RESOURCE_AGENT.LOAD.FAILED",
       payload: { agentName, clusterUrlName },
     });
@@ -23,12 +22,10 @@ function* loadResourceAgent({
     return;
   }
 
-  yield put<Action>({
+  yield put({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
     payload: { apiAgentMetadata: result.response, clusterUrlName },
   });
 }
 
-export default [
-  takeEvery(actionType("RESOURCE_AGENT.LOAD"), loadResourceAgent),
-];
+export default [takeEvery("RESOURCE_AGENT.LOAD", loadResourceAgent)];
