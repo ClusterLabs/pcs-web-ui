@@ -10,9 +10,9 @@ import {
 import { useClusterSelector } from "app/view";
 
 import { selectors, useDispatch } from "app/store";
-import { ResourceCreateStep1TypeSelect } from "./ResourceCreateStep1TypeSelect";
+import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSelect";
 
-export const ResourceCreateStep1 = () => {
+export const ResourceCreateNameType = () => {
   const dispatch = useDispatch();
   const [{ agentName, resourceName }, clusterUrlName] = useClusterSelector(
     selectors.getWizardResourceCreateState,
@@ -65,7 +65,7 @@ export const ResourceCreateStep1 = () => {
           fieldId="new-resource-agent-name"
           helperText="Please select resource agent"
         >
-          <ResourceCreateStep1TypeSelect
+          <ResourceCreateNameTypeTypeSelect
             onSelect={onSelect}
             onClear={onClear}
             agentName={agentName}

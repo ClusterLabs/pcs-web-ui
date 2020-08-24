@@ -4,7 +4,7 @@ import { Wizard } from "@patternfly/react-core";
 import { selectors, useDispatch } from "app/store";
 import { useClusterSelector } from "app/view";
 
-import { ResourceCreateStep1 } from "./ResourceCreateStep1";
+import { ResourceCreateNameType } from "./ResourceCreateNameType";
 
 export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
       steps={[
         {
           name: "Name and type",
-          component: <ResourceCreateStep1 />,
+          component: <ResourceCreateNameType />,
           nextButtonText: "Create resource",
         },
       ]}

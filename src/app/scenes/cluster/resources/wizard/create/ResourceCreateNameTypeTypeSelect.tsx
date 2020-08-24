@@ -47,7 +47,7 @@ const useFiltering = (resourceAgentMap: ResourceAgentMap) => {
   };
 };
 
-export const ResourceCreateStep1TypeSelect = ({
+export const ResourceCreateNameTypeTypeSelect = ({
   onSelect,
   onClear,
   agentName,
