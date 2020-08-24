@@ -14,7 +14,7 @@ import { ResourceCreateReports } from "./ResourceCreateReports";
 
 export const ResourceCreateReview: React.FC<{
   wizardState: types.wizardResourceCreate.WizardResourceCreate;
-}> = ({ wizardState: { agentName, resourceName } }) => {
+}> = ({ wizardState: { agentName, resourceName, instanceAttrs } }) => {
   return (
     <>
       <TextContent>
@@ -27,9 +27,26 @@ export const ResourceCreateReview: React.FC<{
             {resourceName}
           </DescriptionListDescription>
         </DescriptionListGroup>
+
         <DescriptionListGroup>
           <DescriptionListTerm>Resource type</DescriptionListTerm>
           <DescriptionListDescription>{agentName}</DescriptionListDescription>
+        </DescriptionListGroup>
+
+        <DescriptionListGroup>
+          <DescriptionListTerm>Instance attributes</DescriptionListTerm>
+          <DescriptionListDescription>
+            <DescriptionList isHorizontal>
+              {Object.keys(instanceAttrs).map(attrName => (
+                <DescriptionListGroup key={attrName}>
+                  <DescriptionListTerm>{attrName}</DescriptionListTerm>
+                  <DescriptionListDescription>
+                    {instanceAttrs[attrName]}
+                  </DescriptionListDescription>
+                </DescriptionListGroup>
+              ))}
+            </DescriptionList>
+          </DescriptionListDescription>
         </DescriptionListGroup>
       </DescriptionList>
       <ResourceCreateReports />
