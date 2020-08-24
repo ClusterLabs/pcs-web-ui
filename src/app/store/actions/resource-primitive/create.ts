@@ -48,6 +48,15 @@ export type SetResourceName = {
   };
 };
 
+export type SetInstanceAttribute = {
+  type: "RESOURCE.PRIMITIVE.CREATE.SET_INSTANCE_ATTRIBUTE";
+  payload: {
+    clusterUrlName: string;
+    name: string;
+    value: string;
+  };
+};
+
 export type Close = {
   type: "RESOURCE.PRIMITIVE.CREATE.CLOSE";
   payload: {

@@ -1,12 +1,12 @@
 import { ApiResult, getResourceAgentMetadata } from "app/backend";
-import { ResourceAgentActions } from "app/store/actions";
+import { actions, selectors, types } from "app/store";
 
-import { call, put, takeEvery } from "./effects";
+import { call, put, select, takeEvery } from "./effects";
 import { authSafe } from "./authSafe";
 
 function* loadResourceAgent({
   payload: { agentName, clusterUrlName },
-}: ResourceAgentActions["LoadResourceAgent"]) {
+}: actions.ResourceAgentActions["LoadResourceAgent"]) {
   const result: ApiResult<typeof getResourceAgentMetadata> = yield call(
     authSafe(getResourceAgentMetadata),
     clusterUrlName,
@@ -28,4 +28,24 @@ function* loadResourceAgent({
   });
 }
 
-export default [takeEvery("RESOURCE_AGENT.LOAD", loadResourceAgent)];
+function* ensureResourceAgent({
+  payload: { agentName, clusterUrlName },
+}: actions.ResourceAgentActions["EnsureResourceAgent"]) {
+  const pcmkAgent: types.pcmkAgents.StoredAgent = yield select(
+    selectors.getPcmkAgent(clusterUrlName, agentName),
+  );
+  if (!pcmkAgent || pcmkAgent.loadStatus === "FAILED") {
+    yield put({
+      type: "RESOURCE_AGENT.LOAD",
+      payload: {
+        agentName,
+        clusterUrlName,
+      },
+    });
+  }
+}
+
+export default [
+  takeEvery("RESOURCE_AGENT.LOAD", loadResourceAgent),
+  takeEvery("RESOURCE_AGENT.ENSURE", ensureResourceAgent),
+];

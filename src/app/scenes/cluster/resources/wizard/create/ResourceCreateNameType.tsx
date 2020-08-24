@@ -19,6 +19,10 @@ export const ResourceCreateNameType: React.FC<{
 
   const onSelect = (value: string) => {
     dispatch({
+      type: "RESOURCE_AGENT.ENSURE",
+      payload: { clusterUrlName, agentName: value.toString() },
+    });
+    dispatch({
       type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME",
       payload: { clusterUrlName, agentName: value.toString() },
     });

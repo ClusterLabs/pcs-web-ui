@@ -13,6 +13,7 @@ import {
   put as sagaPut,
   take as sagaTake,
   takeEvery as sagaTakeEvery,
+  select,
 } from "redux-saga/effects";
 import { Action } from "app/store/actions";
 
@@ -31,4 +32,4 @@ export function take(pattern?: Action["type"] | ActionPattern): TakeEffect {
   return sagaTake(pattern);
 }
 
-export { all, call, fork, race, cancel, cancelled, delay, sagaPut };
+export { all, call, cancel, cancelled, delay, fork, race, sagaPut, select };

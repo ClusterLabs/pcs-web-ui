@@ -5,6 +5,7 @@ import { selectors } from "app/store";
 import { useClusterSelector } from "app/view";
 
 import { ResourceCreateNameType } from "./ResourceCreateNameType";
+import { ResourceCreateInstanceAttrs } from "./ResourceCreateInstanceAttrs";
 import { ResourceCreateReview } from "./ResourceCreateReview";
 import { ResourceCreateProgress } from "./ResourceCreateProgress";
 import { ResourceCreateFooter } from "./ResourceCreateFooter";
@@ -26,6 +27,15 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
           name: "Name and type",
           component: (
             <ResourceCreateNameType
+              wizardState={wizardState}
+              clusterUrlName={clusterUrlName}
+            />
+          ),
+        },
+        {
+          name: "Instance attributes",
+          component: (
+            <ResourceCreateInstanceAttrs
               wizardState={wizardState}
               clusterUrlName={clusterUrlName}
             />
