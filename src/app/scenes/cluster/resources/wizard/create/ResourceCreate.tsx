@@ -5,6 +5,9 @@ import { selectors, useDispatch } from "app/store";
 import { useClusterSelector } from "app/view";
 
 import { ResourceCreateNameType } from "./ResourceCreateNameType";
+import { ResourceCreateReview } from "./ResourceCreateReview";
+import { ResourceCreateProgress } from "./ResourceCreateProgress";
+import { ResourceCreateFooter } from "./ResourceCreateFooter";
 
 export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useDispatch();
@@ -31,7 +34,18 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
           component: <ResourceCreateNameType />,
           nextButtonText: "Create resource",
         },
+        {
+          name: "Review",
+          component: <ResourceCreateReview />,
+          nextButtonText: "Finish",
+        },
+        {
+          name: "Progress",
+          component: <ResourceCreateProgress onClose={onClose} />,
+          isFinishedStep: true,
+        },
       ]}
+      footer={<ResourceCreateFooter onClose={onClose} />}
     />
   );
 };

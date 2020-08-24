@@ -38,3 +38,10 @@ export type SetResourceName = {
     resourceName: string;
   };
 };
+
+export type Close = {
+  type: "RESOURCE.PRIMITIVE.CREATE.CLOSE";
+  payload: {
+    clusterUrlName: string;
+  };
+};

@@ -6,6 +6,7 @@ export type PrimitiveResourceActions = {
   CreateResourceFailed: create.CreateResourceFailed;
   CreateResourceSetAgentName: create.SetAgentName;
   CreateResourceSetResourceName: create.SetResourceName;
+  CreateResourceClose: create.Close;
 
   UpdateInstanceAttributes: {
     type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES";

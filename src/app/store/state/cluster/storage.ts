@@ -51,6 +51,7 @@ const clusterStorage: Reducer<ClusterStorageMap> = (state = {}, action) => {
     case "RESOURCE.PRIMITIVE.CREATE.SET_RESOURCE_NAME":
     case "RESOURCE.PRIMITIVE.CREATE.SUCCESS":
     case "RESOURCE.PRIMITIVE.CREATE.FAILED":
+    case "RESOURCE.PRIMITIVE.CREATE.CLOSE":
       /* eslint-disable no-case-declarations */
       const name = action.payload.clusterUrlName;
       return {
