@@ -7,7 +7,10 @@ import {
   ProgressMeasureLocation,
   Title,
 } from "@patternfly/react-core";
-import { CheckCircleIcon } from "@patternfly/react-icons";
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+} from "@patternfly/react-icons";
 
 import { selectors } from "app/store";
 import { pallete, useClusterSelector } from "app/view";
@@ -29,6 +32,15 @@ export const ResourceCreateProgress: React.FC<{ onClose: () => void }> = ({
           <Button variant="primary" onClick={onClose}>
             Close
           </Button>
+        </EmptyState>
+      );
+    case "fail":
+      return (
+        <EmptyState>
+          <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
+          <Title headingLevel="h4" size="lg">
+            {`Create resource "${resourceName}" failed`}
+          </Title>
         </EmptyState>
       );
     default:

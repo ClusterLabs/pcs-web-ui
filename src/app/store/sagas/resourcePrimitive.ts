@@ -108,6 +108,10 @@ function* resourceCreateSaga({
     }
 
     if (result.response.status !== "success") {
+      yield put({
+        type: "RESOURCE.PRIMITIVE.CREATE.FAILED",
+        payload: { clusterUrlName, resourceName },
+      });
       yield createResourceFailed({
         clusterUrlName,
         resourceName,

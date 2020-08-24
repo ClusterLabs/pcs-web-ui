@@ -11,9 +11,10 @@ import { ResourceCreateFooter } from "./ResourceCreateFooter";
 
 export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useDispatch();
-  const [{ agentName, resourceName }, clusterUrlName] = useClusterSelector(
-    selectors.getWizardResourceCreateState,
-  );
+  const [
+    { agentName, resourceName, response },
+    clusterUrlName,
+  ] = useClusterSelector(selectors.getWizardResourceCreateState);
   return (
     <Wizard
       data-test="wizard-add-resource"
@@ -40,9 +41,9 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
           nextButtonText: "Finish",
         },
         {
-          name: "Progress",
+          name: "Result",
           component: <ResourceCreateProgress onClose={onClose} />,
-          isFinishedStep: true,
+          isFinishedStep: response !== "fail" && response !== "forceable-fail",
         },
       ]}
       footer={<ResourceCreateFooter onClose={onClose} />}

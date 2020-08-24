@@ -3,7 +3,7 @@ import { Reducer } from "app/store/redux";
 export type WizardResourceCreate = {
   agentName: string;
   resourceName: string;
-  response: "no-response" | "success" | "fail";
+  response: "no-response" | "success" | "forceable-fail" | "fail";
 };
 
 const initialState: WizardResourceCreate = {
@@ -23,6 +23,8 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
       return { ...state, agentName: action.payload.agentName };
     case "RESOURCE.PRIMITIVE.CREATE.SUCCESS":
       return { ...state, response: "success" };
+    case "RESOURCE.PRIMITIVE.CREATE.FAILED":
+      return { ...state, response: "fail" };
     case "RESOURCE.PRIMITIVE.CREATE.CLOSE":
       return initialState;
     default:
