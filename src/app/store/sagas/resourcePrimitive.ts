@@ -78,7 +78,7 @@ function* updateInstanceAttributes({
 }
 
 function* resourceCreateSaga({
-  payload: { agentName, resourceName, clusterUrlName },
+  payload: { agentName, resourceName, instanceAttrs, clusterUrlName },
 }: PrimitiveResourceActions["CreateResource"]) {
   yield putNotification(
     "INFO",
@@ -91,6 +91,7 @@ function* resourceCreateSaga({
         clusterUrlName,
         resourceName,
         agentName,
+        instanceAttrs,
       },
     );
     if (!result.valid) {

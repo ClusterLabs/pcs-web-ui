@@ -6,6 +6,7 @@ export type CreateResource = {
     clusterUrlName: string;
     resourceName: string;
     agentName: string;
+    instanceAttrs: Record<string, string>;
   };
 };
 

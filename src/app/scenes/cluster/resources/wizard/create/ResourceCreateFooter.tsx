@@ -13,7 +13,7 @@ export const ResourceCreateFooter: React.FC<{
   clusterUrlName: string;
 }> = ({
   onClose,
-  wizardState: { agentName, resourceName },
+  wizardState: { agentName, resourceName, instanceAttrs },
   clusterUrlName,
 }) => {
   const dispatch = useDispatch();
@@ -54,6 +54,7 @@ export const ResourceCreateFooter: React.FC<{
                       agentName,
                       resourceName,
                       clusterUrlName,
+                      instanceAttrs,
                     },
                   });
                   onNext();
