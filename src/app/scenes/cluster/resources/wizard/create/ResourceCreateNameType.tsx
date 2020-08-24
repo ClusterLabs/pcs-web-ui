@@ -7,17 +7,15 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { useClusterSelector } from "app/view";
-
-import { selectors, useDispatch } from "app/store";
+import { types, useDispatch } from "app/store";
 import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSelect";
 import { ResourceCreateReports } from "./ResourceCreateReports";
 
-export const ResourceCreateNameType = () => {
+export const ResourceCreateNameType: React.FC<{
+  wizardState: types.wizardResourceCreate.WizardResourceCreate;
+  clusterUrlName: string;
+}> = ({ wizardState: { agentName, resourceName }, clusterUrlName }) => {
   const dispatch = useDispatch();
-  const [{ agentName, resourceName }, clusterUrlName] = useClusterSelector(
-    selectors.getWizardResourceCreateState,
-  );
 
   const onSelect = (value: string) => {
     dispatch({

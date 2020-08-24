@@ -47,15 +47,11 @@ const useFiltering = (resourceAgentMap: ResourceAgentMap) => {
   };
 };
 
-export const ResourceCreateNameTypeTypeSelect = ({
-  onSelect,
-  onClear,
-  agentName,
-}: {
+export const ResourceCreateNameTypeTypeSelect: React.FC<{
   onSelect: (value: string) => void;
   onClear: () => void;
   agentName: string;
-}) => {
+}> = ({ onSelect, onClear, agentName }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [resourceAgentMap] = useClusterSelector(selectors.getResourceAgentMap);
   const { filteredResourceAgentMap, onFilter } = useFiltering(resourceAgentMap);

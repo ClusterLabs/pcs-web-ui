@@ -8,15 +8,13 @@ import {
   TextContent,
 } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { useClusterSelector } from "app/view";
+import { types } from "app/store";
 
 import { ResourceCreateReports } from "./ResourceCreateReports";
 
-export const ResourceCreateReview = () => {
-  const [{ agentName, resourceName }] = useClusterSelector(
-    selectors.getWizardResourceCreateState,
-  );
+export const ResourceCreateReview: React.FC<{
+  wizardState: types.wizardResourceCreate.WizardResourceCreate;
+}> = ({ wizardState: { agentName, resourceName } }) => {
   return (
     <>
       <TextContent>

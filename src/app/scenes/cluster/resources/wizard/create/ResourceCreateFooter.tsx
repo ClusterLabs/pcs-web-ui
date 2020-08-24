@@ -5,16 +5,18 @@ import {
   WizardFooter,
 } from "@patternfly/react-core";
 
-import { selectors, useDispatch } from "app/store";
-import { useClusterSelector } from "app/view";
+import { types, useDispatch } from "app/store";
 
-export const ResourceCreateFooter: React.FC<{ onClose: () => void }> = ({
+export const ResourceCreateFooter: React.FC<{
+  wizardState: types.wizardResourceCreate.WizardResourceCreate;
+  onClose: () => void;
+  clusterUrlName: string;
+}> = ({
   onClose,
+  wizardState: { agentName, resourceName },
+  clusterUrlName,
 }) => {
   const dispatch = useDispatch();
-  const [{ agentName, resourceName }, clusterUrlName] = useClusterSelector(
-    selectors.getWizardResourceCreateState,
-  );
   return (
     <WizardFooter>
       <WizardContextConsumer>
@@ -48,7 +50,11 @@ export const ResourceCreateFooter: React.FC<{ onClose: () => void }> = ({
                 onClick={() => {
                   dispatch({
                     type: "RESOURCE.PRIMITIVE.CREATE",
-                    payload: { agentName, resourceName, clusterUrlName },
+                    payload: {
+                      agentName,
+                      resourceName,
+                      clusterUrlName,
+                    },
                   });
                   onNext();
                 }}

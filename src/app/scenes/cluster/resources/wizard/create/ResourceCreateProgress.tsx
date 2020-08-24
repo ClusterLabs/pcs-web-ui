@@ -12,16 +12,15 @@ import {
   ExclamationCircleIcon,
 } from "@patternfly/react-icons";
 
-import { selectors } from "app/store";
-import { pallete, useClusterSelector } from "app/view";
+import { types } from "app/store";
+import { pallete } from "app/view";
+
 import { ResourceCreateReports } from "./ResourceCreateReports";
 
-export const ResourceCreateProgress: React.FC<{ onClose: () => void }> = ({
-  onClose,
-}) => {
-  const [{ resourceName, response }] = useClusterSelector(
-    selectors.getWizardResourceCreateState,
-  );
+export const ResourceCreateProgress: React.FC<{
+  wizardState: types.wizardResourceCreate.WizardResourceCreate;
+  onClose: () => void;
+}> = ({ onClose, wizardState: { resourceName, response } }) => {
   switch (response) {
     case "success":
       return (
