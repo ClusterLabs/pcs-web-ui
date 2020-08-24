@@ -1,3 +1,5 @@
+import { types } from "app/backend";
+
 export type CreateResource = {
   type: "RESOURCE.PRIMITIVE.CREATE";
   payload: {
@@ -11,7 +13,14 @@ export type CreateResourceSuccess = {
   type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS";
   payload: {
     clusterUrlName: string;
-    resourceName: string;
+    reports: types.libraryResponse.ApiResponse[];
+  };
+};
+
+export type CreateResourceError = {
+  type: "RESOURCE.PRIMITIVE.CREATE.ERROR";
+  payload: {
+    clusterUrlName: string;
   };
 };
 
@@ -19,7 +28,7 @@ export type CreateResourceFailed = {
   type: "RESOURCE.PRIMITIVE.CREATE.FAILED";
   payload: {
     clusterUrlName: string;
-    resourceName: string;
+    reports: types.libraryResponse.ApiResponse[];
   };
 };
 

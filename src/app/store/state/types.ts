@@ -10,6 +10,7 @@ import * as login from "./login";
 import * as username from "./username";
 import * as clusterProperties from "./cluster/properties";
 import * as resourceAgentMap from "./cluster/resourceAgentMap";
+import * as wizardResourceCreate from "./cluster/wizardResourceCreate";
 
 export type RootState = TRootState;
 export {
@@ -23,4 +24,5 @@ export {
   pcmkAgents,
   resourceAgentMap,
   clusterStorage,
+  wizardResourceCreate,
 };

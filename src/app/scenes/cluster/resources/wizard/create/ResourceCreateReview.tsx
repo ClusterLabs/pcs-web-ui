@@ -11,6 +11,8 @@ import {
 import { selectors } from "app/store";
 import { useClusterSelector } from "app/view";
 
+import { ResourceCreateReports } from "./ResourceCreateReports";
+
 export const ResourceCreateReview = () => {
   const [{ agentName, resourceName }] = useClusterSelector(
     selectors.getWizardResourceCreateState,
@@ -32,6 +34,7 @@ export const ResourceCreateReview = () => {
           <DescriptionListDescription>{agentName}</DescriptionListDescription>
         </DescriptionListGroup>
       </DescriptionList>
+      <ResourceCreateReports />
     </>
   );
 };

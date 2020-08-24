@@ -25,8 +25,8 @@ function* createResourceFailed({
   message: string;
 }) {
   yield put({
-    type: "RESOURCE.PRIMITIVE.CREATE.FAILED",
-    payload: { clusterUrlName, resourceName },
+    type: "RESOURCE.PRIMITIVE.CREATE.ERROR",
+    payload: { clusterUrlName },
   });
   yield putNotification(
     "ERROR",
@@ -110,7 +110,7 @@ function* resourceCreateSaga({
     if (result.response.status !== "success") {
       yield put({
         type: "RESOURCE.PRIMITIVE.CREATE.FAILED",
-        payload: { clusterUrlName, resourceName },
+        payload: { clusterUrlName, reports: result.response.report_list },
       });
       yield createResourceFailed({
         clusterUrlName,
@@ -122,7 +122,7 @@ function* resourceCreateSaga({
 
     yield put({
       type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS",
-      payload: { clusterUrlName, resourceName },
+      payload: { clusterUrlName, reports: result.response.report_list },
     });
     yield putNotification(
       "SUCCESS",

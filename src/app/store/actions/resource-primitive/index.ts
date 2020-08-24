@@ -4,6 +4,7 @@ export type PrimitiveResourceActions = {
   CreateResource: create.CreateResource;
   CreateResourceSuccess: create.CreateResourceSuccess;
   CreateResourceFailed: create.CreateResourceFailed;
+  CreateResourceError: create.CreateResourceError;
   CreateResourceSetAgentName: create.SetAgentName;
   CreateResourceSetResourceName: create.SetResourceName;
   CreateResourceClose: create.Close;

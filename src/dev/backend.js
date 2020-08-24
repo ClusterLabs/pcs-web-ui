@@ -9,9 +9,9 @@ import yargs from "yargs";
 const { argv } = yargs
   .string("scenario")
   .number("delay")
-  .default("delay", 300)
+  .default("delay", 800)
   .number("delayRandom")
-  .default("delayRandom", 100);
+  .default("delayRandom", 200);
 
 const SCENARIO_DIR = `${__dirname}/scenarios`;
 

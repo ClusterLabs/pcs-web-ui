@@ -11,6 +11,7 @@ import { useClusterSelector } from "app/view";
 
 import { selectors, useDispatch } from "app/store";
 import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSelect";
+import { ResourceCreateReports } from "./ResourceCreateReports";
 
 export const ResourceCreateNameType = () => {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ export const ResourceCreateNameType = () => {
           />
         </FormGroup>
       </Form>
+      <ResourceCreateReports />
     </>
   );
 };

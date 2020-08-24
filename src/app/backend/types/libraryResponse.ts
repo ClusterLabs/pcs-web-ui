@@ -19,6 +19,8 @@ const TApiReportAny = t.intersection([
   }),
 ]);
 
+export const TApiReport = TApiReportAny;
+
 export const TApiResponse = t.type({
   status: t.keyof({
     success: null,
@@ -28,6 +30,8 @@ export const TApiResponse = t.type({
     unknown_cmd: null,
   }),
   status_msg: t.union([t.string, t.null]),
-  report_list: t.array(TApiReportAny),
+  report_list: t.array(TApiReport),
   data: t.any,
 });
+
+export type ApiResponse = t.TypeOf<typeof TApiReport>;

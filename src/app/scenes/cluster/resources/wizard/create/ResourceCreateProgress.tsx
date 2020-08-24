@@ -14,6 +14,7 @@ import {
 
 import { selectors } from "app/store";
 import { pallete, useClusterSelector } from "app/view";
+import { ResourceCreateReports } from "./ResourceCreateReports";
 
 export const ResourceCreateProgress: React.FC<{ onClose: () => void }> = ({
   onClose,
@@ -24,24 +25,33 @@ export const ResourceCreateProgress: React.FC<{ onClose: () => void }> = ({
   switch (response) {
     case "success":
       return (
-        <EmptyState>
-          <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
-          <Title headingLevel="h4" size="lg">
-            {`Resource "${resourceName}" created successfully`}
-          </Title>
-          <Button variant="primary" onClick={onClose}>
-            Close
-          </Button>
-        </EmptyState>
+        <>
+          <EmptyState>
+            <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
+            <Title headingLevel="h4" size="lg">
+              {`Resource "${resourceName}" created successfully`}
+            </Title>
+            <Button variant="primary" onClick={onClose}>
+              Close
+            </Button>
+          </EmptyState>
+          <ResourceCreateReports />
+        </>
       );
     case "fail":
       return (
-        <EmptyState>
-          <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
-          <Title headingLevel="h4" size="lg">
-            {`Create resource "${resourceName}" failed`}
-          </Title>
-        </EmptyState>
+        <>
+          <EmptyState>
+            <EmptyStateIcon
+              icon={ExclamationCircleIcon}
+              color={pallete.ERROR}
+            />
+            <Title headingLevel="h4" size="lg">
+              {`Create resource "${resourceName}" failed`}
+            </Title>
+          </EmptyState>
+          <ResourceCreateReports />
+        </>
       );
     default:
       return (
