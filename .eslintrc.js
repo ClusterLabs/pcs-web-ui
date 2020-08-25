@@ -23,7 +23,7 @@ module.exports = {
 
     "no-unused-vars": [
       "error",
-      { argsIgnorePattern: "^dummy", ignoreRestSiblings: true },
+      { argsIgnorePattern: "^(dummy|_)", ignoreRestSiblings: true },
     ],
 
     // ensure imports point to files/modules that can be resolved

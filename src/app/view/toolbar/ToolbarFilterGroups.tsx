@@ -16,6 +16,19 @@ function unselectAllOptions<T extends Record<string, boolean>>(options: T): T {
   );
 }
 
+function includedGroupMembers<T extends string>({
+  groupInclusionMap,
+  groupMembershipMap,
+}: {
+  groupInclusionMap: Record<T, boolean>;
+  groupMembershipMap: Record<T, boolean>;
+}) {
+  const groupList = Object.keys(groupInclusionMap) as Array<T>;
+  return groupList.some(
+    group => groupInclusionMap[group] && groupMembershipMap[group],
+  );
+}
+
 function allOrIncludedGroupMembers<T extends string>({
   groupInclusionMap,
   groupMembershipMap,
@@ -48,7 +61,7 @@ export function ToolbarFilterGroups<T extends string>({
 
   const select = React.useCallback(
     (
-      event: React.MouseEvent | React.ChangeEvent,
+      _event: React.MouseEvent | React.ChangeEvent,
       value: string | SelectOptionObject,
     ) =>
       setSelected({
@@ -59,13 +72,13 @@ export function ToolbarFilterGroups<T extends string>({
   );
 
   const unselect = React.useCallback(
-    (dummyCategory: string | ToolbarChipGroup, chip: ToolbarChip | string) =>
+    (_category: string | ToolbarChipGroup, chip: ToolbarChip | string) =>
       setSelected({ ...options, [chip.toString()]: false }),
     [options, setSelected],
   );
 
   const unselectAll = React.useCallback(
-    (dummyCategory: string | ToolbarChipGroup) =>
+    (_category: string | ToolbarChipGroup) =>
       setSelected(unselectAllOptions(options)),
     [options, setSelected],
   );
@@ -98,4 +111,5 @@ export function ToolbarFilterGroups<T extends string>({
 
 ToolbarFilterGroups.unselectAllOptions = unselectAllOptions;
 ToolbarFilterGroups.allOrIncludedGroupMembers = allOrIncludedGroupMembers;
+ToolbarFilterGroups.includedGroupMembers = includedGroupMembers;
 ToolbarFilterGroups.useState = useState;

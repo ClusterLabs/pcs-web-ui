@@ -16,6 +16,9 @@ function useState<K extends string, I>(
   initialGroupInclustionMap: Record<K, boolean>,
   groupMembershipMap: (i: I) => Record<K, boolean>,
   itemSearchableText: (i: I) => string,
+  noSelectedGroupStrategy:
+    | "all-off-display-all"
+    | "all-off-display-none" = "all-off-display-all",
 ): {
   filterState: FilterState;
   filterParameters: (parameters: I[]) => I[];
@@ -30,13 +33,24 @@ function useState<K extends string, I>(
     (items: I[]): I[] =>
       items.filter(
         i =>
-          ToolbarFilterGroups.allOrIncludedGroupMembers({
-            groupInclusionMap,
-            groupMembershipMap: groupMembershipMap(i),
-          })
+          (noSelectedGroupStrategy === "all-off-display-all"
+            ? ToolbarFilterGroups.allOrIncludedGroupMembers({
+              groupInclusionMap,
+              groupMembershipMap: groupMembershipMap(i),
+            })
+            : ToolbarFilterGroups.includedGroupMembers({
+              groupInclusionMap,
+              groupMembershipMap: groupMembershipMap(i),
+            }))
           && ToolbarTextSearchFilter.match(itemSearchableText(i), searchedText),
       ),
-    [groupInclusionMap, groupMembershipMap, itemSearchableText, searchedText],
+    [
+      groupInclusionMap,
+      groupMembershipMap,
+      itemSearchableText,
+      noSelectedGroupStrategy,
+      searchedText,
+    ],
   );
 
   return {
