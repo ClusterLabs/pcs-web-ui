@@ -1,8 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { ActionGroup, Alert, Button, Form } from "@patternfly/react-core";
 
-import { Action, types } from "app/store";
+import { types, useDispatch } from "app/store";
 import { useSelectedClusterName } from "app/view";
 
 import { PrimitiveAttrsFormItem } from "./PrimitiveAttrsFormItem";
@@ -144,7 +143,7 @@ export const PrimitiveAttrsForm = ({
         <Button
           variant="primary"
           onClick={() => {
-            dispatch<Action>({
+            dispatch({
               type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
               payload: {
                 clusterUrlName,

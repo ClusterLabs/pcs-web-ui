@@ -1,13 +1,12 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-
 import { ApiResult, getResourceAgentMetadata } from "app/backend";
-import { Action, ResourceAgentActions, actionType } from "app/store/actions";
+import { actions, selectors, types } from "app/store";
 
+import { call, put, select, takeEvery } from "./effects";
 import { authSafe } from "./authSafe";
 
 function* loadResourceAgent({
   payload: { agentName, clusterUrlName },
-}: ResourceAgentActions["LoadResourceAgent"]) {
+}: actions.ResourceAgentActions["LoadResourceAgent"]) {
   const result: ApiResult<typeof getResourceAgentMetadata> = yield call(
     authSafe(getResourceAgentMetadata),
     clusterUrlName,
@@ -15,7 +14,7 @@ function* loadResourceAgent({
   );
 
   if (!result.valid) {
-    yield put<Action>({
+    yield put({
       type: "RESOURCE_AGENT.LOAD.FAILED",
       payload: { agentName, clusterUrlName },
     });
@@ -23,12 +22,30 @@ function* loadResourceAgent({
     return;
   }
 
-  yield put<Action>({
+  yield put({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
     payload: { apiAgentMetadata: result.response, clusterUrlName },
   });
 }
 
+function* ensureResourceAgent({
+  payload: { agentName, clusterUrlName },
+}: actions.ResourceAgentActions["EnsureResourceAgent"]) {
+  const pcmkAgent: types.pcmkAgents.StoredAgent = yield select(
+    selectors.getPcmkAgent(clusterUrlName, agentName),
+  );
+  if (!pcmkAgent || pcmkAgent.loadStatus === "FAILED") {
+    yield put({
+      type: "RESOURCE_AGENT.LOAD",
+      payload: {
+        agentName,
+        clusterUrlName,
+      },
+    });
+  }
+}
+
 export default [
-  takeEvery(actionType("RESOURCE_AGENT.LOAD"), loadResourceAgent),
+  takeEvery("RESOURCE_AGENT.LOAD", loadResourceAgent),
+  takeEvery("RESOURCE_AGENT.ENSURE", ensureResourceAgent),
 ];

@@ -10,9 +10,8 @@ import {
   TextInput,
   Title,
 } from "@patternfly/react-core";
-import { useDispatch, useSelector } from "react-redux";
 
-import { Action, selectors, types } from "app/store";
+import { selectors, types, useDispatch, useSelector } from "app/store";
 
 import { AddClusterAuthRequired } from "./AddClusterAuthRequired";
 
@@ -48,7 +47,7 @@ export const AddClusterStepAuth = () => {
           data-test="node-name"
           value={nodeName}
           onChange={currentNodeName =>
-            dispatch<Action>({
+            dispatch({
               type: "ADD_CLUSTER.NODE_NAME.UPDATE",
               payload: { nodeName: currentNodeName },
             })
@@ -60,7 +59,7 @@ export const AddClusterStepAuth = () => {
           variant="primary"
           data-test="auth-check"
           onClick={() =>
-            dispatch<Action>({
+            dispatch({
               type: "ADD_CLUSTER.CHECK_AUTH",
               payload: { nodeName },
             })

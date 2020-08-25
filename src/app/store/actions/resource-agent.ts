@@ -24,4 +24,12 @@ export type ResourceAgentActions = {
       agentName: string;
     };
   };
+
+  EnsureResourceAgent: {
+    type: "RESOURCE_AGENT.ENSURE";
+    payload: {
+      clusterUrlName: string;
+      agentName: string;
+    };
+  };
 };

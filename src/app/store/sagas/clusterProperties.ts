@@ -1,12 +1,7 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-
 import { ApiResult, clusterProperties } from "app/backend";
-import {
-  Action,
-  ClusterPropertiesActions,
-  actionType,
-} from "app/store/actions";
+import { ClusterPropertiesActions } from "app/store/actions";
 
+import { call, put, takeEvery } from "./effects";
 import { authSafe } from "./authSafe";
 
 function* loadClusterProperties({
@@ -18,7 +13,7 @@ function* loadClusterProperties({
   );
 
   if (!result.valid) {
-    yield put<Action>({
+    yield put({
       type: "CLUSTER_PROPERTIES.LOAD.FAILED",
       payload: { clusterUrlName },
     });
@@ -26,11 +21,9 @@ function* loadClusterProperties({
     return;
   }
 
-  yield put<Action>({
+  yield put({
     type: "CLUSTER_PROPERTIES.LOAD.SUCCESS",
     payload: { apiClusterProperties: result.response, clusterUrlName },
   });
 }
-export default [
-  takeEvery(actionType("CLUSTER_PROPERTIES.LOAD"), loadClusterProperties),
-];
+export default [takeEvery("CLUSTER_PROPERTIES.LOAD", loadClusterProperties)];

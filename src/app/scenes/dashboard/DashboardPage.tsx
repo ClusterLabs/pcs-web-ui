@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,7 +7,7 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import { Action, selectors } from "app/store";
+import { selectors, useDispatch, useSelector } from "app/store";
 import { Page, PageSectionDataLoading } from "app/view";
 
 import { DashboardClusterList } from "./clusterList";
@@ -17,7 +16,7 @@ import { DashboardToolbar } from "./DashboardToolbar";
 const useDashboardSync = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch<Action>({
+    dispatch({
       type: "DATA_READING.SET_UP",
       payload: [
         {
@@ -45,7 +44,7 @@ export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
               <BreadcrumbItem
                 isActive
                 onClick={() =>
-                  dispatch<Action>({
+                  dispatch({
                     type: "DASHBOARD_DATA.REFRESH",
                   })
                 }

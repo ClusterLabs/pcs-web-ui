@@ -1,10 +1,14 @@
+import { useDispatch as useReduxDispatch, useSelector } from "react-redux";
 import * as actions from "./actions";
-import * as selectors from "./state/selectors";
-import * as types from "./types";
+import * as selectors from "./selectors";
+import * as types from "./state/types";
 import * as utils from "./utils";
 import * as url from "./url";
+import { setupStore } from "./store";
 
-export type Action = actions.Action;
+export const useDispatch = () => {
+  const reduxDispatch = useReduxDispatch();
+  return (action: actions.Action) => reduxDispatch<actions.Action>(action);
+};
 
-export { actions, selectors, types, utils, url };
-export * from "./store";
+export { setupStore, useSelector, actions, selectors, types, utils, url };

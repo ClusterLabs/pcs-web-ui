@@ -54,7 +54,7 @@ pack-modules:
 
 
 dev:
-	@NODE_PATH=src/ node src/dev/backend.js --scenario=$(SCENARIO) --interactive
+	@NODE_PATH=src/ node -r esm src/dev/backend.js --scenario=$(SCENARIO) --interactive
 
 
 #unit tests

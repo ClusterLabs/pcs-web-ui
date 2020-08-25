@@ -1,8 +1,8 @@
-import { put, takeEvery } from "redux-saga/effects";
 import { push } from "connected-react-router";
 
-import { ResourceDetailActions, actionType } from "app/store/actions";
+import { ResourceDetailActions } from "app/store/actions";
 
+import { sagaPut, takeEvery } from "./effects";
 import { putNotification } from "./notifications";
 
 function* correctView({
@@ -12,9 +12,7 @@ function* correctView({
     "INFO",
     `No view "${viewName}" for resource "${resourceId}". Redirecting to ${url}`,
   );
-  yield put(push(url));
+  yield sagaPut(push(url));
 }
 
-export default [
-  takeEvery(actionType("RESOURCE_TREE_ITEM_TYPE.CORRECT_VIEW"), correctView),
-];
+export default [takeEvery("RESOURCE_TREE_ITEM_TYPE.CORRECT_VIEW", correctView)];

@@ -1,7 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 
-import { Action, actions, selectors } from "app/store";
+import { actions, selectors, useDispatch, useSelector } from "app/store";
 
 export const useClusterState = (clusterUrlName: string) => {
   const dispatch = useDispatch();
@@ -23,7 +22,7 @@ export const useClusterState = (clusterUrlName: string) => {
   );
 
   React.useEffect(() => {
-    dispatch<Action>({
+    dispatch({
       type: "DATA_READING.SET_UP",
       payload: [
         {
@@ -33,11 +32,11 @@ export const useClusterState = (clusterUrlName: string) => {
         },
       ],
     });
-    dispatch<Action>({
+    dispatch({
       type: "CLUSTER_PROPERTIES.LOAD",
       payload: { clusterUrlName },
     });
-    dispatch<Action>({
+    dispatch({
       type: "RESOURCE_AGENT_LIST.LOAD",
       payload: { clusterUrlName },
     });

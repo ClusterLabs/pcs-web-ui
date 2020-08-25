@@ -23,7 +23,7 @@ module.exports = {
 
     "no-unused-vars": [
       "error",
-      { argsIgnorePattern: "^dummy", ignoreRestSiblings: true },
+      { argsIgnorePattern: "^(dummy|_)", ignoreRestSiblings: true },
     ],
 
     // ensure imports point to files/modules that can be resolved
@@ -140,6 +140,7 @@ module.exports = {
     ],
     "jsx-a11y/label-has-for": "off",
     "jsx-a11y/label-has-associated-control": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
   },
   parserOptions: {
     ecmaFeatures: {

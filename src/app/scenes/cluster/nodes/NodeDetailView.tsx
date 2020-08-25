@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
   EmptyState,
   EmptyStateBody,
@@ -17,16 +16,16 @@ import {
   IssueList,
   Link,
   pallete,
-  useSelectedClusterName,
+  useClusterSelector,
 } from "app/view";
 
 import { NodeDaemonTable } from "./NodeDaemonTable";
 import { NodeClusterServicesView } from "./services";
 
 export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
-  const clusterName = useSelectedClusterName();
-  const crmStatusList = useSelector(
-    selectors.crmStatusForNode(clusterName, node.name),
+  const [crmStatusList, clusterName] = useClusterSelector(
+    selectors.crmStatusForNode,
+    node.name,
   );
   return (
     <>

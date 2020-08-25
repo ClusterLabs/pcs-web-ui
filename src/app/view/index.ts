@@ -26,3 +26,4 @@ export * from "./useUsername";
 export * from "./UtilizationView";
 export * from "./utils";
 export * from "./ClusterSectionToolbar";
+export * from "./useClusterSelector";

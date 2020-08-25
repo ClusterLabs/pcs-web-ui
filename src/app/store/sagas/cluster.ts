@@ -1,8 +1,7 @@
-import { all, call, fork, put } from "redux-saga/effects";
-
 import { ApiResult, clusterStatus, failMessage } from "app/backend";
 import { Action } from "app/store/actions";
 
+import { all, call, fork, put } from "./effects";
 import { putNotification } from "./notifications";
 import { dataLoadManage } from "./dataLoad";
 import { authSafe } from "./authSafe";
@@ -25,7 +24,7 @@ function* fetchClusterData(clusterUrlName: string) {
           `Cannot sync data for cluster '${clusterUrlName}'. `
             + "Details are listed in the browser console.",
         ),
-        put<Action>({
+        put({
           type: "CLUSTER_DATA.FETCH.FAILED",
           payload: { clusterUrlName },
         }),
@@ -33,7 +32,7 @@ function* fetchClusterData(clusterUrlName: string) {
       return;
     }
 
-    yield put<Action>({
+    yield put({
       type: "CLUSTER_DATA.FETCH.SUCCESS",
       payload: {
         clusterUrlName,
@@ -47,7 +46,7 @@ function* fetchClusterData(clusterUrlName: string) {
         "ERROR",
         `Cannot sync data for cluster '${clusterUrlName}': ${errorMessage}`,
       ),
-      put<Action>({
+      put({
         type: "CLUSTER_DATA.FETCH.FAILED",
         payload: { clusterUrlName },
       }),

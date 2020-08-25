@@ -1,17 +1,12 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { PrimitiveResourceActions } from "app/store/actions";
+import { ApiResult, resourceCreate, updateResource } from "app/backend";
 
-import {
-  Action,
-  PrimitiveResourceActions,
-  actionType,
-} from "app/store/actions";
-import { ApiResult, createResource, updateResource } from "app/backend";
+import { call, put, race, take, takeEvery } from "./effects";
 import { putNotification } from "./notifications";
-
 import { authSafe } from "./authSafe";
 
 function* updateInstanceAttributesFailed(resourceId: string, message: string) {
-  yield put<Action>({
+  yield put({
     type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.FAILED",
   });
   yield putNotification(
@@ -29,9 +24,9 @@ function* createResourceFailed({
   resourceName: string;
   message: string;
 }) {
-  yield put<Action>({
-    type: "RESOURCE.PRIMITIVE.CREATE.FAILED",
-    payload: { clusterUrlName, resourceName },
+  yield put({
+    type: "RESOURCE.PRIMITIVE.CREATE.ERROR",
+    payload: { clusterUrlName },
   });
   yield putNotification(
     "ERROR",
@@ -70,7 +65,7 @@ function* updateInstanceAttributes({
       return;
     }
 
-    yield put<Action>({
+    yield put({
       type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.SUCCESS",
     });
     yield putNotification(
@@ -82,23 +77,37 @@ function* updateInstanceAttributes({
   }
 }
 
-function* createResourceSaga({
-  payload: { agentName, resourceName, clusterUrlName },
+function* resourceCreateSaga({
+  payload: { agentName, resourceName, instanceAttrs, clusterUrlName },
 }: PrimitiveResourceActions["CreateResource"]) {
   yield putNotification(
     "INFO",
     `Creation of resource "${resourceName}" requested`,
   );
   try {
-    const result: ApiResult<typeof createResource> = yield call(
-      authSafe(createResource),
-      {
+    const {
+      result,
+    }: {
+      result: ApiResult<typeof resourceCreate>;
+    } = yield race({
+      result: call(authSafe(resourceCreate), {
         clusterUrlName,
         resourceName,
         agentName,
-      },
-    );
+        instanceAttrs,
+      }),
+      cancel: take("RESOURCE.PRIMITIVE.CREATE.CANCEL"),
+    });
+    if (!result) {
+      return;
+    }
+
     if (!result.valid) {
+      /* eslint-disable no-console */
+      console.error(
+        "Invalid library response from backend. Errors:",
+        result.errors,
+      );
       yield createResourceFailed({
         clusterUrlName,
         resourceName,
@@ -107,19 +116,22 @@ function* createResourceSaga({
       return;
     }
 
-    if (result.response.error === "true") {
-      const { stdout, stderr } = result.response;
+    if (result.response.status !== "success") {
+      yield put({
+        type: "RESOURCE.PRIMITIVE.CREATE.FAILED",
+        payload: { clusterUrlName, reports: result.response.report_list },
+      });
       yield createResourceFailed({
         clusterUrlName,
         resourceName,
-        message: `backend error :\nstdout: ${stdout}\nstderr: ${stderr}`,
+        message: result.response.status_msg || "",
       });
       return;
     }
 
-    yield put<Action>({
+    yield put({
       type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS",
-      payload: { clusterUrlName, resourceName },
+      payload: { clusterUrlName, reports: result.response.report_list },
     });
     yield putNotification(
       "SUCCESS",
@@ -136,8 +148,8 @@ function* createResourceSaga({
 
 export default [
   takeEvery(
-    actionType("RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES"),
+    "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
     updateInstanceAttributes,
   ),
-  takeEvery(actionType("RESOURCE.PRIMITIVE.CREATE"), createResourceSaga),
+  takeEvery("RESOURCE.PRIMITIVE.CREATE", resourceCreateSaga),
 ];

@@ -11,12 +11,11 @@ import {
   useGroupDetailViewContext,
   useMatch,
   useRoutesAnalysis,
-  useSelectedClusterName,
 } from "app/view";
 
 import { PrimitiveAttrsView } from "./attributes";
 import { PrimitiveDetail } from "./PrimitiveDetail";
-import { useResourceAgent } from "./useResourceAgent";
+import { useClusterResourceAgent } from "./useResourceAgent";
 
 export const PrimitivePage = ({
   primitive,
@@ -35,7 +34,7 @@ export const PrimitivePage = ({
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
   // user doesn't need to wait when he needs it.
-  useResourceAgent(useSelectedClusterName(), primitive.agentName);
+  useClusterResourceAgent(primitive.agentName);
 
   return (
     <DetailLayout

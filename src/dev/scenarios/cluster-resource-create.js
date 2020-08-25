@@ -1,8 +1,8 @@
-const endpoints = require("dev/api/endpoints");
-const responses = require("dev/api/responses/all");
+import * as endpoints from "dev/api/endpoints";
+import * as responses from "dev/api/responses/all";
 
 const importedClusterList = response =>
-  endpoints.importedClusterList((req, res) => {
+  endpoints.importedClusterList((_req, res) => {
     res.json(response);
   });
 
@@ -17,22 +17,22 @@ const clusterStatus = (responseMap = {}) =>
   });
 
 const getResourceAgentMetadata = response =>
-  endpoints.getResourceAgentMetadata((req, res) => {
+  endpoints.getResourceAgentMetadata((_req, res) => {
     res.json(response);
   });
 
 const getAvailResourceAgents = response =>
-  endpoints.getAvailResourceAgents((req, res) => {
+  endpoints.getAvailResourceAgents((_req, res) => {
     res.json(response);
   });
 
 const getFenceAgentMetadata = response =>
-  endpoints.getFenceAgentMetadata((req, res) => {
+  endpoints.getFenceAgentMetadata((_req, res) => {
     res.json(response);
   });
 
 const clusterProperties = response =>
-  endpoints.clusterProperties((req, res) => {
+  endpoints.clusterProperties((_req, res) => {
     res.json(response);
   });
 
@@ -57,6 +57,43 @@ const updateResource = endpoints.updateResource((req, res) => {
   }
 });
 
+const resourceCreate = endpoints.resourceCreate((req, res) => {
+  /* eslint-disable no-underscore-dangle */
+  switch (JSON.parse(req.body.create_data).resource_id) {
+    case "fail":
+      res.status(500).send("SOMETHING WRONG");
+      break;
+    case "invalid":
+      res.json("invalid");
+      break;
+    case "exist":
+      res.json({
+        status: "error",
+        status_msg: null,
+        report_list: [
+          {
+            severity: "ERROR",
+            code: "ID_ALREADY_EXISTS",
+            info: {
+              id: "exist",
+            },
+            forceable: null,
+            report_text: "'exist' already exists",
+          },
+        ],
+        data: null,
+      });
+      break;
+    default:
+      res.json({
+        status: "success",
+        status_msg: null,
+        report_list: [],
+        data: null,
+      });
+  }
+});
+
 module.exports = {
   all: [
     importedClusterList(
@@ -72,5 +109,6 @@ module.exports = {
     getFenceAgentMetadata(responses.fenceAgentMetadata.ok),
     clusterProperties(responses.clusterProperties.ok),
     updateResource,
+    resourceCreate,
   ],
 };

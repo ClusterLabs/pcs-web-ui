@@ -1,5 +1,5 @@
 import { types as backendTypes } from "app/backend";
-import * as types from "app/store/types";
+import * as types from "app/store/state/types";
 
 import * as statusSeverity from "../statusSeverity";
 import { toPrimitive } from "./primitive";

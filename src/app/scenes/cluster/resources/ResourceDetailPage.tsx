@@ -1,8 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
-import { useGroupDetailViewContext, useSelectedClusterName } from "app/view";
+import { useClusterSelector, useGroupDetailViewContext } from "app/view";
 
 import { ResourceDoesNotExists } from "./ResourceDoesNotExists";
 import { ClonePage } from "./clone";
@@ -11,11 +10,9 @@ import { PrimitivePage } from "./primitive";
 
 export const ResourceDetailPage = () => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
-  const resourceTreeItem = useSelector(
-    selectors.getSelectedResource(
-      useSelectedClusterName(),
-      selectedItemUrlName,
-    ),
+  const [resourceTreeItem] = useClusterSelector(
+    selectors.getSelectedResource,
+    selectedItemUrlName,
   );
 
   if (!resourceTreeItem) {

@@ -1,7 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
-import { GroupDetailView, useSelectedClusterName } from "app/view";
+import { GroupDetailView, useClusterSelector } from "app/view";
 import { selectors } from "app/store";
 
 import { ResourceDetailPage } from "./ResourceDetailPage";
@@ -9,9 +8,7 @@ import { ResourceTree } from "./tree/ResourceTree";
 import { ResourcesToolbar } from "./ResourcesToolbar";
 
 export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
-  const clusterStatus = useSelector(
-    selectors.getCluster(useSelectedClusterName()),
-  );
+  const [clusterStatus] = useClusterSelector(selectors.getCluster);
   return (
     <>
       <ResourcesToolbar />

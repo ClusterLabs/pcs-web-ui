@@ -11,7 +11,7 @@ import {
 export const ClusterPropertiesList = ({
   clusterProperties,
 }: {
-  clusterProperties: types.clusterProperties.ClusterProperties;
+  clusterProperties: types.clusterProperties.ClusterProperty[];
 }) => {
   return (
     <AttributeList attributes={clusterProperties}>

@@ -1,8 +1,7 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-
 import { getForText, isUnauthorizedError, postForText } from "app/backend";
-import { Action, LoginActions, actionType } from "app/store/actions";
+import { LoginActions } from "app/store/actions";
 
+import { call, put, takeEvery } from "./effects";
 import { putNotification } from "./notifications";
 
 export function* logout() {
@@ -12,12 +11,12 @@ export function* logout() {
     yield call(getForText, "/ui/logout");
 
     yield putNotification("SUCCESS", "Success logout");
-    yield put<Action>({ type: "LOGOUT.SUCCESS" });
+    yield put({ type: "LOGOUT.SUCCESS" });
   } catch (error) {
     if (isUnauthorizedError(error)) {
       // Ok we are already somehow loged out.
       yield putNotification("SUCCESS", "Already logged out");
-      yield put<Action>({ type: "LOGOUT.SUCCESS" });
+      yield put({ type: "LOGOUT.SUCCESS" });
     } else {
       yield putNotification("ERROR", `Cannot logout: ${error.message}`);
     }
@@ -32,12 +31,12 @@ export function* login({
       ["username", username],
       ["password", password],
     ]);
-    yield put<Action>({
+    yield put({
       type: "AUTH.SUCCESS",
       payload: { username },
     });
   } catch (error) {
-    yield put<Action>({
+    yield put({
       type: "LOGIN.FAILED",
       payload: {
         badCredentials: isUnauthorizedError(error),
@@ -48,6 +47,6 @@ export function* login({
 }
 
 export default [
-  takeEvery(actionType("LOGOUT"), logout),
-  takeEvery(actionType("ENTER_CREDENTIALS"), login),
+  takeEvery("LOGOUT", logout),
+  takeEvery("ENTER_CREDENTIALS", login),
 ];

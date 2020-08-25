@@ -1,4 +1,4 @@
-import * as types from "app/store/types";
+import * as types from "app/store/state/types";
 
 type StatusSeverity = types.cluster.StatusSeverity;
 

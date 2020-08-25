@@ -1,8 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Breadcrumb, BreadcrumbItem } from "@patternfly/react-core";
 
-import { Action } from "app/store";
+import { useDispatch } from "app/store";
 
 import { Link } from "app/view";
 
@@ -20,7 +19,7 @@ export const ClusterDetailBreadcrumb = ({
       <BreadcrumbItem
         isActive
         onClick={() =>
-          dispatch<Action>({
+          dispatch({
             type: "CLUSTER_DATA.REFRESH",
             payload: { clusterUrlName },
           })

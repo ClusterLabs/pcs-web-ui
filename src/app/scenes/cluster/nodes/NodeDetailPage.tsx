@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
 import {
@@ -8,10 +7,10 @@ import {
   UrlTabs,
   UtilizationView,
   join,
+  useClusterSelector,
   useGroupDetailViewContext,
   useMatch,
   useRoutesAnalysis,
-  useSelectedClusterName,
 } from "app/view";
 
 import { NodeDetailView } from "./NodeDetailView";
@@ -20,8 +19,9 @@ import { NodeDoesNotExists } from "./NodeDoesNotExists";
 export const NodeDetailPage = () => {
   const { selectedItemUrlName, urlPrefix } = useGroupDetailViewContext();
 
-  const node = useSelector(
-    selectors.getSelectedNode(useSelectedClusterName(), selectedItemUrlName),
+  const [node] = useClusterSelector(
+    selectors.getSelectedNode,
+    selectedItemUrlName,
   );
 
   const nodeUrlPrefix = join(urlPrefix, selectedItemUrlName);

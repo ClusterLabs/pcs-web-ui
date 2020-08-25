@@ -1,8 +1,7 @@
-import { all, call, fork, put } from "redux-saga/effects";
-
 import { ApiResult, failMessage, importedClusterList } from "app/backend";
-import { Action, SetupDataReading } from "app/store/actions";
+import { SetupDataReading } from "app/store/actions";
 
+import { all, call, fork, put } from "./effects";
 import { putNotification } from "./notifications";
 import { dataLoadManage } from "./dataLoad";
 import { authSafe } from "./authSafe";
@@ -24,19 +23,19 @@ function* fetchDashboardData() {
           "Cannot sync dashboard data."
             + "Details are listed in the browser console.",
         ),
-        put<Action>({ type: "DASHBOARD_DATA.FETCH.FAILED" }),
+        put({ type: "DASHBOARD_DATA.FETCH.FAILED" }),
       ]);
       return;
     }
     const clusterNameList = result.response.cluster_list.map(
       cluster => cluster.name,
     );
-    yield put<Action>({
+    yield put({
       type: "DASHBOARD_DATA.FETCH.SUCCESS",
       payload: { clusterNameList },
     });
 
-    yield put<Action>({
+    yield put({
       type: "DATA_READING.SET_UP",
       payload: [
         {
@@ -63,7 +62,7 @@ function* fetchDashboardData() {
     const errorMessage = failMessage(error);
     yield all([
       putNotification("ERROR", `Cannot sync dashboard data: ${errorMessage}`),
-      put<Action>({ type: "DASHBOARD_DATA.FETCH.FAILED" }),
+      put({ type: "DASHBOARD_DATA.FETCH.FAILED" }),
     ]);
   }
 }

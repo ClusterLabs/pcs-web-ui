@@ -1,8 +1,7 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-
 import { ApiResult, getFenceAgentMetadata } from "app/backend";
-import { Action, FenceAgentActions, actionType } from "app/store/actions";
+import { FenceAgentActions } from "app/store/actions";
 
+import { call, put, takeEvery } from "./effects";
 import { authSafe } from "./authSafe";
 
 function* loadFenceAgent({
@@ -15,7 +14,7 @@ function* loadFenceAgent({
   );
 
   if (!result.valid) {
-    yield put<Action>({
+    yield put({
       type: "FENCE_AGENT.LOAD.FAILED",
       payload: { agentName, clusterUrlName },
     });
@@ -23,9 +22,9 @@ function* loadFenceAgent({
     return;
   }
 
-  yield put<Action>({
+  yield put({
     type: "FENCE_AGENT.LOAD.SUCCESS",
     payload: { apiAgentMetadata: result.response, clusterUrlName },
   });
 }
-export default [takeEvery(actionType("FENCE_AGENT.LOAD"), loadFenceAgent)];
+export default [takeEvery("FENCE_AGENT.LOAD", loadFenceAgent)];

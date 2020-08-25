@@ -1,8 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
-import { useGroupDetailViewContext, useSelectedClusterName } from "app/view";
+import { useClusterSelector, useGroupDetailViewContext } from "app/view";
 
 import { FenceDeviceDoesNotExists } from "./FenceDeviceDoesNotExists";
 import { FenceDeviceView } from "./FenceDeviceView";
@@ -10,11 +9,9 @@ import { FenceDeviceView } from "./FenceDeviceView";
 export const FenceDeviceDetailPage = () => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
 
-  const fenceDevice = useSelector(
-    selectors.getSelectedFenceDevice(
-      useSelectedClusterName(),
-      selectedItemUrlName,
-    ),
+  const [fenceDevice] = useClusterSelector(
+    selectors.getSelectedFenceDevice,
+    selectedItemUrlName,
   );
 
   if (!fenceDevice) {

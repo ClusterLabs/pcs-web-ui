@@ -5,18 +5,24 @@ import { ToolbarFilterTextGroupPair } from "app/view/toolbar";
 
 type AgentParameter = types.pcmkAgents.AgentParameter;
 
-const useState = (): {
+const useState = (
+  initialGroupInclustionMap: {
+    Required: boolean;
+    Optional: boolean;
+    Advanced: boolean;
+  } = {
+    Required: true,
+    Optional: true,
+    Advanced: false,
+  },
+): {
   filterState: ReturnType<
     typeof ToolbarFilterTextGroupPair.useState
   >["filterState"];
   filterParameters: (parameters: AgentParameter[]) => AgentParameter[];
 } =>
   ToolbarFilterTextGroupPair.useState(
-    {
-      Required: true,
-      Optional: true,
-      Advanced: false,
-    },
+    initialGroupInclustionMap,
     p => ({
       Advanced: p.advanced,
       Required: p.required,
