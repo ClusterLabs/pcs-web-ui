@@ -33,21 +33,23 @@ export const ResourceCreateReview: React.FC<{
           <DescriptionListDescription>{agentName}</DescriptionListDescription>
         </DescriptionListGroup>
 
-        <DescriptionListGroup>
-          <DescriptionListTerm>Instance attributes</DescriptionListTerm>
-          <DescriptionListDescription>
-            <DescriptionList isHorizontal>
-              {Object.keys(instanceAttrs).map(attrName => (
-                <DescriptionListGroup key={attrName}>
-                  <DescriptionListTerm>{attrName}</DescriptionListTerm>
-                  <DescriptionListDescription>
-                    {instanceAttrs[attrName]}
-                  </DescriptionListDescription>
-                </DescriptionListGroup>
-              ))}
-            </DescriptionList>
-          </DescriptionListDescription>
-        </DescriptionListGroup>
+        {Object.keys(instanceAttrs).length > 0 && (
+          <DescriptionListGroup>
+            <DescriptionListTerm>Instance attributes</DescriptionListTerm>
+            <DescriptionListDescription>
+              <DescriptionList isHorizontal>
+                {Object.keys(instanceAttrs).map(attrName => (
+                  <DescriptionListGroup key={attrName}>
+                    <DescriptionListTerm>{attrName}</DescriptionListTerm>
+                    <DescriptionListDescription>
+                      {instanceAttrs[attrName]}
+                    </DescriptionListDescription>
+                  </DescriptionListGroup>
+                ))}
+              </DescriptionList>
+            </DescriptionListDescription>
+          </DescriptionListGroup>
+        )}
       </DescriptionList>
       <ResourceCreateReports />
     </>
