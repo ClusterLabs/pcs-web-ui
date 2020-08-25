@@ -14,7 +14,10 @@ import { ResourceCreateReports } from "./ResourceCreateReports";
 export const ResourceCreateNameType: React.FC<{
   wizardState: types.wizardResourceCreate.WizardResourceCreate;
   clusterUrlName: string;
-}> = ({ wizardState: { agentName, resourceName }, clusterUrlName }) => {
+}> = ({
+  wizardState: { agentName, resourceName, showValidationErrors },
+  clusterUrlName,
+}) => {
   const dispatch = useDispatch();
 
   const onSelect = (value: string) => {
@@ -41,6 +44,11 @@ export const ResourceCreateNameType: React.FC<{
       payload: { clusterUrlName, resourceName: value },
     });
 
+  const resourceNameValidated =
+    showValidationErrors && resourceName.length === 0 ? "error" : "default";
+  const agentNameValidated =
+    showValidationErrors && agentName.length === 0 ? "error" : "default";
+
   return (
     <>
       <TextContent>
@@ -52,7 +60,8 @@ export const ResourceCreateNameType: React.FC<{
           label="Resource name"
           isRequired
           fieldId="new-resource-name"
-          helperText="Please provide the new resource name"
+          helperTextInvalid="Please provide the new resource name"
+          validated={resourceNameValidated}
         >
           <TextInput
             id="new-resource-name"
@@ -60,13 +69,15 @@ export const ResourceCreateNameType: React.FC<{
             isRequired
             type="text"
             onChange={changeResourceName}
+            validated={resourceNameValidated}
           />
         </FormGroup>
         <FormGroup
           label="Resource type"
           isRequired
           fieldId="new-resource-agent-name"
-          helperText="Please select resource agent"
+          helperTextInvalid="Please select resource agent"
+          validated={agentNameValidated}
         >
           <ResourceCreateNameTypeTypeSelect
             onSelect={onSelect}

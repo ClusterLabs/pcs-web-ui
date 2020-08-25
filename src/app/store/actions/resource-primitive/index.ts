@@ -9,6 +9,8 @@ export type PrimitiveResourceActions = {
   CreateResourceSetResourceName: create.SetResourceName;
   CreateResourceClose: create.Close;
   CreateResourceSetInstanceAttribute: create.SetInstanceAttribute;
+  CreateResourceValidationShow: create.ValidationShow;
+  CreateResourceValidationHide: create.ValidationHide;
 
   UpdateInstanceAttributes: {
     type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES";

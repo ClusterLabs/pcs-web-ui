@@ -11,6 +11,7 @@ export type WizardResourceCreate = {
   instanceAttrs: Record<InstanceAttrName, InstanceAttrValue>;
   response: "no-response" | "success" | "forceable-fail" | "fail";
   reports: Report[];
+  showValidationErrors: boolean;
 };
 
 const initialState: WizardResourceCreate = {
@@ -19,6 +20,7 @@ const initialState: WizardResourceCreate = {
   response: "no-response",
   instanceAttrs: {},
   reports: [],
+  showValidationErrors: false,
 };
 
 const wizardResourceCreate: Reducer<WizardResourceCreate> = (
@@ -38,6 +40,10 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
       return { ...state, response: "fail", reports: action.payload.reports };
     case "RESOURCE.PRIMITIVE.CREATE.CLOSE":
       return initialState;
+    case "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW":
+      return { ...state, showValidationErrors: true };
+    case "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE":
+      return { ...state, showValidationErrors: false };
     case "RESOURCE.PRIMITIVE.CREATE.SET_INSTANCE_ATTRIBUTE":
       if (action.payload.value.length === 0) {
         const { [action.payload.name]: _, ...rest } = state.instanceAttrs;
