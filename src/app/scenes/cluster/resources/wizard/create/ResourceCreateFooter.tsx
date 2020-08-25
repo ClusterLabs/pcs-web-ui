@@ -6,13 +6,20 @@ import {
 } from "@patternfly/react-core";
 
 import { types, useDispatch } from "app/store";
+import { LoadedPcmkAgent } from "app/view";
 
-const ButtonNext: React.FC<{ onClick: () => void; label?: string }> = ({
-  onClick,
-  label = "Next",
-}) => {
+const ButtonNext: React.FC<{
+  onClick?: () => void;
+  label?: string;
+  disabled?: boolean;
+}> = ({ onClick = undefined, label = "Next", disabled = false }) => {
   return (
-    <Button variant="primary" type="submit" onClick={onClick}>
+    <Button
+      variant="primary"
+      type="submit"
+      onClick={onClick}
+      className={disabled ? "pf-m-disabled" : ""}
+    >
       {label}
     </Button>
   );
@@ -74,6 +81,42 @@ export const ResourceCreateFooter: React.FC<{
                     }
                   }}
                 />
+                <ButtonBack onClick={onBack} disabled />
+                <ButtonCancel onClick={onClose} />
+              </>
+            );
+          }
+          if (activeStep.name === "Instance attributes") {
+            return (
+              <>
+                <LoadedPcmkAgent
+                  clusterUrlName={clusterUrlName}
+                  agentName={agentName}
+                  fallback={<ButtonNext disabled />}
+                >
+                  {(agent: types.pcmkAgents.Agent) => (
+                    <ButtonNext
+                      onClick={() => {
+                        if (
+                          agent.parameters.every(
+                            p => !p.required || p.name in instanceAttrs,
+                          )
+                        ) {
+                          dispatch({
+                            type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE",
+                            payload: { clusterUrlName },
+                          });
+                          onNext();
+                        } else {
+                          dispatch({
+                            type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW",
+                            payload: { clusterUrlName },
+                          });
+                        }
+                      }}
+                    />
+                  )}
+                </LoadedPcmkAgent>
                 <ButtonBack onClick={onBack} disabled />
                 <ButtonCancel onClick={onClose} />
               </>

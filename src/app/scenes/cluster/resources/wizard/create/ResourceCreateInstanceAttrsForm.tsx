@@ -43,7 +43,10 @@ const useState = (
 export const ResourceCreateInstanceAttrsForm: React.FC<{
   wizardState: types.wizardResourceCreate.WizardResourceCreate;
   clusterUrlName: string;
-}> = ({ wizardState: { agentName, instanceAttrs }, clusterUrlName }) => {
+}> = ({
+  wizardState: { agentName, instanceAttrs, showValidationErrors },
+  clusterUrlName,
+}) => {
   const dispatch = useDispatch();
   const { filterState, filterParameters } = useState({
     Optional: false,
@@ -65,35 +68,49 @@ export const ResourceCreateInstanceAttrsForm: React.FC<{
             {agent.parameters
               .filter(p => p.required)
               .concat(filterParameters(agent.parameters))
-              .map(parameter => (
-                <FormGroup
-                  key={parameter.name}
-                  fieldId={`instance-attr-${parameter.name}`}
-                  label={parameter.name}
-                  labelIcon={
-                    <PcmkAgentAttrsHelpPopover resourceAgentParam={parameter} />
-                  }
-                  isRequired={parameter.required}
-                >
-                  <TextInput
-                    type="text"
-                    id={`instance-attr-${parameter.name}`}
-                    isRequired={parameter.required}
-                    onChange={value =>
-                      dispatch({
-                        type:
-                          "RESOURCE.PRIMITIVE.CREATE.SET_INSTANCE_ATTRIBUTE",
-                        payload: {
-                          name: parameter.name,
-                          value,
-                          clusterUrlName,
-                        },
-                      })
+              .map((parameter) => {
+                const validated =
+                  parameter.required
+                  && showValidationErrors
+                  && (!(parameter.name in instanceAttrs)
+                    || instanceAttrs[parameter.name].length === 0)
+                    ? "error"
+                    : "default";
+                return (
+                  <FormGroup
+                    key={parameter.name}
+                    fieldId={`instance-attr-${parameter.name}`}
+                    label={parameter.name}
+                    labelIcon={
+                      <PcmkAgentAttrsHelpPopover
+                        resourceAgentParam={parameter}
+                      />
                     }
-                    value={instanceAttrs[parameter.name] || ""}
-                  />
-                </FormGroup>
-              ))}
+                    isRequired={parameter.required}
+                    validated={validated}
+                    helperTextInvalid={`Please provide a value for required attribute ${parameter.name}`}
+                  >
+                    <TextInput
+                      type="text"
+                      id={`instance-attr-${parameter.name}`}
+                      isRequired={parameter.required}
+                      onChange={value =>
+                        dispatch({
+                          type:
+                            "RESOURCE.PRIMITIVE.CREATE.SET_INSTANCE_ATTRIBUTE",
+                          payload: {
+                            name: parameter.name,
+                            value,
+                            clusterUrlName,
+                          },
+                        })
+                      }
+                      validated={validated}
+                      value={instanceAttrs[parameter.name] || ""}
+                    />
+                  </FormGroup>
+                );
+              })}
           </Form>
         )}
       </LoadedPcmkAgent>
