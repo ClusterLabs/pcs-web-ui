@@ -13,7 +13,7 @@ import { types, useDispatch } from "app/store";
 export const ResourceCreateInstanceAttrs: React.FC<{
   wizardState: types.wizardResourceCreate.WizardResourceCreate;
   clusterUrlName: string;
-}> = ({ wizardState: { agentName }, clusterUrlName }) => {
+}> = ({ wizardState: { agentName, instanceAttrs }, clusterUrlName }) => {
   const dispatch = useDispatch();
   return (
     <>
@@ -45,6 +45,7 @@ export const ResourceCreateInstanceAttrs: React.FC<{
                       },
                     })
                   }
+                  value={instanceAttrs[parameter.name] || ""}
                 />
               </FormGroup>
             ))}
