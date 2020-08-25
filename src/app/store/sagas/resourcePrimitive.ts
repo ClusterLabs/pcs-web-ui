@@ -1,7 +1,7 @@
 import { PrimitiveResourceActions } from "app/store/actions";
 import { ApiResult, resourceCreate, updateResource } from "app/backend";
 
-import { call, put, takeEvery } from "./effects";
+import { call, put, race, take, takeEvery } from "./effects";
 import { putNotification } from "./notifications";
 import { authSafe } from "./authSafe";
 
@@ -85,15 +85,23 @@ function* resourceCreateSaga({
     `Creation of resource "${resourceName}" requested`,
   );
   try {
-    const result: ApiResult<typeof resourceCreate> = yield call(
-      authSafe(resourceCreate),
-      {
+    const {
+      result,
+    }: {
+      result: ApiResult<typeof resourceCreate>;
+    } = yield race({
+      result: call(authSafe(resourceCreate), {
         clusterUrlName,
         resourceName,
         agentName,
         instanceAttrs,
-      },
-    );
+      }),
+      cancel: take("RESOURCE.PRIMITIVE.CREATE.CANCEL"),
+    });
+    if (!result) {
+      return;
+    }
+
     if (!result.valid) {
       /* eslint-disable no-console */
       console.error(
