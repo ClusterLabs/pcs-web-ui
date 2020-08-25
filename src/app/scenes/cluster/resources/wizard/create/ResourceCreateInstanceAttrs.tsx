@@ -7,7 +7,11 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { LoadedPcmkAgent, PcmkAgentAttrsHelpPopover } from "app/view";
+import {
+  LoadedPcmkAgent,
+  PcmkAgentAttrsHelpPopover,
+  PcmkAgentAttrsToolbar,
+} from "app/view";
 import { types, useDispatch } from "app/store";
 
 export const ResourceCreateInstanceAttrs: React.FC<{
@@ -15,15 +19,21 @@ export const ResourceCreateInstanceAttrs: React.FC<{
   clusterUrlName: string;
 }> = ({ wizardState: { agentName, instanceAttrs }, clusterUrlName }) => {
   const dispatch = useDispatch();
+  const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState({
+    Required: true,
+    Optional: false,
+    Advanced: false,
+  });
   return (
     <>
       <TextContent>
         <Text component="h2">Instance attributes</Text>
       </TextContent>
+      <PcmkAgentAttrsToolbar filterState={filterState} />
       <LoadedPcmkAgent clusterUrlName={clusterUrlName} agentName={agentName}>
         {(agent: types.pcmkAgents.Agent) => (
           <Form isHorizontal>
-            {agent.parameters.map(parameter => (
+            {filterParameters(agent.parameters).map(parameter => (
               <FormGroup
                 key={parameter.name}
                 fieldId={`instance-attr-${parameter.name}`}
