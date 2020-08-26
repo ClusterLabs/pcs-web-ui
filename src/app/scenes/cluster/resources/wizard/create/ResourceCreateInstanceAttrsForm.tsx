@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Form,
-  FormGroup,
-  Text,
-  TextContent,
-  TextInput,
-} from "@patternfly/react-core";
+import { Form, FormGroup, TextInput } from "@patternfly/react-core";
 
 import {
   LoadedPcmkAgent,
@@ -13,6 +7,8 @@ import {
   ToolbarFilterTextGroupPair,
 } from "app/view";
 import { types, useDispatch } from "app/store";
+
+import { ResourceCreateStep } from "./ResourceCreateStep";
 
 type AgentParameter = types.pcmkAgents.AgentParameter;
 
@@ -53,10 +49,7 @@ export const ResourceCreateInstanceAttrsForm: React.FC<{
     Advanced: false,
   });
   return (
-    <>
-      <TextContent>
-        <Text component="h2">Instance attributes</Text>
-      </TextContent>
+    <ResourceCreateStep title="Instance attributes">
       <ToolbarFilterTextGroupPair
         textSearchId="agent-attributes-name"
         groupName="More attributes"
@@ -114,6 +107,6 @@ export const ResourceCreateInstanceAttrsForm: React.FC<{
           </Form>
         )}
       </LoadedPcmkAgent>
-    </>
+    </ResourceCreateStep>
   );
 };

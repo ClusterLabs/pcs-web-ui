@@ -27,7 +27,7 @@ export const ResourceCreateReports = () => {
   return (
     <>
       <TextContent>
-        <Text component="h4">Reports</Text>
+        <Text component="h3">Messages</Text>
       </TextContent>
       <>
         {reports.map((report, i) => (

@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  Form,
-  FormGroup,
-  Text,
-  TextContent,
-  TextInput,
-} from "@patternfly/react-core";
+import { Form, FormGroup, TextInput } from "@patternfly/react-core";
 
 import { types, useDispatch } from "app/store";
 import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSelect";
-import { ResourceCreateReports } from "./ResourceCreateReports";
+import { ResourceCreateStep } from "./ResourceCreateStep";
 
 export const ResourceCreateNameType: React.FC<{
   wizardState: types.wizardResourceCreate.WizardResourceCreate;
@@ -50,11 +44,7 @@ export const ResourceCreateNameType: React.FC<{
     showValidationErrors && agentName.length === 0 ? "error" : "default";
 
   return (
-    <>
-      <TextContent>
-        <Text component="h2">Choose name and type for the new resource</Text>
-      </TextContent>
-
+    <ResourceCreateStep title="Choose name and type for the new resource">
       <Form isHorizontal>
         <FormGroup
           label="Resource name"
@@ -86,7 +76,6 @@ export const ResourceCreateNameType: React.FC<{
           />
         </FormGroup>
       </Form>
-      <ResourceCreateReports />
-    </>
+    </ResourceCreateStep>
   );
 };

@@ -4,22 +4,17 @@ import {
   DescriptionListDescription,
   DescriptionListGroup,
   DescriptionListTerm,
-  Text,
-  TextContent,
 } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import { ResourceCreateReports } from "./ResourceCreateReports";
+import { ResourceCreateStep } from "./ResourceCreateStep";
 
 export const ResourceCreateReview: React.FC<{
   wizardState: types.wizardResourceCreate.WizardResourceCreate;
 }> = ({ wizardState: { agentName, resourceName, instanceAttrs } }) => {
   return (
-    <>
-      <TextContent>
-        <Text component="h2">Review new resource configuration</Text>
-      </TextContent>
+    <ResourceCreateStep title="Review new resource configuration">
       <DescriptionList isHorizontal>
         <DescriptionListGroup>
           <DescriptionListTerm>Resource name</DescriptionListTerm>
@@ -51,7 +46,6 @@ export const ResourceCreateReview: React.FC<{
           </DescriptionListGroup>
         )}
       </DescriptionList>
-      <ResourceCreateReports />
-    </>
+    </ResourceCreateStep>
   );
 };
