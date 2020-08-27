@@ -8,6 +8,8 @@ import {
 import { types, useDispatch } from "app/store";
 import { LoadedPcmkAgent } from "app/view";
 
+import { areInstanceAttrsValid, isNameTypeValid } from "./validation";
+
 const ButtonNext: React.FC<{
   onClick?: () => void;
   label?: string;
@@ -48,15 +50,32 @@ const ButtonBack: React.FC<{ onClick: () => void; disabled?: boolean }> = ({
   );
 };
 
+const tryNext = (
+  dispatch: ReturnType<typeof useDispatch>,
+  next: () => void,
+  clusterUrlName: string,
+  isValid: boolean,
+) => {
+  if (isValid) {
+    dispatch({
+      type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE",
+      payload: { clusterUrlName },
+    });
+    next();
+  } else {
+    dispatch({
+      type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW",
+      payload: { clusterUrlName },
+    });
+  }
+};
+
 export const ResourceCreateFooter: React.FC<{
   wizardState: types.wizardResourceCreate.WizardResourceCreate;
   onClose: () => void;
   clusterUrlName: string;
-}> = ({
-  onClose,
-  wizardState: { agentName, resourceName, instanceAttrs },
-  clusterUrlName,
-}) => {
+}> = ({ onClose, wizardState, clusterUrlName }) => {
+  const { agentName, resourceName, instanceAttrs } = wizardState;
   const dispatch = useDispatch();
   return (
     <WizardFooter>
@@ -66,20 +85,14 @@ export const ResourceCreateFooter: React.FC<{
             return (
               <>
                 <ButtonNext
-                  onClick={() => {
-                    if (resourceName.length > 0 && agentName.length > 0) {
-                      dispatch({
-                        type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE",
-                        payload: { clusterUrlName },
-                      });
-                      onNext();
-                    } else {
-                      dispatch({
-                        type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW",
-                        payload: { clusterUrlName },
-                      });
-                    }
-                  }}
+                  onClick={() =>
+                    tryNext(
+                      dispatch,
+                      onNext,
+                      clusterUrlName,
+                      isNameTypeValid(wizardState),
+                    )
+                  }
                 />
                 <ButtonBack onClick={onBack} disabled />
                 <ButtonCancel onClick={onClose} />
@@ -96,24 +109,14 @@ export const ResourceCreateFooter: React.FC<{
                 >
                   {(agent: types.pcmkAgents.Agent) => (
                     <ButtonNext
-                      onClick={() => {
-                        if (
-                          agent.parameters.every(
-                            p => !p.required || p.name in instanceAttrs,
-                          )
-                        ) {
-                          dispatch({
-                            type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE",
-                            payload: { clusterUrlName },
-                          });
-                          onNext();
-                        } else {
-                          dispatch({
-                            type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW",
-                            payload: { clusterUrlName },
-                          });
-                        }
-                      }}
+                      onClick={() =>
+                        tryNext(
+                          dispatch,
+                          onNext,
+                          clusterUrlName,
+                          areInstanceAttrsValid(agent, wizardState),
+                        )
+                      }
                     />
                   )}
                 </LoadedPcmkAgent>

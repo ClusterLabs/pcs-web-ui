@@ -1,9 +1,10 @@
 import React from "react";
 import { Wizard } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import { selectors, useSelector } from "app/store";
 import { useClusterSelector } from "app/view";
 
+import { areInstanceAttrsValid, isNameTypeValid } from "./validation";
 import { ResourceCreateNameType } from "./ResourceCreateNameType";
 import { ResourceCreateInstanceAttrsForm } from "./ResourceCreateInstanceAttrsForm";
 import { ResourceCreateReview } from "./ResourceCreateReview";
@@ -14,6 +15,11 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
   const [wizardState, clusterUrlName] = useClusterSelector(
     selectors.getWizardResourceCreateState,
   );
+  const agent = useSelector(
+    selectors.getPcmkAgent(clusterUrlName, wizardState.agentName),
+  );
+  const isWizardValid =
+    isNameTypeValid(wizardState) && areInstanceAttrsValid(agent, wizardState);
   return (
     <Wizard
       data-test="wizard-add-resource"
@@ -39,10 +45,12 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
               clusterUrlName={clusterUrlName}
             />
           ),
+          canJumpTo: isNameTypeValid(wizardState),
         },
         {
           name: "Review",
           component: <ResourceCreateReview wizardState={wizardState} />,
+          canJumpTo: isWizardValid,
         },
         {
           name: "Result",
