@@ -1,5 +1,9 @@
 import React from "react";
-import { Wizard } from "@patternfly/react-core";
+import {
+  Wizard,
+  WizardContextConsumer,
+  WizardFooter,
+} from "@patternfly/react-core";
 
 import { selectors, useSelector } from "app/store";
 import { useClusterSelector } from "app/view";
@@ -9,7 +13,12 @@ import { ResourceCreateNameType } from "./ResourceCreateNameType";
 import { ResourceCreateInstanceAttrsForm } from "./ResourceCreateInstanceAttrsForm";
 import { ResourceCreateReview } from "./ResourceCreateReview";
 import { ResourceCreateProgress } from "./ResourceCreateProgress";
-import { ResourceCreateFooter } from "./ResourceCreateFooter";
+
+import {
+  ResourceCreateFooterInstanceAttrs,
+  ResourceCreateFooterNameType,
+  ResourceCreateFooterReview,
+} from "./footer";
 
 export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
   const [wizardState, clusterUrlName] = useClusterSelector(
@@ -64,11 +73,20 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
         },
       ]}
       footer={
-        <ResourceCreateFooter
-          onClose={onClose}
-          wizardState={wizardState}
-          clusterUrlName={clusterUrlName}
-        />
+        <WizardFooter>
+          <WizardContextConsumer>
+            {({ activeStep }) => {
+              if (activeStep.name === "Name and type") {
+                return <ResourceCreateFooterNameType onClose={onClose} />;
+              }
+              if (activeStep.name === "Instance attributes") {
+                return <ResourceCreateFooterInstanceAttrs onClose={onClose} />;
+              }
+              // activeStep.name === "Review"
+              return <ResourceCreateFooterReview onClose={onClose} />;
+            }}
+          </WizardContextConsumer>
+        </WizardFooter>
       }
     />
   );
