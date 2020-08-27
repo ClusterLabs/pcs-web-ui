@@ -14,7 +14,6 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
   const [wizardState, clusterUrlName] = useClusterSelector(
     selectors.getWizardResourceCreateState,
   );
-  const { response } = wizardState;
   return (
     <Wizard
       data-test="wizard-add-resource"
@@ -53,7 +52,7 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
               wizardState={wizardState}
             />
           ),
-          isFinishedStep: response !== "fail" && response !== "forceable-fail",
+          isFinishedStep: true,
         },
       ]}
       footer={

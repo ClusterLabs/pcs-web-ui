@@ -2,10 +2,13 @@ import React from "react";
 import {
   Button,
   EmptyState,
+  EmptyStateBody,
   EmptyStateIcon,
+  EmptyStateSecondaryActions,
   Progress,
   ProgressMeasureLocation,
   Title,
+  WizardContextConsumer,
 } from "@patternfly/react-core";
 import {
   CheckCircleIcon,
@@ -48,6 +51,26 @@ export const ResourceCreateProgress: React.FC<{
             <Title headingLevel="h4" size="lg">
               {`Create resource "${resourceName}" failed`}
             </Title>
+            <EmptyStateBody>
+              Create resource failed in the backend (see messages below). You
+              can return back, correct values and try to create resource again.
+              The messages will be kept in wizard.
+            </EmptyStateBody>
+            <WizardContextConsumer>
+              {({ goToStepByName }) => (
+                <Button
+                  variant="primary"
+                  onClick={() => goToStepByName("Name and type")}
+                >
+                  Back to first step
+                </Button>
+              )}
+            </WizardContextConsumer>
+            <EmptyStateSecondaryActions>
+              <Button variant="link" onClick={onClose}>
+                Cancel
+              </Button>
+            </EmptyStateSecondaryActions>
           </EmptyState>
           <ResourceCreateReports />
         </>
