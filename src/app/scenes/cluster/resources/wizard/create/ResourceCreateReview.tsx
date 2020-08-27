@@ -28,10 +28,10 @@ export const ResourceCreateReview: React.FC<{
           <DescriptionListDescription>{agentName}</DescriptionListDescription>
         </DescriptionListGroup>
 
-        {Object.keys(instanceAttrs).length > 0 && (
-          <DescriptionListGroup>
-            <DescriptionListTerm>Instance attributes</DescriptionListTerm>
-            <DescriptionListDescription>
+        <DescriptionListGroup>
+          <DescriptionListTerm>Instance attributes</DescriptionListTerm>
+          <DescriptionListDescription>
+            {Object.keys(instanceAttrs).length > 0 ? (
               <DescriptionList isHorizontal>
                 {Object.keys(instanceAttrs).map(attrName => (
                   <DescriptionListGroup key={attrName}>
@@ -42,9 +42,11 @@ export const ResourceCreateReview: React.FC<{
                   </DescriptionListGroup>
                 ))}
               </DescriptionList>
-            </DescriptionListDescription>
-          </DescriptionListGroup>
-        )}
+            ) : (
+              "No attribute configured"
+            )}
+          </DescriptionListDescription>
+        </DescriptionListGroup>
       </DescriptionList>
     </ResourceCreateStep>
   );
