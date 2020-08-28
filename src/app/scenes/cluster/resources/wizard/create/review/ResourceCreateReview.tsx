@@ -7,12 +7,12 @@ import {
 } from "@patternfly/react-core";
 
 import { WizardLibStep } from "app/view";
-import { useWizardState } from "../useWizardState";
+import { useWizard } from "../useWizard";
 
 export const ResourceCreateReview: React.FC = () => {
   const {
     wizardState: { agentName, resourceName, instanceAttrs, reports },
-  } = useWizardState();
+  } = useWizard();
   return (
     <WizardLibStep title="Review new resource configuration" reports={reports}>
       <DescriptionList isHorizontal>

@@ -3,7 +3,7 @@ import { Form, FormGroup, TextInput } from "@patternfly/react-core";
 
 import { WizardLibStep } from "app/view";
 
-import { useWizardState } from "../useWizardState";
+import { useWizard } from "../useWizard";
 
 import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSelect";
 
@@ -12,7 +12,7 @@ export const ResourceCreateNameType: React.FC = () => {
     wizardState: { agentName, resourceName, showValidationErrors, reports },
     clusterUrlName,
     dispatch,
-  } = useWizardState();
+  } = useWizard();
 
   const onSelect = (value: string) => {
     dispatch({

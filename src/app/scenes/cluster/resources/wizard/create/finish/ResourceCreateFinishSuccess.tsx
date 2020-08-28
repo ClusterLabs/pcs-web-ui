@@ -7,13 +7,13 @@ import {
 } from "@patternfly/react-core";
 import { CheckCircleIcon } from "@patternfly/react-icons";
 import { WizardLibReports, pallete } from "app/view";
-import { useWizardState } from "../useWizardState";
+import { useWizard } from "../useWizard";
 
 export const ResourceCreateFinishSuccess: React.FC = () => {
   const {
     wizardState: { resourceName, reports },
     close,
-  } = useWizardState();
+  } = useWizard();
   return (
     <>
       <EmptyState>

@@ -7,7 +7,7 @@ import {
   WizardButtonNext,
 } from "app/view";
 
-import { useWizardState } from "../useWizardState";
+import { useWizard } from "../useWizard";
 
 export const ResourceCreateReviewFooter: React.FC = () => {
   const {
@@ -15,7 +15,7 @@ export const ResourceCreateReviewFooter: React.FC = () => {
     clusterUrlName,
     dispatch,
     close,
-  } = useWizardState();
+  } = useWizard();
   return (
     <WizardContextConsumer>
       {({ onNext, onBack }) => (

@@ -7,16 +7,11 @@ import {
   WizardButtonNext,
 } from "app/view";
 
-import { useValidation } from "../useValidation";
-
-import { useTryNext } from "../useTryNext";
-import { useWizardState } from "../useWizardState";
+import { useWizard } from "../useWizard";
 
 export const ResourceCreateInstanceAttrsFooter: React.FC = () => {
   // eslint-disable-next-line no-shadow
-  const { areInstanceAttrsValid, isAgentLoaded } = useValidation();
-  const tryNext = useTryNext();
-  const { close } = useWizardState();
+  const { close, areInstanceAttrsValid, isAgentLoaded, tryNext } = useWizard();
   return (
     <WizardContextConsumer>
       {({ onNext, onBack }) => (

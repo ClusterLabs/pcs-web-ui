@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useWizardState } from "../useWizardState";
+import { useWizard } from "../useWizard";
 import { ResourceCreateFinishProgress } from "./ResourceCreateFinishProgress";
 import { ResourceCreateFinishSuccess } from "./ResourceCreateFinishSuccess";
 import { ResourceCreateFinishFail } from "./ResourceCreateFinishFail";
@@ -8,7 +8,7 @@ import { ResourceCreateFinishFail } from "./ResourceCreateFinishFail";
 export const ResourceCreateFinish: React.FC = () => {
   const {
     wizardState: { response },
-  } = useWizardState();
+  } = useWizard();
   switch (response) {
     case "success":
       return <ResourceCreateFinishSuccess />;

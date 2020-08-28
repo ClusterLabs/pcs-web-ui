@@ -15,12 +15,10 @@ import {
 } from "./step2InstanceAttrs";
 import { ResourceCreateReview, ResourceCreateReviewFooter } from "./review";
 import { ResourceCreateFinish } from "./finish";
-import { useValidation } from "./useValidation";
-import { useWizardState } from "./useWizardState";
+import { useWizard } from "./useWizard";
 
 export const ResourceCreate: React.FC = () => {
-  const { close } = useWizardState();
-  const { isNameTypeValid, areInstanceAttrsValid } = useValidation();
+  const { close, isNameTypeValid, areInstanceAttrsValid } = useWizard();
   return (
     <Wizard
       data-test="wizard-add-resource"

@@ -7,14 +7,10 @@ import {
   WizardButtonNext,
 } from "app/view";
 
-import { useValidation } from "../useValidation";
-import { useTryNext } from "../useTryNext";
-import { useWizardState } from "../useWizardState";
+import { useWizard } from "../useWizard";
 
 export const ResourceCreateNameTypeFooter: React.FC = () => {
-  const tryNext = useTryNext();
-  const { isNameTypeValid } = useValidation();
-  const { close } = useWizardState();
+  const { close, isNameTypeValid, tryNext } = useWizard();
   return (
     <WizardContextConsumer>
       {({ onNext, onBack }) => (

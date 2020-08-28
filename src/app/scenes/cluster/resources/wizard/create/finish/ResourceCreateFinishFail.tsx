@@ -10,13 +10,13 @@ import {
 } from "@patternfly/react-core";
 import { WizardLibReports, pallete } from "app/view";
 import { ExclamationCircleIcon } from "@patternfly/react-icons";
-import { useWizardState } from "../useWizardState";
+import { useWizard } from "../useWizard";
 
 export const ResourceCreateFinishFail: React.FC = () => {
   const {
     wizardState: { resourceName, reports },
     close,
-  } = useWizardState();
+  } = useWizard();
   return (
     <>
       <EmptyState>

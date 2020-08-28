@@ -9,7 +9,7 @@ import {
 } from "app/view";
 import { types } from "app/store";
 
-import { useWizardState } from "../useWizardState";
+import { useWizard } from "../useWizard";
 
 type AgentParameter = types.pcmkAgents.AgentParameter;
 
@@ -42,7 +42,7 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
     wizardState: { agentName, instanceAttrs, showValidationErrors },
     clusterUrlName,
     dispatch,
-  } = useWizardState();
+  } = useWizard();
   const { filterState, filterParameters } = useState({
     Optional: false,
     Advanced: false,
