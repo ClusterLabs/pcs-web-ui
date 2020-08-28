@@ -1,19 +1,18 @@
 import React from "react";
 import { Form, FormGroup, TextInput } from "@patternfly/react-core";
 
-import { types, useDispatch } from "app/store";
+import { WizardLibStep } from "app/view";
+
+import { useWizardState } from "../useWizardState";
 
 import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSelect";
-import { ResourceCreateStep } from "./ResourceCreateStep";
 
-export const ResourceCreateNameType: React.FC<{
-  wizardState: types.wizardResourceCreate.WizardResourceCreate;
-  clusterUrlName: string;
-}> = ({
-  wizardState: { agentName, resourceName, showValidationErrors },
-  clusterUrlName,
-}) => {
-  const dispatch = useDispatch();
+export const ResourceCreateNameType: React.FC = () => {
+  const {
+    wizardState: { agentName, resourceName, showValidationErrors, reports },
+    clusterUrlName,
+    dispatch,
+  } = useWizardState();
 
   const onSelect = (value: string) => {
     dispatch({
@@ -45,7 +44,10 @@ export const ResourceCreateNameType: React.FC<{
     showValidationErrors && agentName.length === 0 ? "error" : "default";
 
   return (
-    <ResourceCreateStep title="Choose name and type for the new resource">
+    <WizardLibStep
+      title="Choose name and type for the new resource"
+      reports={reports}
+    >
       <Form isHorizontal>
         <FormGroup
           label="Resource name"
@@ -77,6 +79,6 @@ export const ResourceCreateNameType: React.FC<{
           />
         </FormGroup>
       </Form>
-    </ResourceCreateStep>
+    </WizardLibStep>
   );
 };

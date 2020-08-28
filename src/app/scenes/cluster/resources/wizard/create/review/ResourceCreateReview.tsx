@@ -6,15 +6,15 @@ import {
   DescriptionListTerm,
 } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { WizardLibStep } from "app/view";
+import { useWizardState } from "../useWizardState";
 
-import { ResourceCreateStep } from "./ResourceCreateStep";
-
-export const ResourceCreateReview: React.FC<{
-  wizardState: types.wizardResourceCreate.WizardResourceCreate;
-}> = ({ wizardState: { agentName, resourceName, instanceAttrs } }) => {
+export const ResourceCreateReview: React.FC = () => {
+  const {
+    wizardState: { agentName, resourceName, instanceAttrs, reports },
+  } = useWizardState();
   return (
-    <ResourceCreateStep title="Review new resource configuration">
+    <WizardLibStep title="Review new resource configuration" reports={reports}>
       <DescriptionList isHorizontal>
         <DescriptionListGroup>
           <DescriptionListTerm>Resource name</DescriptionListTerm>
@@ -48,6 +48,6 @@ export const ResourceCreateReview: React.FC<{
           </DescriptionListDescription>
         </DescriptionListGroup>
       </DescriptionList>
-    </ResourceCreateStep>
+    </WizardLibStep>
   );
 };

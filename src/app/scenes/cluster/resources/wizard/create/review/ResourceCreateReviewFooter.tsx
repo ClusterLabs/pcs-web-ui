@@ -1,12 +1,15 @@
 import React from "react";
 import { WizardContextConsumer } from "@patternfly/react-core";
 
-import { ButtonNext } from "./ButtonNext";
-import { ButtonCancel } from "./ButtonCancel";
-import { ButtonBack } from "./ButtonBack";
+import {
+  WizardButtonBack,
+  WizardButtonCancel,
+  WizardButtonNext,
+} from "app/view";
+
 import { useWizardState } from "../useWizardState";
 
-export const ResourceCreateFooterReview: React.FC<{
+export const ResourceCreateReviewFooter: React.FC<{
   onClose: () => void;
 }> = ({ onClose }) => {
   const {
@@ -18,7 +21,7 @@ export const ResourceCreateFooterReview: React.FC<{
     <WizardContextConsumer>
       {({ onNext, onBack }) => (
         <>
-          <ButtonNext
+          <WizardButtonNext
             onClick={() => {
               dispatch({
                 type: "RESOURCE.PRIMITIVE.CREATE",
@@ -33,8 +36,8 @@ export const ResourceCreateFooterReview: React.FC<{
             }}
             label="Finish"
           />
-          <ButtonBack onClick={onBack} />
-          <ButtonCancel onClick={onClose} />
+          <WizardButtonBack onClick={onBack} />
+          <WizardButtonCancel onClick={onClose} />
         </>
       )}
     </WizardContextConsumer>

@@ -5,10 +5,11 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsHelpPopover,
   ToolbarFilterTextGroupPair,
+  WizardLibStep,
 } from "app/view";
-import { types, useDispatch } from "app/store";
+import { types } from "app/store";
 
-import { ResourceCreateStep } from "./ResourceCreateStep";
+import { useWizardState } from "../useWizardState";
 
 type AgentParameter = types.pcmkAgents.AgentParameter;
 
@@ -36,20 +37,18 @@ const useState = (
     "all-off-display-none",
   );
 
-export const ResourceCreateInstanceAttrsForm: React.FC<{
-  wizardState: types.wizardResourceCreate.WizardResourceCreate;
-  clusterUrlName: string;
-}> = ({
-  wizardState: { agentName, instanceAttrs, showValidationErrors },
-  clusterUrlName,
-}) => {
-  const dispatch = useDispatch();
+export const ResourceCreateInstanceAttrsForm: React.FC = () => {
+  const {
+    wizardState: { agentName, instanceAttrs, showValidationErrors },
+    clusterUrlName,
+    dispatch,
+  } = useWizardState();
   const { filterState, filterParameters } = useState({
     Optional: false,
     Advanced: false,
   });
   return (
-    <ResourceCreateStep title="Instance attributes">
+    <WizardLibStep title="Instance attributes">
       <LoadedPcmkAgent clusterUrlName={clusterUrlName} agentName={agentName}>
         {(agent: types.pcmkAgents.Agent) => {
           const requiredParameters = agent.parameters.filter(p => p.required);
@@ -121,6 +120,6 @@ export const ResourceCreateInstanceAttrsForm: React.FC<{
           );
         }}
       </LoadedPcmkAgent>
-    </ResourceCreateStep>
+    </WizardLibStep>
   );
 };

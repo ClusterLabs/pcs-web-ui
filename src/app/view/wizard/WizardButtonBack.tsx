@@ -1,19 +1,17 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-export const ButtonNext: React.FC<{
-  onClick?: () => void;
-  label?: string;
+export const WizardButtonBack: React.FC<{
+  onClick: () => void;
   disabled?: boolean;
-}> = ({ onClick = undefined, label = "Next", disabled = false }) => {
+}> = ({ onClick, disabled = false }) => {
   return (
     <Button
-      variant="primary"
-      type="submit"
+      variant="secondary"
       onClick={onClick}
       className={disabled ? "pf-m-disabled" : ""}
     >
-      {label}
+      Back
     </Button>
   );
 };

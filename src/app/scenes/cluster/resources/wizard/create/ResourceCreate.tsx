@@ -5,30 +5,20 @@ import {
   WizardFooter,
 } from "@patternfly/react-core";
 
-import { selectors, useSelector } from "app/store";
-import { useClusterSelector } from "app/view";
-
-import { areInstanceAttrsValid, isNameTypeValid } from "./validation";
-import { ResourceCreateNameType } from "./ResourceCreateNameType";
-import { ResourceCreateInstanceAttrsForm } from "./ResourceCreateInstanceAttrsForm";
-import { ResourceCreateReview } from "./ResourceCreateReview";
-import { ResourceCreateProgress } from "./ResourceCreateProgress";
-
 import {
-  ResourceCreateFooterInstanceAttrs,
-  ResourceCreateFooterNameType,
-  ResourceCreateFooterReview,
-} from "./footer";
+  ResourceCreateNameType,
+  ResourceCreateNameTypeFooter,
+} from "./step1NameType";
+import {
+  ResourceCreateInstanceAttrsFooter,
+  ResourceCreateInstanceAttrsForm,
+} from "./step2InstanceAttrs";
+import { ResourceCreateReview, ResourceCreateReviewFooter } from "./review";
+import { ResourceCreateFinish } from "./finish";
+import { useValidation } from "./useValidation";
 
 export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
-  const [wizardState, clusterUrlName] = useClusterSelector(
-    selectors.getWizardResourceCreateState,
-  );
-  const agent = useSelector(
-    selectors.getPcmkAgent(clusterUrlName, wizardState.agentName),
-  );
-  const isWizardValid =
-    isNameTypeValid(wizardState) && areInstanceAttrsValid(agent, wizardState);
+  const { isNameTypeValid, areInstanceAttrsValid } = useValidation();
   return (
     <Wizard
       data-test="wizard-add-resource"
@@ -39,52 +29,40 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
       steps={[
         {
           name: "Name and type",
-          component: (
-            <ResourceCreateNameType
-              wizardState={wizardState}
-              clusterUrlName={clusterUrlName}
-            />
-          ),
+          component: <ResourceCreateNameType />,
         },
         {
           name: "Instance attributes",
-          component: (
-            <ResourceCreateInstanceAttrsForm
-              wizardState={wizardState}
-              clusterUrlName={clusterUrlName}
-            />
-          ),
-          canJumpTo: isNameTypeValid(wizardState),
+          component: <ResourceCreateInstanceAttrsForm />,
+          canJumpTo: isNameTypeValid,
         },
         {
           name: "Review",
-          component: <ResourceCreateReview wizardState={wizardState} />,
-          canJumpTo: isWizardValid,
+          component: <ResourceCreateReview />,
+          canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
           name: "Result",
-          component: (
-            <ResourceCreateProgress
-              onClose={onClose}
-              wizardState={wizardState}
-            />
-          ),
+          component: <ResourceCreateFinish onClose={onClose} />,
           isFinishedStep: true,
         },
       ]}
       footer={
         <WizardFooter>
           <WizardContextConsumer>
-            {({ activeStep }) => {
-              if (activeStep.name === "Name and type") {
-                return <ResourceCreateFooterNameType onClose={onClose} />;
-              }
-              if (activeStep.name === "Instance attributes") {
-                return <ResourceCreateFooterInstanceAttrs onClose={onClose} />;
-              }
-              // activeStep.name === "Review"
-              return <ResourceCreateFooterReview onClose={onClose} />;
-            }}
+            {({ activeStep }) => (
+              <>
+                {activeStep.name === "Name and type" && (
+                  <ResourceCreateNameTypeFooter onClose={onClose} />
+                )}
+                {activeStep.name === "Instance attributes" && (
+                  <ResourceCreateInstanceAttrsFooter onClose={onClose} />
+                )}
+                {activeStep.name === "Review" && (
+                  <ResourceCreateReviewFooter onClose={onClose} />
+                )}
+              </>
+            )}
           </WizardContextConsumer>
         </WizardFooter>
       }
