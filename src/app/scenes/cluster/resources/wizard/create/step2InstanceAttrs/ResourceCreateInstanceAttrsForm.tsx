@@ -11,24 +11,15 @@ import { types } from "app/store";
 
 import { useWizard } from "../useWizard";
 
-type AgentParameter = types.pcmkAgents.AgentParameter;
-
-const useState = (
-  initialGroupInclustionMap: {
-    Optional: boolean;
-    Advanced: boolean;
-  } = {
-    Optional: true,
-    Advanced: false,
-  },
-): {
-  filterState: ReturnType<
-    typeof ToolbarFilterTextGroupPair.useState
-  >["filterState"];
-  filterParameters: (parameters: AgentParameter[]) => AgentParameter[];
-} =>
-  ToolbarFilterTextGroupPair.useState(
-    initialGroupInclustionMap,
+const useFilterState = () =>
+  ToolbarFilterTextGroupPair.useState<
+    "Optional" | "Advanced",
+    types.pcmkAgents.AgentParameter
+  >(
+    {
+      Optional: false,
+      Advanced: false,
+    },
     p => ({
       Advanced: p.advanced,
       Optional: !p.required && !p.advanced,
@@ -43,10 +34,7 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
     clusterUrlName,
     dispatch,
   } = useWizard();
-  const { filterState, filterParameters } = useState({
-    Optional: false,
-    Advanced: false,
-  });
+  const { filterState, filterParameters } = useFilterState();
   return (
     <WizardLibStep title="Instance attributes">
       <LoadedPcmkAgent clusterUrlName={clusterUrlName} agentName={agentName}>
