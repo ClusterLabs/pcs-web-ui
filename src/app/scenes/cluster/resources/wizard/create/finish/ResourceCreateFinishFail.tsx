@@ -12,11 +12,10 @@ import { WizardLibReports, pallete } from "app/view";
 import { ExclamationCircleIcon } from "@patternfly/react-icons";
 import { useWizardState } from "../useWizardState";
 
-export const ResourceCreateFinishFail: React.FC<{
-  onClose: () => void;
-}> = ({ onClose }) => {
+export const ResourceCreateFinishFail: React.FC = () => {
   const {
     wizardState: { resourceName, reports },
+    close,
   } = useWizardState();
   return (
     <>
@@ -41,7 +40,7 @@ export const ResourceCreateFinishFail: React.FC<{
           )}
         </WizardContextConsumer>
         <EmptyStateSecondaryActions>
-          <Button variant="link" onClick={onClose}>
+          <Button variant="link" onClick={close}>
             Cancel
           </Button>
         </EmptyStateSecondaryActions>

@@ -9,13 +9,12 @@ import {
 
 import { useWizardState } from "../useWizardState";
 
-export const ResourceCreateReviewFooter: React.FC<{
-  onClose: () => void;
-}> = ({ onClose }) => {
+export const ResourceCreateReviewFooter: React.FC = () => {
   const {
     wizardState: { agentName, resourceName, instanceAttrs },
     clusterUrlName,
     dispatch,
+    close,
   } = useWizardState();
   return (
     <WizardContextConsumer>
@@ -37,7 +36,7 @@ export const ResourceCreateReviewFooter: React.FC<{
             label="Finish"
           />
           <WizardButtonBack onClick={onBack} />
-          <WizardButtonCancel onClick={onClose} />
+          <WizardButtonCancel onClick={close} />
         </>
       )}
     </WizardContextConsumer>

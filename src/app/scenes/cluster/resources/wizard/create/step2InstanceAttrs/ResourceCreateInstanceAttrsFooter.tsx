@@ -10,13 +10,13 @@ import {
 import { useValidation } from "../useValidation";
 
 import { useTryNext } from "../useTryNext";
+import { useWizardState } from "../useWizardState";
 
-export const ResourceCreateInstanceAttrsFooter: React.FC<{
-  onClose: () => void;
-}> = ({ onClose }) => {
+export const ResourceCreateInstanceAttrsFooter: React.FC = () => {
   // eslint-disable-next-line no-shadow
   const { areInstanceAttrsValid, isAgentLoaded } = useValidation();
   const tryNext = useTryNext();
+  const { close } = useWizardState();
   return (
     <WizardContextConsumer>
       {({ onNext, onBack }) => (
@@ -26,7 +26,7 @@ export const ResourceCreateInstanceAttrsFooter: React.FC<{
             disabled={!isAgentLoaded}
           />
           <WizardButtonBack onClick={onBack} disabled />
-          <WizardButtonCancel onClick={onClose} />
+          <WizardButtonCancel onClick={close} />
         </>
       )}
     </WizardContextConsumer>

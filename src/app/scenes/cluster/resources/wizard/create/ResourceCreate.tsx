@@ -16,14 +16,16 @@ import {
 import { ResourceCreateReview, ResourceCreateReviewFooter } from "./review";
 import { ResourceCreateFinish } from "./finish";
 import { useValidation } from "./useValidation";
+import { useWizardState } from "./useWizardState";
 
-export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
+export const ResourceCreate: React.FC = () => {
+  const { close } = useWizardState();
   const { isNameTypeValid, areInstanceAttrsValid } = useValidation();
   return (
     <Wizard
       data-test="wizard-add-resource"
       isOpen
-      onClose={onClose}
+      onClose={close}
       title="New resource"
       description="Create new resource wizard"
       steps={[
@@ -43,7 +45,7 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
         },
         {
           name: "Result",
-          component: <ResourceCreateFinish onClose={onClose} />,
+          component: <ResourceCreateFinish />,
           isFinishedStep: true,
         },
       ]}
@@ -53,14 +55,12 @@ export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
             {({ activeStep }) => (
               <>
                 {activeStep.name === "Name and type" && (
-                  <ResourceCreateNameTypeFooter onClose={onClose} />
+                  <ResourceCreateNameTypeFooter />
                 )}
                 {activeStep.name === "Instance attributes" && (
-                  <ResourceCreateInstanceAttrsFooter onClose={onClose} />
+                  <ResourceCreateInstanceAttrsFooter />
                 )}
-                {activeStep.name === "Review" && (
-                  <ResourceCreateReviewFooter onClose={onClose} />
-                )}
+                {activeStep.name === "Review" && <ResourceCreateReviewFooter />}
               </>
             )}
           </WizardContextConsumer>

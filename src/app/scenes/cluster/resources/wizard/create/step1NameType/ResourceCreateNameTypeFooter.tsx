@@ -9,19 +9,19 @@ import {
 
 import { useValidation } from "../useValidation";
 import { useTryNext } from "../useTryNext";
+import { useWizardState } from "../useWizardState";
 
-export const ResourceCreateNameTypeFooter: React.FC<{
-  onClose: () => void;
-}> = ({ onClose }) => {
+export const ResourceCreateNameTypeFooter: React.FC = () => {
   const tryNext = useTryNext();
   const { isNameTypeValid } = useValidation();
+  const { close } = useWizardState();
   return (
     <WizardContextConsumer>
       {({ onNext, onBack }) => (
         <>
           <WizardButtonNext onClick={() => tryNext(isNameTypeValid, onNext)} />
           <WizardButtonBack onClick={onBack} disabled />
-          <WizardButtonCancel onClick={onClose} />
+          <WizardButtonCancel onClick={close} />
         </>
       )}
     </WizardContextConsumer>
