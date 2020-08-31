@@ -2,8 +2,15 @@ import React from "react";
 
 import { types } from "app/store";
 
-import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
-import { ConstraintLocationCellRscPoint } from "./ConstraintLocationCellRscPoint";
+import { DataListCell } from "@patternfly/react-core";
+import {
+  ConstraintCell,
+  ConstraintCellFake,
+  ConstraintRow,
+  ConstraintValue,
+} from "../common";
+import { ConstraintLocationDescRscPoint } from "./ConstraintLocationDescRscPoint";
+import { ConstraintLocationCellScore } from "./ConstraintLocationCellScore";
 
 export const ConstraintRowLocationRule = ({
   constraint,
@@ -15,30 +22,38 @@ export const ConstraintRowLocationRule = ({
       id={constraint.id}
       dataListCells={
         <>
-          <ConstraintCell label="Type" value="Location (rule)" />
-          <ConstraintCell label="Rule" value={constraint.rule_string} />
-          <ConstraintLocationCellRscPoint constraint={constraint} />
+          <ConstraintCell label="Type" value="Location (rule)" width={1} />
           {"id-ref" in constraint && (
-            <ConstraintCell
-              label="Referenced Id"
-              value={constraint["id-ref"]}
-            />
+            <>
+              <DataListCell width={3}>
+                <ConstraintLocationDescRscPoint constraint={constraint} />
+                {" according to the rule with id "}
+                <strong>{constraint["id-ref"]}</strong>
+              </DataListCell>
+              <ConstraintCellFake />
+            </>
           )}
-          {"score" in constraint && (
-            <ConstraintCell label="Score" value={constraint.score} />
-          )}
-          {"score-attribute" in constraint && (
-            <ConstraintCell
-              label="Score attribute"
-              value={constraint["score-attribute"]}
-            />
+          {!("id-ref" in constraint) && (
+            <>
+              <DataListCell width={3}>
+                <ConstraintLocationDescRscPoint constraint={constraint} />
+                {" in role "}
+                <strong>{constraint.role || "Started"}</strong>
+                {" according to the rule "}
+                <strong>{constraint.rule_string}</strong>
+              </DataListCell>
+              <ConstraintLocationCellScore constraint={constraint} />
+            </>
           )}
         </>
       }
       content={
-        "id-ref" in constraint ? null : (
-          <ConstraintValue label="Role" value={constraint.role} />
-        )
+        <>
+          <ConstraintValue
+            label="Resource discovery"
+            value={constraint["resource-discovery"]}
+          />
+        </>
       }
     />
   );
