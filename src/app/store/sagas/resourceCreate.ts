@@ -57,6 +57,10 @@ function* resourceCreateSaga({
         return;
       case "success":
         yield put({
+          type: "CLUSTER_DATA.REFRESH",
+          payload: { clusterUrlName },
+        });
+        yield put({
           type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS",
           payload: { clusterUrlName, reports: report_list },
         });
