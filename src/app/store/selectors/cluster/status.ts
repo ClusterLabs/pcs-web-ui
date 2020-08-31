@@ -47,6 +47,18 @@ export const getSelectedResource = clusterStatusSelector(
   },
 );
 
+export const getGroups = clusterStatusSelector(clusterStatus =>
+  clusterStatus.resourceTree.reduce<string[]>((groups, resource) => {
+    if (resource.itemType === "group") {
+      return [...groups, resource.id];
+    }
+    if (resource.itemType === "clone" && resource.member.itemType === "group") {
+      return [...groups, resource.member.id];
+    }
+    return groups;
+  }, []),
+);
+
 export const getSelectedFenceDevice = clusterStatusSelector(
   (clusterStatus, id: string) =>
     clusterStatus.fenceDeviceList.find(fd => fd.id === id),

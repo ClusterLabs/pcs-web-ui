@@ -3,12 +3,13 @@ import { Reducer } from "app/store/redux";
 
 type InstanceAttrName = string;
 type InstanceAttrValue = string;
+type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
 
 export type Report = types.libraryResponse.ApiReport;
 export type WizardResourceCreate = {
   agentName: string;
   resourceName: string;
-  instanceAttrs: Record<InstanceAttrName, InstanceAttrValue>;
+  instanceAttrs: InstanceAttrs;
   response:
     | "no-response"
     | "success"
@@ -17,6 +18,11 @@ export type WizardResourceCreate = {
     | "communication-error";
   reports: Report[];
   showValidationErrors: boolean;
+  clone: boolean;
+  promotable: boolean;
+  disabled: boolean;
+  useGroup: "no" | "existing" | "new";
+  group: string;
 };
 
 const initialState: WizardResourceCreate = {
@@ -26,17 +32,37 @@ const initialState: WizardResourceCreate = {
   instanceAttrs: {},
   reports: [],
   showValidationErrors: false,
+  clone: false,
+  promotable: false,
+  disabled: false,
+  useGroup: "no",
+  group: "",
 };
+
+const instanceAttrs = (stateAttrs: InstanceAttrs, actionAttrs: InstanceAttrs) =>
+  Object.keys(actionAttrs).reduce((attrs, name) => {
+    if (actionAttrs[name].length > 0) {
+      return { ...attrs, [name]: actionAttrs[name] };
+    }
+    const { [name]: _, ...rest } = stateAttrs;
+    return rest;
+  }, stateAttrs);
 
 const wizardResourceCreate: Reducer<WizardResourceCreate> = (
   state = initialState,
   action,
 ) => {
   switch (action.type) {
-    case "RESOURCE.PRIMITIVE.CREATE.SET_RESOURCE_NAME":
-      return { ...state, resourceName: action.payload.resourceName };
-    case "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME":
-      return { ...state, agentName: action.payload.agentName };
+    case "RESOURCE.PRIMITIVE.CREATE.UPDATE": {
+      return {
+        ...state,
+        ...action.payload.state,
+        instanceAttrs: instanceAttrs(
+          state.instanceAttrs,
+          action.payload.state.instanceAttrs || {},
+        ),
+      };
+    }
     case "RESOURCE.PRIMITIVE.CREATE":
       return { ...state, response: "no-response" };
     case "RESOURCE.PRIMITIVE.CREATE.SUCCESS":
@@ -51,18 +77,6 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
       return { ...state, showValidationErrors: true };
     case "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
-    case "RESOURCE.PRIMITIVE.CREATE.SET_INSTANCE_ATTRIBUTE":
-      if (action.payload.value.length === 0) {
-        const { [action.payload.name]: _, ...rest } = state.instanceAttrs;
-        return { ...state, instanceAttrs: rest };
-      }
-      return {
-        ...state,
-        instanceAttrs: {
-          ...state.instanceAttrs,
-          [action.payload.name]: action.payload.value,
-        },
-      };
     default:
       return state;
   }

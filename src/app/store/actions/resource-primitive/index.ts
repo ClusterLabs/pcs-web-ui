@@ -5,12 +5,10 @@ export type PrimitiveResourceActions = {
   CreateResourceSuccess: create.CreateResourceSuccess;
   CreateResourceFailed: create.CreateResourceFailed;
   CreateResourceError: create.CreateResourceError;
-  CreateResourceSetAgentName: create.SetAgentName;
-  CreateResourceSetResourceName: create.SetResourceName;
   CreateResourceClose: create.Close;
-  CreateResourceSetInstanceAttribute: create.SetInstanceAttribute;
   CreateResourceValidationShow: create.ValidationShow;
   CreateResourceValidationHide: create.ValidationHide;
+  CreateResourceUpdate: create.Update;
 
   UpdateInstanceAttributes: {
     type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES";

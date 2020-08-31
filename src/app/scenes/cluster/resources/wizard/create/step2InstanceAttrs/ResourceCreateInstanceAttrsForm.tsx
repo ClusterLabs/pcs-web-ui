@@ -30,13 +30,13 @@ const useFilterState = () =>
 
 export const ResourceCreateInstanceAttrsForm: React.FC = () => {
   const {
-    wizardState: { agentName, instanceAttrs, showValidationErrors },
+    wizardState: { agentName, instanceAttrs, showValidationErrors, reports },
     clusterUrlName,
-    dispatch,
+    updateState,
   } = useWizard();
   const { filterState, filterParameters } = useFilterState();
   return (
-    <WizardLibStep title="Instance attributes">
+    <WizardLibStep title="Instance attributes" reports={reports}>
       <LoadedPcmkAgent clusterUrlName={clusterUrlName} agentName={agentName}>
         {(agent: types.pcmkAgents.Agent) => {
           const requiredParameters = agent.parameters.filter(p => p.required);
@@ -68,6 +68,8 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
                         || instanceAttrs[parameter.name].length === 0)
                         ? "error"
                         : "default";
+                    const hint =
+                      "Please provide a value for required attribute";
                     return (
                       <FormGroup
                         key={parameter.name}
@@ -80,21 +82,15 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
                         }
                         isRequired={parameter.required}
                         validated={validated}
-                        helperTextInvalid={`Please provide a value for required attribute ${parameter.name}`}
+                        helperTextInvalid={`${hint} ${parameter.name}`}
                       >
                         <TextInput
                           type="text"
                           id={`instance-attr-${parameter.name}`}
                           isRequired={parameter.required}
                           onChange={value =>
-                            dispatch({
-                              type:
-                                "RESOURCE.PRIMITIVE.CREATE.SET_INSTANCE_ATTRIBUTE",
-                              payload: {
-                                name: parameter.name,
-                                value,
-                                clusterUrlName,
-                              },
+                            updateState({
+                              instanceAttrs: { [parameter.name]: value },
                             })
                           }
                           validated={validated}

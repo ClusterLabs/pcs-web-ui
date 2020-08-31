@@ -1,4 +1,4 @@
-import { selectors, useDispatch, useSelector } from "app/store";
+import { actions, selectors, useDispatch, useSelector } from "app/store";
 import { useClusterSelector, useWizardOpenClose } from "app/view";
 import { CREATE_RESOURCE } from "app/scenes/wizardKeys";
 
@@ -6,6 +6,7 @@ export const useWizard = () => {
   const [wizardState, clusterUrlName] = useClusterSelector(
     selectors.getWizardResourceCreateState,
   );
+  const [groupList] = useClusterSelector(selectors.getGroups);
   const agent = useSelector(
     selectors.getPcmkAgent(clusterUrlName, wizardState.agentName),
   );
@@ -16,6 +17,7 @@ export const useWizard = () => {
     agent
     && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING");
 
+  type ActionUpdate = actions.PrimitiveResourceActions["CreateResourceUpdate"];
   return {
     wizardState,
     clusterUrlName,
@@ -52,6 +54,16 @@ export const useWizard = () => {
           payload: { clusterUrlName },
         });
       }
+    },
+    groupList,
+    updateState: (state: ActionUpdate["payload"]["state"]) => {
+      dispatch({
+        type: "RESOURCE.PRIMITIVE.CREATE.UPDATE",
+        payload: {
+          clusterUrlName,
+          state,
+        },
+      });
     },
   };
 };

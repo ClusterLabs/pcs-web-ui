@@ -33,28 +33,20 @@ export type CreateResourceFailed = {
   };
 };
 
-export type SetAgentName = {
-  type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME";
+export type Update = {
+  type: "RESOURCE.PRIMITIVE.CREATE.UPDATE";
   payload: {
     clusterUrlName: string;
-    agentName: string;
-  };
-};
-
-export type SetResourceName = {
-  type: "RESOURCE.PRIMITIVE.CREATE.SET_RESOURCE_NAME";
-  payload: {
-    clusterUrlName: string;
-    resourceName: string;
-  };
-};
-
-export type SetInstanceAttribute = {
-  type: "RESOURCE.PRIMITIVE.CREATE.SET_INSTANCE_ATTRIBUTE";
-  payload: {
-    clusterUrlName: string;
-    name: string;
-    value: string;
+    state: {
+      agentName?: string;
+      resourceName?: string;
+      clone?: boolean;
+      promotable?: boolean;
+      disabled?: boolean;
+      instanceAttrs?: Record<string, string>;
+      useGroup?: "no" | "existing" | "new";
+      group?: string;
+    };
   };
 };
 

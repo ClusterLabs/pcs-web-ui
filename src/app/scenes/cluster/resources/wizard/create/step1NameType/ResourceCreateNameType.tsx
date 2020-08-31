@@ -12,6 +12,7 @@ export const ResourceCreateNameType: React.FC = () => {
     wizardState: { agentName, resourceName, showValidationErrors, reports },
     clusterUrlName,
     dispatch,
+    updateState,
   } = useWizard();
 
   const onSelect = (value: string) => {
@@ -19,24 +20,13 @@ export const ResourceCreateNameType: React.FC = () => {
       type: "RESOURCE_AGENT.ENSURE",
       payload: { clusterUrlName, agentName: value.toString() },
     });
-    dispatch({
-      type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME",
-      payload: { clusterUrlName, agentName: value.toString() },
-    });
+    updateState({ agentName: value.toString() });
   };
 
-  const onClear = () => {
-    dispatch({
-      type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME",
-      payload: { clusterUrlName, agentName: "" },
-    });
-  };
+  const onClear = () => updateState({ agentName: "" });
 
   const changeResourceName = (value: string) =>
-    dispatch({
-      type: "RESOURCE.PRIMITIVE.CREATE.SET_RESOURCE_NAME",
-      payload: { clusterUrlName, resourceName: value },
-    });
+    updateState({ resourceName: value });
 
   const resourceNameValidated =
     showValidationErrors && resourceName.length === 0 ? "error" : "default";
@@ -48,7 +38,7 @@ export const ResourceCreateNameType: React.FC = () => {
       title="Choose name and type for the new resource"
       reports={reports}
     >
-      <Form isHorizontal>
+      <Form>
         <FormGroup
           label="Resource name"
           isRequired

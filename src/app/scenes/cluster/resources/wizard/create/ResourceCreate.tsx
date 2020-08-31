@@ -13,6 +13,10 @@ import {
   ResourceCreateInstanceAttrsFooter,
   ResourceCreateInstanceAttrsForm,
 } from "./step2InstanceAttrs";
+import {
+  ResourceCreateSettings,
+  ResourceCreateSettingsFooter,
+} from "./step3Settings";
 import { ResourceCreateReview, ResourceCreateReviewFooter } from "./review";
 import { ResourceCreateFinish } from "./finish";
 import { useWizard } from "./useWizard";
@@ -37,6 +41,11 @@ export const ResourceCreate: React.FC = () => {
           canJumpTo: isNameTypeValid,
         },
         {
+          name: "Settings",
+          component: <ResourceCreateSettings />,
+          canJumpTo: isNameTypeValid && areInstanceAttrsValid,
+        },
+        {
           name: "Review",
           component: <ResourceCreateReview />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
@@ -57,6 +66,9 @@ export const ResourceCreate: React.FC = () => {
                 )}
                 {activeStep.name === "Instance attributes" && (
                   <ResourceCreateInstanceAttrsFooter />
+                )}
+                {activeStep.name === "Settings" && (
+                  <ResourceCreateSettingsFooter />
                 )}
                 {activeStep.name === "Review" && <ResourceCreateReviewFooter />}
               </>
