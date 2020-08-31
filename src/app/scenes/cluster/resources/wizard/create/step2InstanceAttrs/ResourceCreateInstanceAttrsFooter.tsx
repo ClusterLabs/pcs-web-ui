@@ -20,7 +20,7 @@ export const ResourceCreateInstanceAttrsFooter: React.FC = () => {
             onClick={() => tryNext(areInstanceAttrsValid, onNext)}
             disabled={!isAgentLoaded}
           />
-          <WizardButtonBack onClick={onBack} disabled />
+          <WizardButtonBack onClick={onBack} />
           <WizardButtonCancel onClick={close} />
         </>
       )}
