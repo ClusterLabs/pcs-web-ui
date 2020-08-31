@@ -4,12 +4,17 @@ import { Reducer } from "app/store/redux";
 type InstanceAttrName = string;
 type InstanceAttrValue = string;
 
-export type Report = types.libraryResponse.ApiResponse;
+export type Report = types.libraryResponse.ApiReport;
 export type WizardResourceCreate = {
   agentName: string;
   resourceName: string;
   instanceAttrs: Record<InstanceAttrName, InstanceAttrValue>;
-  response: "no-response" | "success" | "forceable-fail" | "fail";
+  response:
+    | "no-response"
+    | "success"
+    | "forceable-fail"
+    | "fail"
+    | "communication-error";
   reports: Report[];
   showValidationErrors: boolean;
 };
@@ -38,6 +43,8 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
       return { ...state, response: "success", reports: action.payload.reports };
     case "RESOURCE.PRIMITIVE.CREATE.FAILED":
       return { ...state, response: "fail", reports: action.payload.reports };
+    case "RESOURCE.PRIMITIVE.CREATE.ERROR":
+      return { ...state, response: "communication-error" };
     case "RESOURCE.PRIMITIVE.CREATE.CLOSE":
       return initialState;
     case "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW":

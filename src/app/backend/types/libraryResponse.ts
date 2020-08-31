@@ -34,4 +34,5 @@ export const TApiResponse = t.type({
   data: t.any,
 });
 
-export type ApiResponse = t.TypeOf<typeof TApiReport>;
+export type ApiResponse = t.TypeOf<typeof TApiResponse>;
+export type ApiReport = t.TypeOf<typeof TApiReport>;

@@ -1,95 +1,77 @@
-import { PrimitiveResourceActions } from "app/store/actions";
-import { ApiResult, resourceCreate } from "app/backend";
+import { Action, PrimitiveResourceActions } from "app/store/actions";
+import { ApiResult, log, resourceCreate } from "app/backend";
 
 import { call, put, race, take, takeEvery } from "./effects";
-import { putNotification } from "./notifications";
 import { authSafe } from "./authSafe";
-
-function* createResourceFailed({
-  clusterUrlName,
-  resourceName,
-  message,
-}: {
-  clusterUrlName: string;
-  resourceName: string;
-  message: string;
-}) {
-  yield put({
-    type: "RESOURCE.PRIMITIVE.CREATE.ERROR",
-    payload: { clusterUrlName },
-  });
-  yield putNotification(
-    "ERROR",
-    `Creation of resource "${resourceName}" failed:\n ${message}`,
-  );
-}
 
 function* resourceCreateSaga({
   payload: { agentName, resourceName, instanceAttrs, clusterUrlName },
 }: PrimitiveResourceActions["CreateResource"]) {
-  yield putNotification(
-    "INFO",
-    `Creation of resource "${resourceName}" requested`,
-  );
+  const errorAction: Action = {
+    type: "RESOURCE.PRIMITIVE.CREATE.ERROR",
+    payload: { clusterUrlName },
+  };
+  const errorDescription = `Communication error while creating the resource "${resourceName}"`;
+
   try {
-    const {
-      result,
-    }: {
-      result: ApiResult<typeof resourceCreate>;
-    } = yield race({
-      result: call(authSafe(resourceCreate), {
-        clusterUrlName,
-        resourceName,
-        agentName,
-        instanceAttrs,
-      }),
-      cancel: take("RESOURCE.PRIMITIVE.CREATE.CANCEL"),
-    });
+    const { result }: { result: ApiResult<typeof resourceCreate> } = yield race(
+      {
+        result: call(authSafe(resourceCreate), {
+          clusterUrlName,
+          resourceName,
+          agentName,
+          instanceAttrs,
+        }),
+        cancel: take("RESOURCE.PRIMITIVE.CREATE.CANCEL"),
+      },
+    );
+
     if (!result) {
+      // we no longer care about the fate of the call
       return;
     }
 
     if (!result.valid) {
-      /* eslint-disable no-console */
-      console.error(
-        "Invalid library response from backend. Errors:",
-        result.errors,
-      );
-      yield createResourceFailed({
-        clusterUrlName,
-        resourceName,
-        message: `invalid backend response:\n${result.raw}`,
-      });
+      log.invalidResponse(result, errorDescription);
+      yield put(errorAction);
       return;
     }
 
-    if (result.response.status !== "success") {
-      yield put({
-        type: "RESOURCE.PRIMITIVE.CREATE.FAILED",
-        payload: { clusterUrlName, reports: result.response.report_list },
-      });
-      yield createResourceFailed({
-        clusterUrlName,
-        resourceName,
-        message: result.response.status_msg || "",
-      });
-      return;
-    }
+    const {
+      /* eslint-disable-next-line camelcase */
+      response: { status, status_msg, report_list },
+    } = result;
 
-    yield put({
-      type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS",
-      payload: { clusterUrlName, reports: result.response.report_list },
-    });
-    yield putNotification(
-      "SUCCESS",
-      `Resource "${resourceName}" succesfully created`,
-    );
+    switch (status) {
+      case "input_error":
+      case "exception":
+      case "unknown_cmd":
+        log.libInputError(status, status_msg, errorDescription);
+        yield put(errorAction);
+        return;
+      case "error":
+        yield put({
+          type: "RESOURCE.PRIMITIVE.CREATE.FAILED",
+          payload: { clusterUrlName, reports: report_list },
+        });
+        return;
+      case "success":
+        yield put({
+          type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS",
+          payload: { clusterUrlName, reports: report_list },
+        });
+        return;
+      default: {
+        const _exhaustiveCheck: never = status;
+        throw new Error(`Status with value "${_exhaustiveCheck}" not expected`);
+      }
+    }
   } catch (error) {
-    yield createResourceFailed({
-      clusterUrlName,
-      resourceName,
-      message: error.message,
-    });
+    log.error(
+      error,
+      `Communication error while creating the resource "${resourceName}"`,
+    );
+    yield put(errorAction);
   }
 }
 

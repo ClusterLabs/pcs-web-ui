@@ -14,7 +14,7 @@ export type CreateResourceSuccess = {
   type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS";
   payload: {
     clusterUrlName: string;
-    reports: types.libraryResponse.ApiResponse[];
+    reports: types.libraryResponse.ApiReport[];
   };
 };
 
@@ -29,7 +29,7 @@ export type CreateResourceFailed = {
   type: "RESOURCE.PRIMITIVE.CREATE.FAILED";
   payload: {
     clusterUrlName: string;
-    reports: types.libraryResponse.ApiResponse[];
+    reports: types.libraryResponse.ApiReport[];
   };
 };
 

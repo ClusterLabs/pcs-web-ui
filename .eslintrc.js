@@ -23,13 +23,26 @@ module.exports = {
 
     "no-unused-vars": [
       "error",
-      { argsIgnorePattern: "^(dummy|_)", ignoreRestSiblings: true },
+      {
+        argsIgnorePattern: "^(dummy|_)",
+        varsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+      },
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^(dummy|_)",
+        varsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+      },
     ],
 
     // ensure imports point to files/modules that can be resolved
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unresolved.md
     "import/no-unresolved": ["off", { commonjs: true, caseSensitive: true }],
     "import/prefer-default-export": "off",
+    "no-underscore-dangle": "off",
     "lines-between-class-members": "off",
     // It creates messy diff when there is need to switch from => ( to => {
     "arrow-body-style": "off",
