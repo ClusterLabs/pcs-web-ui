@@ -336,7 +336,7 @@ const resourceTree = cluster("resourceTree", "ok", {
         "first-action": "start",
         id: "order-A-G1-mandatory",
         then: "GROUP-1",
-        "then-action": "start",
+        "then-action": "promote",
       },
       {
         id: "A-then-G1",

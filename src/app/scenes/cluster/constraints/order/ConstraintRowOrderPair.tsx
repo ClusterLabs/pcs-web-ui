@@ -1,5 +1,5 @@
 import React from "react";
-import { Gallery, GalleryItem } from "@patternfly/react-core";
+import { DataListCell } from "@patternfly/react-core";
 
 import { types, url } from "app/store";
 import { Link, useSelectedClusterName } from "app/view";
@@ -7,7 +7,6 @@ import { Link, useSelectedClusterName } from "app/view";
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
 
 import { ConstraintCellOrderScoreKind } from "./ConstraintCellOrderScoreKind";
-import { ConstraintCardOrderResource } from "./ConstraintCardOrderResource";
 
 export const ConstraintRowOrderPair = ({
   constraint,
@@ -21,12 +20,16 @@ export const ConstraintRowOrderPair = ({
       dataListCells={
         <>
           <ConstraintCell label="Type" value="Order" />
-          <ConstraintCell label="First">
-            <Link to={url.cluster.resources(clusterName, constraint.first)} />
-          </ConstraintCell>
-          <ConstraintCell label="Then">
-            <Link to={url.cluster.resources(clusterName, constraint.then)} />
-          </ConstraintCell>
+          <DataListCell>
+            <strong>
+              <Link to={url.cluster.resources(clusterName, constraint.first)} />
+            </strong>
+            {` ${constraint["first-action"] || "start"}s before `}
+            <strong>
+              <Link to={url.cluster.resources(clusterName, constraint.then)} />
+            </strong>
+            {` ${constraint["then-action"] || "start"}s`}
+          </DataListCell>
           <ConstraintCellOrderScoreKind constraint={constraint} />
         </>
       }
@@ -37,24 +40,6 @@ export const ConstraintRowOrderPair = ({
             label="Require all"
             value={constraint["require-all"]}
           />
-          <Gallery hasGutter>
-            <GalleryItem>
-              <ConstraintCardOrderResource
-                label="First resource"
-                id={constraint.first}
-                action={constraint["first-action"]}
-                instance={constraint["first-instance"]}
-              />
-            </GalleryItem>
-            <GalleryItem>
-              <ConstraintCardOrderResource
-                label="Then resource"
-                id={constraint.then}
-                action={constraint["then-action"]}
-                instance={constraint["then-instance"]}
-              />
-            </GalleryItem>
-          </Gallery>
         </>
       }
     />
