@@ -13,12 +13,13 @@ export const ConstraintCellOrderScoreKind = ({
 }) => {
   // score and kind are mutually exclusive
   if ("score" in constraint) {
-    return <ConstraintCell label="Score" value={constraint.score} />;
+    return <ConstraintCell label="Score" value={constraint.score} width={1} />;
   }
   return (
     <ConstraintCell
       label="Kind"
       value={"kind" in constraint ? constraint.kind : "Mandatory"}
+      width={1}
     />
   );
 };

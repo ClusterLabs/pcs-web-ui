@@ -19,12 +19,14 @@ export const ConstraintRowOrderPair = ({
       id={constraint.id}
       dataListCells={
         <>
-          <ConstraintCell label="Type" value="Order" />
-          <DataListCell>
+          <ConstraintCell label="Type" value="Order" width={1} />
+          <DataListCell width={3}>
+            {"Resource "}
             <strong>
               <Link to={url.cluster.resources(clusterName, constraint.first)} />
             </strong>
             {` ${constraint["first-action"] || "start"}s before `}
+            {"resource "}
             <strong>
               <Link to={url.cluster.resources(clusterName, constraint.then)} />
             </strong>

@@ -20,7 +20,7 @@ export const ConstraintRowOrderSet = ({
       id={constraint.id}
       dataListCells={
         <>
-          <ConstraintCell label="Type" value="Order (set)" />
+          <ConstraintCell label="Type" value="Order (set)" width={1} />
           <ConstraintCellResourceSet resourceSetList={constraint.sets} />
           <ConstraintCellOrderScoreKind constraint={constraint} />
         </>
