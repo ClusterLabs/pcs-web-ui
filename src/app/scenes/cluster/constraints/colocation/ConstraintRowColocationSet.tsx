@@ -18,9 +18,9 @@ export const ConstraintRowColocationSet = ({
       id={constraint.id}
       dataListCells={
         <>
-          <ConstraintCell label="Type" value="Colocation (set)" />
+          <ConstraintCell label="Type" value="Colocation (set)" width={1} />
           <ConstraintCellResourceSet resourceSetList={constraint.sets} />
-          <ConstraintCell label="Score" value={constraint.score} />
+          <ConstraintCell label="Score" value={constraint.score} width={1} />
         </>
       }
       content={<ConstraintResourceSetList resourceSetList={constraint.sets} />}

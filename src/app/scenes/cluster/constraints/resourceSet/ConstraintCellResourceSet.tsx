@@ -11,7 +11,7 @@ export const ConstraintCellResourceSet = ({
 }) => {
   const clusterName = useSelectedClusterName();
   return (
-    <ConstraintCell label="Set">
+    <ConstraintCell label="Set" width={3}>
       {resourceSetList.map((resourceSet) => {
         if ("id-ref" in resourceSet) {
           return null;

@@ -18,9 +18,9 @@ export const ConstraintRowTicketSet = ({
       aria-labelledby={`Ticket constraint ${constraint.id}`}
       dataListCells={
         <>
-          <ConstraintCell label="Type" value="Ticket (set)" />
-          <ConstraintCell label="Ticket" value={constraint.ticket} />
+          <ConstraintCell label="Type" value="Ticket (set)" width={1} />
           <ConstraintCellResourceSet resourceSetList={constraint.sets} />
+          <ConstraintCell label="Ticket" value={constraint.ticket} width={1} />
         </>
       }
       content={

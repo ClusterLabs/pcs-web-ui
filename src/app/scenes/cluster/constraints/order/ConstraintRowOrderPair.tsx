@@ -25,7 +25,9 @@ export const ConstraintRowOrderPair = ({
             <strong>
               <Link to={url.cluster.resources(clusterName, constraint.first)} />
             </strong>
-            {` ${constraint["first-action"] || "start"}s before `}
+            <strong>
+              {` ${constraint["first-action"] || "start"}s before `}
+            </strong>
             {"resource "}
             <strong>
               <Link to={url.cluster.resources(clusterName, constraint.then)} />
