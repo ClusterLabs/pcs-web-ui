@@ -1,9 +1,9 @@
 import React from "react";
+import { DataListCell } from "@patternfly/react-core";
 
 import { types, url } from "app/store";
 import { Link, useSelectedClusterName } from "app/view";
 
-import { DataListCell } from "@patternfly/react-core";
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
 
 export const ConstraintRowLocationNode = ({

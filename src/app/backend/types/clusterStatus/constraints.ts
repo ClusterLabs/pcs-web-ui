@@ -42,24 +42,26 @@ const ApiConstraintResourceSetOrdering = t.keyof({
   listed: null,
 });
 
+export const ApiConstraintResourceSetStructured = t.intersection([
+  t.type({
+    id: ApiId,
+    resources: t.array(ApiResourceId),
+  }),
+  t.partial({
+    // sequential and require-all should be booleans, however, strings come
+    // from backend
+    sequential: t.string,
+    "require-all": t.string,
+    ordering: ApiConstraintResourceSetOrdering,
+    action: ApiConstraintAction,
+    role: ApiConstraintRole,
+    score: ApiScore,
+  }),
+]);
+
 export const ApiConstraintResourceSet = t.union([
   ApiConstraintIdReference,
-  t.intersection([
-    t.type({
-      id: ApiId,
-      resources: t.array(ApiResourceId),
-    }),
-    t.partial({
-      // sequential and require-all should be booleans, however, strings come
-      // from backend
-      sequential: t.string,
-      "require-all": t.string,
-      ordering: ApiConstraintResourceSetOrdering,
-      action: ApiConstraintAction,
-      role: ApiConstraintRole,
-      score: ApiScore,
-    }),
-  ]),
+  ApiConstraintResourceSetStructured,
 ]);
 
 /*

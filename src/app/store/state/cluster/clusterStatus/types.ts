@@ -7,6 +7,10 @@ type ApiConstraintLocationRule = t.clusterStatus.ApiConstraintLocationRule;
 type ApiConstraintOrderPair = t.clusterStatus.ApiConstraintOrderPair;
 type ApiConstraintOrderSet = t.clusterStatus.ApiConstraintOrderSet;
 type ApiConstraintResourceSet = t.clusterStatus.ApiConstraintResourceSet;
+// prettier-ignore
+type ApiConstraintResourceSetStructured = (
+  t.clusterStatus.ApiConstraintResourceSetStructured
+);
 type ApiConstraintTicketResource = t.clusterStatus.ApiConstraintTicketResource;
 type ApiConstraintTicketSet = t.clusterStatus.ApiConstraintTicketSet;
 type ApiConstraints = t.clusterStatus.ApiConstraints;
@@ -21,9 +25,14 @@ export type ConstraintColocationSet = ApiConstraintColocationSet;
 export type ConstraintOrderPair = ApiConstraintOrderPair;
 export type ConstraintOrderSet = ApiConstraintOrderSet;
 export type ConstraintResourceSet = ApiConstraintResourceSet;
+// prettier-ignore
+export type ConstraintResourceSetStructured = (
+  ApiConstraintResourceSetStructured
+);
 export type ConstraintTicketResource = ApiConstraintTicketResource;
 export type ConstraintTicketSet = ApiConstraintTicketSet;
 export type NVPair = ApiNVPair;
+export type Score = t.clusterStatus.ApiScore;
 
 export interface AgentAttribute {
   id: string;

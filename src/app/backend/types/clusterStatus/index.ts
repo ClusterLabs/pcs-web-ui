@@ -1,4 +1,5 @@
 import { TypeOf } from "io-ts";
+
 import {
   ApiIssue as TApiIssue,
   ApiWithIssues as TApiWithIssues,
@@ -18,6 +19,7 @@ import {
   ApiConstraintOrderPair as TApiConstraintOrderPair,
   ApiConstraintOrderSet as TApiConstraintOrderSet,
   ApiConstraintResourceSet as TApiConstraintResourceSet,
+  ApiConstraintResourceSetStructured as TApiConstraintResourceSetStructured,
   ApiConstraintTicketResource as TApiConstraintTicketResource,
   ApiConstraintTicketSet as TApiConstraintTicketSet,
   ApiConstraints as TApiConstraints,
@@ -32,6 +34,7 @@ import {
 } from "./resources";
 import { ApiClusterStatus as TApiClusterStatus } from "./cluster";
 import { ApiNVPair as TApiNVPair } from "./nvsets";
+import { ApiScore as TApiScore } from "./common";
 
 export type ApiClone = TypeOf<typeof TApiClone>;
 export type ApiClusterStatus = TypeOf<typeof TApiClusterStatus>;
@@ -50,6 +53,9 @@ export type ApiConstraintLocationRule = TypeOf<
 export type ApiConstraintOrderPair = TypeOf<typeof TApiConstraintOrderPair>;
 export type ApiConstraintOrderSet = TypeOf<typeof TApiConstraintOrderSet>;
 export type ApiConstraintResourceSet = TypeOf<typeof TApiConstraintResourceSet>;
+export type ApiConstraintResourceSetStructured = TypeOf<
+  typeof TApiConstraintResourceSetStructured
+>;
 export type ApiConstraints = TypeOf<typeof TApiConstraints>;
 export type ApiConstraintTicketResource = TypeOf<
   typeof TApiConstraintTicketResource
@@ -68,5 +74,6 @@ export type ApiResource = TypeOf<typeof TApiResource>;
 export type ApiStonith = TypeOf<typeof TApiStonith>;
 export type ApiWithIssues = TypeOf<typeof TApiWithIssues>;
 export type ApiNVPair = TypeOf<typeof TApiNVPair>;
+export type ApiScore = TypeOf<typeof TApiScore>;
 
 export { TApiClusterStatus };

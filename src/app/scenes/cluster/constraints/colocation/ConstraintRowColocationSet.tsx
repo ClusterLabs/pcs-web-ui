@@ -3,10 +3,8 @@ import React from "react";
 import { types } from "app/store";
 
 import { ConstraintCell, ConstraintRow } from "../common";
-import {
-  ConstraintCellResourceSet,
-  ConstraintResourceSetList,
-} from "../resourceSet";
+
+import { ColocationCellResourceSetList } from "./ColocationCellResourceSetList";
 
 export const ConstraintRowColocationSet = ({
   constraint,
@@ -19,11 +17,12 @@ export const ConstraintRowColocationSet = ({
       dataListCells={
         <>
           <ConstraintCell label="Type" value="Colocation (set)" width={1} />
-          <ConstraintCellResourceSet resourceSetList={constraint.sets} />
-          <ConstraintCell label="Score" value={constraint.score} width={1} />
+          <ColocationCellResourceSetList
+            resourceSetList={constraint.sets}
+            score={constraint.score}
+          />
         </>
       }
-      content={<ConstraintResourceSetList resourceSetList={constraint.sets} />}
     />
   );
 };
