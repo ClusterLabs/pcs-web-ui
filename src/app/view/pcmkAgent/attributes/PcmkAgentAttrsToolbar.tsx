@@ -31,13 +31,10 @@ const useState = (
     p => p.name,
   );
 
-export const PcmkAgentAttrsToolbar = ({
-  actions = {},
-  filterState,
-}: {
+export const PcmkAgentAttrsToolbar: React.FC<{
   actions?: React.ComponentProps<typeof ToolbarFilterTextGroupPair>["actions"];
   filterState: ReturnType<typeof useState>["filterState"];
-}) => {
+}> & { useState: typeof useState } = ({ actions = {}, filterState }) => {
   return (
     <ToolbarFilterTextGroupPair
       textSearchId="agent-attributes-name"
