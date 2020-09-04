@@ -1,6 +1,6 @@
 import { clusterStatusDefault, types } from "app/store/state";
-import { Selector } from "./selector";
 
+import { Selector } from "./selector";
 import { clusterAreDataLoaded, getCluster } from "./cluster";
 
 type ClusterNameListState = types.dashboard.ClusterNameListState;

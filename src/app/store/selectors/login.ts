@@ -1,4 +1,5 @@
 import { login } from "app/store/state/types";
+
 import { Selector } from "./selector";
 
 const localState: Selector<login.LoginState> = state => state.login;

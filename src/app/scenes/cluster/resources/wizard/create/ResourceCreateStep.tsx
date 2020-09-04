@@ -1,5 +1,6 @@
 import React from "react";
 import { Stack, StackItem, Text, TextContent } from "@patternfly/react-core";
+
 import { ResourceCreateReports } from "./ResourceCreateReports";
 
 export const ResourceCreateStep: React.FC<{ title: string }> = ({

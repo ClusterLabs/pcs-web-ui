@@ -1,12 +1,10 @@
 import { getJson } from "../calls";
-
 import {
   ApiCall,
   createResult,
   dealWithInvalidJson,
   validateShape,
 } from "../tools";
-
 import * as types from "../types";
 
 type ApiClusterProperties = types.clusterProperties.ApiClusterProperties;

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { types } from "app/store";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";

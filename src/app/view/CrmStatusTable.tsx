@@ -1,6 +1,7 @@
 import React from "react";
 
 import { types } from "app/store";
+
 import { StatusSign } from "./StatusSign";
 import { Table } from "./table";
 

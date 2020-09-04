@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+
 const { setPage, browser, browserSetUp, browserTearDown } = require("./store");
 
 const puppeteerOptions = {

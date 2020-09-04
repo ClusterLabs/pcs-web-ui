@@ -5,7 +5,6 @@ import {
   dealWithInvalidJson,
   validateShape,
 } from "../tools";
-
 import { ApiClusterStatus, TApiClusterStatus } from "../types/clusterStatus";
 
 export const clusterStatus: ApiCall<ApiClusterStatus> = async (

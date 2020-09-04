@@ -1,7 +1,6 @@
 import * as t from "io-ts";
 
 import { postForJson } from "../calls";
-
 import {
   ApiCall,
   createResult,

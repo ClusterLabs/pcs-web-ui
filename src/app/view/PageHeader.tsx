@@ -5,7 +5,6 @@ import {
   PageHeader as PfPageHeader,
 } from "@patternfly/react-core";
 import { History } from "history";
-
 import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 

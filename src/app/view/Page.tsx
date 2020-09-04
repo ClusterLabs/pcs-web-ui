@@ -4,10 +4,7 @@ import { Page as PfPage } from "@patternfly/react-core";
 import { BackgroundImage } from "./BackgroundImage";
 import { PageHeader } from "./PageHeader";
 
-export const Page = ({
-  children,
-}: React.PropsWithChildren<{
-}>) => {
+export const Page = ({ children }: React.PropsWithChildren<{}>) => {
   return (
     <>
       <BackgroundImage />

@@ -5,6 +5,7 @@ import { types, url } from "app/store";
 import { Link, useSelectedClusterName } from "app/view";
 
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
+
 import { ConstraintCardColocationResource } from "./ConstraintCardColocationResource";
 
 export const ConstraintRowColocationPair = ({

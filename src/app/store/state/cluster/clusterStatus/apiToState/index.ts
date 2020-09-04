@@ -1,5 +1,4 @@
 import { types as backendTypes } from "app/backend";
-
 import * as types from "app/store/state/types";
 
 import { transformIssues } from "./issues";

@@ -2,6 +2,7 @@ import { types as backendTypes } from "app/backend";
 import * as types from "app/store/state/types";
 
 import { transformIssues } from "../issues";
+
 import { toPrimitive } from "./primitive";
 import { toGroup } from "./group";
 import { buildStatus, statusToSeverity } from "./statusInfoList";

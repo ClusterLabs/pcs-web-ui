@@ -1,14 +1,15 @@
 import React from "react";
+import { DataListCell } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import { DataListCell } from "@patternfly/react-core";
 import {
   ConstraintCell,
   ConstraintCellFake,
   ConstraintRow,
   ConstraintValue,
 } from "../common";
+
 import { ConstraintLocationDescRscPoint } from "./ConstraintLocationDescRscPoint";
 import { ConstraintLocationCellScore } from "./ConstraintLocationCellScore";
 

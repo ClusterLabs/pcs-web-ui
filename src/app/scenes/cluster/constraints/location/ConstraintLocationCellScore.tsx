@@ -1,5 +1,7 @@
 import React from "react";
+
 import { types } from "app/store";
+
 import { ConstraintCell, ConstraintCellFake } from "../common";
 
 export const ConstraintLocationCellScore: React.FC<{

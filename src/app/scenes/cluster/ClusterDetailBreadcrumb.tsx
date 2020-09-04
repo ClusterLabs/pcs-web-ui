@@ -2,7 +2,6 @@ import React from "react";
 import { Breadcrumb, BreadcrumbItem } from "@patternfly/react-core";
 
 import { useDispatch } from "app/store";
-
 import { Link } from "app/view";
 
 export const ClusterDetailBreadcrumb = ({

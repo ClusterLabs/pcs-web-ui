@@ -1,8 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies, no-console */
 /* eslint-disable global-require, import/no-dynamic-require */
-import express from "express";
 import * as fs from "fs";
 import * as childProcess from "child_process";
+
+import express from "express";
 import * as inquirer from "inquirer";
 import yargs from "yargs";
 

@@ -8,7 +8,6 @@ import {
   TextContent,
   Title,
 } from "@patternfly/react-core";
-
 import { SearchIcon } from "@patternfly/react-icons";
 
 import { selectors, types, url } from "app/store";

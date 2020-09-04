@@ -1,4 +1,5 @@
 import * as types from "app/store/state/types";
+
 import { Selector } from "./selector";
 
 /* eslint-disable max-len */

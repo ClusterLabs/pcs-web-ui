@@ -1,10 +1,8 @@
 const { expect } = require("chai");
-
 const { page } = require("test/store");
 const { getPollyManager } = require("test/tools/pollyManager");
 const { url } = require("test/tools/backendAddress");
 const { dt } = require("test/tools/selectors");
-
 const endpoints = require("dev/api/endpoints");
 const responses = require("dev/api/responses/all");
 

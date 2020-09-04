@@ -2,6 +2,7 @@ import React from "react";
 import { Form, FormGroup, TextInput } from "@patternfly/react-core";
 
 import { types, useDispatch } from "app/store";
+
 import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSelect";
 import { ResourceCreateStep } from "./ResourceCreateStep";
 

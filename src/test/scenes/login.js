@@ -1,11 +1,9 @@
 const { expect } = require("chai");
-
 const { page } = require("test/store");
 const { getPollyManager } = require("test/tools/pollyManager");
 const { url } = require("test/tools/backendAddress");
 const { spyRequests } = require("test/tools/endpointSpy");
 const { dt } = require("test/tools/selectors");
-
 const responses = require("dev/api/responses/all");
 const [endpoints, spy] = spyRequests(require("dev/api/endpoints"));
 

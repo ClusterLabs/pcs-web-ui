@@ -63,6 +63,30 @@ module.exports = {
       },
     ],
 
+    "import/order": [
+      "error",
+      {
+        groups: [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+        ],
+        pathGroups: [
+          {
+            pattern: "app/**",
+            group: "external",
+            position: "after",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["builtin"],
+        "newlines-between": "always",
+      },
+    ],
+
     // specify the maximum length of a line in your program
     // https://eslint.org/docs/rules/max-len
     "max-len": [

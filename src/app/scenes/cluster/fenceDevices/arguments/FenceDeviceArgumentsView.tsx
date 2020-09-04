@@ -2,7 +2,6 @@ import React from "react";
 import { StackItem } from "@patternfly/react-core";
 
 import { types } from "app/store";
-
 import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
