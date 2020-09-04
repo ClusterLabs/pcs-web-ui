@@ -1,10 +1,13 @@
 import React from "react";
+import { DataListCell } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import { ConstraintCell, ConstraintRow } from "../common";
-
-import { ColocationCellResourceSetList } from "./ColocationCellResourceSetList";
+import { ConstraintValue } from "../common";
+import {
+  ConstraintResourceSetRscLinks,
+  ConstraintRowWithResourceSet,
+} from "../resourceSet";
 
 export const ConstraintRowColocationSet = ({
   constraint,
@@ -12,17 +15,32 @@ export const ConstraintRowColocationSet = ({
   constraint: types.cluster.ConstraintColocationSet;
 }) => {
   return (
-    <ConstraintRow
+    <ConstraintRowWithResourceSet
       id={constraint.id}
-      dataListCells={
+      resourceSetList={constraint.sets}
+      type="Colocation (set)"
+      setCells={resourceSet => (
         <>
-          <ConstraintCell label="Type" value="Colocation (set)" width={1} />
-          <ColocationCellResourceSetList
-            resourceSetList={constraint.sets}
-            score={constraint.score}
-          />
+          <DataListCell width={4}>
+            {"Resources "}
+            <strong>
+              <ConstraintResourceSetRscLinks resourceSet={resourceSet} />
+            </strong>
+            {" in role "}
+            <strong>{resourceSet.role || "Started"}</strong>
+            {" together"}
+          </DataListCell>
+          <DataListCell width={1}>
+            {"Score "}
+            <strong>
+              {resourceSet.score || constraint.score || "default"}
+            </strong>
+          </DataListCell>
         </>
-      }
+      )}
+      setContent={resourceSet => (
+        <ConstraintValue label="Sequential" value={resourceSet.sequential} />
+      )}
     />
   );
 };

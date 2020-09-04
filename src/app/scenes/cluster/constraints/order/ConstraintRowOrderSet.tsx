@@ -1,12 +1,13 @@
 import React from "react";
+import { DataListCell } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
 import {
-  ConstraintCellResourceSet,
-  ConstraintResourceSetList,
+  ConstraintResourceSetRscLinks,
+  ConstraintRowWithResourceSet,
 } from "../resourceSet";
-import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
+import { ConstraintValue } from "../common";
 
 import { ConstraintCellOrderScoreKind } from "./ConstraintCellOrderScoreKind";
 
@@ -16,25 +17,40 @@ export const ConstraintRowOrderSet = ({
   constraint: types.cluster.ConstraintOrderSet;
 }) => {
   return (
-    <ConstraintRow
+    <ConstraintRowWithResourceSet
       id={constraint.id}
-      dataListCells={
+      resourceSetList={constraint.sets}
+      type="Order (set)"
+      setCells={resourceSet => (
         <>
-          <ConstraintCell label="Type" value="Order (set)" width={1} />
-          <ConstraintCellResourceSet resourceSetList={constraint.sets} />
-          <ConstraintCellOrderScoreKind constraint={constraint} />
+          <DataListCell width={4}>
+            {"Resources "}
+            <strong>
+              <ConstraintResourceSetRscLinks resourceSet={resourceSet} />
+              {` ${resourceSet.action || "start"}`}
+            </strong>
+            {" in given order"}
+          </DataListCell>
+          <ConstraintCellOrderScoreKind
+            constraint={constraint}
+            extraScore={resourceSet.score}
+          />
         </>
-      }
-      content={
+      )}
+      setContent={resourceSet => (
         <>
-          <ConstraintValue label="Symetrical" value={constraint.symmetrical} />
+          <ConstraintValue
+            label="Sequential"
+            value={resourceSet.sequential || constraint.symmetrical || "true"}
+          />
           <ConstraintValue
             label="Require all"
-            value={constraint["require-all"]}
+            value={
+              resourceSet["require-all"] || constraint["require-all"] || "true"
+            }
           />
-          <ConstraintResourceSetList resourceSetList={constraint.sets} />
         </>
-      }
+      )}
     />
   );
 };
