@@ -15,7 +15,15 @@ export const ConstraintRowWithResourceSet: React.FC<{
   ) => JSX.Element;
   type: string;
   id: string;
-}> = ({ resourceSetList, type, id, setCells, setContent = null }) => {
+  content?: React.ComponentProps<typeof ConstraintRow>["content"];
+}> = ({
+  resourceSetList,
+  type,
+  id,
+  setCells,
+  setContent = null,
+  content = null,
+}) => {
   return (
     <ConstraintRow
       id={id}
@@ -41,6 +49,7 @@ export const ConstraintRowWithResourceSet: React.FC<{
           </DataListCell>
         </>
       }
+      content={content}
     />
   );
 };

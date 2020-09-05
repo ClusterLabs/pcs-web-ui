@@ -1,11 +1,12 @@
 import React from "react";
+import { DataListCell } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
+import { ConstraintValue } from "../common";
 import {
-  ConstraintCellResourceSet,
-  ConstraintResourceSetList,
+  ConstraintResourceSetRscLinks,
+  ConstraintRowWithResourceSet,
 } from "../resourceSet";
 
 export const ConstraintRowTicketSet = ({
@@ -14,23 +15,29 @@ export const ConstraintRowTicketSet = ({
   constraint: types.cluster.ConstraintTicketSet;
 }) => {
   return (
-    <ConstraintRow
-      aria-labelledby={`Ticket constraint ${constraint.id}`}
-      dataListCells={
+    <ConstraintRowWithResourceSet
+      id={constraint.id}
+      resourceSetList={constraint.sets}
+      type="Ticket (set)"
+      setCells={resourceSet => (
         <>
-          <ConstraintCell label="Type" value="Ticket (set)" width={1} />
-          <ConstraintCellResourceSet resourceSetList={constraint.sets} />
-          <ConstraintCell label="Ticket" value={constraint.ticket} width={1} />
+          <DataListCell width={4}>
+            {"Resources "}
+            <strong>
+              <ConstraintResourceSetRscLinks resourceSet={resourceSet} />
+            </strong>
+            {" in role "}
+            <strong>{resourceSet.role || "Started"}</strong>
+            {" depends on ticket "}
+            <strong>{constraint.ticket}</strong>
+          </DataListCell>
         </>
-      }
+      )}
       content={
-        <>
-          <ConstraintValue
-            label="Loss policy"
-            value={constraint["loss-policy"]}
-          />
-          <ConstraintResourceSetList resourceSetList={constraint.sets} />
-        </>
+        <ConstraintValue
+          label="Loss policy"
+          value={constraint["loss-policy"]}
+        />
       }
     />
   );
