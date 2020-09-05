@@ -6,6 +6,8 @@ import { Link, useSelectedClusterName } from "app/view";
 
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
 
+import { ConstraintLocationDescRscPoint } from "./ConstraintLocationDescRscPoint";
+
 export const ConstraintRowLocationNode = ({
   constraint,
 }: {
@@ -19,22 +21,7 @@ export const ConstraintRowLocationNode = ({
         <>
           <ConstraintCell label="Type" value="Location" width={1} />
           <DataListCell width={3}>
-            {"rsc" in constraint && constraint.rsc && (
-              <>
-                {"Resource "}
-                <strong>
-                  <Link
-                    to={url.cluster.resources(clusterName, constraint.rsc)}
-                  />
-                </strong>
-              </>
-            )}
-            {"rsc-pattern" in constraint && (
-              <>
-                {"Resource matching "}
-                <strong>{constraint["rsc-pattern"]}</strong>
-              </>
-            )}
+            <ConstraintLocationDescRscPoint constraint={constraint} />
             {" in role "}
             <strong>{constraint.role || "Started"}</strong>
             {" on node "}

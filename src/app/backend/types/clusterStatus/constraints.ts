@@ -75,7 +75,7 @@ complicated!
 rule_string does not follow rng schema, however the ruby backend does it that
 way.
 In backend sets inside locations are ignored. Location constraint with resource
-set ends up with "rsc" equals to null.
+set are not sent.
 Id is:
   - id of constraint
     - in ApiConstraintLocationNode
@@ -86,10 +86,7 @@ Id is:
 */
 const ApiConstraintLocation = t.intersection([
   t.type({ id: ApiId }),
-  t.union([
-    t.type({ rsc: t.union([t.string, t.null]) }),
-    t.type({ "rsc-pattern": t.string }),
-  ]),
+  t.union([t.type({ rsc: t.string }), t.type({ "rsc-pattern": t.string })]),
   t.partial({
     role: ApiConstraintRole,
     "resource-discovery": ApiConstraintLocationRscDiscovery,

@@ -4,10 +4,12 @@ import { Link, useSelectedClusterName } from "app/view";
 import { types, url } from "app/store";
 
 export const ConstraintLocationDescRscPoint: React.FC<{
-  constraint: types.cluster.ConstraintLocationRule;
+  constraint:
+    | types.cluster.ConstraintLocationRule
+    | types.cluster.ConstraintLocationNode;
 }> = ({ constraint }) => {
   const clusterName = useSelectedClusterName();
-  if ("rsc" in constraint && constraint.rsc) {
+  if ("rsc" in constraint) {
     return (
       <>
         {"Resource "}
@@ -17,13 +19,10 @@ export const ConstraintLocationDescRscPoint: React.FC<{
       </>
     );
   }
-  if ("rsc-pattern" in constraint) {
-    return (
-      <>
-        {"Resource matching "}
-        <strong>{constraint["rsc-pattern"]}</strong>
-      </>
-    );
-  }
-  return null;
+  return (
+    <>
+      {"Resources matching "}
+      <strong>{constraint["rsc-pattern"]}</strong>
+    </>
+  );
 };
