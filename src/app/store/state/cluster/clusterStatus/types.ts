@@ -155,14 +155,14 @@ export type ResourceOnNodeStatus = {
 };
 
 export type ConstraintPack =
-  | { type: "LOCATION_NODE"; constraint: ConstraintLocationNode }
-  | { type: "LOCATION_RULE"; constraint: ConstraintLocationRule }
-  | { type: "COLOCATION_PAIR"; constraint: ConstraintColocationPair }
-  | { type: "COLOCATION_SET"; constraint: ConstraintColocationSet }
-  | { type: "ORDER_PAIR"; constraint: ConstraintOrderPair }
-  | { type: "ORDER_SET"; constraint: ConstraintOrderSet }
-  | { type: "TICKET_RESOURCE"; constraint: ConstraintTicketResource }
-  | { type: "TICKET_SET"; constraint: ConstraintTicketSet };
+  | { type: "Location"; constraint: ConstraintLocationNode }
+  | { type: "Location (rule)"; constraint: ConstraintLocationRule }
+  | { type: "Colocation"; constraint: ConstraintColocationPair }
+  | { type: "Colocation (set)"; constraint: ConstraintColocationSet }
+  | { type: "Order"; constraint: ConstraintOrderPair }
+  | { type: "Order (set)"; constraint: ConstraintOrderSet }
+  | { type: "Ticket"; constraint: ConstraintTicketResource }
+  | { type: "Ticket (set)"; constraint: ConstraintTicketSet };
 
 /*
  status in ApiCLusterStatus is not taken here. There is not real need for it.

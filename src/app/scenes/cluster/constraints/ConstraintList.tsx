@@ -24,56 +24,56 @@ export const ConstraintList = ({
       <DataList aria-label="Constraints">
         {constraintPacks.map((pack) => {
           switch (pack.type) {
-            case "LOCATION_NODE":
+            case "Location":
               return (
                 <ConstraintRowLocationNode
                   constraint={pack.constraint}
                   key={pack.constraint.id}
                 />
               );
-            case "LOCATION_RULE":
+            case "Location (rule)":
               return (
                 <ConstraintRowLocationRule
                   constraint={pack.constraint}
                   key={pack.constraint.id}
                 />
               );
-            case "COLOCATION_PAIR":
+            case "Colocation":
               return (
                 <ConstraintRowColocationPair
                   constraint={pack.constraint}
                   key={pack.constraint.id}
                 />
               );
-            case "COLOCATION_SET":
+            case "Colocation (set)":
               return (
                 <ConstraintRowColocationSet
                   constraint={pack.constraint}
                   key={pack.constraint.id}
                 />
               );
-            case "TICKET_RESOURCE":
+            case "Ticket":
               return (
                 <ConstraintRowTicketResource
                   constraint={pack.constraint}
                   key={pack.constraint.id}
                 />
               );
-            case "TICKET_SET":
+            case "Ticket (set)":
               return (
                 <ConstraintRowTicketSet
                   constraint={pack.constraint}
                   key={pack.constraint.id}
                 />
               );
-            case "ORDER_PAIR":
+            case "Order":
               return (
                 <ConstraintRowOrderPair
                   constraint={pack.constraint}
                   key={pack.constraint.id}
                 />
               );
-            case "ORDER_SET":
+            case "Order (set)":
             default:
               return (
                 <ConstraintRowOrderSet
