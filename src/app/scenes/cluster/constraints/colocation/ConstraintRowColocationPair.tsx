@@ -1,12 +1,10 @@
 import React from "react";
-import { DataListCell, Gallery, GalleryItem } from "@patternfly/react-core";
+import { DataListCell } from "@patternfly/react-core";
 
 import { types, url } from "app/store";
 import { Link, useSelectedClusterName } from "app/view";
 
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
-
-import { ConstraintCardColocationResource } from "./ConstraintCardColocationResource";
 
 export const ConstraintRowColocationPair = ({
   constraint,
@@ -47,30 +45,10 @@ export const ConstraintRowColocationPair = ({
         </>
       }
       content={
-        <>
-          <ConstraintValue
-            label="Node attribute"
-            value={constraint["node-attribute"]}
-          />
-          <Gallery hasGutter>
-            <GalleryItem>
-              <ConstraintCardColocationResource
-                label="Resource"
-                id={constraint.rsc}
-                role={constraint["rsc-role"]}
-                instance={constraint["rsc-instance"]}
-              />
-            </GalleryItem>
-            <GalleryItem>
-              <ConstraintCardColocationResource
-                label="With resource"
-                id={constraint["with-rsc"]}
-                role={constraint["with-rsc-role"]}
-                instance={constraint["with-rsc-instance"]}
-              />
-            </GalleryItem>
-          </Gallery>
-        </>
+        <ConstraintValue
+          label="Node attribute"
+          value={constraint["node-attribute"]}
+        />
       }
     />
   );
