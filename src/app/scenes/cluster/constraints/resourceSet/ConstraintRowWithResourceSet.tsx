@@ -1,5 +1,11 @@
 import React from "react";
-import { DataList, DataListCell } from "@patternfly/react-core";
+import {
+  DataList,
+  DataListCell,
+  DataListItem,
+  DataListItemCells,
+  DataListItemRow,
+} from "@patternfly/react-core";
 
 import { types } from "app/store";
 
@@ -34,7 +40,22 @@ export const ConstraintRowWithResourceSet: React.FC<{
             <DataList aria-label="Constraint resource set">
               {resourceSetList.map((resourceSet) => {
                 if ("id-ref" in resourceSet) {
-                  return null;
+                  return (
+                    <DataListItem
+                      aria-labelledby={`${id}-${resourceSet["id-ref"]}`}
+                    >
+                      <DataListItemRow>
+                        <DataListItemCells
+                          dataListCells={[
+                            <DataListCell key="primary content">
+                              {"Resource set with id "}
+                              <strong>{resourceSet["id-ref"]}</strong>
+                            </DataListCell>,
+                          ]}
+                        />
+                      </DataListItemRow>
+                    </DataListItem>
+                  );
                 }
 
                 return (

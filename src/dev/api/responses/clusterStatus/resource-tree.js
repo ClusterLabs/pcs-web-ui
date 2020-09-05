@@ -389,6 +389,9 @@ const resourceTree = cluster("resourceTree", "ok", {
             id: "rs-ticket-A-G1-INFINITY-2-2",
             resources: ["B", "C"],
           },
+          {
+            "id-ref": "some-other-resource-set",
+          },
         ],
       },
     ],
