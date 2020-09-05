@@ -32,7 +32,9 @@ export const ConstraintRowOrderPair = ({
             <strong>
               <Link to={url.cluster.resources(clusterName, constraint.then)} />
             </strong>
-            {` ${constraint["then-action"] || "start"}s`}
+            {` ${constraint["then-action"]
+              || constraint["first-action"]
+              || "start"}s`}
           </DataListCell>
           <ConstraintCellOrderScoreKind constraint={constraint} />
         </>
