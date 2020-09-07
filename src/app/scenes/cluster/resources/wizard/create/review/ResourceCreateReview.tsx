@@ -12,7 +12,17 @@ import { useWizard } from "../useWizard";
 
 export const ResourceCreateReview: React.FC = () => {
   const {
-    wizardState: { agentName, resourceName, instanceAttrs, reports },
+    wizardState: {
+      agentName,
+      resourceName,
+      instanceAttrs,
+      reports,
+      clone,
+      promotable,
+      useGroup,
+      group,
+      disabled,
+    },
   } = useWizard();
   return (
     <WizardLibStep title="Review new resource configuration" reports={reports}>
@@ -46,6 +56,29 @@ export const ResourceCreateReview: React.FC = () => {
             ) : (
               "No attribute configured"
             )}
+          </DescriptionListDescription>
+        </DescriptionListGroup>
+
+        <DescriptionListGroup>
+          <DescriptionListTerm>Clone</DescriptionListTerm>
+          <DescriptionListDescription>
+            {clone ? `yes${promotable ? " - promotable" : ""}` : "no"}
+          </DescriptionListDescription>
+        </DescriptionListGroup>
+
+        <DescriptionListGroup>
+          <DescriptionListTerm>Group</DescriptionListTerm>
+          <DescriptionListDescription>
+            {useGroup === "no" && "no"}
+            {useGroup === "new" && `new group: ${group}`}
+            {useGroup === "existing" && `existing group: ${group}`}
+          </DescriptionListDescription>
+        </DescriptionListGroup>
+
+        <DescriptionListGroup>
+          <DescriptionListTerm>Disabled</DescriptionListTerm>
+          <DescriptionListDescription>
+            {disabled ? "yes" : "no"}
           </DescriptionListDescription>
         </DescriptionListGroup>
       </DescriptionList>
