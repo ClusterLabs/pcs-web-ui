@@ -14,13 +14,15 @@ import { ConstraintLocationDescRscPoint } from "./ConstraintLocationDescRscPoint
 import { ConstraintLocationCellScore } from "./ConstraintLocationCellScore";
 
 export const ConstraintRowLocationRule = ({
+  id,
   constraint,
 }: {
+  id: string;
   constraint: types.cluster.ConstraintLocationRule;
 }) => {
   return (
     <ConstraintRow
-      id={constraint.id}
+      id={id}
       dataListCells={
         <>
           <ConstraintCell label="Type" value="Location (rule)" width={1} />

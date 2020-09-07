@@ -22,7 +22,7 @@ export const ConstraintList = ({
   return (
     <StackItem>
       <DataList aria-label="Constraints">
-        {constraintPacks.map((pack) => {
+        {constraintPacks.map((pack, i) => {
           switch (pack.type) {
             case "Location":
               return (
@@ -31,13 +31,23 @@ export const ConstraintList = ({
                   key={pack.constraint.id}
                 />
               );
-            case "Location (rule)":
+            case "Location (rule)": {
+              const id =
+                "id" in pack.constraint
+                  ? pack.constraint.id
+                  : `${pack.constraint["id-ref"]}-${
+                    "rsc" in pack.constraint
+                      ? pack.constraint.rsc
+                      : pack.constraint["rsc-pattern"]
+                  }-${i}`;
               return (
                 <ConstraintRowLocationRule
                   constraint={pack.constraint}
-                  key={pack.constraint.id}
+                  key={id}
+                  id={id}
                 />
               );
+            }
             case "Colocation":
               return (
                 <ConstraintRowColocationPair

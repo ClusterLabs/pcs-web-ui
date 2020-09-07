@@ -85,7 +85,6 @@ Id is:
       id-ref)
 */
 const ApiConstraintLocation = t.intersection([
-  t.type({ id: ApiId }),
   t.union([t.type({ rsc: t.string }), t.type({ "rsc-pattern": t.string })]),
   t.partial({
     role: ApiConstraintRole,
@@ -94,6 +93,7 @@ const ApiConstraintLocation = t.intersection([
 ]);
 
 export const ApiConstraintLocationNode = t.intersection([
+  t.type({ id: ApiId }),
   ApiConstraintLocation,
   t.type({
     node: t.string,
@@ -111,6 +111,7 @@ export const ApiConstraintLocationRule = t.intersection([
   t.union([
     ApiConstraintIdReference,
     t.intersection([
+      t.type({ id: ApiId }),
       t.union([
         t.type({ score: ApiScore }),
         t.type({ "score-attribute": t.string }),
