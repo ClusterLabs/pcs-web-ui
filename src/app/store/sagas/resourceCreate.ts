@@ -5,7 +5,7 @@ import { call, put, race, take, takeEvery } from "./effects";
 import { authSafe } from "./authSafe";
 
 function* resourceCreateSaga({
-  payload: { agentName, resourceName, instanceAttrs, clusterUrlName },
+  payload: { agentName, resourceName, instanceAttrs, clusterUrlName, disabled },
 }: PrimitiveResourceActions["CreateResource"]) {
   const errorAction: Action = {
     type: "RESOURCE.PRIMITIVE.CREATE.ERROR",
@@ -21,6 +21,7 @@ function* resourceCreateSaga({
           resourceName,
           agentName,
           instanceAttrs,
+          disabled,
         }),
         cancel: take("RESOURCE.PRIMITIVE.CREATE.CANCEL"),
       },

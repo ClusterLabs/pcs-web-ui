@@ -7,6 +7,7 @@ export type CreateResource = {
     resourceName: string;
     agentName: string;
     instanceAttrs: Record<string, string>;
+    disabled: boolean;
   };
 };
 

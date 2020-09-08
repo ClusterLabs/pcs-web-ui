@@ -11,7 +11,7 @@ import { useWizard } from "../useWizard";
 
 export const ResourceCreateReviewFooter: React.FC = () => {
   const {
-    wizardState: { agentName, resourceName, instanceAttrs },
+    wizardState: { agentName, resourceName, instanceAttrs, disabled },
     clusterUrlName,
     dispatch,
     close,
@@ -29,6 +29,7 @@ export const ResourceCreateReviewFooter: React.FC = () => {
                   resourceName,
                   clusterUrlName,
                   instanceAttrs,
+                  disabled,
                 },
               });
               onNext();
