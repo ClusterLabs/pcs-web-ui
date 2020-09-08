@@ -56,7 +56,7 @@ export const PrimitiveDetail = ({
       </StackItem>
       <StackItem>
         <TextContent>
-          <Text component="h1"> Resource status on nodes </Text>
+          <Text component="h1"> Status </Text>
         </TextContent>
 
         {crmStatusList.length === 0 && (

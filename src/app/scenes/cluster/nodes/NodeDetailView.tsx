@@ -34,7 +34,7 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
       </StackItem>
       <StackItem>
         <TextContent>
-          <Text component="h1">Resources on node</Text>
+          <Text component="h1">Resource status</Text>
         </TextContent>
 
         {crmStatusList.length === 0 && (

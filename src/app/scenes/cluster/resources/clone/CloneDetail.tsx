@@ -33,7 +33,7 @@ export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {
       </StackItem>
       <StackItem>
         <TextContent>
-          <Text component="h1"> Members statuses on nodes </Text>
+          <Text component="h1"> Member status </Text>
         </TextContent>
 
         {crmStatusList.length === 0 && (
