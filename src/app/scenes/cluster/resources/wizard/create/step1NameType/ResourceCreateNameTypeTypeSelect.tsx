@@ -1,14 +1,12 @@
 import React from "react";
 import {
-  Select,
   SelectGroup,
   SelectOption,
-  SelectOptionObject,
   SelectVariant,
 } from "@patternfly/react-core";
 
 import { selectors, types } from "app/store";
-import { useClusterSelector } from "app/view";
+import { Select, useClusterSelector } from "app/view";
 
 type ResourceAgentMap = types.resourceAgentMap.ResourceAgentMap;
 
@@ -37,13 +35,7 @@ const useFiltering = (resourceAgentMap: ResourceAgentMap) => {
       [resourceAgentMap, search],
     ),
 
-    onFilter: React.useCallback(
-      (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value);
-        return (null as unknown) as React.ReactElement[];
-      },
-      [],
-    ),
+    onFilter: setSearch,
   };
 };
 
@@ -52,31 +44,17 @@ export const ResourceCreateNameTypeTypeSelect: React.FC<{
   onClear: () => void;
   agentName: string;
 }> = ({ onSelect, onClear, agentName }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
   const [resourceAgentMap] = useClusterSelector(selectors.getResourceAgentMap);
   const { filteredResourceAgentMap, onFilter } = useFiltering(resourceAgentMap);
-
-  const select = React.useCallback(
-    (
-      _event: React.MouseEvent | React.ChangeEvent,
-      value: string | SelectOptionObject,
-    ) => {
-      onSelect(value.toString());
-      setIsOpen(false);
-    },
-    [onSelect],
-  );
 
   return (
     <Select
       variant={SelectVariant.checkbox}
       typeAheadAriaLabel="Select a state"
-      onToggle={() => setIsOpen(!isOpen)}
-      onSelect={select}
+      onSelect={onSelect}
       onClear={onClear}
       onFilter={onFilter}
       selections={agentName}
-      isOpen={isOpen}
       isGrouped
       hasInlineFilter
       customBadgeText={agentName.length > 0 ? agentName : undefined}

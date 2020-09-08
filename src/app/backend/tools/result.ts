@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-interface Valid<T> {
+interface ValidResult<T> {
   valid: true;
   errors: string[];
   raw: any;
   response: T;
 }
 
-interface Invalid {
+export interface InvalidResult {
   valid: false;
   errors: string[];
   raw: any;
   response: null;
 }
 
-type ApiCallResult<T> = Valid<T> | Invalid;
+type ApiCallResult<T> = ValidResult<T> | InvalidResult;
 export type ApiCall<R, P extends Array<any> = any[]> = (
   ...args: P
 ) => Promise<ApiCallResult<R>>;
@@ -22,7 +22,10 @@ export type ApiResult<T> = T extends ApiCall<infer R>
   ? ApiCallResult<R>
   : never;
 
-export const createResultInvalid = (raw: any, errors: string[]): Invalid => ({
+export const createResultInvalid = (
+  raw: any,
+  errors: string[],
+): InvalidResult => ({
   valid: false,
   response: null,
   errors,

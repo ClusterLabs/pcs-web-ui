@@ -7,6 +7,7 @@ export type CreateResource = {
     resourceName: string;
     agentName: string;
     instanceAttrs: Record<string, string>;
+    disabled: boolean;
   };
 };
 
@@ -14,7 +15,7 @@ export type CreateResourceSuccess = {
   type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS";
   payload: {
     clusterUrlName: string;
-    reports: types.libraryResponse.ApiResponse[];
+    reports: types.libraryResponse.ApiReport[];
   };
 };
 
@@ -29,32 +30,24 @@ export type CreateResourceFailed = {
   type: "RESOURCE.PRIMITIVE.CREATE.FAILED";
   payload: {
     clusterUrlName: string;
-    reports: types.libraryResponse.ApiResponse[];
+    reports: types.libraryResponse.ApiReport[];
   };
 };
 
-export type SetAgentName = {
-  type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME";
+export type Update = {
+  type: "RESOURCE.PRIMITIVE.CREATE.UPDATE";
   payload: {
     clusterUrlName: string;
-    agentName: string;
-  };
-};
-
-export type SetResourceName = {
-  type: "RESOURCE.PRIMITIVE.CREATE.SET_RESOURCE_NAME";
-  payload: {
-    clusterUrlName: string;
-    resourceName: string;
-  };
-};
-
-export type SetInstanceAttribute = {
-  type: "RESOURCE.PRIMITIVE.CREATE.SET_INSTANCE_ATTRIBUTE";
-  payload: {
-    clusterUrlName: string;
-    name: string;
-    value: string;
+    state: {
+      agentName?: string;
+      resourceName?: string;
+      clone?: boolean;
+      promotable?: boolean;
+      disabled?: boolean;
+      instanceAttrs?: Record<string, string>;
+      useGroup?: "no" | "existing" | "new";
+      group?: string;
+    };
   };
 };
 

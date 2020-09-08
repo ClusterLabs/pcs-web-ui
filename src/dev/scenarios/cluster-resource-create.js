@@ -64,7 +64,39 @@ const resourceCreate = endpoints.resourceCreate((req, res) => {
       res.status(500).send("SOMETHING WRONG");
       break;
     case "invalid":
-      res.json("invalid");
+      res.json({
+        status: "invalid status",
+        report_list: ["invalid report item"],
+        invalid_attribute: true,
+      });
+      break;
+    case "invalid-json":
+      try {
+        JSON.parse("{");
+      } catch (e) {
+        res.json({
+          status: "input_error",
+          status_msg: `Unable to parse input data: ${e.message}`,
+          report_list: [],
+          data: null,
+        });
+      }
+      break;
+    case "missing-key":
+      res.json({
+        status: "input_error",
+        status_msg: "Missing key cmd",
+        report_list: [],
+        data: null,
+      });
+      break;
+    case "unknown-cmd":
+      res.json({
+        status: "unknown_cmd",
+        status_msg: "Unknown command 'resource.create'",
+        report_list: [],
+        data: null,
+      });
       break;
     case "exist":
       res.json({

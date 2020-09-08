@@ -1,12 +1,14 @@
 import React from "react";
 import { Stack, StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { ResourceCreateReports } from "./ResourceCreateReports";
+import { types } from "app/backend";
 
-export const ResourceCreateStep: React.FC<{ title: string }> = ({
-  title,
-  children,
-}) => {
+import { WizardLibReports } from "./WizardLibReports";
+
+export const WizardLibStep: React.FC<{
+  title: string;
+  reports?: types.libraryResponse.ApiReport[];
+}> = ({ title, children, reports = [] }) => {
   return (
     <Stack hasGutter>
       <StackItem>
@@ -16,7 +18,7 @@ export const ResourceCreateStep: React.FC<{ title: string }> = ({
       </StackItem>
       <StackItem>{children}</StackItem>
       <StackItem>
-        <ResourceCreateReports />
+        <WizardLibReports reports={reports} />
       </StackItem>
     </Stack>
   );

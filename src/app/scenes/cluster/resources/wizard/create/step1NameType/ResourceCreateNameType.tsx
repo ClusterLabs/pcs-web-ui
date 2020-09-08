@@ -1,43 +1,32 @@
 import React from "react";
 import { Form, FormGroup, TextInput } from "@patternfly/react-core";
 
-import { types, useDispatch } from "app/store";
+import { WizardLibStep } from "app/view";
+
+import { useWizard } from "../useWizard";
 
 import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSelect";
-import { ResourceCreateStep } from "./ResourceCreateStep";
 
-export const ResourceCreateNameType: React.FC<{
-  wizardState: types.wizardResourceCreate.WizardResourceCreate;
-  clusterUrlName: string;
-}> = ({
-  wizardState: { agentName, resourceName, showValidationErrors },
-  clusterUrlName,
-}) => {
-  const dispatch = useDispatch();
+export const ResourceCreateNameType: React.FC = () => {
+  const {
+    wizardState: { agentName, resourceName, showValidationErrors, reports },
+    clusterUrlName,
+    dispatch,
+    updateState,
+  } = useWizard();
 
   const onSelect = (value: string) => {
     dispatch({
       type: "RESOURCE_AGENT.ENSURE",
       payload: { clusterUrlName, agentName: value.toString() },
     });
-    dispatch({
-      type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME",
-      payload: { clusterUrlName, agentName: value.toString() },
-    });
+    updateState({ agentName: value.toString() });
   };
 
-  const onClear = () => {
-    dispatch({
-      type: "RESOURCE.PRIMITIVE.CREATE.SET_AGENT_NAME",
-      payload: { clusterUrlName, agentName: "" },
-    });
-  };
+  const onClear = () => updateState({ agentName: "" });
 
   const changeResourceName = (value: string) =>
-    dispatch({
-      type: "RESOURCE.PRIMITIVE.CREATE.SET_RESOURCE_NAME",
-      payload: { clusterUrlName, resourceName: value },
-    });
+    updateState({ resourceName: value });
 
   const resourceNameValidated =
     showValidationErrors && resourceName.length === 0 ? "error" : "default";
@@ -45,8 +34,11 @@ export const ResourceCreateNameType: React.FC<{
     showValidationErrors && agentName.length === 0 ? "error" : "default";
 
   return (
-    <ResourceCreateStep title="Choose name and type for the new resource">
-      <Form isHorizontal>
+    <WizardLibStep
+      title="Choose name and type for the new resource"
+      reports={reports}
+    >
+      <Form>
         <FormGroup
           label="Resource name"
           isRequired
@@ -77,6 +69,6 @@ export const ResourceCreateNameType: React.FC<{
           />
         </FormGroup>
       </Form>
-    </ResourceCreateStep>
+    </WizardLibStep>
   );
 };

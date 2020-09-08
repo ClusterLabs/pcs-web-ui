@@ -1,67 +1,80 @@
 import React from "react";
-import { Wizard } from "@patternfly/react-core";
+import {
+  Wizard,
+  WizardContextConsumer,
+  WizardFooter,
+} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { useClusterSelector } from "app/view";
+import {
+  ResourceCreateNameType,
+  ResourceCreateNameTypeFooter,
+} from "./step1NameType";
+import {
+  ResourceCreateInstanceAttrsFooter,
+  ResourceCreateInstanceAttrsForm,
+} from "./step2InstanceAttrs";
+import {
+  ResourceCreateSettings,
+  ResourceCreateSettingsFooter,
+} from "./step3Settings";
+import { ResourceCreateReview, ResourceCreateReviewFooter } from "./review";
+import { ResourceCreateFinish } from "./finish";
+import { useWizard } from "./useWizard";
 
-import { ResourceCreateNameType } from "./ResourceCreateNameType";
-import { ResourceCreateInstanceAttrsForm } from "./ResourceCreateInstanceAttrsForm";
-import { ResourceCreateReview } from "./ResourceCreateReview";
-import { ResourceCreateProgress } from "./ResourceCreateProgress";
-import { ResourceCreateFooter } from "./ResourceCreateFooter";
-
-export const ResourceCreate = ({ onClose }: { onClose: () => void }) => {
-  const [wizardState, clusterUrlName] = useClusterSelector(
-    selectors.getWizardResourceCreateState,
-  );
-  const { response } = wizardState;
+export const ResourceCreate: React.FC = () => {
+  const { close, isNameTypeValid, areInstanceAttrsValid } = useWizard();
   return (
     <Wizard
       data-test="wizard-add-resource"
       isOpen
-      onClose={onClose}
+      onClose={close}
       title="New resource"
       description="Create new resource wizard"
       steps={[
         {
           name: "Name and type",
-          component: (
-            <ResourceCreateNameType
-              wizardState={wizardState}
-              clusterUrlName={clusterUrlName}
-            />
-          ),
+          component: <ResourceCreateNameType />,
         },
         {
           name: "Instance attributes",
-          component: (
-            <ResourceCreateInstanceAttrsForm
-              wizardState={wizardState}
-              clusterUrlName={clusterUrlName}
-            />
-          ),
+          component: <ResourceCreateInstanceAttrsForm />,
+          canJumpTo: isNameTypeValid,
+        },
+        {
+          name: "Settings",
+          component: <ResourceCreateSettings />,
+          canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
           name: "Review",
-          component: <ResourceCreateReview wizardState={wizardState} />,
+          component: <ResourceCreateReview />,
+          canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
           name: "Result",
-          component: (
-            <ResourceCreateProgress
-              onClose={onClose}
-              wizardState={wizardState}
-            />
-          ),
-          isFinishedStep: response !== "fail" && response !== "forceable-fail",
+          component: <ResourceCreateFinish />,
+          isFinishedStep: true,
         },
       ]}
       footer={
-        <ResourceCreateFooter
-          onClose={onClose}
-          wizardState={wizardState}
-          clusterUrlName={clusterUrlName}
-        />
+        <WizardFooter>
+          <WizardContextConsumer>
+            {({ activeStep }) => (
+              <>
+                {activeStep.name === "Name and type" && (
+                  <ResourceCreateNameTypeFooter />
+                )}
+                {activeStep.name === "Instance attributes" && (
+                  <ResourceCreateInstanceAttrsFooter />
+                )}
+                {activeStep.name === "Settings" && (
+                  <ResourceCreateSettingsFooter />
+                )}
+                {activeStep.name === "Review" && <ResourceCreateReviewFooter />}
+              </>
+            )}
+          </WizardContextConsumer>
+        </WizardFooter>
       }
     />
   );

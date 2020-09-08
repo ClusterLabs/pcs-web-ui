@@ -1,11 +1,10 @@
 import React from "react";
 import { Alert, Text, TextContent } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
-import { useClusterSelector } from "app/view";
+import { types } from "app/backend";
 
 const severityToAlertVariant = (
-  severity: types.wizardResourceCreate.Report["severity"],
+  severity: types.libraryResponse.ApiReport["severity"],
 ): React.ComponentProps<typeof Alert>["variant"] => {
   switch (severity) {
     case "ERROR":
@@ -17,10 +16,9 @@ const severityToAlertVariant = (
   }
 };
 
-export const ResourceCreateReports = () => {
-  const [{ reports }] = useClusterSelector(
-    selectors.getWizardResourceCreateState,
-  );
+export const WizardLibReports: React.FC<{
+  reports: types.libraryResponse.ApiReport[];
+}> = ({ reports }) => {
   if (reports.length === 0) {
     return null;
   }

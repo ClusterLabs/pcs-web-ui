@@ -13,11 +13,13 @@ export const resourceCreate: ApiCall<Result> = async ({
   resourceName,
   agentName,
   instanceAttrs,
+  disabled,
 }: {
   clusterUrlName: string;
   resourceName: string;
   agentName: string;
   instanceAttrs: Record<string, string>;
+  disabled: boolean;
 }) => {
   const raw = await postForJson(`/managec/${clusterUrlName}/resource-create`, [
     [
@@ -28,6 +30,7 @@ export const resourceCreate: ApiCall<Result> = async ({
         operation_list: [],
         meta_attributes: {},
         instance_attributes: instanceAttrs,
+        ensure_disabled: disabled,
       }),
     ],
   ]);
