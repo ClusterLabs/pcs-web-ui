@@ -36,7 +36,10 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
   } = useWizard();
   const { filterState, filterParameters } = useFilterState();
   return (
-    <WizardLibStep title="Instance attributes" reports={reports}>
+    <WizardLibStep
+      title={`Instance attributes (${agentName})`}
+      reports={reports}
+    >
       <LoadedPcmkAgent clusterUrlName={clusterUrlName} agentName={agentName}>
         {(agent: types.pcmkAgents.Agent) => {
           const requiredParameters = agent.parameters.filter(p => p.required);
