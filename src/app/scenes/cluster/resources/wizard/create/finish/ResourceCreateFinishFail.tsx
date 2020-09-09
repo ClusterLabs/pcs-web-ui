@@ -8,8 +8,10 @@ import {
   Title,
   WizardContextConsumer,
 } from "@patternfly/react-core";
-import { WizardLibReports, pallete } from "app/view";
 import { ExclamationCircleIcon } from "@patternfly/react-icons";
+
+import { WizardLibReports, pallete } from "app/view";
+
 import { useWizard } from "../useWizard";
 
 export const ResourceCreateFinishFail: React.FC = () => {
@@ -27,7 +29,7 @@ export const ResourceCreateFinishFail: React.FC = () => {
         <EmptyStateBody>
           Create resource failed in the backend (see messages below). You can
           return back, correct values and try to create resource again. The
-          messages will be kept in wizard.
+          messages will be kept in the wizard.
         </EmptyStateBody>
         <WizardContextConsumer>
           {({ goToStepByName }) => (

@@ -11,15 +11,21 @@ import {
   StackItem,
   TextInput,
 } from "@patternfly/react-core";
+
 import { Select } from "app/view";
+
 import { useWizard } from "../useWizard";
 
 export const ResourceCreateSettingsGroup: React.FC = () => {
   const {
-    wizardState: { useGroup, group, clone },
+    wizardState: { useGroup, group, clone, showValidationErrors },
     updateState,
     groupList,
   } = useWizard();
+  const newGroupValidated =
+    showValidationErrors && useGroup === "new" && group.length === 0
+      ? "error"
+      : "default";
   return (
     <Flex>
       <FlexItem>
@@ -92,13 +98,23 @@ export const ResourceCreateSettingsGroup: React.FC = () => {
                   id="settings-group-new"
                 />
                 {useGroup === "new" && (
-                  <TextInput
-                    id="new-group-name"
-                    value={group}
+                  <FormGroup
                     isRequired
-                    type="text"
-                    onChange={(value: string) => updateState({ group: value })}
-                  />
+                    fieldId="new-group-name"
+                    helperTextInvalid="Please provide a name for the new group"
+                    validated={newGroupValidated}
+                  >
+                    <TextInput
+                      id="new-group-name"
+                      value={group}
+                      isRequired
+                      type="text"
+                      onChange={(value: string) =>
+                        updateState({ group: value })
+                      }
+                      validated={newGroupValidated}
+                    />
+                  </FormGroup>
                 )}
               </StackItem>
             </Stack>

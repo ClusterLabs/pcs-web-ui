@@ -40,6 +40,8 @@ export const useWizard = () => {
       && agent.parameters.every(
         p => !p.required || p.name in wizardState.instanceAttrs,
       ),
+    areSettingsValid:
+      wizardState.useGroup !== "new" || wizardState.group.length > 0,
     isAgentLoaded,
     tryNext: (isValid: boolean, next: () => void) => {
       if (isValid) {

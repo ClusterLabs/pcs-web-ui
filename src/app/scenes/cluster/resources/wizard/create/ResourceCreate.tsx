@@ -22,7 +22,12 @@ import { ResourceCreateFinish } from "./finish";
 import { useWizard } from "./useWizard";
 
 export const ResourceCreate: React.FC = () => {
-  const { close, isNameTypeValid, areInstanceAttrsValid } = useWizard();
+  const {
+    close,
+    isNameTypeValid,
+    areInstanceAttrsValid,
+    areSettingsValid,
+  } = useWizard();
   return (
     <Wizard
       data-test="wizard-add-resource"
@@ -48,7 +53,8 @@ export const ResourceCreate: React.FC = () => {
         {
           name: "Review",
           component: <ResourceCreateReview />,
-          canJumpTo: isNameTypeValid && areInstanceAttrsValid,
+          canJumpTo:
+            isNameTypeValid && areInstanceAttrsValid && areSettingsValid,
         },
         {
           name: "Result",
