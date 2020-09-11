@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Button,
   Dropdown,
   DropdownItem,
   KebabToggle,
@@ -8,22 +7,42 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import { DetailLayoutToolbar } from "app/view";
+import { types } from "app/store";
+import { DetailLayoutToolbar, DetailLayoutToolbarAction } from "app/view";
 
-export const PrimitivePageToolbar: React.FC = () => {
+export const PrimitivePageToolbar: React.FC<{
+  primitive: types.cluster.Primitive;
+}> = ({ primitive }) => {
   const [kebabIsOpen, setKebabIsOpen] = React.useState(false);
   return (
     <DetailLayoutToolbar>
       <ToolbarGroup>
         <ToolbarItem>
-          <Button variant="secondary" aria-label="manage resource">
-            Manage
-          </Button>
+          <DetailLayoutToolbarAction
+            name="Unmanage"
+            title="Unmanage resource?"
+            confirmationLabel="Unmanage"
+            action={{
+              type: "RESOURCE.PRIMITIVE.UNMANAGE",
+              payload: { resourceNames: [primitive.id] },
+            }}
+          >
+            This disallows the cluster to start and stop the resource
+            {` "${primitive.id}"`}
+          </DetailLayoutToolbarAction>
         </ToolbarItem>
         <ToolbarItem>
-          <Button variant="secondary" aria-label="disable resource">
-            Disable
-          </Button>
+          <DetailLayoutToolbarAction
+            name="Disable"
+            title="Disable resource?"
+            confirmationLabel="Disable"
+            action={{
+              type: "RESOURCE.PRIMITIVE.DISABLE",
+              payload: { resourceNames: [primitive.id] },
+            }}
+          >
+            {`This forces resource "${primitive.id}" to be stopped?`}
+          </DetailLayoutToolbarAction>
         </ToolbarItem>
       </ToolbarGroup>
       <ToolbarItem>

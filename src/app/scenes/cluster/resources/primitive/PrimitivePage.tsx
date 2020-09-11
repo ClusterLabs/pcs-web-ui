@@ -47,7 +47,7 @@ export const PrimitivePage = ({
       }
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
       data-test={`resource-detail ${primitive.id}`}
-      toolbar={<PrimitivePageToolbar />}
+      toolbar={<PrimitivePageToolbar primitive={primitive} />}
     >
       {tab === "Detail" && <PrimitiveDetail primitive={primitive} />}
       {tab === "Attributes" && <PrimitiveAttrsView primitive={primitive} />}

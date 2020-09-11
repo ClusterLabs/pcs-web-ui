@@ -26,4 +26,18 @@ export type PrimitiveResourceActions = {
   UpdateInstanceAttributesFailed: {
     type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.FAILED";
   };
+
+  ActionUnmanage: {
+    type: "RESOURCE.PRIMITIVE.UNMANAGE";
+    payload: {
+      resourceNames: string[];
+    };
+  };
+
+  ActionDisable: {
+    type: "RESOURCE.PRIMITIVE.DISABLE";
+    payload: {
+      resourceNames: string[];
+    };
+  };
 };
