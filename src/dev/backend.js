@@ -22,9 +22,11 @@ const getScenarios = () =>
     .reduce(
       (scenarioList, fileName) => [
         ...scenarioList,
-        ...Object.keys(require(`${SCENARIO_DIR}/${fileName}`)).map(
-          scenario => `${fileName.replace(/\.[^/.]+$/, "")}.${scenario}`,
-        ),
+        ...(fs.lstatSync(`${SCENARIO_DIR}/${fileName}`).isFile()
+          ? Object.keys(require(`${SCENARIO_DIR}/${fileName}`)).map(
+            scenario => `${fileName.replace(/\.[^/.]+$/, "")}.${scenario}`,
+          )
+          : []),
       ],
       [],
     );

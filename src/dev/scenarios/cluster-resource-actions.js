@@ -38,40 +38,25 @@ const clusterProperties = response =>
     res.json(response);
   });
 
-const resourceCreate = endpoints.resourceCreate((req, res) => {
+const resourceUnmanage = endpoints.resourceUnmanage((req, res) => {
   lib.standardResponses({
-    code: JSON.parse(req.body.create_data).resource_id,
+    code: JSON.parse(req.body.unmanage_data).resource_or_tag_ids[0],
     res,
-    errors: {
-      exist: [
-        {
-          severity: "ERROR",
-          code: "ID_ALREADY_EXISTS",
-          info: {
-            id: "exist",
-          },
-          forceable: null,
-          report_text: "'exist' already exists",
-        },
-      ],
-    },
   });
 });
 
-module.exports = {
-  all: [
-    importedClusterList(
-      responses.importedClusterList.withClusters([
-        responses.clusterStatus.resourceTree.cluster_name,
-      ]),
-    ),
-    clusterStatus({
-      resourceTree: responses.clusterStatus.resourceTree,
-    }),
-    getAvailResourceAgents(responses.resourceAgentList.ok),
-    getResourceAgentMetadata(responses.resourceAgentMetadata.ok),
-    getFenceAgentMetadata(responses.fenceAgentMetadata.ok),
-    clusterProperties(responses.clusterProperties.ok),
-    resourceCreate,
-  ],
-};
+export const all = [
+  importedClusterList(
+    responses.importedClusterList.withClusters([
+      responses.clusterStatus.resourceTree.cluster_name,
+    ]),
+  ),
+  clusterStatus({
+    resourceTree: responses.clusterStatus.resourceTree,
+  }),
+  getAvailResourceAgents(responses.resourceAgentList.ok),
+  getResourceAgentMetadata(responses.resourceAgentMetadata.ok),
+  getFenceAgentMetadata(responses.fenceAgentMetadata.ok),
+  clusterProperties(responses.clusterProperties.ok),
+  resourceUnmanage,
+];

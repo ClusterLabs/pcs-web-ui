@@ -1,12 +1,13 @@
-const clusterStatus = require("./clusterStatus");
-const clustersOverview = require("./clustersOverview");
-const resourceAgentList = require("./resourceAgentList");
-const resourceAgentMetadata = require("./resourceAgentMetadata");
-const fenceAgentMetadata = require("./fenceAgentMetadata");
-const clusterProperties = require("./clusterProperties");
-const importedClusterList = require("./importedClusterList");
+import * as clusterStatus from "./clusterStatus";
+import * as clustersOverview from "./clustersOverview";
+import * as resourceAgentList from "./resourceAgentList";
+import * as resourceAgentMetadata from "./resourceAgentMetadata";
+import * as fenceAgentMetadata from "./fenceAgentMetadata";
+import * as clusterProperties from "./clusterProperties";
+import * as importedClusterList from "./importedClusterList";
+import * as lib from "./lib";
 
-module.exports = {
+export {
   clusterStatus,
   clustersOverview,
   resourceAgentList,
@@ -14,4 +15,5 @@ module.exports = {
   fenceAgentMetadata,
   importedClusterList,
   clusterProperties,
+  lib,
 };
