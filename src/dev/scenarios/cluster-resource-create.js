@@ -40,18 +40,18 @@ const clusterProperties = response =>
 
 const resourceCreate = endpoints.resourceCreate((req, res) => {
   lib.standardResponses({
-    code: JSON.parse(req.body.create_data).resource_id,
+    code: req.body.resource_id,
     res,
     errors: {
       exist: [
         {
-          severity: "ERROR",
-          code: "ID_ALREADY_EXISTS",
-          info: {
-            id: "exist",
+          severity: { level: "ERROR", force_code: null },
+          message: {
+            code: "ID_ALREADY_EXISTS",
+            message: "'exist' already exists",
+            payload: { id: "exist" },
           },
-          forceable: null,
-          report_text: "'exist' already exists",
+          context: null,
         },
       ],
     },

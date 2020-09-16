@@ -73,3 +73,32 @@ export const postForJson = async (url: string, params: ApiParams = []) => {
     throw new ApiNotExpectedJson(text);
   }
 };
+
+export const postJsonForText = async (
+  url: string,
+  payload: Record<string, unknown> | string | [] | null,
+) => {
+  const response = await checkResponse(
+    await fetch(url, {
+      method: "post",
+      headers: {
+        ...ajaxHeaders,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    }),
+  );
+  return response.text();
+};
+
+export const postJsonForJson = async (
+  url: string,
+  payload: Record<string, unknown> | string | [] | null,
+) => {
+  const text = await postJsonForText(url, payload);
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    throw new ApiNotExpectedJson(text);
+  }
+};

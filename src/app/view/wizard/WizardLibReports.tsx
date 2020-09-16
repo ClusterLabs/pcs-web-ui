@@ -6,7 +6,7 @@ import { types } from "app/backend";
 const severityToAlertVariant = (
   severity: types.libraryResponse.ApiReport["severity"],
 ): React.ComponentProps<typeof Alert>["variant"] => {
-  switch (severity) {
+  switch (severity.level) {
     case "ERROR":
       return "danger";
     case "WARNING":
@@ -34,7 +34,7 @@ export const WizardLibReports: React.FC<{
             key={i}
             variant={severityToAlertVariant(report.severity)}
             isInline
-            title={report.report_text}
+            title={report.message.message}
           />
         ))}
       </>

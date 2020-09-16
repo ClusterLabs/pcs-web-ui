@@ -1,25 +1,30 @@
 import * as t from "io-ts";
 
-const ReportBase = t.type({
-  severity: t.keyof({
+const ReportSeverity = t.type({
+  level: t.keyof({
     ERROR: null,
     WARNING: null,
     INFO: null,
     DEBUG: null,
   }),
-  report_text: t.string,
-  forceable: t.union([t.null, t.string]),
+  force_code: t.union([t.string, t.null]),
 });
 
-const TApiReportAny = t.intersection([
-  ReportBase,
-  t.type({
-    code: t.string,
-    info: t.type({}),
-  }),
-]);
+const ReportMessage = t.type({
+  code: t.string,
+  message: t.string,
+  payload: t.type({}),
+});
 
-export const TApiReport = TApiReportAny;
+const ReportContext = t.type({
+  node: t.string,
+});
+
+export const TApiReport = t.type({
+  severity: ReportSeverity,
+  message: ReportMessage,
+  context: t.union([ReportContext, t.null]),
+});
 
 export const TApiResponse = t.type({
   status: t.keyof({

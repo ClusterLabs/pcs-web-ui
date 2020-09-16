@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
 
-const parser = bodyParser.urlencoded({ extended: false });
+const parserUrlEncoded = bodyParser.urlencoded({ extended: false });
+const parserJson = bodyParser.json();
 
 const createScenarioHandler = method => (url, ...args) => {
   if (args.length < 1) {
@@ -18,7 +19,7 @@ const createScenarioHandler = method => (url, ...args) => {
 const get = createScenarioHandler("get");
 const post = createScenarioHandler("post");
 
-export const login = handler => post("/ui/login", parser, handler);
+export const login = handler => post("/ui/login", parserUrlEncoded, handler);
 
 export const logout = handler => get("/ui/logout", handler);
 
@@ -31,10 +32,10 @@ export const clusterStatus = handler =>
   get("/managec/:clusterUrlName/cluster_status", handler);
 
 export const addCluster = handler =>
-  post("/manage/existingcluster", parser, handler);
+  post("/manage/existingcluster", parserUrlEncoded, handler);
 
 export const authenticateAgainstNodes = handler =>
-  post("/manage/auth_gui_against_nodes", parser, handler);
+  post("/manage/auth_gui_against_nodes", parserUrlEncoded, handler);
 
 export const checkAuthAgainstNodes = handler =>
   get("/manage/check_auth_against_nodes", handler);
@@ -52,10 +53,14 @@ export const clusterProperties = handler =>
   get("/managec/:clusterUrlName/cluster_properties", handler);
 
 export const updateResource = handler =>
-  post("/managec/:clusterUrlName/update_resource", parser, handler);
+  post("/managec/:clusterUrlName/update_resource", parserUrlEncoded, handler);
 
 export const resourceCreate = handler =>
-  post("/managec/:clusterUrlName/resource-create", parser, handler);
+  post(
+    "/managec/:clusterUrlName/api/v1/resource-create/v1",
+    parserJson,
+    handler,
+  );
 
 export const resourceUnmanage = handler =>
-  post("/managec/:clusterUrlName/resource-unmanage", parser, handler);
+  post("/managec/:clusterUrlName/resource-unmanage", parserJson, handler);
