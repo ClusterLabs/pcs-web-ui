@@ -1,10 +1,7 @@
-const endpoints = require("dev/api/endpoints");
-const responses = require("dev/api/responses/all");
+import * as endpoints from "dev/api/endpoints";
+import * as responses from "dev/api/responses/all";
 
-const clustersOverview = response =>
-  endpoints.clustersOverview((req, res) => {
-    res.json(response);
-  });
+import { clusterRelatedScenario } from "./common/scenarios";
 
 let clusterStatusLoadCount = 0;
 const clusterStatus = (responseMap = {}) =>
@@ -19,7 +16,7 @@ const clusterStatus = (responseMap = {}) =>
         };
         // prettier-ignore
         response.resource_list[0].instance_attr = (
-          response.resource_list[0].instance_attr.filter((attr, i) => i !== 1)
+          response.resource_list[0].instance_attr.filter((_attr, i) => i !== 1)
         );
       }
       res.json(response);
@@ -28,7 +25,7 @@ const clusterStatus = (responseMap = {}) =>
     }
   });
 const getResourceAgentMetadata = response =>
-  endpoints.getResourceAgentMetadata((req, res) => {
+  endpoints.getResourceAgentMetadata((_req, res) => {
     res.json(response);
   });
 
@@ -53,17 +50,11 @@ const updateResource = endpoints.updateResource((req, res) => {
   res.json(result);
 });
 
-module.exports = {
-  noConflict: [
-    clustersOverview(
-      responses.clustersOverview.withClusters([
-        responses.clusterStatus.resourceTree,
-      ]),
-    ),
-    clusterStatus({
-      resourceTree: responses.clusterStatus.resourceTree,
-    }),
-    getResourceAgentMetadata(responses.resourceAgentMetadata.ok),
-    updateResource,
-  ],
-};
+export const noConflict = [
+  clusterStatus({
+    resourceTree: responses.clusterStatus.resourceTree,
+  }),
+  ...clusterRelatedScenario,
+  getResourceAgentMetadata(responses.resourceAgentMetadata.ok),
+  updateResource,
+];

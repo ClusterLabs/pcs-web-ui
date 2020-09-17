@@ -1,5 +1,6 @@
-const endpoints = require("dev/api/endpoints");
-const responses = require("dev/api/responses/all");
+import * as endpoints from "dev/api/endpoints";
+
+import { dashboardScenario } from "./common/scenarios";
 
 const checkAuth = endpoints.checkAuthAgainstNodes((req, res) => {
   const nodeList = Array.isArray(req.query.node_list)
@@ -74,10 +75,9 @@ const addCluster = endpoints.addCluster((req, res) => {
   }
 });
 
-const clustersOverview = endpoints.clustersOverview((req, res) => {
-  res.json(responses.clustersOverview.empty);
-});
-
-module.exports = {
-  variousNodes: [clustersOverview, checkAuth, addCluster, authenticate],
-};
+export const variousNodes = [
+  ...dashboardScenario({}),
+  checkAuth,
+  addCluster,
+  authenticate,
+];
