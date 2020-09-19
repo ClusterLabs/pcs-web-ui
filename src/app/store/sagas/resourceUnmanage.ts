@@ -37,9 +37,9 @@ function* resourceUnmanageSaga({
       response: { status, status_msg, report_list },
     } = result;
 
-    const reportListMsg = report_list
-      .map(r => `${r.severity.level}: ${r.message.message}`)
-      .join("\n");
+    const reportList = report_list.map(
+      r => `${r.severity.level}: ${r.message.message}`,
+    );
 
     switch (status) {
       case "input_error":
@@ -54,7 +54,12 @@ function* resourceUnmanageSaga({
       case "error":
         yield putNotification(
           "ERROR",
-          `Error during unmanage "${resourcesInMsg}\n${reportListMsg}"`.trim(),
+          `Error during unmanage ${resourcesInMsg}`,
+          {
+            type: "LIST",
+            title: "Messages from the backend",
+            items: reportList,
+          },
         );
         return;
       case "success":
@@ -64,7 +69,12 @@ function* resourceUnmanageSaga({
         });
         yield putNotification(
           "SUCCESS",
-          `Succesfully unmanaged ${resourcesInMsg}\n${reportListMsg}`.trim(),
+          `Succesfully unmanaged ${resourcesInMsg}`,
+          {
+            type: "LIST",
+            title: "Messages from the backend",
+            items: reportList,
+          },
         );
         return;
       default: {

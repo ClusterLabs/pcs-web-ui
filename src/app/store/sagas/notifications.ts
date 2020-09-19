@@ -6,6 +6,7 @@ const DISPLAY_MSECONDS = 8000;
 let nextId = 1;
 
 type CreateNotification = NotificationActions["Create"];
+type Notification = CreateNotification["payload"]["notification"];
 
 function* limitNotificationLife({
   payload: {
@@ -20,8 +21,9 @@ function* limitNotificationLife({
 }
 
 export function* putNotification(
-  severity: CreateNotification["payload"]["notification"]["severity"],
+  severity: Notification["severity"],
   message: string,
+  details: Notification["details"] = undefined,
 ) {
   return yield put({
     type: "NOTIFICATION.CREATE",
@@ -30,6 +32,7 @@ export function* putNotification(
         id: nextId++,
         severity,
         message,
+        details,
       },
     },
   });
