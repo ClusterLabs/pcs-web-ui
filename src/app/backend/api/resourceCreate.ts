@@ -1,14 +1,6 @@
-import * as t from "io-ts";
+import { CallLibResult, callLib } from "./lib";
 
-import * as types from "app/backend/types";
-
-import { postJsonForJson } from "../calls";
-import { ApiCall, createResult, validateShape } from "../tools";
-
-const { TApiResponse } = types.libraryResponse;
-type Result = t.TypeOf<typeof TApiResponse>;
-
-export const resourceCreate: ApiCall<Result> = async ({
+export const resourceCreate: CallLibResult = async ({
   clusterUrlName,
   resourceName,
   agentName,
@@ -21,9 +13,10 @@ export const resourceCreate: ApiCall<Result> = async ({
   instanceAttrs: Record<string, string>;
   disabled: boolean;
 }) => {
-  const raw = await postJsonForJson(
-    `/managec/${clusterUrlName}/api/v1/resource-create/v1`,
-    {
+  return callLib({
+    clusterUrlName,
+    urlName: "resource-create",
+    payload: {
       resource_id: resourceName,
       resource_agent_name: agentName,
       operation_list: [],
@@ -31,6 +24,5 @@ export const resourceCreate: ApiCall<Result> = async ({
       instance_attributes: instanceAttrs,
       ensure_disabled: disabled,
     },
-  );
-  return createResult<Result>(raw, validateShape(raw, TApiResponse));
+  });
 };

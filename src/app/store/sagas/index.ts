@@ -9,6 +9,7 @@ import notifications from "./notifications";
 import resourceDetail from "./resourceDetail";
 import resourceUpdate from "./resourceUpdate";
 import resourceCreate from "./resourceCreate";
+import resourceUnmanage from "./resourceUnmanage";
 import resourceAgent from "./resourceAgent";
 import fenceAgent from "./fenceAgent";
 import username from "./username";
@@ -31,6 +32,7 @@ function* rootSaga() {
     ...resourceAgent,
     ...fenceAgent,
     ...resourceAgentList,
+    ...resourceUnmanage,
   ]);
 }
 

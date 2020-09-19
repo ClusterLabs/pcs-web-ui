@@ -8,8 +8,10 @@ import {
   Title,
   WizardContextConsumer,
 } from "@patternfly/react-core";
-import { pallete } from "app/view";
 import { ExclamationCircleIcon } from "@patternfly/react-icons";
+
+import { pallete } from "app/view";
+
 import { useWizard } from "../useWizard";
 
 export const ResourceCreateFinishError: React.FC = () => {

@@ -72,10 +72,7 @@ function* resourceCreateSaga({
       }
     }
   } catch (error) {
-    log.error(
-      error,
-      `Communication error while creating the resource "${resourceName}"`,
-    );
+    log.error(error, errorDescription);
     yield put(errorAction);
   }
 }

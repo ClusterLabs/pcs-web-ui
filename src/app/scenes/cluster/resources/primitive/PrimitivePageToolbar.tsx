@@ -8,12 +8,17 @@ import {
 } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import { DetailLayoutToolbar, DetailLayoutToolbarAction } from "app/view";
+import {
+  DetailLayoutToolbar,
+  DetailLayoutToolbarAction,
+  useSelectedClusterName,
+} from "app/view";
 
 export const PrimitivePageToolbar: React.FC<{
   primitive: types.cluster.Primitive;
 }> = ({ primitive }) => {
   const [kebabIsOpen, setKebabIsOpen] = React.useState(false);
+  const clusterUrlName = useSelectedClusterName();
   return (
     <DetailLayoutToolbar>
       <ToolbarGroup>
@@ -24,7 +29,7 @@ export const PrimitivePageToolbar: React.FC<{
             confirmationLabel="Unmanage"
             action={{
               type: "RESOURCE.PRIMITIVE.UNMANAGE",
-              payload: { resourceNames: [primitive.id] },
+              payload: { resourceNameList: [primitive.id], clusterUrlName },
             }}
           >
             This disallows the cluster to start and stop the resource
@@ -38,7 +43,7 @@ export const PrimitivePageToolbar: React.FC<{
             confirmationLabel="Disable"
             action={{
               type: "RESOURCE.PRIMITIVE.DISABLE",
-              payload: { resourceNames: [primitive.id] },
+              payload: { resourceNameList: [primitive.id], clusterUrlName },
             }}
           >
             {`This forces resource "${primitive.id}" to be stopped?`}

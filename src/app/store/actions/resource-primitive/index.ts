@@ -30,14 +30,16 @@ export type PrimitiveResourceActions = {
   ActionUnmanage: {
     type: "RESOURCE.PRIMITIVE.UNMANAGE";
     payload: {
-      resourceNames: string[];
+      clusterUrlName: string;
+      resourceNameList: string[];
     };
   };
 
   ActionDisable: {
     type: "RESOURCE.PRIMITIVE.DISABLE";
     payload: {
-      resourceNames: string[];
+      clusterUrlName: string;
+      resourceNameList: string[];
     };
   };
 };
