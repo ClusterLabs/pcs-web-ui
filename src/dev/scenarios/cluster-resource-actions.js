@@ -12,6 +12,6 @@ const resourceUnmanage = endpoints.resourceUnmanage((req, res) => {
 });
 
 export const all = [
-  ...clusterScenario({ resourceTree: responses.clusterStatus.resourceTree }),
+  ...clusterScenario({ actions: responses.clusterStatus.actions }),
   resourceUnmanage,
 ];

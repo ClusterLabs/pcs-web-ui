@@ -10,11 +10,11 @@ const pollyManager = getPollyManager(() => page());
 
 const scenarios = {
   cluster: [
-    endpoints.clusterStatus((req, res) => {
+    endpoints.clusterStatus((_req, res) => {
       res.json(responses.clusterStatus.resourcesForTest);
     }),
-    endpoints.getResourceAgentMetadata((req, res) => {
-      res.json(responses.resourceAgentMetadata.ok);
+    endpoints.getResourceAgentMetadata((_req, res) => {
+      res.json(responses.resourceAgentMetadata.ocfHeartbeatApache);
     }),
   ],
 };

@@ -1,13 +1,20 @@
-const { node, resource, issues, stonith, cluster } = require("./tools");
-const { resourceTree } = require("./resource-tree");
-const { resourcesForTest } = require("./resources-for-test");
+import { cluster, issues, node, resource, stonith } from "./tools";
+import { resourceTree } from "./resource-tree";
+import { resourcesForTest } from "./resources-for-test";
+import { actions } from "./actions";
 
 const clusterOk = clusterName =>
   cluster(clusterName, "ok", {
     resource_list: [resource("R1"), stonith("F1")],
   });
 
-const clusterError = cluster("error", "error", {
+export { resourceTree, resourcesForTest, actions };
+
+export const ok = clusterOk("ok");
+export const ok2 = clusterOk("ok2");
+
+export const empty = cluster("empty", "error", { node_list: [node(1)] });
+export const error = cluster("error", "error", {
   node_list: [
     node(1, { sbd_config: null }),
     node(2, { status: "offline", quorum: false }),
@@ -34,7 +41,7 @@ const clusterError = cluster("error", "error", {
   error_list: issues(["Unable to connect to the cluster."]),
 });
 
-const clusterBig = cluster("big", "error", {
+export const big = cluster("big", "error", {
   node_list: [
     node(1),
     node(2, { status: "offline", quorum: false }),
@@ -78,15 +85,3 @@ const clusterBig = cluster("big", "error", {
     "Unreal error 3",
   ]),
 });
-
-const empty = cluster("empty", "error", { node_list: [node(1)] });
-
-module.exports = {
-  ok: clusterOk("ok"),
-  error: clusterError,
-  big: clusterBig,
-  ok2: clusterOk("ok2"),
-  resourceTree,
-  resourcesForTest,
-  empty,
-};

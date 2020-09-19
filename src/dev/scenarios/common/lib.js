@@ -24,13 +24,22 @@ const getResponses = res => ({
     res.json(
       responses.lib.error([
         {
-          severity: "ERROR",
-          code: "DEFAULT_ERROR",
-          info: {
-            error: "default",
+          severity: { level: "ERROR", force_code: null },
+          message: {
+            code: "DEFAULT_ERROR",
+            message: "Default error from devel server",
+            payload: { error: "default" },
           },
-          forceable: null,
-          report_text: "Default error from devel server",
+          context: null,
+        },
+        {
+          severity: { level: "ERROR", force_code: null },
+          message: {
+            code: "ANOTHER_DEFAULT_ERROR",
+            message: "Another Default error from devel server",
+            payload: { error: "another default" },
+          },
+          context: null,
         },
       ]),
     );

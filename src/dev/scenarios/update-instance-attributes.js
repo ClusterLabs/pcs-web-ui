@@ -55,6 +55,6 @@ export const noConflict = [
     resourceTree: responses.clusterStatus.resourceTree,
   }),
   ...clusterRelatedScenario,
-  getResourceAgentMetadata(responses.resourceAgentMetadata.ok),
+  getResourceAgentMetadata(responses.resourceAgentMetadata.ocfHeartbeatApache),
   updateResource,
 ];

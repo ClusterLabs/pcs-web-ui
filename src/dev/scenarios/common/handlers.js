@@ -15,9 +15,14 @@ export const clusterStatus = (responseMap = {}) =>
     }
   });
 
-export const getResourceAgentMetadata = response =>
-  endpoints.getResourceAgentMetadata((_req, res) => {
-    res.json(response);
+export const getResourceAgentMetadata = responseMap =>
+  endpoints.getResourceAgentMetadata((req, res) => {
+    const agentName = req.query.agent;
+    if (Object.keys(responseMap).includes(agentName)) {
+      res.json(responseMap[agentName]);
+    } else {
+      res.status(404).send("Not found");
+    }
   });
 
 export const getAvailResourceAgents = response =>

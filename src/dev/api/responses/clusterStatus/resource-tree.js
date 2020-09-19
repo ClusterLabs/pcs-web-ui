@@ -1,15 +1,15 @@
-const {
-  resource,
-  stonith,
-  group,
+import {
   clone,
   cluster,
-  resourceStatus,
-  operation,
+  group,
   node,
-} = require("./tools");
+  operation,
+  resource,
+  resourceStatus,
+  stonith,
+} from "./tools";
 
-const resourceTree = cluster("resourceTree", "ok", {
+export const resourceTree = cluster("resourceTree", "ok", {
   node_list: [
     node(1, {
       services: {
@@ -407,5 +407,3 @@ const resourceTree = cluster("resourceTree", "ok", {
     ],
   },
 });
-
-module.exports = { resourceTree };

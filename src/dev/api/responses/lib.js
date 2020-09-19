@@ -14,7 +14,7 @@ export const missingKey = {
 
 export const unknownCmd = {
   status: "unknown_cmd",
-  status_msg: "Unknown command 'resource.create'",
+  status_msg: "Unknown command 'unknown.command'",
   report_list: [],
   data: null,
 };

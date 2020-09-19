@@ -22,7 +22,10 @@ export const dashboardScenario = clusterStatusResponsesMap => [
 
 export const clusterRelatedScenario = [
   getAvailResourceAgents(responses.resourceAgentList.ok),
-  getResourceAgentMetadata(responses.resourceAgentMetadata.ok),
+  getResourceAgentMetadata({
+    "ocf:heartbeat:apache": responses.resourceAgentMetadata.ocfHeartbeatApache,
+    "ocf:heartbeat:Dummy": responses.resourceAgentMetadata.ocfHeartbeatDummy,
+  }),
   getFenceAgentMetadata(responses.fenceAgentMetadata.ok),
   clusterProperties(responses.clusterProperties.ok),
 ];

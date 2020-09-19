@@ -1,4 +1,4 @@
-const ok = {
+export const ocfHeartbeatApache = {
   name: "ocf:heartbeat:apache",
   shortdesc: "Manages an Apache Web server instance",
   longdesc:
@@ -214,8 +214,4 @@ const ok = {
       pcs_deprecated_warning: "",
     },
   ],
-};
-
-module.exports = {
-  ok,
 };

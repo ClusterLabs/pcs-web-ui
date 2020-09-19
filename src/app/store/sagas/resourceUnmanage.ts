@@ -13,7 +13,7 @@ function* resourceUnmanageSaga({
       ? `resource "${resourceNameList[0]}"`
       : `resources ${resourceNameList.map(r => `"${r}"`).join(", ")}`;
 
-  const errorDescription = `Communication error while unmanaging "${resourcesInMsg}"`;
+  const errorDescription = `Communication error while unmanaging ${resourcesInMsg}`;
   try {
     const result: ApiResult<typeof resourceUnmanage> = yield call(
       authSafe(resourceUnmanage),
