@@ -9,4 +9,4 @@ export * from "./getFenceAgentMetadata";
 export * from "./updateResource";
 export * from "./clusterProperties";
 export * from "./resourceCreate";
-export * from "./resourceUnmanage";
+export * from "./resourceActions";

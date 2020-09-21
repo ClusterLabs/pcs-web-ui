@@ -11,7 +11,15 @@ const resourceUnmanage = endpoints.resourceUnmanage((req, res) => {
   });
 });
 
+const resourceDisable = endpoints.resourceDisable((req, res) => {
+  lib.standardResponses({
+    code: req.body.resource_or_tag_ids[0],
+    res,
+  });
+});
+
 export const all = [
   ...clusterScenario({ actions: responses.clusterStatus.actions }),
   resourceUnmanage,
+  resourceDisable,
 ];
