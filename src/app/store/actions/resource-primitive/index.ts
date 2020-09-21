@@ -35,6 +35,14 @@ export type PrimitiveResourceActions = {
     };
   };
 
+  ActionManage: {
+    type: "RESOURCE.PRIMITIVE.MANAGE";
+    payload: {
+      clusterUrlName: string;
+      resourceNameList: string[];
+    };
+  };
+
   ActionDisable: {
     type: "RESOURCE.PRIMITIVE.DISABLE";
     payload: {

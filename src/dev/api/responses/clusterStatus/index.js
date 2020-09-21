@@ -1,14 +1,14 @@
 import { cluster, issues, node, resource, stonith } from "./tools";
 import { resourceTree } from "./resource-tree";
 import { resourcesForTest } from "./resources-for-test";
-import { actions } from "./actions";
+import { actions, actionsAlternative } from "./actions";
 
 const clusterOk = clusterName =>
   cluster(clusterName, "ok", {
     resource_list: [resource("R1"), stonith("F1")],
   });
 
-export { resourceTree, resourcesForTest, actions };
+export { resourceTree, resourcesForTest, actions, actionsAlternative };
 
 export const ok = clusterOk("ok");
 export const ok2 = clusterOk("ok2");

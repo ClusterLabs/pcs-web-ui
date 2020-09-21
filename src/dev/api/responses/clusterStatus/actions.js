@@ -21,3 +21,29 @@ export const actions = cluster("actions", "ok", {
     actionResource("error"),
   ],
 });
+
+const actionResourceAlternative = resourceName =>
+  resource(resourceName, {
+    meta_attr: [
+      {
+        id: `${resourceName}-unmanaged`,
+        name: "is-managed",
+        value: "false",
+      },
+    ],
+    crm_status: [
+      crmStatus({ resourceId: resourceName, nodeId: "1", nodeName: "ok" }),
+    ],
+  });
+
+export const actionsAlternative = cluster("actions", "ok", {
+  node_list: [node(1, { name: "ok" }), node(2, { name: "fail" })],
+  resource_list: [
+    actionResourceAlternative("ok"),
+    actionResourceAlternative("fail"),
+    actionResourceAlternative("invalid-json"),
+    actionResourceAlternative("missing-key"),
+    actionResourceAlternative("unknown-cmd"),
+    actionResourceAlternative("error"),
+  ],
+});

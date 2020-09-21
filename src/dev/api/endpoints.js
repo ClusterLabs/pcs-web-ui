@@ -53,5 +53,6 @@ export const getResourceAgentMetadata = clusterGet(
 
 // library access
 export const resourceCreate = lib("resource-create");
+export const resourceManage = lib("resource-manage");
 export const resourceUnmanage = lib("resource-unmanage");
 export const resourceDisable = lib("resource-disable");
