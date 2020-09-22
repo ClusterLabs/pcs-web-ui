@@ -1,5 +1,5 @@
 import { PrimitiveResourceActions } from "app/store/actions";
-import { ApiResult, log, resourceDisable } from "app/backend";
+import { ApiResult, log, resourceDisable, resourceEnable } from "app/backend";
 
 import { call, takeEvery } from "./effects";
 import { authSafe } from "./authSafe";
@@ -14,7 +14,8 @@ function* resourceDisableSaga({
       ? `resource "${resourceNameList[0]}"`
       : `resources ${resourceNameList.map(r => `"${r}"`).join(", ")}`;
 
-  const errorDescription = `Communication error while unmanaging ${resourcesInMsg}`;
+  const taskLabel = `disable ${resourcesInMsg}`;
+  const errorDescription = `Communication error while: ${taskLabel}`;
   try {
     const result: ApiResult<typeof resourceDisable> = yield call(
       authSafe(resourceDisable),
@@ -34,7 +35,7 @@ function* resourceDisableSaga({
     }
 
     yield processLibraryResponse({
-      taskLabel: `disable ${resourcesInMsg}`,
+      taskLabel,
       clusterUrlName,
       response: result.response,
     });
@@ -47,4 +48,49 @@ function* resourceDisableSaga({
   }
 }
 
-export default [takeEvery("RESOURCE.PRIMITIVE.DISABLE", resourceDisableSaga)];
+function* resourceEnableSaga({
+  payload: { resourceNameList, clusterUrlName },
+}: PrimitiveResourceActions["ActionEnable"]) {
+  const resourcesInMsg =
+    resourceNameList.length === 1
+      ? `resource "${resourceNameList[0]}"`
+      : `resources ${resourceNameList.map(r => `"${r}"`).join(", ")}`;
+
+  const taskLabel = `enable ${resourcesInMsg}`;
+  const errorDescription = `Communication error while: ${taskLabel}`;
+  try {
+    const result: ApiResult<typeof resourceEnable> = yield call(
+      authSafe(resourceEnable),
+      {
+        clusterUrlName,
+        resourceNameList,
+      },
+    );
+
+    if (!result.valid) {
+      log.invalidResponse(result, errorDescription);
+      yield putNotification(
+        "ERROR",
+        `${errorDescription}. Details in the browser console`,
+      );
+      return;
+    }
+
+    yield processLibraryResponse({
+      taskLabel,
+      clusterUrlName,
+      response: result.response,
+    });
+  } catch (error) {
+    log.error(error, errorDescription);
+    yield putNotification(
+      "ERROR",
+      `${errorDescription}. Details in the browser console`,
+    );
+  }
+}
+
+export default [
+  takeEvery("RESOURCE.PRIMITIVE.DISABLE", resourceDisableSaga),
+  takeEvery("RESOURCE.PRIMITIVE.ENABLE", resourceEnableSaga),
+];

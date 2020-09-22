@@ -30,6 +30,11 @@ const actionResourceAlternative = resourceName =>
         name: "is-managed",
         value: "false",
       },
+      {
+        id: `${resourceName}-disabled`,
+        name: "target-role",
+        value: "Stopped",
+      },
     ],
     crm_status: [
       crmStatus({ resourceId: resourceName, nodeId: "1", nodeName: "ok" }),

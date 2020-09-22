@@ -14,18 +14,27 @@ import {
   useSelectedClusterName,
 } from "app/view";
 
-const isPrimitiveManaged = (primitive: types.cluster.Primitive) =>
+type Primitive = types.cluster.Primitive;
+
+const isPrimitiveManaged = (primitive: Primitive) =>
   primitive.metaAttributes.every(
     metaAttribute =>
       metaAttribute.name !== "is-managed" || metaAttribute.value !== "false",
   );
 
+const isPrimitiveEnabled = (primitive: Primitive) =>
+  primitive.metaAttributes.every(
+    metaAttribute =>
+      metaAttribute.name !== "target-role" || metaAttribute.value !== "Stopped",
+  );
+
 export const PrimitivePageToolbar: React.FC<{
-  primitive: types.cluster.Primitive;
+  primitive: Primitive;
 }> = ({ primitive }) => {
   const [kebabIsOpen, setKebabIsOpen] = React.useState(false);
   const clusterUrlName = useSelectedClusterName();
   const isManaged = isPrimitiveManaged(primitive);
+  const isEnabled = isPrimitiveEnabled(primitive);
   return (
     <DetailLayoutToolbar>
       <ToolbarGroup>
@@ -41,7 +50,6 @@ export const PrimitivePageToolbar: React.FC<{
               }}
             >
               This disallows the cluster to start and stop the resource
-              {` "${primitive.id}"`}
             </DetailLayoutToolbarAction>
           )}
           {!isManaged && (
@@ -55,22 +63,37 @@ export const PrimitivePageToolbar: React.FC<{
               }}
             >
               This allows the cluster to start and stop the resource
-              {` "${primitive.id}"`}
             </DetailLayoutToolbarAction>
           )}
         </ToolbarItem>
         <ToolbarItem>
-          <DetailLayoutToolbarAction
-            name="Disable"
-            title="Disable resource?"
-            confirmationLabel="Disable"
-            action={{
-              type: "RESOURCE.PRIMITIVE.DISABLE",
-              payload: { resourceNameList: [primitive.id], clusterUrlName },
-            }}
-          >
-            {`This forces resource "${primitive.id}" to be stopped?`}
-          </DetailLayoutToolbarAction>
+          {isEnabled && (
+            <DetailLayoutToolbarAction
+              name="Disable"
+              title="Disable resource?"
+              confirmationLabel="Disable"
+              action={{
+                type: "RESOURCE.PRIMITIVE.DISABLE",
+                payload: { resourceNameList: [primitive.id], clusterUrlName },
+              }}
+            >
+              This attempts to stop the resource if they are running and forbid
+              the cluster from starting it again.
+            </DetailLayoutToolbarAction>
+          )}
+          {!isEnabled && (
+            <DetailLayoutToolbarAction
+              name="Enable"
+              title="Enable resource?"
+              confirmationLabel="Enable"
+              action={{
+                type: "RESOURCE.PRIMITIVE.ENABLE",
+                payload: { resourceNameList: [primitive.id], clusterUrlName },
+              }}
+            >
+              This allows the cluster to start the resource
+            </DetailLayoutToolbarAction>
+          )}
         </ToolbarItem>
       </ToolbarGroup>
       <ToolbarItem>

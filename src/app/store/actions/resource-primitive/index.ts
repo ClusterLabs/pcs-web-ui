@@ -50,4 +50,11 @@ export type PrimitiveResourceActions = {
       resourceNameList: string[];
     };
   };
+  ActionEnable: {
+    type: "RESOURCE.PRIMITIVE.ENABLE";
+    payload: {
+      clusterUrlName: string;
+      resourceNameList: string[];
+    };
+  };
 };

@@ -47,3 +47,19 @@ export const resourceDisable: CallLibResult = async ({
     },
   });
 };
+
+export const resourceEnable: CallLibResult = async ({
+  clusterUrlName,
+  resourceNameList,
+}: {
+  clusterUrlName: string;
+  resourceNameList: string[];
+}) => {
+  return callLib({
+    clusterUrlName,
+    urlName: "resource-enable",
+    payload: {
+      resource_or_tag_ids: resourceNameList,
+    },
+  });
+};
