@@ -47,6 +47,9 @@ export const getAvailResourceAgents = clusterGet("get_avail_resource_agents");
 export const getFenceAgentMetadata = clusterGet("get_fence_agent_metadata");
 export const clusterProperties = clusterGet("cluster_properties");
 export const updateResource = clusterPost("update_resource");
+export const resourceRefresh = clusterPost("resource_refresh");
+export const resourceCleanup = clusterPost("resource_cleanup");
+export const removeResource = clusterPost("remove_resource");
 export const getResourceAgentMetadata = clusterGet(
   "get_resource_agent_metadata",
 );

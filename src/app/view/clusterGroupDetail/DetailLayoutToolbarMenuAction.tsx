@@ -3,22 +3,23 @@ import { Button, Modal } from "@patternfly/react-core";
 
 import { actions, useDispatch } from "app/store";
 
-export const DetailLayoutToolbarAction: React.FC<{
+export const DetailLayoutToolbarMenuAction: React.FC<{
   name: string;
   title: string;
+  confirmationLabel: string;
   action: actions.Action;
-}> = ({ name, title, children, action }) => {
+}> = ({ name, title, confirmationLabel, children, action }) => {
   const [confirmOpen, setConfirmOpen] = React.useState(false);
   const dispatch = useDispatch();
   return (
     <>
-      <Button
-        variant="secondary"
+      <button
         aria-label={name}
+        type="button"
         onClick={() => setConfirmOpen(!confirmOpen)}
       >
         {name}
-      </Button>
+      </button>
       <Modal
         variant="small"
         title={title}
@@ -33,7 +34,7 @@ export const DetailLayoutToolbarAction: React.FC<{
               setConfirmOpen(!confirmOpen);
             }}
           >
-            {name}
+            {confirmationLabel}
           </Button>,
           <Button
             key="cancel"

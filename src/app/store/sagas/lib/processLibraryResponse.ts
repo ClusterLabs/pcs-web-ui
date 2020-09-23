@@ -29,7 +29,7 @@ export function* processLibraryResponse({
     response,
     successAction: createNotification(
       "SUCCESS",
-      `Succesfully done ${taskLabel}`,
+      `Succesfully done: ${taskLabel}`,
       {
         type: "LIST",
         title: "Messages from the backend",

@@ -15,6 +15,7 @@ export const actions = cluster("actions", "ok", {
   resource_list: [
     actionResource("ok"),
     actionResource("fail"),
+    actionResource("permission"),
     actionResource("invalid-json"),
     actionResource("missing-key"),
     actionResource("unknown-cmd"),
@@ -46,6 +47,7 @@ export const actionsAlternative = cluster("actions", "ok", {
   resource_list: [
     actionResourceAlternative("ok"),
     actionResourceAlternative("fail"),
+    actionResourceAlternative("permission"),
     actionResourceAlternative("invalid-json"),
     actionResourceAlternative("missing-key"),
     actionResourceAlternative("unknown-cmd"),

@@ -10,3 +10,4 @@ export * from "./updateResource";
 export * from "./clusterProperties";
 export * from "./resourceCreate";
 export * from "./resourceActions";
+export * from "./resourceRefreshCleanup";

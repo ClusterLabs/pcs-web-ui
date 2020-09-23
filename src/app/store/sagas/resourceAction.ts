@@ -9,12 +9,8 @@ import {
 
 import { call, takeEvery } from "./effects";
 import { authSafe } from "./authSafe";
-import {
-  formatResourcesMsg,
-  invalidResult,
-  networkError,
-  processLibraryResponse,
-} from "./lib";
+import { formatResourcesMsg, processLibraryResponse } from "./lib";
+import { invalidResult, networkError } from "./backend";
 
 function* resourceDisableSaga({
   payload: { resourceNameList, clusterUrlName },
@@ -37,7 +33,7 @@ function* resourceDisableSaga({
       response: result.response,
     });
   } catch (error) {
-    networkError(error, taskLabel);
+    yield networkError(error, taskLabel);
   }
 }
 
@@ -62,7 +58,7 @@ function* resourceEnableSaga({
       response: result.response,
     });
   } catch (error) {
-    networkError(error, taskLabel);
+    yield networkError(error, taskLabel);
   }
 }
 function* resourceUnmanageSaga({
@@ -86,7 +82,7 @@ function* resourceUnmanageSaga({
       response: result.response,
     });
   } catch (error) {
-    networkError(error, taskLabel);
+    yield networkError(error, taskLabel);
   }
 }
 
@@ -111,7 +107,7 @@ function* resourceManageSaga({
       response: result.response,
     });
   } catch (error) {
-    networkError(error, taskLabel);
+    yield networkError(error, taskLabel);
   }
 }
 

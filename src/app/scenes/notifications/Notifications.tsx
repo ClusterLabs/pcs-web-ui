@@ -63,9 +63,12 @@ export const Notifications = () => {
             }
             title={message}
           >
-            {details && (
+            {details && details.type === "LIST" && (
               <WithList title={details.title} items={details.items} />
             )}
+            {details
+              && details.type === "LINES"
+              && details.lines.map((line, i) => <p key={i}>{line}</p>)}
           </Alert>
         </li>
       ))}

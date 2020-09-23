@@ -50,11 +50,36 @@ export type PrimitiveResourceActions = {
       resourceNameList: string[];
     };
   };
+
   ActionEnable: {
     type: "RESOURCE.PRIMITIVE.ENABLE";
     payload: {
       clusterUrlName: string;
       resourceNameList: string[];
+    };
+  };
+
+  ActionRefresh: {
+    type: "RESOURCE.PRIMITIVE.REFRESH";
+    payload: {
+      clusterUrlName: string;
+      resourceId: string;
+    };
+  };
+
+  ActionCleanup: {
+    type: "RESOURCE.PRIMITIVE.CLEANUP";
+    payload: {
+      clusterUrlName: string;
+      resourceId: string;
+    };
+  };
+
+  ActionDelete: {
+    type: "RESOURCE.PRIMITIVE.DELETE";
+    payload: {
+      clusterUrlName: string;
+      resourceId: string;
     };
   };
 };
