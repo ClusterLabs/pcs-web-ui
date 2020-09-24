@@ -1,4 +1,4 @@
-import { ApiResponse, getResourceAgentMetadata } from "app/backend";
+import { api, getResourceAgentMetadata } from "app/backend";
 
 export type ResourceAgentActions = {
   LoadResourceAgent: {
@@ -13,7 +13,7 @@ export type ResourceAgentActions = {
     type: "RESOURCE_AGENT.LOAD.SUCCESS";
     payload: {
       clusterUrlName: string;
-      apiAgentMetadata: ApiResponse<typeof getResourceAgentMetadata>;
+      apiAgentMetadata: api.PayloadOf<typeof getResourceAgentMetadata>;
     };
   };
 

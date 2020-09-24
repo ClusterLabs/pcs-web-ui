@@ -21,7 +21,7 @@ const post = createScenarioHandler("post");
 
 const manageGet = url => handler => get(`/manage/${url}`, handler);
 const managePost = url => handler =>
-  get(`/manage/${url}`, parserUrlEncoded, handler);
+  post(`/manage/${url}`, parserUrlEncoded, handler);
 
 const clusterGet = url => handler =>
   get(`/managec/:clusterUrlName/${url}`, handler);
@@ -37,8 +37,8 @@ export const importedClusterList = handler =>
   get("/imported-cluster-list", handler);
 
 // manage
-export const addCluster = managePost("existingcluster");
-export const authenticateAgainstNodes = managePost("auth_gui_against_nodes");
+export const existingCluster = managePost("existingcluster"); // adds existing cluster
+export const authGuiAgainstNodes = managePost("auth_gui_against_nodes");
 export const checkAuthAgainstNodes = manageGet("check_auth_against_nodes");
 
 // cluster

@@ -11,7 +11,7 @@ export const ocfHeartbeatApache = {
       shortdesc: "configuration file path",
       type: "string",
       default: "/etc/httpd/conf/httpd.conf",
-      required: true,
+      required: false,
       advanced: false,
       deprecated: false,
       deprecated_by: [],

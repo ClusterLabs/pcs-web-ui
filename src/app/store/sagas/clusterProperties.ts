@@ -1,29 +1,33 @@
-import { ApiResult, clusterProperties } from "app/backend";
+import { api, clusterProperties } from "app/backend";
 import { ClusterPropertiesActions } from "app/store/actions";
 
-import { call, put, takeEvery } from "./effects";
-import { authSafe } from "./authSafe";
+import { put, takeEvery } from "./effects";
+import { callAuthSafe } from "./authSafe";
+import { callError } from "./backendTools";
 
 function* loadClusterProperties({
   payload: { clusterUrlName },
 }: ClusterPropertiesActions["LoadClusterProperties"]) {
-  const result: ApiResult<typeof clusterProperties> = yield call(
-    authSafe(clusterProperties),
+  const result: api.ResultOf<typeof clusterProperties> = yield callAuthSafe(
+    clusterProperties,
     clusterUrlName,
   );
 
-  if (!result.valid) {
-    yield put({
-      type: "CLUSTER_PROPERTIES.LOAD.FAILED",
-      payload: { clusterUrlName },
+  const taskLabel = `load cluster properties of cluster ${clusterUrlName}`;
+  if (result.type !== "OK") {
+    yield callError(result, taskLabel, {
+      action: () =>
+        put({
+          type: "CLUSTER_PROPERTIES.LOAD.FAILED",
+          payload: { clusterUrlName },
+        }),
     });
-    // TODO display information about this in notifications
     return;
   }
 
   yield put({
     type: "CLUSTER_PROPERTIES.LOAD.SUCCESS",
-    payload: { apiClusterProperties: result.response, clusterUrlName },
+    payload: { apiClusterProperties: result.payload, clusterUrlName },
   });
 }
 export default [takeEvery("CLUSTER_PROPERTIES.LOAD", loadClusterProperties)];

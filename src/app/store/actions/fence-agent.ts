@@ -1,4 +1,4 @@
-import { ApiResponse, getFenceAgentMetadata } from "app/backend";
+import { api, getFenceAgentMetadata } from "app/backend";
 
 export type FenceAgentActions = {
   LoadFenceAgent: {
@@ -13,7 +13,7 @@ export type FenceAgentActions = {
     type: "FENCE_AGENT.LOAD.SUCCESS";
     payload: {
       clusterUrlName: string;
-      apiAgentMetadata: ApiResponse<typeof getFenceAgentMetadata>;
+      apiAgentMetadata: api.PayloadOf<typeof getFenceAgentMetadata>;
     };
   };
 

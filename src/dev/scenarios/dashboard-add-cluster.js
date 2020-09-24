@@ -25,7 +25,7 @@ const checkAuth = endpoints.checkAuthAgainstNodes((req, res) => {
   res.json(result);
 });
 
-const authenticate = endpoints.authenticateAgainstNodes((req, res) => {
+const authGuiAgainstNodes = endpoints.authGuiAgainstNodes((req, res) => {
   const { nodes } = JSON.parse(req.body.data_json);
 
   const expectedError = Object.keys(nodes).reduce(
@@ -57,7 +57,7 @@ const authenticate = endpoints.authenticateAgainstNodes((req, res) => {
   });
 });
 
-const addCluster = endpoints.addCluster((req, res) => {
+const existingCluster = endpoints.existingCluster((req, res) => {
   const nodeName = req.body["node-name"];
   if (nodeName === "conflict") {
     res
@@ -78,6 +78,6 @@ const addCluster = endpoints.addCluster((req, res) => {
 export const variousNodes = [
   ...dashboardScenario({}),
   checkAuth,
-  addCluster,
-  authenticate,
+  existingCluster,
+  authGuiAgainstNodes,
 ];

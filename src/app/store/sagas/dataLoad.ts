@@ -22,7 +22,6 @@ export function* dataLoadManage({
   STOP,
   REFRESH,
   SUCCESS,
-  FAIL,
   refresh,
   fetch,
   getSyncId = null,
@@ -31,7 +30,6 @@ export function* dataLoadManage({
   STOP: Action["type"];
   REFRESH: Action["type"];
   SUCCESS: Action["type"];
-  FAIL: Action["type"];
   refresh: (id?: string) => Action;
   // It seems it selects definition of 'fork' with saga on 2nd place (index 1)
   fetch: Parameters<typeof fork>[1];
@@ -48,7 +46,7 @@ export function* dataLoadManage({
   > = {};
 
   while (true) {
-    const action = yield take([START, STOP, REFRESH, SUCCESS, FAIL]);
+    const action = yield take([START, STOP, REFRESH, SUCCESS]);
     const id = getSyncId ? getSyncId(action) : "";
     if (action.type === START) {
       if (id in syncMap) {
@@ -68,7 +66,7 @@ export function* dataLoadManage({
       continue;
     }
 
-    if ([SUCCESS, FAIL].includes(action.type)) {
+    if ([SUCCESS].includes(action.type)) {
       if (syncMap[id].fetchASAP) {
         syncMap[id].fetchASAP = false;
         syncMap[id].fetch = yield fork(fetch, id);

@@ -2,16 +2,18 @@ import * as t from "io-ts";
 import { isRight } from "fp-ts/lib/Either";
 import { PathReporter } from "io-ts/lib/PathReporter";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export function validateShape<A, O, I>(response: any, shape: t.Type<A, O, I>) {
-  const result = shape.decode(response);
-  if (!isRight(result)) {
-    return PathReporter.report(result);
+export function shape<A, O, I>(
+  payload: ReturnType<typeof JSON.parse>,
+  payloadShape: t.Type<A, O, I>,
+) {
+  const validationResult = payloadShape.decode(payload);
+  if (!isRight(validationResult)) {
+    return PathReporter.report(validationResult);
   }
   return [];
 }
 
-export const validateSameNodes = (expected: string[], given: string[]) => {
+export const sameNodes = (expected: string[], given: string[]) => {
   const sExpected = expected.sort();
   const sGiven = given.sort();
   if (sExpected.length !== sGiven.length) {

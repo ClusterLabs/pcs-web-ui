@@ -1,4 +1,4 @@
-import { ApiResponse, clusterProperties } from "app/backend";
+import { api, clusterProperties } from "app/backend";
 
 export type ClusterPropertiesActions = {
   LoadClusterProperties: {
@@ -12,7 +12,7 @@ export type ClusterPropertiesActions = {
     type: "CLUSTER_PROPERTIES.LOAD.SUCCESS";
     payload: {
       clusterUrlName: string;
-      apiClusterProperties: ApiResponse<typeof clusterProperties>;
+      apiClusterProperties: api.PayloadOf<typeof clusterProperties>;
     };
   };
 

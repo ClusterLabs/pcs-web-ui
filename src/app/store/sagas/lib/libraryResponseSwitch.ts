@@ -1,4 +1,4 @@
-import { log, types } from "app/backend";
+import { api } from "app/backend";
 import { actions } from "app/store";
 
 import { put } from "../effects";
@@ -13,7 +13,7 @@ export function* libraryResponseSwitch({
 }: {
   clusterUrlName: string;
   taskLabel: string;
-  response: types.libraryResponse.ApiResponse;
+  response: api.types.libraryResponse.ApiResponse;
   communicationErrorAction: actions.Action;
   errorAction: actions.Action;
   successAction: actions.Action;
@@ -29,7 +29,7 @@ export function* libraryResponseSwitch({
     case "input_error":
     case "exception":
     case "unknown_cmd":
-      log.libInputError(status, status_msg, communicationErrDesc);
+      api.log.libInputError(status, status_msg, communicationErrDesc);
       yield put(communicationErrorAction);
       return;
     case "error":

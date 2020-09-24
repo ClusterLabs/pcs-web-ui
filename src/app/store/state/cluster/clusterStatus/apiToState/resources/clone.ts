@@ -1,4 +1,4 @@
-import { types as backendTypes } from "app/backend";
+import { api } from "app/backend";
 import * as types from "app/store/state/types";
 
 import { transformIssues } from "../issues";
@@ -7,8 +7,8 @@ import { toPrimitive } from "./primitive";
 import { toGroup } from "./group";
 import { buildStatus, statusToSeverity } from "./statusInfoList";
 
-type ApiClone = backendTypes.clusterStatus.ApiClone;
-type ApiPrimitive = backendTypes.clusterStatus.ApiPrimitive;
+type ApiClone = api.types.clusterStatus.ApiClone;
+type ApiPrimitive = api.types.clusterStatus.ApiPrimitive;
 
 const buildStatusInfoList = (
   apiClone: ApiClone,

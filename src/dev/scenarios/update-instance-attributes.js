@@ -2,6 +2,7 @@ import * as endpoints from "dev/api/endpoints";
 import * as responses from "dev/api/responses/all";
 
 import { clusterRelatedScenario } from "./common/scenarios";
+import { importedClusterList } from "./common/handlers";
 
 let clusterStatusLoadCount = 0;
 const clusterStatus = (responseMap = {}) =>
@@ -54,6 +55,9 @@ export const noConflict = [
   clusterStatus({
     resourceTree: responses.clusterStatus.resourceTree,
   }),
+  importedClusterList(
+    responses.importedClusterList.withClusters(["resourceTree"]),
+  ),
   ...clusterRelatedScenario,
   getResourceAgentMetadata(responses.resourceAgentMetadata.ocfHeartbeatApache),
   updateResource,

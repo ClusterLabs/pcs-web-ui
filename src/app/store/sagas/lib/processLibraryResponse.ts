@@ -1,4 +1,4 @@
-import { types } from "app/backend";
+import { api } from "app/backend";
 
 import { createNotification } from "../notifications";
 
@@ -11,7 +11,7 @@ export function* processLibraryResponse({
 }: {
   taskLabel: string;
   clusterUrlName: string;
-  response: types.libraryResponse.ApiResponse;
+  response: api.types.libraryResponse.ApiResponse;
 }) {
   const {
     /* eslint-disable camelcase */

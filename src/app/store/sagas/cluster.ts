@@ -1,57 +1,30 @@
-import { ApiResult, clusterStatus, failMessage } from "app/backend";
+import { api, clusterStatus } from "app/backend";
 import { Action } from "app/store/actions";
 
-import { all, call, fork, put } from "./effects";
-import { putNotification } from "./notifications";
+import { fork, put } from "./effects";
 import { dataLoadManage } from "./dataLoad";
-import { authSafe } from "./authSafe";
+import { callAuthSafe } from "./authSafe";
+import { callError } from "./backendTools";
 
 function* fetchClusterData(clusterUrlName: string) {
-  try {
-    const result: ApiResult<typeof clusterStatus> = yield call(
-      authSafe(clusterStatus),
-      clusterUrlName,
-    );
-    if (!result.valid) {
-      /* eslint-disable no-console */
-      console.error(
-        "Cannot sync data for cluster. Invalid response from backend. Errors:",
-        result.errors,
-      );
-      yield all([
-        putNotification(
-          "ERROR",
-          `Cannot sync data for cluster '${clusterUrlName}'. `
-            + "Details are listed in the browser console.",
-        ),
-        put({
-          type: "CLUSTER_DATA.FETCH.FAILED",
-          payload: { clusterUrlName },
-        }),
-      ]);
-      return;
-    }
+  const result: api.ResultOf<typeof clusterStatus> = yield callAuthSafe(
+    clusterStatus,
+    clusterUrlName,
+  );
 
-    yield put({
-      type: "CLUSTER_DATA.FETCH.SUCCESS",
-      payload: {
-        clusterUrlName,
-        apiClusterStatus: result.response,
-      },
-    });
-  } catch (error) {
-    const errorMessage = failMessage(error);
-    yield all([
-      putNotification(
-        "ERROR",
-        `Cannot sync data for cluster '${clusterUrlName}': ${errorMessage}`,
-      ),
-      put({
-        type: "CLUSTER_DATA.FETCH.FAILED",
-        payload: { clusterUrlName },
-      }),
-    ]);
+  const taskLabel = `sync status of cluster "${clusterUrlName}"`;
+  if (result.type !== "OK") {
+    yield callError(result, taskLabel);
+    return;
   }
+
+  yield put({
+    type: "CLUSTER_DATA.FETCH.SUCCESS",
+    payload: {
+      clusterUrlName,
+      apiClusterStatus: result.payload,
+    },
+  });
 }
 
 const REFRESH = "CLUSTER_DATA.REFRESH";
@@ -60,7 +33,6 @@ const clusterDataSyncOptions: Parameters<typeof dataLoadManage>[0] = {
   STOP: "CLUSTER_DATA.SYNC.STOP",
   REFRESH,
   SUCCESS: "CLUSTER_DATA.FETCH.SUCCESS",
-  FAIL: "CLUSTER_DATA.FETCH.FAILED",
   refresh: (clusterName = "") => ({
     type: REFRESH,
     payload: { clusterUrlName: clusterName },
@@ -71,7 +43,6 @@ const clusterDataSyncOptions: Parameters<typeof dataLoadManage>[0] = {
       case "CLUSTER_DATA.SYNC":
       case "CLUSTER_DATA.SYNC.STOP":
       case "CLUSTER_DATA.FETCH.SUCCESS":
-      case "CLUSTER_DATA.FETCH.FAILED":
       case "CLUSTER_DATA.REFRESH":
         return action.payload.clusterUrlName;
       default:

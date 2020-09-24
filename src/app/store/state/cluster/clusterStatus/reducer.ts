@@ -40,8 +40,6 @@ const dataFetchState: Reducer<ClusterStatusService["dataFetchState"]> = (
       return state === "SUCCESS" ? "SUCCESS" : "IN_PROGRESS";
     case "CLUSTER_DATA.FETCH.SUCCESS":
       return "SUCCESS";
-    case "CLUSTER_DATA.FETCH.FAILED":
-      return state === "IN_PROGRESS" ? "ERROR" : state;
     default:
       return state;
   }

@@ -19,14 +19,6 @@ export type PrimitiveResourceActions = {
     };
   };
 
-  UpdateInstanceAttributesSuccess: {
-    type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.SUCCESS";
-  };
-
-  UpdateInstanceAttributesFailed: {
-    type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.FAILED";
-  };
-
   ActionUnmanage: {
     type: "RESOURCE.PRIMITIVE.UNMANAGE";
     payload: {

@@ -6,8 +6,6 @@ export type DashboardActions = {
     };
   };
 
-  FetchDashboardDataFailed: { type: "DASHBOARD_DATA.FETCH.FAILED" };
-
   RefreshDashboardData: { type: "DASHBOARD_DATA.REFRESH" };
 
   SyncDashboardData: { type: "DASHBOARD_DATA.SYNC" };

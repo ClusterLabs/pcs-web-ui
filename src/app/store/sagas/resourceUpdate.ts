@@ -1,19 +1,10 @@
 import { PrimitiveResourceActions } from "app/store/actions";
-import { ApiResult, updateResource } from "app/backend";
+import { api, updateResource } from "app/backend";
 
-import { call, put, takeEvery } from "./effects";
+import { put, takeEvery } from "./effects";
 import { putNotification } from "./notifications";
-import { authSafe } from "./authSafe";
-
-function* updateInstanceAttributesFailed(resourceId: string, message: string) {
-  yield put({
-    type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.FAILED",
-  });
-  yield putNotification(
-    "ERROR",
-    `Update instance attributes of resource "${resourceId}" failed:\n ${message}`,
-  );
-}
+import { callAuthSafe } from "./authSafe";
+import { callError } from "./backendTools";
 
 function* updateInstanceAttributes({
   payload: { resourceId, attributes, clusterUrlName },
@@ -22,40 +13,34 @@ function* updateInstanceAttributes({
     "INFO",
     `Update instance attributes of resource "${resourceId}" requested`,
   );
-  try {
-    const result: ApiResult<typeof updateResource> = yield call(
-      authSafe(updateResource),
-      clusterUrlName,
-      resourceId,
-      attributes,
-    );
-    if (!result.valid) {
-      yield updateInstanceAttributesFailed(
-        resourceId,
-        `invalid backend response:\n${result.raw}`,
-      );
-      return;
-    }
+  const result: api.ResultOf<typeof updateResource> = yield callAuthSafe(
+    updateResource,
+    clusterUrlName,
+    resourceId,
+    attributes,
+  );
 
-    if (result.response.error === "true") {
-      const { stdout, stderr } = result.response;
-      yield updateInstanceAttributesFailed(
-        resourceId,
-        `backend error :\nstdout: ${stdout}\nstderr: ${stderr}`,
-      );
-      return;
-    }
+  const taskLabel = `update instance attributes of resource "${resourceId}"`;
 
-    yield put({
-      type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.SUCCESS",
-    });
-    yield putNotification(
-      "SUCCESS",
-      `Instance attributes of resource "${resourceId}" succesfully updated`,
-    );
-  } catch (error) {
-    yield updateInstanceAttributesFailed(resourceId, error.message);
+  if (result.type !== "OK") {
+    yield callError(result, taskLabel);
+    return;
   }
+
+  if (result.payload.error === "true") {
+    const { stdout, stderr } = result.payload;
+    yield putNotification("ERROR", `Task failed: ${taskLabel}: `, {
+      type: "LINES",
+      lines: ["backend error :", `stdout: ${stdout}`, `stderr: ${stderr}`],
+    });
+    return;
+  }
+
+  yield put({
+    type: "CLUSTER_DATA.REFRESH",
+    payload: { clusterUrlName },
+  });
+  yield putNotification("SUCCESS", `Succesfully done: ${taskLabel}`);
 }
 
 export default [

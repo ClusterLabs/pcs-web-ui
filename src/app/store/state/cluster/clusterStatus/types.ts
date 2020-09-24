@@ -1,22 +1,24 @@
-import { types as t } from "app/backend";
+import { api } from "app/backend";
 
-type ApiConstraintColocationPair = t.clusterStatus.ApiConstraintColocationPair;
-type ApiConstraintColocationSet = t.clusterStatus.ApiConstraintColocationSet;
-type ApiConstraintLocationNode = t.clusterStatus.ApiConstraintLocationNode;
-type ApiConstraintLocationRule = t.clusterStatus.ApiConstraintLocationRule;
-type ApiConstraintOrderPair = t.clusterStatus.ApiConstraintOrderPair;
-type ApiConstraintOrderSet = t.clusterStatus.ApiConstraintOrderSet;
-type ApiConstraintResourceSet = t.clusterStatus.ApiConstraintResourceSet;
+/* eslint-disable max-len */
+
+type ApiConstraintColocationPair = api.types.clusterStatus.ApiConstraintColocationPair;
+type ApiConstraintColocationSet = api.types.clusterStatus.ApiConstraintColocationSet;
+type ApiConstraintLocationNode = api.types.clusterStatus.ApiConstraintLocationNode;
+type ApiConstraintLocationRule = api.types.clusterStatus.ApiConstraintLocationRule;
+type ApiConstraintOrderPair = api.types.clusterStatus.ApiConstraintOrderPair;
+type ApiConstraintOrderSet = api.types.clusterStatus.ApiConstraintOrderSet;
+type ApiConstraintResourceSet = api.types.clusterStatus.ApiConstraintResourceSet;
 // prettier-ignore
 type ApiConstraintResourceSetStructured = (
-  t.clusterStatus.ApiConstraintResourceSetStructured
+  api.types.clusterStatus.ApiConstraintResourceSetStructured
 );
-type ApiConstraintTicketResource = t.clusterStatus.ApiConstraintTicketResource;
-type ApiConstraintTicketSet = t.clusterStatus.ApiConstraintTicketSet;
-type ApiConstraints = t.clusterStatus.ApiConstraints;
-type ApiNVPair = t.clusterStatus.ApiNVPair;
-type ApiNodeService = t.clusterStatus.ApiNodeService;
-type ApiNodeServiceMap = t.clusterStatus.ApiNodeServiceMap;
+type ApiConstraintTicketResource = api.types.clusterStatus.ApiConstraintTicketResource;
+type ApiConstraintTicketSet = api.types.clusterStatus.ApiConstraintTicketSet;
+type ApiConstraints = api.types.clusterStatus.ApiConstraints;
+type ApiNVPair = api.types.clusterStatus.ApiNVPair;
+type ApiNodeService = api.types.clusterStatus.ApiNodeService;
+type ApiNodeServiceMap = api.types.clusterStatus.ApiNodeServiceMap;
 
 export type ConstraintLocationNode = ApiConstraintLocationNode;
 export type ConstraintLocationRule = ApiConstraintLocationRule;
@@ -32,7 +34,7 @@ export type ConstraintResourceSetStructured = (
 export type ConstraintTicketResource = ApiConstraintTicketResource;
 export type ConstraintTicketSet = ApiConstraintTicketSet;
 export type NVPair = ApiNVPair;
-export type Score = t.clusterStatus.ApiScore;
+export type Score = api.types.clusterStatus.ApiScore;
 
 export interface AgentAttribute {
   id: string;
@@ -186,5 +188,5 @@ export interface ClusterStatus {
 
 export interface ClusterStatusService {
   clusterData: ClusterStatus;
-  dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "ERROR";
+  dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS";
 }

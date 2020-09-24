@@ -1,119 +1,62 @@
 import { PrimitiveResourceActions } from "app/store/actions";
 import {
-  ApiResult,
+  api,
   resourceDisable,
   resourceEnable,
   resourceManage,
   resourceUnmanage,
 } from "app/backend";
 
-import { call, takeEvery } from "./effects";
-import { authSafe } from "./authSafe";
+import { takeEvery } from "./effects";
+import { callAuthSafe } from "./authSafe";
 import { formatResourcesMsg, processLibraryResponse } from "./lib";
-import { invalidResult, networkError } from "./backend";
+import { callError } from "./backendTools";
 
-function* resourceDisableSaga({
-  payload: { resourceNameList, clusterUrlName },
-}: PrimitiveResourceActions["ActionDisable"]) {
-  const taskLabel = `disable ${formatResourcesMsg(resourceNameList)}`;
-  try {
-    const result: ApiResult<typeof resourceDisable> = yield call(
-      authSafe(resourceDisable),
-      { clusterUrlName, resourceNameList },
-    );
+type Actions =
+  | PrimitiveResourceActions["ActionUnmanage"]
+  | PrimitiveResourceActions["ActionManage"]
+  | PrimitiveResourceActions["ActionDisable"]
+  | PrimitiveResourceActions["ActionEnable"];
 
-    if (!result.valid) {
-      yield invalidResult(result, taskLabel);
+function resourceAction(callLib: api.Call<api.LibPayload>, taskName: string) {
+  return function* resourceActionSaga({
+    payload: { resourceNameList, clusterUrlName },
+  }: Actions) {
+    const result: api.ResultOf<typeof callLib> = yield callAuthSafe(callLib, {
+      clusterUrlName,
+      resourceNameList,
+    });
+
+    const taskLabel = `${taskName} ${formatResourcesMsg(resourceNameList)}`;
+
+    if (result.type !== "OK") {
+      yield callError(result, taskLabel);
       return;
     }
 
     yield processLibraryResponse({
       taskLabel,
       clusterUrlName,
-      response: result.response,
+      response: result.payload,
     });
-  } catch (error) {
-    yield networkError(error, taskLabel);
-  }
-}
-
-function* resourceEnableSaga({
-  payload: { resourceNameList, clusterUrlName },
-}: PrimitiveResourceActions["ActionEnable"]) {
-  const taskLabel = `enable ${formatResourcesMsg(resourceNameList)}`;
-  try {
-    const result: ApiResult<typeof resourceEnable> = yield call(
-      authSafe(resourceEnable),
-      { clusterUrlName, resourceNameList },
-    );
-
-    if (!result.valid) {
-      yield invalidResult(result, taskLabel);
-      return;
-    }
-
-    yield processLibraryResponse({
-      taskLabel,
-      clusterUrlName,
-      response: result.response,
-    });
-  } catch (error) {
-    yield networkError(error, taskLabel);
-  }
-}
-function* resourceUnmanageSaga({
-  payload: { resourceNameList, clusterUrlName },
-}: PrimitiveResourceActions["ActionUnmanage"]) {
-  const taskLabel = `unmanage ${formatResourcesMsg(resourceNameList)}`;
-  try {
-    const result: ApiResult<typeof resourceUnmanage> = yield call(
-      authSafe(resourceUnmanage),
-      { clusterUrlName, resourceNameList },
-    );
-
-    if (!result.valid) {
-      yield invalidResult(result, taskLabel);
-      return;
-    }
-
-    yield processLibraryResponse({
-      taskLabel,
-      clusterUrlName,
-      response: result.response,
-    });
-  } catch (error) {
-    yield networkError(error, taskLabel);
-  }
-}
-
-function* resourceManageSaga({
-  payload: { resourceNameList, clusterUrlName },
-}: PrimitiveResourceActions["ActionManage"]) {
-  const taskLabel = `manage ${formatResourcesMsg(resourceNameList)}`;
-  try {
-    const result: ApiResult<typeof resourceManage> = yield call(
-      authSafe(resourceManage),
-      { clusterUrlName, resourceNameList },
-    );
-
-    if (!result.valid) {
-      yield invalidResult(result, taskLabel);
-      return;
-    }
-
-    yield processLibraryResponse({
-      taskLabel,
-      clusterUrlName,
-      response: result.response,
-    });
-  } catch (error) {
-    yield networkError(error, taskLabel);
-  }
+  };
 }
 
 export default [
-  takeEvery("RESOURCE.PRIMITIVE.DISABLE", resourceDisableSaga),
-  takeEvery("RESOURCE.PRIMITIVE.ENABLE", resourceEnableSaga),
-  takeEvery("RESOURCE.PRIMITIVE.UNMANAGE", resourceUnmanageSaga),
-  takeEvery("RESOURCE.PRIMITIVE.MANAGE", resourceManageSaga),
+  takeEvery(
+    "RESOURCE.PRIMITIVE.DISABLE",
+    resourceAction(resourceDisable, "disable"),
+  ),
+  takeEvery(
+    "RESOURCE.PRIMITIVE.ENABLE",
+    resourceAction(resourceEnable, "enable"),
+  ),
+  takeEvery(
+    "RESOURCE.PRIMITIVE.UNMANAGE",
+    resourceAction(resourceUnmanage, "unmanage"),
+  ),
+  takeEvery(
+    "RESOURCE.PRIMITIVE.MANAGE",
+    resourceAction(resourceManage, "manage"),
+  ),
 ];

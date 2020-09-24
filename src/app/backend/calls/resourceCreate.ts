@@ -1,6 +1,6 @@
-import { CallLibResult, callLib } from "./lib";
+import { lib } from "app/backend/tools";
 
-export const resourceCreate: CallLibResult = async ({
+export const resourceCreate = async ({
   clusterUrlName,
   resourceName,
   agentName,
@@ -12,10 +12,10 @@ export const resourceCreate: CallLibResult = async ({
   agentName: string;
   instanceAttrs: Record<string, string>;
   disabled: boolean;
-}) => {
-  return callLib({
+}) =>
+  lib.callCluster({
     clusterUrlName,
-    urlName: "resource-create",
+    commandUrlName: "resource-create",
     payload: {
       resource_id: resourceName,
       resource_agent_name: agentName,
@@ -25,4 +25,3 @@ export const resourceCreate: CallLibResult = async ({
       ensure_disabled: disabled,
     },
   });
-};

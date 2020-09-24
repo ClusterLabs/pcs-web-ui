@@ -14,8 +14,7 @@ const jsonOr401 = result => (_req, res) => {
 const importedClusterList = endpoints.importedClusterList(
   jsonOr401(
     responses.importedClusterList.withClusters([
-      responses.clusterStatus.ok,
-      responses.clusterStatus.error,
+      responses.clusterStatus.ok.cluster_name,
     ]),
   ),
 );

@@ -88,8 +88,11 @@ const promptScenario = () =>
     .catch(() => {
       process.exit(0);
     });
+
 const addAppHandlers = (app, scenarioHandlers, delay, delayRandom) => {
+  const endpoints = [];
   scenarioHandlers.forEach(({ method, url, middleParams, handler }) => {
+    endpoints.push(`${method}: ${url}`);
     app[method.toLowerCase()](url, ...(middleParams || []), (req, res) => {
       setTimeout(
         () => handler(req, res),
@@ -97,6 +100,8 @@ const addAppHandlers = (app, scenarioHandlers, delay, delayRandom) => {
       );
     });
   });
+  console.log("Endpoints:");
+  console.log(endpoints);
 };
 
 /* eslint-disable no-shadow */
