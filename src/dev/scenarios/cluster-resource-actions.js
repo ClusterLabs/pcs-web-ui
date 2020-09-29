@@ -53,13 +53,21 @@ const refreshCleanup = (req, res) => {
 };
 
 const removeResource = endpoints.removeResource((req, res) => {
-  if (req.body.resource === "fail") {
+  if ("resid-fail" in req.body) {
     res.status(500).send("Something wrong");
     return;
   }
-  if (req.body.resource === "permission") {
+  if ("resid-permission" in req.body) {
     res.status(403).send("Permission denied");
+    return;
   }
+
+  if ("resid-error" in req.body) {
+    res.status(400).send("Unable to stop resource(s).");
+    return;
+  }
+
+  res.send("");
 });
 
 const resourceRefresh = endpoints.resourceRefresh(refreshCleanup);

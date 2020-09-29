@@ -16,6 +16,7 @@ import username from "./username";
 import clusterProperties from "./clusterProperties";
 import resourceAgentList from "./resourceAgentList";
 import resourceRefreshCleanup from "./resourceRefreshCleanup";
+import resourceDelete from "./resourceDelete";
 
 function* rootSaga() {
   yield all([
@@ -34,6 +35,7 @@ function* rootSaga() {
     ...fenceAgent,
     ...resourceAgentList,
     ...resourceAction,
+    ...resourceDelete,
     ...resourceRefreshCleanup,
   ]);
 }

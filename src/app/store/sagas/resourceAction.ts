@@ -12,7 +12,7 @@ import { callAuthSafe } from "./authSafe";
 import { formatResourcesMsg, processLibraryResponse } from "./lib";
 import { callError } from "./backendTools";
 
-type Actions =
+type Action =
   | PrimitiveResourceActions["ActionUnmanage"]
   | PrimitiveResourceActions["ActionManage"]
   | PrimitiveResourceActions["ActionDisable"]
@@ -21,7 +21,7 @@ type Actions =
 function resourceAction(callLib: api.Call<api.LibPayload>, taskName: string) {
   return function* resourceActionSaga({
     payload: { resourceNameList, clusterUrlName },
-  }: Actions) {
+  }: Action) {
     const result: api.ResultOf<typeof callLib> = yield callAuthSafe(callLib, {
       clusterUrlName,
       resourceNameList,

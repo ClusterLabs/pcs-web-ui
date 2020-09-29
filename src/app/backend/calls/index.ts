@@ -12,3 +12,4 @@ export * from "./resourceCreate";
 export * from "./resourceActions";
 export * from "./resourceRefreshCleanup";
 export * from "./login";
+export * from "./removeResource";

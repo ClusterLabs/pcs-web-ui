@@ -15,10 +15,16 @@ export function* error(
         `Unauthorized while: ${taskLabel}. ${detailsInConsole}`,
       );
       break;
+    case "BAD_HTTP_STATUS":
+      yield putNotification("ERROR", `Task ${taskLabel} failed`, {
+        type: "LINES",
+        lines: [result.text, detailsInConsole],
+      });
+      break;
     default:
       yield putNotification(
         "ERROR",
-        `Communication error while: ${taskLabel}.  ${detailsInConsole}`,
+        `Communication error while: ${taskLabel}. ${detailsInConsole}`,
       );
   }
 }

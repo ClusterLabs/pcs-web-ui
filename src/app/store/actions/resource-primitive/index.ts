@@ -71,7 +71,7 @@ export type PrimitiveResourceActions = {
     type: "RESOURCE.PRIMITIVE.DELETE";
     payload: {
       clusterUrlName: string;
-      resourceId: string;
+      resourceIds: string[];
     };
   };
 };
