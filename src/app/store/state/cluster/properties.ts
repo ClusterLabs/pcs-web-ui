@@ -1,7 +1,7 @@
-import { types } from "app/backend";
+import { api } from "app/backend";
 import { Reducer, combineReducers } from "app/store/redux";
 
-export type ClusterProperty = types.clusterProperties.ApiClusterProperty;
+export type ClusterProperty = api.types.clusterProperties.ApiClusterProperty;
 
 export type ClusterPropertiesService = {
   data: ClusterProperty[];

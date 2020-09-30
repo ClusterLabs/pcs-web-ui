@@ -1,4 +1,4 @@
-import { types as backendTypes } from "app/backend";
+import { api } from "app/backend";
 import * as types from "app/store/state/types";
 
 import * as statusSeverity from "../statusSeverity";
@@ -9,9 +9,9 @@ import { toClone } from "./clone";
 import { toFenceDevice } from "./fenceDevice";
 import { statusToSeverity } from "./statusInfoList";
 
-type ApiPrimitive = backendTypes.clusterStatus.ApiPrimitive;
-type ApiResource = backendTypes.clusterStatus.ApiResource;
-type ApiStonith = backendTypes.clusterStatus.ApiStonith;
+type ApiPrimitive = api.types.clusterStatus.ApiPrimitive;
+type ApiResource = api.types.clusterStatus.ApiResource;
+type ApiStonith = api.types.clusterStatus.ApiStonith;
 
 const takeResourceOnNodeStatus = (
   apiResource: ApiPrimitive,

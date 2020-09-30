@@ -1,12 +1,12 @@
-import { types as backendTypes } from "app/backend";
+import { api } from "app/backend";
 import * as types from "app/store/state/types";
 
 import { transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
 
-type ApiClusterStatus = backendTypes.clusterStatus.ApiClusterStatus;
-type ApiIssue = backendTypes.clusterStatus.ApiIssue;
+type ApiClusterStatus = api.types.clusterStatus.ApiClusterStatus;
+type ApiIssue = api.types.clusterStatus.ApiIssue;
 type ClusterState = types.cluster.ClusterStatus;
 
 const issuesToSummarySeverity = (

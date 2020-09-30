@@ -16,6 +16,7 @@ import {
 import { PrimitiveAttrsView } from "./attributes";
 import { PrimitiveDetail } from "./PrimitiveDetail";
 import { useClusterResourceAgent } from "./useResourceAgent";
+import { PrimitivePageToolbar } from "./PrimitivePageToolbar";
 
 export const PrimitivePage = ({
   primitive,
@@ -46,6 +47,7 @@ export const PrimitivePage = ({
       }
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
       data-test={`resource-detail ${primitive.id}`}
+      toolbar={<PrimitivePageToolbar primitive={primitive} />}
     >
       {tab === "Detail" && <PrimitiveDetail primitive={primitive} />}
       {tab === "Attributes" && <PrimitiveAttrsView primitive={primitive} />}

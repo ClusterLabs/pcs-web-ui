@@ -1,5 +1,6 @@
-const endpoints = require("dev/api/endpoints");
-const responses = require("dev/api/responses/all");
+import * as endpoints from "dev/api/endpoints";
+
+import { dashboardScenario } from "./common/scenarios";
 
 const checkAuth = endpoints.checkAuthAgainstNodes((req, res) => {
   const nodeList = Array.isArray(req.query.node_list)
@@ -24,7 +25,7 @@ const checkAuth = endpoints.checkAuthAgainstNodes((req, res) => {
   res.json(result);
 });
 
-const authenticate = endpoints.authenticateAgainstNodes((req, res) => {
+const authGuiAgainstNodes = endpoints.authGuiAgainstNodes((req, res) => {
   const { nodes } = JSON.parse(req.body.data_json);
 
   const expectedError = Object.keys(nodes).reduce(
@@ -56,7 +57,7 @@ const authenticate = endpoints.authenticateAgainstNodes((req, res) => {
   });
 });
 
-const addCluster = endpoints.addCluster((req, res) => {
+const existingCluster = endpoints.existingCluster((req, res) => {
   const nodeName = req.body["node-name"];
   if (nodeName === "conflict") {
     res
@@ -74,10 +75,9 @@ const addCluster = endpoints.addCluster((req, res) => {
   }
 });
 
-const clustersOverview = endpoints.clustersOverview((req, res) => {
-  res.json(responses.clustersOverview.empty);
-});
-
-module.exports = {
-  variousNodes: [clustersOverview, checkAuth, addCluster, authenticate],
-};
+export const variousNodes = [
+  ...dashboardScenario({}),
+  checkAuth,
+  existingCluster,
+  authGuiAgainstNodes,
+];

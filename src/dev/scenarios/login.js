@@ -1,9 +1,9 @@
-const endpoints = require("dev/api/endpoints");
-const responses = require("dev/api/responses/all");
+import * as endpoints from "dev/api/endpoints";
+import * as responses from "dev/api/responses/all";
 
 let isLoggedIn = false;
 
-const jsonOr401 = result => (req, res) => {
+const jsonOr401 = result => (_req, res) => {
   if (isLoggedIn) {
     res.json(result);
   } else {
@@ -11,20 +11,10 @@ const jsonOr401 = result => (req, res) => {
   }
 };
 
-const clustersOverview = endpoints.clustersOverview(
-  jsonOr401(
-    responses.clustersOverview.withClusters([
-      responses.clusterStatus.ok,
-      responses.clusterStatus.error,
-    ]),
-  ),
-);
-
 const importedClusterList = endpoints.importedClusterList(
   jsonOr401(
     responses.importedClusterList.withClusters([
-      responses.clusterStatus.ok,
-      responses.clusterStatus.error,
+      responses.clusterStatus.ok.cluster_name,
     ]),
   ),
 );
@@ -43,14 +33,13 @@ const login = endpoints.login((req, res) => {
   res.status(401).send('{"notauthorized":"true"}');
 });
 
-const logout = endpoints.logout((req, res) => {
+const logout = endpoints.logout((_req, res) => {
   isLoggedIn = false;
   res.send("OK");
 });
 
 module.exports = {
   noLogged: [
-    clustersOverview,
     importedClusterList,
     login,
     logout,

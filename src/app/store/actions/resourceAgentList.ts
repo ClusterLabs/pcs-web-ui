@@ -1,4 +1,4 @@
-import { ApiResponse, getAvailResourceAgents } from "app/backend";
+import { api, getAvailResourceAgents } from "app/backend";
 
 export type ResourceAgentListActions = {
   LoadResourceAgentList: {
@@ -12,7 +12,7 @@ export type ResourceAgentListActions = {
     type: "RESOURCE_AGENT_LIST.LOAD.SUCCESS";
     payload: {
       clusterUrlName: string;
-      apiResourceAgentMap: ApiResponse<typeof getAvailResourceAgents>;
+      apiResourceAgentMap: api.PayloadOf<typeof getAvailResourceAgents>;
     };
   };
 

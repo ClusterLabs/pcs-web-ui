@@ -1,11 +1,11 @@
-import { types } from "app/backend";
+import { api } from "app/backend";
 import { Reducer } from "app/store/redux";
 
 type InstanceAttrName = string;
 type InstanceAttrValue = string;
 type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
 
-export type Report = types.libraryResponse.ApiReport;
+export type Report = api.types.libraryResponse.ApiReport;
 export type WizardResourceCreate = {
   agentName: string;
   resourceName: string;

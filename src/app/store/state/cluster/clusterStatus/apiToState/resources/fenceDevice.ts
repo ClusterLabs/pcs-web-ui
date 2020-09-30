@@ -1,11 +1,11 @@
-import { types as backendTypes } from "app/backend";
+import { api } from "app/backend";
 import * as types from "app/store/state/types";
 
 import { transformIssues } from "../issues";
 
 import { statusToSeverity } from "./statusInfoList";
 
-type ApiStonith = backendTypes.clusterStatus.ApiStonith;
+type ApiStonith = api.types.clusterStatus.ApiStonith;
 
 const transformStatus = (
   status: ApiStonith["status"],

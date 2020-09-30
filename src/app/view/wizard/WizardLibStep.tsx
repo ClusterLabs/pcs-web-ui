@@ -1,13 +1,13 @@
 import React from "react";
 import { Stack, StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { types } from "app/backend";
+import { api } from "app/backend";
 
 import { WizardLibReports } from "./WizardLibReports";
 
 export const WizardLibStep: React.FC<{
   title: string;
-  reports?: types.libraryResponse.ApiReport[];
+  reports?: api.types.libraryResponse.ApiReport[];
 }> = ({ title, children, reports = [] }) => {
   return (
     <Stack hasGutter>

@@ -27,4 +27,3 @@ const TApiClusterProperty = t.intersection([
 export const TApiClusterProperties = t.record(t.string, TApiClusterProperty);
 
 export type ApiClusterProperty = t.TypeOf<typeof TApiClusterProperty>;
-export type ApiClusterProperties = t.TypeOf<typeof TApiClusterProperties>;

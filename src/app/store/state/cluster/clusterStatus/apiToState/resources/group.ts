@@ -1,4 +1,4 @@
-import { types as backendTypes } from "app/backend";
+import { api } from "app/backend";
 import * as types from "app/store/state/types";
 
 import { transformIssues } from "../issues";
@@ -6,9 +6,9 @@ import { transformIssues } from "../issues";
 import { toPrimitive } from "./primitive";
 import { buildStatus, getMaxSeverity, isDisabled } from "./statusInfoList";
 
-type ApiGroup = backendTypes.clusterStatus.ApiGroup;
-type ApiPrimitive = backendTypes.clusterStatus.ApiPrimitive;
-type ApiStonith = backendTypes.clusterStatus.ApiStonith;
+type ApiGroup = api.types.clusterStatus.ApiGroup;
+type ApiPrimitive = api.types.clusterStatus.ApiPrimitive;
+type ApiStonith = api.types.clusterStatus.ApiStonith;
 
 type Counts = {
   errors: Record<string, number>;

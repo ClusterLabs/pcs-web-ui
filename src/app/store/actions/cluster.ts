@@ -1,17 +1,10 @@
-import { ApiResponse, clusterStatus } from "app/backend";
+import { api, clusterStatus } from "app/backend";
 
 export type ClusterActions = {
   FetchClusterDataSuccess: {
     type: "CLUSTER_DATA.FETCH.SUCCESS";
     payload: {
-      apiClusterStatus: ApiResponse<typeof clusterStatus>;
-      clusterUrlName: string;
-    };
-  };
-
-  FetchClusterDataFailed: {
-    type: "CLUSTER_DATA.FETCH.FAILED";
-    payload: {
+      apiClusterStatus: api.PayloadOf<typeof clusterStatus>;
       clusterUrlName: string;
     };
   };

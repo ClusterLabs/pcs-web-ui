@@ -1,30 +1,34 @@
-import { ApiResult, getFenceAgentMetadata } from "app/backend";
+import { api, getFenceAgentMetadata } from "app/backend";
 import { FenceAgentActions } from "app/store/actions";
 
-import { call, put, takeEvery } from "./effects";
-import { authSafe } from "./authSafe";
+import { put, takeEvery } from "./effects";
+import { callAuthSafe } from "./authSafe";
+import { callError } from "./backendTools";
 
 function* loadFenceAgent({
   payload: { agentName, clusterUrlName },
 }: FenceAgentActions["LoadFenceAgent"]) {
-  const result: ApiResult<typeof getFenceAgentMetadata> = yield call(
-    authSafe(getFenceAgentMetadata),
+  const result: api.ResultOf<typeof getFenceAgentMetadata> = yield callAuthSafe(
+    getFenceAgentMetadata,
     clusterUrlName,
     agentName,
   );
 
-  if (!result.valid) {
-    yield put({
-      type: "FENCE_AGENT.LOAD.FAILED",
-      payload: { agentName, clusterUrlName },
+  const taskLabel = `load fence agent ${agentName}`;
+  if (result.type !== "OK") {
+    yield callError(result, taskLabel, {
+      action: () =>
+        put({
+          type: "FENCE_AGENT.LOAD.FAILED",
+          payload: { agentName, clusterUrlName },
+        }),
     });
-    // TODO display information about this in notifications
     return;
   }
 
   yield put({
     type: "FENCE_AGENT.LOAD.SUCCESS",
-    payload: { apiAgentMetadata: result.response, clusterUrlName },
+    payload: { apiAgentMetadata: result.payload, clusterUrlName },
   });
 }
 export default [takeEvery("FENCE_AGENT.LOAD", loadFenceAgent)];

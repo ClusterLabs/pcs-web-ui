@@ -1,52 +1,55 @@
-import { getForText, isUnauthorizedError, postForText } from "app/backend";
+import { api, login, logout } from "app/backend";
 import { LoginActions } from "app/store/actions";
 
 import { call, put, takeEvery } from "./effects";
 import { putNotification } from "./notifications";
+import { callError } from "./backendTools";
 
-export function* logout() {
-  try {
-    yield putNotification("INFO", "Trying to logout");
+export function* logoutSaga() {
+  yield putNotification("INFO", "Trying to logout");
 
-    yield call(getForText, "/ui/logout");
-
-    yield putNotification("SUCCESS", "Success logout");
+  const result: api.ResultOf<typeof logout> = yield call(logout);
+  if (result.type === "UNAUTHORIZED") {
+    // Ok we are already somehow loged out.
+    yield putNotification("SUCCESS", "Already logged out");
     yield put({ type: "LOGOUT.SUCCESS" });
-  } catch (error) {
-    if (isUnauthorizedError(error)) {
-      // Ok we are already somehow loged out.
-      yield putNotification("SUCCESS", "Already logged out");
-      yield put({ type: "LOGOUT.SUCCESS" });
-    } else {
-      yield putNotification("ERROR", `Cannot logout: ${error.message}`);
-    }
+    return;
   }
+  if (result.type !== "OK") {
+    yield callError(result, "logout");
+    return;
+  }
+
+  yield putNotification("SUCCESS", "Success logout");
+  yield put({ type: "LOGOUT.SUCCESS" });
 }
 
-export function* login({
+export function* loginSaga({
   payload: { username, password },
 }: LoginActions["EnterCredentials"]) {
-  try {
-    yield call(postForText, "/ui/login", [
-      ["username", username],
-      ["password", password],
-    ]);
-    yield put({
-      type: "AUTH.SUCCESS",
-      payload: { username },
-    });
-  } catch (error) {
+  const result: api.ResultOf<typeof login> = yield call(
+    login,
+    username,
+    password,
+  );
+
+  if (result.type !== "OK") {
     yield put({
       type: "LOGIN.FAILED",
       payload: {
-        badCredentials: isUnauthorizedError(error),
-        message: isUnauthorizedError(error) ? "" : error.message,
+        badCredentials: result.type === "UNAUTHORIZED",
+        message:
+          result.type === "UNAUTHORIZED"
+            ? ""
+            : api.log.errorMessage(result, "login"),
       },
     });
+    return;
   }
+  yield put({ type: "AUTH.SUCCESS", payload: { username } });
 }
 
 export default [
-  takeEvery("LOGOUT", logout),
-  takeEvery("ENTER_CREDENTIALS", login),
+  takeEvery("LOGOUT", logoutSaga),
+  takeEvery("ENTER_CREDENTIALS", loginSaga),
 ];

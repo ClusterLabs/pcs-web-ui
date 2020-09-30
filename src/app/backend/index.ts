@@ -1,17 +1,4 @@
-import { failMessage, isUnauthorizedError } from "./errors";
-import { getForText, postForText } from "./calls";
-import {
-  ApiCall as ApiCallType,
-  ApiResponse as ApiResponseType,
-  ApiResult as ApiResultType,
-} from "./tools";
-import * as types from "./types";
-import * as log from "./log";
+import * as api from "./api";
 
-export { failMessage, isUnauthorizedError, getForText, postForText };
-export type ApiResponse<T> = ApiResponseType<T>;
-export type ApiResult<T> = ApiResultType<T>;
-export type ApiCall<T> = ApiCallType<T>;
-
-export { types, log };
-export * from "./api";
+export { api };
+export * from "./calls";

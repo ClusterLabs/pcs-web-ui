@@ -1,30 +1,36 @@
-import { ApiResult, getResourceAgentMetadata } from "app/backend";
+import { api, getResourceAgentMetadata } from "app/backend";
 import { actions, selectors, types } from "app/store";
 
-import { call, put, select, takeEvery } from "./effects";
-import { authSafe } from "./authSafe";
+import { put, select, takeEvery } from "./effects";
+import { callAuthSafe } from "./authSafe";
+import { callError } from "./backendTools";
+
+type ApiCallResult = api.ResultOf<typeof getResourceAgentMetadata>;
 
 function* loadResourceAgent({
   payload: { agentName, clusterUrlName },
 }: actions.ResourceAgentActions["LoadResourceAgent"]) {
-  const result: ApiResult<typeof getResourceAgentMetadata> = yield call(
-    authSafe(getResourceAgentMetadata),
+  const result: ApiCallResult = yield callAuthSafe(
+    getResourceAgentMetadata,
     clusterUrlName,
     agentName,
   );
 
-  if (!result.valid) {
-    yield put({
-      type: "RESOURCE_AGENT.LOAD.FAILED",
-      payload: { agentName, clusterUrlName },
+  const taskLabel = `load resource agent ${agentName}`;
+  if (result.type !== "OK") {
+    yield callError(result, taskLabel, {
+      action: () =>
+        put({
+          type: "RESOURCE_AGENT.LOAD.FAILED",
+          payload: { agentName, clusterUrlName },
+        }),
     });
-    // TODO display information about this in notifications
     return;
   }
 
   yield put({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
-    payload: { apiAgentMetadata: result.response, clusterUrlName },
+    payload: { apiAgentMetadata: result.payload, clusterUrlName },
   });
 }
 

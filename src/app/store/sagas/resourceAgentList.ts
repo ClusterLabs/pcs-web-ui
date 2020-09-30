@@ -1,29 +1,35 @@
-import { ApiResult, getAvailResourceAgents } from "app/backend";
+import { api, getAvailResourceAgents } from "app/backend";
 import { ResourceAgentListActions } from "app/store/actions";
 
-import { call, put, takeEvery } from "./effects";
-import { authSafe } from "./authSafe";
+import { put, takeEvery } from "./effects";
+import { callAuthSafe } from "./authSafe";
+import { callError } from "./backendTools";
 
+type ApiCallResult = api.ResultOf<typeof getAvailResourceAgents>;
 function* loadResourceAgentList({
   payload: { clusterUrlName },
 }: ResourceAgentListActions["LoadResourceAgentList"]) {
-  const result: ApiResult<typeof getAvailResourceAgents> = yield call(
-    authSafe(getAvailResourceAgents),
+  const result: ApiCallResult = yield callAuthSafe(
+    getAvailResourceAgents,
     clusterUrlName,
   );
 
-  if (!result.valid) {
-    yield put({
-      type: "RESOURCE_AGENT_LIST.LOAD.FAILED",
-      payload: { clusterUrlName },
+  const taskLabel = "load resource agent list";
+  if (result.type !== "OK") {
+    yield callError(result, taskLabel, {
+      action: () =>
+        put({
+          type: "RESOURCE_AGENT_LIST.LOAD.FAILED",
+          payload: { clusterUrlName },
+        }),
+      useNotification: false,
     });
-    // TODO display information about this in notifications
     return;
   }
 
   yield put({
     type: "RESOURCE_AGENT_LIST.LOAD.SUCCESS",
-    payload: { apiResourceAgentMap: result.response, clusterUrlName },
+    payload: { apiResourceAgentMap: result.payload, clusterUrlName },
   });
 }
 export default [takeEvery("RESOURCE_AGENT_LIST.LOAD", loadResourceAgentList)];

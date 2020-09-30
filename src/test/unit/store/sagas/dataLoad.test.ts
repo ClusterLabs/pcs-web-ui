@@ -1,7 +1,9 @@
 import { expect } from "chai";
 
 import { takeNewLoadings } from "app/store/sagas/dataLoad";
-import { LeafAction } from "app/actions";
+import { actions } from "app/store";
+
+type LeafAction = actions.LeafAction;
 
 const clusterName1 = "cluster-1";
 const startActionClusterSync = (clusterName: string): LeafAction => ({

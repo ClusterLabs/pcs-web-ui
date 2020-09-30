@@ -19,11 +19,59 @@ export type PrimitiveResourceActions = {
     };
   };
 
-  UpdateInstanceAttributesSuccess: {
-    type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.SUCCESS";
+  ActionUnmanage: {
+    type: "RESOURCE.PRIMITIVE.UNMANAGE";
+    payload: {
+      clusterUrlName: string;
+      resourceNameList: string[];
+    };
   };
 
-  UpdateInstanceAttributesFailed: {
-    type: "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES.FAILED";
+  ActionManage: {
+    type: "RESOURCE.PRIMITIVE.MANAGE";
+    payload: {
+      clusterUrlName: string;
+      resourceNameList: string[];
+    };
+  };
+
+  ActionDisable: {
+    type: "RESOURCE.PRIMITIVE.DISABLE";
+    payload: {
+      clusterUrlName: string;
+      resourceNameList: string[];
+    };
+  };
+
+  ActionEnable: {
+    type: "RESOURCE.PRIMITIVE.ENABLE";
+    payload: {
+      clusterUrlName: string;
+      resourceNameList: string[];
+    };
+  };
+
+  ActionRefresh: {
+    type: "RESOURCE.PRIMITIVE.REFRESH";
+    payload: {
+      clusterUrlName: string;
+      resourceId: string;
+    };
+  };
+
+  ActionCleanup: {
+    type: "RESOURCE.PRIMITIVE.CLEANUP";
+    payload: {
+      clusterUrlName: string;
+      resourceId: string;
+    };
+  };
+
+  ActionDelete: {
+    type: "RESOURCE.PRIMITIVE.DELETE";
+    payload: {
+      clusterUrlName: string;
+      resourceIds: string[];
+    };
   };
 };

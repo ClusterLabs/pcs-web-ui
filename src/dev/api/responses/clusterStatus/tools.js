@@ -1,6 +1,6 @@
-const deepmerge = require("deepmerge");
+import deepmerge from "deepmerge";
 
-const overwriteMerge = (destArr, srcArr /* , opts */) => srcArr;
+const overwriteMerge = (_destArr, srcArr /* , opts */) => srcArr;
 
 const service = {
   installed: true,
@@ -8,7 +8,7 @@ const service = {
   enabled: true,
 };
 
-const node = (id, diff) =>
+export const node = (id, diff) =>
   deepmerge(
     {
       id,
@@ -35,7 +35,7 @@ const node = (id, diff) =>
     diff || {},
   );
 
-const resourceStatus = (id, diff) =>
+export const resourceStatus = (id, diff) =>
   deepmerge(
     {
       id,
@@ -53,7 +53,7 @@ const resourceStatus = (id, diff) =>
     diff || {},
   );
 
-const operation = (id, diff) =>
+export const operation = (id, diff) =>
   deepmerge(
     {
       id,
@@ -80,7 +80,7 @@ const operation = (id, diff) =>
     diff || {},
   );
 
-const resource = (id, diff) =>
+export const resource = (id, diff) =>
   deepmerge(
     {
       id,
@@ -104,9 +104,25 @@ const resource = (id, diff) =>
     diff || {},
   );
 
-const issues = list => list.map(message => ({ message }));
+export const crmStatus = ({ resourceId, nodeId, nodeName }, diff) =>
+  deepmerge(
+    resourceStatus(resourceId, {
+      resource_agent: "ocf:heartbeat:apache",
+      managed: true,
+      target_role: "Started",
+      role: "Started",
+      node: {
+        id: nodeId,
+        name: nodeName,
+        cached: false,
+      },
+    }),
+    diff || {},
+  );
 
-const stonith = (id, diff) =>
+export const issues = list => list.map(message => ({ message }));
+
+export const stonith = (id, diff) =>
   resource(id, {
     ...diff,
     class_type: "primitive",
@@ -116,7 +132,7 @@ const stonith = (id, diff) =>
     provider: null,
   });
 
-const group = (id, resources, diff) =>
+export const group = (id, resources, diff) =>
   deepmerge(
     {
       id,
@@ -132,7 +148,7 @@ const group = (id, resources, diff) =>
     diff || {},
   );
 
-const clone = (id, member, diff) =>
+export const clone = (id, member, diff) =>
   deepmerge(
     {
       id,
@@ -149,7 +165,7 @@ const clone = (id, member, diff) =>
     diff || {},
   );
 
-const cluster = (name, status, diff) =>
+export const cluster = (name, status, diff) =>
   deepmerge(
     {
       cluster_name: name,
@@ -167,15 +183,3 @@ const cluster = (name, status, diff) =>
     diff || {},
     { arrayMerge: overwriteMerge },
   );
-
-module.exports = {
-  node,
-  resource,
-  issues,
-  stonith,
-  group,
-  clone,
-  cluster,
-  resourceStatus,
-  operation,
-};

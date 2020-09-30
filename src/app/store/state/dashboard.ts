@@ -4,7 +4,7 @@ export type ClusterNameListState = string[];
 
 export interface DashboardPageState {
   clusterNameListState: ClusterNameListState;
-  dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "ERROR";
+  dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS";
 }
 
 const clusterNameListState: Reducer<DashboardPageState["clusterNameListState"]> = (
@@ -30,8 +30,6 @@ const dataFetchState: Reducer<DashboardPageState["dataFetchState"]> = (
       return state === "SUCCESS" ? "SUCCESS" : "IN_PROGRESS";
     case "DASHBOARD_DATA.FETCH.SUCCESS":
       return "SUCCESS";
-    case "DASHBOARD_DATA.FETCH.FAILED":
-      return state === "IN_PROGRESS" ? "ERROR" : state;
     case "AUTH.REQUIRED":
       return "NOT_STARTED";
     default:
