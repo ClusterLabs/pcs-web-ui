@@ -1,20 +1,17 @@
-import { api, clusterStatus } from "app/backend";
+import { clusterStatus } from "app/backend";
 import { Action } from "app/store/actions";
 
-import { fork, put } from "./effects";
-import { dataLoadManage } from "./dataLoad";
-import { callAuthSafe } from "./authSafe";
-import { callError } from "./backendTools";
+import { api, dataLoad, fork, put } from "./common";
 
 function* fetchClusterData(clusterUrlName: string) {
-  const result: api.ResultOf<typeof clusterStatus> = yield callAuthSafe(
+  const result: api.ResultOf<typeof clusterStatus> = yield api.authSafe(
     clusterStatus,
     clusterUrlName,
   );
 
   const taskLabel = `sync status of cluster "${clusterUrlName}"`;
   if (result.type !== "OK") {
-    yield callError(result, taskLabel);
+    yield api.processError(result, taskLabel);
     return;
   }
 
@@ -28,7 +25,7 @@ function* fetchClusterData(clusterUrlName: string) {
 }
 
 const REFRESH = "CLUSTER_DATA.REFRESH";
-const clusterDataSyncOptions: Parameters<typeof dataLoadManage>[0] = {
+const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   START: "CLUSTER_DATA.SYNC",
   STOP: "CLUSTER_DATA.SYNC.STOP",
   REFRESH,
@@ -51,4 +48,4 @@ const clusterDataSyncOptions: Parameters<typeof dataLoadManage>[0] = {
   },
 };
 
-export default [fork(dataLoadManage, clusterDataSyncOptions)];
+export default [fork(dataLoad.manage, clusterDataSyncOptions)];

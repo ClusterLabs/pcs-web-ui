@@ -2,9 +2,9 @@ import { api } from "app/backend";
 
 import { createNotification } from "../notifications";
 
-import { libraryResponseSwitch } from "./libraryResponseSwitch";
+import { responseSwitch } from "./responseSwitch";
 
-export function* processLibraryResponse({
+export function* processResponse({
   taskLabel,
   clusterUrlName,
   response,
@@ -23,7 +23,7 @@ export function* processLibraryResponse({
   );
   const communicationErrDesc = `Communication error while: ${taskLabel}`;
 
-  yield libraryResponseSwitch({
+  yield responseSwitch({
     clusterUrlName,
     taskLabel,
     response,

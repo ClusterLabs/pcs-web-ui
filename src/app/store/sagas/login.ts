@@ -1,9 +1,14 @@
-import { api, login, logout } from "app/backend";
+import { login, logout } from "app/backend";
 import { LoginActions } from "app/store/actions";
 
-import { call, put, takeEvery } from "./effects";
-import { putNotification } from "./notifications";
-import { callError } from "./backendTools";
+import {
+  api,
+  call,
+  processError,
+  put,
+  putNotification,
+  takeEvery,
+} from "./common";
 
 export function* logoutSaga() {
   yield putNotification("INFO", "Trying to logout");
@@ -16,7 +21,7 @@ export function* logoutSaga() {
     return;
   }
   if (result.type !== "OK") {
-    yield callError(result, "logout");
+    yield processError(result, "logout");
     return;
   }
 

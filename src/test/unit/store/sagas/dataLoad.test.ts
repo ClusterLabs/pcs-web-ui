@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { takeNewLoadings } from "app/store/sagas/dataLoad";
+import { takeNewLoadings } from "app/store/sagas/common/dataLoad";
 import { actions } from "app/store";
 
 type LeafAction = actions.LeafAction;

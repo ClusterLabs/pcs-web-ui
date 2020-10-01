@@ -1,21 +1,19 @@
-import { api, clusterProperties } from "app/backend";
+import { clusterProperties } from "app/backend";
 import { ClusterPropertiesActions } from "app/store/actions";
 
-import { put, takeEvery } from "./effects";
-import { callAuthSafe } from "./authSafe";
-import { callError } from "./backendTools";
+import { api, put, takeEvery } from "./common";
 
 function* loadClusterProperties({
   payload: { clusterUrlName },
 }: ClusterPropertiesActions["LoadClusterProperties"]) {
-  const result: api.ResultOf<typeof clusterProperties> = yield callAuthSafe(
+  const result: api.ResultOf<typeof clusterProperties> = yield api.authSafe(
     clusterProperties,
     clusterUrlName,
   );
 
   const taskLabel = `load cluster properties of cluster ${clusterUrlName}`;
   if (result.type !== "OK") {
-    yield callError(result, taskLabel, {
+    yield api.processError(result, taskLabel, {
       action: () =>
         put({
           type: "CLUSTER_PROPERTIES.LOAD.FAILED",

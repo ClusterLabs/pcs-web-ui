@@ -1,17 +1,11 @@
 import {
-  api,
   authGuiAgainstNodes,
   checkAuthAgainstNodes,
   existingCluster,
 } from "app/backend";
 import { AddClusterActions } from "app/store/actions";
 
-import { callError } from "./backendTools";
-import { put, race, take, takeEvery } from "./effects";
-import { callAuthSafe } from "./authSafe";
-
-const communicationError = (taskLabel: string) =>
-  `Communication error while: ${taskLabel}. Details in the browser console.`;
+import { api, put, race, take, takeEvery } from "./common";
 
 function* checkAuthentication({
   payload: { nodeName },
@@ -19,7 +13,7 @@ function* checkAuthentication({
   const {
     result,
   }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } = yield race({
-    result: callAuthSafe(checkAuthAgainstNodes, [nodeName]),
+    result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
     cancel: take("ADD_CLUSTER.NODE_NAME.UPDATE"),
   });
 
@@ -29,11 +23,11 @@ function* checkAuthentication({
 
   const taskLabel = `check authentication of node"${nodeName}"`;
   if (result.type !== "OK") {
-    yield callError(result, taskLabel, {
+    yield api.processError(result, taskLabel, {
       action: () =>
         put({
           type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
-          payload: { message: communicationError(taskLabel) },
+          payload: { message: api.errorMessage(result, taskLabel) },
         }),
       useNotification: false,
     });
@@ -66,7 +60,7 @@ function* checkAuthentication({
 function* addCluster({
   payload: { nodeName },
 }: AddClusterActions["AddCluster"]) {
-  const result: api.ResultOf<typeof existingCluster> = yield callAuthSafe(
+  const result: api.ResultOf<typeof existingCluster> = yield api.authSafe(
     existingCluster,
     nodeName,
   );
@@ -107,7 +101,7 @@ function* authenticateNode({
   const {
     result,
   }: { result: api.ResultOf<typeof authGuiAgainstNodes> } = yield race({
-    result: callAuthSafe(authGuiAgainstNodes, {
+    result: api.authSafe(authGuiAgainstNodes, {
       [nodeName]: {
         password,
         dest_list: [{ addr: address, port }],
@@ -123,11 +117,11 @@ function* authenticateNode({
 
   const taskLabel = `authenticate node "${nodeName}"`;
   if (result.type !== "OK") {
-    yield callError(result, taskLabel, {
+    yield api.processError(result, taskLabel, {
       action: () =>
         put({
           type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
-          payload: { message: communicationError(taskLabel) },
+          payload: { message: api.errorMessage(result, taskLabel) },
         }),
       useNotification: false,
     });

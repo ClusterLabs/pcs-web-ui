@@ -1,10 +1,7 @@
 import { PrimitiveResourceActions } from "app/store/actions";
-import { api, resourceCleanup, resourceRefresh } from "app/backend";
+import { resourceCleanup, resourceRefresh } from "app/backend";
 
-import { put, takeEvery } from "./effects";
-import { callAuthSafe } from "./authSafe";
-import { callError } from "./backendTools";
-import { putNotification } from "./notifications";
+import { api, processError, put, putNotification, takeEvery } from "./common";
 
 type Action =
   | PrimitiveResourceActions["ActionRefresh"]
@@ -16,13 +13,13 @@ function resourceAction(apiCall: ApiCall, taskName: string) {
   return function* resourceActionSaga({
     payload: { resourceId, clusterUrlName },
   }: Action) {
-    const result: api.ResultOf<typeof resourceRefresh> = yield callAuthSafe(
+    const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
       apiCall,
       { clusterUrlName, resourceId },
     );
     const taskLabel = `${taskName} resource "${resourceId}"`;
     if (result.type !== "OK") {
-      yield callError(result, taskLabel);
+      yield processError(result, taskLabel);
       return;
     }
 

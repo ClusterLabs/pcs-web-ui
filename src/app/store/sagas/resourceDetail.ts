@@ -2,8 +2,7 @@ import { push } from "connected-react-router";
 
 import { ResourceDetailActions } from "app/store/actions";
 
-import { sagaPut, takeEvery } from "./effects";
-import { putNotification } from "./notifications";
+import { putNotification, sagaPut, takeEvery } from "./common";
 
 function* correctView({
   payload: { resourceId, viewName, url },

@@ -1,10 +1,7 @@
 import { Action, PrimitiveResourceActions } from "app/store/actions";
-import { api, resourceCreate } from "app/backend";
+import { resourceCreate } from "app/backend";
 
-import { put, race, take, takeEvery } from "./effects";
-import { callAuthSafe } from "./authSafe";
-import { libraryResponseSwitch } from "./lib";
-import { callError } from "./backendTools";
+import { api, lib, processError, put, race, take, takeEvery } from "./common";
 
 function* resourceCreateSaga({
   payload: { agentName, resourceName, instanceAttrs, clusterUrlName, disabled },
@@ -12,7 +9,7 @@ function* resourceCreateSaga({
   const {
     result,
   }: { result: api.ResultOf<typeof resourceCreate> } = yield race({
-    result: callAuthSafe(resourceCreate, {
+    result: api.authSafe(resourceCreate, {
       clusterUrlName,
       resourceName,
       agentName,
@@ -34,14 +31,14 @@ function* resourceCreateSaga({
   };
 
   if (result.type !== "OK") {
-    yield callError(result, taskLabel, {
+    yield processError(result, taskLabel, {
       action: () => put(errorAction),
       useNotification: false,
     });
     return;
   }
 
-  yield libraryResponseSwitch({
+  yield lib.responseSwitch({
     clusterUrlName,
     response: result.payload,
     taskLabel,

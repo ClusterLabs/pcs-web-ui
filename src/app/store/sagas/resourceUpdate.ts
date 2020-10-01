@@ -1,10 +1,7 @@
 import { PrimitiveResourceActions } from "app/store/actions";
-import { api, updateResource } from "app/backend";
+import { updateResource } from "app/backend";
 
-import { put, takeEvery } from "./effects";
-import { putNotification } from "./notifications";
-import { callAuthSafe } from "./authSafe";
-import { callError } from "./backendTools";
+import { api, processError, put, putNotification, takeEvery } from "./common";
 
 function* updateInstanceAttributes({
   payload: { resourceId, attributes, clusterUrlName },
@@ -13,7 +10,7 @@ function* updateInstanceAttributes({
     "INFO",
     `Update instance attributes of resource "${resourceId}" requested`,
   );
-  const result: api.ResultOf<typeof updateResource> = yield callAuthSafe(
+  const result: api.ResultOf<typeof updateResource> = yield api.authSafe(
     updateResource,
     clusterUrlName,
     resourceId,
@@ -23,7 +20,7 @@ function* updateInstanceAttributes({
   const taskLabel = `update instance attributes of resource "${resourceId}"`;
 
   if (result.type !== "OK") {
-    yield callError(result, taskLabel);
+    yield processError(result, taskLabel);
     return;
   }
 

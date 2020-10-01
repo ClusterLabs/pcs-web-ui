@@ -1,18 +1,15 @@
-import { api, importedClusterList } from "app/backend";
+import { importedClusterList } from "app/backend";
 import { SetupDataReading } from "app/store/actions";
 
-import { fork, put } from "./effects";
-import { dataLoadManage } from "./dataLoad";
-import { callAuthSafe } from "./authSafe";
-import { callError } from "./backendTools";
+import { api, dataLoad, fork, put } from "./common";
 
 function* fetchDashboardData() {
-  const result: api.ResultOf<typeof importedClusterList> = yield callAuthSafe(
+  const result: api.ResultOf<typeof importedClusterList> = yield api.authSafe(
     importedClusterList,
   );
   const taskLabel = "sync imported cluster list";
   if (result.type !== "OK") {
-    yield callError(result, taskLabel);
+    yield api.processError(result, taskLabel);
     return;
   }
 
@@ -50,7 +47,7 @@ function* fetchDashboardData() {
 }
 
 const REFRESH = "DASHBOARD_DATA.REFRESH";
-const dashboardDataSyncOptions: Parameters<typeof dataLoadManage>[0] = {
+const dashboardDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   START: "DASHBOARD_DATA.SYNC",
   STOP: "DASHBOARD_DATA.SYNC.STOP",
   REFRESH,
@@ -59,4 +56,4 @@ const dashboardDataSyncOptions: Parameters<typeof dataLoadManage>[0] = {
   fetch: fetchDashboardData,
 };
 
-export default [fork(dataLoadManage, dashboardDataSyncOptions)];
+export default [fork(dataLoad.manage, dashboardDataSyncOptions)];

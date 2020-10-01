@@ -17,7 +17,7 @@ export function* timer(action: Action) {
   }
 }
 
-export function* dataLoadManage({
+export function* manage({
   START,
   STOP,
   REFRESH,

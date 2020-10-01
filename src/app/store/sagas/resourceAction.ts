@@ -1,16 +1,18 @@
 import { PrimitiveResourceActions } from "app/store/actions";
 import {
-  api,
   resourceDisable,
   resourceEnable,
   resourceManage,
   resourceUnmanage,
 } from "app/backend";
 
-import { takeEvery } from "./effects";
-import { callAuthSafe } from "./authSafe";
-import { formatResourcesMsg, processLibraryResponse } from "./lib";
-import { callError } from "./backendTools";
+import {
+  api,
+  formatResourcesMsg,
+  lib,
+  processError,
+  takeEvery,
+} from "./common";
 
 type Action =
   | PrimitiveResourceActions["ActionUnmanage"]
@@ -22,7 +24,7 @@ function resourceAction(callLib: api.Call<api.LibPayload>, taskName: string) {
   return function* resourceActionSaga({
     payload: { resourceNameList, clusterUrlName },
   }: Action) {
-    const result: api.ResultOf<typeof callLib> = yield callAuthSafe(callLib, {
+    const result: api.ResultOf<typeof callLib> = yield api.authSafe(callLib, {
       clusterUrlName,
       resourceNameList,
     });
@@ -30,11 +32,11 @@ function resourceAction(callLib: api.Call<api.LibPayload>, taskName: string) {
     const taskLabel = `${taskName} ${formatResourcesMsg(resourceNameList)}`;
 
     if (result.type !== "OK") {
-      yield callError(result, taskLabel);
+      yield processError(result, taskLabel);
       return;
     }
 
-    yield processLibraryResponse({
+    yield lib.processResponse({
       taskLabel,
       clusterUrlName,
       response: result.payload,

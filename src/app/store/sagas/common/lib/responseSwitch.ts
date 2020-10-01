@@ -3,7 +3,7 @@ import { actions } from "app/store";
 
 import { put } from "../effects";
 
-export function* libraryResponseSwitch({
+export function* responseSwitch({
   clusterUrlName,
   taskLabel,
   response,

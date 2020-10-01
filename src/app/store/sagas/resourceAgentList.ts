@@ -1,22 +1,20 @@
-import { api, getAvailResourceAgents } from "app/backend";
+import { getAvailResourceAgents } from "app/backend";
 import { ResourceAgentListActions } from "app/store/actions";
 
-import { put, takeEvery } from "./effects";
-import { callAuthSafe } from "./authSafe";
-import { callError } from "./backendTools";
+import { api, processError, put, takeEvery } from "./common";
 
 type ApiCallResult = api.ResultOf<typeof getAvailResourceAgents>;
 function* loadResourceAgentList({
   payload: { clusterUrlName },
 }: ResourceAgentListActions["LoadResourceAgentList"]) {
-  const result: ApiCallResult = yield callAuthSafe(
+  const result: ApiCallResult = yield api.authSafe(
     getAvailResourceAgents,
     clusterUrlName,
   );
 
   const taskLabel = "load resource agent list";
   if (result.type !== "OK") {
-    yield callError(result, taskLabel, {
+    yield processError(result, taskLabel, {
       action: () =>
         put({
           type: "RESOURCE_AGENT_LIST.LOAD.FAILED",

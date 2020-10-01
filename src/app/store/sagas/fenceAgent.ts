@@ -1,14 +1,12 @@
-import { api, getFenceAgentMetadata } from "app/backend";
+import { getFenceAgentMetadata } from "app/backend";
 import { FenceAgentActions } from "app/store/actions";
 
-import { put, takeEvery } from "./effects";
-import { callAuthSafe } from "./authSafe";
-import { callError } from "./backendTools";
+import { api, authSafe, processError, put, takeEvery } from "./common";
 
 function* loadFenceAgent({
   payload: { agentName, clusterUrlName },
 }: FenceAgentActions["LoadFenceAgent"]) {
-  const result: api.ResultOf<typeof getFenceAgentMetadata> = yield callAuthSafe(
+  const result: api.ResultOf<typeof getFenceAgentMetadata> = yield authSafe(
     getFenceAgentMetadata,
     clusterUrlName,
     agentName,
@@ -16,7 +14,7 @@ function* loadFenceAgent({
 
   const taskLabel = `load fence agent ${agentName}`;
   if (result.type !== "OK") {
-    yield callError(result, taskLabel, {
+    yield processError(result, taskLabel, {
       action: () =>
         put({
           type: "FENCE_AGENT.LOAD.FAILED",

@@ -1,16 +1,14 @@
-import { api, getResourceAgentMetadata } from "app/backend";
+import { getResourceAgentMetadata } from "app/backend";
 import { actions, selectors, types } from "app/store";
 
-import { put, select, takeEvery } from "./effects";
-import { callAuthSafe } from "./authSafe";
-import { callError } from "./backendTools";
+import { api, processError, put, select, takeEvery } from "./common";
 
 type ApiCallResult = api.ResultOf<typeof getResourceAgentMetadata>;
 
 function* loadResourceAgent({
   payload: { agentName, clusterUrlName },
 }: actions.ResourceAgentActions["LoadResourceAgent"]) {
-  const result: ApiCallResult = yield callAuthSafe(
+  const result: ApiCallResult = yield api.authSafe(
     getResourceAgentMetadata,
     clusterUrlName,
     agentName,
@@ -18,7 +16,7 @@ function* loadResourceAgent({
 
   const taskLabel = `load resource agent ${agentName}`;
   if (result.type !== "OK") {
-    yield callError(result, taskLabel, {
+    yield processError(result, taskLabel, {
       action: () =>
         put({
           type: "RESOURCE_AGENT.LOAD.FAILED",

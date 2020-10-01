@@ -1,16 +1,19 @@
-import { api, removeResource } from "app/backend";
+import { removeResource } from "app/backend";
 import { PrimitiveResourceActions } from "app/store/actions";
 
-import { put, takeEvery } from "./effects";
-import { callAuthSafe } from "./authSafe";
-import { callError } from "./backendTools";
-import { formatResourcesMsg } from "./lib";
-import { putNotification } from "./notifications";
+import {
+  api,
+  formatResourcesMsg,
+  processError,
+  put,
+  putNotification,
+  takeEvery,
+} from "./common";
 
 export function* deleteResource({
   payload: { clusterUrlName, resourceIds },
 }: PrimitiveResourceActions["ActionDelete"]) {
-  const result: api.ResultOf<typeof removeResource> = yield callAuthSafe(
+  const result: api.ResultOf<typeof removeResource> = yield api.authSafe(
     removeResource,
     clusterUrlName,
     resourceIds,
@@ -18,7 +21,7 @@ export function* deleteResource({
 
   const taskLabel = `delete ${formatResourcesMsg(resourceIds)}`;
   if (result.type !== "OK") {
-    yield callError(result, taskLabel);
+    yield processError(result, taskLabel);
     return;
   }
 
