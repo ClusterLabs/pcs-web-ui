@@ -1,20 +1,22 @@
 import { Action, PrimitiveResourceActions } from "app/store/actions";
-import { resourceCreate } from "app/backend";
 
 import { api, lib, processError, put, race, take, takeEvery } from "./common";
 
 function* resourceCreateSaga({
   payload: { agentName, resourceName, instanceAttrs, clusterUrlName, disabled },
 }: PrimitiveResourceActions["CreateResource"]) {
-  const {
-    result,
-  }: { result: api.ResultOf<typeof resourceCreate> } = yield race({
-    result: api.authSafe(resourceCreate, {
+  const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
+    result: api.authSafe(api.lib.callCluster, {
       clusterUrlName,
-      resourceName,
-      agentName,
-      instanceAttrs,
-      disabled,
+      command: "resource-create",
+      payload: {
+        resource_id: resourceName,
+        resource_agent_name: agentName,
+        instance_attributes: instanceAttrs,
+        ensure_disabled: disabled,
+        operation_list: [],
+        meta_attributes: {},
+      },
     }),
     cancel: take("RESOURCE.PRIMITIVE.CREATE.CANCEL"),
   });
@@ -38,10 +40,7 @@ function* resourceCreateSaga({
     return;
   }
 
-  yield lib.responseSwitch({
-    clusterUrlName,
-    response: result.payload,
-    taskLabel,
+  yield lib.clusterResponseSwitch(clusterUrlName, taskLabel, result.payload, {
     successAction: {
       type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS",
       payload: { clusterUrlName, reports: result.payload.report_list },

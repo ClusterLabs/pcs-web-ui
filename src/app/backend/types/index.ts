@@ -1,5 +1,5 @@
 import * as clusterProperties from "./clusterProperties";
 import * as clusterStatus from "./clusterStatus";
-import * as libraryResponse from "./libraryResponse";
+import * as lib from "./libraryResponse";
 
-export { clusterProperties, clusterStatus, libraryResponse };
+export { clusterProperties, clusterStatus, lib };

@@ -15,7 +15,8 @@ function resourceAction(apiCall: ApiCall, taskName: string) {
   }: Action) {
     const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
       apiCall,
-      { clusterUrlName, resourceId },
+      clusterUrlName,
+      resourceId,
     );
     const taskLabel = `${taskName} resource "${resourceId}"`;
     if (result.type !== "OK") {

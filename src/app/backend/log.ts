@@ -1,5 +1,5 @@
 import * as apiResult from "./apiResult";
-import { libraryResponse } from "./types";
+import { lib } from "./types";
 /* eslint-disable no-console */
 
 const libInputErrorStatusMsgMap = {
@@ -9,7 +9,7 @@ const libInputErrorStatusMsgMap = {
 };
 export const libInputError = (
   status: keyof typeof libInputErrorStatusMsgMap,
-  statusMessage: libraryResponse.ApiResponse["status_msg"],
+  statusMessage: lib.Response["status_msg"],
   description: string,
 ) => {
   console.error(

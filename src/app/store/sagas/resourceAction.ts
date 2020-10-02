@@ -1,10 +1,4 @@
 import { PrimitiveResourceActions } from "app/store/actions";
-import {
-  resourceDisable,
-  resourceEnable,
-  resourceManage,
-  resourceUnmanage,
-} from "app/backend";
 
 import {
   api,
@@ -20,14 +14,25 @@ type Action =
   | PrimitiveResourceActions["ActionDisable"]
   | PrimitiveResourceActions["ActionEnable"];
 
-function resourceAction(callLib: api.Call<api.LibPayload>, taskName: string) {
+function resourceAction(
+  command:
+    | "resource-disable"
+    | "resource-enable"
+    | "resource-manage"
+    | "resource-unmanage",
+  taskName: string,
+) {
   return function* resourceActionSaga({
     payload: { resourceNameList, clusterUrlName },
   }: Action) {
-    const result: api.ResultOf<typeof callLib> = yield api.authSafe(callLib, {
-      clusterUrlName,
-      resourceNameList,
-    });
+    const result: api.ResultOf<typeof api.lib.call> = yield api.authSafe(
+      api.lib.callCluster,
+      {
+        clusterUrlName,
+        command,
+        payload: { resource_or_tag_ids: resourceNameList },
+      },
+    );
 
     const taskLabel = `${taskName} ${formatResourcesMsg(resourceNameList)}`;
 
@@ -36,29 +41,25 @@ function resourceAction(callLib: api.Call<api.LibPayload>, taskName: string) {
       return;
     }
 
-    yield lib.processResponse({
-      taskLabel,
-      clusterUrlName,
-      response: result.payload,
-    });
+    yield lib.clusterResponseProcess(clusterUrlName, taskLabel, result.payload);
   };
 }
 
 export default [
   takeEvery(
     "RESOURCE.PRIMITIVE.DISABLE",
-    resourceAction(resourceDisable, "disable"),
+    resourceAction("resource-disable", "disable"),
   ),
   takeEvery(
     "RESOURCE.PRIMITIVE.ENABLE",
-    resourceAction(resourceEnable, "enable"),
+    resourceAction("resource-enable", "enable"),
   ),
   takeEvery(
     "RESOURCE.PRIMITIVE.UNMANAGE",
-    resourceAction(resourceUnmanage, "unmanage"),
+    resourceAction("resource-unmanage", "unmanage"),
   ),
   takeEvery(
     "RESOURCE.PRIMITIVE.MANAGE",
-    resourceAction(resourceManage, "manage"),
+    resourceAction("resource-manage", "manage"),
   ),
 ];

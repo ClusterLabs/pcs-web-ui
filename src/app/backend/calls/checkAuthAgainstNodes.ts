@@ -9,9 +9,9 @@ const shape = t.record(
   }),
 );
 
-export const checkAuthAgainstNodes: api.CallShape<typeof shape> = async (
+export const checkAuthAgainstNodes = async (
   nodeList: string[],
-) => {
+): api.CallResult<typeof shape> => {
   const uniqueNodeList = Array.from(new Set(nodeList));
 
   return http.get("/manage/check_auth_against_nodes", {

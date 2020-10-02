@@ -3,26 +3,25 @@ import { actions } from "app/store";
 
 import { put } from "../effects";
 
-export function* responseSwitch({
-  clusterUrlName,
-  taskLabel,
-  response,
-  communicationErrorAction,
-  errorAction,
-  successAction,
-}: {
-  clusterUrlName: string;
-  taskLabel: string;
-  response: api.types.libraryResponse.ApiResponse;
-  communicationErrorAction: actions.Action;
-  errorAction: actions.Action;
-  successAction: actions.Action;
-}) {
+export function* clusterResponseSwitch(
+  clusterUrlName: string,
+  taskLabel: string,
+  payload: api.types.lib.Response,
+  {
+    communicationErrorAction,
+    errorAction,
+    successAction,
+  }: {
+    communicationErrorAction: actions.Action;
+    errorAction: actions.Action;
+    successAction: actions.Action;
+  },
+) {
   const {
     /* eslint-disable camelcase */
     status,
     status_msg,
-  } = response;
+  } = payload;
 
   const communicationErrDesc = `Communication error while: ${taskLabel}`;
   switch (status) {

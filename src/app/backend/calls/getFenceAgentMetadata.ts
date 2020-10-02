@@ -21,10 +21,10 @@ const shape = t.type({
   ),
 });
 
-export const getFenceAgentMetadata: api.CallShape<typeof shape> = async (
+export const getFenceAgentMetadata = async (
   clusterUrlName: string,
   agentName: string,
-) =>
+): api.CallResult<typeof shape> =>
   http.get(`/managec/${clusterUrlName}/get_fence_agent_metadata`, {
     params: [["agent", agentName]],
     validate: (payload) => {

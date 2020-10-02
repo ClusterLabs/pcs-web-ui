@@ -5,7 +5,6 @@ type InstanceAttrName = string;
 type InstanceAttrValue = string;
 type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
 
-export type Report = api.types.libraryResponse.ApiReport;
 export type WizardResourceCreate = {
   agentName: string;
   resourceName: string;
@@ -16,7 +15,7 @@ export type WizardResourceCreate = {
     | "forceable-fail"
     | "fail"
     | "communication-error";
-  reports: Report[];
+  reports: api.types.lib.Report[];
   showValidationErrors: boolean;
   clone: boolean;
   promotable: boolean;

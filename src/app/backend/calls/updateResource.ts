@@ -6,11 +6,11 @@ const shape = t.partial({
   stderr: t.string,
 });
 
-export const updateResource: api.CallShape<typeof shape> = async (
+export const updateResource = async (
   clusterUrlName: string,
   resourceId: string,
   attributes: Record<string, string>,
-) => {
+): api.CallResult<typeof shape> => {
   const instanceAttrs: [string, string][] = Object.keys(attributes).map(key => [
     `_res_paramne_${key}`,
     attributes[key],

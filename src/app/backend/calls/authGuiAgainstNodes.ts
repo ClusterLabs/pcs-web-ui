@@ -4,7 +4,7 @@ const shape = t.type({
   node_auth_error: t.record(t.string, t.number),
 });
 
-export const authGuiAgainstNodes: api.CallShape<typeof shape> = async (
+export const authGuiAgainstNodes = async (
   nodeMap: Record<
     string,
     {
@@ -12,7 +12,7 @@ export const authGuiAgainstNodes: api.CallShape<typeof shape> = async (
       dest_list: { addr: string; port: string }[];
     }
   >,
-) =>
+): api.CallResult<typeof shape> =>
   http.post("/manage/auth_gui_against_nodes", {
     params: [["data_json", JSON.stringify({ nodes: nodeMap })]],
     validate: (payload) => {

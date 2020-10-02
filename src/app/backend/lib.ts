@@ -1,23 +1,50 @@
-import * as t from "io-ts";
-
-import { Call } from "./call";
+import { CallResult } from "./call";
 import * as types from "./types";
 import * as http from "./http";
 
-const { TApiResponse: shape } = types.libraryResponse;
-export type Payload = t.TypeOf<typeof shape>;
+const { TApiResponse: shape } = types.lib;
 
-export const callCluster: Call<Payload> = async ({
+type InputPayload = ReturnType<typeof JSON.parse>;
+type LibResult = CallResult<typeof shape>;
+
+export const call = async (url: string, payload: InputPayload): LibResult =>
+  http.post(url, { payload, shape });
+
+export type ClusterCommand =
+  | {
+      command: "resource-enable";
+      payload: { resource_or_tag_ids: string[] };
+    }
+  | {
+      command: "resource-disable";
+      payload: { resource_or_tag_ids: string[] };
+    }
+  | {
+      command: "resource-unmanage";
+      payload: { resource_or_tag_ids: string[] };
+    }
+  | {
+      command: "resource-manage";
+      payload: { resource_or_tag_ids: string[] };
+    }
+  | {
+      command: "resource-create";
+      payload: {
+        resource_id: string;
+        resource_agent_name: string;
+        operation_list: Record<string, string>[];
+        meta_attributes: Record<string, string>;
+        instance_attributes: Record<string, string>;
+        ensure_disabled: boolean;
+      };
+    };
+
+export const callCluster = async ({
   clusterUrlName,
-  commandUrlName,
+  command,
   payload,
 }: {
   clusterUrlName: string;
-  commandUrlName: string;
-  payload: ReturnType<typeof JSON.parse>;
-}) => {
-  return http.post(`/managec/${clusterUrlName}/api/v1/${commandUrlName}/v1`, {
-    payload,
-    shape,
-  });
+} & ClusterCommand): LibResult => {
+  return call(`/managec/${clusterUrlName}/api/v1/${command}/v1`, payload);
 };

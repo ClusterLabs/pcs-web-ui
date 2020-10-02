@@ -2,31 +2,24 @@ import { api } from "app/backend";
 
 import { createNotification } from "../notifications";
 
-import { responseSwitch } from "./responseSwitch";
+import { clusterResponseSwitch } from "./responseSwitch";
 
-export function* processResponse({
-  taskLabel,
-  clusterUrlName,
-  response,
-}: {
-  taskLabel: string;
-  clusterUrlName: string;
-  response: api.types.libraryResponse.ApiResponse;
-}) {
+export function* clusterResponseProcess(
+  clusterUrlName: string,
+  taskLabel: string,
+  payload: api.types.lib.Response,
+) {
   const {
     /* eslint-disable camelcase */
     report_list,
-  } = response;
+  } = payload;
 
   const reportList = report_list.map(
     r => `${r.severity.level}: ${r.message.message}`,
   );
   const communicationErrDesc = `Communication error while: ${taskLabel}`;
 
-  yield responseSwitch({
-    clusterUrlName,
-    taskLabel,
-    response,
+  yield clusterResponseSwitch(clusterUrlName, taskLabel, payload, {
     successAction: createNotification(
       "SUCCESS",
       `Succesfully done: ${taskLabel}`,

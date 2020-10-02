@@ -1,9 +1,9 @@
 import { api, http } from "app/backend/tools";
 
-export const login: api.Call<string> = async (
+export const login = async (
   username: string,
   password: string,
-) =>
+): api.CallResult =>
   http.post("/ui/login", {
     params: [
       ["username", username],
@@ -11,4 +11,4 @@ export const login: api.Call<string> = async (
     ],
   });
 
-export const logout: api.Call<string> = async () => http.get("/ui/logout");
+export const logout = async (): api.CallResult => http.get("/ui/logout");

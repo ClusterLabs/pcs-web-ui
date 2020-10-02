@@ -8,5 +8,5 @@ const shape = t.type({
   ),
 });
 
-export const importedClusterList: api.CallShape<typeof shape> = async () =>
+export const importedClusterList = async (): api.CallResult<typeof shape> =>
   http.get("/imported-cluster-list", { shape });

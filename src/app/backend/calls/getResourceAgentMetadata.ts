@@ -21,10 +21,10 @@ const shape = t.type({
   ),
 });
 
-export const getResourceAgentMetadata: api.CallShape<typeof shape> = async (
+export const getResourceAgentMetadata = async (
   clusterUrlName: string,
   agentName: string,
-) =>
+): api.CallResult<typeof shape> =>
   http.get(`/managec/${clusterUrlName}/get_resource_agent_metadata`, {
     params: [["agent", agentName]],
     validate: (payload) => {
