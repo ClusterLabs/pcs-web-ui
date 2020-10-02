@@ -15,6 +15,7 @@ import {
 
 import { NodeDetailView } from "./NodeDetailView";
 import { NodeDoesNotExists } from "./NodeDoesNotExists";
+import { NodeDetailPageToolbar } from "./NodeDetailPageToolbar";
 
 export const NodeDetailPage = () => {
   const { selectedItemUrlName, urlPrefix } = useGroupDetailViewContext();
@@ -39,6 +40,7 @@ export const NodeDetailPage = () => {
     <DetailLayout
       caption={selectedItemUrlName}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
+      toolbar={<NodeDetailPageToolbar node={node} />}
     >
       {tab === "Detail" && <NodeDetailView node={node} />}
       {tab === "Attributes" && (
