@@ -14,3 +14,4 @@ export * from "./resource-agent";
 export * from "./resource-detail";
 export * from "./resource-primitive";
 export * from "./node";
+export * from "./lib";

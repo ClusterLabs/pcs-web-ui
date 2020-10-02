@@ -13,6 +13,7 @@ import { ResourceAgentActions } from "./resource-agent";
 import { FenceAgentActions } from "./fence-agent";
 import { ClusterPropertiesActions } from "./clusterProperties";
 import { ResourceAgentListActions } from "./resourceAgentList";
+import { LibActions } from "./lib";
 
 type Union<A> = A[keyof A];
 
@@ -33,6 +34,7 @@ export type LeafAction = (
   | Union<ClusterPropertiesActions>
   | Union<ResourceAgentListActions>
   | Union<NodeActions>
+  | Union<LibActions>
 );
 
 export type SetupDataReading = {
