@@ -10,8 +10,21 @@ const actionResource = resourceName =>
     ],
   });
 
+const nodeList = (nodeNameList) => {
+  let i = 1;
+  return nodeNameList.map(name => node(i++, { name }));
+};
+
 export const actions = cluster("actions", "ok", {
-  node_list: [node(1, { name: "ok" }), node(2, { name: "fail" })],
+  node_list: nodeList([
+    "ok",
+    "fail",
+    "permission",
+    "invalid-json",
+    "missing-key",
+    "unknown-cmd",
+    "error",
+  ]),
   resource_list: [
     actionResource("ok"),
     actionResource("fail"),

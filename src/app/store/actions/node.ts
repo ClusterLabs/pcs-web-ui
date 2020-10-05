@@ -13,18 +13,4 @@ export type NodeActions = {
       nodeName: string;
     };
   };
-  StandbyNode: {
-    type: "NODE.STANDBY";
-    payload: {
-      clusterUrlName: string;
-      nodeName: string;
-    };
-  };
-  MaintenanceNode: {
-    type: "NODE.MAINTENANCE";
-    payload: {
-      clusterUrlName: string;
-      nodeName: string;
-    };
-  };
 };

@@ -49,14 +49,24 @@ export const NodeDetailPageToolbar: React.FC<{
                 title: "Standby node?",
                 description: (
                   <>
-                    Put the node into standby mode. The node specified will no
-                    longer be able to host resources
+                    Put the node into standby mode. The node will no longer be
+                    able to host resources
                   </>
                 ),
               },
               action: {
-                type: "NODE.STANDBY",
-                payload: { clusterUrlName, nodeName: node.name },
+                type: "LIB.CALL.CLUSTER",
+                payload: {
+                  clusterUrlName,
+                  taskLabel: `standby node "${node.name}"`,
+                  call: {
+                    command: "node-standby-unstandby",
+                    payload: {
+                      standby: true,
+                      node_names: [node.name],
+                    },
+                  },
+                },
               },
             },
             Maintenance: {
@@ -65,8 +75,18 @@ export const NodeDetailPageToolbar: React.FC<{
                 description: "Put the node into maintenance mode",
               },
               action: {
-                type: "NODE.STANDBY",
-                payload: { clusterUrlName, nodeName: node.name },
+                type: "LIB.CALL.CLUSTER",
+                payload: {
+                  clusterUrlName,
+                  taskLabel: `maintenance node "${node.name}"`,
+                  call: {
+                    command: "node-maintenance-unmaintenance",
+                    payload: {
+                      maintenance: true,
+                      node_names: [node.name],
+                    },
+                  },
+                },
               },
             },
           }}
