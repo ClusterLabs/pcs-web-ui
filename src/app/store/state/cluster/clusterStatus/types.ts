@@ -184,6 +184,7 @@ export interface ClusterStatus {
     issuesSeverity: StatusSeverity;
   };
   resourceOnNodeStatusList: ResourceOnNodeStatus[];
+  nodeAttr: Record<string, NVPair[]>;
 }
 
 export interface ClusterStatusService {

@@ -10,21 +10,25 @@ const actionResource = resourceName =>
     ],
   });
 
-const nodeList = (nodeNameList) => {
+const buildNodeList = (nodeNameList) => {
   let i = 1;
   return nodeNameList.map(name => node(i++, { name }));
 };
 
+const nodeNames = [
+  "ok",
+  "fail",
+  "permission",
+  "invalid-json",
+  "missing-key",
+  "unknown-cmd",
+  "error",
+];
+
+const nodeList = buildNodeList(nodeNames);
+
 export const actions = cluster("actions", "ok", {
-  node_list: nodeList([
-    "ok",
-    "fail",
-    "permission",
-    "invalid-json",
-    "missing-key",
-    "unknown-cmd",
-    "error",
-  ]),
+  node_list: nodeList,
   resource_list: [
     actionResource("ok"),
     actionResource("fail"),
@@ -56,7 +60,18 @@ const actionResourceAlternative = resourceName =>
   });
 
 export const actionsAlternative = cluster("actions", "ok", {
-  node_list: [node(1, { name: "ok" }), node(2, { name: "fail" })],
+  node_list: nodeList,
+  node_attr: nodeNames.reduce(
+    (attrs, nodeName) => ({
+      ...attrs,
+      [nodeName]: [
+        { id: `${nodeName}-standby`, name: "standby", value: "on" },
+        { id: `${nodeName}-maintenance`, name: "maintenance", value: "on" },
+      ],
+    }),
+    {},
+  ),
+
   resource_list: [
     actionResourceAlternative("ok"),
     actionResourceAlternative("fail"),

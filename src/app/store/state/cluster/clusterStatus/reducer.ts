@@ -17,6 +17,7 @@ export const clusterStatusDefault: ClusterStatus = {
     issuesSeverity: "OK",
   },
   resourceOnNodeStatusList: [],
+  nodeAttr: {},
 };
 
 const clusterData: Reducer<ClusterStatusService["clusterData"]> = (

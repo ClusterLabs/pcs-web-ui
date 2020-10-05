@@ -54,5 +54,6 @@ export const apiToState = (
         apiClusterStatus.warning_list,
       ),
     },
+    nodeAttr: apiClusterStatus.node_attr ?? {},
   };
 };

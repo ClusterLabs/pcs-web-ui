@@ -1,5 +1,6 @@
 import { api } from "app/backend";
 import * as types from "app/store/state/types";
+import { isCibTrue } from "app/store/utils";
 
 import * as statusSeverity from "./statusSeverity";
 import { transformIssues } from "./issues";
@@ -44,9 +45,6 @@ const toSeverity = (status: ApiNodeStatus, quorum: ApiNodeQuorum) => {
   }
   return "WARNING";
 };
-
-const isCibTrue = (value: string): boolean =>
-  ["true", "on", "yes", "y", "1"].includes(value.toLowerCase());
 
 const toNode = (
   apiNode: ApiNode,
