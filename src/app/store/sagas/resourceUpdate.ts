@@ -1,7 +1,13 @@
 import { PrimitiveResourceActions } from "app/store/actions";
 import { updateResource } from "app/backend";
 
-import { api, processError, put, putNotification, takeEvery } from "./common";
+import {
+  api,
+  clusterSuccess,
+  processError,
+  putNotification,
+  takeEvery,
+} from "./common";
 
 function* updateInstanceAttributes({
   payload: { resourceId, attributes, clusterUrlName },
@@ -33,11 +39,7 @@ function* updateInstanceAttributes({
     return;
   }
 
-  yield put({
-    type: "CLUSTER_DATA.REFRESH",
-    payload: { clusterUrlName },
-  });
-  yield putNotification("SUCCESS", `Succesfully done: ${taskLabel}`);
+  yield clusterSuccess(clusterUrlName, taskLabel);
 }
 
 export default [
