@@ -32,6 +32,7 @@ function resourceAction(apiCall: ApiCall, taskName: string) {
       });
       return;
     }
+
     yield put({
       type: "CLUSTER_DATA.REFRESH",
       payload: { clusterUrlName },

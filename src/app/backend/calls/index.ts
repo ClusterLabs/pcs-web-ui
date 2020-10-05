@@ -11,3 +11,4 @@ export * from "./clusterProperties";
 export * from "./resourceRefreshCleanup";
 export * from "./login";
 export * from "./removeResource";
+export * from "./clusterStartStop";
