@@ -1,6 +1,6 @@
 import React from "react";
 
-import { actions, selectors, useDispatch, useSelector } from "app/store";
+import { actions, selectors, useDispatch, useSelector, utils } from "app/store";
 
 export const useClusterState = (clusterUrlName: string) => {
   const dispatch = useDispatch();
@@ -40,9 +40,24 @@ export const useClusterState = (clusterUrlName: string) => {
       type: "RESOURCE_AGENT_LIST.LOAD",
       payload: { clusterUrlName },
     });
-  }, [clusterUrlName, start, dispatch, stop]);
+  }, [clusterUrlName, dispatch, start, stop]);
+
+  const cluster = useSelector(selectors.getCluster(clusterUrlName));
+
+  const nodeAttrs = (nodeName: string) => cluster.nodeAttr?.[nodeName] ?? [];
+  const nodeUtilization = (nodeName: string) =>
+    cluster.nodesUtilization?.[nodeName] ?? [];
+
+  const isNodeAttrCibTrue = (nodeName: string, attrName: string) =>
+    utils.isCibTrue(
+      nodeAttrs(nodeName).find(a => a.name === attrName)?.value ?? "",
+    );
+
   return {
-    cluster: useSelector(selectors.getCluster(clusterUrlName)),
+    cluster,
+    isNodeAttrCibTrue,
+    nodeAttrs,
+    nodeUtilization,
     dataLoaded: useSelector(selectors.clusterAreDataLoaded(clusterUrlName)),
   };
 };

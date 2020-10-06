@@ -61,25 +61,15 @@ export type ConnectedNode = {
   quorumSeverity: StatusSeverity;
   issueList: Issue[];
   services: ApiNodeServiceMap;
-  clusterServices: {
-    pacemaker: {
-      standby: boolean;
-      maintenance: boolean;
-    };
-  };
 };
 
-export type Node = {
-  utilization: NVPair[];
-  attributes: NVPair[];
-} & (
+export type Node =
   | ConnectedNode
   | {
       name: string;
       status: "DATA_NOT_PROVIDED";
       issueList: Issue[];
-    }
-);
+    };
 
 export type FenceDeviceStatusFlag =
   | "RUNNING"
@@ -185,6 +175,7 @@ export interface ClusterStatus {
   };
   resourceOnNodeStatusList: ResourceOnNodeStatus[];
   nodeAttr: Record<string, NVPair[]>;
+  nodesUtilization: Record<string, NVPair[]>;
 }
 
 export interface ClusterStatusService {

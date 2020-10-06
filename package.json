@@ -9,6 +9,7 @@
     "@patternfly/react-styles": "^4.7.1",
     "@patternfly/react-table": "^4.15.4",
     "@patternfly/react-tokens": "^4.9.3",
+    "@simbathesailor/use-what-changed": "^0.1.25",
     "@types/history": "^4.7.7",
     "@types/jest": "^26.0.9",
     "@types/node": "^14.0.27",

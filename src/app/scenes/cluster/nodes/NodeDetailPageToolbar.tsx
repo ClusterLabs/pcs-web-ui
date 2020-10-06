@@ -1,7 +1,7 @@
 import React from "react";
 import { ToolbarGroup, ToolbarItem } from "@patternfly/react-core";
 
-import { actions, types, utils } from "app/store";
+import { actions, types } from "app/store";
 import {
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
@@ -10,21 +10,11 @@ import {
   useSelectedClusterName,
 } from "app/view";
 
-const isNodeIn = (
-  mode: "standby" | "maintenance",
-  clusterStatus: types.cluster.ClusterStatus,
-  nodeName: string,
-) =>
-  utils.isCibTrue(
-    clusterStatus.nodeAttr[nodeName]?.find(attr => attr.name === mode)?.value
-      ?? "",
-  );
-
 export const NodeDetailPageToolbar: React.FC<{
   node: types.cluster.Node;
 }> = ({ node }) => {
   const clusterUrlName = useSelectedClusterName();
-  const clusterStatus = useClusterState(clusterUrlName).cluster;
+  const { isNodeAttrCibTrue } = useClusterState(clusterUrlName);
   const standbyUnstandbyAction = (standby: boolean): actions.Action => ({
     type: "LIB.CALL.CLUSTER",
     payload: {
@@ -54,7 +44,7 @@ export const NodeDetailPageToolbar: React.FC<{
   });
   const standbyUnstandbyMenuItem: React.ComponentProps<
     typeof DetailLayoutToolbarDropdown
-  >["menuItems"] = isNodeIn("standby", clusterStatus, node.name)
+  >["menuItems"] = isNodeAttrCibTrue(node.name, "standby")
     ? {
       Unstandby: {
         confirm: {
@@ -85,7 +75,7 @@ export const NodeDetailPageToolbar: React.FC<{
     };
   const maintenanceUnmanintenanceMenuItem: React.ComponentProps<
     typeof DetailLayoutToolbarDropdown
-  >["menuItems"] = isNodeIn("maintenance", clusterStatus, node.name)
+  >["menuItems"] = isNodeAttrCibTrue(node.name, "maintenance")
     ? {
       Unmaintenance: {
         confirm: {

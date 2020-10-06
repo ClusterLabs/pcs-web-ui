@@ -18,6 +18,7 @@ export const clusterStatusDefault: ClusterStatus = {
   },
   resourceOnNodeStatusList: [],
   nodeAttr: {},
+  nodesUtilization: {},
 };
 
 const clusterData: Reducer<ClusterStatusService["clusterData"]> = (
