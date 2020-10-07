@@ -50,6 +50,8 @@ export const updateResource = clusterPost("update_resource");
 export const resourceRefresh = clusterPost("resource_refresh");
 export const resourceCleanup = clusterPost("resource_cleanup");
 export const removeResource = clusterPost("remove_resource");
+export const clusterStart = clusterPost("cluster_start");
+export const clusterStop = clusterPost("cluster_stop");
 export const getResourceAgentMetadata = clusterGet(
   "get_resource_agent_metadata",
 );
@@ -60,3 +62,7 @@ export const resourceManage = lib("resource-manage");
 export const resourceUnmanage = lib("resource-unmanage");
 export const resourceDisable = lib("resource-disable");
 export const resourceEnable = lib("resource-enable");
+export const nodeStandbyUnstandby = lib("node-standby-unstandby");
+export const nodeMaintenanceUnmaintenance = lib(
+  "node-maintenance-unmaintenance",
+);

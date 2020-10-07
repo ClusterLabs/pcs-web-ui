@@ -19,38 +19,6 @@ export type PrimitiveResourceActions = {
     };
   };
 
-  ActionUnmanage: {
-    type: "RESOURCE.PRIMITIVE.UNMANAGE";
-    payload: {
-      clusterUrlName: string;
-      resourceNameList: string[];
-    };
-  };
-
-  ActionManage: {
-    type: "RESOURCE.PRIMITIVE.MANAGE";
-    payload: {
-      clusterUrlName: string;
-      resourceNameList: string[];
-    };
-  };
-
-  ActionDisable: {
-    type: "RESOURCE.PRIMITIVE.DISABLE";
-    payload: {
-      clusterUrlName: string;
-      resourceNameList: string[];
-    };
-  };
-
-  ActionEnable: {
-    type: "RESOURCE.PRIMITIVE.ENABLE";
-    payload: {
-      clusterUrlName: string;
-      resourceNameList: string[];
-    };
-  };
-
   ActionRefresh: {
     type: "RESOURCE.PRIMITIVE.REFRESH";
     payload: {

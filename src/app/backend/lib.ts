@@ -37,6 +37,20 @@ export type ClusterCommand =
         instance_attributes: Record<string, string>;
         ensure_disabled: boolean;
       };
+    }
+  | {
+      command: "node-standby-unstandby";
+      payload: {
+        standby: boolean;
+        node_names: string[];
+      };
+    }
+  | {
+      command: "node-maintenance-unmaintenance";
+      payload: {
+        maintenance: boolean;
+        node_names: string[];
+      };
     };
 
 export const callCluster = async ({

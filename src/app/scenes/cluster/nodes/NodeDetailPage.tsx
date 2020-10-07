@@ -8,13 +8,16 @@ import {
   UtilizationView,
   join,
   useClusterSelector,
+  useClusterState,
   useGroupDetailViewContext,
   useMatch,
   useRoutesAnalysis,
+  useSelectedClusterName,
 } from "app/view";
 
 import { NodeDetailView } from "./NodeDetailView";
 import { NodeDoesNotExists } from "./NodeDoesNotExists";
+import { NodeDetailPageToolbar } from "./NodeDetailPageToolbar";
 
 export const NodeDetailPage = () => {
   const { selectedItemUrlName, urlPrefix } = useGroupDetailViewContext();
@@ -31,6 +34,10 @@ export const NodeDetailPage = () => {
     Utilization: useMatch(join(nodeUrlPrefix, "utilization")),
   });
 
+  const { nodeAttrs, nodeUtilization } = useClusterState(
+    useSelectedClusterName(),
+  );
+
   if (!node) {
     return <NodeDoesNotExists nodeUrlName={selectedItemUrlName} />;
   }
@@ -39,13 +46,14 @@ export const NodeDetailPage = () => {
     <DetailLayout
       caption={selectedItemUrlName}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
+      toolbar={<NodeDetailPageToolbar node={node} />}
     >
       {tab === "Detail" && <NodeDetailView node={node} />}
       {tab === "Attributes" && (
-        <NVPairListView nvPairListView={node.attributes} />
+        <NVPairListView nvPairListView={nodeAttrs(node.name)} />
       )}
       {tab === "Utilization" && (
-        <UtilizationView utilizationParams={node.utilization} />
+        <UtilizationView utilizationParams={nodeUtilization(node.name)} />
       )}
     </DetailLayout>
   );

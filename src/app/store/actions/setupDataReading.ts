@@ -8,10 +8,12 @@ import { ResourceDetailActions } from "./resource-detail";
 import { ResourceTreeActions } from "./resource-tree";
 import { UsernameActions } from "./username";
 import { PrimitiveResourceActions } from "./resource-primitive";
+import { NodeActions } from "./node";
 import { ResourceAgentActions } from "./resource-agent";
 import { FenceAgentActions } from "./fence-agent";
 import { ClusterPropertiesActions } from "./clusterProperties";
 import { ResourceAgentListActions } from "./resourceAgentList";
+import { LibActions } from "./lib";
 
 type Union<A> = A[keyof A];
 
@@ -31,6 +33,8 @@ export type LeafAction = (
   | Union<FenceAgentActions>
   | Union<ClusterPropertiesActions>
   | Union<ResourceAgentListActions>
+  | Union<NodeActions>
+  | Union<LibActions>
 );
 
 export type SetupDataReading = {

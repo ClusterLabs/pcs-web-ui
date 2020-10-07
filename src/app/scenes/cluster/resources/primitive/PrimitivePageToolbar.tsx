@@ -38,8 +38,15 @@ export const PrimitivePageToolbar: React.FC<{
               name="Unmanage"
               title="Unmanage resource?"
               action={{
-                type: "RESOURCE.PRIMITIVE.UNMANAGE",
-                payload: { resourceNameList: [primitive.id], clusterUrlName },
+                type: "LIB.CALL.CLUSTER",
+                payload: {
+                  clusterUrlName,
+                  taskLabel: `unmanage "${primitive.id}"`,
+                  call: {
+                    command: "resource-unmanage",
+                    payload: { resource_or_tag_ids: [primitive.id] },
+                  },
+                },
               }}
             >
               This disallows the cluster to start and stop the resource
@@ -50,8 +57,15 @@ export const PrimitivePageToolbar: React.FC<{
               name="Manage"
               title="Manage resource?"
               action={{
-                type: "RESOURCE.PRIMITIVE.MANAGE",
-                payload: { resourceNameList: [primitive.id], clusterUrlName },
+                type: "LIB.CALL.CLUSTER",
+                payload: {
+                  clusterUrlName,
+                  taskLabel: `manage "${primitive.id}"`,
+                  call: {
+                    command: "resource-manage",
+                    payload: { resource_or_tag_ids: [primitive.id] },
+                  },
+                },
               }}
             >
               This allows the cluster to start and stop the resource
@@ -64,8 +78,15 @@ export const PrimitivePageToolbar: React.FC<{
               name="Disable"
               title="Disable resource?"
               action={{
-                type: "RESOURCE.PRIMITIVE.DISABLE",
-                payload: { resourceNameList: [primitive.id], clusterUrlName },
+                type: "LIB.CALL.CLUSTER",
+                payload: {
+                  clusterUrlName,
+                  taskLabel: `disable "${primitive.id}"`,
+                  call: {
+                    command: "resource-disable",
+                    payload: { resource_or_tag_ids: [primitive.id] },
+                  },
+                },
               }}
             >
               This attempts to stop the resource if they are running and forbid
@@ -77,8 +98,15 @@ export const PrimitivePageToolbar: React.FC<{
               name="Enable"
               title="Enable resource?"
               action={{
-                type: "RESOURCE.PRIMITIVE.ENABLE",
-                payload: { resourceNameList: [primitive.id], clusterUrlName },
+                type: "LIB.CALL.CLUSTER",
+                payload: {
+                  clusterUrlName,
+                  taskLabel: `enable "${primitive.id}"`,
+                  call: {
+                    command: "resource-enable",
+                    payload: { resource_or_tag_ids: [primitive.id] },
+                  },
+                },
               }}
             >
               This allows the cluster to start the resource

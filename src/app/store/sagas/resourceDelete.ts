@@ -4,9 +4,7 @@ import { PrimitiveResourceActions } from "app/store/actions";
 import {
   api,
   formatResourcesMsg,
-  processError,
-  put,
-  putNotification,
+  processClusterResultBasic,
   takeEvery,
 } from "./common";
 
@@ -19,14 +17,11 @@ export function* deleteResource({
     resourceIds,
   );
 
-  const taskLabel = `delete ${formatResourcesMsg(resourceIds)}`;
-  if (result.type !== "OK") {
-    yield processError(result, taskLabel);
-    return;
-  }
-
-  yield put({ type: "CLUSTER_DATA.REFRESH", payload: { clusterUrlName } });
-  yield putNotification("SUCCESS", `Task ${taskLabel} successfully done`);
+  yield processClusterResultBasic(
+    clusterUrlName,
+    `delete ${formatResourcesMsg(resourceIds)}`,
+    result,
+  );
 }
 
 export default [takeEvery("RESOURCE.PRIMITIVE.DELETE", deleteResource)];
