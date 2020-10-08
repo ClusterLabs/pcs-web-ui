@@ -91,7 +91,7 @@ export const NodeDetailPageToolbar: React.FC<{
           title: "Maintenance node?",
           description: "Put the node into maintenance mode",
         },
-        action: maintenanceUnmanintenanceAction(false),
+        action: maintenanceUnmanintenanceAction(true),
       },
     };
 
