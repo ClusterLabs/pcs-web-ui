@@ -6,6 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "types": ["jest", "jest-playwright-preset", "expect-playwright"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

@@ -62,13 +62,14 @@ export const AddClusterAuthRequired = ({
           onChange={value => setPassword(value)}
         />
       </FormGroup>
-      <Switch
-        id="add-cluster-use-custom-address-port"
-        label="Use custom address and port"
-        isChecked={customAddrPort}
-        onChange={() => setCustomAddrPort(!customAddrPort)}
-        data-test="use-custom-address"
-      />
+      <span data-test="use-custom-address">
+        <Switch
+          id="add-cluster-use-custom-address-port"
+          label="Use custom address and port"
+          isChecked={customAddrPort}
+          onChange={() => setCustomAddrPort(!customAddrPort)}
+        />
+      </span>
       {customAddrPort && (
         <>
           <FormGroup

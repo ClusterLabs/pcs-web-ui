@@ -1,4 +1,5 @@
 import * as t from "io-ts";
+import "isomorphic-fetch";
 
 import * as http from "app/backend/http";
 
@@ -177,7 +178,7 @@ describe("post", () => {
     });
   });
 
-  it.only("should return NOT_JSON output", async () => {
+  it("should return NOT_JSON output", async () => {
     const invalidJson = '{"name" : 1, }';
     mockFetch({
       text: invalidJson,

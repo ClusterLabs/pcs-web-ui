@@ -1,5 +1,3 @@
-import { expect } from "chai";
-
 import { takeNewLoadings } from "app/store/sagas/common/dataLoad";
 import { actions } from "app/store";
 
@@ -32,7 +30,7 @@ const stopDashboard: LeafAction = { type: "DASHBOARD_DATA.SYNC.STOP" };
 
 describe("takeNewLoading", () => {
   it("should return empty results when inputs empty", () => {
-    expect(takeNewLoadings([], [])).eql({
+    expect(takeNewLoadings([], [])).toEqual({
       startActions: [],
       stopActions: [],
       nextStops: [],
@@ -40,7 +38,7 @@ describe("takeNewLoading", () => {
   });
 
   it("should add first loading", () => {
-    expect(takeNewLoadings([syncCluster(clusterName1)], [])).eql({
+    expect(takeNewLoadings([syncCluster(clusterName1)], [])).toEqual({
       startActions: [startActionClusterSync(clusterName1)],
       stopActions: [],
       nextStops: [stopSyncCluster(clusterName1)],
@@ -48,7 +46,7 @@ describe("takeNewLoading", () => {
   });
 
   it("should remove existing stop when no new loading", () => {
-    expect(takeNewLoadings([], [stopSyncCluster(clusterName1)])).eql({
+    expect(takeNewLoadings([], [stopSyncCluster(clusterName1)])).toEqual({
       startActions: [],
       stopActions: [stopActionClusterSync(clusterName1)],
       nextStops: [],
@@ -69,7 +67,7 @@ describe("takeNewLoading", () => {
         ],
         [stopSyncCluster(clusterName1)],
       ),
-    ).eql({
+    ).toEqual({
       startActions: [startActionClusterSync(clusterName2), startDashboard],
       stopActions: [stopActionClusterSync(clusterName1)],
       nextStops: [

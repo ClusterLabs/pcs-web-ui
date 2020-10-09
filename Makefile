@@ -59,12 +59,11 @@ dev:
 
 #unit tests
 testu:
-	npx react-scripts test --env=jsdom --testPathPattern=src/test
+	npx jest --watch --config=jest.config.js --testPathPattern=src/test/unit
 
 #end2end tests
 teste:
-	NODE_PATH=src/ npx mocha src/test/bootstrap.js \
-		--no-timeouts --recursive --watch --watch-files src/app/,src/test/ src/test/scenes/*.js
+	npx jest --watch --config=jest.config.js --testPathPattern=src/test/scenes
 
 clean:
 	rm -rf build

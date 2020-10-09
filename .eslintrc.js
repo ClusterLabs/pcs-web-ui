@@ -16,6 +16,7 @@ module.exports = {
     "plugin:react/recommended",
     "react-app",
     "airbnb",
+    "plugin:jest-playwright/recommended",
   ],
   rules: {
     // specify whether double or single quotes should be used
