@@ -20,7 +20,7 @@ import {
   useRoutesAnalysis,
 } from "app/view";
 
-import { NodeDetailPage, NodeList } from "./nodes";
+import { NodesPage } from "./nodes";
 import { FenceDeviceDetailPage, FenceDeviceList } from "./fenceDevices";
 import { ResourcesPage } from "./resources";
 import { ConstraintsPage } from "./constraints";
@@ -62,13 +62,7 @@ export const ClusterDetailPage = ({
         <SelectedClusterProvider value={clusterUrlName}>
           {tab === "Detail" && <ClusterDetail />}
           {tab === "Resources" && <ResourcesPage urlPrefix={url} />}
-          {tab === "Nodes" && (
-            <GroupDetailView
-              urlPrefix={url}
-              groupCard={<NodeList nodeList={cluster.nodeList} />}
-              detailCard={<NodeDetailPage />}
-            />
-          )}
+          {tab === "Nodes" && <NodesPage urlPrefix={url} />}
           {tab === "Fence Devices" && (
             <GroupDetailView
               urlPrefix={url}
