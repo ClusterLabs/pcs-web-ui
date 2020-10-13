@@ -1,6 +1,6 @@
 import { actions, selectors, useDispatch, useSelector } from "app/store";
 import { useClusterSelector, useWizardOpenClose } from "app/view";
-import { CREATE_RESOURCE } from "app/scenes/wizardKeys";
+import { RESOURCE_CREATE } from "app/scenes/wizardKeys";
 
 export const useWizard = () => {
   const [wizardState, clusterUrlName] = useClusterSelector(
@@ -11,7 +11,7 @@ export const useWizard = () => {
     selectors.getPcmkAgent(clusterUrlName, wizardState.agentName),
   );
   const dispatch = useDispatch();
-  const openClose = useWizardOpenClose(CREATE_RESOURCE);
+  const openClose = useWizardOpenClose(RESOURCE_CREATE);
 
   const isAgentLoaded =
     agent

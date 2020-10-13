@@ -30,7 +30,7 @@ export const ResourceCreate: React.FC = () => {
   } = useWizard();
   return (
     <Wizard
-      data-test="wizard-add-resource"
+      data-test="wizard-resource-create"
       isOpen
       onClose={close}
       title="New resource"
