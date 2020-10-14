@@ -22,6 +22,8 @@ module.exports = {
     // specify whether double or single quotes should be used
     quotes: ["error", "double", { avoidEscape: true }],
 
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "warn",
     "no-unused-vars": [
       "error",
       {
