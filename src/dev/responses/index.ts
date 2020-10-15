@@ -1,5 +1,4 @@
 import * as clusterStatus from "./clusterStatus";
-import * as clustersOverview from "./clustersOverview";
 import * as resourceAgentList from "./resourceAgentList";
 import * as resourceAgentMetadata from "./resourceAgentMetadata";
 import * as fenceAgentMetadata from "./fenceAgentMetadata";
@@ -9,7 +8,6 @@ import * as lib from "./lib";
 
 export {
   clusterStatus,
-  clustersOverview,
   resourceAgentList,
   resourceAgentMetadata,
   fenceAgentMetadata,

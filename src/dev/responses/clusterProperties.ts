@@ -1,4 +1,6 @@
-const ok = {
+import { ClusterProperties } from "dev/types";
+
+export const ok: ClusterProperties = {
   "batch-limit": {
     advanced: false,
     default: "0",
@@ -523,8 +525,4 @@ const ok = {
     type: "time",
     value: null,
   },
-};
-
-module.exports = {
-  ok,
 };

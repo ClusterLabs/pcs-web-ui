@@ -1,4 +1,6 @@
-export const ocfHeartbeatApache = {
+import { ResourceAgentMetadata } from "dev/types";
+
+export const ocfHeartbeatApache: ResourceAgentMetadata = {
   name: "ocf:heartbeat:apache",
   shortdesc: "Manages an Apache Web server instance",
   longdesc:

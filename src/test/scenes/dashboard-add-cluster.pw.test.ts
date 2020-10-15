@@ -1,4 +1,5 @@
-import * as responses from "dev/api/responses/all";
+import * as responses from "dev/responses";
+
 import { dt } from "test/tools/selectors";
 import { intercept, response as res, url } from "test/tools";
 

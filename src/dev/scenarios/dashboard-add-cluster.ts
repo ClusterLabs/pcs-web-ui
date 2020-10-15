@@ -1,31 +1,31 @@
-import * as endpoints from "dev/api/endpoints";
+import * as app from "dev/app";
+import * as shortcut from "dev/shortcuts";
 
-import { dashboardScenario } from "./common/scenarios";
+const nodesStates: Record<string, string> = {
+  ok: "Online",
+  conflict: "Online",
+  "no-auth": "Unable to authenticate",
+  nonsense: "nonsense",
+};
 
-const checkAuth = endpoints.checkAuthAgainstNodes((req, res) => {
-  const nodeList = Array.isArray(req.query.node_list)
-    ? req.query.node_list
-    : [req.query.node_list];
+app.checkAuthAgainstNodes((req, res) => {
+  const nodeList: string[] = Array.isArray(req.query.node_list)
+    ? (req.query.node_list as string[])
+    : [req.query.node_list as string];
+
   if (JSON.stringify(nodeList) === JSON.stringify(["error"])) {
     res.status(500).send("SOMETHING WRONG");
     return;
   }
 
-  const nodesStates = {
-    ok: "Online",
-    conflict: "Online",
-    "no-auth": "Unable to authenticate",
-    nonsense: "nonsense",
-  };
-
-  const result = nodeList.reduce(
+  const result = nodeList.reduce<Record<string, string>>(
     (states, node) => ({ ...states, [node]: nodesStates[node] || "Offline" }),
     {},
   );
   res.json(result);
 });
 
-const authGuiAgainstNodes = endpoints.authGuiAgainstNodes((req, res) => {
+app.authGuiAgainstNodes((req, res) => {
   const { nodes } = JSON.parse(req.body.data_json);
 
   const expectedError = Object.keys(nodes).reduce(
@@ -57,7 +57,7 @@ const authGuiAgainstNodes = endpoints.authGuiAgainstNodes((req, res) => {
   });
 });
 
-const existingCluster = endpoints.existingCluster((req, res) => {
+app.existingCluster((req, res) => {
   const nodeName = req.body["node-name"];
   if (nodeName === "conflict") {
     res
@@ -75,9 +75,4 @@ const existingCluster = endpoints.existingCluster((req, res) => {
   }
 });
 
-export const variousNodes = [
-  ...dashboardScenario({}),
-  checkAuth,
-  existingCluster,
-  authGuiAgainstNodes,
-];
+shortcut.dashboard([]);

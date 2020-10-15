@@ -1,6 +1,8 @@
 import deepmerge from "deepmerge";
 
-const overwriteMerge = (_destArr, srcArr /* , opts */) => srcArr;
+import * as types from "dev/types";
+
+const overwriteMerge = (_destArr: unknown[], srcArr: unknown[]) => srcArr;
 
 const service = {
   installed: true,
@@ -8,8 +10,8 @@ const service = {
   enabled: true,
 };
 
-export const node = (id, diff) =>
-  deepmerge(
+export const node = (id: string, diff: Partial<types.Node> = {}): types.Node =>
+  deepmerge<types.Node>(
     {
       id,
       name: `node-${id}`,
@@ -35,8 +37,11 @@ export const node = (id, diff) =>
     diff || {},
   );
 
-export const resourceStatus = (id, diff) =>
-  deepmerge(
+export const resourceStatus = (
+  id: string,
+  diff: Partial<types.CrmStatus> = {},
+): types.CrmStatus =>
+  deepmerge<types.CrmStatus>(
     {
       id,
       resource_agent: "ocf:heartbeat:Dummy",
@@ -53,8 +58,11 @@ export const resourceStatus = (id, diff) =>
     diff || {},
   );
 
-export const operation = (id, diff) =>
-  deepmerge(
+export const operation = (
+  id: string,
+  diff: Partial<types.Operation>,
+): types.Operation =>
+  deepmerge<types.Operation>(
     {
       id,
       call_id: 1,
@@ -80,8 +88,11 @@ export const operation = (id, diff) =>
     diff || {},
   );
 
-export const resource = (id, diff) =>
-  deepmerge(
+export const primitive = (
+  id: string,
+  diff: Partial<types.Primitive> = {},
+): types.Primitive =>
+  deepmerge<types.Primitive>(
     {
       id,
       status: "running",
@@ -104,8 +115,19 @@ export const resource = (id, diff) =>
     diff || {},
   );
 
-export const crmStatus = ({ resourceId, nodeId, nodeName }, diff) =>
-  deepmerge(
+export const crmStatus = (
+  {
+    resourceId,
+    nodeId,
+    nodeName,
+  }: {
+    resourceId: string;
+    nodeId: string;
+    nodeName: string;
+  },
+  diff: Partial<types.CrmStatus> = {},
+): types.CrmStatus =>
+  deepmerge<types.CrmStatus>(
     resourceStatus(resourceId, {
       resource_agent: "ocf:heartbeat:apache",
       managed: true,
@@ -120,20 +142,41 @@ export const crmStatus = ({ resourceId, nodeId, nodeName }, diff) =>
     diff || {},
   );
 
-export const issues = list => list.map(message => ({ message }));
+export const issues = (list: string[]) => list.map(message => ({ message }));
 
-export const stonith = (id, diff) =>
-  resource(id, {
-    ...diff,
-    class_type: "primitive",
-    class: "stonith",
-    type: "fence_apc",
-    stonith: true,
-    provider: null,
-  });
+export const stonith = (
+  id: string,
+  diff: Partial<types.Stonith> = {},
+): types.Stonith =>
+  deepmerge<types.Stonith>(
+    {
+      id,
+      status: "running",
+      class_type: "primitive",
+      class: "stonith",
+      agentname: "ocf:heartbeat:Dummy",
+      provider: null,
+      type: "fence_apc",
+      stonith: true,
+      instance_attr: [],
+      warning_list: [],
+      error_list: [],
+      meta_attr: [],
+      crm_status: [],
+      operations: [],
+      utilization: [],
+      disabled: false,
+      parent_id: null,
+    },
+    diff || {},
+  );
 
-export const group = (id, resources, diff) =>
-  deepmerge(
+export const group = (
+  id: string,
+  resources: types.Group["members"],
+  diff: Partial<types.Group> = {},
+): types.Group =>
+  deepmerge<types.Group>(
     {
       id,
       status: "running",
@@ -148,8 +191,12 @@ export const group = (id, resources, diff) =>
     diff || {},
   );
 
-export const clone = (id, member, diff) =>
-  deepmerge(
+export const clone = (
+  id: string,
+  member: types.Clone["member"],
+  diff: Partial<types.Clone> = {},
+): types.Clone =>
+  deepmerge<types.Clone>(
     {
       id,
       status: "running",
@@ -165,12 +212,16 @@ export const clone = (id, member, diff) =>
     diff || {},
   );
 
-export const cluster = (name, status, diff) =>
-  deepmerge(
+export const cluster = (
+  name: string,
+  status: types.Cluster["status"],
+  diff: Partial<types.Cluster>,
+): types.Cluster =>
+  deepmerge<types.Cluster>(
     {
       cluster_name: name,
       status,
-      node_list: [node(1), node(2)],
+      node_list: [node("1"), node("2")],
       available_features: [],
       pcsd_capabilities: [],
       quorate: true,

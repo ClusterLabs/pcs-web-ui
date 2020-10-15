@@ -1,4 +1,6 @@
-export const ocfHeartbeatDummy = {
+import { ResourceAgentMetadata } from "dev/types";
+
+export const ocfHeartbeatDummy: ResourceAgentMetadata = {
   name: "ocf:heartbeat:Dummy",
   shortdesc: "Example stateless resource agent",
   longdesc:

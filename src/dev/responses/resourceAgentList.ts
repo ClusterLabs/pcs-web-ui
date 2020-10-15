@@ -1,5 +1,6 @@
-/* eslint-disable no-dupe-keys */
-const ok = {
+import { AvailResourceAgents } from "dev/types";
+
+export const ok: AvailResourceAgents = {
   "lsb:anamon": {
     full_name: "lsb:anamon",
     class_provider: "lsb",
@@ -504,13 +505,13 @@ const ok = {
     provider: null,
     type: "anamon",
   },
-  "service:anamon": {
-    full_name: "service:anamon",
-    class_provider: "service",
-    class: "service",
-    provider: null,
-    type: "anamon",
-  },
+  // "service:anamon": {
+  //   full_name: "service:anamon",
+  //   class_provider: "service",
+  //   class: "service",
+  //   provider: null,
+  //   type: "anamon",
+  // },
   "service:arp-ethers": {
     full_name: "service:arp-ethers",
     class_provider: "service",
@@ -4137,7 +4138,4 @@ const ok = {
     provider: null,
     type: "vdo",
   },
-};
-module.exports = {
-  ok,
 };

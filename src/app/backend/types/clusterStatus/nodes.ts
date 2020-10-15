@@ -71,6 +71,7 @@ export const ApiNode = t.intersection([
       status: t.keyof({ unknown: null }),
     }),
     t.type({
+      id: t.string,
       status: ApiNodeStatus,
       quorum: ApiNodeQuorum,
       uptime: t.string,

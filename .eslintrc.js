@@ -73,6 +73,7 @@ module.exports = {
         devDependencies: [
           "**/test/*.js",
           "src/dev/**/*.js",
+          "src/dev/**/*.ts",
           "src/test/**/*.js",
           "src/test/**/*.ts",
         ],
@@ -94,6 +95,16 @@ module.exports = {
         pathGroups: [
           {
             pattern: "app/**",
+            group: "external",
+            position: "after",
+          },
+          {
+            pattern: "dev/**",
+            group: "external",
+            position: "after",
+          },
+          {
+            pattern: "test/**",
             group: "external",
             position: "after",
           },

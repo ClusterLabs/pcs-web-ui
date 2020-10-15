@@ -1,17 +1,19 @@
+import { Cluster } from "dev/types";
+
 import {
   clone,
   cluster,
   group,
   node,
   operation,
-  resource,
+  primitive,
   resourceStatus,
   stonith,
 } from "./tools";
 
-export const resourceTree = cluster("resourceTree", "ok", {
+export const resourceTree: Cluster = cluster("resourceTree", "ok", {
   node_list: [
-    node(1, {
+    node("1", {
       services: {
         pacemaker: {
           installed: true,
@@ -40,7 +42,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
         },
       },
     }),
-    node(2, {
+    node("2", {
       error_list: [
         {
           message: "Test error",
@@ -71,7 +73,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
     ],
   },
   resource_list: [
-    resource("A", {
+    primitive("A", {
       type: "apache",
       status: "disabled",
       crm_status: [
@@ -134,7 +136,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
         },
       ],
     }),
-    resource("A-failed", {
+    primitive("A-failed", {
       type: "apache",
       status: "failed",
       crm_status: [
@@ -144,7 +146,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
         }),
       ],
     }),
-    resource("A-op-failed", {
+    primitive("A-op-failed", {
       type: "apache",
       status: "failed",
       crm_status: [
@@ -158,7 +160,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
         }),
       ],
     }),
-    resource("A-blocked", {
+    primitive("A-blocked", {
       type: "apache",
       status: "blocked",
       crm_status: [
@@ -170,7 +172,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
     group(
       "GROUP-1",
       [
-        resource("B", {
+        primitive("B", {
           status: "disabled",
           meta_attr: [
             {
@@ -209,7 +211,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
             }),
           ],
         }),
-        resource("C", {
+        primitive("C", {
           status: "disabled",
           meta_attr: [
             {
@@ -224,7 +226,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
             }),
           ],
         }),
-        resource("C2", {
+        primitive("C2", {
           crm_status: [resourceStatus("C2-ok")],
         }),
       ],
@@ -243,7 +245,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
       group(
         "GROUP-2",
         [
-          resource("D", {
+          primitive("D", {
             status: "disabled",
             crm_status: [
               resourceStatus("D", {
@@ -252,7 +254,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
               }),
             ],
           }),
-          resource("E", { status: "blocked" }),
+          primitive("E", { status: "blocked" }),
         ],
         { status: "blocked" },
       ),
@@ -266,7 +268,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
         ],
       },
     ),
-    clone("Clone-2", resource("F")),
+    clone("Clone-2", primitive("F")),
     stonith("F1", {
       error_list: [
         {
@@ -340,7 +342,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
       },
       {
         id: "A-then-G1",
-        symetrical: "true",
+        symmetrical: "true",
         "require-all": "true",
         score: "INFINITY",
         first: "A",
@@ -348,7 +350,7 @@ export const resourceTree = cluster("resourceTree", "ok", {
       },
       {
         id: "Clone-1-then-A",
-        symetrical: "false",
+        symmetrical: "false",
         "require-all": "false",
         kind: "Mandatory",
         first: "Clone-1",

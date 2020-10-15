@@ -1,8 +1,9 @@
-import * as responses from "dev/api/responses/all";
+import { api } from "app/backend";
+
+import * as responses from "dev/responses";
+
 import { dt } from "test/tools/selectors";
 import { intercept, url } from "test/tools";
-
-import { api } from "app/backend";
 
 const CLUSTERS = dt("cluster-list", "^cluster ");
 const CLUSTER_OK = dt("cluster-list", "cluster ok");

@@ -1,18 +1,18 @@
-import { cluster, crmStatus, node, resource } from "./tools";
+import { cluster, crmStatus, node, primitive } from "./tools";
 
 // Purpose is to provide items like resources, nodes, fence devices with
 // standard names on which
 
-const actionResource = resourceName =>
-  resource(resourceName, {
+const actionResource = (resourceName: string) =>
+  primitive(resourceName, {
     crm_status: [
       crmStatus({ resourceId: resourceName, nodeId: "1", nodeName: "ok" }),
     ],
   });
 
-const buildNodeList = (nodeNameList) => {
+const buildNodeList = (nodeNameList: string[]) => {
   let i = 1;
-  return nodeNameList.map(name => node(i++, { name }));
+  return nodeNameList.map(name => node(`${i++}`, { name }));
 };
 
 const nodeNames = [
@@ -40,8 +40,8 @@ export const actions = cluster("actions", "ok", {
   ],
 });
 
-const actionResourceAlternative = resourceName =>
-  resource(resourceName, {
+const actionResourceAlternative = (resourceName: string) =>
+  primitive(resourceName, {
     meta_attr: [
       {
         id: `${resourceName}-unmanaged`,
@@ -59,7 +59,7 @@ const actionResourceAlternative = resourceName =>
     ],
   });
 
-export const actionsAlternative = cluster("actions", "ok", {
+export const actionsAlternative = cluster("actions-alt", "ok", {
   node_list: nodeList,
   node_attr: nodeNames.reduce(
     (attrs, nodeName) => ({

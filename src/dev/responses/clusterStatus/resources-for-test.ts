@@ -1,8 +1,8 @@
-const { resource, group, clone, cluster, resourceStatus } = require("./tools");
+import { clone, cluster, group, primitive, resourceStatus } from "./tools";
 
-const resourcesForTest = cluster("resourcesForTest", "ok", {
+export const resourcesForTest = cluster("resourcesForTest", "ok", {
   resource_list: [
-    resource("A", {
+    primitive("A", {
       type: "apache",
       status: "disabled",
       crm_status: [
@@ -37,7 +37,7 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
       ],
     }),
     group("GROUP-1", [
-      resource("B", {
+      primitive("B", {
         status: "disabled",
         meta_attr: [
           {
@@ -47,7 +47,7 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
           },
         ],
       }),
-      resource("C", {
+      primitive("C", {
         status: "disabled",
         meta_attr: [
           {
@@ -68,7 +68,7 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
       group(
         "GROUP-2",
         [
-          resource("D", {
+          primitive("D", {
             status: "disabled",
             crm_status: [
               resourceStatus("D", {
@@ -77,7 +77,7 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
               }),
             ],
           }),
-          resource("E", { status: "blocked" }),
+          primitive("E", { status: "blocked" }),
         ],
         { status: "blocked" },
       ),
@@ -91,7 +91,7 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
         ],
       },
     ),
-    clone("Clone-2", resource("F")),
+    clone("Clone-2", primitive("F")),
   ],
   constraints: {
     rsc_colocation: [
@@ -154,16 +154,16 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
       },
       {
         id: "A-then-G1",
-        symetrical: true,
-        "require-all": true,
+        symmetrical: "true",
+        "require-all": "true",
         score: "INFINITY",
         first: "A",
         then: "GROUP-1",
       },
       {
         id: "Clone-1-then-A",
-        symetrical: false,
-        "require-all": false,
+        symmetrical: "false",
+        "require-all": "false",
         kind: "Mandatory",
         first: "Clone-1",
         then: "A",
@@ -208,5 +208,3 @@ const resourcesForTest = cluster("resourcesForTest", "ok", {
     ],
   },
 });
-
-module.exports = { resourcesForTest };

@@ -1,4 +1,5 @@
-import { importedClusterList } from "dev/api/responses/all";
+import { importedClusterList } from "dev/responses";
+
 import { dt } from "test/tools/selectors";
 import { intercept, url } from "test/tools";
 

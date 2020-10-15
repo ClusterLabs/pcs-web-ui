@@ -16,7 +16,7 @@ on_node
   if on_node taken from element attribute is empty it is searched for parent
   `node_state`. If such parent is found then its attribute `uname` is used.
 */
-const ApiResourceOperation = t.type({
+export const ApiResourceOperation = t.type({
   id: ApiId,
   call_id: t.number,
   crm_debug_origin: t.union([t.string, t.null]),

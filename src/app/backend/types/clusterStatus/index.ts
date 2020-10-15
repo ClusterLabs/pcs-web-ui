@@ -30,6 +30,8 @@ import {
   ApiPrimitive as TApiPrimitive,
   ApiResource as TApiResource,
   ApiResourceBase as TApiResourceBase,
+  ApiResourceCrmStatus as TApiResourceCrmStatus,
+  ApiResourceOperation as TApiResourceOperation,
   ApiStonith as TApiStonith,
 } from "./resources";
 import { ApiClusterStatus as TApiClusterStatus } from "./cluster";
@@ -72,6 +74,8 @@ export type ApiResourceBase = TypeOf<typeof TApiResourceBase>;
 export type ApiPrimitive = TypeOf<typeof TApiPrimitive>;
 export type ApiResource = TypeOf<typeof TApiResource>;
 export type ApiStonith = TypeOf<typeof TApiStonith>;
+export type ApiResourceCrmStatus = TypeOf<typeof TApiResourceCrmStatus>;
+export type ApiResourceOperation = TypeOf<typeof TApiResourceOperation>;
 export type ApiWithIssues = TypeOf<typeof TApiWithIssues>;
 export type ApiNVPair = TypeOf<typeof TApiNVPair>;
 export type ApiScore = TypeOf<typeof TApiScore>;
