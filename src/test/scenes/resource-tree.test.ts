@@ -54,25 +54,26 @@ const RESOURCES_UNEXPANDED = [
   { id: "Clone-2", type: "Clone" },
 ];
 
-describe.skip("Resource tree", () => {
-  afterEach(intercept.stop);
+const interceptWithCluster = (routeList: intercept.Route[]) =>
+  intercept.start([
+    {
+      url: "/managec/ok/cluster_status",
+      json: responses.clusterStatus.resourcesForTest,
+    },
+    {
+      url: "/managec/ok/get_avail_resource_agents",
+      json: responses.resourceAgentList.ok,
+    },
+    {
+      url: "/managec/ok/cluster_properties",
+      json: responses.clusterProperties.ok,
+    },
+    ...routeList,
+  ]);
 
-  beforeEach(
-    intercept.start([
-      {
-        url: "/managec/ok/cluster_status",
-        json: responses.clusterStatus.resourcesForTest,
-      },
-      {
-        url: "/managec/ok/get_avail_resource_agents",
-        json: responses.resourceAgentList.ok,
-      },
-      {
-        url: "/managec/ok/cluster_properties",
-        json: responses.clusterProperties.ok,
-      },
-    ]),
-  );
+describe("Resource tree", () => {
+  beforeEach(interceptWithCluster([]));
+  afterEach(intercept.stop);
 
   it("should show unexpanded resource tree", async () => {
     await displayResources();
@@ -112,11 +113,6 @@ describe.skip("Resource tree", () => {
     expect(await inspectResources()).toEqual(RESOURCES_UNEXPANDED);
   });
 
-  it("should show primitive resource detail", async () => {
-    await displayResources();
-    await selectResource("A");
-  });
-
   it("should show group detail", async () => {
     await displayResources();
     await selectResource("GROUP-1");
@@ -125,5 +121,20 @@ describe.skip("Resource tree", () => {
   it("should show clone detail", async () => {
     await displayResources();
     await selectResource("Clone-1");
+  });
+});
+
+describe("Resource tree", () => {
+  afterEach(intercept.stop);
+  it("should show primitive resource detail", async () => {
+    interceptWithCluster([
+      {
+        url: "/managec/ok/get_resource_agent_metadata",
+        query: { agent: "ocf:heartbeat:apache" },
+        json: responses.resourceAgentMetadata.ocfHeartbeatApache,
+      },
+    ])();
+    await displayResources();
+    await selectResource("A");
   });
 });

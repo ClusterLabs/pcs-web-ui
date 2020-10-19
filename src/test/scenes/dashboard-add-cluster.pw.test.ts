@@ -41,7 +41,6 @@ const fillAuthenticationForm = async (
   port: string,
 ) => {
   await page.waitForSelector(dt(WIZARD, "use-custom-address"));
-  await page.screenshot({ path: "example.png" });
   await page.click(`${dt(WIZARD, "use-custom-address")} .pf-c-switch__toggle`);
   await page.type(dt(WIZARD, "password"), password);
   await page.type(dt(WIZARD, "address"), addr);
