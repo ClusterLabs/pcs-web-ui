@@ -3,7 +3,15 @@ import { Form, FormGroup, TextInput } from "@patternfly/react-core";
 
 import { WizardLibStep } from "app/view";
 
+import { useWizard } from "../useWizard";
+
 export const NodeAddNodeName: React.FC = () => {
+  const {
+    wizardState: { nodeName },
+    updateState,
+  } = useWizard();
+
+  const changeNodeName = (value: string) => updateState({ nodeName: value });
   return (
     <WizardLibStep title="Choose node name">
       <Form>
@@ -15,10 +23,10 @@ export const NodeAddNodeName: React.FC = () => {
         >
           <TextInput
             id="new-resource-name"
-            value=""
+            value={nodeName}
             isRequired
             type="text"
-            onChange={() => {}}
+            onChange={changeNodeName}
           />
         </FormGroup>
       </Form>

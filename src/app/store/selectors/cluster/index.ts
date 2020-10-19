@@ -3,6 +3,9 @@ import { clusterSelector } from "./selectorsHelpers";
 export const getWizardResourceCreateState = clusterSelector(
   clusterStorageItem => clusterStorageItem.wizardResourceCreate,
 );
+export const getWizardNodeAddState = clusterSelector(
+  clusterStorageItem => clusterStorageItem.wizardNodeAdd,
+);
 
 export const getPcmkAgent = clusterSelector(
   (clusterStorageItem, agentName: string) =>

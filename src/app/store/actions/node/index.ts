@@ -1,3 +1,5 @@
+import * as add from "./add";
+
 export type NodeActions = {
   StartNode: {
     type: "NODE.START";
@@ -13,4 +15,5 @@ export type NodeActions = {
       nodeName: string;
     };
   };
+  NodeAddUpdate: add.Update;
 };
