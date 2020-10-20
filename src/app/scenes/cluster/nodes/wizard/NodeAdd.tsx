@@ -13,6 +13,7 @@ import {
 } from "./step2PrepareNode";
 import { NodeAddSbd, NodeAddSbdFooter } from "./step3Sbd";
 import { NodeAddReview, NodeAddReviewFooter } from "./review";
+import { NodeAddFinish } from "./finish";
 
 export const NodeAdd: React.FC = () => {
   const { close } = useWizard();
@@ -39,6 +40,11 @@ export const NodeAdd: React.FC = () => {
         {
           name: "Review",
           component: <NodeAddReview />,
+        },
+        {
+          name: "Result",
+          component: <NodeAddFinish />,
+          isFinishedStep: true,
         },
       ]}
       footer={

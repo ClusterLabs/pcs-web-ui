@@ -1,3 +1,35 @@
+import { api } from "app/backend";
+
+export type Add = {
+  type: "NODE.ADD";
+  payload: {
+    clusterUrlName: string;
+    nodeName: string;
+  };
+};
+
+export type AddSuccess = {
+  type: "NODE.ADD.SUCCESS";
+  payload: {
+    clusterUrlName: string;
+    reports: api.types.lib.Report[];
+  };
+};
+
+export type AddFailed = {
+  type: "NODE.ADD.FAILED";
+  payload: {
+    clusterUrlName: string;
+    reports: api.types.lib.Report[];
+  };
+};
+export type AddError = {
+  type: "NODE.ADD.ERROR";
+  payload: {
+    clusterUrlName: string;
+  };
+};
+
 export type Update = {
   type: "NODE.ADD.UPDATE";
   payload: {

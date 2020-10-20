@@ -39,6 +39,14 @@ export const useWizard = () => {
         },
       });
     },
+    nodeAdd: () =>
+      dispatch({
+        type: "NODE.ADD",
+        payload: {
+          clusterUrlName,
+          nodeName: wizardState.nodeName,
+        },
+      }),
     close: () => {
       openClose.close();
     },

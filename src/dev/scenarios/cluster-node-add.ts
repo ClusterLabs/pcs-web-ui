@@ -2,7 +2,10 @@ import * as shortcut from "dev/shortcuts";
 import * as response from "dev/responses";
 import * as app from "dev/app";
 
-shortcut.dashboard([response.clusterStatus.resourceTree]);
+shortcut.dashboard([
+  response.clusterStatus.actions,
+  response.clusterStatus.actionsAlternative,
+]);
 
 app.canAddClusterOrNodes((_req, res) => {
   res.send("");
@@ -25,4 +28,11 @@ app.checkAuthAgainstNodes((req, res) => {
     {},
   );
   res.json(result);
+});
+
+app.clusterAddNodes((req, res) => {
+  shortcut.libStd({
+    code: req.body.nodes[0],
+    res,
+  });
 });

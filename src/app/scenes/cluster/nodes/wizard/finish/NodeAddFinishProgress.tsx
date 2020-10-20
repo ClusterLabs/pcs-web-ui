@@ -8,14 +8,14 @@ import {
 
 import { useWizard } from "../useWizard";
 
-export const ResourceCreateFinishProgress: React.FC = () => {
+export const NodeAddFinishProgress: React.FC = () => {
   const {
-    wizardState: { resourceName },
+    wizardState: { nodeName },
   } = useWizard();
   return (
     <EmptyState>
       <Title headingLevel="h4" size="lg">
-        {`Create new resource "${resourceName}" progress`}
+        {`Add node "${nodeName}" progress`}
       </Title>
       <Progress
         value={50}

@@ -11,9 +11,9 @@ import { WizardLibReports, pallete } from "app/view";
 
 import { useWizard } from "../useWizard";
 
-export const ResourceCreateFinishSuccess: React.FC = () => {
+export const NodeAddFinishSuccess: React.FC = () => {
   const {
-    wizardState: { resourceName, reports },
+    wizardState: { nodeName, reports },
     close,
   } = useWizard();
   return (
@@ -21,7 +21,7 @@ export const ResourceCreateFinishSuccess: React.FC = () => {
       <EmptyState>
         <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
         <Title headingLevel="h4" size="lg">
-          {`Resource "${resourceName}" created successfully`}
+          {`Node "${nodeName}" added successfully`}
         </Title>
         <Button variant="primary" onClick={close}>
           Close

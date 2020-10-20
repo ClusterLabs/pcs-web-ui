@@ -10,13 +10,14 @@ import {
 import { useWizard } from "../useWizard";
 
 export const NodeAddReviewFooter: React.FC = () => {
-  const { close } = useWizard();
+  const { close, nodeAdd } = useWizard();
   return (
     <WizardContextConsumer>
       {({ onNext, onBack }) => (
         <>
           <WizardButtonNext
             onClick={() => {
+              nodeAdd();
               onNext();
             }}
             label="Finish"

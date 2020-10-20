@@ -20,6 +20,12 @@ export type WizardNodeAdd = {
     | "started-auth"
     | "auth-failed"
     | "success";
+  response:
+    | "no-response"
+    | "success"
+    | "forceable-fail"
+    | "fail"
+    | "communication-error";
   reports: api.types.lib.Report[];
 };
 
@@ -36,6 +42,7 @@ const initialState: WizardNodeAdd = {
     address8: "",
   },
   nodeCheck: "not-started",
+  response: "no-response",
   reports: [],
 };
 
@@ -44,7 +51,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
   action,
 ) => {
   switch (action.type) {
-    case "NODE.ADD.UPDATE": {
+    case "NODE.ADD.UPDATE":
       return {
         ...state,
         ...action.payload.state,
@@ -54,7 +61,6 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
             ? "not-started"
             : state.nodeCheck,
       };
-    }
     case "NODE.ADD.CHECK_CAN_ADD":
       return {
         ...state,
@@ -75,6 +81,12 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
         ...state,
         nodeCheck: "success",
       };
+    case "NODE.ADD.SUCCESS":
+      return { ...state, response: "success", reports: action.payload.reports };
+    case "NODE.ADD.FAILED":
+      return { ...state, response: "fail", reports: action.payload.reports };
+    case "NODE.ADD.ERROR":
+      return { ...state, response: "communication-error" };
     default:
       return state;
   }

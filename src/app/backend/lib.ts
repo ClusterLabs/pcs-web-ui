@@ -51,6 +51,21 @@ export type ClusterCommand =
         maintenance: boolean;
         node_names: string[];
       };
+    }
+  | {
+      command: "cluster-add-nodes";
+      payload: {
+        nodes: {
+          name: string;
+          addrs?: string[];
+          devices?: string[];
+        };
+        start?: boolean;
+        enable?: boolean;
+        no_watchdog_validation?: boolean;
+        force_flags?: string[];
+        wait?: boolean;
+      };
     };
 
 export const callCluster = async ({

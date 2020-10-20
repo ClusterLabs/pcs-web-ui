@@ -15,6 +15,10 @@ export type NodeActions = {
       nodeName: string;
     };
   };
+  NodeAdd: add.Add;
+  NodeAddSuccess: add.AddSuccess;
+  NodeAddFailed: add.AddFailed;
+  NodeAddError: add.AddError;
   NodeAddUpdate: add.Update;
   NodeAddCheckCanAdd: add.CheckCanAdd;
   NodeAddCheckCanAddFailed: add.CheckCanAddFailed;
