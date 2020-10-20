@@ -69,6 +69,7 @@ const lib = (url: string) => (handler: Handler) =>
 export const existingCluster = managePost("existingcluster"); // adds existing cluster
 export const authGuiAgainstNodes = managePost("auth_gui_against_nodes");
 export const checkAuthAgainstNodes = manageGet("check_auth_against_nodes");
+export const canAddClusterOrNodes = manageGet("can-add-cluster-or-nodes");
 
 // cluster
 export const clusterStatus = clusterGet("cluster_status");

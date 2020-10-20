@@ -16,4 +16,9 @@ export type NodeActions = {
     };
   };
   NodeAddUpdate: add.Update;
+  NodeAddCheckCanAdd: add.CheckCanAdd;
+  NodeAddCheckCanAddFailed: add.CheckCanAddFailed;
+  NodeAddCheckAuth: add.CheckAuth;
+  NodeAddCheckAuthFailed: add.CheckAuthFailed;
+  NodeAddCheckAuthSuccess: add.CheckAuthSuccess;
 };

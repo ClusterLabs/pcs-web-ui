@@ -18,6 +18,7 @@ import resourceRefreshCleanup from "./resourceRefreshCleanup";
 import resourceDelete from "./resourceDelete";
 import libAction from "./libAction";
 import nodeStartStop from "./nodeStartStop";
+import nodeAdd from "./nodeAdd";
 
 function* rootSaga() {
   yield all([
@@ -39,6 +40,7 @@ function* rootSaga() {
     ...resourceRefreshCleanup,
     ...libAction,
     ...nodeStartStop,
+    ...nodeAdd,
   ]);
 }
 
