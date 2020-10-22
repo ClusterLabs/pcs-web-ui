@@ -30,6 +30,10 @@ app.checkAuthAgainstNodes((req, res) => {
   res.json(result);
 });
 
+app.sendKnownHosts((_req, res) => {
+  res.send("success");
+});
+
 app.clusterAddNodes((req, res) => {
   shortcut.libStd({
     code: req.body.nodes[0],

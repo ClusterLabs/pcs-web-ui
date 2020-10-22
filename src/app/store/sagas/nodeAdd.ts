@@ -1,4 +1,8 @@
-import { canAddClusterOrNodes, checkAuthAgainstNodes } from "app/backend";
+import {
+  canAddClusterOrNodes,
+  checkAuthAgainstNodes,
+  sendKnownHosts,
+} from "app/backend";
 import { Action, NodeActions } from "app/store/actions";
 
 import { api, lib, processError, put, takeEvery } from "./common";
@@ -45,9 +49,10 @@ function* checkAuthSaga({
     return;
   }
   yield put({
-    type: "NODE.ADD.CHECK_AUTH.SUCCESS",
+    type: "NODE.ADD.SEND_KNOWN_HOSTS",
     payload: {
       clusterUrlName,
+      nodeName,
     },
   });
 }
@@ -90,8 +95,33 @@ function* nodeAddSaga({
   });
 }
 
+function* sendKnownHostsSaga({
+  payload: { clusterUrlName, nodeName },
+}: NodeActions["NodeAddSendKnownHosts"]) {
+  const result: api.ResultOf<typeof sendKnownHosts> = yield api.authSafe(
+    sendKnownHosts,
+    clusterUrlName,
+    [nodeName],
+  );
+
+  if (result.type !== "OK") {
+    put({
+      type: "NODE.ADD.SEND_KNOWN_HOSTS.FAILED",
+      payload: { clusterUrlName },
+    });
+    return;
+  }
+  yield put({
+    type: "NODE.ADD.SEND_KNOWN_HOSTS.SUCCESS",
+    payload: {
+      clusterUrlName,
+    },
+  });
+}
+
 export default [
   takeEvery("NODE.ADD.CHECK_CAN_ADD", checkCanAddNodeSaga),
   takeEvery("NODE.ADD.CHECK_AUTH", checkAuthSaga),
+  takeEvery("NODE.ADD.SEND_KNOWN_HOSTS", sendKnownHostsSaga),
   takeEvery("NODE.ADD", nodeAddSaga),
 ];

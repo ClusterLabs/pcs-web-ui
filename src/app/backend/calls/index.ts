@@ -13,3 +13,4 @@ export * from "./login";
 export * from "./removeResource";
 export * from "./clusterStartStop";
 export * from "./canAddClusterOrNodes";
+export * from "./sendKnownHosts";

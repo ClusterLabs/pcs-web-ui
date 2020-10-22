@@ -19,6 +19,7 @@ export type WizardNodeAdd = {
     | "cannot-add"
     | "started-auth"
     | "auth-failed"
+    | "started-send-known-hosts"
     | "success";
   response:
     | "no-response"
@@ -76,7 +77,12 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
         ...state,
         nodeCheck: "auth-failed",
       };
-    case "NODE.ADD.CHECK_AUTH.SUCCESS":
+    case "NODE.ADD.SEND_KNOWN_HOSTS":
+      return {
+        ...state,
+        nodeCheck: "started-send-known-hosts",
+      };
+    case "NODE.ADD.SEND_KNOWN_HOSTS.SUCCESS":
       return {
         ...state,
         nodeCheck: "success",

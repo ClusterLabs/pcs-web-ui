@@ -25,4 +25,7 @@ export type NodeActions = {
   NodeAddCheckAuth: add.CheckAuth;
   NodeAddCheckAuthFailed: add.CheckAuthFailed;
   NodeAddCheckAuthSuccess: add.CheckAuthSuccess;
+  NodeAddSendKnownHosts: add.SendKnownHosts;
+  NodeAddSendKnownHostsSuccess: add.SendKnownHostsSuccess;
+  NodeAddSendKnownHostsFailed: add.SendKnownHostsFailed;
 };

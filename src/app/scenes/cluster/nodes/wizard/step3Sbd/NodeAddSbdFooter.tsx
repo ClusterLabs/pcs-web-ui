@@ -1,5 +1,5 @@
-import { WizardContextConsumer } from "@patternfly/react-core";
 import React from "react";
+import { WizardContextConsumer } from "@patternfly/react-core";
 
 import { WizardButtonBack, WizardButtonNext } from "app/view";
 

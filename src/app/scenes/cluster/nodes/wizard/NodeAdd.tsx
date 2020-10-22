@@ -30,7 +30,7 @@ export const NodeAdd: React.FC = () => {
           component: <NodeAddNodeName />,
         },
         {
-          name: "Prepare node",
+          name: "Prepare cluster for node",
           component: <NodeAddPrepareNode />,
         },
         {
@@ -55,7 +55,7 @@ export const NodeAdd: React.FC = () => {
                 {activeStep.name === "Enter node name" && (
                   <NodeAddNodeNameFooter />
                 )}
-                {activeStep.name === "Prepare node" && (
+                {activeStep.name === "Prepare cluster for node" && (
                   <NodeAddPrepareNodeFooter />
                 )}
                 {activeStep.name === "Configure sbd" && <NodeAddSbdFooter />}

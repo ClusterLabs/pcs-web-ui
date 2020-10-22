@@ -66,6 +66,27 @@ export type CheckCanAddFailed = {
   };
 };
 
+export type SendKnownHosts = {
+  type: "NODE.ADD.SEND_KNOWN_HOSTS";
+  payload: {
+    clusterUrlName: string;
+    nodeName: string;
+  };
+};
+export type SendKnownHostsFailed = {
+  type: "NODE.ADD.SEND_KNOWN_HOSTS.FAILED";
+  payload: {
+    clusterUrlName: string;
+  };
+};
+
+export type SendKnownHostsSuccess = {
+  type: "NODE.ADD.SEND_KNOWN_HOSTS.SUCCESS";
+  payload: {
+    clusterUrlName: string;
+  };
+};
+
 export type CheckAuth = {
   type: "NODE.ADD.CHECK_AUTH";
   payload: {

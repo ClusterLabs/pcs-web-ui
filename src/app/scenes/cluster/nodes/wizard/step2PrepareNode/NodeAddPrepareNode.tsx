@@ -19,13 +19,21 @@ export const NodeAddPrepareNode: React.FC = () => {
   useNodeCheck();
   return (
     <WizardLibStep title="Prepare node">
-      {(nodeCheck === "started-can-add" || nodeCheck === "started-auth") && (
+      {(nodeCheck === "started-can-add"
+        || nodeCheck === "started-auth"
+        || nodeCheck === "started-send-known-hosts") && (
         <EmptyState style={{ margin: "auto" }}>
           <EmptyStateIcon variant="container" component={Spinner} />
           <Title size="lg" headingLevel="h3">
-            {nodeCheck === "started-can-add"
-              ? "Checking if can add node to cluster"
-              : "Checking if node is authenticated"}
+            {nodeCheck === "started-can-add" && (
+              <>Checking if can add node to cluster</>
+            )}
+            {nodeCheck === "started-auth" && (
+              <>Checking if node is authenticated</>
+            )}
+            {nodeCheck === "started-send-known-hosts" && (
+              <>Sending updated known host to cluster</>
+            )}
           </Title>
         </EmptyState>
       )}
