@@ -22,9 +22,7 @@ export const CrmStatusTable = ({
   crmStatusList: ResourceOnNodeStatus[];
   rowObject: {
     header: string;
-    cell: (
-      crmStatus: ResourceOnNodeStatus,
-    ) => JSX.Element | string | undefined | null;
+    cell: (crmStatus: ResourceOnNodeStatus) => React.ReactNode;
   };
 }) => {
   return (

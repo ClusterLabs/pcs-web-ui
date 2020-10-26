@@ -10,8 +10,8 @@ export const GroupDetailView = ({
   detailCard,
 }: {
   urlPrefix: string;
-  groupCard: JSX.Element;
-  detailCard: JSX.Element;
+  groupCard: React.ReactNode;
+  detailCard: React.ReactNode;
 }) => {
   const detail = useRouteMatch<{ detailUrlName: string }>(
     `${urlPrefix}/:detailUrlName/`,

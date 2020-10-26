@@ -5,13 +5,10 @@ import { types } from "app/store";
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
 
-export const ResourceTreeItemGroup = ({
-  group,
-  nestedLevel = 0,
-}: {
+export const ResourceTreeItemGroup: React.FC<{
   group: types.cluster.Group;
   nestedLevel?: number;
-}) => (
+}> = ({ group, nestedLevel = 0 }) => (
   <ResourceTreeItemCompound
     resourceId={group.id}
     nestingDepth={1 + nestedLevel}

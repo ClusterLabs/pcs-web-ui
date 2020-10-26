@@ -7,17 +7,13 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-export const ConstraintRow = ({
-  id = "",
-  dataListCells,
-  content = null,
-}: React.PropsWithChildren<{
+export const ConstraintRow: React.FC<{
   id?: string;
-  content?: JSX.Element | null;
+  content?: React.ReactNode;
   dataListCells: React.ComponentProps<
     typeof DataListItemCells
   >["dataListCells"];
-}>) => {
+}> = ({ id = "", dataListCells, content = null }) => {
   const [showDetails, setShowDetails] = React.useState(false);
   const rowId = `constraint-${id}-row`;
   return (

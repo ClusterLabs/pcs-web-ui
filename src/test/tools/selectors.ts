@@ -1,4 +1,4 @@
-const dt = (...args) =>
+export const dt = (...args: string[]) =>
   args
     .map((arg) => {
       if (arg.includes("[")) {
@@ -10,7 +10,3 @@ const dt = (...args) =>
       return `[data-test="${arg}"]`;
     })
     .join(" ");
-
-module.exports = {
-  dt,
-};

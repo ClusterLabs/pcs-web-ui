@@ -1,12 +1,9 @@
 import React from "react";
 
-export const ResourceTreeCellType = ({
-  type,
-  typeDescription = "",
-}: {
+export const ResourceTreeCellType: React.FC<{
   type: string;
   typeDescription?: string;
-}) => {
+}> = ({ type, typeDescription = "" }) => {
   return (
     <>
       <span>Type </span>

@@ -18,7 +18,7 @@ export const ConstraintRowWithResourceSet: React.FC<{
   ) => React.ReactNode;
   setContent?: (
     resourceSet: types.cluster.ConstraintResourceSetStructured,
-  ) => JSX.Element;
+  ) => React.ReactNode;
   type: string;
   id: string;
   content?: React.ComponentProps<typeof ConstraintRow>["content"];

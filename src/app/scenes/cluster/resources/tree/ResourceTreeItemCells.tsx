@@ -8,17 +8,12 @@ import { ResourceTreeCellName } from "./ResourceTreeCellName";
 import { ResourceTreeCellType } from "./ResourceTreeCellType";
 import { ResourceTreeCellStatus } from "./ResourceTreeCellStatus";
 
-export const ResourceTreeItemCells = ({
-  resourceId,
-  status,
-  type,
-  typeDescription = "",
-}: {
+export const ResourceTreeItemCells: React.FC<{
   resourceId: string;
   status: types.cluster.ResourceStatus;
   type: string;
   typeDescription?: string;
-}) => {
+}> = ({ resourceId, status, type, typeDescription = "" }) => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
   return (
     <>

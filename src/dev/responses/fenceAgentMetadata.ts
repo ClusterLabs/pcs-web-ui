@@ -903,7 +903,3 @@ export const ok: FenceAgentMetadata = {
     },
   ],
 };
-
-module.exports = {
-  ok,
-};
