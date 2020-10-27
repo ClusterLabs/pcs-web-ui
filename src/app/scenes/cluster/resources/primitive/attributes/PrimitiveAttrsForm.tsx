@@ -14,9 +14,9 @@ type FormAttr = {
 };
 
 const instanceAttr = (primitive: types.cluster.Primitive, name: string) =>
-  (name in primitive.instanceAttributes
+  name in primitive.instanceAttributes
     ? primitive.instanceAttributes[name].value
-    : "");
+    : "";
 
 const collectUpdatedAttrs = (
   formMap: Record<string, FormAttr>,

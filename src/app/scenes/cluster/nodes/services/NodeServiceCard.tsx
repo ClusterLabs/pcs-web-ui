@@ -20,10 +20,7 @@ export const NodeServiceCard = ({
     <Card>
       <CardHeader>
         <TextContent>
-          <Text component="h2">
-            {" "}
-            {label}
-          </Text>
+          <Text component="h2"> {label}</Text>
         </TextContent>
       </CardHeader>
       <CardBody>

@@ -15,7 +15,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "react-app",
-    "airbnb",
     "plugin:jest-playwright/recommended",
   ],
   rules: {
@@ -113,6 +112,7 @@ module.exports = {
         "newlines-between": "always",
       },
     ],
+    "import/no-anonymous-default-export": "off",
 
     // specify the maximum length of a line in your program
     // https://eslint.org/docs/rules/max-len
@@ -138,6 +138,30 @@ module.exports = {
       2,
       "first",
       { exceptions: { ArrayExpression: true, ObjectExpression: true } },
+    ],
+    // note you must disable the base rule as it can report incorrect errors
+    "comma-dangle": [
+      "error",
+      {
+        arrays: "always-multiline",
+        objects: "always-multiline",
+        imports: "always-multiline",
+        exports: "always-multiline",
+        functions: "always-multiline",
+      },
+    ],
+    "@typescript-eslint/comma-dangle": [
+      "error",
+      {
+        arrays: "always-multiline",
+        objects: "always-multiline",
+        imports: "always-multiline",
+        exports: "always-multiline",
+        functions: "always-multiline",
+        enums: "always-multiline",
+        generics: "always-multiline",
+        tuples: "always-multiline",
+      },
     ],
 
     // disallow use of the continue statement

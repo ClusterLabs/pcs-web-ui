@@ -46,54 +46,54 @@ export const NodeDetailPageToolbar: React.FC<{
     typeof DetailLayoutToolbarDropdown
   >["menuItems"] = isNodeAttrCibTrue(node.name, "standby")
     ? {
-      Unstandby: {
-        confirm: {
-          title: "Untandby node?",
-          description: (
-            <>
-              Remove the node from standby mode. The node specified will now
-              be able to to host resources
-            </>
-          ),
+        Unstandby: {
+          confirm: {
+            title: "Untandby node?",
+            description: (
+              <>
+                Remove the node from standby mode. The node specified will now
+                be able to to host resources
+              </>
+            ),
+          },
+          action: standbyUnstandbyAction(false),
         },
-        action: standbyUnstandbyAction(false),
-      },
-    }
+      }
     : {
-      Standby: {
-        confirm: {
-          title: "Standby node?",
-          description: (
-            <>
-              Put the node into standby mode. The node will no longer be able
-              to host resources
-            </>
-          ),
+        Standby: {
+          confirm: {
+            title: "Standby node?",
+            description: (
+              <>
+                Put the node into standby mode. The node will no longer be able
+                to host resources
+              </>
+            ),
+          },
+          action: standbyUnstandbyAction(true),
         },
-        action: standbyUnstandbyAction(true),
-      },
-    };
+      };
   const maintenanceUnmanintenanceMenuItem: React.ComponentProps<
     typeof DetailLayoutToolbarDropdown
   >["menuItems"] = isNodeAttrCibTrue(node.name, "maintenance")
     ? {
-      Unmaintenance: {
-        confirm: {
-          title: "Unmaintenance node?",
-          description: "Remove the node into maintenance mode",
+        Unmaintenance: {
+          confirm: {
+            title: "Unmaintenance node?",
+            description: "Remove the node into maintenance mode",
+          },
+          action: maintenanceUnmanintenanceAction(false),
         },
-        action: maintenanceUnmanintenanceAction(false),
-      },
-    }
+      }
     : {
-      Maintenance: {
-        confirm: {
-          title: "Maintenance node?",
-          description: "Put the node into maintenance mode",
+        Maintenance: {
+          confirm: {
+            title: "Maintenance node?",
+            description: "Put the node into maintenance mode",
+          },
+          action: maintenanceUnmanintenanceAction(true),
         },
-        action: maintenanceUnmanintenanceAction(true),
-      },
-    };
+      };
 
   return (
     <DetailLayoutToolbar>

@@ -15,7 +15,7 @@ import { types } from "app/store";
 import * as pallete from "./pallete";
 
 const mapSeverityToVariant = (severity: types.cluster.Issue["severity"]) =>
-  (severity === "ERROR" ? "danger" : "warning");
+  severity === "ERROR" ? "danger" : "warning";
 
 const issueKey = (issue: types.cluster.Issue, index: string | number) =>
   `${index}:${issue.message}`;

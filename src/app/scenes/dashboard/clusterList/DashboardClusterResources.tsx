@@ -44,8 +44,7 @@ export const DashboardClusterResources = ({
         <EmptyStateIcon icon={PlusCircleIcon} />
         <Title size="lg" headingLevel="h3">
           {" "}
-          No resource is configured.
-          {" "}
+          No resource is configured.{" "}
         </Title>
         <EmptyStateBody>
           You don&apos;t have any configured resources here.

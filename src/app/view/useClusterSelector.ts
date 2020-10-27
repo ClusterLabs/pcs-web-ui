@@ -7,7 +7,7 @@ import { useSelectedClusterName } from "./SelectedClusterContext";
 export function useClusterSelector<
   A extends any[],
   S extends DefaultRootState,
-  R
+  R,
 >(
   selector: (clusterUrlName: string, ...selectorArgs: A) => (state: S) => R,
   ...args: A

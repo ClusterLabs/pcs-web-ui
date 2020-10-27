@@ -49,15 +49,15 @@ export function useRoutesAnalysis<T extends Record<string, Match>>(
       const urlMap = { ...analyzed.urlMap, [name]: routes[name].url };
       return analyzed.match === null && match !== null
         ? {
-          match,
-          url: match.url,
-          tab: name,
-          urlMap,
-        }
+            match,
+            url: match.url,
+            tab: name,
+            urlMap,
+          }
         : {
-          ...analyzed,
-          urlMap,
-        };
+            ...analyzed,
+            urlMap,
+          };
     },
     {
       match: null,

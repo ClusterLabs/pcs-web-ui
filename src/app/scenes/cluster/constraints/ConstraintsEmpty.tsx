@@ -13,8 +13,7 @@ export const ConstraintsEmpty = () => {
       <EmptyStateIcon icon={PlusCircleIcon} />
       <Title size="lg" headingLevel="h3">
         {" "}
-        No constraint is configured.
-        {" "}
+        No constraint is configured.{" "}
       </Title>
       <EmptyStateBody>
         You don&apos;t have any configured constraint here.

@@ -53,6 +53,7 @@ export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {
             crmStatusList={crmStatusList}
             rowObject={{
               header: "Resource / Node",
+              /* eslint-disable-next-line react/display-name */
               cell: crmStatus => (
                 <>
                   <Link

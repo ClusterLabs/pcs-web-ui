@@ -18,9 +18,7 @@ export const ClusterDetail = () => {
       <Card>
         <CardHeader>
           <span>
-            Cluster
-            {" "}
-            <strong>{cluster.name}</strong>
+            Cluster <strong>{cluster.name}</strong>
           </span>
         </CardHeader>
         <CardBody>

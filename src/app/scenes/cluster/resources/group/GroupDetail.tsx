@@ -52,6 +52,7 @@ export const GroupDetail = ({ group }: { group: types.cluster.Group }) => {
             crmStatusList={crmStatusList}
             rowObject={{
               header: "Resource / Node",
+              /* eslint-disable-next-line react/display-name */
               cell: crmStatus => (
                 <>
                   <Link

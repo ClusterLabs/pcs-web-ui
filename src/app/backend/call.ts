@@ -10,7 +10,7 @@ type CallResultShape<SHAPE extends t.Any> = Promise<
   apiResult.Overall<t.TypeOf<SHAPE>>
 >;
 export type CallResult<
-  PAYLOAD extends t.Any | string = string
+  PAYLOAD extends t.Any | string = string,
 > = PAYLOAD extends t.Any
   ? CallResultShape<PAYLOAD>
   : Promise<apiResult.Overall<PAYLOAD>>;

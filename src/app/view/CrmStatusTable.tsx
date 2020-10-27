@@ -85,7 +85,7 @@ export const CrmStatusTable = ({
               {crmStatus.targetRole
                 && !isTargetRoleOk(crmStatus.targetRole) && (
                   <StatusSign status="WARNING" label={crmStatus.targetRole} />
-              )}
+                )}
             </td>
             <td data-label="Role">
               {isRoleOk(crmStatus) ? (

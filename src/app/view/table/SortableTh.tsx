@@ -80,7 +80,6 @@ function useSorting<COLUMN extends string>(
       setColumn(columnName);
       setDirection(sortDirection);
     },
-    /* eslint-disable react-hooks/exhaustive-deps */
     [setDirection, setColumn],
   );
   const sortState: SortState<COLUMN> = { column, direction, change };

@@ -54,6 +54,7 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
             crmStatusList={crmStatusList}
             rowObject={{
               header: "Resource",
+              /* eslint-disable-next-line react/display-name */
               cell: crmStatus => (
                 <Link
                   to={url.cluster.resources(clusterName, crmStatus.resource.id)}

@@ -76,12 +76,13 @@ export const PrimitiveDetail = ({
             crmStatusList={crmStatusList}
             rowObject={{
               header: "Node",
+              /* eslint-disable-next-line react/display-name */
               cell: crmStatus =>
-                (!crmStatus.node ? null : (
+                !crmStatus.node ? null : (
                   <Link
                     to={url.cluster.nodes(clusterName, crmStatus.node.name)}
                   />
-                )),
+                ),
             }}
           />
         )}

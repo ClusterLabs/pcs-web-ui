@@ -23,9 +23,9 @@ export const Select: React.FC<Props & {
 
   const filter = onFilter
     ? (event: React.ChangeEvent<HTMLInputElement>) => {
-      onFilter(event.target.value);
-      return (null as unknown) as React.ReactElement[];
-    }
+        onFilter(event.target.value);
+        return (null as unknown) as React.ReactElement[];
+      }
     : null;
 
   const pfProps = {

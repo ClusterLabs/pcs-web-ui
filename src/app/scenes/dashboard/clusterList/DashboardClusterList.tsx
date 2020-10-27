@@ -101,14 +101,14 @@ export const DashboardClusterList = ({
         .map(name => clusterMap[name].cluster)
         .sort(compareItems(compareByColumn))
         .map(cluster =>
-          (clusterMap[cluster.urlName].isLoaded ? (
+          clusterMap[cluster.urlName].isLoaded ? (
             <DashboardCluster key={cluster.urlName} cluster={cluster} />
           ) : (
             <DashboardClusterLoading
               key={cluster.urlName}
               clusterUrlName={cluster.urlName}
             />
-          )),
+          ),
         )}
     </Table>
   );

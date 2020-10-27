@@ -26,8 +26,7 @@ export const FenceDeviceList = ({
         <EmptyStateIcon icon={PlusCircleIcon} />
         <Title size="lg" headingLevel="h3">
           {" "}
-          No fence device is configured.
-          {" "}
+          No fence device is configured.{" "}
         </Title>
         <EmptyStateBody>
           You don&apos;t have any configured fence device here.

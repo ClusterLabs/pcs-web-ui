@@ -62,7 +62,7 @@ export function* processError(
 export function* authSafe<
   PAYLOAD,
   RESULT extends api.Result<PAYLOAD>,
-  PARAMS extends unknown[]
+  PARAMS extends unknown[],
 >(
   fn: (...fnArgs: PARAMS) => Promise<RESULT>,
   ...args: PARAMS

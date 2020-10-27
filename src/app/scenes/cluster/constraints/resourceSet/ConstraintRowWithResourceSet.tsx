@@ -60,6 +60,7 @@ export const ConstraintRowWithResourceSet: React.FC<{
 
                 return (
                   <ConstraintRow
+                    key={resourceSet.id}
                     id={resourceSet.id}
                     dataListCells={setCells(resourceSet)}
                     content={setContent ? setContent(resourceSet) : null}

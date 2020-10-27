@@ -38,16 +38,16 @@ const storage: Reducer<AgentsStorage> = (state = {}, action) => {
         ...state,
         [action.payload.agentName]: state[action.payload.agentName]
           ? {
-            ...state[action.payload.agentName],
-            loadStatus: "RELOADING",
-          }
+              ...state[action.payload.agentName],
+              loadStatus: "RELOADING",
+            }
           : {
-            loadStatus: "LOADING",
-            name: action.payload.agentName,
-            parameters: [],
-            shortdesc: "",
-            longdesc: "",
-          },
+              loadStatus: "LOADING",
+              name: action.payload.agentName,
+              parameters: [],
+              shortdesc: "",
+              longdesc: "",
+            },
       };
     case "RESOURCE_AGENT.LOAD.SUCCESS":
     case "FENCE_AGENT.LOAD.SUCCESS":

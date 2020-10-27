@@ -9,8 +9,7 @@ export const StatusSign: React.FC<React.ComponentProps<typeof StatusIco> & {
   <div>
     {(showOkIco || status !== "OK") && (
       <>
-        <StatusIco status={status} />
-        {" "}
+        <StatusIco status={status} />{" "}
       </>
     )}
     {label !== "" && <span>{label}</span>}

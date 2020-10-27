@@ -6,7 +6,7 @@ type RootState = types.RootState;
 
 export function clusterSelector<
   Selected extends unknown,
-  Args extends unknown[]
+  Args extends unknown[],
 >(
   selector: (storageItem: ClusterStorageItem, ...args: Args) => Selected,
 ): (clusterName: string, ...args: Args) => (state: RootState) => Selected {
@@ -16,7 +16,7 @@ export function clusterSelector<
 
 export function clusterStatusSelector<
   Selected extends unknown,
-  Args extends unknown[]
+  Args extends unknown[],
 >(
   selector: (clusterState: ClusterStatus, ...args: Args) => Selected,
 ): (clusterName: string, ...args: Args) => (state: RootState) => Selected {
