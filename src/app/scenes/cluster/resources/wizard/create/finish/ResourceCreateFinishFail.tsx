@@ -6,7 +6,6 @@ import {
   EmptyStateIcon,
   EmptyStateSecondaryActions,
   Title,
-  WizardContextConsumer,
 } from "@patternfly/react-core";
 import { ExclamationCircleIcon } from "@patternfly/react-icons";
 
@@ -17,6 +16,7 @@ import { useWizard } from "../useWizard";
 export const ResourceCreateFinishFail: React.FC = () => {
   const {
     wizardState: { resourceName, reports },
+    wizard: { goToStepByName },
     close,
   } = useWizard();
   return (
@@ -31,16 +31,12 @@ export const ResourceCreateFinishFail: React.FC = () => {
           return back, correct values and try to create resource again. The
           messages will be kept in the wizard.
         </EmptyStateBody>
-        <WizardContextConsumer>
-          {({ goToStepByName }) => (
-            <Button
-              variant="primary"
-              onClick={() => goToStepByName("Name and type")}
-            >
-              Back to first step
-            </Button>
-          )}
-        </WizardContextConsumer>
+        <Button
+          variant="primary"
+          onClick={() => goToStepByName("Name and type")}
+        >
+          Back to first step
+        </Button>
         <EmptyStateSecondaryActions>
           <Button variant="link" onClick={close}>
             Cancel

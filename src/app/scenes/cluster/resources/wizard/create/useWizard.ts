@@ -1,3 +1,6 @@
+import React from "react";
+import { WizardContext } from "@patternfly/react-core";
+
 import { actions, selectors, useDispatch, useSelector } from "app/store";
 import { useClusterSelector, useWizardOpenClose } from "app/view";
 import { RESOURCE_CREATE } from "app/scenes/wizardKeys";
@@ -17,8 +20,12 @@ export const useWizard = () => {
     agent
     && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING");
 
+  const wizardContext = React.useContext(WizardContext);
+
   type ActionUpdate = actions.PrimitiveResourceActions["CreateResourceUpdate"];
   return {
+    // don't spread wizardContext to avoid conflict if patternfly adds something
+    wizard: wizardContext,
     wizardState,
     clusterUrlName,
     dispatch,
@@ -43,13 +50,13 @@ export const useWizard = () => {
     areSettingsValid:
       wizardState.useGroup !== "new" || wizardState.group.length > 0,
     isAgentLoaded,
-    tryNext: (isValid: boolean, next: () => void) => {
+    tryNext: (isValid: boolean) => {
       if (isValid) {
         dispatch({
           type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE",
           payload: { clusterUrlName },
         });
-        next();
+        wizardContext.onNext();
       } else {
         dispatch({
           type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW",

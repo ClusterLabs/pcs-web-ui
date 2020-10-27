@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Wizard,
-  WizardContextConsumer,
-  WizardFooter,
-} from "@patternfly/react-core";
+import { Wizard, WizardFooter } from "@patternfly/react-core";
 
 import { useWizard } from "./useWizard";
 import { NodeAddNodeName, NodeAddNodeNameFooter } from "./step1NodeName";
@@ -16,7 +12,10 @@ import { NodeAddReview, NodeAddReviewFooter } from "./review";
 import { NodeAddFinish } from "./finish";
 
 export const NodeAdd: React.FC = () => {
-  const { close } = useWizard();
+  const {
+    close,
+    wizard: { activeStep },
+  } = useWizard();
   return (
     <Wizard
       data-test="wizard-node-add"
@@ -49,20 +48,12 @@ export const NodeAdd: React.FC = () => {
       ]}
       footer={
         <WizardFooter>
-          <WizardContextConsumer>
-            {({ activeStep }) => (
-              <>
-                {activeStep.name === "Enter node name" && (
-                  <NodeAddNodeNameFooter />
-                )}
-                {activeStep.name === "Prepare cluster for node" && (
-                  <NodeAddPrepareNodeFooter />
-                )}
-                {activeStep.name === "Configure sbd" && <NodeAddSbdFooter />}
-                {activeStep.name === "Review" && <NodeAddReviewFooter />}
-              </>
-            )}
-          </WizardContextConsumer>
+          {activeStep.name === "Enter node name" && <NodeAddNodeNameFooter />}
+          {activeStep.name === "Prepare cluster for node" && (
+            <NodeAddPrepareNodeFooter />
+          )}
+          {activeStep.name === "Configure sbd" && <NodeAddSbdFooter />}
+          {activeStep.name === "Review" && <NodeAddReviewFooter />}
         </WizardFooter>
       }
     />

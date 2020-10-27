@@ -1,4 +1,5 @@
 import React from "react";
+import { WizardContext } from "@patternfly/react-core";
 
 import { NODE_ADD } from "app/scenes/wizardKeys";
 import { actions, selectors, useDispatch } from "app/store";
@@ -12,6 +13,7 @@ export const useWizard = () => {
   );
   const dispatch = useDispatch();
   const openClose = useWizardOpenClose(NODE_ADD);
+  const wizardContext = React.useContext(WizardContext);
 
   const useNodeCheck = () => {
     React.useEffect(() => {
@@ -28,6 +30,8 @@ export const useWizard = () => {
   };
 
   return {
+    // don't spread wizardContext to avoid conflict if patternfly adds something
+    wizard: wizardContext,
     wizardState,
     clusterUrlName,
     updateState: (state: ActionUpdate["payload"]["state"]) => {

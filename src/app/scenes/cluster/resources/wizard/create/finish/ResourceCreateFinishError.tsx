@@ -6,7 +6,6 @@ import {
   EmptyStateIcon,
   EmptyStateSecondaryActions,
   Title,
-  WizardContextConsumer,
 } from "@patternfly/react-core";
 import { ExclamationCircleIcon } from "@patternfly/react-icons";
 
@@ -17,6 +16,7 @@ import { useWizard } from "../useWizard";
 export const ResourceCreateFinishError: React.FC = () => {
   const {
     wizardState: { resourceName },
+    wizard: { goToStepByName },
     close,
   } = useWizard();
   return (
@@ -30,13 +30,9 @@ export const ResourceCreateFinishError: React.FC = () => {
           A communication error occurred while creating the resource (details in
           the browser console). You can try to perform the operation again.
         </EmptyStateBody>
-        <WizardContextConsumer>
-          {({ goToStepByName }) => (
-            <Button variant="primary" onClick={() => goToStepByName("Review")}>
-              Try again
-            </Button>
-          )}
-        </WizardContextConsumer>
+        <Button variant="primary" onClick={() => goToStepByName("Review")}>
+          Try again
+        </Button>
         <EmptyStateSecondaryActions>
           <Button variant="link" onClick={close}>
             Cancel

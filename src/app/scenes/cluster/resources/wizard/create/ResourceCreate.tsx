@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Wizard,
-  WizardContextConsumer,
-  WizardFooter,
-} from "@patternfly/react-core";
+import { Wizard, WizardFooter } from "@patternfly/react-core";
 
 import {
   ResourceCreateNameType,
@@ -27,6 +23,7 @@ export const ResourceCreate: React.FC = () => {
     isNameTypeValid,
     areInstanceAttrsValid,
     areSettingsValid,
+    wizard: { activeStep },
   } = useWizard();
   return (
     <Wizard
@@ -64,22 +61,16 @@ export const ResourceCreate: React.FC = () => {
       ]}
       footer={
         <WizardFooter>
-          <WizardContextConsumer>
-            {({ activeStep }) => (
-              <>
-                {activeStep.name === "Name and type" && (
-                  <ResourceCreateNameTypeFooter />
-                )}
-                {activeStep.name === "Instance attributes" && (
-                  <ResourceCreateInstanceAttrsFooter />
-                )}
-                {activeStep.name === "Settings" && (
-                  <ResourceCreateSettingsFooter />
-                )}
-                {activeStep.name === "Review" && <ResourceCreateReviewFooter />}
-              </>
+          <>
+            {activeStep.name === "Name and type" && (
+              <ResourceCreateNameTypeFooter />
             )}
-          </WizardContextConsumer>
+            {activeStep.name === "Instance attributes" && (
+              <ResourceCreateInstanceAttrsFooter />
+            )}
+            {activeStep.name === "Settings" && <ResourceCreateSettingsFooter />}
+            {activeStep.name === "Review" && <ResourceCreateReviewFooter />}
+          </>
         </WizardFooter>
       }
     />

@@ -1,5 +1,4 @@
 import React from "react";
-import { WizardContextConsumer } from "@patternfly/react-core";
 
 import {
   WizardButtonBack,
@@ -15,31 +14,28 @@ export const ResourceCreateReviewFooter: React.FC = () => {
     clusterUrlName,
     dispatch,
     close,
+    wizard: { onNext, onBack },
   } = useWizard();
   return (
-    <WizardContextConsumer>
-      {({ onNext, onBack }) => (
-        <>
-          <WizardButtonNext
-            onClick={() => {
-              dispatch({
-                type: "RESOURCE.PRIMITIVE.CREATE",
-                payload: {
-                  agentName,
-                  resourceName,
-                  clusterUrlName,
-                  instanceAttrs,
-                  disabled,
-                },
-              });
-              onNext();
-            }}
-            label="Finish"
-          />
-          <WizardButtonBack onClick={onBack} />
-          <WizardButtonCancel onClick={close} />
-        </>
-      )}
-    </WizardContextConsumer>
+    <>
+      <WizardButtonNext
+        onClick={() => {
+          dispatch({
+            type: "RESOURCE.PRIMITIVE.CREATE",
+            payload: {
+              agentName,
+              resourceName,
+              clusterUrlName,
+              instanceAttrs,
+              disabled,
+            },
+          });
+          onNext();
+        }}
+        label="Finish"
+      />
+      <WizardButtonBack onClick={onBack} />
+      <WizardButtonCancel onClick={close} />
+    </>
   );
 };

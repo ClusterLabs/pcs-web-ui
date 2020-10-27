@@ -1,5 +1,4 @@
 import React from "react";
-import { WizardContextConsumer } from "@patternfly/react-core";
 
 import {
   WizardButtonBack,
@@ -13,19 +12,13 @@ export const NodeAddPrepareNodeFooter: React.FC = () => {
   const {
     close,
     wizardState: { nodeCheck },
+    wizard: { onNext, onBack },
   } = useWizard();
   return (
-    <WizardContextConsumer>
-      {({ onNext, onBack }) => (
-        <>
-          <WizardButtonNext
-            onClick={onNext}
-            disabled={nodeCheck !== "success"}
-          />
-          <WizardButtonBack onClick={onBack} />
-          <WizardButtonCancel onClick={close} />
-        </>
-      )}
-    </WizardContextConsumer>
+    <>
+      <WizardButtonNext onClick={onNext} disabled={nodeCheck !== "success"} />
+      <WizardButtonBack onClick={onBack} />
+      <WizardButtonCancel onClick={close} />
+    </>
   );
 };
