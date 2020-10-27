@@ -1,5 +1,6 @@
 import React from "react";
-import { Wizard, WizardFooter } from "@patternfly/react-core";
+
+import { Wizard } from "app/view";
 
 import { useWizard } from "./useWizard";
 import { NodeAddNodeName, NodeAddNodeNameFooter } from "./step1NodeName";
@@ -12,33 +13,33 @@ import { NodeAddReview, NodeAddReviewFooter } from "./review";
 import { NodeAddFinish } from "./finish";
 
 export const NodeAdd: React.FC = () => {
-  const {
-    close,
-    wizard: { activeStep },
-  } = useWizard();
+  const { close } = useWizard();
   return (
     <Wizard
       data-test="wizard-node-add"
-      isOpen
       onClose={close}
       title="Add node"
-      description="Add node to cluster wizard"
+      description="Add node to the cluster wizard"
       steps={[
         {
           name: "Enter node name",
           component: <NodeAddNodeName />,
+          footer: <NodeAddNodeNameFooter />,
         },
         {
           name: "Prepare cluster for node",
           component: <NodeAddPrepareNode />,
+          footer: <NodeAddPrepareNodeFooter />,
         },
         {
           name: "Configure sbd",
           component: <NodeAddSbd />,
+          footer: <NodeAddSbdFooter />,
         },
         {
           name: "Review",
           component: <NodeAddReview />,
+          footer: <NodeAddReviewFooter />,
         },
         {
           name: "Result",
@@ -46,16 +47,6 @@ export const NodeAdd: React.FC = () => {
           isFinishedStep: true,
         },
       ]}
-      footer={
-        <WizardFooter>
-          {activeStep.name === "Enter node name" && <NodeAddNodeNameFooter />}
-          {activeStep.name === "Prepare cluster for node" && (
-            <NodeAddPrepareNodeFooter />
-          )}
-          {activeStep.name === "Configure sbd" && <NodeAddSbdFooter />}
-          {activeStep.name === "Review" && <NodeAddReviewFooter />}
-        </WizardFooter>
-      }
     />
   );
 };
