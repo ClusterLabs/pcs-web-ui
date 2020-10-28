@@ -10,7 +10,7 @@ import { useWizard } from "../useWizard";
 
 export const ResourceCreateReviewFooter: React.FC = () => {
   const {
-    wizardState: { agentName, resourceName, instanceAttrs, disabled },
+    state: { agentName, resourceName, instanceAttrs, disabled },
     clusterUrlName,
     dispatch,
     close,

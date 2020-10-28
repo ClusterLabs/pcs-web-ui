@@ -9,7 +9,7 @@ import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSe
 
 export const ResourceCreateNameType: React.FC = () => {
   const {
-    wizardState: { agentName, resourceName, showValidationErrors, reports },
+    state: { agentName, resourceName, showValidationErrors, reports },
     clusterUrlName,
     dispatch,
     updateState,

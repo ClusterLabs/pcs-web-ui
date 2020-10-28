@@ -10,7 +10,7 @@ import { useWizard } from "../useWizard";
 
 export const ResourceCreateFinishProgress: React.FC = () => {
   const {
-    wizardState: { resourceName },
+    state: { resourceName },
   } = useWizard();
   return (
     <EmptyState>

@@ -5,3 +5,4 @@ export * from "./WizardLibReports";
 export * from "./WizardLibStep";
 export * from "./Wizard";
 export * from "./useWizardOpenClose";
+export * from "./useClusterWizard";

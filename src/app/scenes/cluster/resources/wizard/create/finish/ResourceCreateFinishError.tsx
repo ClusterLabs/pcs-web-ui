@@ -15,7 +15,7 @@ import { useWizard } from "../useWizard";
 
 export const ResourceCreateFinishError: React.FC = () => {
   const {
-    wizardState: { resourceName },
+    state: { resourceName },
     wizard: { goToStepByName },
     close,
   } = useWizard();

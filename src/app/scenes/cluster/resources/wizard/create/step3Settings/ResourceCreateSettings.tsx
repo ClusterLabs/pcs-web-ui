@@ -9,7 +9,7 @@ import { ResourceCreateSettingsGroup } from "./ResourceCreateSettingsGroup";
 
 export const ResourceCreateSettings: React.FC = () => {
   const {
-    wizardState: { reports, clone, promotable, disabled, useGroup },
+    state: { reports, clone, promotable, disabled, useGroup },
     updateState,
   } = useWizard();
 

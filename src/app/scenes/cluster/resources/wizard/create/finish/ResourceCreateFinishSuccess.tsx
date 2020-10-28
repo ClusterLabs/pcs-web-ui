@@ -13,7 +13,7 @@ import { useWizard } from "../useWizard";
 
 export const ResourceCreateFinishSuccess: React.FC = () => {
   const {
-    wizardState: { resourceName, reports },
+    state: { resourceName, reports },
     close,
   } = useWizard();
   return (

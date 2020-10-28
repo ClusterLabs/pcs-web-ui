@@ -1,62 +1,60 @@
-import React from "react";
-import { WizardContext } from "@patternfly/react-core";
+import { actions, selectors, useSelector } from "app/store";
+import { useClusterSelector, useClusterWizard } from "app/view";
 
-import { actions, selectors, useDispatch, useSelector } from "app/store";
-import { useClusterSelector, useWizardOpenClose } from "app/view";
-import { RESOURCE_CREATE } from "app/scenes/wizardKeys";
+type ActionUpdate = actions.PrimitiveResourceActions["CreateResourceUpdate"];
+
+const useAgent = (clusterUrlName: string, agentName: string) => {
+  const agent = useSelector(selectors.getPcmkAgent(clusterUrlName, agentName));
+  return {
+    agent,
+    isAgentLoaded:
+      agent
+      && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING"),
+  };
+};
 
 export const useWizard = () => {
-  const [wizardState, clusterUrlName] = useClusterSelector(
+  const clusterWizard = useClusterWizard(
+    "resource-create",
     selectors.getWizardResourceCreateState,
   );
+  const { clusterUrlName, state, dispatch } = clusterWizard;
   const [groupList] = useClusterSelector(selectors.getGroups);
-  const agent = useSelector(
-    selectors.getPcmkAgent(clusterUrlName, wizardState.agentName),
-  );
-  const dispatch = useDispatch();
-  const openClose = useWizardOpenClose(RESOURCE_CREATE);
+  const { agent, isAgentLoaded } = useAgent(clusterUrlName, state.agentName);
 
-  const isAgentLoaded =
-    agent
-    && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING");
-
-  const wizardContext = React.useContext(WizardContext);
-
-  type ActionUpdate = actions.PrimitiveResourceActions["CreateResourceUpdate"];
   return {
-    // don't spread wizardContext to avoid conflict if patternfly adds something
-    wizard: wizardContext,
-    wizardState,
-    clusterUrlName,
-    dispatch,
-    close: () => {
-      openClose.close();
-      dispatch({
-        type: "RESOURCE.PRIMITIVE.CREATE.CLOSE",
-        payload: {
-          clusterUrlName,
-        },
-      });
-    },
-    open: openClose.open,
-    isOpened: openClose.isOpened,
+    ...clusterWizard,
+    groupList,
+    isAgentLoaded,
+
+    // validations
     isNameTypeValid:
-      wizardState.resourceName.length > 0 && wizardState.agentName.length > 0,
+      state.resourceName.length > 0 && state.agentName.length > 0,
+
     areInstanceAttrsValid:
       isAgentLoaded
       && agent.parameters.every(
-        p => !p.required || p.name in wizardState.instanceAttrs,
+        param => !param.required || param.name in state.instanceAttrs,
       ),
-    areSettingsValid:
-      wizardState.useGroup !== "new" || wizardState.group.length > 0,
-    isAgentLoaded,
+
+    areSettingsValid: state.useGroup !== "new" || state.group.length > 0,
+
+    // actions
+    close: () => {
+      clusterWizard.close();
+      dispatch({
+        type: "RESOURCE.PRIMITIVE.CREATE.CLOSE",
+        payload: { clusterUrlName },
+      });
+    },
+
     tryNext: (isValid: boolean) => {
       if (isValid) {
         dispatch({
           type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE",
           payload: { clusterUrlName },
         });
-        wizardContext.onNext();
+        clusterWizard.wizard.onNext();
       } else {
         dispatch({
           type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW",
@@ -64,7 +62,7 @@ export const useWizard = () => {
         });
       }
     },
-    groupList,
+
     updateState: (state: ActionUpdate["payload"]["state"]) => {
       dispatch({
         type: "RESOURCE.PRIMITIVE.CREATE.UPDATE",

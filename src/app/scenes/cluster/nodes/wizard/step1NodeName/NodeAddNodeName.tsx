@@ -7,7 +7,7 @@ import { useWizard } from "../useWizard";
 
 export const NodeAddNodeName: React.FC = () => {
   const {
-    wizardState: { nodeName, nodeAddresses },
+    state: { nodeName, nodeAddresses },
     updateState,
   } = useWizard();
 

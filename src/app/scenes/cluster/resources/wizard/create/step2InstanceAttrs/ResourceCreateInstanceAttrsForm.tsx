@@ -30,7 +30,7 @@ const useFilterState = () =>
 
 export const ResourceCreateInstanceAttrsForm: React.FC = () => {
   const {
-    wizardState: { agentName, instanceAttrs, showValidationErrors, reports },
+    state: { agentName, instanceAttrs, showValidationErrors, reports },
     clusterUrlName,
     updateState,
   } = useWizard();

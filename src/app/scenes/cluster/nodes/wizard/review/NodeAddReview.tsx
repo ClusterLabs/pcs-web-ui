@@ -12,7 +12,7 @@ import { useWizard } from "../useWizard";
 
 export const NodeAddReview: React.FC = () => {
   const {
-    wizardState: { nodeName, reports },
+    state: { nodeName, reports },
   } = useWizard();
   return (
     <WizardLibStep title="Review new resource configuration" reports={reports}>

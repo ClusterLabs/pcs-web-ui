@@ -8,10 +8,8 @@ import { ResourceCreateFinishFail } from "./ResourceCreateFinishFail";
 import { ResourceCreateFinishError } from "./ResourceCreateFinishError";
 
 export const ResourceCreateFinish: React.FC = () => {
-  const {
-    wizardState: { response },
-  } = useWizard();
-  switch (response) {
+  const { state } = useWizard();
+  switch (state.response) {
     case "success":
       return <ResourceCreateFinishSuccess />;
     case "fail":

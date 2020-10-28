@@ -14,7 +14,7 @@ import { useWizard } from "../useWizard";
 export const NodeAddPrepareNode: React.FC = () => {
   const {
     useNodeCheck,
-    wizardState: { nodeCheck },
+    state: { nodeCheck },
   } = useWizard();
   useNodeCheck();
   return (

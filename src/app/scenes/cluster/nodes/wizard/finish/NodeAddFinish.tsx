@@ -7,7 +7,7 @@ import { NodeAddFinishSuccess } from "./NodeAddFinishSuccess";
 
 export const NodeAddFinish: React.FC = () => {
   const {
-    wizardState: { response },
+    state: { response },
   } = useWizard();
   switch (response) {
     case "success":

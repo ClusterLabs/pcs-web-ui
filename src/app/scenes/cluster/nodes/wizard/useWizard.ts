@@ -1,28 +1,25 @@
 import React from "react";
-import { WizardContext } from "@patternfly/react-core";
 
-import { NODE_ADD } from "app/scenes/wizardKeys";
-import { actions, selectors, useDispatch } from "app/store";
-import { useClusterSelector, useWizardOpenClose } from "app/view";
+import { actions, selectors } from "app/store";
+import { useClusterWizard } from "app/view";
 
 type ActionUpdate = actions.NodeActions["NodeAddUpdate"];
 
 export const useWizard = () => {
-  const [wizardState, clusterUrlName] = useClusterSelector(
+  const clusterWizard = useClusterWizard(
+    "node-add",
     selectors.getWizardNodeAddState,
   );
-  const dispatch = useDispatch();
-  const openClose = useWizardOpenClose(NODE_ADD);
-  const wizardContext = React.useContext(WizardContext);
+  const { clusterUrlName, state, dispatch } = clusterWizard;
 
   const useNodeCheck = () => {
     React.useEffect(() => {
-      if (wizardState.nodeCheck === "not-started") {
+      if (state.nodeCheck === "not-started") {
         dispatch({
           type: "NODE.ADD.CHECK_CAN_ADD",
           payload: {
             clusterUrlName,
-            nodeName: wizardState.nodeName,
+            nodeName: state.nodeName,
           },
         });
       }
@@ -30,10 +27,9 @@ export const useWizard = () => {
   };
 
   return {
-    // don't spread wizardContext to avoid conflict if patternfly adds something
-    wizard: wizardContext,
-    wizardState,
-    clusterUrlName,
+    ...clusterWizard,
+
+    // actions
     updateState: (state: ActionUpdate["payload"]["state"]) => {
       dispatch({
         type: "NODE.ADD.UPDATE",
@@ -43,20 +39,16 @@ export const useWizard = () => {
         },
       });
     },
+
     nodeAdd: () =>
       dispatch({
         type: "NODE.ADD",
         payload: {
           clusterUrlName,
-          nodeName: wizardState.nodeName,
+          nodeName: state.nodeName,
         },
       }),
-    close: () => {
-      openClose.close();
-    },
-    dispatch,
-    open: openClose.open,
-    isOpened: openClose.isOpened,
+
     useNodeCheck,
   };
 };
