@@ -20,14 +20,28 @@ export function useClusterWizard<
   const [state, clusterUrlName] = useClusterSelector(selector, ...args);
   const dispatch = useDispatch();
   const openClose = useWizardOpenClose(wizardKey);
-  const wizardContext = React.useContext(WizardContext);
+  const pfWizardContext = React.useContext(WizardContext);
 
   return {
     // don't spread wizardContext to avoid conflict if patternfly adds something
-    wizard: wizardContext,
+    wizard: pfWizardContext,
     state,
     ...openClose,
     clusterUrlName,
     dispatch,
+    tryNext: (isValid: boolean) => {
+      if (isValid) {
+        dispatch({
+          type: "CLUSTER_WIZARD.VALIDATION.HIDE",
+          payload: { clusterUrlName },
+        });
+        pfWizardContext.onNext();
+      } else {
+        dispatch({
+          type: "CLUSTER_WIZARD.VALIDATION.SHOW",
+          payload: { clusterUrlName },
+        });
+      }
+    },
   };
 }

@@ -28,6 +28,7 @@ export type WizardNodeAdd = {
     | "fail"
     | "communication-error";
   reports: api.types.lib.Report[];
+  showValidationErrors: boolean;
 };
 
 const initialState: WizardNodeAdd = {
@@ -45,6 +46,7 @@ const initialState: WizardNodeAdd = {
   nodeCheck: "not-started",
   response: "no-response",
   reports: [],
+  showValidationErrors: false,
 };
 
 const wizardNodeAdd: Reducer<WizardNodeAdd> = (
@@ -93,6 +95,10 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
       return { ...state, response: "fail", reports: action.payload.reports };
     case "NODE.ADD.ERROR":
       return { ...state, response: "communication-error" };
+    case "CLUSTER_WIZARD.VALIDATION.SHOW":
+      return { ...state, showValidationErrors: true };
+    case "CLUSTER_WIZARD.VALIDATION.HIDE":
+      return { ...state, showValidationErrors: false };
     default:
       return state;
   }

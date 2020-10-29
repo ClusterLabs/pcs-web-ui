@@ -11,11 +11,13 @@ import { useWizard } from "../useWizard";
 export const NodeAddNodeNameFooter: React.FC = () => {
   const {
     close,
-    wizard: { onNext, onBack },
+    isNameValid,
+    tryNext,
+    wizard: { onBack },
   } = useWizard();
   return (
     <>
-      <WizardButtonNext onClick={onNext} />
+      <WizardButtonNext onClick={() => tryNext(isNameValid)} />
       <WizardButtonBack onClick={onBack} disabled />
       <WizardButtonCancel onClick={close} />
     </>

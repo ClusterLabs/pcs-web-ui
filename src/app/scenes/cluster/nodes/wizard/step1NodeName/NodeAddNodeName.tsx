@@ -7,11 +7,13 @@ import { useWizard } from "../useWizard";
 
 export const NodeAddNodeName: React.FC = () => {
   const {
-    state: { nodeName },
+    state: { nodeName, showValidationErrors },
     updateState,
   } = useWizard();
 
   const changeNodeName = (value: string) => updateState({ nodeName: value });
+  const nodeNameValidated =
+    showValidationErrors && nodeName.length === 0 ? "error" : "default";
 
   return (
     <WizardLibStep title="Choose node name">
@@ -20,7 +22,8 @@ export const NodeAddNodeName: React.FC = () => {
           label="Node name"
           isRequired
           fieldId="new-node-name"
-          helperTextInvalid="Please provide the new node name"
+          helperTextInvalid="Please provide the node name"
+          validated={nodeNameValidated}
         >
           <TextInput
             id="new-node-name"
@@ -28,6 +31,7 @@ export const NodeAddNodeName: React.FC = () => {
             isRequired
             type="text"
             onChange={changeNodeName}
+            validated={nodeNameValidated}
           />
         </FormGroup>
       </Form>

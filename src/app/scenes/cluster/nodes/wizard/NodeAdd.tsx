@@ -14,7 +14,7 @@ import { NodeAddReview, NodeAddReviewFooter } from "./review";
 import { NodeAddFinish } from "./finish";
 
 export const NodeAdd: React.FC = () => {
-  const { close } = useWizard();
+  const { close, isNameValid } = useWizard();
   return (
     <Wizard
       data-test="wizard-node-add"
@@ -31,21 +31,25 @@ export const NodeAdd: React.FC = () => {
           name: "Prepare cluster for node",
           component: <NodeAddPrepareNode />,
           footer: <NodeAddPrepareNodeFooter />,
+          canJumpTo: isNameValid,
         },
         {
           name: "Specify node addresses",
           component: <NodeAddAddresses />,
           footer: <NodeAddAddressesFooter />,
+          canJumpTo: isNameValid,
         },
         {
           name: "Configure sbd",
           component: <NodeAddSbd />,
           footer: <NodeAddSbdFooter />,
+          canJumpTo: isNameValid,
         },
         {
           name: "Review",
           component: <NodeAddReview />,
           footer: <NodeAddReviewFooter />,
+          canJumpTo: isNameValid,
         },
         {
           name: "Result",

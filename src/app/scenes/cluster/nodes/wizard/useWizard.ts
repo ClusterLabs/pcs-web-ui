@@ -29,6 +29,8 @@ export const useWizard = () => {
   return {
     ...clusterWizard,
 
+    isNameValid: state.nodeName.length > 0,
+
     // actions
     updateState: (state: ActionUpdate["payload"]["state"]) => {
       dispatch({

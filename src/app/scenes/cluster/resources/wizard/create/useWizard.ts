@@ -48,21 +48,6 @@ export const useWizard = () => {
       });
     },
 
-    tryNext: (isValid: boolean) => {
-      if (isValid) {
-        dispatch({
-          type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE",
-          payload: { clusterUrlName },
-        });
-        clusterWizard.wizard.onNext();
-      } else {
-        dispatch({
-          type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW",
-          payload: { clusterUrlName },
-        });
-      }
-    },
-
     updateState: (state: ActionUpdate["payload"]["state"]) => {
       dispatch({
         type: "RESOURCE.PRIMITIVE.CREATE.UPDATE",
