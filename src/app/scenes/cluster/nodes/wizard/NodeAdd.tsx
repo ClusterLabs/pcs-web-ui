@@ -8,7 +8,8 @@ import {
   NodeAddPrepareNode,
   NodeAddPrepareNodeFooter,
 } from "./step2PrepareNode";
-import { NodeAddSbd, NodeAddSbdFooter } from "./step3Sbd";
+import { NodeAddAddresses, NodeAddAddressesFooter } from "./step3Addresses";
+import { NodeAddSbd, NodeAddSbdFooter } from "./step4Sbd";
 import { NodeAddReview, NodeAddReviewFooter } from "./review";
 import { NodeAddFinish } from "./finish";
 
@@ -30,6 +31,11 @@ export const NodeAdd: React.FC = () => {
           name: "Prepare cluster for node",
           component: <NodeAddPrepareNode />,
           footer: <NodeAddPrepareNodeFooter />,
+        },
+        {
+          name: "Specify node addresses",
+          component: <NodeAddAddresses />,
+          footer: <NodeAddAddressesFooter />,
         },
         {
           name: "Configure sbd",
