@@ -21,6 +21,7 @@ export type WizardNodeAdd = {
     | "auth-failed"
     | "started-send-known-hosts"
     | "success";
+  nodeCheckMessage: string;
   response:
     | "no-response"
     | "success"
@@ -44,6 +45,7 @@ const initialState: WizardNodeAdd = {
     address8: "",
   },
   nodeCheck: "not-started",
+  nodeCheckMessage: "",
   response: "no-response",
   reports: [],
   showValidationErrors: false,
@@ -63,31 +65,43 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
           && action.payload.state.nodeName !== state.nodeName
             ? "not-started"
             : state.nodeCheck,
+        nodeCheckMessage: "",
       };
     case "NODE.ADD.CHECK_CAN_ADD":
       return {
         ...state,
         nodeCheck: "started-can-add",
+        nodeCheckMessage: "",
+      };
+    case "NODE.ADD.CHECK_CAN_ADD.FAILED":
+      return {
+        ...state,
+        nodeCheck: "cannot-add",
+        nodeCheckMessage: action.payload.message,
       };
     case "NODE.ADD.CHECK_AUTH":
       return {
         ...state,
         nodeCheck: "started-auth",
+        nodeCheckMessage: "",
       };
     case "NODE.ADD.CHECK_AUTH.FAILED":
       return {
         ...state,
         nodeCheck: "auth-failed",
+        nodeCheckMessage: "",
       };
     case "NODE.ADD.SEND_KNOWN_HOSTS":
       return {
         ...state,
         nodeCheck: "started-send-known-hosts",
+        nodeCheckMessage: "",
       };
     case "NODE.ADD.SEND_KNOWN_HOSTS.SUCCESS":
       return {
         ...state,
         nodeCheck: "success",
+        nodeCheckMessage: "",
       };
     case "NODE.ADD.SUCCESS":
       return { ...state, response: "success", reports: action.payload.reports };

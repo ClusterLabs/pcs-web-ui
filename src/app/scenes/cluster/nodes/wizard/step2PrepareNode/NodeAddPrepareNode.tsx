@@ -14,7 +14,7 @@ import { useWizard } from "../useWizard";
 export const NodeAddPrepareNode: React.FC = () => {
   const {
     useNodeCheck,
-    state: { nodeCheck },
+    state: { nodeCheck, nodeCheckMessage },
   } = useWizard();
   useNodeCheck();
   return (
@@ -36,6 +36,10 @@ export const NodeAddPrepareNode: React.FC = () => {
             )}
           </Title>
         </EmptyState>
+      )}
+
+      {nodeCheck === "cannot-add" && (
+        <Alert variant="danger" isInline title={nodeCheckMessage} />
       )}
 
       {nodeCheck === "success" && (
