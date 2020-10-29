@@ -31,10 +31,9 @@ app.canAddClusterOrNodes((req, res) => {
 });
 
 const nodesStates: Record<string, string> = {
-  ok: "Online",
-  conflict: "Online",
-  "no-auth": "Unable to authenticate",
-  nonsense: "nonsense",
+  authNonsense: "nonsense",
+  authUnable: "Unable to authenticate",
+  authOffline: "Offline",
 };
 
 app.checkAuthAgainstNodes((req, res) => {
@@ -42,8 +41,13 @@ app.checkAuthAgainstNodes((req, res) => {
     ? (req.query.node_list as string[])
     : [req.query.node_list as string];
 
+  if (nodeList[0] === "authErr") {
+    res.status(500).send("Error during checking authentization");
+    return;
+  }
+
   const result = nodeList.reduce<Record<string, string>>(
-    (states, node) => ({ ...states, [node]: nodesStates[node] || "Offline" }),
+    (states, node) => ({ ...states, [node]: nodesStates[node] || "Online" }),
     {},
   );
   res.json(result);

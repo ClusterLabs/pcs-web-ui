@@ -51,13 +51,25 @@ function* checkAuthSaga({
     [nodeName],
   );
 
+  const errorAction = (message: string): Action => ({
+    type: "NODE.ADD.CHECK_AUTH.FAILED",
+    payload: { clusterUrlName, message },
+  });
+  const taskLabel = `add node "${nodeName}": node authentication check`;
+
   if (result.type !== "OK") {
-    put({
-      type: "NODE.ADD.CHECK_AUTH.FAILED",
-      payload: { clusterUrlName },
+    yield processError(result, taskLabel, {
+      action: () => put(errorAction(errorMessage(result, taskLabel))),
+      useNotification: false,
     });
     return;
   }
+
+  if (result.payload[nodeName] === "Offline") {
+    yield put(errorAction(`Task ${taskLabel}: node seems to be offline`));
+    return;
+  }
+
   yield put({
     type: "NODE.ADD.SEND_KNOWN_HOSTS",
     payload: {
@@ -115,7 +127,7 @@ function* sendKnownHostsSaga({
   );
 
   if (result.type !== "OK") {
-    put({
+    yield put({
       type: "NODE.ADD.SEND_KNOWN_HOSTS.FAILED",
       payload: { clusterUrlName },
     });

@@ -89,7 +89,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
       return {
         ...state,
         nodeCheck: "auth-failed",
-        nodeCheckMessage: "",
+        nodeCheckMessage: action.payload.message,
       };
     case "NODE.ADD.SEND_KNOWN_HOSTS":
       return {

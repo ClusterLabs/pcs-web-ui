@@ -38,7 +38,7 @@ export const NodeAddPrepareNode: React.FC = () => {
         </EmptyState>
       )}
 
-      {nodeCheck === "cannot-add" && (
+      {(nodeCheck === "cannot-add" || nodeCheck === "auth-failed") && (
         <Alert variant="danger" isInline title={nodeCheckMessage} />
       )}
 

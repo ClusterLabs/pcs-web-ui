@@ -99,6 +99,7 @@ export type CheckAuthFailed = {
   type: "NODE.ADD.CHECK_AUTH.FAILED";
   payload: {
     clusterUrlName: string;
+    message: string;
   };
 };
 
