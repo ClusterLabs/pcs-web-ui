@@ -10,9 +10,12 @@ import {
 } from "@patternfly/react-core";
 
 import { selectors, types } from "app/store";
-import { ToolbarFilterAction, ToolbarFilterGroups } from "app/view";
+import {
+  EmptyStateNoItem,
+  ToolbarFilterAction,
+  ToolbarFilterGroups,
+} from "app/view";
 
-import { ConstraintsEmpty } from "./ConstraintsEmpty";
 import { ConstraintList } from "./ConstraintList";
 
 type ConstraintPack = types.cluster.ConstraintPack;
@@ -69,7 +72,10 @@ export const ConstraintsPage = ({
           <Stack hasGutter>
             {constraintPacks.length === 0 && (
               <StackItem>
-                <ConstraintsEmpty />
+                <EmptyStateNoItem
+                  title="No constraint is configured."
+                  message="You don't have any configured constraint here."
+                />
               </StackItem>
             )}
             {constraintPacks.length !== 0 && (

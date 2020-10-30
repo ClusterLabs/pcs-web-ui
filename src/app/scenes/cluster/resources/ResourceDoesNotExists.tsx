@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
-  StackItem,
-  Title,
-} from "@patternfly/react-core";
-import { PlusCircleIcon } from "@patternfly/react-icons";
+import { StackItem } from "@patternfly/react-core";
 
-import { DetailLayout } from "app/view";
+import { DetailLayout, EmptyStateNoItem } from "app/view";
 
 export const ResourceDoesNotExists = ({
   resourceUrlName,
@@ -18,15 +11,10 @@ export const ResourceDoesNotExists = ({
   return (
     <DetailLayout caption={<strong>{resourceUrlName}</strong>}>
       <StackItem>
-        <EmptyState style={{ margin: "auto" }}>
-          <EmptyStateIcon icon={PlusCircleIcon} />
-          <Title size="lg" headingLevel="h3">
-            {`Resource "${resourceUrlName}" does not exist.`}
-          </Title>
-          <EmptyStateBody>
-            {`You don't have configured resource "${resourceUrlName}" here.`}
-          </EmptyStateBody>
-        </EmptyState>
+        <EmptyStateNoItem
+          title={`Resource "${resourceUrlName}" does not exist.`}
+          message={`You don't have configured resource "${resourceUrlName}" here.`}
+        />
       </StackItem>
     </DetailLayout>
   );

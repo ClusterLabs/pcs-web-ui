@@ -2,11 +2,9 @@ import React from "react";
 import { Alert } from "@patternfly/react-core";
 
 import { WizardLibStep } from "app/view";
-import { NodeAuthForm } from "app/view";
+import { EmptyStateSpinner, NodeAuthForm } from "app/view";
 
 import { useWizard } from "../useWizard";
-
-import { NodeAddPrepareNodeWaiting } from "./NodeAddPrepareNodeWaiting";
 
 export const NodeAddPrepareNode: React.FC = () => {
   const {
@@ -20,8 +18,8 @@ export const NodeAddPrepareNode: React.FC = () => {
       {(nodeCheck === "started-can-add"
         || nodeCheck === "started-auth"
         || nodeCheck === "started-send-known-hosts") && (
-        <NodeAddPrepareNodeWaiting
-          message={
+        <EmptyStateSpinner
+          title={
             {
               "started-can-add": "Checking if can add node to cluster",
               "started-auth": "Checking if node is authenticated",

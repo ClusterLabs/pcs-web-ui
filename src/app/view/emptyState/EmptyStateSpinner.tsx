@@ -1,13 +1,13 @@
+import React from "react";
 import {
   EmptyState,
   EmptyStateIcon,
   Spinner,
   Title,
 } from "@patternfly/react-core";
-import React from "react";
 
-export const NodeAddPrepareNodeWaiting: React.FC<{ message: string }> = ({
-  message,
+export const EmptyStateSpinner: React.FC<{ title: string }> = ({
+  title: message,
 }) => {
   return (
     <EmptyState style={{ margin: "auto" }}>

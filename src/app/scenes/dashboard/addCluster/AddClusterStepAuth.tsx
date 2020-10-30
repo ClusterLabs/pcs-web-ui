@@ -2,17 +2,13 @@ import React from "react";
 import {
   Alert,
   Button,
-  EmptyState,
-  EmptyStateIcon,
   Form,
   FormGroup,
-  Spinner,
   TextInput,
-  Title,
 } from "@patternfly/react-core";
 
 import { selectors, types, useDispatch, useSelector } from "app/store";
-import { NodeAuthForm } from "app/view";
+import { EmptyStateSpinner, NodeAuthForm } from "app/view";
 
 const helperText =
   "Enter the name of a node in a cluster that you would like to manage";
@@ -68,12 +64,7 @@ export const AddClusterStepAuth = () => {
           </Button>
         )}
         {authState === "CHECKING" && (
-          <EmptyState style={{ margin: "auto" }}>
-            <EmptyStateIcon variant="container" component={Spinner} />
-            <Title size="lg" headingLevel="h3">
-              Checking authentication
-            </Title>
-          </EmptyState>
+          <EmptyStateSpinner title="Checking authentication" />
         )}
 
         {authState === "ALREADY_AUTHENTICATED" && (

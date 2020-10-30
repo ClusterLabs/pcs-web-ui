@@ -1,16 +1,14 @@
+import React from "react";
 import {
   Alert,
   Button,
-  EmptyState,
-  EmptyStateIcon,
   Form,
   FormGroup,
-  Spinner,
   Switch,
   TextInput,
-  Title,
 } from "@patternfly/react-core";
-import React from "react";
+
+import { EmptyStateSpinner } from "app/view/emptyState";
 
 export const NodeAuthForm: React.FC<{
   authenticationError: string;
@@ -96,12 +94,7 @@ export const NodeAuthForm: React.FC<{
         </>
       )}
       {authenticationInProgress ? (
-        <EmptyState style={{ margin: "auto" }}>
-          <EmptyStateIcon variant="container" component={Spinner} />
-          <Title size="lg" headingLevel="h3">
-            Authenticating node
-          </Title>
-        </EmptyState>
+        <EmptyStateSpinner title="Authenticating node" />
       ) : (
         <Button
           variant="primary"

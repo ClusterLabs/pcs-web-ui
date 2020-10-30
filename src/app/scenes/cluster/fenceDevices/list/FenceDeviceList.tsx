@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  DataList,
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
-  Title,
-} from "@patternfly/react-core";
-import { PlusCircleIcon } from "@patternfly/react-icons";
+import { DataList } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import { useGroupDetailViewContext } from "app/view";
+import { EmptyStateNoItem, useGroupDetailViewContext } from "app/view";
 
 import { FenceDeviceListItem } from "./FenceDeviceListItem";
 
@@ -22,16 +15,10 @@ export const FenceDeviceList = ({
 
   if (fenceDeviceList.length === 0) {
     return (
-      <EmptyState style={{ margin: "auto" }}>
-        <EmptyStateIcon icon={PlusCircleIcon} />
-        <Title size="lg" headingLevel="h3">
-          {" "}
-          No fence device is configured.{" "}
-        </Title>
-        <EmptyStateBody>
-          You don&apos;t have any configured fence device here.
-        </EmptyStateBody>
-      </EmptyState>
+      <EmptyStateNoItem
+        title="No fence device is configured."
+        message="You don't have any configured fence device here."
+      />
     );
   }
   return (

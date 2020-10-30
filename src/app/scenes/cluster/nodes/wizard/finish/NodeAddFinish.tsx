@@ -1,18 +1,24 @@
 import React from "react";
 
+import { WizardProgress } from "app/view";
+
 import { useWizard } from "../useWizard";
 
-import { NodeAddFinishProgress } from "./NodeAddFinishProgress";
 import { NodeAddFinishSuccess } from "./NodeAddFinishSuccess";
 
 export const NodeAddFinish: React.FC = () => {
   const {
-    state: { response },
+    state: { response, nodeName },
   } = useWizard();
   switch (response) {
     case "success":
       return <NodeAddFinishSuccess />;
     default:
-      return <NodeAddFinishProgress />;
+      return (
+        <WizardProgress
+          title={`Add node "${nodeName}" progress`}
+          progressTitle="Adding node"
+        />
+      );
   }
 };

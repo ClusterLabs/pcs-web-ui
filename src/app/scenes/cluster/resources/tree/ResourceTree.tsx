@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  DataList,
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
-  Title,
-} from "@patternfly/react-core";
-import { PlusCircleIcon } from "@patternfly/react-icons";
+import { DataList } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import { useGroupDetailViewContext } from "app/view";
+import { EmptyStateNoItem, useGroupDetailViewContext } from "app/view";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemClone } from "./ResourceTreeItemClone";
@@ -24,16 +17,10 @@ export const ResourceTree = ({
 
   if (resourceTree.length === 0) {
     return (
-      <EmptyState style={{ margin: "auto" }}>
-        <EmptyStateIcon icon={PlusCircleIcon} />
-        <Title size="lg" headingLevel="h3">
-          {" "}
-          No resource is configured.{" "}
-        </Title>
-        <EmptyStateBody>
-          You don&apos;t have any configured resources here.
-        </EmptyStateBody>
-      </EmptyState>
+      <EmptyStateNoItem
+        title="No resource is configured."
+        message="You don't have any configured resources here."
+      />
     );
   }
 

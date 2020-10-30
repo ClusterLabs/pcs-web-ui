@@ -1,21 +1,12 @@
 import React from "react";
-import {
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
-  StackItem,
-  Text,
-  TextContent,
-  Title,
-} from "@patternfly/react-core";
-import { ExclamationCircleIcon, SearchIcon } from "@patternfly/react-icons";
+import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
 import { selectors, types, url } from "app/store";
 import {
   CrmStatusTable,
+  EmptyStateError,
   IssueList,
   Link,
-  pallete,
   useClusterSelector,
 } from "app/view";
 
@@ -37,50 +28,29 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
           <Text component="h1">Resource status</Text>
         </TextContent>
 
-        {crmStatusList.length === 0 && (
-          <EmptyState style={{ margin: "auto" }}>
-            <EmptyStateIcon icon={SearchIcon} color={pallete.UNKNOWN} />
-            <Title size="lg" headingLevel="h3">
-              {`No resource running on node ${node.name}.`}
-            </Title>
-            <EmptyStateBody>
-              {`No resource running on node ${node.name}.`}
-            </EmptyStateBody>
-          </EmptyState>
-        )}
-
-        {crmStatusList.length > 0 && (
-          <CrmStatusTable
-            crmStatusList={crmStatusList}
-            rowObject={{
-              header: "Resource",
-              /* eslint-disable-next-line react/display-name */
-              cell: crmStatus => (
-                <Link
-                  to={url.cluster.resources(clusterName, crmStatus.resource.id)}
-                />
-              ),
-            }}
-          />
-        )}
+        <CrmStatusTable
+          crmStatusList={crmStatusList}
+          emptyMessage={`No resource running on node "${node.name}".`}
+          rowObject={{
+            header: "Resource",
+            /* eslint-disable-next-line react/display-name */
+            cell: crmStatus => (
+              <Link
+                to={url.cluster.resources(clusterName, crmStatus.resource.id)}
+              />
+            ),
+          }}
+        />
       </StackItem>
       {node.status === "DATA_NOT_PROVIDED" && (
         <StackItem>
           <TextContent>
             <Text component="h1"> Node Daemons </Text>
           </TextContent>
-          <EmptyState style={{ margin: "auto" }}>
-            <EmptyStateIcon
-              icon={ExclamationCircleIcon}
-              color={pallete.ERROR}
-            />
-            <Title size="lg" headingLevel="h3">
-              {`No data for node ${node.name}.`}
-            </Title>
-            <EmptyStateBody>
-              {`Data for node ${node.name} are not provided by backend`}
-            </EmptyStateBody>
-          </EmptyState>
+          <EmptyStateError
+            title={`No data for node ${node.name}.`}
+            message={`Data for node ${node.name} are not provided by backend`}
+          />
         </StackItem>
       )}
       {node.status !== "DATA_NOT_PROVIDED" && (

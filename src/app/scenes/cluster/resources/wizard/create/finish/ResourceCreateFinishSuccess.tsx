@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Button,
-  EmptyState,
-  EmptyStateIcon,
-  Title,
-} from "@patternfly/react-core";
-import { CheckCircleIcon } from "@patternfly/react-icons";
+import { Button } from "@patternfly/react-core";
 
-import { WizardLibReports, pallete } from "app/view";
+import { WizardLibReports, WizardSuccess } from "app/view";
 
 import { useWizard } from "../useWizard";
 
@@ -18,15 +12,11 @@ export const ResourceCreateFinishSuccess: React.FC = () => {
   } = useWizard();
   return (
     <>
-      <EmptyState>
-        <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
-        <Title headingLevel="h4" size="lg">
-          {`Resource "${resourceName}" created successfully`}
-        </Title>
+      <WizardSuccess title={`Resource "${resourceName}" created successfully`}>
         <Button variant="primary" onClick={close}>
           Close
         </Button>
-      </EmptyState>
+      </WizardSuccess>
       <WizardLibReports reports={reports} />
     </>
   );

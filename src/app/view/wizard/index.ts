@@ -4,5 +4,8 @@ export * from "./WizardButtonCancel";
 export * from "./WizardLibReports";
 export * from "./WizardLibStep";
 export * from "./Wizard";
+export * from "./WizardFinishError";
+export * from "./WizardProgress";
+export * from "./WizardSuccess";
 export * from "./useWizardOpenClose";
 export * from "./useClusterWizard";

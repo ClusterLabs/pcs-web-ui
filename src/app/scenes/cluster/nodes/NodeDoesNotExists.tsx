@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
-  StackItem,
-  Title,
-} from "@patternfly/react-core";
-import { PlusCircleIcon } from "@patternfly/react-icons";
+import { StackItem } from "@patternfly/react-core";
 
+import { EmptyStateNoItem } from "app/view";
 import { DetailLayout, useSelectedClusterName } from "app/view";
 
 export const NodeDoesNotExists = ({ nodeUrlName }: { nodeUrlName: string }) => {
@@ -15,16 +9,13 @@ export const NodeDoesNotExists = ({ nodeUrlName }: { nodeUrlName: string }) => {
   return (
     <DetailLayout caption={<strong>{nodeUrlName}</strong>}>
       <StackItem>
-        <EmptyState style={{ margin: "auto" }}>
-          <EmptyStateIcon icon={PlusCircleIcon} />
-          <Title size="lg" headingLevel="h3">
-            {`Node "${nodeUrlName}" does not exist.`}
-          </Title>
-          <EmptyStateBody>
-            {`Node "${nodeUrlName}"`
-              + ` is not a member of cluster ${clusterUrlName}.`}
-          </EmptyStateBody>
-        </EmptyState>
+        <EmptyStateNoItem
+          title={`Node "${nodeUrlName}" does not exist.`}
+          message={
+            `Node "${nodeUrlName}"`
+            + ` is not a member of cluster ${clusterUrlName}.`
+          }
+        />
       </StackItem>
     </DetailLayout>
   );
