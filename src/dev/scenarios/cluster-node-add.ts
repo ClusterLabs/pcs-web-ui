@@ -30,28 +30,9 @@ app.canAddClusterOrNodes((req, res) => {
   res.send("");
 });
 
-const nodesStates: Record<string, string> = {
-  authNonsense: "nonsense",
-  authUnable: "Unable to authenticate",
-  authOffline: "Offline",
-};
+shortcut.checkAuthAgainstNodes();
 
-app.checkAuthAgainstNodes((req, res) => {
-  const nodeList: string[] = Array.isArray(req.query.node_list)
-    ? (req.query.node_list as string[])
-    : [req.query.node_list as string];
-
-  if (nodeList[0] === "authErr") {
-    res.status(500).send("Error during checking authentization");
-    return;
-  }
-
-  const result = nodeList.reduce<Record<string, string>>(
-    (states, node) => ({ ...states, [node]: nodesStates[node] || "Online" }),
-    {},
-  );
-  res.json(result);
-});
+shortcut.authGuiAgainstNodes();
 
 app.sendKnownHosts((_req, res) => {
   res.send("success");

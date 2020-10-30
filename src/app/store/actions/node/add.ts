@@ -102,10 +102,35 @@ export type CheckAuthFailed = {
     message: string;
   };
 };
+export type CheckAuthNoAuth = {
+  type: "NODE.ADD.CHECK_AUTH.NO_AUTH";
+  payload: {
+    clusterUrlName: string;
+  };
+};
 
 export type CheckAuthSuccess = {
   type: "NODE.ADD.CHECK_AUTH.SUCCESS";
   payload: {
     clusterUrlName: string;
+  };
+};
+
+export type Authenticate = {
+  type: "NODE.ADD.AUTHENTICATE";
+  payload: {
+    clusterUrlName: string;
+    nodeName: string;
+    password: string;
+    address: string;
+    port: string;
+  };
+};
+
+export type AuthenticateFailed = {
+  type: "NODE.ADD.AUTHENTICATE.FAILED";
+  payload: {
+    clusterUrlName: string;
+    message: string;
   };
 };

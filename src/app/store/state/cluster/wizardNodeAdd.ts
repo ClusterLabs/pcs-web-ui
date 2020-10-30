@@ -19,6 +19,8 @@ export type WizardNodeAdd = {
     | "cannot-add"
     | "started-auth"
     | "auth-failed"
+    | "auth-required"
+    | "auth-progress"
     | "started-send-known-hosts"
     | "success";
   nodeCheckMessage: string;
@@ -85,10 +87,28 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
         nodeCheck: "started-auth",
         nodeCheckMessage: "",
       };
+    case "NODE.ADD.CHECK_AUTH.NO_AUTH":
+      return {
+        ...state,
+        nodeCheck: "auth-required",
+        nodeCheckMessage: "",
+      };
     case "NODE.ADD.CHECK_AUTH.FAILED":
       return {
         ...state,
         nodeCheck: "auth-failed",
+        nodeCheckMessage: action.payload.message,
+      };
+    case "NODE.ADD.AUTHENTICATE":
+      return {
+        ...state,
+        nodeCheck: "auth-progress",
+        nodeCheckMessage: "",
+      };
+    case "NODE.ADD.AUTHENTICATE.FAILED":
+      return {
+        ...state,
+        nodeCheck: "auth-required",
         nodeCheckMessage: action.payload.message,
       };
     case "NODE.ADD.SEND_KNOWN_HOSTS":

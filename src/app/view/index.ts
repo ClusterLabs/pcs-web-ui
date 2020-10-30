@@ -29,3 +29,4 @@ export * from "./ClusterSectionToolbar";
 export * from "./useClusterSelector";
 export * from "./wizard";
 export * from "./Select";
+export * from "./nodeAuthForm";

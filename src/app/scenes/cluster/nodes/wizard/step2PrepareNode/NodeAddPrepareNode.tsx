@@ -1,19 +1,17 @@
 import React from "react";
-import {
-  Alert,
-  EmptyState,
-  EmptyStateIcon,
-  Spinner,
-  Title,
-} from "@patternfly/react-core";
+import { Alert } from "@patternfly/react-core";
 
 import { WizardLibStep } from "app/view";
+import { NodeAuthForm } from "app/view";
 
 import { useWizard } from "../useWizard";
+
+import { NodeAddPrepareNodeWaiting } from "./NodeAddPrepareNodeWaiting";
 
 export const NodeAddPrepareNode: React.FC = () => {
   const {
     useNodeCheck,
+    nodeAuth,
     state: { nodeCheck, nodeCheckMessage },
   } = useWizard();
   useNodeCheck();
@@ -22,20 +20,16 @@ export const NodeAddPrepareNode: React.FC = () => {
       {(nodeCheck === "started-can-add"
         || nodeCheck === "started-auth"
         || nodeCheck === "started-send-known-hosts") && (
-        <EmptyState style={{ margin: "auto" }}>
-          <EmptyStateIcon variant="container" component={Spinner} />
-          <Title size="lg" headingLevel="h3">
-            {nodeCheck === "started-can-add" && (
-              <>Checking if can add node to cluster</>
-            )}
-            {nodeCheck === "started-auth" && (
-              <>Checking if node is authenticated</>
-            )}
-            {nodeCheck === "started-send-known-hosts" && (
-              <>Sending updated known host to cluster</>
-            )}
-          </Title>
-        </EmptyState>
+        <NodeAddPrepareNodeWaiting
+          message={
+            {
+              "started-can-add": "Checking if can add node to cluster",
+              "started-auth": "Checking if node is authenticated",
+              "started-send-known-hosts":
+                "Sending updated known host to cluster",
+            }[nodeCheck]
+          }
+        />
       )}
 
       {(nodeCheck === "cannot-add" || nodeCheck === "auth-failed") && (
@@ -47,6 +41,14 @@ export const NodeAddPrepareNode: React.FC = () => {
           variant="success"
           isInline
           title="The node is prepared for adding to the cluster."
+        />
+      )}
+
+      {(nodeCheck === "auth-required" || nodeCheck === "auth-progress") && (
+        <NodeAuthForm
+          authenticationInProgress={nodeCheck === "auth-progress"}
+          authenticationError={nodeCheckMessage}
+          onSend={nodeAuth}
         />
       )}
     </WizardLibStep>

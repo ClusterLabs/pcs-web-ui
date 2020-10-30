@@ -1,41 +1,32 @@
-import React from "react";
 import {
   Alert,
   Button,
   EmptyState,
   EmptyStateIcon,
+  Form,
   FormGroup,
   Spinner,
   Switch,
   TextInput,
   Title,
 } from "@patternfly/react-core";
+import React from "react";
 
-import { types, useDispatch } from "app/store";
-
-export const AddClusterAuthRequired = ({
-  nodeName,
-  authenticationInProgress,
-  authenticationError,
-}: {
-  nodeName: types.addCluster.NodeName;
+export const NodeAuthForm: React.FC<{
+  authenticationError: string;
   authenticationInProgress: boolean;
-  authenticationError: types.addCluster.StateError;
-}) => {
+  onSend: (password: string, address: string, port: string) => void;
+}> = ({ authenticationError, authenticationInProgress, onSend }) => {
   const [password, setPassword] = React.useState("");
   const [customAddrPort, setCustomAddrPort] = React.useState(false);
   const [address, setAddress] = React.useState("");
   const [port, setPort] = React.useState("");
-  const dispatch = useDispatch();
   return (
-    <>
+    <Form>
       <Alert
         isInline
         variant="warning"
-        title={
-          // prettier-ignore
-          `Node '${nodeName}' is not authenticated. Please authenticate it.`
-        }
+        title={"Node is not authenticated. Please authenticate it."}
       />
       {authenticationError && (
         <Alert
@@ -48,13 +39,13 @@ export const AddClusterAuthRequired = ({
       <FormGroup
         isRequired
         label="Password"
-        fieldId="add-cluster-password"
-        helperText="Enter password for user 'hacluster' to authenticate nodes"
+        fieldId="node-auth-password"
+        helperText="Enter password for user 'hacluster' to authenticate node"
       >
         <TextInput
           isRequired
           type="password"
-          id="add-cluster-password"
+          id="node-auth-password"
           name="password"
           data-test="password"
           aria-describedby="Password for user 'hacluster' to authenticate nodes"
@@ -74,12 +65,12 @@ export const AddClusterAuthRequired = ({
         <>
           <FormGroup
             label="Address"
-            fieldId="add-cluster-address"
+            fieldId="node-auth-address"
             helperText="Enter an address via which pcsd will communicate with the node"
           >
             <TextInput
               type="text"
-              id="add-cluster-address"
+              id="node-auth-address"
               name="address"
               data-test="address"
               aria-describedby="An address via which pcsd will communicate with the node"
@@ -89,12 +80,12 @@ export const AddClusterAuthRequired = ({
           </FormGroup>
           <FormGroup
             label="Port"
-            fieldId="add-cluster-port"
+            fieldId="node-auth-port"
             helperText="Enter a port via which pcsd will communicate with the node"
           >
             <TextInput
               type="text"
-              id="add-cluster-port"
+              id="node-auth-port"
               name="port"
               data-test="port"
               aria-describedby="A port via which pcsd will communicate with the node"
@@ -114,22 +105,12 @@ export const AddClusterAuthRequired = ({
       ) : (
         <Button
           variant="primary"
-          onClick={() =>
-            dispatch({
-              type: "ADD_CLUSTER.AUTHENTICATE_NODE",
-              payload: {
-                nodeName,
-                password,
-                address,
-                port,
-              },
-            })
-          }
+          onClick={() => onSend(password, address, port)}
           data-test="auth-node"
         >
           Authenticate node
         </Button>
       )}
-    </>
+    </Form>
   );
 };
