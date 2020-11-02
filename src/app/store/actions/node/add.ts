@@ -5,6 +5,10 @@ export type Add = {
   payload: {
     clusterUrlName: string;
     nodeName: string;
+    nodeAddresses: string[];
+    sbdWatchdog: string;
+    sbdNoWatchdogValidation: boolean;
+    sbdDevices: string[];
   };
 };
 

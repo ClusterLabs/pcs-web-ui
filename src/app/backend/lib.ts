@@ -59,6 +59,7 @@ export type ClusterCommand =
           name: string;
           addrs?: string[];
           devices?: string[];
+          watchdog?: string;
         };
         start?: boolean;
         enable?: boolean;

@@ -13,19 +13,10 @@ import { useWizard } from "../useWizard";
 export const NodeAddReview: React.FC = () => {
   const {
     isSbdEnabled,
-    state: {
-      nodeName,
-      nodeAddresses,
-      reports,
-      sbdWatchdog,
-      sbdDevices,
-      sbdNoWatchdogValidation,
-    },
+    filledSbdDevices,
+    filledNodeAddresses,
+    state: { nodeName, reports, sbdWatchdog, sbdNoWatchdogValidation },
   } = useWizard();
-  const filledAddresses = Object.values(nodeAddresses).filter(
-    a => a.length > 0,
-  );
-  const filledSbdDevices = sbdDevices.filter(a => a.length > 0);
 
   return (
     <WizardLibStep title="Review new resource configuration" reports={reports}>
@@ -38,10 +29,10 @@ export const NodeAddReview: React.FC = () => {
         <DescriptionListGroup>
           <DescriptionListTerm>Node addresses</DescriptionListTerm>
           <DescriptionListDescription>
-            {filledAddresses.length === 0 ? (
+            {filledNodeAddresses.length === 0 ? (
               <>No address configured</>
             ) : (
-              filledAddresses.map((a, i) => <div key={i}>{a}</div>)
+              filledNodeAddresses.map((a, i) => <div key={i}>{a}</div>)
             )}
           </DescriptionListDescription>
         </DescriptionListGroup>

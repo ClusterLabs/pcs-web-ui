@@ -31,8 +31,17 @@ export const useWizard = () => {
     });
   };
 
+  const filledSbdDevices = state.sbdDevices.filter(a => a.length > 0);
+  const filledNodeAddresses = Object.values(state.nodeAddresses).filter(
+    a => a.length > 0,
+  );
+
   return {
     ...clusterWizard,
+
+    filledSbdDevices,
+
+    filledNodeAddresses,
 
     isNameValid: state.nodeName.length > 0,
 
@@ -65,6 +74,10 @@ export const useWizard = () => {
         payload: {
           clusterUrlName,
           nodeName: state.nodeName,
+          sbdWatchdog: state.sbdWatchdog,
+          sbdDevices: filledSbdDevices,
+          sbdNoWatchdogValidation: state.sbdNoWatchdogValidation,
+          nodeAddresses: filledNodeAddresses,
         },
       }),
 

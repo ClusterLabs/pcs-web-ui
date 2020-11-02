@@ -3,7 +3,14 @@ import { Action, NodeActions } from "app/store/actions";
 import { api, lib, processError, put } from "../common";
 
 export function* nodeAddSaga({
-  payload: { clusterUrlName, nodeName },
+  payload: {
+    clusterUrlName,
+    nodeName,
+    nodeAddresses,
+    sbdWatchdog,
+    sbdNoWatchdogValidation,
+    sbdDevices,
+  },
 }: NodeActions["NodeAdd"]) {
   const result = yield api.authSafe(api.lib.callCluster, {
     clusterUrlName,
@@ -11,7 +18,11 @@ export function* nodeAddSaga({
     payload: {
       nodes: {
         name: nodeName,
+        ...(nodeAddresses.length > 0 ? { addrs: nodeAddresses } : {}),
+        ...(sbdDevices.length > 0 ? { devices: sbdDevices } : {}),
+        ...(sbdWatchdog.length > 0 ? { watchdog: sbdWatchdog } : {}),
       },
+      no_watchdog_validation: sbdNoWatchdogValidation,
     },
   });
 
