@@ -1,7 +1,7 @@
 import React from "react";
 
 import { actions, selectors } from "app/store";
-import { useClusterWizard } from "app/view";
+import { useClusterState, useClusterWizard } from "app/view";
 
 type ActionUpdate = actions.NodeActions["NodeAddUpdate"];
 
@@ -11,6 +11,8 @@ export const useWizard = () => {
     selectors.getWizardNodeAddState,
   );
   const { clusterUrlName, state, dispatch } = clusterWizard;
+
+  const { cluster } = useClusterState(clusterUrlName);
 
   const checkCanAddNode = () =>
     dispatch({
@@ -35,6 +37,8 @@ export const useWizard = () => {
     isNameValid: state.nodeName.length > 0,
 
     isNodeCheckDoneValid: state.nodeCheck === "success",
+
+    isSbdEnabled: cluster.sbdDetection !== null && cluster.sbdDetection.enabled,
 
     // actions
     updateState: (state: ActionUpdate["payload"]["state"]) =>

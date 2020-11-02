@@ -46,6 +46,9 @@ export type Update = {
         address7: string;
         address8: string;
       };
+      sbdWatchdog?: string;
+      sbdDevices?: [string, string, string];
+      sbdNoWatchdogValidation?: boolean;
     };
   };
 };

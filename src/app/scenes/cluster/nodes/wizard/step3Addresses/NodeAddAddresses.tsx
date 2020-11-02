@@ -17,7 +17,7 @@ export const NodeAddAddresses: React.FC = () => {
   };
 
   return (
-    <WizardLibStep title="Fill node addresses">
+    <WizardLibStep title="Specify node addresses">
       <Form isHorizontal>
         {Object.keys(nodeAddresses).map((addrName, i) => (
           <FormGroup

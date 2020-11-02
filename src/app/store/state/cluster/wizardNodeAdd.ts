@@ -34,6 +34,9 @@ export type WizardNodeAdd = {
     | "communication-error";
   reports: api.types.lib.Report[];
   showValidationErrors: boolean;
+  sbdWatchdog: string;
+  sbdDevices: [string, string, string];
+  sbdNoWatchdogValidation: boolean;
 };
 
 const initialState: WizardNodeAdd = {
@@ -53,6 +56,9 @@ const initialState: WizardNodeAdd = {
   response: "no-response",
   reports: [],
   showValidationErrors: false,
+  sbdWatchdog: "",
+  sbdDevices: ["", "", ""],
+  sbdNoWatchdogValidation: false,
 };
 
 const wizardNodeAdd: Reducer<WizardNodeAdd> = (
