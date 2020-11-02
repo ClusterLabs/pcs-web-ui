@@ -18,19 +18,21 @@ export const NodeAddAddresses: React.FC = () => {
 
   return (
     <WizardLibStep title="Fill node addresses">
-      <Form>
-        <FormGroup label="Node addresses" fieldId="new-node-address">
-          {Object.keys(nodeAddresses).map(addrName => (
-            <FormGroup key={addrName} fieldId={`new-node-${addrName}`}>
-              <TextInput
-                id={`new-node-${addrName}`}
-                value={nodeAddresses[addrName as AddrName]}
-                type="text"
-                onChange={changeAddress(addrName as AddrName)}
-              />
-            </FormGroup>
-          ))}
-        </FormGroup>
+      <Form isHorizontal>
+        {Object.keys(nodeAddresses).map((addrName, i) => (
+          <FormGroup
+            key={addrName}
+            fieldId={`new-node-${addrName}`}
+            label={`Adddress ${i + 1}`}
+          >
+            <TextInput
+              id={`new-node-${addrName}`}
+              value={nodeAddresses[addrName as AddrName]}
+              type="text"
+              onChange={changeAddress(addrName as AddrName)}
+            />
+          </FormGroup>
+        ))}
       </Form>
     </WizardLibStep>
   );
