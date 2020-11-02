@@ -12,8 +12,21 @@ import { useWizard } from "../useWizard";
 
 export const NodeAddReview: React.FC = () => {
   const {
-    state: { nodeName, reports },
+    isSbdEnabled,
+    state: {
+      nodeName,
+      nodeAddresses,
+      reports,
+      sbdWatchdog,
+      sbdDevices,
+      sbdNoWatchdogValidation,
+    },
   } = useWizard();
+  const filledAddresses = Object.values(nodeAddresses).filter(
+    a => a.length > 0,
+  );
+  const filledSbdDevices = sbdDevices.filter(a => a.length > 0);
+
   return (
     <WizardLibStep title="Review new resource configuration" reports={reports}>
       <DescriptionList isHorizontal>
@@ -21,6 +34,46 @@ export const NodeAddReview: React.FC = () => {
           <DescriptionListTerm>Node name</DescriptionListTerm>
           <DescriptionListDescription>{nodeName}</DescriptionListDescription>
         </DescriptionListGroup>
+
+        <DescriptionListGroup>
+          <DescriptionListTerm>Node addresses</DescriptionListTerm>
+          <DescriptionListDescription>
+            {filledAddresses.length === 0 ? (
+              <>No address configured</>
+            ) : (
+              filledAddresses.map((a, i) => <div key={i}>{a}</div>)
+            )}
+          </DescriptionListDescription>
+        </DescriptionListGroup>
+
+        {isSbdEnabled && (
+          <>
+            <DescriptionListGroup>
+              <DescriptionListTerm>Sbd watchdog</DescriptionListTerm>
+              <DescriptionListDescription>
+                {sbdWatchdog}
+              </DescriptionListDescription>
+            </DescriptionListGroup>
+
+            <DescriptionListGroup>
+              <DescriptionListTerm>Sbd watchdog validation</DescriptionListTerm>
+              <DescriptionListDescription>
+                {sbdNoWatchdogValidation ? "Disabeld" : "Enabled"}
+              </DescriptionListDescription>
+            </DescriptionListGroup>
+
+            <DescriptionListGroup>
+              <DescriptionListTerm>Sbd devices</DescriptionListTerm>
+              <DescriptionListDescription>
+                {filledSbdDevices.length === 0 ? (
+                  <>No sbd devices configured</>
+                ) : (
+                  filledSbdDevices.map((a, i) => <div key={i}>{a}</div>)
+                )}
+              </DescriptionListDescription>
+            </DescriptionListGroup>
+          </>
+        )}
       </DescriptionList>
     </WizardLibStep>
   );
