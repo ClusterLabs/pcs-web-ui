@@ -12,16 +12,19 @@ export const useWizard = () => {
   );
   const { clusterUrlName, state, dispatch } = clusterWizard;
 
+  const checkCanAddNode = () =>
+    dispatch({
+      type: "NODE.ADD.CHECK_CAN_ADD",
+      payload: {
+        clusterUrlName,
+        nodeName: state.nodeName,
+      },
+    });
+
   const useNodeCheck = () => {
     React.useEffect(() => {
       if (state.nodeCheck === "not-started") {
-        dispatch({
-          type: "NODE.ADD.CHECK_CAN_ADD",
-          payload: {
-            clusterUrlName,
-            nodeName: state.nodeName,
-          },
-        });
+        checkCanAddNode();
       }
     });
   };
@@ -32,15 +35,23 @@ export const useWizard = () => {
     isNameValid: state.nodeName.length > 0,
 
     // actions
-    updateState: (state: ActionUpdate["payload"]["state"]) => {
+    updateState: (state: ActionUpdate["payload"]["state"]) =>
       dispatch({
         type: "NODE.ADD.UPDATE",
         payload: {
           clusterUrlName,
           state,
         },
-      });
-    },
+      }),
+
+    checkAuth: () =>
+      dispatch({
+        type: "NODE.ADD.CHECK_AUTH",
+        payload: {
+          clusterUrlName,
+          nodeName: state.nodeName,
+        },
+      }),
 
     nodeAdd: () =>
       dispatch({
@@ -62,6 +73,8 @@ export const useWizard = () => {
           port,
         },
       }),
+
+    checkCanAddNode,
 
     useNodeCheck,
   };

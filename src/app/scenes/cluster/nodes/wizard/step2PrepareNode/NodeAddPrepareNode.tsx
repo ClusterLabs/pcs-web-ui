@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "@patternfly/react-core";
+import { Alert, AlertActionLink } from "@patternfly/react-core";
 
 import { WizardLibStep } from "app/view";
 import { EmptyStateSpinner, NodeAuthForm } from "app/view";
@@ -10,6 +10,8 @@ export const NodeAddPrepareNode: React.FC = () => {
   const {
     useNodeCheck,
     nodeAuth,
+    checkCanAddNode,
+    checkAuth,
     state: { nodeCheck, nodeCheckMessage },
   } = useWizard();
   useNodeCheck();
@@ -30,8 +32,51 @@ export const NodeAddPrepareNode: React.FC = () => {
         />
       )}
 
-      {(nodeCheck === "cannot-add" || nodeCheck === "auth-failed") && (
+      {nodeCheck === "can-add-failed" && (
+        <Alert
+          variant="danger"
+          isInline
+          title="Check that node is not evided in some cluster"
+          actionLinks={
+            <AlertActionLink onClick={checkCanAddNode}>
+              Try again
+            </AlertActionLink>
+          }
+        >
+          {nodeCheckMessage}
+        </Alert>
+      )}
+
+      {nodeCheck === "auth-failed" && (
+        <Alert
+          variant="danger"
+          isInline
+          title="Check if node is authenticated"
+          actionLinks={
+            <AlertActionLink onClick={checkAuth}>Try again</AlertActionLink>
+          }
+        >
+          {nodeCheckMessage}
+        </Alert>
+      )}
+
+      {nodeCheck === "cannot-add" && (
         <Alert variant="danger" isInline title={nodeCheckMessage} />
+      )}
+
+      {(nodeCheck === "auth-required"
+        || nodeCheck === "auth-progress"
+        || nodeCheck === "auth-bad-info") && (
+        <NodeAuthForm
+          authenticationInProgress={nodeCheck === "auth-progress"}
+          authenticationError={
+            nodeCheck === "auth-bad-info"
+              ? "Wrong authentication data"
+              : nodeCheckMessage
+          }
+          onSend={nodeAuth}
+          canTryAgain={nodeCheck !== "auth-bad-info"}
+        />
       )}
 
       {nodeCheck === "success" && (
@@ -39,14 +84,6 @@ export const NodeAddPrepareNode: React.FC = () => {
           variant="success"
           isInline
           title="The node is prepared for adding to the cluster."
-        />
-      )}
-
-      {(nodeCheck === "auth-required" || nodeCheck === "auth-progress") && (
-        <NodeAuthForm
-          authenticationInProgress={nodeCheck === "auth-progress"}
-          authenticationError={nodeCheckMessage}
-          onSend={nodeAuth}
         />
       )}
     </WizardLibStep>

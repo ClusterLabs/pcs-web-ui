@@ -58,6 +58,14 @@ export type CheckCanAdd = {
   };
 };
 
+export type CheckCanAddCannot = {
+  type: "NODE.ADD.CHECK_CAN_ADD.CANNOT";
+  payload: {
+    clusterUrlName: string;
+    message: string;
+  };
+};
+
 export type CheckCanAddFailed = {
   type: "NODE.ADD.CHECK_CAN_ADD.FAILED";
   payload: {
@@ -102,6 +110,7 @@ export type CheckAuthFailed = {
     message: string;
   };
 };
+
 export type CheckAuthNoAuth = {
   type: "NODE.ADD.CHECK_AUTH.NO_AUTH";
   payload: {
@@ -132,5 +141,12 @@ export type AuthenticateFailed = {
   payload: {
     clusterUrlName: string;
     message: string;
+  };
+};
+
+export type AuthenticateBadInfo = {
+  type: "NODE.ADD.AUTHENTICATE.BAD_INFO";
+  payload: {
+    clusterUrlName: string;
   };
 };

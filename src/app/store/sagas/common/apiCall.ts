@@ -15,7 +15,7 @@ export const errorMessage = (
     case "UNAUTHORIZED":
       return `Unauthorized while: ${taskLabel}. ${detailsInConsole}`;
     case "BAD_HTTP_STATUS":
-      return `Task ${taskLabel} failed: ${result.text}. ${detailsInConsole}`;
+      return `Task: ${taskLabel} failed: ${result.text}. ${detailsInConsole}`;
     default:
       return `Communication error while: ${taskLabel}. ${detailsInConsole}`;
   }
@@ -29,7 +29,7 @@ function* error(
   const message = errorMessage(result, taskLabel);
   switch (result.type) {
     case "BAD_HTTP_STATUS":
-      yield putNotification("ERROR", `Task ${taskLabel} failed`, {
+      yield putNotification("ERROR", `Task: ${taskLabel} failed`, {
         type: "LINES",
         lines: [result.text, detailsInConsole],
       });

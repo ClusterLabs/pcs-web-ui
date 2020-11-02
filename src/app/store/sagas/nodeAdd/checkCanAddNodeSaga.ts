@@ -1,5 +1,5 @@
 import { canAddClusterOrNodes } from "app/backend";
-import { Action, NodeActions } from "app/store/actions";
+import { NodeActions } from "app/store/actions";
 
 import { api, errorMessage, processError, put } from "../common";
 
@@ -11,20 +11,28 @@ export function* checkCanAddNodeSaga({
     { nodeNames: [nodeName] },
   );
 
-  const errorAction = (message: string): Action => ({
-    type: "NODE.ADD.CHECK_CAN_ADD.FAILED",
-    payload: { clusterUrlName, message },
-  });
-
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
-    yield put(errorAction(result.text));
+    yield put({
+      type: "NODE.ADD.CHECK_CAN_ADD.CANNOT",
+      payload: {
+        clusterUrlName,
+        message: result.text,
+      },
+    });
     return;
   }
 
-  const taskLabel = `add node "${nodeName}": node not in a known cluster check`;
+  const taskLabel = `add node "${nodeName}": check that node is not in some cluster`;
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
-      action: () => put(errorAction(errorMessage(result, taskLabel))),
+      action: () =>
+        put({
+          type: "NODE.ADD.CHECK_CAN_ADD.FAILED",
+          payload: {
+            clusterUrlName,
+            message: errorMessage(result, taskLabel),
+          },
+        }),
       useNotification: false,
     });
     return;

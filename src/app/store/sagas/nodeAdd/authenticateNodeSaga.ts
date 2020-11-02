@@ -34,11 +34,8 @@ export function* authenticateNodeSaga({
 
   if (result.payload.node_auth_error[nodeName] !== 0) {
     yield put({
-      type: "NODE.ADD.AUTHENTICATE.FAILED",
-      payload: {
-        clusterUrlName,
-        message: `${taskLabel} failed.`,
-      },
+      type: "NODE.ADD.AUTHENTICATE.BAD_INFO",
+      payload: { clusterUrlName },
     });
     return;
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Alert,
+  AlertActionLink,
   Button,
   Form,
   FormGroup,
@@ -14,7 +15,13 @@ export const NodeAuthForm: React.FC<{
   authenticationError: string;
   authenticationInProgress: boolean;
   onSend: (password: string, address: string, port: string) => void;
-}> = ({ authenticationError, authenticationInProgress, onSend }) => {
+  canTryAgain?: boolean;
+}> = ({
+  authenticationError,
+  authenticationInProgress,
+  onSend,
+  canTryAgain = false,
+}) => {
   const [password, setPassword] = React.useState("");
   const [customAddrPort, setCustomAddrPort] = React.useState(false);
   const [address, setAddress] = React.useState("");
@@ -26,13 +33,30 @@ export const NodeAuthForm: React.FC<{
         variant="warning"
         title={"Node is not authenticated. Please authenticate it."}
       />
-      {authenticationError && (
+      {authenticationError && !canTryAgain && (
         <Alert
           isInline
           variant="danger"
-          title={authenticationError}
+          title="Authentication failed"
           data-test="auth-error"
-        />
+        >
+          {authenticationError}
+        </Alert>
+      )}
+      {authenticationError && canTryAgain && (
+        <Alert
+          isInline
+          variant="danger"
+          title="Authentication failed"
+          data-test="auth-error"
+          actionLinks={
+            <AlertActionLink onClick={() => onSend(password, address, port)}>
+              Try again
+            </AlertActionLink>
+          }
+        >
+          {authenticationError}
+        </Alert>
       )}
       <FormGroup
         isRequired
