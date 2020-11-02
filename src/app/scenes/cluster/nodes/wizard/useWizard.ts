@@ -34,6 +34,8 @@ export const useWizard = () => {
 
     isNameValid: state.nodeName.length > 0,
 
+    isNodeCheckDoneValid: state.nodeCheck === "success",
+
     // actions
     updateState: (state: ActionUpdate["payload"]["state"]) =>
       dispatch({

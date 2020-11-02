@@ -11,12 +11,12 @@ import { useWizard } from "../useWizard";
 export const NodeAddPrepareNodeFooter: React.FC = () => {
   const {
     close,
-    state: { nodeCheck },
+    isNodeCheckDoneValid,
     wizard: { onNext, onBack },
   } = useWizard();
   return (
     <>
-      <WizardButtonNext onClick={onNext} disabled={nodeCheck !== "success"} />
+      <WizardButtonNext onClick={onNext} disabled={!isNodeCheckDoneValid} />
       <WizardButtonBack onClick={onBack} />
       <WizardButtonCancel onClick={close} />
     </>
