@@ -7,6 +7,24 @@ shortcut.dashboard([
   response.clusterStatus.actionsAlternative,
 ]);
 
+app.clusterStart((req, res) => {
+  if (req.body.name === "startFail") {
+    res.status(500).send("Something wrong");
+    return;
+  }
+  if (req.body.name === "startPermission") {
+    res.status(403).send("Permission denied");
+    return;
+  }
+
+  if (req.body.name === "startError") {
+    res.status(400).send("Unable to start node.");
+    return;
+  }
+
+  res.send("Some output");
+});
+
 app.canAddClusterOrNodes((req, res) => {
   if (!("node_names" in req.query)) {
     res

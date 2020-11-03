@@ -93,6 +93,15 @@ export const useWizard = () => {
         },
       }),
 
+    nodeStart: () =>
+      dispatch({
+        type: "NODE.START",
+        payload: {
+          clusterUrlName,
+          nodeName: state.nodeName,
+        },
+      }),
+
     checkCanAddNode,
 
     useNodeCheck,

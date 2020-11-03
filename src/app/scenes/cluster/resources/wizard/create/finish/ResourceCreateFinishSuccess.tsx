@@ -12,11 +12,14 @@ export const ResourceCreateFinishSuccess: React.FC = () => {
   } = useWizard();
   return (
     <>
-      <WizardSuccess title={`Resource "${resourceName}" created successfully`}>
-        <Button variant="primary" onClick={close}>
-          Close
-        </Button>
-      </WizardSuccess>
+      <WizardSuccess
+        title={`Resource "${resourceName}" created successfully`}
+        primaryActions={
+          <Button variant="primary" onClick={close}>
+            Close
+          </Button>
+        }
+      />
       <WizardLibReports reports={reports} />
     </>
   );
