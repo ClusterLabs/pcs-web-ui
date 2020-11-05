@@ -39,7 +39,6 @@ export type Update = {
   payload: {
     clusterUrlName: string;
     state: {
-      nodeName?: string;
       nodeAddresses?: {
         address1: string;
         address2: string;
@@ -54,6 +53,14 @@ export type Update = {
       sbdDevices?: [string, string, string];
       sbdNoWatchdogValidation?: boolean;
     };
+  };
+};
+
+export type UpdateNodeName = {
+  type: "NODE.ADD.UPDATE_NODE_NAME";
+  payload: {
+    clusterUrlName: string;
+    nodeName: string;
   };
 };
 

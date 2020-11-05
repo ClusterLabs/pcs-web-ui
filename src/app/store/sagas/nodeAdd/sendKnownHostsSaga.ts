@@ -1,16 +1,22 @@
 import { sendKnownHosts } from "app/backend";
 import { NodeActions } from "app/store/actions";
 
-import { api, put } from "../common";
+import { api, put, race, take } from "../common";
 
 export function* sendKnownHostsSaga({
   payload: { clusterUrlName, nodeName },
 }: NodeActions["NodeAddSendKnownHosts"]) {
-  const result: api.ResultOf<typeof sendKnownHosts> = yield api.authSafe(
-    sendKnownHosts,
-    clusterUrlName,
-    [nodeName],
-  );
+  const {
+    result,
+  }: { result: api.ResultOf<typeof sendKnownHosts> } = yield race({
+    result: api.authSafe(sendKnownHosts, clusterUrlName, [nodeName]),
+    cancel: take("NODE.ADD.UPDATE_NODE_NAME"),
+  });
+
+  if (!result) {
+    // cancelled; we no longer care about the fate of the call
+    return;
+  }
 
   if (result.type !== "OK") {
     yield put({

@@ -20,6 +20,7 @@ export type NodeActions = {
   NodeAddFailed: add.AddFailed;
   NodeAddError: add.AddError;
   NodeAddUpdate: add.Update;
+  NodeAddUpdateNodeName: add.UpdateNodeName;
   NodeAddCheckCanAdd: add.CheckCanAdd;
   NodeAddCheckCanAddFailed: add.CheckCanAddFailed;
   NodeAddCheckCanAddCannot: add.CheckCanAddCannot;

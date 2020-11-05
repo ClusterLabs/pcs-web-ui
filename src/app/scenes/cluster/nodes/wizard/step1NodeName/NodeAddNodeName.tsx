@@ -8,10 +8,9 @@ import { useWizard } from "../useWizard";
 export const NodeAddNodeName: React.FC = () => {
   const {
     state: { nodeName, showValidationErrors },
-    updateState,
+    updateNodeName,
   } = useWizard();
 
-  const changeNodeName = (value: string) => updateState({ nodeName: value });
   const nodeNameValidated =
     showValidationErrors && nodeName.length === 0 ? "error" : "default";
 
@@ -30,7 +29,7 @@ export const NodeAddNodeName: React.FC = () => {
             value={nodeName}
             isRequired
             type="text"
-            onChange={changeNodeName}
+            onChange={updateNodeName}
             validated={nodeNameValidated}
           />
         </FormGroup>

@@ -1,20 +1,22 @@
 import { authGuiAgainstNodes } from "app/backend";
 import { NodeActions } from "app/store/actions";
 
-import { api, put } from "../common";
+import { api, put, race, take } from "../common";
 
 export function* authenticateNodeSaga({
   payload: { clusterUrlName, nodeName, password, port, address },
 }: NodeActions["NodeAddAuthenticate"]) {
-  const result: api.ResultOf<typeof authGuiAgainstNodes> = yield api.authSafe(
-    authGuiAgainstNodes,
-    {
+  const {
+    result,
+  }: { result: api.ResultOf<typeof authGuiAgainstNodes> } = yield race({
+    result: api.authSafe(authGuiAgainstNodes, {
       [nodeName]: {
         password,
         dest_list: [{ addr: address, port }],
       },
-    },
-  );
+    }),
+    cancel: take("NODE.ADD.UPDATE_NODE_NAME"),
+  });
 
   const taskLabel = `authenticate node "${nodeName}"`;
   if (result.type !== "OK") {

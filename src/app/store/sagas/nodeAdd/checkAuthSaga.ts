@@ -1,15 +1,22 @@
 import { checkAuthAgainstNodes } from "app/backend";
 import { Action, NodeActions } from "app/store/actions";
 
-import { api, errorMessage, processError, put } from "../common";
+import { api, errorMessage, processError, put, race, take } from "../common";
 
 export function* checkAuthSaga({
   payload: { clusterUrlName, nodeName },
 }: NodeActions["NodeAddCheckAuth"]) {
-  const result: api.ResultOf<typeof checkAuthAgainstNodes> = yield api.authSafe(
-    checkAuthAgainstNodes,
-    [nodeName],
-  );
+  const {
+    result,
+  }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } = yield race({
+    result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
+    cancel: take("NODE.ADD.UPDATE_NODE_NAME"),
+  });
+
+  if (!result) {
+    // cancelled; we no longer care about the fate of the call
+    return;
+  }
 
   const errorAction = (message: string): Action => ({
     type: "NODE.ADD.CHECK_AUTH.FAILED",

@@ -59,6 +59,15 @@ export const useWizard = () => {
         },
       }),
 
+    updateNodeName: (nodeName: string) =>
+      dispatch({
+        type: "NODE.ADD.UPDATE_NODE_NAME",
+        payload: {
+          clusterUrlName,
+          nodeName,
+        },
+      }),
+
     checkAuth: () =>
       dispatch({
         type: "NODE.ADD.CHECK_AUTH",

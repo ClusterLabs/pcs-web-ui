@@ -66,16 +66,19 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
   action,
 ) => {
   switch (action.type) {
+    case "NODE.ADD.UPDATE_NODE_NAME":
+      return {
+        ...state,
+        nodeName: action.payload.nodeName,
+        nodeCheck: "not-started",
+        nodeCheckMessage: "",
+        response: "no-response",
+      };
+
     case "NODE.ADD.UPDATE":
       return {
         ...state,
         ...action.payload.state,
-        nodeCheck:
-          "nodeName" in action.payload.state
-          && action.payload.state.nodeName !== state.nodeName
-            ? "not-started"
-            : state.nodeCheck,
-        nodeCheckMessage: "",
       };
     case "NODE.ADD.CHECK_CAN_ADD":
       return {

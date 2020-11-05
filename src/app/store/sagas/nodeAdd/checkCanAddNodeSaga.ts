@@ -1,15 +1,22 @@
 import { canAddClusterOrNodes } from "app/backend";
 import { NodeActions } from "app/store/actions";
 
-import { api, errorMessage, processError, put } from "../common";
+import { api, errorMessage, processError, put, race, take } from "../common";
 
 export function* checkCanAddNodeSaga({
   payload: { clusterUrlName, nodeName },
 }: NodeActions["NodeAddCheckCanAdd"]) {
-  const result: api.ResultOf<typeof canAddClusterOrNodes> = yield api.authSafe(
-    canAddClusterOrNodes,
-    { nodeNames: [nodeName] },
-  );
+  const {
+    result,
+  }: { result: api.ResultOf<typeof canAddClusterOrNodes> } = yield race({
+    result: api.authSafe(canAddClusterOrNodes, { nodeNames: [nodeName] }),
+    cancel: take("NODE.ADD.UPDATE_NODE_NAME"),
+  });
+
+  if (!result) {
+    // cancelled; we no longer care about the fate of the call
+    return;
+  }
 
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
     yield put({
