@@ -16,12 +16,14 @@ export function* nodeAddSaga({
     clusterUrlName,
     command: "cluster-add-nodes",
     payload: {
-      nodes: {
-        name: nodeName,
-        ...(nodeAddresses.length > 0 ? { addrs: nodeAddresses } : {}),
-        ...(sbdDevices.length > 0 ? { devices: sbdDevices } : {}),
-        ...(sbdWatchdog.length > 0 ? { watchdog: sbdWatchdog } : {}),
-      },
+      nodes: [
+        {
+          name: nodeName,
+          ...(nodeAddresses.length > 0 ? { addrs: nodeAddresses } : {}),
+          ...(sbdDevices.length > 0 ? { devices: sbdDevices } : {}),
+          ...(sbdWatchdog.length > 0 ? { watchdog: sbdWatchdog } : {}),
+        },
+      ],
       no_watchdog_validation: sbdNoWatchdogValidation,
     },
   });
@@ -36,6 +38,7 @@ export function* nodeAddSaga({
       action: () => put(errorAction),
       useNotification: false,
     });
+    return;
   }
 
   yield lib.clusterResponseSwitch(clusterUrlName, taskLabel, result.payload, {

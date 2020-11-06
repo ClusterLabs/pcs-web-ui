@@ -12,11 +12,11 @@ export const NodeAddPrepareNode: React.FC = () => {
     nodeAuth,
     checkCanAddNode,
     checkAuth,
-    state: { nodeCheck, nodeCheckMessage },
+    state: { nodeCheck, nodeCheckMessage, reports },
   } = useWizard();
   useNodeCheck();
   return (
-    <WizardLibStep title="Prepare node">
+    <WizardLibStep title="Prepare node" reports={reports}>
       {(nodeCheck === "can-add-started"
         || nodeCheck === "auth-started"
         || nodeCheck === "send-known-hosts-started") && (

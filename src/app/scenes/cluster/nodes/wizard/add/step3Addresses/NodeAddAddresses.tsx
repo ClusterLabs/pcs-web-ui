@@ -7,7 +7,7 @@ import { useWizard } from "../useWizard";
 
 export const NodeAddAddresses: React.FC = () => {
   const {
-    state: { nodeAddresses },
+    state: { nodeAddresses, reports },
     updateState,
   } = useWizard();
 
@@ -17,7 +17,7 @@ export const NodeAddAddresses: React.FC = () => {
   };
 
   return (
-    <WizardLibStep title="Specify node addresses">
+    <WizardLibStep title="Specify node addresses" reports={reports}>
       <Form isHorizontal>
         {Object.keys(nodeAddresses).map((addrName, i) => (
           <FormGroup

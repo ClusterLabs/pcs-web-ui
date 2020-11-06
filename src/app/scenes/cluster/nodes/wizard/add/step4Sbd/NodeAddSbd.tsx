@@ -15,7 +15,7 @@ export const NodeAddSbd: React.FC = () => {
   const {
     isSbdEnabled,
     updateState,
-    state: { sbdWatchdog, sbdDevices, sbdNoWatchdogValidation },
+    state: { sbdWatchdog, sbdDevices, sbdNoWatchdogValidation, reports },
   } = useWizard();
   const changeWatchdog = (value: string) => updateState({ sbdWatchdog: value });
   const changeDevice = (index: number, value: string) =>
@@ -25,7 +25,7 @@ export const NodeAddSbd: React.FC = () => {
       ) as typeof sbdDevices,
     });
   return (
-    <WizardLibStep title="Configure sbd">
+    <WizardLibStep title="Configure sbd" reports={reports}>
       {!isSbdEnabled && (
         <Alert
           variant="info"

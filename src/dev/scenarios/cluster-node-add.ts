@@ -58,7 +58,7 @@ app.sendKnownHosts((_req, res) => {
 
 app.clusterAddNodes((req, res) => {
   shortcut.libStd({
-    code: req.body.nodes[0],
+    code: req.body.nodes[0]?.name,
     res,
   });
 });

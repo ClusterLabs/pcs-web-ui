@@ -60,7 +60,7 @@ export type ClusterCommand =
           addrs?: string[];
           devices?: string[];
           watchdog?: string;
-        };
+        }[];
         start?: boolean;
         enable?: boolean;
         no_watchdog_validation?: boolean;

@@ -5,7 +5,7 @@ import { api } from "app/backend";
 import * as response from "dev/responses";
 
 const getLibResponses = (res: Response): Record<string, () => void> => ({
-  fail: () => {
+  error: () => {
     res.status(500).send("SOMETHING WRONG");
   },
   invalid: () => {
@@ -24,7 +24,7 @@ const getLibResponses = (res: Response): Record<string, () => void> => ({
   "unknown-cmd": () => {
     res.json(response.lib.unknownCmd);
   },
-  error: () => {
+  fail: () => {
     res.json(
       response.lib.error([
         {

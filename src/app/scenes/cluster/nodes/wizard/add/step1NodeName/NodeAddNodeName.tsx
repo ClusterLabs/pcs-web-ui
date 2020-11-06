@@ -7,7 +7,7 @@ import { useWizard } from "../useWizard";
 
 export const NodeAddNodeName: React.FC = () => {
   const {
-    state: { nodeName, showValidationErrors },
+    state: { nodeName, showValidationErrors, reports },
     updateNodeName,
   } = useWizard();
 
@@ -15,7 +15,7 @@ export const NodeAddNodeName: React.FC = () => {
     showValidationErrors && nodeName.length === 0 ? "error" : "default";
 
   return (
-    <WizardLibStep title="Choose node name">
+    <WizardLibStep title="Choose node name" reports={reports}>
       <Form>
         <FormGroup
           label="Node name"

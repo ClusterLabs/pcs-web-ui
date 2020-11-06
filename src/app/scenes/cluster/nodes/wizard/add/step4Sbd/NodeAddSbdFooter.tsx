@@ -16,7 +16,7 @@ export const NodeAddSbdFooter: React.FC = () => {
   return (
     <>
       <WizardButtonNext onClick={onNext} />
-      <WizardButtonBack onClick={onBack} disabled />
+      <WizardButtonBack onClick={onBack} />
       <WizardButtonCancel onClick={close} />
     </>
   );

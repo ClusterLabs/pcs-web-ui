@@ -5,6 +5,8 @@ import { WizardProgress } from "app/view";
 import { useWizard } from "../useWizard";
 
 import { NodeAddFinishSuccess } from "./NodeAddFinishSuccess";
+import { NodeAddFinishFail } from "./NodeAddFinishFail";
+import { NodeAddFinishError } from "./NodeAddFinishError";
 
 export const NodeAddFinish: React.FC = () => {
   const {
@@ -13,6 +15,10 @@ export const NodeAddFinish: React.FC = () => {
   switch (response) {
     case "success":
       return <NodeAddFinishSuccess />;
+    case "fail":
+      return <NodeAddFinishFail />;
+    case "communication-error":
+      return <NodeAddFinishError />;
     default:
       return (
         <WizardProgress
