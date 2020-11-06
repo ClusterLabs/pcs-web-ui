@@ -146,6 +146,8 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
         nodeCheck: "success",
         nodeCheckMessage: "",
       };
+    case "NODE.ADD.CLOSE":
+      return initialState;
     case "NODE.ADD.SUCCESS":
       return { ...state, response: "success", reports: action.payload.reports };
     case "NODE.ADD.FAILED":

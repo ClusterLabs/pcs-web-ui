@@ -16,6 +16,7 @@ export type NodeActions = {
     };
   };
   NodeAdd: add.Add;
+  NodeAddClose: add.Close;
   NodeAddSuccess: add.AddSuccess;
   NodeAddFailed: add.AddFailed;
   NodeAddError: add.AddError;

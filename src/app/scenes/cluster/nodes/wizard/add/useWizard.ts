@@ -50,6 +50,14 @@ export const useWizard = () => {
     isSbdEnabled: cluster.sbdDetection !== null && cluster.sbdDetection.enabled,
 
     // actions
+    close: () => {
+      clusterWizard.close();
+      dispatch({
+        type: "NODE.ADD.CLOSE",
+        payload: {clusterUrlName},
+      });
+    },
+
     updateState: (state: ActionUpdate["payload"]["state"]) =>
       dispatch({
         type: "NODE.ADD.UPDATE",

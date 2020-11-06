@@ -11,6 +11,12 @@ export type Add = {
     sbdDevices: string[];
   };
 };
+export type Close = {
+  type: "NODE.ADD.CLOSE";
+  payload: {
+    clusterUrlName: string;
+  };
+};
 
 export type AddSuccess = {
   type: "NODE.ADD.SUCCESS";
