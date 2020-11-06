@@ -7,10 +7,9 @@ export interface DashboardPageState {
   dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS";
 }
 
-const clusterNameListState: Reducer<DashboardPageState["clusterNameListState"]> = (
-  state = [],
-  action,
-) => {
+const clusterNameListState: Reducer<
+  DashboardPageState["clusterNameListState"]
+> = (state = [], action) => {
   switch (action.type) {
     case "DASHBOARD_DATA.FETCH.SUCCESS":
       return action.payload.clusterNameList;
