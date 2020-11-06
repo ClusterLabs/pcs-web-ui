@@ -15,15 +15,15 @@ export type WizardNodeAdd = {
   };
   nodeCheck:
     | "not-started"
-    | "started-can-add"
-    | "cannot-add"
+    | "can-add-started"
+    | "can-add-cannot"
     | "can-add-failed"
-    | "started-auth"
+    | "auth-started"
     | "auth-failed"
     | "auth-required"
     | "auth-bad-info"
     | "auth-progress"
-    | "started-send-known-hosts"
+    | "send-known-hosts-started"
     | "success";
   nodeCheckMessage: string;
   response:
@@ -83,7 +83,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
     case "NODE.ADD.CHECK_CAN_ADD":
       return {
         ...state,
-        nodeCheck: "started-can-add",
+        nodeCheck: "can-add-started",
         nodeCheckMessage: "",
       };
     case "NODE.ADD.CHECK_CAN_ADD.FAILED":
@@ -95,13 +95,13 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
     case "NODE.ADD.CHECK_CAN_ADD.CANNOT":
       return {
         ...state,
-        nodeCheck: "cannot-add",
+        nodeCheck: "can-add-cannot",
         nodeCheckMessage: action.payload.message,
       };
     case "NODE.ADD.CHECK_AUTH":
       return {
         ...state,
-        nodeCheck: "started-auth",
+        nodeCheck: "auth-started",
         nodeCheckMessage: "",
       };
     case "NODE.ADD.CHECK_AUTH.NO_AUTH":
@@ -137,7 +137,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
     case "NODE.ADD.SEND_KNOWN_HOSTS":
       return {
         ...state,
-        nodeCheck: "started-send-known-hosts",
+        nodeCheck: "send-known-hosts-started",
         nodeCheckMessage: "",
       };
     case "NODE.ADD.SEND_KNOWN_HOSTS.SUCCESS":
