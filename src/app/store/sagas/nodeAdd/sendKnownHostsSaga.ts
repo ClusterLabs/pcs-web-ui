@@ -10,7 +10,7 @@ export function* sendKnownHostsSaga({
     result,
   }: { result: api.ResultOf<typeof sendKnownHosts> } = yield race({
     result: api.authSafe(sendKnownHosts, clusterUrlName, [nodeName]),
-    cancel: take("NODE.ADD.UPDATE_NODE_NAME"),
+    cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
   });
 
   if (!result) {

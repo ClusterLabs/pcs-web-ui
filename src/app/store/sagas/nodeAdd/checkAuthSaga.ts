@@ -10,7 +10,7 @@ export function* checkAuthSaga({
     result,
   }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } = yield race({
     result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
-    cancel: take("NODE.ADD.UPDATE_NODE_NAME"),
+    cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
   });
 
   if (!result) {

@@ -1,6 +1,6 @@
 import { Action, NodeActions } from "app/store/actions";
 
-import { api, lib, processError, put } from "../common";
+import { api, lib, processError, put, race, take } from "../common";
 
 export function* nodeAddSaga({
   payload: {
@@ -12,21 +12,29 @@ export function* nodeAddSaga({
     sbdDevices,
   },
 }: NodeActions["NodeAdd"]) {
-  const result = yield api.authSafe(api.lib.callCluster, {
-    clusterUrlName,
-    command: "cluster-add-nodes",
-    payload: {
-      nodes: [
-        {
-          name: nodeName,
-          ...(nodeAddresses.length > 0 ? { addrs: nodeAddresses } : {}),
-          ...(sbdDevices.length > 0 ? { devices: sbdDevices } : {}),
-          ...(sbdWatchdog.length > 0 ? { watchdog: sbdWatchdog } : {}),
-        },
-      ],
-      no_watchdog_validation: sbdNoWatchdogValidation,
-    },
+  const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
+    result: api.authSafe(api.lib.callCluster, {
+      clusterUrlName,
+      command: "cluster-add-nodes",
+      payload: {
+        nodes: [
+          {
+            name: nodeName,
+            ...(nodeAddresses.length > 0 ? { addrs: nodeAddresses } : {}),
+            ...(sbdDevices.length > 0 ? { devices: sbdDevices } : {}),
+            ...(sbdWatchdog.length > 0 ? { watchdog: sbdWatchdog } : {}),
+          },
+        ],
+        no_watchdog_validation: sbdNoWatchdogValidation,
+      },
+    }),
+    cancel: take("NODE.ADD.CLOSE"),
   });
+  
+  if (!result) {
+    // cancelled; we no longer care about the fate of the call
+    return;
+  }
 
   const taskLabel = `add node ${nodeName}`;
   const errorAction: Action = {

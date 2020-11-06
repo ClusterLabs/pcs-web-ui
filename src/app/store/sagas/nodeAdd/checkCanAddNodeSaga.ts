@@ -10,7 +10,7 @@ export function* checkCanAddNodeSaga({
     result,
   }: { result: api.ResultOf<typeof canAddClusterOrNodes> } = yield race({
     result: api.authSafe(canAddClusterOrNodes, { nodeNames: [nodeName] }),
-    cancel: take("NODE.ADD.UPDATE_NODE_NAME"),
+    cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
   });
 
   if (!result) {

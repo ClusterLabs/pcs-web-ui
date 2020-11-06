@@ -15,7 +15,7 @@ export function* authenticateNodeSaga({
         dest_list: [{ addr: address, port }],
       },
     }),
-    cancel: take("NODE.ADD.UPDATE_NODE_NAME"),
+    cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
   });
 
   const taskLabel = `authenticate node "${nodeName}"`;
