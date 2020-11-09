@@ -4,6 +4,7 @@ import { ParsedQuery, parse, parseUrl } from "query-string";
 type RequestData = {
   body?: ParsedQuery | null;
   query?: ParsedQuery | null;
+  payload?: ReturnType<typeof JSON.parse> | null;
 };
 type Handler = (route: playwright.Route, request: playwright.Request) => void;
 type RouteUrl = string | RegExp;
@@ -24,10 +25,46 @@ const isRegExp = (candidate: unknown): candidate is RegExp =>
   || Object.prototype.toString.call(candidate) === "[object RegExp]";
 
 const urlMatch = (routeUrl: RouteUrl, realUrl: string) => {
+  const { url: querylessUrl } = parseUrl(realUrl);
   if (isRegExp(routeUrl)) {
-    return routeUrl.test(realUrl);
+    return routeUrl.test(querylessUrl);
   }
-  return realUrl.endsWith(routeUrl);
+  return querylessUrl.endsWith(routeUrl);
+};
+
+const createRequestCheck = ({
+  request,
+  route,
+}: {
+  request: playwright.Request;
+  route: Route;
+}) => {
+  const url = request.url();
+  const { query } = parseUrl(url);
+  let body = null;
+  let payload = null;
+  const postData = request.postData();
+  if (postData) {
+    try {
+      payload = JSON.parse(postData);
+    } catch (e) {
+      body = parse(postData);
+    }
+  }
+
+  return {
+    url,
+    real: {
+      body,
+      payload,
+      query: Object.keys(query).length > 0 ? query : null,
+    },
+    expected: {
+      body: route.body ?? null,
+      query: route.query ?? null,
+      payload: route.payload ?? null,
+    },
+  };
 };
 
 const handle = (
@@ -77,33 +114,25 @@ export async function run(routeList: Route[]) {
   }
   page.route("**/*", (route: playwright.Route) => {
     const request = route.request();
-    const realUrl = request.url();
-    if (isAppLoadingUrl(realUrl)) {
+    const url = request.url();
+    if (isAppLoadingUrl(url)) {
       return route.continue();
     }
 
-    const { url: querylessUrl, query } = parseUrl(realUrl);
+    const matchingRoute = routeList.find(r => urlMatch(r.url, url));
 
-    const match = routeList.find(r => urlMatch(r.url, querylessUrl));
+    if (matchingRoute) {
+      requestChecks.push(
+        createRequestCheck({
+          request,
+          route: matchingRoute,
+        }),
+      );
 
-    if (match) {
-      const postData = request.postData();
-      requestChecks.push({
-        url: realUrl,
-        real: {
-          body: postData !== null ? parse(postData) : null,
-          query: querylessUrl !== realUrl ? query : null,
-        },
-        expected: {
-          body: match.body ?? null,
-          query: match.query ?? null,
-        },
-      });
-
-      return handle(route, request, match);
+      return handle(route, request, matchingRoute);
     }
 
-    unmockedUrls.push(realUrl);
+    unmockedUrls.push(url);
     return route.fulfill({ status: 404 });
   });
 }
