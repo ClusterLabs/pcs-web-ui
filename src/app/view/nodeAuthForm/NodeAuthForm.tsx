@@ -27,7 +27,7 @@ export const NodeAuthForm: React.FC<{
   const [address, setAddress] = React.useState("");
   const [port, setPort] = React.useState("");
   return (
-    <Form>
+    <Form data-test="form-auth-node">
       <Alert
         isInline
         variant="warning"

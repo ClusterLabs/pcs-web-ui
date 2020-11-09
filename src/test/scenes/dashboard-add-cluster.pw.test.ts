@@ -6,6 +6,7 @@ import { intercept, response as res, url } from "test/tools";
 const WIZARD = dt("wizard-add-cluster");
 const WIZARD_BUTTON_NEXT = dt(WIZARD, "footer [type='submit']");
 const FORM_CHECK_AUTH = dt(WIZARD, "form-auth-check");
+const FORM_AUTH_NODE = dt(WIZARD, "form-auth-node");
 
 const isButtonNextDisabled = async () => {
   const isDisabled = await page.$eval(WIZARD_BUTTON_NEXT, (buttonNext) => {
@@ -45,7 +46,7 @@ const fillAuthenticationForm = async (
   await page.type(dt(WIZARD, "password"), password);
   await page.type(dt(WIZARD, "address"), addr);
   await page.type(dt(WIZARD, "port"), port);
-  await page.click(dt(FORM_CHECK_AUTH, "auth-node"));
+  await page.click(dt(FORM_AUTH_NODE, "auth-node"));
 };
 
 const authFailed = async () => {
@@ -58,19 +59,19 @@ const interceptWithDashboard = async (routeList: intercept.Route[]) => {
     {
       url: "/imported-cluster-list",
       json: responses.importedClusterList.withClusters([
-        responses.clusterStatus.empty,
+        responses.clusterStatus.empty.cluster_name,
       ]),
     },
     {
       url: "/managec/empty/cluster_status",
-      json: responses.clusterStatus.ok,
+      json: responses.clusterStatus.empty,
     },
     {
-      url: "/managec/ok/get_avail_resource_agents",
+      url: "/managec/empty/get_avail_resource_agents",
       json: responses.resourceAgentList.ok,
     },
     {
-      url: "/managec/ok/cluster_properties",
+      url: "/managec/empty/cluster_properties",
       json: responses.clusterProperties.ok,
     },
     ...routeList,
@@ -132,7 +133,7 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page.waitForSelector(dt(FORM_CHECK_AUTH, "password"));
+    await page.waitForSelector(dt(FORM_AUTH_NODE, "password"));
     await fillAuthenticationForm(password, addr, port);
     await goThroughAddStepSuccessfully();
   });
@@ -200,7 +201,7 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page.waitForSelector(dt(FORM_CHECK_AUTH, "password"));
+    await page.waitForSelector(dt(FORM_AUTH_NODE, "password"));
     await fillAuthenticationForm(password, addr, port);
     await page.waitForSelector(dt(WIZARD, "auth-error"));
   });
