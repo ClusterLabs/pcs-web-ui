@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  EmptyState,
-  EmptyStateIcon,
-  PageSection,
-  Spinner,
-  Stack,
-  StackItem,
-  Title,
-} from "@patternfly/react-core";
+import { PageSection, Stack, StackItem } from "@patternfly/react-core";
 
 import {
+  EmptyStateSpinner,
   GroupDetailView,
   Page,
   SelectedClusterProvider,
@@ -20,7 +13,7 @@ import {
   useRoutesAnalysis,
 } from "app/view";
 
-import { NodeDetailPage, NodeList } from "./nodes";
+import { NodesPage } from "./nodes";
 import { FenceDeviceDetailPage, FenceDeviceList } from "./fenceDevices";
 import { ResourcesPage } from "./resources";
 import { ConstraintsPage } from "./constraints";
@@ -62,13 +55,7 @@ export const ClusterDetailPage = ({
         <SelectedClusterProvider value={clusterUrlName}>
           {tab === "Detail" && <ClusterDetail />}
           {tab === "Resources" && <ResourcesPage urlPrefix={url} />}
-          {tab === "Nodes" && (
-            <GroupDetailView
-              urlPrefix={url}
-              groupCard={<NodeList nodeList={cluster.nodeList} />}
-              detailCard={<NodeDetailPage />}
-            />
-          )}
+          {tab === "Nodes" && <NodesPage urlPrefix={url} />}
           {tab === "Fence Devices" && (
             <GroupDetailView
               urlPrefix={url}
@@ -88,12 +75,7 @@ export const ClusterDetailPage = ({
       )}
       {!dataLoaded && (
         <PageSection>
-          <EmptyState style={{ margin: "auto" }}>
-            <EmptyStateIcon variant="container" component={Spinner} />
-            <Title size="lg" headingLevel="h3">
-              Loading cluster data
-            </Title>
-          </EmptyState>
+          <EmptyStateSpinner title="Loading cluster data" />
         </PageSection>
       )}
     </Page>

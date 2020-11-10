@@ -4,10 +4,12 @@ import { Select as PfSelect, SelectOptionObject } from "@patternfly/react-core";
 type SelectProps = React.ComponentProps<typeof PfSelect>;
 type Props = Omit<SelectProps, "isOpen" | "onToggle" | "onSelect" | "onFilter">;
 
-export const Select: React.FC<Props & {
-  onSelect: (value: string) => void;
-  onFilter?: (value: string) => void;
-}> = (props) => {
+export const Select: React.FC<
+  Props & {
+    onSelect: (value: string) => void;
+    onFilter?: (value: string) => void;
+  }
+> = (props) => {
   const { onSelect, onFilter, ...restProps } = props;
   const [isOpen, setIsOpen] = React.useState(false);
   const select = React.useCallback(
@@ -23,9 +25,9 @@ export const Select: React.FC<Props & {
 
   const filter = onFilter
     ? (event: React.ChangeEvent<HTMLInputElement>) => {
-      onFilter(event.target.value);
-      return (null as unknown) as React.ReactElement[];
-    }
+        onFilter(event.target.value);
+        return (null as unknown) as React.ReactElement[];
+      }
     : null;
 
   const pfProps = {

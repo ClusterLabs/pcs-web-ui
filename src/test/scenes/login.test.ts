@@ -1,4 +1,4 @@
-import { importedClusterList } from "dev/responses";
+import { clusterStatus, importedClusterList } from "dev/responses";
 
 import { dt } from "test/tools/selectors";
 import { intercept, url } from "test/tools";
@@ -36,6 +36,10 @@ describe("Logout", () => {
   it("should call logout on backend after click", async () => {
     await intercept.run([
       { url: "/imported-cluster-list", json: importedClusterList.empty },
+      {
+        url: "/managec/empty/cluster_status",
+        json: clusterStatus.empty,
+      },
       { url: "/ui/logout", text: "OK" },
       // TODO Firefox wants to have this mocked. Why
       {

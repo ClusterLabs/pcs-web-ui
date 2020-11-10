@@ -6,8 +6,6 @@ export type PrimitiveResourceActions = {
   CreateResourceFailed: create.CreateResourceFailed;
   CreateResourceError: create.CreateResourceError;
   CreateResourceClose: create.Close;
-  CreateResourceValidationShow: create.ValidationShow;
-  CreateResourceValidationHide: create.ValidationHide;
   CreateResourceUpdate: create.Update;
 
   UpdateInstanceAttributes: {

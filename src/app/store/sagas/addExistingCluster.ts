@@ -132,9 +132,9 @@ function* authenticateNode({
     result.payload.node_auth_error[nodeName] === 0
       ? { type: "ADD_CLUSTER.AUTHENTICATE_NODE.SUCCESS" }
       : {
-        type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
-        payload: { message: `${taskLabel} failed.` },
-      },
+          type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
+          payload: { message: `${taskLabel} failed.` },
+        },
   );
 }
 

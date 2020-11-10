@@ -19,8 +19,7 @@ export const PrimitiveAttrsFormItemLayout = ({
           <span className="pf-c-form__label-required" aria-hidden="true">
             &#42;
           </span>
-        )}
-        {" "}
+        )}{" "}
         <PcmkAgentAttrsHelpPopover resourceAgentParam={resourceAgentParam} />
       </span>
       <div

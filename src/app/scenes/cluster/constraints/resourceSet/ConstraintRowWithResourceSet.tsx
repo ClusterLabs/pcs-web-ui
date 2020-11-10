@@ -18,7 +18,7 @@ export const ConstraintRowWithResourceSet: React.FC<{
   ) => React.ReactNode;
   setContent?: (
     resourceSet: types.cluster.ConstraintResourceSetStructured,
-  ) => JSX.Element;
+  ) => React.ReactNode;
   type: string;
   id: string;
   content?: React.ComponentProps<typeof ConstraintRow>["content"];
@@ -60,6 +60,7 @@ export const ConstraintRowWithResourceSet: React.FC<{
 
                 return (
                   <ConstraintRow
+                    key={resourceSet.id}
                     id={resourceSet.id}
                     dataListCells={setCells(resourceSet)}
                     content={setContent ? setContent(resourceSet) : null}

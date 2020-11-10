@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, response as res, url } from "test/tools";
+import { intercept, response as res, route, url, workflow } from "test/tools";
 
 const WIZARD = dt("wizard-add-cluster");
 const WIZARD_BUTTON_NEXT = dt(WIZARD, "footer [type='submit']");
@@ -35,19 +35,6 @@ const goThroughAddStepSuccessfully = async () => {
   await page.waitForSelector(dt(WIZARD, "add-success"));
 };
 
-const fillAuthenticationForm = async (
-  password: string,
-  addr: string,
-  port: string,
-) => {
-  await page.waitForSelector(dt(WIZARD, "use-custom-address"));
-  await page.click(`${dt(WIZARD, "use-custom-address")} .pf-c-switch__toggle`);
-  await page.type(dt(WIZARD, "password"), password);
-  await page.type(dt(WIZARD, "address"), addr);
-  await page.type(dt(WIZARD, "port"), port);
-  await page.click(dt(FORM_CHECK_AUTH, "auth-node"));
-};
-
 const authFailed = async () => {
   await page.waitForSelector(dt(WIZARD, "auth-check-error"));
   expect(await isButtonNextDisabled()).toEqual(true);
@@ -58,19 +45,19 @@ const interceptWithDashboard = async (routeList: intercept.Route[]) => {
     {
       url: "/imported-cluster-list",
       json: responses.importedClusterList.withClusters([
-        responses.clusterStatus.empty,
+        responses.clusterStatus.empty.cluster_name,
       ]),
     },
     {
       url: "/managec/empty/cluster_status",
-      json: responses.clusterStatus.ok,
+      json: responses.clusterStatus.empty,
     },
     {
-      url: "/managec/ok/get_avail_resource_agents",
+      url: "/managec/empty/get_avail_resource_agents",
       json: responses.resourceAgentList.ok,
     },
     {
-      url: "/managec/ok/cluster_properties",
+      url: "/managec/empty/cluster_properties",
       json: responses.clusterProperties.ok,
     },
     ...routeList,
@@ -110,20 +97,12 @@ describe("Add existing cluster wizard", () => {
         query: { "node_list[]": nodeName },
         json: { [nodeName]: "Unable to authenticate" },
       },
-      {
-        url: "/manage/auth_gui_against_nodes",
-        body: {
-          data_json: JSON.stringify({
-            nodes: {
-              nodeA: {
-                password: "pwd",
-                dest_list: [{ addr: "192.168.0.10", port: "1234" }],
-              },
-            },
-          }),
+      route.auth_gui_against_nodes({
+        nodeA: {
+          password: "pwd",
+          dest_list: [{ addr: "192.168.0.10", port: "1234" }],
         },
-        json: { node_auth_error: { [nodeName]: 0 } },
-      },
+      }),
       {
         url: "/manage/existingcluster",
         body: { "node-name": nodeName },
@@ -132,8 +111,7 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page.waitForSelector(dt(FORM_CHECK_AUTH, "password"));
-    await fillAuthenticationForm(password, addr, port);
+    await workflow.sendAuthForm(WIZARD, password, addr, port);
     await goThroughAddStepSuccessfully();
   });
 
@@ -183,25 +161,19 @@ describe("Add existing cluster wizard", () => {
         query: { "node_list[]": nodeName },
         json: { [nodeName]: "Unable to authenticate" },
       },
-      {
-        url: "/manage/auth_gui_against_nodes",
-        body: {
-          data_json: JSON.stringify({
-            nodes: {
-              nodeA: {
-                password: "pwd",
-                dest_list: [{ addr: "192.168.0.10", port: "1234" }],
-              },
-            },
-          }),
+      route.auth_gui_against_nodes(
+        {
+          nodeA: {
+            password: "pwd",
+            dest_list: [{ addr: "192.168.0.10", port: "1234" }],
+          },
         },
-        json: { node_auth_error: { [nodeName]: 1 } },
-      },
+        { json: { node_auth_error: { [nodeName]: 1 } } },
+      ),
     ]);
 
     await enterNodeName(nodeName);
-    await page.waitForSelector(dt(FORM_CHECK_AUTH, "password"));
-    await fillAuthenticationForm(password, addr, port);
+    await workflow.sendAuthForm(WIZARD, password, addr, port);
     await page.waitForSelector(dt(WIZARD, "auth-error"));
   });
 

@@ -176,6 +176,9 @@ export interface ClusterStatus {
   resourceOnNodeStatusList: ResourceOnNodeStatus[];
   nodeAttr: Record<string, NVPair[]>;
   nodesUtilization: Record<string, NVPair[]>;
+  sbdDetection: null | {
+    enabled: boolean;
+  };
 }
 
 export interface ClusterStatusService {

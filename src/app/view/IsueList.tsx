@@ -15,20 +15,16 @@ import { types } from "app/store";
 import * as pallete from "./pallete";
 
 const mapSeverityToVariant = (severity: types.cluster.Issue["severity"]) =>
-  (severity === "ERROR" ? "danger" : "warning");
+  severity === "ERROR" ? "danger" : "warning";
 
 const issueKey = (issue: types.cluster.Issue, index: string | number) =>
   `${index}:${issue.message}`;
 
-export const IssueList = ({
-  issueList,
-  margin = false,
-  hideEmpty = false,
-}: {
+export const IssueList: React.FC<{
   issueList: types.cluster.Issue[];
   margin?: boolean;
   hideEmpty?: boolean;
-}) => {
+}> = ({ issueList, margin = false, hideEmpty = false }) => {
   if (issueList.length === 0) {
     if (hideEmpty) {
       return null;

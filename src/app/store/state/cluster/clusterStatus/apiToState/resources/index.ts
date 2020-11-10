@@ -23,8 +23,8 @@ const takeResourceOnNodeStatus = (
         crmStatus.node === null
           ? null
           : {
-            name: crmStatus.node.name,
-          },
+              name: crmStatus.node.name,
+            },
       active: crmStatus.active,
       failed: crmStatus.failed,
       failureIgnored: crmStatus.failure_ignored,

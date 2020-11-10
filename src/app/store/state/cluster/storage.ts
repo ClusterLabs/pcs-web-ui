@@ -8,6 +8,7 @@ import resourceAgentMap, { ResourceAgentListService } from "./resourceAgentMap";
 import wizardResourceCreate, {
   WizardResourceCreate,
 } from "./wizardResourceCreate";
+import wizardNodeAdd, { WizardNodeAdd } from "./wizardNodeAdd";
 
 export type ClusterStorageItem = {
   clusterStatus: clusterStatusTypes.ClusterStatusService;
@@ -16,6 +17,7 @@ export type ClusterStorageItem = {
   clusterProperties: ClusterPropertiesService;
   resourceAgentMap: ResourceAgentListService;
   wizardResourceCreate: WizardResourceCreate;
+  wizardNodeAdd: WizardNodeAdd;
 };
 
 export type ClusterStorageMap = Record<string, ClusterStorageItem>;
@@ -27,6 +29,7 @@ const clusterStorageItem = combineReducers<ClusterStorageItem>({
   clusterProperties,
   resourceAgentMap,
   wizardResourceCreate,
+  wizardNodeAdd,
 });
 
 function hasProperty<O extends Record<string, unknown>, P extends PropertyKey>(

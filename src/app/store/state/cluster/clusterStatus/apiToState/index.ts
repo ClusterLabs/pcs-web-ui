@@ -22,6 +22,17 @@ const issuesToSummarySeverity = (
   return "OK";
 };
 
+const sbdDetection = (apiClusterState: ApiClusterStatus) =>
+  apiClusterState.node_list.reduce<ClusterState["sbdDetection"]>(
+    (sbd, node) =>
+      node.status === "unknown"
+        ? sbd
+        : {
+            enabled: (sbd !== null && sbd.enabled) || node.services.sbd.enabled,
+          },
+    null,
+  );
+
 export const apiToState = (
   apiClusterStatus: ApiClusterStatus,
 ): ClusterState => {
@@ -55,5 +66,6 @@ export const apiToState = (
     },
     nodeAttr: apiClusterStatus.node_attr ?? {},
     nodesUtilization: apiClusterStatus.nodes_utilization ?? {},
+    sbdDetection: sbdDetection(apiClusterStatus),
   };
 };

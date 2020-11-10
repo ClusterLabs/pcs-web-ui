@@ -1,5 +1,4 @@
 import React from "react";
-import { WizardContextConsumer } from "@patternfly/react-core";
 
 import {
   WizardButtonBack,
@@ -10,20 +9,21 @@ import {
 import { useWizard } from "../useWizard";
 
 export const ResourceCreateInstanceAttrsFooter: React.FC = () => {
-  // eslint-disable-next-line no-shadow
-  const { close, areInstanceAttrsValid, isAgentLoaded, tryNext } = useWizard();
+  const {
+    close,
+    areInstanceAttrsValid,
+    isAgentLoaded,
+    tryNext,
+    wizard: { onBack },
+  } = useWizard();
   return (
-    <WizardContextConsumer>
-      {({ onNext, onBack }) => (
-        <>
-          <WizardButtonNext
-            onClick={() => tryNext(areInstanceAttrsValid, onNext)}
-            disabled={!isAgentLoaded}
-          />
-          <WizardButtonBack onClick={onBack} />
-          <WizardButtonCancel onClick={close} />
-        </>
-      )}
-    </WizardContextConsumer>
+    <>
+      <WizardButtonNext
+        onClick={() => tryNext(areInstanceAttrsValid)}
+        disabled={!isAgentLoaded}
+      />
+      <WizardButtonBack onClick={onBack} />
+      <WizardButtonCancel onClick={close} />
+    </>
   );
 };

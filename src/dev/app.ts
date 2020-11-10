@@ -69,6 +69,7 @@ const lib = (url: string) => (handler: Handler) =>
 export const existingCluster = managePost("existingcluster"); // adds existing cluster
 export const authGuiAgainstNodes = managePost("auth_gui_against_nodes");
 export const checkAuthAgainstNodes = manageGet("check_auth_against_nodes");
+export const canAddClusterOrNodes = manageGet("can-add-cluster-or-nodes");
 
 // cluster
 export const clusterStatus = clusterGet("cluster_status");
@@ -81,6 +82,7 @@ export const resourceCleanup = clusterPost("resource_cleanup");
 export const removeResource = clusterPost("remove_resource");
 export const clusterStart = clusterPost("cluster_start");
 export const clusterStop = clusterPost("cluster_stop");
+export const sendKnownHosts = clusterPost("send-known-hosts");
 export const getResourceAgentMetadata = clusterGet(
   "get_resource_agent_metadata",
 );
@@ -91,6 +93,7 @@ export const resourceManage = lib("resource-manage");
 export const resourceUnmanage = lib("resource-unmanage");
 export const resourceDisable = lib("resource-disable");
 export const resourceEnable = lib("resource-enable");
+export const clusterAddNodes = lib("cluster-add-nodes");
 export const nodeStandbyUnstandby = lib("node-standby-unstandby");
 export const nodeMaintenanceUnmaintenance = lib(
   "node-maintenance-unmaintenance",

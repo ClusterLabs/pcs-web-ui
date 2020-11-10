@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
-  StackItem,
-  Text,
-  TextContent,
-  Title,
-} from "@patternfly/react-core";
-import { SearchIcon } from "@patternfly/react-icons";
+import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
 import { selectors, types, url } from "app/store";
 import {
@@ -17,7 +8,6 @@ import {
   Link,
   LoadedPcmkAgent,
   PcmkAgentDescription,
-  pallete,
   useClusterSelector,
 } from "app/view";
 
@@ -59,32 +49,20 @@ export const PrimitiveDetail = ({
           <Text component="h1"> Status </Text>
         </TextContent>
 
-        {crmStatusList.length === 0 && (
-          <EmptyState style={{ margin: "auto" }}>
-            <EmptyStateIcon icon={SearchIcon} color={pallete.UNKNOWN} />
-            <Title size="lg" headingLevel="h3">
-              {`No resource ${primitive.id} status info found.`}
-            </Title>
-            <EmptyStateBody>
-              {`No resource ${primitive.id} status info found.`}
-            </EmptyStateBody>
-          </EmptyState>
-        )}
-
-        {crmStatusList.length > 0 && (
-          <CrmStatusTable
-            crmStatusList={crmStatusList}
-            rowObject={{
-              header: "Node",
-              cell: crmStatus =>
-                (!crmStatus.node ? null : (
-                  <Link
-                    to={url.cluster.nodes(clusterName, crmStatus.node.name)}
-                  />
-                )),
-            }}
-          />
-        )}
+        <CrmStatusTable
+          crmStatusList={crmStatusList}
+          emptyMessage={`No status info form resource "${primitive.id}" found.`}
+          rowObject={{
+            header: "Node",
+            /* eslint-disable-next-line react/display-name */
+            cell: crmStatus =>
+              !crmStatus.node ? null : (
+                <Link
+                  to={url.cluster.nodes(clusterName, crmStatus.node.name)}
+                />
+              ),
+          }}
+        />
       </StackItem>
     </>
   );

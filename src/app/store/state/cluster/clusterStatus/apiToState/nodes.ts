@@ -45,21 +45,21 @@ const toSeverity = (status: ApiNodeStatus, quorum: ApiNodeQuorum) => {
 };
 
 const toNode = (apiNode: ApiNode): types.cluster.Node =>
-  (apiNode.status === "unknown"
+  apiNode.status === "unknown"
     ? {
-      name: apiNode.name,
-      status: "DATA_NOT_PROVIDED",
-      issueList: transformIssues(apiNode),
-    }
+        name: apiNode.name,
+        status: "DATA_NOT_PROVIDED",
+        issueList: transformIssues(apiNode),
+      }
     : {
-      name: apiNode.name,
-      status: mapStatus(apiNode.status),
-      statusSeverity: statusToSeverity(apiNode.status),
-      quorum: !!apiNode.quorum,
-      quorumSeverity: quorumToSeverity(apiNode.quorum),
-      issueList: transformIssues(apiNode),
-      services: apiNode.services,
-    });
+        name: apiNode.name,
+        status: mapStatus(apiNode.status),
+        statusSeverity: statusToSeverity(apiNode.status),
+        quorum: !!apiNode.quorum,
+        quorumSeverity: quorumToSeverity(apiNode.quorum),
+        issueList: transformIssues(apiNode),
+        services: apiNode.services,
+      };
 
 const countNodesSeverity = (
   apiNodeList: ApiNode[],

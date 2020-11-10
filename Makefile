@@ -5,6 +5,10 @@ ifndef NEXUS_REPO
 	NEXUS_REPO=true
 endif
 
+ifndef TEST
+	TEST=""
+endif
+
 app:
 	npx react-scripts start
 
@@ -63,7 +67,7 @@ testu:
 
 #end2end tests
 teste:
-	npx jest --watch --config=jest.config.js --testPathPattern=src/test/scenes
+	npx jest --watch --config=jest.config.js --testPathPattern=src/test/scenes/$(TEST)
 
 clean:
 	rm -rf build

@@ -23,13 +23,10 @@ const useState = (): {
     p => p.readable_name,
   );
 
-export function ClusterPropertiesToolbar({
-  actions = {},
-  filterState,
-}: {
+export const ClusterPropertiesToolbar: React.FC<{
   actions?: Record<string, () => void>;
   filterState: ReturnType<typeof useState>["filterState"];
-}) {
+}> & { useState: typeof useState } = ({ actions = {}, filterState }) => {
   return (
     <ToolbarFilterTextGroupPair
       textSearchId="cluster-properties-name"
@@ -38,6 +35,6 @@ export function ClusterPropertiesToolbar({
       actions={actions}
     />
   );
-}
+};
 
 ClusterPropertiesToolbar.useState = useState;

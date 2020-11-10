@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
-  StackItem,
-  Title,
-} from "@patternfly/react-core";
-import { PlusCircleIcon } from "@patternfly/react-icons";
+import { StackItem } from "@patternfly/react-core";
 
+import { EmptyStateNoItem } from "app/view";
 import { DetailLayout, useSelectedClusterName } from "app/view";
 
 export const FenceDeviceDoesNotExists = ({
@@ -19,16 +13,13 @@ export const FenceDeviceDoesNotExists = ({
   return (
     <DetailLayout caption={<strong>{fenceDeviceUrlName}</strong>}>
       <StackItem>
-        <EmptyState style={{ margin: "auto" }}>
-          <EmptyStateIcon icon={PlusCircleIcon} />
-          <Title size="lg" headingLevel="h3">
-            {`Fence devicce "${fenceDeviceUrlName}" does not exist.`}
-          </Title>
-          <EmptyStateBody>
-            {`Fence device "${fenceDeviceUrlName}"`
-              + ` does not exists in cluster ${clusterUrlName}.`}
-          </EmptyStateBody>
-        </EmptyState>
+        <EmptyStateNoItem
+          title={`Fence devicce "${fenceDeviceUrlName}" does not exist.`}
+          message={
+            `Fence device "${fenceDeviceUrlName}"`
+            + ` does not exists in cluster ${clusterUrlName}.`
+          }
+        />
       </StackItem>
     </DetailLayout>
   );

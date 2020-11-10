@@ -18,7 +18,7 @@ import { useWizard } from "../useWizard";
 
 export const ResourceCreateSettingsGroup: React.FC = () => {
   const {
-    wizardState: { useGroup, group, clone, showValidationErrors },
+    state: { useGroup, group, clone, showValidationErrors },
     updateState,
     groupList,
   } = useWizard();

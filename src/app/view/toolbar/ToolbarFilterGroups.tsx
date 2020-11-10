@@ -49,13 +49,13 @@ function useState<T extends string>(initialValue: Record<T, boolean>) {
   return React.useState(initialValue);
 }
 
-export function ToolbarFilterGroups<T extends string>({
+export const ToolbarFilterGroups = ({
   name,
   filterState,
 }: {
   name: string;
   filterState: ReturnType<typeof useState>;
-}) {
+}) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [options, setSelected] = filterState;
 
@@ -107,7 +107,7 @@ export function ToolbarFilterGroups<T extends string>({
       </Select>
     </ToolbarFilter>
   );
-}
+};
 
 ToolbarFilterGroups.unselectAllOptions = unselectAllOptions;
 ToolbarFilterGroups.allOrIncludedGroupMembers = allOrIncludedGroupMembers;

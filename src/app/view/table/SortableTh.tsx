@@ -69,7 +69,7 @@ function useSorting<COLUMN extends string>(
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const compareItems = (
-    compareByColumn: (column: COLUMN | "") => (a: any, b: any) => number,
+    compareByColumn: (_column: COLUMN | "") => (a: any, b: any) => number,
   ) => {
     const compare = compareByColumn(column);
     return direction === "desc" ? (a: any, b: any) => compare(b, a) : compare;
@@ -80,7 +80,7 @@ function useSorting<COLUMN extends string>(
       setColumn(columnName);
       setDirection(sortDirection);
     },
-    [setColumn, setDirection],
+    [setDirection, setColumn],
   );
   const sortState: SortState<COLUMN> = { column, direction, change };
   return { sortState, compareItems };

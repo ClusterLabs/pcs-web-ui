@@ -5,20 +5,19 @@ import {
   ProgressMeasureLocation,
   Title,
 } from "@patternfly/react-core";
-import { useWizard } from "../useWizard";
 
-export const ResourceCreateFinishProgress: React.FC = () => {
-  const {
-    wizardState: { resourceName },
-  } = useWizard();
+export const WizardProgress: React.FC<{
+  title: string;
+  progressTitle: string;
+}> = ({ title, progressTitle }) => {
   return (
     <EmptyState>
       <Title headingLevel="h4" size="lg">
-        {`Create new resource "${resourceName}" progress`}
+        {title}
       </Title>
       <Progress
         value={50}
-        title="Creating resource"
+        title={progressTitle}
         measureLocation={ProgressMeasureLocation.none}
       />
     </EmptyState>

@@ -25,3 +25,4 @@ yarn-error.log*
 
 pcs-web-ui-node-modules-*.tar.xz
 .npmrc
+.eslintcache

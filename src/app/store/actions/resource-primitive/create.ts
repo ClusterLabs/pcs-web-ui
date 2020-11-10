@@ -51,20 +51,6 @@ export type Update = {
   };
 };
 
-export type ValidationShow = {
-  type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW";
-  payload: {
-    clusterUrlName: string;
-  };
-};
-
-export type ValidationHide = {
-  type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE";
-  payload: {
-    clusterUrlName: string;
-  };
-};
-
 export type Close = {
   type: "RESOURCE.PRIMITIVE.CREATE.CLOSE";
   payload: {

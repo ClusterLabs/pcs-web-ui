@@ -10,11 +10,13 @@ import { push } from "connected-react-router";
 
 import { PageToolbar } from "./PageToolbar";
 
-const PageHeaderComponent: React.FC<RouteComponentProps & {
-  history: History;
-  showNavToggle?: boolean;
-  onNavToggle?: () => void;
-}> = ({ history, showNavToggle, onNavToggle }) => {
+const PageHeaderComponent: React.FC<
+  RouteComponentProps & {
+    history: History;
+    showNavToggle?: boolean;
+    onNavToggle?: () => void;
+  }
+> = ({ history, showNavToggle, onNavToggle }) => {
   const dispatch = useDispatch();
   return (
     <PfPageHeader

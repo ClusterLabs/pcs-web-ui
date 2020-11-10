@@ -18,7 +18,7 @@ function* resourceCreateSaga({
         meta_attributes: {},
       },
     }),
-    cancel: take("RESOURCE.PRIMITIVE.CREATE.CANCEL"),
+    cancel: take("RESOURCE.PRIMITIVE.CREATE.CLOSE"),
   });
 
   if (!result) {

@@ -1,4 +1,4 @@
-import { cluster, crmStatus, node, primitive } from "./tools";
+import { cluster, crmStatus, node, primitive, services } from "./tools";
 
 // Purpose is to provide items like resources, nodes, fence devices with
 // standard names on which
@@ -10,9 +10,19 @@ const actionResource = (resourceName: string) =>
     ],
   });
 
-const buildNodeList = (nodeNameList: string[]) => {
+const buildNodeList = (
+  nodeNameList: string[],
+  { sbdEnabled }: { sbdEnabled: boolean } = { sbdEnabled: true },
+) => {
   let i = 1;
-  return nodeNameList.map(name => node(`${i++}`, { name }));
+  return nodeNameList.map(name =>
+    node(`${i++}`, {
+      name,
+      services: services({
+        sbd: { installed: true, running: true, enabled: sbdEnabled },
+      }),
+    }),
+  );
 };
 
 const nodeNames = [
@@ -25,10 +35,8 @@ const nodeNames = [
   "error",
 ];
 
-const nodeList = buildNodeList(nodeNames);
-
 export const actions = cluster("actions", "ok", {
-  node_list: nodeList,
+  node_list: buildNodeList(nodeNames),
   resource_list: [
     actionResource("ok"),
     actionResource("fail"),
@@ -60,7 +68,7 @@ const actionResourceAlternative = (resourceName: string) =>
   });
 
 export const actionsAlternative = cluster("actions-alt", "ok", {
-  node_list: nodeList,
+  node_list: buildNodeList(nodeNames, { sbdEnabled: false }),
   node_attr: nodeNames.reduce(
     (attrs, nodeName) => ({
       ...attrs,

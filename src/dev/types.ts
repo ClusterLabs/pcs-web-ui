@@ -17,6 +17,7 @@ export type ClusterProperties = api.PayloadOf<typeof call.clusterProperties>;
 export type ClusterStatus = api.PayloadOf<typeof call.clusterStatus>;
 
 export type Node = api.types.clusterStatus.ApiNode;
+export type NodeServiceMap = api.types.clusterStatus.ApiNodeServiceMap;
 export type Primitive = api.types.clusterStatus.ApiPrimitive;
 export type Stonith = api.types.clusterStatus.ApiStonith;
 export type Clone = api.types.clusterStatus.ApiClone;

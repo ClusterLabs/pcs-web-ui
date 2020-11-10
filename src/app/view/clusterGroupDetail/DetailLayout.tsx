@@ -4,9 +4,9 @@ import { Level, LevelItem, Stack, StackItem } from "@patternfly/react-core";
 import { DetailLayoutToolbar } from "./DetailLayoutToolbar";
 
 export const DetailLayout: React.FC<{
-  caption: JSX.Element | JSX.Element[] | string;
-  tabs?: JSX.Element | JSX.Element[] | string | null;
-  toolbar?: JSX.Element | null;
+  caption: React.ReactNode | React.ReactNode[] | string;
+  tabs?: React.ReactNode | React.ReactNode[] | string | null;
+  toolbar?: React.ReactNode | null;
 }> = ({ caption, tabs = null, children, toolbar = null, ...rest }) => {
   return (
     /* eslint-disable react/jsx-props-no-spreading */

@@ -4,16 +4,22 @@ import { ParsedQuery, parse, parseUrl } from "query-string";
 type RequestData = {
   body?: ParsedQuery | null;
   query?: ParsedQuery | null;
+  payload?: ReturnType<typeof JSON.parse> | null;
 };
 type Handler = (route: playwright.Route, request: playwright.Request) => void;
 type RouteUrl = string | RegExp;
-export type Route = { url: RouteUrl } & RequestData &
-  (
-    | { handler: Handler }
-    | { text: string }
-    | { json: ReturnType<typeof JSON.parse> }
-    | { status: [number, string] | number }
-  );
+export type RouteResponse =
+  | { handler: Handler }
+  | { text: string }
+  | { json: ReturnType<typeof JSON.parse> }
+  | { status: [number, string] | number };
+
+export type Route = { url: RouteUrl } & RequestData & RouteResponse;
+
+type RequestCheck = {
+  request: playwright.Request;
+  route: Route;
+};
 
 const isAppLoadingUrl = (url: string) =>
   /\/images\/favicon\.png/.exec(url)
@@ -24,10 +30,40 @@ const isRegExp = (candidate: unknown): candidate is RegExp =>
   || Object.prototype.toString.call(candidate) === "[object RegExp]";
 
 const urlMatch = (routeUrl: RouteUrl, realUrl: string) => {
+  const { url: querylessUrl } = parseUrl(realUrl);
   if (isRegExp(routeUrl)) {
-    return routeUrl.test(realUrl);
+    return routeUrl.test(querylessUrl);
   }
-  return realUrl.endsWith(routeUrl);
+  return querylessUrl.endsWith(routeUrl);
+};
+
+const checkRequest = ({ request, route }: RequestCheck) => {
+  const url = request.url();
+  const { query } = parseUrl(url);
+  let body = null;
+  let payload = null;
+  const postData = request.postData();
+  if (postData) {
+    try {
+      payload = JSON.parse(postData);
+    } catch (e) {
+      body = parse(postData);
+    }
+  }
+
+  expect({
+    [url]: {
+      body,
+      payload,
+      query: Object.keys(query).length > 0 ? query : null,
+    },
+  }).toEqual({
+    [url]: {
+      body: route.body ?? null,
+      query: route.query ?? null,
+      payload: route.payload ?? null,
+    },
+  });
 };
 
 const handle = (
@@ -60,11 +96,7 @@ const handle = (
   return route.fulfill({ status, body });
 };
 
-let requestChecks: {
-  url: string;
-  real: RequestData;
-  expected: RequestData;
-}[] = [];
+let requestChecks: RequestCheck[] = [];
 
 let unmockedUrls: string[] = [];
 
@@ -77,33 +109,19 @@ export async function run(routeList: Route[]) {
   }
   page.route("**/*", (route: playwright.Route) => {
     const request = route.request();
-    const realUrl = request.url();
-    if (isAppLoadingUrl(realUrl)) {
+    const url = request.url();
+    if (isAppLoadingUrl(url)) {
       return route.continue();
     }
 
-    const { url: querylessUrl, query } = parseUrl(realUrl);
+    const matchingRoute = routeList.find(r => urlMatch(r.url, url));
 
-    const match = routeList.find(r => urlMatch(r.url, querylessUrl));
-
-    if (match) {
-      const postData = request.postData();
-      requestChecks.push({
-        url: realUrl,
-        real: {
-          body: postData !== null ? parse(postData) : null,
-          query: querylessUrl !== realUrl ? query : null,
-        },
-        expected: {
-          body: match.body ?? null,
-          query: match.query ?? null,
-        },
-      });
-
-      return handle(route, request, match);
+    if (matchingRoute) {
+      requestChecks.push({ request, route: matchingRoute });
+      return handle(route, request, matchingRoute);
     }
 
-    unmockedUrls.push(realUrl);
+    unmockedUrls.push(url);
     return route.fulfill({ status: 404 });
   });
 }
@@ -119,7 +137,5 @@ export const stop = async () => {
   if (oldUnmockedUrls.length > 0) {
     expect(`Unmocked urls detected: ${oldUnmockedUrls.join("\n")}`).toEqual("");
   }
-  oldChecks.forEach(rc =>
-    expect({ [rc.url]: rc.real }).toEqual({ [rc.url]: rc.expected }),
-  );
+  oldChecks.forEach(rc => checkRequest(rc));
 };

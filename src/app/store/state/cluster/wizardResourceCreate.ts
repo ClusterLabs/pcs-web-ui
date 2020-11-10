@@ -72,9 +72,9 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
       return { ...state, response: "communication-error" };
     case "RESOURCE.PRIMITIVE.CREATE.CLOSE":
       return initialState;
-    case "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW":
+    case "CLUSTER_WIZARD.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
-    case "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE":
+    case "CLUSTER_WIZARD.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
     default:
       return state;

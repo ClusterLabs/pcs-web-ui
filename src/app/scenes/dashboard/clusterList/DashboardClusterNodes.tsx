@@ -10,12 +10,12 @@ type COLUMNS = "NAME" | "STATUS" | "QUORUM";
 const quorumSeverity = (
   node: types.cluster.Node,
 ): types.cluster.StatusSeverity =>
-  (node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.quorumSeverity);
+  node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.quorumSeverity;
 
 const statusSeverity = (
   node: types.cluster.Node,
 ): types.cluster.StatusSeverity =>
-  (node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.statusSeverity);
+  node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.statusSeverity;
 
 const quorum = (node: types.cluster.Node): string => {
   if (node.status === "DATA_NOT_PROVIDED") {

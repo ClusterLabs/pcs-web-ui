@@ -10,6 +10,20 @@ const service = {
   enabled: true,
 };
 
+export const services = (
+  diff: Partial<types.NodeServiceMap> = {},
+): types.NodeServiceMap =>
+  deepmerge<types.NodeServiceMap>(
+    {
+      pacemaker: service,
+      pacemaker_remote: service,
+      corosync: service,
+      pcsd: service,
+      sbd: service,
+    },
+    diff,
+  );
+
 export const node = (id: string, diff: Partial<types.Node> = {}): types.Node =>
   deepmerge<types.Node>(
     {

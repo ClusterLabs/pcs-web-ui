@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 import { Tab, Tabs } from "@patternfly/react-core";
 
+/* eslint-disable react/require-default-props */
 export function UrlTabs<T extends { [key: string]: string }>({
   tabSettingsMap,
   currentTab,
@@ -17,7 +18,7 @@ export function UrlTabs<T extends { [key: string]: string }>({
   return (
     <Tabs
       activeKey={currentTab as string}
-      onSelect={(e, tabIndex) => {
+      onSelect={(_e, tabIndex) => {
         const selectedTab = tabIndex as keyof T;
         if (tabIndex !== currentTab) {
           dispatch(push(tabSettingsMap[selectedTab]));

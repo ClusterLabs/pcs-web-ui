@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  EmptyState,
-  EmptyStateBody,
-  EmptyStateIcon,
-  Title,
-} from "@patternfly/react-core";
-import { PlusCircleIcon } from "@patternfly/react-icons";
 
 import { types, url, utils } from "app/store";
-import { Link, StatusSign, Table, toLabel } from "app/view";
+import { EmptyStateNoItem, Link, StatusSign, Table, toLabel } from "app/view";
 
 import { compareStrings } from "./utils";
 
@@ -31,26 +24,17 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardClusterResources = ({
-  cluster,
-}: {
+export const DashboardClusterResources: React.FC<{
   cluster: types.cluster.ClusterStatus;
-}) => {
+}> = ({ cluster }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
 
   if (cluster.resourceTree.length === 0) {
     return (
-      <EmptyState style={{ margin: "auto" }}>
-        <EmptyStateIcon icon={PlusCircleIcon} />
-        <Title size="lg" headingLevel="h3">
-          {" "}
-          No resource is configured.
-          {" "}
-        </Title>
-        <EmptyStateBody>
-          You don&apos;t have any configured resources here.
-        </EmptyStateBody>
-      </EmptyState>
+      <EmptyStateNoItem
+        title="No resource is configured."
+        message="You don't have any configured resources here."
+      />
     );
   }
 

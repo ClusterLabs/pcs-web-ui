@@ -35,13 +35,13 @@ function useState<K extends string, I>(
         i =>
           (noSelectedGroupStrategy === "all-off-display-all"
             ? ToolbarFilterGroups.allOrIncludedGroupMembers({
-              groupInclusionMap,
-              groupMembershipMap: groupMembershipMap(i),
-            })
+                groupInclusionMap,
+                groupMembershipMap: groupMembershipMap(i),
+              })
             : ToolbarFilterGroups.includedGroupMembers({
-              groupInclusionMap,
-              groupMembershipMap: groupMembershipMap(i),
-            }))
+                groupInclusionMap,
+                groupMembershipMap: groupMembershipMap(i),
+              }))
           && ToolbarTextSearchFilter.match(itemSearchableText(i), searchedText),
       ),
     [

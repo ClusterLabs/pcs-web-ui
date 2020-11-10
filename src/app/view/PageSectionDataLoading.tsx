@@ -1,11 +1,7 @@
 import React from "react";
-import {
-  EmptyState,
-  EmptyStateIcon,
-  PageSection,
-  Spinner,
-  Title,
-} from "@patternfly/react-core";
+import { PageSection } from "@patternfly/react-core";
+
+import { EmptyStateSpinner } from "app/view/emptyState";
 
 export const PageSectionDataLoading = ({
   done,
@@ -16,15 +12,6 @@ export const PageSectionDataLoading = ({
 >) => (
   /* eslint-disable react/jsx-props-no-spreading */
   <PageSection {...rest}>
-    {done ? (
-      children
-    ) : (
-      <EmptyState style={{ margin: "auto" }}>
-        <EmptyStateIcon variant="container" component={Spinner} />
-        <Title size="lg" headingLevel="h3">
-          Loading data
-        </Title>
-      </EmptyState>
-    )}
+    {done ? children : <EmptyStateSpinner title="Loading data" />}
   </PageSection>
 );

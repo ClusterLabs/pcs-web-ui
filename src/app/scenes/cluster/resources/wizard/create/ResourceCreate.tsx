@@ -1,9 +1,6 @@
 import React from "react";
-import {
-  Wizard,
-  WizardContextConsumer,
-  WizardFooter,
-} from "@patternfly/react-core";
+
+import { Wizard } from "app/view";
 
 import {
   ResourceCreateNameType,
@@ -30,8 +27,7 @@ export const ResourceCreate: React.FC = () => {
   } = useWizard();
   return (
     <Wizard
-      data-test="wizard-add-resource"
-      isOpen
+      data-test="wizard-resource-create"
       onClose={close}
       title="New resource"
       description="Create new resource wizard"
@@ -39,20 +35,24 @@ export const ResourceCreate: React.FC = () => {
         {
           name: "Name and type",
           component: <ResourceCreateNameType />,
+          footer: <ResourceCreateNameTypeFooter />,
         },
         {
           name: "Instance attributes",
           component: <ResourceCreateInstanceAttrsForm />,
+          footer: <ResourceCreateInstanceAttrsFooter />,
           canJumpTo: isNameTypeValid,
         },
         {
           name: "Settings",
           component: <ResourceCreateSettings />,
+          footer: <ResourceCreateSettingsFooter />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
           name: "Review",
           component: <ResourceCreateReview />,
+          footer: <ResourceCreateReviewFooter />,
           canJumpTo:
             isNameTypeValid && areInstanceAttrsValid && areSettingsValid,
         },
@@ -62,26 +62,6 @@ export const ResourceCreate: React.FC = () => {
           isFinishedStep: true,
         },
       ]}
-      footer={
-        <WizardFooter>
-          <WizardContextConsumer>
-            {({ activeStep }) => (
-              <>
-                {activeStep.name === "Name and type" && (
-                  <ResourceCreateNameTypeFooter />
-                )}
-                {activeStep.name === "Instance attributes" && (
-                  <ResourceCreateInstanceAttrsFooter />
-                )}
-                {activeStep.name === "Settings" && (
-                  <ResourceCreateSettingsFooter />
-                )}
-                {activeStep.name === "Review" && <ResourceCreateReviewFooter />}
-              </>
-            )}
-          </WizardContextConsumer>
-        </WizardFooter>
-      }
     />
   );
 };

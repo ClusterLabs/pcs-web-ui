@@ -12,7 +12,7 @@ import { useWizard } from "../useWizard";
 
 export const ResourceCreateReview: React.FC = () => {
   const {
-    wizardState: {
+    state: {
       agentName,
       resourceName,
       instanceAttrs,

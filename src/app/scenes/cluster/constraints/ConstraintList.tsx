@@ -36,10 +36,10 @@ export const ConstraintList = ({
                 "id" in pack.constraint
                   ? pack.constraint.id
                   : `${pack.constraint["id-ref"]}-${
-                    "rsc" in pack.constraint
-                      ? pack.constraint.rsc
-                      : pack.constraint["rsc-pattern"]
-                  }-${i}`;
+                      "rsc" in pack.constraint
+                        ? pack.constraint.rsc
+                        : pack.constraint["rsc-pattern"]
+                    }-${i}`;
               return (
                 <ConstraintRowLocationRule
                   constraint={pack.constraint}

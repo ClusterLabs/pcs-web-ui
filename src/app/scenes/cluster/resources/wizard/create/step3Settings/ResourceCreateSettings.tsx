@@ -4,11 +4,12 @@ import { Checkbox, Form, FormGroup } from "@patternfly/react-core";
 import { WizardLibStep } from "app/view";
 
 import { useWizard } from "../useWizard";
+
 import { ResourceCreateSettingsGroup } from "./ResourceCreateSettingsGroup";
 
 export const ResourceCreateSettings: React.FC = () => {
   const {
-    wizardState: { reports, clone, promotable, disabled, useGroup },
+    state: { reports, clone, promotable, disabled, useGroup },
     updateState,
   } = useWizard();
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { WizardContextConsumer } from "@patternfly/react-core";
 
 import {
   WizardButtonBack,
@@ -10,16 +9,17 @@ import {
 import { useWizard } from "../useWizard";
 
 export const ResourceCreateSettingsFooter: React.FC = () => {
-  const { close, areSettingsValid, tryNext } = useWizard();
+  const {
+    close,
+    areSettingsValid,
+    tryNext,
+    wizard: { onBack },
+  } = useWizard();
   return (
-    <WizardContextConsumer>
-      {({ onNext, onBack }) => (
-        <>
-          <WizardButtonNext onClick={() => tryNext(areSettingsValid, onNext)} />
-          <WizardButtonBack onClick={onBack} />
-          <WizardButtonCancel onClick={close} />
-        </>
-      )}
-    </WizardContextConsumer>
+    <>
+      <WizardButtonNext onClick={() => tryNext(areSettingsValid)} />
+      <WizardButtonBack onClick={onBack} />
+      <WizardButtonCancel onClick={close} />
+    </>
   );
 };

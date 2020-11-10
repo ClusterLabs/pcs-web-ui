@@ -27,9 +27,9 @@ const useExpansion = ({
 
   const Content = React.useCallback(
     ({ expandKey, children }) =>
-      (expanded !== expandKey ? null : (
+      expanded !== expandKey ? null : (
         <ExpandedContent colSpan={contentSpan}>{children}</ExpandedContent>
-      )),
+      ),
     [expanded, contentSpan],
   );
 

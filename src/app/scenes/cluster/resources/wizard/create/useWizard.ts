@@ -1,63 +1,53 @@
-import { actions, selectors, useDispatch, useSelector } from "app/store";
-import { useClusterSelector, useWizardOpenClose } from "app/view";
-import { CREATE_RESOURCE } from "app/scenes/wizardKeys";
+import { actions, selectors, useSelector } from "app/store";
+import { useClusterSelector, useClusterWizard } from "app/view";
+
+type ActionUpdate = actions.PrimitiveResourceActions["CreateResourceUpdate"];
+
+const useAgent = (clusterUrlName: string, agentName: string) => {
+  const agent = useSelector(selectors.getPcmkAgent(clusterUrlName, agentName));
+  return {
+    agent,
+    isAgentLoaded:
+      agent
+      && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING"),
+  };
+};
 
 export const useWizard = () => {
-  const [wizardState, clusterUrlName] = useClusterSelector(
+  const clusterWizard = useClusterWizard(
+    "resource-create",
     selectors.getWizardResourceCreateState,
   );
+  const { clusterUrlName, state, dispatch } = clusterWizard;
   const [groupList] = useClusterSelector(selectors.getGroups);
-  const agent = useSelector(
-    selectors.getPcmkAgent(clusterUrlName, wizardState.agentName),
-  );
-  const dispatch = useDispatch();
-  const openClose = useWizardOpenClose(CREATE_RESOURCE);
+  const { agent, isAgentLoaded } = useAgent(clusterUrlName, state.agentName);
 
-  const isAgentLoaded =
-    agent
-    && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING");
-
-  type ActionUpdate = actions.PrimitiveResourceActions["CreateResourceUpdate"];
   return {
-    wizardState,
-    clusterUrlName,
-    dispatch,
-    close: () => {
-      openClose.close();
-      dispatch({
-        type: "RESOURCE.PRIMITIVE.CREATE.CLOSE",
-        payload: {
-          clusterUrlName,
-        },
-      });
-    },
-    open: openClose.open,
-    isOpened: openClose.isOpened,
+    ...clusterWizard,
+    groupList,
+    isAgentLoaded,
+
+    // validations
     isNameTypeValid:
-      wizardState.resourceName.length > 0 && wizardState.agentName.length > 0,
+      state.resourceName.length > 0 && state.agentName.length > 0,
+
     areInstanceAttrsValid:
       isAgentLoaded
       && agent.parameters.every(
-        p => !p.required || p.name in wizardState.instanceAttrs,
+        param => !param.required || param.name in state.instanceAttrs,
       ),
-    areSettingsValid:
-      wizardState.useGroup !== "new" || wizardState.group.length > 0,
-    isAgentLoaded,
-    tryNext: (isValid: boolean, next: () => void) => {
-      if (isValid) {
-        dispatch({
-          type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.HIDE",
-          payload: { clusterUrlName },
-        });
-        next();
-      } else {
-        dispatch({
-          type: "RESOURCE.PRIMITIVE.CREATE.VALIDATION.SHOW",
-          payload: { clusterUrlName },
-        });
-      }
+
+    areSettingsValid: state.useGroup !== "new" || state.group.length > 0,
+
+    // actions
+    close: () => {
+      clusterWizard.close();
+      dispatch({
+        type: "RESOURCE.PRIMITIVE.CREATE.CLOSE",
+        payload: { clusterUrlName },
+      });
     },
-    groupList,
+
     updateState: (state: ActionUpdate["payload"]["state"]) => {
       dispatch({
         type: "RESOURCE.PRIMITIVE.CREATE.UPDATE",

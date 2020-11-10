@@ -1,6 +1,7 @@
 import React from "react";
 
 import { types } from "app/store";
+import { EmptyStateNoItem } from "app/view/emptyState";
 
 import { StatusSign } from "./StatusSign";
 import { Table } from "./table";
@@ -17,16 +18,19 @@ const isTargetRoleOk = (targetRole: string): boolean =>
 
 export const CrmStatusTable = ({
   crmStatusList,
+  emptyMessage,
   rowObject,
 }: {
   crmStatusList: ResourceOnNodeStatus[];
+  emptyMessage: string;
   rowObject: {
     header: string;
-    cell: (
-      crmStatus: ResourceOnNodeStatus,
-    ) => JSX.Element | string | undefined | null;
+    cell: (crmStatus: ResourceOnNodeStatus) => React.ReactNode;
   };
 }) => {
+  if (crmStatusList.length === 0) {
+    return <EmptyStateNoItem title={emptyMessage} canAdd={false} />;
+  }
   return (
     <Table>
       <thead>
@@ -87,7 +91,7 @@ export const CrmStatusTable = ({
               {crmStatus.targetRole
                 && !isTargetRoleOk(crmStatus.targetRole) && (
                   <StatusSign status="WARNING" label={crmStatus.targetRole} />
-              )}
+                )}
             </td>
             <td data-label="Role">
               {isRoleOk(crmStatus) ? (
