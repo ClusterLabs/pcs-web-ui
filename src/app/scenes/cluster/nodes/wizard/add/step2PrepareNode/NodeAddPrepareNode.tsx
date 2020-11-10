@@ -55,13 +55,19 @@ export const NodeAddPrepareNode: React.FC = () => {
           actionLinks={
             <AlertActionLink onClick={checkAuth}>Try again</AlertActionLink>
           }
+          data-test="prepare-cluster-for-node-auth-failed"
         >
           {nodeCheckMessage}
         </Alert>
       )}
 
       {nodeCheck === "can-add-cannot" && (
-        <Alert variant="danger" isInline title={nodeCheckMessage} />
+        <Alert
+          variant="danger"
+          isInline
+          title={nodeCheckMessage}
+          data-test="prepare-cluster-for-node-cannot-add"
+        />
       )}
 
       {(nodeCheck === "auth-required"
@@ -84,6 +90,7 @@ export const NodeAddPrepareNode: React.FC = () => {
           variant="success"
           isInline
           title="The node is prepared for adding to the cluster."
+          data-test="prepare-cluster-for-node-success"
         />
       )}
     </WizardLibStep>

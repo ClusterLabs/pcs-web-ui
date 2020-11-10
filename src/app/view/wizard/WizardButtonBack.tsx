@@ -10,6 +10,7 @@ export const WizardButtonBack: React.FC<{
       variant="secondary"
       onClick={onClick}
       className={disabled ? "pf-m-disabled" : ""}
+      data-test="wizard-back"
     >
       Back
     </Button>

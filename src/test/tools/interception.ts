@@ -8,13 +8,18 @@ type RequestData = {
 };
 type Handler = (route: playwright.Route, request: playwright.Request) => void;
 type RouteUrl = string | RegExp;
-export type Route = { url: RouteUrl } & RequestData &
-  (
-    | { handler: Handler }
-    | { text: string }
-    | { json: ReturnType<typeof JSON.parse> }
-    | { status: [number, string] | number }
-  );
+export type RouteResponse =
+  | { handler: Handler }
+  | { text: string }
+  | { json: ReturnType<typeof JSON.parse> }
+  | { status: [number, string] | number };
+
+export type Route = { url: RouteUrl } & RequestData & RouteResponse;
+
+type RequestCheck = {
+  request: playwright.Request;
+  route: Route;
+};
 
 const isAppLoadingUrl = (url: string) =>
   /\/images\/favicon\.png/.exec(url)
@@ -32,13 +37,7 @@ const urlMatch = (routeUrl: RouteUrl, realUrl: string) => {
   return querylessUrl.endsWith(routeUrl);
 };
 
-const createRequestCheck = ({
-  request,
-  route,
-}: {
-  request: playwright.Request;
-  route: Route;
-}) => {
+const checkRequest = ({ request, route }: RequestCheck) => {
   const url = request.url();
   const { query } = parseUrl(url);
   let body = null;
@@ -52,19 +51,19 @@ const createRequestCheck = ({
     }
   }
 
-  return {
-    url,
-    real: {
+  expect({
+    [url]: {
       body,
       payload,
       query: Object.keys(query).length > 0 ? query : null,
     },
-    expected: {
+  }).toEqual({
+    [url]: {
       body: route.body ?? null,
       query: route.query ?? null,
       payload: route.payload ?? null,
     },
-  };
+  });
 };
 
 const handle = (
@@ -97,11 +96,7 @@ const handle = (
   return route.fulfill({ status, body });
 };
 
-let requestChecks: {
-  url: string;
-  real: RequestData;
-  expected: RequestData;
-}[] = [];
+let requestChecks: RequestCheck[] = [];
 
 let unmockedUrls: string[] = [];
 
@@ -122,13 +117,7 @@ export async function run(routeList: Route[]) {
     const matchingRoute = routeList.find(r => urlMatch(r.url, url));
 
     if (matchingRoute) {
-      requestChecks.push(
-        createRequestCheck({
-          request,
-          route: matchingRoute,
-        }),
-      );
-
+      requestChecks.push({ request, route: matchingRoute });
       return handle(route, request, matchingRoute);
     }
 
@@ -148,7 +137,5 @@ export const stop = async () => {
   if (oldUnmockedUrls.length > 0) {
     expect(`Unmocked urls detected: ${oldUnmockedUrls.join("\n")}`).toEqual("");
   }
-  oldChecks.forEach(rc =>
-    expect({ [rc.url]: rc.real }).toEqual({ [rc.url]: rc.expected }),
-  );
+  oldChecks.forEach(rc => checkRequest(rc));
 };

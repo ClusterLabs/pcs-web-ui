@@ -17,7 +17,7 @@ export const WizardSuccess: React.FC<{
   secondaryActions?: React.ReactNode;
 }> = ({ title, primaryActions, secondaryActions = null, message = "" }) => {
   return (
-    <EmptyState style={{ margin: "auto" }}>
+    <EmptyState style={{ margin: "auto" }} data-test="wizard-success">
       <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
       <Title headingLevel="h4" size="lg">
         {title}

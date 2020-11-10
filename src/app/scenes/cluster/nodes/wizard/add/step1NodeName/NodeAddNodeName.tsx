@@ -16,7 +16,7 @@ export const NodeAddNodeName: React.FC = () => {
 
   return (
     <WizardLibStep title="Choose node name" reports={reports}>
-      <Form>
+      <Form data-test="form-node-name">
         <FormGroup
           label="Node name"
           isRequired
@@ -31,6 +31,7 @@ export const NodeAddNodeName: React.FC = () => {
             type="text"
             onChange={updateNodeName}
             validated={nodeNameValidated}
+            data-test="node-name"
           />
         </FormGroup>
       </Form>

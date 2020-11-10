@@ -7,11 +7,12 @@ import {
 } from "@patternfly/react-core";
 
 export const Wizard: React.FC<{
+  ["data-test"]: string;
   steps: (WizardStep & { footer?: React.ReactNode })[];
   onClose: () => void;
   title: string;
   description: string;
-}> = ({ steps, onClose, title, description }) => {
+}> = ({ "data-test": dataTest, steps, onClose, title, description }) => {
   const stepList: WizardStep[] = [];
   const footerList: { name: React.ReactNode; footer: React.ReactNode }[] = [];
 
@@ -27,6 +28,7 @@ export const Wizard: React.FC<{
 
   return (
     <PfWizard
+      data-test={dataTest}
       steps={stepList}
       isOpen
       onClose={onClose}

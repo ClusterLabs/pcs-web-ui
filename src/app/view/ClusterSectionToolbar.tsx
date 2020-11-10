@@ -5,7 +5,7 @@ export const ClusterSectionToolbar: React.FC = ({ children }) => {
   return (
     <PageSection variant="light" style={{ paddingTop: "0" }}>
       <Stack>
-        <StackItem>{children}</StackItem>
+        <StackItem data-test="cluster-section-toolbar">{children}</StackItem>
       </Stack>
     </PageSection>
   );

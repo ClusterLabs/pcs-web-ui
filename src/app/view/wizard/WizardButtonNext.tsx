@@ -12,6 +12,7 @@ export const WizardButtonNext: React.FC<{
       type="submit"
       onClick={onClick}
       className={disabled ? "pf-m-disabled" : ""}
+      data-test="wizard-next"
     >
       {label}
     </Button>
