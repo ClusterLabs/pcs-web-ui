@@ -94,6 +94,7 @@ export const resourceUnmanage = lib("resource-unmanage");
 export const resourceDisable = lib("resource-disable");
 export const resourceEnable = lib("resource-enable");
 export const clusterAddNodes = lib("cluster-add-nodes");
+export const clusterRemoveNodes = lib("cluster-remove-nodes");
 export const nodeStandbyUnstandby = lib("node-standby-unstandby");
 export const nodeMaintenanceUnmaintenance = lib(
   "node-maintenance-unmaintenance",

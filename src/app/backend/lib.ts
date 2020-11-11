@@ -67,6 +67,13 @@ export type ClusterCommand =
         force_flags?: string[];
         wait?: boolean;
       };
+    }
+  | {
+      command: "cluster-remove-nodes";
+      payload: {
+        node_list: string[];
+        force_flags?: string[];
+      };
     };
 
 export const callCluster = async ({

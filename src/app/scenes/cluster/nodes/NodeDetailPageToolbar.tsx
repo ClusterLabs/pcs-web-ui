@@ -128,6 +128,24 @@ export const NodeDetailPageToolbar: React.FC<{
           menuItems={{
             ...standbyUnstandbyMenuItem,
             ...maintenanceUnmanintenanceMenuItem,
+            Remove: {
+              action: {
+                type: "LIB.CALL.CLUSTER",
+                payload: {
+                  clusterUrlName,
+                  taskLabel: `remove node "${node.name}"`,
+                  call: {
+                    command: "cluster-remove-nodes",
+                    payload: { node_list: [node.name] },
+                  },
+                },
+              },
+              confirm: {
+                title: "Remove node?",
+                description:
+                  "Shutdown specified nodes and remove them from the cluster.",
+              },
+            },
           }}
         />
       </ToolbarItem>

@@ -46,6 +46,13 @@ app.clusterStop((req, res) => {
   res.send("Some output");
 });
 
+app.clusterRemoveNodes((req, res) => {
+  shortcut.libStd({
+    code: req.body.node_list[0],
+    res,
+  });
+});
+
 shortcut.dashboard([
   response.clusterStatus.actions,
   response.clusterStatus.actionsAlternative,
