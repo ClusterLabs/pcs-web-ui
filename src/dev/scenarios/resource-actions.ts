@@ -3,15 +3,19 @@ import * as shortcut from "dev/shortcuts";
 import * as app from "dev/app";
 
 const refreshCleanup: app.Handler = (req, res) => {
-  if (req.body.resource === "fail") {
+  const name = req.body.resource.startsWith("FD_")
+    ? req.body.resource.slice(3)
+    : req.body.resource;
+
+  if (name === "fail") {
     res.status(500).send("Something wrong");
     return;
   }
-  if (req.body.resource === "permission") {
+  if (name === "permission") {
     res.status(403).send("Permission denied");
     return;
   }
-  if (req.body.resource === "error") {
+  if (name === "error") {
     res.json({
       error: "true",
       stdout: "Standard output",

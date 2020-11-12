@@ -1,4 +1,11 @@
-import { cluster, crmStatus, node, primitive, services } from "./tools";
+import {
+  cluster,
+  crmStatus,
+  node,
+  primitive,
+  services,
+  stonith,
+} from "./tools";
 
 // Purpose is to provide items like resources, nodes, fence devices with
 // standard names on which
@@ -45,6 +52,13 @@ export const actions = cluster("actions", "ok", {
     actionResource("missing-key"),
     actionResource("unknown-cmd"),
     actionResource("error"),
+    stonith("FD_ok"),
+    stonith("FD_fail"),
+    stonith("FD_permission"),
+    stonith("FD_invalid-json"),
+    stonith("FD_missing-key"),
+    stonith("FD_unknown-cmd"),
+    stonith("FD_error"),
   ],
 });
 
