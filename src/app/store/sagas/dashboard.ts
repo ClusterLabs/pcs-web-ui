@@ -1,9 +1,9 @@
 import { importedClusterList } from "app/backend";
-import { SetupDataReading } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import { api, dataLoad, fork, put } from "./common";
 
-function* fetchDashboardData() {
+function* fetchClusterList() {
   const result: api.ResultOf<typeof importedClusterList> = yield api.authSafe(
     importedClusterList,
   );
@@ -17,7 +17,7 @@ function* fetchDashboardData() {
     cluster => cluster.name,
   );
   yield put({
-    type: "DASHBOARD_DATA.FETCH.SUCCESS",
+    type: "CLUSTER.LIST.FETCH.OK",
     payload: { clusterNameList },
   });
 
@@ -26,18 +26,18 @@ function* fetchDashboardData() {
     payload: [
       {
         specificator: "syncDashboard",
-        start: { type: "DASHBOARD_DATA.SYNC" },
-        stop: { type: "DASHBOARD_DATA.SYNC.STOP" },
+        start: { type: "CLUSTER.LIST.SYNC" },
+        stop: { type: "CLUSTER.LIST.SYNC.STOP" },
       },
       ...clusterNameList.map(
-        (clusterUrlName): SetupDataReading["payload"][0] => ({
+        (clusterUrlName): ActionMap["DATA_READING.SET_UP"]["payload"][0] => ({
           specificator: `syncCluster:${clusterUrlName}`,
           start: {
-            type: "CLUSTER_DATA.SYNC",
+            type: "CLUSTER.STATUS.SYNC",
             payload: { clusterUrlName },
           },
           stop: {
-            type: "CLUSTER_DATA.SYNC.STOP",
+            type: "CLUSTER.STATUS.SYNC.STOP",
             payload: { clusterUrlName },
           },
         }),
@@ -46,14 +46,14 @@ function* fetchDashboardData() {
   });
 }
 
-const REFRESH = "DASHBOARD_DATA.REFRESH";
-const dashboardDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
-  START: "DASHBOARD_DATA.SYNC",
-  STOP: "DASHBOARD_DATA.SYNC.STOP",
+const REFRESH = "CLUSTER.LIST.REFRESH";
+const clusterListSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
+  START: "CLUSTER.LIST.SYNC",
+  STOP: "CLUSTER.LIST.SYNC.STOP",
   REFRESH,
-  SUCCESS: "DASHBOARD_DATA.FETCH.SUCCESS",
+  SUCCESS: "CLUSTER.LIST.FETCH.OK",
   refresh: () => ({ type: REFRESH }),
-  fetch: fetchDashboardData,
+  fetch: fetchClusterList,
 };
 
-export default [fork(dataLoad.manage, dashboardDataSyncOptions)];
+export default [fork(dataLoad.manage, clusterListSyncOptions)];

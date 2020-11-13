@@ -1,10 +1,10 @@
-import { LibActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import { api, lib, processError, takeEvery } from "./common";
 
 function* callLib({
   payload: { clusterUrlName, call: command, taskLabel },
-}: LibActions["ActionLibClusterCall"]) {
+}: ActionMap["LIB.CALL.CLUSTER"]) {
   const result: api.ResultOf<typeof api.lib.call> = yield api.authSafe(
     api.lib.callCluster,
     { clusterUrlName, ...command },

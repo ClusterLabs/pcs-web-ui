@@ -1,7 +1,7 @@
 import React from "react";
 import { ToolbarGroup, ToolbarItem } from "@patternfly/react-core";
 
-import { actions, types } from "app/store";
+import { Action, types } from "app/store";
 import {
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
@@ -15,7 +15,7 @@ export const NodeDetailPageToolbar: React.FC<{
 }> = ({ node }) => {
   const clusterUrlName = useSelectedClusterName();
   const { isNodeAttrCibTrue } = useClusterState(clusterUrlName);
-  const standbyUnstandbyAction = (standby: boolean): actions.Action => ({
+  const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
     payload: {
       clusterUrlName,
@@ -26,9 +26,7 @@ export const NodeDetailPageToolbar: React.FC<{
       },
     },
   });
-  const maintenanceUnmanintenanceAction = (
-    maintenance: boolean,
-  ): actions.Action => ({
+  const maintenanceUnmanintenanceAction = (maintenance: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
     payload: {
       clusterUrlName,

@@ -1,5 +1,4 @@
 import {
-  ActionPattern,
   ForkEffect,
   PutEffect,
   TakeEffect,
@@ -29,7 +28,7 @@ export function takeEvery<A extends Action>(
   return sagaTakeEvery(typeOfAction, worker);
 }
 
-export function take(pattern?: Action["type"] | ActionPattern): TakeEffect {
+export function take(pattern?: Action["type"] | Action["type"][]): TakeEffect {
   return sagaTake(pattern);
 }
 

@@ -1,5 +1,5 @@
 import { removeResource } from "app/backend";
-import { PrimitiveResourceActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import {
   api,
@@ -10,7 +10,7 @@ import {
 
 export function* deleteResource({
   payload: { clusterUrlName, resourceIds },
-}: PrimitiveResourceActions["ActionDelete"]) {
+}: ActionMap["RESOURCE.DELETE"]) {
   const result: api.ResultOf<typeof removeResource> = yield api.authSafe(
     removeResource,
     clusterUrlName,
@@ -24,4 +24,4 @@ export function* deleteResource({
   );
 }
 
-export default [takeEvery("RESOURCE.PRIMITIVE.DELETE", deleteResource)];
+export default [takeEvery("RESOURCE.DELETE", deleteResource)];

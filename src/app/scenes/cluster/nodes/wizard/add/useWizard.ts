@@ -1,9 +1,7 @@
 import React from "react";
 
-import { actions, selectors } from "app/store";
+import { ActionMap, selectors } from "app/store";
 import { useClusterState, useClusterWizard } from "app/view";
-
-type ActionUpdate = actions.NodeActions["NodeAddUpdate"];
 
 export const useWizard = () => {
   const clusterWizard = useClusterWizard(
@@ -54,11 +52,11 @@ export const useWizard = () => {
       clusterWizard.close();
       dispatch({
         type: "NODE.ADD.CLOSE",
-        payload: {clusterUrlName},
+        payload: { clusterUrlName },
       });
     },
 
-    updateState: (state: ActionUpdate["payload"]["state"]) =>
+    updateState: (state: ActionMap["NODE.ADD.UPDATE"]["payload"]["state"]) =>
       dispatch({
         type: "NODE.ADD.UPDATE",
         payload: {

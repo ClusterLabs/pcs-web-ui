@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, Modal } from "@patternfly/react-core";
 
-import { actions, useDispatch } from "app/store";
+import { Action, useDispatch } from "app/store";
 
 export const DetailLayoutToolbarAction: React.FC<{
   name: string;
   title: string;
-  action: actions.Action;
+  action: Action;
 }> = ({ name, title, children, action }) => {
   const [confirmOpen, setConfirmOpen] = React.useState(false);
   const dispatch = useDispatch();

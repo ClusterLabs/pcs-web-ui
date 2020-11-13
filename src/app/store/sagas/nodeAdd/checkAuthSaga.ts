@@ -1,11 +1,11 @@
 import { checkAuthAgainstNodes } from "app/backend";
-import { Action, NodeActions } from "app/store/actions";
+import { Action, ActionMap } from "app/store/actions";
 
 import { api, errorMessage, processError, put, race, take } from "../common";
 
 export function* checkAuthSaga({
   payload: { clusterUrlName, nodeName },
-}: NodeActions["NodeAddCheckAuth"]) {
+}: ActionMap["NODE.ADD.CHECK_AUTH"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } = yield race({
@@ -19,7 +19,7 @@ export function* checkAuthSaga({
   }
 
   const errorAction = (message: string): Action => ({
-    type: "NODE.ADD.CHECK_AUTH.FAILED",
+    type: "NODE.ADD.CHECK_AUTH.FAIL",
     payload: { clusterUrlName, message },
   });
   const taskLabel = `add node "${nodeName}": node authentication check`;

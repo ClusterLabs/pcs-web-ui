@@ -1,4 +1,4 @@
-import { PrimitiveResourceActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 import { resourceCleanup, resourceRefresh } from "app/backend";
 
 import {
@@ -9,9 +9,7 @@ import {
   takeEvery,
 } from "./common";
 
-type Action =
-  | PrimitiveResourceActions["ActionRefresh"]
-  | PrimitiveResourceActions["ActionCleanup"];
+type Action = ActionMap["RESOURCE.REFRESH"] | ActionMap["RESOURCE.CLEANUP"];
 
 type ApiCall = typeof resourceRefresh | typeof resourceCleanup;
 
@@ -44,12 +42,6 @@ function resourceAction(apiCall: ApiCall, taskName: string) {
 }
 
 export default [
-  takeEvery(
-    "RESOURCE.PRIMITIVE.REFRESH",
-    resourceAction(resourceRefresh, "refresh"),
-  ),
-  takeEvery(
-    "RESOURCE.PRIMITIVE.CLEANUP",
-    resourceAction(resourceCleanup, "cleanup"),
-  ),
+  takeEvery("RESOURCE.REFRESH", resourceAction(resourceRefresh, "refresh")),
+  takeEvery("RESOURCE.CLEANUP", resourceAction(resourceCleanup, "cleanup")),
 ];

@@ -1,5 +1,5 @@
 export type NotificationActions = {
-  Create: {
+  "NOTIFICATION.CREATE": {
     type: "NOTIFICATION.CREATE";
     payload: {
       notification: {
@@ -20,7 +20,7 @@ export type NotificationActions = {
     };
   };
 
-  Destroy: {
+  "NOTIFICATION.DESTROY": {
     type: "NOTIFICATION.DESTROY";
     payload: {
       id: number;

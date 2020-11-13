@@ -1,6 +1,6 @@
 import { Task } from "redux-saga";
 
-import { Action, LeafAction, SetupDataReading } from "app/store/actions";
+import { Action, ActionLeaf, ActionMap } from "app/store/actions";
 
 import { all, cancel, cancelled, delay, fork, put, take } from "./effects";
 
@@ -98,10 +98,10 @@ export function* manage({
   }
 }
 
-type Stop = { stop: LeafAction; specificator: string };
+type Stop = { stop: ActionLeaf; specificator: string };
 
 export const takeNewLoadings = (
-  readings: SetupDataReading["payload"],
+  readings: ActionMap["DATA_READING.SET_UP"]["payload"],
   stops: Stop[],
 ) => {
   const newNames = readings.map(r => r.specificator);
@@ -126,7 +126,9 @@ export function* setUpDataReading() {
 
   /* eslint-disable no-constant-condition */
   while (true) {
-    const { payload }: SetupDataReading = yield take("DATA_READING.SET_UP");
+    const { payload }: ActionMap["DATA_READING.SET_UP"] = yield take(
+      "DATA_READING.SET_UP",
+    );
     const { startActions, stopActions, nextStops } = takeNewLoadings(
       payload,
       stops,

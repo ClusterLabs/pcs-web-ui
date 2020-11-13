@@ -1,11 +1,11 @@
 import { clusterProperties } from "app/backend";
-import { ClusterPropertiesActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import { api, put, takeEvery } from "./common";
 
 function* loadClusterProperties({
   payload: { clusterUrlName },
-}: ClusterPropertiesActions["LoadClusterProperties"]) {
+}: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
   const result: api.ResultOf<typeof clusterProperties> = yield api.authSafe(
     clusterProperties,
     clusterUrlName,
@@ -16,7 +16,7 @@ function* loadClusterProperties({
     yield api.processError(result, taskLabel, {
       action: () =>
         put({
-          type: "CLUSTER_PROPERTIES.LOAD.FAILED",
+          type: "CLUSTER.PROPERTIES.LOAD.ERROR",
           payload: { clusterUrlName },
         }),
     });
@@ -24,8 +24,8 @@ function* loadClusterProperties({
   }
 
   yield put({
-    type: "CLUSTER_PROPERTIES.LOAD.SUCCESS",
+    type: "CLUSTER.PROPERTIES.LOAD.OK",
     payload: { apiClusterProperties: result.payload, clusterUrlName },
   });
 }
-export default [takeEvery("CLUSTER_PROPERTIES.LOAD", loadClusterProperties)];
+export default [takeEvery("CLUSTER.PROPERTIES.LOAD", loadClusterProperties)];

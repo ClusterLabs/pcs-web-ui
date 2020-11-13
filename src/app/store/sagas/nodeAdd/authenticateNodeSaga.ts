@@ -1,11 +1,11 @@
 import { authGuiAgainstNodes } from "app/backend";
-import { NodeActions } from "app/store/actions";
+import { ActionMap } from "app/store";
 
 import { api, put, race, take } from "../common";
 
 export function* authenticateNodeSaga({
   payload: { clusterUrlName, nodeName, password, port, address },
-}: NodeActions["NodeAddAuthenticate"]) {
+}: ActionMap["NODE.ADD.AUTHENTICATE"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof authGuiAgainstNodes> } = yield race({
@@ -23,7 +23,7 @@ export function* authenticateNodeSaga({
     yield api.processError(result, taskLabel, {
       action: () =>
         put({
-          type: "NODE.ADD.AUTHENTICATE.FAILED",
+          type: "NODE.ADD.AUTHENTICATE.FAIL",
           payload: {
             clusterUrlName,
             message: api.errorMessage(result, taskLabel),

@@ -1,5 +1,5 @@
 import { getResourceAgentMetadata } from "app/backend";
-import { actions, selectors, types } from "app/store";
+import { ActionMap, selectors, types } from "app/store";
 
 import { api, processError, put, select, takeEvery } from "./common";
 
@@ -7,7 +7,7 @@ type ApiCallResult = api.ResultOf<typeof getResourceAgentMetadata>;
 
 function* loadResourceAgent({
   payload: { agentName, clusterUrlName },
-}: actions.ResourceAgentActions["LoadResourceAgent"]) {
+}: ActionMap["RESOURCE_AGENT.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
     getResourceAgentMetadata,
     clusterUrlName,
@@ -34,7 +34,7 @@ function* loadResourceAgent({
 
 function* ensureResourceAgent({
   payload: { agentName, clusterUrlName },
-}: actions.ResourceAgentActions["EnsureResourceAgent"]) {
+}: ActionMap["RESOURCE_AGENT.ENSURE"]) {
   const pcmkAgent: types.pcmkAgents.StoredAgent = yield select(
     selectors.getPcmkAgent(clusterUrlName, agentName),
   );

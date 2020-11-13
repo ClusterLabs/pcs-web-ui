@@ -1,7 +1,9 @@
 export type AuthActions = {
-  AuthRequired: { type: "AUTH.REQUIRED" };
+  "AUTH.REQUIRED": {
+    type: "AUTH.REQUIRED";
+  };
 
-  AuthSuccess: {
+  "AUTH.SUCCESS": {
     type: "AUTH.SUCCESS";
     payload: {
       username: string;

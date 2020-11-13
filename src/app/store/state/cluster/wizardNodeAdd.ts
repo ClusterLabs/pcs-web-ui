@@ -86,7 +86,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
         nodeCheck: "can-add-started",
         nodeCheckMessage: "",
       };
-    case "NODE.ADD.CHECK_CAN_ADD.FAILED":
+    case "NODE.ADD.CHECK_CAN_ADD.FAIL":
       return {
         ...state,
         nodeCheck: "can-add-failed",
@@ -110,7 +110,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
         nodeCheck: "auth-required",
         nodeCheckMessage: "",
       };
-    case "NODE.ADD.CHECK_AUTH.FAILED":
+    case "NODE.ADD.CHECK_AUTH.FAIL":
       return {
         ...state,
         nodeCheck: "auth-failed",
@@ -122,7 +122,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
         nodeCheck: "auth-progress",
         nodeCheckMessage: "",
       };
-    case "NODE.ADD.AUTHENTICATE.FAILED":
+    case "NODE.ADD.AUTHENTICATE.FAIL":
       return {
         ...state,
         nodeCheck: "auth-required",
@@ -140,7 +140,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
         nodeCheck: "send-known-hosts-started",
         nodeCheckMessage: "",
       };
-    case "NODE.ADD.SEND_KNOWN_HOSTS.SUCCESS":
+    case "NODE.ADD.SEND_KNOWN_HOSTS.OK":
       return {
         ...state,
         nodeCheck: "success",
@@ -148,15 +148,15 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
       };
     case "NODE.ADD.CLOSE":
       return initialState;
-    case "NODE.ADD.SUCCESS":
+    case "NODE.ADD.OK":
       return { ...state, response: "success", reports: action.payload.reports };
-    case "NODE.ADD.FAILED":
+    case "NODE.ADD.FAIL":
       return { ...state, response: "fail", reports: action.payload.reports };
     case "NODE.ADD.ERROR":
       return { ...state, response: "communication-error" };
-    case "CLUSTER_WIZARD.VALIDATION.SHOW":
+    case "CLUSTER.WIZARD.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
-    case "CLUSTER_WIZARD.VALIDATION.HIDE":
+    case "CLUSTER.WIZARD.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
     default:
       return state;

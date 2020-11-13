@@ -1,15 +1,15 @@
 import { api, getAvailResourceAgents } from "app/backend";
 
 export type ResourceAgentListActions = {
-  LoadResourceAgentList: {
-    type: "RESOURCE_AGENT_LIST.LOAD";
+  "RESOURCE_AGENT.LIST.LOAD": {
+    type: "RESOURCE_AGENT.LIST.LOAD";
     payload: {
       clusterUrlName: string;
     };
   };
 
   LoadResourceAgentListSuccess: {
-    type: "RESOURCE_AGENT_LIST.LOAD.SUCCESS";
+    type: "RESOURCE_AGENT.LIST.LOAD.OK";
     payload: {
       clusterUrlName: string;
       apiResourceAgentMap: api.PayloadOf<typeof getAvailResourceAgents>;
@@ -17,7 +17,7 @@ export type ResourceAgentListActions = {
   };
 
   LoadResourceAgentListFailed: {
-    type: "RESOURCE_AGENT_LIST.LOAD.FAILED";
+    type: "RESOURCE_AGENT.LIST.LOAD.FAIL";
     payload: {
       clusterUrlName: string;
     };

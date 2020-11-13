@@ -1,9 +1,9 @@
 export type UsernameActions = {
-  LoadUsername: {
+  "USERNAME.LOAD": {
     type: "USERNAME.LOAD";
   };
 
-  SetUsername: {
+  "USERNAME.SET": {
     type: "USERNAME.SET";
     payload: {
       username: string;

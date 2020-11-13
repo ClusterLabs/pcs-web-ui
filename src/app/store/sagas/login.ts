@@ -1,5 +1,5 @@
 import { login, logout } from "app/backend";
-import { LoginActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import {
   api,
@@ -17,7 +17,7 @@ export function* logoutSaga() {
   if (result.type === "UNAUTHORIZED") {
     // Ok we are already somehow loged out.
     yield putNotification("SUCCESS", "Already logged out");
-    yield put({ type: "LOGOUT.SUCCESS" });
+    yield put({ type: "LOGIN.LOGOUT.SUCCESS" });
     return;
   }
   if (result.type !== "OK") {
@@ -26,12 +26,12 @@ export function* logoutSaga() {
   }
 
   yield putNotification("SUCCESS", "Success logout");
-  yield put({ type: "LOGOUT.SUCCESS" });
+  yield put({ type: "LOGIN.LOGOUT.SUCCESS" });
 }
 
 export function* loginSaga({
   payload: { username, password },
-}: LoginActions["EnterCredentials"]) {
+}: ActionMap["LOGIN.ENTER_CREDENTIALS"]) {
   const result: api.ResultOf<typeof login> = yield call(
     login,
     username,
@@ -55,6 +55,6 @@ export function* loginSaga({
 }
 
 export default [
-  takeEvery("LOGOUT", logoutSaga),
-  takeEvery("ENTER_CREDENTIALS", loginSaga),
+  takeEvery("LOGIN.LOGOUT", logoutSaga),
+  takeEvery("LOGIN.ENTER_CREDENTIALS", loginSaga),
 ];

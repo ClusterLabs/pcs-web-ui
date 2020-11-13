@@ -1,5 +1,5 @@
 import { api } from "app/backend";
-import { actions } from "app/store";
+import { Action } from "app/store";
 
 import { put } from "../effects";
 
@@ -12,9 +12,9 @@ export function* clusterResponseSwitch(
     errorAction,
     successAction,
   }: {
-    communicationErrorAction: actions.Action;
-    errorAction: actions.Action;
-    successAction: actions.Action;
+    communicationErrorAction: Action;
+    errorAction: Action;
+    successAction: Action;
   },
 ) {
   const {
@@ -36,7 +36,7 @@ export function* clusterResponseSwitch(
       return;
     case "success":
       yield put({
-        type: "CLUSTER_DATA.REFRESH",
+        type: "CLUSTER.STATUS.REFRESH",
         payload: { clusterUrlName },
       });
       yield put(successAction);

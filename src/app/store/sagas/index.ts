@@ -6,7 +6,6 @@ import dashboard from "./dashboard";
 import dataLoad from "./common/dataLoad";
 import login from "./login";
 import notifications from "./common/notifications";
-import resourceDetail from "./resourceDetail";
 import resourceUpdate from "./resourceUpdate";
 import resourceCreate from "./resourceCreate";
 import resourceAgent from "./resourceAgent";
@@ -31,7 +30,6 @@ function* rootSaga() {
     ...addExistingCluster,
     ...notifications,
     ...resourceCreate,
-    ...resourceDetail,
     ...resourceUpdate,
     ...resourceAgent,
     ...fenceAgent,

@@ -1,23 +1,23 @@
 import { api, clusterProperties } from "app/backend";
 
 export type ClusterPropertiesActions = {
-  LoadClusterProperties: {
-    type: "CLUSTER_PROPERTIES.LOAD";
+  "CLUSTER.PROPERTIES.LOAD": {
+    type: "CLUSTER.PROPERTIES.LOAD";
     payload: {
       clusterUrlName: string;
     };
   };
 
-  LoadClusterPropertiesSuccess: {
-    type: "CLUSTER_PROPERTIES.LOAD.SUCCESS";
+  "CLUSTER.PROPERTIES.LOAD.OK": {
+    type: "CLUSTER.PROPERTIES.LOAD.OK";
     payload: {
       clusterUrlName: string;
       apiClusterProperties: api.PayloadOf<typeof clusterProperties>;
     };
   };
 
-  LoadClusterPropertiesFailed: {
-    type: "CLUSTER_PROPERTIES.LOAD.FAILED";
+  "CLUSTER.PROPERTIES.LOAD.ERROR": {
+    type: "CLUSTER.PROPERTIES.LOAD.ERROR";
     payload: {
       clusterUrlName: string;
     };

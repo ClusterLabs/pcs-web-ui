@@ -13,7 +13,7 @@ export type ClusterPropertiesService = {
 
 const data: Reducer<ClusterProperty[]> = (state = [], action) => {
   switch (action.type) {
-    case "CLUSTER_PROPERTIES.LOAD.SUCCESS": {
+    case "CLUSTER.PROPERTIES.LOAD.OK": {
       const { apiClusterProperties } = action.payload;
       return Object.keys(apiClusterProperties).map(
         n => apiClusterProperties[n],
@@ -29,17 +29,17 @@ const fetchState: Reducer<ClusterPropertiesService["fetchState"]> = (
   action,
 ) => {
   switch (action.type) {
-    case "CLUSTER_PROPERTIES.LOAD.SUCCESS":
+    case "CLUSTER.PROPERTIES.LOAD.OK":
       return {
         current: "LOADED",
         alreadyLoaded: true,
       };
-    case "CLUSTER_PROPERTIES.LOAD":
+    case "CLUSTER.PROPERTIES.LOAD":
       return {
         ...state,
         current: state.alreadyLoaded ? "RELOADING" : "LOADING",
       };
-    case "CLUSTER_PROPERTIES.LOAD.FAILED":
+    case "CLUSTER.PROPERTIES.LOAD.ERROR":
       return {
         ...state,
         current: "FAILED",

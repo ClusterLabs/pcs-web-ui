@@ -1,11 +1,11 @@
 import { getFenceAgentMetadata } from "app/backend";
-import { FenceAgentActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import { api, authSafe, processError, put, takeEvery } from "./common";
 
 function* loadFenceAgent({
   payload: { agentName, clusterUrlName },
-}: FenceAgentActions["LoadFenceAgent"]) {
+}: ActionMap["FENCE_AGENT.LOAD"]) {
   const result: api.ResultOf<typeof getFenceAgentMetadata> = yield authSafe(
     getFenceAgentMetadata,
     clusterUrlName,

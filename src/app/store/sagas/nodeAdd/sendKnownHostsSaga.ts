@@ -1,11 +1,11 @@
 import { sendKnownHosts } from "app/backend";
-import { NodeActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import { api, put, race, take } from "../common";
 
 export function* sendKnownHostsSaga({
   payload: { clusterUrlName, nodeName },
-}: NodeActions["NodeAddSendKnownHosts"]) {
+}: ActionMap["NODE.ADD.SEND_KNOWN_HOSTS"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof sendKnownHosts> } = yield race({
@@ -20,13 +20,13 @@ export function* sendKnownHostsSaga({
 
   if (result.type !== "OK") {
     yield put({
-      type: "NODE.ADD.SEND_KNOWN_HOSTS.FAILED",
+      type: "NODE.ADD.SEND_KNOWN_HOSTS.FAIL",
       payload: { clusterUrlName },
     });
     return;
   }
   yield put({
-    type: "NODE.ADD.SEND_KNOWN_HOSTS.SUCCESS",
+    type: "NODE.ADD.SEND_KNOWN_HOSTS.OK",
     payload: {
       clusterUrlName,
     },

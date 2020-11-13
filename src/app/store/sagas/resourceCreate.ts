@@ -1,10 +1,10 @@
-import { Action, PrimitiveResourceActions } from "app/store/actions";
+import { Action, ActionMap } from "app/store/actions";
 
 import { api, lib, processError, put, race, take, takeEvery } from "./common";
 
 function* resourceCreateSaga({
   payload: { agentName, resourceName, instanceAttrs, clusterUrlName, disabled },
-}: PrimitiveResourceActions["CreateResource"]) {
+}: ActionMap["RESOURCE.CREATE"]) {
   const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
     result: api.authSafe(api.lib.callCluster, {
       clusterUrlName,
@@ -18,7 +18,7 @@ function* resourceCreateSaga({
         meta_attributes: {},
       },
     }),
-    cancel: take("RESOURCE.PRIMITIVE.CREATE.CLOSE"),
+    cancel: take("RESOURCE.CREATE.CLOSE"),
   });
 
   if (!result) {
@@ -28,7 +28,7 @@ function* resourceCreateSaga({
 
   const taskLabel = `create resource "${resourceName}"`;
   const errorAction: Action = {
-    type: "RESOURCE.PRIMITIVE.CREATE.ERROR",
+    type: "RESOURCE.CREATE.ERROR",
     payload: { clusterUrlName },
   };
 
@@ -42,15 +42,15 @@ function* resourceCreateSaga({
 
   yield lib.clusterResponseSwitch(clusterUrlName, taskLabel, result.payload, {
     successAction: {
-      type: "RESOURCE.PRIMITIVE.CREATE.SUCCESS",
+      type: "RESOURCE.CREATE.SUCCESS",
       payload: { clusterUrlName, reports: result.payload.report_list },
     },
     errorAction: {
-      type: "RESOURCE.PRIMITIVE.CREATE.FAILED",
+      type: "RESOURCE.CREATE.FAIL",
       payload: { clusterUrlName, reports: result.payload.report_list },
     },
     communicationErrorAction: errorAction,
   });
 }
 
-export default [takeEvery("RESOURCE.PRIMITIVE.CREATE", resourceCreateSaga)];
+export default [takeEvery("RESOURCE.CREATE", resourceCreateSaga)];

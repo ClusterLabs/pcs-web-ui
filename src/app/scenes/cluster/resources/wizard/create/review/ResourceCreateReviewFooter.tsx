@@ -21,7 +21,7 @@ export const ResourceCreateReviewFooter: React.FC = () => {
       <WizardButtonNext
         onClick={() => {
           dispatch({
-            type: "RESOURCE.PRIMITIVE.CREATE",
+            type: "RESOURCE.CREATE",
             payload: {
               agentName,
               resourceName,

@@ -3,18 +3,18 @@ import {
   checkAuthAgainstNodes,
   existingCluster,
 } from "app/backend";
-import { AddClusterActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import { api, put, race, take, takeEvery } from "./common";
 
 function* checkAuthentication({
   payload: { nodeName },
-}: AddClusterActions["CheckAuth"]) {
+}: ActionMap["CLUSTER.ADD.CHECK_AUTH"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } = yield race({
     result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
-    cancel: take("ADD_CLUSTER.NODE_NAME.UPDATE"),
+    cancel: take("CLUSTER.ADD.NODE_NAME.UPDATE"),
   });
 
   if (!result) {
@@ -26,7 +26,7 @@ function* checkAuthentication({
     yield api.processError(result, taskLabel, {
       action: () =>
         put({
-          type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
+          type: "CLUSTER.ADD.CHECK_AUTH.ERROR",
           payload: { message: api.errorMessage(result, taskLabel) },
         }),
       useNotification: false,
@@ -36,13 +36,13 @@ function* checkAuthentication({
 
   const nodeStatus = result.payload[nodeName];
   if (nodeStatus === "Online") {
-    yield put({ type: "ADD_CLUSTER.CHECK_AUTH.OK" });
+    yield put({ type: "CLUSTER.ADD.CHECK_AUTH.OK" });
     return;
   }
 
   if (nodeStatus === "Offline") {
     yield put({
-      type: "ADD_CLUSTER.CHECK_AUTH.ERROR",
+      type: "CLUSTER.ADD.CHECK_AUTH.ERROR",
       payload: {
         // prettier-ignore
         message: (
@@ -54,12 +54,10 @@ function* checkAuthentication({
   }
 
   // Unable to authenticate
-  yield put({ type: "ADD_CLUSTER.CHECK_AUTH.NO_AUTH" });
+  yield put({ type: "CLUSTER.ADD.CHECK_AUTH.NO_AUTH" });
 }
 
-function* addCluster({
-  payload: { nodeName },
-}: AddClusterActions["AddCluster"]) {
+function* addCluster({ payload: { nodeName } }: ActionMap["CLUSTER.ADD"]) {
   const result: api.ResultOf<typeof existingCluster> = yield api.authSafe(
     existingCluster,
     nodeName,
@@ -67,7 +65,7 @@ function* addCluster({
 
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
     yield put({
-      type: "ADD_CLUSTER.ADD_CLUSTER.ERROR",
+      type: "CLUSTER.ADD.ERROR",
       payload: { message: result.text },
     });
     return;
@@ -75,7 +73,7 @@ function* addCluster({
 
   if (result.type !== "OK") {
     yield put({
-      type: "ADD_CLUSTER.ADD_CLUSTER.ERROR",
+      type: "CLUSTER.ADD.ERROR",
       payload: {
         message: api.log.errorMessage(
           result,
@@ -86,18 +84,17 @@ function* addCluster({
     return;
   }
 
-  yield put({ type: "ADD_CLUSTER.RELOAD_DASHBOARD" });
-  yield put({ type: "DASHBOARD_DATA.REFRESH" });
-  yield take("DASHBOARD_DATA.FETCH.SUCCESS");
+  yield put({ type: "CLUSTER.LIST.REFRESH" });
+  yield take("CLUSTER.LIST.FETCH.OK");
   yield put({
-    type: "ADD_CLUSTER.ADD_CLUSTER.SUCCESS",
+    type: "CLUSTER.ADD.OK",
     payload: { warningMessages: [] },
   });
 }
 
 function* authenticateNode({
   payload: { nodeName, password, address, port },
-}: AddClusterActions["AuthenticateNode"]) {
+}: ActionMap["CLUSTER.ADD.AUTH_NODE"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof authGuiAgainstNodes> } = yield race({
@@ -107,7 +104,7 @@ function* authenticateNode({
         dest_list: [{ addr: address, port }],
       },
     }),
-    cancel: take("ADD_CLUSTER.NODE_NAME.UPDATE"),
+    cancel: take("CLUSTER.ADD.NODE_NAME.UPDATE"),
   });
 
   if (!result) {
@@ -120,7 +117,7 @@ function* authenticateNode({
     yield api.processError(result, taskLabel, {
       action: () =>
         put({
-          type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
+          type: "CLUSTER.ADD.AUTH_NODE.ERROR",
           payload: { message: api.errorMessage(result, taskLabel) },
         }),
       useNotification: false,
@@ -130,16 +127,16 @@ function* authenticateNode({
 
   yield put(
     result.payload.node_auth_error[nodeName] === 0
-      ? { type: "ADD_CLUSTER.AUTHENTICATE_NODE.SUCCESS" }
+      ? { type: "CLUSTER.ADD.AUTH_NODE.OK" }
       : {
-          type: "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED",
+          type: "CLUSTER.ADD.AUTH_NODE.ERROR",
           payload: { message: `${taskLabel} failed.` },
         },
   );
 }
 
 export default [
-  takeEvery("ADD_CLUSTER.CHECK_AUTH", checkAuthentication),
-  takeEvery("ADD_CLUSTER.ADD_CLUSTER", addCluster),
-  takeEvery("ADD_CLUSTER.AUTHENTICATE_NODE", authenticateNode),
+  takeEvery("CLUSTER.ADD.CHECK_AUTH", checkAuthentication),
+  takeEvery("CLUSTER.ADD", addCluster),
+  takeEvery("CLUSTER.ADD.AUTH_NODE", authenticateNode),
 ];

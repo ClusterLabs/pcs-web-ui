@@ -1,4 +1,4 @@
-import { Action, NodeActions } from "app/store/actions";
+import { Action, ActionMap } from "app/store/actions";
 
 import { api, lib, processError, put, race, take } from "../common";
 
@@ -11,7 +11,7 @@ export function* nodeAddSaga({
     sbdNoWatchdogValidation,
     sbdDevices,
   },
-}: NodeActions["NodeAdd"]) {
+}: ActionMap["NODE.ADD"]) {
   const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
     result: api.authSafe(api.lib.callCluster, {
       clusterUrlName,
@@ -30,7 +30,7 @@ export function* nodeAddSaga({
     }),
     cancel: take("NODE.ADD.CLOSE"),
   });
-  
+
   if (!result) {
     // cancelled; we no longer care about the fate of the call
     return;
@@ -51,11 +51,11 @@ export function* nodeAddSaga({
 
   yield lib.clusterResponseSwitch(clusterUrlName, taskLabel, result.payload, {
     successAction: {
-      type: "NODE.ADD.SUCCESS",
+      type: "NODE.ADD.OK",
       payload: { clusterUrlName, reports: result.payload.report_list },
     },
     errorAction: {
-      type: "NODE.ADD.FAILED",
+      type: "NODE.ADD.FAIL",
       payload: { clusterUrlName, reports: result.payload.report_list },
     },
     communicationErrorAction: errorAction,

@@ -7,9 +7,8 @@ import {
   Modal,
 } from "@patternfly/react-core";
 
-import { actions, useDispatch } from "app/store";
+import { Action, useDispatch } from "app/store";
 
-type Action = actions.Action;
 type Confirm = {
   title: string;
   description: React.ReactNode;

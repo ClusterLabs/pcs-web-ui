@@ -42,7 +42,7 @@ export const AddClusterStepAuth = () => {
             value={nodeName}
             onChange={currentNodeName =>
               dispatch({
-                type: "ADD_CLUSTER.NODE_NAME.UPDATE",
+                type: "CLUSTER.ADD.NODE_NAME.UPDATE",
                 payload: { nodeName: currentNodeName },
               })
             }
@@ -54,7 +54,7 @@ export const AddClusterStepAuth = () => {
             data-test="auth-check"
             onClick={() =>
               dispatch({
-                type: "ADD_CLUSTER.CHECK_AUTH",
+                type: "CLUSTER.ADD.CHECK_AUTH",
                 payload: { nodeName },
               })
             }
@@ -92,7 +92,7 @@ export const AddClusterStepAuth = () => {
           }
           onSend={(password: string, address: string, port: string) =>
             dispatch({
-              type: "ADD_CLUSTER.AUTHENTICATE_NODE",
+              type: "CLUSTER.ADD.AUTH_NODE",
               payload: {
                 nodeName,
                 password,

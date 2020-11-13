@@ -32,13 +32,13 @@ export function useClusterWizard<
     tryNext: (isValid: boolean) => {
       if (isValid) {
         dispatch({
-          type: "CLUSTER_WIZARD.VALIDATION.HIDE",
+          type: "CLUSTER.WIZARD.VALIDATION.HIDE",
           payload: { clusterUrlName },
         });
         pfWizardContext.onNext();
       } else {
         dispatch({
-          type: "CLUSTER_WIZARD.VALIDATION.SHOW",
+          type: "CLUSTER.WIZARD.VALIDATION.SHOW",
           payload: { clusterUrlName },
         });
       }

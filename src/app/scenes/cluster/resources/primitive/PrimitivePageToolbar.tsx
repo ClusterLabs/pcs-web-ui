@@ -119,7 +119,7 @@ export const PrimitivePageToolbar: React.FC<{
           menuItems={{
             Refresh: {
               action: {
-                type: "RESOURCE.PRIMITIVE.REFRESH",
+                type: "RESOURCE.REFRESH",
                 payload: { resourceId: primitive.id, clusterUrlName },
               },
               confirm: {
@@ -135,7 +135,7 @@ export const PrimitivePageToolbar: React.FC<{
             },
             Cleanup: {
               action: {
-                type: "RESOURCE.PRIMITIVE.CLEANUP",
+                type: "RESOURCE.CLEANUP",
                 payload: { resourceId: primitive.id, clusterUrlName },
               },
               confirm: {
@@ -150,7 +150,7 @@ export const PrimitivePageToolbar: React.FC<{
             },
             Delete: {
               action: {
-                type: "RESOURCE.PRIMITIVE.DELETE",
+                type: "RESOURCE.DELETE",
                 payload: { resourceIds: [primitive.id], clusterUrlName },
               },
               confirm: {

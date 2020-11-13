@@ -11,7 +11,7 @@ const clusterNameListState: Reducer<
   DashboardPageState["clusterNameListState"]
 > = (state = [], action) => {
   switch (action.type) {
-    case "DASHBOARD_DATA.FETCH.SUCCESS":
+    case "CLUSTER.LIST.FETCH.OK":
       return action.payload.clusterNameList;
     case "AUTH.REQUIRED":
       return [];
@@ -25,9 +25,9 @@ const dataFetchState: Reducer<DashboardPageState["dataFetchState"]> = (
   action,
 ) => {
   switch (action.type) {
-    case "DASHBOARD_DATA.SYNC":
+    case "CLUSTER.LIST.SYNC":
       return state === "SUCCESS" ? "SUCCESS" : "IN_PROGRESS";
-    case "DASHBOARD_DATA.FETCH.SUCCESS":
+    case "CLUSTER.LIST.FETCH.OK":
       return "SUCCESS";
     case "AUTH.REQUIRED":
       return "NOT_STARTED";

@@ -16,7 +16,7 @@ function* fetchClusterData(clusterUrlName: string) {
   }
 
   yield put({
-    type: "CLUSTER_DATA.FETCH.SUCCESS",
+    type: "CLUSTER.STATUS.FETCH.OK",
     payload: {
       clusterUrlName,
       apiClusterStatus: result.payload,
@@ -24,12 +24,12 @@ function* fetchClusterData(clusterUrlName: string) {
   });
 }
 
-const REFRESH = "CLUSTER_DATA.REFRESH";
+const REFRESH = "CLUSTER.STATUS.REFRESH";
 const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
-  START: "CLUSTER_DATA.SYNC",
-  STOP: "CLUSTER_DATA.SYNC.STOP",
+  START: "CLUSTER.STATUS.SYNC",
+  STOP: "CLUSTER.STATUS.SYNC.STOP",
   REFRESH,
-  SUCCESS: "CLUSTER_DATA.FETCH.SUCCESS",
+  SUCCESS: "CLUSTER.STATUS.FETCH.OK",
   refresh: (clusterName = "") => ({
     type: REFRESH,
     payload: { clusterUrlName: clusterName },
@@ -37,10 +37,10 @@ const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   fetch: fetchClusterData,
   getSyncId: (action: Action) => {
     switch (action.type) {
-      case "CLUSTER_DATA.SYNC":
-      case "CLUSTER_DATA.SYNC.STOP":
-      case "CLUSTER_DATA.FETCH.SUCCESS":
-      case "CLUSTER_DATA.REFRESH":
+      case "CLUSTER.STATUS.SYNC":
+      case "CLUSTER.STATUS.SYNC.STOP":
+      case "CLUSTER.STATUS.FETCH.OK":
+      case "CLUSTER.STATUS.REFRESH":
         return action.payload.clusterUrlName;
       default:
         return "";

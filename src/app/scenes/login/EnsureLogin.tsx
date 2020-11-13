@@ -40,7 +40,7 @@ export const EnsureLogin = ({ children }: React.PropsWithChildren<unknown>) => {
           onLoginButtonClick={(e) => {
             e.preventDefault();
             dispatch({
-              type: "ENTER_CREDENTIALS",
+              type: "LOGIN.ENTER_CREDENTIALS",
               payload: { username, password },
             });
           }}

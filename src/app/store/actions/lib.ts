@@ -1,7 +1,7 @@
 import { api } from "app/backend";
 
 export type LibActions = {
-  ActionLibClusterCall: {
+  "LIB.CALL.CLUSTER": {
     type: "LIB.CALL.CLUSTER";
     payload: {
       clusterUrlName: string;

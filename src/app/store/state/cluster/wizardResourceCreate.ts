@@ -52,7 +52,7 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
   action,
 ) => {
   switch (action.type) {
-    case "RESOURCE.PRIMITIVE.CREATE.UPDATE": {
+    case "RESOURCE.CREATE.UPDATE": {
       return {
         ...state,
         ...action.payload.state,
@@ -62,19 +62,19 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
         ),
       };
     }
-    case "RESOURCE.PRIMITIVE.CREATE":
+    case "RESOURCE.CREATE":
       return { ...state, response: "no-response" };
-    case "RESOURCE.PRIMITIVE.CREATE.SUCCESS":
+    case "RESOURCE.CREATE.SUCCESS":
       return { ...state, response: "success", reports: action.payload.reports };
-    case "RESOURCE.PRIMITIVE.CREATE.FAILED":
+    case "RESOURCE.CREATE.FAIL":
       return { ...state, response: "fail", reports: action.payload.reports };
-    case "RESOURCE.PRIMITIVE.CREATE.ERROR":
+    case "RESOURCE.CREATE.ERROR":
       return { ...state, response: "communication-error" };
-    case "RESOURCE.PRIMITIVE.CREATE.CLOSE":
+    case "RESOURCE.CREATE.CLOSE":
       return initialState;
-    case "CLUSTER_WIZARD.VALIDATION.SHOW":
+    case "CLUSTER.WIZARD.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
-    case "CLUSTER_WIZARD.VALIDATION.HIDE":
+    case "CLUSTER.WIZARD.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
     default:
       return state;

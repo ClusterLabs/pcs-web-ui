@@ -1,18 +1,17 @@
-import { NotificationActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import { delay, put, takeEvery } from "./effects";
 
 const DISPLAY_MSECONDS = 8000;
 let nextId = 1;
 
-type CreateNotification = NotificationActions["Create"];
-type Notification = CreateNotification["payload"]["notification"];
+type Notification = ActionMap["NOTIFICATION.CREATE"]["payload"]["notification"];
 
 function* limitNotificationLife({
   payload: {
     notification: { id },
   },
-}: CreateNotification) {
+}: ActionMap["NOTIFICATION.CREATE"]) {
   yield delay(DISPLAY_MSECONDS);
   yield put({
     type: "NOTIFICATION.DESTROY",
@@ -24,7 +23,7 @@ export const createNotification = (
   severity: Notification["severity"],
   message: string,
   details: Notification["details"] = undefined,
-): CreateNotification => ({
+): ActionMap["NOTIFICATION.CREATE"] => ({
   type: "NOTIFICATION.CREATE",
   payload: {
     notification: {

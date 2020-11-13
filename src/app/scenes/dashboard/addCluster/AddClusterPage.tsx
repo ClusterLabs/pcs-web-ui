@@ -28,7 +28,7 @@ export const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
       isOpen
       onNext={() =>
         dispatch({
-          type: "ADD_CLUSTER.ADD_CLUSTER",
+          type: "CLUSTER.ADD",
           payload: { nodeName },
         })
       }

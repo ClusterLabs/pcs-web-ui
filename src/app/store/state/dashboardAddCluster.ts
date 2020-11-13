@@ -23,7 +23,7 @@ export interface DashboardAddClusterPageState {
 
 const nodeName: Reducer<NodeName> = (state = "", action) => {
   switch (action.type) {
-    case "ADD_CLUSTER.NODE_NAME.UPDATE":
+    case "CLUSTER.ADD.NODE_NAME.UPDATE":
       return action.payload.nodeName;
     default:
       return state;
@@ -32,21 +32,21 @@ const nodeName: Reducer<NodeName> = (state = "", action) => {
 
 const stepAuthState: Reducer<AUTH_STATE> = (state = "INITIAL", action) => {
   switch (action.type) {
-    case "ADD_CLUSTER.NODE_NAME.UPDATE":
+    case "CLUSTER.ADD.NODE_NAME.UPDATE":
       return "INITIAL";
-    case "ADD_CLUSTER.CHECK_AUTH":
+    case "CLUSTER.ADD.CHECK_AUTH":
       return "CHECKING";
-    case "ADD_CLUSTER.CHECK_AUTH.OK":
+    case "CLUSTER.ADD.CHECK_AUTH.OK":
       return "ALREADY_AUTHENTICATED";
-    case "ADD_CLUSTER.CHECK_AUTH.NO_AUTH":
+    case "CLUSTER.ADD.CHECK_AUTH.NO_AUTH":
       return "NOT_AUTHENTICATED";
-    case "ADD_CLUSTER.CHECK_AUTH.ERROR":
+    case "CLUSTER.ADD.CHECK_AUTH.ERROR":
       return "ERROR";
-    case "ADD_CLUSTER.AUTHENTICATE_NODE":
+    case "CLUSTER.ADD.AUTH_NODE":
       return "AUTHENTICATION_IN_PROGRESS";
-    case "ADD_CLUSTER.AUTHENTICATE_NODE.SUCCESS":
+    case "CLUSTER.ADD.AUTH_NODE.OK":
       return "ALREADY_AUTHENTICATED";
-    case "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED":
+    case "CLUSTER.ADD.AUTH_NODE.ERROR":
       return "AUTHENTICATION_FAILED";
     default:
       return state;
@@ -55,13 +55,13 @@ const stepAuthState: Reducer<AUTH_STATE> = (state = "INITIAL", action) => {
 
 const stepAddState: Reducer<ADD_STATE> = (state = "STARTED", action) => {
   switch (action.type) {
-    case "ADD_CLUSTER.ADD_CLUSTER":
+    case "CLUSTER.ADD":
       return "STARTED";
-    case "ADD_CLUSTER.RELOAD_DASHBOARD":
+    case "CLUSTER.LIST.REFRESH":
       return "DASHBOARD_RELOADING";
-    case "ADD_CLUSTER.ADD_CLUSTER.SUCCESS":
+    case "CLUSTER.ADD.OK":
       return "SUCCESS";
-    case "ADD_CLUSTER.ADD_CLUSTER.ERROR":
+    case "CLUSTER.ADD.ERROR":
       return "ERROR";
     default:
       return state;
@@ -70,18 +70,18 @@ const stepAddState: Reducer<ADD_STATE> = (state = "STARTED", action) => {
 
 const stateError: Reducer<StateError> = (state = "", action) => {
   switch (action.type) {
-    case "ADD_CLUSTER.NODE_NAME.UPDATE":
-    case "ADD_CLUSTER.CHECK_AUTH":
-    case "ADD_CLUSTER.CHECK_AUTH.OK":
-    case "ADD_CLUSTER.CHECK_AUTH.NO_AUTH":
-    case "ADD_CLUSTER.ADD_CLUSTER":
-    case "ADD_CLUSTER.RELOAD_DASHBOARD":
-    case "ADD_CLUSTER.ADD_CLUSTER.SUCCESS":
-    case "ADD_CLUSTER.AUTHENTICATE_NODE":
+    case "CLUSTER.ADD.NODE_NAME.UPDATE":
+    case "CLUSTER.ADD.CHECK_AUTH":
+    case "CLUSTER.ADD.CHECK_AUTH.OK":
+    case "CLUSTER.ADD.CHECK_AUTH.NO_AUTH":
+    case "CLUSTER.ADD":
+    case "CLUSTER.LIST.REFRESH":
+    case "CLUSTER.ADD.OK":
+    case "CLUSTER.ADD.AUTH_NODE":
       return "";
-    case "ADD_CLUSTER.CHECK_AUTH.ERROR":
-    case "ADD_CLUSTER.ADD_CLUSTER.ERROR":
-    case "ADD_CLUSTER.AUTHENTICATE_NODE.FAILED":
+    case "CLUSTER.ADD.CHECK_AUTH.ERROR":
+    case "CLUSTER.ADD.ERROR":
+    case "CLUSTER.ADD.AUTH_NODE.ERROR":
       return action.payload.message;
 
     default:

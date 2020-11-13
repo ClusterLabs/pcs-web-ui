@@ -1,4 +1,4 @@
-import { PrimitiveResourceActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 import { updateResource } from "app/backend";
 
 import {
@@ -11,7 +11,7 @@ import {
 
 function* updateInstanceAttributes({
   payload: { resourceId, attributes, clusterUrlName },
-}: PrimitiveResourceActions["UpdateInstanceAttributes"]) {
+}: ActionMap["RESOURCE.UPDATE_INSTANCE_ATTRIBUTES"]) {
   yield putNotification(
     "INFO",
     `Update instance attributes of resource "${resourceId}" requested`,
@@ -43,8 +43,5 @@ function* updateInstanceAttributes({
 }
 
 export default [
-  takeEvery(
-    "RESOURCE.PRIMITIVE.UPDATE_INSTANCE_ATTRIBUTES",
-    updateInstanceAttributes,
-  ),
+  takeEvery("RESOURCE.UPDATE_INSTANCE_ATTRIBUTES", updateInstanceAttributes),
 ];

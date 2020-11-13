@@ -1,11 +1,11 @@
 import { canAddClusterOrNodes } from "app/backend";
-import { NodeActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import { api, errorMessage, processError, put, race, take } from "../common";
 
 export function* checkCanAddNodeSaga({
   payload: { clusterUrlName, nodeName },
-}: NodeActions["NodeAddCheckCanAdd"]) {
+}: ActionMap["NODE.ADD.CHECK_CAN_ADD"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof canAddClusterOrNodes> } = yield race({
@@ -34,7 +34,7 @@ export function* checkCanAddNodeSaga({
     yield processError(result, taskLabel, {
       action: () =>
         put({
-          type: "NODE.ADD.CHECK_CAN_ADD.FAILED",
+          type: "NODE.ADD.CHECK_CAN_ADD.FAIL",
           payload: {
             clusterUrlName,
             message: errorMessage(result, taskLabel),

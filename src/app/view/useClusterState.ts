@@ -1,21 +1,27 @@
 import React from "react";
 
-import { actions, selectors, useDispatch, useSelector, utils } from "app/store";
+import {
+  ActionLeaf,
+  selectors,
+  useDispatch,
+  useSelector,
+  utils,
+} from "app/store";
 
 export const useClusterState = (clusterUrlName: string) => {
   const dispatch = useDispatch();
 
-  const start = React.useMemo<actions.LeafAction>(
+  const start = React.useMemo<ActionLeaf>(
     () => ({
-      type: "CLUSTER_DATA.SYNC",
+      type: "CLUSTER.STATUS.SYNC",
       payload: { clusterUrlName },
     }),
     [clusterUrlName],
   );
 
-  const stop = React.useMemo<actions.LeafAction>(
+  const stop = React.useMemo<ActionLeaf>(
     () => ({
-      type: "CLUSTER_DATA.SYNC.STOP",
+      type: "CLUSTER.STATUS.SYNC.STOP",
       payload: { clusterUrlName },
     }),
     [clusterUrlName],
@@ -33,11 +39,11 @@ export const useClusterState = (clusterUrlName: string) => {
       ],
     });
     dispatch({
-      type: "CLUSTER_PROPERTIES.LOAD",
+      type: "CLUSTER.PROPERTIES.LOAD",
       payload: { clusterUrlName },
     });
     dispatch({
-      type: "RESOURCE_AGENT_LIST.LOAD",
+      type: "RESOURCE_AGENT.LIST.LOAD",
       payload: { clusterUrlName },
     });
   }, [clusterUrlName, dispatch, start, stop]);

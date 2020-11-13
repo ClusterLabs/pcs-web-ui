@@ -34,7 +34,7 @@ export const PageToolbar = () => {
               <DropdownItem
                 data-test="logout"
                 key="0"
-                onClick={() => dispatch({ type: "LOGOUT" })}
+                onClick={() => dispatch({ type: "LOGIN.LOGOUT" })}
               >
                 Logout
               </DropdownItem>,

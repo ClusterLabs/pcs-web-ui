@@ -30,7 +30,7 @@ const loginState: Reducer<LoginState> = (state = defaultState, action) => {
         required: true,
         acceptLoginData: true,
       };
-    case "ENTER_CREDENTIALS":
+    case "LOGIN.ENTER_CREDENTIALS":
       return {
         ...state,
         acceptLoginData: false,
@@ -53,7 +53,7 @@ const loginState: Reducer<LoginState> = (state = defaultState, action) => {
         badCredentials: action.payload.badCredentials,
         errorMessage: action.payload.message,
       };
-    case "LOGOUT.SUCCESS":
+    case "LOGIN.LOGOUT.SUCCESS":
       return {
         ...state,
         logoutApplied: true,

@@ -1,7 +1,5 @@
-import { actions, selectors, useSelector } from "app/store";
+import { ActionMap, selectors, useSelector } from "app/store";
 import { useClusterSelector, useClusterWizard } from "app/view";
-
-type ActionUpdate = actions.PrimitiveResourceActions["CreateResourceUpdate"];
 
 const useAgent = (clusterUrlName: string, agentName: string) => {
   const agent = useSelector(selectors.getPcmkAgent(clusterUrlName, agentName));
@@ -43,14 +41,16 @@ export const useWizard = () => {
     close: () => {
       clusterWizard.close();
       dispatch({
-        type: "RESOURCE.PRIMITIVE.CREATE.CLOSE",
+        type: "RESOURCE.CREATE.CLOSE",
         payload: { clusterUrlName },
       });
     },
 
-    updateState: (state: ActionUpdate["payload"]["state"]) => {
+    updateState: (
+      state: ActionMap["RESOURCE.CREATE.UPDATE"]["payload"]["state"],
+    ) => {
       dispatch({
-        type: "RESOURCE.PRIMITIVE.CREATE.UPDATE",
+        type: "RESOURCE.CREATE.UPDATE",
         payload: {
           clusterUrlName,
           state,

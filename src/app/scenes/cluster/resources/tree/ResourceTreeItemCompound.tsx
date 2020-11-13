@@ -42,7 +42,7 @@ export const ResourceTreeItemCompound = ({
           isExpanded={expanded}
           onClick={() =>
             dispatch({
-              type: "RESOURCE_TREE.ITEM.TOGGLE",
+              type: "RESOURCE.TREE.ITEM.TOGGLE",
               payload: { itemId: resourceId, clusterUrlName: clusterName },
             })
           }

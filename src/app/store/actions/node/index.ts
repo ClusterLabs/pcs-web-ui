@@ -1,38 +1,18 @@
-import * as add from "./add";
+import { NodeAddActions } from "./add";
 
-export type NodeActions = {
-  StartNode: {
+export type NodeActions = NodeAddActions & {
+  "NODE.START": {
     type: "NODE.START";
     payload: {
       clusterUrlName: string;
       nodeName: string;
     };
   };
-  StopNode: {
+  "NODE.STOP": {
     type: "NODE.STOP";
     payload: {
       clusterUrlName: string;
       nodeName: string;
     };
   };
-  NodeAdd: add.Add;
-  NodeAddClose: add.Close;
-  NodeAddSuccess: add.AddSuccess;
-  NodeAddFailed: add.AddFailed;
-  NodeAddError: add.AddError;
-  NodeAddUpdate: add.Update;
-  NodeAddUpdateNodeName: add.UpdateNodeName;
-  NodeAddCheckCanAdd: add.CheckCanAdd;
-  NodeAddCheckCanAddFailed: add.CheckCanAddFailed;
-  NodeAddCheckCanAddCannot: add.CheckCanAddCannot;
-  NodeAddCheckAuth: add.CheckAuth;
-  NodeAddCheckAuthFailed: add.CheckAuthFailed;
-  NodeAddCheckAuthSuccess: add.CheckAuthSuccess;
-  NodeAddCheckAuthNoAuth: add.CheckAuthNoAuth;
-  NodeAddSendKnownHosts: add.SendKnownHosts;
-  NodeAddSendKnownHostsSuccess: add.SendKnownHostsSuccess;
-  NodeAddSendKnownHostsFailed: add.SendKnownHostsFailed;
-  NodeAddAuthenticate: add.Authenticate;
-  NodeAddAuthenticateFailed: add.AuthenticateFailed;
-  NodeAddAuthenticateBadInfo: add.AuthenticateBadInfo;
 };

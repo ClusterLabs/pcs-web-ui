@@ -1,5 +1,5 @@
 export type LoginActions = {
-  LoginFailed: {
+  "LOGIN.FAILED": {
     type: "LOGIN.FAILED";
     payload: {
       badCredentials: boolean;
@@ -7,19 +7,19 @@ export type LoginActions = {
     };
   };
 
-  EnterCredentials: {
-    type: "ENTER_CREDENTIALS";
+  "LOGIN.ENTER_CREDENTIALS": {
+    type: "LOGIN.ENTER_CREDENTIALS";
     payload: {
       username: string;
       password: string;
     };
   };
 
-  Logout: {
-    type: "LOGOUT";
+  "LOGIN.LOGOUT": {
+    type: "LOGIN.LOGOUT";
   };
 
-  LogoutSuccess: {
-    type: "LOGOUT.SUCCESS";
+  "LOGIN.LOGOUT.SUCCESS": {
+    type: "LOGIN.LOGOUT.SUCCESS";
   };
 };

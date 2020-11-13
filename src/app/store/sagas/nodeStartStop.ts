@@ -1,11 +1,11 @@
-import { NodeActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 import { clusterStart, clusterStop } from "app/backend";
 
 import { api, processClusterResultBasic, takeEvery } from "./common";
 
 function* nodeStart({
   payload: { nodeName, clusterUrlName },
-}: NodeActions["StartNode"]) {
+}: ActionMap["NODE.START"]) {
   const result: api.ResultOf<typeof clusterStart> = yield api.authSafe(
     clusterStart,
     clusterUrlName,
@@ -21,7 +21,7 @@ function* nodeStart({
 
 function* nodeStop({
   payload: { nodeName, clusterUrlName },
-}: NodeActions["StopNode"]) {
+}: ActionMap["NODE.STOP"]) {
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
     clusterStop,
     clusterUrlName,

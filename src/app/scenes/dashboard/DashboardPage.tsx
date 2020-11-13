@@ -21,8 +21,8 @@ const useDashboardSync = () => {
       payload: [
         {
           specificator: "syncDashboard",
-          start: { type: "DASHBOARD_DATA.SYNC" },
-          stop: { type: "DASHBOARD_DATA.SYNC.STOP" },
+          start: { type: "CLUSTER.LIST.SYNC" },
+          stop: { type: "CLUSTER.LIST.SYNC.STOP" },
         },
       ],
     });
@@ -43,11 +43,7 @@ export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
             <Breadcrumb>
               <BreadcrumbItem
                 isActive
-                onClick={() =>
-                  dispatch({
-                    type: "DASHBOARD_DATA.REFRESH",
-                  })
-                }
+                onClick={() => dispatch({ type: "CLUSTER.LIST.REFRESH" })}
               >
                 Clusters
               </BreadcrumbItem>

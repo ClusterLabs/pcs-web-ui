@@ -1,4 +1,4 @@
-import { AuthActions } from "app/store/actions";
+import { ActionMap } from "app/store/actions";
 
 import { call, put, race, take, takeEvery } from "./common";
 
@@ -20,7 +20,7 @@ function* usernameLoad() {
   }
 }
 
-function* checkLogin({ payload: { username } }: AuthActions["AuthSuccess"]) {
+function* checkLogin({ payload: { username } }: ActionMap["AUTH.SUCCESS"]) {
   yield call([localStorage, "setItem"], USERNAME_STORAGE_KEY, username);
   yield put({
     type: "USERNAME.SET",
