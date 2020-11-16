@@ -15,14 +15,16 @@ type ApiCall = typeof resourceRefresh | typeof resourceCleanup;
 
 function resourceAction(apiCall: ApiCall, taskName: string) {
   return function* resourceActionSaga({
-    payload: { resourceId, clusterUrlName },
+    payload: { resourceId, clusterUrlName, resourceType },
   }: Action) {
     const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
       apiCall,
       clusterUrlName,
       resourceId,
     );
-    const taskLabel = `${taskName} resource "${resourceId}"`;
+    const taskLabel = `${taskName} ${
+      resourceType === "resource" ? "resource" : "fence device"
+    } "${resourceId}"`;
     if (result.type !== "OK") {
       yield processError(result, taskLabel);
       return;

@@ -17,6 +17,7 @@ export type ResourceActions = ResourceCreateActions &
       payload: {
         clusterUrlName: string;
         resourceId: string;
+        resourceType: "resource" | "fence-device";
       };
     };
 
@@ -25,6 +26,7 @@ export type ResourceActions = ResourceCreateActions &
       payload: {
         clusterUrlName: string;
         resourceId: string;
+        resourceType: "resource" | "fence-device";
       };
     };
 
