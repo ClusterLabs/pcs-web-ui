@@ -3,7 +3,6 @@ import { PageSection, Stack, StackItem } from "@patternfly/react-core";
 
 import {
   EmptyStateSpinner,
-  GroupDetailView,
   Page,
   SelectedClusterProvider,
   UrlTabs,
@@ -14,8 +13,8 @@ import {
 } from "app/view";
 
 import { NodesPage } from "./nodes";
-import { FenceDeviceDetailPage, FenceDeviceList } from "./fenceDevices";
 import { ResourcesPage } from "./resources";
+import { FenceDevicePage } from "./fenceDevices";
 import { ConstraintsPage } from "./constraints";
 import { ClusterPropertiesPage } from "./properties";
 import { ClusterDetail } from "./ClusterDetail";
@@ -28,7 +27,7 @@ export const ClusterDetailPage = ({
   clusterUrlName: string;
   urlPrefix: string;
 }) => {
-  const { dataLoaded, cluster } = useClusterState(clusterUrlName);
+  const { dataLoaded } = useClusterState(clusterUrlName);
 
   const { tab, urlMap, url } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: join(urlPrefix), exact: true }),
@@ -56,15 +55,7 @@ export const ClusterDetailPage = ({
           {tab === "Detail" && <ClusterDetail />}
           {tab === "Resources" && <ResourcesPage urlPrefix={url} />}
           {tab === "Nodes" && <NodesPage urlPrefix={url} />}
-          {tab === "Fence Devices" && (
-            <GroupDetailView
-              urlPrefix={url}
-              detailCard={<FenceDeviceDetailPage />}
-              groupCard={
-                <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
-              }
-            />
-          )}
+          {tab === "Fence Devices" && <FenceDevicePage urlPrefix={url} />}
           {tab === "Constraints" && (
             <ConstraintsPage clusterUrlName={clusterUrlName} />
           )}

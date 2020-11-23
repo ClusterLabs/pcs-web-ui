@@ -1,17 +1,23 @@
 import React from "react";
 
-import { GroupDetailView, useClusterSelector } from "app/view";
+import {
+  ClusterSectionToolbar,
+  GroupDetailView,
+  useClusterSelector,
+} from "app/view";
 import { selectors } from "app/store";
 
 import { ResourceDetailPage } from "./ResourceDetailPage";
 import { ResourceTree } from "./tree/ResourceTree";
-import { ResourcesToolbar } from "./ResourcesToolbar";
+import { ResourceCreateToolbarItem } from "./wizard";
 
 export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
   const [clusterStatus] = useClusterSelector(selectors.getCluster);
   return (
     <>
-      <ResourcesToolbar />
+      <ClusterSectionToolbar>
+        <ResourceCreateToolbarItem />
+      </ClusterSectionToolbar>
       <GroupDetailView
         urlPrefix={urlPrefix}
         groupCard={<ResourceTree resourceTree={clusterStatus.resourceTree} />}

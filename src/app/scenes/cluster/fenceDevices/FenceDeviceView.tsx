@@ -13,6 +13,7 @@ import {
 import { useClusterFenceAgent } from "./useFenceAgent";
 import { FenceDeviceDetailView } from "./FenceDeviceDetailView";
 import { FenceDeviceArgumentsView } from "./arguments";
+import { FencePageToolbar } from "./FencePageToolbar";
 
 export const FenceDeviceView = ({
   fenceDevice,
@@ -30,6 +31,8 @@ export const FenceDeviceView = ({
     <DetailLayout
       caption={fenceDevice.id}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
+      data-test={`fence-device-detail ${fenceDevice.id}`}
+      toolbar={<FencePageToolbar fenceDevice={fenceDevice} />}
     >
       {tab === "Detail" && <FenceDeviceDetailView fenceDevice={fenceDevice} />}
       {tab === "Arguments" && (

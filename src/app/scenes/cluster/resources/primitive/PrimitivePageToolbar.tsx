@@ -120,7 +120,11 @@ export const PrimitivePageToolbar: React.FC<{
             Refresh: {
               action: {
                 type: "RESOURCE.REFRESH",
-                payload: { resourceId: primitive.id, clusterUrlName },
+                payload: {
+                  resourceId: primitive.id,
+                  clusterUrlName,
+                  resourceType: "resource",
+                },
               },
               confirm: {
                 title: "Refresh resource?",
@@ -136,7 +140,11 @@ export const PrimitivePageToolbar: React.FC<{
             Cleanup: {
               action: {
                 type: "RESOURCE.CLEANUP",
-                payload: { resourceId: primitive.id, clusterUrlName },
+                payload: {
+                  resourceId: primitive.id,
+                  clusterUrlName,
+                  resourceType: "resource",
+                },
               },
               confirm: {
                 title: "Cleanup resource?",
@@ -151,7 +159,11 @@ export const PrimitivePageToolbar: React.FC<{
             Delete: {
               action: {
                 type: "RESOURCE.DELETE",
-                payload: { resourceIds: [primitive.id], clusterUrlName },
+                payload: {
+                  resourceIds: [primitive.id],
+                  clusterUrlName,
+                  resourceType: "resource",
+                },
               },
               confirm: {
                 title: "Delete resource?",
