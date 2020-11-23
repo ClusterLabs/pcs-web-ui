@@ -47,15 +47,15 @@ app.resourceRefresh(refreshCleanup);
 app.resourceCleanup(refreshCleanup);
 
 app.removeResource((req, res) => {
-  if ("resid-fail" in req.body) {
+  if ("resid-fail" in req.body || "resid-FD_fail" in req.body) {
     res.status(500).send("Something wrong");
     return;
   }
-  if ("resid-permission" in req.body) {
+  if ("resid-permission" in req.body || "resid-FD_permission" in req.body) {
     res.status(403).send("Permission denied");
     return;
   }
-  if ("resid-error" in req.body) {
+  if ("resid-error" in req.body || "resid-FD_error" in req.body) {
     res.status(400).send("Unable to stop resource(s).");
     return;
   }

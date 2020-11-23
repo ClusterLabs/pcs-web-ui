@@ -56,20 +56,22 @@ export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
       </ToolbarGroup>
       <ToolbarItem>
         <DetailLayoutToolbarDropdown
-          menuItems={
-            {
-              // Delete: {
-              //   action: {
-              //     type: "RESOURCE.DELETE",
-              //     payload: { resourceIds: [fenceDevice.id], clusterUrlName },
-              //   },
-              //   confirm: {
-              //     title: "Delete resource?",
-              //     description: <>This deletes the resource</>,
-              //   },
-              // },
-            }
-          }
+          menuItems={{
+            Delete: {
+              action: {
+                type: "RESOURCE.DELETE",
+                payload: {
+                  resourceIds: [fenceDevice.id],
+                  clusterUrlName,
+                  resourceType: "fence-device",
+                },
+              },
+              confirm: {
+                title: "Delete resource?",
+                description: <>This deletes the resource</>,
+              },
+            },
+          }}
         />
       </ToolbarItem>
     </DetailLayoutToolbar>

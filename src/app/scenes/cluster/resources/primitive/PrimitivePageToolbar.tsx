@@ -159,7 +159,11 @@ export const PrimitivePageToolbar: React.FC<{
             Delete: {
               action: {
                 type: "RESOURCE.DELETE",
-                payload: { resourceIds: [primitive.id], clusterUrlName },
+                payload: {
+                  resourceIds: [primitive.id],
+                  clusterUrlName,
+                  resourceType: "resource",
+                },
               },
               confirm: {
                 title: "Delete resource?",
