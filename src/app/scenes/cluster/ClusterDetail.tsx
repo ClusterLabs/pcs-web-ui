@@ -11,6 +11,8 @@ import {
 import { selectors } from "app/store";
 import { IssueList, useClusterSelector } from "app/view";
 
+import { ClusterDetailIssue } from "./ClusterDetailIssue";
+
 export const ClusterDetail = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   return (
@@ -24,7 +26,11 @@ export const ClusterDetail = () => {
         <CardBody>
           <Stack hasGutter className="pf-u-m-md">
             <StackItem>
-              <IssueList issueList={cluster.issueList} hideEmpty />
+              <IssueList
+                issueList={cluster.issueList}
+                hideEmpty
+                displayIssue={issue => <ClusterDetailIssue issue={issue} />}
+              />
             </StackItem>
           </Stack>
         </CardBody>
