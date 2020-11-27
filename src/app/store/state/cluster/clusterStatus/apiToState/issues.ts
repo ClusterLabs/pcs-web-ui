@@ -6,10 +6,24 @@ type ApiWithIssues = api.types.clusterStatus.ApiWithIssues;
 
 const mapIssue = (severity: types.cluster.Issue["severity"]) => (
   issue: ApiIssue,
-) => ({
-  severity,
-  message: issue.message,
-});
+): types.cluster.Issue => {
+  if (
+    "type" in issue
+    && "node_list" in issue
+    && issue.type === "nodes_not_authorized"
+  ) {
+    return {
+      severity,
+      type: issue.type,
+      message: issue.message,
+      nodeList: issue.node_list,
+    };
+  }
+  return {
+    severity,
+    message: issue.message,
+  };
+};
 
 export const transformIssues = (
   element: ApiWithIssues,

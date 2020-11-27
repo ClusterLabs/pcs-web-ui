@@ -41,10 +41,18 @@ export interface AgentAttribute {
   value: string;
 }
 
-export interface Issue {
-  severity: "ERROR" | "WARNING";
-  message: string;
-}
+type IssueSeverity = "ERROR" | "WARNING";
+export type Issue =
+  | {
+      severity: IssueSeverity;
+      message: string;
+    }
+  | {
+      severity: IssueSeverity;
+      message: string;
+      type: "nodes_not_authorized";
+      nodeList: string[];
+    };
 
 export type NodeStatusFlag = "ONLINE" | "OFFLINE" | "STANDBY";
 

@@ -1,11 +1,17 @@
 import * as t from "io-ts";
 
-export const ApiIssue = t.intersection([
+export const ApiIssue = t.union([
+  t.intersection([
+    t.type({
+      message: t.string,
+    }),
+    t.partial({
+      type: t.string,
+    }),
+  ]),
   t.type({
+    type: t.literal("nodes_not_authorized"),
     message: t.string,
-  }),
-  t.partial({
-    type: t.string,
     node_list: t.array(t.string),
   }),
 ]);
