@@ -2,13 +2,20 @@ import * as t from "./tools";
 import { resourceTree } from "./resource-tree";
 import { resourcesForTest } from "./resources-for-test";
 import { actions, actionsAlternative } from "./actions";
+import { noAuthNodes } from "./noAuthNodes";
 
 const clusterOk = (clusterName: string) =>
   t.cluster(clusterName, "ok", {
     resource_list: [t.primitive("R1"), t.stonith("F1")],
   });
 
-export { resourceTree, resourcesForTest, actions, actionsAlternative };
+export {
+  resourceTree,
+  resourcesForTest,
+  actions,
+  actionsAlternative,
+  noAuthNodes,
+};
 
 export const ok = clusterOk("ok");
 export const ok2 = clusterOk("ok2");
