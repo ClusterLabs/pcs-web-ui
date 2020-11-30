@@ -1,4 +1,5 @@
 import React from "react";
+import { ActionList, ActionListItem } from "@patternfly/react-core";
 
 import {
   ClusterSectionToolbar,
@@ -16,7 +17,11 @@ export const NodesPage: React.FC<{ urlPrefix: string }> = ({ urlPrefix }) => {
   return (
     <>
       <ClusterSectionToolbar>
-        <NodeAddToolbarItem />
+        <ActionList>
+          <ActionListItem>
+            <NodeAddToolbarItem />
+          </ActionListItem>
+        </ActionList>
       </ClusterSectionToolbar>
       <GroupDetailView
         urlPrefix={urlPrefix}

@@ -1,4 +1,5 @@
 import React from "react";
+import { ActionList, ActionListItem } from "@patternfly/react-core";
 
 import {
   ClusterSectionToolbar,
@@ -9,14 +10,21 @@ import { selectors } from "app/store";
 
 import { ResourceDetailPage } from "./ResourceDetailPage";
 import { ResourceTree } from "./tree/ResourceTree";
-import { ResourceCreateToolbarItem } from "./wizard";
+import { ResourceCreateToolbarItem, ResourceGroupToolbarItem } from "./wizard";
 
 export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   return (
     <>
       <ClusterSectionToolbar>
-        <ResourceCreateToolbarItem />
+        <ActionList>
+          <ActionListItem>
+            <ResourceCreateToolbarItem />
+          </ActionListItem>
+          <ActionListItem>
+            <ResourceGroupToolbarItem variant="secondary" />
+          </ActionListItem>
+        </ActionList>
       </ClusterSectionToolbar>
       <GroupDetailView
         urlPrefix={urlPrefix}

@@ -1,19 +1,19 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { ResourceCreate } from "./ResourceCreate";
 import { useWizard } from "./useWizard";
+import { ResourceGroup } from "./ResourceGroup";
 
-export const ResourceCreateToolbarItem: React.FC<{
+export const ResourceGroupToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
   const { open, isOpened } = useWizard();
   return (
     <>
       <Button variant={variant} onClick={open} data-test="resource-create">
-        Create Resource
+        Group Resources
       </Button>
-      {isOpened && <ResourceCreate />}
+      {isOpened && <ResourceGroup />}
     </>
   );
 };
