@@ -1,7 +1,7 @@
 import React from "react";
-import { Form, FormGroup, TextInput } from "@patternfly/react-core";
+import { Form } from "@patternfly/react-core";
 
-import { WizardLibStep } from "app/view";
+import { FormText, WizardLibStep } from "app/view";
 
 import { useWizard } from "../useWizard";
 
@@ -17,23 +17,16 @@ export const NodeAddNodeName: React.FC = () => {
   return (
     <WizardLibStep title="Choose node name" reports={reports}>
       <Form data-test="form-node-name">
-        <FormGroup
+        <FormText
+          id="new-node-name"
           label="Node name"
-          isRequired
-          fieldId="new-node-name"
+          onChange={updateNodeName}
+          value={nodeName}
           helperTextInvalid="Please provide the node name"
+          isRequired
           validated={nodeNameValidated}
-        >
-          <TextInput
-            id="new-node-name"
-            value={nodeName}
-            isRequired
-            type="text"
-            onChange={updateNodeName}
-            validated={nodeNameValidated}
-            data-test="node-name"
-          />
-        </FormGroup>
+          data-test="node-name"
+        />
       </Form>
     </WizardLibStep>
   );

@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Alert,
-  Checkbox,
-  Form,
-  FormGroup,
-  TextInput,
-} from "@patternfly/react-core";
+import { Alert, Checkbox, Form, FormGroup } from "@patternfly/react-core";
 
-import { WizardLibStep } from "app/view";
+import { FormText, WizardLibStep } from "app/view";
 
 import { useWizard } from "../useWizard";
 
@@ -35,16 +29,13 @@ export const NodeAddSbd: React.FC = () => {
       )}
       {isSbdEnabled && (
         <Form isHorizontal>
-          <FormGroup label="Watchdog" fieldId="sbd-watchdog">
-            <TextInput
-              id="sbd-watchdog"
-              value={sbdWatchdog}
-              isRequired
-              type="text"
-              onChange={changeWatchdog}
-              placeholder="/dev/watchdog"
-            />
-          </FormGroup>
+          <FormText
+            id="sbd-watchdog"
+            label="Watchdog"
+            onChange={changeWatchdog}
+            value={sbdWatchdog}
+            placeholder="/dev/watchdog"
+          />
 
           <FormGroup
             label="Do not validate watchdog"
@@ -58,19 +49,13 @@ export const NodeAddSbd: React.FC = () => {
             />
           </FormGroup>
           {sbdDevices.map((device, i) => (
-            <FormGroup
+            <FormText
               key={i}
+              id={`sbd-device-${i}`}
               label={`Device ${i + 1}`}
-              fieldId={`sbd-device-${i}`}
-            >
-              <TextInput
-                id={`sbd-device-${i}`}
-                value={device}
-                isRequired
-                type="text"
-                onChange={(value: string) => changeDevice(i, value)}
-              />
-            </FormGroup>
+              value={device}
+              onChange={(value: string) => changeDevice(i, value)}
+            />
           ))}
         </Form>
       )}

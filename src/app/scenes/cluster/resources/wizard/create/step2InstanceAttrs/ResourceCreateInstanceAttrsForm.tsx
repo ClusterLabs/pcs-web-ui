@@ -1,7 +1,8 @@
 import React from "react";
-import { Alert, Form, FormGroup, TextInput } from "@patternfly/react-core";
+import { Alert, Form } from "@patternfly/react-core";
 
 import {
+  FormText,
   LoadedPcmkAgent,
   PcmkAgentAttrsHelpPopover,
   ToolbarFilterTextGroupPair,
@@ -74,9 +75,9 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
                     const hint =
                       "Please provide a value for required attribute";
                     return (
-                      <FormGroup
+                      <FormText
                         key={parameter.name}
-                        fieldId={`instance-attr-${parameter.name}`}
+                        id={`instance-attr-${parameter.name}`}
                         label={parameter.name}
                         labelIcon={
                           <PcmkAgentAttrsHelpPopover
@@ -86,20 +87,13 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
                         isRequired={parameter.required}
                         validated={validated}
                         helperTextInvalid={`${hint} ${parameter.name}`}
-                      >
-                        <TextInput
-                          type="text"
-                          id={`instance-attr-${parameter.name}`}
-                          isRequired={parameter.required}
-                          onChange={value =>
-                            updateState({
-                              instanceAttrs: { [parameter.name]: value },
-                            })
-                          }
-                          validated={validated}
-                          value={instanceAttrs[parameter.name] || ""}
-                        />
-                      </FormGroup>
+                        onChange={value =>
+                          updateState({
+                            instanceAttrs: { [parameter.name]: value },
+                          })
+                        }
+                        value={instanceAttrs[parameter.name] || ""}
+                      />
                     );
                   })}
               </Form>

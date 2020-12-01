@@ -1,7 +1,7 @@
 import React from "react";
-import { Form, FormGroup, TextInput } from "@patternfly/react-core";
+import { Form } from "@patternfly/react-core";
 
-import { WizardLibStep } from "app/view";
+import { FormText, WizardLibStep } from "app/view";
 
 import { useWizard } from "../useWizard";
 
@@ -20,18 +20,13 @@ export const NodeAddAddresses: React.FC = () => {
     <WizardLibStep title="Specify node addresses" reports={reports}>
       <Form isHorizontal>
         {Object.keys(nodeAddresses).map((addrName, i) => (
-          <FormGroup
+          <FormText
             key={addrName}
-            fieldId={`new-node-${addrName}`}
+            id={`new-node-${addrName}`}
             label={`Adddress ${i + 1}`}
-          >
-            <TextInput
-              id={`new-node-${addrName}`}
-              value={nodeAddresses[addrName as AddrName]}
-              type="text"
-              onChange={changeAddress(addrName as AddrName)}
-            />
-          </FormGroup>
+            onChange={changeAddress(addrName as AddrName)}
+            value={nodeAddresses[addrName as AddrName]}
+          />
         ))}
       </Form>
     </WizardLibStep>

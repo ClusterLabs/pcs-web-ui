@@ -1,7 +1,7 @@
 import React from "react";
-import { Form, FormGroup, TextInput } from "@patternfly/react-core";
+import { Form, FormGroup } from "@patternfly/react-core";
 
-import { WizardLibStep } from "app/view";
+import { FormText, WizardLibStep } from "app/view";
 
 import { useWizard } from "../useWizard";
 
@@ -39,22 +39,15 @@ export const ResourceCreateNameType: React.FC = () => {
       reports={reports}
     >
       <Form>
-        <FormGroup
+        <FormText
+          id="new-resource-name"
           label="Resource name"
-          isRequired
-          fieldId="new-resource-name"
+          onChange={changeResourceName}
+          value={resourceName}
           helperTextInvalid="Please provide the new resource name"
+          isRequired
           validated={resourceNameValidated}
-        >
-          <TextInput
-            id="new-resource-name"
-            value={resourceName}
-            isRequired
-            type="text"
-            onChange={changeResourceName}
-            validated={resourceNameValidated}
-          />
-        </FormGroup>
+        />
         <FormGroup
           label="Resource type"
           isRequired

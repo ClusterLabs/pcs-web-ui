@@ -9,10 +9,9 @@ import {
   SelectVariant,
   Stack,
   StackItem,
-  TextInput,
 } from "@patternfly/react-core";
 
-import { Select } from "app/view";
+import { FormText, Select } from "app/view";
 
 import { useWizard } from "../useWizard";
 
@@ -98,23 +97,14 @@ export const ResourceCreateSettingsGroup: React.FC = () => {
                   id="settings-group-new"
                 />
                 {useGroup === "new" && (
-                  <FormGroup
+                  <FormText
+                    id="new-group-name"
+                    value={group}
                     isRequired
-                    fieldId="new-group-name"
+                    onChange={(value: string) => updateState({ group: value })}
                     helperTextInvalid="Please provide a name for the new group"
                     validated={newGroupValidated}
-                  >
-                    <TextInput
-                      id="new-group-name"
-                      value={group}
-                      isRequired
-                      type="text"
-                      onChange={(value: string) =>
-                        updateState({ group: value })
-                      }
-                      validated={newGroupValidated}
-                    />
-                  </FormGroup>
+                  />
                 )}
               </StackItem>
             </Stack>

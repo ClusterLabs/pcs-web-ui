@@ -1,14 +1,8 @@
 import React from "react";
-import {
-  Alert,
-  Button,
-  Form,
-  FormGroup,
-  TextInput,
-} from "@patternfly/react-core";
+import { Alert, Button, Form } from "@patternfly/react-core";
 
 import { selectors, types, useDispatch, useSelector } from "app/store";
-import { EmptyStateSpinner, NodeAuthForm } from "app/view";
+import { EmptyStateSpinner, FormText, NodeAuthForm } from "app/view";
 
 const helperText =
   "Enter the name of a node in a cluster that you would like to manage";
@@ -27,27 +21,20 @@ export const AddClusterStepAuth = () => {
   return (
     <>
       <Form data-test="form-auth-check">
-        <FormGroup
+        <FormText
+          id="add-cluster-node-name"
           label="Node name"
-          fieldId="cluster-add-node-name"
           helperText={helperText}
-        >
-          <TextInput
-            isRequired
-            type="text"
-            aria-labelledby="cluster-add-node-name"
-            id="add-cluster-node-name"
-            name="node-name"
-            data-test="node-name"
-            value={nodeName}
-            onChange={currentNodeName =>
-              dispatch({
-                type: "CLUSTER.ADD.NODE_NAME.UPDATE",
-                payload: { nodeName: currentNodeName },
-              })
-            }
-          />
-        </FormGroup>
+          isRequired
+          data-test="node-name"
+          value={nodeName}
+          onChange={currentNodeName =>
+            dispatch({
+              type: "CLUSTER.ADD.NODE_NAME.UPDATE",
+              payload: { nodeName: currentNodeName },
+            })
+          }
+        />
         {authState === "INITIAL" && (
           <Button
             variant="primary"
