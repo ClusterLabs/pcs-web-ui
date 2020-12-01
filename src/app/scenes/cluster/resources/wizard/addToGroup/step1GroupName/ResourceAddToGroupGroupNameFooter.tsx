@@ -8,7 +8,7 @@ import {
 
 import { useWizard } from "../useWizard";
 
-export const ResourceGroupResourceSelectFooter: React.FC = () => {
+export const ResourceAddToGroupGroupNameFooter: React.FC = () => {
   const {
     close,
     wizard: { onBack, onNext },

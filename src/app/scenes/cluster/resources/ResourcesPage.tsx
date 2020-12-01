@@ -10,7 +10,10 @@ import { selectors } from "app/store";
 
 import { ResourceDetailPage } from "./ResourceDetailPage";
 import { ResourceTree } from "./tree/ResourceTree";
-import { ResourceCreateToolbarItem, ResourceGroupToolbarItem } from "./wizard";
+import {
+  ResourceAddToGroupToolbarItem,
+  ResourceCreateToolbarItem,
+} from "./wizard";
 
 export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -22,7 +25,7 @@ export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
             <ResourceCreateToolbarItem />
           </ActionListItem>
           <ActionListItem>
-            <ResourceGroupToolbarItem variant="secondary" />
+            <ResourceAddToGroupToolbarItem variant="secondary" />
           </ActionListItem>
         </ActionList>
       </ClusterSectionToolbar>
