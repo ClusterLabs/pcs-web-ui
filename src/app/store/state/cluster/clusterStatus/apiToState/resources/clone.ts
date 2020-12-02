@@ -32,10 +32,12 @@ export const toClone = (
   let member: types.cluster.Clone["member"];
   let apiPrimitiveList: ApiPrimitive[] = [];
   if (apiClone.member.class_type === "primitive") {
-    member = toPrimitive(apiClone.member);
+    member = toPrimitive(apiClone.member, { inClone: true, inGroup: false });
     apiPrimitiveList = [apiClone.member];
   } else {
-    ({ apiPrimitiveList, group: member } = toGroup(apiClone.member));
+    ({ apiPrimitiveList, group: member } = toGroup(apiClone.member, {
+      inClone: true,
+    }));
   }
 
   return {

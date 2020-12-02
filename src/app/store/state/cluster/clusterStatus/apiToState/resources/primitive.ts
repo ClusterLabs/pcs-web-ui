@@ -70,11 +70,18 @@ const buildStatusInfoList = (
 
 export const toPrimitive = (
   apiResource: ApiPrimitive,
+  context: { inClone: boolean; inGroup: boolean } = {
+    inClone: false,
+    inGroup: false,
+  },
 ): types.cluster.Primitive => {
   const { resourceStatusInfo, issues } = buildStatusInfoList(apiResource);
+  const { inClone, inGroup } = context;
   return {
     id: apiResource.id,
     itemType: "primitive",
+    inClone,
+    inGroup,
     status: buildStatus(resourceStatusInfo),
     issueList: transformIssues(apiResource).concat(issues),
     class: apiResource.class,

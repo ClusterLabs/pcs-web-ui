@@ -82,16 +82,21 @@ export const filterPrimitive = (
 
 export const toGroup = (
   apiGroup: ApiGroup,
+  context: { inClone: boolean } = { inClone: false },
 ): { group: types.cluster.Group; apiPrimitiveList: ApiPrimitive[] } => {
   // Theoreticaly, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
   const apiPrimitiveList = filterPrimitive(apiGroup.members);
-  const resources = apiPrimitiveList.map(p => toPrimitive(p));
+  const { inClone } = context;
+  const resources = apiPrimitiveList.map(p =>
+    toPrimitive(p, { inGroup: true, inClone }),
+  );
   return {
     apiPrimitiveList,
     group: {
       id: apiGroup.id,
       itemType: "group",
+      inClone,
       resources,
       status: buildStatus(buildStatusInfoList(apiGroup, resources)),
       issueList: transformIssues(apiGroup),
