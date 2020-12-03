@@ -29,6 +29,45 @@ export const PrimitivePageToolbar: React.FC<{
   const clusterUrlName = useSelectedClusterName();
   const isManaged = isPrimitiveManaged(primitive);
   const isEnabled = isPrimitiveEnabled(primitive);
+
+  const cloneUncloneMenuItem: React.ComponentProps<
+    typeof DetailLayoutToolbarDropdown
+  >["menuItems"] = primitive.inClone
+    ? {
+        Unclone: {
+          confirm: {
+            title: "Unclone resource?",
+            description: (
+              <>
+                Remove the clone which contains the resource (the resource will
+                not be removed).
+              </>
+            ),
+          },
+          action: {
+            type: "RESOURCE.UNCLONE",
+            payload: {
+              clusterUrlName,
+              resourceId: primitive.id,
+            },
+          },
+        },
+      }
+    : {
+        Clone: {
+          confirm: {
+            title: "Clone resource?",
+            description: "Set up the specified resource or group as a clone.",
+          },
+          action: {
+            type: "RESOURCE.CLONE",
+            payload: {
+              clusterUrlName,
+              resourceId: primitive.id,
+            },
+          },
+        },
+      };
   return (
     <DetailLayoutToolbar>
       <ToolbarGroup>
@@ -156,6 +195,7 @@ export const PrimitivePageToolbar: React.FC<{
                 ),
               },
             },
+            ...cloneUncloneMenuItem,
             Delete: {
               action: {
                 type: "RESOURCE.DELETE",

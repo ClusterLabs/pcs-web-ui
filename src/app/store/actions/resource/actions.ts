@@ -34,4 +34,20 @@ export type ResourceActionsActions = {
       resourceType: "resource" | "fence-device";
     };
   };
+
+  "RESOURCE.CLONE": {
+    type: "RESOURCE.CLONE";
+    payload: {
+      clusterUrlName: string;
+      resourceId: string;
+    };
+  };
+
+  "RESOURCE.UNCLONE": {
+    type: "RESOURCE.UNCLONE";
+    payload: {
+      clusterUrlName: string;
+      resourceId: string;
+    };
+  };
 };
