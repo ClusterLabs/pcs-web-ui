@@ -1,4 +1,5 @@
 import {
+  clone,
   cluster,
   crmStatus,
   node,
@@ -52,6 +53,9 @@ export const actions = cluster("actions", "ok", {
     actionResource("missing-key"),
     actionResource("unknown-cmd"),
     actionResource("error"),
+    clone("Clone-1", primitive("cloned-ok")),
+    clone("Clone-2", primitive("cloned-fail")),
+    clone("Clone-3", primitive("cloned-permission")),
     stonith("FD_ok"),
     stonith("FD_fail"),
     stonith("FD_permission"),

@@ -83,6 +83,8 @@ export const removeResource = clusterPost("remove_resource");
 export const clusterStart = clusterPost("cluster_start");
 export const clusterStop = clusterPost("cluster_stop");
 export const sendKnownHosts = clusterPost("send-known-hosts");
+export const resourceClone = clusterPost("resource_clone");
+export const resourceUnclone = clusterPost("resource_unclone");
 export const getResourceAgentMetadata = clusterGet(
   "get_resource_agent_metadata",
 );

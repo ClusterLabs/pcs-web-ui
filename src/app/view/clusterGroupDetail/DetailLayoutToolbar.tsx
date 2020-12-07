@@ -42,7 +42,7 @@ export const DetailLayoutToolbar: React.FC<{
     setConfirm({
       confirm: confirmActions[name].confirm,
       action: confirmActions[name].action,
-      label: name,
+      label: capitalize(name),
     });
   const closeConfirm = () => setConfirm(null);
   return (
