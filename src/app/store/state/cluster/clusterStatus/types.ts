@@ -105,6 +105,8 @@ interface ResourceTreeItemBase {
 
 export interface Primitive extends ResourceTreeItemBase {
   itemType: "primitive";
+  inClone: boolean;
+  inGroup: boolean;
   class: string;
   provider: string;
   type: string;
@@ -115,6 +117,7 @@ export interface Primitive extends ResourceTreeItemBase {
 
 export interface Group extends ResourceTreeItemBase {
   itemType: "group";
+  inClone: boolean;
   resources: Primitive[];
 }
 

@@ -14,3 +14,5 @@ export * from "./removeResource";
 export * from "./clusterStartStop";
 export * from "./canAddClusterOrNodes";
 export * from "./sendKnownHosts";
+export * from "./resourceClone";
+export * from "./resourceUnclone";

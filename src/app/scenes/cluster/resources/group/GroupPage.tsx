@@ -13,6 +13,7 @@ import {
 } from "app/view";
 
 import { GroupDetail } from "./GroupDetail";
+import { GroupPageToolbar } from "./GroupPageToolbar";
 
 export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
   const { urlPrefix } = useGroupDetailViewContext();
@@ -25,6 +26,7 @@ export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
     <DetailLayout
       caption={<ResourceDetailCaption resourceId={group.id} type="group" />}
       tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
+      toolbar={<GroupPageToolbar group={group} />}
       data-test={`resource-detail ${group.id}`}
     >
       {tab === "Detail" && <GroupDetail group={group} />}
