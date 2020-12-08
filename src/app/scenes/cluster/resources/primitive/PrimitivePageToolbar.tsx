@@ -191,6 +191,11 @@ export const PrimitivePageToolbar: React.FC<{
     },
   };
 
+  const cloneUnclone: Record<
+    string,
+    DetailLayoutToolbarAction
+  > = primitive.inClone ? { unclone } : { clone };
+
   return (
     <DetailLayoutToolbar
       buttonActions={{
@@ -200,7 +205,7 @@ export const PrimitivePageToolbar: React.FC<{
       dropdownActions={{
         refresh,
         cleanup,
-        ...(primitive.inClone ? { unclone } : { clone }),
+        ...(primitive.inGroup ? {} : cloneUnclone),
         delete: deleteItem,
       }}
     />
