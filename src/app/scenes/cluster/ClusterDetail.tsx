@@ -9,9 +9,9 @@ import {
 } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { IssueList, useClusterSelector } from "app/view";
+import { useClusterSelector } from "app/view";
 
-import { ClusterDetailIssue } from "./ClusterDetailIssue";
+import { ClusterIssueList } from "./issues";
 
 export const ClusterDetail = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -26,11 +26,7 @@ export const ClusterDetail = () => {
         <CardBody>
           <Stack hasGutter className="pf-u-m-md">
             <StackItem>
-              <IssueList
-                issueList={cluster.issueList}
-                hideEmpty
-                displayIssue={issue => <ClusterDetailIssue issue={issue} />}
-              />
+              <ClusterIssueList issueList={cluster.issueList} />
             </StackItem>
           </Stack>
         </CardBody>
