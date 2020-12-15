@@ -7,6 +7,10 @@ export const getWizardNodeAddState = clusterSelector(
   clusterStorageItem => clusterStorageItem.wizardNodeAdd,
 );
 
+export const getAuthNodeState = clusterSelector(
+  clusterStorageItem => clusterStorageItem.authNode,
+);
+
 export const getPcmkAgent = clusterSelector(
   (clusterStorageItem, agentName: string) =>
     clusterStorageItem.pcmkAgents[agentName],

@@ -2,11 +2,13 @@ import React from "react";
 import { Alert, AlertActionLink } from "@patternfly/react-core";
 
 import { ClusterIssueNotAuthForm } from "./ClusterIssueNotAuthForm";
+import { useAuth } from "./useAuth";
 
 export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
   nodeList,
 }) => {
   const [fixing, setFixing] = React.useState(false);
+  const { start } = useAuth();
 
   return (
     <>
@@ -15,7 +17,12 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
         variant={"warning"}
         title="Cluster is not authenticated against nodes"
         actionLinks={
-          <AlertActionLink onClick={() => setFixing(true)}>
+          <AlertActionLink
+            onClick={() => {
+              setFixing(true);
+              start(nodeList);
+            }}
+          >
             Fix authentication
           </AlertActionLink>
         }
@@ -24,12 +31,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
         Unauthenticated nodes:{" "}
         <span> {[...new Set(nodeList)].join(", ")} </span>
       </Alert>
-      {fixing && (
-        <ClusterIssueNotAuthForm
-          cancel={() => setFixing(false)}
-          initialNodeList={nodeList}
-        />
-      )}
+      {fixing && <ClusterIssueNotAuthForm cancel={() => setFixing(false)} />}
     </>
   );
 };

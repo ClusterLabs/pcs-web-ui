@@ -4,12 +4,13 @@ import { Button, Form, Modal, TextInput } from "@patternfly/react-core";
 import { useAuth } from "./useAuth";
 
 export const ClusterIssueNotAuthForm: React.FC<{
-  initialNodeList: string[];
   cancel: () => void;
-}> = ({ initialNodeList, cancel }) => {
+}> = ({ cancel }) => {
   const {
     state: { nodeMap },
-  } = useAuth(initialNodeList);
+    updateNode,
+    nodeAuth,
+  } = useAuth();
   return (
     <Modal
       variant="large"
@@ -17,7 +18,7 @@ export const ClusterIssueNotAuthForm: React.FC<{
       isOpen
       onClose={cancel}
       actions={[
-        <Button key="Authenticate" variant="primary">
+        <Button key="Authenticate" variant="primary" onClick={nodeAuth}>
           Authenticate
         </Button>,
         <Button key="Cancel" variant="link" onClick={cancel}>
@@ -37,24 +38,23 @@ export const ClusterIssueNotAuthForm: React.FC<{
           </thead>
           <tbody>
             {Object.keys(nodeMap).map((nodeName) => {
-              const id = `auth-password-node-${nodeName}`;
+              const passwordId = `auth-node-${nodeName}-password`;
+              const addressId = `auth-node-${nodeName}-address`;
+              const portId = `auth-node-${nodeName}-port`;
               return (
                 <tr key={nodeName}>
                   <td>
-                    <label htmlFor={id}>{`${nodeName}`}</label>
+                    <label htmlFor={passwordId}>{`${nodeName}`}</label>
                   </td>
                   <td>
                     <TextInput
                       isRequired
                       type="password"
-                      id={id}
-                      name={id}
-                      data-test={id}
-                      aria-describedby="Password for user 'hacluster' to authenticate nodes"
-                      value=""
-                      onChange={() => {
-                        return 1;
-                      }}
+                      id={passwordId}
+                      name={passwordId}
+                      data-test={passwordId}
+                      value={nodeMap[nodeName].password}
+                      onChange={password => updateNode(nodeName, { password })}
                     />
                   </td>
                   <td>
@@ -62,9 +62,9 @@ export const ClusterIssueNotAuthForm: React.FC<{
                       isDisabled
                       isRequired
                       type="text"
-                      id={id}
-                      name={id}
-                      data-test={id}
+                      id={addressId}
+                      name={addressId}
+                      data-test={addressId}
                       value=""
                       onChange={() => {
                         return 1;
@@ -77,9 +77,9 @@ export const ClusterIssueNotAuthForm: React.FC<{
                       isRequired
                       placeholder="2224"
                       type="text"
-                      id={id}
-                      name={id}
-                      data-test={id}
+                      id={portId}
+                      name={portId}
+                      data-test={portId}
                       value=""
                       onChange={() => {
                         return 1;
