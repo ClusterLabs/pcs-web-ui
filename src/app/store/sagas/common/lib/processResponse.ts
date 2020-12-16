@@ -1,6 +1,5 @@
 import { api } from "app/backend";
-
-import { createNotification } from "../notifications";
+import { actionNewId } from "app/store/actions";
 
 import { clusterResponseSwitch } from "./responseSwitch";
 
@@ -9,10 +8,8 @@ export function* clusterResponseProcess(
   taskLabel: string,
   payload: api.types.lib.Response,
 ) {
-  const {
-    /* eslint-disable camelcase */
-    report_list,
-  } = payload;
+  /* eslint-disable-next-line camelcase */
+  const { report_list } = payload;
 
   const reportList = report_list.map(
     r => `${r.severity.level}: ${r.message.message}`,
@@ -20,23 +17,39 @@ export function* clusterResponseProcess(
   const communicationErrDesc = `Communication error while: ${taskLabel}`;
 
   yield clusterResponseSwitch(clusterUrlName, taskLabel, payload, {
-    successAction: createNotification(
-      "SUCCESS",
-      `Succesfully done: ${taskLabel}`,
-      {
-        type: "LIST",
-        title: "Messages from the backend",
-        items: reportList,
+    successAction: {
+      type: "NOTIFICATION.CREATE",
+      payload: {
+        id: actionNewId(),
+        severity: "SUCCESS",
+        message: `Succesfully done: ${taskLabel}`,
+        details: {
+          type: "LIST",
+          title: "Messages from the backend",
+          items: reportList,
+        },
       },
-    ),
-    errorAction: createNotification("ERROR", `Error while: ${taskLabel}`, {
-      type: "LIST",
-      title: "Messages from the backend",
-      items: reportList,
-    }),
-    communicationErrorAction: createNotification(
-      "ERROR",
-      `${communicationErrDesc}. Details in the browser console`,
-    ),
+    },
+    errorAction: {
+      type: "NOTIFICATION.CREATE",
+      payload: {
+        id: actionNewId(),
+        severity: "ERROR",
+        message: `Error while: ${taskLabel}`,
+        details: {
+          type: "LIST",
+          title: "Messages from the backend",
+          items: reportList,
+        },
+      },
+    },
+    communicationErrorAction: {
+      type: "NOTIFICATION.CREATE",
+      payload: {
+        id: actionNewId(),
+        severity: "ERROR",
+        message: `${communicationErrDesc}. Details in the browser console`,
+      },
+    },
   });
 }
