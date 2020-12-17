@@ -1,22 +1,13 @@
-import { ActionMap, selectors, useDispatch } from "app/store";
-import { useClusterSelector } from "app/view";
+import { useSelector } from "react-redux";
 
-export const useAuth = () => {
+import { ActionMap, selectors, useDispatch } from "app/store";
+
+export const useAuth = (processId: number) => {
   const dispatch = useDispatch();
-  const [state, clusterUrlName] = useClusterSelector(
-    selectors.getAuthNodeState,
-  );
+  const state = useSelector(selectors.getAuthNodeState(processId));
   return {
     state,
     // actions
-    start: (initialNodeList: string[]) =>
-      dispatch({
-        type: "NODE.AUTH.START",
-        payload: {
-          clusterUrlName,
-          initialNodeList,
-        },
-      }),
 
     updateNode: (
       nodeName: string,
@@ -25,7 +16,7 @@ export const useAuth = () => {
       dispatch({
         type: "NODE.AUTH.UPDATE.NODE",
         payload: {
-          clusterUrlName,
+          processId,
           nodeName,
           state,
         },
@@ -35,7 +26,7 @@ export const useAuth = () => {
       dispatch({
         type: "NODE.AUTH",
         payload: {
-          clusterUrlName,
+          processId,
           nodeMap: state.nodeMap,
         },
       }),

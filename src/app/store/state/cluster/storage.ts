@@ -9,7 +9,6 @@ import wizardResourceCreate, {
   WizardResourceCreate,
 } from "./wizardResourceCreate";
 import wizardNodeAdd, { WizardNodeAdd } from "./wizardNodeAdd";
-import authNode, { AuthNode } from "./authNode";
 
 export type ClusterStorageItem = {
   clusterStatus: clusterStatusTypes.ClusterStatusService;
@@ -19,7 +18,6 @@ export type ClusterStorageItem = {
   resourceAgentMap: ResourceAgentListService;
   wizardResourceCreate: WizardResourceCreate;
   wizardNodeAdd: WizardNodeAdd;
-  authNode: AuthNode;
 };
 
 export type ClusterStorageMap = Record<string, ClusterStorageItem>;
@@ -32,7 +30,6 @@ const clusterStorageItem = combineReducers<ClusterStorageItem>({
   resourceAgentMap,
   wizardResourceCreate,
   wizardNodeAdd,
-  authNode,
 });
 
 function hasProperty<O extends Record<string, unknown>, P extends PropertyKey>(

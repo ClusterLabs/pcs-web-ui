@@ -1,5 +1,5 @@
 import { Reducer } from "app/store/redux";
-export type AuthNode = {
+export type NodeAuth = {
   nodeMap: Record<
     string,
     {
@@ -10,11 +10,11 @@ export type AuthNode = {
   >;
 };
 
-const initialState: AuthNode = {
+const initialState: NodeAuth = {
   nodeMap: {},
 };
 
-const authNode: Reducer<AuthNode> = (state = initialState, action) => {
+const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
   switch (action.type) {
     case "NODE.AUTH.START":
       return {
@@ -48,4 +48,4 @@ const authNode: Reducer<AuthNode> = (state = initialState, action) => {
   }
 };
 
-export default authNode;
+export default nodeAuth;

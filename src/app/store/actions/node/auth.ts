@@ -2,14 +2,14 @@ export type NodeAuthActions = {
   "NODE.AUTH.START": {
     type: "NODE.AUTH.START";
     payload: {
-      clusterUrlName: string;
+      processId: number;
       initialNodeList: string[];
     };
   };
   "NODE.AUTH.UPDATE.NODE": {
     type: "NODE.AUTH.UPDATE.NODE";
     payload: {
-      clusterUrlName: string;
+      processId: number;
       nodeName: string;
       state: {
         password?: string;
@@ -21,7 +21,7 @@ export type NodeAuthActions = {
   "NODE.AUTH": {
     type: "NODE.AUTH";
     payload: {
-      clusterUrlName: string;
+      processId: number;
       nodeMap: Record<
         string,
         {
@@ -35,7 +35,7 @@ export type NodeAuthActions = {
   "NODE.AUTH.FAIL": {
     type: "NODE.AUTH.FAIL";
     payload: {
-      clusterUrlName: string;
+      processId: number;
       message: string;
     };
   };
@@ -43,7 +43,14 @@ export type NodeAuthActions = {
   "NODE.AUTH.BAD_INFO": {
     type: "NODE.AUTH.BAD_INFO";
     payload: {
-      clusterUrlName: string;
+      processId: number;
+    };
+  };
+
+  "NODE.AUTH.OK": {
+    type: "NODE.AUTH.OK";
+    payload: {
+      processId: number;
     };
   };
 };

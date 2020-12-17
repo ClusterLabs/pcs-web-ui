@@ -6,6 +6,7 @@ import dashboard, { DashboardPageState } from "./dashboard";
 import addExistingCluster, {
   DashboardAddClusterPageState,
 } from "./dashboardAddCluster";
+import nodeAuthMap, { NodeAuthMap } from "./nodeAuth";
 import notifications, { NotificationState } from "./notifications";
 import login, { LoginState } from "./login";
 import username, { UsernameState } from "./username";
@@ -19,6 +20,7 @@ export interface RootState {
   notifications: NotificationState;
   router: RouterState;
   username: UsernameState;
+  nodeAuthMap: NodeAuthMap;
 }
 
 export default (history: History) =>
@@ -30,4 +32,5 @@ export default (history: History) =>
     clusterStorage: clusterStorageReducer,
     login,
     notifications,
+    nodeAuthMap,
   });

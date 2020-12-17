@@ -4,13 +4,14 @@ import { Button, Form, Modal, TextInput } from "@patternfly/react-core";
 import { useAuth } from "./useAuth";
 
 export const ClusterIssueNotAuthForm: React.FC<{
+  authProcessId: number;
   cancel: () => void;
-}> = ({ cancel }) => {
+}> = ({ cancel, authProcessId }) => {
   const {
     state: { nodeMap },
     updateNode,
     nodeAuth,
-  } = useAuth();
+  } = useAuth(authProcessId);
   return (
     <Modal
       variant="large"

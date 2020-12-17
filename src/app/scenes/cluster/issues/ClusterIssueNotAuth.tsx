@@ -1,14 +1,15 @@
 import React from "react";
 import { Alert, AlertActionLink } from "@patternfly/react-core";
 
+import { actionNewId, useDispatch } from "app/store";
+
 import { ClusterIssueNotAuthForm } from "./ClusterIssueNotAuthForm";
-import { useAuth } from "./useAuth";
 
 export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
   nodeList,
 }) => {
-  const [fixing, setFixing] = React.useState(false);
-  const { start } = useAuth();
+  const dispatch = useDispatch();
+  const [authProcessId, setAuthProcessId] = React.useState<number | null>(null);
 
   return (
     <>
@@ -19,8 +20,16 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
         actionLinks={
           <AlertActionLink
             onClick={() => {
-              setFixing(true);
-              start(nodeList);
+              const processId = actionNewId();
+              setAuthProcessId(processId);
+
+              dispatch({
+                type: "NODE.AUTH.START",
+                payload: {
+                  processId,
+                  initialNodeList: nodeList,
+                },
+              });
             }}
           >
             Fix authentication
@@ -31,7 +40,12 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
         Unauthenticated nodes:{" "}
         <span> {[...new Set(nodeList)].join(", ")} </span>
       </Alert>
-      {fixing && <ClusterIssueNotAuthForm cancel={() => setFixing(false)} />}
+      {authProcessId && (
+        <ClusterIssueNotAuthForm
+          cancel={() => setAuthProcessId(null)}
+          authProcessId={authProcessId}
+        />
+      )}
     </>
   );
 };

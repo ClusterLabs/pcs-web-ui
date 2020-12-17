@@ -4,7 +4,7 @@ import { ActionMap } from "app/store";
 import { api, put, takeEvery } from "./common";
 
 function* nodeAuthSaga({
-  payload: { clusterUrlName, nodeMap },
+  payload: { processId, nodeMap },
 }: ActionMap["NODE.AUTH"]) {
   const result: api.ResultOf<typeof authGuiAgainstNodes> = yield api.authSafe(
     authGuiAgainstNodes,
@@ -31,7 +31,7 @@ function* nodeAuthSaga({
         put({
           type: "NODE.AUTH.FAIL",
           payload: {
-            clusterUrlName,
+            processId,
             message: api.errorMessage(result, taskLabel),
           },
         }),
@@ -45,17 +45,14 @@ function* nodeAuthSaga({
   if (result.payload.node_auth_error[nodeName] !== 0) {
     yield put({
       type: "NODE.AUTH.BAD_INFO",
-      payload: { clusterUrlName },
+      payload: { processId },
     });
     return;
   }
 
   yield put({
-    type: "NODE.ADD.SEND_KNOWN_HOSTS",
-    payload: {
-      clusterUrlName,
-      nodeName,
-    },
+    type: "NODE.AUTH.OK",
+    payload: { processId },
   });
 }
 
