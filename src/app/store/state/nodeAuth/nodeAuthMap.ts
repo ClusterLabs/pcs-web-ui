@@ -10,6 +10,7 @@ const nodeAuthMap: Reducer<NodeAuthMap> = (state = initialState, action) => {
   switch (action.type) {
     case "NODE.AUTH.START":
     case "NODE.AUTH.UPDATE.NODE":
+    case "NODE.AUTH.OK":
       return {
         ...state,
         [action.payload.processId]: nodeAuth(

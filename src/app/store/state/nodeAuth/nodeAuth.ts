@@ -8,10 +8,12 @@ export type NodeAuth = {
       port: string;
     }
   >;
+  processStatus: "" | "success";
 };
 
 const initialState: NodeAuth = {
   nodeMap: {},
+  processStatus: "",
 };
 
 const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
@@ -43,6 +45,11 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
         },
       };
     }
+    case "NODE.AUTH.OK":
+      return {
+        ...state,
+        processStatus: "success",
+      };
     default:
       return state;
   }
