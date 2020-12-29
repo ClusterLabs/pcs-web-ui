@@ -15,7 +15,7 @@ export const ClusterIssueNotAuthForm: React.FC<{
   cancel: () => void;
 }> = ({ cancel, authProcessId }) => {
   const {
-    state: { nodeMap, processStatus, useAddresses },
+    state: { nodeMap, processStatus, useAddresses, errorMessage },
     updateNode,
     nodeAuth,
     switchAddressUse,
@@ -52,6 +52,11 @@ export const ClusterIssueNotAuthForm: React.FC<{
       )}
       {processStatus !== "success" && (
         <Form data-test="form-auth-node" isHorizontal>
+          {processStatus === "error" && (
+            <Alert isInline variant="danger" title="Authentication node error">
+              {errorMessage}
+            </Alert>
+          )}
           <table className="pf-c-table pf-m-compact pf-m-grid-md pf-m-no-border-rows">
             <thead>
               <tr>

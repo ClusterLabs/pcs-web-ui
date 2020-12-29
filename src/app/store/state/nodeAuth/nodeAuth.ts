@@ -8,13 +8,15 @@ export type NodeAuth = {
       port: string;
     }
   >;
-  processStatus: "" | "success";
+  processStatus: "" | "success" | "error";
+  errorMessage: string;
   useAddresses: boolean;
 };
 
 const initialState: NodeAuth = {
   nodeMap: {},
   processStatus: "",
+  errorMessage: "",
   useAddresses: false,
 };
 
@@ -60,6 +62,13 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
       return {
         ...state,
         processStatus: "success",
+        errorMessage: "",
+      };
+    case "NODE.AUTH.FAIL":
+      return {
+        ...state,
+        processStatus: "error",
+        errorMessage: action.payload.message,
       };
     default:
       return state;
