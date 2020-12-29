@@ -30,5 +30,15 @@ export const useAuth = (processId: number) => {
           nodeMap: state.nodeMap,
         },
       }),
+
+    switchAddressUse: (enable: boolean) => {
+      dispatch({
+        type: "NODE.AUTH.ADDR.ENABLE",
+        payload: {
+          processId,
+          enable,
+        },
+      });
+    },
   };
 };

@@ -1,5 +1,12 @@
 import React from "react";
-import { Alert, Button, Form, Modal, TextInput } from "@patternfly/react-core";
+import {
+  Alert,
+  Button,
+  Form,
+  Modal,
+  Switch,
+  TextInput,
+} from "@patternfly/react-core";
 
 import { useAuth } from "./useAuth";
 
@@ -8,9 +15,10 @@ export const ClusterIssueNotAuthForm: React.FC<{
   cancel: () => void;
 }> = ({ cancel, authProcessId }) => {
   const {
-    state: { nodeMap, processStatus },
+    state: { nodeMap, processStatus, useAddresses },
     updateNode,
     nodeAuth,
+    switchAddressUse,
   } = useAuth(authProcessId);
   return (
     <Modal
@@ -49,7 +57,15 @@ export const ClusterIssueNotAuthForm: React.FC<{
               <tr>
                 <th>Node</th>
                 <th>Password</th>
-                <th>Address</th>
+                <th>
+                  <Switch
+                    id="add-cluster-use-custom-address-port"
+                    label=""
+                    isChecked={useAddresses}
+                    onChange={() => switchAddressUse(!useAddresses)}
+                  />
+                  Address
+                </th>
                 <th>Port</th>
               </tr>
             </thead>
@@ -78,31 +94,25 @@ export const ClusterIssueNotAuthForm: React.FC<{
                     </td>
                     <td>
                       <TextInput
-                        isDisabled
-                        isRequired
+                        isDisabled={!useAddresses}
                         type="text"
                         id={addressId}
                         name={addressId}
                         data-test={addressId}
-                        value=""
-                        onChange={() => {
-                          return 1;
-                        }}
+                        value={nodeMap[nodeName].address}
+                        onChange={address => updateNode(nodeName, { address })}
                       />
                     </td>
                     <td className="pf-m-width-10">
                       <TextInput
-                        isDisabled
-                        isRequired
+                        isDisabled={!useAddresses}
                         placeholder="2224"
                         type="text"
                         id={portId}
                         name={portId}
                         data-test={portId}
-                        value=""
-                        onChange={() => {
-                          return 1;
-                        }}
+                        value={nodeMap[nodeName].port}
+                        onChange={port => updateNode(nodeName, { port })}
                       />
                     </td>
                   </tr>

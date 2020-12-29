@@ -9,11 +9,13 @@ export type NodeAuth = {
     }
   >;
   processStatus: "" | "success";
+  useAddresses: boolean;
 };
 
 const initialState: NodeAuth = {
   nodeMap: {},
   processStatus: "",
+  useAddresses: false,
 };
 
 const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
@@ -40,9 +42,18 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
           [nodeName]: {
             password: password || stateNode.password,
             address: address || stateNode.address,
-            port: port || stateNode.address,
+            port: port || stateNode.port,
           },
         },
+      };
+    }
+    case "NODE.AUTH.ADDR.ENABLE": {
+      if (action.payload.enable) {
+        return { ...state, useAddresses: true };
+      }
+      return {
+        ...state,
+        useAddresses: false,
       };
     }
     case "NODE.AUTH.OK":

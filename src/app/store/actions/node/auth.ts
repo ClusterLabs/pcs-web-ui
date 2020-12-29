@@ -18,6 +18,13 @@ export type NodeAuthActions = {
       };
     };
   };
+  "NODE.AUTH.ADDR.ENABLE": {
+    type: "NODE.AUTH.ADDR.ENABLE";
+    payload: {
+      processId: number;
+      enable: boolean;
+    };
+  };
   "NODE.AUTH": {
     type: "NODE.AUTH";
     payload: {
