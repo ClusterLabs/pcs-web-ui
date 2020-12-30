@@ -15,7 +15,7 @@ export const ClusterIssueNotAuthForm: React.FC<{
   cancel: () => void;
 }> = ({ cancel, authProcessId }) => {
   const {
-    state: { nodeMap, processStatus, useAddresses, errorMessage },
+    state: { nodeMap, useAddresses, errorMessage, nodesResults },
     updateNode,
     nodeAuth,
     switchAddressUse,
@@ -27,7 +27,7 @@ export const ClusterIssueNotAuthForm: React.FC<{
       isOpen
       onClose={cancel}
       actions={
-        processStatus === "success"
+        Object.keys(nodeMap).length === 0
           ? [
               <Button key="Cancel" variant="primary" onClick={cancel}>
                 Close
@@ -43,20 +43,33 @@ export const ClusterIssueNotAuthForm: React.FC<{
             ]
       }
     >
-      {processStatus === "success" && (
-        <Alert
-          variant="success"
-          title="Nodes successfully authenticated"
-          isInline
-        />
+      {errorMessage.length > 0 && (
+        <Alert isInline variant="danger" title="Authentication node error">
+          {errorMessage}
+        </Alert>
       )}
-      {processStatus !== "success" && (
+      {nodesResults.success.length > 0 && (
+        <Alert
+          isInline
+          variant="success"
+          title="Nodes sucessfully authenticated"
+        >
+          {`${
+            nodesResults.success.length === 1 ? "Node" : "Nodes"
+          } ${nodesResults.success.join(
+            ", ",
+          )} has been sucessfully authenticated.`}
+        </Alert>
+      )}
+      {nodesResults.fail.length > 0 && (
+        <Alert isInline variant="danger" title="Nodes not authenticated">
+          {`Authentication of ${
+            nodesResults.fail.length === 1 ? "node" : "nodes"
+          } ${nodesResults.fail.join(", ")} failed`}
+        </Alert>
+      )}
+      {Object.keys(nodeMap).length > 0 && (
         <Form data-test="form-auth-node" isHorizontal>
-          {processStatus === "error" && (
-            <Alert isInline variant="danger" title="Authentication node error">
-              {errorMessage}
-            </Alert>
-          )}
           <table className="pf-c-table pf-m-compact pf-m-grid-md pf-m-no-border-rows">
             <thead>
               <tr>
@@ -89,7 +102,6 @@ export const ClusterIssueNotAuthForm: React.FC<{
                         isRequired
                         type="password"
                         id={passwordId}
-                        name={passwordId}
                         data-test={passwordId}
                         value={nodeMap[nodeName].password}
                         onChange={password =>
@@ -102,7 +114,6 @@ export const ClusterIssueNotAuthForm: React.FC<{
                         isDisabled={!useAddresses}
                         type="text"
                         id={addressId}
-                        name={addressId}
                         data-test={addressId}
                         value={nodeMap[nodeName].address}
                         onChange={address => updateNode(nodeName, { address })}
@@ -114,7 +125,6 @@ export const ClusterIssueNotAuthForm: React.FC<{
                         placeholder="2224"
                         type="text"
                         id={portId}
-                        name={portId}
                         data-test={portId}
                         value={nodeMap[nodeName].port}
                         onChange={port => updateNode(nodeName, { port })}

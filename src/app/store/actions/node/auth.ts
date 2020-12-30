@@ -1,3 +1,5 @@
+import { api } from "app/backend";
+
 export type NodeAuthActions = {
   "NODE.AUTH.START": {
     type: "NODE.AUTH.START";
@@ -47,17 +49,11 @@ export type NodeAuthActions = {
     };
   };
 
-  "NODE.AUTH.BAD_INFO": {
-    type: "NODE.AUTH.BAD_INFO";
-    payload: {
-      processId: number;
-    };
-  };
-
   "NODE.AUTH.OK": {
     type: "NODE.AUTH.OK";
     payload: {
       processId: number;
+      response: api.types.authGuiAgainstNodes.ApiAuthGuiAgainstNodes;
     };
   };
 };

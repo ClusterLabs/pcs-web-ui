@@ -40,19 +40,9 @@ function* nodeAuthSaga({
     return;
   }
 
-  //TODO
-  const nodeName = Object.keys(nodeMap)[0];
-  if (result.payload.node_auth_error[nodeName] !== 0) {
-    yield put({
-      type: "NODE.AUTH.BAD_INFO",
-      payload: { processId },
-    });
-    return;
-  }
-
   yield put({
     type: "NODE.AUTH.OK",
-    payload: { processId },
+    payload: { processId, response: result.payload },
   });
 }
 

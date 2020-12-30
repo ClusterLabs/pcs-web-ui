@@ -1,8 +1,8 @@
 import { api, http, t, validate } from "app/backend/tools";
 
-const shape = t.type({
-  node_auth_error: t.record(t.string, t.number),
-});
+import * as types from "../types";
+
+const shape = types.authGuiAgainstNodes.TApiAuthGuiAgainstNodes;
 
 export const authGuiAgainstNodes = async (
   nodeMap: Record<
