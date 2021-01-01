@@ -45,7 +45,9 @@ export const ClusterIssueNotAuthForm: React.FC<{
     >
       {errorMessage.length > 0 && (
         <Alert isInline variant="danger" title="Authentication node error">
-          {errorMessage}
+          {errorMessage.map((message, i) => (
+            <div key={i}>{message}</div>
+          ))}
         </Alert>
       )}
       {nodesResults.success.length > 0 && (

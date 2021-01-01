@@ -11,7 +11,7 @@ type NodeMap = Record<
 
 export type NodeAuth = {
   nodeMap: NodeMap;
-  errorMessage: string;
+  errorMessage: string[];
   useAddresses: boolean;
   nodesResults: {
     success: string[];
@@ -24,9 +24,11 @@ const initialNodesResults = {
   fail: [],
 };
 
+const initialNode = { password: "", address: "", port: "" };
+
 const initialState: NodeAuth = {
   nodeMap: {},
-  errorMessage: "",
+  errorMessage: [],
   useAddresses: false,
   nodesResults: initialNodesResults,
 };
@@ -45,13 +47,11 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
       return {
         ...state,
         nodeMap: action.payload.initialNodeList.reduce<NodeMap>(
-          (map, node): NodeMap => ({
-            ...map,
-            [node]: { password: "", address: "", port: "" },
-          }),
+          (map, node): NodeMap => ({ ...map, [node]: initialNode }),
           {},
         ),
       };
+
     case "NODE.AUTH.UPDATE.NODE": {
       const node = action.payload.nodeName;
       const stateNode = state.nodeMap[node];
@@ -69,6 +69,7 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
         },
       };
     }
+
     case "NODE.AUTH.ADDR.ENABLE": {
       if (action.payload.enable) {
         return { ...state, useAddresses: true };
@@ -78,14 +79,31 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
         useAddresses: false,
       };
     }
+
     case "NODE.AUTH.OK": {
       const { response } = action.payload;
-      if ("node_auth_error" in response && response.node_auth_error) {
+      const unauthBackendNodes =
+        "local_cluster_node_auth_error" in response
+        && response.local_cluster_node_auth_error
+        && Object.keys(response.local_cluster_node_auth_error).length > 0
+          ? Object.keys(response.local_cluster_node_auth_error)
+          : [];
+
+      if (
+        // It means that the authentication was not saved in backend (i.e.
+        // local cluster) when there is something in plaintext_error. So,
+        // results in "node_auth_error" are meningless - even when nodes was
+        // sucessfully authenticated, the tokens was not saved on backend.
+        response.plaintext_error.length === 0
+        && unauthBackendNodes.length === 0
+        && "node_auth_error" in response
+        && response.node_auth_error
+      ) {
         const resultMap = response.node_auth_error;
         const failedNodes = selectNodes(resultMap, { success: false });
         return {
           ...state,
-          errorMessage: "",
+          errorMessage: [],
           nodeMap: failedNodes.reduce<NodeMap>(
             (map, node): NodeMap => ({
               ...map,
@@ -104,15 +122,35 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
       }
       return {
         ...state,
-        errorMessage: response.plaintext_error,
+        errorMessage: [
+          ...(response.plaintext_error.length > 0
+            ? [response.plaintext_error]
+            : []),
+          ...(unauthBackendNodes.length > 0
+            ? [
+                "Unable to save settings on local cluster node(s) "
+                  + unauthBackendNodes.join(", ")
+                  + ". Make sure pcsd is running on the nodes and the nodes are authorized.",
+              ]
+            : []),
+        ],
+        nodeMap: {
+          ...state.nodeMap,
+          ...unauthBackendNodes.reduce<NodeMap>(
+            (map, node): NodeMap => ({ ...map, [node]: initialNode }),
+            {},
+          ),
+        },
         nodesResults: initialNodesResults,
       };
     }
+
     case "NODE.AUTH.FAIL":
       return {
         ...state,
-        errorMessage: action.payload.message,
+        errorMessage: [action.payload.message],
       };
+
     default:
       return state;
   }

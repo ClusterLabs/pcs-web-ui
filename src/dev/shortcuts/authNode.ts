@@ -36,6 +36,10 @@ const containPassword = (
     false,
   );
 
+const unableSaveOnBackend = (nodes: string[]) =>
+  `Unable to save settings on local cluster node(s) ${nodes.join(", ")}.`
+  + " Make sure pcsd is running on the nodes and the nodes are authorized.";
+
 export const authGuiAgainstNodes = () =>
   app.authGuiAgainstNodes((req, res) => {
     const { nodes } = JSON.parse(req.body.data_json);
@@ -61,10 +65,52 @@ export const authGuiAgainstNodes = () =>
       return;
     }
 
+    if (containPassword(nodes, "backend")) {
+      res.json({
+        node_auth_error: Object.keys(nodes).reduce<Record<string, 0 | 1>>(
+          (result, nodeName) => ({ ...result, [nodeName]: 0 }),
+          {},
+        ),
+        plaintext_error: unableSaveOnBackend(["backend-1", "backend-2"]),
+      });
+      return;
+    }
+
+    if (containPassword(nodes, "backend-unauth")) {
+      res.json({
+        node_auth_error: Object.keys(nodes).reduce<Record<string, 0 | 1>>(
+          (result, nodeName) => ({ ...result, [nodeName]: 0 }),
+          {},
+        ),
+        plaintext_error: "",
+        local_cluster_node_auth_error: {
+          "backend-3": 1,
+          "backend-4": 1,
+        },
+      });
+      return;
+    }
+
+    if (containPassword(nodes, "backend-complex")) {
+      res.json({
+        node_auth_error: Object.keys(nodes).reduce<Record<string, 0 | 1>>(
+          (result, nodeName) => ({ ...result, [nodeName]: 0 }),
+          {},
+        ),
+        plaintext_error: unableSaveOnBackend(["backend-1", "backend-2"]),
+        local_cluster_node_auth_error: {
+          "backend-3": 1,
+          "backend-4": 1,
+        },
+      });
+      return;
+    }
+
     // y: 0 => good password
     // any other: 1 => wrong password
     res.json({
-      node_auth_error: Object.keys(nodes).reduce(
+      plaintext_error: "",
+      node_auth_error: Object.keys(nodes).reduce<Record<string, 0 | 1>>(
         (result, nodeName) => ({
           ...result,
           [nodeName]: nodes[nodeName].password === "y" ? 0 : 1,
