@@ -125,14 +125,20 @@ function* authenticateNode({
     return;
   }
 
-  yield put(
-    result.payload.node_auth_error[nodeName] === 0
-      ? { type: "CLUSTER.ADD.AUTH_NODE.OK" }
-      : {
-          type: "CLUSTER.ADD.AUTH_NODE.ERROR",
-          payload: { message: `${taskLabel} failed.` },
-        },
-  );
+  if ("node_auth_error" in result.payload && result.payload.node_auth_error) {
+    yield put(
+      result.payload.node_auth_error[nodeName] === 0
+        ? { type: "CLUSTER.ADD.AUTH_NODE.OK" }
+        : {
+            type: "CLUSTER.ADD.AUTH_NODE.ERROR",
+            payload: { message: `${taskLabel} failed.` },
+          },
+    );
+  }
+  yield put({
+    type: "CLUSTER.ADD.AUTH_NODE.ERROR",
+    payload: { message: result.payload.plaintext_error },
+  });
 }
 
 export default [

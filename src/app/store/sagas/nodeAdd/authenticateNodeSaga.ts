@@ -34,19 +34,22 @@ export function* authenticateNodeSaga({
     return;
   }
 
-  if (result.payload.node_auth_error[nodeName] !== 0) {
+  if (
+    "node_auth_error" in result.payload
+    && result.payload.node_auth_error
+    && result.payload.node_auth_error[nodeName] === 0
+  ) {
     yield put({
-      type: "NODE.ADD.AUTHENTICATE.BAD_INFO",
-      payload: { clusterUrlName },
+      type: "NODE.ADD.SEND_KNOWN_HOSTS",
+      payload: {
+        clusterUrlName,
+        nodeName,
+      },
     });
-    return;
   }
 
   yield put({
-    type: "NODE.ADD.SEND_KNOWN_HOSTS",
-    payload: {
-      clusterUrlName,
-      nodeName,
-    },
+    type: "NODE.ADD.AUTHENTICATE.BAD_INFO",
+    payload: { clusterUrlName },
   });
 }

@@ -1,5 +1,4 @@
 import { Reducer } from "app/store/redux";
-import { ActionMap } from "app/store";
 
 type NodeMap = Record<
   string,
@@ -20,21 +19,23 @@ export type NodeAuth = {
   };
 };
 
+const initialNodesResults = {
+  success: [],
+  fail: [],
+};
+
 const initialState: NodeAuth = {
   nodeMap: {},
   errorMessage: "",
   useAddresses: false,
-  nodesResults: {
-    success: [],
-    fail: [],
-  },
+  nodesResults: initialNodesResults,
 };
 
-const responseToNodeList = (
-  response: ActionMap["NODE.AUTH.OK"]["payload"]["response"],
+const selectNodes = (
+  nodeAuthError: Record<string, 0 | 1>,
   { success }: { success: boolean },
 ) =>
-  Object.entries(response.node_auth_error)
+  Object.entries(nodeAuthError)
     .filter(([_n, r]) => r === (success ? 0 : 1))
     .map(([n]) => n);
 
@@ -61,9 +62,9 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
           ...state.nodeMap,
           [node]: {
             ...stateNode,
-            password: password || stateNode.password,
-            address: address || stateNode.address,
-            port: port || stateNode.port,
+            password: password ?? stateNode.password,
+            address: address ?? stateNode.address,
+            port: port ?? stateNode.port,
           },
         },
       };
@@ -79,25 +80,32 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
     }
     case "NODE.AUTH.OK": {
       const { response } = action.payload;
-      const failedNodes = responseToNodeList(response, { success: false });
-      const successNodes = responseToNodeList(response, { success: true });
+      if ("node_auth_error" in response && response.node_auth_error) {
+        const resultMap = response.node_auth_error;
+        const failedNodes = selectNodes(resultMap, { success: false });
+        return {
+          ...state,
+          errorMessage: "",
+          nodeMap: failedNodes.reduce<NodeMap>(
+            (map, node): NodeMap => ({
+              ...map,
+              [node]: {
+                ...state.nodeMap[node],
+                password: "",
+              },
+            }),
+            {},
+          ),
+          nodesResults: {
+            success: selectNodes(resultMap, { success: true }),
+            fail: failedNodes,
+          },
+        };
+      }
       return {
         ...state,
-        errorMessage: "",
-        nodeMap: failedNodes.reduce<NodeMap>(
-          (map, node): NodeMap => ({
-            ...map,
-            [node]: {
-              ...state.nodeMap[node],
-              password: "",
-            },
-          }),
-          {},
-        ),
-        nodesResults: {
-          success: successNodes,
-          fail: failedNodes,
-        },
+        errorMessage: response.plaintext_error,
+        nodesResults: initialNodesResults,
       };
     }
     case "NODE.AUTH.FAIL":

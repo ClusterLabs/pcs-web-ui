@@ -21,10 +21,13 @@ export const authGuiAgainstNodes = async (
         return errors;
       }
 
-      const returnedNodeMap: t.TypeOf<typeof shape> = payload;
-      return validate.sameNodes(
-        Object.keys(nodeMap),
-        Object.keys(returnedNodeMap.node_auth_error),
-      );
+      const p: t.TypeOf<typeof shape> = payload;
+      if ("node_auth_error" in p && p.node_auth_error) {
+        return validate.sameNodes(
+          Object.keys(nodeMap),
+          Object.keys(p.node_auth_error),
+        );
+      }
+      return [];
     },
   });

@@ -27,27 +27,37 @@ export const checkAuthAgainstNodes = (
     res.json(result);
   });
 
+const containPassword = (
+  nodes: Record<string, { password: string }>,
+  password: string,
+) =>
+  Object.keys(nodes).reduce<boolean>(
+    (result, name) => result || nodes[name].password === password,
+    false,
+  );
+
 export const authGuiAgainstNodes = () =>
   app.authGuiAgainstNodes((req, res) => {
     const { nodes } = JSON.parse(req.body.data_json);
 
-    // error: server error
-    const isExpectedError = Object.keys(nodes).reduce(
-      (result, nodeName) => result || nodes[nodeName].password === "error",
-      false,
-    );
-    if (isExpectedError) {
+    if (containPassword(nodes, "error")) {
       res.status(500).send("SOMETHING WRONG");
       return;
     }
 
-    // badformat: bad format of resposne
-    const expectedBadFormat = Object.keys(nodes).reduce(
-      (result, nodeName) => result || nodes[nodeName].password === "badformat",
-      false,
-    );
-    if (expectedBadFormat) {
+    if (containPassword(nodes, "badformat")) {
       res.json("Bad format");
+      return;
+    }
+
+    if (containPassword(nodes, "conflict")) {
+      res.json({
+        plaintext_error:
+          "Configuration conflict detected."
+          + "\n\nSome nodes had a newer configuration than the local node."
+          + " Local node's configuration was updated."
+          + " Please repeat the last action if appropriate.",
+      });
       return;
     }
 
