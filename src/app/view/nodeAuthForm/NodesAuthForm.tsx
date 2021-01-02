@@ -1,48 +1,18 @@
 import React from "react";
-import {
-  Alert,
-  Button,
-  Form,
-  Modal,
-  Switch,
-  TextInput,
-} from "@patternfly/react-core";
+import { Alert, Form, Switch, TextInput } from "@patternfly/react-core";
 
-import { useNodesAuth } from "app/view";
+import { useNodesAuth } from "./useNodesAuth";
 
-export const ClusterIssueNotAuthForm: React.FC<{
+export const NodesAuthForm: React.FC<{
   authProcessId: number;
-  cancel: () => void;
-}> = ({ cancel, authProcessId }) => {
+}> = ({ authProcessId }) => {
   const {
     state: { nodeMap, useAddresses, errorMessage, nodesResults },
     updateNode,
-    nodeAuth,
     switchAddressUse,
   } = useNodesAuth(authProcessId);
   return (
-    <Modal
-      variant="large"
-      title="Authentication of nodes"
-      isOpen
-      onClose={cancel}
-      actions={
-        Object.keys(nodeMap).length === 0
-          ? [
-              <Button key="Cancel" variant="primary" onClick={cancel}>
-                Close
-              </Button>,
-            ]
-          : [
-              <Button key="Authenticate" variant="primary" onClick={nodeAuth}>
-                Authenticate
-              </Button>,
-              <Button key="Cancel" variant="link" onClick={cancel}>
-                Cancel
-              </Button>,
-            ]
-      }
-    >
+    <>
       {errorMessage.length > 0 && (
         <Alert isInline variant="danger" title="Authentication node error">
           {errorMessage.map((message, i) => (
@@ -139,6 +109,6 @@ export const ClusterIssueNotAuthForm: React.FC<{
           </table>
         </Form>
       )}
-    </Modal>
+    </>
   );
 };

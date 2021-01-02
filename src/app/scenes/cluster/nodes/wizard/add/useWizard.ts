@@ -96,18 +96,6 @@ export const useWizard = () => {
         },
       }),
 
-    nodeAuth: (password: string, address: string, port: string) =>
-      dispatch({
-        type: "NODE.ADD.AUTHENTICATE",
-        payload: {
-          clusterUrlName,
-          nodeName: state.nodeName,
-          password,
-          address,
-          port,
-        },
-      }),
-
     nodeStart: () =>
       dispatch({
         type: "NODE.START",

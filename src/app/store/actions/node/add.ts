@@ -136,37 +136,12 @@ export type NodeAddActions = {
     type: "NODE.ADD.CHECK_AUTH.NO_AUTH";
     payload: {
       clusterUrlName: string;
+      authProcessId: number;
     };
   };
 
   "NODE.ADD.CHECK_AUTH.OK": {
     type: "NODE.ADD.CHECK_AUTH.OK";
-    payload: {
-      clusterUrlName: string;
-    };
-  };
-
-  "NODE.ADD.AUTHENTICATE": {
-    type: "NODE.ADD.AUTHENTICATE";
-    payload: {
-      clusterUrlName: string;
-      nodeName: string;
-      password: string;
-      address: string;
-      port: string;
-    };
-  };
-
-  "NODE.ADD.AUTHENTICATE.FAIL": {
-    type: "NODE.ADD.AUTHENTICATE.FAIL";
-    payload: {
-      clusterUrlName: string;
-      message: string;
-    };
-  };
-
-  "NODE.ADD.AUTHENTICATE.BAD_INFO": {
-    type: "NODE.ADD.AUTHENTICATE.BAD_INFO";
     payload: {
       clusterUrlName: string;
     };

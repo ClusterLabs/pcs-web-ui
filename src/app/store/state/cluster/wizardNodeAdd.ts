@@ -18,11 +18,9 @@ export type WizardNodeAdd = {
     | "can-add-started"
     | "can-add-cannot"
     | "can-add-failed"
-    | "auth-started"
-    | "auth-failed"
-    | "auth-required"
-    | "auth-bad-info"
-    | "auth-progress"
+    | "auth-check-started"
+    | "auth-check-failed"
+    | "auth-in-progress"
     | "send-known-hosts-started"
     | "success";
   nodeCheckMessage: string;
@@ -37,6 +35,7 @@ export type WizardNodeAdd = {
   sbdWatchdog: string;
   sbdDevices: [string, string, string];
   sbdNoWatchdogValidation: boolean;
+  authProcessId: number | null;
 };
 
 const initialState: WizardNodeAdd = {
@@ -59,6 +58,7 @@ const initialState: WizardNodeAdd = {
   sbdWatchdog: "",
   sbdDevices: ["", "", ""],
   sbdNoWatchdogValidation: false,
+  authProcessId: null,
 };
 
 const wizardNodeAdd: Reducer<WizardNodeAdd> = (
@@ -101,42 +101,26 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
     case "NODE.ADD.CHECK_AUTH":
       return {
         ...state,
-        nodeCheck: "auth-started",
+        nodeCheck: "auth-check-started",
         nodeCheckMessage: "",
       };
     case "NODE.ADD.CHECK_AUTH.NO_AUTH":
       return {
         ...state,
-        nodeCheck: "auth-required",
+        authProcessId: action.payload.authProcessId,
+        nodeCheck: "auth-in-progress",
         nodeCheckMessage: "",
       };
     case "NODE.ADD.CHECK_AUTH.FAIL":
       return {
         ...state,
-        nodeCheck: "auth-failed",
+        nodeCheck: "auth-check-failed",
         nodeCheckMessage: action.payload.message,
-      };
-    case "NODE.ADD.AUTHENTICATE":
-      return {
-        ...state,
-        nodeCheck: "auth-progress",
-        nodeCheckMessage: "",
-      };
-    case "NODE.ADD.AUTHENTICATE.FAIL":
-      return {
-        ...state,
-        nodeCheck: "auth-required",
-        nodeCheckMessage: action.payload.message,
-      };
-    case "NODE.ADD.AUTHENTICATE.BAD_INFO":
-      return {
-        ...state,
-        nodeCheck: "auth-bad-info",
-        nodeCheckMessage: "",
       };
     case "NODE.ADD.SEND_KNOWN_HOSTS":
       return {
         ...state,
+        authProcessId: null,
         nodeCheck: "send-known-hosts-started",
         nodeCheckMessage: "",
       };

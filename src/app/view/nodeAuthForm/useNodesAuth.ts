@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import { ActionMap, selectors, useDispatch } from "app/store";
 
-export const useAuth = (processId: number) => {
+export const useNodesAuth = (processId: number) => {
   const dispatch = useDispatch();
   const state = useSelector(selectors.getAuthNodeState(processId));
   return {
