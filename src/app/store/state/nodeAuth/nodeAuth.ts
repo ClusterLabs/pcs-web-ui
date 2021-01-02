@@ -128,9 +128,10 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
             : []),
           ...(unauthBackendNodes.length > 0
             ? [
-                "Unable to save settings on local cluster node(s) "
-                  + unauthBackendNodes.join(", ")
-                  + ". Make sure pcsd is running on the nodes and the nodes are authorized.",
+                "Unable to save new cluster settings as the local cluster nodes"
+                  + ` (${unauthBackendNodes.join(", ")})`
+                  + " are not authenticated."
+                  + " Please, authenticate them as well.",
               ]
             : []),
         ],
