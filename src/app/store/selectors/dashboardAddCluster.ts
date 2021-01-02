@@ -9,6 +9,9 @@ export const addClusterGetNodeName: Selector<types.addCluster.NodeName> = state 
 export const addClusterGetStepAuthState: Selector<types.addCluster.AUTH_STATE> = state =>
   state.addExistingCluster.stepAuthState;
 
+export const addClusterGetAuthProcessId: Selector<types.addCluster.AuthProcessId> = state =>
+  state.addExistingCluster.authProcessId;
+
 export const addClusterGetStepAddState: Selector<types.addCluster.ADD_STATE> = state =>
   state.addExistingCluster.stepAddState;
 

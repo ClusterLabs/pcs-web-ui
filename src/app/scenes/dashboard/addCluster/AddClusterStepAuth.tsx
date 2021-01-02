@@ -1,20 +1,17 @@
 import React from "react";
 import { Alert, Button, Form } from "@patternfly/react-core";
 
-import { selectors, types, useDispatch, useSelector } from "app/store";
-import { EmptyStateSpinner, FormText, NodeAuthForm } from "app/view";
+import { selectors, useDispatch, useSelector } from "app/store";
+import { EmptyStateSpinner, FormText } from "app/view";
+
+import { AddClusterStepAuthForm } from "./AddClusterStepAuthForm";
 
 const helperText =
   "Enter the name of a node in a cluster that you would like to manage";
 
-const authRequiredStates: types.addCluster.AUTH_STATE[] = [
-  "NOT_AUTHENTICATED",
-  "AUTHENTICATION_IN_PROGRESS",
-  "AUTHENTICATION_FAILED",
-];
-
 export const AddClusterStepAuth = () => {
   const authState = useSelector(selectors.addClusterGetStepAuthState);
+  const authProcessId = useSelector(selectors.addClusterGetAuthProcessId);
   const nodeName = useSelector(selectors.addClusterGetNodeName);
   const stateError = useSelector(selectors.addClusterGetStateError);
   const dispatch = useDispatch();
@@ -71,24 +68,8 @@ export const AddClusterStepAuth = () => {
           />
         )}
       </Form>
-      {authRequiredStates.includes(authState) && (
-        <NodeAuthForm
-          authenticationInProgress={authState === "AUTHENTICATION_IN_PROGRESS"}
-          authenticationError={
-            authState === "AUTHENTICATION_FAILED" ? stateError : ""
-          }
-          onSend={(password: string, address: string, port: string) =>
-            dispatch({
-              type: "CLUSTER.ADD.AUTH_NODE",
-              payload: {
-                nodeName,
-                password,
-                address,
-                port,
-              },
-            })
-          }
-        />
+      {authProcessId && (
+        <AddClusterStepAuthForm authProcessId={authProcessId} />
       )}
     </>
   );

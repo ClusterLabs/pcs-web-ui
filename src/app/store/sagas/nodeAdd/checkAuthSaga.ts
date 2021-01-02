@@ -2,7 +2,16 @@ import { checkAuthAgainstNodes } from "app/backend";
 import { actionNewId } from "app/store";
 import { Action, ActionMap } from "app/store/actions";
 
-import { api, errorMessage, processError, put, race, take } from "../common";
+import {
+  api,
+  call,
+  errorMessage,
+  processError,
+  put,
+  race,
+  take,
+} from "../common";
+import { nodeAuthWait } from "../nodeAuth";
 
 export function* checkAuthSaga({
   payload: { clusterUrlName, nodeName },
@@ -63,31 +72,12 @@ export function* checkAuthSaga({
     type: "NODE.ADD.CHECK_AUTH.NO_AUTH",
     payload: { clusterUrlName, authProcessId },
   });
-
-  // waiting for authentcation to be successfully done
-  while (true) {
-    const {
-      payload: { response, processId },
-    }: ActionMap["NODE.AUTH.OK"] = yield take("NODE.AUTH.OK");
-    if (
-      processId === authProcessId
-      && response.plaintext_error.length === 0
-      && !(
-        "local_cluster_node_auth_error" in response
-        && response.local_cluster_node_auth_error
-      )
-      && "node_auth_error" in response
-      && response.node_auth_error
-      && Object.values(response.node_auth_error).every(v => v === 0)
-    ) {
-      yield put({
-        type: "NODE.ADD.SEND_KNOWN_HOSTS",
-        payload: {
-          clusterUrlName,
-          nodeName,
-        },
-      });
-      return;
-    }
-  }
+  yield call(nodeAuthWait, authProcessId);
+  yield put({
+    type: "NODE.ADD.SEND_KNOWN_HOSTS",
+    payload: {
+      clusterUrlName,
+      nodeName,
+    },
+  });
 }

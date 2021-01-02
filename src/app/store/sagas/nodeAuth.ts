@@ -1,7 +1,7 @@
 import { authGuiAgainstNodes } from "app/backend";
 import { ActionMap } from "app/store";
 
-import { api, put, takeEvery } from "./common";
+import { api, put, take, takeEvery } from "./common";
 
 function* nodeAuthSaga({
   payload: { processId, nodeMap },
@@ -44,6 +44,27 @@ function* nodeAuthSaga({
     type: "NODE.AUTH.OK",
     payload: { processId, response: result.payload },
   });
+}
+
+export function* nodeAuthWait(authProcessId: number) {
+  while (true) {
+    const {
+      payload: { response, processId },
+    }: ActionMap["NODE.AUTH.OK"] = yield take("NODE.AUTH.OK");
+    if (
+      processId === authProcessId
+      && response.plaintext_error.length === 0
+      && !(
+        "local_cluster_node_auth_error" in response
+        && response.local_cluster_node_auth_error
+      )
+      && "node_auth_error" in response
+      && response.node_auth_error
+      && Object.values(response.node_auth_error).every(v => v === 0)
+    ) {
+      return;
+    }
+  }
 }
 
 export default [takeEvery("NODE.AUTH", nodeAuthSaga)];

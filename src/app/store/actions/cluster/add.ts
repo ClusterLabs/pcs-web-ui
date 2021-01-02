@@ -20,28 +20,6 @@ export type ClusterAddActions = {
     };
   };
 
-  "CLUSTER.ADD.AUTH_NODE": {
-    type: "CLUSTER.ADD.AUTH_NODE";
-    payload: {
-      nodeName: string;
-      password: string;
-      address: string;
-      // TODO make it number
-      port: string;
-    };
-  };
-
-  "CLUSTER.ADD.AUTH_NODE.OK": {
-    type: "CLUSTER.ADD.AUTH_NODE.OK";
-  };
-
-  "CLUSTER.ADD.AUTH_NODE.ERROR": {
-    type: "CLUSTER.ADD.AUTH_NODE.ERROR";
-    payload: {
-      message: string;
-    };
-  };
-
   "CLUSTER.ADD.CHECK_AUTH": {
     type: "CLUSTER.ADD.CHECK_AUTH";
     payload: {
@@ -55,6 +33,9 @@ export type ClusterAddActions = {
 
   "CLUSTER.ADD.CHECK_AUTH.NO_AUTH": {
     type: "CLUSTER.ADD.CHECK_AUTH.NO_AUTH";
+    payload: {
+      authProcessId: number;
+    };
   };
 
   "CLUSTER.ADD.CHECK_AUTH.ERROR": {
