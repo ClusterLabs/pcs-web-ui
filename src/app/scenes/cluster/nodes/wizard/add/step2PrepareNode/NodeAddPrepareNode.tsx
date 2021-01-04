@@ -2,29 +2,28 @@ import React from "react";
 import { Alert, AlertActionLink } from "@patternfly/react-core";
 
 import { WizardLibStep } from "app/view";
-import { EmptyStateSpinner, NodeAuthForm } from "app/view";
+import { EmptyStateSpinner, NodesAuthForm } from "app/view";
 
 import { useWizard } from "../useWizard";
 
 export const NodeAddPrepareNode: React.FC = () => {
   const {
     useNodeCheck,
-    nodeAuth,
     checkCanAddNode,
     checkAuth,
-    state: { nodeCheck, nodeCheckMessage, reports },
+    state: { nodeCheck, nodeCheckMessage, reports, authProcessId },
   } = useWizard();
   useNodeCheck();
   return (
     <WizardLibStep title="Prepare node" reports={reports}>
       {(nodeCheck === "can-add-started"
-        || nodeCheck === "auth-started"
+        || nodeCheck === "auth-check-started"
         || nodeCheck === "send-known-hosts-started") && (
         <EmptyStateSpinner
           title={
             {
               "can-add-started": "Checking if can add node to cluster",
-              "auth-started": "Checking if node is authenticated",
+              "auth-check-started": "Checking if node is authenticated",
               "send-known-hosts-started":
                 "Sending updated known host to cluster",
             }[nodeCheck]
@@ -47,7 +46,7 @@ export const NodeAddPrepareNode: React.FC = () => {
         </Alert>
       )}
 
-      {nodeCheck === "auth-failed" && (
+      {nodeCheck === "auth-check-failed" && (
         <Alert
           variant="danger"
           isInline
@@ -70,19 +69,15 @@ export const NodeAddPrepareNode: React.FC = () => {
         />
       )}
 
-      {(nodeCheck === "auth-required"
-        || nodeCheck === "auth-progress"
-        || nodeCheck === "auth-bad-info") && (
-        <NodeAuthForm
-          authenticationInProgress={nodeCheck === "auth-progress"}
-          authenticationError={
-            nodeCheck === "auth-bad-info"
-              ? "Wrong authentication data"
-              : nodeCheckMessage
-          }
-          onSend={nodeAuth}
-          canTryAgain={nodeCheck !== "auth-bad-info"}
-        />
+      {authProcessId && (
+        <>
+          <Alert
+            isInline
+            variant="warning"
+            title={"Node is not authenticated. Please authenticate it."}
+          />
+          <NodesAuthForm authProcessId={authProcessId} />
+        </>
       )}
 
       {nodeCheck === "success" && (

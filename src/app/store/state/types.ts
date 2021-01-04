@@ -3,6 +3,7 @@ import { types as cluster } from "./cluster/clusterStatus";
 import * as dashboard from "./dashboard";
 import * as addCluster from "./dashboardAddCluster";
 import * as notifications from "./notifications";
+import * as nodeAuth from "./nodeAuth";
 import * as pcmkAgents from "./cluster/pcmkAgents";
 import * as clusterStorage from "./cluster/storage";
 import * as login from "./login";
@@ -20,6 +21,7 @@ export {
   login,
   username,
   notifications,
+  nodeAuth,
   pcmkAgents,
   resourceAgentMap,
   clusterStorage,

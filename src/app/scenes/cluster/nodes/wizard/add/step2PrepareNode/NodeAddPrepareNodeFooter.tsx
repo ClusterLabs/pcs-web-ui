@@ -8,15 +8,23 @@ import {
 
 import { useWizard } from "../useWizard";
 
+import { NodeAddPrepareNodeFooterAuthButton } from "./NodeAddPrepareNodeFooterAuthButton";
+
 export const NodeAddPrepareNodeFooter: React.FC = () => {
   const {
+    state: { authProcessId },
     close,
     isNodeCheckDoneValid,
     wizard: { onNext, onBack },
   } = useWizard();
   return (
     <>
-      <WizardButtonNext onClick={onNext} disabled={!isNodeCheckDoneValid} />
+      {authProcessId && (
+        <NodeAddPrepareNodeFooterAuthButton authProcessId={authProcessId} />
+      )}
+      {!authProcessId && (
+        <WizardButtonNext disabled={!isNodeCheckDoneValid} onClick={onNext} />
+      )}
       <WizardButtonBack onClick={onBack} />
       <WizardButtonCancel onClick={close} />
     </>

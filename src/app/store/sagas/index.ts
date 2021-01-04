@@ -19,6 +19,8 @@ import libAction from "./libAction";
 import nodeStartStop from "./nodeStartStop";
 import nodeAdd from "./nodeAdd";
 import resourceClone from "./resourceClone";
+import nodeAuth from "./nodeAuth";
+import fixAuth from "./fixAuth";
 
 function* rootSaga() {
   yield all([
@@ -41,6 +43,8 @@ function* rootSaga() {
     ...nodeStartStop,
     ...nodeAdd,
     ...resourceClone,
+    ...nodeAuth,
+    ...fixAuth,
   ]);
 }
 

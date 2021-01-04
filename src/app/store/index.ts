@@ -5,6 +5,7 @@ import {
   Action as TAction,
   ActionLeaf as TActionLeaf,
   ActionMap as TActionMap,
+  actionNewId,
 } from "./actions";
 import * as selectors from "./selectors";
 import * as types from "./state/types";
@@ -25,4 +26,4 @@ export type Action = TAction;
 export type ActionMap = TActionMap;
 export type ActionLeaf = TActionLeaf;
 
-export { setupStore, useSelector, selectors, types, utils, url };
+export { actionNewId, setupStore, useSelector, selectors, types, utils, url };

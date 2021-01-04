@@ -39,6 +39,11 @@ export type ActionMap = LeafActionMap & {
 };
 export type Action = ActionLeaf | SetupDataReading;
 
+let nextId = 1;
+export const actionNewId = () => {
+  return nextId++;
+};
+
 // 1. Actions are one big map in format:
 //
 // export type SomeActions = {

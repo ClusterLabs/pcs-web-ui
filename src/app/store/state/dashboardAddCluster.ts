@@ -5,9 +5,9 @@ export type AUTH_STATE =
   | "CHECKING"
   | "ALREADY_AUTHENTICATED"
   | "NOT_AUTHENTICATED"
-  | "ERROR"
-  | "AUTHENTICATION_IN_PROGRESS"
-  | "AUTHENTICATION_FAILED";
+  | "ERROR";
+
+export type AuthProcessId = number | null;
 
 export type ADD_STATE = "STARTED" | "SUCCESS" | "ERROR" | "DASHBOARD_RELOADING";
 
@@ -19,6 +19,7 @@ export interface DashboardAddClusterPageState {
   stepAuthState: AUTH_STATE;
   stepAddState: ADD_STATE;
   stateError: StateError;
+  authProcessId: AuthProcessId;
 }
 
 const nodeName: Reducer<NodeName> = (state = "", action) => {
@@ -42,12 +43,18 @@ const stepAuthState: Reducer<AUTH_STATE> = (state = "INITIAL", action) => {
       return "NOT_AUTHENTICATED";
     case "CLUSTER.ADD.CHECK_AUTH.ERROR":
       return "ERROR";
-    case "CLUSTER.ADD.AUTH_NODE":
-      return "AUTHENTICATION_IN_PROGRESS";
-    case "CLUSTER.ADD.AUTH_NODE.OK":
-      return "ALREADY_AUTHENTICATED";
-    case "CLUSTER.ADD.AUTH_NODE.ERROR":
-      return "AUTHENTICATION_FAILED";
+    default:
+      return state;
+  }
+};
+
+const authProcessId: Reducer<AuthProcessId> = (state = null, action) => {
+  switch (action.type) {
+    case "CLUSTER.ADD.CHECK_AUTH.NO_AUTH":
+      return action.payload.authProcessId;
+    case "CLUSTER.ADD.CHECK_AUTH.OK":
+    case "CLUSTER.ADD.NODE_NAME.UPDATE":
+      return null;
     default:
       return state;
   }
@@ -77,11 +84,9 @@ const stateError: Reducer<StateError> = (state = "", action) => {
     case "CLUSTER.ADD":
     case "CLUSTER.LIST.REFRESH":
     case "CLUSTER.ADD.OK":
-    case "CLUSTER.ADD.AUTH_NODE":
       return "";
     case "CLUSTER.ADD.CHECK_AUTH.ERROR":
     case "CLUSTER.ADD.ERROR":
-    case "CLUSTER.ADD.AUTH_NODE.ERROR":
       return action.payload.message;
 
     default:
@@ -94,4 +99,5 @@ export default combineReducers<DashboardAddClusterPageState>({
   stepAuthState,
   stepAddState,
   stateError,
+  authProcessId,
 });

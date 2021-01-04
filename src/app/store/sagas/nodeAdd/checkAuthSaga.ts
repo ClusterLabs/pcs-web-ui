@@ -1,7 +1,17 @@
 import { checkAuthAgainstNodes } from "app/backend";
+import { actionNewId } from "app/store";
 import { Action, ActionMap } from "app/store/actions";
 
-import { api, errorMessage, processError, put, race, take } from "../common";
+import {
+  api,
+  call,
+  errorMessage,
+  processError,
+  put,
+  race,
+  take,
+} from "../common";
+import { nodeAuthWait } from "../nodeAuth";
 
 export function* checkAuthSaga({
   payload: { clusterUrlName, nodeName },
@@ -37,19 +47,49 @@ export function* checkAuthSaga({
     return;
   }
 
-  if (result.payload[nodeName] === "Unable to authenticate") {
+  if (result.payload[nodeName] === "Online") {
     yield put({
-      type: "NODE.ADD.CHECK_AUTH.NO_AUTH",
-      payload: { clusterUrlName },
+      type: "NODE.ADD.SEND_KNOWN_HOSTS",
+      payload: {
+        clusterUrlName,
+        nodeName,
+      },
     });
     return;
   }
 
+  // result.payload[nodeName] === "Unable to autheticate" => must go through
+  // authentication process
+  const authProcessId = actionNewId();
   yield put({
-    type: "NODE.ADD.SEND_KNOWN_HOSTS",
+    type: "NODE.AUTH.START",
     payload: {
-      clusterUrlName,
-      nodeName,
+      processId: authProcessId,
+      initialNodeList: [nodeName],
     },
+  });
+  yield put({
+    type: "NODE.ADD.CHECK_AUTH.NO_AUTH",
+    payload: { clusterUrlName, authProcessId },
+  });
+
+  const { cancel } = yield race({
+    auth: call(nodeAuthWait, authProcessId),
+    cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
+  });
+
+  if (!cancel) {
+    yield put({
+      type: "NODE.ADD.SEND_KNOWN_HOSTS",
+      payload: {
+        clusterUrlName,
+        nodeName,
+      },
+    });
+    return;
+  }
+  yield put({
+    type: "NODE.AUTH.STOP",
+    payload: { processId: authProcessId },
   });
 }

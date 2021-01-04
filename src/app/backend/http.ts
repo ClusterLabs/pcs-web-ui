@@ -128,7 +128,9 @@ export async function get<PAYLOAD, O, I>(
 
 export async function post<PAYLOAD, O, I>(
   url: string,
-  opts: (PostData & PayloadValidation<PAYLOAD, O, I>) | PostData,
+  opts: (PostData & PayloadValidation<PAYLOAD, O, I>) | PostData = {
+    params: [],
+  },
 ) {
   return processHttpResponse(
     await httpPost(
