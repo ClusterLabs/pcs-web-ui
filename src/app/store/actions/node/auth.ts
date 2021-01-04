@@ -8,6 +8,12 @@ export type NodeAuthActions = {
       initialNodeList: string[];
     };
   };
+  "NODE.AUTH.STOP": {
+    type: "NODE.AUTH.STOP";
+    payload: {
+      processId: number;
+    };
+  };
   "NODE.AUTH.UPDATE.NODE": {
     type: "NODE.AUTH.UPDATE.NODE";
     payload: {

@@ -72,12 +72,24 @@ export function* checkAuthSaga({
     type: "NODE.ADD.CHECK_AUTH.NO_AUTH",
     payload: { clusterUrlName, authProcessId },
   });
-  yield call(nodeAuthWait, authProcessId);
+
+  const { cancel } = yield race({
+    auth: call(nodeAuthWait, authProcessId),
+    cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
+  });
+
+  if (!cancel) {
+    yield put({
+      type: "NODE.ADD.SEND_KNOWN_HOSTS",
+      payload: {
+        clusterUrlName,
+        nodeName,
+      },
+    });
+    return;
+  }
   yield put({
-    type: "NODE.ADD.SEND_KNOWN_HOSTS",
-    payload: {
-      clusterUrlName,
-      nodeName,
-    },
+    type: "NODE.AUTH.STOP",
+    payload: { processId: authProcessId },
   });
 }

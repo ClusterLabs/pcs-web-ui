@@ -27,24 +27,32 @@ function* fixAuth({
     cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
   });
 
-  if (cancel) {
-    // TODO cancel auth task
-    return;
+  if (!cancel) {
+    yield put({
+      type: "CLUSTER.FIX_AUTH.AUTH_DONE",
+      payload: { clusterUrlName },
+    });
   }
 
   yield put({
-    type: "CLUSTER.FIX_AUTH.AUTH_DONE",
-    payload: { clusterUrlName },
+    type: "NODE.AUTH.STOP",
+    payload: { processId: authProcessId },
   });
 }
 
 function* fixAuthDistribute({
   payload: { clusterUrlName },
 }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
-  const result: api.ResultOf<typeof fixAuthOfCluster> = yield api.authSafe(
-    fixAuthOfCluster,
-    clusterUrlName,
-  );
+  const {
+    result,
+  }: { result: api.ResultOf<typeof fixAuthOfCluster> } = yield race({
+    result: api.authSafe(fixAuthOfCluster, clusterUrlName),
+    cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
+  });
+
+  if (!result) {
+    return;
+  }
 
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
     yield put({

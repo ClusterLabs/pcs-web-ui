@@ -53,6 +53,7 @@ const authProcessId: Reducer<AuthProcessId> = (state = null, action) => {
     case "CLUSTER.ADD.CHECK_AUTH.NO_AUTH":
       return action.payload.authProcessId;
     case "CLUSTER.ADD.CHECK_AUTH.OK":
+    case "CLUSTER.ADD.NODE_NAME.UPDATE":
       return null;
     default:
       return state;

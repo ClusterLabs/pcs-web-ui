@@ -15,21 +15,46 @@ function hasProperty<O extends Record<string, unknown>, P extends PropertyKey>(
 }
 
 const nodeAuthMap: Reducer<NodeAuthMap> = (state = initialState, action) => {
-  if (
-    // TODO - DATA_READING.SET_UP has array in payload; make it standard object!
-    action.type !== "DATA_READING.SET_UP"
-    && hasProperty(action, "payload")
-    && hasProperty(action.payload, "processId")
-  ) {
-    return {
-      ...state,
-      [action.payload.processId]: nodeAuth(
-        state[action.payload.processId],
-        action,
-      ),
-    };
+  switch (action.type) {
+    case "NODE.AUTH.START":
+      return {
+        ...state,
+        [action.payload.processId]: nodeAuth(
+          state[action.payload.processId],
+          action,
+        ),
+      };
+
+    case "NODE.AUTH.STOP":
+      return Object.keys(state)
+        .map(Number)
+        .reduce<NodeAuthMap>(
+          (newState, key) => ({
+            ...newState,
+            ...(key !== action.payload.processId ? { [key]: state[key] } : {}),
+          }),
+          {},
+        );
+
+    default:
+      if (
+        // TODO - DATA_READING.SET_UP has array in payload; make it standard
+        // object!
+        action.type !== "DATA_READING.SET_UP"
+        && hasProperty(action, "payload")
+        && hasProperty(action.payload, "processId")
+        && hasProperty(state, action.payload.processId)
+      ) {
+        return {
+          ...state,
+          [action.payload.processId]: nodeAuth(
+            state[action.payload.processId],
+            action,
+          ),
+        };
+      }
+      return state;
   }
-  return state;
 };
 
 export default nodeAuthMap;

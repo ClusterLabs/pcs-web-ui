@@ -6,6 +6,12 @@ import { api, put, take, takeEvery } from "./common";
 function* nodeAuthSaga({
   payload: { processId, nodeMap },
 }: ActionMap["NODE.AUTH"]) {
+  // AuthNode with processId disappear from redux store if NODE.AUTH.STOP
+  // hapens during api call and the following action NODE.AUTH.FAIL or
+  // NODE.AUTH.OK has no effect on redux store.
+  // So, no race needed here. And moreover race is not appropriate here since
+  // only NODE.AUTH.STOP with the same processId value should cancell api call.
+  // But race would cancel api call on every NODE.AUTH.STOP
   const result: api.ResultOf<typeof authGuiAgainstNodes> = yield api.authSafe(
     authGuiAgainstNodes,
     Object.entries(nodeMap).reduce(
@@ -46,11 +52,19 @@ function* nodeAuthSaga({
   });
 }
 
+type WaitAction = ActionMap["NODE.AUTH.OK"] | ActionMap["NODE.AUTH.STOP"];
 export function* nodeAuthWait(authProcessId: number) {
   while (true) {
-    const {
-      payload: { response, processId },
-    }: ActionMap["NODE.AUTH.OK"] = yield take("NODE.AUTH.OK");
+    const action: WaitAction = yield take(["NODE.AUTH.OK", "NODE.AUTH.STOP"]);
+
+    if (action.type === "NODE.AUTH.STOP") {
+      if (action.payload.processId === authProcessId) {
+        return;
+      }
+      continue;
+    }
+
+    const { processId, response } = action.payload;
     if (
       processId === authProcessId
       && response.plaintext_error.length === 0

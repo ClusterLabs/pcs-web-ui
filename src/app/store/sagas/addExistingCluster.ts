@@ -59,12 +59,25 @@ function* checkAuthentication({
       initialNodeList: [nodeName],
     },
   });
+
   yield put({
     type: "CLUSTER.ADD.CHECK_AUTH.NO_AUTH",
     payload: { authProcessId },
   });
-  yield call(nodeAuthWait, authProcessId);
-  yield put({ type: "CLUSTER.ADD.CHECK_AUTH.OK" });
+
+  const { cancel } = yield race({
+    auth: call(nodeAuthWait, authProcessId),
+    cancel: take(["CLUSTER.ADD.NODE_NAME.UPDATE"]),
+  });
+
+  if (!cancel) {
+    yield put({ type: "CLUSTER.ADD.CHECK_AUTH.OK" });
+  }
+
+  yield put({
+    type: "NODE.AUTH.STOP",
+    payload: { processId: authProcessId },
+  });
 }
 
 function* addCluster({ payload: { nodeName } }: ActionMap["CLUSTER.ADD"]) {
