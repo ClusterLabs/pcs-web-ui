@@ -3,7 +3,7 @@ import { api, getFenceAgentMetadata } from "app/backend";
 export type FenceAgentActions = {
   "FENCE_AGENT.LOAD": {
     type: "FENCE_AGENT.LOAD";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       agentName: string;
     };
@@ -11,7 +11,7 @@ export type FenceAgentActions = {
 
   "FENCE_AGENT.LOAD.SUCCESS": {
     type: "FENCE_AGENT.LOAD.SUCCESS";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       apiAgentMetadata: api.PayloadOf<typeof getFenceAgentMetadata>;
     };
@@ -19,7 +19,7 @@ export type FenceAgentActions = {
 
   "FENCE_AGENT.LOAD.FAILED": {
     type: "FENCE_AGENT.LOAD.FAILED";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       agentName: string;
     };

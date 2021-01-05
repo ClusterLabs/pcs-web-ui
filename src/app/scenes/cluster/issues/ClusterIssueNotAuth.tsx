@@ -18,7 +18,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
   const cancel = () =>
     dispatch({
       type: "CLUSTER.FIX_AUTH.CANCEL",
-      id: { cluster: clusterName },
+      key: { clusterName },
     });
 
   let actions = [
@@ -46,7 +46,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
         onClick={() =>
           dispatch({
             type: "CLUSTER.FIX_AUTH.AUTH_DONE",
-            id: { cluster: clusterName },
+            key: { clusterName },
           })
         }
       >
@@ -69,7 +69,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
             onClick={() => {
               dispatch({
                 type: "CLUSTER.FIX_AUTH.START",
-                id: { cluster: clusterName },
+                key: { clusterName },
                 payload: { initialNodeList: nodeList },
               });
             }}

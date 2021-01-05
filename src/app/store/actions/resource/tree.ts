@@ -1,7 +1,7 @@
 export type ResourceTreeActions = {
   "RESOURCE.TREE.ITEM.TOGGLE": {
     type: "RESOURCE.TREE.ITEM.TOGGLE";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       itemId: string;
     };

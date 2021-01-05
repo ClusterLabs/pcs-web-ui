@@ -16,7 +16,7 @@ export const NodeDetailPageToolbar: React.FC<{
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
-    id: { cluster: clusterName },
+    key: { clusterName },
     payload: {
       taskLabel: `standby node "${node.name}"`,
       call: {
@@ -53,7 +53,7 @@ export const NodeDetailPageToolbar: React.FC<{
 
   const maintenanceUnmanintenanceAction = (maintenance: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
-    id: { cluster: clusterName },
+    key: { clusterName },
     payload: {
       taskLabel: `maintenance node "${node.name}"`,
       call: {
@@ -85,7 +85,7 @@ export const NodeDetailPageToolbar: React.FC<{
   const start: DetailLayoutToolbarAction = {
     action: {
       type: "NODE.START",
-      id: { cluster: clusterName },
+      key: { clusterName },
       payload: { nodeName: node.name },
     },
     confirm: {
@@ -97,7 +97,7 @@ export const NodeDetailPageToolbar: React.FC<{
   const stop: DetailLayoutToolbarAction = {
     action: {
       type: "NODE.STOP",
-      id: { cluster: clusterName },
+      key: { clusterName },
       payload: { nodeName: node.name },
     },
     confirm: {
@@ -109,7 +109,7 @@ export const NodeDetailPageToolbar: React.FC<{
   const remove: DetailLayoutToolbarAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
-      id: { cluster: clusterName },
+      key: { clusterName },
       payload: {
         taskLabel: `remove node "${node.name}"`,
         call: {

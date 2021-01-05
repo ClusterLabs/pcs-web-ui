@@ -42,14 +42,14 @@ export const useWizard = () => {
       clusterWizard.close();
       dispatch({
         type: "RESOURCE.CREATE.CLOSE",
-        id: { cluster: clusterName },
+        key: { clusterName },
       });
     },
 
     updateState: (payload: ActionMap["RESOURCE.CREATE.UPDATE"]["payload"]) => {
       dispatch({
         type: "RESOURCE.CREATE.UPDATE",
-        id: { cluster: clusterName },
+        key: { clusterName },
         payload,
       });
     },

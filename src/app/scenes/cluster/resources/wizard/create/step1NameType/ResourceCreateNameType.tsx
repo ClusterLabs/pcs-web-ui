@@ -18,7 +18,7 @@ export const ResourceCreateNameType: React.FC = () => {
   const onSelect = (value: string) => {
     dispatch({
       type: "RESOURCE_AGENT.ENSURE",
-      id: { cluster: clusterName },
+      key: { clusterName },
       payload: { agentName: value.toString() },
     });
     updateState({ agentName: value.toString() });

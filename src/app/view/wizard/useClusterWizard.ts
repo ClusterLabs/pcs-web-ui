@@ -33,13 +33,13 @@ export function useClusterWizard<
       if (isValid) {
         dispatch({
           type: "CLUSTER.WIZARD.VALIDATION.HIDE",
-          id: { cluster: clusterName },
+          key: { clusterName },
         });
         pfWizardContext.onNext();
       } else {
         dispatch({
           type: "CLUSTER.WIZARD.VALIDATION.SHOW",
-          id: { cluster: clusterName },
+          key: { clusterName },
         });
       }
     },

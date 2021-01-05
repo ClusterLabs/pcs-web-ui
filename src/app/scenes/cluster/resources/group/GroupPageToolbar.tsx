@@ -23,7 +23,7 @@ export const GroupPageToolbar: React.FC<{ group: types.cluster.Group }> = ({
     },
     action: {
       type: "RESOURCE.UNCLONE",
-      id: { cluster },
+      key: { clusterName: cluster },
       payload: { resourceId: group.id },
     },
   };
@@ -35,7 +35,7 @@ export const GroupPageToolbar: React.FC<{ group: types.cluster.Group }> = ({
     },
     action: {
       type: "RESOURCE.CLONE",
-      id: { cluster },
+      key: { clusterName: cluster },
       payload: { resourceId: group.id },
     },
   };

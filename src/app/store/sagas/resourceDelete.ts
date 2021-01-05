@@ -16,17 +16,17 @@ const formatResourcesFenceDeviceMsg = (
       } ${resourceNameList.map(r => `"${r}"`).join(", ")}`;
 
 export function* deleteResource({
-  id,
+  key,
   payload: { resourceIds, resourceType },
 }: ActionMap["RESOURCE.DELETE"]) {
   const result: api.ResultOf<typeof removeResource> = yield api.authSafe(
     removeResource,
-    id.cluster,
+    key.clusterName,
     resourceIds,
   );
 
   yield processClusterResultBasic(
-    id.cluster,
+    key.clusterName,
     `delete ${formatResourcesFenceDeviceMsg(resourceIds, resourceType)}`,
     result,
   );

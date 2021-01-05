@@ -15,7 +15,7 @@ export const useNodesAuth = (processId: number) => {
     ) =>
       dispatch({
         type: "NODE.AUTH.UPDATE.NODE",
-        id: { process: processId },
+        key: { process: processId },
         payload: {
           nodeName,
           state,
@@ -25,14 +25,14 @@ export const useNodesAuth = (processId: number) => {
     nodeAuth: () =>
       dispatch({
         type: "NODE.AUTH",
-        id: { process: processId },
+        key: { process: processId },
         payload: { nodeMap: state.nodeMap },
       }),
 
     switchAddressUse: (enable: boolean) => {
       dispatch({
         type: "NODE.AUTH.ADDR.ENABLE",
-        id: { process: processId },
+        key: { process: processId },
         payload: { enable },
       });
     },

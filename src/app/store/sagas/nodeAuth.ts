@@ -3,7 +3,7 @@ import { ActionMap } from "app/store";
 
 import { api, put, take, takeEvery } from "./common";
 
-function* nodeAuthSaga({ id, payload: { nodeMap } }: ActionMap["NODE.AUTH"]) {
+function* nodeAuthSaga({ key, payload: { nodeMap } }: ActionMap["NODE.AUTH"]) {
   // AuthNode with id.process disappear from redux store if NODE.AUTH.STOP
   // hapens during api call and the following action NODE.AUTH.FAIL or
   // NODE.AUTH.OK has no effect on redux store.
@@ -34,7 +34,7 @@ function* nodeAuthSaga({ id, payload: { nodeMap } }: ActionMap["NODE.AUTH"]) {
       action: () =>
         put({
           type: "NODE.AUTH.FAIL",
-          id,
+          key,
           payload: { message: api.errorMessage(result, taskLabel) },
         }),
       useNotification: false,
@@ -44,7 +44,7 @@ function* nodeAuthSaga({ id, payload: { nodeMap } }: ActionMap["NODE.AUTH"]) {
 
   yield put({
     type: "NODE.AUTH.OK",
-    id,
+    key,
     payload: { response: result.payload },
   });
 }
@@ -55,18 +55,18 @@ export function* nodeAuthWait(authProcessId: number) {
     const action: WaitAction = yield take(["NODE.AUTH.OK", "NODE.AUTH.STOP"]);
 
     if (action.type === "NODE.AUTH.STOP") {
-      if (action.id.process === authProcessId) {
+      if (action.key.process === authProcessId) {
         return;
       }
       continue;
     }
 
     const {
-      id,
+      key,
       payload: { response },
     } = action;
     if (
-      id.process === authProcessId
+      key.process === authProcessId
       && response.plaintext_error.length === 0
       && !(
         "local_cluster_node_auth_error" in response

@@ -3,12 +3,12 @@ import { Action, ActionMap } from "app/store/actions";
 import { api, lib, processError, put, race, take, takeEvery } from "./common";
 
 function* resourceCreateSaga({
-  id,
+  key,
   payload: { agentName, resourceName, instanceAttrs, disabled },
 }: ActionMap["RESOURCE.CREATE"]) {
   const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
     result: api.authSafe(api.lib.callCluster, {
-      clusterName: id.cluster,
+      clusterName: key.clusterName,
       command: "resource-create",
       payload: {
         resource_id: resourceName,
@@ -30,7 +30,7 @@ function* resourceCreateSaga({
   const taskLabel = `create resource "${resourceName}"`;
   const errorAction: Action = {
     type: "RESOURCE.CREATE.ERROR",
-    id,
+    key,
   };
 
   if (result.type !== "OK") {
@@ -41,15 +41,15 @@ function* resourceCreateSaga({
     return;
   }
 
-  yield lib.clusterResponseSwitch(id.cluster, taskLabel, result.payload, {
+  yield lib.clusterResponseSwitch(key.clusterName, taskLabel, result.payload, {
     successAction: {
       type: "RESOURCE.CREATE.SUCCESS",
-      id,
+      key,
       payload: { reports: result.payload.report_list },
     },
     errorAction: {
       type: "RESOURCE.CREATE.FAIL",
-      id,
+      key,
       payload: { reports: result.payload.report_list },
     },
     communicationErrorAction: errorAction,

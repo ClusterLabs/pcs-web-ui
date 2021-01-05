@@ -43,7 +43,7 @@ export const ResourceTreeItemCompound = ({
           onClick={() =>
             dispatch({
               type: "RESOURCE.TREE.ITEM.TOGGLE",
-              id: { cluster },
+              key: { clusterName: cluster },
               payload: { itemId: resourceId },
             })
           }

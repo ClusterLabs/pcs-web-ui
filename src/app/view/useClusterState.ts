@@ -14,7 +14,7 @@ export const useClusterState = (clusterName: string) => {
   const start = React.useMemo<ActionLeaf>(
     () => ({
       type: "CLUSTER.STATUS.SYNC",
-      id: { cluster: clusterName },
+      key: { clusterName },
     }),
     [clusterName],
   );
@@ -22,7 +22,7 @@ export const useClusterState = (clusterName: string) => {
   const stop = React.useMemo<ActionLeaf>(
     () => ({
       type: "CLUSTER.STATUS.SYNC.STOP",
-      id: { cluster: clusterName },
+      key: { clusterName },
     }),
     [clusterName],
   );
@@ -40,11 +40,11 @@ export const useClusterState = (clusterName: string) => {
     });
     dispatch({
       type: "CLUSTER.PROPERTIES.LOAD",
-      id: { cluster: clusterName },
+      key: { clusterName },
     });
     dispatch({
       type: "RESOURCE_AGENT.LIST.LOAD",
-      id: { cluster: clusterName },
+      key: { clusterName },
     });
   }, [clusterName, dispatch, start, stop]);
 

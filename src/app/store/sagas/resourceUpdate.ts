@@ -10,7 +10,7 @@ import {
 } from "./common";
 
 function* updateInstanceAttributes({
-  id,
+  key,
   payload: { resourceId, attributes },
 }: ActionMap["RESOURCE.UPDATE_INSTANCE_ATTRIBUTES"]) {
   yield putNotification(
@@ -19,7 +19,7 @@ function* updateInstanceAttributes({
   );
   const result: api.ResultOf<typeof updateResource> = yield api.authSafe(
     updateResource,
-    id.cluster,
+    key.clusterName,
     resourceId,
     attributes,
   );
@@ -40,7 +40,7 @@ function* updateInstanceAttributes({
     return;
   }
 
-  yield clusterSuccess(id.cluster, taskLabel);
+  yield clusterSuccess(key.clusterName, taskLabel);
 }
 
 export default [

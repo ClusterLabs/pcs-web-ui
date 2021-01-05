@@ -37,7 +37,7 @@ export function* clusterResponseSwitch(
     case "success":
       yield put({
         type: "CLUSTER.STATUS.REFRESH",
-        id: { cluster: clusterName },
+        key: { clusterName },
       });
       yield put(successAction);
       return;

@@ -6,7 +6,7 @@ import { processError } from "./apiCall";
 export function* clusterSuccess(clusterName: string, taskLabel: string) {
   yield put({
     type: "CLUSTER.STATUS.REFRESH",
-    id: { cluster: clusterName },
+    key: { clusterName },
   });
   yield putNotification("SUCCESS", `Succesfully done: ${taskLabel}`);
 }

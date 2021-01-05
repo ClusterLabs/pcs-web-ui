@@ -5,14 +5,14 @@ export type NodeActions = NodeAddActions &
   NodeAuthActions & {
     "NODE.START": {
       type: "NODE.START";
-      id: { cluster: string };
+      key: { clusterName: string };
       payload: {
         nodeName: string;
       };
     };
     "NODE.STOP": {
       type: "NODE.STOP";
-      id: { cluster: string };
+      key: { clusterName: string };
       payload: {
         nodeName: string;
       };

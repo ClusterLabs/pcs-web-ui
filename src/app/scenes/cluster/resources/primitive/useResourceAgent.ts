@@ -13,7 +13,7 @@ export const useClusterResourceAgent = (agentName: string) => {
     if (!resourceAgent) {
       dispatch({
         type: "RESOURCE_AGENT.LOAD",
-        id: { cluster },
+        key: { clusterName: cluster },
         payload: { agentName },
       });
     }

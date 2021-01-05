@@ -145,7 +145,7 @@ export const PrimitiveAttrsForm = ({
           onClick={() => {
             dispatch({
               type: "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES",
-              id: { cluster: clusterName },
+              key: { clusterName },
               payload: {
                 resourceId: primitive.id,
                 attributes: collectUpdatedAttrs(formMap, primitive),

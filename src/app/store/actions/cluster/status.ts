@@ -3,7 +3,7 @@ import { api, clusterStatus } from "app/backend";
 export type ClusterStatusActions = {
   "CLUSTER.STATUS.FETCH.OK": {
     type: "CLUSTER.STATUS.FETCH.OK";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       apiClusterStatus: api.PayloadOf<typeof clusterStatus>;
     };
@@ -11,16 +11,16 @@ export type ClusterStatusActions = {
 
   "CLUSTER.STATUS.REFRESH": {
     type: "CLUSTER.STATUS.REFRESH";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 
   "CLUSTER.STATUS.SYNC": {
     type: "CLUSTER.STATUS.SYNC";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 
   "CLUSTER.STATUS.SYNC.STOP": {
     type: "CLUSTER.STATUS.SYNC.STOP";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 };

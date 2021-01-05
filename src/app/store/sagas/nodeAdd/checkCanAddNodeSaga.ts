@@ -4,7 +4,7 @@ import { ActionMap } from "app/store/actions";
 import { api, errorMessage, processError, put, race, take } from "../common";
 
 export function* checkCanAddNodeSaga({
-  id,
+  key,
   payload: { nodeName },
 }: ActionMap["NODE.ADD.CHECK_CAN_ADD"]) {
   const {
@@ -22,7 +22,7 @@ export function* checkCanAddNodeSaga({
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
     yield put({
       type: "NODE.ADD.CHECK_CAN_ADD.CANNOT",
-      id,
+      key,
       payload: { message: result.text },
     });
     return;
@@ -34,7 +34,7 @@ export function* checkCanAddNodeSaga({
       action: () =>
         put({
           type: "NODE.ADD.CHECK_CAN_ADD.FAIL",
-          id,
+          key,
           payload: { message: errorMessage(result, taskLabel) },
         }),
       useNotification: false,
@@ -44,7 +44,7 @@ export function* checkCanAddNodeSaga({
 
   yield put({
     type: "NODE.ADD.CHECK_AUTH",
-    id,
+    key,
     payload: { nodeName },
   });
 }

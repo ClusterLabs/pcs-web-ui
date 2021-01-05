@@ -34,11 +34,11 @@ function* fetchClusterList() {
           specificator: `syncCluster:${clusterName}`,
           start: {
             type: "CLUSTER.STATUS.SYNC",
-            id: { cluster: clusterName },
+            key: { clusterName },
           },
           stop: {
             type: "CLUSTER.STATUS.SYNC.STOP",
-            id: { cluster: clusterName },
+            key: { clusterName },
           },
         }),
       ),

@@ -6,12 +6,12 @@ import { api, processError, put, select, takeEvery } from "./common";
 type ApiCallResult = api.ResultOf<typeof getResourceAgentMetadata>;
 
 function* loadResourceAgent({
-  id,
+  key,
   payload: { agentName },
 }: ActionMap["RESOURCE_AGENT.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
     getResourceAgentMetadata,
-    id.cluster,
+    key.clusterName,
     agentName,
   );
 
@@ -21,7 +21,7 @@ function* loadResourceAgent({
       action: () =>
         put({
           type: "RESOURCE_AGENT.LOAD.FAILED",
-          id,
+          key,
           payload: { agentName },
         }),
     });
@@ -30,22 +30,22 @@ function* loadResourceAgent({
 
   yield put({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
-    id,
+    key,
     payload: { apiAgentMetadata: result.payload },
   });
 }
 
 function* ensureResourceAgent({
-  id,
+  key,
   payload: { agentName },
 }: ActionMap["RESOURCE_AGENT.ENSURE"]) {
   const pcmkAgent: types.pcmkAgents.StoredAgent = yield select(
-    selectors.getPcmkAgent(id.cluster, agentName),
+    selectors.getPcmkAgent(key.clusterName, agentName),
   );
   if (!pcmkAgent || pcmkAgent.loadStatus === "FAILED") {
     yield put({
       type: "RESOURCE_AGENT.LOAD",
-      id,
+      key,
       payload: { agentName },
     });
   }

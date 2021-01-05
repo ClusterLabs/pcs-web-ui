@@ -11,7 +11,7 @@ const nodeAuthMap: Reducer<NodeAuthMap> = (state = initialState, action) => {
     case "NODE.AUTH.START":
       return {
         ...state,
-        [action.id.process]: nodeAuth(state[action.id.process], action),
+        [action.key.process]: nodeAuth(state[action.key.process], action),
       };
 
     case "NODE.AUTH.STOP":
@@ -20,20 +20,20 @@ const nodeAuthMap: Reducer<NodeAuthMap> = (state = initialState, action) => {
         .reduce<NodeAuthMap>(
           (newState, key) => ({
             ...newState,
-            ...(key !== action.id.process ? { [key]: state[key] } : {}),
+            ...(key !== action.key.process ? { [key]: state[key] } : {}),
           }),
           {},
         );
 
     default:
       if (
-        "id" in action
-        && "process" in action.id
-        && action.id.process in state
+        "key" in action
+        && "process" in action.key
+        && action.key.process in state
       ) {
         return {
           ...state,
-          [action.id.process]: nodeAuth(state[action.id.process], action),
+          [action.key.process]: nodeAuth(state[action.key.process], action),
         };
       }
       return state;

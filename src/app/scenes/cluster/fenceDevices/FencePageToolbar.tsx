@@ -16,7 +16,7 @@ export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
   const refresh: DetailLayoutToolbarAction = {
     action: {
       type: "RESOURCE.REFRESH",
-      id: { cluster },
+      key: { clusterName: cluster },
       payload: {
         resourceId: fenceDevice.id,
         resourceType: "fence-device",
@@ -37,7 +37,7 @@ export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
   const cleanup: DetailLayoutToolbarAction = {
     action: {
       type: "RESOURCE.CLEANUP",
-      id: { cluster },
+      key: { clusterName: cluster },
       payload: {
         resourceId: fenceDevice.id,
         resourceType: "fence-device",
@@ -57,7 +57,7 @@ export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
   const deleteItem: DetailLayoutToolbarAction = {
     action: {
       type: "RESOURCE.DELETE",
-      id: { cluster },
+      key: { clusterName: cluster },
       payload: {
         resourceIds: [fenceDevice.id],
         resourceType: "fence-device",

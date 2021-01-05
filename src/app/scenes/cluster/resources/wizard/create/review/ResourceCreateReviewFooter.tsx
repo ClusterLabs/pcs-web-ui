@@ -22,7 +22,7 @@ export const ResourceCreateReviewFooter: React.FC = () => {
         onClick={() => {
           dispatch({
             type: "RESOURCE.CREATE",
-            id: { cluster: clusterName },
+            key: { clusterName },
             payload: {
               agentName,
               resourceName,

@@ -3,7 +3,7 @@ import { api } from "app/backend";
 export type NodeAddActions = {
   "NODE.ADD": {
     type: "NODE.ADD";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       nodeName: string;
       nodeAddresses: string[];
@@ -14,12 +14,12 @@ export type NodeAddActions = {
   };
   "NODE.ADD.CLOSE": {
     type: "NODE.ADD.CLOSE";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 
   "NODE.ADD.OK": {
     type: "NODE.ADD.OK";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       reports: api.types.lib.Report[];
     };
@@ -27,19 +27,19 @@ export type NodeAddActions = {
 
   "NODE.ADD.FAIL": {
     type: "NODE.ADD.FAIL";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       reports: api.types.lib.Report[];
     };
   };
   "NODE.ADD.ERROR": {
     type: "NODE.ADD.ERROR";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 
   "NODE.ADD.UPDATE": {
     type: "NODE.ADD.UPDATE";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       nodeAddresses?: {
         address1: string;
@@ -59,7 +59,7 @@ export type NodeAddActions = {
 
   "NODE.ADD.UPDATE_NODE_NAME": {
     type: "NODE.ADD.UPDATE_NODE_NAME";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       nodeName: string;
     };
@@ -67,7 +67,7 @@ export type NodeAddActions = {
 
   "NODE.ADD.CHECK_CAN_ADD": {
     type: "NODE.ADD.CHECK_CAN_ADD";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       nodeName: string;
     };
@@ -75,7 +75,7 @@ export type NodeAddActions = {
 
   "NODE.ADD.CHECK_CAN_ADD.CANNOT": {
     type: "NODE.ADD.CHECK_CAN_ADD.CANNOT";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       message: string;
     };
@@ -83,7 +83,7 @@ export type NodeAddActions = {
 
   "NODE.ADD.CHECK_CAN_ADD.FAIL": {
     type: "NODE.ADD.CHECK_CAN_ADD.FAIL";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       message: string;
     };
@@ -91,24 +91,24 @@ export type NodeAddActions = {
 
   "NODE.ADD.SEND_KNOWN_HOSTS": {
     type: "NODE.ADD.SEND_KNOWN_HOSTS";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       nodeName: string;
     };
   };
   "NODE.ADD.SEND_KNOWN_HOSTS.FAIL": {
     type: "NODE.ADD.SEND_KNOWN_HOSTS.FAIL";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 
   "NODE.ADD.SEND_KNOWN_HOSTS.OK": {
     type: "NODE.ADD.SEND_KNOWN_HOSTS.OK";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 
   "NODE.ADD.CHECK_AUTH": {
     type: "NODE.ADD.CHECK_AUTH";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       nodeName: string;
     };
@@ -116,7 +116,7 @@ export type NodeAddActions = {
 
   "NODE.ADD.CHECK_AUTH.FAIL": {
     type: "NODE.ADD.CHECK_AUTH.FAIL";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       message: string;
     };
@@ -124,7 +124,7 @@ export type NodeAddActions = {
 
   "NODE.ADD.CHECK_AUTH.NO_AUTH": {
     type: "NODE.ADD.CHECK_AUTH.NO_AUTH";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       authProcessId: number;
     };
@@ -132,6 +132,6 @@ export type NodeAddActions = {
 
   "NODE.ADD.CHECK_AUTH.OK": {
     type: "NODE.ADD.CHECK_AUTH.OK";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 };

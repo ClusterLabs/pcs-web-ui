@@ -5,20 +5,20 @@ import { api, call, put, race, take, takeEvery } from "./common";
 import { nodeAuthWait } from "./nodeAuth";
 
 function* fixAuth({
-  id,
+  key,
   payload: { initialNodeList },
 }: ActionMap["CLUSTER.FIX_AUTH.START"]) {
   const authProcessId = actionNewId();
 
   yield put({
     type: "NODE.AUTH.START",
-    id: { process: authProcessId },
+    key: { process: authProcessId },
     payload: { initialNodeList },
   });
 
   yield put({
     type: "CLUSTER.FIX_AUTH.AUTH_STARTED",
-    id,
+    key,
     payload: { authProcessId },
   });
 
@@ -30,21 +30,21 @@ function* fixAuth({
   if (!cancel) {
     yield put({
       type: "CLUSTER.FIX_AUTH.AUTH_DONE",
-      id,
+      key,
     });
   }
 
   yield put({
     type: "NODE.AUTH.STOP",
-    id: { process: authProcessId },
+    key: { process: authProcessId },
   });
 }
 
-function* fixAuthDistribute({ id }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
+function* fixAuthDistribute({ key }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof fixAuthOfCluster> } = yield race({
-    result: api.authSafe(fixAuthOfCluster, id.cluster),
+    result: api.authSafe(fixAuthOfCluster, key.clusterName),
     cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
   });
 
@@ -55,20 +55,20 @@ function* fixAuthDistribute({ id }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
     yield put({
       type: "CLUSTER.FIX_AUTH.FAIL",
-      id,
+      key,
       payload: { message: result.text },
     });
     return;
   }
 
   if (result.type !== "OK") {
-    const taskLabel = `distribution authentication to cluster ${id.cluster}`;
+    const taskLabel = `distribution authentication to cluster ${key.clusterName}`;
 
     yield api.processError(result, taskLabel, {
       action: () =>
         put({
           type: "CLUSTER.FIX_AUTH.ERROR",
-          id,
+          key,
           payload: { message: api.errorMessage(result, taskLabel) },
         }),
       useNotification: false,
@@ -78,7 +78,7 @@ function* fixAuthDistribute({ id }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
 
   yield put({
     type: "CLUSTER.FIX_AUTH.OK",
-    id,
+    key,
   });
 }
 

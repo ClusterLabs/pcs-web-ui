@@ -3,7 +3,7 @@ import { api } from "app/backend";
 export type ResourceCreateActions = {
   "RESOURCE.CREATE": {
     type: "RESOURCE.CREATE";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       resourceName: string;
       agentName: string;
@@ -14,7 +14,7 @@ export type ResourceCreateActions = {
 
   "RESOURCE.CREATE.SUCCESS": {
     type: "RESOURCE.CREATE.SUCCESS";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       reports: api.types.lib.Report[];
     };
@@ -22,12 +22,12 @@ export type ResourceCreateActions = {
 
   "RESOURCE.CREATE.ERROR": {
     type: "RESOURCE.CREATE.ERROR";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 
   "RESOURCE.CREATE.FAIL": {
     type: "RESOURCE.CREATE.FAIL";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       reports: api.types.lib.Report[];
     };
@@ -35,7 +35,7 @@ export type ResourceCreateActions = {
 
   "RESOURCE.CREATE.UPDATE": {
     type: "RESOURCE.CREATE.UPDATE";
-    id: { cluster: string };
+    key: { clusterName: string };
     payload: {
       agentName?: string;
       resourceName?: string;
@@ -50,6 +50,6 @@ export type ResourceCreateActions = {
 
   "RESOURCE.CREATE.CLOSE": {
     type: "RESOURCE.CREATE.CLOSE";
-    id: { cluster: string };
+    key: { clusterName: string };
   };
 };

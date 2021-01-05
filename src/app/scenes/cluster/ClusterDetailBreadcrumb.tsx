@@ -18,7 +18,7 @@ export const ClusterDetailBreadcrumb: React.FC<{ clusterName: string }> = ({
         onClick={() =>
           dispatch({
             type: "CLUSTER.STATUS.REFRESH",
-            id: { cluster: clusterName },
+            key: { clusterName },
           })
         }
       >

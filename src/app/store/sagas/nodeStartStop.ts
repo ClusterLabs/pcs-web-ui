@@ -3,28 +3,32 @@ import { clusterStart, clusterStop } from "app/backend";
 
 import { api, processClusterResultBasic, takeEvery } from "./common";
 
-function* nodeStart({ id, payload: { nodeName } }: ActionMap["NODE.START"]) {
+function* nodeStart({ key, payload: { nodeName } }: ActionMap["NODE.START"]) {
   const result: api.ResultOf<typeof clusterStart> = yield api.authSafe(
     clusterStart,
-    id.cluster,
+    key.clusterName,
     nodeName,
   );
 
   yield processClusterResultBasic(
-    id.cluster,
+    key.clusterName,
     `start node ${nodeName}"`,
     result,
   );
 }
 
-function* nodeStop({ id, payload: { nodeName } }: ActionMap["NODE.STOP"]) {
+function* nodeStop({ key, payload: { nodeName } }: ActionMap["NODE.STOP"]) {
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
     clusterStop,
-    id.cluster,
+    key.clusterName,
     nodeName,
   );
 
-  yield processClusterResultBasic(id.cluster, `stop node ${nodeName}"`, result);
+  yield processClusterResultBasic(
+    key.clusterName,
+    `stop node ${nodeName}"`,
+    result,
+  );
 }
 
 export default [

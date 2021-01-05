@@ -54,7 +54,7 @@ function* checkAuthentication({
   const authProcessId = actionNewId();
   yield put({
     type: "NODE.AUTH.START",
-    id: { process: authProcessId },
+    key: { process: authProcessId },
     payload: { initialNodeList: [nodeName] },
   });
 
@@ -74,7 +74,7 @@ function* checkAuthentication({
 
   yield put({
     type: "NODE.AUTH.STOP",
-    id: { process: authProcessId },
+    key: { process: authProcessId },
   });
 }
 

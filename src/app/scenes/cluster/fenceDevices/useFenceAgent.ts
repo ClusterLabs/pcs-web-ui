@@ -13,7 +13,7 @@ export const useClusterFenceAgent = (agentName: string) => {
     if (!fenceAgent) {
       dispatch({
         type: "FENCE_AGENT.LOAD",
-        id: { cluster },
+        key: { clusterName: cluster },
         payload: { agentName },
       });
     }
