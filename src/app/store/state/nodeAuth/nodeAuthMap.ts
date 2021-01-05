@@ -6,23 +6,12 @@ export type NodeAuthMap = Record<number, NodeAuth>;
 
 const initialState: NodeAuthMap = {};
 
-function hasProperty<O extends Record<string, unknown>, P extends PropertyKey>(
-  obj: O,
-  prop: P,
-): obj is O & Record<P, unknown> {
-  /* eslint-disable no-prototype-builtins */
-  return obj.hasOwnProperty(prop);
-}
-
 const nodeAuthMap: Reducer<NodeAuthMap> = (state = initialState, action) => {
   switch (action.type) {
     case "NODE.AUTH.START":
       return {
         ...state,
-        [action.payload.processId]: nodeAuth(
-          state[action.payload.processId],
-          action,
-        ),
+        [action.id.process]: nodeAuth(state[action.id.process], action),
       };
 
     case "NODE.AUTH.STOP":
@@ -31,26 +20,20 @@ const nodeAuthMap: Reducer<NodeAuthMap> = (state = initialState, action) => {
         .reduce<NodeAuthMap>(
           (newState, key) => ({
             ...newState,
-            ...(key !== action.payload.processId ? { [key]: state[key] } : {}),
+            ...(key !== action.id.process ? { [key]: state[key] } : {}),
           }),
           {},
         );
 
     default:
       if (
-        // TODO - DATA_READING.SET_UP has array in payload; make it standard
-        // object!
-        action.type !== "DATA_READING.SET_UP"
-        && hasProperty(action, "payload")
-        && hasProperty(action.payload, "processId")
-        && hasProperty(state, action.payload.processId)
+        "id" in action
+        && "process" in action.id
+        && action.id.process in state
       ) {
         return {
           ...state,
-          [action.payload.processId]: nodeAuth(
-            state[action.payload.processId],
-            action,
-          ),
+          [action.id.process]: nodeAuth(state[action.id.process], action),
         };
       }
       return state;

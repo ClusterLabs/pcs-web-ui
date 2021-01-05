@@ -63,10 +63,8 @@ export function* checkAuthSaga({
   const authProcessId = actionNewId();
   yield put({
     type: "NODE.AUTH.START",
-    payload: {
-      processId: authProcessId,
-      initialNodeList: [nodeName],
-    },
+    id: { process: authProcessId },
+    payload: { initialNodeList: [nodeName] },
   });
   yield put({
     type: "NODE.ADD.CHECK_AUTH.NO_AUTH",
@@ -90,6 +88,6 @@ export function* checkAuthSaga({
   }
   yield put({
     type: "NODE.AUTH.STOP",
-    payload: { processId: authProcessId },
+    id: { process: authProcessId },
   });
 }

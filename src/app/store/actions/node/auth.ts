@@ -3,21 +3,19 @@ import { api } from "app/backend";
 export type NodeAuthActions = {
   "NODE.AUTH.START": {
     type: "NODE.AUTH.START";
+    id: { process: number };
     payload: {
-      processId: number;
       initialNodeList: string[];
     };
   };
   "NODE.AUTH.STOP": {
     type: "NODE.AUTH.STOP";
-    payload: {
-      processId: number;
-    };
+    id: { process: number };
   };
   "NODE.AUTH.UPDATE.NODE": {
     type: "NODE.AUTH.UPDATE.NODE";
+    id: { process: number };
     payload: {
-      processId: number;
       nodeName: string;
       state: {
         password?: string;
@@ -28,15 +26,15 @@ export type NodeAuthActions = {
   };
   "NODE.AUTH.ADDR.ENABLE": {
     type: "NODE.AUTH.ADDR.ENABLE";
+    id: { process: number };
     payload: {
-      processId: number;
       enable: boolean;
     };
   };
   "NODE.AUTH": {
     type: "NODE.AUTH";
+    id: { process: number };
     payload: {
-      processId: number;
       nodeMap: Record<
         string,
         {
@@ -49,16 +47,16 @@ export type NodeAuthActions = {
   };
   "NODE.AUTH.FAIL": {
     type: "NODE.AUTH.FAIL";
+    id: { process: number };
     payload: {
-      processId: number;
       message: string;
     };
   };
 
   "NODE.AUTH.OK": {
     type: "NODE.AUTH.OK";
+    id: { process: number };
     payload: {
-      processId: number;
       response: api.types.authGuiAgainstNodes.ApiAuthGuiAgainstNodes;
     };
   };

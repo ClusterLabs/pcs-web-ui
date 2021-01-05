@@ -11,10 +11,8 @@ function* fixAuth({
 
   yield put({
     type: "NODE.AUTH.START",
-    payload: {
-      processId: authProcessId,
-      initialNodeList,
-    },
+    id: { process: authProcessId },
+    payload: { initialNodeList },
   });
 
   yield put({
@@ -36,7 +34,7 @@ function* fixAuth({
 
   yield put({
     type: "NODE.AUTH.STOP",
-    payload: { processId: authProcessId },
+    id: { process: authProcessId },
   });
 }
 

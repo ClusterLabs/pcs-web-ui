@@ -3,14 +3,12 @@ import { ActionMap } from "app/store";
 
 import { api, put, take, takeEvery } from "./common";
 
-function* nodeAuthSaga({
-  payload: { processId, nodeMap },
-}: ActionMap["NODE.AUTH"]) {
-  // AuthNode with processId disappear from redux store if NODE.AUTH.STOP
+function* nodeAuthSaga({ id, payload: { nodeMap } }: ActionMap["NODE.AUTH"]) {
+  // AuthNode with id.process disappear from redux store if NODE.AUTH.STOP
   // hapens during api call and the following action NODE.AUTH.FAIL or
   // NODE.AUTH.OK has no effect on redux store.
   // So, no race needed here. And moreover race is not appropriate here since
-  // only NODE.AUTH.STOP with the same processId value should cancell api call.
+  // only NODE.AUTH.STOP with the same id.process value should cancell api call.
   // But race would cancel api call on every NODE.AUTH.STOP
   const result: api.ResultOf<typeof authGuiAgainstNodes> = yield api.authSafe(
     authGuiAgainstNodes,
@@ -36,10 +34,8 @@ function* nodeAuthSaga({
       action: () =>
         put({
           type: "NODE.AUTH.FAIL",
-          payload: {
-            processId,
-            message: api.errorMessage(result, taskLabel),
-          },
+          id,
+          payload: { message: api.errorMessage(result, taskLabel) },
         }),
       useNotification: false,
     });
@@ -48,7 +44,8 @@ function* nodeAuthSaga({
 
   yield put({
     type: "NODE.AUTH.OK",
-    payload: { processId, response: result.payload },
+    id,
+    payload: { response: result.payload },
   });
 }
 
@@ -58,15 +55,18 @@ export function* nodeAuthWait(authProcessId: number) {
     const action: WaitAction = yield take(["NODE.AUTH.OK", "NODE.AUTH.STOP"]);
 
     if (action.type === "NODE.AUTH.STOP") {
-      if (action.payload.processId === authProcessId) {
+      if (action.id.process === authProcessId) {
         return;
       }
       continue;
     }
 
-    const { processId, response } = action.payload;
+    const {
+      id,
+      payload: { response },
+    } = action;
     if (
-      processId === authProcessId
+      id.process === authProcessId
       && response.plaintext_error.length === 0
       && !(
         "local_cluster_node_auth_error" in response
