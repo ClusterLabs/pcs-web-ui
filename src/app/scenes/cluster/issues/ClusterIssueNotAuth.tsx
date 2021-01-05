@@ -11,14 +11,14 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
 }) => {
   const {
     dispatch,
-    clusterUrlName,
+    clusterName,
     state: { authProcessId, open, fixing, errorMessage },
   } = useFixAuth();
 
   const cancel = () =>
     dispatch({
       type: "CLUSTER.FIX_AUTH.CANCEL",
-      id: { cluster: clusterUrlName },
+      id: { cluster: clusterName },
     });
 
   let actions = [
@@ -46,7 +46,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
         onClick={() =>
           dispatch({
             type: "CLUSTER.FIX_AUTH.AUTH_DONE",
-            id: { cluster: clusterUrlName },
+            id: { cluster: clusterName },
           })
         }
       >
@@ -69,7 +69,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
             onClick={() => {
               dispatch({
                 type: "CLUSTER.FIX_AUTH.START",
-                id: { cluster: clusterUrlName },
+                id: { cluster: clusterName },
                 payload: { initialNodeList: nodeList },
               });
             }}

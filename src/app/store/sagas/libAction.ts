@@ -8,7 +8,7 @@ function* callLib({
 }: ActionMap["LIB.CALL.CLUSTER"]) {
   const result: api.ResultOf<typeof api.lib.call> = yield api.authSafe(
     api.lib.callCluster,
-    { clusterUrlName: id.cluster, ...command },
+    { clusterName: id.cluster, ...command },
   );
 
   if (result.type !== "OK") {

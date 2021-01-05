@@ -23,7 +23,7 @@ export const FenceDeviceDetailView = ({
         </TextContent>
 
         <LoadedPcmkAgent
-          clusterUrlName={clusterName}
+          clusterName={clusterName}
           agentName={fenceDevice.agentName}
         >
           {(agent: types.pcmkAgents.Agent) => (

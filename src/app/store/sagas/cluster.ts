@@ -3,13 +3,13 @@ import { Action } from "app/store/actions";
 
 import { api, dataLoad, fork, put } from "./common";
 
-function* fetchClusterData(clusterUrlName: string) {
+function* fetchClusterData(clusterName: string) {
   const result: api.ResultOf<typeof clusterStatus> = yield api.authSafe(
     clusterStatus,
-    clusterUrlName,
+    clusterName,
   );
 
-  const taskLabel = `sync status of cluster "${clusterUrlName}"`;
+  const taskLabel = `sync status of cluster "${clusterName}"`;
   if (result.type !== "OK") {
     yield api.processError(result, taskLabel);
     return;
@@ -17,7 +17,7 @@ function* fetchClusterData(clusterUrlName: string) {
 
   yield put({
     type: "CLUSTER.STATUS.FETCH.OK",
-    id: { cluster: clusterUrlName },
+    id: { cluster: clusterName },
     payload: { apiClusterStatus: result.payload },
   });
 }

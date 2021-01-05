@@ -20,14 +20,11 @@ import { ClusterPropertiesPage } from "./properties";
 import { ClusterDetail } from "./ClusterDetail";
 import { ClusterDetailBreadcrumb } from "./ClusterDetailBreadcrumb";
 
-export const ClusterDetailPage = ({
-  clusterUrlName,
-  urlPrefix,
-}: {
-  clusterUrlName: string;
+export const ClusterDetailPage: React.FC<{
+  clusterName: string;
   urlPrefix: string;
-}) => {
-  const { dataLoaded } = useClusterState(clusterUrlName);
+}> = ({ clusterName, urlPrefix }) => {
+  const { dataLoaded } = useClusterState(clusterName);
 
   const { tab, urlMap, url } = useRoutesAnalysis("Detail", {
     Detail: useMatch({ path: join(urlPrefix), exact: true }),
@@ -43,7 +40,7 @@ export const ClusterDetailPage = ({
       <PageSection variant="light">
         <Stack hasGutter>
           <StackItem>
-            <ClusterDetailBreadcrumb clusterUrlName={clusterUrlName} />
+            <ClusterDetailBreadcrumb clusterName={clusterName} />
           </StackItem>
           <StackItem>
             <UrlTabs tabSettingsMap={urlMap} currentTab={tab} label="cluster" />
@@ -51,16 +48,16 @@ export const ClusterDetailPage = ({
         </Stack>
       </PageSection>
       {dataLoaded && (
-        <SelectedClusterProvider value={clusterUrlName}>
+        <SelectedClusterProvider value={clusterName}>
           {tab === "Detail" && <ClusterDetail />}
           {tab === "Resources" && <ResourcesPage urlPrefix={url} />}
           {tab === "Nodes" && <NodesPage urlPrefix={url} />}
           {tab === "Fence Devices" && <FenceDevicePage urlPrefix={url} />}
           {tab === "Constraints" && (
-            <ConstraintsPage clusterUrlName={clusterUrlName} />
+            <ConstraintsPage clusterName={clusterName} />
           )}
           {tab === "Properties" && (
-            <ClusterPropertiesPage clusterUrlName={clusterUrlName} />
+            <ClusterPropertiesPage clusterName={clusterName} />
           )}
         </SelectedClusterProvider>
       )}

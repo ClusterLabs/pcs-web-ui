@@ -14,10 +14,10 @@ export function useClusterWizard<
   R,
 >(
   wizardKey: string,
-  selector: (clusterUrlName: string, ...selectorArgs: A) => (state: S) => R,
+  selector: (clusterName: string, ...selectorArgs: A) => (state: S) => R,
   ...args: A
 ) {
-  const [state, clusterUrlName] = useClusterSelector(selector, ...args);
+  const [state, clusterName] = useClusterSelector(selector, ...args);
   const dispatch = useDispatch();
   const openClose = useWizardOpenClose(wizardKey);
   const pfWizardContext = React.useContext(WizardContext);
@@ -27,19 +27,19 @@ export function useClusterWizard<
     wizard: pfWizardContext,
     state,
     ...openClose,
-    clusterUrlName,
+    clusterName,
     dispatch,
     tryNext: (isValid: boolean) => {
       if (isValid) {
         dispatch({
           type: "CLUSTER.WIZARD.VALIDATION.HIDE",
-          id: { cluster: clusterUrlName },
+          id: { cluster: clusterName },
         });
         pfWizardContext.onNext();
       } else {
         dispatch({
           type: "CLUSTER.WIZARD.VALIDATION.SHOW",
-          id: { cluster: clusterUrlName },
+          id: { cluster: clusterName },
         });
       }
     },

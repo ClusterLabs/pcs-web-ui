@@ -20,10 +20,7 @@ export const PrimitiveAttrsView = ({
   const [isEditing, setIsEditing] = React.useState(false);
   const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState();
   return (
-    <LoadedPcmkAgent
-      clusterUrlName={clusterName}
-      agentName={primitive.agentName}
-    >
+    <LoadedPcmkAgent clusterName={clusterName} agentName={primitive.agentName}>
       {(agent: types.pcmkAgents.Agent) => {
         if (isEditing) {
           return (

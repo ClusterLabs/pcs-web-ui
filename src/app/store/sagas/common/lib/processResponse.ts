@@ -4,7 +4,7 @@ import { actionNewId } from "app/store/actions";
 import { clusterResponseSwitch } from "./responseSwitch";
 
 export function* clusterResponseProcess(
-  clusterUrlName: string,
+  clusterName: string,
   taskLabel: string,
   payload: api.types.lib.Response,
 ) {
@@ -16,7 +16,7 @@ export function* clusterResponseProcess(
   );
   const communicationErrDesc = `Communication error while: ${taskLabel}`;
 
-  yield clusterResponseSwitch(clusterUrlName, taskLabel, payload, {
+  yield clusterResponseSwitch(clusterName, taskLabel, payload, {
     successAction: {
       type: "NOTIFICATION.CREATE",
       payload: {

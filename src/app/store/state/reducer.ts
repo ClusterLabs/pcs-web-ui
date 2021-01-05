@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { RouterState, connectRouter } from "connected-react-router";
 import { History } from "history";
 
-import dashboard, { DashboardPageState } from "./dashboard";
+import dashboard, { Dashboard } from "./dashboard";
 import addExistingCluster, {
   DashboardAddClusterPageState,
 } from "./dashboardAddCluster";
@@ -15,7 +15,7 @@ import clusterStorageReducer, * as clusterStorage from "./cluster/storage";
 export interface RootState {
   addExistingCluster: DashboardAddClusterPageState;
   clusterStorage: clusterStorage.ClusterStorageMap;
-  dashboard: DashboardPageState;
+  dashboard: Dashboard;
   login: LoginState;
   notifications: NotificationState;
   router: RouterState;

@@ -21,11 +21,9 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardClusterFenceDevices = ({
-  cluster,
-}: {
+export const DashboardClusterFenceDevices: React.FC<{
   cluster: types.cluster.ClusterStatus;
-}) => {
+}> = ({ cluster }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   if (cluster.fenceDeviceList.length === 0) {
     return (

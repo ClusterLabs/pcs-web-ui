@@ -10,10 +10,10 @@ const shape = t.union([
 ]);
 
 export const resourceRefresh = async (
-  clusterUrlName: string,
+  clusterName: string,
   resourceId: string,
 ): api.CallResult<typeof shape> =>
-  http.post(`/managec/${clusterUrlName}/resource_refresh`, {
+  http.post(`/managec/${clusterName}/resource_refresh`, {
     params: [
       ["resource", resourceId],
       ["strict", "1"],
@@ -22,10 +22,10 @@ export const resourceRefresh = async (
   });
 
 export const resourceCleanup = async (
-  clusterUrlName: string,
+  clusterName: string,
   resourceId: string,
 ): api.CallResult<typeof shape> =>
-  http.post(`/managec/${clusterUrlName}/resource_cleanup`, {
+  http.post(`/managec/${clusterName}/resource_cleanup`, {
     params: [
       ["resource", resourceId],
       ["strict", "1"],

@@ -5,15 +5,13 @@ import { Table } from "app/view";
 
 import { DashboardClusterCellName } from "./DashboardClusterCellName";
 
-export const DashboardClusterLoading = ({
-  clusterUrlName,
-}: {
-  clusterUrlName: string;
+export const DashboardClusterLoading: React.FC<{ clusterName: string }> = ({
+  clusterName,
 }) => {
   return (
-    <Table.Body data-test={`cluster-loading ${clusterUrlName}`}>
+    <Table.Body data-test={`cluster-loading ${clusterName}`}>
       <tr role="row">
-        <DashboardClusterCellName clusterUrlName={clusterUrlName} />
+        <DashboardClusterCellName clusterName={clusterName} />
         <td colSpan={4}>
           <Spinner size="md" />
         </td>

@@ -5,6 +5,6 @@ import * as types from "../types";
 const shape = types.clusterProperties.TApiClusterProperties;
 
 export const clusterProperties = async (
-  clusterUrlName: string,
+  clusterName: string,
 ): api.CallResult<typeof shape> =>
-  http.get(`/managec/${clusterUrlName}/cluster_properties`, { shape });
+  http.get(`/managec/${clusterName}/cluster_properties`, { shape });

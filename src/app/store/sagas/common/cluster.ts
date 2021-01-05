@@ -3,16 +3,16 @@ import { putNotification } from "./notifications";
 import { Result } from "./api";
 import { processError } from "./apiCall";
 
-export function* clusterSuccess(clusterUrlName: string, taskLabel: string) {
+export function* clusterSuccess(clusterName: string, taskLabel: string) {
   yield put({
     type: "CLUSTER.STATUS.REFRESH",
-    id: { cluster: clusterUrlName },
+    id: { cluster: clusterName },
   });
   yield putNotification("SUCCESS", `Succesfully done: ${taskLabel}`);
 }
 
 export function* processClusterResultBasic(
-  clusterUrlName: string,
+  clusterName: string,
   taskLabel: string,
   result: Result<string>,
 ) {
@@ -20,5 +20,5 @@ export function* processClusterResultBasic(
     yield processError(result, taskLabel);
     return;
   }
-  yield clusterSuccess(clusterUrlName, taskLabel);
+  yield clusterSuccess(clusterName, taskLabel);
 }

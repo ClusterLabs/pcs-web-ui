@@ -4,10 +4,8 @@ import { Breadcrumb, BreadcrumbItem } from "@patternfly/react-core";
 import { useDispatch } from "app/store";
 import { Link } from "app/view";
 
-export const ClusterDetailBreadcrumb = ({
-  clusterUrlName,
-}: {
-  clusterUrlName: string;
+export const ClusterDetailBreadcrumb: React.FC<{ clusterName: string }> = ({
+  clusterName,
 }) => {
   const dispatch = useDispatch();
   return (
@@ -20,11 +18,11 @@ export const ClusterDetailBreadcrumb = ({
         onClick={() =>
           dispatch({
             type: "CLUSTER.STATUS.REFRESH",
-            id: { cluster: clusterUrlName },
+            id: { cluster: clusterName },
           })
         }
       >
-        {clusterUrlName}
+        {clusterName}
       </BreadcrumbItem>
     </Breadcrumb>
   );

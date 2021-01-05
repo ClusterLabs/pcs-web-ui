@@ -14,7 +14,7 @@ export function* nodeAddSaga({
 }: ActionMap["NODE.ADD"]) {
   const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
     result: api.authSafe(api.lib.callCluster, {
-      clusterUrlName: id.cluster,
+      clusterName: id.cluster,
       command: "cluster-add-nodes",
       payload: {
         nodes: [

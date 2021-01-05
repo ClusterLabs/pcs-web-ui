@@ -13,13 +13,11 @@ import { selectors } from "app/store";
 import { ClusterPropertiesList } from "./ClusterPropertiesList";
 import { ClusterPropertiesToolbar } from "./ClusterPropertiesToolbar";
 
-export const ClusterPropertiesPage = ({
-  clusterUrlName,
-}: {
-  clusterUrlName: string;
+export const ClusterPropertiesPage: React.FC<{ clusterName: string }> = ({
+  clusterName,
 }) => {
   const clusterProperties = useSelector(
-    selectors.getClusterProperties(clusterUrlName),
+    selectors.getClusterProperties(clusterName),
   );
   const { filterState, filterParameters } = ClusterPropertiesToolbar.useState();
 

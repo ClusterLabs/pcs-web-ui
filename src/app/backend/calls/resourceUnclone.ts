@@ -1,9 +1,9 @@
 import { api, http } from "app/backend/tools";
 
 export const resourceUnclone = (
-  clusterUrlName: string,
+  clusterName: string,
   resourceId: string,
 ): api.CallResult =>
-  http.post(`/managec/${clusterUrlName}/resource_unclone`, {
+  http.post(`/managec/${clusterName}/resource_unclone`, {
     params: [["resource_id", resourceId]],
   });

@@ -47,11 +47,9 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardClusterList = ({
-  importedClusterNameList,
-}: {
-  importedClusterNameList: types.dashboard.ClusterNameListState;
-}) => {
+export const DashboardClusterList: React.FC<{
+  importedClusterNameList: types.dashboard.ClusterNameList;
+}> = ({ importedClusterNameList }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   const clusterMap = useSelector(
     selectors.getClusterMap(importedClusterNameList),
@@ -106,7 +104,7 @@ export const DashboardClusterList = ({
           ) : (
             <DashboardClusterLoading
               key={cluster.urlName}
-              clusterUrlName={cluster.urlName}
+              clusterName={cluster.urlName}
             />
           ),
         )}

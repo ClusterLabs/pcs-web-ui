@@ -12,7 +12,7 @@ export const AppPage = () => {
   if (cluster) {
     return (
       <ClusterDetailPage
-        clusterUrlName={cluster.params.name}
+        clusterName={cluster.params.name}
         urlPrefix={cluster.url}
       />
     );

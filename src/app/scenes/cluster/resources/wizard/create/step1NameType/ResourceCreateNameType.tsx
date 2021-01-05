@@ -10,7 +10,7 @@ import { ResourceCreateNameTypeTypeSelect } from "./ResourceCreateNameTypeTypeSe
 export const ResourceCreateNameType: React.FC = () => {
   const {
     state: { agentName, resourceName, showValidationErrors, reports },
-    clusterUrlName,
+    clusterName,
     dispatch,
     updateState,
   } = useWizard();
@@ -18,7 +18,7 @@ export const ResourceCreateNameType: React.FC = () => {
   const onSelect = (value: string) => {
     dispatch({
       type: "RESOURCE_AGENT.ENSURE",
-      id: { cluster: clusterUrlName },
+      id: { cluster: clusterName },
       payload: { agentName: value.toString() },
     });
     updateState({ agentName: value.toString() });

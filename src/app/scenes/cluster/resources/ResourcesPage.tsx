@@ -12,7 +12,7 @@ import { ResourceTree } from "./tree/ResourceTree";
 import { ResourceCreateToolbarItem } from "./wizard";
 
 export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
-  const [clusterStatus] = useClusterSelector(selectors.getCluster);
+  const [cluster] = useClusterSelector(selectors.getCluster);
   return (
     <>
       <ClusterSectionToolbar>
@@ -20,7 +20,7 @@ export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
       </ClusterSectionToolbar>
       <GroupDetailView
         urlPrefix={urlPrefix}
-        groupCard={<ResourceTree resourceTree={clusterStatus.resourceTree} />}
+        groupCard={<ResourceTree resourceTree={cluster.resourceTree} />}
         detailCard={<ResourceDetailPage />}
       />
     </>

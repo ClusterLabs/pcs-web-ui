@@ -32,7 +32,7 @@ const useFilterState = () =>
 export const ResourceCreateInstanceAttrsForm: React.FC = () => {
   const {
     state: { agentName, instanceAttrs, showValidationErrors, reports },
-    clusterUrlName,
+    clusterName,
     updateState,
   } = useWizard();
   const { filterState, filterParameters } = useFilterState();
@@ -41,7 +41,7 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
       title={`Instance attributes (${agentName})`}
       reports={reports}
     >
-      <LoadedPcmkAgent clusterUrlName={clusterUrlName} agentName={agentName}>
+      <LoadedPcmkAgent clusterName={clusterName} agentName={agentName}>
         {(agent: types.pcmkAgents.Agent) => {
           const requiredParameters = agent.parameters.filter(p => p.required);
           return (

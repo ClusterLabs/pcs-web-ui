@@ -8,14 +8,14 @@ export const useWizard = () => {
     "node-add",
     selectors.getWizardNodeAddState,
   );
-  const { clusterUrlName, state, dispatch } = clusterWizard;
+  const { clusterName, state, dispatch } = clusterWizard;
 
-  const { cluster } = useClusterState(clusterUrlName);
+  const { clusterState } = useClusterState(clusterName);
 
   const checkCanAddNode = () =>
     dispatch({
       type: "NODE.ADD.CHECK_CAN_ADD",
-      id: { cluster: clusterUrlName },
+      id: { cluster: clusterName },
       payload: {
         nodeName: state.nodeName,
       },
@@ -45,28 +45,29 @@ export const useWizard = () => {
 
     isNodeCheckDoneValid: state.nodeCheck === "success",
 
-    isSbdEnabled: cluster.sbdDetection !== null && cluster.sbdDetection.enabled,
+    isSbdEnabled:
+      clusterState.sbdDetection !== null && clusterState.sbdDetection.enabled,
 
     // actions
     close: () => {
       clusterWizard.close();
       dispatch({
         type: "NODE.ADD.CLOSE",
-        id: { cluster: clusterUrlName },
+        id: { cluster: clusterName },
       });
     },
 
     updateState: (payload: ActionMap["NODE.ADD.UPDATE"]["payload"]) =>
       dispatch({
         type: "NODE.ADD.UPDATE",
-        id: { cluster: clusterUrlName },
+        id: { cluster: clusterName },
         payload,
       }),
 
     updateNodeName: (nodeName: string) =>
       dispatch({
         type: "NODE.ADD.UPDATE_NODE_NAME",
-        id: { cluster: clusterUrlName },
+        id: { cluster: clusterName },
         payload: {
           nodeName,
         },
@@ -75,7 +76,7 @@ export const useWizard = () => {
     checkAuth: () =>
       dispatch({
         type: "NODE.ADD.CHECK_AUTH",
-        id: { cluster: clusterUrlName },
+        id: { cluster: clusterName },
         payload: {
           nodeName: state.nodeName,
         },
@@ -84,7 +85,7 @@ export const useWizard = () => {
     nodeAdd: () =>
       dispatch({
         type: "NODE.ADD",
-        id: { cluster: clusterUrlName },
+        id: { cluster: clusterName },
         payload: {
           nodeName: state.nodeName,
           sbdWatchdog: state.sbdWatchdog,
@@ -97,7 +98,7 @@ export const useWizard = () => {
     nodeStart: () =>
       dispatch({
         type: "NODE.START",
-        id: { cluster: clusterUrlName },
+        id: { cluster: clusterName },
         payload: { nodeName: state.nodeName },
       }),
 

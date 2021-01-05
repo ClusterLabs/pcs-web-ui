@@ -43,10 +43,10 @@ const shape = t.intersection([
 ]);
 
 export const getFenceAgentMetadata = async (
-  clusterUrlName: string,
+  clusterName: string,
   agentName: string,
 ): api.CallResult<typeof shape> =>
-  http.get(`/managec/${clusterUrlName}/get_fence_agent_metadata`, {
+  http.get(`/managec/${clusterName}/get_fence_agent_metadata`, {
     params: [["agent", agentName]],
     validate: (payload) => {
       const errors = validate.shape(payload, shape);

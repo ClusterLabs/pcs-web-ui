@@ -1,17 +1,17 @@
 import { api, http } from "app/backend/tools";
 
 export const clusterStart = async (
-  clusterUrlName: string,
+  clusterName: string,
   nodeName: string,
 ): api.CallResult =>
-  http.post(`/managec/${clusterUrlName}/cluster_start`, {
+  http.post(`/managec/${clusterName}/cluster_start`, {
     params: [["name", nodeName]],
   });
 
 export const clusterStop = async (
-  clusterUrlName: string,
+  clusterName: string,
   nodeName: string,
 ): api.CallResult =>
-  http.post(`/managec/${clusterUrlName}/cluster_stop`, {
+  http.post(`/managec/${clusterName}/cluster_stop`, {
     params: [["name", nodeName]],
   });

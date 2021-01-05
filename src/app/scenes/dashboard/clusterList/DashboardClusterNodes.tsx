@@ -42,11 +42,9 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardClusterNodes = ({
-  cluster,
-}: {
+export const DashboardClusterNodes: React.FC<{
   cluster: types.cluster.ClusterStatus;
-}) => {
+}> = ({ cluster }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (
     <Table isCompact isBorderless data-test="node-list">

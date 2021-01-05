@@ -3,18 +3,18 @@ import { clusterStatusDefault, types } from "app/store/state";
 import { Selector } from "./selector";
 import { clusterAreDataLoaded, getCluster } from "./cluster";
 
-type ClusterNameListState = types.dashboard.ClusterNameListState;
+type ClusterNameList = types.dashboard.ClusterNameList;
 
 type ClusterInfo = {
   cluster: types.cluster.ClusterStatusService["clusterData"];
   isLoaded: boolean;
 };
 
-export const getImportedClusterList: Selector<ClusterNameListState> = state =>
-  state.dashboard.clusterNameListState;
+export const getImportedClusterList: Selector<ClusterNameList> = state =>
+  state.dashboard.clusterNameList;
 
 export const dashboardAreDataLoaded: Selector<boolean> = state =>
-  state.dashboard.dataFetchState === "SUCCESS";
+  state.dashboard.dataFetch === "SUCCESS";
 
 export function getClusterMap<T extends string>(
   clusterList: T[],

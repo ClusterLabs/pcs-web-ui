@@ -18,7 +18,7 @@ export const FenceDeviceArgumentsView = ({
   const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState();
   return (
     <LoadedPcmkAgent
-      clusterUrlName={clusterName}
+      clusterName={clusterName}
       agentName={fenceDevice.agentName}
     >
       {(agent: types.pcmkAgents.Agent) => {

@@ -66,7 +66,7 @@ export const PrimitiveAttrsForm = ({
   displayNames: string[];
   close: () => void;
 }) => {
-  const clusterUrlName = useSelectedClusterName();
+  const clusterName = useSelectedClusterName();
 
   const dispatch = useDispatch();
 
@@ -145,7 +145,7 @@ export const PrimitiveAttrsForm = ({
           onClick={() => {
             dispatch({
               type: "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES",
-              id: { cluster: clusterUrlName },
+              id: { cluster: clusterName },
               payload: {
                 resourceId: primitive.id,
                 attributes: collectUpdatedAttrs(formMap, primitive),

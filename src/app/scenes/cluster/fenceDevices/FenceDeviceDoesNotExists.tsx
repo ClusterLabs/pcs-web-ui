@@ -9,7 +9,7 @@ export const FenceDeviceDoesNotExists = ({
 }: {
   fenceDeviceUrlName: string;
 }) => {
-  const clusterUrlName = useSelectedClusterName();
+  const clusterName = useSelectedClusterName();
   return (
     <DetailLayout caption={<strong>{fenceDeviceUrlName}</strong>}>
       <StackItem>
@@ -17,7 +17,7 @@ export const FenceDeviceDoesNotExists = ({
           title={`Fence devicce "${fenceDeviceUrlName}" does not exist.`}
           message={
             `Fence device "${fenceDeviceUrlName}"`
-            + ` does not exists in cluster ${clusterUrlName}.`
+            + ` does not exists in cluster ${clusterName}.`
           }
         />
       </StackItem>

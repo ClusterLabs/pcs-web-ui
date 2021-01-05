@@ -8,7 +8,7 @@ function* resourceCreateSaga({
 }: ActionMap["RESOURCE.CREATE"]) {
   const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
     result: api.authSafe(api.lib.callCluster, {
-      clusterUrlName: id.cluster,
+      clusterName: id.cluster,
       command: "resource-create",
       payload: {
         resource_id: resourceName,

@@ -9,9 +9,9 @@ export function useClusterSelector<
   S extends DefaultRootState,
   R,
 >(
-  selector: (clusterUrlName: string, ...selectorArgs: A) => (state: S) => R,
+  selector: (clusterName: string, ...selectorArgs: A) => (state: S) => R,
   ...args: A
 ): [R, string] {
-  const clusterUrlName = useSelectedClusterName();
-  return [useSelector(selector(clusterUrlName, ...args)), clusterUrlName];
+  const clusterName = useSelectedClusterName();
+  return [useSelector(selector(clusterName, ...args)), clusterName];
 }

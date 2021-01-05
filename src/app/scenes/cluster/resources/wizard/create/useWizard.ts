@@ -1,8 +1,8 @@
 import { ActionMap, selectors, useSelector } from "app/store";
 import { useClusterSelector, useClusterWizard } from "app/view";
 
-const useAgent = (clusterUrlName: string, agentName: string) => {
-  const agent = useSelector(selectors.getPcmkAgent(clusterUrlName, agentName));
+const useAgent = (clusterName: string, agentName: string) => {
+  const agent = useSelector(selectors.getPcmkAgent(clusterName, agentName));
   return {
     agent,
     isAgentLoaded:
@@ -16,9 +16,9 @@ export const useWizard = () => {
     "resource-create",
     selectors.getWizardResourceCreateState,
   );
-  const { clusterUrlName, state, dispatch } = clusterWizard;
+  const { clusterName, state, dispatch } = clusterWizard;
   const [groupList] = useClusterSelector(selectors.getGroups);
-  const { agent, isAgentLoaded } = useAgent(clusterUrlName, state.agentName);
+  const { agent, isAgentLoaded } = useAgent(clusterName, state.agentName);
 
   return {
     ...clusterWizard,
@@ -42,14 +42,14 @@ export const useWizard = () => {
       clusterWizard.close();
       dispatch({
         type: "RESOURCE.CREATE.CLOSE",
-        id: { cluster: clusterUrlName },
+        id: { cluster: clusterName },
       });
     },
 
     updateState: (payload: ActionMap["RESOURCE.CREATE.UPDATE"]["payload"]) => {
       dispatch({
         type: "RESOURCE.CREATE.UPDATE",
-        id: { cluster: clusterUrlName },
+        id: { cluster: clusterName },
         payload,
       });
     },

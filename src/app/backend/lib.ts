@@ -77,11 +77,11 @@ export type ClusterCommand =
     };
 
 export const callCluster = async ({
-  clusterUrlName,
+  clusterName,
   command,
   payload,
 }: {
-  clusterUrlName: string;
+  clusterName: string;
 } & ClusterCommand): LibResult => {
-  return call(`/managec/${clusterUrlName}/api/v1/${command}/v1`, payload);
+  return call(`/managec/${clusterName}/api/v1/${command}/v1`, payload);
 };

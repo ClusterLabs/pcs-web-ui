@@ -18,11 +18,9 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
-export const DashboardCluster = ({
-  cluster,
-}: {
+export const DashboardCluster: React.FC<{
   cluster: types.cluster.ClusterStatus;
-}) => {
+}> = ({ cluster }) => {
   const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
   });
@@ -33,7 +31,7 @@ export const DashboardCluster = ({
       data-test={`cluster ${cluster.name}`}
     >
       <tr role="row">
-        <DashboardClusterCellName clusterUrlName={cluster.urlName} />
+        <DashboardClusterCellName clusterName={cluster.urlName} />
         <Toggle expandKey={COLUMNS.ISSUES} data-test="issues">
           <DashboardClusterCellSummary
             itemsCount={cluster.issueList.length}

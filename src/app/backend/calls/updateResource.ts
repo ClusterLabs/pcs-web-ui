@@ -7,7 +7,7 @@ const shape = t.partial({
 });
 
 export const updateResource = async (
-  clusterUrlName: string,
+  clusterName: string,
   resourceId: string,
   attributes: Record<string, string>,
 ): api.CallResult<typeof shape> => {
@@ -16,7 +16,7 @@ export const updateResource = async (
     attributes[key],
   ]);
 
-  return http.post(`/managec/${clusterUrlName}/update_resource`, {
+  return http.post(`/managec/${clusterName}/update_resource`, {
     params: [["resource_id", resourceId], ...instanceAttrs],
     shape,
   });

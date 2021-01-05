@@ -8,14 +8,14 @@ import { FenceDeviceList } from "./list";
 export const FenceDevicePage: React.FC<{ urlPrefix: string }> = ({
   urlPrefix,
 }) => {
-  const [clusterStatus] = useClusterSelector(selectors.getCluster);
+  const [cluster] = useClusterSelector(selectors.getCluster);
   return (
     <>
       <GroupDetailView
         urlPrefix={urlPrefix}
         detailCard={<FenceDeviceDetailPage />}
         groupCard={
-          <FenceDeviceList fenceDeviceList={clusterStatus.fenceDeviceList} />
+          <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
         }
       />
     </>

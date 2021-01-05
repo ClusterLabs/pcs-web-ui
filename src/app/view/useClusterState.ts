@@ -8,23 +8,23 @@ import {
   utils,
 } from "app/store";
 
-export const useClusterState = (clusterUrlName: string) => {
+export const useClusterState = (clusterName: string) => {
   const dispatch = useDispatch();
 
   const start = React.useMemo<ActionLeaf>(
     () => ({
       type: "CLUSTER.STATUS.SYNC",
-      id: { cluster: clusterUrlName },
+      id: { cluster: clusterName },
     }),
-    [clusterUrlName],
+    [clusterName],
   );
 
   const stop = React.useMemo<ActionLeaf>(
     () => ({
       type: "CLUSTER.STATUS.SYNC.STOP",
-      id: { cluster: clusterUrlName },
+      id: { cluster: clusterName },
     }),
-    [clusterUrlName],
+    [clusterName],
   );
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ export const useClusterState = (clusterUrlName: string) => {
       type: "DATA_READING.SET_UP",
       payload: [
         {
-          specificator: `syncCluster:${clusterUrlName}`,
+          specificator: `syncCluster:${clusterName}`,
           start,
           stop,
         },
@@ -40,19 +40,20 @@ export const useClusterState = (clusterUrlName: string) => {
     });
     dispatch({
       type: "CLUSTER.PROPERTIES.LOAD",
-      id: { cluster: clusterUrlName },
+      id: { cluster: clusterName },
     });
     dispatch({
       type: "RESOURCE_AGENT.LIST.LOAD",
-      id: { cluster: clusterUrlName },
+      id: { cluster: clusterName },
     });
-  }, [clusterUrlName, dispatch, start, stop]);
+  }, [clusterName, dispatch, start, stop]);
 
-  const cluster = useSelector(selectors.getCluster(clusterUrlName));
+  const clusterState = useSelector(selectors.getCluster(clusterName));
 
-  const nodeAttrs = (nodeName: string) => cluster.nodeAttr?.[nodeName] ?? [];
+  const nodeAttrs = (nodeName: string) =>
+    clusterState.nodeAttr?.[nodeName] ?? [];
   const nodeUtilization = (nodeName: string) =>
-    cluster.nodesUtilization?.[nodeName] ?? [];
+    clusterState.nodesUtilization?.[nodeName] ?? [];
 
   const isNodeAttrCibTrue = (nodeName: string, attrName: string) =>
     utils.isCibTrue(
@@ -60,10 +61,10 @@ export const useClusterState = (clusterUrlName: string) => {
     );
 
   return {
-    cluster,
+    clusterState,
     isNodeAttrCibTrue,
     nodeAttrs,
     nodeUtilization,
-    dataLoaded: useSelector(selectors.clusterAreDataLoaded(clusterUrlName)),
+    dataLoaded: useSelector(selectors.clusterAreDataLoaded(clusterName)),
   };
 };

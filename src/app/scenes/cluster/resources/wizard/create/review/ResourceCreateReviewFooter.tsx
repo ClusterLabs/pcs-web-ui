@@ -11,7 +11,7 @@ import { useWizard } from "../useWizard";
 export const ResourceCreateReviewFooter: React.FC = () => {
   const {
     state: { agentName, resourceName, instanceAttrs, disabled },
-    clusterUrlName,
+    clusterName,
     dispatch,
     close,
     wizard: { onNext, onBack },
@@ -22,7 +22,7 @@ export const ResourceCreateReviewFooter: React.FC = () => {
         onClick={() => {
           dispatch({
             type: "RESOURCE.CREATE",
-            id: { cluster: clusterUrlName },
+            id: { cluster: clusterName },
             payload: {
               agentName,
               resourceName,

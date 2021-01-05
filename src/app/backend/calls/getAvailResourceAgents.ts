@@ -12,8 +12,8 @@ const shape = t.record(
 );
 
 export const getAvailResourceAgents = async (
-  clusterUrlName: string,
+  clusterName: string,
 ): api.CallResult<typeof shape> =>
-  http.get(`/managec/${clusterUrlName}/get_avail_resource_agents`, {
+  http.get(`/managec/${clusterName}/get_avail_resource_agents`, {
     shape,
   });

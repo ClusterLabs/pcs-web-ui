@@ -4,7 +4,7 @@ import { Action } from "app/store";
 import { put } from "../effects";
 
 export function* clusterResponseSwitch(
-  clusterUrlName: string,
+  clusterName: string,
   taskLabel: string,
   payload: api.types.lib.Response,
   {
@@ -37,7 +37,7 @@ export function* clusterResponseSwitch(
     case "success":
       yield put({
         type: "CLUSTER.STATUS.REFRESH",
-        id: { cluster: clusterUrlName },
+        id: { cluster: clusterName },
       });
       yield put(successAction);
       return;

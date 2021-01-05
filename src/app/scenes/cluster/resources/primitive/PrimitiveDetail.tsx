@@ -28,7 +28,7 @@ export const PrimitiveDetail = ({
         </TextContent>
 
         <LoadedPcmkAgent
-          clusterUrlName={clusterName}
+          clusterName={clusterName}
           agentName={primitive.agentName}
         >
           {(agent: types.pcmkAgents.Agent) => (

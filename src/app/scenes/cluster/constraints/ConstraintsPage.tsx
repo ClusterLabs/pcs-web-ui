@@ -52,12 +52,10 @@ const useState = () => {
   };
 };
 
-export const ConstraintsPage = ({
-  clusterUrlName,
-}: {
-  clusterUrlName: string;
+export const ConstraintsPage: React.FC<{ clusterName: string }> = ({
+  clusterName,
 }) => {
-  const constraintPacks = useSelector(selectors.getConstraints(clusterUrlName));
+  const constraintPacks = useSelector(selectors.getConstraints(clusterName));
   const { filterState, filterConstraintTypes } = useState();
   const clearAllFilters = () => {
     const [groupInclusionMap, setGroupInclusionMap] = filterState.groupState;

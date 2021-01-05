@@ -5,12 +5,12 @@ import { selectors, types } from "app/store";
 import { EmptyStateError, EmptyStateSpinner } from "app/view/emptyState";
 
 export const LoadedPcmkAgent: React.FC<{
-  clusterUrlName: string;
+  clusterName: string;
   agentName: string;
   /* eslint-disable @typescript-eslint/no-explicit-any */
   children: (ra: types.pcmkAgents.Agent) => React.ReactElement<any, any> | null;
-}> = ({ clusterUrlName, agentName, children }) => {
-  const agent = useSelector(selectors.getPcmkAgent(clusterUrlName, agentName));
+}> = ({ clusterName, agentName, children }) => {
+  const agent = useSelector(selectors.getPcmkAgent(clusterName, agentName));
 
   if (!agent || agent.loadStatus === "LOADING") {
     return <EmptyStateSpinner title={`Loading agent "${agentName}" data`} />;
