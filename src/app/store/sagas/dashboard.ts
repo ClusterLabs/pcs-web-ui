@@ -30,15 +30,15 @@ function* fetchClusterList() {
         stop: { type: "CLUSTER.LIST.SYNC.STOP" },
       },
       ...clusterNameList.map(
-        (clusterUrlName): ActionMap["DATA_READING.SET_UP"]["payload"][0] => ({
-          specificator: `syncCluster:${clusterUrlName}`,
+        (cluster): ActionMap["DATA_READING.SET_UP"]["payload"][0] => ({
+          specificator: `syncCluster:${cluster}`,
           start: {
             type: "CLUSTER.STATUS.SYNC",
-            payload: { clusterUrlName },
+            id: { cluster },
           },
           stop: {
             type: "CLUSTER.STATUS.SYNC.STOP",
-            payload: { clusterUrlName },
+            id: { cluster },
           },
         }),
       ),

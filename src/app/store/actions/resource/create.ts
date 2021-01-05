@@ -3,8 +3,8 @@ import { api } from "app/backend";
 export type ResourceCreateActions = {
   "RESOURCE.CREATE": {
     type: "RESOURCE.CREATE";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
       resourceName: string;
       agentName: string;
       instanceAttrs: Record<string, string>;
@@ -14,48 +14,42 @@ export type ResourceCreateActions = {
 
   "RESOURCE.CREATE.SUCCESS": {
     type: "RESOURCE.CREATE.SUCCESS";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
       reports: api.types.lib.Report[];
     };
   };
 
   "RESOURCE.CREATE.ERROR": {
     type: "RESOURCE.CREATE.ERROR";
-    payload: {
-      clusterUrlName: string;
-    };
+    id: { cluster: string };
   };
 
   "RESOURCE.CREATE.FAIL": {
     type: "RESOURCE.CREATE.FAIL";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
       reports: api.types.lib.Report[];
     };
   };
 
   "RESOURCE.CREATE.UPDATE": {
     type: "RESOURCE.CREATE.UPDATE";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
-      state: {
-        agentName?: string;
-        resourceName?: string;
-        clone?: boolean;
-        promotable?: boolean;
-        disabled?: boolean;
-        instanceAttrs?: Record<string, string>;
-        useGroup?: "no" | "existing" | "new";
-        group?: string;
-      };
+      agentName?: string;
+      resourceName?: string;
+      clone?: boolean;
+      promotable?: boolean;
+      disabled?: boolean;
+      instanceAttrs?: Record<string, string>;
+      useGroup?: "no" | "existing" | "new";
+      group?: string;
     };
   };
 
   "RESOURCE.CREATE.CLOSE": {
     type: "RESOURCE.CREATE.CLOSE";
-    payload: {
-      clusterUrlName: string;
-    };
+    id: { cluster: string };
   };
 };

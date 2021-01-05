@@ -3,21 +3,19 @@ import { ActionMap } from "app/store/actions";
 
 import { api, put, takeEvery } from "./common";
 
-function* loadClusterProperties({
-  payload: { clusterUrlName },
-}: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
+function* loadClusterProperties({ id }: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
   const result: api.ResultOf<typeof clusterProperties> = yield api.authSafe(
     clusterProperties,
-    clusterUrlName,
+    id.cluster,
   );
 
-  const taskLabel = `load cluster properties of cluster ${clusterUrlName}`;
+  const taskLabel = `load cluster properties of cluster ${id.cluster}`;
   if (result.type !== "OK") {
     yield api.processError(result, taskLabel, {
       action: () =>
         put({
           type: "CLUSTER.PROPERTIES.LOAD.ERROR",
-          payload: { clusterUrlName },
+          id,
         }),
     });
     return;
@@ -25,7 +23,8 @@ function* loadClusterProperties({
 
   yield put({
     type: "CLUSTER.PROPERTIES.LOAD.OK",
-    payload: { apiClusterProperties: result.payload, clusterUrlName },
+    id,
+    payload: { apiClusterProperties: result.payload },
   });
 }
 export default [takeEvery("CLUSTER.PROPERTIES.LOAD", loadClusterProperties)];

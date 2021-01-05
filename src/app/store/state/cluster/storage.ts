@@ -35,28 +35,14 @@ const clusterStorageItem = combineReducers<ClusterStorageItem>({
   fixAuth,
 });
 
-function hasProperty<O extends Record<string, unknown>, P extends PropertyKey>(
-  obj: O,
-  prop: P,
-): obj is O & Record<P, unknown> {
-  /* eslint-disable no-prototype-builtins */
-  return obj.hasOwnProperty(prop);
-}
-
 const clusterStorage: Reducer<ClusterStorageMap> = (state = {}, action) => {
   if (action.type === "AUTH.REQUIRED") {
     return {};
   }
-  if (
-    // TODO - DATA_READING.SET_UP has array in payload; make it standard object!
-    action.type !== "DATA_READING.SET_UP"
-    && hasProperty(action, "payload")
-    && hasProperty(action.payload, "clusterUrlName")
-  ) {
-    const name = action.payload.clusterUrlName;
+  if ("id" in action && "cluster" in action.id && action.id.cluster in state) {
     return {
       ...state,
-      [name]: clusterStorageItem(state[name], action),
+      [action.id.cluster]: clusterStorageItem(state[action.id.cluster], action),
     };
   }
 

@@ -20,7 +20,7 @@ export const ClusterDetailBreadcrumb = ({
         onClick={() =>
           dispatch({
             type: "CLUSTER.STATUS.REFRESH",
-            payload: { clusterUrlName },
+            id: { cluster: clusterUrlName },
           })
         }
       >

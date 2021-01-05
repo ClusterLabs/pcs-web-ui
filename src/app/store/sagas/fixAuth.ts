@@ -5,7 +5,8 @@ import { api, call, put, race, take, takeEvery } from "./common";
 import { nodeAuthWait } from "./nodeAuth";
 
 function* fixAuth({
-  payload: { initialNodeList, clusterUrlName },
+  id,
+  payload: { initialNodeList },
 }: ActionMap["CLUSTER.FIX_AUTH.START"]) {
   const authProcessId = actionNewId();
 
@@ -17,7 +18,8 @@ function* fixAuth({
 
   yield put({
     type: "CLUSTER.FIX_AUTH.AUTH_STARTED",
-    payload: { clusterUrlName, authProcessId },
+    id,
+    payload: { authProcessId },
   });
 
   const { cancel } = yield race({
@@ -28,7 +30,7 @@ function* fixAuth({
   if (!cancel) {
     yield put({
       type: "CLUSTER.FIX_AUTH.AUTH_DONE",
-      payload: { clusterUrlName },
+      id,
     });
   }
 
@@ -38,13 +40,11 @@ function* fixAuth({
   });
 }
 
-function* fixAuthDistribute({
-  payload: { clusterUrlName },
-}: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
+function* fixAuthDistribute({ id }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof fixAuthOfCluster> } = yield race({
-    result: api.authSafe(fixAuthOfCluster, clusterUrlName),
+    result: api.authSafe(fixAuthOfCluster, id.cluster),
     cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
   });
 
@@ -55,25 +55,21 @@ function* fixAuthDistribute({
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
     yield put({
       type: "CLUSTER.FIX_AUTH.FAIL",
-      payload: { clusterUrlName, message: result.text },
+      id,
+      payload: { message: result.text },
     });
     return;
   }
 
   if (result.type !== "OK") {
-    const taskLabel = `distribution authentication to cluster ${clusterUrlName}`;
+    const taskLabel = `distribution authentication to cluster ${id.cluster}`;
 
     yield api.processError(result, taskLabel, {
       action: () =>
         put({
           type: "CLUSTER.FIX_AUTH.ERROR",
-          payload: {
-            clusterUrlName,
-            message: api.errorMessage(
-              result,
-              `distribution authentication to cluster ${clusterUrlName}`,
-            ),
-          },
+          id,
+          payload: { message: api.errorMessage(result, taskLabel) },
         }),
       useNotification: false,
     });
@@ -82,7 +78,7 @@ function* fixAuthDistribute({
 
   yield put({
     type: "CLUSTER.FIX_AUTH.OK",
-    payload: { clusterUrlName },
+    id,
   });
 }
 

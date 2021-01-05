@@ -12,13 +12,13 @@ type FenceDevice = types.cluster.FenceDevice;
 export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
   fenceDevice,
 }) => {
-  const clusterUrlName = useSelectedClusterName();
+  const cluster = useSelectedClusterName();
   const refresh: DetailLayoutToolbarAction = {
     action: {
       type: "RESOURCE.REFRESH",
+      id: { cluster },
       payload: {
         resourceId: fenceDevice.id,
-        clusterUrlName,
         resourceType: "fence-device",
       },
     },
@@ -37,9 +37,9 @@ export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
   const cleanup: DetailLayoutToolbarAction = {
     action: {
       type: "RESOURCE.CLEANUP",
+      id: { cluster },
       payload: {
         resourceId: fenceDevice.id,
-        clusterUrlName,
         resourceType: "fence-device",
       },
     },
@@ -57,9 +57,9 @@ export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
   const deleteItem: DetailLayoutToolbarAction = {
     action: {
       type: "RESOURCE.DELETE",
+      id: { cluster },
       payload: {
         resourceIds: [fenceDevice.id],
-        clusterUrlName,
         resourceType: "fence-device",
       },
     },

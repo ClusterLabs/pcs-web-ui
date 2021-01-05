@@ -24,7 +24,7 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
 export const PrimitivePageToolbar: React.FC<{
   primitive: Primitive;
 }> = ({ primitive }) => {
-  const clusterUrlName = useSelectedClusterName();
+  const cluster = useSelectedClusterName();
 
   const unclone: DetailLayoutToolbarAction = {
     confirm: {
@@ -38,8 +38,8 @@ export const PrimitivePageToolbar: React.FC<{
     },
     action: {
       type: "RESOURCE.UNCLONE",
+      id: { cluster },
       payload: {
-        clusterUrlName,
         resourceId: primitive.id,
       },
     },
@@ -52,8 +52,8 @@ export const PrimitivePageToolbar: React.FC<{
     },
     action: {
       type: "RESOURCE.CLONE",
+      id: { cluster },
       payload: {
-        clusterUrlName,
         resourceId: primitive.id,
       },
     },
@@ -62,9 +62,9 @@ export const PrimitivePageToolbar: React.FC<{
   const deleteItem: DetailLayoutToolbarAction = {
     action: {
       type: "RESOURCE.DELETE",
+      id: { cluster },
       payload: {
         resourceIds: [primitive.id],
-        clusterUrlName,
         resourceType: "resource",
       },
     },
@@ -77,9 +77,9 @@ export const PrimitivePageToolbar: React.FC<{
   const refresh: DetailLayoutToolbarAction = {
     action: {
       type: "RESOURCE.REFRESH",
+      id: { cluster },
       payload: {
         resourceId: primitive.id,
-        clusterUrlName,
         resourceType: "resource",
       },
     },
@@ -97,9 +97,9 @@ export const PrimitivePageToolbar: React.FC<{
   const cleanup: DetailLayoutToolbarAction = {
     action: {
       type: "RESOURCE.CLEANUP",
+      id: { cluster },
       payload: {
         resourceId: primitive.id,
-        clusterUrlName,
         resourceType: "resource",
       },
     },
@@ -117,8 +117,8 @@ export const PrimitivePageToolbar: React.FC<{
   const unmanage: DetailLayoutToolbarAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
+      id: { cluster },
       payload: {
-        clusterUrlName,
         taskLabel: `unmanage "${primitive.id}"`,
         call: {
           command: "resource-unmanage",
@@ -135,8 +135,8 @@ export const PrimitivePageToolbar: React.FC<{
   const manage: DetailLayoutToolbarAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
+      id: { cluster },
       payload: {
-        clusterUrlName,
         taskLabel: `manage "${primitive.id}"`,
         call: {
           command: "resource-manage",
@@ -153,8 +153,8 @@ export const PrimitivePageToolbar: React.FC<{
   const disable: DetailLayoutToolbarAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
+      id: { cluster },
       payload: {
-        clusterUrlName,
         taskLabel: `disable "${primitive.id}"`,
         call: {
           command: "resource-disable",
@@ -176,8 +176,8 @@ export const PrimitivePageToolbar: React.FC<{
   const enable: DetailLayoutToolbarAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
+      id: { cluster },
       payload: {
-        clusterUrlName,
         taskLabel: `enable "${primitive.id}"`,
         call: {
           command: "resource-enable",

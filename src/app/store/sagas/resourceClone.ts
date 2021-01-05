@@ -3,36 +3,27 @@ import { ActionMap } from "app/store/actions";
 
 import { api, processClusterResultBasic, takeEvery } from "./common";
 
-function* clone({
-  payload: { resourceId, clusterUrlName },
-}: ActionMap["RESOURCE.CLONE"]) {
+function* clone({ id, payload: { resourceId } }: ActionMap["RESOURCE.CLONE"]) {
   const result: api.ResultOf<typeof resourceClone> = yield api.authSafe(
     resourceClone,
-    clusterUrlName,
+    id.cluster,
     resourceId,
   );
 
-  yield processClusterResultBasic(
-    clusterUrlName,
-    `clone ${resourceId}`,
-    result,
-  );
+  yield processClusterResultBasic(id.cluster, `clone ${resourceId}`, result);
 }
 
 function* unclone({
-  payload: { resourceId, clusterUrlName },
+  id,
+  payload: { resourceId },
 }: ActionMap["RESOURCE.UNCLONE"]) {
   const result: api.ResultOf<typeof resourceUnclone> = yield api.authSafe(
     resourceUnclone,
-    clusterUrlName,
+    id.cluster,
     resourceId,
   );
 
-  yield processClusterResultBasic(
-    clusterUrlName,
-    `unclone ${resourceId}`,
-    result,
-  );
+  yield processClusterResultBasic(id.cluster, `unclone ${resourceId}`, result);
 }
 
 export default [

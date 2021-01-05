@@ -10,7 +10,7 @@ import {
 export const GroupPageToolbar: React.FC<{ group: types.cluster.Group }> = ({
   group,
 }) => {
-  const clusterUrlName = useSelectedClusterName();
+  const cluster = useSelectedClusterName();
   const unclone: DetailLayoutToolbarAction = {
     confirm: {
       title: "Unclone resource?",
@@ -23,10 +23,8 @@ export const GroupPageToolbar: React.FC<{ group: types.cluster.Group }> = ({
     },
     action: {
       type: "RESOURCE.UNCLONE",
-      payload: {
-        clusterUrlName,
-        resourceId: group.id,
-      },
+      id: { cluster },
+      payload: { resourceId: group.id },
     },
   };
 
@@ -37,10 +35,8 @@ export const GroupPageToolbar: React.FC<{ group: types.cluster.Group }> = ({
     },
     action: {
       type: "RESOURCE.CLONE",
-      payload: {
-        clusterUrlName,
-        resourceId: group.id,
-      },
+      id: { cluster },
+      payload: { resourceId: group.id },
     },
   };
   return (

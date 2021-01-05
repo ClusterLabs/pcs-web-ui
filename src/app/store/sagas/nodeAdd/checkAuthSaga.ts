@@ -14,7 +14,8 @@ import {
 import { nodeAuthWait } from "../nodeAuth";
 
 export function* checkAuthSaga({
-  payload: { clusterUrlName, nodeName },
+  id,
+  payload: { nodeName },
 }: ActionMap["NODE.ADD.CHECK_AUTH"]) {
   const {
     result,
@@ -30,7 +31,8 @@ export function* checkAuthSaga({
 
   const errorAction = (message: string): Action => ({
     type: "NODE.ADD.CHECK_AUTH.FAIL",
-    payload: { clusterUrlName, message },
+    id,
+    payload: { message },
   });
   const taskLabel = `add node "${nodeName}": node authentication check`;
 
@@ -50,10 +52,8 @@ export function* checkAuthSaga({
   if (result.payload[nodeName] === "Online") {
     yield put({
       type: "NODE.ADD.SEND_KNOWN_HOSTS",
-      payload: {
-        clusterUrlName,
-        nodeName,
-      },
+      id,
+      payload: { nodeName },
     });
     return;
   }
@@ -68,7 +68,8 @@ export function* checkAuthSaga({
   });
   yield put({
     type: "NODE.ADD.CHECK_AUTH.NO_AUTH",
-    payload: { clusterUrlName, authProcessId },
+    id,
+    payload: { authProcessId },
   });
 
   const { cancel } = yield race({
@@ -79,10 +80,8 @@ export function* checkAuthSaga({
   if (!cancel) {
     yield put({
       type: "NODE.ADD.SEND_KNOWN_HOSTS",
-      payload: {
-        clusterUrlName,
-        nodeName,
-      },
+      id,
+      payload: { nodeName },
     });
     return;
   }

@@ -55,10 +55,10 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
     case "RESOURCE.CREATE.UPDATE": {
       return {
         ...state,
-        ...action.payload.state,
+        ...action.payload,
         instanceAttrs: instanceAttrs(
           state.instanceAttrs,
-          action.payload.state.instanceAttrs || {},
+          action.payload.instanceAttrs || {},
         ),
       };
     }

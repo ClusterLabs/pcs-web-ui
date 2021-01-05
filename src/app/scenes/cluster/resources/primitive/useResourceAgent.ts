@@ -4,7 +4,7 @@ import { selectors, useDispatch } from "app/store";
 import { useClusterSelector } from "app/view";
 
 export const useClusterResourceAgent = (agentName: string) => {
-  const [resourceAgent, clusterUrlName] = useClusterSelector(
+  const [resourceAgent, cluster] = useClusterSelector(
     selectors.getPcmkAgent,
     agentName,
   );
@@ -13,10 +13,11 @@ export const useClusterResourceAgent = (agentName: string) => {
     if (!resourceAgent) {
       dispatch({
         type: "RESOURCE_AGENT.LOAD",
-        payload: { agentName, clusterUrlName },
+        id: { cluster },
+        payload: { agentName },
       });
     }
-  }, [agentName, clusterUrlName, dispatch, resourceAgent]);
+  }, [agentName, cluster, dispatch, resourceAgent]);
   return {
     resourceAgent,
   };

@@ -17,10 +17,8 @@ function* fetchClusterData(clusterUrlName: string) {
 
   yield put({
     type: "CLUSTER.STATUS.FETCH.OK",
-    payload: {
-      clusterUrlName,
-      apiClusterStatus: result.payload,
-    },
+    id: { cluster: clusterUrlName },
+    payload: { apiClusterStatus: result.payload },
   });
 }
 
@@ -32,7 +30,7 @@ const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   SUCCESS: "CLUSTER.STATUS.FETCH.OK",
   refresh: (clusterName = "") => ({
     type: REFRESH,
-    payload: { clusterUrlName: clusterName },
+    id: { cluster: clusterName },
   }),
   fetch: fetchClusterData,
   getSyncId: (action: Action) => {
@@ -41,7 +39,7 @@ const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
       case "CLUSTER.STATUS.SYNC.STOP":
       case "CLUSTER.STATUS.FETCH.OK":
       case "CLUSTER.STATUS.REFRESH":
-        return action.payload.clusterUrlName;
+        return action.id.cluster;
       default:
         return "";
     }

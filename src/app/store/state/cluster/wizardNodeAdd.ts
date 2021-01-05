@@ -78,7 +78,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
     case "NODE.ADD.UPDATE":
       return {
         ...state,
-        ...action.payload.state,
+        ...action.payload,
       };
     case "NODE.ADD.CHECK_CAN_ADD":
       return {

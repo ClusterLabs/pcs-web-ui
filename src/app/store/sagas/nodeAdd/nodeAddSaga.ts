@@ -3,8 +3,8 @@ import { Action, ActionMap } from "app/store/actions";
 import { api, lib, processError, put, race, take } from "../common";
 
 export function* nodeAddSaga({
+  id,
   payload: {
-    clusterUrlName,
     nodeName,
     nodeAddresses,
     sbdWatchdog,
@@ -14,7 +14,7 @@ export function* nodeAddSaga({
 }: ActionMap["NODE.ADD"]) {
   const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
     result: api.authSafe(api.lib.callCluster, {
-      clusterUrlName,
+      clusterUrlName: id.cluster,
       command: "cluster-add-nodes",
       payload: {
         nodes: [
@@ -39,7 +39,7 @@ export function* nodeAddSaga({
   const taskLabel = `add node ${nodeName}`;
   const errorAction: Action = {
     type: "NODE.ADD.ERROR",
-    payload: { clusterUrlName },
+    id,
   };
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
@@ -49,14 +49,16 @@ export function* nodeAddSaga({
     return;
   }
 
-  yield lib.clusterResponseSwitch(clusterUrlName, taskLabel, result.payload, {
+  yield lib.clusterResponseSwitch(id.cluster, taskLabel, result.payload, {
     successAction: {
       type: "NODE.ADD.OK",
-      payload: { clusterUrlName, reports: result.payload.report_list },
+      id,
+      payload: { reports: result.payload.report_list },
     },
     errorAction: {
       type: "NODE.ADD.FAIL",
-      payload: { clusterUrlName, reports: result.payload.report_list },
+      id,
+      payload: { reports: result.payload.report_list },
     },
     communicationErrorAction: errorAction,
   });

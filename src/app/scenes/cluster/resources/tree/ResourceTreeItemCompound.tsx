@@ -25,7 +25,7 @@ export const ResourceTreeItemCompound = ({
   type: string;
 }>) => {
   const dispatch = useDispatch();
-  const [opened, clusterName] = useClusterSelector(
+  const [opened, cluster] = useClusterSelector(
     selectors.resourceTreeGetOpenedItems,
   );
   const expanded = opened.includes(resourceId);
@@ -43,7 +43,8 @@ export const ResourceTreeItemCompound = ({
           onClick={() =>
             dispatch({
               type: "RESOURCE.TREE.ITEM.TOGGLE",
-              payload: { itemId: resourceId, clusterUrlName: clusterName },
+              id: { cluster },
+              payload: { itemId: resourceId },
             })
           }
         />

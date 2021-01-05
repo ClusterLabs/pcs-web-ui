@@ -11,13 +11,13 @@ import {
 export const NodeDetailPageToolbar: React.FC<{
   node: types.cluster.Node;
 }> = ({ node }) => {
-  const clusterUrlName = useSelectedClusterName();
-  const { isNodeAttrCibTrue } = useClusterState(clusterUrlName);
+  const cluster = useSelectedClusterName();
+  const { isNodeAttrCibTrue } = useClusterState(cluster);
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
+    id: { cluster },
     payload: {
-      clusterUrlName,
       taskLabel: `standby node "${node.name}"`,
       call: {
         command: "node-standby-unstandby",
@@ -53,8 +53,8 @@ export const NodeDetailPageToolbar: React.FC<{
 
   const maintenanceUnmanintenanceAction = (maintenance: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
+    id: { cluster },
     payload: {
-      clusterUrlName,
       taskLabel: `maintenance node "${node.name}"`,
       call: {
         command: "node-maintenance-unmaintenance",
@@ -85,7 +85,8 @@ export const NodeDetailPageToolbar: React.FC<{
   const start: DetailLayoutToolbarAction = {
     action: {
       type: "NODE.START",
-      payload: { clusterUrlName, nodeName: node.name },
+      id: { cluster },
+      payload: { nodeName: node.name },
     },
     confirm: {
       title: "Start node?",
@@ -96,7 +97,8 @@ export const NodeDetailPageToolbar: React.FC<{
   const stop: DetailLayoutToolbarAction = {
     action: {
       type: "NODE.STOP",
-      payload: { clusterUrlName, nodeName: node.name },
+      id: { cluster },
+      payload: { nodeName: node.name },
     },
     confirm: {
       title: "Stop node?",
@@ -107,8 +109,8 @@ export const NodeDetailPageToolbar: React.FC<{
   const remove: DetailLayoutToolbarAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
+      id: { cluster },
       payload: {
-        clusterUrlName,
         taskLabel: `remove node "${node.name}"`,
         call: {
           command: "cluster-remove-nodes",

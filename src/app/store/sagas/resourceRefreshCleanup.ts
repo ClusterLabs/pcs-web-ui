@@ -15,11 +15,12 @@ type ApiCall = typeof resourceRefresh | typeof resourceCleanup;
 
 function resourceAction(apiCall: ApiCall, taskName: string) {
   return function* resourceActionSaga({
-    payload: { resourceId, clusterUrlName, resourceType },
+    id,
+    payload: { resourceId, resourceType },
   }: Action) {
     const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
       apiCall,
-      clusterUrlName,
+      id.cluster,
       resourceId,
     );
     const taskLabel = `${taskName} ${
@@ -39,7 +40,7 @@ function resourceAction(apiCall: ApiCall, taskName: string) {
       return;
     }
 
-    yield clusterSuccess(clusterUrlName, taskLabel);
+    yield clusterSuccess(id.cluster, taskLabel);
   };
 }
 

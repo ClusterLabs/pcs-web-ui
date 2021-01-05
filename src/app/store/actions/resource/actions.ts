@@ -1,8 +1,8 @@
 export type ResourceActionsActions = {
   "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES": {
     type: "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
       resourceId: string;
       attributes: Record<string, string>;
     };
@@ -10,8 +10,8 @@ export type ResourceActionsActions = {
 
   "RESOURCE.REFRESH": {
     type: "RESOURCE.REFRESH";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
       resourceId: string;
       resourceType: "resource" | "fence-device";
     };
@@ -19,8 +19,8 @@ export type ResourceActionsActions = {
 
   "RESOURCE.CLEANUP": {
     type: "RESOURCE.CLEANUP";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
       resourceId: string;
       resourceType: "resource" | "fence-device";
     };
@@ -28,8 +28,8 @@ export type ResourceActionsActions = {
 
   "RESOURCE.DELETE": {
     type: "RESOURCE.DELETE";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
       resourceIds: string[];
       resourceType: "resource" | "fence-device";
     };
@@ -37,16 +37,16 @@ export type ResourceActionsActions = {
 
   "RESOURCE.CLONE": {
     type: "RESOURCE.CLONE";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
       resourceId: string;
     };
   };
 
   "RESOURCE.UNCLONE": {
     type: "RESOURCE.UNCLONE";
+    id: { cluster: string };
     payload: {
-      clusterUrlName: string;
       resourceId: string;
     };
   };

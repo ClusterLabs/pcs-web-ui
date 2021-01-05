@@ -4,11 +4,12 @@ import { ActionMap } from "app/store/actions";
 import { api, authSafe, processError, put, takeEvery } from "./common";
 
 function* loadFenceAgent({
-  payload: { agentName, clusterUrlName },
+  id,
+  payload: { agentName },
 }: ActionMap["FENCE_AGENT.LOAD"]) {
   const result: api.ResultOf<typeof getFenceAgentMetadata> = yield authSafe(
     getFenceAgentMetadata,
-    clusterUrlName,
+    id.cluster,
     agentName,
   );
 
@@ -18,7 +19,8 @@ function* loadFenceAgent({
       action: () =>
         put({
           type: "FENCE_AGENT.LOAD.FAILED",
-          payload: { agentName, clusterUrlName },
+          id,
+          payload: { agentName },
         }),
     });
     return;
@@ -26,7 +28,8 @@ function* loadFenceAgent({
 
   yield put({
     type: "FENCE_AGENT.LOAD.SUCCESS",
-    payload: { apiAgentMetadata: result.payload, clusterUrlName },
+    id,
+    payload: { apiAgentMetadata: result.payload },
   });
 }
 export default [takeEvery("FENCE_AGENT.LOAD", loadFenceAgent)];

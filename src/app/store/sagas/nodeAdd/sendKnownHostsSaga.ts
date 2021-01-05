@@ -4,12 +4,13 @@ import { ActionMap } from "app/store/actions";
 import { api, put, race, take } from "../common";
 
 export function* sendKnownHostsSaga({
-  payload: { clusterUrlName, nodeName },
+  id,
+  payload: { nodeName },
 }: ActionMap["NODE.ADD.SEND_KNOWN_HOSTS"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof sendKnownHosts> } = yield race({
-    result: api.authSafe(sendKnownHosts, clusterUrlName, [nodeName]),
+    result: api.authSafe(sendKnownHosts, id.cluster, [nodeName]),
     cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
   });
 
@@ -21,14 +22,12 @@ export function* sendKnownHostsSaga({
   if (result.type !== "OK") {
     yield put({
       type: "NODE.ADD.SEND_KNOWN_HOSTS.FAIL",
-      payload: { clusterUrlName },
+      id,
     });
     return;
   }
   yield put({
     type: "NODE.ADD.SEND_KNOWN_HOSTS.OK",
-    payload: {
-      clusterUrlName,
-    },
+    id,
   });
 }

@@ -4,7 +4,10 @@ import { Result } from "./api";
 import { processError } from "./apiCall";
 
 export function* clusterSuccess(clusterUrlName: string, taskLabel: string) {
-  yield put({ type: "CLUSTER.STATUS.REFRESH", payload: { clusterUrlName } });
+  yield put({
+    type: "CLUSTER.STATUS.REFRESH",
+    id: { cluster: clusterUrlName },
+  });
   yield putNotification("SUCCESS", `Succesfully done: ${taskLabel}`);
 }
 

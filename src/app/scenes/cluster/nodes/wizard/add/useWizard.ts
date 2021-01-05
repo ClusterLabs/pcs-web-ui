@@ -15,8 +15,8 @@ export const useWizard = () => {
   const checkCanAddNode = () =>
     dispatch({
       type: "NODE.ADD.CHECK_CAN_ADD",
+      id: { cluster: clusterUrlName },
       payload: {
-        clusterUrlName,
         nodeName: state.nodeName,
       },
     });
@@ -52,24 +52,22 @@ export const useWizard = () => {
       clusterWizard.close();
       dispatch({
         type: "NODE.ADD.CLOSE",
-        payload: { clusterUrlName },
+        id: { cluster: clusterUrlName },
       });
     },
 
-    updateState: (state: ActionMap["NODE.ADD.UPDATE"]["payload"]["state"]) =>
+    updateState: (payload: ActionMap["NODE.ADD.UPDATE"]["payload"]) =>
       dispatch({
         type: "NODE.ADD.UPDATE",
-        payload: {
-          clusterUrlName,
-          state,
-        },
+        id: { cluster: clusterUrlName },
+        payload,
       }),
 
     updateNodeName: (nodeName: string) =>
       dispatch({
         type: "NODE.ADD.UPDATE_NODE_NAME",
+        id: { cluster: clusterUrlName },
         payload: {
-          clusterUrlName,
           nodeName,
         },
       }),
@@ -77,8 +75,8 @@ export const useWizard = () => {
     checkAuth: () =>
       dispatch({
         type: "NODE.ADD.CHECK_AUTH",
+        id: { cluster: clusterUrlName },
         payload: {
-          clusterUrlName,
           nodeName: state.nodeName,
         },
       }),
@@ -86,8 +84,8 @@ export const useWizard = () => {
     nodeAdd: () =>
       dispatch({
         type: "NODE.ADD",
+        id: { cluster: clusterUrlName },
         payload: {
-          clusterUrlName,
           nodeName: state.nodeName,
           sbdWatchdog: state.sbdWatchdog,
           sbdDevices: filledSbdDevices,
@@ -99,10 +97,8 @@ export const useWizard = () => {
     nodeStart: () =>
       dispatch({
         type: "NODE.START",
-        payload: {
-          clusterUrlName,
-          nodeName: state.nodeName,
-        },
+        id: { cluster: clusterUrlName },
+        payload: { nodeName: state.nodeName },
       }),
 
     checkCanAddNode,

@@ -3,11 +3,12 @@ import { Action, ActionMap } from "app/store/actions";
 import { api, lib, processError, put, race, take, takeEvery } from "./common";
 
 function* resourceCreateSaga({
-  payload: { agentName, resourceName, instanceAttrs, clusterUrlName, disabled },
+  id,
+  payload: { agentName, resourceName, instanceAttrs, disabled },
 }: ActionMap["RESOURCE.CREATE"]) {
   const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
     result: api.authSafe(api.lib.callCluster, {
-      clusterUrlName,
+      clusterUrlName: id.cluster,
       command: "resource-create",
       payload: {
         resource_id: resourceName,
@@ -29,7 +30,7 @@ function* resourceCreateSaga({
   const taskLabel = `create resource "${resourceName}"`;
   const errorAction: Action = {
     type: "RESOURCE.CREATE.ERROR",
-    payload: { clusterUrlName },
+    id,
   };
 
   if (result.type !== "OK") {
@@ -40,14 +41,16 @@ function* resourceCreateSaga({
     return;
   }
 
-  yield lib.clusterResponseSwitch(clusterUrlName, taskLabel, result.payload, {
+  yield lib.clusterResponseSwitch(id.cluster, taskLabel, result.payload, {
     successAction: {
       type: "RESOURCE.CREATE.SUCCESS",
-      payload: { clusterUrlName, reports: result.payload.report_list },
+      id,
+      payload: { reports: result.payload.report_list },
     },
     errorAction: {
       type: "RESOURCE.CREATE.FAIL",
-      payload: { clusterUrlName, reports: result.payload.report_list },
+      id,
+      payload: { reports: result.payload.report_list },
     },
     communicationErrorAction: errorAction,
   });

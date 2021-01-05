@@ -4,7 +4,7 @@ import { selectors, useDispatch } from "app/store";
 import { useClusterSelector } from "app/view";
 
 export const useClusterFenceAgent = (agentName: string) => {
-  const [fenceAgent, clusterUrlName] = useClusterSelector(
+  const [fenceAgent, cluster] = useClusterSelector(
     selectors.getPcmkAgent,
     agentName,
   );
@@ -13,10 +13,11 @@ export const useClusterFenceAgent = (agentName: string) => {
     if (!fenceAgent) {
       dispatch({
         type: "FENCE_AGENT.LOAD",
-        payload: { agentName, clusterUrlName },
+        id: { cluster },
+        payload: { agentName },
       });
     }
-  }, [agentName, clusterUrlName, dispatch, fenceAgent]);
+  }, [agentName, cluster, dispatch, fenceAgent]);
   return {
     fenceAgent,
   };
