@@ -39,11 +39,7 @@ const clusterStorage: Reducer<ClusterStorageMap> = (state = {}, action) => {
   if (action.type === "AUTH.REQUIRED") {
     return {};
   }
-  if (
-    "key" in action
-    && "clusterName" in action.key
-    && action.key.clusterName in state
-  ) {
+  if ("key" in action && "clusterName" in action.key) {
     return {
       ...state,
       [action.key.clusterName]: clusterStorageItem(
