@@ -99,12 +99,12 @@ export const DashboardClusterList: React.FC<{
         .map(name => clusterMap[name].cluster)
         .sort(compareItems(compareByColumn))
         .map(cluster =>
-          clusterMap[cluster.urlName].isLoaded ? (
-            <DashboardCluster key={cluster.urlName} cluster={cluster} />
+          clusterMap[cluster.name].isLoaded ? (
+            <DashboardCluster key={cluster.name} cluster={cluster} />
           ) : (
             <DashboardClusterLoading
-              key={cluster.urlName}
-              clusterName={cluster.urlName}
+              key={cluster.name}
+              clusterName={cluster.name}
             />
           ),
         )}

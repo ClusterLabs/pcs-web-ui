@@ -65,7 +65,7 @@ export const DashboardClusterNodes: React.FC<{
         {cluster.nodeList.sort(compareItems(compareByColumn)).map(node => (
           <tr key={node.name} data-test={`node ${node.name}`}>
             <td data-test="name">
-              <Link to={url.cluster.nodes(cluster.urlName, node.name)} />
+              <Link to={url.cluster.nodes(cluster.name, node.name)} />
             </td>
             <td>
               <StatusSign

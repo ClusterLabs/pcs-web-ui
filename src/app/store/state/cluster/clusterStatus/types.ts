@@ -173,7 +173,6 @@ export type ConstraintPack =
 */
 export interface ClusterStatus {
   name: string;
-  urlName: string;
   nodeList: Node[];
   resourceTree: ResourceTreeItem[];
   fenceDeviceList: FenceDevice[];

@@ -48,7 +48,6 @@ export const apiToState = (
   );
   return {
     name: apiClusterStatus.cluster_name,
-    urlName: apiClusterStatus.cluster_name,
     nodeList,
     issueList: transformIssues(apiClusterStatus),
     resourceTree,

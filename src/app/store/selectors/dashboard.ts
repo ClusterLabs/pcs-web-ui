@@ -26,7 +26,7 @@ export function getClusterMap<T extends string>(
         [name]: {
           cluster: clusterAreDataLoaded(name)(state)
             ? getCluster(name)(state)
-            : { ...clusterStatusDefault, name, urlName: name },
+            : { ...clusterStatusDefault, name },
           isLoaded: clusterAreDataLoaded(name)(state),
         },
       }),

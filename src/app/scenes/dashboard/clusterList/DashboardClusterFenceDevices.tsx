@@ -55,7 +55,7 @@ export const DashboardClusterFenceDevices: React.FC<{
             >
               <td data-test="name">
                 <Link
-                  to={url.cluster.fenceDeices(cluster.urlName, fenceDevice.id)}
+                  to={url.cluster.fenceDeices(cluster.name, fenceDevice.id)}
                 />
               </td>
               <td>

@@ -31,7 +31,7 @@ export const DashboardCluster: React.FC<{
       data-test={`cluster ${cluster.name}`}
     >
       <tr role="row">
-        <DashboardClusterCellName clusterName={cluster.urlName} />
+        <DashboardClusterCellName clusterName={cluster.name} />
         <Toggle expandKey={COLUMNS.ISSUES} data-test="issues">
           <DashboardClusterCellSummary
             itemsCount={cluster.issueList.length}
