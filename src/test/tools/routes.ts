@@ -31,6 +31,7 @@ export const auth_gui_against_nodes = (
   },
   ...(response ?? {
     json: {
+      plaintext_error: "",
       node_auth_error: Object.keys(nodes).reduce<Record<string, 0>>(
         (nodesResponse, nodeName) => ({
           ...nodesResponse,

@@ -6,5 +6,11 @@ export const NodeAddPrepareNodeFooterAuthButton: React.FC<{
   authProcessId: number;
 }> = ({ authProcessId }) => {
   const { nodeAuth } = useNodesAuth(authProcessId);
-  return <WizardButtonNext label="Authenticate" onClick={nodeAuth} />;
+  return (
+    <WizardButtonNext
+      label="Authenticate"
+      onClick={nodeAuth}
+      data-test="button-auth"
+    />
+  );
 };

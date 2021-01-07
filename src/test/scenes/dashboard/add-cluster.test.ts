@@ -111,7 +111,8 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await workflow.sendAuthForm(WIZARD, password, addr, port);
+    await workflow.fillAuthForm(nodeName, WIZARD, password, addr, port);
+    await page.click(dt(WIZARD, "auth-check"));
     await goThroughAddStepSuccessfully();
   });
 
@@ -168,13 +169,19 @@ describe("Add existing cluster wizard", () => {
             dest_list: [{ addr: "192.168.0.10", port: "1234" }],
           },
         },
-        { json: { node_auth_error: { [nodeName]: 1 } } },
+        {
+          json: {
+            plaintext_error: "",
+            node_auth_error: { [nodeName]: 1 },
+          },
+        },
       ),
     ]);
 
     await enterNodeName(nodeName);
-    await workflow.sendAuthForm(WIZARD, password, addr, port);
-    await page.waitForSelector(dt(WIZARD, "auth-error"));
+    await workflow.fillAuthForm(nodeName, WIZARD, password, addr, port);
+    await page.click(dt(WIZARD, "auth-check"));
+    await page.waitForSelector(dt(WIZARD, "alert-nodes-not-auth"));
   });
 
   it("should display error when cluster add fails", async () => {

@@ -1,6 +1,7 @@
 import { dt } from "./selectors";
 
-export const sendAuthForm = async (
+export const fillAuthForm = async (
+  nodeName: string,
   contextSelector: string,
   password: string,
   addr: string,
@@ -11,8 +12,7 @@ export const sendAuthForm = async (
   await page.click(
     `${dt(formSelector, "use-custom-address")} .pf-c-switch__toggle`,
   );
-  await page.type(dt(formSelector, "password"), password);
-  await page.type(dt(formSelector, "address"), addr);
-  await page.type(dt(formSelector, "port"), port);
-  await page.click(dt(formSelector, "auth-node"));
+  await page.type(dt(formSelector, `auth-node-${nodeName}-password`), password);
+  await page.type(dt(formSelector, `auth-node-${nodeName}-address`), addr);
+  await page.type(dt(formSelector, `auth-node-${nodeName}-port`), port);
 };

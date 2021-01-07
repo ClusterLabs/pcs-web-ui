@@ -34,7 +34,12 @@ export const NodesAuthForm: React.FC<{
         </Alert>
       )}
       {nodesResults.fail.length > 0 && (
-        <Alert isInline variant="danger" title="Nodes not authenticated">
+        <Alert
+          isInline
+          variant="danger"
+          title="Nodes not authenticated"
+          data-test="alert-nodes-not-auth"
+        >
           {`Authentication of ${
             nodesResults.fail.length === 1 ? "node" : "nodes"
           } ${nodesResults.fail.join(", ")} failed`}
@@ -47,7 +52,7 @@ export const NodesAuthForm: React.FC<{
               <tr>
                 <th>Node</th>
                 <th>Password</th>
-                <th>
+                <th data-test="use-custom-address">
                   <Switch
                     id="add-cluster-use-custom-address-port"
                     label=""

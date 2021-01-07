@@ -8,7 +8,11 @@ export const ClusterIssueNotAuthButton: React.FC<{
 }> = ({ authProcessId }) => {
   const { nodeAuth } = useNodesAuth(authProcessId);
   return (
-    <Button variant="primary" onClick={nodeAuth}>
+    <Button
+      variant="primary"
+      onClick={nodeAuth}
+      data-test="task-fix-no-auth-nodes-button-auth"
+    >
       Authenticate
     </Button>
   );

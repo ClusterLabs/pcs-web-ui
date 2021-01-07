@@ -71,7 +71,8 @@ describe("Node add wizard", () => {
       }),
     ]);
     await enterNodeName(NODE);
-    await workflow.sendAuthForm(WIZARD.VIEW, PASSWORD, ADDR, PORT);
+    await workflow.fillAuthForm(NODE, WIZARD.VIEW, PASSWORD, ADDR, PORT);
+    await page.click(WIZARD.NEXT);
     await page.waitForSelector(WIZARD.PREPARE_CLUSTER.SUCCESS);
     await page.click(WIZARD.NEXT); // go to adresses
     await page.click(WIZARD.NEXT); // go to sbd
