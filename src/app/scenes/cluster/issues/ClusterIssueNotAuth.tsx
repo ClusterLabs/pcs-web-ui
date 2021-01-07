@@ -2,18 +2,19 @@ import React from "react";
 import { Alert, AlertActionLink, Button, Modal } from "@patternfly/react-core";
 
 import { EmptyStateSpinner, NodesAuthForm } from "app/view";
+import { selectors, useDispatch } from "app/store";
+import { useClusterSelector } from "app/view/useClusterSelector";
 
 import { ClusterIssueNotAuthButton } from "./ClusterIssueNotAuthButton";
-import { useFixAuth } from "./useFixAuth";
 
 export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
   nodeList,
 }) => {
-  const {
-    dispatch,
+  const dispatch = useDispatch();
+  const [
+    { authProcessId, open, fixing, errorMessage },
     clusterName,
-    state: { authProcessId, open, fixing, errorMessage },
-  } = useFixAuth();
+  ] = useClusterSelector(selectors.getFixAuth);
 
   const cancel = () =>
     dispatch({
