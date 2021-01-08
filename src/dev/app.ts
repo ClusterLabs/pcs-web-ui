@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
-import express, { Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import bodyParser from "body-parser";
+
+// import endpoints from "app/backend/calls";
+import { LibClusterCommands, endpoints } from "app/backend/endpoints";
 
 const parserUrlEncoded = bodyParser.urlencoded({ extended: false });
 const parserJson = bodyParser.json();
@@ -9,12 +12,12 @@ export type Handler = (req: Request, res: Response) => void;
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 type R = any;
-const app = express();
+const application = express();
 const port = process.env.PORT || 5000;
-app.listen(port, () => {
+application.listen(port, () => {
   console.log(`${process.env.SCENARIO}: Listening on port ${port}`);
   console.log(
-    app._router.stack
+    application._router.stack
       .filter((r: R) => r.route)
       .map((r: R) => `${r.route.stack[0].method}: ${r.route.path}`),
   );
@@ -36,69 +39,51 @@ const delayed = (handler: Handler): Handler => (req, res) => {
   );
 };
 
-const clusterGet = (url: string) => (handler: Handler) =>
-  app.get(`/managec/:clusterUrlName/${url}`, delayed(handler));
+const prepareUrl = <KEYWORDS extends Record<string, string>>(
+  url: string | ((keywords: KEYWORDS) => string),
+) => {
+  if (typeof url === "string") {
+    return url;
+  }
+  // TODO introspect url function and use correct keys
+  // currently just clusterName here...
+  return url(({ clusterName: ":clusterName" } as unknown) as KEYWORDS);
+};
 
-const clusterPost = (url: string) => (handler: Handler) =>
-  app.post(
-    `/managec/:clusterUrlName/${url}`,
-    parserUrlEncoded,
-    delayed(handler),
-  );
+type EndpointKeys = keyof Omit<typeof endpoints, "libCluster">;
+type DevEndpoints = {
+  -readonly [K in EndpointKeys]: (h: Handler) => Express;
+} & {
+  libCluster: (c: keyof LibClusterCommands, h: Handler) => Express;
+};
 
-const manageGet = (url: string) => (handler: Handler) =>
-  app.get(`/manage/${url}`, delayed(handler));
-
-const managePost = (url: string) => (handler: Handler) =>
-  app.post(`/manage/${url}`, parserUrlEncoded, delayed(handler));
-
-export const login = (handler: Handler) =>
-  app.post("/ui/login", parserUrlEncoded, delayed(handler));
-
-export const importedClusterList = (handler: Handler) =>
-  app.get("/imported-cluster-list", delayed(handler));
-
-const lib = (url: string) => (handler: Handler) =>
-  app.post(
-    `/managec/:clusterUrlName/api/v1/${url}/v1`,
-    parserJson,
-    delayed(handler),
-  );
-
-// manage
-export const existingCluster = managePost("existingcluster"); // adds existing cluster
-export const authGuiAgainstNodes = managePost("auth_gui_against_nodes");
-export const checkAuthAgainstNodes = manageGet("check_auth_against_nodes");
-export const canAddClusterOrNodes = manageGet("can-add-cluster-or-nodes");
-
-// cluster
-export const clusterStatus = clusterGet("cluster_status");
-export const getAvailResourceAgents = clusterGet("get_avail_resource_agents");
-export const getFenceAgentMetadata = clusterGet("get_fence_agent_metadata");
-export const clusterProperties = clusterGet("cluster_properties");
-export const updateResource = clusterPost("update_resource");
-export const resourceRefresh = clusterPost("resource_refresh");
-export const resourceCleanup = clusterPost("resource_cleanup");
-export const removeResource = clusterPost("remove_resource");
-export const clusterStart = clusterPost("cluster_start");
-export const clusterStop = clusterPost("cluster_stop");
-export const sendKnownHosts = clusterPost("send-known-hosts");
-export const resourceClone = clusterPost("resource_clone");
-export const resourceUnclone = clusterPost("resource_unclone");
-export const fixAuthOfCluster = clusterPost("fix_auth_of_cluster");
-export const getResourceAgentMetadata = clusterGet(
-  "get_resource_agent_metadata",
-);
-
-// library access
-export const resourceCreate = lib("resource-create");
-export const resourceManage = lib("resource-manage");
-export const resourceUnmanage = lib("resource-unmanage");
-export const resourceDisable = lib("resource-disable");
-export const resourceEnable = lib("resource-enable");
-export const clusterAddNodes = lib("cluster-add-nodes");
-export const clusterRemoveNodes = lib("cluster-remove-nodes");
-export const nodeStandbyUnstandby = lib("node-standby-unstandby");
-export const nodeMaintenanceUnmaintenance = lib(
-  "node-maintenance-unmaintenance",
+export const app: DevEndpoints = (Object.keys(endpoints) as Array<
+  EndpointKeys
+>).reduce(
+  (devEndpoints, n) => {
+    const ep = endpoints[n];
+    if (ep.method === "get") {
+      devEndpoints[n] = (handler: Handler) => {
+        return application.get(prepareUrl(ep.url), delayed(handler));
+      };
+    } else {
+      devEndpoints[n] = (handler: Handler) => {
+        return application.post(
+          prepareUrl(ep.url),
+          parserUrlEncoded,
+          delayed(handler),
+        );
+      };
+    }
+    return devEndpoints;
+  },
+  {
+    libCluster: (command: keyof LibClusterCommands, handler: Handler) => {
+      application.post(
+        endpoints.libCluster.url({ clusterName: ":clusterName", command }),
+        parserJson,
+        delayed(handler),
+      );
+    },
+  } as DevEndpoints,
 );

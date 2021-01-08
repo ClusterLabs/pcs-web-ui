@@ -1,20 +1,13 @@
-import { api, http, t, validate } from "app/backend/tools";
+import { api, endpoints, http, t, validate } from "app/backend/tools";
 
-const shape = t.record(
-  t.string,
-  t.keyof({
-    Online: null,
-    Offline: null,
-    "Unable to authenticate": null,
-  }),
-);
+const { url, shape } = endpoints.checkAuthAgainstNodes;
 
 export const checkAuthAgainstNodes = async (
   nodeList: string[],
 ): api.CallResult<typeof shape> => {
   const uniqueNodeList = Array.from(new Set(nodeList));
 
-  return http.get("/manage/check_auth_against_nodes", {
+  return http.get(url, {
     params: uniqueNodeList.map(node => ["node_list[]", node]),
     validate: (payload) => {
       let errors = validate.shape(payload, shape);

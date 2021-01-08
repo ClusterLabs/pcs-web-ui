@@ -1,10 +1,6 @@
-import { api, http, t } from "app/backend/tools";
+import { api, endpoints, http } from "app/backend/tools";
 
-const shape = t.partial({
-  error: t.literal("true"),
-  stdout: t.string,
-  stderr: t.string,
-});
+const { url, shape } = endpoints.updateResource;
 
 export const updateResource = async (
   clusterName: string,
@@ -16,7 +12,7 @@ export const updateResource = async (
     attributes[key],
   ]);
 
-  return http.post(`/managec/${clusterName}/update_resource`, {
+  return http.post(url({ clusterName }), {
     params: [["resource_id", resourceId], ...instanceAttrs],
     shape,
   });

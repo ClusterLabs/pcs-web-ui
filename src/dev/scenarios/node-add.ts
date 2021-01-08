@@ -1,6 +1,6 @@
 import * as shortcut from "dev/shortcuts";
 import * as response from "dev/responses";
-import * as app from "dev/app";
+import { app } from "dev/app";
 
 shortcut.dashboard([
   response.clusterStatus.actions,
@@ -56,7 +56,7 @@ app.sendKnownHosts((_req, res) => {
   res.send("success");
 });
 
-app.clusterAddNodes((req, res) => {
+app.libCluster("cluster-add-nodes", (req, res) => {
   shortcut.libStd({
     code: req.body.nodes[0]?.name,
     res,

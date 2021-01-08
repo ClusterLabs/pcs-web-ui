@@ -1,7 +1,7 @@
 import { clusterStatus, importedClusterList } from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, url } from "test/tools";
+import { intercept, url, urls } from "test/tools";
 
 const username = "hacluster";
 const password = "hh";
@@ -11,11 +11,11 @@ describe("Login scene", () => {
 
     await intercept.run([
       {
-        url: "/imported-cluster-list",
+        url: urls.importedClusterList,
         status: 401,
       },
       {
-        url: "/ui/login",
+        url: urls.login,
         body: { username, password },
         text: "ajax-id-not-important",
       },
@@ -35,15 +35,21 @@ describe("Logout", () => {
 
   it("should call logout on backend after click", async () => {
     await intercept.run([
-      { url: "/imported-cluster-list", json: importedClusterList.empty },
       {
-        url: "/managec/empty/cluster_status",
+        url: urls.importedClusterList,
+        json: importedClusterList.empty,
+      },
+      {
+        url: urls.clusterStatus({ clusterName: "empty" }),
         json: clusterStatus.empty,
       },
-      { url: "/ui/logout", text: "OK" },
+      {
+        url: urls.logout,
+        text: "OK",
+      },
       // TODO Firefox wants to have this mocked. Why
       {
-        url: "/ui/login",
+        url: urls.login,
         body: { username, password },
         text: "ajax-id-not-important",
       },

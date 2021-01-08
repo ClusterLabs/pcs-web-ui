@@ -1,19 +1,16 @@
-import { api, http, t, validate } from "app/backend/tools";
+import { api, endpoints, http, t, validate } from "app/backend/tools";
 
-import * as types from "../types";
+const { url, shape } = endpoints.authGuiAgainstNodes;
 
-const shape = types.authGuiAgainstNodes.TApiAuthGuiAgainstNodes;
+type Node = {
+  password: string;
+  dest_list: { addr: string; port: string }[];
+};
 
 export const authGuiAgainstNodes = async (
-  nodeMap: Record<
-    string,
-    {
-      password: string;
-      dest_list: { addr: string; port: string }[];
-    }
-  >,
+  nodeMap: Record<string, Node>,
 ): api.CallResult<typeof shape> =>
-  http.post("/manage/auth_gui_against_nodes", {
+  http.post(url, {
     params: [["data_json", JSON.stringify({ nodes: nodeMap })]],
     validate: (payload) => {
       const errors = validate.shape(payload, shape);

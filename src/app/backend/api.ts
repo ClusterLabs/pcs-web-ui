@@ -3,6 +3,7 @@ import * as log from "./log";
 import * as result from "./apiResult";
 import { Call as TCall, Result as TResult } from "./call";
 import * as lib from "./lib";
+import * as endpoints from "./endpoints";
 
 export type Call<PAYLOAD = string> = TCall<PAYLOAD>;
 
@@ -17,4 +18,4 @@ export type PayloadOf<APICALL> = APICALL extends Call<infer PAYLOAD>
   : never;
 
 export type LibPayload = PayloadOf<typeof lib.call>;
-export { types, log, result, lib };
+export { types, log, result, lib, endpoints };
