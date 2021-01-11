@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types, url, utils } from "app/store";
+import { location, types, utils } from "app/store";
 import { EmptyStateNoItem, Link, StatusSign, Table, toLabel } from "app/view";
 
 import { compareStrings } from "./utils";
@@ -61,7 +61,12 @@ export const DashboardClusterResources: React.FC<{
           .map(resource => (
             <tr key={resource.id} data-test={`resource ${resource.id}`}>
               <td data-test="name">
-                <Link to={url.cluster.resources(cluster.name, resource.id)} />
+                <Link
+                  to={location.resource({
+                    clusterName: cluster.name,
+                    resourceId: resource.id,
+                  })}
+                />
               </td>
               <td data-label="status">
                 {resource.status.infoList.map((status, i) => (

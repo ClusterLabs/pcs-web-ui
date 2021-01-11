@@ -1,4 +1,4 @@
-import * as app from "dev/app";
+import { app } from "dev/app";
 import * as response from "dev/responses";
 import * as types from "dev/types";
 
@@ -13,7 +13,7 @@ export const importedClusterList = (
 const clusterStatus = (clusterStatusList: types.ClusterStatus[]) =>
   app.clusterStatus((req, res) => {
     const cluster = clusterStatusList.find(
-      c => c.cluster_name === req.params.clusterUrlName,
+      c => c.cluster_name === req.params.clusterName,
     );
     if (cluster) {
       res.json(cluster);
@@ -29,8 +29,10 @@ const getAvailResourceAgents = (
     res.json(availableResourceAgents);
   });
 
-const getResourceAgentMetadata = (metadatList: types.ResourceAgentMetadata[]) =>
-  app.getResourceAgentMetadata((req, res) => {
+const getResourceAgentMetadata = (
+  metadatList: types.ResourceAgentMetadata[],
+) => {
+  return app.getResourceAgentMetadata((req, res) => {
     const metadata = metadatList.find(m => m.name === req.query.agent);
     if (metadata) {
       res.json(metadata);
@@ -38,6 +40,7 @@ const getResourceAgentMetadata = (metadatList: types.ResourceAgentMetadata[]) =>
       res.status(404).send("Not found");
     }
   });
+};
 
 const getFenceAgentMetadata = (metadatList: types.FenceAgentMetadata[]) =>
   app.getFenceAgentMetadata((req, res) => {

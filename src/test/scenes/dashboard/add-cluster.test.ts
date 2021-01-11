@@ -1,7 +1,14 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, response as res, route, url, workflow } from "test/tools";
+import {
+  intercept,
+  location,
+  response as res,
+  route,
+  url,
+  workflow,
+} from "test/tools";
 
 const WIZARD = dt("wizard-add-cluster");
 const WIZARD_BUTTON_NEXT = dt(WIZARD, "footer [type='submit']");
@@ -22,7 +29,7 @@ const isButtonNextDisabled = async () => {
 };
 
 const enterNodeName = async (name: string) => {
-  await page.goto(url("/add-cluster"));
+  await page.goto(location.dashboardAddCluster);
   await page.waitForSelector(FORM_CHECK_AUTH);
 
   await page.type(dt(FORM_CHECK_AUTH, "node-name"), name);
@@ -43,21 +50,21 @@ const authFailed = async () => {
 const interceptWithDashboard = async (routeList: intercept.Route[]) => {
   await intercept.run([
     {
-      url: "/imported-cluster-list",
+      url: url.importedClusterList,
       json: responses.importedClusterList.withClusters([
         responses.clusterStatus.empty.cluster_name,
       ]),
     },
     {
-      url: "/managec/empty/cluster_status",
+      url: url.clusterStatus({ clusterName: "empty" }),
       json: responses.clusterStatus.empty,
     },
     {
-      url: "/managec/empty/get_avail_resource_agents",
+      url: url.getAvailResourceAgents({ clusterName: "empty" }),
       json: responses.resourceAgentList.ok,
     },
     {
-      url: "/managec/empty/cluster_properties",
+      url: url.clusterProperties({ clusterName: "empty" }),
       json: responses.clusterProperties.ok,
     },
     ...routeList,
@@ -75,12 +82,12 @@ describe("Add existing cluster wizard", () => {
   it("should succesfully add cluster", async () => {
     await interceptWithDashboard([
       {
-        url: "/manage/check_auth_against_nodes",
+        url: url.checkAuthAgainstNodes,
         query: { "node_list[]": nodeName },
         json: { [nodeName]: "Online" },
       },
       {
-        url: "/manage/existingcluster",
+        url: url.existingCluster,
         body: { "node-name": nodeName },
         text: "",
       },
@@ -93,7 +100,7 @@ describe("Add existing cluster wizard", () => {
   it("should succesfully add cluster with authentication", async () => {
     await interceptWithDashboard([
       {
-        url: "/manage/check_auth_against_nodes",
+        url: url.checkAuthAgainstNodes,
         query: { "node_list[]": nodeName },
         json: { [nodeName]: "Unable to authenticate" },
       },
@@ -104,7 +111,7 @@ describe("Add existing cluster wizard", () => {
         },
       }),
       {
-        url: "/manage/existingcluster",
+        url: url.existingCluster,
         body: { "node-name": nodeName },
         text: "",
       },
@@ -119,7 +126,7 @@ describe("Add existing cluster wizard", () => {
   it("should display error when auth check crash on backend", async () => {
     await interceptWithDashboard([
       {
-        url: "/manage/check_auth_against_nodes",
+        url: url.checkAuthAgainstNodes,
         handler: res.response(500, "WRONG"),
         query: { "node_list[]": nodeName },
       },
@@ -132,7 +139,7 @@ describe("Add existing cluster wizard", () => {
   it("should display error when auth check response is nonesense", async () => {
     await interceptWithDashboard([
       {
-        url: "/manage/check_auth_against_nodes",
+        url: url.checkAuthAgainstNodes,
         query: { "node_list[]": nodeName },
         json: "nonsense",
       },
@@ -145,7 +152,7 @@ describe("Add existing cluster wizard", () => {
   it("should display error when auth check response is offline", async () => {
     await interceptWithDashboard([
       {
-        url: "/manage/check_auth_against_nodes",
+        url: url.checkAuthAgainstNodes,
         query: { "node_list[]": nodeName },
         json: { [nodeName]: "Offline" },
       },
@@ -158,7 +165,7 @@ describe("Add existing cluster wizard", () => {
   it("should display error when authentication fails", async () => {
     await interceptWithDashboard([
       {
-        url: "/manage/check_auth_against_nodes",
+        url: url.checkAuthAgainstNodes,
         query: { "node_list[]": nodeName },
         json: { [nodeName]: "Unable to authenticate" },
       },
@@ -187,12 +194,12 @@ describe("Add existing cluster wizard", () => {
   it("should display error when cluster add fails", async () => {
     await interceptWithDashboard([
       {
-        url: "/manage/check_auth_against_nodes",
+        url: url.checkAuthAgainstNodes,
         query: { "node_list[]": nodeName },
         json: { [nodeName]: "Online" },
       },
       {
-        url: "/manage/existingcluster",
+        url: url.existingCluster,
         body: { "node-name": nodeName },
         status: [400, "Configuration conflict detected."],
       },

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types, url } from "app/store";
+import { location, types } from "app/store";
 import { Link, useSelectedClusterName } from "app/view";
 
 export const ConstraintResourceSetRscLinks: React.FC<{
@@ -13,7 +13,7 @@ export const ConstraintResourceSetRscLinks: React.FC<{
         .map<React.ReactNode>(resourceId => (
           <Link
             key={resourceId}
-            to={url.cluster.resources(clusterName, resourceId)}
+            to={location.resource({ clusterName, resourceId })}
           />
         ))
         .reduce((prev, curr) => [prev, " ", curr])}

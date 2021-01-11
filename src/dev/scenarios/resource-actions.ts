@@ -1,8 +1,8 @@
 import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
-import * as app from "dev/app";
+import { Handler, app } from "dev/app";
 
-const refreshCleanup: app.Handler = (req, res) => {
+const refreshCleanup: Handler = (req, res) => {
   const name = req.body.resource.startsWith("FD_")
     ? req.body.resource.slice(3)
     : req.body.resource;
@@ -26,19 +26,19 @@ const refreshCleanup: app.Handler = (req, res) => {
   res.json({ success: "true" });
 };
 
-app.resourceUnmanage((req, res) =>
+app.libCluster("resource-unmanage", (req, res) =>
   shortcut.libStd({ code: req.body.resource_or_tag_ids[0], res }),
 );
 
-app.resourceManage((req, res) =>
+app.libCluster("resource-manage", (req, res) =>
   shortcut.libStd({ code: req.body.resource_or_tag_ids[0], res }),
 );
 
-app.resourceDisable((req, res) =>
+app.libCluster("resource-disable", (req, res) =>
   shortcut.libStd({ code: req.body.resource_or_tag_ids[0], res }),
 );
 
-app.resourceEnable((req, res) =>
+app.libCluster("resource-enable", (req, res) =>
   shortcut.libStd({ code: req.body.resource_or_tag_ids[0], res }),
 );
 

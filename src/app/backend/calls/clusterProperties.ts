@@ -1,10 +1,7 @@
-import { api, http } from "app/backend/tools";
+import { api, endpoints, http } from "app/backend/tools";
 
-import * as types from "../types";
-
-const shape = types.clusterProperties.TApiClusterProperties;
+const { shape, url } = endpoints.clusterProperties;
 
 export const clusterProperties = async (
   clusterName: string,
-): api.CallResult<typeof shape> =>
-  http.get(`/managec/${clusterName}/cluster_properties`, { shape });
+): api.CallResult<typeof shape> => http.get(url({ clusterName }), { shape });

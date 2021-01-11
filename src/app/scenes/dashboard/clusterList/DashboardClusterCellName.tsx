@@ -1,6 +1,6 @@
 import React from "react";
 
-import { url } from "app/store";
+import { location } from "app/store";
 import { Link } from "app/view";
 
 export const DashboardClusterCellName: React.FC<{ clusterName: string }> = ({
@@ -8,7 +8,7 @@ export const DashboardClusterCellName: React.FC<{ clusterName: string }> = ({
 }) => {
   return (
     <th role="rowheader" data-test="name">
-      <Link to={url.cluster.detail(clusterName)} />
+      <Link to={location.cluster({ clusterName })} />
     </th>
   );
 };

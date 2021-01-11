@@ -1,12 +1,12 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, url } from "test/tools";
+import { intercept, location, url } from "test/tools";
 
 const RESOURCE_TREE = dt("cluster-resources");
 
 const displayResources = async () => {
-  await page.goto(url("/cluster/ok/resources"));
+  await page.goto(location.resourceList({ clusterName: "ok" }));
   await page.waitForSelector(RESOURCE_TREE);
 };
 
@@ -57,15 +57,15 @@ const RESOURCES_UNEXPANDED = [
 const interceptWithCluster = (routeList: intercept.Route[]) =>
   intercept.start([
     {
-      url: "/managec/ok/cluster_status",
+      url: url.clusterStatus({ clusterName: "ok" }),
       json: responses.clusterStatus.resourcesForTest,
     },
     {
-      url: "/managec/ok/get_avail_resource_agents",
+      url: url.getAvailResourceAgents({ clusterName: "ok" }),
       json: responses.resourceAgentList.ok,
     },
     {
-      url: "/managec/ok/cluster_properties",
+      url: url.clusterProperties({ clusterName: "ok" }),
       json: responses.clusterProperties.ok,
     },
     ...routeList,
@@ -129,7 +129,7 @@ describe("Resource tree", () => {
   it("should show primitive resource detail", async () => {
     interceptWithCluster([
       {
-        url: "/managec/ok/get_resource_agent_metadata",
+        url: url.getResourceAgentMetadata({ clusterName: "ok" }),
         query: { agent: "ocf:heartbeat:apache" },
         json: responses.resourceAgentMetadata.ocfHeartbeatApache,
       },

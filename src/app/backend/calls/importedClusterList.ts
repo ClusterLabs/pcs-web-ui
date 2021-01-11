@@ -1,12 +1,6 @@
-import { api, http, t } from "app/backend/tools";
+import { api, endpoints, http } from "app/backend/tools";
 
-const shape = t.type({
-  cluster_list: t.array(
-    t.type({
-      name: t.string,
-    }),
-  ),
-});
+const { url, shape } = endpoints.importedClusterList;
 
 export const importedClusterList = async (): api.CallResult<typeof shape> =>
-  http.get("/imported-cluster-list", { shape });
+  http.get(url, { shape });

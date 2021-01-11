@@ -1,9 +1,9 @@
 import * as response from "dev/responses";
-import * as app from "dev/app";
+import { Handler, app } from "dev/app";
 
 let isLoggedIn = false;
 
-const jsonOr401 = (result: unknown): app.Handler => (_req, res) => {
+const jsonOr401 = (result: unknown): Handler => (_req, res) => {
   if (isLoggedIn) {
     res.json(result);
   } else {

@@ -1,12 +1,12 @@
 import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
-import * as app from "dev/app";
+import { app } from "dev/app";
 
-app.nodeStandbyUnstandby((req, res) =>
+app.libCluster("node-standby-unstandby", (req, res) =>
   shortcut.libStd({ code: req.body.node_names[0], res }),
 );
 
-app.nodeMaintenanceUnmaintenance((req, res) =>
+app.libCluster("node-maintenance-unmaintenance", (req, res) =>
   shortcut.libStd({ code: req.body.node_names[0], res }),
 );
 
@@ -46,7 +46,7 @@ app.clusterStop((req, res) => {
   res.send("Some output");
 });
 
-app.clusterRemoveNodes((req, res) => {
+app.libCluster("cluster-remove-nodes", (req, res) => {
   shortcut.libStd({
     code: req.body.node_list[0],
     res,

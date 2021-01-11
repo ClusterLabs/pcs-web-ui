@@ -1,4 +1,4 @@
-import * as app from "dev/app";
+import { app } from "dev/app";
 
 export const checkAuthAgainstNodes = (
   nodesStates: Record<string, string> = {

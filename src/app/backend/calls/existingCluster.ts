@@ -1,4 +1,5 @@
-import { api, http } from "app/backend/tools";
+import { api, endpoints, http } from "app/backend/tools";
 
+const { url } = endpoints.existingCluster;
 export const existingCluster = async (nodeName: string): api.CallResult =>
-  http.post("/manage/existingcluster", { params: [["node-name", nodeName]] });
+  http.post(url, { params: [["node-name", nodeName]] });

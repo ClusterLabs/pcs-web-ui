@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types, url, utils } from "app/store";
+import { location, types, utils } from "app/store";
 import { EmptyStateNoItem, Link, StatusSign, Table, toLabel } from "app/view";
 
 import { compareStrings } from "./utils";
@@ -55,7 +55,10 @@ export const DashboardClusterFenceDevices: React.FC<{
             >
               <td data-test="name">
                 <Link
-                  to={url.cluster.fenceDeices(cluster.name, fenceDevice.id)}
+                  to={location.fenceDevice({
+                    clusterName: cluster.name,
+                    fenceDeviceId: fenceDevice.id,
+                  })}
                 />
               </td>
               <td>

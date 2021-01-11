@@ -1,8 +1,8 @@
-import * as app from "dev/app";
+import { app } from "dev/app";
 import * as shortcut from "dev/shortcuts";
 import * as response from "dev/responses";
 
-app.resourceCreate((req, res) => {
+app.libCluster("resource-create", (req, res) => {
   shortcut.libStd({
     code: req.body.resource_id,
     res,

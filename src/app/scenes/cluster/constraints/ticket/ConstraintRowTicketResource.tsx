@@ -1,7 +1,7 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-import { types, url } from "app/store";
+import { location, types } from "app/store";
 import { Link, useSelectedClusterName } from "app/view";
 
 import {
@@ -26,7 +26,12 @@ export const ConstraintRowTicketResource = ({
           <DataListCell width={3}>
             {"Resource "}
             <strong>
-              <Link to={url.cluster.resources(clusterName, constraint.rsc)} />
+              <Link
+                to={location.resource({
+                  clusterName,
+                  resourceId: constraint.rsc,
+                })}
+              />
             </strong>
             {" in role "}
             <strong>{constraint["rsc-role"] || "Started"}</strong>
