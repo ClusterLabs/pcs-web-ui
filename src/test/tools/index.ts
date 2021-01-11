@@ -12,7 +12,7 @@ type Urls = {
   [K in keyof Endpoints]: Endpoints[K]["url"];
 };
 
-export const urls: Urls = Object.entries(endpoints).reduce<Urls>(
+export const url: Urls = Object.entries(endpoints).reduce<Urls>(
   (urls, [key, endpoint]): Urls => ({ ...urls, [key]: endpoint.url }),
   {} as Urls,
 );

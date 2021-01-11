@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, urls } from "test/tools";
+import { intercept, location, url } from "test/tools";
 
 const RESOURCE_TREE = dt("cluster-resources");
 
@@ -57,15 +57,15 @@ const RESOURCES_UNEXPANDED = [
 const interceptWithCluster = (routeList: intercept.Route[]) =>
   intercept.start([
     {
-      url: urls.clusterStatus({ clusterName: "ok" }),
+      url: url.clusterStatus({ clusterName: "ok" }),
       json: responses.clusterStatus.resourcesForTest,
     },
     {
-      url: urls.getAvailResourceAgents({ clusterName: "ok" }),
+      url: url.getAvailResourceAgents({ clusterName: "ok" }),
       json: responses.resourceAgentList.ok,
     },
     {
-      url: urls.clusterProperties({ clusterName: "ok" }),
+      url: url.clusterProperties({ clusterName: "ok" }),
       json: responses.clusterProperties.ok,
     },
     ...routeList,
@@ -129,7 +129,7 @@ describe("Resource tree", () => {
   it("should show primitive resource detail", async () => {
     interceptWithCluster([
       {
-        url: urls.getResourceAgentMetadata({ clusterName: "ok" }),
+        url: url.getResourceAgentMetadata({ clusterName: "ok" }),
         query: { agent: "ocf:heartbeat:apache" },
         json: responses.resourceAgentMetadata.ocfHeartbeatApache,
       },

@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, urls } from "test/tools";
+import { url as backendUrl, intercept, location } from "test/tools";
 
 const VIEW = dt("wizard-node-add");
 export const WIZARD = {
@@ -25,15 +25,15 @@ export const url = {
 export const interceptWithCluster = (routeList: intercept.Route[]) =>
   intercept.run([
     {
-      url: urls.clusterStatus({ clusterName: "actions" }),
+      url: backendUrl.clusterStatus({ clusterName: "actions" }),
       json: responses.clusterStatus.actions,
     },
     {
-      url: urls.getAvailResourceAgents({ clusterName: "actions" }),
+      url: backendUrl.getAvailResourceAgents({ clusterName: "actions" }),
       json: responses.resourceAgentList.ok,
     },
     {
-      url: urls.clusterProperties({ clusterName: "actions" }),
+      url: backendUrl.clusterProperties({ clusterName: "actions" }),
       json: responses.clusterProperties.ok,
     },
     ...routeList,

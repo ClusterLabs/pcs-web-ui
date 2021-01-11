@@ -3,7 +3,7 @@ import { api } from "app/backend";
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, urls } from "test/tools";
+import { intercept, location, url } from "test/tools";
 
 const CLUSTERS = dt("cluster-list", "^cluster ");
 const CLUSTER_OK = dt("cluster-list", "cluster ok");
@@ -19,30 +19,30 @@ type ClusterStatus = api.types.clusterStatus.ApiClusterStatus;
 const interceptWithDashboard = (routeList: intercept.Route[]) =>
   intercept.start([
     {
-      url: urls.importedClusterList,
+      url: url.importedClusterList,
       json: responses.importedClusterList.withClusters([
         responses.clusterStatus.ok.cluster_name,
         responses.clusterStatus.error.cluster_name,
       ]),
     },
     {
-      url: urls.clusterStatus({ clusterName: "empty" }),
+      url: url.clusterStatus({ clusterName: "empty" }),
       json: responses.clusterStatus.ok,
     },
     {
-      url: urls.getAvailResourceAgents({ clusterName: "ok" }),
+      url: url.getAvailResourceAgents({ clusterName: "ok" }),
       json: responses.resourceAgentList.ok,
     },
     {
-      url: urls.clusterProperties({ clusterName: "ok" }),
+      url: url.clusterProperties({ clusterName: "ok" }),
       json: responses.clusterProperties.ok,
     },
     {
-      url: urls.clusterStatus({ clusterName: "ok" }),
+      url: url.clusterStatus({ clusterName: "ok" }),
       json: responses.clusterStatus.ok,
     },
     {
-      url: urls.clusterStatus({ clusterName: "error" }),
+      url: url.clusterStatus({ clusterName: "error" }),
       json: responses.clusterStatus.error,
     },
     ...routeList,
@@ -162,7 +162,7 @@ describe("Dashboard to cluster scene", () => {
   it("should allow go to a resource detail", async () => {
     await interceptWithDashboard([
       {
-        url: urls.getResourceAgentMetadata({ clusterName: "ok" }),
+        url: url.getResourceAgentMetadata({ clusterName: "ok" }),
         query: { agent: "ocf:heartbeat:Dummy" },
         json: responses.resourceAgentMetadata.ocfHeartbeatDummy,
       },
@@ -183,7 +183,7 @@ describe("Dashboard to cluster scene", () => {
   it("should allow go to a fence device detail", async () => {
     await interceptWithDashboard([
       {
-        url: urls.getFenceAgentMetadata({ clusterName: "ok" }),
+        url: url.getFenceAgentMetadata({ clusterName: "ok" }),
         query: { agent: "stonith:fence_apc" },
         json: responses.fenceAgentMetadata.ok,
       },
