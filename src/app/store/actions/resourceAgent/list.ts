@@ -6,7 +6,7 @@ export type ResourceAgentListActions = {
     key: { clusterName: string };
   };
 
-  LoadResourceAgentListSuccess: {
+  "RESOURCE_AGENT.LIST.LOAD.OK": {
     type: "RESOURCE_AGENT.LIST.LOAD.OK";
     key: { clusterName: string };
     payload: {
@@ -14,7 +14,7 @@ export type ResourceAgentListActions = {
     };
   };
 
-  LoadResourceAgentListFailed: {
+  "RESOURCE_AGENT.LIST.LOAD.FAIL": {
     type: "RESOURCE_AGENT.LIST.LOAD.FAIL";
     key: { clusterName: string };
   };
