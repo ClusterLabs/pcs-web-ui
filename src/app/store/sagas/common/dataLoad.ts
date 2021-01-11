@@ -142,5 +142,3 @@ export function* setUpDataReading() {
     ]);
   }
 }
-
-export default [fork(setUpDataReading)];

@@ -1,8 +1,8 @@
 import { ActionMap } from "app/store/actions";
 
-import { api, lib, processError, takeEvery } from "./common";
+import { api, lib, processError } from "./common";
 
-function* callLib({
+export function* callLib({
   key,
   payload: { call: command, taskLabel },
 }: ActionMap["LIB.CALL.CLUSTER"]) {
@@ -17,5 +17,3 @@ function* callLib({
   }
   yield lib.clusterResponseProcess(key.clusterName, taskLabel, result.payload);
 }
-
-export default [takeEvery("LIB.CALL.CLUSTER", callLib)];

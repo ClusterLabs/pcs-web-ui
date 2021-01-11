@@ -1,9 +1,9 @@
 import { resourceClone, resourceUnclone } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
-import { api, processClusterResultBasic, takeEvery } from "./common";
+import { api, processClusterResultBasic } from "./common";
 
-function* clone({
+export function* clone({
   key,
   payload: { resourceId },
 }: ActionMap["RESOURCE.CLONE"]) {
@@ -20,7 +20,7 @@ function* clone({
   );
 }
 
-function* unclone({
+export function* unclone({
   key,
   payload: { resourceId },
 }: ActionMap["RESOURCE.UNCLONE"]) {
@@ -36,8 +36,3 @@ function* unclone({
     result,
   );
 }
-
-export default [
-  takeEvery("RESOURCE.CLONE", clone),
-  takeEvery("RESOURCE.UNCLONE", unclone),
-];

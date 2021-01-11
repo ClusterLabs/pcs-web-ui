@@ -2,9 +2,9 @@ import { checkAuthAgainstNodes, existingCluster } from "app/backend";
 import { ActionMap, actionNewId } from "app/store";
 
 import { nodeAuthWait } from "./nodeAuth";
-import { api, call, put, race, take, takeEvery } from "./common";
+import { api, call, put, race, take } from "./common";
 
-function* checkAuthentication({
+export function* checkAuthentication({
   payload: { nodeName },
 }: ActionMap["CLUSTER.ADD.CHECK_AUTH"]) {
   const {
@@ -78,7 +78,9 @@ function* checkAuthentication({
   });
 }
 
-function* addCluster({ payload: { nodeName } }: ActionMap["CLUSTER.ADD"]) {
+export function* addCluster({
+  payload: { nodeName },
+}: ActionMap["CLUSTER.ADD"]) {
   const result: api.ResultOf<typeof existingCluster> = yield api.authSafe(
     existingCluster,
     nodeName,
@@ -112,8 +114,3 @@ function* addCluster({ payload: { nodeName } }: ActionMap["CLUSTER.ADD"]) {
     payload: { warningMessages: [] },
   });
 }
-
-export default [
-  takeEvery("CLUSTER.ADD.CHECK_AUTH", checkAuthentication),
-  takeEvery("CLUSTER.ADD", addCluster),
-];

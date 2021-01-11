@@ -1,12 +1,10 @@
 import { getAvailResourceAgents } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
-import { api, processError, put, takeEvery } from "./common";
+import { api, processError, put } from "./common";
 
 type ApiCallResult = api.ResultOf<typeof getAvailResourceAgents>;
-function* loadResourceAgentList({
-  key,
-}: ActionMap["RESOURCE_AGENT.LIST.LOAD"]) {
+export function* load({ key }: ActionMap["RESOURCE_AGENT.LIST.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
     getAvailResourceAgents,
     key.clusterName,
@@ -31,4 +29,3 @@ function* loadResourceAgentList({
     payload: { apiResourceAgentMap: result.payload },
   });
 }
-export default [takeEvery("RESOURCE_AGENT.LIST.LOAD", loadResourceAgentList)];

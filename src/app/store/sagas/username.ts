@@ -1,10 +1,10 @@
 import { ActionMap } from "app/store/actions";
 
-import { call, put, race, take, takeEvery } from "./common";
+import { call, put, race, take } from "./common";
 
 const USERNAME_STORAGE_KEY = "username";
 
-function* usernameLoad() {
+export function* usernameLoad() {
   const { username } = yield race({
     username: call([localStorage, "getItem"], USERNAME_STORAGE_KEY),
     cancel: take("AUTH.SUCCESS"),
@@ -20,15 +20,12 @@ function* usernameLoad() {
   }
 }
 
-function* checkLogin({ payload: { username } }: ActionMap["AUTH.SUCCESS"]) {
+export function* checkLogin({
+  payload: { username },
+}: ActionMap["AUTH.SUCCESS"]) {
   yield call([localStorage, "setItem"], USERNAME_STORAGE_KEY, username);
   yield put({
     type: "USERNAME.SET",
     payload: { username },
   });
 }
-
-export default [
-  takeEvery("USERNAME.LOAD", usernameLoad),
-  takeEvery("AUTH.SUCCESS", checkLogin),
-];

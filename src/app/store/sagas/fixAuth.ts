@@ -1,10 +1,10 @@
 import { fixAuthOfCluster } from "app/backend";
 import { ActionMap, actionNewId } from "app/store";
 
-import { api, call, put, race, take, takeEvery } from "./common";
+import { api, call, put, race, take } from "./common";
 import { nodeAuthWait } from "./nodeAuth";
 
-function* fixAuth({
+export function* fixAuth({
   key,
   payload: { initialNodeList },
 }: ActionMap["CLUSTER.FIX_AUTH.START"]) {
@@ -40,7 +40,9 @@ function* fixAuth({
   });
 }
 
-function* fixAuthDistribute({ key }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
+export function* fixAuthDistribute({
+  key,
+}: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof fixAuthOfCluster> } = yield race({
@@ -81,8 +83,3 @@ function* fixAuthDistribute({ key }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
     key,
   });
 }
-
-export default [
-  takeEvery("CLUSTER.FIX_AUTH.START", fixAuth),
-  takeEvery("CLUSTER.FIX_AUTH.AUTH_DONE", fixAuthDistribute),
-];

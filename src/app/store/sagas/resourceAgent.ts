@@ -1,11 +1,11 @@
 import { getResourceAgentMetadata } from "app/backend";
 import { ActionMap, selectors, types } from "app/store";
 
-import { api, processError, put, select, takeEvery } from "./common";
+import { api, processError, put, select } from "./common";
 
 type ApiCallResult = api.ResultOf<typeof getResourceAgentMetadata>;
 
-function* loadResourceAgent({
+export function* load({
   key,
   payload: { agentName },
 }: ActionMap["RESOURCE_AGENT.LOAD"]) {
@@ -35,7 +35,7 @@ function* loadResourceAgent({
   });
 }
 
-function* ensureResourceAgent({
+export function* ensure({
   key,
   payload: { agentName },
 }: ActionMap["RESOURCE_AGENT.ENSURE"]) {
@@ -50,8 +50,3 @@ function* ensureResourceAgent({
     });
   }
 }
-
-export default [
-  takeEvery("RESOURCE_AGENT.LOAD", loadResourceAgent),
-  takeEvery("RESOURCE_AGENT.ENSURE", ensureResourceAgent),
-];

@@ -1,7 +1,7 @@
 import { importedClusterList } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
-import { api, dataLoad, fork, put } from "./common";
+import { api, dataLoad, put } from "./common";
 
 function* fetchClusterList() {
   const result: api.ResultOf<typeof importedClusterList> = yield api.authSafe(
@@ -47,7 +47,7 @@ function* fetchClusterList() {
 }
 
 const REFRESH = "CLUSTER.LIST.REFRESH";
-const clusterListSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
+export const clusterListSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   START: "CLUSTER.LIST.SYNC",
   STOP: "CLUSTER.LIST.SYNC.STOP",
   REFRESH,
@@ -55,5 +55,3 @@ const clusterListSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   refresh: () => ({ type: REFRESH }),
   fetch: fetchClusterList,
 };
-
-export default [fork(dataLoad.manage, clusterListSyncOptions)];

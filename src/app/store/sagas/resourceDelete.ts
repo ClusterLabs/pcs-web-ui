@@ -1,7 +1,7 @@
 import { removeResource } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
-import { api, processClusterResultBasic, takeEvery } from "./common";
+import { api, processClusterResultBasic } from "./common";
 
 const formatResourcesFenceDeviceMsg = (
   resourceNameList: string[],
@@ -31,5 +31,3 @@ export function* deleteResource({
     result,
   );
 }
-
-export default [takeEvery("RESOURCE.DELETE", deleteResource)];

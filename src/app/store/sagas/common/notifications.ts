@@ -1,12 +1,12 @@
 import { ActionMap, actionNewId } from "app/store/actions";
 
-import { delay, put, takeEvery } from "./effects";
+import { delay, put } from "./effects";
 
 const DISPLAY_MSECONDS = 8000;
 
 type Notification = ActionMap["NOTIFICATION.CREATE"]["payload"];
 
-function* limitNotificationLife({
+export function* limitNotificationLife({
   payload: { id },
 }: ActionMap["NOTIFICATION.CREATE"]) {
   yield delay(DISPLAY_MSECONDS);
@@ -31,5 +31,3 @@ export function* putNotification(
     },
   });
 }
-
-export default [takeEvery("NOTIFICATION.CREATE", limitNotificationLife)];

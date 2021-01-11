@@ -1,9 +1,12 @@
 import { authGuiAgainstNodes } from "app/backend";
 import { ActionMap } from "app/store";
 
-import { api, put, take, takeEvery } from "./common";
+import { api, put, take } from "./common";
 
-function* nodeAuthSaga({ key, payload: { nodeMap } }: ActionMap["NODE.AUTH"]) {
+export function* nodeAuthSaga({
+  key,
+  payload: { nodeMap },
+}: ActionMap["NODE.AUTH"]) {
   // AuthNode with id.process disappear from redux store if NODE.AUTH.STOP
   // hapens during api call and the following action NODE.AUTH.FAIL or
   // NODE.AUTH.OK has no effect on redux store.
@@ -80,5 +83,3 @@ export function* nodeAuthWait(authProcessId: number) {
     }
   }
 }
-
-export default [takeEvery("NODE.AUTH", nodeAuthSaga)];

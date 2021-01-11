@@ -1,9 +1,9 @@
 import { getFenceAgentMetadata } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
-import { api, authSafe, processError, put, takeEvery } from "./common";
+import { api, authSafe, processError, put } from "./common";
 
-function* loadFenceAgent({
+export function* load({
   key,
   payload: { agentName },
 }: ActionMap["FENCE_AGENT.LOAD"]) {
@@ -32,4 +32,3 @@ function* loadFenceAgent({
     payload: { apiAgentMetadata: result.payload },
   });
 }
-export default [takeEvery("FENCE_AGENT.LOAD", loadFenceAgent)];

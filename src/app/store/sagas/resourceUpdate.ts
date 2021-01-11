@@ -1,15 +1,9 @@
 import { ActionMap } from "app/store/actions";
 import { updateResource } from "app/backend";
 
-import {
-  api,
-  clusterSuccess,
-  processError,
-  putNotification,
-  takeEvery,
-} from "./common";
+import { api, clusterSuccess, processError, putNotification } from "./common";
 
-function* updateInstanceAttributes({
+export function* updateInstanceAttributes({
   key,
   payload: { resourceId, attributes },
 }: ActionMap["RESOURCE.UPDATE_INSTANCE_ATTRIBUTES"]) {
@@ -42,7 +36,3 @@ function* updateInstanceAttributes({
 
   yield clusterSuccess(key.clusterName, taskLabel);
 }
-
-export default [
-  takeEvery("RESOURCE.UPDATE_INSTANCE_ATTRIBUTES", updateInstanceAttributes),
-];

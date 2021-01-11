@@ -23,7 +23,7 @@ function* fetchClusterData(clusterName: string) {
 }
 
 const REFRESH = "CLUSTER.STATUS.REFRESH";
-const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
+export const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   START: "CLUSTER.STATUS.SYNC",
   STOP: "CLUSTER.STATUS.SYNC.STOP",
   REFRESH,

@@ -1,8 +1,8 @@
 import { Action, ActionMap } from "app/store/actions";
 
-import { api, lib, processError, put, race, take, takeEvery } from "./common";
+import { api, lib, processError, put, race, take } from "./common";
 
-function* resourceCreateSaga({
+export function* resourceCreateSaga({
   key,
   payload: { agentName, resourceName, instanceAttrs, disabled },
 }: ActionMap["RESOURCE.CREATE"]) {
@@ -55,5 +55,3 @@ function* resourceCreateSaga({
     communicationErrorAction: errorAction,
   });
 }
-
-export default [takeEvery("RESOURCE.CREATE", resourceCreateSaga)];
