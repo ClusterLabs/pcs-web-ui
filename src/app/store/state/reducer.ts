@@ -9,7 +9,7 @@ import addExistingCluster, {
 import nodeAuthMap, { NodeAuthMap } from "./nodeAuth";
 import notifications, { NotificationState } from "./notifications";
 import login, { LoginState } from "./login";
-import username, { UsernameState } from "./username";
+import username, { Username } from "./username";
 import clusterStorageReducer, * as clusterStorage from "./cluster/storage";
 
 export interface RootState {
@@ -19,7 +19,7 @@ export interface RootState {
   login: LoginState;
   notifications: NotificationState;
   router: RouterState;
-  username: UsernameState;
+  username: Username;
   nodeAuthMap: NodeAuthMap;
 }
 

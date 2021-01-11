@@ -1,8 +1,8 @@
 import { Reducer } from "app/store/redux";
 
-export type UsernameState = string;
+export type Username = string;
 
-const auth: Reducer<UsernameState> = (state = "", action) => {
+const username: Reducer<Username> = (state = "", action) => {
   switch (action.type) {
     case "USERNAME.SET":
       return action.payload.username;
@@ -11,4 +11,4 @@ const auth: Reducer<UsernameState> = (state = "", action) => {
   }
 };
 
-export default auth;
+export default username;
