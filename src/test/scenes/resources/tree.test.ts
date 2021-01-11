@@ -1,12 +1,12 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, url, urls } from "test/tools";
+import { intercept, location, urls } from "test/tools";
 
 const RESOURCE_TREE = dt("cluster-resources");
 
 const displayResources = async () => {
-  await page.goto(url("/cluster/ok/resources"));
+  await page.goto(location.resourceList({ clusterName: "ok" }));
   await page.waitForSelector(RESOURCE_TREE);
 };
 

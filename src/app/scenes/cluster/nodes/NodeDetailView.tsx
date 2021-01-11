@@ -1,7 +1,7 @@
 import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { selectors, types, url } from "app/store";
+import { location, selectors, types } from "app/store";
 import {
   CrmStatusTable,
   EmptyStateError,
@@ -36,7 +36,10 @@ export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
             /* eslint-disable-next-line react/display-name */
             cell: crmStatus => (
               <Link
-                to={url.cluster.resources(clusterName, crmStatus.resource.id)}
+                to={location.resource({
+                  clusterName,
+                  resourceId: crmStatus.resource.id,
+                })}
               />
             ),
           }}

@@ -1,7 +1,7 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-import { types, url } from "app/store";
+import { location, types } from "app/store";
 import { Link, useSelectedClusterName } from "app/view";
 
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
@@ -26,7 +26,9 @@ export const ConstraintRowLocationNode = ({
             <strong>{constraint.role || "Started"}</strong>
             {" on node "}
             <strong>
-              <Link to={url.cluster.nodes(clusterName, constraint.node)} />
+              <Link
+                to={location.node({ clusterName, nodeName: constraint.node })}
+              />
             </strong>
           </DataListCell>
           <ConstraintCell label="Score" value={constraint.score} width={1} />

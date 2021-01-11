@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, url, urls } from "test/tools";
+import { intercept, location, urls } from "test/tools";
 
 const currentTab = async () => {
   const currentTablist = await page.$$eval(dt("tabs cluster"), tabs =>
@@ -14,11 +14,11 @@ const currentTab = async () => {
 };
 
 const checkClusterTab = async (
-  clusterUrl: string,
+  clusterLocation: string,
   currentTabLabel: string,
   expectedAria: string,
 ) => {
-  await page.goto(url(clusterUrl));
+  await page.goto(clusterLocation);
   await page.waitForSelector(dt(expectedAria));
 
   expect(await currentTab()).toEqual(currentTabLabel);
@@ -45,16 +45,24 @@ describe("Cluster scene", () => {
   afterEach(intercept.stop);
 
   it("should show detail tab of cluster by default", async () => {
-    await checkClusterTab("/cluster/ok", "Detail", "cluster-detail");
+    await checkClusterTab(
+      location.cluster({ clusterName: "ok" }),
+      "Detail",
+      "cluster-detail",
+    );
   });
 
   it("should show nodes tab", async () => {
-    await checkClusterTab("/cluster/ok/nodes", "Nodes", "cluster-nodes");
+    await checkClusterTab(
+      location.nodeList({ clusterName: "ok" }),
+      "Nodes",
+      "cluster-nodes",
+    );
   });
 
   it("should show resources tab", async () => {
     await checkClusterTab(
-      "/cluster/ok/resources",
+      location.resourceList({ clusterName: "ok" }),
       "Resources",
       "cluster-resources",
     );
@@ -62,7 +70,7 @@ describe("Cluster scene", () => {
 
   it("should show fence devices tab", async () => {
     await checkClusterTab(
-      "/cluster/ok/fence-devices",
+      location.fenceDeviceList({ clusterName: "ok" }),
       "Fence Devices",
       "cluster-fence-devices",
     );

@@ -3,9 +3,9 @@ import * as responses from "dev/responses";
 import { dt } from "test/tools/selectors";
 import {
   intercept,
+  location,
   response as res,
   route,
-  url,
   urls,
   workflow,
 } from "test/tools";
@@ -29,7 +29,7 @@ const isButtonNextDisabled = async () => {
 };
 
 const enterNodeName = async (name: string) => {
-  await page.goto(url("/add-cluster"));
+  await page.goto(location.dashboardAddCluster);
   await page.waitForSelector(FORM_CHECK_AUTH);
 
   await page.type(dt(FORM_CHECK_AUTH, "node-name"), name);

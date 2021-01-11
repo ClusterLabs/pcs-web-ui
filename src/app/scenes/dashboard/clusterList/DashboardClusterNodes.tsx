@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types, url, utils } from "app/store";
+import { location, types, utils } from "app/store";
 import { Link, StatusSign, Table, toLabel } from "app/view";
 
 import { compareStrings } from "./utils";
@@ -65,7 +65,12 @@ export const DashboardClusterNodes: React.FC<{
         {cluster.nodeList.sort(compareItems(compareByColumn)).map(node => (
           <tr key={node.name} data-test={`node ${node.name}`}>
             <td data-test="name">
-              <Link to={url.cluster.nodes(cluster.name, node.name)} />
+              <Link
+                to={location.node({
+                  clusterName: cluster.name,
+                  nodeName: node.name,
+                })}
+              />
             </td>
             <td>
               <StatusSign

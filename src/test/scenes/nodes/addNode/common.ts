@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { url as appUrl, intercept, urls } from "test/tools";
+import { intercept, location, urls } from "test/tools";
 
 const VIEW = dt("wizard-node-add");
 export const WIZARD = {
@@ -16,7 +16,7 @@ export const WIZARD = {
   NODE_NAME: dt(VIEW, "form-node-name", "node-name"),
 };
 
-const NODES_URL = appUrl("/cluster/actions/nodes");
+const NODES_URL = location.nodeList({ clusterName: "actions" });
 export const url = {
   NODES: NODES_URL,
   WIZARD: `${NODES_URL}?wizard=node-add`,

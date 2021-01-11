@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link, useSelectedClusterName } from "app/view";
-import { types, url } from "app/store";
+import { location, types } from "app/store";
 
 export const ConstraintLocationDescRscPoint: React.FC<{
   constraint:
@@ -14,7 +14,9 @@ export const ConstraintLocationDescRscPoint: React.FC<{
       <>
         {"Resource "}
         <strong>
-          <Link to={url.cluster.resources(clusterName, constraint.rsc)} />
+          <Link
+            to={location.resource({ clusterName, resourceId: constraint.rsc })}
+          />
         </strong>
       </>
     );

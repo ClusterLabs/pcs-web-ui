@@ -1,7 +1,7 @@
 import { clusterStatus, importedClusterList } from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, url, urls } from "test/tools";
+import { intercept, location, urls } from "test/tools";
 
 const username = "hacluster";
 const password = "hh";
@@ -21,7 +21,7 @@ describe("Login scene", () => {
       },
     ]);
 
-    await page.goto(url());
+    await page.goto(location.dashboard);
     await page.type(dt(FORM_LOGIN, '[name="pf-login-username-id"]'), username);
     await page.type(dt(FORM_LOGIN, '[name="pf-login-password-id"]'), password);
     await page.click(dt(FORM_LOGIN, 'button[type="submit"]'));
@@ -54,7 +54,7 @@ describe("Logout", () => {
         text: "ajax-id-not-important",
       },
     ]);
-    await page.goto(url());
+    await page.goto(location.dashboard);
     await page.click(MENU);
     await page.click(LOGOUT);
     await intercept.stop();

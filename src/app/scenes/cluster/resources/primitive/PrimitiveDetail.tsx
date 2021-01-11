@@ -1,7 +1,7 @@
 import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { selectors, types, url } from "app/store";
+import { location, selectors, types } from "app/store";
 import {
   CrmStatusTable,
   IssueList,
@@ -58,7 +58,10 @@ export const PrimitiveDetail = ({
             cell: crmStatus =>
               !crmStatus.node ? null : (
                 <Link
-                  to={url.cluster.nodes(clusterName, crmStatus.node.name)}
+                  to={location.node({
+                    clusterName,
+                    nodeName: crmStatus.node.name,
+                  })}
                 />
               ),
           }}

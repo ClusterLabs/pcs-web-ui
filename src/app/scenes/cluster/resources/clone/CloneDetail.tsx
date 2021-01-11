@@ -1,7 +1,7 @@
 import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { selectors, types, url } from "app/store";
+import { location, selectors, types } from "app/store";
 import { CrmStatusTable, IssueList, Link, useClusterSelector } from "app/view";
 
 export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {
@@ -30,13 +30,19 @@ export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {
             cell: crmStatus => (
               <>
                 <Link
-                  to={url.cluster.resources(clusterName, crmStatus.resource.id)}
+                  to={location.resource({
+                    clusterName,
+                    resourceId: crmStatus.resource.id,
+                  })}
                 />
                 {crmStatus.node && (
                   <>
                     <span>{" / "}</span>
                     <Link
-                      to={url.cluster.nodes(clusterName, crmStatus.node.name)}
+                      to={location.node({
+                        clusterName,
+                        nodeName: crmStatus.node.name,
+                      })}
                     />
                   </>
                 )}

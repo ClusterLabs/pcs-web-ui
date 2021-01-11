@@ -1,7 +1,7 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-import { types, url } from "app/store";
+import { location, types } from "app/store";
 import { Link, useSelectedClusterName } from "app/view";
 
 import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
@@ -23,14 +23,24 @@ export const ConstraintRowOrderPair = ({
           <DataListCell width={3}>
             {"Resource "}
             <strong>
-              <Link to={url.cluster.resources(clusterName, constraint.first)} />
+              <Link
+                to={location.resource({
+                  clusterName,
+                  resourceId: constraint.first,
+                })}
+              />
             </strong>
             <strong>
               {` ${constraint["first-action"] || "start"}s before `}
             </strong>
             {"resource "}
             <strong>
-              <Link to={url.cluster.resources(clusterName, constraint.then)} />
+              <Link
+                to={location.resource({
+                  clusterName,
+                  resourceId: constraint.then,
+                })}
+              />
               {` ${
                 constraint["then-action"]
                 || constraint["first-action"]

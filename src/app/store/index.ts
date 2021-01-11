@@ -10,7 +10,7 @@ import {
 import * as selectors from "./selectors";
 import * as types from "./state/types";
 import * as utils from "./utils";
-import * as url from "./url";
+import * as location from "./location";
 import { setupStore } from "./store";
 
 export const useDispatch = () => {
@@ -26,4 +26,12 @@ export type Action = TAction;
 export type ActionMap = TActionMap;
 export type ActionLeaf = TActionLeaf;
 
-export { actionNewId, setupStore, useSelector, selectors, types, utils, url };
+export {
+  actionNewId,
+  setupStore,
+  useSelector,
+  selectors,
+  types,
+  utils,
+  location,
+};

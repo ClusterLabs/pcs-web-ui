@@ -4,7 +4,7 @@ import * as intercept from "./interception";
 import * as response from "./response";
 import * as route from "./routes";
 import * as workflow from "./workflows";
-import { url } from "./backendAddress";
+import { location } from "./backendAddress";
 
 type Endpoints = typeof endpoints;
 
@@ -17,4 +17,4 @@ export const urls: Urls = Object.entries(endpoints).reduce<Urls>(
   {} as Urls,
 );
 
-export { intercept, response, route, url, workflow };
+export { intercept, response, route, location, workflow };
