@@ -59,6 +59,12 @@ export const getGroups = clusterStatusSelector(clusterStatus =>
   }, []),
 );
 
+export const getTopLevelPrimitives = clusterStatusSelector(clusterStatus =>
+  clusterStatus.resourceTree
+    .filter(r => r.itemType === "primitive")
+    .map(r => r.id),
+);
+
 export const getSelectedFenceDevice = clusterStatusSelector(
   (clusterStatus, id: string) =>
     clusterStatus.fenceDeviceList.find(fd => fd.id === id),

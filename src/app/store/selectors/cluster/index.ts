@@ -3,6 +3,9 @@ import { clusterSelector } from "./selectorsHelpers";
 export const getWizardResourceCreateState = clusterSelector(
   clusterStorageItem => clusterStorageItem.wizardResourceCreate,
 );
+export const getWizardResourceGroupState = clusterSelector(
+  clusterStorageItem => clusterStorageItem.wizardResourceGroup,
+);
 export const getWizardNodeAddState = clusterSelector(
   clusterStorageItem => clusterStorageItem.wizardNodeAdd,
 );

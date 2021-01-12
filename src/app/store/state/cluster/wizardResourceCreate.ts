@@ -65,9 +65,17 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
     case "RESOURCE.CREATE":
       return { ...state, response: "no-response" };
     case "RESOURCE.CREATE.SUCCESS":
-      return { ...state, response: "success", reports: action.payload.reports };
+      return {
+        ...state,
+        response: "success",
+        reports: action.payload.reports,
+      };
     case "RESOURCE.CREATE.FAIL":
-      return { ...state, response: "fail", reports: action.payload.reports };
+      return {
+        ...state,
+        response: "fail",
+        reports: action.payload.reports,
+      };
     case "RESOURCE.CREATE.ERROR":
       return { ...state, response: "communication-error" };
     case "RESOURCE.CREATE.CLOSE":

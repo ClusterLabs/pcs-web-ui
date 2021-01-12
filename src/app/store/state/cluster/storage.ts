@@ -8,6 +8,9 @@ import resourceAgentMap, { ResourceAgentListService } from "./resourceAgentMap";
 import wizardResourceCreate, {
   WizardResourceCreate,
 } from "./wizardResourceCreate";
+import wizardResourceGroup, {
+  WizardResourceGroup,
+} from "./wizardResourceGroup";
 import wizardNodeAdd, { WizardNodeAdd } from "./wizardNodeAdd";
 import fixAuth, { FixAuth } from "./fixAuth";
 
@@ -18,6 +21,7 @@ export type ClusterStorageItem = {
   clusterProperties: ClusterPropertiesService;
   resourceAgentMap: ResourceAgentListService;
   wizardResourceCreate: WizardResourceCreate;
+  wizardResourceGroup: WizardResourceGroup;
   wizardNodeAdd: WizardNodeAdd;
   fixAuth: FixAuth;
 };
@@ -31,6 +35,7 @@ const clusterStorageItem = combineReducers<ClusterStorageItem>({
   clusterProperties,
   resourceAgentMap,
   wizardResourceCreate,
+  wizardResourceGroup,
   wizardNodeAdd,
   fixAuth,
 });

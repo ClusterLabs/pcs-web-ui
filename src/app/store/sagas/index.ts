@@ -22,6 +22,7 @@ import * as nodeAdd from "./nodeAdd";
 import * as resourceClone from "./resourceClone";
 import * as nodeAuth from "./nodeAuth";
 import * as fixAuth from "./fixAuth";
+import * as resourceGroupCreate from "./resourceGroupCreate";
 
 function* rootSaga() {
   yield all([
@@ -32,30 +33,31 @@ function* rootSaga() {
     takeEvery("AUTH.SUCCESS", username.checkLogin),
     takeEvery("LOGIN.LOGOUT", login.logoutSaga),
     takeEvery("LOGIN.ENTER_CREDENTIALS", login.loginSaga),
+    takeEvery("NOTIFICATION.CREATE", notifications.limitNotificationLife),
+    takeEvery("LIB.CALL.CLUSTER", libAction.callLib),
     takeEvery("CLUSTER.PROPERTIES.LOAD", clusterProperties.load),
     takeEvery("CLUSTER.ADD.CHECK_AUTH", addExistingCluster.checkAuthentication),
     takeEvery("CLUSTER.ADD", addExistingCluster.addCluster),
-    takeEvery("NOTIFICATION.CREATE", notifications.limitNotificationLife),
-    takeEvery("RESOURCE.CREATE", resourceCreate.resourceCreateSaga),
-    takeEvery("RESOURCE_AGENT.LOAD", resourceAgent.load),
-    takeEvery("RESOURCE_AGENT.ENSURE", resourceAgent.ensure),
-    takeEvery("FENCE_AGENT.LOAD", fenceAgent.load),
-    takeEvery("RESOURCE_AGENT.LIST.LOAD", resourceAgentList.load),
-    takeEvery("RESOURCE.DELETE", resourceDelete.deleteResource),
-    takeEvery("RESOURCE.REFRESH", resourceRefreshCleanup.refreshSaga),
-    takeEvery("RESOURCE.CLEANUP", resourceRefreshCleanup.cleanupSaga),
-    takeEvery("LIB.CALL.CLUSTER", libAction.callLib),
+    takeEvery("CLUSTER.FIX_AUTH.START", fixAuth.fixAuth),
+    takeEvery("CLUSTER.FIX_AUTH.AUTH_DONE", fixAuth.fixAuthDistribute),
     takeEvery("NODE.START", nodeStartStop.nodeStart),
     takeEvery("NODE.STOP", nodeStartStop.nodeStop),
     takeEvery("NODE.ADD.CHECK_CAN_ADD", nodeAdd.checkCanAddNodeSaga),
     takeEvery("NODE.ADD.CHECK_AUTH", nodeAdd.checkAuthSaga),
     takeEvery("NODE.ADD.SEND_KNOWN_HOSTS", nodeAdd.sendKnownHostsSaga),
     takeEvery("NODE.ADD", nodeAdd.nodeAddSaga),
+    takeEvery("NODE.AUTH", nodeAuth.nodeAuthSaga),
+    takeEvery("FENCE_AGENT.LOAD", fenceAgent.load),
+    takeEvery("RESOURCE.CREATE", resourceCreate.resourceCreateSaga),
+    takeEvery("RESOURCE_AGENT.LOAD", resourceAgent.load),
+    takeEvery("RESOURCE_AGENT.ENSURE", resourceAgent.ensure),
+    takeEvery("RESOURCE_AGENT.LIST.LOAD", resourceAgentList.load),
+    takeEvery("RESOURCE.DELETE", resourceDelete.deleteResource),
+    takeEvery("RESOURCE.REFRESH", resourceRefreshCleanup.refreshSaga),
+    takeEvery("RESOURCE.CLEANUP", resourceRefreshCleanup.cleanupSaga),
     takeEvery("RESOURCE.CLONE", resourceClone.clone),
     takeEvery("RESOURCE.UNCLONE", resourceClone.unclone),
-    takeEvery("NODE.AUTH", nodeAuth.nodeAuthSaga),
-    takeEvery("CLUSTER.FIX_AUTH.START", fixAuth.fixAuth),
-    takeEvery("CLUSTER.FIX_AUTH.AUTH_DONE", fixAuth.fixAuthDistribute),
+    takeEvery("RESOURCE.GROUP.CREATE", resourceGroupCreate.create),
     takeEvery(
       "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES",
       resourceUpdate.updateInstanceAttributes,
