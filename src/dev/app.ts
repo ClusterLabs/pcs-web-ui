@@ -50,40 +50,40 @@ const prepareUrl = <KEYWORDS extends Record<string, string>>(
   return url(({ clusterName: ":clusterName" } as unknown) as KEYWORDS);
 };
 
-type EndpointKeys = keyof Omit<typeof endpoints, "libCluster">;
+type EndpointKeys = keyof typeof endpoints;
 type DevEndpoints = {
-  -readonly [K in EndpointKeys]: (h: Handler) => Express;
-} & {
-  libCluster: (c: keyof LibClusterCommands, h: Handler) => Express;
+  -readonly [K in EndpointKeys]: K extends "libCluster"
+    ? (c: keyof LibClusterCommands, h: Handler) => void
+    : (h: Handler) => Express;
 };
 
 export const app: DevEndpoints = (Object.keys(endpoints) as Array<
   EndpointKeys
->).reduce(
-  (devEndpoints, n) => {
-    const ep = endpoints[n];
-    if (ep.method === "get") {
-      devEndpoints[n] = (handler: Handler) => {
-        return application.get(prepareUrl(ep.url), delayed(handler));
-      };
-    } else {
-      devEndpoints[n] = (handler: Handler) => {
-        return application.post(
-          prepareUrl(ep.url),
-          parserUrlEncoded,
-          delayed(handler),
-        );
-      };
-    }
-    return devEndpoints;
-  },
-  {
-    libCluster: (command: keyof LibClusterCommands, handler: Handler) => {
+>).reduce((devEndpoints, n) => {
+  const ep = endpoints[n];
+  if (n === "libCluster") {
+    devEndpoints.libCluster = (
+      command: keyof LibClusterCommands,
+      handler: Handler,
+    ) => {
       application.post(
         endpoints.libCluster.url({ clusterName: ":clusterName", command }),
         parserJson,
         delayed(handler),
       );
-    },
-  } as DevEndpoints,
-);
+    };
+  } else if (ep.method === "get") {
+    devEndpoints[n] = (handler: Handler) => {
+      return application.get(prepareUrl(ep.url), delayed(handler));
+    };
+  } else {
+    devEndpoints[n] = (handler: Handler) => {
+      return application.post(
+        prepareUrl(ep.url),
+        parserUrlEncoded,
+        delayed(handler),
+      );
+    };
+  }
+  return devEndpoints;
+}, {} as DevEndpoints);

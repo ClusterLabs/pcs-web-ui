@@ -1,2 +1,2 @@
 export * from "./create";
-export * from "./addToGroup";
+export * from "./createGroup";

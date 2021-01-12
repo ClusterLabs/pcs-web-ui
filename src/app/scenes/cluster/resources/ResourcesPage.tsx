@@ -11,7 +11,7 @@ import { selectors } from "app/store";
 import { ResourceDetailPage } from "./ResourceDetailPage";
 import { ResourceTree } from "./tree/ResourceTree";
 import {
-  ResourceAddToGroupToolbarItem,
+  ResourcCreateGroupToolbarItem,
   ResourceCreateToolbarItem,
 } from "./wizard";
 
@@ -25,7 +25,7 @@ export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
             <ResourceCreateToolbarItem />
           </ActionListItem>
           <ActionListItem>
-            <ResourceAddToGroupToolbarItem variant="secondary" />
+            <ResourcCreateGroupToolbarItem variant="secondary" />
           </ActionListItem>
         </ActionList>
       </ClusterSectionToolbar>

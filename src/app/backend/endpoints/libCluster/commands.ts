@@ -1,4 +1,10 @@
 export type LibClusterCommands = {
+  "resource-group-add": {
+    group_id: string;
+    resource_id_list: string[];
+    adjacent_resource_id?: string | null;
+    put_after_adjacent?: boolean;
+  };
   "resource-enable": {
     resource_or_tag_ids: string[];
   };

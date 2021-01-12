@@ -2,9 +2,9 @@ import React from "react";
 import { Button } from "@patternfly/react-core";
 
 import { useWizard } from "./useWizard";
-import { ResourceAddToGroup } from "./ResourceAddToGroup";
+import { ResourceCreateGroup } from "./ResourceCreateGroup";
 
-export const ResourceAddToGroupToolbarItem: React.FC<{
+export const ResourcCreateGroupToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
   const { open, isOpened } = useWizard();
@@ -15,9 +15,9 @@ export const ResourceAddToGroupToolbarItem: React.FC<{
         onClick={open}
         data-test="resource-add-to-group"
       >
-        Add To Group
+        Create group
       </Button>
-      {isOpened && <ResourceAddToGroup />}
+      {isOpened && <ResourceCreateGroup />}
     </>
   );
 };
