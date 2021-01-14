@@ -5,11 +5,13 @@ import { useNodesAuth } from "app/view";
 
 export const ClusterIssueNotAuthButton: React.FC<{
   authProcessId: number;
-}> = ({ authProcessId }) => {
+  isDisabled?: boolean;
+}> = ({ authProcessId, isDisabled = false }) => {
   const { nodeAuth } = useNodesAuth(authProcessId);
   return (
     <Button
       variant="primary"
+      isDisabled={isDisabled}
       onClick={nodeAuth}
       data-test="task-fix-no-auth-nodes-button-auth"
     >

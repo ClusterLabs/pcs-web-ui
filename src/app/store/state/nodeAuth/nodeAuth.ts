@@ -13,6 +13,7 @@ export type NodeAuth = {
   nodeMap: NodeMap;
   errorMessage: string[];
   useAddresses: boolean;
+  sending: boolean;
   nodesResults: {
     success: string[];
     fail: string[];
@@ -29,6 +30,7 @@ const initialNode = { password: "", address: "", port: "" };
 const initialState: NodeAuth = {
   nodeMap: {},
   errorMessage: [],
+  sending: false,
   useAddresses: false,
   nodesResults: initialNodesResults,
 };
@@ -103,6 +105,7 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
         const failedNodes = selectNodes(resultMap, { success: false });
         return {
           ...state,
+          sending: false,
           errorMessage: [],
           nodeMap: failedNodes.reduce<NodeMap>(
             (map, node): NodeMap => ({
@@ -122,6 +125,7 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
       }
       return {
         ...state,
+        sending: false,
         errorMessage: [
           ...(response.plaintext_error.length > 0
             ? [response.plaintext_error]
@@ -149,7 +153,14 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
     case "NODE.AUTH.FAIL":
       return {
         ...state,
+        sending: false,
         errorMessage: [action.payload.message],
+      };
+
+    case "NODE.AUTH":
+      return {
+        ...state,
+        sending: true,
       };
 
     default:

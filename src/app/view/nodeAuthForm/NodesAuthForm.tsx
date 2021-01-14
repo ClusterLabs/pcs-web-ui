@@ -1,13 +1,16 @@
 import React from "react";
 import { Alert, Form, Switch, TextInput } from "@patternfly/react-core";
 
+import { EmptyStateSpinner } from "app/view";
+
 import { useNodesAuth } from "./useNodesAuth";
+
 
 export const NodesAuthForm: React.FC<{
   authProcessId: number;
 }> = ({ authProcessId }) => {
   const {
-    state: { nodeMap, useAddresses, errorMessage, nodesResults },
+    state: { nodeMap, useAddresses, errorMessage, nodesResults, sending },
     updateNode,
     switchAddressUse,
   } = useNodesAuth(authProcessId);
@@ -45,7 +48,8 @@ export const NodesAuthForm: React.FC<{
           } ${nodesResults.fail.join(", ")} failed`}
         </Alert>
       )}
-      {Object.keys(nodeMap).length > 0 && (
+      {sending && <EmptyStateSpinner title="Authentication in progress" />}
+      {Object.keys(nodeMap).length > 0 && !sending && (
         <Form data-test="form-auth-node" isHorizontal>
           <table className="pf-c-table pf-m-compact pf-m-grid-md pf-m-no-border-rows">
             <thead>

@@ -1,67 +1,69 @@
-import { Reducer, combineReducers } from "app/store/redux";
+import { Reducer } from "app/store/redux";
 
 export type FixAuth = {
   authProcessId: number | null;
   open: boolean;
   fixing: boolean;
+  authAttemptInProgress: boolean;
   errorMessage: string;
 };
 
-const authProcessId: Reducer<FixAuth["authProcessId"]> = (
-  state = null,
-  action,
-) => {
+const initialState = {
+  authProcessId: null,
+  open: false,
+  fixing: false,
+  authAttemptInProgress: false,
+  errorMessage: "",
+};
+const fixAuth: Reducer<FixAuth> = (state = initialState, action) => {
   switch (action.type) {
     case "CLUSTER.FIX_AUTH.AUTH_STARTED":
-      return action.payload.authProcessId;
-    case "CLUSTER.FIX_AUTH.CANCEL":
-    case "CLUSTER.FIX_AUTH.AUTH_DONE":
-      return null;
-    default:
-      return state;
-  }
-};
-
-const open: Reducer<FixAuth["open"]> = (state = false, action) => {
-  switch (action.type) {
-    case "CLUSTER.FIX_AUTH.AUTH_STARTED":
-      return true;
-    case "CLUSTER.FIX_AUTH.CANCEL":
-      return false;
-    default:
-      return state;
-  }
-};
-
-const fixing: Reducer<FixAuth["fixing"]> = (state = false, action) => {
-  switch (action.type) {
-    case "CLUSTER.FIX_AUTH.AUTH_DONE":
-      return true;
+      return {
+        ...state,
+        authProcessId: action.payload.authProcessId,
+        open: true,
+      };
     case "CLUSTER.FIX_AUTH.OK":
+      return {
+        ...state,
+        fixing: false,
+        errorMessage: "",
+      };
     case "CLUSTER.FIX_AUTH.FAIL":
+      return {
+        ...state,
+        fixing: false,
+        errorMessage: action.payload.message,
+      };
     case "CLUSTER.FIX_AUTH.ERROR":
+      return {
+        ...state,
+        fixing: false,
+        errorMessage: action.payload.message,
+      };
     case "CLUSTER.FIX_AUTH.CANCEL":
-      return false;
-    default:
-      return state;
-  }
-};
-const errorMessage: Reducer<FixAuth["errorMessage"]> = (state = "", action) => {
-  switch (action.type) {
-    case "CLUSTER.FIX_AUTH.OK":
-    case "CLUSTER.FIX_AUTH.CANCEL":
-      return "";
-    case "CLUSTER.FIX_AUTH.FAIL":
-    case "CLUSTER.FIX_AUTH.ERROR":
-      return action.payload.message;
+      return {
+        ...state,
+        authProcessId: null,
+        fixing: true,
+        open: false,
+        errorMessage: "",
+      };
+    case "CLUSTER.FIX_AUTH.AUTH_DONE":
+      return {
+        ...state,
+        authProcessId: null,
+        fixing: true,
+      };
+    case "NODE.AUTH":
+    case "NODE.AUTH.FAIL":
+    case "NODE.AUTH.OK":
+      return action.key.process === state.authProcessId
+        ? { ...state, authAttemptInProgress: action.type === "NODE.AUTH" }
+        : state;
     default:
       return state;
   }
 };
 
-export default combineReducers<FixAuth>({
-  authProcessId,
-  open,
-  fixing,
-  errorMessage,
-});
+export default fixAuth;

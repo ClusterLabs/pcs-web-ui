@@ -12,7 +12,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
 }) => {
   const dispatch = useDispatch();
   const [
-    { authProcessId, open, fixing, errorMessage },
+    { authProcessId, open, fixing, errorMessage, authAttemptInProgress },
     clusterName,
   ] = useClusterSelector(selectors.getFixAuth);
 
@@ -32,6 +32,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
       <ClusterIssueNotAuthButton
         key="Authenticate"
         authProcessId={authProcessId}
+        isDisabled={authAttemptInProgress}
       />,
       <Button key="Cancel" variant="link" onClick={cancel}>
         Cancel
