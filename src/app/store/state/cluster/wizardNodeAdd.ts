@@ -73,6 +73,7 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
         nodeCheck: "not-started",
         nodeCheckMessage: "",
         response: "no-response",
+        authProcessId: null,
       };
 
     case "NODE.ADD.UPDATE":
