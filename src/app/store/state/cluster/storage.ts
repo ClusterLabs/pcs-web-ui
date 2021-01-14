@@ -53,8 +53,13 @@ const clusterStorage: Reducer<ClusterStorageMap> = (state = {}, action) => {
       ),
     };
   }
-
-  return state;
+  return Object.keys(state).reduce<ClusterStorageMap>(
+    (newState, clusterName) => ({
+      ...newState,
+      [clusterName]: clusterStorageItem(state[clusterName], action),
+    }),
+    {} as ClusterStorageMap,
+  );
 };
 
 export default clusterStorage;
