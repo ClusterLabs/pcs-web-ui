@@ -13,7 +13,7 @@ export const libCluster = endpoint({
   }: {
     clusterName: string;
     command: keyof LibClusterCommands;
-  }) => `/managec/${clusterName}/api/v1/${command}/v1`,
+  }) => `/managec/${clusterName}/api/v1/${command}`,
   method: "post",
   shape: libShape,
 });
