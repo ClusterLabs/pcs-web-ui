@@ -40,16 +40,7 @@ build:
 # prepare tarball with node modules that are necessary to build the application
 pack-modules:
 	if [ -d "node_modules" ]; then mv node_modules node_modules.backup; fi
-	PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npx npm ci
-	rm -r \
-	node_modules/puppeteer \
-	node_modules/electron \
-	node_modules/electron-download \
-	node_modules/nightmare \
-	node_modules/mocha \
-	node_modules/@pollyjs \
-	node_modules/chai \
-	node_modules/nodemon \
+	npx npm ci
 
 	tar -Jcf pcs-web-ui-node-modules-${LAST_COMMIT_HASH}.tar.xz node_modules
 	rm -r node_modules
