@@ -30,7 +30,7 @@ export const ResourceCreate: React.FC = () => {
       data-test="wizard-resource-create"
       onClose={close}
       title="New resource"
-      description="Create new resource wizard"
+      description="Create new resource"
       steps={[
         {
           name: "Name and type",

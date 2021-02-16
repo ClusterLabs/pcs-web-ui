@@ -53,7 +53,7 @@ export const ResourceCreateNameType: React.FC = () => {
           label="Resource type"
           isRequired
           fieldId="new-resource-agent-name"
-          helperTextInvalid="Please select resource agent"
+          helperTextInvalid="Please select a resource agent"
           validated={agentNameValidated}
         >
           <ResourceCreateNameTypeTypeSelect
