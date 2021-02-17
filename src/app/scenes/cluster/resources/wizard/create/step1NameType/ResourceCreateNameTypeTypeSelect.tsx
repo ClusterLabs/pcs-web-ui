@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  SelectGroup,
-  SelectOption,
-  SelectVariant,
-} from "@patternfly/react-core";
+import { SelectGroup, SelectOption } from "@patternfly/react-core";
 
 import { selectors, types } from "app/store";
 import { Select, useClusterSelector } from "app/view";
@@ -49,7 +45,7 @@ export const ResourceCreateNameTypeTypeSelect: React.FC<{
 
   return (
     <Select
-      variant={SelectVariant.checkbox}
+      variant="typeahead"
       typeAheadAriaLabel="Select a state"
       onSelect={onSelect}
       onClear={onClear}
