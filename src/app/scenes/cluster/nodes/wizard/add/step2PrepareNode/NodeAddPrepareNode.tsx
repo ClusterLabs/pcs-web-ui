@@ -22,10 +22,11 @@ export const NodeAddPrepareNode: React.FC = () => {
         <EmptyStateSpinner
           title={
             {
-              "can-add-started": "Checking if can add node to cluster",
-              "auth-check-started": "Checking if node is authenticated",
+              "can-add-started":
+                "Checking if the node can be added to the cluster",
+              "auth-check-started": "Checking if the node is authenticated",
               "send-known-hosts-started":
-                "Sending updated known host to cluster",
+                "Sending updated known host to the cluster",
             }[nodeCheck]
           }
         />

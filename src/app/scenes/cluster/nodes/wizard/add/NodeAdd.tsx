@@ -28,7 +28,7 @@ export const NodeAdd: React.FC = () => {
           footer: <NodeAddNodeNameFooter />,
         },
         {
-          name: "Prepare cluster for node",
+          name: "Check node",
           component: <NodeAddPrepareNode />,
           footer: <NodeAddPrepareNodeFooter />,
           canJumpTo: isNameValid,

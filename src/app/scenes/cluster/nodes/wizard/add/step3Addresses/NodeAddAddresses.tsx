@@ -23,7 +23,7 @@ export const NodeAddAddresses: React.FC = () => {
           <FormText
             key={addrName}
             id={`new-node-${addrName}`}
-            label={`Adddress ${i + 1}`}
+            label={`Address ${i + 1}`}
             onChange={changeAddress(addrName as AddrName)}
             value={nodeAddresses[addrName as AddrName]}
           />
