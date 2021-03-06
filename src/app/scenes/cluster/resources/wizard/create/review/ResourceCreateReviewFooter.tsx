@@ -32,7 +32,7 @@ export const ResourceCreateReviewFooter: React.FC = () => {
           });
           onNext();
         }}
-        label="Finish"
+        label="Create resource"
       />
       <WizardButtonBack onClick={onBack} />
       <WizardButtonCancel onClick={close} />
