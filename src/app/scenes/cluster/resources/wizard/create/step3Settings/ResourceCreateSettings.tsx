@@ -14,7 +14,7 @@ export const ResourceCreateSettings: React.FC = () => {
   } = useWizard();
 
   return (
-    <WizardLibStep title="Instance attributes" reports={reports}>
+    <WizardLibStep title="Settings" reports={reports}>
       <Form>
         <FormGroup isInline label="Multiple instances" fieldId="settings-clone">
           <Checkbox
