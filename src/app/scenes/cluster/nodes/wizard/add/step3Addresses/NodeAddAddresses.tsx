@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "@patternfly/react-core";
+import { Alert, Form } from "@patternfly/react-core";
 
 import { FormText, WizardLibStep } from "app/view";
 
@@ -18,6 +18,12 @@ export const NodeAddAddresses: React.FC = () => {
 
   return (
     <WizardLibStep title="Specify node addresses" reports={reports}>
+      <Alert
+        variant="info"
+        isInline
+        title="Please specify the count of addresses that is compatible with this cluster"
+        style={{ marginBottom: "var(--pf-global--spacer--lg)" }}
+      />
       <Form isHorizontal>
         {Object.keys(nodeAddresses).map((addrName, i) => (
           <FormText
