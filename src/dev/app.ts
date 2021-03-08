@@ -22,6 +22,16 @@ application.listen(port, () => {
       .map((r: R) => `${r.route.stack[0].method}: ${r.route.path}`),
   );
 });
+// extended: true is here to get rid of [Object: null prototype] in log of body
+application.use(bodyParser.urlencoded({ extended: true }));
+application.use((req, _res, next) => {
+  console.log(
+    req.method.toLowerCase() === "get" ? "GET " : "POST",
+    req.path,
+    req.method.toLowerCase() === "get" ? req.query : req.body,
+  );
+  next();
+});
 
 const getDelay = (envDelay: string | undefined, defaultDelay: number) => {
   const delay = Number.parseInt(envDelay || `${defaultDelay}`, 10);
