@@ -13,6 +13,7 @@ export type NodeAuth = {
   nodeMap: NodeMap;
   errorMessage: string[];
   useAddresses: boolean;
+  onePasswordForAll: boolean;
   sending: boolean;
   nodesResults: {
     success: string[];
@@ -30,6 +31,7 @@ const initialNode = { password: "", address: "", port: "" };
 const initialState: NodeAuth = {
   nodeMap: {},
   errorMessage: [],
+  onePasswordForAll: false,
   sending: false,
   useAddresses: false,
   nodesResults: initialNodesResults,
@@ -73,13 +75,11 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
     }
 
     case "NODE.AUTH.ADDR.ENABLE": {
-      if (action.payload.enable) {
-        return { ...state, useAddresses: true };
-      }
-      return {
-        ...state,
-        useAddresses: false,
-      };
+      return { ...state, useAddresses: action.payload.enable };
+    }
+
+    case "NODE.AUTH.ONE.PASSWORD.FOR.ALL.ENABLE": {
+      return { ...state, onePasswordForAll: action.payload.enable };
     }
 
     case "NODE.AUTH.OK": {

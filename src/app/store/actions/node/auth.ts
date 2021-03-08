@@ -31,6 +31,13 @@ export type NodeAuthActions = {
       enable: boolean;
     };
   };
+  "NODE.AUTH.ONE.PASSWORD.FOR.ALL.ENABLE": {
+    type: "NODE.AUTH.ONE.PASSWORD.FOR.ALL.ENABLE";
+    key: { process: number };
+    payload: {
+      enable: boolean;
+    };
+  };
   "NODE.AUTH": {
     type: "NODE.AUTH";
     key: { process: number };

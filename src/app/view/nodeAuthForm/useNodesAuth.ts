@@ -22,16 +22,43 @@ export const useNodesAuth = (processId: number) => {
         },
       }),
 
-    nodeAuth: () =>
+    nodeAuth: () => {
+      let nodeMap: ActionMap["NODE.AUTH"]["payload"]["nodeMap"] = state.nodeMap;
+      if (state.onePasswordForAll) {
+        const nameList = Object.keys(state.nodeMap);
+
+        const firstPassword =
+          nameList.length > 0 ? state.nodeMap[nameList[0]].password : "";
+
+        nodeMap = nameList.reduce(
+          (map, name) => ({
+            ...map,
+            [name]: {
+              ...state.nodeMap[name],
+              password: firstPassword,
+            },
+          }),
+          {},
+        );
+      }
       dispatch({
         type: "NODE.AUTH",
         key: { process: processId },
-        payload: { nodeMap: state.nodeMap },
-      }),
+        payload: { nodeMap },
+      });
+    },
 
     switchAddressUse: (enable: boolean) => {
       dispatch({
         type: "NODE.AUTH.ADDR.ENABLE",
+        key: { process: processId },
+        payload: { enable },
+      });
+    },
+
+    switchOnePasswordForAll: (enable: boolean) => {
+      dispatch({
+        type: "NODE.AUTH.ONE.PASSWORD.FOR.ALL.ENABLE",
         key: { process: processId },
         payload: { enable },
       });
