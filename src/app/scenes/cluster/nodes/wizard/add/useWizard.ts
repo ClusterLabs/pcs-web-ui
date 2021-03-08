@@ -102,6 +102,13 @@ export const useWizard = () => {
         payload: { nodeName: state.nodeName },
       }),
 
+    sendKnownHosts: () =>
+      dispatch({
+        type: "NODE.ADD.SEND_KNOWN_HOSTS",
+        key: { clusterName },
+        payload: { nodeName: state.nodeName },
+      }),
+
     checkCanAddNode,
 
     useNodeCheck,

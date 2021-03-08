@@ -11,6 +11,7 @@ export const NodeAddPrepareNode: React.FC = () => {
     useNodeCheck,
     checkCanAddNode,
     checkAuth,
+    sendKnownHosts,
     state: { nodeCheck, nodeCheckMessage, reports, authProcessId },
   } = useWizard();
   useNodeCheck();
@@ -47,6 +48,15 @@ export const NodeAddPrepareNode: React.FC = () => {
         </Alert>
       )}
 
+      {nodeCheck === "can-add-cannot" && (
+        <Alert
+          variant="danger"
+          isInline
+          title={nodeCheckMessage}
+          data-test="prepare-cluster-for-node-cannot-add"
+        />
+      )}
+
       {nodeCheck === "auth-check-failed" && (
         <Alert
           variant="danger"
@@ -61,15 +71,6 @@ export const NodeAddPrepareNode: React.FC = () => {
         </Alert>
       )}
 
-      {nodeCheck === "can-add-cannot" && (
-        <Alert
-          variant="danger"
-          isInline
-          title={nodeCheckMessage}
-          data-test="prepare-cluster-for-node-cannot-add"
-        />
-      )}
-
       {authProcessId && (
         <>
           <Alert
@@ -79,6 +80,21 @@ export const NodeAddPrepareNode: React.FC = () => {
           />
           <NodesAuthForm authProcessId={authProcessId} />
         </>
+      )}
+
+      {nodeCheck === "send-known-hosts-fail" && (
+        <Alert
+          variant="danger"
+          isInline
+          title="Sending updated known host to the cluster failed"
+          actionLinks={
+            <AlertActionLink onClick={sendKnownHosts}>
+              Try again
+            </AlertActionLink>
+          }
+        >
+          {nodeCheckMessage}
+        </Alert>
       )}
 
       {nodeCheck === "success" && (

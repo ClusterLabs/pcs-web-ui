@@ -99,6 +99,9 @@ export type NodeAddActions = {
   "NODE.ADD.SEND_KNOWN_HOSTS.FAIL": {
     type: "NODE.ADD.SEND_KNOWN_HOSTS.FAIL";
     key: { clusterName: string };
+    payload: {
+      message: string;
+    };
   };
 
   "NODE.ADD.SEND_KNOWN_HOSTS.OK": {

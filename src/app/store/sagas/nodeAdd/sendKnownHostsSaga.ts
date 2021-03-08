@@ -1,7 +1,7 @@
 import { sendKnownHosts } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
-import { api, put, race, take } from "../common";
+import { api, errorMessage, processError, put, race, take } from "../common";
 
 export function* sendKnownHostsSaga({
   key,
@@ -19,10 +19,16 @@ export function* sendKnownHostsSaga({
     return;
   }
 
+  const taskLabel = `add node "${nodeName}": sending updated known host to the cluster`;
   if (result.type !== "OK") {
-    yield put({
-      type: "NODE.ADD.SEND_KNOWN_HOSTS.FAIL",
-      key,
+    yield processError(result, taskLabel, {
+      action: () =>
+        put({
+          type: "NODE.ADD.SEND_KNOWN_HOSTS.FAIL",
+          key,
+          payload: { message: errorMessage(result, taskLabel) },
+        }),
+      useNotification: false,
     });
     return;
   }
