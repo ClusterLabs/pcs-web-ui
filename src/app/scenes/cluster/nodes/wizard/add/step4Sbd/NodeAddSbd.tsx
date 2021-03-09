@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, Checkbox, Form, FormGroup } from "@patternfly/react-core";
 
-import { FormText, WizardLibStep } from "app/view";
+import { AttributeHelpPopover, FormText, WizardLibStep } from "app/view";
 
 import { useWizard } from "../useWizard";
 
@@ -39,6 +39,17 @@ export const NodeAddSbd: React.FC = () => {
 
           <FormGroup
             label="Do not validate watchdog"
+            labelIcon={
+              <AttributeHelpPopover
+                header="Do not validate watchdog"
+                body={
+                  "By default, it is tested whether the specified watchdog"
+                  + " is supported. This may cause a restart of the system when"
+                  + " a watchdog with no-way-out-feature enabled is present."
+                  + " Use this field to skip watchdog validation."
+                }
+              />
+            }
             fieldId="sbd-no-watchdog-validation"
           >
             <Checkbox
@@ -48,6 +59,14 @@ export const NodeAddSbd: React.FC = () => {
               id="sbd-no-watchdog-validation"
             />
           </FormGroup>
+          <Alert
+            variant="info"
+            isInline
+            title={
+              "Please specify the number of devices that is compatible with"
+              + " this cluster"
+            }
+          />
           {sbdDevices.map((device, i) => (
             <FormText
               key={i}
