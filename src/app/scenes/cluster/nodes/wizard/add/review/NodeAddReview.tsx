@@ -42,7 +42,13 @@ export const NodeAddReview: React.FC = () => {
             <DescriptionListGroup>
               <DescriptionListTerm>Sbd watchdog</DescriptionListTerm>
               <DescriptionListDescription>
-                {sbdWatchdog}
+                {sbdWatchdog.length > 0 && sbdWatchdog}
+                {sbdWatchdog.length === 0 && (
+                  <>
+                    <div>/dev/watchdog</div>
+                    <div style={{ fontStyle: "italic" }}>Default value</div>
+                  </>
+                )}
               </DescriptionListDescription>
             </DescriptionListGroup>
 
