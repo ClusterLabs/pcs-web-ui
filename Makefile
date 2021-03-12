@@ -1,6 +1,8 @@
 NEXUS="https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
 LAST_COMMIT_HASH=$(shell git rev-parse HEAD)
 
+SCENARIOS_DIR=src/dev/scenarios/
+
 ifndef NEXUS_REPO
 	NEXUS_REPO=true
 endif
@@ -49,7 +51,11 @@ pack-modules:
 
 
 dev:
-	@NODE_PATH=src/ node -r esm -r ts-node/register  src/dev/prompt.ts
+ifdef SCENARIO
+	@./.bin/dev-server.sh $(SCENARIOS_DIR) $(SCENARIO)
+else
+	@./.bin/dev-server.sh $(SCENARIOS_DIR) 
+endif
 
 
 #unit tests

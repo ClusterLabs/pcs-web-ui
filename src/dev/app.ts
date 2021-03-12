@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import { dirname } from "path";
+
 import express, { Express, Request, Response } from "express";
 import bodyParser from "body-parser";
 
@@ -15,7 +17,11 @@ type R = any;
 const application = express();
 const port = process.env.PORT || 5000;
 application.listen(port, () => {
-  console.log(`${process.env.SCENARIO}: Listening on port ${port}`);
+  console.log(
+    `${process.argv[1]
+      .slice(dirname(process.argv[1]).length + 1)
+      .replace(/\.[^/.]+$/, "")}: Listening on port ${port}`,
+  );
   console.log(
     application._router.stack
       .filter((r: R) => r.route)
