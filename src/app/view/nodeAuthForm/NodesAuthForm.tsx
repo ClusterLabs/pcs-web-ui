@@ -91,7 +91,7 @@ export const NodesAuthForm: React.FC<{
             <thead>
               <tr>
                 <th>Node</th>
-                <th>Password</th>
+                <th>Password (for the user hacluster)</th>
                 <th data-test="use-custom-address">Address</th>
                 <th>Port</th>
               </tr>
