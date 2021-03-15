@@ -65,91 +65,97 @@ export const NodesAuthForm: React.FC<{
         )}
         {sending && <EmptyStateSpinner title="Authentication in progress" />}
       </StackItem>
-      <StackItem>
-        <Switch
-          id="add-cluster-use-custom-address-port"
-          label=""
-          isChecked={useAddresses}
-          onChange={() => switchAddressUse(!useAddresses)}
-        />{" "}
-        Use custom address and port
-      </StackItem>
-      {Object.keys(nodeMap).length > 1 && (
-        <StackItem>
-          <Switch
-            id="add-cluster-one-password-for-all"
-            label=""
-            isChecked={onePasswordForAll}
-            onChange={() => switchOnePasswordForAll(!onePasswordForAll)}
-          />{" "}
-          Use one password for all nodes
-        </StackItem>
-      )}
-      {Object.keys(nodeMap).length > 0 && !sending && (
-        <Form data-test="form-auth-node" isHorizontal>
-          <table className="pf-c-table pf-m-compact pf-m-grid-md pf-m-no-border-rows">
-            <thead>
-              <tr>
-                <th>Node</th>
-                <th>Password (for the user hacluster)</th>
-                <th data-test="use-custom-address">Address</th>
-                <th>Port</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(nodeMap).map((nodeName, i) => {
-                const passwordId = `auth-node-${nodeName}-password`;
-                const addressId = `auth-node-${nodeName}-address`;
-                const portId = `auth-node-${nodeName}-port`;
-                return (
-                  <tr key={nodeName}>
-                    <td>
-                      <label htmlFor={passwordId}>{`${nodeName}`}</label>
-                    </td>
-                    <td>
-                      <TextInput
-                        isRequired
-                        type="password"
-                        id={passwordId}
-                        data-test={passwordId}
-                        value={
-                          i > 0 && onePasswordForAll
-                            ? ""
-                            : nodeMap[nodeName].password
-                        }
-                        onChange={password =>
-                          updateNode(nodeName, { password })
-                        }
-                        isDisabled={i > 0 && onePasswordForAll}
-                      />
-                    </td>
-                    <td>
-                      <TextInput
-                        isDisabled={!useAddresses}
-                        type="text"
-                        id={addressId}
-                        data-test={addressId}
-                        value={nodeMap[nodeName].address}
-                        onChange={address => updateNode(nodeName, { address })}
-                      />
-                    </td>
-                    <td className="pf-m-width-10">
-                      <TextInput
-                        isDisabled={!useAddresses}
-                        placeholder="2224"
-                        type="text"
-                        id={portId}
-                        data-test={portId}
-                        value={nodeMap[nodeName].port}
-                        onChange={port => updateNode(nodeName, { port })}
-                      />
-                    </td>
+      {!sending && (
+        <>
+          <StackItem>
+            <Switch
+              id="add-cluster-use-custom-address-port"
+              label=""
+              isChecked={useAddresses}
+              onChange={() => switchAddressUse(!useAddresses)}
+            />{" "}
+            Use custom address and port
+          </StackItem>
+          {Object.keys(nodeMap).length > 1 && (
+            <StackItem>
+              <Switch
+                id="add-cluster-one-password-for-all"
+                label=""
+                isChecked={onePasswordForAll}
+                onChange={() => switchOnePasswordForAll(!onePasswordForAll)}
+              />{" "}
+              Use one password for all nodes
+            </StackItem>
+          )}
+          {Object.keys(nodeMap).length > 0 && (
+            <Form data-test="form-auth-node" isHorizontal>
+              <table className="pf-c-table pf-m-compact pf-m-grid-md pf-m-no-border-rows">
+                <thead>
+                  <tr>
+                    <th>Node</th>
+                    <th>Password (for the user hacluster)</th>
+                    <th data-test="use-custom-address">Address</th>
+                    <th>Port</th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Form>
+                </thead>
+                <tbody>
+                  {Object.keys(nodeMap).map((nodeName, i) => {
+                    const passwordId = `auth-node-${nodeName}-password`;
+                    const addressId = `auth-node-${nodeName}-address`;
+                    const portId = `auth-node-${nodeName}-port`;
+                    return (
+                      <tr key={nodeName}>
+                        <td>
+                          <label htmlFor={passwordId}>{`${nodeName}`}</label>
+                        </td>
+                        <td>
+                          <TextInput
+                            isRequired
+                            type="password"
+                            id={passwordId}
+                            data-test={passwordId}
+                            value={
+                              i > 0 && onePasswordForAll
+                                ? ""
+                                : nodeMap[nodeName].password
+                            }
+                            onChange={password =>
+                              updateNode(nodeName, { password })
+                            }
+                            isDisabled={i > 0 && onePasswordForAll}
+                          />
+                        </td>
+                        <td>
+                          <TextInput
+                            isDisabled={!useAddresses}
+                            type="text"
+                            id={addressId}
+                            data-test={addressId}
+                            value={nodeMap[nodeName].address}
+                            onChange={address =>
+                              updateNode(nodeName, { address })
+                            }
+                          />
+                        </td>
+                        <td className="pf-m-width-10">
+                          <TextInput
+                            isDisabled={!useAddresses}
+                            placeholder="2224"
+                            type="text"
+                            id={portId}
+                            data-test={portId}
+                            value={nodeMap[nodeName].port}
+                            onChange={port => updateNode(nodeName, { port })}
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </Form>
+          )}
+        </>
       )}
     </Stack>
   );
