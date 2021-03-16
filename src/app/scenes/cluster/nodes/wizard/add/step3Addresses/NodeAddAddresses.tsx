@@ -21,7 +21,7 @@ export const NodeAddAddresses: React.FC = () => {
       <Alert
         variant="info"
         isInline
-        title="Please specify the count of addresses that is compatible with this cluster"
+        title="Please specify the number of addresses that is compatible with this cluster"
         style={{ marginBottom: "var(--pf-global--spacer--lg)" }}
       />
       <Form isHorizontal>

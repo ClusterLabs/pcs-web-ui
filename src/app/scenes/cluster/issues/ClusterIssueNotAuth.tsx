@@ -94,7 +94,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
         >
           {authProcessId && <NodesAuthForm authProcessId={authProcessId} />}
           {!authProcessId && fixing && (
-            <EmptyStateSpinner title="Distributing auth tokens to cluster" />
+            <EmptyStateSpinner title="Distributing auth tokens to the cluster" />
           )}
           {!authProcessId && !fixing && errorMessage.length > 0 && (
             <Alert

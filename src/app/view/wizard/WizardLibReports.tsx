@@ -35,7 +35,7 @@ export const WizardLibReports: React.FC<{
             variant={severityToAlertVariant(report.severity)}
             isInline
             title={`${report.message.message}${
-              report.severity.force_code !== null ? " (can be forced)" : ""
+              report.severity.force_code !== null ? " (can be overridden)" : ""
             }`}
           />
         ))}

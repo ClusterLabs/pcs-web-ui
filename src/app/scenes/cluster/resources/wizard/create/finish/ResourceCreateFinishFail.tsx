@@ -26,13 +26,14 @@ export const ResourceCreateFinishFail: React.FC = () => {
         title={`Create resource "${resourceName}" failed`}
         message={
           <>
-            Create resource failed in the backend (see messages below). You can
-            return back, correct values and try to create resource again. The
-            messages will be kept in the wizard.
+            Operation has not completed sucessfully (see messages below). You
+            can return back, change settings and try again. All messages below
+            will stay available.
             {isForcible && (
               <>
                 {" "}
-                Also, you can force the action since all errors are forcible.
+                Or you can continue with the current settings since all errors
+                can be overriden.
               </>
             )}
           </>
@@ -49,7 +50,7 @@ export const ResourceCreateFinishFail: React.FC = () => {
           <>
             {isForcible && (
               <Button variant="link" onClick={() => create({ force: true })}>
-                Create resource (forced)
+                Create resource anyway (proceed with current settings)
               </Button>
             )}
             <Button variant="link" onClick={close}>
