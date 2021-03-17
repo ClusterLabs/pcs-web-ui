@@ -1,10 +1,15 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-import { location, types } from "app/store";
-import { Link, useSelectedClusterName } from "app/view";
+import { types } from "app/store";
 
-import { ConstraintCell, ConstraintRow, ConstraintValue } from "../common";
+import {
+  ConstraintCell,
+  ConstraintLink,
+  ConstraintResourceInRole,
+  ConstraintRow,
+  ConstraintValue,
+} from "../common";
 
 import { ConstraintLocationDescRscPoint } from "./ConstraintLocationDescRscPoint";
 
@@ -13,7 +18,6 @@ export const ConstraintRowLocationNode = ({
 }: {
   constraint: types.cluster.ConstraintLocationNode;
 }) => {
-  const clusterName = useSelectedClusterName();
   return (
     <ConstraintRow
       id={constraint.id}
@@ -22,14 +26,9 @@ export const ConstraintRowLocationNode = ({
           <ConstraintCell label="Type" value="Location" width={1} />
           <DataListCell width={3}>
             <ConstraintLocationDescRscPoint constraint={constraint} />
-            {" in role "}
-            <strong>{constraint.role || "Started"}</strong>
+            <ConstraintResourceInRole role={constraint.role} />
             {" on node "}
-            <strong>
-              <Link
-                to={location.node({ clusterName, nodeName: constraint.node })}
-              />
-            </strong>
+            <ConstraintLink type="node" id={constraint.node} />
           </DataListCell>
           <ConstraintCell label="Score" value={constraint.score} width={1} />
         </>

@@ -3,17 +3,17 @@ import { DataListCell } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import { ConstraintValue } from "../common";
+import { ConstraintResourceInRole, ConstraintValue } from "../common";
 import {
   ConstraintResourceSetRscLinks,
   ConstraintRowWithResourceSet,
 } from "../resourceSet";
 
-export const ConstraintRowColocationSet = ({
-  constraint,
-}: {
+import { ConstraintRowColocationTogether } from "./ConstraintRowColocationTogether";
+
+export const ConstraintRowColocationSet: React.FC<{
   constraint: types.cluster.ConstraintColocationSet;
-}) => {
+}> = ({ constraint }) => {
   return (
     <ConstraintRowWithResourceSet
       id={constraint.id}
@@ -23,12 +23,9 @@ export const ConstraintRowColocationSet = ({
         <>
           <DataListCell width={4}>
             {"Resources "}
-            <strong>
-              <ConstraintResourceSetRscLinks resourceSet={resourceSet} />
-            </strong>
-            {" in role "}
-            <strong>{resourceSet.role || "Started"}</strong>
-            {" together"}
+            <ConstraintResourceSetRscLinks resourceSet={resourceSet} />
+            <ConstraintResourceInRole role={resourceSet.role} />
+            <ConstraintRowColocationTogether constraint={constraint} />
           </DataListCell>
           <DataListCell width={1}>
             {"Score "}

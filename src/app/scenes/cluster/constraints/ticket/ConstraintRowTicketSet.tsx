@@ -3,7 +3,7 @@ import { DataListCell } from "@patternfly/react-core";
 
 import { types } from "app/store";
 
-import { ConstraintValue } from "../common";
+import { ConstraintResourceInRole, ConstraintValue } from "../common";
 import {
   ConstraintResourceSetRscLinks,
   ConstraintRowWithResourceSet,
@@ -23,11 +23,8 @@ export const ConstraintRowTicketSet = ({
         <>
           <DataListCell width={4}>
             {"Resources "}
-            <strong>
-              <ConstraintResourceSetRscLinks resourceSet={resourceSet} />
-            </strong>
-            {" in role "}
-            <strong>{resourceSet.role || "Started"}</strong>
+            <ConstraintResourceSetRscLinks resourceSet={resourceSet} />
+            <ConstraintResourceInRole role={resourceSet.role} />
             {" depends on ticket "}
             <strong>{constraint.ticket}</strong>
           </DataListCell>
