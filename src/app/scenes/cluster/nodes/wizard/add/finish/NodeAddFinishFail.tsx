@@ -17,9 +17,9 @@ export const NodeAddFinishFail: React.FC = () => {
         title={`Add node "${nodeName}" failed`}
         message={
           <>
-            Node add failed in the backend (see messages below). You can return
-            back, correct values and try to create resource again. The messages
-            will be kept in the wizard.
+            Operation has not completed sucessfully (see messages below). You
+            can return back, change settings and try again. All messages below
+            will stay available.
           </>
         }
         primaryActions={

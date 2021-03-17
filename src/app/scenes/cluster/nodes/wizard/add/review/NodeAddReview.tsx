@@ -19,7 +19,7 @@ export const NodeAddReview: React.FC = () => {
   } = useWizard();
 
   return (
-    <WizardLibStep title="Review new resource configuration" reports={reports}>
+    <WizardLibStep title="Review settings" reports={reports}>
       <DescriptionList isHorizontal>
         <DescriptionListGroup>
           <DescriptionListTerm>Node name</DescriptionListTerm>

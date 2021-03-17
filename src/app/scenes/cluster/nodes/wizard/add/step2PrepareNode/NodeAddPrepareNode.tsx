@@ -37,7 +37,7 @@ export const NodeAddPrepareNode: React.FC = () => {
         <Alert
           variant="danger"
           isInline
-          title="Check that node is not evided in some cluster"
+          title="Check if that node is not a part of another cluster"
           actionLinks={
             <AlertActionLink onClick={checkCanAddNode}>
               Try again
