@@ -1,4 +1,4 @@
-import { types } from "app/store/state";
+import { types } from "app/store/reducers";
 
 import { Selector } from "./selector";
 

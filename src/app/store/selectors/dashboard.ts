@@ -1,4 +1,4 @@
-import { clusterStatusDefault, types } from "app/store/state";
+import { clusterStatusDefault, types } from "app/store/reducers";
 
 import { Selector } from "./selector";
 import { clusterAreDataLoaded, getCluster } from "./cluster";

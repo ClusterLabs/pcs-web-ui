@@ -1,5 +1,5 @@
 import { api } from "app/backend";
-import * as types from "app/store/state/types";
+import { types } from "app/store/reducers";
 
 import { transformIssues } from "../issues";
 

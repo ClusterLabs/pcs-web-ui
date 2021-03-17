@@ -3,7 +3,7 @@ import { useDispatch as useReduxDispatch, useSelector } from "react-redux";
 
 import { Action } from "./actions";
 import * as selectors from "./selectors";
-import * as types from "./state/types";
+import * as types from "./reducers/types";
 import * as utils from "./utils";
 import * as location from "./location";
 import { setupStore } from "./store";

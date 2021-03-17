@@ -1,8 +1,8 @@
-import { login } from "app/store/state/types";
+import { types } from "app/store/reducers";
 
 import { Selector } from "./selector";
 
-const localState: Selector<login.LoginState> = state => state.login;
+const localState: Selector<types.login.LoginState> = state => state.login;
 
 export const loginIsFailed: Selector<boolean> = state =>
   localState(state).failed;

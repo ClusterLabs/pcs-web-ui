@@ -1,4 +1,4 @@
-import * as types from "app/store/state/types";
+import { types } from "app/store/reducers";
 
 import { clusterStatusSelector } from "./selectorsHelpers";
 

@@ -1,4 +1,4 @@
-import { compareStatusSeverity } from "./state/cluster/clusterStatus";
+import { compareStatusSeverity } from "./reducers/cluster/clusterStatus";
 
 export { compareStatusSeverity };
 

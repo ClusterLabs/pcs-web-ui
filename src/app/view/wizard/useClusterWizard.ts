@@ -1,8 +1,7 @@
 import React from "react";
 import { WizardContext } from "@patternfly/react-core";
 
-import { selectors, useDispatch } from "app/store";
-import { types } from "app/store/state";
+import { selectors, types, useDispatch } from "app/store";
 import { useWizardOpenClose } from "app/view";
 import { useClusterSelector } from "app/view/useClusterSelector";
 

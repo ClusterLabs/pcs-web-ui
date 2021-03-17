@@ -4,7 +4,7 @@ import { routerMiddleware } from "connected-react-router";
 import createSagaMiddleware from "redux-saga";
 
 import { rootSaga } from "./sagas";
-import rootReducer from "./state/reducer";
+import rootReducer from "./reducers/reducer";
 
 /* eslint-disable no-underscore-dangle, @typescript-eslint/no-explicit-any */
 const composeMiddleware =
