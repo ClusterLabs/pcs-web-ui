@@ -72,13 +72,19 @@ export type ConnectedNode = {
   services: ApiNodeServiceMap;
 };
 
-export type Node =
+export type Node = {
+  // following information are gained from cluster status; we have them even if
+  // the node is not reachable
+  inMaintenance: boolean;
+  inStandby: boolean;
+} & (
   | ConnectedNode
   | {
       name: string;
       status: "DATA_NOT_PROVIDED";
       issueList: Issue[];
-    };
+    }
+);
 
 export type FenceDeviceStatusFlag =
   | "RUNNING"

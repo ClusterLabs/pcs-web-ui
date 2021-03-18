@@ -7,6 +7,8 @@ import { transformIssues } from "./issues";
 type ApiNode = api.types.clusterStatus.ApiNode;
 type ApiNodeQuorum = api.types.clusterStatus.ApiNodeQuorum;
 type ApiNodeStatus = api.types.clusterStatus.ApiNodeStatus;
+type ApiNVPair = api.types.clusterStatus.ApiNVPair;
+type ApiNodeAttributes = api.types.clusterStatus.ApiNodeAttributes;
 
 const mapStatus = (status: ApiNodeStatus): types.cluster.NodeStatusFlag => {
   if (status === "standby") {
@@ -44,14 +46,32 @@ const toSeverity = (status: ApiNodeStatus, quorum: ApiNodeQuorum) => {
   return "WARNING";
 };
 
-const toNode = (apiNode: ApiNode): types.cluster.Node =>
-  apiNode.status === "unknown"
+const isCibTrue = (value: string): boolean =>
+  ["true", "on", "yes", "y", "1"].includes(value.toLowerCase());
+
+const isNodeAttrCibTrue = (nodeAttrsList: ApiNVPair[], attrName: string) =>
+  isCibTrue(nodeAttrsList.find(a => a.name === attrName)?.value ?? "");
+
+// apiNode are data gained from node
+// nodeAttrsList are data provided by cluster itself
+const toNode = (
+  apiNode: ApiNode,
+  nodeAttrsList: ApiNVPair[],
+): types.cluster.Node => {
+  const clusterInfo = {
+    inMaintenance: isNodeAttrCibTrue(nodeAttrsList, "maintenance"),
+    inStandby: isNodeAttrCibTrue(nodeAttrsList, "standby"),
+  };
+
+  return apiNode.status === "unknown"
     ? {
+        ...clusterInfo,
         name: apiNode.name,
         status: "DATA_NOT_PROVIDED",
         issueList: transformIssues(apiNode),
       }
     : {
+        ...clusterInfo,
         name: apiNode.name,
         status: mapStatus(apiNode.status),
         statusSeverity: statusToSeverity(apiNode.status),
@@ -60,6 +80,7 @@ const toNode = (apiNode: ApiNode): types.cluster.Node =>
         issueList: transformIssues(apiNode),
         services: apiNode.services,
       };
+};
 
 const countNodesSeverity = (
   apiNodeList: ApiNode[],
@@ -80,10 +101,13 @@ const countNodesSeverity = (
 
 export const processApiNodes = (
   apiNodeList: ApiNode[],
+  apiNodeAttrs: ApiNodeAttributes,
 ): {
   nodeList: types.cluster.Node[];
   nodesSeverity: types.cluster.StatusSeverity;
 } => ({
-  nodeList: apiNodeList.map(toNode),
+  nodeList: apiNodeList.map(apiNode =>
+    toNode(apiNode, apiNodeAttrs[apiNode.name]),
+  ),
   nodesSeverity: countNodesSeverity(apiNodeList),
 });

@@ -6,6 +6,7 @@ import {
 } from "./issues";
 import {
   ApiNode as TApiNode,
+  ApiNodeAttributes as TApiNodeAttributes,
   ApiNodeQuorum as TApiNodeQuorum,
   ApiNodeService as TApiNodeService,
   ApiNodeServiceMap as TApiNodeServiceMap,
@@ -70,6 +71,7 @@ export type ApiNodeQuorum = TypeOf<typeof TApiNodeQuorum>;
 export type ApiNodeServiceMap = TypeOf<typeof TApiNodeServiceMap>;
 export type ApiNodeService = TypeOf<typeof TApiNodeService>;
 export type ApiNodeStatus = TypeOf<typeof TApiNodeStatus>;
+export type ApiNodeAttributes = TypeOf<typeof TApiNodeAttributes>;
 export type ApiResourceBase = TypeOf<typeof TApiResourceBase>;
 export type ApiPrimitive = TypeOf<typeof TApiPrimitive>;
 export type ApiResource = TypeOf<typeof TApiResource>;

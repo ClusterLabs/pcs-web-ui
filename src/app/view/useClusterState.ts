@@ -1,12 +1,6 @@
 import React from "react";
 
-import {
-  ActionLeaf,
-  selectors,
-  useDispatch,
-  useSelector,
-  utils,
-} from "app/store";
+import { ActionLeaf, selectors, useDispatch, useSelector } from "app/store";
 
 export const useClusterState = (clusterName: string) => {
   const dispatch = useDispatch();
@@ -50,21 +44,11 @@ export const useClusterState = (clusterName: string) => {
 
   const clusterState = useSelector(selectors.getCluster(clusterName));
 
-  const nodeAttrs = (nodeName: string) =>
-    clusterState.nodeAttr?.[nodeName] ?? [];
-  const nodeUtilization = (nodeName: string) =>
-    clusterState.nodesUtilization?.[nodeName] ?? [];
-
-  const isNodeAttrCibTrue = (nodeName: string, attrName: string) =>
-    utils.isCibTrue(
-      nodeAttrs(nodeName).find(a => a.name === attrName)?.value ?? "",
-    );
-
   return {
     clusterState,
-    isNodeAttrCibTrue,
-    nodeAttrs,
-    nodeUtilization,
+    nodeAttrs: (nodeName: string) => clusterState.nodeAttr?.[nodeName] ?? [],
+    nodeUtilization: (nodeName: string) =>
+      clusterState.nodesUtilization?.[nodeName] ?? [],
     dataLoaded: useSelector(selectors.clusterAreDataLoaded(clusterName)),
   };
 };

@@ -4,7 +4,6 @@ import { Action, types } from "app/store";
 import {
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
-  useClusterState,
   useSelectedClusterName,
 } from "app/view";
 
@@ -12,7 +11,6 @@ export const NodeDetailPageToolbar: React.FC<{
   node: types.cluster.Node;
 }> = ({ node }) => {
   const clusterName = useSelectedClusterName();
-  const { isNodeAttrCibTrue } = useClusterState(clusterName);
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
@@ -130,12 +128,8 @@ export const NodeDetailPageToolbar: React.FC<{
         stop,
       }}
       dropdownActions={{
-        ...(isNodeAttrCibTrue(node.name, "standby")
-          ? { unstandby }
-          : { standby }),
-        ...(isNodeAttrCibTrue(node.name, "maintenance")
-          ? { unmaintenance }
-          : { maintenance }),
+        ...(node.inStandby ? { unstandby } : { standby }),
+        ...(node.inMaintenance ? { unmaintenance } : { maintenance }),
         remove,
       }}
     />
