@@ -1,8 +1,14 @@
 import React from "react";
 
 import * as location from "app/scenes/location";
-import { types, utils } from "app/store";
-import { EmptyStateNoItem, Link, StatusSign, Table, toLabel } from "app/view";
+import { types } from "app/store";
+import {
+  EmptyStateNoItem,
+  Link,
+  ResourceStatusInfoListSigns,
+  Table,
+  compareStatusSeverity,
+} from "app/view";
 
 import { compareStrings } from "./utils";
 
@@ -17,7 +23,7 @@ const compareByColumn = (
   switch (column) {
     case "STATUS":
       return (a, b) =>
-        utils.compareStatusSeverity(a.status.maxSeverity, b.status.maxSeverity);
+        compareStatusSeverity(a.status.maxSeverity, b.status.maxSeverity);
     default:
       return (a, b) => compareStrings(a.id, b.id);
   }
@@ -70,14 +76,9 @@ export const DashboardClusterResources: React.FC<{
                 />
               </td>
               <td data-label="status">
-                {resource.status.infoList.map((status, i) => (
-                  /* eslint-disable react/no-array-index-key */
-                  <StatusSign
-                    key={i}
-                    status={status.severity}
-                    label={toLabel(status.label)}
-                  />
-                ))}
+                <ResourceStatusInfoListSigns
+                  resourceStatusInfoList={resource.status.infoList}
+                />
               </td>
             </tr>
           ))}

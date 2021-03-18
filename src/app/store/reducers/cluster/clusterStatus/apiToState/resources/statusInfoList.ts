@@ -27,10 +27,7 @@ export const buildStatus = (
   statusInfoList: types.cluster.ResourceStatusInfo[],
 ): types.cluster.ResourceStatus => {
   return {
-    infoList: statusInfoList.sort(
-      (i1, i2) =>
-        statusSeverity.compareStatusSeverity(i1.severity, i2.severity) * -1,
-    ),
+    infoList: statusInfoList,
     maxSeverity: getMaxSeverity(statusInfoList, info => info.severity),
   };
 };

@@ -2,9 +2,8 @@ import React from "react";
 
 import { types } from "app/store";
 import {
+  ResourceStatusInfoListSigns,
   StatusIco,
-  StatusSign,
-  toLabel,
   useGroupDetailViewContext,
 } from "app/view";
 
@@ -58,14 +57,10 @@ export const ResourceTreeCellStatus = ({
   return (
     <div className="ha-c-data-list__item-status">
       {" "}
-      {status.infoList.map((statusInfo, i) => (
-        <StatusSign
-          key={i}
-          status={statusInfo.severity}
-          label={toLabel(statusInfo.label)}
-          showOkIco
-        />
-      ))}
+      <ResourceStatusInfoListSigns
+        resourceStatusInfoList={status.infoList}
+        showOkIco
+      />
     </div>
   );
 };

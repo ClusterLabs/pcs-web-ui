@@ -1,8 +1,15 @@
 import React from "react";
 
 import * as location from "app/scenes/location";
-import { types, utils } from "app/store";
-import { EmptyStateNoItem, Link, StatusSign, Table, toLabel } from "app/view";
+import { types } from "app/store";
+import {
+  EmptyStateNoItem,
+  Link,
+  StatusSign,
+  Table,
+  compareStatusSeverity,
+  toLabel,
+} from "app/view";
 
 import { compareStrings } from "./utils";
 
@@ -14,7 +21,7 @@ const compareByColumn = (
   switch (column) {
     case "STATUS":
       return (a, b) =>
-        utils.compareStatusSeverity(a.statusSeverity, b.statusSeverity);
+        compareStatusSeverity(a.statusSeverity, b.statusSeverity);
     default:
       return (a, b) => compareStrings(a.id, b.id);
   }
