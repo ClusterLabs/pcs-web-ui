@@ -1,6 +1,6 @@
 import React from "react";
 
-import { location } from "app/store";
+import * as location from "app/scenes/location";
 import { Link, useSelectedClusterName } from "app/view";
 
 export const ConstraintLink: React.FC<{

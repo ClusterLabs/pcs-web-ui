@@ -5,7 +5,6 @@ import { Action } from "./actions";
 import * as selectors from "./selectors";
 import * as types from "./reducers/types";
 import * as utils from "./utils";
-import * as location from "./location";
 import { setupStore } from "./store";
 
 export * from "./actions";
@@ -19,4 +18,4 @@ export const useDispatch = () => {
   return dispatch;
 };
 
-export { setupStore, useSelector, selectors, types, utils, location };
+export { setupStore, useSelector, selectors, types, utils };

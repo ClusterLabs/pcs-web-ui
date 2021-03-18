@@ -1,7 +1,8 @@
 import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { location, selectors, types } from "app/store";
+import * as location from "app/scenes/location";
+import { selectors, types } from "app/store";
 import { CrmStatusTable, IssueList, Link, useClusterSelector } from "app/view";
 
 export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {

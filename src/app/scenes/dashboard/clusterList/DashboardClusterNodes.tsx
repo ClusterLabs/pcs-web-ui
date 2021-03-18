@@ -1,6 +1,7 @@
 import React from "react";
 
-import { location, types, utils } from "app/store";
+import * as location from "app/scenes/location";
+import { types, utils } from "app/store";
 import { Link, StatusSign, Table, toLabel } from "app/view";
 
 import { compareStrings } from "./utils";
