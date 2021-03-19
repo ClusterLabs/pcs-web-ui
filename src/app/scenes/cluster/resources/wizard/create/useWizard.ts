@@ -1,4 +1,6 @@
-import { ActionMap, selectors, useSelector } from "app/store";
+import { useSelector } from "react-redux";
+
+import { ActionMap, selectors } from "app/store";
 import { useClusterSelector, useClusterWizard } from "app/view";
 
 const useAgent = (clusterName: string, agentName: string) => {

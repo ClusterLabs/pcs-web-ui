@@ -28,6 +28,7 @@ export * from "./UtilizationView";
 export * from "./utils";
 export * from "./ClusterSectionToolbar";
 export * from "./useClusterSelector";
+export * from "./useDispatch";
 export * from "./wizard";
 export * from "./nodeAuthForm";
 export * from "./emptyState";

@@ -1,5 +1,5 @@
-import { selectors, useDispatch } from "app/store";
-import { useClusterSelector } from "app/view/useClusterSelector";
+import { selectors } from "app/store";
+import { useClusterSelector, useDispatch } from "app/view";
 
 export const useWizard = () => {
   const dispatch = useDispatch();

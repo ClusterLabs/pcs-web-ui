@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,8 +8,8 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import { selectors, useDispatch, useSelector } from "app/store";
-import { Page, PageSectionDataLoading } from "app/view";
+import { selectors } from "app/store";
+import { Page, PageSectionDataLoading, useDispatch } from "app/view";
 
 import { DashboardClusterList } from "./clusterList";
 import { DashboardToolbar } from "./DashboardToolbar";

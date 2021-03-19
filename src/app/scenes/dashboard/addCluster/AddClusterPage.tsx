@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Wizard } from "@patternfly/react-core";
 
-import { selectors, useDispatch, useSelector } from "app/store";
+import { selectors } from "app/store";
+import { useDispatch } from "app/view";
 
 import { AddClusterStepAuth } from "./AddClusterStepAuth";
 import { AddClusterStepAdd } from "./AddClusterStepAdd";

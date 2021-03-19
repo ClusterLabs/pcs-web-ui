@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-import { ActionLeaf, selectors, useDispatch, useSelector } from "app/store";
+import { ActionLeaf, selectors } from "app/store";
+import { useDispatch } from "app/view/useDispatch";
 
 export const useClusterState = (clusterName: string) => {
   const dispatch = useDispatch();

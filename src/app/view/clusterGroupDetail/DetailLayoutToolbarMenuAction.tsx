@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Modal } from "@patternfly/react-core";
 
-import { Action, useDispatch } from "app/store";
+import { Action } from "app/store";
+import { useDispatch } from "app/view/useDispatch";
 
 export const DetailLayoutToolbarMenuAction: React.FC<{
   name: string;

@@ -1,7 +1,7 @@
 import React from "react";
 
-import { selectors, useDispatch } from "app/store";
-import { useClusterSelector } from "app/view";
+import { selectors } from "app/store";
+import { useClusterSelector, useDispatch } from "app/view";
 
 export const useClusterResourceAgent = (agentName: string) => {
   const [resourceAgent, cluster] = useClusterSelector(

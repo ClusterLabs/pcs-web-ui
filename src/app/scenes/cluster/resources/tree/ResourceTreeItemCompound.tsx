@@ -7,8 +7,8 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { selectors, types, useDispatch } from "app/store";
-import { useClusterSelector } from "app/view";
+import { selectors, types } from "app/store";
+import { useClusterSelector, useDispatch } from "app/view";
 
 import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
 

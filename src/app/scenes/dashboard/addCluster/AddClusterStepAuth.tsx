@@ -1,8 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Alert, Button, Form } from "@patternfly/react-core";
 
-import { selectors, useDispatch, useSelector } from "app/store";
-import { EmptyStateSpinner, FormText } from "app/view";
+import { selectors } from "app/store";
+import { EmptyStateSpinner, FormText, useDispatch } from "app/view";
 
 import { AddClusterStepAuthForm } from "./AddClusterStepAuthForm";
 

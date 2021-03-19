@@ -8,7 +8,7 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import { useDispatch } from "app/store";
+import { useDispatch } from "app/view/useDispatch";
 import { useUsername } from "app/view/useUsername";
 
 export const PageToolbar = () => {
