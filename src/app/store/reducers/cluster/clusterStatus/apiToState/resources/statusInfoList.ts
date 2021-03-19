@@ -1,6 +1,10 @@
 import { api } from "app/backend";
-import { types } from "app/store/reducers";
 
+import {
+  ResourceStatus,
+  ResourceStatusInfo,
+  StatusSeverity,
+} from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
 type ApiResource = api.types.clusterStatus.ApiResource;
@@ -15,17 +19,17 @@ export const isDisabled = (apiResource: ApiResourceBase): boolean =>
 
 export function getMaxSeverity<T>(
   list: T[],
-  getItemsSeverity: (item: T) => types.cluster.StatusSeverity,
+  getItemsSeverity: (item: T) => StatusSeverity,
 ) {
-  return list.reduce<types.cluster.StatusSeverity>(
+  return list.reduce<StatusSeverity>(
     (severity, item) => statusSeverity.max(severity, getItemsSeverity(item)),
     "OK",
   );
 }
 
 export const buildStatus = (
-  statusInfoList: types.cluster.ResourceStatusInfo[],
-): types.cluster.ResourceStatus => {
+  statusInfoList: ResourceStatusInfo[],
+): ResourceStatus => {
   return {
     infoList: statusInfoList,
     maxSeverity: getMaxSeverity(statusInfoList, info => info.severity),
@@ -34,7 +38,7 @@ export const buildStatus = (
 
 export const statusToSeverity = (
   status: ApiResource["status"],
-): types.cluster.StatusSeverity => {
+): StatusSeverity => {
   switch (status) {
     case "blocked":
       return "ERROR";

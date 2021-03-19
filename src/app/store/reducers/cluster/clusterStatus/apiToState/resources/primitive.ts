@@ -1,6 +1,6 @@
 import { api } from "app/backend";
-import { types } from "app/store/reducers";
 
+import { Issue, Primitive, ResourceStatusInfo } from "../../types";
 import { transformIssues } from "../issues";
 
 import { buildStatus, isDisabled } from "./statusInfoList";
@@ -10,11 +10,11 @@ type ApiPrimitive = api.types.clusterStatus.ApiPrimitive;
 const buildStatusInfoList = (
   apiPrimitive: ApiPrimitive,
 ): {
-  resourceStatusInfo: types.cluster.ResourceStatusInfo[];
-  issues: types.cluster.Issue[];
+  resourceStatusInfo: ResourceStatusInfo[];
+  issues: Issue[];
 } => {
-  const infoList: types.cluster.ResourceStatusInfo[] = [];
-  const issues: types.cluster.Issue[] = [];
+  const infoList: ResourceStatusInfo[] = [];
+  const issues: Issue[] = [];
 
   // warning
   if (apiPrimitive.crm_status.some(s => !s.managed)) {
@@ -74,7 +74,7 @@ export const toPrimitive = (
     inClone: false,
     inGroup: false,
   },
-): types.cluster.Primitive => {
+): Primitive => {
   const { resourceStatusInfo, issues } = buildStatusInfoList(apiResource);
   const { inClone, inGroup } = context;
   return {

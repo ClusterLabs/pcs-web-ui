@@ -1,5 +1,6 @@
 import { api } from "app/backend";
-import { types } from "app/store/reducers";
+
+import { ClusterStatus } from "../types";
 
 import { transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
@@ -7,12 +8,11 @@ import { analyzeApiResources } from "./resources";
 
 type ApiClusterStatus = api.types.clusterStatus.ApiClusterStatus;
 type ApiIssue = api.types.clusterStatus.ApiIssue;
-type ClusterState = types.cluster.ClusterStatus;
 
 const issuesToSummarySeverity = (
   errorList: ApiIssue[],
   warningList: ApiIssue[],
-): ClusterState["summary"]["issuesSeverity"] => {
+): ClusterStatus["summary"]["issuesSeverity"] => {
   if (errorList.length > 0) {
     return "ERROR";
   }
@@ -23,7 +23,7 @@ const issuesToSummarySeverity = (
 };
 
 const sbdDetection = (apiClusterState: ApiClusterStatus) =>
-  apiClusterState.node_list.reduce<ClusterState["sbdDetection"]>(
+  apiClusterState.node_list.reduce<ClusterStatus["sbdDetection"]>(
     (sbd, node) =>
       node.status === "unknown"
         ? sbd
@@ -35,7 +35,7 @@ const sbdDetection = (apiClusterState: ApiClusterStatus) =>
 
 export const apiToState = (
   apiClusterStatus: ApiClusterStatus,
-): ClusterState => {
+): ClusterStatus => {
   const {
     resourceTree,
     resourcesSeverity,

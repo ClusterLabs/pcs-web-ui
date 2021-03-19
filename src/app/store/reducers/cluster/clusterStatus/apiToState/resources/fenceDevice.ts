@@ -1,6 +1,6 @@
 import { api } from "app/backend";
-import { types } from "app/store/reducers";
 
+import { FenceDevice, FenceDeviceStatusFlag } from "../../types";
 import { transformIssues } from "../issues";
 
 import { statusToSeverity } from "./statusInfoList";
@@ -9,7 +9,7 @@ type ApiStonith = api.types.clusterStatus.ApiStonith;
 
 const transformStatus = (
   status: ApiStonith["status"],
-): types.cluster.FenceDeviceStatusFlag => {
+): FenceDeviceStatusFlag => {
   switch (status) {
     case "blocked":
       return "BLOCKED";
@@ -23,9 +23,7 @@ const transformStatus = (
   }
 };
 
-export const toFenceDevice = (
-  apiFenceDevice: ApiStonith,
-): types.cluster.FenceDevice => ({
+export const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
   id: apiFenceDevice.id,
   type: apiFenceDevice.type,
   status: transformStatus(apiFenceDevice.status),

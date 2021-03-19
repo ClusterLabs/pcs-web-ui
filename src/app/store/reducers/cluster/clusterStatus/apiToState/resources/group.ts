@@ -1,6 +1,6 @@
 import { api } from "app/backend";
-import { types } from "app/store/reducers";
 
+import { Group, ResourceStatusInfo } from "../../types";
 import { transformIssues } from "../issues";
 
 import { toPrimitive } from "./primitive";
@@ -17,9 +17,9 @@ type Counts = {
 
 const buildStatusInfoList = (
   apiGroup: ApiGroup,
-  members: types.cluster.Group["resources"],
-): types.cluster.ResourceStatusInfo[] => {
-  const infoList: types.cluster.ResourceStatusInfo[] = [];
+  members: Group["resources"],
+): ResourceStatusInfo[] => {
+  const infoList: ResourceStatusInfo[] = [];
   if (isDisabled(apiGroup)) {
     infoList.push({ label: "DISABLED", severity: "WARNING" });
   }
@@ -45,7 +45,7 @@ const buildStatusInfoList = (
       primitive.status.infoList
         // .filter(info => info.severity === maxSeverity)
         // .map(info => info.label)
-        .forEach((info: types.cluster.ResourceStatusInfo) => {
+        .forEach((info: ResourceStatusInfo) => {
           const key = info.severity === "ERROR" ? "errors" : "warnings";
           nextCounts[key][info.label] =
             info.label in counts ? counts.errors[info.label] + 1 : 1;
@@ -83,7 +83,7 @@ export const filterPrimitive = (
 export const toGroup = (
   apiGroup: ApiGroup,
   context: { inClone: boolean } = { inClone: false },
-): { group: types.cluster.Group; apiPrimitiveList: ApiPrimitive[] } => {
+): { group: Group; apiPrimitiveList: ApiPrimitive[] } => {
   // Theoreticaly, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
   const apiPrimitiveList = filterPrimitive(apiGroup.members);

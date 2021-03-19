@@ -1,4 +1,5 @@
-import { clusterStatusDefault, types } from "app/store/reducers";
+import { clusterStatusDefault } from "app/store/reducers";
+import * as types from "app/store/types";
 
 type ClusterStorageItem = types.clusterStorage.ClusterStorageItem;
 type ClusterStatus = types.cluster.ClusterStatus;

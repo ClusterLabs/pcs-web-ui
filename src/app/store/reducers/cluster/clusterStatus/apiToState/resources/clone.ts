@@ -1,6 +1,6 @@
 import { api } from "app/backend";
-import { types } from "app/store/reducers";
 
+import { Clone, ResourceStatusInfo } from "../../types";
 import { transformIssues } from "../issues";
 
 import { toPrimitive } from "./primitive";
@@ -10,10 +10,8 @@ import { buildStatus, statusToSeverity } from "./statusInfoList";
 type ApiClone = api.types.clusterStatus.ApiClone;
 type ApiPrimitive = api.types.clusterStatus.ApiPrimitive;
 
-const buildStatusInfoList = (
-  apiClone: ApiClone,
-): types.cluster.ResourceStatusInfo[] => {
-  const infoList: types.cluster.ResourceStatusInfo[] = [
+const buildStatusInfoList = (apiClone: ApiClone): ResourceStatusInfo[] => {
+  const infoList: ResourceStatusInfo[] = [
     {
       label: apiClone.status,
       severity: statusToSeverity(apiClone.status),
@@ -26,10 +24,10 @@ const buildStatusInfoList = (
 export const toClone = (
   apiClone: ApiClone,
 ): {
-  clone: types.cluster.Clone;
+  clone: Clone;
   apiPrimitiveList: ApiPrimitive[];
 } => {
-  let member: types.cluster.Clone["member"];
+  let member: Clone["member"];
   let apiPrimitiveList: ApiPrimitive[] = [];
   if (apiClone.member.class_type === "primitive") {
     member = toPrimitive(apiClone.member, { inClone: true, inGroup: false });

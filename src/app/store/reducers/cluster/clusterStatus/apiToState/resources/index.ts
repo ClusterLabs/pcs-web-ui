@@ -1,6 +1,11 @@
 import { api } from "app/backend";
-import { types } from "app/store/reducers";
 
+import {
+  FenceDevice,
+  ResourceOnNodeStatus,
+  ResourceTreeItem,
+  StatusSeverity,
+} from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
 import { toPrimitive } from "./primitive";
@@ -15,9 +20,9 @@ type ApiStonith = api.types.clusterStatus.ApiStonith;
 
 const takeResourceOnNodeStatus = (
   apiResource: ApiPrimitive,
-): types.cluster.ResourceOnNodeStatus[] =>
+): ResourceOnNodeStatus[] =>
   apiResource.crm_status.map(
-    (crmStatus): types.cluster.ResourceOnNodeStatus => ({
+    (crmStatus): ResourceOnNodeStatus => ({
       resource: { id: apiResource.id },
       node:
         crmStatus.node === null
@@ -39,11 +44,11 @@ const takeResourceOnNodeStatus = (
   );
 
 type AnalyzedResources = {
-  resourceTree: types.cluster.ResourceTreeItem[];
-  resourcesSeverity: types.cluster.StatusSeverity;
-  fenceDeviceList: types.cluster.FenceDevice[];
-  fenceDevicesSeverity: types.cluster.StatusSeverity;
-  resourceOnNodeStatusList: types.cluster.ResourceOnNodeStatus[];
+  resourceTree: ResourceTreeItem[];
+  resourcesSeverity: StatusSeverity;
+  fenceDeviceList: FenceDevice[];
+  fenceDevicesSeverity: StatusSeverity;
+  resourceOnNodeStatusList: ResourceOnNodeStatus[];
 };
 
 export const analyzeApiResources = (
@@ -51,7 +56,7 @@ export const analyzeApiResources = (
 ): AnalyzedResources =>
   apiResourceList.reduce<AnalyzedResources>(
     (analyzed, apiResource) => {
-      const maxResourcesSeverity = (): types.cluster.StatusSeverity =>
+      const maxResourcesSeverity = (): StatusSeverity =>
         statusSeverity.max(
           analyzed.resourcesSeverity,
           statusToSeverity(apiResource.status),

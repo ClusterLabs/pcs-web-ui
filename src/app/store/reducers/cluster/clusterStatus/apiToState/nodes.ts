@@ -1,5 +1,6 @@
 import { api } from "app/backend";
-import { types } from "app/store/reducers";
+
+import { Node, NodeStatusFlag, StatusSeverity } from "../types";
 
 import * as statusSeverity from "./statusSeverity";
 import { transformIssues } from "./issues";
@@ -10,7 +11,7 @@ type ApiNodeStatus = api.types.clusterStatus.ApiNodeStatus;
 type ApiNVPair = api.types.clusterStatus.ApiNVPair;
 type ApiNodeAttributes = api.types.clusterStatus.ApiNodeAttributes;
 
-const mapStatus = (status: ApiNodeStatus): types.cluster.NodeStatusFlag => {
+const mapStatus = (status: ApiNodeStatus): NodeStatusFlag => {
   if (status === "standby") {
     return "STANDBY";
   }
@@ -20,9 +21,7 @@ const mapStatus = (status: ApiNodeStatus): types.cluster.NodeStatusFlag => {
   return "ONLINE";
 };
 
-const statusToSeverity = (
-  status: ApiNodeStatus,
-): types.cluster.StatusSeverity => {
+const statusToSeverity = (status: ApiNodeStatus): StatusSeverity => {
   if (status === "offline") {
     return "ERROR";
   }
@@ -32,9 +31,8 @@ const statusToSeverity = (
   return "OK";
 };
 
-const quorumToSeverity = (
-  quorum: ApiNodeQuorum,
-): types.cluster.StatusSeverity => (quorum ? "OK" : "WARNING");
+const quorumToSeverity = (quorum: ApiNodeQuorum): StatusSeverity =>
+  quorum ? "OK" : "WARNING";
 
 const toSeverity = (status: ApiNodeStatus, quorum: ApiNodeQuorum) => {
   if (status === "offline") {
@@ -54,10 +52,7 @@ const isNodeAttrCibTrue = (nodeAttrsList: ApiNVPair[], attrName: string) =>
 
 // apiNode are data gained from node
 // nodeAttrsList are data provided by cluster itself
-const toNode = (
-  apiNode: ApiNode,
-  nodeAttrsList: ApiNVPair[],
-): types.cluster.Node => {
+const toNode = (apiNode: ApiNode, nodeAttrsList: ApiNVPair[]): Node => {
   const clusterInfo = {
     inMaintenance: isNodeAttrCibTrue(nodeAttrsList, "maintenance"),
     inStandby: isNodeAttrCibTrue(nodeAttrsList, "standby"),
@@ -82,14 +77,12 @@ const toNode = (
       };
 };
 
-const countNodesSeverity = (
-  apiNodeList: ApiNode[],
-): types.cluster.StatusSeverity => {
+const countNodesSeverity = (apiNodeList: ApiNode[]): StatusSeverity => {
   if (apiNodeList.every(node => node.status === "unknown")) {
     return "ERROR";
   }
 
-  return apiNodeList.reduce<types.cluster.StatusSeverity>(
+  return apiNodeList.reduce<StatusSeverity>(
     (lastMaxSeverity, node) =>
       statusSeverity.max(
         lastMaxSeverity,
@@ -103,8 +96,8 @@ export const processApiNodes = (
   apiNodeList: ApiNode[],
   apiNodeAttrs: ApiNodeAttributes,
 ): {
-  nodeList: types.cluster.Node[];
-  nodesSeverity: types.cluster.StatusSeverity;
+  nodeList: Node[];
+  nodesSeverity: StatusSeverity;
 } => ({
   nodeList: apiNodeList.map(apiNode =>
     toNode(apiNode, apiNodeAttrs[apiNode.name]),

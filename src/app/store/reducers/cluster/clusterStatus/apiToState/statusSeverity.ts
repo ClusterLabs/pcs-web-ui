@@ -1,6 +1,4 @@
-import { types } from "app/store/reducers";
-
-type StatusSeverity = types.cluster.StatusSeverity;
+import { StatusSeverity } from "../types";
 
 export const max = (a: StatusSeverity, b: StatusSeverity): StatusSeverity => {
   const statuses = [a, b];
