@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { ActionMap, selectors } from "app/store";
+import { ActionPayload, selectors } from "app/store";
 import { useDispatch } from "app/view/useDispatch";
 
 export const useNodesAuth = (processId: number) => {
@@ -12,7 +12,7 @@ export const useNodesAuth = (processId: number) => {
 
     updateNode: (
       nodeName: string,
-      state: ActionMap["NODE.AUTH.UPDATE.NODE"]["payload"]["state"],
+      state: ActionPayload["NODE.AUTH.UPDATE.NODE"]["state"],
     ) =>
       dispatch({
         type: "NODE.AUTH.UPDATE.NODE",
@@ -24,7 +24,7 @@ export const useNodesAuth = (processId: number) => {
       }),
 
     nodeAuth: () => {
-      let nodeMap: ActionMap["NODE.AUTH"]["payload"]["nodeMap"] = state.nodeMap;
+      let nodeMap: ActionPayload["NODE.AUTH"]["nodeMap"] = state.nodeMap;
       if (state.onePasswordForAll) {
         const nameList = Object.keys(state.nodeMap);
 

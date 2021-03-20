@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { ActionMap, selectors } from "app/store";
+import { ActionPayload, selectors } from "app/store";
 import { useClusterSelector, useClusterWizard } from "app/view";
 
 const useAgent = (clusterName: string, agentName: string) => {
@@ -45,7 +45,7 @@ export const useWizard = () => {
       });
     },
 
-    updateState: (payload: ActionMap["RESOURCE.CREATE.UPDATE"]["payload"]) => {
+    updateState: (payload: ActionPayload["RESOURCE.CREATE.UPDATE"]) => {
       dispatch({
         type: "RESOURCE.CREATE.UPDATE",
         key: { clusterName },

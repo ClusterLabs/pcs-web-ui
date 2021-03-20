@@ -1,4 +1,4 @@
-import { ActionMap, selectors } from "app/store";
+import { ActionPayload, selectors } from "app/store";
 import { useClusterSelector, useClusterWizard } from "app/view";
 
 export const useWizard = () => {
@@ -27,7 +27,7 @@ export const useWizard = () => {
 
     // actions
     updateState: (
-      payload: ActionMap["CONSTRAINT.LOCATION.CREATE.UPDATE"]["payload"],
+      payload: ActionPayload["CONSTRAINT.LOCATION.CREATE.UPDATE"],
     ) =>
       dispatch({
         type: "CONSTRAINT.LOCATION.CREATE.UPDATE",

@@ -1,8 +1,7 @@
 import { Reducer } from "app/store/redux";
-import { ActionMap } from "app/store/actions";
+import { ActionPayload } from "app/store/actions";
 
-export type Notification = ActionMap["NOTIFICATION.CREATE"]["payload"];
-
+export type Notification = ActionPayload["NOTIFICATION.CREATE"];
 export type NotificationState = Notification[];
 
 const notifications: Reducer<NotificationState> = (state = [], action) => {

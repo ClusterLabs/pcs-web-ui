@@ -1,5 +1,5 @@
 import { importedClusterList } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import { ActionPayload } from "app/store/actions";
 
 import { api, dataLoad, put } from "./common";
 
@@ -30,7 +30,7 @@ function* fetchClusterList() {
         stop: { type: "CLUSTER.LIST.SYNC.STOP" },
       },
       ...clusterNameList.map(
-        (clusterName): ActionMap["DATA_READING.SET_UP"]["payload"][0] => ({
+        (clusterName): ActionPayload["DATA_READING.SET_UP"][0] => ({
           specificator: `syncCluster:${clusterName}`,
           start: {
             type: "CLUSTER.STATUS.SYNC",

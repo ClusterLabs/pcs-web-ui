@@ -1,4 +1,4 @@
-import { ActionMap, selectors } from "app/store";
+import { ActionPayload, selectors } from "app/store";
 import { useClusterSelector, useClusterWizard } from "app/view";
 
 export const useWizard = () => {
@@ -30,9 +30,7 @@ export const useWizard = () => {
     availableResources,
 
     // actions
-    updateState: (
-      payload: ActionMap["RESOURCE.GROUP.CREATE.UPDATE"]["payload"],
-    ) =>
+    updateState: (payload: ActionPayload["RESOURCE.GROUP.CREATE.UPDATE"]) =>
       dispatch({
         type: "RESOURCE.GROUP.CREATE.UPDATE",
         key: { clusterName: clusterName },

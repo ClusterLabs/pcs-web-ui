@@ -1,6 +1,11 @@
 import { Task } from "redux-saga";
 
-import { Action, ActionLeaf, ActionMap } from "app/store/actions";
+import {
+  Action,
+  ActionLeaf,
+  ActionMap,
+  ActionPayload,
+} from "app/store/actions";
 
 import { all, cancel, cancelled, delay, fork, put, take } from "./effects";
 
@@ -101,7 +106,7 @@ export function* manage({
 type Stop = { stop: ActionLeaf; specificator: string };
 
 export const takeNewLoadings = (
-  readings: ActionMap["DATA_READING.SET_UP"]["payload"],
+  readings: ActionPayload["DATA_READING.SET_UP"],
   stops: Stop[],
 ) => {
   const newNames = readings.map(r => r.specificator);

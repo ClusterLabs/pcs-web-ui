@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ActionMap } from "app/store";
+import { ActionPayload } from "app/store";
 import { useClusterState, useClusterWizard } from "app/view";
 
 export const useWizard = () => {
@@ -54,7 +54,7 @@ export const useWizard = () => {
       });
     },
 
-    updateState: (payload: ActionMap["NODE.ADD.UPDATE"]["payload"]) =>
+    updateState: (payload: ActionPayload["NODE.ADD.UPDATE"]) =>
       dispatch({
         type: "NODE.ADD.UPDATE",
         key: { clusterName },

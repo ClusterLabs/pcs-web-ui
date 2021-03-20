@@ -1,4 +1,4 @@
-import { ActionMap, selectors } from "app/store";
+import { ActionPayload, selectors } from "app/store";
 import { useClusterSelector, useClusterWizard } from "app/view";
 
 export const useWizard = () => {
@@ -24,9 +24,7 @@ export const useWizard = () => {
     ),
 
     //actions
-    updateState: (
-      payload: ActionMap["CONSTRAINT.ORDER.CREATE.UPDATE"]["payload"],
-    ) =>
+    updateState: (payload: ActionPayload["CONSTRAINT.ORDER.CREATE.UPDATE"]) =>
       dispatch({
         type: "CONSTRAINT.ORDER.CREATE.UPDATE",
         key: { clusterName },
