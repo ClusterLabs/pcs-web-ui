@@ -14,3 +14,11 @@ export type CallResult<
 > = PAYLOAD extends t.Any
   ? CallResultShape<PAYLOAD>
   : Promise<apiResult.Overall<PAYLOAD>>;
+
+export type ResultOf<APICALL> = APICALL extends Call<infer PAYLOAD>
+  ? Result<PAYLOAD>
+  : never;
+
+export type PayloadOf<APICALL> = APICALL extends Call<infer PAYLOAD>
+  ? PAYLOAD
+  : never;

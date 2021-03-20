@@ -1,4 +1,4 @@
-import { api } from "app/backend";
+import { api, libCallCluster } from "app/backend";
 import { actionNewId } from "app/store/actions";
 
 import { clusterResponseSwitch } from "./responseSwitch";
@@ -6,7 +6,7 @@ import { clusterResponseSwitch } from "./responseSwitch";
 export function* clusterResponseProcess(
   clusterName: string,
   taskLabel: string,
-  payload: api.types.lib.Response,
+  payload: api.PayloadOf<typeof libCallCluster>,
 ) {
   /* eslint-disable-next-line camelcase */
   const { report_list } = payload;

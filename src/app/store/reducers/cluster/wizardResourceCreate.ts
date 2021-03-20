@@ -15,7 +15,7 @@ export type WizardResourceCreate = {
     | "forceable-fail"
     | "fail"
     | "communication-error";
-  reports: api.types.lib.Report[];
+  reports: api.LibReport[];
   showValidationErrors: boolean;
   clone: boolean;
   promotable: boolean;

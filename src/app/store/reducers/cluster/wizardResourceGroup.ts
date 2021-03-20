@@ -4,7 +4,7 @@ import { Reducer } from "app/store/redux";
 export type WizardResourceGroup = {
   groupId: string;
   resourceIdList: string[];
-  reports: api.types.lib.Report[];
+  reports: api.LibReport[];
   showValidationErrors: boolean;
   response: "" | "success" | "fail";
 };

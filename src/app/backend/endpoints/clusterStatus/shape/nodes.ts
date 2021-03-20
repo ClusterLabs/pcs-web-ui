@@ -1,32 +1,9 @@
 import * as t from "io-ts";
 
 import { ApiWithIssues } from "./issues";
-import { ApiNVPair } from "./nvsets";
-
-// tools like `systemctl` or `service` are used for getting services info
-export const ApiNodeService = t.type({
-  installed: t.boolean,
-  running: t.boolean,
-  enabled: t.boolean,
-});
-
-export const ApiNodeServiceMap = t.type({
-  pacemaker: ApiNodeService,
-  pacemaker_remote: ApiNodeService,
-  corosync: ApiNodeService,
-  pcsd: ApiNodeService,
-  sbd: ApiNodeService,
-});
 
 export const ApiNodeName = t.string;
 
-export const ApiNodeStatus = t.keyof({
-  standby: null,
-  online: null,
-  offline: null,
-});
-
-export const ApiNodeQuorum = t.union([t.boolean, t.null]);
 /*
 name
   taken from result of `corosync-cmapctl runtime.votequorum.this_node_id`
@@ -61,6 +38,8 @@ warning_list
     node_list
     from this very node "check" to all cluster node is called; some node(s) had
     "notauthorized" or "notoken" in response
+    
+tools like `systemctl` or `service` are used for getting services info
 */
 
 export const ApiNode = t.intersection([
@@ -72,10 +51,27 @@ export const ApiNode = t.intersection([
     }),
     t.type({
       id: t.string,
-      status: ApiNodeStatus,
-      quorum: ApiNodeQuorum,
+      status: t.keyof({
+        standby: null,
+        online: null,
+        offline: null,
+      }),
+      quorum: t.union([t.boolean, t.null]),
       uptime: t.string,
-      services: ApiNodeServiceMap,
+      services: t.record(
+        t.keyof({
+          pacemaker: null,
+          pacemaker_remote: null,
+          corosync: null,
+          pcsd: null,
+          sbd: null,
+        }),
+        t.type({
+          installed: t.boolean,
+          running: t.boolean,
+          enabled: t.boolean,
+        }),
+      ),
       corosync: t.boolean,
       corosync_enabled: t.boolean,
       pacemaker: t.boolean,
@@ -85,11 +81,3 @@ export const ApiNode = t.intersection([
     }),
   ]),
 ]);
-
-// datasource: /cib/configuration/nodes/node/instance_attributes/nvpair
-// The key of record is "uname".
-export const ApiNodeAttributes = t.record(t.string, t.array(ApiNVPair));
-
-// datasource: /cib/configuration/nodes/node/utilization/nvpair
-// The key of record is "uname".
-export const ApiNodesUtilization = t.record(t.string, t.array(ApiNVPair));

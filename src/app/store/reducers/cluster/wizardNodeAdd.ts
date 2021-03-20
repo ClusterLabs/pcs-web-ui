@@ -31,7 +31,7 @@ export type WizardNodeAdd = {
     | "forceable-fail"
     | "fail"
     | "communication-error";
-  reports: api.types.lib.Report[];
+  reports: api.LibReport[];
   showValidationErrors: boolean;
   sbdWatchdog: string;
   sbdDevices: [string, string, string];

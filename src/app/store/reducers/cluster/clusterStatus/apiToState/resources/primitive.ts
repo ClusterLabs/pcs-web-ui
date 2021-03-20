@@ -5,10 +5,8 @@ import { transformIssues } from "../issues";
 
 import { buildStatus, isDisabled } from "./statusInfoList";
 
-type ApiPrimitive = api.types.clusterStatus.ApiPrimitive;
-
 const buildStatusInfoList = (
-  apiPrimitive: ApiPrimitive,
+  apiPrimitive: api.clusterStatus.Primitive,
 ): {
   resourceStatusInfo: ResourceStatusInfo[];
   issues: Issue[];
@@ -69,7 +67,7 @@ const buildStatusInfoList = (
 };
 
 export const toPrimitive = (
-  apiResource: ApiPrimitive,
+  apiResource: api.clusterStatus.Primitive,
   context: { inClone: boolean; inGroup: boolean } = {
     inClone: false,
     inGroup: false,

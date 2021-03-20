@@ -1,7 +1,8 @@
-import { api } from "app/backend";
 import { Reducer, combineReducers } from "app/store/redux";
+import { ActionPayload } from "app/store/actions";
 
-export type ClusterProperty = api.types.clusterProperties.ApiClusterProperty;
+type CPs = ActionPayload["CLUSTER.PROPERTIES.LOAD.OK"]["apiClusterProperties"];
+export type ClusterProperty = CPs[keyof CPs];
 
 export type ClusterPropertiesService = {
   data: ClusterProperty[];

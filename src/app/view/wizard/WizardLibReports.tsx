@@ -4,7 +4,7 @@ import { Alert, Text, TextContent } from "@patternfly/react-core";
 import { api } from "app/backend";
 
 const severityToAlertVariant = (
-  severity: api.types.lib.Report["severity"],
+  severity: api.LibReport["severity"],
 ): React.ComponentProps<typeof Alert>["variant"] => {
   switch (severity.level) {
     case "ERROR":
@@ -17,7 +17,7 @@ const severityToAlertVariant = (
 };
 
 export const WizardLibReports: React.FC<{
-  reports: api.types.lib.Report[];
+  reports: api.LibReport[];
 }> = ({ reports }) => {
   if (reports.length === 0) {
     return null;

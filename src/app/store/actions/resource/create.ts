@@ -17,7 +17,7 @@ export type ResourceCreateActions = {
     type: "RESOURCE.CREATE.SUCCESS";
     key: { clusterName: string };
     payload: {
-      reports: api.types.lib.Report[];
+      reports: api.LibReport[];
     };
   };
 
@@ -30,7 +30,7 @@ export type ResourceCreateActions = {
     type: "RESOURCE.CREATE.FAIL";
     key: { clusterName: string };
     payload: {
-      reports: api.types.lib.Report[];
+      reports: api.LibReport[];
     };
   };
 

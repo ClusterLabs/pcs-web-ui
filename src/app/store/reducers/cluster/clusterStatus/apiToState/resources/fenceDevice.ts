@@ -5,7 +5,7 @@ import { transformIssues } from "../issues";
 
 import { statusToSeverity } from "./statusInfoList";
 
-type ApiStonith = api.types.clusterStatus.ApiStonith;
+type ApiStonith = api.clusterStatus.Stonith;
 
 const transformStatus = (
   status: ApiStonith["status"],

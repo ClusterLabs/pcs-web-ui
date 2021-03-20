@@ -7,7 +7,7 @@ import { WizardLibReports } from "./WizardLibReports";
 
 export const WizardLibStep: React.FC<{
   title: string;
-  reports?: api.types.lib.Report[];
+  reports?: api.LibReport[];
 }> = ({ title, children, reports = [] }) => {
   return (
     <Stack hasGutter>

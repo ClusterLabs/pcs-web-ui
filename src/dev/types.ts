@@ -16,12 +16,17 @@ export type FenceAgentMetadata = api.PayloadOf<
 export type ClusterProperties = api.PayloadOf<typeof call.clusterProperties>;
 export type ClusterStatus = api.PayloadOf<typeof call.clusterStatus>;
 
-export type Node = api.types.clusterStatus.ApiNode;
-export type NodeServiceMap = api.types.clusterStatus.ApiNodeServiceMap;
-export type Primitive = api.types.clusterStatus.ApiPrimitive;
-export type Stonith = api.types.clusterStatus.ApiStonith;
-export type Clone = api.types.clusterStatus.ApiClone;
-export type Group = api.types.clusterStatus.ApiGroup;
-export type CrmStatus = api.types.clusterStatus.ApiResourceCrmStatus;
-export type Cluster = api.types.clusterStatus.ApiClusterStatus;
-export type Operation = api.types.clusterStatus.ApiResourceOperation;
+type PrimitiveOrStonith = Extract<
+  api.clusterStatus.Resource,
+  { class_type: "primitive" }
+>;
+
+export type Cluster = api.clusterStatus.ClusterStatus;
+export type Node = Cluster["node_list"][number];
+export type NodeServiceMap = api.clusterStatus.NodeServiceMap;
+export type Primitive = api.clusterStatus.Primitive;
+export type Stonith = api.clusterStatus.Stonith;
+export type Clone = api.clusterStatus.Clone;
+export type Group = api.clusterStatus.Group;
+export type CrmStatus = PrimitiveOrStonith["crm_status"][number];
+export type Operation = PrimitiveOrStonith["operations"][number];

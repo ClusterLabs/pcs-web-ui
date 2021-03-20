@@ -4,11 +4,13 @@ import { types } from "app/store";
 
 import { ConstraintCell, ConstraintCellFake } from "../common";
 
+type ConstraintOrder =
+  | types.cluster.ConstraintOrderPair
+  | types.cluster.ConstraintOrderSet;
+
 export const ConstraintCellOrderScoreKind: React.FC<{
-  constraint:
-    | types.cluster.ConstraintOrderPair
-    | types.cluster.ConstraintOrderSet;
-  extraScore?: types.cluster.Score | undefined;
+  constraint: ConstraintOrder;
+  extraScore?: Extract<ConstraintOrder, { score?: unknown }>["score"];
 }> = ({ constraint, extraScore = undefined }) => {
   // score and kind are mutually exclusive
   if ("score" in constraint) {

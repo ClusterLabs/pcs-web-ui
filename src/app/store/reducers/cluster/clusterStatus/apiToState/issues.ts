@@ -2,8 +2,8 @@ import { api } from "app/backend";
 
 import { Issue } from "../types";
 
-type ApiIssue = api.types.clusterStatus.ApiIssue;
-type ApiWithIssues = api.types.clusterStatus.ApiWithIssues;
+type ApiIssue = api.clusterStatus.Issue;
+type ApiWithIssues = api.clusterStatus.WithIssues;
 
 const mapIssue = (severity: Issue["severity"]) => (issue: ApiIssue): Issue => {
   if (

@@ -21,7 +21,7 @@ export type NodeAddActions = {
     type: "NODE.ADD.OK";
     key: { clusterName: string };
     payload: {
-      reports: api.types.lib.Report[];
+      reports: api.LibReport[];
     };
   };
 
@@ -29,7 +29,7 @@ export type NodeAddActions = {
     type: "NODE.ADD.FAIL";
     key: { clusterName: string };
     payload: {
-      reports: api.types.lib.Report[];
+      reports: api.LibReport[];
     };
   };
   "NODE.ADD.ERROR": {

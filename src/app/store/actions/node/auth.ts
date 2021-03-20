@@ -1,4 +1,4 @@
-import { api } from "app/backend";
+import { api, authGuiAgainstNodes } from "app/backend";
 
 export type NodeAuthActions = {
   "NODE.AUTH.START": {
@@ -64,7 +64,7 @@ export type NodeAuthActions = {
     type: "NODE.AUTH.OK";
     key: { process: number };
     payload: {
-      response: api.types.authGuiAgainstNodes.ApiAuthGuiAgainstNodes;
+      response: api.PayloadOf<typeof authGuiAgainstNodes>;
     };
   };
 };

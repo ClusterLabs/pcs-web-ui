@@ -7,8 +7,8 @@ import { toPrimitive } from "./primitive";
 import { toGroup } from "./group";
 import { buildStatus, statusToSeverity } from "./statusInfoList";
 
-type ApiClone = api.types.clusterStatus.ApiClone;
-type ApiPrimitive = api.types.clusterStatus.ApiPrimitive;
+type ApiClone = api.clusterStatus.Clone;
+type ApiPrimitive = api.clusterStatus.Primitive;
 
 const buildStatusInfoList = (apiClone: ApiClone): ResourceStatusInfo[] => {
   const infoList: ResourceStatusInfo[] = [

@@ -5,11 +5,13 @@ import { Node, NodeStatusFlag, StatusSeverity } from "../types";
 import * as statusSeverity from "./statusSeverity";
 import { transformIssues } from "./issues";
 
-type ApiNode = api.types.clusterStatus.ApiNode;
-type ApiNodeQuorum = api.types.clusterStatus.ApiNodeQuorum;
-type ApiNodeStatus = api.types.clusterStatus.ApiNodeStatus;
-type ApiNVPair = api.types.clusterStatus.ApiNVPair;
-type ApiNodeAttributes = api.types.clusterStatus.ApiNodeAttributes;
+type ApiNode = api.clusterStatus.Node;
+type ApiNodeQuorum = api.clusterStatus.NodeQuorum;
+type ApiNodeStatus = Extract<ApiNode, { status: unknown }>["status"];
+type ApiNodeAttrListMap = NonNullable<
+  api.clusterStatus.ClusterStatus["node_attr"]
+>;
+type ApiNodeAttrList = ApiNodeAttrListMap[keyof ApiNodeAttrListMap];
 
 const mapStatus = (status: ApiNodeStatus): NodeStatusFlag => {
   if (status === "standby") {
@@ -47,12 +49,12 @@ const toSeverity = (status: ApiNodeStatus, quorum: ApiNodeQuorum) => {
 const isCibTrue = (value: string): boolean =>
   ["true", "on", "yes", "y", "1"].includes(value.toLowerCase());
 
-const isNodeAttrCibTrue = (nodeAttrsList: ApiNVPair[], attrName: string) =>
+const isNodeAttrCibTrue = (nodeAttrsList: ApiNodeAttrList, attrName: string) =>
   isCibTrue(nodeAttrsList.find(a => a.name === attrName)?.value ?? "");
 
 // apiNode are data gained from node
 // nodeAttrsList are data provided by cluster itself
-const toNode = (apiNode: ApiNode, nodeAttrsList: ApiNVPair[]): Node => {
+const toNode = (apiNode: ApiNode, nodeAttrsList: ApiNodeAttrList): Node => {
   const clusterInfo = {
     inMaintenance: isNodeAttrCibTrue(nodeAttrsList, "maintenance"),
     inStandby: isNodeAttrCibTrue(nodeAttrsList, "standby"),
@@ -94,7 +96,7 @@ const countNodesSeverity = (apiNodeList: ApiNode[]): StatusSeverity => {
 
 export const processApiNodes = (
   apiNodeList: ApiNode[],
-  apiNodeAttrs: ApiNodeAttributes,
+  apiNodeAttrs: NonNullable<api.clusterStatus.ClusterStatus["node_attr"]>,
 ): {
   nodeList: Node[];
   nodesSeverity: StatusSeverity;

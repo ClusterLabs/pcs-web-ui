@@ -1,4 +1,4 @@
-import { api } from "app/backend";
+import { api, libCallCluster } from "app/backend";
 import { Action } from "app/store";
 
 import { put } from "../effects";
@@ -6,7 +6,7 @@ import { put } from "../effects";
 export function* clusterResponseSwitch(
   clusterName: string,
   taskLabel: string,
-  payload: api.types.lib.Response,
+  payload: api.PayloadOf<typeof libCallCluster>,
   {
     communicationErrorAction,
     errorAction,

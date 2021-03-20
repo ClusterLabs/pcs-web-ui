@@ -1,5 +1,6 @@
 import * as apiResult from "./apiResult";
-import { lib } from "./types";
+import { libCallCluster } from "./calls";
+import { PayloadOf } from "./call";
 /* eslint-disable no-console */
 
 const libInputErrorStatusMsgMap = {
@@ -9,7 +10,7 @@ const libInputErrorStatusMsgMap = {
 };
 export const libInputError = (
   status: keyof typeof libInputErrorStatusMsgMap,
-  statusMessage: lib.Response["status_msg"],
+  statusMessage: PayloadOf<typeof libCallCluster>["status_msg"],
   description: string,
 ) => {
   console.error(

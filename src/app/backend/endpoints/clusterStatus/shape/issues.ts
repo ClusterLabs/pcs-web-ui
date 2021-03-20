@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-export const ApiIssue = t.union([
+const ApiIssue = t.union([
   t.intersection([
     t.type({
       message: t.string,

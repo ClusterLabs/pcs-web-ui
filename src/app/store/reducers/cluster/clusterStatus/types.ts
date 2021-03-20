@@ -2,39 +2,35 @@ import { api } from "app/backend";
 
 /* eslint-disable max-len */
 
-type ApiConstraintColocationPair = api.types.clusterStatus.ApiConstraintColocationPair;
-type ApiConstraintColocationSet = api.types.clusterStatus.ApiConstraintColocationSet;
-type ApiConstraintLocationNode = api.types.clusterStatus.ApiConstraintLocationNode;
-type ApiConstraintLocationRule = api.types.clusterStatus.ApiConstraintLocationRule;
-type ApiConstraintOrderPair = api.types.clusterStatus.ApiConstraintOrderPair;
-type ApiConstraintOrderSet = api.types.clusterStatus.ApiConstraintOrderSet;
-type ApiConstraintResourceSet = api.types.clusterStatus.ApiConstraintResourceSet;
-// prettier-ignore
-type ApiConstraintResourceSetStructured = (
-  api.types.clusterStatus.ApiConstraintResourceSetStructured
-);
-type ApiConstraintTicketResource = api.types.clusterStatus.ApiConstraintTicketResource;
-type ApiConstraintTicketSet = api.types.clusterStatus.ApiConstraintTicketSet;
-type ApiConstraints = api.types.clusterStatus.ApiConstraints;
-type ApiNVPair = api.types.clusterStatus.ApiNVPair;
-type ApiNodeService = api.types.clusterStatus.ApiNodeService;
-type ApiNodeServiceMap = api.types.clusterStatus.ApiNodeServiceMap;
+type Constraints = NonNullable<api.clusterStatus.ClusterStatus["constraints"]>;
 
-export type ConstraintLocationNode = ApiConstraintLocationNode;
-export type ConstraintLocationRule = ApiConstraintLocationRule;
-export type ConstraintColocationPair = ApiConstraintColocationPair;
-export type ConstraintColocationSet = ApiConstraintColocationSet;
-export type ConstraintOrderPair = ApiConstraintOrderPair;
-export type ConstraintOrderSet = ApiConstraintOrderSet;
-export type ConstraintResourceSet = ApiConstraintResourceSet;
-// prettier-ignore
-export type ConstraintResourceSetStructured = (
-  ApiConstraintResourceSetStructured
-);
-export type ConstraintTicketResource = ApiConstraintTicketResource;
-export type ConstraintTicketSet = ApiConstraintTicketSet;
-export type NVPair = ApiNVPair;
-export type Score = api.types.clusterStatus.ApiScore;
+type Location = NonNullable<Constraints["rsc_location"]>[number];
+export type ConstraintLocationNode = Extract<Location, { node: string }>;
+export type ConstraintLocationRule = Extract<Location, { rule_string: string }>;
+
+type Colocation = NonNullable<Constraints["rsc_colocation"]>[number];
+export type ConstraintColocationPair = Extract<Colocation, { rsc: string }>;
+export type ConstraintColocationSet = Extract<Colocation, { sets: unknown }>;
+
+type Order = NonNullable<Constraints["rsc_order"]>[number];
+export type ConstraintOrderPair = Extract<Order, { first: string }>;
+export type ConstraintOrderSet = Extract<Order, { sets: unknown }>;
+
+type Ticket = NonNullable<Constraints["rsc_ticket"]>[number];
+export type ConstraintTicketResource = Extract<Ticket, { rsc: string }>;
+export type ConstraintTicketSet = Extract<Ticket, { sets: unknown }>;
+
+export type ConstraintResourceSet = (
+  | ConstraintColocationSet
+  | ConstraintOrderSet
+  | ConstraintTicketSet
+)["sets"][number];
+export type ConstraintResourceSetStructured = Extract<
+  ConstraintResourceSet,
+  { id: string }
+>;
+
+export type NVPair = api.clusterStatus.NVPair;
 
 export interface AgentAttribute {
   id: string;
@@ -59,8 +55,7 @@ export type NodeStatusFlag = "ONLINE" | "OFFLINE" | "STANDBY";
 
 export type StatusSeverity = "OK" | "ERROR" | "WARNING";
 
-export type NodeService = ApiNodeService;
-export type NodeServiceMap = ApiNodeServiceMap;
+export type NodeServiceMap = api.clusterStatus.NodeServiceMap;
 
 export type ConnectedNode = {
   name: string;
@@ -69,7 +64,7 @@ export type ConnectedNode = {
   quorum: boolean;
   quorumSeverity: StatusSeverity;
   issueList: Issue[];
-  services: ApiNodeServiceMap;
+  services: NodeServiceMap;
 };
 
 export type Node = {
@@ -182,7 +177,7 @@ export interface ClusterStatus {
   nodeList: Node[];
   resourceTree: ResourceTreeItem[];
   fenceDeviceList: FenceDevice[];
-  constraints?: ApiConstraints;
+  constraints?: Constraints;
   issueList: Issue[];
   summary: {
     nodesSeverity: StatusSeverity;

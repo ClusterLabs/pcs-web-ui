@@ -6,12 +6,8 @@ import { ApiAlert } from "./alerts";
 import { ApiConstraints } from "./constraints";
 import { ApiResource } from "./resources";
 import { ApiResourceId } from "./common";
-import {
-  ApiNode,
-  ApiNodeAttributes,
-  ApiNodeName,
-  ApiNodesUtilization,
-} from "./nodes";
+import { ApiNode, ApiNodeName } from "./nodes";
+import { ApiNVPair } from "./nvsets";
 
 /*
 datasource: /cib/configuration/fencing-topology/fencing-level
@@ -86,6 +82,14 @@ quorate
 
 node_list
   all nodes no matter what status
+  
+node_attr
+  datasource: /cib/configuration/nodes/node/instance_attributes/nvpair
+  The key of record is "uname".
+
+nodes_utilization
+  datasource: /cib/configuration/nodes/node/utilization/nvpair
+  The key of record is "uname".
 */
 export const ApiClusterStatus = t.intersection([
   ApiWithIssues,
@@ -108,8 +112,8 @@ export const ApiClusterStatus = t.intersection([
     fence_levels: ApiFencingLevels,
     groups: t.array(ApiResourceId),
     known_nodes: t.array(ApiNodeName),
-    node_attr: ApiNodeAttributes,
-    nodes_utilization: ApiNodesUtilization,
+    node_attr: t.record(t.string, t.array(ApiNVPair)),
+    nodes_utilization: t.record(t.string, t.array(ApiNVPair)),
     pacemaker_offline: t.array(ApiNodeName),
     pacemaker_online: t.array(ApiNodeName),
     pacemaker_standby: t.array(ApiNodeName),

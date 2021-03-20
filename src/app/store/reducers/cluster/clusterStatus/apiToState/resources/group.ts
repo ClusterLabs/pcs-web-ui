@@ -6,9 +6,9 @@ import { transformIssues } from "../issues";
 import { toPrimitive } from "./primitive";
 import { buildStatus, getMaxSeverity, isDisabled } from "./statusInfoList";
 
-type ApiGroup = api.types.clusterStatus.ApiGroup;
-type ApiPrimitive = api.types.clusterStatus.ApiPrimitive;
-type ApiStonith = api.types.clusterStatus.ApiStonith;
+type ApiGroup = api.clusterStatus.Group;
+type ApiPrimitive = api.clusterStatus.Primitive;
+type ApiStonith = api.clusterStatus.Stonith;
 
 type Counts = {
   errors: Record<string, number>;

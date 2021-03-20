@@ -16,7 +16,7 @@ on_node
   if on_node taken from element attribute is empty it is searched for parent
   `node_state`. If such parent is found then its attribute `uname` is used.
 */
-export const ApiResourceOperation = t.type({
+const ApiResourceOperation = t.type({
   id: ApiId,
   call_id: t.number,
   crm_debug_origin: t.union([t.string, t.null]),
@@ -46,7 +46,7 @@ most attributes taken from xml element attributes
 role/target_role - originally limited set to {Started, Stopped, Master, Slave}
   but e.g. "Starting" value has been detected. So, any string is allowed now.
 */
-export const ApiResourceCrmStatus = t.intersection([
+const ApiResourceCrmStatus = t.intersection([
   t.type({
     id: ApiResourceId,
     resource_agent: t.string,
@@ -80,7 +80,7 @@ parent_id
   id of parent resource (group, clone); it is used internally in backend, for
   web ui is meaningless
 */
-export const ApiResourceBase = t.intersection([
+const ApiResourceBase = t.intersection([
   ApiWithIssues,
   t.type({
     id: ApiResourceId,
@@ -138,7 +138,7 @@ class
   must not be "stonith" - but how to express it in typescript, I haven't found
   a way (only some proposal)
 */
-export const ApiPrimitive = t.intersection([
+const ApiPrimitive = t.intersection([
   ApiPrimitiveBase,
   t.type({
     stonith: t.literal(false),
@@ -155,7 +155,7 @@ warning_list
   potentially dangerous, please consider using "onoff"
     for eache meta_attribute with name `method` and value `cycle`
 */
-export const ApiStonith = t.intersection([
+const ApiStonith = t.intersection([
   ApiPrimitiveBase,
   t.type({
     class: t.literal("stonith"),
@@ -172,7 +172,7 @@ status (evaluated in following order - first win)
     one of resources (except first) is in "disabled", "blocked", "failed"
   * running - by default
 */
-export const ApiGroup = t.intersection([
+const ApiGroup = t.intersection([
   ApiResourceBase,
   t.type({
     status: t.keyof({
@@ -217,7 +217,7 @@ warning_list
     type: "no_master";
     promotable without promoted primitive and not disabled
 */
-export const ApiClone = t.intersection([
+const ApiClone = t.intersection([
   ApiResourceBase,
   t.type({
     status: t.keyof({

@@ -1,6 +1,13 @@
 import * as t from "io-ts";
 
-import { ApiId, ApiResourceId, ApiScore } from "./common";
+import { ApiId, ApiResourceId } from "./common";
+
+const ApiScore = t.union([
+  // t.number,
+  // type number is correct, however from backend it comes as a string
+  t.string,
+  t.keyof({ INFINITY: null, "-INFINITY": null, "+INFINITY": null }),
+]);
 
 const ApiConstraintRole = t.keyof({
   Stopped: null,
@@ -14,12 +21,6 @@ const ApiConstraintAction = t.keyof({
   promote: null,
   demote: null,
   stop: null,
-});
-
-const ApiConstraintOrderKind = t.keyof({
-  Optional: null,
-  Mandatory: null,
-  Serialize: null,
 });
 
 const ApiConstraintLocationRscDiscovery = t.keyof({
@@ -42,7 +43,7 @@ const ApiConstraintResourceSetOrdering = t.keyof({
   listed: null,
 });
 
-export const ApiConstraintResourceSetStructured = t.intersection([
+const ApiConstraintResourceSetStructured = t.intersection([
   t.type({
     id: ApiId,
     resources: t.array(ApiResourceId),
@@ -59,7 +60,7 @@ export const ApiConstraintResourceSetStructured = t.intersection([
   }),
 ]);
 
-export const ApiConstraintResourceSet = t.union([
+const ApiConstraintResourceSet = t.union([
   ApiConstraintIdReference,
   ApiConstraintResourceSetStructured,
 ]);
@@ -92,7 +93,7 @@ const ApiConstraintLocation = t.intersection([
   }),
 ]);
 
-export const ApiConstraintLocationNode = t.intersection([
+const ApiConstraintLocationNode = t.intersection([
   t.type({ id: ApiId }),
   ApiConstraintLocation,
   t.type({
@@ -105,7 +106,7 @@ export const ApiConstraintLocationNode = t.intersection([
 It is not the full common rule. It is just shortened version which attributes
 are mixed into location constraint in the backend.
 */
-export const ApiConstraintLocationRule = t.intersection([
+const ApiConstraintLocationRule = t.intersection([
   ApiConstraintLocation,
   t.type({ rule_string: t.string }),
   t.union([
@@ -130,7 +131,7 @@ const ApiConstraintColocation = t.intersection([
   t.partial({ score: ApiScore }),
 ]);
 
-export const ApiConstraintColocationPair = t.intersection([
+const ApiConstraintColocationPair = t.intersection([
   ApiConstraintColocation,
   t.type({
     rsc: t.string,
@@ -145,12 +146,12 @@ export const ApiConstraintColocationPair = t.intersection([
   }),
 ]);
 
-export const ApiConstraintColocationSet = t.intersection([
+const ApiConstraintColocationSet = t.intersection([
   ApiConstraintColocation,
   t.type({ sets: t.array(ApiConstraintResourceSet) }),
 ]);
 
-export const ApiConstraintOrder = t.intersection([
+const ApiConstraintOrder = t.intersection([
   t.type({ id: ApiId }),
   t.partial({
     // symmetrical and require-all should be booleans, however, strings come
@@ -160,18 +161,24 @@ export const ApiConstraintOrder = t.intersection([
   }),
   t.union([
     t.partial({ score: ApiScore }),
-    t.partial({ kind: ApiConstraintOrderKind }),
+    t.partial({
+      kind: t.keyof({
+        Optional: null,
+        Mandatory: null,
+        Serialize: null,
+      }),
+    }),
   ]),
 ]);
 
-export const ApiConstraintOrderSet = t.intersection([
+const ApiConstraintOrderSet = t.intersection([
   ApiConstraintOrder,
   t.type({
     sets: t.array(ApiConstraintResourceSet),
   }),
 ]);
 
-export const ApiConstraintOrderPair = t.intersection([
+const ApiConstraintOrderPair = t.intersection([
   ApiConstraintOrder,
   t.type({
     first: ApiId,
@@ -185,7 +192,7 @@ export const ApiConstraintOrderPair = t.intersection([
   }),
 ]);
 
-export const ApiConstraintTicket = t.intersection([
+const ApiConstraintTicket = t.intersection([
   t.type({
     id: ApiId,
     ticket: t.string,
@@ -193,13 +200,13 @@ export const ApiConstraintTicket = t.intersection([
   t.partial({ "loss-policy": ApiConstraintTicketLossPolicy }),
 ]);
 
-export const ApiConstraintTicketResource = t.intersection([
+const ApiConstraintTicketResource = t.intersection([
   ApiConstraintTicket,
   t.type({ rsc: t.string }),
   t.partial({ "rsc-role": ApiConstraintRole }),
 ]);
 
-export const ApiConstraintTicketSet = t.intersection([
+const ApiConstraintTicketSet = t.intersection([
   ApiConstraintTicket,
   t.type({ sets: t.array(ApiConstraintResourceSet) }),
 ]);

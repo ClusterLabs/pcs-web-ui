@@ -13,7 +13,7 @@ export const NodeDaemonTr = ({
   service,
 }: {
   serviceName: string;
-  service: types.cluster.NodeService;
+  service: types.cluster.NodeServiceMap[keyof types.cluster.NodeServiceMap];
 }) => {
   return (
     <tr>

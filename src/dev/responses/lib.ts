@@ -1,6 +1,6 @@
-import { api } from "app/backend";
+import { api, libCallCluster } from "app/backend";
 
-type Response = api.types.lib.Response;
+type Response = api.PayloadOf<typeof libCallCluster>;
 
 export const success: Response = {
   status: "success",
@@ -36,7 +36,7 @@ export const invalidJson = (message: string): Response => ({
   data: null,
 });
 
-export const error = (reportList: Response["report_list"]): Response => ({
+export const error = (reportList: api.LibReport[]): Response => ({
   status: "error",
   status_msg: null,
   report_list: reportList,

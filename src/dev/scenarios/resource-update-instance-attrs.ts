@@ -1,6 +1,5 @@
-import { api } from "app/backend";
-
 import { app } from "dev/app";
+import { Primitive } from "dev/types";
 import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
 
@@ -10,8 +9,7 @@ let clusterStatusLoadCount = 0;
 app.clusterStatus((req, res) => {
   if (req.params.clusterName === resourceTree.cluster_name) {
     if (clusterStatusLoadCount++ > 0) {
-      const primitive: api.types.clusterStatus.ApiPrimitive = resourceTree
-        .resource_list[0] as api.types.clusterStatus.ApiPrimitive;
+      const primitive: Primitive = resourceTree.resource_list[0] as Primitive;
 
       primitive.instance_attr[0] = {
         ...primitive.instance_attr[0],

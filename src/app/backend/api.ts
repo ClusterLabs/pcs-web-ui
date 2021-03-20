@@ -1,21 +1,20 @@
-import * as types from "./types";
 import * as log from "./log";
 import * as result from "./apiResult";
-import { Call as TCall, Result as TResult } from "./call";
-import * as lib from "./lib";
+import * as clusterStatus from "./clusterStatus";
+import { libCallCluster } from "./calls";
+import {
+  Call as TCall,
+  PayloadOf as TPayloadOf,
+  Result as TResult,
+  ResultOf as TResultOf,
+} from "./call";
 import * as endpoints from "./endpoints";
 
 export type Call<PAYLOAD = string> = TCall<PAYLOAD>;
-
 export type Result<PAYLOAD> = TResult<PAYLOAD>;
+export type ResultOf<APICALL> = TResultOf<APICALL>;
+export type PayloadOf<APICALL> = TPayloadOf<APICALL>;
 
-export type ResultOf<APICALL> = APICALL extends Call<infer PAYLOAD>
-  ? Result<PAYLOAD>
-  : never;
+export type LibReport = PayloadOf<typeof libCallCluster>["report_list"][number];
 
-export type PayloadOf<APICALL> = APICALL extends Call<infer PAYLOAD>
-  ? PAYLOAD
-  : never;
-
-export type LibPayload = PayloadOf<typeof lib.call>;
-export { types, log, result, lib, endpoints };
+export { log, result, endpoints, clusterStatus };

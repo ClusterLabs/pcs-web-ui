@@ -19,7 +19,7 @@ export type ResourceGroupCreateActions = {
     type: "RESOURCE.GROUP.CREATE.FAIL";
     key: { clusterName: string };
     payload: {
-      reports: api.types.lib.Report[];
+      reports: api.LibReport[];
     };
   };
 
@@ -27,7 +27,7 @@ export type ResourceGroupCreateActions = {
     type: "RESOURCE.GROUP.CREATE.SUCCESS";
     key: { clusterName: string };
     payload: {
-      reports: api.types.lib.Report[];
+      reports: api.LibReport[];
     };
   };
 

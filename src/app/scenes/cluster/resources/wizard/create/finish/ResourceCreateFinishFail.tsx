@@ -6,7 +6,7 @@ import { WizardFinishError, WizardLibReports } from "app/view";
 
 import { useWizard } from "../useWizard";
 
-const allErrorsCanBeForced = (reports: api.types.lib.Report[]) =>
+const allErrorsCanBeForced = (reports: api.LibReport[]) =>
   reports.every(
     r => r.severity.level !== "ERROR" || r.severity.force_code !== null,
   );

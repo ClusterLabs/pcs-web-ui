@@ -78,7 +78,7 @@ export const libStd = ({
 }: {
   code: string;
   res: Response;
-  errors?: Record<string, api.types.lib.Response["report_list"]>;
+  errors?: Record<string, api.LibReport[]>;
 }) => {
   if (code in errors) {
     res.json(response.lib.error(errors[code]));
