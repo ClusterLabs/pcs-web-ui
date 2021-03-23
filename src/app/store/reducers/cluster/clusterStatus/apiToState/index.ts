@@ -2,25 +2,11 @@ import { api } from "app/backend";
 
 import { ClusterStatus } from "../types";
 
-import { transformIssues } from "./issues";
+import { issuesToSummarySeverity, transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
 
 type ApiClusterStatus = api.clusterStatus.ClusterStatus;
-type ApiIssue = api.clusterStatus.Issue;
-
-const issuesToSummarySeverity = (
-  errorList: ApiIssue[],
-  warningList: ApiIssue[],
-): ClusterStatus["summary"]["issuesSeverity"] => {
-  if (errorList.length > 0) {
-    return "ERROR";
-  }
-  if (warningList.length > 0) {
-    return "WARNING";
-  }
-  return "OK";
-};
 
 const sbdDetection = (apiClusterState: ApiClusterStatus) =>
   apiClusterState.node_list.reduce<ClusterStatus["sbdDetection"]>(

@@ -1,13 +1,10 @@
 import { TypeOf } from "io-ts";
 
 import { ApiClusterStatus } from "./endpoints/clusterStatus/shape/cluster";
-import { ApiWithIssues } from "./endpoints/clusterStatus/shape/issues";
 import { ApiNVPair } from "./endpoints/clusterStatus/shape/nvsets";
 
 export type ClusterStatus = TypeOf<typeof ApiClusterStatus>;
 
-export type Issue = ClusterStatus["error_list"][number];
-export type WithIssues = TypeOf<typeof ApiWithIssues>;
 export type NVPair = TypeOf<typeof ApiNVPair>;
 
 export type Node = ClusterStatus["node_list"][number];
