@@ -18,17 +18,19 @@ export function* nodeAddSaga({
   }: { result: api.ResultOf<typeof libCallCluster> } = yield race({
     result: api.authSafe(libCallCluster, {
       clusterName: key.clusterName,
-      command: "cluster-add-nodes",
-      payload: {
-        nodes: [
-          {
-            name: nodeName,
-            ...(nodeAddresses.length > 0 ? { addrs: nodeAddresses } : {}),
-            ...(sbdDevices.length > 0 ? { devices: sbdDevices } : {}),
-            ...(sbdWatchdog.length > 0 ? { watchdog: sbdWatchdog } : {}),
-          },
-        ],
-        no_watchdog_validation: sbdNoWatchdogValidation,
+      command: {
+        name: "cluster-add-nodes",
+        payload: {
+          nodes: [
+            {
+              name: nodeName,
+              ...(nodeAddresses.length > 0 ? { addrs: nodeAddresses } : {}),
+              ...(sbdDevices.length > 0 ? { devices: sbdDevices } : {}),
+              ...(sbdWatchdog.length > 0 ? { watchdog: sbdWatchdog } : {}),
+            },
+          ],
+          no_watchdog_validation: sbdNoWatchdogValidation,
+        },
       },
     }),
     cancel: take("NODE.ADD.CLOSE"),

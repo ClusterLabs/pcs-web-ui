@@ -12,10 +12,12 @@ export function* create({
   }: { result: api.ResultOf<typeof libCallCluster> } = yield race({
     result: api.authSafe(libCallCluster, {
       clusterName: key.clusterName,
-      command: "resource-group-add",
-      payload: {
-        group_id: groupId,
-        resource_id_list: resourceIdList,
+      command: {
+        name: "resource-group-add",
+        payload: {
+          group_id: groupId,
+          resource_id_list: resourceIdList,
+        },
       },
     }),
     cancel: take("RESOURCE.CREATE.CLOSE"),

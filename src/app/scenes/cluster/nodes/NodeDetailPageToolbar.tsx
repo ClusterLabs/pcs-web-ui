@@ -18,7 +18,7 @@ export const NodeDetailPageToolbar: React.FC<{
     payload: {
       taskLabel: `standby node "${node.name}"`,
       call: {
-        command: "node-standby-unstandby",
+        name: "node-standby-unstandby",
         payload: { standby, node_names: [node.name] },
       },
     },
@@ -55,7 +55,7 @@ export const NodeDetailPageToolbar: React.FC<{
     payload: {
       taskLabel: `maintenance node "${node.name}"`,
       call: {
-        command: "node-maintenance-unmaintenance",
+        name: "node-maintenance-unmaintenance",
         payload: {
           maintenance,
           node_names: [node.name],
@@ -111,7 +111,7 @@ export const NodeDetailPageToolbar: React.FC<{
       payload: {
         taskLabel: `remove node "${node.name}"`,
         call: {
-          command: "cluster-remove-nodes",
+          name: "cluster-remove-nodes",
           payload: { node_list: [node.name] },
         },
       },

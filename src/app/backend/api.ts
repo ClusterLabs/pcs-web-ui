@@ -7,7 +7,6 @@ import {
   Result as TResult,
   ResultOf as TResultOf,
 } from "./call";
-import * as endpoints from "./endpoints";
 
 export type Call<PAYLOAD = string> = TCall<PAYLOAD>;
 export type Result<PAYLOAD> = TResult<PAYLOAD>;
@@ -16,4 +15,4 @@ export type PayloadOf<APICALL> = TPayloadOf<APICALL>;
 
 export type LibReport = PayloadOf<typeof libCallCluster>["report_list"][number];
 
-export { log, result, endpoints };
+export { log, result };

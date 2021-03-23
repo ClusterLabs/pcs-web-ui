@@ -121,7 +121,7 @@ export const PrimitivePageToolbar: React.FC<{
       payload: {
         taskLabel: `unmanage "${primitive.id}"`,
         call: {
-          command: "resource-unmanage",
+          name: "resource-unmanage",
           payload: { resource_or_tag_ids: [primitive.id] },
         },
       },
@@ -139,7 +139,7 @@ export const PrimitivePageToolbar: React.FC<{
       payload: {
         taskLabel: `manage "${primitive.id}"`,
         call: {
-          command: "resource-manage",
+          name: "resource-manage",
           payload: { resource_or_tag_ids: [primitive.id] },
         },
       },
@@ -157,7 +157,7 @@ export const PrimitivePageToolbar: React.FC<{
       payload: {
         taskLabel: `disable "${primitive.id}"`,
         call: {
-          command: "resource-disable",
+          name: "resource-disable",
           payload: { resource_or_tag_ids: [primitive.id] },
         },
       },
@@ -180,7 +180,7 @@ export const PrimitivePageToolbar: React.FC<{
       payload: {
         taskLabel: `enable "${primitive.id}"`,
         call: {
-          command: "resource-enable",
+          name: "resource-enable",
           payload: { resource_or_tag_ids: [primitive.id] },
         },
       },

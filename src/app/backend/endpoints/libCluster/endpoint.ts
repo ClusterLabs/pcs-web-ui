@@ -10,7 +10,7 @@ export const libCluster = endpoint({
     command,
   }: {
     clusterName: string;
-    command: keyof LibClusterCommands;
+    command: LibClusterCommands[number]["name"];
   }) => `/managec/${clusterName}/api/v1/${command}`,
   method: "post",
   shape: t.type({

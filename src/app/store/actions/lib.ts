@@ -1,6 +1,4 @@
-import { api } from "app/backend";
-
-type Commands = api.endpoints.LibClusterCommands;
+import { libCallCluster } from "app/backend";
 
 export type LibActions = {
   "LIB.CALL.CLUSTER": {
@@ -8,9 +6,7 @@ export type LibActions = {
     key: { clusterName: string };
     payload: {
       taskLabel: string;
-      call: {
-        [K in keyof Commands]: { command: K; payload: Commands[K] };
-      }[keyof Commands];
+      call: Parameters<typeof libCallCluster>[0]["command"];
     };
   };
 };

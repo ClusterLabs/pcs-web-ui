@@ -1,9 +1,5 @@
-import {
-  LibClusterCommands as Commands,
-  api,
-  endpoints,
-  http,
-} from "app/backend/tools";
+import { api, endpoints, http } from "app/backend/tools";
+import { LibClusterCommands } from "app/backend/endpoints";
 
 const { shape } = endpoints.libCluster;
 
@@ -16,11 +12,12 @@ const libCall = async (url: string, payload: InputPayload): LibResult =>
 export const libCallCluster = async ({
   clusterName,
   command,
-  payload,
 }: {
   clusterName: string;
-  command: keyof Commands;
-  payload: { [K in keyof Commands]: Commands[K] }[keyof Commands];
+  command: LibClusterCommands[number];
 }): LibResult => {
-  return libCall(endpoints.libCluster.url({ clusterName, command }), payload);
+  return libCall(
+    endpoints.libCluster.url({ clusterName, command: command.name }),
+    command.payload,
+  );
 };
