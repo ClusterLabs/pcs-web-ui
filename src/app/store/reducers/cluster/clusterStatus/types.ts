@@ -1,36 +1,20 @@
-import { api } from "app/backend";
+import * as apiTypes from "./apiTypes";
 
-/* eslint-disable max-len */
+export { apiTypes };
+type Constraints = NonNullable<apiTypes.Cluster["constraints"]>;
 
-type Constraints = NonNullable<api.clusterStatus.ClusterStatus["constraints"]>;
+export type NVPair = apiTypes.NVPair;
+export type NodeServiceMap = apiTypes.NodeServiceMap;
 
-type Location = NonNullable<Constraints["rsc_location"]>[number];
-export type ConstraintLocationNode = Extract<Location, { node: string }>;
-export type ConstraintLocationRule = Extract<Location, { rule_string: string }>;
-
-type Colocation = NonNullable<Constraints["rsc_colocation"]>[number];
-export type ConstraintColocationPair = Extract<Colocation, { rsc: string }>;
-export type ConstraintColocationSet = Extract<Colocation, { sets: unknown }>;
-
-type Order = NonNullable<Constraints["rsc_order"]>[number];
-export type ConstraintOrderPair = Extract<Order, { first: string }>;
-export type ConstraintOrderSet = Extract<Order, { sets: unknown }>;
-
-type Ticket = NonNullable<Constraints["rsc_ticket"]>[number];
-export type ConstraintTicketResource = Extract<Ticket, { rsc: string }>;
-export type ConstraintTicketSet = Extract<Ticket, { sets: unknown }>;
-
-export type ConstraintResourceSet = (
-  | ConstraintColocationSet
-  | ConstraintOrderSet
-  | ConstraintTicketSet
-)["sets"][number];
-export type ConstraintResourceSetStructured = Extract<
-  ConstraintResourceSet,
-  { id: string }
->;
-
-export type NVPair = api.clusterStatus.NVPair;
+export type ConstraintLocationNode = apiTypes.ConstraintLocationNode;
+export type ConstraintLocationRule = apiTypes.ConstraintLocationRule;
+export type ConstraintColocationPair = apiTypes.ConstraintColocationPair;
+export type ConstraintColocationSet = apiTypes.ConstraintColocationSet;
+export type ConstraintOrderPair = apiTypes.ConstraintOrderPair;
+export type ConstraintOrderSet = apiTypes.ConstraintOrderSet;
+export type ConstraintTicketResource = apiTypes.ConstraintTicketResource;
+export type ConstraintTicketSet = apiTypes.ConstraintTicketSet;
+export type ConstraintResourceSet = apiTypes.ConstraintResourceSet;
 
 export interface AgentAttribute {
   id: string;
@@ -54,8 +38,6 @@ export type Issue = IssueCommon | IssueNotAuth;
 export type NodeStatusFlag = "ONLINE" | "OFFLINE" | "STANDBY";
 
 export type StatusSeverity = "OK" | "ERROR" | "WARNING";
-
-export type NodeServiceMap = api.clusterStatus.NodeServiceMap;
 
 export type ConnectedNode = {
   name: string;

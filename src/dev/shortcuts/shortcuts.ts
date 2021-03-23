@@ -10,7 +10,7 @@ export const importedClusterList = (
     res.json(importedClusters);
   });
 
-const clusterStatus = (clusterStatusList: types.ClusterStatus[]) =>
+const clusterStatus = (clusterStatusList: types.Cluster[]) =>
   app.clusterStatus((req, res) => {
     const cluster = clusterStatusList.find(
       c => c.cluster_name === req.params.clusterName,
@@ -69,7 +69,7 @@ export const clusterRelated = () => {
   clusterProperties(response.clusterProperties.ok);
 };
 
-export const dashboard = (clusterStatusList: types.ClusterStatus[]) => {
+export const dashboard = (clusterStatusList: types.Cluster[]) => {
   importedClusterList(
     response.importedClusterList.withClusters(
       clusterStatusList.map(c => c.cluster_name),

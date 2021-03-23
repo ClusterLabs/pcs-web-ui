@@ -11,14 +11,14 @@ import { types } from "app/store";
 
 import { ConstraintCell, ConstraintRow } from "../common";
 
+type ResourceSetStructured = Extract<
+  types.cluster.ConstraintResourceSet,
+  { id: string }
+>;
 export const ConstraintRowWithResourceSet: React.FC<{
   resourceSetList: types.cluster.ConstraintResourceSet[];
-  setCells: (
-    resourceSet: types.cluster.ConstraintResourceSetStructured,
-  ) => React.ReactNode;
-  setContent?: (
-    resourceSet: types.cluster.ConstraintResourceSetStructured,
-  ) => React.ReactNode;
+  setCells: (resourceSet: ResourceSetStructured) => React.ReactNode;
+  setContent?: (resourceSet: ResourceSetStructured) => React.ReactNode;
   type: string;
   id: string;
   content?: React.ComponentProps<typeof ConstraintRow>["content"];

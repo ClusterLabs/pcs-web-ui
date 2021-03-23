@@ -4,8 +4,13 @@ import { types } from "app/store";
 
 import { ConstraintLink } from "../common";
 
+type ResourceSetStructured = Extract<
+  types.cluster.ConstraintResourceSet,
+  { id: string }
+>;
+
 export const ConstraintResourceSetRscLinks: React.FC<{
-  resourceSet: types.cluster.ConstraintResourceSetStructured;
+  resourceSet: ResourceSetStructured;
 }> = ({ resourceSet }) => {
   return (
     <>

@@ -1,14 +1,12 @@
-import { api } from "app/backend";
-
-import { Clone, ResourceStatusInfo } from "../../types";
+import { Clone, ResourceStatusInfo, apiTypes } from "../../types";
 import { transformIssues } from "../issues";
 
 import { toPrimitive } from "./primitive";
 import { toGroup } from "./group";
 import { buildStatus, statusToSeverity } from "./statusInfoList";
 
-type ApiClone = api.clusterStatus.Clone;
-type ApiPrimitive = api.clusterStatus.Primitive;
+type ApiClone = apiTypes.Clone;
+type ApiPrimitive = apiTypes.Primitive;
 
 const buildStatusInfoList = (apiClone: ApiClone): ResourceStatusInfo[] => {
   const infoList: ResourceStatusInfo[] = [

@@ -1,14 +1,10 @@
-import { api } from "app/backend";
-
-import { ClusterStatus } from "../types";
+import { ClusterStatus, apiTypes } from "../types";
 
 import { issuesToSummarySeverity, transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
 
-type ApiClusterStatus = api.clusterStatus.ClusterStatus;
-
-const sbdDetection = (apiClusterState: ApiClusterStatus) =>
+const sbdDetection = (apiClusterState: apiTypes.Cluster) =>
   apiClusterState.node_list.reduce<ClusterStatus["sbdDetection"]>(
     (sbd, node) =>
       node.status === "unknown"
@@ -20,7 +16,7 @@ const sbdDetection = (apiClusterState: ApiClusterStatus) =>
   );
 
 export const apiToState = (
-  apiClusterStatus: ApiClusterStatus,
+  apiClusterStatus: apiTypes.Cluster,
 ): ClusterStatus => {
   const {
     resourceTree,

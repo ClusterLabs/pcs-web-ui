@@ -1,16 +1,12 @@
-import { api } from "app/backend";
-
-import { Node, NodeStatusFlag, StatusSeverity } from "../types";
+import { Node, NodeStatusFlag, StatusSeverity, apiTypes } from "../types";
 
 import * as statusSeverity from "./statusSeverity";
 import { transformIssues } from "./issues";
 
-type ApiNode = api.clusterStatus.Node;
-type ApiNodeQuorum = api.clusterStatus.NodeQuorum;
+type ApiNode = apiTypes.Cluster["node_list"][number];
+type ApiNodeQuorum = Extract<ApiNode, { quorum: unknown }>["quorum"];
 type ApiNodeStatus = Extract<ApiNode, { status: unknown }>["status"];
-type ApiNodeAttrListMap = NonNullable<
-  api.clusterStatus.ClusterStatus["node_attr"]
->;
+type ApiNodeAttrListMap = NonNullable<apiTypes.Cluster["node_attr"]>;
 type ApiNodeAttrList = ApiNodeAttrListMap[keyof ApiNodeAttrListMap];
 
 const mapStatus = (status: ApiNodeStatus): NodeStatusFlag => {
@@ -96,7 +92,7 @@ const countNodesSeverity = (apiNodeList: ApiNode[]): StatusSeverity => {
 
 export const processApiNodes = (
   apiNodeList: ApiNode[],
-  apiNodeAttrs: NonNullable<api.clusterStatus.ClusterStatus["node_attr"]>,
+  apiNodeAttrs: ApiNodeAttrListMap,
 ): {
   nodeList: Node[];
   nodesSeverity: StatusSeverity;

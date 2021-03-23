@@ -1,11 +1,9 @@
-import { api } from "app/backend";
-
-import { FenceDevice, FenceDeviceStatusFlag } from "../../types";
+import { FenceDevice, FenceDeviceStatusFlag, apiTypes } from "../../types";
 import { transformIssues } from "../issues";
 
 import { statusToSeverity } from "./statusInfoList";
 
-type ApiStonith = api.clusterStatus.Stonith;
+type ApiStonith = apiTypes.Stonith;
 
 const transformStatus = (
   status: ApiStonith["status"],

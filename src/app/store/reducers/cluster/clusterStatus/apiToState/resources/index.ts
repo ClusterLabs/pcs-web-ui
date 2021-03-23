@@ -1,10 +1,9 @@
-import { api } from "app/backend";
-
 import {
   FenceDevice,
   ResourceOnNodeStatus,
   ResourceTreeItem,
   StatusSeverity,
+  apiTypes,
 } from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
@@ -14,8 +13,8 @@ import { toClone } from "./clone";
 import { toFenceDevice } from "./fenceDevice";
 import { statusToSeverity } from "./statusInfoList";
 
-type ApiPrimitive = api.clusterStatus.Primitive;
-type ApiStonith = api.clusterStatus.Stonith;
+type ApiPrimitive = apiTypes.Primitive;
+type ApiStonith = apiTypes.Stonith;
 
 const takeResourceOnNodeStatus = (
   apiResource: ApiPrimitive,
@@ -51,7 +50,7 @@ type AnalyzedResources = {
 };
 
 export const analyzeApiResources = (
-  apiResourceList: api.clusterStatus.Resource[],
+  apiResourceList: apiTypes.Resource[],
 ): AnalyzedResources =>
   apiResourceList.reduce<AnalyzedResources>(
     (analyzed, apiResource) => {

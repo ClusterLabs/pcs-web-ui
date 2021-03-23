@@ -1,6 +1,5 @@
 import * as log from "./log";
 import * as result from "./apiResult";
-import * as clusterStatus from "./clusterStatus";
 import { libCallCluster } from "./calls";
 import {
   Call as TCall,
@@ -17,4 +16,4 @@ export type PayloadOf<APICALL> = TPayloadOf<APICALL>;
 
 export type LibReport = PayloadOf<typeof libCallCluster>["report_list"][number];
 
-export { log, result, endpoints, clusterStatus };
+export { log, result, endpoints };

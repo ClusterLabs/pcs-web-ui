@@ -1,13 +1,12 @@
-import { api } from "app/backend";
-
 import {
   ResourceStatus,
   ResourceStatusInfo,
   StatusSeverity,
+  apiTypes,
 } from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
-export const isDisabled = (apiResource: api.clusterStatus.Resource): boolean =>
+export const isDisabled = (apiResource: apiTypes.Resource): boolean =>
   apiResource.meta_attr.some(
     apiMetaAttribute =>
       apiMetaAttribute.name === "target-role"
@@ -34,7 +33,7 @@ export const buildStatus = (
 };
 
 export const statusToSeverity = (
-  status: api.clusterStatus.Resource["status"],
+  status: apiTypes.Resource["status"],
 ): StatusSeverity => {
   switch (status) {
     case "blocked":

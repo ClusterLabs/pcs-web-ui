@@ -1,14 +1,11 @@
-import { api } from "app/backend";
+import { ClusterStatus, Issue, apiTypes } from "../types";
 
-import { ClusterStatus, Issue } from "../types";
-
-type ApiElementWithIssues =
-  | api.clusterStatus.ClusterStatus
-  | api.clusterStatus.Node
-  | api.clusterStatus.Resource;
-
-type ApiIssue = (ApiElementWithIssues["error_list"] &
-  ApiElementWithIssues["warning_list"])[number];
+// It is more practical to deduce issue from one place (so resource and node are
+// skipped).
+// 1. The types are the same - typescript infere the type correctly.
+// 2. Don't want a formal duty to keep it in sync a new occurences here.
+type ApiIssue = (apiTypes.Cluster["error_list"] &
+  apiTypes.Cluster["warning_list"])[number];
 
 const mapIssue = (severity: Issue["severity"]) => (issue: ApiIssue): Issue => {
   if (
@@ -29,7 +26,10 @@ const mapIssue = (severity: Issue["severity"]) => (issue: ApiIssue): Issue => {
   };
 };
 
-export const transformIssues = (element: ApiElementWithIssues): Issue[] => [
+export const transformIssues = (element: {
+  error_list: ApiIssue[];
+  warning_list: ApiIssue[];
+}): Issue[] => [
   ...element.error_list.map(mapIssue("ERROR")),
   ...element.warning_list.map(mapIssue("WARNING")),
 ];

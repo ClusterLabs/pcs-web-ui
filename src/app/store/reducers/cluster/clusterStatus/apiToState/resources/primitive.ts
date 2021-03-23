@@ -1,12 +1,10 @@
-import { api } from "app/backend";
-
-import { Issue, Primitive, ResourceStatusInfo } from "../../types";
+import { Issue, Primitive, ResourceStatusInfo, apiTypes } from "../../types";
 import { transformIssues } from "../issues";
 
 import { buildStatus, isDisabled } from "./statusInfoList";
 
 const buildStatusInfoList = (
-  apiPrimitive: api.clusterStatus.Primitive,
+  apiPrimitive: apiTypes.Primitive,
 ): {
   resourceStatusInfo: ResourceStatusInfo[];
   issues: Issue[];
@@ -67,7 +65,7 @@ const buildStatusInfoList = (
 };
 
 export const toPrimitive = (
-  apiResource: api.clusterStatus.Primitive,
+  apiResource: apiTypes.Primitive,
   context: { inClone: boolean; inGroup: boolean } = {
     inClone: false,
     inGroup: false,
