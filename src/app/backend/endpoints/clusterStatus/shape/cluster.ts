@@ -1,11 +1,9 @@
 import * as t from "io-ts";
 
 import { ApiWithIssues } from "./issues";
-import { ApiAcl } from "./acls";
-import { ApiAlert } from "./alerts";
 import { ApiConstraints } from "./constraints";
 import { ApiResource } from "./resources";
-import { ApiResourceId } from "./common";
+import { ApiId, ApiResourceId } from "./common";
 import { ApiNode, ApiNodeName } from "./nodes";
 import { ApiNVPair } from "./nvsets";
 
@@ -82,7 +80,7 @@ quorate
 
 node_list
   all nodes no matter what status
-  
+
 node_attr
   datasource: /cib/configuration/nodes/node/instance_attributes/nvpair
   The key of record is "uname".
@@ -90,7 +88,22 @@ node_attr
 nodes_utilization
   datasource: /cib/configuration/nodes/node/utilization/nvpair
   The key of record is "uname".
+
+alerts
+  datasource: //alerts//alert
+
+acls
+  TODO complete attributes according rng schemes
+  datasource: /cib/configuration/acls/*
+  The keys of records are "id".
+
+  In the case of not running cluster acls are empty object.
+
+
 */
+
+const ApiAclRoleId = t.string;
+
 export const ApiClusterStatus = t.intersection([
   ApiWithIssues,
   t.type({
@@ -103,8 +116,39 @@ export const ApiClusterStatus = t.intersection([
     status: ApiClusterStatusFlag,
   }),
   t.partial({
-    acls: ApiAcl,
-    alerts: t.union([t.array(ApiAlert), t.null]),
+    acls: t.partial({
+      role: t.record(
+        t.string,
+        t.type({
+          description: t.string,
+          permissions: t.array(t.string),
+        }),
+      ),
+      group: t.record(t.string, t.array(ApiAclRoleId)),
+      user: t.record(t.string, t.array(ApiAclRoleId)),
+      target: t.record(t.string, t.array(ApiAclRoleId)),
+    }),
+    alerts: t.union([
+      t.array(
+        t.type({
+          id: ApiId,
+          path: t.string,
+          description: t.string,
+          instance_attributes: t.array(ApiNVPair),
+          meta_attributes: t.array(ApiNVPair),
+          recipient_list: t.array(
+            t.type({
+              id: ApiId,
+              value: t.string,
+              description: t.string,
+              instance_attributes: t.array(ApiNVPair),
+              meta_attributes: t.array(ApiNVPair),
+            }),
+          ),
+        }),
+      ),
+      t.null,
+    ]),
     cluster_settings: ApiSettings,
     constraints: ApiConstraints,
     corosync_offline: t.array(ApiNodeName),
