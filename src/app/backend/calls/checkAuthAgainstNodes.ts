@@ -1,10 +1,10 @@
-import { api, endpoints, http, t, validate } from "app/backend/tools";
+import { CallResult, endpoints, http, t, validate } from "app/backend/tools";
 
 const { url, shape } = endpoints.checkAuthAgainstNodes;
 
 export const checkAuthAgainstNodes = async (
   nodeList: string[],
-): api.CallResult<typeof shape> => {
+): CallResult<typeof shape> => {
   const uniqueNodeList = Array.from(new Set(nodeList));
 
   return http.get(url, {

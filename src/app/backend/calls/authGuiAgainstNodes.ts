@@ -1,4 +1,4 @@
-import { api, endpoints, http, t, validate } from "app/backend/tools";
+import { CallResult, endpoints, http, t, validate } from "app/backend/tools";
 
 const { url, shape } = endpoints.authGuiAgainstNodes;
 
@@ -9,7 +9,7 @@ type Node = {
 
 export const authGuiAgainstNodes = async (
   nodeMap: Record<string, Node>,
-): api.CallResult<typeof shape> =>
+): CallResult<typeof shape> =>
   http.post(url, {
     params: [["data_json", JSON.stringify({ nodes: nodeMap })]],
     validate: (payload) => {

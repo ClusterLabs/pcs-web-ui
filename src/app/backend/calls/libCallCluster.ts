@@ -1,10 +1,10 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "app/backend/tools";
 import { LibClusterCommands } from "app/backend/endpoints";
 
 const { shape } = endpoints.libCluster;
 
 type InputPayload = ReturnType<typeof JSON.parse>;
-type LibResult = api.CallResult<typeof shape>;
+type LibResult = CallResult<typeof shape>;
 
 const libCall = async (url: string, payload: InputPayload): LibResult =>
   http.post(url, { payload, shape });

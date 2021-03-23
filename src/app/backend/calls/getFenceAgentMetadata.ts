@@ -1,11 +1,11 @@
-import { api, endpoints, http, t, validate } from "app/backend/tools";
+import { CallResult, endpoints, http, t, validate } from "app/backend/tools";
 
 const { url, shape } = endpoints.getFenceAgentMetadata;
 
 export const getFenceAgentMetadata = async (
   clusterName: string,
   agentName: string,
-): api.CallResult<typeof shape> =>
+): CallResult<typeof shape> =>
   http.get(url({ clusterName }), {
     params: [["agent", agentName]],
     validate: (payload) => {

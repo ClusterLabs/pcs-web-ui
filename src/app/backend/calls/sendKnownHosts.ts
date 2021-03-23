@@ -1,11 +1,11 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "app/backend/tools";
 
 const { url } = endpoints.sendKnownHosts;
 
 export const sendKnownHosts = async (
   clusterName: string,
   nodeList: string[],
-): api.CallResult => {
+): CallResult => {
   const uniqueNodeList = Array.from(new Set(nodeList));
 
   return http.post(url({ clusterName }), {

@@ -1,5 +1,6 @@
-import * as apiResult from "./apiResult";
-import { libCallCluster } from "./calls";
+import * as apiResult from "app/backend/result";
+import { libCallCluster } from "app/backend/calls";
+
 import { PayloadOf } from "./call";
 /* eslint-disable no-console */
 

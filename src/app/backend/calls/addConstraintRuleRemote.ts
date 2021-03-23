@@ -1,4 +1,4 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "app/backend/tools";
 
 const { url } = endpoints.addConstraintRuleRemote;
 
@@ -13,7 +13,7 @@ export const addConstraintRuleRemote = async (
       score: string;
     };
   },
-): api.CallResult => {
+): CallResult => {
   const force: [string, string][] =
     "force" in constraint && constraint.force === true
       ? [["force", "true"]]

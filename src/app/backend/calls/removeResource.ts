@@ -1,11 +1,11 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "app/backend/tools";
 
 const { url } = endpoints.removeResource;
 
 export const removeResource = (
   clusterName: string,
   resourceIds: string[],
-): api.CallResult =>
+): CallResult =>
   http.post(url({ clusterName }), {
     params: [
       ["no_error_if_not_exists", "true"],
