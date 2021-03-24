@@ -2,6 +2,7 @@ import { api, libCallCluster } from "app/backend";
 import { Action } from "app/store";
 
 import { put } from "../effects";
+import { libInputError } from "../log";
 
 export function* clusterResponseSwitch(
   clusterName: string,
@@ -28,7 +29,7 @@ export function* clusterResponseSwitch(
     case "input_error":
     case "exception":
     case "unknown_cmd":
-      api.log.libInputError(status, status_msg, communicationErrDesc);
+      libInputError(status, status_msg, communicationErrDesc);
       yield put(communicationErrorAction);
       return;
     case "error":

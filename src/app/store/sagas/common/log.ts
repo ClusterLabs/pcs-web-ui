@@ -1,11 +1,5 @@
-import {
-  HttpFail,
-  InvalidPayload,
-  NotJson,
-} from "app/backend/calls/tools/result";
-import { libCallCluster } from "app/backend/calls";
+import { api, libCallCluster } from "app/backend";
 
-import { PayloadOf } from "./call";
 /* eslint-disable no-console */
 
 const libInputErrorStatusMsgMap = {
@@ -15,7 +9,7 @@ const libInputErrorStatusMsgMap = {
 };
 export const libInputError = (
   status: keyof typeof libInputErrorStatusMsgMap,
-  statusMessage: PayloadOf<typeof libCallCluster>["status_msg"],
+  statusMessage: api.PayloadOf<typeof libCallCluster>["status_msg"],
   description: string,
 ) => {
   console.error(
@@ -25,7 +19,10 @@ export const libInputError = (
   );
 };
 
-export const errorMessage = (result: HttpFail | NotJson, taskLabel: string) => {
+export const errorMessage = (
+  result: api.result.HttpFail | api.result.NotJson,
+  taskLabel: string,
+) => {
   const description = `Communication error while: ${taskLabel}`;
   switch (result.type) {
     case "BAD_HTTP_STATUS":
@@ -52,7 +49,7 @@ export const errorMessage = (result: HttpFail | NotJson, taskLabel: string) => {
 };
 
 export const error = (
-  result: HttpFail | NotJson | InvalidPayload,
+  result: api.result.HttpFail | api.result.NotJson | api.result.InvalidPayload,
   taskLabel: string,
 ) => {
   const description = `Communication error while: ${taskLabel}`;

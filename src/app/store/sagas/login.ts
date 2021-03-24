@@ -1,6 +1,7 @@
 import { login, logout } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
+import { log } from "./common";
 import {
   api,
   call,
@@ -46,7 +47,7 @@ export function* loginSaga({
         message:
           result.type === "UNAUTHORIZED"
             ? ""
-            : api.log.errorMessage(result, "login"),
+            : log.errorMessage(result, "login"),
       },
     });
     return;
