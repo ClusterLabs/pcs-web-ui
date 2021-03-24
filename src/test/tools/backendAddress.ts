@@ -1,4 +1,4 @@
-import * as appLocationMap from "app/scenes/location";
+import { location as appLocationMap } from "app/view/share";
 export const HOST = "http://localhost:3000";
 
 type AppLocations = typeof appLocationMap;
