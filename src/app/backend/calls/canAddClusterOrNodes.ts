@@ -1,4 +1,4 @@
-import { CallResult, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "./tools";
 
 export const canAddClusterOrNodes = async (
   checkParams: { clusterName: string } | { nodeNames: string[] },

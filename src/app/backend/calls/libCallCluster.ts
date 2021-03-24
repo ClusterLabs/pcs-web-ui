@@ -1,4 +1,4 @@
-import { CallResult, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "./tools";
 import { LibClusterCommands } from "app/backend/endpoints";
 
 const { shape } = endpoints.libCluster;

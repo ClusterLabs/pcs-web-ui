@@ -1,4 +1,4 @@
-import { CallResult, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "./tools";
 
 const { url, shape } = endpoints.resourceRefresh;
 

@@ -1,6 +1,7 @@
 import * as t from "io-ts";
 
-import * as apiResult from "./apiResult";
+import * as result from "app/backend/result";
+
 import * as validate from "./validate";
 
 type PayloadValidation<PAYLOAD, O, I> =
@@ -22,9 +23,9 @@ type ValidationOpts<OUT extends Output, PAYLOAD, O, I> = [OUT] extends ["TEXT"]
   : never;
 
 type ApiResult<OUT extends Output, PAYLOAD = string> = [OUT] extends ["TEXT"]
-  ? apiResult.Overall<string>
+  ? result.Overall<string>
   : [OUT] extends ["PAYLOAD"]
-  ? apiResult.Overall<PAYLOAD>
+  ? result.Overall<PAYLOAD>
   : never;
 
 const httpParams = (params: HttpParams): string =>

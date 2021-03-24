@@ -1,4 +1,4 @@
-import { CallResult, endpoints, http, t, validate } from "app/backend/tools";
+import { CallResult, endpoints, http, t, validate } from "./tools";
 
 const { url, shape } = endpoints.authGuiAgainstNodes;
 
