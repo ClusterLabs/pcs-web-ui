@@ -1,4 +1,8 @@
-import * as apiResult from "app/backend/result";
+import {
+  HttpFail,
+  InvalidPayload,
+  NotJson,
+} from "app/backend/calls/tools/result";
 import { libCallCluster } from "app/backend/calls";
 
 import { PayloadOf } from "./call";
@@ -21,10 +25,7 @@ export const libInputError = (
   );
 };
 
-export const errorMessage = (
-  result: apiResult.HttpFail | apiResult.NotJson,
-  taskLabel: string,
-) => {
+export const errorMessage = (result: HttpFail | NotJson, taskLabel: string) => {
   const description = `Communication error while: ${taskLabel}`;
   switch (result.type) {
     case "BAD_HTTP_STATUS":
@@ -51,7 +52,7 @@ export const errorMessage = (
 };
 
 export const error = (
-  result: apiResult.HttpFail | apiResult.NotJson | apiResult.InvalidPayload,
+  result: HttpFail | NotJson | InvalidPayload,
   taskLabel: string,
 ) => {
   const description = `Communication error while: ${taskLabel}`;

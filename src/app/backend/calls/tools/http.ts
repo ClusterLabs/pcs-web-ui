@@ -1,7 +1,6 @@
 import * as t from "io-ts";
 
-import * as result from "app/backend/result";
-
+import * as result from "./result";
 import * as validate from "./validate";
 
 type PayloadValidation<PAYLOAD, O, I> =

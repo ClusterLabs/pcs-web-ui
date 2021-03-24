@@ -1,8 +1,8 @@
 import * as t from "io-ts";
 
-import * as result from "app/backend/result";
 import { endpoints } from "app/backend/endpoints";
 
+import * as result from "./result";
 import * as validate from "./validate";
 import * as http from "./http";
 

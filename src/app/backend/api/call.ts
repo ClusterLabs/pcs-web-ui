@@ -1,11 +1,10 @@
-import * as apiResult from "app/backend/result";
+import * as result from "app/backend/calls/tools/result";
 
-export type Result<PAYLOAD> = apiResult.Overall<PAYLOAD>;
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type Call<PAYLOAD> = (...args: any[]) => Promise<Result<PAYLOAD>>;
+type Call<PAYLOAD> = (...args: any[]) => Promise<result.Overall<PAYLOAD>>;
 
 export type ResultOf<APICALL> = APICALL extends Call<infer PAYLOAD>
-  ? Result<PAYLOAD>
+  ? result.Overall<PAYLOAD>
   : never;
 
 export type PayloadOf<APICALL> = APICALL extends Call<infer PAYLOAD>
