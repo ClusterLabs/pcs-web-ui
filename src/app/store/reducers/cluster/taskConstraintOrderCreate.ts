@@ -1,4 +1,4 @@
-import { Reducer } from "app/store/redux";
+import { Reducer } from "../tools";
 
 type Action = "start" | "promote" | "demote" | "stop";
 export type TaskConstraintOrderCreate = {

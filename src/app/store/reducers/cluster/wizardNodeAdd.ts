@@ -1,5 +1,6 @@
 import { api } from "app/backend";
-import { Reducer } from "app/store/redux";
+
+import { Reducer } from "../tools";
 
 export type WizardNodeAdd = {
   nodeName: string;

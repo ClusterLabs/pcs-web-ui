@@ -1,4 +1,4 @@
-import { Reducer } from "app/store/redux";
+import { Reducer } from "./tools";
 
 export type Username = string;
 

@@ -1,4 +1,6 @@
-import { Reducer, combineReducers } from "app/store/redux";
+import { combineReducers } from "redux";
+
+import { Reducer } from "../tools";
 
 import clusterStatus, { types as clusterStatusTypes } from "./clusterStatus";
 import pcmkAgents, { AgentsStorage } from "./pcmkAgents";

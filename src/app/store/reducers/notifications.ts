@@ -1,5 +1,6 @@
-import { Reducer } from "app/store/redux";
 import { ActionPayload } from "app/store/actions";
+
+import { Reducer } from "./tools";
 
 export type Notification = ActionPayload["NOTIFICATION.CREATE"];
 export type NotificationState = Notification[];

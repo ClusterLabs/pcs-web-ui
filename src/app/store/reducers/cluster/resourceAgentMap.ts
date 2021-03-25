@@ -1,4 +1,6 @@
-import { Reducer, combineReducers } from "app/store/redux";
+import { combineReducers } from "redux";
+
+import { Reducer } from "../tools";
 
 export type ResourceAgentMap = Record<string, string[]>;
 export type ResourceAgentListService = {

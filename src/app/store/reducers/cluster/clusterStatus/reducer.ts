@@ -1,4 +1,6 @@
-import { Reducer, combineReducers } from "app/store/redux";
+import { combineReducers } from "redux";
+
+import { Reducer } from "../../tools";
 
 import { apiToState } from "./apiToState";
 import { ClusterStatus, ClusterStatusService } from "./types";

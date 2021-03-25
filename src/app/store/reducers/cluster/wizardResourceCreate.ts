@@ -1,5 +1,6 @@
 import { api } from "app/backend";
-import { Reducer } from "app/store/redux";
+
+import { Reducer } from "../tools";
 
 type InstanceAttrName = string;
 type InstanceAttrValue = string;

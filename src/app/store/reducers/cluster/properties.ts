@@ -1,5 +1,8 @@
-import { Reducer, combineReducers } from "app/store/redux";
+import { combineReducers } from "redux";
+
 import { ActionPayload } from "app/store/actions";
+
+import { Reducer } from "../tools";
 
 type CPs = ActionPayload["CLUSTER.PROPERTIES.LOAD.OK"]["apiClusterProperties"];
 export type ClusterProperty = CPs[keyof CPs];
