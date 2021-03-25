@@ -1,29 +1,39 @@
-import * as types from "app/store/types";
+import { ClusterStorageItem } from "../types";
 
-import { clusterSelector } from "./selectorsHelpers";
+import {
+  ClusterSelector as TClusterSelector,
+  clusterStorageItemSelector,
+} from "./selectorsHelpers";
 
-export function getClusterPart<
-  NAME extends keyof types.clusterStorage.ClusterStorageItem,
->(name: NAME) {
-  return clusterSelector(clusterStorageItem => clusterStorageItem[name]);
+export function getClusterPart<NAME extends keyof ClusterStorageItem>(
+  name: NAME,
+) {
+  return clusterStorageItemSelector(
+    clusterStorageItem => clusterStorageItem[name],
+  );
 }
 
-export const getPcmkAgent = clusterSelector(
+export const getPcmkAgent = clusterStorageItemSelector(
   (clusterStorageItem, agentName: string) =>
     clusterStorageItem.pcmkAgents[agentName],
 );
 
-export const resourceTreeGetOpenedItems = clusterSelector(
+export const resourceTreeGetOpenedItems = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.resourceTree.openedItems || [],
 );
 
-export const getClusterProperties = clusterSelector(
+export const getClusterProperties = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.clusterProperties.data,
 );
 
-export const getResourceAgentMap = clusterSelector(
+export const getResourceAgentMap = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.resourceAgentMap.data,
 );
+
+export type ClusterSelector<
+  ARGS extends unknown[],
+  SELECTED,
+> = TClusterSelector<ARGS, SELECTED>;
 
 export * from "./status";
 export * from "./constraints";

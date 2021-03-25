@@ -1,8 +1,8 @@
 import * as types from "app/store/types";
 
-import { clusterStatusSelector } from "./selectorsHelpers";
+import { clusterSelector } from "./selectorsHelpers";
 
-export const getConstraints = clusterStatusSelector((clusterStatus) => {
+export const getConstraints = clusterSelector((clusterStatus) => {
   const constraintMap = clusterStatus.constraints;
   if (!constraintMap) {
     return [];

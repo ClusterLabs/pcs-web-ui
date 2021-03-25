@@ -1,17 +1,13 @@
-import { DefaultRootState, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
+import { selectors } from "app/store";
 
 import { useSelectedClusterName } from "./SelectedClusterContext";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-export function useClusterSelector<
-  A extends any[],
-  S extends DefaultRootState,
-  R,
->(
-  selector: (clusterName: string, ...selectorArgs: A) => (state: S) => R,
-  ...args: A
-): [R, string] {
+export function useClusterSelector<ARGS extends unknown[], SELECTED_TYPE>(
+  selector: selectors.ClusterSelector<ARGS, SELECTED_TYPE>,
+  ...args: ARGS
+): [SELECTED_TYPE, string] {
   const clusterName = useSelectedClusterName();
   return [useSelector(selector(clusterName, ...args)), clusterName];
 }

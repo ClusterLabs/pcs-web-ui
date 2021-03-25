@@ -1,7 +1,4 @@
-import * as types from "app/store/types";
+import { Root } from "./types";
 
-import { Selector } from "./selector";
-
-export const getAuthNodeState = (
-  id: number,
-): Selector<types.nodeAuth.NodeAuth> => state => state.nodeAuthMap[id];
+export const getAuthNodeState = (id: number) => (state: Root) =>
+  state.nodeAuthMap[id];

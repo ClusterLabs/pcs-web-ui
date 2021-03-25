@@ -11,7 +11,7 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
 import {
   ClusterSectionToolbar,
   EmptyStateNoItem,
@@ -25,7 +25,9 @@ import {
   ConstraintCreateOrderToolbarItem,
 } from "./task";
 
-type ConstraintPack = types.cluster.ConstraintPack;
+type ConstraintPackList = ReturnType<
+  ReturnType<typeof selectors.getConstraints>
+>;
 
 const filterGroups = {
   Location: false,
@@ -42,7 +44,7 @@ const useState = () => {
   const [groupInclusionMap] = groupState;
 
   const filterConstraintTypes = React.useCallback(
-    (constraintPacks: ConstraintPack[]): ConstraintPack[] =>
+    (constraintPacks: ConstraintPackList): ConstraintPackList =>
       constraintPacks.filter(cp =>
         ToolbarFilterGroups.allOrIncludedGroupMembers({
           groupInclusionMap,

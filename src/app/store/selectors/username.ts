@@ -1,8 +1,5 @@
-import * as types from "app/store/types";
+import { Root } from "./types";
 
-import { Selector } from "./selector";
+export const getUsername = (state: Root) => state.username;
 
-export const getUsername: Selector<types.username.Username> = state =>
-  state.username;
-
-export const usernameLoaded: Selector<boolean> = state => state.username !== "";
+export const usernameLoaded = (state: Root) => state.username !== "";

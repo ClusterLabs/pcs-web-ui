@@ -1,36 +1,34 @@
 import { clusterStatusDefault } from "app/store/reducers";
-import * as types from "app/store/types";
 
-import { Selector } from "./selector";
+import { Cluster, Root } from "./types";
 import { clusterAreDataLoaded, getCluster } from "./cluster";
 
-type ClusterNameList = types.dashboard.ClusterNameList;
+type ClusterMap<T extends string> = Record<
+  T,
+  {
+    cluster: Cluster;
+    isLoaded: boolean;
+  }
+>;
 
-type ClusterInfo = {
-  cluster: types.cluster.ClusterStatusService["clusterData"];
-  isLoaded: boolean;
-};
-
-export const getImportedClusterList: Selector<ClusterNameList> = state =>
+export const getImportedClusterList = (state: Root) =>
   state.dashboard.clusterNameList;
 
-export const dashboardAreDataLoaded: Selector<boolean> = state =>
+export const dashboardAreDataLoaded = (state: Root) =>
   state.dashboard.dataFetch === "SUCCESS";
 
-export function getClusterMap<T extends string>(
-  clusterList: T[],
-): Selector<Record<T, ClusterInfo>> {
-  return state =>
-    clusterList.reduce<Record<T, ClusterInfo>>(
-      (map, name) => ({
-        ...map,
-        [name]: {
-          cluster: clusterAreDataLoaded(name)(state)
-            ? getCluster(name)(state)
-            : { ...clusterStatusDefault, name },
-          isLoaded: clusterAreDataLoaded(name)(state),
-        },
-      }),
-      {} as Record<T, ClusterInfo>,
-    );
-}
+export const getClusterMap = <T extends string>(clusterList: T[]) => (
+  state: Root,
+) =>
+  clusterList.reduce<ClusterMap<T>>(
+    (map, name) => ({
+      ...map,
+      [name]: {
+        cluster: clusterAreDataLoaded(name)(state)
+          ? getCluster(name)(state)
+          : { ...clusterStatusDefault, name },
+        isLoaded: clusterAreDataLoaded(name)(state),
+      },
+    }),
+    {} as ClusterMap<T>,
+  );

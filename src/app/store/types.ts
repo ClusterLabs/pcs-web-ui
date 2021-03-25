@@ -1,4 +1,3 @@
-import { RootState as TRootState } from "./reducers/root";
 import { types as cluster } from "./reducers/cluster/clusterStatus";
 import * as dashboard from "./reducers/dashboard";
 import * as addCluster from "./reducers/dashboardAddCluster";
@@ -10,9 +9,7 @@ import * as login from "./reducers/login";
 import * as username from "./reducers/username";
 import * as clusterProperties from "./reducers/cluster/properties";
 import * as resourceAgentMap from "./reducers/cluster/resourceAgentMap";
-import * as wizardResourceCreate from "./reducers/cluster/wizardResourceCreate";
 
-export type RootState = TRootState;
 export {
   addCluster,
   cluster,
@@ -25,5 +22,4 @@ export {
   pcmkAgents,
   resourceAgentMap,
   clusterStorage,
-  wizardResourceCreate,
 };

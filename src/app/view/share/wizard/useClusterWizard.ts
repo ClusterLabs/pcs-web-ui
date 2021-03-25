@@ -1,14 +1,12 @@
 import React from "react";
 import { WizardContext } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
 import { useDispatch, useWizardOpenClose } from "app/view/share";
 import { useClusterSelector } from "app/view/share/useClusterSelector";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export function useClusterWizard<
-  NAME extends keyof types.clusterStorage.ClusterStorageItem,
+  NAME extends Parameters<typeof selectors.getClusterPart>[0],
 >(clusterPartName: NAME) {
   const [state, clusterName] = useClusterSelector(
     selectors.getClusterPart(clusterPartName),

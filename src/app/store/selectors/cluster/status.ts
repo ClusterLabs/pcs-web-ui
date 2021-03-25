@@ -1,9 +1,12 @@
-import * as types from "app/store/types";
+import { Cluster } from "../types";
 
-import { clusterSelector, clusterStatusSelector } from "./selectorsHelpers";
+import {
+  clusterSelector,
+  clusterStorageItemSelector,
+} from "./selectorsHelpers";
 
 const findInTopLevelAndGroup = (
-  resource: types.cluster.ResourceTreeItem,
+  resource: Cluster["resourceTree"][number],
   id: string,
 ) => {
   if (resource.id === id) {
@@ -20,35 +23,33 @@ const findInTopLevelAndGroup = (
   return undefined;
 };
 
-export const clusterAreDataLoaded = clusterSelector(
+export const clusterAreDataLoaded = clusterStorageItemSelector(
   clusterStorageItem =>
     clusterStorageItem?.clusterStatus?.dataFetchState === "SUCCESS",
 );
 
-export const getCluster = clusterStatusSelector(clusterStatus => clusterStatus);
+export const getCluster = clusterSelector(cluster => cluster);
 
-export const getSelectedResource = clusterStatusSelector(
-  (clusterStatus, id: string) => {
-    for (const resource of clusterStatus.resourceTree) {
-      const matched = findInTopLevelAndGroup(resource, id);
-      if (matched) {
-        return matched;
-      }
-
-      if (resource.itemType === "clone") {
-        const member = findInTopLevelAndGroup(resource.member, id);
-        if (member) {
-          return member;
-        }
-      }
+export const getSelectedResource = clusterSelector((cluster, id: string) => {
+  for (const resource of cluster.resourceTree) {
+    const matched = findInTopLevelAndGroup(resource, id);
+    if (matched) {
+      return matched;
     }
 
-    return undefined;
-  },
-);
+    if (resource.itemType === "clone") {
+      const member = findInTopLevelAndGroup(resource.member, id);
+      if (member) {
+        return member;
+      }
+    }
+  }
 
-export const getGroups = clusterStatusSelector(clusterStatus =>
-  clusterStatus.resourceTree.reduce<string[]>((groups, resource) => {
+  return undefined;
+});
+
+export const getGroups = clusterSelector(cluster =>
+  cluster.resourceTree.reduce<string[]>((groups, resource) => {
     if (resource.itemType === "group") {
       return [...groups, resource.id];
     }
@@ -59,32 +60,25 @@ export const getGroups = clusterStatusSelector(clusterStatus =>
   }, []),
 );
 
-export const getTopLevelPrimitives = clusterStatusSelector(clusterStatus =>
-  clusterStatus.resourceTree
-    .filter(r => r.itemType === "primitive")
-    .map(r => r.id),
+export const getTopLevelPrimitives = clusterSelector(cluster =>
+  cluster.resourceTree.filter(r => r.itemType === "primitive").map(r => r.id),
 );
 
-export const getSelectedFenceDevice = clusterStatusSelector(
-  (clusterStatus, id: string) =>
-    clusterStatus.fenceDeviceList.find(fd => fd.id === id),
+export const getSelectedFenceDevice = clusterSelector((cluster, id: string) =>
+  cluster.fenceDeviceList.find(fd => fd.id === id),
 );
 
-export const getSelectedNode = clusterStatusSelector(
-  (clusterStatus, name: string) =>
-    clusterStatus.nodeList.find(node => node.name === name),
+export const getSelectedNode = clusterSelector((cluster, name: string) =>
+  cluster.nodeList.find(node => node.name === name),
 );
 
-export const crmStatusForPrimitive = clusterStatusSelector(
-  (clusterStatus, primitiveIds: string[]) =>
-    clusterStatus.resourceOnNodeStatusList.filter(s =>
+export const crmStatusForPrimitive = clusterSelector(
+  (cluster, primitiveIds: string[]) =>
+    cluster.resourceOnNodeStatusList.filter(s =>
       primitiveIds.includes(s.resource.id),
     ),
 );
 
-export const crmStatusForNode = clusterStatusSelector(
-  (clusterStatus, nodeName: string) =>
-    clusterStatus.resourceOnNodeStatusList.filter(
-      s => s.node?.name === nodeName,
-    ),
+export const crmStatusForNode = clusterSelector((cluster, nodeName: string) =>
+  cluster.resourceOnNodeStatusList.filter(s => s.node?.name === nodeName),
 );
