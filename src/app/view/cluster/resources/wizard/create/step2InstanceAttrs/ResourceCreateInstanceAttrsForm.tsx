@@ -2,21 +2,21 @@ import React from "react";
 import { Alert, Form } from "@patternfly/react-core";
 
 import {
+  AttributeHelpPopover,
   FormText,
   LoadedPcmkAgent,
-  PcmkAgentAttrsHelpPopover,
   ToolbarFilterTextGroupPair,
   WizardLibStep,
 } from "app/view/share";
-import { types } from "app/store";
 
 import { useWizard } from "../useWizard";
 
+type AgentParameter = Parameters<
+  React.ComponentProps<typeof LoadedPcmkAgent>["children"]
+>[0]["parameters"][number];
+
 const useFilterState = () =>
-  ToolbarFilterTextGroupPair.useState<
-    "Optional" | "Advanced",
-    types.pcmkAgents.AgentParameter
-  >(
+  ToolbarFilterTextGroupPair.useState<"Optional" | "Advanced", AgentParameter>(
     {
       Optional: false,
       Advanced: false,
@@ -42,7 +42,7 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
       reports={reports}
     >
       <LoadedPcmkAgent clusterName={clusterName} agentName={agentName}>
-        {(agent: types.pcmkAgents.Agent) => {
+        {(agent) => {
           const requiredParameters = agent.parameters.filter(p => p.required);
           return (
             <>
@@ -80,8 +80,10 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
                         id={`instance-attr-${parameter.name}`}
                         label={parameter.name}
                         labelIcon={
-                          <PcmkAgentAttrsHelpPopover
-                            resourceAgentParam={parameter}
+                          <AttributeHelpPopover
+                            header={parameter.shortdesc}
+                            body={parameter.longdesc}
+                            defaultValue={parameter.default}
                           />
                         }
                         isRequired={parameter.required}

@@ -32,8 +32,12 @@ export const PrimitiveDetail = ({
           clusterName={clusterName}
           agentName={primitive.agentName}
         >
-          {(agent: types.pcmkAgents.Agent) => (
-            <PcmkAgentDescription agent={agent} />
+          {agent => (
+            <PcmkAgentDescription
+              name={agent.name}
+              shortdesc={agent.shortdesc}
+              longdesc={agent.longdesc}
+            />
           )}
         </LoadedPcmkAgent>
       </StackItem>

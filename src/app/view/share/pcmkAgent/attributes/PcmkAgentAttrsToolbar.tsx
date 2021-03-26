@@ -1,9 +1,8 @@
 import React from "react";
 
-import { types } from "app/store";
 import { ToolbarFilterTextGroupPair } from "app/view/share/toolbar";
 
-type AgentParameter = types.pcmkAgents.AgentParameter;
+import { AgentParameter } from "../types";
 
 const useState = (
   initialGroupInclustionMap: {

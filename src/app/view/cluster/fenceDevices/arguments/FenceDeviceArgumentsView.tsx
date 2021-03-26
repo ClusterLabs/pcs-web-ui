@@ -21,7 +21,7 @@ export const FenceDeviceArgumentsView = ({
       clusterName={clusterName}
       agentName={fenceDevice.agentName}
     >
-      {(agent: types.pcmkAgents.Agent) => {
+      {(agent) => {
         return (
           <>
             <StackItem>

@@ -6,22 +6,27 @@ import {
   AttributeName,
   AttributeValue,
 } from "app/view/share/attributes";
+import { AttributeHelpPopover } from "app/view/share";
 
-import { PcmkAgentAttrsHelpPopover } from "./PcmkAgentAttrsHelpPopover";
+import { AgentParameter } from "../types";
 
 export const PcmkAgentAttrsList = ({
   agentAttributes,
   resourceAgentParameters,
 }: {
   agentAttributes: Record<string, types.cluster.AgentAttribute>;
-  resourceAgentParameters: types.pcmkAgents.AgentParameter[];
+  resourceAgentParameters: AgentParameter[];
 }) => {
   return (
     <AttributeList attributes={resourceAgentParameters}>
       {parameter => (
         <React.Fragment key={parameter.name}>
           <AttributeName name={parameter.name}>
-            <PcmkAgentAttrsHelpPopover resourceAgentParam={parameter} />
+            <AttributeHelpPopover
+              header={parameter.shortdesc}
+              body={parameter.longdesc}
+              defaultValue={parameter.default}
+            />
           </AttributeName>
           <AttributeValue
             value={agentAttributes[parameter.name]?.value}

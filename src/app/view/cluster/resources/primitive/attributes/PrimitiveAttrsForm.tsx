@@ -2,7 +2,11 @@ import React from "react";
 import { ActionGroup, Alert, Button, Form } from "@patternfly/react-core";
 
 import { types } from "app/store";
-import { useDispatch, useSelectedClusterName } from "app/view/share";
+import {
+  pcmkAgentTypes,
+  useDispatch,
+  useSelectedClusterName,
+} from "app/view/share";
 
 import { PrimitiveAttrsFormItem } from "./PrimitiveAttrsFormItem";
 import { PrimitiveAttrsFormItemLayout } from "./PrimitiveAttrsFormItemLayout";
@@ -62,7 +66,7 @@ export const PrimitiveAttrsForm = ({
   close,
 }: {
   primitive: types.cluster.Primitive;
-  resourceAgentParams: types.pcmkAgents.ResourceAgentParameter[];
+  resourceAgentParams: pcmkAgentTypes.AgentParameter[];
   displayNames: string[];
   close: () => void;
 }) => {
@@ -121,7 +125,10 @@ export const PrimitiveAttrsForm = ({
         .filter(parameter => displayNames.includes(parameter.name))
         .map(parameter => (
           <PrimitiveAttrsFormItemLayout
-            resourceAgentParam={parameter}
+            name={parameter.name}
+            shortdesc={parameter.shortdesc}
+            longdesc={parameter.longdesc}
+            defaultValue={parameter.default}
             required={
               formMap[parameter.name].initial
               !== instanceAttr(primitive, parameter.name)

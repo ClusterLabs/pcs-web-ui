@@ -26,8 +26,12 @@ export const FenceDeviceDetailView = ({
           clusterName={clusterName}
           agentName={fenceDevice.agentName}
         >
-          {(agent: types.pcmkAgents.Agent) => (
-            <PcmkAgentDescription agent={agent} />
+          {agent => (
+            <PcmkAgentDescription
+              name={agent.name}
+              shortdesc={agent.shortdesc}
+              longdesc={agent.longdesc}
+            />
           )}
         </LoadedPcmkAgent>
       </StackItem>

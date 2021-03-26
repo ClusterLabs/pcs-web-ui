@@ -1,28 +1,30 @@
 import React from "react";
 import { ExpandableSection, Text } from "@patternfly/react-core";
 
-import { types } from "app/store";
-
 export const PcmkAgentDescription = ({
-  agent,
+  name,
+  shortdesc,
+  longdesc,
 }: {
-  agent: types.pcmkAgents.Agent;
+  name: string;
+  shortdesc: string;
+  longdesc: string;
 }) => {
-  const lastIndex = agent.name.lastIndexOf(":");
+  const lastIndex = name.lastIndexOf(":");
 
   return (
     <div className="pf-c-content" data-test="agent-description">
       <dl>
         <dt>Type</dt>
         <dd>
-          <strong>{agent.name.substring(lastIndex + 1)}</strong>
-          {` (${agent.name.substring(0, lastIndex)})`}
+          <strong>{name.substring(lastIndex + 1)}</strong>
+          {` (${name.substring(0, lastIndex)})`}
         </dd>
         <dt>Description</dt>
         <dd>
-          {agent.shortdesc}
+          {shortdesc}
           <ExpandableSection toggleText="Full description">
-            {agent.longdesc.split("\n\n").map((line, i) => (
+            {longdesc.split("\n\n").map((line, i) => (
               /* eslint-disable react/no-array-index-key */
               <Text component="p" key={i}>
                 {line}

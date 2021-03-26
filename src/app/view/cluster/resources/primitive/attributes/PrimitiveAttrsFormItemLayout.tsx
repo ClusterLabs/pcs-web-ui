@@ -1,31 +1,40 @@
 import React from "react";
 
-import { types } from "app/store";
-import { PcmkAgentAttrsHelpPopover } from "app/view/share";
+import { AttributeHelpPopover } from "app/view/share";
 
 export const PrimitiveAttrsFormItemLayout = ({
-  resourceAgentParam,
+  name,
+  shortdesc,
+  longdesc,
+  defaultValue,
   required,
   children,
 }: React.PropsWithChildren<{
+  name: string;
+  shortdesc: string;
+  longdesc: string;
+  defaultValue: string | number | null;
   required: boolean;
-  resourceAgentParam: types.pcmkAgents.ResourceAgentParameter;
 }>) => {
   return (
     <div className="pf-c-form__group">
       <span className="pf-c-form__label pf-u-pt-md">
-        <span className="pf-c-form__label-text">{resourceAgentParam.name}</span>
+        <span className="pf-c-form__label-text">{name}</span>
         {required && (
           <span className="pf-c-form__label-required" aria-hidden="true">
             &#42;
           </span>
         )}{" "}
-        <PcmkAgentAttrsHelpPopover resourceAgentParam={resourceAgentParam} />
+        <AttributeHelpPopover
+          header={shortdesc}
+          body={longdesc}
+          defaultValue={defaultValue}
+        />
       </span>
       <div
         className="pf-c-form__horizontal-group"
         role="group"
-        aria-labelledby={`resource-attribute-value-${resourceAgentParam.name}`}
+        aria-labelledby={`resource-attribute-value-${name}`}
       >
         {children}
       </div>
