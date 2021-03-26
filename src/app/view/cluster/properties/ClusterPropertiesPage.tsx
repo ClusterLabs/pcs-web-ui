@@ -9,17 +9,43 @@ import {
 } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
+import {
+  AttributeHelpPopover,
+  AttributeList,
+  AttributeName,
+  AttributeValue,
+  ToolbarFilterTextGroupPair,
+} from "app/view/share";
 
-import { ClusterPropertiesList } from "./ClusterPropertiesList";
-import { ClusterPropertiesToolbar } from "./ClusterPropertiesToolbar";
+const { getClusterProperties } = selectors;
+
+type ClusterProperties = selectors.ExtractClusterSelector<
+  typeof getClusterProperties
+>;
+
+const useFilter = (): {
+  filterState: ReturnType<
+    typeof ToolbarFilterTextGroupPair.useState
+  >["filterState"];
+  filterParameters: (parameters: ClusterProperties) => ClusterProperties;
+} =>
+  ToolbarFilterTextGroupPair.useState(
+    {
+      Advanced: false,
+      Basic: true,
+    },
+    p => ({
+      Advanced: p.advanced,
+      Basic: !p.advanced,
+    }),
+    p => p.readable_name,
+  );
 
 export const ClusterPropertiesPage: React.FC<{ clusterName: string }> = ({
   clusterName,
 }) => {
-  const clusterProperties = useSelector(
-    selectors.getClusterProperties(clusterName),
-  );
-  const { filterState, filterParameters } = ClusterPropertiesToolbar.useState();
+  const clusterProperties = useSelector(getClusterProperties(clusterName));
+  const { filterState, filterParameters } = useFilter();
 
   return (
     <PageSection>
@@ -27,13 +53,31 @@ export const ClusterPropertiesPage: React.FC<{ clusterName: string }> = ({
         <CardBody>
           <Stack hasGutter>
             <StackItem>
-              <ClusterPropertiesToolbar filterState={filterState} />
+              <ToolbarFilterTextGroupPair
+                textSearchId="cluster-properties-name"
+                groupName="Importance"
+                filterState={filterState}
+              />
             </StackItem>
             <StackItem>
               {clusterProperties.length > 0 && (
-                <ClusterPropertiesList
-                  clusterProperties={filterParameters(clusterProperties)}
-                />
+                <AttributeList attributes={filterParameters(clusterProperties)}>
+                  {property => (
+                    <React.Fragment key={property.name}>
+                      <AttributeName name={property.readable_name}>
+                        <AttributeHelpPopover
+                          header={property.shortdesc}
+                          body={property.longdesc}
+                          defaultValue={property.default}
+                        />
+                      </AttributeName>
+                      <AttributeValue
+                        value={property.value}
+                        defaultValue={property.default}
+                      />
+                    </React.Fragment>
+                  )}
+                </AttributeList>
               )}
             </StackItem>
           </Stack>
