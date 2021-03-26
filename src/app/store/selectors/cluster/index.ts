@@ -35,5 +35,13 @@ export type ClusterSelector<
   SELECTED,
 > = TClusterSelector<ARGS, SELECTED>;
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
+  any[],
+  infer SELECTED
+>
+  ? SELECTED
+  : never;
+
 export * from "./status";
 export * from "./constraints";

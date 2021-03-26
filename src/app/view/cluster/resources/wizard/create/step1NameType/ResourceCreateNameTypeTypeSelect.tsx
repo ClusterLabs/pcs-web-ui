@@ -1,10 +1,12 @@
 import React from "react";
 import { SelectGroup, SelectOption } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
 import { Select, useClusterSelector } from "app/view/share";
 
-type ResourceAgentMap = types.resourceAgentMap.ResourceAgentMap;
+type ResourceAgentMap = selectors.ExtractClusterSelector<
+  typeof selectors.getResourceAgentMap
+>;
 
 const filterSources = (
   search: string,

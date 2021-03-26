@@ -2,13 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Alert } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
 import { EmptyStateSpinner } from "app/view/share";
-
-const clusterHasBeenAddedStates: types.addCluster.ADD_STATE[] = [
-  "DASHBOARD_RELOADING",
-  "SUCCESS",
-];
 
 export const AddClusterStepAdd = () => {
   const state = useSelector(selectors.addClusterGetStepAddState);
@@ -18,7 +13,7 @@ export const AddClusterStepAdd = () => {
       {state === "STARTED" && (
         <EmptyStateSpinner title="Adding existing cluster" />
       )}
-      {clusterHasBeenAddedStates.includes(state) && (
+      {(state === "DASHBOARD_RELOADING" || state === "SUCCESS") && (
         <Alert
           isInline
           variant="success"

@@ -25,8 +25,8 @@ import {
   ConstraintCreateOrderToolbarItem,
 } from "./task";
 
-type ConstraintPackList = ReturnType<
-  ReturnType<typeof selectors.getConstraints>
+type ConstraintPackList = selectors.ExtractClusterSelector<
+  typeof selectors.getConstraints
 >;
 
 const filterGroups = {

@@ -8,11 +8,11 @@ import {
   Text,
 } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
 import { useDispatch } from "app/view/share";
 
 const severityToVariant = (
-  severity: types.notifications.Notification["severity"],
+  severity: ReturnType<typeof selectors.getNotifications>[number]["severity"],
 ) => {
   switch (severity) {
     case "SUCCESS":
