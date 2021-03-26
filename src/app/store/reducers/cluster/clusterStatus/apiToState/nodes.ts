@@ -98,7 +98,7 @@ export const processApiNodes = (
   nodesSeverity: StatusSeverity;
 } => ({
   nodeList: apiNodeList.map(apiNode =>
-    toNode(apiNode, apiNodeAttrs[apiNode.name]),
+    toNode(apiNode, apiNodeAttrs[apiNode.name] || []),
   ),
   nodesSeverity: countNodesSeverity(apiNodeList),
 });
