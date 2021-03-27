@@ -1,15 +1,13 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Group } from "app/view/cluster/types";
 import {
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
   useSelectedClusterName,
 } from "app/view/share";
 
-export const GroupPageToolbar: React.FC<{ group: types.cluster.Group }> = ({
-  group,
-}) => {
+export const GroupPageToolbar: React.FC<{ group: Group }> = ({ group }) => {
   const cluster = useSelectedClusterName();
   const unclone: DetailLayoutToolbarAction = {
     confirm: {

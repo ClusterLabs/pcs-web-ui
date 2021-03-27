@@ -6,12 +6,12 @@ import {
   QuestionCircleIcon,
 } from "@patternfly/react-icons";
 
-import { types } from "app/store";
+import { StatusSeverity } from "app/view/cluster/types";
 
 export const StatusIco = ({
   status,
 }: {
-  status: types.cluster.StatusSeverity | "UNKNOWN";
+  status: StatusSeverity | "UNKNOWN";
 }) => {
   switch (status) {
     case "OK":

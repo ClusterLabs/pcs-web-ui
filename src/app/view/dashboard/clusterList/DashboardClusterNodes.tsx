@@ -1,6 +1,5 @@
 import React from "react";
 
-import { types } from "app/store";
 import {
   Link,
   StatusSign,
@@ -9,22 +8,21 @@ import {
   location,
   toLabel,
 } from "app/view/share";
+import { Cluster, ConnectedNode, Node } from "app/view/cluster/types";
 
 import { compareStrings } from "./utils";
 
+type StatusSeverity = ConnectedNode["statusSeverity"];
+type QuorumSeverity = ConnectedNode["quorumSeverity"];
 type COLUMNS = "NAME" | "STATUS" | "QUORUM";
 
-const quorumSeverity = (
-  node: types.cluster.Node,
-): types.cluster.StatusSeverity =>
+const quorumSeverity = (node: Node): QuorumSeverity =>
   node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.quorumSeverity;
 
-const statusSeverity = (
-  node: types.cluster.Node,
-): types.cluster.StatusSeverity =>
+const statusSeverity = (node: Node): StatusSeverity =>
   node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.statusSeverity;
 
-const quorum = (node: types.cluster.Node): string => {
+const quorum = (node: Node): string => {
   if (node.status === "DATA_NOT_PROVIDED") {
     return "Unknown";
   }
@@ -34,7 +32,7 @@ const quorum = (node: types.cluster.Node): string => {
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((a: types.cluster.Node, b: types.cluster.Node) => number) => {
+): ((a: Node, b: Node) => number) => {
   switch (column) {
     case "QUORUM":
       return (a, b) =>
@@ -50,7 +48,7 @@ const compareByColumn = (
 const { SortableTh } = Table;
 
 export const DashboardClusterNodes: React.FC<{
-  cluster: types.cluster.ClusterStatus;
+  cluster: Cluster;
 }> = ({ cluster }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (

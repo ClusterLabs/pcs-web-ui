@@ -1,12 +1,12 @@
 import React from "react";
 
 import { StatusSign, toLabel, useGroupDetailViewContext } from "app/view/share";
-import { types } from "app/store";
+import { FenceDevice } from "app/view/cluster/types";
 
 export const FenceDeviceListCellStatus = ({
   fenceDevice,
 }: {
-  fenceDevice: types.cluster.FenceDevice;
+  fenceDevice: FenceDevice;
 }) => {
   const { compact } = useGroupDetailViewContext();
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { FenceDevice } from "app/view/cluster/types";
 import {
   DetailLayout,
   UrlTabs,
@@ -18,7 +18,7 @@ import { FencePageToolbar } from "./FencePageToolbar";
 export const FenceDeviceView = ({
   fenceDevice,
 }: {
-  fenceDevice: types.cluster.FenceDevice;
+  fenceDevice: FenceDevice;
 }) => {
   useClusterFenceAgent(fenceDevice.agentName);
   const { urlPrefix } = useGroupDetailViewContext();

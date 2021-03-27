@@ -1,13 +1,19 @@
-import { FenceDevice, FenceDeviceStatusFlag, apiTypes } from "../../types";
+import { ActionPayload } from "app/store/actions";
+
+import { Cluster } from "../../types";
 import { transformIssues } from "../issues";
 
 import { statusToSeverity } from "./statusInfoList";
 
-type ApiStonith = apiTypes.Stonith;
+type ApiStonith = Extract<
+  ActionPayload["CLUSTER.STATUS.FETCH.OK"]["resource_list"][number],
+  { class_type: "primitive"; stonith: true }
+>;
+type FenceDevice = Cluster["fenceDeviceList"][number];
 
 const transformStatus = (
   status: ApiStonith["status"],
-): FenceDeviceStatusFlag => {
+): FenceDevice["status"] => {
   switch (status) {
     case "blocked":
       return "BLOCKED";

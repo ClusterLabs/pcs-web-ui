@@ -1,12 +1,12 @@
 import React from "react";
 
-import { types } from "app/store";
+import { NVPair } from "app/view/cluster/types";
 import { AttributeList, AttributeName, AttributeValue } from "app/view/share";
 
 export const NVPairListView = ({
   nvPairListView,
 }: {
-  nvPairListView: types.cluster.NVPair[];
+  nvPairListView: NVPair[];
 }) => {
   return (
     <AttributeList attributes={nvPairListView}>

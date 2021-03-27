@@ -15,9 +15,9 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
+import { NodeDetailPageToolbar } from "./NodeDetailPageToolbar";
 import { NodeDetailView } from "./NodeDetailView";
 import { NodeDoesNotExists } from "./NodeDoesNotExists";
-import { NodeDetailPageToolbar } from "./NodeDetailPageToolbar";
 
 export const NodeDetailPage = () => {
   const { selectedItemUrlName, urlPrefix } = useGroupDetailViewContext();

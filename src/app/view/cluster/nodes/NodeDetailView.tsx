@@ -1,7 +1,7 @@
 import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
 import {
   CrmStatusTable,
   EmptyStateError,
@@ -10,11 +10,12 @@ import {
   location,
   useClusterSelector,
 } from "app/view/share";
+import { Node } from "app/view/cluster/types";
 
 import { NodeDaemonTable } from "./NodeDaemonTable";
 import { NodeClusterServicesView } from "./services";
 
-export const NodeDetailView = ({ node }: { node: types.cluster.Node }) => {
+export const NodeDetailView = ({ node }: { node: Node }) => {
   const [crmStatusList, clusterName] = useClusterSelector(
     selectors.crmStatusForNode,
     node.name,

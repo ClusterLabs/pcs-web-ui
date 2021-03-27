@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Primitive } from "app/view/cluster/types";
 import {
   AttributeList,
   AttributeName,
@@ -14,7 +14,7 @@ export const PcmkAgentAttrsList = ({
   agentAttributes,
   resourceAgentParameters,
 }: {
-  agentAttributes: Record<string, types.cluster.AgentAttribute>;
+  agentAttributes: Primitive["instanceAttributes"];
   resourceAgentParameters: AgentParameter[];
 }) => {
   return (

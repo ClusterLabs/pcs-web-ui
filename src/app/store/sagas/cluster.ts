@@ -18,7 +18,7 @@ function* fetchClusterData(clusterName: string) {
   yield put({
     type: "CLUSTER.STATUS.FETCH.OK",
     key: { clusterName },
-    payload: { apiClusterStatus: result.payload },
+    payload: result.payload,
   });
 }
 

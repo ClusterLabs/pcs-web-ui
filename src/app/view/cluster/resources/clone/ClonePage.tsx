@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Clone } from "app/view/cluster/types";
 import {
   DetailLayout,
   NVPairListView,
@@ -14,7 +14,7 @@ import {
 
 import { CloneDetail } from "./CloneDetail";
 
-export const ClonePage = ({ clone }: { clone: types.cluster.Clone }) => {
+export const ClonePage = ({ clone }: { clone: Clone }) => {
   const { urlPrefix } = useGroupDetailViewContext();
   const resourceUrlPrefix = join(urlPrefix, clone.id);
   const { tab, urlMap } = useRoutesAnalysis("Detail", {

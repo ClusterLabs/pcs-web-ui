@@ -7,7 +7,8 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
+import { ResourceStatus } from "app/view/cluster/types";
 import { useClusterSelector, useDispatch } from "app/view/share";
 
 import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
@@ -21,7 +22,7 @@ export const ResourceTreeItemCompound = ({
 }: React.PropsWithChildren<{
   resourceId: string;
   nestingDepth: number;
-  status: types.cluster.ResourceStatus;
+  status: ResourceStatus;
   type: string;
 }>) => {
   const dispatch = useDispatch();

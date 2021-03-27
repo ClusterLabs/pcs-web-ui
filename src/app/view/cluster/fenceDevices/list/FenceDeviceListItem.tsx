@@ -6,7 +6,7 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { FenceDevice } from "app/view/cluster/types";
 import {
   SelectionIndicatorInGroup,
   useGroupDetailViewContext,
@@ -19,7 +19,7 @@ import { FenceDeviceListCellType } from "./FenceDeviceListCellType";
 export const FenceDeviceListItem = ({
   fenceDevice,
 }: {
-  fenceDevice: types.cluster.FenceDevice;
+  fenceDevice: FenceDevice;
 }) => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
   return (

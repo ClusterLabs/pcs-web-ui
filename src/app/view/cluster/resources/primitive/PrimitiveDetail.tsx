@@ -1,7 +1,8 @@
 import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
+import { Primitive } from "app/view/cluster/types";
 import {
   CrmStatusTable,
   IssueList,
@@ -12,11 +13,7 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-export const PrimitiveDetail = ({
-  primitive,
-}: {
-  primitive: types.cluster.Primitive;
-}) => {
+export const PrimitiveDetail = ({ primitive }: { primitive: Primitive }) => {
   const [
     crmStatusList,
     clusterName,

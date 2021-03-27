@@ -1,11 +1,14 @@
-import { ClusterStatus, Issue, apiTypes } from "../types";
+import { ActionPayload } from "app/store/actions";
+
+import { Cluster, Issue } from "../types";
+
+type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 
 // It is more practical to deduce issue from one place (so resource and node are
 // skipped).
 // 1. The types are the same - typescript infere the type correctly.
 // 2. Don't want a formal duty to keep it in sync a new occurences here.
-type ApiIssue = (apiTypes.Cluster["error_list"] &
-  apiTypes.Cluster["warning_list"])[number];
+type ApiIssue = (ApiCluster["error_list"] & ApiCluster["warning_list"])[number];
 
 const mapIssue = (severity: Issue["severity"]) => (issue: ApiIssue): Issue => {
   if (
@@ -37,7 +40,7 @@ export const transformIssues = (element: {
 export const issuesToSummarySeverity = (
   errorList: ApiIssue[],
   warningList: ApiIssue[],
-): ClusterStatus["summary"]["issuesSeverity"] => {
+): Cluster["summary"]["issuesSeverity"] => {
   if (errorList.length > 0) {
     return "ERROR";
   }

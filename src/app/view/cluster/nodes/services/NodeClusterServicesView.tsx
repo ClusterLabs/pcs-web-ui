@@ -1,16 +1,12 @@
 import React from "react";
 import { Gallery, GalleryItem } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { Node } from "app/view/cluster/types";
 
 import { NodeServiceCard } from "./NodeServiceCard";
 import { NodeServiceFlag } from "./NodeServiceFlag";
 
-export const NodeClusterServicesView = ({
-  node,
-}: {
-  node: types.cluster.Node;
-}) => {
+export const NodeClusterServicesView = ({ node }: { node: Node }) => {
   return (
     <Gallery hasGutter>
       <GalleryItem>

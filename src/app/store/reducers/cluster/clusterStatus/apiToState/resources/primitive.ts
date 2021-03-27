@@ -1,15 +1,28 @@
-import { Issue, Primitive, ResourceStatusInfo, apiTypes } from "../../types";
+import { ActionPayload } from "app/store/actions";
+
+import { Cluster, Issue } from "../../types";
 import { transformIssues } from "../issues";
 
 import { buildStatus, isDisabled } from "./statusInfoList";
 
+type ApiPrimitive = Extract<
+  ActionPayload["CLUSTER.STATUS.FETCH.OK"]["resource_list"][number],
+  { class_type: "primitive"; stonith: false }
+>;
+
+type Primitive = Extract<
+  Cluster["resourceTree"][number],
+  { itemType: "primitive" }
+>;
+type StatusInfoList = Primitive["status"]["infoList"];
+
 const buildStatusInfoList = (
-  apiPrimitive: apiTypes.Primitive,
+  apiPrimitive: ApiPrimitive,
 ): {
-  resourceStatusInfo: ResourceStatusInfo[];
+  resourceStatusInfo: StatusInfoList;
   issues: Issue[];
 } => {
-  const infoList: ResourceStatusInfo[] = [];
+  const infoList: StatusInfoList = [];
   const issues: Issue[] = [];
 
   // warning
@@ -65,7 +78,7 @@ const buildStatusInfoList = (
 };
 
 export const toPrimitive = (
-  apiResource: apiTypes.Primitive,
+  apiResource: ApiPrimitive,
   context: { inClone: boolean; inGroup: boolean } = {
     inClone: false,
     inGroup: false,

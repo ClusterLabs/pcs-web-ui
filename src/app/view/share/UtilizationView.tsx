@@ -1,14 +1,14 @@
 import React from "react";
 import { Alert, StackItem, TextContent } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { NVPair } from "app/view/cluster/types";
 
 import { NVPairListView } from "./NVPairListView";
 
 export const UtilizationView = ({
   utilizationParams,
 }: {
-  utilizationParams: types.cluster.NVPair[];
+  utilizationParams: NVPair[];
 }) => {
   return (
     <>

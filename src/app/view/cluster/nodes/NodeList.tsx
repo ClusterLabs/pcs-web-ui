@@ -1,11 +1,11 @@
 import React from "react";
 import { DataList } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { Node } from "app/view/cluster/types";
 
 import { NodeListItem } from "./NodeListItem";
 
-export const NodeList = ({ nodeList }: { nodeList: types.cluster.Node[] }) => (
+export const NodeList = ({ nodeList }: { nodeList: Node[] }) => (
   <DataList data-test="cluster-nodes" aria-label="Cluster nodes">
     {nodeList.map(node => (
       <NodeListItem key={node.name} node={node} />

@@ -1,17 +1,17 @@
 import React from "react";
 
-import { types } from "app/store";
+import { ResourceStatus } from "app/view/cluster/types";
 import {
   ResourceStatusInfoListSigns,
   StatusIco,
   useGroupDetailViewContext,
 } from "app/view/share";
 
-type StatusSeverity = types.cluster.StatusSeverity;
+type StatusSeverity = ResourceStatus["infoList"][number]["severity"];
 type SeverityCount = { severity: StatusSeverity; count: number };
 
 const getSeverityCounts = (
-  statusInfoList: types.cluster.ResourceStatusInfo[],
+  statusInfoList: ResourceStatus["infoList"],
 ): SeverityCount[] => {
   const countsMap = statusInfoList.reduce<Record<StatusSeverity, number>>(
     (counts, statusInfo) => {
@@ -38,7 +38,7 @@ const getSeverityCounts = (
 export const ResourceTreeCellStatus = ({
   status,
 }: {
-  status: types.cluster.ResourceStatus;
+  status: ResourceStatus;
 }) => {
   const { compact } = useGroupDetailViewContext();
   if (compact) {

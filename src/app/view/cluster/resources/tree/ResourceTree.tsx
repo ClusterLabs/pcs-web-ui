@@ -1,7 +1,7 @@
 import React from "react";
 import { DataList } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { Resource } from "app/view/cluster/types";
 import { EmptyStateNoItem, useGroupDetailViewContext } from "app/view/share";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
@@ -11,7 +11,7 @@ import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
 export const ResourceTree = ({
   resourceTree,
 }: {
-  resourceTree: types.cluster.ResourceTreeItem[];
+  resourceTree: Resource[];
 }) => {
   const { compact } = useGroupDetailViewContext();
 

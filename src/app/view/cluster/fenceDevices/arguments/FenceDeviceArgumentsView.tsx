@@ -1,7 +1,7 @@
 import React from "react";
 import { StackItem } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { FenceDevice } from "app/view/cluster/types";
 import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
@@ -12,7 +12,7 @@ import {
 export const FenceDeviceArgumentsView = ({
   fenceDevice,
 }: {
-  fenceDevice: types.cluster.FenceDevice;
+  fenceDevice: FenceDevice;
 }) => {
   const clusterName = useSelectedClusterName();
   const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState();

@@ -3,9 +3,9 @@ import { combineReducers } from "redux";
 import { Reducer } from "../../tools";
 
 import { apiToState } from "./apiToState";
-import { ClusterStatus, ClusterStatusService } from "./types";
+import { Cluster, ClusterStatusService } from "./types";
 
-export const clusterStatusDefault: ClusterStatus = {
+export const clusterStatusDefault: Cluster = {
   name: "",
   nodeList: [],
   resourceTree: [],
@@ -29,7 +29,7 @@ const clusterData: Reducer<ClusterStatusService["clusterData"]> = (
 ) => {
   switch (action.type) {
     case "CLUSTER.STATUS.FETCH.OK":
-      return apiToState(action.payload.apiClusterStatus);
+      return apiToState(action.payload);
     default:
       return state;
   }

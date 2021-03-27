@@ -1,11 +1,10 @@
 import React from "react";
 
-import { types } from "app/store";
-
+import { ConstraintLocationRule } from "../types";
 import { ConstraintCell, ConstraintCellFake } from "../common";
 
 export const ConstraintLocationCellScore: React.FC<{
-  constraint: types.cluster.ConstraintLocationRule;
+  constraint: ConstraintLocationRule;
 }> = ({ constraint }) => {
   if ("score" in constraint) {
     return <ConstraintCell label="Score" value={constraint.score} width={1} />;

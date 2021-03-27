@@ -1,11 +1,14 @@
-import { ClusterStatus, apiTypes } from "../types";
+import { ActionPayload } from "app/store/actions";
+
+import { Cluster } from "../types";
 
 import { issuesToSummarySeverity, transformIssues } from "./issues";
 import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
 
-const sbdDetection = (apiClusterState: apiTypes.Cluster) =>
-  apiClusterState.node_list.reduce<ClusterStatus["sbdDetection"]>(
+type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
+const sbdDetection = (apiClusterState: ApiCluster) =>
+  apiClusterState.node_list.reduce<Cluster["sbdDetection"]>(
     (sbd, node) =>
       node.status === "unknown"
         ? sbd
@@ -15,9 +18,7 @@ const sbdDetection = (apiClusterState: apiTypes.Cluster) =>
     null,
   );
 
-export const apiToState = (
-  apiClusterStatus: apiTypes.Cluster,
-): ClusterStatus => {
+export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
   const {
     resourceTree,
     resourcesSeverity,

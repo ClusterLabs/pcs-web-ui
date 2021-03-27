@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Group } from "app/view/cluster/types";
 import {
   DetailLayout,
   NVPairListView,
@@ -15,7 +15,7 @@ import {
 import { GroupDetail } from "./GroupDetail";
 import { GroupPageToolbar } from "./GroupPageToolbar";
 
-export const GroupPage = ({ group }: { group: types.cluster.Group }) => {
+export const GroupPage = ({ group }: { group: Group }) => {
   const { urlPrefix } = useGroupDetailViewContext();
   const resourceUrlPrefix = join(urlPrefix, group.id);
   const { tab, urlMap } = useRoutesAnalysis("Detail", {

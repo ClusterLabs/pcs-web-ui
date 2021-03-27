@@ -1,13 +1,9 @@
 import React from "react";
 
-import { types } from "app/store";
-
+import { ConstraintResourceSet } from "../types";
 import { ConstraintLink } from "../common";
 
-type ResourceSetStructured = Extract<
-  types.cluster.ConstraintResourceSet,
-  { id: string }
->;
+type ResourceSetStructured = Extract<ConstraintResourceSet, { id: string }>;
 
 export const ConstraintResourceSetRscLinks: React.FC<{
   resourceSet: ResourceSetStructured;

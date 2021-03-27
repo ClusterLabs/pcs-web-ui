@@ -1,12 +1,15 @@
-import {
-  ResourceStatus,
-  ResourceStatusInfo,
-  StatusSeverity,
-  apiTypes,
-} from "../../types";
+import { ActionPayload } from "app/store/actions";
+
+import { Cluster, StatusSeverity } from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
-export const isDisabled = (apiResource: apiTypes.Resource): boolean =>
+type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
+type ApiResource = ApiCluster["resource_list"][number];
+
+type Resource = Cluster["resourceTree"][number];
+type Status = Resource["status"];
+
+export const isDisabled = (apiResource: ApiResource): boolean =>
   apiResource.meta_attr.some(
     apiMetaAttribute =>
       apiMetaAttribute.name === "target-role"
@@ -23,17 +26,13 @@ export function getMaxSeverity<T>(
   );
 }
 
-export const buildStatus = (
-  statusInfoList: ResourceStatusInfo[],
-): ResourceStatus => {
-  return {
-    infoList: statusInfoList,
-    maxSeverity: getMaxSeverity(statusInfoList, info => info.severity),
-  };
-};
+export const buildStatus = (statusInfoList: Status["infoList"]): Status => ({
+  infoList: statusInfoList,
+  maxSeverity: getMaxSeverity(statusInfoList, info => info.severity),
+});
 
 export const statusToSeverity = (
-  status: apiTypes.Resource["status"],
+  status: ApiResource["status"],
 ): StatusSeverity => {
   switch (status) {
     case "blocked":

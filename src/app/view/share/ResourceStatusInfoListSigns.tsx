@@ -1,12 +1,12 @@
 import React from "react";
 
-import { types } from "app/store";
+import { ResourceStatus } from "app/view/cluster/types";
 import { StatusSign } from "app/view/share/StatusSign";
 import { toLabel } from "app/view/share/utils";
 import { compareStatusSeverity } from "app/view/share/compareStatusSeverity";
 
 export const ResourceStatusInfoListSigns: React.FC<{
-  resourceStatusInfoList: types.cluster.ResourceStatusInfo[];
+  resourceStatusInfoList: ResourceStatus["infoList"];
   showOkIco?: boolean;
 }> = ({ resourceStatusInfoList, showOkIco = false }) => {
   return (

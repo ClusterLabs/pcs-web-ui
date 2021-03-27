@@ -1,13 +1,13 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Primitive } from "app/view/cluster/types";
 
 import { ResourceTreeItem } from "./ResourceTreeItem";
 
 export const ResourceTreeItemPrimitive = ({
   primitive,
 }: {
-  primitive: types.cluster.Primitive;
+  primitive: Primitive;
 }) => (
   <ResourceTreeItem
     resourceId={primitive.id}

@@ -1,7 +1,8 @@
 import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
+import { Group } from "app/view/cluster/types";
 import {
   CrmStatusTable,
   IssueList,
@@ -10,7 +11,7 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-export const GroupDetail = ({ group }: { group: types.cluster.Group }) => {
+export const GroupDetail = ({ group }: { group: Group }) => {
   const [crmStatusList, clusterName] = useClusterSelector(
     selectors.crmStatusForPrimitive,
     group.resources.map(r => r.id),

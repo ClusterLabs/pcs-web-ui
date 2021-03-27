@@ -1,7 +1,7 @@
 import React from "react";
 import { DataList } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { FenceDevice } from "app/view/cluster/types";
 import { EmptyStateNoItem, useGroupDetailViewContext } from "app/view/share";
 
 import { FenceDeviceListItem } from "./FenceDeviceListItem";
@@ -9,7 +9,7 @@ import { FenceDeviceListItem } from "./FenceDeviceListItem";
 export const FenceDeviceList = ({
   fenceDeviceList,
 }: {
-  fenceDeviceList: types.cluster.FenceDevice[];
+  fenceDeviceList: FenceDevice[];
 }) => {
   const { compact } = useGroupDetailViewContext();
 

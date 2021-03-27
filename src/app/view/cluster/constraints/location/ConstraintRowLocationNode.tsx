@@ -1,8 +1,6 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-import { types } from "app/store";
-
 import {
   ConstraintCell,
   ConstraintLink,
@@ -10,13 +8,14 @@ import {
   ConstraintRow,
   ConstraintValue,
 } from "../common";
+import { ConstraintLocationNode } from "../types";
 
 import { ConstraintLocationDescRscPoint } from "./ConstraintLocationDescRscPoint";
 
 export const ConstraintRowLocationNode = ({
   constraint,
 }: {
-  constraint: types.cluster.ConstraintLocationNode;
+  constraint: ConstraintLocationNode;
 }) => {
   return (
     <ConstraintRow

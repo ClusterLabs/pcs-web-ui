@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Cluster, FenceDevice } from "app/view/cluster/types";
 import {
   EmptyStateNoItem,
   Link,
@@ -17,7 +17,7 @@ type COLUMNS = "NAME" | "STATUS";
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((a: types.cluster.FenceDevice, b: types.cluster.FenceDevice) => number) => {
+): ((a: FenceDevice, b: FenceDevice) => number) => {
   switch (column) {
     case "STATUS":
       return (a, b) =>
@@ -30,7 +30,7 @@ const compareByColumn = (
 const { SortableTh } = Table;
 
 export const DashboardClusterFenceDevices: React.FC<{
-  cluster: types.cluster.ClusterStatus;
+  cluster: Cluster;
 }> = ({ cluster }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   if (cluster.fenceDeviceList.length === 0) {

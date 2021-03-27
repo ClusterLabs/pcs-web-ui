@@ -1,15 +1,26 @@
-import { Clone, ResourceStatusInfo, apiTypes } from "../../types";
+import { ActionPayload } from "app/store/actions";
+
+import { Cluster } from "../../types";
 import { transformIssues } from "../issues";
 
 import { toPrimitive } from "./primitive";
 import { toGroup } from "./group";
 import { buildStatus, statusToSeverity } from "./statusInfoList";
 
-type ApiClone = apiTypes.Clone;
-type ApiPrimitive = apiTypes.Primitive;
+type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
+type ApiResource = ApiCluster["resource_list"][number];
+type ApiClone = Extract<ApiResource, { class_type: "clone" }>;
+type ApiPrimitive = Extract<
+  ApiResource,
+  { class_type: "primitive"; stonith: false }
+>;
 
-const buildStatusInfoList = (apiClone: ApiClone): ResourceStatusInfo[] => {
-  const infoList: ResourceStatusInfo[] = [
+type Clone = Extract<Cluster["resourceTree"][number], { itemType: "clone" }>;
+
+const buildStatusInfoList = (
+  apiClone: ApiClone,
+): Clone["status"]["infoList"] => {
+  const infoList: Clone["status"]["infoList"] = [
     {
       label: apiClone.status,
       severity: statusToSeverity(apiClone.status),

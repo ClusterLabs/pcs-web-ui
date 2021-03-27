@@ -1,8 +1,7 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-import { types } from "app/store";
-
+import { ConstraintLocationRule } from "../types";
 import {
   ConstraintCell,
   ConstraintCellFake,
@@ -19,7 +18,7 @@ export const ConstraintRowLocationRule = ({
   constraint,
 }: {
   id: string;
-  constraint: types.cluster.ConstraintLocationRule;
+  constraint: ConstraintLocationRule;
 }) => {
   return (
     <ConstraintRow

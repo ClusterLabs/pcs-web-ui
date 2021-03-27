@@ -1,19 +1,19 @@
 import React from "react";
 import { Stack, StackItem } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { Issue } from "app/view/cluster/types";
 
 import { IssueListEmpty } from "./IssueListEmpty";
 import { IssueListIssueDefault } from "./IssueListIssueDefault";
 
-const issueKey = (issue: types.cluster.Issue, index: string | number) =>
+const issueKey = (issue: Issue, index: string | number) =>
   `${index}:${issue.message}`;
 
 export const IssueList: React.FC<{
-  issueList: types.cluster.Issue[];
+  issueList: Issue[];
   margin?: boolean;
   hideEmpty?: boolean;
-  displayIssue?: (issue: types.cluster.Issue) => React.ReactNode;
+  displayIssue?: (issue: Issue) => React.ReactNode;
 }> = ({
   issueList,
   margin = false,

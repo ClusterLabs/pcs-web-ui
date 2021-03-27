@@ -1,12 +1,9 @@
 import React from "react";
 
-import { types } from "app/store";
-
 import { ConstraintCell, ConstraintCellFake } from "../common";
+import { ConstraintOrderPair, ConstraintOrderSet } from "../types";
 
-type ConstraintOrder =
-  | types.cluster.ConstraintOrderPair
-  | types.cluster.ConstraintOrderSet;
+type ConstraintOrder = ConstraintOrderPair | ConstraintOrderSet;
 
 export const ConstraintCellOrderScoreKind: React.FC<{
   constraint: ConstraintOrder;

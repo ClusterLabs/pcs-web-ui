@@ -1,20 +1,19 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-import { types } from "app/store";
-
 import {
   ConstraintResourceSetRscLinks,
   ConstraintRowWithResourceSet,
 } from "../resourceSet";
 import { ConstraintValue } from "../common";
+import { ConstraintOrderSet } from "../types";
 
 import { ConstraintCellOrderScoreKind } from "./ConstraintCellOrderScoreKind";
 
 export const ConstraintRowOrderSet = ({
   constraint,
 }: {
-  constraint: types.cluster.ConstraintOrderSet;
+  constraint: ConstraintOrderSet;
 }) => {
   return (
     <ConstraintRowWithResourceSet

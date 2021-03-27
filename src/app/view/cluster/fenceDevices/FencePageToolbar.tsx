@@ -1,13 +1,11 @@
 import React from "react";
 
-import { types } from "app/store";
+import { FenceDevice } from "app/view/cluster/types";
 import {
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
   useSelectedClusterName,
 } from "app/view/share";
-
-type FenceDevice = types.cluster.FenceDevice;
 
 export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
   fenceDevice,

@@ -1,10 +1,6 @@
-import {
-  FenceDevice,
-  ResourceOnNodeStatus,
-  ResourceTreeItem,
-  StatusSeverity,
-  apiTypes,
-} from "../../types";
+import { ActionPayload } from "app/store/actions";
+
+import { Cluster, StatusSeverity } from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
 import { toPrimitive } from "./primitive";
@@ -13,44 +9,45 @@ import { toClone } from "./clone";
 import { toFenceDevice } from "./fenceDevice";
 import { statusToSeverity } from "./statusInfoList";
 
-type ApiPrimitive = apiTypes.Primitive;
-type ApiStonith = apiTypes.Stonith;
+type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
+type ApiResource = ApiCluster["resource_list"][number];
+type ApiPrimitiveType = { class_type: "primitive" };
+type ApiPrimitive = Extract<ApiResource, ApiPrimitiveType & { stonith: false }>;
+type ApiStonith = Extract<ApiResource, ApiPrimitiveType & { stonith: true }>;
 
 const takeResourceOnNodeStatus = (
   apiResource: ApiPrimitive,
-): ResourceOnNodeStatus[] =>
-  apiResource.crm_status.map(
-    (crmStatus): ResourceOnNodeStatus => ({
-      resource: { id: apiResource.id },
-      node:
-        crmStatus.node === null
-          ? null
-          : {
-              name: crmStatus.node.name,
-            },
-      active: crmStatus.active,
-      failed: crmStatus.failed,
-      failureIgnored: crmStatus.failure_ignored,
-      managed: crmStatus.managed,
-      targetRole: crmStatus.target_role ?? undefined,
-      role: crmStatus.role,
-      pending: crmStatus.pending,
-      orphaned: crmStatus.orphaned,
-      nodesRunningOn: crmStatus.nodes_running_on,
-      blocked: crmStatus.blocked === true,
-    }),
-  );
+): Cluster["resourceOnNodeStatusList"] =>
+  apiResource.crm_status.map(crmStatus => ({
+    resource: { id: apiResource.id },
+    node:
+      crmStatus.node === null
+        ? null
+        : {
+            name: crmStatus.node.name,
+          },
+    active: crmStatus.active,
+    failed: crmStatus.failed,
+    failureIgnored: crmStatus.failure_ignored,
+    managed: crmStatus.managed,
+    targetRole: crmStatus.target_role ?? undefined,
+    role: crmStatus.role,
+    pending: crmStatus.pending,
+    orphaned: crmStatus.orphaned,
+    nodesRunningOn: crmStatus.nodes_running_on,
+    blocked: crmStatus.blocked === true,
+  }));
 
 type AnalyzedResources = {
-  resourceTree: ResourceTreeItem[];
+  resourceTree: Cluster["resourceTree"];
   resourcesSeverity: StatusSeverity;
-  fenceDeviceList: FenceDevice[];
+  fenceDeviceList: Cluster["fenceDeviceList"];
   fenceDevicesSeverity: StatusSeverity;
-  resourceOnNodeStatusList: ResourceOnNodeStatus[];
+  resourceOnNodeStatusList: Cluster["resourceOnNodeStatusList"];
 };
 
 export const analyzeApiResources = (
-  apiResourceList: apiTypes.Resource[],
+  apiResourceList: ApiResource[],
 ): AnalyzedResources =>
   apiResourceList.reduce<AnalyzedResources>(
     (analyzed, apiResource) => {

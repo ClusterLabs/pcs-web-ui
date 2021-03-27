@@ -1,13 +1,13 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Issue } from "app/view/cluster/types";
 import { IssueList, IssueListIssueDefault } from "app/view/share";
 
 import { ClusterIssueNotAuth } from "./ClusterIssueNotAuth";
 
-type Issue = types.cluster.Issue;
+type IssueNotAuth = Extract<Issue, { type: "nodes_not_authorized" }>;
 
-const isNoAuthIssue = (issue: Issue): issue is types.cluster.IssueNotAuth =>
+const isNoAuthIssue = (issue: Issue): issue is IssueNotAuth =>
   "type" in issue && issue.type === "nodes_not_authorized";
 
 const compareIssuesOrder = (i1: Issue, i2: Issue) => {

@@ -1,12 +1,21 @@
-import { Group, ResourceStatusInfo, apiTypes } from "../../types";
+import { ActionPayload } from "app/store/actions";
+
+import { Cluster } from "../../types";
 import { transformIssues } from "../issues";
 
 import { toPrimitive } from "./primitive";
 import { buildStatus, getMaxSeverity, isDisabled } from "./statusInfoList";
 
-type ApiGroup = apiTypes.Group;
-type ApiPrimitive = apiTypes.Primitive;
-type ApiStonith = apiTypes.Stonith;
+type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
+type ApiResource = ApiCluster["resource_list"][number];
+type ApiGroup = Extract<ApiResource, { class_type: "group" }>;
+type ApiPrimitiveType = { class_type: "primitive" };
+type ApiPrimitive = Extract<ApiResource, ApiPrimitiveType & { stonith: false }>;
+type ApiStonith = Extract<ApiResource, ApiPrimitiveType & { stonith: true }>;
+
+type Resource = Cluster["resourceTree"][number];
+type Primitive = Extract<Resource, { itemType: "primitive" }>;
+type Group = Extract<Resource, { itemType: "group" }>;
 
 type Counts = {
   errors: Record<string, number>;
@@ -16,8 +25,8 @@ type Counts = {
 const buildStatusInfoList = (
   apiGroup: ApiGroup,
   members: Group["resources"],
-): ResourceStatusInfo[] => {
-  const infoList: ResourceStatusInfo[] = [];
+): Group["status"]["infoList"] => {
+  const infoList: Group["status"]["infoList"] = [];
   if (isDisabled(apiGroup)) {
     infoList.push({ label: "DISABLED", severity: "WARNING" });
   }
@@ -43,7 +52,7 @@ const buildStatusInfoList = (
       primitive.status.infoList
         // .filter(info => info.severity === maxSeverity)
         // .map(info => info.label)
-        .forEach((info: ResourceStatusInfo) => {
+        .forEach((info: Primitive["status"]["infoList"][number]) => {
           const key = info.severity === "ERROR" ? "errors" : "warnings";
           nextCounts[key][info.label] =
             info.label in counts ? counts.errors[info.label] + 1 : 1;

@@ -1,14 +1,15 @@
 import React from "react";
 
-import { Action, types } from "app/store";
+import { Action } from "app/store";
 import {
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
   useSelectedClusterName,
 } from "app/view/share";
+import { Node } from "app/view/cluster/types";
 
 export const NodeDetailPageToolbar: React.FC<{
-  node: types.cluster.Node;
+  node: Node;
 }> = ({ node }) => {
   const clusterName = useSelectedClusterName();
 

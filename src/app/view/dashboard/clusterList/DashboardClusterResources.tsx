@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Cluster, Resource } from "app/view/cluster/types";
 import {
   EmptyStateNoItem,
   Link,
@@ -16,10 +16,7 @@ type COLUMNS = "NAME" | "STATUS";
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((
-  a: types.cluster.ResourceTreeItem,
-  b: types.cluster.ResourceTreeItem,
-) => number) => {
+): ((a: Resource, b: Resource) => number) => {
   switch (column) {
     case "STATUS":
       return (a, b) =>
@@ -32,7 +29,7 @@ const compareByColumn = (
 const { SortableTh } = Table;
 
 export const DashboardClusterResources: React.FC<{
-  cluster: types.cluster.ClusterStatus;
+  cluster: Cluster;
 }> = ({ cluster }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
 

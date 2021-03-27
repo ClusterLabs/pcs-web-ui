@@ -1,11 +1,11 @@
 import React from "react";
 
-import { types } from "app/store";
+import { FenceDevice } from "app/view/cluster/types";
 
 export const FenceDeviceListCellType = ({
   fenceDevice,
 }: {
-  fenceDevice: types.cluster.FenceDevice;
+  fenceDevice: FenceDevice;
 }) => {
   return (
     <>

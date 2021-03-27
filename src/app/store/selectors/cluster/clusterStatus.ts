@@ -1,22 +1,17 @@
-import * as types from "app/store/types";
-
 import {
   clusterSelector,
   clusterStorageItemSelector,
 } from "./selectorsHelpers";
 
-const fetchStatusSuccess: types.cluster.ClusterStatusService["dataFetchState"] =
-  "SUCCESS";
+type Cluster = Parameters<Parameters<typeof clusterSelector>[0]>[0];
+type Resource = Cluster["resourceTree"][number];
 
 export const clusterAreDataLoaded = clusterStorageItemSelector(
   clusterStorageItem =>
-    clusterStorageItem?.clusterStatus?.dataFetchState === fetchStatusSuccess,
+    clusterStorageItem?.clusterStatus?.dataFetchState === "SUCCESS",
 );
 
-const findInTopLevelAndGroup = (
-  resource: types.cluster.ResourceTreeItem,
-  id: string,
-) => {
+const findInTopLevelAndGroup = (resource: Resource, id: string) => {
   if (resource.id === id) {
     return resource;
   }

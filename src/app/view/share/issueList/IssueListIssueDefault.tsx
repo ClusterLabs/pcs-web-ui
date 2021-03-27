@@ -1,10 +1,10 @@
 import React from "react";
 import { Alert } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { Issue } from "app/view/cluster/types";
 
 export const IssueListIssueDefault: React.FC<{
-  issue: types.cluster.Issue;
+  issue: Issue;
 }> = ({ issue }) => {
   return (
     <Alert

@@ -1,8 +1,7 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-import { types } from "app/store";
-
+import { ConstraintColocationPair } from "../types";
 import {
   ConstraintCell,
   ConstraintLink,
@@ -16,7 +15,7 @@ import { ConstraintRowColocationTogether } from "./ConstraintRowColocationTogeth
 export const ConstraintRowColocationPair = ({
   constraint,
 }: {
-  constraint: types.cluster.ConstraintColocationPair;
+  constraint: ConstraintColocationPair;
 }) => {
   return (
     <ConstraintRow

@@ -1,15 +1,22 @@
-import { Node, NodeStatusFlag, StatusSeverity, apiTypes } from "../types";
+import { ActionPayload } from "app/store/actions";
+
+import { Cluster, StatusSeverity } from "../types";
 
 import * as statusSeverity from "./statusSeverity";
 import { transformIssues } from "./issues";
 
-type ApiNode = apiTypes.Cluster["node_list"][number];
+type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
+type ApiNode = ApiCluster["node_list"][number];
 type ApiNodeQuorum = Extract<ApiNode, { quorum: unknown }>["quorum"];
 type ApiNodeStatus = Extract<ApiNode, { status: unknown }>["status"];
-type ApiNodeAttrListMap = NonNullable<apiTypes.Cluster["node_attr"]>;
+type ApiNodeAttrListMap = NonNullable<ApiCluster["node_attr"]>;
 type ApiNodeAttrList = ApiNodeAttrListMap[keyof ApiNodeAttrListMap];
 
-const mapStatus = (status: ApiNodeStatus): NodeStatusFlag => {
+type Node = Cluster["nodeList"][number];
+
+const mapStatus = (
+  status: ApiNodeStatus,
+): Exclude<Node, { status: "DATA_NOT_PROVIDED" }>["status"] => {
   if (status === "standby") {
     return "STANDBY";
   }

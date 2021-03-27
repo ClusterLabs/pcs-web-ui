@@ -1,9 +1,8 @@
 import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-import { types } from "app/store";
-
 import { ConstraintResourceInRole, ConstraintValue } from "../common";
+import { ConstraintTicketSet } from "../types";
 import {
   ConstraintResourceSetRscLinks,
   ConstraintRowWithResourceSet,
@@ -12,7 +11,7 @@ import {
 export const ConstraintRowTicketSet = ({
   constraint,
 }: {
-  constraint: types.cluster.ConstraintTicketSet;
+  constraint: ConstraintTicketSet;
 }) => {
   return (
     <ConstraintRowWithResourceSet

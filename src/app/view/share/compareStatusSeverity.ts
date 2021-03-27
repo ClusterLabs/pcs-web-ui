@@ -1,6 +1,4 @@
-import { types } from "app/store";
-
-type StatusSeverity = types.cluster.StatusSeverity;
+import { StatusSeverity } from "app/view/cluster/types";
 
 const severity = (status: StatusSeverity): number => {
   switch (status) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { ActionGroup, Alert, Button, Form } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { Primitive } from "app/view/cluster/types";
 import {
   pcmkAgentTypes,
   useDispatch,
@@ -17,14 +17,14 @@ type FormAttr = {
   srcChoice: "undecided" | "remote" | "user";
 };
 
-const instanceAttr = (primitive: types.cluster.Primitive, name: string) =>
+const instanceAttr = (primitive: Primitive, name: string) =>
   name in primitive.instanceAttributes
     ? primitive.instanceAttributes[name].value
     : "";
 
 const collectUpdatedAttrs = (
   formMap: Record<string, FormAttr>,
-  primitive: types.cluster.Primitive,
+  primitive: Primitive,
 ) =>
   Object.keys(formMap).reduce(
     (a, n) => {
@@ -43,7 +43,7 @@ const collectUpdatedAttrs = (
 
 const hasUndecidedSrc = (
   formMap: Record<string, FormAttr>,
-  primitive: types.cluster.Primitive,
+  primitive: Primitive,
 ) =>
   Object.keys(formMap).some(
     n =>
@@ -53,7 +53,7 @@ const hasUndecidedSrc = (
 
 const hasBackendChange = (
   formMap: Record<string, FormAttr>,
-  primitive: types.cluster.Primitive,
+  primitive: Primitive,
 ) =>
   Object.keys(formMap).some(
     n => instanceAttr(primitive, n) !== formMap[n].initial,
@@ -65,7 +65,7 @@ export const PrimitiveAttrsForm = ({
   displayNames,
   close,
 }: {
-  primitive: types.cluster.Primitive;
+  primitive: Primitive;
   resourceAgentParams: pcmkAgentTypes.AgentParameter[];
   displayNames: string[];
   close: () => void;

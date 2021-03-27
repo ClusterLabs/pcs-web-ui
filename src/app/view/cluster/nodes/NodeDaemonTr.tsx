@@ -6,14 +6,14 @@ import {
   WrenchIcon,
 } from "@patternfly/react-icons";
 
-import { types } from "app/store";
+import { NodeService } from "app/view/cluster/types";
 
 export const NodeDaemonTr = ({
   serviceName,
   service,
 }: {
   serviceName: string;
-  service: types.cluster.NodeServiceMap[keyof types.cluster.NodeServiceMap];
+  service: NodeService;
 }) => {
   return (
     <tr>

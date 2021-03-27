@@ -1,7 +1,7 @@
 import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { FenceDevice } from "app/view/cluster/types";
 import {
   IssueList,
   LoadedPcmkAgent,
@@ -12,7 +12,7 @@ import {
 export const FenceDeviceDetailView = ({
   fenceDevice,
 }: {
-  fenceDevice: types.cluster.FenceDevice;
+  fenceDevice: FenceDevice;
 }) => {
   const clusterName = useSelectedClusterName();
   return (

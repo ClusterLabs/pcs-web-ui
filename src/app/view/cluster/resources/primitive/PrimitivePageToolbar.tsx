@@ -1,13 +1,11 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Primitive } from "app/view/cluster/types";
 import {
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
   useSelectedClusterName,
 } from "app/view/share";
-
-type Primitive = types.cluster.Primitive;
 
 const isPrimitiveManaged = (primitive: Primitive) =>
   primitive.metaAttributes.every(

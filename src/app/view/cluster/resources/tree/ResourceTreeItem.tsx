@@ -5,7 +5,7 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { types } from "app/store";
+import { ResourceStatus } from "app/view/cluster/types";
 
 import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
 
@@ -16,7 +16,7 @@ export const ResourceTreeItem = ({
   typeDescription,
 }: {
   resourceId: string;
-  status: types.cluster.ResourceStatus;
+  status: ResourceStatus;
   type: string;
   typeDescription: string;
 }) => {

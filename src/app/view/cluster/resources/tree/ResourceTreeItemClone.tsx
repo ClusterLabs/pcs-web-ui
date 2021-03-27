@@ -1,16 +1,12 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Clone } from "app/view/cluster/types";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
 import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
 
-export const ResourceTreeItemClone = ({
-  clone,
-}: {
-  clone: types.cluster.Clone;
-}) => {
+export const ResourceTreeItemClone = ({ clone }: { clone: Clone }) => {
   return (
     <ResourceTreeItemCompound
       resourceId={clone.id}

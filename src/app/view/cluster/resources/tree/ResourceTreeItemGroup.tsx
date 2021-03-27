@@ -1,12 +1,12 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Group } from "app/view/cluster/types";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
 
 export const ResourceTreeItemGroup: React.FC<{
-  group: types.cluster.Group;
+  group: Group;
   nestedLevel?: number;
 }> = ({ group, nestedLevel = 0 }) => (
   <ResourceTreeItemCompound

@@ -1,7 +1,8 @@
 import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
+import { Clone } from "app/view/cluster/types";
 import {
   CrmStatusTable,
   IssueList,
@@ -10,7 +11,7 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-export const CloneDetail = ({ clone }: { clone: types.cluster.Clone }) => {
+export const CloneDetail = ({ clone }: { clone: Clone }) => {
   const [crmStatusList, clusterName] = useClusterSelector(
     selectors.crmStatusForPrimitive,
     clone.member.itemType === "primitive"

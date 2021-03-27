@@ -1,6 +1,6 @@
 import React from "react";
 
-import { types } from "app/store";
+import { Primitive } from "app/view/cluster/types";
 import {
   DetailLayout,
   NVPairListView,
@@ -18,11 +18,7 @@ import { PrimitiveDetail } from "./PrimitiveDetail";
 import { useClusterResourceAgent } from "./useResourceAgent";
 import { PrimitivePageToolbar } from "./PrimitivePageToolbar";
 
-export const PrimitivePage = ({
-  primitive,
-}: {
-  primitive: types.cluster.Primitive;
-}) => {
+export const PrimitivePage = ({ primitive }: { primitive: Primitive }) => {
   const { urlPrefix } = useGroupDetailViewContext();
   const resourceUrlPrefix = join(urlPrefix, primitive.id);
 

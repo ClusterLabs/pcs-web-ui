@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { selectors, types } from "app/store";
+import { selectors } from "app/store";
+import { Cluster } from "app/view/cluster/types";
 import { Table, compareStatusSeverity } from "app/view/share";
 
 import { compareStrings } from "./utils";
@@ -12,10 +13,7 @@ type COLUMNS = "NAME" | "ISSUES" | "NODES" | "RESOURCES" | "FENCE_DEVICES";
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((
-  a: types.cluster.ClusterStatus,
-  b: types.cluster.ClusterStatus,
-) => number) => {
+): ((a: Cluster, b: Cluster) => number) => {
   switch (column) {
     case "ISSUES":
       return (a, b) =>

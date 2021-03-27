@@ -1,18 +1,17 @@
 import React from "react";
 
-import { types } from "app/store";
+import { ConstraintColocationPair, ConstraintColocationSet } from "../types";
 
-type Pair = types.cluster.ConstraintColocationPair;
-type Set = types.cluster.ConstraintColocationSet;
+type Colocation = ConstraintColocationPair | ConstraintColocationSet;
 
-const isTogether = (constraint: Pair | Set) =>
+const isTogether = (constraint: Colocation) =>
   constraint.score === "INFINITY"
   || (constraint.score
     && typeof constraint.score === "number"
     && constraint.score > 0);
 
 export const ConstraintRowColocationTogether: React.FC<{
-  constraint: Pair | Set;
+  constraint: Colocation;
 }> = ({ constraint }) => {
   return <>{` are ${isTogether(constraint) ? "together" : "separate"}`}</>;
 };

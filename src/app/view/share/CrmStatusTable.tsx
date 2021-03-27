@@ -1,12 +1,10 @@
 import React from "react";
 
-import { types } from "app/store";
 import { EmptyStateNoItem } from "app/view/share/emptyState";
+import { ResourceOnNodeStatus } from "app/view/cluster/types";
 
 import { StatusSign } from "./StatusSign";
 import { Table } from "./table";
-
-type ResourceOnNodeStatus = types.cluster.ResourceOnNodeStatus;
 
 const isRoleOk = (crmStatus: ResourceOnNodeStatus): boolean =>
   crmStatus.role === crmStatus.targetRole
