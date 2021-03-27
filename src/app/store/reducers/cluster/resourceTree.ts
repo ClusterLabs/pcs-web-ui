@@ -1,15 +1,7 @@
-import { combineReducers } from "redux";
-
 import { Reducer } from "../tools";
 
-export interface ResourceTreeState {
-  openedItems: string[];
-}
-
-const openedItems: Reducer<ResourceTreeState["openedItems"]> = (
-  state = [],
-  action,
-) => {
+// contains list of opened resources
+export const resourceTree: Reducer<string[]> = (state = [], action) => {
   switch (action.type) {
     case "RESOURCE.TREE.ITEM.TOGGLE":
       return state.includes(action.payload.itemId)
@@ -19,7 +11,3 @@ const openedItems: Reducer<ResourceTreeState["openedItems"]> = (
       return state;
   }
 };
-
-export default combineReducers<ResourceTreeState>({
-  openedItems,
-});

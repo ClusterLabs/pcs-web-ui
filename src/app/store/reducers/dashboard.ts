@@ -2,17 +2,7 @@ import { combineReducers } from "redux";
 
 import { Reducer } from "./tools";
 
-export type ClusterNameList = string[];
-
-export interface Dashboard {
-  clusterNameList: ClusterNameList;
-  dataFetch: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS";
-}
-
-const clusterNameList: Reducer<Dashboard["clusterNameList"]> = (
-  state = [],
-  action,
-) => {
+const clusterNameList: Reducer<string[]> = (state = [], action) => {
   switch (action.type) {
     case "CLUSTER.LIST.FETCH.OK":
       return action.payload.clusterNameList;
@@ -23,7 +13,7 @@ const clusterNameList: Reducer<Dashboard["clusterNameList"]> = (
   }
 };
 
-const dataFetch: Reducer<Dashboard["dataFetch"]> = (
+const dataFetch: Reducer<"NOT_STARTED" | "IN_PROGRESS" | "SUCCESS"> = (
   state = "NOT_STARTED",
   action,
 ) => {
@@ -39,7 +29,7 @@ const dataFetch: Reducer<Dashboard["dataFetch"]> = (
   }
 };
 
-export default combineReducers<Dashboard>({
+export const dashboard = combineReducers({
   clusterNameList,
   dataFetch,
 });

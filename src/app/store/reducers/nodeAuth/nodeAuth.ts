@@ -9,7 +9,9 @@ type NodeMap = Record<
   }
 >;
 
-export type NodeAuth = {
+const initialNode = { password: "", address: "", port: "" };
+
+const initialState: {
   nodeMap: NodeMap;
   errorMessage: string[];
   useAddresses: boolean;
@@ -19,22 +21,16 @@ export type NodeAuth = {
     success: string[];
     fail: string[];
   };
-};
-
-const initialNodesResults = {
-  success: [],
-  fail: [],
-};
-
-const initialNode = { password: "", address: "", port: "" };
-
-const initialState: NodeAuth = {
+} = {
   nodeMap: {},
   errorMessage: [],
   onePasswordForAll: false,
   sending: false,
   useAddresses: false,
-  nodesResults: initialNodesResults,
+  nodesResults: {
+    success: [],
+    fail: [],
+  },
 };
 
 const selectNodes = (
@@ -45,7 +41,10 @@ const selectNodes = (
     .filter(([_n, r]) => r === (success ? 0 : 1))
     .map(([n]) => n);
 
-const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
+export const nodeAuth: Reducer<typeof initialState> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
     case "NODE.AUTH.START":
       return {
@@ -146,7 +145,7 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
             {},
           ),
         },
-        nodesResults: initialNodesResults,
+        nodesResults: initialState.nodesResults,
       };
     }
 
@@ -167,5 +166,3 @@ const nodeAuth: Reducer<NodeAuth> = (state = initialState, action) => {
       return state;
   }
 };
-
-export default nodeAuth;

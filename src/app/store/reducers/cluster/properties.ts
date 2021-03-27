@@ -4,18 +4,21 @@ import { ActionPayload } from "app/store/actions";
 
 import { Reducer } from "../tools";
 
-type CPs = ActionPayload["CLUSTER.PROPERTIES.LOAD.OK"]["apiClusterProperties"];
-export type ClusterProperty = CPs[keyof CPs];
+type Payload = ActionPayload["CLUSTER.PROPERTIES.LOAD.OK"];
+type ClusterProperties = Payload["apiClusterProperties"];
 
-export type ClusterPropertiesService = {
-  data: ClusterProperty[];
+type ClusterPropertiesService = {
+  data: ClusterProperties[keyof ClusterProperties][];
   fetchState: {
     current: "NOT_STARTED" | "LOADING" | "LOADED" | "RELOADING" | "FAILED";
     alreadyLoaded: boolean;
   };
 };
 
-const data: Reducer<ClusterProperty[]> = (state = [], action) => {
+const data: Reducer<ClusterPropertiesService["data"]> = (
+  state = [],
+  action,
+) => {
   switch (action.type) {
     case "CLUSTER.PROPERTIES.LOAD.OK": {
       const { apiClusterProperties } = action.payload;
@@ -53,7 +56,7 @@ const fetchState: Reducer<ClusterPropertiesService["fetchState"]> = (
   }
 };
 
-export default combineReducers({
+export const clusterProperties = combineReducers({
   data,
   fetchState,
 });

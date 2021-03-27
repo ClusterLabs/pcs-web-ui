@@ -1,21 +1,23 @@
 import { Reducer } from "../tools";
 
-export type FixAuth = {
+const initialState: {
   authProcessId: number | null;
   open: boolean;
   fixing: boolean;
   authAttemptInProgress: boolean;
   errorMessage: string;
-};
-
-const initialState = {
+} = {
   authProcessId: null,
   open: false,
   fixing: false,
   authAttemptInProgress: false,
   errorMessage: "",
 };
-const fixAuth: Reducer<FixAuth> = (state = initialState, action) => {
+
+export const fixAuth: Reducer<typeof initialState> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
     case "CLUSTER.FIX_AUTH.AUTH_STARTED":
       return {
@@ -65,5 +67,3 @@ const fixAuth: Reducer<FixAuth> = (state = initialState, action) => {
       return state;
   }
 };
-
-export default fixAuth;

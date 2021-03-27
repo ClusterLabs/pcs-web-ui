@@ -1,28 +1,22 @@
 import { Reducer } from "./tools";
 
-export interface LoginState {
+const initialState = {
   // Detected that authorization is required.
-  required: boolean;
-  // For distinguish between "wellcome" page and "goodbye" page.
-  logoutApplied: boolean;
-  // For disabling "login" button during login attempt.
-  acceptLoginData: boolean;
-  // Keeps information about failed login attempt.
-  failed: boolean;
-  badCredentials: boolean;
-  errorMessage: string;
-}
-
-const defaultState = {
   required: false,
+  // For distinguish between "wellcome" page and "goodbye" page.
   logoutApplied: false,
+  // For disabling "login" button during login attempt.
   acceptLoginData: false,
+  // Keeps information about failed login attempt.
   failed: false,
   badCredentials: false,
   errorMessage: "",
 };
 
-const loginState: Reducer<LoginState> = (state = defaultState, action) => {
+export const login: Reducer<typeof initialState> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
     case "AUTH.REQUIRED":
       return {
@@ -67,5 +61,3 @@ const loginState: Reducer<LoginState> = (state = defaultState, action) => {
       return state;
   }
 };
-
-export default loginState;

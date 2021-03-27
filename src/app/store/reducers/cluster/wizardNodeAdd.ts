@@ -2,7 +2,7 @@ import { api } from "app/backend";
 
 import { Reducer } from "../tools";
 
-export type WizardNodeAdd = {
+const initialState: {
   nodeName: string;
   nodeAddresses: {
     address1: string;
@@ -38,9 +38,7 @@ export type WizardNodeAdd = {
   sbdDevices: [string, string, string];
   sbdNoWatchdogValidation: boolean;
   authProcessId: number | null;
-};
-
-const initialState: WizardNodeAdd = {
+} = {
   nodeName: "",
   nodeAddresses: {
     address1: "",
@@ -63,7 +61,7 @@ const initialState: WizardNodeAdd = {
   authProcessId: null,
 };
 
-const wizardNodeAdd: Reducer<WizardNodeAdd> = (
+export const wizardNodeAdd: Reducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {
@@ -156,5 +154,3 @@ const wizardNodeAdd: Reducer<WizardNodeAdd> = (
       return state;
   }
 };
-
-export default wizardNodeAdd;

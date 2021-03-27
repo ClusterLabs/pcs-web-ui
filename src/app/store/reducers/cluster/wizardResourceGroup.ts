@@ -2,15 +2,13 @@ import { api } from "app/backend";
 
 import { Reducer } from "../tools";
 
-export type WizardResourceGroup = {
+const initialState: {
   groupId: string;
   resourceIdList: string[];
   reports: api.LibReport[];
   showValidationErrors: boolean;
   response: "" | "success" | "fail";
-};
-
-const initialState: WizardResourceGroup = {
+} = {
   groupId: "",
   reports: [],
   resourceIdList: [],
@@ -18,7 +16,7 @@ const initialState: WizardResourceGroup = {
   response: "",
 };
 
-const wizardResourceGroup: Reducer<WizardResourceGroup> = (
+export const wizardResourceGroup: Reducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {
@@ -45,5 +43,3 @@ const wizardResourceGroup: Reducer<WizardResourceGroup> = (
       return state;
   }
 };
-
-export default wizardResourceGroup;

@@ -1,6 +1,6 @@
 import { Reducer } from "../tools";
 
-export type TaskConstraintLocationCreate = {
+const initialState: {
   resourceSpecification: "resource" | "pattern";
   resourceId: string;
   resourcePattern: string;
@@ -11,9 +11,7 @@ export type TaskConstraintLocationCreate = {
   preference: "prefer" | "avoid";
   score: string;
   resultMessage: string;
-};
-
-const initialState: TaskConstraintLocationCreate = {
+} = {
   resourceSpecification: "resource",
   resourceId: "",
   resourcePattern: "",
@@ -26,7 +24,7 @@ const initialState: TaskConstraintLocationCreate = {
   resultMessage: "",
 };
 
-const taskConstraintLocationCreate: Reducer<TaskConstraintLocationCreate> = (
+export const taskConstraintLocationCreate: Reducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {
@@ -72,4 +70,3 @@ const taskConstraintLocationCreate: Reducer<TaskConstraintLocationCreate> = (
       return state;
   }
 };
-export default taskConstraintLocationCreate;

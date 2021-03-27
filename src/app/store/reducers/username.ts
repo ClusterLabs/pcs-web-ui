@@ -1,8 +1,6 @@
 import { Reducer } from "./tools";
 
-export type Username = string;
-
-const username: Reducer<Username> = (state = "", action) => {
+export const username: Reducer<string> = (state = "", action) => {
   switch (action.type) {
     case "USERNAME.SET":
       return action.payload.username;
@@ -10,5 +8,3 @@ const username: Reducer<Username> = (state = "", action) => {
       return state;
   }
 };
-
-export default username;

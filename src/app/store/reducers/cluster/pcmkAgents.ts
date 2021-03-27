@@ -1,36 +1,25 @@
 import { Reducer } from "../tools";
 
-export type AgentParameter = {
-  name: string;
-  shortdesc: string;
-  longdesc: string;
-  default: string | number | null;
-  advanced: boolean;
-  required: boolean;
-};
-export type Agent = {
-  loadStatus: "LOADING" | "LOADED" | "RELOADING" | "FAILED";
-  name: string;
-  shortdesc: string;
-  longdesc: string;
-  parameters: AgentParameter[];
-};
+type AgentMap = Record<
+  string,
+  {
+    loadStatus: "LOADING" | "LOADED" | "RELOADING" | "FAILED";
+    name: string;
+    shortdesc: string;
+    longdesc: string;
+    parameters: {
+      name: string;
+      shortdesc: string;
+      longdesc: string;
+      default: string | number | null;
+      advanced: boolean;
+      required: boolean;
+      deprecated?: boolean;
+    }[];
+  }
+>;
 
-export type ResourceAgentParameter = AgentParameter;
-export type ResourceAgent = Agent;
-
-export type FenceAgentParameter = AgentParameter & {
-  deprecated: boolean;
-};
-export type FenceAgent = Agent & {
-  parameters: FenceAgentParameter[];
-};
-
-export type StoredAgent = ResourceAgent | FenceAgent;
-
-export type AgentsStorage = Record<string, StoredAgent>;
-
-const storage: Reducer<AgentsStorage> = (state = {}, action) => {
+export const pcmkAgents: Reducer<AgentMap> = (state = {}, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LOAD":
     case "FENCE_AGENT.LOAD":
@@ -77,5 +66,3 @@ const storage: Reducer<AgentsStorage> = (state = {}, action) => {
       return state;
   }
 };
-
-export default storage;

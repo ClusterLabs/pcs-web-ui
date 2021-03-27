@@ -6,7 +6,7 @@ type InstanceAttrName = string;
 type InstanceAttrValue = string;
 type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
 
-export type WizardResourceCreate = {
+const initialState: {
   agentName: string;
   resourceName: string;
   instanceAttrs: InstanceAttrs;
@@ -23,9 +23,7 @@ export type WizardResourceCreate = {
   disabled: boolean;
   useGroup: "no" | "existing" | "new";
   group: string;
-};
-
-const initialState: WizardResourceCreate = {
+} = {
   resourceName: "",
   agentName: "",
   response: "no-response",
@@ -48,7 +46,7 @@ const instanceAttrs = (stateAttrs: InstanceAttrs, actionAttrs: InstanceAttrs) =>
     return rest;
   }, stateAttrs);
 
-const wizardResourceCreate: Reducer<WizardResourceCreate> = (
+export const wizardResourceCreate: Reducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {
@@ -89,5 +87,3 @@ const wizardResourceCreate: Reducer<WizardResourceCreate> = (
       return state;
   }
 };
-
-export default wizardResourceCreate;

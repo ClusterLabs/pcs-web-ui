@@ -1,12 +1,13 @@
 import { Reducer } from "../tools";
 
-import nodeAuth, { NodeAuth } from "./nodeAuth";
+import { nodeAuth } from "./nodeAuth";
 
-export type NodeAuthMap = Record<number, NodeAuth>;
+const initialState: Record<number, ReturnType<typeof nodeAuth>> = {};
 
-const initialState: NodeAuthMap = {};
-
-const nodeAuthMap: Reducer<NodeAuthMap> = (state = initialState, action) => {
+export const nodeAuthMap: Reducer<typeof initialState> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
     case "NODE.AUTH.START":
       return {
@@ -17,7 +18,7 @@ const nodeAuthMap: Reducer<NodeAuthMap> = (state = initialState, action) => {
     case "NODE.AUTH.STOP":
       return Object.keys(state)
         .map(Number)
-        .reduce<NodeAuthMap>(
+        .reduce<typeof initialState>(
           (newState, key) => ({
             ...newState,
             ...(key !== action.key.process ? { [key]: state[key] } : {}),
@@ -39,5 +40,3 @@ const nodeAuthMap: Reducer<NodeAuthMap> = (state = initialState, action) => {
       return state;
   }
 };
-
-export default nodeAuthMap;

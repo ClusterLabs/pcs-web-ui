@@ -2,8 +2,8 @@ import { combineReducers } from "redux";
 
 import { Reducer } from "../tools";
 
-export type ResourceAgentMap = Record<string, string[]>;
-export type ResourceAgentListService = {
+type ResourceAgentMap = Record<string, string[]>;
+type ResourceAgentListService = {
   data: ResourceAgentMap;
   fetchState: {
     current: "NOT_STARTED" | "LOADING" | "LOADED" | "RELOADING" | "FAILED";
@@ -61,7 +61,7 @@ const fetchState: Reducer<ResourceAgentListService["fetchState"]> = (
   }
 };
 
-export default combineReducers({
+export const resourceAgentMap = combineReducers({
   data,
   fetchState,
 });

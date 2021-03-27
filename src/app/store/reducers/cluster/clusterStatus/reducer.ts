@@ -49,8 +49,7 @@ const dataFetchState: Reducer<ClusterStatusService["dataFetchState"]> = (
   }
 };
 
-const clusterStatus = combineReducers<ClusterStatusService>({
+export const clusterStatus = combineReducers<ClusterStatusService>({
   clusterData,
   dataFetchState,
 });
-export default clusterStatus;

@@ -34,8 +34,10 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
           close={cancel}
           footer={<ClusterIssueNotAuthFooter />}
         >
-          {!authProcessId && <ClusterIssueNotAuthFinish />}
-          {authProcessId && <NodesAuthForm authProcessId={authProcessId} />}
+          {authProcessId === null && <ClusterIssueNotAuthFinish />}
+          {authProcessId !== null && (
+            <NodesAuthForm authProcessId={authProcessId} />
+          )}
         </TaskSimple>
       )}
     </>

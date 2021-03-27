@@ -1,16 +1,15 @@
 import { Reducer } from "../tools";
 
 type Action = "start" | "promote" | "demote" | "stop";
-export type TaskConstraintOrderCreate = {
+
+const initialState: {
   firstResourceId: string;
   firstAction: Action;
   thenResourceId: string;
   thenAction: Action;
   response: "" | "sending" | "ok" | "fail";
   resultMessage: string;
-};
-
-const initialState: TaskConstraintOrderCreate = {
+} = {
   firstResourceId: "",
   firstAction: "start",
   thenResourceId: "",
@@ -19,7 +18,7 @@ const initialState: TaskConstraintOrderCreate = {
   resultMessage: "",
 };
 
-const taskConstraintOrderCreate: Reducer<TaskConstraintOrderCreate> = (
+export const taskConstraintOrderCreate: Reducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {
@@ -74,4 +73,3 @@ const taskConstraintOrderCreate: Reducer<TaskConstraintOrderCreate> = (
       return state;
   }
 };
-export default taskConstraintOrderCreate;

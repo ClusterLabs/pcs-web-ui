@@ -1,44 +1,20 @@
 import { combineReducers } from "redux";
 
-import { Reducer } from "../tools";
+import { Reducer, ReturnTypeWithoutCombinedState } from "../tools";
 
-import clusterStatus, { types as clusterStatusTypes } from "./clusterStatus";
-import pcmkAgents, { AgentsStorage } from "./pcmkAgents";
-import resourceTree, { ResourceTreeState } from "./resourceTree";
-import clusterProperties, { ClusterPropertiesService } from "./properties";
-import resourceAgentMap, { ResourceAgentListService } from "./resourceAgentMap";
-import wizardResourceCreate, {
-  WizardResourceCreate,
-} from "./wizardResourceCreate";
-import taskConstraintLocationCreate, {
-  TaskConstraintLocationCreate,
-} from "./taskConstraintLocationCreate";
-import taskConstraintOrderCreate, {
-  TaskConstraintOrderCreate,
-} from "./taskConstraintOrderCreate";
-import wizardResourceGroup, {
-  WizardResourceGroup,
-} from "./wizardResourceGroup";
-import wizardNodeAdd, { WizardNodeAdd } from "./wizardNodeAdd";
-import fixAuth, { FixAuth } from "./fixAuth";
+import { clusterStatus } from "./clusterStatus";
+import { pcmkAgents } from "./pcmkAgents";
+import { resourceTree } from "./resourceTree";
+import { clusterProperties } from "./properties";
+import { resourceAgentMap } from "./resourceAgentMap";
+import { wizardResourceCreate } from "./wizardResourceCreate";
+import { taskConstraintLocationCreate } from "./taskConstraintLocationCreate";
+import { taskConstraintOrderCreate } from "./taskConstraintOrderCreate";
+import { wizardResourceGroup } from "./wizardResourceGroup";
+import { wizardNodeAdd } from "./wizardNodeAdd";
+import { fixAuth } from "./fixAuth";
 
-export type ClusterStorageItem = {
-  clusterStatus: clusterStatusTypes.ClusterStatusService;
-  pcmkAgents: AgentsStorage;
-  resourceTree: ResourceTreeState;
-  clusterProperties: ClusterPropertiesService;
-  resourceAgentMap: ResourceAgentListService;
-  taskConstraintLocationCreate: TaskConstraintLocationCreate;
-  taskConstraintOrderCreate: TaskConstraintOrderCreate;
-  wizardResourceCreate: WizardResourceCreate;
-  wizardResourceGroup: WizardResourceGroup;
-  wizardNodeAdd: WizardNodeAdd;
-  fixAuth: FixAuth;
-};
-
-export type ClusterStorageMap = Record<string, ClusterStorageItem>;
-
-const clusterStorageItem = combineReducers<ClusterStorageItem>({
+const clusterStorageItem = combineReducers({
   clusterStatus,
   pcmkAgents,
   resourceTree,
@@ -52,7 +28,12 @@ const clusterStorageItem = combineReducers<ClusterStorageItem>({
   fixAuth,
 });
 
-const clusterStorage: Reducer<ClusterStorageMap> = (state = {}, action) => {
+type ClusterStorage = Record<
+  string,
+  ReturnTypeWithoutCombinedState<typeof clusterStorageItem>
+>;
+
+export const clusterStorage: Reducer<ClusterStorage> = (state = {}, action) => {
   if (action.type === "AUTH.REQUIRED") {
     return {};
   }
@@ -65,13 +46,11 @@ const clusterStorage: Reducer<ClusterStorageMap> = (state = {}, action) => {
       ),
     };
   }
-  return Object.keys(state).reduce<ClusterStorageMap>(
+  return Object.keys(state).reduce<ClusterStorage>(
     (newState, clusterName) => ({
       ...newState,
       [clusterName]: clusterStorageItem(state[clusterName], action),
     }),
-    {} as ClusterStorageMap,
+    {} as ClusterStorage,
   );
 };
-
-export default clusterStorage;

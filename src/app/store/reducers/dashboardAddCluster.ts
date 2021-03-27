@@ -2,29 +2,7 @@ import { combineReducers } from "redux";
 
 import { Reducer } from "./tools";
 
-export type AUTH_STATE =
-  | "INITIAL"
-  | "CHECKING"
-  | "ALREADY_AUTHENTICATED"
-  | "NOT_AUTHENTICATED"
-  | "ERROR";
-
-export type AuthProcessId = number | null;
-
-export type ADD_STATE = "STARTED" | "SUCCESS" | "ERROR" | "DASHBOARD_RELOADING";
-
-export type NodeName = string;
-export type StateError = string;
-
-export interface DashboardAddClusterPageState {
-  nodeName: NodeName;
-  stepAuthState: AUTH_STATE;
-  stepAddState: ADD_STATE;
-  stateError: StateError;
-  authProcessId: AuthProcessId;
-}
-
-const nodeName: Reducer<NodeName> = (state = "", action) => {
+const nodeName: Reducer<string> = (state = "", action) => {
   switch (action.type) {
     case "CLUSTER.ADD.NODE_NAME.UPDATE":
       return action.payload.nodeName;
@@ -33,7 +11,13 @@ const nodeName: Reducer<NodeName> = (state = "", action) => {
   }
 };
 
-const stepAuthState: Reducer<AUTH_STATE> = (state = "INITIAL", action) => {
+const stepAuthState: Reducer<
+  | "INITIAL"
+  | "CHECKING"
+  | "ALREADY_AUTHENTICATED"
+  | "NOT_AUTHENTICATED"
+  | "ERROR"
+> = (state = "INITIAL", action) => {
   switch (action.type) {
     case "CLUSTER.ADD.NODE_NAME.UPDATE":
       return "INITIAL";
@@ -50,7 +34,7 @@ const stepAuthState: Reducer<AUTH_STATE> = (state = "INITIAL", action) => {
   }
 };
 
-const authProcessId: Reducer<AuthProcessId> = (state = null, action) => {
+const authProcessId: Reducer<number | null> = (state = null, action) => {
   switch (action.type) {
     case "CLUSTER.ADD.CHECK_AUTH.NO_AUTH":
       return action.payload.authProcessId;
@@ -62,7 +46,9 @@ const authProcessId: Reducer<AuthProcessId> = (state = null, action) => {
   }
 };
 
-const stepAddState: Reducer<ADD_STATE> = (state = "STARTED", action) => {
+const stepAddState: Reducer<
+  "STARTED" | "SUCCESS" | "ERROR" | "DASHBOARD_RELOADING"
+> = (state = "STARTED", action) => {
   switch (action.type) {
     case "CLUSTER.ADD":
       return "STARTED";
@@ -77,7 +63,7 @@ const stepAddState: Reducer<ADD_STATE> = (state = "STARTED", action) => {
   }
 };
 
-const stateError: Reducer<StateError> = (state = "", action) => {
+const stateError: Reducer<string> = (state = "", action) => {
   switch (action.type) {
     case "CLUSTER.ADD.NODE_NAME.UPDATE":
     case "CLUSTER.ADD.CHECK_AUTH":
@@ -96,7 +82,7 @@ const stateError: Reducer<StateError> = (state = "", action) => {
   }
 };
 
-export default combineReducers<DashboardAddClusterPageState>({
+export const addExistingCluster = combineReducers({
   nodeName,
   stepAuthState,
   stepAddState,
