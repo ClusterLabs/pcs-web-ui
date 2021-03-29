@@ -1,29 +1,47 @@
-import { types } from "app/store/state";
+import { ClusterStorageItem } from "../types";
 
-import { clusterSelector } from "./selectorsHelpers";
+import {
+  ClusterSelector as TClusterSelector,
+  clusterStorageItemSelector,
+} from "./selectorsHelpers";
 
-export function getClusterPart<
-  NAME extends keyof types.clusterStorage.ClusterStorageItem,
->(name: NAME) {
-  return clusterSelector(clusterStorageItem => clusterStorageItem[name]);
+export function getClusterPart<NAME extends keyof ClusterStorageItem>(
+  name: NAME,
+) {
+  return clusterStorageItemSelector(
+    clusterStorageItem => clusterStorageItem[name],
+  );
 }
 
-export const getPcmkAgent = clusterSelector(
+export const getPcmkAgent = clusterStorageItemSelector(
   (clusterStorageItem, agentName: string) =>
     clusterStorageItem.pcmkAgents[agentName],
 );
 
-export const resourceTreeGetOpenedItems = clusterSelector(
-  clusterStorageItem => clusterStorageItem.resourceTree.openedItems || [],
+export const resourceTreeGetOpenedItems = clusterStorageItemSelector(
+  clusterStorageItem => clusterStorageItem.resourceTree || [],
 );
 
-export const getClusterProperties = clusterSelector(
+export const getClusterProperties = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.clusterProperties.data,
 );
 
-export const getResourceAgentMap = clusterSelector(
+export const getResourceAgentMap = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.resourceAgentMap.data,
 );
+
+export type ClusterSelector<
+  ARGS extends unknown[],
+  SELECTED,
+> = TClusterSelector<ARGS, SELECTED>;
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
+  any[],
+  infer SELECTED
+>
+  ? SELECTED
+  : never;
 
 export * from "./status";
 export * from "./constraints";

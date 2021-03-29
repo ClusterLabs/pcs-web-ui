@@ -14,14 +14,16 @@ export type FenceAgentMetadata = api.PayloadOf<
   typeof call.getFenceAgentMetadata
 >;
 export type ClusterProperties = api.PayloadOf<typeof call.clusterProperties>;
-export type ClusterStatus = api.PayloadOf<typeof call.clusterStatus>;
+export type Cluster = api.PayloadOf<typeof call.clusterStatus>;
 
-export type Node = api.types.clusterStatus.ApiNode;
-export type NodeServiceMap = api.types.clusterStatus.ApiNodeServiceMap;
-export type Primitive = api.types.clusterStatus.ApiPrimitive;
-export type Stonith = api.types.clusterStatus.ApiStonith;
-export type Clone = api.types.clusterStatus.ApiClone;
-export type Group = api.types.clusterStatus.ApiGroup;
-export type CrmStatus = api.types.clusterStatus.ApiResourceCrmStatus;
-export type Cluster = api.types.clusterStatus.ApiClusterStatus;
-export type Operation = api.types.clusterStatus.ApiResourceOperation;
+export type Node = Cluster["node_list"][number];
+export type NodeServiceMap = Extract<Node, { services: unknown }>["services"];
+
+type Resource = Cluster["resource_list"][number];
+type PrimitiveClass = { class_type: "primitive" };
+export type Primitive = Extract<Resource, PrimitiveClass & { stonith: false }>;
+export type Stonith = Extract<Resource, PrimitiveClass & { stonith: true }>;
+export type Clone = Extract<Resource, { class_type: "clone" }>;
+export type Group = Extract<Resource, { class_type: "group" }>;
+export type CrmStatus = Extract<Resource, PrimitiveClass>["crm_status"][number];
+export type Operation = Extract<Resource, PrimitiveClass>["operations"][number];

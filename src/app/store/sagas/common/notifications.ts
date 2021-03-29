@@ -1,10 +1,10 @@
-import { ActionMap, actionNewId } from "app/store/actions";
+import { ActionMap, ActionPayload, actionNewId } from "app/store/actions";
 
 import { delay, put } from "./effects";
 
 const DISPLAY_MSECONDS = 8000;
 
-type Notification = ActionMap["NOTIFICATION.CREATE"]["payload"];
+type Notification = ActionPayload["NOTIFICATION.CREATE"];
 
 export function* limitNotificationLife({
   payload: { id },

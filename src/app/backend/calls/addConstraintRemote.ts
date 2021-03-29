@@ -1,4 +1,4 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "./tools";
 
 const { url } = endpoints.addConstraintRemote;
 
@@ -69,5 +69,5 @@ const params = (constraint: Constraint) => {
 export const addConstraintRemote = async (
   clusterName: string,
   constraint: Constraint,
-): api.CallResult =>
+): CallResult =>
   http.post(url({ clusterName }), { params: params(constraint) });

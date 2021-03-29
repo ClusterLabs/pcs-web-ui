@@ -39,6 +39,13 @@ type SetupDataReading = {
 export type ActionMap = LeafActionMap & {
   "DATA_READING.SET_UP": SetupDataReading;
 };
+
+export type ActionPayload = {
+  -readonly [K in keyof ActionMap]: ActionMap[K] extends { payload: unknown }
+    ? ActionMap[K]["payload"]
+    : undefined;
+};
+
 export type Action = ActionLeaf | SetupDataReading;
 
 let nextId = 1;

@@ -1,19 +1,13 @@
-import { login } from "app/store/state/types";
+import { Root } from "./types";
 
-import { Selector } from "./selector";
+export const loginIsFailed = (state: Root) => state.login.failed;
 
-const localState: Selector<login.LoginState> = state => state.login;
-
-export const loginIsFailed: Selector<boolean> = state =>
-  localState(state).failed;
-
-export const loginGetFailMessage: Selector<string> = state =>
-  localState(state).badCredentials
+export const loginGetFailMessage = (state: Root) =>
+  state.login.badCredentials
     ? "The username or password you entered is incorect"
-    : localState(state).errorMessage;
+    : state.login.errorMessage;
 
-export const loginIsAcceptingData: Selector<boolean> = state =>
-  localState(state).acceptLoginData;
+export const loginIsAcceptingData = (state: Root) =>
+  state.login.acceptLoginData;
 
-export const loginIsRequired: Selector<boolean> = state =>
-  localState(state).required;
+export const loginIsRequired = (state: Root) => state.login.required;

@@ -1,9 +1,9 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "./tools";
 
 const { url } = endpoints.resourceUnclone;
 
 export const resourceUnclone = (
   clusterName: string,
   resourceId: string,
-): api.CallResult =>
+): CallResult =>
   http.post(url({ clusterName }), { params: [["resource_id", resourceId]] });

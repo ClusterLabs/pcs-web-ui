@@ -1,4 +1,4 @@
-import { api } from "app/backend";
+import { api, clusterStatus } from "app/backend";
 
 import * as responses from "dev/responses";
 
@@ -14,7 +14,7 @@ const displayClusters = async () => {
   await page.waitForSelector([CLUSTER_OK, CLUSTER_ERROR].join(","));
 };
 
-type ClusterStatus = api.types.clusterStatus.ApiClusterStatus;
+type ClusterStatus = api.PayloadOf<typeof clusterStatus>;
 
 const interceptWithDashboard = (routeList: intercept.Route[]) =>
   intercept.start([

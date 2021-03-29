@@ -3,6 +3,7 @@ import { SagaIterator } from "redux-saga";
 import { api } from "app/backend";
 
 import { call, put, take } from "./effects";
+import * as log from "./log";
 import { putNotification } from "./notifications";
 /* eslint-disable no-console */
 
@@ -50,7 +51,7 @@ export function* processError(
     action: undefined,
   },
 ) {
-  api.log.error(result, taskLabel);
+  log.error(result, taskLabel);
   if (options.action) {
     yield options.action();
   }
@@ -61,7 +62,7 @@ export function* processError(
 
 export function* authSafe<
   PAYLOAD,
-  RESULT extends api.Result<PAYLOAD>,
+  RESULT extends api.result.Overall<PAYLOAD>,
   PARAMS extends unknown[],
 >(
   fn: (...fnArgs: PARAMS) => Promise<RESULT>,
@@ -78,7 +79,7 @@ export function* authSafe<
     // ...and then second attempt.
     response = yield call(fn, ...args);
     if (response.type === "UNAUTHORIZED") {
-      api.log.stillUnauthorized();
+      log.stillUnauthorized();
     }
   }
   return response;

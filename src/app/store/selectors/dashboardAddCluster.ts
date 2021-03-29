@@ -1,19 +1,16 @@
-import * as types from "app/store/state/types";
+import { Root } from "./types";
 
-import { Selector } from "./selector";
-
-/* eslint-disable max-len */
-export const addClusterGetNodeName: Selector<types.addCluster.NodeName> = state =>
+export const addClusterGetNodeName = (state: Root) =>
   state.addExistingCluster.nodeName;
 
-export const addClusterGetStepAuthState: Selector<types.addCluster.AUTH_STATE> = state =>
+export const addClusterGetStepAuthState = (state: Root) =>
   state.addExistingCluster.stepAuthState;
 
-export const addClusterGetAuthProcessId: Selector<types.addCluster.AuthProcessId> = state =>
+export const addClusterGetAuthProcessId = (state: Root) =>
   state.addExistingCluster.authProcessId;
 
-export const addClusterGetStepAddState: Selector<types.addCluster.ADD_STATE> = state =>
+export const addClusterGetStepAddState = (state: Root) =>
   state.addExistingCluster.stepAddState;
 
-export const addClusterGetStateError: Selector<types.addCluster.StateError> = state =>
+export const addClusterGetStateError = (state: Root) =>
   state.addExistingCluster.stateError;

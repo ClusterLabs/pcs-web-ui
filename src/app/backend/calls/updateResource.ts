@@ -1,4 +1,4 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "./tools";
 
 const { url, shape } = endpoints.updateResource;
 
@@ -6,7 +6,7 @@ export const updateResource = async (
   clusterName: string,
   resourceId: string,
   attributes: Record<string, string>,
-): api.CallResult<typeof shape> => {
+): CallResult<typeof shape> => {
   const instanceAttrs: [string, string][] = Object.keys(attributes).map(key => [
     `_res_paramne_${key}`,
     attributes[key],

@@ -1,3 +1,4 @@
+import { libCallCluster } from "app/backend";
 import { Action, ActionMap } from "app/store/actions";
 
 import { api, lib, processError, put, race, take } from "./common";
@@ -6,21 +7,25 @@ export function* resourceCreateSaga({
   key,
   payload: { agentName, resourceName, instanceAttrs, disabled, force },
 }: ActionMap["RESOURCE.CREATE"]) {
-  const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
-    result: api.authSafe(api.lib.callCluster, {
+  const {
+    result,
+  }: { result: api.ResultOf<typeof libCallCluster> } = yield race({
+    result: api.authSafe(libCallCluster, {
       clusterName: key.clusterName,
-      command: "resource-create",
-      payload: {
-        resource_id: resourceName,
-        resource_agent_name: agentName,
-        instance_attributes: instanceAttrs,
-        ensure_disabled: disabled,
-        operation_list: [],
-        meta_attributes: {},
-        allow_absent_agent: force,
-        allow_invalid_operation: force,
-        allow_invalid_instance_attributes: force,
-        allow_not_suitable_command: force,
+      command: {
+        name: "resource-create",
+        payload: {
+          resource_id: resourceName,
+          resource_agent_name: agentName,
+          instance_attributes: instanceAttrs,
+          ensure_disabled: disabled,
+          operation_list: [],
+          meta_attributes: {},
+          allow_absent_agent: force,
+          allow_invalid_operation: force,
+          allow_invalid_instance_attributes: force,
+          allow_not_suitable_command: force,
+        },
       },
     }),
     cancel: take("RESOURCE.CREATE.CLOSE"),

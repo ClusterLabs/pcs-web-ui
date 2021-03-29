@@ -1,6 +1,6 @@
 import { put } from "./effects";
 import { putNotification } from "./notifications";
-import { Result } from "./api";
+import * as api from "./api";
 import { processError } from "./apiCall";
 
 export function* clusterSuccess(clusterName: string, taskLabel: string) {
@@ -14,7 +14,7 @@ export function* clusterSuccess(clusterName: string, taskLabel: string) {
 export function* processClusterResultBasic(
   clusterName: string,
   taskLabel: string,
-  result: Result<string>,
+  result: api.result.Overall<string>,
 ) {
   if (result.type !== "OK") {
     yield processError(result, taskLabel);

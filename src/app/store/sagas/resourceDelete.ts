@@ -1,11 +1,11 @@
 import { removeResource } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import { ActionMap, ActionPayload } from "app/store/actions";
 
 import { api, processClusterResultBasic } from "./common";
 
 const formatResourcesFenceDeviceMsg = (
   resourceNameList: string[],
-  resourceType: ActionMap["RESOURCE.DELETE"]["payload"]["resourceType"],
+  resourceType: ActionPayload["RESOURCE.DELETE"]["resourceType"],
 ) =>
   resourceNameList.length === 1
     ? `${resourceType === "resource" ? "resource" : "fence device"} "${

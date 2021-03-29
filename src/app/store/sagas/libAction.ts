@@ -1,3 +1,4 @@
+import { libCallCluster } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
 import { api, lib, processError } from "./common";
@@ -6,9 +7,9 @@ export function* callLib({
   key,
   payload: { call: command, taskLabel },
 }: ActionMap["LIB.CALL.CLUSTER"]) {
-  const result: api.ResultOf<typeof api.lib.call> = yield api.authSafe(
-    api.lib.callCluster,
-    { clusterName: key.clusterName, ...command },
+  const result: api.ResultOf<typeof libCallCluster> = yield api.authSafe(
+    libCallCluster,
+    { clusterName: key.clusterName, command },
   );
 
   if (result.type !== "OK") {

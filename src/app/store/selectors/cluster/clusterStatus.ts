@@ -1,19 +1,17 @@
-import * as types from "app/store/state/types";
+import {
+  clusterSelector,
+  clusterStorageItemSelector,
+} from "./selectorsHelpers";
 
-import { clusterSelector, clusterStatusSelector } from "./selectorsHelpers";
+type Cluster = Parameters<Parameters<typeof clusterSelector>[0]>[0];
+type Resource = Cluster["resourceTree"][number];
 
-const fetchStatusSuccess: types.cluster.ClusterStatusService["dataFetchState"] =
-  "SUCCESS";
-
-export const clusterAreDataLoaded = clusterSelector(
+export const clusterAreDataLoaded = clusterStorageItemSelector(
   clusterStorageItem =>
-    clusterStorageItem?.clusterStatus?.dataFetchState === fetchStatusSuccess,
+    clusterStorageItem?.clusterStatus?.dataFetchState === "SUCCESS",
 );
 
-const findInTopLevelAndGroup = (
-  resource: types.cluster.ResourceTreeItem,
-  id: string,
-) => {
+const findInTopLevelAndGroup = (resource: Resource, id: string) => {
   if (resource.id === id) {
     return resource;
   }
@@ -28,9 +26,9 @@ const findInTopLevelAndGroup = (
   return undefined;
 };
 
-export const getCluster = clusterStatusSelector(clusterStatus => clusterStatus);
+export const getCluster = clusterSelector(clusterStatus => clusterStatus);
 
-export const getSelectedResource = clusterStatusSelector(
+export const getSelectedResource = clusterSelector(
   (clusterStatus, id: string) => {
     for (const resource of clusterStatus.resourceTree) {
       const matched = findInTopLevelAndGroup(resource, id);
@@ -50,24 +48,23 @@ export const getSelectedResource = clusterStatusSelector(
   },
 );
 
-export const getSelectedFenceDevice = clusterStatusSelector(
+export const getSelectedFenceDevice = clusterSelector(
   (clusterStatus, id: string) =>
     clusterStatus.fenceDeviceList.find(fd => fd.id === id),
 );
 
-export const getSelectedNode = clusterStatusSelector(
-  (clusterStatus, name: string) =>
-    clusterStatus.nodeList.find(node => node.name === name),
+export const getSelectedNode = clusterSelector((clusterStatus, name: string) =>
+  clusterStatus.nodeList.find(node => node.name === name),
 );
 
-export const crmStatusForPrimitive = clusterStatusSelector(
+export const crmStatusForPrimitive = clusterSelector(
   (clusterStatus, primitiveIds: string[]) =>
     clusterStatus.resourceOnNodeStatusList.filter(s =>
       primitiveIds.includes(s.resource.id),
     ),
 );
 
-export const crmStatusForNode = clusterStatusSelector(
+export const crmStatusForNode = clusterSelector(
   (clusterStatus, nodeName: string) =>
     clusterStatus.resourceOnNodeStatusList.filter(
       s => s.node?.name === nodeName,

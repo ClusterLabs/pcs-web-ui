@@ -1,5 +1,5 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "./tools";
 
 const { url } = endpoints.logout;
 
-export const logout = async (): api.CallResult => http.get(url);
+export const logout = async (): CallResult => http.get(url);

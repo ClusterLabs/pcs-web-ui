@@ -4,9 +4,7 @@ export type ClusterStatusActions = {
   "CLUSTER.STATUS.FETCH.OK": {
     type: "CLUSTER.STATUS.FETCH.OK";
     key: { clusterName: string };
-    payload: {
-      apiClusterStatus: api.PayloadOf<typeof clusterStatus>;
-    };
+    payload: api.PayloadOf<typeof clusterStatus>;
   };
 
   "CLUSTER.STATUS.REFRESH": {

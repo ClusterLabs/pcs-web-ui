@@ -1,6 +1,6 @@
-import { api } from "app/backend";
+import { api, libCallCluster } from "app/backend";
 
-type Response = api.types.lib.Response;
+type Response = api.PayloadOf<typeof libCallCluster>;
 
 export const success: Response = {
   status: "success",

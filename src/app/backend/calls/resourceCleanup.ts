@@ -1,11 +1,11 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "./tools";
 
 const { url, shape } = endpoints.resourceCleanup;
 
 export const resourceCleanup = async (
   clusterName: string,
   resourceId: string,
-): api.CallResult<typeof shape> =>
+): CallResult<typeof shape> =>
   http.post(url({ clusterName }), {
     params: [
       ["resource", resourceId],

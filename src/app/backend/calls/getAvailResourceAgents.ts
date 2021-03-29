@@ -1,7 +1,7 @@
-import { api, endpoints, http } from "app/backend/tools";
+import { CallResult, endpoints, http } from "./tools";
 
 const { url, shape } = endpoints.getAvailResourceAgents;
 
 export const getAvailResourceAgents = async (
   clusterName: string,
-): api.CallResult<typeof shape> => http.get(url({ clusterName }), { shape });
+): CallResult<typeof shape> => http.get(url({ clusterName }), { shape });

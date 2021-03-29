@@ -69,7 +69,7 @@ const prepareUrl = <KEYWORDS extends Record<string, string>>(
 type EndpointKeys = keyof typeof endpoints;
 type DevEndpoints = {
   -readonly [K in EndpointKeys]: K extends "libCluster"
-    ? (c: keyof LibClusterCommands, h: Handler) => void
+    ? (c: LibClusterCommands[number]["name"], h: Handler) => void
     : (h: Handler) => Express;
 };
 
@@ -79,7 +79,7 @@ export const app: DevEndpoints = (Object.keys(endpoints) as Array<
   const ep = endpoints[n];
   if (n === "libCluster") {
     devEndpoints.libCluster = (
-      command: keyof LibClusterCommands,
+      command: LibClusterCommands[number]["name"],
       handler: Handler,
     ) => {
       application.post(

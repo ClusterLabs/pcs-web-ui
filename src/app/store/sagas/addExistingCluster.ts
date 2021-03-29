@@ -2,7 +2,7 @@ import { checkAuthAgainstNodes, existingCluster } from "app/backend";
 import { ActionMap, actionNewId } from "app/store";
 
 import { nodeAuthWait } from "./nodeAuth";
-import { api, call, put, race, take } from "./common";
+import { api, call, log, put, race, take } from "./common";
 
 export function* checkAuthentication({
   payload: { nodeName },
@@ -98,10 +98,7 @@ export function* addCluster({
     yield put({
       type: "CLUSTER.ADD.ERROR",
       payload: {
-        message: api.log.errorMessage(
-          result,
-          `add cluster (node: "${nodeName}")`,
-        ),
+        message: log.errorMessage(result, `add cluster (node: "${nodeName}")`),
       },
     });
     return;

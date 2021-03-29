@@ -1,3 +1,4 @@
+import { libCallCluster } from "app/backend";
 import { Action, ActionMap } from "app/store";
 
 import { api, lib, processError, put, race, take } from "./common";
@@ -6,13 +7,17 @@ export function* create({
   key,
   payload: { groupId, resourceIdList },
 }: ActionMap["RESOURCE.GROUP.CREATE"]) {
-  const { result }: { result: api.ResultOf<typeof api.lib.call> } = yield race({
-    result: api.authSafe(api.lib.callCluster, {
+  const {
+    result,
+  }: { result: api.ResultOf<typeof libCallCluster> } = yield race({
+    result: api.authSafe(libCallCluster, {
       clusterName: key.clusterName,
-      command: "resource-group-add",
-      payload: {
-        group_id: groupId,
-        resource_id_list: resourceIdList,
+      command: {
+        name: "resource-group-add",
+        payload: {
+          group_id: groupId,
+          resource_id_list: resourceIdList,
+        },
       },
     }),
     cancel: take("RESOURCE.CREATE.CLOSE"),

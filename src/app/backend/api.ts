@@ -1,21 +1,14 @@
-import * as types from "./types";
-import * as log from "./log";
-import * as result from "./apiResult";
-import { Call as TCall, Result as TResult } from "./call";
-import * as lib from "./lib";
-import * as endpoints from "./endpoints";
+import * as result from "./calls/tools/result";
 
-export type Call<PAYLOAD = string> = TCall<PAYLOAD>;
-
-export type Result<PAYLOAD> = TResult<PAYLOAD>;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type Call<PAYLOAD> = (...args: any[]) => Promise<result.Overall<PAYLOAD>>;
 
 export type ResultOf<APICALL> = APICALL extends Call<infer PAYLOAD>
-  ? Result<PAYLOAD>
+  ? result.Overall<PAYLOAD>
   : never;
 
 export type PayloadOf<APICALL> = APICALL extends Call<infer PAYLOAD>
   ? PAYLOAD
   : never;
 
-export type LibPayload = PayloadOf<typeof lib.call>;
-export { types, log, result, lib, endpoints };
+export { result };

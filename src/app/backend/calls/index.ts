@@ -10,6 +10,7 @@ export * from "./updateResource";
 export * from "./clusterProperties";
 export * from "./resourceCleanup";
 export * from "./resourceRefresh";
+export * from "./libCallCluster";
 export * from "./login";
 export * from "./logout";
 export * from "./removeResource";
