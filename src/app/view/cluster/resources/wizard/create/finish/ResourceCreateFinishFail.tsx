@@ -1,12 +1,12 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { api } from "app/backend";
+import { types } from "app/store";
 import { WizardFinishError, WizardLibReports } from "app/view/share";
 
 import { useWizard } from "../useWizard";
 
-const allErrorsCanBeForced = (reports: api.LibReport[]) =>
+const allErrorsCanBeForced = (reports: types.LibReport[]) =>
   reports.every(
     r => r.severity.level !== "ERROR" || r.severity.force_code !== null,
   );

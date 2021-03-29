@@ -1,11 +1,11 @@
-import { api } from "app/backend";
+import { LibReport } from "app/store/types";
 
 import { Reducer } from "../tools";
 
 const initialState: {
   groupId: string;
   resourceIdList: string[];
-  reports: api.LibReport[];
+  reports: LibReport[];
   showValidationErrors: boolean;
   response: "" | "success" | "fail";
 } = {

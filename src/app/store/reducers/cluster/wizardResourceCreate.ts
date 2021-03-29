@@ -1,4 +1,4 @@
-import { api } from "app/backend";
+import { LibReport } from "app/store/types";
 
 import { Reducer } from "../tools";
 
@@ -16,7 +16,7 @@ const initialState: {
     | "forceable-fail"
     | "fail"
     | "communication-error";
-  reports: api.LibReport[];
+  reports: LibReport[];
   showValidationErrors: boolean;
   clone: boolean;
   promotable: boolean;

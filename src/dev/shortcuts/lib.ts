@@ -1,8 +1,11 @@
 import { Response } from "express";
 
-import { api } from "app/backend";
+import { api, libCallCluster } from "app/backend";
 
 import * as response from "dev/responses";
+export type LibReport = api.PayloadOf<
+  typeof libCallCluster
+>["report_list"][number];
 
 const getLibResponses = (res: Response): Record<string, () => void> => ({
   error: () => {
@@ -78,7 +81,7 @@ export const libStd = ({
 }: {
   code: string;
   res: Response;
-  errors?: Record<string, api.LibReport[]>;
+  errors?: Record<string, LibReport[]>;
 }) => {
   if (code in errors) {
     res.json(response.lib.error(errors[code]));

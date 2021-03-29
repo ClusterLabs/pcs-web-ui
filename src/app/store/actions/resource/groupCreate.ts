@@ -1,4 +1,4 @@
-import { api } from "app/backend";
+import { LibReport } from "app/store/types";
 
 export type ResourceGroupCreateActions = {
   "RESOURCE.GROUP.CREATE": {
@@ -19,7 +19,7 @@ export type ResourceGroupCreateActions = {
     type: "RESOURCE.GROUP.CREATE.FAIL";
     key: { clusterName: string };
     payload: {
-      reports: api.LibReport[];
+      reports: LibReport[];
     };
   };
 
@@ -27,7 +27,7 @@ export type ResourceGroupCreateActions = {
     type: "RESOURCE.GROUP.CREATE.SUCCESS";
     key: { clusterName: string };
     payload: {
-      reports: api.LibReport[];
+      reports: LibReport[];
     };
   };
 

@@ -1,4 +1,4 @@
-import { api } from "app/backend";
+import { LibReport } from "app/store/types";
 
 export type NodeAddActions = {
   "NODE.ADD": {
@@ -21,7 +21,7 @@ export type NodeAddActions = {
     type: "NODE.ADD.OK";
     key: { clusterName: string };
     payload: {
-      reports: api.LibReport[];
+      reports: LibReport[];
     };
   };
 
@@ -29,7 +29,7 @@ export type NodeAddActions = {
     type: "NODE.ADD.FAIL";
     key: { clusterName: string };
     payload: {
-      reports: api.LibReport[];
+      reports: LibReport[];
     };
   };
   "NODE.ADD.ERROR": {

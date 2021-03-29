@@ -36,7 +36,7 @@ export const invalidJson = (message: string): Response => ({
   data: null,
 });
 
-export const error = (reportList: api.LibReport[]): Response => ({
+export const error = (reportList: Response["report_list"]): Response => ({
   status: "error",
   status_msg: null,
   report_list: reportList,
