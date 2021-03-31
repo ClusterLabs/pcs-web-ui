@@ -10,6 +10,7 @@ import { resourceAgentMap } from "./resourceAgentMap";
 import { wizardResourceCreate } from "./wizardResourceCreate";
 import { taskConstraintLocationCreate } from "./taskConstraintLocationCreate";
 import { taskConstraintOrderCreate } from "./taskConstraintOrderCreate";
+import { taskConstraintOrderSetCreate } from "./taskConstraintOrderSetCreate";
 import { wizardResourceGroup } from "./wizardResourceGroup";
 import { wizardNodeAdd } from "./wizardNodeAdd";
 import { fixAuth } from "./fixAuth";
@@ -23,6 +24,7 @@ const clusterStorageItem = combineReducers({
   wizardResourceCreate,
   taskConstraintLocationCreate,
   taskConstraintOrderCreate,
+  taskConstraintOrderSetCreate,
   wizardResourceGroup,
   wizardNodeAdd,
   fixAuth,

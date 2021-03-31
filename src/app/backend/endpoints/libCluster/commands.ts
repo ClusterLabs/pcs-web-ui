@@ -65,6 +65,26 @@ export type LibClusterCommands = [
     };
   },
   {
+    name: "constraint-order-create-with-set";
+    payload: {
+      resource_set_list: {
+        ids: string[];
+        options: {
+          sequential?: "true" | "false";
+          "require-all"?: "true" | "false";
+          action?: "start" | "promote" | "demote" | "stop";
+        };
+      }[];
+      constraint_options: {
+        id?: string;
+        kind?: "Optional" | "Mandatory" | "Serialize";
+        symetrical?: "true" | "false";
+      };
+      resource_in_clone_alowed: boolean;
+      duplication_alowed: boolean;
+    };
+  },
+  {
     name: "cluster-add-nodes";
     payload: {
       nodes: {

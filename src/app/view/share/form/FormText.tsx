@@ -1,6 +1,9 @@
 import React from "react";
-import { FormGroup, TextInput } from "@patternfly/react-core";
+import { TextInput } from "@patternfly/react-core";
 
+import { FormGroup } from "./FormGroup";
+
+type FormGroupProps = React.ComponentProps<typeof FormGroup>;
 export const FormText: React.FC<{
   id: string;
   onChange: React.ComponentProps<typeof TextInput>["onChange"];
@@ -9,7 +12,7 @@ export const FormText: React.FC<{
   helperTextInvalid?: React.ReactNode;
   isRequired?: boolean;
   validated?: React.ComponentProps<typeof TextInput>["validated"];
-  labelIcon?: React.ComponentProps<typeof FormGroup>["labelIcon"];
+  popover?: FormGroupProps["popover"];
   placeholder?: string;
   helperText?: React.ComponentProps<typeof FormGroup>["helperText"];
   ["data-test"]?: string | undefined;
@@ -22,7 +25,7 @@ export const FormText: React.FC<{
   helperTextInvalid = null,
   isRequired = false,
   placeholder = "",
-  labelIcon = undefined,
+  popover = undefined,
   helperText = undefined,
   "data-test": dataTest = undefined,
 }) => {
@@ -33,8 +36,8 @@ export const FormText: React.FC<{
       fieldId={id}
       helperTextInvalid={helperTextInvalid}
       validated={validated}
-      labelIcon={labelIcon}
       helperText={helperText}
+      popover={popover}
     >
       <TextInput
         id={id}

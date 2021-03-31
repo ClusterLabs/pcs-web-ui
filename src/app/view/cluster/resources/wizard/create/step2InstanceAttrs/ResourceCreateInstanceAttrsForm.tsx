@@ -2,7 +2,6 @@ import React from "react";
 import { Alert, Form } from "@patternfly/react-core";
 
 import {
-  AttributeHelpPopover,
   FormText,
   LoadedPcmkAgent,
   ToolbarFilterTextGroupPair,
@@ -79,13 +78,11 @@ export const ResourceCreateInstanceAttrsForm: React.FC = () => {
                         key={parameter.name}
                         id={`instance-attr-${parameter.name}`}
                         label={parameter.name}
-                        labelIcon={
-                          <AttributeHelpPopover
-                            header={parameter.shortdesc}
-                            body={parameter.longdesc}
-                            defaultValue={parameter.default}
-                          />
-                        }
+                        popover={{
+                          header: parameter.shortdesc,
+                          body: parameter.longdesc,
+                          defaultValue: parameter.default,
+                        }}
                         isRequired={parameter.required}
                         validated={validated}
                         helperTextInvalid={`${hint} ${parameter.name}`}
