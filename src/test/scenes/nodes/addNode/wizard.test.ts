@@ -1,6 +1,6 @@
 import { intercept, route, workflow } from "test/tools";
 
-import { WIZARD, interceptWithCluster, url } from "./common";
+import { TASK, interceptWithCluster, url } from "./common";
 
 const NODE = "newnode";
 const CLUSTER = "actions";
@@ -10,12 +10,12 @@ const ADDR = "192.168.0.10";
 const PORT = "1234";
 
 const enterNodeName = async (nodeName: string) => {
-  await page.goto(url.WIZARD);
-  await page.type(WIZARD.NODE_NAME, nodeName);
-  await page.click(WIZARD.NEXT);
+  await page.goto(url.TASK);
+  await page.type(TASK.NODE_NAME, nodeName);
+  await page.click(TASK.NEXT);
 };
 
-describe("Node add wizard", () => {
+describe("Node add task", () => {
   afterEach(intercept.stop);
 
   it("should succesfully add new node", async () => {
@@ -26,12 +26,12 @@ describe("Node add wizard", () => {
       route.clusterNodeAdd(CLUSTER, NODE),
     ]);
     await enterNodeName(NODE);
-    await page.waitForSelector(WIZARD.PREPARE_CLUSTER.SUCCESS);
-    await page.click(WIZARD.NEXT); // go to adresses
-    await page.click(WIZARD.NEXT); // go to sbd
-    await page.click(WIZARD.NEXT); // go to rewiew
-    await page.click(WIZARD.NEXT); // go to finish
-    await page.waitForSelector(WIZARD.SUCCESS);
+    await page.waitForSelector(TASK.PREPARE_CLUSTER.SUCCESS);
+    await page.click(TASK.NEXT); // go to adresses
+    await page.click(TASK.NEXT); // go to sbd
+    await page.click(TASK.NEXT); // go to rewiew
+    await page.click(TASK.NEXT); // go to finish
+    await page.waitForSelector(TASK.SUCCESS);
   });
 
   it("should display alert when cannot add node to cluster", async () => {
@@ -43,7 +43,7 @@ describe("Node add wizard", () => {
       route.can_add_cluster_or_nodes(NODE, { status: [400, reason] }),
     ]);
     await enterNodeName(NODE);
-    await page.waitForSelector(WIZARD.PREPARE_CLUSTER.CANNOT_ADD);
+    await page.waitForSelector(TASK.PREPARE_CLUSTER.CANNOT_ADD);
   });
 
   it("should display alert when node is offline", async () => {
@@ -52,7 +52,7 @@ describe("Node add wizard", () => {
       route.check_auth_against_nodes(NODE, { json: { [NODE]: "Offline" } }),
     ]);
     await enterNodeName(NODE);
-    await page.waitForSelector(WIZARD.PREPARE_CLUSTER.AUTH_FAILED);
+    await page.waitForSelector(TASK.PREPARE_CLUSTER.AUTH_FAILED);
   });
 
   it("should sucessfull add new node with authentication", async () => {
@@ -71,13 +71,13 @@ describe("Node add wizard", () => {
       }),
     ]);
     await enterNodeName(NODE);
-    await workflow.fillAuthForm(NODE, WIZARD.VIEW, PASSWORD, ADDR, PORT);
-    await page.click(WIZARD.NEXT);
-    await page.waitForSelector(WIZARD.PREPARE_CLUSTER.SUCCESS);
-    await page.click(WIZARD.NEXT); // go to adresses
-    await page.click(WIZARD.NEXT); // go to sbd
-    await page.click(WIZARD.NEXT); // go to rewiew
-    await page.click(WIZARD.NEXT); // go to finish
-    await page.waitForSelector(WIZARD.SUCCESS);
+    await workflow.fillAuthForm(NODE, TASK.VIEW, PASSWORD, ADDR, PORT);
+    await page.click(TASK.NEXT);
+    await page.waitForSelector(TASK.PREPARE_CLUSTER.SUCCESS);
+    await page.click(TASK.NEXT); // go to adresses
+    await page.click(TASK.NEXT); // go to sbd
+    await page.click(TASK.NEXT); // go to rewiew
+    await page.click(TASK.NEXT); // go to finish
+    await page.waitForSelector(TASK.SUCCESS);
   });
 });

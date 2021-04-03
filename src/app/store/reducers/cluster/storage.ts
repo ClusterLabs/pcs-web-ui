@@ -7,12 +7,12 @@ import { pcmkAgents } from "./pcmkAgents";
 import { resourceTree } from "./resourceTree";
 import { clusterProperties } from "./properties";
 import { resourceAgentMap } from "./resourceAgentMap";
-import { wizardResourceCreate } from "./wizardResourceCreate";
+import { taskResourceCreate } from "./taskResourceCreate";
 import { taskConstraintLocationCreate } from "./taskConstraintLocationCreate";
 import { taskConstraintOrderCreate } from "./taskConstraintOrderCreate";
 import { taskConstraintOrderSetCreate } from "./taskConstraintOrderSetCreate";
-import { wizardResourceGroup } from "./wizardResourceGroup";
-import { wizardNodeAdd } from "./wizardNodeAdd";
+import { taskResourceGroup } from "./taskResourceGroup";
+import { taskNodeAdd } from "./taskNodeAdd";
 import { fixAuth } from "./fixAuth";
 
 const clusterStorageItem = combineReducers({
@@ -21,12 +21,12 @@ const clusterStorageItem = combineReducers({
   resourceTree,
   clusterProperties,
   resourceAgentMap,
-  wizardResourceCreate,
+  taskResourceCreate,
   taskConstraintLocationCreate,
   taskConstraintOrderCreate,
   taskConstraintOrderSetCreate,
-  wizardResourceGroup,
-  wizardNodeAdd,
+  taskResourceGroup,
+  taskNodeAdd,
   fixAuth,
 });
 

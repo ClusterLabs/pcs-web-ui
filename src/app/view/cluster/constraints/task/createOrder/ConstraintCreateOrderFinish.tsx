@@ -3,24 +3,24 @@ import { Button } from "@patternfly/react-core";
 
 import {
   EmptyStateSpinner,
-  WizardFinishError,
-  WizardSuccess,
+  TaskFinishError,
+  TaskSuccess,
 } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 export const ConstraintCreateOrderFinish: React.FC = () => {
   const {
     close,
     createOrder,
     recoverFromError,
     state: { response, resultMessage },
-  } = useWizard();
+  } = useTask();
   switch (response) {
     case "sending":
       return <EmptyStateSpinner title="Creating order constraint" />;
     case "ok":
       return (
-        <WizardSuccess
+        <TaskSuccess
           title={"Order created successfully"}
           primaryActions={
             <Button variant="primary" onClick={close}>
@@ -31,7 +31,7 @@ export const ConstraintCreateOrderFinish: React.FC = () => {
       );
     default:
       return (
-        <WizardFinishError
+        <TaskFinishError
           title={"Create order constraint failed"}
           message={resultMessage}
           primaryActions={

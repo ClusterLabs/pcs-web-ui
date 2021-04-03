@@ -26,7 +26,7 @@ export const AddClusterPage = ({ onClose }: { onClose: () => void }) => {
   ];
   return (
     <Wizard
-      data-test="wizard-add-cluster"
+      data-test="task-add-cluster"
       isOpen
       onNext={() =>
         dispatch({

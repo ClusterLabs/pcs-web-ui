@@ -10,7 +10,7 @@ import { selectors } from "app/store";
 
 import { NodeDetailPage } from "./NodeDetailPage";
 import { NodeList } from "./NodeList";
-import { NodeAddToolbarItem } from "./wizard";
+import { NodeAddToolbarItem } from "./task";
 
 export const NodesPage: React.FC<{ urlPrefix: string }> = ({ urlPrefix }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);

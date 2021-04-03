@@ -3,14 +3,14 @@ import { Button } from "@patternfly/react-core";
 
 import { Wizard } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 import { ConstraintCreateOrderSetOptions } from "./ConstraintCreateOrderSetOptions";
 import { ConstraintCreateOrderSetOptionsFooter } from "./ConstraintCreateOrderSetOptionsFooter";
 
 export const ConstraintCreateOrderSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
-  const { open, close, isOpened } = useWizard();
+  const { open, close, isOpened } = useTask();
   return (
     <>
       <Button

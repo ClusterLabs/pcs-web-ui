@@ -4,14 +4,14 @@ import { Alert, AlertActionLink } from "@patternfly/react-core";
 import { NodesAuthForm } from "app/view/share";
 import { TaskSimple } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 import { ClusterIssueNotAuthFooter } from "./ClusterIssueNotAuthFooter";
 import { ClusterIssueNotAuthFinish } from "./ClusterIssueNotAuthFinish";
 
 export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
   nodeList,
 }) => {
-  const { open, cancel, authProcessId, fixAuthStart } = useWizard();
+  const { open, cancel, authProcessId, fixAuthStart } = useTask();
   return (
     <>
       <Alert

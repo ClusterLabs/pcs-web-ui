@@ -3,7 +3,7 @@ import { ClusterFixAuthActions } from "./fixAuth";
 import { ClusterListActions } from "./list";
 import { ClusterPropertiesActions } from "./properties";
 import { ClusterStatusActions } from "./status";
-import { ClusterWizardActions } from "./wizard";
+import { ClusterTaskActions } from "./task";
 
 // prettier-ignore
 export type ClusterActions = (
@@ -12,5 +12,5 @@ export type ClusterActions = (
   & ClusterListActions
   & ClusterPropertiesActions
   & ClusterStatusActions
-  & ClusterWizardActions
+  & ClusterTaskActions
 );

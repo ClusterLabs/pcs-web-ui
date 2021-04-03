@@ -1,23 +1,23 @@
 import React from "react";
 
 import {
-  WizardButtonBack,
-  WizardButtonCancel,
-  WizardButtonNext,
+  TaskButtonBack,
+  TaskButtonCancel,
+  TaskButtonNext,
 } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 
 export const ConstraintCreateOrderSetOptionsFooter: React.FC = () => {
   const {
     close,
     wizard: { onBack, onNext },
-  } = useWizard();
+  } = useTask();
   return (
     <>
-      <WizardButtonNext onClick={onNext} />
-      <WizardButtonBack onClick={onBack} disabled />
-      <WizardButtonCancel onClick={close} />
+      <TaskButtonNext onClick={onNext} />
+      <TaskButtonBack onClick={onBack} disabled />
+      <TaskButtonCancel onClick={close} />
     </>
   );
 };

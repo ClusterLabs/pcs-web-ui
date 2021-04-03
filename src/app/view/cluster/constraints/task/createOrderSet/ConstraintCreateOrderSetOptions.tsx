@@ -3,13 +3,13 @@ import { Form } from "@patternfly/react-core";
 
 import { FormRadios, FormSwitch, FormText } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 
 export const ConstraintCreateOrderSetOptions: React.FC = () => {
   const {
     updateState,
     state: { id, kind, symmetrical },
-  } = useWizard();
+  } = useTask();
   return (
     <Form isHorizontal>
       <FormText

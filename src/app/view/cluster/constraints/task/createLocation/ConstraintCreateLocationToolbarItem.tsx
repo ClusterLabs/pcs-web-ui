@@ -1,13 +1,13 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 import { ConstraintCreateLocation } from "./ConstraintCreateLocation";
 
 export const ConstraintCreateLocationToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
-  const { open, isOpened } = useWizard();
+  const { open, isOpened } = useTask();
   return (
     <>
       <Button

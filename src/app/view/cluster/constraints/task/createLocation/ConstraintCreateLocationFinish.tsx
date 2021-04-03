@@ -3,24 +3,24 @@ import { Button } from "@patternfly/react-core";
 
 import {
   EmptyStateSpinner,
-  WizardFinishError,
-  WizardSuccess,
+  TaskFinishError,
+  TaskSuccess,
 } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 export const ConstraintCreateLocationFinish: React.FC = () => {
   const {
     close,
     createLocation,
     recoverFromError,
     state: { response, resultMessage },
-  } = useWizard();
+  } = useTask();
   switch (response) {
     case "sending":
       return <EmptyStateSpinner title="Creating location constraint" />;
     case "ok":
       return (
-        <WizardSuccess
+        <TaskSuccess
           title={"Location created successfully"}
           primaryActions={
             <Button variant="primary" onClick={close}>
@@ -31,7 +31,7 @@ export const ConstraintCreateLocationFinish: React.FC = () => {
       );
     default:
       return (
-        <WizardFinishError
+        <TaskFinishError
           title={"Create location constraint failed"}
           message={resultMessage}
           primaryActions={
