@@ -1,7 +1,7 @@
 import React from "react";
-import { Alert, Checkbox, Form, FormGroup } from "@patternfly/react-core";
+import { Alert, Form } from "@patternfly/react-core";
 
-import { AttributeHelpPopover, FormText, WizardLibStep } from "app/view/share";
+import { FormSwitch, FormText, WizardLibStep } from "app/view/share";
 
 import { useWizard } from "../useWizard";
 
@@ -37,28 +37,23 @@ export const NodeAddSbd: React.FC = () => {
             placeholder="/dev/watchdog"
           />
 
-          <FormGroup
+          <FormSwitch
+            id="sbd-no-watchdog-validation"
             label="Do not validate watchdog"
-            labelIcon={
-              <AttributeHelpPopover
-                header="Do not validate watchdog"
-                body={
-                  "By default, it is tested whether the specified watchdog"
-                  + " is supported. This may cause a restart of the system when"
-                  + " a watchdog with no-way-out-feature enabled is present."
-                  + " Use this field to skip watchdog validation."
-                }
-              />
-            }
-            fieldId="sbd-no-watchdog-validation"
-          >
-            <Checkbox
-              isChecked={sbdNoWatchdogValidation}
-              name="sbd-no-watchdog-validation"
-              onChange={c => updateState({ sbdNoWatchdogValidation: c })}
-              id="sbd-no-watchdog-validation"
-            />
-          </FormGroup>
+            popover={{
+              header: "Do not validate watchdog",
+              body: (
+                <>
+                  By default, it is tested whether the specified watchdog is
+                  supported. This may cause a restart of the system when a
+                  watchdog with no-way-out-feature enabled is present. Use this
+                  field to skip watchdog validation.
+                </>
+              ),
+            }}
+            isChecked={sbdNoWatchdogValidation}
+            onChange={c => updateState({ sbdNoWatchdogValidation: c })}
+          />
           <Alert
             variant="info"
             isInline

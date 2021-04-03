@@ -9,7 +9,7 @@ type SwitchProps = React.ComponentProps<typeof Switch>;
 export const FormSwitch: React.FC<{
   id: FormGroupProps["fieldId"];
   label: FormGroupProps["label"];
-  isDisabled: SwitchProps["isDisabled"];
+  isDisabled?: SwitchProps["isDisabled"];
   isChecked: SwitchProps["isChecked"];
   onChange: SwitchProps["onChange"];
   popover?: FormGroupProps["popover"];
