@@ -2,12 +2,12 @@ import { ActionPayload, selectors } from "app/store";
 import { useClusterSelector, useClusterTask } from "app/view/share";
 
 export const useTask = () => {
-  const clusterTask = useClusterTask("taskConstraintOrderCreate");
-  const { clusterName, dispatch, state, close } = clusterTask;
+  const task = useClusterTask("constraintOrderCreate");
+  const { clusterName, dispatch, state, close } = task;
   const [clusterStatus] = useClusterSelector(selectors.getCluster);
 
   return {
-    ...clusterTask,
+    ...task,
     resourceIdList: clusterStatus.resourceTree.reduce<string[]>(
       (idList, resource) => {
         if (resource.itemType === "primitive") {

@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { Reducer } from "../../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 import { apiToState } from "./apiToState";
 import { Cluster, ClusterStatusService } from "./types";
@@ -23,7 +23,7 @@ export const clusterStatusDefault: Cluster = {
   sbdDetection: null,
 };
 
-const clusterData: Reducer<ClusterStatusService["clusterData"]> = (
+const clusterData: AppReducer<ClusterStatusService["clusterData"]> = (
   state = clusterStatusDefault,
   action,
 ) => {
@@ -35,7 +35,7 @@ const clusterData: Reducer<ClusterStatusService["clusterData"]> = (
   }
 };
 
-const dataFetchState: Reducer<ClusterStatusService["dataFetchState"]> = (
+const dataFetchState: AppReducer<ClusterStatusService["dataFetchState"]> = (
   state = "NOT_STARTED",
   action,
 ) => {

@@ -1,4 +1,4 @@
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 const initialState: {
   authProcessId: number | null;
@@ -14,7 +14,7 @@ const initialState: {
   errorMessage: "",
 };
 
-export const fixAuth: Reducer<typeof initialState> = (
+export const fixAuth: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {

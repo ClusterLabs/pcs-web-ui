@@ -14,13 +14,13 @@ const useAgent = (clusterName: string, agentName: string) => {
 };
 
 export const useTask = () => {
-  const clusterTask = useClusterTask("taskResourceCreate");
-  const { clusterName, state, dispatch } = clusterTask;
+  const task = useClusterTask("resourceCreate");
+  const { clusterName, state, dispatch } = task;
   const [groupList] = useClusterSelector(selectors.getGroups);
   const { agent, isAgentLoaded } = useAgent(clusterName, state.agentName);
 
   return {
-    ...clusterTask,
+    ...task,
     groupList,
     isAgentLoaded,
 
@@ -38,7 +38,7 @@ export const useTask = () => {
 
     // actions
     close: () => {
-      clusterTask.close();
+      task.close();
       dispatch({
         type: "RESOURCE.CREATE.CLOSE",
         key: { clusterName },

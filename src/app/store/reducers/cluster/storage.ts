@@ -1,19 +1,13 @@
 import { combineReducers } from "redux";
 
-import { Reducer, ReturnTypeWithoutCombinedState } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 import { clusterStatus } from "./clusterStatus";
 import { pcmkAgents } from "./pcmkAgents";
 import { resourceTree } from "./resourceTree";
 import { clusterProperties } from "./properties";
 import { resourceAgentMap } from "./resourceAgentMap";
-import { taskResourceCreate } from "./taskResourceCreate";
-import { taskConstraintLocationCreate } from "./taskConstraintLocationCreate";
-import { taskConstraintOrderCreate } from "./taskConstraintOrderCreate";
-import { taskConstraintOrderSetCreate } from "./taskConstraintOrderSetCreate";
-import { taskResourceGroup } from "./taskResourceGroup";
-import { taskNodeAdd } from "./taskNodeAdd";
-import { fixAuth } from "./fixAuth";
+import { tasks } from "./tasks";
 
 const clusterStorageItem = combineReducers({
   clusterStatus,
@@ -21,21 +15,15 @@ const clusterStorageItem = combineReducers({
   resourceTree,
   clusterProperties,
   resourceAgentMap,
-  taskResourceCreate,
-  taskConstraintLocationCreate,
-  taskConstraintOrderCreate,
-  taskConstraintOrderSetCreate,
-  taskResourceGroup,
-  taskNodeAdd,
-  fixAuth,
+  tasks,
 });
 
-type ClusterStorage = Record<
-  string,
-  ReturnTypeWithoutCombinedState<typeof clusterStorageItem>
->;
+type ClusterStorage = Record<string, ReturnType<typeof clusterStorageItem>>;
 
-export const clusterStorage: Reducer<ClusterStorage> = (state = {}, action) => {
+export const clusterStorage: AppReducer<ClusterStorage> = (
+  state = {},
+  action,
+) => {
   if (action.type === "AUTH.REQUIRED") {
     return {};
   }

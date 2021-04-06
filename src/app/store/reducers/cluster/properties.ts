@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
 
 import { ActionPayload } from "app/store/actions";
-
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 type Payload = ActionPayload["CLUSTER.PROPERTIES.LOAD.OK"];
 type ClusterProperties = Payload["apiClusterProperties"];
@@ -15,7 +14,7 @@ type ClusterPropertiesService = {
   };
 };
 
-const data: Reducer<ClusterPropertiesService["data"]> = (
+const data: AppReducer<ClusterPropertiesService["data"]> = (
   state = [],
   action,
 ) => {
@@ -31,7 +30,7 @@ const data: Reducer<ClusterPropertiesService["data"]> = (
   }
 };
 
-const fetchState: Reducer<ClusterPropertiesService["fetchState"]> = (
+const fetchState: AppReducer<ClusterPropertiesService["fetchState"]> = (
   state = { current: "NOT_STARTED", alreadyLoaded: false },
   action,
 ) => {

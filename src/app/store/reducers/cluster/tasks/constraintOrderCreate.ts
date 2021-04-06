@@ -1,4 +1,4 @@
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 type Action = "start" | "promote" | "demote" | "stop";
 
@@ -18,7 +18,7 @@ const initialState: {
   resultMessage: "",
 };
 
-export const taskConstraintOrderCreate: Reducer<typeof initialState> = (
+export const constraintOrderCreate: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {

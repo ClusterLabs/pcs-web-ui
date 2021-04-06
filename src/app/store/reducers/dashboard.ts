@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 
-import { Reducer } from "./tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
-const clusterNameList: Reducer<string[]> = (state = [], action) => {
+const clusterNameList: AppReducer<string[]> = (state = [], action) => {
   switch (action.type) {
     case "CLUSTER.LIST.FETCH.OK":
       return action.payload.clusterNameList;
@@ -13,7 +13,7 @@ const clusterNameList: Reducer<string[]> = (state = [], action) => {
   }
 };
 
-const dataFetch: Reducer<"NOT_STARTED" | "IN_PROGRESS" | "SUCCESS"> = (
+const dataFetch: AppReducer<"NOT_STARTED" | "IN_PROGRESS" | "SUCCESS"> = (
   state = "NOT_STARTED",
   action,
 ) => {

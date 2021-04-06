@@ -2,11 +2,11 @@ import { ActionPayload } from "app/store";
 import { useClusterTask } from "app/view/share";
 
 export const useTask = () => {
-  const clusterTask = useClusterTask("taskConstraintOrderSetCreate");
-  const { clusterName, dispatch } = clusterTask;
+  const task = useClusterTask("constraintOrderSetCreate");
+  const { clusterName, dispatch } = task;
 
   return {
-    ...clusterTask,
+    ...task,
 
     // actions
     updateState: (

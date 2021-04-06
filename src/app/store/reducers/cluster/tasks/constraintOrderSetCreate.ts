@@ -1,4 +1,4 @@
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 const initialState: {
   id: string;
@@ -9,7 +9,7 @@ const initialState: {
   kind: "Mandatory",
   symmetrical: true,
 };
-export const taskConstraintOrderSetCreate: Reducer<typeof initialState> = (
+export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {

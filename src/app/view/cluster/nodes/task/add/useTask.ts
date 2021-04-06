@@ -4,8 +4,8 @@ import { ActionPayload } from "app/store";
 import { useClusterState, useClusterTask } from "app/view/share";
 
 export const useTask = () => {
-  const clusterTask = useClusterTask("taskNodeAdd");
-  const { clusterName, state, dispatch } = clusterTask;
+  const task = useClusterTask("nodeAdd");
+  const { clusterName, state, dispatch } = task;
 
   const { clusterState } = useClusterState(clusterName);
 
@@ -32,7 +32,7 @@ export const useTask = () => {
   );
 
   return {
-    ...clusterTask,
+    ...task,
 
     filledSbdDevices,
 
@@ -47,7 +47,7 @@ export const useTask = () => {
 
     // actions
     close: () => {
-      clusterTask.close();
+      task.close();
       dispatch({
         type: "NODE.ADD.CLOSE",
         key: { clusterName },

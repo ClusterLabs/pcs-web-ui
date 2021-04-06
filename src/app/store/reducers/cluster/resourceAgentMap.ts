@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 type ResourceAgentMap = Record<string, string[]>;
 type ResourceAgentListService = {
@@ -15,7 +15,7 @@ function getAgents<T>(agentMap: Record<string, T>): T[] {
   return Object.values(agentMap);
 }
 
-const data: Reducer<ResourceAgentMap> = (state = {}, action) => {
+const data: AppReducer<ResourceAgentMap> = (state = {}, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LIST.LOAD.OK":
       return getAgents(action.payload.apiResourceAgentMap).reduce<
@@ -36,7 +36,7 @@ const data: Reducer<ResourceAgentMap> = (state = {}, action) => {
   }
 };
 
-const fetchState: Reducer<ResourceAgentListService["fetchState"]> = (
+const fetchState: AppReducer<ResourceAgentListService["fetchState"]> = (
   state = { current: "NOT_STARTED", alreadyLoaded: false },
   action,
 ) => {

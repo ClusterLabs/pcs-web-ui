@@ -1,6 +1,5 @@
 import { LibReport } from "app/store/types";
-
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 const initialState: {
   groupId: string;
@@ -16,7 +15,7 @@ const initialState: {
   response: "",
 };
 
-export const taskResourceGroup: Reducer<typeof initialState> = (
+export const resourceGroup: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {

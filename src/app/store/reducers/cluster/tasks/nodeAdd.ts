@@ -1,6 +1,5 @@
 import { LibReport } from "app/store/types";
-
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 const initialState: {
   nodeName: string;
@@ -61,7 +60,7 @@ const initialState: {
   authProcessId: null,
 };
 
-export const taskNodeAdd: Reducer<typeof initialState> = (
+export const nodeAdd: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {

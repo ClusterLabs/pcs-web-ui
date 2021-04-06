@@ -2,13 +2,13 @@ import { ActionPayload, selectors } from "app/store";
 import { useClusterSelector, useClusterTask } from "app/view/share";
 
 export const useTask = () => {
-  const clusterTask = useClusterTask("taskConstraintLocationCreate");
+  const task = useClusterTask("constraintLocationCreate");
 
-  const { clusterName, dispatch, state, close } = clusterTask;
+  const { clusterName, dispatch, state, close } = task;
   const [clusterStatus] = useClusterSelector(selectors.getCluster);
 
   return {
-    ...clusterTask,
+    ...task,
     nodeNameList: clusterStatus.nodeList.map(n => n.name),
     resourceIdList: clusterStatus.resourceTree.reduce<string[]>(
       (idList, resource) => {

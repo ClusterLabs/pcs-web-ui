@@ -8,10 +8,10 @@ import { useClusterSelector } from "app/view/share/useClusterSelector";
 import { useTaskOpenClose } from "./useTaskOpenClose";
 
 export function useClusterTask<
-  NAME extends Parameters<typeof selectors.getClusterPart>[0],
+  NAME extends Parameters<typeof selectors.getTask>[0],
 >(clusterPartName: NAME) {
   const [state, clusterName] = useClusterSelector(
-    selectors.getClusterPart(clusterPartName),
+    selectors.getTask(clusterPartName),
   );
   const dispatch = useDispatch();
   const openClose = useTaskOpenClose(clusterPartName);

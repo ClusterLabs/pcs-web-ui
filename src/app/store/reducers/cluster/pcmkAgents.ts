@@ -1,4 +1,4 @@
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 type AgentMap = Record<
   string,
@@ -19,7 +19,7 @@ type AgentMap = Record<
   }
 >;
 
-export const pcmkAgents: Reducer<AgentMap> = (state = {}, action) => {
+export const pcmkAgents: AppReducer<AgentMap> = (state = {}, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LOAD":
     case "FENCE_AGENT.LOAD":

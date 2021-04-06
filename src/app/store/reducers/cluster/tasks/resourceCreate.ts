@@ -1,6 +1,5 @@
 import { LibReport } from "app/store/types";
-
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 type InstanceAttrName = string;
 type InstanceAttrValue = string;
@@ -46,7 +45,7 @@ const instanceAttrs = (stateAttrs: InstanceAttrs, actionAttrs: InstanceAttrs) =>
     return rest;
   }, stateAttrs);
 
-export const taskResourceCreate: Reducer<typeof initialState> = (
+export const resourceCreate: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {

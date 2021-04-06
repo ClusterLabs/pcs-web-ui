@@ -1,4 +1,4 @@
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 type NodeMap = Record<
   string,
@@ -41,7 +41,7 @@ const selectNodes = (
     .filter(([_n, r]) => r === (success ? 0 : 1))
     .map(([n]) => n);
 
-export const nodeAuth: Reducer<typeof initialState> = (
+export const nodeAuth: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {

@@ -1,4 +1,4 @@
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 const initialState: {
   resourceSpecification: "resource" | "pattern";
@@ -24,7 +24,7 @@ const initialState: {
   resultMessage: "",
 };
 
-export const taskConstraintLocationCreate: Reducer<typeof initialState> = (
+export const constraintLocationCreate: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {

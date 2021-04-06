@@ -6,7 +6,7 @@ export const useTask = () => {
   const [
     { authProcessId, open, fixing, errorMessage, authAttemptInProgress },
     clusterName,
-  ] = useClusterSelector(selectors.getClusterPart("fixAuth"));
+  ] = useClusterSelector(selectors.getTask("fixAuth"));
   return {
     open,
     fixing,

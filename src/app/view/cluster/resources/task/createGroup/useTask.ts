@@ -2,25 +2,25 @@ import { ActionPayload, selectors } from "app/store";
 import { useClusterSelector, useClusterTask } from "app/view/share";
 
 export const useTask = () => {
-  const clusterTask = useClusterTask("taskResourceGroup");
+  const task = useClusterTask("resourceGroup");
 
-  const { clusterName, dispatch } = clusterTask;
+  const { clusterName, dispatch } = task;
   const [topLevelPrimitives] = useClusterSelector(
     selectors.getTopLevelPrimitives,
   );
 
   const {
     state: { resourceIdList, groupId },
-  } = clusterTask;
+  } = task;
 
   const availableResources = topLevelPrimitives.filter(
     p => !resourceIdList.includes(p),
   );
 
   return {
-    ...clusterTask,
+    ...task,
     close: () => {
-      clusterTask.close();
+      task.close();
       dispatch({
         type: "RESOURCE.GROUP.CREATE.CLOSE",
         key: { clusterName },

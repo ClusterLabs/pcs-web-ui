@@ -1,17 +1,14 @@
-import { ClusterStorageItem } from "../types";
+import { TaskKeys } from "../types";
 
 import {
   ClusterSelector as TClusterSelector,
   clusterStorageItemSelector,
 } from "./selectorsHelpers";
 
-export function getClusterPart<NAME extends keyof ClusterStorageItem>(
-  name: NAME,
-) {
-  return clusterStorageItemSelector(
-    clusterStorageItem => clusterStorageItem[name],
+export const getTask = <NAME extends TaskKeys>(name: NAME) =>
+  clusterStorageItemSelector(
+    clusterStorageItem => clusterStorageItem.tasks[name],
   );
-}
 
 export const getPcmkAgent = clusterStorageItemSelector(
   (clusterStorageItem, agentName: string) =>
