@@ -1,7 +1,11 @@
 import React from "react";
 
 import { NVPair } from "app/view/cluster/types";
-import { AttributeList, AttributeName, AttributeValue } from "app/view/share";
+import {
+  AttributeList,
+  AttributeName,
+  AttributeValue,
+} from "app/view/share/attributes";
 
 export const NVPairListView = ({
   nvPairListView,

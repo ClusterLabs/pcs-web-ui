@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { EmptyStateSpinner } from "app/view/share";
+import { EmptyStateSpinner } from "app/view/share/emptyState";
 
 import { useNodesAuth } from "./useNodesAuth";
 

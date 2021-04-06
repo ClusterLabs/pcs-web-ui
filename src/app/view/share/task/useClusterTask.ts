@@ -2,8 +2,10 @@ import React from "react";
 import { WizardContext } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { useDispatch, useTaskOpenClose } from "app/view/share";
+import { useDispatch } from "app/view/share/useDispatch";
 import { useClusterSelector } from "app/view/share/useClusterSelector";
+
+import { useTaskOpenClose } from "./useTaskOpenClose";
 
 export function useClusterTask<
   NAME extends Parameters<typeof selectors.getClusterPart>[0],
