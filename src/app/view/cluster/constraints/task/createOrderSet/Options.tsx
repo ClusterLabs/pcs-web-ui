@@ -5,7 +5,7 @@ import { FormRadios, FormSwitch, FormText } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const ConstraintCreateOrderSetOptions: React.FC = () => {
+export const Options: React.FC = () => {
   const {
     updateState,
     state: { id, kind, symmetrical },

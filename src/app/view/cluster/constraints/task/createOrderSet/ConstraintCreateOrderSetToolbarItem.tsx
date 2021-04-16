@@ -4,8 +4,9 @@ import { Button } from "@patternfly/react-core";
 import { Wizard } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { ConstraintCreateOrderSetOptions } from "./ConstraintCreateOrderSetOptions";
-import { ConstraintCreateOrderSetOptionsFooter } from "./ConstraintCreateOrderSetOptionsFooter";
+import { Options } from "./Options";
+import { OptionsFooter } from "./OptionsFooter";
+import { ResourceSets } from "./ResourceSets";
 
 export const ConstraintCreateOrderSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
@@ -29,8 +30,13 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
           steps={[
             {
               name: "Options",
-              component: <ConstraintCreateOrderSetOptions />,
-              footer: <ConstraintCreateOrderSetOptionsFooter />,
+              component: <Options />,
+              footer: <OptionsFooter />,
+            },
+            {
+              name: "Resource Sets",
+              component: <ResourceSets />,
+              footer: <OptionsFooter />,
             },
           ]}
         />

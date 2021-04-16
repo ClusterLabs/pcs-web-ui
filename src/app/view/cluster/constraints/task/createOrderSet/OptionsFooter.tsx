@@ -8,7 +8,7 @@ import {
 
 import { useTask } from "./useTask";
 
-export const ConstraintCreateOrderSetOptionsFooter: React.FC = () => {
+export const OptionsFooter: React.FC = () => {
   const {
     close,
     wizard: { onBack, onNext },
