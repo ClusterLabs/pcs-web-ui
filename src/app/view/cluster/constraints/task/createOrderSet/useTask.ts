@@ -17,5 +17,20 @@ export const useTask = () => {
         key: { clusterName },
         payload,
       }),
+
+    createSet: () =>
+      dispatch({
+        type: "CONSTRAINT.ORDER.SET.CREATE.CREATE.SET",
+        key: { clusterName },
+      }),
+
+    deleteSet: (index: number) =>
+      dispatch({
+        type: "CONSTRAINT.ORDER.SET.CREATE.DELETE.SET",
+        key: { clusterName },
+        payload: {
+          index,
+        },
+      }),
   };
 };
