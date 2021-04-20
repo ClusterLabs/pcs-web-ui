@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 
-import { Reducer } from "./tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
-const nodeName: Reducer<string> = (state = "", action) => {
+const nodeName: AppReducer<string> = (state = "", action) => {
   switch (action.type) {
     case "CLUSTER.ADD.NODE_NAME.UPDATE":
       return action.payload.nodeName;
@@ -11,7 +11,7 @@ const nodeName: Reducer<string> = (state = "", action) => {
   }
 };
 
-const stepAuthState: Reducer<
+const stepAuthState: AppReducer<
   | "INITIAL"
   | "CHECKING"
   | "ALREADY_AUTHENTICATED"
@@ -34,7 +34,7 @@ const stepAuthState: Reducer<
   }
 };
 
-const authProcessId: Reducer<number | null> = (state = null, action) => {
+const authProcessId: AppReducer<number | null> = (state = null, action) => {
   switch (action.type) {
     case "CLUSTER.ADD.CHECK_AUTH.NO_AUTH":
       return action.payload.authProcessId;
@@ -46,7 +46,7 @@ const authProcessId: Reducer<number | null> = (state = null, action) => {
   }
 };
 
-const stepAddState: Reducer<
+const stepAddState: AppReducer<
   "STARTED" | "SUCCESS" | "ERROR" | "DASHBOARD_RELOADING"
 > = (state = "STARTED", action) => {
   switch (action.type) {
@@ -63,7 +63,7 @@ const stepAddState: Reducer<
   }
 };
 
-const stateError: Reducer<string> = (state = "", action) => {
+const stateError: AppReducer<string> = (state = "", action) => {
   switch (action.type) {
     case "CLUSTER.ADD.NODE_NAME.UPDATE":
     case "CLUSTER.ADD.CHECK_AUTH":

@@ -13,7 +13,7 @@ import { ResourceTree } from "./tree/ResourceTree";
 import {
   ResourcCreateGroupToolbarItem,
   ResourceCreateToolbarItem,
-} from "./wizard";
+} from "./task";
 
 export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);

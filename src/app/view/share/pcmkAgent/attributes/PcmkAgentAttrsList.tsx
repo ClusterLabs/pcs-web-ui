@@ -2,11 +2,11 @@ import React from "react";
 
 import { Primitive } from "app/view/cluster/types";
 import {
+  AttributeHelpPopover,
   AttributeList,
   AttributeName,
   AttributeValue,
 } from "app/view/share/attributes";
-import { AttributeHelpPopover } from "app/view/share";
 
 import { AgentParameter } from "../types";
 

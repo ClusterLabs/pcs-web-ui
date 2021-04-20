@@ -1,11 +1,9 @@
 import { ActionPayload } from "app/store/actions";
+import { AppReducer } from "app/store/reducers/appReducer";
 
-import { Reducer } from "./tools";
-
-export const notifications: Reducer<ActionPayload["NOTIFICATION.CREATE"][]> = (
-  state = [],
-  action,
-) => {
+export const notifications: AppReducer<
+  ActionPayload["NOTIFICATION.CREATE"][]
+> = (state = [], action) => {
   switch (action.type) {
     case "NOTIFICATION.CREATE":
       return [...state, action.payload];

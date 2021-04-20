@@ -4,7 +4,7 @@ import { ArrowDownIcon, ArrowUpIcon } from "@patternfly/react-icons";
 
 import { FormRadioGroup, Select } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 
 export const ConstraintCreateOrderConfigure: React.FC = () => {
   const {
@@ -12,7 +12,7 @@ export const ConstraintCreateOrderConfigure: React.FC = () => {
     updateState,
     swapResources,
     state: { firstResourceId, firstAction, thenResourceId, thenAction },
-  } = useWizard();
+  } = useTask();
 
   return (
     <Form data-test="create-order-constrait" isHorizontal>

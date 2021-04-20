@@ -3,7 +3,7 @@ import { Button } from "@patternfly/react-core";
 
 import { TaskSimple } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 import { ConstraintCreateOrderConfigure } from "./ConstraintCreateOrderConfigure";
 import { ConstraintCreateOrderFooter } from "./ConstraintCreateOrderFooter";
 import { ConstraintCreateOrderFinish } from "./ConstraintCreateOrderFinish";
@@ -16,7 +16,7 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
     close,
     isOpened,
     state: { response },
-  } = useWizard();
+  } = useTask();
   return (
     <>
       <Button

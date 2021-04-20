@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { EmptyStateSpinner } from "app/view/share";
+import { EmptyStateSpinner } from "app/view/share/emptyState";
 
 import { useNodesAuth } from "./useNodesAuth";
 
@@ -65,9 +65,9 @@ export const NodesAuthForm: React.FC<{
         )}
         {sending && <EmptyStateSpinner title="Authentication in progress" />}
       </StackItem>
-      {!sending && (
-        <>
-          <StackItem>
+      {!sending && Object.keys(nodeMap).length > 0 && (
+        <Form data-test="form-auth-node" isHorizontal>
+          <StackItem data-test="use-custom-address">
             <Switch
               id="add-cluster-use-custom-address-port"
               label=""
@@ -87,75 +87,69 @@ export const NodesAuthForm: React.FC<{
               Use one password for all nodes
             </StackItem>
           )}
-          {Object.keys(nodeMap).length > 0 && (
-            <Form data-test="form-auth-node" isHorizontal>
-              <table className="pf-c-table pf-m-compact pf-m-grid-md pf-m-no-border-rows">
-                <thead>
-                  <tr>
-                    <th>Node</th>
-                    <th>Password (for the user hacluster)</th>
-                    <th data-test="use-custom-address">Address</th>
-                    <th>Port</th>
+          <table className="pf-c-table pf-m-compact pf-m-grid-md pf-m-no-border-rows">
+            <thead>
+              <tr>
+                <th>Node</th>
+                <th>Password (for the user hacluster)</th>
+                <th>Address</th>
+                <th>Port</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.keys(nodeMap).map((nodeName, i) => {
+                const passwordId = `auth-node-${nodeName}-password`;
+                const addressId = `auth-node-${nodeName}-address`;
+                const portId = `auth-node-${nodeName}-port`;
+                return (
+                  <tr key={nodeName}>
+                    <td>
+                      <label htmlFor={passwordId}>{`${nodeName}`}</label>
+                    </td>
+                    <td>
+                      <TextInput
+                        isRequired
+                        type="password"
+                        id={passwordId}
+                        data-test={passwordId}
+                        value={
+                          i > 0 && onePasswordForAll
+                            ? ""
+                            : nodeMap[nodeName].password
+                        }
+                        onChange={password =>
+                          updateNode(nodeName, { password })
+                        }
+                        isDisabled={i > 0 && onePasswordForAll}
+                      />
+                    </td>
+                    <td>
+                      <TextInput
+                        isDisabled={!useAddresses}
+                        type="text"
+                        id={addressId}
+                        data-test={addressId}
+                        value={nodeMap[nodeName].address}
+                        onChange={address => updateNode(nodeName, { address })}
+                      />
+                    </td>
+                    <td className="pf-m-width-10">
+                      <TextInput
+                        isDisabled={!useAddresses}
+                        placeholder="2224"
+                        type="text"
+                        id={portId}
+                        data-test={portId}
+                        value={nodeMap[nodeName].port}
+                        onChange={port => updateNode(nodeName, { port })}
+                      />
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {Object.keys(nodeMap).map((nodeName, i) => {
-                    const passwordId = `auth-node-${nodeName}-password`;
-                    const addressId = `auth-node-${nodeName}-address`;
-                    const portId = `auth-node-${nodeName}-port`;
-                    return (
-                      <tr key={nodeName}>
-                        <td>
-                          <label htmlFor={passwordId}>{`${nodeName}`}</label>
-                        </td>
-                        <td>
-                          <TextInput
-                            isRequired
-                            type="password"
-                            id={passwordId}
-                            data-test={passwordId}
-                            value={
-                              i > 0 && onePasswordForAll
-                                ? ""
-                                : nodeMap[nodeName].password
-                            }
-                            onChange={password =>
-                              updateNode(nodeName, { password })
-                            }
-                            isDisabled={i > 0 && onePasswordForAll}
-                          />
-                        </td>
-                        <td>
-                          <TextInput
-                            isDisabled={!useAddresses}
-                            type="text"
-                            id={addressId}
-                            data-test={addressId}
-                            value={nodeMap[nodeName].address}
-                            onChange={address =>
-                              updateNode(nodeName, { address })
-                            }
-                          />
-                        </td>
-                        <td className="pf-m-width-10">
-                          <TextInput
-                            isDisabled={!useAddresses}
-                            placeholder="2224"
-                            type="text"
-                            id={portId}
-                            data-test={portId}
-                            value={nodeMap[nodeName].port}
-                            onChange={port => updateNode(nodeName, { port })}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </Form>
-          )}
-        </>
+                );
+              })}
+            </tbody>
+          </table>
+        </Form>
       )}
     </Stack>
   );

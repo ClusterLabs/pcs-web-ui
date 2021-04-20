@@ -3,10 +3,10 @@ import { Alert } from "@patternfly/react-core";
 
 import { EmptyStateSpinner } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 
 export const ClusterIssueNotAuthFinish: React.FC = () => {
-  const { fixing, errorMessage } = useWizard();
+  const { fixing, errorMessage } = useTask();
 
   if (fixing) {
     return <EmptyStateSpinner title="Distributing auth tokens to cluster" />;

@@ -1,0 +1,25 @@
+import React from "react";
+
+import {
+  TaskButtonBack,
+  TaskButtonCancel,
+  TaskButtonNext,
+} from "app/view/share";
+
+import { useTask } from "../useTask";
+
+export const ResourceCreateSettingsFooter: React.FC = () => {
+  const {
+    close,
+    areSettingsValid,
+    tryNext,
+    wizard: { onBack },
+  } = useTask();
+  return (
+    <>
+      <TaskButtonNext onClick={() => tryNext(areSettingsValid)} />
+      <TaskButtonBack onClick={onBack} />
+      <TaskButtonCancel onClick={close} />
+    </>
+  );
+};

@@ -8,6 +8,7 @@ import {
   services,
   stonith,
 } from "./tools";
+import { constraints } from "./constraints";
 
 // Purpose is to provide items like resources, nodes, fence devices with
 // standard names on which
@@ -73,6 +74,7 @@ export const actions = cluster("actions", "ok", {
     stonith("FD_unknown-cmd"),
     stonith("FD_error"),
   ],
+  constraints,
 });
 
 const actionResourceAlternative = (resourceName: string) =>

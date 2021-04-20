@@ -1,4 +1,4 @@
-import { Reducer } from "./tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 const initialState = {
   // Detected that authorization is required.
@@ -13,7 +13,7 @@ const initialState = {
   errorMessage: "",
 };
 
-export const login: Reducer<typeof initialState> = (
+export const login: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 import { ClusterIssueNotAuthButton } from "./ClusterIssueNotAuthButton";
 
 export const ClusterIssueNotAuthFooter: React.FC = () => {
@@ -12,7 +12,7 @@ export const ClusterIssueNotAuthFooter: React.FC = () => {
     authAttemptInProgress,
     cancel,
     fixAuthDone,
-  } = useWizard();
+  } = useTask();
 
   if (authProcessId) {
     return (

@@ -1,7 +1,7 @@
-import { Reducer } from "../tools";
+import { AppReducer } from "app/store/reducers/appReducer";
 
 // contains list of opened resources
-export const resourceTree: Reducer<string[]> = (state = [], action) => {
+export const resourceTree: AppReducer<string[]> = (state = [], action) => {
   switch (action.type) {
     case "RESOURCE.TREE.ITEM.TOGGLE":
       return state.includes(action.payload.itemId)

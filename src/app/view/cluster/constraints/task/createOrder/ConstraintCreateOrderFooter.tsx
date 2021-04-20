@@ -1,14 +1,14 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 
 export const ConstraintCreateOrderFooter: React.FC = () => {
   const {
     close,
     createOrder,
     state: { response },
-  } = useWizard();
+  } = useTask();
   if (response !== "") {
     return null;
   }

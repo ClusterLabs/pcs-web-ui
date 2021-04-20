@@ -6,9 +6,11 @@ import {
   global_disabled_color_100 as helpColor,
 } from "@patternfly/react-tokens";
 
+type PopoverProps = React.ComponentProps<typeof Popover>;
+
 export const AttributeHelpPopover: React.FC<{
-  header: string;
-  body: string;
+  header: PopoverProps["headerContent"];
+  body: PopoverProps["bodyContent"];
   defaultValue?: string | number | null;
 }> = ({ header, body, defaultValue = null }) => {
   return (

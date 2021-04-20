@@ -10,12 +10,12 @@ import {
   workflow,
 } from "test/tools";
 
-const WIZARD = dt("wizard-add-cluster");
-const WIZARD_BUTTON_NEXT = dt(WIZARD, "footer [type='submit']");
-const FORM_CHECK_AUTH = dt(WIZARD, "form-auth-check");
+const TASK = dt("task-add-cluster");
+const TASK_BUTTON_NEXT = dt(TASK, "footer [type='submit']");
+const FORM_CHECK_AUTH = dt(TASK, "form-auth-check");
 
 const isButtonNextDisabled = async () => {
-  const isDisabled = await page.$eval(WIZARD_BUTTON_NEXT, (buttonNext) => {
+  const isDisabled = await page.$eval(TASK_BUTTON_NEXT, (buttonNext) => {
     const attrs = buttonNext.attributes;
     for (let i = 0; i < attrs.length; i++) {
       const a = attrs.item(i);
@@ -38,12 +38,12 @@ const enterNodeName = async (name: string) => {
 
 const goThroughAddStepSuccessfully = async () => {
   await page.waitForSelector(dt(FORM_CHECK_AUTH, "auth-check-success"));
-  await page.click(WIZARD_BUTTON_NEXT);
-  await page.waitForSelector(dt(WIZARD, "add-success"));
+  await page.click(TASK_BUTTON_NEXT);
+  await page.waitForSelector(dt(TASK, "add-success"));
 };
 
 const authFailed = async () => {
-  await page.waitForSelector(dt(WIZARD, "auth-check-error"));
+  await page.waitForSelector(dt(TASK, "auth-check-error"));
   expect(await isButtonNextDisabled()).toEqual(true);
 };
 
@@ -71,7 +71,7 @@ const interceptWithDashboard = async (routeList: intercept.Route[]) => {
   ]);
 };
 
-describe("Add existing cluster wizard", () => {
+describe("Add existing cluster task", () => {
   const nodeName = "nodeA";
   const password = "pwd";
   const addr = "192.168.0.10";
@@ -118,8 +118,8 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await workflow.fillAuthForm(nodeName, WIZARD, password, addr, port);
-    await page.click(dt(WIZARD, "auth-check"));
+    await workflow.fillAuthForm(nodeName, TASK, password, addr, port);
+    await page.click(dt(TASK, "auth-check"));
     await goThroughAddStepSuccessfully();
   });
 
@@ -186,9 +186,9 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await workflow.fillAuthForm(nodeName, WIZARD, password, addr, port);
-    await page.click(dt(WIZARD, "auth-check"));
-    await page.waitForSelector(dt(WIZARD, "alert-nodes-not-auth"));
+    await workflow.fillAuthForm(nodeName, TASK, password, addr, port);
+    await page.click(dt(TASK, "auth-check"));
+    await page.waitForSelector(dt(TASK, "alert-nodes-not-auth"));
   });
 
   it("should display error when cluster add fails", async () => {
@@ -206,8 +206,8 @@ describe("Add existing cluster wizard", () => {
     ]);
 
     await enterNodeName(nodeName);
-    await page.waitForSelector(dt(WIZARD, "auth-check-success"));
-    await page.click(WIZARD_BUTTON_NEXT);
-    await page.waitForSelector(dt(WIZARD, "add-error"));
+    await page.waitForSelector(dt(TASK, "auth-check-success"));
+    await page.click(TASK_BUTTON_NEXT);
+    await page.waitForSelector(dt(TASK, "add-error"));
   });
 });

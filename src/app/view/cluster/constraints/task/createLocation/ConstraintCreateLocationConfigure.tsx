@@ -3,7 +3,7 @@ import { Flex, FlexItem, Form, FormGroup, Radio } from "@patternfly/react-core";
 
 import { FormSelectOrText, FormText } from "app/view/share";
 
-import { useWizard } from "./useWizard";
+import { useTask } from "./useTask";
 
 export const ConstraintCreateLocationConfigure: React.FC = () => {
   const {
@@ -20,7 +20,7 @@ export const ConstraintCreateLocationConfigure: React.FC = () => {
       preference,
       score,
     },
-  } = useWizard();
+  } = useTask();
 
   return (
     <Form data-test="create-location-constrait">
