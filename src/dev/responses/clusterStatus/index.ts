@@ -4,7 +4,7 @@ import { resourcesForTest } from "./resources-for-test";
 import { actions, actionsAlternative } from "./actions";
 import { noAuthNodes } from "./noAuthNodes";
 
-const clusterOk = (clusterName: string) =>
+export const clusterOk = (clusterName: string) =>
   t.cluster(clusterName, "ok", {
     resource_list: [t.primitive("R1"), t.stonith("F1")],
   });
