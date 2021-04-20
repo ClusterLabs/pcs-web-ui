@@ -60,6 +60,26 @@ export const getGroups = clusterSelector(cluster =>
   }, []),
 );
 
+export const getResourcesForSet = clusterSelector(cluster =>
+  cluster.resourceTree
+    .reduce<typeof cluster.resourceTree>((resourceList, resource) => {
+      if (resource.itemType === "group") {
+        return [...resourceList, resource, ...resource.resources];
+      }
+      if (resource.itemType === "clone") {
+        return [
+          ...resourceList,
+          resource,
+          ...(resource.member.itemType === "group"
+            ? [resource.member, ...resource.member.resources]
+            : [resource.member]),
+        ];
+      }
+      return [...resourceList, resource];
+    }, [])
+    .map(resource => resource.id),
+);
+
 export const getTopLevelPrimitives = clusterSelector(cluster =>
   cluster.resourceTree.filter(r => r.itemType === "primitive").map(r => r.id),
 );

@@ -6,7 +6,7 @@ import { Wizard } from "app/view/share";
 import { useTask } from "./useTask";
 import { Options } from "./Options";
 import { OptionsFooter } from "./OptionsFooter";
-import { ResourceSets } from "./ResourceSets";
+import { ResourceSetList } from "./ResourceSetList";
 
 export const ConstraintCreateOrderSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
@@ -35,7 +35,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
             },
             {
               name: "Resource Sets",
-              component: <ResourceSets />,
+              component: <ResourceSetList />,
               footer: <OptionsFooter />,
             },
           ]}

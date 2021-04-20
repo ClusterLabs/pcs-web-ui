@@ -1,12 +1,16 @@
 import { AppReducer } from "app/store/reducers/appReducer";
+import { ActionPayload } from "app/store/actions";
 
-type Action = "start" | "promote" | "demote" | "stop";
+type Action<T extends "firstAction" | "thenAction"> = Exclude<
+  ActionPayload["CONSTRAINT.ORDER.CREATE.UPDATE"][T],
+  undefined
+>;
 
 const initialState: {
   firstResourceId: string;
-  firstAction: Action;
+  firstAction: Action<"firstAction">;
   thenResourceId: string;
-  thenAction: Action;
+  thenAction: Action<"thenAction">;
   response: "" | "sending" | "ok" | "fail";
   resultMessage: string;
 } = {

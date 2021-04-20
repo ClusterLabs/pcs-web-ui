@@ -12,6 +12,8 @@ export function FormRadios<OPTION extends string>({
   label,
   onChange,
   popover = undefined,
+  className = "",
+  isRequired = false,
 }: {
   id: FormGroupProps["fieldId"];
   label: FormGroupProps["label"];
@@ -19,9 +21,17 @@ export function FormRadios<OPTION extends string>({
   selected: OPTION;
   onChange: (value: OPTION) => void;
   popover?: FormGroupProps["popover"];
+  className?: FormGroupProps["className"];
+  isRequired?: FormGroupProps["isRequired"];
 }) {
   return (
-    <FormGroup fieldId={id} label={label} popover={popover}>
+    <FormGroup
+      fieldId={id}
+      label={label}
+      popover={popover}
+      className={className}
+      isRequired={isRequired}
+    >
       <FormRadioGroup
         id={id}
         options={options}
