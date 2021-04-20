@@ -14,6 +14,7 @@ export * from "./resourceRefresh";
 export * from "./libCallCluster";
 export * from "./login";
 export * from "./logout";
+export * from "./removeCluster";
 export * from "./removeResource";
 export * from "./clusterStart";
 export * from "./clusterStop";
