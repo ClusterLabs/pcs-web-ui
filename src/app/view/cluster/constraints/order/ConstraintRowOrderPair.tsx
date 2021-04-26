@@ -43,7 +43,7 @@ export const ConstraintRowOrderPair = ({
       }
       content={
         <>
-          <ConstraintValue label="Symetrical" value={constraint.symmetrical} />
+          <ConstraintValue label="Symmetrical" value={constraint.symmetrical} />
           <ConstraintValue
             label="Require all"
             value={constraint["require-all"]}

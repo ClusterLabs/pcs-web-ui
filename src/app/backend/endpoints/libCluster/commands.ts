@@ -78,7 +78,7 @@ export type LibClusterCommands = [
       constraint_options: {
         id?: string;
         kind?: "Optional" | "Mandatory" | "Serialize";
-        symetrical?: "true" | "false";
+        symmetrical?: "true" | "false";
       };
       resource_in_clone_alowed: boolean;
       duplication_alowed: boolean;

@@ -1,4 +1,8 @@
+import { LibReport } from "app/store/types";
+
 import { Action } from "./types";
+
+type Kind = "Optional" | "Mandatory" | "Serialize";
 
 export type OrderSetCreateActions = {
   "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {
@@ -6,7 +10,7 @@ export type OrderSetCreateActions = {
     key: { clusterName: string };
     payload: {
       id?: string;
-      kind?: "Optional" | "Mandatory" | "Serialize";
+      kind?: Kind;
       symmetrical?: boolean;
     };
   };
@@ -36,5 +40,35 @@ export type OrderSetCreateActions = {
         requireAll?: boolean;
       };
     };
+  };
+
+  "CONSTRAINT.ORDER.SET.CREATE": {
+    type: "CONSTRAINT.ORDER.SET.CREATE";
+    key: { clusterName: string };
+    payload: {
+      id: string;
+      kind: Kind;
+      symmetrical: boolean;
+      sets: {
+        resources: string[];
+        action: Action;
+        sequential: boolean;
+        requireAll: boolean;
+      }[];
+    };
+  };
+
+  "CONSTRAINT.ORDER.SET.CREATE.OK": {
+    type: "CONSTRAINT.ORDER.SET.CREATE.OK";
+    key: { clusterName: string };
+    payload: {
+      reports: LibReport[];
+      success: boolean;
+    };
+  };
+
+  "CONSTRAINT.ORDER.SET.CREATE.ERROR": {
+    type: "CONSTRAINT.ORDER.SET.CREATE.ERROR";
+    key: { clusterName: string };
   };
 };
