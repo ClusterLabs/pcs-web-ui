@@ -9,18 +9,20 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
+import { TaskLibStep } from "app/view/share";
+
 import { useTask } from "./useTask";
 import { ResourceSet } from "./ResourceSet";
 
 export const ResourceSetList: React.FC = () => {
   const {
-    state: { sets },
+    state: { sets, reports },
     createSet,
     updateSet,
     deleteSet,
   } = useTask();
   return (
-    <>
+    <TaskLibStep title="Resource sets" reports={reports}>
       <DataList aria-label="Resource set list">
         {sets.map((set, i) => {
           return (
@@ -58,6 +60,6 @@ export const ResourceSetList: React.FC = () => {
       <Button variant="primary" onClick={createSet} className="pf-u-mt-sm">
         +
       </Button>
-    </>
+    </TaskLibStep>
   );
 };

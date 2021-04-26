@@ -1,3 +1,4 @@
+import { LibReport } from "app/store/types";
 import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
 
@@ -23,11 +24,13 @@ const initialState: {
   kind: "Optional" | "Mandatory" | "Serialize";
   symmetrical: boolean;
   sets: typeof initialSet[];
+  reports: LibReport[];
 } = {
   id: "",
   kind: "Mandatory",
   symmetrical: true,
   sets: [initialSet],
+  reports: [],
 };
 
 const setForOnlyOne = (set: typeof initialSet) => {
