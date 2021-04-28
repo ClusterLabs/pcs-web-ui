@@ -36,3 +36,11 @@ app.addConstraintRuleRemote((req, res) => {
   }
   res.send("Successfully added constraint");
 });
+
+app.libCluster("constraint-order-create-with-set", (req, res) => {
+  const id = req.body.constraint_options.id ?? "ok";
+  shortcut.libStd({
+    code: id,
+    res,
+  });
+});

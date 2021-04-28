@@ -10,6 +10,7 @@ import { ResourceSetList } from "./ResourceSetList";
 import { ResourceSetListFooter } from "./ResourceSetListFooter";
 import { Review } from "./Review";
 import { ReviewFooter } from "./ReviewFooter";
+import { Finish } from "./Finish";
 
 export const ConstraintCreateOrderSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
@@ -45,6 +46,11 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
               name: "Review",
               component: <Review />,
               footer: <ReviewFooter />,
+            },
+            {
+              name: "Result",
+              component: <Finish />,
+              isFinishedStep: true,
             },
           ]}
         />

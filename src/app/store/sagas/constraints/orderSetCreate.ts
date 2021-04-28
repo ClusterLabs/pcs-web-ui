@@ -7,7 +7,7 @@ type TrueFalse = "true" | "false";
 
 export function* orderSetCreate({
   key,
-  payload: { id, kind, symmetrical, sets },
+  payload: { id, kind, symmetrical, force, sets },
 }: ActionMap["CONSTRAINT.ORDER.SET.CREATE"]) {
   const result: api.ResultOf<typeof libCallCluster> = yield api.authSafe(
     libCallCluster,
@@ -29,8 +29,8 @@ export function* orderSetCreate({
               "require-all": (set.requireAll ? "true" : "false") as TrueFalse,
             },
           })),
-          resource_in_clone_alowed: true,
-          duplication_alowed: true,
+          resource_in_clone_alowed: force,
+          duplication_alowed: force,
         },
       },
     },

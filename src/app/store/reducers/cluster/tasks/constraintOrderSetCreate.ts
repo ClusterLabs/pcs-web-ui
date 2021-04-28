@@ -29,10 +29,17 @@ const initialState: {
   symmetrical: boolean;
   sets: typeof initialSet[];
   reports: LibReport[];
+  response:
+    | "no-response"
+    | "success"
+    | "forceable-fail"
+    | "fail"
+    | "communication-error";
 } = {
   id: "",
   kind: "Mandatory",
   symmetrical: true,
+  response: "no-response",
   sets: [initialSet],
   reports: [],
 };
@@ -85,6 +92,20 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
         sets: state.sets.map((s, i) => (i !== index ? s : set)),
       };
     }
+
+    case "CONSTRAINT.ORDER.SET.CREATE":
+      return { ...state, response: "no-response" };
+
+    case "CONSTRAINT.ORDER.SET.CREATE.OK":
+      return {
+        ...state,
+        response: action.payload.success ? "success" : "fail",
+        reports: action.payload.reports,
+      };
+
+    case "CONSTRAINT.ORDER.SET.CREATE.ERROR":
+      return { ...state, response: "communication-error" };
+
     default:
       return state;
   }

@@ -55,6 +55,7 @@ export type OrderSetCreateActions = {
         sequential: boolean;
         requireAll: boolean;
       }[];
+      force: boolean;
     };
   };
 
