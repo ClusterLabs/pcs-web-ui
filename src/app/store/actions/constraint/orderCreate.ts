@@ -1,4 +1,5 @@
-type Action = "start" | "promote" | "demote" | "stop";
+import { Action } from "./types";
+
 export type OrderCreateActions = {
   "CONSTRAINT.ORDER.CREATE.UPDATE": {
     type: "CONSTRAINT.ORDER.CREATE.UPDATE";

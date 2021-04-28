@@ -12,6 +12,7 @@ export const FormGroup: React.FC<{
   helperTextInvalid?: FormGroupProps["helperTextInvalid"];
   validated?: FormGroupProps["validated"];
   popover?: React.ComponentProps<typeof AttributeHelpPopover>;
+  className?: FormGroupProps["className"];
 }> = ({
   fieldId,
   label,
@@ -21,6 +22,7 @@ export const FormGroup: React.FC<{
   helperTextInvalid,
   validated,
   popover,
+  className,
 }) => {
   const labelIcon = popover
     ? {
@@ -41,6 +43,7 @@ export const FormGroup: React.FC<{
       isRequired={isRequired}
       helperTextInvalid={helperTextInvalid}
       validated={validated}
+      className={className}
       {...labelIcon}
     >
       {children}
