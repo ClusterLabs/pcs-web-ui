@@ -9,7 +9,13 @@ import { compareStrings } from "./utils";
 import { DashboardCluster } from "./DashboardCluster";
 import { DashboardClusterLoading } from "./DashboardClusterLoading";
 
-type COLUMNS = "NAME" | "ISSUES" | "NODES" | "RESOURCES" | "FENCE_DEVICES";
+type COLUMNS =
+  | "NAME"
+  | "ISSUES"
+  | "NODES"
+  | "RESOURCES"
+  | "FENCE_DEVICES"
+  | "ACTIONS";
 
 const compareByColumn = (
   column: COLUMNS | "",
@@ -89,6 +95,7 @@ export const DashboardClusterList: React.FC<{
           >
             Fence devices
           </SortableTh>
+          <th data-label=""></th>
         </tr>
       </thead>
       {Object.keys(clusterMap)

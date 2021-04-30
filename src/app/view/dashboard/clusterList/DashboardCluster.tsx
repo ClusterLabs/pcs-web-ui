@@ -8,12 +8,14 @@ import { DashboardClusterResources } from "./DashboardClusterResources";
 import { DashboardClusterFenceDevices } from "./DashboardClusterFenceDevices";
 import { DashboardClusterCellName } from "./DashboardClusterCellName";
 import { DashboardClusterCellSummary } from "./DashboardClusterCellSummary";
+import { DashboardClusterMenu } from "./DashboardClusterMenu";
 
 const COLUMNS = {
   ISSUES: "ISSUES",
   NODES: "NODES",
   RESOURCES: "RESOURCES",
   FENCE_DEVICES: "FENCE_DEVICES",
+  ACTIONS: "ACTIONS",
 };
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
@@ -56,6 +58,7 @@ export const DashboardCluster: React.FC<{
             summaryStatus={cluster.summary.fenceDevicesSeverity}
           />
         </Toggle>
+        <td><DashboardClusterMenu clusterName={cluster.name} /></td>
       </tr>
       <Content expandKey={COLUMNS.ISSUES}>
         <IssueList margin issueList={cluster.issueList} />
