@@ -3,15 +3,17 @@ import React from "react";
 import { Wizard } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { NodeAddNodeName, NodeAddNodeNameFooter } from "./step1NodeName";
-import {
-  NodeAddPrepareNode,
-  NodeAddPrepareNodeFooter,
-} from "./step2PrepareNode";
-import { NodeAddAddresses, NodeAddAddressesFooter } from "./step3Addresses";
-import { NodeAddSbd, NodeAddSbdFooter } from "./step4Sbd";
-import { NodeAddReview, NodeAddReviewFooter } from "./review";
-import { NodeAddFinish } from "./finish";
+import { NodeName } from "./NodeName";
+import { NodeNameFooter } from "./NodeNameFooter";
+import { PrepareNode } from "./PrepareNode";
+import { PrepareNodeFooter } from "./PrepareNodeFooter";
+import { Addresses } from "./Addresses";
+import { AddressesFooter } from "./AddressesFooter";
+import { Sbd } from "./Sbd";
+import { SbdFooter } from "./SbdFooter";
+import { Review } from "./Review";
+import { ReviewFooter } from "./ReviewFooter";
+import { Finish } from "./Finish";
 
 export const NodeAdd: React.FC = () => {
   const { close, isNameValid, isNodeCheckDoneValid } = useTask();
@@ -24,36 +26,36 @@ export const NodeAdd: React.FC = () => {
       steps={[
         {
           name: "Enter node name",
-          component: <NodeAddNodeName />,
-          footer: <NodeAddNodeNameFooter />,
+          component: <NodeName />,
+          footer: <NodeNameFooter />,
         },
         {
           name: "Check node",
-          component: <NodeAddPrepareNode />,
-          footer: <NodeAddPrepareNodeFooter />,
+          component: <PrepareNode />,
+          footer: <PrepareNodeFooter />,
           canJumpTo: isNameValid,
         },
         {
           name: "Specify node addresses",
-          component: <NodeAddAddresses />,
-          footer: <NodeAddAddressesFooter />,
+          component: <Addresses />,
+          footer: <AddressesFooter />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Configure sbd",
-          component: <NodeAddSbd />,
-          footer: <NodeAddSbdFooter />,
+          component: <Sbd />,
+          footer: <SbdFooter />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Review",
-          component: <NodeAddReview />,
-          footer: <NodeAddReviewFooter />,
+          component: <Review />,
+          footer: <ReviewFooter />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Result",
-          component: <NodeAddFinish />,
+          component: <Finish />,
           isFinishedStep: true,
         },
       ]}

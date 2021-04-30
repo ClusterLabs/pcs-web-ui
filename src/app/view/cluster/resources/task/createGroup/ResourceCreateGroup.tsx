@@ -3,9 +3,9 @@ import React from "react";
 import { TaskSimple } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { ResourceCreateGroupForm } from "./ResourceCreateGroupForm";
-import { ResourceCreateGroupFinish } from "./ResourceCreateGroupFinish";
-import { ResourceCreateGroupFooter } from "./ResourceCreateGroupFooter";
+import { Form } from "./Form";
+import { Finish } from "./Finish";
+import { Footer } from "./Footer";
 
 export const ResourceCreateGroup: React.FC = () => {
   const {
@@ -14,13 +14,9 @@ export const ResourceCreateGroup: React.FC = () => {
   } = useTask();
 
   return (
-    <TaskSimple
-      title="Create group"
-      close={close}
-      footer={<ResourceCreateGroupFooter />}
-    >
-      {response !== "success" && <ResourceCreateGroupForm />}
-      {response === "success" && <ResourceCreateGroupFinish />}
+    <TaskSimple title="Create group" close={close} footer={<Footer />}>
+      {response !== "success" && <Form />}
+      {response === "success" && <Finish />}
     </TaskSimple>
   );
 };

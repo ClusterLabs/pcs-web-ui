@@ -2,21 +2,16 @@ import React from "react";
 
 import { Wizard } from "app/view/share";
 
-import {
-  ResourceCreateNameType,
-  ResourceCreateNameTypeFooter,
-} from "./step1NameType";
-import {
-  ResourceCreateInstanceAttrsFooter,
-  ResourceCreateInstanceAttrsForm,
-} from "./step2InstanceAttrs";
-import {
-  ResourceCreateSettings,
-  ResourceCreateSettingsFooter,
-} from "./step3Settings";
-import { ResourceCreateReview, ResourceCreateReviewFooter } from "./review";
-import { ResourceCreateFinish } from "./finish";
+import { Review } from "./Review";
+import { ReviewFooter } from "./ReviewFooter";
+import { Finish } from "./Finish";
 import { useTask } from "./useTask";
+import { NameType } from "./NameType";
+import { NameTypeFooter } from "./NameTypeFooter";
+import { InstanceAttrsForm } from "./InstanceAttrsForm";
+import { InstanceAttrsFooter } from "./InstanceAttrsFooter";
+import { Settings } from "./Settings";
+import { SettingsFooter } from "./SettingsFooter";
 
 export const ResourceCreate: React.FC = () => {
   const {
@@ -34,31 +29,31 @@ export const ResourceCreate: React.FC = () => {
       steps={[
         {
           name: "Name and type",
-          component: <ResourceCreateNameType />,
-          footer: <ResourceCreateNameTypeFooter />,
+          component: <NameType />,
+          footer: <NameTypeFooter />,
         },
         {
           name: "Instance attributes",
-          component: <ResourceCreateInstanceAttrsForm />,
-          footer: <ResourceCreateInstanceAttrsFooter />,
+          component: <InstanceAttrsForm />,
+          footer: <InstanceAttrsFooter />,
           canJumpTo: isNameTypeValid,
         },
         {
           name: "Settings",
-          component: <ResourceCreateSettings />,
-          footer: <ResourceCreateSettingsFooter />,
+          component: <Settings />,
+          footer: <SettingsFooter />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
           name: "Review",
-          component: <ResourceCreateReview />,
-          footer: <ResourceCreateReviewFooter />,
+          component: <Review />,
+          footer: <ReviewFooter />,
           canJumpTo:
             isNameTypeValid && areInstanceAttrsValid && areSettingsValid,
         },
         {
           name: "Result",
-          component: <ResourceCreateFinish />,
+          component: <Finish />,
           isFinishedStep: true,
         },
       ]}
