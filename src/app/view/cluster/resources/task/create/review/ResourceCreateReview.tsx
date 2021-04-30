@@ -1,12 +1,11 @@
 import React from "react";
-import {
-  DescriptionList,
-  DescriptionListDescription,
-  DescriptionListGroup,
-  DescriptionListTerm,
-} from "@patternfly/react-core";
 
-import { TaskLibStep } from "app/view/share";
+import {
+  ReviewList,
+  ReviewValue,
+  ReviewYesNo,
+  TaskLibStep,
+} from "app/view/share";
 
 import { useTask } from "../useTask";
 
@@ -26,62 +25,46 @@ export const ResourceCreateReview: React.FC = () => {
   } = useTask();
   return (
     <TaskLibStep title="Review new resource configuration" reports={reports}>
-      <DescriptionList isHorizontal>
-        <DescriptionListGroup>
-          <DescriptionListTerm>Resource name</DescriptionListTerm>
-          <DescriptionListDescription>
-            {resourceName}
-          </DescriptionListDescription>
-        </DescriptionListGroup>
-
-        <DescriptionListGroup>
-          <DescriptionListTerm>Resource type</DescriptionListTerm>
-          <DescriptionListDescription>{agentName}</DescriptionListDescription>
-        </DescriptionListGroup>
-
-        <DescriptionListGroup>
-          <DescriptionListTerm>Instance attributes</DescriptionListTerm>
-          <DescriptionListDescription>
-            {Object.keys(instanceAttrs).length > 0 ? (
-              <DescriptionList isHorizontal>
+      <ReviewList>
+        <ReviewValue label="Resource name" value={resourceName} />
+        <ReviewValue label="Resource type" value={agentName} />
+        <ReviewValue
+          label="Instance attributes"
+          value={
+            Object.keys(instanceAttrs).length > 0 ? (
+              <ReviewList>
                 {Object.keys(instanceAttrs).map(attrName => (
-                  <DescriptionListGroup key={attrName}>
-                    <DescriptionListTerm>{attrName}</DescriptionListTerm>
-                    <DescriptionListDescription>
-                      {instanceAttrs[attrName]}
-                    </DescriptionListDescription>
-                  </DescriptionListGroup>
+                  <ReviewValue
+                    key={attrName}
+                    label={attrName}
+                    value={instanceAttrs[attrName]}
+                  />
                 ))}
-              </DescriptionList>
+              </ReviewList>
             ) : (
               "No attribute configured"
-            )}
-          </DescriptionListDescription>
-        </DescriptionListGroup>
+            )
+          }
+        />
 
-        <DescriptionListGroup>
-          <DescriptionListTerm>Clone</DescriptionListTerm>
-          <DescriptionListDescription>
-            {clone ? `yes${promotable ? " - promotable" : ""}` : "no"}
-          </DescriptionListDescription>
-        </DescriptionListGroup>
+        <ReviewValue
+          label="Clone"
+          value={clone ? `yes${promotable ? " - promotable" : ""}` : "no"}
+        />
 
-        <DescriptionListGroup>
-          <DescriptionListTerm>Group</DescriptionListTerm>
-          <DescriptionListDescription>
-            {useGroup === "no" && "no"}
-            {useGroup === "new" && `new group: ${group}`}
-            {useGroup === "existing" && `existing group: ${group}`}
-          </DescriptionListDescription>
-        </DescriptionListGroup>
+        <ReviewValue
+          label="Group"
+          value={
+            <>
+              {useGroup === "no" && "no"}
+              {useGroup === "new" && `new group: ${group}`}
+              {useGroup === "existing" && `existing group: ${group}`}
+            </>
+          }
+        />
 
-        <DescriptionListGroup>
-          <DescriptionListTerm>Disabled</DescriptionListTerm>
-          <DescriptionListDescription>
-            {disabled ? "yes" : "no"}
-          </DescriptionListDescription>
-        </DescriptionListGroup>
-      </DescriptionList>
+        <ReviewYesNo label="Disabled" value={disabled} />
+      </ReviewList>
     </TaskLibStep>
   );
 };
