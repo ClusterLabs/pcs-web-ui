@@ -4,6 +4,7 @@ export * from "./TaskButtonCancel";
 export * from "./TaskLibReports";
 export * from "./TaskLibStep";
 export * from "./Wizard";
+export * from "./WizardFooter";
 export * from "./TaskFinishError";
 export * from "./TaskProgress";
 export * from "./TaskSuccess";

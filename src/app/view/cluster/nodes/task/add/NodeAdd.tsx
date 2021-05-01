@@ -1,22 +1,24 @@
 import React from "react";
 
-import { Wizard } from "app/view/share";
+import { Wizard, WizardFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
 import { NodeName } from "./NodeName";
-import { NodeNameFooter } from "./NodeNameFooter";
 import { PrepareNode } from "./PrepareNode";
 import { PrepareNodeFooter } from "./PrepareNodeFooter";
 import { Addresses } from "./Addresses";
-import { AddressesFooter } from "./AddressesFooter";
 import { Sbd } from "./Sbd";
-import { SbdFooter } from "./SbdFooter";
 import { Review } from "./Review";
-import { ReviewFooter } from "./ReviewFooter";
 import { Finish } from "./Finish";
 
 export const NodeAdd: React.FC = () => {
-  const { close, isNameValid, isNodeCheckDoneValid } = useTask();
+  const {
+    close,
+    isNameValid,
+    isNodeCheckDoneValid,
+    nodeAdd,
+    tryNext,
+  } = useTask();
   return (
     <Wizard
       data-test="task-node-add"
@@ -27,7 +29,13 @@ export const NodeAdd: React.FC = () => {
         {
           name: "Enter node name",
           component: <NodeName />,
-          footer: <NodeNameFooter />,
+          footer: (
+            <WizardFooter
+              onNext={() => tryNext(isNameValid)}
+              onClose={close}
+              backDisabled
+            />
+          ),
         },
         {
           name: "Check node",
@@ -38,19 +46,25 @@ export const NodeAdd: React.FC = () => {
         {
           name: "Specify node addresses",
           component: <Addresses />,
-          footer: <AddressesFooter />,
+          footer: <WizardFooter onClose={close} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Configure sbd",
           component: <Sbd />,
-          footer: <SbdFooter />,
+          footer: <WizardFooter onClose={close} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Review",
           component: <Review />,
-          footer: <ReviewFooter />,
+          footer: (
+            <WizardFooter
+              preNext={() => nodeAdd()}
+              nextLabel="Create resource"
+              onClose={close}
+            />
+          ),
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {

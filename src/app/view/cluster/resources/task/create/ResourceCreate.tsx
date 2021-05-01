@@ -1,24 +1,23 @@
 import React from "react";
 
-import { Wizard } from "app/view/share";
+import { Wizard, WizardFooter } from "app/view/share";
 
 import { Review } from "./Review";
-import { ReviewFooter } from "./ReviewFooter";
 import { Finish } from "./Finish";
 import { useTask } from "./useTask";
 import { NameType } from "./NameType";
-import { NameTypeFooter } from "./NameTypeFooter";
 import { InstanceAttrsForm } from "./InstanceAttrsForm";
-import { InstanceAttrsFooter } from "./InstanceAttrsFooter";
 import { Settings } from "./Settings";
-import { SettingsFooter } from "./SettingsFooter";
 
 export const ResourceCreate: React.FC = () => {
   const {
     close,
+    create,
     isNameTypeValid,
+    isAgentLoaded,
     areInstanceAttrsValid,
     areSettingsValid,
+    tryNext,
   } = useTask();
   return (
     <Wizard
@@ -30,24 +29,47 @@ export const ResourceCreate: React.FC = () => {
         {
           name: "Name and type",
           component: <NameType />,
-          footer: <NameTypeFooter />,
+          footer: (
+            <WizardFooter
+              onNext={() => tryNext(isNameTypeValid)}
+              onClose={close}
+              backDisabled
+            />
+          ),
         },
         {
           name: "Instance attributes",
           component: <InstanceAttrsForm />,
-          footer: <InstanceAttrsFooter />,
+          footer: (
+            <WizardFooter
+              onNext={() => tryNext(areInstanceAttrsValid)}
+              onClose={close}
+              nextDisabled={!isAgentLoaded}
+            />
+          ),
           canJumpTo: isNameTypeValid,
         },
         {
           name: "Settings",
           component: <Settings />,
-          footer: <SettingsFooter />,
+          footer: (
+            <WizardFooter
+              onNext={() => tryNext(areSettingsValid)}
+              onClose={close}
+            />
+          ),
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
           name: "Review",
           component: <Review />,
-          footer: <ReviewFooter />,
+          footer: (
+            <WizardFooter
+              preNext={() => create({ force: false })}
+              nextLabel="Create resource"
+              onClose={close}
+            />
+          ),
           canJumpTo:
             isNameTypeValid && areInstanceAttrsValid && areSettingsValid,
         },

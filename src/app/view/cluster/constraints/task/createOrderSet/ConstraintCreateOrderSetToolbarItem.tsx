@@ -1,21 +1,18 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { Wizard } from "app/view/share";
+import { Wizard, WizardFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
 import { Options } from "./Options";
-import { OptionsFooter } from "./OptionsFooter";
 import { ResourceSetList } from "./ResourceSetList";
-import { ResourceSetListFooter } from "./ResourceSetListFooter";
 import { Review } from "./Review";
-import { ReviewFooter } from "./ReviewFooter";
 import { Finish } from "./Finish";
 
 export const ConstraintCreateOrderSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
-  const { open, close, isOpened } = useTask();
+  const { open, close, create, isOpened } = useTask();
   return (
     <>
       <Button
@@ -35,17 +32,23 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
             {
               name: "Options",
               component: <Options />,
-              footer: <OptionsFooter />,
+              footer: <WizardFooter onClose={close} backDisabled />,
             },
             {
               name: "Resource Sets",
               component: <ResourceSetList />,
-              footer: <ResourceSetListFooter />,
+              footer: <WizardFooter onClose={close} />,
             },
             {
               name: "Review",
               component: <Review />,
-              footer: <ReviewFooter />,
+              footer: (
+                <WizardFooter
+                  preNext={() => create({ force: false })}
+                  nextLabel="Create constraint"
+                  onClose={close}
+                />
+              ),
             },
             {
               name: "Result",
