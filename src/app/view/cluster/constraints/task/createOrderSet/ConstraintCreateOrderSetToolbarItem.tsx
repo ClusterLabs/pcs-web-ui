@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { Wizard, WizardFooter } from "app/view/share";
+import { ClusterWizardFooter, Wizard } from "app/view/share";
 
 import { useTask } from "./useTask";
 import { Options } from "./Options";
@@ -32,18 +32,18 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
             {
               name: "Options",
               component: <Options />,
-              footer: <WizardFooter onClose={close} backDisabled />,
+              footer: <ClusterWizardFooter onClose={close} backDisabled />,
             },
             {
               name: "Resource Sets",
               component: <ResourceSetList />,
-              footer: <WizardFooter onClose={close} />,
+              footer: <ClusterWizardFooter onClose={close} />,
             },
             {
               name: "Review",
               component: <Review />,
               footer: (
-                <WizardFooter
+                <ClusterWizardFooter
                   preNext={() => create({ force: false })}
                   nextLabel="Create constraint"
                   onClose={close}

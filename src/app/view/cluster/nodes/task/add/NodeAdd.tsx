@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Wizard, WizardFooter } from "app/view/share";
+import { ClusterWizardFooter, Wizard } from "app/view/share";
 
 import { useTask } from "./useTask";
 import { NodeName } from "./NodeName";
 import { PrepareNode } from "./PrepareNode";
-import { PrepareNodeFooter } from "./PrepareNodeFooter";
+import { AuthButton } from "./AuthButton";
 import { Addresses } from "./Addresses";
 import { Sbd } from "./Sbd";
 import { Review } from "./Review";
@@ -13,11 +13,11 @@ import { Finish } from "./Finish";
 
 export const NodeAdd: React.FC = () => {
   const {
+    state: { authProcessId },
     close,
     isNameValid,
     isNodeCheckDoneValid,
     nodeAdd,
-    tryNext,
   } = useTask();
   return (
     <Wizard
@@ -30,8 +30,8 @@ export const NodeAdd: React.FC = () => {
           name: "Enter node name",
           component: <NodeName />,
           footer: (
-            <WizardFooter
-              onNext={() => tryNext(isNameValid)}
+            <ClusterWizardFooter
+              nextIf={isNameValid}
               onClose={close}
               backDisabled
             />
@@ -40,26 +40,36 @@ export const NodeAdd: React.FC = () => {
         {
           name: "Check node",
           component: <PrepareNode />,
-          footer: <PrepareNodeFooter />,
+          footer: authProcessId ? (
+            <ClusterWizardFooter
+              next={<AuthButton authProcessId={authProcessId} />}
+              onClose={close}
+            />
+          ) : (
+            <ClusterWizardFooter
+              nextDisabled={!isNodeCheckDoneValid}
+              onClose={close}
+            />
+          ),
           canJumpTo: isNameValid,
         },
         {
           name: "Specify node addresses",
           component: <Addresses />,
-          footer: <WizardFooter onClose={close} />,
+          footer: <ClusterWizardFooter onClose={close} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Configure sbd",
           component: <Sbd />,
-          footer: <WizardFooter onClose={close} />,
+          footer: <ClusterWizardFooter onClose={close} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Review",
           component: <Review />,
           footer: (
-            <WizardFooter
+            <ClusterWizardFooter
               preNext={() => nodeAdd()}
               nextLabel="Create resource"
               onClose={close}

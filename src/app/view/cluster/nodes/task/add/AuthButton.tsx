@@ -2,7 +2,7 @@ import React from "react";
 
 import { TaskButtonNext, useNodesAuth } from "app/view/share";
 
-export const PrepareNodeFooterAuthButton: React.FC<{
+export const AuthButton: React.FC<{
   authProcessId: number;
 }> = ({ authProcessId }) => {
   const {

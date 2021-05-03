@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Wizard, WizardFooter } from "app/view/share";
+import { ClusterWizardFooter, Wizard } from "app/view/share";
 
 import { Review } from "./Review";
 import { Finish } from "./Finish";
@@ -17,7 +17,6 @@ export const ResourceCreate: React.FC = () => {
     isAgentLoaded,
     areInstanceAttrsValid,
     areSettingsValid,
-    tryNext,
   } = useTask();
   return (
     <Wizard
@@ -30,8 +29,8 @@ export const ResourceCreate: React.FC = () => {
           name: "Name and type",
           component: <NameType />,
           footer: (
-            <WizardFooter
-              onNext={() => tryNext(isNameTypeValid)}
+            <ClusterWizardFooter
+              nextIf={isNameTypeValid}
               onClose={close}
               backDisabled
             />
@@ -41,8 +40,8 @@ export const ResourceCreate: React.FC = () => {
           name: "Instance attributes",
           component: <InstanceAttrsForm />,
           footer: (
-            <WizardFooter
-              onNext={() => tryNext(areInstanceAttrsValid)}
+            <ClusterWizardFooter
+              nextIf={areInstanceAttrsValid}
               onClose={close}
               nextDisabled={!isAgentLoaded}
             />
@@ -53,10 +52,7 @@ export const ResourceCreate: React.FC = () => {
           name: "Settings",
           component: <Settings />,
           footer: (
-            <WizardFooter
-              onNext={() => tryNext(areSettingsValid)}
-              onClose={close}
-            />
+            <ClusterWizardFooter nextIf={areSettingsValid} onClose={close} />
           ),
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
@@ -64,7 +60,7 @@ export const ResourceCreate: React.FC = () => {
           name: "Review",
           component: <Review />,
           footer: (
-            <WizardFooter
+            <ClusterWizardFooter
               preNext={() => create({ force: false })}
               nextLabel="Create resource"
               onClose={close}
