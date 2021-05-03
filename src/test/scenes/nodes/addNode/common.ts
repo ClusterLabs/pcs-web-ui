@@ -19,7 +19,7 @@ export const TASK = {
 const NODES_URL = location.nodeList({ clusterName: "actions" });
 export const url = {
   NODES: NODES_URL,
-  TASK: `${NODES_URL}?task=taskNodeAdd`,
+  TASK: `${NODES_URL}?task=nodeAdd`,
 };
 
 export const interceptWithCluster = (routeList: intercept.Route[]) =>
