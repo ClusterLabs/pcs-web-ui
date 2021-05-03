@@ -1,23 +1,52 @@
 import React from "react";
+import { Button } from "@patternfly/react-core";
 
-import { TaskProgress } from "app/view/share";
+import {
+  TaskFinishErrorLib,
+  TaskProgress,
+  TaskSuccessLib,
+} from "app/view/share";
 
 import { useTask } from "./useTask";
-import { Success } from "./Success";
 import { Fail } from "./Fail";
-import { Error } from "./Error";
 
 export const Finish: React.FC = () => {
   const {
-    state: { response, nodeName },
+    close,
+    nodeStart,
+    state: { reports, response, nodeName },
+    wizard: { goToStepByName },
   } = useTask();
   switch (response) {
     case "success":
-      return <Success />;
+      return (
+        <TaskSuccessLib
+          title={`Node "${nodeName}" added successfully`}
+          close={() => {
+            close();
+            nodeStart();
+          }}
+          closeLabel="Start node and close"
+          secondaryActions={
+            <Button variant="link" onClick={close}>
+              Close
+            </Button>
+          }
+          reports={reports}
+        />
+      );
     case "fail":
       return <Fail />;
     case "communication-error":
-      return <Error />;
+      return (
+        <TaskFinishErrorLib
+          title={
+            <>Communication error while adding the node {` "${nodeName}"`}</>
+          }
+          tryAgain={() => goToStepByName("Review")}
+          close={close}
+        />
+      );
     default:
       return (
         <TaskProgress

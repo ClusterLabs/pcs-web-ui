@@ -1,23 +1,56 @@
 import React from "react";
 
-import { TaskProgress } from "app/view/share";
+import {
+  TaskFinishErrorLib,
+  TaskFinishFailLib,
+  TaskProgress,
+  TaskSuccessLib,
+} from "app/view/share";
 
 import { useTask } from "./useTask";
-import { Success } from "./Success";
-import { Fail } from "./Fail";
-import { Error } from "./Error";
 
 export const Finish: React.FC = () => {
   const {
-    state: { response, resourceName },
+    close,
+    create,
+    state: { reports, response, resourceName },
+    wizard: { goToStepByName },
   } = useTask();
   switch (response) {
     case "success":
-      return <Success />;
+      return (
+        <TaskSuccessLib
+          title={`Resource "${resourceName}" created successfully`}
+          close={close}
+          reports={reports}
+        />
+      );
     case "fail":
-      return <Fail />;
+      return (
+        <TaskFinishFailLib
+          title={`Create resource "${resourceName}" failed`}
+          toFirstStep={() => goToStepByName("Name and type")}
+          close={close}
+          createForce={() => create({ force: true })}
+          createForceLabel={
+            <>Create resource anyway (proceed with current settings)</>
+          }
+          reports={reports}
+        />
+      );
     case "communication-error":
-      return <Error />;
+      return (
+        <TaskFinishErrorLib
+          title={
+            <>
+              Communication error while creating the resource
+              {` "${resourceName}"`}
+            </>
+          }
+          tryAgain={() => goToStepByName("Review")}
+          close={close}
+        />
+      );
     default:
       return (
         <TaskProgress
