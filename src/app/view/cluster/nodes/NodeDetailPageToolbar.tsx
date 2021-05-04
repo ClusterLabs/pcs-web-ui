@@ -124,6 +124,7 @@ export const NodeDetailPageToolbar: React.FC<{
   };
   return (
     <DetailLayoutToolbar
+      toolbarName="node"
       buttonActions={{
         start,
         stop,

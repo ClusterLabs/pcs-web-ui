@@ -25,15 +25,16 @@ export type DetailLayoutToolbarAction = {
   action: Action;
 };
 
-type ConfirmData = DetailLayoutToolbarAction & { label: string };
+type ConfirmData = DetailLayoutToolbarAction & { name: string };
 type ToolbarActionMap = Record<string, DetailLayoutToolbarAction>;
 
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
 
 export const DetailLayoutToolbar: React.FC<{
+  toolbarName: string;
   buttonActions?: ToolbarActionMap;
   dropdownActions?: ToolbarActionMap;
-}> = ({ buttonActions = {}, dropdownActions = {} }) => {
+}> = ({ toolbarName, buttonActions = {}, dropdownActions = {} }) => {
   const dispatch = useDispatch();
   const { urlPrefix } = useGroupDetailViewContext();
   const [confirm, setConfirm] = React.useState<ConfirmData | null>(null);
@@ -42,7 +43,7 @@ export const DetailLayoutToolbar: React.FC<{
     setConfirm({
       confirm: confirmActions[name].confirm,
       action: confirmActions[name].action,
-      label: capitalize(name),
+      name,
     });
   const closeConfirm = () => setConfirm(null);
   return (
@@ -54,6 +55,7 @@ export const DetailLayoutToolbar: React.FC<{
               <Button
                 variant="secondary"
                 onClick={openConfirm(buttonActions, name)}
+                data-test={`toolbar-${toolbarName}-${name}`}
               >
                 {capitalize(name)}
               </Button>
@@ -110,10 +112,16 @@ export const DetailLayoutToolbar: React.FC<{
                 dispatch(confirm.action);
                 closeConfirm();
               }}
+              data-test={`toolbar-confirm-${toolbarName}-${confirm.name}`}
             >
-              {confirm.label}
+              {capitalize(confirm.name)}
             </Button>,
-            <Button key="cancel" variant="link" onClick={closeConfirm}>
+            <Button
+              key="cancel"
+              variant="link"
+              onClick={closeConfirm}
+              data-test={`toolbar-cancel-${toolbarName}-${confirm.name}`}
+            >
               Cancel
             </Button>,
           ]}

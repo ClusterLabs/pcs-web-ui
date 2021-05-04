@@ -15,7 +15,7 @@ export function* nodeStart({
 
   yield processClusterResultBasic(
     key.clusterName,
-    `start node ${nodeName}"`,
+    `start node "${nodeName}"`,
     result,
   );
 }

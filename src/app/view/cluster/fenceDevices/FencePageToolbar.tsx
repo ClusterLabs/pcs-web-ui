@@ -68,6 +68,7 @@ export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
   };
   return (
     <DetailLayoutToolbar
+      toolbarName="fence-device"
       buttonActions={{
         refresh,
         cleanup,

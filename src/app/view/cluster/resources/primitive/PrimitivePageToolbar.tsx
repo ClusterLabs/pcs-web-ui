@@ -196,6 +196,7 @@ export const PrimitivePageToolbar: React.FC<{
 
   return (
     <DetailLayoutToolbar
+      toolbarName="primitive"
       buttonActions={{
         ...(isPrimitiveManaged(primitive) ? { unmanage } : { manage }),
         ...(isPrimitiveEnabled(primitive) ? { disable } : { enable }),

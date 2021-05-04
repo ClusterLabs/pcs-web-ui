@@ -49,31 +49,35 @@ export const Notifications = () => {
   const dispatch = useDispatch();
   return (
     <ul id="notifications">
-      {notifications.reverse().map(({ id, severity, message, details }) => (
-        <li className="notification-item" key={id}>
-          <Alert
-            variant={severityToVariant(severity)}
-            actionClose={
-              <AlertActionCloseButton
-                onClose={() =>
-                  dispatch({
-                    type: "NOTIFICATION.DESTROY",
-                    payload: { id },
-                  })
-                }
-              />
-            }
-            title={message}
-          >
-            {details && details.type === "LIST" && (
-              <WithList title={details.title} items={details.items} />
-            )}
-            {details
-              && details.type === "LINES"
-              && details.lines.map((line, i) => <p key={i}>{line}</p>)}
-          </Alert>
-        </li>
-      ))}
+      {notifications.reverse().map(({ id, severity, message, details }) => {
+        const variant = severityToVariant(severity);
+        return (
+          <li className="notification-item" key={id}>
+            <Alert
+              variant={variant}
+              data-test={`notification-${variant}`}
+              actionClose={
+                <AlertActionCloseButton
+                  onClose={() =>
+                    dispatch({
+                      type: "NOTIFICATION.DESTROY",
+                      payload: { id },
+                    })
+                  }
+                />
+              }
+              title={message}
+            >
+              {details && details.type === "LIST" && (
+                <WithList title={details.title} items={details.items} />
+              )}
+              {details
+                && details.type === "LINES"
+                && details.lines.map((line, i) => <p key={i}>{line}</p>)}
+            </Alert>
+          </li>
+        );
+      })}
     </ul>
   );
 };
