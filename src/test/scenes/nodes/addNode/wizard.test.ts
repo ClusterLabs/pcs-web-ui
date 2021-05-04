@@ -1,6 +1,6 @@
-import { intercept, route, workflow } from "test/tools";
+import { intercept, route, shortcuts, workflow } from "test/tools";
 
-import { TASK, interceptWithCluster, url } from "./common";
+import { TASK, url } from "./common";
 
 const NODE = "newnode";
 const CLUSTER = "actions";
@@ -19,7 +19,7 @@ describe("Node add task", () => {
   afterEach(intercept.stop);
 
   it("should succesfully add new node", async () => {
-    interceptWithCluster([
+    shortcuts.interceptWithCluster("actions", [
       route.can_add_cluster_or_nodes(NODE),
       route.check_auth_against_nodes(NODE),
       route.send_known_hosts(CLUSTER, NODE),
@@ -39,7 +39,7 @@ describe("Node add task", () => {
       `The node '${NODE}' is already a part of the 'ClusterName' cluster.`
       + " You may not add a node to two different clusters.";
 
-    interceptWithCluster([
+    shortcuts.interceptWithCluster("actions", [
       route.can_add_cluster_or_nodes(NODE, { status: [400, reason] }),
     ]);
     await enterNodeName(NODE);
@@ -47,7 +47,7 @@ describe("Node add task", () => {
   });
 
   it("should display alert when node is offline", async () => {
-    interceptWithCluster([
+    shortcuts.interceptWithCluster("actions", [
       route.can_add_cluster_or_nodes(NODE, { text: "" }),
       route.check_auth_against_nodes(NODE, { json: { [NODE]: "Offline" } }),
     ]);
@@ -56,7 +56,7 @@ describe("Node add task", () => {
   });
 
   it("should sucessfull add new node with authentication", async () => {
-    interceptWithCluster([
+    shortcuts.interceptWithCluster("actions", [
       route.can_add_cluster_or_nodes(NODE),
       route.check_auth_against_nodes(NODE, {
         json: { [NODE]: "Unable to authenticate" },

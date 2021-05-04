@@ -13,14 +13,14 @@ export const Finish: React.FC = () => {
   const {
     close,
     create,
-    state: { response, reports },
+    state: { reports, response, resourceName },
     wizard: { goToStepByName },
   } = useTask();
   switch (response) {
     case "success":
       return (
         <TaskSuccessLib
-          title={"Constraint has been created successfully"}
+          title={`Resource "${resourceName}" created successfully`}
           close={close}
           reports={reports}
         />
@@ -28,12 +28,12 @@ export const Finish: React.FC = () => {
     case "fail":
       return (
         <TaskFinishFailLib
-          title={"Create constraint order with resource sets failed"}
-          toFirstStep={() => goToStepByName("Options")}
+          title={`Create resource "${resourceName}" failed`}
+          toFirstStep={() => goToStepByName("Name and type")}
           close={close}
           createForce={() => create({ force: true })}
           createForceLabel={
-            <>Create order constraint anyway (proceed with current settings)</>
+            <>Create resource anyway (proceed with current settings)</>
           }
           reports={reports}
         />
@@ -41,7 +41,12 @@ export const Finish: React.FC = () => {
     case "communication-error":
       return (
         <TaskFinishErrorLib
-          title="Communication error while creating the order constraint"
+          title={
+            <>
+              Communication error while creating the resource
+              {` "${resourceName}"`}
+            </>
+          }
           tryAgain={() => goToStepByName("Review")}
           close={close}
         />
@@ -49,8 +54,8 @@ export const Finish: React.FC = () => {
     default:
       return (
         <TaskProgress
-          title={"Create new constraint order with resource sets"}
-          progressTitle="Creating constraint order with resource sets"
+          title={`Create new resource "${resourceName}" progress`}
+          progressTitle="Creating resource"
         />
       );
   }

@@ -1,7 +1,5 @@
-import * as responses from "dev/responses";
-
 import { dt } from "test/tools/selectors";
-import { url as backendUrl, intercept, location } from "test/tools";
+import { location } from "test/tools";
 
 const VIEW = dt("task-node-add");
 export const TASK = {
@@ -19,22 +17,5 @@ export const TASK = {
 const NODES_URL = location.nodeList({ clusterName: "actions" });
 export const url = {
   NODES: NODES_URL,
-  TASK: `${NODES_URL}?task=taskNodeAdd`,
+  TASK: `${NODES_URL}?task=nodeAdd`,
 };
-
-export const interceptWithCluster = (routeList: intercept.Route[]) =>
-  intercept.run([
-    {
-      url: backendUrl.clusterStatus({ clusterName: "actions" }),
-      json: responses.clusterStatus.actions,
-    },
-    {
-      url: backendUrl.getAvailResourceAgents({ clusterName: "actions" }),
-      json: responses.resourceAgentList.ok,
-    },
-    {
-      url: backendUrl.clusterProperties({ clusterName: "actions" }),
-      json: responses.clusterProperties.ok,
-    },
-    ...routeList,
-  ]);

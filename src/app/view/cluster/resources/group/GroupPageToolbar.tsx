@@ -39,6 +39,7 @@ export const GroupPageToolbar: React.FC<{ group: Group }> = ({ group }) => {
   };
   return (
     <DetailLayoutToolbar
+      toolbarName="group"
       buttonActions={{
         ...(group.inClone ? { unclone } : { clone }),
       }}

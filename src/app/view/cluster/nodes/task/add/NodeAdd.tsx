@@ -1,20 +1,24 @@
 import React from "react";
 
-import { Wizard } from "app/view/share";
+import { ClusterWizardFooter, Wizard } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { NodeAddNodeName, NodeAddNodeNameFooter } from "./step1NodeName";
-import {
-  NodeAddPrepareNode,
-  NodeAddPrepareNodeFooter,
-} from "./step2PrepareNode";
-import { NodeAddAddresses, NodeAddAddressesFooter } from "./step3Addresses";
-import { NodeAddSbd, NodeAddSbdFooter } from "./step4Sbd";
-import { NodeAddReview, NodeAddReviewFooter } from "./review";
-import { NodeAddFinish } from "./finish";
+import { NodeName } from "./NodeName";
+import { PrepareNode } from "./PrepareNode";
+import { AuthButton } from "./AuthButton";
+import { Addresses } from "./Addresses";
+import { Sbd } from "./Sbd";
+import { Review } from "./Review";
+import { Finish } from "./Finish";
 
 export const NodeAdd: React.FC = () => {
-  const { close, isNameValid, isNodeCheckDoneValid } = useTask();
+  const {
+    state: { authProcessId },
+    close,
+    isNameValid,
+    isNodeCheckDoneValid,
+    nodeAdd,
+  } = useTask();
   return (
     <Wizard
       data-test="task-node-add"
@@ -24,36 +28,58 @@ export const NodeAdd: React.FC = () => {
       steps={[
         {
           name: "Enter node name",
-          component: <NodeAddNodeName />,
-          footer: <NodeAddNodeNameFooter />,
+          component: <NodeName />,
+          footer: (
+            <ClusterWizardFooter
+              nextIf={isNameValid}
+              onClose={close}
+              backDisabled
+            />
+          ),
         },
         {
           name: "Check node",
-          component: <NodeAddPrepareNode />,
-          footer: <NodeAddPrepareNodeFooter />,
+          component: <PrepareNode />,
+          footer: authProcessId ? (
+            <ClusterWizardFooter
+              next={<AuthButton authProcessId={authProcessId} />}
+              onClose={close}
+            />
+          ) : (
+            <ClusterWizardFooter
+              nextDisabled={!isNodeCheckDoneValid}
+              onClose={close}
+            />
+          ),
           canJumpTo: isNameValid,
         },
         {
           name: "Specify node addresses",
-          component: <NodeAddAddresses />,
-          footer: <NodeAddAddressesFooter />,
+          component: <Addresses />,
+          footer: <ClusterWizardFooter onClose={close} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Configure sbd",
-          component: <NodeAddSbd />,
-          footer: <NodeAddSbdFooter />,
+          component: <Sbd />,
+          footer: <ClusterWizardFooter onClose={close} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Review",
-          component: <NodeAddReview />,
-          footer: <NodeAddReviewFooter />,
+          component: <Review />,
+          footer: (
+            <ClusterWizardFooter
+              preNext={() => nodeAdd()}
+              nextLabel="Create resource"
+              onClose={close}
+            />
+          ),
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Result",
-          component: <NodeAddFinish />,
+          component: <Finish />,
           isFinishedStep: true,
         },
       ]}

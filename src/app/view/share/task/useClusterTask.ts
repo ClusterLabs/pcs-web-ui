@@ -24,19 +24,5 @@ export function useClusterTask<
     ...openClose,
     clusterName,
     dispatch,
-    tryNext: (isValid: boolean) => {
-      if (isValid) {
-        dispatch({
-          type: "CLUSTER.TASK.VALIDATION.HIDE",
-          key: { clusterName },
-        });
-        pfWizardContext.onNext();
-      } else {
-        dispatch({
-          type: "CLUSTER.TASK.VALIDATION.SHOW",
-          key: { clusterName },
-        });
-      }
-    },
   };
 }

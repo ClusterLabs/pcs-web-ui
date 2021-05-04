@@ -16,7 +16,7 @@ export const DetailLayout: React.FC<{
           <LevelItem>{caption}</LevelItem>
           <LevelItem>
             {toolbar}
-            {!toolbar && <DetailLayoutToolbar />}
+            {!toolbar && <DetailLayoutToolbar toolbarName="default" />}
           </LevelItem>
         </Level>
       </StackItem>
