@@ -16,7 +16,7 @@ import { ResourceSet } from "./ResourceSet";
 
 export const ResourceSetList: React.FC = () => {
   const {
-    state: { sets, reports },
+    state: { sets, reports, showValidationErrors },
     createSet,
     updateSet,
     deleteSet,
@@ -36,6 +36,7 @@ export const ResourceSetList: React.FC = () => {
                         id={`resource-set-${i}`}
                         update={updateSet(i)}
                         isOnlyOne={sets.length === 1}
+                        showValidationErrors={showValidationErrors}
                       />
                     </DataListCell>,
                   ]}

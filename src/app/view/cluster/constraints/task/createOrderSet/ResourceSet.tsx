@@ -16,14 +16,21 @@ export const ResourceSet: React.FC<{
   id: string;
   update: ReturnType<ReturnType<typeof useTask>["updateSet"]>;
   isOnlyOne: boolean;
-}> = ({ id, set, update, isOnlyOne }) => {
+  showValidationErrors: boolean;
+}> = ({ id, set, update, isOnlyOne, showValidationErrors }) => {
   const [resourceList] = useClusterSelector(selectors.getResourcesForSet);
+
+  const resourcesValidated =
+    showValidationErrors && set.resources.length < 2 ? "error" : "default";
+
   return (
     <Form isHorizontal>
       <FormGroup
         label="resources"
         isRequired={true}
         fieldId={`${id}-resources`}
+        helperTextInvalid="Please provide at least 2 resources"
+        validated={resourcesValidated}
       >
         <Select
           id={`${id}-resources`}

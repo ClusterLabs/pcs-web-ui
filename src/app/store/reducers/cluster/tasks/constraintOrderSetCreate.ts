@@ -28,6 +28,7 @@ const initialState: {
   kind: Kind;
   symmetrical: boolean;
   sets: typeof initialSet[];
+  showValidationErrors: boolean;
   reports: LibReport[];
   response:
     | "no-response"
@@ -41,6 +42,7 @@ const initialState: {
   symmetrical: true,
   response: "no-response",
   sets: [initialSet],
+  showValidationErrors: false,
   reports: [],
 };
 
@@ -60,6 +62,7 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         ...action.payload,
+        showValidationErrors: false,
       };
 
     case "CONSTRAINT.ORDER.SET.CREATE.CREATE.SET":
@@ -90,6 +93,7 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         sets: state.sets.map((s, i) => (i !== index ? s : set)),
+        showValidationErrors: false,
       };
     }
 
@@ -105,6 +109,11 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
 
     case "CONSTRAINT.ORDER.SET.CREATE.ERROR":
       return { ...state, response: "communication-error" };
+
+    case "CLUSTER.TASK.VALIDATION.SHOW":
+      return { ...state, showValidationErrors: true };
+    case "CLUSTER.TASK.VALIDATION.HIDE":
+      return { ...state, showValidationErrors: false };
 
     default:
       return state;

@@ -12,7 +12,7 @@ import { Finish } from "./Finish";
 export const ConstraintCreateOrderSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
-  const { open, close, create, isOpened } = useTask();
+  const { open, close, create, isOpened, areSetsValid } = useTask();
   return (
     <>
       <Button
@@ -37,7 +37,9 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
             {
               name: "Resource Sets",
               component: <ResourceSetList />,
-              footer: <ClusterWizardFooter onClose={close} />,
+              footer: (
+                <ClusterWizardFooter onClose={close} nextIf={areSetsValid} />
+              ),
             },
             {
               name: "Review",
@@ -49,6 +51,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                   onClose={close}
                 />
               ),
+              canJumpTo: areSetsValid,
             },
             {
               name: "Result",

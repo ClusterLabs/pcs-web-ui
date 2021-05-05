@@ -8,6 +8,8 @@ export const useTask = () => {
   return {
     ...task,
 
+    areSetsValid: state.sets.every(s => s.resources.length > 1),
+
     // actions
     updateState: (
       payload: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE"],
