@@ -85,6 +85,21 @@ export type LibClusterCommands = [
     };
   },
   {
+    name: "constraint-ticket-create-with-set";
+    payload: {
+      resource_set_list: {
+        ids: string[];
+        role?: "Stopped" | "Started" | "Master" | "Slave";
+      }[];
+      constraint_options: {
+        id?: string;
+        "loss-policy"?: "fence" | "stop" | "freeze" | "demote";
+      };
+      resource_in_clone_alowed: boolean;
+      duplication_alowed: boolean;
+    };
+  },
+  {
     name: "cluster-add-nodes";
     payload: {
       nodes: {
