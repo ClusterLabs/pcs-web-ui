@@ -7,6 +7,7 @@ import {
   DataListItem,
   DataListItemCells,
   DataListItemRow,
+  Title,
 } from "@patternfly/react-core";
 
 import { TaskLibStep } from "app/view/share";
@@ -31,6 +32,9 @@ export const ResourceSetList: React.FC = () => {
                 <DataListItemCells
                   dataListCells={[
                     <DataListCell key="all">
+                      <Title headingLevel="h3" size="lg" className="pf-u-mb-md">
+                        Resource set {i + 1}
+                      </Title>
                       <ResourceSet
                         set={set}
                         id={`resource-set-${i}`}
