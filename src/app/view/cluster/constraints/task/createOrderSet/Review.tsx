@@ -12,7 +12,7 @@ import { useTask } from "./useTask";
 
 export const Review: React.FC = () => {
   const {
-    state: { id, kind, symmetrical, reports, sets },
+    state: { id, reports, sets },
   } = useTask();
 
   return (
@@ -28,9 +28,6 @@ export const Review: React.FC = () => {
             )
           }
         />
-
-        <ReviewValue label="Kind" value={kind} />
-        <ReviewYesNo label="Symmetrical" value={symmetrical} />
 
         {sets.map((set, i) => (
           <ReviewValue

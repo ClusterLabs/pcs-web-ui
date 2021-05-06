@@ -6,10 +6,6 @@ type Action = Exclude<
   ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]["action"],
   undefined
 >;
-type Kind = Exclude<
-  ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE"]["kind"],
-  undefined
->;
 
 const initialSet: {
   resources: string[];
@@ -25,8 +21,6 @@ const initialSet: {
 
 const initialState: {
   id: string;
-  kind: Kind;
-  symmetrical: boolean;
   sets: typeof initialSet[];
   showValidationErrors: boolean;
   reports: LibReport[];
@@ -38,8 +32,6 @@ const initialState: {
     | "communication-error";
 } = {
   id: "",
-  kind: "Mandatory",
-  symmetrical: true,
   response: "no-response",
   sets: [initialSet],
   showValidationErrors: false,

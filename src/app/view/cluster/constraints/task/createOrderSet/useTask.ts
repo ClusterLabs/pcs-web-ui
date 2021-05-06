@@ -54,8 +54,6 @@ export const useTask = () => {
         key: { clusterName },
         payload: {
           id: state.id,
-          kind: state.kind,
-          symmetrical: state.symmetrical,
           sets: state.sets,
           force,
         },
