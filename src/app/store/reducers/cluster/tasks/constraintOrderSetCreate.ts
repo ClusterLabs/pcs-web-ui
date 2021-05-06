@@ -14,7 +14,7 @@ const initialSet: {
   requireAll: boolean;
 } = {
   resources: [],
-  action: "start",
+  action: "no limitation",
   sequential: true,
   requireAll: true,
 };

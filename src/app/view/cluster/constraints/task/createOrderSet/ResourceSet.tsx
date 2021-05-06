@@ -29,7 +29,7 @@ export const ResourceSet: React.FC<{
   return (
     <Form isHorizontal>
       <FormGroup
-        label="resources"
+        label="Resources"
         isRequired={true}
         fieldId={`${id}-resources`}
         helperTextInvalid={`Please provide at least ${
@@ -61,10 +61,10 @@ export const ResourceSet: React.FC<{
       </FormGroup>
 
       <FormRadios
-        label="action"
+        label="Action"
         className="pf-u-mt-sm"
         id={`${id}-action`}
-        options={["start", "stop", "promote", "demote"]}
+        options={["no limitation", "start", "stop", "promote", "demote"]}
         selected={set.action}
         onChange={value => update({ action: value })}
         popover={{

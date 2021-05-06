@@ -2,6 +2,8 @@ import { LibReport } from "app/store/types";
 
 import { Action } from "./types";
 
+type OptionalAction = Action | "no limitation";
+
 export type OrderSetCreateActions = {
   "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {
     type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE";
@@ -31,7 +33,7 @@ export type OrderSetCreateActions = {
       index: number;
       set: {
         resources?: string[];
-        action?: Action;
+        action?: OptionalAction;
         sequential?: boolean;
         requireAll?: boolean;
       };
@@ -45,7 +47,7 @@ export type OrderSetCreateActions = {
       id: string;
       sets: {
         resources: string[];
-        action: Action;
+        action: OptionalAction;
         sequential: boolean;
         requireAll: boolean;
       }[];

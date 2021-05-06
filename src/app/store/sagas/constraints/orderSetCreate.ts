@@ -22,7 +22,7 @@ export function* orderSetCreate({
           resource_set_list: sets.map(set => ({
             ids: set.resources,
             options: {
-              action: set.action,
+              ...(set.action !== "no limitation" ? { action: set.action } : {}),
               sequential: (set.sequential ? "true" : "false") as TrueFalse,
               "require-all": (set.requireAll ? "true" : "false") as TrueFalse,
             },
