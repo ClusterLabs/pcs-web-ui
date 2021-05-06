@@ -21,7 +21,10 @@ export const ResourceSet: React.FC<{
   const [resourceList] = useClusterSelector(selectors.getResourcesForSet);
 
   const resourcesValidated =
-    showValidationErrors && set.resources.length < 2 ? "error" : "default";
+    showValidationErrors
+    && ((isOnlyOne && set.resources.length < 2) || set.resources.length === 0)
+      ? "error"
+      : "default";
 
   return (
     <Form isHorizontal>
@@ -29,7 +32,9 @@ export const ResourceSet: React.FC<{
         label="resources"
         isRequired={true}
         fieldId={`${id}-resources`}
-        helperTextInvalid="Please provide at least 2 resources"
+        helperTextInvalid={`Please provide at least ${
+          isOnlyOne ? "2 resources" : "1 resource"
+        }`}
         validated={resourcesValidated}
       >
         <Select

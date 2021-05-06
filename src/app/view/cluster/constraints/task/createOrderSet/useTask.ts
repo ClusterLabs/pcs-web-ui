@@ -8,7 +8,10 @@ export const useTask = () => {
   return {
     ...task,
 
-    areSetsValid: state.sets.every(s => s.resources.length > 1),
+    areSetsValid:
+      (state.sets.length > 1
+        && state.sets.every(s => s.resources.length > 0))
+      || state.sets[0].resources.length > 1,
 
     // actions
     updateState: (
