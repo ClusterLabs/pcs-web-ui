@@ -30,19 +30,25 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
           onClose={close}
           steps={[
             {
-              name: "Options",
-              component: <Options />,
-              footer: <ClusterWizardFooter onClose={close} backDisabled />,
-            },
-            {
               name: "Resource Sets",
               component: <ResourceSetList />,
               footer: (
-                <ClusterWizardFooter onClose={close} nextIf={areSetsValid} />
+                <ClusterWizardFooter
+                  onClose={close}
+                  nextIf={areSetsValid}
+                  backDisabled
+                />
               ),
             },
             {
+              name: "Options",
+              canJumpTo: areSetsValid,
+              component: <Options />,
+              footer: <ClusterWizardFooter onClose={close} />,
+            },
+            {
               name: "Review",
+              canJumpTo: areSetsValid,
               component: <Review />,
               footer: (
                 <ClusterWizardFooter
@@ -51,7 +57,6 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                   onClose={close}
                 />
               ),
-              canJumpTo: areSetsValid,
             },
             {
               name: "Result",
