@@ -3,7 +3,7 @@ import { useClusterTask } from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintOrderSetCreate");
-  const { clusterName, dispatch, state } = task;
+  const { clusterName, dispatch, state, close } = task;
 
   return {
     ...task,
@@ -58,5 +58,12 @@ export const useTask = () => {
           force,
         },
       }),
+    close: () => {
+      close();
+      dispatch({
+        type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE",
+        key: { clusterName },
+      });
+    },
   };
 };

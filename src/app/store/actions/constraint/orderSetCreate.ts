@@ -68,4 +68,9 @@ export type OrderSetCreateActions = {
     type: "CONSTRAINT.ORDER.SET.CREATE.ERROR";
     key: { clusterName: string };
   };
+
+  "CONSTRAINT.ORDER.SET.CREATE.CLOSE": {
+    type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE";
+    key: { clusterName: string };
+  };
 };
