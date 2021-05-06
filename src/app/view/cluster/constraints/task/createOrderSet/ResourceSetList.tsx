@@ -9,6 +9,7 @@ import {
   DataListItemRow,
   Title,
 } from "@patternfly/react-core";
+import { PlusCircleIcon, TrashIcon } from "@patternfly/react-icons";
 
 import { TaskLibStep } from "app/view/share";
 
@@ -51,8 +52,12 @@ export const ResourceSetList: React.FC = () => {
                     aria-label="remove"
                     aria-labelledby={`resource-set-${i}`}
                   >
-                    <Button variant="secondary" onClick={() => deleteSet(i)}>
-                      -
+                    <Button
+                      variant="secondary"
+                      icon={<TrashIcon />}
+                      onClick={() => deleteSet(i)}
+                    >
+                      Delete
                     </Button>
                   </DataListAction>
                 )}
@@ -62,8 +67,13 @@ export const ResourceSetList: React.FC = () => {
         })}
       </DataList>
 
-      <Button variant="primary" onClick={createSet} className="pf-u-mt-sm">
-        +
+      <Button
+        variant="primary"
+        onClick={createSet}
+        icon={<PlusCircleIcon />}
+        className="pf-u-mt-sm"
+      >
+        Add resource set
       </Button>
     </TaskLibStep>
   );
