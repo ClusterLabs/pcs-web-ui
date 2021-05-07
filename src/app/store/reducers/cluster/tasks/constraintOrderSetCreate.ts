@@ -99,6 +99,26 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
         reports: action.payload.reports,
       };
 
+    case "CONSTRAINT.ORDER.SET.CREATE.MOVE.SET": {
+      const sets = state.sets;
+      const i = action.payload.index;
+      if (action.payload.direction === "up") {
+        if (i < 0 || i >= state.sets.length) {
+          return state;
+        }
+        [sets[i], sets[i - 1]] = [sets[i - 1], sets[i]];
+      } else {
+        if (i >= state.sets.length - 1) {
+          return state;
+        }
+        [sets[i], sets[i + 1]] = [sets[i + 1], sets[i]];
+      }
+      return {
+        ...state,
+        sets,
+      };
+    }
+
     case "CONSTRAINT.ORDER.SET.CREATE.ERROR":
       return { ...state, response: "communication-error" };
 

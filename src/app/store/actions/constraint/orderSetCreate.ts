@@ -40,6 +40,15 @@ export type OrderSetCreateActions = {
     };
   };
 
+  "CONSTRAINT.ORDER.SET.CREATE.MOVE.SET": {
+    type: "CONSTRAINT.ORDER.SET.CREATE.MOVE.SET";
+    key: { clusterName: string };
+    payload: {
+      index: number;
+      direction: "up" | "down";
+    };
+  };
+
   "CONSTRAINT.ORDER.SET.CREATE": {
     type: "CONSTRAINT.ORDER.SET.CREATE";
     key: { clusterName: string };

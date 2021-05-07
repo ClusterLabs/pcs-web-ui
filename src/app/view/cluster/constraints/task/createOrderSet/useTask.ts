@@ -48,6 +48,19 @@ export const useTask = () => {
         },
       }),
 
+    moveSet: (
+      index: number,
+      direction: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.MOVE.SET"]["direction"],
+    ) =>
+      dispatch({
+        type: "CONSTRAINT.ORDER.SET.CREATE.MOVE.SET",
+        key: { clusterName },
+        payload: {
+          index,
+          direction,
+        },
+      }),
+
     create: ({ force }: { force: boolean }) =>
       dispatch({
         type: "CONSTRAINT.ORDER.SET.CREATE",
