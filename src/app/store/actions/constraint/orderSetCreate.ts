@@ -9,6 +9,7 @@ export type OrderSetCreateActions = {
     type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE";
     key: { clusterName: string };
     payload: {
+      useCustomId?: boolean;
       id?: string;
     };
   };
@@ -54,6 +55,7 @@ export type OrderSetCreateActions = {
     key: { clusterName: string };
     payload: {
       id: string;
+      useCustomId: boolean;
       sets: {
         resources: string[];
         action: OptionalAction;

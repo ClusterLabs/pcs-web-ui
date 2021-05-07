@@ -12,7 +12,7 @@ import { useTask } from "./useTask";
 
 export const Review: React.FC = () => {
   const {
-    state: { id, reports, sets },
+    state: { id, useCustomId, reports, sets },
   } = useTask();
 
   return (
@@ -21,7 +21,7 @@ export const Review: React.FC = () => {
         <ReviewValue
           label="Id"
           value={
-            id.length > 0 ? (
+            useCustomId && id.length > 0 ? (
               id
             ) : (
               <ReviewDefault value="Not set; will be generated" />

@@ -20,6 +20,7 @@ const initialSet: {
 };
 
 const initialState: {
+  useCustomId: boolean;
   id: string;
   sets: typeof initialSet[];
   showValidationErrors: boolean;
@@ -31,6 +32,7 @@ const initialState: {
     | "fail"
     | "communication-error";
 } = {
+  useCustomId: false,
   id: "",
   response: "no-response",
   sets: [initialSet],
@@ -50,12 +52,13 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
-    case "CONSTRAINT.ORDER.SET.CREATE.UPDATE":
+    case "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {
       return {
         ...state,
         ...action.payload,
         showValidationErrors: false,
       };
+    }
 
     case "CONSTRAINT.ORDER.SET.CREATE.CREATE.SET":
       return {

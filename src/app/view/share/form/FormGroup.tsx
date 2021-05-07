@@ -6,7 +6,7 @@ import { AttributeHelpPopover } from "app/view/share/attributes";
 type FormGroupProps = React.ComponentProps<typeof PfFormGroup>;
 export const FormGroup: React.FC<{
   fieldId: FormGroupProps["fieldId"];
-  label: FormGroupProps["label"];
+  label?: FormGroupProps["label"];
   helperText?: FormGroupProps["helperText"];
   isRequired?: FormGroupProps["isRequired"];
   helperTextInvalid?: FormGroupProps["helperTextInvalid"];

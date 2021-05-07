@@ -13,6 +13,8 @@ export const useTask = () => {
         && state.sets.every(s => s.resources.length > 0))
       || state.sets[0].resources.length > 1,
 
+    isCustomIdValid: !state.useCustomId || state.id.length > 0,
+
     // actions
     updateState: (
       payload: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE"],
@@ -66,6 +68,7 @@ export const useTask = () => {
         type: "CONSTRAINT.ORDER.SET.CREATE",
         key: { clusterName },
         payload: {
+          useCustomId: state.useCustomId,
           id: state.id,
           sets: state.sets,
           force,
