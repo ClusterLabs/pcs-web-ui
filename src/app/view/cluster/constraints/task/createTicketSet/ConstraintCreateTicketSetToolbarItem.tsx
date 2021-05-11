@@ -7,6 +7,7 @@ import { useTask } from "./useTask";
 import { Options } from "./Options";
 import { ResourceSetList } from "./ResourceSetList";
 import { Review } from "./Review";
+import { Finish } from "./Finish";
 
 export const ConstraintCreateTicketSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
@@ -56,6 +57,11 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
                   onClose={close}
                 />
               ),
+            },
+            {
+              name: "Result",
+              component: <Finish />,
+              isFinishedStep: true,
             },
           ]}
         />

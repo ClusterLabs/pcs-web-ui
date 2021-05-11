@@ -13,6 +13,7 @@ export type TicketSetCreateActions = {
     type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE";
     key: { clusterName: string };
     payload: {
+      useCustomId?: boolean;
       id?: string;
       lossPolicy?: LossPolicy;
     };
@@ -47,6 +48,7 @@ export type TicketSetCreateActions = {
     key: { clusterName: string };
     payload: {
       id: string;
+      useCustomId: boolean;
       lossPolicy: LossPolicy;
       sets: {
         resources: string[];

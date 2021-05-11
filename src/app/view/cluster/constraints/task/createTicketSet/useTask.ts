@@ -7,6 +7,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    isCustomIdValid: !state.useCustomId || state.id.length > 0,
 
     areSetsValid:
       (state.sets.length > 1
@@ -65,6 +66,7 @@ export const useTask = () => {
         type: "CONSTRAINT.TICKET.SET.CREATE",
         key: { clusterName },
         payload: {
+          useCustomId: state.useCustomId,
           id: state.id,
           lossPolicy: state.lossPolicy,
           sets: state.sets,

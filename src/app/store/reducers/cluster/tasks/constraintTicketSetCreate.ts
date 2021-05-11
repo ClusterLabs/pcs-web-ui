@@ -20,6 +20,7 @@ const initialSet: {
 };
 
 const initialState: {
+  useCustomId: boolean;
   id: string;
   lossPolicy: LossPolicy;
   sets: typeof initialSet[];
@@ -32,6 +33,7 @@ const initialState: {
     | "fail"
     | "communication-error";
 } = {
+  useCustomId: false,
   id: "",
   lossPolicy: "stop",
   response: "no-response",

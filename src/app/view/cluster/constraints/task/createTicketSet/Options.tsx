@@ -1,20 +1,66 @@
 import React from "react";
-import { Form } from "@patternfly/react-core";
+import {
+  Flex,
+  FlexItem,
+  Form,
+  Switch,
+  TextInput,
+} from "@patternfly/react-core";
 
-import { FormRadios, TaskLibStep } from "app/view/share";
+import { FormGroup, FormRadios, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
 export const Options: React.FC = () => {
   const {
     updateState,
-    state: { reports, lossPolicy },
+    isCustomIdValid,
+    state: { id, useCustomId, reports, lossPolicy, showValidationErrors },
   } = useTask();
+  const useCustomIdId = "use-custom-id";
+  const customIdValid =
+    showValidationErrors && !isCustomIdValid ? "error" : "default";
   return (
-    <TaskLibStep title="Order constraint options" reports={reports}>
+    <TaskLibStep title="Ticket constraint options" reports={reports}>
       <Form isHorizontal>
+        <FormGroup
+          fieldId={useCustomIdId}
+          label="Use custom id"
+          helperTextInvalid={"Please provide a value of custom id"}
+          validated={customIdValid}
+          popover={{
+            header: "Constraint id",
+            body: (
+              <>
+                You can specify constraint id. Otherwise it will be generated
+                automatically.
+              </>
+            ),
+          }}
+        >
+          <Flex>
+            <FlexItem className="pf-u-pt-sm">
+              <Switch
+                id={useCustomIdId}
+                isChecked={useCustomId}
+                onChange={value => updateState({ useCustomId: value })}
+              />
+            </FlexItem>
+            {useCustomId && (
+              <FlexItem>
+                <TextInput
+                  id={`${useCustomIdId}-id`}
+                  value={id}
+                  type="text"
+                  onChange={value => updateState({ id: value })}
+                  validated={customIdValid}
+                />
+              </FlexItem>
+            )}
+          </Flex>
+        </FormGroup>
         <FormRadios
-          id="constraint-order-set-kind"
+          id="constraint-ticket-set-loss-policy"
           label="Loss policy"
           options={["stop", "fence", "freeze", "demote"]}
           selected={lossPolicy}

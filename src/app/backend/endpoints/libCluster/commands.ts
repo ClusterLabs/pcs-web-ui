@@ -89,7 +89,9 @@ export type LibClusterCommands = [
     payload: {
       resource_set_list: {
         ids: string[];
-        role?: "Stopped" | "Started" | "Master" | "Slave";
+        options: {
+          role?: "Stopped" | "Started" | "Master" | "Slave";
+        };
       }[];
       constraint_options: {
         id?: string;
