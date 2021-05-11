@@ -7,7 +7,14 @@ import {
   DataListItem,
   DataListItemCells,
   DataListItemRow,
+  Title,
 } from "@patternfly/react-core";
+import {
+  LongArrowAltDownIcon,
+  LongArrowAltUpIcon,
+  PlusCircleIcon,
+  TrashIcon,
+} from "@patternfly/react-icons";
 
 import { TaskLibStep } from "app/view/share";
 
@@ -20,6 +27,7 @@ export const ResourceSetList: React.FC = () => {
     createSet,
     updateSet,
     deleteSet,
+    moveSet,
   } = useTask();
   return (
     <TaskLibStep title="Resource sets" reports={reports}>
@@ -31,6 +39,9 @@ export const ResourceSetList: React.FC = () => {
                 <DataListItemCells
                   dataListCells={[
                     <DataListCell key="all">
+                      <Title headingLevel="h3" size="lg" className="pf-u-mb-md">
+                        Resource set {i + 1}
+                      </Title>
                       <ResourceSet
                         set={set}
                         id={`resource-set-${i}`}
@@ -47,9 +58,28 @@ export const ResourceSetList: React.FC = () => {
                     aria-label="remove"
                     aria-labelledby={`resource-set-${i}`}
                   >
-                    <Button variant="secondary" onClick={() => deleteSet(i)}>
-                      -
-                    </Button>
+                    <Button
+                      variant="link"
+                      className="pf-u-m-0 pf-u-p-0"
+                      onClick={() => deleteSet(i)}
+                      icon={<TrashIcon />}
+                    />
+                    {i > 0 && (
+                      <Button
+                        variant="link"
+                        className="pf-u-m-0 pf-u-p-0"
+                        onClick={() => moveSet(i, "up")}
+                        icon={<LongArrowAltUpIcon />}
+                      />
+                    )}
+                    {i < sets.length - 1 && (
+                      <Button
+                        variant="link"
+                        className="pf-u-m-0 pf-u-p-0"
+                        onClick={() => moveSet(i, "down")}
+                        icon={<LongArrowAltDownIcon />}
+                      />
+                    )}
                   </DataListAction>
                 )}
               </DataListItemRow>
@@ -58,8 +88,13 @@ export const ResourceSetList: React.FC = () => {
         })}
       </DataList>
 
-      <Button variant="primary" onClick={createSet} className="pf-u-mt-sm">
-        +
+      <Button
+        variant="primary"
+        onClick={createSet}
+        icon={<PlusCircleIcon />}
+        className="pf-u-mt-sm"
+      >
+        Add resource set
       </Button>
     </TaskLibStep>
   );

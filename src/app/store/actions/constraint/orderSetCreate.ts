@@ -2,16 +2,15 @@ import { LibReport } from "app/store/types";
 
 import { Action } from "./types";
 
-type Kind = "Optional" | "Mandatory" | "Serialize";
+type OptionalAction = Action | "no limitation";
 
 export type OrderSetCreateActions = {
   "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {
     type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE";
     key: { clusterName: string };
     payload: {
+      useCustomId?: boolean;
       id?: string;
-      kind?: Kind;
-      symmetrical?: boolean;
     };
   };
 
@@ -35,10 +34,19 @@ export type OrderSetCreateActions = {
       index: number;
       set: {
         resources?: string[];
-        action?: Action;
+        action?: OptionalAction;
         sequential?: boolean;
         requireAll?: boolean;
       };
+    };
+  };
+
+  "CONSTRAINT.ORDER.SET.CREATE.MOVE.SET": {
+    type: "CONSTRAINT.ORDER.SET.CREATE.MOVE.SET";
+    key: { clusterName: string };
+    payload: {
+      index: number;
+      direction: "up" | "down";
     };
   };
 
@@ -47,11 +55,10 @@ export type OrderSetCreateActions = {
     key: { clusterName: string };
     payload: {
       id: string;
-      kind: Kind;
-      symmetrical: boolean;
+      useCustomId: boolean;
       sets: {
         resources: string[];
-        action: Action;
+        action: OptionalAction;
         sequential: boolean;
         requireAll: boolean;
       }[];
@@ -70,6 +77,11 @@ export type OrderSetCreateActions = {
 
   "CONSTRAINT.ORDER.SET.CREATE.ERROR": {
     type: "CONSTRAINT.ORDER.SET.CREATE.ERROR";
+    key: { clusterName: string };
+  };
+
+  "CONSTRAINT.ORDER.SET.CREATE.CLOSE": {
+    type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE";
     key: { clusterName: string };
   };
 };

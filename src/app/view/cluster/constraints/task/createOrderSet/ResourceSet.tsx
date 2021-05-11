@@ -21,15 +21,20 @@ export const ResourceSet: React.FC<{
   const [resourceList] = useClusterSelector(selectors.getResourcesForSet);
 
   const resourcesValidated =
-    showValidationErrors && set.resources.length < 2 ? "error" : "default";
+    showValidationErrors
+    && ((isOnlyOne && set.resources.length < 2) || set.resources.length === 0)
+      ? "error"
+      : "default";
 
   return (
     <Form isHorizontal>
       <FormGroup
-        label="resources"
+        label="Resources"
         isRequired={true}
         fieldId={`${id}-resources`}
-        helperTextInvalid="Please provide at least 2 resources"
+        helperTextInvalid={`Please provide at least ${
+          isOnlyOne ? "2 resources" : "1 resource"
+        }`}
         validated={resourcesValidated}
       >
         <Select
@@ -56,10 +61,10 @@ export const ResourceSet: React.FC<{
       </FormGroup>
 
       <FormRadios
-        label="action"
+        label="Action"
         className="pf-u-mt-sm"
         id={`${id}-action`}
-        options={["start", "stop", "promote", "demote"]}
+        options={["no limitation", "start", "stop", "promote", "demote"]}
         selected={set.action}
         onChange={value => update({ action: value })}
         popover={{

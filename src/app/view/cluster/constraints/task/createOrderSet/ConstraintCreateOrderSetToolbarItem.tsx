@@ -12,7 +12,14 @@ import { Finish } from "./Finish";
 export const ConstraintCreateOrderSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
-  const { open, close, create, isOpened, areSetsValid } = useTask();
+  const {
+    open,
+    close,
+    create,
+    isOpened,
+    areSetsValid,
+    isCustomIdValid,
+  } = useTask();
   return (
     <>
       <Button
@@ -30,19 +37,27 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
           onClose={close}
           steps={[
             {
-              name: "Options",
-              component: <Options />,
-              footer: <ClusterWizardFooter onClose={close} backDisabled />,
-            },
-            {
               name: "Resource Sets",
               component: <ResourceSetList />,
               footer: (
-                <ClusterWizardFooter onClose={close} nextIf={areSetsValid} />
+                <ClusterWizardFooter
+                  onClose={close}
+                  nextIf={areSetsValid}
+                  backDisabled
+                />
+              ),
+            },
+            {
+              name: "Options",
+              canJumpTo: areSetsValid,
+              component: <Options />,
+              footer: (
+                <ClusterWizardFooter onClose={close} nextIf={isCustomIdValid} />
               ),
             },
             {
               name: "Review",
+              canJumpTo: areSetsValid && isCustomIdValid,
               component: <Review />,
               footer: (
                 <ClusterWizardFooter
@@ -51,7 +66,6 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                   onClose={close}
                 />
               ),
-              canJumpTo: areSetsValid,
             },
             {
               name: "Result",

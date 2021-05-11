@@ -6,10 +6,6 @@ type Action = Exclude<
   ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]["action"],
   undefined
 >;
-type Kind = Exclude<
-  ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE"]["kind"],
-  undefined
->;
 
 const initialSet: {
   resources: string[];
@@ -18,15 +14,14 @@ const initialSet: {
   requireAll: boolean;
 } = {
   resources: [],
-  action: "start",
+  action: "no limitation",
   sequential: true,
   requireAll: true,
 };
 
 const initialState: {
+  useCustomId: boolean;
   id: string;
-  kind: Kind;
-  symmetrical: boolean;
   sets: typeof initialSet[];
   showValidationErrors: boolean;
   reports: LibReport[];
@@ -37,9 +32,8 @@ const initialState: {
     | "fail"
     | "communication-error";
 } = {
+  useCustomId: false,
   id: "",
-  kind: "Mandatory",
-  symmetrical: true,
   response: "no-response",
   sets: [initialSet],
   showValidationErrors: false,
@@ -58,12 +52,13 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
-    case "CONSTRAINT.ORDER.SET.CREATE.UPDATE":
+    case "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {
       return {
         ...state,
         ...action.payload,
         showValidationErrors: false,
       };
+    }
 
     case "CONSTRAINT.ORDER.SET.CREATE.CREATE.SET":
       return {
@@ -107,11 +102,35 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
         reports: action.payload.reports,
       };
 
+    case "CONSTRAINT.ORDER.SET.CREATE.MOVE.SET": {
+      const sets = state.sets;
+      const i = action.payload.index;
+      if (action.payload.direction === "up") {
+        if (i < 0 || i >= state.sets.length) {
+          return state;
+        }
+        [sets[i], sets[i - 1]] = [sets[i - 1], sets[i]];
+      } else {
+        if (i >= state.sets.length - 1) {
+          return state;
+        }
+        [sets[i], sets[i + 1]] = [sets[i + 1], sets[i]];
+      }
+      return {
+        ...state,
+        sets,
+      };
+    }
+
     case "CONSTRAINT.ORDER.SET.CREATE.ERROR":
       return { ...state, response: "communication-error" };
 
+    case "CONSTRAINT.ORDER.SET.CREATE.CLOSE":
+      return initialState;
+
     case "CLUSTER.TASK.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
+
     case "CLUSTER.TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
 

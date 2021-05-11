@@ -3,12 +3,17 @@ import { useClusterTask } from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintOrderSetCreate");
-  const { clusterName, dispatch, state } = task;
+  const { clusterName, dispatch, state, close } = task;
 
   return {
     ...task,
 
-    areSetsValid: state.sets.every(s => s.resources.length > 1),
+    areSetsValid:
+      (state.sets.length > 1
+        && state.sets.every(s => s.resources.length > 0))
+      || state.sets[0].resources.length > 1,
+
+    isCustomIdValid: !state.useCustomId || state.id.length > 0,
 
     // actions
     updateState: (
@@ -45,17 +50,36 @@ export const useTask = () => {
         },
       }),
 
+    moveSet: (
+      index: number,
+      direction: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.MOVE.SET"]["direction"],
+    ) =>
+      dispatch({
+        type: "CONSTRAINT.ORDER.SET.CREATE.MOVE.SET",
+        key: { clusterName },
+        payload: {
+          index,
+          direction,
+        },
+      }),
+
     create: ({ force }: { force: boolean }) =>
       dispatch({
         type: "CONSTRAINT.ORDER.SET.CREATE",
         key: { clusterName },
         payload: {
+          useCustomId: state.useCustomId,
           id: state.id,
-          kind: state.kind,
-          symmetrical: state.symmetrical,
           sets: state.sets,
           force,
         },
       }),
+    close: () => {
+      close();
+      dispatch({
+        type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE",
+        key: { clusterName },
+      });
+    },
   };
 };
