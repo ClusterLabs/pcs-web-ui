@@ -14,6 +14,7 @@ export * from "./Page";
 export * from "./PageSectionDataLoading";
 export * from "./pcmkAgent";
 export * from "./ResourceDetailCaption";
+export * from "./resourceSet";
 export * from "./ResourceStatusInfoListSigns";
 export * from "./SelectedClusterContext";
 export * from "./SelectionIndicatorInGroup";

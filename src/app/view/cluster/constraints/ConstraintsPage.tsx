@@ -14,6 +14,7 @@ import {
   ConstraintCreateLocationToolbarItem,
   ConstraintCreateOrderSetToolbarItem,
   ConstraintCreateOrderToolbarItem,
+  ConstraintCreateTicketSetToolbarItem,
 } from "./task";
 
 export const ConstraintsPage: React.FC<{ clusterName: string }> = ({
@@ -31,6 +32,9 @@ export const ConstraintsPage: React.FC<{ clusterName: string }> = ({
           </ActionListItem>
           <ActionListItem>
             <ConstraintCreateOrderSetToolbarItem variant="secondary" />
+          </ActionListItem>
+          <ActionListItem>
+            <ConstraintCreateTicketSetToolbarItem variant="secondary" />
           </ActionListItem>
         </ActionList>
       </ClusterSectionToolbar>

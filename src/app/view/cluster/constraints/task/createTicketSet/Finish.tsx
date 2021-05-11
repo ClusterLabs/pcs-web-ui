@@ -28,12 +28,12 @@ export const Finish: React.FC = () => {
     case "fail":
       return (
         <TaskFinishFailLib
-          title={"Create constraint order with resource sets failed"}
+          title={"Create constraint ticket with resource sets failed"}
           toFirstStep={() => goToStepByName("Resource Sets")}
           close={close}
           createForce={() => create({ force: true })}
           createForceLabel={
-            <>Create order constraint anyway (proceed with current settings)</>
+            <>Create ticket constraint anyway (proceed with current settings)</>
           }
           reports={reports}
         />
@@ -41,7 +41,7 @@ export const Finish: React.FC = () => {
     case "communication-error":
       return (
         <TaskFinishErrorLib
-          title="Communication error while creating the order constraint"
+          title="Communication error while creating the ticket constraint"
           tryAgain={() => goToStepByName("Review")}
           close={close}
         />
@@ -49,8 +49,8 @@ export const Finish: React.FC = () => {
     default:
       return (
         <TaskProgress
-          title={"Create new constraint order with resource sets"}
-          progressTitle="Creating constraint order with resource sets"
+          title={"Create new constraint ticket with resource sets"}
+          progressTitle="Creating constraint ticket with resource sets"
         />
       );
   }
