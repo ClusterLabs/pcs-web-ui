@@ -102,6 +102,27 @@ export type LibClusterCommands = [
     };
   },
   {
+    name: "constraint-colocation-create-with-set";
+    payload: {
+      resource_set_list: {
+        ids: string[];
+        options: {
+          sequential?: "true" | "false";
+          role?: "Stopped" | "Started" | "Master" | "Slave";
+        };
+      }[];
+      constraint_options: {
+        id?: string;
+      } & (
+        | { score: string }
+        | { "score-attribute": string }
+        | { "score-attribute-mangle": string }
+      );
+      resource_in_clone_alowed: boolean;
+      duplication_alowed: boolean;
+    };
+  },
+  {
     name: "cluster-add-nodes";
     payload: {
       nodes: {

@@ -1,11 +1,8 @@
 import { LibReport } from "app/store/types";
 
-type OptionalRole =
-  | "no limitation"
-  | "Stopped"
-  | "Started"
-  | "Master"
-  | "Slave";
+import { Role } from "./types";
+
+type OptionalRole = "no limitation" | Role;
 type LossPolicy = "fence" | "stop" | "freeze" | "demote";
 
 export type TicketSetCreateActions = {

@@ -11,6 +11,7 @@ import { ClusterSectionToolbar } from "app/view/share";
 
 import { ConstraintFilteredList } from "./ConstraintFilteredList";
 import {
+  ConstraintCreateColocationSetToolbarItem,
   ConstraintCreateLocationToolbarItem,
   ConstraintCreateOrderSetToolbarItem,
   ConstraintCreateOrderToolbarItem,
@@ -35,6 +36,9 @@ export const ConstraintsPage: React.FC<{ clusterName: string }> = ({
           </ActionListItem>
           <ActionListItem>
             <ConstraintCreateTicketSetToolbarItem variant="secondary" />
+          </ActionListItem>
+          <ActionListItem>
+            <ConstraintCreateColocationSetToolbarItem variant="secondary" />
           </ActionListItem>
         </ActionList>
       </ClusterSectionToolbar>

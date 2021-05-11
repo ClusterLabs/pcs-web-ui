@@ -52,3 +52,11 @@ app.libCluster("constraint-ticket-create-with-set", (req, res) => {
     res,
   });
 });
+
+app.libCluster("constraint-colocation-create-with-set", (req, res) => {
+  const id = req.body.constraint_options.id ?? "ok";
+  shortcut.libStd({
+    code: id,
+    res,
+  });
+});
