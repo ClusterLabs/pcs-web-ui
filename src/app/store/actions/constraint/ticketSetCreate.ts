@@ -78,4 +78,9 @@ export type TicketSetCreateActions = {
     type: "CONSTRAINT.TICKET.SET.CREATE.ERROR";
     key: { clusterName: string };
   };
+
+  "CONSTRAINT.TICKET.SET.CREATE.CLOSE": {
+    type: "CONSTRAINT.TICKET.SET.CREATE.CLOSE";
+    key: { clusterName: string };
+  };
 };

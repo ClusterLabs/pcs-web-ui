@@ -113,6 +113,9 @@ export const constraintTicketSetCreate: AppReducer<typeof initialState> = (
     case "CLUSTER.TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
 
+    case "CONSTRAINT.TICKET.SET.CREATE.CLOSE":
+      return initialState;
+
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import { useClusterTask } from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintTicketSetCreate");
-  const { clusterName, dispatch, state } = task;
+  const { clusterName, dispatch, state, close } = task;
 
   return {
     ...task,
@@ -71,5 +71,13 @@ export const useTask = () => {
           force,
         },
       }),
+
+    close: () => {
+      close();
+      dispatch({
+        type: "CONSTRAINT.TICKET.SET.CREATE.CLOSE",
+        key: { clusterName },
+      });
+    },
   };
 };
