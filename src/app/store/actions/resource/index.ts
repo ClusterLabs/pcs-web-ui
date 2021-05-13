@@ -2,6 +2,7 @@ import { ResourceCreateActions } from "./create";
 import { ResourceTreeActions } from "./tree";
 import { ResourceActionsActions } from "./actions";
 import { ResourceGroupCreateActions } from "./groupCreate";
+import { ResourceSetActions } from "./resourceSet";
 
 // prettier-ignore
 export type ResourceActions = (
@@ -9,4 +10,5 @@ export type ResourceActions = (
   & ResourceGroupCreateActions
   & ResourceTreeActions
   & ResourceActionsActions
+  & ResourceSetActions
 );

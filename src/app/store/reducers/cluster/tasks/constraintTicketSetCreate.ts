@@ -2,6 +2,8 @@ import { LibReport } from "app/store/types";
 import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
 
+import { resourceSetCreateFactory } from "./resourceSet";
+
 type Role = Exclude<
   ActionPayload["CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET"]["set"]["role"],
   undefined
@@ -19,11 +21,17 @@ const initialSet: {
   role: "no limitation",
 };
 
+const {
+  resourceSet,
+  updateSet,
+  initialState: initialResourceSets,
+} = resourceSetCreateFactory(initialSet);
+
 const initialState: {
   useCustomId: boolean;
   id: string;
   lossPolicy: LossPolicy;
-  sets: typeof initialSet[];
+  sets: typeof initialResourceSets;
   showValidationErrors: boolean;
   reports: LibReport[];
   response:
@@ -37,7 +45,7 @@ const initialState: {
   id: "",
   lossPolicy: "stop",
   response: "no-response",
-  sets: [initialSet],
+  sets: initialResourceSets,
   showValidationErrors: false,
   reports: [],
 };
@@ -54,24 +62,10 @@ export const constraintTicketSetCreate: AppReducer<typeof initialState> = (
         showValidationErrors: false,
       };
 
-    case "CONSTRAINT.TICKET.SET.CREATE.CREATE.SET":
-      return {
-        ...state,
-        sets: [...state.sets, initialSet],
-      };
-
-    case "CONSTRAINT.TICKET.SET.CREATE.DELETE.SET": {
-      const sets = state.sets.filter((_set, i) => i !== action.payload.index);
-      return { ...state, sets };
-    }
-
     case "CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET": {
-      const { index, set: setUpdate } = action.payload;
-
-      const set = { ...state.sets[index], ...setUpdate };
       return {
         ...state,
-        sets: state.sets.map((s, i) => (i !== index ? s : set)),
+        sets: updateSet(state.sets, action.payload.index, action.payload.set),
         showValidationErrors: false,
       };
     }
@@ -86,26 +80,6 @@ export const constraintTicketSetCreate: AppReducer<typeof initialState> = (
         reports: action.payload.reports,
       };
 
-    case "CONSTRAINT.TICKET.SET.CREATE.MOVE.SET": {
-      const sets = state.sets;
-      const i = action.payload.index;
-      if (action.payload.direction === "up") {
-        if (i < 0 || i >= state.sets.length) {
-          return state;
-        }
-        [sets[i], sets[i - 1]] = [sets[i - 1], sets[i]];
-      } else {
-        if (i >= state.sets.length - 1) {
-          return state;
-        }
-        [sets[i], sets[i + 1]] = [sets[i + 1], sets[i]];
-      }
-      return {
-        ...state,
-        sets,
-      };
-    }
-
     case "CONSTRAINT.TICKET.SET.CREATE.ERROR":
       return { ...state, response: "communication-error" };
 
@@ -119,6 +93,6 @@ export const constraintTicketSetCreate: AppReducer<typeof initialState> = (
       return initialState;
 
     default:
-      return state;
+      return { ...state, sets: resourceSet(state.sets, action) };
   }
 };

@@ -15,19 +15,6 @@ export type ColocationSetCreateActions = {
     };
   };
 
-  "CONSTRAINT.COLOCATION.SET.CREATE.CREATE.SET": {
-    type: "CONSTRAINT.COLOCATION.SET.CREATE.CREATE.SET";
-    key: { clusterName: string };
-  };
-
-  "CONSTRAINT.COLOCATION.SET.CREATE.DELETE.SET": {
-    type: "CONSTRAINT.COLOCATION.SET.CREATE.DELETE.SET";
-    key: { clusterName: string };
-    payload: {
-      index: number;
-    };
-  };
-
   "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET": {
     type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET";
     key: { clusterName: string };
@@ -38,15 +25,6 @@ export type ColocationSetCreateActions = {
         sequential?: boolean;
         role?: OptionalRole;
       };
-    };
-  };
-
-  "CONSTRAINT.COLOCATION.SET.CREATE.MOVE.SET": {
-    type: "CONSTRAINT.COLOCATION.SET.CREATE.MOVE.SET";
-    key: { clusterName: string };
-    payload: {
-      index: number;
-      direction: "up" | "down";
     };
   };
 

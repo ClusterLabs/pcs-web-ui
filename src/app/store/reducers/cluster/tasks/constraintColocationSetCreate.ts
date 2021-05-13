@@ -2,6 +2,8 @@ import { LibReport } from "app/store/types";
 import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
 
+import { resourceSetCreateFactory } from "./resourceSet";
+
 type Role = Exclude<
   ActionPayload["CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET"]["set"]["role"],
   undefined
@@ -16,11 +18,17 @@ const initialSet: {
   role: "no limitation",
 };
 
+const {
+  resourceSet,
+  updateSet,
+  initialState: initialResourceSets,
+} = resourceSetCreateFactory(initialSet);
+
 const initialState: {
   useCustomId: boolean;
   id: string;
   score: string;
-  sets: typeof initialSet[];
+  sets: typeof initialResourceSets;
   showValidationErrors: boolean;
   reports: LibReport[];
   response:
@@ -34,15 +42,9 @@ const initialState: {
   id: "",
   score: "",
   response: "no-response",
-  sets: [initialSet],
+  sets: initialResourceSets,
   showValidationErrors: false,
   reports: [],
-};
-
-const setForOnlyOne = (set: typeof initialSet) => {
-  // disabled sequential does not make sense for only one set
-  // disabled requiereAll does not make sense if sequential is enabled
-  set.sequential = true;
 };
 
 export const constraintColocationSetCreate: AppReducer<typeof initialState> = (
@@ -58,34 +60,15 @@ export const constraintColocationSetCreate: AppReducer<typeof initialState> = (
       };
     }
 
-    case "CONSTRAINT.COLOCATION.SET.CREATE.CREATE.SET":
+    case "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET":
       return {
         ...state,
-        sets: [...state.sets, initialSet],
-      };
-
-    case "CONSTRAINT.COLOCATION.SET.CREATE.DELETE.SET": {
-      const sets = state.sets.filter((_set, i) => i !== action.payload.index);
-      if (sets.length === 1) {
-        setForOnlyOne(sets[0]);
-      }
-      return { ...state, sets };
-    }
-
-    case "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET": {
-      const { index, set: setUpdate } = action.payload;
-
-      const set = { ...state.sets[index], ...setUpdate };
-      if (state.sets.length === 1) {
-        setForOnlyOne(set);
-      }
-
-      return {
-        ...state,
-        sets: state.sets.map((s, i) => (i !== index ? s : set)),
+        sets: updateSet(state.sets, action.payload.index, {
+          ...action.payload.set,
+          ...(state.sets.length === 1 ? { sequential: true } : {}),
+        }),
         showValidationErrors: false,
       };
-    }
 
     case "CONSTRAINT.COLOCATION.SET.CREATE":
       return { ...state, response: "no-response" };
@@ -96,26 +79,6 @@ export const constraintColocationSetCreate: AppReducer<typeof initialState> = (
         response: action.payload.success ? "success" : "fail",
         reports: action.payload.reports,
       };
-
-    case "CONSTRAINT.COLOCATION.SET.CREATE.MOVE.SET": {
-      const sets = state.sets;
-      const i = action.payload.index;
-      if (action.payload.direction === "up") {
-        if (i < 0 || i >= state.sets.length) {
-          return state;
-        }
-        [sets[i], sets[i - 1]] = [sets[i - 1], sets[i]];
-      } else {
-        if (i >= state.sets.length - 1) {
-          return state;
-        }
-        [sets[i], sets[i + 1]] = [sets[i + 1], sets[i]];
-      }
-      return {
-        ...state,
-        sets,
-      };
-    }
 
     case "CONSTRAINT.COLOCATION.SET.CREATE.ERROR":
       return { ...state, response: "communication-error" };
@@ -130,6 +93,6 @@ export const constraintColocationSetCreate: AppReducer<typeof initialState> = (
       return { ...state, showValidationErrors: false };
 
     default:
-      return state;
+      return { ...state, sets: resourceSet(state.sets, action) };
   }
 };

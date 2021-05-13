@@ -1,5 +1,5 @@
 import { ActionPayload } from "app/store";
-import { useClusterTask } from "app/view/share";
+import { useClusterTask, useResourceSets } from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintColocationSetCreate");
@@ -7,6 +7,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    ...useResourceSets("constraintColocationSetCreate"),
 
     areSetsValid:
       (state.sets.length > 1
@@ -34,34 +35,6 @@ export const useTask = () => {
         payload: { index, set },
       });
     },
-
-    createSet: () =>
-      dispatch({
-        type: "CONSTRAINT.COLOCATION.SET.CREATE.CREATE.SET",
-        key: { clusterName },
-      }),
-
-    deleteSet: (index: number) =>
-      dispatch({
-        type: "CONSTRAINT.COLOCATION.SET.CREATE.DELETE.SET",
-        key: { clusterName },
-        payload: {
-          index,
-        },
-      }),
-
-    moveSet: (
-      index: number,
-      direction: ActionPayload["CONSTRAINT.COLOCATION.SET.CREATE.MOVE.SET"]["direction"],
-    ) =>
-      dispatch({
-        type: "CONSTRAINT.COLOCATION.SET.CREATE.MOVE.SET",
-        key: { clusterName },
-        payload: {
-          index,
-          direction,
-        },
-      }),
 
     create: ({ force }: { force: boolean }) =>
       dispatch({

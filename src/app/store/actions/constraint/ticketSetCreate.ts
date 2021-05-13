@@ -27,19 +27,6 @@ export type TicketSetCreateActions = {
     };
   };
 
-  "CONSTRAINT.TICKET.SET.CREATE.CREATE.SET": {
-    type: "CONSTRAINT.TICKET.SET.CREATE.CREATE.SET";
-    key: { clusterName: string };
-  };
-
-  "CONSTRAINT.TICKET.SET.CREATE.DELETE.SET": {
-    type: "CONSTRAINT.TICKET.SET.CREATE.DELETE.SET";
-    key: { clusterName: string };
-    payload: {
-      index: number;
-    };
-  };
-
   "CONSTRAINT.TICKET.SET.CREATE": {
     type: "CONSTRAINT.TICKET.SET.CREATE";
     key: { clusterName: string };
@@ -61,15 +48,6 @@ export type TicketSetCreateActions = {
     payload: {
       reports: LibReport[];
       success: boolean;
-    };
-  };
-
-  "CONSTRAINT.TICKET.SET.CREATE.MOVE.SET": {
-    type: "CONSTRAINT.TICKET.SET.CREATE.MOVE.SET";
-    key: { clusterName: string };
-    payload: {
-      index: number;
-      direction: "up" | "down";
     };
   };
 

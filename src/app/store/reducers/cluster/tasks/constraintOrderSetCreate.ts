@@ -2,6 +2,8 @@ import { LibReport } from "app/store/types";
 import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
 
+import { resourceSetCreateFactory } from "./resourceSet";
+
 type Action = Exclude<
   ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]["action"],
   undefined
@@ -19,10 +21,16 @@ const initialSet: {
   requireAll: true,
 };
 
+const {
+  resourceSet,
+  updateSet,
+  initialState: initialResourceSets,
+} = resourceSetCreateFactory(initialSet);
+
 const initialState: {
   useCustomId: boolean;
   id: string;
-  sets: typeof initialSet[];
+  sets: typeof initialResourceSets;
   showValidationErrors: boolean;
   reports: LibReport[];
   response:
@@ -35,16 +43,16 @@ const initialState: {
   useCustomId: false,
   id: "",
   response: "no-response",
-  sets: [initialSet],
+  sets: initialResourceSets,
   showValidationErrors: false,
   reports: [],
 };
 
-const setForOnlyOne = (set: typeof initialSet) => {
+const onlyOneSettings = {
   // disabled sequential does not make sense for only one set
   // disabled requiereAll does not make sense if sequential is enabled
-  set.sequential = true;
-  set.requireAll = true;
+  sequential: true,
+  requireAll: true,
 };
 
 export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
@@ -60,34 +68,21 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
       };
     }
 
-    case "CONSTRAINT.ORDER.SET.CREATE.CREATE.SET":
-      return {
-        ...state,
-        sets: [...state.sets, initialSet],
-      };
-
-    case "CONSTRAINT.ORDER.SET.CREATE.DELETE.SET": {
-      const sets = state.sets.filter((_set, i) => i !== action.payload.index);
-      if (sets.length === 1) {
-        setForOnlyOne(sets[0]);
-      }
-      return { ...state, sets };
-    }
-
     case "CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET": {
-      const { index, set: setUpdate } = action.payload;
-
-      const set = { ...state.sets[index], ...setUpdate };
+      let contextUpdate = {};
       if (state.sets.length === 1) {
-        setForOnlyOne(set);
-      } else if (set.sequential) {
+        contextUpdate = onlyOneSettings;
+      } else if (action.payload.set.sequential) {
         // disabled requiereAll does not make sense if sequential is enabled
-        set.requireAll = true;
+        contextUpdate = { requireAll: true };
       }
 
       return {
         ...state,
-        sets: state.sets.map((s, i) => (i !== index ? s : set)),
+        sets: updateSet(state.sets, action.payload.index, {
+          ...action.payload.set,
+          ...contextUpdate,
+        }),
         showValidationErrors: false,
       };
     }
@@ -102,26 +97,6 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
         reports: action.payload.reports,
       };
 
-    case "CONSTRAINT.ORDER.SET.CREATE.MOVE.SET": {
-      const sets = state.sets;
-      const i = action.payload.index;
-      if (action.payload.direction === "up") {
-        if (i < 0 || i >= state.sets.length) {
-          return state;
-        }
-        [sets[i], sets[i - 1]] = [sets[i - 1], sets[i]];
-      } else {
-        if (i >= state.sets.length - 1) {
-          return state;
-        }
-        [sets[i], sets[i + 1]] = [sets[i + 1], sets[i]];
-      }
-      return {
-        ...state,
-        sets,
-      };
-    }
-
     case "CONSTRAINT.ORDER.SET.CREATE.ERROR":
       return { ...state, response: "communication-error" };
 
@@ -134,7 +109,13 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
     case "CLUSTER.TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
 
-    default:
-      return state;
+    default: {
+      let sets = resourceSet(state.sets, action);
+      if (sets.length === 1) {
+        sets = [{ ...sets[0], ...onlyOneSettings }];
+      }
+
+      return { ...state, sets };
+    }
   }
 };
