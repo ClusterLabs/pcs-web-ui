@@ -9,7 +9,12 @@ export const Sbd: React.FC = () => {
   const {
     isSbdEnabled,
     updateState,
-    state: { sbdWatchdog, sbdDevices, sbdNoWatchdogValidation, reports },
+    state: {
+      sbdWatchdog,
+      sbdDevices,
+      sbdNoWatchdogValidation,
+      libCall: { reports },
+    },
   } = useTask();
   const changeWatchdog = (value: string) => updateState({ sbdWatchdog: value });
   const changeDevice = (index: number, value: string) =>

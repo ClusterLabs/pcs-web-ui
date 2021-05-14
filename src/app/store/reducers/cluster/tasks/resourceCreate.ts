@@ -1,21 +1,22 @@
-import { LibReport } from "app/store/types";
 import { AppReducer } from "app/store/reducers/appReducer";
+
+import { libCallFactory } from "./libCall";
 
 type InstanceAttrName = string;
 type InstanceAttrValue = string;
 type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
 
+const {
+  libCall,
+  initialState: initalLibCall,
+  update: updateLibCall,
+} = libCallFactory();
+
 const initialState: {
   agentName: string;
   resourceName: string;
   instanceAttrs: InstanceAttrs;
-  response:
-    | "no-response"
-    | "success"
-    | "forceable-fail"
-    | "fail"
-    | "communication-error";
-  reports: LibReport[];
+  libCall: typeof initalLibCall;
   showValidationErrors: boolean;
   clone: boolean;
   promotable: boolean;
@@ -25,9 +26,8 @@ const initialState: {
 } = {
   resourceName: "",
   agentName: "",
-  response: "no-response",
+  libCall: initalLibCall,
   instanceAttrs: {},
-  reports: [],
   showValidationErrors: false,
   clone: false,
   promotable: false,
@@ -61,21 +61,10 @@ export const resourceCreate: AppReducer<typeof initialState> = (
       };
     }
     case "RESOURCE.CREATE":
-      return { ...state, response: "no-response" };
-    case "RESOURCE.CREATE.SUCCESS":
       return {
         ...state,
-        response: "success",
-        reports: action.payload.reports,
+        libCall: updateLibCall(state.libCall, { response: "no-response" }),
       };
-    case "RESOURCE.CREATE.FAIL":
-      return {
-        ...state,
-        response: "fail",
-        reports: action.payload.reports,
-      };
-    case "RESOURCE.CREATE.ERROR":
-      return { ...state, response: "communication-error" };
     case "RESOURCE.CREATE.CLOSE":
       return initialState;
     case "CLUSTER.TASK.VALIDATION.SHOW":
@@ -83,6 +72,6 @@ export const resourceCreate: AppReducer<typeof initialState> = (
     case "CLUSTER.TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
     default:
-      return state;
+      return { ...state, libCall: libCall(state.libCall, action) };
   }
 };

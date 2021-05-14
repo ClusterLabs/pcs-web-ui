@@ -1,8 +1,8 @@
-import { LibReport } from "app/store/types";
 import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
 
 import { resourceSetCreateFactory } from "./resourceSet";
+import { libCallFactory } from "./libCall";
 
 type Action = Exclude<
   ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]["action"],
@@ -22,6 +22,12 @@ const initialSet: {
 };
 
 const {
+  libCall,
+  initialState: initalLibCall,
+  update: updateLibCall,
+} = libCallFactory();
+
+const {
   resourceSet,
   updateSet,
   initialState: initialResourceSets,
@@ -32,20 +38,13 @@ const initialState: {
   id: string;
   sets: typeof initialResourceSets;
   showValidationErrors: boolean;
-  reports: LibReport[];
-  response:
-    | "no-response"
-    | "success"
-    | "forceable-fail"
-    | "fail"
-    | "communication-error";
+  libCall: typeof initalLibCall;
 } = {
   useCustomId: false,
   id: "",
-  response: "no-response",
   sets: initialResourceSets,
   showValidationErrors: false,
-  reports: [],
+  libCall: initalLibCall,
 };
 
 const onlyOneSettings = {
@@ -88,17 +87,10 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
     }
 
     case "CONSTRAINT.ORDER.SET.CREATE":
-      return { ...state, response: "no-response" };
-
-    case "CONSTRAINT.ORDER.SET.CREATE.OK":
       return {
         ...state,
-        response: action.payload.success ? "success" : "fail",
-        reports: action.payload.reports,
+        libCall: updateLibCall(state.libCall, { response: "no-response" }),
       };
-
-    case "CONSTRAINT.ORDER.SET.CREATE.ERROR":
-      return { ...state, response: "communication-error" };
 
     case "CONSTRAINT.ORDER.SET.CREATE.CLOSE":
       return initialState;
@@ -115,7 +107,7 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
         sets = [{ ...sets[0], ...onlyOneSettings }];
       }
 
-      return { ...state, sets };
+      return { ...state, sets, libCall: libCall(state.libCall, action) };
     }
   }
 };

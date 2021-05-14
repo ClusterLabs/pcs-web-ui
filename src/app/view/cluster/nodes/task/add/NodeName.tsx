@@ -7,7 +7,11 @@ import { useTask } from "./useTask";
 
 export const NodeName: React.FC = () => {
   const {
-    state: { nodeName, showValidationErrors, reports },
+    state: {
+      libCall: { reports },
+      nodeName,
+      showValidationErrors,
+    },
     updateNodeName,
   } = useTask();
 

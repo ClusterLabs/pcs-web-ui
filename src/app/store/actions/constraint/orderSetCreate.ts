@@ -1,5 +1,3 @@
-import { LibReport } from "app/store/types";
-
 import { Action } from "./types";
 
 type OptionalAction = Action | "no limitation";
@@ -42,20 +40,6 @@ export type OrderSetCreateActions = {
       }[];
       force: boolean;
     };
-  };
-
-  "CONSTRAINT.ORDER.SET.CREATE.OK": {
-    type: "CONSTRAINT.ORDER.SET.CREATE.OK";
-    key: { clusterName: string };
-    payload: {
-      reports: LibReport[];
-      success: boolean;
-    };
-  };
-
-  "CONSTRAINT.ORDER.SET.CREATE.ERROR": {
-    type: "CONSTRAINT.ORDER.SET.CREATE.ERROR";
-    key: { clusterName: string };
   };
 
   "CONSTRAINT.ORDER.SET.CREATE.CLOSE": {

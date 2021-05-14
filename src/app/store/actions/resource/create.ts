@@ -1,5 +1,3 @@
-import { LibReport } from "app/store/types";
-
 export type ResourceCreateActions = {
   "RESOURCE.CREATE": {
     type: "RESOURCE.CREATE";
@@ -10,27 +8,6 @@ export type ResourceCreateActions = {
       instanceAttrs: Record<string, string>;
       disabled: boolean;
       force: boolean;
-    };
-  };
-
-  "RESOURCE.CREATE.SUCCESS": {
-    type: "RESOURCE.CREATE.SUCCESS";
-    key: { clusterName: string };
-    payload: {
-      reports: LibReport[];
-    };
-  };
-
-  "RESOURCE.CREATE.ERROR": {
-    type: "RESOURCE.CREATE.ERROR";
-    key: { clusterName: string };
-  };
-
-  "RESOURCE.CREATE.FAIL": {
-    type: "RESOURCE.CREATE.FAIL";
-    key: { clusterName: string };
-    payload: {
-      reports: LibReport[];
     };
   };
 

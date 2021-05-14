@@ -4,14 +4,14 @@ import { Action, ActionMap } from "app/store/actions";
 import { api, lib, processError, put, race, take } from "./common";
 
 export function* resourceCreateSaga({
-  key,
+  key: { clusterName },
   payload: { agentName, resourceName, instanceAttrs, disabled, force },
 }: ActionMap["RESOURCE.CREATE"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof libCallCluster> } = yield race({
     result: api.authSafe(libCallCluster, {
-      clusterName: key.clusterName,
+      clusterName,
       command: {
         name: "resource-create",
         payload: {
@@ -36,9 +36,10 @@ export function* resourceCreateSaga({
     return;
   }
 
+  const key = { clusterName, task: "resourceCreate" };
   const taskLabel = `create resource "${resourceName}"`;
   const errorAction: Action = {
-    type: "RESOURCE.CREATE.ERROR",
+    type: "LIB.CALL.CLUSTER.TASK.ERROR",
     key,
   };
 
@@ -52,12 +53,12 @@ export function* resourceCreateSaga({
 
   yield lib.clusterResponseSwitch(key.clusterName, taskLabel, result.payload, {
     successAction: {
-      type: "RESOURCE.CREATE.SUCCESS",
+      type: "LIB.CALL.CLUSTER.TASK.OK",
       key,
       payload: { reports: result.payload.report_list },
     },
     errorAction: {
-      type: "RESOURCE.CREATE.FAIL",
+      type: "LIB.CALL.CLUSTER.TASK.FAIL",
       key,
       payload: { reports: result.payload.report_list },
     },

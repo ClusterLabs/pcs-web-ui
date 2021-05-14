@@ -6,13 +6,13 @@ import { api, lib, processError, put } from "../common";
 type TrueFalse = "true" | "false";
 
 export function* orderSetCreate({
-  key,
+  key: { clusterName },
   payload: { id, useCustomId, force, sets },
 }: ActionMap["CONSTRAINT.ORDER.SET.CREATE"]) {
   const result: api.ResultOf<typeof libCallCluster> = yield api.authSafe(
     libCallCluster,
     {
-      clusterName: key.clusterName,
+      clusterName,
       command: {
         name: "constraint-order-create-with-set",
         payload: {
@@ -34,9 +34,10 @@ export function* orderSetCreate({
     },
   );
 
+  const key = { clusterName, task: "constraintOrderSetCreate" };
   const taskLabel = "create constraint order set";
   const errorAction: Action = {
-    type: "CONSTRAINT.ORDER.SET.CREATE.ERROR",
+    type: "LIB.CALL.CLUSTER.TASK.ERROR",
     key,
   };
   if (result.type !== "OK") {
@@ -49,19 +50,17 @@ export function* orderSetCreate({
 
   yield lib.clusterResponseSwitch(key.clusterName, taskLabel, result.payload, {
     successAction: {
-      type: "CONSTRAINT.ORDER.SET.CREATE.OK",
+      type: "LIB.CALL.CLUSTER.TASK.OK",
       key,
       payload: {
         reports: result.payload.report_list,
-        success: true,
       },
     },
     errorAction: {
-      type: "CONSTRAINT.ORDER.SET.CREATE.OK",
+      type: "LIB.CALL.CLUSTER.TASK.FAIL",
       key,
       payload: {
         reports: result.payload.report_list,
-        success: false,
       },
     },
     communicationErrorAction: errorAction,

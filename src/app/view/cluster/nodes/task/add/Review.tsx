@@ -14,7 +14,12 @@ export const Review: React.FC = () => {
     isSbdEnabled,
     filledSbdDevices,
     filledNodeAddresses,
-    state: { nodeName, reports, sbdWatchdog, sbdNoWatchdogValidation },
+    state: {
+      nodeName,
+      sbdWatchdog,
+      sbdNoWatchdogValidation,
+      libCall: { reports },
+    },
   } = useTask();
 
   return (

@@ -15,7 +15,12 @@ export const Options: React.FC = () => {
   const {
     updateState,
     isCustomIdValid,
-    state: { id, reports, useCustomId, showValidationErrors },
+    state: {
+      id,
+      libCall: { reports },
+      useCustomId,
+      showValidationErrors,
+    },
   } = useTask();
 
   const customIdValid =

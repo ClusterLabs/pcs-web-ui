@@ -15,7 +15,7 @@ export const Review: React.FC = () => {
       agentName,
       resourceName,
       instanceAttrs,
-      reports,
+      libCall: { reports },
       clone,
       promotable,
       useGroup,

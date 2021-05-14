@@ -7,7 +7,10 @@ import { useTask } from "./useTask";
 
 export const Fail: React.FC = () => {
   const {
-    state: { nodeName, reports },
+    state: {
+      nodeName,
+      libCall: { reports },
+    },
     wizard: { goToStepByName },
     close,
   } = useTask();

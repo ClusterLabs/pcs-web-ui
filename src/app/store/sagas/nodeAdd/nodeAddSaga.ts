@@ -4,7 +4,7 @@ import { Action, ActionMap } from "app/store/actions";
 import { api, lib, processError, put, race, take } from "../common";
 
 export function* nodeAddSaga({
-  key,
+  key: { clusterName },
   payload: {
     nodeName,
     nodeAddresses,
@@ -17,7 +17,7 @@ export function* nodeAddSaga({
     result,
   }: { result: api.ResultOf<typeof libCallCluster> } = yield race({
     result: api.authSafe(libCallCluster, {
-      clusterName: key.clusterName,
+      clusterName,
       command: {
         name: "cluster-add-nodes",
         payload: {
@@ -41,9 +41,10 @@ export function* nodeAddSaga({
     return;
   }
 
+  const key = { clusterName, task: "nodeAdd" };
   const taskLabel = `add node ${nodeName}`;
   const errorAction: Action = {
-    type: "NODE.ADD.ERROR",
+    type: "LIB.CALL.CLUSTER.TASK.ERROR",
     key,
   };
   if (result.type !== "OK") {
@@ -56,12 +57,12 @@ export function* nodeAddSaga({
 
   yield lib.clusterResponseSwitch(key.clusterName, taskLabel, result.payload, {
     successAction: {
-      type: "NODE.ADD.OK",
+      type: "LIB.CALL.CLUSTER.TASK.OK",
       key,
       payload: { reports: result.payload.report_list },
     },
     errorAction: {
-      type: "NODE.ADD.FAIL",
+      type: "LIB.CALL.CLUSTER.TASK.FAIL",
       key,
       payload: { reports: result.payload.report_list },
     },

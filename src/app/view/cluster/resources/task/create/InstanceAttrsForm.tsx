@@ -30,7 +30,12 @@ const useFilterState = () =>
 
 export const InstanceAttrsForm: React.FC = () => {
   const {
-    state: { agentName, instanceAttrs, showValidationErrors, reports },
+    state: {
+      agentName,
+      instanceAttrs,
+      showValidationErrors,
+      libCall: { reports },
+    },
     clusterName,
     updateState,
   } = useTask();

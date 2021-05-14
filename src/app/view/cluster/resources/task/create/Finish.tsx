@@ -13,7 +13,10 @@ export const Finish: React.FC = () => {
   const {
     close,
     create,
-    state: { reports, response, resourceName },
+    state: {
+      resourceName,
+      libCall: { reports, response },
+    },
     wizard: { goToStepByName },
   } = useTask();
   switch (response) {

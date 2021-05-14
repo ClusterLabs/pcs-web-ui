@@ -1,5 +1,12 @@
-import { LibReport } from "app/store/types";
 import { AppReducer } from "app/store/reducers/appReducer";
+
+import { libCallFactory } from "./libCall";
+
+const {
+  libCall,
+  initialState: initalLibCall,
+  update: updateLibCall,
+} = libCallFactory();
 
 const initialState: {
   nodeName: string;
@@ -25,13 +32,7 @@ const initialState: {
     | "send-known-hosts-fail"
     | "success";
   nodeCheckMessage: string;
-  response:
-    | "no-response"
-    | "success"
-    | "forceable-fail"
-    | "fail"
-    | "communication-error";
-  reports: LibReport[];
+  libCall: typeof initalLibCall;
   showValidationErrors: boolean;
   sbdWatchdog: string;
   sbdDevices: [string, string, string];
@@ -51,8 +52,7 @@ const initialState: {
   },
   nodeCheck: "not-started",
   nodeCheckMessage: "",
-  response: "no-response",
-  reports: [],
+  libCall: initalLibCall,
   showValidationErrors: false,
   sbdWatchdog: "",
   sbdDevices: ["", "", ""],
@@ -71,7 +71,7 @@ export const nodeAdd: AppReducer<typeof initialState> = (
         nodeName: action.payload.nodeName,
         nodeCheck: "not-started",
         nodeCheckMessage: "",
-        response: "no-response",
+        libCall: updateLibCall(state.libCall, { response: "no-response" }),
         authProcessId: null,
       };
 
@@ -139,17 +139,11 @@ export const nodeAdd: AppReducer<typeof initialState> = (
       };
     case "NODE.ADD.CLOSE":
       return initialState;
-    case "NODE.ADD.OK":
-      return { ...state, response: "success", reports: action.payload.reports };
-    case "NODE.ADD.FAIL":
-      return { ...state, response: "fail", reports: action.payload.reports };
-    case "NODE.ADD.ERROR":
-      return { ...state, response: "communication-error" };
     case "CLUSTER.TASK.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
     case "CLUSTER.TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
     default:
-      return state;
+      return { ...state, libCall: libCall(state.libCall, action) };
   }
 };

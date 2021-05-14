@@ -12,7 +12,12 @@ export const PrepareNode: React.FC = () => {
     checkCanAddNode,
     checkAuth,
     sendKnownHosts,
-    state: { nodeCheck, nodeCheckMessage, reports, authProcessId },
+    state: {
+      nodeCheck,
+      nodeCheckMessage,
+      authProcessId,
+      libCall: { reports },
+    },
   } = useTask();
   useNodeCheck();
   return (

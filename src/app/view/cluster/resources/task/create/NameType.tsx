@@ -8,7 +8,12 @@ import { NameTypeTypeSelect } from "./NameTypeTypeSelect";
 
 export const NameType: React.FC = () => {
   const {
-    state: { agentName, resourceName, showValidationErrors, reports },
+    state: {
+      agentName,
+      resourceName,
+      showValidationErrors,
+      libCall: { reports },
+    },
     clusterName,
     dispatch,
     updateState,

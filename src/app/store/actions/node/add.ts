@@ -1,5 +1,3 @@
-import { LibReport } from "app/store/types";
-
 export type NodeAddActions = {
   "NODE.ADD": {
     type: "NODE.ADD";
@@ -14,26 +12,6 @@ export type NodeAddActions = {
   };
   "NODE.ADD.CLOSE": {
     type: "NODE.ADD.CLOSE";
-    key: { clusterName: string };
-  };
-
-  "NODE.ADD.OK": {
-    type: "NODE.ADD.OK";
-    key: { clusterName: string };
-    payload: {
-      reports: LibReport[];
-    };
-  };
-
-  "NODE.ADD.FAIL": {
-    type: "NODE.ADD.FAIL";
-    key: { clusterName: string };
-    payload: {
-      reports: LibReport[];
-    };
-  };
-  "NODE.ADD.ERROR": {
-    type: "NODE.ADD.ERROR";
     key: { clusterName: string };
   };
 

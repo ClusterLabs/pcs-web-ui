@@ -8,7 +8,13 @@ import { useTask } from "./useTask";
 
 export const Settings: React.FC = () => {
   const {
-    state: { reports, clone, promotable, disabled, useGroup },
+    state: {
+      libCall: { reports },
+      clone,
+      promotable,
+      disabled,
+      useGroup,
+    },
     updateState,
   } = useTask();
 
