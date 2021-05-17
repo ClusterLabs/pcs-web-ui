@@ -55,7 +55,6 @@ function* rootSaga() {
     takeEvery("NODE.ADD.CHECK_CAN_ADD", nodeAdd.checkCanAddNodeSaga),
     takeEvery("NODE.ADD.CHECK_AUTH", nodeAdd.checkAuthSaga),
     takeEvery("NODE.ADD.SEND_KNOWN_HOSTS", nodeAdd.sendKnownHostsSaga),
-    takeEvery("NODE.ADD", nodeAdd.nodeAddSaga),
     takeEvery("NODE.AUTH", nodeAuth.nodeAuthSaga),
     takeEvery("FENCE_AGENT.LOAD", fenceAgent.load),
     takeEvery("RESOURCE_AGENT.LOAD", resourceAgent.load),

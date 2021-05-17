@@ -1,15 +1,4 @@
 export type NodeAddActions = {
-  "NODE.ADD": {
-    type: "NODE.ADD";
-    key: { clusterName: string };
-    payload: {
-      nodeName: string;
-      nodeAddresses: string[];
-      sbdWatchdog: string;
-      sbdNoWatchdogValidation: boolean;
-      sbdDevices: string[];
-    };
-  };
   "NODE.ADD.CLOSE": {
     type: "NODE.ADD.CLOSE";
     key: { clusterName: string };

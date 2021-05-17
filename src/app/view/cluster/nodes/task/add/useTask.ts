@@ -49,6 +49,10 @@ export const useTask = () => {
     close: () => {
       task.close();
       dispatch({
+        type: "LIB.CALL.CLUSTER.TASK.CANCEL",
+        key: { clusterName, task: "nodeAdd" },
+      });
+      dispatch({
         type: "NODE.ADD.CLOSE",
         key: { clusterName },
       });
@@ -81,14 +85,30 @@ export const useTask = () => {
 
     nodeAdd: () =>
       dispatch({
-        type: "NODE.ADD",
-        key: { clusterName },
+        type: "LIB.CALL.CLUSTER.TASK",
+        key: { clusterName, task: "nodeAdd" },
         payload: {
-          nodeName: state.nodeName,
-          sbdWatchdog: state.sbdWatchdog,
-          sbdDevices: filledSbdDevices,
-          sbdNoWatchdogValidation: state.sbdNoWatchdogValidation,
-          nodeAddresses: filledNodeAddresses,
+          taskLabel: `add node ${state.nodeName}`,
+          call: {
+            name: "cluster-add-nodes",
+            payload: {
+              nodes: [
+                {
+                  name: state.nodeName,
+                  ...(filledNodeAddresses.length > 0
+                    ? { addrs: filledNodeAddresses }
+                    : {}),
+                  ...(filledSbdDevices.length > 0
+                    ? { devices: filledSbdDevices }
+                    : {}),
+                  ...(state.sbdWatchdog.length > 0
+                    ? { watchdog: state.sbdWatchdog }
+                    : {}),
+                },
+              ],
+              no_watchdog_validation: state.sbdNoWatchdogValidation,
+            },
+          },
         },
       }),
 
