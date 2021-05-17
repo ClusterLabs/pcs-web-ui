@@ -15,13 +15,18 @@ export const Options: React.FC = () => {
   const {
     updateState,
     isCustomIdValid,
-    state: { id, reports, useCustomId, showValidationErrors, score },
+    state: {
+      id,
+      useCustomId,
+      showValidationErrors,
+      score,
+      libCall: { reports },
+    },
   } = useTask();
 
   const customIdValid =
     showValidationErrors && !isCustomIdValid ? "error" : "default";
 
-  console.log(customIdValid);
   const useCustomIdId = "use-custom-id";
   return (
     <TaskLibStep title="Colocation constraint options" reports={reports}>

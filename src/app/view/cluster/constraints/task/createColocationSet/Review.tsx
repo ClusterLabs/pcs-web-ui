@@ -12,7 +12,12 @@ import { useTask } from "./useTask";
 
 export const Review: React.FC = () => {
   const {
-    state: { id, useCustomId, reports, sets },
+    state: {
+      id,
+      useCustomId,
+      sets,
+      libCall: { reports },
+    },
   } = useTask();
 
   return (

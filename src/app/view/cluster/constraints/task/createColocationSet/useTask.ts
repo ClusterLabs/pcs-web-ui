@@ -1,6 +1,8 @@
 import { ActionPayload } from "app/store";
 import { useClusterTask, useResourceSets } from "app/view/share";
 
+type TrueFalse = "true" | "false";
+
 export const useTask = () => {
   const task = useClusterTask("constraintColocationSetCreate");
   const { clusterName, dispatch, state, close } = task;
@@ -38,19 +40,37 @@ export const useTask = () => {
 
     create: ({ force }: { force: boolean }) =>
       dispatch({
-        type: "CONSTRAINT.COLOCATION.SET.CREATE",
-        key: { clusterName },
+        type: "LIB.CALL.CLUSTER.TASK",
+        key: { clusterName, task: "constraintColocationSetCreate" },
         payload: {
-          useCustomId: state.useCustomId,
-          id: state.id,
-          score: state.score,
-          sets: state.sets,
-          force,
+          taskLabel: "create constraint colocation set",
+          call: {
+            name: "constraint-colocation-create-with-set",
+            payload: {
+              constraint_options: {
+                id: state.useCustomId ? state.id : undefined,
+                score: state.score,
+              },
+              resource_set_list: state.sets.map(set => ({
+                ids: set.resources,
+                options: {
+                  ...(set.role !== "no limitation" ? { role: set.role } : {}),
+                  sequential: (set.sequential ? "true" : "false") as TrueFalse,
+                },
+              })),
+              resource_in_clone_alowed: force,
+              duplication_alowed: force,
+            },
+          },
         },
       }),
 
     close: () => {
       close();
+      dispatch({
+        type: "LIB.CALL.CLUSTER.TASK.CANCEL",
+        key: { clusterName, task: "constraintOrderSetCreate" },
+      });
       dispatch({
         type: "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE",
         key: { clusterName },

@@ -1,5 +1,3 @@
-import { LibReport } from "app/store/types";
-
 import { Role } from "./types";
 
 type OptionalRole = "no limitation" | Role;
@@ -26,36 +24,6 @@ export type ColocationSetCreateActions = {
         role?: OptionalRole;
       };
     };
-  };
-
-  "CONSTRAINT.COLOCATION.SET.CREATE": {
-    type: "CONSTRAINT.COLOCATION.SET.CREATE";
-    key: { clusterName: string };
-    payload: {
-      id: string;
-      score: string;
-      useCustomId: boolean;
-      sets: {
-        resources: string[];
-        role: OptionalRole;
-        sequential: boolean;
-      }[];
-      force: boolean;
-    };
-  };
-
-  "CONSTRAINT.COLOCATION.SET.CREATE.OK": {
-    type: "CONSTRAINT.COLOCATION.SET.CREATE.OK";
-    key: { clusterName: string };
-    payload: {
-      reports: LibReport[];
-      success: boolean;
-    };
-  };
-
-  "CONSTRAINT.COLOCATION.SET.CREATE.ERROR": {
-    type: "CONSTRAINT.COLOCATION.SET.CREATE.ERROR";
-    key: { clusterName: string };
   };
 
   "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE": {

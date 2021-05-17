@@ -43,10 +43,6 @@ function* rootSaga() {
     takeEvery("CLUSTER.FIX_AUTH.START", fixAuth.fixAuth),
     takeEvery("CLUSTER.FIX_AUTH.AUTH_DONE", fixAuth.fixAuthDistribute),
     takeEvery("CONSTRAINT.LOCATION.CREATE", constraints.locationCreate),
-    takeEvery(
-      "CONSTRAINT.COLOCATION.SET.CREATE",
-      constraints.colocationSetCreate,
-    ),
     takeEvery("CONSTRAINT.ORDER.CREATE", constraints.orderCreate),
     takeEvery("NODE.START", nodeStartStop.nodeStart),
     takeEvery("NODE.STOP", nodeStartStop.nodeStop),
