@@ -20,6 +20,11 @@ export type LibActions = {
     };
   };
 
+  "LIB.CALL.CLUSTER.TASK.CANCEL": {
+    type: "LIB.CALL.CLUSTER.TASK.CANCEL";
+    key: { clusterName: string; task: string };
+  };
+
   "LIB.CALL.CLUSTER.TASK.OK": {
     type: "LIB.CALL.CLUSTER.TASK.OK";
     key: { clusterName: string; task: string };

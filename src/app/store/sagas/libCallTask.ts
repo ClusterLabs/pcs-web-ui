@@ -3,32 +3,18 @@ import { Action, ActionMap } from "app/store/actions";
 
 import { api, lib, processError, put, race, take } from "./common";
 
-export function* resourceCreateSaga({
-  key: { clusterName },
-  payload: { agentName, resourceName, instanceAttrs, disabled, force },
-}: ActionMap["RESOURCE.CREATE"]) {
+export function* callLib({
+  key,
+  payload: { call: command, taskLabel },
+}: ActionMap["LIB.CALL.CLUSTER.TASK"]) {
   const {
     result,
   }: { result: api.ResultOf<typeof libCallCluster> } = yield race({
     result: api.authSafe(libCallCluster, {
-      clusterName,
-      command: {
-        name: "resource-create",
-        payload: {
-          resource_id: resourceName,
-          resource_agent_name: agentName,
-          instance_attributes: instanceAttrs,
-          ensure_disabled: disabled,
-          operation_list: [],
-          meta_attributes: {},
-          allow_absent_agent: force,
-          allow_invalid_operation: force,
-          allow_invalid_instance_attributes: force,
-          allow_not_suitable_command: force,
-        },
-      },
+      clusterName: key.clusterName,
+      command,
     }),
-    cancel: take("RESOURCE.CREATE.CLOSE"),
+    cancel: take("LIB.CALL.CLUSTER.TASK.CANCEL"),
   });
 
   if (!result) {
@@ -36,8 +22,6 @@ export function* resourceCreateSaga({
     return;
   }
 
-  const key = { clusterName, task: "resourceCreate" };
-  const taskLabel = `create resource "${resourceName}"`;
   const errorAction: Action = {
     type: "LIB.CALL.CLUSTER.TASK.ERROR",
     key,

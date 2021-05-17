@@ -6,11 +6,7 @@ type InstanceAttrName = string;
 type InstanceAttrValue = string;
 type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
 
-const {
-  libCall,
-  initialState: initalLibCall,
-  update: updateLibCall,
-} = libCallFactory();
+const { libCall, initialState: initalLibCall } = libCallFactory();
 
 const initialState: {
   agentName: string;
@@ -60,11 +56,6 @@ export const resourceCreate: AppReducer<typeof initialState> = (
         ),
       };
     }
-    case "RESOURCE.CREATE":
-      return {
-        ...state,
-        libCall: updateLibCall(state.libCall, { response: "no-response" }),
-      };
     case "RESOURCE.CREATE.CLOSE":
       return initialState;
     case "CLUSTER.TASK.VALIDATION.SHOW":

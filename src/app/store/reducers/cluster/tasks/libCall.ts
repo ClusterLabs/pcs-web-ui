@@ -20,6 +20,11 @@ export const libCallFactory = () => {
     action,
   ) => {
     switch (action.type) {
+      case "LIB.CALL.CLUSTER.TASK":
+        return {
+          ...state,
+          response: "no-response",
+        };
       case "LIB.CALL.CLUSTER.TASK.OK":
         return {
           ...state,

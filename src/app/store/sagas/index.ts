@@ -8,7 +8,6 @@ import * as dataLoad from "./common/dataLoad";
 import * as login from "./login";
 import * as notifications from "./common/notifications";
 import * as resourceUpdate from "./resourceUpdate";
-import * as resourceCreate from "./resourceCreate";
 import * as resourceAgent from "./resourceAgent";
 import * as fenceAgent from "./fenceAgent";
 import * as username from "./username";
@@ -17,6 +16,7 @@ import * as resourceAgentList from "./resourceAgentList";
 import * as resourceRefreshCleanup from "./resourceRefreshCleanup";
 import * as resourceDelete from "./resourceDelete";
 import * as libAction from "./libAction";
+import * as libCallTask from "./libCallTask";
 import * as nodeStartStop from "./nodeStartStop";
 import * as nodeAdd from "./nodeAdd";
 import * as resourceClone from "./resourceClone";
@@ -36,6 +36,7 @@ function* rootSaga() {
     takeEvery("LOGIN.ENTER_CREDENTIALS", login.loginSaga),
     takeEvery("NOTIFICATION.CREATE", notifications.limitNotificationLife),
     takeEvery("LIB.CALL.CLUSTER", libAction.callLib),
+    takeEvery("LIB.CALL.CLUSTER.TASK", libCallTask.callLib),
     takeEvery("CLUSTER.PROPERTIES.LOAD", clusterProperties.load),
     takeEvery("CLUSTER.ADD.CHECK_AUTH", addExistingCluster.checkAuthentication),
     takeEvery("CLUSTER.ADD", addExistingCluster.addCluster),
@@ -57,7 +58,6 @@ function* rootSaga() {
     takeEvery("NODE.ADD", nodeAdd.nodeAddSaga),
     takeEvery("NODE.AUTH", nodeAuth.nodeAuthSaga),
     takeEvery("FENCE_AGENT.LOAD", fenceAgent.load),
-    takeEvery("RESOURCE.CREATE", resourceCreate.resourceCreateSaga),
     takeEvery("RESOURCE_AGENT.LOAD", resourceAgent.load),
     takeEvery("RESOURCE_AGENT.ENSURE", resourceAgent.ensure),
     takeEvery("RESOURCE_AGENT.LIST.LOAD", resourceAgentList.load),

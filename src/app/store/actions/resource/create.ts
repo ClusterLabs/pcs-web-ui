@@ -1,16 +1,4 @@
 export type ResourceCreateActions = {
-  "RESOURCE.CREATE": {
-    type: "RESOURCE.CREATE";
-    key: { clusterName: string };
-    payload: {
-      resourceName: string;
-      agentName: string;
-      instanceAttrs: Record<string, string>;
-      disabled: boolean;
-      force: boolean;
-    };
-  };
-
   "RESOURCE.CREATE.UPDATE": {
     type: "RESOURCE.CREATE.UPDATE";
     key: { clusterName: string };
