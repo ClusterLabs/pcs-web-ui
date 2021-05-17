@@ -1,5 +1,6 @@
 import { ActionPayload } from "app/store";
 import { useClusterTask, useResourceSets } from "app/view/share";
+type TrueFalse = "true" | "false";
 
 export const useTask = () => {
   const task = useClusterTask("constraintOrderSetCreate");
@@ -38,13 +39,32 @@ export const useTask = () => {
 
     create: ({ force }: { force: boolean }) =>
       dispatch({
-        type: "CONSTRAINT.ORDER.SET.CREATE",
-        key: { clusterName },
+        type: "LIB.CALL.CLUSTER.TASK",
+        key: { clusterName, task: "constraintOrderSetCreate" },
         payload: {
-          useCustomId: state.useCustomId,
-          id: state.id,
-          sets: state.sets,
-          force,
+          taskLabel: "create constraint order set",
+          call: {
+            name: "constraint-order-create-with-set",
+            payload: {
+              constraint_options: {
+                id: state.useCustomId ? state.id : undefined,
+              },
+              resource_set_list: state.sets.map(set => ({
+                ids: set.resources,
+                options: {
+                  ...(set.action !== "no limitation"
+                    ? { action: set.action }
+                    : {}),
+                  sequential: (set.sequential ? "true" : "false") as TrueFalse,
+                  "require-all": (set.requireAll
+                    ? "true"
+                    : "false") as TrueFalse,
+                },
+              })),
+              resource_in_clone_alowed: force,
+              duplication_alowed: force,
+            },
+          },
         },
       }),
 

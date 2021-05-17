@@ -21,11 +21,7 @@ const initialSet: {
   requireAll: true,
 };
 
-const {
-  libCall,
-  initialState: initalLibCall,
-  update: updateLibCall,
-} = libCallFactory();
+const { libCall, initialState: initalLibCall } = libCallFactory();
 
 const {
   resourceSet,
@@ -85,12 +81,6 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
         showValidationErrors: false,
       };
     }
-
-    case "CONSTRAINT.ORDER.SET.CREATE":
-      return {
-        ...state,
-        libCall: updateLibCall(state.libCall, { response: "no-response" }),
-      };
 
     case "CONSTRAINT.ORDER.SET.CREATE.CLOSE":
       return initialState;

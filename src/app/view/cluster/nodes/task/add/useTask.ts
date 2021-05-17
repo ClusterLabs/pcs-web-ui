@@ -65,14 +65,19 @@ export const useTask = () => {
         payload,
       }),
 
-    updateNodeName: (nodeName: string) =>
+    updateNodeName: (nodeName: string) => {
+      dispatch({
+        type: "LIB.CALL.CLUSTER.TASK.CANCEL",
+        key: { clusterName, task: "nodeAdd" },
+      });
       dispatch({
         type: "NODE.ADD.UPDATE_NODE_NAME",
         key: { clusterName },
         payload: {
           nodeName,
         },
-      }),
+      });
+    },
 
     checkAuth: () =>
       dispatch({

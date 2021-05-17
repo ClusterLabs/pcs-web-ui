@@ -40,13 +40,5 @@ export const libCallFactory = () => {
     }
   };
 
-  const update = (
-    state: typeof initialState,
-    stateUpdate: Partial<typeof initialState>,
-  ) => ({
-    ...state,
-    ...stateUpdate,
-  });
-
-  return { libCall, initialState, update };
+  return { libCall, initialState };
 };

@@ -2,11 +2,7 @@ import { AppReducer } from "app/store/reducers/appReducer";
 
 import { libCallFactory } from "./libCall";
 
-const {
-  libCall,
-  initialState: initalLibCall,
-  update: updateLibCall,
-} = libCallFactory();
+const { libCall, initialState: initalLibCall } = libCallFactory();
 
 const initialState: {
   nodeName: string;
@@ -71,7 +67,6 @@ export const nodeAdd: AppReducer<typeof initialState> = (
         nodeName: action.payload.nodeName,
         nodeCheck: "not-started",
         nodeCheckMessage: "",
-        libCall: updateLibCall(state.libCall, { response: "no-response" }),
         authProcessId: null,
       };
 

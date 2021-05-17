@@ -26,22 +26,6 @@ export type OrderSetCreateActions = {
     };
   };
 
-  "CONSTRAINT.ORDER.SET.CREATE": {
-    type: "CONSTRAINT.ORDER.SET.CREATE";
-    key: { clusterName: string };
-    payload: {
-      id: string;
-      useCustomId: boolean;
-      sets: {
-        resources: string[];
-        action: OptionalAction;
-        sequential: boolean;
-        requireAll: boolean;
-      }[];
-      force: boolean;
-    };
-  };
-
   "CONSTRAINT.ORDER.SET.CREATE.CLOSE": {
     type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE";
     key: { clusterName: string };
