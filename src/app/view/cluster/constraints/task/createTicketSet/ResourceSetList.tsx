@@ -14,7 +14,11 @@ import { useTask } from "./useTask";
 
 export const ResourceSetList: React.FC = () => {
   const {
-    state: { sets, reports, showValidationErrors },
+    state: {
+      sets,
+      showValidationErrors,
+      libCall: { reports },
+    },
     createSet,
     updateSet,
     deleteSet,

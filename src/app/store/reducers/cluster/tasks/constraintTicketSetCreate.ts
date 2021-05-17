@@ -1,8 +1,8 @@
-import { LibReport } from "app/store/types";
 import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
 
 import { resourceSetCreateFactory } from "./resourceSet";
+import { libCallFactory } from "./libCall";
 
 type Role = Exclude<
   ActionPayload["CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET"]["set"]["role"],
@@ -27,27 +27,22 @@ const {
   initialState: initialResourceSets,
 } = resourceSetCreateFactory(initialSet);
 
+const { libCall, initialState: initalLibCall } = libCallFactory();
+
 const initialState: {
   useCustomId: boolean;
   id: string;
   lossPolicy: LossPolicy;
   sets: typeof initialResourceSets;
   showValidationErrors: boolean;
-  reports: LibReport[];
-  response:
-    | "no-response"
-    | "success"
-    | "forceable-fail"
-    | "fail"
-    | "communication-error";
+  libCall: typeof initalLibCall;
 } = {
   useCustomId: false,
   id: "",
   lossPolicy: "stop",
-  response: "no-response",
   sets: initialResourceSets,
   showValidationErrors: false,
-  reports: [],
+  libCall: initalLibCall,
 };
 
 export const constraintTicketSetCreate: AppReducer<typeof initialState> = (
@@ -70,19 +65,6 @@ export const constraintTicketSetCreate: AppReducer<typeof initialState> = (
       };
     }
 
-    case "CONSTRAINT.TICKET.SET.CREATE":
-      return { ...state, response: "no-response" };
-
-    case "CONSTRAINT.TICKET.SET.CREATE.OK":
-      return {
-        ...state,
-        response: action.payload.success ? "success" : "fail",
-        reports: action.payload.reports,
-      };
-
-    case "CONSTRAINT.TICKET.SET.CREATE.ERROR":
-      return { ...state, response: "communication-error" };
-
     case "CLUSTER.TASK.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
 
@@ -93,6 +75,10 @@ export const constraintTicketSetCreate: AppReducer<typeof initialState> = (
       return initialState;
 
     default:
-      return { ...state, sets: resourceSet(state.sets, action) };
+      return {
+        ...state,
+        sets: resourceSet(state.sets, action),
+        libCall: libCall(state.libCall, action),
+      };
   }
 };

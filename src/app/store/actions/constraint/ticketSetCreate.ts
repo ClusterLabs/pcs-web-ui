@@ -1,5 +1,3 @@
-import { LibReport } from "app/store/types";
-
 import { Role } from "./types";
 
 type OptionalRole = "no limitation" | Role;
@@ -25,35 +23,6 @@ export type TicketSetCreateActions = {
         role?: OptionalRole;
       };
     };
-  };
-
-  "CONSTRAINT.TICKET.SET.CREATE": {
-    type: "CONSTRAINT.TICKET.SET.CREATE";
-    key: { clusterName: string };
-    payload: {
-      id: string;
-      useCustomId: boolean;
-      lossPolicy: LossPolicy;
-      sets: {
-        resources: string[];
-        role: OptionalRole;
-      }[];
-      force: boolean;
-    };
-  };
-
-  "CONSTRAINT.TICKET.SET.CREATE.OK": {
-    type: "CONSTRAINT.TICKET.SET.CREATE.OK";
-    key: { clusterName: string };
-    payload: {
-      reports: LibReport[];
-      success: boolean;
-    };
-  };
-
-  "CONSTRAINT.TICKET.SET.CREATE.ERROR": {
-    type: "CONSTRAINT.TICKET.SET.CREATE.ERROR";
-    key: { clusterName: string };
   };
 
   "CONSTRAINT.TICKET.SET.CREATE.CLOSE": {

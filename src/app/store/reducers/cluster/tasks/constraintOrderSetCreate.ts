@@ -21,13 +21,13 @@ const initialSet: {
   requireAll: true,
 };
 
-const { libCall, initialState: initalLibCall } = libCallFactory();
-
 const {
   resourceSet,
   updateSet,
   initialState: initialResourceSets,
 } = resourceSetCreateFactory(initialSet);
+
+const { libCall, initialState: initalLibCall } = libCallFactory();
 
 const initialState: {
   useCustomId: boolean;

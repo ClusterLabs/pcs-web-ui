@@ -37,19 +37,36 @@ export const useTask = () => {
 
     create: ({ force }: { force: boolean }) =>
       dispatch({
-        type: "CONSTRAINT.TICKET.SET.CREATE",
-        key: { clusterName },
+        type: "LIB.CALL.CLUSTER.TASK",
+        key: { clusterName, task: "constraintTicketSetCreate" },
         payload: {
-          useCustomId: state.useCustomId,
-          id: state.id,
-          lossPolicy: state.lossPolicy,
-          sets: state.sets,
-          force,
+          taskLabel: "create constraint ticket set",
+          call: {
+            name: "constraint-ticket-create-with-set",
+            payload: {
+              constraint_options: {
+                id: state.useCustomId ? state.id : undefined,
+                "loss-policy": state.lossPolicy,
+              },
+              resource_set_list: state.sets.map(set => ({
+                ids: set.resources,
+                options: {
+                  ...(set.role !== "no limitation" ? { role: set.role } : {}),
+                },
+              })),
+              resource_in_clone_alowed: force,
+              duplication_alowed: force,
+            },
+          },
         },
       }),
 
     close: () => {
       close();
+      dispatch({
+        type: "LIB.CALL.CLUSTER.TASK.CANCEL",
+        key: { clusterName, task: "constraintTicketSetCreate" },
+      });
       dispatch({
         type: "CONSTRAINT.TICKET.SET.CREATE.CLOSE",
         key: { clusterName },

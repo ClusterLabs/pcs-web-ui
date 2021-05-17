@@ -71,6 +71,10 @@ export const useTask = () => {
     close: () => {
       close();
       dispatch({
+        type: "LIB.CALL.CLUSTER.TASK.CANCEL",
+        key: { clusterName, task: "constraintOrderSetCreate" },
+      });
+      dispatch({
         type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE",
         key: { clusterName },
       });
