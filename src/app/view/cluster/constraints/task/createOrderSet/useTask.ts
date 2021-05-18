@@ -9,7 +9,7 @@ export const useTask = () => {
 
   return {
     ...task,
-    ...useResourceSets("constraintOrderSetCreate"),
+    ...useResourceSets(task.name),
 
     areSetsValid:
       (state.sets.length > 1
@@ -41,7 +41,7 @@ export const useTask = () => {
     create: ({ force }: { force: boolean }) =>
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: "constraintOrderSetCreate" },
+        key: { clusterName, task: task.name },
         payload: {
           taskLabel: "create constraint order set",
           call: {
@@ -73,7 +73,7 @@ export const useTask = () => {
       close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: "constraintOrderSetCreate" },
+        key: { clusterName, task: task.name },
       });
       dispatch({
         type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE",

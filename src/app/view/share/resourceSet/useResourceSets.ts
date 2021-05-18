@@ -1,8 +1,12 @@
-import { ActionPayload } from "app/store";
+import { ActionPayload, selectors } from "app/store";
 import { useDispatch } from "app/view/share/useDispatch";
 import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
 
-export const useResourceSets = (task: string) => {
+export const useResourceSets = <
+  NAME extends Parameters<typeof selectors.getTask>[0],
+>(
+  task: NAME,
+) => {
   const dispatch = useDispatch();
   const clusterName = useSelectedClusterName();
   return {

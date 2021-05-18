@@ -41,7 +41,7 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: "resourceCreate" },
+        key: { clusterName, task: task.name },
       });
       dispatch({
         type: "RESOURCE.CREATE.CLOSE",
@@ -60,7 +60,7 @@ export const useTask = () => {
     create: ({ force }: { force: boolean }) =>
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: "resourceCreate" },
+        key: { clusterName, task: task.name },
         payload: {
           taskLabel: `create resource "${state.resourceName}"`,
           call: {
