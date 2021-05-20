@@ -7,7 +7,9 @@ export const ConstraintCreateOrderFooter: React.FC = () => {
   const {
     close,
     createOrder,
-    state: { response },
+    state: {
+      call: { response },
+    },
   } = useTask();
   if (response !== "") {
     return null;

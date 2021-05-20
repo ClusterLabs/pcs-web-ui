@@ -2,8 +2,11 @@ import { CallResult, endpoints, http } from "./tools";
 
 const { url } = endpoints.addConstraintRuleRemote;
 
-export const addConstraintRuleRemote = async (
-  clusterName: string,
+export const addConstraintRuleRemote = async ({
+  clusterName,
+  constraint,
+}: {
+  clusterName: string;
   constraint: {
     force?: boolean;
     location: {
@@ -12,8 +15,8 @@ export const addConstraintRuleRemote = async (
       rule: string;
       score: string;
     };
-  },
-): CallResult => {
+  };
+}): CallResult => {
   const force: [string, string][] =
     "force" in constraint && constraint.force === true
       ? [["force", "true"]]

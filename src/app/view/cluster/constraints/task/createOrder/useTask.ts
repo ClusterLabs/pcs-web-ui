@@ -33,20 +33,25 @@ export const useTask = () => {
 
     createOrder: () =>
       dispatch({
-        type: "CONSTRAINT.ORDER.CREATE",
-        key: { clusterName },
+        type: "CONSTRAINT.SINGLE.CREATE",
+        key: { clusterName, task: task.name },
         payload: {
-          firstResourceId: state.firstResourceId,
-          firstAction: state.firstAction,
-          thenResourceId: state.thenResourceId,
-          thenAction: state.thenAction,
+          constraint: {
+            order: {
+              resourceId: state.firstResourceId,
+              action: state.firstAction,
+              order: "after",
+              otherResourceId: state.thenResourceId,
+              otherAction: state.thenAction,
+            },
+          },
         },
       }),
 
     recoverFromError: () => {
       dispatch({
-        type: "CONSTRAINT.ORDER.CREATE.FAIL.RECOVER",
-        key: { clusterName },
+        type: "CONSTRAINT.SINGLE.CREATE.FAIL.RECOVER",
+        key: { clusterName, task: task.name },
       });
     },
 

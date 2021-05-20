@@ -10,7 +10,9 @@ import { ConstraintCreateLocationFooter } from "./ConstraintCreateLocationFooter
 export const ConstraintCreateLocation: React.FC = () => {
   const {
     close,
-    state: { response },
+    state: {
+      call: { response },
+    },
   } = useTask();
 
   return (

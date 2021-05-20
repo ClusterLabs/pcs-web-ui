@@ -1,5 +1,10 @@
 import { AppReducer } from "app/store/reducers/appReducer";
 
+import {
+  constraintSingleCall,
+  initialState as initialCall,
+} from "./constraintSingleCall";
+
 const initialState: {
   resourceSpecification: "resource" | "pattern";
   resourceId: string;
@@ -7,10 +12,9 @@ const initialState: {
   locationSpecification: "node" | "rule";
   nodeName: string;
   rule: string;
-  response: "" | "sending" | "ok" | "fail";
+  call: typeof initialCall;
   preference: "prefer" | "avoid";
   score: string;
-  resultMessage: string;
 } = {
   resourceSpecification: "resource",
   resourceId: "",
@@ -20,8 +24,7 @@ const initialState: {
   rule: "",
   preference: "prefer",
   score: "",
-  response: "",
-  resultMessage: "",
+  call: initialCall,
 };
 
 export const constraintLocationCreate: AppReducer<typeof initialState> = (
@@ -35,38 +38,10 @@ export const constraintLocationCreate: AppReducer<typeof initialState> = (
         ...action.payload,
       };
 
-    case "CONSTRAINT.LOCATION.CREATE":
-      return {
-        ...state,
-        response: "sending",
-        resultMessage: "",
-      };
-
-    case "CONSTRAINT.LOCATION.CREATE.OK":
-      return {
-        ...state,
-        response: "ok",
-        resultMessage: "",
-      };
-
-    case "CONSTRAINT.LOCATION.CREATE.FAIL":
-      return {
-        ...state,
-        response: "fail",
-        resultMessage: action.payload.message,
-      };
-
-    case "CONSTRAINT.LOCATION.CREATE.FAIL.RECOVER":
-      return {
-        ...state,
-        response: "",
-        resultMessage: "",
-      };
-
     case "CONSTRAINT.LOCATION.CREATE.CLOSE":
       return initialState;
 
     default:
-      return state;
+      return { ...state, call: constraintSingleCall(state.call, action) };
   }
 };

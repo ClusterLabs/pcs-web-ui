@@ -13,7 +13,9 @@ export const ConstraintCreateOrderFinish: React.FC = () => {
     close,
     createOrder,
     recoverFromError,
-    state: { response, resultMessage },
+    state: {
+      call: { response, resultMessage },
+    },
   } = useTask();
   switch (response) {
     case "sending":

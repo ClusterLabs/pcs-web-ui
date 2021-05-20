@@ -35,27 +35,50 @@ export const useTask = () => {
         payload,
       }),
 
-    createLocation: () =>
+    createLocation: () => {
+      const resourceSpecification = state.resourceSpecification;
+      const resourceValue =
+        resourceSpecification === "pattern"
+          ? state.resourcePattern
+          : state.resourceId;
+
+      const score = `${state.preference === "prefer" ? "" : "-"}${state.score}`;
+      const locationSpecification = state.locationSpecification;
+
       dispatch({
-        type: "CONSTRAINT.LOCATION.CREATE",
-        key: { clusterName },
-        payload: {
-          resourceSpecification: state.resourceSpecification,
-          resourceValue:
-            state.resourceSpecification === "pattern"
-              ? state.resourcePattern
-              : state.resourceId,
-          locationSpecification: state.locationSpecification,
-          nodeName: state.nodeName,
-          rule: state.rule,
-          score: `${state.preference === "prefer" ? "" : "-"}${state.score}`,
-        },
-      }),
+        type: "CONSTRAINT.SINGLE.CREATE",
+        key: { clusterName, task: task.name },
+        payload:
+          locationSpecification === "node"
+            ? {
+                locationSpecification,
+                constraint: {
+                  location: {
+                    resourceSpecification,
+                    resourceValue,
+                    nodeName: state.nodeName,
+                    score,
+                  },
+                },
+              }
+            : {
+                locationSpecification,
+                constraint: {
+                  location: {
+                    resourceSpecification,
+                    resourceValue,
+                    rule: state.rule,
+                    score,
+                  },
+                },
+              },
+      });
+    },
 
     recoverFromError: () => {
       dispatch({
-        type: "CONSTRAINT.LOCATION.CREATE.FAIL.RECOVER",
-        key: { clusterName },
+        type: "CONSTRAINT.SINGLE.CREATE.FAIL.RECOVER",
+        key: { clusterName, task: task.name },
       });
     },
 

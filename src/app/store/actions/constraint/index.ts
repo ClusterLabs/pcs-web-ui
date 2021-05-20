@@ -3,6 +3,7 @@ import { OrderCreateActions } from "./orderCreate";
 import { OrderSetCreateActions } from "./orderSetCreate";
 import { ColocationSetCreateActions } from "./colocationSetCreate";
 import { TicketSetCreateActions } from "./ticketSetCreate";
+import { SingleCreateActions } from "./singleCreate";
 
 // prettier-ignore
 export type ConstraintAction = (
@@ -11,4 +12,5 @@ export type ConstraintAction = (
   & OrderSetCreateActions
   & ColocationSetCreateActions
   & TicketSetCreateActions
+  & SingleCreateActions
 );

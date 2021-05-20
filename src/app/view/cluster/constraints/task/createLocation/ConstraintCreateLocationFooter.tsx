@@ -7,7 +7,9 @@ export const ConstraintCreateLocationFooter: React.FC = () => {
   const {
     close,
     createLocation,
-    state: { response },
+    state: {
+      call: { response },
+    },
   } = useTask();
   if (response !== "") {
     return null;

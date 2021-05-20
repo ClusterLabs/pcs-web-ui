@@ -1,1 +1,1 @@
-export * from "./locationCreate";
+export * from "./create";

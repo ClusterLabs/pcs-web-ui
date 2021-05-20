@@ -1,6 +1,11 @@
 import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
 
+import {
+  constraintSingleCall,
+  initialState as initialCall,
+} from "./constraintSingleCall";
+
 type Action<T extends "firstAction" | "thenAction"> = Exclude<
   ActionPayload["CONSTRAINT.ORDER.CREATE.UPDATE"][T],
   undefined
@@ -11,15 +16,13 @@ const initialState: {
   firstAction: Action<"firstAction">;
   thenResourceId: string;
   thenAction: Action<"thenAction">;
-  response: "" | "sending" | "ok" | "fail";
-  resultMessage: string;
+  call: typeof initialCall;
 } = {
   firstResourceId: "",
   firstAction: "start",
   thenResourceId: "",
   thenAction: "start",
-  response: "",
-  resultMessage: "",
+  call: initialCall,
 };
 
 export const constraintOrderCreate: AppReducer<typeof initialState> = (
@@ -31,34 +34,6 @@ export const constraintOrderCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         ...action.payload,
-      };
-
-    case "CONSTRAINT.ORDER.CREATE":
-      return {
-        ...state,
-        response: "sending",
-        resultMessage: "",
-      };
-
-    case "CONSTRAINT.ORDER.CREATE.OK":
-      return {
-        ...state,
-        response: "ok",
-        resultMessage: "",
-      };
-
-    case "CONSTRAINT.ORDER.CREATE.FAIL":
-      return {
-        ...state,
-        response: "fail",
-        resultMessage: action.payload.message,
-      };
-
-    case "CONSTRAINT.ORDER.CREATE.FAIL.RECOVER":
-      return {
-        ...state,
-        response: "",
-        resultMessage: "",
       };
 
     case "CONSTRAINT.ORDER.CREATE.SWAP_RESOURCES":
@@ -74,6 +49,6 @@ export const constraintOrderCreate: AppReducer<typeof initialState> = (
       return initialState;
 
     default:
-      return state;
+      return { ...state, call: constraintSingleCall(state.call, action) };
   }
 };

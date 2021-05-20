@@ -13,7 +13,9 @@ export const ConstraintCreateLocationFinish: React.FC = () => {
     close,
     createLocation,
     recoverFromError,
-    state: { response, resultMessage },
+    state: {
+      call: { response, resultMessage },
+    },
   } = useTask();
   switch (response) {
     case "sending":
