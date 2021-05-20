@@ -2,7 +2,7 @@ import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
 
 import { resourceSetCreateFactory } from "./resourceSet";
-import { libCallFactory } from "./libCall";
+import { initialState as initalLibCall, libCall } from "./libCall";
 
 type Role = Exclude<
   ActionPayload["CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET"]["set"]["role"],
@@ -23,8 +23,6 @@ const {
   updateSet,
   initialState: initialResourceSets,
 } = resourceSetCreateFactory(initialSet);
-
-const { libCall, initialState: initalLibCall } = libCallFactory();
 
 const initialState: {
   useCustomId: boolean;

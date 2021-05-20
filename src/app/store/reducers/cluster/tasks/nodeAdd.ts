@@ -1,8 +1,6 @@
 import { AppReducer } from "app/store/reducers/appReducer";
 
-import { libCallFactory } from "./libCall";
-
-const { libCall, initialState: initalLibCall } = libCallFactory();
+import { initialState as initalLibCall, libCall } from "./libCall";
 
 const initialState: {
   nodeName: string;

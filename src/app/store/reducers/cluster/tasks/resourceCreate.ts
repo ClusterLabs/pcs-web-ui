@@ -1,12 +1,10 @@
 import { AppReducer } from "app/store/reducers/appReducer";
 
-import { libCallFactory } from "./libCall";
+import { initialState as initalLibCall, libCall } from "./libCall";
 
 type InstanceAttrName = string;
 type InstanceAttrValue = string;
 type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
-
-const { libCall, initialState: initalLibCall } = libCallFactory();
 
 const initialState: {
   agentName: string;
