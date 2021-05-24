@@ -5,7 +5,7 @@ import { FormSelectOrText, FormText } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const ConstraintCreateLocationConfigure: React.FC = () => {
+export const Configure: React.FC = () => {
   const {
     updateState,
     nodeNameList,

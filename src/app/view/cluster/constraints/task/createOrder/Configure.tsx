@@ -6,7 +6,7 @@ import { FormRadioGroup, Select } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const ConstraintCreateOrderConfigure: React.FC = () => {
+export const Configure: React.FC = () => {
   const {
     resourceIdList,
     updateState,

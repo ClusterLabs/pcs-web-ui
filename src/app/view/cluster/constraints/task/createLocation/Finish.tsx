@@ -8,7 +8,7 @@ import {
 } from "app/view/share";
 
 import { useTask } from "./useTask";
-export const ConstraintCreateLocationFinish: React.FC = () => {
+export const Finish: React.FC = () => {
   const {
     close,
     createLocation,

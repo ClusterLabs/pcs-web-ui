@@ -4,9 +4,9 @@ import { Button } from "@patternfly/react-core";
 import { TaskSimple } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { ConstraintCreateOrderConfigure } from "./ConstraintCreateOrderConfigure";
-import { ConstraintCreateOrderFooter } from "./ConstraintCreateOrderFooter";
-import { ConstraintCreateOrderFinish } from "./ConstraintCreateOrderFinish";
+import { Configure } from "./Configure";
+import { Footer } from "./Footer";
+import { Finish } from "./Finish";
 
 export const ConstraintCreateOrderToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
@@ -32,10 +32,10 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
         <TaskSimple
           title="Create order constraint"
           close={close}
-          footer={<ConstraintCreateOrderFooter />}
+          footer={<Footer />}
         >
-          {response === "" && <ConstraintCreateOrderConfigure />}
-          {response !== "" && <ConstraintCreateOrderFinish />}
+          {response === "" && <Configure />}
+          {response !== "" && <Finish />}
         </TaskSimple>
       )}
     </>

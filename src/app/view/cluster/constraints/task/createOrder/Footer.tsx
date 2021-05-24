@@ -3,7 +3,7 @@ import { Button } from "@patternfly/react-core";
 
 import { useTask } from "./useTask";
 
-export const ConstraintCreateOrderFooter: React.FC = () => {
+export const Footer: React.FC = () => {
   const {
     close,
     createOrder,

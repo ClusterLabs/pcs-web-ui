@@ -1,13 +1,24 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
+import { TaskSimple } from "app/view/share";
+
 import { useTask } from "./useTask";
-import { ConstraintCreateLocation } from "./ConstraintCreateLocation";
+import { Configure } from "./Configure";
+import { Finish } from "./Finish";
+import { Footer } from "./Footer";
 
 export const ConstraintCreateLocationToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
-  const { open, isOpened } = useTask();
+  const {
+    open,
+    close,
+    isOpened,
+    state: {
+      call: { response },
+    },
+  } = useTask();
   return (
     <>
       <Button
@@ -17,7 +28,16 @@ export const ConstraintCreateLocationToolbarItem: React.FC<{
       >
         Create Location
       </Button>
-      {isOpened && <ConstraintCreateLocation />}
+      {isOpened && (
+        <TaskSimple
+          title="Create location constraint"
+          close={close}
+          footer={<Footer />}
+        >
+          {response === "" && <Configure />}
+          {response !== "" && <Finish />}
+        </TaskSimple>
+      )}
     </>
   );
 };
