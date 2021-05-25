@@ -11,7 +11,7 @@ import { CheckCircleIcon } from "@patternfly/react-icons";
 import * as pallete from "app/view/share/pallete";
 
 export const TaskSuccess: React.FC<{
-  title: string;
+  title: React.ReactNode;
   message?: string;
   primaryActions?: React.ReactNode;
   secondaryActions?: React.ReactNode;

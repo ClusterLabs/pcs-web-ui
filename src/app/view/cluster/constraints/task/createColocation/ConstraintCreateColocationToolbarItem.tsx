@@ -6,13 +6,13 @@ import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
 import { useTask } from "./useTask";
 import { Configure } from "./Configure";
 
-export const ConstraintCreateOrderToolbarItem: React.FC<{
+export const ConstraintCreateColocationToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
   const {
     open,
     close,
-    createOrder,
+    createColocation,
     recoverFromError,
     isOpened,
     state: {
@@ -24,19 +24,19 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
       <Button
         variant={variant}
         onClick={open}
-        data-test="constraint-order-create"
+        data-test="constraint-colocation-create"
       >
-        Create Order
+        Create Colocation
       </Button>
       {isOpened && (
         <TaskSimple
-          title="Create order constraint"
+          title="Create colocation constraint"
           close={close}
           footer={
             response !== "" ? null : (
               <TaskSimpleFooter
-                run={createOrder}
-                runLabel="Create order"
+                run={createColocation}
+                runLabel="Create colocation"
                 cancel={close}
               />
             )
@@ -47,11 +47,11 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
             <TaskSimpleFinish
               response={response}
               resultMessage={resultMessage}
-              waitTitle="Creating order constraint"
-              successTitle="Order created successfully"
-              failTitle="Create order constraint failed"
+              waitTitle="Creating colocation constraint"
+              successTitle="Colocation created successfully"
+              failTitle="Create colocation constraint failed"
               close={close}
-              tryAgain={createOrder}
+              tryAgain={createColocation}
               recoverFromError={recoverFromError}
             />
           )}

@@ -14,6 +14,8 @@ export * from "./TaskSuccessLib";
 export * from "./useTaskOpenClose";
 export * from "./useClusterTask";
 export * from "./TaskSimple";
+export * from "./TaskSimpleFooter";
+export * from "./TaskSimpleFinish";
 export * from "./review/ReviewList";
 export * from "./review/ReviewValue";
 export * from "./review/ReviewYesNo";
