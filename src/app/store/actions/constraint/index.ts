@@ -3,6 +3,7 @@ import { ColocationCreateActions } from "./colocationCreate";
 import { OrderCreateActions } from "./orderCreate";
 import { OrderSetCreateActions } from "./orderSetCreate";
 import { ColocationSetCreateActions } from "./colocationSetCreate";
+import { TicketCreateActions } from "./ticketCreate";
 import { TicketSetCreateActions } from "./ticketSetCreate";
 import { SingleCreateActions } from "./singleCreate";
 
@@ -13,6 +14,7 @@ export type ConstraintAction = (
   & OrderSetCreateActions
   & ColocationCreateActions
   & ColocationSetCreateActions
+  & TicketCreateActions
   & TicketSetCreateActions
   & SingleCreateActions
 );

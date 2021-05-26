@@ -26,7 +26,6 @@ export const Options: React.FC = () => {
   const customIdValid =
     showValidationErrors && !isCustomIdValid ? "error" : "default";
 
-  console.log(customIdValid);
   const useCustomIdId = "use-custom-id";
   return (
     <TaskLibStep title="Order constraint options" reports={reports}>

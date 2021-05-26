@@ -17,6 +17,7 @@ import {
   ConstraintCreateOrderSetToolbarItem,
   ConstraintCreateOrderToolbarItem,
   ConstraintCreateTicketSetToolbarItem,
+  ConstraintCreateTicketToolbarItem,
 } from "./task";
 
 export const ConstraintsPage: React.FC<{ clusterName: string }> = ({
@@ -40,6 +41,9 @@ export const ConstraintsPage: React.FC<{ clusterName: string }> = ({
           </ActionListItem>
           <ActionListItem>
             <ConstraintCreateColocationSetToolbarItem variant="secondary" />
+          </ActionListItem>
+          <ActionListItem>
+            <ConstraintCreateTicketToolbarItem variant="secondary" />
           </ActionListItem>
           <ActionListItem>
             <ConstraintCreateTicketSetToolbarItem variant="secondary" />
