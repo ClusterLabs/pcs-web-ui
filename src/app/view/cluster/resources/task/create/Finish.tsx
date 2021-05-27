@@ -3,8 +3,9 @@ import React from "react";
 import {
   TaskFinishErrorLib,
   TaskFinishFailLib,
+  TaskLibReports,
   TaskProgress,
-  TaskSuccessLib,
+  TaskSuccess,
 } from "app/view/share";
 
 import { useTask } from "./useTask";
@@ -22,11 +23,13 @@ export const Finish: React.FC = () => {
   switch (response) {
     case "success":
       return (
-        <TaskSuccessLib
-          title={`Resource "${resourceName}" created successfully`}
-          close={close}
-          reports={reports}
-        />
+        <>
+          <TaskSuccess
+            title={`Resource "${resourceName}" created successfully`}
+            close={close}
+          />
+          <TaskLibReports reports={reports} />
+        </>
       );
     case "fail":
       return (

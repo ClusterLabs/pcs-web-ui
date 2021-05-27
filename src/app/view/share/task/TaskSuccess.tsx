@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   EmptyState,
   EmptyStateBody,
   EmptyStateIcon,
@@ -13,13 +14,17 @@ import * as pallete from "app/view/share/pallete";
 export const TaskSuccess: React.FC<{
   title: React.ReactNode;
   message?: string;
+  close: () => void;
+  closeLabel?: React.ReactNode;
   primaryActions?: React.ReactNode;
   secondaryActions?: React.ReactNode;
 }> = ({
   title,
+  close,
   primaryActions = null,
   secondaryActions = null,
   message = "",
+  closeLabel = "Close",
 }) => {
   return (
     <EmptyState style={{ margin: "auto" }} data-test="task-success">
@@ -28,7 +33,12 @@ export const TaskSuccess: React.FC<{
         {title}
       </Title>
       {message.length > 0 && <EmptyStateBody>{message}</EmptyStateBody>}
-      <>{primaryActions}</>
+      <>
+        <Button variant="primary" onClick={close}>
+          {closeLabel}
+        </Button>
+        {primaryActions}
+      </>
       <EmptyStateSecondaryActions>
         {secondaryActions}
       </EmptyStateSecondaryActions>

@@ -29,16 +29,7 @@ export const TaskSimpleFinish: React.FC<{
     case "sending":
       return <EmptyStateSpinner title={waitTitle} />;
     case "ok":
-      return (
-        <TaskSuccess
-          title={successTitle}
-          primaryActions={
-            <Button variant="primary" onClick={close}>
-              Close
-            </Button>
-          }
-        />
-      );
+      return <TaskSuccess title={successTitle} close={close} />;
     default:
       return (
         <TaskFinishError

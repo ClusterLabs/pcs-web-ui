@@ -3,8 +3,9 @@ import { Button } from "@patternfly/react-core";
 
 import {
   TaskFinishErrorLib,
+  TaskLibReports,
   TaskProgress,
-  TaskSuccessLib,
+  TaskSuccess,
 } from "app/view/share";
 
 import { useTask } from "./useTask";
@@ -23,20 +24,22 @@ export const Finish: React.FC = () => {
   switch (response) {
     case "success":
       return (
-        <TaskSuccessLib
-          title={`Node "${nodeName}" added successfully`}
-          close={() => {
-            close();
-            nodeStart();
-          }}
-          closeLabel="Start node and close"
-          secondaryActions={
-            <Button variant="link" onClick={close}>
-              Close
-            </Button>
-          }
-          reports={reports}
-        />
+        <>
+          <TaskSuccess
+            title={`Node "${nodeName}" added successfully`}
+            close={() => {
+              close();
+              nodeStart();
+            }}
+            closeLabel="Start node and close"
+            secondaryActions={
+              <Button variant="link" onClick={close}>
+                Close
+              </Button>
+            }
+          />
+          <TaskLibReports reports={reports} />
+        </>
       );
     case "fail":
       return <Fail />;

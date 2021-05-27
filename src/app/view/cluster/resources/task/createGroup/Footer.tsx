@@ -11,11 +11,7 @@ export const Footer: React.FC = () => {
   } = useTask();
 
   if (response === "success") {
-    return (
-      <Button key="Cancel" variant="primary" onClick={close}>
-        Close
-      </Button>
-    );
+    return null;
   }
   return (
     <>
