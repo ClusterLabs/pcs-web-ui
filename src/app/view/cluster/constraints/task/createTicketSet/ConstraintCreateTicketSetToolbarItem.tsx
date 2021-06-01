@@ -1,18 +1,30 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { ClusterWizardFooter, Wizard } from "app/view/share";
+import {
+  ClusterWizardFooter,
+  TaskFinishLibWizard,
+  Wizard,
+} from "app/view/share";
 
 import { useTask } from "./useTask";
 import { Options } from "./Options";
 import { ResourceSetList } from "./ResourceSetList";
 import { Review } from "./Review";
-import { Finish } from "./Finish";
 
 export const ConstraintCreateTicketSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
-  const { open, close, isOpened, areSetsValid, create } = useTask();
+  const {
+    open,
+    close,
+    isOpened,
+    areSetsValid,
+    create,
+    state: {
+      libCall: { reports, response },
+    },
+  } = useTask();
   return (
     <>
       <Button
@@ -60,7 +72,16 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
             },
             {
               name: "Result",
-              component: <Finish />,
+              component: (
+                <TaskFinishLibWizard
+                  response={response}
+                  taskName="create ticket constraint with resource set"
+                  close={close}
+                  backToUpdateSettingsStepName="Resource Sets"
+                  proceedForce={() => create({ force: true })}
+                  reports={reports}
+                />
+              ),
               isFinishedStep: true,
             },
           ]}

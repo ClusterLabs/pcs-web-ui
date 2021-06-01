@@ -1,13 +1,16 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { ClusterWizardFooter, Wizard } from "app/view/share";
+import {
+  ClusterWizardFooter,
+  TaskFinishLibWizard,
+  Wizard,
+} from "app/view/share";
 
 import { useTask } from "./useTask";
 import { Options } from "./Options";
 import { ResourceSetList } from "./ResourceSetList";
 import { Review } from "./Review";
-import { Finish } from "./Finish";
 
 export const ConstraintCreateOrderSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
@@ -19,6 +22,9 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
     isOpened,
     areSetsValid,
     isCustomIdValid,
+    state: {
+      libCall: { reports, response },
+    },
   } = useTask();
   return (
     <>
@@ -69,7 +75,16 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
             },
             {
               name: "Result",
-              component: <Finish />,
+              component: (
+                <TaskFinishLibWizard
+                  response={response}
+                  taskName="create order constraint with resource set"
+                  close={close}
+                  backToUpdateSettingsStepName="Resource Sets"
+                  proceedForce={() => create({ force: true })}
+                  reports={reports}
+                />
+              ),
               isFinishedStep: true,
             },
           ]}

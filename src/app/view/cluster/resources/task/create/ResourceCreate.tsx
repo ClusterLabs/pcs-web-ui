@@ -1,9 +1,12 @@
 import React from "react";
 
-import { ClusterWizardFooter, Wizard } from "app/view/share";
+import {
+  ClusterWizardFooter,
+  TaskFinishLibWizard,
+  Wizard,
+} from "app/view/share";
 
 import { Review } from "./Review";
-import { Finish } from "./Finish";
 import { useTask } from "./useTask";
 import { NameType } from "./NameType";
 import { InstanceAttrsForm } from "./InstanceAttrsForm";
@@ -17,6 +20,10 @@ export const ResourceCreate: React.FC = () => {
     isAgentLoaded,
     areInstanceAttrsValid,
     areSettingsValid,
+    state: {
+      resourceName,
+      libCall: { reports, response },
+    },
   } = useTask();
   return (
     <Wizard
@@ -71,7 +78,16 @@ export const ResourceCreate: React.FC = () => {
         },
         {
           name: "Result",
-          component: <Finish />,
+          component: (
+            <TaskFinishLibWizard
+              response={response}
+              taskName={`create resource "${resourceName}"`}
+              close={close}
+              backToUpdateSettingsStepName="Name and type"
+              proceedForce={() => create({ force: true })}
+              reports={reports}
+            />
+          ),
           isFinishedStep: true,
         },
       ]}

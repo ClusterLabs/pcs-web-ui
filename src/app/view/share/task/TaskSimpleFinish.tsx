@@ -1,10 +1,9 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { EmptyStateSpinner } from "app/view/share/emptyState";
-
 import { TaskSuccess } from "./TaskSuccess";
 import { TaskFinishError } from "./TaskFinishError";
+import { TaskProgress } from "./TaskProgress";
 
 export const TaskSimpleFinish: React.FC<{
   response: "" | "sending" | "ok" | "fail";
@@ -27,7 +26,7 @@ export const TaskSimpleFinish: React.FC<{
 }) => {
   switch (response) {
     case "sending":
-      return <EmptyStateSpinner title={waitTitle} />;
+      return <TaskProgress title={waitTitle} />;
     case "ok":
       return <TaskSuccess title={successTitle} close={close} />;
     default:
