@@ -89,13 +89,16 @@ export const useTask = () => {
     },
 
     recoverFromError: () => {
-      console.log("TODO");
+      dispatch({
+        type: "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET",
+        key: { clusterName, task: task.name },
+      });
     },
 
     close: () => {
       close();
       dispatch({
-        type: "CONSTRAINT.COLOCATION.CREATE.CLOSE",
+        type: "CONSTRAINT.TICKET.CREATE.CLOSE",
         key: { clusterName },
       });
     },

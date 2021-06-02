@@ -53,4 +53,9 @@ export type LibActions = {
     type: "LIB.CALL.CLUSTER.TASK.ERROR";
     key: { clusterName: string; task: string };
   };
+
+  "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET": {
+    type: "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET";
+    key: { clusterName: string; task: string };
+  };
 };

@@ -18,7 +18,8 @@ export const TaskFinishLib: React.FC<{
     | "success"
     | "forceable-fail"
     | "fail"
-    | "communication-error";
+    | "communication-error"
+    | "progress";
   taskName: string;
   close: () => void;
   backToUpdateSettings: () => void;

@@ -74,3 +74,11 @@ app.libCluster("constraint-colocation-create-with-set", (req, res) => {
     res,
   });
 });
+
+app.libCluster("constraint-ticket-create", (req, res) => {
+  const id = req.body.ticket_key ?? "ok";
+  shortcut.libStd({
+    code: id,
+    res,
+  });
+});

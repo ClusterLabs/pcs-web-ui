@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
+import { TaskFinishLib, TaskSimple, TaskSimpleFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
 import { Configure } from "./Configure";
@@ -16,7 +16,7 @@ export const ConstraintCreateTicketToolbarItem: React.FC<{
     recoverFromError,
     isOpened,
     state: {
-      libCall: { response },
+      libCall: { response, reports },
     },
   } = useTask();
   return (
@@ -44,15 +44,14 @@ export const ConstraintCreateTicketToolbarItem: React.FC<{
         >
           {response === "no-response" && <Configure />}
           {response !== "no-response" && (
-            <TaskSimpleFinish
-              response="fail"
-              resultMessage={"TODO"}
-              waitTitle="Creating ticket constraint"
-              successTitle="Ticket created successfully"
-              failTitle="Create ticket constraint failed"
+            <TaskFinishLib
+              response={response}
+              taskName="create ticket constraint"
               close={close}
+              backToUpdateSettings={recoverFromError}
+              proceedForce={() => createTicket({ force: true })}
               tryAgain={() => createTicket({ force: false })}
-              recoverFromError={recoverFromError}
+              reports={reports}
             />
           )}
         </TaskSimple>
