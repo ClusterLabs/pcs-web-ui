@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@patternfly/react-core";
 
 import { types } from "app/store";
+import * as lib from "app/view/share/lib";
 
 import { TaskSuccess } from "./TaskSuccess";
 import { TaskLibReports } from "./TaskLibReports";
@@ -9,10 +10,7 @@ import { TaskFinishErrorLib } from "./TaskFinishErrorLib";
 import { TaskProgress } from "./TaskProgress";
 import { TaskFinishError } from "./TaskFinishError";
 
-const allErrorsCanBeForced = (reports: types.LibReport[]) =>
-  reports.every(
-    r => r.severity.level !== "ERROR" || r.severity.force_code !== null,
-  );
+type TaskSuccessProps = React.ComponentProps<typeof TaskSuccess>;
 
 export const TaskFinishLib: React.FC<{
   response:
@@ -27,22 +25,28 @@ export const TaskFinishLib: React.FC<{
   proceedForce: () => void;
   tryAgain: () => void;
   reports: types.LibReport[];
+  successPrimaryActions?: TaskSuccessProps["primaryActions"];
+  successSecondaryActions?: TaskSuccessProps["secondaryActions"];
 }> = ({
   response,
   taskName,
+  successSecondaryActions,
+  successPrimaryActions,
   close,
   backToUpdateSettings,
   proceedForce,
   tryAgain,
   reports,
 }) => {
-  const isForcible = allErrorsCanBeForced(reports);
+  const isForcible = lib.reports.allErrorsCanBeForced(reports);
   switch (response) {
     case "success":
       return (
         <>
           <TaskSuccess
             title={`Task "${taskName}" has been done successfully`}
+            primaryActions={successPrimaryActions}
+            secondaryActions={successSecondaryActions}
             close={close}
           />
           <TaskLibReports reports={reports} />

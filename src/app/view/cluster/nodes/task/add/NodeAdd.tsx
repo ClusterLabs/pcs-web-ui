@@ -1,6 +1,12 @@
 import React from "react";
+import { Button } from "@patternfly/react-core";
 
-import { ClusterWizardFooter, Wizard } from "app/view/share";
+import {
+  ClusterWizardFooter,
+  TaskFinishLibWizard,
+  Wizard,
+  lib,
+} from "app/view/share";
 
 import { useTask } from "./useTask";
 import { NodeName } from "./NodeName";
@@ -9,15 +15,19 @@ import { AuthButton } from "./AuthButton";
 import { Addresses } from "./Addresses";
 import { Sbd } from "./Sbd";
 import { Review } from "./Review";
-import { Finish } from "./Finish";
 
 export const NodeAdd: React.FC = () => {
   const {
-    state: { authProcessId },
     close,
+    nodeStart,
     isNameValid,
     isNodeCheckDoneValid,
     nodeAdd,
+    state: {
+      authProcessId,
+      nodeName,
+      libCall: { response, reports },
+    },
   } = useTask();
   return (
     <Wizard
@@ -79,7 +89,34 @@ export const NodeAdd: React.FC = () => {
         },
         {
           name: "Result",
-          component: <Finish />,
+          component: (
+            <TaskFinishLibWizard
+              response={response}
+              taskName={`add node ${nodeName}`}
+              successPrimaryActions={
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    close();
+                    nodeStart();
+                  }}
+                >
+                  Start node and close
+                </Button>
+              }
+              successSecondaryActions={
+                <Button variant="link" onClick={close}>
+                  Close
+                </Button>
+              }
+              close={close}
+              backToUpdateSettingsStepName="Enter node name"
+              proceedForce={() =>
+                nodeAdd({ newForceFlags: lib.reports.getForceFlags(reports) })
+              }
+              reports={reports}
+            />
+          ),
           isFinishedStep: true,
         },
       ]}

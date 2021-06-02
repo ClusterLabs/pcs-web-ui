@@ -13,6 +13,8 @@ export const TaskFinishLibWizard: React.FC<{
   reports: TaskFinishLibProps["reports"];
   backToUpdateSettingsStepName: string;
   tryAgainStepName?: string;
+  successPrimaryActions?: TaskFinishLibProps["successPrimaryActions"];
+  successSecondaryActions?: TaskFinishLibProps["successSecondaryActions"];
 }> = ({
   response,
   taskName,
@@ -20,6 +22,8 @@ export const TaskFinishLibWizard: React.FC<{
   proceedForce,
   backToUpdateSettingsStepName,
   reports,
+  successPrimaryActions,
+  successSecondaryActions,
   tryAgainStepName = "Review",
 }) => {
   return (
@@ -28,6 +32,8 @@ export const TaskFinishLibWizard: React.FC<{
         <TaskFinishLib
           response={response}
           taskName={taskName}
+          successPrimaryActions={successPrimaryActions}
+          successSecondaryActions={successSecondaryActions}
           close={close}
           backToUpdateSettings={() =>
             goToStepByName(backToUpdateSettingsStepName)

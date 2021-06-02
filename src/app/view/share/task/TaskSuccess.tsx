@@ -24,7 +24,6 @@ export const TaskSuccess: React.FC<{
   primaryActions = null,
   secondaryActions = null,
   message = "",
-  closeLabel = "Close",
 }) => {
   return (
     <EmptyState style={{ margin: "auto" }} data-test="task-success">
@@ -33,12 +32,12 @@ export const TaskSuccess: React.FC<{
         {title}
       </Title>
       {message.length > 0 && <EmptyStateBody>{message}</EmptyStateBody>}
-      <>
+      {primaryActions === null && (
         <Button variant="primary" onClick={close}>
-          {closeLabel}
+          Close
         </Button>
-        {primaryActions}
-      </>
+      )}
+      {primaryActions !== null && primaryActions}
       <EmptyStateSecondaryActions>
         {secondaryActions}
       </EmptyStateSecondaryActions>

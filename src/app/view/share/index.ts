@@ -1,7 +1,6 @@
-import * as pallete from "./pallete";
-import * as location from "./location";
-
-export { pallete, location };
+export * as pallete from "./pallete";
+export * as location from "./location";
+export * as lib from "./lib";
 
 export * from "./attributes";
 export * from "./BackgroundImage";

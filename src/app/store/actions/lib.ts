@@ -11,6 +11,14 @@ export type LibActions = {
     };
   };
 
+  "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD": {
+    type: "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD";
+    key: { clusterName: string; task: string };
+    payload: {
+      forceFlags: string[];
+    };
+  };
+
   "LIB.CALL.CLUSTER.TASK": {
     type: "LIB.CALL.CLUSTER.TASK";
     key: { clusterName: string; task: string };
@@ -40,6 +48,7 @@ export type LibActions = {
       reports: LibReport[];
     };
   };
+
   "LIB.CALL.CLUSTER.TASK.ERROR": {
     type: "LIB.CALL.CLUSTER.TASK.ERROR";
     key: { clusterName: string; task: string };
