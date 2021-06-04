@@ -17,4 +17,13 @@ export type ConstraintAction = (
   & TicketCreateActions
   & TicketSetCreateActions
   & SingleCreateActions
+  & {
+    "CONSTRAINT.DELETE": {
+      type: "CONSTRAINT.DELETE",
+      key: {clusterName: string},
+      payload: {
+        constraintId: string;
+      }
+    }
+  }
 );

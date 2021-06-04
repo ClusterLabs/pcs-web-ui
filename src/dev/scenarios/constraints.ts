@@ -41,6 +41,14 @@ app.addConstraintRemote((req, res) => {
   res.send("Successfully added constraint");
 });
 
+app.removeConstraintRemote((req, res) => {
+  if (req.body.constraint_id === "cli-prefer-A") {
+    res.status(400).send("Error removing constraint: cli-prefer-A");
+    return;
+  }
+  res.send(`Constraint ${req.body.constraint_id} removed`);
+});
+
 app.addConstraintRuleRemote((req, res) => {
   if (req.body.score > 100) {
     res
