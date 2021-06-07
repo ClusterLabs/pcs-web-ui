@@ -10,6 +10,7 @@ export const useTask = () => {
     ...useResourceSets(task.name),
 
     isCustomIdValid: !state.useCustomId || state.id.length > 0,
+    isTicketValid: state.ticket.length > 0,
 
     areSetsValid:
       (state.sets.length > 1
@@ -45,6 +46,7 @@ export const useTask = () => {
             name: "constraint-ticket-create-with-set",
             payload: {
               constraint_options: {
+                ticket: state.ticket,
                 id: state.useCustomId ? state.id : undefined,
                 "loss-policy": state.lossPolicy,
               },

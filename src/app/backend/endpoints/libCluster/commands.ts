@@ -108,6 +108,7 @@ export type LibClusterCommands = [
         };
       }[];
       constraint_options: {
+        ticket: string;
         id?: string;
         "loss-policy"?: "fence" | "stop" | "freeze" | "demote";
       };

@@ -20,6 +20,8 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
     close,
     isOpened,
     areSetsValid,
+    isTicketValid,
+    isCustomIdValid,
     create,
     state: {
       libCall: { reports, response },
@@ -56,11 +58,16 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               name: "Options",
               canJumpTo: areSetsValid,
               component: <Options />,
-              footer: <ClusterWizardFooter onClose={close} />,
+              footer: (
+                <ClusterWizardFooter
+                  onClose={close}
+                  nextIf={isCustomIdValid && isTicketValid}
+                />
+              ),
             },
             {
               name: "Review",
-              canJumpTo: areSetsValid,
+              canJumpTo: areSetsValid && isCustomIdValid && isTicketValid,
               component: <Review />,
               footer: (
                 <ClusterWizardFooter

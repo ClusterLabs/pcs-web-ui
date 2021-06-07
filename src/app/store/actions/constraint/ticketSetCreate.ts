@@ -8,6 +8,7 @@ export type TicketSetCreateActions = {
     type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE";
     key: { clusterName: string };
     payload: {
+      ticket?: string;
       useCustomId?: boolean;
       id?: string;
       lossPolicy?: LossPolicy;

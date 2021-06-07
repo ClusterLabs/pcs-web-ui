@@ -28,6 +28,7 @@ const {
 } = resourceSetCreateFactory(initialSet);
 
 const initialState: {
+  ticket: string;
   useCustomId: boolean;
   id: string;
   lossPolicy: LossPolicy;
@@ -35,6 +36,7 @@ const initialState: {
   showValidationErrors: boolean;
   libCall: typeof initalLibCall;
 } = {
+  ticket: "",
   useCustomId: false,
   id: "",
   lossPolicy: "stop",
