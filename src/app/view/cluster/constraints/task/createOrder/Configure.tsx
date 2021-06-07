@@ -25,7 +25,7 @@ export const Configure: React.FC = () => {
                 variant="single"
                 onSelect={value => updateState({ firstResourceId: value })}
                 selections={firstResourceId}
-                placeholderText="Select resource"
+                placeholderText="Select a resource"
               >
                 {resourceIdList
                   .filter(r => r !== thenResourceId)
@@ -53,7 +53,7 @@ export const Configure: React.FC = () => {
                 variant="single"
                 onSelect={value => updateState({ thenResourceId: value })}
                 selections={thenResourceId}
-                placeholderText="Select resource"
+                placeholderText="Select a resource"
               >
                 {resourceIdList
                   .filter(r => r !== firstResourceId)

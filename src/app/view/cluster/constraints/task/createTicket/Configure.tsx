@@ -7,13 +7,11 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { FormGroup, FormRadios, FormText } from "app/view/share";
+import { FormGroup, FormRadios, FormSelect, FormText } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { FormResourceExistingOrNew } from "./FormResourceExistingOrNew";
 
 export const Configure: React.FC = () => {
-  const [isResourceExisting, setIsResourceExisting] = React.useState(true);
   const {
     updateState,
     resourceIdList,
@@ -105,13 +103,14 @@ export const Configure: React.FC = () => {
         }}
       />
 
-      <FormResourceExistingOrNew
+      <FormSelect
+        id={"constraint-ticket-create-resource"}
         label="Resource"
-        checked={isResourceExisting ? "select" : "text"}
-        onChange={checked => setIsResourceExisting(checked === "select")}
-        resourceId={resourceId}
-        resourceIdList={resourceIdList}
-        updateResource={value => updateState({ resourceId: value.toString() })}
+        placeholderText="Select a resource"
+        isRequired
+        onSelect={value => updateState({ resourceId: value.toString() })}
+        selections={resourceId}
+        optionsValues={resourceIdList}
       />
 
       <FormRadios

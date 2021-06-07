@@ -34,30 +34,6 @@ export const useTask = () => {
     [],
   );
 
-  React.useEffect(() => {
-    const update: { resourceId?: string; withResourceId?: string } = {};
-
-    if (state.resourceId === "") {
-      update.resourceId = resourceIdList[0];
-    }
-
-    if (state.withResourceId === "") {
-      if (
-        resourceIdList.length > 1
-        && (state.resourceId === resourceIdList[0]
-          || ("resourceId" in update && update.resourceId === resourceIdList[0]))
-      ) {
-        update.withResourceId = resourceIdList[1];
-      } else {
-        update.withResourceId = resourceIdList[0];
-      }
-    }
-
-    if ("resourceId" in update || "withResourceId" in update) {
-      updateState(update);
-    }
-  }, [updateState, resourceIdList, state.resourceId, state.withResourceId]);
-
   return {
     ...task,
     nodeNameList: clusterStatus.nodeList.map(n => n.name),

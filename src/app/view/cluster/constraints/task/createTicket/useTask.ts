@@ -34,18 +34,6 @@ export const useTask = () => {
     [],
   );
 
-  React.useEffect(() => {
-    const update: { resourceId?: string } = {};
-
-    if (state.resourceId === "") {
-      update.resourceId = resourceIdList[0];
-    }
-
-    if ("resourceId" in update) {
-      updateState(update);
-    }
-  }, [updateState, resourceIdList, state.resourceId]);
-
   const isCustomIdValid = !state.useCustomId || state.id.length > 0;
   const isTicketValid = state.ticket.length > 0;
   return {

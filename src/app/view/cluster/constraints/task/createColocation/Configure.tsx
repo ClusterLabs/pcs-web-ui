@@ -1,16 +1,11 @@
 import React from "react";
-import { Flex, FlexItem, Form, FormGroup, Radio } from "@patternfly/react-core";
+import { Form } from "@patternfly/react-core";
 
-import { FormText } from "app/view/share";
+import { FormRadios, FormSelect, FormText } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { FormResourceExistingOrNew } from "./FormResourceExistingOrNew";
 
 export const Configure: React.FC = () => {
-  const [isResourceExisting, setIsResourceExisting] = React.useState(true);
-  const [isWithResourceExisting, setIsWithResourceExisting] = React.useState(
-    true,
-  );
   const {
     updateState,
     resourceIdList,
@@ -19,56 +14,33 @@ export const Configure: React.FC = () => {
 
   return (
     <Form data-test="create-location-constrait">
-      <FormResourceExistingOrNew
+      <FormSelect
+        id={"constraint-colocation-create-resource"}
         label="Resource"
-        checked={isResourceExisting ? "select" : "text"}
-        onChange={checked => setIsResourceExisting(checked === "select")}
-        resourceId={resourceId}
-        resourceIdList={resourceIdList}
-        updateResource={value => updateState({ resourceId: value.toString() })}
-      />
-
-      <FormResourceExistingOrNew
-        label="With resource"
-        checked={isWithResourceExisting ? "select" : "text"}
-        onChange={checked => setIsWithResourceExisting(checked === "select")}
-        resourceId={withResourceId}
-        resourceIdList={resourceIdList}
-        updateResource={value =>
-          updateState({ withResourceId: value.toString() })
-        }
-      />
-
-      <FormGroup
-        label="Placement"
+        placeholderText="Select a resource"
         isRequired
-        fieldId="constraint-colocation-create-placement"
-      >
-        <Flex>
-          <FlexItem>
-            <Radio
-              isChecked={placement === "together"}
-              name="placement-together"
-              onChange={isChecked =>
-                updateState({ placement: isChecked ? "together" : "apart" })
-              }
-              label="Together"
-              id="placement-together"
-            />
-          </FlexItem>
-          <FlexItem>
-            <Radio
-              isChecked={placement === "apart"}
-              name="placement-apart"
-              onChange={isChecked =>
-                updateState({ placement: isChecked ? "apart" : "together" })
-              }
-              label="Apart"
-              id="placement-apart"
-            />
-          </FlexItem>
-        </Flex>
-      </FormGroup>
+        onSelect={value => updateState({ resourceId: value.toString() })}
+        selections={resourceId}
+        optionsValues={resourceIdList}
+      />
+
+      <FormSelect
+        id={"constraint-colocation-create-resource"}
+        label="With resource"
+        placeholderText="Select a resource"
+        isRequired
+        onSelect={value => updateState({ withResourceId: value.toString() })}
+        selections={withResourceId}
+        optionsValues={resourceIdList}
+      />
+
+      <FormRadios
+        id="constraint-colocation-create-placement"
+        label="Placement"
+        options={["together", "apart"]}
+        selected={placement}
+        onChange={value => updateState({ placement: value })}
+      />
 
       <FormText
         id="constraint-score"
