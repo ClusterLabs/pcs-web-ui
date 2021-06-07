@@ -7,7 +7,7 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { FormGroup, FormText, TaskLibStep } from "app/view/share";
+import { FormGroup, FormRadios, FormText, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
@@ -19,6 +19,7 @@ export const Options: React.FC = () => {
       id,
       useCustomId,
       showValidationErrors,
+      placement,
       score,
       libCall: { reports },
     },
@@ -67,6 +68,15 @@ export const Options: React.FC = () => {
             )}
           </Flex>
         </FormGroup>
+
+        <FormRadios
+          id="constraint-colocation-create-placement"
+          label="Placement"
+          options={["together", "apart"]}
+          selected={placement}
+          onChange={value => updateState({ placement: value })}
+        />
+
         <FormText
           label="Score"
           id="score"

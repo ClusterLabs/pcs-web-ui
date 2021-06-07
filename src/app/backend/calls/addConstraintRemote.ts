@@ -20,7 +20,7 @@ type Location = {
 type Colocation = {
   resourceId: string;
   withResourceId: string;
-  score: string;
+  score?: string;
 };
 
 type Constraint = (
@@ -72,7 +72,7 @@ const colocationParams = ({
   ["res_id", resourceId],
   ["target_res_id", withResourceId],
   ["colocation_type", ""], // backend will not correct score (already correct)
-  ["score", score],
+  ...(score ? [["score", score] as [string, string]] : []),
 ];
 
 const params = (constraint: Constraint) => {

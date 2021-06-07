@@ -8,6 +8,10 @@ type Role = Exclude<
   ActionPayload["CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET"]["set"]["role"],
   undefined
 >;
+type Placement = Exclude<
+  ActionPayload["CONSTRAINT.COLOCATION.SET.CREATE.UPDATE"]["placement"],
+  undefined
+>;
 const initialSet: {
   resources: string[];
   sequential: boolean;
@@ -27,6 +31,7 @@ const {
 const initialState: {
   useCustomId: boolean;
   id: string;
+  placement: Placement;
   score: string;
   sets: typeof initialResourceSets;
   showValidationErrors: boolean;
@@ -34,6 +39,7 @@ const initialState: {
 } = {
   useCustomId: false,
   id: "",
+  placement: "together",
   score: "",
   sets: initialResourceSets,
   showValidationErrors: false,

@@ -43,9 +43,10 @@ export const useTask = () => {
     updateState,
 
     createColocation: () => {
-      const score = `${state.placement === "together" ? "" : "-"}${
-        state.score
-      }`;
+      let score = state.score;
+      if (score.length > 0 && state.placement === "apart") {
+        score = `-${score}`;
+      }
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE",
         key: { clusterName, task: task.name },
@@ -54,7 +55,7 @@ export const useTask = () => {
             colocation: {
               resourceId: state.resourceId,
               withResourceId: state.withResourceId,
-              score,
+              ...(score.length > 0 ? { score } : {}),
             },
           },
         },

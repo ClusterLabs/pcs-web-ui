@@ -129,9 +129,9 @@ export type LibClusterCommands = [
       constraint_options: {
         id?: string;
       } & (
-        | { score: string }
-        | { "score-attribute": string }
-        | { "score-attribute-mangle": string }
+        | { score?: string }
+        | { "score-attribute"?: string }
+        | { "score-attribute-mangle"?: string }
       );
       resource_in_clone_alowed: boolean;
       duplication_alowed: boolean;

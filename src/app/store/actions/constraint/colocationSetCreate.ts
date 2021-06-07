@@ -9,6 +9,7 @@ export type ColocationSetCreateActions = {
     payload: {
       useCustomId?: boolean;
       id?: string;
+      placement?: "together" | "apart";
       score?: string;
     };
   };

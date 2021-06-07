@@ -38,7 +38,11 @@ export const useTask = () => {
       });
     },
 
-    create: ({ force }: { force: boolean }) =>
+    create: ({ force }: { force: boolean }) => {
+      let score = state.score;
+      if (score.length > 0 && state.placement === "apart") {
+        score = `-${score}`;
+      }
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
         key: { clusterName, task: task.name },
@@ -49,7 +53,7 @@ export const useTask = () => {
             payload: {
               constraint_options: {
                 id: state.useCustomId ? state.id : undefined,
-                score: state.score,
+                ...(score.length > 0 ? { score } : {}),
               },
               resource_set_list: state.sets.map(set => ({
                 ids: set.resources,
@@ -63,7 +67,8 @@ export const useTask = () => {
             },
           },
         },
-      }),
+      });
+    },
 
     close: () => {
       close();
