@@ -11,6 +11,7 @@ import {
 } from "@patternfly/react-core";
 import { TrashIcon } from "@patternfly/react-icons";
 
+import { Action } from "app/store";
 import { useDispatch, useSelectedClusterName } from "app/view/share";
 
 export const ConstraintRow: React.FC<{
@@ -20,7 +21,14 @@ export const ConstraintRow: React.FC<{
     typeof DataListItemCells
   >["dataListCells"];
   canDelete?: boolean;
-}> = ({ id = "", dataListCells, content = null, canDelete = true }) => {
+  deleteAction?: Action;
+}> = ({
+  id = "",
+  dataListCells,
+  content = null,
+  canDelete = true,
+  deleteAction,
+}) => {
   const [showDetails, setShowDetails] = React.useState(false);
   const rowId = `constraint-${id}-row`;
   const [showConfirm, setShowConfirm] = React.useState(false);
@@ -61,11 +69,13 @@ export const ConstraintRow: React.FC<{
                     key="confirm"
                     variant="primary"
                     onClick={() => {
-                      dispatch({
-                        type: "CONSTRAINT.DELETE",
-                        key: { clusterName },
-                        payload: { constraintId: id },
-                      });
+                      dispatch(
+                        deleteAction || {
+                          type: "CONSTRAINT.DELETE",
+                          key: { clusterName },
+                          payload: { constraintId: id },
+                        },
+                      );
                       setShowConfirm(false);
                     }}
                   >

@@ -6,6 +6,7 @@ import { ColocationSetCreateActions } from "./colocationSetCreate";
 import { TicketCreateActions } from "./ticketCreate";
 import { TicketSetCreateActions } from "./ticketSetCreate";
 import { SingleCreateActions } from "./singleCreate";
+import { ConstraintDeleteActions } from "./delete";
 
 // prettier-ignore
 export type ConstraintAction = (
@@ -17,13 +18,5 @@ export type ConstraintAction = (
   & TicketCreateActions
   & TicketSetCreateActions
   & SingleCreateActions
-  & {
-    "CONSTRAINT.DELETE": {
-      type: "CONSTRAINT.DELETE",
-      key: {clusterName: string},
-      payload: {
-        constraintId: string;
-      }
-    }
-  }
+  & ConstraintDeleteActions
 );

@@ -49,6 +49,14 @@ app.removeConstraintRemote((req, res) => {
   res.send(`Constraint ${req.body.constraint_id} removed`);
 });
 
+app.removeConstraintRuleRemote((req, res) => {
+  if (req.body.rule_id === "cli-prefer-A-1") {
+    res.status(400).send("Error removing constraint rule: cli-prefer-A-1");
+    return;
+  }
+  res.send(`Constraint rule ${req.body.constraint_id} removed`);
+});
+
 app.addConstraintRuleRemote((req, res) => {
   if (req.body.score > 100) {
     res

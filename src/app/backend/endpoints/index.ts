@@ -26,11 +26,13 @@ import { sendKnownHosts } from "./sendKnownHosts";
 import { updateResource } from "./updateResource";
 import { addConstraintRemote } from "./addConstraintRemote";
 import { removeConstraintRemote } from "./removeConstraintRemote";
+import { removeConstraintRuleRemote } from "./removeConstraintRuleRemote";
 import { addConstraintRuleRemote } from "./addConstraintRuleRemote";
 
 const endpoints = {
   addConstraintRemote,
   removeConstraintRemote,
+  removeConstraintRuleRemote,
   addConstraintRuleRemote,
   authGuiAgainstNodes,
   canAddClusterOrNodes,
