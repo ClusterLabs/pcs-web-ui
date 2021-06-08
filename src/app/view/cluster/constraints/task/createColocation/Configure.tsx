@@ -21,7 +21,7 @@ export const Configure: React.FC = () => {
         isRequired
         onSelect={value => updateState({ resourceId: value.toString() })}
         selections={resourceId}
-        optionsValues={resourceIdList}
+        optionsValues={resourceIdList.filter(r => r !== withResourceId)}
       />
 
       <FormSelect
@@ -31,7 +31,7 @@ export const Configure: React.FC = () => {
         isRequired
         onSelect={value => updateState({ withResourceId: value.toString() })}
         selections={withResourceId}
-        optionsValues={resourceIdList}
+        optionsValues={resourceIdList.filter(r => r !== resourceId)}
       />
 
       <FormRadios
