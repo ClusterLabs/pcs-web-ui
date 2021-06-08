@@ -18,6 +18,9 @@ export const FormSelect: React.FC<
     isRequired?: FormGroupProps["isRequired"];
     isDisabled?: boolean;
     placeholderText?: string;
+    helperText?: FormGroupProps["helperText"];
+    helperTextInvalid?: React.ReactNode;
+    validated?: FormGroupProps["validated"];
     "data-test"?: string;
   } & ({ options: SelectProps["children"] } | { optionsValues: string[] })
 > = (props) => {
@@ -32,6 +35,9 @@ export const FormSelect: React.FC<
     "data-test": dataTest,
     placeholderText = undefined,
     popover = undefined,
+    validated = "default",
+    helperTextInvalid = null,
+    helperText = undefined,
   } = props;
   return (
     <FormGroup
@@ -40,6 +46,9 @@ export const FormSelect: React.FC<
       popover={popover}
       className={className}
       isRequired={isRequired}
+      helperTextInvalid={helperTextInvalid}
+      validated={validated}
+      helperText={helperText}
     >
       <Select
         id={id}

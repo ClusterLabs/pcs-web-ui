@@ -35,6 +35,7 @@ export const ConstraintCreateColocationToolbarItem: React.FC<{
           footer={
             response !== "" ? null : (
               <TaskSimpleFooter
+                task="constraintColocationCreate"
                 run={createColocation}
                 runLabel="Create colocation constraint"
                 cancel={close}
