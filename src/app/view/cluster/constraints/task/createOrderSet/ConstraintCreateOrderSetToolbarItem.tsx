@@ -50,6 +50,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                   onClose={close}
                   nextIf={areSetsValid}
                   backDisabled
+                  task="constraintOrderSetCreate"
                 />
               ),
             },
@@ -58,7 +59,11 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
               canJumpTo: areSetsValid,
               component: <Options />,
               footer: (
-                <ClusterWizardFooter onClose={close} nextIf={isCustomIdValid} />
+                <ClusterWizardFooter
+                  onClose={close}
+                  nextIf={isCustomIdValid}
+                  task="constraintOrderSetCreate"
+                />
               ),
             },
             {
@@ -70,6 +75,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                   preNext={() => create({ force: false })}
                   nextLabel="Create constraint"
                   onClose={close}
+                  task="constraintOrderSetCreate"
                 />
               ),
             },

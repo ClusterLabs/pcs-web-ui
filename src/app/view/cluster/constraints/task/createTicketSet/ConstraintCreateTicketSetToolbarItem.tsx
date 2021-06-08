@@ -51,6 +51,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
                   onClose={close}
                   nextIf={areSetsValid}
                   backDisabled
+                  task="constraintTicketSetCreate"
                 />
               ),
             },
@@ -62,6 +63,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
                 <ClusterWizardFooter
                   onClose={close}
                   nextIf={isCustomIdValid && isTicketValid}
+                  task="constraintTicketSetCreate"
                 />
               ),
             },
@@ -74,6 +76,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
                   preNext={() => create({ force: false })}
                   nextLabel="Create constraint"
                   onClose={close}
+                  task="constraintTicketSetCreate"
                 />
               ),
             },

@@ -3,6 +3,7 @@ import { WizardContextConsumer } from "@patternfly/react-core";
 
 import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
 import { useDispatch } from "app/view/share/useDispatch";
+import { selectors } from "app/store";
 
 import { TaskButtonNext } from "./TaskButtonNext";
 import { TaskButtonBack } from "./TaskButtonBack";
@@ -11,6 +12,7 @@ import { TaskButtonCancel } from "./TaskButtonCancel";
 export const ClusterWizardFooter: React.FC<
   {
     onClose: () => void;
+    task: Parameters<typeof selectors.getTask>[0];
     onBack?: () => void;
     nextDisabled?: boolean;
     backDisabled?: boolean;
@@ -30,6 +32,7 @@ export const ClusterWizardFooter: React.FC<
   const {
     onBack,
     onClose,
+    task,
     nextLabel = "Next",
     backDisabled = false,
     nextDisabled = false,
@@ -55,14 +58,14 @@ export const ClusterWizardFooter: React.FC<
                 if (props.nextIf) {
                   dispatch({
                     type: "CLUSTER.TASK.VALIDATION.HIDE",
-                    key: { clusterName },
+                    key: { clusterName, task },
                   });
                   onNext();
                   return;
                 }
                 dispatch({
                   type: "CLUSTER.TASK.VALIDATION.SHOW",
-                  key: { clusterName },
+                  key: { clusterName, task },
                 });
               }}
               disabled={nextDisabled}

@@ -40,6 +40,7 @@ export const ResourceCreate: React.FC = () => {
               nextIf={isNameTypeValid}
               onClose={close}
               backDisabled
+              task="resourceCreate"
             />
           ),
         },
@@ -51,6 +52,7 @@ export const ResourceCreate: React.FC = () => {
               nextIf={areInstanceAttrsValid}
               onClose={close}
               nextDisabled={!isAgentLoaded}
+              task="resourceCreate"
             />
           ),
           canJumpTo: isNameTypeValid,
@@ -59,7 +61,11 @@ export const ResourceCreate: React.FC = () => {
           name: "Settings",
           component: <Settings />,
           footer: (
-            <ClusterWizardFooter nextIf={areSettingsValid} onClose={close} />
+            <ClusterWizardFooter
+              nextIf={areSettingsValid}
+              onClose={close}
+              task="resourceCreate"
+            />
           ),
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
@@ -71,6 +77,7 @@ export const ResourceCreate: React.FC = () => {
               preNext={() => create({ force: false })}
               nextLabel="Create resource"
               onClose={close}
+              task="resourceCreate"
             />
           ),
           canJumpTo:

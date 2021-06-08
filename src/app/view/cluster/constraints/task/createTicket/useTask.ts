@@ -50,7 +50,7 @@ export const useTask = () => {
       if (!isCustomIdValid || !isTicketValid) {
         dispatch({
           type: "CLUSTER.TASK.VALIDATION.SHOW",
-          key: { clusterName },
+          key: { clusterName, task: task.name },
         });
         return;
       }

@@ -44,6 +44,7 @@ export const NodeAdd: React.FC = () => {
               nextIf={isNameValid}
               onClose={close}
               backDisabled
+              task="nodeAdd"
             />
           ),
         },
@@ -54,11 +55,13 @@ export const NodeAdd: React.FC = () => {
             <ClusterWizardFooter
               next={<AuthButton authProcessId={authProcessId} />}
               onClose={close}
+              task="nodeAdd"
             />
           ) : (
             <ClusterWizardFooter
               nextDisabled={!isNodeCheckDoneValid}
               onClose={close}
+              task="nodeAdd"
             />
           ),
           canJumpTo: isNameValid,
@@ -66,13 +69,13 @@ export const NodeAdd: React.FC = () => {
         {
           name: "Specify node addresses",
           component: <Addresses />,
-          footer: <ClusterWizardFooter onClose={close} />,
+          footer: <ClusterWizardFooter onClose={close} task="nodeAdd" />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Configure sbd",
           component: <Sbd />,
-          footer: <ClusterWizardFooter onClose={close} />,
+          footer: <ClusterWizardFooter onClose={close} task="nodeAdd" />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
@@ -83,6 +86,7 @@ export const NodeAdd: React.FC = () => {
               preNext={() => nodeAdd()}
               nextLabel="Create resource"
               onClose={close}
+              task="nodeAdd"
             />
           ),
           canJumpTo: isNameValid && isNodeCheckDoneValid,
