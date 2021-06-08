@@ -36,7 +36,7 @@ export const ConstraintCreateTicketToolbarItem: React.FC<{
             response !== "no-response" ? null : (
               <TaskSimpleFooter
                 run={() => createTicket({ force: false })}
-                runLabel="Create ticket"
+                runLabel="Create ticket constraint"
                 cancel={close}
               />
             )

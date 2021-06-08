@@ -73,7 +73,7 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
               footer: (
                 <ClusterWizardFooter
                   preNext={() => create({ force: false })}
-                  nextLabel="Create constraint"
+                  nextLabel="Create colocation constraint"
                   onClose={close}
                   task="constraintColocationSetCreate"
                 />

@@ -73,7 +73,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
               footer: (
                 <ClusterWizardFooter
                   preNext={() => create({ force: false })}
-                  nextLabel="Create constraint"
+                  nextLabel="Create order constraint"
                   onClose={close}
                   task="constraintOrderSetCreate"
                 />

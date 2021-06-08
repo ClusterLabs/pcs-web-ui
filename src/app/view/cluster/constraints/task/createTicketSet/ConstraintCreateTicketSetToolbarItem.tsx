@@ -74,7 +74,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               footer: (
                 <ClusterWizardFooter
                   preNext={() => create({ force: false })}
-                  nextLabel="Create constraint"
+                  nextLabel="Create ticket constraint"
                   onClose={close}
                   task="constraintTicketSetCreate"
                 />

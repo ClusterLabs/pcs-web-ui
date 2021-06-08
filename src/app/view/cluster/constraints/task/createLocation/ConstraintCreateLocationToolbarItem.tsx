@@ -36,7 +36,7 @@ export const ConstraintCreateLocationToolbarItem: React.FC<{
             response !== "" ? null : (
               <TaskSimpleFooter
                 run={createLocation}
-                runLabel="Create location"
+                runLabel="Create location constraint"
                 cancel={close}
               />
             )

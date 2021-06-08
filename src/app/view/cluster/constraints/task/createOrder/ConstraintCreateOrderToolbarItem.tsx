@@ -36,7 +36,7 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
             response !== "" ? null : (
               <TaskSimpleFooter
                 run={createOrder}
-                runLabel="Create order"
+                runLabel="Create order constraint"
                 cancel={close}
               />
             )
