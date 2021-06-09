@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   EmptyState,
   EmptyStateBody,
   EmptyStateIcon,
@@ -11,12 +12,15 @@ import { CheckCircleIcon } from "@patternfly/react-icons";
 import * as pallete from "app/view/share/pallete";
 
 export const TaskSuccess: React.FC<{
-  title: string;
+  title: React.ReactNode;
   message?: string;
+  close: () => void;
+  closeLabel?: React.ReactNode;
   primaryActions?: React.ReactNode;
   secondaryActions?: React.ReactNode;
 }> = ({
   title,
+  close,
   primaryActions = null,
   secondaryActions = null,
   message = "",
@@ -28,7 +32,12 @@ export const TaskSuccess: React.FC<{
         {title}
       </Title>
       {message.length > 0 && <EmptyStateBody>{message}</EmptyStateBody>}
-      <>{primaryActions}</>
+      {primaryActions === null && (
+        <Button variant="primary" onClick={close}>
+          Close
+        </Button>
+      )}
+      {primaryActions !== null && primaryActions}
       <EmptyStateSecondaryActions>
         {secondaryActions}
       </EmptyStateSecondaryActions>

@@ -17,7 +17,17 @@ type Location = {
   score: string;
 };
 
-type Constraint = ({ location: Location } | { order: Order }) & {
+type Colocation = {
+  resourceId: string;
+  withResourceId: string;
+  score?: string;
+};
+
+type Constraint = (
+  | { location: Location }
+  | { order: Order }
+  | { colocation: Colocation }
+) & {
   force?: boolean;
 };
 
@@ -53,6 +63,18 @@ const locationParams = ({
   ["score", score],
 ];
 
+const colocationParams = ({
+  resourceId,
+  withResourceId,
+  score,
+}: Colocation): [string, string][] => [
+  ["c_type", "col"],
+  ["res_id", resourceId],
+  ["target_res_id", withResourceId],
+  ["colocation_type", ""], // backend will not correct score (already correct)
+  ...(score ? [["score", score] as [string, string]] : []),
+];
+
 const params = (constraint: Constraint) => {
   const force: [string, string][] =
     "force" in constraint && constraint.force === true
@@ -61,6 +83,10 @@ const params = (constraint: Constraint) => {
 
   if ("order" in constraint) {
     return [...orderParams(constraint.order), ...force];
+  }
+
+  if ("colocation" in constraint) {
+    return [...colocationParams(constraint.colocation), ...force];
   }
 
   return [...locationParams(constraint.location), ...force];

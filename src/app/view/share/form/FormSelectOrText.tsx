@@ -18,14 +18,7 @@ export const FormSelectOrText: React.FC<{
     isDisabled?: boolean;
     placeholderText?: string;
     "data-test"?: string;
-  } & (
-    | {
-        options: SelectProps["children"];
-      }
-    | {
-        optionsValues: string[];
-      }
-  );
+  } & ({ options: SelectProps["children"] } | { optionsValues: string[] });
   text: {
     label: string;
     value: TextProps["value"];

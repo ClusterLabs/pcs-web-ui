@@ -8,6 +8,8 @@ export const useTask = () => {
 
   return {
     ...task,
+    isFirstResourceValid: state.firstResourceId.length > 0,
+    isThenResourceValid: state.thenResourceId.length > 0,
     resourceIdList: clusterStatus.resourceTree.reduce<string[]>(
       (idList, resource) => {
         if (resource.itemType === "primitive") {

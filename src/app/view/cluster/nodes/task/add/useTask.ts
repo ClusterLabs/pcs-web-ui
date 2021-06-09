@@ -88,7 +88,7 @@ export const useTask = () => {
         },
       }),
 
-    nodeAdd: () =>
+    nodeAdd: ({ newForceFlags = [] }: { newForceFlags?: string[] } = {}) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
         key: { clusterName, task: task.name },
@@ -112,10 +112,19 @@ export const useTask = () => {
                 },
               ],
               no_watchdog_validation: state.sbdNoWatchdogValidation,
+              force_flags: [...state.libCall.forceFlags, ...newForceFlags],
             },
           },
         },
-      }),
+      });
+      dispatch({
+        type: "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD",
+        key: { clusterName, task: task.name },
+        payload: {
+          forceFlags: newForceFlags,
+        },
+      });
+    },
 
     nodeStart: () =>
       dispatch({

@@ -1,18 +1,32 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { ClusterWizardFooter, Wizard } from "app/view/share";
+import {
+  ClusterWizardFooter,
+  TaskFinishLibWizard,
+  Wizard,
+} from "app/view/share";
 
 import { useTask } from "./useTask";
 import { Options } from "./Options";
 import { ResourceSetList } from "./ResourceSetList";
 import { Review } from "./Review";
-import { Finish } from "./Finish";
 
 export const ConstraintCreateTicketSetToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
-  const { open, close, isOpened, areSetsValid, create } = useTask();
+  const {
+    open,
+    close,
+    isOpened,
+    areSetsValid,
+    isTicketValid,
+    isCustomIdValid,
+    create,
+    state: {
+      libCall: { reports, response },
+    },
+  } = useTask();
   return (
     <>
       <Button
@@ -37,6 +51,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
                   onClose={close}
                   nextIf={areSetsValid}
                   backDisabled
+                  task="constraintTicketSetCreate"
                 />
               ),
             },
@@ -44,23 +59,39 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               name: "Options",
               canJumpTo: areSetsValid,
               component: <Options />,
-              footer: <ClusterWizardFooter onClose={close} />,
+              footer: (
+                <ClusterWizardFooter
+                  onClose={close}
+                  nextIf={isCustomIdValid && isTicketValid}
+                  task="constraintTicketSetCreate"
+                />
+              ),
             },
             {
               name: "Review",
-              canJumpTo: areSetsValid,
+              canJumpTo: areSetsValid && isCustomIdValid && isTicketValid,
               component: <Review />,
               footer: (
                 <ClusterWizardFooter
                   preNext={() => create({ force: false })}
-                  nextLabel="Create constraint"
+                  nextLabel="Create ticket constraint"
                   onClose={close}
+                  task="constraintTicketSetCreate"
                 />
               ),
             },
             {
               name: "Result",
-              component: <Finish />,
+              component: (
+                <TaskFinishLibWizard
+                  response={response}
+                  taskName="create ticket constraint with resource set"
+                  close={close}
+                  backToUpdateSettingsStepName="Resource Sets"
+                  proceedForce={() => create({ force: true })}
+                  reports={reports}
+                />
+              ),
               isFinishedStep: true,
             },
           ]}

@@ -7,8 +7,8 @@ import {
 } from "@patternfly/react-core";
 
 export const TaskProgress: React.FC<{
-  title: string;
-  progressTitle: string;
+  title: React.ReactNode;
+  progressTitle?: string;
 }> = ({ title, progressTitle }) => {
   return (
     <EmptyState>

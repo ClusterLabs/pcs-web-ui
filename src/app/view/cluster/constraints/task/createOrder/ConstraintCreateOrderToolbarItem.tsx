@@ -1,12 +1,10 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { TaskSimple } from "app/view/share";
+import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { ConstraintCreateOrderConfigure } from "./ConstraintCreateOrderConfigure";
-import { ConstraintCreateOrderFooter } from "./ConstraintCreateOrderFooter";
-import { ConstraintCreateOrderFinish } from "./ConstraintCreateOrderFinish";
+import { Configure } from "./Configure";
 
 export const ConstraintCreateOrderToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
@@ -14,9 +12,13 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
   const {
     open,
     close,
+    createOrder,
+    recoverFromError,
     isOpened,
+    isFirstResourceValid,
+    isThenResourceValid,
     state: {
-      call: { response },
+      call: { response, resultMessage },
     },
   } = useTask();
   return (
@@ -32,10 +34,31 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
         <TaskSimple
           title="Create order constraint"
           close={close}
-          footer={<ConstraintCreateOrderFooter />}
+          footer={
+            response !== "" ? null : (
+              <TaskSimpleFooter
+                task="constraintOrderCreate"
+                nextIf={isFirstResourceValid && isThenResourceValid}
+                run={createOrder}
+                runLabel="Create order constraint"
+                cancel={close}
+              />
+            )
+          }
         >
-          {response === "" && <ConstraintCreateOrderConfigure />}
-          {response !== "" && <ConstraintCreateOrderFinish />}
+          {response === "" && <Configure />}
+          {response !== "" && (
+            <TaskSimpleFinish
+              response={response}
+              resultMessage={resultMessage}
+              waitTitle="Creating order constraint"
+              successTitle="Order created successfully"
+              failTitle="Create order constraint failed"
+              close={close}
+              tryAgain={createOrder}
+              recoverFromError={recoverFromError}
+            />
+          )}
         </TaskSimple>
       )}
     </>

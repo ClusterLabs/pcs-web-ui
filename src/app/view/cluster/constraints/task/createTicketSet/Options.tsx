@@ -7,7 +7,7 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { FormGroup, FormRadios, TaskLibStep } from "app/view/share";
+import { FormGroup, FormRadios, FormText, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
@@ -15,17 +15,21 @@ export const Options: React.FC = () => {
   const {
     updateState,
     isCustomIdValid,
+    isTicketValid,
     state: {
       id,
       useCustomId,
       lossPolicy,
       showValidationErrors,
+      ticket,
       libCall: { reports },
     },
   } = useTask();
   const useCustomIdId = "use-custom-id";
   const customIdValid =
     showValidationErrors && !isCustomIdValid ? "error" : "default";
+  const ticketValid =
+    showValidationErrors && !isTicketValid ? "error" : "default";
   return (
     <TaskLibStep title="Ticket constraint options" reports={reports}>
       <Form isHorizontal>
@@ -65,6 +69,30 @@ export const Options: React.FC = () => {
             )}
           </Flex>
         </FormGroup>
+
+        <FormText
+          id="constraint-ticket"
+          label="Ticket"
+          onChange={value => updateState({ ticket: value })}
+          value={ticket}
+          helperTextInvalid="Please provide ticket"
+          validated={ticketValid}
+          isRequired
+          popover={{
+            header: "Ticket",
+            body: (
+              <>
+                A ticket grants the right to run certain resources on a specific
+                cluster site. Only if the ticket is available at a site can the
+                respective resources be started there. Vice versa, if the ticket
+                is revoked, the resources depending on that ticket must be
+                stopped.
+              </>
+            ),
+          }}
+          data-test="score"
+        />
+
         <FormRadios
           id="constraint-ticket-set-loss-policy"
           label="Loss policy"

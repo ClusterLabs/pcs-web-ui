@@ -6,7 +6,7 @@ import {
   Title,
 } from "@patternfly/react-core";
 
-export const EmptyStateSpinner: React.FC<{ title: string }> = ({
+export const EmptyStateSpinner: React.FC<{ title: React.ReactNode }> = ({
   title: message,
 }) => {
   return (

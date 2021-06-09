@@ -5,3 +5,4 @@ export * from "./FormRadioGroup";
 export * from "./FormRadios";
 export * from "./FormSwitch";
 export * from "./FormGroup";
+export * from "./FormSelect";

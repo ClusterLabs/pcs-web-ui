@@ -61,6 +61,7 @@ export const ConstraintRowWithResourceSet: React.FC<{
                     id={resourceSet.id}
                     dataListCells={setCells(resourceSet)}
                     content={setContent ? setContent(resourceSet) : null}
+                    canDelete={false}
                   />
                 );
               })}

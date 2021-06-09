@@ -12,10 +12,12 @@ import { ClusterSectionToolbar } from "app/view/share";
 import { ConstraintFilteredList } from "./ConstraintFilteredList";
 import {
   ConstraintCreateColocationSetToolbarItem,
+  ConstraintCreateColocationToolbarItem,
   ConstraintCreateLocationToolbarItem,
   ConstraintCreateOrderSetToolbarItem,
   ConstraintCreateOrderToolbarItem,
   ConstraintCreateTicketSetToolbarItem,
+  ConstraintCreateTicketToolbarItem,
 } from "./task";
 
 export const ConstraintsPage: React.FC<{ clusterName: string }> = ({
@@ -35,10 +37,16 @@ export const ConstraintsPage: React.FC<{ clusterName: string }> = ({
             <ConstraintCreateOrderSetToolbarItem variant="secondary" />
           </ActionListItem>
           <ActionListItem>
-            <ConstraintCreateTicketSetToolbarItem variant="secondary" />
+            <ConstraintCreateColocationToolbarItem variant="secondary" />
           </ActionListItem>
           <ActionListItem>
             <ConstraintCreateColocationSetToolbarItem variant="secondary" />
+          </ActionListItem>
+          <ActionListItem>
+            <ConstraintCreateTicketToolbarItem variant="secondary" />
+          </ActionListItem>
+          <ActionListItem>
+            <ConstraintCreateTicketSetToolbarItem variant="secondary" />
           </ActionListItem>
         </ActionList>
       </ClusterSectionToolbar>

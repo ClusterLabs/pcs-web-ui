@@ -85,6 +85,20 @@ export type LibClusterCommands = [
     };
   },
   {
+    name: "constraint-ticket-create";
+    payload: {
+      ticket_key: string;
+      resource_id: string;
+      options: {
+        id?: string;
+        role?: "Stopped" | "Started" | "Master" | "Slave";
+        "loss-policy"?: "fence" | "stop" | "freeze" | "demote";
+      };
+      resource_in_clone_alowed: boolean;
+      duplication_alowed: boolean;
+    };
+  },
+  {
     name: "constraint-ticket-create-with-set";
     payload: {
       resource_set_list: {
@@ -94,6 +108,7 @@ export type LibClusterCommands = [
         };
       }[];
       constraint_options: {
+        ticket: string;
         id?: string;
         "loss-policy"?: "fence" | "stop" | "freeze" | "demote";
       };
@@ -114,9 +129,9 @@ export type LibClusterCommands = [
       constraint_options: {
         id?: string;
       } & (
-        | { score: string }
-        | { "score-attribute": string }
-        | { "score-attribute-mangle": string }
+        | { score?: string }
+        | { "score-attribute"?: string }
+        | { "score-attribute-mangle"?: string }
       );
       resource_in_clone_alowed: boolean;
       duplication_alowed: boolean;

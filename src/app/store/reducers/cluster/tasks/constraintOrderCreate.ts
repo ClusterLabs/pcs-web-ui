@@ -17,12 +17,14 @@ const initialState: {
   thenResourceId: string;
   thenAction: Action<"thenAction">;
   call: typeof initialCall;
+  showValidationErrors: boolean;
 } = {
   firstResourceId: "",
   firstAction: "start",
   thenResourceId: "",
   thenAction: "start",
   call: initialCall,
+  showValidationErrors: false,
 };
 
 export const constraintOrderCreate: AppReducer<typeof initialState> = (
@@ -34,6 +36,7 @@ export const constraintOrderCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         ...action.payload,
+        showValidationErrors: false,
       };
 
     case "CONSTRAINT.ORDER.CREATE.SWAP_RESOURCES":
@@ -47,6 +50,12 @@ export const constraintOrderCreate: AppReducer<typeof initialState> = (
 
     case "CONSTRAINT.ORDER.CREATE.CLOSE":
       return initialState;
+
+    case "CLUSTER.TASK.VALIDATION.SHOW":
+      return { ...state, showValidationErrors: true };
+
+    case "CLUSTER.TASK.VALIDATION.HIDE":
+      return { ...state, showValidationErrors: false };
 
     default:
       return { ...state, call: constraintSingleCall(state.call, action) };

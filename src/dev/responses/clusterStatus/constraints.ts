@@ -1,4 +1,5 @@
 import { Cluster } from "dev/types";
+
 export const constraints: Cluster["constraints"] = {
   rsc_colocation: [
     {
@@ -67,6 +68,11 @@ export const constraints: Cluster["constraints"] = {
     },
     {
       id: "cli-prefer-A-2",
+      rule_string: "",
+      rsc: "A",
+      "id-ref": "somewhere else",
+    },
+    {
       rule_string: "",
       rsc: "A",
       "id-ref": "somewhere else",

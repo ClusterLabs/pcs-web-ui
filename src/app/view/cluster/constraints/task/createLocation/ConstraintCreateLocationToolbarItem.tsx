@@ -1,13 +1,24 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
+import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
+
 import { useTask } from "./useTask";
-import { ConstraintCreateLocation } from "./ConstraintCreateLocation";
+import { Configure } from "./Configure";
 
 export const ConstraintCreateLocationToolbarItem: React.FC<{
   variant?: React.ComponentProps<typeof Button>["variant"];
 }> = ({ variant = "primary" }) => {
-  const { open, isOpened } = useTask();
+  const {
+    open,
+    close,
+    createLocation,
+    recoverFromError,
+    isOpened,
+    state: {
+      call: { response, resultMessage },
+    },
+  } = useTask();
   return (
     <>
       <Button
@@ -17,7 +28,36 @@ export const ConstraintCreateLocationToolbarItem: React.FC<{
       >
         Create Location
       </Button>
-      {isOpened && <ConstraintCreateLocation />}
+      {isOpened && (
+        <TaskSimple
+          title="Create location constraint"
+          close={close}
+          footer={
+            response !== "" ? null : (
+              <TaskSimpleFooter
+                task="constraintLocationCreate"
+                run={createLocation}
+                runLabel="Create location constraint"
+                cancel={close}
+              />
+            )
+          }
+        >
+          {response === "" && <Configure />}
+          {response !== "" && (
+            <TaskSimpleFinish
+              response={response}
+              resultMessage={resultMessage}
+              waitTitle="Creating location constraint"
+              successTitle="Location created successfully"
+              failTitle="Create location constraint failed"
+              close={close}
+              tryAgain={createLocation}
+              recoverFromError={recoverFromError}
+            />
+          )}
+        </TaskSimple>
+      )}
     </>
   );
 };

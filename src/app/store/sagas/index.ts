@@ -43,6 +43,8 @@ function* rootSaga() {
     takeEvery("CLUSTER.FIX_AUTH.START", fixAuth.fixAuth),
     takeEvery("CLUSTER.FIX_AUTH.AUTH_DONE", fixAuth.fixAuthDistribute),
     takeEvery("CONSTRAINT.SINGLE.CREATE", constraints.create),
+    takeEvery("CONSTRAINT.DELETE", constraints.deleteConstraint),
+    takeEvery("CONSTRAINT.DELETE.RULE", constraints.deleteConstraintRule),
     takeEvery("NODE.START", nodeStartStop.nodeStart),
     takeEvery("NODE.STOP", nodeStartStop.nodeStop),
     takeEvery("NODE.ADD.CHECK_CAN_ADD", nodeAdd.checkCanAddNodeSaga),
