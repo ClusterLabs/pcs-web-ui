@@ -17,12 +17,14 @@ const initialState: {
   placement: Placement;
   score: string;
   call: typeof initialCall;
+  showValidationErrors: boolean;
 } = {
   resourceId: "",
   withResourceId: "",
   placement: "together",
   score: "",
   call: initialCall,
+  showValidationErrors: false,
 };
 
 export const constraintColocationCreate: AppReducer<typeof initialState> = (
@@ -38,6 +40,12 @@ export const constraintColocationCreate: AppReducer<typeof initialState> = (
 
     case "CONSTRAINT.COLOCATION.CREATE.CLOSE":
       return initialState;
+
+    case "CLUSTER.TASK.VALIDATION.SHOW":
+      return { ...state, showValidationErrors: true };
+
+    case "CLUSTER.TASK.VALIDATION.HIDE":
+      return { ...state, showValidationErrors: false };
 
     default:
       return { ...state, call: constraintSingleCall(state.call, action) };

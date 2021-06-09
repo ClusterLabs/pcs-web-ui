@@ -9,8 +9,21 @@ export const Configure: React.FC = () => {
   const {
     updateState,
     resourceIdList,
-    state: { resourceId, withResourceId, placement, score },
+    isResourceValid,
+    isWithResourceValid,
+    state: {
+      resourceId,
+      withResourceId,
+      placement,
+      score,
+      showValidationErrors,
+    },
   } = useTask();
+
+  const resourceValidated =
+    showValidationErrors && !isResourceValid ? "error" : "default";
+  const withResourceValidated =
+    showValidationErrors && !isWithResourceValid ? "error" : "default";
 
   return (
     <Form data-test="create-location-constrait">
@@ -18,6 +31,8 @@ export const Configure: React.FC = () => {
         id={"constraint-colocation-create-resource"}
         label="Resource"
         placeholderText="Select a resource"
+        validated={resourceValidated}
+        helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({ resourceId: value.toString() })}
         selections={resourceId}
@@ -28,6 +43,8 @@ export const Configure: React.FC = () => {
         id={"constraint-colocation-create-resource"}
         label="With resource"
         placeholderText="Select a resource"
+        validated={withResourceValidated}
+        helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({ withResourceId: value.toString() })}
         selections={withResourceId}

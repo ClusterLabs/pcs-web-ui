@@ -36,6 +36,8 @@ export const useTask = () => {
 
   return {
     ...task,
+    isResourceValid: state.resourceId.length > 0,
+    isWithResourceValid: state.withResourceId.length > 0,
     nodeNameList: clusterStatus.nodeList.map(n => n.name),
     resourceIdList,
 
