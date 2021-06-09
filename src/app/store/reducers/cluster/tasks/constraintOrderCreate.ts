@@ -36,6 +36,7 @@ export const constraintOrderCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         ...action.payload,
+        showValidationErrors: false,
       };
 
     case "CONSTRAINT.ORDER.CREATE.SWAP_RESOURCES":

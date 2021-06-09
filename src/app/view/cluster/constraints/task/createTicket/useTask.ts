@@ -38,6 +38,7 @@ export const useTask = () => {
   const isTicketValid = state.ticket.length > 0;
   return {
     ...task,
+    isResourceValid: state.resourceId.length > 0,
     nodeNameList: clusterStatus.nodeList.map(n => n.name),
     isCustomIdValid,
     isTicketValid,

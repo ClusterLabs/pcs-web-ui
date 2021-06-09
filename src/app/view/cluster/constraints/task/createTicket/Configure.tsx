@@ -17,6 +17,7 @@ export const Configure: React.FC = () => {
     resourceIdList,
     isCustomIdValid,
     isTicketValid,
+    isResourceValid,
     state: {
       ticket,
       resourceId,
@@ -33,6 +34,8 @@ export const Configure: React.FC = () => {
     showValidationErrors && !isTicketValid ? "error" : "default";
   const customIdValid =
     showValidationErrors && !isCustomIdValid ? "error" : "default";
+  const resourceValid =
+    showValidationErrors && !isResourceValid ? "error" : "default";
 
   return (
     <Form data-test="create-location-constrait">
@@ -107,6 +110,8 @@ export const Configure: React.FC = () => {
         id={"constraint-ticket-create-resource"}
         label="Resource"
         placeholderText="Select a resource"
+        validated={resourceValid}
+        helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({ resourceId: value.toString() })}
         selections={resourceId}
