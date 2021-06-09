@@ -8,7 +8,7 @@ export function ExpansionToggle({
   ...rest
 }: React.PropsWithChildren<{
   expanded: string;
-  setExpanded: (key: string) => void;
+  setExpanded: (_key: string) => void;
   expandKey: string;
 }>) {
   const tdClassNames = ["pf-c-table__compound-expansion-toggle"];

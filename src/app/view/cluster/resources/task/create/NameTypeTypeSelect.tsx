@@ -38,7 +38,7 @@ const useFiltering = (resourceAgentMap: ResourceAgentMap) => {
 };
 
 export const NameTypeTypeSelect: React.FC<{
-  onSelect: (value: string) => void;
+  onSelect: (_value: string) => void;
   onClear: () => void;
   agentName: string;
 }> = ({ onSelect, onClear, agentName }) => {

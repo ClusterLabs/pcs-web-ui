@@ -19,7 +19,7 @@ export function FormRadios<OPTION extends string>({
   label: FormGroupProps["label"];
   options: OPTION[];
   selected: OPTION;
-  onChange: (value: OPTION) => void;
+  onChange: (_value: OPTION) => void;
   popover?: FormGroupProps["popover"];
   className?: FormGroupProps["className"];
   isRequired?: FormGroupProps["isRequired"];

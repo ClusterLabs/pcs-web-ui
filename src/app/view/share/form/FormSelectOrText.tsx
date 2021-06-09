@@ -10,10 +10,10 @@ type TextProps = React.ComponentProps<typeof FormText>;
 export const FormSelectOrText: React.FC<{
   id: string;
   checked: Checks;
-  onChange: (checked: Checks) => void;
+  onChange: (_checked: Checks) => void;
   select: {
     label: string;
-    onSelect: (value: string) => void;
+    onSelect: (_value: string) => void;
     selections: SelectProps["selections"];
     isDisabled?: boolean;
     placeholderText?: string;
@@ -22,7 +22,7 @@ export const FormSelectOrText: React.FC<{
   text: {
     label: string;
     value: TextProps["value"];
-    onChange: (value: string) => void;
+    onChange: (_value: string) => void;
     helperTextInvalid: TextProps["helperTextInvalid"];
     validated?: TextProps["validated"];
     "data-test"?: string;

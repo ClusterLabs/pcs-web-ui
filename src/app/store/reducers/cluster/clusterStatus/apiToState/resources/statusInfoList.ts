@@ -18,7 +18,7 @@ export const isDisabled = (apiResource: ApiResource): boolean =>
 
 export function getMaxSeverity<T>(
   list: T[],
-  getItemsSeverity: (item: T) => StatusSeverity,
+  getItemsSeverity: (_item: T) => StatusSeverity,
 ) {
   return list.reduce<StatusSeverity>(
     (severity, item) => statusSeverity.max(severity, getItemsSeverity(item)),

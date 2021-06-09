@@ -13,7 +13,7 @@ type COLUMNS = "NAME" | "ISSUES" | "NODES" | "RESOURCES" | "FENCE_DEVICES";
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((a: Cluster, b: Cluster) => number) => {
+): ((_a: Cluster, _b: Cluster) => number) => {
   switch (column) {
     case "ISSUES":
       return (a, b) =>

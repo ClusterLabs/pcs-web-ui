@@ -7,7 +7,7 @@ import {
   ActionPayload,
 } from "app/store/actions";
 
-import { all, cancel, cancelled, delay, fork, put, take } from "./effects";
+import { all, cancel, delay, fork, put, take } from "./effects";
 
 const SYNC_DELAY = 30 * 1000; // ms
 
@@ -16,9 +16,9 @@ export function* timer(action: Action) {
     yield delay(SYNC_DELAY);
     yield put(action);
   } finally {
-    if (yield cancelled()) {
-      // console.log(`Sync data cancelled`);
-    }
+    // if (yield cancelled()) {
+    //   // console.log(`Sync data cancelled`);
+    // }
   }
 }
 
@@ -35,10 +35,10 @@ export function* manage({
   STOP: Action["type"];
   REFRESH: Action["type"];
   SUCCESS: Action["type"];
-  refresh: (id?: string) => Action;
+  refresh: (_id?: string) => Action;
   // It seems it selects definition of 'fork' with saga on 2nd place (index 1)
   fetch: Parameters<typeof fork>[1];
-  getSyncId?: ((action: Action) => string) | null;
+  getSyncId?: ((_action: Action) => string) | null;
 }) {
   /* eslint-disable no-constant-condition, no-console */
   const syncMap: Record<
@@ -51,7 +51,7 @@ export function* manage({
   > = {};
 
   while (true) {
-    const action = yield take([START, STOP, REFRESH, SUCCESS]);
+    const action: Action = yield take([START, STOP, REFRESH, SUCCESS]);
     const id = getSyncId ? getSyncId(action) : "";
     if (action.type === START) {
       if (id in syncMap) {

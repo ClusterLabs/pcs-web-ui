@@ -1,3 +1,5 @@
+import { PutEffect } from "redux-saga/effects";
+
 import { ActionMap, ActionPayload, actionNewId } from "app/store/actions";
 
 import { delay, put } from "./effects";
@@ -21,7 +23,7 @@ export function* putNotification(
   message: string,
   details: Notification["details"] = undefined,
 ) {
-  return yield put({
+  const putEffect: PutEffect = yield put({
     type: "NOTIFICATION.CREATE",
     payload: {
       id: actionNewId(),
@@ -30,4 +32,5 @@ export function* putNotification(
       details,
     },
   });
+  return putEffect;
 }

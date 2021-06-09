@@ -27,7 +27,7 @@ const useFilter = (): {
   filterState: ReturnType<
     typeof ToolbarFilterTextGroupPair.useState
   >["filterState"];
-  filterParameters: (parameters: ClusterProperties) => ClusterProperties;
+  filterParameters: (_parameters: ClusterProperties) => ClusterProperties;
 } =>
   ToolbarFilterTextGroupPair.useState(
     {

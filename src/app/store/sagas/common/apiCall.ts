@@ -65,7 +65,7 @@ export function* authSafe<
   RESULT extends api.result.Overall<PAYLOAD>,
   PARAMS extends unknown[],
 >(
-  fn: (...fnArgs: PARAMS) => Promise<RESULT>,
+  fn: (..._fnArgs: PARAMS) => Promise<RESULT>,
   ...args: PARAMS
 ): SagaIterator<RESULT> {
   // explicit typing of the yielded value is unfortunatelly neccessary

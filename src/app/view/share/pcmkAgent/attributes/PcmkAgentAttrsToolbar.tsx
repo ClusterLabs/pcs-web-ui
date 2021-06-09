@@ -18,7 +18,7 @@ const useState = (
   filterState: ReturnType<
     typeof ToolbarFilterTextGroupPair.useState
   >["filterState"];
-  filterParameters: (parameters: AgentParameter[]) => AgentParameter[];
+  filterParameters: (_parameters: AgentParameter[]) => AgentParameter[];
 } =>
   ToolbarFilterTextGroupPair.useState(
     initialGroupInclustionMap,

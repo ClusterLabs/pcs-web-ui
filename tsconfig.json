@@ -6,7 +6,11 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": ["jest", "jest-playwright-preset", "expect-playwright"],
+    "types": [
+      "jest",
+      "jest-playwright-preset",
+      "expect-playwright"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,7 +22,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true
   },

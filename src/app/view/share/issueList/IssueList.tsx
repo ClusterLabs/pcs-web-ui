@@ -13,7 +13,7 @@ export const IssueList: React.FC<{
   issueList: Issue[];
   margin?: boolean;
   hideEmpty?: boolean;
-  displayIssue?: (issue: Issue) => React.ReactNode;
+  displayIssue?: (_issue: Issue) => React.ReactNode;
 }> = ({
   issueList,
   margin = false,

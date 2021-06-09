@@ -16,7 +16,7 @@ type COLUMNS = "NAME" | "STATUS";
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((a: Resource, b: Resource) => number) => {
+): ((_a: Resource, _b: Resource) => number) => {
   switch (column) {
     case "STATUS":
       return (a, b) =>

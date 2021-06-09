@@ -6,8 +6,8 @@ type Props = Omit<SelectProps, "isOpen" | "onToggle" | "onSelect" | "onFilter">;
 
 export const Select: React.FC<
   Props & {
-    onSelect: (value: string) => void;
-    onFilter?: (value: string) => void;
+    onSelect: (_value: string) => void;
+    onFilter?: (_value: string) => void;
   }
 > = (props) => {
   const { onSelect, onFilter, ...restProps } = props;
@@ -25,8 +25,10 @@ export const Select: React.FC<
 
   const filter = onFilter
     ? (event: React.ChangeEvent<HTMLInputElement>) => {
-        onFilter(event.target.value);
-        return (null as unknown) as React.ReactElement[];
+        if (event !== null) {
+          onFilter(event.target.value);
+        }
+        return null as unknown as React.ReactElement[];
       }
     : null;
 

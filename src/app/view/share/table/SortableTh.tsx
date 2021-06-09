@@ -10,7 +10,7 @@ type Direction = "asc" | "desc";
 interface SortState<COLUMN> {
   column: COLUMN | "";
   direction: Direction;
-  change: (c: COLUMN, d: Direction) => void;
+  change: (_c: COLUMN, _d: Direction) => void;
 }
 
 function SortableTh<C extends string>({
@@ -69,7 +69,7 @@ function useSorting<COLUMN extends string>(
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const compareItems = (
-    compareByColumn: (_column: COLUMN | "") => (a: any, b: any) => number,
+    compareByColumn: (_column: COLUMN | "") => (_a: any, _b: any) => number,
   ) => {
     const compare = compareByColumn(column);
     return direction === "desc" ? (a: any, b: any) => compare(b, a) : compare;

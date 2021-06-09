@@ -32,7 +32,7 @@ const quorum = (node: Node): string => {
 
 const compareByColumn = (
   column: COLUMNS | "",
-): ((a: Node, b: Node) => number) => {
+): ((_a: Node, _b: Node) => number) => {
   switch (column) {
     case "QUORUM":
       return (a, b) =>

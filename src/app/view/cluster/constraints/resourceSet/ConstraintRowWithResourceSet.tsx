@@ -13,8 +13,8 @@ import { ConstraintCell, ConstraintRow } from "../common";
 type ResourceSetStructured = Extract<ConstraintResourceSet, { id: string }>;
 export const ConstraintRowWithResourceSet: React.FC<{
   resourceSetList: ConstraintResourceSet[];
-  setCells: (resourceSet: ResourceSetStructured) => React.ReactNode;
-  setContent?: (resourceSet: ResourceSetStructured) => React.ReactNode;
+  setCells: (_resourceSet: ResourceSetStructured) => React.ReactNode;
+  setContent?: (_resourceSet: ResourceSetStructured) => React.ReactNode;
   type: string;
   id: string;
   content?: React.ComponentProps<typeof ConstraintRow>["content"];

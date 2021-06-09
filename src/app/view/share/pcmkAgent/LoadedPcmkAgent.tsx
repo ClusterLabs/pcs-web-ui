@@ -9,7 +9,7 @@ import { Agent } from "./types";
 export const LoadedPcmkAgent: React.FC<{
   clusterName: string;
   agentName: string;
-  children: (ra: Agent) => JSX.Element;
+  children: (_ra: Agent) => JSX.Element;
 }> = ({ clusterName, agentName, children }) => {
   const agent = useSelector(selectors.getPcmkAgent(clusterName, agentName));
 

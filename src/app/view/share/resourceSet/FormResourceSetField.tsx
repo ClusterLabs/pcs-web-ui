@@ -9,7 +9,7 @@ export const FormResourceSetField: React.FC<{
   id: string;
   isOnlyOne: boolean;
   showValidationErrors: boolean;
-  update: (resources: string[]) => void;
+  update: (_resources: string[]) => void;
 }> = ({
   selectedResources,
   offeredResources: resourceOfferList,

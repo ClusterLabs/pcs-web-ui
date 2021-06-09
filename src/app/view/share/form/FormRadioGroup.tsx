@@ -10,7 +10,7 @@ export function FormRadioGroup<OPTION extends string>({
   id: string;
   options: OPTION[];
   selected: OPTION;
-  onChange: (value: OPTION) => void;
+  onChange: (_value: OPTION) => void;
 }) {
   return (
     <Flex>

@@ -5,7 +5,7 @@ import * as validate from "./validate";
 
 type PayloadValidation<PAYLOAD, O, I> =
   | { shape: t.Type<PAYLOAD, O, I> }
-  | { validate: (payload: ReturnType<typeof JSON.parse>) => string[] };
+  | { validate: (_payload: ReturnType<typeof JSON.parse>) => string[] };
 
 type HttpParams = [string, string][];
 

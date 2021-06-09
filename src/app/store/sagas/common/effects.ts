@@ -23,7 +23,7 @@ export const put = (action: Action): PutEffect<Action> =>
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function takeEvery<A extends Action>(
   typeOfAction: A["type"],
-  worker: (action: A) => any,
+  worker: (_action: A) => any,
 ): ForkEffect<never> {
   return sagaTakeEvery(typeOfAction, worker);
 }

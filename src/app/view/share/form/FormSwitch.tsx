@@ -21,6 +21,7 @@ export const FormSwitch: React.FC<{
         id={id}
         isChecked={isChecked}
         onChange={onChange}
+        aria-label={label ? label.toString() : ""}
       />
     </FormGroup>
   );

@@ -7,7 +7,7 @@ export function AttributeList<T>({
   children,
 }: {
   attributes: T[];
-  children: (attribute: T) => React.ReactNode;
+  children: (_attribute: T) => React.ReactNode;
 }) {
   if (attributes.length < 1) {
     return (

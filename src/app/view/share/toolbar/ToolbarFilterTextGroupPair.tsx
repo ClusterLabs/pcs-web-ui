@@ -14,14 +14,14 @@ type FilterState = {
 
 function useState<K extends string, I>(
   initialGroupInclustionMap: Record<K, boolean>,
-  groupMembershipMap: (i: I) => Record<K, boolean>,
-  itemSearchableText: (i: I) => string,
+  groupMembershipMap: (_i: I) => Record<K, boolean>,
+  itemSearchableText: (_i: I) => string,
   noSelectedGroupStrategy:
     | "all-off-display-all"
     | "all-off-display-none" = "all-off-display-all",
 ): {
   filterState: FilterState;
-  filterParameters: (parameters: I[]) => I[];
+  filterParameters: (_parameters: I[]) => I[];
 } {
   const textSearchState = ToolbarTextSearchFilter.useState();
   const groupState = ToolbarFilterGroups.useState(initialGroupInclustionMap);

@@ -25,9 +25,9 @@ export const ResourceSetList = <SET extends { resources: string[] }>({
 }: {
   sets: SET[];
   createSet: () => void;
-  deleteSet: (i: number) => void;
-  moveSet: (i: number, direction: "up" | "down") => void;
-  children: (settings: { set: SET; i: number }) => React.ReactNode;
+  deleteSet: (_i: number) => void;
+  moveSet: (_i: number, _direction: "up" | "down") => void;
+  children: (_settings: { set: SET; i: number }) => React.ReactNode;
 }) => {
   return (
     <>

@@ -23,7 +23,7 @@ export const CrmStatusTable = ({
   emptyMessage: string;
   rowObject: {
     header: string;
-    cell: (crmStatus: ResourceOnNodeStatus) => React.ReactNode;
+    cell: (_crmStatus: ResourceOnNodeStatus) => React.ReactNode;
   };
 }) => {
   if (crmStatusList.length === 0) {

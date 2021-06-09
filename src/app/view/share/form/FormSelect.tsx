@@ -11,7 +11,7 @@ export const FormSelect: React.FC<
   {
     id: FormGroupProps["fieldId"];
     label: FormGroupProps["label"];
-    onSelect: (value: string) => void;
+    onSelect: (_value: string) => void;
     selections: SelectProps["selections"];
     popover?: FormGroupProps["popover"];
     className?: FormGroupProps["className"];

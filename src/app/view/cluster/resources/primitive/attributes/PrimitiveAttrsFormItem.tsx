@@ -18,7 +18,7 @@ export const PrimitiveAttrsFormItem = ({
   userValue: string;
   initialValue: string;
   remoteValue: string;
-  onChange: (value: string) => void;
+  onChange: (_value: string) => void;
   chooseRemoteUse: () => void;
   chooseValueUse: () => void;
 }) => {
