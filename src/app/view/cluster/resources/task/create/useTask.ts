@@ -57,7 +57,62 @@ export const useTask = () => {
       });
     },
 
-    create: ({ force }: { force: boolean }) =>
+    create: ({ force }: { force: boolean }) => {
+      if (state.useGroup !== "no") {
+        dispatch({
+          type: "LIB.CALL.CLUSTER.TASK",
+          key: { clusterName, task: task.name },
+          payload: {
+            taskLabel: `create resource "${state.resourceName}"`,
+            call: {
+              name: "resource-create_in_group",
+              payload: {
+                resource_id: state.resourceName,
+                resource_agent_name: state.agentName,
+                group_id: state.group,
+                instance_attributes: state.instanceAttrs,
+                ensure_disabled: state.disabled,
+                operation_list: [],
+                meta_attributes: {},
+                allow_absent_agent: force,
+                allow_invalid_operation: force,
+                allow_invalid_instance_attributes: force,
+                allow_not_suitable_command: force,
+              },
+            },
+          },
+        });
+        return;
+      }
+
+      if (state.clone) {
+        dispatch({
+          type: "LIB.CALL.CLUSTER.TASK",
+          key: { clusterName, task: task.name },
+          payload: {
+            taskLabel: `create resource "${state.resourceName}"`,
+            call: {
+              name: "resource-create_as_clone",
+              payload: {
+                resource_id: state.resourceName,
+                resource_agent_name: state.agentName,
+                instance_attributes: state.instanceAttrs,
+                clone_meta_options: {
+                  ...(state.promotable ? { promotable: "true" } : {}),
+                },
+                ensure_disabled: state.disabled,
+                operation_list: [],
+                meta_attributes: {},
+                allow_absent_agent: force,
+                allow_invalid_operation: force,
+                allow_invalid_instance_attributes: force,
+                allow_not_suitable_command: force,
+              },
+            },
+          },
+        });
+        return;
+      }
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
         key: { clusterName, task: task.name },
@@ -79,6 +134,7 @@ export const useTask = () => {
             },
           },
         },
-      }),
+      });
+    },
   };
 };

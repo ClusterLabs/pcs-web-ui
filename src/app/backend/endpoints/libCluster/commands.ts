@@ -44,7 +44,48 @@ export type LibClusterCommands = [
       allow_invalid_operation?: boolean;
       allow_invalid_instance_attributes?: boolean;
       use_default_operations?: boolean;
-      ensure_disabled: boolean;
+      ensure_disabled?: boolean;
+      allow_not_suitable_command?: boolean;
+
+      wait?: boolean;
+    };
+  },
+  {
+    name: "resource-create_in_group";
+    payload: {
+      resource_id: string;
+      resource_agent_name: string;
+      group_id: string;
+      operation_list: Record<string, string>[];
+      meta_attributes: Record<string, string>;
+      instance_attributes: Record<string, string>;
+      allow_absent_agent?: boolean;
+      allow_invalid_operation?: boolean;
+      allow_invalid_instance_attributes?: boolean;
+      use_default_operations?: boolean;
+      ensure_disabled?: boolean;
+      adjacent_resource_id?: string;
+      put_after_adjacent?: boolean;
+      allow_not_suitable_command?: boolean;
+
+      wait?: boolean;
+    };
+  },
+  {
+    name: "resource-create_as_clone";
+    payload: {
+      resource_id: string;
+      resource_agent_name: string;
+      operation_list: Record<string, string>[];
+      meta_attributes: Record<string, string>;
+      instance_attributes: Record<string, string>;
+      clone_meta_options: Record<string, string>;
+      clone_id?: string;
+      allow_absent_agent?: boolean;
+      allow_invalid_operation?: boolean;
+      allow_invalid_instance_attributes?: boolean;
+      use_default_operations?: boolean;
+      ensure_disabled?: boolean;
       allow_not_suitable_command?: boolean;
 
       wait?: boolean;
