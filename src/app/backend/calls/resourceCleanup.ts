@@ -7,9 +7,7 @@ export const resourceCleanup = async (
   resourceId: string,
 ): CallResult<typeof shape> =>
   http.post(url({ clusterName }), {
-    params: [
-      ["resource", resourceId],
-      ["strict", "1"],
-    ],
+    // parameter "strict" does not work with cleanup and causes an error
+    params: [["resource", resourceId]],
     shape,
   });
