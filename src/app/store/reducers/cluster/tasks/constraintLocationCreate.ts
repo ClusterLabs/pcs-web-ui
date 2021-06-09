@@ -15,6 +15,7 @@ const initialState: {
   call: typeof initialCall;
   preference: "prefer" | "avoid";
   score: string;
+  showValidationErrors: boolean;
 } = {
   resourceSpecification: "resource",
   resourceId: "",
@@ -25,6 +26,7 @@ const initialState: {
   preference: "prefer",
   score: "",
   call: initialCall,
+  showValidationErrors: false,
 };
 
 export const constraintLocationCreate: AppReducer<typeof initialState> = (
@@ -40,6 +42,12 @@ export const constraintLocationCreate: AppReducer<typeof initialState> = (
 
     case "CONSTRAINT.LOCATION.CREATE.CLOSE":
       return initialState;
+
+    case "CLUSTER.TASK.VALIDATION.SHOW":
+      return { ...state, showValidationErrors: true };
+
+    case "CLUSTER.TASK.VALIDATION.HIDE":
+      return { ...state, showValidationErrors: false };
 
     default:
       return { ...state, call: constraintSingleCall(state.call, action) };

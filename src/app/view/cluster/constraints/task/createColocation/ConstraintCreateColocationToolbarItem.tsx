@@ -17,6 +17,7 @@ export const ConstraintCreateColocationToolbarItem: React.FC<{
     isOpened,
     isResourceValid,
     isWithResourceValid,
+    isScoreValid,
     state: {
       call: { response, resultMessage },
     },
@@ -38,7 +39,7 @@ export const ConstraintCreateColocationToolbarItem: React.FC<{
             response !== "" ? null : (
               <TaskSimpleFooter
                 task="constraintColocationCreate"
-                nextIf={isResourceValid && isWithResourceValid}
+                nextIf={isResourceValid && isWithResourceValid && isScoreValid}
                 run={createColocation}
                 runLabel="Create colocation constraint"
                 cancel={close}

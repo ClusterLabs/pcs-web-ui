@@ -15,6 +15,7 @@ export const Options: React.FC = () => {
   const {
     updateState,
     isCustomIdValid,
+    isScoreValid,
     state: {
       id,
       useCustomId,
@@ -27,6 +28,8 @@ export const Options: React.FC = () => {
 
   const customIdValid =
     showValidationErrors && !isCustomIdValid ? "error" : "default";
+  const scoreValidated =
+    showValidationErrors && !isScoreValid ? "error" : "default";
 
   const useCustomIdId = "use-custom-id";
   return (
@@ -81,6 +84,8 @@ export const Options: React.FC = () => {
           label="Score"
           id="score"
           value={score}
+          validated={scoreValidated}
+          helperTextInvalid="Score must be integer or INFINITY"
           onChange={value => updateState({ score: value })}
         />
       </Form>

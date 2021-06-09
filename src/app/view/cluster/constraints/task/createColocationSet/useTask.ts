@@ -1,5 +1,10 @@
 import { ActionPayload } from "app/store";
-import { useClusterTask, useResourceSets } from "app/view/share";
+import {
+  isValidScore,
+  prepareScore,
+  useClusterTask,
+  useResourceSets,
+} from "app/view/share";
 
 type TrueFalse = "true" | "false";
 
@@ -17,6 +22,7 @@ export const useTask = () => {
       || state.sets[0].resources.length > 1,
 
     isCustomIdValid: !state.useCustomId || state.id.length > 0,
+    isScoreValid: state.score.length === 0 || isValidScore(state.score),
 
     // actions
     updateState: (
@@ -39,10 +45,10 @@ export const useTask = () => {
     },
 
     create: ({ force }: { force: boolean }) => {
-      let score = state.score;
-      if (score.length > 0 && state.placement === "apart") {
-        score = `-${score}`;
-      }
+      const score = prepareScore({
+        score: state.score,
+        isNegative: state.placement === "apart",
+      });
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
         key: { clusterName, task: task.name },

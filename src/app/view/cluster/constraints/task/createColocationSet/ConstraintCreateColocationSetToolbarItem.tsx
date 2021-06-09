@@ -22,6 +22,7 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
     isOpened,
     areSetsValid,
     isCustomIdValid,
+    isScoreValid,
     state: {
       libCall: { reports, response },
     },
@@ -61,14 +62,14 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
               footer: (
                 <ClusterWizardFooter
                   onClose={close}
-                  nextIf={isCustomIdValid}
+                  nextIf={isCustomIdValid && isScoreValid}
                   task="constraintColocationSetCreate"
                 />
               ),
             },
             {
               name: "Review",
-              canJumpTo: areSetsValid && isCustomIdValid,
+              canJumpTo: areSetsValid && isCustomIdValid && isScoreValid,
               component: <Review />,
               footer: (
                 <ClusterWizardFooter

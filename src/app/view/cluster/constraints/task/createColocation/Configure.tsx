@@ -11,6 +11,7 @@ export const Configure: React.FC = () => {
     resourceIdList,
     isResourceValid,
     isWithResourceValid,
+    isScoreValid,
     state: {
       resourceId,
       withResourceId,
@@ -24,6 +25,8 @@ export const Configure: React.FC = () => {
     showValidationErrors && !isResourceValid ? "error" : "default";
   const withResourceValidated =
     showValidationErrors && !isWithResourceValid ? "error" : "default";
+  const scoreValidated =
+    showValidationErrors && !isScoreValid ? "error" : "default";
 
   return (
     <Form data-test="create-location-constrait">
@@ -64,8 +67,8 @@ export const Configure: React.FC = () => {
         label="Score"
         onChange={value => updateState({ score: value })}
         value={score}
-        helperTextInvalid="Please provide score"
-        isRequired
+        validated={scoreValidated}
+        helperTextInvalid="Score must be integer or INFINITY"
         data-test="score"
       />
     </Form>

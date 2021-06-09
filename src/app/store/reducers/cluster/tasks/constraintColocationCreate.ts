@@ -36,7 +36,6 @@ export const constraintColocationCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         ...action.payload,
-        showValidationErrors: false,
       };
 
     case "CONSTRAINT.COLOCATION.CREATE.CLOSE":

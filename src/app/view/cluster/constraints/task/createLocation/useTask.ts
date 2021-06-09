@@ -1,5 +1,9 @@
 import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector, useClusterTask } from "app/view/share";
+import {
+  isValidScore,
+  useClusterSelector,
+  useClusterTask,
+} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintLocationCreate");
@@ -9,6 +13,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    isScoreValid: state.score.length === 0 || isValidScore(state.score),
     nodeNameList: clusterStatus.nodeList.map(n => n.name),
     resourceIdList: clusterStatus.resourceTree.reduce<string[]>(
       (idList, resource) => {

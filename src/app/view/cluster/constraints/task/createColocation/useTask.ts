@@ -1,7 +1,12 @@
 import React from "react";
 
 import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector, useClusterTask } from "app/view/share";
+import {
+  isValidScore,
+  prepareScore,
+  useClusterSelector,
+  useClusterTask,
+} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintColocationCreate");
@@ -38,6 +43,7 @@ export const useTask = () => {
     ...task,
     isResourceValid: state.resourceId.length > 0,
     isWithResourceValid: state.withResourceId.length > 0,
+    isScoreValid: state.score.length === 0 || isValidScore(state.score),
     nodeNameList: clusterStatus.nodeList.map(n => n.name),
     resourceIdList,
 
@@ -45,10 +51,10 @@ export const useTask = () => {
     updateState,
 
     createColocation: () => {
-      let score = state.score;
-      if (score.length > 0 && state.placement === "apart") {
-        score = `-${score}`;
-      }
+      const score = prepareScore({
+        score: state.score,
+        isNegative: state.placement === "apart",
+      });
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE",
         key: { clusterName, task: task.name },

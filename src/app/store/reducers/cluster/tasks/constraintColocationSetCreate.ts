@@ -55,7 +55,6 @@ export const constraintColocationSetCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         ...action.payload,
-        showValidationErrors: false,
       };
     }
 
