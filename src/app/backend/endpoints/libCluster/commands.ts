@@ -51,7 +51,7 @@ export type LibClusterCommands = [
     };
   },
   {
-    name: "resource-create_in_group";
+    name: "resource-create-in-group";
     payload: {
       resource_id: string;
       resource_agent_name: string;
@@ -72,7 +72,7 @@ export type LibClusterCommands = [
     };
   },
   {
-    name: "resource-create_as_clone";
+    name: "resource-create-as-clone";
     payload: {
       resource_id: string;
       resource_agent_name: string;

@@ -65,7 +65,7 @@ export const useTask = () => {
           payload: {
             taskLabel: `create resource "${state.resourceName}"`,
             call: {
-              name: "resource-create_in_group",
+              name: "resource-create-in-group",
               payload: {
                 resource_id: state.resourceName,
                 resource_agent_name: state.agentName,
@@ -92,7 +92,7 @@ export const useTask = () => {
           payload: {
             taskLabel: `create resource "${state.resourceName}"`,
             call: {
-              name: "resource-create_as_clone",
+              name: "resource-create-as-clone",
               payload: {
                 resource_id: state.resourceName,
                 resource_agent_name: state.agentName,
