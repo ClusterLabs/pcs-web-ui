@@ -18,6 +18,7 @@ export const TaskProgress: React.FC<{
       <Progress
         value={50}
         title={progressTitle}
+        aria-label="task progress"
         measureLocation={ProgressMeasureLocation.none}
       />
     </EmptyState>
