@@ -17,6 +17,7 @@ export const FormSelectOrText: React.FC<{
     selections: SelectProps["selections"];
     isDisabled?: boolean;
     placeholderText?: string;
+    validated?: SelectProps["validated"];
     "data-test"?: string;
   } & ({ options: SelectProps["children"] } | { optionsValues: string[] });
   text: {
@@ -42,6 +43,7 @@ export const FormSelectOrText: React.FC<{
           <Select
             variant="single"
             placeholderText={select.placeholderText ?? ""}
+            validated={select.validated ?? "default"}
             onSelect={select.onSelect}
             selections={select.selections}
             isDisabled={select.isDisabled}

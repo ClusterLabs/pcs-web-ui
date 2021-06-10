@@ -14,6 +14,15 @@ export const useTask = () => {
   return {
     ...task,
     isScoreValid: state.score.length === 0 || isValidScore(state.score),
+    isResourceValid:
+      state.resourceSpecification === "pattern" || state.resourceId.length > 0,
+    isPatternValid:
+      state.resourceSpecification === "resource"
+      || state.resourcePattern.length > 0,
+    isNodeValid:
+      state.locationSpecification === "rule" || state.nodeName.length > 0,
+    isRuleValid:
+      state.locationSpecification === "node" || state.rule.length > 0,
     nodeNameList: clusterStatus.nodeList.map(n => n.name),
     resourceIdList: clusterStatus.resourceTree.reduce<string[]>(
       (idList, resource) => {

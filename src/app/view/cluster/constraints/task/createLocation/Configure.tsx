@@ -11,6 +11,10 @@ export const Configure: React.FC = () => {
     nodeNameList,
     resourceIdList,
     isScoreValid,
+    isResourceValid,
+    isPatternValid,
+    isNodeValid,
+    isRuleValid,
     state: {
       resourceSpecification,
       resourceId,
@@ -26,6 +30,14 @@ export const Configure: React.FC = () => {
 
   const scoreValidated =
     showValidationErrors && !isScoreValid ? "error" : "default";
+  const resourceValidated =
+    showValidationErrors && !isResourceValid ? "error" : "default";
+  const patternValidated =
+    showValidationErrors && !isPatternValid ? "error" : "default";
+  const nodeValidated =
+    showValidationErrors && !isNodeValid ? "error" : "default";
+  const ruleValidated =
+    showValidationErrors && !isRuleValid ? "error" : "default";
 
   return (
     <Form data-test="create-location-constrait">
@@ -45,6 +57,8 @@ export const Configure: React.FC = () => {
           }
           select={{
             label: "Select a resource",
+            placeholderText: "Select a resource",
+            validated: resourceValidated,
             selections: resourceId,
             optionsValues: resourceIdList,
             onSelect: value => updateState({ resourceId: value.toString() }),
@@ -54,6 +68,7 @@ export const Configure: React.FC = () => {
             value: resourcePattern,
             onChange: value => updateState({ resourcePattern: value }),
             helperTextInvalid: "Please provide resource pattern",
+            validated: patternValidated,
             "data-test": "resource-pattern",
           }}
         />
@@ -74,6 +89,8 @@ export const Configure: React.FC = () => {
           }
           select={{
             label: "Select a node",
+            placeholderText: "Select a node",
+            validated: nodeValidated,
             selections: nodeName,
             optionsValues: nodeNameList,
             onSelect: value => updateState({ nodeName: value.toString() }),
@@ -83,6 +100,7 @@ export const Configure: React.FC = () => {
             value: rule,
             onChange: value => updateState({ rule: value }),
             helperTextInvalid: "Please provide rule",
+            validated: ruleValidated,
             "data-test": "rule",
           }}
         />

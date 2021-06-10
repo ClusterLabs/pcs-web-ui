@@ -16,6 +16,10 @@ export const ConstraintCreateLocationToolbarItem: React.FC<{
     recoverFromError,
     isOpened,
     isScoreValid,
+    isResourceValid,
+    isPatternValid,
+    isNodeValid,
+    isRuleValid,
     state: {
       call: { response, resultMessage },
     },
@@ -37,7 +41,13 @@ export const ConstraintCreateLocationToolbarItem: React.FC<{
             response !== "" ? null : (
               <TaskSimpleFooter
                 task="constraintLocationCreate"
-                nextIf={isScoreValid}
+                nextIf={
+                  isScoreValid
+                  && isResourceValid
+                  && isPatternValid
+                  && isNodeValid
+                  && isRuleValid
+                }
                 run={createLocation}
                 runLabel="Create location constraint"
                 cancel={close}
