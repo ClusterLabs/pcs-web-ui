@@ -63,7 +63,7 @@ export const useTask = () => {
             colocation: {
               resourceId: state.resourceId,
               withResourceId: state.withResourceId,
-              ...(score.length > 0 ? { score } : {}),
+              score,
             },
           },
         },

@@ -9,6 +9,7 @@ export type OrderCreateActions = {
       firstAction?: Action;
       thenResourceId?: string;
       thenAction?: Action;
+      score?: string;
     };
   };
 

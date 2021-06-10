@@ -8,6 +8,7 @@ type Order = {
   order: "after" | "before";
   otherResourceId: string;
   otherAction: "start" | "promote" | "demote" | "stop";
+  score: string;
 };
 
 type Location = {
@@ -20,7 +21,7 @@ type Location = {
 type Colocation = {
   resourceId: string;
   withResourceId: string;
-  score?: string;
+  score: string;
 };
 
 type Constraint = (
@@ -37,6 +38,7 @@ const orderParams = ({
   order,
   otherResourceId,
   otherAction,
+  score,
 }: Order): [string, string][] => [
   ["c_type", "ord"],
   ["res_id", resourceId],
@@ -44,6 +46,7 @@ const orderParams = ({
   ["order", order],
   ["target_res_id", otherResourceId],
   ["target_action", otherAction],
+  ["score", score],
 ];
 
 const locationParams = ({
@@ -72,7 +75,7 @@ const colocationParams = ({
   ["res_id", resourceId],
   ["target_res_id", withResourceId],
   ["colocation_type", ""], // backend will not correct score (already correct)
-  ...(score ? [["score", score] as [string, string]] : []),
+  ["score", score],
 ];
 
 const params = (constraint: Constraint) => {

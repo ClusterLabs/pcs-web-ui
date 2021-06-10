@@ -1,5 +1,9 @@
 import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector, useClusterTask } from "app/view/share";
+import {
+  isValidScore,
+  useClusterSelector,
+  useClusterTask,
+} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintOrderCreate");
@@ -10,6 +14,7 @@ export const useTask = () => {
     ...task,
     isFirstResourceValid: state.firstResourceId.length > 0,
     isThenResourceValid: state.thenResourceId.length > 0,
+    isScoreValid: state.score.length === 0 || isValidScore(state.score),
     resourceIdList: clusterStatus.resourceTree.reduce<string[]>(
       (idList, resource) => {
         if (resource.itemType === "primitive") {
@@ -45,6 +50,7 @@ export const useTask = () => {
               order: "after",
               otherResourceId: state.thenResourceId,
               otherAction: state.thenAction,
+              score: state.score,
             },
           },
         },

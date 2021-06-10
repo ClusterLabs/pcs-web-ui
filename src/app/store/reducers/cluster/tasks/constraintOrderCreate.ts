@@ -17,6 +17,7 @@ const initialState: {
   thenResourceId: string;
   thenAction: Action<"thenAction">;
   call: typeof initialCall;
+  score: string;
   showValidationErrors: boolean;
 } = {
   firstResourceId: "",
@@ -24,6 +25,7 @@ const initialState: {
   thenResourceId: "",
   thenAction: "start",
   call: initialCall,
+  score: "",
   showValidationErrors: false,
 };
 
