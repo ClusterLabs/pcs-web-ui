@@ -1,5 +1,5 @@
-import { Flex, FlexItem, Switch, TextInput } from "@patternfly/react-core";
 import React from "react";
+import { Flex, FlexItem, Switch, TextInput } from "@patternfly/react-core";
 
 import { FormGroup } from "./FormGroup";
 
@@ -8,16 +8,24 @@ export const FormCustomId: React.FC<{
   onChangeUse: React.ComponentProps<typeof Switch>["onChange"];
   onChangeId: React.ComponentProps<typeof TextInput>["onChange"];
   customId: React.ComponentProps<typeof TextInput>["value"];
-  showError: boolean;
-}> = ({ useCustomId, onChangeUse, onChangeId, customId, showError }) => {
+  isValid?: boolean;
+  showValidationErrors?: boolean;
+}> = ({
+  useCustomId,
+  onChangeUse,
+  onChangeId,
+  customId,
+  isValid = true,
+  showValidationErrors = false,
+}) => {
   const id = "use-custom-id";
-  const validated = showError ? "error" : "default";
   return (
     <FormGroup
       fieldId={id}
       label="Use custom id"
       helperTextInvalid={"Please provide a value of custom id"}
-      validated={validated}
+      isValid={isValid}
+      showValidationErrors={showValidationErrors}
       popover={{
         header: "Custom id",
         body: (
@@ -44,7 +52,7 @@ export const FormCustomId: React.FC<{
               value={customId}
               type="text"
               onChange={onChangeId}
-              validated={validated}
+              validated={showValidationErrors && !isValid ? "error" : "default"}
             />
           </FlexItem>
         )}

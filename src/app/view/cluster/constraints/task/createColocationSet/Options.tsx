@@ -25,9 +25,6 @@ export const Options: React.FC = () => {
     },
   } = useTask();
 
-  const scoreValidated =
-    showValidationErrors && !isScoreValid ? "error" : "default";
-
   return (
     <TaskLibStep title="Colocation constraint options" reports={reports}>
       <Form isHorizontal>
@@ -36,7 +33,8 @@ export const Options: React.FC = () => {
           onChangeUse={value => updateState({ useCustomId: value })}
           onChangeId={value => updateState({ id: value })}
           customId={id}
-          showError={showValidationErrors && !isCustomIdValid}
+          showValidationErrors={showValidationErrors}
+          isValid={isCustomIdValid}
         />
 
         <FormRadios
@@ -51,7 +49,8 @@ export const Options: React.FC = () => {
           label="Score"
           id="score"
           value={score}
-          validated={scoreValidated}
+          showValidationErrors={showValidationErrors}
+          isValid={isScoreValid}
           helperTextInvalid="Score must be integer or INFINITY"
           onChange={value => updateState({ score: value })}
         />

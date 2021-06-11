@@ -23,11 +23,6 @@ export const Configure: React.FC = () => {
     },
   } = useTask();
 
-  const ticketValid =
-    showValidationErrors && !isTicketValid ? "error" : "default";
-  const resourceValid =
-    showValidationErrors && !isResourceValid ? "error" : "default";
-
   return (
     <Form data-test="create-location-constrait">
       <FormText
@@ -36,7 +31,8 @@ export const Configure: React.FC = () => {
         onChange={value => updateState({ ticket: value })}
         value={ticket}
         helperTextInvalid="Please provide ticket"
-        validated={ticketValid}
+        showValidationErrors={showValidationErrors}
+        isValid={isTicketValid}
         isRequired
         popover={{
           header: "Ticket",
@@ -101,7 +97,8 @@ export const Configure: React.FC = () => {
         id={"constraint-ticket-create-resource"}
         label="Resource"
         placeholderText="Select a resource"
-        validated={resourceValid}
+        showValidationErrors={showValidationErrors}
+        isValid={isResourceValid}
         helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({ resourceId: value.toString() })}
@@ -127,7 +124,8 @@ export const Configure: React.FC = () => {
         onChangeUse={value => updateState({ useCustomId: value })}
         onChangeId={value => updateState({ id: value })}
         customId={id}
-        showError={showValidationErrors && !isCustomIdValid}
+        showValidationErrors={showValidationErrors}
+        isValid={isCustomIdValid}
       />
     </Form>
   );

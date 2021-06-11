@@ -4,6 +4,7 @@ import { TextInput } from "@patternfly/react-core";
 import { FormGroup } from "./FormGroup";
 
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
+
 export const FormText: React.FC<{
   id: string;
   onChange: React.ComponentProps<typeof TextInput>["onChange"];
@@ -11,7 +12,8 @@ export const FormText: React.FC<{
   label?: React.ComponentProps<typeof FormGroup>["label"];
   helperTextInvalid?: React.ReactNode;
   isRequired?: boolean;
-  validated?: React.ComponentProps<typeof TextInput>["validated"];
+  isValid?: boolean;
+  showValidationErrors?: boolean;
   popover?: FormGroupProps["popover"];
   placeholder?: string;
   helperText?: React.ComponentProps<typeof FormGroup>["helperText"];
@@ -21,7 +23,8 @@ export const FormText: React.FC<{
   onChange,
   value,
   label = undefined,
-  validated = "default",
+  isValid = true,
+  showValidationErrors = false,
   helperTextInvalid = null,
   isRequired = false,
   placeholder = "",
@@ -35,7 +38,8 @@ export const FormText: React.FC<{
       isRequired={isRequired}
       fieldId={id}
       helperTextInvalid={helperTextInvalid}
-      validated={validated}
+      isValid={isValid}
+      showValidationErrors={showValidationErrors}
       helperText={helperText}
       popover={popover}
     >
@@ -46,7 +50,7 @@ export const FormText: React.FC<{
         type="text"
         data-test={dataTest}
         onChange={onChange}
-        validated={validated}
+        validated={!isValid && showValidationErrors ? "error" : "default"}
         placeholder={placeholder}
       />
     </FormGroup>

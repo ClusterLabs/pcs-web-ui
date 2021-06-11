@@ -11,10 +11,6 @@ export const SettingsGroup: React.FC = () => {
     updateState,
     groupList,
   } = useTask();
-  const newGroupValidated =
-    showValidationErrors && useGroup === "new" && group.length === 0
-      ? "error"
-      : "default";
   return (
     <Flex>
       <FlexItem>
@@ -51,6 +47,7 @@ export const SettingsGroup: React.FC = () => {
                   group: checked === "select" ? groupList[0] : "",
                 })
               }
+              showValidationErrors={showValidationErrors}
               select={{
                 label: "Select existing group",
                 selections: groupList.includes(group) ? group : "",
@@ -63,7 +60,7 @@ export const SettingsGroup: React.FC = () => {
                 value: group,
                 onChange: value => updateState({ group: value }),
                 helperTextInvalid: "Please provide a name for the new group",
-                validated: newGroupValidated,
+                isValid: useGroup !== "new" || group.length > 0,
               }}
             />
           </FormGroup>
