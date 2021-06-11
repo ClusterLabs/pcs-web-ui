@@ -71,6 +71,7 @@ export const clusterNodeAdd = (
   payload: {
     nodes: [{ name: nodeName }],
     no_watchdog_validation: false,
+    force_flags: [],
   },
   ...response,
 });
