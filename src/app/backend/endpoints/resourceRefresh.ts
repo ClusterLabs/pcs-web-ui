@@ -6,6 +6,7 @@ export const resourceRefresh = endpoint({
   url: ({ clusterName }: { clusterName: string }) =>
     `/managec/${clusterName}/resource_refresh`,
   method: "post",
+  params: undefined,
   shape: t.union([
     t.type({ success: t.literal("true") }),
     t.type({

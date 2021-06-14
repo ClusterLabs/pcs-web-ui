@@ -5,6 +5,7 @@ import { endpoint } from "./endpoint";
 export const importedClusterList = endpoint({
   url: "/imported-cluster-list",
   method: "get",
+  params: undefined,
   shape: t.type({
     cluster_list: t.array(
       t.type({

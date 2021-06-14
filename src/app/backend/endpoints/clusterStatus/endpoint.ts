@@ -6,5 +6,6 @@ export const clusterStatus = endpoint({
   url: ({ clusterName }: { clusterName: string }) =>
     `/managec/${clusterName}/cluster_status`,
   method: "get",
+  params: undefined,
   shape,
 });

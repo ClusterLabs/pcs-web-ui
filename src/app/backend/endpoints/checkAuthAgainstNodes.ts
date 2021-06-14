@@ -5,6 +5,7 @@ import { endpoint } from "./endpoint";
 export const checkAuthAgainstNodes = endpoint({
   url: "/manage/check_auth_against_nodes",
   method: "get",
+  params: undefined,
   shape: t.record(
     t.string,
     t.keyof({

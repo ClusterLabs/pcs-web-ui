@@ -6,6 +6,7 @@ export const getAvailResourceAgents = endpoint({
   url: ({ clusterName }: { clusterName: string }) =>
     `/managec/${clusterName}/get_avail_resource_agents`,
   method: "get",
+  params: undefined,
   shape: t.record(
     t.string,
     t.type({

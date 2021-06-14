@@ -6,6 +6,7 @@ export const getFenceAgentMetadata = endpoint({
   url: ({ clusterName }: { clusterName: string }) =>
     `/managec/${clusterName}/get_fence_agent_metadata`,
   method: "get",
+  params: undefined,
   shape: t.intersection([
     t.type({
       name: t.string,

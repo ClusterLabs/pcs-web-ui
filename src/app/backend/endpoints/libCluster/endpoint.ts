@@ -13,6 +13,7 @@ export const libCluster = endpoint({
     command: LibClusterCommands[number]["name"];
   }) => `/managec/${clusterName}/api/v1/${command}`,
   method: "post",
+  params: undefined,
   shape: t.type({
     status: t.keyof({
       success: null,
@@ -41,6 +42,6 @@ export const libCluster = endpoint({
         context: t.union([t.type({ node: t.string }), t.null]),
       }),
     ),
-    data: t.any,
+    data: t.unknown,
   }),
 });
