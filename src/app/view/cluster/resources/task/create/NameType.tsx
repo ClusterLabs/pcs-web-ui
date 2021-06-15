@@ -33,8 +33,6 @@ export const NameType: React.FC = () => {
   const changeResourceName = (value: string) =>
     updateState({ resourceName: value });
 
-  const resourceNameValidated =
-    showValidationErrors && resourceName.length === 0 ? "error" : "default";
   const agentNameValidated =
     showValidationErrors && agentName.length === 0 ? "error" : "default";
 
@@ -51,7 +49,8 @@ export const NameType: React.FC = () => {
           value={resourceName}
           helperTextInvalid="Please provide the new resource name"
           isRequired
-          validated={resourceNameValidated}
+          showValidationErrors={showValidationErrors}
+          isValid={resourceName.length > 0}
         />
         <FormGroup
           label="Resource type"

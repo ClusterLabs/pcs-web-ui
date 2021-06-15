@@ -11,8 +11,6 @@ export const Form: React.FC = () => {
     availableResources,
     state: { groupId, showValidationErrors, resourceIdList, reports },
   } = useTask();
-  const groupNameValidated =
-    showValidationErrors && groupId.length === 0 ? "error" : "default";
 
   const onListChange = (
     _newAvailableOptions: React.ReactNode[],
@@ -35,7 +33,8 @@ export const Form: React.FC = () => {
           value={groupId}
           helperTextInvalid="Please provide a group name"
           isRequired
-          validated={groupNameValidated}
+          showValidationErrors={showValidationErrors}
+          isValid={groupId.length > 0}
           data-test="group-name"
         />
       </PfForm>

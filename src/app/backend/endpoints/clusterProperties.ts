@@ -6,6 +6,7 @@ export const clusterProperties = endpoint({
   url: ({ clusterName }: { clusterName: string }) =>
     `/managec/${clusterName}/cluster_properties`,
   method: "get",
+  params: undefined,
   shape: t.record(
     t.string,
     t.intersection([

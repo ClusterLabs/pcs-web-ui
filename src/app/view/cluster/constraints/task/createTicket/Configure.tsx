@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Flex,
-  FlexItem,
-  Form,
-  Switch,
-  TextInput,
-} from "@patternfly/react-core";
+import { Form } from "@patternfly/react-core";
 
-import { FormGroup, FormRadios, FormSelect, FormText } from "app/view/share";
+import { FormCustomId, FormRadios, FormSelect, FormText } from "app/view/share";
 
 import { useTask } from "./useTask";
 
@@ -29,14 +23,6 @@ export const Configure: React.FC = () => {
     },
   } = useTask();
 
-  const useCustomIdId = "use-custom-id";
-  const ticketValid =
-    showValidationErrors && !isTicketValid ? "error" : "default";
-  const customIdValid =
-    showValidationErrors && !isCustomIdValid ? "error" : "default";
-  const resourceValid =
-    showValidationErrors && !isResourceValid ? "error" : "default";
-
   return (
     <Form data-test="create-location-constrait">
       <FormText
@@ -45,7 +31,8 @@ export const Configure: React.FC = () => {
         onChange={value => updateState({ ticket: value })}
         value={ticket}
         helperTextInvalid="Please provide ticket"
-        validated={ticketValid}
+        showValidationErrors={showValidationErrors}
+        isValid={isTicketValid}
         isRequired
         popover={{
           header: "Ticket",
@@ -110,7 +97,8 @@ export const Configure: React.FC = () => {
         id={"constraint-ticket-create-resource"}
         label="Resource"
         placeholderText="Select a resource"
-        validated={resourceValid}
+        showValidationErrors={showValidationErrors}
+        isValid={isResourceValid}
         helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({ resourceId: value.toString() })}
@@ -131,42 +119,14 @@ export const Configure: React.FC = () => {
         }}
       />
 
-      <FormGroup
-        fieldId={useCustomIdId}
-        label="Use custom id"
-        helperTextInvalid={"Please provide a value of custom id"}
-        validated={customIdValid}
-        popover={{
-          header: "Constraint id",
-          body: (
-            <>
-              You can specify constraint id. Otherwise it will be generated
-              automatically.
-            </>
-          ),
-        }}
-      >
-        <Flex>
-          <FlexItem className="pf-u-pt-sm">
-            <Switch
-              id={useCustomIdId}
-              isChecked={useCustomId}
-              onChange={value => updateState({ useCustomId: value })}
-            />
-          </FlexItem>
-          {useCustomId && (
-            <FlexItem>
-              <TextInput
-                id={`${useCustomIdId}-id`}
-                value={id}
-                type="text"
-                onChange={value => updateState({ id: value })}
-                validated={customIdValid}
-              />
-            </FlexItem>
-          )}
-        </Flex>
-      </FormGroup>
+      <FormCustomId
+        useCustomId={useCustomId}
+        onChangeUse={value => updateState({ useCustomId: value })}
+        onChangeId={value => updateState({ id: value })}
+        customId={id}
+        showValidationErrors={showValidationErrors}
+        isValid={isCustomIdValid}
+      />
     </Form>
   );
 };

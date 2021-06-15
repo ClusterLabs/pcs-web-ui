@@ -28,17 +28,6 @@ export const Configure: React.FC = () => {
     },
   } = useTask();
 
-  const scoreValidated =
-    showValidationErrors && !isScoreValid ? "error" : "default";
-  const resourceValidated =
-    showValidationErrors && !isResourceValid ? "error" : "default";
-  const patternValidated =
-    showValidationErrors && !isPatternValid ? "error" : "default";
-  const nodeValidated =
-    showValidationErrors && !isNodeValid ? "error" : "default";
-  const ruleValidated =
-    showValidationErrors && !isRuleValid ? "error" : "default";
-
   return (
     <Form data-test="create-location-constrait">
       <FormGroup
@@ -55,10 +44,11 @@ export const Configure: React.FC = () => {
                 checked === "select" ? "resource" : "pattern",
             })
           }
+          showValidationErrors={showValidationErrors}
           select={{
             label: "Select a resource",
             placeholderText: "Select a resource",
-            validated: resourceValidated,
+            isValid: isResourceValid,
             selections: resourceId,
             optionsValues: resourceIdList,
             onSelect: value => updateState({ resourceId: value.toString() }),
@@ -68,7 +58,7 @@ export const Configure: React.FC = () => {
             value: resourcePattern,
             onChange: value => updateState({ resourcePattern: value }),
             helperTextInvalid: "Please provide resource pattern",
-            validated: patternValidated,
+            isValid: isPatternValid,
             "data-test": "resource-pattern",
           }}
         />
@@ -87,10 +77,11 @@ export const Configure: React.FC = () => {
               locationSpecification: checked === "select" ? "node" : "rule",
             })
           }
+          showValidationErrors={showValidationErrors}
           select={{
             label: "Select a node",
             placeholderText: "Select a node",
-            validated: nodeValidated,
+            isValid: isNodeValid,
             selections: nodeName,
             optionsValues: nodeNameList,
             onSelect: value => updateState({ nodeName: value.toString() }),
@@ -100,7 +91,7 @@ export const Configure: React.FC = () => {
             value: rule,
             onChange: value => updateState({ rule: value }),
             helperTextInvalid: "Please provide rule",
-            validated: ruleValidated,
+            isValid: isRuleValid,
             "data-test": "rule",
           }}
         />
@@ -142,7 +133,8 @@ export const Configure: React.FC = () => {
         label="Score"
         onChange={value => updateState({ score: value })}
         value={score}
-        validated={scoreValidated}
+        showValidationErrors={showValidationErrors}
+        isValid={isScoreValid}
         helperTextInvalid="Score must be integer or INFINITY"
         data-test="score"
       />

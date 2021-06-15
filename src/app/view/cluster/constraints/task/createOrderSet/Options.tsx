@@ -25,7 +25,8 @@ export const Options: React.FC = () => {
           onChangeUse={value => updateState({ useCustomId: value })}
           onChangeId={value => updateState({ id: value })}
           customId={id}
-          showError={showValidationErrors && !isCustomIdValid}
+          showValidationErrors={showValidationErrors}
+          isValid={isCustomIdValid}
         />
       </Form>
     </TaskLibStep>

@@ -11,6 +11,8 @@ export const FormGroup: React.FC<{
   isRequired?: FormGroupProps["isRequired"];
   helperTextInvalid?: FormGroupProps["helperTextInvalid"];
   validated?: FormGroupProps["validated"];
+  isValid?: boolean;
+  showValidationErrors?: boolean;
   popover?: React.ComponentProps<typeof AttributeHelpPopover>;
   className?: FormGroupProps["className"];
 }> = ({
@@ -20,7 +22,8 @@ export const FormGroup: React.FC<{
   helperText,
   isRequired,
   helperTextInvalid,
-  validated,
+  isValid = true,
+  showValidationErrors = false,
   popover,
   className,
 }) => {
@@ -35,6 +38,7 @@ export const FormGroup: React.FC<{
         ),
       }
     : {};
+  const validated = !isValid && showValidationErrors ? "error" : "default";
   return (
     <PfFormGroup
       fieldId={fieldId}

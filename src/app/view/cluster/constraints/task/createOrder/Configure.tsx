@@ -36,12 +36,6 @@ export const Configure: React.FC = () => {
     },
   } = useTask();
 
-  const firstResourceValidated =
-    showValidationErrors && !isFirstResourceValid ? "error" : "default";
-  const thenResourceValidated =
-    showValidationErrors && !isThenResourceValid ? "error" : "default";
-  const scoreValidated =
-    showValidationErrors && !isScoreValid ? "error" : "default";
   return (
     <>
       <DataList aria-label="Resource set list">
@@ -55,7 +49,8 @@ export const Configure: React.FC = () => {
                       id="constraint-order-create-first-resource"
                       label="First resource"
                       placeholderText="Select a resource"
-                      validated={firstResourceValidated}
+                      showValidationErrors={showValidationErrors}
+                      isValid={isFirstResourceValid}
                       helperTextInvalid="Please select a resource"
                       isRequired
                       onSelect={value =>
@@ -102,7 +97,8 @@ export const Configure: React.FC = () => {
                       id="constraint-order-create-then-resource"
                       label="Then resource"
                       placeholderText="Select a resource"
-                      validated={thenResourceValidated}
+                      showValidationErrors={showValidationErrors}
+                      isValid={isThenResourceValid}
                       helperTextInvalid="Please select a resource"
                       isRequired
                       onSelect={value =>
@@ -145,7 +141,8 @@ export const Configure: React.FC = () => {
           label="Score"
           onChange={value => updateState({ score: value })}
           value={score}
-          validated={scoreValidated}
+          showValidationErrors={showValidationErrors}
+          isValid={isScoreValid}
           helperTextInvalid="Score must be integer or INFINITY"
           data-test="score"
         />

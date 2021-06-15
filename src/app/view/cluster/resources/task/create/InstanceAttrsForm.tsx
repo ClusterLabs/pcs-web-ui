@@ -66,13 +66,6 @@ export const InstanceAttrsForm: React.FC = () => {
                 {requiredParameters
                   .concat(filterParameters(agent.parameters))
                   .map((parameter) => {
-                    const validated =
-                      parameter.required
-                      && showValidationErrors
-                      && (!(parameter.name in instanceAttrs)
-                        || instanceAttrs[parameter.name].length === 0)
-                        ? "error"
-                        : "default";
                     const hint =
                       "Please provide a value for required attribute";
                     return (
@@ -86,7 +79,12 @@ export const InstanceAttrsForm: React.FC = () => {
                           defaultValue: parameter.default,
                         }}
                         isRequired={parameter.required}
-                        validated={validated}
+                        showValidationErrors={showValidationErrors}
+                        isValid={
+                          !parameter.required
+                          || (parameter.name in instanceAttrs
+                            && instanceAttrs[parameter.name].length > 0)
+                        }
                         helperTextInvalid={`${hint} ${parameter.name}`}
                         onChange={value =>
                           updateState({

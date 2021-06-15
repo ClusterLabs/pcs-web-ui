@@ -11,6 +11,7 @@ export const FormSelectOrText: React.FC<{
   id: string;
   checked: Checks;
   onChange: (_checked: Checks) => void;
+  showValidationErrors?: boolean;
   select: {
     label: string;
     onSelect: (_value: string) => void;
@@ -18,6 +19,7 @@ export const FormSelectOrText: React.FC<{
     isDisabled?: boolean;
     placeholderText?: string;
     validated?: SelectProps["validated"];
+    isValid?: boolean;
     "data-test"?: string;
   } & ({ options: SelectProps["children"] } | { optionsValues: string[] });
   text: {
@@ -25,10 +27,10 @@ export const FormSelectOrText: React.FC<{
     value: TextProps["value"];
     onChange: (_value: string) => void;
     helperTextInvalid: TextProps["helperTextInvalid"];
-    validated?: TextProps["validated"];
+    isValid?: boolean;
     "data-test"?: string;
   };
-}> = ({ id, checked, onChange, select, text }) => {
+}> = ({ id, checked, onChange, select, text, showValidationErrors }) => {
   return (
     <Stack hasGutter>
       <StackItem>
@@ -43,7 +45,11 @@ export const FormSelectOrText: React.FC<{
           <Select
             variant="single"
             placeholderText={select.placeholderText ?? ""}
-            validated={select.validated ?? "default"}
+            validated={
+              showValidationErrors && "isValid" in select && !select.isValid
+                ? "error"
+                : "default"
+            }
             onSelect={select.onSelect}
             selections={select.selections}
             isDisabled={select.isDisabled}
@@ -72,7 +78,8 @@ export const FormSelectOrText: React.FC<{
             isRequired
             onChange={text.onChange}
             helperTextInvalid={text.helperTextInvalid}
-            validated={text.validated}
+            showValidationErrors={showValidationErrors}
+            isValid={text.isValid}
             data-test={text["data-test"]}
           />
         )}

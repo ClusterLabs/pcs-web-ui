@@ -24,8 +24,6 @@ export const Options: React.FC = () => {
       libCall: { reports },
     },
   } = useTask();
-  const ticketValid =
-    showValidationErrors && !isTicketValid ? "error" : "default";
   return (
     <TaskLibStep title="Ticket constraint options" reports={reports}>
       <Form isHorizontal>
@@ -34,7 +32,8 @@ export const Options: React.FC = () => {
           onChangeUse={value => updateState({ useCustomId: value })}
           onChangeId={value => updateState({ id: value })}
           customId={id}
-          showError={showValidationErrors && !isCustomIdValid}
+          showValidationErrors={showValidationErrors}
+          isValid={isCustomIdValid}
         />
 
         <FormText
@@ -43,7 +42,8 @@ export const Options: React.FC = () => {
           onChange={value => updateState({ ticket: value })}
           value={ticket}
           helperTextInvalid="Please provide ticket"
-          validated={ticketValid}
+          showValidationErrors={showValidationErrors}
+          isValid={isTicketValid}
           isRequired
           popover={{
             header: "Ticket",

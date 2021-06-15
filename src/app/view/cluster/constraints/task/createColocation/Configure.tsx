@@ -21,20 +21,14 @@ export const Configure: React.FC = () => {
     },
   } = useTask();
 
-  const resourceValidated =
-    showValidationErrors && !isResourceValid ? "error" : "default";
-  const withResourceValidated =
-    showValidationErrors && !isWithResourceValid ? "error" : "default";
-  const scoreValidated =
-    showValidationErrors && !isScoreValid ? "error" : "default";
-
   return (
     <Form data-test="create-location-constrait">
       <FormSelect
         id={"constraint-colocation-create-resource"}
         label="Resource"
         placeholderText="Select a resource"
-        validated={resourceValidated}
+        showValidationErrors={showValidationErrors}
+        isValid={isResourceValid}
         helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({ resourceId: value.toString() })}
@@ -46,7 +40,8 @@ export const Configure: React.FC = () => {
         id={"constraint-colocation-create-resource"}
         label="With resource"
         placeholderText="Select a resource"
-        validated={withResourceValidated}
+        showValidationErrors={showValidationErrors}
+        isValid={isWithResourceValid}
         helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({ withResourceId: value.toString() })}
@@ -67,7 +62,8 @@ export const Configure: React.FC = () => {
         label="Score"
         onChange={value => updateState({ score: value })}
         value={score}
-        validated={scoreValidated}
+        showValidationErrors={showValidationErrors}
+        isValid={isScoreValid}
         helperTextInvalid="Score must be integer or INFINITY"
         data-test="score"
       />
