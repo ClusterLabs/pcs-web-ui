@@ -8,6 +8,7 @@ export * from "./getResourceAgentMetadata";
 export * from "./getFenceAgentMetadata";
 export * from "./updateResource";
 export * from "./clusterProperties";
+export * from "./updateClusterSettings";
 export * from "./resourceCleanup";
 export * from "./resourceRefresh";
 export * from "./libCallCluster";
