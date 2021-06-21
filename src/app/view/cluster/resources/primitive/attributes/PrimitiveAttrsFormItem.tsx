@@ -5,15 +5,7 @@ import { PrimitiveAttrsFormItemRadio } from "./PrimitiveAttrsFormItemRadio";
 import { PrimitiveAttrsFormItemLabel } from "./PrimitiveAttrsFormItemLabel";
 import { PrimitiveAttrsFormItemWarning } from "./PrimitiveAttrsFormItemWarning";
 
-export const PrimitiveAttrsFormItem = ({
-  id,
-  userValue,
-  initialValue,
-  remoteValue,
-  onChange,
-  chooseRemoteUse,
-  chooseValueUse,
-}: {
+export const PrimitiveAttrsFormItem: React.FC<{
   id: string;
   userValue: string;
   initialValue: string;
@@ -21,6 +13,14 @@ export const PrimitiveAttrsFormItem = ({
   onChange: (_value: string) => void;
   chooseRemoteUse: () => void;
   chooseValueUse: () => void;
+}> = ({
+  id,
+  userValue,
+  initialValue,
+  remoteValue,
+  onChange,
+  chooseRemoteUse,
+  chooseValueUse,
 }) => {
   const decideName = `${id}-choice`;
   const decideIdRemote = `${decideName}-remote`;

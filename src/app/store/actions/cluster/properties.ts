@@ -18,4 +18,12 @@ export type ClusterPropertiesActions = {
     type: "CLUSTER.PROPERTIES.LOAD.ERROR";
     key: { clusterName: string };
   };
+
+  "CLUSTER.PROPERTIES.UPDATE": {
+    type: "CLUSTER.PROPERTIES.UPDATE";
+    key: { clusterName: string };
+    payload: {
+      propertyMap: Record<string, string>;
+    };
+  };
 };
