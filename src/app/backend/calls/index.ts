@@ -22,6 +22,7 @@ export * from "./canAddClusterOrNodes";
 export * from "./sendKnownHosts";
 export * from "./resourceClone";
 export * from "./resourceUnclone";
+export * from "./resourceChangeGroup";
 export * from "./fixAuthOfCluster";
 export * from "./addConstraintRemote";
 export * from "./removeConstraintRemote";

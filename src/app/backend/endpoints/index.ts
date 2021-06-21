@@ -24,6 +24,7 @@ import { resourceClone } from "./resourceClone";
 import { resourceCleanup } from "./resourceCleanup";
 import { resourceRefresh } from "./resourceRefresh";
 import { resourceUnclone } from "./resourceUnclone";
+import { resourceChangeGroup } from "./resourceChangeGroup";
 import { sendKnownHosts } from "./sendKnownHosts";
 import { updateResource } from "./updateResource";
 import { addConstraintRemote } from "./addConstraintRemote";
@@ -41,6 +42,7 @@ const endpoints = {
   checkAuthAgainstNodes,
   clusterProperties,
   updateClusterSettings,
+  resourceChangeGroup,
   clusterStart,
   clusterStatus,
   clusterStop,
