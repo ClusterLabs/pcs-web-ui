@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import {
   Card,
   CardBody,
@@ -8,7 +7,6 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
 import {
   AttributeHelpPopover,
   AttributeList,
@@ -17,11 +15,11 @@ import {
   ToolbarFilterTextGroupPair,
 } from "app/view/share";
 
-const { getClusterProperties } = selectors;
-
-type ClusterProperties = selectors.ExtractClusterSelector<
-  typeof getClusterProperties
->;
+import { PropertiesForm } from "./PropertiesForm";
+import {
+  ClusterProperties,
+  useClusterProperties,
+} from "./useClusterProperties";
 
 const useFilter = (): {
   filterState: ReturnType<
@@ -41,11 +39,10 @@ const useFilter = (): {
     p => p.readable_name,
   );
 
-export const ClusterPropertiesPage: React.FC<{ clusterName: string }> = ({
-  clusterName,
-}) => {
-  const clusterProperties = useSelector(getClusterProperties(clusterName));
+export const ClusterPropertiesPage: React.FC = () => {
+  const { clusterProperties } = useClusterProperties();
   const { filterState, filterParameters } = useFilter();
+  const [isEditing, setIsEditing] = React.useState(false);
 
   return (
     <PageSection>
@@ -57,27 +54,46 @@ export const ClusterPropertiesPage: React.FC<{ clusterName: string }> = ({
                 textSearchId="cluster-properties-name"
                 groupName="Importance"
                 filterState={filterState}
+                actions={{
+                  ...(!isEditing
+                    ? {
+                        "Edit Properties": () => setIsEditing(true),
+                      }
+                    : {}),
+                }}
               />
             </StackItem>
             <StackItem>
               {clusterProperties.length > 0 && (
-                <AttributeList attributes={filterParameters(clusterProperties)}>
-                  {property => (
-                    <React.Fragment key={property.name}>
-                      <AttributeName name={property.readable_name}>
-                        <AttributeHelpPopover
-                          header={property.shortdesc}
-                          body={property.longdesc}
-                          defaultValue={property.default}
-                        />
-                      </AttributeName>
-                      <AttributeValue
-                        value={property.value}
-                        defaultValue={property.default}
-                      />
-                    </React.Fragment>
+                <>
+                  {isEditing && (
+                    <PropertiesForm
+                      clusterProperties={filterParameters(clusterProperties)}
+                      close={() => setIsEditing(false)}
+                    />
                   )}
-                </AttributeList>
+                  {!isEditing && (
+                    <AttributeList
+                      attributes={filterParameters(clusterProperties)}
+                    >
+                      {property => (
+                        <React.Fragment key={property.name}>
+                          <AttributeName name={property.readable_name}>
+                            <AttributeHelpPopover
+                              header={property.shortdesc}
+                              body={property.longdesc}
+                              defaultValue={property.default}
+                            />
+                          </AttributeName>
+                          <AttributeValue
+                            value={property.value}
+                            defaultValue={property.default}
+                          />
+                        </React.Fragment>
+                      )}
+                    </AttributeList>
+                  )}
+                </>
               )}
             </StackItem>
           </Stack>

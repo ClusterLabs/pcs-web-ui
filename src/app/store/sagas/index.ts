@@ -38,6 +38,7 @@ function* rootSaga() {
     takeEvery("LIB.CALL.CLUSTER", libAction.callLib),
     takeEvery("LIB.CALL.CLUSTER.TASK", libCallTask.callLib),
     takeEvery("CLUSTER.PROPERTIES.LOAD", clusterProperties.load),
+    takeEvery("CLUSTER.PROPERTIES.UPDATE", clusterProperties.update),
     takeEvery("CLUSTER.ADD.CHECK_AUTH", addExistingCluster.checkAuthentication),
     takeEvery("CLUSTER.ADD", addExistingCluster.addCluster),
     takeEvery("CLUSTER.FIX_AUTH.START", fixAuth.fixAuth),

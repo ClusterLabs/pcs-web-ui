@@ -56,9 +56,7 @@ export const ClusterDetailPage: React.FC<{
           {tab === "Constraints" && (
             <ConstraintsPage clusterName={clusterName} />
           )}
-          {tab === "Properties" && (
-            <ClusterPropertiesPage clusterName={clusterName} />
-          )}
+          {tab === "Properties" && <ClusterPropertiesPage />}
         </SelectedClusterProvider>
       )}
       {!dataLoaded && (
