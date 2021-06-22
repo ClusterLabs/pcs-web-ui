@@ -202,7 +202,7 @@ export const PrimitivePageToolbar: React.FC<{
       dropdownActions={{
         refresh,
         cleanup,
-        ...(primitive.inGroup ? {} : cloneUnclone),
+        ...(primitive.inGroup !== null ? {} : cloneUnclone),
         delete: deleteItem,
       }}
     />

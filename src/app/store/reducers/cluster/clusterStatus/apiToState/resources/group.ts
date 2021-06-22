@@ -96,7 +96,7 @@ export const toGroup = (
   const apiPrimitiveList = filterPrimitive(apiGroup.members);
   const { inClone } = context;
   const resources = apiPrimitiveList.map(p =>
-    toPrimitive(p, { inGroup: true, inClone }),
+    toPrimitive(p, { inGroup: apiGroup.id, inClone }),
   );
   return {
     apiPrimitiveList,

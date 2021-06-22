@@ -39,7 +39,7 @@ export const toClone = (
   let member: Clone["member"];
   let apiPrimitiveList: ApiPrimitive[] = [];
   if (apiClone.member.class_type === "primitive") {
-    member = toPrimitive(apiClone.member, { inClone: true, inGroup: false });
+    member = toPrimitive(apiClone.member, { inClone: true, inGroup: null });
     apiPrimitiveList = [apiClone.member];
   } else {
     ({ apiPrimitiveList, group: member } = toGroup(apiClone.member, {
