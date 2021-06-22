@@ -189,10 +189,8 @@ export const PrimitivePageToolbar: React.FC<{
     },
   };
 
-  const cloneUnclone: Record<
-    string,
-    DetailLayoutToolbarAction
-  > = primitive.inClone ? { unclone } : { clone };
+  const cloneUnclone: Record<string, DetailLayoutToolbarAction> =
+    primitive.inClone ? { unclone } : { clone };
 
   return (
     <DetailLayoutToolbar
