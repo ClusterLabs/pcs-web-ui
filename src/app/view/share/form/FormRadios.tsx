@@ -4,6 +4,7 @@ import { FormGroup } from "./FormGroup";
 import { FormRadioGroup } from "./FormRadioGroup";
 
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
+type FormRadioGroupProps = React.ComponentProps<typeof FormRadioGroup>;
 
 export function FormRadios<OPTION extends string>({
   id,
@@ -14,6 +15,7 @@ export function FormRadios<OPTION extends string>({
   popover = undefined,
   className = "",
   isRequired = false,
+  isDisabled = false,
 }: {
   id: FormGroupProps["fieldId"];
   label: FormGroupProps["label"];
@@ -23,6 +25,7 @@ export function FormRadios<OPTION extends string>({
   popover?: FormGroupProps["popover"];
   className?: FormGroupProps["className"];
   isRequired?: FormGroupProps["isRequired"];
+  isDisabled?: FormRadioGroupProps["isDisabled"];
 }) {
   return (
     <FormGroup
@@ -37,6 +40,7 @@ export function FormRadios<OPTION extends string>({
         options={options}
         selected={selected}
         onChange={onChange}
+        isDisabled={isDisabled}
       />
     </FormGroup>
   );

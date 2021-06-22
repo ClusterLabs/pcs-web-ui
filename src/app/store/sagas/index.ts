@@ -24,6 +24,7 @@ import * as resourceClone from "./resourceClone";
 import * as nodeAuth from "./nodeAuth";
 import * as fixAuth from "./fixAuth";
 import * as resourceGroupCreate from "./resourceGroupCreate";
+import * as resourceGroupChange from "./resourceGroupChange";
 import * as constraints from "./constraints";
 
 function* rootSaga() {
@@ -64,6 +65,7 @@ function* rootSaga() {
     takeEvery("RESOURCE.CLONE", resourceClone.clone),
     takeEvery("RESOURCE.UNCLONE", resourceClone.unclone),
     takeEvery("RESOURCE.GROUP.CREATE", resourceGroupCreate.create),
+    takeEvery("RESOURCE.GROUP.CHANGE", resourceGroupChange.change),
     takeEvery(
       "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES",
       resourceUpdate.updateInstanceAttributes,

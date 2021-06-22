@@ -49,12 +49,14 @@ export const getSelectedResource = clusterSelector((cluster, id: string) => {
 });
 
 export const getGroups = clusterSelector(cluster =>
-  cluster.resourceTree.reduce<string[]>((groups, resource) => {
+  cluster.resourceTree.reduce<
+    Extract<typeof cluster.resourceTree[number], { itemType: "group" }>[]
+  >((groups, resource) => {
     if (resource.itemType === "group") {
-      return [...groups, resource.id];
+      return [...groups, resource];
     }
     if (resource.itemType === "clone" && resource.member.itemType === "group") {
-      return [...groups, resource.member.id];
+      return [...groups, resource.member];
     }
     return groups;
   }, []),

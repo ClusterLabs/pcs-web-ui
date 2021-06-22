@@ -9,7 +9,7 @@ export const SettingsGroup: React.FC = () => {
   const {
     state: { useGroup, group, clone, showValidationErrors },
     updateState,
-    groupList,
+    groupIdList,
   } = useTask();
   return (
     <Flex>
@@ -24,13 +24,13 @@ export const SettingsGroup: React.FC = () => {
             let value: typeof useGroup = "no";
             if (checked) {
               value =
-                group.length === 0 || groupList.includes(group)
+                group.length === 0 || groupIdList.includes(group)
                   ? "existing"
                   : "new";
             }
             updateState({
               useGroup: value,
-              group: value === "existing" ? groupList[0] : "",
+              group: value === "existing" ? groupIdList[0] : "",
             });
           }}
         />
@@ -44,15 +44,15 @@ export const SettingsGroup: React.FC = () => {
               onChange={checked =>
                 updateState({
                   useGroup: checked === "select" ? "existing" : "new",
-                  group: checked === "select" ? groupList[0] : "",
+                  group: checked === "select" ? groupIdList[0] : "",
                 })
               }
               showValidationErrors={showValidationErrors}
               select={{
                 label: "Select existing group",
-                selections: groupList.includes(group) ? group : "",
+                selections: groupIdList.includes(group) ? group : "",
                 isDisabled: !useGroup,
-                optionsValues: groupList,
+                optionsValues: groupIdList,
                 onSelect: value => updateState({ group: value.toString() }),
               }}
               text={{

@@ -24,7 +24,10 @@ export type ConfirmAction = {
   };
   action: Action;
 };
-export type DetailLayoutToolbarAction = { onClick: () => void } | ConfirmAction;
+export type DetailLayoutToolbarAction = { disabled?: boolean } & (
+  | { onClick: () => void }
+  | ConfirmAction
+);
 
 type ConfirmData = ConfirmAction & { name: string };
 type ToolbarActionMap = Record<string, DetailLayoutToolbarAction>;
@@ -61,6 +64,10 @@ export const DetailLayoutToolbar: React.FC<{
               <Button
                 variant="secondary"
                 onClick={prepareOnClick(buttonActions[name], name)}
+                isDisabled={
+                  "disabled" in buttonActions[name]
+                  && buttonActions[name].disabled
+                }
                 data-test={`toolbar-${toolbarName}-${name}`}
               >
                 {capitalize(name)}

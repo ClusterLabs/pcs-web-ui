@@ -21,7 +21,7 @@ export const useTask = () => {
 
   return {
     ...task,
-    groupList,
+    groupIdList: groupList.map(g => g.id),
     isAgentLoaded,
 
     // validations

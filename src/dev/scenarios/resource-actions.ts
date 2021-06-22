@@ -101,7 +101,7 @@ app.resourceChangeGroup((req, res) => {
         .status(400)
         .send(
           `Unable to add resource '${req.body.resource_id}' to `
-            + `group '${req.body.resource_id}': Something wrong happened`,
+            + `group '${req.body.group_id}': Something wrong happened`,
         );
       break;
     case "permission":
@@ -114,5 +114,7 @@ app.resourceChangeGroup((req, res) => {
 
 shortcut.dashboard([
   response.clusterStatus.actions,
+  response.clusterStatus.actionsOneGroup,
+  response.clusterStatus.actionsNoGroup,
   response.clusterStatus.actionsAlternative,
 ]);

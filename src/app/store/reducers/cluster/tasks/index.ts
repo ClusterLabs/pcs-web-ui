@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 import { AppReducer } from "app/store/reducers/appReducer";
 
 import { resourceCreate } from "./resourceCreate";
+import { primitiveGroupChange } from "./primitiveGroupChange";
 import { constraintLocationCreate } from "./constraintLocationCreate";
 import { constraintOrderCreate } from "./constraintOrderCreate";
 import { constraintOrderSetCreate } from "./constraintOrderSetCreate";
@@ -59,6 +60,7 @@ function wrapTasks<STATE extends TaskState>(
 export const tasks = combineReducers(
   wrapTasks({
     resourceCreate,
+    primitiveGroupChange,
     constraintLocationCreate,
     constraintOrderCreate,
     constraintOrderSetCreate,
