@@ -17,15 +17,16 @@ import { Action } from "app/store";
 
 import { useGroupDetailViewContext } from "./GroupDetailViewContext";
 
-export type DetailLayoutToolbarAction = {
+export type ConfirmAction = {
   confirm: {
     title: string;
     description: React.ReactNode;
   };
   action: Action;
 };
+export type DetailLayoutToolbarAction = { onClick: () => void } | ConfirmAction;
 
-type ConfirmData = DetailLayoutToolbarAction & { name: string };
+type ConfirmData = ConfirmAction & { name: string };
 type ToolbarActionMap = Record<string, DetailLayoutToolbarAction>;
 
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
@@ -39,12 +40,17 @@ export const DetailLayoutToolbar: React.FC<{
   const { urlPrefix } = useGroupDetailViewContext();
   const [confirm, setConfirm] = React.useState<ConfirmData | null>(null);
   const [kebabOpen, setKebabOpen] = React.useState(false);
-  const openConfirm = (confirmActions: ToolbarActionMap, name: string) => () =>
-    setConfirm({
-      confirm: confirmActions[name].confirm,
-      action: confirmActions[name].action,
-      name,
-    });
+
+  const prepareOnClick = (action: DetailLayoutToolbarAction, name: string) =>
+    "confirm" in action
+      ? () =>
+          setConfirm({
+            confirm: action.confirm,
+            action: action.action,
+            name,
+          })
+      : action.onClick;
+
   const closeConfirm = () => setConfirm(null);
   return (
     <>
@@ -54,7 +60,7 @@ export const DetailLayoutToolbar: React.FC<{
             <ToolbarItem key={name}>
               <Button
                 variant="secondary"
-                onClick={openConfirm(buttonActions, name)}
+                onClick={prepareOnClick(buttonActions[name], name)}
                 data-test={`toolbar-${toolbarName}-${name}`}
               >
                 {capitalize(name)}
@@ -75,7 +81,7 @@ export const DetailLayoutToolbar: React.FC<{
                   <DropdownItem
                     key={name}
                     component="button"
-                    onClick={openConfirm(dropdownActions, name)}
+                    onClick={prepareOnClick(dropdownActions[name], name)}
                   >
                     {capitalize(name)}
                   </DropdownItem>
