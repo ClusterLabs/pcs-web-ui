@@ -1,5 +1,5 @@
 import React from "react";
-import { Radio, SelectOption, Stack, StackItem } from "@patternfly/react-core";
+import { Radio, Stack, StackItem } from "@patternfly/react-core";
 
 import { FormText } from "./FormText";
 import { Select } from "./Select";
@@ -21,7 +21,8 @@ export const FormSelectOrText: React.FC<{
     validated?: SelectProps["validated"];
     isValid?: boolean;
     "data-test"?: string;
-  } & ({ options: SelectProps["children"] } | { optionsValues: string[] });
+    optionsValues: string[];
+  };
   text: {
     label: string;
     value: TextProps["value"];
@@ -53,14 +54,9 @@ export const FormSelectOrText: React.FC<{
             onSelect={select.onSelect}
             selections={select.selections}
             isDisabled={select.isDisabled}
+            optionsValues={select.optionsValues}
             data-test={select["data-test"]}
-          >
-            {"options" in select
-              ? select.options
-              : select.optionsValues.map(o => (
-                  <SelectOption key={o} value={o} />
-                ))}
-          </Select>
+          />
         )}
       </StackItem>
       <StackItem>
