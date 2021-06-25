@@ -18,6 +18,7 @@ import { getFenceAgentMetadata } from "./getFenceAgentMetadata";
 import { importedClusterList } from "./importedClusterList";
 import { login } from "./login";
 import { logout } from "./logout";
+import { removeCluster } from "./removeCluster";
 import { removeResource } from "./removeResource";
 import { resourceClone } from "./resourceClone";
 import { resourceCleanup } from "./resourceCleanup";
@@ -52,6 +53,7 @@ const endpoints = {
   libCluster,
   login,
   logout,
+  removeCluster,
   removeResource,
   resourceCleanup,
   resourceClone,
