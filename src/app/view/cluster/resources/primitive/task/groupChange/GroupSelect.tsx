@@ -29,6 +29,7 @@ export const GroupSelect: React.FC = () => {
         }
         selections={groupId}
         optionsValues={candidateGroupsIds}
+        className="pf-u-mb-xl"
       />
 
       <FormGroup

@@ -9,10 +9,14 @@ export const useTask = () => {
   const groupIdList = groupList.map(g => g.id);
   const candidateGroupsIds = groupIdList.filter(g => g !== state.oldGroupId);
 
+  const isSetForRemove =
+    state.action === "remove-group" && state.oldGroupId !== "";
+
   return {
     ...task,
-    isGroupValid: state.groupId.length > 0,
-    isAdjacentResourceValid: state.adjacentResourceId.length > 0,
+    isGroupValid: state.groupId.length > 0 || isSetForRemove,
+    isAdjacentResourceValid:
+      state.adjacentResourceId.length > 0 || isSetForRemove,
     canChange: (primitive: Primitive) =>
       primitive.inGroup !== null || groupList.length > 0,
     candidateGroupsIds,
@@ -35,7 +39,7 @@ export const useTask = () => {
         key: { clusterName },
         payload: {
           resourceId: state.resourceId,
-          groupId: state.action === "set-group" ? state.groupId : "",
+          groupId: !isSetForRemove ? state.groupId : "",
           oldGroupId: state.oldGroupId,
           position: state.position,
           adjacentResourceId: state.adjacentResourceId,

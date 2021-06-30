@@ -15,7 +15,6 @@ export const PrimitiveGroupChange: React.FC = () => {
     recoverFromError,
     state: {
       resourceId,
-      action,
       call: { response, resultMessage },
     },
   } = useTask();
@@ -28,10 +27,7 @@ export const PrimitiveGroupChange: React.FC = () => {
         response !== "" ? null : (
           <TaskSimpleFooter
             task="primitiveGroupChange"
-            nextIf={
-              action === "remove-group"
-              || (isGroupValid && isAdjacentResourceValid)
-            }
+            nextIf={isGroupValid && isAdjacentResourceValid}
             run={changeGroup}
             runLabel="Change group"
             cancel={close}
