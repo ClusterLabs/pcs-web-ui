@@ -1,7 +1,12 @@
 import * as t from "./tools";
 import { resourceTree } from "./resource-tree";
 import { resourcesForTest } from "./resources-for-test";
-import { actions, actionsAlternative } from "./actions";
+import {
+  actions,
+  actionsAlternative,
+  actionsNoGroup,
+  actionsOneGroup,
+} from "./actions";
 import { noAuthNodes } from "./noAuthNodes";
 
 export const clusterOk = (clusterName: string) =>
@@ -14,6 +19,8 @@ export {
   resourcesForTest,
   actions,
   actionsAlternative,
+  actionsNoGroup,
+  actionsOneGroup,
   noAuthNodes,
 };
 

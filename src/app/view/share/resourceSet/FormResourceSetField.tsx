@@ -1,5 +1,5 @@
 import React from "react";
-import { FormGroup, SelectOption } from "@patternfly/react-core";
+import { FormGroup } from "@patternfly/react-core";
 
 import { Select } from "app/view/share/form";
 
@@ -35,6 +35,9 @@ export const FormResourceSetField: React.FC<{
         variant="typeaheadmulti"
         selections={selectedResources}
         chipGroupProps={{ numChips: 10 }}
+        optionsValues={resourceOfferList.filter(
+          r => !selectedResources.includes(r),
+        )}
         onSelect={value =>
           update([
             ...(selectedResources.includes(value)
@@ -42,13 +45,7 @@ export const FormResourceSetField: React.FC<{
               : [...selectedResources, value]),
           ])
         }
-      >
-        {resourceOfferList
-          .filter(r => !selectedResources.includes(r))
-          .map(r => (
-            <SelectOption key={r} value={r} />
-          ))}
-      </Select>
+      />
     </FormGroup>
   );
 };

@@ -94,7 +94,27 @@ app.resourceUnclone((req, res) => {
   }
 });
 
+app.resourceChangeGroup((req, res) => {
+  switch (req.body.resource_id) {
+    case "fail":
+      res
+        .status(400)
+        .send(
+          `Unable to add resource '${req.body.resource_id}' to `
+            + `group '${req.body.group_id}': Something wrong happened`,
+        );
+      break;
+    case "permission":
+      res.status(403).send("Permission denied");
+      break;
+    default:
+      res.send("");
+  }
+});
+
 shortcut.dashboard([
   response.clusterStatus.actions,
+  response.clusterStatus.actionsOneGroup,
+  response.clusterStatus.actionsNoGroup,
   response.clusterStatus.actionsAlternative,
 ]);

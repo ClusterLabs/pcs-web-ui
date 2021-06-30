@@ -6,11 +6,13 @@ export function FormRadioGroup<OPTION extends string>({
   options,
   selected,
   onChange,
+  isDisabled,
 }: {
   id: string;
   options: OPTION[];
   selected: OPTION;
   onChange: (_value: OPTION) => void;
+  isDisabled?: React.ComponentProps<typeof Radio>["isDisabled"];
 }) {
   return (
     <Flex>
@@ -26,6 +28,7 @@ export function FormRadioGroup<OPTION extends string>({
             }}
             label={o}
             id={`${id}-${o}`}
+            isDisabled={isDisabled}
           />
         </FlexItem>
       ))}

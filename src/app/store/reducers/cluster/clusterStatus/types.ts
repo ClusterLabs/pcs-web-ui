@@ -45,7 +45,7 @@ type Resource = {
 type Primitive = Resource & {
   itemType: "primitive";
   inClone: boolean;
-  inGroup: boolean;
+  inGroup: string | null;
   class: string;
   provider: string;
   type: string;

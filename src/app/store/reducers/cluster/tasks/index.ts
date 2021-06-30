@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 import { AppReducer } from "app/store/reducers/appReducer";
 
 import { resourceCreate } from "./resourceCreate";
+import { primitiveGroupChange } from "./primitiveGroupChange";
 import { constraintLocationCreate } from "./constraintLocationCreate";
 import { constraintOrderCreate } from "./constraintOrderCreate";
 import { constraintOrderSetCreate } from "./constraintOrderSetCreate";
@@ -22,22 +23,24 @@ type ReducersMap<STATE extends TaskState> = {
 type ReducersMapKey<STATE extends TaskState> = keyof ReducersMap<STATE>;
 type Task<STATE extends TaskState> = ReducersMap<STATE>[ReducersMapKey<STATE>];
 
-const wrapTaskReducer = <STATE extends TaskState>(
-  key: ReducersMapKey<STATE>,
-  task: Task<STATE>,
-): Task<STATE> => (state, action) => {
-  if (
-    // undefined state means initialization - so the action can be drilled
-    // down to original `task` reducer to get initial state.
-    state !== undefined
-    && "key" in action
-    && "task" in action.key
-    && action.key.task !== key
-  ) {
-    return state;
-  }
-  return task(state, action);
-};
+const wrapTaskReducer =
+  <STATE extends TaskState>(
+    key: ReducersMapKey<STATE>,
+    task: Task<STATE>,
+  ): Task<STATE> =>
+  (state, action) => {
+    if (
+      // undefined state means initialization - so the action can be drilled
+      // down to original `task` reducer to get initial state.
+      state !== undefined
+      && "key" in action
+      && "task" in action.key
+      && action.key.task !== key
+    ) {
+      return state;
+    }
+    return task(state, action);
+  };
 
 // STATE extends Record<string, unknown> is here to enforce task state to be an
 // object. This prevents the state to be undefined. So, when state `undefined`
@@ -57,6 +60,7 @@ function wrapTasks<STATE extends TaskState>(
 export const tasks = combineReducers(
   wrapTasks({
     resourceCreate,
+    primitiveGroupChange,
     constraintLocationCreate,
     constraintOrderCreate,
     constraintOrderSetCreate,
