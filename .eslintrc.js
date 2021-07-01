@@ -56,6 +56,7 @@ module.exports = {
     // "import/extensions": [2, { "js": "always", "jsx": "always" }],
     "import/extensions": ["error", "never", { packages: "always" }],
     "react/jsx-curly-newline": "off",
+    "react/react-in-jsx-scope": "off",
     "sort-imports": [
       "error",
       {
