@@ -25,6 +25,7 @@ const data: AppReducer<ClusterPropertiesService["data"]> = (
         n => apiClusterProperties[n],
       );
     }
+
     default:
       return state;
   }
@@ -40,16 +41,19 @@ const fetchState: AppReducer<ClusterPropertiesService["fetchState"]> = (
         current: "LOADED",
         alreadyLoaded: true,
       };
+
     case "CLUSTER.PROPERTIES.LOAD":
       return {
         ...state,
         current: state.alreadyLoaded ? "RELOADING" : "LOADING",
       };
+
     case "CLUSTER.PROPERTIES.LOAD.ERROR":
       return {
         ...state,
         current: "FAILED",
       };
+
     default:
       return state;
   }

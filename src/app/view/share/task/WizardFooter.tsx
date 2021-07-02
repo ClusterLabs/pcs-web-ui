@@ -41,6 +41,9 @@ export const WizardFooter: React.FC<
   } = props;
 
   const selectedClusterName = useSelectedClusterName();
+  // Empty cluster name means that it is not in the context of cluster - ie. it
+  // is dashboard. To make actions usable for dashboard tasks the key
+  // clusterName must be null (so it is not propagated into cluster tasks)
   const clusterName =
     selectedClusterName.length > 0 ? selectedClusterName : null;
   const dispatch = useDispatch();

@@ -37,11 +37,14 @@ export const statusToSeverity = (
   switch (status) {
     case "blocked":
       return "ERROR";
+
     case "failed":
       return "ERROR";
+
     case "disabled":
     case "partially running":
       return "WARNING";
+
     case "running":
     default:
       return "OK";

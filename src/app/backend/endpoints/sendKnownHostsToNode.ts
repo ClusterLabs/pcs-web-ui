@@ -4,13 +4,13 @@ export const sendKnownHostsToNode = endpoint({
   url: "/manage/send-known-hosts-to-node",
   method: "post",
   params: ({
-    nodeList,
+    nodeNameList,
     targetNode,
   }: {
-    nodeList: string[];
+    nodeNameList: string[];
     targetNode: string;
   }): [string, string][] => [
-    ...nodeList.map(node => ["node_names[]", node] as [string, string]),
+    ...nodeNameList.map(node => ["node_names[]", node] as [string, string]),
     ["target_node", targetNode],
   ],
   shape: undefined,

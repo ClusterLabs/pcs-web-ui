@@ -17,8 +17,10 @@ const severityToVariant = (
   switch (severity) {
     case "SUCCESS":
       return "success";
+
     case "ERROR":
       return "danger";
+
     default:
       return "info";
   }

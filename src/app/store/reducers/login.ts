@@ -24,11 +24,13 @@ export const login: AppReducer<typeof initialState> = (
         required: true,
         acceptLoginData: true,
       };
+
     case "LOGIN.ENTER_CREDENTIALS":
       return {
         ...state,
         acceptLoginData: false,
       };
+
     case "AUTH.SUCCESS":
       return {
         ...state,
@@ -38,6 +40,7 @@ export const login: AppReducer<typeof initialState> = (
         badCredentials: false,
         errorMessage: "",
       };
+
     case "LOGIN.FAILED":
       return {
         ...state,
@@ -47,6 +50,7 @@ export const login: AppReducer<typeof initialState> = (
         badCredentials: action.payload.badCredentials,
         errorMessage: action.payload.message,
       };
+
     case "LOGIN.LOGOUT.SUCCESS":
       return {
         ...state,
@@ -57,6 +61,7 @@ export const login: AppReducer<typeof initialState> = (
         badCredentials: false,
         errorMessage: "",
       };
+
     default:
       return state;
   }

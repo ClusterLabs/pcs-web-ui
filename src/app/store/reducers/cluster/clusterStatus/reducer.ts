@@ -30,6 +30,7 @@ const clusterData: AppReducer<ClusterStatusService["clusterData"]> = (
   switch (action.type) {
     case "CLUSTER.STATUS.FETCH.OK":
       return apiToState(action.payload);
+
     default:
       return state;
   }
@@ -42,8 +43,10 @@ const dataFetchState: AppReducer<ClusterStatusService["dataFetchState"]> = (
   switch (action.type) {
     case "CLUSTER.STATUS.SYNC":
       return state === "SUCCESS" ? "SUCCESS" : "IN_PROGRESS";
+
     case "CLUSTER.STATUS.FETCH.OK":
       return "SUCCESS";
+
     default:
       return state;
   }

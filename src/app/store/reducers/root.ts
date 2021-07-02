@@ -9,6 +9,7 @@ import { notifications } from "./notifications";
 import { login } from "./login";
 import { username } from "./username";
 import { clusterStorage } from "./cluster/storage";
+import { tasks } from "./tasks";
 
 export const root = (history: History) =>
   combineReducers({
@@ -20,4 +21,5 @@ export const root = (history: History) =>
     login,
     notifications,
     nodeAuthMap,
+    tasks,
   });

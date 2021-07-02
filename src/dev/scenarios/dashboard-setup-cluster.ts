@@ -9,32 +9,47 @@ app.canAddClusterOrNodes((req, res) => {
       .status(500)
       .send("Wrong request - missing node_names[] - it's a programming error!");
   }
-  const nodeName: string = (req.query.node_names as string[])[0] as string;
-  if (nodeName === "canNo") {
-    res
-      .status(400)
-      .send(
+  const nodeNameList: string[] = req.query.node_names as string[];
+  const errors = nodeNameList
+    .filter(nodeName => nodeName.startsWith("canNo"))
+    .map(
+      nodeName =>
         `The node '${nodeName}' is already a part of the 'ClusterName' cluster.`
-          + " You may not add a node to two different clusters.",
-      );
+        + " You may not add a node to two different clusters.",
+    );
+
+  if (errors.length > 0) {
+    res.status(400).send(errors.join("\n"));
     return;
   }
-  if (nodeName === "canErr") {
+  if (nodeNameList.some(nodeName => nodeName === "canErr")) {
     res.status(500).send("Error during checking if can add node to cluster");
     return;
   }
   res.send("");
 });
 
-shortcut.checkAuthAgainstNodes();
+shortcut.checkAuthAgainstNodes({
+  //nodeName: checkValue
+  authNonsense: "nonsense",
+  authUnable: "Unable to authenticate",
+  authOffline: "Offline",
+  authOfflineA: "Offline",
+  authOfflineB: "Offline",
+  //authErr: responds 500
+  //any other: Online
+});
+
+shortcut.authGuiAgainstNodes();
 
 app.sendKnownHostsToNode((_req, res) => {
   res.send("success");
 });
 
-app.libCluster("cluster-setup", (req, res) => {
+app.clusterSetup((req, res) => {
+  const setupData = JSON.parse(req.body.setup_data);
   shortcut.libStd({
-    code: req.body.cluster_name,
+    code: setupData.cluster_name,
     res,
   });
 });

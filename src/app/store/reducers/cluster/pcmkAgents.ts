@@ -38,6 +38,7 @@ export const pcmkAgents: AppReducer<AgentMap> = (state = {}, action) => {
               longdesc: "",
             },
       };
+
     case "RESOURCE_AGENT.LOAD.SUCCESS":
     case "FENCE_AGENT.LOAD.SUCCESS":
       return {
@@ -50,6 +51,7 @@ export const pcmkAgents: AppReducer<AgentMap> = (state = {}, action) => {
           longdesc: action.payload.apiAgentMetadata.longdesc,
         },
       };
+
     case "FENCE_AGENT.LOAD.FAILED":
     case "RESOURCE_AGENT.LOAD.FAILED":
       return {
@@ -62,6 +64,7 @@ export const pcmkAgents: AppReducer<AgentMap> = (state = {}, action) => {
           longdesc: "",
         },
       };
+
     default:
       return state;
   }

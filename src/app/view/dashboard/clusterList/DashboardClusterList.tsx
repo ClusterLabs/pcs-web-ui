@@ -27,21 +27,25 @@ const compareByColumn = (
           a.summary.issuesSeverity,
           b.summary.issuesSeverity,
         );
+
     case "NODES":
       return (a, b) =>
         compareStatusSeverity(a.summary.nodesSeverity, b.summary.nodesSeverity);
+
     case "RESOURCES":
       return (a, b) =>
         compareStatusSeverity(
           a.summary.resourcesSeverity,
           b.summary.resourcesSeverity,
         );
+
     case "FENCE_DEVICES":
       return (a, b) =>
         compareStatusSeverity(
           a.summary.fenceDevicesSeverity,
           b.summary.fenceDevicesSeverity,
         );
+
     default:
       return (a, b) => compareStrings(a.name, b.name);
   }

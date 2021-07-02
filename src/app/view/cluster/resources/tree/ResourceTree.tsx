@@ -38,6 +38,7 @@ export const ResourceTree = ({
                 primitive={resourceTreeItem}
               />
             );
+
           case "group":
             return (
               <ResourceTreeItemGroup
@@ -45,6 +46,7 @@ export const ResourceTree = ({
                 group={resourceTreeItem}
               />
             );
+
           case "clone":
           default:
             return (

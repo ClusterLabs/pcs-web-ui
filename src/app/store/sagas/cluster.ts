@@ -40,6 +40,7 @@ export const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
       case "CLUSTER.STATUS.FETCH.OK":
       case "CLUSTER.STATUS.REFRESH":
         return action.key.clusterName;
+
       default:
         return "";
     }

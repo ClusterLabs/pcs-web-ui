@@ -46,16 +46,19 @@ const fetchState: AppReducer<ResourceAgentListService["fetchState"]> = (
         current: "LOADED",
         alreadyLoaded: true,
       };
+
     case "RESOURCE_AGENT.LIST.LOAD":
       return {
         ...state,
         current: state.alreadyLoaded ? "RELOADING" : "LOADING",
       };
+
     case "RESOURCE_AGENT.LIST.LOAD.FAIL":
       return {
         ...state,
         current: "FAILED",
       };
+
     default:
       return state;
   }

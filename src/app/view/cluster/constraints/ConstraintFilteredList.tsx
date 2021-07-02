@@ -103,6 +103,7 @@ export const ConstraintFilteredList: React.FC<{ clusterName: string }> = ({
                     key={i}
                   />
                 );
+
               case "Location (rule)": {
                 return (
                   <ConstraintRowLocationRule
@@ -112,6 +113,7 @@ export const ConstraintFilteredList: React.FC<{ clusterName: string }> = ({
                   />
                 );
               }
+
               case "Colocation":
                 return (
                   <ConstraintRowColocationPair
@@ -119,6 +121,7 @@ export const ConstraintFilteredList: React.FC<{ clusterName: string }> = ({
                     key={i}
                   />
                 );
+
               case "Colocation (set)":
                 return (
                   <ConstraintRowColocationSet
@@ -126,6 +129,7 @@ export const ConstraintFilteredList: React.FC<{ clusterName: string }> = ({
                     key={i}
                   />
                 );
+
               case "Ticket":
                 return (
                   <ConstraintRowTicketResource
@@ -133,6 +137,7 @@ export const ConstraintFilteredList: React.FC<{ clusterName: string }> = ({
                     key={i}
                   />
                 );
+
               case "Ticket (set)":
                 return (
                   <ConstraintRowTicketSet
@@ -140,6 +145,7 @@ export const ConstraintFilteredList: React.FC<{ clusterName: string }> = ({
                     key={i}
                   />
                 );
+
               case "Order":
                 return (
                   <ConstraintRowOrderPair
@@ -147,6 +153,7 @@ export const ConstraintFilteredList: React.FC<{ clusterName: string }> = ({
                     key={i}
                   />
                 );
+
               case "Order (set)":
               default:
                 return (

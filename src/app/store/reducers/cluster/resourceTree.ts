@@ -7,6 +7,7 @@ export const resourceTree: AppReducer<string[]> = (state = [], action) => {
       return state.includes(action.payload.itemId)
         ? state.filter(id => id !== action.payload.itemId)
         : [...state, action.payload.itemId];
+
     default:
       return state;
   }

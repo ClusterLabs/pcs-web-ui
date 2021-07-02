@@ -13,6 +13,7 @@ export * from "./TaskProgress";
 export * from "./TaskSuccess";
 export * from "./useTaskOpenClose";
 export * from "./useClusterTask";
+export * from "./useDashboardTask";
 export * from "./TaskSimple";
 export * from "./TaskSimpleFooter";
 export * from "./TaskSimpleFinish";

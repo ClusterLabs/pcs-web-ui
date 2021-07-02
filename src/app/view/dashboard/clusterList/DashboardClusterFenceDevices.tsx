@@ -22,6 +22,7 @@ const compareByColumn = (
     case "STATUS":
       return (a, b) =>
         compareStatusSeverity(a.statusSeverity, b.statusSeverity);
+
     default:
       return (a, b) => compareStrings(a.id, b.id);
   }

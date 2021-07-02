@@ -71,9 +71,11 @@ app.resourceClone((req, res) => {
           "Unable to create clone resource from 'fail': Something wrong happened",
         );
       break;
+
     case "permission":
       res.status(403).send("Permission denied");
       break;
+
     default:
       res.send("");
   }
@@ -86,9 +88,11 @@ app.resourceUnclone((req, res) => {
         .status(400)
         .send("Unable to unclone 'fail': Something wrong happened");
       break;
+
     case "cloned-permission":
       res.status(403).send("Permission denied");
       break;
+
     default:
       res.send("");
   }
@@ -104,9 +108,11 @@ app.resourceChangeGroup((req, res) => {
             + `group '${req.body.group_id}': Something wrong happened`,
         );
       break;
+
     case "permission":
       res.status(403).send("Permission denied");
       break;
+
     default:
       res.send("");
   }
