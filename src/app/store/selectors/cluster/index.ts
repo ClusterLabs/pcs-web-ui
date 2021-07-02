@@ -1,11 +1,11 @@
-import { TaskKeys } from "../types";
+import { ClusterTaskKeys } from "../types";
 
 import {
   ClusterSelector as TClusterSelector,
   clusterStorageItemSelector,
 } from "./selectorsHelpers";
 
-export const getTask = <NAME extends TaskKeys>(name: NAME) =>
+export const getClusterTask = <NAME extends ClusterTaskKeys>(name: NAME) =>
   clusterStorageItemSelector(
     clusterStorageItem => clusterStorageItem.tasks[name],
   );

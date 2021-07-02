@@ -7,7 +7,7 @@ import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
 
 export const TaskSimpleFooter: React.FC<{
   run: () => void;
-  task: Parameters<typeof selectors.getTask>[0];
+  task: Parameters<typeof selectors.getClusterTask>[0];
   cancel: () => void;
   runLabel?: string;
   nextIf?: boolean;

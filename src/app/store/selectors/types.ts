@@ -12,4 +12,4 @@ export type Root = { [K in ExcludeMess<keyof ReduxRoot>]: ReduxRoot[K] };
 type ClusterStorage = Root["clusterStorage"];
 export type ClusterStorageItem = ClusterStorage[keyof ClusterStorage];
 export type Cluster = ClusterStorageItem["clusterStatus"]["clusterData"];
-export type TaskKeys = ExcludeMess<keyof ClusterStorageItem["tasks"]>;
+export type ClusterTaskKeys = ExcludeMess<keyof ClusterStorageItem["tasks"]>;

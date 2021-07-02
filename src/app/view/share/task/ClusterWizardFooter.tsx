@@ -12,7 +12,7 @@ import { TaskButtonCancel } from "./TaskButtonCancel";
 export const ClusterWizardFooter: React.FC<
   {
     onClose: () => void;
-    task: Parameters<typeof selectors.getTask>[0];
+    task: Parameters<typeof selectors.getClusterTask>[0];
     onBack?: () => void;
     nextDisabled?: boolean;
     backDisabled?: boolean;

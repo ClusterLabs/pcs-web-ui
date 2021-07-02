@@ -5,9 +5,11 @@ import { useClusterSelector } from "app/view/share/useClusterSelector";
 import { useTaskOpenClose } from "./useTaskOpenClose";
 
 export function useClusterTask<
-  NAME extends Parameters<typeof selectors.getTask>[0],
+  NAME extends Parameters<typeof selectors.getClusterTask>[0],
 >(name: NAME) {
-  const [state, clusterName] = useClusterSelector(selectors.getTask(name));
+  const [state, clusterName] = useClusterSelector(
+    selectors.getClusterTask(name),
+  );
   const dispatch = useDispatch();
   const openClose = useTaskOpenClose(name);
 
