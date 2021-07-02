@@ -26,10 +26,10 @@ export const primitiveGroupChange: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
-    case "CLUSTER.TASK.VALIDATION.SHOW":
+    case "TASK.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
 
-    case "CLUSTER.TASK.VALIDATION.HIDE":
+    case "TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
 
     case "RESOURCE.GROUP.CHANGE.UPDATE":

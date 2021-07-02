@@ -9,10 +9,12 @@ import { TaskButtonNext } from "./TaskButtonNext";
 import { TaskButtonBack } from "./TaskButtonBack";
 import { TaskButtonCancel } from "./TaskButtonCancel";
 
-export const ClusterWizardFooter: React.FC<
+export const WizardFooter: React.FC<
   {
     onClose: () => void;
-    task: Parameters<typeof selectors.getClusterTask>[0];
+    task:
+      | Parameters<typeof selectors.getClusterTask>[0]
+      | Parameters<typeof selectors.getDashboardTask>[0];
     onBack?: () => void;
     nextDisabled?: boolean;
     backDisabled?: boolean;
@@ -38,7 +40,9 @@ export const ClusterWizardFooter: React.FC<
     nextDisabled = false,
   } = props;
 
-  const clusterName = useSelectedClusterName();
+  const selectedClusterName = useSelectedClusterName();
+  const clusterName =
+    selectedClusterName.length > 0 ? selectedClusterName : null;
   const dispatch = useDispatch();
   return (
     <WizardContextConsumer>
@@ -57,14 +61,14 @@ export const ClusterWizardFooter: React.FC<
                 }
                 if (props.nextIf) {
                   dispatch({
-                    type: "CLUSTER.TASK.VALIDATION.HIDE",
+                    type: "TASK.VALIDATION.HIDE",
                     key: { clusterName, task },
                   });
                   onNext();
                   return;
                 }
                 dispatch({
-                  type: "CLUSTER.TASK.VALIDATION.SHOW",
+                  type: "TASK.VALIDATION.SHOW",
                   key: { clusterName, task },
                 });
               }}

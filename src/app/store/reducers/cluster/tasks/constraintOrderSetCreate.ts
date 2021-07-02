@@ -83,10 +83,10 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
     case "CONSTRAINT.ORDER.SET.CREATE.CLOSE":
       return initialState;
 
-    case "CLUSTER.TASK.VALIDATION.SHOW":
+    case "TASK.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
 
-    case "CLUSTER.TASK.VALIDATION.HIDE":
+    case "TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
 
     default: {

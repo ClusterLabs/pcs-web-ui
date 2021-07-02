@@ -21,14 +21,14 @@ export const TaskSimpleFooter: React.FC<{
         onClick={() => {
           if (nextIf) {
             dispatch({
-              type: "CLUSTER.TASK.VALIDATION.HIDE",
+              type: "TASK.VALIDATION.HIDE",
               key: { clusterName, task },
             });
             run();
             return;
           }
           dispatch({
-            type: "CLUSTER.TASK.VALIDATION.SHOW",
+            type: "TASK.VALIDATION.SHOW",
             key: { clusterName, task },
           });
         }}

@@ -132,9 +132,9 @@ export const nodeAdd: AppReducer<typeof initialState> = (
       };
     case "NODE.ADD.CLOSE":
       return initialState;
-    case "CLUSTER.TASK.VALIDATION.SHOW":
+    case "TASK.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
-    case "CLUSTER.TASK.VALIDATION.HIDE":
+    case "TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
     default:
       return { ...state, libCall: libCall(state.libCall, action) };
