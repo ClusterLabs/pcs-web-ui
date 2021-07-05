@@ -1,7 +1,8 @@
 import {
   LibClusterCommands as TLibClusterCommands,
   libCluster,
-} from "./libCluster";
+} from "./lib/cluster";
+import { clusterSetup } from "./lib";
 import { getResourceAgentMetadata } from "./getResourceAgentMetadata";
 import { authGuiAgainstNodes } from "./authGuiAgainstNodes";
 import { canAddClusterOrNodes } from "./canAddClusterOrNodes";
@@ -18,6 +19,7 @@ import { getFenceAgentMetadata } from "./getFenceAgentMetadata";
 import { importedClusterList } from "./importedClusterList";
 import { login } from "./login";
 import { logout } from "./logout";
+import { rememberCluster } from "./rememberCluster";
 import { removeCluster } from "./removeCluster";
 import { removeResource } from "./removeResource";
 import { resourceClone } from "./resourceClone";
@@ -26,6 +28,7 @@ import { resourceRefresh } from "./resourceRefresh";
 import { resourceUnclone } from "./resourceUnclone";
 import { resourceChangeGroup } from "./resourceChangeGroup";
 import { sendKnownHosts } from "./sendKnownHosts";
+import { sendKnownHostsToNode } from "./sendKnownHostsToNode";
 import { updateResource } from "./updateResource";
 import { addConstraintRemote } from "./addConstraintRemote";
 import { removeConstraintRemote } from "./removeConstraintRemote";
@@ -43,6 +46,7 @@ const endpoints = {
   clusterProperties,
   updateClusterSettings,
   resourceChangeGroup,
+  clusterSetup,
   clusterStart,
   clusterStatus,
   clusterStop,
@@ -55,6 +59,7 @@ const endpoints = {
   libCluster,
   login,
   logout,
+  rememberCluster,
   removeCluster,
   removeResource,
   resourceCleanup,
@@ -62,6 +67,7 @@ const endpoints = {
   resourceRefresh,
   resourceUnclone,
   sendKnownHosts,
+  sendKnownHostsToNode,
   updateResource,
 };
 
