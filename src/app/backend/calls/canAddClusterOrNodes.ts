@@ -1,12 +1,7 @@
 import { CallResult, endpoints, http } from "./tools";
 
+const { url, params } = endpoints.canAddClusterOrNodes;
+
 export const canAddClusterOrNodes = async (
-  checkParams: { clusterName: string } | { nodeNames: string[] },
-): CallResult => {
-  return http.get(endpoints.canAddClusterOrNodes.url, {
-    params:
-      "clusterName" in checkParams
-        ? [["cluster", checkParams.clusterName]]
-        : checkParams.nodeNames.map(name => ["node_names[]", name]),
-  });
-};
+  checkParams: Parameters<typeof params>[0],
+): CallResult => http.get(url, { params: params(checkParams) });
