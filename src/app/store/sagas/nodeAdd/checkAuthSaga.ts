@@ -17,12 +17,11 @@ export function* checkAuthSaga({
   key,
   payload: { nodeName },
 }: ActionMap["NODE.ADD.CHECK_AUTH"]) {
-  const {
-    result,
-  }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } = yield race({
-    result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
-    cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
-  });
+  const { result }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } =
+    yield race({
+      result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
+      cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
+    });
 
   if (!result) {
     // cancelled; we no longer care about the fate of the call

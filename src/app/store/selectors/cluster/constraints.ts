@@ -49,20 +49,18 @@ export const getConstraints = clusterSelector((clusterStatus) => {
       : { type: "Colocation", constraint },
   );
 
-  const orders: ConstraintPack[] = (
-    constraintMap.rsc_order || []
-  ).map(constraint =>
-    "sets" in constraint
-      ? { type: "Order (set)", constraint }
-      : { type: "Order", constraint },
+  const orders: ConstraintPack[] = (constraintMap.rsc_order || []).map(
+    constraint =>
+      "sets" in constraint
+        ? { type: "Order (set)", constraint }
+        : { type: "Order", constraint },
   );
 
-  const tickets: ConstraintPack[] = (
-    constraintMap.rsc_ticket || []
-  ).map(constraint =>
-    "sets" in constraint
-      ? { type: "Ticket (set)", constraint }
-      : { type: "Ticket", constraint },
+  const tickets: ConstraintPack[] = (constraintMap.rsc_ticket || []).map(
+    constraint =>
+      "sets" in constraint
+        ? { type: "Ticket (set)", constraint }
+        : { type: "Ticket", constraint },
   );
 
   return [...locationsNode, ...colocations, ...orders, ...tickets];

@@ -7,15 +7,14 @@ export function* callLib({
   key,
   payload: { call: command, taskLabel },
 }: ActionMap["LIB.CALL.CLUSTER.TASK"]) {
-  const {
-    result,
-  }: { result: api.ResultOf<typeof libCallCluster> } = yield race({
-    result: api.authSafe(libCallCluster, {
-      clusterName: key.clusterName,
-      command,
-    }),
-    cancel: take("LIB.CALL.CLUSTER.TASK.CANCEL"),
-  });
+  const { result }: { result: api.ResultOf<typeof libCallCluster> } =
+    yield race({
+      result: api.authSafe(libCallCluster, {
+        clusterName: key.clusterName,
+        command,
+      }),
+      cancel: take("LIB.CALL.CLUSTER.TASK.CANCEL"),
+    });
 
   if (!result) {
     // cancelled; we no longer care about the fate of the call

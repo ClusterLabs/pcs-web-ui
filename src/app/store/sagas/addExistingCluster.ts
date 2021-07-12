@@ -7,12 +7,11 @@ import { api, call, log, put, race, take } from "./common";
 export function* checkAuthentication({
   payload: { nodeName },
 }: ActionMap["CLUSTER.ADD.CHECK_AUTH"]) {
-  const {
-    result,
-  }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } = yield race({
-    result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
-    cancel: take("CLUSTER.ADD.NODE_NAME.UPDATE"),
-  });
+  const { result }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } =
+    yield race({
+      result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
+      cancel: take("CLUSTER.ADD.NODE_NAME.UPDATE"),
+    });
 
   if (!result) {
     return;

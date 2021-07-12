@@ -57,9 +57,8 @@ export const DashboardClusterMenu: React.FC<{ clusterName: string }> = ({
                   payload: { clusterName },
                 });
                 setIsModalOpen(!isModalOpen);
-              }
-            }
-            data-test="remove"
+              }}
+              data-test="remove"
             >
               Remove
             </Button>,
@@ -73,8 +72,8 @@ export const DashboardClusterMenu: React.FC<{ clusterName: string }> = ({
             </Button>,
           ]}
         >
-          This only removes the cluster from the Web UI, 
-          it does not stop the cluster from running.
+          This only removes the cluster from the Web UI, it does not stop the
+          cluster from running.
         </Modal>
       )}
     </>

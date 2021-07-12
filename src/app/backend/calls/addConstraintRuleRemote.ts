@@ -22,12 +22,8 @@ export const addConstraintRuleRemote = async ({
       ? [["force", "true"]]
       : [];
 
-  const {
-    resourceSpecification,
-    resourceValue,
-    rule,
-    score,
-  } = constraint.location;
+  const { resourceSpecification, resourceValue, rule, score } =
+    constraint.location;
   return http.post(url({ clusterName }), {
     params: [
       ["c_type", "loc"],

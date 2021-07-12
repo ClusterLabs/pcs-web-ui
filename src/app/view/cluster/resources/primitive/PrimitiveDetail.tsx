@@ -14,10 +14,10 @@ import {
 } from "app/view/share";
 
 export const PrimitiveDetail = ({ primitive }: { primitive: Primitive }) => {
-  const [
-    crmStatusList,
-    clusterName,
-  ] = useClusterSelector(selectors.crmStatusForPrimitive, [primitive.id]);
+  const [crmStatusList, clusterName] = useClusterSelector(
+    selectors.crmStatusForPrimitive,
+    [primitive.id],
+  );
   return (
     <>
       <StackItem>

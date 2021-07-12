@@ -1,4 +1,3 @@
-import React from "react";
 import { DataList } from "@patternfly/react-core";
 
 import { Resource } from "app/view/cluster/types";

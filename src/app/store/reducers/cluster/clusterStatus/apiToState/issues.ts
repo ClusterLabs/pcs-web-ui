@@ -10,24 +10,26 @@ type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 // 2. Don't want a formal duty to keep it in sync a new occurences here.
 type ApiIssue = (ApiCluster["error_list"] & ApiCluster["warning_list"])[number];
 
-const mapIssue = (severity: Issue["severity"]) => (issue: ApiIssue): Issue => {
-  if (
-    "type" in issue
-    && "node_list" in issue
-    && issue.type === "nodes_not_authorized"
-  ) {
+const mapIssue =
+  (severity: Issue["severity"]) =>
+  (issue: ApiIssue): Issue => {
+    if (
+      "type" in issue
+      && "node_list" in issue
+      && issue.type === "nodes_not_authorized"
+    ) {
+      return {
+        severity,
+        type: issue.type,
+        message: issue.message,
+        nodeList: issue.node_list,
+      };
+    }
     return {
       severity,
-      type: issue.type,
       message: issue.message,
-      nodeList: issue.node_list,
     };
-  }
-  return {
-    severity,
-    message: issue.message,
   };
-};
 
 export const transformIssues = (element: {
   error_list: ApiIssue[];

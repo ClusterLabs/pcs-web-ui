@@ -27,8 +27,10 @@ export const TaskSimpleFinish: React.FC<{
   switch (response) {
     case "sending":
       return <TaskProgress title={waitTitle} />;
+
     case "ok":
       return <TaskSuccess title={successTitle} close={close} />;
+
     default:
       return (
         <TaskFinishError

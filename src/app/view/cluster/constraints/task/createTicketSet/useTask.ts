@@ -26,15 +26,17 @@ export const useTask = () => {
         key: { clusterName },
         payload,
       }),
-    updateSet: (index: number) => (
-      set: ActionPayload["CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET"]["set"],
-    ) => {
-      dispatch({
-        type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET",
-        key: { clusterName },
-        payload: { index, set },
-      });
-    },
+    updateSet:
+      (index: number) =>
+      (
+        set: ActionPayload["CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET"]["set"],
+      ) => {
+        dispatch({
+          type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET",
+          key: { clusterName },
+          payload: { index, set },
+        });
+      },
 
     create: ({ force }: { force: boolean }) =>
       dispatch({

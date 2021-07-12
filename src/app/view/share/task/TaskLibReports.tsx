@@ -9,8 +9,10 @@ const severityToAlertVariant = (
   switch (severity.level) {
     case "ERROR":
       return "danger";
+
     case "WARNING":
       return "warning";
+
     default:
       return "info";
   }

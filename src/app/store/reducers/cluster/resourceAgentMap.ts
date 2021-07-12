@@ -18,9 +18,9 @@ function getAgents<T>(agentMap: Record<string, T>): T[] {
 const data: AppReducer<ResourceAgentMap> = (state = {}, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LIST.LOAD.OK":
-      return getAgents(action.payload.apiResourceAgentMap).reduce<
-        ResourceAgentMap
-      >(
+      return getAgents(
+        action.payload.apiResourceAgentMap,
+      ).reduce<ResourceAgentMap>(
         (resourceAgentMap: ResourceAgentMap, apiResourceAgent) => ({
           ...resourceAgentMap,
           [apiResourceAgent.class_provider]: [

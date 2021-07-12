@@ -54,12 +54,16 @@ export const resourceCreate: AppReducer<typeof initialState> = (
         ),
       };
     }
+
     case "RESOURCE.CREATE.CLOSE":
       return initialState;
+
     case "TASK.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
+
     case "TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
+
     default:
       return { ...state, libCall: libCall(state.libCall, action) };
   }

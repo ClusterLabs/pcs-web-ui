@@ -73,30 +73,35 @@ export const nodeAdd: AppReducer<typeof initialState> = (
         ...state,
         ...action.payload,
       };
+
     case "NODE.ADD.CHECK_CAN_ADD":
       return {
         ...state,
         nodeCheck: "can-add-started",
         nodeCheckMessage: "",
       };
+
     case "NODE.ADD.CHECK_CAN_ADD.FAIL":
       return {
         ...state,
         nodeCheck: "can-add-failed",
         nodeCheckMessage: action.payload.message,
       };
+
     case "NODE.ADD.CHECK_CAN_ADD.CANNOT":
       return {
         ...state,
         nodeCheck: "can-add-cannot",
         nodeCheckMessage: action.payload.message,
       };
+
     case "NODE.ADD.CHECK_AUTH":
       return {
         ...state,
         nodeCheck: "auth-check-started",
         nodeCheckMessage: "",
       };
+
     case "NODE.ADD.CHECK_AUTH.NO_AUTH":
       return {
         ...state,
@@ -104,12 +109,14 @@ export const nodeAdd: AppReducer<typeof initialState> = (
         nodeCheck: "auth-in-progress",
         nodeCheckMessage: "",
       };
+
     case "NODE.ADD.CHECK_AUTH.FAIL":
       return {
         ...state,
         nodeCheck: "auth-check-failed",
         nodeCheckMessage: action.payload.message,
       };
+
     case "NODE.ADD.SEND_KNOWN_HOSTS":
       return {
         ...state,
@@ -117,6 +124,7 @@ export const nodeAdd: AppReducer<typeof initialState> = (
         nodeCheck: "send-known-hosts-started",
         nodeCheckMessage: "",
       };
+
     case "NODE.ADD.SEND_KNOWN_HOSTS.OK":
       return {
         ...state,
@@ -130,12 +138,16 @@ export const nodeAdd: AppReducer<typeof initialState> = (
         nodeCheck: "send-known-hosts-fail",
         nodeCheckMessage: action.payload.message,
       };
+
     case "NODE.ADD.CLOSE":
       return initialState;
+
     case "TASK.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
+
     case "TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
+
     default:
       return { ...state, libCall: libCall(state.libCall, action) };
   }
