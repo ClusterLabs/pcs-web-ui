@@ -3,6 +3,7 @@ import { all } from "redux-saga/effects";
 import { fork, takeEvery } from "./common";
 import * as addExistingCluster from "./addExistingCluster";
 import * as cluster from "./cluster";
+import * as clusterDestroy from "./clusterDestroy";
 import * as clusterRemove from "./clusterRemove";
 import * as dashboard from "./dashboard";
 import * as dataLoad from "./common/dataLoad";
@@ -61,6 +62,7 @@ function* rootSaga() {
     takeEvery("CONSTRAINT.DELETE", constraints.deleteConstraint),
     takeEvery("CONSTRAINT.DELETE.RULE", constraints.deleteConstraintRule),
     takeEvery("DASHBOARD.CLUSTER.REMOVE", clusterRemove.clusterRemove),
+    takeEvery("DASHBOARD.CLUSTER.DESTROY", clusterDestroy.clusterDestroy),
     takeEvery("NODE.START", nodeStartStop.nodeStart),
     takeEvery("NODE.STOP", nodeStartStop.nodeStop),
     takeEvery("NODE.ADD.CHECK_CAN_ADD", nodeAdd.checkCanAddNodeSaga),

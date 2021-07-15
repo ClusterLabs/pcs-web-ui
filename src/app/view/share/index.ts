@@ -6,6 +6,7 @@ export * from "./attributes";
 export * from "./BackgroundImage";
 export * from "./clusterGroupDetail";
 export * from "./CrmStatusTable";
+export * from "./DropdownActionListMenu";
 export * from "./issueList";
 export * from "./Link";
 export * from "./NVPairListView";

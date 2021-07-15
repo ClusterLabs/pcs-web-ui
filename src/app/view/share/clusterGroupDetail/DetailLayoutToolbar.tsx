@@ -13,23 +13,14 @@ import {
 import { TimesIcon } from "@patternfly/react-icons";
 import { push } from "connected-react-router";
 
-import { Action } from "app/store";
-
 import { useGroupDetailViewContext } from "./GroupDetailViewContext";
+import { ConfirmAction, ConfirmData } from "./Types";
 
-export type ConfirmAction = {
-  confirm: {
-    title: string;
-    description: React.ReactNode;
-  };
-  action: Action;
-};
 export type DetailLayoutToolbarAction = { disabled?: boolean } & (
   | { onClick: () => void }
   | ConfirmAction
 );
 
-type ConfirmData = ConfirmAction & { name: string };
 type ToolbarActionMap = Record<string, DetailLayoutToolbarAction>;
 
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);

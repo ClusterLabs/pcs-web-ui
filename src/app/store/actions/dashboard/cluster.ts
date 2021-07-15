@@ -8,6 +8,13 @@ export type DashboardClusterActions = {
     };
   };
 
+  "DASHBOARD.CLUSTER.DESTROY": {
+    type: "DASHBOARD.CLUSTER.DESTROY";
+    payload: {
+      clusterName: string;
+    };
+  };
+
   "DASHBOARD.CLUSTER.SETUP.UPDATE": {
     type: "DASHBOARD.CLUSTER.SETUP.UPDATE";
     payload: {

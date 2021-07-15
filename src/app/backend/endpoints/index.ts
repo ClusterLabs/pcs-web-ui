@@ -19,6 +19,7 @@ import { importedClusterList } from "./importedClusterList";
 import { login } from "./login";
 import { logout } from "./logout";
 import { rememberCluster } from "./rememberCluster";
+import { destroyCluster } from "./destroyCluster";
 import { removeCluster } from "./removeCluster";
 import { removeResource } from "./removeResource";
 import { resourceClone } from "./resourceClone";
@@ -60,6 +61,7 @@ const endpoints = {
   login,
   logout,
   rememberCluster,
+  destroyCluster,
   removeCluster,
   removeResource,
   resourceCleanup,
