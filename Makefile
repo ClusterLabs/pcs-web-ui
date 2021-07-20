@@ -43,7 +43,7 @@ build:
 pack-modules:
 	if [ -d "node_modules" ]; then mv node_modules node_modules.backup; fi
 	npx npm ci
-
+	@./.bin/patch-node-modules-for-fips.sh ./node_modules
 	tar -Jcf pcs-web-ui-node-modules-${LAST_COMMIT_HASH}.tar.xz node_modules
 	rm -r node_modules
 	if [ -d "node_modules.backup" ]; then mv node_modules.backup node_modules; fi
