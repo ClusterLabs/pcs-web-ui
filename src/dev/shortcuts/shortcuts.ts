@@ -65,6 +65,10 @@ const getClusterPropertiesDefinition = (properties: types.ClusterProperties) =>
     res.json(properties);
   });
 
+const getPermissions = (permissions: types.ClusterPermissions) =>
+  app.getPermissions((_req, res) => {
+    res.json(permissions);
+  });
 // advanced
 
 export const clusterRelated = () => {
@@ -76,6 +80,7 @@ export const clusterRelated = () => {
   ]);
   getFenceAgentMetadata([response.fenceAgentMetadata.ok]);
   getClusterPropertiesDefinition(response.clusterProperties.ok);
+  getPermissions(response.permissions());
 };
 
 export const dashboard = (clusterStatusList: types.Cluster[]) => {

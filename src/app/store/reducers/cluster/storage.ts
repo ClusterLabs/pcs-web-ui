@@ -6,6 +6,7 @@ import { clusterStatus } from "./clusterStatus";
 import { pcmkAgents } from "./pcmkAgents";
 import { resourceTree } from "./resourceTree";
 import { clusterProperties } from "./properties";
+import { clusterPermissions } from "./permissions";
 import { resourceAgentMap } from "./resourceAgentMap";
 import { fenceAgentList } from "./fenceAgentList";
 import { tasks } from "./tasks";
@@ -15,6 +16,7 @@ const clusterStorageItem = combineReducers({
   pcmkAgents,
   resourceTree,
   clusterProperties,
+  clusterPermissions,
   resourceAgentMap,
   fenceAgentList,
   tasks,
