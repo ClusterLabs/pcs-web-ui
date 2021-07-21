@@ -1,7 +1,7 @@
 import * as t from "io-ts";
 import "isomorphic-fetch";
 
-import * as http from "app/backend/http";
+import * as http from "app/backend/calls/tools/http";
 
 const mockFetch = (
   specificResponseParts: {
