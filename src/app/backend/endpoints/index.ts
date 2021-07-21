@@ -15,6 +15,7 @@ import { clusterStatus } from "./clusterStatus";
 import { clusterStop } from "./clusterStop";
 import { existingCluster } from "./existingCluster";
 import { fixAuthOfCluster } from "./fixAuthOfCluster";
+import { getPermissions } from "./getPermissions";
 import { importedClusterList } from "./importedClusterList";
 import { login } from "./login";
 import { logout } from "./logout";
@@ -52,6 +53,7 @@ const endpoints = {
   clusterStop,
   existingCluster,
   fixAuthOfCluster,
+  getPermissions,
   importedClusterList,
   libCluster,
   libClusterResourceAgentListAgents: pcmkAgentListAgents("resource"),

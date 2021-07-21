@@ -5,6 +5,7 @@ import * as resourceAgentMetadata from "./resourceAgentMetadata";
 import * as fenceAgentMetadata from "./fenceAgentMetadata";
 import * as clusterProperties from "./clusterProperties";
 import * as importedClusterList from "./importedClusterList";
+import { permissions } from "./permissions";
 import * as lib from "./lib";
 
 export {
@@ -16,4 +17,5 @@ export {
   importedClusterList,
   clusterProperties,
   lib,
+  permissions,
 };

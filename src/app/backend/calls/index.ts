@@ -3,6 +3,7 @@ export * from "./checkAuthAgainstNodes";
 export * from "./existingCluster";
 export * from "./clusterStatus";
 export * from "./importedClusterList";
+export * from "./getPermissions";
 export * from "./updateResource";
 export * from "./getClusterPropertiesDefinition";
 export * from "./updateClusterSettings";
