@@ -8,6 +8,7 @@ export const getClusterPropertiesDefinition = endpoint({
   method: "get",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: t.record(
     t.string,
     t.intersection([

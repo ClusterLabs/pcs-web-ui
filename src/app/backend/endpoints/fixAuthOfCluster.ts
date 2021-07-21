@@ -6,5 +6,6 @@ export const fixAuthOfCluster = endpoint({
   method: "post",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: undefined,
 });

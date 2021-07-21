@@ -5,5 +5,6 @@ export const existingCluster = endpoint({
   method: "post",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: undefined,
 });

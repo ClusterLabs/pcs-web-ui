@@ -6,5 +6,6 @@ export const resourceUnclone = endpoint({
   method: "post",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: undefined,
 });

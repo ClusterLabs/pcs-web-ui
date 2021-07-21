@@ -7,6 +7,7 @@ export const importedClusterList = endpoint({
   method: "get",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: t.type({
     cluster_list: t.array(
       t.type({

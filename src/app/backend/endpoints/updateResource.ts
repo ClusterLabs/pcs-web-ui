@@ -8,6 +8,7 @@ export const updateResource = endpoint({
   method: "post",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: t.partial({
     error: t.literal("true"),
     stdout: t.string,

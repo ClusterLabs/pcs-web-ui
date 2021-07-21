@@ -97,6 +97,7 @@ export const clusterSetup = endpoint({
     ["target_node", targetNode],
     ["setup_data", JSON.stringify(setupData)],
   ],
+  validate: undefined,
   payload: undefined,
   shape: shape(t.null),
 });
