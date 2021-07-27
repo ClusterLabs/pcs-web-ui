@@ -1,12 +1,17 @@
 import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { TaskFinishLibWizard, Wizard, WizardFooter, lib } from "app/view/share";
+import {
+  NodeAuthButton,
+  TaskFinishLibWizard,
+  Wizard,
+  WizardFooter,
+  lib,
+} from "app/view/share";
 
 import { useTask } from "./useTask";
 import { NodeName } from "./NodeName";
 import { PrepareNode } from "./PrepareNode";
-import { AuthButton } from "./AuthButton";
 import { Addresses } from "./Addresses";
 import { Sbd } from "./Sbd";
 import { Review } from "./Review";
@@ -48,7 +53,7 @@ export const NodeAdd: React.FC = () => {
           component: <PrepareNode />,
           footer: authProcessId ? (
             <WizardFooter
-              next={<AuthButton authProcessId={authProcessId} />}
+              next={<NodeAuthButton authProcessId={authProcessId} />}
               onClose={close}
               task="nodeAdd"
             />
