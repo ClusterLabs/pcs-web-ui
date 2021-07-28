@@ -65,11 +65,13 @@ export const error = (
       console.groupEnd();
       console.groupEnd();
       break;
+
     case "BAD_HTTP_STATUS":
     case "NOT_JSON":
     case "UNAUTHORIZED":
       console.error(errorMessage(result, taskLabel));
       break;
+
     default: {
       const { type } = result;
       const _exhaustiveCheck: never = type;

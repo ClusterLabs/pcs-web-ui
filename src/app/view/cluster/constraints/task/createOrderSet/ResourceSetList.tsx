@@ -64,8 +64,7 @@ export const ResourceSetList: React.FC = () => {
                 onChange={value => update({ action: value })}
                 popover={{
                   header: "Action",
-                  body:
-                    "Limit the effect of the constraint to the specified action.",
+                  body: "Limit the effect of the constraint to the specified action.",
                 }}
               />
 

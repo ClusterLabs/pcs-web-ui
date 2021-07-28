@@ -3,7 +3,7 @@ import { useDispatch } from "app/view/share/useDispatch";
 import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
 
 export const useResourceSets = <
-  NAME extends Parameters<typeof selectors.getTask>[0],
+  NAME extends Parameters<typeof selectors.getClusterTask>[0],
 >(
   task: NAME,
 ) => {

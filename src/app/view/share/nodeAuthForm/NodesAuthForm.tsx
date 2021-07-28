@@ -71,6 +71,7 @@ export const NodesAuthForm: React.FC<{
             <Switch
               id="add-cluster-use-custom-address-port"
               label=""
+              aria-label="use custom address port"
               isChecked={useAddresses}
               onChange={() => switchAddressUse(!useAddresses)}
             />{" "}
@@ -81,6 +82,7 @@ export const NodesAuthForm: React.FC<{
               <Switch
                 id="add-cluster-one-password-for-all"
                 label=""
+                aria-label="one password for all"
                 isChecked={onePasswordForAll}
                 onChange={() => switchOnePasswordForAll(!onePasswordForAll)}
               />{" "}

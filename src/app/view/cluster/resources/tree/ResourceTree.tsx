@@ -1,4 +1,3 @@
-import React from "react";
 import { DataList } from "@patternfly/react-core";
 
 import { Resource } from "app/view/cluster/types";
@@ -39,6 +38,7 @@ export const ResourceTree = ({
                 primitive={resourceTreeItem}
               />
             );
+
           case "group":
             return (
               <ResourceTreeItemGroup
@@ -46,6 +46,7 @@ export const ResourceTree = ({
                 group={resourceTreeItem}
               />
             );
+
           case "clone":
           default:
             return (

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { selectors } from "app/store";
 import { useClusterSelector, useGroupDetailViewContext } from "app/view/share";
 
@@ -22,8 +20,10 @@ export const ResourceDetailPage = () => {
   switch (resourceTreeItem.itemType) {
     case "primitive":
       return <PrimitivePage primitive={resourceTreeItem} />;
+
     case "group":
       return <GroupPage group={resourceTreeItem} />;
+
     case "clone":
     default:
       return <ClonePage clone={resourceTreeItem} />;

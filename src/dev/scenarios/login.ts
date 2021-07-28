@@ -3,13 +3,15 @@ import { Handler, app } from "dev/app";
 
 let isLoggedIn = false;
 
-const jsonOr401 = (result: unknown): Handler => (_req, res) => {
-  if (isLoggedIn) {
-    res.json(result);
-  } else {
-    res.status(401).send();
-  }
-};
+const jsonOr401 =
+  (result: unknown): Handler =>
+  (_req, res) => {
+    if (isLoggedIn) {
+      res.json(result);
+    } else {
+      res.status(401).send();
+    }
+  };
 
 app.importedClusterList(
   jsonOr401(

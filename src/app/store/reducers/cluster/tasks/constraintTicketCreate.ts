@@ -44,10 +44,10 @@ export const constraintTicketCreate: AppReducer<typeof initialState> = (
         showValidationErrors: false,
       };
 
-    case "CLUSTER.TASK.VALIDATION.SHOW":
+    case "TASK.VALIDATION.SHOW":
       return { ...state, showValidationErrors: true };
 
-    case "CLUSTER.TASK.VALIDATION.HIDE":
+    case "TASK.VALIDATION.HIDE":
       return { ...state, showValidationErrors: false };
 
     case "CONSTRAINT.TICKET.CREATE.CLOSE":

@@ -20,6 +20,7 @@ import * as libAction from "./libAction";
 import * as libCallTask from "./libCallTask";
 import * as nodeStartStop from "./nodeStartStop";
 import * as nodeAdd from "./nodeAdd";
+import * as clusterSetup from "./clusterSetup";
 import * as resourceClone from "./resourceClone";
 import * as nodeAuth from "./nodeAuth";
 import * as fixAuth from "./fixAuth";
@@ -45,6 +46,16 @@ function* rootSaga() {
     takeEvery("CLUSTER.ADD", addExistingCluster.addCluster),
     takeEvery("CLUSTER.FIX_AUTH.START", fixAuth.fixAuth),
     takeEvery("CLUSTER.FIX_AUTH.AUTH_DONE", fixAuth.fixAuthDistribute),
+    takeEvery(
+      "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD",
+      clusterSetup.checkCanAddNodeSaga,
+    ),
+    takeEvery("DASHBOARD.CLUSTER.SETUP.CHECK_AUTH", clusterSetup.checkAuthSaga),
+    takeEvery(
+      "DASHBOARD.CLUSTER.SETUP.SEND_KNOWN_HOSTS",
+      clusterSetup.sendKnownHostsToNodeSaga,
+    ),
+    takeEvery("DASHBOARD.CLUSTER.SETUP.CALL", clusterSetup.setup),
     takeEvery("CONSTRAINT.SINGLE.CREATE", constraints.create),
     takeEvery("CONSTRAINT.DELETE", constraints.deleteConstraint),
     takeEvery("CONSTRAINT.DELETE.RULE", constraints.deleteConstraintRule),

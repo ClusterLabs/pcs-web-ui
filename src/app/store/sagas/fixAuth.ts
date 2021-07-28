@@ -43,12 +43,11 @@ export function* fixAuth({
 export function* fixAuthDistribute({
   key,
 }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
-  const {
-    result,
-  }: { result: api.ResultOf<typeof fixAuthOfCluster> } = yield race({
-    result: api.authSafe(fixAuthOfCluster, key.clusterName),
-    cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
-  });
+  const { result }: { result: api.ResultOf<typeof fixAuthOfCluster> } =
+    yield race({
+      result: api.authSafe(fixAuthOfCluster, key.clusterName),
+      cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
+    });
 
   if (!result) {
     return;

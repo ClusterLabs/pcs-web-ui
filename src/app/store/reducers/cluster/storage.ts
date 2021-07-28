@@ -28,6 +28,16 @@ export const clusterStorage: AppReducer<ClusterStorage> = (
     return {};
   }
   if ("key" in action && "clusterName" in action.key) {
+    if (action.key.clusterName === null) {
+      // The action is not for cluster at all when cluster name is explicitly
+      // null.
+      // It is currently used for dashboard tasks: some mechanisms are shared
+      // among cluster tasks and dashboard tasks via action types, however,
+      // every particular action is only for 1) particular task of a particular
+      // cluster or 2) particular task of dashboard. It is not possible to
+      // depend only on task key because there is not enforced unique task name.
+      return state;
+    }
     return {
       ...state,
       [action.key.clusterName]: clusterStorageItem(

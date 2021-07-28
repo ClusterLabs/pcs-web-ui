@@ -18,9 +18,9 @@ function getAgents<T>(agentMap: Record<string, T>): T[] {
 const data: AppReducer<ResourceAgentMap> = (state = {}, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LIST.LOAD.OK":
-      return getAgents(action.payload.apiResourceAgentMap).reduce<
-        ResourceAgentMap
-      >(
+      return getAgents(
+        action.payload.apiResourceAgentMap,
+      ).reduce<ResourceAgentMap>(
         (resourceAgentMap: ResourceAgentMap, apiResourceAgent) => ({
           ...resourceAgentMap,
           [apiResourceAgent.class_provider]: [
@@ -46,16 +46,19 @@ const fetchState: AppReducer<ResourceAgentListService["fetchState"]> = (
         current: "LOADED",
         alreadyLoaded: true,
       };
+
     case "RESOURCE_AGENT.LIST.LOAD":
       return {
         ...state,
         current: state.alreadyLoaded ? "RELOADING" : "LOADING",
       };
+
     case "RESOURCE_AGENT.LIST.LOAD.FAIL":
       return {
         ...state,
         current: "FAILED",
       };
+
     default:
       return state;
   }

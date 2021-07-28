@@ -58,7 +58,9 @@ export const DashboardCluster: React.FC<{
             summaryStatus={cluster.summary.fenceDevicesSeverity}
           />
         </Toggle>
-        <td><DashboardClusterMenu clusterName={cluster.name} /></td>
+        <td>
+          <DashboardClusterMenu clusterName={cluster.name} />
+        </td>
       </tr>
       <Content expandKey={COLUMNS.ISSUES}>
         <IssueList margin issueList={cluster.issueList} />

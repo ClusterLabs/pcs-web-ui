@@ -37,9 +37,11 @@ const compareByColumn = (
     case "QUORUM":
       return (a, b) =>
         compareStatusSeverity(quorumSeverity(a), quorumSeverity(b));
+
     case "STATUS":
       return (a, b) =>
         compareStatusSeverity(statusSeverity(a), statusSeverity(b));
+
     default:
       return (a, b) => compareStrings(a.name, b.name);
   }

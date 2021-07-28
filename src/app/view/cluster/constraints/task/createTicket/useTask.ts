@@ -50,7 +50,7 @@ export const useTask = () => {
     createTicket: ({ force }: { force: boolean }) => {
       if (!isCustomIdValid || !isTicketValid) {
         dispatch({
-          type: "CLUSTER.TASK.VALIDATION.SHOW",
+          type: "TASK.VALIDATION.SHOW",
           key: { clusterName, task: task.name },
         });
         return;

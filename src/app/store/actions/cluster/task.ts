@@ -1,11 +1,11 @@
 export type ClusterTaskActions = {
-  "CLUSTER.TASK.VALIDATION.SHOW": {
-    type: "CLUSTER.TASK.VALIDATION.SHOW";
-    key: { clusterName: string; task: string };
+  "TASK.VALIDATION.SHOW": {
+    type: "TASK.VALIDATION.SHOW";
+    key: { clusterName: string | null; task: string };
   };
 
-  "CLUSTER.TASK.VALIDATION.HIDE": {
-    type: "CLUSTER.TASK.VALIDATION.HIDE";
-    key: { clusterName: string; task: string };
+  "TASK.VALIDATION.HIDE": {
+    type: "TASK.VALIDATION.HIDE";
+    key: { clusterName: string | null; task: string };
   };
 };

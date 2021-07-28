@@ -53,6 +53,7 @@ export const TaskFinishLib: React.FC<{
           <TaskLibReports reports={reports} />
         </>
       );
+
     case "fail":
       return (
         <>
@@ -93,6 +94,7 @@ export const TaskFinishLib: React.FC<{
           <TaskLibReports reports={reports} />
         </>
       );
+
     case "communication-error":
       return (
         <TaskFinishErrorLib
@@ -101,6 +103,7 @@ export const TaskFinishLib: React.FC<{
           close={close}
         />
       );
+
     default:
       return <TaskProgress title={`Processing task "${taskName}".`} />;
   }

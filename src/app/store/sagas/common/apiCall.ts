@@ -15,8 +15,10 @@ export const errorMessage = (
   switch (result.type) {
     case "UNAUTHORIZED":
       return `Unauthorized while: ${taskLabel}. ${detailsInConsole}`;
+
     case "BAD_HTTP_STATUS":
       return `Task: ${taskLabel} failed: ${result.text}. ${detailsInConsole}`;
+
     default:
       return `Communication error while: ${taskLabel}. ${detailsInConsole}`;
   }
@@ -35,6 +37,7 @@ function* error(
         lines: [result.text, detailsInConsole],
       });
       break;
+
     default:
       yield putNotification("ERROR", message);
   }

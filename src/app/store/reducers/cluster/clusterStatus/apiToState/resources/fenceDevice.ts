@@ -17,10 +17,13 @@ const transformStatus = (
   switch (status) {
     case "blocked":
       return "BLOCKED";
+
     case "failed":
       return "FAILED";
+
     case "disabled":
       return "DISABLED";
+
     case "running":
     default:
       return "RUNNING";

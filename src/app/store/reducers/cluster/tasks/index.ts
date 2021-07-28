@@ -1,6 +1,11 @@
 import { combineReducers } from "redux";
 
-import { AppReducer } from "app/store/reducers/appReducer";
+import {
+  ReducersMapKey,
+  Task,
+  TaskState,
+  wrapTasks,
+} from "app/store/taskTools";
 
 import { resourceCreate } from "./resourceCreate";
 import { primitiveGroupChange } from "./primitiveGroupChange";
@@ -14,14 +19,6 @@ import { constraintColocationSetCreate } from "./constraintColocationSetCreate";
 import { resourceGroup } from "./resourceGroup";
 import { nodeAdd } from "./nodeAdd";
 import { fixAuth } from "./fixAuth";
-
-type TaskState = Record<string, unknown>;
-type ReducersMap<STATE extends TaskState> = {
-  [K in keyof STATE]: AppReducer<STATE[K]>;
-};
-
-type ReducersMapKey<STATE extends TaskState> = keyof ReducersMap<STATE>;
-type Task<STATE extends TaskState> = ReducersMap<STATE>[ReducersMapKey<STATE>];
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -42,23 +39,8 @@ const wrapTaskReducer =
     return task(state, action);
   };
 
-// STATE extends Record<string, unknown> is here to enforce task state to be an
-// object. This prevents the state to be undefined. So, when state `undefined`
-// enters into to wrapper we know that it is a redux initialization.
-function wrapTasks<STATE extends TaskState>(
-  tasks: ReducersMap<STATE>,
-): ReducersMap<STATE> {
-  return (Object.keys(tasks) as Array<keyof typeof tasks>).reduce(
-    (wrapped, taskKey) => ({
-      ...wrapped,
-      [taskKey]: wrapTaskReducer(taskKey, tasks[taskKey]),
-    }),
-    {} as ReducersMap<STATE>,
-  );
-}
-
 export const tasks = combineReducers(
-  wrapTasks({
+  wrapTasks(wrapTaskReducer)({
     resourceCreate,
     primitiveGroupChange,
     constraintLocationCreate,

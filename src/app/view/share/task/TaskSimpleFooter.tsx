@@ -7,7 +7,7 @@ import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
 
 export const TaskSimpleFooter: React.FC<{
   run: () => void;
-  task: Parameters<typeof selectors.getTask>[0];
+  task: Parameters<typeof selectors.getClusterTask>[0];
   cancel: () => void;
   runLabel?: string;
   nextIf?: boolean;
@@ -21,14 +21,14 @@ export const TaskSimpleFooter: React.FC<{
         onClick={() => {
           if (nextIf) {
             dispatch({
-              type: "CLUSTER.TASK.VALIDATION.HIDE",
+              type: "TASK.VALIDATION.HIDE",
               key: { clusterName, task },
             });
             run();
             return;
           }
           dispatch({
-            type: "CLUSTER.TASK.VALIDATION.SHOW",
+            type: "TASK.VALIDATION.SHOW",
             key: { clusterName, task },
           });
         }}

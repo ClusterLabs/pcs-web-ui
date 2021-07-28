@@ -1,13 +1,11 @@
 import React from "react";
 import { Stack, StackItem, Text, TextContent } from "@patternfly/react-core";
 
-import { types } from "app/store";
-
 import { TaskLibReports } from "./TaskLibReports";
 
 export const TaskLibStep: React.FC<{
   title: string;
-  reports?: types.LibReport[];
+  reports?: React.ComponentProps<typeof TaskLibReports>["reports"];
 }> = ({ title, children, reports = [] }) => {
   return (
     <Stack hasGutter>

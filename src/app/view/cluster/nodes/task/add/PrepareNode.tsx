@@ -42,7 +42,7 @@ export const PrepareNode: React.FC = () => {
         <Alert
           variant="danger"
           isInline
-          title="Check if that node is not a part of another cluster"
+          title="Check if the node is not a part of another cluster"
           actionLinks={
             <AlertActionLink onClick={checkCanAddNode}>
               Try again
@@ -66,7 +66,7 @@ export const PrepareNode: React.FC = () => {
         <Alert
           variant="danger"
           isInline
-          title="Check if node is authenticated"
+          title="Check if the node is authenticated"
           actionLinks={
             <AlertActionLink onClick={checkAuth}>Try again</AlertActionLink>
           }

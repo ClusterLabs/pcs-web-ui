@@ -40,6 +40,7 @@ export const constraintSingleCall: AppReducer<typeof initialState> = (
         response: "",
         resultMessage: "",
       };
+
     default:
       return state;
   }

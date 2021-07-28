@@ -47,13 +47,15 @@ const getDelay = (envDelay: string | undefined, defaultDelay: number) => {
   return delay;
 };
 
-const delayed = (handler: Handler): Handler => (req, res) => {
-  setTimeout(
-    () => handler(req, res),
-    getDelay(process.env.DELAY, 100)
-      + Math.floor(getDelay(process.env.DELAY_RND, 100) * Math.random()),
-  );
-};
+const delayed =
+  (handler: Handler): Handler =>
+  (req, res) => {
+    setTimeout(
+      () => handler(req, res),
+      getDelay(process.env.DELAY, 100)
+        + Math.floor(getDelay(process.env.DELAY_RND, 100) * Math.random()),
+    );
+  };
 
 const prepareUrl = <KEYWORDS extends Record<string, string>>(
   url: string | ((keywords: KEYWORDS) => string),
@@ -63,7 +65,7 @@ const prepareUrl = <KEYWORDS extends Record<string, string>>(
   }
   // TODO introspect url function and use correct keys
   // currently just clusterName here...
-  return url(({ clusterName: ":clusterName" } as unknown) as KEYWORDS);
+  return url({ clusterName: ":clusterName" } as unknown as KEYWORDS);
 };
 
 type EndpointKeys = keyof typeof endpoints;
@@ -73,9 +75,9 @@ type DevEndpoints = {
     : (h: Handler) => Express;
 };
 
-export const app: DevEndpoints = (Object.keys(endpoints) as Array<
-  EndpointKeys
->).reduce((devEndpoints, n) => {
+export const app: DevEndpoints = (
+  Object.keys(endpoints) as Array<EndpointKeys>
+).reduce((devEndpoints, n) => {
   const ep = endpoints[n];
   if (n === "libCluster") {
     devEndpoints.libCluster = (

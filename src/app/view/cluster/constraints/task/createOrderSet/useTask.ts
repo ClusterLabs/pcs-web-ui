@@ -28,15 +28,15 @@ export const useTask = () => {
         payload,
       }),
 
-    updateSet: (index: number) => (
-      set: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"],
-    ) => {
-      dispatch({
-        type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET",
-        key: { clusterName },
-        payload: { index, set },
-      });
-    },
+    updateSet:
+      (index: number) =>
+      (set: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]) => {
+        dispatch({
+          type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET",
+          key: { clusterName },
+          payload: { index, set },
+        });
+      },
 
     create: ({ force }: { force: boolean }) =>
       dispatch({

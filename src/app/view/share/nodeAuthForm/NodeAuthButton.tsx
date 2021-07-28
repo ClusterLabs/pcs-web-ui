@@ -1,8 +1,10 @@
 import React from "react";
 
-import { TaskButtonNext, useNodesAuth } from "app/view/share";
+import { TaskButtonNext } from "app/view/share/task";
 
-export const AuthButton: React.FC<{
+import { useNodesAuth } from "./useNodesAuth";
+
+export const NodeAuthButton: React.FC<{
   authProcessId: number;
 }> = ({ authProcessId }) => {
   const {

@@ -7,21 +7,20 @@ export function* create({
   key,
   payload: { groupId, resourceIdList },
 }: ActionMap["RESOURCE.GROUP.CREATE"]) {
-  const {
-    result,
-  }: { result: api.ResultOf<typeof libCallCluster> } = yield race({
-    result: api.authSafe(libCallCluster, {
-      clusterName: key.clusterName,
-      command: {
-        name: "resource-group-add",
-        payload: {
-          group_id: groupId,
-          resource_id_list: resourceIdList,
+  const { result }: { result: api.ResultOf<typeof libCallCluster> } =
+    yield race({
+      result: api.authSafe(libCallCluster, {
+        clusterName: key.clusterName,
+        command: {
+          name: "resource-group-add",
+          payload: {
+            group_id: groupId,
+            resource_id_list: resourceIdList,
+          },
         },
-      },
-    }),
-    cancel: take("RESOURCE.CREATE.CLOSE"),
-  });
+      }),
+      cancel: take("RESOURCE.CREATE.CLOSE"),
+    });
 
   if (!result) {
     // cancelled; we no longer care about the fate of the call
