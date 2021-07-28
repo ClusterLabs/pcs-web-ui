@@ -36,7 +36,7 @@ export const NameAndNodes: React.FC = () => {
             <tbody>
               {nodeNameList.map((nodeName, i) => (
                 <tr key={i}>
-                  <td>
+                  <td className="pf-u-pr-sm pf-u-pb-sm">
                     <FormText
                       id={`node-name-${i}`}
                       value={nodeName}
