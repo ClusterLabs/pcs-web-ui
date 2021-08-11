@@ -19,6 +19,7 @@ import { ConstraintsPage } from "./constraints";
 import { ClusterPropertiesPage } from "./properties";
 import { ClusterDetail } from "./ClusterDetail";
 import { ClusterDetailBreadcrumb } from "./ClusterDetailBreadcrumb";
+import { ClusterPermissionsPage } from "./permissions";
 
 export const ClusterDetailPage: React.FC<{
   clusterName: string;
@@ -33,6 +34,7 @@ export const ClusterDetailPage: React.FC<{
     "Fence Devices": useMatch(join(urlPrefix, "fence-devices")),
     Constraints: useMatch(join(urlPrefix, "constraints")),
     Properties: useMatch(join(urlPrefix, "properties")),
+    Permissions: useMatch(join(urlPrefix, "permissions")),
   });
 
   return (
@@ -57,6 +59,7 @@ export const ClusterDetailPage: React.FC<{
             <ConstraintsPage clusterName={clusterName} />
           )}
           {tab === "Properties" && <ClusterPropertiesPage />}
+          {tab === "Permissions" && <ClusterPermissionsPage />}
         </SelectedClusterProvider>
       )}
       {!dataLoaded && (
