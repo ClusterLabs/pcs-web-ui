@@ -59,7 +59,40 @@ export const clusterSetup = endpoint({
       enable?: boolean;
       no_keys_sync?: boolean;
       force_flags?: string[];
-    };
+    } & (
+      | {
+          transport_type: "knet";
+          transport_options?: {
+            ip_version?: "ipv4" | "ipv6" | "ipv4-6" | "ipv6-4";
+            knet_pmtud_interval?: number; // positive integer
+            link_mode?: "" | "active" | "passive" | "rr";
+          };
+          link_list: {
+            linknumber: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+            link_priority?: number; // 0-255
+            mcastport?: number; //a port number (1..65535)
+            ping_interval?: number; // nonnegative integer
+            ping_precision?: number; // nonnegative integer
+            ping_timeout?: number; // nonnegative integer
+            pong_count?: number; // nonnegative integer
+            transport?: "sctp" | "udp";
+          }[];
+        }
+      | {
+          transport_type: "udp" | "udpu";
+          transport_options?: {
+            ip_version?: "ipv4" | "ipv6" | "ipv4-6" | "ipv6-4";
+            netmtu?: number; // positive integer
+          };
+          link_list: {
+            bindnetaddr: string; // ip address
+            broadcast: "0" | "1";
+            mcastaddr: string; // ip address
+            mcastport: number; //a port number (1..65535)
+            ttl: number; // 0-255,
+          }[];
+        }
+    );
   }): [string, string][] => [
     ["target_node", targetNode],
     ["setup_data", JSON.stringify(setupData)],
