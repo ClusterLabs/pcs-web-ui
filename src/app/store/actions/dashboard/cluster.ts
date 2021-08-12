@@ -1,5 +1,16 @@
 import { clusterSetup } from "app/backend";
 import { LibReport } from "app/store/types";
+
+type SetupParams = Parameters<typeof clusterSetup>[0];
+
+type KnetLinkList = NonNullable<
+  Extract<SetupParams["setupData"], { transport_type: "knet" }>["link_list"]
+>;
+
+type ExtendedKnetLink = KnetLinkList[number] & {
+  addresses: Record<string, string>;
+};
+
 export type DashboardClusterActions = {
   "DASHBOARD.CLUSTER.REMOVE": {
     type: "DASHBOARD.CLUSTER.REMOVE";
@@ -15,18 +26,21 @@ export type DashboardClusterActions = {
     };
   };
 
-  "DASHBOARD.CLUSTER.SETUP.UPDATE": {
-    type: "DASHBOARD.CLUSTER.SETUP.UPDATE";
-    payload: {
-      transportType: "knet" | "udp" | "udpu";
-    };
-  };
-
   "DASHBOARD.CLUSTER.SETUP.UPDATE_CLUSTER_NAME": {
     type: "DASHBOARD.CLUSTER.SETUP.UPDATE_CLUSTER_NAME";
     payload: {
       clusterName: string;
     };
+  };
+
+  "DASHBOARD.CLUSTER.SETUP.UPDATE_LINK_KNET": {
+    type: "DASHBOARD.CLUSTER.SETUP.UPDATE_LINK_KNET";
+    payload: ExtendedKnetLink;
+  };
+
+  "DASHBOARD.CLUSTER.SETUP.SET_LINKS_KNET": {
+    type: "DASHBOARD.CLUSTER.SETUP.SET_LINKS_KNET";
+    payload: ExtendedKnetLink[];
   };
 
   "DASHBOARD.CLUSTER.SETUP.UPDATE_NODES": {
@@ -109,7 +123,7 @@ export type DashboardClusterActions = {
 
   "DASHBOARD.CLUSTER.SETUP.CALL": {
     type: "DASHBOARD.CLUSTER.SETUP.CALL";
-    payload: Parameters<typeof clusterSetup>[0];
+    payload: SetupParams;
   };
 
   "DASHBOARD.CLUSTER.SETUP.CALL.CANCEL": {

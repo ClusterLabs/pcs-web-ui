@@ -6,9 +6,7 @@ import {
   libCall,
 } from "../cluster/tasks/libCall";
 
-const initialState: Required<
-  ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE"]
-> & {
+const initialState: {
   clusterName: string;
   nodeNameList: string[];
   libCall: typeof initalLibCall;
@@ -27,10 +25,46 @@ const initialState: Required<
   canAddClusterOrNodesMessages: string[];
   authProcessId: number | null;
   showValidationErrors: boolean;
-} = {
-  clusterName: "",
-  nodeNameList: ["", "", ""],
+} & (
+  | {
+      transportType: "knet";
+      linkList: ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_LINK_KNET"][];
+    }
+  | {
+      transportType: "udp" | "udpu";
+      linkList: string[];
+    }
+) = {
+  clusterName: "test-cluster",
+  nodeNameList: ["node-1", "node-2", "node-3"],
   transportType: "knet",
+  linkList: [
+    {
+      linknumber: 0,
+      addresses: { "node-1": "addr1", "node-2": "addr2", "node-3": "addr3" },
+      mcastport: "1111",
+      link_priority: "10",
+      ping_interval: "11",
+      ping_precision: "12",
+      ping_timeout: "13",
+      pong_count: "14",
+      transport: "udp",
+    },
+    {
+      linknumber: 1,
+      addresses: { "node-1": "addr1", "node-2": "addr2", "node-3": "addr3" },
+      mcastport: "2111",
+      link_priority: "20",
+      ping_interval: "21",
+      ping_precision: "22",
+      ping_timeout: "23",
+      pong_count: "24",
+    },
+    {
+      linknumber: 2,
+      addresses: { "node-1": "addr1", "node-2": "addr2", "node-3": "addr3" },
+    },
+  ],
   clusterAndNodesCheck: "not-started",
   clusterAndNodesCheckMessage: "",
   canAddClusterOrNodesMessages: [],
@@ -60,14 +94,20 @@ export const clusterSetup: AppReducer<typeof initialState> = (
         clusterAndNodesCheckMessage: "",
       };
 
-    case "DASHBOARD.CLUSTER.SETUP.UPDATE":
+    case "DASHBOARD.CLUSTER.SETUP.UPDATE_LINK_KNET":
       return {
         ...state,
-        ...action.payload,
-        clusterAndNodesCheckMessage:
-          "clusterName" in action.payload
-            ? ""
-            : state.clusterAndNodesCheckMessage,
+        transportType: "knet",
+        linkList: state.linkList.map(link =>
+          link.linknumber === action.payload.linknumber ? action.payload : link,
+        ),
+      };
+
+    case "DASHBOARD.CLUSTER.SETUP.SET_LINKS_KNET":
+      return {
+        ...state,
+        transportType: "knet",
+        linkList: action.payload,
       };
 
     case "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD":

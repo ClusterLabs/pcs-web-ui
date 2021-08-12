@@ -55,9 +55,19 @@ export const useTask = () => {
         payload,
       }),
 
-    updateState: (payload: ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE"]) =>
+    updateLinkKnet: (
+      payload: ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_LINK_KNET"],
+    ) =>
       dispatch({
-        type: "DASHBOARD.CLUSTER.SETUP.UPDATE",
+        type: "DASHBOARD.CLUSTER.SETUP.UPDATE_LINK_KNET",
+        payload,
+      }),
+
+    setLinksKnet: (
+      payload: ActionPayload["DASHBOARD.CLUSTER.SETUP.SET_LINKS_KNET"],
+    ) =>
+      dispatch({
+        type: "DASHBOARD.CLUSTER.SETUP.SET_LINKS_KNET",
         payload,
       }),
 
@@ -96,14 +106,57 @@ export const useTask = () => {
 
     setupCluster: ({ force }: { force?: boolean } = { force: false }) => {
       const nodeNameList = onlyFilledNodes(state.nodeNameList);
+
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.CALL",
         payload: {
           targetNode: nodeNameList[0],
           setupData: {
             cluster_name: state.clusterName,
-            nodes: nodeNameList.map(nodeName => ({ name: nodeName })),
+            // The backend defaults addresses. But it only does so when there
+            // is no key "addrs" for a node.  There can be following (valid)
+            // scenarios:
+            // 1 User sets no links. We omit key "addrs" for every node. The
+            //   backend defaults addresses.
+            // 2 User sets 1 link and keeps all addresses fields empty. We omit
+            //   key "addrs" for every node. The backend defaults addresses.
+            // 3 User sets 1 link and keeps some addresses fields empty. We
+            //   omit key "addrs" for respective nodes. The backend defaults
+            //   addresses for the nodes with no address set by the user.
+            // 4 User sets more links. We omit key "addrs" when no addresses
+            //   for a node are filled. The backend defaults addresses for the
+            //   nodes with no addresses set by the user.
+            // Because we need to support all the scenarios and the backend
+            // defaults addresses only when key "addrs" is not specified we
+            // cannot simply send empty addresses or empty address list (i.e.
+            // key "addrs").
+            nodes: nodeNameList.map((n) => {
+              const addrs = state.linkList.reduce<string[]>(
+                (addrList, link) => [
+                  ...addrList,
+                  ...(n in link.addresses && link.addresses[n].length > 0
+                    ? [link.addresses[n]]
+                    : []),
+                ],
+                [],
+              );
+              return {
+                name: n,
+                ...(addrs.length > 0 ? { addrs } : {}),
+              };
+            }),
             ...(force ? { force_flags: ["FORCE"] } : {}),
+            transport_type: state.transportType,
+            link_list: state.linkList.map(l => ({
+              linknumber: l.linknumber,
+              link_priority: l.link_priority,
+              mcastport: l.mcastport,
+              ping_interval: l.ping_interval,
+              ping_precision: l.ping_precision,
+              ping_timeout: l.ping_timeout,
+              pong_count: l.pong_count,
+              transport: l.transport,
+            })), // TODO
           },
         },
       });

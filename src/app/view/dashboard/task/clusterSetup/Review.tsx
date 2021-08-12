@@ -3,11 +3,14 @@ import React from "react";
 import { ReviewList, ReviewValue, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
+import { ReviewLink } from "./ReviewLink";
+
 export const Review: React.FC = () => {
   const {
     state: {
       nodeNameList,
       clusterName,
+      linkList,
       libCall: { reports },
     },
   } = useTask();
@@ -20,6 +23,70 @@ export const Review: React.FC = () => {
           value={nodeNameList.map((nodeName, i) => (
             <div key={i}>{nodeName}</div>
           ))}
+        />
+        <ReviewValue
+          label="Knet links"
+          value={
+            <ReviewList>
+              {linkList.map(link => (
+                <ReviewValue
+                  label={`Link ${link.linknumber}`}
+                  key={link.linknumber}
+                  value={
+                    <ReviewList>
+                      <ReviewValue
+                        label="Addresses"
+                        value={
+                          <ReviewList>
+                            {Object.entries(link.addresses).map(
+                              ([nodeName, address]) => (
+                                <ReviewValue
+                                  key={nodeName}
+                                  label={nodeName}
+                                  value={address}
+                                />
+                              ),
+                            )}
+                          </ReviewList>
+                        }
+                      />
+                      <ReviewLink link={link} field="mcastport" label="Port" />
+                      <ReviewLink
+                        link={link}
+                        field="ping_interval"
+                        label="Ping interval"
+                      />
+                      <ReviewLink
+                        link={link}
+                        field="ping_interval"
+                        label="Ping interval"
+                      />
+                      <ReviewLink
+                        link={link}
+                        field="ping_precision"
+                        label="Ping precision"
+                      />
+                      <ReviewLink
+                        link={link}
+                        field="ping_timeout"
+                        label="Ping timeout"
+                      />
+                      <ReviewLink
+                        link={link}
+                        field="pong_count"
+                        label="Pong count"
+                      />
+                      <ReviewLink
+                        link={link}
+                        field="transport"
+                        label="Transport"
+                      />
+                    </ReviewList>
+                  }
+                />
+              ))}
+            </ReviewList>
+          }
         />
       </ReviewList>
     </TaskLibStep>

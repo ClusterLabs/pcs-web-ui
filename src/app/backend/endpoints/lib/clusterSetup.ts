@@ -68,7 +68,7 @@ export const clusterSetup = endpoint({
             link_mode?: "" | "active" | "passive" | "rr";
           };
           link_list: {
-            linknumber: "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7";
+            linknumber: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
             link_priority?: string; // 0-255
             mcastport?: string; //a port number (1..65535)
             ping_interval?: string; // nonnegative integer
