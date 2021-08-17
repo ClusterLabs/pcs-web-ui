@@ -3,6 +3,8 @@ import React from "react";
 import { ActionPayload } from "app/store";
 import { TaskReport, useDashboardTask } from "app/view/share";
 
+type SetupData = ActionPayload["DASHBOARD.CLUSTER.SETUP.CALL"]["setupData"];
+
 const onlyFilledNodes = (nodeNameList: string[]) =>
   nodeNameList.filter(nodeName => nodeName.length > 0);
 
@@ -71,6 +73,14 @@ export const useTask = () => {
         payload,
       }),
 
+    updateQuorumOptions: (
+      payload: ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS"],
+    ) =>
+      dispatch({
+        type: "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS",
+        payload,
+      }),
+
     allReports: (
       state.canAddClusterOrNodesMessages.map(message => ({
         level: "ERROR" as Extract<TaskReport, { level: unknown }>["level"],
@@ -106,6 +116,31 @@ export const useTask = () => {
 
     setupCluster: ({ force }: { force?: boolean } = { force: false }) => {
       const nodeNameList = onlyFilledNodes(state.nodeNameList);
+      const quorumOptions: SetupData["quorum_options"] = {
+        ...(state.quorumOptions.autoTieBreaker !== "default"
+          ? {
+              auto_tie_breaker:
+                state.quorumOptions.autoTieBreaker === "on" ? "1" : "0",
+            }
+          : {}),
+        ...(state.quorumOptions.lastManStanding !== "default"
+          ? {
+              last_man_standing:
+                state.quorumOptions.lastManStanding === "on" ? "1" : "0",
+            }
+          : {}),
+        ...(state.quorumOptions.lastManStandingWindow !== ""
+          ? {
+              last_man_standing_window:
+                state.quorumOptions.lastManStandingWindow,
+            }
+          : {}),
+        ...(state.quorumOptions.waitForAll !== "default"
+          ? {
+              wait_for_all: state.quorumOptions.waitForAll === "on" ? "1" : "0",
+            }
+          : {}),
+      };
 
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.CALL",
@@ -157,6 +192,9 @@ export const useTask = () => {
               pong_count: l.pong_count,
               transport: l.transport,
             })), // TODO
+            ...(Object.keys(quorumOptions).length > 0
+              ? { quorum_options: quorumOptions }
+              : {}),
           },
         },
       });

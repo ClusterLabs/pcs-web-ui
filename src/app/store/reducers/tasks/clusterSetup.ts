@@ -25,6 +25,9 @@ const initialState: {
   canAddClusterOrNodesMessages: string[];
   authProcessId: number | null;
   showValidationErrors: boolean;
+  quorumOptions: Required<
+    ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS"]
+  >;
 } & (
   | {
       transportType: "knet";
@@ -37,6 +40,12 @@ const initialState: {
 ) = {
   clusterName: "test-cluster",
   nodeNameList: ["node-1", "node-2", "node-3"],
+  quorumOptions: {
+    autoTieBreaker: "default",
+    lastManStanding: "default",
+    lastManStandingWindow: "",
+    waitForAll: "default",
+  },
   transportType: "knet",
   linkList: [
     {
@@ -108,6 +117,15 @@ export const clusterSetup: AppReducer<typeof initialState> = (
         ...state,
         transportType: "knet",
         linkList: action.payload,
+      };
+
+    case "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS":
+      return {
+        ...state,
+        quorumOptions: {
+          ...state.quorumOptions,
+          ...action.payload,
+        },
       };
 
     case "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD":

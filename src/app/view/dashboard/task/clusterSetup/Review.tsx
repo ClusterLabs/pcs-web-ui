@@ -11,6 +11,7 @@ export const Review: React.FC = () => {
       nodeNameList,
       clusterName,
       linkList,
+      quorumOptions,
       libCall: { reports },
     },
   } = useTask();
@@ -85,6 +86,29 @@ export const Review: React.FC = () => {
                   }
                 />
               ))}
+            </ReviewList>
+          }
+        />
+        <ReviewValue
+          label="Quorum options"
+          value={
+            <ReviewList>
+              <ReviewValue
+                label="Auto tie breaker"
+                value={quorumOptions.autoTieBreaker}
+              />
+              <ReviewValue
+                label="Last man standing"
+                value={quorumOptions.lastManStanding}
+              />
+              <ReviewValue
+                label="Last man standing window"
+                value={quorumOptions.lastManStandingWindow}
+              />
+              <ReviewValue
+                label="Wait for all"
+                value={quorumOptions.waitForAll}
+              />
             </ReviewList>
           }
         />
