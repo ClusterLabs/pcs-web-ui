@@ -1,6 +1,6 @@
 {
   "name": "pcs-web-ui",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "dependencies": {
     "@patternfly/patternfly": "^4.108.2",
