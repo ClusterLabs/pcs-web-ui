@@ -2,6 +2,23 @@ import * as t from "io-ts";
 
 import { endpoint } from "./endpoint";
 
+const optionalString = t.union([t.string, t.null]);
+const agentActions = t.array(
+  t.intersection([
+    t.type({ name: t.string }),
+    t.partial({
+      interval: optionalString,
+      timeout: optionalString,
+      role: optionalString,
+      start_delay: optionalString,
+      depth: optionalString,
+      automatic: optionalString,
+      on_target: optionalString,
+      OCF_CHECK_LEVEL: optionalString,
+    }),
+  ]),
+);
+
 export const getResourceAgentMetadata = endpoint({
   url: ({ clusterName }: { clusterName: string }) =>
     `/managec/${clusterName}/get_resource_agent_metadata`,
@@ -28,8 +45,8 @@ export const getResourceAgentMetadata = endpoint({
             advanced: t.boolean,
             deprecated: t.boolean,
             deprecated_by: t.array(t.string),
-            obsoletes: t.null,
-            pcs_deprecated_warning: t.string,
+            obsoletes: optionalString,
+            pcs_deprecated_warning: optionalString,
           }),
           t.partial({
             unique: t.boolean,
@@ -38,24 +55,8 @@ export const getResourceAgentMetadata = endpoint({
       ),
     }),
     t.partial({
-      actions: t.array(
-        t.intersection([
-          t.type({ name: t.string }),
-          t.partial({
-            interval: t.string,
-            timeout: t.string,
-          }),
-        ]),
-      ),
-      default_actions: t.array(
-        t.intersection([
-          t.type({ name: t.string }),
-          t.partial({
-            interval: t.string,
-            timeout: t.string,
-          }),
-        ]),
-      ),
+      actions: agentActions,
+      default_actions: agentActions,
     }),
   ]),
 });
