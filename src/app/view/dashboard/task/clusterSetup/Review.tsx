@@ -96,18 +96,34 @@ export const Review: React.FC = () => {
               <ReviewValue
                 label="Auto tie breaker"
                 value={quorumOptions.autoTieBreaker}
+                useDefault={{
+                  whenValue: "default",
+                  defaultValue: "off",
+                }}
               />
               <ReviewValue
                 label="Last man standing"
                 value={quorumOptions.lastManStanding}
+                useDefault={{
+                  whenValue: "default",
+                  defaultValue: "off",
+                }}
               />
               <ReviewValue
                 label="Last man standing window"
                 value={quorumOptions.lastManStandingWindow}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "1000 ms",
+                }}
               />
               <ReviewValue
                 label="Wait for all"
                 value={quorumOptions.waitForAll}
+                useDefault={{
+                  whenValue: "default",
+                  defaultValue: "off",
+                }}
               />
             </ReviewList>
           }
