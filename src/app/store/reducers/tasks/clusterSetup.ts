@@ -38,8 +38,8 @@ const initialState: {
       linkList: string[];
     }
 ) = {
-  clusterName: "test-cluster",
-  nodeNameList: ["node-1", "node-2", "node-3"],
+  clusterName: "",
+  nodeNameList: ["", "", ""],
   quorumOptions: {
     autoTieBreaker: "default",
     lastManStanding: "default",
@@ -47,33 +47,7 @@ const initialState: {
     waitForAll: "default",
   },
   transportType: "knet",
-  linkList: [
-    {
-      linknumber: 0,
-      addresses: { "node-1": "addr1", "node-2": "addr2", "node-3": "addr3" },
-      mcastport: "1111",
-      link_priority: "10",
-      ping_interval: "11",
-      ping_precision: "12",
-      ping_timeout: "13",
-      pong_count: "14",
-      transport: "udp",
-    },
-    {
-      linknumber: 1,
-      addresses: { "node-1": "addr1", "node-2": "addr2", "node-3": "addr3" },
-      mcastport: "2111",
-      link_priority: "20",
-      ping_interval: "21",
-      ping_precision: "22",
-      ping_timeout: "23",
-      pong_count: "24",
-    },
-    {
-      linknumber: 2,
-      addresses: { "node-1": "addr1", "node-2": "addr2", "node-3": "addr3" },
-    },
-  ],
+  linkList: [],
   clusterAndNodesCheck: "not-started",
   clusterAndNodesCheckMessage: "",
   canAddClusterOrNodesMessages: [],
