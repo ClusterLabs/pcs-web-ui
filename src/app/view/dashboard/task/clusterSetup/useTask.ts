@@ -117,27 +117,28 @@ export const useTask = () => {
     setupCluster: ({ force }: { force?: boolean } = { force: false }) => {
       const nodeNameList = onlyFilledNodes(state.nodeNameList);
       const quorumOptions: SetupData["quorum_options"] = {
-        ...(state.quorumOptions.autoTieBreaker !== "default"
+        ...(state.quorumOptions.auto_tie_breaker !== "default"
           ? {
               auto_tie_breaker:
-                state.quorumOptions.autoTieBreaker === "on" ? "1" : "0",
+                state.quorumOptions.auto_tie_breaker === "on" ? "1" : "0",
             }
           : {}),
-        ...(state.quorumOptions.lastManStanding !== "default"
+        ...(state.quorumOptions.last_man_standing !== "default"
           ? {
               last_man_standing:
-                state.quorumOptions.lastManStanding === "on" ? "1" : "0",
+                state.quorumOptions.last_man_standing === "on" ? "1" : "0",
             }
           : {}),
-        ...(state.quorumOptions.lastManStandingWindow !== ""
+        ...(state.quorumOptions.last_man_standing_window !== ""
           ? {
               last_man_standing_window:
-                state.quorumOptions.lastManStandingWindow,
+                state.quorumOptions.last_man_standing_window,
             }
           : {}),
-        ...(state.quorumOptions.waitForAll !== "default"
+        ...(state.quorumOptions.wait_for_all !== "default"
           ? {
-              wait_for_all: state.quorumOptions.waitForAll === "on" ? "1" : "0",
+              wait_for_all:
+                state.quorumOptions.wait_for_all === "on" ? "1" : "0",
             }
           : {}),
       };

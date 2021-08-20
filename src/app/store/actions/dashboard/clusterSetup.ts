@@ -32,10 +32,10 @@ export type DashboardClusterSetupActions = {
   "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS": {
     type: "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS";
     payload: {
-      autoTieBreaker?: "default" | "off" | "on";
-      lastManStanding?: "default" | "off" | "on";
-      lastManStandingWindow?: string;
-      waitForAll?: "default" | "off" | "on";
+      auto_tie_breaker?: "default" | "off" | "on";
+      last_man_standing?: "default" | "off" | "on";
+      last_man_standing_window?: string;
+      wait_for_all?: "default" | "off" | "on";
     };
   };
 
