@@ -12,6 +12,7 @@ export const Review: React.FC = () => {
       clusterName,
       linkList,
       quorumOptions,
+      totemOptions,
       libCall: { reports },
     },
   } = useTask();
@@ -101,6 +102,7 @@ export const Review: React.FC = () => {
                   defaultValue: "off",
                 }}
               />
+
               <ReviewValue
                 label="Last man standing"
                 value={quorumOptions.last_man_standing}
@@ -109,6 +111,7 @@ export const Review: React.FC = () => {
                   defaultValue: "off",
                 }}
               />
+
               <ReviewValue
                 label="Last man standing window"
                 value={quorumOptions.last_man_standing_window}
@@ -117,12 +120,181 @@ export const Review: React.FC = () => {
                   defaultValue: "1000 ms",
                 }}
               />
+
               <ReviewValue
                 label="Wait for all"
                 value={quorumOptions.wait_for_all}
                 useDefault={{
                   whenValue: "default",
                   defaultValue: "off",
+                }}
+              />
+            </ReviewList>
+          }
+        />
+        <ReviewValue
+          label="Totem options"
+          value={
+            <ReviewList>
+              <ReviewValue
+                label="Block unlisted ips"
+                value={totemOptions.block_unlisted_ips}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "yes",
+                }}
+              />
+
+              <ReviewValue
+                label="Consensus timeout"
+                value={totemOptions.consensus}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "1200 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Downcheck timeout"
+                value={totemOptions.downcheck}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "1000 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Fail receive constant"
+                value={totemOptions.fail_recv_const}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "2500 failures to receive a message",
+                }}
+              />
+
+              <ReviewValue
+                label="Heartbeat failures allowed"
+                value={totemOptions.heartbeat_failures_allowed}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "0 (disabled)",
+                }}
+              />
+
+              <ReviewValue
+                label="Hold timeout"
+                value={totemOptions.hold}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "180 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Join timeout"
+                value={totemOptions.join}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "50 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Max messages"
+                value={totemOptions.max_messages}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "17",
+                }}
+              />
+
+              <ReviewValue
+                label="Max network delay"
+                value={totemOptions.max_network_delay}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "50 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Merge timeout"
+                value={totemOptions.merge}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "200 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Miss count const"
+                value={totemOptions.miss_count_const}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "5 messages",
+                }}
+              />
+
+              <ReviewValue
+                label="Send join timeout"
+                value={totemOptions.send_join}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "0 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Seqno unchanged constant"
+                value={totemOptions.seqno_unchanged_const}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "30 rotations",
+                }}
+              />
+
+              <ReviewValue
+                label="Token timeout"
+                value={totemOptions.token}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "1000 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Token coefficient"
+                value={totemOptions.token_coefficient}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "650 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Token retransmit timeout"
+                value={totemOptions.token_retransmit}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "238 milliseconds",
+                }}
+              />
+
+              <ReviewValue
+                label="Token retransmits before loss constant"
+                value={totemOptions.token_retransmits_before_loss_const}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "4 retransmissions",
+                }}
+              />
+
+              <ReviewValue
+                label="Window size"
+                value={totemOptions.window_size}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "50 messages",
                 }}
               />
             </ReviewList>

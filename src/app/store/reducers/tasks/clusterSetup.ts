@@ -28,6 +28,9 @@ const initialState: {
   quorumOptions: Required<
     ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS"]
   >;
+  totemOptions: Required<
+    ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_TOTEM_OPTIONS"]
+  >;
 } & (
   | {
       transportType: "knet";
@@ -45,6 +48,26 @@ const initialState: {
     last_man_standing: "default",
     last_man_standing_window: "",
     wait_for_all: "default",
+  },
+  totemOptions: {
+    block_unlisted_ips: "default",
+    consensus: "",
+    downcheck: "",
+    fail_recv_const: "",
+    heartbeat_failures_allowed: "",
+    hold: "",
+    join: "",
+    max_messages: "",
+    max_network_delay: "",
+    merge: "",
+    miss_count_const: "",
+    send_join: "",
+    seqno_unchanged_const: "",
+    token: "",
+    token_coefficient: "",
+    token_retransmit: "",
+    token_retransmits_before_loss_const: "",
+    window_size: "",
   },
   transportType: "knet",
   linkList: [],
@@ -98,6 +121,15 @@ export const clusterSetup: AppReducer<typeof initialState> = (
         ...state,
         quorumOptions: {
           ...state.quorumOptions,
+          ...action.payload,
+        },
+      };
+
+    case "DASHBOARD.CLUSTER.SETUP.UPDATE_TOTEM_OPTIONS":
+      return {
+        ...state,
+        totemOptions: {
+          ...state.totemOptions,
           ...action.payload,
         },
       };

@@ -13,6 +13,7 @@ import { PrepareNodes } from "./PrepareNodes";
 import { Review } from "./Review";
 import { Transport } from "./Transport";
 import { Quorum } from "./Quorum";
+import { Totem } from "./Totem";
 
 export const ClusterSetup: React.FC = () => {
   const {
@@ -77,7 +78,7 @@ export const ClusterSetup: React.FC = () => {
         },
         {
           name: "Totem",
-          component: <>Totem</>,
+          component: <Totem />,
           footer: <WizardFooter onClose={close} task="nodeAdd" />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
         },

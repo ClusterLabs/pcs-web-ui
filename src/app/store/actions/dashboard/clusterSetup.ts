@@ -39,6 +39,14 @@ export type DashboardClusterSetupActions = {
     };
   };
 
+  "DASHBOARD.CLUSTER.SETUP.UPDATE_TOTEM_OPTIONS": {
+    type: "DASHBOARD.CLUSTER.SETUP.UPDATE_TOTEM_OPTIONS";
+    payload: Omit<
+      NonNullable<SetupParams["setupData"]["totem_options"]>,
+      "block_unlisted_ips"
+    > & { block_unlisted_ips?: "yes" | "no" | "default" };
+  };
+
   "DASHBOARD.CLUSTER.SETUP.UPDATE_NODES": {
     type: "DASHBOARD.CLUSTER.SETUP.UPDATE_NODES";
     payload: {

@@ -8,6 +8,32 @@ type SetupData = ActionPayload["DASHBOARD.CLUSTER.SETUP.CALL"]["setupData"];
 const onlyFilledNodes = (nodeNameList: string[]) =>
   nodeNameList.filter(nodeName => nodeName.length > 0);
 
+const transformOnOff = (value: unknown) => (value === "on" ? "1" : "0");
+
+const prepareOptionalOptions = <KEY extends string>(
+  rawOptions: Record<KEY, unknown>,
+  {
+    omitValues = {},
+    transformValues = {},
+  }: {
+    omitValues?: Partial<Record<KEY, unknown>>;
+    transformValues?: Partial<Record<KEY, (_rawValue: unknown) => unknown>>;
+  },
+) =>
+  (Object.entries(rawOptions) as [KEY, unknown][]).reduce(
+    (options, [key, value]) => {
+      if (key in omitValues && value === omitValues[key]) {
+        return options;
+      }
+      const transform = transformValues[key];
+      return {
+        ...options,
+        [key]: transform !== undefined ? transform(value) : value,
+      };
+    },
+    {},
+  );
+
 export const useTask = () => {
   const task = useDashboardTask("clusterSetup");
   const { dispatch, state } = task;
@@ -81,6 +107,14 @@ export const useTask = () => {
         payload,
       }),
 
+    updateTotemOptions: (
+      payload: ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_TOTEM_OPTIONS"],
+    ) =>
+      dispatch({
+        type: "DASHBOARD.CLUSTER.SETUP.UPDATE_TOTEM_OPTIONS",
+        payload,
+      }),
+
     allReports: (
       state.canAddClusterOrNodesMessages.map(message => ({
         level: "ERROR" as Extract<TaskReport, { level: unknown }>["level"],
@@ -116,32 +150,47 @@ export const useTask = () => {
 
     setupCluster: ({ force }: { force?: boolean } = { force: false }) => {
       const nodeNameList = onlyFilledNodes(state.nodeNameList);
-      const quorumOptions: SetupData["quorum_options"] = {
-        ...(state.quorumOptions.auto_tie_breaker !== "default"
-          ? {
-              auto_tie_breaker:
-                state.quorumOptions.auto_tie_breaker === "on" ? "1" : "0",
-            }
-          : {}),
-        ...(state.quorumOptions.last_man_standing !== "default"
-          ? {
-              last_man_standing:
-                state.quorumOptions.last_man_standing === "on" ? "1" : "0",
-            }
-          : {}),
-        ...(state.quorumOptions.last_man_standing_window !== ""
-          ? {
-              last_man_standing_window:
-                state.quorumOptions.last_man_standing_window,
-            }
-          : {}),
-        ...(state.quorumOptions.wait_for_all !== "default"
-          ? {
-              wait_for_all:
-                state.quorumOptions.wait_for_all === "on" ? "1" : "0",
-            }
-          : {}),
-      };
+      const quorumOptions: SetupData["quorum_options"] = prepareOptionalOptions(
+        state.quorumOptions,
+        {
+          omitValues: {
+            auto_tie_breaker: "default",
+            last_man_standing: "default",
+            last_man_standing_window: "",
+            wait_for_all: "default",
+          },
+          transformValues: {
+            auto_tie_breaker: transformOnOff,
+            last_man_standing: transformOnOff,
+            wait_for_all: transformOnOff,
+          },
+        },
+      );
+      const totemOptions: SetupData["totem_options"] = prepareOptionalOptions(
+        state.totemOptions,
+        {
+          omitValues: {
+            block_unlisted_ips: "default",
+            consensus: "",
+            downcheck: "",
+            fail_recv_const: "",
+            heartbeat_failures_allowed: "",
+            hold: "",
+            join: "",
+            max_messages: "",
+            max_network_delay: "",
+            merge: "",
+            miss_count_const: "",
+            send_join: "",
+            seqno_unchanged_const: "",
+            token: "",
+            token_coefficient: "",
+            token_retransmit: "",
+            token_retransmits_before_loss_const: "",
+            window_size: "",
+          },
+        },
+      );
 
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.CALL",
@@ -192,9 +241,12 @@ export const useTask = () => {
               ping_timeout: l.ping_timeout,
               pong_count: l.pong_count,
               transport: l.transport,
-            })), // TODO
+            })), // TODO vynechat optional
             ...(Object.keys(quorumOptions).length > 0
               ? { quorum_options: quorumOptions }
+              : {}),
+            ...(Object.keys(totemOptions).length > 0
+              ? { totem_options: totemOptions }
               : {}),
           },
         },
