@@ -22,6 +22,7 @@ export const ReviewValue: React.FC<{
     defaultValue: React.ReactNode;
   };
 }> = (props) => {
+  let value = props.value;
   if (
     "useDefault" in props
     && props.useDefault
@@ -29,20 +30,11 @@ export const ReviewValue: React.FC<{
       || ("whenValue" in props.useDefault
         && props.value === props.useDefault.whenValue))
   ) {
-    return (
-      <DescriptionListGroup>
-        <DescriptionListTerm>{props.label}</DescriptionListTerm>
-        <DescriptionListDescription
-          {...("data-test" in props && props["data-test"] !== undefined
-            ? { "data-test": `${props["data-test"]}-review-value` }
-            : {})}
-        >
-          <>
-            <div>{props.useDefault.defaultValue}</div>
-            <ReviewDefault value="Default value" />
-          </>
-        </DescriptionListDescription>
-      </DescriptionListGroup>
+    value = (
+      <>
+        <div>{props.useDefault.defaultValue}</div>
+        <ReviewDefault value="Default value" />
+      </>
     );
   }
 
@@ -54,7 +46,7 @@ export const ReviewValue: React.FC<{
           ? { "data-test": `${props["data-test"]}-review-value` }
           : {})}
       >
-        {props.value}
+        {value}
       </DescriptionListDescription>
     </DescriptionListGroup>
   );

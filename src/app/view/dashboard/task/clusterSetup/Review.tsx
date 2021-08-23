@@ -140,7 +140,7 @@ export const Review: React.FC = () => {
                 label="Block unlisted ips"
                 value={totemOptions.block_unlisted_ips}
                 useDefault={{
-                  whenValue: "",
+                  whenValue: "default",
                   defaultValue: "yes",
                 }}
               />
