@@ -38,6 +38,11 @@ export type DashboardClusterSetupActions = {
     };
   };
 
+  "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_COMPRESSION_OPTIONS": {
+    type: "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_COMPRESSION_OPTIONS";
+    payload: NonNullable<SetupParams["setupData"]["compression_options"]>;
+  };
+
   "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS": {
     type: "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS";
     payload: {

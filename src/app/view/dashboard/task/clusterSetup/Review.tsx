@@ -14,6 +14,7 @@ export const Review: React.FC = () => {
       quorumOptions,
       totemOptions,
       transportOptions,
+      compressionOptions,
       libCall: { reports },
     },
   } = useTask();
@@ -119,6 +120,39 @@ export const Review: React.FC = () => {
                 useDefault={{
                   whenValue: "default",
                   defaultValue: "passive",
+                }}
+              />
+            </ReviewList>
+          }
+        />
+        <ReviewValue
+          label="Compression options"
+          value={
+            <ReviewList>
+              <ReviewValue
+                label="Model"
+                value={compressionOptions.model}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "none",
+                }}
+              />
+
+              <ReviewValue
+                label="Threshold"
+                value={compressionOptions.threshold}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "100 bytes",
+                }}
+              />
+
+              <ReviewValue
+                label="Level"
+                value={compressionOptions.level}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "according to compression library",
                 }}
               />
             </ReviewList>

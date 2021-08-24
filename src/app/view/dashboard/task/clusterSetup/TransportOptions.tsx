@@ -10,22 +10,24 @@ import {
 
 import { useTask } from "./useTask";
 
-const help = helpAll.knet.options;
+const help = helpAll.knet;
 
-const ID_PREFIX = "cluster-setup-transport-options";
+const ID_PREFIX_OPTIONS = "cluster-setup-transport-options";
+const ID_PREFIX_COMPRESSION = "cluster-setup-compression";
 export const TransportOptions: React.FC = () => {
   const {
     allReports,
     updateTransportOptions,
-    state: { transportOptions },
+    updateCompressionOptions,
+    state: { transportOptions, compressionOptions },
   } = useTask();
   return (
     <TaskLibStep title="Knet transport" reports={allReports}>
       <Form>
         <FormSelect
           label="Ip version"
-          id={`${ID_PREFIX}-ip_version`}
-          popover={help.ip_version}
+          id={`${ID_PREFIX_OPTIONS}-ip_version`}
+          popover={help.options.ip_version}
           optionsValues={["ipv4", "ipv6", "ipv4-6", "ipv6-4", "default"]}
           selections={transportOptions.ip_version}
           onSelect={value =>
@@ -39,8 +41,8 @@ export const TransportOptions: React.FC = () => {
 
         <FormText
           label="PMTUd Interval"
-          id={`${ID_PREFIX}-pmtud-interval`}
-          popover={help.knet_pmtud_interval}
+          id={`${ID_PREFIX_OPTIONS}-pmtud-interval`}
+          popover={help.options.knet_pmtud_interval}
           value={transportOptions.knet_pmtud_interval}
           onChange={value =>
             updateTransportOptions({ knet_pmtud_interval: value })
@@ -49,8 +51,8 @@ export const TransportOptions: React.FC = () => {
 
         <FormSelect
           label="Link mode"
-          id={`${ID_PREFIX}-link_mode`}
-          popover={help.link_mode}
+          id={`${ID_PREFIX_OPTIONS}-link_mode`}
+          popover={help.options.link_mode}
           optionsValues={["active", "passive", "rr", "default"]}
           selections={transportOptions.link_mode}
           onSelect={value =>
@@ -60,6 +62,29 @@ export const TransportOptions: React.FC = () => {
               >,
             })
           }
+        />
+        <FormText
+          label="Model"
+          id={`${ID_PREFIX_COMPRESSION}-model`}
+          popover={help.compression.model}
+          value={compressionOptions.model}
+          onChange={value => updateCompressionOptions({ model: value })}
+        />
+
+        <FormText
+          label="Threshold"
+          id={`${ID_PREFIX_COMPRESSION}-threshold`}
+          popover={help.compression.threshold}
+          value={compressionOptions.threshold}
+          onChange={value => updateCompressionOptions({ threshold: value })}
+        />
+
+        <FormText
+          label="Level"
+          id={`${ID_PREFIX_COMPRESSION}-level`}
+          popover={help.compression.level}
+          value={compressionOptions.level}
+          onChange={value => updateCompressionOptions({ level: value })}
         />
       </Form>
     </TaskLibStep>

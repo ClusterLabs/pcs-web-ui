@@ -123,6 +123,14 @@ export const useTask = () => {
         payload,
       }),
 
+    updateCompressionOptions: (
+      payload: ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_COMPRESSION_OPTIONS"],
+    ) =>
+      dispatch({
+        type: "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_COMPRESSION_OPTIONS",
+        payload,
+      }),
+
     allReports: (
       state.canAddClusterOrNodesMessages.map(message => ({
         level: "ERROR" as Extract<TaskReport, { level: unknown }>["level"],
@@ -209,6 +217,15 @@ export const useTask = () => {
           },
         });
 
+      const compressionOptions: SetupData["compression_options"] =
+        prepareOptionalOptions(state.compressionOptions, {
+          omitValues: {
+            level: "",
+            model: "",
+            threshold: "",
+          },
+        });
+
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.CALL",
         payload: {
@@ -267,6 +284,9 @@ export const useTask = () => {
               : {}),
             ...(Object.keys(transportOptions).length > 0
               ? { transport_options: transportOptions }
+              : {}),
+            ...(Object.keys(compressionOptions).length > 0
+              ? { compression_options: compressionOptions }
               : {}),
           },
         },

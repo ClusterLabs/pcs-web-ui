@@ -1,13 +1,11 @@
 import { clusterSetup } from "app/backend";
 
 import type { Help } from "./help";
-type SetupParams = Parameters<typeof clusterSetup>[0];
+type SetupData = Parameters<typeof clusterSetup>[0]["setupData"];
 type KnetOptions = NonNullable<
-  Extract<
-    SetupParams["setupData"],
-    { transport_type: "knet" }
-  >["transport_options"]
+  Extract<SetupData, { transport_type: "knet" }>["transport_options"]
 >;
+type CompressionOptions = NonNullable<SetupData["compression_options"]>;
 
 export const options: Partial<Record<keyof KnetOptions, Help>> = {
   knet_pmtud_interval: {
@@ -45,5 +43,42 @@ export const options: Partial<Record<keyof KnetOptions, Help>> = {
         </p>
       </>
     ),
+  },
+};
+
+export const compression: Partial<Record<keyof CompressionOptions, Help>> = {
+  level: {
+    header: "Level",
+    body: (
+      <p>
+        Many compression libraries allow tuning of compression parameters. For
+        example 0 or 1 ... 9 are commonly used to determine the level of
+        compression. This value is passed unmodified to the compression library
+        so it is recommended to consult the library's documentation for more
+        detailed information.
+      </p>
+    ),
+  },
+  model: {
+    header: "Model",
+    body: (
+      <p>
+        The (optional) type of compression used by knet. The values available
+        depend on the build and also available libraries. Typically zlib and lz4
+        will be available but bzip2 and others could also be allowed.
+      </p>
+    ),
+    defaultValue: "none",
+  },
+  threshold: {
+    header: "threshold",
+    body: (
+      <p>
+        Tells knet to NOT compress any packets that are smaller than the value
+        indicated. Set to 0 to reset to the default. Set to 1 to compress
+        everything.
+      </p>
+    ),
+    defaultValue: "100 bytes",
   },
 };

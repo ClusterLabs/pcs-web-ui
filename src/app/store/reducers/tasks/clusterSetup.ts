@@ -34,6 +34,9 @@ const initialState: {
   transportOptions: Required<
     ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_TRANSPORT_OPTIONS"]
   >;
+  compressionOptions: Required<
+    ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_COMPRESSION_OPTIONS"]
+  >;
 } & (
   | {
       transportType: "knet";
@@ -76,6 +79,11 @@ const initialState: {
     ip_version: "default",
     knet_pmtud_interval: "",
     link_mode: "default",
+  },
+  compressionOptions: {
+    level: "",
+    model: "",
+    threshold: "",
   },
   transportType: "knet",
   linkList: [],
@@ -147,6 +155,15 @@ export const clusterSetup: AppReducer<typeof initialState> = (
         ...state,
         transportOptions: {
           ...state.transportOptions,
+          ...action.payload,
+        },
+      };
+
+    case "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_COMPRESSION_OPTIONS":
+      return {
+        ...state,
+        compressionOptions: {
+          ...state.compressionOptions,
           ...action.payload,
         },
       };
