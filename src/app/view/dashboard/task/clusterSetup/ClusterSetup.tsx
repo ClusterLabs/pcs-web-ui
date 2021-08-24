@@ -68,25 +68,25 @@ export const ClusterSetup: React.FC = () => {
         {
           name: "Knet Transport",
           component: <Transport />,
-          footer: <WizardFooter onClose={close} task="nodeAdd" />,
+          footer: <WizardFooter onClose={close} task="clusterSetup" />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
         },
         {
           name: "Knet Transport Options",
           component: <TransportOptions />,
-          footer: <WizardFooter onClose={close} task="nodeAdd" />,
+          footer: <WizardFooter onClose={close} task="clusterSetup" />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
         },
         {
           name: "Quorum",
           component: <Quorum />,
-          footer: <WizardFooter onClose={close} task="nodeAdd" />,
+          footer: <WizardFooter onClose={close} task="clusterSetup" />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
         },
         {
           name: "Totem",
           component: <Totem />,
-          footer: <WizardFooter onClose={close} task="nodeAdd" />,
+          footer: <WizardFooter onClose={close} task="clusterSetup" />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
         },
         {
@@ -95,9 +95,9 @@ export const ClusterSetup: React.FC = () => {
           footer: (
             <WizardFooter
               preNext={() => setupCluster()}
-              nextLabel="Create resource"
+              nextLabel="Setup cluster"
               onClose={close}
-              task="nodeAdd"
+              task="clusterSetup"
             />
           ),
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
