@@ -12,6 +12,7 @@ import { NameAndNodes } from "./NameAndNodes";
 import { PrepareNodes } from "./PrepareNodes";
 import { Review } from "./Review";
 import { Transport } from "./Transport";
+import { TransportOptions } from "./TransportOptions";
 import { Quorum } from "./Quorum";
 import { Totem } from "./Totem";
 
@@ -67,6 +68,12 @@ export const ClusterSetup: React.FC = () => {
         {
           name: "Knet Transport",
           component: <Transport />,
+          footer: <WizardFooter onClose={close} task="nodeAdd" />,
+          canJumpTo: isClusterNameAndNodeCheckDoneValid,
+        },
+        {
+          name: "Knet Transport Options",
+          component: <TransportOptions />,
           footer: <WizardFooter onClose={close} task="nodeAdd" />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
         },

@@ -115,6 +115,14 @@ export const useTask = () => {
         payload,
       }),
 
+    updateTransportOptions: (
+      payload: ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_TRANSPORT_OPTIONS"],
+    ) =>
+      dispatch({
+        type: "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_TRANSPORT_OPTIONS",
+        payload,
+      }),
+
     allReports: (
       state.canAddClusterOrNodesMessages.map(message => ({
         level: "ERROR" as Extract<TaskReport, { level: unknown }>["level"],
@@ -192,6 +200,15 @@ export const useTask = () => {
         },
       );
 
+      const transportOptions: SetupData["transport_options"] =
+        prepareOptionalOptions(state.transportOptions, {
+          omitValues: {
+            link_mode: "default",
+            ip_version: "default",
+            knet_pmtud_interval: "",
+          },
+        });
+
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.CALL",
         payload: {
@@ -247,6 +264,9 @@ export const useTask = () => {
               : {}),
             ...(Object.keys(totemOptions).length > 0
               ? { totem_options: totemOptions }
+              : {}),
+            ...(Object.keys(transportOptions).length > 0
+              ? { transport_options: transportOptions }
               : {}),
           },
         },

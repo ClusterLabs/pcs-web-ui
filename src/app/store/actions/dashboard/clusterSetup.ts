@@ -29,6 +29,15 @@ export type DashboardClusterSetupActions = {
     payload: ExtendedKnetLink[];
   };
 
+  "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_TRANSPORT_OPTIONS": {
+    type: "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_TRANSPORT_OPTIONS";
+    payload: {
+      ip_version?: "ipv4" | "ipv6" | "ipv4-6" | "ipv6-4" | "default";
+      knet_pmtud_interval?: string; // positive integer
+      link_mode?: "active" | "passive" | "rr" | "default";
+    };
+  };
+
   "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS": {
     type: "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS";
     payload: {

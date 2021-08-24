@@ -13,6 +13,7 @@ export const Review: React.FC = () => {
       linkList,
       quorumOptions,
       totemOptions,
+      transportOptions,
       libCall: { reports },
     },
   } = useTask();
@@ -87,6 +88,39 @@ export const Review: React.FC = () => {
                   }
                 />
               ))}
+            </ReviewList>
+          }
+        />
+        <ReviewValue
+          label="Transport options"
+          value={
+            <ReviewList>
+              <ReviewValue
+                label="Ip version"
+                value={transportOptions.ip_version}
+                useDefault={{
+                  whenValue: "default",
+                  defaultValue: "ipv6-4",
+                }}
+              />
+
+              <ReviewValue
+                label="PMTUd Interval"
+                value={transportOptions.knet_pmtud_interval}
+                useDefault={{
+                  whenValue: "",
+                  defaultValue: "60",
+                }}
+              />
+
+              <ReviewValue
+                label="Link mode"
+                value={transportOptions.link_mode}
+                useDefault={{
+                  whenValue: "default",
+                  defaultValue: "passive",
+                }}
+              />
             </ReviewList>
           }
         />

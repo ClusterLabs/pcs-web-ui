@@ -31,6 +31,9 @@ const initialState: {
   totemOptions: Required<
     ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_TOTEM_OPTIONS"]
   >;
+  transportOptions: Required<
+    ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_TRANSPORT_OPTIONS"]
+  >;
 } & (
   | {
       transportType: "knet";
@@ -68,6 +71,11 @@ const initialState: {
     token_retransmit: "",
     token_retransmits_before_loss_const: "",
     window_size: "",
+  },
+  transportOptions: {
+    ip_version: "default",
+    knet_pmtud_interval: "",
+    link_mode: "default",
   },
   transportType: "knet",
   linkList: [],
@@ -130,6 +138,15 @@ export const clusterSetup: AppReducer<typeof initialState> = (
         ...state,
         totemOptions: {
           ...state.totemOptions,
+          ...action.payload,
+        },
+      };
+
+    case "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_TRANSPORT_OPTIONS":
+      return {
+        ...state,
+        transportOptions: {
+          ...state.transportOptions,
           ...action.payload,
         },
       };
