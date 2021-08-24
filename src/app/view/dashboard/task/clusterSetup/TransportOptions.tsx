@@ -2,6 +2,7 @@ import React from "react";
 import { Form } from "@patternfly/react-core";
 
 import {
+  FormRadios,
   FormSelect,
   FormText,
   TaskLibStep,
@@ -14,12 +15,14 @@ const help = helpAll.knet;
 
 const ID_PREFIX_OPTIONS = "cluster-setup-transport-options";
 const ID_PREFIX_COMPRESSION = "cluster-setup-compression";
+const ID_PREFIX_CRYPTO = "cluster-setup-crypto";
 export const TransportOptions: React.FC = () => {
   const {
     allReports,
     updateTransportOptions,
     updateCompressionOptions,
-    state: { transportOptions, compressionOptions },
+    updateCryptoOptions,
+    state: { transportOptions, compressionOptions, cryptoOptions },
   } = useTask();
   return (
     <TaskLibStep title="Knet transport" reports={allReports}>
@@ -63,6 +66,7 @@ export const TransportOptions: React.FC = () => {
             })
           }
         />
+
         <FormText
           label="Model"
           id={`${ID_PREFIX_COMPRESSION}-model`}
@@ -85,6 +89,51 @@ export const TransportOptions: React.FC = () => {
           popover={help.compression.level}
           value={compressionOptions.level}
           onChange={value => updateCompressionOptions({ level: value })}
+        />
+
+        <FormRadios
+          label="Model"
+          id={`${ID_PREFIX_CRYPTO}-model`}
+          popover={help.crypto.model}
+          options={["nss", "openssl", "default"]}
+          selected={cryptoOptions.model}
+          onChange={value => updateCryptoOptions({ model: value })}
+        />
+
+        <FormSelect
+          label="Hash"
+          id={`${ID_PREFIX_CRYPTO}-hash`}
+          popover={help.crypto.hash}
+          optionsValues={[
+            "none",
+            "md5",
+            "sha1",
+            "sha256",
+            "sha384",
+            "sha512",
+            "default",
+          ]}
+          selections={cryptoOptions.hash}
+          onSelect={value =>
+            updateCryptoOptions({
+              hash: value.toString() as NonNullable<typeof cryptoOptions.hash>,
+            })
+          }
+        />
+
+        <FormSelect
+          label="Cipher"
+          id={`${ID_PREFIX_CRYPTO}-cipher`}
+          popover={help.crypto.cipher}
+          optionsValues={["none", "aes256", "aes192", "aes128", "default"]}
+          selections={cryptoOptions.cipher}
+          onSelect={value =>
+            updateCryptoOptions({
+              cipher: value.toString() as NonNullable<
+                typeof cryptoOptions.cipher
+              >,
+            })
+          }
         />
       </Form>
     </TaskLibStep>

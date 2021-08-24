@@ -37,6 +37,9 @@ const initialState: {
   compressionOptions: Required<
     ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_COMPRESSION_OPTIONS"]
   >;
+  cryptoOptions: Required<
+    ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_CRYPTO_OPTIONS"]
+  >;
 } & (
   | {
       transportType: "knet";
@@ -84,6 +87,11 @@ const initialState: {
     level: "",
     model: "",
     threshold: "",
+  },
+  cryptoOptions: {
+    model: "default",
+    hash: "default",
+    cipher: "default",
   },
   transportType: "knet",
   linkList: [],
@@ -164,6 +172,15 @@ export const clusterSetup: AppReducer<typeof initialState> = (
         ...state,
         compressionOptions: {
           ...state.compressionOptions,
+          ...action.payload,
+        },
+      };
+
+    case "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_CRYPTO_OPTIONS":
+      return {
+        ...state,
+        cryptoOptions: {
+          ...state.cryptoOptions,
           ...action.payload,
         },
       };

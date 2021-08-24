@@ -43,6 +43,25 @@ export type DashboardClusterSetupActions = {
     payload: NonNullable<SetupParams["setupData"]["compression_options"]>;
   };
 
+  "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_CRYPTO_OPTIONS": {
+    type: "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_CRYPTO_OPTIONS";
+    payload: Omit<
+      NonNullable<SetupParams["setupData"]["crypto_options"]>,
+      "model" | "hash" | "cipher"
+    > & {
+      model?: "nss" | "openssl" | "default";
+      hash?:
+        | "none"
+        | "md5"
+        | "sha1"
+        | "sha256"
+        | "sha384"
+        | "sha512"
+        | "default";
+      cipher?: "none" | "aes256" | "aes192" | "aes128" | "default";
+    };
+  };
+
   "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS": {
     type: "DASHBOARD.CLUSTER.SETUP.UPDATE_QUORUM_OPTIONS";
     payload: {

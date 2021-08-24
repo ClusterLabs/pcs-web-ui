@@ -15,6 +15,7 @@ export const Review: React.FC = () => {
       totemOptions,
       transportOptions,
       compressionOptions,
+      cryptoOptions,
       libCall: { reports },
     },
   } = useTask();
@@ -153,6 +154,39 @@ export const Review: React.FC = () => {
                 useDefault={{
                   whenValue: "",
                   defaultValue: "according to compression library",
+                }}
+              />
+            </ReviewList>
+          }
+        />
+        <ReviewValue
+          label="Crypto options"
+          value={
+            <ReviewList>
+              <ReviewValue
+                label="Model"
+                value={cryptoOptions.model}
+                useDefault={{
+                  whenValue: "default",
+                  defaultValue: "nss",
+                }}
+              />
+
+              <ReviewValue
+                label="Hash"
+                value={cryptoOptions.hash}
+                useDefault={{
+                  whenValue: "default",
+                  defaultValue: "sha256",
+                }}
+              />
+
+              <ReviewValue
+                label="Cipher"
+                value={cryptoOptions.cipher}
+                useDefault={{
+                  whenValue: "default",
+                  defaultValue: "aes256",
                 }}
               />
             </ReviewList>

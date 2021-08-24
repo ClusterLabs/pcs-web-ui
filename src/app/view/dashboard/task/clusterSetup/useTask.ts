@@ -131,6 +131,14 @@ export const useTask = () => {
         payload,
       }),
 
+    updateCryptoOptions: (
+      payload: ActionPayload["DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_CRYPTO_OPTIONS"],
+    ) =>
+      dispatch({
+        type: "DASHBOARD.CLUSTER.SETUP.UPDATE_KNET_CRYPTO_OPTIONS",
+        payload,
+      }),
+
     allReports: (
       state.canAddClusterOrNodesMessages.map(message => ({
         level: "ERROR" as Extract<TaskReport, { level: unknown }>["level"],
@@ -226,6 +234,17 @@ export const useTask = () => {
           },
         });
 
+      const cryptoOptions: SetupData["crypto_options"] = prepareOptionalOptions(
+        state.cryptoOptions,
+        {
+          omitValues: {
+            hash: "default",
+            model: "default",
+            cipher: "default",
+          },
+        },
+      );
+
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.CALL",
         payload: {
@@ -287,6 +306,9 @@ export const useTask = () => {
               : {}),
             ...(Object.keys(compressionOptions).length > 0
               ? { compression_options: compressionOptions }
+              : {}),
+            ...(Object.keys(cryptoOptions).length > 0
+              ? { crypto_options: cryptoOptions }
               : {}),
           },
         },

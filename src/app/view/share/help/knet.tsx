@@ -6,6 +6,7 @@ type KnetOptions = NonNullable<
   Extract<SetupData, { transport_type: "knet" }>["transport_options"]
 >;
 type CompressionOptions = NonNullable<SetupData["compression_options"]>;
+type CryptoOptions = NonNullable<SetupData["crypto_options"]>;
 
 export const options: Partial<Record<keyof KnetOptions, Help>> = {
   knet_pmtud_interval: {
@@ -80,5 +81,35 @@ export const compression: Partial<Record<keyof CompressionOptions, Help>> = {
       </p>
     ),
     defaultValue: "100 bytes",
+  },
+};
+
+export const crypto: Partial<Record<keyof CryptoOptions, Help>> = {
+  model: {
+    header: "Model",
+    body: (
+      <p>This specifies which cryptographic library should be used by knet.</p>
+    ),
+    defaultValue: "nss",
+  },
+  hash: {
+    header: "Hash",
+    body: (
+      <p>
+        This specifies which HMAC authentication should be used to authenticate
+        all messages.
+      </p>
+    ),
+    defaultValue: "sha256",
+  },
+  cipher: {
+    header: "Cipher",
+    body: (
+      <p>
+        This specifies which cipher should be used to encrypt all messages.
+        Enabling Cipher requires also enabling of Hash.
+      </p>
+    ),
+    defaultValue: "aes256",
   },
 };
