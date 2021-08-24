@@ -37,15 +37,17 @@ const prepareOptionalOptions = <KEY extends string>(
 export const useTask = () => {
   const task = useDashboardTask("clusterSetup");
   const { dispatch, state } = task;
-  const checkCanAddClusterOrNodes = () =>
+  const checkCanAddClusterOrNodes = () => {
+    const nodeNameList = onlyFilledNodes(state.nodeNameList);
     dispatch({
       type: "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD",
       payload: {
         clusterName: state.clusterName,
-        targetNode: "",
-        nodeNameList: state.nodeNameList,
+        targetNode: nodeNameList[0],
+        nodeNameList: nodeNameList,
       },
     });
+  };
 
   const useClusterAndNodesCheck = () => {
     React.useEffect(() => {
