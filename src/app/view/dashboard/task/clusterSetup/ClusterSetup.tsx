@@ -66,13 +66,13 @@ export const ClusterSetup: React.FC = () => {
           ),
         },
         {
-          name: "Knet Transport",
+          name: "Transport links",
           component: <Transport />,
           footer: <WizardFooter onClose={close} task="clusterSetup" />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
         },
         {
-          name: "Knet Transport Options",
+          name: "Transport Options",
           component: <TransportOptions />,
           footer: <WizardFooter onClose={close} task="clusterSetup" />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
