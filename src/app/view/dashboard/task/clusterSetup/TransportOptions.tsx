@@ -1,5 +1,10 @@
 import React from "react";
-import { Form } from "@patternfly/react-core";
+import {
+  Form,
+  FormFieldGroup,
+  Text,
+  TextContent,
+} from "@patternfly/react-core";
 
 import {
   FormRadios,
@@ -25,116 +30,132 @@ export const TransportOptions: React.FC = () => {
     state: { transportOptions, compressionOptions, cryptoOptions },
   } = useTask();
   return (
-    <TaskLibStep title="Knet transport" reports={allReports}>
+    <TaskLibStep title="Transport options" reports={allReports}>
       <Form>
-        <FormSelect
-          label="Ip version"
-          id={`${ID_PREFIX_OPTIONS}-ip_version`}
-          popover={help.options.ip_version}
-          optionsValues={["ipv4", "ipv6", "ipv4-6", "ipv6-4", "default"]}
-          selections={transportOptions.ip_version}
-          onSelect={value =>
-            updateTransportOptions({
-              ip_version: value.toString() as NonNullable<
-                typeof transportOptions.ip_version
-              >,
-            })
-          }
-        />
+        <TextContent>
+          <Text component="h3">Knet options</Text>
+        </TextContent>
+        <FormFieldGroup>
+          <FormSelect
+            label="Ip version"
+            id={`${ID_PREFIX_OPTIONS}-ip_version`}
+            popover={help.options.ip_version}
+            optionsValues={["ipv4", "ipv6", "ipv4-6", "ipv6-4", "default"]}
+            selections={transportOptions.ip_version}
+            onSelect={value =>
+              updateTransportOptions({
+                ip_version: value.toString() as NonNullable<
+                  typeof transportOptions.ip_version
+                >,
+              })
+            }
+          />
 
-        <FormText
-          label="PMTUd Interval"
-          id={`${ID_PREFIX_OPTIONS}-pmtud-interval`}
-          popover={help.options.knet_pmtud_interval}
-          value={transportOptions.knet_pmtud_interval}
-          onChange={value =>
-            updateTransportOptions({ knet_pmtud_interval: value })
-          }
-        />
+          <FormText
+            label="PMTUd Interval"
+            id={`${ID_PREFIX_OPTIONS}-pmtud-interval`}
+            popover={help.options.knet_pmtud_interval}
+            value={transportOptions.knet_pmtud_interval}
+            onChange={value =>
+              updateTransportOptions({ knet_pmtud_interval: value })
+            }
+          />
 
-        <FormSelect
-          label="Link mode"
-          id={`${ID_PREFIX_OPTIONS}-link_mode`}
-          popover={help.options.link_mode}
-          optionsValues={["active", "passive", "rr", "default"]}
-          selections={transportOptions.link_mode}
-          onSelect={value =>
-            updateTransportOptions({
-              link_mode: value.toString() as NonNullable<
-                typeof transportOptions.link_mode
-              >,
-            })
-          }
-        />
+          <FormSelect
+            label="Link mode"
+            id={`${ID_PREFIX_OPTIONS}-link_mode`}
+            popover={help.options.link_mode}
+            optionsValues={["active", "passive", "rr", "default"]}
+            selections={transportOptions.link_mode}
+            onSelect={value =>
+              updateTransportOptions({
+                link_mode: value.toString() as NonNullable<
+                  typeof transportOptions.link_mode
+                >,
+              })
+            }
+          />
+        </FormFieldGroup>
 
-        <FormText
-          label="Model"
-          id={`${ID_PREFIX_COMPRESSION}-model`}
-          popover={help.compression.model}
-          value={compressionOptions.model}
-          onChange={value => updateCompressionOptions({ model: value })}
-        />
+        <TextContent>
+          <Text component="h3">Compression</Text>
+        </TextContent>
+        <FormFieldGroup>
+          <FormText
+            label="Model"
+            id={`${ID_PREFIX_COMPRESSION}-model`}
+            popover={help.compression.model}
+            value={compressionOptions.model}
+            onChange={value => updateCompressionOptions({ model: value })}
+          />
 
-        <FormText
-          label="Threshold"
-          id={`${ID_PREFIX_COMPRESSION}-threshold`}
-          popover={help.compression.threshold}
-          value={compressionOptions.threshold}
-          onChange={value => updateCompressionOptions({ threshold: value })}
-        />
+          <FormText
+            label="Threshold"
+            id={`${ID_PREFIX_COMPRESSION}-threshold`}
+            popover={help.compression.threshold}
+            value={compressionOptions.threshold}
+            onChange={value => updateCompressionOptions({ threshold: value })}
+          />
 
-        <FormText
-          label="Level"
-          id={`${ID_PREFIX_COMPRESSION}-level`}
-          popover={help.compression.level}
-          value={compressionOptions.level}
-          onChange={value => updateCompressionOptions({ level: value })}
-        />
+          <FormText
+            label="Level"
+            id={`${ID_PREFIX_COMPRESSION}-level`}
+            popover={help.compression.level}
+            value={compressionOptions.level}
+            onChange={value => updateCompressionOptions({ level: value })}
+          />
+        </FormFieldGroup>
+        <TextContent>
+          <Text component="h3">Crypto</Text>
+        </TextContent>
+        <FormFieldGroup>
+          <FormRadios
+            label="Model"
+            id={`${ID_PREFIX_CRYPTO}-model`}
+            popover={help.crypto.model}
+            options={["nss", "openssl", "default"]}
+            selected={cryptoOptions.model}
+            onChange={value => updateCryptoOptions({ model: value })}
+          />
 
-        <FormRadios
-          label="Model"
-          id={`${ID_PREFIX_CRYPTO}-model`}
-          popover={help.crypto.model}
-          options={["nss", "openssl", "default"]}
-          selected={cryptoOptions.model}
-          onChange={value => updateCryptoOptions({ model: value })}
-        />
+          <FormSelect
+            label="Hash"
+            id={`${ID_PREFIX_CRYPTO}-hash`}
+            popover={help.crypto.hash}
+            optionsValues={[
+              "none",
+              "md5",
+              "sha1",
+              "sha256",
+              "sha384",
+              "sha512",
+              "default",
+            ]}
+            selections={cryptoOptions.hash}
+            onSelect={value =>
+              updateCryptoOptions({
+                hash: value.toString() as NonNullable<
+                  typeof cryptoOptions.hash
+                >,
+              })
+            }
+          />
 
-        <FormSelect
-          label="Hash"
-          id={`${ID_PREFIX_CRYPTO}-hash`}
-          popover={help.crypto.hash}
-          optionsValues={[
-            "none",
-            "md5",
-            "sha1",
-            "sha256",
-            "sha384",
-            "sha512",
-            "default",
-          ]}
-          selections={cryptoOptions.hash}
-          onSelect={value =>
-            updateCryptoOptions({
-              hash: value.toString() as NonNullable<typeof cryptoOptions.hash>,
-            })
-          }
-        />
-
-        <FormSelect
-          label="Cipher"
-          id={`${ID_PREFIX_CRYPTO}-cipher`}
-          popover={help.crypto.cipher}
-          optionsValues={["none", "aes256", "aes192", "aes128", "default"]}
-          selections={cryptoOptions.cipher}
-          onSelect={value =>
-            updateCryptoOptions({
-              cipher: value.toString() as NonNullable<
-                typeof cryptoOptions.cipher
-              >,
-            })
-          }
-        />
+          <FormSelect
+            label="Cipher"
+            id={`${ID_PREFIX_CRYPTO}-cipher`}
+            popover={help.crypto.cipher}
+            optionsValues={["none", "aes256", "aes192", "aes128", "default"]}
+            selections={cryptoOptions.cipher}
+            onSelect={value =>
+              updateCryptoOptions({
+                cipher: value.toString() as NonNullable<
+                  typeof cryptoOptions.cipher
+                >,
+              })
+            }
+          />
+        </FormFieldGroup>
       </Form>
     </TaskLibStep>
   );
