@@ -1,7 +1,7 @@
 import React from "react";
 
 export const AttributeValue: React.FC<{
-  value: string | number | null | undefined;
+  value?: string | number | null | undefined;
   defaultValue?: string | number | null;
 }> = ({ value, defaultValue = null }) => {
   if (value && `${value}`.length > 0) {

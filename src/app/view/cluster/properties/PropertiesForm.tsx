@@ -8,8 +8,9 @@ import { PropertyFormField } from "./PropertyFormField";
 
 export const PropertiesForm: React.FC<{
   close: () => void;
-  clusterProperties: ClusterProperties;
-}> = ({ close, clusterProperties }) => {
+  clusterPropertiesDefinition: ClusterProperties;
+  currentClusterProperties: Record<string, string>;
+}> = ({ close, clusterPropertiesDefinition, currentClusterProperties }) => {
   const [userProperties, setUserProperties] = React.useState<
     Record<string, string>
   >({});
@@ -17,7 +18,7 @@ export const PropertiesForm: React.FC<{
   const dispatch = useDispatch();
   return (
     <Form isHorizontal style={{ maxWidth: "550px" }}>
-      {clusterProperties.map(property => (
+      {clusterPropertiesDefinition.map(property => (
         <PropertyFormField
           key={property.name}
           property={property}
@@ -25,6 +26,9 @@ export const PropertiesForm: React.FC<{
           modifyProperty={(name, value) =>
             setUserProperties({ ...userProperties, [name]: value })
           }
+          {...(property.name in currentClusterProperties
+            ? { currentValue: currentClusterProperties[property.name] }
+            : {})}
         />
       ))}
       <ActionGroup>

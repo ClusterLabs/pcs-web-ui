@@ -7,12 +7,14 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
+import { selectors } from "app/store";
 import {
   AttributeHelpPopover,
   AttributeList,
   AttributeName,
   AttributeValue,
   ToolbarFilterTextGroupPair,
+  useClusterSelector,
 } from "app/view/share";
 
 import { PropertiesForm } from "./PropertiesForm";
@@ -41,6 +43,7 @@ const useFilter = (): {
 
 export const ClusterPropertiesPage: React.FC = () => {
   const { clusterProperties } = useClusterProperties();
+  const [cluster] = useClusterSelector(selectors.getCluster);
   const { filterState, filterParameters } = useFilter();
   const [isEditing, setIsEditing] = React.useState(false);
 
@@ -68,7 +71,10 @@ export const ClusterPropertiesPage: React.FC = () => {
                 <>
                   {isEditing && (
                     <PropertiesForm
-                      clusterProperties={filterParameters(clusterProperties)}
+                      clusterPropertiesDefinition={filterParameters(
+                        clusterProperties,
+                      )}
+                      currentClusterProperties={cluster.clusterProperties}
                       close={() => setIsEditing(false)}
                     />
                   )}
@@ -86,8 +92,12 @@ export const ClusterPropertiesPage: React.FC = () => {
                             />
                           </AttributeName>
                           <AttributeValue
-                            value={property.value}
-                            defaultValue={property.default}
+                            {...(property.name in cluster.clusterProperties
+                              ? {
+                                  value:
+                                    cluster.clusterProperties[property.name],
+                                }
+                              : { defaultValue: property.default })}
                           />
                         </React.Fragment>
                       )}

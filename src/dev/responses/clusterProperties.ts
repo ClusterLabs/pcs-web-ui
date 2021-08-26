@@ -12,7 +12,6 @@ export const ok: ClusterProperties = {
       "The number of jobs that the TE is allowed to execute in parallel",
     source: "pacemaker-schedulerd",
     type: "integer",
-    value: null,
   },
   "cluster-delay": {
     advanced: false,
@@ -24,7 +23,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Round trip delay over the network (excluding action execution)",
     source: "pacemaker-schedulerd",
     type: "time",
-    value: null,
   },
   "cluster-ipc-limit": {
     advanced: true,
@@ -37,7 +35,6 @@ export const ok: ClusterProperties = {
       "Maximum IPC message backlog before disconnecting a cluster daemon",
     source: "pacemaker-based",
     type: "integer",
-    value: null,
   },
   "cluster-name": {
     advanced: true,
@@ -49,7 +46,6 @@ export const ok: ClusterProperties = {
     shortdesc: "An arbitrary name for the cluster",
     source: "pacemaker-controld",
     type: "string",
-    value: "STSRHTS11738",
   },
   "cluster-recheck-interval": {
     advanced: true,
@@ -62,7 +58,6 @@ export const ok: ClusterProperties = {
       "Polling interval for time based changes to options, resource parameters and constraints.",
     source: "pacemaker-controld",
     type: "time",
-    value: null,
   },
   "concurrent-fencing": {
     advanced: true,
@@ -73,7 +68,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Allow performing fencing operations in parallel",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "dc-deadtime": {
     advanced: true,
@@ -86,7 +80,6 @@ export const ok: ClusterProperties = {
       "How long to wait for a response from other nodes during startup.",
     source: "pacemaker-controld",
     type: "time",
-    value: null,
   },
   "election-timeout": {
     advanced: true,
@@ -98,7 +91,6 @@ export const ok: ClusterProperties = {
     shortdesc: "*** Advanced Use Only ***.",
     source: "pacemaker-controld",
     type: "time",
-    value: null,
   },
   "enable-acl": {
     advanced: false,
@@ -109,7 +101,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Enable CIB ACL",
     source: "pacemaker-based",
     type: "boolean",
-    value: null,
   },
   "enable-startup-probes": {
     advanced: true,
@@ -120,7 +111,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Should the cluster check for active resources during startup",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "fence-reaction": {
     advanced: true,
@@ -132,7 +122,6 @@ export const ok: ClusterProperties = {
     shortdesc: "How a cluster node should react if notified of its own fencing",
     source: "pacemaker-controld",
     type: "string",
-    value: null,
   },
   "have-watchdog": {
     advanced: true,
@@ -144,7 +133,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Enable watchdog integration",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: "false",
   },
   "join-finalization-timeout": {
     advanced: true,
@@ -156,7 +144,6 @@ export const ok: ClusterProperties = {
     shortdesc: "*** Advanced Use Only ***",
     source: "pacemaker-controld",
     type: "time",
-    value: null,
   },
   "join-integration-timeout": {
     advanced: true,
@@ -168,7 +155,6 @@ export const ok: ClusterProperties = {
     shortdesc: "*** Advanced Use Only ***",
     source: "pacemaker-controld",
     type: "time",
-    value: null,
   },
   "load-threshold": {
     advanced: true,
@@ -181,7 +167,6 @@ export const ok: ClusterProperties = {
       "The maximum amount of system resources that should be used by nodes in the cluster",
     source: "pacemaker-controld",
     type: "percentage",
-    value: null,
   },
   "maintenance-mode": {
     advanced: true,
@@ -193,7 +178,6 @@ export const ok: ClusterProperties = {
       "Should the cluster monitor resources and start/stop them as required",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "migration-limit": {
     advanced: true,
@@ -205,7 +189,6 @@ export const ok: ClusterProperties = {
       "The number of migration jobs that the TE is allowed to execute in parallel on a node",
     source: "pacemaker-schedulerd",
     type: "integer",
-    value: null,
   },
   "no-quorum-policy": {
     advanced: false,
@@ -217,7 +200,6 @@ export const ok: ClusterProperties = {
     shortdesc: "What to do when the cluster does not have quorum",
     source: "pacemaker-schedulerd",
     type: "enum",
-    value: "freeze",
   },
   "node-action-limit": {
     advanced: true,
@@ -229,7 +211,6 @@ export const ok: ClusterProperties = {
       "The maximum number of jobs that can be scheduled per node. Defaults to 2x cores",
     source: "pacemaker-controld",
     type: "integer",
-    value: null,
   },
   "node-health-base": {
     advanced: true,
@@ -240,7 +221,6 @@ export const ok: ClusterProperties = {
     shortdesc: "The base score assigned to a node",
     source: "pacemaker-schedulerd",
     type: "integer",
-    value: null,
   },
   "node-health-green": {
     advanced: true,
@@ -252,7 +232,6 @@ export const ok: ClusterProperties = {
     shortdesc: "The score 'green' translates to in rsc_location constraints",
     source: "pacemaker-schedulerd",
     type: "integer",
-    value: null,
   },
   "node-health-red": {
     advanced: true,
@@ -264,7 +243,6 @@ export const ok: ClusterProperties = {
     shortdesc: "The score 'red' translates to in rsc_location constraints",
     source: "pacemaker-schedulerd",
     type: "integer",
-    value: null,
   },
   "node-health-strategy": {
     advanced: true,
@@ -278,7 +256,6 @@ export const ok: ClusterProperties = {
       "The strategy combining node attributes to determine overall node health.",
     source: "pacemaker-schedulerd",
     type: "enum",
-    value: null,
   },
   "node-health-yellow": {
     advanced: true,
@@ -290,7 +267,6 @@ export const ok: ClusterProperties = {
     shortdesc: "The score 'yellow' translates to in rsc_location constraints",
     source: "pacemaker-schedulerd",
     type: "integer",
-    value: null,
   },
   "pe-error-series-max": {
     advanced: false,
@@ -301,7 +277,6 @@ export const ok: ClusterProperties = {
     shortdesc: "The number of scheduler inputs resulting in ERRORs to save",
     source: "pacemaker-schedulerd",
     type: "integer",
-    value: null,
   },
   "pe-input-series-max": {
     advanced: false,
@@ -312,7 +287,6 @@ export const ok: ClusterProperties = {
     shortdesc: "The number of other scheduler inputs to save",
     source: "pacemaker-schedulerd",
     type: "integer",
-    value: null,
   },
   "pe-warn-series-max": {
     advanced: false,
@@ -323,7 +297,6 @@ export const ok: ClusterProperties = {
     shortdesc: "The number of scheduler inputs resulting in WARNINGs to save",
     source: "pacemaker-schedulerd",
     type: "integer",
-    value: null,
   },
   "placement-strategy": {
     advanced: true,
@@ -335,7 +308,6 @@ export const ok: ClusterProperties = {
     shortdesc: "The strategy to determine resource placement",
     source: "pacemaker-schedulerd",
     type: "enum",
-    value: null,
   },
   "remove-after-stop": {
     advanced: true,
@@ -347,7 +319,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Remove resources from the executor after they are stopped",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "shutdown-escalation": {
     advanced: true,
@@ -359,7 +330,6 @@ export const ok: ClusterProperties = {
     shortdesc: "*** Advanced Use Only ***.",
     source: "pacemaker-controld",
     type: "time",
-    value: null,
   },
   "shutdown-lock": {
     advanced: true,
@@ -371,7 +341,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Whether to lock resources to a cleanly shut down node",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "shutdown-lock-limit": {
     advanced: true,
@@ -384,7 +353,6 @@ export const ok: ClusterProperties = {
       "Do not lock resources to a cleanly shut down node longer than this",
     source: "pacemaker-schedulerd",
     type: "time",
-    value: null,
   },
   "start-failure-is-fatal": {
     advanced: false,
@@ -396,7 +364,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Always treat start failures as fatal",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "startup-fencing": {
     advanced: true,
@@ -407,7 +374,6 @@ export const ok: ClusterProperties = {
     shortdesc: "STONITH unseen nodes",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "stonith-action": {
     advanced: false,
@@ -420,7 +386,6 @@ export const ok: ClusterProperties = {
       "Action to send to STONITH device ('poweroff' is a deprecated alias for 'off')",
     source: "pacemaker-schedulerd",
     type: "enum",
-    value: null,
   },
   "stonith-enabled": {
     advanced: false,
@@ -431,7 +396,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Failed nodes are STONITH'd",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "stonith-max-attempts": {
     advanced: true,
@@ -443,7 +407,6 @@ export const ok: ClusterProperties = {
       "How many times stonith can fail before it will no longer be attempted on a target",
     source: "pacemaker-controld",
     type: "integer",
-    value: null,
   },
   "stonith-timeout": {
     advanced: true,
@@ -455,7 +418,6 @@ export const ok: ClusterProperties = {
       "How long to wait for the STONITH action (reboot,on,off) to complete",
     source: "pacemaker-schedulerd",
     type: "time",
-    value: null,
   },
   "stonith-watchdog-timeout": {
     advanced: true,
@@ -466,7 +428,6 @@ export const ok: ClusterProperties = {
     shortdesc: "How long to wait before we can assume nodes are safely down",
     source: "pacemaker-controld",
     type: "time",
-    value: null,
   },
   "stop-all-resources": {
     advanced: true,
@@ -477,7 +438,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Should the cluster stop all active resources",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "stop-orphan-actions": {
     advanced: false,
@@ -488,7 +448,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Should deleted actions be cancelled",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "stop-orphan-resources": {
     advanced: false,
@@ -499,7 +458,6 @@ export const ok: ClusterProperties = {
     shortdesc: "Should deleted resources be stopped",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "symmetric-cluster": {
     advanced: false,
@@ -510,7 +468,6 @@ export const ok: ClusterProperties = {
     shortdesc: "All resources can run anywhere by default",
     source: "pacemaker-schedulerd",
     type: "boolean",
-    value: null,
   },
   "transition-delay": {
     advanced: true,
@@ -523,6 +480,5 @@ export const ok: ClusterProperties = {
       "*** Advanced Use Only *** Enabling this option will slow down cluster recovery under all conditions",
     source: "pacemaker-controld",
     type: "time",
-    value: null,
   },
 };

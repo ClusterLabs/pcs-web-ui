@@ -8,7 +8,8 @@ export const PropertyFormField: React.FC<{
   property: ClusterProperties[number];
   userProperty: string | undefined;
   modifyProperty: (_name: string, _value: string) => void;
-}> = ({ property, userProperty, modifyProperty }) => {
+  currentValue?: string | undefined;
+}> = ({ property, userProperty, modifyProperty, currentValue = undefined }) => {
   const popover = {
     header: property.shortdesc,
     body: property.longdesc,
@@ -26,7 +27,7 @@ export const PropertyFormField: React.FC<{
     const value =
       userProperty !== undefined
         ? userProperty || "DEFAULT"
-        : property.value || "DEFAULT";
+        : currentValue || "DEFAULT";
     if (property.enum.length < 4) {
       return (
         <FormRadios
@@ -56,8 +57,8 @@ export const PropertyFormField: React.FC<{
       value = userProperty === "" ? "DEFAULT" : userProperty;
     } else {
       value =
-        property.value === "true" || property.value === "false"
-          ? property.value
+        currentValue === "true" || currentValue === "false"
+          ? currentValue
           : "DEFAULT";
     }
     return (
@@ -78,7 +79,7 @@ export const PropertyFormField: React.FC<{
       label={property.readable_name}
       popover={popover}
       onChange={value => modifyProperty(property.name, value)}
-      value={userProperty || property.value || ""}
+      value={userProperty || currentValue || ""}
       placeholder={property.default as string}
     />
   );

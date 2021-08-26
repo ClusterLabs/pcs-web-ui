@@ -18,6 +18,7 @@ export const clusterStatusDefault: Cluster = {
     issuesSeverity: "OK",
   },
   resourceOnNodeStatusList: [],
+  clusterProperties: {},
   nodeAttr: {},
   nodesUtilization: {},
   sbdDetection: null,

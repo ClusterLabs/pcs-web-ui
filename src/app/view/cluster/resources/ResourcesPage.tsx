@@ -1,4 +1,3 @@
-import React from "react";
 import { ActionList, ActionListItem } from "@patternfly/react-core";
 
 import {

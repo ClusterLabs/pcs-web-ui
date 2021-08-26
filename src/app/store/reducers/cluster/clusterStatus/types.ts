@@ -130,6 +130,7 @@ export type Cluster = {
     blocked: boolean;
     targetRole?: string;
   }[];
+  clusterProperties: Record<string, string>;
   nodeAttr: Record<string, NVPair[]>;
   nodesUtilization: Record<string, NVPair[]>;
   sbdDetection: null | {

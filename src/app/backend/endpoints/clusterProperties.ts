@@ -18,6 +18,8 @@ export const clusterProperties = endpoint({
         readable_name: t.string,
         shortdesc: t.string,
         source: t.string,
+      }),
+      t.partial({
         value: t.union([t.null, t.string]),
       }),
       t.union([

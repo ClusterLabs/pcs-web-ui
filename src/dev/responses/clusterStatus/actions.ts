@@ -87,6 +87,7 @@ export const actions = cluster("actions", "ok", {
     ...stonithList,
   ],
   constraints,
+  cluster_settings: { "batch-limit": "1" },
 });
 
 export const actionsNoGroup = cluster("actions-no-group", "ok", {

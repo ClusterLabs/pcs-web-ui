@@ -47,6 +47,7 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
         apiClusterStatus.warning_list,
       ),
     },
+    clusterProperties: apiClusterStatus.cluster_settings ?? {},
     nodeAttr: apiClusterStatus.node_attr ?? {},
     nodesUtilization: apiClusterStatus.nodes_utilization ?? {},
     sbdDetection: sbdDetection(apiClusterStatus),
