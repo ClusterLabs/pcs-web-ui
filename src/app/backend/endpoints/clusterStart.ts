@@ -5,5 +5,6 @@ export const clusterStart = endpoint({
     `/managec/${clusterName}/cluster_start`,
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: undefined,
 });

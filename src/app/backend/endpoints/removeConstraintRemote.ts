@@ -5,5 +5,6 @@ export const removeConstraintRemote = endpoint({
     `/managec/${clusterName}/remove_constraint_remote`,
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: undefined,
 });

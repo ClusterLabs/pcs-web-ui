@@ -15,5 +15,6 @@ export const updateClusterSettings = endpoint({
       settingsMap[name],
     ]) as [string, string][]),
   ],
+  payload: undefined,
   shape: undefined,
 });

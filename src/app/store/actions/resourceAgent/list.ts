@@ -1,4 +1,4 @@
-import { api, getAvailResourceAgents } from "app/backend";
+import { api, libClusterResourceAgentListAgents } from "app/backend";
 
 export type ResourceAgentListActions = {
   "RESOURCE_AGENT.LIST.LOAD": {
@@ -10,7 +10,9 @@ export type ResourceAgentListActions = {
     type: "RESOURCE_AGENT.LIST.LOAD.OK";
     key: { clusterName: string };
     payload: {
-      apiResourceAgentMap: api.PayloadOf<typeof getAvailResourceAgents>;
+      apiResourceAgentList: api.PayloadOf<
+        typeof libClusterResourceAgentListAgents
+      >["data"];
     };
   };
 

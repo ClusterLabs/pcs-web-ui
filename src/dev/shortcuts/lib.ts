@@ -67,10 +67,10 @@ const getLibResponses = (res: Response): Record<string, () => void> => ({
     );
   },
   success: () => {
-    res.json(response.lib.success);
+    res.json(response.lib.success());
   },
   ok: () => {
-    res.json(response.lib.success);
+    res.json(response.lib.success());
   },
 });
 

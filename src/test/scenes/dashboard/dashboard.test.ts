@@ -3,7 +3,7 @@ import { api, clusterStatus } from "app/backend";
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, url } from "test/tools";
+import { intercept, location, route, url } from "test/tools";
 
 const CLUSTERS = dt("cluster-list", "^cluster ");
 const CLUSTER_OK = dt("cluster-list", "cluster ok");
@@ -29,10 +29,7 @@ const interceptWithDashboard = (routeList: intercept.Route[]) =>
       url: url.clusterStatus({ clusterName: "empty" }),
       json: responses.clusterStatus.ok,
     },
-    {
-      url: url.getAvailResourceAgents({ clusterName: "ok" }),
-      json: responses.resourceAgentList.ok,
-    },
+    route.getAvailResourceAgents("ok"),
     {
       url: url.clusterProperties({ clusterName: "ok" }),
       json: responses.clusterProperties.ok,

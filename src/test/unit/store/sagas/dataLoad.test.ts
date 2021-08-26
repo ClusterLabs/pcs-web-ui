@@ -3,13 +3,13 @@ import { ActionLeaf } from "app/store";
 
 const clusterName1 = "cluster-1";
 const startActionClusterSync = (clusterName: string): ActionLeaf => ({
-  type: "CLUSTER_DATA.SYNC",
-  payload: { clusterUrlName: clusterName },
+  type: "CLUSTER.STATUS.SYNC",
+  key: { clusterName: clusterName },
 });
 
 const stopActionClusterSync = (clusterName: string): ActionLeaf => ({
-  type: "CLUSTER_DATA.SYNC.STOP",
-  payload: { clusterUrlName: clusterName },
+  type: "CLUSTER.STATUS.SYNC.STOP",
+  key: { clusterName: clusterName },
 });
 
 const stopSyncCluster = (clusterName: string) => ({
@@ -23,8 +23,8 @@ const syncCluster = (clusterName: string) => ({
   stop: stopActionClusterSync(clusterName),
 });
 
-const startDashboard: ActionLeaf = { type: "DASHBOARD_DATA.SYNC" };
-const stopDashboard: ActionLeaf = { type: "DASHBOARD_DATA.SYNC.STOP" };
+const startDashboard: ActionLeaf = { type: "CLUSTER.LIST.SYNC" };
+const stopDashboard: ActionLeaf = { type: "CLUSTER.LIST.SYNC.STOP" };
 
 describe("takeNewLoading", () => {
   it("should return empty results when inputs empty", () => {

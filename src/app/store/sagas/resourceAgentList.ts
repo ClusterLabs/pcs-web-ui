@@ -1,13 +1,13 @@
-import { getAvailResourceAgents } from "app/backend";
+import { libClusterResourceAgentListAgents } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
 import { api, processError, put } from "./common";
 
-type ApiCallResult = api.ResultOf<typeof getAvailResourceAgents>;
+type ApiCallResult = api.ResultOf<typeof libClusterResourceAgentListAgents>;
 export function* load({ key }: ActionMap["RESOURCE_AGENT.LIST.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
-    getAvailResourceAgents,
-    key.clusterName,
+    libClusterResourceAgentListAgents,
+    { clusterName: key.clusterName },
   );
 
   const taskLabel = "load resource agent list";
@@ -26,6 +26,6 @@ export function* load({ key }: ActionMap["RESOURCE_AGENT.LIST.LOAD"]) {
   yield put({
     type: "RESOURCE_AGENT.LIST.LOAD.OK",
     key,
-    payload: { apiResourceAgentMap: result.payload },
+    payload: { apiResourceAgentList: result.payload.data },
   });
 }

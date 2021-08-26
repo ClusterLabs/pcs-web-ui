@@ -6,7 +6,7 @@ import * as result from "./result";
 import * as validate from "./validate";
 import * as http from "./http";
 
-type CallResultShape<SHAPE extends t.Any> = Promise<
+export type CallResultShape<SHAPE extends t.Any> = Promise<
   result.Overall<t.TypeOf<SHAPE>>
 >;
 

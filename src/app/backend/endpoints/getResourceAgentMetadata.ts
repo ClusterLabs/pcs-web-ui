@@ -26,6 +26,7 @@ export const getResourceAgentMetadata = endpoint({
   method: "get",
 
   params: undefined,
+  payload: undefined,
 
   shape: t.intersection([
     // TODO obsoletes

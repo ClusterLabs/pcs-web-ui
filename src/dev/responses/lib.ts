@@ -2,12 +2,13 @@ import { api, libCallCluster } from "app/backend";
 
 type Response = api.PayloadOf<typeof libCallCluster>;
 
-export const success: Response = {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const success = (props: { data?: any } = { data: null }): Response => ({
   status: "success",
   status_msg: null,
   report_list: [],
-  data: null,
-};
+  data: props.data,
+});
 
 export const missingKey: Response = {
   status: "input_error",

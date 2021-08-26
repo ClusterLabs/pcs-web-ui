@@ -12,45 +12,50 @@ type ResourceAgentListService = {
   };
 };
 
-type ApiAgentMap =
-  ActionPayload["RESOURCE_AGENT.LIST.LOAD.OK"]["apiResourceAgentMap"];
+const parseName = (name: string) => {
+  const result =
+    /^(?<standard>systemd|service):(?<type>[^:@]+@.*)$/.exec(name)
+    || /^(?<standard>[^:]+)(:(?<provider>[^:]+))?:(?<type>[^:]+)$/.exec(name);
 
-function getAgents<T>(agentMap: Record<string, T>): T[] {
-  return Object.values(agentMap);
-}
-
-const getClassProvider = (apiAgent: ApiAgentMap[keyof ApiAgentMap]): string => {
-  if ("class_provider" in apiAgent && apiAgent.class_provider) {
-    return apiAgent.class_provider;
+  if (result === null) {
+    return null;
   }
 
-  if (apiAgent.provider !== null) {
-    return `${apiAgent.class}:${apiAgent.provider}`;
-  }
+  const provider = result.groups?.provider ?? null;
+  // "standard" is always here (according to regexp) but typescript complains
+  // [tsserver 2532] [E] Object is possibly 'undefined'.
+  const cls = result.groups?.standard ?? "";
 
-  return apiAgent.class;
+  return {
+    groupName: provider === null ? cls : `${cls}:${provider}`,
+    // "type" is always here (according to regexp) but typescript complains
+    // [tsserver 2532] [E] Object is possibly 'undefined'.
+    agentName: result.groups?.type ?? "",
+  };
 };
 
-const groupAgentNamesByClassProvider = (apiAgentMap: ApiAgentMap) => {
-  return getAgents(apiAgentMap).reduce<ResourceAgentMap>(
-    (resourceAgentMap: ResourceAgentMap, apiAgent) => {
-      const classProvider = getClassProvider(apiAgent);
-      return {
-        ...resourceAgentMap,
-        [classProvider]: [
-          ...(resourceAgentMap[classProvider] ?? []),
-          apiAgent.type,
-        ],
-      };
-    },
-    {},
-  );
-};
+type AgentNameStructure = NonNullable<ReturnType<typeof parseName>>;
+
+const groupByClassProvider = (
+  grouped: ResourceAgentMap,
+  { groupName, agentName }: AgentNameStructure,
+) => ({
+  ...grouped,
+  [groupName]: [...(grouped[groupName] ?? []), agentName],
+});
+
+const groupAgentNames = (
+  apiAgents: ActionPayload["RESOURCE_AGENT.LIST.LOAD.OK"]["apiResourceAgentList"],
+) =>
+  apiAgents
+    .map(a => parseName(a.name))
+    .filter((a): a is AgentNameStructure => a !== null)
+    .reduce(groupByClassProvider, {});
 
 const data: AppReducer<ResourceAgentMap> = (state = {}, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LIST.LOAD.OK":
-      return groupAgentNamesByClassProvider(action.payload.apiResourceAgentMap);
+      return groupAgentNames(action.payload.apiResourceAgentList);
 
     default:
       return state;

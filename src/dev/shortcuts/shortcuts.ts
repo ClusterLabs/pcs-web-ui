@@ -23,10 +23,10 @@ const clusterStatus = (clusterStatusList: types.Cluster[]) =>
   });
 
 const getAvailResourceAgents = (
-  availableResourceAgents: types.AvailResourceAgents,
+  availableResourceAgents: types.ResourceAgentListAgents,
 ) =>
-  app.getAvailResourceAgents((_req, res) => {
-    res.json(availableResourceAgents);
+  app.libClusterResourceAgentListAgents((_req, res) => {
+    res.json(response.lib.success({ data: availableResourceAgents }));
   });
 
 const getResourceAgentMetadata = (
@@ -60,7 +60,7 @@ const clusterProperties = (properties: types.ClusterProperties) =>
 // advanced
 
 export const clusterRelated = () => {
-  getAvailResourceAgents(response.resourceAgentList.ok);
+  getAvailResourceAgents(response.resourceAgentListWithoutDescribe.ok);
   getResourceAgentMetadata([
     response.resourceAgentMetadata.ocfHeartbeatApache,
     response.resourceAgentMetadata.ocfHeartbeatDummy,

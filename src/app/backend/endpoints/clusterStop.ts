@@ -5,5 +5,6 @@ export const clusterStop = endpoint({
     `/managec/${clusterName}/cluster_stop`,
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: undefined,
 });

@@ -5,5 +5,6 @@ export const removeResource = endpoint({
     `/managec/${clusterName}/remove_resource`,
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: undefined,
 });
