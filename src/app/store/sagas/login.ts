@@ -19,6 +19,7 @@ export function* logoutSaga() {
     // Ok we are already somehow loged out.
     yield putNotification("SUCCESS", "Already logged out");
     yield put({ type: "LOGIN.LOGOUT.SUCCESS" });
+    yield put({ type: "AUTH.REQUIRED" });
     return;
   }
   if (result.type !== "OK") {
@@ -28,6 +29,7 @@ export function* logoutSaga() {
 
   yield putNotification("SUCCESS", "Success logout");
   yield put({ type: "LOGIN.LOGOUT.SUCCESS" });
+  yield put({ type: "AUTH.REQUIRED" });
 }
 
 export function* loginSaga({
