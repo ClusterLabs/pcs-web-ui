@@ -36,3 +36,8 @@ app.login((req, res) => {
   }
   res.status(401).send(JSON.stringify({ notauthorized: "true" }));
 });
+
+app.logout((_req, res) => {
+  isLoggedIn = false;
+  res.send("Ok");
+});
