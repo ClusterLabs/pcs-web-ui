@@ -4,7 +4,7 @@ export const loginIsFailed = (state: Root) => state.login.failed;
 
 export const loginGetFailMessage = (state: Root) =>
   state.login.badCredentials
-    ? "The username or password you entered is incorect"
+    ? "Incorrect login credentials"
     : state.login.errorMessage;
 
 export const loginIsAcceptingData = (state: Root) =>
