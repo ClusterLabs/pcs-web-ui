@@ -48,7 +48,6 @@ export function* load({
   }
 
   if (payload.status === "error") {
-    // TODO: Notify user + console log
     yield put(errorAction);
     return;
   }

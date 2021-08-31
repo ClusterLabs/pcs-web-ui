@@ -1,5 +1,6 @@
 import { libClusterStonithAgentDescribeAgent } from "app/backend";
 import { Action, ActionMap } from "app/store/actions";
+import * as selectors from "app/store/selectors";
 
 import {
   api,
@@ -9,6 +10,7 @@ import {
   processError,
   put,
   putTaskFailed,
+  select,
 } from "./common";
 
 export function* load({
@@ -56,4 +58,23 @@ export function* load({
     key,
     payload: { apiAgentMetadata: payload.data },
   });
+}
+
+type PcmkAgent = selectors.ExtractClusterSelector<
+  typeof selectors.getPcmkAgent
+>;
+export function* ensure({
+  key,
+  payload: { agentName },
+}: ActionMap["FENCE_AGENT.ENSURE"]) {
+  const pcmkAgent: PcmkAgent = yield select(
+    selectors.getPcmkAgent(key.clusterName, agentName),
+  );
+  if (!pcmkAgent || pcmkAgent.loadStatus === "FAILED") {
+    yield put({
+      type: "FENCE_AGENT.LOAD",
+      key,
+      payload: { agentName },
+    });
+  }
 }

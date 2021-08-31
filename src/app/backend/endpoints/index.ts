@@ -54,6 +54,7 @@ const endpoints = {
   importedClusterList,
   libCluster,
   libClusterResourceAgentListAgents: pcmkAgentListAgents("resource"),
+  libClusterStonithAgentListAgents: pcmkAgentListAgents("fence"),
   libClusterResourceAgentDescribeAgent: pcmkAgentDescribeAgent("resource"),
   libClusterStonithAgentDescribeAgent: pcmkAgentDescribeAgent("fence"),
   login,

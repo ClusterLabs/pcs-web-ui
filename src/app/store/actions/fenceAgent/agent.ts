@@ -1,6 +1,6 @@
 import { api, libClusterStonithAgentDescribeAgent } from "app/backend";
 
-export type FenceAgentActions = {
+export type FenceAgentAgentActions = {
   "FENCE_AGENT.LOAD": {
     type: "FENCE_AGENT.LOAD";
     key: { clusterName: string };
@@ -22,6 +22,14 @@ export type FenceAgentActions = {
 
   "FENCE_AGENT.LOAD.FAILED": {
     type: "FENCE_AGENT.LOAD.FAILED";
+    key: { clusterName: string };
+    payload: {
+      agentName: string;
+    };
+  };
+
+  "FENCE_AGENT.ENSURE": {
+    type: "FENCE_AGENT.ENSURE";
     key: { clusterName: string };
     payload: {
       agentName: string;

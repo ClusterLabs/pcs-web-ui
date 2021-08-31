@@ -42,6 +42,10 @@ export const useClusterState = (clusterName: string) => {
       type: "RESOURCE_AGENT.LIST.LOAD",
       key: { clusterName },
     });
+    dispatch({
+      type: "FENCE_AGENT.LIST.LOAD",
+      key: { clusterName },
+    });
   }, [clusterName, dispatch, start, stop]);
 
   const clusterState = useSelector(selectors.getCluster(clusterName));

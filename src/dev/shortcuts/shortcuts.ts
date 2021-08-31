@@ -29,6 +29,13 @@ const getAvailResourceAgents = (
     res.json(response.lib.success({ data: availableResourceAgents }));
   });
 
+const getAvailStonithAgents = (
+  availableStonithAgents: types.StonithAgentListAgents,
+) =>
+  app.libClusterStonithAgentListAgents((_req, res) => {
+    res.json(response.lib.success({ data: availableStonithAgents }));
+  });
+
 const getResourceAgentMetadata = (
   metadatList: types.ResourceAgentDescribeAgent[],
 ) =>
@@ -62,6 +69,7 @@ const clusterProperties = (properties: types.ClusterProperties) =>
 
 export const clusterRelated = () => {
   getAvailResourceAgents(response.resourceAgentListWithoutDescribe.ok);
+  getAvailStonithAgents(response.stonithAgentListWithoutDescribe.ok);
   getResourceAgentMetadata([
     response.resourceAgentMetadata.ocfHeartbeatApache,
     response.resourceAgentMetadata.ocfHeartbeatDummy,

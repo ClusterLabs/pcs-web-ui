@@ -10,6 +10,7 @@ export * from "./resourceCleanup";
 export * from "./resourceRefresh";
 export * from "./libCallCluster";
 export * from "./libClusterResourceAgentListAgents";
+export * from "./libClusterStonithAgentListAgents";
 export * from "./libClusterResourceAgentDescribeAgent";
 export * from "./libClusterStonithAgentDescribeAgent";
 export * from "./login";

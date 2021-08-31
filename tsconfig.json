@@ -24,7 +24,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
-    "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true
   },
   "include": [

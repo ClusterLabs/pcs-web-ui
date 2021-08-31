@@ -1,0 +1,37 @@
+import React from "react";
+import { Checkbox, Form, FormGroup } from "@patternfly/react-core";
+
+import { TaskLibStep } from "app/view/share";
+
+import { SettingsGroup } from "./SettingsGroup";
+import { useTask } from "./useTask";
+
+export const Settings: React.FC = () => {
+  const {
+    state: {
+      libCall: { reports },
+      disabled,
+    },
+    updateState,
+  } = useTask();
+
+  return (
+    <TaskLibStep title="Settings" reports={reports}>
+      <Form>
+        <FormGroup fieldId="settings-group" label="Group">
+          <SettingsGroup />
+        </FormGroup>
+
+        <FormGroup fieldId="settings-disabled" label="Start automatically">
+          <Checkbox
+            label="Disabled"
+            id="settings-disabled"
+            aria-label="Disabled"
+            isChecked={disabled}
+            onChange={(checked: boolean) => updateState({ disabled: checked })}
+          />
+        </FormGroup>
+      </Form>
+    </TaskLibStep>
+  );
+};

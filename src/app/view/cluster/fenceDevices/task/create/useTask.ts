@@ -14,7 +14,7 @@ const useAgent = (clusterName: string, agentName: string) => {
 };
 
 export const useTask = () => {
-  const task = useClusterTask("resourceCreate");
+  const task = useClusterTask("fenceDeviceCreate");
   const { clusterName, state, dispatch } = task;
   const [groupList] = useClusterSelector(selectors.getGroups);
   const { agent, isAgentLoaded } = useAgent(clusterName, state.agentName);
@@ -26,7 +26,7 @@ export const useTask = () => {
 
     // validations
     isNameTypeValid:
-      state.resourceName.length > 0 && state.agentName.length > 0,
+      state.fenceDeviceName.length > 0 && state.agentName.length > 0,
 
     areInstanceAttrsValid:
       isAgentLoaded
@@ -47,14 +47,14 @@ export const useTask = () => {
         key: { clusterName, task: task.name },
       });
       dispatch({
-        type: "RESOURCE.CREATE.CLOSE",
+        type: "FENCE_DEVICE.CREATE.CLOSE",
         key: { clusterName },
       });
     },
 
-    updateState: (payload: ActionPayload["RESOURCE.CREATE.UPDATE"]) => {
+    updateState: (payload: ActionPayload["FENCE_DEVICE.CREATE.UPDATE"]) => {
       dispatch({
-        type: "RESOURCE.CREATE.UPDATE",
+        type: "FENCE_DEVICE.CREATE.UPDATE",
         key: { clusterName },
         payload,
       });
@@ -66,50 +66,20 @@ export const useTask = () => {
           type: "LIB.CALL.CLUSTER.TASK",
           key: { clusterName, task: task.name },
           payload: {
-            taskLabel: `create resource "${state.resourceName}"`,
+            taskLabel: `create fence device "${state.fenceDeviceName}"`,
             call: {
-              name: "resource-create-in-group",
+              name: "stonith-create-in-group",
               payload: {
-                resource_id: state.resourceName,
-                resource_agent_name: state.agentName,
+                stonith_id: state.fenceDeviceName,
+                stonith_agent_name: state.agentName,
                 group_id: state.group,
                 instance_attributes: state.instanceAttrs,
                 ensure_disabled: state.disabled,
-                operation_list: [],
+                operations: [],
                 meta_attributes: {},
                 allow_absent_agent: force,
                 allow_invalid_operation: force,
                 allow_invalid_instance_attributes: force,
-                allow_not_suitable_command: force,
-              },
-            },
-          },
-        });
-        return;
-      }
-
-      if (state.clone) {
-        dispatch({
-          type: "LIB.CALL.CLUSTER.TASK",
-          key: { clusterName, task: task.name },
-          payload: {
-            taskLabel: `create resource "${state.resourceName}"`,
-            call: {
-              name: "resource-create-as-clone",
-              payload: {
-                resource_id: state.resourceName,
-                resource_agent_name: state.agentName,
-                instance_attributes: state.instanceAttrs,
-                clone_meta_options: {
-                  ...(state.promotable ? { promotable: "true" } : {}),
-                },
-                ensure_disabled: state.disabled,
-                operation_list: [],
-                meta_attributes: {},
-                allow_absent_agent: force,
-                allow_invalid_operation: force,
-                allow_invalid_instance_attributes: force,
-                allow_not_suitable_command: force,
               },
             },
           },
@@ -120,20 +90,19 @@ export const useTask = () => {
         type: "LIB.CALL.CLUSTER.TASK",
         key: { clusterName, task: task.name },
         payload: {
-          taskLabel: `create resource "${state.resourceName}"`,
+          taskLabel: `create fence device "${state.fenceDeviceName}"`,
           call: {
-            name: "resource-create",
+            name: "stonith-create",
             payload: {
-              resource_id: state.resourceName,
-              resource_agent_name: state.agentName,
+              stonith_id: state.fenceDeviceName,
+              stonith_agent_name: state.agentName,
               instance_attributes: state.instanceAttrs,
               ensure_disabled: state.disabled,
-              operation_list: [],
+              operations: [],
               meta_attributes: {},
               allow_absent_agent: force,
               allow_invalid_operation: force,
               allow_invalid_instance_attributes: force,
-              allow_not_suitable_command: force,
             },
           },
         },
