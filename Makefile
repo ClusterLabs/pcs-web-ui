@@ -31,12 +31,16 @@ app:
 #   duplicate it.
 #
 build:
+	if [ -d "node_modules" ]; then mv node_modules node_modules.build-backup; fi
+	npx npm ci
 	@npx react-scripts build
 	rm -f build/service-worker.js
 	rm -f build/precache-manifest.*.js
 	rm -f build/asset-manifest.json
 	rm -f build/images/favicon.png
 	find build/images -type d -empty -delete
+	rm -rf node_modules
+	if [ -d "node_modules.build-backup" ]; then mv node_modules.build-backup node_modules; fi
 
 
 # prepare tarball with node modules that are necessary to build the application
