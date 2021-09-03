@@ -9,12 +9,16 @@ export const getAvailResourceAgents = endpoint({
   params: undefined,
   shape: t.record(
     t.string,
-    t.type({
-      full_name: t.string,
-      class_provider: t.string,
-      class: t.string,
-      provider: t.union([t.string, t.null]),
-      type: t.string,
-    }),
+    t.intersection([
+      t.type({
+        full_name: t.string,
+        class: t.string,
+        provider: t.union([t.string, t.null]),
+        type: t.string,
+      }),
+      t.partial({
+        class_provider: t.string,
+      }),
+    ]),
   ),
 });
