@@ -107,7 +107,6 @@ const ApiAclRoleId = t.string;
 export const ApiClusterStatus = t.intersection([
   ApiWithIssues,
   t.type({
-    available_features: t.array(t.string),
     cluster_name: ApiClusterName,
     node_list: t.array(ApiNode),
     pcsd_capabilities: t.array(t.string),
@@ -163,5 +162,6 @@ export const ApiClusterStatus = t.intersection([
     pacemaker_standby: t.array(ApiNodeName),
     status_version: t.string,
     username: t.string,
+    available_features: t.array(t.string),
   }),
 ]);

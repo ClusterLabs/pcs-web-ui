@@ -236,7 +236,6 @@ export const cluster = (
       cluster_name: name,
       status,
       node_list: [node("1"), node("2")],
-      available_features: [],
       pcsd_capabilities: [],
       quorate: true,
       warning_list: [],
