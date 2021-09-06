@@ -18,7 +18,7 @@ const getLibResponses = (res: Response): Record<string, () => void> => ({
     try {
       JSON.parse("{");
     } catch (e) {
-      res.json(response.lib.invalidJson(e.message));
+      res.json(response.lib.invalidJson((e as Error).message));
     }
   },
   "missing-key": () => {

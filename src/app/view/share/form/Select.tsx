@@ -28,10 +28,8 @@ export const Select = (
   );
 
   const filter = onFilter
-    ? (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event !== null) {
-          onFilter(event.target.value);
-        }
+    ? (_event: React.ChangeEvent<HTMLInputElement> | null, value: string) => {
+        onFilter(value);
         return null as unknown as React.ReactElement[];
       }
     : null;
