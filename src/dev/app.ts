@@ -2,13 +2,12 @@
 import { dirname } from "path";
 
 import express, { Express, Request, Response } from "express";
-import bodyParser from "body-parser";
 
 // import endpoints from "app/backend/calls";
 import { LibClusterCommands, endpoints } from "app/backend/endpoints";
 
-const parserUrlEncoded = bodyParser.urlencoded({ extended: false });
-const parserJson = bodyParser.json();
+const parserUrlEncoded = express.urlencoded({ extended: false });
+const parserJson = express.json();
 
 export type Handler = (_req: Request, _res: Response) => void;
 
@@ -29,7 +28,7 @@ application.listen(port, () => {
   );
 });
 // extended: true is here to get rid of [Object: null prototype] in log of body
-application.use(bodyParser.urlencoded({ extended: true }));
+application.use(express.urlencoded({ extended: true }));
 application.use((req, _res, next) => {
   console.log(
     req.method.toLowerCase() === "get" ? "GET " : "POST",
@@ -71,8 +70,8 @@ const prepareUrl = <KEYWORDS extends Record<string, string>>(
 type EndpointKeys = keyof typeof endpoints;
 type DevEndpoints = {
   -readonly [K in EndpointKeys]: K extends "libCluster"
-    ? (c: LibClusterCommands[number]["name"], h: Handler) => void
-    : (h: Handler) => Express;
+    ? (_c: LibClusterCommands[number]["name"], _h: Handler) => void
+    : (_h: Handler) => Express;
 };
 
 export const app: DevEndpoints = (
