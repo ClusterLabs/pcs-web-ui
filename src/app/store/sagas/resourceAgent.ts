@@ -1,18 +1,17 @@
-import { getResourceAgentMetadata } from "app/backend";
+import { libClusterResourceAgentDescribeAgent } from "app/backend";
 import { ActionMap, selectors } from "app/store";
 
 import { api, processError, put, select } from "./common";
 
-type ApiCallResult = api.ResultOf<typeof getResourceAgentMetadata>;
+type ApiCallResult = api.ResultOf<typeof libClusterResourceAgentDescribeAgent>;
 
 export function* load({
   key,
   payload: { agentName },
 }: ActionMap["RESOURCE_AGENT.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
-    getResourceAgentMetadata,
-    key.clusterName,
-    agentName,
+    libClusterResourceAgentDescribeAgent,
+    { clusterName: key.clusterName, agentName },
   );
 
   const taskLabel = `load resource agent ${agentName}`;
@@ -31,7 +30,7 @@ export function* load({
   yield put({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
     key,
-    payload: { apiAgentMetadata: result.payload },
+    payload: { apiAgentMetadata: result.payload["data"] },
   });
 }
 

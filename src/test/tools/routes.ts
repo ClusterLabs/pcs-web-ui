@@ -1,6 +1,6 @@
 import * as responses from "dev/responses";
 
-import { payload, url } from "test/tools";
+import { Shapes, payload, url } from "test/tools";
 
 import { RouteResponse } from "./interception";
 
@@ -63,6 +63,20 @@ export const getAvailResourceAgents = (clusterName: string) => ({
   json: responses.lib.success({
     data: responses.resourceAgentListWithoutDescribe.ok,
   }),
+});
+
+export const getResourceAgentMetadata = ({
+  clusterName,
+  agentName,
+  agentData,
+}: {
+  clusterName: string;
+  agentName: string;
+  agentData: Shapes["libClusterResourceAgentDescribeAgent"]["data"];
+}) => ({
+  url: url.libClusterResourceAgentDescribeAgent({ clusterName }),
+  payload: payload.libClusterResourceAgentDescribeAgent(agentName),
+  json: responses.lib.success({ data: agentData }),
 });
 
 export const clusterNodeAdd = (

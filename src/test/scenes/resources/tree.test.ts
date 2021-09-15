@@ -125,11 +125,11 @@ describe("Resource tree", () => {
   afterEach(intercept.stop);
   it("should show primitive resource detail", async () => {
     interceptWithCluster([
-      {
-        url: url.getResourceAgentMetadata({ clusterName: "ok" }),
-        query: { agent: "ocf:heartbeat:apache" },
-        json: responses.resourceAgentMetadata.ocfHeartbeatApache,
-      },
+      route.getResourceAgentMetadata({
+        clusterName: "ok",
+        agentName: "ocf:heartbeat:apache",
+        agentData: responses.resourceAgentMetadata.ocfHeartbeatApache,
+      }),
     ])();
     await displayResources();
     await selectResource("A");

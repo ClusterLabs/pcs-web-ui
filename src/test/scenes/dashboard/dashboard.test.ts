@@ -158,11 +158,11 @@ describe("Dashboard to cluster scene", () => {
 
   it("should allow go to a resource detail", async () => {
     await interceptWithDashboard([
-      {
-        url: url.getResourceAgentMetadata({ clusterName: "ok" }),
-        query: { agent: "ocf:heartbeat:Dummy" },
-        json: responses.resourceAgentMetadata.ocfHeartbeatDummy,
-      },
+      route.getResourceAgentMetadata({
+        clusterName: "ok",
+        agentName: "ocf:heartbeat:Dummy",
+        agentData: responses.resourceAgentMetadata.ocfHeartbeatDummy,
+      }),
     ])();
     await displayClusters();
     await page.click(dt(CLUSTER_OK, "resources", "expansion-button"));

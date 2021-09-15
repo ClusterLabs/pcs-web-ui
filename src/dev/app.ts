@@ -10,7 +10,7 @@ import { LibClusterCommands, endpoints } from "app/backend/endpoints";
 const parserUrlEncoded = bodyParser.urlencoded({ extended: false });
 const parserJson = bodyParser.json();
 
-export type Handler = (req: Request, res: Response) => void;
+export type Handler = (_req: Request, _res: Response) => void;
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 type R = any;
@@ -89,6 +89,15 @@ export const app: DevEndpoints = (
         parserJson,
         delayed(handler),
       );
+    };
+  } else if (
+    [
+      "libClusterResourceAgentDescribeAgent",
+      "libClusterResourceAgentListAgents",
+    ].includes(n)
+  ) {
+    devEndpoints[n] = (handler: Handler) => {
+      return application.post(prepareUrl(ep.url), parserJson, delayed(handler));
     };
   } else if (ep.method === "get") {
     devEndpoints[n] = (handler: Handler) => {

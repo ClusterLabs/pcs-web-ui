@@ -1,3 +1,5 @@
+import * as t from "io-ts";
+
 import { endpoints } from "app/backend/endpoints";
 
 import * as intercept from "./interception";
@@ -17,6 +19,12 @@ export const url: Urls = Object.entries(endpoints).reduce<Urls>(
   (urls, [key, endpoint]): Urls => ({ ...urls, [key]: endpoint.url }),
   {} as Urls,
 );
+
+export type Shapes = {
+  [K in keyof Endpoints]: Endpoints[K]["shape"] extends t.Any
+    ? t.TypeOf<Endpoints[K]["shape"]>
+    : never;
+};
 
 // The correct version would be:
 // type Payloads = {

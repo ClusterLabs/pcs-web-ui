@@ -1,10 +1,10 @@
 import {
   Commands,
   libCluster,
+  resourceAgentDescribeAgent as libClusterResourceAgentDescribeAgent,
   resourceAgentListAgents as libClusterResourceAgentListAgents,
 } from "./lib/cluster";
 import { clusterSetup } from "./lib";
-import { getResourceAgentMetadata } from "./getResourceAgentMetadata";
 import { authGuiAgainstNodes } from "./authGuiAgainstNodes";
 import { canAddClusterOrNodes } from "./canAddClusterOrNodes";
 import { checkAuthAgainstNodes } from "./checkAuthAgainstNodes";
@@ -53,10 +53,10 @@ const endpoints = {
   existingCluster,
   fixAuthOfCluster,
   getFenceAgentMetadata,
-  getResourceAgentMetadata,
   importedClusterList,
   libCluster,
   libClusterResourceAgentListAgents,
+  libClusterResourceAgentDescribeAgent,
   login,
   logout,
   rememberCluster,
