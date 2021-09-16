@@ -57,7 +57,7 @@ const delayed =
   };
 
 const prepareUrl = <KEYWORDS extends Record<string, string>>(
-  url: string | ((keywords: KEYWORDS) => string),
+  url: string | ((_keywords: KEYWORDS) => string),
 ) => {
   if (typeof url === "string") {
     return url;
@@ -92,6 +92,7 @@ export const app: DevEndpoints = (
   } else if (
     [
       "libClusterResourceAgentDescribeAgent",
+      "libClusterStonithAgentDescribeAgent",
       "libClusterResourceAgentListAgents",
     ].includes(n)
   ) {

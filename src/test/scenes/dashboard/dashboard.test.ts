@@ -179,11 +179,11 @@ describe("Dashboard to cluster scene", () => {
 
   it("should allow go to a fence device detail", async () => {
     await interceptWithDashboard([
-      {
-        url: url.getFenceAgentMetadata({ clusterName: "ok" }),
-        query: { agent: "stonith:fence_apc" },
-        json: responses.fenceAgentMetadata.ok,
-      },
+      route.getFenceAgentMetadata({
+        clusterName: "ok",
+        agentName: "stonith:fence_apc",
+        agentData: responses.fenceAgentMetadata.ok,
+      }),
     ])();
     await displayClusters();
     await page.click(dt(CLUSTER_OK, "fence-devices", "expansion-button"));

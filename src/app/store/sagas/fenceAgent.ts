@@ -1,4 +1,4 @@
-import { getFenceAgentMetadata } from "app/backend";
+import { libClusterStonithAgentDescribeAgent } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
 import { api, authSafe, processError, put } from "./common";
@@ -7,11 +7,11 @@ export function* load({
   key,
   payload: { agentName },
 }: ActionMap["FENCE_AGENT.LOAD"]) {
-  const result: api.ResultOf<typeof getFenceAgentMetadata> = yield authSafe(
-    getFenceAgentMetadata,
-    key.clusterName,
-    agentName,
-  );
+  const result: api.ResultOf<typeof libClusterStonithAgentDescribeAgent> =
+    yield authSafe(libClusterStonithAgentDescribeAgent, {
+      clusterName: key.clusterName,
+      agentName,
+    });
 
   const taskLabel = `load fence agent ${agentName}`;
   if (result.type !== "OK") {
@@ -29,6 +29,6 @@ export function* load({
   yield put({
     type: "FENCE_AGENT.LOAD.SUCCESS",
     key,
-    payload: { apiAgentMetadata: result.payload },
+    payload: { apiAgentMetadata: result.payload.data },
   });
 }

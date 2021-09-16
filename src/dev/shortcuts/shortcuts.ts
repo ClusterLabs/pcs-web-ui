@@ -33,8 +33,6 @@ const getResourceAgentMetadata = (
   metadatList: types.ResourceAgentDescribeAgent[],
 ) =>
   app.libClusterResourceAgentDescribeAgent((req, res) => {
-    console.log(req.body);
-    console.log(req.body.agent_name);
     const metadata = metadatList.find(m => m.name === req.body.agent_name);
     if (metadata) {
       res.json(response.lib.success({ data: metadata }));
@@ -43,11 +41,13 @@ const getResourceAgentMetadata = (
     }
   });
 
-const getFenceAgentMetadata = (metadatList: types.FenceAgentMetadata[]) =>
-  app.getFenceAgentMetadata((req, res) => {
-    const metadata = metadatList.find(m => m.name === req.query.agent);
+const getFenceAgentMetadata = (
+  metadatList: types.StonithAgentDescribeAgent[],
+) =>
+  app.libClusterStonithAgentDescribeAgent((req, res) => {
+    const metadata = metadatList.find(m => m.name === req.body.agent_name);
     if (metadata) {
-      res.json(metadata);
+      res.json(response.lib.success({ data: metadata }));
     } else {
       res.status(404).send("Not found");
     }

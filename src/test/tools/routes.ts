@@ -79,6 +79,20 @@ export const getResourceAgentMetadata = ({
   json: responses.lib.success({ data: agentData }),
 });
 
+export const getFenceAgentMetadata = ({
+  clusterName,
+  agentName,
+  agentData,
+}: {
+  clusterName: string;
+  agentName: string;
+  agentData: Shapes["libClusterStonithAgentDescribeAgent"]["data"];
+}) => ({
+  url: url.libClusterStonithAgentDescribeAgent({ clusterName }),
+  payload: payload.libClusterStonithAgentDescribeAgent(agentName),
+  json: responses.lib.success({ data: agentData }),
+});
+
 export const clusterNodeAdd = (
   clusterName: string,
   nodeName: string,

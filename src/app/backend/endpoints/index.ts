@@ -1,8 +1,8 @@
 import {
   Commands,
   libCluster,
-  resourceAgentDescribeAgent as libClusterResourceAgentDescribeAgent,
-  resourceAgentListAgents as libClusterResourceAgentListAgents,
+  pcmkAgentDescribeAgent,
+  pcmkAgentListAgents,
 } from "./lib/cluster";
 import { clusterSetup } from "./lib";
 import { authGuiAgainstNodes } from "./authGuiAgainstNodes";
@@ -15,7 +15,6 @@ import { clusterStatus } from "./clusterStatus";
 import { clusterStop } from "./clusterStop";
 import { existingCluster } from "./existingCluster";
 import { fixAuthOfCluster } from "./fixAuthOfCluster";
-import { getFenceAgentMetadata } from "./getFenceAgentMetadata";
 import { importedClusterList } from "./importedClusterList";
 import { login } from "./login";
 import { logout } from "./logout";
@@ -52,11 +51,11 @@ const endpoints = {
   clusterStop,
   existingCluster,
   fixAuthOfCluster,
-  getFenceAgentMetadata,
   importedClusterList,
   libCluster,
-  libClusterResourceAgentListAgents,
-  libClusterResourceAgentDescribeAgent,
+  libClusterResourceAgentListAgents: pcmkAgentListAgents("resource"),
+  libClusterResourceAgentDescribeAgent: pcmkAgentDescribeAgent("resource"),
+  libClusterStonithAgentDescribeAgent: pcmkAgentDescribeAgent("fence"),
   login,
   logout,
   rememberCluster,
