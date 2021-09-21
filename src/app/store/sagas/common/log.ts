@@ -2,18 +2,28 @@ import { api, libCallCluster } from "app/backend";
 
 /* eslint-disable no-console */
 
-const libInputErrorStatusMsgMap = {
-  input_error: "Backend cannot read the request",
-  exception: "Exception during processing request on backend",
-  unknown_cmd: "Backend does not recognize command",
-};
+type LibPayload = api.PayloadOf<typeof libCallCluster>;
+type CommunicationError = Extract<
+  LibPayload,
+  | { status: "input_error" }
+  | { status: "exception" }
+  | { status: "unknown_cmd" }
+>;
+
+const libInputErrorStatusMsgMap: Record<CommunicationError["status"], string> =
+  {
+    input_error: "Backend cannot read the request",
+    exception: "Exception during processing request on backend",
+    unknown_cmd: "Backend does not recognize command",
+  };
+
 export const libInputError = (
-  status: keyof typeof libInputErrorStatusMsgMap,
-  statusMessage: api.PayloadOf<typeof libCallCluster>["status_msg"],
-  description: string,
+  status: CommunicationError["status"],
+  statusMessage: CommunicationError["status_msg"],
+  taskLabel: string,
 ) => {
   console.error(
-    `${description}:\n`,
+    `Communication error while: ${taskLabel}:\n`,
     `${libInputErrorStatusMsgMap[status]}:\n`,
     statusMessage,
   );

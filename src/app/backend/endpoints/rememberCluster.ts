@@ -13,5 +13,6 @@ export const rememberCluster = endpoint({
     ["cluster_name", clusterName],
     ...nodeNameList.map(node => ["nodes[]", node] as [string, string]),
   ],
+  payload: undefined,
   shape: undefined,
 });

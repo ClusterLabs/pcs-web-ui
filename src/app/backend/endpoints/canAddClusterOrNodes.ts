@@ -13,5 +13,6 @@ export const canAddClusterOrNodes = endpoint({
         : []),
       ...(checkParams.nodeNames || []).map(name => ["node_names[]", name]),
     ] as [string, string][],
+  payload: undefined,
   shape: undefined,
 });

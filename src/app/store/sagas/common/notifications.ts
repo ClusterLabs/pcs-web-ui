@@ -34,3 +34,13 @@ export function* putNotification(
   });
   return putEffect;
 }
+
+const detailsInConsole = "Details in the browser console.";
+export const messages = {
+  taskFailed: (taskLabel: string, detail: string) =>
+    `Task: ${taskLabel} failed: ${detail}. ${detailsInConsole}`,
+};
+
+export function* putTaskFailed(taskLabel: string, detail: string) {
+  yield putNotification("ERROR", messages.taskFailed(taskLabel, detail));
+}

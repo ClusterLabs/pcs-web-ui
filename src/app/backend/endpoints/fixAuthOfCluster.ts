@@ -5,5 +5,6 @@ export const fixAuthOfCluster = endpoint({
     `/managec/${clusterName}/fix_auth_of_cluster`,
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: undefined,
 });

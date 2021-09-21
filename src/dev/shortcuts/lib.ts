@@ -3,8 +3,9 @@ import { Response } from "express";
 import { api, libCallCluster } from "app/backend";
 
 import * as response from "dev/responses";
-export type LibReport = api.PayloadOf<
-  typeof libCallCluster
+export type LibReport = Extract<
+  api.PayloadOf<typeof libCallCluster>,
+  { status: "success" | "error" }
 >["report_list"][number];
 
 const getLibResponses = (res: Response): Record<string, () => void> => ({
@@ -67,10 +68,10 @@ const getLibResponses = (res: Response): Record<string, () => void> => ({
     );
   },
   success: () => {
-    res.json(response.lib.success);
+    res.json(response.lib.success());
   },
   ok: () => {
-    res.json(response.lib.success);
+    res.json(response.lib.success());
   },
 });
 

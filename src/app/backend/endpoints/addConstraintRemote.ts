@@ -82,5 +82,6 @@ export const addConstraintRemote = endpoint({
       ...force,
     ];
   },
+  payload: undefined,
   shape: undefined,
 });

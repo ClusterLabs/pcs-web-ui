@@ -1,4 +1,4 @@
-import { api, getFenceAgentMetadata } from "app/backend";
+import { api, libClusterStonithAgentDescribeAgent } from "app/backend";
 
 export type FenceAgentActions = {
   "FENCE_AGENT.LOAD": {
@@ -13,7 +13,10 @@ export type FenceAgentActions = {
     type: "FENCE_AGENT.LOAD.SUCCESS";
     key: { clusterName: string };
     payload: {
-      apiAgentMetadata: api.PayloadOf<typeof getFenceAgentMetadata>;
+      apiAgentMetadata: Extract<
+        api.PayloadOf<typeof libClusterStonithAgentDescribeAgent>,
+        { status: "success" }
+      >["data"];
     };
   };
 

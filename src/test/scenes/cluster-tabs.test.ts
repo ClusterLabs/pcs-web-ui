@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, url } from "test/tools";
+import { intercept, location, route, url } from "test/tools";
 
 const currentTab = async () => {
   const currentTablist = await page.$$eval(dt("tabs cluster"), tabs =>
@@ -31,10 +31,7 @@ describe("Cluster scene", () => {
         url: url.clusterStatus({ clusterName: "ok" }),
         json: responses.clusterStatus.ok,
       },
-      {
-        url: url.getAvailResourceAgents({ clusterName: "ok" }),
-        json: responses.resourceAgentList.ok,
-      },
+      route.getAvailResourceAgents("ok"),
       {
         url: url.clusterProperties({ clusterName: "ok" }),
         json: responses.clusterProperties.ok,

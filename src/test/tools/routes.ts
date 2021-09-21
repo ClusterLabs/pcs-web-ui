@@ -1,4 +1,6 @@
-import { url } from "test/tools";
+import * as responses from "dev/responses";
+
+import { Shapes, payload, url } from "test/tools";
 
 import { RouteResponse } from "./interception";
 
@@ -53,6 +55,48 @@ export const send_known_hosts = (
   url: url.sendKnownHosts({ clusterName }),
   body: { "node_names[]": nodeName },
   ...response,
+});
+
+export const getAvailResourceAgents = (clusterName: string) => ({
+  url: url.libClusterResourceAgentListAgents({ clusterName }),
+  payload: payload.libClusterResourceAgentListAgents,
+  json: responses.lib.success({
+    data: responses.resourceAgentListWithoutDescribe.ok,
+  }),
+});
+
+export const getResourceAgentMetadata = ({
+  clusterName,
+  agentName,
+  agentData,
+}: {
+  clusterName: string;
+  agentName: string;
+  agentData: Extract<
+    Shapes["libClusterResourceAgentDescribeAgent"],
+    { status: "success" }
+  >["data"];
+}) => ({
+  url: url.libClusterResourceAgentDescribeAgent({ clusterName }),
+  payload: payload.libClusterResourceAgentDescribeAgent(agentName),
+  json: responses.lib.success({ data: agentData }),
+});
+
+export const getFenceAgentMetadata = ({
+  clusterName,
+  agentName,
+  agentData,
+}: {
+  clusterName: string;
+  agentName: string;
+  agentData: Extract<
+    Shapes["libClusterStonithAgentDescribeAgent"],
+    { status: "success" }
+  >["data"];
+}) => ({
+  url: url.libClusterStonithAgentDescribeAgent({ clusterName }),
+  payload: payload.libClusterStonithAgentDescribeAgent(agentName),
+  json: responses.lib.success({ data: agentData }),
 });
 
 export const clusterNodeAdd = (

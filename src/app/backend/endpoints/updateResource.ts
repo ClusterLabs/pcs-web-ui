@@ -7,6 +7,7 @@ export const updateResource = endpoint({
     `/managec/${clusterName}/update_resource`,
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: t.partial({
     error: t.literal("true"),
     stdout: t.string,

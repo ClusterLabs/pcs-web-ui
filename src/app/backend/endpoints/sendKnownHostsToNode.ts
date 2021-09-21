@@ -13,5 +13,6 @@ export const sendKnownHostsToNode = endpoint({
     ...nodeNameList.map(node => ["node_names[]", node] as [string, string]),
     ["target_node", targetNode],
   ],
+  payload: undefined,
   shape: undefined,
 });

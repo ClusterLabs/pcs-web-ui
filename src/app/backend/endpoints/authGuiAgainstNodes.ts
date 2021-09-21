@@ -6,6 +6,7 @@ export const authGuiAgainstNodes = endpoint({
   url: "/manage/auth_gui_against_nodes",
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: t.intersection([
     t.type({
       plaintext_error: t.string,

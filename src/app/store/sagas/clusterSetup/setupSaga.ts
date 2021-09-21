@@ -3,6 +3,7 @@ import { Action, ActionMap } from "app/store/actions";
 import {
   api,
   lib,
+  log,
   processError,
   put,
   race,
@@ -38,15 +39,25 @@ export function* setup({
     return;
   }
 
-  yield lib.dashboardResponseSwitch(taskLabel, result.payload, {
-    successAction: {
-      type: "DASHBOARD.CLUSTER.SETUP.CALL.OK",
-      payload: { reports: result.payload.report_list },
-    },
-    errorAction: {
+  const { payload } = result;
+
+  if (lib.isCommunicationError(payload)) {
+    log.libInputError(payload.status, payload.status_msg, taskLabel);
+    yield put(errorAction);
+    return;
+  }
+
+  if (payload.status === "error") {
+    yield put({
       type: "DASHBOARD.CLUSTER.SETUP.CALL.FAIL",
-      payload: { reports: result.payload.report_list },
-    },
-    communicationErrorAction: errorAction,
+      payload: { reports: payload.report_list },
+    });
+    return;
+  }
+
+  yield put({ type: "CLUSTER.LIST.REFRESH" });
+  yield put({
+    type: "DASHBOARD.CLUSTER.SETUP.CALL.OK",
+    payload: { reports: payload.report_list },
   });
 }

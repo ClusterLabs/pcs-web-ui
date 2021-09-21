@@ -5,5 +5,6 @@ export const sendKnownHosts = endpoint({
     `/managec/${clusterName}/send-known-hosts`,
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: undefined,
 });

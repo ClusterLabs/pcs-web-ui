@@ -3,7 +3,7 @@ import { api, clusterStatus } from "app/backend";
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, url } from "test/tools";
+import { intercept, location, route, url } from "test/tools";
 
 const CLUSTERS = dt("cluster-list", "^cluster ");
 const CLUSTER_OK = dt("cluster-list", "cluster ok");
@@ -29,10 +29,7 @@ const interceptWithDashboard = (routeList: intercept.Route[]) =>
       url: url.clusterStatus({ clusterName: "empty" }),
       json: responses.clusterStatus.ok,
     },
-    {
-      url: url.getAvailResourceAgents({ clusterName: "ok" }),
-      json: responses.resourceAgentList.ok,
-    },
+    route.getAvailResourceAgents("ok"),
     {
       url: url.clusterProperties({ clusterName: "ok" }),
       json: responses.clusterProperties.ok,
@@ -161,11 +158,11 @@ describe("Dashboard to cluster scene", () => {
 
   it("should allow go to a resource detail", async () => {
     await interceptWithDashboard([
-      {
-        url: url.getResourceAgentMetadata({ clusterName: "ok" }),
-        query: { agent: "ocf:heartbeat:Dummy" },
-        json: responses.resourceAgentMetadata.ocfHeartbeatDummy,
-      },
+      route.getResourceAgentMetadata({
+        clusterName: "ok",
+        agentName: "ocf:heartbeat:Dummy",
+        agentData: responses.resourceAgentMetadata.ocfHeartbeatDummy,
+      }),
     ])();
     await displayClusters();
     await page.click(dt(CLUSTER_OK, "resources", "expansion-button"));
@@ -182,11 +179,11 @@ describe("Dashboard to cluster scene", () => {
 
   it("should allow go to a fence device detail", async () => {
     await interceptWithDashboard([
-      {
-        url: url.getFenceAgentMetadata({ clusterName: "ok" }),
-        query: { agent: "stonith:fence_apc" },
-        json: responses.fenceAgentMetadata.ok,
-      },
+      route.getFenceAgentMetadata({
+        clusterName: "ok",
+        agentName: "stonith:fence_apc",
+        agentData: responses.fenceAgentMetadata.ok,
+      }),
     ])();
     await displayClusters();
     await page.click(dt(CLUSTER_OK, "fence-devices", "expansion-button"));

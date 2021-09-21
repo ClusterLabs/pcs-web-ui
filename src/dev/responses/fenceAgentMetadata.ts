@@ -1,6 +1,6 @@
-import { FenceAgentMetadata } from "dev/types";
+import { StonithAgentDescribeAgent } from "dev/types";
 
-export const ok: FenceAgentMetadata = {
+export const ok: StonithAgentDescribeAgent = {
   name: "stonith:fence_apc",
   shortdesc: "Fence agent for APC over telnet/ssh",
   longdesc:

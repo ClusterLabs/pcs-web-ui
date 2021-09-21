@@ -1,37 +1,62 @@
-import { getResourceAgentMetadata } from "app/backend";
-import { ActionMap, selectors } from "app/store";
+import { libClusterResourceAgentDescribeAgent } from "app/backend";
+import * as selectors from "app/store/selectors";
+import { Action, ActionMap } from "app/store/actions";
 
-import { api, processError, put, select } from "./common";
+import {
+  api,
+  lib,
+  log,
+  processError,
+  put,
+  putTaskFailed,
+  select,
+} from "./common";
 
-type ApiCallResult = api.ResultOf<typeof getResourceAgentMetadata>;
+type ApiCallResult = api.ResultOf<typeof libClusterResourceAgentDescribeAgent>;
 
 export function* load({
   key,
   payload: { agentName },
 }: ActionMap["RESOURCE_AGENT.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
-    getResourceAgentMetadata,
-    key.clusterName,
-    agentName,
+    libClusterResourceAgentDescribeAgent,
+    { clusterName: key.clusterName, agentName },
   );
 
   const taskLabel = `load resource agent ${agentName}`;
+
+  const errorAction: Action = {
+    type: "RESOURCE_AGENT.LOAD.FAILED",
+    key,
+    payload: { agentName },
+  };
+
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
-      action: () =>
-        put({
-          type: "RESOURCE_AGENT.LOAD.FAILED",
-          key,
-          payload: { agentName },
-        }),
+      action: () => put(errorAction),
     });
+    return;
+  }
+
+  const { payload } = result;
+
+  if (lib.isCommunicationError(payload)) {
+    log.libInputError(payload.status, payload.status_msg, taskLabel);
+    yield putTaskFailed(taskLabel, payload.status_msg);
+    yield put(errorAction);
+    return;
+  }
+
+  if (payload.status === "error") {
+    // TODO: Notify user + console log
+    yield put(errorAction);
     return;
   }
 
   yield put({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
     key,
-    payload: { apiAgentMetadata: result.payload },
+    payload: { apiAgentMetadata: payload["data"] },
   });
 }
 

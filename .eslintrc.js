@@ -57,6 +57,25 @@ module.exports = {
     "import/extensions": ["error", "never", { packages: "always" }],
     "react/jsx-curly-newline": "off",
     "react/react-in-jsx-scope": "off",
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        forbid: [
+          {
+            char: ">",
+            alternatives: ["&gt;"],
+          },
+          {
+            char: "}",
+            alternatives: ["&#125;"],
+          },
+          {
+            char: '"',
+            alternatives: ["&quot;", "&ldquo;", "&#34;", "&rdquo;"],
+          },
+        ],
+      },
+    ],
     "sort-imports": [
       "error",
       {

@@ -1,3 +1,5 @@
+import * as t from "io-ts";
+
 import { endpoint } from "app/backend/endpoints/endpoint";
 
 import { shape } from "./shape";
@@ -62,5 +64,6 @@ export const clusterSetup = endpoint({
     ["target_node", targetNode],
     ["setup_data", JSON.stringify(setupData)],
   ],
-  shape,
+  payload: undefined,
+  shape: shape(t.null),
 });

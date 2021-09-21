@@ -1,9 +1,10 @@
 import {
-  LibClusterCommands as TLibClusterCommands,
+  Commands,
   libCluster,
+  pcmkAgentDescribeAgent,
+  pcmkAgentListAgents,
 } from "./lib/cluster";
 import { clusterSetup } from "./lib";
-import { getResourceAgentMetadata } from "./getResourceAgentMetadata";
 import { authGuiAgainstNodes } from "./authGuiAgainstNodes";
 import { canAddClusterOrNodes } from "./canAddClusterOrNodes";
 import { checkAuthAgainstNodes } from "./checkAuthAgainstNodes";
@@ -14,8 +15,6 @@ import { clusterStatus } from "./clusterStatus";
 import { clusterStop } from "./clusterStop";
 import { existingCluster } from "./existingCluster";
 import { fixAuthOfCluster } from "./fixAuthOfCluster";
-import { getAvailResourceAgents } from "./getAvailResourceAgents";
-import { getFenceAgentMetadata } from "./getFenceAgentMetadata";
 import { importedClusterList } from "./importedClusterList";
 import { login } from "./login";
 import { logout } from "./logout";
@@ -52,11 +51,11 @@ const endpoints = {
   clusterStop,
   existingCluster,
   fixAuthOfCluster,
-  getAvailResourceAgents,
-  getFenceAgentMetadata,
-  getResourceAgentMetadata,
   importedClusterList,
   libCluster,
+  libClusterResourceAgentListAgents: pcmkAgentListAgents("resource"),
+  libClusterResourceAgentDescribeAgent: pcmkAgentDescribeAgent("resource"),
+  libClusterStonithAgentDescribeAgent: pcmkAgentDescribeAgent("fence"),
   login,
   logout,
   rememberCluster,
@@ -71,6 +70,6 @@ const endpoints = {
   updateResource,
 };
 
-export type LibClusterCommands = TLibClusterCommands;
+export type LibClusterCommands = Commands;
 
 export { endpoints };

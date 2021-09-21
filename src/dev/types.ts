@@ -4,17 +4,20 @@ import * as call from "app/backend";
 export type ImportedClusterList = api.PayloadOf<
   typeof call.importedClusterList
 >;
-export type AvailResourceAgents = api.PayloadOf<
-  typeof call.getAvailResourceAgents
->;
-export type ResourceAgentMetadata = api.PayloadOf<
-  typeof call.getResourceAgentMetadata
->;
-export type FenceAgentMetadata = api.PayloadOf<
-  typeof call.getFenceAgentMetadata
->;
 export type ClusterProperties = api.PayloadOf<typeof call.clusterProperties>;
 export type Cluster = api.PayloadOf<typeof call.clusterStatus>;
+export type ResourceAgentListAgents = Extract<
+  api.PayloadOf<typeof call.libClusterResourceAgentListAgents>,
+  { status: "success" }
+>["data"];
+export type ResourceAgentDescribeAgent = Extract<
+  api.PayloadOf<typeof call.libClusterResourceAgentDescribeAgent>,
+  { status: "success" }
+>["data"];
+export type StonithAgentDescribeAgent = Extract<
+  api.PayloadOf<typeof call.libClusterStonithAgentDescribeAgent>,
+  { status: "success" }
+>["data"];
 
 export type Node = Cluster["node_list"][number];
 export type NodeServiceMap = Extract<Node, { services: unknown }>["services"];

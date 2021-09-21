@@ -5,5 +5,6 @@ export const resourceUnclone = endpoint({
     `/managec/${clusterName}/resource_unclone`,
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: undefined,
 });

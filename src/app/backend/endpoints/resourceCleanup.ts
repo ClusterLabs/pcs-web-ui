@@ -7,6 +7,7 @@ export const resourceCleanup = endpoint({
     `/managec/${clusterName}/resource_cleanup`,
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: t.union([
     t.type({ success: t.literal("true") }),
     t.type({

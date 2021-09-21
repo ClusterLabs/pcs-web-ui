@@ -1,4 +1,9 @@
-export type LibClusterCommands = [
+import * as t from "io-ts";
+
+import { shape as libShape } from "app/backend/endpoints/lib/shape";
+import { endpoint } from "app/backend/endpoints/endpoint";
+
+export type Commands = [
   {
     name: "resource-group-add";
     payload: {
@@ -201,4 +206,25 @@ export type LibClusterCommands = [
       force_flags?: string[];
     };
   },
+  {
+    name: "resource-agent-list-agents";
+    payload: {
+      describe?: boolean;
+      search?: string;
+    };
+  },
 ];
+
+export const libCluster = endpoint({
+  url: ({
+    clusterName,
+    command,
+  }: {
+    clusterName: string;
+    command: Commands[number]["name"];
+  }) => `/managec/${clusterName}/api/v1/${command}`,
+  method: "post",
+  params: undefined,
+  payload: undefined,
+  shape: libShape(t.null),
+});

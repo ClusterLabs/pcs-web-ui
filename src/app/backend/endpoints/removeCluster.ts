@@ -4,5 +4,6 @@ export const removeCluster = endpoint({
   url: "/manage/removecluster",
   method: "post",
   params: undefined,
+  payload: undefined,
   shape: undefined,
 });

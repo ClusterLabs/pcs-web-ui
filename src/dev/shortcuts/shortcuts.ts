@@ -23,30 +23,31 @@ const clusterStatus = (clusterStatusList: types.Cluster[]) =>
   });
 
 const getAvailResourceAgents = (
-  availableResourceAgents: types.AvailResourceAgents,
+  availableResourceAgents: types.ResourceAgentListAgents,
 ) =>
-  app.getAvailResourceAgents((_req, res) => {
-    res.json(availableResourceAgents);
+  app.libClusterResourceAgentListAgents((_req, res) => {
+    res.json(response.lib.success({ data: availableResourceAgents }));
   });
 
 const getResourceAgentMetadata = (
-  metadatList: types.ResourceAgentMetadata[],
-) => {
-  return app.getResourceAgentMetadata((req, res) => {
-    const metadata = metadatList.find(m => m.name === req.query.agent);
+  metadatList: types.ResourceAgentDescribeAgent[],
+) =>
+  app.libClusterResourceAgentDescribeAgent((req, res) => {
+    const metadata = metadatList.find(m => m.name === req.body.agent_name);
     if (metadata) {
-      res.json(metadata);
+      res.json(response.lib.success({ data: metadata }));
     } else {
       res.status(404).send("Not found");
     }
   });
-};
 
-const getFenceAgentMetadata = (metadatList: types.FenceAgentMetadata[]) =>
-  app.getFenceAgentMetadata((req, res) => {
-    const metadata = metadatList.find(m => m.name === req.query.agent);
+const getFenceAgentMetadata = (
+  metadatList: types.StonithAgentDescribeAgent[],
+) =>
+  app.libClusterStonithAgentDescribeAgent((req, res) => {
+    const metadata = metadatList.find(m => m.name === req.body.agent_name);
     if (metadata) {
-      res.json(metadata);
+      res.json(response.lib.success({ data: metadata }));
     } else {
       res.status(404).send("Not found");
     }
@@ -60,7 +61,7 @@ const clusterProperties = (properties: types.ClusterProperties) =>
 // advanced
 
 export const clusterRelated = () => {
-  getAvailResourceAgents(response.resourceAgentList.ok);
+  getAvailResourceAgents(response.resourceAgentListWithoutDescribe.ok);
   getResourceAgentMetadata([
     response.resourceAgentMetadata.ocfHeartbeatApache,
     response.resourceAgentMetadata.ocfHeartbeatDummy,
