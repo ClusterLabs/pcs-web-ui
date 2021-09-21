@@ -6,14 +6,17 @@ export type ImportedClusterList = api.PayloadOf<
 >;
 export type ClusterProperties = api.PayloadOf<typeof call.clusterProperties>;
 export type Cluster = api.PayloadOf<typeof call.clusterStatus>;
-export type ResourceAgentListAgents = api.PayloadOf<
-  typeof call.libClusterResourceAgentListAgents
+export type ResourceAgentListAgents = Extract<
+  api.PayloadOf<typeof call.libClusterResourceAgentListAgents>,
+  { status: "success" }
 >["data"];
-export type ResourceAgentDescribeAgent = api.PayloadOf<
-  typeof call.libClusterResourceAgentDescribeAgent
+export type ResourceAgentDescribeAgent = Extract<
+  api.PayloadOf<typeof call.libClusterResourceAgentDescribeAgent>,
+  { status: "success" }
 >["data"];
-export type StonithAgentDescribeAgent = api.PayloadOf<
-  typeof call.libClusterStonithAgentDescribeAgent
+export type StonithAgentDescribeAgent = Extract<
+  api.PayloadOf<typeof call.libClusterStonithAgentDescribeAgent>,
+  { status: "success" }
 >["data"];
 
 export type Node = Cluster["node_list"][number];

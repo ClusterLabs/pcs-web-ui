@@ -1,7 +1,7 @@
 import { libCallCluster } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import { ActionMap, actionNewId } from "app/store/actions";
 
-import { api, lib, processError } from "./common";
+import { api, lib, log, processError, put } from "./common";
 
 export function* callLib({
   key,
@@ -16,5 +16,57 @@ export function* callLib({
     yield processError(result, taskLabel);
     return;
   }
-  yield lib.clusterResponseProcess(key.clusterName, taskLabel, result.payload);
+
+  const { payload } = result;
+
+  if (lib.isCommunicationError(payload)) {
+    log.libInputError(payload.status, payload.status_msg, taskLabel);
+    yield put({
+      type: "NOTIFICATION.CREATE",
+      payload: {
+        id: actionNewId(),
+        severity: "ERROR",
+        message: `Communication error while: ${taskLabel}. Details in the browser console`,
+      },
+    });
+    return;
+  }
+  const reportList = payload.report_list.map(
+    r => `${r.severity.level}: ${r.message.message}`,
+  );
+
+  if (payload.status === "error") {
+    yield put({
+      type: "NOTIFICATION.CREATE",
+      payload: {
+        id: actionNewId(),
+        severity: "ERROR",
+        message: `Error while: ${taskLabel}`,
+        details: {
+          type: "LIST",
+          title: "Messages from the backend",
+          items: reportList,
+        },
+      },
+    });
+    return;
+  }
+
+  yield put({
+    type: "CLUSTER.STATUS.REFRESH",
+    key,
+  });
+  yield put({
+    type: "NOTIFICATION.CREATE",
+    payload: {
+      id: actionNewId(),
+      severity: "SUCCESS",
+      message: `Succesfully done: ${taskLabel}`,
+      details: {
+        type: "LIST",
+        title: "Messages from the backend",
+        items: reportList,
+      },
+    },
+  });
 }

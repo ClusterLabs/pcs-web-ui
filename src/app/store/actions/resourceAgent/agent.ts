@@ -13,8 +13,9 @@ export type ResourceAgentAgentActions = {
     type: "RESOURCE_AGENT.LOAD.SUCCESS";
     key: { clusterName: string };
     payload: {
-      apiAgentMetadata: api.PayloadOf<
-        typeof libClusterResourceAgentDescribeAgent
+      apiAgentMetadata: Extract<
+        api.PayloadOf<typeof libClusterResourceAgentDescribeAgent>,
+        { status: "success" }
       >["data"];
     };
   };

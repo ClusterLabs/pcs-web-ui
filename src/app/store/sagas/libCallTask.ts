@@ -1,7 +1,7 @@
 import { libCallCluster } from "app/backend";
 import { Action, ActionMap } from "app/store/actions";
 
-import { api, lib, processError, put, race, take } from "./common";
+import { api, lib, log, processError, put, race, take } from "./common";
 
 export function* callLib({
   key,
@@ -34,17 +34,27 @@ export function* callLib({
     return;
   }
 
-  yield lib.clusterResponseSwitch(key.clusterName, taskLabel, result.payload, {
-    successAction: {
-      type: "LIB.CALL.CLUSTER.TASK.OK",
-      key,
-      payload: { reports: result.payload.report_list },
-    },
-    errorAction: {
+  const { payload } = result;
+
+  if (lib.isCommunicationError(payload)) {
+    log.libInputError(payload.status, payload.status_msg, taskLabel);
+    yield put(errorAction);
+    return;
+  }
+
+  if (payload.status === "error") {
+    yield put({
       type: "LIB.CALL.CLUSTER.TASK.FAIL",
       key,
-      payload: { reports: result.payload.report_list },
-    },
-    communicationErrorAction: errorAction,
+      payload: { reports: payload.report_list },
+    });
+    return;
+  }
+
+  yield put({ type: "CLUSTER.STATUS.REFRESH", key });
+  yield put({
+    type: "LIB.CALL.CLUSTER.TASK.OK",
+    key,
+    payload: { reports: payload.report_list },
   });
 }

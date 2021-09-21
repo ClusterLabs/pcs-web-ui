@@ -10,8 +10,9 @@ export type ResourceAgentListActions = {
     type: "RESOURCE_AGENT.LIST.LOAD.OK";
     key: { clusterName: string };
     payload: {
-      apiResourceAgentList: api.PayloadOf<
-        typeof libClusterResourceAgentListAgents
+      apiResourceAgentList: Extract<
+        api.PayloadOf<typeof libClusterResourceAgentListAgents>,
+        { status: "success" }
       >["data"];
     };
   };

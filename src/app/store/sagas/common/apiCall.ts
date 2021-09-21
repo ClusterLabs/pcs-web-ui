@@ -4,7 +4,7 @@ import { api } from "app/backend";
 
 import { call, put, take } from "./effects";
 import * as log from "./log";
-import { putNotification } from "./notifications";
+import { messages, putNotification } from "./notifications";
 /* eslint-disable no-console */
 
 export const errorMessage = (
@@ -17,7 +17,7 @@ export const errorMessage = (
       return `Unauthorized while: ${taskLabel}. ${detailsInConsole}`;
 
     case "BAD_HTTP_STATUS":
-      return `Task: ${taskLabel} failed: ${result.text}. ${detailsInConsole}`;
+      return messages.taskFailed(taskLabel, result.text);
 
     default:
       return `Communication error while: ${taskLabel}. ${detailsInConsole}`;

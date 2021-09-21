@@ -72,7 +72,10 @@ export const getResourceAgentMetadata = ({
 }: {
   clusterName: string;
   agentName: string;
-  agentData: Shapes["libClusterResourceAgentDescribeAgent"]["data"];
+  agentData: Extract<
+    Shapes["libClusterResourceAgentDescribeAgent"],
+    { status: "success" }
+  >["data"];
 }) => ({
   url: url.libClusterResourceAgentDescribeAgent({ clusterName }),
   payload: payload.libClusterResourceAgentDescribeAgent(agentName),
@@ -86,7 +89,10 @@ export const getFenceAgentMetadata = ({
 }: {
   clusterName: string;
   agentName: string;
-  agentData: Shapes["libClusterStonithAgentDescribeAgent"]["data"];
+  agentData: Extract<
+    Shapes["libClusterStonithAgentDescribeAgent"],
+    { status: "success" }
+  >["data"];
 }) => ({
   url: url.libClusterStonithAgentDescribeAgent({ clusterName }),
   payload: payload.libClusterStonithAgentDescribeAgent(agentName),

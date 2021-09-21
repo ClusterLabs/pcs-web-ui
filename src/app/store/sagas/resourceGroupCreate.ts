@@ -1,7 +1,7 @@
 import { libCallCluster } from "app/backend";
 import { Action, ActionMap } from "app/store";
 
-import { api, lib, processError, put, race, take } from "./common";
+import { api, lib, log, processError, put, race, take } from "./common";
 
 export function* create({
   key,
@@ -41,17 +41,26 @@ export function* create({
     return;
   }
 
-  yield lib.clusterResponseSwitch(key.clusterName, taskLabel, result.payload, {
-    successAction: {
-      type: "RESOURCE.GROUP.CREATE.SUCCESS",
-      key,
-      payload: { reports: result.payload.report_list },
-    },
-    errorAction: {
+  const { payload } = result;
+  if (lib.isCommunicationError(payload)) {
+    log.libInputError(payload.status, payload.status_msg, taskLabel);
+    yield put(errorAction);
+    return;
+  }
+
+  if (payload.status === "error") {
+    yield put({
       type: "RESOURCE.GROUP.CREATE.FAIL",
       key,
-      payload: { reports: result.payload.report_list },
-    },
-    communicationErrorAction: errorAction,
+      payload: { reports: payload.report_list },
+    });
+    return;
+  }
+
+  yield put({ type: "CLUSTER.STATUS.REFRESH", key });
+  yield put({
+    type: "RESOURCE.GROUP.CREATE.SUCCESS",
+    key,
+    payload: { reports: payload.report_list },
   });
 }

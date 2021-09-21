@@ -13,8 +13,9 @@ export type FenceAgentActions = {
     type: "FENCE_AGENT.LOAD.SUCCESS";
     key: { clusterName: string };
     payload: {
-      apiAgentMetadata: api.PayloadOf<
-        typeof libClusterStonithAgentDescribeAgent
+      apiAgentMetadata: Extract<
+        api.PayloadOf<typeof libClusterStonithAgentDescribeAgent>,
+        { status: "success" }
       >["data"];
     };
   };
