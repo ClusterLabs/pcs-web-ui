@@ -41,13 +41,20 @@ export const fenceDeviceCreate: AppReducer<typeof initialState> = (
 ) => {
   switch (action.type) {
     case "FENCE_DEVICE.CREATE.UPDATE": {
+      const removeInstanceAttrs =
+        "instanceAttrs" in action.payload
+        && action.payload.instanceAttrs
+        && Object.keys(action.payload.instanceAttrs).length === 0;
+
       return {
         ...state,
         ...action.payload,
-        instanceAttrs: instanceAttrs(
-          state.instanceAttrs,
-          action.payload.instanceAttrs || {},
-        ),
+        instanceAttrs: removeInstanceAttrs
+          ? {}
+          : instanceAttrs(
+              state.instanceAttrs,
+              action.payload.instanceAttrs || {},
+            ),
       };
     }
 

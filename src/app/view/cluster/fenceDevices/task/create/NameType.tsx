@@ -25,7 +25,7 @@ export const NameType: React.FC = () => {
       key: { clusterName },
       payload: { agentName: value.toString() },
     });
-    updateState({ agentName: value.toString() });
+    updateState({ agentName: value.toString(), instanceAttrs: {} });
   };
 
   const onClear = () => updateState({ agentName: "" });
