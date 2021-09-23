@@ -3,7 +3,6 @@ import { Checkbox, Form, FormGroup } from "@patternfly/react-core";
 
 import { TaskLibStep } from "app/view/share";
 
-import { SettingsGroup } from "./SettingsGroup";
 import { useTask } from "./useTask";
 
 export const Settings: React.FC = () => {
@@ -18,10 +17,6 @@ export const Settings: React.FC = () => {
   return (
     <TaskLibStep title="Settings" reports={reports}>
       <Form>
-        <FormGroup fieldId="settings-group" label="Group">
-          <SettingsGroup />
-        </FormGroup>
-
         <FormGroup fieldId="settings-disabled" label="Start automatically">
           <Checkbox
             label="Disabled"

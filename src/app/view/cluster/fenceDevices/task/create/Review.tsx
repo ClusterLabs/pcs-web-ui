@@ -16,8 +16,6 @@ export const Review: React.FC = () => {
       fenceDeviceName,
       instanceAttrs,
       libCall: { reports },
-      useGroup,
-      group,
       disabled,
     },
   } = useTask();
@@ -45,17 +43,6 @@ export const Review: React.FC = () => {
             ) : (
               "No attribute configured"
             )
-          }
-        />
-
-        <ReviewValue
-          label="Group"
-          value={
-            <>
-              {useGroup === "no" && "no"}
-              {useGroup === "new" && `new group: ${group}`}
-              {useGroup === "existing" && `existing group: ${group}`}
-            </>
           }
         />
 

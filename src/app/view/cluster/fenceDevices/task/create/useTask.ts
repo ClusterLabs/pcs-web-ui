@@ -37,8 +37,6 @@ export const useTask = () => {
           || param.name in state.instanceAttrs,
       ),
 
-    areSettingsValid: state.useGroup !== "new" || state.group.length > 0,
-
     // actions
     close: () => {
       task.close();
@@ -61,31 +59,6 @@ export const useTask = () => {
     },
 
     create: ({ force }: { force: boolean }) => {
-      if (state.useGroup !== "no") {
-        dispatch({
-          type: "LIB.CALL.CLUSTER.TASK",
-          key: { clusterName, task: task.name },
-          payload: {
-            taskLabel: `create fence device "${state.fenceDeviceName}"`,
-            call: {
-              name: "stonith-create-in-group",
-              payload: {
-                stonith_id: state.fenceDeviceName,
-                stonith_agent_name: state.agentName,
-                group_id: state.group,
-                instance_attributes: state.instanceAttrs,
-                ensure_disabled: state.disabled,
-                operations: [],
-                meta_attributes: {},
-                allow_absent_agent: force,
-                allow_invalid_operation: force,
-                allow_invalid_instance_attributes: force,
-              },
-            },
-          },
-        });
-        return;
-      }
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
         key: { clusterName, task: task.name },

@@ -9,8 +9,6 @@ export type FenceDeviceCreateActions = {
       promotable?: boolean;
       disabled?: boolean;
       instanceAttrs?: Record<string, string>;
-      useGroup?: "no" | "existing" | "new";
-      group?: string;
     };
   };
 

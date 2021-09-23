@@ -15,7 +15,6 @@ export const FenceDeviceCreate: React.FC = () => {
     isNameTypeValid,
     isAgentLoaded,
     areInstanceAttrsValid,
-    areSettingsValid,
     state: {
       fenceDeviceName,
       libCall: { reports, response },
@@ -56,13 +55,7 @@ export const FenceDeviceCreate: React.FC = () => {
         {
           name: "Settings",
           component: <Settings />,
-          footer: (
-            <WizardFooter
-              nextIf={areSettingsValid}
-              onClose={close}
-              task="fenceDeviceCreate"
-            />
-          ),
+          footer: <WizardFooter onClose={close} task="fenceDeviceCreate" />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
@@ -76,8 +69,7 @@ export const FenceDeviceCreate: React.FC = () => {
               task="fenceDeviceCreate"
             />
           ),
-          canJumpTo:
-            isNameTypeValid && areInstanceAttrsValid && areSettingsValid,
+          canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
           name: "Result",

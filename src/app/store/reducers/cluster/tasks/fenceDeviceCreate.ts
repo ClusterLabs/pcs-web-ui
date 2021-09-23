@@ -13,8 +13,6 @@ const initialState: {
   libCall: typeof initalLibCall;
   showValidationErrors: boolean;
   disabled: boolean;
-  useGroup: "no" | "existing" | "new";
-  group: string;
 } = {
   fenceDeviceName: "",
   agentName: "",
@@ -22,8 +20,6 @@ const initialState: {
   instanceAttrs: {},
   showValidationErrors: false,
   disabled: false,
-  useGroup: "no",
-  group: "",
 };
 
 const instanceAttrs = (stateAttrs: InstanceAttrs, actionAttrs: InstanceAttrs) =>
