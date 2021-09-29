@@ -6,4 +6,5 @@ export const destroyCluster = endpoint({
   method: "post",
   params: undefined,
   shape: undefined,
+  payload: undefined,
 });
