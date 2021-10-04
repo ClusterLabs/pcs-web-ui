@@ -31,7 +31,10 @@ export const useTask = () => {
     areInstanceAttrsValid:
       isAgentLoaded
       && agent.parameters.every(
-        param => !param.required || param.name in state.instanceAttrs,
+        param =>
+          !param.required
+          || ("deprecated" in param && param.deprecated)
+          || param.name in state.instanceAttrs,
       ),
 
     areSettingsValid: state.useGroup !== "new" || state.group.length > 0,

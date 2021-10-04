@@ -29,7 +29,8 @@ const interceptWithDashboard = (routeList: intercept.Route[]) =>
       url: url.clusterStatus({ clusterName: "empty" }),
       json: responses.clusterStatus.ok,
     },
-    route.getAvailResourceAgents("ok"),
+    route.resourceAgentListAgents("ok"),
+    route.stonithAgentListAgents({ clusterName: "ok" }),
     {
       url: url.clusterProperties({ clusterName: "ok" }),
       json: responses.clusterProperties.ok,
@@ -158,7 +159,7 @@ describe("Dashboard to cluster scene", () => {
 
   it("should allow go to a resource detail", async () => {
     await interceptWithDashboard([
-      route.getResourceAgentMetadata({
+      route.resourceAgentDescribeAgent({
         clusterName: "ok",
         agentName: "ocf:heartbeat:Dummy",
         agentData: responses.resourceAgentMetadata.ocfHeartbeatDummy,
@@ -179,7 +180,7 @@ describe("Dashboard to cluster scene", () => {
 
   it("should allow go to a fence device detail", async () => {
     await interceptWithDashboard([
-      route.getFenceAgentMetadata({
+      route.stonithAgentDescribeAgent({
         clusterName: "ok",
         agentName: "stonith:fence_apc",
         agentData: responses.fenceAgentMetadata.ok,

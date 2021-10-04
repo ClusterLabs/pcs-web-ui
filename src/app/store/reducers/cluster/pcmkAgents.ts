@@ -1,4 +1,9 @@
 import { AppReducer } from "app/store/reducers/appReducer";
+import { ActionPayload } from "app/store/actions";
+
+type Params =
+  | ActionPayload["RESOURCE_AGENT.LOAD.SUCCESS"]["apiAgentMetadata"]["parameters"]
+  | ActionPayload["FENCE_AGENT.LOAD.SUCCESS"]["apiAgentMetadata"]["parameters"];
 
 type AgentMap = Record<
   string,
@@ -7,15 +12,7 @@ type AgentMap = Record<
     name: string;
     shortdesc: string;
     longdesc: string;
-    parameters: {
-      name: string;
-      shortdesc: string;
-      longdesc: string;
-      default: string | number | null;
-      advanced: boolean;
-      required: boolean;
-      deprecated?: boolean;
-    }[];
+    parameters: Params;
   }
 >;
 

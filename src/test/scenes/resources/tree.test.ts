@@ -60,7 +60,8 @@ const interceptWithCluster = (routeList: intercept.Route[]) =>
       url: url.clusterStatus({ clusterName: "ok" }),
       json: responses.clusterStatus.resourcesForTest,
     },
-    route.getAvailResourceAgents("ok"),
+    route.resourceAgentListAgents("ok"),
+    route.stonithAgentListAgents({ clusterName: "ok" }),
     {
       url: url.clusterProperties({ clusterName: "ok" }),
       json: responses.clusterProperties.ok,
@@ -125,7 +126,7 @@ describe("Resource tree", () => {
   afterEach(intercept.stop);
   it("should show primitive resource detail", async () => {
     interceptWithCluster([
-      route.getResourceAgentMetadata({
+      route.resourceAgentDescribeAgent({
         clusterName: "ok",
         agentName: "ocf:heartbeat:apache",
         agentData: responses.resourceAgentMetadata.ocfHeartbeatApache,

@@ -8,6 +8,7 @@ import { LoginActions } from "./login";
 import { NodeActions } from "./node";
 import { NotificationActions } from "./notifications";
 import { ResourceActions } from "./resource";
+import { FenceDeviceActions } from "./fenceDevice";
 import { ResourceAgentActions } from "./resourceAgent";
 import { UsernameActions } from "./username";
 
@@ -22,6 +23,7 @@ type LeafActionMap = (
   & LoginActions
   & NodeActions
   & NotificationActions
+  & FenceDeviceActions
   & ResourceActions
   & ResourceAgentActions
   & UsernameActions

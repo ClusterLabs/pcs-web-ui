@@ -27,6 +27,10 @@ export const getResourceAgentMap = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.resourceAgentMap.data,
 );
 
+export const getFenceAgentList = clusterStorageItemSelector(
+  clusterStorageItem => clusterStorageItem.fenceAgentList.data,
+);
+
 export type ClusterSelector<
   ARGS extends unknown[],
   SELECTED,

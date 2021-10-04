@@ -14,6 +14,7 @@ import * as fenceAgent from "./fenceAgent";
 import * as username from "./username";
 import * as clusterProperties from "./clusterProperties";
 import * as resourceAgentList from "./resourceAgentList";
+import * as fenceAgentList from "./fenceAgentList";
 import * as resourceRefreshCleanup from "./resourceRefreshCleanup";
 import * as resourceDelete from "./resourceDelete";
 import * as libAction from "./libAction";
@@ -67,6 +68,8 @@ function* rootSaga() {
     takeEvery("NODE.ADD.SEND_KNOWN_HOSTS", nodeAdd.sendKnownHostsSaga),
     takeEvery("NODE.AUTH", nodeAuth.nodeAuthSaga),
     takeEvery("FENCE_AGENT.LOAD", fenceAgent.load),
+    takeEvery("FENCE_AGENT.ENSURE", fenceAgent.ensure),
+    takeEvery("FENCE_AGENT.LIST.LOAD", fenceAgentList.load),
     takeEvery("RESOURCE_AGENT.LOAD", resourceAgent.load),
     takeEvery("RESOURCE_AGENT.ENSURE", resourceAgent.ensure),
     takeEvery("RESOURCE_AGENT.LIST.LOAD", resourceAgentList.load),

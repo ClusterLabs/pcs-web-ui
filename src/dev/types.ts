@@ -10,6 +10,10 @@ export type ResourceAgentListAgents = Extract<
   api.PayloadOf<typeof call.libClusterResourceAgentListAgents>,
   { status: "success" }
 >["data"];
+export type StonithAgentListAgents = Extract<
+  api.PayloadOf<typeof call.libClusterStonithAgentListAgents>,
+  { status: "success" }
+>["data"];
 export type ResourceAgentDescribeAgent = Extract<
   api.PayloadOf<typeof call.libClusterResourceAgentDescribeAgent>,
   { status: "success" }
