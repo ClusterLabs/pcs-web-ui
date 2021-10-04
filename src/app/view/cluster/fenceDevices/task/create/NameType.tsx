@@ -41,7 +41,7 @@ export const NameType: React.FC = () => {
       title="Choose name and type for the new fence device"
       reports={reports}
     >
-      <Form>
+      <Form data-test="form-name-type">
         <FormText
           id="new-fence-devicd-name"
           label="Fence device name"
@@ -51,6 +51,7 @@ export const NameType: React.FC = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={fenceDeviceName.length > 0}
+          data-test="fence-device-name"
         />
         <FormGroup
           label="Fence device type"

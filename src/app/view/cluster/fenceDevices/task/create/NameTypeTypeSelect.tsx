@@ -43,6 +43,7 @@ export const NameTypeTypeSelect: React.FC<{
       hasInlineFilter
       customBadgeText={agentName.length > 0 ? agentName : undefined}
       optionsValues={filteredFenceAgentList}
+      data-test="fence-device-agent"
     ></Select>
   );
 };

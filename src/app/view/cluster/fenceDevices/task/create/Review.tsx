@@ -25,8 +25,16 @@ export const Review: React.FC = () => {
       reports={reports}
     >
       <ReviewList>
-        <ReviewValue label="Fence device name" value={fenceDeviceName} />
-        <ReviewValue label="Fence device type" value={agentName} />
+        <ReviewValue
+          label="Fence device name"
+          value={fenceDeviceName}
+          data-test="name"
+        />
+        <ReviewValue
+          label="Fence device type"
+          value={agentName}
+          data-test="agentName"
+        />
         <ReviewValue
           label="Instance attributes"
           value={
@@ -37,6 +45,7 @@ export const Review: React.FC = () => {
                     key={attrName}
                     label={attrName}
                     value={instanceAttrs[attrName]}
+                    data-test={`instanceAttr_${attrName}`}
                   />
                 ))}
               </ReviewList>

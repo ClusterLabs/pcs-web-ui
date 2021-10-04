@@ -31,7 +31,8 @@ describe("Cluster scene", () => {
         url: url.clusterStatus({ clusterName: "ok" }),
         json: responses.clusterStatus.ok,
       },
-      route.getAvailResourceAgents("ok"),
+      route.resourceAgentListAgents("ok"),
+      route.stonithAgentListAgents({ clusterName: "ok" }),
       {
         url: url.clusterProperties({ clusterName: "ok" }),
         json: responses.clusterProperties.ok,

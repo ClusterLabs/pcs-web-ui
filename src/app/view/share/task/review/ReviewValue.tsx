@@ -8,11 +8,18 @@ import React from "react";
 export const ReviewValue: React.FC<{
   label: React.ReactNode;
   value: React.ReactNode;
-}> = ({ label, value }) => {
+  "data-test"?: string;
+}> = ({ label, value, "data-test": dataTest }) => {
   return (
     <DescriptionListGroup>
       <DescriptionListTerm>{label}</DescriptionListTerm>
-      <DescriptionListDescription>{value}</DescriptionListDescription>
+      <DescriptionListDescription
+        {...(dataTest !== undefined
+          ? { "data-test": `${dataTest}-review-value` }
+          : {})}
+      >
+        {value}
+      </DescriptionListDescription>
     </DescriptionListGroup>
   );
 };

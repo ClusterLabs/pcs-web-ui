@@ -11,7 +11,8 @@ export const interceptWithCluster = (
       url: backendUrl.clusterStatus({ clusterName }),
       json: responses.clusterStatus[clusterName],
     },
-    route.getAvailResourceAgents(clusterName),
+    route.resourceAgentListAgents(clusterName),
+    route.stonithAgentListAgents({ clusterName }),
     {
       url: backendUrl.clusterProperties({ clusterName }),
       json: responses.clusterProperties.ok,

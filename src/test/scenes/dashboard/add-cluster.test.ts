@@ -59,7 +59,8 @@ const interceptWithDashboard = async (routeList: intercept.Route[]) => {
       url: url.clusterStatus({ clusterName: "empty" }),
       json: responses.clusterStatus.empty,
     },
-    route.getAvailResourceAgents("empty"),
+    route.resourceAgentListAgents("empty"),
+    route.stonithAgentListAgents({ clusterName: "empty" }),
     {
       url: url.clusterProperties({ clusterName: "empty" }),
       json: responses.clusterProperties.ok,

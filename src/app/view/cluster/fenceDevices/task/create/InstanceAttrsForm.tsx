@@ -97,6 +97,7 @@ export const InstanceAttrsForm: React.FC = () => {
                           })
                         }
                         value={instanceAttrs[parameter.name] || ""}
+                        data-test={`attr ${parameter.name}`}
                       />
                     );
                   })}

@@ -12,6 +12,7 @@ export const Select = (
   props: Props & {
     onSelect: (_value: string) => void;
     onFilter?: (_value: string) => void;
+    "data-test"?: string;
   } & ({ optionsValues: string[] } | { children: React.ReactNode }),
 ) => {
   const { onSelect, onFilter, ...restProps } = props;
@@ -70,6 +71,13 @@ export const Select = (
     onSelect: select,
   };
 
+  if ("data-test" in props && props["data-test"]) {
+    return (
+      <span data-test={`${props["data-test"]}-wrapper`}>
+        <PfSelect {...pfProps} />
+      </span>
+    );
+  }
   /* eslint-disable react/jsx-props-no-spreading */
   return <PfSelect {...pfProps} />;
 };

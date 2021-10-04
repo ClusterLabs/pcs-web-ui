@@ -1,3 +1,5 @@
+import { LibClusterCommands } from "app/backend/endpoints";
+
 import * as responses from "dev/responses";
 
 import { Shapes, payload, url } from "test/tools";
@@ -57,7 +59,7 @@ export const send_known_hosts = (
   ...response,
 });
 
-export const getAvailResourceAgents = (clusterName: string) => ({
+export const resourceAgentListAgents = (clusterName: string) => ({
   url: url.libClusterResourceAgentListAgents({ clusterName }),
   payload: payload.libClusterResourceAgentListAgents,
   json: responses.lib.success({
@@ -65,7 +67,19 @@ export const getAvailResourceAgents = (clusterName: string) => ({
   }),
 });
 
-export const getResourceAgentMetadata = ({
+export const stonithAgentListAgents = ({
+  clusterName,
+}: {
+  clusterName: string;
+}) => ({
+  url: url.libClusterStonithAgentListAgents({ clusterName }),
+  payload: payload.libClusterResourceAgentListAgents,
+  json: responses.lib.success({
+    data: responses.stonithAgentListWithoutDescribe.ok,
+  }),
+});
+
+export const resourceAgentDescribeAgent = ({
   clusterName,
   agentName,
   agentData,
@@ -82,7 +96,7 @@ export const getResourceAgentMetadata = ({
   json: responses.lib.success({ data: agentData }),
 });
 
-export const getFenceAgentMetadata = ({
+export const stonithAgentDescribeAgent = ({
   clusterName,
   agentName,
   agentData,
@@ -99,6 +113,60 @@ export const getFenceAgentMetadata = ({
   json: responses.lib.success({ data: agentData }),
 });
 
+export const libCluster = (
+  props: LibClusterCommands[number] & {
+    clusterName: string;
+    response?: RouteResponse;
+  },
+) => {
+  const { clusterName, payload, name: command } = props;
+  const response: RouteResponse = props?.response ?? {
+    json: responses.lib.success(),
+  };
+  return {
+    url: url.libCluster({ clusterName, command }),
+    payload,
+    ...response,
+  };
+};
+
+export const stonithCreate = ({
+  clusterName,
+  fenceDeviceName,
+  agentName,
+  instanceAttrs,
+  disabled,
+  response,
+  force,
+}: {
+  clusterName: string;
+  fenceDeviceName: string;
+  agentName: string;
+  instanceAttrs: Extract<
+    LibClusterCommands[number],
+    { name: "stonith-create" }
+  >["payload"]["instance_attributes"];
+  disabled?: boolean;
+  response?: RouteResponse;
+  force?: boolean;
+}) =>
+  libCluster({
+    clusterName,
+    name: "stonith-create",
+    payload: {
+      stonith_id: fenceDeviceName,
+      stonith_agent_name: agentName,
+      operations: [],
+      meta_attributes: {},
+      instance_attributes: instanceAttrs,
+      allow_absent_agent: force === undefined ? false : force,
+      allow_invalid_operation: force === undefined ? false : force,
+      allow_invalid_instance_attributes: force === undefined ? false : force,
+      ensure_disabled: !!disabled,
+    },
+    response,
+  });
+
 export const clusterNodeAdd = (
   clusterName: string,
   nodeName: string,
@@ -110,12 +178,14 @@ export const clusterNodeAdd = (
       data: null,
     },
   },
-) => ({
-  url: url.libCluster({ clusterName, command: "cluster-add-nodes" }),
-  payload: {
-    nodes: [{ name: nodeName }],
-    no_watchdog_validation: false,
-    force_flags: [],
-  },
-  ...response,
-});
+) =>
+  libCluster({
+    clusterName,
+    name: "cluster-add-nodes",
+    payload: {
+      nodes: [{ name: nodeName }],
+      no_watchdog_validation: false,
+      force_flags: [],
+    },
+    response,
+  });
