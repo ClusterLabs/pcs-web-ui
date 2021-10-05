@@ -137,6 +137,11 @@ export const constraints: Cluster["constraints"] = {
       "rsc-role": "Started",
     },
     {
+      id: "A-ticket2",
+      ticket: "ABC",
+      rsc: "A",
+    },
+    {
       id: "ticket-A-G1-INFINITY-2",
       ticket: "ABC",
       "loss-policy": "stop",
