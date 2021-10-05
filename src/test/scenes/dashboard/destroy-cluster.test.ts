@@ -21,28 +21,28 @@ const interceptWithDashboard = async (routeList: intercept.Route[]) => {
   ]);
 };
 
-const tryRemovingCluster = async () => {
+const tryDestroyingCluster = async () => {
   await page.goto(location.dashboard);
   await page.click(
     dt("cluster-list", `cluster ${clusterName}`, '[aria-label="Actions"]'),
   );
-  await page.click(dt("remove-cluster"));
+  await page.click(dt("destroy-cluster"));
   await page.click(dt("confirm"));
 };
 
-describe("Cluster remove", () => {
+describe("Cluster destroy", () => {
   afterEach(intercept.stop);
 
-  it("should be sucessfully removed", async () => {
+  it("should be sucessfully destroyed", async () => {
     await interceptWithDashboard([
       {
-        url: url.removeCluster,
-        body: { "clusterid-ok": "true" },
+        url: url.destroyCluster({ clusterName: clusterName }),
+        body: { "--all": "1" },
         text: "",
       },
     ]);
 
-    await tryRemovingCluster();
+    await tryDestroyingCluster();
     await page.waitForSelector(dt("notification-success"));
   });
 
@@ -51,7 +51,7 @@ describe("Cluster remove", () => {
 
     await page.goto(location.dashboard);
     await page.click(dt('[aria-label="Actions"]'));
-    await page.click(dt("remove-cluster"));
+    await page.click(dt("destroy-cluster"));
 
     // possiblity to confirm is there...
     expect((await page.$$(dt("confirm"))).length).toEqual(1);
@@ -63,13 +63,13 @@ describe("Cluster remove", () => {
   it("should deal with an error", async () => {
     await interceptWithDashboard([
       {
-        url: url.removeCluster,
-        body: { "clusterid-ok": "true" },
+        url: url.destroyCluster({ clusterName: clusterName }),
+        body: { "--all": "1" },
         status: [400, ""],
       },
     ]);
 
-    await tryRemovingCluster();
+    await tryDestroyingCluster();
     await page.waitForSelector(dt("notification-danger"));
   });
 });

@@ -16,6 +16,7 @@ export * from "./libClusterStonithAgentDescribeAgent";
 export * from "./login";
 export * from "./logout";
 export * from "./rememberCluster";
+export * from "./destroyCluster";
 export * from "./removeCluster";
 export * from "./removeResource";
 export * from "./clusterStart";
