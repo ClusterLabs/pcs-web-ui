@@ -37,5 +37,15 @@ export const useResourceSets = <
           direction,
         },
       }),
+
+    areSetsValid: (sets: { resources: string[] }[]) => {
+      if (sets.length > 1) {
+        return sets.every(s => s.resources.length > 0);
+      }
+      if (sets.length === 1) {
+        return sets[0].resources.length > 1;
+      }
+      return false;
+    },
   };
 };

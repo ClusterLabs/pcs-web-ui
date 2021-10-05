@@ -7,14 +7,13 @@ export const useTask = () => {
   const task = useClusterTask("constraintOrderSetCreate");
   const { clusterName, dispatch, state, close } = task;
 
+  const resourceSets = useResourceSets(task.name);
+
   return {
     ...task,
-    ...useResourceSets(task.name),
+    ...resourceSets,
 
-    areSetsValid:
-      (state.sets.length > 1
-        && state.sets.every(s => s.resources.length > 0))
-      || state.sets[0].resources.length > 1,
+    areSetsValid: resourceSets.areSetsValid(state.sets),
 
     isCustomIdValid: !state.useCustomId || state.id.length > 0,
 
