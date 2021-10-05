@@ -67,7 +67,9 @@ export const useTask = () => {
               ticket_key: state.ticket,
               options: {
                 ...(state.useCustomId ? { id: state.id } : {}),
-                ...(state.role !== "no limitation" ? { role: state.role } : {}),
+                ...(state.role !== "no limitation"
+                  ? { "rsc-role": state.role }
+                  : {}),
               },
               resource_in_clone_alowed: force,
               duplication_alowed: force,

@@ -54,7 +54,9 @@ export const useTask = () => {
               resource_set_list: state.sets.map(set => ({
                 ids: set.resources,
                 options: {
-                  ...(set.role !== "no limitation" ? { role: set.role } : {}),
+                  ...(set.role !== "no limitation"
+                    ? { "rsc-role": set.role }
+                    : {}),
                 },
               })),
               resource_in_clone_alowed: force,
