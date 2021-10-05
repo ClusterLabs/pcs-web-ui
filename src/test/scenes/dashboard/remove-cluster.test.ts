@@ -33,7 +33,7 @@ const tryRemovingCluster = async () => {
 describe("Cluster remove", () => {
   afterEach(intercept.stop);
 
-  it("should be sucessfully removed", async () => {
+  it("should be successfully removed", async () => {
     await interceptWithDashboard([
       {
         url: url.removeCluster,

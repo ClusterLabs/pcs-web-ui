@@ -33,7 +33,7 @@ const tryDestroyingCluster = async () => {
 describe("Cluster destroy", () => {
   afterEach(intercept.stop);
 
-  it("should be sucessfully destroyed", async () => {
+  it("should be successfully destroyed", async () => {
     await interceptWithDashboard([
       {
         url: url.destroyCluster({ clusterName: clusterName }),

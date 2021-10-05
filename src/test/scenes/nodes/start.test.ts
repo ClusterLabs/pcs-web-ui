@@ -15,7 +15,7 @@ const launchAction = async () => {
 describe("Node start", () => {
   afterEach(intercept.stop);
 
-  it("should sucessfully start", async () => {
+  it("should successfully start", async () => {
     shortcuts.interceptWithCluster(clusterName, [
       {
         url: url.clusterStart({ clusterName }),
