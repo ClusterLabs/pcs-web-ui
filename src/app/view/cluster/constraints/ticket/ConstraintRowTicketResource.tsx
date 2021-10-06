@@ -17,6 +17,7 @@ export const ConstraintRowTicketResource = ({
 }) => {
   return (
     <ConstraintRow
+      id={constraint.id}
       aria-labelledby={`Ticket constraint ${constraint.id}`}
       dataListCells={
         <>
