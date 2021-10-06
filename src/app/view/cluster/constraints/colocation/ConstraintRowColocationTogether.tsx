@@ -6,9 +6,7 @@ type Colocation = ConstraintColocationPair | ConstraintColocationSet;
 
 const isTogether = (constraint: Colocation) =>
   constraint.score === "INFINITY"
-  || (constraint.score
-    && typeof constraint.score === "number"
-    && constraint.score > 0);
+  || (constraint.score && !constraint.score.startsWith("-"));
 
 export const ConstraintRowColocationTogether: React.FC<{
   constraint: Colocation;

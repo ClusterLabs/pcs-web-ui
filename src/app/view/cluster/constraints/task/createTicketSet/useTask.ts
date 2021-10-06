@@ -5,17 +5,16 @@ export const useTask = () => {
   const task = useClusterTask("constraintTicketSetCreate");
   const { clusterName, dispatch, state, close } = task;
 
+  const resourceSets = useResourceSets(task.name);
+
   return {
     ...task,
-    ...useResourceSets(task.name),
+    ...resourceSets,
 
     isCustomIdValid: !state.useCustomId || state.id.length > 0,
     isTicketValid: state.ticket.length > 0,
 
-    areSetsValid:
-      (state.sets.length > 1
-        && state.sets.every(s => s.resources.length > 0))
-      || state.sets[0].resources.length > 1,
+    areSetsValid: resourceSets.areSetsValid(state.sets),
 
     // actions
     updateState: (
@@ -55,7 +54,9 @@ export const useTask = () => {
               resource_set_list: state.sets.map(set => ({
                 ids: set.resources,
                 options: {
-                  ...(set.role !== "no limitation" ? { role: set.role } : {}),
+                  ...(set.role !== "no limitation"
+                    ? { "rsc-role": set.role }
+                    : {}),
                 },
               })),
               resource_in_clone_alowed: force,

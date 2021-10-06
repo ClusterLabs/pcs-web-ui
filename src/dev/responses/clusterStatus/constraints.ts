@@ -9,6 +9,18 @@ export const constraints: Cluster["constraints"] = {
       "with-rsc": "GROUP-1",
     },
     {
+      id: "colocation-A-G1-together",
+      rsc: "A",
+      score: "100",
+      "with-rsc": "GROUP-1",
+    },
+    {
+      id: "colocation-A-G1-apart",
+      rsc: "A",
+      score: "-100",
+      "with-rsc": "GROUP-1",
+    },
+    {
       id: "colocation-A-G1-INFINITY-2",
       score: "INFINITY",
       sets: [
@@ -123,6 +135,11 @@ export const constraints: Cluster["constraints"] = {
       ticket: "ABC",
       rsc: "A",
       "rsc-role": "Started",
+    },
+    {
+      id: "A-ticket2",
+      ticket: "ABC",
+      rsc: "A",
     },
     {
       id: "ticket-A-G1-INFINITY-2",

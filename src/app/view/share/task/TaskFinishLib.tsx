@@ -61,7 +61,7 @@ export const TaskFinishLib: React.FC<{
             title={`Task "${taskName}" failed`}
             message={
               <>
-                Operation has not completed sucessfully (see messages below).
+                Operation has not completed successfully (see messages below).
                 You can return back, change settings and try again. All messages
                 below will stay available.
                 {isForcible && (

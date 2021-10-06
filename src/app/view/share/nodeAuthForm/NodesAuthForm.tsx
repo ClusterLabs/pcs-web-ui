@@ -48,7 +48,7 @@ export const NodesAuthForm: React.FC<{
               nodesResults.success.length === 1 ? "Node" : "Nodes"
             } ${nodesResults.success.join(
               ", ",
-            )} has been sucessfully authenticated.`}
+            )} has been successfully authenticated.`}
           </Alert>
         )}
         {nodesResults.fail.length > 0 && (

@@ -94,7 +94,7 @@ export const nodeAuth: AppReducer<typeof initialState> = (
         // It means that the authentication was not saved in backend (i.e.
         // local cluster) when there is something in plaintext_error. So,
         // results in "node_auth_error" are meningless - even when nodes was
-        // sucessfully authenticated, the tokens was not saved on backend.
+        // successfully authenticated, the tokens was not saved on backend.
         response.plaintext_error.length === 0
         && unauthBackendNodes.length === 0
         && "node_auth_error" in response

@@ -27,7 +27,7 @@ export const ClusterIssueNotAuthFinish: React.FC = () => {
     <Alert
       isInline
       variant="success"
-      title="Authentication sucessfully fixed"
+      title="Authentication successfully fixed"
     />
   );
 };
