@@ -2,10 +2,17 @@ import * as t from "io-ts";
 
 import { endpoint } from "./endpoint";
 
+type Node = {
+  password: string;
+  dest_list: { addr: string; port: string }[];
+};
+
 export const authGuiAgainstNodes = endpoint({
   url: "/manage/auth_gui_against_nodes",
   method: "post",
-  params: undefined,
+  params: (nodeMap: Record<string, Node>): [string, string][] => [
+    ["data_json", JSON.stringify({ nodes: nodeMap })],
+  ],
   payload: undefined,
   shape: t.intersection([
     t.type({

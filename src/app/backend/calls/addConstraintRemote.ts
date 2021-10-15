@@ -9,6 +9,4 @@ export const addConstraintRemote = async ({
   clusterName: string;
   constraint: Parameters<typeof params>[0]["constraint"];
 }): CallResult =>
-  http.post(url({ clusterName }), {
-    params: params({ constraint }),
-  });
+  http.post(url({ clusterName }), { params: params({ constraint }) });
