@@ -21,23 +21,27 @@ const report_list = t.array(
 );
 
 export const shape = <DATA extends t.Any>(data: DATA) =>
-  t.union([
-    t.type({
-      status: t.keyof({
-        exception: null,
-        input_error: null,
-        unknown_cmd: null,
+  t.intersection([
+    t.union([
+      t.type({
+        status: t.literal("success"),
+        data,
       }),
-      status_msg: t.string,
-    }),
+      t.type({
+        status: t.literal("error"),
+        data: t.union([data, t.null]),
+      }),
+      t.type({
+        status: t.keyof({
+          exception: null,
+          input_error: null,
+          unknown_cmd: null,
+        }),
+        data: t.null,
+      }),
+    ]),
     t.type({
-      status: t.literal("error"),
       report_list,
-      data: t.union([t.string, t.null]),
-    }),
-    t.type({
-      status: t.literal("success"),
-      report_list,
-      data,
+      status_msg: t.union([t.string, t.null]),
     }),
   ]);

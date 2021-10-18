@@ -7,16 +7,19 @@ export const success = (props: { data?: any } = { data: null }): Response => ({
   status: "success",
   report_list: [],
   data: props.data,
+  status_msg: null,
 });
 
 export const missingKey: Response = {
   status: "input_error",
+  report_list: [],
   status_msg: "Missing key cmd",
   data: null,
 };
 
 export const unknownCmd: Response = {
   status: "unknown_cmd",
+  report_list: [],
   status_msg: "Unknown command 'unknown.command'",
   data: null,
 };
@@ -30,6 +33,7 @@ export const invalid = {
 
 export const invalidJson = (message: string): Response => ({
   status: "input_error",
+  report_list: [],
   status_msg: `Unable to parse input data: ${message}`,
   data: null,
 });
@@ -40,4 +44,5 @@ export const error = (
   status: "error",
   report_list: reportList,
   data: null,
+  status_msg: null,
 });
