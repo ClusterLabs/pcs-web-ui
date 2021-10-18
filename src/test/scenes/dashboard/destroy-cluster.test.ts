@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, url } from "test/tools";
+import { intercept, location, route, url } from "test/tools";
 
 const clusterName = "ok";
 
@@ -35,11 +35,8 @@ describe("Cluster destroy", () => {
 
   it("should be successfully destroyed", async () => {
     await interceptWithDashboard([
-      {
-        url: url.destroyCluster({ clusterName: clusterName }),
-        body: { "--all": "1" },
-        text: "",
-      },
+      route.destroyCluster({ clusterName }),
+      route.removeCluster({ clusterName }),
     ]);
 
     await tryDestroyingCluster();
@@ -62,11 +59,7 @@ describe("Cluster destroy", () => {
 
   it("should deal with an error", async () => {
     await interceptWithDashboard([
-      {
-        url: url.destroyCluster({ clusterName: clusterName }),
-        body: { "--all": "1" },
-        status: [400, ""],
-      },
+      route.destroyCluster({ clusterName, status: 400 }),
     ]);
 
     await tryDestroyingCluster();

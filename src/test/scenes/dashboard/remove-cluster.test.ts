@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, url } from "test/tools";
+import { intercept, location, route, url } from "test/tools";
 
 const clusterName = "ok";
 
@@ -34,13 +34,7 @@ describe("Cluster remove", () => {
   afterEach(intercept.stop);
 
   it("should be successfully removed", async () => {
-    await interceptWithDashboard([
-      {
-        url: url.removeCluster,
-        body: { "clusterid-ok": "true" },
-        text: "",
-      },
-    ]);
+    await interceptWithDashboard([route.removeCluster({ clusterName: "ok" })]);
 
     await tryRemovingCluster();
     await page.waitForSelector(dt("notification-success"));
@@ -62,11 +56,7 @@ describe("Cluster remove", () => {
 
   it("should deal with an error", async () => {
     await interceptWithDashboard([
-      {
-        url: url.removeCluster,
-        body: { "clusterid-ok": "true" },
-        status: [400, ""],
-      },
+      route.removeCluster({ clusterName: "ok", status: 400 }),
     ]);
 
     await tryRemovingCluster();

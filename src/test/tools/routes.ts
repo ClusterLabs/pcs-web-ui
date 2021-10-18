@@ -189,3 +189,27 @@ export const clusterNodeAdd = (
     },
     response,
   });
+
+export const removeCluster = ({
+  clusterName,
+  status,
+}: {
+  clusterName: string;
+  status?: number;
+}) => ({
+  url: url.removeCluster,
+  body: { [`clusterid-${clusterName}`]: "true" },
+  status: [status ?? 200, ""] as [number, string],
+});
+
+export const destroyCluster = ({
+  clusterName,
+  status,
+}: {
+  clusterName: string;
+  status?: number;
+}) => ({
+  url: url.destroyCluster({ clusterName: clusterName }),
+  body: { "--all": "1" },
+  status: [status ?? 200, ""] as [number, string],
+});
