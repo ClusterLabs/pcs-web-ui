@@ -8,6 +8,7 @@ const report_list = t.array(
         WARNING: null,
         INFO: null,
         DEBUG: null,
+        DEPRECATION: null,
       }),
       force_code: t.union([t.string, t.null]),
     }),
