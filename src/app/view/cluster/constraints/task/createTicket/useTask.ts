@@ -36,9 +36,10 @@ export const useTask = () => {
 
   const isCustomIdValid = !state.useCustomId || state.id.length > 0;
   const isTicketValid = state.ticket.length > 0;
+  const isResourceValid = state.resourceId.length > 0;
   return {
     ...task,
-    isResourceValid: state.resourceId.length > 0,
+    isResourceValid,
     nodeNameList: clusterStatus.nodeList.map(n => n.name),
     isCustomIdValid,
     isTicketValid,
@@ -48,7 +49,7 @@ export const useTask = () => {
     updateState,
 
     createTicket: ({ force }: { force: boolean }) => {
-      if (!isCustomIdValid || !isTicketValid) {
+      if (!isCustomIdValid || !isTicketValid || !isResourceValid) {
         dispatch({
           type: "TASK.VALIDATION.SHOW",
           key: { clusterName, task: task.name },
