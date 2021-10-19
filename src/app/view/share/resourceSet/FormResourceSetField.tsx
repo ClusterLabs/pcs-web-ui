@@ -18,8 +18,11 @@ export const FormResourceSetField: React.FC<{
   showValidationErrors,
   update,
 }) => {
+  const minimumResources = isOnlyOne ? 2 : 1;
   const resourcesValidated =
-    showValidationErrors && selectedResources.length < 2 ? "error" : "default";
+    showValidationErrors && selectedResources.length < minimumResources
+      ? "error"
+      : "default";
   return (
     <FormGroup
       label="resources"
