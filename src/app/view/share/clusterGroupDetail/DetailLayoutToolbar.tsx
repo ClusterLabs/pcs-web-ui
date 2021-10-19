@@ -66,7 +66,7 @@ export const DetailLayoutToolbar: React.FC<{
             </ToolbarItem>
           ))}
 
-          {dropdownActions && (
+          {Object.keys(dropdownActions).length > 0 && (
             <ToolbarItem>
               <Dropdown
                 toggle={
