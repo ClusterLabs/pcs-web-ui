@@ -27,6 +27,7 @@ export function* create({
       type: "CONSTRAINT.SINGLE.CREATE.OK",
       key,
     });
+    yield put({ type: "CLUSTER.STATUS.REFRESH", key });
     return;
   }
 
