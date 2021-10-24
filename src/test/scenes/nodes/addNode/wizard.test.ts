@@ -20,8 +20,8 @@ describe("Node add task", () => {
 
   it("should succesfully add new node", async () => {
     shortcuts.interceptWithCluster("actions", [
-      route.can_add_cluster_or_nodes(NODE),
-      route.check_auth_against_nodes(NODE),
+      route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
+      route.check_auth_against_nodes({ nodeNameList: [NODE] }),
       route.send_known_hosts(CLUSTER, NODE),
       route.clusterNodeAdd(CLUSTER, NODE),
     ]);
@@ -40,7 +40,10 @@ describe("Node add task", () => {
       + " You may not add a node to two different clusters.";
 
     shortcuts.interceptWithCluster("actions", [
-      route.can_add_cluster_or_nodes(NODE, { status: [400, reason] }),
+      route.can_add_cluster_or_nodes({
+        nodeNameList: [NODE],
+        response: { status: [400, reason] },
+      }),
     ]);
     await enterNodeName(NODE);
     await page.waitForSelector(TASK.PREPARE_CLUSTER.CANNOT_ADD);
@@ -48,8 +51,11 @@ describe("Node add task", () => {
 
   it("should display alert when node is offline", async () => {
     shortcuts.interceptWithCluster("actions", [
-      route.can_add_cluster_or_nodes(NODE, { text: "" }),
-      route.check_auth_against_nodes(NODE, { json: { [NODE]: "Offline" } }),
+      route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
+      route.check_auth_against_nodes({
+        nodeNameList: [NODE],
+        response: { json: { [NODE]: "Offline" } },
+      }),
     ]);
     await enterNodeName(NODE);
     await page.waitForSelector(TASK.PREPARE_CLUSTER.AUTH_FAILED);
@@ -57,9 +63,10 @@ describe("Node add task", () => {
 
   it("should sucessfull add new node with authentication", async () => {
     shortcuts.interceptWithCluster("actions", [
-      route.can_add_cluster_or_nodes(NODE),
-      route.check_auth_against_nodes(NODE, {
-        json: { [NODE]: "Unable to authenticate" },
+      route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
+      route.check_auth_against_nodes({
+        nodeNameList: [NODE],
+        response: { json: { [NODE]: "Unable to authenticate" } },
       }),
       route.send_known_hosts(CLUSTER, NODE),
       route.clusterNodeAdd(CLUSTER, NODE),

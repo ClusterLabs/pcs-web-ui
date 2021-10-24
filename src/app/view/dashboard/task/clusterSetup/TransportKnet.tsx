@@ -120,7 +120,9 @@ export const TransportKnet: React.FC<{ linkList: Link[] }> = ({ linkList }) => {
                     <TabTitleIcon>
                       <PlusIcon />
                     </TabTitleIcon>
-                    <TabTitleText>Add Link</TabTitleText>
+                    <TabTitleText data-test="knet-link-add">
+                      Add Link
+                    </TabTitleText>
                   </>
                 }
               />

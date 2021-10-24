@@ -3,7 +3,7 @@ import { api, clusterStatus } from "app/backend";
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, route, url } from "test/tools";
+import { intercept, location, route } from "test/tools";
 
 const CLUSTERS = dt("cluster-list", "^cluster ");
 const CLUSTER_OK = dt("cluster-list", "cluster ok");
@@ -18,28 +18,17 @@ type ClusterStatus = api.PayloadOf<typeof clusterStatus>;
 
 const interceptWithDashboard = (routeList: intercept.Route[]) =>
   intercept.start([
-    {
-      url: url.importedClusterList,
-      json: responses.importedClusterList.withClusters([
+    route.importedClusterList({
+      clusterNameList: [
         responses.clusterStatus.ok.cluster_name,
         responses.clusterStatus.error.cluster_name,
-      ]),
-    },
-    {
-      url: url.clusterStatus({ clusterName: "empty" }),
-      json: responses.clusterStatus.ok,
-    },
+      ],
+    }),
+    route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
     route.resourceAgentListAgents("ok"),
     route.stonithAgentListAgents({ clusterName: "ok" }),
     route.getClusterPropertiesDefinition({ clusterName: "ok" }),
-    {
-      url: url.clusterStatus({ clusterName: "ok" }),
-      json: responses.clusterStatus.ok,
-    },
-    {
-      url: url.clusterStatus({ clusterName: "error" }),
-      json: responses.clusterStatus.error,
-    },
+    route.clusterStatus({ clusterStatus: responses.clusterStatus.error }),
     ...routeList,
   ]);
 

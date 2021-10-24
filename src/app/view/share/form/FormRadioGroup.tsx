@@ -7,15 +7,17 @@ export function FormRadioGroup<OPTION extends string>({
   selected,
   onChange,
   isDisabled,
+  "data-test": dataTest,
 }: {
   id: string;
   options: OPTION[];
   selected: OPTION;
   onChange: (_value: OPTION) => void;
   isDisabled?: React.ComponentProps<typeof Radio>["isDisabled"];
+  ["data-test"]?: string;
 }) {
   return (
-    <Flex>
+    <Flex data-test={dataTest}>
       {options.map(o => (
         <FlexItem key={o}>
           <Radio
@@ -29,6 +31,7 @@ export function FormRadioGroup<OPTION extends string>({
             label={o}
             id={`${id}-${o}`}
             isDisabled={isDisabled}
+            data-test="abcd-radio"
           />
         </FlexItem>
       ))}

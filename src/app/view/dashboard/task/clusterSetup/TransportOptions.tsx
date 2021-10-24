@@ -49,6 +49,7 @@ export const TransportOptions: React.FC = () => {
                 >,
               })
             }
+            data-test="ip_version"
           />
 
           <FormText
@@ -59,6 +60,7 @@ export const TransportOptions: React.FC = () => {
             onChange={value =>
               updateTransportOptions({ knet_pmtud_interval: value })
             }
+            data-test="knet_pmtud_interval"
           />
 
           <FormSelect
@@ -74,6 +76,7 @@ export const TransportOptions: React.FC = () => {
                 >,
               })
             }
+            data-test="link_mode"
           />
         </FormFieldGroup>
 
@@ -87,6 +90,7 @@ export const TransportOptions: React.FC = () => {
             popover={help.compression.model}
             value={compressionOptions.model}
             onChange={value => updateCompressionOptions({ model: value })}
+            data-test="model"
           />
 
           <FormText
@@ -95,6 +99,7 @@ export const TransportOptions: React.FC = () => {
             popover={help.compression.threshold}
             value={compressionOptions.threshold}
             onChange={value => updateCompressionOptions({ threshold: value })}
+            data-test="threshold"
           />
 
           <FormText
@@ -103,6 +108,7 @@ export const TransportOptions: React.FC = () => {
             popover={help.compression.level}
             value={compressionOptions.level}
             onChange={value => updateCompressionOptions({ level: value })}
+            data-test="level"
           />
         </FormFieldGroup>
         <TextContent>
@@ -116,6 +122,7 @@ export const TransportOptions: React.FC = () => {
             options={["nss", "openssl", "default"]}
             selected={cryptoOptions.model}
             onChange={value => updateCryptoOptions({ model: value })}
+            data-test="crypto.model"
           />
 
           <FormSelect
@@ -139,6 +146,7 @@ export const TransportOptions: React.FC = () => {
                 >,
               })
             }
+            data-test="crypto.hash"
           />
 
           <FormSelect
@@ -154,6 +162,7 @@ export const TransportOptions: React.FC = () => {
                 >,
               })
             }
+            data-test="crypto.cipher"
           />
         </FormFieldGroup>
       </Form>

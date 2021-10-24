@@ -20,7 +20,7 @@ export const NameAndNodes: React.FC = () => {
       title="Essential information about cluster"
       reports={allReports}
     >
-      <Form>
+      <Form data-test="form-name-nodes">
         <FormText
           id="cluster-name"
           value={clusterName}
@@ -29,9 +29,10 @@ export const NameAndNodes: React.FC = () => {
           helperTextInvalid="Please provide the cluster name"
           showValidationErrors={showValidationErrors}
           isValid={isClusterNameValid}
+          data-test="cluster-name"
         />
 
-        <FormGroup label="Node list" fieldId="node-list">
+        <FormGroup label="Node name list" fieldId="node-list">
           <table>
             <tbody>
               {nodeNameList.map((nodeName, i) => (
@@ -47,6 +48,7 @@ export const NameAndNodes: React.FC = () => {
                           ),
                         })
                       }
+                      data-test={`node-name-${i}`}
                       {...(i === nodeNameList.length - 1
                         ? {
                             helperTextInvalid:

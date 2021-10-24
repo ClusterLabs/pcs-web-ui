@@ -6,6 +6,8 @@ import {
   WizardStep,
 } from "@patternfly/react-core";
 
+import { wizardCreateFooterDataTest } from "./wizardCreateFooterDataTest";
+
 const DefaultWizardStep: React.FC = () => {
   return <>DEFAULT WIZARD STEP</>;
 };
@@ -54,13 +56,15 @@ export const Wizard: React.FC<{
       title={title}
       description={description}
       footer={
-        <WizardFooter>
-          <WizardContextConsumer>
-            {({ activeStep }) =>
-              footerList.find(f => f.name === activeStep.name)?.footer
-            }
-          </WizardContextConsumer>
-        </WizardFooter>
+        <WizardContextConsumer>
+          {({ activeStep }) => (
+            <div data-test={wizardCreateFooterDataTest(activeStep.name)}>
+              <WizardFooter>
+                {footerList.find(f => f.name === activeStep.name)?.footer}
+              </WizardFooter>
+            </div>
+          )}
+        </WizardContextConsumer>
       }
     />
   );

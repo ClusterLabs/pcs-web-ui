@@ -5,8 +5,8 @@ type AppLocations = typeof appLocationMap;
 
 const wrapLocationCreator =
   <KW extends Record<string, string>>(
-    fn: (keywords: KW) => string,
-  ): ((keywords: KW) => string) =>
+    fn: (_keywords: KW) => string,
+  ): ((_keywords: KW) => string) =>
   (keywords: KW) =>
     `${HOST}/ui${fn(keywords)}`;
 
@@ -17,7 +17,7 @@ export const location = Object.entries(appLocationMap).reduce<AppLocations>(
       typeof appLocation === "string"
         ? `${HOST}/ui${appLocation}`
         : wrapLocationCreator(
-            appLocation as (keywords: Record<string, string>) => string,
+            appLocation as (_keywords: Record<string, string>) => string,
           ),
   }),
   {} as AppLocations,

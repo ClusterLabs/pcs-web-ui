@@ -5,7 +5,7 @@ const VIEW = dt("task-fence-device-create");
 export const TASK = {
   VIEW,
   NAME: dt(VIEW, "form-name-type", "fence-device-name"),
-  AGENT_SELECT: dt(VIEW, "form-name-type", "fence-device-agent-wrapper"),
+  AGENT_SELECT: dt(VIEW, "form-name-type", "fence-device-agent"),
   AGENT: dt(VIEW, "form-name-type", "fence-device-agent"),
   ATTR: (attrName: string) => dt(VIEW, `attr ${attrName}`),
   NEXT: dt(VIEW, "task-next"),

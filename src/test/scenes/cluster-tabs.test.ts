@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, route, url } from "test/tools";
+import { intercept, location, route } from "test/tools";
 
 const currentTab = async () => {
   const currentTablist = await page.$$eval(dt("tabs cluster"), tabs =>
@@ -27,10 +27,7 @@ const checkClusterTab = async (
 describe("Cluster scene", () => {
   beforeEach(
     intercept.start([
-      {
-        url: url.clusterStatus({ clusterName: "ok" }),
-        json: responses.clusterStatus.ok,
-      },
+      route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
       route.resourceAgentListAgents("ok"),
       route.stonithAgentListAgents({ clusterName: "ok" }),
       route.getClusterPropertiesDefinition({ clusterName: "ok" }),

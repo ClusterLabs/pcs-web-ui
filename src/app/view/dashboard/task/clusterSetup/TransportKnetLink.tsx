@@ -22,7 +22,7 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
       <FormGroup label="Node list" fieldId="node-list"></FormGroup>
       <table>
         <tbody>
-          {Object.keys(link.addresses).map(nodeName => (
+          {Object.keys(link.addresses).map((nodeName, i) => (
             <tr key={nodeName} className="pf-u-m-sm">
               <td>{nodeName}</td>
               <td className="pf-u-p-sm">
@@ -34,6 +34,7 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
                       addresses: { ...link.addresses, [nodeName]: value },
                     })
                   }
+                  data-test={`knet-link-node-${i}`}
                 />
               </td>
             </tr>
@@ -42,7 +43,7 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
       </table>
       <FormText
         label="Link priority"
-        id="link-priority"
+        id="link_priority"
         popover={{
           header: "Link priority",
           body: (
@@ -54,10 +55,11 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
         }}
         value={link.link_priority || ""}
         onChange={value => updateLink({ link_priority: value })}
+        data-test="link_priority"
       />
       <FormText
         label="Port"
-        id="port"
+        id="mcastport"
         popover={{
           header: "Knet mcastport",
           body: (
@@ -70,10 +72,11 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
         }}
         value={link.mcastport || ""}
         onChange={value => updateLink({ mcastport: value })}
+        data-test="mcastport"
       />
       <FormText
         label="Ping interval"
-        id="ping-interval"
+        id="ping_interval"
         popover={{
           header: "Ping interval",
           body: (
@@ -88,10 +91,11 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
         }}
         value={link.ping_interval || ""}
         onChange={value => updateLink({ ping_interval: value })}
+        data-test="ping_interval"
       />
       <FormText
         label="Ping precision"
-        id="ping-precision"
+        id="ping_precision"
         popover={{
           header: "Ping precision",
           body: (
@@ -104,10 +108,11 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
         }}
         value={link.ping_precision || ""}
         onChange={value => updateLink({ ping_precision: value })}
+        data-test="ping_precision"
       />
       <FormText
         label="Ping timeout"
-        id="ping-timeout"
+        id="ping_timeout"
         popover={{
           header: "Ping timeout",
           body: (
@@ -123,10 +128,11 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
         }}
         value={link.ping_timeout || ""}
         onChange={value => updateLink({ ping_timeout: value })}
+        data-test="ping_timeout"
       />
       <FormText
         label="Pong count"
-        id="pong-count"
+        id="pong_count"
         popover={{
           header: "Pong count",
           body: "How many valid ping/pongs before a link is marked UP.",
@@ -134,6 +140,7 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
         }}
         value={link.pong_count || ""}
         onChange={value => updateLink({ pong_count: value })}
+        data-test="pong_count"
       />
 
       <FormSelect
@@ -152,6 +159,7 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
         placeholderText="Select transport"
         selections={link.transport}
         optionsValues={["udp", "sctp"]}
+        data-test="transport"
       />
     </Form>
   );

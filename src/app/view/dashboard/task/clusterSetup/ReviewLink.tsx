@@ -10,9 +10,12 @@ export const ReviewLink: React.FC<{
   link: Link;
   field: keyof Link;
   label: string;
-}> = ({ link, field, label }) => {
+  "data-test"?: string;
+}> = ({ link, field, label, "data-test": dataTest }) => {
   if (field in link) {
-    return <ReviewValue label={label} value={link[field]} />;
+    return (
+      <ReviewValue label={label} value={link[field]} data-test={dataTest} />
+    );
   }
   return null;
 };

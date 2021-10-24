@@ -13,6 +13,7 @@ import {
 const TASK = dt("task-add-cluster");
 const TASK_BUTTON_NEXT = dt(TASK, "footer [type='submit']");
 const FORM_CHECK_AUTH = dt(TASK, "form-auth-check");
+const clusterName = responses.clusterStatus.empty.cluster_name;
 
 const isButtonNextDisabled = async () => {
   const isDisabled = await page.$eval(TASK_BUTTON_NEXT, (buttonNext) => {
@@ -49,19 +50,11 @@ const authFailed = async () => {
 
 const interceptWithDashboard = async (routeList: intercept.Route[]) => {
   await intercept.run([
-    {
-      url: url.importedClusterList,
-      json: responses.importedClusterList.withClusters([
-        responses.clusterStatus.empty.cluster_name,
-      ]),
-    },
-    {
-      url: url.clusterStatus({ clusterName: "empty" }),
-      json: responses.clusterStatus.empty,
-    },
-    route.resourceAgentListAgents("empty"),
-    route.stonithAgentListAgents({ clusterName: "empty" }),
-    route.getClusterPropertiesDefinition({ clusterName: "empty" }),
+    route.importedClusterList({ clusterNameList: [clusterName] }),
+    route.clusterStatus({ clusterStatus: responses.clusterStatus.empty }),
+    route.resourceAgentListAgents(clusterName),
+    route.stonithAgentListAgents({ clusterName }),
+    route.getClusterPropertiesDefinition({ clusterName }),
     ...routeList,
   ]);
 };

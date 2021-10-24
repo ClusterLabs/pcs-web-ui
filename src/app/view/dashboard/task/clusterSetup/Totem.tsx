@@ -31,6 +31,7 @@ const TotemFormText: React.FC<{
       popover={help[optionName]}
       value={totemOptions[optionName] || ""}
       onChange={value => updateTotemOptions({ [optionName]: value })}
+      data-test={`totem.${optionName}`}
     />
   );
 };
@@ -51,6 +52,7 @@ export const Totem: React.FC = () => {
           options={["yes", "no", "default"]}
           selected={totemOptions.block_unlisted_ips}
           onChange={value => updateTotemOptions({ block_unlisted_ips: value })}
+          data-test="totem.block_unlisted_ips"
         />
 
         <TotemFormText optionName="consensus" />

@@ -1,12 +1,12 @@
 import * as playwright from "playwright";
 import { ParsedQuery, parse, parseUrl } from "query-string";
 
-type RequestData = {
+export type RequestData = {
   body?: ParsedQuery | null;
   query?: ParsedQuery | null;
   payload?: ReturnType<typeof JSON.parse> | null;
 };
-type Handler = (route: playwright.Route, request: playwright.Request) => void;
+type Handler = (_route: playwright.Route, _request: playwright.Request) => void;
 type RouteUrl = string | RegExp;
 export type RouteResponse =
   | { handler: Handler }

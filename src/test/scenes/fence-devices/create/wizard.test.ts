@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
-import { dt } from "test/tools/selectors";
 import { intercept, route, shortcuts } from "test/tools";
+import { assertReview } from "test/tools/workflows";
 
 import { TASK, url } from "./common";
 
@@ -10,22 +10,6 @@ const clusterName = "actions";
 const agentName = "fence_apc";
 const ip = "127.0.0.1";
 const username = "user1";
-
-const assertReview = async (
-  contextSelector: string,
-  nameValueMap: Record<string, string>,
-) => {
-  await page.waitForSelector(contextSelector);
-  Object.keys(nameValueMap).forEach(async (name) => {
-    const foundValues = await page.$$eval(
-      dt(contextSelector, `${name}-review-value`),
-      el => el.map(e => (e as HTMLElement).innerText),
-    );
-
-    expect(foundValues).toHaveLength(1);
-    expect(foundValues[0]).toEqual(nameValueMap[name]);
-  });
-};
 
 describe("Fence device create task", () => {
   afterEach(intercept.stop);

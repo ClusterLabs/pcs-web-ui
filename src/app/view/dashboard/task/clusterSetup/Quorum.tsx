@@ -40,6 +40,7 @@ export const Quorum: React.FC = () => {
           options={["off", "on", "default"]}
           selected={quorumOptions.auto_tie_breaker}
           onChange={value => updateQuorumOptions({ auto_tie_breaker: value })}
+          data-test="quorum.auto_tie_breaker"
         />
         <FormRadios
           id="cluster-setup-quorum-last-man-standing"
@@ -67,6 +68,7 @@ export const Quorum: React.FC = () => {
           options={["off", "on", "default"]}
           selected={quorumOptions.last_man_standing}
           onChange={value => updateQuorumOptions({ last_man_standing: value })}
+          data-test="quorum.last_man_standing"
         />
         <FormText
           label="Last man standing window"
@@ -86,6 +88,7 @@ export const Quorum: React.FC = () => {
           onChange={value =>
             updateQuorumOptions({ last_man_standing_window: value })
           }
+          data-test="quorum.last_man_standing_window"
         />
         <FormRadios
           id="cluster-setup-quorum-wait-for-all"
@@ -125,6 +128,7 @@ export const Quorum: React.FC = () => {
           options={["off", "on", "default"]}
           selected={quorumOptions.wait_for_all}
           onChange={value => updateQuorumOptions({ wait_for_all: value })}
+          data-test="quorum.wait_for_all"
         />
       </Form>
     </TaskLibStep>
