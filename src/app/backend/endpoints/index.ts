@@ -8,7 +8,7 @@ import { clusterSetup } from "./lib";
 import { authGuiAgainstNodes } from "./authGuiAgainstNodes";
 import { canAddClusterOrNodes } from "./canAddClusterOrNodes";
 import { checkAuthAgainstNodes } from "./checkAuthAgainstNodes";
-import { clusterProperties } from "./clusterProperties";
+import { getClusterPropertiesDefinition } from "./getClusterPropertiesDefinition";
 import { updateClusterSettings } from "./updateClusterSettings";
 import { clusterStart } from "./clusterStart";
 import { clusterStatus } from "./clusterStatus";
@@ -43,7 +43,7 @@ const endpoints = {
   authGuiAgainstNodes,
   canAddClusterOrNodes,
   checkAuthAgainstNodes,
-  clusterProperties,
+  getClusterPropertiesDefinition,
   updateClusterSettings,
   resourceChangeGroup,
   clusterSetup,

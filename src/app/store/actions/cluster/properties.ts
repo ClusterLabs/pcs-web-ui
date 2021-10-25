@@ -1,4 +1,4 @@
-import { api, clusterProperties } from "app/backend";
+import { api, getClusterPropertiesDefinition } from "app/backend";
 
 export type ClusterPropertiesActions = {
   "CLUSTER.PROPERTIES.LOAD": {
@@ -10,7 +10,9 @@ export type ClusterPropertiesActions = {
     type: "CLUSTER.PROPERTIES.LOAD.OK";
     key: { clusterName: string };
     payload: {
-      apiClusterProperties: api.PayloadOf<typeof clusterProperties>;
+      apiClusterProperties: api.PayloadOf<
+        typeof getClusterPropertiesDefinition
+      >;
     };
   };
 

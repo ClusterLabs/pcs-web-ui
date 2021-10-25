@@ -213,3 +213,12 @@ export const destroyCluster = ({
   body: { "--all": "1" },
   status: [status ?? 200, ""] as [number, string],
 });
+
+export const getClusterPropertiesDefinition = ({
+  clusterName,
+}: {
+  clusterName: string;
+}) => ({
+  url: url.getClusterPropertiesDefinition({ clusterName }),
+  json: responses.clusterProperties.ok,
+});

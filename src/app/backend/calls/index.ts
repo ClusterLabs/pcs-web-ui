@@ -5,6 +5,7 @@ export * from "./clusterStatus";
 export * from "./importedClusterList";
 export * from "./updateResource";
 export * from "./clusterProperties";
+export * from "./getClusterPropertiesDefinition";
 export * from "./updateClusterSettings";
 export * from "./resourceCleanup";
 export * from "./resourceRefresh";

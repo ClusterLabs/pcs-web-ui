@@ -1,13 +1,14 @@
-import { clusterProperties, updateClusterSettings } from "app/backend";
+import {
+  getClusterPropertiesDefinition,
+  updateClusterSettings,
+} from "app/backend";
 import { ActionMap } from "app/store/actions";
 
 import { api, processClusterResultBasic, put } from "./common";
 
 export function* load({ key }: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
-  const result: api.ResultOf<typeof clusterProperties> = yield api.authSafe(
-    clusterProperties,
-    key.clusterName,
-  );
+  const result: api.ResultOf<typeof getClusterPropertiesDefinition> =
+    yield api.authSafe(getClusterPropertiesDefinition, key.clusterName);
 
   const taskLabel = `load cluster properties of cluster ${key.clusterName}`;
   if (result.type !== "OK") {

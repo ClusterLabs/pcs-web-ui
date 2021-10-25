@@ -62,10 +62,7 @@ const interceptWithCluster = (routeList: intercept.Route[]) =>
     },
     route.resourceAgentListAgents("ok"),
     route.stonithAgentListAgents({ clusterName: "ok" }),
-    {
-      url: url.clusterProperties({ clusterName: "ok" }),
-      json: responses.clusterProperties.ok,
-    },
+    route.getClusterPropertiesDefinition({ clusterName: "ok" }),
     ...routeList,
   ]);
 

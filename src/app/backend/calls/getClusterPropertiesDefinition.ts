@@ -1,7 +1,7 @@
 import { CallResult, endpoints, http } from "./tools";
 
-const { shape, url } = endpoints.clusterProperties;
+const { shape, url } = endpoints.getClusterPropertiesDefinition;
 
-export const clusterProperties = async (
+export const getClusterPropertiesDefinition = async (
   clusterName: string,
 ): CallResult<typeof shape> => http.get(url({ clusterName }), { shape });
