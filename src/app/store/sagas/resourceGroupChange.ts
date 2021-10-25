@@ -16,6 +16,7 @@ export function* change({ key, payload }: ActionMap["RESOURCE.GROUP.CHANGE"]) {
       type: "RESOURCE.GROUP.CHANGE.OK",
       key,
     });
+    yield put({ type: "CLUSTER.STATUS.REFRESH", key });
     return;
   }
 
