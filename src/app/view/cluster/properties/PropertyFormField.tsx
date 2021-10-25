@@ -79,7 +79,7 @@ export const PropertyFormField: React.FC<{
       label={property.readable_name}
       popover={popover}
       onChange={value => modifyProperty(property.name, value)}
-      value={userProperty || currentValue || ""}
+      value={userProperty ?? (currentValue || "")}
       placeholder={property.default as string}
     />
   );
