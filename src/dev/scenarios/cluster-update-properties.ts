@@ -6,7 +6,6 @@ shortcut.dashboard([response.clusterStatus.actions]);
 
 app.updateClusterSettings((req, res) => {
   const batchLimit = req.body.config["batch-limit"];
-  console.log(batchLimit);
   if (batchLimit === "2") {
     res.status(403).send("Permission denied");
     return;

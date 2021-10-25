@@ -60,8 +60,8 @@ const getFenceAgentMetadata = (
     }
   });
 
-const clusterProperties = (properties: types.ClusterProperties) =>
-  app.clusterProperties((_req, res) => {
+const getClusterPropertiesDefinition = (properties: types.ClusterProperties) =>
+  app.getClusterPropertiesDefinition((_req, res) => {
     res.json(properties);
   });
 
@@ -75,7 +75,7 @@ export const clusterRelated = () => {
     response.resourceAgentMetadata.ocfHeartbeatDummy,
   ]);
   getFenceAgentMetadata([response.fenceAgentMetadata.ok]);
-  clusterProperties(response.clusterProperties.ok);
+  getClusterPropertiesDefinition(response.clusterProperties.ok);
 };
 
 export const dashboard = (clusterStatusList: types.Cluster[]) => {
