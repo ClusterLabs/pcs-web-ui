@@ -32,6 +32,16 @@ const fetchState: AppReducer<ClusterPermissionsService["fetchState"]> = (
   action,
 ) => {
   switch (action.type) {
+    case "CLUSTER.PERMISSIONS.EDIT":
+      return {
+        current: "LOADED",
+        alreadyLoaded: true,
+      };
+    case "CLUSTER.PERMISSIONS.SAVE":
+      return {
+        current: "LOADED",
+        alreadyLoaded: true,
+      };
     case "CLUSTER.PERMISSIONS.LOAD.OK":
       return {
         current: "LOADED",

@@ -24,6 +24,7 @@ import * as libCallTask from "./libCallTask";
 import * as nodeStartStop from "./nodeStartStop";
 import * as nodeAdd from "./nodeAdd";
 import * as clusterSetup from "./clusterSetup";
+import * as permissionsSave from "./permissionsSave";
 import * as resourceClone from "./resourceClone";
 import * as nodeAuth from "./nodeAuth";
 import * as fixAuth from "./fixAuth";
@@ -71,6 +72,7 @@ function* rootSaga() {
     takeEvery("NODE.ADD.CHECK_AUTH", nodeAdd.checkAuthSaga),
     takeEvery("NODE.ADD.SEND_KNOWN_HOSTS", nodeAdd.sendKnownHostsSaga),
     takeEvery("NODE.AUTH", nodeAuth.nodeAuthSaga),
+    takeEvery("CLUSTER.PERMISSIONS.SAVE", permissionsSave.permissionsSave),
     takeEvery("FENCE_AGENT.LOAD", fenceAgent.load),
     takeEvery("FENCE_AGENT.ENSURE", fenceAgent.ensure),
     takeEvery("FENCE_AGENT.LIST.LOAD", fenceAgentList.load),

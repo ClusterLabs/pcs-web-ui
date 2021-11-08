@@ -29,6 +29,16 @@ const shape = t.type({
   ),
 });
 
+export const shapePermissions = t.type({
+  users_permissions: t.array(
+    t.type({
+      name: t.string,
+      type: t.string,
+      allow: t.array(t.string),
+    }),
+  ),
+});
+
 const validate = (payload: t.TypeOf<typeof shape>) => {
   const permissionCodes = payload.permission_types.map(pt => pt.code);
 
