@@ -71,6 +71,7 @@ export const useTask = () => {
                 ...(state.role !== "no limitation"
                   ? { "rsc-role": state.role }
                   : {}),
+                "loss-policy": state.lossPolicy,
               },
               resource_in_clone_alowed: force,
               duplication_alowed: force,
