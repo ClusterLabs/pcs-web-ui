@@ -11,8 +11,8 @@ export const PrimitiveAttrsFormItemLayout = ({
   children,
 }: React.PropsWithChildren<{
   name: string;
-  shortdesc: string;
-  longdesc: string;
+  shortdesc: string | null;
+  longdesc: string | null;
   defaultValue: string | number | null;
   required: boolean;
 }>) => {

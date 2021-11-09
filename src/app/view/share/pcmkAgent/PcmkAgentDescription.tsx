@@ -1,4 +1,3 @@
-import React from "react";
 import { ExpandableSection, Text } from "@patternfly/react-core";
 
 export const PcmkAgentDescription = ({
@@ -7,8 +6,8 @@ export const PcmkAgentDescription = ({
   longdesc,
 }: {
   name: string;
-  shortdesc: string;
-  longdesc: string;
+  shortdesc: string | null;
+  longdesc: string | null;
 }) => {
   const lastIndex = name.lastIndexOf(":");
 
@@ -24,7 +23,7 @@ export const PcmkAgentDescription = ({
         <dd>
           {shortdesc}
           <ExpandableSection toggleText="Full description">
-            {longdesc.split("\n\n").map((line, i) => (
+            {(longdesc || "").split("\n\n").map((line, i) => (
               /* eslint-disable react/no-array-index-key */
               <Text component="p" key={i}>
                 {line}

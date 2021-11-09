@@ -10,8 +10,8 @@ type AgentMap = Record<
   {
     loadStatus: "LOADING" | "LOADED" | "RELOADING" | "FAILED";
     name: string;
-    shortdesc: string;
-    longdesc: string;
+    shortdesc: string | null;
+    longdesc: string | null;
     parameters: Params;
   }
 >;
