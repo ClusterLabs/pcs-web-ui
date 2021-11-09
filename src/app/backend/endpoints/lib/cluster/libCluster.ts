@@ -187,7 +187,7 @@ export type Commands = [
       resource_set_list: {
         ids: string[];
         options: {
-          "rsc-role"?: "Stopped" | "Started" | "Master" | "Slave";
+          role?: "Stopped" | "Started" | "Master" | "Slave";
         };
       }[];
       constraint_options: {
