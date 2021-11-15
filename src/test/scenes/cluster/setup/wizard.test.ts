@@ -102,4 +102,30 @@ describe("Cluster setup", () => {
     // TODO currently it is not possible to have multiple
     // check_auth_against_nodes with different query and strings...
   });
+
+  it.only("should be mandatory fill node addresses in links", async () => {
+    interceptForClusterSetup([
+      route.check_auth_against_nodes({ nodeNameList }),
+      route.clusterSetup({
+        payload: {
+          targetNode: nodeNameList[0],
+          setupData: {
+            cluster_name: clusterName,
+            nodes: nodeNameList.map(nodeName => ({ name: nodeName })),
+            transport_type: "knet",
+            link_list: [],
+          },
+        },
+      }),
+    ]);
+    await page.type(task.clusterName, clusterName);
+    await page.type(task.nodeNameAt(0), nodeNameList[0]);
+    await page.type(task.nodeNameAt(1), nodeNameList[1]);
+    await task.nextFrom("Cluster name and nodes");
+    await task.nextFrom("Check cluster name and nodes");
+    await page.click(task.knetTransport.addLink);
+    await task.nextFrom("Transport links");
+    await hasFieldError(task.knetTransport.nodeAddr(0));
+    await hasFieldError(task.knetTransport.nodeAddr(1));
+  });
 });

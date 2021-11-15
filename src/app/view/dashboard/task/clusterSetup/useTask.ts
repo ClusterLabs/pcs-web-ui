@@ -67,6 +67,10 @@ export const useTask = () => {
     isClusterNameAndNodeCheckDoneValid:
       state.clusterAndNodesCheck === "success",
 
+    areLinksValid: state.linkList.every(link =>
+      Object.values(link.addresses).every(address => address.length > 0),
+    ),
+
     useClusterAndNodesCheck,
 
     updateClusterName: (

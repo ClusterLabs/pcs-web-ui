@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Alert,
   Grid,
   GridItem,
   Tab,
@@ -28,7 +29,13 @@ export const TransportKnet: React.FC<{ linkList: Link[] }> = ({ linkList }) => {
   const [currentTabIndex, setCurrentTabIndex] = React.useState<
     Link["linknumber"] | typeof NO_LINK
   >(0);
-  const { setLinksKnet, allReports, filledNodeNameList } = useTask();
+  const {
+    setLinksKnet,
+    allReports,
+    filledNodeNameList,
+    areLinksValid,
+    state: { showValidationErrors },
+  } = useTask();
 
   const removeLink = React.useCallback(
     (linkNumber: number) => (e: React.MouseEvent) => {
@@ -85,6 +92,20 @@ export const TransportKnet: React.FC<{ linkList: Link[] }> = ({ linkList }) => {
 
   return (
     <TaskLibStep title="Knet transport" reports={allReports}>
+      {!areLinksValid && showValidationErrors && (
+        <Alert
+          variant="danger"
+          isInline
+          title={`Unfilled adresses for links: ${linkList
+            .filter(link =>
+              Object.values(link.addresses).some(
+                address => address.length === 0,
+              ),
+            )
+            .map(link => `Link ${link.linknumber}`)
+            .join(", ")}`}
+        />
+      )}
       <Grid>
         <GridItem span={2}>
           <Tabs

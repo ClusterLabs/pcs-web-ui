@@ -8,7 +8,10 @@ import { useTask } from "./useTask";
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 
 export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
-  const { updateLinkKnet } = useTask();
+  const {
+    updateLinkKnet,
+    state: { showValidationErrors },
+  } = useTask();
 
   const updateLink = React.useCallback(
     (options: Partial<Link>) => {
@@ -34,6 +37,9 @@ export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
                       addresses: { ...link.addresses, [nodeName]: value },
                     })
                   }
+                  helperTextInvalid="Please provide address for the node"
+                  showValidationErrors={showValidationErrors}
+                  isValid={link.addresses[nodeName].length > 0}
                   data-test={`knet-link-node-${i}`}
                 />
               </td>

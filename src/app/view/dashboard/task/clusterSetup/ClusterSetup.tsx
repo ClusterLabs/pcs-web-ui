@@ -23,6 +23,7 @@ export const ClusterSetup: React.FC = () => {
     isClusterNameValid,
     areNodeNamesValid,
     isClusterNameAndNodeCheckDoneValid,
+    areLinksValid,
     setupCluster,
     state: {
       authProcessId,
@@ -75,26 +76,32 @@ export const ClusterSetup: React.FC = () => {
             {
               name: "Transport links",
               component: <Transport />,
-              footer: <WizardFooter onClose={close} task="clusterSetup" />,
+              footer: (
+                <WizardFooter
+                  onClose={close}
+                  task="clusterSetup"
+                  nextIf={areLinksValid}
+                />
+              ),
               canJumpTo: isClusterNameAndNodeCheckDoneValid,
             },
             {
               name: "Transport Options",
               component: <TransportOptions />,
               footer: <WizardFooter onClose={close} task="clusterSetup" />,
-              canJumpTo: isClusterNameAndNodeCheckDoneValid,
+              canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Quorum",
               component: <Quorum />,
               footer: <WizardFooter onClose={close} task="clusterSetup" />,
-              canJumpTo: isClusterNameAndNodeCheckDoneValid,
+              canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Totem",
               component: <Totem />,
               footer: <WizardFooter onClose={close} task="clusterSetup" />,
-              canJumpTo: isClusterNameAndNodeCheckDoneValid,
+              canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
           ],
         },
@@ -109,7 +116,7 @@ export const ClusterSetup: React.FC = () => {
               task="clusterSetup"
             />
           ),
-          canJumpTo: isClusterNameAndNodeCheckDoneValid,
+          canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
         },
         {
           name: "Result",
