@@ -12,7 +12,8 @@ const DefaultWizardStep: React.FC = () => {
   return <>DEFAULT WIZARD STEP</>;
 };
 
-type Step = WizardStep & { footer?: React.ReactNode };
+type Step = WizardStep & { footer?: React.ReactNode; steps?: Step[] };
+type Footer = { name: React.ReactNode; footer: React.ReactNode };
 
 const defaultSteps: Step[] = [
   {
@@ -20,6 +21,32 @@ const defaultSteps: Step[] = [
     component: <DefaultWizardStep />,
   },
 ];
+
+const separateStepsAndFooters = (steps: Step[]) => {
+  const stepList: WizardStep[] = [];
+  let footerList: Footer[] = [];
+  steps.forEach((stepWithFooter) => {
+    if ("footer" in stepWithFooter === false) {
+      stepList.push(stepWithFooter);
+      return;
+    }
+
+    const { footer, ...pfStep } = stepWithFooter;
+    footerList.push({ name: stepWithFooter.name, footer });
+
+    if ("steps" in pfStep === false || pfStep.steps === undefined) {
+      stepList.push(pfStep);
+      return;
+    }
+
+    const { stepList: subStepList, footerList: subFooterList } =
+      separateStepsAndFooters(pfStep.steps);
+
+    footerList = footerList.concat(subFooterList);
+    stepList.push({ ...pfStep, steps: subStepList });
+  });
+  return { stepList, footerList };
+};
 
 export const Wizard: React.FC<{
   ["data-test"]: string;
@@ -34,18 +61,9 @@ export const Wizard: React.FC<{
   description,
   steps = undefined,
 }) => {
-  const stepList: WizardStep[] = [];
-  const footerList: { name: React.ReactNode; footer: React.ReactNode }[] = [];
-
-  (steps || defaultSteps).forEach((stepWithFooter) => {
-    if ("footer" in stepWithFooter) {
-      const { footer, ...pfStep } = stepWithFooter;
-      footerList.push({ name: stepWithFooter.name, footer });
-      stepList.push(pfStep);
-    } else {
-      stepList.push(stepWithFooter);
-    }
-  });
+  const { stepList, footerList } = separateStepsAndFooters(
+    steps || defaultSteps,
+  );
 
   return (
     <PfWizard
@@ -55,6 +73,7 @@ export const Wizard: React.FC<{
       onClose={onClose}
       title={title}
       description={description}
+      isNavExpandable
       footer={
         <WizardContextConsumer>
           {({ activeStep }) => (

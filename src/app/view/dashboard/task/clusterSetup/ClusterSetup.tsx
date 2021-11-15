@@ -66,28 +66,36 @@ export const ClusterSetup: React.FC = () => {
           ),
         },
         {
-          name: "Transport links",
+          name: "Advanced options",
           component: <Transport />,
           footer: <WizardFooter onClose={close} task="clusterSetup" />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid,
-        },
-        {
-          name: "Transport Options",
-          component: <TransportOptions />,
-          footer: <WizardFooter onClose={close} task="clusterSetup" />,
-          canJumpTo: isClusterNameAndNodeCheckDoneValid,
-        },
-        {
-          name: "Quorum",
-          component: <Quorum />,
-          footer: <WizardFooter onClose={close} task="clusterSetup" />,
-          canJumpTo: isClusterNameAndNodeCheckDoneValid,
-        },
-        {
-          name: "Totem",
-          component: <Totem />,
-          footer: <WizardFooter onClose={close} task="clusterSetup" />,
-          canJumpTo: isClusterNameAndNodeCheckDoneValid,
+          steps: [
+            {
+              name: "Transport links",
+              component: <Transport />,
+              footer: <WizardFooter onClose={close} task="clusterSetup" />,
+              canJumpTo: isClusterNameAndNodeCheckDoneValid,
+            },
+            {
+              name: "Transport Options",
+              component: <TransportOptions />,
+              footer: <WizardFooter onClose={close} task="clusterSetup" />,
+              canJumpTo: isClusterNameAndNodeCheckDoneValid,
+            },
+            {
+              name: "Quorum",
+              component: <Quorum />,
+              footer: <WizardFooter onClose={close} task="clusterSetup" />,
+              canJumpTo: isClusterNameAndNodeCheckDoneValid,
+            },
+            {
+              name: "Totem",
+              component: <Totem />,
+              footer: <WizardFooter onClose={close} task="clusterSetup" />,
+              canJumpTo: isClusterNameAndNodeCheckDoneValid,
+            },
+          ],
         },
         {
           name: "Review",
