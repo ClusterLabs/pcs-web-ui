@@ -5,9 +5,6 @@ import { TaskReport, useDashboardTask } from "app/view/share";
 
 type SetupData = ActionPayload["DASHBOARD.CLUSTER.SETUP.CALL"]["setupData"];
 
-const onlyFilledNodes = (nodeNameList: string[]) =>
-  nodeNameList.filter(nodeName => nodeName.length > 0);
-
 const transformOnOff = (value: unknown) => (value === "on" ? "1" : "0");
 
 const prepareOptionalOptions = <KEY extends string>(
@@ -37,14 +34,16 @@ const prepareOptionalOptions = <KEY extends string>(
 export const useTask = () => {
   const task = useDashboardTask("clusterSetup");
   const { dispatch, state } = task;
+  const filledNodeNameList = state.nodeNameList.filter(
+    nodeName => nodeName.length > 0,
+  );
   const checkCanAddClusterOrNodes = () => {
-    const nodeNameList = onlyFilledNodes(state.nodeNameList);
     dispatch({
       type: "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD",
       payload: {
         clusterName: state.clusterName,
-        targetNode: nodeNameList[0],
-        nodeNameList: nodeNameList,
+        targetNode: filledNodeNameList[0],
+        nodeNameList: filledNodeNameList,
       },
     });
   };
@@ -62,7 +61,8 @@ export const useTask = () => {
 
     isClusterNameValid: state.clusterName.length > 0,
 
-    areNodeNamesValid: onlyFilledNodes(state.nodeNameList).length > 0,
+    areNodeNamesValid: filledNodeNameList.length > 0,
+    filledNodeNameList,
 
     isClusterNameAndNodeCheckDoneValid:
       state.clusterAndNodesCheck === "success",
@@ -159,23 +159,26 @@ export const useTask = () => {
     checkCanAddClusterOrNodes,
 
     checkAuth: () => {
-      const nodeNameList = onlyFilledNodes(state.nodeNameList);
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH",
-        payload: { nodeNameList, targetNode: nodeNameList[0] },
+        payload: {
+          nodeNameList: filledNodeNameList,
+          targetNode: filledNodeNameList[0],
+        },
       });
     },
 
     sendKnownHosts: () => {
-      const nodeNameList = onlyFilledNodes(state.nodeNameList);
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.SEND_KNOWN_HOSTS",
-        payload: { nodeNameList, targetNode: nodeNameList[0] },
+        payload: {
+          nodeNameList: filledNodeNameList,
+          targetNode: filledNodeNameList[0],
+        },
       });
     },
 
     setupCluster: ({ force }: { force?: boolean } = { force: false }) => {
-      const nodeNameList = onlyFilledNodes(state.nodeNameList);
       const quorumOptions: SetupData["quorum_options"] = prepareOptionalOptions(
         state.quorumOptions,
         {
@@ -250,7 +253,7 @@ export const useTask = () => {
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.CALL",
         payload: {
-          targetNode: nodeNameList[0],
+          targetNode: filledNodeNameList[0],
           setupData: {
             cluster_name: state.clusterName,
             // The backend defaults addresses. But it only does so when there
@@ -270,7 +273,7 @@ export const useTask = () => {
             // defaults addresses only when key "addrs" is not specified we
             // cannot simply send empty addresses or empty address list (i.e.
             // key "addrs").
-            nodes: nodeNameList.map((n) => {
+            nodes: filledNodeNameList.map((n) => {
               const addrs = state.linkList.reduce<string[]>(
                 (addrList, link) => [
                   ...addrList,

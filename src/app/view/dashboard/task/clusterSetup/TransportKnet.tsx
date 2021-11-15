@@ -28,11 +28,7 @@ export const TransportKnet: React.FC<{ linkList: Link[] }> = ({ linkList }) => {
   const [currentTabIndex, setCurrentTabIndex] = React.useState<
     Link["linknumber"] | typeof NO_LINK
   >(0);
-  const {
-    setLinksKnet,
-    allReports,
-    state: { nodeNameList },
-  } = useTask();
+  const { setLinksKnet, allReports, filledNodeNameList } = useTask();
 
   const removeLink = React.useCallback(
     (linkNumber: number) => (e: React.MouseEvent) => {
@@ -63,7 +59,7 @@ export const TransportKnet: React.FC<{ linkList: Link[] }> = ({ linkList }) => {
         ...linkList,
         {
           linknumber,
-          addresses: nodeNameList.reduce(
+          addresses: filledNodeNameList.reduce(
             (addrs, nodeName) => ({
               ...addrs,
               [nodeName]: "",
@@ -72,7 +68,7 @@ export const TransportKnet: React.FC<{ linkList: Link[] }> = ({ linkList }) => {
           ),
         },
       ]),
-    [linkList, nodeNameList, setLinksKnet],
+    [linkList, filledNodeNameList, setLinksKnet],
   );
 
   const selectLink = React.useCallback(
