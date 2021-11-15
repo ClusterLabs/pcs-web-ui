@@ -122,6 +122,7 @@ export const clusterSetup: AppReducer<typeof initialState> = (
         nodeNameList: action.payload.nodeNameList,
         clusterAndNodesCheck: "not-started",
         clusterAndNodesCheckMessage: "",
+        authProcessId: null,
       };
 
     case "DASHBOARD.CLUSTER.SETUP.UPDATE_LINK_KNET":

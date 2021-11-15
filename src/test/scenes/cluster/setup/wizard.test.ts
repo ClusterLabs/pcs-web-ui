@@ -11,7 +11,6 @@ export const interceptForClusterSetup = (routeList: intercept.Route[] = []) =>
     route.importedClusterList(),
     route.resourceAgentListAgents(clusterName),
     route.can_add_cluster_or_nodes({ clusterName, nodeNameList }),
-    route.check_auth_against_nodes({ nodeNameList }),
     route.sendKnownHostsToNode({ nodeNameList, targetNode: nodeNameList[0] }),
     ...routeList,
   ]);
@@ -25,6 +24,7 @@ describe("Cluster setup", () => {
 
   it("should succesfully create simplest 2 node cluster", async () => {
     interceptForClusterSetup([
+      route.check_auth_against_nodes({ nodeNameList }),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
@@ -52,6 +52,7 @@ describe("Cluster setup", () => {
 
   it("should succesfully setup cluster skipping optinal steps", async () => {
     interceptForClusterSetup([
+      route.check_auth_against_nodes({ nodeNameList }),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
@@ -78,5 +79,27 @@ describe("Cluster setup", () => {
     await task.nextFrom("Cluster name and nodes");
     await hasFieldError(task.clusterName);
     await hasFieldError(task.lastNode);
+  });
+
+  it("should be possible go back from auth and change node name", async () => {
+    interceptForClusterSetup([
+      route.check_auth_against_nodes({
+        nodeNameList,
+        response: {
+          json: {
+            [nodeNameList[0]]: "Unable to authenticate",
+            [nodeNameList[1]]: "Unable to authenticate",
+          },
+        },
+      }),
+    ]);
+    await page.type(task.clusterName, clusterName);
+    await page.type(task.nodeNameAt(0), nodeNameList[0]);
+    await page.type(task.nodeNameAt(1), nodeNameList[1]);
+    await task.nextFrom("Cluster name and nodes");
+    await page.waitForSelector(task.authPasswordAt(nodeNameList[0]));
+    await task.backFrom("Check cluster name and nodes");
+    // TODO currently it is not possible to have multiple
+    // check_auth_against_nodes with different query and strings...
   });
 });

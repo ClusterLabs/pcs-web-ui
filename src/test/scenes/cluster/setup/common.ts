@@ -7,9 +7,23 @@ const view = "task-cluster-setup";
 
 const inView = (...keys: string[]) => mkXPath(view, ...keys);
 
+type Steps =
+  | "Cluster name and nodes"
+  | "Check cluster name and nodes"
+  | "Transport links"
+  | "Transport Options"
+  | "Quorum"
+  | "Totem"
+  | "Review";
+
 const nextFrom = <STEP_NAME extends string>() => {
   return async (stepName: STEP_NAME) => {
     await page.click(inView(wizardCreateFooterDataTest(stepName), "task-next"));
+  };
+};
+const backFrom = <STEP_NAME extends string>() => {
+  return async (stepName: STEP_NAME) => {
+    await page.click(inView(wizardCreateFooterDataTest(stepName), "task-back"));
   };
 };
 
@@ -17,6 +31,8 @@ export const task = {
   view,
   clusterName: inView("cluster-name"),
   nodeNameAt: (i: number) => inView(`node-name-${i}`),
+  authPasswordAt: (nodeName: string) =>
+    inView(`auth-node-${nodeName}-password`),
   lastNode: `(${mkXPath(view)}//*[contains(@data-test, "node-name-")])[last()]`,
   knetTransport: {
     addLink: inView("knet-link-add"),
@@ -72,15 +88,8 @@ export const task = {
     ),
     window_size: inView("totem.window_size"),
   },
-  nextFrom: nextFrom<
-    | "Cluster name and nodes"
-    | "Check cluster name and nodes"
-    | "Transport links"
-    | "Transport Options"
-    | "Quorum"
-    | "Totem"
-    | "Review"
-  >(),
+  nextFrom: nextFrom<Steps>(),
+  backFrom: backFrom<Steps>(),
   reviewAndFinish: inView("review-and-finish"),
   sucess: inView("task-success"),
 };
