@@ -52,6 +52,7 @@ export const ClusterSetup: React.FC = () => {
         {
           name: "Check cluster name and nodes",
           component: <PrepareNodes />,
+          canJumpTo: isClusterNameValid && areNodeNamesValid,
           footer: authProcessId ? (
             <WizardFooter
               next={<NodeAuthButton authProcessId={authProcessId} />}
@@ -71,7 +72,10 @@ export const ClusterSetup: React.FC = () => {
           name: "Advanced options",
           component: <Transport />,
           footer: <WizardFooter onClose={close} task="clusterSetup" />,
-          canJumpTo: isClusterNameAndNodeCheckDoneValid,
+          canJumpTo:
+            isClusterNameValid
+            && areNodeNamesValid
+            && isClusterNameAndNodeCheckDoneValid,
           steps: [
             {
               name: "Transport links",
