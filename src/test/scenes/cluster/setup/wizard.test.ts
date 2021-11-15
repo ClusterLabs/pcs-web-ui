@@ -50,6 +50,29 @@ describe("Cluster setup", () => {
     await page.waitForSelector(task.sucess);
   });
 
+  it("should succesfully setup cluster skipping optinal steps", async () => {
+    interceptForClusterSetup([
+      route.clusterSetup({
+        payload: {
+          targetNode: nodeNameList[0],
+          setupData: {
+            cluster_name: clusterName,
+            nodes: nodeNameList.map(nodeName => ({ name: nodeName })),
+            transport_type: "knet",
+            link_list: [],
+          },
+        },
+      }),
+    ]);
+    await page.type(task.clusterName, clusterName);
+    await page.type(task.nodeNameAt(0), nodeNameList[0]);
+    await page.type(task.nodeNameAt(1), nodeNameList[1]);
+    await task.nextFrom("Cluster name and nodes");
+    await page.click(task.reviewAndFinish);
+    await task.nextFrom("Review");
+    await page.waitForSelector(task.sucess);
+  });
+
   it("should refuse to continue without essential data", async () => {
     intercept.run([route.importedClusterList()]);
     await task.nextFrom("Cluster name and nodes");

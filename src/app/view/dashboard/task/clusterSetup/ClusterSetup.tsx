@@ -62,6 +62,7 @@ export const ClusterSetup: React.FC = () => {
               nextDisabled={!isClusterNameAndNodeCheckDoneValid}
               onClose={close}
               task="clusterSetup"
+              reviewAndFinish={{ label: "Review and setup cluster" }}
             />
           ),
         },

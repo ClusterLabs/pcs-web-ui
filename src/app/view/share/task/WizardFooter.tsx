@@ -8,6 +8,7 @@ import { selectors } from "app/store";
 import { TaskButtonNext } from "./TaskButtonNext";
 import { TaskButtonBack } from "./TaskButtonBack";
 import { TaskButtonCancel } from "./TaskButtonCancel";
+import { TaskButtonReviewAndFinish } from "./TaskButtonReviewAndFinish";
 
 export const WizardFooter: React.FC<
   {
@@ -19,6 +20,9 @@ export const WizardFooter: React.FC<
     nextDisabled?: boolean;
     backDisabled?: boolean;
     nextLabel?: React.ComponentProps<typeof TaskButtonNext>["label"];
+    reviewAndFinish?: {
+      label: string;
+    };
   } & (
     | {
         preNext?: () => void;
@@ -49,7 +53,7 @@ export const WizardFooter: React.FC<
   const dispatch = useDispatch();
   return (
     <WizardContextConsumer>
-      {({ onBack: pfOnBack, onNext }) => (
+      {({ onBack: pfOnBack, onNext, goToStepByName }) => (
         <>
           {"next" in props && props.next !== undefined && <>{props.next}</>}
           {!("next" in props) && (
@@ -83,6 +87,12 @@ export const WizardFooter: React.FC<
             onClick={onBack || pfOnBack}
             disabled={backDisabled}
           />
+          {props.reviewAndFinish !== undefined && (
+            <TaskButtonReviewAndFinish
+              onClick={() => goToStepByName("Review")}
+              label={props.reviewAndFinish.label}
+            />
+          )}
           <TaskButtonCancel onClick={onClose} />
         </>
       )}

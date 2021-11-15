@@ -81,6 +81,7 @@ export const task = {
     | "Totem"
     | "Review"
   >(),
+  reviewAndFinish: inView("review-and-finish"),
   sucess: inView("task-success"),
 };
 export const url = {
