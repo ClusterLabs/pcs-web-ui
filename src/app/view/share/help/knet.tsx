@@ -9,6 +9,41 @@ type CompressionOptions = NonNullable<SetupData["compression_options"]>;
 type CryptoOptions = NonNullable<SetupData["crypto_options"]>;
 
 export const options: Partial<Record<keyof KnetOptions, Help>> = {
+  ip_version: {
+    header: "Ip version",
+    body: (
+      <>
+        <p>
+          This specifies version of IP to ask DNS resolver for. The value can be
+          one of ipv4 (look only for an IPv4 address) , ipv6 (check only IPv6
+          address) , ipv4-6 (look for all address families and use first IPv4
+          address found in the list if there is such address, otherwise use
+          first IPv6 address) and ipv6-4 (look for all address families and use
+          first IPv6 address found in the list if there is such address,
+          otherwise use first IPv4 address).
+        </p>
+        <p>
+          Default (if unspecified) is ipv6-4 for knet and udpu transports and
+          ipv4 for udp.
+        </p>
+        <p>
+          The knet transport supports IPv4 and IPv6 addresses concurrently,
+          provided they are consistent on each link.
+        </p>
+        <p>
+          Within the totem directive, there are several configuration options
+          which are used to control the operation of the protocol. It is
+          generally not recommended to change any of these values without proper
+          guidance and sufficient testing. Some networks may require larger
+          values if suffering from frequent reconfigurations. Some applications
+          may require faster failure detection times which can be achieved by
+          reducing the token timeout.
+        </p>
+      </>
+    ),
+    defaultValue: "ipv6-4",
+  },
+
   knet_pmtud_interval: {
     header: "PMTUd Interval",
     body: (
