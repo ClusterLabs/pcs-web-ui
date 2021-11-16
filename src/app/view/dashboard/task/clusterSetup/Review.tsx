@@ -37,77 +37,82 @@ export const Review: React.FC = () => {
         <ReviewValue
           label="Knet links"
           value={
-            <ReviewList>
-              {linkList.map(link => (
-                <ReviewValue
-                  label={`Link ${link.linknumber}`}
-                  key={link.linknumber}
-                  value={
-                    <ReviewList>
-                      <ReviewValue
-                        label="Addresses"
-                        value={
-                          <ReviewList>
-                            {Object.entries(link.addresses).map(
-                              ([nodeName, address]) => (
-                                <ReviewValue
-                                  key={nodeName}
-                                  label={nodeName}
-                                  value={address}
-                                  data-test={`link.${link.linknumber}.${nodeName}`}
-                                />
-                              ),
-                            )}
-                          </ReviewList>
-                        }
-                      />
-                      <ReviewLink
-                        link={link}
-                        field="link_priority"
-                        label="Priority"
-                        data-test={`link.${link.linknumber}.link_priority`}
-                      />
-                      <ReviewLink
-                        link={link}
-                        field="mcastport"
-                        label="Port"
-                        data-test={`link.${link.linknumber}.mcastport`}
-                      />
-                      <ReviewLink
-                        link={link}
-                        field="ping_interval"
-                        label="Ping interval"
-                        data-test={`link.${link.linknumber}.ping_interval`}
-                      />
-                      <ReviewLink
-                        link={link}
-                        field="ping_precision"
-                        label="Ping precision"
-                        data-test={`link.${link.linknumber}.ping_precision`}
-                      />
-                      <ReviewLink
-                        link={link}
-                        field="ping_timeout"
-                        label="Ping timeout"
-                        data-test={`link.${link.linknumber}.ping_timeout`}
-                      />
-                      <ReviewLink
-                        link={link}
-                        field="pong_count"
-                        label="Pong count"
-                        data-test={`link.${link.linknumber}.pong_count`}
-                      />
-                      <ReviewLink
-                        link={link}
-                        field="transport"
-                        label="Transport"
-                        data-test={`link.${link.linknumber}.transport`}
-                      />
-                    </ReviewList>
-                  }
-                />
-              ))}
-            </ReviewList>
+            <>
+              {linkList.length === 0 && <span>No link specified</span>}
+              {linkList.length > 0 && (
+                <ReviewList>
+                  {linkList.map(link => (
+                    <ReviewValue
+                      label={`Link ${link.linknumber}`}
+                      key={link.linknumber}
+                      value={
+                        <ReviewList>
+                          <ReviewValue
+                            label="Addresses"
+                            value={
+                              <ReviewList>
+                                {Object.entries(link.addresses).map(
+                                  ([nodeName, address]) => (
+                                    <ReviewValue
+                                      key={nodeName}
+                                      label={nodeName}
+                                      value={address}
+                                      data-test={`link.${link.linknumber}.${nodeName}`}
+                                    />
+                                  ),
+                                )}
+                              </ReviewList>
+                            }
+                          />
+                          <ReviewLink
+                            link={link}
+                            field="link_priority"
+                            label="Priority"
+                            data-test={`link.${link.linknumber}.link_priority`}
+                          />
+                          <ReviewLink
+                            link={link}
+                            field="mcastport"
+                            label="Port"
+                            data-test={`link.${link.linknumber}.mcastport`}
+                          />
+                          <ReviewLink
+                            link={link}
+                            field="ping_interval"
+                            label="Ping interval"
+                            data-test={`link.${link.linknumber}.ping_interval`}
+                          />
+                          <ReviewLink
+                            link={link}
+                            field="ping_precision"
+                            label="Ping precision"
+                            data-test={`link.${link.linknumber}.ping_precision`}
+                          />
+                          <ReviewLink
+                            link={link}
+                            field="ping_timeout"
+                            label="Ping timeout"
+                            data-test={`link.${link.linknumber}.ping_timeout`}
+                          />
+                          <ReviewLink
+                            link={link}
+                            field="pong_count"
+                            label="Pong count"
+                            data-test={`link.${link.linknumber}.pong_count`}
+                          />
+                          <ReviewLink
+                            link={link}
+                            field="transport"
+                            label="Transport"
+                            data-test={`link.${link.linknumber}.transport`}
+                          />
+                        </ReviewList>
+                      }
+                    />
+                  ))}
+                </ReviewList>
+              )}
+            </>
           }
         />
         <ReviewValue

@@ -103,7 +103,7 @@ describe("Cluster setup", () => {
     // check_auth_against_nodes with different query and strings...
   });
 
-  it.only("should be mandatory fill node addresses in links", async () => {
+  it("should be mandatory fill node addresses in links", async () => {
     interceptForClusterSetup([
       route.check_auth_against_nodes({ nodeNameList }),
       route.clusterSetup({
