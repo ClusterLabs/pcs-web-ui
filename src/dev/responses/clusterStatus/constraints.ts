@@ -28,10 +28,12 @@ export const constraints: Cluster["constraints"] = {
           id: "rs-colocation-A-G1-INFINITY-2-1",
           resources: ["A", "GROUP-1"],
           sequential: "false",
+          role: "Master",
         },
         {
           id: "rs-colocation-A-G1-INFINITY-2-2",
           resources: ["B", "C"],
+          role: "Slave",
         },
         {
           "id-ref": "reused-rules",
@@ -46,6 +48,7 @@ export const constraints: Cluster["constraints"] = {
           id: "rs-colocation-A-G1-INFINITY-3-1",
           resources: ["A", "GROUP-1"],
           sequential: "false",
+          role: "Promoted",
         },
         {
           id: "rs-colocation-A-G1-INFINITY-3-2",
@@ -53,6 +56,7 @@ export const constraints: Cluster["constraints"] = {
         },
         {
           "id-ref": "reused-rules",
+          role: "Unpromoted",
         },
       ],
     },

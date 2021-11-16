@@ -110,7 +110,13 @@ export const Configure: React.FC = () => {
         label="Role"
         className="pf-u-mt-sm"
         id="role"
-        options={["no limitation", "Started", "Stopped", "Master", "Slave"]}
+        options={[
+          "no limitation",
+          "Started",
+          "Stopped",
+          "Promoted",
+          "Unpromoted",
+        ]}
         selected={role}
         onChange={value => updateState({ role: value })}
         popover={{

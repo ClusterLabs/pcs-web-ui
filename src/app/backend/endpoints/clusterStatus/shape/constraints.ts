@@ -13,7 +13,9 @@ const ApiConstraintRole = t.keyof({
   Stopped: null,
   Started: null,
   Master: null,
+  Promoted: null,
   Slave: null,
+  Unpromoted: null,
 });
 
 const ApiConstraintAction = t.keyof({

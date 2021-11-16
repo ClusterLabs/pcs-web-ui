@@ -174,7 +174,7 @@ export type Commands = [
       resource_id: string;
       options: {
         id?: string;
-        "rsc-role"?: "Stopped" | "Started" | "Master" | "Slave";
+        "rsc-role"?: "Stopped" | "Started" | "Promoted" | "Unpromoted";
         "loss-policy"?: "fence" | "stop" | "freeze" | "demote";
       };
       resource_in_clone_alowed: boolean;
@@ -187,7 +187,7 @@ export type Commands = [
       resource_set_list: {
         ids: string[];
         options: {
-          role?: "Stopped" | "Started" | "Master" | "Slave";
+          role?: "Stopped" | "Started" | "Promoted" | "Unpromoted";
         };
       }[];
       constraint_options: {
@@ -206,7 +206,7 @@ export type Commands = [
         ids: string[];
         options: {
           sequential?: "true" | "false";
-          role?: "Stopped" | "Started" | "Master" | "Slave";
+          role?: "Stopped" | "Started" | "Promoted" | "Unpromoted";
         };
       }[];
       constraint_options: {

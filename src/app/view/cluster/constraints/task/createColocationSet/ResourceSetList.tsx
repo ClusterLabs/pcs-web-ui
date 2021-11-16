@@ -80,8 +80,8 @@ export const ResourceSetList: React.FC = () => {
                   "no limitation",
                   "Started",
                   "Stopped",
-                  "Master",
-                  "Slave",
+                  "Promoted",
+                  "Unpromoted",
                 ]}
                 selected={set.role}
                 onChange={value => update({ role: value })}
