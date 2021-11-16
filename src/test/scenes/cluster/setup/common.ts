@@ -36,6 +36,7 @@ export const task = {
   lastNode: `(${mkXPath(view)}//*[contains(@data-test, "node-name-")])[last()]`,
   knetTransport: {
     addLink: inView("knet-link-add"),
+    advancedOptions: `${inView("link-advanced-options")}//button`,
     nodeAddr: (i: number) => inView(`knet-link-node-${i}`),
     link_priority: inView("link_priority"),
     mcastport: inView("mcastport"),

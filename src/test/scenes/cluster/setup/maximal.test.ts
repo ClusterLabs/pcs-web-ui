@@ -125,6 +125,8 @@ describe("Cluster setup", () => {
     await page.click(task.knetTransport.addLink);
     await page.type(task.knetTransport.nodeAddr(0), addrs[0][0]);
     await page.type(task.knetTransport.nodeAddr(1), addrs[0][1]);
+
+    await page.click(task.knetTransport.advancedOptions);
     await page.type(task.knetTransport.link_priority, link.link_priority);
     await page.type(task.knetTransport.mcastport, link.mcastport);
     await page.type(task.knetTransport.ping_interval, link.ping_interval);
