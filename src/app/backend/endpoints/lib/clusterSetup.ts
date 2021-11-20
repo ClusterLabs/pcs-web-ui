@@ -5,7 +5,7 @@ import { endpoint } from "app/backend/endpoints/endpoint";
 import { shape } from "./shape";
 
 export const clusterSetup = endpoint({
-  url: "/manage/cluster-setup",
+  url: "/manage/api/v1/cluster-setup",
   method: "post",
   params: ({
     targetNode,
