@@ -3,22 +3,52 @@ import { ActionMap } from "app/store/actions";
 
 import { api, processError, put, putNotification } from "./common";
 
-export function* permissionsSave({
-  key,
-  payload,
-}: ActionMap["CLUSTER.PERMISSIONS.SAVE"]) {
-  const result: api.ResultOf<typeof savePermissions> = yield api.authSafe(
+type SaveAction = ActionMap["CLUSTER.PERMISSIONS.SAVE"];
+type ApiResult = api.ResultOf<typeof savePermissions>;
+
+function* processRemoveResult(result: ApiResult) {
+  if (result.type !== "OK") {
+    yield processError(result, "remove permission");
+    return;
+  }
+  yield putNotification("SUCCESS", "Permission removed");
+}
+
+function* processCreateResult(result: ApiResult) {
+  const taskLabel = "create permission";
+  if (result.type !== "OK") {
+    yield processError(result, taskLabel, {
+      useNotification: false,
+      action: () =>
+        put({
+          type: "CLUSTER.PERMISSIONS.SAVE.ERROR",
+          payload: {
+            message: api.errorMessage(result, taskLabel),
+          },
+        }),
+    });
+    return;
+  }
+
+  yield put({
+    type: "CLUSTER.PERMISSIONS.SAVE.OK",
+  });
+}
+
+export function* permissionsSave({ key, payload }: SaveAction) {
+  const result: ApiResult = yield api.authSafe(
     savePermissions,
     key.clusterName,
     payload,
   );
 
-  if (result.type !== "OK") {
-    yield processError(result, "Error while removing permission");
-    return;
+  if (key.task === "permissionRemove") {
+    yield processRemoveResult(result);
+  } else if (key.task === "permissionCreate") {
+    yield processCreateResult(result);
   }
 
-  yield putNotification("SUCCESS", "Permission removed");
+  // reload
   yield put({
     type: "CLUSTER.PERMISSIONS.LOAD",
     key,

@@ -1,30 +1,27 @@
-import React from "react";
 import { Button } from "@patternfly/react-core";
 
-import { TaskSimple, TaskSimpleFinish} from "app/view/share";
+import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
 
-import { useTask } from "../constraints/task/createColocation/useTask";
-import { Configure } from "../constraints/task/createLocation/Configure";
+import { useTask } from "./useTask";
+import { Configure } from "./Configure";
 
 export const PermissionAddToolbarItem = () => {
   const {
     open,
     close,
     recoverFromError,
+    permissionCreate,
     isOpened,
+    isNameValid,
     state: {
       call: { response, resultMessage },
     },
-  } = useTask();  // CREATE MY TASK
+  } = useTask(); // CREATE MY TASK
   //const dispatch = useDispatch();
 
   return (
     <>
-      <Button
-        variant={"primary"}
-        onClick={open}
-        data-test="permission-add"
-      >
+      <Button variant={"primary"} onClick={open} data-test="permission-add">
         Add Permission
       </Button>
       {isOpened && (
@@ -32,11 +29,15 @@ export const PermissionAddToolbarItem = () => {
           title="Add permission"
           close={close}
           footer={
-            <>
-              <Button variant="link" onClick={close}>
-                Cancel
-              </Button>
-              </>
+            response !== "" ? null : (
+              <TaskSimpleFooter
+                task="permissionCreate"
+                nextIf={isNameValid}
+                run={permissionCreate}
+                runLabel="Create location constraint"
+                cancel={close}
+              />
+            )
           }
         >
           {response === "" && <Configure />}
@@ -48,7 +49,7 @@ export const PermissionAddToolbarItem = () => {
               successTitle="Location created successfully"
               failTitle="Create location constraint failed"
               close={close}
-              tryAgain={close} // ADD
+              tryAgain={close}
               recoverFromError={recoverFromError}
             />
           )}

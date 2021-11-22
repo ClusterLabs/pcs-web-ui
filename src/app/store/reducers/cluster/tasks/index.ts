@@ -20,6 +20,7 @@ import { constraintColocationSetCreate } from "./constraintColocationSetCreate";
 import { resourceGroup } from "./resourceGroup";
 import { nodeAdd } from "./nodeAdd";
 import { fixAuth } from "./fixAuth";
+import { permissionCreate } from "./permissionCreate";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -55,5 +56,6 @@ export const tasks = combineReducers(
     resourceGroup,
     nodeAdd,
     fixAuth,
+    permissionCreate,
   }),
 );
