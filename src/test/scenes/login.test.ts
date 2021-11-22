@@ -1,7 +1,7 @@
-import { clusterStatus, importedClusterList } from "dev/responses";
+import { clusterStatus } from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, url } from "test/tools";
+import { intercept, location, route, url } from "test/tools";
 
 const username = "hacluster";
 const password = "hh";
@@ -10,10 +10,7 @@ describe("Login scene", () => {
     const FORM_LOGIN = dt("form-login");
 
     await intercept.run([
-      {
-        url: url.importedClusterList,
-        status: 401,
-      },
+      route.importedClusterList({ response: { status: 401 } }),
       {
         url: url.login,
         body: { username, password },
@@ -35,14 +32,8 @@ describe("Logout", () => {
 
   it("should call logout on backend after click", async () => {
     await intercept.run([
-      {
-        url: url.importedClusterList,
-        json: importedClusterList.empty,
-      },
-      {
-        url: url.clusterStatus({ clusterName: "empty" }),
-        json: clusterStatus.empty,
-      },
+      route.importedClusterList(),
+      route.clusterStatus({ clusterStatus: clusterStatus.empty }),
       {
         url: url.logout,
         text: "OK",

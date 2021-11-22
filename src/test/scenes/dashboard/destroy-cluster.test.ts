@@ -1,22 +1,14 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, route, url } from "test/tools";
+import { intercept, location, route } from "test/tools";
 
-const clusterName = "ok";
+const clusterName = responses.clusterStatus.ok.cluster_name;
 
 const interceptWithDashboard = async (routeList: intercept.Route[]) => {
   await intercept.run([
-    {
-      url: url.importedClusterList,
-      json: responses.importedClusterList.withClusters([
-        responses.clusterStatus.ok.cluster_name,
-      ]),
-    },
-    {
-      url: url.clusterStatus({ clusterName }),
-      json: responses.clusterStatus.ok,
-    },
+    route.importedClusterList({ clusterNameList: [clusterName] }),
+    route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
     ...routeList,
   ]);
 };

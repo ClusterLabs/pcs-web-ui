@@ -37,3 +37,4 @@ export * from "./form";
 export * from "./task";
 export * from "./compareStatusSeverity";
 export * from "./constraints";
+export * as help from "./help";

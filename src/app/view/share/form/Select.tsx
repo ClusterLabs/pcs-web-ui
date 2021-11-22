@@ -73,7 +73,7 @@ export const Select = (
 
   if ("data-test" in props && props["data-test"]) {
     return (
-      <span data-test={`${props["data-test"]}-wrapper`}>
+      <span data-test={props["data-test"]}>
         <PfSelect {...pfProps} />
       </span>
     );

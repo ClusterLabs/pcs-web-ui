@@ -1,28 +1,72 @@
-import { LibClusterCommands } from "app/backend/endpoints";
+import { LibClusterCommands, endpoints } from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
+import * as types from "dev/types";
 
 import { Shapes, payload, url } from "test/tools";
 
-import { RouteResponse } from "./interception";
+import { RequestData, RouteResponse } from "./interception";
 
-export const can_add_cluster_or_nodes = (
-  nodeName: string,
-  response: RouteResponse = { text: "" },
-) => ({
-  url: url.canAddClusterOrNodes,
-  query: { "node_names[]": nodeName },
-  ...response,
-});
+// list-values-in-query:
+// * when "node_names[]=node1" appears in the query then it is recognized as
+//   {"node_names[]": "node1"} - i.e. value is string not array
+//
+// * but when "node_names[]=node1&node_names[]=node2" appears in the query then
+//   it is recognized as
+//  {"node_names[]": ["node1", "node2"]} - i.e. value is array unlike prev case
 
-export const check_auth_against_nodes = (
-  nodeName: string,
-  response: RouteResponse | null = null,
-) => ({
-  url: url.checkAuthAgainstNodes,
-  query: { "node_list[]": nodeName },
-  ...(response ?? { json: { [nodeName]: "Online" } }),
-});
+export const can_add_cluster_or_nodes = ({
+  nodeNameList,
+  clusterName,
+  response,
+}: {
+  nodeNameList?: string[];
+  clusterName?: string;
+  response?: RouteResponse;
+}) => {
+  const query: RequestData["query"] = {};
+  if (nodeNameList !== undefined && nodeNameList.length > 0) {
+    // see list-values-in-query above
+    query["node_names[]"] =
+      nodeNameList.length === 1 ? nodeNameList[0] : nodeNameList;
+  }
+  if (clusterName !== undefined) {
+    query["cluster"] = clusterName;
+  }
+  return {
+    url: url.canAddClusterOrNodes,
+    query,
+    ...(response ?? { text: "" }),
+  };
+};
+
+export const check_auth_against_nodes = ({
+  nodeNameList,
+  response,
+}: {
+  nodeNameList: string[];
+  response?: RouteResponse;
+}) => {
+  const query: RequestData["query"] = {};
+  if (nodeNameList !== undefined && nodeNameList.length > 0) {
+    // see list-values-in-query above
+    query["node_list[]"] =
+      nodeNameList.length === 1 ? nodeNameList[0] : nodeNameList;
+  }
+  return {
+    url: url.checkAuthAgainstNodes,
+    query,
+    ...(response ?? {
+      json: nodeNameList.reduce(
+        (nodeResults, nodeName) => ({
+          ...nodeResults,
+          [nodeName]: "Online",
+        }),
+        {},
+      ),
+    }),
+  };
+};
 
 export const auth_gui_against_nodes = (
   nodes: Record<
@@ -58,6 +102,22 @@ export const send_known_hosts = (
   body: { "node_names[]": nodeName },
   ...response,
 });
+
+export const sendKnownHostsToNode = ({
+  nodeNameList,
+  targetNode,
+  response,
+}: {
+  nodeNameList: string[];
+  targetNode: string;
+  response?: RouteResponse;
+}) => {
+  return {
+    url: url.sendKnownHostsToNode,
+    body: { "node_names[]": nodeNameList, target_node: targetNode },
+    ...(response ?? { text: "success" }),
+  };
+};
 
 export const resourceAgentListAgents = (clusterName: string) => ({
   url: url.libClusterResourceAgentListAgents({ clusterName }),
@@ -167,6 +227,22 @@ export const stonithCreate = ({
     response,
   });
 
+export const clusterSetup = (props: {
+  payload: Parameters<typeof endpoints.clusterSetup.params>[0];
+  response?: RouteResponse;
+}) => {
+  const response: RouteResponse = props?.response ?? {
+    json: responses.lib.success(),
+  };
+  return {
+    url: url.clusterSetup,
+    body: endpoints.clusterSetup
+      .params(props.payload)
+      .reduce((body, [key, value]) => ({ ...body, [key]: value }), {}),
+    ...response,
+  };
+};
+
 export const clusterNodeAdd = (
   clusterName: string,
   nodeName: string,
@@ -221,4 +297,38 @@ export const getClusterPropertiesDefinition = ({
 }) => ({
   url: url.getClusterPropertiesDefinition({ clusterName }),
   json: responses.clusterProperties.ok,
+});
+
+export const importedClusterList = (
+  props: { clusterNameList?: string[] } | { response: RouteResponse } = {},
+) => {
+  let response;
+  if ("response" in props) {
+    response = props.response;
+  } else if (
+    "clusterNameList" in props
+    && props.clusterNameList !== undefined
+  ) {
+    response = {
+      json: responses.importedClusterList.withClusters(props.clusterNameList),
+    };
+  } else {
+    response = {
+      json: responses.importedClusterList.withClusters([]),
+    };
+  }
+
+  return {
+    url: url.importedClusterList,
+    ...response,
+  };
+};
+
+export const clusterStatus = ({
+  clusterStatus,
+}: {
+  clusterStatus: types.Cluster;
+}) => ({
+  url: url.clusterStatus({ clusterName: clusterStatus.cluster_name }),
+  json: clusterStatus,
 });

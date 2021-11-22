@@ -16,6 +16,7 @@ export function FormRadios<OPTION extends string>({
   className = "",
   isRequired = false,
   isDisabled = false,
+  "data-test": dataTest,
 }: {
   id: FormGroupProps["fieldId"];
   label: FormGroupProps["label"];
@@ -26,6 +27,7 @@ export function FormRadios<OPTION extends string>({
   className?: FormGroupProps["className"];
   isRequired?: FormGroupProps["isRequired"];
   isDisabled?: FormRadioGroupProps["isDisabled"];
+  ["data-test"]?: string;
 }) {
   return (
     <FormGroup
@@ -41,6 +43,7 @@ export function FormRadios<OPTION extends string>({
         selected={selected}
         onChange={onChange}
         isDisabled={isDisabled}
+        data-test={dataTest}
       />
     </FormGroup>
   );

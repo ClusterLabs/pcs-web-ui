@@ -1,11 +1,6 @@
 import React from "react";
 
-import {
-  ReviewDefault,
-  ReviewList,
-  ReviewValue,
-  TaskLibStep,
-} from "app/view/share";
+import { ReviewList, ReviewValue, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
@@ -41,17 +36,11 @@ export const Review: React.FC = () => {
           <>
             <ReviewValue
               label="Sbd watchdog"
-              value={
-                <>
-                  {sbdWatchdog.length > 0 && sbdWatchdog}
-                  {sbdWatchdog.length === 0 && (
-                    <>
-                      <div>/dev/watchdog</div>
-                      <ReviewDefault value="Default value" />
-                    </>
-                  )}
-                </>
-              }
+              value={sbdWatchdog}
+              useDefault={{
+                whenValue: "",
+                defaultValue: "/dev/watchdog",
+              }}
             />
             <ReviewValue
               label="Sbd watchdog validation"

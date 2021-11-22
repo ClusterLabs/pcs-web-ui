@@ -1,7 +1,6 @@
 import React from "react";
 
 import {
-  ReviewDefault,
   ReviewList,
   ReviewValue,
   ReviewYesNo,
@@ -25,13 +24,11 @@ export const Review: React.FC = () => {
       <ReviewList>
         <ReviewValue
           label="Id"
-          value={
-            useCustomId && id.length > 0 ? (
-              id
-            ) : (
-              <ReviewDefault value="Not set; will be generated" />
-            )
-          }
+          value={id}
+          useDefault={{
+            when: !useCustomId || id.length === 0,
+            defaultValue: "Not set; will be generated",
+          }}
         />
 
         {sets.map((set, i) => (

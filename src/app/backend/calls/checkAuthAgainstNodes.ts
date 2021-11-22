@@ -1,6 +1,6 @@
 import { CallResult, endpoints, http, t, validate } from "./tools";
 
-const { url, shape } = endpoints.checkAuthAgainstNodes;
+const { url, shape, params } = endpoints.checkAuthAgainstNodes;
 
 export const checkAuthAgainstNodes = async (
   nodeList: string[],
@@ -8,7 +8,7 @@ export const checkAuthAgainstNodes = async (
   const uniqueNodeList = Array.from(new Set(nodeList));
 
   return http.get(url, {
-    params: uniqueNodeList.map(node => ["node_list[]", node]),
+    params: params(uniqueNodeList),
     validate: (payload) => {
       let errors = validate.shape(payload, shape);
       if (errors.length > 0) {
