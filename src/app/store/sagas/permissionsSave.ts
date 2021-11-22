@@ -10,15 +10,17 @@ export function* permissionsSave({
   const result: api.ResultOf<typeof savePermissions> = yield api.authSafe(
     savePermissions,
     key.clusterName,
-    key.permissionName,
     payload,
   );
 
   if (result.type !== "OK") {
-    yield processError(result, key.permissionName);
+    yield processError(result, "Error while removing permission");
     return;
   }
 
   yield putNotification("SUCCESS", "Permission removed");
-  yield put({ type: "CLUSTER.LIST.REFRESH" });
+  yield put({
+    type: "CLUSTER.PERMISSIONS.LOAD",
+    key,
+  });
 }

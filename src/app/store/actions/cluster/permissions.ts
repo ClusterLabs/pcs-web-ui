@@ -3,7 +3,7 @@ import { api, getPermissions } from "app/backend";
 export type ClusterPermissionsActions = {
   "CLUSTER.PERMISSIONS.SAVE": {
     type: "CLUSTER.PERMISSIONS.SAVE";
-    key: { clusterName: string; permissionName: string };
+    key: { clusterName: string };
     payload: {
       permissions: {
         name: string;

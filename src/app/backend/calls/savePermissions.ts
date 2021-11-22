@@ -1,10 +1,9 @@
 import { CallResult, endpoints, http } from "./tools";
 
-const { url } = endpoints.permissions;
+const { url, params } = endpoints.permissionsSave;
 
 export const savePermissions = (
   clusterName: string,
-  permissionName: string,
   payload: {
     permissions: {
       name: string;
@@ -14,5 +13,5 @@ export const savePermissions = (
   },
 ): CallResult =>
   http.post(url({ clusterName }), {
-    payload,
+    params: params({ clusterName: clusterName, permissionParams: payload }),
   });

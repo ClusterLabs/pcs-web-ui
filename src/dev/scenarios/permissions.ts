@@ -10,4 +10,12 @@ app.getPermissions((_req, res) => {
   );
 });
 
-shortcut.dashboard([response.clusterStatus.ok]);
+app.permissionsSave((req, res) => {
+  if ("name" === req.body.permissions[0].name) {
+    res.status(400).send("Error removing permission haclient");
+    return;
+  }
+  res.send("");
+});
+
+shortcut.dashboard([response.clusterStatus.clusterOk("ok")]);

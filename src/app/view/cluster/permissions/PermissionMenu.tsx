@@ -3,6 +3,11 @@ import React from "react";
 import { Action } from "app/store";
 import { DropdownActionListMenu, ModalAction } from "app/view/share/DropdownActionListMenu";
 
+const removePermission =
+(permissions: { name: string; type: string; allow: string[]; }[],
+  toRemove: string) =>
+  permissions.filter(permission => permission.name !== toRemove);
+
 export const PermissionMenu:
 React.FC<{
   permissionName: string, clusterName: string,
@@ -21,8 +26,8 @@ React.FC<{
   
     const removeAction: Action = {
       type: "CLUSTER.PERMISSIONS.SAVE",
-      key: {clusterName, permissionName},
-      payload: {permissions},
+      key: {clusterName},
+      payload: {permissions: removePermission(permissions, permissionName)},
     };
   
     const edit: ModalAction = {

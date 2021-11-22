@@ -39,7 +39,7 @@ export const PermissionsTable = () => {
                       <td data-label="Type">{permission.type}</td>
 
                       <td data-label="Read">
-                        {permission.allow.includes("read") ? (
+                        {permission.allow.includes("read") || permission.allow.includes("write") ? (
                           <>
                             <CheckCircleIcon className="ha-u-status-success" />
                             {" Allowed"}
@@ -52,7 +52,7 @@ export const PermissionsTable = () => {
                         )}
                       </td>
                       <td data-label="Write">
-                        {permission.allow.includes("write") || permission.allow.includes("read") ? (
+                        {permission.allow.includes("write") ? (
                           <>
                             <CheckCircleIcon className="ha-u-status-success" />
                             {" Allowed"}
