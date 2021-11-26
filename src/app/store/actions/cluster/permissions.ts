@@ -1,19 +1,15 @@
-import { api, getPermissions } from "app/backend";
+import { api, getPermissions, savePermissions } from "app/backend";
+
+type ApiPermissions = api.PayloadOf<typeof getPermissions>;
 
 export type ClusterPermissionsActions = {
   "CLUSTER.PERMISSIONS.SAVE": {
     type: "CLUSTER.PERMISSIONS.SAVE";
     key: {
       clusterName: string;
-      task: "permissionCreate" | "permissionUpdate" | "permissionRemove";
+      task: "permissionEdit" | "permissionRemove";
     };
-    payload: {
-      permissions: {
-        name: string;
-        type: string;
-        allow: string[];
-      }[];
-    };
+    payload: { permissionList: Parameters<typeof savePermissions>[1] };
   };
   "CLUSTER.PERMISSIONS.SAVE.OK": {
     type: "CLUSTER.PERMISSIONS.SAVE.OK";
@@ -25,14 +21,24 @@ export type ClusterPermissionsActions = {
       message: string;
     };
   };
+  "CLUSTER.PERMISSIONS.SAVE.ERROR.RECOVER": {
+    type: "CLUSTER.PERMISSIONS.SAVE.ERROR.RECOVER";
+    key: { clusterName: string; task: string };
+  };
 
   "CLUSTER.PERMISSIONS.EDIT": {
     type: "CLUSTER.PERMISSIONS.EDIT";
-    key: { permissionName: string };
+    key: { clusterName: string; task: string };
+    payload:
+      | { type: "create" }
+      | {
+          type: "update";
+          permission: ApiPermissions["users_permissions"][number];
+        };
   };
 
-  "CLUSTER.PERMISSION.CREATE.UPDATE": {
-    type: "CLUSTER.PERMISSION.CREATE.UPDATE";
+  "CLUSTER.PERMISSION.EDIT.UPDATE": {
+    type: "CLUSTER.PERMISSION.EDIT.UPDATE";
     payload: {
       name?: string;
       type?: "user" | "group";
@@ -52,9 +58,7 @@ export type ClusterPermissionsActions = {
   "CLUSTER.PERMISSIONS.LOAD.OK": {
     type: "CLUSTER.PERMISSIONS.LOAD.OK";
     key: { clusterName: string };
-    payload: {
-      apiClusterPermissions: api.PayloadOf<typeof getPermissions>;
-    };
+    payload: { apiClusterPermissions: ApiPermissions };
   };
 
   "CLUSTER.PERMISSIONS.LOAD.ERROR": {

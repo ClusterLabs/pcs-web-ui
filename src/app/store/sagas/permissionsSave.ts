@@ -14,8 +14,8 @@ function* processRemoveResult(result: ApiResult) {
   yield putNotification("SUCCESS", "Permission removed");
 }
 
-function* processCreateResult(result: ApiResult) {
-  const taskLabel = "create permission";
+function* processEditResult(result: ApiResult) {
+  const taskLabel = "edit permission";
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
       useNotification: false,
@@ -35,17 +35,20 @@ function* processCreateResult(result: ApiResult) {
   });
 }
 
-export function* permissionsSave({ key, payload }: SaveAction) {
+export function* permissionsSave({
+  key,
+  payload: { permissionList },
+}: SaveAction) {
   const result: ApiResult = yield api.authSafe(
     savePermissions,
     key.clusterName,
-    payload,
+    permissionList,
   );
 
   if (key.task === "permissionRemove") {
     yield processRemoveResult(result);
-  } else if (key.task === "permissionCreate") {
-    yield processCreateResult(result);
+  } else {
+    yield processEditResult(result);
   }
 
   // reload

@@ -1,43 +1,38 @@
-import React from "react";
+import { Action, selectors } from "app/store";
+import { DropdownActionListMenu, ModalAction } from "app/view/share";
 
-import { Action } from "app/store";
-import {
-  DropdownActionListMenu,
-  ModalAction,
-} from "app/view/share/DropdownActionListMenu";
+import { useTask } from "./task/useTask";
 
-const removePermission = (
-  permissions: { name: string; type: string; allow: string[] }[],
-  toRemove: string,
-) => permissions.filter(permission => permission.name !== toRemove);
+const { getClusterPermissions } = selectors;
+
+type Permission = NonNullable<
+  ReturnType<ReturnType<typeof getClusterPermissions>>
+>["users_permissions"][number];
 
 export const PermissionMenu: React.FC<{
-  permissionName: string;
+  permission: Permission;
   clusterName: string;
-  permissions: { name: string; type: string; allow: string[] }[];
-}> = ({ permissionName, clusterName, permissions }) => {
-  const editAction: Action = {
-    type: "CLUSTER.PERMISSIONS.EDIT",
-    key: { permissionName },
-  };
+  permissionList: Permission[];
+}> = ({ permission, clusterName, permissionList }) => {
+  const { open } = useTask();
 
   const removeAction: Action = {
     type: "CLUSTER.PERMISSIONS.SAVE",
     key: { clusterName, task: "permissionRemove" },
-    payload: { permissions: removePermission(permissions, permissionName) },
+    payload: {
+      permissionList: permissionList.filter(
+        p => p.name !== permission.name || p.type !== permission.type,
+      ),
+    },
   };
 
   const edit: ModalAction = {
-    confirm: {
-      title: `Edit the permission "${permissionName}"?`,
-      description: "You can edit the permission.",
-    },
-    action: editAction,
+    onClick: () => open({ type: "update", permission }),
   };
 
   const remove: ModalAction = {
     confirm: {
-      title: `Remove the permission "${permissionName}"?`,
+      title: `Remove the permission "${permission.name}"?`,
       description: "Removes the permission.",
     },
     action: removeAction,

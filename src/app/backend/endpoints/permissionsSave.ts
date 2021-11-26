@@ -1,29 +1,29 @@
 import { endpoint } from "./endpoint";
 
-type Params = {
-  permissions: {
-    name: string;
-    type: string;
-    allow: string[];
-  }[];
+type Permission = {
+  name: string;
+  type: string;
+  allow: ("read" | "write" | "grant" | "full")[];
 };
 
 const makePostData = (
   clusterName: string,
-  permissions: Params,
+  permissionList: Permission[],
 ): [string, string][] => {
   const postData: [string, string][] = [];
   postData.push(["cluster_name", `${clusterName}`]);
 
-  permissions.permissions.forEach((permission, i) => {
+  permissionList.forEach((permission, i) => {
     postData.push([`permissions[${i}][name]`, permission.name]);
     postData.push([`permissions[${i}][type]`, permission.type]);
-    ["read", "write", "grant", "full"].forEach((element) => {
-      postData.push([
-        `permissions[${i}][allow][${element}]`,
-        permission.allow.includes(element) ? "1" : "0",
-      ]);
-    });
+    (["read", "write", "grant", "full"] as Permission["allow"]).forEach(
+      (permissionName) => {
+        postData.push([
+          `permissions[${i}][allow][${permissionName}]`,
+          permission.allow.includes(permissionName) ? "1" : "0",
+        ]);
+      },
+    );
   });
 
   return postData;
@@ -35,12 +35,12 @@ export const permissionsSave = endpoint({
   method: "post",
   params: ({
     clusterName,
-    permissionParams,
+    permissionList,
   }: {
     clusterName: string;
-    permissionParams: Params;
+    permissionList: Permission[];
   }): [string, string][] => {
-    return makePostData(clusterName, permissionParams);
+    return makePostData(clusterName, permissionList);
   },
   shape: undefined,
   payload: undefined,

@@ -23,8 +23,10 @@ const shape = t.type({
   users_permissions: t.array(
     t.type({
       name: t.string,
-      type: t.string,
-      allow: t.array(t.string),
+      type: t.keyof({ user: null, group: null }),
+      allow: t.array(
+        t.keyof({ read: null, write: null, grant: null, full: null }),
+      ),
     }),
   ),
 });
