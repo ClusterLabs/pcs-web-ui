@@ -57,7 +57,7 @@ const RESOURCES_UNEXPANDED = [
 ];
 
 describe("Resource tree", () => {
-  beforeEach(() => shortcuts.interceptWithCluster(clusterName));
+  beforeEach(() => shortcuts.interceptWithCluster({ clusterName }));
   afterEach(intercept.stop);
 
   it("should show unexpanded resource tree", async () => {
@@ -112,13 +112,16 @@ describe("Resource tree", () => {
 describe("Resource tree", () => {
   afterEach(intercept.stop);
   it("should show primitive resource detail", async () => {
-    shortcuts.interceptWithCluster(clusterName, [
-      route.resourceAgentDescribeAgent({
-        clusterName,
-        agentName: "ocf:heartbeat:apache",
-        agentData: responses.resourceAgentMetadata.ocfHeartbeatApache,
-      }),
-    ]);
+    shortcuts.interceptWithCluster({
+      clusterName,
+      additionalRouteList: [
+        route.resourceAgentDescribeAgent({
+          clusterName,
+          agentName: "ocf:heartbeat:apache",
+          agentData: responses.resourceAgentMetadata.ocfHeartbeatApache,
+        }),
+      ],
+    });
     await displayResources();
     await selectResource("A");
   });

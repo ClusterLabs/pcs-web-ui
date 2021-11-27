@@ -16,13 +16,16 @@ describe("Node start", () => {
   afterEach(intercept.stop);
 
   it("should successfully start", async () => {
-    shortcuts.interceptWithCluster(clusterName, [
-      {
-        url: url.clusterStart({ clusterName }),
-        body: { name: nodeName },
-        text: "",
-      },
-    ]);
+    shortcuts.interceptWithCluster({
+      clusterName,
+      additionalRouteList: [
+        {
+          url: url.clusterStart({ clusterName }),
+          body: { name: nodeName },
+          text: "",
+        },
+      ],
+    });
 
     await launchAction();
 
@@ -31,7 +34,7 @@ describe("Node start", () => {
   });
 
   it("should be cancelable", async () => {
-    shortcuts.interceptWithCluster(clusterName);
+    shortcuts.interceptWithCluster({ clusterName });
 
     await launchAction();
 
@@ -43,13 +46,16 @@ describe("Node start", () => {
   });
 
   it("should deal with an error from backend", async () => {
-    shortcuts.interceptWithCluster(clusterName, [
-      {
-        url: url.clusterStart({ clusterName }),
-        body: { name: nodeName },
-        status: [400, "Unable to start node."],
-      },
-    ]);
+    shortcuts.interceptWithCluster({
+      clusterName,
+      additionalRouteList: [
+        {
+          url: url.clusterStart({ clusterName }),
+          body: { name: nodeName },
+          status: [400, "Unable to start node."],
+        },
+      ],
+    });
 
     await launchAction();
 
