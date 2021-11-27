@@ -36,7 +36,7 @@ app.removeCluster((req, res) => {
 });
 
 shortcut.dashboard([
-  response.clusterStatus.clusterOk("ok"),
-  response.clusterStatus.clusterOk("conflict"),
-  response.clusterStatus.clusterOk("nodes-error"),
+  response.buildClusterStatus.ok("ok"),
+  response.buildClusterStatus.ok("conflict"),
+  response.buildClusterStatus.ok("nodes-error"),
 ]);

@@ -18,4 +18,4 @@ app.permissionsSave((req, res) => {
   res.send("");
 });
 
-shortcut.dashboard([response.clusterStatus.clusterOk("ok")]);
+shortcut.dashboard([response.clusterStatus.ok]);

@@ -305,7 +305,10 @@ export const getPermissions = ({ clusterName }: { clusterName: string }) => ({
 });
 
 export const importedClusterList = (
-  props: { clusterNameList?: string[] } | { response: RouteResponse } = {},
+  props:
+    | { clusterStatusList?: types.Cluster[] }
+    | { clusterNameList?: string[] }
+    | { response: RouteResponse } = {},
 ) => {
   let response;
   if ("response" in props) {
@@ -316,6 +319,17 @@ export const importedClusterList = (
   ) {
     response = {
       json: responses.importedClusterList.withClusters(props.clusterNameList),
+    };
+  } else if (
+    "clusterStatusList" in props
+    && props.clusterStatusList !== undefined
+  ) {
+    response = {
+      json: responses.importedClusterList.withClusters(
+        props.clusterStatusList.map(
+          clusterStatus => clusterStatus.cluster_name,
+        ),
+      ),
     };
   } else {
     response = {

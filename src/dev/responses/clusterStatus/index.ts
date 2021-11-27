@@ -8,11 +8,7 @@ import {
   actionsOneGroup,
 } from "./actions";
 import { noAuthNodes } from "./noAuthNodes";
-
-export const clusterOk = (clusterName: string) =>
-  t.cluster(clusterName, "ok", {
-    resource_list: [t.primitive("R1"), t.stonith("F1")],
-  });
+import { ok as clusterOk } from "./buildClusterStatus";
 
 export {
   resourceTree,

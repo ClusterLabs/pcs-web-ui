@@ -19,11 +19,11 @@ type ClusterStatus = api.PayloadOf<typeof clusterStatus>;
 const clusterName = "ok";
 
 const interceptWithDashboard = (routeList: intercept.Route[]) =>
-  intercept.start([
+  intercept.run([
     route.importedClusterList({
-      clusterNameList: [
-        responses.clusterStatus.ok.cluster_name,
-        responses.clusterStatus.error.cluster_name,
+      clusterStatusList: [
+        responses.clusterStatus.ok,
+        responses.clusterStatus.error,
       ],
     }),
     route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
@@ -36,7 +36,7 @@ const interceptWithDashboard = (routeList: intercept.Route[]) =>
   ]);
 
 describe("Dashboard scene", () => {
-  beforeEach(interceptWithDashboard([]));
+  beforeEach(() => interceptWithDashboard([]));
 
   afterEach(intercept.stop);
 
@@ -127,14 +127,14 @@ describe("Dashboard to cluster scene", () => {
   afterEach(intercept.stop);
 
   it("should allow go to a cluster detail", async () => {
-    await interceptWithDashboard([])();
+    interceptWithDashboard([]);
     await displayClusters();
     await page.click(dt(CLUSTER_OK, "name", "link"));
     expect(page.url()).toEqual(location.cluster({ clusterName: "ok" }));
   });
 
   it("should allow go to a node detail", async () => {
-    await interceptWithDashboard([])();
+    interceptWithDashboard([]);
     await displayClusters();
     await page.click(dt(CLUSTER_OK, "nodes", "expansion-button"));
 
@@ -147,13 +147,13 @@ describe("Dashboard to cluster scene", () => {
   });
 
   it("should allow go to a resource detail", async () => {
-    await interceptWithDashboard([
+    interceptWithDashboard([
       route.resourceAgentDescribeAgent({
         clusterName: "ok",
         agentName: "ocf:heartbeat:Dummy",
         agentData: responses.resourceAgentMetadata.ocfHeartbeatDummy,
       }),
-    ])();
+    ]);
     await displayClusters();
     await page.click(dt(CLUSTER_OK, "resources", "expansion-button"));
 
@@ -168,13 +168,13 @@ describe("Dashboard to cluster scene", () => {
   });
 
   it("should allow go to a fence device detail", async () => {
-    await interceptWithDashboard([
+    interceptWithDashboard([
       route.stonithAgentDescribeAgent({
         clusterName: "ok",
         agentName: "stonith:fence_apc",
         agentData: responses.fenceAgentMetadata.ok,
       }),
-    ])();
+    ]);
     await displayClusters();
     await page.click(dt(CLUSTER_OK, "fence-devices", "expansion-button"));
 
