@@ -50,7 +50,7 @@ describe("Cluster setup", () => {
     await page.waitForSelector(task.sucess);
   });
 
-  it("should succesfully setup cluster skipping optinal steps", async () => {
+  it("should succesfully setup cluster skipping optional steps", async () => {
     interceptForClusterSetup([
       route.check_auth_against_nodes({ nodeNameList }),
       route.clusterSetup({

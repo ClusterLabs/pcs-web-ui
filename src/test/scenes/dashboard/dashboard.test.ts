@@ -16,6 +16,8 @@ const displayClusters = async () => {
 
 type ClusterStatus = api.PayloadOf<typeof clusterStatus>;
 
+const clusterName = "ok";
+
 const interceptWithDashboard = (routeList: intercept.Route[]) =>
   intercept.start([
     route.importedClusterList({
@@ -25,9 +27,10 @@ const interceptWithDashboard = (routeList: intercept.Route[]) =>
       ],
     }),
     route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
-    route.resourceAgentListAgents("ok"),
-    route.stonithAgentListAgents({ clusterName: "ok" }),
-    route.getClusterPropertiesDefinition({ clusterName: "ok" }),
+    route.resourceAgentListAgents(clusterName),
+    route.stonithAgentListAgents({ clusterName }),
+    route.getClusterPropertiesDefinition({ clusterName }),
+    route.getPermissions({ clusterName }),
     route.clusterStatus({ clusterStatus: responses.clusterStatus.error }),
     ...routeList,
   ]);

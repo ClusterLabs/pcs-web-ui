@@ -299,6 +299,11 @@ export const getClusterPropertiesDefinition = ({
   json: responses.clusterProperties.ok,
 });
 
+export const getPermissions = ({ clusterName }: { clusterName: string }) => ({
+  url: url.getPermissions({ clusterName }),
+  json: responses.permissions(),
+});
+
 export const importedClusterList = (
   props: { clusterNameList?: string[] } | { response: RouteResponse } = {},
 ) => {

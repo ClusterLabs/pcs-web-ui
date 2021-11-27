@@ -14,6 +14,7 @@ export const interceptWithCluster = (
     route.resourceAgentListAgents(clusterName),
     route.stonithAgentListAgents({ clusterName }),
     route.getClusterPropertiesDefinition({ clusterName }),
+    route.getPermissions({ clusterName }),
 
     ...routeList,
   ]);

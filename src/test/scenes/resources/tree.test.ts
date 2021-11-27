@@ -63,6 +63,7 @@ const interceptWithCluster = (routeList: intercept.Route[]) =>
     route.resourceAgentListAgents(clusterName),
     route.stonithAgentListAgents({ clusterName }),
     route.getClusterPropertiesDefinition({ clusterName }),
+    route.getPermissions({ clusterName }),
     ...routeList,
   ]);
 
