@@ -78,5 +78,13 @@ export const useTask = () => {
         key,
       });
     },
+
+    close: () => {
+      dispatch({
+        type: "CLUSTER.PERMISSIONS.EDIT.CLOSE",
+        key,
+      });
+      task.close();
+    },
   };
 };

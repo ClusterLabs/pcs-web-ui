@@ -21,6 +21,7 @@ export type ClusterPermissionsActions = {
       message: string;
     };
   };
+
   "CLUSTER.PERMISSIONS.SAVE.ERROR.RECOVER": {
     type: "CLUSTER.PERMISSIONS.SAVE.ERROR.RECOVER";
     key: { clusterName: string; task: string };
@@ -35,6 +36,11 @@ export type ClusterPermissionsActions = {
           type: "update";
           permission: ApiPermissions["users_permissions"][number];
         };
+  };
+
+  "CLUSTER.PERMISSIONS.EDIT.CLOSE": {
+    type: "CLUSTER.PERMISSIONS.EDIT.CLOSE";
+    key: { clusterName: string; task: string };
   };
 
   "CLUSTER.PERMISSION.EDIT.UPDATE": {

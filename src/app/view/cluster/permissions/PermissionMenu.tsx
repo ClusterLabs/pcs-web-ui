@@ -1,20 +1,15 @@
-import { Action, selectors } from "app/store";
+import { Action } from "app/store";
 import { DropdownActionListMenu, ModalAction } from "app/view/share";
 
 import { useTask } from "./task/useTask";
-
-const { getClusterPermissions } = selectors;
-
-type Permission = NonNullable<
-  ReturnType<ReturnType<typeof getClusterPermissions>>
->["users_permissions"][number];
+import { Permission } from "./types";
+import { usePermissions } from "./usePermissions";
 
 export const PermissionMenu: React.FC<{
   permission: Permission;
-  clusterName: string;
-  permissionList: Permission[];
-}> = ({ permission, clusterName, permissionList }) => {
+}> = ({ permission }) => {
   const { open } = useTask();
+  const { clusterName, permissionList } = usePermissions();
 
   const removeAction: Action = {
     type: "CLUSTER.PERMISSIONS.SAVE",

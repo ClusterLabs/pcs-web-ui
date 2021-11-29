@@ -12,9 +12,9 @@ export const PermissionAddToolbarItem = () => {
       <Button
         variant={"primary"}
         onClick={() => open({ type: "create" })}
-        data-test="permission-add"
+        data-test="permission-create"
       >
-        Create Permission
+        Create permission
       </Button>
       {isOpened && <PermissionTask />}
     </>

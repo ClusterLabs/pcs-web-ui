@@ -32,6 +32,7 @@ export const PermissionTask = () => {
           />
         )
       }
+      data-test="permission-edit"
     >
       {response === "" && <Configure />}
       {response !== "" && (

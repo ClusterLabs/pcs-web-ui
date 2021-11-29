@@ -299,9 +299,26 @@ export const getClusterPropertiesDefinition = ({
   json: responses.clusterProperties.ok,
 });
 
-export const getPermissions = ({ clusterName }: { clusterName: string }) => ({
+export const getPermissions = ({
+  clusterName,
+  permissions,
+}: {
+  clusterName: string;
+  permissions?: ReturnType<typeof responses.permissions>;
+}) => ({
   url: url.getPermissions({ clusterName }),
-  json: responses.permissions(),
+  json: permissions || responses.permissions(),
+});
+
+export const permissionsSave = ({
+  clusterName,
+  permissionList,
+}: Parameters<typeof endpoints.permissionsSave.params>[0]) => ({
+  url: url.permissionsSave({ clusterName }),
+  body: endpoints.permissionsSave
+    .params({ clusterName, permissionList })
+    .reduce((body, [key, value]) => ({ ...body, [key]: value }), {}),
+  text: "Permissions saved",
 });
 
 export const importedClusterList = (

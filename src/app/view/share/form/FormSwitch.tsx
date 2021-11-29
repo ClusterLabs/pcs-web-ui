@@ -13,7 +13,16 @@ export const FormSwitch: React.FC<{
   isChecked: SwitchProps["isChecked"];
   onChange: SwitchProps["onChange"];
   popover?: FormGroupProps["popover"];
-}> = ({ id, label, isDisabled, isChecked, onChange, popover = undefined }) => {
+  ["data-test"]?: string;
+}> = ({
+  id,
+  label,
+  isDisabled,
+  isChecked,
+  onChange,
+  "data-test": dataTest,
+  popover = undefined,
+}) => {
   return (
     <FormGroup fieldId={id} label={label} popover={popover}>
       <Switch
@@ -22,6 +31,7 @@ export const FormSwitch: React.FC<{
         isChecked={isChecked}
         onChange={onChange}
         aria-label={label ? label.toString() : ""}
+        data-test={dataTest}
       />
     </FormGroup>
   );

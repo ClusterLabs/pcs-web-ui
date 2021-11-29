@@ -33,7 +33,7 @@ export const TaskSuccess: React.FC<{
       </Title>
       {message.length > 0 && <EmptyStateBody>{message}</EmptyStateBody>}
       {primaryActions === null && (
-        <Button variant="primary" onClick={close}>
+        <Button variant="primary" onClick={close} data-test="task-close">
           Close
         </Button>
       )}

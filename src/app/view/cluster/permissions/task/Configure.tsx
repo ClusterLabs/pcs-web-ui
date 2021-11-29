@@ -44,24 +44,28 @@ export const Configure: React.FC = () => {
           label="Read"
           isChecked={read}
           onChange={allow => updateState({ read: allow })}
+          data-test="read"
         />
         <FormSwitch
           id="allow-write"
           label="Write"
           isChecked={write}
           onChange={allow => updateState({ write: allow })}
+          data-test="write"
         />
         <FormSwitch
           id="allow-grant"
           label="Grant"
           isChecked={grant}
           onChange={allow => updateState({ grant: allow })}
+          data-test="grant"
         />
         <FormSwitch
           id="allow-full"
           label="Full"
           isChecked={full}
           onChange={allow => updateState({ full: allow })}
+          data-test="full"
         />
       </Form>
     </>
