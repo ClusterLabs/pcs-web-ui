@@ -12,6 +12,8 @@ export const FormSwitch: React.FC<{
   isDisabled?: SwitchProps["isDisabled"];
   isChecked: SwitchProps["isChecked"];
   onChange: SwitchProps["onChange"];
+  switchLabel?: SwitchProps["label"];
+  switchLabelOff?: SwitchProps["labelOff"];
   helperTextInvalid?: React.ReactNode;
   isValid?: boolean;
   showValidationErrors?: boolean;
@@ -23,6 +25,8 @@ export const FormSwitch: React.FC<{
   isDisabled,
   isChecked,
   onChange,
+  switchLabel,
+  switchLabelOff,
   isValid = true,
   showValidationErrors = false,
   helperTextInvalid = null,
@@ -43,6 +47,8 @@ export const FormSwitch: React.FC<{
         id={id}
         isChecked={isChecked}
         onChange={onChange}
+        label={switchLabel}
+        labelOff={switchLabelOff}
         aria-label={label ? label.toString() : ""}
         data-test={dataTest}
       />

@@ -1,9 +1,10 @@
 import { AppReducer } from "app/store/reducers/appReducer";
-import { ActionPayload } from "app/store/actions";
+import { ActionMap, ActionPayload } from "app/store/actions";
 
 type UpdatePayload = ActionPayload["CLUSTER.PERMISSION.EDIT.UPDATE"];
 type InitPayload = ActionPayload["CLUSTER.PERMISSIONS.EDIT"];
 type InitialPermission = Extract<InitPayload, { type: "update" }>["permission"];
+type Competence = "read" | "write" | "grant" | "full";
 
 const initialState: Required<UpdatePayload> & {
   initialPermission: InitialPermission | null;
@@ -45,13 +46,35 @@ const initToState = (initPayload: InitPayload) => {
   };
 };
 
+const check = (
+  state: typeof initialState,
+  action: ActionMap["CLUSTER.PERMISSION.EDIT.UPDATE"],
+  competence: Competence,
+  presentInCompetence: Competence[],
+): boolean => {
+  if (competence in action.payload) {
+    // typescript thinks it can be undefined
+    return action.payload[competence] === true;
+  }
+  if (presentInCompetence.some(c => c in action.payload && action.payload[c])) {
+    return true;
+  }
+  return state[competence];
+};
+
 export const permissionEdit: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {
   switch (action.type) {
     case "CLUSTER.PERMISSION.EDIT.UPDATE":
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        ...action.payload,
+        read: check(state, action, "read", ["write", "full"]),
+        write: check(state, action, "write", ["full"]),
+        grant: check(state, action, "grant", ["full"]),
+      };
 
     case "CLUSTER.PERMISSIONS.EDIT":
       return initToState(action.payload);

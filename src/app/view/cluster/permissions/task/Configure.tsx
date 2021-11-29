@@ -43,6 +43,8 @@ export const Configure: React.FC = () => {
         <FormSwitch
           id="allow-read"
           label="Read"
+          switchLabel="Allowed"
+          switchLabelOff="Disallowed"
           isChecked={read}
           onChange={allow => updateState({ read: allow })}
           data-test="read"
@@ -50,6 +52,8 @@ export const Configure: React.FC = () => {
         <FormSwitch
           id="allow-write"
           label="Write"
+          switchLabel="Allowed"
+          switchLabelOff="Disallowed"
           isChecked={write}
           onChange={allow => updateState({ write: allow })}
           data-test="write"
@@ -57,6 +61,8 @@ export const Configure: React.FC = () => {
         <FormSwitch
           id="allow-grant"
           label="Grant"
+          switchLabel="Allowed"
+          switchLabelOff="Disallowed"
           isChecked={grant}
           onChange={allow => updateState({ grant: allow })}
           data-test="grant"
@@ -64,6 +70,8 @@ export const Configure: React.FC = () => {
         <FormSwitch
           id="allow-full"
           label="Full"
+          switchLabel="Allowed"
+          switchLabelOff="Disallowed"
           isChecked={full}
           onChange={allow => updateState({ full: allow })}
           data-test="full"

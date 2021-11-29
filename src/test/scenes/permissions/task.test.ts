@@ -27,11 +27,6 @@ const task = {
   close: mkXPath(view, "task-close"),
 };
 
-const newPermission: Permission = {
-  name: "User1",
-  type: "group",
-  allow: ["grant"],
-};
 const permissionsLocation = location.permissionList({ clusterName });
 
 const basicPermission: Permission = {
@@ -40,10 +35,28 @@ const basicPermission: Permission = {
   allow: ["grant", "read", "write"],
 };
 
+const openNewPermission = async () => {
+  await page.goto(permissionsLocation);
+  await page.click(task.toolbarItem);
+  await page.waitForSelector(task.view);
+};
+
+const finishNewPermissionSucessfully = async () => {
+  await page.click(task.run);
+  await page.waitForSelector(task.success);
+  await page.click(task.close);
+  await page.waitForURL(permissionsLocation);
+};
+
 describe("Pemissions", () => {
   afterEach(intercept.stop);
 
   it("should create new permission", async () => {
+    const newPermission: Permission = {
+      name: "User1",
+      type: "group",
+      allow: ["grant"],
+    };
     interceptForPermissions({
       clusterName,
       usersPermissions: [basicPermission],
@@ -54,20 +67,20 @@ describe("Pemissions", () => {
         }),
       ],
     });
-    await page.goto(permissionsLocation);
-    await page.click(task.toolbarItem);
-    await page.waitForSelector(task.view);
+    await openNewPermission();
     await page.type(task.name, newPermission.name);
     await radioGroup(task.type, newPermission.type);
     await formSwitch(task.read); // swith to off since it is on by default
     await formSwitch(task.grant); // switch to on
-    await page.click(task.run);
-    await page.waitForSelector(task.success);
-    await page.click(task.close);
-    await page.waitForURL(permissionsLocation);
+    await finishNewPermissionSucessfully();
   });
 
-  it.only("should refuse to continue without essential data", async () => {
+  it("should add all permissions when full is selected", async () => {
+    const newPermission: Permission = {
+      name: "User1",
+      type: "group",
+      allow: ["read", "write", "grant", "full"],
+    };
     interceptForPermissions({
       clusterName,
       usersPermissions: [basicPermission],
@@ -78,9 +91,44 @@ describe("Pemissions", () => {
         }),
       ],
     });
-    await page.goto(permissionsLocation);
-    await page.click(task.toolbarItem);
-    await page.waitForSelector(task.view);
+    await openNewPermission();
+    await page.type(task.name, newPermission.name);
+    await radioGroup(task.type, newPermission.type);
+    await formSwitch(task.read); // swith to off since it is on by default
+    await formSwitch(task.full); // switch to on
+    await finishNewPermissionSucessfully();
+  });
+
+  it("should add read permissions when write is selected", async () => {
+    const newPermission: Permission = {
+      name: "User1",
+      type: "group",
+      allow: ["read", "write"],
+    };
+    interceptForPermissions({
+      clusterName,
+      usersPermissions: [basicPermission],
+      additionalRouteList: [
+        route.permissionsSave({
+          clusterName,
+          permissionList: [basicPermission, newPermission],
+        }),
+      ],
+    });
+    await openNewPermission();
+    await page.type(task.name, newPermission.name);
+    await radioGroup(task.type, newPermission.type);
+    await formSwitch(task.read); // swith to off since it is on by default
+    await formSwitch(task.write); // switch to on
+    await finishNewPermissionSucessfully();
+  });
+
+  it("should refuse to continue without essential data", async () => {
+    interceptForPermissions({
+      clusterName,
+      usersPermissions: [basicPermission],
+    });
+    await openNewPermission();
     await formSwitch(task.read); // swith to off since it is on by default
     await page.click(task.run);
     await hasFieldError(task.name);
