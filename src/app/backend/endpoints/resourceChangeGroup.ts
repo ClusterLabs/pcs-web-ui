@@ -24,5 +24,6 @@ export const resourceChangeGroup = endpoint({
     ["in_group_reference_resource_id", adjacentResourceId],
   ],
   payload: undefined,
+  validate: undefined,
   shape: undefined,
 });

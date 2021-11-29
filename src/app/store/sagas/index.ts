@@ -14,6 +14,7 @@ import * as resourceAgent from "./resourceAgent";
 import * as fenceAgent from "./fenceAgent";
 import * as username from "./username";
 import * as clusterProperties from "./clusterProperties";
+import * as clusterPermissions from "./clusterPermissions";
 import * as resourceAgentList from "./resourceAgentList";
 import * as fenceAgentList from "./fenceAgentList";
 import * as resourceRefreshCleanup from "./resourceRefreshCleanup";
@@ -23,6 +24,7 @@ import * as libCallTask from "./libCallTask";
 import * as nodeStartStop from "./nodeStartStop";
 import * as nodeAdd from "./nodeAdd";
 import * as clusterSetup from "./clusterSetup";
+import * as permissionsSave from "./permissionsSave";
 import * as resourceClone from "./resourceClone";
 import * as nodeAuth from "./nodeAuth";
 import * as fixAuth from "./fixAuth";
@@ -43,6 +45,8 @@ function* rootSaga() {
     takeEvery("LIB.CALL.CLUSTER", libAction.callLib),
     takeEvery("LIB.CALL.CLUSTER.TASK", libCallTask.callLib),
     takeEvery("CLUSTER.PROPERTIES.LOAD", clusterProperties.load),
+    takeEvery("CLUSTER.PERMISSIONS.LOAD", clusterPermissions.load),
+    takeEvery("CLUSTER.PERMISSIONS.SAVE", permissionsSave.permissionsSave),
     takeEvery("CLUSTER.PROPERTIES.UPDATE", clusterProperties.update),
     takeEvery("CLUSTER.ADD.CHECK_AUTH", addExistingCluster.checkAuthentication),
     takeEvery("CLUSTER.ADD", addExistingCluster.addCluster),

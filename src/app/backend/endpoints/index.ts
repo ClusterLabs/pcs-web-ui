@@ -15,11 +15,13 @@ import { clusterStatus } from "./clusterStatus";
 import { clusterStop } from "./clusterStop";
 import { existingCluster } from "./existingCluster";
 import { fixAuthOfCluster } from "./fixAuthOfCluster";
+import { getPermissions } from "./getPermissions";
 import { importedClusterList } from "./importedClusterList";
 import { login } from "./login";
 import { logout } from "./logout";
 import { rememberCluster } from "./rememberCluster";
 import { destroyCluster } from "./destroyCluster";
+import { permissionsSave } from "./permissionsSave";
 import { removeCluster } from "./removeCluster";
 import { removeResource } from "./removeResource";
 import { resourceClone } from "./resourceClone";
@@ -52,6 +54,7 @@ const endpoints = {
   clusterStop,
   existingCluster,
   fixAuthOfCluster,
+  getPermissions,
   importedClusterList,
   libCluster,
   libClusterResourceAgentListAgents: pcmkAgentListAgents("resource"),
@@ -62,6 +65,7 @@ const endpoints = {
   logout,
   rememberCluster,
   destroyCluster,
+  permissionsSave,
   removeCluster,
   removeResource,
   resourceCleanup,

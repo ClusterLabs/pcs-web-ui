@@ -299,8 +299,33 @@ export const getClusterPropertiesDefinition = ({
   json: responses.clusterProperties.ok,
 });
 
+export const getPermissions = ({
+  clusterName,
+  permissions,
+}: {
+  clusterName: string;
+  permissions?: ReturnType<typeof responses.permissions>;
+}) => ({
+  url: url.getPermissions({ clusterName }),
+  json: permissions || responses.permissions(),
+});
+
+export const permissionsSave = ({
+  clusterName,
+  permissionList,
+}: Parameters<typeof endpoints.permissionsSave.params>[0]) => ({
+  url: url.permissionsSave({ clusterName }),
+  body: endpoints.permissionsSave
+    .params({ clusterName, permissionList })
+    .reduce((body, [key, value]) => ({ ...body, [key]: value }), {}),
+  text: "Permissions saved",
+});
+
 export const importedClusterList = (
-  props: { clusterNameList?: string[] } | { response: RouteResponse } = {},
+  props:
+    | { clusterStatusList?: types.Cluster[] }
+    | { clusterNameList?: string[] }
+    | { response: RouteResponse } = {},
 ) => {
   let response;
   if ("response" in props) {
@@ -311,6 +336,17 @@ export const importedClusterList = (
   ) {
     response = {
       json: responses.importedClusterList.withClusters(props.clusterNameList),
+    };
+  } else if (
+    "clusterStatusList" in props
+    && props.clusterStatusList !== undefined
+  ) {
+    response = {
+      json: responses.importedClusterList.withClusters(
+        props.clusterStatusList.map(
+          clusterStatus => clusterStatus.cluster_name,
+        ),
+      ),
     };
   } else {
     response = {

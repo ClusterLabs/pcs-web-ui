@@ -24,6 +24,8 @@ const checkClusterTab = async (
   expect(await currentTab()).toEqual(currentTabLabel);
 };
 
+const clusterName = "ok";
+
 describe("Cluster scene", () => {
   beforeEach(
     intercept.start([
@@ -31,6 +33,7 @@ describe("Cluster scene", () => {
       route.resourceAgentListAgents("ok"),
       route.stonithAgentListAgents({ clusterName: "ok" }),
       route.getClusterPropertiesDefinition({ clusterName: "ok" }),
+      route.getPermissions({ clusterName }),
     ]),
   );
 

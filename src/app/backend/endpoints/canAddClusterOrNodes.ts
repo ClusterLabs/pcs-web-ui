@@ -21,5 +21,6 @@ export const canAddClusterOrNodes = endpoint({
     ...nodesParams(checkParams),
   ],
   payload: undefined,
+  validate: undefined,
   shape: undefined,
 });

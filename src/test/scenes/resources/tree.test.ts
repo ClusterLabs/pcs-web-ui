@@ -1,12 +1,11 @@
 import * as responses from "dev/responses";
 
 import { dt } from "test/tools/selectors";
-import { intercept, location, route } from "test/tools";
+import { intercept, location, route, shortcuts } from "test/tools";
 
 const RESOURCE_TREE = dt("cluster-resources");
 
-const clusterStatus = responses.clusterStatus.resourcesForTest;
-const clusterName = clusterStatus.cluster_name;
+const clusterName = "resourcesForTest";
 
 const displayResources = async () => {
   await page.goto(location.resourceList({ clusterName }));
@@ -57,17 +56,8 @@ const RESOURCES_UNEXPANDED = [
   { id: "Clone-2", type: "Clone" },
 ];
 
-const interceptWithCluster = (routeList: intercept.Route[]) =>
-  intercept.start([
-    route.clusterStatus({ clusterStatus }),
-    route.resourceAgentListAgents(clusterName),
-    route.stonithAgentListAgents({ clusterName }),
-    route.getClusterPropertiesDefinition({ clusterName }),
-    ...routeList,
-  ]);
-
 describe("Resource tree", () => {
-  beforeEach(interceptWithCluster([]));
+  beforeEach(() => shortcuts.interceptWithCluster({ clusterName }));
   afterEach(intercept.stop);
 
   it("should show unexpanded resource tree", async () => {
@@ -122,13 +112,16 @@ describe("Resource tree", () => {
 describe("Resource tree", () => {
   afterEach(intercept.stop);
   it("should show primitive resource detail", async () => {
-    interceptWithCluster([
-      route.resourceAgentDescribeAgent({
-        clusterName,
-        agentName: "ocf:heartbeat:apache",
-        agentData: responses.resourceAgentMetadata.ocfHeartbeatApache,
-      }),
-    ])();
+    shortcuts.interceptWithCluster({
+      clusterName,
+      additionalRouteList: [
+        route.resourceAgentDescribeAgent({
+          clusterName,
+          agentName: "ocf:heartbeat:apache",
+          agentData: responses.resourceAgentMetadata.ocfHeartbeatApache,
+        }),
+      ],
+    });
     await displayResources();
     await selectResource("A");
   });

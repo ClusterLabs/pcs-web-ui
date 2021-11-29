@@ -8,5 +8,6 @@ export const clusterStatus = endpoint({
   method: "get",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape,
 });

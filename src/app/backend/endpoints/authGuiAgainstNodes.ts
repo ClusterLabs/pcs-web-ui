@@ -14,6 +14,7 @@ export const authGuiAgainstNodes = endpoint({
     ["data_json", JSON.stringify({ nodes: nodeMap })],
   ],
   payload: undefined,
+  validate: undefined,
   shape: t.intersection([
     t.type({
       plaintext_error: t.string,

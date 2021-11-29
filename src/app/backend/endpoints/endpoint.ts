@@ -3,6 +3,7 @@ export const endpoint = <
   METHOD extends "get" | "post",
   PARAMS,
   PAYLOAD,
+  VALIDATE,
   SHAPE,
 >({
   url,
@@ -10,12 +11,14 @@ export const endpoint = <
   params,
   payload,
   shape,
+  validate,
 }: {
   url: URL;
   method: METHOD;
   params: PARAMS;
   payload: PAYLOAD;
   shape: SHAPE;
+  validate: VALIDATE;
 }) => {
   return {
     url,
@@ -23,5 +26,6 @@ export const endpoint = <
     params,
     payload,
     shape,
+    validate,
   };
 };

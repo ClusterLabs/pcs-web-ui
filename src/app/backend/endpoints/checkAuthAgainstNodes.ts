@@ -8,6 +8,7 @@ export const checkAuthAgainstNodes = endpoint({
   params: (nodeNameList: string[]): [string, string][] =>
     nodeNameList.map(node => ["node_list[]", node]),
   payload: undefined,
+  validate: undefined,
   shape: t.record(
     t.string,
     t.keyof({

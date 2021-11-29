@@ -5,5 +5,6 @@ export const logout = endpoint({
   method: "get",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: undefined,
 });

@@ -32,10 +32,11 @@ export const TaskSimpleFooter: React.FC<{
             key: { clusterName, task },
           });
         }}
+        data-test="task-footer-run"
       >
         {runLabel}
       </Button>
-      <Button variant="link" onClick={cancel}>
+      <Button variant="link" onClick={cancel} data-test="task-footer-cancel">
         Cancel
       </Button>
     </>

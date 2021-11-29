@@ -8,6 +8,7 @@ export const resourceRefresh = endpoint({
   method: "post",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: t.union([
     t.type({ success: t.literal("true") }),
     t.type({

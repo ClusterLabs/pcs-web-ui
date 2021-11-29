@@ -6,5 +6,6 @@ export const removeConstraintRuleRemote = endpoint({
   method: "post",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: undefined,
 });

@@ -15,19 +15,22 @@ describe("Fence device create task", () => {
   afterEach(intercept.stop);
 
   it("should succesfully create new fence device", async () => {
-    shortcuts.interceptWithCluster(clusterName, [
-      route.stonithAgentDescribeAgent({
-        clusterName,
-        agentName,
-        agentData: responses.fenceAgentMetadata.ok,
-      }),
-      route.stonithCreate({
-        clusterName,
-        fenceDeviceName,
-        agentName,
-        instanceAttrs: { ip, username },
-      }),
-    ]);
+    shortcuts.interceptWithCluster({
+      clusterName,
+      additionalRouteList: [
+        route.stonithAgentDescribeAgent({
+          clusterName,
+          agentName,
+          agentData: responses.fenceAgentMetadata.ok,
+        }),
+        route.stonithCreate({
+          clusterName,
+          fenceDeviceName,
+          agentName,
+          instanceAttrs: { ip, username },
+        }),
+      ],
+    });
     page.goto(url.TASK);
     await page.type(TASK.NAME, fenceDeviceName);
     await page.click(TASK.AGENT_SELECT);

@@ -3,7 +3,7 @@ import { intercept, route, shortcuts, workflow } from "test/tools";
 import { TASK, url } from "./common";
 
 const NODE = "newnode";
-const CLUSTER = "actions";
+const clusterName = "actions";
 
 const PASSWORD = "pwd";
 const ADDR = "192.168.0.10";
@@ -19,12 +19,15 @@ describe("Node add task", () => {
   afterEach(intercept.stop);
 
   it("should succesfully add new node", async () => {
-    shortcuts.interceptWithCluster("actions", [
-      route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
-      route.check_auth_against_nodes({ nodeNameList: [NODE] }),
-      route.send_known_hosts(CLUSTER, NODE),
-      route.clusterNodeAdd(CLUSTER, NODE),
-    ]);
+    shortcuts.interceptWithCluster({
+      clusterName,
+      additionalRouteList: [
+        route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
+        route.check_auth_against_nodes({ nodeNameList: [NODE] }),
+        route.send_known_hosts(clusterName, NODE),
+        route.clusterNodeAdd(clusterName, NODE),
+      ],
+    });
     await enterNodeName(NODE);
     await page.waitForSelector(TASK.PREPARE_CLUSTER.SUCCESS);
     await page.click(TASK.NEXT); // go to adresses
@@ -39,44 +42,53 @@ describe("Node add task", () => {
       `The node '${NODE}' is already a part of the 'ClusterName' cluster.`
       + " You may not add a node to two different clusters.";
 
-    shortcuts.interceptWithCluster("actions", [
-      route.can_add_cluster_or_nodes({
-        nodeNameList: [NODE],
-        response: { status: [400, reason] },
-      }),
-    ]);
+    shortcuts.interceptWithCluster({
+      clusterName,
+      additionalRouteList: [
+        route.can_add_cluster_or_nodes({
+          nodeNameList: [NODE],
+          response: { status: [400, reason] },
+        }),
+      ],
+    });
     await enterNodeName(NODE);
     await page.waitForSelector(TASK.PREPARE_CLUSTER.CANNOT_ADD);
   });
 
   it("should display alert when node is offline", async () => {
-    shortcuts.interceptWithCluster("actions", [
-      route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
-      route.check_auth_against_nodes({
-        nodeNameList: [NODE],
-        response: { json: { [NODE]: "Offline" } },
-      }),
-    ]);
+    shortcuts.interceptWithCluster({
+      clusterName,
+      additionalRouteList: [
+        route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
+        route.check_auth_against_nodes({
+          nodeNameList: [NODE],
+          response: { json: { [NODE]: "Offline" } },
+        }),
+      ],
+    });
     await enterNodeName(NODE);
     await page.waitForSelector(TASK.PREPARE_CLUSTER.AUTH_FAILED);
   });
 
   it("should sucessfull add new node with authentication", async () => {
-    shortcuts.interceptWithCluster("actions", [
-      route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
-      route.check_auth_against_nodes({
-        nodeNameList: [NODE],
-        response: { json: { [NODE]: "Unable to authenticate" } },
-      }),
-      route.send_known_hosts(CLUSTER, NODE),
-      route.clusterNodeAdd(CLUSTER, NODE),
-      route.auth_gui_against_nodes({
-        [NODE]: {
-          password: PASSWORD,
-          dest_list: [{ addr: ADDR, port: PORT }],
-        },
-      }),
-    ]);
+    shortcuts.interceptWithCluster({
+      clusterName,
+      additionalRouteList: [
+        route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
+        route.check_auth_against_nodes({
+          nodeNameList: [NODE],
+          response: { json: { [NODE]: "Unable to authenticate" } },
+        }),
+        route.send_known_hosts(clusterName, NODE),
+        route.clusterNodeAdd(clusterName, NODE),
+        route.auth_gui_against_nodes({
+          [NODE]: {
+            password: PASSWORD,
+            dest_list: [{ addr: ADDR, port: PORT }],
+          },
+        }),
+      ],
+    });
     await enterNodeName(NODE);
     await workflow.fillAuthForm(NODE, TASK.VIEW, PASSWORD, ADDR, PORT);
     await page.click(TASK.NEXT);

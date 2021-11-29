@@ -34,10 +34,17 @@ export const useClusterState = (clusterName: string) => {
         },
       ],
     });
+
     dispatch({
       type: "CLUSTER.PROPERTIES.LOAD",
       key: { clusterName },
     });
+
+    dispatch({
+      type: "CLUSTER.PERMISSIONS.LOAD",
+      key: { clusterName },
+    });
+
     dispatch({
       type: "RESOURCE_AGENT.LIST.LOAD",
       key: { clusterName },

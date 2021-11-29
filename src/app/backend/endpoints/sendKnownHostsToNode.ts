@@ -14,5 +14,6 @@ export const sendKnownHostsToNode = endpoint({
     ["target_node", targetNode],
   ],
   payload: undefined,
+  validate: undefined,
   shape: undefined,
 });

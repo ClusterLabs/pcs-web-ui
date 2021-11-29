@@ -5,6 +5,7 @@ export const destroyCluster = endpoint({
     `/managec/${clusterName}/cluster_destroy`,
   method: "post",
   params: undefined,
+  validate: undefined,
   shape: undefined,
   payload: undefined,
 });

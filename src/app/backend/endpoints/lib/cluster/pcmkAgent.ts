@@ -76,6 +76,7 @@ export const pcmkAgentDescribeAgent = (type: AgentType) =>
       }`,
     method: "post",
     params: undefined,
+    validate: undefined,
     payload: (agentName: string): { agent_name: string } => ({
       agent_name: agentName,
     }),
@@ -96,6 +97,7 @@ export const pcmkAgentListAgents = (type: AgentType) =>
 
     method: "post",
     params: undefined,
+    validate: undefined,
     payload: agentListPayload,
     shape: libShape(t.array(pcmkAgent)),
   });

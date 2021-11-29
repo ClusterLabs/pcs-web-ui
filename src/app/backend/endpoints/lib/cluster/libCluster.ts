@@ -263,5 +263,6 @@ export const libCluster = endpoint({
   method: "post",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: libShape(t.null),
 });

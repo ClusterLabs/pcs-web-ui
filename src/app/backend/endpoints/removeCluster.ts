@@ -5,5 +5,6 @@ export const removeCluster = endpoint({
   method: "post",
   params: undefined,
   payload: undefined,
+  validate: undefined,
   shape: undefined,
 });
