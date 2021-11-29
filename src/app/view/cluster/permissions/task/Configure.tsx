@@ -9,6 +9,7 @@ export const Configure: React.FC = () => {
   const {
     updateState,
     isNameValid,
+    areCompetenciesValid,
     state: { name, type, showValidationErrors, read, write, grant, full },
   } = useTask();
 
@@ -16,18 +17,18 @@ export const Configure: React.FC = () => {
     <>
       <Form data-test="permission-create">
         <FormText
-          id="user-group-name"
+          id="permission-name"
           label="Name"
           onChange={value => updateState({ name: value })}
           value={name}
           showValidationErrors={showValidationErrors}
           isValid={isNameValid}
-          helperTextInvalid="Please fill user/group name"
+          helperTextInvalid="Please enter a name"
           data-test="name"
         />
         <FormRadios
           label="Type"
-          id="user-group-type"
+          id="permission-user-group-type"
           options={["user", "group"]}
           selected={type}
           onChange={value =>
@@ -66,6 +67,9 @@ export const Configure: React.FC = () => {
           isChecked={full}
           onChange={allow => updateState({ full: allow })}
           data-test="full"
+          showValidationErrors={showValidationErrors}
+          isValid={areCompetenciesValid}
+          helperTextInvalid="Please select at least one permission"
         />
       </Form>
     </>

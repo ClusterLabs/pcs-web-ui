@@ -1,8 +1,10 @@
 import * as responses from "dev/responses";
 
-import { intercept, location, route, shortcuts } from "test/tools";
+import { intercept, location, route } from "test/tools";
 import { mkXPath } from "test/tools/selectors";
-import { formSwitch, radioGroup } from "test/tools/workflows";
+import { formSwitch, hasFieldError, radioGroup } from "test/tools/workflows";
+
+import { interceptForPermissions } from "./common";
 
 type Permission = ReturnType<
   typeof responses.permissions
@@ -25,8 +27,11 @@ const task = {
   close: mkXPath(view, "task-close"),
 };
 
-const permissionName = "User1";
-const permissionType = "group";
+const newPermission: Permission = {
+  name: "User1",
+  type: "group",
+  allow: ["grant"],
+};
 const permissionsLocation = location.permissionList({ clusterName });
 
 const basicPermission: Permission = {
@@ -38,39 +43,47 @@ const basicPermission: Permission = {
 describe("Pemissions", () => {
   afterEach(intercept.stop);
 
-  it("should be displayed according to response data", async () => {
-    shortcuts.interceptWithCluster({
+  it("should create new permission", async () => {
+    interceptForPermissions({
       clusterName,
+      usersPermissions: [basicPermission],
       additionalRouteList: [
         route.permissionsSave({
           clusterName,
-          permissionList: [
-            basicPermission,
-            { name: permissionName, type: permissionType, allow: ["grant"] },
-          ],
+          permissionList: [basicPermission, newPermission],
         }),
       ],
-      replaceRoutes: {
-        permissions: route.getPermissions({
-          clusterName,
-          permissions: {
-            ...responses.permissions(),
-            // start with basic permission to see it is combined with new one
-            users_permissions: [basicPermission],
-          },
-        }),
-      },
     });
     await page.goto(permissionsLocation);
     await page.click(task.toolbarItem);
     await page.waitForSelector(task.view);
-    await page.type(task.name, permissionName);
-    await radioGroup(task.type, permissionType);
+    await page.type(task.name, newPermission.name);
+    await radioGroup(task.type, newPermission.type);
     await formSwitch(task.read); // swith to off since it is on by default
-    await formSwitch(task.grant);
+    await formSwitch(task.grant); // switch to on
     await page.click(task.run);
     await page.waitForSelector(task.success);
     await page.click(task.close);
     await page.waitForURL(permissionsLocation);
+  });
+
+  it.only("should refuse to continue without essential data", async () => {
+    interceptForPermissions({
+      clusterName,
+      usersPermissions: [basicPermission],
+      additionalRouteList: [
+        route.permissionsSave({
+          clusterName,
+          permissionList: [basicPermission, newPermission],
+        }),
+      ],
+    });
+    await page.goto(permissionsLocation);
+    await page.click(task.toolbarItem);
+    await page.waitForSelector(task.view);
+    await formSwitch(task.read); // swith to off since it is on by default
+    await page.click(task.run);
+    await hasFieldError(task.name);
+    await hasFieldError(`${task.full}/parent::*`);
   });
 });

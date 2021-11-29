@@ -9,6 +9,7 @@ export const PermissionTask = () => {
     recoverFromError,
     permissionEdit: permissionCreate,
     isNameValid,
+    areCompetenciesValid,
     state: {
       call: { response, resultMessage },
       initialPermission,
@@ -25,7 +26,7 @@ export const PermissionTask = () => {
         response !== "" ? null : (
           <TaskSimpleFooter
             task="permissionEdit"
-            nextIf={isNameValid}
+            nextIf={isNameValid && areCompetenciesValid}
             run={permissionCreate}
             runLabel={isCreate ? "Create permission" : "Update permission"}
             cancel={close}

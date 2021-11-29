@@ -12,6 +12,9 @@ export const FormSwitch: React.FC<{
   isDisabled?: SwitchProps["isDisabled"];
   isChecked: SwitchProps["isChecked"];
   onChange: SwitchProps["onChange"];
+  helperTextInvalid?: React.ReactNode;
+  isValid?: boolean;
+  showValidationErrors?: boolean;
   popover?: FormGroupProps["popover"];
   ["data-test"]?: string;
 }> = ({
@@ -20,11 +23,21 @@ export const FormSwitch: React.FC<{
   isDisabled,
   isChecked,
   onChange,
+  isValid = true,
+  showValidationErrors = false,
+  helperTextInvalid = null,
   "data-test": dataTest,
   popover = undefined,
 }) => {
   return (
-    <FormGroup fieldId={id} label={label} popover={popover}>
+    <FormGroup
+      fieldId={id}
+      label={label}
+      helperTextInvalid={helperTextInvalid}
+      isValid={isValid}
+      showValidationErrors={showValidationErrors}
+      popover={popover}
+    >
       <Switch
         isDisabled={isDisabled}
         id={id}

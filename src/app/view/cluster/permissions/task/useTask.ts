@@ -28,6 +28,8 @@ export const useTask = () => {
     },
 
     isNameValid: state.name.length > 0,
+    areCompetenciesValid:
+      state.read || state.write || state.grant || state.full,
     updateState: (payload: ActionPayload["CLUSTER.PERMISSION.EDIT.UPDATE"]) =>
       dispatch({
         type: "CLUSTER.PERMISSION.EDIT.UPDATE",

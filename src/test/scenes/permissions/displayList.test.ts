@@ -1,7 +1,9 @@
 import * as responses from "dev/responses";
 
-import { intercept, location, route, shortcuts } from "test/tools";
+import { intercept, location } from "test/tools";
 import { mkXPath } from "test/tools/selectors";
+
+import { interceptForPermissions } from "./common";
 
 type CompetenceParts = "read" | "write" | "grant" | "full";
 type PermissionParts = CompetenceParts | "name" | "type";
@@ -65,17 +67,9 @@ describe("Pemissions", () => {
   afterEach(intercept.stop);
 
   it("should be displayed according to response data", async () => {
-    shortcuts.interceptWithCluster({
+    interceptForPermissions({
       clusterName,
-      replaceRoutes: {
-        permissions: route.getPermissions({
-          clusterName,
-          permissions: {
-            ...responses.permissions(),
-            users_permissions: permissionsResponseData,
-          },
-        }),
-      },
+      usersPermissions: permissionsResponseData,
     });
     await page.goto(location.permissionList({ clusterName }));
     await checkPermissionRow(0);
