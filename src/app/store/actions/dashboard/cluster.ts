@@ -12,4 +12,11 @@ export type DashboardClusterActions = {
       clusterName: string;
     };
   };
+
+  "DASHBOARD.CLUSTER.START": {
+    type: "DASHBOARD.CLUSTER.START";
+    payload: {
+      clusterName: string;
+    };
+  };
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@patternfly/react-core";
 
 import {
   NodeAuthButton,
@@ -19,6 +20,7 @@ import { Totem } from "./Totem";
 export const ClusterSetup: React.FC = () => {
   const {
     close,
+    startClusterAndClose,
     isOpened,
     isClusterNameValid,
     areNodeNamesValid,
@@ -131,6 +133,11 @@ export const ClusterSetup: React.FC = () => {
               close={close}
               backToUpdateSettingsStepName="Cluster name and nodes"
               proceedForce={() => setupCluster({ force: true })}
+              successSecondaryActions={
+                <Button variant="secondary" onClick={startClusterAndClose}>
+                  Start cluster and close
+                </Button>
+              }
               reports={reports}
             />
           ),

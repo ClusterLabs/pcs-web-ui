@@ -160,6 +160,17 @@ export const useTask = () => {
       task.close();
     },
 
+    startClusterAndClose: () => {
+      dispatch({
+        type: "DASHBOARD.CLUSTER.START",
+        payload: { clusterName: state.clusterName },
+      });
+      dispatch({
+        type: "DASHBOARD.CLUSTER.SETUP.CLOSE",
+      });
+      task.close();
+    },
+
     checkCanAddClusterOrNodes,
 
     checkAuth: () => {
