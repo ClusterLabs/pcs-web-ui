@@ -73,7 +73,8 @@ export function* nodeAuthWait(authProcessId: number) {
       && response.plaintext_error.length === 0
       && !(
         "local_cluster_node_auth_error" in response
-        && response.local_cluster_node_auth_error
+        && response.local_cluster_node_auth_error !== undefined
+        && Object.keys(response.local_cluster_node_auth_error).length > 0
       )
       && "node_auth_error" in response
       && response.node_auth_error

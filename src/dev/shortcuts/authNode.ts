@@ -110,6 +110,7 @@ export const authGuiAgainstNodes = () =>
     // any other: 1 => wrong password
     res.json({
       plaintext_error: "",
+      local_cluster_node_auth_error: {},
       node_auth_error: Object.keys(nodes).reduce<Record<string, 0 | 1>>(
         (result, nodeName) => ({
           ...result,
