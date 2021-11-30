@@ -8,7 +8,10 @@ import { root as rootReducer } from "./reducers/root";
 
 /* eslint-disable no-underscore-dangle, @typescript-eslint/no-explicit-any */
 const composeMiddleware =
-  (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+  (process.env.NODE_ENV !== "production"
+    && window
+    && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
+  || compose;
 
 const sagaMiddleware = createSagaMiddleware();
 
