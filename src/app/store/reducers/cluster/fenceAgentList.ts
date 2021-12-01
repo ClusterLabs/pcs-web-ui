@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+import { uprefixFenceAgentName } from "app/store/tools";
 import { AppReducer } from "app/store/reducers/appReducer";
 
 type FenceAgentList = string[];
@@ -14,7 +15,9 @@ type FenceAgentListService = {
 const data: AppReducer<FenceAgentList> = (state = [], action) => {
   switch (action.type) {
     case "FENCE_AGENT.LIST.LOAD.OK":
-      return action.payload.apiFenceAgentList.map(apiAgent => apiAgent.name);
+      return action.payload.apiFenceAgentList.map(apiAgent =>
+        uprefixFenceAgentName(apiAgent.name),
+      );
 
     default:
       return state;

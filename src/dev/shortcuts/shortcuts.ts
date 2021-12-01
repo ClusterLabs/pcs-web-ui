@@ -52,7 +52,9 @@ const getFenceAgentMetadata = (
   metadatList: types.StonithAgentDescribeAgent[],
 ) =>
   app.libClusterStonithAgentDescribeAgent((req, res) => {
-    const metadata = metadatList.find(m => m.name === req.body.agent_name);
+    const metadata = metadatList.find(
+      m => m.name === `stonith:${req.body.agent_name}`,
+    );
     if (metadata) {
       res.json(response.lib.success({ data: metadata }));
     } else {

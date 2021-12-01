@@ -1,5 +1,6 @@
 import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
+import { uprefixFenceAgentName } from "app/store/tools";
 
 type Params =
   | ActionPayload["RESOURCE_AGENT.LOAD.SUCCESS"]["apiAgentMetadata"]["parameters"]
@@ -37,17 +38,21 @@ export const pcmkAgents: AppReducer<AgentMap> = (state = {}, action) => {
       };
 
     case "RESOURCE_AGENT.LOAD.SUCCESS":
-    case "FENCE_AGENT.LOAD.SUCCESS":
+    case "FENCE_AGENT.LOAD.SUCCESS": {
+      const agentName = uprefixFenceAgentName(
+        action.payload.apiAgentMetadata.name,
+      );
       return {
         ...state,
-        [action.payload.apiAgentMetadata.name]: {
+        [agentName]: {
           loadStatus: "LOADED",
-          name: action.payload.apiAgentMetadata.name,
+          name: agentName,
           parameters: action.payload.apiAgentMetadata.parameters,
           shortdesc: action.payload.apiAgentMetadata.shortdesc,
           longdesc: action.payload.apiAgentMetadata.longdesc,
         },
       };
+    }
 
     case "FENCE_AGENT.LOAD.FAILED":
     case "RESOURCE_AGENT.LOAD.FAILED":
