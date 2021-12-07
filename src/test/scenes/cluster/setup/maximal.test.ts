@@ -1,7 +1,13 @@
 import { intercept, route } from "test/tools";
 import { assertReview, radioGroup, select } from "test/tools/workflows";
 
-import { task, url } from "./common";
+import {
+  clusterName,
+  interceptForClusterSetup,
+  nodeNameList,
+  task,
+  url,
+} from "./common";
 
 type SetupData = Extract<
   Parameters<typeof route.clusterSetup>[0]["payload"]["setupData"],
@@ -12,9 +18,6 @@ type SetupData = Extract<
 // so we don't have to always write defaulting to string, e.g.:
 // await page.type(task.knetTransport.link_priority, link.link_priority || "");
 type StrictProps<T> = { [K in keyof T]-?: NonNullable<T[K]> };
-
-const clusterName = "new-cluster";
-const nodeNameList = ["node-1", "node-2"];
 
 const addrs = [
   ["192.168.0.1", "192.168.0.2"],
@@ -79,12 +82,8 @@ const onOff = (value: string) => (value === "1" ? "on" : "off");
 
 describe("Cluster setup", () => {
   it("should create full filled cluster", async () => {
-    intercept.run([
-      route.importedClusterList(),
-      route.resourceAgentListAgents(clusterName),
-      route.can_add_cluster_or_nodes({ clusterName, nodeNameList }),
+    interceptForClusterSetup([
       route.check_auth_against_nodes({ nodeNameList }),
-      route.sendKnownHostsToNode({ nodeNameList, targetNode: nodeNameList[0] }),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],

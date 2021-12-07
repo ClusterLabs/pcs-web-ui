@@ -1,19 +1,13 @@
 import { intercept, route } from "test/tools";
 import { hasFieldError } from "test/tools/workflows";
 
-import { task, url } from "./common";
-
-const clusterName = "new-cluster";
-const nodeNameList = ["node-1", "node-2"];
-
-export const interceptForClusterSetup = (routeList: intercept.Route[] = []) =>
-  intercept.run([
-    route.importedClusterList(),
-    route.resourceAgentListAgents(clusterName),
-    route.can_add_cluster_or_nodes({ clusterName, nodeNameList }),
-    route.sendKnownHostsToNode({ nodeNameList, targetNode: nodeNameList[0] }),
-    ...routeList,
-  ]);
+import {
+  clusterName,
+  interceptForClusterSetup,
+  nodeNameList,
+  task,
+  url,
+} from "./common";
 
 describe("Cluster setup", () => {
   afterEach(intercept.stop);
@@ -72,6 +66,7 @@ describe("Cluster setup", () => {
     await page.click(task.reviewAndFinish);
     await task.nextFrom("Review");
     await page.waitForSelector(task.sucess);
+    await page.waitForTimeout(10000);
   });
 
   it("should refuse to continue without essential data", async () => {

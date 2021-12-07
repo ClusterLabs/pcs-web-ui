@@ -1,6 +1,6 @@
 import { wizardCreateFooterDataTest } from "app/view/share/task/wizardCreateFooterDataTest";
 
-import { location } from "test/tools";
+import { intercept, location, route } from "test/tools";
 import { mkXPath } from "test/tools/selectors";
 
 const view = "task-cluster-setup";
@@ -26,6 +26,19 @@ const backFrom = <STEP_NAME extends string>() => {
     await page.click(inView(wizardCreateFooterDataTest(stepName), "task-back"));
   };
 };
+
+export const clusterName = "new-cluster";
+export const nodeNameList = ["node-1", "node-2"];
+
+export const interceptForClusterSetup = (routeList: intercept.Route[] = []) =>
+  intercept.run([
+    route.importedClusterList(),
+    route.resourceAgentListAgents(clusterName),
+    route.can_add_cluster_or_nodes({ clusterName, nodeNameList }),
+    route.sendKnownHostsToNode({ nodeNameList, targetNode: nodeNameList[0] }),
+    route.rememberCluster({ clusterName, nodeNameList }),
+    ...routeList,
+  ]);
 
 export const task = {
   view,

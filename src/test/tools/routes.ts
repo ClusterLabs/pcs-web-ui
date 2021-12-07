@@ -14,6 +14,30 @@ import { RequestData, RouteResponse } from "./interception";
 // * but when "node_names[]=node1&node_names[]=node2" appears in the query then
 //   it is recognized as
 //  {"node_names[]": ["node1", "node2"]} - i.e. value is array unlike prev case
+//
+//
+const sanitizeValue = <KEY extends string>(
+  body: Record<KEY, string | string[]>,
+  key: KEY,
+  value: string,
+) => {
+  if (!key.endsWith("[]") || key in body === false) {
+    return value;
+  }
+  if (Array.isArray(body[key])) {
+    return [...body[key], value];
+  }
+  return [body[key], value];
+};
+
+const paramsToBody = (params: [string, string][]) =>
+  params.reduce(
+    (body, [key, value]) => ({
+      ...body,
+      [key]: sanitizeValue(body, key, value),
+    }),
+    {},
+  );
 
 export const can_add_cluster_or_nodes = ({
   nodeNameList,
@@ -236,9 +260,7 @@ export const clusterSetup = (props: {
   };
   return {
     url: url.clusterSetup,
-    body: endpoints.clusterSetup
-      .params(props.payload)
-      .reduce((body, [key, value]) => ({ ...body, [key]: value }), {}),
+    body: paramsToBody(endpoints.clusterSetup.params(props.payload)),
     ...response,
   };
 };
@@ -315,9 +337,9 @@ export const permissionsSave = ({
   permissionList,
 }: Parameters<typeof endpoints.permissionsSave.params>[0]) => ({
   url: url.permissionsSave({ clusterName }),
-  body: endpoints.permissionsSave
-    .params({ clusterName, permissionList })
-    .reduce((body, [key, value]) => ({ ...body, [key]: value }), {}),
+  body: paramsToBody(
+    endpoints.permissionsSave.params({ clusterName, permissionList }),
+  ),
   text: "Permissions saved",
 });
 
@@ -367,4 +389,20 @@ export const clusterStatus = ({
 }) => ({
   url: url.clusterStatus({ clusterName: clusterStatus.cluster_name }),
   json: clusterStatus,
+});
+
+export const rememberCluster = ({
+  clusterName,
+  nodeNameList,
+  response,
+}: {
+  clusterName: string;
+  nodeNameList: string[];
+  response?: RouteResponse;
+}) => ({
+  url: url.rememberCluster,
+  body: paramsToBody(
+    endpoints.rememberCluster.params({ clusterName, nodeNameList }),
+  ),
+  ...(response ?? { text: "" }),
 });
