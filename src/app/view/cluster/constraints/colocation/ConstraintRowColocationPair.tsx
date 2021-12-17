@@ -1,3 +1,4 @@
+import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
 import { ConstraintColocationPair } from "../types";

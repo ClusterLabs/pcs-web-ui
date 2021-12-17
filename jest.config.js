@@ -3,7 +3,10 @@ module.exports = {
   moduleDirectories: ["node_modules", "src"],
   testEnvironmentOptions: {
     "jest-playwright": {
-      // browsers: ["firefox", "chromium", "webkit"],
+       // browsers: ["firefox", "chromium", "webkit"],
+       launchOptions: {
+        headless: true,
+      },
     },
   },
 };
