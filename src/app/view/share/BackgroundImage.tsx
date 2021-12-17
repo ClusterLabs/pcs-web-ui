@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BackgroundImageSrcMap,
   BackgroundImage as PfBackgroundImage,

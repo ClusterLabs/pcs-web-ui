@@ -1,20 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { FenceDevice } from "app/view/cluster/types";
-import { useGroupDetailViewContext } from "app/view/share";
+import { Link } from "app/view/share";
 
-export const FenceDeviceListCellName = ({
-  fenceDevice,
-}: {
+export const FenceDeviceListCellName: React.FC<{
   fenceDevice: FenceDevice;
-}) => {
-  const { urlPrefix } = useGroupDetailViewContext();
+}> = ({ fenceDevice }) => {
   return (
-    <Link
-      to={`${urlPrefix}/${fenceDevice.id}`}
-      id={`fence-device-list-item-${fenceDevice.id}`}
-    >
+    <Link to={`/${fenceDevice.id}`}>
       <strong>{fenceDevice.id}</strong>
     </Link>
   );

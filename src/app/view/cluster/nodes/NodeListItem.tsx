@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   DataListCell,
   DataListItem,
@@ -7,6 +6,7 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
+import { Link } from "app/view/share";
 import { Node } from "app/view/cluster/types";
 import {
   SelectionIndicatorInGroup,
@@ -15,8 +15,8 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-export const NodeListItem = ({ node }: { node: Node }) => {
-  const { urlPrefix, selectedItemUrlName } = useGroupDetailViewContext();
+export const NodeListItem: React.FC<{ node: Node }> = ({ node }) => {
+  const { selectedItemUrlName } = useGroupDetailViewContext();
   return (
     <DataListItem aria-labelledby={node.name}>
       <DataListItemRow>
@@ -24,10 +24,7 @@ export const NodeListItem = ({ node }: { node: Node }) => {
           dataListCells={
             <>
               <DataListCell>
-                <Link
-                  to={`${urlPrefix}/${node.name}`}
-                  id={`node-list-item-${node.name}`}
-                >
+                <Link to={`/${node.name}`}>
                   <strong>{node.name}</strong>
                 </Link>
               </DataListCell>

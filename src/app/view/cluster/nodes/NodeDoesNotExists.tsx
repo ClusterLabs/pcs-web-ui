@@ -4,14 +4,16 @@ import { StackItem } from "@patternfly/react-core";
 import { EmptyStateNoItem } from "app/view/share";
 import { DetailLayout, useSelectedClusterName } from "app/view/share";
 
-export const NodeDoesNotExists = ({ nodeUrlName }: { nodeUrlName: string }) => {
+export const NodeDoesNotExists: React.FC<{
+  nodeName: string;
+}> = ({ nodeName }) => {
   const clusterName = useSelectedClusterName();
   return (
-    <DetailLayout caption={<strong>{nodeUrlName}</strong>}>
+    <DetailLayout caption={<strong>{nodeName}</strong>}>
       <StackItem>
         <EmptyStateNoItem
-          title={`Node "${nodeUrlName}" does not exist.`}
-          message={`Node "${nodeUrlName}" is not a member of cluster ${clusterName}.`}
+          title={`Node "${nodeName}" does not exist.`}
+          message={`Node "${nodeName}" is not a member of cluster ${clusterName}.`}
         />
       </StackItem>
     </DetailLayout>

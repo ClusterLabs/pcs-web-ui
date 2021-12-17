@@ -3,32 +3,29 @@ import {
   DetailLayout,
   NVPairListView,
   ResourceDetailCaption,
+  Router,
   UrlTabs,
-  join,
-  useGroupDetailViewContext,
-  useMatch,
-  useRoutesAnalysis,
+  useUrlTabs,
 } from "app/view/share";
 
 import { CloneDetail } from "./CloneDetail";
 
+const tabList = ["detail", "meta"] as const;
+
 export const ClonePage = ({ clone }: { clone: Clone }) => {
-  const { urlPrefix } = useGroupDetailViewContext();
-  const resourceUrlPrefix = join(urlPrefix, clone.id);
-  const { tab, urlMap } = useRoutesAnalysis("Detail", {
-    Detail: useMatch({ path: resourceUrlPrefix, exact: true }),
-    Meta: useMatch(join(resourceUrlPrefix, "meta-attributes")),
-  });
+  const { currentTab, matchedContext } = useUrlTabs(tabList);
   return (
     <DetailLayout
       caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
-      tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
+      tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
       data-test={`resource-detail ${clone.id}`}
     >
-      {tab === "Detail" && <CloneDetail clone={clone} />}
-      {tab === "Meta" && (
-        <NVPairListView nvPairListView={clone.metaAttributes} />
-      )}
+      <Router base={matchedContext}>
+        {currentTab === "detail" && <CloneDetail clone={clone} />}
+        {currentTab === "meta" && (
+          <NVPairListView nvPairListView={clone.metaAttributes} />
+        )}
+      </Router>
     </DetailLayout>
   );
 };

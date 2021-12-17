@@ -1,16 +1,15 @@
 import React from "react";
 import { PageSection, Stack, StackItem } from "@patternfly/react-core";
 
+import { Router } from "app/view/share";
 import {
   EmptyStateSpinner,
   Page,
   SelectedClusterProvider,
   UrlTabs,
-  join,
-  useClusterState,
-  useMatch,
-  useRoutesAnalysis,
+  useUrlTabs,
 } from "app/view/share";
+import { useClusterState } from "app/view/share";
 
 import { NodesPage } from "./nodes";
 import { ResourcesPage } from "./resources";
@@ -21,21 +20,21 @@ import { ClusterDetail } from "./ClusterDetail";
 import { ClusterDetailBreadcrumb } from "./ClusterDetailBreadcrumb";
 import { ClusterPermissionsPage } from "./permissions";
 
-export const ClusterDetailPage: React.FC<{
-  clusterName: string;
-  urlPrefix: string;
-}> = ({ clusterName, urlPrefix }) => {
-  const { dataLoaded } = useClusterState(clusterName);
+const tabList = [
+  "detail",
+  "nodes",
+  "resources",
+  "fence-devices",
+  "constraints",
+  "properties",
+  "permissions",
+] as const;
 
-  const { tab, urlMap, url } = useRoutesAnalysis("Detail", {
-    Detail: useMatch({ path: join(urlPrefix), exact: true }),
-    Nodes: useMatch(join(urlPrefix, "nodes")),
-    Resources: useMatch(join(urlPrefix, "resources")),
-    "Fence Devices": useMatch(join(urlPrefix, "fence-devices")),
-    Constraints: useMatch(join(urlPrefix, "constraints")),
-    Properties: useMatch(join(urlPrefix, "properties")),
-    Permissions: useMatch(join(urlPrefix, "permissions")),
-  });
+export const ClusterDetailPage: React.FC<{ clusterName: string }> = ({
+  clusterName,
+}) => {
+  const { dataLoaded } = useClusterState(clusterName);
+  const { currentTab, matchedContext } = useUrlTabs(tabList);
 
   return (
     <Page>
@@ -45,21 +44,27 @@ export const ClusterDetailPage: React.FC<{
             <ClusterDetailBreadcrumb clusterName={clusterName} />
           </StackItem>
           <StackItem>
-            <UrlTabs tabSettingsMap={urlMap} currentTab={tab} label="cluster" />
+            <UrlTabs
+              tabList={tabList}
+              currentTab={currentTab}
+              data-test="cluster"
+            />
           </StackItem>
         </Stack>
       </PageSection>
       {dataLoaded && (
         <SelectedClusterProvider value={clusterName}>
-          {tab === "Detail" && <ClusterDetail />}
-          {tab === "Resources" && <ResourcesPage urlPrefix={url} />}
-          {tab === "Nodes" && <NodesPage urlPrefix={url} />}
-          {tab === "Fence Devices" && <FenceDevicePage urlPrefix={url} />}
-          {tab === "Constraints" && (
-            <ConstraintsPage clusterName={clusterName} />
-          )}
-          {tab === "Properties" && <ClusterPropertiesPage />}
-          {tab === "Permissions" && <ClusterPermissionsPage />}
+          <Router base={matchedContext}>
+            {currentTab === "detail" && <ClusterDetail />}
+            {currentTab === "nodes" && <NodesPage />}
+            {currentTab === "resources" && <ResourcesPage />}
+            {currentTab === "fence-devices" && <FenceDevicePage />}
+            {currentTab === "constraints" && (
+              <ConstraintsPage clusterName={clusterName} />
+            )}
+            {currentTab === "properties" && <ClusterPropertiesPage />}
+            {currentTab === "permissions" && <ClusterPermissionsPage />}
+          </Router>
         </SelectedClusterProvider>
       )}
       {!dataLoaded && (

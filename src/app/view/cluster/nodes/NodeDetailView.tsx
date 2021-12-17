@@ -15,7 +15,7 @@ import { Node } from "app/view/cluster/types";
 import { NodeDaemonTable } from "./NodeDaemonTable";
 import { NodeClusterServicesView } from "./services";
 
-export const NodeDetailView = ({ node }: { node: Node }) => {
+export const NodeDetailView: React.FC<{ node: Node }> = ({ node }) => {
   const [crmStatusList, clusterName] = useClusterSelector(
     selectors.crmStatusForNode,
     node.name,

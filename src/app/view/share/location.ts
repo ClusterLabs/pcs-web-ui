@@ -1,9 +1,10 @@
-export const dashboard = "/";
+const root = "~/ui";
+export const dashboard = root;
 
-export const dashboardAddCluster = "/add-cluster";
+export const dashboardAddCluster = `${root}/add-cluster`;
 
 export const cluster = ({ clusterName }: { clusterName: string }) =>
-  `/cluster/${clusterName}`;
+  `${root}/cluster/${clusterName}`;
 
 export const nodeList = ({ clusterName }: { clusterName: string }) =>
   `${cluster({ clusterName })}/nodes`;

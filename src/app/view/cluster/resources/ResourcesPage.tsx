@@ -14,7 +14,7 @@ import {
   ResourceCreateToolbarItem,
 } from "./task";
 
-export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
+export const ResourcesPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   return (
     <>
@@ -29,7 +29,6 @@ export const ResourcesPage = ({ urlPrefix }: { urlPrefix: string }) => {
         </ActionList>
       </ClusterSectionToolbar>
       <GroupDetailView
-        urlPrefix={urlPrefix}
         groupCard={<ResourceTree resourceTree={cluster.resourceTree} />}
         detailCard={<ResourceDetailPage />}
       />

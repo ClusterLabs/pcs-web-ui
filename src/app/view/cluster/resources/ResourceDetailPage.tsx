@@ -7,14 +7,14 @@ import { GroupPage } from "./group";
 import { PrimitivePage } from "./primitive";
 
 export const ResourceDetailPage = () => {
-  const { selectedItemUrlName } = useGroupDetailViewContext();
+  const { selectedItemUrlName: resourceId } = useGroupDetailViewContext();
   const [resourceTreeItem] = useClusterSelector(
     selectors.getSelectedResource,
-    selectedItemUrlName,
+    resourceId,
   );
 
   if (!resourceTreeItem) {
-    return <ResourceDoesNotExists resourceUrlName={selectedItemUrlName} />;
+    return <ResourceDoesNotExists resourceId={resourceId} />;
   }
 
   switch (resourceTreeItem.itemType) {

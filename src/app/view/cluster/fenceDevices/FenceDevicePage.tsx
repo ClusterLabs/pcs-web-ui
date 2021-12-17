@@ -12,9 +12,7 @@ import { FenceDeviceCreateToolbarItem } from "./task";
 import { FenceDeviceDetailPage } from "./FenceDeviceDetailPage";
 import { FenceDeviceList } from "./list";
 
-export const FenceDevicePage: React.FC<{ urlPrefix: string }> = ({
-  urlPrefix,
-}) => {
+export const FenceDevicePage: React.FC = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   return (
     <>
@@ -26,7 +24,6 @@ export const FenceDevicePage: React.FC<{ urlPrefix: string }> = ({
         </ActionList>
       </ClusterSectionToolbar>
       <GroupDetailView
-        urlPrefix={urlPrefix}
         detailCard={<FenceDeviceDetailPage />}
         groupCard={
           <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />

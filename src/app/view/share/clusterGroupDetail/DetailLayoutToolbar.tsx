@@ -11,7 +11,6 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 import { TimesIcon } from "@patternfly/react-icons";
-import { push } from "connected-react-router";
 
 import { useGroupDetailViewContext } from "./GroupDetailViewContext";
 import { ConfirmAction, ConfirmData } from "./Types";
@@ -31,7 +30,7 @@ export const DetailLayoutToolbar: React.FC<{
   dropdownActions?: ToolbarActionMap;
 }> = ({ toolbarName, buttonActions = {}, dropdownActions = {} }) => {
   const dispatch = useDispatch();
-  const { urlPrefix } = useGroupDetailViewContext();
+  const { closeDetailUrl } = useGroupDetailViewContext();
   const [confirm, setConfirm] = React.useState<ConfirmData | null>(null);
   const [kebabOpen, setKebabOpen] = React.useState(false);
 
@@ -94,7 +93,7 @@ export const DetailLayoutToolbar: React.FC<{
               aria-label="Close panel"
               onClick={(e: React.SyntheticEvent) => {
                 e.preventDefault();
-                dispatch(push(`${urlPrefix}/`));
+                closeDetailUrl();
               }}
             >
               <TimesIcon />

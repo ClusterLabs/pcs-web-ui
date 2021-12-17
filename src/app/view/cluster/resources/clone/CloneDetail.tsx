@@ -11,7 +11,7 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-export const CloneDetail = ({ clone }: { clone: Clone }) => {
+export const CloneDetail: React.FC<{ clone: Clone }> = ({ clone }) => {
   const [crmStatusList, clusterName] = useClusterSelector(
     selectors.crmStatusForPrimitive,
     clone.member.itemType === "primitive"

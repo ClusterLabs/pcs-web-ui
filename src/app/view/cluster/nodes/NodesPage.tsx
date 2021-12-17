@@ -12,7 +12,7 @@ import { NodeDetailPage } from "./NodeDetailPage";
 import { NodeList } from "./NodeList";
 import { NodeAddToolbarItem } from "./task";
 
-export const NodesPage: React.FC<{ urlPrefix: string }> = ({ urlPrefix }) => {
+export const NodesPage: React.FC = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   return (
     <>
@@ -24,7 +24,6 @@ export const NodesPage: React.FC<{ urlPrefix: string }> = ({ urlPrefix }) => {
         </ActionList>
       </ClusterSectionToolbar>
       <GroupDetailView
-        urlPrefix={urlPrefix}
         groupCard={<NodeList nodeList={cluster.nodeList} />}
         detailCard={<NodeDetailPage />}
       />
