@@ -1,7 +1,6 @@
-import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
 
+import { Router } from "app/view/share";
 import { setupStore } from "app/store";
 
 import { Notifications } from "./notifications";
@@ -9,15 +8,13 @@ import { EnsureLogin } from "./login";
 import { AppPage } from "./AppPage";
 import "./App.css";
 
-const history = createBrowserHistory({ basename: "/ui/" });
-
-export const App = ({ store = setupStore(history) }) => (
+export const App = ({ store = setupStore() }) => (
   <Provider store={store}>
     <EnsureLogin>
-      <ConnectedRouter history={history}>
+      <Router base="/ui">
         <AppPage />
-      </ConnectedRouter>
-      <Notifications />
+        <Notifications />
+      </Router>
     </EnsureLogin>
   </Provider>
 );

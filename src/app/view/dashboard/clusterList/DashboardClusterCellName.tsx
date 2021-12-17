@@ -7,7 +7,9 @@ export const DashboardClusterCellName: React.FC<{ clusterName: string }> = ({
 }) => {
   return (
     <th role="rowheader" data-test="name">
-      <Link to={location.cluster({ clusterName })} />
+      <Link to={location.cluster({ clusterName })}>
+        <strong>{clusterName}</strong>
+      </Link>
     </th>
   );
 };

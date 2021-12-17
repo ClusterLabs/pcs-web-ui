@@ -6,11 +6,8 @@ import {
   ToolbarGroup,
   ToolbarItem,
 } from "@patternfly/react-core";
-import { useDispatch } from "react-redux";
-import { useRouteMatch } from "react-router";
-import { push } from "connected-react-router";
 
-import { join } from "app/view/share";
+import { location, useLocation, useRoute } from "app/view/share";
 
 import { AddClusterPage } from "./addCluster";
 import {
@@ -18,12 +15,10 @@ import {
   useTask as useTaskClusterSetup,
 } from "./task/clusterSetup";
 
-export const DashboardToolbar = ({ urlPrefix }: { urlPrefix: string }) => {
-  const dispatch = useDispatch();
-  const toDashboard = () => dispatch(push(urlPrefix));
+export const DashboardToolbar = () => {
+  const { navigate } = useLocation();
 
-  const addClusterUrl = join(urlPrefix, "add-cluster");
-  const addCluster = useRouteMatch({ exact: true, path: addClusterUrl });
+  const addCluster = useRoute("/add-cluster");
   const { open: openClusterSetup } = useTaskClusterSetup();
   return (
     <Toolbar data-test="dashboard-toolbar">
@@ -33,7 +28,7 @@ export const DashboardToolbar = ({ urlPrefix }: { urlPrefix: string }) => {
             <ActionListItem>
               <Button
                 variant="primary"
-                onClick={() => dispatch(push(addClusterUrl))}
+                onClick={() => navigate(location.dashboardAddCluster)}
                 data-test="add-cluster"
               >
                 Add existing cluster
@@ -50,7 +45,9 @@ export const DashboardToolbar = ({ urlPrefix }: { urlPrefix: string }) => {
             </ActionListItem>
           </ActionList>
           <ClusterSetup />
-          {addCluster && <AddClusterPage onClose={toDashboard} />}
+          {addCluster && (
+            <AddClusterPage onClose={() => navigate(location.dashboard)} />
+          )}
         </ToolbarItem>
       </ToolbarGroup>
     </Toolbar>

@@ -1,25 +1,16 @@
-import React from "react";
-import { useRouteMatch } from "react-router";
+import { Router, useRoute } from "app/view/share";
 
-import { ClusterDetailPage } from "./cluster";
+import { ClusterDetailPage } from "./cluster/";
 import { DashboardPage } from "./dashboard";
-import { Scratch } from "./Scratch";
 
 export const AppPage = () => {
-  const cluster = useRouteMatch<{ name: string }>("/cluster/:name");
-  const scratch = useRouteMatch({ exact: true, path: "/scratch" });
-
+  const cluster = useRoute("/cluster/:name/*");
   if (cluster) {
     return (
-      <ClusterDetailPage
-        clusterName={cluster.params.name}
-        urlPrefix={cluster.url}
-      />
+      <Router base={cluster.matched}>
+        <ClusterDetailPage clusterName={cluster.params.name} />
+      </Router>
     );
   }
-  if (scratch) {
-    return <Scratch />;
-  }
-
-  return <DashboardPage urlPrefix="/" />;
+  return <DashboardPage />;
 };

@@ -16,12 +16,10 @@ import { FenceDeviceListCellStatus } from "./FenceDeviceListCellStatus";
 import { FenceDeviceListCellName } from "./FenceDeviceListCellName";
 import { FenceDeviceListCellType } from "./FenceDeviceListCellType";
 
-export const FenceDeviceListItem = ({
-  fenceDevice,
-}: {
+export const FenceDeviceListItem: React.FC<{
   fenceDevice: FenceDevice;
-}) => {
-  const { selectedItemUrlName } = useGroupDetailViewContext();
+}> = ({ fenceDevice }) => {
+  const { selectedItemUrlName: fenceDeviceId } = useGroupDetailViewContext();
   return (
     <DataListItem aria-labelledby={fenceDevice.id}>
       <DataListItemRow>
@@ -38,9 +36,9 @@ export const FenceDeviceListItem = ({
           }
         />
         <FenceDeviceListCellStatus fenceDevice={fenceDevice} />
-        {selectedItemUrlName !== "" && (
+        {fenceDeviceId !== "" && (
           <SelectionIndicatorInGroup
-            isSelected={fenceDevice.id === selectedItemUrlName}
+            isSelected={fenceDevice.id === fenceDeviceId}
           />
         )}
       </DataListItemRow>

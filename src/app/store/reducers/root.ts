@@ -1,6 +1,4 @@
 import { combineReducers } from "redux";
-import { connectRouter } from "connected-react-router";
-import { History } from "history";
 
 import { dashboard } from "./dashboard";
 import { addExistingCluster } from "./dashboardAddCluster";
@@ -11,10 +9,9 @@ import { username } from "./username";
 import { clusterStorage } from "./cluster/storage";
 import { tasks } from "./tasks";
 
-export const root = (history: History) =>
+export const root = () =>
   combineReducers({
     username,
-    router: connectRouter(history),
     dashboard,
     addExistingCluster,
     clusterStorage,

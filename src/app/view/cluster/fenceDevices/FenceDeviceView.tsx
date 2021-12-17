@@ -1,17 +1,12 @@
 import { FenceDevice } from "app/view/cluster/types";
-import {
-  DetailLayout,
-  UrlTabs,
-  join,
-  useGroupDetailViewContext,
-  useMatch,
-  useRoutesAnalysis,
-} from "app/view/share";
+import { DetailLayout, Router, UrlTabs, useUrlTabs } from "app/view/share";
 
 import { useClusterFenceAgent } from "./useFenceAgent";
 import { FenceDeviceDetailView } from "./FenceDeviceDetailView";
 import { FenceDeviceArgumentsView } from "./arguments";
 import { FencePageToolbar } from "./FencePageToolbar";
+
+const tabList = ["detail", "arguments"] as const;
 
 export const FenceDeviceView = ({
   fenceDevice,
@@ -19,23 +14,22 @@ export const FenceDeviceView = ({
   fenceDevice: FenceDevice;
 }) => {
   useClusterFenceAgent(fenceDevice.agentName);
-  const { urlPrefix } = useGroupDetailViewContext();
-  const fenceDeviceUrlPrefix = join(urlPrefix, fenceDevice.id);
-  const { tab, urlMap } = useRoutesAnalysis("Detail", {
-    Detail: useMatch({ path: fenceDeviceUrlPrefix, exact: true }),
-    Arguments: useMatch(join(fenceDeviceUrlPrefix, "arguments")),
-  });
+  const { currentTab, matchedContext } = useUrlTabs(tabList);
   return (
     <DetailLayout
       caption={fenceDevice.id}
-      tabs={<UrlTabs tabSettingsMap={urlMap} currentTab={tab} />}
+      tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
       data-test={`fence-device-detail ${fenceDevice.id}`}
       toolbar={<FencePageToolbar fenceDevice={fenceDevice} />}
     >
-      {tab === "Detail" && <FenceDeviceDetailView fenceDevice={fenceDevice} />}
-      {tab === "Arguments" && (
-        <FenceDeviceArgumentsView fenceDevice={fenceDevice} />
-      )}
+      <Router base={matchedContext}>
+        {currentTab === "detail" && (
+          <FenceDeviceDetailView fenceDevice={fenceDevice} />
+        )}
+        {currentTab === "arguments" && (
+          <FenceDeviceArgumentsView fenceDevice={fenceDevice} />
+        )}
+      </Router>
     </DetailLayout>
   );
 };

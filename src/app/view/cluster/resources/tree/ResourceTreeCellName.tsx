@@ -1,18 +1,12 @@
 import React from "react";
 
-import { Link, useGroupDetailViewContext } from "app/view/share";
+import { Link } from "app/view/share";
 
-export const ResourceTreeCellName = ({
-  resourceId,
-}: {
+export const ResourceTreeCellName: React.FC<{
   resourceId: string;
-}) => {
-  const { urlPrefix } = useGroupDetailViewContext();
+}> = ({ resourceId }) => {
   return (
-    <Link
-      to={`${urlPrefix}/${resourceId}`}
-      id={`resource-tree-item-${resourceId}`}
-    >
+    <Link to={`/${resourceId}`}>
       <strong data-test="resource-tree-item-name">{resourceId}</strong>
     </Link>
   );

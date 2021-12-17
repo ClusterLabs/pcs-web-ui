@@ -1,7 +1,7 @@
 import React from "react";
 import { Breadcrumb, BreadcrumbItem } from "@patternfly/react-core";
 
-import { Link, useDispatch } from "app/view/share";
+import { Link, location, useDispatch } from "app/view/share";
 
 export const ClusterDetailBreadcrumb: React.FC<{ clusterName: string }> = ({
   clusterName,
@@ -10,7 +10,7 @@ export const ClusterDetailBreadcrumb: React.FC<{ clusterName: string }> = ({
   return (
     <Breadcrumb>
       <BreadcrumbItem component="span">
-        <Link to="/">Clusters</Link>
+        <Link to={location.dashboard}>Clusters</Link>
       </BreadcrumbItem>
       <BreadcrumbItem
         isActive

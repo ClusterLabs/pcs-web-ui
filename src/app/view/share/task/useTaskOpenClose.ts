@@ -1,26 +1,24 @@
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router";
 import { parse, stringifyUrl } from "query-string";
-import { push } from "connected-react-router";
+
+import { useLocation } from "app/view/share";
 
 export const useTaskOpenClose = (taskKey: string) => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const params = parse(location.search);
+  const { path, navigate, search } = useLocation();
+  const params = parse(search);
   const openUrl = stringifyUrl({
-    url: location.pathname,
+    url: path,
     query: { ...params, task: taskKey },
   });
 
   const { task, ...withoutTask } = params;
   const closeUrl = stringifyUrl({
-    url: location.pathname,
+    url: path,
     query: withoutTask,
   });
 
   return {
-    open: () => dispatch(push(openUrl)),
-    close: () => dispatch(push(closeUrl)),
+    open: () => navigate(openUrl),
+    close: () => navigate(closeUrl),
     isOpened: params.task === taskKey,
   };
 };

@@ -30,7 +30,7 @@ const useDashboardSync = () => {
   }, [dispatch]);
 };
 
-export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
+export const DashboardPage = () => {
   useDashboardSync();
   const dispatch = useDispatch();
   const importedClusterNameList = useSelector(selectors.getImportedClusterList);
@@ -51,7 +51,7 @@ export const DashboardPage = ({ urlPrefix }: { urlPrefix: string }) => {
             </Breadcrumb>
           </StackItem>
           <StackItem>
-            <DashboardToolbar urlPrefix={urlPrefix} />
+            <DashboardToolbar />
           </StackItem>
         </Stack>
       </PageSection>

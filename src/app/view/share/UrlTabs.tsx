@@ -1,33 +1,39 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { push } from "connected-react-router";
 import { Tab, Tabs } from "@patternfly/react-core";
 
-/* eslint-disable react/require-default-props */
-export function UrlTabs<T extends { [key: string]: string }>({
-  tabSettingsMap,
+import { useLocation } from "app/view/share";
+
+const toUrlDefault = (tabUrlParamName: string) => `/${tabUrlParamName}`;
+const toLabelDefault = (tabUrlParamName: string) =>
+  tabUrlParamName[0].toUpperCase() + tabUrlParamName.slice(1).replace("-", " ");
+
+export function UrlTabs<T extends string>({
+  tabList,
   currentTab,
-  label = "",
+  "data-test": dataTest,
+  toUrl,
+  toLabel,
 }: {
-  tabSettingsMap: T;
-  currentTab: keyof T;
-  label?: string;
+  tabList: ReadonlyArray<T>; // {tabLabel: urlParamName}
+  currentTab: T;
+  toUrl?: (_tab: string) => string;
+  toLabel?: (_tab: string) => string;
+  ["data-test"]?: string;
 }) {
-  const dispatch = useDispatch();
-  /* eslint-disable react/jsx-props-no-spreading */
+  const { navigate } = useLocation();
+  const paramToUrl = toUrl ?? toUrlDefault;
+  const paramToLabel = toLabel ?? toLabelDefault;
   return (
     <Tabs
       activeKey={currentTab as string}
       onSelect={(_e, tabIndex) => {
-        const selectedTab = tabIndex as keyof T;
         if (tabIndex !== currentTab) {
-          dispatch(push(tabSettingsMap[selectedTab]));
+          navigate(paramToUrl(tabIndex as T));
         }
       }}
-      data-test={`tabs ${label}`}
+      data-test={`tabs ${dataTest}`}
     >
-      {Object.keys(tabSettingsMap).map(key => (
-        <Tab key={key} eventKey={key} title={key} />
+      {tabList.map(tab => (
+        <Tab key={tab} eventKey={tab} title={paramToLabel(tab)} />
       ))}
     </Tabs>
   );

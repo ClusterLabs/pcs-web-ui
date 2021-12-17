@@ -1,36 +1,37 @@
-import React from "react";
-import { useRouteMatch } from "react-router";
 import { PageSection } from "@patternfly/react-core";
+
+import { Router, useLocation, useRoute, useRouter } from "app/view/share";
 
 import { GroupDetailViewContextProvider } from "./GroupDetailViewContext";
 
 export const GroupDetailView = ({
-  urlPrefix,
   groupCard,
   detailCard,
 }: {
-  urlPrefix: string;
+  urlPrefix?: string;
   groupCard: React.ReactNode;
   detailCard: React.ReactNode;
 }) => {
-  const detail = useRouteMatch<{ detailUrlName: string }>(
-    `${urlPrefix}/:detailUrlName/`,
-  );
+  const detail = useRoute("/:detailUrlName/*");
+  const { base } = useRouter();
+  const { navigate } = useLocation();
+  const closeDetailUrl = () => navigate(`~${base}`);
 
-  if (detail) {
+  if (detail !== null) {
     return (
       <PageSection className="ha-m-full-height pf-m-fill">
         <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">
           <GroupDetailViewContextProvider
             value={{
-              urlPrefix,
+              urlPrefix: "",
               compact: true,
               selectedItemUrlName: detail.params.detailUrlName,
+              closeDetailUrl,
             }}
           >
             <div className="pf-c-card ha-c-panel__tree-view">{groupCard}</div>
             <div className="pf-c-card pf-m-flex-1 ha-c-panel__details-view">
-              {detailCard}
+              <Router base={detail.matched}>{detailCard}</Router>
             </div>
           </GroupDetailViewContextProvider>
         </div>
@@ -42,9 +43,10 @@ export const GroupDetailView = ({
     <PageSection>
       <GroupDetailViewContextProvider
         value={{
-          urlPrefix,
+          urlPrefix: "",
           compact: false,
           selectedItemUrlName: "",
+          closeDetailUrl,
         }}
       >
         {groupCard}

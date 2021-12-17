@@ -76,7 +76,7 @@ endif
 
 #unit tests
 testu:
-	npx jest --watch --config=jest.config.js --testPathPattern=src/test/unit
+	npx jest --watch --config=jest.config.js --testPathPattern=src/test/unit/$(TEST)
 
 #end2end tests
 teste:

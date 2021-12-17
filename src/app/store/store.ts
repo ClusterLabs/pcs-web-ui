@@ -1,6 +1,4 @@
-import { History } from "history";
 import { applyMiddleware, compose, createStore } from "redux";
-import { routerMiddleware } from "connected-react-router";
 import createSagaMiddleware from "redux-saga";
 
 import { rootSaga } from "./sagas";
@@ -15,14 +13,10 @@ const composeMiddleware =
 
 const sagaMiddleware = createSagaMiddleware();
 
-export const setupStore = (
-  history: History,
-): ReturnType<typeof createStore> => {
+export const setupStore = (): ReturnType<typeof createStore> => {
   const store = createStore(
-    rootReducer(history),
-    composeMiddleware(
-      applyMiddleware(routerMiddleware(history), sagaMiddleware),
-    ),
+    rootReducer(),
+    composeMiddleware(applyMiddleware(sagaMiddleware)),
   );
   sagaMiddleware.run(rootSaga);
 
