@@ -9,6 +9,7 @@ import {
 
 import { resourceCreate } from "./resourceCreate";
 import { fenceDeviceCreate } from "./fenceDeviceCreate";
+import { fenceDeviceArgsEdit } from "./fenceDeviceArgsEdit";
 import { primitiveGroupChange } from "./primitiveGroupChange";
 import { constraintLocationCreate } from "./constraintLocationCreate";
 import { constraintOrderCreate } from "./constraintOrderCreate";
@@ -45,6 +46,7 @@ export const tasks = combineReducers(
   wrapTasks(wrapTaskReducer)({
     resourceCreate,
     fenceDeviceCreate,
+    fenceDeviceArgsEdit,
     primitiveGroupChange,
     constraintLocationCreate,
     constraintOrderCreate,

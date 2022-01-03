@@ -13,7 +13,7 @@ import { FenceDeviceDetailPage } from "./FenceDeviceDetailPage";
 import { FenceDeviceList } from "./list";
 
 export const FenceDevicePage: React.FC = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const [{ fenceDeviceList }] = useClusterSelector(selectors.getCluster);
   return (
     <>
       <ClusterSectionToolbar>
@@ -25,9 +25,7 @@ export const FenceDevicePage: React.FC = () => {
       </ClusterSectionToolbar>
       <GroupDetailView
         detailCard={<FenceDeviceDetailPage />}
-        groupCard={
-          <FenceDeviceList fenceDeviceList={cluster.fenceDeviceList} />
-        }
+        groupCard={<FenceDeviceList fenceDeviceList={fenceDeviceList} />}
       />
     </>
   );

@@ -10,6 +10,7 @@ import * as dataLoad from "./common/dataLoad";
 import * as login from "./login";
 import * as notifications from "./common/notifications";
 import * as resourceUpdate from "./resourceUpdate";
+import * as fenceDeviceUpdate from "./fenceDeviceUpdate";
 import * as resourceAgent from "./resourceAgent";
 import * as fenceAgent from "./fenceAgent";
 import * as username from "./username";
@@ -92,6 +93,7 @@ function* rootSaga() {
       "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES",
       resourceUpdate.updateInstanceAttributes,
     ),
+    takeEvery("FENCE_DEVICE.EDIT_ARGS.RUN", fenceDeviceUpdate.updateArguments),
   ]);
 }
 
