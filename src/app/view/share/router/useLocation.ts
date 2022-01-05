@@ -12,7 +12,7 @@ export const events = [eventPopstate, eventPushState, eventReplaceState];
 
 const currentPathname = (base: string, path = window.location.pathname) =>
   path.toLowerCase().startsWith(base.toLowerCase())
-    ? path.slice(base.length) || "/"
+    ? path.slice(base.length)
     : "~" + path;
 
 export const useLocation = (

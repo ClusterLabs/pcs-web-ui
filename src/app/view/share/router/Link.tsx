@@ -11,7 +11,7 @@ export const Link: React.FC<{ to: string }> = ({ to, children }) => {
     caption = parts[parts.length - 1];
   }
   return (
-    <Button variant="link" onClick={() => navigate(to)}>
+    <Button variant="link" data-test="link" onClick={() => navigate(to)}>
       {caption}
     </Button>
   );

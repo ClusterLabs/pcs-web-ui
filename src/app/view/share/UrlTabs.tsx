@@ -4,7 +4,11 @@ import { useLocation } from "app/view/share";
 
 const toUrlDefault = (tabUrlParamName: string) => `/${tabUrlParamName}`;
 const toLabelDefault = (tabUrlParamName: string) =>
-  tabUrlParamName[0].toUpperCase() + tabUrlParamName.slice(1).replace("-", " ");
+  tabUrlParamName
+    .replace("-", " ")
+    .split(" ")
+    .map(word => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
 
 export function UrlTabs<T extends string>({
   tabList,

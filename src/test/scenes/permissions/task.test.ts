@@ -45,7 +45,7 @@ const finishNewPermissionSucessfully = async () => {
   await page.click(task.run);
   await page.waitForSelector(task.success);
   await page.click(task.close);
-  await page.waitForURL(permissionsLocation);
+  expect(page.url()).toEqual(permissionsLocation);
 };
 
 describe("Pemissions", () => {
