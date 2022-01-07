@@ -3,6 +3,10 @@ import * as t from "io-ts";
 import { shape as libShape } from "app/backend/endpoints/lib/shape";
 import { endpoint } from "app/backend/endpoints/endpoint";
 
+type NodeName = string;
+type SbdTimeoutAction = "reboot" | "off" | "crashdump";
+type SbdTimeoutActionFlush = "flush" | "noflush";
+
 export type Commands = [
   {
     name: "resource-group-add";
@@ -248,6 +252,54 @@ export type Commands = [
     payload: {
       describe?: boolean;
       search?: string;
+    };
+  },
+  {
+    name: "sbd-enable-sbd";
+    payload: {
+      default_watchdog?: string;
+      watchdog_dict: Record<NodeName, string>;
+      sbd_options: {
+        // there can be also integer but it can be confusing since 1 means yes
+        // rather than 1s
+        SBD_DELAY_START?: "yes" | "no";
+        SBD_STARTMODE?: "always" | "clean";
+        SBD_WATCHDOG_TIMEOUT?: string; // nonnegative integer
+        // it would be possible to use:
+        // | SbdTimeoutAction
+        // | SbdTimeoutActionFlush
+        // | `${SbdTimeoutAction},${SbdTimeoutActionFlush}`
+        // | `${SbdTimeoutActionFlush},${SbdTimeoutAction}`;
+        // but it seems that current version of babel does not support this
+        // typescript syntax
+        SBD_TIMEOUT_ACTION?:
+          | SbdTimeoutAction
+          | SbdTimeoutActionFlush
+          | "crashdump,flush"
+          | "crashdump,noflush"
+          | "off,flush"
+          | "off,noflush"
+          | "reboot,flush"
+          | "reboot,noflush"
+          | "flush,crashdump"
+          | "flush,off"
+          | "flush,reboot"
+          | "noflush,crashdump"
+          | "noflush,off"
+          | "noflush,reboot";
+      };
+      default_device_list?: string[];
+      node_device_dict?: Record<NodeName, string[]>;
+      allow_unknown_opts?: boolean;
+      ignore_offline_nodes?: boolean;
+      no_watchdog_validation?: boolean;
+      allow_invalid_option_values?: boolean;
+    };
+  },
+  {
+    name: "sbd-disable-sbd";
+    payload: {
+      ignore_offline_nodes?: boolean;
     };
   },
 ];
