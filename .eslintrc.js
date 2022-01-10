@@ -152,6 +152,22 @@ module.exports = {
     // Enforce location of semicolons
     // https://eslint.org/docs/rules/semi-style
     "semi-style": "off",
+    semi: ["error", "always"],
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        multiline: {
+          delimiter: "semi",
+          requireLast: true,
+        },
+        singleline: {
+          delimiter: "semi",
+          requireLast: false,
+        },
+        multilineDetection: "brackets",
+      },
+    ],
     "implicit-arrow-linebreak": "off",
 
     "comma-style": [
