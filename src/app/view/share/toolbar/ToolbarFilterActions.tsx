@@ -10,10 +10,13 @@ import {
 export const ToolbarFilterAction = ({
   children,
   clearAllFilters,
-  actions = {},
+  actions: actionMap = {},
 }: React.PropsWithChildren<{
   clearAllFilters: () => void;
-  actions?: Record<string, () => void>;
+  actions?: Record<
+    string,
+    (() => void) | { run: () => void; "data-test": string }
+  >;
 }>) => {
   return (
     <Toolbar
@@ -24,8 +27,14 @@ export const ToolbarFilterAction = ({
         <ToolbarGroup variant="filter-group">{children}</ToolbarGroup>
         <ToolbarGroup>
           <ToolbarItem>
-            {Object.keys(actions).map(label => (
-              <Button key={label} onClick={actions[label]}>
+            {Object.entries(actionMap).map(([label, action]) => (
+              <Button
+                key={label}
+                onClick={"run" in action ? action.run : action}
+                {...("data-test" in action
+                  ? { "data-test": action["data-test"] }
+                  : {})}
+              >
                 {label}
               </Button>
             ))}

@@ -1,4 +1,11 @@
-import { clone, cluster, group, primitive, resourceStatus } from "./tools";
+import {
+  clone,
+  cluster,
+  group,
+  primitive,
+  resourceStatus,
+  stonith,
+} from "./tools";
 
 export const resourcesForTest = cluster("resourcesForTest", "ok", {
   resource_list: [
@@ -92,6 +99,7 @@ export const resourcesForTest = cluster("resourcesForTest", "ok", {
       },
     ),
     clone("Clone-2", primitive("F")),
+    stonith("F1"),
   ],
   constraints: {
     rsc_colocation: [

@@ -168,7 +168,7 @@ export const stonith = (
       status: "running",
       class_type: "primitive",
       class: "stonith",
-      agentname: "ocf:heartbeat:Dummy",
+      agentname: "stonith:fence_apc",
       provider: null,
       type: "fence_apc",
       stonith: true,

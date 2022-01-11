@@ -25,7 +25,7 @@ export function* updateInstanceAttributes({
     return;
   }
 
-  if (result.payload.error === "true") {
+  if ("error" in result.payload) {
     const { stdout, stderr } = result.payload;
     yield putNotification("ERROR", `Task failed: ${taskLabel}: `, {
       type: "LINES",

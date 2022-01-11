@@ -5,6 +5,7 @@ export * from "./clusterStatus";
 export * from "./importedClusterList";
 export * from "./getPermissions";
 export * from "./updateResource";
+export * from "./updateFenceDevice";
 export * from "./getClusterPropertiesDefinition";
 export * from "./updateClusterSettings";
 export * from "./resourceCleanup";

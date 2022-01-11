@@ -22,7 +22,7 @@ export const TaskFinishError: React.FC<{
   secondaryActions = undefined,
 }) => {
   return (
-    <EmptyState>
+    <EmptyState data-test="task-error">
       <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
       <Title headingLevel="h4" size="lg">
         {title}

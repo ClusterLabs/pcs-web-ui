@@ -3,9 +3,9 @@ import * as t from "io-ts";
 import { endpoint } from "./endpoint";
 import { updateResourceParams } from "./tools";
 
-export const updateResource = endpoint({
+export const updateFenceDevice = endpoint({
   url: ({ clusterName }: { clusterName: string }) =>
-    `/managec/${clusterName}/update_resource`,
+    `/managec/${clusterName}/update_fence_device`,
   method: "post",
   params: updateResourceParams,
   payload: undefined,

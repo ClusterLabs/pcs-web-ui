@@ -32,6 +32,7 @@ import { resourceChangeGroup } from "./resourceChangeGroup";
 import { sendKnownHosts } from "./sendKnownHosts";
 import { sendKnownHostsToNode } from "./sendKnownHostsToNode";
 import { updateResource } from "./updateResource";
+import { updateFenceDevice } from "./updateFenceDevice";
 import { addConstraintRemote } from "./addConstraintRemote";
 import { removeConstraintRemote } from "./removeConstraintRemote";
 import { removeConstraintRuleRemote } from "./removeConstraintRuleRemote";
@@ -75,6 +76,7 @@ const endpoints = {
   sendKnownHosts,
   sendKnownHostsToNode,
   updateResource,
+  updateFenceDevice,
 };
 
 export type LibClusterCommands = Commands;
