@@ -15,12 +15,17 @@ import {
   ClusterSetup,
   useTask as useTaskClusterSetup,
 } from "./task/clusterSetup";
+import {
+  ImportExistingCluster,
+  useTask as useTaskImportExistingCluster,
+} from "./task/importExistingCluster";
 
 export const DashboardToolbar = () => {
   const { navigate } = useLocation();
 
   const addCluster = useRoute("/add-cluster");
   const { open: openClusterSetup } = useTaskClusterSetup();
+  const { open: openAddExistingCluster } = useTaskImportExistingCluster();
   return (
     <Toolbar data-test="dashboard-toolbar">
       <ToolbarGroup>
@@ -35,6 +40,14 @@ export const DashboardToolbar = () => {
                 Add existing cluster
               </Button>
             </ActionListItem>
+            <ActionListItem></ActionListItem>
+            <Button
+              variant="primary"
+              onClick={openAddExistingCluster}
+              data-test="import-existing-cluster"
+            >
+              Add existing cluster
+            </Button>
             <ActionListItem>
               <Button
                 variant="secondary"
@@ -45,6 +58,7 @@ export const DashboardToolbar = () => {
               </Button>
             </ActionListItem>
           </ActionList>
+          <ImportExistingCluster />
           <ClusterSetup />
           {addCluster && (
             <AddClusterPage onClose={() => navigate(location.dashboard)} />

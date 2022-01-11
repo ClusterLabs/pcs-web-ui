@@ -2,6 +2,7 @@ import { all } from "redux-saga/effects";
 
 import { fork, takeEvery } from "./common";
 import * as addExistingCluster from "./addExistingCluster";
+import * as clusterImport from "./clusterImport";
 import * as cluster from "./cluster";
 import * as clusterDestroy from "./clusterDestroy";
 import * as clusterRemove from "./clusterRemove";
@@ -52,6 +53,8 @@ function* rootSaga() {
     takeEvery("CLUSTER.PROPERTIES.UPDATE", clusterProperties.update),
     takeEvery("CLUSTER.ADD.CHECK_AUTH", addExistingCluster.checkAuthentication),
     takeEvery("CLUSTER.ADD", addExistingCluster.addCluster),
+    takeEvery("DASHBOARD.CLUSTER.IMPORT.CHECK_AUTH", clusterImport.checkAuth),
+    takeEvery("DASHBOARD.CLUSTER.IMPORT.RUN", clusterImport.importExistingCluster),
     takeEvery("CLUSTER.FIX_AUTH.START", fixAuth.fixAuth),
     takeEvery("CLUSTER.FIX_AUTH.AUTH_DONE", fixAuth.fixAuthDistribute),
     takeEvery(

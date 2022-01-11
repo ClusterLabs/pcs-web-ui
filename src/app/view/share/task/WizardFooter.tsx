@@ -10,8 +10,8 @@ import { TaskButtonBack } from "./TaskButtonBack";
 import { TaskButtonCancel } from "./TaskButtonCancel";
 import { TaskButtonReviewAndFinish } from "./TaskButtonReviewAndFinish";
 
-export const WizardFooter: React.FC<
-  {
+export const WizardFooter = (
+  props: {
     onClose: () => void;
     task:
       | Parameters<typeof selectors.getClusterTask>[0]
@@ -33,8 +33,8 @@ export const WizardFooter: React.FC<
     | {
         next?: React.ReactNode;
       }
-  )
-> = (props) => {
+  ),
+) => {
   const {
     onBack,
     onClose,

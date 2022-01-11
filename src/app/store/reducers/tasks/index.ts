@@ -1,13 +1,9 @@
 import { combineReducers } from "redux";
 
-import {
-  ReducersMapKey,
-  Task,
-  TaskState,
-  wrapTasks,
-} from "app/store/taskTools";
+import { ReducersMapKey, Task, TaskState, wrapTasks } from "app/store/taskTools";
 
 import { clusterSetup } from "./clusterSetup";
+import { importExistingCluster } from "./importExistingCluster";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -28,5 +24,5 @@ const wrapTaskReducer =
     return task(state, action);
   };
 export const tasks = combineReducers(
-  wrapTasks(wrapTaskReducer)({ clusterSetup }),
+  wrapTasks(wrapTaskReducer)({ clusterSetup, importExistingCluster }),
 );

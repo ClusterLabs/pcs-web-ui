@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Alert,
   AlertActionLink,
@@ -9,7 +8,7 @@ import { EmptyStateSpinner, NodesAuthForm, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const PrepareNodes: React.FC = () => {
+export const PrepareNodes = () => {
   const {
     useClusterAndNodesCheck,
     checkCanAddClusterOrNodes,
