@@ -24,6 +24,7 @@ export const EditArgsForm: React.FC = () => {
           }}
           value={fenceDeviceArguments[parameter.name]?.value ?? ""}
           onChange={value => update(parameter.name, value)}
+          data-test={`fence-device-arg-${parameter.name}`}
         />
       ))}
     </Form>

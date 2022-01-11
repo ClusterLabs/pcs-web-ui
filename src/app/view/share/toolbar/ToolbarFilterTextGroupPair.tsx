@@ -66,7 +66,7 @@ export const ToolbarFilterTextGroupPair: React.FC<{
   textSearchId: string;
   groupName: string;
   filterState: ReturnType<typeof useState>["filterState"];
-  actions?: Record<string, () => void>;
+  actions?: React.ComponentProps<typeof ToolbarFilterAction>["actions"];
 }> & { useState: typeof useState } = ({
   textSearchId,
   groupName,

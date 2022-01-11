@@ -197,6 +197,25 @@ export const stonithAgentDescribeAgent = ({
   json: responses.lib.success({ data: agentData }),
 });
 
+export const updateFenceDevice = ({
+  clusterName,
+  fenceDeviceId,
+  attributes,
+  response,
+}: {
+  clusterName: string;
+  fenceDeviceId: string;
+  attributes: Record<string, string>;
+  response?: RouteResponse;
+}) => ({
+  url: url.updateFenceDevice({ clusterName }),
+  body: paramsToBody(endpoints.updateFenceDevice.params({
+    resourceId: fenceDeviceId,
+    attributes,
+  })),
+  ...(response ?? { text: JSON.stringify({}) }),
+});
+
 export const libCluster = (
   props: LibClusterCommands[number] & {
     clusterName: string;

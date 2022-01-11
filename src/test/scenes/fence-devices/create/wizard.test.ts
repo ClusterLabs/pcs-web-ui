@@ -31,7 +31,7 @@ describe("Fence device create task", () => {
         }),
       ],
     });
-    page.goto(url.TASK);
+    await page.goto(url.TASK);
     await page.type(TASK.NAME, fenceDeviceName);
     await page.click(TASK.AGENT_SELECT);
     await page.click(`${TASK.AGENT} :text("${agentName}")`);

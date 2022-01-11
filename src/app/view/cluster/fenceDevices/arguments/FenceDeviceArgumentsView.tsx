@@ -30,12 +30,15 @@ export const FenceDeviceArgumentsView = ({
               <PcmkAgentAttrsToolbar
                 filterState={filterState}
                 actions={{
-                  "Edit arguments": () =>
-                    openEdit({
-                      fenceDeviceId: fenceDevice.id,
-                      fenceDeviceArguments: fenceDevice.arguments,
-                      agentParameters: agent.parameters,
-                    }),
+                  "Edit arguments": {
+                    run: () =>
+                      openEdit({
+                        fenceDeviceId: fenceDevice.id,
+                        fenceDeviceArguments: fenceDevice.arguments,
+                        agentParameters: agent.parameters,
+                      }),
+                    "data-test": "edit-fence-device-args",
+                  },
                 }}
               />
               {isOpenEdit && <EditArgsTask />}
