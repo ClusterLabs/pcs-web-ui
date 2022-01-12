@@ -12,9 +12,14 @@ export type FenceDeviceEditArgsActions = {
       fenceDeviceArguments: Record<string, FenceDeviceArgument>;
       agentParameters: {
         name: string;
+        type: string;
         shortdesc: string | null;
         longdesc: string | null;
         default: string | number | null;
+        required: boolean;
+        advanced: boolean;
+        deprecated: boolean;
+        deprecated_by: string[];
       }[];
     };
   };
