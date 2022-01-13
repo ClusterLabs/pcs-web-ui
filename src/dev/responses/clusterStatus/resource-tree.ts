@@ -276,6 +276,13 @@ export const resourceTree: Cluster = cluster("resourceTree", "ok", {
           message: "Example fail of fence agent",
         },
       ],
+      instance_attr: [
+        {
+          id: "cmd_prompt-ia",
+          name: "cmd_prompt",
+          value: "['\n->', '\napc->']",
+        },
+      ],
     }),
   ],
   constraints,

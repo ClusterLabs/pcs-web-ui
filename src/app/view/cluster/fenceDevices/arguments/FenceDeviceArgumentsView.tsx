@@ -34,7 +34,15 @@ export const FenceDeviceArgumentsView = ({
                     run: () =>
                       openEdit({
                         fenceDeviceId: fenceDevice.id,
-                        fenceDeviceArguments: fenceDevice.arguments,
+                        fenceDeviceArguments: Object.entries(
+                          fenceDevice.arguments,
+                        ).reduce(
+                          (argValueMap, [name, { value }]) => ({
+                            ...argValueMap,
+                            [name]: value,
+                          }),
+                          {},
+                        ),
                         agentParameters: agent.parameters,
                       }),
                     "data-test": "edit-fence-device-args",

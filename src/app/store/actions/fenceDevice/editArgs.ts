@@ -1,4 +1,3 @@
-type FenceDeviceArgument = { id: string; value: string };
 export type FenceDeviceEditArgsActions = {
   "FENCE_DEVICE.EDIT_ARGS.OPEN": {
     type: "FENCE_DEVICE.EDIT_ARGS.OPEN";
@@ -9,7 +8,7 @@ export type FenceDeviceEditArgsActions = {
     // but compatible types here
     payload: {
       fenceDeviceId: string;
-      fenceDeviceArguments: Record<string, FenceDeviceArgument>;
+      fenceDeviceArguments: Record<string, string>;
       agentParameters: {
         name: string;
         type: string;
@@ -27,7 +26,10 @@ export type FenceDeviceEditArgsActions = {
   "FENCE_DEVICE.EDIT_ARGS.UPDATE": {
     type: "FENCE_DEVICE.EDIT_ARGS.UPDATE";
     key: { clusterName: string };
-    payload: FenceDeviceArgument;
+    payload: {
+      name: string;
+      value: string;
+    };
   };
 
   "FENCE_DEVICE.EDIT_ARGS.RUN": {

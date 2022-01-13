@@ -1,6 +1,38 @@
 import { ActionPayload } from "app/store";
 import { useClusterTask } from "app/view/share";
 
+type OpenPayload = ActionPayload["FENCE_DEVICE.EDIT_ARGS.OPEN"];
+
+const prepareAttributes = (
+  originalFenceDeviceArgs: OpenPayload["fenceDeviceArguments"],
+  fenceDeviceArgs: OpenPayload["fenceDeviceArguments"],
+) => {
+  const changed = Object.entries(fenceDeviceArgs).reduce(
+    (changedArgs, [name, value]) => {
+      if (
+        !(name in originalFenceDeviceArgs)
+        || value !== originalFenceDeviceArgs[name]
+      ) {
+        return { ...changedArgs, [name]: value };
+      }
+      return changedArgs;
+    },
+    {},
+  );
+
+  const removed = Object.entries(originalFenceDeviceArgs).reduce(
+    (removedArgs, [name, value]) => {
+      if (value !== "" && name in fenceDeviceArgs === false) {
+        return { ...removedArgs, [name]: "" };
+      }
+      return removedArgs;
+    },
+    {},
+  );
+
+  return { ...changed, ...removed };
+};
+
 export const useTask = () => {
   const task = useClusterTask("fenceDeviceArgsEdit");
   const { open, dispatch, clusterName, state } = task;
@@ -8,7 +40,7 @@ export const useTask = () => {
 
   return {
     ...task,
-    open: (payload: ActionPayload["FENCE_DEVICE.EDIT_ARGS.OPEN"]) => {
+    open: (payload: OpenPayload) => {
       dispatch({
         type: "FENCE_DEVICE.EDIT_ARGS.OPEN",
         key,
@@ -17,12 +49,12 @@ export const useTask = () => {
       open();
     },
 
-    update: (id: string, value: string) =>
+    update: (name: string, value: string) =>
       dispatch({
         type: "FENCE_DEVICE.EDIT_ARGS.UPDATE",
         key,
         payload: {
-          id,
+          name,
           value,
         },
       }),
@@ -33,9 +65,9 @@ export const useTask = () => {
         key,
         payload: {
           fenceDeviceId: state.fenceDeviceId,
-          attributes: Object.values(state.fenceDeviceArguments).reduce(
-            (attrs, { id, value }) => ({ ...attrs, [id]: value }),
-            {},
+          attributes: prepareAttributes(
+            state.originalFenceDeviceArguments,
+            state.fenceDeviceArguments,
           ),
         },
       }),

@@ -5,6 +5,7 @@ type OpenPayload = ActionPayload["FENCE_DEVICE.EDIT_ARGS.OPEN"];
 type FenceDeviceArgs = OpenPayload["fenceDeviceArguments"];
 
 const initialState: OpenPayload & {
+  originalFenceDeviceArguments: FenceDeviceArgs;
   call: {
     response: "" | "sending" | "ok" | "fail";
     resultMessage: string;
@@ -12,6 +13,7 @@ const initialState: OpenPayload & {
 } = {
   fenceDeviceId: "",
   agentParameters: [],
+  originalFenceDeviceArguments: {},
   fenceDeviceArguments: {},
   call: {
     response: "",
@@ -28,6 +30,7 @@ export const fenceDeviceArgsEdit: AppReducer<typeof initialState> = (
       return {
         ...initialState,
         ...action.payload,
+        originalFenceDeviceArguments: action.payload.fenceDeviceArguments,
       };
 
     case "FENCE_DEVICE.EDIT_ARGS.UPDATE":
@@ -37,17 +40,17 @@ export const fenceDeviceArgsEdit: AppReducer<typeof initialState> = (
           action.payload.value !== ""
             ? {
                 ...state.fenceDeviceArguments,
-                [action.payload.id]: action.payload,
+                [action.payload.name]: action.payload.value,
               }
-            : Object.keys(state.fenceDeviceArguments).reduce<FenceDeviceArgs>(
-                (argList, name) => {
-                  if (name !== action.payload.id) {
-                    argList[name] = state.fenceDeviceArguments[name];
-                  }
-                  return argList;
-                },
-                {},
-              ),
+            : Object.keys(state.fenceDeviceArguments)
+                .filter(key => key !== action.payload.name)
+                .reduce<FenceDeviceArgs>(
+                  (argList, name) => ({
+                    ...argList,
+                    [name]: state.fenceDeviceArguments[name],
+                  }),
+                  {},
+                ),
       };
     case "FENCE_DEVICE.EDIT_ARGS.RUN":
       return {
