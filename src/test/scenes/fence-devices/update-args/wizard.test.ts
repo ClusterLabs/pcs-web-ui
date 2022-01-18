@@ -25,14 +25,14 @@ const url = {
 };
 
 const attributes = {
-  action: "action1",
+  cmd_prompt: "cmd:prompt",
   ip: "127.0.0.1",
 };
 
 const runArgsUpdate = async () => {
   await page.goto(url.arguments);
   await page.click(editButton);
-  await page.type(task.argField("action"), attributes.action);
+  await page.type(task.argField("cmd_prompt"), attributes.cmd_prompt);
   await page.type(task.argField("ip"), attributes.ip);
   await page.click(task.run);
 };
@@ -56,6 +56,7 @@ const interceptForFenceDeviceArgsUpdate = (
 
 describe("Fence device arguments update task", () => {
   afterEach(intercept.stop);
+
   it("should update arguments", async () => {
     interceptForFenceDeviceArgsUpdate([
       route.updateFenceDevice({

@@ -171,7 +171,7 @@ describe("Dashboard to cluster scene", () => {
     interceptWithDashboard([
       route.stonithAgentDescribeAgent({
         clusterName: "ok",
-        agentName: "stonith:fence_apc",
+        agentName: "fence_apc",
         agentData: responses.fenceAgentMetadata.ok,
       }),
     ]);
