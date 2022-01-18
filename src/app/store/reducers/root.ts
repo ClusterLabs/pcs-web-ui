@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
 
 import { dashboard } from "./dashboard";
-import { addExistingCluster } from "./dashboardAddCluster";
 import { nodeAuthMap } from "./nodeAuth";
 import { notifications } from "./notifications";
 import { login } from "./login";
@@ -13,7 +12,6 @@ export const root = () =>
   combineReducers({
     username,
     dashboard,
-    addExistingCluster,
     clusterStorage,
     login,
     notifications,
