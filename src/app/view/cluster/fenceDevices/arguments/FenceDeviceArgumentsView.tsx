@@ -1,3 +1,4 @@
+import React from "react";
 import { StackItem } from "@patternfly/react-core";
 
 import { FenceDevice } from "app/view/cluster/types";

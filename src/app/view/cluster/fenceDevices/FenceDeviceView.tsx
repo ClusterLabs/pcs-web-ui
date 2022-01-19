@@ -1,3 +1,5 @@
+import React from "react";
+
 import { FenceDevice } from "app/view/cluster/types";
 import { DetailLayout, Router, UrlTabs, useUrlTabs } from "app/view/share";
 

@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Action } from "app/store";
 import { DropdownActionListMenu, ModalAction } from "app/view/share";
 

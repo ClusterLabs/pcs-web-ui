@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Group } from "app/view/cluster/types";
 import {
   DetailLayout,

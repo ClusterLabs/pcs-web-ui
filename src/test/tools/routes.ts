@@ -1,4 +1,5 @@
 import { LibClusterCommands, endpoints } from "app/backend/endpoints";
+import { Permission } from "app/view/cluster/permissions/types";
 
 import * as responses from "dev/responses";
 import * as types from "dev/types";
@@ -209,10 +210,12 @@ export const updateFenceDevice = ({
   response?: RouteResponse;
 }) => ({
   url: url.updateFenceDevice({ clusterName }),
-  body: paramsToBody(endpoints.updateFenceDevice.params({
-    resourceId: fenceDeviceId,
-    attributes,
-  })),
+  body: paramsToBody(
+    endpoints.updateFenceDevice.params({
+      resourceId: fenceDeviceId,
+      attributes,
+    }),
+  ),
   ...(response ?? { text: JSON.stringify({}) }),
 });
 
@@ -354,12 +357,17 @@ export const getPermissions = ({
 export const permissionsSave = ({
   clusterName,
   permissionList,
-}: Parameters<typeof endpoints.permissionsSave.params>[0]) => ({
+  response,
+}: {
+  clusterName: string;
+  permissionList: Permission[];
+  response?: RouteResponse;
+}) => ({
   url: url.permissionsSave({ clusterName }),
   body: paramsToBody(
     endpoints.permissionsSave.params({ clusterName, permissionList }),
   ),
-  text: "Permissions saved",
+  ...(response ?? { text: "Permissions saved" }),
 });
 
 export const importedClusterList = (

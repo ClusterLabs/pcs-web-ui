@@ -1,3 +1,5 @@
+import React from "react";
+
 import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
 
 import { useTask } from "./useTask";

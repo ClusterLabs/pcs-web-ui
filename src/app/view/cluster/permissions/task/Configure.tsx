@@ -48,6 +48,10 @@ export const Configure: React.FC = () => {
           isChecked={read}
           onChange={allow => updateState({ read: allow })}
           data-test="read"
+          popover={{
+            header: "Allows to view cluster settings",
+            body: "",
+          }}
         />
         <FormSwitch
           id="allow-write"
@@ -57,6 +61,10 @@ export const Configure: React.FC = () => {
           isChecked={write}
           onChange={allow => updateState({ write: allow })}
           data-test="write"
+          popover={{
+            header: "Allows to modify cluster settings except permissions and ACLs",
+            body: "",
+          }}
         />
         <FormSwitch
           id="allow-grant"
@@ -66,6 +74,10 @@ export const Configure: React.FC = () => {
           isChecked={grant}
           onChange={allow => updateState({ grant: allow })}
           data-test="grant"
+          popover={{
+            header: "Allows to modify cluster permissions and ACLs",
+            body: "",
+          }}
         />
         <FormSwitch
           id="allow-full"
@@ -78,6 +90,11 @@ export const Configure: React.FC = () => {
           showValidationErrors={showValidationErrors}
           isValid={areCompetenciesValid}
           helperTextInvalid="Please select at least one permission"
+          popover={{
+            header: "Allows unrestricted access to a cluster including adding and removing"
+            + " nodes and access to keys and certificates",
+            body: "",
+          }}
         />
       </Form>
     </>

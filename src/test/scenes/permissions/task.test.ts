@@ -48,7 +48,7 @@ const finishNewPermissionSucessfully = async () => {
   expect(page.url()).toEqual(permissionsLocation);
 };
 
-describe("Pemissions", () => {
+describe("Permissions", () => {
   afterEach(intercept.stop);
 
   it("should create new permission", async () => {
