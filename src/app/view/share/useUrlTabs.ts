@@ -13,7 +13,7 @@ export const useUrlTabs = <TABS extends ReadonlyArray<string>>(
 
   return {
     currentTab,
-    matchedContext: tab !== null ? tab.matched : `/${defaultTab}`,
+    matchedContext: tab?.matched ?? `/${defaultTab}`,
     tabList,
   };
 };
