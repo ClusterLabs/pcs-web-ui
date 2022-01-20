@@ -32,10 +32,12 @@ export const FenceDeviceCreate: React.FC = () => {
           component: <NameType />,
           footer: (
             <WizardFooter
-              nextIf={isNameTypeValid}
+              next={{
+                actionIf: isNameTypeValid,
+                task: "fenceDeviceCreate",
+              }}
               onClose={close}
               backDisabled
-              task="fenceDeviceCreate"
             />
           ),
         },
@@ -44,10 +46,12 @@ export const FenceDeviceCreate: React.FC = () => {
           component: <InstanceAttrsForm />,
           footer: (
             <WizardFooter
-              nextIf={areInstanceAttrsValid}
+              next={{
+                actionIf: areInstanceAttrsValid,
+                disabled: !isAgentLoaded,
+                task: "fenceDeviceCreate",
+              }}
               onClose={close}
-              nextDisabled={!isAgentLoaded}
-              task="fenceDeviceCreate"
             />
           ),
           canJumpTo: isNameTypeValid,
@@ -55,7 +59,12 @@ export const FenceDeviceCreate: React.FC = () => {
         {
           name: "Settings",
           component: <Settings />,
-          footer: <WizardFooter onClose={close} task="fenceDeviceCreate" />,
+          footer: (
+            <WizardFooter
+              onClose={close}
+              next={{ task: "fenceDeviceCreate" }}
+            />
+          ),
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
@@ -63,10 +72,12 @@ export const FenceDeviceCreate: React.FC = () => {
           component: <Review />,
           footer: (
             <WizardFooter
-              preNext={() => create({ force: false })}
-              nextLabel="Create fence device"
+              next={{
+                preAction: () => create({ force: false }),
+                label: "Create fence device",
+                task: "fenceDeviceCreate",
+              }}
               onClose={close}
-              task="fenceDeviceCreate"
             />
           ),
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,

@@ -1,4 +1,4 @@
-import { NodeAuthButton, Wizard, WizardFooter } from "app/view/share";
+import { NodeAuthWizardFooter, Wizard, WizardFooter } from "app/view/share";
 
 import { NodeName } from "./NodeName";
 import { PrepareNode } from "./PrepareNode";
@@ -27,11 +27,13 @@ export const ImportExistingCluster = () => {
           component: <NodeName />,
           footer: (
             <WizardFooter
-              nextIf={isNodeNameValid}
+              next={{
+                actionIf: isNodeNameValid,
+                task: "importExistingCluster",
+                label: "Check authentication",
+              }}
               onClose={close}
               backDisabled
-              task="importExistingCluster"
-              nextLabel="Check authentication"
             />
           ),
         },
@@ -40,18 +42,20 @@ export const ImportExistingCluster = () => {
           component: <PrepareNode />,
           canJumpTo: isNodeNameValid,
           footer: authProcessId ? (
-            <WizardFooter
-              next={<NodeAuthButton authProcessId={authProcessId} />}
+            <NodeAuthWizardFooter
+              authProcessId={authProcessId}
+              task="importExistingCluster"
               onClose={close}
-              task="clusterSetup"
             />
           ) : (
             <WizardFooter
-              nextDisabled={!isNodeCheckDoneValid}
+              next={{
+                disabled: !isNodeCheckDoneValid,
+                preAction: importCluster,
+                label: "Add existing cluster",
+                task: "importExistingCluster",
+              }}
               onClose={close}
-              preNext={importCluster}
-              nextLabel="Add existing cluster"
-              task="importExistingCluster"
             />
           ),
         },

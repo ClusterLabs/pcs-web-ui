@@ -43,10 +43,12 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
               component: <ResourceSetList />,
               footer: (
                 <WizardFooter
-                  onClose={close}
-                  nextIf={areSetsValid}
+                  next={{
+                    actionIf: areSetsValid,
+                    task: "constraintOrderSetCreate",
+                  }}
                   backDisabled
-                  task="constraintOrderSetCreate"
+                  onClose={close}
                 />
               ),
             },
@@ -56,9 +58,11 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
               component: <Options />,
               footer: (
                 <WizardFooter
+                  next={{
+                    actionIf: isCustomIdValid,
+                    task: "constraintOrderSetCreate",
+                  }}
                   onClose={close}
-                  nextIf={isCustomIdValid}
-                  task="constraintOrderSetCreate"
                 />
               ),
             },
@@ -68,10 +72,12 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
               component: <Review />,
               footer: (
                 <WizardFooter
-                  preNext={() => create({ force: false })}
-                  nextLabel="Create order constraint"
+                  next={{
+                    preAction: () => create({ force: false }),
+                    label: "Create order constraint",
+                    task: "constraintOrderSetCreate",
+                  }}
                   onClose={close}
-                  task="constraintOrderSetCreate"
                 />
               ),
             },

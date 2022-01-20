@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@patternfly/react-core";
 
 import {
-  NodeAuthButton,
+  NodeAuthWizardFooter,
   TaskFinishLibWizard,
   Wizard,
   WizardFooter,
@@ -41,10 +41,12 @@ export const NodeAdd: React.FC = () => {
           component: <NodeName />,
           footer: (
             <WizardFooter
-              nextIf={isNameValid}
+              next={{
+                actionIf: isNameValid,
+                task: "nodeAdd",
+              }}
               onClose={close}
               backDisabled
-              task="nodeAdd"
             />
           ),
         },
@@ -52,16 +54,18 @@ export const NodeAdd: React.FC = () => {
           name: "Check node",
           component: <PrepareNode />,
           footer: authProcessId ? (
-            <WizardFooter
-              next={<NodeAuthButton authProcessId={authProcessId} />}
-              onClose={close}
+            <NodeAuthWizardFooter
+              authProcessId={authProcessId}
               task="nodeAdd"
+              onClose={close}
             />
           ) : (
             <WizardFooter
-              nextDisabled={!isNodeCheckDoneValid}
+              next={{
+                disabled: !isNodeCheckDoneValid,
+                task: "nodeAdd",
+              }}
               onClose={close}
-              task="nodeAdd"
             />
           ),
           canJumpTo: isNameValid,
@@ -69,13 +73,13 @@ export const NodeAdd: React.FC = () => {
         {
           name: "Specify node addresses",
           component: <Addresses />,
-          footer: <WizardFooter onClose={close} task="nodeAdd" />,
+          footer: <WizardFooter onClose={close} next={{ task: "nodeAdd" }} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Configure sbd",
           component: <Sbd />,
-          footer: <WizardFooter onClose={close} task="nodeAdd" />,
+          footer: <WizardFooter onClose={close} next={{ task: "nodeAdd" }} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
@@ -83,10 +87,12 @@ export const NodeAdd: React.FC = () => {
           component: <Review />,
           footer: (
             <WizardFooter
-              preNext={() => nodeAdd()}
-              nextLabel="Create resource"
+              next={{
+                preAction: () => nodeAdd(),
+                label: "Create resource",
+                task: "nodeAdd",
+              }}
               onClose={close}
-              task="nodeAdd"
             />
           ),
           canJumpTo: isNameValid && isNodeCheckDoneValid,

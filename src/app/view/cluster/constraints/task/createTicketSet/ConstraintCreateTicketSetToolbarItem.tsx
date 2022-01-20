@@ -44,10 +44,12 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               component: <ResourceSetList />,
               footer: (
                 <WizardFooter
-                  onClose={close}
-                  nextIf={areSetsValid}
+                  next={{
+                    actionIf: areSetsValid,
+                    task: "constraintTicketSetCreate",
+                  }}
                   backDisabled
-                  task="constraintTicketSetCreate"
+                  onClose={close}
                 />
               ),
             },
@@ -57,9 +59,11 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               component: <Options />,
               footer: (
                 <WizardFooter
+                  next={{
+                    actionIf: isCustomIdValid && isTicketValid,
+                    task: "constraintTicketSetCreate",
+                  }}
                   onClose={close}
-                  nextIf={isCustomIdValid && isTicketValid}
-                  task="constraintTicketSetCreate"
                 />
               ),
             },
@@ -69,10 +73,12 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               component: <Review />,
               footer: (
                 <WizardFooter
-                  preNext={() => create({ force: false })}
-                  nextLabel="Create ticket constraint"
+                  next={{
+                    preAction: () => create({ force: false }),
+                    label: "Create ticket constraint",
+                    task: "constraintTicketSetCreate",
+                  }}
                   onClose={close}
-                  task="constraintTicketSetCreate"
                 />
               ),
             },

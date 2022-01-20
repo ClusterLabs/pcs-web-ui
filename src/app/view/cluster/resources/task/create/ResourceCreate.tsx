@@ -33,10 +33,12 @@ export const ResourceCreate: React.FC = () => {
           component: <NameType />,
           footer: (
             <WizardFooter
-              nextIf={isNameTypeValid}
+              next={{
+                actionIf: isNameTypeValid,
+                task: "resourceCreate",
+              }}
               onClose={close}
               backDisabled
-              task="resourceCreate"
             />
           ),
         },
@@ -45,10 +47,12 @@ export const ResourceCreate: React.FC = () => {
           component: <InstanceAttrsForm />,
           footer: (
             <WizardFooter
-              nextIf={areInstanceAttrsValid}
+              next={{
+                actionIf: areInstanceAttrsValid,
+                disabled: !isAgentLoaded,
+                task: "resourceCreate",
+              }}
               onClose={close}
-              nextDisabled={!isAgentLoaded}
-              task="resourceCreate"
             />
           ),
           canJumpTo: isNameTypeValid,
@@ -58,9 +62,11 @@ export const ResourceCreate: React.FC = () => {
           component: <Settings />,
           footer: (
             <WizardFooter
-              nextIf={areSettingsValid}
+              next={{
+                actionIf: areSettingsValid,
+                task: "resourceCreate",
+              }}
               onClose={close}
-              task="resourceCreate"
             />
           ),
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
@@ -70,10 +76,12 @@ export const ResourceCreate: React.FC = () => {
           component: <Review />,
           footer: (
             <WizardFooter
-              preNext={() => create({ force: false })}
-              nextLabel="Create resource"
+              next={{
+                preAction: () => create({ force: false }),
+                label: "Create resource",
+                task: "resourceCreate",
+              }}
               onClose={close}
-              task="resourceCreate"
             />
           ),
           canJumpTo:
