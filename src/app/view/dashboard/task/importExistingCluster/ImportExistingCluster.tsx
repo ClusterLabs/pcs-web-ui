@@ -17,6 +17,7 @@ export const ImportExistingCluster = () => {
 
   return isOpened ? (
     <Wizard
+      task="importExistingCluster"
       data-test="task-cluster-import"
       title="Add existing cluster"
       description="Manage existing cluster from web ui"
@@ -29,10 +30,8 @@ export const ImportExistingCluster = () => {
             <WizardFooter
               next={{
                 actionIf: isNodeNameValid,
-                task: "importExistingCluster",
                 label: "Check authentication",
               }}
-              onClose={close}
               backDisabled
             />
           ),
@@ -42,20 +41,14 @@ export const ImportExistingCluster = () => {
           component: <PrepareNode />,
           canJumpTo: isNodeNameValid,
           footer: authProcessId ? (
-            <NodeAuthWizardFooter
-              authProcessId={authProcessId}
-              task="importExistingCluster"
-              onClose={close}
-            />
+            <NodeAuthWizardFooter authProcessId={authProcessId} />
           ) : (
             <WizardFooter
               next={{
                 disabled: !isNodeCheckDoneValid,
                 preAction: importCluster,
                 label: "Add existing cluster",
-                task: "importExistingCluster",
               }}
-              onClose={close}
             />
           ),
         },

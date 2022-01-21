@@ -34,6 +34,7 @@ export const ClusterSetup: React.FC = () => {
   } = useTask();
   return isOpened ? (
     <Wizard
+      task="clusterSetup"
       data-test="task-cluster-setup"
       title="Setup cluster"
       description="Setup new cluster on nodes"
@@ -44,12 +45,10 @@ export const ClusterSetup: React.FC = () => {
           component: <NameAndNodes />,
           footer: (
             <WizardFooter
-              onClose={close}
-              backDisabled
               next={{
-                task: "clusterSetup",
                 actionIf: isClusterNameValid && areNodeNamesValid,
               }}
+              backDisabled
             />
           ),
         },
@@ -58,18 +57,12 @@ export const ClusterSetup: React.FC = () => {
           component: <PrepareNodes />,
           canJumpTo: isClusterNameValid && areNodeNamesValid,
           footer: authProcessId ? (
-            <NodeAuthWizardFooter
-              authProcessId={authProcessId}
-              task="clusterSetup"
-              onClose={close}
-            />
+            <NodeAuthWizardFooter authProcessId={authProcessId} />
           ) : (
             <WizardFooter
               next={{
                 disabled: !isClusterNameAndNodeCheckDoneValid,
-                task: "clusterSetup",
               }}
-              onClose={close}
               reviewAndFinish={{ label: "Review and setup cluster" }}
             />
           ),
@@ -77,9 +70,6 @@ export const ClusterSetup: React.FC = () => {
         {
           name: "Advanced options",
           component: <Transport />,
-          footer: (
-            <WizardFooter onClose={close} next={{ task: "clusterSetup" }} />
-          ),
           canJumpTo:
             isClusterNameValid
             && areNodeNamesValid
@@ -88,39 +78,22 @@ export const ClusterSetup: React.FC = () => {
             {
               name: "Transport links",
               component: <Transport />,
-              footer: (
-                <WizardFooter
-                  onClose={close}
-                  next={{
-                    task: "clusterSetup",
-                    actionIf: areLinksValid,
-                  }}
-                />
-              ),
+              footer: <WizardFooter next={{ actionIf: areLinksValid }} />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid,
             },
             {
               name: "Transport Options",
               component: <TransportOptions />,
-              footer: (
-                <WizardFooter onClose={close} next={{ task: "clusterSetup" }} />
-              ),
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Quorum",
               component: <Quorum />,
-              footer: (
-                <WizardFooter onClose={close} next={{ task: "clusterSetup" }} />
-              ),
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Totem",
               component: <Totem />,
-              footer: (
-                <WizardFooter onClose={close} next={{ task: "clusterSetup" }} />
-              ),
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
           ],
@@ -133,9 +106,7 @@ export const ClusterSetup: React.FC = () => {
               next={{
                 preAction: () => setupCluster(),
                 label: "Setup cluster",
-                task: "clusterSetup",
               }}
-              onClose={close}
             />
           ),
           canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,

@@ -3,15 +3,12 @@ import { WizardContext } from "@patternfly/react-core";
 
 import { useDispatch } from "app/view/share/useDispatch";
 import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
-import { selectors } from "app/store";
 
+import { useWizardContext } from "./WizardContext";
 import { TaskButtonNext } from "./TaskButtonNext";
 
 export const WizardFooterNext = (
   props: {
-    task:
-      | Parameters<typeof selectors.getClusterTask>[0]
-      | Parameters<typeof selectors.getDashboardTask>[0];
     disabled?: boolean;
     label?: React.ComponentProps<typeof TaskButtonNext>["label"];
   } & (
@@ -29,6 +26,7 @@ export const WizardFooterNext = (
   const dispatch = useDispatch();
 
   const { onNext } = React.useContext(WizardContext);
+  const { task } = useWizardContext();
 
   const runNext = React.useCallback(() => {
     if ("action" in props && props.action) {
@@ -39,13 +37,13 @@ export const WizardFooterNext = (
       if (props.actionIf) {
         dispatch({
           type: "TASK.VALIDATION.HIDE",
-          key: { clusterName, task: props.task },
+          key: { clusterName, task },
         });
         onNext();
       } else {
         dispatch({
           type: "TASK.VALIDATION.SHOW",
-          key: { clusterName, task: props.task },
+          key: { clusterName, task },
         });
       }
       return;
@@ -54,7 +52,7 @@ export const WizardFooterNext = (
       props.preAction();
     }
     onNext();
-  }, [props, onNext, dispatch, clusterName]);
+  }, [props, task, onNext, dispatch, clusterName]);
 
   React.useEffect(() => {
     const listener = (e: KeyboardEvent) => {

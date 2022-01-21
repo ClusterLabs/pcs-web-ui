@@ -1,12 +1,16 @@
 import React from "react";
 import {
   Wizard as PfWizard,
+  WizardFooter as PfWizardFooter,
   WizardContextConsumer,
-  WizardFooter,
   WizardStep,
 } from "@patternfly/react-core";
 
+import { selectors } from "app/store";
+
 import { wizardCreateFooterDataTest } from "./wizardCreateFooterDataTest";
+import { WizardContextProvider } from "./WizardContext";
+import { WizardFooter } from "./WizardFooter";
 
 const DefaultWizardStep: React.FC = () => {
   return <>DEFAULT WIZARD STEP</>;
@@ -50,6 +54,9 @@ const separateStepsAndFooters = (steps: Step[]) => {
 
 export const Wizard: React.FC<{
   ["data-test"]: string;
+  task:
+    | Parameters<typeof selectors.getClusterTask>[0]
+    | Parameters<typeof selectors.getDashboardTask>[0];
   steps?: Step[] | undefined;
   onClose: () => void;
   title: string;
@@ -57,6 +64,7 @@ export const Wizard: React.FC<{
 }> = ({
   "data-test": dataTest,
   onClose,
+  task,
   title,
   description,
   steps = undefined,
@@ -66,25 +74,33 @@ export const Wizard: React.FC<{
   );
 
   return (
-    <PfWizard
-      data-test={dataTest}
-      steps={stepList}
-      isOpen
-      onClose={onClose}
-      title={title}
-      description={description}
-      isNavExpandable
-      footer={
-        <WizardContextConsumer>
-          {({ activeStep }) => (
-            <div data-test={wizardCreateFooterDataTest(activeStep.name)}>
-              <WizardFooter>
-                {footerList.find(f => f.name === activeStep.name)?.footer}
-              </WizardFooter>
-            </div>
-          )}
-        </WizardContextConsumer>
-      }
-    />
+    <WizardContextProvider
+      value={{
+        task: task,
+        close: onClose,
+      }}
+    >
+      <PfWizard
+        data-test={dataTest}
+        steps={stepList}
+        isOpen
+        onClose={onClose}
+        title={title}
+        description={description}
+        isNavExpandable
+        footer={
+          <WizardContextConsumer>
+            {({ activeStep }) => (
+              <div data-test={wizardCreateFooterDataTest(activeStep.name)}>
+                <PfWizardFooter>
+                  {footerList.find(f => f.name === activeStep.name)
+                    ?.footer ?? <WizardFooter />}
+                </PfWizardFooter>
+              </div>
+            )}
+          </WizardContextConsumer>
+        }
+      />
+    </WizardContextProvider>
   );
 };

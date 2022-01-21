@@ -23,6 +23,7 @@ export const ResourceCreate: React.FC = () => {
   } = useTask();
   return (
     <Wizard
+      task="resourceCreate"
       data-test="task-resource-create"
       onClose={close}
       title="New resource"
@@ -35,9 +36,7 @@ export const ResourceCreate: React.FC = () => {
             <WizardFooter
               next={{
                 actionIf: isNameTypeValid,
-                task: "resourceCreate",
               }}
-              onClose={close}
               backDisabled
             />
           ),
@@ -50,9 +49,7 @@ export const ResourceCreate: React.FC = () => {
               next={{
                 actionIf: areInstanceAttrsValid,
                 disabled: !isAgentLoaded,
-                task: "resourceCreate",
               }}
-              onClose={close}
             />
           ),
           canJumpTo: isNameTypeValid,
@@ -60,15 +57,7 @@ export const ResourceCreate: React.FC = () => {
         {
           name: "Settings",
           component: <Settings />,
-          footer: (
-            <WizardFooter
-              next={{
-                actionIf: areSettingsValid,
-                task: "resourceCreate",
-              }}
-              onClose={close}
-            />
-          ),
+          footer: <WizardFooter next={{ actionIf: areSettingsValid }} />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
@@ -79,9 +68,7 @@ export const ResourceCreate: React.FC = () => {
               next={{
                 preAction: () => create({ force: false }),
                 label: "Create resource",
-                task: "resourceCreate",
               }}
-              onClose={close}
             />
           ),
           canJumpTo:

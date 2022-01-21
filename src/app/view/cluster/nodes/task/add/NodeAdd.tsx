@@ -31,6 +31,7 @@ export const NodeAdd: React.FC = () => {
   } = useTask();
   return (
     <Wizard
+      task="nodeAdd"
       data-test="task-node-add"
       onClose={close}
       title="Add node"
@@ -40,46 +41,27 @@ export const NodeAdd: React.FC = () => {
           name: "Enter node name",
           component: <NodeName />,
           footer: (
-            <WizardFooter
-              next={{
-                actionIf: isNameValid,
-                task: "nodeAdd",
-              }}
-              onClose={close}
-              backDisabled
-            />
+            <WizardFooter next={{ actionIf: isNameValid }} backDisabled />
           ),
         },
         {
           name: "Check node",
           component: <PrepareNode />,
           footer: authProcessId ? (
-            <NodeAuthWizardFooter
-              authProcessId={authProcessId}
-              task="nodeAdd"
-              onClose={close}
-            />
+            <NodeAuthWizardFooter authProcessId={authProcessId} />
           ) : (
-            <WizardFooter
-              next={{
-                disabled: !isNodeCheckDoneValid,
-                task: "nodeAdd",
-              }}
-              onClose={close}
-            />
+            <WizardFooter next={{ disabled: !isNodeCheckDoneValid }} />
           ),
           canJumpTo: isNameValid,
         },
         {
           name: "Specify node addresses",
           component: <Addresses />,
-          footer: <WizardFooter onClose={close} next={{ task: "nodeAdd" }} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Configure sbd",
           component: <Sbd />,
-          footer: <WizardFooter onClose={close} next={{ task: "nodeAdd" }} />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
@@ -90,9 +72,7 @@ export const NodeAdd: React.FC = () => {
               next={{
                 preAction: () => nodeAdd(),
                 label: "Create resource",
-                task: "nodeAdd",
               }}
-              onClose={close}
             />
           ),
           canJumpTo: isNameValid && isNodeCheckDoneValid,

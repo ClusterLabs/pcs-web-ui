@@ -22,6 +22,7 @@ export const FenceDeviceCreate: React.FC = () => {
   } = useTask();
   return (
     <Wizard
+      task="fenceDeviceCreate"
       data-test="task-fence-device-create"
       onClose={close}
       title="New fence device"
@@ -31,14 +32,7 @@ export const FenceDeviceCreate: React.FC = () => {
           name: "Name and type",
           component: <NameType />,
           footer: (
-            <WizardFooter
-              next={{
-                actionIf: isNameTypeValid,
-                task: "fenceDeviceCreate",
-              }}
-              onClose={close}
-              backDisabled
-            />
+            <WizardFooter next={{ actionIf: isNameTypeValid }} backDisabled />
           ),
         },
         {
@@ -49,9 +43,7 @@ export const FenceDeviceCreate: React.FC = () => {
               next={{
                 actionIf: areInstanceAttrsValid,
                 disabled: !isAgentLoaded,
-                task: "fenceDeviceCreate",
               }}
-              onClose={close}
             />
           ),
           canJumpTo: isNameTypeValid,
@@ -59,12 +51,6 @@ export const FenceDeviceCreate: React.FC = () => {
         {
           name: "Settings",
           component: <Settings />,
-          footer: (
-            <WizardFooter
-              onClose={close}
-              next={{ task: "fenceDeviceCreate" }}
-            />
-          ),
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
@@ -75,9 +61,7 @@ export const FenceDeviceCreate: React.FC = () => {
               next={{
                 preAction: () => create({ force: false }),
                 label: "Create fence device",
-                task: "fenceDeviceCreate",
               }}
-              onClose={close}
             />
           ),
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,

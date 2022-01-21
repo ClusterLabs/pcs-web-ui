@@ -5,23 +5,24 @@ import { TaskButtonBack } from "./TaskButtonBack";
 import { TaskButtonCancel } from "./TaskButtonCancel";
 import { TaskButtonReviewAndFinish } from "./TaskButtonReviewAndFinish";
 import { WizardFooterNext } from "./WizardFooterNext";
+import { useWizardContext } from "./WizardContext";
 
 export const WizardFooter = (props: {
-  onClose: () => void;
   onBack?: () => void;
   backDisabled?: boolean;
-  next: React.ComponentProps<typeof WizardFooterNext>;
+  next?: React.ComponentProps<typeof WizardFooterNext>;
   reviewAndFinish?: {
     label: string;
   };
 }) => {
-  const { onBack, onClose, backDisabled = false } = props;
+  const { onBack, backDisabled = false } = props;
+  const { close } = useWizardContext();
 
   return (
     <WizardContextConsumer>
       {({ onBack: pfOnBack, goToStepByName }) => (
         <>
-          <WizardFooterNext {...props.next} />
+          <WizardFooterNext {...(props.next ?? {})} />
           <TaskButtonBack
             onClick={onBack || pfOnBack}
             disabled={backDisabled}
@@ -32,7 +33,7 @@ export const WizardFooter = (props: {
               label={props.reviewAndFinish.label}
             />
           )}
-          <TaskButtonCancel onClick={onClose} />
+          <TaskButtonCancel onClick={close} />
         </>
       )}
     </WizardContextConsumer>

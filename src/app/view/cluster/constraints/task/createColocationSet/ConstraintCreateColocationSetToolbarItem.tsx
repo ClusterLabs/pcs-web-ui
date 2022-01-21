@@ -34,6 +34,7 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
       </Button>
       {isOpened && (
         <Wizard
+          task="constraintColocationSetCreate"
           data-test="task-constraint-colocation-set-create"
           title="New colocation set constraint"
           description="Create colocation set constraint"
@@ -43,14 +44,7 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
               name: "Resource Sets",
               component: <ResourceSetList />,
               footer: (
-                <WizardFooter
-                  next={{
-                    actionIf: areSetsValid,
-                    task: "constraintColocationSetCreate",
-                  }}
-                  onClose={close}
-                  backDisabled
-                />
+                <WizardFooter next={{ actionIf: areSetsValid }} backDisabled />
               ),
             },
             {
@@ -61,9 +55,7 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
                 <WizardFooter
                   next={{
                     actionIf: isCustomIdValid && isScoreValid,
-                    task: "constraintColocationSetCreate",
                   }}
-                  onClose={close}
                 />
               ),
             },
@@ -76,9 +68,7 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
                   next={{
                     preAction: () => create({ force: false }),
                     label: "Create colocation constraint",
-                    task: "constraintColocationSetCreate",
                   }}
-                  onClose={close}
                 />
               ),
             },

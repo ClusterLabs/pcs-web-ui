@@ -33,6 +33,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
       </Button>
       {isOpened && (
         <Wizard
+          task="constraintOrderSetCreate"
           data-test="task-constraint-order-set-create"
           title="New order set constraint"
           description="Create order set constraint"
@@ -45,10 +46,8 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                 <WizardFooter
                   next={{
                     actionIf: areSetsValid,
-                    task: "constraintOrderSetCreate",
                   }}
                   backDisabled
-                  onClose={close}
                 />
               ),
             },
@@ -60,9 +59,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                 <WizardFooter
                   next={{
                     actionIf: isCustomIdValid,
-                    task: "constraintOrderSetCreate",
                   }}
-                  onClose={close}
                 />
               ),
             },
@@ -75,9 +72,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                   next={{
                     preAction: () => create({ force: false }),
                     label: "Create order constraint",
-                    task: "constraintOrderSetCreate",
                   }}
-                  onClose={close}
                 />
               ),
             },

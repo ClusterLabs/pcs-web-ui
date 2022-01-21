@@ -34,6 +34,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
       </Button>
       {isOpened && (
         <Wizard
+          task="constraintTicketSetCreate"
           data-test="task-constraint-ticket-set-create"
           title="New ticket set constraint"
           description="Create ticket set constraint"
@@ -43,14 +44,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               name: "Resource Sets",
               component: <ResourceSetList />,
               footer: (
-                <WizardFooter
-                  next={{
-                    actionIf: areSetsValid,
-                    task: "constraintTicketSetCreate",
-                  }}
-                  backDisabled
-                  onClose={close}
-                />
+                <WizardFooter next={{ actionIf: areSetsValid }} backDisabled />
               ),
             },
             {
@@ -61,9 +55,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
                 <WizardFooter
                   next={{
                     actionIf: isCustomIdValid && isTicketValid,
-                    task: "constraintTicketSetCreate",
                   }}
-                  onClose={close}
                 />
               ),
             },
@@ -76,9 +68,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
                   next={{
                     preAction: () => create({ force: false }),
                     label: "Create ticket constraint",
-                    task: "constraintTicketSetCreate",
                   }}
-                  onClose={close}
                 />
               ),
             },
