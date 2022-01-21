@@ -8,24 +8,25 @@ import { WizardFooterNext } from "./WizardFooterNext";
 import { useWizardContext } from "./WizardContext";
 
 export const WizardFooter = (props: {
-  onBack?: () => void;
   backDisabled?: boolean;
+  back?: {
+    disabled?: boolean;
+  };
   next?: React.ComponentProps<typeof WizardFooterNext>;
   reviewAndFinish?: {
     label: string;
   };
 }) => {
-  const { onBack, backDisabled = false } = props;
   const { close } = useWizardContext();
 
   return (
     <WizardContextConsumer>
-      {({ onBack: pfOnBack, goToStepByName }) => (
+      {({ onBack, goToStepByName }) => (
         <>
           <WizardFooterNext {...(props.next ?? {})} />
           <TaskButtonBack
-            onClick={onBack || pfOnBack}
-            disabled={backDisabled}
+            onClick={onBack}
+            disabled={props.back?.disabled ?? false}
           />
           {props.reviewAndFinish !== undefined && (
             <TaskButtonReviewAndFinish

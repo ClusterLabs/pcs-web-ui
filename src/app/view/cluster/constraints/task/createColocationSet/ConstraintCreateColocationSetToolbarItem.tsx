@@ -44,7 +44,10 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
               name: "Resource Sets",
               component: <ResourceSetList />,
               footer: (
-                <WizardFooter next={{ actionIf: areSetsValid }} backDisabled />
+                <WizardFooter
+                  next={{ actionIf: areSetsValid }}
+                  back={{ disabled: true }}
+                />
               ),
             },
             {

@@ -47,7 +47,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                   next={{
                     actionIf: areSetsValid,
                   }}
-                  backDisabled
+                  back={{ disabled: true }}
                 />
               ),
             },

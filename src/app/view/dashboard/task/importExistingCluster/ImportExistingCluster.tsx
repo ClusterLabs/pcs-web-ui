@@ -32,7 +32,7 @@ export const ImportExistingCluster = () => {
                 actionIf: isNodeNameValid,
                 label: "Check authentication",
               }}
-              backDisabled
+              back={{ disabled: true }}
             />
           ),
         },

@@ -48,7 +48,7 @@ export const ClusterSetup: React.FC = () => {
               next={{
                 actionIf: isClusterNameValid && areNodeNamesValid,
               }}
-              backDisabled
+              back={{ disabled: true }}
             />
           ),
         },

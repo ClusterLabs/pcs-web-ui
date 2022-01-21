@@ -32,7 +32,10 @@ export const FenceDeviceCreate: React.FC = () => {
           name: "Name and type",
           component: <NameType />,
           footer: (
-            <WizardFooter next={{ actionIf: isNameTypeValid }} backDisabled />
+            <WizardFooter
+              next={{ actionIf: isNameTypeValid }}
+              back={{ disabled: true }}
+            />
           ),
         },
         {

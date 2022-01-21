@@ -41,7 +41,10 @@ export const NodeAdd: React.FC = () => {
           name: "Enter node name",
           component: <NodeName />,
           footer: (
-            <WizardFooter next={{ actionIf: isNameValid }} backDisabled />
+            <WizardFooter
+              next={{ actionIf: isNameValid }}
+              back={{ disabled: true }}
+            />
           ),
         },
         {
