@@ -5,7 +5,7 @@ import { TaskButtonBack } from "./TaskButtonBack";
 import { TaskButtonCancel } from "./TaskButtonCancel";
 import { TaskButtonReviewAndFinish } from "./TaskButtonReviewAndFinish";
 import { WizardFooterNext } from "./WizardFooterNext";
-import { useWizardContext } from "./WizardContext";
+import { useTaskContext } from "./TaskContext";
 
 export const WizardFooter = (props: {
   backDisabled?: boolean;
@@ -17,7 +17,7 @@ export const WizardFooter = (props: {
     label: string;
   };
 }) => {
-  const { close } = useWizardContext();
+  const { close } = useTaskContext();
 
   return (
     <WizardContextConsumer>

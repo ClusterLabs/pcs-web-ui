@@ -12,6 +12,7 @@ export const ConstraintCreateTicketToolbarItem: React.FC<{
   const {
     open,
     close,
+    name: taskName,
     createTicket,
     recoverFromError,
     isOpened,
@@ -31,14 +32,13 @@ export const ConstraintCreateTicketToolbarItem: React.FC<{
       {isOpened && (
         <TaskSimple
           title="Create ticket constraint"
+          task={taskName}
           close={close}
           footer={
             response !== "no-response" ? null : (
               <TaskSimpleFooter
-                task="constraintTicketCreate"
                 run={() => createTicket({ force: false })}
                 runLabel="Create ticket constraint"
-                cancel={close}
               />
             )
           }

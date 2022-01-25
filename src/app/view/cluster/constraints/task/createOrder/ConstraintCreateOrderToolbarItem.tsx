@@ -12,6 +12,7 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
   const {
     open,
     close,
+    name: taskName,
     createOrder,
     recoverFromError,
     isOpened,
@@ -34,17 +35,16 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
       {isOpened && (
         <TaskSimple
           title="Create order constraint"
+          task={taskName}
           close={close}
           footer={
             response !== "" ? null : (
               <TaskSimpleFooter
-                task="constraintOrderCreate"
                 nextIf={
                   isFirstResourceValid && isThenResourceValid && isScoreValid
                 }
                 run={createOrder}
                 runLabel="Create order constraint"
-                cancel={close}
               />
             )
           }

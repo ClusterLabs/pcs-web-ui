@@ -9,7 +9,7 @@ import {
 import { selectors } from "app/store";
 
 import { wizardCreateFooterDataTest } from "./wizardCreateFooterDataTest";
-import { WizardContextProvider } from "./WizardContext";
+import { TaskContextProvider } from "./TaskContext";
 import { WizardFooter } from "./WizardFooter";
 
 const DefaultWizardStep: React.FC = () => {
@@ -74,7 +74,7 @@ export const Wizard: React.FC<{
   );
 
   return (
-    <WizardContextProvider
+    <TaskContextProvider
       value={{
         task: task,
         close: onClose,
@@ -101,6 +101,6 @@ export const Wizard: React.FC<{
           </WizardContextConsumer>
         }
       />
-    </WizardContextProvider>
+    </TaskContextProvider>
   );
 };

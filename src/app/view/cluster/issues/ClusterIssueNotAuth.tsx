@@ -31,6 +31,7 @@ export const ClusterIssueNotAuth: React.FC<{ nodeList: string[] }> = ({
       {open && (
         <TaskSimple
           title="Authentication of nodes"
+          task="fixAuth"
           close={cancel}
           footer={<ClusterIssueNotAuthFooter />}
         >

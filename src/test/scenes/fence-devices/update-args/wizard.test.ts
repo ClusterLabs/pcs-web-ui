@@ -12,7 +12,7 @@ const editButton = dt("edit-fence-device-args");
 const taskView = dt("fence-device-args-edit");
 const task = {
   argField: (argName: string) => dt(`fence-device-arg-${argName}`),
-  run: mkXPath("task-footer-run"),
+  run: mkXPath("task-next"),
   success: dt(taskView, "task-success"),
   error: dt(taskView, "task-error"),
 };

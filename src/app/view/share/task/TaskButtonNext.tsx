@@ -1,11 +1,17 @@
-import React from "react";
 import { Button } from "@patternfly/react-core";
 
-export const TaskButtonNext: React.FC<{
-  onClick?: () => void;
+import { useRunOnEnter } from "./useRunOnEnter";
+
+export const TaskButtonNext = ({
+  onClick,
+  label = "Next",
+  disabled = false,
+}: {
+  onClick: () => void;
   label?: string;
   disabled?: boolean;
-}> = ({ onClick = undefined, label = "Next", disabled = false }) => {
+}) => {
+  useRunOnEnter(onClick);
   return (
     <Button
       variant="primary"
