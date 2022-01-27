@@ -1,18 +1,18 @@
 import { useDispatch } from "app/view/share/useDispatch";
 import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
+import { ButtonWithEnter } from "app/view/share/ButtonWithEnter";
 
-import { TaskButtonNext } from "./TaskButtonNext";
 import { useTaskContext } from "./TaskContext";
 
 export const TaskButtonNextWithValidation = ({
   run,
   runIf,
-  label = "Next",
+  children = "Next",
   disabled = false,
 }: {
   run: () => void;
   runIf?: boolean;
-  label?: string;
+  children?: React.ReactNode;
   disabled?: boolean;
 }) => {
   // Empty cluster name means that it is not in the context of cluster - ie. it
@@ -24,7 +24,7 @@ export const TaskButtonNextWithValidation = ({
   const { task } = useTaskContext();
   const dispatch = useDispatch();
   return (
-    <TaskButtonNext
+    <ButtonWithEnter
       onClick={() => {
         if (runIf) {
           dispatch({
@@ -39,8 +39,9 @@ export const TaskButtonNextWithValidation = ({
           });
         }
       }}
-      disabled={disabled ?? false}
-      label={label ?? "Next"}
-    />
+      isDisabled={disabled ?? false}
+    >
+      {children ?? "Next"}
+    </ButtonWithEnter>
   );
 };

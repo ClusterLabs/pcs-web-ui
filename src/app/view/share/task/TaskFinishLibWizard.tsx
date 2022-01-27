@@ -5,36 +5,30 @@ import { TaskFinishLib } from "./TaskFinishLib";
 
 type TaskFinishLibProps = React.ComponentProps<typeof TaskFinishLib>;
 
-export const TaskFinishLibWizard: React.FC<{
+export const TaskFinishLibWizard = ({
+  response,
+  taskName,
+  proceedForce,
+  backToUpdateSettingsStepName,
+  reports,
+  success,
+  tryAgainStepName = "Review",
+}: {
   response: TaskFinishLibProps["response"];
   taskName: TaskFinishLibProps["taskName"];
-  close: TaskFinishLibProps["close"];
   proceedForce: TaskFinishLibProps["proceedForce"];
   reports: TaskFinishLibProps["reports"];
   backToUpdateSettingsStepName: string;
   tryAgainStepName?: string;
-  successPrimaryActions?: TaskFinishLibProps["successPrimaryActions"];
-  successSecondaryActions?: TaskFinishLibProps["successSecondaryActions"];
-}> = ({
-  response,
-  taskName,
-  close,
-  proceedForce,
-  backToUpdateSettingsStepName,
-  reports,
-  successPrimaryActions,
-  successSecondaryActions,
-  tryAgainStepName = "Review",
+  success?: TaskFinishLibProps["success"];
 }) => {
   return (
     <WizardContextConsumer>
       {({ goToStepByName }) => (
         <TaskFinishLib
           response={response}
+          success={success}
           taskName={taskName}
-          successPrimaryActions={successPrimaryActions}
-          successSecondaryActions={successSecondaryActions}
-          close={close}
           backToUpdateSettings={() =>
             goToStepByName(backToUpdateSettingsStepName)
           }

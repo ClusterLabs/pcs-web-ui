@@ -41,7 +41,6 @@ export const PrimitiveGroupChange = () => {
           waitTitle={`Changing group of primitive resource "${resourceId}"`}
           successTitle="Group changed successfully"
           failTitle={`Changing group of primitive resource "${resourceId}" failed`}
-          close={close}
           tryAgain={changeGroup}
           recoverFromError={recoverFromError}
         />

@@ -81,7 +81,6 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
                 <TaskFinishLibWizard
                   response={response}
                   taskName="create ticket constraint with resource set"
-                  close={close}
                   backToUpdateSettingsStepName="Resource Sets"
                   proceedForce={() => create({ force: true })}
                   reports={reports}

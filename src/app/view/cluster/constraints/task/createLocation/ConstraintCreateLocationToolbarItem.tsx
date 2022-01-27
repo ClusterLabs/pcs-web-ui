@@ -63,7 +63,6 @@ export const ConstraintCreateLocationToolbarItem: React.FC<{
               waitTitle="Creating location constraint"
               successTitle="Location created successfully"
               failTitle="Create location constraint failed"
-              close={close}
               tryAgain={createLocation}
               recoverFromError={recoverFromError}
             />

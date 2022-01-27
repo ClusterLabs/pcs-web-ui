@@ -48,7 +48,6 @@ export const ConstraintCreateTicketToolbarItem: React.FC<{
             <TaskFinishLib
               response={response}
               taskName="create ticket constraint"
-              close={close}
               backToUpdateSettings={recoverFromError}
               proceedForce={() => createTicket({ force: true })}
               tryAgain={() => createTicket({ force: false })}

@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@patternfly/react-core";
 
 import {
   NodeAuthWizardFooter,
@@ -117,14 +116,13 @@ export const ClusterSetup: React.FC = () => {
             <TaskFinishLibWizard
               response={response}
               taskName="setup new cluster"
-              close={close}
               backToUpdateSettingsStepName="Cluster name and nodes"
               proceedForce={() => setupCluster({ force: true })}
-              successSecondaryActions={
-                <Button variant="secondary" onClick={startClusterAndClose}>
-                  Start cluster and close
-                </Button>
-              }
+              success={{
+                secondaryActions: {
+                  "Start cluster and close": startClusterAndClose,
+                },
+              }}
               reports={reports}
             />
           ),

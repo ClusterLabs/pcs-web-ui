@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@patternfly/react-core";
 
 import {
   NodeAuthWizardFooter,
@@ -74,7 +73,7 @@ export const NodeAdd: React.FC = () => {
             <WizardFooter
               next={{
                 preAction: () => nodeAdd(),
-                label: "Create resource",
+                label: "Add node",
               }}
             />
           ),
@@ -86,23 +85,16 @@ export const NodeAdd: React.FC = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={`add node ${nodeName}`}
-              successPrimaryActions={
-                <Button
-                  variant="primary"
-                  onClick={() => {
+              success={{
+                primaryAction: [
+                  "Start node and close",
+                  () => {
                     close();
                     nodeStart();
-                  }}
-                >
-                  Start node and close
-                </Button>
-              }
-              successSecondaryActions={
-                <Button variant="link" onClick={close}>
-                  Close
-                </Button>
-              }
-              close={close}
+                  },
+                ],
+                secondaryActions: { Close: close },
+              }}
               backToUpdateSettingsStepName="Enter node name"
               proceedForce={() =>
                 nodeAdd({ newForceFlags: lib.reports.getForceFlags(reports) })

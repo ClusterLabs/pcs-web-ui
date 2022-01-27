@@ -80,7 +80,6 @@ export const ResourceCreate: React.FC = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={`create resource "${resourceName}"`}
-              close={close}
               backToUpdateSettingsStepName="Name and type"
               proceedForce={() => create({ force: true })}
               reports={reports}

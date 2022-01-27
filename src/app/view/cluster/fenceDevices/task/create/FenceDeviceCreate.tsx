@@ -75,7 +75,6 @@ export const FenceDeviceCreate: React.FC = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={`create fence device "${fenceDeviceName}"`}
-              close={close}
               backToUpdateSettingsStepName="Name and type"
               proceedForce={() => create({ force: true })}
               reports={reports}

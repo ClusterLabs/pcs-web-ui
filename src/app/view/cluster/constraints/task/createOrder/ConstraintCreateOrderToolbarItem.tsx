@@ -57,7 +57,6 @@ export const ConstraintCreateOrderToolbarItem: React.FC<{
               waitTitle="Creating order constraint"
               successTitle="Order created successfully"
               failTitle="Create order constraint failed"
-              close={close}
               tryAgain={createOrder}
               recoverFromError={recoverFromError}
             />

@@ -55,7 +55,6 @@ export const ConstraintCreateColocationToolbarItem: React.FC<{
               waitTitle="Creating colocation constraint"
               successTitle="Colocation created successfully"
               failTitle="Create colocation constraint failed"
-              close={close}
               tryAgain={createColocation}
               recoverFromError={recoverFromError}
             />

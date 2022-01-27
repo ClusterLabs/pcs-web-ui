@@ -10,21 +10,32 @@ import {
 import { CheckCircleIcon } from "@patternfly/react-icons";
 
 import * as pallete from "app/view/share/pallete";
+import { ButtonWithEnter } from "app/view/share/ButtonWithEnter";
 
-export const TaskSuccess: React.FC<{
+import { useTaskContext } from "./TaskContext";
+
+export const TaskSuccess = ({
+  title,
+  primaryAction,
+  secondaryActions,
+  message = "",
+}: {
   title: React.ReactNode;
   message?: string;
-  close: () => void;
   closeLabel?: React.ReactNode;
-  primaryActions?: React.ReactNode;
-  secondaryActions?: React.ReactNode;
-}> = ({
-  title,
-  close,
-  primaryActions = null,
-  secondaryActions = null,
-  message = "",
+  primaryAction?: [React.ReactNode, () => void];
+  secondaryActions?: Record<string, () => void>;
 }) => {
+  const { close } = useTaskContext();
+  const primary: { label: React.ReactNode; action: () => void } = {
+    label: "Close",
+    action: close,
+  };
+
+  if (primaryAction) {
+    [primary.label, primary.action] = primaryAction;
+  }
+
   return (
     <EmptyState style={{ margin: "auto" }} data-test="task-success">
       <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
@@ -32,14 +43,21 @@ export const TaskSuccess: React.FC<{
         {title}
       </Title>
       {message.length > 0 && <EmptyStateBody>{message}</EmptyStateBody>}
-      {primaryActions === null && (
-        <Button variant="primary" onClick={close} data-test="task-close">
-          Close
-        </Button>
-      )}
-      {primaryActions !== null && primaryActions}
+
+      <ButtonWithEnter
+        variant="primary"
+        onClick={primary.action}
+        data-test="task-close"
+      >
+        {primary.label}
+      </ButtonWithEnter>
       <EmptyStateSecondaryActions>
-        {secondaryActions}
+        {secondaryActions
+          && Object.entries(secondaryActions).map(([label, action]) => (
+            <Button key={label} variant="link" onClick={action}>
+              {label}
+            </Button>
+          ))}
       </EmptyStateSecondaryActions>
     </EmptyState>
   );

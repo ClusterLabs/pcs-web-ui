@@ -45,7 +45,6 @@ export const PermissionTask = () => {
             isCreate ? "created" : "updated"
           } sucessfully`}
           failTitle={`Permission ${isCreate ? "create" : "update"} failed`}
-          close={close}
           tryAgain={permissionCreate}
           recoverFromError={recoverFromError}
         />

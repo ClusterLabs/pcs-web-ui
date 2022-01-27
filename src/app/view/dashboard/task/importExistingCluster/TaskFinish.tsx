@@ -1,4 +1,4 @@
-import { Button, WizardContextConsumer } from "@patternfly/react-core";
+import { WizardContextConsumer } from "@patternfly/react-core";
 import React from "react";
 
 import { TaskFinishError, TaskProgress, TaskSuccess } from "app/view/share";
@@ -7,7 +7,6 @@ import { useTask } from "./useTask";
 
 export const TaskFinish: React.FC = () => {
   const {
-    close,
     state: { importCall },
   } = useTask();
   return (
@@ -26,23 +25,11 @@ export const TaskFinish: React.FC = () => {
                   operation again.
                 </>
               }
-              primaryActions={
-                <Button variant="primary" onClick={() => console.log("TODO")}>
-                  Try again
-                </Button>
-              }
-              secondaryActions={
-                <Button variant="link" onClick={close}>
-                  Cancel
-                </Button>
-              }
+              primaryAction={["Try again", () => console.log("TODO")]}
             />
           )}
           {importCall.status === "success" && (
-            <TaskSuccess
-              title={"Cluster has been added sucessfully"}
-              close={close}
-            />
+            <TaskSuccess title={"Cluster has been added sucessfully"} />
           )}
         </>
       )}

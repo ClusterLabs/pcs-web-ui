@@ -82,7 +82,6 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                 <TaskFinishLibWizard
                   response={response}
                   taskName="create order constraint with resource set"
-                  close={close}
                   backToUpdateSettingsStepName="Resource Sets"
                   proceedForce={() => create({ force: true })}
                   reports={reports}
