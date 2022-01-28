@@ -12,7 +12,7 @@ import { wizardCreateFooterDataTest } from "./wizardCreateFooterDataTest";
 import { TaskContextProvider } from "./TaskContext";
 import { WizardFooter } from "./WizardFooter";
 
-const DefaultWizardStep: React.FC = () => {
+const DefaultWizardStep = () => {
   return <>DEFAULT WIZARD STEP</>;
 };
 
@@ -30,13 +30,14 @@ const separateStepsAndFooters = (steps: Step[]) => {
   const stepList: WizardStep[] = [];
   let footerList: Footer[] = [];
   steps.forEach((stepWithFooter) => {
-    if ("footer" in stepWithFooter === false) {
-      stepList.push(stepWithFooter);
-      return;
+    let pfStep;
+    if ("footer" in stepWithFooter) {
+      const { footer, ...rest } = stepWithFooter;
+      footerList.push({ name: stepWithFooter.name, footer });
+      pfStep = rest;
+    } else {
+      pfStep = stepWithFooter;
     }
-
-    const { footer, ...pfStep } = stepWithFooter;
-    footerList.push({ name: stepWithFooter.name, footer });
 
     if ("steps" in pfStep === false || pfStep.steps === undefined) {
       stepList.push(pfStep);
@@ -52,7 +53,14 @@ const separateStepsAndFooters = (steps: Step[]) => {
   return { stepList, footerList };
 };
 
-export const Wizard: React.FC<{
+export const Wizard = ({
+  "data-test": dataTest,
+  onClose,
+  task,
+  title,
+  description,
+  steps = undefined,
+}: {
   ["data-test"]: string;
   task:
     | Parameters<typeof selectors.getClusterTask>[0]
@@ -61,13 +69,6 @@ export const Wizard: React.FC<{
   onClose: () => void;
   title: string;
   description: string;
-}> = ({
-  "data-test": dataTest,
-  onClose,
-  task,
-  title,
-  description,
-  steps = undefined,
 }) => {
   const { stepList, footerList } = separateStepsAndFooters(
     steps || defaultSteps,
