@@ -331,7 +331,7 @@ export const destroyCluster = ({
   status?: number;
 }) => ({
   url: url.destroyCluster({ clusterName: clusterName }),
-  body: { "--all": "1" },
+  body: { all: "1" },
   status: [status ?? 200, ""] as [number, string],
 });
 

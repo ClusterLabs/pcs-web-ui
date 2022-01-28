@@ -42,7 +42,11 @@ export const WizardFooterNext = (
   }
 
   return (
-    <ButtonWithEnter onClick={action} isDisabled={props.disabled ?? false}>
+    <ButtonWithEnter
+      onClick={action}
+      isDisabled={props.disabled ?? false}
+      data-test="task-next"
+    >
       {props.label ?? "Next"}
     </ButtonWithEnter>
   );

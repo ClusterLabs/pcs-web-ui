@@ -40,6 +40,7 @@ export const TaskButtonNextWithValidation = ({
         }
       }}
       isDisabled={disabled ?? false}
+      data-test="task-next"
     >
       {children ?? "Next"}
     </ButtonWithEnter>
