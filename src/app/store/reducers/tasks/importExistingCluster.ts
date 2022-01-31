@@ -107,6 +107,12 @@ export const importExistingCluster: AppReducer<typeof initialState> = (
     case "DASHBOARD.CLUSTER.IMPORT.CLOSE":
       return initialState;
 
+    case "TASK.VALIDATION.SHOW":
+      return { ...state, showValidationErrors: true };
+
+    case "TASK.VALIDATION.HIDE":
+      return { ...state, showValidationErrors: false };
+
     default:
       return {
         ...state,
