@@ -1,17 +1,21 @@
 import { WizardContextConsumer } from "@patternfly/react-core";
-import React from "react";
 
 import { TaskFinishError, TaskProgress, TaskSuccess } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const TaskFinish: React.FC = () => {
+export const TaskFinish = ({
+  backToUpdateSettingsStepName,
+}: {
+  backToUpdateSettingsStepName: string;
+}) => {
   const {
+    importCluster,
     state: { importCall },
   } = useTask();
   return (
     <WizardContextConsumer>
-      {() => (
+      {({ goToStepByName }) => (
         <>
           {importCall.status === "started" && (
             <TaskProgress title="Adding existing cluster" />
@@ -25,7 +29,13 @@ export const TaskFinish: React.FC = () => {
                   operation again.
                 </>
               }
-              primaryAction={["Try again", () => console.log("TODO")]}
+              primaryAction={[
+                "Change settings",
+                () => goToStepByName(backToUpdateSettingsStepName),
+              ]}
+              secondaryActions={{
+                "Try again": importCluster,
+              }}
             />
           )}
           {importCall.status === "success" && (

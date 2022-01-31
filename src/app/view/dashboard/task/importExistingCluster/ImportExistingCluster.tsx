@@ -54,7 +54,9 @@ export const ImportExistingCluster = () => {
         },
         {
           name: "Result",
-          component: <TaskFinish />,
+          component: (
+            <TaskFinish backToUpdateSettingsStepName="Enter node name" />
+          ),
           isFinishedStep: true,
         },
       ]}
