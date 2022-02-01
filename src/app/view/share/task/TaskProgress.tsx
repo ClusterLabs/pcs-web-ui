@@ -6,10 +6,13 @@ import {
   Title,
 } from "@patternfly/react-core";
 
-export const TaskProgress: React.FC<{
+export const TaskProgress = ({
+  title,
+  progressTitle,
+}: {
   title: React.ReactNode;
   progressTitle?: string;
-}> = ({ title, progressTitle }) => {
+}) => {
   return (
     <EmptyState>
       <Title headingLevel="h4" size="lg">

@@ -34,6 +34,7 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
       </Button>
       {isOpened && (
         <Wizard
+          task="constraintTicketSetCreate"
           data-test="task-constraint-ticket-set-create"
           title="New ticket set constraint"
           description="Create ticket set constraint"
@@ -44,10 +45,8 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               component: <ResourceSetList />,
               footer: (
                 <WizardFooter
-                  onClose={close}
-                  nextIf={areSetsValid}
-                  backDisabled
-                  task="constraintTicketSetCreate"
+                  next={{ actionIf: areSetsValid }}
+                  back={{ disabled: true }}
                 />
               ),
             },
@@ -57,9 +56,9 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               component: <Options />,
               footer: (
                 <WizardFooter
-                  onClose={close}
-                  nextIf={isCustomIdValid && isTicketValid}
-                  task="constraintTicketSetCreate"
+                  next={{
+                    actionIf: isCustomIdValid && isTicketValid,
+                  }}
                 />
               ),
             },
@@ -69,10 +68,10 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
               component: <Review />,
               footer: (
                 <WizardFooter
-                  preNext={() => create({ force: false })}
-                  nextLabel="Create ticket constraint"
-                  onClose={close}
-                  task="constraintTicketSetCreate"
+                  next={{
+                    preAction: () => create({ force: false }),
+                    label: "Create ticket constraint",
+                  }}
                 />
               ),
             },
@@ -82,7 +81,6 @@ export const ConstraintCreateTicketSetToolbarItem: React.FC<{
                 <TaskFinishLibWizard
                   response={response}
                   taskName="create ticket constraint with resource set"
-                  close={close}
                   backToUpdateSettingsStepName="Resource Sets"
                   proceedForce={() => create({ force: true })}
                   reports={reports}

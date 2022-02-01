@@ -1,3 +1,3 @@
 export * from "./useNodesAuth";
 export * from "./NodesAuthForm";
-export * from "./NodeAuthButton";
+export * from "./NodeAuthWizardFooter";

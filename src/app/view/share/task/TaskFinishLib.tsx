@@ -1,18 +1,24 @@
 import React from "react";
-import { Button } from "@patternfly/react-core";
 
 import { types } from "app/store";
 import * as lib from "app/view/share/lib";
 
 import { TaskSuccess } from "./TaskSuccess";
 import { TaskLibReports } from "./TaskLibReports";
-import { TaskFinishErrorLib } from "./TaskFinishErrorLib";
 import { TaskProgress } from "./TaskProgress";
 import { TaskFinishError } from "./TaskFinishError";
 
 type TaskSuccessProps = React.ComponentProps<typeof TaskSuccess>;
 
-export const TaskFinishLib: React.FC<{
+export const TaskFinishLib = ({
+  response,
+  taskName,
+  success,
+  backToUpdateSettings,
+  proceedForce,
+  tryAgain,
+  reports,
+}: {
   response:
     | "no-response"
     | "success"
@@ -21,23 +27,14 @@ export const TaskFinishLib: React.FC<{
     | "communication-error"
     | "progress";
   taskName: string;
-  close: () => void;
   backToUpdateSettings: () => void;
   proceedForce: () => void;
   tryAgain: () => void;
   reports: types.LibReport[];
-  successPrimaryActions?: TaskSuccessProps["primaryActions"];
-  successSecondaryActions?: TaskSuccessProps["secondaryActions"];
-}> = ({
-  response,
-  taskName,
-  successSecondaryActions,
-  successPrimaryActions,
-  close,
-  backToUpdateSettings,
-  proceedForce,
-  tryAgain,
-  reports,
+  success?: {
+    primaryAction?: TaskSuccessProps["primaryAction"];
+    secondaryActions?: TaskSuccessProps["secondaryActions"];
+  };
 }) => {
   const isForcible = lib.reports.allErrorsCanBeForced(reports);
   switch (response) {
@@ -46,9 +43,8 @@ export const TaskFinishLib: React.FC<{
         <>
           <TaskSuccess
             title={`Task "${taskName}" has been done successfully`}
-            primaryActions={successPrimaryActions}
-            secondaryActions={successSecondaryActions}
-            close={close}
+            primaryAction={success?.primaryAction}
+            secondaryActions={success?.secondaryActions}
           />
           <TaskLibReports reports={reports} />
         </>
@@ -73,23 +69,14 @@ export const TaskFinishLib: React.FC<{
                 )}
               </>
             }
-            primaryActions={
-              <Button variant="primary" onClick={backToUpdateSettings}>
-                Back to update settings
-              </Button>
-            }
-            secondaryActions={
-              <>
-                {isForcible && (
-                  <Button variant="link" onClick={proceedForce}>
-                    Proceed anyway with current settings
-                  </Button>
-                )}
-                <Button variant="link" onClick={close}>
-                  Cancel
-                </Button>
-              </>
-            }
+            primaryAction={["Back to update settings", backToUpdateSettings]}
+            {...(isForcible
+              ? {
+                  secondaryActions: {
+                    "Proceed anyway with current settings": proceedForce,
+                  },
+                }
+              : {})}
           />
           <TaskLibReports reports={reports} />
         </>
@@ -97,10 +84,15 @@ export const TaskFinishLib: React.FC<{
 
     case "communication-error":
       return (
-        <TaskFinishErrorLib
+        <TaskFinishError
           title={`Communication error during task "${taskName}"`}
-          tryAgain={tryAgain}
-          close={close}
+          message={
+            <>
+              A communication error occurred during the operation (details in
+              the browser console). You can try to perform the operation again.
+            </>
+          }
+          primaryAction={["Try again", tryAgain]}
         />
       );
 

@@ -1,8 +1,7 @@
 import React from "react";
-import { Button } from "@patternfly/react-core";
 
 import {
-  NodeAuthButton,
+  NodeAuthWizardFooter,
   TaskFinishLibWizard,
   Wizard,
   WizardFooter,
@@ -31,6 +30,7 @@ export const NodeAdd: React.FC = () => {
   } = useTask();
   return (
     <Wizard
+      task="nodeAdd"
       data-test="task-node-add"
       onClose={close}
       title="Add node"
@@ -41,10 +41,8 @@ export const NodeAdd: React.FC = () => {
           component: <NodeName />,
           footer: (
             <WizardFooter
-              nextIf={isNameValid}
-              onClose={close}
-              backDisabled
-              task="nodeAdd"
+              next={{ actionIf: isNameValid }}
+              back={{ disabled: true }}
             />
           ),
         },
@@ -52,30 +50,20 @@ export const NodeAdd: React.FC = () => {
           name: "Check node",
           component: <PrepareNode />,
           footer: authProcessId ? (
-            <WizardFooter
-              next={<NodeAuthButton authProcessId={authProcessId} />}
-              onClose={close}
-              task="nodeAdd"
-            />
+            <NodeAuthWizardFooter authProcessId={authProcessId} />
           ) : (
-            <WizardFooter
-              nextDisabled={!isNodeCheckDoneValid}
-              onClose={close}
-              task="nodeAdd"
-            />
+            <WizardFooter next={{ disabled: !isNodeCheckDoneValid }} />
           ),
           canJumpTo: isNameValid,
         },
         {
           name: "Specify node addresses",
           component: <Addresses />,
-          footer: <WizardFooter onClose={close} task="nodeAdd" />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Configure sbd",
           component: <Sbd />,
-          footer: <WizardFooter onClose={close} task="nodeAdd" />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
@@ -83,10 +71,10 @@ export const NodeAdd: React.FC = () => {
           component: <Review />,
           footer: (
             <WizardFooter
-              preNext={() => nodeAdd()}
-              nextLabel="Create resource"
-              onClose={close}
-              task="nodeAdd"
+              next={{
+                preAction: () => nodeAdd(),
+                label: "Add node",
+              }}
             />
           ),
           canJumpTo: isNameValid && isNodeCheckDoneValid,
@@ -97,23 +85,16 @@ export const NodeAdd: React.FC = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={`add node ${nodeName}`}
-              successPrimaryActions={
-                <Button
-                  variant="primary"
-                  onClick={() => {
+              success={{
+                primaryAction: [
+                  "Start node and close",
+                  () => {
                     close();
                     nodeStart();
-                  }}
-                >
-                  Start node and close
-                </Button>
-              }
-              successSecondaryActions={
-                <Button variant="link" onClick={close}>
-                  Close
-                </Button>
-              }
-              close={close}
+                  },
+                ],
+                secondaryActions: { Close: close },
+              }}
               backToUpdateSettingsStepName="Enter node name"
               proceedForce={() =>
                 nodeAdd({ newForceFlags: lib.reports.getForceFlags(reports) })

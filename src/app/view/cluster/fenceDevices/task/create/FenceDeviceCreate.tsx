@@ -22,6 +22,7 @@ export const FenceDeviceCreate: React.FC = () => {
   } = useTask();
   return (
     <Wizard
+      task="fenceDeviceCreate"
       data-test="task-fence-device-create"
       onClose={close}
       title="New fence device"
@@ -32,10 +33,8 @@ export const FenceDeviceCreate: React.FC = () => {
           component: <NameType />,
           footer: (
             <WizardFooter
-              nextIf={isNameTypeValid}
-              onClose={close}
-              backDisabled
-              task="fenceDeviceCreate"
+              next={{ actionIf: isNameTypeValid }}
+              back={{ disabled: true }}
             />
           ),
         },
@@ -44,10 +43,10 @@ export const FenceDeviceCreate: React.FC = () => {
           component: <InstanceAttrsForm />,
           footer: (
             <WizardFooter
-              nextIf={areInstanceAttrsValid}
-              onClose={close}
-              nextDisabled={!isAgentLoaded}
-              task="fenceDeviceCreate"
+              next={{
+                actionIf: areInstanceAttrsValid,
+                disabled: !isAgentLoaded,
+              }}
             />
           ),
           canJumpTo: isNameTypeValid,
@@ -55,7 +54,6 @@ export const FenceDeviceCreate: React.FC = () => {
         {
           name: "Settings",
           component: <Settings />,
-          footer: <WizardFooter onClose={close} task="fenceDeviceCreate" />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
@@ -63,10 +61,10 @@ export const FenceDeviceCreate: React.FC = () => {
           component: <Review />,
           footer: (
             <WizardFooter
-              preNext={() => create({ force: false })}
-              nextLabel="Create fence device"
-              onClose={close}
-              task="fenceDeviceCreate"
+              next={{
+                preAction: () => create({ force: false }),
+                label: "Create fence device",
+              }}
             />
           ),
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
@@ -77,7 +75,6 @@ export const FenceDeviceCreate: React.FC = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={`create fence device "${fenceDeviceName}"`}
-              close={close}
               backToUpdateSettingsStepName="Name and type"
               proceedForce={() => create({ force: true })}
               reports={reports}

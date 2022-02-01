@@ -34,6 +34,7 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
       </Button>
       {isOpened && (
         <Wizard
+          task="constraintColocationSetCreate"
           data-test="task-constraint-colocation-set-create"
           title="New colocation set constraint"
           description="Create colocation set constraint"
@@ -44,10 +45,8 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
               component: <ResourceSetList />,
               footer: (
                 <WizardFooter
-                  onClose={close}
-                  nextIf={areSetsValid}
-                  backDisabled
-                  task="constraintColocationSetCreate"
+                  next={{ actionIf: areSetsValid }}
+                  back={{ disabled: true }}
                 />
               ),
             },
@@ -57,9 +56,9 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
               component: <Options />,
               footer: (
                 <WizardFooter
-                  onClose={close}
-                  nextIf={isCustomIdValid && isScoreValid}
-                  task="constraintColocationSetCreate"
+                  next={{
+                    actionIf: isCustomIdValid && isScoreValid,
+                  }}
                 />
               ),
             },
@@ -69,10 +68,10 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
               component: <Review />,
               footer: (
                 <WizardFooter
-                  preNext={() => create({ force: false })}
-                  nextLabel="Create colocation constraint"
-                  onClose={close}
-                  task="constraintColocationSetCreate"
+                  next={{
+                    preAction: () => create({ force: false }),
+                    label: "Create colocation constraint",
+                  }}
                 />
               ),
             },
@@ -82,7 +81,6 @@ export const ConstraintCreateColocationSetToolbarItem: React.FC<{
                 <TaskFinishLibWizard
                   response={response}
                   taskName="create colocation constraint with resource set"
-                  close={close}
                   backToUpdateSettingsStepName="Resource Sets"
                   proceedForce={() => create({ force: true })}
                   reports={reports}

@@ -23,6 +23,7 @@ export const ResourceCreate: React.FC = () => {
   } = useTask();
   return (
     <Wizard
+      task="resourceCreate"
       data-test="task-resource-create"
       onClose={close}
       title="New resource"
@@ -33,10 +34,10 @@ export const ResourceCreate: React.FC = () => {
           component: <NameType />,
           footer: (
             <WizardFooter
-              nextIf={isNameTypeValid}
-              onClose={close}
+              next={{
+                actionIf: isNameTypeValid,
+              }}
               backDisabled
-              task="resourceCreate"
             />
           ),
         },
@@ -45,10 +46,10 @@ export const ResourceCreate: React.FC = () => {
           component: <InstanceAttrsForm />,
           footer: (
             <WizardFooter
-              nextIf={areInstanceAttrsValid}
-              onClose={close}
-              nextDisabled={!isAgentLoaded}
-              task="resourceCreate"
+              next={{
+                actionIf: areInstanceAttrsValid,
+                disabled: !isAgentLoaded,
+              }}
             />
           ),
           canJumpTo: isNameTypeValid,
@@ -56,13 +57,7 @@ export const ResourceCreate: React.FC = () => {
         {
           name: "Settings",
           component: <Settings />,
-          footer: (
-            <WizardFooter
-              nextIf={areSettingsValid}
-              onClose={close}
-              task="resourceCreate"
-            />
-          ),
+          footer: <WizardFooter next={{ actionIf: areSettingsValid }} />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
@@ -70,10 +65,10 @@ export const ResourceCreate: React.FC = () => {
           component: <Review />,
           footer: (
             <WizardFooter
-              preNext={() => create({ force: false })}
-              nextLabel="Create resource"
-              onClose={close}
-              task="resourceCreate"
+              next={{
+                preAction: () => create({ force: false }),
+                label: "Create resource",
+              }}
             />
           ),
           canJumpTo:
@@ -85,7 +80,6 @@ export const ResourceCreate: React.FC = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={`create resource "${resourceName}"`}
-              close={close}
               backToUpdateSettingsStepName="Name and type"
               proceedForce={() => create({ force: true })}
               reports={reports}

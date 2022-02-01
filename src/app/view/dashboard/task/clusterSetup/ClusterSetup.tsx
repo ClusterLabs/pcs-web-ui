@@ -1,8 +1,7 @@
 import React from "react";
-import { Button } from "@patternfly/react-core";
 
 import {
-  NodeAuthButton,
+  NodeAuthWizardFooter,
   TaskFinishLibWizard,
   Wizard,
   WizardFooter,
@@ -34,6 +33,7 @@ export const ClusterSetup: React.FC = () => {
   } = useTask();
   return isOpened ? (
     <Wizard
+      task="clusterSetup"
       data-test="task-cluster-setup"
       title="Setup cluster"
       description="Setup new cluster on nodes"
@@ -44,10 +44,10 @@ export const ClusterSetup: React.FC = () => {
           component: <NameAndNodes />,
           footer: (
             <WizardFooter
-              onClose={close}
-              backDisabled
-              task="clusterSetup"
-              nextIf={isClusterNameValid && areNodeNamesValid}
+              next={{
+                actionIf: isClusterNameValid && areNodeNamesValid,
+              }}
+              back={{ disabled: true }}
             />
           ),
         },
@@ -56,16 +56,12 @@ export const ClusterSetup: React.FC = () => {
           component: <PrepareNodes />,
           canJumpTo: isClusterNameValid && areNodeNamesValid,
           footer: authProcessId ? (
-            <WizardFooter
-              next={<NodeAuthButton authProcessId={authProcessId} />}
-              onClose={close}
-              task="clusterSetup"
-            />
+            <NodeAuthWizardFooter authProcessId={authProcessId} />
           ) : (
             <WizardFooter
-              nextDisabled={!isClusterNameAndNodeCheckDoneValid}
-              onClose={close}
-              task="clusterSetup"
+              next={{
+                disabled: !isClusterNameAndNodeCheckDoneValid,
+              }}
               reviewAndFinish={{ label: "Review and setup cluster" }}
             />
           ),
@@ -73,7 +69,6 @@ export const ClusterSetup: React.FC = () => {
         {
           name: "Advanced options",
           component: <Transport />,
-          footer: <WizardFooter onClose={close} task="clusterSetup" />,
           canJumpTo:
             isClusterNameValid
             && areNodeNamesValid
@@ -82,31 +77,22 @@ export const ClusterSetup: React.FC = () => {
             {
               name: "Transport links",
               component: <Transport />,
-              footer: (
-                <WizardFooter
-                  onClose={close}
-                  task="clusterSetup"
-                  nextIf={areLinksValid}
-                />
-              ),
+              footer: <WizardFooter next={{ actionIf: areLinksValid }} />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid,
             },
             {
               name: "Transport Options",
               component: <TransportOptions />,
-              footer: <WizardFooter onClose={close} task="clusterSetup" />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Quorum",
               component: <Quorum />,
-              footer: <WizardFooter onClose={close} task="clusterSetup" />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Totem",
               component: <Totem />,
-              footer: <WizardFooter onClose={close} task="clusterSetup" />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
           ],
@@ -116,10 +102,10 @@ export const ClusterSetup: React.FC = () => {
           component: <Review />,
           footer: (
             <WizardFooter
-              preNext={() => setupCluster()}
-              nextLabel="Setup cluster"
-              onClose={close}
-              task="clusterSetup"
+              next={{
+                preAction: () => setupCluster(),
+                label: "Setup cluster",
+              }}
             />
           ),
           canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
@@ -130,14 +116,13 @@ export const ClusterSetup: React.FC = () => {
             <TaskFinishLibWizard
               response={response}
               taskName="setup new cluster"
-              close={close}
               backToUpdateSettingsStepName="Cluster name and nodes"
               proceedForce={() => setupCluster({ force: true })}
-              successSecondaryActions={
-                <Button variant="secondary" onClick={startClusterAndClose}>
-                  Start cluster and close
-                </Button>
-              }
+              success={{
+                secondaryActions: {
+                  "Start cluster and close": startClusterAndClose,
+                },
+              }}
               reports={reports}
             />
           ),

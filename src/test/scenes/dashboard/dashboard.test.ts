@@ -113,14 +113,6 @@ describe("Dashboard scene", () => {
     // just check that it exists
     await page.waitForSelector(dt(CLUSTER_OK, "issues-status"));
   });
-
-  it("should allow to add existing cluster", async () => {
-    const actionSelector = dt("dashboard-toolbar", "add-cluster");
-    await page.goto(location.dashboard);
-    await page.waitForSelector(actionSelector);
-    await page.click(actionSelector);
-    expect(page.url()).toEqual(location.dashboardAddCluster);
-  });
 });
 
 describe("Dashboard to cluster scene", () => {

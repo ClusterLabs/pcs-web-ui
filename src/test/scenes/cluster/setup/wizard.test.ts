@@ -66,7 +66,6 @@ describe("Cluster setup", () => {
     await page.click(task.reviewAndFinish);
     await task.nextFrom("Review");
     await page.waitForSelector(task.sucess);
-    await page.waitForTimeout(10000);
   });
 
   it("should refuse to continue without essential data", async () => {

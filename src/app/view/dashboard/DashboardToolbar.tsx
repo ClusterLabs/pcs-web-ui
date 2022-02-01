@@ -8,19 +8,18 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import { location, useLocation, useRoute } from "app/view/share";
-
-import { AddClusterPage } from "./addCluster";
 import {
   ClusterSetup,
   useTask as useTaskClusterSetup,
 } from "./task/clusterSetup";
+import {
+  ImportExistingCluster,
+  useTask as useTaskImportExistingCluster,
+} from "./task/importExistingCluster";
 
 export const DashboardToolbar = () => {
-  const { navigate } = useLocation();
-
-  const addCluster = useRoute("/add-cluster");
   const { open: openClusterSetup } = useTaskClusterSetup();
+  const { open: openAddExistingCluster } = useTaskImportExistingCluster();
   return (
     <Toolbar data-test="dashboard-toolbar">
       <ToolbarGroup>
@@ -29,12 +28,13 @@ export const DashboardToolbar = () => {
             <ActionListItem>
               <Button
                 variant="primary"
-                onClick={() => navigate(location.dashboardAddCluster)}
-                data-test="add-cluster"
+                onClick={openAddExistingCluster}
+                data-test="import-existing-cluster"
               >
                 Add existing cluster
               </Button>
             </ActionListItem>
+
             <ActionListItem>
               <Button
                 variant="secondary"
@@ -45,10 +45,9 @@ export const DashboardToolbar = () => {
               </Button>
             </ActionListItem>
           </ActionList>
+
+          <ImportExistingCluster />
           <ClusterSetup />
-          {addCluster && (
-            <AddClusterPage onClose={() => navigate(location.dashboard)} />
-          )}
         </ToolbarItem>
       </ToolbarGroup>
     </Toolbar>

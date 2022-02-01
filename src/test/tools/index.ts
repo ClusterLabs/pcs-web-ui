@@ -3,7 +3,6 @@ import * as t from "io-ts";
 import { endpoints } from "app/backend/endpoints";
 
 import * as intercept from "./interception";
-import * as response from "./response";
 import * as route from "./routes";
 import * as workflow from "./workflows";
 import * as shortcuts from "./shortcuts";
@@ -12,7 +11,7 @@ import { location } from "./backendAddress";
 type Endpoints = typeof endpoints;
 
 type Urls = {
-  [K in keyof Endpoints]: Endpoints[K]["url"];
+  [K in keyof Endpoints]: Endpoints[K]["url"]
 };
 
 export const url: Urls = Object.entries(endpoints).reduce<Urls>(
@@ -23,7 +22,7 @@ export const url: Urls = Object.entries(endpoints).reduce<Urls>(
 export type Shapes = {
   [K in keyof Endpoints]: Endpoints[K]["shape"] extends t.Any
     ? t.TypeOf<Endpoints[K]["shape"]>
-    : never;
+    : never
 };
 
 // The correct version would be:
@@ -37,7 +36,7 @@ export type Shapes = {
 // (it does not support "as Endpoints[K]...")
 // Maybe try ts-jest?
 type Payloads = {
-  [K in keyof Endpoints]: Endpoints[K]["payload"];
+  [K in keyof Endpoints]: Endpoints[K]["payload"]
 };
 export const payload: Payloads = Object.entries(endpoints)
   .filter(([_key, endpoint]) => endpoint.payload !== undefined)
@@ -49,4 +48,4 @@ export const payload: Payloads = Object.entries(endpoints)
     {} as Payloads,
   );
 
-export { intercept, response, route, location, workflow, shortcuts };
+export { intercept, route, location, workflow, shortcuts };

@@ -33,6 +33,7 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
       </Button>
       {isOpened && (
         <Wizard
+          task="constraintOrderSetCreate"
           data-test="task-constraint-order-set-create"
           title="New order set constraint"
           description="Create order set constraint"
@@ -43,10 +44,10 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
               component: <ResourceSetList />,
               footer: (
                 <WizardFooter
-                  onClose={close}
-                  nextIf={areSetsValid}
-                  backDisabled
-                  task="constraintOrderSetCreate"
+                  next={{
+                    actionIf: areSetsValid,
+                  }}
+                  back={{ disabled: true }}
                 />
               ),
             },
@@ -56,9 +57,9 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
               component: <Options />,
               footer: (
                 <WizardFooter
-                  onClose={close}
-                  nextIf={isCustomIdValid}
-                  task="constraintOrderSetCreate"
+                  next={{
+                    actionIf: isCustomIdValid,
+                  }}
                 />
               ),
             },
@@ -68,10 +69,10 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
               component: <Review />,
               footer: (
                 <WizardFooter
-                  preNext={() => create({ force: false })}
-                  nextLabel="Create order constraint"
-                  onClose={close}
-                  task="constraintOrderSetCreate"
+                  next={{
+                    preAction: () => create({ force: false }),
+                    label: "Create order constraint",
+                  }}
                 />
               ),
             },
@@ -81,7 +82,6 @@ export const ConstraintCreateOrderSetToolbarItem: React.FC<{
                 <TaskFinishLibWizard
                   response={response}
                   taskName="create order constraint with resource set"
-                  close={close}
                   backToUpdateSettingsStepName="Resource Sets"
                   proceedForce={() => create({ force: true })}
                   reports={reports}

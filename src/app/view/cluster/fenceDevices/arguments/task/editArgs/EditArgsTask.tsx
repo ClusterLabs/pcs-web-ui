@@ -8,6 +8,7 @@ import { EditArgsForm } from "./EditArgsForm";
 export const EditArgsTask: React.FC = () => {
   const {
     close,
+    name: taskName,
     runUpdate,
     recoverFromError,
     state: {
@@ -25,15 +26,11 @@ export const EditArgsTask: React.FC = () => {
   return (
     <TaskSimple
       title="Edit fence device arguments"
+      task={taskName}
       close={close}
       footer={
         response !== "" ? null : (
-          <TaskSimpleFooter
-            task="fenceDeviceArgsEdit"
-            runLabel="Save arguments"
-            run={runUpdate}
-            cancel={close}
-          />
+          <TaskSimpleFooter runLabel="Save arguments" run={runUpdate} />
         )
       }
       data-test="fence-device-args-edit"
@@ -46,7 +43,6 @@ export const EditArgsTask: React.FC = () => {
           waitTitle="Updating fence device arguments"
           successTitle="Fence device arguments updated sucessfully"
           failTitle="Fence device arguments update failed"
-          close={close}
           tryAgain={runUpdate}
           recoverFromError={recoverFromError}
         />

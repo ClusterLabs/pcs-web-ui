@@ -1,7 +1,14 @@
 import { app } from "dev/app";
 import * as shortcut from "dev/shortcuts";
 
-shortcut.checkAuthAgainstNodes();
+shortcut.checkAuthAgainstNodes({
+  //nodeName: checkValue
+  authNonsense: "nonsense",
+  authUnable: "Unable to authenticate",
+  authOffline: "Offline",
+  //authErr: responds 500
+  //any other: Online
+});
 
 shortcut.authGuiAgainstNodes();
 

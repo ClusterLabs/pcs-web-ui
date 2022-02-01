@@ -9,6 +9,7 @@ export const PrimitiveGroupChange = () => {
     isGroupValid,
     isAdjacentResourceValid,
     close,
+    name: taskName,
     changeGroup,
     recoverFromError,
     state: {
@@ -20,15 +21,14 @@ export const PrimitiveGroupChange = () => {
   return isOpened ? (
     <TaskSimple
       title={`Change group of primitive resource "${resourceId}"?`}
+      task={taskName}
       close={close}
       footer={
         response !== "" ? null : (
           <TaskSimpleFooter
-            task="primitiveGroupChange"
             nextIf={isGroupValid && isAdjacentResourceValid}
             run={changeGroup}
             runLabel="Change group"
-            cancel={close}
           />
         )
       }
@@ -41,7 +41,6 @@ export const PrimitiveGroupChange = () => {
           waitTitle={`Changing group of primitive resource "${resourceId}"`}
           successTitle="Group changed successfully"
           failTitle={`Changing group of primitive resource "${resourceId}" failed`}
-          close={close}
           tryAgain={changeGroup}
           recoverFromError={recoverFromError}
         />

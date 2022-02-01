@@ -5,8 +5,9 @@ import * as responses from "dev/responses";
 import * as types from "dev/types";
 
 import { Shapes, payload, url } from "test/tools";
+import { RequestData, RouteResponse } from "test/tools/interception";
 
-import { RequestData, RouteResponse } from "./interception";
+export * from "./existingCluster";
 
 // list-values-in-query:
 // * when "node_names[]=node1" appears in the query then it is recognized as
@@ -330,7 +331,7 @@ export const destroyCluster = ({
   status?: number;
 }) => ({
   url: url.destroyCluster({ clusterName: clusterName }),
-  body: { "--all": "1" },
+  body: { all: "1" },
   status: [status ?? 200, ""] as [number, string],
 });
 

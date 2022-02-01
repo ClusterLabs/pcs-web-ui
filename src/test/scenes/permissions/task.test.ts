@@ -22,7 +22,7 @@ const task = {
   write: mkXPath(view, "write"),
   grant: mkXPath(view, "grant"),
   full: mkXPath(view, "full"),
-  run: mkXPath("task-footer-run"),
+  run: mkXPath("task-next"),
   success: mkXPath(view, "task-success"),
   close: mkXPath(view, "task-close"),
 };

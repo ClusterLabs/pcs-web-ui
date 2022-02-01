@@ -10,11 +10,17 @@ import { Footer } from "./Footer";
 export const ResourceCreateGroup: React.FC = () => {
   const {
     close,
+    name: taskName,
     state: { response },
   } = useTask();
 
   return (
-    <TaskSimple title="Create group" close={close} footer={<Footer />}>
+    <TaskSimple
+      title="Create group"
+      task={taskName}
+      close={close}
+      footer={<Footer />}
+    >
       {response !== "success" && <Form />}
       {response === "success" && <Finish />}
     </TaskSimple>

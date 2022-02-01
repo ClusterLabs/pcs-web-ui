@@ -1,14 +1,18 @@
 import React from "react";
 import {
   Wizard as PfWizard,
+  WizardFooter as PfWizardFooter,
   WizardContextConsumer,
-  WizardFooter,
   WizardStep,
 } from "@patternfly/react-core";
 
-import { wizardCreateFooterDataTest } from "./wizardCreateFooterDataTest";
+import { selectors } from "app/store";
 
-const DefaultWizardStep: React.FC = () => {
+import { wizardCreateFooterDataTest } from "./wizardCreateFooterDataTest";
+import { TaskContextProvider } from "./TaskContext";
+import { WizardFooter } from "./WizardFooter";
+
+const DefaultWizardStep = () => {
   return <>DEFAULT WIZARD STEP</>;
 };
 
@@ -26,13 +30,14 @@ const separateStepsAndFooters = (steps: Step[]) => {
   const stepList: WizardStep[] = [];
   let footerList: Footer[] = [];
   steps.forEach((stepWithFooter) => {
-    if ("footer" in stepWithFooter === false) {
-      stepList.push(stepWithFooter);
-      return;
+    let pfStep;
+    if ("footer" in stepWithFooter) {
+      const { footer, ...rest } = stepWithFooter;
+      footerList.push({ name: stepWithFooter.name, footer });
+      pfStep = rest;
+    } else {
+      pfStep = stepWithFooter;
     }
-
-    const { footer, ...pfStep } = stepWithFooter;
-    footerList.push({ name: stepWithFooter.name, footer });
 
     if ("steps" in pfStep === false || pfStep.steps === undefined) {
       stepList.push(pfStep);
@@ -48,43 +53,55 @@ const separateStepsAndFooters = (steps: Step[]) => {
   return { stepList, footerList };
 };
 
-export const Wizard: React.FC<{
+export const Wizard = ({
+  "data-test": dataTest,
+  onClose,
+  task,
+  title,
+  description,
+  steps = undefined,
+}: {
   ["data-test"]: string;
+  task:
+    | Parameters<typeof selectors.getClusterTask>[0]
+    | Parameters<typeof selectors.getDashboardTask>[0];
   steps?: Step[] | undefined;
   onClose: () => void;
   title: string;
   description: string;
-}> = ({
-  "data-test": dataTest,
-  onClose,
-  title,
-  description,
-  steps = undefined,
 }) => {
   const { stepList, footerList } = separateStepsAndFooters(
     steps || defaultSteps,
   );
 
   return (
-    <PfWizard
-      data-test={dataTest}
-      steps={stepList}
-      isOpen
-      onClose={onClose}
-      title={title}
-      description={description}
-      isNavExpandable
-      footer={
-        <WizardContextConsumer>
-          {({ activeStep }) => (
-            <div data-test={wizardCreateFooterDataTest(activeStep.name)}>
-              <WizardFooter>
-                {footerList.find(f => f.name === activeStep.name)?.footer}
-              </WizardFooter>
-            </div>
-          )}
-        </WizardContextConsumer>
-      }
-    />
+    <TaskContextProvider
+      value={{
+        task: task,
+        close: onClose,
+      }}
+    >
+      <PfWizard
+        data-test={dataTest}
+        steps={stepList}
+        isOpen
+        onClose={onClose}
+        title={title}
+        description={description}
+        isNavExpandable
+        footer={
+          <WizardContextConsumer>
+            {({ activeStep }) => (
+              <div data-test={wizardCreateFooterDataTest(activeStep.name)}>
+                <PfWizardFooter>
+                  {footerList.find(f => f.name === activeStep.name)
+                    ?.footer ?? <WizardFooter />}
+                </PfWizardFooter>
+              </div>
+            )}
+          </WizardContextConsumer>
+        }
+      />
+    </TaskContextProvider>
   );
 };
