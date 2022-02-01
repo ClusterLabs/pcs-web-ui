@@ -21,8 +21,9 @@ export const useTask = () => {
       primitive.inGroup !== null || groupList.length > 0,
     candidateGroupsIds,
     memberResourcesIds:
-      groupList.find(g => g.id === state.groupId)?.resources.map(r => r.id)
-      ?? [],
+      groupList
+        .find(g => g.id === state.groupId)
+        ?.resources.map(r => r.id) ?? [],
 
     //actions
     updateState: (payload: ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]) => {
@@ -66,7 +67,12 @@ export const useTask = () => {
         key: { clusterName },
         payload: {
           resourceId: primitive.id,
-          oldGroupId: primitive.inGroup || "",
+          oldGroupId: primitive.inGroup ?? "",
+          groupId: primitive.inGroup ?? "",
+          action:
+            primitive.inGroup !== null && primitive.inGroup !== ""
+              ? "move-in-group"
+              : "set-group",
         },
       });
       task.open();

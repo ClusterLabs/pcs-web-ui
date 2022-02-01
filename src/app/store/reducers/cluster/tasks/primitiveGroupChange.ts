@@ -36,6 +36,18 @@ export const primitiveGroupChange: AppReducer<typeof initialState> = (
       return {
         ...state,
         ...action.payload,
+        ...(action.payload?.action === "set-group"
+          ? {
+              groupId: "",
+              adjacentResourceId: "",
+            }
+          : {}),
+        ...(action.payload?.action === "move-in-group"
+          ? {
+              groupId: action.payload?.oldGroupId ?? state.oldGroupId,
+              adjacentResourceId: "",
+            }
+          : {}),
       };
 
     case "RESOURCE.GROUP.CHANGE":
