@@ -10,7 +10,7 @@ export type ResourceGroupChangeActions = {
     type: "RESOURCE.GROUP.CHANGE.UPDATE";
     key: { clusterName: string };
     payload: Partial<ChangeGroupParams> & {
-      action?: "remove-group" | "set-group";
+      action?: "remove-group" | "set-group" | "move-in-group";
     };
   };
 

@@ -1,21 +1,17 @@
-import React from "react";
-import { Flex, FlexItem } from "@patternfly/react-core";
-
-import { FormGroup, FormRadioGroup, FormSelect, Select } from "app/view/share";
+import { FormSelect } from "app/view/share";
 
 import { useTask } from "./useTask";
+import { PositionSelect } from "./PositionSelect";
 
-export const GroupSelect: React.FC = () => {
+export const GroupSelect = () => {
   const {
     isGroupValid,
-    isAdjacentResourceValid,
     updateState,
     candidateGroupsIds,
-    memberResourcesIds,
-    state: { groupId, position, adjacentResourceId, showValidationErrors },
+    state: { groupId, showValidationErrors },
   } = useTask();
   return (
-    <div className="pf-u-mb-3xl">
+    <>
       <FormSelect
         id="select-group"
         label="Group"
@@ -32,39 +28,7 @@ export const GroupSelect: React.FC = () => {
         className="pf-u-mb-xl"
       />
 
-      <FormGroup
-        fieldId="select-position"
-        label="Position in group"
-        isRequired
-        showValidationErrors={showValidationErrors}
-        isValid={isAdjacentResourceValid}
-        helperTextInvalid="Please select a resource"
-      >
-        <Flex>
-          <FlexItem>
-            <FormRadioGroup
-              id="select-position"
-              options={["after", "before"]}
-              onChange={value => updateState({ position: value })}
-              selected={position}
-              isDisabled={groupId === ""}
-            />
-          </FlexItem>
-          <FlexItem>
-            <Select
-              id="select-adajcent-resource"
-              label="Resource"
-              placeholderText="Select a resource"
-              onSelect={value =>
-                updateState({ adjacentResourceId: value.toString() })
-              }
-              selections={adjacentResourceId}
-              optionsValues={memberResourcesIds}
-              isDisabled={groupId === ""}
-            />
-          </FlexItem>
-        </Flex>
-      </FormGroup>
-    </div>
+      <PositionSelect />
+    </>
   );
 };

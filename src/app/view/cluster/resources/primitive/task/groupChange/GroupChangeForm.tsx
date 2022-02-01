@@ -1,15 +1,21 @@
-import React from "react";
 import { Form, Radio } from "@patternfly/react-core";
 
 import { useTask } from "./useTask";
 import { GroupSelect } from "./GroupSelect";
+import { PositionSelect } from "./PositionSelect";
 
-export const GroupChangeForm: React.FC = () => {
+export const GroupChangeForm = () => {
   const {
     updateState,
     candidateGroupsIds,
     state: { action, resourceId, oldGroupId },
   } = useTask();
+
+  const updateAction = (newAction: typeof action) => (isChecked: boolean) => {
+    if (isChecked) {
+      updateState({ action: newAction });
+    }
+  };
 
   if (oldGroupId === "") {
     if (candidateGroupsIds.length === 0) {
@@ -23,38 +29,52 @@ export const GroupChangeForm: React.FC = () => {
 
     return (
       <Form className="pf-u-mb-3xl">
-        <GroupSelect />
+        <div className="pf-u-mb-3xl">
+          <GroupSelect />
+        </div>
       </Form>
     );
-  }
-
-  if (candidateGroupsIds.length === 0) {
-    return <>{`Remove resource "${resourceId}" from group "${oldGroupId}"`}</>;
   }
 
   return (
     <Form className="pf-u-mb-3xl">
       <Radio
+        id="move-in-group"
+        isChecked={action === "move-in-group"}
+        name="move-in-group"
+        onChange={updateAction("move-in-group")}
+        label={`Move resource "${resourceId}" inside current group "${oldGroupId}"`}
+      />
+      {action === "move-in-group" && (
+        <div className="pf-u-mb-md pf-u-ml-lg">
+          <PositionSelect />
+        </div>
+      )}
+      <Radio
         id="remove-group"
         isChecked={action === "remove-group"}
         name="remove-group"
-        onChange={isChecked =>
-          updateState({ action: isChecked ? "remove-group" : "set-group" })
-        }
+        onChange={updateAction("remove-group")}
         label={`Remove resource "${resourceId}" from the group "${oldGroupId}"`}
       />
 
-      <Radio
-        id="set-group"
-        isChecked={action === "set-group"}
-        name="set-group"
-        onChange={isChecked =>
-          updateState({ action: isChecked ? "set-group" : "remove-group" })
-        }
-        label={`Move resource "${resourceId}" to a group`}
-      />
+      {candidateGroupsIds.length > 0 && (
+        <>
+          <Radio
+            id="set-group"
+            isChecked={action === "set-group"}
+            name="set-group"
+            onChange={updateAction("set-group")}
+            label={`Move resource "${resourceId}" to a group`}
+          />
 
-      {action === "set-group" && <GroupSelect />}
+          {action === "set-group" && (
+            <div className="pf-u-mb-3xl pf-u-ml-lg">
+              <GroupSelect />
+            </div>
+          )}
+        </>
+      )}
     </Form>
   );
 };

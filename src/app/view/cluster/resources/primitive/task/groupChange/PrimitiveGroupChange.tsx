@@ -1,11 +1,9 @@
-import React from "react";
-
 import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
 import { GroupChangeForm } from "./GroupChangeForm";
 
-export const PrimitiveGroupChange: React.FC = () => {
+export const PrimitiveGroupChange = () => {
   const {
     isOpened,
     isGroupValid,
