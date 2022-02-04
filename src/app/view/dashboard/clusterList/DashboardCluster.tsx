@@ -32,7 +32,7 @@ export const DashboardCluster: React.FC<{
       isExpanded={EXPANDABLE_COLUMNS.includes(expanded)}
       data-test={`cluster ${cluster.name}`}
     >
-      <tr role="row">
+      <tr role="row" data-test="loaded">
         <DashboardClusterCellName clusterName={cluster.name} />
         <Toggle expandKey={COLUMNS.ISSUES} data-test="issues">
           <DashboardClusterCellSummary

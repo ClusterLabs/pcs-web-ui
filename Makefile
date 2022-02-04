@@ -86,6 +86,10 @@ else
 	npx jest --watch --config=jest.config-headed.js --testPathPattern=src/test/scenes/$(TEST)
 endif
 
+testc:
+	@echo Launching jest, please wait for a while...
+	@./.bin/run-cluster-tests.sh
+
 clean:
 	rm -rf build
 	rm pcs-web-ui-node-modules-*.tar.xz

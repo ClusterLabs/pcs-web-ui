@@ -11,7 +11,9 @@ const CLUSTER_ERROR = dt("cluster-list", "cluster error");
 
 const displayClusters = async () => {
   await page.goto(location.dashboard);
-  await page.waitForSelector([CLUSTER_OK, CLUSTER_ERROR].join(","));
+  await page.waitForSelector(
+    [dt(CLUSTER_OK, "loaded"), dt(CLUSTER_ERROR, "loaded")].join(","),
+  );
 };
 
 type ClusterStatus = api.PayloadOf<typeof clusterStatus>;

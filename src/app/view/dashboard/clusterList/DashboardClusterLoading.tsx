@@ -9,8 +9,8 @@ export const DashboardClusterLoading: React.FC<{ clusterName: string }> = ({
   clusterName,
 }) => {
   return (
-    <Table.Body data-test={`cluster-loading ${clusterName}`}>
-      <tr role="row">
+    <Table.Body data-test={`cluster ${clusterName}`}>
+      <tr role="row" data-test="loading">
         <DashboardClusterCellName clusterName={clusterName} />
         <td colSpan={4}>
           <Spinner size="md" />

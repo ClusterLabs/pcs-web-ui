@@ -19,9 +19,7 @@ export const fillAuthForm = async (
 
 export const select = async (xPathComponentSelector: string, value: string) => {
   await page.click(xPathComponentSelector);
-  await page.click(
-    `${xPathComponentSelector}//*[contains(text(), "${value}")]`,
-  );
+  await page.click(`${xPathComponentSelector}//*[contains(text(), "${value}")]`);
 };
 
 export const radioGroup = async (context: string, value: string) => {
@@ -60,4 +58,28 @@ export const assertReview = async (
       );
     }
   });
+};
+
+export const submitLoginForm = async ({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}) => {
+  await page.type(dt("form-login", '[name="pf-login-username-id"]'), username);
+  await page.type(dt("form-login", '[name="pf-login-password-id"]'), password);
+  await page.click(dt("form-login", 'button[type="submit"]'));
+};
+
+export const waitForDashboardClusterListLoaded = async () => {
+  await page.waitForSelector(dt("cluster-list"));
+};
+
+export const getDashboardClusterNameList = async () => {
+  return await page.$$eval(dt("cluster-list", "^cluster "), clusterElements =>
+    clusterElements.map(
+      e => e.querySelector("[data-test='name']")?.textContent ?? "",
+    ),
+  );
 };
