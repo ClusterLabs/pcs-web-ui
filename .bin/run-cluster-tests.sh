@@ -1,11 +1,13 @@
 #!/bin/sh
 
-get_config() {
-  npx ts-node --skip-project .bin/get-cluster-tests-config.ts
-}
+DEV_CONFIG=".dev/cluster-test-conf.sh"
+if [ -f "$DEV_CONFIG" ]; then
+	# shellcheck disable=SC1090
+	. "$DEV_CONFIG"
+fi
 
-
-npx jest --watch --config=jest.config.js --runInBand \
-  --testPathPattern=src/test/clusterBackend  \
-  --globals="'$(get_config)'"
-
+npx jest \
+	--watch \
+	--config=jest.config.js \
+	--runInBand \
+	--testPathPattern=src/test/clusterBackend

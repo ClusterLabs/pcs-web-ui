@@ -1,15 +1,9 @@
 import { workflow } from "test/tools";
 
-declare global {
-  var pcs: {
-    host: string;
-    port: string;
-    username: string;
-    password: string;
-  };
-}
-
-const { host, port, username, password } = global.pcs;
+const host = process.env.PCSD_HOST1 || "";
+const port = process.env.PCSD_PORT1 || 2224;
+const username = process.env.PCSD_USERNAME1 ?? "";
+const password = process.env.PCSD_PASSWORD1 ?? "";
 
 describe("Test", () => {
   it("should work", async () => {
