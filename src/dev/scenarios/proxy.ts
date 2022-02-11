@@ -6,13 +6,16 @@ import * as https from "https";
 // Otherwise you get: TypeError: this._implicitHeader is not a function
 // because of wrong context for (internal) `this`
 
+const host = process.env.PCSD_HOST1 || "";
+const port = process.env.PCSD_PORT1 || 2224;
+
 http
   .createServer((request, response) => {
     console.log(request.url, request.method);
 
     const options = {
-      host: "r851",
-      port: 2224,
+      host,
+      port,
       path: request.url,
       method: request.method,
       rejectUnauthorized: false,
