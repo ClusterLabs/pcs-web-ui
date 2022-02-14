@@ -1,9 +1,9 @@
 import { workflow } from "test/tools";
 
-const host = process.env.PCSD_HOST1 || "";
-const port = process.env.PCSD_PORT1 || 2224;
-const username = process.env.PCSD_USERNAME1 ?? "";
-const password = process.env.PCSD_PASSWORD1 ?? "";
+const host = process.env.PCSD_HOST_1 || "";
+const port = process.env.PCSD_PORT_1 || 2224;
+const username = process.env.PCSD_USERNAME_1 ?? "";
+const password = process.env.PCSD_PASSWORD_1 ?? "";
 
 describe("Test", () => {
   it("should work", async () => {
