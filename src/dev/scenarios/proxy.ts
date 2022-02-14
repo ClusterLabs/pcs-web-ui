@@ -9,9 +9,21 @@ import * as https from "https";
 const host = process.env.PCSD_HOST1 || "";
 const port = process.env.PCSD_PORT1 || 2224;
 
+const debug = process.env.DEBUG || false;
+
+const log = (...args: unknown[]) => {
+  if (debug !== false) {
+    console.log(...args);
+  }
+};
+
 http
   .createServer((request, response) => {
-    console.log(request.url, request.method);
+    log(
+      `${request.method?.toLowerCase() === "post" ? "POST" : "GET "} ${
+        request.url
+      }`,
+    );
 
     const options = {
       host,
@@ -19,22 +31,13 @@ http
       path: request.url,
       method: request.method,
       rejectUnauthorized: false,
-      requestCert: true,
-      agent: false,
       headers: request.headers,
     };
 
-    const onNodeResponse = (nodeResponse: http.IncomingMessage) => {
-      nodeResponse.on("data", function (chunk) {
-        response.write(chunk, "binary");
-      });
-      nodeResponse.on("end", function () {
-        response.end;
-      });
+    const nodeRequest = https.request(options, function (nodeResponse) {
+      nodeResponse.pipe(response);
       response.writeHead(nodeResponse.statusCode || 500, nodeResponse.headers);
-    };
-
-    const nodeRequest = https.request(options, onNodeResponse);
+    });
 
     request.addListener("data", function (chunk) {
       nodeRequest.write(chunk, "binary");
