@@ -1,7 +1,8 @@
 import { wizardCreateFooterDataTest } from "app/view/share/task/wizardCreateFooterDataTest";
 
 import { dt, mkXPath } from "test/tools/selectors";
-import { intercept, location, route, workflow } from "test/tools";
+import { intercept, location, route } from "test/tools";
+import * as workflow from "test/workflow";
 
 const importButton = dt("import-existing-cluster");
 
@@ -79,7 +80,7 @@ describe("Import existng cluster", () => {
     ]);
     await enterNodeName();
     await page.waitForSelector(task.prepareAuth);
-    await workflow.fillAuthForm(
+    await workflow.auth.fillForm(
       data.nodeName,
       task.view,
       data.password,

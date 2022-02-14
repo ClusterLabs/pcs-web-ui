@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import { intercept, route, shortcuts } from "test/tools";
-import { assertReview } from "test/tools/workflows";
+import * as workflow from "test/workflow";
 
 import { TASK, url } from "./common";
 
@@ -41,7 +41,7 @@ describe("Fence device create task", () => {
     await page.click(TASK.NEXT);
     //skip settings
     await page.click(TASK.NEXT);
-    await assertReview(TASK.VIEW, {
+    await workflow.task.assertReview(TASK.VIEW, {
       name: "F1",
       agentName: "fence_apc",
       instanceAttr_ip: "127.0.0.1",

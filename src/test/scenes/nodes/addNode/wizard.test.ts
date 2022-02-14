@@ -1,4 +1,5 @@
-import { intercept, route, shortcuts, workflow } from "test/tools";
+import { intercept, route, shortcuts } from "test/tools";
+import * as workflow from "test/workflow";
 
 import { TASK, url } from "./common";
 
@@ -90,7 +91,7 @@ describe("Node add task", () => {
       ],
     });
     await enterNodeName(NODE);
-    await workflow.fillAuthForm(NODE, TASK.VIEW, PASSWORD, ADDR, PORT);
+    await workflow.auth.fillForm(NODE, TASK.VIEW, PASSWORD, ADDR, PORT);
     await page.click(TASK.NEXT);
     await page.waitForSelector(TASK.PREPARE_CLUSTER.SUCCESS);
     await page.click(TASK.NEXT); // go to adresses

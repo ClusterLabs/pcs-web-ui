@@ -1,5 +1,5 @@
 import { intercept, route } from "test/tools";
-import { hasFieldError } from "test/tools/workflows";
+import * as workflow from "test/workflow";
 
 import {
   clusterName,
@@ -8,6 +8,8 @@ import {
   task,
   url,
 } from "./common";
+
+const { hasFieldError } = workflow.form;
 
 describe("Cluster setup", () => {
   afterEach(intercept.stop);

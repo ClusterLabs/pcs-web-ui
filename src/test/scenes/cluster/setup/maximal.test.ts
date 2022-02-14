@@ -1,5 +1,5 @@
 import { intercept, route } from "test/tools";
-import { assertReview, radioGroup, select } from "test/tools/workflows";
+import * as workflow from "test/workflow";
 
 import {
   clusterName,
@@ -8,6 +8,8 @@ import {
   task,
   url,
 } from "./common";
+
+const { select, radioGroup } = workflow.form;
 
 type SetupData = Extract<
   Parameters<typeof route.clusterSetup>[0]["payload"]["setupData"],
@@ -162,10 +164,7 @@ describe("Cluster setup", () => {
 
     // STEP: Quorum options
     // -----------------------
-    await radioGroup(
-      task.quorum.autoTieBreaker,
-      onOff(quorum.auto_tie_breaker),
-    );
+    await radioGroup(task.quorum.autoTieBreaker, onOff(quorum.auto_tie_breaker));
     await radioGroup(
       task.quorum.lastManStanding,
       onOff(quorum.last_man_standing),
@@ -214,7 +213,7 @@ describe("Cluster setup", () => {
 
     // STEP: Review
     //-------------
-    await assertReview(task.view, {
+    await workflow.task.assertReview(task.view, {
       clusterName,
       nodeNames: nodeNameList.join("\n"),
       [`link.0.${nodeNameList[0]}`]: addrs[0][0],

@@ -2,9 +2,11 @@ import * as responses from "dev/responses";
 
 import { intercept, location, route } from "test/tools";
 import { mkXPath } from "test/tools/selectors";
-import { formSwitch, hasFieldError, radioGroup } from "test/tools/workflows";
+import * as workflow from "test/workflow";
 
 import { interceptForPermissions } from "./common";
+
+const { formSwitch, hasFieldError, radioGroup } = workflow.form;
 
 type Permission = ReturnType<
   typeof responses.permissions
