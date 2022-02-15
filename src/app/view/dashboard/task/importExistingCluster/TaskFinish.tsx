@@ -39,7 +39,7 @@ export const TaskFinish = ({
             />
           )}
           {importCall.status === "success" && (
-            <TaskSuccess title={"Cluster has been added sucessfully"} />
+            <TaskSuccess title={"Cluster has been added successfully"} />
           )}
         </>
       )}

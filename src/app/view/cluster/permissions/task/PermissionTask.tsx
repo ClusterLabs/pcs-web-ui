@@ -43,7 +43,7 @@ export const PermissionTask = () => {
           waitTitle={`${isCreate ? "Creating" : "Updating"} permission`}
           successTitle={`Permission ${
             isCreate ? "created" : "updated"
-          } sucessfully`}
+          } successfully`}
           failTitle={`Permission ${isCreate ? "create" : "update"} failed`}
           tryAgain={permissionCreate}
           recoverFromError={recoverFromError}

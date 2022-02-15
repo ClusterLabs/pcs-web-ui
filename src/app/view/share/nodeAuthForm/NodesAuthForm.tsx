@@ -42,7 +42,7 @@ export const NodesAuthForm: React.FC<{
           <Alert
             isInline
             variant="success"
-            title="Nodes sucessfully authenticated"
+            title="Nodes successfully authenticated"
           >
             {`${
               nodesResults.success.length === 1 ? "Node" : "Nodes"
