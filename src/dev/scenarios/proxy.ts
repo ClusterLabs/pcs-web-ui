@@ -6,8 +6,8 @@ import * as https from "https";
 // Otherwise you get: TypeError: this._implicitHeader is not a function
 // because of wrong context for (internal) `this`
 
-const host = process.env.PCSD_HOST_1 || "";
-const port = process.env.PCSD_PORT_1 || 2224;
+const host = process.env.PCSD_HOST_PROXY || "";
+const port = process.env.PCSD_PORT_PROXY || 2224;
 
 const debug = process.env.DEBUG || false;
 
