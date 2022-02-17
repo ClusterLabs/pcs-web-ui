@@ -2,28 +2,32 @@ import { dt } from "test/tools/selectors";
 
 import { confirmDialog } from "../confirmDialog";
 
-export const cluster = (clusterName: string) => {
-  const confirmation = confirmDialog("destroy");
+const clusterAction = (clusterName: string, action: "destroy" | "remove") => {
+  const confirmation = confirmDialog(action);
   const click = async () => {
     await page.click(
       dt("cluster-list", `cluster ${clusterName}`, '[aria-label="Actions"]'),
     );
-    await page.click(dt("destroy-cluster"));
+    await page.click(dt(`${action}-cluster`));
     await confirmation.isDisplayed();
   };
+
   return {
-    destroy: {
-      click,
+    click,
 
-      cancel: async () => {
-        await confirmation.cancel();
-        await confirmation.isHidden();
-      },
+    cancel: async () => {
+      await confirmation.cancel();
+      await confirmation.isHidden();
+    },
 
-      launch: async () => {
-        await click();
-        await confirmation.confirm();
-      },
+    launch: async () => {
+      await click();
+      await confirmation.confirm();
     },
   };
 };
+
+export const cluster = (clusterName: string) => ({
+  destroy: clusterAction(clusterName, "destroy"),
+  remove: clusterAction(clusterName, "remove"),
+});

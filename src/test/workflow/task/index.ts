@@ -1,2 +1,3 @@
 export * from "./common";
-export * as clusterSetup from "./clusterSetup";
+export { task as clusterSetup } from "./clusterSetup";
+export { task as importExistingCluster } from "./importExistingCluster";

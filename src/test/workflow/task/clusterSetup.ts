@@ -1,28 +1,31 @@
-import { dt } from "test/tools/selectors";
 import { mkXPath } from "test/tools/selectors";
 
-import { clickBackFrom, clickNextFrom } from "./utils";
+import { prepareCommonTask } from "./utils";
 
-const view = "task-cluster-setup";
-
-const inView = (...keys: string[]) => mkXPath(view, ...keys);
-
-type Steps =
+const commonTask = prepareCommonTask<
   | "Cluster name and nodes"
   | "Check cluster name and nodes"
   | "Transport links"
   | "Transport Options"
   | "Quorum"
   | "Totem"
-  | "Review";
+  | "Review"
+>({
+  taskKey: "task-cluster-setup",
+  openKey: "setup-cluster",
+});
 
-export const selectors = {
-  task: view,
+const { selectors: commonSelectors, inView, taskKey } = commonTask;
+
+const selectors = {
+  ...commonSelectors,
   clusterName: inView("cluster-name"),
   nodeNameAt: (i: number) => inView(`node-name-${i}`),
   authPasswordAt: (nodeName: string) =>
     inView(`auth-node-${nodeName}-password`),
-  lastNode: `(${mkXPath(view)}//*[contains(@data-test, "node-name-")])[last()]`,
+  lastNode: `(${mkXPath(
+    taskKey,
+  )}//*[contains(@data-test, "node-name-")])[last()]`,
   knetTransport: {
     addLink: inView("knet-link-add"),
     advancedOptions: `${inView("link-advanced-options")}//button`,
@@ -79,39 +82,28 @@ export const selectors = {
     window_size: inView("totem.window_size"),
   },
   reviewAndFinish: inView("review-and-finish"),
-  sucess: inView("task-success"),
 };
+const task = {
+  ...commonTask,
+  selectors,
 
-export const nextFrom = clickNextFrom<Steps>(view);
-export const backFrom = clickBackFrom<Steps>(view);
+  fillClusterNameAndNodes: async ({
+    clusterName,
+    nodeNameList,
+  }: {
+    clusterName: string;
+    nodeNameList: string[];
+  }) => {
+    await page.type(selectors.clusterName, clusterName);
+    for (let i = 0; i < nodeNameList.length; i++) {
+      // WARNING: only up to 3 nodes
+      // TODO: add more nodes if required
+      await page.type(selectors.nodeNameAt(i), nodeNameList[i]);
+    }
+  },
 
-export const open = async () => {
-  await page.click(dt("setup-cluster"));
+  reviewAndFinish: async () => {
+    await page.click(selectors.reviewAndFinish);
+  },
 };
-
-export const close = async () => {
-  await page.click(dt("task-close"));
-};
-
-export const fillClusterNameAndNodes = async ({
-  clusterName,
-  nodeNameList,
-}: {
-  clusterName: string;
-  nodeNameList: string[];
-}) => {
-  await page.type(selectors.clusterName, clusterName);
-  for (let i = 0; i < nodeNameList.length; i++) {
-    // WARNING: only up to 3 nodes
-    // TODO: add more nodes if required
-    await page.type(selectors.nodeNameAt(i), nodeNameList[i]);
-  }
-};
-
-export const reviewAndFinish = async () => {
-  await page.click(selectors.reviewAndFinish);
-};
-
-export const waitForSuccess = async () => {
-  await page.waitForSelector(selectors.sucess);
-};
+export { task };
