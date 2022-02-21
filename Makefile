@@ -11,10 +11,6 @@ ifndef TEST
 	TEST=""
 endif
 
-ifndef TEST_HEADLESS
-	TEST_HEADLESS=true
-endif
-
 ifndef BUILD_USE_EXISTING_NODE_MODULES
 	BUILD_USE_EXISTING_NODE_MODULES=false
 endif
@@ -80,15 +76,10 @@ testu:
 
 #end2end tests
 teste:
-ifeq ($(TEST_HEADLESS),true)
-	npx jest --watch --config=jest.config.js --testPathPattern=src/test/scenes/$(TEST)
-else
-	npx jest --watch --config=jest.config-headed.js --testPathPattern=src/test/scenes/$(TEST)
-endif
+	@./.bin/run-tests.sh
 
 testc:
-	@echo Launching jest, please wait for a while...
-	@./.bin/run-cluster-tests.sh
+	@./.bin/run-tests.sh cluster
 
 clean:
 	rm -rf build
