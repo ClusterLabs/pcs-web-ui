@@ -10,6 +10,7 @@ usage() {
 }
 
 run() {
+	SCENARIO_NAME_SELECTED="$1"
 	DEV_CONFIG=".dev/cluster-test-conf.sh"
 	if [ -f "$DEV_CONFIG" ]; then
 		# shellcheck disable=SC1090
@@ -21,7 +22,7 @@ run() {
 		--respawn \
 		--transpile-only \
 		--rs \
-		"$SCENARIO_DIR/$1"
+		"$SCENARIO_DIR/$SCENARIO_NAME_SELECTED"
 }
 
 list_scenarios() {
