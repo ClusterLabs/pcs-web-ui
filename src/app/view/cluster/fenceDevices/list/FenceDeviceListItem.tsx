@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DataListCell,
   DataListItem,
@@ -16,17 +15,22 @@ import { FenceDeviceListCellStatus } from "./FenceDeviceListCellStatus";
 import { FenceDeviceListCellName } from "./FenceDeviceListCellName";
 import { FenceDeviceListCellType } from "./FenceDeviceListCellType";
 
-export const FenceDeviceListItem: React.FC<{
+export const FenceDeviceListItem = ({
+  fenceDevice,
+}: {
   fenceDevice: FenceDevice;
-}> = ({ fenceDevice }) => {
+}) => {
   const { selectedItemUrlName: fenceDeviceId } = useGroupDetailViewContext();
   return (
-    <DataListItem aria-labelledby={fenceDevice.id}>
+    <DataListItem
+      aria-labelledby={fenceDevice.id}
+      data-test={`fence-device ${fenceDevice.id}`}
+    >
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
             <>
-              <DataListCell>
+              <DataListCell data-test="name">
                 <FenceDeviceListCellName fenceDevice={fenceDevice} />
               </DataListCell>
               <DataListCell>

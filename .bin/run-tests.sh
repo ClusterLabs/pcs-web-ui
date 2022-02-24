@@ -12,9 +12,6 @@ run() {
 		. "$DEV_CONFIG"
 	fi
 
-	WATCH=false
-	[ -n "$1" ] && WATCH="$1"
-
 	CONFIG=jest.config.js
 	[ "$PCS_WUI_TESTS_HEADLESS" = "false" ] && CONFIG=jest.config-headed.js
 
@@ -31,10 +28,11 @@ run() {
 	fi
 
 	npx jest \
-		--watch="$WATCH" \
 		--config="$CONFIG" \
 		--runInBand="$RUN_IN_BAND" \
-		--testPathPattern="$PATH_PATTERN"
+		--testPathPattern="$PATH_PATTERN" \
+		--detectOpenHandles \
+		--forceExit
 }
 
 inotifyRun() {
@@ -50,8 +48,8 @@ inotifyRun() {
 if [ -x "$(command -v inotifywait)" ]; then
 	inotifyRun
 else
-	echo "inotifywait is not installed; running just jest with --watch"
+	echo "inotifywait is not installed; running just onetime jest"
 	echo "Tip: install inotifywait." \
 		"Then you get a possibility to watch changes in .dev/cluster-test-conf.sh"
-	run true
+	run
 fi

@@ -1,4 +1,11 @@
-import { dashboard, login, notification, task } from "test/workflow";
+import {
+  breadcrumb,
+  cluster,
+  dashboard,
+  login,
+  notification,
+  task,
+} from "test/workflow";
 
 const protocol = process.env.PCSD_PROTOCOL_1 || "https";
 const host = process.env.PCSD_HOST_1 || "";
@@ -8,32 +15,59 @@ const username = process.env.PCSD_USERNAME_1 ?? "";
 const password = process.env.PCSD_PASSWORD_1 ?? "";
 
 const clusterName = "test-cluster";
+const fenceDeviceName = "F1";
+const fenceAgentName = "fence_xvm";
 
-describe("Test", () => {
-  it("should work", async () => {
+describe("Web ui on one node cluster", () => {
+  it("should succeed with essential features", async () => {
     await page.goto(`${protocol}://${host}:${port}/ui/`);
 
     await login.submitForm({ username, password });
 
     await dashboard.clusterList.waitForLoaded();
-    await assertClusterNameListIs([]); // we expect to start with no cluster
+    // we expect to start with no cluster
+    await dashboard.clusterList.assertNamesAre([]);
 
     await setupCluster({ clusterName, nodeNameList: [nodeName] });
-    await assertClusterNameListIs([clusterName]);
+    await dashboard.clusterList.assertNamesAre([clusterName]);
 
     await removeCluster(clusterName);
-    await assertClusterNameListIs([]);
+    await dashboard.clusterList.assertNamesAre([]);
 
     await importExistingCluster(nodeName);
-    await assertClusterNameListIs([clusterName]);
+    await dashboard.clusterList.assertNamesAre([clusterName]);
 
+    await dashboard.clusterList.goToCluster(clusterName);
+
+    await cluster.selectTab("fence-devices");
+    await cluster.fenceDevices.assertNamesAre([]);
+    await createFenceDevice(fenceDeviceName, fenceAgentName);
+    await cluster.fenceDevices.assertNamesAre([fenceDeviceName]);
+
+    await breadcrumb.gotoDashboard();
     await destroyCluster(clusterName);
-    await assertClusterNameListIs([]);
-  }, 30000);
+    await dashboard.clusterList.assertNamesAre([]);
+  }, 60000);
 });
 
-const assertClusterNameListIs = async (clusterNameList: string[]) => {
-  expect(await dashboard.clusterList.getNameList()).toEqual(clusterNameList);
+const createFenceDevice = async (
+  fenceDeviceName: string,
+  agentName: string,
+) => {
+  const { fillNameAndAgent, nextFrom, open, waitForSuccess, close } =
+    task.fenceDeviceCreate;
+
+  await open();
+  await fillNameAndAgent(fenceDeviceName, agentName);
+  await nextFrom("Name and type");
+  await nextFrom("Instance attributes");
+  await nextFrom("Settings");
+  await Promise.all([
+    page.waitForResponse(/.*\/cluster_status$/),
+    nextFrom("Review"),
+    waitForSuccess(),
+  ]);
+  await close();
 };
 
 const removeCluster = async (clusterName: string) => {
@@ -43,6 +77,8 @@ const removeCluster = async (clusterName: string) => {
     notification.waitForSuccess(),
     dashboard.cluster(clusterName).remove.launch(),
   ]);
+  // give page chance to redraw after loading imported-cluster-list
+  await page.waitForTimeout(100);
 };
 
 const destroyCluster = async (clusterName: string) => {
@@ -52,6 +88,8 @@ const destroyCluster = async (clusterName: string) => {
     notification.waitForSuccess(),
     dashboard.cluster(clusterName).destroy.launch(),
   ]);
+  // give page chance to redraw after loading imported-cluster-list
+  await page.waitForTimeout(100);
 };
 
 const importExistingCluster = async (nodeName: string) => {
@@ -70,6 +108,7 @@ const importExistingCluster = async (nodeName: string) => {
   await waitForCheckNodeSuccess();
   await Promise.all([
     page.waitForResponse(/.*\/imported-cluster-list$/),
+    page.waitForResponse(/.*\/cluster_status$/),
     nextFrom("Check node name"),
   ]);
   await waitForSuccess();
@@ -84,7 +123,7 @@ const setupCluster = async ({
   nodeNameList: string[];
 }) => {
   const {
-    close,
+    startAndClose,
     fillClusterNameAndNodes,
     nextFrom,
     open,
@@ -100,5 +139,5 @@ const setupCluster = async ({
     nextFrom("Review"),
   ]);
   await waitForSuccess();
-  await close();
+  await startAndClose();
 };

@@ -102,6 +102,12 @@ const task = {
     }
   },
 
+  startAndClose: async () => {
+    await page.click(
+      inView("task-success", "secondary-action start-cluster-and-close"),
+    );
+  },
+
   reviewAndFinish: async () => {
     await page.click(selectors.reviewAndFinish);
   },

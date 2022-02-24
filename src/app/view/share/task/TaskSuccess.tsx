@@ -54,7 +54,14 @@ export const TaskSuccess = ({
       <EmptyStateSecondaryActions>
         {secondaryActions
           && Object.entries(secondaryActions).map(([label, action]) => (
-            <Button key={label} variant="link" onClick={action}>
+            <Button
+              key={label}
+              variant="link"
+              onClick={action}
+              data-test={`secondary-action ${label
+                .toLowerCase()
+                .replaceAll(" ", "-")}`}
+            >
               {label}
             </Button>
           ))}

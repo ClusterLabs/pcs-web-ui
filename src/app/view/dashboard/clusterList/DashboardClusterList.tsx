@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
@@ -53,9 +52,11 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardClusterList: React.FC<{
+export const DashboardClusterList = ({
+  importedClusterNameList,
+}: {
   importedClusterNameList: Parameters<typeof selectors.getClusterMap>[0];
-}> = ({ importedClusterNameList }) => {
+}) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   const clusterMap = useSelector(
     selectors.getClusterMap(importedClusterNameList),

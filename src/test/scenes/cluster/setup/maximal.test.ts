@@ -4,9 +4,14 @@ import * as workflow from "test/workflow";
 import { clusterName, interceptForClusterSetup, nodeNameList } from "./common";
 
 const { select, radioGroup } = workflow.form;
-const { fillClusterNameAndNodes, nextFrom, open, waitForSuccess, selectors } =
-  workflow.task.clusterSetup;
-const { assertReview } = workflow.task;
+const {
+  assertReview,
+  fillClusterNameAndNodes,
+  nextFrom,
+  open,
+  waitForSuccess,
+  selectors,
+} = workflow.task.clusterSetup;
 
 type SetupData = Extract<
   Parameters<typeof route.clusterSetup>[0]["payload"]["setupData"],
@@ -221,7 +226,7 @@ describe("Cluster setup", () => {
 
     // STEP: Review
     //-------------
-    await assertReview(selectors.task, {
+    await assertReview({
       clusterName,
       nodeNames: nodeNameList.join("\n"),
       [`link.0.${nodeNameList[0]}`]: addrs[0][0],

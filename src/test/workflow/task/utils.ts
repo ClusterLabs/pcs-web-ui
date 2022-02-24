@@ -2,6 +2,8 @@ import { wizardCreateFooterDataTest as createFooterDataTest } from "app/view/sha
 
 import { dt, mkXPath } from "test/tools/selectors";
 
+import { assertReview } from "./common";
+
 const clickMoveFrom = <STEP_NAME extends string>(
   contexts: string | string[],
   buttonKey: "task-next" | "task-back",
@@ -22,6 +24,12 @@ export const prepareCommonTask = <STEP_NAME extends string>({
   openKey: string;
 }) => {
   const inView = (...keys: string[]) => mkXPath(taskKey, ...keys);
+  const selectors = {
+    task: dt(taskKey),
+    success: inView("task-success"),
+    close: inView("task-close"),
+    error: inView("task-error"),
+  };
   return {
     taskKey,
     openKey,
@@ -38,13 +46,10 @@ export const prepareCommonTask = <STEP_NAME extends string>({
     waitForError: async () => {
       await page.waitForSelector(inView("task-error"));
     },
-    selectors: {
-      task: dt(taskKey),
-      success: inView("task-success"),
-      close: inView("task-close"),
-      error: inView("task-error"),
-    },
+    selectors,
     nextFrom: clickMoveFrom<STEP_NAME>(taskKey, "task-next"),
     backFrom: clickMoveFrom<STEP_NAME>(taskKey, "task-back"),
+    assertReview: async (nameValueMap: Parameters<typeof assertReview>[1]) =>
+      await assertReview(selectors.task, nameValueMap),
   };
 };

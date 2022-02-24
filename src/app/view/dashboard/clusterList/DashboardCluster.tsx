@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Cluster } from "app/view/cluster/types";
 import { IssueList, Table } from "app/view/share";
 
@@ -20,9 +18,7 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
-export const DashboardCluster: React.FC<{
-  cluster: Cluster;
-}> = ({ cluster }) => {
+export const DashboardCluster = ({ cluster }: { cluster: Cluster }) => {
   const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
   });

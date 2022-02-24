@@ -10,3 +10,13 @@ export const getNameList = async () => {
     ),
   );
 };
+
+export const goToCluster = async (clusterName: string) => {
+  const clusterList = await getNameList();
+  expect(clusterList).toContain(clusterName);
+  await page.click(dt("cluster-list", `cluster ${clusterName}`, "name", "link"));
+};
+
+export const assertNamesAre = async (clusterNameList: string[]) => {
+  expect(await getNameList()).toEqual(clusterNameList);
+};
