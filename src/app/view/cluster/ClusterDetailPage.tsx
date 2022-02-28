@@ -20,7 +20,7 @@ import { ClusterDetail } from "./ClusterDetail";
 import { ClusterDetailBreadcrumb } from "./ClusterDetailBreadcrumb";
 import { ClusterPermissionsPage } from "./permissions";
 
-const tabList = [
+export const clusterPageTabList = [
   "detail",
   "nodes",
   "resources",
@@ -34,7 +34,7 @@ export const ClusterDetailPage: React.FC<{ clusterName: string }> = ({
   clusterName,
 }) => {
   const { dataLoaded } = useClusterState(clusterName);
-  const { currentTab, matchedContext } = useUrlTabs(tabList);
+  const { currentTab, matchedContext } = useUrlTabs(clusterPageTabList);
 
   return (
     <Page>
@@ -45,7 +45,7 @@ export const ClusterDetailPage: React.FC<{ clusterName: string }> = ({
           </StackItem>
           <StackItem>
             <UrlTabs
-              tabList={tabList}
+              tabList={clusterPageTabList}
               currentTab={currentTab}
               data-test="cluster"
             />
