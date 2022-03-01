@@ -4,7 +4,6 @@ import { endpoints } from "app/backend/endpoints";
 
 import * as intercept from "./interception";
 import * as route from "./routes";
-import * as workflow from "./workflows";
 import * as shortcuts from "./shortcuts";
 import { location } from "./backendAddress";
 
@@ -48,4 +47,4 @@ export const payload: Payloads = Object.entries(endpoints)
     {} as Payloads,
   );
 
-export { intercept, route, location, workflow, shortcuts };
+export { intercept, route, location, shortcuts };

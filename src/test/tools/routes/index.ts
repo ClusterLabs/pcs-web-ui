@@ -41,6 +41,23 @@ const paramsToBody = (params: [string, string][]) =>
     {},
   );
 
+export const login = ({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}) => ({
+  url: url.login,
+  body: { username, password },
+  text: "ajax-id-not-important",
+});
+
+export const logout = () => ({
+  url: url.logout,
+  text: "OK",
+});
+
 export const can_add_cluster_or_nodes = ({
   nodeNameList,
   clusterName,

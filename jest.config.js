@@ -3,6 +3,9 @@ module.exports = {
   moduleDirectories: ["node_modules", "src"],
   testEnvironmentOptions: {
     "jest-playwright": {
+      contextOptions: {
+        ignoreHTTPSErrors: true,
+      },
       // browsers: ["firefox", "chromium", "webkit"],
     },
   },

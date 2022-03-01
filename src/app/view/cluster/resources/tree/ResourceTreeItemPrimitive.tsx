@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Primitive } from "app/view/cluster/types";
 
 import { ResourceTreeItem } from "./ResourceTreeItem";

@@ -8,8 +8,8 @@ export const ClusterDetailBreadcrumb: React.FC<{ clusterName: string }> = ({
 }) => {
   const dispatch = useDispatch();
   return (
-    <Breadcrumb>
-      <BreadcrumbItem component="span">
+    <Breadcrumb data-test="breadcrumb">
+      <BreadcrumbItem component="span" data-test="dashboard">
         <Link to={location.dashboard}>Clusters</Link>
       </BreadcrumbItem>
       <BreadcrumbItem

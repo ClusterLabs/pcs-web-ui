@@ -89,6 +89,7 @@ export const DropdownActionListMenu: React.FC<{
               Cancel
             </Button>,
           ]}
+          data-test={`confirm ${confirm.name}`}
         >
           {confirm.confirm.description}
         </Modal>

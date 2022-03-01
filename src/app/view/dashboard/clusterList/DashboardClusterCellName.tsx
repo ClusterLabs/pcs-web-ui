@@ -1,9 +1,9 @@
-import React from "react";
-
 import { Link, location } from "app/view/share";
 
-export const DashboardClusterCellName: React.FC<{ clusterName: string }> = ({
+export const DashboardClusterCellName = ({
   clusterName,
+}: {
+  clusterName: string;
 }) => {
   return (
     <th role="rowheader" data-test="name">

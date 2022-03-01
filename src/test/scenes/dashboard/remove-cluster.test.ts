@@ -1,57 +1,43 @@
 import * as responses from "dev/responses";
 
-import { dt } from "test/tools/selectors";
 import { intercept, location, route } from "test/tools";
+import { dashboard, notification } from "test/workflow";
 
 const clusterName = responses.clusterStatus.ok.cluster_name;
+const cluster = dashboard.cluster(clusterName);
 
-const interceptWithDashboard = async (routeList: intercept.Route[]) => {
-  await intercept.run([
+const interceptWithDashboard = (routeList: intercept.Route[] = []) => {
+  intercept.run([
     route.importedClusterList({ clusterNameList: [clusterName] }),
     route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
     ...routeList,
   ]);
 };
 
-const tryRemovingCluster = async () => {
-  await page.goto(location.dashboard);
-  await page.click(
-    dt("cluster-list", `cluster ${clusterName}`, '[aria-label="Actions"]'),
-  );
-  await page.click(dt("remove-cluster"));
-  await page.click(dt("confirm"));
-};
-
 describe("Cluster remove", () => {
   afterEach(intercept.stop);
 
   it("should be successfully removed", async () => {
-    await interceptWithDashboard([route.removeCluster({ clusterName: "ok" })]);
+    interceptWithDashboard([route.removeCluster({ clusterName })]);
 
-    await tryRemovingCluster();
-    await page.waitForSelector(dt("notification-success"));
+    await page.goto(location.dashboard);
+    await cluster.remove.launch();
+    await notification.waitForSuccess();
   });
 
   it("should be cancelable", async () => {
-    await interceptWithDashboard([]);
+    interceptWithDashboard();
 
     await page.goto(location.dashboard);
-    await page.click(dt('[aria-label="Actions"]'));
-    await page.click(dt("remove-cluster"));
-
-    // possiblity to confirm is there...
-    expect((await page.$$(dt("confirm"))).length).toEqual(1);
-    await page.click(dt("cancel"));
-    // ...possibility to comfirm disappeard
-    expect((await page.$$(dt("confirm"))).length).toEqual(0);
+    await cluster.remove.click();
+    await cluster.remove.cancel();
   });
 
   it("should deal with an error", async () => {
-    await interceptWithDashboard([
-      route.removeCluster({ clusterName: "ok", status: 400 }),
-    ]);
+    interceptWithDashboard([route.removeCluster({ clusterName, status: 400 })]);
 
-    await tryRemovingCluster();
-    await page.waitForSelector(dt("notification-danger"));
+    await page.goto(location.dashboard);
+    await cluster.remove.launch();
+    await notification.waitForFail();
   });
 });

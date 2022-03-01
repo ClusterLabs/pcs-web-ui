@@ -23,11 +23,15 @@ const useFiltering = (fenceAgentList: FenceAgentList) => {
   };
 };
 
-export const NameTypeTypeSelect: React.FC<{
+export const NameTypeTypeSelect = ({
+  onSelect,
+  onClear,
+  agentName,
+}: {
   onSelect: (_value: string) => void;
   onClear: () => void;
   agentName: string;
-}> = ({ onSelect, onClear, agentName }) => {
+}) => {
   const [fenceAgentList] = useClusterSelector(selectors.getFenceAgentList);
   const { filteredFenceAgentList, onFilter } = useFiltering(fenceAgentList);
 

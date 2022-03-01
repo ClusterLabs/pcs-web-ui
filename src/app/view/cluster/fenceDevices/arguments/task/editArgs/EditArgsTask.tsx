@@ -41,7 +41,7 @@ export const EditArgsTask: React.FC = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle="Updating fence device arguments"
-          successTitle="Fence device arguments updated sucessfully"
+          successTitle="Fence device arguments updated successfully"
           failTitle="Fence device arguments update failed"
           tryAgain={runUpdate}
           recoverFromError={recoverFromError}

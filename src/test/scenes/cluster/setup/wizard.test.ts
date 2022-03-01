@@ -1,20 +1,27 @@
-import { intercept, route } from "test/tools";
-import { hasFieldError } from "test/tools/workflows";
+import { intercept, location, route } from "test/tools";
+import * as workflow from "test/workflow";
 
-import {
-  clusterName,
-  interceptForClusterSetup,
-  nodeNameList,
-  task,
-  url,
-} from "./common";
+import { clusterName, interceptForClusterSetup, nodeNameList } from "./common";
+
+const { hasFieldError } = workflow.form;
+
+const {
+  nextFrom,
+  backFrom,
+  fillClusterNameAndNodes,
+  open,
+  selectors,
+  waitForSuccess,
+  reviewAndFinish,
+} = workflow.task.clusterSetup;
+
+const openTask = async () => {
+  await page.goto(location.dashboard);
+  await open();
+};
 
 describe("Cluster setup", () => {
   afterEach(intercept.stop);
-
-  beforeEach(async () => {
-    await page.goto(url.TASK);
-  });
 
   it("should succesfully create simplest 2 node cluster", async () => {
     interceptForClusterSetup([
@@ -31,17 +38,16 @@ describe("Cluster setup", () => {
         },
       }),
     ]);
-    await page.type(task.clusterName, clusterName);
-    await page.type(task.nodeNameAt(0), nodeNameList[0]);
-    await page.type(task.nodeNameAt(1), nodeNameList[1]);
-    await task.nextFrom("Cluster name and nodes");
-    await task.nextFrom("Check cluster name and nodes");
-    await task.nextFrom("Transport links");
-    await task.nextFrom("Transport Options");
-    await task.nextFrom("Quorum");
-    await task.nextFrom("Totem");
-    await task.nextFrom("Review");
-    await page.waitForSelector(task.sucess);
+    await openTask();
+    await fillClusterNameAndNodes({ clusterName, nodeNameList });
+    await nextFrom("Cluster name and nodes");
+    await nextFrom("Check cluster name and nodes");
+    await nextFrom("Transport links");
+    await nextFrom("Transport Options");
+    await nextFrom("Quorum");
+    await nextFrom("Totem");
+    await nextFrom("Review");
+    await waitForSuccess();
   });
 
   it("should succesfully setup cluster skipping optional steps", async () => {
@@ -59,20 +65,20 @@ describe("Cluster setup", () => {
         },
       }),
     ]);
-    await page.type(task.clusterName, clusterName);
-    await page.type(task.nodeNameAt(0), nodeNameList[0]);
-    await page.type(task.nodeNameAt(1), nodeNameList[1]);
-    await task.nextFrom("Cluster name and nodes");
-    await page.click(task.reviewAndFinish);
-    await task.nextFrom("Review");
-    await page.waitForSelector(task.sucess);
+    await openTask();
+    await fillClusterNameAndNodes({ clusterName, nodeNameList });
+    await nextFrom("Cluster name and nodes");
+    await reviewAndFinish();
+    await nextFrom("Review");
+    await waitForSuccess();
   });
 
   it("should refuse to continue without essential data", async () => {
     intercept.run([route.importedClusterList()]);
-    await task.nextFrom("Cluster name and nodes");
-    await hasFieldError(task.clusterName);
-    await hasFieldError(task.lastNode);
+    await openTask();
+    await nextFrom("Cluster name and nodes");
+    await hasFieldError(selectors.clusterName);
+    await hasFieldError(selectors.lastNode);
   });
 
   it("should be possible go back from auth and change node name", async () => {
@@ -87,12 +93,11 @@ describe("Cluster setup", () => {
         },
       }),
     ]);
-    await page.type(task.clusterName, clusterName);
-    await page.type(task.nodeNameAt(0), nodeNameList[0]);
-    await page.type(task.nodeNameAt(1), nodeNameList[1]);
-    await task.nextFrom("Cluster name and nodes");
-    await page.waitForSelector(task.authPasswordAt(nodeNameList[0]));
-    await task.backFrom("Check cluster name and nodes");
+    await openTask();
+    await fillClusterNameAndNodes({ clusterName, nodeNameList });
+    await nextFrom("Cluster name and nodes");
+    await page.waitForSelector(selectors.authPasswordAt(nodeNameList[0]));
+    await backFrom("Check cluster name and nodes");
     // TODO currently it is not possible to have multiple
     // check_auth_against_nodes with different query and strings...
   });
@@ -112,14 +117,13 @@ describe("Cluster setup", () => {
         },
       }),
     ]);
-    await page.type(task.clusterName, clusterName);
-    await page.type(task.nodeNameAt(0), nodeNameList[0]);
-    await page.type(task.nodeNameAt(1), nodeNameList[1]);
-    await task.nextFrom("Cluster name and nodes");
-    await task.nextFrom("Check cluster name and nodes");
-    await page.click(task.knetTransport.addLink);
-    await task.nextFrom("Transport links");
-    await hasFieldError(task.knetTransport.nodeAddr(0));
-    await hasFieldError(task.knetTransport.nodeAddr(1));
+    await openTask();
+    await fillClusterNameAndNodes({ clusterName, nodeNameList });
+    await nextFrom("Cluster name and nodes");
+    await nextFrom("Check cluster name and nodes");
+    await page.click(selectors.knetTransport.addLink);
+    await nextFrom("Transport links");
+    await hasFieldError(selectors.knetTransport.nodeAddr(0));
+    await hasFieldError(selectors.knetTransport.nodeAddr(1));
   });
 });
