@@ -28,7 +28,7 @@ const useFilterState = () =>
     "all-off-display-none",
   );
 
-export const InstanceAttrsForm: React.FC = () => {
+export const InstanceAttrsForm = () => {
   const {
     state: {
       agentName,
@@ -71,8 +71,7 @@ export const InstanceAttrsForm: React.FC = () => {
                 {requiredParameters
                   .concat(filterParameters(nonDeprecatedParameters))
                   .map((parameter) => {
-                    const hint =
-                      "Please provide a value for required attribute";
+                    const hint = "Please provide a value for required attribute";
                     return (
                       <FormText
                         key={parameter.name}

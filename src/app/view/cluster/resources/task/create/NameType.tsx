@@ -1,4 +1,3 @@
-import React from "react";
 import { Form, FormGroup } from "@patternfly/react-core";
 
 import { FormText, TaskLibStep } from "app/view/share";
@@ -6,7 +5,7 @@ import { FormText, TaskLibStep } from "app/view/share";
 import { useTask } from "./useTask";
 import { NameTypeTypeSelect } from "./NameTypeTypeSelect";
 
-export const NameType: React.FC = () => {
+export const NameType = () => {
   const {
     state: {
       agentName,
@@ -51,6 +50,7 @@ export const NameType: React.FC = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={resourceName.length > 0}
+          data-test="resource-name"
         />
         <FormGroup
           label="Resource type"

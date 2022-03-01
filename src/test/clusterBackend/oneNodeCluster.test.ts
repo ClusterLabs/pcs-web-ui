@@ -18,6 +18,9 @@ const clusterName = "test-cluster";
 const fenceDeviceName = "F1";
 const fenceAgentName = "fence_xvm";
 
+const resourceAgentName = "Dummy"; //"ocf:heartbeat:Dummy";
+const resourceName = "A";
+
 describe("Web ui on one node cluster", () => {
   it("should succeed with essential features", async () => {
     await page.goto(`${protocol}://${host}:${port}/ui/`);
@@ -44,6 +47,11 @@ describe("Web ui on one node cluster", () => {
     await createFenceDevice(fenceDeviceName, fenceAgentName);
     await cluster.fenceDevices.assertNamesAre([fenceDeviceName]);
 
+    await cluster.selectTab("resources");
+    await cluster.resources.assertNamesAre([]);
+    await createResource(resourceName, resourceAgentName);
+    await cluster.resources.assertNamesAre([resourceName]);
+
     await breadcrumb.gotoDashboard();
     await destroyCluster(clusterName);
     await dashboard.clusterList.assertNamesAre([]);
@@ -59,6 +67,23 @@ const createFenceDevice = async (
 
   await open();
   await fillNameAndAgent(fenceDeviceName, agentName);
+  await nextFrom("Name and type");
+  await nextFrom("Instance attributes");
+  await nextFrom("Settings");
+  await Promise.all([
+    page.waitForResponse(/.*\/cluster_status$/),
+    nextFrom("Review"),
+    waitForSuccess(),
+  ]);
+  await close();
+};
+
+const createResource = async (resourceName: string, agentName: string) => {
+  const { fillNameAndAgent, nextFrom, open, waitForSuccess, close } =
+    task.resourceCreate;
+
+  await open();
+  await fillNameAndAgent(resourceName, agentName);
   await nextFrom("Name and type");
   await nextFrom("Instance attributes");
   await nextFrom("Settings");

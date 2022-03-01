@@ -37,11 +37,15 @@ const useFiltering = (resourceAgentMap: ResourceAgentMap) => {
   };
 };
 
-export const NameTypeTypeSelect: React.FC<{
+export const NameTypeTypeSelect = ({
+  onSelect,
+  onClear,
+  agentName,
+}: {
   onSelect: (_value: string) => void;
   onClear: () => void;
   agentName: string;
-}> = ({ onSelect, onClear, agentName }) => {
+}) => {
   const [resourceAgentMap] = useClusterSelector(selectors.getResourceAgentMap);
   const { filteredResourceAgentMap, onFilter } = useFiltering(resourceAgentMap);
 
@@ -56,6 +60,7 @@ export const NameTypeTypeSelect: React.FC<{
       isGrouped
       hasInlineFilter
       customBadgeText={agentName.length > 0 ? agentName : undefined}
+      data-test="resource-agent"
     >
       {Object.keys(filteredResourceAgentMap).map(group => (
         <SelectGroup label={group} key={group}>

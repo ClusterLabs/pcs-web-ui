@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Clone } from "app/view/cluster/types";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
