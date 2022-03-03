@@ -32,6 +32,7 @@ const transformStatus = (
 
 export const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
   id: apiFenceDevice.id,
+  itemType: "fence-device",
   type: apiFenceDevice.type,
   status: transformStatus(apiFenceDevice.status),
   statusSeverity: statusToSeverity(apiFenceDevice.status),

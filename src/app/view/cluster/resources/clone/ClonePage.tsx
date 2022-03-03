@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Clone } from "app/view/cluster/types";
 import {
   DetailLayout,
@@ -10,7 +8,7 @@ import {
   useUrlTabs,
 } from "app/view/share";
 
-import { CloneDetail } from "./CloneDetail";
+import { CloneDetailWrapper } from "./CloneDetailWrapper";
 
 const tabList = ["detail", "meta"] as const;
 
@@ -23,7 +21,7 @@ export const ClonePage = ({ clone }: { clone: Clone }) => {
       data-test={`resource-detail ${clone.id}`}
     >
       <Router base={matchedContext}>
-        {currentTab === "detail" && <CloneDetail clone={clone} />}
+        {currentTab === "detail" && <CloneDetailWrapper clone={clone} />}
         {currentTab === "meta" && (
           <NVPairListView nvPairListView={clone.metaAttributes} />
         )}

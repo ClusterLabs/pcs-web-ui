@@ -1,5 +1,3 @@
-import React from "react";
-
 import { selectors } from "app/store";
 import { useClusterSelector, useGroupDetailViewContext } from "app/view/share";
 
@@ -25,6 +23,9 @@ export const ResourceDetailPage = () => {
 
     case "group":
       return <GroupPage group={resourceTreeItem} />;
+
+    case "fence-device":
+      return <>Fence Device</>;
 
     case "clone":
     default:

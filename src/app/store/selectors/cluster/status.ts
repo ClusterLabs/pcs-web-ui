@@ -1,12 +1,13 @@
 import { Cluster } from "../types";
 
-import {
-  clusterSelector,
-  clusterStorageItemSelector,
-} from "./selectorsHelpers";
+import { clusterSelector, clusterStorageItemSelector } from "./selectorsHelpers";
+
+type Resource = Cluster["resourceTree"][number];
+type Group = Extract<Resource, { itemType: "group" }>;
+type Primitive = Extract<Group["resources"][number], { itemType: "primitive" }>;
 
 const findInTopLevelAndGroup = (
-  resource: Cluster["resourceTree"][number],
+  resource: Resource | Cluster["fenceDeviceList"][number],
   id: string,
 ) => {
   if (resource.id === id) {
@@ -49,9 +50,7 @@ export const getSelectedResource = clusterSelector((cluster, id: string) => {
 });
 
 export const getGroups = clusterSelector(cluster =>
-  cluster.resourceTree.reduce<
-    Extract<typeof cluster.resourceTree[number], { itemType: "group" }>[]
-  >((groups, resource) => {
+  cluster.resourceTree.reduce<Group[]>((groups, resource) => {
     if (resource.itemType === "group") {
       return [...groups, resource];
     }
@@ -62,28 +61,45 @@ export const getGroups = clusterSelector(cluster =>
   }, []),
 );
 
+const removeFenceDevices = (groupMembers: Group["resources"]): Primitive[] =>
+  groupMembers.filter((gm): gm is Primitive => gm.itemType !== "fence-device");
+
 export const getResourcesForSet = clusterSelector(cluster =>
   cluster.resourceTree
-    .reduce<typeof cluster.resourceTree>((resourceList, resource) => {
-      if (resource.itemType === "group") {
-        return [...resourceList, resource, ...resource.resources];
+    .reduce<Resource[]>((resourceList, resource) => {
+      switch (resource.itemType) {
+        case "group":
+          return [
+            ...resourceList,
+            resource,
+            ...removeFenceDevices(resource.resources),
+          ];
+
+        case "clone": {
+          let members: Resource[] = [];
+          if (resource.member.itemType === "group") {
+            members = [
+              resource.member,
+              ...removeFenceDevices(resource.member.resources),
+            ];
+          } else if (resource.member.itemType !== "fence-device") {
+            members = [resource.member];
+          }
+
+          return [...resourceList, resource, ...members];
+        }
+
+        default:
+          return [...resourceList, resource];
       }
-      if (resource.itemType === "clone") {
-        return [
-          ...resourceList,
-          resource,
-          ...(resource.member.itemType === "group"
-            ? [resource.member, ...resource.member.resources]
-            : [resource.member]),
-        ];
-      }
-      return [...resourceList, resource];
     }, [])
     .map(resource => resource.id),
 );
 
 export const getTopLevelPrimitives = clusterSelector(cluster =>
-  cluster.resourceTree.filter(r => r.itemType === "primitive").map(r => r.id),
+  cluster.resourceTree
+    .filter(r => r.itemType === "primitive")
+    .map(r => r.id),
 );
 
 export const getSelectedFenceDevice = clusterSelector((cluster, id: string) =>

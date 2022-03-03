@@ -228,7 +228,7 @@ const ApiClone = t.intersection([
       blocked: null,
     }),
     class_type: t.literal("clone"),
-    member: t.union([ApiPrimitive, ApiGroup]),
+    member: t.union([ApiPrimitive, ApiGroup, ApiStonith]),
     promotable: t.boolean,
   }),
 ]);

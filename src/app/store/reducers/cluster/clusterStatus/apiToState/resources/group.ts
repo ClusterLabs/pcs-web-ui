@@ -3,6 +3,7 @@ import { ActionPayload } from "app/store/actions";
 import { Cluster } from "../../types";
 import { transformIssues } from "../issues";
 
+import { toFenceDevice } from "./fenceDevice";
 import { toPrimitive } from "./primitive";
 import { buildStatus, getMaxSeverity, isDisabled } from "./statusInfoList";
 
@@ -24,7 +25,7 @@ type Counts = {
 
 const buildStatusInfoList = (
   apiGroup: ApiGroup,
-  members: Group["resources"],
+  members: Primitive[],
 ): Group["status"]["infoList"] => {
   const infoList: Group["status"]["infoList"] = [];
   if (isDisabled(apiGroup)) {
@@ -82,10 +83,12 @@ const buildStatusInfoList = (
   return infoList;
 };
 
-export const filterPrimitive = (
+export const filterApiPrimitive = (
   candidateList: (ApiPrimitive | ApiStonith)[],
-): ApiPrimitive[] =>
-  candidateList.filter((m): m is ApiPrimitive => m.class_type === "primitive");
+): ApiPrimitive[] => candidateList.filter((m): m is ApiPrimitive => !m.stonith);
+
+const filterPrimitive = (candidateList: Group["resources"]): Primitive[] =>
+  candidateList.filter((m): m is Primitive => m.itemType !== "fence-device");
 
 export const toGroup = (
   apiGroup: ApiGroup,
@@ -93,11 +96,14 @@ export const toGroup = (
 ): { group: Group; apiPrimitiveList: ApiPrimitive[] } => {
   // Theoreticaly, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
-  const apiPrimitiveList = filterPrimitive(apiGroup.members);
+  const apiPrimitiveList = filterApiPrimitive(apiGroup.members);
   const { inClone } = context;
-  const resources = apiPrimitiveList.map(p =>
-    toPrimitive(p, { inGroup: apiGroup.id, inClone }),
+  const resources = apiGroup.members.map(p =>
+    p.stonith
+      ? toFenceDevice(p)
+      : toPrimitive(p, { inGroup: apiGroup.id, inClone }),
   );
+  console.log(apiGroup.id, resources);
   return {
     apiPrimitiveList,
     group: {
@@ -105,7 +111,9 @@ export const toGroup = (
       itemType: "group",
       inClone,
       resources,
-      status: buildStatus(buildStatusInfoList(apiGroup, resources)),
+      status: buildStatus(
+        buildStatusInfoList(apiGroup, filterPrimitive(resources)),
+      ),
       issueList: transformIssues(apiGroup),
       metaAttributes: apiGroup.meta_attr,
     },

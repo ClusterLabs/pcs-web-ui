@@ -4,6 +4,7 @@ import { Cluster } from "../../types";
 import { transformIssues } from "../issues";
 
 import { toPrimitive } from "./primitive";
+import { toFenceDevice } from "./fenceDevice";
 import { toGroup } from "./group";
 import { buildStatus, statusToSeverity } from "./statusInfoList";
 
@@ -39,8 +40,12 @@ export const toClone = (
   let member: Clone["member"];
   let apiPrimitiveList: ApiPrimitive[] = [];
   if (apiClone.member.class_type === "primitive") {
-    member = toPrimitive(apiClone.member, { inClone: true, inGroup: null });
-    apiPrimitiveList = [apiClone.member];
+    if (apiClone.member.stonith) {
+      member = toFenceDevice(apiClone.member);
+    } else {
+      member = toPrimitive(apiClone.member, { inClone: true, inGroup: null });
+      apiPrimitiveList = [apiClone.member];
+    }
   } else {
     ({ apiPrimitiveList, group: member } = toGroup(apiClone.member, {
       inClone: true,
