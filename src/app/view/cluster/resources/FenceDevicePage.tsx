@@ -18,9 +18,9 @@ export const FenceDevicePage = ({
       }
       data-test={`resource-detail ${fenceDevice.id}`}
     >
-      <Alert variant="danger" isInline title="Fence device inside group">
-        Fence device inside group is not supported although it is formally
-        possible. Please remove this fence device from the group via pcs.
+      <Alert variant="danger" isInline title="Unsupported fence device context">
+        Cloned fence device or fence device inside group is not supported.
+        Please unclone / remove this fence device from the group via pcs.
       </Alert>
     </DetailLayout>
   );
