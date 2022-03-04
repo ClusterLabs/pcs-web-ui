@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Primitive } from "app/view/cluster/types";
 import {
   DetailLayout,
@@ -18,9 +16,7 @@ import { PrimitivePageToolbar } from "./PrimitivePageToolbar";
 
 const tabList = ["detail", "attributes", "utilization", "meta"] as const;
 
-export const PrimitivePage: React.FC<{ primitive: Primitive }> = ({
-  primitive,
-}) => {
+export const PrimitivePage = ({ primitive }: { primitive: Primitive }) => {
   const { currentTab, matchedContext } = useUrlTabs(tabList);
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally

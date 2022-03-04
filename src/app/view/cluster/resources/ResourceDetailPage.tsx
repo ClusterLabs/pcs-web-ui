@@ -5,6 +5,7 @@ import { ResourceDoesNotExists } from "./ResourceDoesNotExists";
 import { ClonePage } from "./clone";
 import { GroupPage } from "./group";
 import { PrimitivePage } from "./primitive";
+import { FenceDevicePage } from "./FenceDevicePage";
 
 export const ResourceDetailPage = () => {
   const { selectedItemUrlName: resourceId } = useGroupDetailViewContext();
@@ -25,7 +26,7 @@ export const ResourceDetailPage = () => {
       return <GroupPage group={resourceTreeItem} />;
 
     case "fence-device":
-      return <>Fence Device</>;
+      return <FenceDevicePage fenceDevice={resourceTreeItem} />;
 
     case "clone":
     default:
