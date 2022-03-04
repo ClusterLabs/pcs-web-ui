@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ResourceStatus } from "app/view/cluster/types";
 import {
   ResourceStatusInfoListSigns,
