@@ -2,12 +2,14 @@ import React from "react";
 
 import { StatusIco } from "./StatusIco";
 
-export const StatusSign: React.FC<
-  React.ComponentProps<typeof StatusIco> & {
-    label?: string | React.ReactNode;
-    showOkIco?: boolean;
-  }
-> = ({ status, label = "", showOkIco = false }) => (
+export const StatusSign = ({
+  status,
+  label = "",
+  showOkIco = false,
+}: React.ComponentProps<typeof StatusIco> & {
+  label?: string | React.ReactNode;
+  showOkIco?: boolean;
+}) => (
   <div>
     {(showOkIco || status !== "OK") && (
       <>

@@ -26,14 +26,20 @@ type Counts = {
 const buildStatusInfoList = (
   apiGroup: ApiGroup,
   members: Primitive[],
+  containsFenceDevice = false,
 ): Group["status"]["infoList"] => {
   const infoList: Group["status"]["infoList"] = [];
+
   if (isDisabled(apiGroup)) {
     infoList.push({ label: "DISABLED", severity: "WARNING" });
   }
 
-  if (members.length === 0) {
+  if (containsFenceDevice) {
+    infoList.push({ label: "WITH FENCE DEVICES", severity: "ERROR" });
+  } else if (members.length === 0) {
     infoList.push({ label: "NO MEMBERS", severity: "WARNING" });
+  }
+  if (members.length === 0) {
     return infoList;
   }
 
@@ -103,7 +109,6 @@ export const toGroup = (
       ? toFenceDevice(p)
       : toPrimitive(p, { inGroup: apiGroup.id, inClone }),
   );
-  console.log(apiGroup.id, resources);
   return {
     apiPrimitiveList,
     group: {
@@ -112,7 +117,11 @@ export const toGroup = (
       inClone,
       resources,
       status: buildStatus(
-        buildStatusInfoList(apiGroup, filterPrimitive(resources)),
+        buildStatusInfoList(
+          apiGroup,
+          filterPrimitive(resources),
+          apiGroup.members.some(p => p.stonith),
+        ),
       ),
       issueList: transformIssues(apiGroup),
       metaAttributes: apiGroup.meta_attr,

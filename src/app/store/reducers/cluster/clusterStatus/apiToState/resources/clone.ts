@@ -21,6 +21,14 @@ type Clone = Extract<Cluster["resourceTree"][number], { itemType: "clone" }>;
 const buildStatusInfoList = (
   apiClone: ApiClone,
 ): Clone["status"]["infoList"] => {
+  if (apiClone.member.class_type === "primitive" && apiClone.member.stonith) {
+    return [
+      {
+        label: "WITH FENCE DEVICE",
+        severity: "ERROR",
+      },
+    ];
+  }
   const infoList: Clone["status"]["infoList"] = [
     {
       label: apiClone.status,

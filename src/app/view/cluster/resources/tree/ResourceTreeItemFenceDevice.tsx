@@ -11,7 +11,6 @@ import {
   SelectionIndicatorInGroup,
   StatusIco,
   StatusSign,
-  toLabel,
   useGroupDetailViewContext,
 } from "app/view/share";
 
@@ -47,17 +46,13 @@ export const ResourceTreeItemFenceDevice = ({
         />
         {compact && (
           <div className="ha-c-data-list__item-status">
-            <StatusIco status={fenceDevice.statusSeverity} />
+            <StatusIco status="ERROR" />
             {fenceDevice.statusSeverity !== "OK" && " 1"}
           </div>
         )}
         {!compact && (
           <div className="ha-c-data-list__item-status">
-            <StatusSign
-              status={fenceDevice.statusSeverity}
-              label={toLabel(fenceDevice.status)}
-              showOkIco
-            />
+            <StatusSign status="ERROR" label="Bad placement" />
           </div>
         )}
         {selectedItemUrlName !== "" && (
