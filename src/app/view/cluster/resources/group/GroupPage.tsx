@@ -1,4 +1,4 @@
-import React from "react";
+import { Alert } from "@patternfly/react-core";
 
 import { Group } from "app/view/cluster/types";
 import {
@@ -24,6 +24,16 @@ export const GroupPage = ({ group }: { group: Group }) => {
       toolbar={<GroupPageToolbar group={group} />}
       data-test={`resource-detail ${group.id}`}
     >
+      {group.resources.some(r => r.itemType === "fence-device") && (
+        <Alert
+          variant="danger"
+          isInline
+          title="Unsupported fence device inside group"
+        >
+          This group contains a fence device which is unsupported. Please remove
+          the fence device from the group via pcs
+        </Alert>
+      )}
       <Router base={matchedContext}>
         {currentTab === "detail" && <GroupDetail group={group} />}
         {currentTab === "meta" && (
