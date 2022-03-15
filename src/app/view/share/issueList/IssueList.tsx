@@ -9,18 +9,20 @@ import { IssueListIssueDefault } from "./IssueListIssueDefault";
 const issueKey = (issue: Issue, index: string | number) =>
   `${index}:${issue.message}`;
 
-export const IssueList: React.FC<{
-  issueList: Issue[];
-  margin?: boolean;
-  hideEmpty?: boolean;
-  displayIssue?: (_issue: Issue) => React.ReactNode;
-}> = ({
+export const IssueList = ({
   issueList,
   margin = false,
   hideEmpty = false,
   displayIssue = issue => <IssueListIssueDefault issue={issue} />,
+  children,
+}: {
+  issueList: Issue[];
+  margin?: boolean;
+  hideEmpty?: boolean;
+  displayIssue?: (_issue: Issue) => React.ReactNode;
+  children?: React.ReactNode;
 }) => {
-  if (issueList.length === 0) {
+  if (issueList.length === 0 && !children) {
     if (hideEmpty) {
       return null;
     }
@@ -32,6 +34,7 @@ export const IssueList: React.FC<{
       style={{ margin: margin ? "1rem" : "none" }}
       data-test="issues-status"
     >
+      {children && <StackItem isFilled>{children}</StackItem>}
       {issueList.map((issue, i) => (
         <StackItem key={issueKey(issue, i)} isFilled>
           {displayIssue(issue)}
