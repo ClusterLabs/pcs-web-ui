@@ -1,5 +1,3 @@
-import React from "react";
-
 import { StatusSign, toLabel, useGroupDetailViewContext } from "app/view/share";
 import { FenceDevice } from "app/view/cluster/types";
 

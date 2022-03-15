@@ -1,11 +1,8 @@
-import React from "react";
 import { Alert } from "@patternfly/react-core";
 
 import { Issue } from "app/view/cluster/types";
 
-export const IssueListIssueDefault: React.FC<{
-  issue: Issue;
-}> = ({ issue }) => {
+export const IssueListIssueDefault = ({ issue }: { issue: Issue }) => {
   return (
     <Alert
       isInline

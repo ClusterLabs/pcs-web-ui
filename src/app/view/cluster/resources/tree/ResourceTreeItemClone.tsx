@@ -3,6 +3,7 @@ import { Clone } from "app/view/cluster/types";
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
 import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
+import { ResourceTreeItemFenceDevice } from "./ResourceTreeItemFenceDevice";
 
 export const ResourceTreeItemClone = ({ clone }: { clone: Clone }) => {
   return (
@@ -17,6 +18,12 @@ export const ResourceTreeItemClone = ({ clone }: { clone: Clone }) => {
       )}
       {clone.member.itemType === "group" && (
         <ResourceTreeItemGroup group={clone.member} nestedLevel={1} />
+      )}
+      {clone.member.itemType === "fence-device" && (
+        <ResourceTreeItemFenceDevice
+          key={clone.member.id}
+          fenceDevice={clone.member}
+        />
       )}
     </ResourceTreeItemCompound>
   );

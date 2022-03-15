@@ -155,7 +155,6 @@ describe("Dashboard to cluster scene", () => {
     await page.waitForSelector(RESOURCE_R1);
     await page.click(dt(RESOURCE_R1, "name", "link"));
     await page.waitForSelector(dt("agent-description"));
-    // console.log("TU 2");
     expect(page.url()).toEqual(
       location.resource({ clusterName: "ok", resourceId: "R1" }),
     );

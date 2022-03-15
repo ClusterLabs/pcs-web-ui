@@ -4,7 +4,7 @@ import { Cluster, StatusSeverity } from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
 import { toPrimitive } from "./primitive";
-import { filterPrimitive, toGroup } from "./group";
+import { filterApiPrimitive, toGroup } from "./group";
 import { toClone } from "./clone";
 import { toFenceDevice } from "./fenceDevice";
 import { statusToSeverity } from "./statusInfoList";
@@ -58,7 +58,7 @@ export const analyzeApiResources = (
         );
       switch (apiResource.class_type) {
         case "primitive":
-          if (apiResource.class === "stonith") {
+          if (apiResource.stonith) {
             return {
               ...analyzed,
               fenceDeviceList: [
@@ -85,10 +85,6 @@ export const analyzeApiResources = (
           };
 
         case "group": {
-          if (filterPrimitive(apiResource.members).length === 0) {
-            // don't care about group of stonith only...
-            return analyzed;
-          }
           const { apiPrimitiveList, group } = toGroup(apiResource);
 
           return {
@@ -97,7 +93,9 @@ export const analyzeApiResources = (
             resourcesSeverity: maxResourcesSeverity(),
             resourceOnNodeStatusList: [
               ...analyzed.resourceOnNodeStatusList,
-              ...apiPrimitiveList.map(takeResourceOnNodeStatus).flat(),
+              ...filterApiPrimitive(apiPrimitiveList)
+                .map(takeResourceOnNodeStatus)
+                .flat(),
             ],
           };
         }
@@ -106,7 +104,7 @@ export const analyzeApiResources = (
         default: {
           if (
             apiResource.member.class_type === "group"
-            && filterPrimitive(apiResource.member.members).length === 0
+            && filterApiPrimitive(apiResource.member.members).length === 0
           ) {
             // don't care about clone with group of stonith only...
             return analyzed;

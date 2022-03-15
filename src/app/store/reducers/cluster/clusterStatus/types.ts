@@ -54,15 +54,28 @@ type Primitive = Resource & {
   utilization: NVPair[];
 };
 
+type FenceDevice = {
+  id: string;
+  itemType: "fence-device";
+  status: "RUNNING" | "BLOCKED" | "FAILED" | "DISABLED";
+  statusSeverity: StatusSeverity;
+  issueList: Issue[];
+  agentName: string;
+  type: string;
+  arguments: Record<string, AgentAttribute>;
+};
+
 type Group = Resource & {
   itemType: "group";
   inClone: boolean;
-  resources: Primitive[];
+  // unfortunatelly, fence device can be here and we need to display it somehow
+  resources: (Primitive | FenceDevice)[];
 };
 
 type Clone = Resource & {
   itemType: "clone";
-  member: Primitive | Group;
+  // unfortunatelly, fence device can be here and we need to display it somehow
+  member: Primitive | Group | FenceDevice;
 };
 
 /*
@@ -95,15 +108,7 @@ export type Cluster = {
     inStandby: boolean;
   })[];
   resourceTree: (Primitive | Group | Clone)[];
-  fenceDeviceList: {
-    id: string;
-    status: "RUNNING" | "BLOCKED" | "FAILED" | "DISABLED";
-    statusSeverity: StatusSeverity;
-    issueList: Issue[];
-    agentName: string;
-    type: string;
-    arguments: Record<string, AgentAttribute>;
-  }[];
+  fenceDeviceList: FenceDevice[];
   constraints?: NonNullable<ApiCluster["constraints"]>;
   issueList: Issue[];
   summary: {

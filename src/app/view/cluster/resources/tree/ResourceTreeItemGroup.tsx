@@ -2,6 +2,7 @@ import { Group } from "app/view/cluster/types";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
+import { ResourceTreeItemFenceDevice } from "./ResourceTreeItemFenceDevice";
 
 export const ResourceTreeItemGroup = ({
   group,
@@ -16,8 +17,12 @@ export const ResourceTreeItemGroup = ({
     status={group.status}
     type="Group"
   >
-    {group.resources.map(resource => (
-      <ResourceTreeItemPrimitive key={resource.id} primitive={resource} />
-    ))}
+    {group.resources.map(resource =>
+      resource.itemType === "fence-device" ? (
+        <ResourceTreeItemFenceDevice key={resource.id} fenceDevice={resource} />
+      ) : (
+        <ResourceTreeItemPrimitive key={resource.id} primitive={resource} />
+      ),
+    )}
   </ResourceTreeItemCompound>
 );

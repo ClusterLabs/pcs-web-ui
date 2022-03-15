@@ -1,5 +1,4 @@
-import React from "react";
-import { StackItem, Text, TextContent } from "@patternfly/react-core";
+import { Alert, StackItem, Text, TextContent } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import { Clone } from "app/view/cluster/types";
@@ -11,17 +10,39 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-export const CloneDetail: React.FC<{ clone: Clone }> = ({ clone }) => {
+type Member = Exclude<Clone["member"], { itemType: "fence-device" }>;
+
+export const CloneDetail = ({
+  id,
+  member,
+  issueList,
+}: {
+  id: string;
+  member: Member;
+  issueList: Clone["issueList"];
+}) => {
   const [crmStatusList, clusterName] = useClusterSelector(
     selectors.crmStatusForPrimitive,
-    clone.member.itemType === "primitive"
-      ? [clone.member.id]
-      : clone.member.resources.map(r => r.id),
+    member.itemType === "primitive"
+      ? [member.id]
+      : member.resources.map(r => r.id),
   );
   return (
     <>
       <StackItem>
-        <IssueList issueList={clone.issueList} hideEmpty />
+        <IssueList issueList={issueList} hideEmpty>
+          {member.itemType === "group"
+            && member.resources.some(r => r.itemType === "fence-device") && (
+              <Alert
+                variant="danger"
+                isInline
+                title="Unsupported clone of group with fence device"
+              >
+                Cloned group with a fence device is not supported. Please remove
+                the fence device from the group via pcs.
+              </Alert>
+            )}
+        </IssueList>
       </StackItem>
       <StackItem>
         <TextContent>
@@ -30,7 +51,7 @@ export const CloneDetail: React.FC<{ clone: Clone }> = ({ clone }) => {
 
         <CrmStatusTable
           crmStatusList={crmStatusList}
-          emptyMessage={`No status info for clone "${clone.id}" found.`}
+          emptyMessage={`No status info for clone "${id}" found.`}
           rowObject={{
             header: "Resource / Node",
             /* eslint-disable-next-line react/display-name */
