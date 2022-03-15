@@ -21,7 +21,11 @@ type Clone = Extract<Cluster["resourceTree"][number], { itemType: "clone" }>;
 const buildStatusInfoList = (
   apiClone: ApiClone,
 ): Clone["status"]["infoList"] => {
-  if (apiClone.member.class_type === "primitive" && apiClone.member.stonith) {
+  if (
+    (apiClone.member.class_type === "primitive" && apiClone.member.stonith)
+    || (apiClone.member.class_type === "group"
+      && apiClone.member.members.some(m => m.stonith))
+  ) {
     return [
       {
         label: "WITH FENCE DEVICE",
