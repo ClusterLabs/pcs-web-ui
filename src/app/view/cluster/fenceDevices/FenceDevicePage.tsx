@@ -1,14 +1,15 @@
 import React from "react";
-import { ActionList, ActionListItem } from "@patternfly/react-core";
+import { ActionList } from "@patternfly/react-core";
 
 import {
+  ActionTaskLauncher,
   ClusterSectionToolbar,
   GroupDetailView,
   useClusterSelector,
 } from "app/view/share";
 import { selectors } from "app/store";
 
-import { FenceDeviceCreateToolbarItem } from "./task";
+import * as task from "./task";
 import { FenceDeviceDetailPage } from "./FenceDeviceDetailPage";
 import { FenceDeviceList } from "./list";
 
@@ -18,9 +19,12 @@ export const FenceDevicePage: React.FC = () => {
     <>
       <ClusterSectionToolbar>
         <ActionList>
-          <ActionListItem>
-            <FenceDeviceCreateToolbarItem />
-          </ActionListItem>
+          <ActionTaskLauncher
+            taskComponent={task.create.FenceDeviceCreate}
+            useTask={task.create.useTask}
+            label="Create fence device"
+            data-test="fence-device-create"
+          />
         </ActionList>
       </ClusterSectionToolbar>
       <GroupDetailView

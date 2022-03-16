@@ -1,7 +1,8 @@
 import React from "react";
-import { ActionList, ActionListItem } from "@patternfly/react-core";
+import { ActionList } from "@patternfly/react-core";
 
 import {
+  ActionTaskLauncher,
   ClusterSectionToolbar,
   GroupDetailView,
   useClusterSelector,
@@ -10,7 +11,7 @@ import { selectors } from "app/store";
 
 import { NodeDetailPage } from "./NodeDetailPage";
 import { NodeList } from "./NodeList";
-import { NodeAddToolbarItem } from "./task";
+import * as task from "./task";
 
 export const NodesPage: React.FC = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -18,9 +19,12 @@ export const NodesPage: React.FC = () => {
     <>
       <ClusterSectionToolbar>
         <ActionList>
-          <ActionListItem>
-            <NodeAddToolbarItem />
-          </ActionListItem>
+          <ActionTaskLauncher
+            taskComponent={task.add.NodeAdd}
+            useTask={task.add.useTask}
+            label="Add node"
+            data-test="node-add"
+          />
         </ActionList>
       </ClusterSectionToolbar>
       <GroupDetailView

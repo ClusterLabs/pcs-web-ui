@@ -1,53 +1,35 @@
-import React from "react";
 import {
   ActionList,
-  ActionListItem,
-  Button,
   Toolbar,
   ToolbarGroup,
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import {
-  ClusterSetup,
-  useTask as useTaskClusterSetup,
-} from "./task/clusterSetup";
-import {
-  ImportExistingCluster,
-  useTask as useTaskImportExistingCluster,
-} from "./task/importExistingCluster";
+import { ActionTaskLauncher } from "app/view/share";
+
+import * as task from "./task";
 
 export const DashboardToolbar = () => {
-  const { open: openClusterSetup } = useTaskClusterSetup();
-  const { open: openAddExistingCluster } = useTaskImportExistingCluster();
   return (
     <Toolbar data-test="dashboard-toolbar">
       <ToolbarGroup>
         <ToolbarItem>
           <ActionList>
-            <ActionListItem>
-              <Button
-                variant="primary"
-                onClick={openAddExistingCluster}
-                data-test="import-existing-cluster"
-              >
-                Add existing cluster
-              </Button>
-            </ActionListItem>
+            <ActionTaskLauncher
+              taskComponent={task.importExistingCluster.ImportExistingCluster}
+              useTask={task.importExistingCluster.useTask}
+              label="Add existing cluster"
+              data-test="import-existing-cluster"
+            />
 
-            <ActionListItem>
-              <Button
-                variant="secondary"
-                onClick={openClusterSetup}
-                data-test="setup-cluster"
-              >
-                Setup cluster
-              </Button>
-            </ActionListItem>
+            <ActionTaskLauncher
+              taskComponent={task.clusterSetup.ClusterSetup}
+              useTask={task.clusterSetup.useTask}
+              label="Setup cluster"
+              variant="secondary"
+              data-test="setup-cluster"
+            />
           </ActionList>
-
-          <ImportExistingCluster />
-          <ClusterSetup />
         </ToolbarItem>
       </ToolbarGroup>
     </Toolbar>

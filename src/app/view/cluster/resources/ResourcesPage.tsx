@@ -1,7 +1,7 @@
-import React from "react";
-import { ActionList, ActionListItem } from "@patternfly/react-core";
+import { ActionList } from "@patternfly/react-core";
 
 import {
+  ActionTaskLauncher,
   ClusterSectionToolbar,
   GroupDetailView,
   useClusterSelector,
@@ -10,10 +10,7 @@ import { selectors } from "app/store";
 
 import { ResourceDetailPage } from "./ResourceDetailPage";
 import { ResourceTree } from "./tree/ResourceTree";
-import {
-  ResourcCreateGroupToolbarItem,
-  ResourceCreateToolbarItem,
-} from "./task";
+import * as task from "./task";
 
 export const ResourcesPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -21,12 +18,19 @@ export const ResourcesPage = () => {
     <>
       <ClusterSectionToolbar>
         <ActionList>
-          <ActionListItem>
-            <ResourceCreateToolbarItem />
-          </ActionListItem>
-          <ActionListItem>
-            <ResourcCreateGroupToolbarItem variant="secondary" />
-          </ActionListItem>
+          <ActionTaskLauncher
+            taskComponent={task.create.ResourceCreate}
+            useTask={task.create.useTask}
+            label="Create Resource"
+            data-test="resource-create"
+          />
+          <ActionTaskLauncher
+            taskComponent={task.createGroup.ResourceCreateGroup}
+            useTask={task.createGroup.useTask}
+            label="Create group"
+            variant="secondary"
+            data-test="resource-add-to-group"
+          />
         </ActionList>
       </ClusterSectionToolbar>
       <GroupDetailView

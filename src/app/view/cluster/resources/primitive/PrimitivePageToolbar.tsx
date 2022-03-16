@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Primitive } from "app/view/cluster/types";
 import {
   DetailLayoutToolbar,
@@ -24,9 +22,11 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
       metaAttribute.name !== "target-role" || metaAttribute.value !== "Stopped",
   );
 
-export const PrimitivePageToolbar: React.FC<{
+export const PrimitivePageToolbar = ({
+  primitive,
+}: {
   primitive: Primitive;
-}> = ({ primitive }) => {
+}) => {
   const { open: openGroupChange, canChange: canChangeGroup } =
     useTaskGroupChange();
   const clusterName = useSelectedClusterName();

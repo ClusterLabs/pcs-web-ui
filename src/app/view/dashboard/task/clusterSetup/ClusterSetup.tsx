@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   NodeAuthWizardFooter,
   TaskFinishLibWizard,
@@ -16,11 +14,10 @@ import { TransportOptions } from "./TransportOptions";
 import { Quorum } from "./Quorum";
 import { Totem } from "./Totem";
 
-export const ClusterSetup: React.FC = () => {
+export const ClusterSetup = () => {
   const {
     close,
     startClusterAndClose,
-    isOpened,
     isClusterNameValid,
     areNodeNamesValid,
     isClusterNameAndNodeCheckDoneValid,
@@ -31,7 +28,7 @@ export const ClusterSetup: React.FC = () => {
       libCall: { reports, response },
     },
   } = useTask();
-  return isOpened ? (
+  return (
     <Wizard
       task="clusterSetup"
       data-test="task-cluster-setup"
@@ -130,5 +127,5 @@ export const ClusterSetup: React.FC = () => {
         },
       ]}
     />
-  ) : null;
+  );
 };

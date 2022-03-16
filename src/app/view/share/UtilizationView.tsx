@@ -1,4 +1,3 @@
-import React from "react";
 import { Alert, StackItem, TextContent } from "@patternfly/react-core";
 
 import { NVPair } from "app/view/cluster/types";
