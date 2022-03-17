@@ -15,7 +15,7 @@ export const ToolbarFilterAction = ({
   clearAllFilters: () => void;
   actions?: Record<
     string,
-    (() => void) | { run: () => void; "data-test": string }
+    React.ReactNode | { run: () => void; "data-test": string }
   >;
 }>) => {
   return (
@@ -27,17 +27,22 @@ export const ToolbarFilterAction = ({
         <ToolbarGroup variant="filter-group">{children}</ToolbarGroup>
         <ToolbarGroup>
           <ToolbarItem>
-            {Object.entries(actionMap).map(([label, action]) => (
-              <Button
-                key={label}
-                onClick={"run" in action ? action.run : action}
-                {...("data-test" in action
-                  ? { "data-test": action["data-test"] }
-                  : {})}
-              >
-                {label}
-              </Button>
-            ))}
+            {Object.entries(actionMap).map(([label, action]) =>
+              action !== null
+              && action !== undefined
+              && typeof action === "object"
+              && "run" in action ? (
+                <Button
+                  key={label}
+                  onClick={action.run}
+                  data-test={action["data-test"]}
+                >
+                  {label}
+                </Button>
+              ) : (
+                action
+              ),
+            )}
           </ToolbarItem>
         </ToolbarGroup>
       </ToolbarContent>

@@ -1,15 +1,15 @@
-import React from "react";
 import { StackItem } from "@patternfly/react-core";
 
 import { FenceDevice } from "app/view/cluster/types";
 import {
+  ActionTaskLauncher,
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
   useSelectedClusterName,
 } from "app/view/share";
 
-import { EditArgsTask, useTask } from "./task/editArgs";
+import * as task from "./task";
 
 export const FenceDeviceArgumentsView = ({
   fenceDevice,
@@ -18,7 +18,10 @@ export const FenceDeviceArgumentsView = ({
 }) => {
   const clusterName = useSelectedClusterName();
   const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState();
-  const { open: openEdit, isOpened: isOpenEdit } = useTask();
+  const fenceDeviceArguments = Object.entries(fenceDevice.arguments).reduce(
+    (nameValueMap, [name, { value }]) => ({ ...nameValueMap, [name]: value }),
+    {},
+  );
   return (
     <LoadedPcmkAgent
       clusterName={clusterName}
@@ -31,26 +34,23 @@ export const FenceDeviceArgumentsView = ({
               <PcmkAgentAttrsToolbar
                 filterState={filterState}
                 actions={{
-                  "Edit arguments": {
-                    run: () =>
-                      openEdit({
-                        fenceDeviceId: fenceDevice.id,
-                        fenceDeviceArguments: Object.entries(
-                          fenceDevice.arguments,
-                        ).reduce(
-                          (argValueMap, [name, { value }]) => ({
-                            ...argValueMap,
-                            [name]: value,
-                          }),
-                          {},
-                        ),
-                        agentParameters: agent.parameters,
-                      }),
-                    "data-test": "edit-fence-device-args",
-                  },
+                  "Edit arguments": (
+                    <ActionTaskLauncher
+                      taskComponent={task.editArgs.EditArgsTask}
+                      useTask={task.editArgs.useTask}
+                      openArgs={[
+                        {
+                          fenceDeviceId: fenceDevice.id,
+                          fenceDeviceArguments,
+                          agentParameters: agent.parameters,
+                        },
+                      ]}
+                      label="Edit arguments"
+                      data-test="edit-fence-device-args"
+                    />
+                  ),
                 }}
               />
-              {isOpenEdit && <EditArgsTask />}
             </StackItem>
             <StackItem>
               <PcmkAgentAttrsList
