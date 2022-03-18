@@ -2,10 +2,10 @@ import { StackItem } from "@patternfly/react-core";
 
 import { FenceDevice } from "app/view/cluster/types";
 import {
-  ActionTaskLauncher,
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
+  TaskLauncher,
   useSelectedClusterName,
 } from "app/view/share";
 
@@ -35,7 +35,7 @@ export const FenceDeviceArgumentsView = ({
                 filterState={filterState}
                 actions={{
                   "Edit arguments": (
-                    <ActionTaskLauncher
+                    <TaskLauncher
                       taskComponent={task.editArgs.EditArgsTask}
                       useTask={task.editArgs.useTask}
                       openArgs={[

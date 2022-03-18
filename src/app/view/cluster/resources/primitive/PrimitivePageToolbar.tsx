@@ -2,13 +2,11 @@ import { Primitive } from "app/view/cluster/types";
 import {
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
+  TaskLauncher,
   useSelectedClusterName,
 } from "app/view/share";
 
-import {
-  PrimitiveGroupChange,
-  useTask as useTaskGroupChange,
-} from "./task/groupChange";
+import * as task from "./task";
 
 const isPrimitiveManaged = (primitive: Primitive) =>
   primitive.metaAttributes.every(
@@ -27,8 +25,7 @@ export const PrimitivePageToolbar = ({
 }: {
   primitive: Primitive;
 }) => {
-  const { open: openGroupChange, canChange: canChangeGroup } =
-    useTaskGroupChange();
+  const { canChange: canChangeGroup } = task.groupChange.useTask();
   const clusterName = useSelectedClusterName();
 
   const unclone: DetailLayoutToolbarAction = {
@@ -206,10 +203,17 @@ export const PrimitivePageToolbar = ({
         buttonActions={{
           ...(isPrimitiveManaged(primitive) ? { unmanage } : { manage }),
           ...(isPrimitiveEnabled(primitive) ? { disable } : { enable }),
-          "change group": {
-            onClick: () => openGroupChange(primitive),
-            disabled: !canChangeGroup(primitive),
-          },
+          "change group": (
+            <TaskLauncher
+              taskComponent={task.groupChange.Task}
+              useTask={task.groupChange.useTask}
+              openArgs={[primitive]}
+              label="Change group"
+              variant="secondary"
+              isDisabled={!canChangeGroup(primitive)}
+              data-test="toolbar-primitive-change-group"
+            />
+          ),
         }}
         dropdownActions={{
           refresh,
@@ -218,7 +222,6 @@ export const PrimitivePageToolbar = ({
           delete: deleteItem,
         }}
       />
-      <PrimitiveGroupChange />
     </>
   );
 };

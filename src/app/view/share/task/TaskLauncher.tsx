@@ -9,6 +9,7 @@ export type TaskLauncherProps<ARGS extends unknown[]> = {
       label: React.ReactNode;
       ["data-test"]: string;
       variant?: React.ComponentProps<typeof Button>["variant"];
+      isDisabled?: boolean;
     }
   | { launcher: (_onClick: ParamlessOpen) => React.ReactNode }
 ) &
@@ -39,6 +40,7 @@ export const TaskLauncher = <ARGS extends unknown[]>(
     launcher = (
       <Button
         variant={props?.variant ?? "primary"}
+        isDisabled={props?.isDisabled ?? false}
         onClick={openTask}
         data-test={props["data-test"]}
       >

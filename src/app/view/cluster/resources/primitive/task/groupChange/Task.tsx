@@ -3,9 +3,8 @@ import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
 import { useTask } from "./useTask";
 import { GroupChangeForm } from "./GroupChangeForm";
 
-export const PrimitiveGroupChange = () => {
+export const Task = () => {
   const {
-    isOpened,
     isGroupValid,
     isAdjacentResourceValid,
     close,
@@ -18,7 +17,7 @@ export const PrimitiveGroupChange = () => {
     },
   } = useTask();
 
-  return isOpened ? (
+  return (
     <TaskSimple
       title={`Change group of primitive resource "${resourceId}"?`}
       task={taskName}
@@ -46,5 +45,5 @@ export const PrimitiveGroupChange = () => {
         />
       )}
     </TaskSimple>
-  ) : null;
+  );
 };

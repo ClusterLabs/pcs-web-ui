@@ -20,15 +20,21 @@ export type DetailLayoutToolbarAction = { disabled?: boolean } & (
   | ConfirmAction
 );
 
-type ToolbarActionMap = Record<string, DetailLayoutToolbarAction>;
+type DetailLayoutToolbarActionOrComponent =
+  | DetailLayoutToolbarAction
+  | Exclude<React.ReactNode, undefined | null>;
 
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
 
-export const DetailLayoutToolbar: React.FC<{
+export const DetailLayoutToolbar = ({
+  toolbarName,
+  buttonActions = {},
+  dropdownActions = {},
+}: {
   toolbarName: string;
-  buttonActions?: ToolbarActionMap;
-  dropdownActions?: ToolbarActionMap;
-}> = ({ toolbarName, buttonActions = {}, dropdownActions = {} }) => {
+  buttonActions?: Record<string, DetailLayoutToolbarActionOrComponent>;
+  dropdownActions?: Record<string, DetailLayoutToolbarAction>;
+}) => {
   const dispatch = useDispatch();
   const { closeDetailUrl } = useGroupDetailViewContext();
   const [confirm, setConfirm] = React.useState<ConfirmData | null>(null);
@@ -49,21 +55,28 @@ export const DetailLayoutToolbar: React.FC<{
     <>
       <Toolbar id="group-detail-layout-detail-toolbar">
         <ToolbarContent>
-          {Object.keys(buttonActions).map(name => (
-            <ToolbarItem key={name}>
-              <Button
-                variant="secondary"
-                onClick={prepareOnClick(buttonActions[name], name)}
-                isDisabled={
-                  "disabled" in buttonActions[name]
-                  && buttonActions[name].disabled
-                }
-                data-test={`toolbar-${toolbarName}-${name}`}
-              >
-                {capitalize(name)}
-              </Button>
-            </ToolbarItem>
-          ))}
+          {Object.keys(buttonActions).map((name) => {
+            const buttonAction = buttonActions[name];
+            return (
+              <ToolbarItem key={name}>
+                {typeof buttonAction === "object"
+                && ("confirm" in buttonAction || "onClick" in buttonAction) ? (
+                  <Button
+                    variant="secondary"
+                    onClick={prepareOnClick(buttonAction, name)}
+                    isDisabled={
+                      "disabled" in buttonAction && buttonAction.disabled
+                    }
+                    data-test={`toolbar-${toolbarName}-${name}`}
+                  >
+                    {capitalize(name)}
+                  </Button>
+                ) : (
+                  buttonAction
+                )}
+              </ToolbarItem>
+            );
+          })}
 
           {Object.keys(dropdownActions).length > 0 && (
             <ToolbarItem>
