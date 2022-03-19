@@ -1,2 +1,1 @@
-export * from "./useTask";
-export * from "./PermissionTask";
+export * as add from "./add";

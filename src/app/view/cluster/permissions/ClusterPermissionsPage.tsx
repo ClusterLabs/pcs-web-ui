@@ -2,7 +2,7 @@ import { ActionList, PageSection } from "@patternfly/react-core";
 
 import { ActionTaskLauncher, ClusterSectionToolbar } from "app/view/share";
 
-import * as taskAdd from "./task";
+import * as task from "./task";
 import { PermissionsTable } from "./PermissionsTable";
 
 export const ClusterPermissionsPage = () => {
@@ -11,9 +11,9 @@ export const ClusterPermissionsPage = () => {
       <ClusterSectionToolbar>
         <ActionList>
           <ActionTaskLauncher
-            taskComponent={taskAdd.PermissionTask}
+            taskComponent={task.add.PermissionTask}
             openArgs={[{ type: "create" }]}
-            useTask={taskAdd.useTask}
+            useTask={task.add.useTask}
             label="Create permission"
           />
         </ActionList>
