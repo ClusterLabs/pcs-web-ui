@@ -46,7 +46,7 @@ export const FenceDeviceArgumentsView = ({
                         },
                       ]}
                       label="Edit arguments"
-                      data-test="edit-fence-device-args"
+                      data-test="task-launch edit-fence-device-args"
                     />
                   ),
                 }}

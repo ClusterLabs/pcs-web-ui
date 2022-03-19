@@ -211,7 +211,6 @@ export const PrimitivePageToolbar = ({
               label="Change group"
               variant="secondary"
               isDisabled={!canChangeGroup(primitive)}
-              data-test="toolbar-primitive-change-group"
             />
           ),
         }}

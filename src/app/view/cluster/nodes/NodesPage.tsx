@@ -23,7 +23,6 @@ export const NodesPage: React.FC = () => {
             taskComponent={task.add.NodeAdd}
             useTask={task.add.useTask}
             label="Add node"
-            data-test="node-add"
           />
         </ActionList>
       </ClusterSectionToolbar>

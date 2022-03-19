@@ -22,14 +22,12 @@ export const ResourcesPage = () => {
             taskComponent={task.create.ResourceCreate}
             useTask={task.create.useTask}
             label="Create Resource"
-            data-test="resource-create"
           />
           <ActionTaskLauncher
             taskComponent={task.createGroup.ResourceCreateGroup}
             useTask={task.createGroup.useTask}
             label="Create group"
             variant="secondary"
-            data-test="resource-add-to-group"
           />
         </ActionList>
       </ClusterSectionToolbar>

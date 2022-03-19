@@ -15,7 +15,6 @@ export const ClusterPermissionsPage = () => {
             openArgs={[{ type: "create" }]}
             useTask={taskAdd.useTask}
             label="Create permission"
-            data-test="permission-create"
           />
         </ActionList>
       </ClusterSectionToolbar>

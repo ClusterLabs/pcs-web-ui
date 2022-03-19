@@ -19,7 +19,6 @@ export const DashboardToolbar = () => {
               taskComponent={task.importExistingCluster.ImportExistingCluster}
               useTask={task.importExistingCluster.useTask}
               label="Add existing cluster"
-              data-test="import-existing-cluster"
             />
 
             <ActionTaskLauncher
@@ -27,7 +26,6 @@ export const DashboardToolbar = () => {
               useTask={task.clusterSetup.useTask}
               label="Setup cluster"
               variant="secondary"
-              data-test="setup-cluster"
             />
           </ActionList>
         </ToolbarItem>

@@ -4,7 +4,7 @@ import { prepareCommonTask } from "./utils";
 
 const commonTask = prepareCommonTask<"Enter node name" | "Check node name">({
   taskKey: "task-cluster-import",
-  openKey: "import-existing-cluster",
+  openKey: "task-launch add-existing-cluster",
 });
 
 const { inView, selectors } = commonTask;

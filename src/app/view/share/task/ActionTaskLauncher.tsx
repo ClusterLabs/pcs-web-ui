@@ -1,4 +1,3 @@
-import * as React from "react";
 import { ActionListItem } from "@patternfly/react-core";
 
 import { TaskLauncher, TaskLauncherProps } from "./TaskLauncher";

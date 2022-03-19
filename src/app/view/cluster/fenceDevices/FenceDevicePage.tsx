@@ -22,8 +22,7 @@ export const FenceDevicePage: React.FC = () => {
           <ActionTaskLauncher
             taskComponent={task.create.FenceDeviceCreate}
             useTask={task.create.useTask}
-            label="Create fence device"
-            data-test="fence-device-create"
+            label="Create Fence Device"
           />
         </ActionList>
       </ClusterSectionToolbar>
