@@ -62,7 +62,7 @@ const buildStatusInfoList = (
         .forEach((info: Primitive["status"]["infoList"][number]) => {
           const key = info.severity === "ERROR" ? "errors" : "warnings";
           nextCounts[key][info.label] =
-            info.label in counts ? counts.errors[info.label] + 1 : 1;
+            info.label in counts[key] ? counts[key][info.label] + 1 : 1;
         });
       return nextCounts;
     },
