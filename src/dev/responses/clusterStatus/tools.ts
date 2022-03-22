@@ -242,7 +242,12 @@ export const cluster = (
       error_list: [],
       resource_list: [],
       constraints: {},
-      nodes_utilization: {},
+      nodes_utilization: {
+        "node-1": [
+          { id: "R1_test_one", name: "test_one", value: "100" },
+          { id: "R1_test_two", name: "test_two", value: "200" },
+        ],
+      },
     },
     diff || {},
     { arrayMerge: overwriteMerge },
