@@ -26,7 +26,7 @@ export * from "./UrlTabs";
 export * from "./useUrlTabs";
 export * from "./useClusterState";
 export * from "./useUsername";
-export * from "./UtilizationView";
+export * from "./utilization";
 export * from "./utils";
 export * from "./ClusterSectionToolbar";
 export * from "./useClusterSelector";

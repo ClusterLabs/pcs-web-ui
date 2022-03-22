@@ -41,7 +41,13 @@ export const PrimitivePage = ({ primitive }: { primitive: Primitive }) => {
           <PrimitiveAttrsView primitive={primitive} />
         )}
         {currentTab === "utilization" && (
-          <UtilizationView utilizationParams={primitive.utilization} />
+          <UtilizationView
+            utilizationAttrs={primitive.utilization}
+            owner={{
+              type: "resource",
+              id: primitive.id,
+            }}
+          />
         )}
         {currentTab === "meta" && (
           <NVPairListView nvPairListView={primitive.metaAttributes} />

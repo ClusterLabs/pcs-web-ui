@@ -46,7 +46,13 @@ export const NodeDetailPage: React.FC = () => {
           <NVPairListView nvPairListView={nodeAttrs(node.name)} />
         )}
         {currentTab === "utilization" && (
-          <UtilizationView utilizationParams={nodeUtilization(node.name)} />
+          <UtilizationView
+            utilizationAttrs={nodeUtilization(node.name)}
+            owner={{
+              type: "node",
+              id: node.name,
+            }}
+          />
         )}
       </Router>
     </DetailLayout>

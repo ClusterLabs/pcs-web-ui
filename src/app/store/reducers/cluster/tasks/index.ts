@@ -1,11 +1,6 @@
 import { combineReducers } from "redux";
 
-import {
-  ReducersMapKey,
-  Task,
-  TaskState,
-  wrapTasks,
-} from "app/store/taskTools";
+import { ReducersMapKey, Task, TaskState, wrapTasks } from "app/store/taskTools";
 
 import { resourceCreate } from "./resourceCreate";
 import { fenceDeviceCreate } from "./fenceDeviceCreate";
@@ -22,6 +17,7 @@ import { resourceGroup } from "./resourceGroup";
 import { nodeAdd } from "./nodeAdd";
 import { fixAuth } from "./fixAuth";
 import { permissionEdit } from "./permissionEdit";
+import { utilizationEdit } from "./utilizationEdit";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -59,5 +55,6 @@ export const tasks = combineReducers(
     nodeAdd,
     fixAuth,
     permissionEdit,
+    utilizationEdit,
   }),
 );

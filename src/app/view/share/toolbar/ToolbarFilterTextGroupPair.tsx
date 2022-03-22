@@ -62,16 +62,16 @@ function useState<K extends string, I>(
   };
 }
 
-export const ToolbarFilterTextGroupPair: React.FC<{
-  textSearchId: string;
-  groupName: string;
-  filterState: ReturnType<typeof useState>["filterState"];
-  actions?: React.ComponentProps<typeof ToolbarFilterAction>["actions"];
-}> & { useState: typeof useState } = ({
+export const ToolbarFilterTextGroupPair = ({
   textSearchId,
   groupName,
   filterState,
   actions = {},
+}: {
+  textSearchId: string;
+  groupName: string;
+  filterState: ReturnType<typeof useState>["filterState"];
+  actions?: React.ComponentProps<typeof ToolbarFilterAction>["actions"];
 }) => {
   const clearAllFilters = () => {
     const [groupInclusionMap, setGroupInclusionMap] = filterState.groupState;

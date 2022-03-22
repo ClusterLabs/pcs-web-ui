@@ -1,12 +1,9 @@
-import React from "react";
-
 import { AttributeHelpPopover, EmptyStateNoItem, Table } from "app/view/share";
 
 import { PermissionMenu } from "./PermissionMenu";
 import { PermissionCompetenceCell } from "./PermissionCompetenceCell";
 import { Permission } from "./types";
 import { usePermissions } from "./usePermissions";
-
 
 const dataTest = (
   rowIndex: number,
@@ -26,27 +23,39 @@ export const PermissionsTable = () => {
         <tr>
           <th data-label="Name">Name</th>
           <th data-label="Type">Type</th>
-          <th data-label="Read"><>Read </>
+          <th data-label="Read">
+            <>Read </>
             <AttributeHelpPopover
               header={"Allows to view cluster settings"}
               body={""}
-            /></th>
-          <th data-label="Write"><>Write </>
+            />
+          </th>
+          <th data-label="Write">
+            <>Write </>
             <AttributeHelpPopover
-              header={"Allows to modify cluster settings except permissions and ACLs"}
+              header={
+                "Allows to modify cluster settings except permissions and ACLs"
+              }
               body={""}
-            /></th>
-          <th data-label="Grant"><>Grant </>
+            />
+          </th>
+          <th data-label="Grant">
+            <>Grant </>
             <AttributeHelpPopover
               header={"Allows to modify cluster permissions and ACLs"}
               body={""}
-            /></th>
-          <th data-label="Full"><>Full </>
+            />
+          </th>
+          <th data-label="Full">
+            <>Full </>
             <AttributeHelpPopover
-              header={"Allows unrestricted access to a cluster including adding and removing"
-              + " nodes and access to keys and certificates"}
+              header={
+                "Allows unrestricted access to a cluster including adding and removing"
+                + " nodes and access to keys and certificates"
+              }
               body={""}
-            /></th>
+            />
+          </th>
           <th data-label="Menu"> </th>
         </tr>
       </thead>

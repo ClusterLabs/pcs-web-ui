@@ -62,7 +62,8 @@ export const Configure: React.FC = () => {
           onChange={allow => updateState({ write: allow })}
           data-test="write"
           popover={{
-            header: "Allows to modify cluster settings except permissions and ACLs",
+            header:
+              "Allows to modify cluster settings except permissions and ACLs",
             body: "",
           }}
         />
@@ -91,8 +92,9 @@ export const Configure: React.FC = () => {
           isValid={areCompetenciesValid}
           helperTextInvalid="Please select at least one permission"
           popover={{
-            header: "Allows unrestricted access to a cluster including adding and removing"
-            + " nodes and access to keys and certificates",
+            header:
+              "Allows unrestricted access to a cluster including adding and removing"
+              + " nodes and access to keys and certificates",
             body: "",
           }}
         />

@@ -5,20 +5,7 @@ import { FormGroup } from "./FormGroup";
 
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
 
-export const FormText: React.FC<{
-  id: string;
-  onChange: React.ComponentProps<typeof TextInput>["onChange"];
-  value: React.ComponentProps<typeof TextInput>["value"];
-  label?: React.ComponentProps<typeof FormGroup>["label"];
-  helperTextInvalid?: React.ReactNode;
-  isRequired?: boolean;
-  isValid?: boolean;
-  showValidationErrors?: boolean;
-  popover?: FormGroupProps["popover"];
-  placeholder?: string;
-  helperText?: React.ComponentProps<typeof FormGroup>["helperText"];
-  ["data-test"]?: string | undefined;
-}> = ({
+export const FormText = ({
   id,
   onChange,
   value,
@@ -30,7 +17,22 @@ export const FormText: React.FC<{
   placeholder = "",
   popover = undefined,
   helperText = undefined,
+  isDisabled = false,
   "data-test": dataTest = undefined,
+}: {
+  id: string;
+  onChange: React.ComponentProps<typeof TextInput>["onChange"];
+  value: React.ComponentProps<typeof TextInput>["value"];
+  label?: React.ComponentProps<typeof FormGroup>["label"];
+  helperTextInvalid?: React.ReactNode;
+  isRequired?: boolean;
+  isValid?: boolean;
+  showValidationErrors?: boolean;
+  popover?: FormGroupProps["popover"];
+  placeholder?: string;
+  helperText?: React.ComponentProps<typeof FormGroup>["helperText"];
+  isDisabled?: boolean;
+  ["data-test"]?: string | undefined;
 }) => {
   return (
     <FormGroup
@@ -52,6 +54,7 @@ export const FormText: React.FC<{
         onChange={onChange}
         validated={!isValid && showValidationErrors ? "error" : "default"}
         placeholder={placeholder}
+        isDisabled={isDisabled}
       />
     </FormGroup>
   );

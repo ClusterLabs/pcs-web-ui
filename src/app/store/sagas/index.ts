@@ -27,6 +27,7 @@ import * as nodeAdd from "./nodeAdd";
 import * as clusterSetup from "./clusterSetup";
 import * as permissionsSave from "./permissionsSave";
 import * as resourceClone from "./resourceClone";
+import * as utilizationSave from "./utilizationSave";
 import * as nodeAuth from "./nodeAuth";
 import * as fixAuth from "./fixAuth";
 import * as resourceGroupCreate from "./resourceGroupCreate";
@@ -50,6 +51,7 @@ function* rootSaga() {
     takeEvery("CLUSTER.PERMISSIONS.LOAD", clusterPermissions.load),
     takeEvery("CLUSTER.PERMISSIONS.SAVE", permissionsSave.permissionsSave),
     takeEvery("CLUSTER.PROPERTIES.UPDATE", clusterProperties.update),
+    takeEvery("CLUSTER.UTILIZATION.SAVE", utilizationSave.utilizationSave),
     takeEvery("DASHBOARD.CLUSTER.IMPORT.CHECK_AUTH", clusterImport.checkAuth),
     takeEvery(
       "DASHBOARD.CLUSTER.IMPORT.RUN",
