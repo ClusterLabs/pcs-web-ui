@@ -14,6 +14,7 @@ export const Task = () => {
     attrSet,
     recoverFromError,
     isNameValid,
+    isNameUsed,
     isValueValid,
     state: {
       call: { response, resultMessage },
@@ -29,7 +30,9 @@ export const Task = () => {
       footer={
         response !== "" ? null : (
           <TaskSimpleFooter
-            nextIf={isNameValid && isValueValid}
+            nextIf={
+              isNameValid && (type === "update" || !isNameUsed) && isValueValid
+            }
             run={attrSet}
             runLabel={`${isCreate ? "Create" : "Update"} utilization attribute`}
           />

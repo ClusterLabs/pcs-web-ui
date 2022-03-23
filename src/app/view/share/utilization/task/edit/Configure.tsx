@@ -9,6 +9,7 @@ export const Configure = () => {
     updateState,
     isValueValid,
     isNameValid,
+    isNameUsed,
     state: { value, showValidationErrors, type, name },
   } = useTask();
   return (
@@ -19,8 +20,12 @@ export const Configure = () => {
         onChange={value => updateState({ name: value })}
         value={name}
         showValidationErrors={showValidationErrors}
-        isValid={isNameValid}
-        helperTextInvalid="Please enter utilization attribute name"
+        isValid={isNameValid && (type === "update" || !isNameUsed)}
+        helperTextInvalid={
+          !isNameValid
+            ? "Please enter utilization attribute name"
+            : "Utilization attribute with this name already exists"
+        }
         isDisabled={type === "update"}
         data-test="name"
       />
