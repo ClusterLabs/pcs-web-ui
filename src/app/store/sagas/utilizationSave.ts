@@ -18,7 +18,7 @@ function* processRemoveResult(result: ApiResult) {
 }
 
 function* processEditResult(result: ApiResult) {
-  const taskLabel = "edit permission";
+  const taskLabel = "edit utilization attribute";
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
       useNotification: false,
