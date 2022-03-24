@@ -24,13 +24,13 @@ export const UtilizationAttrs = ({
 
   return (
     <Table>
-      <Table.Body data-test="utilization-attrs">
+      <Table.Body data-test="utilization-attr-list">
         {utilizationAttrs.map(attr => (
-          <tr key={attr.id} data-test={`utilization-attr-${attr.id}`}>
-            <td data-label="name" data-test={`${attr.id}-name`}>
+          <tr key={attr.id} data-test={`utilization-attr ${attr.id}`}>
+            <td data-label="name" data-test="name">
               {attr.name}
             </td>
-            <td data-label="value" data-test={`${attr.id}-value`}>
+            <td data-label="value" data-test="value">
               {attr.value}
             </td>
             <td data-label="Menu">

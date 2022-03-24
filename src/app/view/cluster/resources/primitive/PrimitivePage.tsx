@@ -14,10 +14,15 @@ import { PrimitiveDetail } from "./PrimitiveDetail";
 import { useClusterResourceAgent } from "./useResourceAgent";
 import { PrimitivePageToolbar } from "./PrimitivePageToolbar";
 
-const tabList = ["detail", "attributes", "utilization", "meta"] as const;
+export const primitivePageTabList = [
+  "detail",
+  "attributes",
+  "utilization",
+  "meta",
+] as const;
 
 export const PrimitivePage = ({ primitive }: { primitive: Primitive }) => {
-  const { currentTab, matchedContext } = useUrlTabs(tabList);
+  const { currentTab, matchedContext } = useUrlTabs(primitivePageTabList);
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
   // user doesn't need to wait when he needs it.
@@ -31,7 +36,13 @@ export const PrimitivePage = ({ primitive }: { primitive: Primitive }) => {
           type={primitive.type}
         />
       }
-      tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
+      tabs={
+        <UrlTabs
+          tabList={primitivePageTabList}
+          currentTab={currentTab}
+          data-test="primitive"
+        />
+      }
       data-test={`resource-detail ${primitive.id}`}
       toolbar={<PrimitivePageToolbar primitive={primitive} />}
     >

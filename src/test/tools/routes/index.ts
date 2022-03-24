@@ -388,6 +388,46 @@ export const permissionsSave = ({
   ...(response ?? { text: "Permissions saved" }),
 });
 
+export const setResourceUtilization = ({
+  clusterName,
+  resourceId,
+  name,
+  value,
+  response,
+}: {
+  clusterName: string;
+  resourceId: string;
+  name: string;
+  value: string;
+  response?: RouteResponse;
+}) => ({
+  url: url.setResourceUtilization({ clusterName }),
+  body: paramsToBody(
+    endpoints.setResourceUtilization.params({ resourceId, name, value }),
+  ),
+  ...(response ?? { text: "" }),
+});
+
+export const setNodeUtilization = ({
+  clusterName,
+  nodeName,
+  name,
+  value,
+  response,
+}: {
+  clusterName: string;
+  nodeName: string;
+  name: string;
+  value: string;
+  response?: RouteResponse;
+}) => ({
+  url: url.setNodeUtilization({ clusterName }),
+  body: paramsToBody(
+    endpoints.setNodeUtilization.params({ nodeName, name, value }),
+  ),
+  ...(response ?? { text: "" }),
+});
+
 export const importedClusterList = (
   props:
     | { clusterStatusList?: types.Cluster[] }

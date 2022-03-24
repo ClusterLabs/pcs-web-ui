@@ -1,3 +1,5 @@
+import { primitivePageTabList } from "app/view/cluster/resources";
+
 import { dt } from "test/tools/selectors";
 
 export const getNameList = async () => {
@@ -15,3 +17,11 @@ export const getNameList = async () => {
 export const assertNamesAre = async (resourceNameList: string[]) => {
   expect(await getNameList()).toEqual(resourceNameList);
 };
+
+export const selectTab = async (
+  tabName: typeof primitivePageTabList[number],
+) => {
+  await page.click(dt("tabs primitive", tabName));
+};
+
+export * as utilization from "./utilization";

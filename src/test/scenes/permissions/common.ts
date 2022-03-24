@@ -6,9 +6,10 @@ type PermissionList = ReturnType<
   typeof responses.permissions
 >["users_permissions"];
 
-type ClusterName = Parameters<
-  typeof shortcuts.interceptWithCluster
->[0]["clusterName"];
+type ClusterName = Extract<
+  Parameters<typeof shortcuts.interceptWithCluster>[0],
+  { clusterName: unknown }
+>["clusterName"];
 
 type AdditionalRouteList = Parameters<
   typeof shortcuts.interceptWithCluster
