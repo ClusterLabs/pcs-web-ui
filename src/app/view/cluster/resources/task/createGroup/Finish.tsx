@@ -1,10 +1,8 @@
-import React from "react";
-
 import { TaskLibReports, TaskSuccess } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Finish: React.FC = () => {
+export const Finish = () => {
   const {
     state: { groupId, reports },
   } = useTask();

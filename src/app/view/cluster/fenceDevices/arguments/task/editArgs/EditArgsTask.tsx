@@ -5,7 +5,7 @@ import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
 import { useTask } from "./useTask";
 import { EditArgsForm } from "./EditArgsForm";
 
-export const EditArgsTask: React.FC = () => {
+export const EditArgsTask = () => {
   const {
     close,
     name: taskName,

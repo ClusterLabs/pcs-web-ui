@@ -1,4 +1,3 @@
-import React from "react";
 import { ActionList } from "@patternfly/react-core";
 
 import {
@@ -13,7 +12,7 @@ import { NodeDetailPage } from "./NodeDetailPage";
 import { NodeList } from "./NodeList";
 import * as task from "./task";
 
-export const NodesPage: React.FC = () => {
+export const NodesPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   return (
     <>

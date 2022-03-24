@@ -1,11 +1,9 @@
-import React from "react";
-
 import { ReviewList, ReviewValue, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 import { ReviewLink } from "./ReviewLink";
 
-export const Review: React.FC = () => {
+export const Review = () => {
   const {
     state: {
       nodeNameList,

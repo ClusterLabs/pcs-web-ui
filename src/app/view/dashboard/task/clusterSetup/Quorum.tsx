@@ -1,4 +1,3 @@
-import React from "react";
 import { Form } from "@patternfly/react-core";
 
 import { FormText, TaskLibStep } from "app/view/share";
@@ -6,7 +5,7 @@ import { FormRadios } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Quorum: React.FC = () => {
+export const Quorum = () => {
   const {
     allReports,
     updateQuorumOptions,
@@ -67,7 +66,9 @@ export const Quorum: React.FC = () => {
           }}
           options={["off", "on", "default"]}
           selected={quorumOptions.last_man_standing}
-          onChange={value => updateQuorumOptions({ last_man_standing: value })}
+          onChange={value =>
+            updateQuorumOptions({ last_man_standing: value })
+          }
           data-test="quorum.last_man_standing"
         />
         <FormText

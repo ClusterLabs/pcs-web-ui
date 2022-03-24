@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Button,
   DataList,
@@ -18,7 +17,7 @@ import { FormRadios, FormSelect, FormText } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Configure: React.FC = () => {
+export const Configure = () => {
   const {
     resourceIdList,
     updateState,

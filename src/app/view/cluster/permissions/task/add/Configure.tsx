@@ -1,11 +1,10 @@
-import React from "react";
 import { Form } from "@patternfly/react-core";
 
 import { FormRadios, FormSwitch, FormText } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Configure: React.FC = () => {
+export const Configure = () => {
   const {
     updateState,
     isNameValid,

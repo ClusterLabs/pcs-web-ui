@@ -38,7 +38,7 @@ const useFilter = (): {
     p => p.readable_name,
   );
 
-export const ClusterPropertiesPage: React.FC = () => {
+export const ClusterPropertiesPage = () => {
   const { clusterProperties } = useClusterProperties();
   const [cluster] = useClusterSelector(selectors.getCluster);
   const { filterState, filterParameters } = useFilter();

@@ -1,11 +1,10 @@
-import React from "react";
 import { Alert, Form } from "@patternfly/react-core";
 
 import { FormText, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Addresses: React.FC = () => {
+export const Addresses = () => {
   const {
     state: {
       nodeAddresses,

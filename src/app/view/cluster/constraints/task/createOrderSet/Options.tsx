@@ -1,11 +1,10 @@
-import React from "react";
 import { Form } from "@patternfly/react-core";
 
 import { FormCustomId, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Options: React.FC = () => {
+export const Options = () => {
   const {
     updateState,
     isCustomIdValid,

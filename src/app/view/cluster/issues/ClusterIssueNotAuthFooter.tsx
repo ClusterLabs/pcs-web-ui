@@ -1,10 +1,9 @@
-import React from "react";
 import { Button } from "@patternfly/react-core";
 
 import { useTask } from "./useTask";
 import { ClusterIssueNotAuthButton } from "./ClusterIssueNotAuthButton";
 
-export const ClusterIssueNotAuthFooter: React.FC = () => {
+export const ClusterIssueNotAuthFooter = () => {
   const {
     authProcessId,
     fixing,

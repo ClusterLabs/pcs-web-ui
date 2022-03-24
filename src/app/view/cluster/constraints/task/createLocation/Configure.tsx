@@ -1,11 +1,10 @@
-import React from "react";
 import { Flex, FlexItem, Form, FormGroup, Radio } from "@patternfly/react-core";
 
 import { FormSelectOrText, FormText } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Configure: React.FC = () => {
+export const Configure = () => {
   const {
     updateState,
     nodeNameList,

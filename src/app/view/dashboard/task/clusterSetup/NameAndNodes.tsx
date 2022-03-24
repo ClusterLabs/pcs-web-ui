@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Form } from "@patternfly/react-core";
 import { PlusCircleIcon, TrashIcon } from "@patternfly/react-icons";
 
@@ -6,7 +5,7 @@ import { FormGroup, FormText, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const NameAndNodes: React.FC = () => {
+export const NameAndNodes = () => {
   const {
     state: { clusterName, nodeNameList, showValidationErrors },
     allReports,

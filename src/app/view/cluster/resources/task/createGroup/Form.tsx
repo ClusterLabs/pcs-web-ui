@@ -5,7 +5,7 @@ import { FormText, TaskLibReports } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Form: React.FC = () => {
+export const Form = () => {
   const {
     updateState,
     availableResources,

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   EmptyState,
   EmptyStateBody,
@@ -9,7 +8,7 @@ import { CheckCircleIcon } from "@patternfly/react-icons";
 
 import * as pallete from "app/view/share/pallete";
 
-export const IssueListEmpty: React.FC = () => {
+export const IssueListEmpty = () => {
   return (
     <EmptyState
       variant="small"

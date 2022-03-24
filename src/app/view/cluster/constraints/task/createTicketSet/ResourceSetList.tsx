@@ -1,4 +1,3 @@
-import React from "react";
 import { Form } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
@@ -12,7 +11,7 @@ import {
 
 import { useTask } from "./useTask";
 
-export const ResourceSetList: React.FC = () => {
+export const ResourceSetList = () => {
   const {
     state: {
       sets,

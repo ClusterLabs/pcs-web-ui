@@ -1,10 +1,8 @@
-import React from "react";
-
 import { ReviewList, ReviewValue, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Review: React.FC = () => {
+export const Review = () => {
   const {
     isSbdEnabled,
     filledSbdDevices,

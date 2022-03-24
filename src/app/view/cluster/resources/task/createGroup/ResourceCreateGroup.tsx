@@ -1,5 +1,3 @@
-import React from "react";
-
 import { TaskSimple } from "app/view/share";
 
 import { useTask } from "./useTask";
@@ -7,7 +5,7 @@ import { Form } from "./Form";
 import { Finish } from "./Finish";
 import { Footer } from "./Footer";
 
-export const ResourceCreateGroup: React.FC = () => {
+export const ResourceCreateGroup = () => {
   const {
     close,
     name: taskName,

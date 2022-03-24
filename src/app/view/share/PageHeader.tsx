@@ -8,7 +8,7 @@ import { location, useLocation } from "app/view/share";
 
 import { PageToolbar } from "./PageToolbar";
 
-export const PageHeader: React.FC = () => {
+export const PageHeader = () => {
   const { navigate } = useLocation();
   return (
     <PfPageHeader

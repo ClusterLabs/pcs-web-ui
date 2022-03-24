@@ -1,5 +1,3 @@
-import React from "react";
-
 import { selectors } from "app/store";
 import {
   DetailLayout,
@@ -20,7 +18,7 @@ import { NodeDoesNotExists } from "./NodeDoesNotExists";
 
 const tabList = ["detail", "attributes", "utilization"] as const;
 
-export const NodeDetailPage: React.FC = () => {
+export const NodeDetailPage = () => {
   const { selectedItemUrlName: nodeName } = useGroupDetailViewContext();
 
   const [node] = useClusterSelector(selectors.getSelectedNode, nodeName);

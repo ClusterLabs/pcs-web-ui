@@ -36,7 +36,7 @@ const TotemFormText: React.FC<{
   );
 };
 
-export const Totem: React.FC = () => {
+export const Totem = () => {
   const {
     allReports,
     updateTotemOptions,
