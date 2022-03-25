@@ -3,9 +3,9 @@ import { intercept } from "test/tools";
 
 import {
   interceptWithUtilization,
+  node1Utilization,
   openUtilizationTab,
-  resourceA,
-} from "./resource-common";
+} from "./node-common";
 
 const { utilization } = workflow.cluster;
 
@@ -15,6 +15,6 @@ describe("Resource utilization detail", () => {
     interceptWithUtilization();
 
     await openUtilizationTab();
-    await utilization.assertDisplayedAre(resourceA.utilization);
+    await utilization.assertDisplayedAre(node1Utilization);
   });
 });

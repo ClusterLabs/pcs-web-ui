@@ -4,7 +4,7 @@ import { dt } from "test/tools/selectors";
 
 export const getDisplayMap = async () => {
   return await page.$$eval(
-    dt("^resource-detail ", "utilization-attr-list", "^utilization-attr "),
+    dt("utilization-attr-list", "^utilization-attr "),
     attrElements =>
       attrElements.map(e => ({
         name:

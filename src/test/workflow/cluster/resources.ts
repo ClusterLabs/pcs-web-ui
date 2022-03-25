@@ -23,5 +23,3 @@ export const selectTab = async (
 ) => {
   await page.click(dt("tabs primitive", tabName));
 };
-
-export * as utilization from "./utilization";

@@ -1,10 +1,12 @@
-import React from "react";
 import { Button } from "@patternfly/react-core";
 
-export const TaskButtonBack: React.FC<{
+export const TaskButtonBack = ({
+  onClick,
+  disabled = false,
+}: {
   onClick: () => void;
   disabled?: boolean;
-}> = ({ onClick, disabled = false }) => {
+}) => {
   return (
     <Button
       variant="secondary"
