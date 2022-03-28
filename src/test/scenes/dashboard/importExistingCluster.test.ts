@@ -33,7 +33,7 @@ describe("Import existng cluster", () => {
   it("should import cluster", async () => {
     intercept.run([
       route.importedClusterList(),
-      route.check_auth_against_nodes({ nodeNameList: [nodeName] }),
+      route.checkAuthAgainstNodes({ nodeNameList: [nodeName] }),
       route.existingCluster({ nodeName }),
     ]);
     await openTask();
@@ -48,11 +48,11 @@ describe("Import existng cluster", () => {
   it("should import cluster with authentication", async () => {
     intercept.run([
       route.importedClusterList(),
-      route.check_auth_against_nodes({
+      route.checkAuthAgainstNodes({
         nodeNameList: [nodeName],
         response: { json: { [nodeName]: "Unable to authenticate" } },
       }),
-      route.auth_gui_against_nodes({
+      route.authGuiAgainstNodes({
         [nodeName]: { password, dest_list: [{ addr, port }] },
       }),
       route.existingCluster({ nodeName }),
@@ -71,7 +71,7 @@ describe("Import existng cluster", () => {
   it("should display error on backend error", async () => {
     intercept.run([
       route.importedClusterList(),
-      route.check_auth_against_nodes({ nodeNameList: [nodeName] }),
+      route.checkAuthAgainstNodes({ nodeNameList: [nodeName] }),
       route.existingCluster({
         nodeName,
         response: { status: [400, "Configuration conflict detected."] },

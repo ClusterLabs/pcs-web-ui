@@ -25,7 +25,7 @@ describe("Cluster setup", () => {
 
   it("should succesfully create simplest 2 node cluster", async () => {
     interceptForClusterSetup([
-      route.check_auth_against_nodes({ nodeNameList }),
+      route.checkAuthAgainstNodes({ nodeNameList }),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
@@ -52,7 +52,7 @@ describe("Cluster setup", () => {
 
   it("should succesfully setup cluster skipping optional steps", async () => {
     interceptForClusterSetup([
-      route.check_auth_against_nodes({ nodeNameList }),
+      route.checkAuthAgainstNodes({ nodeNameList }),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
@@ -83,7 +83,7 @@ describe("Cluster setup", () => {
 
   it("should be possible go back from auth and change node name", async () => {
     interceptForClusterSetup([
-      route.check_auth_against_nodes({
+      route.checkAuthAgainstNodes({
         nodeNameList,
         response: {
           json: {
@@ -104,7 +104,7 @@ describe("Cluster setup", () => {
 
   it("should be mandatory fill node addresses in links", async () => {
     interceptForClusterSetup([
-      route.check_auth_against_nodes({ nodeNameList }),
+      route.checkAuthAgainstNodes({ nodeNameList }),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],

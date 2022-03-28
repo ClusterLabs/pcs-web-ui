@@ -23,9 +23,9 @@ describe("Node add task", () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
-        route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
-        route.check_auth_against_nodes({ nodeNameList: [NODE] }),
-        route.send_known_hosts(clusterName, NODE),
+        route.canAddClusterOrNodes({ nodeNameList: [NODE] }),
+        route.checkAuthAgainstNodes({ nodeNameList: [NODE] }),
+        route.sendKnownHosts(clusterName, NODE),
         route.clusterNodeAdd(clusterName, NODE),
       ],
     });
@@ -46,7 +46,7 @@ describe("Node add task", () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
-        route.can_add_cluster_or_nodes({
+        route.canAddClusterOrNodes({
           nodeNameList: [NODE],
           response: { status: [400, reason] },
         }),
@@ -60,8 +60,8 @@ describe("Node add task", () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
-        route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
-        route.check_auth_against_nodes({
+        route.canAddClusterOrNodes({ nodeNameList: [NODE] }),
+        route.checkAuthAgainstNodes({
           nodeNameList: [NODE],
           response: { json: { [NODE]: "Offline" } },
         }),
@@ -75,14 +75,14 @@ describe("Node add task", () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
-        route.can_add_cluster_or_nodes({ nodeNameList: [NODE] }),
-        route.check_auth_against_nodes({
+        route.canAddClusterOrNodes({ nodeNameList: [NODE] }),
+        route.checkAuthAgainstNodes({
           nodeNameList: [NODE],
           response: { json: { [NODE]: "Unable to authenticate" } },
         }),
-        route.send_known_hosts(clusterName, NODE),
+        route.sendKnownHosts(clusterName, NODE),
         route.clusterNodeAdd(clusterName, NODE),
-        route.auth_gui_against_nodes({
+        route.authGuiAgainstNodes({
           [NODE]: {
             password: PASSWORD,
             dest_list: [{ addr: ADDR, port: PORT }],

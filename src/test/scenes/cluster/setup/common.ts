@@ -7,7 +7,7 @@ export const interceptForClusterSetup = (routeList: intercept.Route[] = []) =>
   intercept.run([
     route.importedClusterList(),
     route.resourceAgentListAgents(clusterName),
-    route.can_add_cluster_or_nodes({ clusterName, nodeNameList }),
+    route.canAddClusterOrNodes({ clusterName, nodeNameList }),
     route.sendKnownHostsToNode({ nodeNameList, targetNode: nodeNameList[0] }),
     route.rememberCluster({ clusterName, nodeNameList }),
     ...routeList,
