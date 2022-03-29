@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   ReviewList,
   ReviewValue,
@@ -9,7 +7,7 @@ import {
 
 import { useTask } from "./useTask";
 
-export const Review: React.FC = () => {
+export const Review = () => {
   const {
     state: {
       id,

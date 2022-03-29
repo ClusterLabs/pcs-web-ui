@@ -1,16 +1,12 @@
-import React from "react";
-
 import { Primitive } from "app/view/cluster/types";
 import {
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
+  TaskLauncher,
   useSelectedClusterName,
 } from "app/view/share";
 
-import {
-  PrimitiveGroupChange,
-  useTask as useTaskGroupChange,
-} from "./task/groupChange";
+import * as task from "./task";
 
 const isPrimitiveManaged = (primitive: Primitive) =>
   primitive.metaAttributes.every(
@@ -24,11 +20,12 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
       metaAttribute.name !== "target-role" || metaAttribute.value !== "Stopped",
   );
 
-export const PrimitivePageToolbar: React.FC<{
+export const PrimitivePageToolbar = ({
+  primitive,
+}: {
   primitive: Primitive;
-}> = ({ primitive }) => {
-  const { open: openGroupChange, canChange: canChangeGroup } =
-    useTaskGroupChange();
+}) => {
+  const { canChange: canChangeGroup } = task.groupChange.useTask();
   const clusterName = useSelectedClusterName();
 
   const unclone: DetailLayoutToolbarAction = {
@@ -206,10 +203,16 @@ export const PrimitivePageToolbar: React.FC<{
         buttonActions={{
           ...(isPrimitiveManaged(primitive) ? { unmanage } : { manage }),
           ...(isPrimitiveEnabled(primitive) ? { disable } : { enable }),
-          "change group": {
-            onClick: () => openGroupChange(primitive),
-            disabled: !canChangeGroup(primitive),
-          },
+          "change group": (
+            <TaskLauncher
+              taskComponent={task.groupChange.Task}
+              useTask={task.groupChange.useTask}
+              openArgs={[primitive]}
+              label="Change group"
+              variant="secondary"
+              isDisabled={!canChangeGroup(primitive)}
+            />
+          ),
         }}
         dropdownActions={{
           refresh,
@@ -218,7 +221,6 @@ export const PrimitivePageToolbar: React.FC<{
           delete: deleteItem,
         }}
       />
-      <PrimitiveGroupChange />
     </>
   );
 };

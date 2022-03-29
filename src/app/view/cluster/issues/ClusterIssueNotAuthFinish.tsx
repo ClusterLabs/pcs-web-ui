@@ -1,11 +1,10 @@
-import React from "react";
 import { Alert } from "@patternfly/react-core";
 
 import { EmptyStateSpinner } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const ClusterIssueNotAuthFinish: React.FC = () => {
+export const ClusterIssueNotAuthFinish = () => {
   const { fixing, errorMessage } = useTask();
 
   if (fixing) {

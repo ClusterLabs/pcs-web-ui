@@ -1,11 +1,10 @@
-import React from "react";
 import { Alert, Form } from "@patternfly/react-core";
 
 import { FormSwitch, FormText, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Sbd: React.FC = () => {
+export const Sbd = () => {
   const {
     isSbdEnabled,
     updateState,

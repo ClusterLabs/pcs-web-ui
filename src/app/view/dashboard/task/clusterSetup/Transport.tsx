@@ -1,9 +1,7 @@
-import React from "react";
-
 import { useTask } from "./useTask";
 import { TransportKnet } from "./TransportKnet";
 
-export const Transport: React.FC = () => {
+export const Transport = () => {
   const {
     state: { transportType, linkList },
   } = useTask();

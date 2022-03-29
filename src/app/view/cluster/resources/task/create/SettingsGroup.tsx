@@ -1,11 +1,10 @@
-import React from "react";
 import { Checkbox, Flex, FlexItem, FormGroup } from "@patternfly/react-core";
 
 import { FormSelectOrText } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const SettingsGroup: React.FC = () => {
+export const SettingsGroup = () => {
   const {
     state: { useGroup, group, clone, showValidationErrors },
     updateState,

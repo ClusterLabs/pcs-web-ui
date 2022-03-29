@@ -27,6 +27,8 @@ export * from "./clusterStop";
 export * from "./canAddClusterOrNodes";
 export * from "./sendKnownHosts";
 export * from "./sendKnownHostsToNode";
+export * from "./setResourceUtilization";
+export * from "./setNodeUtilization";
 export * from "./resourceClone";
 export * from "./resourceUnclone";
 export * from "./resourceChangeGroup";

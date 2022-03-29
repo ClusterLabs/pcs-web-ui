@@ -1,4 +1,3 @@
-import React from "react";
 import { Alert, AlertActionLink } from "@patternfly/react-core";
 
 import { TaskLibStep } from "app/view/share";
@@ -6,7 +5,7 @@ import { EmptyStateSpinner, NodesAuthForm } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const PrepareNode: React.FC = () => {
+export const PrepareNode = () => {
   const {
     useNodeCheck,
     checkCanAddNode,

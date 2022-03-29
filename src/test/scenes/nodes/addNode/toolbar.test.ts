@@ -3,7 +3,7 @@ import { intercept, shortcuts } from "test/tools";
 
 import { TASK, url } from "./common";
 
-const NODE_ADD_BUTTON = dt("cluster-section-toolbar", "node-add");
+const NODE_ADD_BUTTON = dt("cluster-section-toolbar", "task-launch add-node");
 
 describe("Node add button", () => {
   it("should launch add node task", async () => {

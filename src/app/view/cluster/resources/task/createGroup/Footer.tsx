@@ -1,9 +1,8 @@
-import React from "react";
 import { Button } from "@patternfly/react-core";
 
 import { useTask } from "./useTask";
 
-export const Footer: React.FC = () => {
+export const Footer = () => {
   const {
     close,
     createGroup,

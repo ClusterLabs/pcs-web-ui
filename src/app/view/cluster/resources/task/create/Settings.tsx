@@ -1,4 +1,3 @@
-import React from "react";
 import { Checkbox, Form, FormGroup } from "@patternfly/react-core";
 
 import { TaskLibStep } from "app/view/share";
@@ -6,7 +5,7 @@ import { TaskLibStep } from "app/view/share";
 import { SettingsGroup } from "./SettingsGroup";
 import { useTask } from "./useTask";
 
-export const Settings: React.FC = () => {
+export const Settings = () => {
   const {
     state: {
       libCall: { reports },

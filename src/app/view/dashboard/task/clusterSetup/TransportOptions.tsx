@@ -1,10 +1,4 @@
-import React from "react";
-import {
-  Form,
-  FormFieldGroup,
-  Text,
-  TextContent,
-} from "@patternfly/react-core";
+import { Form, FormFieldGroup, Text, TextContent } from "@patternfly/react-core";
 
 import {
   FormRadios,
@@ -21,7 +15,7 @@ const help = helpAll.knet;
 const ID_PREFIX_OPTIONS = "cluster-setup-transport-options";
 const ID_PREFIX_COMPRESSION = "cluster-setup-compression";
 const ID_PREFIX_CRYPTO = "cluster-setup-crypto";
-export const TransportOptions: React.FC = () => {
+export const TransportOptions = () => {
   const {
     allReports,
     updateTransportOptions,

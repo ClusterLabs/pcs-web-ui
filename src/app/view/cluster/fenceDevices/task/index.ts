@@ -1,1 +1,1 @@
-export * from "./create";
+export * as create from "./create";

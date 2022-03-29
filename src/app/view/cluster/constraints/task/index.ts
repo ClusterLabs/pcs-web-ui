@@ -1,7 +1,7 @@
-export * from "./createLocation";
-export * from "./createOrder";
-export * from "./createOrderSet";
-export * from "./createTicket";
-export * from "./createTicketSet";
-export * from "./createColocation";
-export * from "./createColocationSet";
+export * as createLocation from "./createLocation";
+export * as createOrder from "./createOrder";
+export * as createOrderSet from "./createOrderSet";
+export * as createTicket from "./createTicket";
+export * as createTicketSet from "./createTicketSet";
+export * as createColocation from "./createColocation";
+export * as createColocationSet from "./createColocationSet";

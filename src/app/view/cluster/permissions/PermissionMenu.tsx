@@ -1,16 +1,12 @@
-import React from "react";
-
 import { Action } from "app/store";
 import { DropdownActionListMenu, ModalAction } from "app/view/share";
 
-import { useTask } from "./task/useTask";
+import * as task from "./task";
 import { Permission } from "./types";
 import { usePermissions } from "./usePermissions";
 
-export const PermissionMenu: React.FC<{
-  permission: Permission;
-}> = ({ permission }) => {
-  const { open } = useTask();
+export const PermissionMenu = ({ permission }: { permission: Permission }) => {
+  const { open } = task.add.useTask();
   const { clusterName, permissionList } = usePermissions();
 
   const removeAction: Action = {

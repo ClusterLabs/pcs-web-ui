@@ -9,13 +9,12 @@ export const ImportExistingCluster = () => {
   const {
     close,
     importCluster,
-    isOpened,
     isNodeNameValid,
     isNodeCheckDoneValid,
     state: { authProcessId },
   } = useTask();
 
-  return isOpened ? (
+  return (
     <Wizard
       task="importExistingCluster"
       data-test="task-cluster-import"
@@ -61,5 +60,5 @@ export const ImportExistingCluster = () => {
         },
       ]}
     />
-  ) : null;
+  );
 };

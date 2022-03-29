@@ -5,6 +5,7 @@ import { ClusterPropertiesActions } from "./properties";
 import { ClusterPermissionsActions } from "./permissions";
 import { ClusterStatusActions } from "./status";
 import { ClusterTaskActions } from "./task";
+import { ClusterUtilizationActions } from "./utilization";
 
 // prettier-ignore
 export type ClusterActions = (
@@ -15,4 +16,5 @@ export type ClusterActions = (
   & ClusterPermissionsActions
   & ClusterStatusActions
   & ClusterTaskActions
+  & ClusterUtilizationActions
 );

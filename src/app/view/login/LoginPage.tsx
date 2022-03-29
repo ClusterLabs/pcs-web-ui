@@ -14,7 +14,7 @@ import { BackgroundImage, useDispatch } from "app/view/share";
 // component, so the state persists when this component is not rendered. When
 // the login page is rendered again, previous username and login is present
 // which is wrong.
-export const LoginPage: React.FC = () => {
+export const LoginPage = () => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const failed = useSelector(selectors.loginIsFailed);

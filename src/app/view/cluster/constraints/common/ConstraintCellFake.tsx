@@ -1,6 +1,5 @@
-import React from "react";
 import { DataListCell } from "@patternfly/react-core";
 
-export const ConstraintCellFake: React.FC = () => {
+export const ConstraintCellFake = () => {
   return <DataListCell width={1} />;
 };

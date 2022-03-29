@@ -1,4 +1,4 @@
-import { intercept, location, shortcuts, url } from "test/tools";
+import { intercept, location, route, shortcuts } from "test/tools";
 import { dt } from "test/tools/selectors";
 
 const nodeName = "node-1";
@@ -18,13 +18,7 @@ describe("Node start", () => {
   it("should successfully start", async () => {
     shortcuts.interceptWithCluster({
       clusterName,
-      additionalRouteList: [
-        {
-          url: url.clusterStart({ clusterName }),
-          body: { name: nodeName },
-          text: "",
-        },
-      ],
+      additionalRouteList: [route.clusterStart({ clusterName, nodeName })],
     });
 
     await launchAction();
@@ -49,11 +43,11 @@ describe("Node start", () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
-        {
-          url: url.clusterStart({ clusterName }),
-          body: { name: nodeName },
-          status: [400, "Unable to start node."],
-        },
+        route.clusterStart({
+          clusterName,
+          nodeName,
+          response: { status: [400, "Unable to start node."] },
+        }),
       ],
     });
 

@@ -87,7 +87,7 @@ const onOff = (value: string) => (value === "1" ? "on" : "off");
 describe("Cluster setup", () => {
   it("should create full filled cluster", async () => {
     interceptForClusterSetup([
-      route.check_auth_against_nodes({ nodeNameList }),
+      route.checkAuthAgainstNodes({ nodeNameList }),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],

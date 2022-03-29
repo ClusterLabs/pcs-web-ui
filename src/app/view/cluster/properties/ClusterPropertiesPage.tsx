@@ -18,10 +18,7 @@ import {
 } from "app/view/share";
 
 import { PropertiesForm } from "./PropertiesForm";
-import {
-  ClusterProperties,
-  useClusterProperties,
-} from "./useClusterProperties";
+import { ClusterProperties, useClusterProperties } from "./useClusterProperties";
 
 const useFilter = (): {
   filterState: ReturnType<
@@ -41,7 +38,7 @@ const useFilter = (): {
     p => p.readable_name,
   );
 
-export const ClusterPropertiesPage: React.FC = () => {
+export const ClusterPropertiesPage = () => {
   const { clusterProperties } = useClusterProperties();
   const [cluster] = useClusterSelector(selectors.getCluster);
   const { filterState, filterParameters } = useFilter();
@@ -60,7 +57,10 @@ export const ClusterPropertiesPage: React.FC = () => {
                 actions={{
                   ...(!isEditing
                     ? {
-                        "Edit Properties": () => setIsEditing(true),
+                        "Edit Properties": {
+                          run: () => setIsEditing(true),
+                          "data-test": "edit-cluster-properties",
+                        },
                       }
                     : {}),
                 }}

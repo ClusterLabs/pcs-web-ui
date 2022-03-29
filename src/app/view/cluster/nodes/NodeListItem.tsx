@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DataListCell,
   DataListItem,
@@ -15,17 +14,17 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-export const NodeListItem: React.FC<{ node: Node }> = ({ node }) => {
+export const NodeListItem = ({ node }: { node: Node }) => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
   return (
     <DataListItem aria-labelledby={node.name}>
-      <DataListItemRow>
+      <DataListItemRow data-test={`node-list-item ${node.name}`}>
         <DataListItemCells
           dataListCells={
             <>
               <DataListCell>
                 <Link to={`/${node.name}`}>
-                  <strong>{node.name}</strong>
+                  <strong data-test="node-list-item-name">{node.name}</strong>
                 </Link>
               </DataListCell>
               <DataListCell>

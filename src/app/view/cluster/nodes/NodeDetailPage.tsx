@@ -1,5 +1,3 @@
-import React from "react";
-
 import { selectors } from "app/store";
 import {
   DetailLayout,
@@ -18,14 +16,14 @@ import { NodeDetailPageToolbar } from "./NodeDetailPageToolbar";
 import { NodeDetailView } from "./NodeDetailView";
 import { NodeDoesNotExists } from "./NodeDoesNotExists";
 
-const tabList = ["detail", "attributes", "utilization"] as const;
+export const nodePageTabList = ["detail", "attributes", "utilization"] as const;
 
-export const NodeDetailPage: React.FC = () => {
+export const NodeDetailPage = () => {
   const { selectedItemUrlName: nodeName } = useGroupDetailViewContext();
 
   const [node] = useClusterSelector(selectors.getSelectedNode, nodeName);
 
-  const { currentTab, matchedContext } = useUrlTabs(tabList);
+  const { currentTab, matchedContext } = useUrlTabs(nodePageTabList);
 
   const { nodeAttrs, nodeUtilization } = useClusterState(
     useSelectedClusterName(),
@@ -37,7 +35,13 @@ export const NodeDetailPage: React.FC = () => {
   return (
     <DetailLayout
       caption={nodeName}
-      tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
+      tabs={
+        <UrlTabs
+          tabList={nodePageTabList}
+          currentTab={currentTab}
+          data-test="node"
+        />
+      }
       toolbar={<NodeDetailPageToolbar node={node} />}
     >
       <Router base={matchedContext}>
@@ -46,7 +50,13 @@ export const NodeDetailPage: React.FC = () => {
           <NVPairListView nvPairListView={nodeAttrs(node.name)} />
         )}
         {currentTab === "utilization" && (
-          <UtilizationView utilizationParams={nodeUtilization(node.name)} />
+          <UtilizationView
+            utilizationAttrs={nodeUtilization(node.name)}
+            owner={{
+              type: "node",
+              id: node.name,
+            }}
+          />
         )}
       </Router>
     </DetailLayout>

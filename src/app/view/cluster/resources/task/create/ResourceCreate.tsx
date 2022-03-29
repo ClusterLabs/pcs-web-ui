@@ -1,5 +1,3 @@
-import React from "react";
-
 import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
 
 import { Review } from "./Review";
@@ -8,7 +6,7 @@ import { NameType } from "./NameType";
 import { InstanceAttrsForm } from "./InstanceAttrsForm";
 import { Settings } from "./Settings";
 
-export const ResourceCreate: React.FC = () => {
+export const ResourceCreate = () => {
   const {
     close,
     create,

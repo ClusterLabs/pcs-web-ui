@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   NodeAuthWizardFooter,
   TaskFinishLibWizard,
@@ -15,7 +13,7 @@ import { Addresses } from "./Addresses";
 import { Sbd } from "./Sbd";
 import { Review } from "./Review";
 
-export const NodeAdd: React.FC = () => {
+export const NodeAdd = () => {
   const {
     close,
     nodeStart,

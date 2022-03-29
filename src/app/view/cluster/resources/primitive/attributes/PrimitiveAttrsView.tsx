@@ -43,7 +43,10 @@ export const PrimitiveAttrsView = ({ primitive }: { primitive: Primitive }) => {
             <StackItem>
               <PcmkAgentAttrsToolbar
                 actions={{
-                  "Edit Attributes": () => setIsEditing(true),
+                  "Edit Attributes": {
+                    run: () => setIsEditing(true),
+                    "data-test": "edit-primitive-attributes",
+                  },
                 }}
                 filterState={filterState}
               />

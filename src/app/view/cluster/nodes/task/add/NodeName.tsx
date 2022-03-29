@@ -1,11 +1,10 @@
-import React from "react";
 import { Form } from "@patternfly/react-core";
 
 import { FormText, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const NodeName: React.FC = () => {
+export const NodeName = () => {
   const {
     state: {
       libCall: { reports },
