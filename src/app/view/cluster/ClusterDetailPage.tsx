@@ -14,6 +14,7 @@ import { useClusterState } from "app/view/share";
 import { NodesPage } from "./nodes";
 import { ResourcesPage } from "./resources";
 import { FenceDevicePage } from "./fenceDevices";
+import { SbdPage } from "./sbd";
 import { ConstraintsPage } from "./constraints";
 import { ClusterPropertiesPage } from "./properties";
 import { ClusterDetail } from "./ClusterDetail";
@@ -25,6 +26,7 @@ export const clusterPageTabList = [
   "nodes",
   "resources",
   "fence-devices",
+  "sbd",
   "constraints",
   "properties",
   "permissions",
@@ -59,6 +61,7 @@ export const ClusterDetailPage: React.FC<{ clusterName: string }> = ({
             {currentTab === "nodes" && <NodesPage />}
             {currentTab === "resources" && <ResourcesPage />}
             {currentTab === "fence-devices" && <FenceDevicePage />}
+            {currentTab === "sbd" && <SbdPage />}
             {currentTab === "constraints" && (
               <ConstraintsPage clusterName={clusterName} />
             )}

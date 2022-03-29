@@ -95,3 +95,47 @@ export const big = t.cluster("big", "error", {
     "Unreal error 3",
   ]),
 });
+
+export const sbd = t.cluster("sbd", "ok", {
+  node_list: [
+    t.node("1", {
+      sbd_config: {
+        SBD_DELAY_START: "no",
+        SBD_OPTS: "a83-1",
+        SBD_PACEMAKER: "yes",
+        SBD_STARTMODE: "always",
+        SBD_WATCHDOG_DEV: "/dev/watchdog",
+        SBD_WATCHDOG_TIMEOUT: "5",
+      },
+    }),
+    t.node("2", {
+      services: {
+        pacemaker: {
+          installed: true,
+          running: false,
+          enabled: true,
+        },
+        pacemaker_remote: {
+          installed: false,
+          running: false,
+          enabled: false,
+        },
+        corosync: {
+          installed: true,
+          running: true,
+          enabled: true,
+        },
+        pcsd: {
+          installed: true,
+          running: true,
+          enabled: false,
+        },
+        sbd: {
+          installed: false,
+          running: false,
+          enabled: false,
+        },
+      },
+    }),
+  ],
+});
