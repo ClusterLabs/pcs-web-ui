@@ -141,6 +141,16 @@ export type Cluster = {
   sbdDetection: null | {
     enabled: boolean;
   };
+  sbdConfig?: {
+    SBD_DELAY_START?: string | undefined;
+    SBD_OPTS?: string | undefined;
+    SBD_PACEMAKER?: string | undefined;
+    SBD_STARTMODE?: string | undefined;
+    SBD_TIMEOUT_ACTION?: string | undefined;
+    SBD_WATCHDOG_DEV?: string | undefined;
+    SBD_WATCHDOG_TIMEOUT?: string | undefined;
+  };
+  sbdWatchdogs: Array<Array<string>> | undefined;
 };
 
 export type ClusterStatusService = {

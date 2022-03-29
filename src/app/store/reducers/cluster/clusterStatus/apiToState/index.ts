@@ -7,6 +7,7 @@ import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
+
 const sbdDetection = (apiClusterState: ApiCluster) =>
   apiClusterState.node_list.reduce<Cluster["sbdDetection"]>(
     (sbd, node) =>
@@ -17,6 +18,28 @@ const sbdDetection = (apiClusterState: ApiCluster) =>
           },
     null,
   );
+
+const sbdConfig = (apiClusterState: ApiCluster) => {
+  const node = apiClusterState.node_list.find(
+    n => n.status !== "unknown" && n.sbd_config !== undefined,
+  );
+
+  return node?.status !== "unknown"
+    && node !== undefined
+    && node?.sbd_config !== null
+    ? node.sbd_config
+    : undefined;
+};
+
+const sbdWatchdogs = (apiClusterState: ApiCluster) => {
+  const watchdogs = [];
+  for (const node of apiClusterState.node_list) {
+    if (node.status !== "unknown" && node.sbd_config?.SBD_WATCHDOG_DEV) {
+      watchdogs.push([node.name, node.sbd_config.SBD_WATCHDOG_DEV]);
+    }
+  }
+  return watchdogs.length !== 0 ? watchdogs : undefined;
+};
 
 export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
   const {
@@ -51,5 +74,7 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
     nodeAttr: apiClusterStatus.node_attr ?? {},
     nodesUtilization: apiClusterStatus.nodes_utilization ?? {},
     sbdDetection: sbdDetection(apiClusterStatus),
+    sbdConfig: sbdConfig(apiClusterStatus),
+    sbdWatchdogs: sbdWatchdogs(apiClusterStatus),
   };
 };
