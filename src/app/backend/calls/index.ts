@@ -1,4 +1,6 @@
 export * from "./authGuiAgainstNodes";
+export * from "./addMetaAttrRemote";
+export * from "./addNodeAttrRemote";
 export * from "./checkAuthAgainstNodes";
 export * from "./existingCluster";
 export * from "./clusterStatus";
