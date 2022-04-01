@@ -2,13 +2,13 @@ import { ActionPayload, selectors } from "app/store";
 import { useClusterSelector, useClusterTask } from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("utilizationEdit");
+  const task = useClusterTask("nvpairEdit");
   const { dispatch, clusterName, state } = task;
   const [clusterStatus] = useClusterSelector(selectors.getCluster);
 
   let existingNames: string[] = [];
   if (state.owner !== null) {
-    if (state.owner.type === "node") {
+    if (state.owner.type === "node-utilization") {
       if (state.owner.id in clusterStatus.nodesUtilization) {
         existingNames = clusterStatus.nodesUtilization[state.owner.id].map(
           utilization => utilization.name,
@@ -53,25 +53,25 @@ export const useTask = () => {
     isNameValid: state.name.length > 0,
     isNameUsed: existingNames.includes(state.name),
 
-    open: (payload: ActionPayload["CLUSTER.UTILIZATION.EDIT"]) => {
+    open: (payload: ActionPayload["CLUSTER.NVPAIRS.EDIT"]) => {
       dispatch({
-        type: "CLUSTER.UTILIZATION.EDIT",
+        type: "CLUSTER.NVPAIRS.EDIT",
         key,
         payload,
       });
       task.open();
     },
 
-    updateState: (payload: ActionPayload["CLUSTER.UTILIZATION.EDIT.UPDATE"]) =>
+    updateState: (payload: ActionPayload["CLUSTER.NVPAIRS.EDIT.UPDATE"]) =>
       dispatch({
-        type: "CLUSTER.UTILIZATION.EDIT.UPDATE",
+        type: "CLUSTER.NVPAIRS.EDIT.UPDATE",
         key,
         payload,
       }),
 
     attrSet: () => {
       dispatch({
-        type: "CLUSTER.UTILIZATION.SAVE",
+        type: "CLUSTER.NVPAIRS.SAVE",
         key: { clusterName, task: task.name },
         payload: {
           owner: state.owner,
@@ -83,14 +83,14 @@ export const useTask = () => {
 
     recoverFromError: () => {
       dispatch({
-        type: "CLUSTER.UTILIZATION.SAVE.ERROR.RECOVER",
+        type: "CLUSTER.NVPAIRS.SAVE.ERROR.RECOVER",
         key,
       });
     },
 
     close: () => {
       dispatch({
-        type: "CLUSTER.UTILIZATION.EDIT.CLOSE",
+        type: "CLUSTER.NVPAIRS.EDIT.CLOSE",
         key,
       });
       task.close();

@@ -6,19 +6,19 @@ import { NVPair } from "app/view/cluster/types";
 
 import * as task from "./task";
 
-export const UtilizationAttrMenu = ({
+export const NVPairMenu = ({
   attr,
   owner,
 }: {
   attr: NVPair;
-  owner: ActionPayload["CLUSTER.UTILIZATION.SAVE"]["owner"];
+  owner: ActionPayload["CLUSTER.NVPAIRS.SAVE"]["owner"];
 }) => {
   const { open } = task.edit.useTask();
   const clusterName = useSelectedClusterName();
 
   const removeAction: Action = {
-    type: "CLUSTER.UTILIZATION.SAVE",
-    key: { clusterName, task: "utilizationEdit" },
+    type: "CLUSTER.NVPAIRS.SAVE",
+    key: { clusterName, task: "nvpairEdit" },
     payload: {
       owner,
       name: attr.name,
@@ -38,8 +38,8 @@ export const UtilizationAttrMenu = ({
 
   const remove: ModalAction = {
     confirm: {
-      title: `Remove the utilization attribute "${attr.name}"?`,
-      description: "Removes the utilization attribute.",
+      title: `Remove the attribute "${attr.name}"?`,
+      description: "Removes the attribute.",
     },
     action: removeAction,
   };

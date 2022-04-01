@@ -53,7 +53,7 @@ export const NodeDetailPage = () => {
           <UtilizationView
             utilizationAttrs={nodeUtilization(node.name)}
             owner={{
-              type: "node",
+              type: "node-utilization",
               id: node.name,
             }}
           />

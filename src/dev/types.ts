@@ -39,3 +39,4 @@ export type Clone = Extract<Resource, { class_type: "clone" }>;
 export type Group = Extract<Resource, { class_type: "group" }>;
 export type CrmStatus = Extract<Resource, PrimitiveClass>["crm_status"][number];
 export type Operation = Extract<Resource, PrimitiveClass>["operations"][number];
+export type NVPair = Primitive["utilization"][number];

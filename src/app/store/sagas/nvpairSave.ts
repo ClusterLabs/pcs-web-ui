@@ -3,7 +3,7 @@ import { ActionMap } from "app/store/actions";
 
 import { api, processError, put, putNotification } from "./common";
 
-type SaveAction = ActionMap["CLUSTER.UTILIZATION.SAVE"];
+type SaveAction = ActionMap["CLUSTER.NVPAIRS.SAVE"];
 
 type ApiResult =
   | api.ResultOf<typeof setNodeUtilization>
@@ -24,7 +24,7 @@ function* processEditResult(result: ApiResult) {
       useNotification: false,
       action: () =>
         put({
-          type: "CLUSTER.UTILIZATION.SAVE.ERROR",
+          type: "CLUSTER.NVPAIRS.SAVE.ERROR",
           payload: {
             message: api.errorMessage(result, taskLabel),
           },
@@ -34,17 +34,17 @@ function* processEditResult(result: ApiResult) {
   }
 
   yield put({
-    type: "CLUSTER.UTILIZATION.SAVE.OK",
+    type: "CLUSTER.NVPAIRS.SAVE.OK",
   });
 }
 
-export function* utilizationSave({
+export function* nvpairSave({
   key,
   payload: { name, value, owner },
 }: SaveAction) {
   let result: ApiResult;
 
-  if (owner.type === "resource") {
+  if (owner.type === "resource-utilization") {
     result = yield api.authSafe(setResourceUtilization, {
       clusterName: key.clusterName,
       resourceId: owner.id,
@@ -62,7 +62,7 @@ export function* utilizationSave({
 
   if (value.length === 0) {
     yield processRemoveResult(result);
-    yield put({ type: "CLUSTER.UTILIZATION.EDIT.CLOSE", key });
+    yield put({ type: "CLUSTER.NVPAIRS.EDIT.CLOSE", key });
   } else {
     yield processEditResult(result);
   }

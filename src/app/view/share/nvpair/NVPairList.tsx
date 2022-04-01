@@ -4,16 +4,16 @@ import { EmptyStateNoItem } from "app/view/share/emptyState";
 import { Table } from "app/view/share/table";
 import { NVPair } from "app/view/cluster/types";
 
-import { UtilizationAttrMenu } from "./UtilizationAttrMenu";
+import { NVPairMenu } from "./NVPairMenu";
 
-export const UtilizationAttrs = ({
-  utilizationAttrs,
+export const NVPairList = ({
+  nvPairList,
   owner,
 }: {
-  utilizationAttrs: NVPair[];
-  owner: React.ComponentProps<typeof UtilizationAttrMenu>["owner"];
+  nvPairList: NVPair[];
+  owner: React.ComponentProps<typeof NVPairMenu>["owner"];
 }) => {
-  if (utilizationAttrs.length === 0) {
+  if (nvPairList.length === 0) {
     return (
       <EmptyStateNoItem
         title="No attribute here."
@@ -24,9 +24,9 @@ export const UtilizationAttrs = ({
 
   return (
     <Table>
-      <Table.Body data-test="utilization-attr-list">
-        {utilizationAttrs.map(attr => (
-          <tr key={attr.id} data-test={`utilization-attr ${attr.id}`}>
+      <Table.Body data-test="nvpair-list">
+        {nvPairList.map(attr => (
+          <tr key={attr.id} data-test={`nvpair ${attr.id}`}>
             <td data-label="name" data-test="name">
               {attr.name}
             </td>
@@ -34,7 +34,7 @@ export const UtilizationAttrs = ({
               {attr.value}
             </td>
             <td data-label="Menu">
-              <UtilizationAttrMenu attr={attr} owner={owner} />
+              <NVPairMenu attr={attr} owner={owner} />
             </td>
           </tr>
         ))}

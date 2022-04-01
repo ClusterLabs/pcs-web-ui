@@ -17,7 +17,7 @@ import { resourceGroup } from "./resourceGroup";
 import { nodeAdd } from "./nodeAdd";
 import { fixAuth } from "./fixAuth";
 import { permissionEdit } from "./permissionEdit";
-import { utilizationEdit } from "./utilizationEdit";
+import { nvpairEdit } from "./nvpairEdit";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -55,6 +55,6 @@ export const tasks = combineReducers(
     nodeAdd,
     fixAuth,
     permissionEdit,
-    utilizationEdit,
+    nvpairEdit,
   }),
 );
