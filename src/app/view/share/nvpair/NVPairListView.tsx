@@ -9,6 +9,7 @@ import {
 
 import { ActionPayload } from "app/store";
 import { NVPair } from "app/view/cluster/types";
+import { EmptyStateNoItem } from "app/view/share/emptyState";
 import { ActionTaskLauncher } from "app/view/share/task";
 
 import { NVPairList } from "./NVPairList";
@@ -43,9 +44,19 @@ export const NVPairListView = ({
           </ToolbarGroup>
         </Toolbar>
       </StackItem>
+
       {beforeList && <StackItem>{beforeList}</StackItem>}
+
       <StackItem>
-        <NVPairList nvPairList={nvPairList} owner={owner} />
+        {nvPairList.length === 0 && (
+          <EmptyStateNoItem
+            title="No attribute here."
+            message="No attribute has been added."
+          />
+        )}
+        {nvPairList.length !== 0 && (
+          <NVPairList nvPairList={nvPairList} owner={owner} />
+        )}
       </StackItem>
     </>
   );

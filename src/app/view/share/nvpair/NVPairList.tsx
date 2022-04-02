@@ -1,26 +1,50 @@
-import * as React from "react";
-
-import { EmptyStateNoItem } from "app/view/share/emptyState";
+import { ActionPayload } from "app/store";
+import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
+import {
+  DropdownActionListMenu,
+  ModalAction,
+} from "app/view/share/DropdownActionListMenu";
 import { Table } from "app/view/share/table";
 import { NVPair } from "app/view/cluster/types";
 
-import { NVPairMenu } from "./NVPairMenu";
+import * as task from "./task";
 
 export const NVPairList = ({
   nvPairList,
   owner,
 }: {
   nvPairList: NVPair[];
-  owner: React.ComponentProps<typeof NVPairMenu>["owner"];
+  owner: ActionPayload["CLUSTER.NVPAIRS.SAVE"]["owner"];
 }) => {
-  if (nvPairList.length === 0) {
-    return (
-      <EmptyStateNoItem
-        title="No attribute here."
-        message="No attribute has been added."
-      />
-    );
-  }
+  const { open, name: taskName } = task.edit.useTask();
+  const clusterName = useSelectedClusterName();
+
+
+  const edit = (attrName: string, attrValue: string): ModalAction => ({
+    onClick: () =>
+      open({
+        type: "update",
+        owner,
+        name: attrName,
+        value: attrValue,
+      }),
+  });
+
+  const remove = (attrName: string): ModalAction => ({
+    confirm: {
+      title: `Remove the attribute "${attrName}"?`,
+      description: "Removes the attribute.",
+    },
+    action: {
+      type: "CLUSTER.NVPAIRS.SAVE",
+      key: { clusterName, task: taskName },
+      payload: {
+        owner,
+        name: attrName,
+        value: "",
+      },
+    },
+  });
 
   return (
     <Table>
@@ -34,7 +58,12 @@ export const NVPairList = ({
               {attr.value}
             </td>
             <td data-label="Menu">
-              <NVPairMenu attr={attr} owner={owner} />
+              <DropdownActionListMenu
+                dropdownActions={{
+                  edit: edit(attr.name, attr.value),
+                  remove: remove(attr.name),
+                }}
+              />
             </td>
           </tr>
         ))}
