@@ -9,6 +9,7 @@ const initialState: {
   value: string;
   owner: Owner;
   type: OperationType | null;
+  existingNameList: string[];
   call: {
     response: "" | "sending" | "ok" | "fail";
     resultMessage: string;
@@ -22,6 +23,7 @@ const initialState: {
     id: "",
   },
   type: null,
+  existingNameList: [],
   call: {
     response: "",
     resultMessage: "",
@@ -39,6 +41,7 @@ export const nvpairEdit: AppReducer<typeof initialState> = (
         ...state,
         owner: action.payload.owner,
         type: action.payload.type,
+        existingNameList: action.payload.nameList,
         name: action.payload.type === "update" ? action.payload.name : "",
         value: action.payload.type === "update" ? action.payload.value : "",
       };

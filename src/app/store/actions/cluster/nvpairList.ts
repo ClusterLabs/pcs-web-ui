@@ -37,7 +37,10 @@ export type ClusterNVPairListActions = {
           name: string;
           value: string;
         }
-    ) & { owner: Owner };
+    ) & {
+      owner: Owner;
+      nameList: string[];
+    };
   };
 
   "CLUSTER.NVPAIRS.EDIT.UPDATE": {

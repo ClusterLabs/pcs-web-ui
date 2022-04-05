@@ -36,7 +36,13 @@ export const NVPairListView = ({
                 <ActionTaskLauncher
                   taskComponent={task.edit.Task}
                   useTask={task.edit.useTask}
-                  openArgs={[{ type: "create", owner }]}
+                  openArgs={[
+                    {
+                      type: "create",
+                      owner,
+                      nameList: nvPairList.map(nvPair => nvPair.name),
+                    },
+                  ]}
                   label={createLabel}
                 />
               </ActionList>

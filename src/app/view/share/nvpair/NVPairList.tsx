@@ -4,8 +4,8 @@ import {
   DropdownActionListMenu,
   ModalAction,
 } from "app/view/share/DropdownActionListMenu";
-import { Table } from "app/view/share/table";
 import { NVPair } from "app/view/cluster/types";
+import { Table } from "app/view/share/table";
 
 import * as task from "./task";
 
@@ -19,7 +19,6 @@ export const NVPairList = ({
   const { open, name: taskName } = task.edit.useTask();
   const clusterName = useSelectedClusterName();
 
-
   const edit = (attrName: string, attrValue: string): ModalAction => ({
     onClick: () =>
       open({
@@ -27,6 +26,7 @@ export const NVPairList = ({
         owner,
         name: attrName,
         value: attrValue,
+        nameList: nvPairList.map(nvPair => nvPair.name),
       }),
   });
 
@@ -49,19 +49,19 @@ export const NVPairList = ({
   return (
     <Table>
       <Table.Body data-test="nvpair-list">
-        {nvPairList.map(attr => (
-          <tr key={attr.id} data-test={`nvpair ${attr.id}`}>
+        {nvPairList.map(nvPair => (
+          <tr key={nvPair.id} data-test={`nvpair ${nvPair.id}`}>
             <td data-label="name" data-test="name">
-              {attr.name}
+              {nvPair.name}
             </td>
             <td data-label="value" data-test="value">
-              {attr.value}
+              {nvPair.value}
             </td>
             <td data-label="Menu">
               <DropdownActionListMenu
                 dropdownActions={{
-                  edit: edit(attr.name, attr.value),
-                  remove: remove(attr.name),
+                  edit: edit(nvPair.name, nvPair.value),
+                  remove: remove(nvPair.name),
                 }}
               />
             </td>
