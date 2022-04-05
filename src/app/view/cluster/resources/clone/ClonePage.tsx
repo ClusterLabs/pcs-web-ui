@@ -32,7 +32,14 @@ export const ClonePage = ({ clone }: { clone: Clone }) => {
             />
           )}
           {currentTab === "meta" && (
-            <NVPairListView nvPairListView={clone.metaAttributes} />
+            <NVPairListView
+              nvPairList={clone.metaAttributes}
+              owner={{
+                type: "resource-meta",
+                id: clone.id,
+              }}
+              createLabel="Create Meta Attribute"
+            />
           )}
         </Router>
       </DetailLayout>

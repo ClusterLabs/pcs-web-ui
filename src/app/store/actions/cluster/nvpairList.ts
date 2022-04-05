@@ -1,4 +1,7 @@
-type Owner = { type: "node-utilization" | "resource-utilization"; id: string };
+type Owner = {
+  type: "node-utilization" | "resource-utilization" | "resource-meta";
+  id: string;
+};
 
 export type ClusterNVPairListActions = {
   "CLUSTER.NVPAIRS.SAVE": {

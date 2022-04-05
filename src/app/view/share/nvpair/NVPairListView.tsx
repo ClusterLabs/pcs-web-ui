@@ -24,7 +24,7 @@ export const NVPairListView = ({
   nvPairList: NVPair[];
   owner: ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
   createLabel: string;
-  beforeList: React.ReactNode;
+  beforeList?: React.ReactNode;
 }) => {
   return (
     <>

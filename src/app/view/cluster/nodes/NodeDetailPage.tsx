@@ -1,7 +1,7 @@
 import { selectors } from "app/store";
 import {
   DetailLayout,
-  NVPairListView,
+  NVPairListViewOld,
   Router,
   UrlTabs,
   UtilizationView,
@@ -47,7 +47,7 @@ export const NodeDetailPage = () => {
       <Router base={matchedContext}>
         {currentTab === "detail" && <NodeDetailView node={node} />}
         {currentTab === "attributes" && (
-          <NVPairListView nvPairListView={nodeAttrs(node.name)} />
+          <NVPairListViewOld nvPairListView={nodeAttrs(node.name)} />
         )}
         {currentTab === "utilization" && (
           <UtilizationView

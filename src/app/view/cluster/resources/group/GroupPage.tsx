@@ -37,7 +37,14 @@ export const GroupPage = ({ group }: { group: Group }) => {
       <Router base={matchedContext}>
         {currentTab === "detail" && <GroupDetail group={group} />}
         {currentTab === "meta" && (
-          <NVPairListView nvPairListView={group.metaAttributes} />
+          <NVPairListView
+            nvPairList={group.metaAttributes}
+            owner={{
+              type: "resource-meta",
+              id: group.id,
+            }}
+            createLabel="Create Meta Attribute"
+          />
         )}
       </Router>
     </DetailLayout>

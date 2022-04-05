@@ -1,4 +1,8 @@
-import { setNodeUtilization, setResourceUtilization } from "app/backend";
+import {
+  addMetaAttrRemote,
+  setNodeUtilization,
+  setResourceUtilization,
+} from "app/backend";
 import { ActionMap } from "app/store/actions";
 
 import { api, processError, put, putNotification } from "./common";
@@ -46,6 +50,13 @@ export function* nvpairSave({
 
   if (owner.type === "resource-utilization") {
     result = yield api.authSafe(setResourceUtilization, {
+      clusterName: key.clusterName,
+      resourceId: owner.id,
+      name,
+      value,
+    });
+  } else if (owner.type === "resource-meta") {
+    result = yield api.authSafe(addMetaAttrRemote, {
       clusterName: key.clusterName,
       resourceId: owner.id,
       name,

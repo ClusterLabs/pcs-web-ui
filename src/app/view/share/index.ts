@@ -38,4 +38,5 @@ export * from "./task";
 export * from "./compareStatusSeverity";
 export * from "./constraints";
 export * from "./router";
+export * from "./nvpair";
 export * as help from "./help";

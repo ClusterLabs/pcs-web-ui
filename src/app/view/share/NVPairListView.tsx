@@ -7,7 +7,7 @@ import {
   AttributeValue,
 } from "app/view/share/attributes";
 
-export const NVPairListView = ({
+export const NVPairListViewOld = ({
   nvPairListView,
 }: {
   nvPairListView: NVPair[];
