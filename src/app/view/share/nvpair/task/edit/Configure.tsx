@@ -8,6 +8,7 @@ export const Configure = () => {
   const {
     updateState,
     isValueValid,
+    integerIsExpectedAsValue,
     isNameValid,
     isNameUsed,
     state: { value, showValidationErrors, type, name },
@@ -36,7 +37,11 @@ export const Configure = () => {
         value={value}
         showValidationErrors={showValidationErrors}
         isValid={isValueValid}
-        helperTextInvalid="Please enter a non zero integer"
+        helperTextInvalid={
+          integerIsExpectedAsValue
+            ? "Please enter a non zero integer"
+            : "Please enter a value"
+        }
         data-test="value"
       />
     </Form>

@@ -6,9 +6,15 @@ export const useTask = () => {
   const { dispatch, clusterName, state } = task;
 
   const key = { clusterName, task: task.name };
+  const integerIsExpectedAsValue =
+    state.owner.type === "node-utilization"
+    || state.owner.type === "resource-utilization";
   return {
     ...task,
-    isValueValid: /^([1-9]\d*)$/.test(state.value),
+    integerIsExpectedAsValue,
+    isValueValid: integerIsExpectedAsValue
+      ? /^([1-9]\d*)$/.test(state.value)
+      : state.value.length > 0,
     isNameValid: state.name.length > 0,
     isNameUsed: state.existingNameList.includes(state.name),
 
