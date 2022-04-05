@@ -1,3 +1,4 @@
+import { tools } from "app/store";
 import {
   TaskSimple,
   TaskSimpleFinish,
@@ -6,6 +7,8 @@ import {
 
 import { useTask } from "./useTask";
 import { Configure } from "./Configure";
+
+const { capitalize, getNVPairTypeLabel } = tools;
 
 export const Task = () => {
   const {
@@ -19,12 +22,14 @@ export const Task = () => {
     state: {
       call: { response, resultMessage },
       type,
+      owner,
     },
   } = useTask();
   const isCreate = type === "create";
+  const attrTypeLabel = getNVPairTypeLabel(owner);
   return (
     <TaskSimple
-      title={`${isCreate ? "Create" : "Update"} utilization attribute`}
+      title={`${isCreate ? "Create" : "Update"} ${attrTypeLabel} attribute`}
       task={taskName}
       close={close}
       footer={
@@ -34,11 +39,13 @@ export const Task = () => {
               isNameValid && (type === "update" || !isNameUsed) && isValueValid
             }
             run={attrSet}
-            runLabel={`${isCreate ? "Create" : "Update"} utilization attribute`}
+            runLabel={`${
+              isCreate ? "Create" : "Update"
+            } ${attrTypeLabel} attribute`}
           />
         )
       }
-      data-test="utilization-attribute-edit"
+      data-test="nvpair-edit"
     >
       {response === "" && <Configure />}
       {response !== "" && (
@@ -47,11 +54,11 @@ export const Task = () => {
           resultMessage={resultMessage}
           waitTitle={`${
             isCreate ? "Creating" : "Updating"
-          } utilization attribute`}
-          successTitle={`Utilization attribute ${
+          } ${attrTypeLabel} attribute`}
+          successTitle={`${capitalize(attrTypeLabel)} attribute ${
             isCreate ? "created" : "updated"
           } successfully`}
-          failTitle={`Utilization attribute ${
+          failTitle={`${capitalize(attrTypeLabel)} attribute ${
             isCreate ? "create" : "update"
           } failed`}
           tryAgain={attrSet}

@@ -12,6 +12,8 @@ import {
 } from "@patternfly/react-core";
 import { TimesIcon } from "@patternfly/react-icons";
 
+import { tools } from "app/store";
+
 import { useGroupDetailViewContext } from "./GroupDetailViewContext";
 import { ConfirmAction, ConfirmData } from "./Types";
 
@@ -24,7 +26,7 @@ type DetailLayoutToolbarActionOrComponent =
   | DetailLayoutToolbarAction
   | Exclude<React.ReactNode, undefined | null>;
 
-const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
+const { capitalize } = tools;
 
 export const DetailLayoutToolbar = ({
   toolbarName,

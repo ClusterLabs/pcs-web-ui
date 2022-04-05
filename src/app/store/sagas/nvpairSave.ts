@@ -4,6 +4,7 @@ import {
   setResourceUtilization,
 } from "app/backend";
 import { ActionMap } from "app/store/actions";
+import { capitalize, getNVPairTypeLabel } from "app/store/tools";
 
 import { api, processError, put, putNotification } from "./common";
 
@@ -13,12 +14,12 @@ type ApiResult =
   | api.ResultOf<typeof setNodeUtilization>
   | api.ResultOf<typeof setResourceUtilization>;
 
-function* processRemoveResult(result: ApiResult) {
+function* processRemoveResult(result: ApiResult, attrType: string) {
   if (result.type !== "OK") {
-    yield processError(result, "remove utilization attribute");
+    yield processError(result, `remove ${attrType} attribute`);
     return;
   }
-  yield putNotification("SUCCESS", "Utilization attribute removed");
+  yield putNotification("SUCCESS", `${capitalize(attrType)} attribute removed`);
 }
 
 function* processEditResult(result: ApiResult) {
@@ -72,7 +73,7 @@ export function* nvpairSave({
   }
 
   if (value.length === 0) {
-    yield processRemoveResult(result);
+    yield processRemoveResult(result, getNVPairTypeLabel(owner));
     yield put({ type: "CLUSTER.NVPAIRS.EDIT.CLOSE", key });
   } else {
     yield processEditResult(result);

@@ -5,7 +5,7 @@ import { prepareCommonTask } from "./utils";
 const commonTask = prepareCommonTask<
   "Name and type" | "Instance attributes" | "Settings" | "Review"
 >({
-  taskKey: "utilization-attribute-edit",
+  taskKey: "nvpair-edit",
   openKey: "task-launch create-utilization-attribute",
 });
 
