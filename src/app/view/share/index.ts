@@ -9,7 +9,6 @@ export * from "./clusterGroupDetail";
 export * from "./CrmStatusTable";
 export * from "./DropdownActionListMenu";
 export * from "./issueList";
-export * from "./NVPairListView";
 export * from "./Page";
 export * from "./PageSectionDataLoading";
 export * from "./pcmkAgent";
