@@ -13,8 +13,8 @@ const { selectors: commonSelectors, inView } = commonTask;
 
 const selectors = {
   ...commonSelectors,
-  name: inView("utilization-attr-create", "name"),
-  value: inView("utilization-attr-create", "value"),
+  name: inView("nvpair-create", "name"),
+  value: inView("nvpair-create", "value"),
 };
 
 const task = {

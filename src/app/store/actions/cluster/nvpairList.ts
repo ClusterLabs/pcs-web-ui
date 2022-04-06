@@ -1,5 +1,9 @@
 type Owner = {
-  type: "node-utilization" | "resource-utilization" | "resource-meta";
+  type:
+    | "node-utilization"
+    | "resource-utilization"
+    | "node-attr"
+    | "resource-meta";
   id: string;
 };
 

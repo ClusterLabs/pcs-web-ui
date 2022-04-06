@@ -14,6 +14,8 @@ export const getNVPairTypeLabel = (
   switch (owner.type) {
     case "resource-meta":
       return "meta";
+    case "node-attr":
+      return "node";
     default:
       return "utilization";
   }

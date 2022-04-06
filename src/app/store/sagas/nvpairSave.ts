@@ -1,5 +1,6 @@
 import {
   addMetaAttrRemote,
+  addNodeAttrRemote,
   setNodeUtilization,
   setResourceUtilization,
 } from "app/backend";
@@ -60,6 +61,13 @@ export function* nvpairSave({
     result = yield api.authSafe(addMetaAttrRemote, {
       clusterName: key.clusterName,
       resourceId: owner.id,
+      name,
+      value,
+    });
+  } else if (owner.type === "node-attr") {
+    result = yield api.authSafe(addNodeAttrRemote, {
+      clusterName: key.clusterName,
+      nodeName: owner.id,
       name,
       value,
     });
