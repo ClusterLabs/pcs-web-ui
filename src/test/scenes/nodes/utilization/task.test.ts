@@ -6,10 +6,10 @@ import {
   interceptWithUtilization,
   node1,
   openUtilizationTab,
-} from "./node-common";
+} from "./common";
 
 const { open, fillForm, run, waitForSuccess, waitForError, close } =
-  workflow.task.utilization;
+  workflow.task.nvsetListModify({ launchKey: "create-utilization-attribute" });
 
 describe("Resource utilization task", () => {
   const name = "attribute-name";

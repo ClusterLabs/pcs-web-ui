@@ -5,9 +5,9 @@ import {
   interceptWithUtilization,
   openUtilizationTab,
   resourceA,
-} from "./resource-common";
+} from "./common";
 
-const { utilization } = workflow.cluster;
+const { nvsets } = workflow.cluster;
 
 describe("Resource utilization detail", () => {
   afterEach(intercept.stop);
@@ -15,6 +15,6 @@ describe("Resource utilization detail", () => {
     interceptWithUtilization();
 
     await openUtilizationTab();
-    await utilization.assertDisplayedAre(resourceA.utilization);
+    await nvsets.assertDisplayedAre(resourceA.utilization);
   });
 });
