@@ -22,9 +22,11 @@ type ModalActionMap = Record<string, ModalAction>;
 
 const { capitalize } = tools;
 
-export const DropdownActionListMenu: React.FC<{
+export const DropdownActionListMenu = ({
+  dropdownActions,
+}: {
   dropdownActions: ModalActionMap;
-}> = ({ dropdownActions }) => {
+}) => {
   const [kebabOpen, setKebabOpen] = React.useState(false);
   const [confirm, setConfirm] = React.useState<ConfirmData | null>(null);
   const dispatch = useDispatch();
