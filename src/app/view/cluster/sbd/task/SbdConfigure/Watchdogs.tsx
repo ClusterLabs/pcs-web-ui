@@ -9,7 +9,6 @@ export const Watchdogs: React.FC = () => {
   const {
     updateState,
     state: { 
-      defaultWatchdog,
       watchdogDict,
       libCall: { reports },
     },
@@ -22,18 +21,18 @@ export const Watchdogs: React.FC = () => {
       <Form data-test="form-watchdogs">
         
         {cluster.nodeList.map((node, i) => node.status !== "DATA_NOT_PROVIDED" && (
-          watchdogDict[node.name] === undefined
-            && (watchdogDict[node.name] = defaultWatchdog),
           <FormText
             key={i}
             id={`watchdog-${i}`}
+            data-test={`watchdog-${i}`}
             label={`${node.name} :`}
             value={watchdog}
             onChange={(value) => {
-              watchdogDict[node.name] = value;
+              value.length > 0 ? (watchdogDict[node.name] = value)
+                : delete watchdogDict[node.name];
               updateState({ watchdogDict: watchdogDict });
             }}
-            placeholder={defaultWatchdog}
+            placeholder={watchdogDict[node.name]}
           />
         ))}
       </Form>

@@ -104,8 +104,10 @@ export const sbd = t.cluster("sbd", "ok", {
         SBD_OPTS: "a83-1",
         SBD_PACEMAKER: "yes",
         SBD_STARTMODE: "always",
+        SBD_TIMEOUT_ACTION: "flush,reboot",
         SBD_WATCHDOG_DEV: "/dev/watchdog",
         SBD_WATCHDOG_TIMEOUT: "5",
+        SBD_DEVICE: "/dev/sdb@node1;/dev/sda",
       },
     }),
     t.node("2", {

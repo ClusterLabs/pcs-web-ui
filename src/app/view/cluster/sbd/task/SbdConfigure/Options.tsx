@@ -1,4 +1,5 @@
-import { Form } from "@patternfly/react-core";
+import { Form, FormGroup } from "@patternfly/react-core";
+import React from "react";
 
 import { FormRadios, FormText, TaskLibStep } from "app/view/share";
 
@@ -10,10 +11,13 @@ export const Options: React.FC = () => {
       delayStart,
       startmode,
       watchdogTimeout,
+      timeoutActionFlush,
+      timeoutAction,
       libCall: { reports },
     },
     updateState,
   } = useTask();
+
   return (
     <TaskLibStep title="SBD options" reports={reports}>
       <Form data-test="form-options">
@@ -38,8 +42,25 @@ export const Options: React.FC = () => {
           label="SBD_WATCHDOG_TIMEOUT"
           onChange={value => updateState({ watchdogTimeout: value })}
           value={watchdogTimeout}
-          placeholder="5"
+          placeholder={watchdogTimeout}
         />
+
+        <FormGroup fieldId={""}>
+          <FormRadios
+            id="new_timeout_action1"
+            label="SBD_TIMEOUT_ACTION"
+            options={["DEFAULT", "flush", "noflush"]} 
+            selected={timeoutActionFlush}
+            onChange={value => updateState({ timeoutActionFlush: value })}
+          />
+          <FormRadios
+            id="new_timeout_action2"
+            label={null}
+            options={["DEFAULT", "reboot", "crashdump", "off"]} 
+            selected={timeoutAction}
+            onChange={value => updateState({ timeoutAction: value })}
+          />
+        </FormGroup>
       </Form>
     </TaskLibStep>
   );

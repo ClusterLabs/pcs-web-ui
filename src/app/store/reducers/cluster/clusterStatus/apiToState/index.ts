@@ -21,12 +21,12 @@ const sbdDetection = (apiClusterState: ApiCluster) =>
 
 const sbdConfig = (apiClusterState: ApiCluster) => {
   const node = apiClusterState.node_list.find(
-    n => n.status !== "unknown" && n.sbd_config !== undefined,
+    n => n.status !== "unknown" && JSON.stringify(n.sbd_config) !== "{}",
   );
 
   return node?.status !== "unknown"
     && node !== undefined
-    && node?.sbd_config !== null
+    && node.sbd_config !== null
     ? node.sbd_config
     : undefined;
 };

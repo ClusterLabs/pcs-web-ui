@@ -1,9 +1,9 @@
 import { Button } from "@patternfly/react-core";
 
 import { useTask } from "./useTask";
-import { SbdEnableTask } from "./SbdEnableTask";
+import { SbdConfigureTask } from "./SbdConfigureTask";
 
-export const SbdEnableToolbarItem = () => {
+export const SbdConfigureToolbarItem = () => {
   const { open, isOpened } = useTask();
 
   return (
@@ -11,11 +11,11 @@ export const SbdEnableToolbarItem = () => {
       <Button
         variant={"primary"}
         onClick={open}
-        data-test="sbd-enable"
+        data-test="sbd-configure"
       >
-        Enable SBD
+        Configure SBD
       </Button>
-      {isOpened && <SbdEnableTask />}
+      {isOpened && <SbdConfigureTask />}
     </>
   );
 };

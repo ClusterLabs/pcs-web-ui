@@ -24,14 +24,14 @@ export const SbdServiceStatus = () => {
           </tr>
         </thead>
 
-        <Table.Body data-test="sbd-service-status-list">
+        <Table.Body data-test="sbd-service-list">
           {cluster.nodeList.map((node, i) => node.status !== "DATA_NOT_PROVIDED" && (
           <tr key={i}>
-            <td data-label="Node">
+            <td data-label="Node" data-test={`sbd-service-list-${i}-node`}>
               {node.name}
             </td>
 
-            <td data-label="Installed">
+            <td data-label="Installed" data-test={`sbd-service-list-${i}-installed`}>
         {node.services.sbd.installed && (
           <>
             <CheckCircleIcon className="ha-u-status-success" />
@@ -46,7 +46,7 @@ export const SbdServiceStatus = () => {
         )}
             </td>
 
-            <td data-label="Enabled">
+            <td data-label="Enabled" data-test={`sbd-service-list-${i}-enabled`}>
         {node.services.sbd.enabled && (
           <>
             <CheckCircleIcon className="ha-u-status-success" />
@@ -61,7 +61,7 @@ export const SbdServiceStatus = () => {
         )}
             </td>
 
-            <td data-label="Running">
+            <td data-label="Running" data-test={`sbd-service-list-${i}-running`}>
         {node.services.sbd.running && (
           <>
             <CheckCircleIcon className="ha-u-status-success" />

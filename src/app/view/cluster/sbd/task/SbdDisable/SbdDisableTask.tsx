@@ -16,6 +16,7 @@ export const SbdDisableTask = () => {
     <TaskSimple
       title="Disable SBD"
       task="sbdDisable"
+      data-test="task-sbd-disable"
       close={close}
       footer={
         response !== "no-response" ? null : (

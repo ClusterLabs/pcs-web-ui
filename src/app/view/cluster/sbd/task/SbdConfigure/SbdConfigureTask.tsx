@@ -5,10 +5,10 @@ import { Review } from "./Review";
 import { useTask } from "./useTask";
 import { Watchdogs } from "./Watchdogs";
 
-export const SbdEnableTask = () => {
+export const SbdConfigureTask = () => {
   const {
     close,
-    sbdEnable,
+    sbdConfigure,
     state: {
       libCall: { reports, response },
     },
@@ -16,11 +16,11 @@ export const SbdEnableTask = () => {
   
   return (
     <Wizard
-      task="sbdEnable"
-      data-test="task-sbd-enable"
+      task="sbdConfigure"
+      data-test="task-sbd-configure"
       onClose={close}
-      title="Enable SBD"
-      description="Enable SBD in cluster"
+      title="Configure SBD"
+      description="Configure SBD in cluster"
       steps={[
         {
           name: "Watchdog devices",
@@ -41,8 +41,8 @@ export const SbdEnableTask = () => {
           footer: (
             <WizardFooter
               next={{
-                preAction: () => sbdEnable({ force: false }),
-                label: "Enable SBD",
+                preAction: () => sbdConfigure({ force: false }),
+                label: "Configure SBD",
               }}
             />
           ),
@@ -52,9 +52,9 @@ export const SbdEnableTask = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={"enable SBD"}
+              taskName={"configure SBD"}
               backToUpdateSettingsStepName="Specify watchdog devices for nodes"
-              proceedForce={() => sbdEnable({ force: true })}
+              proceedForce={() => sbdConfigure({ force: true })}
               reports={reports}
             />
           ),

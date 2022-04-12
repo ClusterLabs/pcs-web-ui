@@ -149,6 +149,7 @@ export type Cluster = {
     SBD_TIMEOUT_ACTION?: string | undefined;
     SBD_WATCHDOG_DEV?: string | undefined;
     SBD_WATCHDOG_TIMEOUT?: string | undefined;
+    SBD_DEVICE?: string | undefined;
   };
   sbdWatchdogs: Array<Array<string>> | undefined;
 };

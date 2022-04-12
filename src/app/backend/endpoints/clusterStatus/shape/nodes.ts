@@ -87,6 +87,7 @@ export const ApiNode = t.intersection([
           SBD_TIMEOUT_ACTION: t.string,
           SBD_WATCHDOG_DEV: t.string,
           SBD_WATCHDOG_TIMEOUT: t.string,
+          SBD_DEVICE: t.string,
         }),
       ]),
     }),

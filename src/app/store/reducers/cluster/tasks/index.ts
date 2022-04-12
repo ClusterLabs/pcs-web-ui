@@ -19,7 +19,7 @@ import { fixAuth } from "./fixAuth";
 import { permissionEdit } from "./permissionEdit";
 import { nvpairEdit } from "./nvpairEdit";
 import { sbdDisable } from "./sbdDisable";
-import { sbdEnable } from "./sbdEnable";
+import { sbdConfigure } from "./sbdConfigure";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -59,6 +59,6 @@ export const tasks = combineReducers(
     permissionEdit,
     nvpairEdit,
     sbdDisable,
-    sbdEnable,
+    sbdConfigure,
   }),
 );

@@ -257,7 +257,7 @@ export type Commands = [
   {
     name: "sbd-enable-sbd";
     payload: {
-      default_watchdog?: string;
+      default_watchdog: string | null;
       watchdog_dict: Record<NodeName, string>;
       sbd_options: {
         // there can be also integer but it can be confusing since 1 means yes

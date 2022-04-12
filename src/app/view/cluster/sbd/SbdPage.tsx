@@ -1,12 +1,14 @@
 import {
     ActionList,
     ActionListItem,
+    Grid,
+    GridItem,
     PageSection,
   } from "@patternfly/react-core";
   
   import { ClusterSectionToolbar } from "app/view/share";
   
-  import { SbdEnableToolbarItem } from "./task/SbdEnable/SbdEnableToolbarItem";
+  import { SbdConfigureToolbarItem } from "./task/SbdConfigure/SbdConfigureToolbarItem";
   import { SbdDisableToolbarItem } from "./task/SbdDisable/SbdDisableToolbarItem";
   import { SbdServiceStatus } from "./SbdServiceStatus";
   import { SbdConfiguration } from "./SbdConfiguration";
@@ -18,22 +20,20 @@ import {
         <ClusterSectionToolbar>
           <ActionList>
             <ActionListItem>
-              <SbdEnableToolbarItem />
+              <SbdConfigureToolbarItem />
             </ActionListItem>
             <ActionListItem>
               <SbdDisableToolbarItem />
             </ActionListItem>
           </ActionList>
         </ClusterSectionToolbar>
-  
+
         <PageSection>
-          <SbdServiceStatus />
-        </PageSection>
-        <PageSection>
-          <SbdConfiguration />
-        </PageSection>
-        <PageSection> 
-          <SbdWatchdogs />
+          <Grid hasGutter>
+            <GridItem span={12}><SbdServiceStatus /></GridItem>
+            <GridItem span={6}><SbdConfiguration /></GridItem>
+            <GridItem span={6}><SbdWatchdogs /></GridItem>
+          </Grid>
         </PageSection>
       </>
     );
