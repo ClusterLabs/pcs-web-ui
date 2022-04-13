@@ -8,14 +8,15 @@ export const Configure = () => {
   const {
     updateState,
     isValueValid,
+    integerIsExpectedAsValue,
     isNameValid,
     isNameUsed,
     state: { value, showValidationErrors, type, name },
   } = useTask();
   return (
-    <Form data-test="utilization-attr-create">
+    <Form data-test="nvpair-create">
       <FormText
-        id="utilization-attr-name"
+        id="attr-name"
         label="Name"
         onChange={value => updateState({ name: value })}
         value={name}
@@ -23,20 +24,24 @@ export const Configure = () => {
         isValid={isNameValid && (type === "update" || !isNameUsed)}
         helperTextInvalid={
           !isNameValid
-            ? "Please enter utilization attribute name"
-            : "Utilization attribute with this name already exists"
+            ? "Please enter attribute name"
+            : "Attribute with this name already exists"
         }
         isDisabled={type === "update"}
         data-test="name"
       />
       <FormText
-        id="utilization-attr-value"
+        id="attr-value"
         label="Value"
         onChange={value => updateState({ value })}
         value={value}
         showValidationErrors={showValidationErrors}
         isValid={isValueValid}
-        helperTextInvalid="Please enter a non zero integer"
+        helperTextInvalid={
+          integerIsExpectedAsValue
+            ? "Please enter a non zero integer"
+            : "Please enter a value"
+        }
         data-test="value"
       />
     </Form>

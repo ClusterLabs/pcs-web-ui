@@ -55,13 +55,20 @@ export const PrimitivePage = ({ primitive }: { primitive: Primitive }) => {
           <UtilizationView
             utilizationAttrs={primitive.utilization}
             owner={{
-              type: "resource",
+              type: "resource-utilization",
               id: primitive.id,
             }}
           />
         )}
         {currentTab === "meta" && (
-          <NVPairListView nvPairListView={primitive.metaAttributes} />
+          <NVPairListView
+            nvPairList={primitive.metaAttributes}
+            owner={{
+              type: "resource-meta",
+              id: primitive.id,
+            }}
+            createLabel="Create Meta Attribute"
+          />
         )}
       </Router>
     </DetailLayout>

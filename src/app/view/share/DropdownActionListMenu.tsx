@@ -8,6 +8,7 @@ import {
   Modal,
 } from "@patternfly/react-core";
 
+import { tools } from "app/store";
 import { useDispatch } from "app/view/share/useDispatch";
 
 import { ConfirmAction, ConfirmData } from "./clusterGroupDetail/Types";
@@ -19,11 +20,13 @@ export type ModalAction = { disabled?: boolean } & (
 
 type ModalActionMap = Record<string, ModalAction>;
 
-const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
+const { capitalize } = tools;
 
-export const DropdownActionListMenu: React.FC<{
+export const DropdownActionListMenu = ({
+  dropdownActions,
+}: {
   dropdownActions: ModalActionMap;
-}> = ({ dropdownActions }) => {
+}) => {
   const [kebabOpen, setKebabOpen] = React.useState(false);
   const [confirm, setConfirm] = React.useState<ConfirmData | null>(null);
   const dispatch = useDispatch();

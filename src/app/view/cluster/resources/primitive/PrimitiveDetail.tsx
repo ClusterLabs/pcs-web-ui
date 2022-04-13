@@ -1,4 +1,3 @@
-import React from "react";
 import { StackItem, Text, TextContent } from "@patternfly/react-core";
 
 import { selectors } from "app/store";

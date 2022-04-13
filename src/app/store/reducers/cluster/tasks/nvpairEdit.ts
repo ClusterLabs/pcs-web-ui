@@ -1,14 +1,15 @@
 import { AppReducer } from "app/store/reducers/appReducer";
 import { ActionPayload } from "app/store/actions";
 
-type Owner = ActionPayload["CLUSTER.UTILIZATION.EDIT"]["owner"];
-type OperationType = ActionPayload["CLUSTER.UTILIZATION.EDIT"]["type"];
+type Owner = ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
+type OperationType = ActionPayload["CLUSTER.NVPAIRS.EDIT"]["type"];
 
 const initialState: {
   name: string;
   value: string;
   owner: Owner;
   type: OperationType | null;
+  existingNameList: string[];
   call: {
     response: "" | "sending" | "ok" | "fail";
     resultMessage: string;
@@ -18,10 +19,11 @@ const initialState: {
   name: "",
   value: "",
   owner: {
-    type: "resource",
+    type: "resource-utilization",
     id: "",
   },
   type: null,
+  existingNameList: [],
   call: {
     response: "",
     resultMessage: "",
@@ -29,27 +31,28 @@ const initialState: {
   showValidationErrors: false,
 };
 
-export const utilizationEdit: AppReducer<typeof initialState> = (
+export const nvpairEdit: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ) => {
   switch (action.type) {
-    case "CLUSTER.UTILIZATION.EDIT":
+    case "CLUSTER.NVPAIRS.EDIT":
       return {
         ...state,
         owner: action.payload.owner,
         type: action.payload.type,
+        existingNameList: action.payload.nameList,
         name: action.payload.type === "update" ? action.payload.name : "",
         value: action.payload.type === "update" ? action.payload.value : "",
       };
 
-    case "CLUSTER.UTILIZATION.EDIT.UPDATE":
+    case "CLUSTER.NVPAIRS.EDIT.UPDATE":
       return {
         ...state,
         ...action.payload,
       };
 
-    case "CLUSTER.UTILIZATION.SAVE":
+    case "CLUSTER.NVPAIRS.SAVE":
       return {
         ...state,
         call: {
@@ -58,7 +61,7 @@ export const utilizationEdit: AppReducer<typeof initialState> = (
         },
       };
 
-    case "CLUSTER.UTILIZATION.SAVE.OK":
+    case "CLUSTER.NVPAIRS.SAVE.OK":
       return {
         ...state,
         call: {
@@ -67,7 +70,7 @@ export const utilizationEdit: AppReducer<typeof initialState> = (
         },
       };
 
-    case "CLUSTER.UTILIZATION.SAVE.ERROR":
+    case "CLUSTER.NVPAIRS.SAVE.ERROR":
       return {
         ...state,
         call: {
@@ -76,7 +79,7 @@ export const utilizationEdit: AppReducer<typeof initialState> = (
         },
       };
 
-    case "CLUSTER.UTILIZATION.SAVE.ERROR.RECOVER":
+    case "CLUSTER.NVPAIRS.SAVE.ERROR.RECOVER":
       return {
         ...state,
         call: {
@@ -85,7 +88,7 @@ export const utilizationEdit: AppReducer<typeof initialState> = (
         },
       };
 
-    case "CLUSTER.UTILIZATION.EDIT.CLOSE":
+    case "CLUSTER.NVPAIRS.EDIT.CLOSE":
       return initialState;
 
     case "TASK.VALIDATION.SHOW":

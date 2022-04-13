@@ -39,9 +39,13 @@ import { addConstraintRemote } from "./addConstraintRemote";
 import { removeConstraintRemote } from "./removeConstraintRemote";
 import { removeConstraintRuleRemote } from "./removeConstraintRuleRemote";
 import { addConstraintRuleRemote } from "./addConstraintRuleRemote";
+import { addNodeAttrRemote } from "./addNodeAttrRemote";
+import { addMetaAttrRemote } from "./addMetaAttrRemote";
 
 const endpoints = {
   addConstraintRemote,
+  addMetaAttrRemote,
+  addNodeAttrRemote,
   removeConstraintRemote,
   removeConstraintRuleRemote,
   addConstraintRuleRemote,

@@ -47,13 +47,20 @@ export const NodeDetailPage = () => {
       <Router base={matchedContext}>
         {currentTab === "detail" && <NodeDetailView node={node} />}
         {currentTab === "attributes" && (
-          <NVPairListView nvPairListView={nodeAttrs(node.name)} />
+          <NVPairListView
+            nvPairList={nodeAttrs(node.name)}
+            owner={{
+              type: "node-attr",
+              id: node.name,
+            }}
+            createLabel="Create Node Attribute"
+          />
         )}
         {currentTab === "utilization" && (
           <UtilizationView
             utilizationAttrs={nodeUtilization(node.name)}
             owner={{
-              type: "node",
+              type: "node-utilization",
               id: node.name,
             }}
           />

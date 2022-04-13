@@ -1,20 +1,26 @@
-import { setNodeUtilization, setResourceUtilization } from "app/backend";
+import {
+  addMetaAttrRemote,
+  addNodeAttrRemote,
+  setNodeUtilization,
+  setResourceUtilization,
+} from "app/backend";
 import { ActionMap } from "app/store/actions";
+import { capitalize, getNVPairTypeLabel } from "app/store/tools";
 
 import { api, processError, put, putNotification } from "./common";
 
-type SaveAction = ActionMap["CLUSTER.UTILIZATION.SAVE"];
+type SaveAction = ActionMap["CLUSTER.NVPAIRS.SAVE"];
 
 type ApiResult =
   | api.ResultOf<typeof setNodeUtilization>
   | api.ResultOf<typeof setResourceUtilization>;
 
-function* processRemoveResult(result: ApiResult) {
+function* processRemoveResult(result: ApiResult, attrType: string) {
   if (result.type !== "OK") {
-    yield processError(result, "remove utilization attribute");
+    yield processError(result, `remove ${attrType} attribute`);
     return;
   }
-  yield putNotification("SUCCESS", "Utilization attribute removed");
+  yield putNotification("SUCCESS", `${capitalize(attrType)} attribute removed`);
 }
 
 function* processEditResult(result: ApiResult) {
@@ -24,7 +30,7 @@ function* processEditResult(result: ApiResult) {
       useNotification: false,
       action: () =>
         put({
-          type: "CLUSTER.UTILIZATION.SAVE.ERROR",
+          type: "CLUSTER.NVPAIRS.SAVE.ERROR",
           payload: {
             message: api.errorMessage(result, taskLabel),
           },
@@ -34,20 +40,34 @@ function* processEditResult(result: ApiResult) {
   }
 
   yield put({
-    type: "CLUSTER.UTILIZATION.SAVE.OK",
+    type: "CLUSTER.NVPAIRS.SAVE.OK",
   });
 }
 
-export function* utilizationSave({
+export function* nvpairSave({
   key,
   payload: { name, value, owner },
 }: SaveAction) {
   let result: ApiResult;
 
-  if (owner.type === "resource") {
+  if (owner.type === "resource-utilization") {
     result = yield api.authSafe(setResourceUtilization, {
       clusterName: key.clusterName,
       resourceId: owner.id,
+      name,
+      value,
+    });
+  } else if (owner.type === "resource-meta") {
+    result = yield api.authSafe(addMetaAttrRemote, {
+      clusterName: key.clusterName,
+      resourceId: owner.id,
+      name,
+      value,
+    });
+  } else if (owner.type === "node-attr") {
+    result = yield api.authSafe(addNodeAttrRemote, {
+      clusterName: key.clusterName,
+      nodeName: owner.id,
       name,
       value,
     });
@@ -61,8 +81,8 @@ export function* utilizationSave({
   }
 
   if (value.length === 0) {
-    yield processRemoveResult(result);
-    yield put({ type: "CLUSTER.UTILIZATION.EDIT.CLOSE", key });
+    yield processRemoveResult(result, getNVPairTypeLabel(owner));
+    yield put({ type: "CLUSTER.NVPAIRS.EDIT.CLOSE", key });
   } else {
     yield processEditResult(result);
   }
