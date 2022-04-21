@@ -31,15 +31,17 @@ const sbdConfig = (apiClusterState: ApiCluster) => {
     : undefined;
 };
 
-const sbdWatchdogs = (apiClusterState: ApiCluster) => {
-  const watchdogs = [];
-  for (const node of apiClusterState.node_list) {
-    if (node.status !== "unknown" && node.sbd_config?.SBD_WATCHDOG_DEV) {
-      watchdogs.push([node.name, node.sbd_config.SBD_WATCHDOG_DEV]);
-    }
-  }
-  return watchdogs.length !== 0 ? watchdogs : undefined;
-};
+const sbdWatchdogs = (apiCluster: ApiCluster) =>
+  apiCluster.node_list.reduce<Cluster["sbdWatchdogs"]>(
+    (watchdogMap, node) =>
+      node.status !== "unknown" && node.sbd_config?.SBD_WATCHDOG_DEV
+        ? {
+            ...(watchdogMap || {}),
+            [node.name]: node.sbd_config.SBD_WATCHDOG_DEV,
+          }
+        : watchdogMap,
+    undefined,
+  );
 
 export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
   const {

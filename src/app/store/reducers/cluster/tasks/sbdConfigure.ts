@@ -60,14 +60,9 @@ const initToState = (initPayload: InitPayload) => {
     }
   });
 
-  const watchdogDict: Record<NodeName, string> = {};
-  initPayload.cluster.sbdWatchdogs?.forEach((watchdog) => {
-    watchdogDict[watchdog[0]] = watchdog[1];
-  });
-
   return {
     ...initialState,
-    watchdogDict: watchdogDict,
+    watchdogDict: initPayload.cluster.sbdWatchdogs || {},
     delayStart: (sbdConfig?.SBD_DELAY_START === "yes"
     || sbdConfig?.SBD_DELAY_START === "no"
       ? sbdConfig?.SBD_DELAY_START

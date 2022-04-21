@@ -12,12 +12,12 @@ const sbdConfigTestData = {
 };
 
 const structure = {
-  row: (i: number, list: string, columnName: string) =>
+  row: (i: number | string, list: string, columnName: string) =>
     mkXPath(list, `${list}-${i}-${columnName}`),
 };
 
 const checkSbdRowValue = async (
-  i: number,
+  i: number | string,
   columnName: string,
   expectedValue: string,
   list: string,
@@ -51,12 +51,12 @@ describe("Sbd", () => {
     });
     await page.goto(location.sbdList({ clusterName }));
 
-    await checkSbdRowValue(0, "node", "node-1", "sbd-watchdogs-list");
+    await checkSbdRowValue("node-1", "node", "node-1", "sbd-watchdogs");
     await checkSbdRowValue(
-      0,
+      "node-1",
       "watchdog",
       "/dev/watchdog",
-      "sbd-watchdogs-list",
+      "sbd-watchdogs",
     );
   });
 

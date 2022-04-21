@@ -1,6 +1,7 @@
 import { ActionPayload } from "app/store/actions";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
+type NodeName = string;
 
 // It is more practical to deduce nvpair from one place (so e.g. resource meta
 // attributes are skipped).
@@ -151,7 +152,7 @@ export type Cluster = {
     SBD_WATCHDOG_TIMEOUT?: string | undefined;
     SBD_DEVICE?: string | undefined;
   };
-  sbdWatchdogs: Array<Array<string>> | undefined;
+  sbdWatchdogs: Record<NodeName, string> | undefined;
 };
 
 export type ClusterStatusService = {
