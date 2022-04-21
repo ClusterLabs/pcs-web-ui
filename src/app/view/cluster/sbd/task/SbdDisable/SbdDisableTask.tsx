@@ -7,11 +7,11 @@ export const SbdDisableTask = () => {
     close,
     sbdDisable,
     recoverFromError,
-    state: { 
+    state: {
       libCall: { response, reports },
     },
   } = useTask();
-  
+
   return (
     <TaskSimple
       title="Disable SBD"

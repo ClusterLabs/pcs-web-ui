@@ -1,6 +1,9 @@
 import { Cluster } from "../types";
 
-import { clusterSelector, clusterStorageItemSelector } from "./selectorsHelpers";
+import {
+  clusterSelector,
+  clusterStorageItemSelector,
+} from "./selectorsHelpers";
 
 type Resource = Cluster["resourceTree"][number];
 type Group = Extract<Resource, { itemType: "group" }>;
@@ -97,9 +100,7 @@ export const getResourcesForSet = clusterSelector(cluster =>
 );
 
 export const getTopLevelPrimitives = clusterSelector(cluster =>
-  cluster.resourceTree
-    .filter(r => r.itemType === "primitive")
-    .map(r => r.id),
+  cluster.resourceTree.filter(r => r.itemType === "primitive").map(r => r.id),
 );
 
 export const getSelectedFenceDevice = clusterSelector((cluster, id: string) =>

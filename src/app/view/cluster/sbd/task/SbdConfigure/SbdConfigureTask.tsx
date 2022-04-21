@@ -13,7 +13,7 @@ export const SbdConfigureTask = () => {
       libCall: { reports, response },
     },
   } = useTask();
-  
+
   return (
     <Wizard
       task="sbdConfigure"
@@ -25,11 +25,7 @@ export const SbdConfigureTask = () => {
         {
           name: "Watchdog devices",
           component: <Watchdogs />,
-          footer: (
-            <WizardFooter
-              back={{ disabled: true }}
-            />
-          ),
+          footer: <WizardFooter back={{ disabled: true }} />,
         },
         {
           name: "SBD options",

@@ -277,12 +277,15 @@ export const resourceTree: Cluster = cluster("resourceTree", "ok", {
     ),
     clone("Clone-2", primitive("F")),
     clone("Clone-Mixed", stonith("MixedClonedStonith")),
-    clone("Clone-Mixed-group", group("GROUP-MIXED-CLONED", [
-      primitive("MixedResource-2", {
-        crm_status: [resourceStatus("MR-ok-2")],
-      }),
-      stonith("MixedStonith-2"),
-    ])),
+    clone(
+      "Clone-Mixed-group",
+      group("GROUP-MIXED-CLONED", [
+        primitive("MixedResource-2", {
+          crm_status: [resourceStatus("MR-ok-2")],
+        }),
+        stonith("MixedStonith-2"),
+      ]),
+    ),
     stonith("F1", {
       error_list: [
         {

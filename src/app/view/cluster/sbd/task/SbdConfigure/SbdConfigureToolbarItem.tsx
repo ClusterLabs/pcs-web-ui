@@ -8,11 +8,7 @@ export const SbdConfigureToolbarItem = () => {
 
   return (
     <>
-      <Button
-        variant={"primary"}
-        onClick={open}
-        data-test="sbd-configure"
-      >
+      <Button variant={"primary"} onClick={open} data-test="sbd-configure">
         Configure SBD
       </Button>
       {isOpened && <SbdConfigureTask />}

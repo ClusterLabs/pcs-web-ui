@@ -37,7 +37,9 @@ describe("Cluster destroy", () => {
   });
 
   it("should deal with an error", async () => {
-    interceptWithDashboard([route.destroyCluster({ clusterName, status: 400 })]);
+    interceptWithDashboard([
+      route.destroyCluster({ clusterName, status: 400 }),
+    ]);
 
     await page.goto(location.dashboard);
     await cluster.destroy.launch();

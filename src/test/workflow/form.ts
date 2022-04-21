@@ -1,6 +1,8 @@
 export const select = async (xPathComponentSelector: string, value: string) => {
   await page.click(xPathComponentSelector);
-  await page.click(`${xPathComponentSelector}//*[contains(text(), "${value}")]`);
+  await page.click(
+    `${xPathComponentSelector}//*[contains(text(), "${value}")]`,
+  );
 };
 
 export const radioGroup = async (context: string, value: string) => {

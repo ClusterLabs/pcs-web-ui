@@ -7,7 +7,7 @@ import { useTask } from "./useTask";
 
 export const Options: React.FC = () => {
   const {
-    state: { 
+    state: {
       delayStart,
       startmode,
       watchdogTimeout,
@@ -32,7 +32,7 @@ export const Options: React.FC = () => {
         <FormRadios
           id="new_startmode"
           label="SBD_STARTMODE"
-          options={["DEFAULT", "clean", "always"]} 
+          options={["DEFAULT", "clean", "always"]}
           selected={startmode}
           onChange={value => updateState({ startmode: value })}
         />
@@ -49,14 +49,14 @@ export const Options: React.FC = () => {
           <FormRadios
             id="new_timeout_action1"
             label="SBD_TIMEOUT_ACTION"
-            options={["DEFAULT", "flush", "noflush"]} 
+            options={["DEFAULT", "flush", "noflush"]}
             selected={timeoutActionFlush}
             onChange={value => updateState({ timeoutActionFlush: value })}
           />
           <FormRadios
             id="new_timeout_action2"
             label={null}
-            options={["DEFAULT", "reboot", "crashdump", "off"]} 
+            options={["DEFAULT", "reboot", "crashdump", "off"]}
             selected={timeoutAction}
             onChange={value => updateState({ timeoutAction: value })}
           />

@@ -8,7 +8,7 @@ import { useTask } from "./useTask";
 export const Watchdogs: React.FC = () => {
   const {
     updateState,
-    state: { 
+    state: {
       watchdogDict,
       libCall: { reports },
     },
@@ -19,22 +19,25 @@ export const Watchdogs: React.FC = () => {
   return (
     <TaskLibStep title="Specify watchdog devices for nodes" reports={reports}>
       <Form data-test="form-watchdogs">
-        
-        {cluster.nodeList.map((node, i) => node.status !== "DATA_NOT_PROVIDED" && (
-          <FormText
-            key={i}
-            id={`watchdog-${i}`}
-            data-test={`watchdog-${i}`}
-            label={`${node.name} :`}
-            value={watchdog}
-            onChange={(value) => {
-              value.length > 0 ? (watchdogDict[node.name] = value)
-                : delete watchdogDict[node.name];
-              updateState({ watchdogDict: watchdogDict });
-            }}
-            placeholder={watchdogDict[node.name]}
-          />
-        ))}
+        {cluster.nodeList.map(
+          (node, i) =>
+            node.status !== "DATA_NOT_PROVIDED" && (
+              <FormText
+                key={i}
+                id={`watchdog-${i}`}
+                data-test={`watchdog-${i}`}
+                label={`${node.name} :`}
+                value={watchdog}
+                onChange={(value) => {
+                  value.length > 0
+                    ? (watchdogDict[node.name] = value)
+                    : delete watchdogDict[node.name];
+                  updateState({ watchdogDict: watchdogDict });
+                }}
+                placeholder={watchdogDict[node.name]}
+              />
+            ),
+        )}
       </Form>
     </TaskLibStep>
   );

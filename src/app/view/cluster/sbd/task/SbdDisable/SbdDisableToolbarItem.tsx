@@ -8,11 +8,7 @@ export const SbdDisableToolbarItem = () => {
 
   return (
     <>
-      <Button
-        variant={"primary"}
-        onClick={open}
-        data-test="sbd-disable"
-      >
+      <Button variant={"primary"} onClick={open} data-test="sbd-disable">
         Disable SBD
       </Button>
       {isOpened && <SbdDisableTask />}
