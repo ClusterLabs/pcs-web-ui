@@ -4,8 +4,6 @@ import { AppReducer } from "app/store/reducers/appReducer";
 import { initialState as initalLibCall, libCall } from "./libCall";
 
 type NodeName = string;
-type SbdTimeoutAction = "reboot" | "off" | "crashdump";
-type SbdTimeoutActionFlush = "flush" | "noflush";
 type InitPayload = ActionPayload["CLUSTER.SBD.CONFIGURE"];
 
 const initialState: {
@@ -15,21 +13,6 @@ const initialState: {
   watchdogTimeout: string;
   timeoutActionFlush: "DEFAULT" | "flush" | "noflush";
   timeoutAction: "DEFAULT" | "reboot" | "crashdump" | "off";
-  timeoutActionResult:
-    | SbdTimeoutAction
-    | SbdTimeoutActionFlush
-    | "crashdump,flush"
-    | "crashdump,noflush"
-    | "off,flush"
-    | "off,noflush"
-    | "reboot,flush"
-    | "reboot,noflush"
-    | "flush,crashdump"
-    | "flush,off"
-    | "flush,reboot"
-    | "noflush,crashdump"
-    | "noflush,off"
-    | "noflush,reboot";
   libCall: typeof initalLibCall;
 } = {
   watchdogDict: {},
@@ -38,7 +21,6 @@ const initialState: {
   watchdogTimeout: "",
   timeoutActionFlush: "DEFAULT",
   timeoutAction: "DEFAULT",
-  timeoutActionResult: "flush,reboot",
   libCall: initalLibCall,
 };
 

@@ -11,7 +11,7 @@ export const Review: React.FC = () => {
       watchdogTimeout,
       libCall: { reports },
     },
-    timeoutAction,
+    getSbdTimeout,
   } = useTask();
 
   return (
@@ -36,7 +36,7 @@ export const Review: React.FC = () => {
           value={startmode === "DEFAULT" ? undefined : startmode}
         />
         <ReviewValue label="SBD_WATCHDOG _TIMEOUT" value={watchdogTimeout} />
-        <ReviewValue label="SBD_TIMEOUT _ACTION" value={timeoutAction} />
+        <ReviewValue label="SBD_TIMEOUT _ACTION" value={getSbdTimeout()} />
       </ReviewList>
     </TaskLibStep>
   );

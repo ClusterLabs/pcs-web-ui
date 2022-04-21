@@ -1,24 +1,36 @@
 import { ActionPayload, selectors } from "app/store";
 import { useClusterSelector, useClusterTask } from "app/view/share";
 
+type SbdTimeoutAction = Extract<
+  ActionPayload["LIB.CALL.CLUSTER.TASK"]["call"],
+  { name: "sbd-enable-sbd" }
+>["payload"]["sbd_options"]["SBD_TIMEOUT_ACTION"];
+
 export const useTask = () => {
   const task = useClusterTask("sbdConfigure");
   const { dispatch, state, clusterName } = task;
 
   const [cluster] = useClusterSelector(selectors.getCluster);
 
-  const timeoutAction =
-    state.timeoutActionFlush === "DEFAULT"
-      ? state.timeoutAction === "DEFAULT"
-        ? undefined
-        : state.timeoutAction
-      : state.timeoutAction === "DEFAULT"
-      ? state.timeoutActionFlush
-      : state.timeoutActionFlush + "," + state.timeoutAction;
+  const getSbdTimeout = (): SbdTimeoutAction => {
+    if (
+      state.timeoutAction !== "DEFAULT"
+      && state.timeoutActionFlush !== "DEFAULT"
+    ) {
+      return `${state.timeoutActionFlush},${state.timeoutAction}`;
+    }
+    if (state.timeoutAction !== "DEFAULT") {
+      return state.timeoutAction;
+    }
+    if (state.timeoutActionFlush !== "DEFAULT") {
+      return state.timeoutActionFlush;
+    }
+    return undefined;
+  };
 
   return {
     ...task,
-    timeoutAction,
+    getSbdTimeout,
 
     //actions
     open: () => {
@@ -50,6 +62,7 @@ export const useTask = () => {
       }),
 
     sbdConfigure: ({ force }: { force: boolean }) => {
+      const sbdTimeoutAction = getSbdTimeout();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
         key: { clusterName, task: task.name },
@@ -66,8 +79,11 @@ export const useTask = () => {
                 SBD_STARTMODE:
                   state.startmode === "DEFAULT" ? undefined : state.startmode,
                 SBD_WATCHDOG_TIMEOUT: state.watchdogTimeout,
-                SBD_TIMEOUT_ACTION:
-                  timeoutAction as typeof state.timeoutActionResult,
+                ...(sbdTimeoutAction === undefined
+                  ? {}
+                  : {
+                      SBD_TIMEOUT_ACTION: sbdTimeoutAction,
+                    }),
               },
               ignore_offline_nodes: force,
             },

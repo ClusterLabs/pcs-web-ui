@@ -5,7 +5,7 @@ import { FormText, TaskLibStep, useClusterSelector } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Watchdogs: React.FC = () => {
+export const Watchdogs = () => {
   const {
     updateState,
     state: {
