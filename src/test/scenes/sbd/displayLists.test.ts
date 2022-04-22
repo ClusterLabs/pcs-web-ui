@@ -1,5 +1,3 @@
-//import { sbd } from "dev/responses/clusterStatus";
-
 import { intercept, location, shortcuts } from "test/tools";
 import { mkXPath } from "test/tools/selectors";
 
@@ -67,9 +65,10 @@ describe("Sbd", () => {
     });
     await page.goto(location.sbdList({ clusterName }));
 
-    Object.entries(sbdConfigTestData).map(async ([option, value], i) => {
-      await checkSbdRowValue(i, "option", option, "sbd-configuration-list");
-      await checkSbdRowValue(i, "value", value, "sbd-configuration-list");
-    });
+    await Promise.all(
+      Object.entries(sbdConfigTestData).map(async ([option, value]) => {
+        await checkSbdRowValue(option, "value", value, "sbd-configuration-list");
+      }),
+    );
   });
 });

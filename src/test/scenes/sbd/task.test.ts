@@ -14,7 +14,7 @@ const TASK = {
 const launchTaskDisable = async () => {
   await page.goto(location.sbdList({ clusterName }));
   await page.click(dt("task-launch disable-sbd"));
-  await page.waitForSelector("task-sbd-disable");
+  await page.waitForSelector(dt("task-sbd-disable"));
   expect(page.url()).toEqual(
     `${location.sbdList({ clusterName })}?task=sbdDisable`,
   );
@@ -38,9 +38,9 @@ describe("Sbd", () => {
       additionalRouteList: [route.sbdDisable(clusterName)],
     });
 
-    launchTaskDisable();
+    await launchTaskDisable();
     await page.click(mkXPath("task-next"));
-    await page.waitForSelector(dt(dt("task-sbd-disable"), "task-success"));
+    await page.waitForSelector(dt("task-sbd-disable", "task-success"));
   });
 
   it("should be configured", async () => {
@@ -49,7 +49,7 @@ describe("Sbd", () => {
       additionalRouteList: [route.sbdConfigure(clusterName)],
     });
 
-    launchTaskConfigure();
+    await launchTaskConfigure();
     await page.type(TASK.WATCHDOGS, "/dev/watchdog-test");
     await page.click(TASK.NEXT); // go to options
     await page.click(TASK.NEXT); // go to review

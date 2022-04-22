@@ -4,9 +4,9 @@ import { selectors } from "app/store";
 import { EmptyStateNoItem, Table, useClusterSelector } from "app/view/share";
 
 export const SbdConfiguration = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const [{ sbdConfig }] = useClusterSelector(selectors.getCluster);
 
-  if (cluster.sbdConfig === undefined) {
+  if (sbdConfig === undefined) {
     return <EmptyStateNoItem title="No sbd configuration." />;
   }
 
@@ -22,30 +22,32 @@ export const SbdConfiguration = () => {
         </thead>
 
         <Table.Body data-test="sbd-configuration-list">
-          {Object.entries(cluster.sbdConfig).map(
-            (option, i) =>
-              option[0] !== "SBD_OPTS"
-              && option[0] !== "SBD_PACEMAKER"
-              && option[0] !== "SBD_WATCHDOG_DEV"
-              && option[0] !== "SBD_DEVICE" && (
-                <tr key={i}>
-                  <td
-                    data-label="Option"
-                    data-test={`sbd-watchdogs-list-${i}-node`}
-                  >
-                    {option[0]}
-                  </td>
-                  <td
-                    data-label="Value"
-                    data-test={`sbd-watchdogs-list-${i}-node`}
-                  >
-                    {option[1]}
-                  </td>
-                </tr>
-              ),
-          )}
-          {cluster.sbdConfig.SBD_DEVICE
-            && cluster.sbdConfig.SBD_DEVICE.split(";").map((device, i) => (
+          {(Object.keys(sbdConfig) as (keyof typeof sbdConfig)[])
+            .filter(
+              option =>
+                option !== "SBD_OPTS"
+                && option !== "SBD_PACEMAKER"
+                && option !== "SBD_WATCHDOG_DEV"
+                && option !== "SBD_DEVICE",
+            )
+            .map(option => (
+              <tr key={option}>
+                <td
+                  data-label="Option"
+                  data-test={`sbd-configuration-list-${option}-option`}
+                >
+                  {option}
+                </td>
+                <td
+                  data-label="Value"
+                  data-test={`sbd-configuration-list-${option}-value`}
+                >
+                  {sbdConfig[option]}
+                </td>
+              </tr>
+            ))}
+          {sbdConfig.SBD_DEVICE
+            && sbdConfig.SBD_DEVICE.split(";").map((device, i) => (
               <tr key={`device${i}`}>
                 <td
                   data-label="Option"
