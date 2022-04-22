@@ -4,7 +4,7 @@ import { AppReducer } from "app/store/reducers/appReducer";
 import { initialState as initalLibCall, libCall } from "./libCall";
 
 type NodeName = string;
-type InitPayload = ActionPayload["CLUSTER.SBD.CONFIGURE"];
+type Cluster = ActionPayload["CLUSTER.SBD.CONFIGURE"]["cluster"];
 
 const initialState: {
   watchdogDict: Record<NodeName, string>;
@@ -24,8 +24,8 @@ const initialState: {
   libCall: initalLibCall,
 };
 
-const initToState = (initPayload: InitPayload) => {
-  const sbdConfig = initPayload.cluster.sbdConfig;
+const initFromCluster = (cluster: Cluster) => {
+  const sbdConfig = cluster.sbdConfig;
   const timeoutActionArray = sbdConfig?.SBD_TIMEOUT_ACTION?.split(",");
 
   let timeoutActionFlush = "DEFAULT";
@@ -44,7 +44,7 @@ const initToState = (initPayload: InitPayload) => {
 
   return {
     ...initialState,
-    watchdogDict: initPayload.cluster.sbdWatchdogs || {},
+    watchdogDict: cluster.sbdWatchdogs || {},
     delayStart: (sbdConfig?.SBD_DELAY_START === "yes"
     || sbdConfig?.SBD_DELAY_START === "no"
       ? sbdConfig?.SBD_DELAY_START
@@ -67,7 +67,7 @@ export const sbdConfigure: AppReducer<typeof initialState> = (
 ) => {
   switch (action.type) {
     case "CLUSTER.SBD.CONFIGURE":
-      return initToState(action.payload);
+      return initFromCluster(action.payload.cluster);
 
     case "CLUSTER.SBD.CONFIGURE.UPDATE":
       return {
