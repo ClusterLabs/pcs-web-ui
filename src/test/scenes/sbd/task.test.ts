@@ -13,7 +13,7 @@ const TASK = {
 
 const launchTaskDisable = async () => {
   await page.goto(location.sbdList({ clusterName }));
-  await page.click(dt("sbd-disable"));
+  await page.click(dt("task-launch disable-sbd"));
   await page.waitForSelector("task-sbd-disable");
   expect(page.url()).toEqual(
     `${location.sbdList({ clusterName })}?task=sbdDisable`,
@@ -22,7 +22,7 @@ const launchTaskDisable = async () => {
 
 const launchTaskConfigure = async () => {
   await page.goto(location.sbdList({ clusterName }));
-  await page.click(dt("sbd-configure"));
+  await page.click(dt("task-launch configure-sbd"));
   await page.waitForSelector(VIEW);
   expect(page.url()).toEqual(
     `${location.sbdList({ clusterName })}?task=sbdConfigure`,

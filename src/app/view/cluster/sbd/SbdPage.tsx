@@ -1,15 +1,8 @@
-import {
-  ActionList,
-  ActionListItem,
-  Grid,
-  GridItem,
-  PageSection,
-} from "@patternfly/react-core";
+import { ActionList, Grid, GridItem, PageSection } from "@patternfly/react-core";
 
-import { ClusterSectionToolbar } from "app/view/share";
+import { ActionTaskLauncher, ClusterSectionToolbar } from "app/view/share";
 
-import { SbdConfigureToolbarItem } from "./task/SbdConfigure/SbdConfigureToolbarItem";
-import { SbdDisableToolbarItem } from "./task/SbdDisable/SbdDisableToolbarItem";
+import * as task from "./task";
 import { SbdServiceStatus } from "./SbdServiceStatus";
 import { SbdConfiguration } from "./SbdConfiguration";
 import { SbdWatchdogs } from "./SbdWatchdogs";
@@ -19,12 +12,17 @@ export const SbdPage = () => {
     <>
       <ClusterSectionToolbar>
         <ActionList>
-          <ActionListItem>
-            <SbdConfigureToolbarItem />
-          </ActionListItem>
-          <ActionListItem>
-            <SbdDisableToolbarItem />
-          </ActionListItem>
+          <ActionTaskLauncher
+            taskComponent={task.configure.SbdConfigureTask}
+            useTask={task.configure.useTask}
+            label="Configure SBD"
+          />
+          <ActionTaskLauncher
+            taskComponent={task.disable.SbdDisableTask}
+            useTask={task.disable.useTask}
+            label="Disable SBD"
+            variant="secondary"
+          />
         </ActionList>
       </ClusterSectionToolbar>
 
