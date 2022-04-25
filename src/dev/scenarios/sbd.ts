@@ -1,5 +1,6 @@
 import { app } from "dev/app";
 import * as response from "dev/responses";
+import * as t from "dev/responses/clusterStatus/tools";
 import * as shortcut from "dev/shortcuts";
 
 app.libCluster("sbd-enable-sbd", (req, res) => {
@@ -24,4 +25,13 @@ app.libCluster("sbd-disable-sbd", (req, res) => {
   });
 });
 
-shortcut.dashboard([response.clusterStatus.error, response.clusterStatus.sbd]);
+shortcut.dashboard([
+  t.cluster("error", "error", {
+    node_list: [
+      t.node("1", { sbd_config: null }),
+      t.node("2", { status: "offline", quorum: false }),
+      t.node("3", { status: "unknown" }),
+    ],
+  }),
+  response.clusterStatus.sbd,
+]);
