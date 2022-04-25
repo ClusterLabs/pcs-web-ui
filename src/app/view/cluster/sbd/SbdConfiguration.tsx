@@ -31,17 +31,11 @@ export const SbdConfiguration = () => {
                 && option !== "SBD_DEVICE",
             )
             .map(option => (
-              <tr key={option}>
-                <td
-                  data-label="Option"
-                  data-test={`sbd-configuration-list-${option}-option`}
-                >
+              <tr key={option} data-test={`row-${option}`}>
+                <td data-label="Option" data-test="option">
                   {option}
                 </td>
-                <td
-                  data-label="Value"
-                  data-test={`sbd-configuration-list-${option}-value`}
-                >
+                <td data-label="Value" data-test="value">
                   {sbdConfig[option]}
                 </td>
               </tr>

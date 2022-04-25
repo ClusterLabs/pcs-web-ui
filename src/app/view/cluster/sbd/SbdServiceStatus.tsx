@@ -9,6 +9,15 @@ import { Caption } from "@patternfly/react-table";
 import { selectors } from "app/store";
 import { EmptyStateNoItem, Table, useClusterSelector } from "app/view/share";
 
+const SuccessIcon = ({ label }: { label: string }) => {
+  return (
+    <>
+      <CheckCircleIcon className="ha-u-status-success" />
+      {` ${label}`}
+    </>
+  );
+};
+
 export const SbdServiceStatus = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
 
@@ -30,24 +39,17 @@ export const SbdServiceStatus = () => {
         </thead>
 
         <Table.Body data-test="sbd-service-list">
-          {cluster.nodeList.map((node, i) =>
+          {cluster.nodeList.map(node =>
             node.status !== "DATA_NOT_PROVIDED" ? (
-              <tr key={i}>
-                <td data-label="Node" data-test={`sbd-service-list-${i}-node`}>
+              <tr key={node.name} data-test={`row-${node.name}`}>
+                <td data-label="Node" data-test={"node"}>
                   {node.name}
                 </td>
 
-                <td
-                  data-label="Installed"
-                  data-test={`sbd-service-list-${i}-installed`}
-                >
-                  {node.services.sbd.installed && (
-                    <>
-                      <CheckCircleIcon className="ha-u-status-success" />
-                      {" Installed"}
-                    </>
-                  )}
-                  {!node.services.sbd.installed && (
+                <td data-label="Installed" data-test="installed">
+                  {node.services.sbd.installed ? (
+                    <SuccessIcon label="Installed" />
+                  ) : (
                     <>
                       <PlusCircleIcon className="ha-u-status-unknown" />
                       {" Not installed"}
@@ -55,17 +57,10 @@ export const SbdServiceStatus = () => {
                   )}
                 </td>
 
-                <td
-                  data-label="Enabled"
-                  data-test={`sbd-service-list-${i}-enabled`}
-                >
-                  {node.services.sbd.enabled && (
-                    <>
-                      <CheckCircleIcon className="ha-u-status-success" />
-                      {" Enabled"}
-                    </>
-                  )}
-                  {!node.services.sbd.enabled && (
+                <td data-label="Enabled" data-test="enabled">
+                  {node.services.sbd.enabled ? (
+                    <SuccessIcon label="Enabled" />
+                  ) : (
                     <>
                       <WrenchIcon className="ha-u-status-unknown" />
                       {" Not enabled"}
@@ -73,17 +68,10 @@ export const SbdServiceStatus = () => {
                   )}
                 </td>
 
-                <td
-                  data-label="Running"
-                  data-test={`sbd-service-list-${i}-running`}
-                >
-                  {node.services.sbd.running && (
-                    <>
-                      <CheckCircleIcon className="ha-u-status-success" />
-                      {" Running"}
-                    </>
-                  )}
-                  {!node.services.sbd.running && (
+                <td data-label="Running" data-test="running">
+                  {node.services.sbd.running ? (
+                    <SuccessIcon label="Running" />
+                  ) : (
                     <>
                       <ExclamationCircleIcon className="ha-u-status-unknown" />
                       {" Not running"}
@@ -92,15 +80,15 @@ export const SbdServiceStatus = () => {
                 </td>
               </tr>
             ) : (
-              <tr key={i}>
-                <td data-label="Node" data-test={`sbd-service-list-${i}-node`}>
+              <tr key={node.name} data-test={`sbd-service-list-${node.name}`}>
+                <td data-label="Node" data-test="node">
                   {node.name}
                 </td>
 
                 <td
                   colSpan={3}
-                  data-label="Without information"
-                  data-test={`sbd-service-list-${i}-installed`}
+                  data-label="Data not provided"
+                  data-test="without-data"
                 >
                   Data not provided
                 </td>

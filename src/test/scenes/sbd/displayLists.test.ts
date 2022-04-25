@@ -9,22 +9,14 @@ const sbdConfigTestData = {
   SBD_WATCHDOG_TIMEOUT: "5",
 };
 
-const structure = {
-  row: (i: number | string, list: string, columnName: string) =>
-    mkXPath(list, `${list}-${i}-${columnName}`),
-};
-
-const checkSbdRowValue = async (
-  i: number | string,
-  columnName: string,
-  expectedValue: string,
-  list: string,
-) => {
-  const [value] = await page.$$eval(structure.row(i, list, columnName), el =>
-    el.map(e => (e as HTMLElement).innerText),
-  );
-  expect(value.trim()).toEqual(expectedValue);
-};
+const getListValueMiner =
+  (listName: string) => (rowKey: string) => async (columnName: string) => {
+    const [value] = await page.$$eval(
+      mkXPath(listName, `row-${rowKey}`, columnName),
+      el => el.map(e => (e as HTMLElement).innerText),
+    );
+    return value.trim();
+  };
 
 describe("Sbd", () => {
   afterEach(intercept.stop);
@@ -36,10 +28,11 @@ describe("Sbd", () => {
     });
     await page.goto(location.sbdList({ clusterName }));
 
-    await checkSbdRowValue(0, "node", "node-1", "sbd-service-list");
-    await checkSbdRowValue(0, "installed", "Installed", "sbd-service-list");
-    await checkSbdRowValue(0, "enabled", "Enabled", "sbd-service-list");
-    await checkSbdRowValue(0, "running", "Running", "sbd-service-list");
+    const getColumnValue = getListValueMiner("sbd-service-list")("node-1");
+    expect(await getColumnValue("node")).toEqual("node-1");
+    expect(await getColumnValue("installed")).toEqual("Installed");
+    expect(await getColumnValue("enabled")).toEqual("Enabled");
+    expect(await getColumnValue("running")).toEqual("Running");
   });
 
   it("watchdogs should be displayed", async () => {
@@ -49,13 +42,9 @@ describe("Sbd", () => {
     });
     await page.goto(location.sbdList({ clusterName }));
 
-    await checkSbdRowValue("node-1", "node", "node-1", "sbd-watchdogs");
-    await checkSbdRowValue(
-      "node-1",
-      "watchdog",
-      "/dev/watchdog",
-      "sbd-watchdogs",
-    );
+    const getColumnValue = getListValueMiner("sbd-watchdog-list")("node-1");
+    expect(await getColumnValue("node")).toEqual("node-1");
+    expect(await getColumnValue("watchdog")).toEqual("/dev/watchdog");
   });
 
   it("configuration should be displayed", async () => {
@@ -65,9 +54,10 @@ describe("Sbd", () => {
     });
     await page.goto(location.sbdList({ clusterName }));
 
+    const getRowValueMiner = getListValueMiner("sbd-configuration-list");
     await Promise.all(
       Object.entries(sbdConfigTestData).map(async ([option, value]) => {
-        await checkSbdRowValue(option, "value", value, "sbd-configuration-list");
+        expect(await getRowValueMiner(option)("value")).toEqual(value);
       }),
     );
   });

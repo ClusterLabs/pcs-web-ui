@@ -21,19 +21,13 @@ export const SbdWatchdogs = () => {
           </tr>
         </thead>
 
-        <Table.Body data-test="sbd-watchdogs">
+        <Table.Body data-test="sbd-watchdog-list">
           {Object.entries(cluster.sbdWatchdogs).map(([nodeName, watchdog]) => (
-            <tr key={nodeName}>
-              <td
-                data-label="Node"
-                data-test={`sbd-watchdogs-${nodeName}-node`}
-              >
+            <tr key={nodeName} data-test={`row-${nodeName}`}>
+              <td data-label="Node" data-test="node">
                 {nodeName}
               </td>
-              <td
-                data-label="Watchdog"
-                data-test={`sbd-watchdogs-${nodeName}-watchdog`}
-              >
+              <td data-label="Watchdog" data-test="watchdog">
                 {watchdog}
               </td>
             </tr>
