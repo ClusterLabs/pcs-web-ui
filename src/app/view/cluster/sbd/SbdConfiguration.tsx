@@ -4,9 +4,9 @@ import { selectors } from "app/store";
 import { EmptyStateNoItem, Table, useClusterSelector } from "app/view/share";
 
 export const SbdConfiguration = () => {
-  const [{ sbdConfig }] = useClusterSelector(selectors.getCluster);
+  const [sbdConfig] = useClusterSelector(selectors.getClusterSbdConfig);
 
-  if (sbdConfig === undefined) {
+  if (Object.keys(sbdConfig).length === 0) {
     return <EmptyStateNoItem title="No sbd configuration." />;
   }
 

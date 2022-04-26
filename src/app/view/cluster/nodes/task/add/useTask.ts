@@ -42,8 +42,11 @@ export const useTask = () => {
 
     isNodeCheckDoneValid: state.nodeCheck === "success",
 
-    isSbdEnabled:
-      clusterState.sbdDetection !== null && clusterState.sbdDetection.enabled,
+    isSbdEnabled: clusterState.nodeList.reduce(
+      (enabled, n) =>
+        enabled || (n.status !== "DATA_NOT_PROVIDED" && n.sbd !== undefined),
+      false,
+    ),
 
     // actions
     close: () => {

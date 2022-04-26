@@ -8,41 +8,6 @@ import { analyzeApiResources } from "./resources";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 
-const sbdDetection = (apiClusterState: ApiCluster) =>
-  apiClusterState.node_list.reduce<Cluster["sbdDetection"]>(
-    (sbd, node) =>
-      node.status === "unknown"
-        ? sbd
-        : {
-            enabled: (sbd !== null && sbd.enabled) || node.services.sbd.enabled,
-          },
-    null,
-  );
-
-const sbdConfig = (apiClusterState: ApiCluster) => {
-  const node = apiClusterState.node_list.find(
-    n => n.status !== "unknown" && JSON.stringify(n.sbd_config) !== "{}",
-  );
-
-  return node?.status !== "unknown"
-    && node !== undefined
-    && node.sbd_config !== null
-    ? node.sbd_config
-    : undefined;
-};
-
-const sbdWatchdogs = (apiCluster: ApiCluster) =>
-  apiCluster.node_list.reduce<Cluster["sbdWatchdogs"]>(
-    (watchdogMap, node) =>
-      node.status !== "unknown" && node.sbd_config?.SBD_WATCHDOG_DEV
-        ? {
-            ...(watchdogMap || {}),
-            [node.name]: node.sbd_config.SBD_WATCHDOG_DEV,
-          }
-        : watchdogMap,
-    undefined,
-  );
-
 export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
   const {
     resourceTree,
@@ -75,8 +40,5 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
     clusterProperties: apiClusterStatus.cluster_settings ?? {},
     nodeAttr: apiClusterStatus.node_attr ?? {},
     nodesUtilization: apiClusterStatus.nodes_utilization ?? {},
-    sbdDetection: sbdDetection(apiClusterStatus),
-    sbdConfig: sbdConfig(apiClusterStatus),
-    sbdWatchdogs: sbdWatchdogs(apiClusterStatus),
   };
 };

@@ -1,3 +1,5 @@
+import * as extract from "app/store/reducers/cluster/clusterStatus/extract";
+
 import { Cluster } from "../types";
 
 import {
@@ -33,6 +35,8 @@ export const clusterAreDataLoaded = clusterStorageItemSelector(
 );
 
 export const getCluster = clusterSelector(cluster => cluster);
+
+export const getClusterSbdConfig = clusterSelector(extract.getClusterSbdConfig);
 
 export const getSelectedResource = clusterSelector((cluster, id: string) => {
   for (const resource of cluster.resourceTree) {

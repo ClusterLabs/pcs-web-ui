@@ -4,9 +4,9 @@ import { selectors } from "app/store";
 import { EmptyStateNoItem, Table, useClusterSelector } from "app/view/share";
 
 export const SbdWatchdogs = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const [{ nodeList }] = useClusterSelector(selectors.getCluster);
 
-  if (cluster.sbdWatchdogs === undefined) {
+  if (nodeList.length === 0) {
     return <EmptyStateNoItem title="No sbd watchdogs." />;
   }
 
@@ -22,13 +22,15 @@ export const SbdWatchdogs = () => {
         </thead>
 
         <Table.Body data-test="sbd-watchdog-list">
-          {Object.entries(cluster.sbdWatchdogs).map(([nodeName, watchdog]) => (
-            <tr key={nodeName} data-test={`row-${nodeName}`}>
+          {Object.values(nodeList).map(node => (
+            <tr key={node.name} data-test={`row-${node.name}`}>
               <td data-label="Node" data-test="node">
-                {nodeName}
+                {node.name}
               </td>
               <td data-label="Watchdog" data-test="watchdog">
-                {watchdog}
+                {node.status === "DATA_NOT_PROVIDED"
+                  ? "Node data not provided"
+                  : node.sbd?.watchdog ?? "Watchdog not configured"}
               </td>
             </tr>
           ))}

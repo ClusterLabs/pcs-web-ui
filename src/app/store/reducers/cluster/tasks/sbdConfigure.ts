@@ -1,5 +1,6 @@
 import { ActionPayload } from "app/store/actions";
 import { AppReducer } from "app/store/reducers/appReducer";
+import { getClusterSbdConfig } from "app/store/reducers/cluster/clusterStatus/extract";
 
 import { initialState as initalLibCall, libCall } from "./libCall";
 
@@ -25,7 +26,7 @@ const initialState: {
 };
 
 const initFromCluster = (cluster: Cluster) => {
-  const sbdConfig = cluster.sbdConfig;
+  const sbdConfig = getClusterSbdConfig(cluster);
   const timeoutActionArray = sbdConfig?.SBD_TIMEOUT_ACTION?.split(",");
 
   let timeoutActionFlush = "DEFAULT";
@@ -44,7 +45,16 @@ const initFromCluster = (cluster: Cluster) => {
 
   return {
     ...initialState,
-    watchdogDict: cluster.sbdWatchdogs || {},
+    watchdogDict: Object.values(cluster.nodeList).reduce(
+      (watchdogDict, node) => {
+        let watchdog = "";
+        if (node.status !== "DATA_NOT_PROVIDED") {
+          watchdog = node.sbd?.watchdog ?? "";
+        }
+        return { ...watchdogDict, [node.name]: watchdog };
+      },
+      {},
+    ),
     delayStart: (sbdConfig?.SBD_DELAY_START === "yes"
     || sbdConfig?.SBD_DELAY_START === "no"
       ? sbdConfig?.SBD_DELAY_START

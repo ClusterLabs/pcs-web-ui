@@ -1,7 +1,6 @@
 import { ActionPayload } from "app/store/actions";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
-type NodeName = string;
 
 // It is more practical to deduce nvpair from one place (so e.g. resource meta
 // attributes are skipped).
@@ -79,6 +78,13 @@ type Clone = Resource & {
   member: Primitive | Group | FenceDevice;
 };
 
+type ApiNode = ApiCluster["node_list"][number];
+
+type ApiSbdConfig = Exclude<
+  Extract<ApiNode, { sbd_config: unknown }>["sbd_config"],
+  null
+>;
+
 /*
  status in ApiCLusterStatus is not taken here. There is not real need for it.
 */
@@ -92,10 +98,13 @@ export type Cluster = {
         quorum: boolean;
         quorumSeverity: StatusSeverity;
         issueList: Issue[];
-        services: Extract<
-          ApiCluster["node_list"][number],
-          { services: unknown }
-        >["services"];
+        services: Extract<ApiNode, { services: unknown }>["services"];
+        sbd:
+          | undefined
+          | {
+              config: ApiSbdConfig;
+              watchdog: string | undefined;
+            };
       }
     | {
         name: string;
@@ -139,20 +148,6 @@ export type Cluster = {
   clusterProperties: Record<string, string>;
   nodeAttr: Record<string, NVPair[]>;
   nodesUtilization: Record<string, NVPair[]>;
-  sbdDetection: null | {
-    enabled: boolean;
-  };
-  sbdConfig?: {
-    SBD_DELAY_START?: string | undefined;
-    SBD_OPTS?: string | undefined;
-    SBD_PACEMAKER?: string | undefined;
-    SBD_STARTMODE?: string | undefined;
-    SBD_TIMEOUT_ACTION?: string | undefined;
-    SBD_WATCHDOG_DEV?: string | undefined;
-    SBD_WATCHDOG_TIMEOUT?: string | undefined;
-    SBD_DEVICE?: string | undefined;
-  };
-  sbdWatchdogs: Record<NodeName, string> | undefined;
 };
 
 export type ClusterStatusService = {

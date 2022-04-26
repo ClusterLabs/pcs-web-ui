@@ -87,7 +87,7 @@ export const SbdServiceStatus = () => {
 
                 <td
                   colSpan={3}
-                  data-label="Data not provided"
+                  data-label="Data for node not provided"
                   data-test="without-data"
                 >
                   Data not provided
