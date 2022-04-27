@@ -5,7 +5,7 @@ import { ActionTaskLauncher, ClusterSectionToolbar } from "app/view/share";
 import * as task from "./task";
 import { SbdServiceStatus } from "./SbdServiceStatus";
 import { SbdConfiguration } from "./SbdConfiguration";
-import { SbdWatchdogs } from "./SbdWatchdogs";
+import { SbdOnNodes } from "./SbdOnNodes";
 
 export const SbdPage = () => {
   return (
@@ -35,7 +35,7 @@ export const SbdPage = () => {
             <SbdConfiguration />
           </GridItem>
           <GridItem span={6}>
-            <SbdWatchdogs />
+            <SbdOnNodes />
           </GridItem>
         </Grid>
       </PageSection>

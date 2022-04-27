@@ -104,6 +104,7 @@ export type Cluster = {
           | {
               config: ApiSbdConfig;
               watchdog: string | undefined;
+              devices: string[];
             };
       }
     | {

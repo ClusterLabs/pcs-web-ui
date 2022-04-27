@@ -3,7 +3,10 @@ import { Caption } from "@patternfly/react-table";
 import { selectors } from "app/store";
 import { EmptyStateNoItem, Table, useClusterSelector } from "app/view/share";
 
-export const SbdWatchdogs = () => {
+import { SbdOnNodesWatchdog } from "./SbdOnNodesWatchdog";
+import { SbdOnNodesDevices } from "./SbdOnNodesDevices";
+
+export const SbdOnNodes = () => {
   const [{ nodeList }] = useClusterSelector(selectors.getCluster);
 
   if (nodeList.length === 0) {
@@ -13,11 +16,12 @@ export const SbdWatchdogs = () => {
   return (
     <>
       <Table>
-        <Caption>SBD watchdogs </Caption>
+        <Caption>SBD per node </Caption>
         <thead>
           <tr>
             <th data-label="Node">Node</th>
             <th data-label="Watchdog">Watchdog</th>
+            <th data-label="Devices">Devices</th>
           </tr>
         </thead>
 
@@ -28,9 +32,10 @@ export const SbdWatchdogs = () => {
                 {node.name}
               </td>
               <td data-label="Watchdog" data-test="watchdog">
-                {node.status === "DATA_NOT_PROVIDED"
-                  ? "Node data not provided"
-                  : node.sbd?.watchdog ?? "Watchdog not configured"}
+                <SbdOnNodesWatchdog node={node} />
+              </td>
+              <td data-label="Devices" data-test="devices">
+                <SbdOnNodesDevices node={node} />
               </td>
             </tr>
           ))}

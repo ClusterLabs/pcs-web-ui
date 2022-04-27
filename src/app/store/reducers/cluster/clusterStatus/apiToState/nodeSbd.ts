@@ -18,8 +18,10 @@ export const apiToNodeSbd = (apiNode: ApiNodeWithData): Sbd => {
     return undefined;
   }
 
+  const configDevice = sbd_config.SBD_DEVICE ?? "";
   return {
     config: sbd_config,
     watchdog: sbd_config.SBD_WATCHDOG_DEV,
+    devices: configDevice.length > 0 ? configDevice.split(";") : [],
   };
 };

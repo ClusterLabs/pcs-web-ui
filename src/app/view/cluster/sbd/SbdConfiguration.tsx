@@ -40,23 +40,6 @@ export const SbdConfiguration = () => {
                 </td>
               </tr>
             ))}
-          {sbdConfig.SBD_DEVICE
-            && sbdConfig.SBD_DEVICE.split(";").map((device, i) => (
-              <tr key={`device${i}`}>
-                <td
-                  data-label="Option"
-                  data-test={`sbd-configuration-list-${i}-option`}
-                >
-                  {`SBD_DEVICE ${i + 1}`}
-                </td>
-                <td
-                  data-label="Value"
-                  data-test={`sbd-configuration-list-${i}-value`}
-                >
-                  {device}
-                </td>
-              </tr>
-            ))}
         </Table.Body>
       </Table>
     </>

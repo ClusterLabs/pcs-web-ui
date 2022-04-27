@@ -7,6 +7,7 @@ export * from "./BackgroundImage";
 export * from "./ButtonWithEnter";
 export * from "./clusterGroupDetail";
 export * from "./CrmStatusTable";
+export * from "./DefaultValue";
 export * from "./DropdownActionListMenu";
 export * from "./issueList";
 export * from "./Page";
