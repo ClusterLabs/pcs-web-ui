@@ -1,33 +1,39 @@
+import { LibClusterCommands } from "app/backend/endpoints";
+
 import { RouteResponse } from "test/tools/interception";
 
 import { libCluster } from "./libCluster";
+type SbdEnablePayload = Extract<
+  LibClusterCommands[number],
+  { name: "sbd-enable-sbd" }
+>["payload"];
 
-export const sbdConfigure = (
-  clusterName: string,
-  response: RouteResponse = {
-    json: {
-      status: "success",
-      status_msg: null,
-      report_list: [],
-      data: null,
-    },
-  },
-) =>
+export const sbdConfigure = ({
+  clusterName,
+  sbd_options,
+  watchdog_dict,
+  response,
+}: {
+  clusterName: string;
+  sbd_options: SbdEnablePayload["sbd_options"];
+  watchdog_dict: SbdEnablePayload["watchdog_dict"];
+  response?: RouteResponse;
+}) =>
   libCluster({
     clusterName,
     name: "sbd-enable-sbd",
     payload: {
       default_watchdog: null,
       ignore_offline_nodes: false,
-      sbd_options: {
-        SBD_DELAY_START: "no",
-        SBD_STARTMODE: "always",
-        SBD_TIMEOUT_ACTION: "flush,reboot",
-        SBD_WATCHDOG_TIMEOUT: "5",
-      },
-      watchdog_dict: {
-        "node-1": "/dev/watchdog-test",
+      sbd_options,
+      watchdog_dict,
+    },
+    response: response ?? {
+      json: {
+        status: "success",
+        status_msg: null,
+        report_list: [],
+        data: null,
       },
     },
-    response,
   });
