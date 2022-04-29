@@ -38,7 +38,8 @@ const VIEW = dt("task-sbd-configure");
 const TASK = {
   VIEW,
   NEXT: dt(VIEW, "task-next"),
-  WATCHDOGS: dt(VIEW, "form-watchdogs", "watchdog-0"),
+  WATCHDOGS: (nodeName: string) =>
+    dt(VIEW, "form-watchdogs", `watchdog-${nodeName}`),
   SUCCESS: dt(VIEW, "task-success"),
 };
 
@@ -83,16 +84,13 @@ describe("Sbd", () => {
         route.sbdConfigure({
           clusterName: clusterStatus.cluster_name,
           sbd_options: sbdOptions,
-          watchdog_dict: {
-            "node-1": newWatchdogName,
-            "node-2": "",
-          },
+          watchdog_dict: { "node-1": newWatchdogName },
         }),
       ],
     });
 
     await launchTaskConfigure();
-    await page.type(TASK.WATCHDOGS, newWatchdogName);
+    await page.fill(TASK.WATCHDOGS("node-1"), newWatchdogName);
     await page.click(TASK.NEXT); // go to options
     await page.click(TASK.NEXT); // go to review
     await page.click(TASK.NEXT); // go to finish

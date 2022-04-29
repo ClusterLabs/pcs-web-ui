@@ -1,15 +1,14 @@
-import * as extract from "app/store/reducers/cluster/clusterStatus/extract";
-
 import { Cluster } from "../types";
 
-import {
-  clusterSelector,
-  clusterStorageItemSelector,
-} from "./selectorsHelpers";
+import { clusterSelector, clusterStorageItemSelector } from "./selectorsHelpers";
 
 type Resource = Cluster["resourceTree"][number];
 type Group = Extract<Resource, { itemType: "group" }>;
 type Primitive = Extract<Group["resources"][number], { itemType: "primitive" }>;
+type ClusterSbdConfig = Exclude<
+  Exclude<Cluster["nodeList"][number], { status: "DATA_NOT_PROVIDED" }>["sbd"],
+  undefined
+>["config"];
 
 const findInTopLevelAndGroup = (
   resource: Resource | Cluster["fenceDeviceList"][number],
@@ -36,7 +35,14 @@ export const clusterAreDataLoaded = clusterStorageItemSelector(
 
 export const getCluster = clusterSelector(cluster => cluster);
 
-export const getClusterSbdConfig = clusterSelector(extract.getClusterSbdConfig);
+export const getClusterSbdConfig = clusterSelector(cluster =>
+  cluster.nodeList.reduce<ClusterSbdConfig>((config, node) => {
+    if (Object.keys(config).length > 0 || node.status === "DATA_NOT_PROVIDED") {
+      return config;
+    }
+    return node.sbd?.config ?? {};
+  }, {}),
+);
 
 export const getSelectedResource = clusterSelector((cluster, id: string) => {
   for (const resource of cluster.resourceTree) {
@@ -104,7 +110,9 @@ export const getResourcesForSet = clusterSelector(cluster =>
 );
 
 export const getTopLevelPrimitives = clusterSelector(cluster =>
-  cluster.resourceTree.filter(r => r.itemType === "primitive").map(r => r.id),
+  cluster.resourceTree
+    .filter(r => r.itemType === "primitive")
+    .map(r => r.id),
 );
 
 export const getSelectedFenceDevice = clusterSelector((cluster, id: string) =>

@@ -1,5 +1,5 @@
-import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector, useClusterTask } from "app/view/share";
+import { ActionPayload } from "app/store";
+import { useClusterTask } from "app/view/share";
 
 type SbdTimeoutAction = Extract<
   ActionPayload["LIB.CALL.CLUSTER.TASK"]["call"],
@@ -9,8 +9,6 @@ type SbdTimeoutAction = Extract<
 export const useTask = () => {
   const task = useClusterTask("sbdConfigure");
   const { dispatch, state, clusterName } = task;
-
-  const [cluster] = useClusterSelector(selectors.getCluster);
 
   const getSbdTimeout = (): SbdTimeoutAction => {
     if (
@@ -33,11 +31,11 @@ export const useTask = () => {
     getSbdTimeout,
 
     //actions
-    open: () => {
+    open: (payload: ActionPayload["CLUSTER.SBD.CONFIGURE"]) => {
       dispatch({
         type: "CLUSTER.SBD.CONFIGURE",
         key: { clusterName },
-        payload: { cluster },
+        payload,
       });
       task.open();
     },
@@ -72,7 +70,13 @@ export const useTask = () => {
             name: "sbd-enable-sbd",
             payload: {
               default_watchdog: null,
-              watchdog_dict: state.watchdogDict,
+              watchdog_dict: Object.entries(state.watchdogDict).reduce(
+                (watchdogDict, [nodeName, watchdog]) => ({
+                  ...watchdogDict,
+                  ...(watchdog.length === 0 ? {} : { [nodeName]: watchdog }),
+                }),
+                {},
+              ),
               sbd_options: {
                 SBD_DELAY_START:
                   state.delayStart === "DEFAULT" ? undefined : state.delayStart,
@@ -81,9 +85,7 @@ export const useTask = () => {
                 SBD_WATCHDOG_TIMEOUT: state.watchdogTimeout,
                 ...(sbdTimeoutAction === undefined
                   ? {}
-                  : {
-                      SBD_TIMEOUT_ACTION: sbdTimeoutAction,
-                    }),
+                  : { SBD_TIMEOUT_ACTION: sbdTimeoutAction }),
               },
               ignore_offline_nodes: force,
             },

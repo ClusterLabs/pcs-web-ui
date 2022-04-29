@@ -1,8 +1,26 @@
-import { Cluster } from "app/store/selectors/types";
+import { libCallCluster } from "app/backend";
 
-type NodeName = string;
-type SbdTimeoutAction = "reboot" | "off" | "crashdump";
-type SbdTimeoutActionFlush = "flush" | "noflush";
+type SbdEnablePayload = Extract<
+  Parameters<typeof libCallCluster>[0]["command"],
+  { name: "sbd-enable-sbd" }
+>["payload"];
+
+type SbdOption<OPTION extends keyof SbdEnablePayload["sbd_options"]> = Exclude<
+  SbdEnablePayload["sbd_options"][OPTION],
+  undefined
+>;
+
+type SbdTimeoutAction<ACTIONS extends SbdOption<"SBD_TIMEOUT_ACTION">> =
+  Extract<SbdOption<"SBD_TIMEOUT_ACTION">, ACTIONS>;
+
+type SbdConfiguration = {
+  watchdogDict: SbdEnablePayload["watchdog_dict"];
+  delayStart: SbdOption<"SBD_DELAY_START"> | "DEFAULT";
+  startmode: SbdOption<"SBD_STARTMODE"> | "DEFAULT";
+  watchdogTimeout: SbdOption<"SBD_WATCHDOG_TIMEOUT">;
+  timeoutActionFlush: SbdTimeoutAction<"flush" | "noflush"> | "DEFAULT";
+  timeoutAction: SbdTimeoutAction<"reboot" | "off" | "crashdump"> | "DEFAULT";
+};
 
 export type ClusterSbdActions = {
   "CLUSTER.SBD.DISABLE.CLOSE": {
@@ -13,35 +31,13 @@ export type ClusterSbdActions = {
   "CLUSTER.SBD.CONFIGURE": {
     type: "CLUSTER.SBD.CONFIGURE";
     key: { clusterName: string };
-    payload: { cluster: Cluster };
+    payload: SbdConfiguration;
   };
 
   "CLUSTER.SBD.CONFIGURE.UPDATE": {
     type: "CLUSTER.SBD.CONFIGURE.UPDATE";
     key: { clusterName: string };
-    payload: {
-      watchdogDict?: Record<NodeName, string>;
-      delayStart?: "yes" | "no" | "DEFAULT";
-      startmode?: "always" | "clean" | "DEFAULT";
-      watchdogTimeout?: string;
-      timeoutActionFlush?: "DEFAULT" | "flush" | "noflush";
-      timeoutAction?: "DEFAULT" | "reboot" | "crashdump" | "off";
-      timeoutActionResult?:
-        | SbdTimeoutAction
-        | SbdTimeoutActionFlush
-        | "crashdump,flush"
-        | "crashdump,noflush"
-        | "off,flush"
-        | "off,noflush"
-        | "reboot,flush"
-        | "reboot,noflush"
-        | "flush,crashdump"
-        | "flush,off"
-        | "flush,reboot"
-        | "noflush,crashdump"
-        | "noflush,off"
-        | "noflush,reboot";
-    };
+    payload: Partial<SbdConfiguration>;
   };
 
   "CLUSTER.SBD.CONFIGURE.CLOSE": {

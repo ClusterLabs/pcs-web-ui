@@ -1,7 +1,6 @@
 import { Form } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { FormText, TaskLibStep, useClusterSelector } from "app/view/share";
+import { FormText, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
@@ -14,30 +13,23 @@ export const Watchdogs = () => {
     },
   } = useTask();
 
-  const [cluster] = useClusterSelector(selectors.getCluster);
-  let watchdog: string;
   return (
     <TaskLibStep title="Specify watchdog devices for nodes" reports={reports}>
       <Form data-test="form-watchdogs">
-        {cluster.nodeList.map(
-          (node, i) =>
-            node.status !== "DATA_NOT_PROVIDED" && (
-              <FormText
-                key={i}
-                id={`watchdog-${i}`}
-                data-test={`watchdog-${i}`}
-                label={`${node.name} :`}
-                value={watchdog}
-                onChange={(value) => {
-                  value.length > 0
-                    ? (watchdogDict[node.name] = value)
-                    : delete watchdogDict[node.name];
-                  updateState({ watchdogDict: watchdogDict });
-                }}
-                placeholder={watchdogDict[node.name]}
-              />
-            ),
-        )}
+        {Object.entries(watchdogDict).map(([nodeName, watchdog]) => (
+          <FormText
+            key={nodeName}
+            id={`watchdog-${nodeName}`}
+            data-test={`watchdog-${nodeName}`}
+            label={`${nodeName} :`}
+            value={watchdog}
+            onChange={value =>
+              updateState({
+                watchdogDict: { ...watchdogDict, [nodeName]: value },
+              })
+            }
+          />
+        ))}
       </Form>
     </TaskLibStep>
   );
