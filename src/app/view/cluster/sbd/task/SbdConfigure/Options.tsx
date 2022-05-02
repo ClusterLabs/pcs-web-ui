@@ -12,8 +12,10 @@ export const Options = () => {
       watchdogTimeout,
       timeoutActionFlush,
       timeoutAction,
+      showValidationErrors,
       libCall: { reports },
     },
+    isWatchdogTimeoutValid,
     getSbdTimeout,
     updateState,
   } = useTask();
@@ -43,6 +45,9 @@ export const Options = () => {
           onChange={value => updateState({ watchdogTimeout: value })}
           value={watchdogTimeout}
           placeholder={watchdogTimeout}
+          showValidationErrors={showValidationErrors}
+          isValid={isWatchdogTimeoutValid}
+          helperTextInvalid="Please enter a non negative integer"
         />
 
         <FormGroup fieldId={"new_timeout_action"}>

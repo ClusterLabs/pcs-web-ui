@@ -29,6 +29,7 @@ export const useTask = () => {
   return {
     ...task,
     getSbdTimeout,
+    isWatchdogTimeoutValid: /^(\d*)$/.test(state.watchdogTimeout),
 
     //actions
     open: (payload: ActionPayload["CLUSTER.SBD.CONFIGURE"]) => {

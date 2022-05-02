@@ -5,6 +5,7 @@ import { initialState as initalLibCall, libCall } from "./libCall";
 
 const initialState: ActionPayload["CLUSTER.SBD.CONFIGURE"] & {
   libCall: typeof initalLibCall;
+  showValidationErrors: boolean;
 } = {
   watchdogDict: {},
   delayStart: "DEFAULT",
@@ -13,12 +14,13 @@ const initialState: ActionPayload["CLUSTER.SBD.CONFIGURE"] & {
   timeoutActionFlush: "DEFAULT",
   timeoutAction: "DEFAULT",
   libCall: initalLibCall,
+  showValidationErrors: false,
 };
 
 export const sbdConfigure: AppReducer<typeof initialState> = (
   state = initialState,
   action,
-) => {
+): typeof initialState => {
   switch (action.type) {
     case "CLUSTER.SBD.CONFIGURE":
       return {
@@ -34,6 +36,12 @@ export const sbdConfigure: AppReducer<typeof initialState> = (
 
     case "CLUSTER.SBD.CONFIGURE.CLOSE":
       return initialState;
+
+    case "TASK.VALIDATION.SHOW":
+      return { ...state, showValidationErrors: true };
+
+    case "TASK.VALIDATION.HIDE":
+      return { ...state, showValidationErrors: false };
 
     default:
       return { ...state, libCall: libCall(state.libCall, action) };

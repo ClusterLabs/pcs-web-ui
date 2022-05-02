@@ -4,13 +4,17 @@ import { Button } from "@patternfly/react-core";
 import { TaskButtonNextWithValidation } from "./TaskButtonNextWithValidation";
 import { useTaskContext } from "./TaskContext";
 
-export const TaskSimpleFooter: React.FC<{
+export const TaskSimpleFooter = ({
+  run,
+  nextIf = true,
+  runLabel = "Create",
+}: {
   run: () => void;
   runLabel?: React.ComponentProps<
     typeof TaskButtonNextWithValidation
   >["children"];
   nextIf?: boolean;
-}> = ({ run, nextIf = true, runLabel = "Create" }) => {
+}) => {
   const { close } = useTaskContext();
   return (
     <>

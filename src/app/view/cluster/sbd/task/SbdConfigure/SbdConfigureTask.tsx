@@ -9,6 +9,7 @@ export const SbdConfigureTask = () => {
   const {
     close,
     sbdConfigure,
+    isWatchdogTimeoutValid,
     state: {
       libCall: { reports, response },
     },
@@ -30,10 +31,18 @@ export const SbdConfigureTask = () => {
         {
           name: "SBD options",
           component: <Options />,
+          footer: (
+            <WizardFooter
+              next={{
+                actionIf: isWatchdogTimeoutValid,
+              }}
+            />
+          ),
         },
         {
           name: "Review",
           component: <Review />,
+          canJumpTo: isWatchdogTimeoutValid,
           footer: (
             <WizardFooter
               next={{
