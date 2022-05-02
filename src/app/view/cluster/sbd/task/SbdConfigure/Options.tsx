@@ -1,11 +1,10 @@
 import { Form, FormGroup } from "@patternfly/react-core";
-import React from "react";
 
 import { FormRadios, FormText, TaskLibStep } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Options: React.FC = () => {
+export const Options = () => {
   const {
     state: {
       delayStart,
@@ -15,6 +14,7 @@ export const Options: React.FC = () => {
       timeoutAction,
       libCall: { reports },
     },
+    getSbdTimeout,
     updateState,
   } = useTask();
 
@@ -45,10 +45,18 @@ export const Options: React.FC = () => {
           placeholder={watchdogTimeout}
         />
 
-        <FormGroup fieldId={""}>
+        <FormGroup fieldId={"new_timeout_action"}>
           <FormRadios
             id="new_timeout_action1"
-            label="SBD_TIMEOUT_ACTION"
+            label={
+              <>
+                <span>SBD_TIMEOUT_ACTION</span>
+                <span> </span>
+                <span style={{ fontWeight: "normal" }}>
+                  ({getSbdTimeout()})
+                </span>
+              </>
+            }
             options={["DEFAULT", "flush", "noflush"]}
             selected={timeoutActionFlush}
             onChange={value => updateState({ timeoutActionFlush: value })}
