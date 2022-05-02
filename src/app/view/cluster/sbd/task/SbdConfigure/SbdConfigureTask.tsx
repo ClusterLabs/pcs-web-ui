@@ -58,7 +58,7 @@ export const SbdConfigureTask = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={"configure SBD"}
-              backToUpdateSettingsStepName="Specify watchdog devices for nodes"
+              backToUpdateSettingsStepName="Watchdog devices"
               proceedForce={() => sbdConfigure({ force: true })}
               reports={reports}
             />
