@@ -1,6 +1,8 @@
 import React from "react";
 import { DescriptionList } from "@patternfly/react-core";
 
-export const ReviewList = ({ children }: { children: React.ReactNode }) => {
-  return <DescriptionList isHorizontal>{children}</DescriptionList>;
+export const ReviewList = (
+  props: React.ComponentProps<typeof DescriptionList>,
+) => {
+  return <DescriptionList isHorizontal {...props} />;
 };

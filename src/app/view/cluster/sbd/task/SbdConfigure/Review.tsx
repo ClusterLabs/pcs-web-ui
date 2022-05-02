@@ -28,15 +28,25 @@ export const Review: React.FC = () => {
           }
         />
         <ReviewValue
-          label="SBD_DELAY _START"
-          value={delayStart === "DEFAULT" ? undefined : delayStart}
+          label="SBD_DELAY_START"
+          value={delayStart}
+          useDefault={{ whenValue: "DEFAULT", defaultValue: "no" }}
         />
         <ReviewValue
           label="SBD_STARTMODE"
-          value={startmode === "DEFAULT" ? undefined : startmode}
+          value={startmode}
+          useDefault={{ whenValue: "DEFAULT", defaultValue: "always" }}
         />
-        <ReviewValue label="SBD_WATCHDOG _TIMEOUT" value={watchdogTimeout} />
-        <ReviewValue label="SBD_TIMEOUT _ACTION" value={getSbdTimeout()} />
+        <ReviewValue
+          label="SBD_WATCHDOG_TIMEOUT"
+          value={watchdogTimeout}
+          useDefault={{ whenValue: "", defaultValue: "5" }}
+        />
+        <ReviewValue
+          label="SBD_TIMEOUT_ACTION"
+          value={getSbdTimeout()}
+          useDefault={{ whenValue: undefined, defaultValue: "flush,reboot" }}
+        />
       </ReviewList>
     </TaskLibStep>
   );
