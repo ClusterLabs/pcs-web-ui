@@ -16,13 +16,22 @@ export const Review: React.FC = () => {
 
   return (
     <TaskLibStep title="Review settings" reports={reports}>
-      <ReviewList>
+      <ReviewList
+        horizontalTermWidthModifier={{
+          default: "20ch",
+        }}
+      >
         <ReviewValue
-          label="sbd watchdogs"
+          label="Watchdog devices"
           value={
             <ReviewList>
               {Object.entries(watchdogDict).map(([nodeName, watchdog]) => (
-                <ReviewValue key={nodeName} label={nodeName} value={watchdog} />
+                <ReviewValue
+                  key={nodeName}
+                  label={nodeName}
+                  value={watchdog}
+                  useDefault={{ whenValue: "", defaultValue: "" }}
+                />
               ))}
             </ReviewList>
           }
