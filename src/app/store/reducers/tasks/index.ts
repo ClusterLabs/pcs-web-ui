@@ -1,6 +1,11 @@
 import { combineReducers } from "redux";
 
-import { ReducersMapKey, Task, TaskState, wrapTasks } from "app/store/taskTools";
+import {
+  ReducersMapKey,
+  Task,
+  TaskState,
+  wrapTasks,
+} from "app/store/taskTools";
 
 import { clusterSetup } from "./clusterSetup";
 import { importExistingCluster } from "./importExistingCluster";

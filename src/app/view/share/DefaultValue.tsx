@@ -1,7 +1,5 @@
 import React from "react";
 
-export const ReviewDefault: React.FC<{ value: React.ReactNode }> = ({
-  value,
-}) => {
+export const DefaultValue = ({ value }: { value: React.ReactNode }) => {
   return <div style={{ fontStyle: "italic" }}>{value}</div>;
 };

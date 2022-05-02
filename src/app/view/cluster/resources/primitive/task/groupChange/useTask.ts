@@ -21,9 +21,8 @@ export const useTask = () => {
       primitive.inGroup !== null || groupList.length > 0,
     candidateGroupsIds,
     memberResourcesIds:
-      groupList
-        .find(g => g.id === state.groupId)
-        ?.resources.map(r => r.id) ?? [],
+      groupList.find(g => g.id === state.groupId)?.resources.map(r => r.id)
+      ?? [],
 
     //actions
     updateState: (payload: ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]) => {

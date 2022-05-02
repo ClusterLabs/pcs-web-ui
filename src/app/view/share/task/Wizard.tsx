@@ -94,8 +94,9 @@ export const Wizard = ({
             {({ activeStep }) => (
               <div data-test={wizardCreateFooterDataTest(activeStep.name)}>
                 <PfWizardFooter>
-                  {footerList.find(f => f.name === activeStep.name)
-                    ?.footer ?? <WizardFooter />}
+                  {footerList.find(f => f.name === activeStep.name)?.footer ?? (
+                    <WizardFooter />
+                  )}
                 </PfWizardFooter>
               </div>
             )}

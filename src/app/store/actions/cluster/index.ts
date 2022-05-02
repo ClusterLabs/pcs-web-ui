@@ -1,8 +1,9 @@
 import { ClusterAddActions } from "./add";
 import { ClusterFixAuthActions } from "./fixAuth";
 import { ClusterListActions } from "./list";
-import { ClusterPropertiesActions } from "./properties";
 import { ClusterPermissionsActions } from "./permissions";
+import { ClusterPropertiesActions } from "./properties";
+import { ClusterSbdActions } from "./sbd";
 import { ClusterStatusActions } from "./status";
 import { ClusterTaskActions } from "./task";
 import { ClusterNVPairListActions } from "./nvpairList";
@@ -12,8 +13,9 @@ export type ClusterActions = (
   & ClusterAddActions
   & ClusterFixAuthActions
   & ClusterListActions
-  & ClusterPropertiesActions
   & ClusterPermissionsActions
+  & ClusterPropertiesActions
+  & ClusterSbdActions
   & ClusterStatusActions
   & ClusterTaskActions
   & ClusterNVPairListActions

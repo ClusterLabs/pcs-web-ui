@@ -71,7 +71,8 @@ export const InstanceAttrsForm = () => {
                 {requiredParameters
                   .concat(filterParameters(nonDeprecatedParameters))
                   .map((parameter) => {
-                    const hint = "Please provide a value for required attribute";
+                    const hint =
+                      "Please provide a value for required attribute";
                     return (
                       <FormText
                         key={parameter.name}

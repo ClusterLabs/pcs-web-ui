@@ -5,9 +5,9 @@ import {
   DescriptionListTerm,
 } from "@patternfly/react-core";
 
-import { ReviewDefault } from "./ReviewDefault";
+import { DefaultValue } from "app/view/share/DefaultValue";
 
-export const ReviewValue: React.FC<{
+export const ReviewValue = (props: {
   label: React.ReactNode;
   value: React.ReactNode;
   "data-test"?: string;
@@ -21,7 +21,7 @@ export const ReviewValue: React.FC<{
   ) & {
     defaultValue: React.ReactNode;
   };
-}> = (props) => {
+}) => {
   let value = props.value;
   if (
     "useDefault" in props
@@ -33,7 +33,7 @@ export const ReviewValue: React.FC<{
     value = (
       <>
         <div>{props.useDefault.defaultValue}</div>
-        <ReviewDefault value="Default value" />
+        <DefaultValue value="Default value" />
       </>
     );
   }

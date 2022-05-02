@@ -78,6 +78,13 @@ type Clone = Resource & {
   member: Primitive | Group | FenceDevice;
 };
 
+type ApiNode = ApiCluster["node_list"][number];
+
+type ApiSbdConfig = Exclude<
+  Extract<ApiNode, { sbd_config: unknown }>["sbd_config"],
+  null
+>;
+
 /*
  status in ApiCLusterStatus is not taken here. There is not real need for it.
 */
@@ -91,10 +98,14 @@ export type Cluster = {
         quorum: boolean;
         quorumSeverity: StatusSeverity;
         issueList: Issue[];
-        services: Extract<
-          ApiCluster["node_list"][number],
-          { services: unknown }
-        >["services"];
+        services: Extract<ApiNode, { services: unknown }>["services"];
+        sbd:
+          | undefined
+          | {
+              config: ApiSbdConfig;
+              watchdog: string | undefined;
+              devices: string[];
+            };
       }
     | {
         name: string;
@@ -138,9 +149,6 @@ export type Cluster = {
   clusterProperties: Record<string, string>;
   nodeAttr: Record<string, NVPair[]>;
   nodesUtilization: Record<string, NVPair[]>;
-  sbdDetection: null | {
-    enabled: boolean;
-  };
 };
 
 export type ClusterStatusService = {

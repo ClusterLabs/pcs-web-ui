@@ -37,5 +37,8 @@ export const fenceDevice = ({
   fenceDeviceId: string;
 }) => `${fenceDeviceList({ clusterName })}/${fenceDeviceId}`;
 
+export const sbdList = ({ clusterName }: { clusterName: string }) =>
+  `${cluster({ clusterName })}/sbd`;
+
 export const permissionList = ({ clusterName }: { clusterName: string }) =>
   `${cluster({ clusterName })}/permissions`;

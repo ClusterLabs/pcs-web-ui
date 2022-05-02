@@ -21,7 +21,6 @@ export const clusterStatusDefault: Cluster = {
   clusterProperties: {},
   nodeAttr: {},
   nodesUtilization: {},
-  sbdDetection: null,
 };
 
 const clusterData: AppReducer<ClusterStatusService["clusterData"]> = (

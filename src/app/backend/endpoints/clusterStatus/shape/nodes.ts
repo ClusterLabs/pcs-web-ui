@@ -77,7 +77,19 @@ export const ApiNode = t.intersection([
       pacemaker: t.boolean,
       pacemaker_enabled: t.boolean,
       pcsd_enabled: t.boolean,
-      sbd_config: t.union([t.type({}), t.null]),
+      sbd_config: t.union([
+        t.null,
+        t.partial({
+          SBD_DELAY_START: t.string,
+          SBD_OPTS: t.string,
+          SBD_PACEMAKER: t.string,
+          SBD_STARTMODE: t.string,
+          SBD_TIMEOUT_ACTION: t.string,
+          SBD_WATCHDOG_DEV: t.string,
+          SBD_WATCHDOG_TIMEOUT: t.string,
+          SBD_DEVICE: t.string,
+        }),
+      ]),
     }),
   ]),
 ]);

@@ -66,9 +66,7 @@ export const Quorum = () => {
           }}
           options={["off", "on", "default"]}
           selected={quorumOptions.last_man_standing}
-          onChange={value =>
-            updateQuorumOptions({ last_man_standing: value })
-          }
+          onChange={value => updateQuorumOptions({ last_man_standing: value })}
           data-test="quorum.last_man_standing"
         />
         <FormText

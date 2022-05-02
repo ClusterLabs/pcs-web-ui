@@ -135,7 +135,10 @@ describe("Cluster setup", () => {
     await page.type(selectors.knetTransport.link_priority, link.link_priority);
     await page.type(selectors.knetTransport.mcastport, link.mcastport);
     await page.type(selectors.knetTransport.ping_interval, link.ping_interval);
-    await page.type(selectors.knetTransport.ping_precision, link.ping_precision);
+    await page.type(
+      selectors.knetTransport.ping_precision,
+      link.ping_precision,
+    );
     await page.type(selectors.knetTransport.ping_timeout, link.ping_timeout);
     await page.type(selectors.knetTransport.pong_count, link.pong_count);
     await select(selectors.knetTransport.transport, link.transport);

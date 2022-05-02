@@ -4,6 +4,7 @@ import { Cluster, StatusSeverity } from "../types";
 
 import * as statusSeverity from "./statusSeverity";
 import { transformIssues } from "./issues";
+import { apiToNodeSbd } from "./nodeSbd";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 type ApiNode = ApiCluster["node_list"][number];
@@ -79,6 +80,7 @@ const toNode = (apiNode: ApiNode, nodeAttrsList: ApiNodeAttrList): Node => {
         quorumSeverity: quorumToSeverity(apiNode.quorum),
         issueList: transformIssues(apiNode),
         services: apiNode.services,
+        sbd: apiToNodeSbd(apiNode),
       };
 };
 

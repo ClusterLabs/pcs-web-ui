@@ -7,16 +7,6 @@ import { processApiNodes } from "./nodes";
 import { analyzeApiResources } from "./resources";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
-const sbdDetection = (apiClusterState: ApiCluster) =>
-  apiClusterState.node_list.reduce<Cluster["sbdDetection"]>(
-    (sbd, node) =>
-      node.status === "unknown"
-        ? sbd
-        : {
-            enabled: (sbd !== null && sbd.enabled) || node.services.sbd.enabled,
-          },
-    null,
-  );
 
 export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
   const {
@@ -50,6 +40,5 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
     clusterProperties: apiClusterStatus.cluster_settings ?? {},
     nodeAttr: apiClusterStatus.node_attr ?? {},
     nodesUtilization: apiClusterStatus.nodes_utilization ?? {},
-    sbdDetection: sbdDetection(apiClusterStatus),
   };
 };

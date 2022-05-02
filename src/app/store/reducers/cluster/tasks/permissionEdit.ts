@@ -56,7 +56,9 @@ const check = (
     // typescript thinks it can be undefined
     return action.payload[competence] === true;
   }
-  if (presentInCompetence.some(c => c in action.payload && action.payload[c])) {
+  if (
+    presentInCompetence.some(c => c in action.payload && action.payload[c])
+  ) {
     return true;
   }
   return state[competence];
