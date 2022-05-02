@@ -9,8 +9,23 @@ app.libCluster("sbd-enable-sbd", (req, res) => {
     return;
   }
   shortcut.libStd({
-    code: req.body.ignore_offline_nodes,
+    code: Object.values(req.body.watchdog_dict).some(w => w === "offline")
+      ? "offline-nodes"
+      : "ok",
     res,
+    errors: {
+      "offline-nodes": [
+        {
+          severity: { level: "ERROR", force_code: "SKIP_OFFLINE_NODES" },
+          message: {
+            code: "DEFAULT_FORCIBLE_ERROR",
+            message: "Default forcible error from devel server",
+            payload: { error: "default" },
+          },
+          context: null,
+        },
+      ],
+    },
   });
 });
 
