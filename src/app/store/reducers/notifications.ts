@@ -10,6 +10,19 @@ export const notifications: AppReducer<ActionPayload["NOTIFICATION.CREATE"][]> =
       case "NOTIFICATION.DESTROY":
         return state.filter(n => n.id !== action.payload.id);
 
+      case "NOTIFICATION.DESTROY.ALL": {
+        state.splice(0, state.length);
+        return state;
+      }
+
+      case "NOTIFICATION.HIDE":
+        return state.map((n) => {
+          if (n.id === action.payload.id) {
+            n.isVisible = false;
+          }
+          return n;
+        });
+
       case "AUTH.REQUIRED":
         return [];
 

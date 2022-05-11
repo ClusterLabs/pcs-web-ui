@@ -8,14 +8,18 @@ import { location, useLocation } from "app/view/share";
 
 import { PageToolbar } from "./PageToolbar";
 
-export const PageHeader = () => {
+export const PageHeader = ({
+  notificationBadge,
+}: {
+  notificationBadge: React.ReactNode;
+}) => {
   const { navigate } = useLocation();
   return (
     <PfPageHeader
       logo="HA Cluster Management"
       headerTools={
         <PageHeaderTools>
-          <PageToolbar />
+          <PageToolbar notificationBadge={notificationBadge} />
         </PageHeaderTools>
       }
       logoProps={{

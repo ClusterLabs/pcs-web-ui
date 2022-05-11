@@ -25,6 +25,7 @@ export function* callLib({
       type: "NOTIFICATION.CREATE",
       payload: {
         id: actionNewId(),
+        isVisible: true,
         severity: "ERROR",
         message: `Communication error while: ${taskLabel}. Details in the browser console`,
       },
@@ -40,6 +41,7 @@ export function* callLib({
       type: "NOTIFICATION.CREATE",
       payload: {
         id: actionNewId(),
+        isVisible: true,
         severity: "ERROR",
         message: `Error while: ${taskLabel}`,
         details: {
@@ -60,6 +62,7 @@ export function* callLib({
     type: "NOTIFICATION.CREATE",
     payload: {
       id: actionNewId(),
+      isVisible: true,
       severity: "SUCCESS",
       message: `Succesfully done: ${taskLabel}`,
       details: {

@@ -11,13 +11,20 @@ import {
 import { useDispatch } from "app/view/share/useDispatch";
 import { useUsername } from "app/view/share/useUsername";
 
-export const PageToolbar = () => {
+export const PageToolbar = ({
+  notificationBadge,
+}: {
+  notificationBadge: React.ReactNode;
+}) => {
   const [isDropdownOpen, setDropdownOpen] = React.useState(false);
   const dispatch = useDispatch();
   const username = useUsername();
+
   return (
     <Toolbar>
       <ToolbarGroup>
+        <ToolbarItem>{notificationBadge}</ToolbarItem>
+
         <ToolbarItem>
           <Dropdown
             data-test="menu-user"

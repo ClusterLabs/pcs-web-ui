@@ -10,8 +10,10 @@ import {
 import { selectors } from "app/store";
 import { useDispatch } from "app/view/share";
 
-const severityToVariant = (
-  severity: ReturnType<typeof selectors.getNotifications>[number]["severity"],
+export const severityToVariant = (
+  severity: ReturnType<
+    typeof selectors.getAlertNotifications
+  >[number]["severity"],
 ) => {
   switch (severity) {
     case "SUCCESS":
@@ -25,25 +27,33 @@ const severityToVariant = (
   }
 };
 
-const WithList = ({ title, items }: { title: string; items: string[] }) => {
-  if (items.length === 0) {
-    return null;
-  }
+export const NotificationDescription = ({
+  details,
+}: {
+  details: ReturnType<typeof selectors.getAlertNotifications>[number]["details"];
+}) => {
   return (
     <>
-      <Text component="p">{title}</Text>
-      <List>
-        {items.map((item, i) => (
-          /* eslint-disable react/no-array-index-key */
-          <ListItem key={i}>{item}</ListItem>
-        ))}
-      </List>
+      {details && details.type === "LIST" && details.items.length > 0 && (
+        <>
+          <Text component="p">{details.title}</Text>
+          <List>
+            {details.items.map((item, i) => (
+              /* eslint-disable react/no-array-index-key */
+              <ListItem key={i}>{item}</ListItem>
+            ))}
+          </List>
+        </>
+      )}
+      {details
+        && details.type === "LINES"
+        && details.lines.map((line, i) => <p key={i}>{line}</p>)}
     </>
   );
 };
 
 export const Notifications = () => {
-  const notifications = useSelector(selectors.getNotifications);
+  const notifications = useSelector(selectors.getAlertNotifications);
   const dispatch = useDispatch();
   return (
     <ul id="notifications">
@@ -58,7 +68,7 @@ export const Notifications = () => {
                 <AlertActionCloseButton
                   onClose={() =>
                     dispatch({
-                      type: "NOTIFICATION.DESTROY",
+                      type: "NOTIFICATION.HIDE",
                       payload: { id },
                     })
                   }
@@ -66,12 +76,7 @@ export const Notifications = () => {
               }
               title={message}
             >
-              {details && details.type === "LIST" && (
-                <WithList title={details.title} items={details.items} />
-              )}
-              {details
-                && details.type === "LINES"
-                && details.lines.map((line, i) => <p key={i}>{line}</p>)}
+              <NotificationDescription details={details} />
             </Alert>
           </li>
         );
