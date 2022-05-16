@@ -12,9 +12,6 @@ run() {
 		. "$DEV_CONFIG"
 	fi
 
-	CONFIG=jest.config.js
-	[ "$PCS_WUI_TESTS_HEADLESS" = "false" ] && CONFIG=jest.config-headed.js
-
 	if [ "$RUN_CLUSTER_TESTS" = true ]; then
 		RUN_IN_BAND=true
 		PATH_PATTERN="src/test/clusterBackend"
@@ -28,7 +25,7 @@ run() {
 	fi
 
 	npx jest \
-		--config="$CONFIG" \
+		--config=jest.config.js \
 		--runInBand="$RUN_IN_BAND" \
 		--testPathPattern="$PATH_PATTERN" \
 		--detectOpenHandles \

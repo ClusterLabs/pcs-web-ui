@@ -1,12 +1,4 @@
 module.exports = {
-  preset: "jest-playwright-preset",
+  globalSetup: "./src/test/jest-preset.ts",
   moduleDirectories: ["node_modules", "src"],
-  testEnvironmentOptions: {
-    "jest-playwright": {
-      contextOptions: {
-        ignoreHTTPSErrors: true,
-      },
-      // browsers: ["firefox", "chromium", "webkit"],
-    },
-  },
 };

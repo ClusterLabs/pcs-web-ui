@@ -1,16 +1,8 @@
 {
   "compilerOptions": {
     "target": "es2019",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": [
-      "jest",
-      "jest-playwright-preset",
-      "expect-playwright"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["jest", "expect-playwright", "node"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -26,7 +18,5 @@
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
