@@ -44,6 +44,21 @@ const notificationDrawerActions = [
 ];
 */
 
+const getTimeStamp = (date: Date) => {
+  const secElapsed = Math.floor((Date.now() - date.getTime()) / 1000);
+
+  if (secElapsed < 60) {
+    return `${secElapsed} ${secElapsed === 1 ? "second" : "secondes"} ago`;
+  }
+  if (secElapsed < 60 * 60) {
+    return `${Math.floor(secElapsed / 60)} ${
+      Math.floor(secElapsed / 60) === 1 ? "minute" : "minutes"
+    } ago`;
+  }
+
+  return new Date(Math.floor(date.getTime() / 1000) * 1e3).toLocaleString();
+};
+
 export const Drawer = () => {
   const notifications = useSelector(selectors.getDrawerNotifications);
   const [isHeaderDropdownOpen, setHeaderDropdownOpen] = React.useState(false);
@@ -52,8 +67,8 @@ export const Drawer = () => {
   return (
     <NotificationDrawer>
       <NotificationDrawerHeader
-      //count={}
-      //onClose={}
+        count={notifications.filter(n => n.isRead === false).length}
+        //onClose={}
       >
         <Dropdown
           onSelect={() => setHeaderDropdownOpen(!isHeaderDropdownOpen)}
@@ -84,37 +99,44 @@ export const Drawer = () => {
             <NotificationDrawerList>
               {notifications
                 .reverse()
-                .map(({ id, severity, message, details }) => (
-                  <NotificationDrawerListItem
-                    key={id}
-                    variant={severityToVariant(severity)}
-                    onClick={undefined}
-                    isRead={undefined}
-                  >
-                    <NotificationDrawerListItemHeader
+                .map(
+                  ({ id, severity, message, timeCreated, details, isRead }) => (
+                    <NotificationDrawerListItem
+                      key={id}
                       variant={severityToVariant(severity)}
-                      title={message}
-                      srTitle="Info notification:"
+                      onClick={() =>
+                        dispatch({
+                          type: "NOTIFICATION.READ",
+                          payload: { id },
+                        })
+                      }
+                      isRead={isRead}
                     >
-                      <Button
-                        variant="plain"
-                        onClick={() =>
-                          dispatch({
-                            type: "NOTIFICATION.DESTROY",
-                            payload: { id },
-                          })
-                        }
+                      <NotificationDrawerListItemHeader
+                        variant={severityToVariant(severity)}
+                        title={message}
+                        srTitle="Info notification:"
                       >
-                        <TimesIcon />
-                      </Button>
-                    </NotificationDrawerListItemHeader>
-                    <NotificationDrawerListItemBody
-                    //timestamp="5 minutes ago"
-                    >
-                      <NotificationDescription details={details} />
-                    </NotificationDrawerListItemBody>
-                  </NotificationDrawerListItem>
-                ))}
+                        <Button
+                          variant="plain"
+                          onClick={() =>
+                            dispatch({
+                              type: "NOTIFICATION.DESTROY",
+                              payload: { id },
+                            })
+                          }
+                        >
+                          <TimesIcon />
+                        </Button>
+                      </NotificationDrawerListItemHeader>
+                      <NotificationDrawerListItemBody
+                        timestamp={getTimeStamp(timeCreated)}
+                      >
+                        <NotificationDescription details={details} />
+                      </NotificationDrawerListItemBody>
+                    </NotificationDrawerListItem>
+                  ),
+                )}
             </NotificationDrawerList>
           </>
         ) : (

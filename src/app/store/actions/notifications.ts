@@ -3,9 +3,11 @@ export type NotificationActions = {
     type: "NOTIFICATION.CREATE";
     payload: {
       id: number;
-      isVisible: boolean;
       severity: "INFO" | "SUCCESS" | "ERROR";
       message: string;
+      isVisible: boolean;
+      isRead: boolean;
+      timeCreated: Date;
       details?:
         | {
             type: "LIST";
@@ -32,6 +34,13 @@ export type NotificationActions = {
 
   "NOTIFICATION.HIDE": {
     type: "NOTIFICATION.HIDE";
+    payload: {
+      id: number;
+    };
+  };
+
+  "NOTIFICATION.READ": {
+    type: "NOTIFICATION.READ";
     payload: {
       id: number;
     };

@@ -25,9 +25,11 @@ export function* callLib({
       type: "NOTIFICATION.CREATE",
       payload: {
         id: actionNewId(),
-        isVisible: true,
         severity: "ERROR",
         message: `Communication error while: ${taskLabel}. Details in the browser console`,
+        isVisible: true,
+        isRead: false,
+        timeCreated: new Date(),
       },
     });
     return;
@@ -41,9 +43,11 @@ export function* callLib({
       type: "NOTIFICATION.CREATE",
       payload: {
         id: actionNewId(),
-        isVisible: true,
         severity: "ERROR",
         message: `Error while: ${taskLabel}`,
+        isVisible: true,
+        isRead: false,
+        timeCreated: new Date(),
         details: {
           type: "LIST",
           title: "Messages from the backend",
@@ -62,9 +66,11 @@ export function* callLib({
     type: "NOTIFICATION.CREATE",
     payload: {
       id: actionNewId(),
-      isVisible: true,
       severity: "SUCCESS",
       message: `Succesfully done: ${taskLabel}`,
+      isVisible: true,
+      isRead: false,
+      timeCreated: new Date(),
       details: {
         type: "LIST",
         title: "Messages from the backend",

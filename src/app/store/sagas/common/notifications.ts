@@ -27,9 +27,11 @@ export function* putNotification(
     type: "NOTIFICATION.CREATE",
     payload: {
       id: actionNewId(),
-      isVisible: true,
       severity,
       message,
+      isVisible: true,
+      isRead: false,
+      timeCreated: new Date(),
       details,
     },
   });

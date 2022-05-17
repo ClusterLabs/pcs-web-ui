@@ -23,6 +23,14 @@ export const notifications: AppReducer<ActionPayload["NOTIFICATION.CREATE"][]> =
           return n;
         });
 
+      case "NOTIFICATION.READ":
+        return state.map((n) => {
+          if (n.id === action.payload.id) {
+            n.isRead = true;
+          }
+          return n;
+        });
+
       case "AUTH.REQUIRED":
         return [];
 
