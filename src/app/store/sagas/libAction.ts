@@ -29,7 +29,7 @@ export function* callLib({
         message: `Communication error while: ${taskLabel}. Details in the browser console`,
         isVisible: true,
         isRead: false,
-        timeCreated: new Date(),
+        creationTime: new Date(),
       },
     });
     return;
@@ -47,7 +47,7 @@ export function* callLib({
         message: `Error while: ${taskLabel}`,
         isVisible: true,
         isRead: false,
-        timeCreated: new Date(),
+        creationTime: new Date(),
         details: {
           type: "LIST",
           title: "Messages from the backend",
@@ -70,7 +70,7 @@ export function* callLib({
       message: `Succesfully done: ${taskLabel}`,
       isVisible: true,
       isRead: false,
-      timeCreated: new Date(),
+      creationTime: new Date(),
       details: {
         type: "LIST",
         title: "Messages from the backend",

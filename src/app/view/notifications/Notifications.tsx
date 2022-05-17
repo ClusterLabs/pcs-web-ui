@@ -57,30 +57,36 @@ export const Notifications = () => {
   const dispatch = useDispatch();
   return (
     <ul id="notifications">
-      {notifications.reverse().map(({ id, severity, message, details }) => {
-        const variant = severityToVariant(severity);
-        return (
-          <li className="notification-item" key={id}>
-            <Alert
-              variant={variant}
-              data-test={`notification-${variant}`}
-              actionClose={
-                <AlertActionCloseButton
-                  onClose={() =>
-                    dispatch({
-                      type: "NOTIFICATION.HIDE",
-                      payload: { id },
-                    })
-                  }
-                />
-              }
-              title={message}
-            >
-              <NotificationDescription details={details} />
-            </Alert>
-          </li>
-        );
-      })}
+      {notifications
+        .reverse()
+        .map(({ id, severity, message, details, description }) => {
+          const variant = severityToVariant(severity);
+          return (
+            <li className="notification-item" key={id}>
+              <Alert
+                variant={variant}
+                data-test={
+                  description
+                    ? `notification-${variant}-${description}`
+                    : `notification-${variant}`
+                }
+                actionClose={
+                  <AlertActionCloseButton
+                    onClose={() =>
+                      dispatch({
+                        type: "NOTIFICATION.HIDE",
+                        payload: { id },
+                      })
+                    }
+                  />
+                }
+                title={message}
+              >
+                <NotificationDescription details={details} />
+              </Alert>
+            </li>
+          );
+        })}
     </ul>
   );
 };

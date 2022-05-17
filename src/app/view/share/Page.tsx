@@ -1,12 +1,17 @@
 import React from "react";
-import { NotificationBadge, Page as PfPage } from "@patternfly/react-core";
+import {
+  NotificationBadge,
+  NotificationDrawerHeader,
+  Page as PfPage,
+} from "@patternfly/react-core";
 import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
 
 import { BackgroundImage } from "./BackgroundImage";
 import { PageHeader } from "./PageHeader";
-import { Drawer } from "./Drawer";
+import { Drawer } from "./notifications/Drawer";
+import { DrawerDropdown } from "./notifications/DrawerDropdown";
 
 export const Page = ({ children }: { children: React.ReactNode }) => {
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
@@ -32,12 +37,23 @@ export const Page = ({ children }: { children: React.ReactNode }) => {
                 }
                 count={unreadErrorNotifsCount}
                 onClick={() => setDrawerOpen(!isDrawerOpen)}
-                aria-label="notifications"
+                aria-label="Notifications"
               />
             }
           />
         }
-        notificationDrawer={<Drawer />}
+        notificationDrawer={
+          <Drawer
+            notificationDrawerHeader={
+              <NotificationDrawerHeader
+                count={notifications.filter(n => n.isRead === false).length}
+                onClose={() => setDrawerOpen(!isDrawerOpen)}
+              >
+                <DrawerDropdown />
+              </NotificationDrawerHeader>
+            }
+          />
+        }
         isNotificationDrawerExpanded={isDrawerOpen}
       >
         {children}

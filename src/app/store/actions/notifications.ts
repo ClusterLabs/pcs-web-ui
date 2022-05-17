@@ -7,7 +7,8 @@ export type NotificationActions = {
       message: string;
       isVisible: boolean;
       isRead: boolean;
-      timeCreated: Date;
+      creationTime: Date;
+      description?: string;
       details?:
         | {
             type: "LIST";
@@ -44,5 +45,9 @@ export type NotificationActions = {
     payload: {
       id: number;
     };
+  };
+
+  "NOTIFICATION.READ.ALL": {
+    type: "NOTIFICATION.READ.ALL";
   };
 };

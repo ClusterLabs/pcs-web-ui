@@ -21,6 +21,7 @@ export function* limitNotificationLife({
 export function* putNotification(
   severity: Notification["severity"],
   message: string,
+  //description: string = undefined,
   details: Notification["details"] = undefined,
 ) {
   const putEffect: PutEffect = yield put({
@@ -31,7 +32,7 @@ export function* putNotification(
       message,
       isVisible: true,
       isRead: false,
-      timeCreated: new Date(),
+      creationTime: new Date(),
       details,
     },
   });
