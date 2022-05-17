@@ -7,7 +7,7 @@ import {
   EmptyStateSecondaryActions,
   Title,
 } from "@patternfly/react-core";
-import { ExclamationCircleIcon } from "@patternfly/react-icons/dist/js/icons";
+import { ExclamationCircleIcon } from "@patternfly/react-icons";
 
 import * as pallete from "app/view/share/pallete";
 import { ButtonWithEnter } from "app/view/share/ButtonWithEnter";

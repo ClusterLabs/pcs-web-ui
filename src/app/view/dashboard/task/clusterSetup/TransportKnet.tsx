@@ -8,8 +8,7 @@ import {
   TabTitleText,
   Tabs,
 } from "@patternfly/react-core";
-import PlusIcon from "@patternfly/react-icons/dist/js/icons/plus-icon";
-import TimesIcon from "@patternfly/react-icons/dist/js/icons/times-icon";
+import { PlusIcon, TimesIcon } from "@patternfly/react-icons";
 
 import { TaskLibStep } from "app/view/share";
 
