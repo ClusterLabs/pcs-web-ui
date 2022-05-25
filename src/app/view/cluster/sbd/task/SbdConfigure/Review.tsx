@@ -17,9 +17,9 @@ export const Review = () => {
   return (
     <TaskLibStep title="Review settings" reports={reports}>
       <ReviewList
-        horizontalTermWidthModifier={{
-          default: "20ch",
-        }}
+      //horizontalTermWidthModifier={{
+      //default: "20ch",
+      //}}
       >
         <ReviewValue
           label="Watchdog devices"

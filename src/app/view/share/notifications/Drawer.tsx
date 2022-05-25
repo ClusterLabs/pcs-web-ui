@@ -62,10 +62,25 @@ export const Drawer = ({
           <>
             <NotificationDrawerList>
               {notifications.map(
-                ({ id, severity, message, creationTime, details, isRead }) => (
+                ({
+                  id,
+                  severity,
+                  message,
+                  creationTime,
+                  details,
+                  isRead,
+                  description,
+                }) => (
                   <NotificationDrawerListItem
                     key={id}
                     variant={severityToVariant(severity)}
+                    data-test={
+                      description
+                        ? `notification-${severityToVariant(
+                            severity,
+                          )}-${description}`
+                        : `notification-${severityToVariant(severity)}`
+                    }
                     onClick={() =>
                       dispatch({
                         type: "NOTIFICATION.READ",
@@ -80,6 +95,7 @@ export const Drawer = ({
                       srTitle="Info notification:"
                     >
                       <Button
+                        data-test={`destroy-${description}`}
                         variant="plain"
                         onClick={() =>
                           dispatch({
@@ -102,7 +118,10 @@ export const Drawer = ({
             </NotificationDrawerList>
           </>
         ) : (
-          <EmptyState variant={EmptyStateVariant.full}>
+          <EmptyState
+            variant={EmptyStateVariant.full}
+            data-test={"drawer-empty"}
+          >
             <EmptyStateIcon icon={SearchIcon} />
             <Title headingLevel="h2" size="lg">
               No alerts found

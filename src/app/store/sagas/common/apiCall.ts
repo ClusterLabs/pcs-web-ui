@@ -1,11 +1,14 @@
 import { SagaIterator } from "redux-saga";
 
 import { api } from "app/backend";
+import { ActionPayload } from "app/store/actions";
 
 import { call, put, take } from "./effects";
 import * as log from "./log";
 import { messages, putNotification } from "./notifications";
 /* eslint-disable no-console */
+
+type Notification = ActionPayload["NOTIFICATION.CREATE"];
 
 export const errorMessage = (
   result: api.result.HttpFail | api.result.NotJson | api.result.InvalidPayload,
@@ -27,19 +30,25 @@ export const errorMessage = (
 function* error(
   result: api.result.HttpFail | api.result.NotJson | api.result.InvalidPayload,
   taskLabel: string,
+  description: Notification["description"] = undefined,
 ) {
   const detailsInConsole = "Details in the browser console.";
   const message = errorMessage(result, taskLabel);
   switch (result.type) {
     case "BAD_HTTP_STATUS":
-      yield putNotification("ERROR", `Task: ${taskLabel} failed`, {
-        type: "LINES",
-        lines: [result.text, detailsInConsole],
-      });
+      yield putNotification(
+        "ERROR",
+        `Task: ${taskLabel} failed`,
+        {
+          type: "LINES",
+          lines: [result.text, detailsInConsole],
+        },
+        description,
+      );
       break;
 
     default:
-      yield putNotification("ERROR", message);
+      yield putNotification("ERROR", message, undefined, description);
   }
 }
 
@@ -53,13 +62,14 @@ export function* processError(
     useNotification: true,
     action: undefined,
   },
+  description: Notification["description"] = undefined,
 ) {
   log.error(result, taskLabel);
   if (options.action) {
     yield options.action();
   }
   if (options.useNotification) {
-    yield error(result, taskLabel);
+    yield error(result, taskLabel, description);
   }
 }
 

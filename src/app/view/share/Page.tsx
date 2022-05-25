@@ -38,6 +38,7 @@ export const Page = ({ children }: { children: React.ReactNode }) => {
                 count={unreadErrorNotifsCount}
                 onClick={() => setDrawerOpen(!isDrawerOpen)}
                 aria-label="Notifications"
+                data-test="notification-badge"
               />
             }
           />

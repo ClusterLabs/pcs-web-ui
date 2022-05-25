@@ -8,10 +8,20 @@ type ApiResult = api.ResultOf<typeof savePermissions>;
 
 function* processRemoveResult(result: ApiResult) {
   if (result.type !== "OK") {
-    yield processError(result, "remove permission");
+    yield processError(
+      result,
+      "remove permission",
+      undefined,
+      "permission-remove",
+    );
     return;
   }
-  yield putNotification("SUCCESS", "Permission removed");
+  yield putNotification(
+    "SUCCESS",
+    "Permission removed",
+    undefined,
+    "permission-remove",
+  );
 }
 
 function* processEditResult(result: ApiResult) {
