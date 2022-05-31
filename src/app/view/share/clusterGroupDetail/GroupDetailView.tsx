@@ -8,7 +8,6 @@ export const GroupDetailView = ({
   groupCard,
   detailCard,
 }: {
-  urlPrefix?: string;
   groupCard: React.ReactNode;
   detailCard: React.ReactNode;
 }) => {
@@ -23,7 +22,6 @@ export const GroupDetailView = ({
         <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">
           <GroupDetailViewContextProvider
             value={{
-              urlPrefix: "",
               compact: true,
               selectedItemUrlName: detail.params.detailUrlName,
               closeDetailUrl,
@@ -43,7 +41,6 @@ export const GroupDetailView = ({
     <PageSection>
       <GroupDetailViewContextProvider
         value={{
-          urlPrefix: "",
           compact: false,
           selectedItemUrlName: "",
           closeDetailUrl,
