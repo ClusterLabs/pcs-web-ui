@@ -1,13 +1,13 @@
 import React from "react";
 
 const GroupDetailViewContext = React.createContext<{
+  selectedItemUrlType: string | null;
   selectedItemUrlName: string;
-  urlPrefix: string;
   compact: boolean;
   closeDetailUrl: () => void;
 }>({
+  selectedItemUrlType: null,
   selectedItemUrlName: "",
-  urlPrefix: "",
   compact: false,
   closeDetailUrl: () => {
     console.log("Close detail");
