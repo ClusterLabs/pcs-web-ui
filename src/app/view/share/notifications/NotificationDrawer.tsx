@@ -1,27 +1,31 @@
 import {
   Button,
+  Dropdown,
+  DropdownItem,
+  DropdownPosition,
   EmptyState,
   EmptyStateBody,
   EmptyStateIcon,
   EmptyStateVariant,
-  NotificationDrawer,
+  KebabToggle,
   NotificationDrawerBody,
+  NotificationDrawerHeader,
   NotificationDrawerList,
   NotificationDrawerListItem,
   NotificationDrawerListItemBody,
   NotificationDrawerListItemHeader,
+  NotificationDrawer as PfNotificationDrawer,
   Title,
 } from "@patternfly/react-core";
-import { SearchIcon, TimesIcon } from "@patternfly/react-icons";
 import React from "react";
-import { useSelector } from "react-redux";
+import { SearchIcon, TimesIcon } from "@patternfly/react-icons";
 
 import { selectors } from "app/store";
-
 import {
   NotificationDescription,
   severityToVariant,
-} from "../../notifications";
+} from "app/view/notifications";
+
 import { useDispatch } from "../useDispatch";
 
 const getTimeStamp = (creationTime: Date) => {
@@ -41,12 +45,14 @@ const getTimeStamp = (creationTime: Date) => {
   ).toLocaleString();
 };
 
-export const Drawer = ({
-  notificationDrawerHeader,
+export const NotificationDrawer = ({
+  notifications,
+  closeDrawer,
 }: {
-  notificationDrawerHeader: React.ReactNode;
+  notifications: ReturnType<typeof selectors.getDrawerNotifications>;
+  closeDrawer: () => void;
 }) => {
-  const notifications = useSelector(selectors.getDrawerNotifications);
+  const [isHeaderDropdownOpen, setHeaderDropdownOpen] = React.useState(false);
   const dispatch = useDispatch();
 
   notifications.sort(function (x, y) {
@@ -54,8 +60,40 @@ export const Drawer = ({
   });
 
   return (
-    <NotificationDrawer>
-      {notificationDrawerHeader}
+    <PfNotificationDrawer>
+      <NotificationDrawerHeader
+        count={notifications.filter(n => n.isRead === false).length}
+        onClose={closeDrawer}
+      >
+        <Dropdown
+          onSelect={() => setHeaderDropdownOpen(!isHeaderDropdownOpen)}
+          toggle={
+            <KebabToggle
+              onToggle={() => setHeaderDropdownOpen(!isHeaderDropdownOpen)}
+              id="notification-toggle"
+            />
+          }
+          isOpen={isHeaderDropdownOpen}
+          isPlain
+          dropdownItems={[
+            <DropdownItem
+              key="markAllRead"
+              onClick={() => dispatch({ type: "NOTIFICATION.READ.ALL" })}
+            >
+              Mark all read
+            </DropdownItem>,
+
+            <DropdownItem
+              key="clearAll"
+              onClick={() => dispatch({ type: "NOTIFICATION.DESTROY.ALL" })}
+            >
+              Clear all
+            </DropdownItem>,
+          ]}
+          id="notification-dropdown"
+          position={DropdownPosition.right}
+        />
+      </NotificationDrawerHeader>
 
       <NotificationDrawerBody>
         {notifications.length > 0 ? (
@@ -130,6 +168,6 @@ export const Drawer = ({
           </EmptyState>
         )}
       </NotificationDrawerBody>
-    </NotificationDrawer>
+    </PfNotificationDrawer>
   );
 };
