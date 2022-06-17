@@ -66,7 +66,7 @@ dev:
 ifdef SCENARIO
 	@./.bin/dev-server.sh $(SCENARIOS_DIR) $(SCENARIO)
 else
-	@./.bin/dev-server.sh $(SCENARIOS_DIR) 
+	@./.bin/dev-server.sh $(SCENARIOS_DIR)
 endif
 
 
@@ -106,5 +106,15 @@ lint:
 
 fmt:
 	npx prettier-eslint "$(PWD)/src/**/*.*" --write
+
+_install:
+ifndef PCSD_DIR
+	$(error PCSD_DIR has to be specified)
+endif
+	@if test ! -d build; then echo "Run 'make build' first"; false; fi
+	mkdir -p $(PCSD_DIR)/public/ui
+	cp -r build/* $(PCSD_DIR)/public/ui
+
+install: build _install
 
 .PHONY: test build
