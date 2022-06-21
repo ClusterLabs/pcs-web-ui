@@ -10,6 +10,7 @@ export const clusterStatusDefault: Cluster = {
   nodeList: [],
   resourceTree: [],
   fenceDeviceList: [],
+  acls: {},
   issueList: [],
   summary: {
     nodesSeverity: "OK",

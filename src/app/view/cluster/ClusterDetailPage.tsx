@@ -16,6 +16,7 @@ import { FenceDevicePage } from "./fenceDevices";
 import { SbdPage } from "./sbd";
 import { ConstraintsPage } from "./constraints";
 import { ClusterPropertiesPage } from "./properties";
+import { AclPage } from "./acl";
 import { ClusterDetail } from "./ClusterDetail";
 import { ClusterDetailBreadcrumb } from "./ClusterDetailBreadcrumb";
 import { ClusterPermissionsPage } from "./permissions";
@@ -28,6 +29,7 @@ export const clusterPageTabList = [
   "sbd",
   "constraints",
   "properties",
+  "acl",
   "permissions",
 ] as const;
 
@@ -63,6 +65,7 @@ export const ClusterDetailPage = ({ clusterName }: { clusterName: string }) => {
               <ConstraintsPage clusterName={clusterName} />
             )}
             {currentTab === "properties" && <ClusterPropertiesPage />}
+            {currentTab === "acl" && <AclPage />}
             {currentTab === "permissions" && <ClusterPermissionsPage />}
           </Router>
         </SelectedClusterProvider>

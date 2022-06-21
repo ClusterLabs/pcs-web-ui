@@ -78,6 +78,15 @@ type Clone = Resource & {
   member: Primitive | Group | FenceDevice;
 };
 
+type ApiAclRoleId = string;
+
+type Acl = {
+  role?: Record<string, { description: string; permissions: string[] }>;
+  group?: Record<string, ApiAclRoleId[]>;
+  user?: Record<string, ApiAclRoleId[]>;
+  target?: Record<string, ApiAclRoleId[]>;
+};
+
 type ApiNode = ApiCluster["node_list"][number];
 
 type ApiSbdConfig = Exclude<
@@ -120,6 +129,7 @@ export type Cluster = {
   })[];
   resourceTree: (Primitive | Group | Clone)[];
   fenceDeviceList: FenceDevice[];
+  acls: Acl;
   constraints?: NonNullable<ApiCluster["constraints"]>;
   issueList: Issue[];
   summary: {
