@@ -50,8 +50,7 @@ export const PermissionsTable = () => {
             <>Full </>
             <AttributeHelpPopover
               header={
-                "Allows unrestricted access to a cluster including adding and removing"
-                + " nodes and access to keys and certificates"
+                "Allows unrestricted access to a cluster except for adding nodes"
               }
               body={""}
             />

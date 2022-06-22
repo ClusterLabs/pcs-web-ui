@@ -92,8 +92,7 @@ export const Configure = () => {
           helperTextInvalid="Please select at least one permission"
           popover={{
             header:
-              "Allows unrestricted access to a cluster including adding and removing"
-              + " nodes and access to keys and certificates",
+              "Allows unrestricted access to a cluster except for adding nodes",
             body: "",
           }}
         />
