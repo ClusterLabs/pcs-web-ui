@@ -1,3 +1,3 @@
 export const AclCreateGroup = () => {
-    return null;
+  return null;
 };

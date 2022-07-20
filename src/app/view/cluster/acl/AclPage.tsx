@@ -17,9 +17,9 @@ import * as resources from "app/view/cluster/resources/task";
 import { selectors } from "app/store";
 
 import * as task from "./task";
-import { AclRoleList } from "./AclRoleList";
-import { AclUserList } from "./AclUserList";
-import { AclGroupList } from "./AclGroupList";
+import { AclRoleList } from "./role/AclRoleList";
+import { AclUserList } from "./user/AclUserList";
+import { AclGroupList } from "./group/AclGroupList";
 import { AclDetailPage } from "./AclDetailPage";
 
 export const AclPage = () => {
@@ -78,15 +78,15 @@ export const AclPage = () => {
         groupCard={
           <Stack hasGutter>
             <StackItem>
-              <Title headingLevel="h3">Roles</Title>
+              <Title headingLevel="h1">Roles</Title>
               <AclRoleList aclRoleList={cluster.acls.role} />
             </StackItem>
             <StackItem>
-              <Title headingLevel="h3">Users</Title>
+              <Title headingLevel="h1">Users</Title>
               <AclUserList aclUserList={cluster.acls.user} />
             </StackItem>
             <StackItem>
-              <Title headingLevel="h3">Groups</Title>
+              <Title headingLevel="h1">Groups</Title>
               <AclGroupList aclGroupList={cluster.acls.group} />
             </StackItem>
           </Stack>

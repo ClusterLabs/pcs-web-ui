@@ -3,7 +3,6 @@ import {
   DataListItem,
   DataListItemCells,
   DataListItemRow,
-  Label,
 } from "@patternfly/react-core";
 
 import {
@@ -20,6 +19,7 @@ export const AclUserListItem = ({
   roleIdList: string[];
 }) => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
+  
   return (
     <DataListItem aria-labelledby={name}>
       <DataListItemRow>
@@ -32,7 +32,7 @@ export const AclUserListItem = ({
                 </Link>
               </DataListCell>
               <DataListCell>
-                <Label>{roleIdList[0]}</Label>
+                <>{`Roles assigned (${roleIdList.length})`}</>
               </DataListCell>
             </>
           }

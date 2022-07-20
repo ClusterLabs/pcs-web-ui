@@ -3,7 +3,6 @@ import {
   DataListItem,
   DataListItemCells,
   DataListItemRow,
-  Label,
 } from "@patternfly/react-core";
 
 import {
@@ -12,14 +11,12 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-export const AclRoleListItem = ({
+export const AclGroupListItem = ({
   name,
-  description,
-  permissions,
+  roleIdList,
 }: {
   name: string;
-  description: string;
-  permissions: string[];
+  roleIdList: string[];
 }) => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
   return (
@@ -29,13 +26,12 @@ export const AclRoleListItem = ({
           dataListCells={
             <>
               <DataListCell>
-                <Link to={`/role/${name}`}>
+                <Link to={`/group/${name}`}>
                   <strong>{name}</strong>
                 </Link>
               </DataListCell>
               <DataListCell>
-                <Label>{description}</Label>
-                <Label>{permissions[0]}</Label>
+                <>{`Roles assigned (${roleIdList.length})`}</>
               </DataListCell>
             </>
           }

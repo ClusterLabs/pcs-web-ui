@@ -3,7 +3,7 @@ import { DataList } from "@patternfly/react-core";
 import { Acl } from "app/view/cluster/types";
 import { EmptyStateNoItem } from "app/view/share";
 
-import { AclGroupListItem } from "./list/AclGroupListItem";
+import { AclGroupListItem } from "./AclGroupListItem";
 
 export const AclGroupList = ({
   aclGroupList,

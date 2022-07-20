@@ -1,4 +1,5 @@
 import * as t from "dev/responses/clusterStatus/tools";
+import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
 
 shortcut.dashboard([
@@ -12,28 +13,24 @@ shortcut.dashboard([
       role: {
         role1: {
           description: "description1",
-          permissions: ["permissions1"],
+          permissions: ["permissions1", "permissions2"],
         },
-        role2: {
-          description: "description2",
-          permissions: ["permissions2"],
+        empty: {
+          description: "",
+          permissions: [],
         },
       },
       group: {
         group1: ["role1"],
-        group2: ["role2"],
+        group2: ["role1"],
+        empty: [],
       },
       user: {
         user1: ["role1"],
-        user2: ["role2"],
+        user2: ["role1"],
+        empty: [],
       },
     },
   }),
-  t.cluster("error-offline", "error", {
-    node_list: [
-      t.node("1", { sbd_config: null }),
-      t.node("2", { status: "offline", quorum: false }),
-      t.node("3", { status: "unknown" }),
-    ],
-  }),
+  response.clusterStatus.ok,
 ]);
