@@ -8,7 +8,11 @@ import { root as rootReducer } from "./reducers/root";
 const composeMiddleware =
   (process.env.NODE_ENV !== "production"
     && window
-    && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
+    && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      trace: true,
+      traceLimit: 25,
+    }))
   || compose;
 
 const sagaMiddleware = createSagaMiddleware();
