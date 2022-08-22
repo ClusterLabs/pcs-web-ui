@@ -32,7 +32,13 @@ export const useRoute = (pattern: Path): ReturnType<typeof match> => {
   return match(path, pattern);
 };
 
-export const Router: React.FC<{ base: Path }> = ({ base, children }) => {
+export const Router = ({
+  base,
+  children,
+}: {
+  base: Path;
+  children?: React.ReactNode;
+}) => {
   const { base: parentBase } = useRouter();
 
   const value = {

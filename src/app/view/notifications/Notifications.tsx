@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import {
   Alert,
@@ -26,10 +25,7 @@ const severityToVariant = (
   }
 };
 
-const WithList: React.FC<{ title: string; items: string[] }> = ({
-  title,
-  items,
-}) => {
+const WithList = ({ title, items }: { title: string; items: string[] }) => {
   if (items.length === 0) {
     return null;
   }

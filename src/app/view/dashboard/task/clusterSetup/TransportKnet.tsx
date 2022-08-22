@@ -24,7 +24,7 @@ const ADD_LINK = "add";
 const NO_LINK = "no link";
 const MAX_LINKS = 8;
 
-export const TransportKnet: React.FC<{ linkList: Link[] }> = ({ linkList }) => {
+export const TransportKnet = ({ linkList }: { linkList: Link[] }) => {
   const [currentTabIndex, setCurrentTabIndex] = React.useState<
     Link["linknumber"] | typeof NO_LINK
   >(0);

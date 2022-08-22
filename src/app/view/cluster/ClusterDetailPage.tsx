@@ -1,4 +1,3 @@
-import React from "react";
 import { PageSection, Stack, StackItem } from "@patternfly/react-core";
 
 import { Router } from "app/view/share";
@@ -32,9 +31,7 @@ export const clusterPageTabList = [
   "permissions",
 ] as const;
 
-export const ClusterDetailPage: React.FC<{ clusterName: string }> = ({
-  clusterName,
-}) => {
+export const ClusterDetailPage = ({ clusterName }: { clusterName: string }) => {
   const { dataLoaded } = useClusterState(clusterName);
   const { currentTab, matchedContext } = useUrlTabs(clusterPageTabList);
 

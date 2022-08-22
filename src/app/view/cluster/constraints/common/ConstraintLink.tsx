@@ -1,11 +1,12 @@
-import React from "react";
-
 import { Link, location, useSelectedClusterName } from "app/view/share";
 
-export const ConstraintLink: React.FC<{
+export const ConstraintLink = ({
+  id,
+  type,
+}: {
   type: "resource" | "node";
   id: string;
-}> = ({ id, type }) => {
+}) => {
   const clusterName = useSelectedClusterName();
   return (
     <strong>

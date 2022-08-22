@@ -3,11 +3,18 @@ import { Level, LevelItem, Stack, StackItem } from "@patternfly/react-core";
 
 import { DetailLayoutToolbar } from "./DetailLayoutToolbar";
 
-export const DetailLayout: React.FC<{
+export const DetailLayout = ({
+  caption,
+  tabs = null,
+  children,
+  toolbar = null,
+  ...rest
+}: {
   caption: React.ReactNode | React.ReactNode[] | string;
   tabs?: React.ReactNode | React.ReactNode[] | string | null;
   toolbar?: React.ReactNode | null;
-}> = ({ caption, tabs = null, children, toolbar = null, ...rest }) => {
+  children: React.ReactNode;
+}) => {
   return (
     /* eslint-disable react/jsx-props-no-spreading */
     <Stack hasGutter className="pf-u-p-md" {...rest}>

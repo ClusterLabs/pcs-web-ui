@@ -6,20 +6,7 @@ import { FormGroup } from "./FormGroup";
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
 type SwitchProps = React.ComponentProps<typeof Switch>;
 
-export const FormSwitch: React.FC<{
-  id: FormGroupProps["fieldId"];
-  label: FormGroupProps["label"];
-  isDisabled?: SwitchProps["isDisabled"];
-  isChecked: SwitchProps["isChecked"];
-  onChange: SwitchProps["onChange"];
-  switchLabel?: SwitchProps["label"];
-  switchLabelOff?: SwitchProps["labelOff"];
-  helperTextInvalid?: React.ReactNode;
-  isValid?: boolean;
-  showValidationErrors?: boolean;
-  popover?: FormGroupProps["popover"];
-  ["data-test"]?: string;
-}> = ({
+export const FormSwitch = ({
   id,
   label,
   isDisabled,
@@ -32,6 +19,19 @@ export const FormSwitch: React.FC<{
   helperTextInvalid = null,
   "data-test": dataTest,
   popover = undefined,
+}: {
+  id: FormGroupProps["fieldId"];
+  label: FormGroupProps["label"];
+  isDisabled?: SwitchProps["isDisabled"];
+  isChecked: SwitchProps["isChecked"];
+  onChange: SwitchProps["onChange"];
+  switchLabel?: SwitchProps["label"];
+  switchLabelOff?: SwitchProps["labelOff"];
+  helperTextInvalid?: React.ReactNode;
+  isValid?: boolean;
+  showValidationErrors?: boolean;
+  popover?: FormGroupProps["popover"];
+  ["data-test"]?: string;
 }) => {
   return (
     <FormGroup

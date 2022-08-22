@@ -1,10 +1,10 @@
-import React from "react";
-
 import { Action } from "app/store";
 import { DropdownActionListMenu, ModalAction } from "app/view/share";
 
-export const DashboardClusterMenu: React.FC<{ clusterName: string }> = ({
+export const DashboardClusterMenu = ({
   clusterName,
+}: {
+  clusterName: string;
 }) => {
   const removeAction: Action = {
     type: "DASHBOARD.CLUSTER.REMOVE",

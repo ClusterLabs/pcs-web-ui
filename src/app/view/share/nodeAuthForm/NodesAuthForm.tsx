@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Alert,
   Form,
@@ -12,9 +11,7 @@ import { EmptyStateSpinner } from "app/view/share/emptyState";
 
 import { useNodesAuth } from "./useNodesAuth";
 
-export const NodesAuthForm: React.FC<{
-  authProcessId: number;
-}> = ({ authProcessId }) => {
+export const NodesAuthForm = ({ authProcessId }: { authProcessId: number }) => {
   const {
     state: {
       nodeMap,
@@ -132,7 +129,9 @@ export const NodesAuthForm: React.FC<{
                         id={addressId}
                         data-test={addressId}
                         value={nodeMap[nodeName].address}
-                        onChange={address => updateNode(nodeName, { address })}
+                        onChange={address =>
+                          updateNode(nodeName, { address })
+                        }
                       />
                     </td>
                     <td className="pf-m-width-10">

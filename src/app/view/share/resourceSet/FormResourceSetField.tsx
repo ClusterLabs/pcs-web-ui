@@ -1,22 +1,21 @@
-import React from "react";
 import { FormGroup } from "@patternfly/react-core";
 
 import { Select } from "app/view/share/form";
 
-export const FormResourceSetField: React.FC<{
-  selectedResources: string[];
-  offeredResources: string[];
-  id: string;
-  isOnlyOne: boolean;
-  showValidationErrors: boolean;
-  update: (_resources: string[]) => void;
-}> = ({
+export const FormResourceSetField = ({
   selectedResources,
   offeredResources: resourceOfferList,
   id,
   isOnlyOne,
   showValidationErrors,
   update,
+}: {
+  selectedResources: string[];
+  offeredResources: string[];
+  id: string;
+  isOnlyOne: boolean;
+  showValidationErrors: boolean;
+  update: (_resources: string[]) => void;
 }) => {
   const minimumResources = isOnlyOne ? 2 : 1;
   const resourcesValidated =

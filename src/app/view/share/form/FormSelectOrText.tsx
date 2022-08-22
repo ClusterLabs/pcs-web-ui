@@ -7,7 +7,14 @@ import { Select } from "./Select";
 type Checks = "select" | "text";
 type SelectProps = React.ComponentProps<typeof Select>;
 type TextProps = React.ComponentProps<typeof FormText>;
-export const FormSelectOrText: React.FC<{
+export const FormSelectOrText = ({
+  id,
+  checked,
+  onChange,
+  select,
+  text,
+  showValidationErrors,
+}: {
   id: string;
   checked: Checks;
   onChange: (_checked: Checks) => void;
@@ -31,7 +38,7 @@ export const FormSelectOrText: React.FC<{
     isValid?: boolean;
     "data-test"?: string;
   };
-}> = ({ id, checked, onChange, select, text, showValidationErrors }) => {
+}) => {
   return (
     <Stack hasGutter>
       <StackItem>

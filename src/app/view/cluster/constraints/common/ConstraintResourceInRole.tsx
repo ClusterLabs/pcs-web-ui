@@ -1,8 +1,8 @@
-import React from "react";
-
-export const ConstraintResourceInRole: React.FC<{
+export const ConstraintResourceInRole = ({
+  role,
+}: {
   role: string | undefined;
-}> = ({ role }) => {
+}) => {
   return (
     <>
       {" in role "}

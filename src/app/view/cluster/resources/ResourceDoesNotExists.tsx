@@ -1,11 +1,12 @@
-import React from "react";
 import { StackItem } from "@patternfly/react-core";
 
 import { DetailLayout, EmptyStateNoItem } from "app/view/share";
 
-export const ResourceDoesNotExists: React.FC<{
+export const ResourceDoesNotExists = ({
+  resourceId,
+}: {
   resourceId: string;
-}> = ({ resourceId }) => {
+}) => {
   return (
     <DetailLayout caption={<strong>{resourceId}</strong>}>
       <StackItem>

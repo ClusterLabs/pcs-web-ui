@@ -7,11 +7,15 @@ import {
 } from "@patternfly/react-core";
 import { PlusCircleIcon, SearchIcon } from "@patternfly/react-icons";
 
-export const EmptyStateNoItem: React.FC<{
+export const EmptyStateNoItem = ({
+  title,
+  message = null,
+  canAdd = true,
+}: {
   title: React.ReactNode;
   message?: React.ReactNode;
   canAdd?: boolean;
-}> = ({ title, message = null, canAdd = true }) => {
+}) => {
   return (
     <EmptyState style={{ margin: "auto" }}>
       <EmptyStateIcon icon={canAdd ? PlusCircleIcon : SearchIcon} />

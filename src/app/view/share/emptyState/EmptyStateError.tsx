@@ -1,4 +1,3 @@
-import React from "react";
 import {
   EmptyState,
   EmptyStateBody,
@@ -9,9 +8,12 @@ import { ExclamationCircleIcon } from "@patternfly/react-icons";
 
 import * as pallete from "app/view/share/pallete";
 
-export const EmptyStateError: React.FC<{ title: string; message: string }> = ({
+export const EmptyStateError = ({
   title,
   message,
+}: {
+  title: string;
+  message: string;
 }) => {
   return (
     <EmptyState style={{ margin: "auto" }}>

@@ -1,12 +1,13 @@
-import React from "react";
 import { Spinner } from "@patternfly/react-core";
 
 import { Table } from "app/view/share";
 
 import { DashboardClusterCellName } from "./DashboardClusterCellName";
 
-export const DashboardClusterLoading: React.FC<{ clusterName: string }> = ({
+export const DashboardClusterLoading = ({
   clusterName,
+}: {
+  clusterName: string;
 }) => {
   return (
     <Table.Body data-test={`cluster ${clusterName}`}>

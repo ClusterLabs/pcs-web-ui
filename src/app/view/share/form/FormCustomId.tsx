@@ -3,20 +3,20 @@ import { Flex, FlexItem, Switch, TextInput } from "@patternfly/react-core";
 
 import { FormGroup } from "./FormGroup";
 
-export const FormCustomId: React.FC<{
-  useCustomId: boolean;
-  onChangeUse: React.ComponentProps<typeof Switch>["onChange"];
-  onChangeId: React.ComponentProps<typeof TextInput>["onChange"];
-  customId: React.ComponentProps<typeof TextInput>["value"];
-  isValid?: boolean;
-  showValidationErrors?: boolean;
-}> = ({
+export const FormCustomId = ({
   useCustomId,
   onChangeUse,
   onChangeId,
   customId,
   isValid = true,
   showValidationErrors = false,
+}: {
+  useCustomId: boolean;
+  onChangeUse: React.ComponentProps<typeof Switch>["onChange"];
+  onChangeId: React.ComponentProps<typeof TextInput>["onChange"];
+  customId: React.ComponentProps<typeof TextInput>["value"];
+  isValid?: boolean;
+  showValidationErrors?: boolean;
 }) => {
   const id = "use-custom-id";
   return (

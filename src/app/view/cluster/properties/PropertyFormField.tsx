@@ -4,12 +4,17 @@ import { FormRadios, FormSelect, FormText } from "app/view/share";
 
 import { ClusterProperties } from "./useClusterProperties";
 
-export const PropertyFormField: React.FC<{
+export const PropertyFormField = ({
+  property,
+  userProperty,
+  modifyProperty,
+  currentValue = undefined,
+}: {
   property: ClusterProperties[number];
   userProperty: string | undefined;
   modifyProperty: (_name: string, _value: string) => void;
   currentValue?: string | undefined;
-}> = ({ property, userProperty, modifyProperty, currentValue = undefined }) => {
+}) => {
   const popover = {
     header: property.shortdesc,
     body: property.longdesc,

@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
@@ -6,11 +5,15 @@ import { EmptyStateError, EmptyStateSpinner } from "app/view/share/emptyState";
 
 import { Agent } from "./types";
 
-export const LoadedPcmkAgent: React.FC<{
+export const LoadedPcmkAgent = ({
+  clusterName,
+  agentName,
+  children,
+}: {
   clusterName: string;
   agentName: string;
   children: (_ra: Agent) => JSX.Element;
-}> = ({ clusterName, agentName, children }) => {
+}) => {
   const agent = useSelector(selectors.getPcmkAgent(clusterName, agentName));
 
   if (!agent || agent.loadStatus === "LOADING") {

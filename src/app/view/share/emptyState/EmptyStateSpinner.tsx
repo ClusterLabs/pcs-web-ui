@@ -6,8 +6,10 @@ import {
   Title,
 } from "@patternfly/react-core";
 
-export const EmptyStateSpinner: React.FC<{ title: React.ReactNode }> = ({
+export const EmptyStateSpinner = ({
   title: message,
+}: {
+  title: React.ReactNode;
 }) => {
   return (
     <EmptyState style={{ margin: "auto" }}>

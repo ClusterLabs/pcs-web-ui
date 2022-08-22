@@ -1,13 +1,13 @@
-import React from "react";
-
 // import { types } from "app/store";
 
 import { ConstraintLink } from "../common";
 import { ConstraintLocationNode, ConstraintLocationRule } from "../types";
 
-export const ConstraintLocationDescRscPoint: React.FC<{
+export const ConstraintLocationDescRscPoint = ({
+  constraint,
+}: {
   constraint: ConstraintLocationRule | ConstraintLocationNode;
-}> = ({ constraint }) => {
+}) => {
   if ("rsc" in constraint) {
     return (
       <>

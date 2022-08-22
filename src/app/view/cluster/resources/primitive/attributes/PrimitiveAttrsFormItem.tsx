@@ -1,19 +1,10 @@
-import React from "react";
 import { Stack, StackItem, TextInput } from "@patternfly/react-core";
 
 import { PrimitiveAttrsFormItemRadio } from "./PrimitiveAttrsFormItemRadio";
 import { PrimitiveAttrsFormItemLabel } from "./PrimitiveAttrsFormItemLabel";
 import { PrimitiveAttrsFormItemWarning } from "./PrimitiveAttrsFormItemWarning";
 
-export const PrimitiveAttrsFormItem: React.FC<{
-  id: string;
-  userValue: string;
-  initialValue: string;
-  remoteValue: string;
-  onChange: (_value: string) => void;
-  chooseRemoteUse: () => void;
-  chooseValueUse: () => void;
-}> = ({
+export const PrimitiveAttrsFormItem = ({
   id,
   userValue,
   initialValue,
@@ -21,6 +12,14 @@ export const PrimitiveAttrsFormItem: React.FC<{
   onChange,
   chooseRemoteUse,
   chooseValueUse,
+}: {
+  id: string;
+  userValue: string;
+  initialValue: string;
+  remoteValue: string;
+  onChange: (_value: string) => void;
+  chooseRemoteUse: () => void;
+  chooseValueUse: () => void;
 }) => {
   const decideName = `${id}-choice`;
   const decideIdRemote = `${decideName}-remote`;

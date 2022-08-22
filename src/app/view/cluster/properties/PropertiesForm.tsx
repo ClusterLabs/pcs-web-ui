@@ -6,11 +6,15 @@ import { useDispatch, useSelectedClusterName } from "app/view/share";
 import { ClusterProperties } from "./useClusterProperties";
 import { PropertyFormField } from "./PropertyFormField";
 
-export const PropertiesForm: React.FC<{
+export const PropertiesForm = ({
+  close,
+  clusterPropertiesDefinition,
+  currentClusterProperties,
+}: {
   close: () => void;
   clusterPropertiesDefinition: ClusterProperties;
   currentClusterProperties: Record<string, string>;
-}> = ({ close, clusterPropertiesDefinition, currentClusterProperties }) => {
+}) => {
   const [userProperties, setUserProperties] = React.useState<
     Record<string, string>
   >({});

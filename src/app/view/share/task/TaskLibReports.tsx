@@ -20,9 +20,7 @@ const severityToAlertVariant = (
   }
 };
 
-export const TaskLibReports: React.FC<{
-  reports: TaskReport[];
-}> = ({ reports }) => {
+export const TaskLibReports = ({ reports }: { reports: TaskReport[] }) => {
   if (reports.length === 0) {
     return null;
   }

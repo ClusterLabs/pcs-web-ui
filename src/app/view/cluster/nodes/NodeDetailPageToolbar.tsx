@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Action } from "app/store";
 import {
   DetailLayoutToolbar,
@@ -8,9 +6,7 @@ import {
 } from "app/view/share";
 import { Node } from "app/view/cluster/types";
 
-export const NodeDetailPageToolbar: React.FC<{
-  node: Node;
-}> = ({ node }) => {
+export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
   const clusterName = useSelectedClusterName();
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({

@@ -4,9 +4,12 @@ import { ExpandableSection } from "@patternfly/react-core";
 import { useTask } from "./useTask";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
-export const TransportKnetLinkToggler: React.FC<{ link: Link }> = ({
+export const TransportKnetLinkToggler = ({
   link,
   children,
+}: {
+  link: Link;
+  children: React.ReactNode;
 }) => {
   const isLinkFilled = (Object.keys(link) as (keyof Link)[]).some((attr) => {
     // unfortunatelly type script on

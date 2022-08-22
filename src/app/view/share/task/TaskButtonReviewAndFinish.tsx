@@ -1,10 +1,12 @@
-import React from "react";
 import { Button } from "@patternfly/react-core";
 
-export const TaskButtonReviewAndFinish: React.FC<{
+export const TaskButtonReviewAndFinish = ({
+  onClick = undefined,
+  label = "Review and finish",
+}: {
   onClick?: () => void;
   label?: string;
-}> = ({ onClick = undefined, label = "Review and finish" }) => {
+}) => {
   return (
     <Button
       variant="tertiary"

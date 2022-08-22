@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Link,
   StatusSign,
@@ -49,9 +47,7 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardClusterNodes: React.FC<{
-  cluster: Cluster;
-}> = ({ cluster }) => {
+export const DashboardClusterNodes = ({ cluster }: { cluster: Cluster }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   return (
     <Table isCompact isBorderless data-test="node-list">

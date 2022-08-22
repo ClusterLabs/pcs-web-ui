@@ -1,14 +1,15 @@
-import React from "react";
-
 import { ConstraintCell, ConstraintCellFake } from "../common";
 import { ConstraintOrderPair, ConstraintOrderSet } from "../types";
 
 type ConstraintOrder = ConstraintOrderPair | ConstraintOrderSet;
 
-export const ConstraintCellOrderScoreKind: React.FC<{
+export const ConstraintCellOrderScoreKind = ({
+  constraint,
+  extraScore = undefined,
+}: {
   constraint: ConstraintOrder;
   extraScore?: Extract<ConstraintOrder, { score?: unknown }>["score"];
-}> = ({ constraint, extraScore = undefined }) => {
+}) => {
   // score and kind are mutually exclusive
   if ("score" in constraint) {
     return (

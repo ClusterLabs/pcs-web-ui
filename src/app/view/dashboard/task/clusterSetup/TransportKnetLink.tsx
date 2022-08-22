@@ -8,7 +8,7 @@ import { TransportKnetLinkToggler } from "./TransportKnetLinkToggler";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 
-export const TransportKnetLink: React.FC<{ link: Link }> = ({ link }) => {
+export const TransportKnetLink = ({ link }: { link: Link }) => {
   const {
     updateLinkKnet,
     state: { showValidationErrors },

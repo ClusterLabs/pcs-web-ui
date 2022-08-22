@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Cluster, FenceDevice } from "app/view/cluster/types";
 import {
   EmptyStateNoItem,
@@ -30,9 +28,11 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardClusterFenceDevices: React.FC<{
+export const DashboardClusterFenceDevices = ({
+  cluster,
+}: {
   cluster: Cluster;
-}> = ({ cluster }) => {
+}) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
   if (cluster.fenceDeviceList.length === 0) {
     return (

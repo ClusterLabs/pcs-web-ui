@@ -1,12 +1,9 @@
-import React from "react";
 import { StackItem } from "@patternfly/react-core";
 
 import { EmptyStateNoItem } from "app/view/share";
 import { DetailLayout, useSelectedClusterName } from "app/view/share";
 
-export const NodeDoesNotExists: React.FC<{
-  nodeName: string;
-}> = ({ nodeName }) => {
+export const NodeDoesNotExists = ({ nodeName }: { nodeName: string }) => {
   const clusterName = useSelectedClusterName();
   return (
     <DetailLayout caption={<strong>{nodeName}</strong>}>

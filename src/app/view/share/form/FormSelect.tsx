@@ -6,7 +6,7 @@ import { Select } from "./Select";
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
 type SelectProps = React.ComponentProps<typeof Select>;
 
-export const FormSelect: React.FC<{
+export const FormSelect = (props: {
   id: FormGroupProps["fieldId"];
   label: FormGroupProps["label"];
   onSelect: (_value: string) => void;
@@ -22,7 +22,7 @@ export const FormSelect: React.FC<{
   showValidationErrors?: boolean;
   optionsValues: string[];
   "data-test"?: string;
-}> = (props) => {
+}) => {
   const {
     id,
     label,

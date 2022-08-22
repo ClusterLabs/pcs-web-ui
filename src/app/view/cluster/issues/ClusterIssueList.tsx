@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Issue } from "app/view/cluster/types";
 import { IssueList, IssueListIssueDefault } from "app/view/share";
 
@@ -20,9 +18,7 @@ const compareIssuesOrder = (i1: Issue, i2: Issue) => {
   return 0;
 };
 
-export const ClusterIssueList: React.FC<{ issueList: Issue[] }> = ({
-  issueList,
-}) => {
+export const ClusterIssueList = ({ issueList }: { issueList: Issue[] }) => {
   return (
     <IssueList
       issueList={issueList.sort(compareIssuesOrder)}

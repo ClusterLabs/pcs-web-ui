@@ -4,18 +4,7 @@ import { FormGroup as PfFormGroup } from "@patternfly/react-core";
 import { AttributeHelpPopover } from "app/view/share/attributes";
 
 type FormGroupProps = React.ComponentProps<typeof PfFormGroup>;
-export const FormGroup: React.FC<{
-  fieldId: FormGroupProps["fieldId"];
-  label?: FormGroupProps["label"];
-  helperText?: FormGroupProps["helperText"];
-  isRequired?: FormGroupProps["isRequired"];
-  helperTextInvalid?: FormGroupProps["helperTextInvalid"];
-  validated?: FormGroupProps["validated"];
-  isValid?: boolean;
-  showValidationErrors?: boolean;
-  popover?: React.ComponentProps<typeof AttributeHelpPopover>;
-  className?: FormGroupProps["className"];
-}> = ({
+export const FormGroup = ({
   fieldId,
   label,
   children,
@@ -26,6 +15,18 @@ export const FormGroup: React.FC<{
   showValidationErrors = false,
   popover,
   className,
+}: {
+  fieldId: FormGroupProps["fieldId"];
+  label?: FormGroupProps["label"];
+  helperText?: FormGroupProps["helperText"];
+  isRequired?: FormGroupProps["isRequired"];
+  helperTextInvalid?: FormGroupProps["helperTextInvalid"];
+  validated?: FormGroupProps["validated"];
+  isValid?: boolean;
+  showValidationErrors?: boolean;
+  popover?: React.ComponentProps<typeof AttributeHelpPopover>;
+  className?: FormGroupProps["className"];
+  children?: React.ReactNode;
 }) => {
   const labelIcon = popover
     ? {

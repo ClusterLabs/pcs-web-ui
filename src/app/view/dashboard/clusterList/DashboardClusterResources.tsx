@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Cluster, Resource } from "app/view/cluster/types";
 import {
   EmptyStateNoItem,
@@ -29,9 +27,11 @@ const compareByColumn = (
 
 const { SortableTh } = Table;
 
-export const DashboardClusterResources: React.FC<{
+export const DashboardClusterResources = ({
+  cluster,
+}: {
   cluster: Cluster;
-}> = ({ cluster }) => {
+}) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
 
   if (cluster.resourceTree.length === 0) {

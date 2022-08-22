@@ -1,4 +1,3 @@
-import React from "react";
 import { Form } from "@patternfly/react-core";
 
 import { clusterSetup } from "app/backend";
@@ -16,10 +15,13 @@ const help = helpAll.corosync.totem;
 type SetupParams = Parameters<typeof clusterSetup>[0];
 type TotemOptions = NonNullable<SetupParams["setupData"]["totem_options"]>;
 
-const TotemFormText: React.FC<{
+const TotemFormText = ({
+  optionName,
+  label = undefined,
+}: {
   optionName: keyof TotemOptions;
   label?: string;
-}> = ({ optionName, label = undefined }) => {
+}) => {
   const {
     updateTotemOptions,
     state: { totemOptions },
@@ -51,7 +53,9 @@ export const Totem = () => {
           popover={help.block_unlisted_ips}
           options={["yes", "no", "default"]}
           selected={totemOptions.block_unlisted_ips}
-          onChange={value => updateTotemOptions({ block_unlisted_ips: value })}
+          onChange={value =>
+            updateTotemOptions({ block_unlisted_ips: value })
+          }
           data-test="totem.block_unlisted_ips"
         />
 

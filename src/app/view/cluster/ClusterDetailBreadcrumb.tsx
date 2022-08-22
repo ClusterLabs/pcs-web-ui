@@ -1,10 +1,11 @@
-import React from "react";
 import { Breadcrumb, BreadcrumbItem } from "@patternfly/react-core";
 
 import { Link, location, useDispatch } from "app/view/share";
 
-export const ClusterDetailBreadcrumb: React.FC<{ clusterName: string }> = ({
+export const ClusterDetailBreadcrumb = ({
   clusterName,
+}: {
+  clusterName: string;
 }) => {
   const dispatch = useDispatch();
   return (

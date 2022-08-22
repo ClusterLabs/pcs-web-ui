@@ -1,20 +1,19 @@
-import React from "react";
 import { CheckCircleIcon, TimesCircleIcon } from "@patternfly/react-icons";
 
 import { Permission } from "./types";
 
 type CompentenceName = Permission["allow"][number];
 
-export const PermissionCompetenceCell: React.FC<{
-  permission: Permission;
-  competenceName: CompentenceName;
-  presentInCompetenceNames?: CompentenceName[];
-  ["data-test"]: string;
-}> = ({
+export const PermissionCompetenceCell = ({
   permission,
   competenceName,
   presentInCompetenceNames,
   "data-test": dataTest,
+}: {
+  permission: Permission;
+  competenceName: CompentenceName;
+  presentInCompetenceNames?: CompentenceName[];
+  ["data-test"]: string;
 }) => {
   const isAllowed =
     permission.allow.includes(competenceName)

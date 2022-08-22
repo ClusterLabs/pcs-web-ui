@@ -1,5 +1,3 @@
-import React from "react";
-
 import { FenceDevice } from "app/view/cluster/types";
 import {
   DetailLayoutToolbar,
@@ -7,8 +5,10 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-export const FencePageToolbar: React.FC<{ fenceDevice: FenceDevice }> = ({
+export const FencePageToolbar = ({
   fenceDevice,
+}: {
+  fenceDevice: FenceDevice;
 }) => {
   const cluster = useSelectedClusterName();
   const refresh: DetailLayoutToolbarAction = {

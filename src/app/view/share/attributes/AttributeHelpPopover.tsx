@@ -8,11 +8,15 @@ import {
 
 type PopoverProps = React.ComponentProps<typeof Popover>;
 
-export const AttributeHelpPopover: React.FC<{
+export const AttributeHelpPopover = ({
+  header,
+  body,
+  defaultValue = null,
+}: {
   header: PopoverProps["headerContent"];
   body: PopoverProps["bodyContent"];
   defaultValue?: string | number | null;
-}> = ({ header, body, defaultValue = null }) => {
+}) => {
   return (
     <Popover
       headerContent={header}

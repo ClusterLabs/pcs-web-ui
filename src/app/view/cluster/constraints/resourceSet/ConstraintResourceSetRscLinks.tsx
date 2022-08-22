@@ -5,9 +5,11 @@ import { ConstraintLink } from "../common";
 
 type ResourceSetStructured = Extract<ConstraintResourceSet, { id: string }>;
 
-export const ConstraintResourceSetRscLinks: React.FC<{
+export const ConstraintResourceSetRscLinks = ({
+  resourceSet,
+}: {
   resourceSet: ResourceSetStructured;
-}> = ({ resourceSet }) => {
+}) => {
   return (
     <>
       {resourceSet.resources

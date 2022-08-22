@@ -14,20 +14,18 @@ import { TrashIcon } from "@patternfly/react-icons";
 import { Action } from "app/store";
 import { useDispatch, useSelectedClusterName } from "app/view/share";
 
-export const ConstraintRow: React.FC<{
-  id?: string;
-  content?: React.ReactNode;
-  dataListCells: React.ComponentProps<
-    typeof DataListItemCells
-  >["dataListCells"];
-  canDelete?: boolean;
-  deleteAction?: Action;
-}> = ({
+export const ConstraintRow = ({
   id = "",
   dataListCells,
   content = null,
   canDelete = true,
   deleteAction,
+}: {
+  id?: string;
+  content?: React.ReactNode;
+  dataListCells: React.ComponentProps<typeof DataListItemCells>["dataListCells"];
+  canDelete?: boolean;
+  deleteAction?: Action;
 }) => {
   const [showDetails, setShowDetails] = React.useState(false);
   const rowId = `constraint-${id}-row`;

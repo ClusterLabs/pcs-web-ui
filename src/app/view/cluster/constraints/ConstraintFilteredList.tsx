@@ -1,11 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {
-  DataList,
-  Stack,
-  StackItem,
-  ToolbarItem,
-} from "@patternfly/react-core";
+import { DataList, Stack, StackItem, ToolbarItem } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {
@@ -61,8 +56,10 @@ const useState = () => {
   };
 };
 
-export const ConstraintFilteredList: React.FC<{ clusterName: string }> = ({
+export const ConstraintFilteredList = ({
   clusterName,
+}: {
+  clusterName: string;
 }) => {
   const constraintPacks = useSelector(selectors.getConstraints(clusterName));
   const { filterState, filterConstraintTypes } = useState();

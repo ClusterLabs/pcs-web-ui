@@ -1,12 +1,14 @@
-import React from "react";
 import { Button } from "@patternfly/react-core";
 
 import { useNodesAuth } from "app/view/share";
 
-export const ClusterIssueNotAuthButton: React.FC<{
+export const ClusterIssueNotAuthButton = ({
+  authProcessId,
+  isDisabled = false,
+}: {
   authProcessId: number;
   isDisabled?: boolean;
-}> = ({ authProcessId, isDisabled = false }) => {
+}) => {
   const { nodeAuth } = useNodesAuth(authProcessId);
   return (
     <Button

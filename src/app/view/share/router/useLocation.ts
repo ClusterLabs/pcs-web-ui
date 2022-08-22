@@ -62,7 +62,7 @@ export const useLocation = (
   // the function reference should stay the same between re-renders, so that
   // it can be passed down as an element prop without any performance concerns.
   const navigate = useCallback(
-    (to, { replace = false } = {}) =>
+    (to: string, { replace = false } = {}) =>
       window.history[replace ? eventReplaceState : eventPushState](
         null,
         "",
