@@ -1,11 +1,19 @@
 import React from "react";
-import { PageHeaderTools, Page as PfPage } from "@patternfly/react-core";
+import {
+  NotificationDrawer,
+  NotificationDrawerBody,
+  NotificationDrawerHeader,
+  PageHeaderTools,
+  Page as PfPage,
+} from "@patternfly/react-core";
 import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
 
 import { NotificationBadge } from "./NotificationBadge";
-import { NotificationDrawer } from "./NotificationDrawer";
+import { NotificationDrawerEmpty } from "./NotificationDrawerEmpty";
+import { NotificationDrawerListItem } from "./NotificationDrawerListItem";
+import { NotificationDrawerDropdown } from "./NotificationDrawerDropdown";
 import { PageToolbar } from "./PageToolbar";
 import { BackgroundImage } from "./BackgroundImage";
 import { PageHeader } from "./PageHeader";
@@ -35,10 +43,21 @@ export const Page = ({ children }: { children: React.ReactNode }) => {
           />
         }
         notificationDrawer={
-          <NotificationDrawer
-            notifications={notifications}
-            closeDrawer={() => setDrawerOpen(!isDrawerOpen)}
-          />
+          <NotificationDrawer>
+            <NotificationDrawerHeader
+              count={notifications.filter(n => !n.isRead).length}
+              onClose={() => setDrawerOpen(false)}
+            >
+              <NotificationDrawerDropdown />
+            </NotificationDrawerHeader>
+
+            <NotificationDrawerBody>
+              {notifications.map(n => (
+                <NotificationDrawerListItem key={n.id} notification={n} />
+              ))}
+              {notifications.length === 0 && <NotificationDrawerEmpty />}
+            </NotificationDrawerBody>
+          </NotificationDrawer>
         }
         isNotificationDrawerExpanded={isDrawerOpen}
       >

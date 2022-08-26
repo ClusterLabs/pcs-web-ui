@@ -9,20 +9,20 @@ export const NotificationBadge = ({
   notifications: ReturnType<typeof selectors.getDrawerNotifications>;
   switchDrawer: () => void;
 }) => {
-  const unreadErrorNotifsCount = notifications.filter(
-    n => n.isRead === false && n.severity === "ERROR",
+  const unreadErrorCount = notifications.filter(
+    n => !n.isRead && n.severity === "ERROR",
   ).length;
 
   return (
     <PfNotificationBadge
       variant={
-        notifications.find(n => n.isRead === false)
-          ? unreadErrorNotifsCount > 0
+        notifications.some(n => !n.isRead)
+          ? unreadErrorCount > 0
             ? "attention"
             : "unread"
           : "read"
       }
-      count={unreadErrorNotifsCount}
+      count={unreadErrorCount}
       onClick={switchDrawer}
       aria-label="Notifications"
       data-test="notification-badge"
