@@ -1,14 +1,13 @@
-import React from "react";
 import { NotificationBadge as PfNotificationBadge } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 
 export const NotificationBadge = ({
   notifications,
-  openDrawer,
+  switchDrawer,
 }: {
   notifications: ReturnType<typeof selectors.getDrawerNotifications>;
-  openDrawer: () => void;
+  switchDrawer: () => void;
 }) => {
   const unreadErrorNotifsCount = notifications.filter(
     n => n.isRead === false && n.severity === "ERROR",
@@ -24,7 +23,7 @@ export const NotificationBadge = ({
           : "read"
       }
       count={unreadErrorNotifsCount}
-      onClick={openDrawer}
+      onClick={switchDrawer}
       aria-label="Notifications"
       data-test="notification-badge"
     />

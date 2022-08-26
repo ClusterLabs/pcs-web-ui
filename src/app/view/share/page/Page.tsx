@@ -25,7 +25,7 @@ export const Page = ({ children }: { children: React.ReactNode }) => {
                   notificationBadge={
                     <NotificationBadge
                       notifications={notifications}
-                      openDrawer={() => setDrawerOpen(!isDrawerOpen)}
+                      switchDrawer={() => setDrawerOpen(!isDrawerOpen)}
                     />
                   }
                 />
