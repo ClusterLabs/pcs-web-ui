@@ -3,8 +3,9 @@ import { PageHeaderTools, Page as PfPage } from "@patternfly/react-core";
 import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
-import { NotificationBadge, NotificationDrawer } from "app/view/share";
 
+import { NotificationBadge } from "./NotificationBadge";
+import { NotificationDrawer } from "./NotificationDrawer";
 import { PageToolbar } from "./PageToolbar";
 import { BackgroundImage } from "./BackgroundImage";
 import { PageHeader } from "./PageHeader";

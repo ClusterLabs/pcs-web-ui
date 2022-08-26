@@ -9,7 +9,6 @@ export * from "./CrmStatusTable";
 export * from "./DefaultValue";
 export * from "./DropdownActionListMenu";
 export * from "./issueList";
-export * from "./notifications";
 export * from "./page";
 export * from "./PageSectionDataLoading";
 export * from "./pcmkAgent";
