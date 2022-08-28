@@ -4,22 +4,10 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-export const AclDetailPageToolbar = () => {
+export const AclGroupDetailPageToolbar = () => {
   const clusterName = useSelectedClusterName();
 
   // NEED TO BE CHANGED - JUST EXAMPLE OF ACTIONS
-
-  const edit: DetailLayoutToolbarAction = {
-    action: {
-      type: "NODE.START",
-      key: { clusterName },
-      payload: { nodeName: "nodename" },
-    },
-    confirm: {
-      title: "Start node?",
-      description: "Start a cluster on the node",
-    },
-  };
 
   const remove: DetailLayoutToolbarAction = {
     action: {
@@ -43,7 +31,6 @@ export const AclDetailPageToolbar = () => {
     <DetailLayoutToolbar
       toolbarName="role"
       buttonActions={{
-        edit,
         remove,
       }}
     />

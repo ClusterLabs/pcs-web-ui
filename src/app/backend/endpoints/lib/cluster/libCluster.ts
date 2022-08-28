@@ -344,7 +344,7 @@ export type Commands = [
     payload: {
       role_id: string;
       group_id: string;
-      autodelete_target?: boolean;
+      autodelete_group?: boolean;
     };
   },
   {
@@ -358,6 +358,32 @@ export type Commands = [
     name: "acl-remove-permission";
     payload: {
       permission_id: string;
+    };
+  },
+  {
+    name: "acl-create-target";
+    payload: {
+      target_id: string;
+      role_list: string[];
+    };
+  },
+  {
+    name: "acl-create-group";
+    payload: {
+      group_id: string;
+      role_list: string[];
+    };
+  },
+  {
+    name: "acl-remove-target";
+    payload: {
+      target_id: string;
+    };
+  },
+  {
+    name: "acl-remove-group";
+    payload: {
+      group_id: string;
     };
   },
 ];

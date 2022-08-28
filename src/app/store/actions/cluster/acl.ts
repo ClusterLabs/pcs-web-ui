@@ -11,7 +11,7 @@ type AclRoleCreate = {
   description: AclCreateRolePayload["description"];
 };
 
-export type ClusterAclRoleActions = {
+export type ClusterAclActions = {
   "CLUSTER.ACL.ROLE.CREATE.UPDATE": {
     type: "CLUSTER.ACL.ROLE.CREATE.UPDATE";
     key: { clusterName: string };
@@ -36,6 +36,17 @@ export type ClusterAclRoleActions = {
     key: { clusterName: string };
   };
 
+  "CLUSTER.ACL.USER.CREATE.UPDATE": {
+    type: "CLUSTER.ACL.USER.CREATE.UPDATE";
+    key: { clusterName: string };
+    payload: Partial<{ userId: string; roleList: string[] }>;
+  };
+
+  "CLUSTER.ACL.USER.CREATE.CLOSE": {
+    type: "CLUSTER.ACL.USER.CREATE.CLOSE";
+    key: { clusterName: string };
+  };
+
   "CLUSTER.ACL.USER.ASSIGN.UPDATE": {
     type: "CLUSTER.ACL.USER.ASSIGN.UPDATE";
     key: { clusterName: string };
@@ -44,6 +55,17 @@ export type ClusterAclRoleActions = {
 
   "CLUSTER.ACL.USER.ASSIGN.CLOSE": {
     type: "CLUSTER.ACL.USER.ASSIGN.CLOSE";
+    key: { clusterName: string };
+  };
+
+  "CLUSTER.ACL.GROUP.CREATE.UPDATE": {
+    type: "CLUSTER.ACL.GROUP.CREATE.UPDATE";
+    key: { clusterName: string };
+    payload: Partial<{ groupId: string; roleList: string[] }>;
+  };
+
+  "CLUSTER.ACL.GROUP.CREATE.CLOSE": {
+    type: "CLUSTER.ACL.GROUP.CREATE.CLOSE";
     key: { clusterName: string };
   };
 

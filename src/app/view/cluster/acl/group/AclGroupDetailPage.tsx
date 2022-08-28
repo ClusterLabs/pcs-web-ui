@@ -16,8 +16,9 @@ import {
 } from "app/view/share";
 
 import { AclDoesNotExist } from "../AclDoesNotExist";
-import { AclDetailPageToolbar } from "../AclDetailPageToolbar";
 import { AclDetailCaption } from "../AclDetailCaption";
+
+import { AclGroupDetailPageToolbar } from "./AclGroupDetailPageToolbar";
 
 export const AclGroupDetailPage = () => {
   const { selectedItemUrlName: aclName } = useGroupDetailViewContext();
@@ -38,7 +39,7 @@ export const AclGroupDetailPage = () => {
     return (
       <DetailLayout
         caption={<AclDetailCaption aclName={aclName} type={"Group"} />}
-        toolbar={<AclDetailPageToolbar />}
+        toolbar={<AclGroupDetailPageToolbar />}
       >
         <>
           <Divider />

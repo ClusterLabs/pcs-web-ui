@@ -25,9 +25,7 @@ export const AclDetailPage = () => {
     <DetailLayout caption={"Not configured"}>
       <EmptyStateNoItem
         title={`Acl ${aclType} does not exist.`}
-        message={
-          `Acl ${aclType}` + ` does not exist in cluster "${clusterName}".`
-        }
+        message={`Acl ${aclType} does not exist in cluster "${clusterName}".`}
       />
     </DetailLayout>
   );

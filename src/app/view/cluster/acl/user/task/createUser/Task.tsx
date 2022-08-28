@@ -6,8 +6,9 @@ import { Configure } from "./Configure";
 export const Task = () => {
   const {
     close,
-    aclRolePermissionAdd,
+    aclUserCreate,
     recoverFromError,
+    isNameValid,
     state: {
       libCall: { response, reports },
     },
@@ -15,14 +16,15 @@ export const Task = () => {
 
   return (
     <TaskSimple
-      title="Add permission to role"
-      task={"aclRolePermissionAdd"}
+      title="Create user"
+      task={"aclUserCreate"}
       close={close}
       footer={
         response !== "no-response" ? null : (
           <TaskSimpleFooter
-            run={aclRolePermissionAdd}
-            runLabel="Add permission to role"
+            nextIf={isNameValid}
+            run={aclUserCreate}
+            runLabel="Create User"
           />
         )
       }
@@ -31,10 +33,10 @@ export const Task = () => {
       {response !== "no-response" && (
         <TaskFinishLib
           response={response}
-          taskName="Add permission to role"
+          taskName="Create user"
           backToUpdateSettings={recoverFromError}
-          proceedForce={aclRolePermissionAdd}
-          tryAgain={aclRolePermissionAdd}
+          proceedForce={aclUserCreate}
+          tryAgain={aclUserCreate}
           reports={reports}
         />
       )}

@@ -66,9 +66,9 @@ export const AclRoleDetailListItem = ({
           dataListCells={<DataListCell>{aclName}</DataListCell>}
         />
         <DataListAction
-          id={"role-remove-permission"}
-          aria-labelledby={"role-remove-permission"}
-          aria-label={"Permission actions"}
+          id={"role-remove-acl"}
+          aria-labelledby={"role-remove-acl"}
+          aria-label={"Acl actions"}
         >
           <DropdownActionListMenu
             dropdownActions={
