@@ -16,6 +16,7 @@ module.exports = {
     "plugin:react/recommended",
     "react-app",
     "plugin:jest-playwright/recommended",
+    "plugin:react-hooks/recommended",
   ],
   rules: {
     // specify whether double or single quotes should be used

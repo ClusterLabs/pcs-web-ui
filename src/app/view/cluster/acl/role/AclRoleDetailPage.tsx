@@ -1,7 +1,6 @@
 import {
+  DataList,
   Divider,
-  List,
-  ListItem,
   StackItem,
   Text,
   TextContent,
@@ -17,7 +16,11 @@ import {
 } from "app/view/share";
 
 import { AclDoesNotExist } from "../AclDoesNotExist";
-import { AclDetailPageToolbar } from "../AclDetailPageToolbar";
+import { AclDetailCaption } from "../AclDetailCaption";
+
+import { AclRoleDetailPageToolbar } from "./AclRoleDetailPageToolbar";
+import { AclRoleDetailPermissionListItem } from "./AclRoleDetailPermissionListItem";
+import { AclRoleDetailListItem } from "./AclRoleDetailListItem";
 
 export const AclRoleDetailPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -43,7 +46,10 @@ export const AclRoleDetailPage = () => {
     );
   } else {
     return (
-      <DetailLayout caption={aclName} toolbar={<AclDetailPageToolbar />}>
+      <DetailLayout
+        caption={<AclDetailCaption aclName={aclName} type={"Role"} />}
+        toolbar={<AclRoleDetailPageToolbar roleName={aclName} />}
+      >
         <>
           <Divider />
           <StackItem>
@@ -56,59 +62,69 @@ export const AclRoleDetailPage = () => {
           <StackItem>
             <TextContent>
               <Text component="h1">Permissions</Text>
-
-              {role[1].permissions.length === 0 ? (
-                <EmptyStateNoItem
-                  canAdd={false}
-                  title={`No permission assigned to role "${aclName}".`}
-                />
-              ) : (
-                <List isPlain isBordered>
-                  {role[1].permissions.map((permission: string) => (
-                    <ListItem key={permission}>{permission}</ListItem>
-                  ))}
-                </List>
-              )}
             </TextContent>
+
+            {role[1].permissions.length === 0 ? (
+              <EmptyStateNoItem
+                canAdd={false}
+                title={`No permission assigned to role "${aclName}".`}
+              />
+            ) : (
+              <DataList aria-label="Permission list">
+                {role[1].permissions.map((permission: string, i: number) => (
+                  <AclRoleDetailPermissionListItem
+                    key={i}
+                    permission={permission}
+                  />
+                ))}
+              </DataList>
+            )}
           </StackItem>
 
           <StackItem>
             <TextContent>
               <Text component="h1">Users assigned</Text>
-
-              {users === undefined || listOfAssignedAcls(users).length === 0 ? (
-                <EmptyStateNoItem
-                  canAdd={false}
-                  title={`No user assigned to role "${aclName}".`}
-                />
-              ) : (
-                <List isPlain isBordered>
-                  {listOfAssignedAcls(users).map((user) => {
-                    return <ListItem key={user[0]}>{user[0]}</ListItem>;
-                  })}
-                </List>
-              )}
             </TextContent>
+
+            {users === undefined || listOfAssignedAcls(users).length === 0 ? (
+              <EmptyStateNoItem
+                canAdd={false}
+                title={`No user assigned to role "${aclName}".`}
+              />
+            ) : (
+              <DataList aria-label="User list">
+                {listOfAssignedAcls(users).map((user, i) => (
+                  <AclRoleDetailListItem
+                    key={i}
+                    aclName={user[0]}
+                    aclType="user"
+                  />
+                ))}
+              </DataList>
+            )}
           </StackItem>
 
           <StackItem>
             <TextContent>
               <Text component="h1">Groups assigned</Text>
-
-              {groups === undefined
-              || listOfAssignedAcls(groups).length === 0 ? (
-                <EmptyStateNoItem
-                  canAdd={false}
-                  title={`No group assigned to role "${aclName}".`}
-                />
-              ) : (
-                <List isPlain isBordered>
-                  {listOfAssignedAcls(groups).map((group) => {
-                    return <ListItem key={group[0]}>{group[0]}</ListItem>;
-                  })}
-                </List>
-              )}
             </TextContent>
+
+            {groups === undefined || listOfAssignedAcls(groups).length === 0 ? (
+              <EmptyStateNoItem
+                canAdd={false}
+                title={`No group assigned to role "${aclName}".`}
+              />
+            ) : (
+              <DataList aria-label="Group list">
+                {listOfAssignedAcls(groups).map((group, i) => (
+                  <AclRoleDetailListItem
+                    key={i}
+                    aclName={group[0]}
+                    aclType="group"
+                  />
+                ))}
+              </DataList>
+            )}
           </StackItem>
         </>
       </DetailLayout>

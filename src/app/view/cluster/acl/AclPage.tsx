@@ -12,11 +12,12 @@ import {
   FormSwitch,
   GroupDetailView,
   useClusterSelector,
+  useDispatch,
+  useSelectedClusterName,
 } from "app/view/share";
-import * as resources from "app/view/cluster/resources/task";
 import { selectors } from "app/store";
 
-import * as task from "./task";
+import * as roleTask from "./role/task/createRole";
 import { AclRoleList } from "./role/AclRoleList";
 import { AclUserList } from "./user/AclUserList";
 import { AclGroupList } from "./group/AclGroupList";
@@ -24,6 +25,10 @@ import { AclDetailPage } from "./AclDetailPage";
 
 export const AclPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
+  const clusterName = useSelectedClusterName();
+  const dispatch = useDispatch();
+  let aclsEnabled =
+    cluster.clusterProperties["enable-acl"] === "true" ? true : false;
 
   return (
     <>
@@ -33,21 +38,9 @@ export const AclPage = () => {
             <StackItem>
               <ActionListGroup>
                 <ActionTaskLauncher
-                  taskComponent={task.createRole.AclCreateRole}
-                  useTask={resources.create.useTask} // CHANGE
+                  taskComponent={roleTask.Task}
+                  useTask={roleTask.useTask}
                   label="Create Role"
-                />
-                <ActionTaskLauncher
-                  taskComponent={task.createUser.AclCreateUser}
-                  useTask={resources.create.useTask} // CHANGE
-                  label="Create User"
-                  variant="secondary"
-                />
-                <ActionTaskLauncher
-                  taskComponent={task.createGroup.AclCreateGroup}
-                  useTask={resources.create.useTask} // CHANGE
-                  label="Create Group"
-                  variant="secondary"
                 />
               </ActionListGroup>
             </StackItem>
@@ -60,8 +53,19 @@ export const AclPage = () => {
                     label="Enable ACLs"
                     switchLabel="Enabled"
                     switchLabelOff="Disabled"
-                    isChecked={true}
-                    onChange={undefined}
+                    isChecked={aclsEnabled}
+                    onChange={() => {
+                      dispatch({
+                        type: "CLUSTER.PROPERTIES.UPDATE",
+                        key: { clusterName },
+                        payload: {
+                          propertyMap: {
+                            "enable-acl": aclsEnabled ? "true" : "false",
+                          },
+                        },
+                      });
+                      aclsEnabled = !aclsEnabled;
+                    }}
                     popover={{
                       header: "Enable CIB ACL",
                       body: "",

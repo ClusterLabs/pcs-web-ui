@@ -302,6 +302,64 @@ export type Commands = [
       ignore_offline_nodes?: boolean;
     };
   },
+  {
+    name: "acl-create-role";
+    payload: {
+      role_id: string;
+      permission_info_list: string[];
+      description: string;
+    };
+  },
+  {
+    name: "acl-remove-role";
+    payload: {
+      role_id: string;
+      autodelete_users_groups?: boolean;
+    };
+  },
+  {
+    name: "acl-assign-role-to-target";
+    payload: {
+      role_id: string;
+      target_id: string;
+    };
+  },
+  {
+    name: "acl-assign-role-to-group";
+    payload: {
+      role_id: string;
+      group_id: string;
+    };
+  },
+  {
+    name: "acl-unassign-role-from-target";
+    payload: {
+      role_id: string;
+      target_id: string;
+      autodelete_target?: boolean;
+    };
+  },
+  {
+    name: "acl-unassign-role-from-group";
+    payload: {
+      role_id: string;
+      group_id: string;
+      autodelete_target?: boolean;
+    };
+  },
+  {
+    name: "acl-add-permission";
+    payload: {
+      role_id: string;
+      permission_info_list: string[];
+    };
+  },
+  {
+    name: "acl-remove-permission";
+    payload: {
+      permission_id: string;
+    };
+  },
 ];
 
 export const libCluster = endpoint({

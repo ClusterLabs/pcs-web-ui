@@ -19,7 +19,7 @@ export const AclUserListItem = ({
   roleIdList: string[];
 }) => {
   const { selectedItemUrlName } = useGroupDetailViewContext();
-  
+
   return (
     <DataListItem aria-labelledby={name}>
       <DataListItemRow>

@@ -23,13 +23,19 @@ export const AclDetailPageToolbar = () => {
 
   const remove: DetailLayoutToolbarAction = {
     action: {
-      type: "NODE.START",
+      type: "LIB.CALL.CLUSTER",
       key: { clusterName },
-      payload: { nodeName: "nodename" },
+      payload: {
+        taskLabel: `remove role "${clusterName}"`,
+        call: {
+          name: "acl-remove-role",
+          payload: { role_id: "" },
+        },
+      },
     },
     confirm: {
-      title: "Start node?",
-      description: "Start a cluster on the node",
+      title: "Remove role?",
+      description: <>This removes the role</>,
     },
   };
 

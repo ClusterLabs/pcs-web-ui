@@ -1,10 +1,16 @@
-import { useGroupDetailViewContext } from "app/view/share";
+import {
+  DetailLayout,
+  EmptyStateNoItem,
+  useGroupDetailViewContext,
+  useSelectedClusterName,
+} from "app/view/share";
 
 import { AclGroupDetailPage } from "./group/AclGroupDetailPage";
 import { AclRoleDetailPage } from "./role/AclRoleDetailPage";
 import { AclUserDetailPage } from "./user/AclUserDetailPage";
 
 export const AclDetailPage = () => {
+  const clusterName = useSelectedClusterName();
   const { selectedItemUrlType: aclType } = useGroupDetailViewContext();
 
   if (aclType === "role") {
@@ -15,5 +21,14 @@ export const AclDetailPage = () => {
     return <AclGroupDetailPage />;
   }
 
-  return null; // CHANGE TO "not configured"
+  return (
+    <DetailLayout caption={"Not configured"}>
+      <EmptyStateNoItem
+        title={`Acl ${aclType} does not exist.`}
+        message={
+          `Acl ${aclType}` + ` does not exist in cluster "${clusterName}".`
+        }
+      />
+    </DetailLayout>
+  );
 };

@@ -17,6 +17,7 @@ import {
 
 import { AclDoesNotExist } from "../AclDoesNotExist";
 import { AclDetailPageToolbar } from "../AclDetailPageToolbar";
+import { AclDetailCaption } from "../AclDetailCaption";
 
 export const AclUserDetailPage = () => {
   const { selectedItemUrlName: aclName } = useGroupDetailViewContext();
@@ -31,7 +32,10 @@ export const AclUserDetailPage = () => {
     );
   } else {
     return (
-      <DetailLayout caption={aclName} toolbar={<AclDetailPageToolbar />}>
+      <DetailLayout
+        caption={<AclDetailCaption aclName={aclName} type={"User"} />}
+        toolbar={<AclDetailPageToolbar />}
+      >
         <>
           <Divider />
           <StackItem>
@@ -39,7 +43,8 @@ export const AclUserDetailPage = () => {
               <Title headingLevel={"h1"}>Roles assigned</Title>
 
               {user[1].length === 0 ? (
-                <EmptyStateNoItem canAdd={false}
+                <EmptyStateNoItem
+                  canAdd={false}
                   title={`No role assigned to user "${aclName}".`}
                 />
               ) : (
