@@ -8,7 +8,7 @@ import {
 
 import { useDispatch } from "app/view/share/useDispatch";
 
-export const NotificationDrawerDropdown = () => {
+export const DrawerDropdown = () => {
   const [isHeaderDropdownOpen, setHeaderDropdownOpen] = React.useState(false);
   const dispatch = useDispatch();
 

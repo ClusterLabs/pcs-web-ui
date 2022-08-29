@@ -1,68 +1,42 @@
 import React from "react";
-import {
-  NotificationDrawer,
-  NotificationDrawerBody,
-  NotificationDrawerHeader,
-  PageHeaderTools,
-  Page as PfPage,
-} from "@patternfly/react-core";
+import { Page as PfPage } from "@patternfly/react-core";
 import { useSelector } from "react-redux";
 
 import { selectors } from "app/store";
 
-import { NotificationBadge } from "./NotificationBadge";
-import { NotificationDrawerEmpty } from "./NotificationDrawerEmpty";
-import { NotificationDrawerListItem } from "./NotificationDrawerListItem";
-import { NotificationDrawerDropdown } from "./NotificationDrawerDropdown";
-import { PageToolbar } from "./PageToolbar";
+import * as Notification from "./notification";
 import { BackgroundImage } from "./BackgroundImage";
-import { PageHeader } from "./PageHeader";
+import { Header } from "./Header";
 
 export const Page = ({ children }: { children: React.ReactNode }) => {
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
-  const notifications = useSelector(selectors.getDrawerNotifications);
+  const notificationList = useSelector(selectors.getNotifications);
 
   return (
     <>
       <BackgroundImage />
       <PfPage
         header={
-          <PageHeader
-            headerTools={
-              <PageHeaderTools>
-                <PageToolbar
-                  notificationBadge={
-                    <NotificationBadge
-                      notifications={notifications}
-                      switchDrawer={() => setDrawerOpen(!isDrawerOpen)}
-                    />
-                  }
-                />
-              </PageHeaderTools>
+          <Header
+            notificationBadge={
+              <Notification.Badge
+                notificationList={notificationList}
+                switchDrawer={() => setDrawerOpen(!isDrawerOpen)}
+              />
             }
           />
         }
         notificationDrawer={
-          <NotificationDrawer>
-            <NotificationDrawerHeader
-              count={notifications.filter(n => !n.isRead).length}
-              onClose={() => setDrawerOpen(false)}
-            >
-              <NotificationDrawerDropdown />
-            </NotificationDrawerHeader>
-
-            <NotificationDrawerBody>
-              {notifications.map(n => (
-                <NotificationDrawerListItem key={n.id} notification={n} />
-              ))}
-              {notifications.length === 0 && <NotificationDrawerEmpty />}
-            </NotificationDrawerBody>
-          </NotificationDrawer>
+          <Notification.Drawer
+            notificationList={notificationList}
+            onClose={() => setDrawerOpen(false)}
+          />
         }
         isNotificationDrawerExpanded={isDrawerOpen}
       >
         {children}
       </PfPage>
+      <Notification.Toast notificationList={notificationList} />
     </>
   );
 };

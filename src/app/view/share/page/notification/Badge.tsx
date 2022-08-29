@@ -1,22 +1,22 @@
 import { NotificationBadge as PfNotificationBadge } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import { Notification } from "./types";
 
-export const NotificationBadge = ({
-  notifications,
+export const Badge = ({
+  notificationList,
   switchDrawer,
 }: {
-  notifications: ReturnType<typeof selectors.getDrawerNotifications>;
+  notificationList: Notification[];
   switchDrawer: () => void;
 }) => {
-  const unreadErrorCount = notifications.filter(
+  const unreadErrorCount = notificationList.filter(
     n => !n.isRead && n.severity === "ERROR",
   ).length;
 
   return (
     <PfNotificationBadge
       variant={
-        notifications.some(n => !n.isRead)
+        notificationList.some(n => !n.isRead)
           ? unreadErrorCount > 0
             ? "attention"
             : "unread"

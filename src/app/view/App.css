@@ -28,21 +28,6 @@ body,
   font-size: large;
 }
 
-/* NOTIFICATIONS -------------------------------------------------------------*/
-
-#notifications {
-  position: fixed;
-  top: 85px;
-  right: 10px;
-  z-index: 100;
-  width: 350px;
-  max-width: 400px;
-  margin: auto;
-}
-#notifications .notification-item {
-  margin-bottom: 10px;
-}
-
 /* SPINNER -------------------------------------------------------------------*/
 
 @keyframes App-logo-spin {

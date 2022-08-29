@@ -6,12 +6,11 @@ import {
 } from "@patternfly/react-core";
 import { TimesIcon } from "@patternfly/react-icons";
 
-import { selectors } from "app/store";
 import { useDispatch } from "app/view/share/useDispatch";
-import {
-  NotificationDescription,
-  severityToVariant,
-} from "app/view/notifications";
+
+import { Notification } from "./types";
+import { severityToVariant } from "./severityToVariant";
+import { Description } from "./Description";
 
 const getTimeStamp = (creationTime: Date) => {
   const secElapsed = Math.floor((Date.now() - creationTime.getTime()) / 1000);
@@ -30,10 +29,10 @@ const getTimeStamp = (creationTime: Date) => {
   ).toLocaleString();
 };
 
-export const NotificationDrawerListItem = ({
+export const DrawerItem = ({
   notification,
 }: {
-  notification: ReturnType<typeof selectors.getDrawerNotifications>[number];
+  notification: Notification;
 }) => {
   const dispatch = useDispatch();
   const severityVariant = severityToVariant(notification.severity);
@@ -75,7 +74,7 @@ export const NotificationDrawerListItem = ({
       <NotificationDrawerListItemBody
         timestamp={getTimeStamp(notification.creationTime)}
       >
-        <NotificationDescription details={notification.details} />
+        <Description details={notification.details} />
       </NotificationDrawerListItemBody>
     </PfNotificationDrawerListItem>
   );

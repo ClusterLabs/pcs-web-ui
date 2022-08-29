@@ -7,7 +7,7 @@ import {
 } from "@patternfly/react-core";
 import { SearchIcon } from "@patternfly/react-icons";
 
-export const NotificationDrawerEmpty = () => {
+export const DrawerEmpty = () => {
   return (
     <EmptyState variant={EmptyStateVariant.full} data-test={"drawer-empty"}>
       <EmptyStateIcon icon={SearchIcon} />
