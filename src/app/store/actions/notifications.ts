@@ -5,7 +5,7 @@ export type NotificationActions = {
       id: number;
       severity: "INFO" | "SUCCESS" | "ERROR";
       message: string;
-      isVisible: boolean;
+      inToast: boolean;
       isRead: boolean;
       creationTime: Date;
       description?: string;
@@ -33,8 +33,8 @@ export type NotificationActions = {
     type: "NOTIFICATION.DESTROY.ALL";
   };
 
-  "NOTIFICATION.HIDE": {
-    type: "NOTIFICATION.HIDE";
+  "NOTIFICATION.REMOVE_FROM_TOAST": {
+    type: "NOTIFICATION.REMOVE_FROM_TOAST";
     payload: {
       id: number;
     };

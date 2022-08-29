@@ -11,7 +11,7 @@ export const Toast = ({
   return (
     <AlertGroup isToast isLiveRegion>
       {notificationList
-        .filter(n => n.isVisible)
+        .filter(n => n.inToast)
         .reverse()
         .map(n => (
           <ToastAlert key={n.id} notification={n} />

@@ -22,7 +22,7 @@ export const ToastAlert = ({
         <AlertActionCloseButton
           onClose={() =>
             dispatch({
-              type: "NOTIFICATION.HIDE",
+              type: "NOTIFICATION.REMOVE_FROM_TOAST",
               payload: { id: notification.id },
             })
           }

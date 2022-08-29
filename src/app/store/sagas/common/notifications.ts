@@ -13,7 +13,7 @@ export function* limitNotificationLife({
 }: ActionMap["NOTIFICATION.CREATE"]) {
   yield delay(DISPLAY_MSECONDS);
   yield put({
-    type: "NOTIFICATION.HIDE",
+    type: "NOTIFICATION.REMOVE_FROM_TOAST",
     payload: { id },
   });
 }
@@ -30,7 +30,7 @@ export function* putNotification(
       id: actionNewId(),
       severity,
       message,
-      isVisible: true,
+      inToast: true,
       isRead: false,
       creationTime: new Date(),
       details,
