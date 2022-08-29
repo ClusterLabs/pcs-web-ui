@@ -6,7 +6,7 @@ export const notifications: AppReducer<
 > = (state = [], action) => {
   switch (action.type) {
     case "NOTIFICATION.CREATE":
-      return [...state, action.payload];
+      return [action.payload, ...state];
 
     case "NOTIFICATION.DESTROY":
       return state.filter(n => n.id !== action.payload.id);
