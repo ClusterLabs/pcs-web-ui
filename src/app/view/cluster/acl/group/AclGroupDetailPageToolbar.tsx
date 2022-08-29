@@ -1,37 +1,52 @@
 import {
+  ActionTaskLauncher,
   DetailLayoutToolbar,
   DetailLayoutToolbarAction,
   useSelectedClusterName,
 } from "app/view/share";
 
-export const AclGroupDetailPageToolbar = () => {
+import * as assignRoleTask from "./task/assignRole";
+
+export const AclGroupDetailPageToolbar = ({
+  groupName,
+}: {
+  groupName: string;
+}) => {
   const clusterName = useSelectedClusterName();
 
-  // NEED TO BE CHANGED - JUST EXAMPLE OF ACTIONS
+  const assignRole = (
+    <ActionTaskLauncher
+      taskComponent={assignRoleTask.Task}
+      useTask={assignRoleTask.useTask}
+      label="Assign role"
+      variant="secondary"
+    />
+  );
 
-  const remove: DetailLayoutToolbarAction = {
+  const deleteGroup: DetailLayoutToolbarAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
       key: { clusterName },
       payload: {
-        taskLabel: `remove role "${clusterName}"`,
+        taskLabel: `delete group "${groupName}"`,
         call: {
-          name: "acl-remove-role",
-          payload: { role_id: "" },
+          name: "acl-remove-group",
+          payload: { group_id: groupName },
         },
       },
     },
     confirm: {
-      title: "Remove role?",
-      description: <>This removes the role</>,
+      title: "Delete group?",
+      description: <>This deletes the group {groupName}</>,
     },
   };
 
   return (
     <DetailLayoutToolbar
-      toolbarName="role"
+      toolbarName="group"
       buttonActions={{
-        remove,
+        "Assign role": assignRole,
+        "Delete group": deleteGroup,
       }}
     />
   );

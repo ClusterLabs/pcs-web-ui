@@ -1,7 +1,6 @@
 import {
+  DataList,
   Divider,
-  List,
-  ListItem,
   StackItem,
   TextContent,
   Title,
@@ -19,6 +18,7 @@ import { AclDoesNotExist } from "../AclDoesNotExist";
 import { AclDetailCaption } from "../AclDetailCaption";
 
 import { AclGroupDetailPageToolbar } from "./AclGroupDetailPageToolbar";
+import { AclGroupDetailListItem } from "./AclGroupDetailListItem";
 
 export const AclGroupDetailPage = () => {
   const { selectedItemUrlName: aclName } = useGroupDetailViewContext();
@@ -39,27 +39,27 @@ export const AclGroupDetailPage = () => {
     return (
       <DetailLayout
         caption={<AclDetailCaption aclName={aclName} type={"Group"} />}
-        toolbar={<AclGroupDetailPageToolbar />}
+        toolbar={<AclGroupDetailPageToolbar groupName={aclName} />}
       >
         <>
           <Divider />
           <StackItem>
             <TextContent>
               <Title headingLevel={"h1"}>Roles assigned</Title>
-
-              {group[1].length === 0 ? (
-                <EmptyStateNoItem
-                  canAdd={false}
-                  title={`No role assigned to group "${aclName}".`}
-                />
-              ) : (
-                <List isPlain isBordered>
-                  {group[1].map((role: string) => (
-                    <ListItem key={role}>{role}</ListItem>
-                  ))}
-                </List>
-              )}
             </TextContent>
+
+            {group[1].length === 0 ? (
+              <EmptyStateNoItem
+                canAdd={false}
+                title={`No role assigned to group "${aclName}".`}
+              />
+            ) : (
+              <DataList aria-label="Role list">
+                {group[1].map((role: string, i: number) => (
+                  <AclGroupDetailListItem key={i} roleName={role} />
+                ))}
+              </DataList>
+            )}
           </StackItem>
         </>
       </DetailLayout>

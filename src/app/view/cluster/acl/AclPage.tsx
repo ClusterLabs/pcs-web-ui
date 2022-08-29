@@ -19,6 +19,7 @@ import { selectors } from "app/store";
 
 import * as roleTask from "./role/task/createRole";
 import * as userTask from "./user/task/createUser";
+import * as groupTask from "./group/task/createGroup";
 import { AclRoleList } from "./role/AclRoleList";
 import { AclUserList } from "./user/AclUserList";
 import { AclGroupList } from "./group/AclGroupList";
@@ -47,6 +48,11 @@ export const AclPage = () => {
                   taskComponent={userTask.Task}
                   useTask={userTask.useTask}
                   label="Create User"
+                />
+                <ActionTaskLauncher
+                  taskComponent={groupTask.Task}
+                  useTask={groupTask.useTask}
+                  label="Create Group"
                 />
               </ActionListGroup>
             </StackItem>

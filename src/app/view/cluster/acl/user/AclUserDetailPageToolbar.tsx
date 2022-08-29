@@ -37,13 +37,13 @@ export const AclUserDetailPageToolbar = ({
     },
     confirm: {
       title: "Delete user?",
-      description: <>This deletes the user</>,
+      description: <>This deletes the user {userName}</>,
     },
   };
 
   return (
     <DetailLayoutToolbar
-      toolbarName="role"
+      toolbarName="user"
       buttonActions={{
         "Assign role": assignRole,
         "Delete user": deleteUser,
