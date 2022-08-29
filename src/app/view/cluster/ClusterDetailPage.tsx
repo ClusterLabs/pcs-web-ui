@@ -26,10 +26,10 @@ export const clusterPageTabList = [
   "nodes",
   "resources",
   "fence-devices",
-  "sbd",
+  "SBD",
   "constraints",
   "properties",
-  "acl",
+  "ACL",
   "permissions",
 ] as const;
 
@@ -60,12 +60,12 @@ export const ClusterDetailPage = ({ clusterName }: { clusterName: string }) => {
             {currentTab === "nodes" && <NodesPage />}
             {currentTab === "resources" && <ResourcesPage />}
             {currentTab === "fence-devices" && <FenceDevicePage />}
-            {currentTab === "sbd" && <SbdPage />}
+            {currentTab === "SBD" && <SbdPage />}
             {currentTab === "constraints" && (
               <ConstraintsPage clusterName={clusterName} />
             )}
             {currentTab === "properties" && <ClusterPropertiesPage />}
-            {currentTab === "acl" && <AclPage />}
+            {currentTab === "ACL" && <AclPage />}
             {currentTab === "permissions" && <ClusterPermissionsPage />}
           </Router>
         </SelectedClusterProvider>

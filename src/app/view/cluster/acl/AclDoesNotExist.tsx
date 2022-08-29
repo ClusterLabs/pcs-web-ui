@@ -14,9 +14,9 @@ export const AclDoesNotExist: React.FC<{
     <DetailLayout caption={<strong>{aclName}</strong>}>
       <StackItem>
         <EmptyStateNoItem
-          title={`Acl ${aclType} "${aclName}" does not exist.`}
+          title={`ACL ${aclType} "${aclName}" does not exist.`}
           message={
-            `Acl ${aclType} "${aclName}"`
+            `ACL ${aclType} "${aclName}"`
             + ` does not exist in cluster ${clusterName}.`
           }
         />
