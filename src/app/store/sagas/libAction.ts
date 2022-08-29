@@ -27,6 +27,9 @@ export function* callLib({
         id: actionNewId(),
         severity: "ERROR",
         message: `Communication error while: ${taskLabel}. Details in the browser console`,
+        inToast: true,
+        isRead: false,
+        creationTime: new Date(),
       },
     });
     return;
@@ -42,6 +45,9 @@ export function* callLib({
         id: actionNewId(),
         severity: "ERROR",
         message: `Error while: ${taskLabel}`,
+        inToast: true,
+        isRead: false,
+        creationTime: new Date(),
         details: {
           type: "LIST",
           title: "Messages from the backend",
@@ -62,6 +68,9 @@ export function* callLib({
       id: actionNewId(),
       severity: "SUCCESS",
       message: `Succesfully done: ${taskLabel}`,
+      inToast: true,
+      isRead: false,
+      creationTime: new Date(),
       details: {
         type: "LIST",
         title: "Messages from the backend",

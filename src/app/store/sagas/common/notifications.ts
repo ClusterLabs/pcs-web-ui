@@ -13,7 +13,7 @@ export function* limitNotificationLife({
 }: ActionMap["NOTIFICATION.CREATE"]) {
   yield delay(DISPLAY_MSECONDS);
   yield put({
-    type: "NOTIFICATION.DESTROY",
+    type: "NOTIFICATION.REMOVE_FROM_TOAST",
     payload: { id },
   });
 }
@@ -22,6 +22,7 @@ export function* putNotification(
   severity: Notification["severity"],
   message: string,
   details: Notification["details"] = undefined,
+  description: Notification["description"] = undefined,
 ) {
   const putEffect: PutEffect = yield put({
     type: "NOTIFICATION.CREATE",
@@ -29,7 +30,11 @@ export function* putNotification(
       id: actionNewId(),
       severity,
       message,
+      inToast: true,
+      isRead: false,
+      creationTime: new Date(),
       details,
+      description,
     },
   });
   return putEffect;

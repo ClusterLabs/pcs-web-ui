@@ -5,6 +5,10 @@ export type NotificationActions = {
       id: number;
       severity: "INFO" | "SUCCESS" | "ERROR";
       message: string;
+      inToast: boolean;
+      isRead: boolean;
+      creationTime: Date;
+      description?: string;
       details?:
         | {
             type: "LIST";
@@ -23,5 +27,27 @@ export type NotificationActions = {
     payload: {
       id: number;
     };
+  };
+
+  "NOTIFICATION.DESTROY.ALL": {
+    type: "NOTIFICATION.DESTROY.ALL";
+  };
+
+  "NOTIFICATION.REMOVE_FROM_TOAST": {
+    type: "NOTIFICATION.REMOVE_FROM_TOAST";
+    payload: {
+      id: number;
+    };
+  };
+
+  "NOTIFICATION.READ": {
+    type: "NOTIFICATION.READ";
+    payload: {
+      id: number;
+    };
+  };
+
+  "NOTIFICATION.READ.ALL": {
+    type: "NOTIFICATION.READ.ALL";
   };
 };

@@ -12,10 +12,20 @@ export function* clusterRemove({
   );
 
   if (result.type !== "OK") {
-    yield processError(result, payload.clusterName);
+    yield processError(
+      result,
+      payload.clusterName,
+      undefined,
+      "cluster-remove",
+    );
     return;
   }
 
-  yield putNotification("SUCCESS", "Cluster removed");
+  yield putNotification(
+    "SUCCESS",
+    "Cluster removed",
+    undefined,
+    "cluster-remove",
+  );
   yield put({ type: "CLUSTER.LIST.REFRESH" });
 }

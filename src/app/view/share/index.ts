@@ -3,14 +3,13 @@ export * as location from "./location";
 export * as lib from "./lib";
 
 export * from "./attributes";
-export * from "./BackgroundImage";
 export * from "./ButtonWithEnter";
 export * from "./clusterGroupDetail";
 export * from "./CrmStatusTable";
 export * from "./DefaultValue";
 export * from "./DropdownActionListMenu";
 export * from "./issueList";
-export * from "./Page";
+export * from "./page";
 export * from "./PageSectionDataLoading";
 export * from "./pcmkAgent";
 export * from "./ResourceDetailCaption";
