@@ -1,6 +1,6 @@
 export const dt = (...args: string[]) =>
   args
-    .map((arg) => {
+    .map(arg => {
       if (arg.includes("[")) {
         return arg;
       }

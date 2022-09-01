@@ -1,12 +1,12 @@
 import { ActionList } from "@patternfly/react-core";
 
+import { selectors } from "app/store";
 import {
   ActionTaskLauncher,
   ClusterSectionToolbar,
   GroupDetailView,
   useClusterSelector,
 } from "app/view/share";
-import { selectors } from "app/store";
 
 import * as task from "./task";
 import { FenceDeviceDetailPage } from "./FenceDeviceDetailPage";

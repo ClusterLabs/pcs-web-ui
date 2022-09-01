@@ -1,5 +1,5 @@
-import { ActionMap } from "app/store/actions";
 import { updateResource } from "app/backend";
+import { ActionMap } from "app/store/actions";
 
 import { api, clusterSuccess, processError, putNotification } from "./common";
 

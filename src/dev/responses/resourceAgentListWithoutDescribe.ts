@@ -1,4 +1,5 @@
 import { ResourceAgentListAgents } from "dev/types";
+
 export const ok: ResourceAgentListAgents = [
   {
     name: "ocf:booth:geostore",

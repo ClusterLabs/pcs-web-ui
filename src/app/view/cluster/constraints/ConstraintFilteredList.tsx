@@ -1,6 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { DataList, Stack, StackItem, ToolbarItem } from "@patternfly/react-core";
+import {
+  DataList,
+  Stack,
+  StackItem,
+  ToolbarItem,
+} from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {

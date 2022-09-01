@@ -1,5 +1,5 @@
-import { ActionMap } from "app/store/actions";
 import { clusterStart, clusterStop } from "app/backend";
+import { ActionMap } from "app/store/actions";
 
 import { api, processClusterResultBasic } from "./common";
 

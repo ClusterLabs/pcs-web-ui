@@ -1,4 +1,5 @@
 import { ActionPayload } from "app/store/actions";
+
 const fenceDeviceNamePrefix = "stonith:";
 
 export const uprefixFenceAgentName = (rawName: string) =>

@@ -1,7 +1,4 @@
-import {
-  Alert,
-  TextContent,
-} from "@patternfly/react-core";
+import { Alert, TextContent } from "@patternfly/react-core";
 
 import { ActionPayload } from "app/store";
 import { NVPair } from "app/view/cluster/types";

@@ -1,5 +1,5 @@
-import { takeNewLoadings } from "app/store/sagas/common/dataLoad";
 import { ActionLeaf } from "app/store";
+import { takeNewLoadings } from "app/store/sagas/common/dataLoad";
 
 const clusterName1 = "cluster-1";
 const startActionClusterSync = (clusterName: string): ActionLeaf => ({

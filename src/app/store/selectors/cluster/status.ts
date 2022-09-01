@@ -113,9 +113,7 @@ export const getResourcesForSet = clusterSelector(cluster =>
 );
 
 export const getTopLevelPrimitives = clusterSelector(cluster =>
-  cluster.resourceTree
-    .filter(r => r.itemType === "primitive")
-    .map(r => r.id),
+  cluster.resourceTree.filter(r => r.itemType === "primitive").map(r => r.id),
 );
 
 export const getSelectedFenceDevice = clusterSelector((cluster, id: string) =>

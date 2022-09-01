@@ -1,5 +1,6 @@
 import { all } from "redux-saga/effects";
 
+/* eslint-disable import/max-dependencies */
 import { fork, takeEvery } from "./common";
 import * as clusterImport from "./clusterImport";
 import * as cluster from "./cluster";

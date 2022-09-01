@@ -27,7 +27,7 @@ export const FenceDeviceArgumentsView = ({
       clusterName={clusterName}
       agentName={fenceDevice.agentName}
     >
-      {(agent) => {
+      {agent => {
         return (
           <>
             <StackItem>

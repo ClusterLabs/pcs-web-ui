@@ -1,3 +1,4 @@
+/* eslint-disable import/max-dependencies */
 import { AuthActions } from "./auth";
 import { ClusterActions } from "./cluster";
 import { ConstraintAction } from "./constraint";

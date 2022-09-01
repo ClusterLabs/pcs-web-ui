@@ -2,6 +2,7 @@ export * as pallete from "./pallete";
 export * as location from "./location";
 export * as lib from "./lib";
 
+/* eslint-disable import/max-dependencies */
 export * from "./attributes";
 export * from "./ButtonWithEnter";
 export * from "./clusterGroupDetail";

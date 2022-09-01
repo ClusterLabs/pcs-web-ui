@@ -53,9 +53,7 @@ export const Totem = () => {
           popover={help.block_unlisted_ips}
           options={["yes", "no", "default"]}
           selected={totemOptions.block_unlisted_ips}
-          onChange={value =>
-            updateTotemOptions({ block_unlisted_ips: value })
-          }
+          onChange={value => updateTotemOptions({ block_unlisted_ips: value })}
           data-test="totem.block_unlisted_ips"
         />
 

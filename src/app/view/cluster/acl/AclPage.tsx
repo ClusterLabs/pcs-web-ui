@@ -6,6 +6,7 @@ import {
 } from "@patternfly/react-core";
 import { Stack, StackItem } from "@patternfly/react-core";
 
+import { selectors } from "app/store";
 import {
   ActionTaskLauncher,
   ClusterSectionToolbar,
@@ -15,7 +16,6 @@ import {
   useDispatch,
   useSelectedClusterName,
 } from "app/view/share";
-import { selectors } from "app/store";
 
 import * as roleTask from "./role/task/createRole";
 import * as userTask from "./user/task/createUser";

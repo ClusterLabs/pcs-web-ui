@@ -43,7 +43,7 @@ export const InstanceAttrsForm = () => {
   return (
     <TaskLibStep title={`Instance attributes (${agentName})`} reports={reports}>
       <LoadedPcmkAgent clusterName={clusterName} agentName={agentName}>
-        {(agent) => {
+        {agent => {
           const nonDeprecatedParameters = agent.parameters.filter(
             p => !("deprecated" in p && p.deprecated),
           );
@@ -70,7 +70,7 @@ export const InstanceAttrsForm = () => {
               <Form isHorizontal>
                 {requiredParameters
                   .concat(filterParameters(nonDeprecatedParameters))
-                  .map((parameter) => {
+                  .map(parameter => {
                     const hint =
                       "Please provide a value for required attribute";
                     return (

@@ -10,6 +10,7 @@ import {
 } from "app/view/share";
 import { useClusterState } from "app/view/share";
 
+/* eslint-disable import/max-dependencies */
 import { NodesPage } from "./nodes";
 import { ResourcesPage } from "./resources";
 import { FenceDevicePage } from "./fenceDevices";

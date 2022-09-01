@@ -57,7 +57,7 @@ export const DetailLayoutToolbar = ({
     <>
       <Toolbar id="group-detail-layout-detail-toolbar">
         <ToolbarContent>
-          {Object.keys(buttonActions).map((name) => {
+          {Object.keys(buttonActions).map(name => {
             const buttonAction = buttonActions[name];
             return (
               <ToolbarItem key={name}>

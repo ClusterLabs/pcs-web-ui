@@ -1,4 +1,9 @@
-import { ActionList, Grid, GridItem, PageSection } from "@patternfly/react-core";
+import {
+  ActionList,
+  Grid,
+  GridItem,
+  PageSection,
+} from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {

@@ -43,7 +43,7 @@ export const InstanceAttrsForm = () => {
   return (
     <TaskLibStep title={`Instance attributes (${agentName})`} reports={reports}>
       <LoadedPcmkAgent clusterName={clusterName} agentName={agentName}>
-        {(agent) => {
+        {agent => {
           const requiredParameters = agent.parameters.filter(p => p.required);
           return (
             <>
@@ -65,7 +65,7 @@ export const InstanceAttrsForm = () => {
               <Form isHorizontal>
                 {requiredParameters
                   .concat(filterParameters(agent.parameters))
-                  .map((parameter) => {
+                  .map(parameter => {
                     const hint =
                       "Please provide a value for required attribute";
                     return (

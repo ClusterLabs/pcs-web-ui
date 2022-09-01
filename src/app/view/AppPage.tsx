@@ -1,6 +1,6 @@
 import { Router, useRoute } from "app/view/share";
 
-import { ClusterDetailPage } from "./cluster/";
+import { ClusterDetailPage } from "./cluster";
 import { DashboardPage } from "./dashboard";
 
 export const AppPage = () => {

@@ -29,7 +29,7 @@ export const AclRoleListItem = ({
     }
 
     let count = 0;
-    Object.entries(acls).map((acl) => {
+    Object.entries(acls).map(acl => {
       if (acl[1].includes(name)) {
         count += 1;
       }

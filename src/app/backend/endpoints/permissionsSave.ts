@@ -17,7 +17,7 @@ const makePostData = (
     postData.push([`permissions[${i}][name]`, permission.name]);
     postData.push([`permissions[${i}][type]`, permission.type]);
     (["read", "write", "grant", "full"] as Permission["allow"]).forEach(
-      (permissionName) => {
+      permissionName => {
         postData.push([
           `permissions[${i}][allow][${permissionName}]`,
           permission.allow.includes(permissionName) ? "1" : "0",

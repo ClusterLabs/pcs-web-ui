@@ -7,6 +7,7 @@ import {
   wrapTasks,
 } from "app/store/taskTools";
 
+/* eslint-disable import/max-dependencies */
 import { resourceCreate } from "./resourceCreate";
 import { fenceDeviceCreate } from "./fenceDeviceCreate";
 import { fenceDeviceArgsEdit } from "./fenceDeviceArgsEdit";

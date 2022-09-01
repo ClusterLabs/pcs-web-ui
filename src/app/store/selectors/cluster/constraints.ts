@@ -28,7 +28,7 @@ export type ConstraintPack =
   | { type: "Ticket"; constraint: TicketResource }
   | { type: "Ticket (set)"; constraint: TicketSet };
 
-export const getConstraints = clusterSelector((clusterStatus) => {
+export const getConstraints = clusterSelector(clusterStatus => {
   const constraintMap = clusterStatus.constraints;
   if (!constraintMap) {
     return [];

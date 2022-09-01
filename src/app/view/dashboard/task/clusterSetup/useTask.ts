@@ -288,7 +288,7 @@ export const useTask = () => {
             // defaults addresses only when key "addrs" is not specified we
             // cannot simply send empty addresses or empty address list (i.e.
             // key "addrs").
-            nodes: filledNodeNameList.map((n) => {
+            nodes: filledNodeNameList.map(n => {
               const addrs = state.linkList.reduce<string[]>(
                 (addrList, link) => [
                   ...addrList,
