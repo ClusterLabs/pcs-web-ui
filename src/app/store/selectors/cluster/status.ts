@@ -124,23 +124,6 @@ export const getSelectedNode = clusterSelector((cluster, name: string) =>
   cluster.nodeList.find(node => node.name === name),
 );
 
-export const getSelectedAcl = clusterSelector(
-  (cluster, name: string, type: string) => {
-    let aclByType;
-    if (type === "role") {
-      aclByType = cluster.acls.role;
-    } else if (type === "user") {
-      aclByType = cluster.acls.user;
-    } else if (type === "group") {
-      aclByType = cluster.acls.group;
-    }
-
-    return aclByType === undefined
-      ? undefined
-      : Object.entries(aclByType).find(acl => acl[0] === name);
-  },
-);
-
 export const crmStatusForPrimitive = clusterSelector(
   (cluster, primitiveIds: string[]) =>
     cluster.resourceOnNodeStatusList.filter(s =>

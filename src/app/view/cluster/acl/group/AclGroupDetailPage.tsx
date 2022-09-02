@@ -21,48 +21,45 @@ import { AclGroupDetailPageToolbar } from "./AclGroupDetailPageToolbar";
 import { AclGroupDetailListItem } from "./AclGroupDetailListItem";
 
 export const AclGroupDetailPage = () => {
-  const { selectedItemUrlName: aclName } = useGroupDetailViewContext();
-  const [group] = useClusterSelector(
-    selectors.getSelectedAcl,
-    aclName,
-    "group",
-  );
+  const { selectedItemUrlName: groupId } = useGroupDetailViewContext();
+  const [{ acls }] = useClusterSelector(selectors.getCluster);
+  const roleIdList = acls.group?.[groupId];
 
-  if (!group) {
+  if (!roleIdList) {
     return (
       <>
         <Divider />
-        <AclDoesNotExist aclType="group" aclName={aclName} />
+        <AclDoesNotExist aclType="group" aclName={groupId} />
       </>
     );
-  } else {
-    return (
-      <DetailLayout
-        caption={<AclDetailCaption aclName={aclName} type={"Group"} />}
-        toolbar={<AclGroupDetailPageToolbar groupName={aclName} />}
-      >
-        <>
-          <Divider />
-          <StackItem>
-            <TextContent>
-              <Title headingLevel={"h1"}>Roles assigned</Title>
-            </TextContent>
-
-            {group[1].length === 0 ? (
-              <EmptyStateNoItem
-                canAdd={false}
-                title={`No role assigned to group "${aclName}".`}
-              />
-            ) : (
-              <DataList aria-label="Role list">
-                {group[1].map((role: string, i: number) => (
-                  <AclGroupDetailListItem key={i} roleName={role} />
-                ))}
-              </DataList>
-            )}
-          </StackItem>
-        </>
-      </DetailLayout>
-    );
   }
+
+  return (
+    <DetailLayout
+      caption={<AclDetailCaption aclName={groupId} type={"Group"} />}
+      toolbar={<AclGroupDetailPageToolbar groupName={groupId} />}
+    >
+      <>
+        <Divider />
+        <StackItem>
+          <TextContent>
+            <Title headingLevel={"h1"}>Roles assigned</Title>
+          </TextContent>
+
+          {roleIdList.length === 0 ? (
+            <EmptyStateNoItem
+              canAdd={false}
+              title={`No role assigned to group "${groupId}".`}
+            />
+          ) : (
+            <DataList aria-label="Role list">
+              {roleIdList.map((roleId: string, i: number) => (
+                <AclGroupDetailListItem key={i} roleName={roleId} />
+              ))}
+            </DataList>
+          )}
+        </StackItem>
+      </>
+    </DetailLayout>
+  );
 };

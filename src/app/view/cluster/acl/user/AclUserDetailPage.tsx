@@ -21,44 +21,45 @@ import { AclUserDetailPageToolbar } from "./AclUserDetailPageToolbar";
 import { AclUserDetailListItem } from "./AclUserDetailListItem";
 
 export const AclUserDetailPage = () => {
-  const { selectedItemUrlName: aclName } = useGroupDetailViewContext();
-  const [user] = useClusterSelector(selectors.getSelectedAcl, aclName, "user");
+  const { selectedItemUrlName: userId } = useGroupDetailViewContext();
+  const [{ acls }] = useClusterSelector(selectors.getCluster);
+  const roleIdList = acls.user?.[userId];
 
-  if (!user) {
+  if (!roleIdList) {
     return (
       <>
         <Divider />
-        <AclDoesNotExist aclType="user" aclName={aclName} />
+        <AclDoesNotExist aclType="user" aclName={userId} />
       </>
     );
-  } else {
-    return (
-      <DetailLayout
-        caption={<AclDetailCaption aclName={aclName} type={"User"} />}
-        toolbar={<AclUserDetailPageToolbar userName={aclName} />}
-      >
-        <>
-          <Divider />
-          <StackItem>
-            <TextContent>
-              <Title headingLevel={"h1"}>Roles assigned</Title>
-            </TextContent>
-
-            {user[1].length === 0 ? (
-              <EmptyStateNoItem
-                canAdd={false}
-                title={`No role assigned to user "${aclName}".`}
-              />
-            ) : (
-              <DataList aria-label="Role list">
-                {user[1].map((role: string, i: number) => (
-                  <AclUserDetailListItem key={i} roleName={role} />
-                ))}
-              </DataList>
-            )}
-          </StackItem>
-        </>
-      </DetailLayout>
-    );
   }
+
+  return (
+    <DetailLayout
+      caption={<AclDetailCaption aclName={userId} type={"User"} />}
+      toolbar={<AclUserDetailPageToolbar userName={userId} />}
+    >
+      <>
+        <Divider />
+        <StackItem>
+          <TextContent>
+            <Title headingLevel={"h1"}>Roles assigned</Title>
+          </TextContent>
+
+          {roleIdList.length === 0 ? (
+            <EmptyStateNoItem
+              canAdd={false}
+              title={`No role assigned to user "${userId}".`}
+            />
+          ) : (
+            <DataList aria-label="Role list">
+              {roleIdList.map((roleId: string, i: number) => (
+                <AclUserDetailListItem key={i} roleName={roleId} />
+              ))}
+            </DataList>
+          )}
+        </StackItem>
+      </>
+    </DetailLayout>
+  );
 };
