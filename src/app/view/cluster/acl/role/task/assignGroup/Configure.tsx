@@ -12,19 +12,17 @@ export const Configure = () => {
   } = useTask();
 
   return (
-    <>
-      <Form>
-        <FormText
-          id="group-name"
-          label="Group name"
-          isRequired
-          showValidationErrors={showValidationErrors}
-          isValid={isGroupIdValid}
-          helperTextInvalid="Please enter a group name"
-          onChange={value => updateState({ groupId: value })}
-          value={groupId}
-        />
-      </Form>
-    </>
+    <Form>
+      <FormText
+        id="group-name"
+        label="Group name"
+        isRequired
+        showValidationErrors={showValidationErrors}
+        isValid={isGroupIdValid}
+        helperTextInvalid="Please enter a group name"
+        onChange={value => updateState({ groupId: value })}
+        value={groupId}
+      />
+    </Form>
   );
 };

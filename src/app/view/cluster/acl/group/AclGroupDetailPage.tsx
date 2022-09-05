@@ -26,12 +26,7 @@ export const AclGroupDetailPage = () => {
   const roleIdList = acls.group?.[groupId];
 
   if (!roleIdList) {
-    return (
-      <>
-        <Divider />
-        <AclDoesNotExist aclType="group" aclName={groupId} />
-      </>
-    );
+    return <AclDoesNotExist aclType="group" aclName={groupId} />;
   }
 
   return (
@@ -39,27 +34,25 @@ export const AclGroupDetailPage = () => {
       caption={<AclDetailCaption aclName={groupId} type={"Group"} />}
       toolbar={<AclGroupDetailPageToolbar groupName={groupId} />}
     >
-      <>
-        <Divider />
-        <StackItem>
-          <TextContent>
-            <Title headingLevel={"h1"}>Roles assigned</Title>
-          </TextContent>
+      <Divider />
+      <StackItem>
+        <TextContent>
+          <Title headingLevel={"h1"}>Roles assigned</Title>
+        </TextContent>
 
-          {roleIdList.length === 0 ? (
-            <EmptyStateNoItem
-              canAdd={false}
-              title={`No role assigned to group "${groupId}".`}
-            />
-          ) : (
-            <DataList aria-label="Role list">
-              {roleIdList.map((roleId: string, i: number) => (
-                <AclGroupDetailListItem key={i} roleName={roleId} />
-              ))}
-            </DataList>
-          )}
-        </StackItem>
-      </>
+        {roleIdList.length === 0 ? (
+          <EmptyStateNoItem
+            canAdd={false}
+            title={`No role assigned to group "${groupId}".`}
+          />
+        ) : (
+          <DataList aria-label="Role list">
+            {roleIdList.map((roleId: string, i: number) => (
+              <AclGroupDetailListItem key={i} roleName={roleId} />
+            ))}
+          </DataList>
+        )}
+      </StackItem>
     </DetailLayout>
   );
 };

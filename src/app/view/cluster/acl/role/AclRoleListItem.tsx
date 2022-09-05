@@ -13,59 +13,53 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
+type Acls = ReturnType<ReturnType<typeof selectors.getCluster>>["acls"];
+
+const getAssignedSubjectCount = (
+  subjectMap: Acls["user"] | Acls["group"],
+  roleId: string,
+) => {
+  return Object.entries(subjectMap || {}).filter(([_id, roleIdList]) =>
+    roleIdList.includes(roleId),
+  ).length;
+};
+
 export const AclRoleListItem = ({
-  name,
+  roleId,
   permissions,
 }: {
-  name: string;
+  roleId: string;
   permissions: string[];
 }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const { selectedItemUrlName } = useGroupDetailViewContext();
 
-  const aclAssignedCount = (acls: Record<string, string[]> | undefined) => {
-    if (acls === undefined) {
-      return 0;
-    }
-
-    let count = 0;
-    Object.entries(acls).map(acl => {
-      if (acl[1].includes(name)) {
-        count += 1;
-      }
-      return null;
-    });
-    return count;
-  };
-
   return (
-    <DataListItem aria-labelledby={name}>
+    <DataListItem aria-labelledby={roleId}>
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
             <>
               <DataListCell>
-                <Link to={`/role/${name}`}>
-                  <strong>{name}</strong>
+                <Link to={`/role/${roleId}`}>
+                  <strong>{roleId}</strong>
                 </Link>
               </DataListCell>
+              <DataListCell>Permissions ({permissions.length})</DataListCell>
               <DataListCell>
-                <>{`Permissions (${permissions.length})`}</>
+                Users assigned (
+                {getAssignedSubjectCount(cluster.acls.user, roleId)})
               </DataListCell>
               <DataListCell>
-                <>{`Users assigned (${aclAssignedCount(cluster.acls.user)})`}</>
-              </DataListCell>
-              <DataListCell>
-                <>{`Groups assigned (${aclAssignedCount(
-                  cluster.acls.group,
-                )})`}</>
+                Groups assigned (
+                {getAssignedSubjectCount(cluster.acls.group, roleId)})
               </DataListCell>
             </>
           }
         />
         {selectedItemUrlName !== "" && (
           <SelectionIndicatorInGroup
-            isSelected={name === selectedItemUrlName}
+            isSelected={roleId === selectedItemUrlName}
           />
         )}
       </DataListItemRow>

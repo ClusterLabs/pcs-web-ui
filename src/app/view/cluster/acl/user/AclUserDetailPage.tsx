@@ -26,12 +26,7 @@ export const AclUserDetailPage = () => {
   const roleIdList = acls.user?.[userId];
 
   if (!roleIdList) {
-    return (
-      <>
-        <Divider />
-        <AclDoesNotExist aclType="user" aclName={userId} />
-      </>
-    );
+    return <AclDoesNotExist aclType="user" aclName={userId} />;
   }
 
   return (
@@ -39,27 +34,25 @@ export const AclUserDetailPage = () => {
       caption={<AclDetailCaption aclName={userId} type={"User"} />}
       toolbar={<AclUserDetailPageToolbar userName={userId} />}
     >
-      <>
-        <Divider />
-        <StackItem>
-          <TextContent>
-            <Title headingLevel={"h1"}>Roles assigned</Title>
-          </TextContent>
+      <Divider />
+      <StackItem>
+        <TextContent>
+          <Title headingLevel={"h1"}>Roles assigned</Title>
+        </TextContent>
 
-          {roleIdList.length === 0 ? (
-            <EmptyStateNoItem
-              canAdd={false}
-              title={`No role assigned to user "${userId}".`}
-            />
-          ) : (
-            <DataList aria-label="Role list">
-              {roleIdList.map((roleId: string, i: number) => (
-                <AclUserDetailListItem key={i} roleName={roleId} />
-              ))}
-            </DataList>
-          )}
-        </StackItem>
-      </>
+        {roleIdList.length === 0 ? (
+          <EmptyStateNoItem
+            canAdd={false}
+            title={`No role assigned to user "${userId}".`}
+          />
+        ) : (
+          <DataList aria-label="Role list">
+            {roleIdList.map((roleId: string, i: number) => (
+              <AclUserDetailListItem key={i} roleName={roleId} />
+            ))}
+          </DataList>
+        )}
+      </StackItem>
     </DetailLayout>
   );
 };

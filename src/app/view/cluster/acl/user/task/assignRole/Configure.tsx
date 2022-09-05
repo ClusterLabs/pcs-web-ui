@@ -12,19 +12,17 @@ export const Configure = () => {
   } = useTask();
 
   return (
-    <>
-      <Form>
-        <FormText
-          id="role-name"
-          label="Role name"
-          isRequired
-          showValidationErrors={showValidationErrors}
-          isValid={isRoleIdValid}
-          helperTextInvalid="Please enter a role name"
-          onChange={value => updateState({ roleId: value })}
-          value={roleId}
-        />
-      </Form>
-    </>
+    <Form>
+      <FormText
+        id="role-name"
+        label="Role name"
+        isRequired
+        showValidationErrors={showValidationErrors}
+        isValid={isRoleIdValid}
+        helperTextInvalid="Please enter a role name"
+        onChange={value => updateState({ roleId: value })}
+        value={roleId}
+      />
+    </Form>
   );
 };

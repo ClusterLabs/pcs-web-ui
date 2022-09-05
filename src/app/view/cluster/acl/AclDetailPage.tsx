@@ -15,9 +15,13 @@ export const AclDetailPage = () => {
 
   if (aclType === "role") {
     return <AclRoleDetailPage />;
-  } else if (aclType === "user") {
+  }
+
+  if (aclType === "user") {
     return <AclUserDetailPage />;
-  } else if (aclType === "group") {
+  }
+
+  if (aclType === "group") {
     return <AclGroupDetailPage />;
   }
 

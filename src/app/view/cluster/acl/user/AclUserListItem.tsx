@@ -31,9 +31,7 @@ export const AclUserListItem = ({
                   <strong>{name}</strong>
                 </Link>
               </DataListCell>
-              <DataListCell>
-                <>{`Roles assigned (${roleIdList.length})`}</>
-              </DataListCell>
+              <DataListCell>Roles assigned ({roleIdList.length})</DataListCell>
             </>
           }
         />

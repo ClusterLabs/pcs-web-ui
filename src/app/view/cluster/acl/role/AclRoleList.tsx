@@ -20,7 +20,7 @@ export const AclRoleList = ({ aclRoleList }: { aclRoleList: Acl["role"] }) => {
       {Object.entries(aclRoleList).map(([roleName, { permissions }]) => (
         <AclRoleListItem
           key={roleName}
-          name={roleName}
+          roleId={roleName}
           permissions={permissions}
         />
       ))}

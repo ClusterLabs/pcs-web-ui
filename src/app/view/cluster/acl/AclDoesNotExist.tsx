@@ -1,13 +1,15 @@
-import React from "react";
 import { StackItem } from "@patternfly/react-core";
 
 import { EmptyStateNoItem } from "app/view/share";
 import { DetailLayout, useSelectedClusterName } from "app/view/share";
 
-export const AclDoesNotExist: React.FC<{
+export const AclDoesNotExist = ({
+  aclType,
+  aclName,
+}: {
   aclType: string;
   aclName: string;
-}> = ({ aclType, aclName }) => {
+}) => {
   const clusterName = useSelectedClusterName();
 
   return (
