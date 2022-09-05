@@ -65,9 +65,11 @@ export const AclRoleDetailPageToolbar = ({
     <DetailLayoutToolbar
       toolbarName="role"
       buttonActions={{
-        assignGroup,
         assignUser,
         addPermission,
+        assignGroup,
+      }}
+      dropdownActions={{
         "Delete role": deleteRole,
       }}
     />
