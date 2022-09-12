@@ -10,11 +10,10 @@ import {
   ToolbarContent,
   ToolbarItem,
 } from "@patternfly/react-core";
-import { TimesIcon } from "@patternfly/react-icons";
 
 import { tools } from "app/store";
 
-import { useGroupDetailViewContext } from "./GroupDetailViewContext";
+import { DetailLayoutClose } from "./DetailLayoutClose";
 import { ConfirmAction, ConfirmData } from "./Types";
 
 export type DetailLayoutToolbarAction = { disabled?: boolean } & (
@@ -38,7 +37,6 @@ export const DetailLayoutToolbar = ({
   dropdownActions?: Record<string, DetailLayoutToolbarAction>;
 }) => {
   const dispatch = useDispatch();
-  const { closeDetailUrl } = useGroupDetailViewContext();
   const [confirm, setConfirm] = React.useState<ConfirmData | null>(null);
   const [kebabOpen, setKebabOpen] = React.useState(false);
 
@@ -103,16 +101,7 @@ export const DetailLayoutToolbar = ({
           )}
 
           <ToolbarItem>
-            <Button
-              variant="plain"
-              aria-label="Close panel"
-              onClick={(e: React.SyntheticEvent) => {
-                e.preventDefault();
-                closeDetailUrl();
-              }}
-            >
-              <TimesIcon />
-            </Button>
+            <DetailLayoutClose />
           </ToolbarItem>
         </ToolbarContent>
       </Toolbar>
