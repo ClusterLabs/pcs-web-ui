@@ -7,15 +7,11 @@ import {
 } from "@patternfly/react-core";
 
 import {
-  DropdownActionListMenu,
+  LauncherDropdown,
+  LauncherItem,
   useGroupDetailViewContext,
   useSelectedClusterName,
 } from "app/view/share";
-
-type DropdownAction = React.ComponentProps<
-  typeof DropdownActionListMenu
->["dropdownActions"];
-type MenuAction = DropdownAction[keyof DropdownAction];
 
 export const AclRoleDetailListItem = ({
   aclName,
@@ -27,39 +23,41 @@ export const AclRoleDetailListItem = ({
   const clusterName = useSelectedClusterName();
   const { selectedItemUrlName: roleName } = useGroupDetailViewContext();
 
-  const unassignUser: MenuAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `unassign user "${aclName}"`,
-        call: {
-          name: "acl-unassign-role-from-target",
-          payload: { role_id: roleName, target_id: aclName },
-        },
-      },
-    },
+  const unassignUser: LauncherItem = {
+    name: "unassign-user",
     confirm: {
       title: "Unassign user?",
       description: <>This unassigns the user {aclName}</>,
-    },
-  };
-
-  const unassignGroup: MenuAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `unassign group "${aclName}"`,
-        call: {
-          name: "acl-unassign-role-from-group",
-          payload: { role_id: roleName, group_id: aclName },
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `unassign user "${aclName}"`,
+          call: {
+            name: "acl-unassign-role-from-target",
+            payload: { role_id: roleName, target_id: aclName },
+          },
         },
       },
     },
+  };
+
+  const unassignGroup: LauncherItem = {
+    name: "unassign-group",
     confirm: {
       title: "Unassign group?",
       description: <>This unassigns the group {aclName}</>,
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `unassign group "${aclName}"`,
+          call: {
+            name: "acl-unassign-role-from-group",
+            payload: { role_id: roleName, group_id: aclName },
+          },
+        },
+      },
     },
   };
 
@@ -74,14 +72,9 @@ export const AclRoleDetailListItem = ({
           aria-labelledby={"role-remove-acl"}
           aria-label={"Acl actions"}
         >
-          <DropdownActionListMenu
-            dropdownActions={
-              aclType === "user"
-                ? {
-                    Unassign: unassignUser,
-                  }
-                : { Unassign: unassignGroup }
-            }
+          <LauncherDropdown
+            items={[aclType === "user" ? unassignUser : unassignGroup]}
+            dropdownName={"role"}
           />
         </DataListAction>
       </DataListItemRow>

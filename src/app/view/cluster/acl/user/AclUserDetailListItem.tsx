@@ -7,35 +7,32 @@ import {
 } from "@patternfly/react-core";
 
 import {
-  DropdownActionListMenu,
+  LauncherDropdown,
+  LauncherItem,
   useGroupDetailViewContext,
   useSelectedClusterName,
 } from "app/view/share";
-
-type DropdownAction = React.ComponentProps<
-  typeof DropdownActionListMenu
->["dropdownActions"];
-type MenuAction = DropdownAction[keyof DropdownAction];
 
 export const AclUserDetailListItem = ({ roleName }: { roleName: string }) => {
   const clusterName = useSelectedClusterName();
   const { selectedItemUrlName: userName } = useGroupDetailViewContext();
 
-  const unassignUser: MenuAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `unassign role "${roleName}"`,
-        call: {
-          name: "acl-unassign-role-from-target",
-          payload: { role_id: roleName, target_id: userName },
-        },
-      },
-    },
+  const unassignUser: LauncherItem = {
+    name: "unassign-user",
     confirm: {
       title: "Unassign role?",
       description: <>This unassigns the role {roleName}</>,
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `unassign role "${roleName}"`,
+          call: {
+            name: "acl-unassign-role-from-target",
+            payload: { role_id: roleName, target_id: userName },
+          },
+        },
+      },
     },
   };
 
@@ -50,9 +47,7 @@ export const AclUserDetailListItem = ({ roleName }: { roleName: string }) => {
           aria-labelledby={"user-remove-role"}
           aria-label={"Role actions"}
         >
-          <DropdownActionListMenu
-            dropdownActions={{ Unassign: unassignUser }}
-          />
+          <LauncherDropdown items={[unassignUser]} dropdownName="role" />
         </DataListAction>
       </DataListItemRow>
     </DataListItem>

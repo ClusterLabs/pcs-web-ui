@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DataListAction,
   DataListCell,
@@ -8,35 +7,32 @@ import {
 } from "@patternfly/react-core";
 
 import {
-  DropdownActionListMenu,
+  LauncherDropdown,
+  LauncherItem,
   useGroupDetailViewContext,
   useSelectedClusterName,
 } from "app/view/share";
-
-type DropdownAction = React.ComponentProps<
-  typeof DropdownActionListMenu
->["dropdownActions"];
-type MenuAction = DropdownAction[keyof DropdownAction];
 
 export const AclGroupDetailListItem = ({ roleName }: { roleName: string }) => {
   const clusterName = useSelectedClusterName();
   const { selectedItemUrlName: groupName } = useGroupDetailViewContext();
 
-  const unassignGroup: MenuAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `unassign role "${roleName}"`,
-        call: {
-          name: "acl-unassign-role-from-group",
-          payload: { role_id: roleName, group_id: groupName },
-        },
-      },
-    },
+  const unassignGroup: LauncherItem = {
+    name: "unassign-group",
     confirm: {
       title: "Unassign role?",
       description: <>This unassigns the role {roleName}</>,
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `unassign role "${roleName}"`,
+          call: {
+            name: "acl-unassign-role-from-group",
+            payload: { role_id: roleName, group_id: groupName },
+          },
+        },
+      },
     },
   };
 
@@ -51,9 +47,7 @@ export const AclGroupDetailListItem = ({ roleName }: { roleName: string }) => {
           aria-labelledby={"group-remove-role"}
           aria-label={"Role actions"}
         >
-          <DropdownActionListMenu
-            dropdownActions={{ Unassign: unassignGroup }}
-          />
+          <LauncherDropdown items={[unassignGroup]} dropdownName="role" />
         </DataListAction>
       </DataListItemRow>
     </DataListItem>

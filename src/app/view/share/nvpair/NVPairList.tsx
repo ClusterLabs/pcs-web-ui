@@ -1,9 +1,6 @@
 import { ActionPayload } from "app/store";
 import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
-import {
-  DropdownActionListMenu,
-  ModalAction,
-} from "app/view/share/DropdownActionListMenu";
+import { LauncherDropdown } from "app/view/share/toolbar";
 import { NVPair } from "app/view/cluster/types";
 import { Table } from "app/view/share/table";
 
@@ -16,35 +13,8 @@ export const NVPairList = ({
   nvPairList: NVPair[];
   owner: ActionPayload["CLUSTER.NVPAIRS.SAVE"]["owner"];
 }) => {
-  const { open, name: taskName } = task.edit.useTask();
+  const { name: taskName } = task.edit.useTask();
   const clusterName = useSelectedClusterName();
-
-  const edit = (attrName: string, attrValue: string): ModalAction => ({
-    onClick: () =>
-      open({
-        type: "update",
-        owner,
-        name: attrName,
-        value: attrValue,
-        nameList: nvPairList.map(nvPair => nvPair.name),
-      }),
-  });
-
-  const remove = (attrName: string): ModalAction => ({
-    confirm: {
-      title: `Remove the attribute "${attrName}"?`,
-      description: "Removes the attribute.",
-    },
-    action: {
-      type: "CLUSTER.NVPAIRS.SAVE",
-      key: { clusterName, task: taskName },
-      payload: {
-        owner,
-        name: attrName,
-        value: "",
-      },
-    },
-  });
 
   return (
     <Table>
@@ -58,11 +28,42 @@ export const NVPairList = ({
               {nvPair.value}
             </td>
             <td data-label="Menu">
-              <DropdownActionListMenu
-                dropdownActions={{
-                  edit: edit(nvPair.name, nvPair.value),
-                  remove: remove(nvPair.name),
-                }}
+              <LauncherDropdown
+                dropdownName="nvpair"
+                items={[
+                  {
+                    name: "edit",
+                    task: {
+                      component: task.edit.Task,
+                      useTask: task.edit.useTask,
+                      openArgs: [
+                        {
+                          type: "update",
+                          owner,
+                          name: nvPair.name,
+                          value: nvPair.value,
+                          nameList: nvPairList.map(nvPair => nvPair.name),
+                        },
+                      ],
+                    },
+                  },
+                  {
+                    name: "remove",
+                    confirm: {
+                      title: `Remove the attribute "${nvPair.name}"?`,
+                      description: "Removes the attribute.",
+                      action: {
+                        type: "CLUSTER.NVPAIRS.SAVE",
+                        key: { clusterName, task: taskName },
+                        payload: {
+                          owner,
+                          name: nvPair.name,
+                          value: "",
+                        },
+                      },
+                    },
+                  },
+                ]}
               />
             </td>
           </tr>

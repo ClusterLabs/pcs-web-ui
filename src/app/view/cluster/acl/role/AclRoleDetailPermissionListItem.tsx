@@ -6,12 +6,11 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import { DropdownActionListMenu, useSelectedClusterName } from "app/view/share";
-
-type DropdownAction = React.ComponentProps<
-  typeof DropdownActionListMenu
->["dropdownActions"];
-type MenuAction = DropdownAction[keyof DropdownAction];
+import {
+  LauncherDropdown,
+  LauncherItem,
+  useSelectedClusterName,
+} from "app/view/share";
 
 export const AclRoleDetailPermissionListItem = ({
   permission,
@@ -20,21 +19,22 @@ export const AclRoleDetailPermissionListItem = ({
 }) => {
   const clusterName = useSelectedClusterName();
 
-  const remove: MenuAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `remove permission "${permission}"`,
-        call: {
-          name: "acl-remove-permission",
-          payload: { permission_id: permission },
-        },
-      },
-    },
+  const remove: LauncherItem = {
+    name: "remove",
     confirm: {
       title: "Remove permission?",
       description: <>This removes the permission {permission}</>,
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `remove permission "${permission}"`,
+          call: {
+            name: "acl-remove-permission",
+            payload: { permission_id: permission },
+          },
+        },
+      },
     },
   };
 
@@ -49,11 +49,7 @@ export const AclRoleDetailPermissionListItem = ({
           aria-labelledby={"role-remove-permission"}
           aria-label={"Permission actions"}
         >
-          <DropdownActionListMenu
-            dropdownActions={{
-              remove,
-            }}
-          />
+          <LauncherDropdown items={[remove]} dropdownName={"permission"} />
         </DataListAction>
       </DataListItemRow>
     </DataListItem>

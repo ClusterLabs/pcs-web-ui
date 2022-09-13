@@ -28,7 +28,10 @@ export const DetailToolbar = <ARGS extends unknown[] = []>({
         )}
         {dropdownItems.length > 0 && (
           <ToolbarItem>
-            <LauncherDropdown items={dropdownItems} toolbarName={toolbarName} />
+            <LauncherDropdown
+              items={dropdownItems}
+              dropdownName={toolbarName}
+            />
           </ToolbarItem>
         )}
         <ToolbarItem>

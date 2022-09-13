@@ -201,16 +201,6 @@ export const PrimitivePageToolbar = ({
     },
   };
 
-  const changeGroup: ToolbarItem<[typeof primitive]> = {
-    name: "change-group",
-    task: {
-      component: task.groupChange.Task,
-      useTask: task.groupChange.useTask,
-      openArgs: [primitive],
-    },
-    disabled: !canChangeGroup(primitive),
-  };
-
   return (
     <>
       <DetailToolbar
@@ -220,7 +210,15 @@ export const PrimitivePageToolbar = ({
           ...[isPrimitiveEnabled(primitive) ? disable : enable],
         ]}
         dropdownItems={[
-          changeGroup,
+          {
+            name: "change-group",
+            task: {
+              component: task.groupChange.Task,
+              useTask: task.groupChange.useTask,
+              openArgs: [primitive],
+            },
+            disabled: !canChangeGroup(primitive),
+          },
           refresh,
           cleanup,
           ...(primitive.inGroup !== null

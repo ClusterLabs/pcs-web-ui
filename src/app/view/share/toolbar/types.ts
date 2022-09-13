@@ -31,3 +31,9 @@ export type LauncherItem<ARGS extends unknown[] = []> = {
   label?: string;
   disabled?: boolean;
 } & (ItemConfirm | ItemTask<ARGS>);
+
+// export type TaskOpenParams<USE_TASK> = USE_TASK extends () => {
+//   open: (..._args: infer ARGS) => void;
+// }
+//   ? ARGS
+//   : never;
