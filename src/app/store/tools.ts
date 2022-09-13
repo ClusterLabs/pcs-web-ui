@@ -7,8 +7,6 @@ export const uprefixFenceAgentName = (rawName: string) =>
     ? rawName.slice(fenceDeviceNamePrefix.length)
     : rawName;
 
-export const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
-
 export const labelize = (rawName: string) =>
   rawName
     .split(/\s|_|-/g)

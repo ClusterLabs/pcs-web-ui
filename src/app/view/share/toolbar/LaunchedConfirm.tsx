@@ -5,7 +5,7 @@ import { tools } from "app/store";
 
 import { LauncherItem } from "./types";
 
-const { capitalize } = tools;
+const { labelize } = tools;
 
 export const LaunchedConfirm = ({
   item,
@@ -33,7 +33,7 @@ export const LaunchedConfirm = ({
           }}
           data-test={`toolbar-confirm-${toolbarName}-${item.name}`}
         >
-          {capitalize(item.label || item.name)}
+          {labelize(item.label || item.name)}
         </Button>,
         <Button
           key="cancel"

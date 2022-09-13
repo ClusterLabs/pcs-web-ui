@@ -5,7 +5,7 @@ import {
   setResourceUtilization,
 } from "app/backend";
 import { ActionMap } from "app/store/actions";
-import { capitalize, getNVPairTypeLabel } from "app/store/tools";
+import { getNVPairTypeLabel, labelize } from "app/store/tools";
 
 import { api, processError, put, putNotification } from "./common";
 
@@ -20,7 +20,7 @@ function* processRemoveResult(result: ApiResult, attrType: string) {
     yield processError(result, `remove ${attrType} attribute`);
     return;
   }
-  yield putNotification("SUCCESS", `${capitalize(attrType)} attribute removed`);
+  yield putNotification("SUCCESS", `${labelize(attrType)} attribute removed`);
 }
 
 function* processEditResult(result: ApiResult) {

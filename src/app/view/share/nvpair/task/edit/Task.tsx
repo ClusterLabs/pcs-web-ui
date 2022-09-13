@@ -8,7 +8,7 @@ import {
 import { useTask } from "./useTask";
 import { Configure } from "./Configure";
 
-const { capitalize, getNVPairTypeLabel } = tools;
+const { labelize, getNVPairTypeLabel } = tools;
 
 export const Task = () => {
   const {
@@ -55,10 +55,10 @@ export const Task = () => {
           waitTitle={`${
             isCreate ? "Creating" : "Updating"
           } ${attrTypeLabel} attribute`}
-          successTitle={`${capitalize(attrTypeLabel)} attribute ${
+          successTitle={`${labelize(attrTypeLabel)} attribute ${
             isCreate ? "created" : "updated"
           } successfully`}
-          failTitle={`${capitalize(attrTypeLabel)} attribute ${
+          failTitle={`${labelize(attrTypeLabel)} attribute ${
             isCreate ? "create" : "update"
           } failed`}
           tryAgain={attrSet}

@@ -20,7 +20,7 @@ export type ModalAction = { disabled?: boolean } & (
 
 type ModalActionMap = Record<string, ModalAction>;
 
-const { capitalize } = tools;
+const { labelize } = tools;
 
 export const DropdownActionListMenu = ({
   dropdownActions,
@@ -58,7 +58,7 @@ export const DropdownActionListMenu = ({
               onClick={prepareOnClick(dropdownActions[name], name)}
               data-test={`${name}-cluster`}
             >
-              {capitalize(name)}
+              {labelize(name)}
             </DropdownItem>
           ))}
           position="right"
@@ -81,7 +81,7 @@ export const DropdownActionListMenu = ({
               }}
               data-test="confirm"
             >
-              {capitalize(confirm.name)}
+              {labelize(confirm.name)}
             </Button>,
             <Button
               key="cancel"
