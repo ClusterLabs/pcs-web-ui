@@ -30,6 +30,7 @@ export const LauncherDropdown = <ARGS extends unknown[] = []>({
                   component="button"
                   onClick={launch}
                   data-test={`toolbar-${toolbarName}-${item.name}`}
+                  isDisabled={item?.disabled ?? false}
                 >
                   {labelize(item.label || item.name)}
                 </DropdownItem>

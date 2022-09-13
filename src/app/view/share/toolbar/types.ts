@@ -19,17 +19,15 @@ type Confirm = {
 };
 
 type ItemTask<ARGS extends unknown[]> = {
-  name: string;
-  label?: string;
   task: Task<ARGS>;
 };
 
 type ItemConfirm = {
-  name: string;
-  label?: string;
   confirm: Confirm;
 };
 
-export type LauncherItem<ARGS extends unknown[] = []> =
-  | ItemConfirm
-  | ItemTask<ARGS>;
+export type LauncherItem<ARGS extends unknown[] = []> = {
+  name: string;
+  label?: string;
+  disabled?: boolean;
+} & (ItemConfirm | ItemTask<ARGS>);
