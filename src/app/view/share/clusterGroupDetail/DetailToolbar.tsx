@@ -18,15 +18,19 @@ export const DetailToolbar = <ARGS extends unknown[] = []>({
   return (
     <Toolbar id="group-detail-layout-detail-toolbar">
       <ToolbarContent>
-        <ToolbarItem>
-          <LauncherToolbarButtonGroup
-            items={buttonsItems}
-            toolbarName={toolbarName}
-          />
-        </ToolbarItem>
-        <ToolbarItem>
-          <LauncherDropdown items={dropdownItems} toolbarName={toolbarName} />
-        </ToolbarItem>
+        {buttonsItems.length > 0 && (
+          <ToolbarItem>
+            <LauncherToolbarButtonGroup
+              items={buttonsItems}
+              toolbarName={toolbarName}
+            />
+          </ToolbarItem>
+        )}
+        {dropdownItems.length > 0 && (
+          <ToolbarItem>
+            <LauncherDropdown items={dropdownItems} toolbarName={toolbarName} />
+          </ToolbarItem>
+        )}
         <ToolbarItem>
           <DetailLayoutClose />
         </ToolbarItem>

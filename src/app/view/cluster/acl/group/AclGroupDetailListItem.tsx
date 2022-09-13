@@ -1,3 +1,4 @@
+import React from "react";
 import {
   DataListAction,
   DataListCell,
@@ -7,17 +8,21 @@ import {
 } from "@patternfly/react-core";
 
 import {
-  DetailLayoutToolbarAction,
   DropdownActionListMenu,
   useGroupDetailViewContext,
   useSelectedClusterName,
 } from "app/view/share";
 
+type DropdownAction = React.ComponentProps<
+  typeof DropdownActionListMenu
+>["dropdownActions"];
+type MenuAction = DropdownAction[keyof DropdownAction];
+
 export const AclGroupDetailListItem = ({ roleName }: { roleName: string }) => {
   const clusterName = useSelectedClusterName();
   const { selectedItemUrlName: groupName } = useGroupDetailViewContext();
 
-  const unassignGroup: DetailLayoutToolbarAction = {
+  const unassignGroup: MenuAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
       key: { clusterName },

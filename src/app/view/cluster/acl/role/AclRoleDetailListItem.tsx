@@ -7,11 +7,15 @@ import {
 } from "@patternfly/react-core";
 
 import {
-  DetailLayoutToolbarAction,
   DropdownActionListMenu,
   useGroupDetailViewContext,
   useSelectedClusterName,
 } from "app/view/share";
+
+type DropdownAction = React.ComponentProps<
+  typeof DropdownActionListMenu
+>["dropdownActions"];
+type MenuAction = DropdownAction[keyof DropdownAction];
 
 export const AclRoleDetailListItem = ({
   aclName,
@@ -23,7 +27,7 @@ export const AclRoleDetailListItem = ({
   const clusterName = useSelectedClusterName();
   const { selectedItemUrlName: roleName } = useGroupDetailViewContext();
 
-  const unassignUser: DetailLayoutToolbarAction = {
+  const unassignUser: MenuAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
       key: { clusterName },
@@ -41,7 +45,7 @@ export const AclRoleDetailListItem = ({
     },
   };
 
-  const unassignGroup: DetailLayoutToolbarAction = {
+  const unassignGroup: MenuAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
       key: { clusterName },

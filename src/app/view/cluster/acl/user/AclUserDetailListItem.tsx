@@ -7,17 +7,21 @@ import {
 } from "@patternfly/react-core";
 
 import {
-  DetailLayoutToolbarAction,
   DropdownActionListMenu,
   useGroupDetailViewContext,
   useSelectedClusterName,
 } from "app/view/share";
 
+type DropdownAction = React.ComponentProps<
+  typeof DropdownActionListMenu
+>["dropdownActions"];
+type MenuAction = DropdownAction[keyof DropdownAction];
+
 export const AclUserDetailListItem = ({ roleName }: { roleName: string }) => {
   const clusterName = useSelectedClusterName();
   const { selectedItemUrlName: userName } = useGroupDetailViewContext();
 
-  const unassignUser: DetailLayoutToolbarAction = {
+  const unassignUser: MenuAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
       key: { clusterName },

@@ -1,7 +1,7 @@
 import React from "react";
 import { Level, LevelItem, Stack, StackItem } from "@patternfly/react-core";
 
-import { DetailLayoutToolbar } from "./DetailLayoutToolbar";
+import { DetailToolbar } from "./DetailToolbar";
 
 export const DetailLayout = ({
   caption,
@@ -23,7 +23,7 @@ export const DetailLayout = ({
           <LevelItem>{caption}</LevelItem>
           <LevelItem>
             {toolbar}
-            {!toolbar && <DetailLayoutToolbar toolbarName="default" />}
+            {!toolbar && <DetailToolbar toolbarName="default" />}
           </LevelItem>
         </Level>
       </StackItem>

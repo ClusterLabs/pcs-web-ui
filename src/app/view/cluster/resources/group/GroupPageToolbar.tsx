@@ -1,13 +1,14 @@
 import { Group } from "app/view/cluster/types";
 import {
-  DetailLayoutToolbar,
-  DetailLayoutToolbarAction,
+  DetailToolbar,
+  LauncherItem as ToolbarItem,
   useSelectedClusterName,
 } from "app/view/share";
 
 export const GroupPageToolbar = ({ group }: { group: Group }) => {
   const cluster = useSelectedClusterName();
-  const unclone: DetailLayoutToolbarAction = {
+  const unclone: ToolbarItem = {
+    name: "unclone",
     confirm: {
       title: "Unclone resource?",
       description: (
@@ -16,31 +17,30 @@ export const GroupPageToolbar = ({ group }: { group: Group }) => {
           removed).
         </>
       ),
-    },
-    action: {
-      type: "RESOURCE.UNCLONE",
-      key: { clusterName: cluster },
-      payload: { resourceId: group.id },
+      action: {
+        type: "RESOURCE.UNCLONE",
+        key: { clusterName: cluster },
+        payload: { resourceId: group.id },
+      },
     },
   };
 
-  const clone: DetailLayoutToolbarAction = {
+  const clone: ToolbarItem = {
+    name: "clone",
     confirm: {
       title: "Clone resource?",
       description: "Set up the specified resource or group as a clone.",
-    },
-    action: {
-      type: "RESOURCE.CLONE",
-      key: { clusterName: cluster },
-      payload: { resourceId: group.id },
+      action: {
+        type: "RESOURCE.CLONE",
+        key: { clusterName: cluster },
+        payload: { resourceId: group.id },
+      },
     },
   };
   return (
-    <DetailLayoutToolbar
+    <DetailToolbar
       toolbarName="group"
-      buttonActions={{
-        ...(group.inClone ? { unclone } : { clone }),
-      }}
+      buttonsItems={[group.inClone ? unclone : clone]}
     />
   );
 };

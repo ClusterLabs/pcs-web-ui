@@ -6,11 +6,12 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import {
-  DetailLayoutToolbarAction,
-  DropdownActionListMenu,
-  useSelectedClusterName,
-} from "app/view/share";
+import { DropdownActionListMenu, useSelectedClusterName } from "app/view/share";
+
+type DropdownAction = React.ComponentProps<
+  typeof DropdownActionListMenu
+>["dropdownActions"];
+type MenuAction = DropdownAction[keyof DropdownAction];
 
 export const AclRoleDetailPermissionListItem = ({
   permission,
@@ -19,7 +20,7 @@ export const AclRoleDetailPermissionListItem = ({
 }) => {
   const clusterName = useSelectedClusterName();
 
-  const remove: DetailLayoutToolbarAction = {
+  const remove: MenuAction = {
     action: {
       type: "LIB.CALL.CLUSTER",
       key: { clusterName },

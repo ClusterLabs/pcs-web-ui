@@ -1,9 +1,10 @@
 import React from "react";
 import { Dropdown, DropdownItem, KebabToggle } from "@patternfly/react-core";
 
+import { tools } from "app/store";
+
 import { LauncherGroup } from "./LauncherGroup";
 import { Launcher } from "./Launcher";
-import { labelize } from "./tools";
 import { LauncherItem } from "./types";
 
 export const LauncherDropdown = <ARGS extends unknown[] = []>({
@@ -32,7 +33,7 @@ export const LauncherDropdown = <ARGS extends unknown[] = []>({
                   data-test={`toolbar-${toolbarName}-${item.name}`}
                   isDisabled={item?.disabled ?? false}
                 >
-                  {labelize(item.label || item.name)}
+                  {tools.labelize(item.label || item.name)}
                 </DropdownItem>
               )}
             </Launcher>

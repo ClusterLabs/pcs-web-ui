@@ -1,7 +1,6 @@
 import {
-  ActionTaskLauncher,
-  DetailLayoutToolbar,
-  DetailLayoutToolbarAction,
+  DetailToolbar,
+  LauncherItem as ToolbarItem,
   useSelectedClusterName,
 } from "app/view/share";
 
@@ -14,40 +13,37 @@ export const AclGroupDetailPageToolbar = ({
 }) => {
   const clusterName = useSelectedClusterName();
 
-  const assignRole = (
-    <ActionTaskLauncher
-      taskComponent={assignRoleTask.Task}
-      useTask={assignRoleTask.useTask}
-      label="Assign role"
-      variant="secondary"
-    />
-  );
-
-  const deleteGroup: DetailLayoutToolbarAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `delete group "${groupName}"`,
-        call: {
-          name: "acl-remove-group",
-          payload: { group_id: groupName },
-        },
-      },
+  const assignRole: ToolbarItem = {
+    name: "assign-role",
+    task: {
+      component: assignRoleTask.Task,
+      useTask: assignRoleTask.useTask,
     },
+  };
+
+  const deleteGroup: ToolbarItem = {
+    name: "delete-group",
     confirm: {
       title: "Delete group?",
       description: <>This deletes the group {groupName}</>,
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `delete group "${groupName}"`,
+          call: {
+            name: "acl-remove-group",
+            payload: { group_id: groupName },
+          },
+        },
+      },
     },
   };
 
   return (
-    <DetailLayoutToolbar
+    <DetailToolbar
       toolbarName="group"
-      buttonActions={{
-        "Assign role": assignRole,
-        "Delete group": deleteGroup,
-      }}
+      buttonsItems={[assignRole, deleteGroup]}
     />
   );
 };

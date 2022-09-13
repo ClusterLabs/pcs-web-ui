@@ -1,7 +1,7 @@
 import { Action } from "app/store";
 import {
-  DetailLayoutToolbar,
-  DetailLayoutToolbarAction,
+  DetailToolbar,
+  LauncherItem as ToolbarItem,
   useSelectedClusterName,
 } from "app/view/share";
 import { Node } from "app/view/cluster/types";
@@ -20,8 +20,8 @@ export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
       },
     },
   });
-  const standby: DetailLayoutToolbarAction = {
-    action: standbyUnstandbyAction(true),
+  const standby: ToolbarItem = {
+    name: "standby",
     confirm: {
       title: "Standby node?",
       description: (
@@ -30,11 +30,12 @@ export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
           host resources
         </>
       ),
+      action: standbyUnstandbyAction(true),
     },
   };
 
-  const unstandby: DetailLayoutToolbarAction = {
-    action: standbyUnstandbyAction(false),
+  const unstandby: ToolbarItem = {
+    name: "unstandby",
     confirm: {
       title: "Untandby node?",
       description: (
@@ -43,6 +44,7 @@ export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
           to to host resources
         </>
       ),
+      action: standbyUnstandbyAction(false),
     },
   };
 
@@ -61,75 +63,77 @@ export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
     },
   });
 
-  const maintenance: DetailLayoutToolbarAction = {
-    action: maintenanceUnmanintenanceAction(true),
+  const maintenance: ToolbarItem = {
+    name: "maintenance",
     confirm: {
       title: "Maintenance node?",
       description: "Put the node into maintenance mode",
+      action: maintenanceUnmanintenanceAction(true),
     },
   };
 
-  const unmaintenance: DetailLayoutToolbarAction = {
-    action: maintenanceUnmanintenanceAction(false),
+  const unmaintenance: ToolbarItem = {
+    name: "unmaintenance",
     confirm: {
       title: "Unmaintenance node?",
       description: "Remove the node into maintenance mode",
+      action: maintenanceUnmanintenanceAction(false),
     },
   };
 
-  const start: DetailLayoutToolbarAction = {
-    action: {
-      type: "NODE.START",
-      key: { clusterName },
-      payload: { nodeName: node.name },
-    },
+  const start: ToolbarItem = {
+    name: "start",
     confirm: {
       title: "Start node?",
       description: "Start a cluster on the node",
+      action: {
+        type: "NODE.START",
+        key: { clusterName },
+        payload: { nodeName: node.name },
+      },
     },
   };
 
-  const stop: DetailLayoutToolbarAction = {
-    action: {
-      type: "NODE.STOP",
-      key: { clusterName },
-      payload: { nodeName: node.name },
-    },
+  const stop: ToolbarItem = {
+    name: "stop",
     confirm: {
       title: "Stop node?",
       description: "Stop a cluster on the node",
+      action: {
+        type: "NODE.STOP",
+        key: { clusterName },
+        payload: { nodeName: node.name },
+      },
     },
   };
 
-  const remove: DetailLayoutToolbarAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `remove node "${node.name}"`,
-        call: {
-          name: "cluster-remove-nodes",
-          payload: { node_list: [node.name] },
-        },
-      },
-    },
+  const remove: ToolbarItem = {
+    name: "remove",
     confirm: {
       title: "Remove node?",
       description: "Shutdown specified nodes and remove them from the cluster.",
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `remove node "${node.name}"`,
+          call: {
+            name: "cluster-remove-nodes",
+            payload: { node_list: [node.name] },
+          },
+        },
+      },
     },
   };
   return (
-    <DetailLayoutToolbar
+    <DetailToolbar
       toolbarName="node"
-      buttonActions={{
-        start,
-        stop,
-      }}
-      dropdownActions={{
-        ...(node.inStandby ? { unstandby } : { standby }),
-        ...(node.inMaintenance ? { unmaintenance } : { maintenance }),
+      buttonsItems={[start, stop]}
+      dropdownItems={[
+        ...[node.inStandby ? unstandby : standby],
+        ...[node.inMaintenance ? unmaintenance : maintenance],
         remove,
-      }}
+      ]}
     />
   );
 };

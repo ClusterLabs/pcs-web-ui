@@ -1,8 +1,9 @@
 import { Button, ToolbarGroup, ToolbarItem } from "@patternfly/react-core";
 
+import { tools } from "app/store";
+
 import { LauncherGroup } from "./LauncherGroup";
 import { Launcher } from "./Launcher";
-import { labelize } from "./tools";
 import { LauncherItem } from "./types";
 
 export const LauncherToolbarButtonGroup = <ARGS extends unknown[] = []>({
@@ -26,7 +27,7 @@ export const LauncherToolbarButtonGroup = <ARGS extends unknown[] = []>({
                     data-test={`toolbar-${toolbarName}-${item.name}`}
                     isDisabled={item?.disabled ?? false}
                   >
-                    {labelize(item.label || item.name)}
+                    {tools.labelize(item.label || item.name)}
                   </Button>
                 )}
               </Launcher>

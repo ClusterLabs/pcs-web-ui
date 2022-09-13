@@ -1,8 +1,7 @@
 import { Primitive } from "app/view/cluster/types";
 import {
-  DetailLayoutToolbar,
-  DetailLayoutToolbarAction,
-  TaskLauncher,
+  DetailToolbar,
+  LauncherItem as ToolbarItem,
   useSelectedClusterName,
 } from "app/view/share";
 
@@ -28,7 +27,8 @@ export const PrimitivePageToolbar = ({
   const { canChange: canChangeGroup } = task.groupChange.useTask();
   const clusterName = useSelectedClusterName();
 
-  const unclone: DetailLayoutToolbarAction = {
+  const unclone: ToolbarItem = {
+    name: "unclone",
     confirm: {
       title: "Unclone resource?",
       description: (
@@ -37,54 +37,49 @@ export const PrimitivePageToolbar = ({
           removed).
         </>
       ),
-    },
-    action: {
-      type: "RESOURCE.UNCLONE",
-      key: { clusterName },
-      payload: {
-        resourceId: primitive.id,
+      action: {
+        type: "RESOURCE.UNCLONE",
+        key: { clusterName },
+        payload: {
+          resourceId: primitive.id,
+        },
       },
     },
   };
 
-  const clone: DetailLayoutToolbarAction = {
+  const clone: ToolbarItem = {
+    name: "clone",
     confirm: {
       title: "Clone resource?",
       description: "Set up the specified resource or group as a clone.",
-    },
-    action: {
-      type: "RESOURCE.CLONE",
-      key: { clusterName },
-      payload: {
-        resourceId: primitive.id,
+      action: {
+        type: "RESOURCE.CLONE",
+        key: { clusterName },
+        payload: {
+          resourceId: primitive.id,
+        },
       },
     },
   };
 
-  const deleteItem: DetailLayoutToolbarAction = {
-    action: {
-      type: "RESOURCE.DELETE",
-      key: { clusterName },
-      payload: {
-        resourceIds: [primitive.id],
-        resourceType: "resource",
-      },
-    },
+  const deleteItem: ToolbarItem = {
+    name: "delete",
     confirm: {
       title: "Delete resource?",
       description: <>This deletes the resource</>,
+      action: {
+        type: "RESOURCE.DELETE",
+        key: { clusterName },
+        payload: {
+          resourceIds: [primitive.id],
+          resourceType: "resource",
+        },
+      },
     },
   };
 
-  const refresh: DetailLayoutToolbarAction = {
-    action: {
-      type: "RESOURCE.REFRESH",
-      key: { clusterName },
-      payload: {
-        resourceId: primitive.id,
-        resourceType: "resource",
-      },
-    },
+  const refresh: ToolbarItem = {
+    name: "refresh",
     confirm: {
       title: "Refresh resource?",
       description: (
@@ -93,18 +88,19 @@ export const PrimitivePageToolbar = ({
           (including failures) of the resource and re-detects its current state.
         </>
       ),
+      action: {
+        type: "RESOURCE.REFRESH",
+        key: { clusterName },
+        payload: {
+          resourceId: primitive.id,
+          resourceType: "resource",
+        },
+      },
     },
   };
 
-  const cleanup: DetailLayoutToolbarAction = {
-    action: {
-      type: "RESOURCE.CLEANUP",
-      key: { clusterName },
-      payload: {
-        resourceId: primitive.id,
-        resourceType: "resource",
-      },
-    },
+  const cleanup: ToolbarItem = {
+    name: "cleanup",
     confirm: {
       title: "Cleanup resource?",
       description: (
@@ -113,57 +109,57 @@ export const PrimitivePageToolbar = ({
           resource and re-detects its current state.
         </>
       ),
-    },
-  };
-
-  const unmanage: DetailLayoutToolbarAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `unmanage "${primitive.id}"`,
-        call: {
-          name: "resource-unmanage",
-          payload: { resource_or_tag_ids: [primitive.id] },
+      action: {
+        type: "RESOURCE.CLEANUP",
+        key: { clusterName },
+        payload: {
+          resourceId: primitive.id,
+          resourceType: "resource",
         },
       },
     },
+  };
+
+  const unmanage: ToolbarItem = {
+    name: "unmanage",
     confirm: {
       title: "Unmanage resource?",
       description: "This disallows the cluster to start and stop the resource",
-    },
-  };
-
-  const manage: DetailLayoutToolbarAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `manage "${primitive.id}"`,
-        call: {
-          name: "resource-manage",
-          payload: { resource_or_tag_ids: [primitive.id] },
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `unmanage "${primitive.id}"`,
+          call: {
+            name: "resource-unmanage",
+            payload: { resource_or_tag_ids: [primitive.id] },
+          },
         },
       },
     },
+  };
+
+  const manage: ToolbarItem = {
+    name: "manage",
     confirm: {
       title: "Manage resource?",
       description: "This allows the cluster to start and stop the resource",
-    },
-  };
-
-  const disable: DetailLayoutToolbarAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `disable "${primitive.id}"`,
-        call: {
-          name: "resource-disable",
-          payload: { resource_or_tag_ids: [primitive.id] },
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `manage "${primitive.id}"`,
+          call: {
+            name: "resource-manage",
+            payload: { resource_or_tag_ids: [primitive.id] },
+          },
         },
       },
     },
+  };
+
+  const disable: ToolbarItem = {
+    name: "disable",
     confirm: {
       title: "Disable resource?",
       description: (
@@ -172,54 +168,66 @@ export const PrimitivePageToolbar = ({
           cluster from starting it again.
         </>
       ),
-    },
-  };
-
-  const enable: DetailLayoutToolbarAction = {
-    action: {
-      type: "LIB.CALL.CLUSTER",
-      key: { clusterName },
-      payload: {
-        taskLabel: `enable "${primitive.id}"`,
-        call: {
-          name: "resource-enable",
-          payload: { resource_or_tag_ids: [primitive.id] },
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `disable "${primitive.id}"`,
+          call: {
+            name: "resource-disable",
+            payload: { resource_or_tag_ids: [primitive.id] },
+          },
         },
       },
     },
+  };
+
+  const enable: ToolbarItem = {
+    name: "enable",
     confirm: {
       title: "Enable resource?",
       description: "This allows the cluster to start the resource",
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: { clusterName },
+        payload: {
+          taskLabel: `enable "${primitive.id}"`,
+          call: {
+            name: "resource-enable",
+            payload: { resource_or_tag_ids: [primitive.id] },
+          },
+        },
+      },
     },
   };
 
-  const cloneUnclone: Record<string, DetailLayoutToolbarAction> =
-    primitive.inClone ? { unclone } : { clone };
+  const changeGroup: ToolbarItem<[typeof primitive]> = {
+    name: "change-group",
+    task: {
+      component: task.groupChange.Task,
+      useTask: task.groupChange.useTask,
+      openArgs: [primitive],
+    },
+    disabled: !canChangeGroup(primitive),
+  };
 
   return (
     <>
-      <DetailLayoutToolbar
+      <DetailToolbar
         toolbarName="primitive"
-        buttonActions={{
-          ...(isPrimitiveManaged(primitive) ? { unmanage } : { manage }),
-          ...(isPrimitiveEnabled(primitive) ? { disable } : { enable }),
-          "change group": (
-            <TaskLauncher
-              taskComponent={task.groupChange.Task}
-              useTask={task.groupChange.useTask}
-              openArgs={[primitive]}
-              label="Change group"
-              variant="secondary"
-              isDisabled={!canChangeGroup(primitive)}
-            />
-          ),
-        }}
-        dropdownActions={{
+        buttonsItems={[
+          ...[isPrimitiveManaged(primitive) ? unmanage : manage],
+          ...[isPrimitiveEnabled(primitive) ? disable : enable],
+        ]}
+        dropdownItems={[
+          changeGroup,
           refresh,
           cleanup,
-          ...(primitive.inGroup !== null ? {} : cloneUnclone),
-          delete: deleteItem,
-        }}
+          ...(primitive.inGroup !== null
+            ? []
+            : [primitive.inClone ? unclone : clone]),
+          deleteItem,
+        ]}
       />
     </>
   );
