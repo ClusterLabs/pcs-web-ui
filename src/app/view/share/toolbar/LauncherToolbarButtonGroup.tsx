@@ -14,7 +14,7 @@ export const LauncherToolbarButtonGroup = <ARGS extends unknown[] = []>({
   toolbarName: string;
 }) => {
   return (
-    <LauncherGroup items={items} toolbarName={toolbarName}>
+    <LauncherGroup items={items}>
       {setLaunched => (
         <ToolbarGroup variant="button-group">
           {items.map((item, i) => (

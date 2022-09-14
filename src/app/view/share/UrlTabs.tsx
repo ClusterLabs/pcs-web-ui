@@ -1,14 +1,9 @@
 import { Tab, Tabs } from "@patternfly/react-core";
 
+import { tools } from "app/store";
 import { useLocation } from "app/view/share";
 
 const toUrlDefault = (tabUrlParamName: string) => `/${tabUrlParamName}`;
-const toLabelDefault = (tabUrlParamName: string) =>
-  tabUrlParamName
-    .replace("-", " ")
-    .split(" ")
-    .map(word => word[0].toUpperCase() + word.slice(1))
-    .join(" ");
 
 export function UrlTabs<T extends string>({
   tabList,
@@ -25,7 +20,7 @@ export function UrlTabs<T extends string>({
 }) {
   const { navigate } = useLocation();
   const paramToUrl = toUrl ?? toUrlDefault;
-  const paramToLabel = toLabel ?? toLabelDefault;
+  const paramToLabel = toLabel ?? tools.labelize;
   return (
     <Tabs
       activeKey={currentTab as string}

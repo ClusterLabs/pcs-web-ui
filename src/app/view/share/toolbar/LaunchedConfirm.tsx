@@ -9,11 +9,9 @@ const { labelize } = tools;
 
 export const LaunchedConfirm = ({
   item,
-  toolbarName,
   closeConfirm,
 }: {
   item: Extract<LauncherItem, { confirm: unknown }>;
-  toolbarName: string;
   closeConfirm: () => void;
 }) => {
   const dispatch = useDispatch();
@@ -31,7 +29,7 @@ export const LaunchedConfirm = ({
             dispatch(item.confirm.action);
             closeConfirm();
           }}
-          data-test={`toolbar-confirm-${toolbarName}-${item.name}`}
+          data-test={"confirm"}
         >
           {labelize(item.label || item.name)}
         </Button>,
@@ -39,11 +37,12 @@ export const LaunchedConfirm = ({
           key="cancel"
           variant="link"
           onClick={closeConfirm}
-          data-test={`toolbar-cancel-${toolbarName}-${item.name}`}
+          data-test={"cancel"}
         >
           Cancel
         </Button>,
       ]}
+      data-test={`confirm ${item.name}`}
     >
       {item.confirm.description}
     </Modal>

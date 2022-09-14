@@ -17,7 +17,7 @@ export const LauncherDropdown = <ARGS extends unknown[] = []>({
   const [kebabOpen, setKebabOpen] = React.useState(false);
 
   return (
-    <LauncherGroup items={items} toolbarName={dropdownName}>
+    <LauncherGroup items={items}>
       {setLaunched => (
         <Dropdown
           toggle={<KebabToggle onToggle={() => setKebabOpen(!kebabOpen)} />}
@@ -30,7 +30,7 @@ export const LauncherDropdown = <ARGS extends unknown[] = []>({
                 <DropdownItem
                   component="button"
                   onClick={launch}
-                  data-test={`dropdown-${dropdownName}-${item.name}`}
+                  data-test={`${dropdownName}-${item.name}`}
                   isDisabled={item?.disabled ?? false}
                 >
                   {tools.labelize(item.label || item.name)}

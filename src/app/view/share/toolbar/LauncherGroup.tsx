@@ -6,11 +6,9 @@ import { LaunchedTask } from "./LaunchedTask";
 
 export const LauncherGroup = <ARGS extends unknown[]>({
   items = [],
-  toolbarName,
   children,
 }: {
   items: LauncherItem<ARGS>[];
-  toolbarName: string;
   children: (
     _setLaunched: (_item: LauncherItem<ARGS>) => void,
   ) => React.ReactElement;
@@ -32,11 +30,7 @@ export const LauncherGroup = <ARGS extends unknown[]>({
       {children(setLaunched)}
       {launched
         && ("confirm" in launched ? (
-          <LaunchedConfirm
-            item={launched}
-            toolbarName={toolbarName}
-            closeConfirm={stopLaunch}
-          />
+          <LaunchedConfirm item={launched} closeConfirm={stopLaunch} />
         ) : (
           <LaunchedTask task={launched.task} />
         ))}
