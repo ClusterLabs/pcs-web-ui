@@ -9,7 +9,7 @@ import {
 } from "./common";
 
 const { open, fillForm, run, waitForSuccess, waitForError, close } =
-  workflow.task.nvsetListModify({ launchKey: "create-node-attribute" });
+  workflow.task.nvsetListModify({ launchKey: "task nvpairs-create" });
 
 describe("Create node attribute task", () => {
   const name = "attribute-name";

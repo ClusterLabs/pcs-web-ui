@@ -1,4 +1,5 @@
 import { intercept, route, shortcuts } from "test/tools";
+import { dt } from "test/tools/selectors";
 import * as workflow from "test/workflow";
 
 import { TASK, url } from "./common";
@@ -11,7 +12,8 @@ const ADDR = "192.168.0.10";
 const PORT = "1234";
 
 const enterNodeName = async (nodeName: string) => {
-  await page.goto(url.TASK);
+  await page.goto(url.NODES);
+  await page.click(dt("task nodes-add-node"));
   await page.type(TASK.NODE_NAME, nodeName);
   await page.click(TASK.NEXT);
 };

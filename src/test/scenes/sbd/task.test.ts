@@ -53,13 +53,13 @@ const goToSbd = async () => {
 
 const launchTaskDisable = async () => {
   await goToSbd();
-  await page.click(dt("task-launch disable-sbd"));
+  await page.click(dt("task sbd-disable-SBD"));
   await page.waitForSelector(dt("task-sbd-disable"));
 };
 
 const launchTaskConfigure = async () => {
   await goToSbd();
-  await page.click(dt("task-launch configure-sbd"));
+  await page.click(dt("task sbd-configure-SBD"));
   await page.waitForSelector(VIEW);
 };
 

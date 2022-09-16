@@ -1,35 +1,27 @@
-import {
-  ActionList,
-  Toolbar,
-  ToolbarGroup,
-  ToolbarItem,
-} from "@patternfly/react-core";
-
-import { ActionTaskLauncher } from "app/view/share";
+import { LaunchersToolbar } from "app/view/share";
 
 import * as task from "./task";
 
 export const DashboardToolbar = () => {
   return (
-    <Toolbar data-test="dashboard-toolbar">
-      <ToolbarGroup>
-        <ToolbarItem>
-          <ActionList>
-            <ActionTaskLauncher
-              taskComponent={task.importExistingCluster.ImportExistingCluster}
-              useTask={task.importExistingCluster.useTask}
-              label="Add existing cluster"
-            />
-
-            <ActionTaskLauncher
-              taskComponent={task.clusterSetup.ClusterSetup}
-              useTask={task.clusterSetup.useTask}
-              label="Setup cluster"
-              variant="secondary"
-            />
-          </ActionList>
-        </ToolbarItem>
-      </ToolbarGroup>
-    </Toolbar>
+    <LaunchersToolbar
+      toolbarName="dashboard"
+      buttonsItems={[
+        {
+          name: "add-existing-cluster",
+          task: {
+            component: task.importExistingCluster.ImportExistingCluster,
+            useTask: task.importExistingCluster.useTask,
+          },
+        },
+        {
+          name: "setup-cluster",
+          task: {
+            component: task.clusterSetup.ClusterSetup,
+            useTask: task.clusterSetup.useTask,
+          },
+        },
+      ]}
+    />
   );
 };

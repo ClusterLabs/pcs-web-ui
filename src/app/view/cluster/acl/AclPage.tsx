@@ -1,19 +1,11 @@
-import {
-  ActionList,
-  ActionListGroup,
-  Form,
-  Title,
-} from "@patternfly/react-core";
+import { Title } from "@patternfly/react-core";
 import { Stack, StackItem } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {
-  ActionTaskLauncher,
-  ClusterSectionToolbar,
-  FormSwitch,
+  ClusterToolbar,
   GroupDetailView,
   useClusterSelector,
-  useDispatch,
   useSelectedClusterName,
 } from "app/view/share";
 
@@ -28,67 +20,53 @@ import { AclDetailPage } from "./AclDetailPage";
 export const AclPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const clusterName = useSelectedClusterName();
-  const dispatch = useDispatch();
-  let aclsEnabled =
+  const aclsEnabled =
     cluster.clusterProperties["enable-acl"] === "true" ? true : false;
 
   return (
     <>
-      <ClusterSectionToolbar>
-        <ActionList>
-          <Stack hasGutter>
-            <StackItem>
-              <ActionListGroup>
-                <ActionTaskLauncher
-                  taskComponent={roleTask.Task}
-                  useTask={roleTask.useTask}
-                  label="Create Role"
-                />
-                <ActionTaskLauncher
-                  taskComponent={userTask.Task}
-                  useTask={userTask.useTask}
-                  label="Create User"
-                />
-                <ActionTaskLauncher
-                  taskComponent={groupTask.Task}
-                  useTask={groupTask.useTask}
-                  label="Create Group"
-                />
-              </ActionListGroup>
-            </StackItem>
-
-            <StackItem>
-              <ActionListGroup>
-                <Form isHorizontal className="acl">
-                  <FormSwitch
-                    id="enable-acls"
-                    label="Enable ACLs"
-                    switchLabel="Enabled"
-                    switchLabelOff="Disabled"
-                    isChecked={aclsEnabled}
-                    onChange={() => {
-                      dispatch({
-                        type: "CLUSTER.PROPERTIES.UPDATE",
-                        key: { clusterName },
-                        payload: {
-                          propertyMap: {
-                            "enable-acl": aclsEnabled ? "true" : "false",
-                          },
-                        },
-                      });
-                      aclsEnabled = !aclsEnabled;
-                    }}
-                    popover={{
-                      header: "Enable CIB ACL",
-                      body: "",
-                    }}
-                  />
-                </Form>
-              </ActionListGroup>
-            </StackItem>
-          </Stack>
-        </ActionList>
-      </ClusterSectionToolbar>
+      <ClusterToolbar
+        toolbarName="resources"
+        buttonsItems={[
+          {
+            name: "create-role",
+            task: {
+              component: roleTask.Task,
+              useTask: roleTask.useTask,
+            },
+          },
+          {
+            name: "create-user",
+            task: {
+              component: userTask.Task,
+              useTask: userTask.useTask,
+            },
+          },
+          {
+            name: "create-group",
+            task: {
+              component: groupTask.Task,
+              useTask: groupTask.useTask,
+            },
+          },
+          {
+            name: aclsEnabled ? "disable-acl" : "enable-acl",
+            confirm: {
+              title: aclsEnabled ? "Disable acl" : "Enable acl",
+              description: "Enable access control lists.",
+              action: {
+                type: "CLUSTER.PROPERTIES.UPDATE",
+                key: { clusterName },
+                payload: {
+                  propertyMap: {
+                    "disable-acl": aclsEnabled ? "true" : "false",
+                  },
+                },
+              },
+            },
+          },
+        ]}
+      />
 
       <GroupDetailView
         groupCard={

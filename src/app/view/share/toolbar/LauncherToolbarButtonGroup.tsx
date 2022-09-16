@@ -22,9 +22,9 @@ export const LauncherToolbarButtonGroup = <ARGS extends unknown[] = []>({
               <Launcher item={item} setLaunched={setLaunched}>
                 {launch => (
                   <Button
-                    variant="secondary"
+                    variant={item?.button?.variant ?? "secondary"}
                     onClick={launch}
-                    data-test={`toolbar-${toolbarName}-${item.name}`}
+                    data-test={`task ${toolbarName}-${item.name}`}
                     isDisabled={item?.disabled ?? false}
                   >
                     {tools.labelize(item.label || item.name)}

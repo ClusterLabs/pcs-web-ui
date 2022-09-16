@@ -6,7 +6,7 @@ const commonTask = prepareCommonTask<
   "Name and type" | "Instance attributes" | "Settings" | "Review"
 >({
   taskKey: "task-fence-device-create",
-  openKey: "task-launch create-fence-device",
+  openKey: "task fence-devices-create-fence-device",
 });
 
 const { selectors: commonSelectors, inView } = commonTask;

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Button } from "@patternfly/react-core";
 
 import { Action } from "app/store";
 
@@ -30,6 +31,9 @@ export type LauncherItem<ARGS extends unknown[] = []> = {
   name: string;
   label?: string;
   disabled?: boolean;
+  button?: {
+    variant: React.ComponentProps<typeof Button>["variant"];
+  };
 } & (ItemConfirm | ItemTask<ARGS>);
 
 // export type TaskOpenParams<USE_TASK> = USE_TASK extends () => {

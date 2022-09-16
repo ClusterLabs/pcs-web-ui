@@ -7,7 +7,7 @@ const clusterName = "ok";
 
 const launchAction = async () => {
   await page.goto(location.node({ clusterName, nodeName }));
-  await page.click(dt("toolbar-node-start"));
+  await page.click(dt("task node-start"));
 };
 
 const confirmDialog = getConfirmDialog("start");

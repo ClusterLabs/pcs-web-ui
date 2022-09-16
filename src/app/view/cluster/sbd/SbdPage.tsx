@@ -1,16 +1,7 @@
-import {
-  ActionList,
-  Grid,
-  GridItem,
-  PageSection,
-} from "@patternfly/react-core";
+import { Grid, GridItem, PageSection } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import {
-  ActionTaskLauncher,
-  ClusterSectionToolbar,
-  useClusterSelector,
-} from "app/view/share";
+import { ClusterToolbar, useClusterSelector } from "app/view/share";
 
 import * as task from "./task";
 import { SbdServiceStatus } from "./SbdServiceStatus";
@@ -61,22 +52,26 @@ export const SbdPage = () => {
 
   return (
     <>
-      <ClusterSectionToolbar>
-        <ActionList>
-          <ActionTaskLauncher
-            taskComponent={task.configure.SbdConfigureTask}
-            openArgs={[configureOpenPayload]}
-            useTask={task.configure.useTask}
-            label="Configure SBD"
-          />
-          <ActionTaskLauncher
-            taskComponent={task.disable.SbdDisableTask}
-            useTask={task.disable.useTask}
-            label="Disable SBD"
-            variant="secondary"
-          />
-        </ActionList>
-      </ClusterSectionToolbar>
+      <ClusterToolbar
+        toolbarName="sbd"
+        buttonsItems={[
+          {
+            name: "configure-SBD",
+            task: {
+              component: task.configure.SbdConfigureTask,
+              useTask: task.configure.useTask,
+              openArgs: [configureOpenPayload],
+            },
+          },
+          {
+            name: "disable-SBD",
+            task: {
+              component: task.disable.SbdDisableTask,
+              useTask: task.disable.useTask,
+            },
+          },
+        ]}
+      />
 
       <PageSection>
         <Grid hasGutter>

@@ -1,9 +1,6 @@
-import { ActionList } from "@patternfly/react-core";
-
 import { selectors } from "app/store";
 import {
-  ActionTaskLauncher,
-  ClusterSectionToolbar,
+  ClusterToolbar,
   GroupDetailView,
   useClusterSelector,
 } from "app/view/share";
@@ -16,15 +13,18 @@ export const NodesPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   return (
     <>
-      <ClusterSectionToolbar>
-        <ActionList>
-          <ActionTaskLauncher
-            taskComponent={task.add.NodeAdd}
-            useTask={task.add.useTask}
-            label="Add node"
-          />
-        </ActionList>
-      </ClusterSectionToolbar>
+      <ClusterToolbar
+        toolbarName="nodes"
+        buttonsItems={[
+          {
+            name: "add-node",
+            task: {
+              component: task.add.NodeAdd,
+              useTask: task.add.useTask,
+            },
+          },
+        ]}
+      />
       <GroupDetailView
         groupCard={<NodeList nodeList={cluster.nodeList} />}
         detailCard={<NodeDetailPage />}
