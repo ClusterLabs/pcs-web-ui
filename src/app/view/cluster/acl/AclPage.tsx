@@ -9,9 +9,7 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-import * as roleTask from "./role/task/createRole";
-import * as userTask from "./user/task/createUser";
-import * as groupTask from "./group/task/createGroup";
+import * as task from "./task";
 import { AclRoleList } from "./role/AclRoleList";
 import { AclUserList } from "./user/AclUserList";
 import { AclGroupList } from "./group/AclGroupList";
@@ -20,8 +18,7 @@ import { AclDetailPage } from "./AclDetailPage";
 export const AclPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const clusterName = useSelectedClusterName();
-  const aclsEnabled =
-    cluster.clusterProperties["enable-acl"] === "true" ? true : false;
+  const aclsEnabled = cluster.clusterProperties["enable-acl"] === "true";
 
   return (
     <>
@@ -31,22 +28,24 @@ export const AclPage = () => {
           {
             name: "create-role",
             task: {
-              component: roleTask.Task,
-              useTask: roleTask.useTask,
+              component: task.createRole.Task,
+              useTask: task.createRole.useTask,
             },
           },
           {
             name: "create-user",
             task: {
-              component: userTask.Task,
-              useTask: userTask.useTask,
+              component: task.createUser.Task,
+              useTask: task.createUser.useTask,
             },
           },
+        ]}
+        dropdownItems={[
           {
             name: "create-group",
             task: {
-              component: groupTask.Task,
-              useTask: groupTask.useTask,
+              component: task.createGroup.Task,
+              useTask: task.createGroup.useTask,
             },
           },
           {
