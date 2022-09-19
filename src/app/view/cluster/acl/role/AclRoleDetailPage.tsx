@@ -1,15 +1,9 @@
-import {
-  DataList,
-  Divider,
-  StackItem,
-  Text,
-  TextContent,
-  TextVariants,
-} from "@patternfly/react-core";
+import { DataList, Divider } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {
   DetailLayout,
+  DetailViewSection,
   EmptyStateNoItem,
   useClusterSelector,
   useGroupDetailViewContext,
@@ -51,18 +45,11 @@ export const AclRoleDetailPage = () => {
       toolbar={<AclRoleDetailPageToolbar roleName={roleId} />}
     >
       <Divider />
-      <StackItem>
-        <TextContent>
-          <Text component="h1">Description</Text>
-          <Text component={TextVariants.p}>{role.description}</Text>
-        </TextContent>
-      </StackItem>
+      <DetailViewSection caption="Description">
+        <p>{role.description}</p>
+      </DetailViewSection>
 
-      <StackItem>
-        <TextContent>
-          <Text component="h1">Permissions</Text>
-        </TextContent>
-
+      <DetailViewSection caption="Permissions">
         {role.permissions.length > 0 ? (
           <DataList aria-label="Permission list">
             {role.permissions.map((permission: string, i: number) => (
@@ -78,13 +65,9 @@ export const AclRoleDetailPage = () => {
             title={`No permission assigned to role "${roleId}".`}
           />
         )}
-      </StackItem>
+      </DetailViewSection>
 
-      <StackItem>
-        <TextContent>
-          <Text component="h1">Users assigned</Text>
-        </TextContent>
-
+      <DetailViewSection caption="Users assigned">
         {userIdList.length > 0 ? (
           <DataList aria-label="User list">
             {userIdList.map(userId => (
@@ -101,13 +84,9 @@ export const AclRoleDetailPage = () => {
             title={`No user assigned to role "${roleId}".`}
           />
         )}
-      </StackItem>
+      </DetailViewSection>
 
-      <StackItem>
-        <TextContent>
-          <Text component="h1">Groups assigned</Text>
-        </TextContent>
-
+      <DetailViewSection caption="Groups assigned">
         {groupIdList.length > 0 ? (
           <DataList aria-label="Group list">
             {groupIdList.map(groupId => (
@@ -124,7 +103,7 @@ export const AclRoleDetailPage = () => {
             title={`No group assigned to role "${roleId}".`}
           />
         )}
-      </StackItem>
+      </DetailViewSection>
     </DetailLayout>
   );
 };

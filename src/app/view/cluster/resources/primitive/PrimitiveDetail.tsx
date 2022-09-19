@@ -1,9 +1,8 @@
-import { StackItem, Text, TextContent } from "@patternfly/react-core";
-
 import { selectors } from "app/store";
 import { Primitive } from "app/view/cluster/types";
 import {
   CrmStatusTable,
+  DetailViewSection,
   IssueList,
   Link,
   LoadedPcmkAgent,
@@ -19,11 +18,7 @@ export const PrimitiveDetail = ({ primitive }: { primitive: Primitive }) => {
   );
   return (
     <>
-      <StackItem>
-        <TextContent>
-          <Text component="h1"> Description </Text>
-        </TextContent>
-
+      <DetailViewSection caption="Description">
         <LoadedPcmkAgent
           clusterName={clusterName}
           agentName={primitive.agentName}
@@ -36,20 +31,15 @@ export const PrimitiveDetail = ({ primitive }: { primitive: Primitive }) => {
             />
           )}
         </LoadedPcmkAgent>
-      </StackItem>
-      <StackItem>
-        {primitive.issueList.length > 0 && (
-          <TextContent>
-            <Text component="h1"> Issues </Text>
-          </TextContent>
-        )}
-        <IssueList issueList={primitive.issueList} hideEmpty />
-      </StackItem>
-      <StackItem>
-        <TextContent>
-          <Text component="h1"> Status </Text>
-        </TextContent>
+      </DetailViewSection>
 
+      {primitive.issueList.length > 0 && (
+        <DetailViewSection caption="Issues">
+          <IssueList issueList={primitive.issueList} hideEmpty />
+        </DetailViewSection>
+      )}
+
+      <DetailViewSection caption="Status">
         <CrmStatusTable
           crmStatusList={crmStatusList}
           emptyMessage={`No status info form resource "${primitive.id}" found.`}
@@ -67,7 +57,7 @@ export const PrimitiveDetail = ({ primitive }: { primitive: Primitive }) => {
               ),
           }}
         />
-      </StackItem>
+      </DetailViewSection>
     </>
   );
 };

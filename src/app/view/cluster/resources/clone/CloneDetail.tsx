@@ -1,9 +1,10 @@
-import { Alert, StackItem, Text, TextContent } from "@patternfly/react-core";
+import { Alert } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import { Clone } from "app/view/cluster/types";
 import {
   CrmStatusTable,
+  DetailViewSection,
   IssueList,
   Link,
   location,
@@ -29,7 +30,7 @@ export const CloneDetail = ({
   );
   return (
     <>
-      <StackItem>
+      <DetailViewSection>
         <IssueList issueList={issueList} hideEmpty>
           {member.itemType === "group"
             && member.resources.some(r => r.itemType === "fence-device") && (
@@ -43,12 +44,9 @@ export const CloneDetail = ({
               </Alert>
             )}
         </IssueList>
-      </StackItem>
-      <StackItem>
-        <TextContent>
-          <Text component="h1"> Member status </Text>
-        </TextContent>
+      </DetailViewSection>
 
+      <DetailViewSection caption="Memeber status">
         <CrmStatusTable
           crmStatusList={crmStatusList}
           emptyMessage={`No status info for clone "${id}" found.`}
@@ -78,7 +76,7 @@ export const CloneDetail = ({
             ),
           }}
         />
-      </StackItem>
+      </DetailViewSection>
     </>
   );
 };

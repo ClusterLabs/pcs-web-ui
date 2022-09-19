@@ -1,14 +1,9 @@
-import {
-  DataList,
-  Divider,
-  StackItem,
-  TextContent,
-  Title,
-} from "@patternfly/react-core";
+import { DataList, Divider } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {
   DetailLayout,
+  DetailViewSection,
   EmptyStateNoItem,
   useClusterSelector,
   useGroupDetailViewContext,
@@ -35,11 +30,7 @@ export const AclUserDetailPage = () => {
       toolbar={<AclUserDetailPageToolbar userName={userId} />}
     >
       <Divider />
-      <StackItem>
-        <TextContent>
-          <Title headingLevel={"h1"}>Roles assigned</Title>
-        </TextContent>
-
+      <DetailViewSection caption="Roles assigned">
         {roleIdList.length === 0 ? (
           <EmptyStateNoItem
             canAdd={false}
@@ -52,7 +43,7 @@ export const AclUserDetailPage = () => {
             ))}
           </DataList>
         )}
-      </StackItem>
+      </DetailViewSection>
     </DetailLayout>
   );
 };
