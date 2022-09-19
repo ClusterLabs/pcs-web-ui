@@ -1,28 +1,31 @@
-import { DataList, Divider } from "@patternfly/react-core";
+import { Divider } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {
+  DataListWithMenu,
   DetailLayout,
   DetailViewSection,
-  EmptyStateNoItem,
   useClusterSelector,
   useGroupDetailViewContext,
+  useSelectedClusterName,
 } from "app/view/share";
 
 import { AclDoesNotExist } from "../AclDoesNotExist";
 import { AclDetailCaption } from "../AclDetailCaption";
 
 import { AclGroupDetailPageToolbar } from "./AclGroupDetailPageToolbar";
-import { AclGroupDetailListItem } from "./AclGroupDetailListItem";
 
 export const AclGroupDetailPage = () => {
+  const clusterName = useSelectedClusterName();
   const { selectedItemUrlName: groupId } = useGroupDetailViewContext();
   const [{ acls }] = useClusterSelector(selectors.getCluster);
-  const roleIdList = acls.group?.[groupId];
+  const group = acls.group?.[groupId];
 
-  if (!roleIdList) {
+  if (!group) {
     return <AclDoesNotExist aclType="group" aclName={groupId} />;
   }
+
+  const roleIdList = group;
 
   return (
     <DetailLayout
@@ -31,18 +34,31 @@ export const AclGroupDetailPage = () => {
     >
       <Divider />
       <DetailViewSection caption="Roles assigned">
-        {roleIdList.length === 0 ? (
-          <EmptyStateNoItem
-            canAdd={false}
-            title={`No role assigned to group "${groupId}".`}
-          />
-        ) : (
-          <DataList aria-label="Role list">
-            {roleIdList.map((roleId: string, i: number) => (
-              <AclGroupDetailListItem key={i} roleName={roleId} />
-            ))}
-          </DataList>
-        )}
+        <DataListWithMenu
+          name="role"
+          emptyTitle={`No role assigned to group "${groupId}".`}
+          itemList={roleIdList}
+          menuItems={[
+            roleId => ({
+              name: "unassign-group",
+              confirm: {
+                title: "Unassign role?",
+                description: `This unassigns the role ${roleId}`,
+                action: {
+                  type: "LIB.CALL.CLUSTER",
+                  key: { clusterName },
+                  payload: {
+                    taskLabel: `unassign role "${roleId}"`,
+                    call: {
+                      name: "acl-unassign-role-from-group",
+                      payload: { role_id: roleId, group_id: groupId },
+                    },
+                  },
+                },
+              },
+            }),
+          ]}
+        />
       </DetailViewSection>
     </DetailLayout>
   );

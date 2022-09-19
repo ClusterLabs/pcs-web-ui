@@ -1,20 +1,19 @@
-import { DataList, Divider } from "@patternfly/react-core";
+import { Divider } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {
+  DataListWithMenu,
   DetailLayout,
   DetailViewSection,
-  EmptyStateNoItem,
   useClusterSelector,
   useGroupDetailViewContext,
+  useSelectedClusterName,
 } from "app/view/share";
 
 import { AclDoesNotExist } from "../AclDoesNotExist";
 import { AclDetailCaption } from "../AclDetailCaption";
 
 import { AclRoleDetailPageToolbar } from "./AclRoleDetailPageToolbar";
-import { AclRoleDetailPermissionListItem } from "./AclRoleDetailPermissionListItem";
-import { AclRoleDetailListItem } from "./AclRoleDetailListItem";
 
 type Acls = ReturnType<ReturnType<typeof selectors.getCluster>>["acls"];
 
@@ -28,6 +27,7 @@ const getAssignedSubjectIdList = (
 };
 
 export const AclRoleDetailPage = () => {
+  const clusterName = useSelectedClusterName();
   const [{ acls }] = useClusterSelector(selectors.getCluster);
   const { selectedItemUrlName: roleId } = useGroupDetailViewContext();
   const role = acls.role?.[roleId];
@@ -50,59 +50,87 @@ export const AclRoleDetailPage = () => {
       </DetailViewSection>
 
       <DetailViewSection caption="Permissions">
-        {role.permissions.length > 0 ? (
-          <DataList aria-label="Permission list">
-            {role.permissions.map((permission: string, i: number) => (
-              <AclRoleDetailPermissionListItem
-                key={i}
-                permission={permission}
-              />
-            ))}
-          </DataList>
-        ) : (
-          <EmptyStateNoItem
-            canAdd={false}
-            title={`No permission assigned to role "${roleId}".`}
-          />
-        )}
+        <DataListWithMenu
+          name="permission"
+          emptyTitle={`No permission assigned to role "${roleId}".`}
+          itemList={role.permissions}
+          menuItems={[
+            permission => ({
+              name: "remove",
+              confirm: {
+                title: "Remove permission?",
+                description: `This removes the permission ${permission}`,
+                action: {
+                  type: "LIB.CALL.CLUSTER",
+                  key: { clusterName },
+                  payload: {
+                    taskLabel: `remove permission "${permission}"`,
+                    call: {
+                      name: "acl-remove-permission",
+                      payload: { permission_id: permission },
+                    },
+                  },
+                },
+              },
+            }),
+          ]}
+        />
       </DetailViewSection>
 
       <DetailViewSection caption="Users assigned">
-        {userIdList.length > 0 ? (
-          <DataList aria-label="User list">
-            {userIdList.map(userId => (
-              <AclRoleDetailListItem
-                key={userId}
-                aclName={userId}
-                aclType="user"
-              />
-            ))}
-          </DataList>
-        ) : (
-          <EmptyStateNoItem
-            canAdd={false}
-            title={`No user assigned to role "${roleId}".`}
-          />
-        )}
+        <DataListWithMenu
+          name="user"
+          emptyTitle={`No user assigned to role "${roleId}".`}
+          itemList={userIdList}
+          menuItems={[
+            userId => ({
+              name: "unassign-user",
+              confirm: {
+                title: "Unassign user?",
+                description: <>This unassigns the user {userId}</>,
+                action: {
+                  type: "LIB.CALL.CLUSTER",
+                  key: { clusterName },
+                  payload: {
+                    taskLabel: `unassign user "${userId}"`,
+                    call: {
+                      name: "acl-unassign-role-from-target",
+                      payload: { role_id: roleId, target_id: userId },
+                    },
+                  },
+                },
+              },
+            }),
+          ]}
+        />
       </DetailViewSection>
 
       <DetailViewSection caption="Groups assigned">
-        {groupIdList.length > 0 ? (
-          <DataList aria-label="Group list">
-            {groupIdList.map(groupId => (
-              <AclRoleDetailListItem
-                key={groupId}
-                aclName={groupId}
-                aclType="group"
-              />
-            ))}
-          </DataList>
-        ) : (
-          <EmptyStateNoItem
-            canAdd={false}
-            title={`No group assigned to role "${roleId}".`}
-          />
-        )}
+        <DataListWithMenu
+          name="group"
+          emptyTitle={`No group assigned to role "${roleId}".`}
+          itemList={groupIdList}
+          menuItems={[
+            groupId => ({
+              name: "unassign-group",
+              confirm: {
+                title: "Unassign group?",
+                description: <>This unassigns the group {groupId}</>,
+                action: {
+                  type: "LIB.CALL.CLUSTER",
+                  key: { clusterName },
+                  payload: {
+                    taskLabel: `unassign group "${groupId}"`,
+                    call: {
+                      name: "acl-unassign-role-from-group",
+                      payload: { role_id: roleId, group_id: groupId },
+                    },
+                  },
+                },
+              },
+            }),
+          ]}
+        />
       </DetailViewSection>
     </DetailLayout>
   );

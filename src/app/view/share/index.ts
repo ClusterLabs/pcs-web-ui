@@ -7,6 +7,7 @@ export * from "./attributes";
 export * from "./ButtonWithEnter";
 export * from "./clusterGroupDetail";
 export * from "./CrmStatusTable";
+export * from "./dataList";
 export * from "./DefaultValue";
 export * from "./issueList";
 export * from "./page";
