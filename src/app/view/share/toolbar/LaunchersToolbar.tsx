@@ -1,8 +1,9 @@
 import { Toolbar, ToolbarContent, ToolbarItem } from "@patternfly/react-core";
 
-import { LauncherDropdown } from "app/view/share/toolbar";
-import { LauncherToolbarButtonGroup } from "app/view/share/toolbar";
-import { LauncherItem } from "app/view/share/toolbar/types";
+import { LauncherDropdown } from "./LauncherDropdown";
+import { LauncherToolbarButtonGroup } from "./LauncherToolbarButtonGroup";
+import { LauncherItem } from "./types";
+import { tryFirstButtonPrimary } from "./tools";
 
 export const LaunchersToolbar = <ARGS extends unknown[] = []>({
   toolbarName,
@@ -19,11 +20,7 @@ export const LaunchersToolbar = <ARGS extends unknown[] = []>({
         {buttonsItems.length > 0 && (
           <ToolbarItem>
             <LauncherToolbarButtonGroup
-              items={buttonsItems.map((item, i) =>
-                i > 0 || item?.button?.variant
-                  ? item
-                  : { ...item, button: { variant: "primary" } },
-              )}
+              items={tryFirstButtonPrimary(buttonsItems)}
               toolbarName={toolbarName}
             />
           </ToolbarItem>

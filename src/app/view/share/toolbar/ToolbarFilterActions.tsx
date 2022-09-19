@@ -1,22 +1,24 @@
 import React from "react";
 import {
-  Button,
   Toolbar,
   ToolbarContent,
   ToolbarGroup,
   ToolbarItem,
 } from "@patternfly/react-core";
 
-export const ToolbarFilterAction = ({
+import { LauncherItem } from "./types";
+import { LauncherToolbarButtonGroup } from "./LauncherToolbarButtonGroup";
+import { tryFirstButtonPrimary } from "./tools";
+
+export const ToolbarFilterAction = <ARGS extends unknown[] = []>({
   children,
   clearAllFilters,
-  actions: actionMap = {},
+  buttonsItems,
+  toolbarName,
 }: React.PropsWithChildren<{
   clearAllFilters: () => void;
-  actions?: Record<
-    string,
-    React.ReactNode | { run: () => void; "data-test": string }
-  >;
+  buttonsItems?: LauncherItem<ARGS>[];
+  toolbarName: string;
 }>) => {
   return (
     <Toolbar
@@ -26,24 +28,15 @@ export const ToolbarFilterAction = ({
       <ToolbarContent>
         <ToolbarGroup variant="filter-group">{children}</ToolbarGroup>
         <ToolbarGroup>
-          <ToolbarItem>
-            {Object.entries(actionMap).map(([label, action]) =>
-              action !== null
-              && action !== undefined
-              && typeof action === "object"
-              && "run" in action ? (
-                <Button
-                  key={label}
-                  onClick={action.run}
-                  data-test={action["data-test"]}
-                >
-                  {label}
-                </Button>
-              ) : (
-                action
-              ),
-            )}
-          </ToolbarItem>
+          <ToolbarItem></ToolbarItem>
+          {buttonsItems && (
+            <ToolbarItem>
+              <LauncherToolbarButtonGroup
+                toolbarName={toolbarName}
+                items={tryFirstButtonPrimary(buttonsItems)}
+              />
+            </ToolbarItem>
+          )}
         </ToolbarGroup>
       </ToolbarContent>
     </Toolbar>

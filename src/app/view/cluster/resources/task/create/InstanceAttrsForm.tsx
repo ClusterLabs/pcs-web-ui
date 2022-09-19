@@ -61,6 +61,7 @@ export const InstanceAttrsForm = () => {
                 textSearchId="agent-attributes-name"
                 groupName="More attributes"
                 filterState={filterState}
+                toolbarName="instance-attributes"
               />
               <Form isHorizontal>
                 {requiredParameters

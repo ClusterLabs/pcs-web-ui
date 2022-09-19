@@ -5,7 +5,6 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
-  TaskLauncher,
   useSelectedClusterName,
 } from "app/view/share";
 
@@ -32,24 +31,25 @@ export const FenceDeviceArgumentsView = ({
           <>
             <StackItem>
               <PcmkAgentAttrsToolbar
+                toolbarName="fence-device-args"
                 filterState={filterState}
-                actions={{
-                  "Edit arguments": (
-                    <TaskLauncher
-                      taskComponent={task.editArgs.EditArgsTask}
-                      useTask={task.editArgs.useTask}
-                      openArgs={[
+                buttonsItems={[
+                  {
+                    name: "edit-arguments",
+                    task: {
+                      component: task.editArgs.EditArgsTask,
+                      useTask: task.editArgs.useTask,
+                      openArgs: [
                         {
                           fenceDeviceId: fenceDevice.id,
                           fenceDeviceArguments,
                           agentParameters: agent.parameters,
                         },
-                      ]}
-                      label="Edit arguments"
-                      data-test="task-launch edit-fence-device-args"
-                    />
-                  ),
-                }}
+                      ],
+                    },
+                    button: { variant: "primary" },
+                  },
+                ]}
               />
             </StackItem>
             <StackItem>

@@ -85,7 +85,10 @@ export const ConstraintFilteredList = ({
   return (
     <Stack hasGutter>
       <StackItem>
-        <ToolbarFilterAction clearAllFilters={clearAllFilters}>
+        <ToolbarFilterAction
+          clearAllFilters={clearAllFilters}
+          toolbarName="constraints"
+        >
           <ToolbarItem>
             <ToolbarFilterGroups
               name="Constraint type"

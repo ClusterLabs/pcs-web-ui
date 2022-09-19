@@ -27,6 +27,10 @@ type ItemConfirm = {
   confirm: Confirm;
 };
 
+type ItemRun = {
+  run: () => void;
+};
+
 export type LauncherItem<ARGS extends unknown[] = []> = {
   name: string;
   label?: string;
@@ -34,7 +38,7 @@ export type LauncherItem<ARGS extends unknown[] = []> = {
   button?: {
     variant: React.ComponentProps<typeof Button>["variant"];
   };
-} & (ItemConfirm | ItemTask<ARGS>);
+} & (ItemRun | ItemConfirm | ItemTask<ARGS>);
 
 // export type TaskOpenParams<USE_TASK> = USE_TASK extends () => {
 //   open: (..._args: infer ARGS) => void;

@@ -56,17 +56,18 @@ export const ClusterPropertiesPage = () => {
               <ToolbarFilterTextGroupPair
                 textSearchId="cluster-properties-name"
                 groupName="Importance"
+                toolbarName="cluster-properties"
                 filterState={filterState}
-                actions={{
+                buttonsItems={[
                   ...(!isEditing
-                    ? {
-                        "Edit Properties": {
+                    ? [
+                        {
+                          name: "edit-attributes",
                           run: () => setIsEditing(true),
-                          "data-test": "edit-cluster-properties",
                         },
-                      }
-                    : {}),
-                }}
+                      ]
+                    : []),
+                ]}
               />
             </StackItem>
             <StackItem>
