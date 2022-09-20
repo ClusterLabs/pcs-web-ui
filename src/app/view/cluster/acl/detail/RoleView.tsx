@@ -6,10 +6,10 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclDetailLayout } from "../AclDetailLayout";
 import { AclType, Acls } from "../types";
 
-import { AclRoleDetailPageToolbar } from "./AclRoleDetailPageToolbar";
+import { Layout } from "./Layout";
+import { RoleViewToolbar } from "./RoleViewToolbar";
 
 const getAssignedSubjectIdList = (
   subjectMap: Acls["user"] | Acls["group"],
@@ -20,7 +20,7 @@ const getAssignedSubjectIdList = (
     .map(([id, _roleIdList]) => id);
 };
 
-export const AclRoleDetailPage = ({
+export const RoleView = ({
   roleId,
   role,
 }: {
@@ -31,10 +31,10 @@ export const AclRoleDetailPage = ({
   const [{ acls }] = useClusterSelector(selectors.getCluster);
 
   return (
-    <AclDetailLayout
+    <Layout
       aclType="role"
       aclId={roleId}
-      toolbar={<AclRoleDetailPageToolbar roleName={roleId} />}
+      toolbar={<RoleViewToolbar roleName={roleId} />}
     >
       <DetailViewSection caption="Description">
         <p>{role.description}</p>
@@ -78,7 +78,7 @@ export const AclRoleDetailPage = ({
               name: "unassign-user",
               confirm: {
                 title: "Unassign user?",
-                description: <>This unassigns the user {userId}</>,
+                description: `This unassigns the user ${userId}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
                   key: { clusterName },
@@ -106,7 +106,7 @@ export const AclRoleDetailPage = ({
               name: "unassign-group",
               confirm: {
                 title: "Unassign group?",
-                description: <>This unassigns the group {groupId}</>,
+                description: `This unassigns the group ${groupId}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
                   key: { clusterName },
@@ -123,6 +123,6 @@ export const AclRoleDetailPage = ({
           ]}
         />
       </DetailViewSection>
-    </AclDetailLayout>
+    </Layout>
   );
 };

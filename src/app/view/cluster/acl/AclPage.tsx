@@ -7,7 +7,7 @@ import {
 } from "app/view/share";
 
 import * as task from "./task";
-import { AclDetailPage } from "./AclDetailPage";
+import { AclDetailPage } from "./detail";
 import { AclLists } from "./lists";
 
 export const AclPage = () => {

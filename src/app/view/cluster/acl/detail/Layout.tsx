@@ -3,7 +3,7 @@ import { Divider } from "@patternfly/react-core";
 
 import { DetailLayout } from "app/view/share";
 
-export const AclDetailLayout = ({
+export const Layout = ({
   aclType,
   aclId,
   toolbar,

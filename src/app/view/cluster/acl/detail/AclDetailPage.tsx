@@ -9,10 +9,11 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclGroupDetailPage } from "./group/AclGroupDetailPage";
-import { AclRoleDetailPage } from "./role/AclRoleDetailPage";
-import { AclUserDetailPage } from "./user/AclUserDetailPage";
-import { AclType } from "./types";
+import { AclType } from "../types";
+
+import { RoleView } from "./RoleView";
+import { GroupView } from "./GroupView";
+import { UserView } from "./UserView";
 
 export const AclDetailPage = () => {
   const clusterName = useSelectedClusterName();
@@ -50,24 +51,16 @@ export const AclDetailPage = () => {
   }
 
   if (aclType === "role") {
-    return (
-      <AclRoleDetailPage roleId={aclId} role={aclObject as AclType<"role">} />
-    );
+    return <RoleView roleId={aclId} role={aclObject as AclType<"role">} />;
   }
 
   if (aclType === "user") {
     return (
-      <AclUserDetailPage
-        userId={aclId}
-        roleIdList={aclObject as AclType<"user">}
-      />
+      <UserView userId={aclId} roleIdList={aclObject as AclType<"user">} />
     );
   }
 
   return (
-    <AclGroupDetailPage
-      groupId={aclId}
-      roleIdList={aclObject as AclType<"group">}
-    />
+    <GroupView groupId={aclId} roleIdList={aclObject as AclType<"group">} />
   );
 };

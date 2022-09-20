@@ -1,15 +1,9 @@
 import { useSelectedClusterName } from "app/view/share";
 import { DetailToolbar } from "app/view/share";
 
-import * as addPermissionTask from "./task/addPermission";
-import * as assignUserTask from "./task/assignUser";
-import * as assignGroupTask from "./task/assignGroup";
+import * as task from "./task";
 
-export const AclRoleDetailPageToolbar = ({
-  roleName,
-}: {
-  roleName: string;
-}) => {
+export const RoleViewToolbar = ({ roleName }: { roleName: string }) => {
   const clusterName = useSelectedClusterName();
 
   return (
@@ -19,15 +13,15 @@ export const AclRoleDetailPageToolbar = ({
         {
           name: "assign-user",
           task: {
-            component: assignUserTask.Task,
-            useTask: assignUserTask.useTask,
+            component: task.assignUserToRole.Task,
+            useTask: task.assignUserToRole.useTask,
           },
         },
         {
           name: "add-permission",
           task: {
-            component: addPermissionTask.Task,
-            useTask: addPermissionTask.useTask,
+            component: task.addPermissionToRole.Task,
+            useTask: task.addPermissionToRole.useTask,
           },
         },
       ]}
@@ -35,8 +29,8 @@ export const AclRoleDetailPageToolbar = ({
         {
           name: "assign-group",
           task: {
-            component: assignGroupTask.Task,
-            useTask: assignGroupTask.useTask,
+            component: task.assignGroupToRole.Task,
+            useTask: task.assignGroupToRole.useTask,
           },
         },
         {

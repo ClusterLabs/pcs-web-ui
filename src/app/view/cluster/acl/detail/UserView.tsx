@@ -1,15 +1,16 @@
 import {
   DataListWithMenu,
+  DetailToolbar,
   DetailViewSection,
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclDetailLayout } from "../AclDetailLayout";
 import { AclType } from "../types";
 
-import { AclUserDetailPageToolbar } from "./AclUserDetailPageToolbar";
+import { Layout } from "./Layout";
+import { assignRoleToUser } from "./task";
 
-export const AclUserDetailPage = ({
+export const UserView = ({
   userId,
   roleIdList,
 }: {
@@ -19,10 +20,39 @@ export const AclUserDetailPage = ({
   const clusterName = useSelectedClusterName();
 
   return (
-    <AclDetailLayout
+    <Layout
       aclType="user"
       aclId={userId}
-      toolbar={<AclUserDetailPageToolbar userId={userId} />}
+      toolbar=<DetailToolbar
+      toolbarName="user"
+      buttonsItems={[
+        {
+          name: "assign-role",
+          task: {
+            component: assignRoleToUser.Task,
+            useTask: assignRoleToUser.useTask,
+          },
+        },
+        {
+          name: "delete-user",
+          confirm: {
+            title: "Delete user?",
+            description: `This deletes the user ${userId}`,
+            action: {
+              type: "LIB.CALL.CLUSTER",
+              key: { clusterName },
+              payload: {
+                taskLabel: `delete user "${userId}"`,
+                call: {
+                  name: "acl-remove-target",
+                  payload: { target_id: userId },
+                },
+              },
+            },
+          },
+        },
+      ]}
+    />
     >
       <DetailViewSection caption="Roles assigned">
         <DataListWithMenu
@@ -51,6 +81,6 @@ export const AclUserDetailPage = ({
           ]}
         />
       </DetailViewSection>
-    </AclDetailLayout>
+    </Layout>
   );
 };

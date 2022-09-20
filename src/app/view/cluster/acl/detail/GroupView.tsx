@@ -1,15 +1,16 @@
 import {
   DataListWithMenu,
+  DetailToolbar,
   DetailViewSection,
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclDetailLayout } from "../AclDetailLayout";
 import { AclType } from "../types";
 
-import { AclGroupDetailPageToolbar } from "./AclGroupDetailPageToolbar";
+import { Layout } from "./Layout";
+import { assignRoleToGroup } from "./task";
 
-export const AclGroupDetailPage = ({
+export const GroupView = ({
   groupId,
   roleIdList,
 }: {
@@ -19,10 +20,41 @@ export const AclGroupDetailPage = ({
   const clusterName = useSelectedClusterName();
 
   return (
-    <AclDetailLayout
+    <Layout
       aclType="group"
       aclId={groupId}
-      toolbar={<AclGroupDetailPageToolbar groupName={groupId} />}
+      toolbar={
+        <DetailToolbar
+          toolbarName="group"
+          buttonsItems={[
+            {
+              name: "assign-role",
+              task: {
+                component: assignRoleToGroup.Task,
+                useTask: assignRoleToGroup.useTask,
+              },
+            },
+            {
+              name: "delete-group",
+              confirm: {
+                title: "Delete group?",
+                description: `This deletes the group ${groupId}`,
+                action: {
+                  type: "LIB.CALL.CLUSTER",
+                  key: { clusterName },
+                  payload: {
+                    taskLabel: `delete group "${groupId}"`,
+                    call: {
+                      name: "acl-remove-group",
+                      payload: { group_id: groupId },
+                    },
+                  },
+                },
+              },
+            },
+          ]}
+        />
+      }
     >
       <DetailViewSection caption="Roles assigned">
         <DataListWithMenu
@@ -51,6 +83,6 @@ export const AclGroupDetailPage = ({
           ]}
         />
       </DetailViewSection>
-    </AclDetailLayout>
+    </Layout>
   );
 };
