@@ -1,21 +1,15 @@
-import { Divider } from "@patternfly/react-core";
-
 import { selectors } from "app/store";
 import {
   DataListWithMenu,
-  DetailLayout,
   DetailViewSection,
   useClusterSelector,
-  useGroupDetailViewContext,
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclDoesNotExist } from "../AclDoesNotExist";
-import { AclDetailCaption } from "../AclDetailCaption";
+import { AclDetailLayout } from "../AclDetailLayout";
+import { AclType, Acls } from "../types";
 
 import { AclRoleDetailPageToolbar } from "./AclRoleDetailPageToolbar";
-
-type Acls = ReturnType<ReturnType<typeof selectors.getCluster>>["acls"];
 
 const getAssignedSubjectIdList = (
   subjectMap: Acls["user"] | Acls["group"],
@@ -26,25 +20,22 @@ const getAssignedSubjectIdList = (
     .map(([id, _roleIdList]) => id);
 };
 
-export const AclRoleDetailPage = () => {
+export const AclRoleDetailPage = ({
+  roleId,
+  role,
+}: {
+  roleId: string;
+  role: AclType<"role">;
+}) => {
   const clusterName = useSelectedClusterName();
   const [{ acls }] = useClusterSelector(selectors.getCluster);
-  const { selectedItemUrlName: roleId } = useGroupDetailViewContext();
-  const role = acls.role?.[roleId];
-
-  if (!role) {
-    return <AclDoesNotExist aclType="role" aclName={roleId} />;
-  }
-
-  const userIdList = getAssignedSubjectIdList(acls.user, roleId);
-  const groupIdList = getAssignedSubjectIdList(acls.group, roleId);
 
   return (
-    <DetailLayout
-      caption={<AclDetailCaption aclName={roleId} type={"Role"} />}
+    <AclDetailLayout
+      aclType="role"
+      aclId={roleId}
       toolbar={<AclRoleDetailPageToolbar roleName={roleId} />}
     >
-      <Divider />
       <DetailViewSection caption="Description">
         <p>{role.description}</p>
       </DetailViewSection>
@@ -81,7 +72,7 @@ export const AclRoleDetailPage = () => {
         <DataListWithMenu
           name="user"
           emptyTitle={`No user assigned to role "${roleId}".`}
-          itemList={userIdList}
+          itemList={getAssignedSubjectIdList(acls.user, roleId)}
           menuItems={[
             userId => ({
               name: "unassign-user",
@@ -109,7 +100,7 @@ export const AclRoleDetailPage = () => {
         <DataListWithMenu
           name="group"
           emptyTitle={`No group assigned to role "${roleId}".`}
-          itemList={groupIdList}
+          itemList={getAssignedSubjectIdList(acls.group, roleId)}
           menuItems={[
             groupId => ({
               name: "unassign-group",
@@ -132,6 +123,6 @@ export const AclRoleDetailPage = () => {
           ]}
         />
       </DetailViewSection>
-    </DetailLayout>
+    </AclDetailLayout>
   );
 };

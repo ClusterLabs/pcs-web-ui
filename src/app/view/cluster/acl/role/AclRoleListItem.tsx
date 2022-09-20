@@ -13,7 +13,7 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-type Acls = ReturnType<ReturnType<typeof selectors.getCluster>>["acls"];
+import { AclType, Acls } from "../types";
 
 const getAssignedSubjectCount = (
   subjectMap: Acls["user"] | Acls["group"],
@@ -29,7 +29,7 @@ export const AclRoleListItem = ({
   permissions,
 }: {
   roleId: string;
-  permissions: string[];
+  permissions: AclType<"role">["permissions"];
 }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const { selectedItemUrlName } = useGroupDetailViewContext();

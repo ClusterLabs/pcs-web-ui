@@ -1,38 +1,29 @@
-import { Divider } from "@patternfly/react-core";
-
-import { selectors } from "app/store";
 import {
   DataListWithMenu,
-  DetailLayout,
   DetailViewSection,
-  useClusterSelector,
-  useGroupDetailViewContext,
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclDoesNotExist } from "../AclDoesNotExist";
-import { AclDetailCaption } from "../AclDetailCaption";
+import { AclDetailLayout } from "../AclDetailLayout";
+import { AclType } from "../types";
 
 import { AclUserDetailPageToolbar } from "./AclUserDetailPageToolbar";
 
-export const AclUserDetailPage = () => {
+export const AclUserDetailPage = ({
+  userId,
+  roleIdList,
+}: {
+  userId: string;
+  roleIdList: AclType<"user">;
+}) => {
   const clusterName = useSelectedClusterName();
-  const { selectedItemUrlName: userId } = useGroupDetailViewContext();
-  const [{ acls }] = useClusterSelector(selectors.getCluster);
-  const user = acls.user?.[userId];
-
-  if (!user) {
-    return <AclDoesNotExist aclType="user" aclName={userId} />;
-  }
-
-  const roleIdList = user;
 
   return (
-    <DetailLayout
-      caption={<AclDetailCaption aclName={userId} type={"User"} />}
-      toolbar={<AclUserDetailPageToolbar userName={userId} />}
+    <AclDetailLayout
+      aclType="user"
+      aclId={userId}
+      toolbar={<AclUserDetailPageToolbar userId={userId} />}
     >
-      <Divider />
       <DetailViewSection caption="Roles assigned">
         <DataListWithMenu
           name="role"
@@ -60,6 +51,6 @@ export const AclUserDetailPage = () => {
           ]}
         />
       </DetailViewSection>
-    </DetailLayout>
+    </AclDetailLayout>
   );
 };

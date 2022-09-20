@@ -1,46 +1,40 @@
-import {
-  DetailToolbar,
-  LauncherItem as ToolbarItem,
-  useSelectedClusterName,
-} from "app/view/share";
+import { DetailToolbar, useSelectedClusterName } from "app/view/share";
 
 import * as assignRoleTask from "./task/assignRole";
 
-export const AclUserDetailPageToolbar = ({
-  userName,
-}: {
-  userName: string;
-}) => {
+export const AclUserDetailPageToolbar = ({ userId }: { userId: string }) => {
   const clusterName = useSelectedClusterName();
 
-  const assignRole: ToolbarItem = {
-    name: "assign-role",
-    task: {
-      component: assignRoleTask.Task,
-      useTask: assignRoleTask.useTask,
-    },
-  };
-
-  const deleteUser: ToolbarItem = {
-    name: "delete-user",
-    confirm: {
-      title: "Delete user?",
-      description: <>This deletes the user {userName}</>,
-      action: {
-        type: "LIB.CALL.CLUSTER",
-        key: { clusterName },
-        payload: {
-          taskLabel: `delete user "${userName}"`,
-          call: {
-            name: "acl-remove-target",
-            payload: { target_id: userName },
+  return (
+    <DetailToolbar
+      toolbarName="user"
+      buttonsItems={[
+        {
+          name: "assign-role",
+          task: {
+            component: assignRoleTask.Task,
+            useTask: assignRoleTask.useTask,
           },
         },
-      },
-    },
-  };
-
-  return (
-    <DetailToolbar toolbarName="user" buttonsItems={[assignRole, deleteUser]} />
+        {
+          name: "delete-user",
+          confirm: {
+            title: "Delete user?",
+            description: `This deletes the user ${userId}`,
+            action: {
+              type: "LIB.CALL.CLUSTER",
+              key: { clusterName },
+              payload: {
+                taskLabel: `delete user "${userId}"`,
+                call: {
+                  name: "acl-remove-target",
+                  payload: { target_id: userId },
+                },
+              },
+            },
+          },
+        },
+      ]}
+    />
   );
 };

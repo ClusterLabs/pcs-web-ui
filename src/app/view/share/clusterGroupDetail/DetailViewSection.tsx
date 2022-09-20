@@ -9,7 +9,7 @@ export const DetailViewSection = ({
   caption?: React.ReactNode;
 }) => {
   return (
-    <StackItem>
+    <StackItem className="pf-u-mb-xl">
       {caption && (
         <TextContent>
           <Title headingLevel={"h2"}>{caption}</Title>
