@@ -7,8 +7,8 @@ export const FenceDeviceListCellName = ({
   fenceDevice: FenceDevice;
 }) => {
   return (
-    <Link to={`/${fenceDevice.id}`}>
-      <strong>{fenceDevice.id}</strong>
+    <Link strong to={`/${fenceDevice.id}`}>
+      {fenceDevice.id}
     </Link>
   );
 };

@@ -6,8 +6,8 @@ export const ResourceTreeCellName = ({
   resourceId: string;
 }) => {
   return (
-    <Link to={`/${resourceId}`}>
-      <strong data-test="resource-tree-item-name">{resourceId}</strong>
+    <Link strong data-test="resource-tree-item-name" to={`/${resourceId}`}>
+      {resourceId}
     </Link>
   );
 };

@@ -23,8 +23,12 @@ export const NodeListItem = ({ node }: { node: Node }) => {
           dataListCells={
             <>
               <DataListCell>
-                <Link to={`/${node.name}`}>
-                  <strong data-test="node-list-item-name">{node.name}</strong>
+                <Link
+                  strong
+                  to={`/${node.name}`}
+                  data-test="node-list-item-name"
+                >
+                  {node.name}
                 </Link>
               </DataListCell>
               <DataListCell>

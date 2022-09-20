@@ -26,8 +26,8 @@ export const AclGroupListItem = ({
           dataListCells={
             <>
               <DataListCell>
-                <Link to={`/group/${name}`}>
-                  <strong>{name}</strong>
+                <Link strong to={`/group/${name}`}>
+                  {name}
                 </Link>
               </DataListCell>
               <DataListCell>Roles assigned ({roleIdList.length})</DataListCell>

@@ -27,8 +27,8 @@ export const AclUserListItem = ({
           dataListCells={
             <>
               <DataListCell>
-                <Link to={`/user/${name}`}>
-                  <strong>{name}</strong>
+                <Link strong to={`/user/${name}`}>
+                  {name}
                 </Link>
               </DataListCell>
               <DataListCell>Roles assigned ({roleIdList.length})</DataListCell>

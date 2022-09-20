@@ -41,8 +41,8 @@ export const AclRoleListItem = ({
           dataListCells={
             <>
               <DataListCell>
-                <Link to={`/role/${roleId}`}>
-                  <strong>{roleId}</strong>
+                <Link strong to={`/role/${roleId}`}>
+                  {roleId}
                 </Link>
               </DataListCell>
               <DataListCell>Permissions ({permissions.length})</DataListCell>
