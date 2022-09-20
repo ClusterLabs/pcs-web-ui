@@ -1,6 +1,3 @@
-import { Title } from "@patternfly/react-core";
-import { Stack, StackItem } from "@patternfly/react-core";
-
 import { selectors } from "app/store";
 import {
   ClusterToolbar,
@@ -10,10 +7,8 @@ import {
 } from "app/view/share";
 
 import * as task from "./task";
-import { AclRoleList } from "./role/AclRoleList";
-import { AclUserList } from "./user/AclUserList";
-import { AclGroupList } from "./group/AclGroupList";
 import { AclDetailPage } from "./AclDetailPage";
+import { AclLists } from "./lists";
 
 export const AclPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -68,22 +63,7 @@ export const AclPage = () => {
       />
 
       <GroupDetailView
-        groupCard={
-          <Stack hasGutter>
-            <StackItem>
-              <Title headingLevel="h1">Roles</Title>
-              <AclRoleList aclRoleList={cluster.acls.role} />
-            </StackItem>
-            <StackItem>
-              <Title headingLevel="h1">Users</Title>
-              <AclUserList aclUserList={cluster.acls.user} />
-            </StackItem>
-            <StackItem>
-              <Title headingLevel="h1">Groups</Title>
-              <AclGroupList aclGroupList={cluster.acls.group} />
-            </StackItem>
-          </Stack>
-        }
+        groupCard={<AclLists />}
         detailCard={<AclDetailPage />}
         detailTypeList={["role", "user", "group"]}
       />
