@@ -306,7 +306,11 @@ export type Commands = [
     name: "acl-create-role";
     payload: {
       role_id: string;
-      permission_info_list: string[];
+      permission_info_list: [
+        "read" | "write" | "deny",
+        "xpath" | "id",
+        string,
+      ][];
       description: string;
     };
   },
@@ -351,7 +355,11 @@ export type Commands = [
     name: "acl-add-permission";
     payload: {
       role_id: string;
-      permission_info_list: string[];
+      permission_info_list: [
+        "read" | "write" | "deny",
+        "xpath" | "id",
+        string,
+      ][];
     };
   },
   {

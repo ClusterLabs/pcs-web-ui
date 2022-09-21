@@ -1,4 +1,4 @@
-import { libCallCluster } from "app/backend";
+import { api } from "app/backend";
 import { LibReport } from "app/store/types";
 
 export type LibActions = {
@@ -7,7 +7,7 @@ export type LibActions = {
     key: { clusterName: string };
     payload: {
       taskLabel: string;
-      call: Parameters<typeof libCallCluster>[0]["command"];
+      call: api.Lib.ClusterCall;
     };
   };
 
@@ -24,7 +24,7 @@ export type LibActions = {
     key: { clusterName: string; task: string };
     payload: {
       taskLabel: string;
-      call: Parameters<typeof libCallCluster>[0]["command"];
+      call: api.Lib.ClusterCall;
     };
   };
 

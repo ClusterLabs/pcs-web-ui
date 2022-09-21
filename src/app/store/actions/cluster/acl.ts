@@ -1,21 +1,16 @@
-import { libCallCluster } from "app/backend";
+import { api } from "app/backend";
 
-type AclCreateRolePayload = Extract<
-  Parameters<typeof libCallCluster>[0]["command"],
-  { name: "acl-create-role" }
->["payload"];
-
-type AclRoleCreate = {
-  roleId: AclCreateRolePayload["role_id"];
-  permissionInfoList: AclCreateRolePayload["permission_info_list"];
-  description: AclCreateRolePayload["description"];
-};
+type AclCreateRolePayload = api.Lib.ClusterCallPayload<"acl-create-role">;
 
 export type ClusterAclActions = {
   "CLUSTER.ACL.ROLE.CREATE.UPDATE": {
     type: "CLUSTER.ACL.ROLE.CREATE.UPDATE";
     key: { clusterName: string };
-    payload: Partial<AclRoleCreate>;
+    payload: {
+      roleId?: AclCreateRolePayload["role_id"];
+      permissionInfoList?: AclCreateRolePayload["permission_info_list"];
+      description?: AclCreateRolePayload["description"];
+    };
   };
 
   "CLUSTER.ACL.ROLE.CREATE.CLOSE": {

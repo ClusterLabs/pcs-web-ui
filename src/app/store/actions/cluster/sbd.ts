@@ -1,9 +1,6 @@
-import { libCallCluster } from "app/backend";
+import { api } from "app/backend";
 
-type SbdEnablePayload = Extract<
-  Parameters<typeof libCallCluster>[0]["command"],
-  { name: "sbd-enable-sbd" }
->["payload"];
+type SbdEnablePayload = api.Lib.ClusterCallPayload<"sbd-enable-sbd">;
 
 type SbdOption<OPTION extends keyof SbdEnablePayload["sbd_options"]> = Exclude<
   SbdEnablePayload["sbd_options"][OPTION],
