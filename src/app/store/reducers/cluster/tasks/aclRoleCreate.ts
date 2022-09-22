@@ -10,7 +10,7 @@ const initialState: Required<
   showValidationErrors: boolean;
 } = {
   roleId: "",
-  permissionInfoList: [],
+  permissionInfoList: [["read", "id", ""]],
   description: "",
   libCall: initalLibCall,
   showValidationErrors: false,

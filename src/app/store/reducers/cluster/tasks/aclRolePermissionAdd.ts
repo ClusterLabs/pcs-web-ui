@@ -9,7 +9,7 @@ const initialState: ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"] & {
   showValidationErrors: boolean;
 } = {
   roleId: "",
-  permissionInfoList: [],
+  permissionInfoList: [["read", "id", ""]],
   libCall: initalLibCall,
   showValidationErrors: false,
 };
