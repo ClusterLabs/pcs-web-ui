@@ -1,3 +1,4 @@
+import { app } from "dev/app";
 import * as t from "dev/responses/clusterStatus/tools";
 import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
@@ -34,3 +35,10 @@ shortcut.dashboard([
   }),
   response.clusterStatus.ok,
 ]);
+
+app.libCluster("acl-create-role", (req, res) => {
+  shortcut.libStd({
+    code: req.body.role_id,
+    res,
+  });
+});

@@ -1,45 +1,70 @@
-import { TaskFinishLib, TaskSimple, TaskSimpleFooter } from "app/view/share";
+import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { Configure } from "./Configure";
+import { RoleName } from "./RoleName";
+import { AddPermissions } from "./AddPermissions";
+import { Review } from "./Review";
 
 export const Task = () => {
   const {
     close,
     aclRoleCreate,
-    recoverFromError,
     isNameValid,
     state: {
+      roleId,
       libCall: { response, reports },
     },
   } = useTask();
 
   return (
-    <TaskSimple
+    <Wizard
+      task="aclRoleCreate"
       title="Create role"
-      task={"aclRoleCreate"}
-      close={close}
-      footer={
-        response !== "no-response" ? null : (
-          <TaskSimpleFooter
-            nextIf={isNameValid}
-            run={aclRoleCreate}
-            runLabel="Create Role"
-          />
-        )
-      }
-    >
-      {response === "no-response" && <Configure />}
-      {response !== "no-response" && (
-        <TaskFinishLib
-          response={response}
-          taskName="Create role"
-          backToUpdateSettings={recoverFromError}
-          proceedForce={aclRoleCreate}
-          tryAgain={aclRoleCreate}
-          reports={reports}
-        />
-      )}
-    </TaskSimple>
+      data-test="task-create-role"
+      description="Create acl role"
+      onClose={close}
+      steps={[
+        {
+          name: "Enter role name",
+          component: <RoleName />,
+          footer: (
+            <WizardFooter
+              next={{ actionIf: isNameValid }}
+              back={{ disabled: true }}
+            />
+          ),
+        },
+        {
+          name: "Specify permissions",
+          component: <AddPermissions />,
+          canJumpTo: isNameValid,
+        },
+        {
+          name: "Review",
+          component: <Review />,
+          footer: (
+            <WizardFooter
+              next={{
+                preAction: () => aclRoleCreate(),
+                label: "Create role",
+              }}
+            />
+          ),
+          canJumpTo: isNameValid,
+        },
+        {
+          name: "Result",
+          component: (
+            <TaskFinishLibWizard
+              response={response}
+              taskName={`create acl role ${roleId}`}
+              backToUpdateSettingsStepName="Enter role name"
+              reports={reports}
+            />
+          ),
+          isFinishedStep: true,
+        },
+      ]}
+    />
   );
 };

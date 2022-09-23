@@ -16,7 +16,7 @@ export const TaskFinishLibWizard = ({
 }: {
   response: TaskFinishLibProps["response"];
   taskName: TaskFinishLibProps["taskName"];
-  proceedForce: TaskFinishLibProps["proceedForce"];
+  proceedForce?: TaskFinishLibProps["proceedForce"];
   reports: TaskFinishLibProps["reports"];
   backToUpdateSettingsStepName: string;
   tryAgainStepName?: string;
