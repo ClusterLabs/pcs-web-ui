@@ -3,15 +3,12 @@ import { Button } from "@patternfly/react-core";
 
 import { Action } from "app/store";
 
-type Task<ARGS extends unknown[]> = {
+type Task = {
   component: React.FunctionComponent;
-} & (
-  | { useTask: () => { open: () => void; isOpened: boolean } }
-  | {
-      useTask: () => { open: (..._args: ARGS) => void; isOpened: boolean };
-      openArgs?: ARGS;
-    }
-);
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  useTask: () => { open: (..._args: any[]) => void; isOpened: boolean };
+  openArgs?: unknown[];
+};
 
 type Confirm = {
   title: string;
@@ -19,8 +16,8 @@ type Confirm = {
   action: Action;
 };
 
-type ItemTask<ARGS extends unknown[]> = {
-  task: Task<ARGS>;
+type ItemTask = {
+  task: Task;
 };
 
 type ItemConfirm = {
@@ -31,14 +28,14 @@ type ItemRun = {
   run: () => void;
 };
 
-export type LauncherItem<ARGS extends unknown[] = []> = {
+export type LauncherItem = {
   name: string;
   label?: string;
   disabled?: boolean;
   button?: {
     variant: React.ComponentProps<typeof Button>["variant"];
   };
-} & (ItemRun | ItemConfirm | ItemTask<ARGS>);
+} & (ItemRun | ItemConfirm | ItemTask);
 
 // export type TaskOpenParams<USE_TASK> = USE_TASK extends () => {
 //   open: (..._args: infer ARGS) => void;

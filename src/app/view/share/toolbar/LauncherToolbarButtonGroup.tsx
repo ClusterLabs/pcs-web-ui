@@ -6,11 +6,11 @@ import { LauncherGroup } from "./LauncherGroup";
 import { Launcher } from "./Launcher";
 import { LauncherItem } from "./types";
 
-export const LauncherToolbarButtonGroup = <ARGS extends unknown[] = []>({
+export const LauncherToolbarButtonGroup = ({
   items = [],
   toolbarName,
 }: {
-  items: LauncherItem<ARGS>[];
+  items: LauncherItem[];
   toolbarName: string;
 }) => {
   return (

@@ -1,6 +1,7 @@
 import { Primitive } from "app/view/cluster/types";
 import {
   DetailToolbar,
+  TaskOpenArgs,
   LauncherItem as ToolbarItem,
   useSelectedClusterName,
 } from "app/view/share";
@@ -201,6 +202,9 @@ export const PrimitivePageToolbar = ({
     },
   };
 
+  const groupChangeOpenArgs: TaskOpenArgs<typeof task.groupChange.useTask> = [
+    primitive,
+  ];
   return (
     <>
       <DetailToolbar
@@ -215,7 +219,7 @@ export const PrimitivePageToolbar = ({
             task: {
               component: task.groupChange.Task,
               useTask: task.groupChange.useTask,
-              openArgs: [primitive],
+              openArgs: groupChangeOpenArgs,
             },
             disabled: !canChangeGroup(primitive),
           },

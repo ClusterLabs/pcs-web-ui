@@ -5,10 +5,13 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
+  TaskOpenArgs,
   useSelectedClusterName,
 } from "app/view/share";
 
 import * as task from "./task";
+
+type EditArgsOpenArgs = TaskOpenArgs<typeof task.editArgs.useTask>;
 
 export const FenceDeviceArgumentsView = ({
   fenceDevice,
@@ -21,12 +24,20 @@ export const FenceDeviceArgumentsView = ({
     (nameValueMap, [name, { value }]) => ({ ...nameValueMap, [name]: value }),
     {},
   );
+
   return (
     <LoadedPcmkAgent
       clusterName={clusterName}
       agentName={fenceDevice.agentName}
     >
       {agent => {
+        const editArgsOpenArgs: EditArgsOpenArgs = [
+          {
+            fenceDeviceId: fenceDevice.id,
+            fenceDeviceArguments,
+            agentParameters: agent.parameters,
+          },
+        ];
         return (
           <>
             <StackItem>
@@ -39,13 +50,7 @@ export const FenceDeviceArgumentsView = ({
                     task: {
                       component: task.editArgs.EditArgsTask,
                       useTask: task.editArgs.useTask,
-                      openArgs: [
-                        {
-                          fenceDeviceId: fenceDevice.id,
-                          fenceDeviceArguments,
-                          agentParameters: agent.parameters,
-                        },
-                      ],
+                      openArgs: editArgsOpenArgs,
                     },
                     button: { variant: "primary" },
                   },

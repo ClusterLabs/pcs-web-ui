@@ -11,7 +11,7 @@ import { LauncherDropdown, LauncherItem } from "app/view/share/toolbar";
 import { EmptyStateNoItem } from "app/view/share/emptyState";
 import { tools } from "app/store";
 
-export const DataListWithMenu = <ARGS extends unknown[] = []>({
+export const DataListWithMenu = ({
   name,
   itemList,
   emptyTitle,
@@ -20,7 +20,7 @@ export const DataListWithMenu = <ARGS extends unknown[] = []>({
   name: string;
   emptyTitle: string;
   itemList: string[];
-  menuItems: ((_itemName: string) => LauncherItem<ARGS>)[];
+  menuItems: ((_itemName: string) => LauncherItem)[];
 }) => {
   if (itemList.length === 0) {
     return <EmptyStateNoItem title={emptyTitle} />;

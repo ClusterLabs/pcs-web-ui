@@ -4,22 +4,18 @@ import { LaunchedConfirm } from "./LaunchedConfirm";
 import { LauncherItem } from "./types";
 import { LaunchedTask } from "./LaunchedTask";
 
-type LauncherItemWithModal<ARGS extends unknown[]> = Exclude<
-  LauncherItem<ARGS>,
-  { run: unknown }
-> | null;
+type LauncherItemWithModal = Exclude<LauncherItem, { run: unknown }> | null;
 
-export const LauncherGroup = <ARGS extends unknown[]>({
+export const LauncherGroup = ({
   items = [],
   children,
 }: {
-  items: LauncherItem<ARGS>[];
+  items: LauncherItem[];
   children: (
-    _setLaunched: (_item: LauncherItemWithModal<ARGS>) => void,
+    _setLaunched: (_item: LauncherItemWithModal) => void,
   ) => React.ReactElement;
 }) => {
-  const [launched, setLaunched] =
-    React.useState<LauncherItemWithModal<ARGS>>(null);
+  const [launched, setLaunched] = React.useState<LauncherItemWithModal>(null);
 
   const stopLaunch = React.useCallback(() => setLaunched(null), [setLaunched]);
 

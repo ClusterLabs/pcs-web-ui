@@ -5,14 +5,14 @@ import { LauncherToolbarButtonGroup } from "./LauncherToolbarButtonGroup";
 import { LauncherItem } from "./types";
 import { tryFirstButtonPrimary } from "./tools";
 
-export const LaunchersToolbar = <ARGS extends unknown[] = []>({
+export const LaunchersToolbar = ({
   toolbarName,
   buttonsItems = [],
   dropdownItems = [],
 }: {
   toolbarName: string;
-  buttonsItems?: LauncherItem<ARGS>[];
-  dropdownItems?: LauncherItem<ARGS>[];
+  buttonsItems?: LauncherItem[];
+  dropdownItems?: LauncherItem[];
 }) => {
   return (
     <Toolbar style={{ padding: "0" }}>

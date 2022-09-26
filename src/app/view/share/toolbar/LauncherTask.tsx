@@ -2,26 +2,20 @@ import React from "react";
 
 import { LauncherItem } from "./types";
 
-type ItemTask<ARGS extends unknown[]> = Extract<
-  LauncherItem<ARGS>,
-  { task: unknown }
->;
+type ItemTask = Extract<LauncherItem, { task: unknown }>;
 
-export const LauncherTask = <ARGS extends unknown[]>({
+export const LauncherTask = ({
   item,
   setLaunched,
   children,
 }: {
-  item: ItemTask<ARGS>;
+  item: ItemTask;
   children: (_launch: () => void) => React.ReactElement;
-  setLaunched: (_item: ItemTask<ARGS>) => void;
+  setLaunched: (_item: ItemTask) => void;
 }) => {
   const { task } = item;
   const { open } = task.useTask();
-  const openTask =
-    "openArgs" in task
-      ? () => open(...(task.openArgs as ARGS))
-      : (open as () => void);
+  const openTask = () => open(...(task.openArgs || []));
   return children(() => {
     openTask();
     setLaunched(item);

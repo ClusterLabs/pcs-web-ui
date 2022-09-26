@@ -10,14 +10,14 @@ import { LauncherItem } from "./types";
 import { LauncherToolbarButtonGroup } from "./LauncherToolbarButtonGroup";
 import { tryFirstButtonPrimary } from "./tools";
 
-export const ToolbarFilterAction = <ARGS extends unknown[] = []>({
+export const ToolbarFilterAction = ({
   children,
   clearAllFilters,
   buttonsItems,
   toolbarName,
 }: React.PropsWithChildren<{
   clearAllFilters: () => void;
-  buttonsItems?: LauncherItem<ARGS>[];
+  buttonsItems?: LauncherItem[];
   toolbarName: string;
 }>) => {
   return (

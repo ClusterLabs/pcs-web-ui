@@ -1,7 +1,11 @@
 import { Grid, GridItem, PageSection } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { ClusterToolbar, useClusterSelector } from "app/view/share";
+import {
+  ClusterToolbar,
+  TaskOpenArgs,
+  useClusterSelector,
+} from "app/view/share";
 
 import * as task from "./task";
 import { SbdServiceStatus } from "./SbdServiceStatus";
@@ -50,6 +54,10 @@ export const SbdPage = () => {
     ),
   };
 
+  const configureOpenArgs: TaskOpenArgs<typeof task.configure.useTask> = [
+    configureOpenPayload,
+  ];
+
   return (
     <>
       <ClusterToolbar
@@ -60,7 +68,7 @@ export const SbdPage = () => {
             task: {
               component: task.configure.SbdConfigureTask,
               useTask: task.configure.useTask,
-              openArgs: [configureOpenPayload],
+              openArgs: configureOpenArgs,
             },
           },
           {

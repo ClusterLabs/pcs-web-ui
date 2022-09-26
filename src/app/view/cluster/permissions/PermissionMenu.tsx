@@ -1,4 +1,4 @@
-import { LauncherDropdown } from "app/view/share";
+import { LauncherDropdown, TaskOpenArgs } from "app/view/share";
 
 import * as task from "./task";
 import { Permission } from "./types";
@@ -7,6 +7,9 @@ import { usePermissions } from "./usePermissions";
 export const PermissionMenu = ({ permission }: { permission: Permission }) => {
   const { clusterName, permissionList } = usePermissions();
 
+  const addOpenArgs: TaskOpenArgs<typeof task.add.useTask> = [
+    { type: "update", permission },
+  ];
   return (
     <LauncherDropdown
       dropdownName="permission"
@@ -16,7 +19,7 @@ export const PermissionMenu = ({ permission }: { permission: Permission }) => {
           task: {
             component: task.add.PermissionTask,
             useTask: task.add.useTask,
-            openArgs: [{ type: "update", permission }],
+            openArgs: addOpenArgs,
           },
         },
         {

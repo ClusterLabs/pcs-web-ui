@@ -7,11 +7,11 @@ import { LauncherGroup } from "./LauncherGroup";
 import { Launcher } from "./Launcher";
 import { LauncherItem } from "./types";
 
-export const LauncherDropdown = <ARGS extends unknown[] = []>({
+export const LauncherDropdown = ({
   items = [],
   dropdownName,
 }: {
-  items: LauncherItem<ARGS>[];
+  items: LauncherItem[];
   dropdownName: string;
 }) => {
   const [kebabOpen, setKebabOpen] = React.useState(false);

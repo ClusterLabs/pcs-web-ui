@@ -2,11 +2,11 @@ import React from "react";
 
 import { LauncherItem } from "./types";
 
-export const LaunchedTask = <ARGS extends unknown[]>({
+export const LaunchedTask = ({
   task,
   stopLaunch,
 }: {
-  task: Extract<LauncherItem<ARGS>, { task: unknown }>["task"];
+  task: Extract<LauncherItem, { task: unknown }>["task"];
   stopLaunch: () => void;
 }) => {
   const { useTask, component: TaskComponent } = task;

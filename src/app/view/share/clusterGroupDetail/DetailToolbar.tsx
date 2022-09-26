@@ -6,14 +6,14 @@ import { LauncherItem } from "app/view/share/toolbar/types";
 
 import { DetailLayoutClose } from "./DetailLayoutClose";
 
-export const DetailToolbar = <ARGS extends unknown[] = []>({
+export const DetailToolbar = ({
   toolbarName,
   buttonsItems = [],
   dropdownItems = [],
 }: {
   toolbarName: string;
-  buttonsItems?: LauncherItem<ARGS>[];
-  dropdownItems?: LauncherItem<ARGS>[];
+  buttonsItems?: LauncherItem[];
+  dropdownItems?: LauncherItem[];
 }) => {
   return (
     <Toolbar id="group-detail-layout-detail-toolbar">

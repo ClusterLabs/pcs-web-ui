@@ -4,14 +4,14 @@ import { LauncherItem } from "app/view/share/toolbar/types";
 
 import { LaunchersToolbar } from "./LaunchersToolbar";
 
-export const ClusterToolbar = <ARGS extends unknown[] = []>({
+export const ClusterToolbar = ({
   toolbarName,
   buttonsItems = [],
   dropdownItems = [],
 }: {
   toolbarName: string;
-  buttonsItems?: LauncherItem<ARGS>[];
-  dropdownItems?: LauncherItem<ARGS>[];
+  buttonsItems?: LauncherItem[];
+  dropdownItems?: LauncherItem[];
 }) => {
   return (
     <PageSection

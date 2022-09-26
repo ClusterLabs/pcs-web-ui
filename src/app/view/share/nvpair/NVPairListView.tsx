@@ -5,6 +5,7 @@ import { ActionPayload } from "app/store";
 import { NVPair } from "app/view/cluster/types";
 import { EmptyStateNoItem } from "app/view/share/emptyState";
 import { LaunchersToolbar } from "app/view/share/toolbar";
+import { TaskOpenArgs } from "app/view/share/task";
 
 import { NVPairList } from "./NVPairList";
 import * as task from "./task";
@@ -20,6 +21,13 @@ export const NVPairListView = ({
   createLabel: string;
   beforeList?: React.ReactNode;
 }) => {
+  const editOpenArgs: TaskOpenArgs<typeof task.edit.useTask> = [
+    {
+      type: "create",
+      owner,
+      nameList: nvPairList.map(nvPair => nvPair.name),
+    },
+  ];
   return (
     <>
       <StackItem>
@@ -32,13 +40,7 @@ export const NVPairListView = ({
               task: {
                 component: task.edit.Task,
                 useTask: task.edit.useTask,
-                openArgs: [
-                  {
-                    type: "create",
-                    owner,
-                    nameList: nvPairList.map(nvPair => nvPair.name),
-                  },
-                ],
+                openArgs: editOpenArgs,
               },
             },
           ]}

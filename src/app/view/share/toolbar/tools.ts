@@ -1,8 +1,8 @@
 import { LauncherItem } from "./types";
 
-export const tryFirstButtonPrimary = <ARGS extends unknown[] = []>(
-  buttonsItems: LauncherItem<ARGS>[],
-): LauncherItem<ARGS>[] =>
+export const tryFirstButtonPrimary = (
+  buttonsItems: LauncherItem[],
+): LauncherItem[] =>
   buttonsItems.map((item, i) =>
     i > 0 || item?.button?.variant
       ? item

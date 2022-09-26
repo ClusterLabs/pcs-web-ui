@@ -3,12 +3,9 @@ import React from "react";
 import { LauncherItem } from "./types";
 import { LauncherTask } from "./LauncherTask";
 
-type LauncherItemWithModal<ARGS extends unknown[]> = Exclude<
-  LauncherItem<ARGS>,
-  { run: unknown }
-> | null;
+type LauncherItemWithModal = Exclude<LauncherItem, { run: unknown }> | null;
 
-export const Launcher = <ARGS extends unknown[]>({
+export const Launcher = ({
   item,
   // Haven't managed to put setLaunched to react context because
   // LauncherItem<ARGS> is generic, so context should be also generic (and
@@ -16,8 +13,8 @@ export const Launcher = <ARGS extends unknown[]>({
   setLaunched,
   children,
 }: {
-  item: LauncherItem<ARGS>;
-  setLaunched: (_item: LauncherItemWithModal<ARGS>) => void;
+  item: LauncherItem;
+  setLaunched: (_item: LauncherItemWithModal) => void;
   children: (_launch: () => void) => React.ReactElement;
 }) => {
   if ("task" in item) {

@@ -63,7 +63,7 @@ function useState<K extends string, I>(
   };
 }
 
-export const ToolbarFilterTextGroupPair = <ARGS extends unknown[] = []>({
+export const ToolbarFilterTextGroupPair = ({
   textSearchId,
   groupName,
   filterState,
@@ -73,7 +73,7 @@ export const ToolbarFilterTextGroupPair = <ARGS extends unknown[] = []>({
   textSearchId: string;
   groupName: string;
   filterState: ReturnType<typeof useState>["filterState"];
-  buttonsItems?: LauncherItem<ARGS>[];
+  buttonsItems?: LauncherItem[];
   toolbarName: string;
 }) => {
   const clearAllFilters = () => {

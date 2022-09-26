@@ -31,12 +31,12 @@ const useState = (
     p => p.name,
   );
 
-export const PcmkAgentAttrsToolbar = <ARGS extends unknown[] = []>({
+export const PcmkAgentAttrsToolbar = ({
   buttonsItems,
   filterState,
   toolbarName,
 }: {
-  buttonsItems?: LauncherItem<ARGS>[];
+  buttonsItems?: LauncherItem[];
   filterState: ReturnType<typeof useState>["filterState"];
   toolbarName: string;
 }) => {
