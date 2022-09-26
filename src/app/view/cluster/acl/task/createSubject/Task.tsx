@@ -1,48 +1,66 @@
-import { TaskFinishLib, TaskSimple, TaskSimpleFooter } from "app/view/share";
-import { tools } from "app/store";
+import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
 import { Configure } from "./Configure";
+import { Review } from "./Review";
 
 export const Task = () => {
   const {
     name: taskName,
     close,
     createSubject,
-    recoverFromError,
     isNameValid,
     state: {
       libCall: { response, reports },
       subjectType,
+      subjectId,
     },
   } = useTask();
 
   return (
-    <TaskSimple
-      title={`Create ${subjectType}`}
+    <Wizard
       task={taskName}
-      close={close}
-      footer={
-        response !== "no-response" ? null : (
-          <TaskSimpleFooter
-            nextIf={isNameValid}
-            run={createSubject}
-            runLabel={`Create ${tools.labelize(subjectType)}`}
-          />
-        )
-      }
-    >
-      {response === "no-response" && <Configure />}
-      {response !== "no-response" && (
-        <TaskFinishLib
-          response={response}
-          taskName={`Create ${subjectType}`}
-          backToUpdateSettings={recoverFromError}
-          proceedForce={createSubject}
-          tryAgain={createSubject}
-          reports={reports}
-        />
-      )}
-    </TaskSimple>
+      title={`Create ${subjectType}`}
+      data-test={`task-create-${subjectType}`}
+      description="Create acl role"
+      onClose={close}
+      steps={[
+        {
+          name: `Enter ${subjectType} name`,
+          component: <Configure />,
+          footer: (
+            <WizardFooter
+              next={{ actionIf: isNameValid }}
+              back={{ disabled: true }}
+            />
+          ),
+        },
+        {
+          name: "Review",
+          component: <Review />,
+          footer: (
+            <WizardFooter
+              next={{
+                preAction: () => createSubject(),
+                label: "Create role",
+              }}
+            />
+          ),
+          canJumpTo: isNameValid,
+        },
+        {
+          name: "Result",
+          component: (
+            <TaskFinishLibWizard
+              response={response}
+              taskName={`create ${subjectType} ${subjectId}`}
+              backToUpdateSettingsStepName="Enter role name"
+              reports={reports}
+            />
+          ),
+          isFinishedStep: true,
+        },
+      ]}
+    />
   );
 };
