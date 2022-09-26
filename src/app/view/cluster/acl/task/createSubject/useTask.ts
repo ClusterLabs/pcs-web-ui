@@ -1,12 +1,19 @@
-import { ActionPayload } from "app/store";
-import { useClusterTask } from "app/view/share";
+import { ActionPayload, selectors } from "app/store";
+import { useClusterSelector, useClusterTask } from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("aclSubjectCreate");
   const { dispatch, state, clusterName } = task;
 
+  const [{ acls }] = useClusterSelector(selectors.getCluster);
+
   return {
     ...task,
+
+    isNameValid: state.subjectId.length > 0,
+    availableRoles: Object.keys(acls.role || {}).filter(
+      r => !state.roleList.includes(r),
+    ),
 
     //actions
     open: (payload: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE"]) => {
@@ -17,7 +24,7 @@ export const useTask = () => {
       });
       task.open();
     },
-    isNameValid: state.subjectId.length > 0,
+
     updateState: (
       payload: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE.UPDATE"],
     ) =>

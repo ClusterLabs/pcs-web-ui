@@ -8,6 +8,7 @@ export const Review = () => {
     state: {
       subjectId,
       subjectType,
+      roleList,
       libCall: { reports },
     },
   } = useTask();
@@ -17,6 +18,14 @@ export const Review = () => {
         <ReviewValue
           label={`${tools.labelize(subjectType)} name`}
           value={subjectId}
+        />
+        <ReviewValue
+          label="Assigned roles"
+          value={
+            roleList.length > 0
+              ? roleList.map((role, i) => <div key={i}>{role}</div>)
+              : "No role assigned"
+          }
         />
       </ReviewList>
     </TaskLibStep>

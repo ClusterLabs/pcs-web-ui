@@ -42,3 +42,17 @@ app.libCluster("acl-create-role", (req, res) => {
     res,
   });
 });
+
+app.libCluster("acl-create-target", (req, res) => {
+  shortcut.libStd({
+    code: req.body.target_id,
+    res,
+  });
+});
+
+app.libCluster("acl-create-group", (req, res) => {
+  shortcut.libStd({
+    code: req.body.group_id,
+    res,
+  });
+});

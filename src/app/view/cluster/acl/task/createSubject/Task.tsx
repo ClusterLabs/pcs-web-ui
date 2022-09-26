@@ -1,8 +1,9 @@
 import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { Configure } from "./Configure";
+import { EnterName } from "./EnterName";
 import { Review } from "./Review";
+import { Roles } from "./Roles";
 
 export const Task = () => {
   const {
@@ -22,18 +23,23 @@ export const Task = () => {
       task={taskName}
       title={`Create ${subjectType}`}
       data-test={`task-create-${subjectType}`}
-      description="Create acl role"
+      description={`Create acl ${subjectType}`}
       onClose={close}
       steps={[
         {
           name: `Enter ${subjectType} name`,
-          component: <Configure />,
+          component: <EnterName />,
           footer: (
             <WizardFooter
               next={{ actionIf: isNameValid }}
               back={{ disabled: true }}
             />
           ),
+        },
+        {
+          name: "Assign acl roles",
+          component: <Roles />,
+          canJumpTo: isNameValid,
         },
         {
           name: "Review",
@@ -54,7 +60,7 @@ export const Task = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={`create ${subjectType} ${subjectId}`}
-              backToUpdateSettingsStepName="Enter role name"
+              backToUpdateSettingsStepName={`Enter ${subjectType} name`}
               reports={reports}
             />
           ),
