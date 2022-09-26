@@ -31,14 +31,25 @@ export type ClusterAclActions = {
     key: { clusterName: string };
   };
 
-  "CLUSTER.ACL.USER.CREATE.UPDATE": {
-    type: "CLUSTER.ACL.USER.CREATE.UPDATE";
+  "CLUSTER.ACL.SUBJECT.CREATE": {
+    type: "CLUSTER.ACL.SUBJECT.CREATE";
     key: { clusterName: string };
-    payload: Partial<{ userId: string; roleList: string[] }>;
+    payload: {
+      subjectType: "user" | "group";
+    };
   };
 
-  "CLUSTER.ACL.USER.CREATE.CLOSE": {
-    type: "CLUSTER.ACL.USER.CREATE.CLOSE";
+  "CLUSTER.ACL.SUBJECT.CREATE.UPDATE": {
+    type: "CLUSTER.ACL.SUBJECT.CREATE.UPDATE";
+    key: { clusterName: string };
+    payload: {
+      subjectId?: string;
+      roleList?: string[];
+    };
+  };
+
+  "CLUSTER.ACL.SUBJECT.CREATE.CLOSE": {
+    type: "CLUSTER.ACL.SUBJECT.CREATE.CLOSE";
     key: { clusterName: string };
   };
 
@@ -50,17 +61,6 @@ export type ClusterAclActions = {
 
   "CLUSTER.ACL.USER.ASSIGN.CLOSE": {
     type: "CLUSTER.ACL.USER.ASSIGN.CLOSE";
-    key: { clusterName: string };
-  };
-
-  "CLUSTER.ACL.GROUP.CREATE.UPDATE": {
-    type: "CLUSTER.ACL.GROUP.CREATE.UPDATE";
-    key: { clusterName: string };
-    payload: Partial<{ groupId: string; roleList: string[] }>;
-  };
-
-  "CLUSTER.ACL.GROUP.CREATE.CLOSE": {
-    type: "CLUSTER.ACL.GROUP.CREATE.CLOSE";
     key: { clusterName: string };
   };
 

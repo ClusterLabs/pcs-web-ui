@@ -2,6 +2,7 @@ import { selectors } from "app/store";
 import {
   ClusterToolbar,
   GroupDetailView,
+  TaskOpenArgs,
   useClusterSelector,
   useSelectedClusterName,
 } from "app/view/share";
@@ -14,6 +15,13 @@ export const AclPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const clusterName = useSelectedClusterName();
   const aclsEnabled = cluster.clusterProperties["enable-acl"] === "true";
+
+  const createUserOpenArgs: TaskOpenArgs<typeof task.createSubject.useTask> = [
+    { subjectType: "user" },
+  ];
+  const createGroupOpenArgs: TaskOpenArgs<typeof task.createSubject.useTask> = [
+    { subjectType: "group" },
+  ];
 
   return (
     <>
@@ -30,8 +38,9 @@ export const AclPage = () => {
           {
             name: "create-user",
             task: {
-              component: task.createUser.Task,
-              useTask: task.createUser.useTask,
+              component: task.createSubject.Task,
+              useTask: task.createSubject.useTask,
+              openArgs: createUserOpenArgs,
             },
           },
         ]}
@@ -39,8 +48,9 @@ export const AclPage = () => {
           {
             name: "create-group",
             task: {
-              component: task.createGroup.Task,
-              useTask: task.createGroup.useTask,
+              component: task.createSubject.Task,
+              useTask: task.createSubject.useTask,
+              openArgs: createGroupOpenArgs,
             },
           },
           {

@@ -9,20 +9,20 @@ export const Configure = () => {
   const {
     isNameValid,
     updateState,
-    state: { userId, roleList, showValidationErrors },
+    state: { subjectId, roleList, showValidationErrors },
   } = useTask();
 
   return (
     <Form>
       <FormText
-        id="user-name"
+        id="subject-name"
         label="Name"
         isRequired
         showValidationErrors={showValidationErrors}
         isValid={isNameValid}
         helperTextInvalid="Please enter a name"
-        onChange={value => updateState({ userId: value })}
-        value={userId}
+        onChange={value => updateState({ subjectId: value })}
+        value={subjectId}
       />
 
       <FormGroup label="Roles" fieldId="roles-assigned">

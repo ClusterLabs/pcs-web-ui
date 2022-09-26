@@ -30,8 +30,7 @@ import { aclRoleCreate } from "./aclRoleCreate";
 import { aclRolePermissionAdd } from "./aclRolePermissionAdd";
 import { aclGroupAssign } from "./aclGroupAssign";
 import { aclUserAssign } from "./aclUserAssign";
-import { aclGroupCreate } from "./aclGroupCreate";
-import { aclUserCreate } from "./aclUserCreate";
+import { aclSubjectCreate } from "./aclSubjectCreate";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -76,7 +75,6 @@ export const tasks = combineReducers(
     aclRolePermissionAdd,
     aclGroupAssign,
     aclUserAssign,
-    aclGroupCreate,
-    aclUserCreate,
+    aclSubjectCreate,
   }),
 );
