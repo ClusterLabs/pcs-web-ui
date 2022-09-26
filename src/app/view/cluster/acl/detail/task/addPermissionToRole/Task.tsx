@@ -15,14 +15,14 @@ export const Task = () => {
 
   return (
     <TaskSimple
-      title="Add permission to role"
+      title="Add permissions to role"
       task={"aclRolePermissionAdd"}
       close={close}
       footer={
         response !== "no-response" ? null : (
           <TaskSimpleFooter
             run={aclRolePermissionAdd}
-            runLabel="Add permission to role"
+            runLabel="Add permissions to role"
           />
         )
       }
@@ -31,7 +31,7 @@ export const Task = () => {
       {response !== "no-response" && (
         <TaskFinishLib
           response={response}
-          taskName="Add permission to role"
+          taskName="Add permissions to role"
           backToUpdateSettings={recoverFromError}
           proceedForce={aclRolePermissionAdd}
           tryAgain={aclRolePermissionAdd}

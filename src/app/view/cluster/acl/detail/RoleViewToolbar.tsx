@@ -18,7 +18,7 @@ export const RoleViewToolbar = ({ roleName }: { roleName: string }) => {
           },
         },
         {
-          name: "add-permission",
+          name: "add-permissions",
           task: {
             component: task.addPermissionToRole.Task,
             useTask: task.addPermissionToRole.useTask,
