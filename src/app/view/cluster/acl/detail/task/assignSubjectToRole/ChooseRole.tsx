@@ -4,9 +4,9 @@ import { FormText } from "app/view/share";
 
 import { useTask } from "./useTask";
 
-export const Configure = () => {
+export const ChooseRole = () => {
   const {
-    isRoleIdValid,
+    isAssigneeValid,
     updateState,
     state: { roleId, showValidationErrors },
   } = useTask();
@@ -19,7 +19,7 @@ export const Configure = () => {
           label="Role name"
           isRequired
           showValidationErrors={showValidationErrors}
-          isValid={isRoleIdValid}
+          isValid={isAssigneeValid}
           helperTextInvalid="Please enter a role name"
           onChange={value => updateState({ roleId: value })}
           value={roleId}

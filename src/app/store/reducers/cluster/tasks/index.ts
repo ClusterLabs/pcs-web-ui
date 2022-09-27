@@ -28,9 +28,8 @@ import { sbdDisable } from "./sbdDisable";
 import { sbdConfigure } from "./sbdConfigure";
 import { aclRoleCreate } from "./aclRoleCreate";
 import { aclRolePermissionAdd } from "./aclRolePermissionAdd";
-import { aclGroupAssign } from "./aclGroupAssign";
-import { aclUserAssign } from "./aclUserAssign";
 import { aclSubjectCreate } from "./aclSubjectCreate";
+import { aclSubjectAssign } from "./aclSubjectAssign";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -73,8 +72,7 @@ export const tasks = combineReducers(
     sbdConfigure,
     aclRoleCreate,
     aclRolePermissionAdd,
-    aclGroupAssign,
-    aclUserAssign,
     aclSubjectCreate,
+    aclSubjectAssign,
   }),
 );

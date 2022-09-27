@@ -1,31 +1,45 @@
 import { AppReducer } from "app/store/reducers/appReducer";
+import { ActionPayload } from "app/store/actions";
 
 import { initialState as initalLibCall, libCall } from "./libCall";
 
+type AssignPayload = ActionPayload["CLUSTER.ACL.SUBJECT_ROLE.ASSIGN"];
+
 const initialState: {
+  subjectType: AssignPayload["subjectType"];
+  sourceObject: "subject" | "role";
   roleId: string;
-  userId: string;
+  subjectId: string;
   libCall: typeof initalLibCall;
   showValidationErrors: boolean;
 } = {
+  subjectType: "user",
+  sourceObject: "role",
   roleId: "",
-  userId: "",
+  subjectId: "",
   libCall: initalLibCall,
   showValidationErrors: false,
 };
 
-export const aclUserAssign: AppReducer<typeof initialState> = (
+export const aclSubjectAssign: AppReducer<typeof initialState> = (
   state = initialState,
   action,
 ): typeof initialState => {
   switch (action.type) {
-    case "CLUSTER.ACL.USER.ASSIGN.UPDATE":
+    case "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN":
+      return {
+        ...state,
+        ...action.payload,
+        sourceObject: "roleId" in action.payload ? "role" : "subject",
+      };
+
+    case "CLUSTER.ACL.SUBJECT.ASSIGN.UPDATE":
       return {
         ...state,
         ...action.payload,
       };
 
-    case "CLUSTER.ACL.USER.ASSIGN.CLOSE":
+    case "CLUSTER.ACL.SUBJECT.ASSIGN.CLOSE":
       return initialState;
 
     case "TASK.VALIDATION.SHOW":

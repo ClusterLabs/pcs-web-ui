@@ -1,11 +1,21 @@
 import { useSelectedClusterName } from "app/view/share";
-import { DetailToolbar } from "app/view/share";
+import { DetailToolbar, TaskOpenArgs } from "app/view/share";
 
 import * as task from "./task";
 
-export const RoleViewToolbar = ({ roleName }: { roleName: string }) => {
+type AssignSubjectOpenArgs = TaskOpenArgs<
+  typeof task.assignSubjectToRole.useTask
+>;
+
+export const RoleViewToolbar = ({ roleId }: { roleId: string }) => {
   const clusterName = useSelectedClusterName();
 
+  const assignUserOpenArgs: AssignSubjectOpenArgs = [
+    { subjectType: "user", roleId },
+  ];
+  const assignGroupOpenArgs: AssignSubjectOpenArgs = [
+    { subjectType: "group", roleId },
+  ];
   return (
     <DetailToolbar
       toolbarName="acl-role"
@@ -13,8 +23,9 @@ export const RoleViewToolbar = ({ roleName }: { roleName: string }) => {
         {
           name: "assign-user",
           task: {
-            component: task.assignUserToRole.Task,
-            useTask: task.assignUserToRole.useTask,
+            component: task.assignSubjectToRole.Task,
+            useTask: task.assignSubjectToRole.useTask,
+            openArgs: assignUserOpenArgs,
           },
         },
         {
@@ -29,8 +40,9 @@ export const RoleViewToolbar = ({ roleName }: { roleName: string }) => {
         {
           name: "assign-group",
           task: {
-            component: task.assignGroupToRole.Task,
-            useTask: task.assignGroupToRole.useTask,
+            component: task.assignSubjectToRole.Task,
+            useTask: task.assignSubjectToRole.useTask,
+            openArgs: assignGroupOpenArgs,
           },
         },
         {
@@ -42,10 +54,10 @@ export const RoleViewToolbar = ({ roleName }: { roleName: string }) => {
               type: "LIB.CALL.CLUSTER",
               key: { clusterName },
               payload: {
-                taskLabel: `delete role "${roleName}"`,
+                taskLabel: `delete role "${roleId}"`,
                 call: {
                   name: "acl-remove-role",
-                  payload: { role_id: roleName },
+                  payload: { role_id: roleId },
                 },
               },
             },

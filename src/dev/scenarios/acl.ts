@@ -20,6 +20,14 @@ shortcut.dashboard([
           description: "",
           permissions: [],
         },
+        ok: {
+          description: "",
+          permissions: [],
+        },
+        fail: {
+          description: "",
+          permissions: [],
+        },
       },
       group: {
         group1: ["role1"],
@@ -53,6 +61,20 @@ app.libCluster("acl-create-target", (req, res) => {
 app.libCluster("acl-create-group", (req, res) => {
   shortcut.libStd({
     code: req.body.group_id,
+    res,
+  });
+});
+
+app.libCluster("acl-assign-role-to-target", (req, res) => {
+  shortcut.libStd({
+    code: req.body.role_id,
+    res,
+  });
+});
+
+app.libCluster("acl-assign-role-to-group", (req, res) => {
+  shortcut.libStd({
+    code: req.body.role_id,
     res,
   });
 });

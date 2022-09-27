@@ -53,25 +53,25 @@ export type ClusterAclActions = {
     key: { clusterName: string };
   };
 
-  "CLUSTER.ACL.USER.ASSIGN.UPDATE": {
-    type: "CLUSTER.ACL.USER.ASSIGN.UPDATE";
+  "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN": {
+    type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN";
     key: { clusterName: string };
-    payload: Partial<{ roleId: string; userId: string }>;
+    payload: {
+      subjectType: "user" | "group";
+    } & ({ roleId: string } | { subjectId: string });
   };
 
-  "CLUSTER.ACL.USER.ASSIGN.CLOSE": {
-    type: "CLUSTER.ACL.USER.ASSIGN.CLOSE";
+  "CLUSTER.ACL.SUBJECT.ASSIGN.UPDATE": {
+    type: "CLUSTER.ACL.SUBJECT.ASSIGN.UPDATE";
     key: { clusterName: string };
+    payload: {
+      roleId?: string;
+      subjectId?: string;
+    };
   };
 
-  "CLUSTER.ACL.GROUP.ASSIGN.UPDATE": {
-    type: "CLUSTER.ACL.GROUP.ASSIGN.UPDATE";
-    key: { clusterName: string };
-    payload: Partial<{ roleId: string; groupId: string }>;
-  };
-
-  "CLUSTER.ACL.GROUP.ASSIGN.CLOSE": {
-    type: "CLUSTER.ACL.GROUP.ASSIGN.CLOSE";
+  "CLUSTER.ACL.SUBJECT.ASSIGN.CLOSE": {
+    type: "CLUSTER.ACL.SUBJECT.ASSIGN.CLOSE";
     key: { clusterName: string };
   };
 };

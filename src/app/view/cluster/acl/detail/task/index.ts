@@ -1,5 +1,2 @@
-export * as assignRoleToGroup from "./assignRoleToGroup";
-export * as assignRoleToUser from "./assignRoleToUser";
-export * as assignUserToRole from "./assignUserToRole";
-export * as assignGroupToRole from "./assignGroupToRole";
+export * as assignSubjectToRole from "./assignSubjectToRole";
 export * as addPermissionToRole from "./addPermissionToRole";

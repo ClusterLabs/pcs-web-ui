@@ -2,13 +2,16 @@ import {
   DataListWithMenu,
   DetailToolbar,
   DetailViewSection,
+  TaskOpenArgs,
   useSelectedClusterName,
 } from "app/view/share";
 
 import { AclType } from "../types";
 
 import { Layout } from "./Layout";
-import { assignRoleToGroup } from "./task";
+import * as task from "./task";
+
+type AssignRoleOpenArgs = TaskOpenArgs<typeof task.assignSubjectToRole.useTask>;
 
 export const GroupView = ({
   groupId,
@@ -18,6 +21,9 @@ export const GroupView = ({
   roleIdList: AclType<"group">;
 }) => {
   const clusterName = useSelectedClusterName();
+  const assignRoleOpenArgs: AssignRoleOpenArgs = [
+    { subjectType: "group", subjectId: groupId },
+  ];
 
   return (
     <Layout
@@ -30,8 +36,9 @@ export const GroupView = ({
             {
               name: "assign-role",
               task: {
-                component: assignRoleToGroup.Task,
-                useTask: assignRoleToGroup.useTask,
+                component: task.assignSubjectToRole.Task,
+                useTask: task.assignSubjectToRole.useTask,
+                openArgs: assignRoleOpenArgs,
               },
             },
             {

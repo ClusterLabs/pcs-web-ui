@@ -34,7 +34,7 @@ export const RoleView = ({
     <Layout
       aclType="role"
       aclId={roleId}
-      toolbar={<RoleViewToolbar roleName={roleId} />}
+      toolbar={<RoleViewToolbar roleId={roleId} />}
     >
       <DetailViewSection caption="Description">
         <p>{role.description}</p>

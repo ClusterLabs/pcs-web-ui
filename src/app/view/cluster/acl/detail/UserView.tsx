@@ -2,13 +2,18 @@ import {
   DataListWithMenu,
   DetailToolbar,
   DetailViewSection,
+  TaskOpenArgs,
   useSelectedClusterName,
 } from "app/view/share";
 
 import { AclType } from "../types";
 
 import { Layout } from "./Layout";
-import { assignRoleToUser } from "./task";
+import * as task from "./task";
+
+type AssignRoleOpenArgs = TaskOpenArgs<
+  typeof task.assignSubjectToRole.useTask
+>;
 
 export const UserView = ({
   userId,
@@ -19,6 +24,9 @@ export const UserView = ({
 }) => {
   const clusterName = useSelectedClusterName();
 
+  const assignRoleOpenArgs: AssignRoleOpenArgs = [
+    { subjectType: "user", subjectId: userId },
+  ];
   return (
     <Layout
       aclType="user"
@@ -29,8 +37,9 @@ export const UserView = ({
         {
           name: "assign-role",
           task: {
-            component: assignRoleToUser.Task,
-            useTask: assignRoleToUser.useTask,
+            component: task.assignSubjectToRole.Task,
+            useTask: task.assignSubjectToRole.useTask,
+            openArgs: assignRoleOpenArgs,
           },
         },
         {

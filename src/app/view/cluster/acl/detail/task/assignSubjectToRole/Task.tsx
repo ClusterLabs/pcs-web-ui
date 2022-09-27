@@ -1,42 +1,50 @@
 import { TaskFinishLib, TaskSimple, TaskSimpleFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { Configure } from "./Configure";
+import { ChooseSubject } from "./ChooseSubject";
+import { ChooseRole } from "./ChooseRole";
 
 export const Task = () => {
   const {
+    name: taskName,
     close,
-    aclRoleAssign,
+    assign,
     recoverFromError,
-    isRoleIdValid,
+    isAssigneeValid,
     state: {
+      sourceObject,
+      subjectType,
       libCall: { response, reports },
     },
   } = useTask();
 
+  const title =
+    sourceObject === "subject" ? "Assign role" : `Assign ${subjectType}`;
+
   return (
     <TaskSimple
-      title="Assign role to group"
-      task={"aclGroupAssign"}
+      title={title}
+      task={taskName}
       close={close}
       footer={
         response !== "no-response" ? null : (
           <TaskSimpleFooter
-            nextIf={isRoleIdValid}
-            run={aclRoleAssign}
-            runLabel="Assign role"
+            nextIf={isAssigneeValid}
+            run={assign}
+            runLabel={title}
           />
         )
       }
     >
-      {response === "no-response" && <Configure />}
+      {response === "no-response"
+        && (sourceObject === "role" ? <ChooseSubject /> : <ChooseRole />)}
       {response !== "no-response" && (
         <TaskFinishLib
           response={response}
-          taskName="Assign role"
+          taskName={title}
           backToUpdateSettings={recoverFromError}
-          proceedForce={aclRoleAssign}
-          tryAgain={aclRoleAssign}
+          proceedForce={assign}
+          tryAgain={assign}
           reports={reports}
         />
       )}
