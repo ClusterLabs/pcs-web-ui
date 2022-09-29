@@ -32,7 +32,7 @@ export const AclRoleListItem = ({
   permissions: AclType<"role">["permissions"];
 }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);
-  const { selectedItemUrlName, selectedItemUrlType } =
+  const { selectedItemUrlName, selectedItemUrlType, compact } =
     useGroupDetailViewContext();
 
   return (
@@ -46,14 +46,14 @@ export const AclRoleListItem = ({
                   {roleId}
                 </Link>
               </DataListCell>
-              <DataListCell>Permissions ({permissions.length})</DataListCell>
+              <DataListCell>Permissions&nbsp;{permissions.length}</DataListCell>
               <DataListCell>
-                Users assigned (
-                {getAssignedSubjectCount(cluster.acls.user, roleId)})
+                <span>{compact ? "Users" : "Users assigned"}</span>&nbsp;
+                {getAssignedSubjectCount(cluster.acls.user, roleId)}
               </DataListCell>
               <DataListCell>
-                Groups assigned (
-                {getAssignedSubjectCount(cluster.acls.group, roleId)})
+                <span>{compact ? "Groups" : "Groups assigned"}</span>&nbsp;
+                {getAssignedSubjectCount(cluster.acls.group, roleId)}
               </DataListCell>
             </>
           }

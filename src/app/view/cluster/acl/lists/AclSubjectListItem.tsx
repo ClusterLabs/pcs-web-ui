@@ -20,7 +20,7 @@ export const AclSubjectListItem = ({
   id: string;
   roleIdList: string[];
 }) => {
-  const { selectedItemUrlName, selectedItemUrlType } =
+  const { selectedItemUrlName, selectedItemUrlType, compact } =
     useGroupDetailViewContext();
 
   return (
@@ -34,7 +34,9 @@ export const AclSubjectListItem = ({
                   {id}
                 </Link>
               </DataListCell>
-              <DataListCell>Roles assigned ({roleIdList.length})</DataListCell>
+              <DataListCell>
+                {compact ? "Roles" : "Roles assigned"}&nbsp;{roleIdList.length}
+              </DataListCell>
             </>
           }
         />
