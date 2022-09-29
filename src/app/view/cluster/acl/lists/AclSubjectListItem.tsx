@@ -11,24 +11,27 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-export const AclUserListItem = ({
-  name,
+export const AclSubjectListItem = ({
+  aclType,
+  id,
   roleIdList,
 }: {
-  name: string;
+  aclType: "user" | "group";
+  id: string;
   roleIdList: string[];
 }) => {
-  const { selectedItemUrlName } = useGroupDetailViewContext();
+  const { selectedItemUrlName, selectedItemUrlType } =
+    useGroupDetailViewContext();
 
   return (
-    <DataListItem aria-labelledby={name}>
+    <DataListItem aria-labelledby={id}>
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
             <>
               <DataListCell>
-                <Link strong to={`/user/${name}`}>
-                  {name}
+                <Link strong to={`/${aclType}/${id}`}>
+                  {id}
                 </Link>
               </DataListCell>
               <DataListCell>Roles assigned ({roleIdList.length})</DataListCell>
@@ -37,7 +40,9 @@ export const AclUserListItem = ({
         />
         {selectedItemUrlName !== "" && (
           <SelectionIndicatorInGroup
-            isSelected={name === selectedItemUrlName}
+            isSelected={
+              selectedItemUrlType === aclType && id === selectedItemUrlName
+            }
           />
         )}
       </DataListItemRow>

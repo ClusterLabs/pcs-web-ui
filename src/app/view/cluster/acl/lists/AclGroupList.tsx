@@ -3,7 +3,7 @@ import { DataList } from "@patternfly/react-core";
 import { Acl } from "app/view/cluster/types";
 import { EmptyStateNoItem } from "app/view/share";
 
-import { AclGroupListItem } from "./AclGroupListItem";
+import { AclSubjectListItem } from "./AclSubjectListItem";
 
 export const AclGroupList = ({
   aclGroupList,
@@ -22,9 +22,10 @@ export const AclGroupList = ({
   return (
     <DataList aria-label="Cluster group acls">
       {Object.entries(aclGroupList).map(([groupName, roleIdList]) => (
-        <AclGroupListItem
+        <AclSubjectListItem
           key={groupName}
-          name={groupName}
+          aclType="group"
+          id={groupName}
           roleIdList={roleIdList}
         />
       ))}

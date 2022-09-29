@@ -3,7 +3,7 @@ import { DataList } from "@patternfly/react-core";
 import { Acl } from "app/view/cluster/types";
 import { EmptyStateNoItem } from "app/view/share";
 
-import { AclUserListItem } from "./AclUserListItem";
+import { AclSubjectListItem } from "./AclSubjectListItem";
 
 export const AclUserList = ({ aclUserList }: { aclUserList: Acl["user"] }) => {
   if (aclUserList === undefined) {
@@ -18,9 +18,10 @@ export const AclUserList = ({ aclUserList }: { aclUserList: Acl["user"] }) => {
   return (
     <DataList aria-label="Cluster user acls">
       {Object.entries(aclUserList).map(([userName, roleIdList]) => (
-        <AclUserListItem
+        <AclSubjectListItem
           key={userName}
-          name={userName}
+          aclType="user"
+          id={userName}
           roleIdList={roleIdList}
         />
       ))}

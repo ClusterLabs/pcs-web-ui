@@ -32,7 +32,8 @@ export const AclRoleListItem = ({
   permissions: AclType<"role">["permissions"];
 }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);
-  const { selectedItemUrlName } = useGroupDetailViewContext();
+  const { selectedItemUrlName, selectedItemUrlType } =
+    useGroupDetailViewContext();
 
   return (
     <DataListItem aria-labelledby={roleId}>
@@ -59,7 +60,9 @@ export const AclRoleListItem = ({
         />
         {selectedItemUrlName !== "" && (
           <SelectionIndicatorInGroup
-            isSelected={roleId === selectedItemUrlName}
+            isSelected={
+              selectedItemUrlType === "role" && roleId === selectedItemUrlName
+            }
           />
         )}
       </DataListItemRow>
