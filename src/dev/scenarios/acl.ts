@@ -14,7 +14,11 @@ shortcut.dashboard([
       role: {
         role1: {
           description: "description1",
-          permissions: ["permissions1", "permissions2", "fail"],
+          permissions: [
+            "read abc (id)",
+            "deny //xyz (xpath)",
+            "write xyz (id)",
+          ],
         },
         empty: {
           description: "",
@@ -105,7 +109,7 @@ app.libCluster("acl-remove-group", (req, res) => {
 
 app.libCluster("acl-remove-permission", (req, res) => {
   shortcut.libStd({
-    code: req.body.permission_id,
+    code: req.body.role_id,
     res,
   });
 });
