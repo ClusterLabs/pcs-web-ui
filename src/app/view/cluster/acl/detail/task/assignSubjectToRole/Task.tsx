@@ -1,8 +1,7 @@
 import { TaskFinishLib, TaskSimple, TaskSimpleFooter } from "app/view/share";
 
 import { useTask } from "./useTask";
-import { ChooseSubject } from "./ChooseSubject";
-import { ChooseRole } from "./ChooseRole";
+import { ChooseAsignee } from "./ChooseAsignee";
 
 export const Task = () => {
   const {
@@ -11,15 +10,14 @@ export const Task = () => {
     assign,
     recoverFromError,
     isAssigneeValid,
+    itemsOffer,
+    assigneeType,
     state: {
-      sourceObject,
-      subjectType,
       libCall: { response, reports },
     },
   } = useTask();
 
-  const title =
-    sourceObject === "subject" ? "Assign role" : `Assign ${subjectType}`;
+  const title = `Assign ${assigneeType}`;
 
   return (
     <TaskSimple
@@ -30,14 +28,14 @@ export const Task = () => {
         response !== "no-response" ? null : (
           <TaskSimpleFooter
             nextIf={isAssigneeValid}
+            nextDisabled={itemsOffer.length === 0}
             run={assign}
             runLabel={title}
           />
         )
       }
     >
-      {response === "no-response"
-        && (sourceObject === "role" ? <ChooseSubject /> : <ChooseRole />)}
+      {response === "no-response" && <ChooseAsignee />}
       {response !== "no-response" && (
         <TaskFinishLib
           response={response}

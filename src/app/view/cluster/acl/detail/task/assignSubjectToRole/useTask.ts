@@ -1,9 +1,22 @@
-import { ActionPayload } from "app/store";
-import { useClusterTask } from "app/view/share";
+import { ActionPayload, selectors } from "app/store";
+import { useClusterSelector, useClusterTask } from "app/view/share";
+import { getAssignedSubjectIdList } from "app/view/cluster/acl/detail/tools";
 
 export const useTask = () => {
   const task = useClusterTask("aclSubjectAssign");
   const { dispatch, state, clusterName } = task;
+  const [{ acls }] = useClusterSelector(selectors.getCluster);
+
+  const assigneeType =
+    state.sourceObject === "role" ? state.subjectType : "role";
+
+  const assigneeKey = state.sourceObject === "subject" ? "roleId" : "subjectId";
+  const assigneeId = state[assigneeKey];
+
+  const alreadyAssigned =
+    state.sourceObject === "role"
+      ? getAssignedSubjectIdList(acls[state.subjectType] || {}, state.roleId)
+      : acls[state.subjectType]?.[state.subjectId] || [];
 
   return {
     ...task,
@@ -11,6 +24,14 @@ export const useTask = () => {
       state.sourceObject === "subject"
         ? state.roleId.length > 0
         : state.subjectId.length > 0,
+
+    assigneeType,
+    assigneeId,
+    alreadyAssigned,
+
+    itemsOffer: Object.keys(acls[assigneeType] || {}).filter(
+      i => !alreadyAssigned.includes(i),
+    ),
 
     //actions
     open: (payload: ActionPayload["CLUSTER.ACL.SUBJECT_ROLE.ASSIGN"]) => {
@@ -22,13 +43,13 @@ export const useTask = () => {
       task.open();
     },
 
-    updateState: (
-      payload: ActionPayload["CLUSTER.ACL.SUBJECT.ASSIGN.UPDATE"],
-    ) =>
+    updateAssigneeId: (id: string) =>
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.ASSIGN.UPDATE",
         key: { clusterName },
-        payload,
+        payload: {
+          [assigneeKey]: id,
+        },
       }),
 
     close: () => {

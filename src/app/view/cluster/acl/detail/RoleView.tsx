@@ -6,19 +6,11 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclType, Acls } from "../types";
+import { AclType } from "../types";
 
 import { Layout } from "./Layout";
 import { RoleViewToolbar } from "./RoleViewToolbar";
-
-const getAssignedSubjectIdList = (
-  subjectMap: Acls["user"] | Acls["group"],
-  roleId: string,
-) => {
-  return Object.entries(subjectMap || {})
-    .filter(([_id, roleIdList]) => roleIdList.includes(roleId))
-    .map(([id, _roleIdList]) => id);
-};
+import { getAssignedSubjectIdList } from "./tools";
 
 export const RoleView = ({
   roleId,

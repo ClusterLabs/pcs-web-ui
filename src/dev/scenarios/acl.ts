@@ -35,7 +35,7 @@ shortcut.dashboard([
         empty: [],
       },
       user: {
-        user1: ["role1"],
+        user1: ["role1", "empty", "ok", "fail"],
         user2: ["role1"],
         empty: [],
       },

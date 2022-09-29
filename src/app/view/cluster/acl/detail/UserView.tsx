@@ -11,9 +11,7 @@ import { AclType } from "../types";
 import { Layout } from "./Layout";
 import * as task from "./task";
 
-type AssignRoleOpenArgs = TaskOpenArgs<
-  typeof task.assignSubjectToRole.useTask
->;
+type AssignRoleOpenArgs = TaskOpenArgs<typeof task.assignSubjectToRole.useTask>;
 
 export const UserView = ({
   userId,
@@ -31,37 +29,39 @@ export const UserView = ({
     <Layout
       aclType="user"
       aclId={userId}
-      toolbar=<DetailToolbar
-      toolbarName="user"
-      buttonsItems={[
-        {
-          name: "assign-role",
-          task: {
-            component: task.assignSubjectToRole.Task,
-            useTask: task.assignSubjectToRole.useTask,
-            openArgs: assignRoleOpenArgs,
-          },
-        },
-        {
-          name: "delete-user",
-          confirm: {
-            title: "Delete user?",
-            description: `This deletes the user ${userId}`,
-            action: {
-              type: "LIB.CALL.CLUSTER",
-              key: { clusterName },
-              payload: {
-                taskLabel: `delete user "${userId}"`,
-                call: {
-                  name: "acl-remove-target",
-                  payload: { target_id: userId },
+      toolbar={
+        <DetailToolbar
+          toolbarName="user"
+          buttonsItems={[
+            {
+              name: "assign-role",
+              task: {
+                component: task.assignSubjectToRole.Task,
+                useTask: task.assignSubjectToRole.useTask,
+                openArgs: assignRoleOpenArgs,
+              },
+            },
+            {
+              name: "delete-user",
+              confirm: {
+                title: "Delete user?",
+                description: `This deletes the user ${userId}`,
+                action: {
+                  type: "LIB.CALL.CLUSTER",
+                  key: { clusterName },
+                  payload: {
+                    taskLabel: `delete user "${userId}"`,
+                    call: {
+                      name: "acl-remove-target",
+                      payload: { target_id: userId },
+                    },
+                  },
                 },
               },
             },
-          },
-        },
-      ]}
-    />
+          ]}
+        />
+      }
     >
       <DetailViewSection caption="Roles assigned">
         <DataListWithMenu
