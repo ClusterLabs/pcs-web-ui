@@ -1,4 +1,5 @@
 import {
+  Badge,
   DataListCell,
   DataListItem,
   DataListItemCells,
@@ -35,7 +36,8 @@ export const AclSubjectListItem = ({
                 </Link>
               </DataListCell>
               <DataListCell>
-                {compact ? "Roles" : "Roles assigned"}&nbsp;{roleIdList.length}
+                {compact ? "Roles" : "Roles assigned"}&nbsp;
+                <Badge isRead>{roleIdList.length}</Badge>
               </DataListCell>
             </>
           }

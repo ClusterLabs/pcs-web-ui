@@ -1,4 +1,5 @@
 import {
+  Badge,
   DataListCell,
   DataListItem,
   DataListItemCells,
@@ -46,14 +47,21 @@ export const AclRoleListItem = ({
                   {roleId}
                 </Link>
               </DataListCell>
-              <DataListCell>Permissions&nbsp;{permissions.length}</DataListCell>
               <DataListCell>
-                <span>{compact ? "Users" : "Users assigned"}</span>&nbsp;
-                {getAssignedSubjectCount(cluster.acls.user, roleId)}
+                {compact ? "Perm." : "Permissions"}&nbsp;
+                <Badge isRead>{permissions.length}</Badge>
               </DataListCell>
               <DataListCell>
-                <span>{compact ? "Groups" : "Groups assigned"}</span>&nbsp;
-                {getAssignedSubjectCount(cluster.acls.group, roleId)}
+                {compact ? "Users" : "Users assigned"}&nbsp;
+                <Badge isRead>
+                  {getAssignedSubjectCount(cluster.acls.user, roleId)}
+                </Badge>
+              </DataListCell>
+              <DataListCell>
+                {compact ? "Groups" : "Groups assigned"}&nbsp;
+                <Badge isRead>
+                  {getAssignedSubjectCount(cluster.acls.group, roleId)}
+                </Badge>
               </DataListCell>
             </>
           }
