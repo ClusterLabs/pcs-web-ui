@@ -67,7 +67,7 @@ export const RoleView = ({
           itemList={getAssignedSubjectIdList(acls.user, roleId)}
           menuItems={[
             userId => ({
-              name: "unassign-user",
+              name: "unassign",
               confirm: {
                 title: "Unassign user?",
                 description: `This unassigns the user ${userId}`,
@@ -95,7 +95,7 @@ export const RoleView = ({
           itemList={getAssignedSubjectIdList(acls.group, roleId)}
           menuItems={[
             groupId => ({
-              name: "unassign-group",
+              name: "unassign",
               confirm: {
                 title: "Unassign group?",
                 description: `This unassigns the group ${groupId}`,

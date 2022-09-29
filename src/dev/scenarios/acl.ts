@@ -14,7 +14,7 @@ shortcut.dashboard([
       role: {
         role1: {
           description: "description1",
-          permissions: ["permissions1", "permissions2"],
+          permissions: ["permissions1", "permissions2", "fail"],
         },
         empty: {
           description: "",
@@ -33,11 +33,14 @@ shortcut.dashboard([
         group1: ["role1"],
         group2: ["role1"],
         empty: [],
+        fail: ["role1"],
       },
       user: {
         user1: ["role1", "empty", "ok", "fail"],
         user2: ["role1"],
         empty: [],
+        error: [],
+        fail: ["role1"],
       },
     },
   }),
@@ -75,6 +78,48 @@ app.libCluster("acl-assign-role-to-target", (req, res) => {
 app.libCluster("acl-assign-role-to-group", (req, res) => {
   shortcut.libStd({
     code: req.body.role_id,
+    res,
+  });
+});
+
+app.libCluster("acl-remove-target", (req, res) => {
+  shortcut.libStd({
+    code: req.body.target_id,
+    res,
+  });
+});
+
+app.libCluster("acl-remove-role", (req, res) => {
+  shortcut.libStd({
+    code: req.body.role_id,
+    res,
+  });
+});
+
+app.libCluster("acl-remove-group", (req, res) => {
+  shortcut.libStd({
+    code: req.body.group_id,
+    res,
+  });
+});
+
+app.libCluster("acl-remove-permission", (req, res) => {
+  shortcut.libStd({
+    code: req.body.permission_id,
+    res,
+  });
+});
+
+app.libCluster("acl-unassign-role-from-target", (req, res) => {
+  shortcut.libStd({
+    code: req.body.target_id,
+    res,
+  });
+});
+
+app.libCluster("acl-unassign-role-from-group", (req, res) => {
+  shortcut.libStd({
+    code: req.body.group_id,
     res,
   });
 });

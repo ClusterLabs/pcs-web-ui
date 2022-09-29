@@ -70,7 +70,7 @@ export const GroupView = ({
           itemList={roleIdList}
           menuItems={[
             roleId => ({
-              name: "unassign-group",
+              name: "unassign",
               confirm: {
                 title: "Unassign role?",
                 description: `This unassigns the role ${roleId}`,

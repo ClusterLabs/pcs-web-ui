@@ -70,7 +70,7 @@ export const UserView = ({
           itemList={roleIdList}
           menuItems={[
             roleId => ({
-              name: "unassign-user",
+              name: "unassign",
               confirm: {
                 title: "Unassign role?",
                 description: `This unassigns the role ${roleId}`,
