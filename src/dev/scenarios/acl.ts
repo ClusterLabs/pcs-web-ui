@@ -47,6 +47,9 @@ shortcut.dashboard([
         fail: ["role1"],
       },
     },
+    cluster_settings: {
+      "enable-acl": "true",
+    },
   }),
   response.clusterStatus.ok,
 ]);
@@ -126,4 +129,8 @@ app.libCluster("acl-unassign-role-from-group", (req, res) => {
     code: req.body.group_id,
     res,
   });
+});
+
+app.updateClusterSettings((_req, res) => {
+  res.send("Update Successful");
 });

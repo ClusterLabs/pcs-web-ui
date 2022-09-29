@@ -8,10 +8,12 @@ export const ClusterToolbar = ({
   toolbarName,
   buttonsItems = [],
   dropdownItems = [],
+  before,
 }: {
   toolbarName: string;
   buttonsItems?: LauncherItem[];
   dropdownItems?: LauncherItem[];
+  before?: React.ReactNode;
 }) => {
   return (
     <PageSection
@@ -23,6 +25,7 @@ export const ClusterToolbar = ({
         toolbarName={toolbarName}
         buttonsItems={buttonsItems}
         dropdownItems={dropdownItems}
+        before={before}
       />
     </PageSection>
   );

@@ -1,4 +1,6 @@
-import { selectors } from "app/store";
+import { Label, ToolbarItem } from "@patternfly/react-core";
+
+import { selectors, tools } from "app/store";
 import {
   ClusterToolbar,
   GroupDetailView,
@@ -14,7 +16,7 @@ import { AclLists } from "./lists";
 export const AclPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const clusterName = useSelectedClusterName();
-  const aclsEnabled = cluster.clusterProperties["enable-acl"] === "true";
+  const aclEnabled = tools.isCibTrue(cluster.clusterProperties["enable-acl"]);
 
   const createUserOpenArgs: TaskOpenArgs<typeof task.createSubject.useTask> = [
     { subjectType: "user" },
@@ -54,22 +56,29 @@ export const AclPage = () => {
             },
           },
           {
-            name: aclsEnabled ? "disable-acl" : "enable-acl",
+            name: aclEnabled ? "disable-acl" : "enable-acl",
             confirm: {
-              title: aclsEnabled ? "Disable acl" : "Enable acl",
+              title: aclEnabled ? "Disable acl" : "Enable acl",
               description: "Enable access control lists.",
               action: {
                 type: "CLUSTER.PROPERTIES.UPDATE",
                 key: { clusterName },
                 payload: {
                   propertyMap: {
-                    "disable-acl": aclsEnabled ? "true" : "false",
+                    "enable-acl": aclEnabled ? "true" : "false",
                   },
                 },
               },
             },
           },
         ]}
+        before={
+          <ToolbarItem>
+            <Label variant="outline" color={aclEnabled ? "green" : "grey"}>
+              Acl {aclEnabled ? "Enabled" : "Disabled"}
+            </Label>
+          </ToolbarItem>
+        }
       />
 
       <GroupDetailView

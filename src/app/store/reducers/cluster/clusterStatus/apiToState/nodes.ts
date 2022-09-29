@@ -1,4 +1,5 @@
 import { ActionPayload } from "app/store/actions";
+import { isCibTrue } from "app/store/tools";
 
 import { Cluster, StatusSeverity } from "../types";
 
@@ -49,9 +50,6 @@ const toSeverity = (status: ApiNodeStatus, quorum: ApiNodeQuorum) => {
   }
   return "WARNING";
 };
-
-const isCibTrue = (value: string): boolean =>
-  ["true", "on", "yes", "y", "1"].includes(value.toLowerCase());
 
 const isNodeAttrCibTrue = (nodeAttrsList: ApiNodeAttrList, attrName: string) =>
   isCibTrue(nodeAttrsList.find(a => a.name === attrName)?.value ?? "");
