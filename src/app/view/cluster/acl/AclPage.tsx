@@ -16,7 +16,9 @@ import { AclLists } from "./lists";
 export const AclPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const clusterName = useSelectedClusterName();
-  const aclEnabled = tools.isCibTrue(cluster.clusterProperties["enable-acl"]);
+  const aclEnabled = tools.isCibTrue(
+    cluster.clusterProperties["enable-acl"] || "",
+  );
 
   const createUserOpenArgs: TaskOpenArgs<typeof task.createSubject.useTask> = [
     { subjectType: "user" },
