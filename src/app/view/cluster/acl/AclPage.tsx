@@ -61,7 +61,9 @@ export const AclPage = () => {
             name: aclEnabled ? "disable-acl" : "enable-acl",
             confirm: {
               title: aclEnabled ? "Disable acl" : "Enable acl",
-              description: "Enable access control lists.",
+              description: `${
+                aclEnabled ? "Disable" : "Enable"
+              } access control lists.`,
               action: {
                 type: "CLUSTER.PROPERTIES.UPDATE",
                 key: { clusterName },
