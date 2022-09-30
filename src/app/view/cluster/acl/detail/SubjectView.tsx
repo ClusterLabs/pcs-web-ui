@@ -1,3 +1,4 @@
+import { ActionPayload } from "app/store";
 import {
   DataListWithMenu,
   DetailToolbar,
@@ -12,26 +13,52 @@ import { Layout } from "./Layout";
 import * as task from "./task";
 
 type AssignRoleOpenArgs = TaskOpenArgs<typeof task.assignSubjectToRole.useTask>;
+type LibCall = ActionPayload["LIB.CALL.CLUSTER"]["call"];
 
-export const GroupView = ({
-  groupId,
+export const SubjectView = ({
+  subjectType,
+  subjectId,
   roleIdList,
 }: {
-  groupId: string;
-  roleIdList: AclType<"group">;
+  subjectType: "user" | "group";
+  subjectId: string;
+  roleIdList: AclType<"user" | "group">;
 }) => {
   const clusterName = useSelectedClusterName();
+
   const assignRoleOpenArgs: AssignRoleOpenArgs = [
-    { subjectType: "group", subjectId: groupId },
+    { subjectType: "user", subjectId: subjectId },
   ];
+
+  const unassignCall = (roleId: string): LibCall =>
+    subjectType === "user"
+      ? {
+          name: "acl-unassign-role-from-target",
+          payload: { role_id: roleId, target_id: subjectId },
+        }
+      : {
+          name: "acl-unassign-role-from-group",
+          payload: { role_id: roleId, group_id: subjectId },
+        };
+
+  const deleteCall: LibCall =
+    subjectType === "user"
+      ? {
+          name: "acl-remove-target",
+          payload: { target_id: subjectId },
+        }
+      : {
+          name: "acl-remove-group",
+          payload: { group_id: subjectId },
+        };
 
   return (
     <Layout
-      aclType="group"
-      aclId={groupId}
+      aclType={subjectType}
+      aclId={subjectId}
       toolbar={
         <DetailToolbar
-          toolbarName="group"
+          toolbarName="user"
           buttonsItems={[
             {
               name: "assign-role",
@@ -42,19 +69,16 @@ export const GroupView = ({
               },
             },
             {
-              name: "delete-group",
+              name: `delete-${subjectType}`,
               confirm: {
-                title: "Delete group?",
-                description: `This deletes the group ${groupId}`,
+                title: `Delete ${subjectType}?`,
+                description: `This deletes the ${subjectType} ${subjectId}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
                   key: { clusterName },
                   payload: {
-                    taskLabel: `delete group "${groupId}"`,
-                    call: {
-                      name: "acl-remove-group",
-                      payload: { group_id: groupId },
-                    },
+                    taskLabel: `delete ${subjectType} "${subjectId}"`,
+                    call: deleteCall,
                   },
                 },
               },
@@ -66,7 +90,7 @@ export const GroupView = ({
       <DetailViewSection caption="Roles assigned">
         <DataListWithMenu
           name="role"
-          emptyTitle={`No role assigned to group "${groupId}".`}
+          emptyTitle={`No role assigned to "${subjectId}".`}
           itemList={roleIdList}
           menuItems={[
             roleId => ({
@@ -79,10 +103,7 @@ export const GroupView = ({
                   key: { clusterName },
                   payload: {
                     taskLabel: `unassign role "${roleId}"`,
-                    call: {
-                      name: "acl-unassign-role-from-group",
-                      payload: { role_id: roleId, group_id: groupId },
-                    },
+                    call: unassignCall(roleId),
                   },
                 },
               },

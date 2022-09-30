@@ -12,8 +12,7 @@ import {
 import { AclType } from "../types";
 
 import { RoleView } from "./RoleView";
-import { GroupView } from "./GroupView";
-import { UserView } from "./UserView";
+import { SubjectView } from "./SubjectView";
 
 export const AclDetailPage = () => {
   const clusterName = useSelectedClusterName();
@@ -54,13 +53,11 @@ export const AclDetailPage = () => {
     return <RoleView roleId={aclId} role={aclObject as AclType<"role">} />;
   }
 
-  if (aclType === "user") {
-    return (
-      <UserView userId={aclId} roleIdList={aclObject as AclType<"user">} />
-    );
-  }
-
   return (
-    <GroupView groupId={aclId} roleIdList={aclObject as AclType<"group">} />
+    <SubjectView
+      subjectType={aclType}
+      subjectId={aclId}
+      roleIdList={aclObject as AclType<typeof aclType>}
+    />
   );
 };
