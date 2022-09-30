@@ -2,6 +2,8 @@ import { selectors } from "app/store";
 import {
   DataListWithMenu,
   DetailViewSection,
+  Link,
+  location,
   useClusterSelector,
   useSelectedClusterName,
 } from "app/view/share";
@@ -65,6 +67,9 @@ export const RoleView = ({
           name="user"
           emptyTitle={`No user assigned to role "${roleId}".`}
           itemList={getAssignedSubjectIdList(acls.user, roleId)}
+          formatItem={userId => (
+            <Link to={location.aclUser({ clusterName, userId })}>{userId}</Link>
+          )}
           menuItems={[
             userId => ({
               name: "unassign",
@@ -93,6 +98,11 @@ export const RoleView = ({
           name="group"
           emptyTitle={`No group assigned to role "${roleId}".`}
           itemList={getAssignedSubjectIdList(acls.group, roleId)}
+          formatItem={groupId => (
+            <Link to={location.aclGroup({ clusterName, groupId })}>
+              {groupId}
+            </Link>
+          )}
           menuItems={[
             groupId => ({
               name: "unassign",

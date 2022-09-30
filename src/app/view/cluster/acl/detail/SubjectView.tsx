@@ -3,7 +3,9 @@ import {
   DataListWithMenu,
   DetailToolbar,
   DetailViewSection,
+  Link,
   TaskOpenArgs,
+  location,
   useSelectedClusterName,
 } from "app/view/share";
 
@@ -92,6 +94,9 @@ export const SubjectView = ({
           name="role"
           emptyTitle={`No role assigned to "${subjectId}".`}
           itemList={roleIdList}
+          formatItem={roleId => (
+            <Link to={location.aclRole({ clusterName, roleId })}>{roleId}</Link>
+          )}
           menuItems={[
             roleId => ({
               name: "unassign",

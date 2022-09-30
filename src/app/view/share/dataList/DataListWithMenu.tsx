@@ -1,3 +1,4 @@
+import React from "react";
 import {
   DataList,
   DataListAction,
@@ -16,11 +17,13 @@ export const DataListWithMenu = ({
   itemList,
   emptyTitle,
   menuItems,
+  formatItem,
 }: {
   name: string;
   emptyTitle: string;
   itemList: string[];
   menuItems: ((_itemName: string) => LauncherItem)[];
+  formatItem?: (_itemName: string) => React.ReactNode;
 }) => {
   if (itemList.length === 0) {
     return <EmptyStateNoItem title={emptyTitle} />;
@@ -34,7 +37,11 @@ export const DataListWithMenu = ({
         <DataListItem key={i}>
           <DataListItemRow>
             <DataListItemCells
-              dataListCells={<DataListCell>{itemName}</DataListCell>}
+              dataListCells={
+                <DataListCell>
+                  {formatItem ? formatItem(itemName) : itemName}
+                </DataListCell>
+              }
             />
             <DataListAction
               className="pf-u-pr-md"
