@@ -37,6 +37,7 @@ export const DataListWithMenu = ({
               dataListCells={<DataListCell>{itemName}</DataListCell>}
             />
             <DataListAction
+              className="pf-u-pr-md"
               id={`${name}-${itemName}-menu`}
               aria-labelledby={`${name}-${itemName}-menu`}
               aria-label={`${tools.labelize(name)} ${itemName} menu`}
