@@ -1,5 +1,4 @@
 import React from "react";
-import { Divider } from "@patternfly/react-core";
 
 import { DetailLayout } from "app/view/share";
 
@@ -24,7 +23,6 @@ export const Layout = ({
       }
       toolbar={toolbar}
     >
-      <Divider />
       {children}
     </DetailLayout>
   );
