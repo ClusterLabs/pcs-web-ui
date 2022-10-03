@@ -26,10 +26,10 @@ const getAssignedSubjectCount = (
 };
 
 export const AclRoleListItem = ({
-  roleId,
+  id,
   permissions,
 }: {
-  roleId: string;
+  id: string;
   permissions: AclType<"role">["permissions"];
 }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -37,14 +37,14 @@ export const AclRoleListItem = ({
     useGroupDetailViewContext();
 
   return (
-    <DataListItem aria-labelledby={roleId}>
+    <DataListItem aria-labelledby={id}>
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
             <>
               <DataListCell>
-                <Link strong to={`/role/${roleId}`}>
-                  {roleId}
+                <Link strong to={`/role/${id}`}>
+                  {id}
                 </Link>
               </DataListCell>
               <DataListCell>
@@ -54,13 +54,13 @@ export const AclRoleListItem = ({
               <DataListCell>
                 {compact ? "Users" : "Users assigned"}&nbsp;
                 <Badge isRead>
-                  {getAssignedSubjectCount(cluster.acls.user, roleId)}
+                  {getAssignedSubjectCount(cluster.acls.user, id)}
                 </Badge>
               </DataListCell>
               <DataListCell>
                 {compact ? "Groups" : "Groups assigned"}&nbsp;
                 <Badge isRead>
-                  {getAssignedSubjectCount(cluster.acls.group, roleId)}
+                  {getAssignedSubjectCount(cluster.acls.group, id)}
                 </Badge>
               </DataListCell>
             </>
@@ -69,7 +69,7 @@ export const AclRoleListItem = ({
         {selectedItemUrlName !== "" && (
           <SelectionIndicatorInGroup
             isSelected={
-              selectedItemUrlType === "role" && roleId === selectedItemUrlName
+              selectedItemUrlType === "role" && id === selectedItemUrlName
             }
           />
         )}

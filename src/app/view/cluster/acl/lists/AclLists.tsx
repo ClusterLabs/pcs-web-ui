@@ -1,28 +1,56 @@
-import { Stack, StackItem, Title } from "@patternfly/react-core";
+import { Flex, FlexItem, FlexProps } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import { useClusterSelector } from "app/view/share";
 
-import { AclRoleList } from "./AclRoleList";
-import { AclUserList } from "./AclUserList";
-import { AclGroupList } from "./AclGroupList";
+import { AclListCard } from "./AclListCard";
+import { AclSubjectListItem } from "./AclSubjectListItem";
+import { AclRoleListItem } from "./AclRoleListItem";
+
+const grow: FlexProps["grow"] = { default: "grow" };
+const spacer: FlexProps["spacer"] = { default: "spacerNone" };
 
 export const AclLists = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   return (
-    <Stack hasGutter>
-      <StackItem>
-        <Title headingLevel="h1">Roles</Title>
-        <AclRoleList aclRoleList={cluster.acls.role} />
-      </StackItem>
-      <StackItem>
-        <Title headingLevel="h1">Users</Title>
-        <AclUserList aclUserList={cluster.acls.user} />
-      </StackItem>
-      <StackItem>
-        <Title headingLevel="h1">Groups</Title>
-        <AclGroupList aclGroupList={cluster.acls.group} />
-      </StackItem>
-    </Stack>
+    <Flex>
+      <FlexItem grow={grow} className="pf-u-m-0">
+        <AclListCard
+          aclType="role"
+          aclList={cluster.acls.role}
+          renderItem={(id, { permissions }) => (
+            <AclRoleListItem id={id} permissions={permissions} />
+          )}
+        />
+      </FlexItem>
+      <Flex grow={grow}>
+        <FlexItem spacer={spacer} grow={grow}>
+          <AclListCard
+            aclType="user"
+            aclList={cluster.acls.user}
+            renderItem={(id, roleIdList) => (
+              <AclSubjectListItem
+                aclType="user"
+                id={id}
+                roleIdList={roleIdList}
+              />
+            )}
+          />
+        </FlexItem>
+        <FlexItem spacer={spacer} grow={grow}>
+          <AclListCard
+            aclType="group"
+            aclList={cluster.acls.group}
+            renderItem={(id, roleIdList) => (
+              <AclSubjectListItem
+                aclType="group"
+                id={id}
+                roleIdList={roleIdList}
+              />
+            )}
+          />
+        </FlexItem>
+      </Flex>
+    </Flex>
   );
 };

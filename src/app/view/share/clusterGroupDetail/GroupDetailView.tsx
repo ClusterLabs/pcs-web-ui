@@ -52,7 +52,7 @@ export const GroupDetailView = ({
               closeDetailUrl,
             }}
           >
-            <div className="pf-c-card ha-c-panel__tree-view">{groupCard}</div>
+            <div className="ha-c-panel__tree-view">{groupCard}</div>
             <div className="pf-c-card pf-m-flex-1 ha-c-panel__details-view">
               <Router base={detail.matched}>{detailCard}</Router>
             </div>

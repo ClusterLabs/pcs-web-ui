@@ -10,43 +10,7 @@ shortcut.dashboard([
       t.node("2", { status: "offline", quorum: false }),
       t.node("3", { status: "unknown" }),
     ],
-    acls: {
-      role: {
-        role1: {
-          description: "description1",
-          permissions: [
-            "read abc (id)",
-            "deny //xyz (xpath)",
-            "write xyz (id)",
-          ],
-        },
-        empty: {
-          description: "",
-          permissions: [],
-        },
-        ok: {
-          description: "",
-          permissions: [],
-        },
-        fail: {
-          description: "",
-          permissions: [],
-        },
-      },
-      group: {
-        group1: ["role1"],
-        group2: ["role1"],
-        empty: [],
-        fail: ["role1"],
-      },
-      user: {
-        user1: ["role1", "empty", "ok", "fail"],
-        user2: ["role1"],
-        empty: [],
-        error: [],
-        fail: ["role1"],
-      },
-    },
+    acls: response.acl.firstSet,
     cluster_settings: {
       "enable-acl": "true",
     },
