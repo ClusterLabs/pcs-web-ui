@@ -16,26 +16,27 @@ export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
   aclType: ACL_TYPE;
   renderItem: (_id: string, _aclObject: AclType<ACL_TYPE>) => React.ReactNode;
 }) => {
-  if (aclList === undefined) {
-    return (
-      <EmptyStateNoItem
-        title={`No ACL ${aclType} is configured.`}
-        message={`You don't have any configured acl ${aclType}s here.`}
-      />
-    );
-  }
-
+  const hasItems = aclList !== undefined && Object.keys(aclList).length > 0;
   return (
     <Card className="pf-u-mb-sm pf-u-mr-sm">
       <CardTitle>{`${tools.labelize(aclType)}s`}</CardTitle>
       <CardBody>
-        <DataList aria-label={`Cluster ${aclType} acls`}>
-          {Object.entries(aclList).map(([id, aclObject]) => (
-            <React.Fragment key={id}>
-              {renderItem(id, aclObject)}
-            </React.Fragment>
-          ))}
-        </DataList>
+        {!hasItems && (
+          <EmptyStateNoItem
+            title={`No ACL ${aclType} is configured.`}
+            message={`You don't have any configured acl ${aclType}s here.`}
+          />
+        )}
+
+        {hasItems && (
+          <DataList aria-label={`Cluster ${aclType} acls`}>
+            {Object.entries(aclList).map(([id, aclObject]) => (
+              <React.Fragment key={id}>
+                {renderItem(id, aclObject)}
+              </React.Fragment>
+            ))}
+          </DataList>
+        )}
       </CardBody>
     </Card>
   );
