@@ -69,7 +69,7 @@ export const AclPage = () => {
                 key: { clusterName },
                 payload: {
                   propertyMap: {
-                    "enable-acl": aclEnabled ? "true" : "false",
+                    "enable-acl": aclEnabled ? "false" : "true",
                   },
                 },
               },
