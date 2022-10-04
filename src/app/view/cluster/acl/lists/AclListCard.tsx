@@ -26,7 +26,7 @@ export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
   }
 
   return (
-    <Card className="pf-u-m-sm pf-u-mt-0">
+    <Card className="pf-u-mb-sm pf-u-mr-sm">
       <CardTitle>{`${tools.labelize(aclType)}s`}</CardTitle>
       <CardBody>
         <DataList aria-label={`Cluster ${aclType} acls`}>
