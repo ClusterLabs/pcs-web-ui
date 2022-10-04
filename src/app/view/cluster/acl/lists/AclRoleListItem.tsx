@@ -48,17 +48,20 @@ export const AclRoleListItem = ({
                 </Link>
               </DataListCell>
               <DataListCell>
-                {compact ? "Perm." : "Permissions"}&nbsp;
+                {compact && <div>Permissions</div>}
+                {!compact && "Permissions "}
                 <Badge isRead>{permissions.length}</Badge>
               </DataListCell>
               <DataListCell>
-                {compact ? "Users" : "Users assigned"}&nbsp;
+                {compact && <div>Users</div>}
+                {!compact && "Users assigned "}
                 <Badge isRead>
                   {getAssignedSubjectCount(cluster.acls.user, id)}
                 </Badge>
               </DataListCell>
               <DataListCell>
-                {compact ? "Groups" : "Groups assigned"}&nbsp;
+                {compact && <div>Groups</div>}
+                {!compact && "Groups assigned "}
                 <Badge isRead>
                   {getAssignedSubjectCount(cluster.acls.group, id)}
                 </Badge>
