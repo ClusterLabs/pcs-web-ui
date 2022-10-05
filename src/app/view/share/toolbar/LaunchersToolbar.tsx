@@ -11,11 +11,13 @@ export const LaunchersToolbar = ({
   buttonsItems = [],
   dropdownItems = [],
   before,
+  after,
 }: {
   toolbarName: string;
   buttonsItems?: LauncherItem[];
   dropdownItems?: LauncherItem[];
   before?: React.ReactNode;
+  after?: React.ReactNode;
 }) => {
   return (
     <Toolbar style={{ padding: "0" }}>
@@ -37,6 +39,7 @@ export const LaunchersToolbar = ({
             />
           </ToolbarItem>
         )}
+        {after}
       </ToolbarContent>
     </Toolbar>
   );

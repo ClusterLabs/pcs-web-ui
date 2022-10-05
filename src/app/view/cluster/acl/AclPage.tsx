@@ -76,12 +76,15 @@ export const AclPage = () => {
             },
           },
         ]}
-        before={
-          <ToolbarItem>
-            <Label variant="outline" color={aclEnabled ? "green" : "grey"}>
-              Acl {aclEnabled ? "Enabled" : "Disabled"}
-            </Label>
-          </ToolbarItem>
+        after={
+          <>
+            <ToolbarItem variant="separator" />
+            <ToolbarItem>
+              <Label variant="outline" color={aclEnabled ? "green" : "grey"}>
+                Acl {aclEnabled ? "Enabled" : "Disabled"}
+              </Label>
+            </ToolbarItem>
+          </>
         }
       />
 
