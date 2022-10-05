@@ -31,9 +31,9 @@ export const Roles = () => {
       <DualListSelector
         isSearchable
         availableOptions={availableRoles}
-        availableOptionsTitle="Available resources"
+        availableOptionsTitle="Available roles"
         chosenOptions={roleList}
-        chosenOptionsTitle="Choosen resources"
+        chosenOptionsTitle="Choosen roles"
         onListChange={onListChange}
         id="basicSelectorWithSearch"
       />
