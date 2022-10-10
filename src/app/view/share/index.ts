@@ -5,6 +5,7 @@ export * as lib from "./lib";
 /* eslint-disable import/max-dependencies */
 export * from "./attributes";
 export * from "./ButtonWithEnter";
+export * from "./Card";
 export * from "./clusterGroupDetail";
 export * from "./CrmStatusTable";
 export * from "./dataList";

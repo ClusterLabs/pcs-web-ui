@@ -1,8 +1,8 @@
 import React from "react";
-import { Card, CardBody, CardTitle, DataList } from "@patternfly/react-core";
+import { DataList } from "@patternfly/react-core";
 
 import { tools } from "app/store";
-import { EmptyStateNoItem } from "app/view/share";
+import { Card, EmptyStateNoItem } from "app/view/share";
 import { Acl } from "app/view/cluster/types";
 
 import { AclType } from "../types";
@@ -18,26 +18,23 @@ export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
 }) => {
   const hasItems = aclList !== undefined && Object.keys(aclList).length > 0;
   return (
-    <Card className="pf-u-mb-sm pf-u-mr-sm">
-      <CardTitle>{`${tools.labelize(aclType)}s`}</CardTitle>
-      <CardBody>
-        {!hasItems && (
-          <EmptyStateNoItem
-            title={`No ACL ${aclType} is configured.`}
-            message={`You don't have any configured ACL ${aclType}s here.`}
-          />
-        )}
+    <Card title={`${tools.labelize(aclType)}s`}>
+      {!hasItems && (
+        <EmptyStateNoItem
+          title={`No ACL ${aclType} is configured.`}
+          message={`You don't have any configured ACL ${aclType}s here.`}
+        />
+      )}
 
-        {hasItems && (
-          <DataList aria-label={`Cluster ${aclType} acls`}>
-            {Object.entries(aclList).map(([id, aclObject]) => (
-              <React.Fragment key={id}>
-                {renderItem(id, aclObject)}
-              </React.Fragment>
-            ))}
-          </DataList>
-        )}
-      </CardBody>
+      {hasItems && (
+        <DataList aria-label={`Cluster ${aclType} acls`}>
+          {Object.entries(aclList).map(([id, aclObject]) => (
+            <React.Fragment key={id}>
+              {renderItem(id, aclObject)}
+            </React.Fragment>
+          ))}
+        </DataList>
+      )}
     </Card>
   );
 };

@@ -2,6 +2,7 @@ import { Grid, GridItem, PageSection } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {
+  Card,
   ClusterToolbar,
   TaskOpenArgs,
   useClusterSelector,
@@ -84,13 +85,19 @@ export const SbdPage = () => {
       <PageSection>
         <Grid hasGutter>
           <GridItem span={12}>
-            <SbdServiceStatus />
+            <Card title="SBD service status">
+              <SbdServiceStatus />
+            </Card>
           </GridItem>
           <GridItem span={6}>
-            <SbdConfiguration />
+            <Card title="SBD configuration ">
+              <SbdConfiguration />
+            </Card>
           </GridItem>
           <GridItem span={6}>
-            <SbdOnNodes />
+            <Card title="SBD per node ">
+              <SbdOnNodes />
+            </Card>
           </GridItem>
         </Grid>
       </PageSection>
