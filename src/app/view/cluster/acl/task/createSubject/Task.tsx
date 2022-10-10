@@ -18,16 +18,18 @@ export const Task = () => {
     },
   } = useTask();
 
+  const enterSubjectNameLabel = `Enter ${subjectType} name`;
+
   return (
     <Wizard
       task={taskName}
       title={`Create ${subjectType}`}
       data-test={`task-create-${subjectType}`}
-      description={`Create acl ${subjectType}`}
+      description={`Create ACL ${subjectType}`}
       onClose={close}
       steps={[
         {
-          name: `Enter ${subjectType} name`,
+          name: enterSubjectNameLabel,
           component: <EnterName />,
           footer: (
             <WizardFooter
@@ -37,7 +39,7 @@ export const Task = () => {
           ),
         },
         {
-          name: "Assign acl roles",
+          name: "Assign ACL roles",
           component: <Roles />,
           canJumpTo: isNameValid,
         },
@@ -60,7 +62,7 @@ export const Task = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={`create ${subjectType} ${subjectId}`}
-              backToUpdateSettingsStepName={`Enter ${subjectType} name`}
+              backToUpdateSettingsStepName={enterSubjectNameLabel}
               reports={reports}
             />
           ),

@@ -59,8 +59,9 @@ export const AclPage = () => {
           },
           {
             name: aclEnabled ? "disable-acl" : "enable-acl",
+            label: `${aclEnabled ? "Disable" : "Enable"} ACL`,
             confirm: {
-              title: aclEnabled ? "Disable acl" : "Enable acl",
+              title: aclEnabled ? "Disable ACL" : "Enable ACL",
               description: `${
                 aclEnabled ? "Disable" : "Enable"
               } access control lists.`,
@@ -81,7 +82,7 @@ export const AclPage = () => {
             <ToolbarItem variant="separator" />
             <ToolbarItem>
               <Label variant="outline" color={aclEnabled ? "green" : "grey"}>
-                Acl {aclEnabled ? "Enabled" : "Disabled"}
+                ACL {aclEnabled ? "enabled" : "disabled"}
               </Label>
             </ToolbarItem>
           </>

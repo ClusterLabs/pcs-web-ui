@@ -27,7 +27,7 @@ export const Roles = () => {
     });
 
   return (
-    <TaskLibStep title="Asign acl roles" reports={reports}>
+    <TaskLibStep title="Asign ACL roles" reports={reports}>
       <DualListSelector
         isSearchable
         availableOptions={availableRoles}

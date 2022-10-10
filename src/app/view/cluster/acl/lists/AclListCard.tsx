@@ -24,7 +24,7 @@ export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
         {!hasItems && (
           <EmptyStateNoItem
             title={`No ACL ${aclType} is configured.`}
-            message={`You don't have any configured acl ${aclType}s here.`}
+            message={`You don't have any configured ACL ${aclType}s here.`}
           />
         )}
 
