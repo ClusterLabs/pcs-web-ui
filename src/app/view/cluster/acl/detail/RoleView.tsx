@@ -1,11 +1,9 @@
 import { selectors } from "app/store";
 import {
-  DataListWithMenu,
-  DetailViewSection,
-  Link,
-  location,
+  Router,
+  UrlTabs,
   useClusterSelector,
-  useSelectedClusterName,
+  useUrlTabs,
 } from "app/view/share";
 
 import { AclType } from "../types";
@@ -13,6 +11,10 @@ import { AclType } from "../types";
 import { Layout } from "./Layout";
 import { RoleViewToolbar } from "./RoleViewToolbar";
 import { getAssignedSubjectIdList } from "./tools";
+import { RoleViewDetail } from "./RoleViewDetail";
+import { RoleViewSubjects } from "./RoleViewSubjects";
+
+export const aclRolePageTabList = ["detail", "users", "groups"] as const;
 
 export const RoleView = ({
   roleId,
@@ -21,110 +23,41 @@ export const RoleView = ({
   roleId: string;
   role: AclType<"role">;
 }) => {
-  const clusterName = useSelectedClusterName();
   const [{ acls }] = useClusterSelector(selectors.getCluster);
+  const { currentTab, matchedContext } = useUrlTabs(aclRolePageTabList);
 
   return (
     <Layout
       aclType="role"
       aclId={roleId}
       toolbar={<RoleViewToolbar roleId={roleId} />}
+      tabs={
+        <UrlTabs
+          tabList={aclRolePageTabList}
+          currentTab={currentTab}
+          data-test="node"
+        />
+      }
     >
-      <DetailViewSection caption="Description">
-        <p>{role.description}</p>
-      </DetailViewSection>
-
-      <DetailViewSection caption="Permissions">
-        <DataListWithMenu
-          name="permission"
-          emptyTitle={`No permission assigned to role "${roleId}".`}
-          itemList={role.permissions}
-          menuItems={[
-            permission => ({
-              name: "remove",
-              confirm: {
-                title: "Remove permission?",
-                description: `This removes the permission ${permission}`,
-                action: {
-                  type: "LIB.CALL.CLUSTER",
-                  key: { clusterName },
-                  payload: {
-                    taskLabel: `remove permission "${permission}"`,
-                    call: {
-                      name: "acl-remove-permission",
-                      payload: { permission_id: permission },
-                    },
-                  },
-                },
-              },
-            }),
-          ]}
-        />
-      </DetailViewSection>
-
-      <DetailViewSection caption="Users assigned">
-        <DataListWithMenu
-          name="user"
-          emptyTitle={`No user assigned to role "${roleId}".`}
-          itemList={getAssignedSubjectIdList(acls.user, roleId)}
-          formatItem={userId => (
-            <Link to={location.aclUser({ clusterName, userId })}>{userId}</Link>
-          )}
-          menuItems={[
-            userId => ({
-              name: "unassign",
-              confirm: {
-                title: "Unassign user?",
-                description: `This unassigns the user ${userId}`,
-                action: {
-                  type: "LIB.CALL.CLUSTER",
-                  key: { clusterName },
-                  payload: {
-                    taskLabel: `unassign user "${userId}"`,
-                    call: {
-                      name: "acl-unassign-role-from-target",
-                      payload: { role_id: roleId, target_id: userId },
-                    },
-                  },
-                },
-              },
-            }),
-          ]}
-        />
-      </DetailViewSection>
-
-      <DetailViewSection caption="Groups assigned">
-        <DataListWithMenu
-          name="group"
-          emptyTitle={`No group assigned to role "${roleId}".`}
-          itemList={getAssignedSubjectIdList(acls.group, roleId)}
-          formatItem={groupId => (
-            <Link to={location.aclGroup({ clusterName, groupId })}>
-              {groupId}
-            </Link>
-          )}
-          menuItems={[
-            groupId => ({
-              name: "unassign",
-              confirm: {
-                title: "Unassign group?",
-                description: `This unassigns the group ${groupId}`,
-                action: {
-                  type: "LIB.CALL.CLUSTER",
-                  key: { clusterName },
-                  payload: {
-                    taskLabel: `unassign group "${groupId}"`,
-                    call: {
-                      name: "acl-unassign-role-from-group",
-                      payload: { role_id: roleId, group_id: groupId },
-                    },
-                  },
-                },
-              },
-            }),
-          ]}
-        />
-      </DetailViewSection>
+      <Router base={matchedContext}>
+        {currentTab === "detail" && (
+          <RoleViewDetail roleId={roleId} role={role} />
+        )}
+        {currentTab === "users" && (
+          <RoleViewSubjects
+            roleId={roleId}
+            subjectType="user"
+            assignedSubjectIds={getAssignedSubjectIdList(acls.user, roleId)}
+          />
+        )}
+        {currentTab === "groups" && (
+          <RoleViewSubjects
+            roleId={roleId}
+            subjectType="group"
+            assignedSubjectIds={getAssignedSubjectIdList(acls.group, roleId)}
+          />
+        )}
+      </Router>
     </Layout>
   );
 };

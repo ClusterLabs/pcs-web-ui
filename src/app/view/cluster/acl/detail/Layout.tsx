@@ -2,15 +2,18 @@ import React from "react";
 
 import { DetailLayout } from "app/view/share";
 
+type DetailLayoutProps = React.ComponentProps<typeof DetailLayout>;
 export const Layout = ({
   aclType,
   aclId,
   toolbar,
+  tabs,
   children,
 }: {
   aclType: "role" | "user" | "group";
   aclId: string;
-  toolbar: React.ComponentProps<typeof DetailLayout>["toolbar"];
+  toolbar: DetailLayoutProps["toolbar"];
+  tabs?: DetailLayoutProps["tabs"];
   children: React.ReactNode;
 }) => {
   return (
@@ -22,6 +25,7 @@ export const Layout = ({
         </>
       }
       toolbar={toolbar}
+      tabs={tabs}
     >
       {children}
     </DetailLayout>
