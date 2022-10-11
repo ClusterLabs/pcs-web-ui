@@ -25,19 +25,21 @@ export const AclSubjectListItem = ({
     useGroupDetailViewContext();
 
   return (
-    <DataListItem aria-labelledby={id}>
+    <DataListItem aria-labelledby={id} data-test={`list-item ${id}`}>
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
             <>
-              <DataListCell>
+              <DataListCell data-test="name">
                 <Link strong to={`/${aclType}/${id}`}>
                   {id}
                 </Link>
               </DataListCell>
               <DataListCell>
                 {compact ? "Roles" : "Roles assigned"}&nbsp;
-                <Badge isRead>{roleIdList.length}</Badge>
+                <Badge isRead data-test="roles-count">
+                  {roleIdList.length}
+                </Badge>
               </DataListCell>
             </>
           }

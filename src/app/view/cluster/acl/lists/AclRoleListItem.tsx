@@ -37,12 +37,12 @@ export const AclRoleListItem = ({
     useGroupDetailViewContext();
 
   return (
-    <DataListItem aria-labelledby={id}>
+    <DataListItem aria-labelledby={id} data-test={`list-item ${id}`}>
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
             <>
-              <DataListCell>
+              <DataListCell data-test="name">
                 <Link strong to={`/role/${id}`}>
                   {id}
                 </Link>
@@ -50,19 +50,21 @@ export const AclRoleListItem = ({
               <DataListCell>
                 {compact && <div>Permissions</div>}
                 {!compact && "Permissions "}
-                <Badge isRead>{permissions.length}</Badge>
+                <Badge isRead data-test="permissions-count">
+                  {permissions.length}
+                </Badge>
               </DataListCell>
               <DataListCell>
                 {compact && <div>Users</div>}
                 {!compact && "Users assigned "}
-                <Badge isRead>
+                <Badge isRead data-test="users-count">
                   {getAssignedSubjectCount(cluster.acls.user, id)}
                 </Badge>
               </DataListCell>
               <DataListCell>
                 {compact && <div>Groups</div>}
                 {!compact && "Groups assigned "}
-                <Badge isRead>
+                <Badge isRead data-test="groups-count">
                   {getAssignedSubjectCount(cluster.acls.group, id)}
                 </Badge>
               </DataListCell>

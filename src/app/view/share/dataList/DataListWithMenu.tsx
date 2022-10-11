@@ -34,11 +34,11 @@ export const DataListWithMenu = ({
   return (
     <DataList aria-label={tools.labelize(nameList)} data-test={nameList}>
       {itemList.map((itemName, i) => (
-        <DataListItem key={i}>
+        <DataListItem key={i} data-test={"list-item"}>
           <DataListItemRow>
             <DataListItemCells
               dataListCells={
-                <DataListCell>
+                <DataListCell data-test="name">
                   {formatItem ? formatItem(itemName) : itemName}
                 </DataListCell>
               }
