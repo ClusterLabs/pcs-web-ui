@@ -120,6 +120,7 @@ export type Cluster = {
   })[];
   resourceTree: (Primitive | Group | Clone)[];
   fenceDeviceList: FenceDevice[];
+  acls: NonNullable<ApiCluster["acls"]>;
   constraints?: NonNullable<ApiCluster["constraints"]>;
   issueList: Issue[];
   summary: {

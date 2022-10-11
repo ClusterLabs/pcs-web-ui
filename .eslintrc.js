@@ -16,6 +16,7 @@ module.exports = {
     "plugin:react/recommended",
     "react-app",
     "plugin:jest-playwright/recommended",
+    "plugin:react-hooks/recommended",
   ],
   rules: {
     // specify whether double or single quotes should be used
@@ -45,16 +46,25 @@ module.exports = {
     "import/no-unresolved": ["off", { commonjs: true, caseSensitive: true }],
     "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",
+    "no-multiple-empty-lines": "error",
     "lines-between-class-members": "off",
     // It creates messy diff when there is need to switch from => ( to => {
     "arrow-body-style": "off",
-    "arrow-parens": ["error", "as-needed", { requireForBlockBody: true }],
+    "arrow-parens": ["error", "as-needed"],
     "function-paren-newline": "off",
     "object-curly-newline": "off",
 
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
     // "import/extensions": [2, { "js": "always", "jsx": "always" }],
     "import/extensions": ["error", "never", { packages: "always" }],
+    "import/newline-after-import": "error",
+    "import/no-useless-path-segments": [
+      "error",
+      {
+        noUselessIndex: true,
+      },
+    ],
+    "import/no-cycle": "error",
     "react/jsx-curly-newline": "off",
     "react/react-in-jsx-scope": "off",
     "react/no-unescaped-entities": [
@@ -133,6 +143,13 @@ module.exports = {
       },
     ],
     "import/no-anonymous-default-export": "off",
+    "import/max-dependencies": [
+      "error",
+      {
+        max: 10,
+        ignoreTypeImports: false,
+      },
+    ],
 
     // specify the maximum length of a line in your program
     // https://eslint.org/docs/rules/max-len

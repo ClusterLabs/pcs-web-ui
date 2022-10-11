@@ -5,7 +5,7 @@ export const assertReview = async (
   nameValueMap: Record<string, string>,
 ) => {
   await page.waitForSelector(dt(contextSelector));
-  Object.keys(nameValueMap).forEach(async (name) => {
+  Object.keys(nameValueMap).forEach(async name => {
     const foundValues = await page.$$eval(
       dt(contextSelector, `${name}-review-value`),
       el => el.map(e => (e as HTMLElement).innerText),

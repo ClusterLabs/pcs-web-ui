@@ -7,9 +7,11 @@ import { ClusterSbdActions } from "./sbd";
 import { ClusterStatusActions } from "./status";
 import { ClusterTaskActions } from "./task";
 import { ClusterNVPairListActions } from "./nvpairList";
+import { ClusterAclActions } from "./acl";
 
 // prettier-ignore
 export type ClusterActions = (
+  & ClusterAclActions
   & ClusterAddActions
   & ClusterFixAuthActions
   & ClusterListActions

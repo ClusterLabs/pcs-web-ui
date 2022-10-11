@@ -1,4 +1,4 @@
-export const confirmDialog = (name: string) => {
+export const getConfirmDialog = (name: string) => {
   const dialogSelector = `//*[@data-test="confirm ${name}"]/parent::*`;
   return {
     isDisplayed: async () => await page.waitForSelector(dialogSelector),

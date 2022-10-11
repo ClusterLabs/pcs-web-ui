@@ -13,7 +13,10 @@ export const EditArgsForm = () => {
   return (
     <Stack>
       <StackItem>
-        <PcmkAgentAttrsToolbar filterState={filterState} />
+        <PcmkAgentAttrsToolbar
+          toolbarName="fence-device-args"
+          filterState={filterState}
+        />
       </StackItem>
       <StackItem>
         <Form isHorizontal>

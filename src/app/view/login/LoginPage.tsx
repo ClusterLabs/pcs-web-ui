@@ -40,7 +40,7 @@ export const LoginPage = () => {
           onChangePassword={value => setPassword(value)}
           isValidPassword
           isLoginButtonDisabled={!isAcceptingLoginData}
-          onLoginButtonClick={(e) => {
+          onLoginButtonClick={e => {
             e.preventDefault();
             dispatch({
               type: "LOGIN.ENTER_CREDENTIALS",

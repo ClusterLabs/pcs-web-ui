@@ -1,7 +1,6 @@
-import { StackItem, Text, TextContent } from "@patternfly/react-core";
-
 import { FenceDevice } from "app/view/cluster/types";
 import {
+  DetailViewSection,
   IssueList,
   LoadedPcmkAgent,
   PcmkAgentDescription,
@@ -16,11 +15,7 @@ export const FenceDeviceDetailView = ({
   const clusterName = useSelectedClusterName();
   return (
     <>
-      <StackItem>
-        <TextContent>
-          <Text component="h1"> Description </Text>
-        </TextContent>
-
+      <DetailViewSection caption="Description">
         <LoadedPcmkAgent
           clusterName={clusterName}
           agentName={fenceDevice.agentName}
@@ -33,15 +28,12 @@ export const FenceDeviceDetailView = ({
             />
           )}
         </LoadedPcmkAgent>
-      </StackItem>
-      <StackItem>
-        {fenceDevice.issueList.length > 0 && (
-          <TextContent>
-            <Text component="h1"> Issues </Text>
-          </TextContent>
-        )}
-        <IssueList issueList={fenceDevice.issueList} hideEmpty />
-      </StackItem>
+      </DetailViewSection>
+      {fenceDevice.issueList.length > 0 && (
+        <DetailViewSection caption="Issues">
+          <IssueList issueList={fenceDevice.issueList} hideEmpty />
+        </DetailViewSection>
+      )}
     </>
   );
 };

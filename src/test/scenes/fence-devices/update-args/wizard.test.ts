@@ -7,7 +7,7 @@ const clusterName = "resourcesForTest";
 const fenceDeviceId = "F1";
 const agentName = "fence_apc";
 
-const editButton = dt("task-launch edit-fence-device-args");
+const editButton = dt("task fence-device-args-edit-arguments");
 
 const taskView = dt("fence-device-args-edit");
 const task = {

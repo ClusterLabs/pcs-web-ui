@@ -5,11 +5,13 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
-  TaskLauncher,
+  TaskOpenArgs,
   useSelectedClusterName,
 } from "app/view/share";
 
 import * as task from "./task";
+
+type EditArgsOpenArgs = TaskOpenArgs<typeof task.editArgs.useTask>;
 
 export const FenceDeviceArgumentsView = ({
   fenceDevice,
@@ -22,34 +24,37 @@ export const FenceDeviceArgumentsView = ({
     (nameValueMap, [name, { value }]) => ({ ...nameValueMap, [name]: value }),
     {},
   );
+
   return (
     <LoadedPcmkAgent
       clusterName={clusterName}
       agentName={fenceDevice.agentName}
     >
-      {(agent) => {
+      {agent => {
+        const editArgsOpenArgs: EditArgsOpenArgs = [
+          {
+            fenceDeviceId: fenceDevice.id,
+            fenceDeviceArguments,
+            agentParameters: agent.parameters,
+          },
+        ];
         return (
           <>
             <StackItem>
               <PcmkAgentAttrsToolbar
+                toolbarName="fence-device-args"
                 filterState={filterState}
-                actions={{
-                  "Edit arguments": (
-                    <TaskLauncher
-                      taskComponent={task.editArgs.EditArgsTask}
-                      useTask={task.editArgs.useTask}
-                      openArgs={[
-                        {
-                          fenceDeviceId: fenceDevice.id,
-                          fenceDeviceArguments,
-                          agentParameters: agent.parameters,
-                        },
-                      ]}
-                      label="Edit arguments"
-                      data-test="task-launch edit-fence-device-args"
-                    />
-                  ),
-                }}
+                buttonsItems={[
+                  {
+                    name: "edit-arguments",
+                    task: {
+                      component: task.editArgs.EditArgsTask,
+                      useTask: task.editArgs.useTask,
+                      openArgs: editArgsOpenArgs,
+                    },
+                    button: { variant: "primary" },
+                  },
+                ]}
               />
             </StackItem>
             <StackItem>

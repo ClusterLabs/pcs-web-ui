@@ -34,7 +34,7 @@ export const ConstraintRowWithResourceSet = ({
           <ConstraintCell label="Type" value={type} width={1} />
           <DataListCell width={4}>
             <DataList aria-label="Constraint resource set">
-              {resourceSetList.map((resourceSet) => {
+              {resourceSetList.map(resourceSet => {
                 if ("id-ref" in resourceSet) {
                   return (
                     <DataListItem

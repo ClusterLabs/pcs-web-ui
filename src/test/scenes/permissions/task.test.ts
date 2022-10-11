@@ -16,7 +16,7 @@ const clusterName = "ok";
 
 const view = "permission-edit";
 const task = {
-  toolbarItem: mkXPath("task-launch create-permission"),
+  toolbarItem: mkXPath("task permissions-create-permission"),
   view: mkXPath(view),
   name: mkXPath(view, "name"),
   type: mkXPath(view, "type"),

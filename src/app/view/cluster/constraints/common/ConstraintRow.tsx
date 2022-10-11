@@ -23,7 +23,9 @@ export const ConstraintRow = ({
 }: {
   id?: string;
   content?: React.ReactNode;
-  dataListCells: React.ComponentProps<typeof DataListItemCells>["dataListCells"];
+  dataListCells: React.ComponentProps<
+    typeof DataListItemCells
+  >["dataListCells"];
   canDelete?: boolean;
   deleteAction?: Action;
 }) => {

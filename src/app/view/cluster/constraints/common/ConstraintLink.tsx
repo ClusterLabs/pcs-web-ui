@@ -9,14 +9,13 @@ export const ConstraintLink = ({
 }) => {
   const clusterName = useSelectedClusterName();
   return (
-    <strong>
-      <Link
-        to={
-          type === "resource"
-            ? location.resource({ clusterName, resourceId: id })
-            : location.node({ clusterName, nodeName: id })
-        }
-      />
-    </strong>
+    <Link
+      strong
+      to={
+        type === "resource"
+          ? location.resource({ clusterName, resourceId: id })
+          : location.node({ clusterName, nodeName: id })
+      }
+    />
   );
 };

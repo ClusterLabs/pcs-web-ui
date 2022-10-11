@@ -23,7 +23,7 @@ export function FormRadioGroup<OPTION extends string>({
           <Radio
             isChecked={o === selected}
             name={`${id}-${o}`}
-            onChange={(isChecked) => {
+            onChange={isChecked => {
               if (isChecked) {
                 onChange(o);
               }

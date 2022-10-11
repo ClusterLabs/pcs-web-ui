@@ -1,4 +1,5 @@
 import { StonithAgentListAgents } from "dev/types";
+
 export const ok: StonithAgentListAgents = [
   {
     name: "stonith:fence_amt_ws",

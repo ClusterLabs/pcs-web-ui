@@ -1,16 +1,11 @@
 import * as React from "react";
-import {
-  ActionList,
-  StackItem,
-  Toolbar,
-  ToolbarGroup,
-  ToolbarItem,
-} from "@patternfly/react-core";
+import { StackItem } from "@patternfly/react-core";
 
 import { ActionPayload } from "app/store";
 import { NVPair } from "app/view/cluster/types";
 import { EmptyStateNoItem } from "app/view/share/emptyState";
-import { ActionTaskLauncher } from "app/view/share/task";
+import { LaunchersToolbar } from "app/view/share/toolbar";
+import { TaskOpenArgs } from "app/view/share/task";
 
 import { NVPairList } from "./NVPairList";
 import * as task from "./task";
@@ -26,29 +21,30 @@ export const NVPairListView = ({
   createLabel: string;
   beforeList?: React.ReactNode;
 }) => {
+  const editOpenArgs: TaskOpenArgs<typeof task.edit.useTask> = [
+    {
+      type: "create",
+      owner,
+      nameList: nvPairList.map(nvPair => nvPair.name),
+    },
+  ];
   return (
     <>
       <StackItem>
-        <Toolbar data-test="nvpairs-toolbar">
-          <ToolbarGroup>
-            <ToolbarItem>
-              <ActionList>
-                <ActionTaskLauncher
-                  taskComponent={task.edit.Task}
-                  useTask={task.edit.useTask}
-                  openArgs={[
-                    {
-                      type: "create",
-                      owner,
-                      nameList: nvPairList.map(nvPair => nvPair.name),
-                    },
-                  ]}
-                  label={createLabel}
-                />
-              </ActionList>
-            </ToolbarItem>
-          </ToolbarGroup>
-        </Toolbar>
+        <LaunchersToolbar
+          toolbarName="nvpairs"
+          buttonsItems={[
+            {
+              name: "create",
+              label: createLabel,
+              task: {
+                component: task.edit.Task,
+                useTask: task.edit.useTask,
+                openArgs: editOpenArgs,
+              },
+            },
+          ]}
+        />
       </StackItem>
 
       {beforeList && <StackItem>{beforeList}</StackItem>}

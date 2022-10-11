@@ -23,7 +23,7 @@ export const ClusterIssueList = ({ issueList }: { issueList: Issue[] }) => {
     <IssueList
       issueList={issueList.sort(compareIssuesOrder)}
       hideEmpty
-      displayIssue={(issue) => {
+      displayIssue={issue => {
         if (isNoAuthIssue(issue)) {
           return <ClusterIssueNotAuth nodeList={issue.nodeList} />;
         }

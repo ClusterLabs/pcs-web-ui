@@ -29,7 +29,7 @@ export const ResourceTree = ({
       aria-label="Cluster resources"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
     >
-      {resourceTree.map((resourceTreeItem) => {
+      {resourceTree.map(resourceTreeItem => {
         switch (resourceTreeItem.itemType) {
           case "primitive":
             return (

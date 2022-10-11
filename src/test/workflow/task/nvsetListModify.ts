@@ -7,7 +7,7 @@ const task = ({ launchKey }: { launchKey: string }) => {
     "Name and type" | "Instance attributes" | "Settings" | "Review"
   >({
     taskKey: "nvpair-edit",
-    openKey: `task-launch ${launchKey}`,
+    openKey: `${launchKey}`,
   });
 
   const { selectors: commonSelectors, inView } = commonTask;

@@ -1,9 +1,8 @@
-import { StackItem, Text, TextContent } from "@patternfly/react-core";
-
 import { selectors } from "app/store";
 import { Group } from "app/view/cluster/types";
 import {
   CrmStatusTable,
+  DetailViewSection,
   IssueList,
   Link,
   location,
@@ -18,14 +17,11 @@ export const GroupDetail = ({ group }: { group: Group }) => {
 
   return (
     <>
-      <StackItem>
+      <DetailViewSection>
         <IssueList issueList={group.issueList} hideEmpty />
-      </StackItem>
-      <StackItem>
-        <TextContent>
-          <Text component="h1"> Member status </Text>
-        </TextContent>
+      </DetailViewSection>
 
+      <DetailViewSection caption="Member status">
         <CrmStatusTable
           crmStatusList={crmStatusList}
           emptyMessage={`No status info for resources of group "${group.id}" found.`}
@@ -55,7 +51,7 @@ export const GroupDetail = ({ group }: { group: Group }) => {
             ),
           }}
         />
-      </StackItem>
+      </DetailViewSection>
     </>
   );
 };

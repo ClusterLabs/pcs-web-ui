@@ -105,7 +105,8 @@ lint:
 	npx eslint --fix --ext .js,.ts,.tsx src/
 
 fmt:
-	npx prettier-eslint "$(PWD)/src/**/*.*" --write
+	npx prettier "src/" --write
+	npx eslint --fix --ext .js,.ts,.tsx src/
 
 _install:
 ifndef PCSD_DIR

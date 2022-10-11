@@ -9,7 +9,7 @@ import {
 } from "./common";
 
 const { open, fillForm, run, waitForSuccess, waitForError, close } =
-  workflow.task.nvsetListModify({ launchKey: "create-meta-attribute" });
+  workflow.task.nvsetListModify({ launchKey: "task nvpairs-create" });
 
 describe("Resource meta attribute create task", () => {
   const name = "attribute-name";

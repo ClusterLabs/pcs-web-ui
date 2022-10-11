@@ -1,12 +1,9 @@
-import { ActionList } from "@patternfly/react-core";
-
+import { selectors } from "app/store";
 import {
-  ActionTaskLauncher,
-  ClusterSectionToolbar,
+  ClusterToolbar,
   GroupDetailView,
   useClusterSelector,
 } from "app/view/share";
-import { selectors } from "app/store";
 
 import * as task from "./task";
 import { FenceDeviceDetailPage } from "./FenceDeviceDetailPage";
@@ -16,15 +13,18 @@ export const FenceDevicePage = () => {
   const [{ fenceDeviceList }] = useClusterSelector(selectors.getCluster);
   return (
     <>
-      <ClusterSectionToolbar>
-        <ActionList>
-          <ActionTaskLauncher
-            taskComponent={task.create.FenceDeviceCreate}
-            useTask={task.create.useTask}
-            label="Create Fence Device"
-          />
-        </ActionList>
-      </ClusterSectionToolbar>
+      <ClusterToolbar
+        toolbarName="fence-devices"
+        buttonsItems={[
+          {
+            name: "create-fence-device",
+            task: {
+              component: task.create.FenceDeviceCreate,
+              useTask: task.create.useTask,
+            },
+          },
+        ]}
+      />
       <GroupDetailView
         detailCard={<FenceDeviceDetailPage />}
         groupCard={<FenceDeviceList fenceDeviceList={fenceDeviceList} />}

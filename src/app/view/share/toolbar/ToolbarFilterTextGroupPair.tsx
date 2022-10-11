@@ -4,6 +4,7 @@ import { ToolbarFilterAction } from "./ToolbarFilterActions";
 import { ToolbarFilterGroups } from "./ToolbarFilterGroups";
 import { ToolbarItem } from "./ToolbarItem";
 import { ToolbarTextSearchFilter } from "./ToolbarTextSearchFilter";
+import { LauncherItem } from "./types";
 
 type FilterState = {
   groupState: React.ComponentProps<typeof ToolbarFilterGroups>["filterState"];
@@ -66,12 +67,14 @@ export const ToolbarFilterTextGroupPair = ({
   textSearchId,
   groupName,
   filterState,
-  actions = {},
+  buttonsItems,
+  toolbarName,
 }: {
   textSearchId: string;
   groupName: string;
   filterState: ReturnType<typeof useState>["filterState"];
-  actions?: React.ComponentProps<typeof ToolbarFilterAction>["actions"];
+  buttonsItems?: LauncherItem[];
+  toolbarName: string;
 }) => {
   const clearAllFilters = () => {
     const [groupInclusionMap, setGroupInclusionMap] = filterState.groupState;
@@ -81,7 +84,11 @@ export const ToolbarFilterTextGroupPair = ({
   };
 
   return (
-    <ToolbarFilterAction clearAllFilters={clearAllFilters} actions={actions}>
+    <ToolbarFilterAction
+      clearAllFilters={clearAllFilters}
+      buttonsItems={buttonsItems}
+      toolbarName={toolbarName}
+    >
       <>
         <ToolbarItem>
           <ToolbarTextSearchFilter

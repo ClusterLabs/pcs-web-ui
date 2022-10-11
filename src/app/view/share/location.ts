@@ -42,3 +42,27 @@ export const sbdList = ({ clusterName }: { clusterName: string }) =>
 
 export const permissionList = ({ clusterName }: { clusterName: string }) =>
   `${cluster({ clusterName })}/permissions`;
+
+export const aclGroup = ({
+  clusterName,
+  groupId,
+}: {
+  clusterName: string;
+  groupId: string;
+}) => `${cluster({ clusterName })}/acl/group/${groupId}`;
+
+export const aclUser = ({
+  clusterName,
+  userId,
+}: {
+  clusterName: string;
+  userId: string;
+}) => `${cluster({ clusterName })}/acl/user/${userId}`;
+
+export const aclRole = ({
+  clusterName,
+  roleId,
+}: {
+  clusterName: string;
+  roleId: string;
+}) => `${cluster({ clusterName })}/acl/role/${roleId}`;

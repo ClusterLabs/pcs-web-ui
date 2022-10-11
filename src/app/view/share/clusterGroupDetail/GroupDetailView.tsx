@@ -42,7 +42,10 @@ export const GroupDetailView = ({
 
   if (detailMatch(detail, detailTypeList)) {
     return (
-      <PageSection className="ha-m-full-height pf-m-fill">
+      <PageSection
+        className="ha-m-full-height pf-m-fill"
+        data-test="group-detail"
+      >
         <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">
           <GroupDetailViewContextProvider
             value={{
@@ -52,8 +55,13 @@ export const GroupDetailView = ({
               closeDetailUrl,
             }}
           >
-            <div className="pf-c-card ha-c-panel__tree-view">{groupCard}</div>
-            <div className="pf-c-card pf-m-flex-1 ha-c-panel__details-view">
+            <div className="ha-c-panel__tree-view" data-test="group-card">
+              {groupCard}
+            </div>
+            <div
+              className="pf-c-card pf-m-flex-1 ha-c-panel__details-view"
+              data-test="detail-card"
+            >
               <Router base={detail.matched}>{detailCard}</Router>
             </div>
           </GroupDetailViewContextProvider>

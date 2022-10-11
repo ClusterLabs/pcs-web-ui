@@ -1,5 +1,5 @@
-import { ActionMap } from "app/store/actions";
 import { updateFenceDevice } from "app/backend";
+import { ActionMap } from "app/store/actions";
 
 import { api, processError, put } from "./common";
 

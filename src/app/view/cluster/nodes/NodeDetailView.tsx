@@ -1,8 +1,7 @@
-import { StackItem, Text, TextContent } from "@patternfly/react-core";
-
 import { selectors } from "app/store";
 import {
   CrmStatusTable,
+  DetailViewSection,
   EmptyStateError,
   IssueList,
   Link,
@@ -21,14 +20,10 @@ export const NodeDetailView = ({ node }: { node: Node }) => {
   );
   return (
     <>
-      <StackItem>
+      <DetailViewSection>
         <IssueList issueList={node.issueList} hideEmpty />
-      </StackItem>
-      <StackItem>
-        <TextContent>
-          <Text component="h1">Resource status</Text>
-        </TextContent>
-
+      </DetailViewSection>
+      <DetailViewSection caption="Resource status">
         <CrmStatusTable
           crmStatusList={crmStatusList}
           emptyMessage={`No resource running on node "${node.name}".`}
@@ -45,29 +40,23 @@ export const NodeDetailView = ({ node }: { node: Node }) => {
             ),
           }}
         />
-      </StackItem>
+      </DetailViewSection>
       {node.status === "DATA_NOT_PROVIDED" && (
-        <StackItem>
-          <TextContent>
-            <Text component="h1"> Node Daemons </Text>
-          </TextContent>
+        <DetailViewSection caption="Node Daemons">
           <EmptyStateError
             title={`No data for node ${node.name}.`}
             message={`Data for node ${node.name} are not provided by backend`}
           />
-        </StackItem>
+        </DetailViewSection>
       )}
       {node.status !== "DATA_NOT_PROVIDED" && (
         <>
-          <StackItem>
-            <TextContent>
-              <Text component="h1"> Node Daemons </Text>
-            </TextContent>
+          <DetailViewSection caption="Node Daemons">
             <NodeDaemonTable services={node.services} />
-          </StackItem>
-          <StackItem>
+          </DetailViewSection>
+          <DetailViewSection>
             <NodeClusterServicesView node={node} />
-          </StackItem>
+          </DetailViewSection>
         </>
       )}
     </>

@@ -12,7 +12,7 @@ const commonTask = prepareCommonTask<
   | "Review"
 >({
   taskKey: "task-cluster-setup",
-  openKey: "task-launch setup-cluster",
+  openKey: "task dashboard-setup-cluster",
 });
 
 const { selectors: commonSelectors, inView, taskKey } = commonTask;

@@ -1,6 +1,7 @@
-import React from "react";
-
-import { ToolbarFilterTextGroupPair } from "app/view/share/toolbar";
+import {
+  LauncherItem,
+  ToolbarFilterTextGroupPair,
+} from "app/view/share/toolbar";
 
 import { AgentParameter } from "../types";
 
@@ -31,18 +32,21 @@ const useState = (
   );
 
 export const PcmkAgentAttrsToolbar = ({
-  actions = {},
+  buttonsItems,
   filterState,
+  toolbarName,
 }: {
-  actions?: React.ComponentProps<typeof ToolbarFilterTextGroupPair>["actions"];
+  buttonsItems?: LauncherItem[];
   filterState: ReturnType<typeof useState>["filterState"];
+  toolbarName: string;
 }) => {
   return (
     <ToolbarFilterTextGroupPair
       textSearchId="agent-attributes-name"
       groupName="Importance"
       filterState={filterState}
-      actions={actions}
+      buttonsItems={buttonsItems}
+      toolbarName={toolbarName}
     />
   );
 };

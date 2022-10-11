@@ -23,3 +23,5 @@ export type StatusSeverity = ConnectedNode["statusSeverity"];
 export type Issue = Cluster["issueList"][number];
 
 export type NVPair = Resource["metaAttributes"][number];
+
+export type Acl = Cluster["acls"];

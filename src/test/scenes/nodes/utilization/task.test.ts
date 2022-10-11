@@ -9,7 +9,9 @@ import {
 } from "./common";
 
 const { open, fillForm, run, waitForSuccess, waitForError, close } =
-  workflow.task.nvsetListModify({ launchKey: "create-utilization-attribute" });
+  workflow.task.nvsetListModify({
+    launchKey: "task nvpairs-create",
+  });
 
 describe("Resource utilization task", () => {
   const name = "attribute-name";

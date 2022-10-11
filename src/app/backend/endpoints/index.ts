@@ -1,3 +1,4 @@
+/* eslint-disable import/max-dependencies */
 import {
   Commands,
   libCluster,

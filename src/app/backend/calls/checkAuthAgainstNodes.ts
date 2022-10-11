@@ -9,7 +9,7 @@ export const checkAuthAgainstNodes = async (
 
   return http.get(url, {
     params: params(uniqueNodeList),
-    validate: (payload) => {
+    validate: payload => {
       let errors = validate.shape(payload, shape);
       if (errors.length > 0) {
         return errors;

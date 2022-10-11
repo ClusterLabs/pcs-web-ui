@@ -1,7 +1,7 @@
 import { FenceDevice } from "app/view/cluster/types";
 import {
-  DetailLayoutToolbar,
-  DetailLayoutToolbarAction,
+  DetailToolbar,
+  LauncherItem as ToolbarItem,
   useSelectedClusterName,
 } from "app/view/share";
 
@@ -11,15 +11,8 @@ export const FencePageToolbar = ({
   fenceDevice: FenceDevice;
 }) => {
   const cluster = useSelectedClusterName();
-  const refresh: DetailLayoutToolbarAction = {
-    action: {
-      type: "RESOURCE.REFRESH",
-      key: { clusterName: cluster },
-      payload: {
-        resourceId: fenceDevice.id,
-        resourceType: "fence-device",
-      },
-    },
+  const refresh: ToolbarItem = {
+    name: "refresh",
     confirm: {
       title: "Refresh fence device?",
       description: (
@@ -29,18 +22,19 @@ export const FencePageToolbar = ({
           state.
         </>
       ),
+      action: {
+        type: "RESOURCE.REFRESH",
+        key: { clusterName: cluster },
+        payload: {
+          resourceId: fenceDevice.id,
+          resourceType: "fence-device",
+        },
+      },
     },
   };
 
-  const cleanup: DetailLayoutToolbarAction = {
-    action: {
-      type: "RESOURCE.CLEANUP",
-      key: { clusterName: cluster },
-      payload: {
-        resourceId: fenceDevice.id,
-        resourceType: "fence-device",
-      },
-    },
+  const cleanup: ToolbarItem = {
+    name: "cleanup",
     confirm: {
       title: "Cleanup fence device?",
       description: (
@@ -49,33 +43,37 @@ export const FencePageToolbar = ({
           fence device and re-detects its current state.
         </>
       ),
+      action: {
+        type: "RESOURCE.CLEANUP",
+        key: { clusterName: cluster },
+        payload: {
+          resourceId: fenceDevice.id,
+          resourceType: "fence-device",
+        },
+      },
     },
   };
 
-  const deleteItem: DetailLayoutToolbarAction = {
-    action: {
-      type: "RESOURCE.DELETE",
-      key: { clusterName: cluster },
-      payload: {
-        resourceIds: [fenceDevice.id],
-        resourceType: "fence-device",
-      },
-    },
+  const deleteItem: ToolbarItem = {
+    name: "delete",
     confirm: {
       title: "Delete resource?",
       description: <>This deletes the resource</>,
+      action: {
+        type: "RESOURCE.DELETE",
+        key: { clusterName: cluster },
+        payload: {
+          resourceIds: [fenceDevice.id],
+          resourceType: "fence-device",
+        },
+      },
     },
   };
   return (
-    <DetailLayoutToolbar
+    <DetailToolbar
       toolbarName="fence-device"
-      buttonActions={{
-        refresh,
-        cleanup,
-      }}
-      dropdownActions={{
-        delete: deleteItem,
-      }}
+      buttonsItems={[refresh, cleanup]}
+      dropdownItems={[deleteItem]}
     />
   );
 };

@@ -1,11 +1,6 @@
-import {
-  ActionList,
-  Card,
-  CardBody,
-  PageSection,
-} from "@patternfly/react-core";
+import { Card, CardBody, PageSection } from "@patternfly/react-core";
 
-import { ActionTaskLauncher, ClusterSectionToolbar } from "app/view/share";
+import { ClusterToolbar } from "app/view/share";
 
 import { ConstraintFilteredList } from "./ConstraintFilteredList";
 import * as task from "./task";
@@ -13,51 +8,62 @@ import * as task from "./task";
 export const ConstraintsPage = ({ clusterName }: { clusterName: string }) => {
   return (
     <>
-      <ClusterSectionToolbar>
-        <ActionList>
-          <ActionTaskLauncher
-            taskComponent={task.createLocation.Task}
-            useTask={task.createLocation.useTask}
-            label="Create Location"
-          />
-          <ActionTaskLauncher
-            taskComponent={task.createOrder.Task}
-            useTask={task.createOrder.useTask}
-            label="Create Order"
-            variant="secondary"
-          />
-          <ActionTaskLauncher
-            taskComponent={task.createOrderSet.Task}
-            useTask={task.createOrderSet.useTask}
-            label="Create Order Set"
-            variant="secondary"
-          />
-          <ActionTaskLauncher
-            taskComponent={task.createColocation.Task}
-            useTask={task.createColocation.useTask}
-            label="Create Colocation"
-            variant="secondary"
-          />
-          <ActionTaskLauncher
-            taskComponent={task.createColocationSet.Task}
-            useTask={task.createColocationSet.useTask}
-            label="Create Colocation Set"
-            variant="secondary"
-          />
-          <ActionTaskLauncher
-            taskComponent={task.createTicket.Task}
-            useTask={task.createTicket.useTask}
-            label="Create Ticket"
-            variant="secondary"
-          />
-          <ActionTaskLauncher
-            taskComponent={task.createTicketSet.Task}
-            useTask={task.createTicketSet.useTask}
-            label="Create Ticket Set"
-            variant="secondary"
-          />
-        </ActionList>
-      </ClusterSectionToolbar>
+      <ClusterToolbar
+        toolbarName="resources"
+        buttonsItems={[
+          {
+            name: "create-location",
+            task: {
+              component: task.createLocation.Task,
+              useTask: task.createLocation.useTask,
+            },
+          },
+          {
+            name: "create-order",
+            task: {
+              component: task.createOrder.Task,
+              useTask: task.createOrder.useTask,
+            },
+          },
+          {
+            name: "create-colocation",
+            task: {
+              component: task.createColocation.Task,
+              useTask: task.createColocation.useTask,
+            },
+          },
+        ]}
+        dropdownItems={[
+          {
+            name: "create-ticket",
+            task: {
+              component: task.createTicket.Task,
+              useTask: task.createTicket.useTask,
+            },
+          },
+          {
+            name: "create-order-set",
+            task: {
+              component: task.createOrderSet.Task,
+              useTask: task.createOrderSet.useTask,
+            },
+          },
+          {
+            name: "create-colocation-set",
+            task: {
+              component: task.createColocationSet.Task,
+              useTask: task.createColocationSet.useTask,
+            },
+          },
+          {
+            name: "create-ticket-set",
+            task: {
+              component: task.createTicketSet.Task,
+              useTask: task.createTicketSet.useTask,
+            },
+          },
+        ]}
+      />
       <PageSection>
         <Card>
           <CardBody>

@@ -1,4 +1,5 @@
 import { Cluster } from "dev/types";
+import { firstSet as aclFirstSet } from "dev/responses/acl";
 
 import {
   clone,
@@ -301,6 +302,7 @@ export const resourceTree: Cluster = cluster("resourceTree", "ok", {
       ],
     }),
   ],
+  acls: aclFirstSet,
   constraints,
   pacemaker_standby: ["node-1"],
   node_attr: {

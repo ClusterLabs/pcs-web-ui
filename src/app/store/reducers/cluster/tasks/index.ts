@@ -1,7 +1,13 @@
 import { combineReducers } from "redux";
 
-import { ReducersMapKey, Task, TaskState, wrapTasks } from "app/store/taskTools";
+import {
+  ReducersMapKey,
+  Task,
+  TaskState,
+  wrapTasks,
+} from "app/store/taskTools";
 
+/* eslint-disable import/max-dependencies */
 import { resourceCreate } from "./resourceCreate";
 import { fenceDeviceCreate } from "./fenceDeviceCreate";
 import { fenceDeviceArgsEdit } from "./fenceDeviceArgsEdit";
@@ -20,6 +26,10 @@ import { permissionEdit } from "./permissionEdit";
 import { nvpairEdit } from "./nvpairEdit";
 import { sbdDisable } from "./sbdDisable";
 import { sbdConfigure } from "./sbdConfigure";
+import { aclRoleCreate } from "./aclRoleCreate";
+import { aclRolePermissionAdd } from "./aclRolePermissionAdd";
+import { aclSubjectCreate } from "./aclSubjectCreate";
+import { aclSubjectAssign } from "./aclSubjectAssign";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -60,5 +70,9 @@ export const tasks = combineReducers(
     nvpairEdit,
     sbdDisable,
     sbdConfigure,
+    aclRoleCreate,
+    aclRolePermissionAdd,
+    aclSubjectCreate,
+    aclSubjectAssign,
   }),
 );

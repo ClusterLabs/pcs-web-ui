@@ -29,7 +29,7 @@ const defaultSteps: Step[] = [
 const separateStepsAndFooters = (steps: Step[]) => {
   const stepList: WizardStep[] = [];
   let footerList: Footer[] = [];
-  steps.forEach((stepWithFooter) => {
+  steps.forEach(stepWithFooter => {
     let pfStep;
     if ("footer" in stepWithFooter) {
       const { footer, ...rest } = stepWithFooter;

@@ -20,7 +20,8 @@ type SetupData = Extract<
 
 // type to make non nullable attributes
 // so we don't have to always write defaulting to string, e.g.:
-// await page.type(selectors.knetTransport.link_priority, link.link_priority || "");
+// await
+// page.type(selectors.knetTransport.link_priority, link.link_priority || "");
 type StrictProps<T> = { [K in keyof T]-?: NonNullable<T[K]> };
 
 const addrs = [

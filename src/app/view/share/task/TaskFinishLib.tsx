@@ -28,7 +28,7 @@ export const TaskFinishLib = ({
     | "progress";
   taskName: string;
   backToUpdateSettings: () => void;
-  proceedForce: () => void;
+  proceedForce?: () => void;
   tryAgain: () => void;
   reports: types.LibReport[];
   success?: {
@@ -36,7 +36,7 @@ export const TaskFinishLib = ({
     secondaryActions?: TaskSuccessProps["secondaryActions"];
   };
 }) => {
-  const isForcible = lib.reports.allErrorsCanBeForced(reports);
+  const isForcible = lib.reports.allErrorsCanBeForced(reports) && proceedForce;
   switch (response) {
     case "success":
       return (

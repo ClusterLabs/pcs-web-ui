@@ -7,7 +7,7 @@ export const authGuiAgainstNodes = async (
 ): CallResult<typeof shape> =>
   http.post(url, {
     params: params(nodeMap),
-    validate: (payload) => {
+    validate: payload => {
       const errors = validate.shape(payload, shape);
       if (errors.length > 0) {
         return errors;

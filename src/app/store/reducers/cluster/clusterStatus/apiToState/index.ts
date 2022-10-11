@@ -26,6 +26,7 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
     issueList: transformIssues(apiClusterStatus),
     resourceTree,
     fenceDeviceList,
+    acls: apiClusterStatus.acls ?? {},
     constraints: apiClusterStatus.constraints,
     resourceOnNodeStatusList,
     summary: {

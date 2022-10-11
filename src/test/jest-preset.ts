@@ -6,7 +6,8 @@ declare global {
 }
 
 export default async () => {
-  const headless = process.env.PCS_WUI_TESTS_HEADLESS?.toLowerCase() !== "false";
+  const headless =
+    process.env.PCS_WUI_TESTS_HEADLESS?.toLowerCase() !== "false";
   const browser = await chromium.launch({ headless });
   global.page = await browser.newPage();
 };

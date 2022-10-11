@@ -1,9 +1,10 @@
-import { ActionList, Grid, GridItem, PageSection } from "@patternfly/react-core";
+import { Grid, GridItem, PageSection } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
 import {
-  ActionTaskLauncher,
-  ClusterSectionToolbar,
+  Card,
+  ClusterToolbar,
+  TaskOpenArgs,
   useClusterSelector,
 } from "app/view/share";
 
@@ -54,35 +55,49 @@ export const SbdPage = () => {
     ),
   };
 
+  const configureOpenArgs: TaskOpenArgs<typeof task.configure.useTask> = [
+    configureOpenPayload,
+  ];
+
   return (
     <>
-      <ClusterSectionToolbar>
-        <ActionList>
-          <ActionTaskLauncher
-            taskComponent={task.configure.SbdConfigureTask}
-            openArgs={[configureOpenPayload]}
-            useTask={task.configure.useTask}
-            label="Configure SBD"
-          />
-          <ActionTaskLauncher
-            taskComponent={task.disable.SbdDisableTask}
-            useTask={task.disable.useTask}
-            label="Disable SBD"
-            variant="secondary"
-          />
-        </ActionList>
-      </ClusterSectionToolbar>
+      <ClusterToolbar
+        toolbarName="sbd"
+        buttonsItems={[
+          {
+            name: "configure-SBD",
+            task: {
+              component: task.configure.SbdConfigureTask,
+              useTask: task.configure.useTask,
+              openArgs: configureOpenArgs,
+            },
+          },
+          {
+            name: "disable-SBD",
+            task: {
+              component: task.disable.SbdDisableTask,
+              useTask: task.disable.useTask,
+            },
+          },
+        ]}
+      />
 
       <PageSection>
         <Grid hasGutter>
           <GridItem span={12}>
-            <SbdServiceStatus />
+            <Card title="SBD service status">
+              <SbdServiceStatus />
+            </Card>
           </GridItem>
           <GridItem span={6}>
-            <SbdConfiguration />
+            <Card title="SBD configuration ">
+              <SbdConfiguration />
+            </Card>
           </GridItem>
           <GridItem span={6}>
-            <SbdOnNodes />
+            <Card title="SBD per node ">
+              <SbdOnNodes />
+            </Card>
           </GridItem>
         </Grid>
       </PageSection>

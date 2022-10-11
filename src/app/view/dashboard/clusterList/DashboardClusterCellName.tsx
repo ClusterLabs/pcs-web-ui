@@ -7,8 +7,8 @@ export const DashboardClusterCellName = ({
 }) => {
   return (
     <th role="rowheader" data-test="name">
-      <Link to={location.cluster({ clusterName })}>
-        <strong>{clusterName}</strong>
+      <Link strong to={location.cluster({ clusterName })}>
+        {clusterName}
       </Link>
     </th>
   );

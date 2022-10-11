@@ -87,7 +87,7 @@ describe("Dashboard scene", () => {
         issuesBoxes.map(e => ({
           alerts: Array.from(
             e.querySelectorAll("[data-test^='cluster-issue']"),
-          ).map((ae) => {
+          ).map(ae => {
             const attrs = ae.attributes;
             for (let i = 0; i < attrs.length; i++) {
               const a = attrs.item(i);

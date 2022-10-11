@@ -129,9 +129,7 @@ export const NodesAuthForm = ({ authProcessId }: { authProcessId: number }) => {
                         id={addressId}
                         data-test={addressId}
                         value={nodeMap[nodeName].address}
-                        onChange={address =>
-                          updateNode(nodeName, { address })
-                        }
+                        onChange={address => updateNode(nodeName, { address })}
                       />
                     </td>
                     <td className="pf-m-width-10">

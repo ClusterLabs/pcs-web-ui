@@ -1,4 +1,3 @@
-import React from "react";
 import { ArrowCircleRightIcon } from "@patternfly/react-icons";
 
 export const SelectionIndicatorInGroup = ({

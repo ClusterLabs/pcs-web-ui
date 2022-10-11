@@ -1,5 +1,6 @@
 import { PageSection, Stack, StackItem } from "@patternfly/react-core";
 
+import { tools } from "app/store";
 import { Router } from "app/view/share";
 import {
   EmptyStateSpinner,
@@ -10,12 +11,14 @@ import {
 } from "app/view/share";
 import { useClusterState } from "app/view/share";
 
+/* eslint-disable import/max-dependencies */
 import { NodesPage } from "./nodes";
 import { ResourcesPage } from "./resources";
 import { FenceDevicePage } from "./fenceDevices";
 import { SbdPage } from "./sbd";
 import { ConstraintsPage } from "./constraints";
 import { ClusterPropertiesPage } from "./properties";
+import { AclPage } from "./acl";
 import { ClusterDetail } from "./ClusterDetail";
 import { ClusterDetailBreadcrumb } from "./ClusterDetailBreadcrumb";
 import { ClusterPermissionsPage } from "./permissions";
@@ -28,8 +31,14 @@ export const clusterPageTabList = [
   "sbd",
   "constraints",
   "properties",
+  "acl",
   "permissions",
 ] as const;
+
+const tabNameMap: Record<string, string> = {
+  sbd: "SBD",
+  acl: "ACL",
+};
 
 export const ClusterDetailPage = ({ clusterName }: { clusterName: string }) => {
   const { dataLoaded } = useClusterState(clusterName);
@@ -47,6 +56,9 @@ export const ClusterDetailPage = ({ clusterName }: { clusterName: string }) => {
               tabList={clusterPageTabList}
               currentTab={currentTab}
               data-test="cluster"
+              toLabel={(tabName: string) =>
+                tabNameMap[tabName] ?? tools.labelize(tabName)
+              }
             />
           </StackItem>
         </Stack>
@@ -63,6 +75,7 @@ export const ClusterDetailPage = ({ clusterName }: { clusterName: string }) => {
               <ConstraintsPage clusterName={clusterName} />
             )}
             {currentTab === "properties" && <ClusterPropertiesPage />}
+            {currentTab === "acl" && <AclPage />}
             {currentTab === "permissions" && <ClusterPermissionsPage />}
           </Router>
         </SelectedClusterProvider>

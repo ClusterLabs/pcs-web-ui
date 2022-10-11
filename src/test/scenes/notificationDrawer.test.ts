@@ -3,6 +3,7 @@ import * as responses from "dev/responses";
 import { intercept, location, route } from "test/tools";
 import { dt } from "test/tools/selectors";
 import { dashboard, notification } from "test/workflow";
+import { getConfirmDialog, getDropdownMenu } from "test/components";
 
 import { interceptForPermissions } from "./permissions/common";
 
@@ -75,12 +76,12 @@ describe("Notification drawer", () => {
       ],
     });
 
+    const menu = getDropdownMenu("permission-list", "permission-ok");
+    const confirmDialog = getConfirmDialog("remove");
+
     await page.goto(location.permissionList({ clusterName }));
-    await page.click(
-      dt("permission-list", "permission-ok", '[aria-label="Actions"]'),
-    );
-    await page.click(dt("remove-cluster"));
-    await page.click(dt("confirm"));
+    await menu.launchItem("permission-remove");
+    await confirmDialog.confirm();
 
     await page.click(dt("notification-badge"));
     await page.waitForSelector(dt("notification-success-permission-remove"));

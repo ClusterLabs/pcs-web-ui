@@ -6,9 +6,13 @@ import { useLocation } from "./Router";
 export const Link = ({
   to,
   children,
+  "data-test": dataTest,
+  strong = false,
 }: {
   to: string;
   children?: React.ReactNode;
+  ["data-test"]?: string;
+  strong?: boolean;
 }) => {
   const { navigate } = useLocation();
   let caption = children;
@@ -16,9 +20,17 @@ export const Link = ({
     const parts = to.split("/");
     caption = parts[parts.length - 1];
   }
+
+  let label = caption;
+  if (dataTest) {
+    label = <span data-test={dataTest}>{label}</span>;
+  }
+  if (strong) {
+    label = <strong>{label}</strong>;
+  }
   return (
     <Button variant="link" data-test="link" onClick={() => navigate(to)}>
-      {caption}
+      {label}
     </Button>
   );
 };
