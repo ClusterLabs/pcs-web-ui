@@ -5,12 +5,15 @@ import { useTask } from "./useTask";
 export const Configure = () => {
   const {
     updateState,
-    state: { permissionInfoList },
+    invalidPermissionIndexes,
+    state: { permissionInfoList, showValidationErrors },
   } = useTask();
 
   return (
     <PermissionAddForm
       permissionList={permissionInfoList}
+      invalidPermissionIndexes={invalidPermissionIndexes}
+      showValidationErrors={showValidationErrors}
       update={permissionList =>
         updateState({ permissionInfoList: permissionList })
       }

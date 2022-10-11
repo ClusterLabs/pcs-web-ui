@@ -5,12 +5,27 @@ import { FormGroup, FormRadios, FormText } from "app/view/share";
 
 import { PermissionListForWrite } from "./types";
 
+export const getInvalidPermissionIndexes = (
+  permissionList: PermissionListForWrite,
+) =>
+  permissionList.reduce<number[]>(
+    (indexes, permission, i) => [
+      ...indexes,
+      ...(permission[2].length > 0 ? [] : [i]),
+    ],
+    [],
+  );
+
 export const PermissionAddForm = ({
   permissionList,
   update,
+  invalidPermissionIndexes,
+  showValidationErrors,
 }: {
   permissionList: PermissionListForWrite;
   update: (_permissionList: PermissionListForWrite) => void;
+  invalidPermissionIndexes: number[];
+  showValidationErrors: boolean;
 }) => {
   return (
     <Form>
@@ -49,6 +64,10 @@ export const PermissionAddForm = ({
                   <FormText
                     id={`permission-name-${i}`}
                     value={scope}
+                    isRequired
+                    showValidationErrors={showValidationErrors}
+                    isValid={!invalidPermissionIndexes.includes(i)}
+                    helperTextInvalid="Please enter a value"
                     onChange={value =>
                       update(
                         permissionList.map((permission, pi) =>

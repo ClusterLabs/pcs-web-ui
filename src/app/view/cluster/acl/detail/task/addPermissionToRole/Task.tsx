@@ -8,6 +8,7 @@ export const Task = () => {
     close,
     aclRolePermissionAdd,
     recoverFromError,
+    invalidPermissionIndexes,
     state: {
       libCall: { response, reports },
     },
@@ -23,6 +24,7 @@ export const Task = () => {
           <TaskSimpleFooter
             run={aclRolePermissionAdd}
             runLabel="Add permissions to role"
+            nextIf={invalidPermissionIndexes.length === 0}
           />
         )
       }

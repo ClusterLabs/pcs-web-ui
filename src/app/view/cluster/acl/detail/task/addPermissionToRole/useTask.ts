@@ -1,5 +1,6 @@
 import { ActionPayload } from "app/store";
 import { useClusterTask, useGroupDetailViewContext } from "app/view/share";
+import { getInvalidPermissionIndexes } from "app/view/cluster/acl/PermissionAddForm";
 
 export const useTask = () => {
   const task = useClusterTask("aclRolePermissionAdd");
@@ -9,6 +10,9 @@ export const useTask = () => {
   return {
     ...task,
 
+    invalidPermissionIndexes: getInvalidPermissionIndexes(
+      state.permissionInfoList,
+    ),
     //actions
     updateState: (
       payload: ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"],

@@ -10,12 +10,12 @@ export const Task = () => {
     close,
     aclRoleCreate,
     isNameValid,
+    invalidPermissionIndexes,
     state: {
       roleId,
       libCall: { response, reports },
     },
   } = useTask();
-
   return (
     <Wizard
       task="aclRoleCreate"
@@ -38,6 +38,13 @@ export const Task = () => {
           name: "Specify permissions",
           component: <AddPermissions />,
           canJumpTo: isNameValid,
+          footer: (
+            <WizardFooter
+              next={{
+                actionIf: isNameValid && invalidPermissionIndexes.length === 0,
+              }}
+            />
+          ),
         },
         {
           name: "Review",
@@ -46,11 +53,12 @@ export const Task = () => {
             <WizardFooter
               next={{
                 preAction: () => aclRoleCreate(),
+                actionIf: isNameValid && invalidPermissionIndexes.length === 0,
                 label: "Create role",
               }}
             />
           ),
-          canJumpTo: isNameValid,
+          canJumpTo: isNameValid && invalidPermissionIndexes.length === 0,
         },
         {
           name: "Result",
