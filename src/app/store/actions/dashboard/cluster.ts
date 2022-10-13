@@ -19,4 +19,11 @@ export type DashboardClusterActions = {
       clusterName: string;
     };
   };
+
+  "DASHBOARD.CLUSTER.STOP": {
+    type: "DASHBOARD.CLUSTER.STOP";
+    payload: {
+      clusterName: string;
+    };
+  };
 };

@@ -28,9 +28,20 @@ export const ClusterDetail = () => {
             name: "start",
             confirm: {
               title: "Start cluster?",
-              description: "Start a cluster on all nodes",
+              description: "Start the on all nodes",
               action: {
                 type: "DASHBOARD.CLUSTER.START",
+                payload: { clusterName },
+              },
+            },
+          },
+          {
+            name: "stop",
+            confirm: {
+              title: "Stop cluster?",
+              description: "Stop the on all nodes",
+              action: {
+                type: "DASHBOARD.CLUSTER.STOP",
                 payload: { clusterName },
               },
             },

@@ -35,6 +35,7 @@ import * as resourceGroupCreate from "./resourceGroupCreate";
 import * as resourceGroupChange from "./resourceGroupChange";
 import * as constraints from "./constraints";
 import * as clusterStart from "./clusterStart";
+import * as clusterStop from "./clusterStop";
 
 function* rootSaga() {
   yield all([
@@ -74,6 +75,7 @@ function* rootSaga() {
     takeEvery("CONSTRAINT.DELETE", constraints.deleteConstraint),
     takeEvery("CONSTRAINT.DELETE.RULE", constraints.deleteConstraintRule),
     takeEvery("DASHBOARD.CLUSTER.START", clusterStart.clusterStartSaga),
+    takeEvery("DASHBOARD.CLUSTER.STOP", clusterStop.clusterStopSaga),
     takeEvery("DASHBOARD.CLUSTER.REMOVE", clusterRemove.clusterRemove),
     takeEvery("DASHBOARD.CLUSTER.DESTROY", clusterDestroy.clusterDestroy),
     takeEvery("NODE.START", nodeStartStop.nodeStart),
