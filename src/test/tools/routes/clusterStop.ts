@@ -2,7 +2,7 @@ import { endpoints } from "app/backend/endpoints";
 
 import { RequestData, RouteResponse } from "test/tools/interception";
 
-export const clusterStart = ({
+export const clusterStop = ({
   clusterName,
   nodeName,
   response,
@@ -15,7 +15,7 @@ export const clusterStart = ({
     ? { name: nodeName }
     : { all: "1" };
   return {
-    url: endpoints.clusterStart.url({ clusterName }),
+    url: endpoints.clusterStop.url({ clusterName }),
     body,
     ...(response ?? { text: "" }),
   };

@@ -1,6 +1,9 @@
 import { getConfirmDialog, getDropdownMenu } from "test/components";
 
-const clusterAction = (clusterName: string, action: "destroy" | "remove") => {
+const clusterAction = (
+  clusterName: string,
+  action: "start" | "stop" | "destroy" | "remove",
+) => {
   const confirmDialog = getConfirmDialog(action);
   const menu = getDropdownMenu("cluster-list", `cluster ${clusterName}`);
 
@@ -25,6 +28,8 @@ const clusterAction = (clusterName: string, action: "destroy" | "remove") => {
 };
 
 export const cluster = (clusterName: string) => ({
+  stop: clusterAction(clusterName, "stop"),
+  start: clusterAction(clusterName, "start"),
   destroy: clusterAction(clusterName, "destroy"),
   remove: clusterAction(clusterName, "remove"),
 });
