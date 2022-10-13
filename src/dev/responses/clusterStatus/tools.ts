@@ -228,8 +228,8 @@ export const clone = (
 
 export const cluster = (
   name: string,
-  status: types.Cluster["status"],
-  diff: Partial<types.Cluster>,
+  status: types.Cluster["status"] = "ok",
+  diff: Partial<types.Cluster> = {},
 ): types.Cluster =>
   deepmerge<types.Cluster>(
     {

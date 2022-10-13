@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardBody,
@@ -9,28 +8,63 @@ import {
 } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { useClusterSelector } from "app/view/share";
+import {
+  ClusterToolbar,
+  useClusterSelector,
+  useSelectedClusterName,
+} from "app/view/share";
 
 import { ClusterIssueList } from "./issues";
 
 export const ClusterDetail = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
+  const clusterName = useSelectedClusterName();
   return (
-    <PageSection data-test="cluster-detail">
-      <Card>
-        <CardHeader>
-          <span>
-            Cluster <strong>{cluster.name}</strong>
-          </span>
-        </CardHeader>
-        <CardBody>
-          <Stack hasGutter className="pf-u-m-md">
-            <StackItem>
-              <ClusterIssueList issueList={cluster.issueList} />
-            </StackItem>
-          </Stack>
-        </CardBody>
-      </Card>
-    </PageSection>
+    <>
+      <ClusterToolbar
+        toolbarName="cluster-detail"
+        buttonsItems={[
+          {
+            name: "start",
+            confirm: {
+              title: "Start cluster?",
+              description: "Start the on all nodes",
+              action: {
+                type: "DASHBOARD.CLUSTER.START",
+                payload: { clusterName },
+              },
+            },
+          },
+          {
+            name: "stop",
+            confirm: {
+              title: "Stop cluster?",
+              description: "Stop the on all nodes",
+              action: {
+                type: "DASHBOARD.CLUSTER.STOP",
+                payload: { clusterName },
+              },
+            },
+          },
+        ]}
+      />
+
+      <PageSection data-test="cluster-detail">
+        <Card>
+          <CardHeader>
+            <span>
+              Cluster <strong>{cluster.name}</strong>
+            </span>
+          </CardHeader>
+          <CardBody>
+            <Stack hasGutter className="pf-u-m-md">
+              <StackItem>
+                <ClusterIssueList issueList={cluster.issueList} />
+              </StackItem>
+            </Stack>
+          </CardBody>
+        </Card>
+      </PageSection>
+    </>
   );
 };
