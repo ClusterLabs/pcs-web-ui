@@ -90,6 +90,7 @@ type ApiSbdConfig = Exclude<
 */
 export type Cluster = {
   name: string;
+  status: "started" | "stopped" | "unknown";
   nodeList: ((
     | {
         name: string;

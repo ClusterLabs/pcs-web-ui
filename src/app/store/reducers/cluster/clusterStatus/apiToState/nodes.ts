@@ -97,15 +97,27 @@ const countNodesSeverity = (apiNodeList: ApiNode[]): StatusSeverity => {
   );
 };
 
+const getClusterStatus = (apiNodeList: ApiNode[]): Cluster["status"] => {
+  if (apiNodeList.every(n => n.status === "unknown")) {
+    return "unknown";
+  }
+  if (apiNodeList.some(n => n.status === "online" || n.status === "standby")) {
+    return "started";
+  }
+  return "stopped";
+};
+
 export const processApiNodes = (
   apiNodeList: ApiNode[],
   apiNodeAttrs: ApiNodeAttrListMap,
 ): {
   nodeList: Node[];
   nodesSeverity: StatusSeverity;
+  clusterStatus: Cluster["status"];
 } => ({
   nodeList: apiNodeList.map(apiNode =>
     toNode(apiNode, apiNodeAttrs[apiNode.name] || []),
   ),
   nodesSeverity: countNodesSeverity(apiNodeList),
+  clusterStatus: getClusterStatus(apiNodeList),
 });
