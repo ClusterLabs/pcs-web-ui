@@ -12,7 +12,7 @@ export const LauncherGroup = ({
   children,
 }: {
   items: LauncherItem[];
-  children: React.ReactElement;
+  children: React.ReactNode;
 }) => {
   const [launched, setLaunched] = React.useState<LauncherItemWithModal>(null);
 

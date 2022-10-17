@@ -1,7 +1,7 @@
 import { Flex, FlexItem, FlexProps } from "@patternfly/react-core";
 
 import { selectors } from "app/store";
-import { useClusterSelector } from "app/view/share";
+import { EmptyStateClusterStopped, useClusterSelector } from "app/view/share";
 
 import { AclListCard } from "./AclListCard";
 import { AclSubjectListItem } from "./AclSubjectListItem";
@@ -12,6 +12,13 @@ const spacer: FlexProps["spacer"] = { default: "spacerNone" };
 
 export const AclLists = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
+  if (cluster.status !== "started") {
+    return (
+      <EmptyStateClusterStopped
+        title={"Cannot get ACLs from stopped cluster"}
+      />
+    );
+  }
   return (
     <Flex>
       <FlexItem grow={grow} className="pf-u-m-0">

@@ -1,4 +1,4 @@
-import { Card, CardBody, PageSection } from "@patternfly/react-core";
+import { PageSection } from "@patternfly/react-core";
 
 import { ClusterToolbar } from "app/view/share";
 
@@ -65,11 +65,7 @@ export const ConstraintsPage = ({ clusterName }: { clusterName: string }) => {
         ]}
       />
       <PageSection>
-        <Card>
-          <CardBody>
-            <ConstraintFilteredList clusterName={clusterName} />
-          </CardBody>
-        </Card>
+        <ConstraintFilteredList clusterName={clusterName} />
       </PageSection>
     </>
   );

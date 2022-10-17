@@ -1,7 +1,13 @@
 import { DataList } from "@patternfly/react-core";
 
+import { selectors } from "app/store";
 import { Resource } from "app/view/cluster/types";
-import { EmptyStateNoItem, useGroupDetailViewContext } from "app/view/share";
+import {
+  EmptyStateClusterStopped,
+  EmptyStateNoItem,
+  useClusterSelector,
+  useGroupDetailViewContext,
+} from "app/view/share";
 
 import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
 import { ResourceTreeItemClone } from "./ResourceTreeItemClone";
@@ -13,6 +19,15 @@ export const ResourceTree = ({
   resourceTree: Resource[];
 }) => {
   const { compact } = useGroupDetailViewContext();
+  const [cluster] = useClusterSelector(selectors.getCluster);
+
+  if (cluster.status !== "started") {
+    return (
+      <EmptyStateClusterStopped
+        title={"Cannot get resources from stopped cluster"}
+      />
+    );
+  }
 
   if (resourceTree.length === 0) {
     return (

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Alert,
   Card,
   CardBody,
   PageSection,
@@ -13,6 +14,7 @@ import {
   AttributeList,
   AttributeName,
   AttributeValue,
+  ClusterStoppedInfo,
   ToolbarFilterTextGroupPair,
   useClusterSelector,
 } from "app/view/share";
@@ -83,29 +85,41 @@ export const ClusterPropertiesPage = () => {
                     />
                   )}
                   {!isEditing && (
-                    <AttributeList
-                      attributes={filterParameters(clusterProperties)}
-                    >
-                      {property => (
-                        <React.Fragment key={property.name}>
-                          <AttributeName name={property.readable_name}>
-                            <AttributeHelpPopover
-                              header={property.shortdesc}
-                              body={property.longdesc}
-                              defaultValue={property.default}
-                            />
-                          </AttributeName>
-                          <AttributeValue
-                            {...(property.name in cluster.clusterProperties
-                              ? {
-                                  value:
-                                    cluster.clusterProperties[property.name],
-                                }
-                              : { defaultValue: property.default })}
-                          />
-                        </React.Fragment>
+                    <>
+                      {cluster.status !== "started" && (
+                        <Alert
+                          isInline
+                          variant="warning"
+                          title="Cannot get cluster properties values from stopped cluster"
+                          className="pf-u-mb-sm"
+                        >
+                          <ClusterStoppedInfo />
+                        </Alert>
                       )}
-                    </AttributeList>
+                      <AttributeList
+                        attributes={filterParameters(clusterProperties)}
+                      >
+                        {property => (
+                          <React.Fragment key={property.name}>
+                            <AttributeName name={property.readable_name}>
+                              <AttributeHelpPopover
+                                header={property.shortdesc}
+                                body={property.longdesc}
+                                defaultValue={property.default}
+                              />
+                            </AttributeName>
+                            <AttributeValue
+                              {...(property.name in cluster.clusterProperties
+                                ? {
+                                    value:
+                                      cluster.clusterProperties[property.name],
+                                  }
+                                : { defaultValue: property.default })}
+                            />
+                          </React.Fragment>
+                        )}
+                      </AttributeList>
+                    </>
                   )}
                 </>
               )}

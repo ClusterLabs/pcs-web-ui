@@ -8,6 +8,7 @@ export * from "./ButtonWithEnter";
 export * from "./Card";
 export * from "./clusterGroupDetail";
 export * from "./ClusterStatusLabel";
+export * from "./ClusterStoppedInfo";
 export * from "./CrmStatusTable";
 export * from "./dataList";
 export * from "./DefaultValue";

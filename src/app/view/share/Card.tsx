@@ -6,7 +6,7 @@ export const Card = ({
   title,
   "data-test": dataTest,
 }: {
-  title: React.ReactNode;
+  title?: React.ReactNode;
   children: React.ReactNode;
   ["data-test"]?: string;
 }) => {
@@ -15,7 +15,7 @@ export const Card = ({
       className="pf-u-mb-sm pf-u-mr-sm"
       {...(dataTest ? { "data-test": dataTest } : {})}
     >
-      <CardTitle>{title}</CardTitle>
+      {title && <CardTitle>{title}</CardTitle>}
       <CardBody>{children}</CardBody>
     </PfCard>
   );
