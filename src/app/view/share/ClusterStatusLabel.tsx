@@ -12,7 +12,11 @@ const statusColorMap: Record<
   unknown: "grey",
 };
 
-export const ClusterStatus = ({ status }: { status: Cluster["status"] }) => {
+export const ClusterStatusLabel = ({
+  status,
+}: {
+  status: Cluster["status"];
+}) => {
   return (
     <Label color={statusColorMap[status]} isCompact>
       {status}
