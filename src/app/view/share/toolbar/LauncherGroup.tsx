@@ -3,6 +3,7 @@ import React from "react";
 import { LaunchedConfirm } from "./LaunchedConfirm";
 import { LauncherItem } from "./types";
 import { LaunchedTask } from "./LaunchedTask";
+import { LauncherGroupProvider } from "./LauncherGroupContext";
 
 type LauncherItemWithModal = Exclude<LauncherItem, { run: unknown }> | null;
 
@@ -11,9 +12,7 @@ export const LauncherGroup = ({
   children,
 }: {
   items: LauncherItem[];
-  children: (
-    _setLaunched: (_item: LauncherItemWithModal) => void,
-  ) => React.ReactElement;
+  children: React.ReactElement;
 }) => {
   const [launched, setLaunched] = React.useState<LauncherItemWithModal>(null);
 
@@ -23,16 +22,19 @@ export const LauncherGroup = ({
     return null;
   }
 
-  // Haven't managed to put setLaunched to react context because Item<ARGS> is
-  // generic, so context should be also generic (and context needs to be created
-  // outside this component)
   if (!launched) {
-    return children(setLaunched);
+    return (
+      <LauncherGroupProvider value={{ setLaunched }}>
+        {children}
+      </LauncherGroupProvider>
+    );
   }
 
   return (
     <>
-      {children(setLaunched)}
+      <LauncherGroupProvider value={{ setLaunched }}>
+        {children}
+      </LauncherGroupProvider>
       {"confirm" in launched ? (
         <LaunchedConfirm item={launched} closeConfirm={stopLaunch} />
       ) : (

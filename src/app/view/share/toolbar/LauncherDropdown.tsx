@@ -18,28 +18,26 @@ export const LauncherDropdown = ({
 
   return (
     <LauncherGroup items={items}>
-      {setLaunched => (
-        <Dropdown
-          toggle={<KebabToggle onToggle={() => setKebabOpen(!kebabOpen)} />}
-          onSelect={() => setKebabOpen(false)}
-          isOpen={kebabOpen}
-          isPlain
-          dropdownItems={items.map((item, i) => (
-            <Launcher key={i} item={item} setLaunched={setLaunched}>
-              {launch => (
-                <DropdownItem
-                  component="button"
-                  onClick={launch}
-                  data-test={`${dropdownName}-${item.name}`}
-                  isDisabled={item?.disabled ?? false}
-                >
-                  {tools.labelize(item.label || item.name)}
-                </DropdownItem>
-              )}
-            </Launcher>
-          ))}
-        />
-      )}
+      <Dropdown
+        toggle={<KebabToggle onToggle={() => setKebabOpen(!kebabOpen)} />}
+        onSelect={() => setKebabOpen(false)}
+        isOpen={kebabOpen}
+        isPlain
+        dropdownItems={items.map((item, i) => (
+          <Launcher key={i} item={item}>
+            {launch => (
+              <DropdownItem
+                component="button"
+                onClick={launch}
+                data-test={`${dropdownName}-${item.name}`}
+                isDisabled={item?.disabled ?? false}
+              >
+                {tools.labelize(item.label || item.name)}
+              </DropdownItem>
+            )}
+          </Launcher>
+        ))}
+      />
     </LauncherGroup>
   );
 };
