@@ -3,6 +3,7 @@ import {
   ClusterToolbar,
   GroupDetailView,
   useClusterSelector,
+  useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 
 import * as task from "./task";
@@ -11,6 +12,7 @@ import { FenceDeviceList } from "./list";
 
 export const FenceDevicePage = () => {
   const [{ fenceDeviceList }] = useClusterSelector(selectors.getCluster);
+  const launchDisable = useLauncherDisableClusterNotRunning();
   return (
     <>
       <ClusterToolbar
@@ -22,6 +24,9 @@ export const FenceDevicePage = () => {
               component: task.create.FenceDeviceCreate,
               useTask: task.create.useTask,
             },
+            launchDisable: launchDisable(
+              "Cannot create resource on stopped cluster",
+            ),
           },
         ]}
       />

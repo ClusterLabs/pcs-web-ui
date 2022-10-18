@@ -17,6 +17,7 @@ import {
   ClusterStoppedInfo,
   ToolbarFilterTextGroupPair,
   useClusterSelector,
+  useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 
 import { PropertiesForm } from "./PropertiesForm";
@@ -49,6 +50,7 @@ export const ClusterPropertiesPage = () => {
   const { filterState, filterParameters } = useFilter();
   const [isEditing, setIsEditing] = React.useState(false);
 
+  const launchDisable = useLauncherDisableClusterNotRunning();
   return (
     <PageSection>
       <Card>
@@ -63,11 +65,14 @@ export const ClusterPropertiesPage = () => {
                 buttonsItems={[
                   ...(!isEditing
                     ? [
-                      {
-                        name: "edit-attributes",
-                        run: () => setIsEditing(true),
-                      },
-                    ]
+                        {
+                          name: "edit-attributes",
+                          run: () => setIsEditing(true),
+                          launchDisable: launchDisable(
+                            "Cannot edit cluster properties on stopped cluster",
+                          ),
+                        },
+                      ]
                     : []),
                 ]}
               />
@@ -111,9 +116,9 @@ export const ClusterPropertiesPage = () => {
                             <AttributeValue
                               {...(property.name in cluster.clusterProperties
                                 ? {
-                                  value:
-                                    cluster.clusterProperties[property.name],
-                                }
+                                    value:
+                                      cluster.clusterProperties[property.name],
+                                  }
                                 : { defaultValue: property.default })}
                             />
                           </React.Fragment>
