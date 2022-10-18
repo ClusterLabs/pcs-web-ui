@@ -5,8 +5,12 @@ import { Action } from "app/store";
 
 type Task = {
   component: React.FunctionComponent;
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  useTask: () => { open: (..._args: any[]) => void; isOpened: boolean };
+  useTask: () => {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    open: (..._args: any[]) => void;
+    isOpened: boolean;
+    close: () => void;
+  };
   openArgs?: unknown[];
 };
 
@@ -32,6 +36,11 @@ export type LauncherItem = {
   name: string;
   label?: string;
   disabled?: boolean;
+  launchDisable?: {
+    isDisabled: boolean;
+    title?: string;
+    message: React.ReactNode;
+  };
   button?: {
     variant: React.ComponentProps<typeof Button>["variant"];
   };

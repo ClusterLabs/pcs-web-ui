@@ -12,16 +12,15 @@ export const Launcher = ({
   children: (_launch: () => void) => React.ReactElement;
 }) => {
   const { setLaunched } = useLauncherGroupContext();
+  if ("confirm" in item || item?.launchDisable?.isDisabled) {
+    return children(() => setLaunched(item));
+  }
   if ("task" in item) {
     return (
       <LauncherTask item={item} setLaunched={setLaunched}>
         {children}
       </LauncherTask>
     );
-  }
-
-  if ("confirm" in item) {
-    return children(() => setLaunched(item));
   }
 
   return children(item.run);
