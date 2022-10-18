@@ -63,11 +63,11 @@ export const ClusterPropertiesPage = () => {
                 buttonsItems={[
                   ...(!isEditing
                     ? [
-                        {
-                          name: "edit-attributes",
-                          run: () => setIsEditing(true),
-                        },
-                      ]
+                      {
+                        name: "edit-attributes",
+                        run: () => setIsEditing(true),
+                      },
+                    ]
                     : []),
                 ]}
               />
@@ -111,9 +111,9 @@ export const ClusterPropertiesPage = () => {
                             <AttributeValue
                               {...(property.name in cluster.clusterProperties
                                 ? {
-                                    value:
-                                      cluster.clusterProperties[property.name],
-                                  }
+                                  value:
+                                    cluster.clusterProperties[property.name],
+                                }
                                 : { defaultValue: property.default })}
                             />
                           </React.Fragment>
