@@ -12,7 +12,7 @@ export const DashboardClusterLoading = ({
   return (
     <Table.Body data-test={`cluster ${clusterName}`}>
       <tr role="row" data-test="loading">
-        <DashboardClusterCellName clusterName={clusterName} />
+        <DashboardClusterCellName clusterName={clusterName} status="unknown" />
         <td colSpan={4}>
           <Spinner size="md" />
         </td>

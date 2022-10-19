@@ -3,7 +3,7 @@ import { Alert } from "@patternfly/react-core";
 import { Group } from "app/view/cluster/types";
 import {
   DetailLayout,
-  NVPairListView,
+  NVPairListPage,
   ResourceDetailCaption,
   Router,
   UrlTabs,
@@ -37,13 +37,13 @@ export const GroupPage = ({ group }: { group: Group }) => {
       <Router base={matchedContext}>
         {currentTab === "detail" && <GroupDetail group={group} />}
         {currentTab === "meta" && (
-          <NVPairListView
+          <NVPairListPage
             nvPairList={group.metaAttributes}
             owner={{
               type: "resource-meta",
               id: group.id,
             }}
-            createLabel="Create Meta Attribute"
+            createLabel="Create meta attribute"
           />
         )}
       </Router>

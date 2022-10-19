@@ -9,9 +9,12 @@ import {
 
 import { selectors } from "app/store";
 import {
+  Card,
+  EmptyStateClusterStopped,
   EmptyStateNoItem,
   ToolbarFilterAction,
   ToolbarFilterGroups,
+  useClusterSelector,
 } from "app/view/share";
 
 import {
@@ -74,6 +77,15 @@ export const ConstraintFilteredList = ({
       ToolbarFilterGroups.unselectAllOptions(groupInclusionMap),
     );
   };
+  const [cluster] = useClusterSelector(selectors.getCluster);
+
+  if (cluster.status !== "started") {
+    return (
+      <EmptyStateClusterStopped
+        title={"Cannot get constraints from stopped cluster"}
+      />
+    );
+  }
   if (constraintPacks.length === 0) {
     return (
       <EmptyStateNoItem
@@ -83,91 +95,96 @@ export const ConstraintFilteredList = ({
     );
   }
   return (
-    <Stack hasGutter>
-      <StackItem>
-        <ToolbarFilterAction
-          clearAllFilters={clearAllFilters}
-          toolbarName="constraints"
-        >
-          <ToolbarItem>
-            <ToolbarFilterGroups
-              name="Constraint type"
-              filterState={filterState.groupState}
-            />
-          </ToolbarItem>
-        </ToolbarFilterAction>
-      </StackItem>
-      <StackItem>
-        <DataList aria-label="Constraints">
-          {filterConstraintTypes(constraintPacks).map((pack, i) => {
-            switch (pack.type) {
-              case "Location":
-                return (
-                  <ConstraintRowLocationNode
-                    constraint={pack.constraint}
-                    key={i}
-                  />
-                );
+    <Card>
+      <Stack hasGutter>
+        <StackItem>
+          <ToolbarFilterAction
+            clearAllFilters={clearAllFilters}
+            toolbarName="constraints"
+          >
+            <ToolbarItem>
+              <ToolbarFilterGroups
+                name="Constraint type"
+                filterState={filterState.groupState}
+              />
+            </ToolbarItem>
+          </ToolbarFilterAction>
+        </StackItem>
+        <StackItem>
+          <DataList aria-label="Constraints">
+            {filterConstraintTypes(constraintPacks).map((pack, i) => {
+              switch (pack.type) {
+                case "Location":
+                  return (
+                    <ConstraintRowLocationNode
+                      constraint={pack.constraint}
+                      key={i}
+                    />
+                  );
 
-              case "Location (rule)": {
-                return (
-                  <ConstraintRowLocationRule
-                    constraint={pack.constraint}
-                    key={i}
-                    uniqeId={i}
-                  />
-                );
+                case "Location (rule)": {
+                  return (
+                    <ConstraintRowLocationRule
+                      constraint={pack.constraint}
+                      key={i}
+                      uniqeId={i}
+                    />
+                  );
+                }
+
+                case "Colocation":
+                  return (
+                    <ConstraintRowColocationPair
+                      constraint={pack.constraint}
+                      key={i}
+                    />
+                  );
+
+                case "Colocation (set)":
+                  return (
+                    <ConstraintRowColocationSet
+                      constraint={pack.constraint}
+                      key={i}
+                    />
+                  );
+
+                case "Ticket":
+                  return (
+                    <ConstraintRowTicketResource
+                      constraint={pack.constraint}
+                      key={i}
+                    />
+                  );
+
+                case "Ticket (set)":
+                  return (
+                    <ConstraintRowTicketSet
+                      constraint={pack.constraint}
+                      key={i}
+                    />
+                  );
+
+                case "Order":
+                  return (
+                    <ConstraintRowOrderPair
+                      constraint={pack.constraint}
+                      key={i}
+                    />
+                  );
+
+                case "Order (set)":
+                default:
+                  return (
+                    <ConstraintRowOrderSet
+                      constraint={pack.constraint}
+                      key={i}
+                    />
+                  );
               }
-
-              case "Colocation":
-                return (
-                  <ConstraintRowColocationPair
-                    constraint={pack.constraint}
-                    key={i}
-                  />
-                );
-
-              case "Colocation (set)":
-                return (
-                  <ConstraintRowColocationSet
-                    constraint={pack.constraint}
-                    key={i}
-                  />
-                );
-
-              case "Ticket":
-                return (
-                  <ConstraintRowTicketResource
-                    constraint={pack.constraint}
-                    key={i}
-                  />
-                );
-
-              case "Ticket (set)":
-                return (
-                  <ConstraintRowTicketSet
-                    constraint={pack.constraint}
-                    key={i}
-                  />
-                );
-
-              case "Order":
-                return (
-                  <ConstraintRowOrderPair
-                    constraint={pack.constraint}
-                    key={i}
-                  />
-                );
-
-              case "Order (set)":
-              default:
-                return (
-                  <ConstraintRowOrderSet constraint={pack.constraint} key={i} />
-                );
-            }
-          })}
-        </DataList>
-      </StackItem>
-    </Stack>
+            })}
+          </DataList>
+        </StackItem>
+      </Stack>
+    </Card>
   );
 };

@@ -3,6 +3,7 @@ import {
   ClusterToolbar,
   GroupDetailView,
   useClusterSelector,
+  useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 
 import { ResourceDetailPage } from "./ResourceDetailPage";
@@ -11,6 +12,9 @@ import * as task from "./task";
 
 export const ResourcesPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
+
+  const launchDisable = useLauncherDisableClusterNotRunning();
+
   return (
     <>
       <ClusterToolbar
@@ -22,6 +26,9 @@ export const ResourcesPage = () => {
               component: task.create.ResourceCreate,
               useTask: task.create.useTask,
             },
+            launchDisable: launchDisable(
+              "Cannot create resource on stopped cluster",
+            ),
           },
           {
             name: "create-group",
@@ -29,6 +36,9 @@ export const ResourcesPage = () => {
               component: task.createGroup.ResourceCreateGroup,
               useTask: task.createGroup.useTask,
             },
+            launchDisable: launchDisable(
+              "Cannot create resource group on stopped cluster",
+            ),
           },
         ]}
       />

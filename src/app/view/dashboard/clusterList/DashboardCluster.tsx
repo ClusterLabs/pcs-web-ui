@@ -29,7 +29,10 @@ export const DashboardCluster = ({ cluster }: { cluster: Cluster }) => {
       data-test={`cluster ${cluster.name}`}
     >
       <tr role="row" data-test="loaded">
-        <DashboardClusterCellName clusterName={cluster.name} />
+        <DashboardClusterCellName
+          clusterName={cluster.name}
+          status={cluster.status}
+        />
         <Toggle expandKey={COLUMNS.ISSUES} data-test="issues">
           <DashboardClusterCellSummary
             itemsCount={cluster.issueList.length}

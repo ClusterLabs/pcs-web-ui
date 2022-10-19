@@ -16,12 +16,13 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
     fenceDevicesSeverity,
     resourceOnNodeStatusList,
   } = analyzeApiResources(apiClusterStatus.resource_list);
-  const { nodeList, nodesSeverity } = processApiNodes(
+  const { nodeList, nodesSeverity, clusterStatus } = processApiNodes(
     apiClusterStatus.node_list,
     apiClusterStatus.node_attr ?? {},
   );
   return {
     name: apiClusterStatus.cluster_name,
+    status: clusterStatus,
     nodeList,
     issueList: transformIssues(apiClusterStatus),
     resourceTree,

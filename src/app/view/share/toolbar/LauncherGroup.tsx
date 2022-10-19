@@ -3,19 +3,36 @@ import React from "react";
 import { LaunchedConfirm } from "./LaunchedConfirm";
 import { LauncherItem } from "./types";
 import { LaunchedTask } from "./LaunchedTask";
+import { LaunchedDisabled } from "./LaunchedDisabled";
+import { LauncherGroupProvider } from "./LauncherGroupContext";
 
-type LauncherItemWithModal = Exclude<LauncherItem, { run: unknown }> | null;
+const getLaunchedComponent = (
+  launched: LauncherItem | null,
+  stopLaunch: () => void,
+) => {
+  if (!launched) {
+    return null;
+  }
+  if (launched.launchDisable?.isDisabled) {
+    return <LaunchedDisabled item={launched} close={stopLaunch} />;
+  }
+  if ("confirm" in launched) {
+    return <LaunchedConfirm item={launched} closeConfirm={stopLaunch} />;
+  }
+  if ("task" in launched) {
+    return <LaunchedTask task={launched.task} stopLaunch={stopLaunch} />;
+  }
+  return null;
+};
 
 export const LauncherGroup = ({
   items = [],
   children,
 }: {
   items: LauncherItem[];
-  children: (
-    _setLaunched: (_item: LauncherItemWithModal) => void,
-  ) => React.ReactElement;
+  children: React.ReactNode;
 }) => {
-  const [launched, setLaunched] = React.useState<LauncherItemWithModal>(null);
+  const [launched, setLaunched] = React.useState<LauncherItem | null>(null);
 
   const stopLaunch = React.useCallback(() => setLaunched(null), [setLaunched]);
 
@@ -23,21 +40,12 @@ export const LauncherGroup = ({
     return null;
   }
 
-  // Haven't managed to put setLaunched to react context because Item<ARGS> is
-  // generic, so context should be also generic (and context needs to be created
-  // outside this component)
-  if (!launched) {
-    return children(setLaunched);
-  }
-
   return (
     <>
-      {children(setLaunched)}
-      {"confirm" in launched ? (
-        <LaunchedConfirm item={launched} closeConfirm={stopLaunch} />
-      ) : (
-        <LaunchedTask task={launched.task} stopLaunch={stopLaunch} />
-      )}
+      <LauncherGroupProvider value={{ setLaunched }}>
+        {children}
+      </LauncherGroupProvider>
+      {getLaunchedComponent(launched, stopLaunch)}
     </>
   );
 };

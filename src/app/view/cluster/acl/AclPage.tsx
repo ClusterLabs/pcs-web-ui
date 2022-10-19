@@ -6,6 +6,7 @@ import {
   GroupDetailView,
   TaskOpenArgs,
   useClusterSelector,
+  useLauncherDisableClusterNotRunning,
   useSelectedClusterName,
 } from "app/view/share";
 
@@ -16,6 +17,8 @@ import { AclLists } from "./lists";
 export const AclPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const clusterName = useSelectedClusterName();
+  const launchDisable = useLauncherDisableClusterNotRunning();
+
   const aclEnabled = tools.isCibTrue(
     cluster.clusterProperties["enable-acl"] || "",
   );
@@ -38,6 +41,9 @@ export const AclPage = () => {
               component: task.createRole.Task,
               useTask: task.createRole.useTask,
             },
+            launchDisable: launchDisable(
+              "Cannot create role on stopped cluster",
+            ),
           },
           {
             name: "create-user",
@@ -46,6 +52,9 @@ export const AclPage = () => {
               useTask: task.createSubject.useTask,
               openArgs: createUserOpenArgs,
             },
+            launchDisable: launchDisable(
+              "Cannot create user on stopped cluster",
+            ),
           },
         ]}
         dropdownItems={[
@@ -56,6 +65,9 @@ export const AclPage = () => {
               useTask: task.createSubject.useTask,
               openArgs: createGroupOpenArgs,
             },
+            launchDisable: launchDisable(
+              "Cannot create group on stopped cluster",
+            ),
           },
           {
             name: aclEnabled ? "disable-acl" : "enable-acl",
@@ -75,6 +87,9 @@ export const AclPage = () => {
                 },
               },
             },
+            launchDisable: launchDisable(
+              "Cannot enable/disable acl on stopped cluster",
+            ),
           },
         ]}
         after={

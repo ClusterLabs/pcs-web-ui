@@ -15,26 +15,24 @@ export const LauncherToolbarButtonGroup = ({
 }) => {
   return (
     <LauncherGroup items={items}>
-      {setLaunched => (
-        <ToolbarGroup variant="button-group">
-          {items.map((item, i) => (
-            <ToolbarItem key={i}>
-              <Launcher item={item} setLaunched={setLaunched}>
-                {launch => (
-                  <Button
-                    variant={item?.button?.variant ?? "secondary"}
-                    onClick={launch}
-                    data-test={`task ${toolbarName}-${item.name}`}
-                    isDisabled={item?.disabled ?? false}
-                  >
-                    {tools.labelize(item.label || item.name)}
-                  </Button>
-                )}
-              </Launcher>
-            </ToolbarItem>
-          ))}
-        </ToolbarGroup>
-      )}
+      <ToolbarGroup variant="button-group">
+        {items.map((item, i) => (
+          <ToolbarItem key={i}>
+            <Launcher item={item}>
+              {launch => (
+                <Button
+                  variant={item?.button?.variant ?? "secondary"}
+                  onClick={launch}
+                  data-test={`task ${toolbarName}-${item.name}`}
+                  isDisabled={item?.disabled ?? false}
+                >
+                  {tools.labelize(item.label || item.name)}
+                </Button>
+              )}
+            </Launcher>
+          </ToolbarItem>
+        ))}
+      </ToolbarGroup>
     </LauncherGroup>
   );
 };

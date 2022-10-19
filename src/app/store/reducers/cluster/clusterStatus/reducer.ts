@@ -7,6 +7,7 @@ import { Cluster, ClusterStatusService } from "./types";
 
 export const clusterStatusDefault: Cluster = {
   name: "",
+  status: "unknown",
   nodeList: [],
   resourceTree: [],
   fenceDeviceList: [],

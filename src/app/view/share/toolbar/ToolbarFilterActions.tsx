@@ -28,7 +28,6 @@ export const ToolbarFilterAction = ({
       <ToolbarContent>
         <ToolbarGroup variant="filter-group">{children}</ToolbarGroup>
         <ToolbarGroup>
-          <ToolbarItem></ToolbarItem>
           {buttonsItems && (
             <ToolbarItem>
               <LauncherToolbarButtonGroup
