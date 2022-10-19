@@ -13,7 +13,7 @@ const getLaunchedComponent = (
   if (!launched) {
     return null;
   }
-  if ("launchDisable" in launched) {
+  if (launched.launchDisable?.isDisabled) {
     return <LaunchedDisabled item={launched} close={stopLaunch} />;
   }
   if ("confirm" in launched) {
