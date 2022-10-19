@@ -1,7 +1,7 @@
 import { Primitive } from "app/view/cluster/types";
 import {
   DetailLayout,
-  NVPairListView,
+  NVPairListPage,
   ResourceDetailCaption,
   Router,
   UrlTabs,
@@ -61,7 +61,7 @@ export const PrimitivePage = ({ primitive }: { primitive: Primitive }) => {
           />
         )}
         {currentTab === "meta" && (
-          <NVPairListView
+          <NVPairListPage
             nvPairList={primitive.metaAttributes}
             owner={{
               type: "resource-meta",

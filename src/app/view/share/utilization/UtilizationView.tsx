@@ -2,7 +2,7 @@ import { Alert, TextContent } from "@patternfly/react-core";
 
 import { ActionPayload } from "app/store";
 import { NVPair } from "app/view/cluster/types";
-import { NVPairListView } from "app/view/share/nvpair";
+import { NVPairListPage } from "app/view/share/nvpair";
 
 export const UtilizationView = ({
   utilizationAttrs,
@@ -12,7 +12,7 @@ export const UtilizationView = ({
   owner: ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
 }) => {
   return (
-    <NVPairListView
+    <NVPairListPage
       nvPairList={utilizationAttrs}
       owner={owner}
       createLabel="Create utilization attribute"

@@ -3,7 +3,7 @@ import { Alert } from "@patternfly/react-core";
 import { Clone } from "app/view/cluster/types";
 import {
   DetailLayout,
-  NVPairListView,
+  NVPairListPage,
   ResourceDetailCaption,
   Router,
   UrlTabs,
@@ -32,7 +32,7 @@ export const ClonePage = ({ clone }: { clone: Clone }) => {
             />
           )}
           {currentTab === "meta" && (
-            <NVPairListView
+            <NVPairListPage
               nvPairList={clone.metaAttributes}
               owner={{
                 type: "resource-meta",
