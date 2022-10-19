@@ -67,7 +67,7 @@ export const PrimitivePage = ({ primitive }: { primitive: Primitive }) => {
               type: "resource-meta",
               id: primitive.id,
             }}
-            createLabel="Create Meta Attribute"
+            createLabel="Create meta attribute"
           />
         )}
       </Router>

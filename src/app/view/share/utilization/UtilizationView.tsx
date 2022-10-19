@@ -15,7 +15,7 @@ export const UtilizationView = ({
     <NVPairListView
       nvPairList={utilizationAttrs}
       owner={owner}
-      createLabel="Create Utilization Attribute"
+      createLabel="Create utilization attribute"
       beforeList={
         <Alert isInline title="Utilization attributes" variant="info">
           <TextContent>

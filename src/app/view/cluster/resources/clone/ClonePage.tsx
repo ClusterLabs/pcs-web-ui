@@ -38,7 +38,7 @@ export const ClonePage = ({ clone }: { clone: Clone }) => {
                 type: "resource-meta",
                 id: clone.id,
               }}
-              createLabel="Create Meta Attribute"
+              createLabel="Create meta attribute"
             />
           )}
         </Router>

@@ -6,6 +6,7 @@ import { NVPair } from "app/view/cluster/types";
 import { EmptyStateNoItem } from "app/view/share/emptyState";
 import { LaunchersToolbar } from "app/view/share/toolbar";
 import { TaskOpenArgs } from "app/view/share/task";
+import { useLauncherDisableClusterNotRunning } from "app/view/share/toolbar/useLauncherDisableClusterNotRunning";
 
 import { NVPairList } from "./NVPairList";
 import * as task from "./task";
@@ -21,6 +22,7 @@ export const NVPairListView = ({
   createLabel: string;
   beforeList?: React.ReactNode;
 }) => {
+  const launchDisable = useLauncherDisableClusterNotRunning();
   const editOpenArgs: TaskOpenArgs<typeof task.edit.useTask> = [
     {
       type: "create",
@@ -42,6 +44,9 @@ export const NVPairListView = ({
                 useTask: task.edit.useTask,
                 openArgs: editOpenArgs,
               },
+              launchDisable: launchDisable(
+                "Cannot create resource group on stopped cluster",
+              ),
             },
           ]}
         />

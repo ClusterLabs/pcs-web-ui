@@ -53,7 +53,7 @@ export const NodeDetailPage = () => {
               type: "node-attr",
               id: node.name,
             }}
-            createLabel="Create Node Attribute"
+            createLabel="Create node attribute"
           />
         )}
         {currentTab === "utilization" && (

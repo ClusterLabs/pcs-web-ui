@@ -43,7 +43,7 @@ export const GroupPage = ({ group }: { group: Group }) => {
               type: "resource-meta",
               id: group.id,
             }}
-            createLabel="Create Meta Attribute"
+            createLabel="Create meta attribute"
           />
         )}
       </Router>
