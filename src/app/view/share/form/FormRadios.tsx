@@ -18,7 +18,7 @@ export function FormRadios<OPTION extends string>({
   isDisabled = false,
   "data-test": dataTest,
 }: {
-  id: FormGroupProps["fieldId"];
+  id: string;
   label: FormGroupProps["label"];
   options: OPTION[];
   selected: OPTION;
