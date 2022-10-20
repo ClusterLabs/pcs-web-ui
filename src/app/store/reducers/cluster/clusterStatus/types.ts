@@ -90,7 +90,8 @@ type ApiSbdConfig = Exclude<
 */
 export type Cluster = {
   name: string;
-  status: "started" | "stopped" | "unknown";
+  status: "running" | "degraded" | "inoperative" | "offline" | "unknown";
+  hasCibInfo: boolean;
   nodeList: ((
     | {
         name: string;

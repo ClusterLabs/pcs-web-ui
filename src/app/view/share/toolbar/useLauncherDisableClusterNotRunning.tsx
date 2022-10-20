@@ -8,7 +8,7 @@ export const useLauncherDisableClusterNotRunning = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   return React.useCallback(
     (title: string) => ({
-      isDisabled: cluster.status !== "started",
+      isDisabled: !cluster.hasCibInfo,
       title,
       message: <ClusterStoppedInfo />,
     }),

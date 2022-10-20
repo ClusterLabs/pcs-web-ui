@@ -19,7 +19,7 @@ export const FenceDeviceList = ({
   const { compact } = useGroupDetailViewContext();
   const [cluster] = useClusterSelector(selectors.getCluster);
 
-  if (cluster.status !== "started") {
+  if (!cluster.hasCibInfo) {
     return (
       <EmptyStateClusterStopped
         title={"Cannot get fence devices from stopped cluster"}

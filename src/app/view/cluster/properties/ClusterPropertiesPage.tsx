@@ -91,7 +91,7 @@ export const ClusterPropertiesPage = () => {
                   )}
                   {!isEditing && (
                     <>
-                      {cluster.status !== "started" && (
+                      {!cluster.hasCibInfo && (
                         <Alert
                           isInline
                           variant="warning"

@@ -1,12 +1,13 @@
+import React from "react";
+
 import { ClusterStatusLabel, Link, location } from "app/view/share";
-import { Cluster } from "app/view/cluster/types";
 
 export const DashboardClusterCellName = ({
   clusterName,
   status,
 }: {
   clusterName: string;
-  status: Cluster["status"];
+  status: React.ComponentProps<typeof ClusterStatusLabel>["status"];
 }) => {
   return (
     <th role="rowheader" data-test="name">

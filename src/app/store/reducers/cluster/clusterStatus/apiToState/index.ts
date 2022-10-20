@@ -16,13 +16,15 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
     fenceDevicesSeverity,
     resourceOnNodeStatusList,
   } = analyzeApiResources(apiClusterStatus.resource_list);
-  const { nodeList, nodesSeverity, clusterStatus } = processApiNodes(
-    apiClusterStatus.node_list,
-    apiClusterStatus.node_attr ?? {},
-  );
+  const { nodeList, nodesSeverity, clusterStatus, hasCibInfo } =
+    processApiNodes(
+      apiClusterStatus.node_list,
+      apiClusterStatus.node_attr ?? {},
+    );
   return {
     name: apiClusterStatus.cluster_name,
     status: clusterStatus,
+    hasCibInfo: hasCibInfo,
     nodeList,
     issueList: transformIssues(apiClusterStatus),
     resourceTree,
