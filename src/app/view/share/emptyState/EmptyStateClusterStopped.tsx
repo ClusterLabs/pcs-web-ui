@@ -9,5 +9,10 @@ export const EmptyStateClusterStopped = ({
 }: {
   title: React.ReactNode;
 }) => {
-  return <EmptyStateConfigure title={title} message={<ClusterStoppedInfo />} />;
+  return (
+    <EmptyStateConfigure
+      title={title}
+      message={<ClusterStoppedInfo startButton="button" />}
+    />
+  );
 };
