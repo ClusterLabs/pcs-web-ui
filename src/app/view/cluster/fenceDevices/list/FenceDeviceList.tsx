@@ -23,6 +23,7 @@ export const FenceDeviceList = ({
     return (
       <EmptyStateClusterStopped
         title={"Cannot get fence devices from stopped cluster"}
+        clusterName={cluster.name}
       />
     );
   }

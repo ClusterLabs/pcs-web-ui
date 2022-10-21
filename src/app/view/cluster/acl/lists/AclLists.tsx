@@ -16,6 +16,7 @@ export const AclLists = () => {
     return (
       <EmptyStateClusterStopped
         title={"Cannot get ACLs from stopped cluster"}
+        clusterName={cluster.name}
       />
     );
   }

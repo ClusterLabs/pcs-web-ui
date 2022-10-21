@@ -83,6 +83,7 @@ export const ConstraintFilteredList = ({
     return (
       <EmptyStateClusterStopped
         title={"Cannot get constraints from stopped cluster"}
+        clusterName={clusterName}
       />
     );
   }

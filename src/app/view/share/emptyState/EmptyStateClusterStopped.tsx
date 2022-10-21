@@ -6,13 +6,17 @@ import { EmptyStateConfigure } from "./EmptyStateConfigure";
 
 export const EmptyStateClusterStopped = ({
   title,
+  clusterName,
 }: {
   title: React.ReactNode;
+  clusterName: string;
 }) => {
   return (
     <EmptyStateConfigure
       title={title}
-      message={<ClusterStoppedInfo startButton="button" />}
+      message={
+        <ClusterStoppedInfo startButton="button" clusterName={clusterName} />
+      }
     />
   );
 };

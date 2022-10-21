@@ -21,6 +21,7 @@ export const NVPairListView = ({
     return (
       <EmptyStateClusterStopped
         title={"Cannot get attributes from stopped cluster"}
+        clusterName={cluster.name}
       />
     );
   }

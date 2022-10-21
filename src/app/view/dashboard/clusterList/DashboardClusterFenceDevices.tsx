@@ -1,5 +1,6 @@
 import { Cluster, FenceDevice } from "app/view/cluster/types";
 import {
+  EmptyStateClusterStopped,
   EmptyStateNoItem,
   Link,
   StatusSign,
@@ -34,6 +35,16 @@ export const DashboardClusterFenceDevices = ({
   cluster: Cluster;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
+
+  if (!cluster.hasCibInfo) {
+    return (
+      <EmptyStateClusterStopped
+        title="Cannot get fence devices from stopped cluster"
+        clusterName={cluster.name}
+      />
+    );
+  }
+
   if (cluster.fenceDeviceList.length === 0) {
     return (
       <EmptyStateNoItem

@@ -25,6 +25,7 @@ export const ResourceTree = ({
     return (
       <EmptyStateClusterStopped
         title={"Cannot get resources from stopped cluster"}
+        clusterName={cluster.name}
       />
     );
   }

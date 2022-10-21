@@ -65,14 +65,14 @@ export const ClusterPropertiesPage = () => {
                 buttonsItems={[
                   ...(!isEditing
                     ? [
-                        {
-                          name: "edit-attributes",
-                          run: () => setIsEditing(true),
-                          launchDisable: launchDisable(
-                            "Cannot edit cluster properties on stopped cluster",
-                          ),
-                        },
-                      ]
+                      {
+                        name: "edit-attributes",
+                        run: () => setIsEditing(true),
+                        launchDisable: launchDisable(
+                          "Cannot edit cluster properties on stopped cluster",
+                        ),
+                      },
+                    ]
                     : []),
                 ]}
               />
@@ -98,7 +98,10 @@ export const ClusterPropertiesPage = () => {
                           title="Cannot get cluster properties values from stopped cluster"
                           className="pf-u-mb-sm"
                         >
-                          <ClusterStoppedInfo startButton="link" />
+                          <ClusterStoppedInfo
+                            startButton="link"
+                            clusterName={cluster.name}
+                          />
                         </Alert>
                       )}
                       <AttributeList
@@ -116,9 +119,9 @@ export const ClusterPropertiesPage = () => {
                             <AttributeValue
                               {...(property.name in cluster.clusterProperties
                                 ? {
-                                    value:
-                                      cluster.clusterProperties[property.name],
-                                  }
+                                  value:
+                                    cluster.clusterProperties[property.name],
+                                }
                                 : { defaultValue: property.default })}
                             />
                           </React.Fragment>

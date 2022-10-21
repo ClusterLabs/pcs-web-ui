@@ -6,7 +6,7 @@ export const DashboardClusterCellSummary = ({
   itemsCount,
   summaryStatus,
 }: {
-  itemsCount: number;
+  itemsCount: number | "?";
   summaryStatus: React.ComponentProps<typeof StatusIco>["status"];
 }) => {
   if (summaryStatus === "OK") {

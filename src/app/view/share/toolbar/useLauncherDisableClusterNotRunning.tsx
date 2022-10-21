@@ -10,7 +10,9 @@ export const useLauncherDisableClusterNotRunning = () => {
     (title: string) => ({
       isDisabled: !cluster.hasCibInfo,
       title,
-      message: <ClusterStoppedInfo startButton="link" />,
+      message: (
+        <ClusterStoppedInfo startButton="link" clusterName={cluster.name} />
+      ),
     }),
     [cluster],
   );
