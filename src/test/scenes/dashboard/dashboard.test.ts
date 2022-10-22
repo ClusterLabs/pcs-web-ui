@@ -46,7 +46,9 @@ describe("Dashboard scene", () => {
     await displayClusters();
     const clusterInfoList = await page.$$eval(CLUSTERS, clusterElements =>
       clusterElements.map(e => ({
-        name: e.querySelector("[data-test='name']")?.textContent ?? "",
+        name:
+          e.querySelector("[data-test='name'] strong")?.textContent?.trim()
+          ?? "",
         issuesTotal: e.querySelector("[data-test='issues']")?.textContent ?? "",
         nodesTotal: e.querySelector("[data-test='nodes']")?.textContent ?? "",
         resourcesTotal:
