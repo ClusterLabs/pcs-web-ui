@@ -74,9 +74,8 @@ export const AclPage = () => {
             label: `${aclEnabled ? "Disable" : "Enable"} ACL`,
             confirm: {
               title: aclEnabled ? "Disable ACL" : "Enable ACL",
-              description: `${
-                aclEnabled ? "Disable" : "Enable"
-              } access control lists.`,
+              description: `${aclEnabled ? "Disable" : "Enable"
+                } access control lists.`,
               action: {
                 type: "CLUSTER.PROPERTIES.UPDATE",
                 key: { clusterName },
@@ -93,14 +92,16 @@ export const AclPage = () => {
           },
         ]}
         after={
-          <>
-            <ToolbarItem variant="separator" />
-            <ToolbarItem>
-              <Label variant="outline" color={aclEnabled ? "green" : "grey"}>
-                ACL {aclEnabled ? "enabled" : "disabled"}
-              </Label>
-            </ToolbarItem>
-          </>
+          cluster.hasCibInfo ? (
+            <>
+              <ToolbarItem variant="separator" />
+              <ToolbarItem>
+                <Label variant="outline" color={aclEnabled ? "green" : "grey"}>
+                  ACL {aclEnabled ? "enabled" : "disabled"}
+                </Label>
+              </ToolbarItem>
+            </>
+          ) : null
         }
       />
 
