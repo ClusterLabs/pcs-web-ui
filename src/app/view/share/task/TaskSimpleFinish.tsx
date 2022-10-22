@@ -19,7 +19,7 @@ export const TaskSimpleFinish = ({
   successTitle: React.ReactNode;
   failTitle: React.ReactNode;
   tryAgain: () => void;
-  recoverFromError: () => void;
+  recoverFromError?: () => void;
 }) => {
   switch (response) {
     case "sending":
@@ -28,14 +28,21 @@ export const TaskSimpleFinish = ({
     case "ok":
       return <TaskSuccess title={successTitle} />;
 
-    default:
+    default: {
       return (
         <TaskFinishError
           title={failTitle}
           message={resultMessage}
-          primaryAction={["Start from the beginning", recoverFromError]}
-          secondaryActions={{ "Try again": tryAgain }}
+          {...(recoverFromError
+            ? {
+              primaryAction: ["Start from the beginning", recoverFromError],
+              secondaryActions: { "Try again": tryAgain },
+            }
+            : {
+              primaryAction: ["Try again", tryAgain],
+            })}
         />
       );
+    }
   }
 };

@@ -24,6 +24,7 @@ export type DashboardClusterActions = {
     type: "DASHBOARD.CLUSTER.STOP";
     payload: {
       clusterName: string;
+      force: boolean;
     };
   };
 };

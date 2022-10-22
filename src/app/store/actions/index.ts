@@ -47,8 +47,8 @@ export type ActionMap = LeafActionMap & {
 
 export type ActionPayload = {
   -readonly [K in keyof ActionMap]: ActionMap[K] extends { payload: unknown }
-    ? ActionMap[K]["payload"]
-    : undefined;
+  ? ActionMap[K]["payload"]
+  : undefined;
 };
 
 export type Action = ActionLeaf | SetupDataReading;

@@ -1,5 +1,7 @@
+/* eslint-disable import/max-dependencies */
 import { ClusterAddActions } from "./add";
 import { ClusterFixAuthActions } from "./fixAuth";
+import { ClusterForceableConfirmActions } from "./forceableConfirm";
 import { ClusterListActions } from "./list";
 import { ClusterPermissionsActions } from "./permissions";
 import { ClusterPropertiesActions } from "./properties";
@@ -14,6 +16,7 @@ export type ClusterActions = (
   & ClusterAclActions
   & ClusterAddActions
   & ClusterFixAuthActions
+  & ClusterForceableConfirmActions
   & ClusterListActions
   & ClusterPermissionsActions
   & ClusterPropertiesActions

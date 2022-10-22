@@ -42,7 +42,7 @@ export const ClusterDetail = () => {
               description: "Stop the on all nodes",
               action: {
                 type: "DASHBOARD.CLUSTER.STOP",
-                payload: { clusterName },
+                payload: { clusterName, force: false },
               },
             },
           },

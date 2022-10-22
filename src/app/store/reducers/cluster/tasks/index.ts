@@ -22,6 +22,7 @@ import { constraintColocationSetCreate } from "./constraintColocationSetCreate";
 import { resourceGroup } from "./resourceGroup";
 import { nodeAdd } from "./nodeAdd";
 import { fixAuth } from "./fixAuth";
+import { forceableConfirm } from "./forceableConfirm";
 import { permissionEdit } from "./permissionEdit";
 import { nvpairEdit } from "./nvpairEdit";
 import { sbdDisable } from "./sbdDisable";
@@ -36,19 +37,19 @@ const wrapTaskReducer =
     key: ReducersMapKey<STATE>,
     task: Task<STATE>,
   ): Task<STATE> =>
-  (state, action) => {
-    if (
-      // undefined state means initialization - so the action can be drilled
-      // down to original `task` reducer to get initial state.
-      state !== undefined
-      && "key" in action
-      && "task" in action.key
-      && action.key.task !== key
-    ) {
-      return state;
-    }
-    return task(state, action);
-  };
+    (state, action) => {
+      if (
+        // undefined state means initialization - so the action can be drilled
+        // down to original `task` reducer to get initial state.
+        state !== undefined
+        && "key" in action
+        && "task" in action.key
+        && action.key.task !== key
+      ) {
+        return state;
+      }
+      return task(state, action);
+    };
 
 export const tasks = combineReducers(
   wrapTasks(wrapTaskReducer)({
@@ -66,6 +67,7 @@ export const tasks = combineReducers(
     resourceGroup,
     nodeAdd,
     fixAuth,
+    forceableConfirm,
     permissionEdit,
     nvpairEdit,
     sbdDisable,

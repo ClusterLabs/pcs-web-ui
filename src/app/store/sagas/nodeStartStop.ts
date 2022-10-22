@@ -1,7 +1,13 @@
 import { clusterStart, clusterStop } from "app/backend";
 import { ActionMap } from "app/store/actions";
 
-import { api, processClusterResultBasic } from "./common";
+import {
+  api,
+  errorMessage,
+  log,
+  processClusterResultBasic,
+  put,
+} from "./common";
 
 export function* nodeStart({
   key,
@@ -22,17 +28,29 @@ export function* nodeStart({
 
 export function* nodeStop({
   key,
-  payload: { nodeName },
+  payload: { nodeName, force },
 }: ActionMap["NODE.STOP"]) {
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
     clusterStop,
-    key.clusterName,
-    nodeName,
+    { clusterName: key.clusterName, nodeName, force },
   );
 
-  yield processClusterResultBasic(
-    key.clusterName,
-    `stop node ${nodeName}"`,
-    result,
-  );
+  const taskLabel = `stop node "${nodeName}"`;
+
+  if (result.type !== "OK") {
+    if (result.type !== "BAD_HTTP_STATUS") {
+      log.error(result, taskLabel);
+    }
+    yield put({
+      type: "CLUSTER.FORCEABLE-CONFIRM.FAIL",
+      key,
+      payload: { message: errorMessage(result, taskLabel) },
+    });
+    return;
+  }
+
+  yield put({
+    type: "CLUSTER.FORCEABLE-CONFIRM.OK",
+    key,
+  });
 }
