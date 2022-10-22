@@ -7,8 +7,10 @@ const statusColorMap: Record<
   Cluster["status"],
   React.ComponentProps<typeof Label>["color"]
 > = {
-  started: "green",
-  stopped: "orange",
+  running: "green",
+  degraded: "gold",
+  inoperative: "orange",
+  offline: "red",
   unknown: "grey",
 };
 

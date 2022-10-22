@@ -65,14 +65,14 @@ export const ClusterPropertiesPage = () => {
                 buttonsItems={[
                   ...(!isEditing
                     ? [
-                        {
-                          name: "edit-attributes",
-                          run: () => setIsEditing(true),
-                          launchDisable: launchDisable(
-                            "Cannot edit cluster properties on stopped cluster",
-                          ),
-                        },
-                      ]
+                      {
+                        name: "edit-attributes",
+                        run: () => setIsEditing(true),
+                        launchDisable: launchDisable(
+                          "Cannot edit cluster properties on stopped cluster",
+                        ),
+                      },
+                    ]
                     : []),
                 ]}
               />
@@ -91,14 +91,17 @@ export const ClusterPropertiesPage = () => {
                   )}
                   {!isEditing && (
                     <>
-                      {cluster.status !== "started" && (
+                      {!cluster.hasCibInfo && (
                         <Alert
                           isInline
                           variant="warning"
                           title="Cannot get cluster properties values from stopped cluster"
                           className="pf-u-mb-sm"
                         >
-                          <ClusterStoppedInfo />
+                          <ClusterStoppedInfo
+                            startButton="link"
+                            clusterName={cluster.name}
+                          />
                         </Alert>
                       )}
                       <AttributeList
@@ -116,9 +119,9 @@ export const ClusterPropertiesPage = () => {
                             <AttributeValue
                               {...(property.name in cluster.clusterProperties
                                 ? {
-                                    value:
-                                      cluster.clusterProperties[property.name],
-                                  }
+                                  value:
+                                    cluster.clusterProperties[property.name],
+                                }
                                 : { defaultValue: property.default })}
                             />
                           </React.Fragment>

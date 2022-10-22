@@ -47,13 +47,15 @@ export const DashboardCluster = ({ cluster }: { cluster: Cluster }) => {
         </Toggle>
         <Toggle expandKey={COLUMNS.RESOURCES} data-test="resources">
           <DashboardClusterCellSummary
-            itemsCount={cluster.resourceTree.length}
+            itemsCount={cluster.hasCibInfo ? cluster.resourceTree.length : "?"}
             summaryStatus={cluster.summary.resourcesSeverity}
           />
         </Toggle>
         <Toggle expandKey={COLUMNS.FENCE_DEVICES} data-test="fence-devices">
           <DashboardClusterCellSummary
-            itemsCount={cluster.fenceDeviceList.length}
+            itemsCount={
+              cluster.hasCibInfo ? cluster.fenceDeviceList.length : "?"
+            }
             summaryStatus={cluster.summary.fenceDevicesSeverity}
           />
         </Toggle>

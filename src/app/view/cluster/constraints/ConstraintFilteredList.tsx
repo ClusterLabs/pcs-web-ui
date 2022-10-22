@@ -79,10 +79,11 @@ export const ConstraintFilteredList = ({
   };
   const [cluster] = useClusterSelector(selectors.getCluster);
 
-  if (cluster.status !== "started") {
+  if (!cluster.hasCibInfo) {
     return (
       <EmptyStateClusterStopped
         title={"Cannot get constraints from stopped cluster"}
+        clusterName={clusterName}
       />
     );
   }

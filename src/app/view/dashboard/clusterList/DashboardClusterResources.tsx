@@ -1,5 +1,6 @@
 import { Cluster, Resource } from "app/view/cluster/types";
 import {
+  EmptyStateClusterStopped,
   EmptyStateNoItem,
   Link,
   ResourceStatusInfoListSigns,
@@ -33,6 +34,15 @@ export const DashboardClusterResources = ({
   cluster: Cluster;
 }) => {
   const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
+
+  if (!cluster.hasCibInfo) {
+    return (
+      <EmptyStateClusterStopped
+        title="Cannot get resources from stopped cluster"
+        clusterName={cluster.name}
+      />
+    );
+  }
 
   if (cluster.resourceTree.length === 0) {
     return (

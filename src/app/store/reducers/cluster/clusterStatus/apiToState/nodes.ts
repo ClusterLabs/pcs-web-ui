@@ -98,14 +98,25 @@ const countNodesSeverity = (apiNodeList: ApiNode[]): StatusSeverity => {
 };
 
 const getClusterStatus = (apiNodeList: ApiNode[]): Cluster["status"] => {
-  if (apiNodeList.every(n => n.status === "unknown")) {
-    return "unknown";
+  if (
+    apiNodeList.every(n => n.status === "online")
+    && apiNodeList.some(n => "quorum" in n && n.quorum)
+  ) {
+    return "running";
+  }
+  if (apiNodeList.some(n => n.status === "online" && n.quorum)) {
+    return "degraded";
   }
   if (apiNodeList.some(n => n.status === "online" || n.status === "standby")) {
-    return "started";
+    return "inoperative";
   }
-  return "stopped";
+  if (apiNodeList.some(n => n.status === "unknown")) {
+    return "unknown";
+  }
+  return "offline";
 };
+const hasCibInfo = (apiNodeList: ApiNode[]): Cluster["hasCibInfo"] =>
+  apiNodeList.some(n => n.status === "online" || n.status === "standby");
 
 export const processApiNodes = (
   apiNodeList: ApiNode[],
@@ -114,10 +125,12 @@ export const processApiNodes = (
   nodeList: Node[];
   nodesSeverity: StatusSeverity;
   clusterStatus: Cluster["status"];
+  hasCibInfo: Cluster["hasCibInfo"];
 } => ({
   nodeList: apiNodeList.map(apiNode =>
     toNode(apiNode, apiNodeAttrs[apiNode.name] || []),
   ),
   nodesSeverity: countNodesSeverity(apiNodeList),
   clusterStatus: getClusterStatus(apiNodeList),
+  hasCibInfo: hasCibInfo(apiNodeList),
 });

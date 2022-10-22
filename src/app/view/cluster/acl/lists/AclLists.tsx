@@ -12,10 +12,11 @@ const spacer: FlexProps["spacer"] = { default: "spacerNone" };
 
 export const AclLists = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
-  if (cluster.status !== "started") {
+  if (!cluster.hasCibInfo) {
     return (
       <EmptyStateClusterStopped
         title={"Cannot get ACLs from stopped cluster"}
+        clusterName={cluster.name}
       />
     );
   }
