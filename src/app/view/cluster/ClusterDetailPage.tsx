@@ -71,9 +71,7 @@ export const ClusterDetailPage = ({ clusterName }: { clusterName: string }) => {
             {currentTab === "resources" && <ResourcesPage />}
             {currentTab === "fence-devices" && <FenceDevicePage />}
             {currentTab === "sbd" && <SbdPage />}
-            {currentTab === "constraints" && (
-              <ConstraintsPage clusterName={clusterName} />
-            )}
+            {currentTab === "constraints" && <ConstraintsPage />}
             {currentTab === "properties" && <ClusterPropertiesPage />}
             {currentTab === "acl" && <AclPage />}
             {currentTab === "permissions" && <ClusterPermissionsPage />}
