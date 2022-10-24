@@ -20,7 +20,11 @@ export const ClusterStatusLabel = ({
   status: Cluster["status"];
 }) => {
   return (
-    <Label color={statusColorMap[status]} isCompact>
+    <Label
+      data-test="cluster-status-label"
+      color={statusColorMap[status]}
+      isCompact
+    >
       {status}
     </Label>
   );
