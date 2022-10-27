@@ -13,28 +13,28 @@ export const forceableConfirm: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
-    case "CLUSTER.FORCEABLE-CONFIRM":
+    case "TASK.FORCEABLE-CONFIRM":
       return {
         ...state,
         response: "sending",
         resultMessage: "",
       };
 
-    case "CLUSTER.FORCEABLE-CONFIRM.OK":
+    case "TASK.FORCEABLE-CONFIRM.OK":
       return {
         ...state,
         response: "ok",
         resultMessage: "",
       };
 
-    case "CLUSTER.FORCEABLE-CONFIRM.FAIL":
+    case "TASK.FORCEABLE-CONFIRM.FAIL":
       return {
         ...state,
         response: "fail",
         resultMessage: action.payload.message,
       };
 
-    case "CLUSTER.FORCEABLE-CONFIRM.CLOSE":
+    case "TASK.FORCEABLE-CONFIRM.CLOSE":
       return {
         ...initialState,
       };

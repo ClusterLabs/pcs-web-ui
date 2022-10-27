@@ -12,6 +12,7 @@ import { ResourceActions } from "./resource";
 import { FenceDeviceActions } from "./fenceDevice";
 import { ResourceAgentActions } from "./resourceAgent";
 import { UsernameActions } from "./username";
+import { TaskActions } from "./task";
 
 // prettier-ignore
 type LeafActionMap = (
@@ -27,6 +28,7 @@ type LeafActionMap = (
   & FenceDeviceActions
   & ResourceActions
   & ResourceAgentActions
+  & TaskActions
   & UsernameActions
 );
 

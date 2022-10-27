@@ -3,23 +3,21 @@ import { useClusterTask } from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("forceableConfirm");
-  const { dispatch, clusterName } = task;
+  const { dispatch } = task;
 
   return {
     ...task,
 
     runAction: (action: Action) => {
       dispatch({
-        type: "CLUSTER.FORCEABLE-CONFIRM",
-        key: { clusterName },
+        type: "TASK.FORCEABLE-CONFIRM",
       });
       dispatch(action);
     },
 
     close: () => {
       dispatch({
-        type: "CLUSTER.FORCEABLE-CONFIRM.CLOSE",
-        key: { clusterName },
+        type: "TASK.FORCEABLE-CONFIRM.CLOSE",
       });
       task.close();
     },

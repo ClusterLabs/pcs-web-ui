@@ -42,15 +42,13 @@ export function* nodeStop({
       log.error(result, taskLabel);
     }
     yield put({
-      type: "CLUSTER.FORCEABLE-CONFIRM.FAIL",
-      key,
+      type: "TASK.FORCEABLE-CONFIRM.FAIL",
       payload: { message: errorMessage(result, taskLabel) },
     });
     return;
   }
 
   yield put({
-    type: "CLUSTER.FORCEABLE-CONFIRM.OK",
-    key,
+    type: "TASK.FORCEABLE-CONFIRM.OK",
   });
 }
