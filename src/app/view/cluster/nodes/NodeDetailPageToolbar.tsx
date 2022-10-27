@@ -5,7 +5,7 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 import { Node } from "app/view/cluster/types";
-import { task } from "app/view/cluster/share";
+import { task } from "app/view/share";
 
 export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
   const clusterName = useSelectedClusterName();
