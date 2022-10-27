@@ -1,8 +1,8 @@
 import { Action } from "app/store";
-import { useClusterTask } from "app/view/share";
+import { useTask as useCommonTask } from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("forceableConfirm");
+  const task = useCommonTask("forceableConfirm");
   const { dispatch } = task;
 
   return {
