@@ -19,13 +19,13 @@ export const TaskComponent = ({
 }: {
   confirm: {
     title: string;
-    description: string;
+    description: React.ReactNode;
   };
   runLabel: string;
   processTitle: {
-    wait: string;
-    success: string;
-    fail: string;
+    wait: React.ReactNode;
+    success: React.ReactNode;
+    fail: React.ReactNode;
   };
   getForceableAction: (_props: { force: boolean }) => Action;
 }) => {

@@ -10,6 +10,7 @@ import {
 import { selectors } from "app/store";
 import {
   ClusterToolbar,
+  task,
   useClusterSelector,
   useSelectedClusterName,
 } from "app/view/share";
@@ -37,13 +38,24 @@ export const ClusterDetail = () => {
           },
           {
             name: "stop",
-            confirm: {
-              title: "Stop cluster?",
-              description: "Stop the on all nodes",
-              action: {
-                type: "DASHBOARD.CLUSTER.STOP",
-                payload: { clusterName, force: false },
-              },
+            task: {
+              component: task.forceableConfirm.Task({
+                confirm: {
+                  title: "Stop cluster?",
+                  description: "Stop the cluster on all nodes",
+                },
+                runLabel: "Stop",
+                processTitle: {
+                  wait: "Stopping cluster",
+                  success: "Cluster was successfully stopped",
+                  fail: "Cluster stop failed",
+                },
+                getForceableAction: ({ force }) => ({
+                  type: "DASHBOARD.CLUSTER.STOP",
+                  payload: { clusterName, force },
+                }),
+              }),
+              useTask: task.forceableConfirm.useTask,
             },
           },
         ]}

@@ -49,6 +49,11 @@ export function* nodeStop({
   }
 
   yield put({
+    type: "CLUSTER.STATUS.REFRESH",
+    key: { clusterName: key.clusterName },
+  });
+
+  yield put({
     type: "TASK.FORCEABLE-CONFIRM.OK",
   });
 }
