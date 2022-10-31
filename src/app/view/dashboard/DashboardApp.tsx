@@ -30,7 +30,7 @@ const useDashboardSync = () => {
   }, [dispatch]);
 };
 
-export const DashboardPage = () => {
+export const DashboardApp = () => {
   useDashboardSync();
   const dispatch = useDispatch();
   const importedClusterNameList = useSelector(selectors.getImportedClusterList);

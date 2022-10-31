@@ -3,7 +3,7 @@ import { Breadcrumb, BreadcrumbItem } from "@patternfly/react-core";
 import { Link, location, useDispatch } from "app/view/share";
 import { ClusterStatusLabel, useClusterState } from "app/view/share";
 
-export const ClusterDetailBreadcrumb = ({
+export const ClusterAppBreadcrumb = ({
   clusterName,
 }: {
   clusterName: string;
@@ -24,7 +24,9 @@ export const ClusterDetailBreadcrumb = ({
           })
         }
       >
-        <span className="pf-u-mr-sm">{clusterName}</span>
+        <span className="pf-u-mr-sm">
+          <strong>{clusterName}</strong>
+        </span>
         <ClusterStatusLabel
           status={dataLoaded ? clusterState.status : "unknown"}
         />

@@ -1,1 +1,1 @@
-export * from "./ClusterDetailPage";
+export * from "./ClusterApp";
