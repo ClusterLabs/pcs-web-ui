@@ -1,3 +1,4 @@
+/* eslint-disable import/max-dependencies */
 import { ClusterAddActions } from "./add";
 import { ClusterFixAuthActions } from "./fixAuth";
 import { ClusterListActions } from "./list";

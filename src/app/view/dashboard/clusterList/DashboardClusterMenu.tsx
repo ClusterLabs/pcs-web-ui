@@ -1,10 +1,13 @@
-import { LauncherDropdown } from "app/view/share";
+import { Label } from "@patternfly/react-core";
+
+import { LauncherDropdown, task } from "app/view/share";
 
 export const DashboardClusterMenu = ({
   clusterName,
 }: {
   clusterName: string;
 }) => {
+  const clusterLabel = <Label color="blue">{clusterName}</Label>;
   return (
     <LauncherDropdown
       dropdownName="cluster"
@@ -22,13 +25,24 @@ export const DashboardClusterMenu = ({
         },
         {
           name: "stop",
-          confirm: {
-            title: "Stop cluster?",
-            description: "Stop the on all nodes",
-            action: {
-              type: "DASHBOARD.CLUSTER.STOP",
-              payload: { clusterName },
-            },
+          task: {
+            component: task.forceableConfirm.Task({
+              confirm: {
+                title: "Stop cluster?",
+                description: <>Stop the cluster {clusterLabel} on all nodes</>,
+              },
+              runLabel: "Stop",
+              processTitle: {
+                wait: <>Stopping cluster {clusterLabel}</>,
+                success: <>Cluster {clusterLabel} was successfully stopped</>,
+                fail: <>Failed to stop cluster {clusterLabel}</>,
+              },
+              getForceableAction: ({ force }) => ({
+                type: "DASHBOARD.CLUSTER.STOP",
+                payload: { clusterName, force },
+              }),
+            }),
+            useTask: task.forceableConfirm.useTask,
           },
         },
         {

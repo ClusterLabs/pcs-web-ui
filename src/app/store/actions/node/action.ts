@@ -11,6 +11,7 @@ export type NodeActionActions = {
     key: { clusterName: string };
     payload: {
       nodeName: string;
+      force: boolean;
     };
   };
 };

@@ -9,6 +9,7 @@ import {
 
 import { clusterSetup } from "./clusterSetup";
 import { importExistingCluster } from "./importExistingCluster";
+import { forceableConfirm } from "./forceableConfirm";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(
@@ -29,5 +30,9 @@ const wrapTaskReducer =
     return task(state, action);
   };
 export const tasks = combineReducers(
-  wrapTasks(wrapTaskReducer)({ clusterSetup, importExistingCluster }),
+  wrapTasks(wrapTaskReducer)({
+    clusterSetup,
+    forceableConfirm,
+    importExistingCluster,
+  }),
 );

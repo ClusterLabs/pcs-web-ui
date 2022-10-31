@@ -43,6 +43,7 @@ const nodeNames = [
   "missing-key",
   "unknown-cmd",
   "error",
+  "forceable-error",
 ];
 
 const actionResourceList = [

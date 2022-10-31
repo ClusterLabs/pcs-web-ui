@@ -1,9 +1,9 @@
 import React from "react";
 
-import { useDashboardTask } from "app/view/share";
+import { useTask as useTaskCommon } from "app/view/share";
 
 export const useTask = () => {
-  const task = useDashboardTask("importExistingCluster");
+  const task = useTaskCommon("importExistingCluster");
   const { state, dispatch, close } = task;
 
   const checkNode = () => {

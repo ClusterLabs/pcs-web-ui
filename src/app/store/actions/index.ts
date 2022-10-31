@@ -12,6 +12,7 @@ import { ResourceActions } from "./resource";
 import { FenceDeviceActions } from "./fenceDevice";
 import { ResourceAgentActions } from "./resourceAgent";
 import { UsernameActions } from "./username";
+import { TaskActions } from "./task";
 
 // prettier-ignore
 type LeafActionMap = (
@@ -27,6 +28,7 @@ type LeafActionMap = (
   & FenceDeviceActions
   & ResourceActions
   & ResourceAgentActions
+  & TaskActions
   & UsernameActions
 );
 
@@ -47,8 +49,8 @@ export type ActionMap = LeafActionMap & {
 
 export type ActionPayload = {
   -readonly [K in keyof ActionMap]: ActionMap[K] extends { payload: unknown }
-    ? ActionMap[K]["payload"]
-    : undefined;
+  ? ActionMap[K]["payload"]
+  : undefined;
 };
 
 export type Action = ActionLeaf | SetupDataReading;

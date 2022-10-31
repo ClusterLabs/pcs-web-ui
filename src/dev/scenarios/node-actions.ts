@@ -43,6 +43,11 @@ app.clusterStop((req, res) => {
     return;
   }
 
+  if (req.body.name === "forceable-error") {
+    res.status(400).send("Unable to stop node, use --force to override.");
+    return;
+  }
+
   res.send("Some output");
 });
 

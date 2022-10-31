@@ -64,7 +64,7 @@ export const Wizard = ({
   ["data-test"]: string;
   task:
     | Parameters<typeof selectors.getClusterTask>[0]
-    | Parameters<typeof selectors.getDashboardTask>[0];
+    | Parameters<typeof selectors.getTask>[0];
   steps?: Step[] | undefined;
   onClose: () => void;
   title: string;

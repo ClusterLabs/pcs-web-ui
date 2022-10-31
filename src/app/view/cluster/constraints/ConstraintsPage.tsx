@@ -3,13 +3,15 @@ import { PageSection } from "@patternfly/react-core";
 import {
   ClusterToolbar,
   useLauncherDisableClusterNotRunning,
+  useSelectedClusterName,
 } from "app/view/share";
 
 import { ConstraintFilteredList } from "./ConstraintFilteredList";
 import * as task from "./task";
 
-export const ConstraintsPage = ({ clusterName }: { clusterName: string }) => {
+export const ConstraintsPage = () => {
   const launchDisable = useLauncherDisableClusterNotRunning();
+  const clusterName = useSelectedClusterName();
   return (
     <>
       <ClusterToolbar

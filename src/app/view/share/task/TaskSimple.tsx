@@ -15,7 +15,7 @@ export const TaskSimple = ({
 }: {
   task:
     | Parameters<typeof selectors.getClusterTask>[0]
-    | Parameters<typeof selectors.getDashboardTask>[0];
+    | Parameters<typeof selectors.getTask>[0];
   close: () => void;
   footer: React.ReactNode;
   title: React.ComponentProps<typeof Modal>["title"];

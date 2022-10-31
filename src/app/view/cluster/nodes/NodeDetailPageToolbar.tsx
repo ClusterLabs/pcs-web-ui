@@ -5,6 +5,7 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 import { Node } from "app/view/cluster/types";
+import { task } from "app/view/share";
 
 export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
   const clusterName = useSelectedClusterName();
@@ -96,14 +97,25 @@ export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
 
   const stop: ToolbarItem = {
     name: "stop",
-    confirm: {
-      title: "Stop node?",
-      description: "Stop a cluster on the node",
-      action: {
-        type: "NODE.STOP",
-        key: { clusterName },
-        payload: { nodeName: node.name },
-      },
+    task: {
+      component: task.forceableConfirm.Task({
+        confirm: {
+          title: "Stop node?",
+          description: "Stop a cluster on the node",
+        },
+        runLabel: "Stop",
+        processTitle: {
+          wait: "Stopping node",
+          success: "Node sucessfully stopped",
+          fail: "Node stop failed",
+        },
+        getForceableAction: ({ force }) => ({
+          type: "NODE.STOP",
+          key: { clusterName },
+          payload: { nodeName: node.name, force },
+        }),
+      }),
+      useTask: task.forceableConfirm.useTask,
     },
   };
 
