@@ -14,7 +14,8 @@ import {
   useClusterSelector,
   useSelectedClusterName,
 } from "app/view/share";
-import {ClusterIssueList} from "app/view/cluster/issues";
+
+import {ClusterIssueList} from "./issues";
 
 export const ClusterDetailPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
