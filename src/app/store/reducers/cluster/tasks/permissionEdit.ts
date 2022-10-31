@@ -1,9 +1,9 @@
-import { AppReducer } from "app/store/reducers/appReducer";
-import { ActionMap, ActionPayload } from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
+import {ActionMap, ActionPayload} from "app/store/actions";
 
 type UpdatePayload = ActionPayload["CLUSTER.PERMISSION.EDIT.UPDATE"];
 type InitPayload = ActionPayload["CLUSTER.PERMISSIONS.EDIT"];
-type InitialPermission = Extract<InitPayload, { type: "update" }>["permission"];
+type InitialPermission = Extract<InitPayload, {type: "update"}>["permission"];
 type Competence = "read" | "write" | "grant" | "full";
 
 const initialState: Required<UpdatePayload> & {
@@ -33,7 +33,7 @@ const initToState = (initPayload: InitPayload) => {
     return initialState;
   }
 
-  const { permission } = initPayload;
+  const {permission} = initPayload;
   return {
     ...initialState,
     initialPermission: permission,
@@ -119,10 +119,10 @@ export const permissionEdit: AppReducer<typeof initialState> = (
       return initialState;
 
     case "TASK.VALIDATION.SHOW":
-      return { ...state, showValidationErrors: true };
+      return {...state, showValidationErrors: true};
 
     case "TASK.VALIDATION.HIDE":
-      return { ...state, showValidationErrors: false };
+      return {...state, showValidationErrors: false};
 
     default:
       return state;

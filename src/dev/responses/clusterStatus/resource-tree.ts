@@ -1,5 +1,5 @@
-import { Cluster } from "dev/types";
-import { firstSet as aclFirstSet } from "dev/responses/acl";
+import {Cluster} from "dev/types";
+import {firstSet as aclFirstSet} from "dev/responses/acl";
 
 import {
   clone,
@@ -11,7 +11,7 @@ import {
   resourceStatus,
   stonith,
 } from "./tools";
-import { constraints } from "./constraints";
+import {constraints} from "./constraints";
 
 export const resourceTree: Cluster = cluster("resourceTree", "ok", {
   node_list: [
@@ -262,9 +262,9 @@ export const resourceTree: Cluster = cluster("resourceTree", "ok", {
               }),
             ],
           }),
-          primitive("E", { status: "blocked" }),
+          primitive("E", {status: "blocked"}),
         ],
-        { status: "blocked" },
+        {status: "blocked"},
       ),
       {
         status: "blocked",

@@ -1,10 +1,10 @@
-import { TaskLibReports, TaskSuccess } from "app/view/share";
+import {TaskLibReports, TaskSuccess} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Finish = () => {
   const {
-    state: { groupId, reports },
+    state: {groupId, reports},
   } = useTask();
   return (
     <>

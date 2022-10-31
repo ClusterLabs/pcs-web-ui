@@ -1,4 +1,4 @@
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 const initialState: {
   authProcessId: number | null;
@@ -67,7 +67,7 @@ export const fixAuth: AppReducer<typeof initialState> = (
     case "NODE.AUTH.FAIL":
     case "NODE.AUTH.OK":
       return action.key.process === state.authProcessId
-        ? { ...state, authAttemptInProgress: action.type === "NODE.AUTH" }
+        ? {...state, authAttemptInProgress: action.type === "NODE.AUTH"}
         : state;
 
     default:

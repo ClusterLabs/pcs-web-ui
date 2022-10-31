@@ -1,7 +1,7 @@
-import { dt } from "test/tools/selectors";
-import { intercept, shortcuts } from "test/tools";
+import {dt} from "test/tools/selectors";
+import {intercept, shortcuts} from "test/tools";
 
-import { TASK, url } from "./common";
+import {TASK, url} from "./common";
 
 const NODE_ADD_BUTTON = dt("cluster-section-toolbar", "task nodes-add-node");
 

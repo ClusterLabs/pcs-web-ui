@@ -1,12 +1,12 @@
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   ClusterToolbar,
   GroupDetailView,
   useClusterSelector,
 } from "app/view/share";
 
-import { NodeDetailPage } from "./NodeDetailPage";
-import { NodeList } from "./NodeList";
+import {NodeDetailPage} from "./NodeDetailPage";
+import {NodeList} from "./NodeList";
 import * as task from "./task";
 
 export const NodesPage = () => {

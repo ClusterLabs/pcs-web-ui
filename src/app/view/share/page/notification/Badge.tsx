@@ -1,6 +1,6 @@
-import { NotificationBadge as PfNotificationBadge } from "@patternfly/react-core";
+import {NotificationBadge as PfNotificationBadge} from "@patternfly/react-core";
 
-import { Notification } from "./types";
+import {Notification} from "./types";
 
 export const Badge = ({
   notificationList,

@@ -1,4 +1,4 @@
-import { Primitive } from "app/view/cluster/types";
+import {Primitive} from "app/view/cluster/types";
 import {
   DetailToolbar,
   TaskOpenArgs,
@@ -20,12 +20,8 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
       metaAttribute.name !== "target-role" || metaAttribute.value !== "Stopped",
   );
 
-export const PrimitivePageToolbar = ({
-  primitive,
-}: {
-  primitive: Primitive;
-}) => {
-  const { canChange: canChangeGroup } = task.groupChange.useTask();
+export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
+  const {canChange: canChangeGroup} = task.groupChange.useTask();
   const clusterName = useSelectedClusterName();
 
   const unclone: ToolbarItem = {
@@ -40,7 +36,7 @@ export const PrimitivePageToolbar = ({
       ),
       action: {
         type: "RESOURCE.UNCLONE",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           resourceId: primitive.id,
         },
@@ -55,7 +51,7 @@ export const PrimitivePageToolbar = ({
       description: "Set up the specified resource or group as a clone.",
       action: {
         type: "RESOURCE.CLONE",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           resourceId: primitive.id,
         },
@@ -70,7 +66,7 @@ export const PrimitivePageToolbar = ({
       description: <>This deletes the resource</>,
       action: {
         type: "RESOURCE.DELETE",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           resourceIds: [primitive.id],
           resourceType: "resource",
@@ -91,7 +87,7 @@ export const PrimitivePageToolbar = ({
       ),
       action: {
         type: "RESOURCE.REFRESH",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           resourceId: primitive.id,
           resourceType: "resource",
@@ -112,7 +108,7 @@ export const PrimitivePageToolbar = ({
       ),
       action: {
         type: "RESOURCE.CLEANUP",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           resourceId: primitive.id,
           resourceType: "resource",
@@ -128,12 +124,12 @@ export const PrimitivePageToolbar = ({
       description: "This disallows the cluster to start and stop the resource",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           taskLabel: `unmanage "${primitive.id}"`,
           call: {
             name: "resource-unmanage",
-            payload: { resource_or_tag_ids: [primitive.id] },
+            payload: {resource_or_tag_ids: [primitive.id]},
           },
         },
       },
@@ -147,12 +143,12 @@ export const PrimitivePageToolbar = ({
       description: "This allows the cluster to start and stop the resource",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           taskLabel: `manage "${primitive.id}"`,
           call: {
             name: "resource-manage",
-            payload: { resource_or_tag_ids: [primitive.id] },
+            payload: {resource_or_tag_ids: [primitive.id]},
           },
         },
       },
@@ -171,12 +167,12 @@ export const PrimitivePageToolbar = ({
       ),
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           taskLabel: `disable "${primitive.id}"`,
           call: {
             name: "resource-disable",
-            payload: { resource_or_tag_ids: [primitive.id] },
+            payload: {resource_or_tag_ids: [primitive.id]},
           },
         },
       },
@@ -190,12 +186,12 @@ export const PrimitivePageToolbar = ({
       description: "This allows the cluster to start the resource",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           taskLabel: `enable "${primitive.id}"`,
           call: {
             name: "resource-enable",
-            payload: { resource_or_tag_ids: [primitive.id] },
+            payload: {resource_or_tag_ids: [primitive.id]},
           },
         },
       },

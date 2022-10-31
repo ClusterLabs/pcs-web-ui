@@ -1,8 +1,8 @@
-import { Flex, FlexItem, Form, FormGroup, Radio } from "@patternfly/react-core";
+import {Flex, FlexItem, Form, FormGroup, Radio} from "@patternfly/react-core";
 
-import { FormSelectOrText, FormText } from "app/view/share";
+import {FormSelectOrText, FormText} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Configure = () => {
   const {
@@ -50,12 +50,12 @@ export const Configure = () => {
             isValid: isResourceValid,
             selections: resourceId,
             optionsValues: resourceIdList,
-            onSelect: value => updateState({ resourceId: value.toString() }),
+            onSelect: value => updateState({resourceId: value.toString()}),
           }}
           text={{
             label: "Type resource pattern",
             value: resourcePattern,
-            onChange: value => updateState({ resourcePattern: value }),
+            onChange: value => updateState({resourcePattern: value}),
             helperTextInvalid: "Please provide resource pattern",
             isValid: isPatternValid,
             "data-test": "resource-pattern",
@@ -83,12 +83,12 @@ export const Configure = () => {
             isValid: isNodeValid,
             selections: nodeName,
             optionsValues: nodeNameList,
-            onSelect: value => updateState({ nodeName: value.toString() }),
+            onSelect: value => updateState({nodeName: value.toString()}),
           }}
           text={{
             label: "Type rule",
             value: rule,
-            onChange: value => updateState({ rule: value }),
+            onChange: value => updateState({rule: value}),
             helperTextInvalid: "Please provide rule",
             isValid: isRuleValid,
             "data-test": "rule",
@@ -107,7 +107,7 @@ export const Configure = () => {
               isChecked={preference === "prefer"}
               name="preference-prefer"
               onChange={isChecked =>
-                updateState({ preference: isChecked ? "prefer" : "avoid" })
+                updateState({preference: isChecked ? "prefer" : "avoid"})
               }
               label="Prefer"
               id="preference-prefer"
@@ -118,7 +118,7 @@ export const Configure = () => {
               isChecked={preference === "avoid"}
               name="preference-avoid"
               onChange={isChecked =>
-                updateState({ preference: isChecked ? "avoid" : "prefer" })
+                updateState({preference: isChecked ? "avoid" : "prefer"})
               }
               label="Avoid"
               id="preference-avoid"
@@ -130,7 +130,7 @@ export const Configure = () => {
       <FormText
         id="constraint-score"
         label="Score"
-        onChange={value => updateState({ score: value })}
+        onChange={value => updateState({score: value})}
         value={score}
         showValidationErrors={showValidationErrors}
         isValid={isScoreValid}

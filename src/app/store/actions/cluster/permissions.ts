@@ -1,4 +1,4 @@
-import { api, getPermissions, savePermissions } from "app/backend";
+import {api, getPermissions, savePermissions} from "app/backend";
 
 type ApiPermissions = api.PayloadOf<typeof getPermissions>;
 
@@ -9,7 +9,7 @@ export type ClusterPermissionsActions = {
       clusterName: string;
       task: "permissionEdit" | "permissionRemove";
     };
-    payload: { permissionList: Parameters<typeof savePermissions>[1] };
+    payload: {permissionList: Parameters<typeof savePermissions>[1]};
   };
   "CLUSTER.PERMISSIONS.SAVE.OK": {
     type: "CLUSTER.PERMISSIONS.SAVE.OK";
@@ -24,14 +24,14 @@ export type ClusterPermissionsActions = {
 
   "CLUSTER.PERMISSIONS.SAVE.ERROR.RECOVER": {
     type: "CLUSTER.PERMISSIONS.SAVE.ERROR.RECOVER";
-    key: { clusterName: string; task: string };
+    key: {clusterName: string; task: string};
   };
 
   "CLUSTER.PERMISSIONS.EDIT": {
     type: "CLUSTER.PERMISSIONS.EDIT";
-    key: { clusterName: string; task: string };
+    key: {clusterName: string; task: string};
     payload:
-      | { type: "create" }
+      | {type: "create"}
       | {
           type: "update";
           permission: ApiPermissions["users_permissions"][number];
@@ -40,7 +40,7 @@ export type ClusterPermissionsActions = {
 
   "CLUSTER.PERMISSIONS.EDIT.CLOSE": {
     type: "CLUSTER.PERMISSIONS.EDIT.CLOSE";
-    key: { clusterName: string; task: string };
+    key: {clusterName: string; task: string};
   };
 
   "CLUSTER.PERMISSION.EDIT.UPDATE": {
@@ -53,22 +53,22 @@ export type ClusterPermissionsActions = {
       grant?: boolean;
       full?: boolean;
     };
-    key: { clusterName: string; task: string };
+    key: {clusterName: string; task: string};
   };
 
   "CLUSTER.PERMISSIONS.LOAD": {
     type: "CLUSTER.PERMISSIONS.LOAD";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 
   "CLUSTER.PERMISSIONS.LOAD.OK": {
     type: "CLUSTER.PERMISSIONS.LOAD.OK";
-    key: { clusterName: string };
-    payload: { apiClusterPermissions: ApiPermissions };
+    key: {clusterName: string};
+    payload: {apiClusterPermissions: ApiPermissions};
   };
 
   "CLUSTER.PERMISSIONS.LOAD.ERROR": {
     type: "CLUSTER.PERMISSIONS.LOAD.ERROR";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 };

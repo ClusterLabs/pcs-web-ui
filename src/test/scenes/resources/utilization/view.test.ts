@@ -1,5 +1,5 @@
 import * as workflow from "test/workflow";
-import { intercept } from "test/tools";
+import {intercept} from "test/tools";
 
 import {
   interceptWithUtilization,
@@ -7,7 +7,7 @@ import {
   resourceA,
 } from "./common";
 
-const { nvsets } = workflow.cluster;
+const {nvsets} = workflow.cluster;
 
 describe("Resource utilization detail", () => {
   afterEach(intercept.stop);

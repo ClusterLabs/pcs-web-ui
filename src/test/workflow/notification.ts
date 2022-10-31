@@ -1,4 +1,4 @@
-import { dt } from "test/tools/selectors";
+import {dt} from "test/tools/selectors";
 
 export const waitForSuccess = async () => {
   await page.waitForSelector(dt("notification-success"));

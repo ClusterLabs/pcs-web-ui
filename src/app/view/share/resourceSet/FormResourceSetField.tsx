@@ -1,6 +1,6 @@
-import { FormGroup } from "@patternfly/react-core";
+import {FormGroup} from "@patternfly/react-core";
 
-import { Select } from "app/view/share/form";
+import {Select} from "app/view/share/form";
 
 export const FormResourceSetField = ({
   selectedResources,
@@ -36,7 +36,7 @@ export const FormResourceSetField = ({
         id={id}
         variant="typeaheadmulti"
         selections={selectedResources}
-        chipGroupProps={{ numChips: 10 }}
+        chipGroupProps={{numChips: 10}}
         optionsValues={resourceOfferList.filter(
           r => !selectedResources.includes(r),
         )}

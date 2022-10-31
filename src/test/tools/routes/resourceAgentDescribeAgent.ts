@@ -1,10 +1,10 @@
 import * as t from "io-ts";
 
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 
-const { url, payload, shape } = endpoints.libClusterResourceAgentDescribeAgent;
+const {url, payload, shape} = endpoints.libClusterResourceAgentDescribeAgent;
 
 export const resourceAgentDescribeAgent = ({
   clusterName,
@@ -13,9 +13,9 @@ export const resourceAgentDescribeAgent = ({
 }: {
   clusterName: string;
   agentName: string;
-  agentData: Extract<t.TypeOf<typeof shape>, { status: "success" }>["data"];
+  agentData: Extract<t.TypeOf<typeof shape>, {status: "success"}>["data"];
 }) => ({
-  url: url({ clusterName }),
+  url: url({clusterName}),
   payload: payload(agentName),
-  json: responses.lib.success({ data: agentData }),
+  json: responses.lib.success({data: agentData}),
 });

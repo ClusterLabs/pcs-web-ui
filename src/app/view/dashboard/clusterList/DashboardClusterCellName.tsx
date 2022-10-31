@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ClusterStatusLabel, Link, location } from "app/view/share";
+import {ClusterStatusLabel, Link, location} from "app/view/share";
 
 export const DashboardClusterCellName = ({
   clusterName,
@@ -11,7 +11,7 @@ export const DashboardClusterCellName = ({
 }) => {
   return (
     <th role="rowheader" data-test="name">
-      <Link to={location.cluster({ clusterName })}>
+      <Link to={location.cluster({clusterName})}>
         <strong>{`${clusterName} `}</strong>{" "}
         <ClusterStatusLabel status={status} />
       </Link>

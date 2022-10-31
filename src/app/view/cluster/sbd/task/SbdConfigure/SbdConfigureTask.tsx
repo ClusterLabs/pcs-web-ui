@@ -1,9 +1,9 @@
-import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
+import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
 
-import { Options } from "./Options";
-import { Review } from "./Review";
-import { useTask } from "./useTask";
-import { Watchdogs } from "./Watchdogs";
+import {Options} from "./Options";
+import {Review} from "./Review";
+import {useTask} from "./useTask";
+import {Watchdogs} from "./Watchdogs";
 
 export const SbdConfigureTask = () => {
   const {
@@ -11,7 +11,7 @@ export const SbdConfigureTask = () => {
     sbdConfigure,
     isWatchdogTimeoutValid,
     state: {
-      libCall: { reports, response },
+      libCall: {reports, response},
     },
   } = useTask();
 
@@ -26,7 +26,7 @@ export const SbdConfigureTask = () => {
         {
           name: "Watchdog devices",
           component: <Watchdogs />,
-          footer: <WizardFooter back={{ disabled: true }} />,
+          footer: <WizardFooter back={{disabled: true}} />,
         },
         {
           name: "SBD options",
@@ -46,7 +46,7 @@ export const SbdConfigureTask = () => {
           footer: (
             <WizardFooter
               next={{
-                preAction: () => sbdConfigure({ force: false }),
+                preAction: () => sbdConfigure({force: false}),
                 label: "Configure SBD",
               }}
             />
@@ -59,7 +59,7 @@ export const SbdConfigureTask = () => {
               response={response}
               taskName={"configure SBD"}
               backToUpdateSettingsStepName="Watchdog devices"
-              proceedForce={() => sbdConfigure({ force: true })}
+              proceedForce={() => sbdConfigure({force: true})}
               reports={reports}
             />
           ),

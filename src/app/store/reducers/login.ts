@@ -1,4 +1,4 @@
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 const initialState = {
   // Detected that authorization is required.

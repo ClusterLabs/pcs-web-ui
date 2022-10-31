@@ -1,14 +1,10 @@
-import { ActionPayload, selectors } from "app/store";
-import {
-  isValidScore,
-  useClusterSelector,
-  useClusterTask,
-} from "app/view/share";
+import {ActionPayload, selectors} from "app/store";
+import {isValidScore, useClusterSelector, useClusterTask} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintLocationCreate");
 
-  const { clusterName, dispatch, state, close } = task;
+  const {clusterName, dispatch, state, close} = task;
   const [clusterStatus] = useClusterSelector(selectors.getCluster);
 
   return {
@@ -45,7 +41,7 @@ export const useTask = () => {
     ) =>
       dispatch({
         type: "CONSTRAINT.LOCATION.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
 
@@ -61,7 +57,7 @@ export const useTask = () => {
 
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload:
           locationSpecification === "node"
             ? {
@@ -92,7 +88,7 @@ export const useTask = () => {
     recoverFromError: () => {
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE.FAIL.RECOVER",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
     },
 
@@ -100,7 +96,7 @@ export const useTask = () => {
       close();
       dispatch({
         type: "CONSTRAINT.LOCATION.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
   };

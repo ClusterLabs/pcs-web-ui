@@ -11,7 +11,7 @@ import {
 
 function unselectAllOptions<T extends Record<string, boolean>>(options: T): T {
   return Object.keys(options).reduce<T>(
-    (newOptions, optionName) => ({ ...newOptions, [optionName]: false }),
+    (newOptions, optionName) => ({...newOptions, [optionName]: false}),
     {} as T,
   );
 }
@@ -73,7 +73,7 @@ export const ToolbarFilterGroups = ({
 
   const unselect = React.useCallback(
     (_category: string | ToolbarChipGroup, chip: ToolbarChip | string) =>
-      setSelected({ ...options, [chip.toString()]: false }),
+      setSelected({...options, [chip.toString()]: false}),
     [options, setSelected],
   );
 

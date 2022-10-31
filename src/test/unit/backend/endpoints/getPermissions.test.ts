@@ -1,8 +1,8 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 
-const { validate } = endpoints.getPermissions;
+const {validate} = endpoints.getPermissions;
 
 describe("getPermissions endpont", () => {
   it("should succeed with proper payload", async () => {
@@ -14,7 +14,7 @@ describe("getPermissions endpont", () => {
       validate(
         responses.permissions({
           permissions_dependencies: {
-            also_allows: { nonsense: ["read"] },
+            also_allows: {nonsense: ["read"]},
           },
         }),
       ),

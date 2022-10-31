@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
 import * as result from "./result";
 import * as validate from "./validate";
@@ -15,4 +15,4 @@ export type CallResult<PAYLOAD extends t.Any | string = string> =
     ? CallResultShape<PAYLOAD>
     : Promise<result.Overall<PAYLOAD>>;
 
-export { endpoints, http, validate, t };
+export {endpoints, http, validate, t};

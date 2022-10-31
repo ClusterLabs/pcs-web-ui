@@ -1,21 +1,21 @@
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
-import { ActionPayload, selectors } from "app/store";
-import { useClusterTask } from "app/view/share";
+import {ActionPayload, selectors} from "app/store";
+import {useClusterTask} from "app/view/share";
 
-const { getClusterPermissions } = selectors;
+const {getClusterPermissions} = selectors;
 
 type AllowName =
   ActionPayload["CLUSTER.PERMISSIONS.SAVE"]["permissionList"][number]["allow"][number];
 
 export const useTask = () => {
   const task = useClusterTask("permissionEdit");
-  const { dispatch, clusterName, state } = task;
+  const {dispatch, clusterName, state} = task;
   const currentPermissionsState = useSelector(
     getClusterPermissions(clusterName),
   );
 
-  const key = { clusterName, task: task.name };
+  const key = {clusterName, task: task.name};
   return {
     ...task,
     open: (payload: ActionPayload["CLUSTER.PERMISSIONS.EDIT"]) => {
@@ -70,7 +70,7 @@ export const useTask = () => {
       dispatch({
         type: "CLUSTER.PERMISSIONS.SAVE",
         key,
-        payload: { permissionList },
+        payload: {permissionList},
       });
     },
 

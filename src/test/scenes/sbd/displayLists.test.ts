@@ -1,5 +1,5 @@
-import { intercept, location, shortcuts } from "test/tools";
-import { mkXPath } from "test/tools/selectors";
+import {intercept, location, shortcuts} from "test/tools";
+import {mkXPath} from "test/tools/selectors";
 
 const clusterName = "sbd";
 const sbdConfigTestData = {
@@ -26,7 +26,7 @@ describe("Sbd", () => {
       clusterName,
       additionalRouteList: [],
     });
-    await page.goto(location.sbdList({ clusterName }));
+    await page.goto(location.sbdList({clusterName}));
 
     const getColumnValue = getListValueMiner("sbd-service-list")("node-1");
     expect(await getColumnValue("node")).toEqual("node-1");
@@ -40,7 +40,7 @@ describe("Sbd", () => {
       clusterName,
       additionalRouteList: [],
     });
-    await page.goto(location.sbdList({ clusterName }));
+    await page.goto(location.sbdList({clusterName}));
 
     const getColumnValue = getListValueMiner("sbd-watchdog-list")("node-1");
     expect(await getColumnValue("node")).toEqual("node-1");
@@ -52,7 +52,7 @@ describe("Sbd", () => {
       clusterName,
       additionalRouteList: [],
     });
-    await page.goto(location.sbdList({ clusterName }));
+    await page.goto(location.sbdList({clusterName}));
 
     const getRowValueMiner = getListValueMiner("sbd-configuration-list");
     await Promise.all(

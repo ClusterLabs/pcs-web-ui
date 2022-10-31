@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Table } from "app/view/share";
-import { NodeServiceMap } from "app/view/cluster/types";
+import {Table} from "app/view/share";
+import {NodeServiceMap} from "app/view/cluster/types";
 
-import { NodeDaemonTr } from "./NodeDaemonTr";
+import {NodeDaemonTr} from "./NodeDaemonTr";
 
-export const NodeDaemonTable = ({ services }: { services: NodeServiceMap }) => {
+export const NodeDaemonTable = ({services}: {services: NodeServiceMap}) => {
   return (
     <Table>
       <thead>

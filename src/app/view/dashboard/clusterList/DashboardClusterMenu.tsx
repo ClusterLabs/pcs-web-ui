@@ -1,12 +1,8 @@
-import { Label } from "@patternfly/react-core";
+import {Label} from "@patternfly/react-core";
 
-import { LauncherDropdown, task } from "app/view/share";
+import {LauncherDropdown, task} from "app/view/share";
 
-export const DashboardClusterMenu = ({
-  clusterName,
-}: {
-  clusterName: string;
-}) => {
+export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
   const clusterLabel = <Label color="blue">{clusterName}</Label>;
   return (
     <LauncherDropdown
@@ -19,7 +15,7 @@ export const DashboardClusterMenu = ({
             description: "Start the on all nodes",
             action: {
               type: "DASHBOARD.CLUSTER.START",
-              payload: { clusterName },
+              payload: {clusterName},
             },
           },
         },
@@ -37,9 +33,9 @@ export const DashboardClusterMenu = ({
                 success: <>Cluster {clusterLabel} was successfully stopped</>,
                 fail: <>Failed to stop cluster {clusterLabel}</>,
               },
-              getForceableAction: ({ force }) => ({
+              getForceableAction: ({force}) => ({
                 type: "DASHBOARD.CLUSTER.STOP",
-                payload: { clusterName, force },
+                payload: {clusterName, force},
               }),
             }),
             useTask: task.forceableConfirm.useTask,
@@ -57,7 +53,7 @@ export const DashboardClusterMenu = ({
             ),
             action: {
               type: "DASHBOARD.CLUSTER.REMOVE",
-              payload: { clusterName },
+              payload: {clusterName},
             },
           },
         },
@@ -73,7 +69,7 @@ export const DashboardClusterMenu = ({
             ),
             action: {
               type: "DASHBOARD.CLUSTER.DESTROY",
-              payload: { clusterName },
+              payload: {clusterName},
             },
           },
         },

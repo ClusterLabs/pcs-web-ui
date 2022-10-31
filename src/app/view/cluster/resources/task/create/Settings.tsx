@@ -1,14 +1,14 @@
-import { Checkbox, Form, FormGroup } from "@patternfly/react-core";
+import {Checkbox, Form, FormGroup} from "@patternfly/react-core";
 
-import { TaskLibStep } from "app/view/share";
+import {TaskLibStep} from "app/view/share";
 
-import { SettingsGroup } from "./SettingsGroup";
-import { useTask } from "./useTask";
+import {SettingsGroup} from "./SettingsGroup";
+import {useTask} from "./useTask";
 
 export const Settings = () => {
   const {
     state: {
-      libCall: { reports },
+      libCall: {reports},
       clone,
       promotable,
       disabled,
@@ -30,7 +30,7 @@ export const Settings = () => {
             onChange={(checked: boolean) =>
               updateState({
                 clone: checked,
-                ...(!checked ? { promotable: false } : {}),
+                ...(!checked ? {promotable: false} : {}),
               })
             }
           />
@@ -41,7 +41,7 @@ export const Settings = () => {
               id="settings-promotable"
               isChecked={clone && promotable}
               onChange={(checked: boolean) =>
-                updateState({ promotable: checked })
+                updateState({promotable: checked})
               }
             />
           )}
@@ -57,7 +57,7 @@ export const Settings = () => {
             id="settings-disabled"
             aria-label="Disabled"
             isChecked={disabled}
-            onChange={(checked: boolean) => updateState({ disabled: checked })}
+            onChange={(checked: boolean) => updateState({disabled: checked})}
           />
         </FormGroup>
       </Form>

@@ -1,4 +1,4 @@
-import { ConstraintColocationPair, ConstraintColocationSet } from "../types";
+import {ConstraintColocationPair, ConstraintColocationSet} from "../types";
 
 type Colocation = ConstraintColocationPair | ConstraintColocationSet;
 

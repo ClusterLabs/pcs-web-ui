@@ -1,6 +1,6 @@
-import { ReviewList, ReviewValue, TaskLibStep } from "app/view/share";
+import {ReviewList, ReviewValue, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Review = () => {
   const {
@@ -9,7 +9,7 @@ export const Review = () => {
       delayStart,
       startmode,
       watchdogTimeout,
-      libCall: { reports },
+      libCall: {reports},
     },
     getSbdTimeout,
   } = useTask();
@@ -30,7 +30,7 @@ export const Review = () => {
                   key={nodeName}
                   label={nodeName}
                   value={watchdog}
-                  useDefault={{ whenValue: "", defaultValue: "" }}
+                  useDefault={{whenValue: "", defaultValue: ""}}
                 />
               ))}
             </ReviewList>
@@ -39,22 +39,22 @@ export const Review = () => {
         <ReviewValue
           label="SBD_DELAY_START"
           value={delayStart}
-          useDefault={{ whenValue: "DEFAULT", defaultValue: "no" }}
+          useDefault={{whenValue: "DEFAULT", defaultValue: "no"}}
         />
         <ReviewValue
           label="SBD_STARTMODE"
           value={startmode}
-          useDefault={{ whenValue: "DEFAULT", defaultValue: "always" }}
+          useDefault={{whenValue: "DEFAULT", defaultValue: "always"}}
         />
         <ReviewValue
           label="SBD_WATCHDOG_TIMEOUT"
           value={watchdogTimeout}
-          useDefault={{ whenValue: "", defaultValue: "5" }}
+          useDefault={{whenValue: "", defaultValue: "5"}}
         />
         <ReviewValue
           label="SBD_TIMEOUT_ACTION"
           value={getSbdTimeout()}
-          useDefault={{ whenValue: undefined, defaultValue: "flush,reboot" }}
+          useDefault={{whenValue: undefined, defaultValue: "flush,reboot"}}
         />
       </ReviewList>
     </TaskLibStep>

@@ -1,22 +1,22 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
-import { Cluster } from "../../types";
-import { transformIssues } from "../issues";
+import {Cluster} from "../../types";
+import {transformIssues} from "../issues";
 
-import { toFenceDevice } from "./fenceDevice";
-import { toPrimitive } from "./primitive";
-import { buildStatus, getMaxSeverity, isDisabled } from "./statusInfoList";
+import {toFenceDevice} from "./fenceDevice";
+import {toPrimitive} from "./primitive";
+import {buildStatus, getMaxSeverity, isDisabled} from "./statusInfoList";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 type ApiResource = ApiCluster["resource_list"][number];
-type ApiGroup = Extract<ApiResource, { class_type: "group" }>;
-type ApiPrimitiveType = { class_type: "primitive" };
-type ApiPrimitive = Extract<ApiResource, ApiPrimitiveType & { stonith: false }>;
-type ApiStonith = Extract<ApiResource, ApiPrimitiveType & { stonith: true }>;
+type ApiGroup = Extract<ApiResource, {class_type: "group"}>;
+type ApiPrimitiveType = {class_type: "primitive"};
+type ApiPrimitive = Extract<ApiResource, ApiPrimitiveType & {stonith: false}>;
+type ApiStonith = Extract<ApiResource, ApiPrimitiveType & {stonith: true}>;
 
 type Resource = Cluster["resourceTree"][number];
-type Primitive = Extract<Resource, { itemType: "primitive" }>;
-type Group = Extract<Resource, { itemType: "group" }>;
+type Primitive = Extract<Resource, {itemType: "primitive"}>;
+type Group = Extract<Resource, {itemType: "group"}>;
 
 type Counts = {
   errors: Record<string, number>;
@@ -31,13 +31,13 @@ const buildStatusInfoList = (
   const infoList: Group["status"]["infoList"] = [];
 
   if (isDisabled(apiGroup)) {
-    infoList.push({ label: "DISABLED", severity: "WARNING" });
+    infoList.push({label: "DISABLED", severity: "WARNING"});
   }
 
   if (containsFenceDevice) {
-    infoList.push({ label: "WITH FENCE DEVICES", severity: "ERROR" });
+    infoList.push({label: "WITH FENCE DEVICES", severity: "ERROR"});
   } else if (members.length === 0) {
-    infoList.push({ label: "NO MEMBERS", severity: "WARNING" });
+    infoList.push({label: "NO MEMBERS", severity: "WARNING"});
   }
   if (members.length === 0) {
     return infoList;
@@ -48,14 +48,14 @@ const buildStatusInfoList = (
   // TODO members should not be OK when group is disabled
   if (maxSeverity === "OK") {
     if (infoList.length < 1) {
-      infoList.push({ label: "RUNNING", severity: "OK" });
+      infoList.push({label: "RUNNING", severity: "OK"});
     }
     return infoList;
   }
 
   const labelCounts: Counts = members.reduce<Counts>(
     (counts, primitive) => {
-      const nextCounts = { ...counts };
+      const nextCounts = {...counts};
       primitive.status.infoList
         // .filter(info => info.severity === maxSeverity)
         // .map(info => info.label)
@@ -66,11 +66,11 @@ const buildStatusInfoList = (
         });
       return nextCounts;
     },
-    { errors: {}, warnings: {} },
+    {errors: {}, warnings: {}},
   );
 
   if (Object.keys(labelCounts).length === 0) {
-    infoList.push({ label: "UNKNOWN STATUS OF MEMBERS", severity: "WARNING" });
+    infoList.push({label: "UNKNOWN STATUS OF MEMBERS", severity: "WARNING"});
     return infoList;
   }
 
@@ -98,16 +98,16 @@ const filterPrimitive = (candidateList: Group["resources"]): Primitive[] =>
 
 export const toGroup = (
   apiGroup: ApiGroup,
-  context: { inClone: boolean } = { inClone: false },
-): { group: Group; apiPrimitiveList: ApiPrimitive[] } => {
+  context: {inClone: boolean} = {inClone: false},
+): {group: Group; apiPrimitiveList: ApiPrimitive[]} => {
   // Theoreticaly, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
   const apiPrimitiveList = filterApiPrimitive(apiGroup.members);
-  const { inClone } = context;
+  const {inClone} = context;
   const resources = apiGroup.members.map(p =>
     p.stonith
       ? toFenceDevice(p)
-      : toPrimitive(p, { inGroup: apiGroup.id, inClone }),
+      : toPrimitive(p, {inGroup: apiGroup.id, inClone}),
   );
   return {
     apiPrimitiveList,

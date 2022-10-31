@@ -1,7 +1,7 @@
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 export const resourceSetCreateFactory = <
-  INITIAL_SET extends { resources: string[] },
+  INITIAL_SET extends {resources: string[]},
 >(
   initialSet: INITIAL_SET,
 ) => {
@@ -42,7 +42,7 @@ export const resourceSetCreateFactory = <
     setList: typeof initialState,
     index: number,
     setUpdate: Partial<typeof initialSet>,
-  ) => setList.map((set, i) => (i !== index ? set : { ...set, ...setUpdate }));
+  ) => setList.map((set, i) => (i !== index ? set : {...set, ...setUpdate}));
 
-  return { resourceSet: resourceSet, initialState, updateSet };
+  return {resourceSet: resourceSet, initialState, updateSet};
 };

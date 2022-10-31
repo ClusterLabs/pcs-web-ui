@@ -1,9 +1,9 @@
-import { Form, FormGroup } from "@patternfly/react-core";
+import {Form, FormGroup} from "@patternfly/react-core";
 
-import { FormText, TaskLibStep } from "app/view/share";
+import {FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { NameTypeTypeSelect } from "./NameTypeTypeSelect";
+import {useTask} from "./useTask";
+import {NameTypeTypeSelect} from "./NameTypeTypeSelect";
 
 export const NameType = () => {
   const {
@@ -11,7 +11,7 @@ export const NameType = () => {
       agentName,
       resourceName,
       showValidationErrors,
-      libCall: { reports },
+      libCall: {reports},
     },
     clusterName,
     dispatch,
@@ -21,16 +21,16 @@ export const NameType = () => {
   const onSelect = (value: string) => {
     dispatch({
       type: "RESOURCE_AGENT.ENSURE",
-      key: { clusterName },
-      payload: { agentName: value.toString() },
+      key: {clusterName},
+      payload: {agentName: value.toString()},
     });
-    updateState({ agentName: value.toString() });
+    updateState({agentName: value.toString()});
   };
 
-  const onClear = () => updateState({ agentName: "" });
+  const onClear = () => updateState({agentName: ""});
 
   const changeResourceName = (value: string) =>
-    updateState({ resourceName: value });
+    updateState({resourceName: value});
 
   const agentNameValidated =
     showValidationErrors && agentName.length === 0 ? "error" : "default";

@@ -1,7 +1,7 @@
-import { Alert } from "@patternfly/react-core";
+import {Alert} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { Clone } from "app/view/cluster/types";
+import {selectors} from "app/store";
+import {Clone} from "app/view/cluster/types";
 import {
   CrmStatusTable,
   DetailViewSection,
@@ -11,7 +11,7 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-type Member = Exclude<Clone["member"], { itemType: "fence-device" }>;
+type Member = Exclude<Clone["member"], {itemType: "fence-device"}>;
 
 export const CloneDetail = ({
   id,

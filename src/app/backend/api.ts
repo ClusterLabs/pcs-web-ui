@@ -13,4 +13,4 @@ export type PayloadOf<APICALL> = APICALL extends Call<infer PAYLOAD>
 
 export * as Lib from "./apiLib";
 
-export { result };
+export {result};

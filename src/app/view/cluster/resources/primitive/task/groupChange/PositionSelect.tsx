@@ -1,8 +1,8 @@
-import { Flex, FlexItem } from "@patternfly/react-core";
+import {Flex, FlexItem} from "@patternfly/react-core";
 
-import { FormGroup, FormRadioGroup, Select } from "app/view/share";
+import {FormGroup, FormRadioGroup, Select} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const PositionSelect = () => {
   const {
@@ -31,7 +31,7 @@ export const PositionSelect = () => {
           <FormRadioGroup
             id="select-position"
             options={["after", "before"]}
-            onChange={value => updateState({ position: value })}
+            onChange={value => updateState({position: value})}
             selected={position}
             isDisabled={groupId === ""}
           />
@@ -42,7 +42,7 @@ export const PositionSelect = () => {
             label="Resource"
             placeholderText="Select a resource"
             onSelect={value =>
-              updateState({ adjacentResourceId: value.toString() })
+              updateState({adjacentResourceId: value.toString()})
             }
             selections={adjacentResourceId}
             optionsValues={memberResourcesIds.filter(r => r !== resourceId)}

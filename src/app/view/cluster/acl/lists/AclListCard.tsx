@@ -1,11 +1,11 @@
 import React from "react";
-import { DataList } from "@patternfly/react-core";
+import {DataList} from "@patternfly/react-core";
 
-import { tools } from "app/store";
-import { Card, EmptyStateNoItem } from "app/view/share";
-import { Acl } from "app/view/cluster/types";
+import {tools} from "app/store";
+import {Card, EmptyStateNoItem} from "app/view/share";
+import {Acl} from "app/view/cluster/types";
 
-import { AclType } from "../types";
+import {AclType} from "../types";
 
 export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
   aclList,

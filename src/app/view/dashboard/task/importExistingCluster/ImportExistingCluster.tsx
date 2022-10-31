@@ -1,9 +1,9 @@
-import { NodeAuthWizardFooter, Wizard, WizardFooter } from "app/view/share";
+import {NodeAuthWizardFooter, Wizard, WizardFooter} from "app/view/share";
 
-import { NodeName } from "./NodeName";
-import { PrepareNode } from "./PrepareNode";
-import { useTask } from "./useTask";
-import { TaskFinish } from "./TaskFinish";
+import {NodeName} from "./NodeName";
+import {PrepareNode} from "./PrepareNode";
+import {useTask} from "./useTask";
+import {TaskFinish} from "./TaskFinish";
 
 export const ImportExistingCluster = () => {
   const {
@@ -11,7 +11,7 @@ export const ImportExistingCluster = () => {
     importCluster,
     isNodeNameValid,
     isNodeCheckDoneValid,
-    state: { authProcessId },
+    state: {authProcessId},
   } = useTask();
 
   return (
@@ -31,7 +31,7 @@ export const ImportExistingCluster = () => {
                 actionIf: isNodeNameValid,
                 label: "Check authentication",
               }}
-              back={{ disabled: true }}
+              back={{disabled: true}}
             />
           ),
         },

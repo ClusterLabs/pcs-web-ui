@@ -1,15 +1,15 @@
 import * as responses from "dev/responses";
 
-import { intercept, location, route } from "test/tools";
-import { dashboard, notification } from "test/workflow";
+import {intercept, location, route} from "test/tools";
+import {dashboard, notification} from "test/workflow";
 
 const clusterName = responses.clusterStatus.ok.cluster_name;
 const cluster = dashboard.cluster(clusterName);
 
 const interceptWithDashboard = (routeList: intercept.Route[] = []) => {
   intercept.run([
-    route.importedClusterList({ clusterNameList: [clusterName] }),
-    route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
+    route.importedClusterList({clusterNameList: [clusterName]}),
+    route.clusterStatus({clusterStatus: responses.clusterStatus.ok}),
     ...routeList,
   ]);
 };
@@ -18,7 +18,7 @@ describe("Cluster remove", () => {
   afterEach(intercept.stop);
 
   it("should be successfully removed", async () => {
-    interceptWithDashboard([route.removeCluster({ clusterName })]);
+    interceptWithDashboard([route.removeCluster({clusterName})]);
 
     await page.goto(location.dashboard);
     await cluster.remove.launch();
@@ -34,7 +34,7 @@ describe("Cluster remove", () => {
   });
 
   it("should deal with an error", async () => {
-    interceptWithDashboard([route.removeCluster({ clusterName, status: 400 })]);
+    interceptWithDashboard([route.removeCluster({clusterName, status: 400})]);
 
     await page.goto(location.dashboard);
     await cluster.remove.launch();

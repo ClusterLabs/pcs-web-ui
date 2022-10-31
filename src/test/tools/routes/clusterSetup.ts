@@ -1,10 +1,10 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
-import { paramsToBody } from "./tools";
+import {paramsToBody} from "./tools";
 
 export const clusterSetup = (props: {
   payload: Parameters<typeof endpoints.clusterSetup.params>[0];

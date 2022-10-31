@@ -1,6 +1,6 @@
-import { select } from "../form";
+import {select} from "../form";
 
-import { prepareCommonTask } from "./utils";
+import {prepareCommonTask} from "./utils";
 
 const commonTask = prepareCommonTask<
   "Name and type" | "Instance attributes" | "Settings" | "Review"
@@ -9,7 +9,7 @@ const commonTask = prepareCommonTask<
   openKey: "task fence-devices-create-fence-device",
 });
 
-const { selectors: commonSelectors, inView } = commonTask;
+const {selectors: commonSelectors, inView} = commonTask;
 
 const selectors = {
   ...commonSelectors,
@@ -33,4 +33,4 @@ const task = {
     }
   },
 };
-export { task };
+export {task};

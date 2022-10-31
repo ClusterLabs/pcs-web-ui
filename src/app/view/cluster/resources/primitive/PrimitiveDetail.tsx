@@ -1,5 +1,5 @@
-import { selectors } from "app/store";
-import { Primitive } from "app/view/cluster/types";
+import {selectors} from "app/store";
+import {Primitive} from "app/view/cluster/types";
 import {
   CrmStatusTable,
   DetailViewSection,
@@ -11,7 +11,7 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-export const PrimitiveDetail = ({ primitive }: { primitive: Primitive }) => {
+export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
   const [crmStatusList, clusterName] = useClusterSelector(
     selectors.crmStatusForPrimitive,
     [primitive.id],

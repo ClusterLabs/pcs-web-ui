@@ -1,9 +1,6 @@
-import {
-  LauncherItem,
-  ToolbarFilterTextGroupPair,
-} from "app/view/share/toolbar";
+import {LauncherItem, ToolbarFilterTextGroupPair} from "app/view/share/toolbar";
 
-import { AgentParameter } from "../types";
+import {AgentParameter} from "../types";
 
 const useState = (
   initialGroupInclustionMap: {

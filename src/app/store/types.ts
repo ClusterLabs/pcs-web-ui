@@ -1,6 +1,6 @@
-import { api, libCallCluster } from "app/backend";
+import {api, libCallCluster} from "app/backend";
 
 export type LibReport = Extract<
   api.PayloadOf<typeof libCallCluster>,
-  { status: "success" | "error" }
+  {status: "success" | "error"}
 >["report_list"][number];

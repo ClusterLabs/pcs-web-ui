@@ -1,9 +1,9 @@
-import { intercept, location, route } from "test/tools";
+import {intercept, location, route} from "test/tools";
 import * as workflow from "test/workflow";
 
-import { clusterName, interceptForClusterSetup, nodeNameList } from "./common";
+import {clusterName, interceptForClusterSetup, nodeNameList} from "./common";
 
-const { hasFieldError } = workflow.form;
+const {hasFieldError} = workflow.form;
 
 const {
   nextFrom,
@@ -25,13 +25,13 @@ describe("Cluster setup", () => {
 
   it("should succesfully create simplest 2 node cluster", async () => {
     interceptForClusterSetup([
-      route.checkAuthAgainstNodes({ nodeNameList }),
+      route.checkAuthAgainstNodes({nodeNameList}),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
           setupData: {
             cluster_name: clusterName,
-            nodes: nodeNameList.map(nodeName => ({ name: nodeName })),
+            nodes: nodeNameList.map(nodeName => ({name: nodeName})),
             transport_type: "knet",
             link_list: [],
           },
@@ -39,7 +39,7 @@ describe("Cluster setup", () => {
       }),
     ]);
     await openTask();
-    await fillClusterNameAndNodes({ clusterName, nodeNameList });
+    await fillClusterNameAndNodes({clusterName, nodeNameList});
     await nextFrom("Cluster name and nodes");
     await nextFrom("Check cluster name and nodes");
     await nextFrom("Transport links");
@@ -52,13 +52,13 @@ describe("Cluster setup", () => {
 
   it("should succesfully setup cluster skipping optional steps", async () => {
     interceptForClusterSetup([
-      route.checkAuthAgainstNodes({ nodeNameList }),
+      route.checkAuthAgainstNodes({nodeNameList}),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
           setupData: {
             cluster_name: clusterName,
-            nodes: nodeNameList.map(nodeName => ({ name: nodeName })),
+            nodes: nodeNameList.map(nodeName => ({name: nodeName})),
             transport_type: "knet",
             link_list: [],
           },
@@ -66,7 +66,7 @@ describe("Cluster setup", () => {
       }),
     ]);
     await openTask();
-    await fillClusterNameAndNodes({ clusterName, nodeNameList });
+    await fillClusterNameAndNodes({clusterName, nodeNameList});
     await nextFrom("Cluster name and nodes");
     await reviewAndFinish();
     await nextFrom("Review");
@@ -94,7 +94,7 @@ describe("Cluster setup", () => {
       }),
     ]);
     await openTask();
-    await fillClusterNameAndNodes({ clusterName, nodeNameList });
+    await fillClusterNameAndNodes({clusterName, nodeNameList});
     await nextFrom("Cluster name and nodes");
     await page.waitForSelector(selectors.authPasswordAt(nodeNameList[0]));
     await backFrom("Check cluster name and nodes");
@@ -104,13 +104,13 @@ describe("Cluster setup", () => {
 
   it("should be mandatory fill node addresses in links", async () => {
     interceptForClusterSetup([
-      route.checkAuthAgainstNodes({ nodeNameList }),
+      route.checkAuthAgainstNodes({nodeNameList}),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
           setupData: {
             cluster_name: clusterName,
-            nodes: nodeNameList.map(nodeName => ({ name: nodeName })),
+            nodes: nodeNameList.map(nodeName => ({name: nodeName})),
             transport_type: "knet",
             link_list: [],
           },
@@ -118,7 +118,7 @@ describe("Cluster setup", () => {
       }),
     ]);
     await openTask();
-    await fillClusterNameAndNodes({ clusterName, nodeNameList });
+    await fillClusterNameAndNodes({clusterName, nodeNameList});
     await nextFrom("Cluster name and nodes");
     await nextFrom("Check cluster name and nodes");
     await page.click(selectors.knetTransport.addLink);

@@ -12,7 +12,7 @@ export const EmptyStateSpinner = ({
   title: React.ReactNode;
 }) => {
   return (
-    <EmptyState style={{ margin: "auto" }}>
+    <EmptyState style={{margin: "auto"}}>
       <EmptyStateIcon variant="container" component={Spinner} />
       <Title size="lg" headingLevel="h3">
         {message}

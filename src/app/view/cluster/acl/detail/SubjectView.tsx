@@ -1,4 +1,4 @@
-import { ActionPayload } from "app/store";
+import {ActionPayload} from "app/store";
 import {
   DataListWithMenu,
   DetailToolbar,
@@ -9,9 +9,9 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclType } from "../types";
+import {AclType} from "../types";
 
-import { Layout } from "./Layout";
+import {Layout} from "./Layout";
 import * as task from "./task";
 
 type AssignRoleOpenArgs = TaskOpenArgs<typeof task.assignSubjectToRole.useTask>;
@@ -29,29 +29,29 @@ export const SubjectView = ({
   const clusterName = useSelectedClusterName();
 
   const assignRoleOpenArgs: AssignRoleOpenArgs = [
-    { subjectType: "user", subjectId: subjectId },
+    {subjectType: "user", subjectId: subjectId},
   ];
 
   const unassignCall = (roleId: string): LibCall =>
     subjectType === "user"
       ? {
           name: "acl-unassign-role-from-target",
-          payload: { role_id: roleId, target_id: subjectId },
+          payload: {role_id: roleId, target_id: subjectId},
         }
       : {
           name: "acl-unassign-role-from-group",
-          payload: { role_id: roleId, group_id: subjectId },
+          payload: {role_id: roleId, group_id: subjectId},
         };
 
   const deleteCall: LibCall =
     subjectType === "user"
       ? {
           name: "acl-remove-target",
-          payload: { target_id: subjectId },
+          payload: {target_id: subjectId},
         }
       : {
           name: "acl-remove-group",
-          payload: { group_id: subjectId },
+          payload: {group_id: subjectId},
         };
 
   return (
@@ -77,7 +77,7 @@ export const SubjectView = ({
                 description: `This deletes the ${subjectType} ${subjectId}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
-                  key: { clusterName },
+                  key: {clusterName},
                   payload: {
                     taskLabel: `delete ${subjectType} "${subjectId}"`,
                     call: deleteCall,
@@ -95,7 +95,7 @@ export const SubjectView = ({
           emptyTitle={`No role assigned to "${subjectId}".`}
           itemList={roleIdList}
           formatItem={roleId => (
-            <Link to={location.aclRole({ clusterName, roleId })}>{roleId}</Link>
+            <Link to={location.aclRole({clusterName, roleId})}>{roleId}</Link>
           )}
           menuItems={[
             roleId => ({
@@ -105,7 +105,7 @@ export const SubjectView = ({
                 description: `This unassigns the role ${roleId}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
-                  key: { clusterName },
+                  key: {clusterName},
                   payload: {
                     taskLabel: `unassign role "${roleId}"`,
                     call: unassignCall(roleId),

@@ -1,12 +1,12 @@
-import { getPermissions } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {getPermissions} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, put } from "./common";
+import {api, put} from "./common";
 
-export function* load({ key }: ActionMap["CLUSTER.PERMISSIONS.LOAD"]) {
+export function* load({key}: ActionMap["CLUSTER.PERMISSIONS.LOAD"]) {
   const result: api.ResultOf<typeof getPermissions> = yield api.authSafe(
     getPermissions,
-    { clusterName: key.clusterName },
+    {clusterName: key.clusterName},
   );
 
   const taskLabel = `load cluster permissions of cluster ${key.clusterName}`;
@@ -24,6 +24,6 @@ export function* load({ key }: ActionMap["CLUSTER.PERMISSIONS.LOAD"]) {
   yield put({
     type: "CLUSTER.PERMISSIONS.LOAD.OK",
     key,
-    payload: { apiClusterPermissions: result.payload },
+    payload: {apiClusterPermissions: result.payload},
   });
 }

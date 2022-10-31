@@ -1,12 +1,12 @@
 import React from "react";
 
-import { types } from "app/store";
+import {types} from "app/store";
 import * as lib from "app/view/share/lib";
 
-import { TaskSuccess } from "./TaskSuccess";
-import { TaskLibReports } from "./TaskLibReports";
-import { TaskProgress } from "./TaskProgress";
-import { TaskFinishError } from "./TaskFinishError";
+import {TaskSuccess} from "./TaskSuccess";
+import {TaskLibReports} from "./TaskLibReports";
+import {TaskProgress} from "./TaskProgress";
+import {TaskFinishError} from "./TaskFinishError";
 
 type TaskSuccessProps = React.ComponentProps<typeof TaskSuccess>;
 

@@ -1,4 +1,4 @@
-import { StonithAgentDescribeAgent } from "dev/types";
+import {StonithAgentDescribeAgent} from "dev/types";
 
 export const ok: StonithAgentDescribeAgent = {
   name: "stonith:fence_apc",
@@ -6,20 +6,20 @@ export const ok: StonithAgentDescribeAgent = {
   longdesc:
     "fence_apc is an I/O Fencing agent which can be used with the APC network power switch. It logs into device via telnet/ssh  and reboots a specified outlet. Lengthy telnet/ssh connections should be avoided while a GFS cluster  is  running  because  the  connection will block any necessary fencing actions.",
   actions: [
-    { automatic: "0", name: "on" },
-    { name: "off" },
-    { name: "reboot" },
-    { name: "status" },
-    { name: "list" },
-    { name: "list-status" },
-    { name: "monitor" },
-    { name: "metadata" },
-    { name: "manpage" },
-    { name: "validate-all" },
-    { name: "stop", timeout: "20s" },
-    { name: "start", timeout: "20s" },
+    {automatic: "0", name: "on"},
+    {name: "off"},
+    {name: "reboot"},
+    {name: "status"},
+    {name: "list"},
+    {name: "list-status"},
+    {name: "monitor"},
+    {name: "metadata"},
+    {name: "manpage"},
+    {name: "validate-all"},
+    {name: "stop", timeout: "20s"},
+    {name: "start", timeout: "20s"},
   ],
-  default_actions: [{ interval: "60s", name: "monitor" }],
+  default_actions: [{interval: "60s", name: "monitor"}],
   parameters: [
     {
       advanced: true,

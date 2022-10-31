@@ -1,4 +1,4 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 
@@ -81,7 +81,7 @@ type Clone = Resource & {
 type ApiNode = ApiCluster["node_list"][number];
 
 type ApiSbdConfig = Exclude<
-  Extract<ApiNode, { sbd_config: unknown }>["sbd_config"],
+  Extract<ApiNode, {sbd_config: unknown}>["sbd_config"],
   null
 >;
 
@@ -100,7 +100,7 @@ export type Cluster = {
         quorum: boolean;
         quorumSeverity: StatusSeverity;
         issueList: Issue[];
-        services: Extract<ApiNode, { services: unknown }>["services"];
+        services: Extract<ApiNode, {services: unknown}>["services"];
         sbd:
           | undefined
           | {

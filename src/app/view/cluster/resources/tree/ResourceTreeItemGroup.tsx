@@ -1,8 +1,8 @@
-import { Group } from "app/view/cluster/types";
+import {Group} from "app/view/cluster/types";
 
-import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
-import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
-import { ResourceTreeItemFenceDevice } from "./ResourceTreeItemFenceDevice";
+import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
+import {ResourceTreeItemCompound} from "./ResourceTreeItemCompound";
+import {ResourceTreeItemFenceDevice} from "./ResourceTreeItemFenceDevice";
 
 export const ResourceTreeItemGroup = ({
   group,

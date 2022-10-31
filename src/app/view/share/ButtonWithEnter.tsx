@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
 
-import { useRunOnEnter } from "./useRunOnEnter";
+import {useRunOnEnter} from "./useRunOnEnter";
 
 export const ButtonWithEnter = (
   props: React.ComponentProps<typeof Button> & {

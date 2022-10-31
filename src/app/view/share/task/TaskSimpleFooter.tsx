@@ -1,8 +1,8 @@
 import React from "react";
-import { Button } from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
 
-import { TaskButtonNextWithValidation } from "./TaskButtonNextWithValidation";
-import { useTaskContext } from "./TaskContext";
+import {TaskButtonNextWithValidation} from "./TaskButtonNextWithValidation";
+import {useTaskContext} from "./TaskContext";
 
 export const TaskSimpleFooter = ({
   run,
@@ -17,7 +17,7 @@ export const TaskSimpleFooter = ({
   nextIf?: boolean;
   nextDisabled?: boolean;
 }) => {
-  const { close } = useTaskContext();
+  const {close} = useTaskContext();
   return (
     <>
       <TaskButtonNextWithValidation

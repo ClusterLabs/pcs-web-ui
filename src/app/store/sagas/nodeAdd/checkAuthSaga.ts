@@ -1,6 +1,6 @@
-import { checkAuthAgainstNodes } from "app/backend";
-import { actionNewId } from "app/store";
-import { Action, ActionMap } from "app/store/actions";
+import {checkAuthAgainstNodes} from "app/backend";
+import {actionNewId} from "app/store";
+import {Action, ActionMap} from "app/store/actions";
 
 import {
   api,
@@ -11,13 +11,13 @@ import {
   race,
   take,
 } from "../common";
-import { nodeAuthWait } from "../nodeAuth";
+import {nodeAuthWait} from "../nodeAuth";
 
 export function* checkAuthSaga({
   key,
-  payload: { nodeName },
+  payload: {nodeName},
 }: ActionMap["NODE.ADD.CHECK_AUTH"]) {
-  const { result }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } =
+  const {result}: {result: api.ResultOf<typeof checkAuthAgainstNodes>} =
     yield race({
       result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
       cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
@@ -31,7 +31,7 @@ export function* checkAuthSaga({
   const errorAction = (message: string): Action => ({
     type: "NODE.ADD.CHECK_AUTH.FAIL",
     key,
-    payload: { message },
+    payload: {message},
   });
   const taskLabel = `add node "${nodeName}": node authentication check`;
 
@@ -52,7 +52,7 @@ export function* checkAuthSaga({
     yield put({
       type: "NODE.ADD.SEND_KNOWN_HOSTS",
       key,
-      payload: { nodeName },
+      payload: {nodeName},
     });
     return;
   }
@@ -62,16 +62,16 @@ export function* checkAuthSaga({
   const authProcessId = actionNewId();
   yield put({
     type: "NODE.AUTH.START",
-    key: { process: authProcessId },
-    payload: { initialNodeList: [nodeName] },
+    key: {process: authProcessId},
+    payload: {initialNodeList: [nodeName]},
   });
   yield put({
     type: "NODE.ADD.CHECK_AUTH.NO_AUTH",
     key,
-    payload: { authProcessId },
+    payload: {authProcessId},
   });
 
-  const { cancel } = yield race({
+  const {cancel} = yield race({
     auth: call(nodeAuthWait, authProcessId),
     cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
   });
@@ -80,12 +80,12 @@ export function* checkAuthSaga({
     yield put({
       type: "NODE.ADD.SEND_KNOWN_HOSTS",
       key,
-      payload: { nodeName },
+      payload: {nodeName},
     });
     return;
   }
   yield put({
     type: "NODE.AUTH.STOP",
-    key: { process: authProcessId },
+    key: {process: authProcessId},
   });
 }

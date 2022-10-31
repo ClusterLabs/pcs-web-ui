@@ -8,12 +8,12 @@ import {
   TabTitleText,
   Tabs,
 } from "@patternfly/react-core";
-import { PlusIcon, TimesIcon } from "@patternfly/react-icons";
+import {PlusIcon, TimesIcon} from "@patternfly/react-icons";
 
-import { TaskLibStep } from "app/view/share";
+import {TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { TransportKnetLink } from "./TransportKnetLink";
+import {useTask} from "./useTask";
+import {TransportKnetLink} from "./TransportKnetLink";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 type TabIndex = Parameters<
@@ -24,7 +24,7 @@ const ADD_LINK = "add";
 const NO_LINK = "no link";
 const MAX_LINKS = 8;
 
-export const TransportKnet = ({ linkList }: { linkList: Link[] }) => {
+export const TransportKnet = ({linkList}: {linkList: Link[]}) => {
   const [currentTabIndex, setCurrentTabIndex] = React.useState<
     Link["linknumber"] | typeof NO_LINK
   >(0);
@@ -33,7 +33,7 @@ export const TransportKnet = ({ linkList }: { linkList: Link[] }) => {
     allReports,
     filledNodeNameList,
     areLinksValid,
-    state: { showValidationErrors },
+    state: {showValidationErrors},
   } = useTask();
 
   const removeLink = React.useCallback(

@@ -1,4 +1,4 @@
-import { endpoint } from "./endpoint";
+import {endpoint} from "./endpoint";
 
 type Permission = {
   name: string;
@@ -30,7 +30,7 @@ const makePostData = (
 };
 
 export const permissionsSave = endpoint({
-  url: ({ clusterName }: { clusterName: string }) =>
+  url: ({clusterName}: {clusterName: string}) =>
     `/managec/${clusterName}/permissions_save`,
   method: "post",
   params: ({

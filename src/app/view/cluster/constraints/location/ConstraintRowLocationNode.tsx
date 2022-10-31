@@ -1,5 +1,5 @@
 import React from "react";
-import { DataListCell } from "@patternfly/react-core";
+import {DataListCell} from "@patternfly/react-core";
 
 import {
   ConstraintCell,
@@ -8,9 +8,9 @@ import {
   ConstraintRow,
   ConstraintValue,
 } from "../common";
-import { ConstraintLocationNode } from "../types";
+import {ConstraintLocationNode} from "../types";
 
-import { ConstraintLocationDescRscPoint } from "./ConstraintLocationDescRscPoint";
+import {ConstraintLocationDescRscPoint} from "./ConstraintLocationDescRscPoint";
 
 export const ConstraintRowLocationNode = ({
   constraint,

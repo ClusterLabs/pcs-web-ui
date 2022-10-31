@@ -1,13 +1,13 @@
-import { libClusterResourceAgentListAgents } from "app/backend";
-import { Action, ActionMap } from "app/store/actions";
+import {libClusterResourceAgentListAgents} from "app/backend";
+import {Action, ActionMap} from "app/store/actions";
 
-import { api, lib, log, processError, put, putTaskFailed } from "./common";
+import {api, lib, log, processError, put, putTaskFailed} from "./common";
 
 type ApiCallResult = api.ResultOf<typeof libClusterResourceAgentListAgents>;
-export function* load({ key }: ActionMap["RESOURCE_AGENT.LIST.LOAD"]) {
+export function* load({key}: ActionMap["RESOURCE_AGENT.LIST.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
     libClusterResourceAgentListAgents,
-    { clusterName: key.clusterName },
+    {clusterName: key.clusterName},
   );
 
   const errorAction: Action = {
@@ -24,7 +24,7 @@ export function* load({ key }: ActionMap["RESOURCE_AGENT.LIST.LOAD"]) {
     return;
   }
 
-  const { payload } = result;
+  const {payload} = result;
 
   if (lib.isCommunicationError(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
@@ -42,6 +42,6 @@ export function* load({ key }: ActionMap["RESOURCE_AGENT.LIST.LOAD"]) {
   yield put({
     type: "RESOURCE_AGENT.LIST.LOAD.OK",
     key,
-    payload: { apiResourceAgentList: payload.data },
+    payload: {apiResourceAgentList: payload.data},
   });
 }

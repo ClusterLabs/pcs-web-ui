@@ -1,6 +1,6 @@
 import deepmerge from "deepmerge";
 
-import { ClusterPermissions } from "dev/types";
+import {ClusterPermissions} from "dev/types";
 
 export const permissions = (
   diff: Partial<ClusterPermissions> = {},
@@ -33,14 +33,14 @@ export const permissions = (
         },
       ],
       permissions_dependencies: {
-        also_allows: { write: ["read"], full: ["read", "write", "grant"] },
+        also_allows: {write: ["read"], full: ["read", "write", "grant"]},
       },
       user_types: [
-        { code: "user", label: "User", description: "" },
-        { code: "group", label: "Group", description: "" },
+        {code: "user", label: "User", description: ""},
+        {code: "group", label: "Group", description: ""},
       ],
       users_permissions: [
-        { type: "group", name: "haclient", allow: ["grant", "read", "write"] },
+        {type: "group", name: "haclient", allow: ["grant", "read", "write"]},
       ],
     },
     diff || {},

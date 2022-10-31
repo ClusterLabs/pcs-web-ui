@@ -1,3 +1,3 @@
-import { clusterStatusDefault } from "./cluster/clusterStatus";
+import {clusterStatusDefault} from "./cluster/clusterStatus";
 
-export { clusterStatusDefault };
+export {clusterStatusDefault};

@@ -1,6 +1,6 @@
-import { CallResult, endpoints, http } from "./tools";
+import {CallResult, endpoints, http} from "./tools";
 
-const { url } = endpoints.removeConstraintRemote;
+const {url} = endpoints.removeConstraintRemote;
 
 export const removeConstraintRemote = async ({
   clusterName,
@@ -9,6 +9,6 @@ export const removeConstraintRemote = async ({
   clusterName: string;
   constraintId: string;
 }): CallResult =>
-  http.post(url({ clusterName }), {
+  http.post(url({clusterName}), {
     params: [["constraint_id", constraintId]],
   });

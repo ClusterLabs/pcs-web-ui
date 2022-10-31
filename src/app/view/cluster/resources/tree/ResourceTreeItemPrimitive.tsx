@@ -1,6 +1,6 @@
-import { Primitive } from "app/view/cluster/types";
+import {Primitive} from "app/view/cluster/types";
 
-import { ResourceTreeItem } from "./ResourceTreeItem";
+import {ResourceTreeItem} from "./ResourceTreeItem";
 
 export const ResourceTreeItemPrimitive = ({
   primitive,

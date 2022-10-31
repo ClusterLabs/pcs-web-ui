@@ -1,6 +1,6 @@
-import { mkXPath } from "test/tools/selectors";
+import {mkXPath} from "test/tools/selectors";
 
-import { prepareCommonTask } from "./utils";
+import {prepareCommonTask} from "./utils";
 
 const commonTask = prepareCommonTask<
   | "Cluster name and nodes"
@@ -15,7 +15,7 @@ const commonTask = prepareCommonTask<
   openKey: "task dashboard-setup-cluster",
 });
 
-const { selectors: commonSelectors, inView, taskKey } = commonTask;
+const {selectors: commonSelectors, inView, taskKey} = commonTask;
 
 const selectors = {
   ...commonSelectors,
@@ -112,4 +112,4 @@ const task = {
     await page.click(selectors.reviewAndFinish);
   },
 };
-export { task };
+export {task};

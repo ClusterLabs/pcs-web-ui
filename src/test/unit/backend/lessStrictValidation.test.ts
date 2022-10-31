@@ -1,13 +1,13 @@
 import * as t from "io-ts";
-import { isRight } from "fp-ts/lib/Either";
+import {isRight} from "fp-ts/lib/Either";
 
-import { endpoints } from "app/backend/endpoints";
-import { pcmkAgent } from "app/backend/endpoints/lib/cluster/pcmkAgent";
+import {endpoints} from "app/backend/endpoints";
+import {pcmkAgent} from "app/backend/endpoints/lib/cluster/pcmkAgent";
 
-import { cluster, node } from "dev/responses/clusterStatus/tools";
-import { resourceAgentMetadata } from "dev/responses";
+import {cluster, node} from "dev/responses/clusterStatus/tools";
+import {resourceAgentMetadata} from "dev/responses";
 
-const { ocfHeartbeatDummy: dummy } = resourceAgentMetadata;
+const {ocfHeartbeatDummy: dummy} = resourceAgentMetadata;
 
 function matchShape<A, O, I>(shape: t.Type<A, O, I>) {
   return (value: I) => {
@@ -57,7 +57,7 @@ describe("Validation for cluster status", () => {
   });
 
   it("should accept an extra attribute in node object", async () => {
-    clusterStatus.node_list.push({ ...nodeStatus, unknownAttr: "attr" });
+    clusterStatus.node_list.push({...nodeStatus, unknownAttr: "attr"});
     matchClusterStatus(clusterStatus);
   });
 
@@ -98,14 +98,14 @@ describe("Validation for cluster status", () => {
 describe("Validation for pcmk agents", () => {
   const matchAgent = matchShape(pcmkAgent);
   it("should accept new attributes", async () => {
-    matchAgent({ ...dummy, unknownAttr: "attr" });
+    matchAgent({...dummy, unknownAttr: "attr"});
   });
 
   it("should accept new attributes for parameters", async () => {
     matchAgent({
       ...dummy,
       parameters: [
-        { ...dummy.parameters[0], unknownAttr: "attr" },
+        {...dummy.parameters[0], unknownAttr: "attr"},
         ...dummy.parameters,
       ],
     });
@@ -115,7 +115,7 @@ describe("Validation for pcmk agents", () => {
     matchAgent({
       ...dummy,
       parameters: [
-        { ...dummy.parameters[0], unknownAttr: "attr" },
+        {...dummy.parameters[0], unknownAttr: "attr"},
         ...dummy.parameters,
       ],
     });
@@ -127,7 +127,7 @@ describe("Validation for pcmk agents", () => {
     const actions = dummy.actions ?? [{}];
     matchAgent({
       ...dummy,
-      actions: [{ ...actions[0], unknownAttr: "attr" }, ...actions],
+      actions: [{...actions[0], unknownAttr: "attr"}, ...actions],
     });
   });
 });

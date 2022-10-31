@@ -1,6 +1,6 @@
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
-import { initialState as initalLibCall, libCall } from "./libCall";
+import {initialState as initalLibCall, libCall} from "./libCall";
 
 type InstanceAttrName = string;
 type InstanceAttrValue = string;
@@ -25,9 +25,9 @@ const initialState: {
 const instanceAttrs = (stateAttrs: InstanceAttrs, actionAttrs: InstanceAttrs) =>
   Object.keys(actionAttrs).reduce((attrs, name) => {
     if (actionAttrs[name].length > 0) {
-      return { ...attrs, [name]: actionAttrs[name] };
+      return {...attrs, [name]: actionAttrs[name]};
     }
-    const { [name]: _, ...rest } = stateAttrs;
+    const {[name]: _, ...rest} = stateAttrs;
     return rest;
   }, stateAttrs);
 
@@ -58,12 +58,12 @@ export const fenceDeviceCreate: AppReducer<typeof initialState> = (
       return initialState;
 
     case "TASK.VALIDATION.SHOW":
-      return { ...state, showValidationErrors: true };
+      return {...state, showValidationErrors: true};
 
     case "TASK.VALIDATION.HIDE":
-      return { ...state, showValidationErrors: false };
+      return {...state, showValidationErrors: false};
 
     default:
-      return { ...state, libCall: libCall(state.libCall, action) };
+      return {...state, libCall: libCall(state.libCall, action)};
   }
 };

@@ -1,6 +1,6 @@
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
-import { libCluster } from "./libCluster";
+import {libCluster} from "./libCluster";
 
 export const sbdDisable = (
   clusterName: string,

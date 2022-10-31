@@ -1,13 +1,13 @@
 import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
-import { app } from "dev/app";
+import {app} from "dev/app";
 
 app.libCluster("node-standby-unstandby", (req, res) =>
-  shortcut.libStd({ code: req.body.node_names[0], res }),
+  shortcut.libStd({code: req.body.node_names[0], res}),
 );
 
 app.libCluster("node-maintenance-unmaintenance", (req, res) =>
-  shortcut.libStd({ code: req.body.node_names[0], res }),
+  shortcut.libStd({code: req.body.node_names[0], res}),
 );
 
 app.clusterStart((req, res) => {

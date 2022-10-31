@@ -1,9 +1,9 @@
-import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
+import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { Options } from "./Options";
-import { ResourceSetList } from "./ResourceSetList";
-import { Review } from "./Review";
+import {useTask} from "./useTask";
+import {Options} from "./Options";
+import {ResourceSetList} from "./ResourceSetList";
+import {Review} from "./Review";
 
 export const Task = () => {
   const {
@@ -12,7 +12,7 @@ export const Task = () => {
     areSetsValid,
     isCustomIdValid,
     state: {
-      libCall: { reports, response },
+      libCall: {reports, response},
     },
   } = useTask();
   return (
@@ -31,7 +31,7 @@ export const Task = () => {
               next={{
                 actionIf: areSetsValid,
               }}
-              back={{ disabled: true }}
+              back={{disabled: true}}
             />
           ),
         },
@@ -54,7 +54,7 @@ export const Task = () => {
           footer: (
             <WizardFooter
               next={{
-                preAction: () => create({ force: false }),
+                preAction: () => create({force: false}),
                 label: "Create order constraint",
               }}
             />
@@ -67,7 +67,7 @@ export const Task = () => {
               response={response}
               taskName="create order constraint with resource set"
               backToUpdateSettingsStepName="Resource Sets"
-              proceedForce={() => create({ force: true })}
+              proceedForce={() => create({force: true})}
               reports={reports}
             />
           ),

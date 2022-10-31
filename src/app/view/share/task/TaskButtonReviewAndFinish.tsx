@@ -1,4 +1,4 @@
-import { Button } from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
 
 export const TaskButtonReviewAndFinish = ({
   onClick = undefined,

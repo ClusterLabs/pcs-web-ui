@@ -5,7 +5,7 @@ import {
   EmptyStateVariant,
   Title,
 } from "@patternfly/react-core";
-import { SearchIcon } from "@patternfly/react-icons";
+import {SearchIcon} from "@patternfly/react-icons";
 
 export const DrawerEmpty = () => {
   return (

@@ -5,7 +5,7 @@ import {
   EmptyStateIcon,
   Title,
 } from "@patternfly/react-core";
-import { PlusCircleIcon, SearchIcon } from "@patternfly/react-icons";
+import {PlusCircleIcon, SearchIcon} from "@patternfly/react-icons";
 
 export const EmptyStateNoItem = ({
   title,
@@ -17,7 +17,7 @@ export const EmptyStateNoItem = ({
   canAdd?: boolean;
 }) => {
   return (
-    <EmptyState style={{ margin: "auto" }}>
+    <EmptyState style={{margin: "auto"}}>
       <EmptyStateIcon icon={canAdd ? PlusCircleIcon : SearchIcon} />
       <Title size="lg" headingLevel="h3">
         {title}

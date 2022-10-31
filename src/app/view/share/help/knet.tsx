@@ -1,12 +1,12 @@
 import React from "react";
 
-import { clusterSetup } from "app/backend";
+import {clusterSetup} from "app/backend";
 
-import type { Help } from "./help";
+import type {Help} from "./help";
 
 type SetupData = Parameters<typeof clusterSetup>[0]["setupData"];
 type KnetOptions = NonNullable<
-  Extract<SetupData, { transport_type: "knet" }>["transport_options"]
+  Extract<SetupData, {transport_type: "knet"}>["transport_options"]
 >;
 type CompressionOptions = NonNullable<SetupData["compression_options"]>;
 type CryptoOptions = NonNullable<SetupData["crypto_options"]>;

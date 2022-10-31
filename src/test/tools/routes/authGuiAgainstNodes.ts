@@ -1,17 +1,17 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
 export const authGuiAgainstNodes = (
   nodes: Record<
     string,
-    { password: string; dest_list: { addr: string; port: string }[] }
+    {password: string; dest_list: {addr: string; port: string}[]}
   >,
   response: RouteResponse | null = null,
 ) => ({
   url: endpoints.authGuiAgainstNodes.url,
   body: {
-    data_json: JSON.stringify({ nodes }),
+    data_json: JSON.stringify({nodes}),
   },
   ...(response ?? {
     json: {

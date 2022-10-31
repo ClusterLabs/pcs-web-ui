@@ -1,16 +1,16 @@
-import { ActionPayload } from "app/store/actions";
-import { isCibTrue } from "app/store/tools";
+import {ActionPayload} from "app/store/actions";
+import {isCibTrue} from "app/store/tools";
 
-import { Cluster, StatusSeverity } from "../types";
+import {Cluster, StatusSeverity} from "../types";
 
 import * as statusSeverity from "./statusSeverity";
-import { transformIssues } from "./issues";
-import { apiToNodeSbd } from "./nodeSbd";
+import {transformIssues} from "./issues";
+import {apiToNodeSbd} from "./nodeSbd";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 type ApiNode = ApiCluster["node_list"][number];
-type ApiNodeQuorum = Extract<ApiNode, { quorum: unknown }>["quorum"];
-type ApiNodeStatus = Extract<ApiNode, { status: unknown }>["status"];
+type ApiNodeQuorum = Extract<ApiNode, {quorum: unknown}>["quorum"];
+type ApiNodeStatus = Extract<ApiNode, {status: unknown}>["status"];
 type ApiNodeAttrListMap = NonNullable<ApiCluster["node_attr"]>;
 type ApiNodeAttrList = ApiNodeAttrListMap[keyof ApiNodeAttrListMap];
 
@@ -18,7 +18,7 @@ type Node = Cluster["nodeList"][number];
 
 const mapStatus = (
   status: ApiNodeStatus,
-): Exclude<Node, { status: "DATA_NOT_PROVIDED" }>["status"] => {
+): Exclude<Node, {status: "DATA_NOT_PROVIDED"}>["status"] => {
   if (status === "standby") {
     return "STANDBY";
   }

@@ -1,14 +1,14 @@
-import { LauncherDropdown, TaskOpenArgs } from "app/view/share";
+import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
 
 import * as task from "./task";
-import { Permission } from "./types";
-import { usePermissions } from "./usePermissions";
+import {Permission} from "./types";
+import {usePermissions} from "./usePermissions";
 
-export const PermissionMenu = ({ permission }: { permission: Permission }) => {
-  const { clusterName, permissionList } = usePermissions();
+export const PermissionMenu = ({permission}: {permission: Permission}) => {
+  const {clusterName, permissionList} = usePermissions();
 
   const addOpenArgs: TaskOpenArgs<typeof task.add.useTask> = [
-    { type: "update", permission },
+    {type: "update", permission},
   ];
   return (
     <LauncherDropdown
@@ -29,7 +29,7 @@ export const PermissionMenu = ({ permission }: { permission: Permission }) => {
             description: "Removes the permission.",
             action: {
               type: "CLUSTER.PERMISSIONS.SAVE",
-              key: { clusterName, task: "permissionRemove" },
+              key: {clusterName, task: "permissionRemove"},
               payload: {
                 permissionList: permissionList.filter(
                   p => p.name !== permission.name || p.type !== permission.type,

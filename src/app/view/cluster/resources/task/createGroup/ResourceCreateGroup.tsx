@@ -1,15 +1,15 @@
-import { TaskSimple } from "app/view/share";
+import {TaskSimple} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { Form } from "./Form";
-import { Finish } from "./Finish";
-import { Footer } from "./Footer";
+import {useTask} from "./useTask";
+import {Form} from "./Form";
+import {Finish} from "./Finish";
+import {Footer} from "./Footer";
 
 export const ResourceCreateGroup = () => {
   const {
     close,
     name: taskName,
-    state: { response },
+    state: {response},
   } = useTask();
 
   return (

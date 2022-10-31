@@ -1,9 +1,9 @@
-import { endpoint } from "../endpoint";
+import {endpoint} from "../endpoint";
 
-import { ApiClusterStatus as shape } from "./shape/cluster";
+import {ApiClusterStatus as shape} from "./shape/cluster";
 
 export const clusterStatus = endpoint({
-  url: ({ clusterName }: { clusterName: string }) =>
+  url: ({clusterName}: {clusterName: string}) =>
     `/managec/${clusterName}/cluster_status`,
   method: "get",
   params: undefined,

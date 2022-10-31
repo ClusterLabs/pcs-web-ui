@@ -5,14 +5,14 @@ import {
   TaskLibStep,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Review = () => {
   const {
     state: {
       id,
       useCustomId,
-      libCall: { reports },
+      libCall: {reports},
       sets,
     },
   } = useTask();

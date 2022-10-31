@@ -1,6 +1,6 @@
 import React from "react";
 
-import { EmptyStateNoItem } from "app/view/share/emptyState";
+import {EmptyStateNoItem} from "app/view/share/emptyState";
 
 export function AttributeList<T>({
   attributes,

@@ -1,7 +1,7 @@
 import React from "react";
-import { FormGroup as PfFormGroup } from "@patternfly/react-core";
+import {FormGroup as PfFormGroup} from "@patternfly/react-core";
 
-import { AttributeHelpPopover } from "app/view/share/attributes";
+import {AttributeHelpPopover} from "app/view/share/attributes";
 
 type FormGroupProps = React.ComponentProps<typeof PfFormGroup>;
 export const FormGroup = ({

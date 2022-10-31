@@ -1,11 +1,11 @@
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 
 export type ConstraintPackList = selectors.ExtractClusterSelector<
   typeof selectors.getConstraints
 >;
 
 type ExtractConstraint<TYPE extends ConstraintPackList[number]["type"]> =
-  Extract<ConstraintPackList[number], { type: TYPE }>["constraint"];
+  Extract<ConstraintPackList[number], {type: TYPE}>["constraint"];
 
 export type ConstraintLocationRule = ExtractConstraint<"Location (rule)">;
 export type ConstraintLocationNode = ExtractConstraint<"Location">;

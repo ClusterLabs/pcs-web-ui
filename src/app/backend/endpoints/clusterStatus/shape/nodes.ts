@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { ApiWithIssues } from "./issues";
+import {ApiWithIssues} from "./issues";
 
 export const ApiNodeName = t.string;
 
@@ -44,10 +44,10 @@ tools like `systemctl` or `service` are used for getting services info
 
 export const ApiNode = t.intersection([
   ApiWithIssues,
-  t.type({ name: ApiNodeName }),
+  t.type({name: ApiNodeName}),
   t.union([
     t.type({
-      status: t.keyof({ unknown: null }),
+      status: t.keyof({unknown: null}),
     }),
     t.type({
       id: t.string,

@@ -1,7 +1,7 @@
 export type ResourceCreateActions = {
   "RESOURCE.CREATE.UPDATE": {
     type: "RESOURCE.CREATE.UPDATE";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       agentName?: string;
       resourceName?: string;
@@ -16,6 +16,6 @@ export type ResourceCreateActions = {
 
   "RESOURCE.CREATE.CLOSE": {
     type: "RESOURCE.CREATE.CLOSE";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 };

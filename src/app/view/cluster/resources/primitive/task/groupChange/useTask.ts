@@ -1,11 +1,11 @@
-import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector, useClusterTask } from "app/view/share";
-import { Primitive } from "app/view/cluster/types";
+import {ActionPayload, selectors} from "app/store";
+import {useClusterSelector, useClusterTask} from "app/view/share";
+import {Primitive} from "app/view/cluster/types";
 
 export const useTask = () => {
   const task = useClusterTask("primitiveGroupChange");
   const [groupList] = useClusterSelector(selectors.getGroups);
-  const { dispatch, clusterName, state } = task;
+  const {dispatch, clusterName, state} = task;
   const groupIdList = groupList.map(g => g.id);
   const candidateGroupsIds = groupIdList.filter(g => g !== state.oldGroupId);
 
@@ -28,7 +28,7 @@ export const useTask = () => {
     updateState: (payload: ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]) => {
       dispatch({
         type: "RESOURCE.GROUP.CHANGE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       });
     },
@@ -36,7 +36,7 @@ export const useTask = () => {
     changeGroup: () =>
       dispatch({
         type: "RESOURCE.GROUP.CHANGE",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           resourceId: state.resourceId,
           groupId: !isSetForRemove ? state.groupId : "",
@@ -49,13 +49,13 @@ export const useTask = () => {
     recoverFromError: () =>
       dispatch({
         type: "RESOURCE.GROUP.CHANGE.FAIL.RECOVER",
-        key: { clusterName },
+        key: {clusterName},
       }),
 
     close: () => {
       dispatch({
         type: "RESOURCE.GROUP.CHANGE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
       task.close();
     },
@@ -63,7 +63,7 @@ export const useTask = () => {
     open: (primitive: Primitive) => {
       dispatch({
         type: "RESOURCE.GROUP.CHANGE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           resourceId: primitive.id,
           oldGroupId: primitive.inGroup ?? "",

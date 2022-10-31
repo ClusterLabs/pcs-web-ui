@@ -1,6 +1,6 @@
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
-import { nodeAuth } from "./nodeAuth";
+import {nodeAuth} from "./nodeAuth";
 
 const initialState: Record<number, ReturnType<typeof nodeAuth>> = {};
 
@@ -21,7 +21,7 @@ export const nodeAuthMap: AppReducer<typeof initialState> = (
         .reduce<typeof initialState>(
           (newState, key) => ({
             ...newState,
-            ...(key !== action.key.process ? { [key]: state[key] } : {}),
+            ...(key !== action.key.process ? {[key]: state[key]} : {}),
           }),
           {},
         );

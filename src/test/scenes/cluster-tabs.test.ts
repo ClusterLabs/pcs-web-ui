@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
-import { dt } from "test/tools/selectors";
-import { intercept, location, route } from "test/tools";
+import {dt} from "test/tools/selectors";
+import {intercept, location, route} from "test/tools";
 
 const currentTab = async () => {
   const currentTablist = await page.$$eval(dt("tabs cluster"), tabs =>
@@ -29,11 +29,11 @@ const clusterName = "ok";
 describe("Cluster scene", () => {
   beforeEach(
     intercept.start([
-      route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
+      route.clusterStatus({clusterStatus: responses.clusterStatus.ok}),
       route.resourceAgentListAgents("ok"),
-      route.stonithAgentListAgents({ clusterName: "ok" }),
-      route.getClusterPropertiesDefinition({ clusterName: "ok" }),
-      route.getPermissions({ clusterName }),
+      route.stonithAgentListAgents({clusterName: "ok"}),
+      route.getClusterPropertiesDefinition({clusterName: "ok"}),
+      route.getPermissions({clusterName}),
     ]),
   );
 
@@ -41,7 +41,7 @@ describe("Cluster scene", () => {
 
   it("should show detail tab of cluster by default", async () => {
     await checkClusterTab(
-      location.cluster({ clusterName: "ok" }),
+      location.cluster({clusterName: "ok"}),
       "Detail",
       "cluster-detail",
     );
@@ -49,7 +49,7 @@ describe("Cluster scene", () => {
 
   it("should show nodes tab", async () => {
     await checkClusterTab(
-      location.nodeList({ clusterName: "ok" }),
+      location.nodeList({clusterName: "ok"}),
       "Nodes",
       "cluster-nodes",
     );
@@ -57,7 +57,7 @@ describe("Cluster scene", () => {
 
   it("should show resources tab", async () => {
     await checkClusterTab(
-      location.resourceList({ clusterName: "ok" }),
+      location.resourceList({clusterName: "ok"}),
       "Resources",
       "cluster-resources",
     );
@@ -65,7 +65,7 @@ describe("Cluster scene", () => {
 
   it("should show fence devices tab", async () => {
     await checkClusterTab(
-      location.fenceDeviceList({ clusterName: "ok" }),
+      location.fenceDeviceList({clusterName: "ok"}),
       "Fence Devices",
       "cluster-fence-devices",
     );

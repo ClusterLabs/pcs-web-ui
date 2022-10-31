@@ -1,6 +1,6 @@
-import { clusterStatusDefault } from "app/store/reducers";
+import {clusterStatusDefault} from "app/store/reducers";
 
-import { Cluster, ClusterStorageItem, Root } from "../types";
+import {Cluster, ClusterStorageItem, Root} from "../types";
 
 export type ClusterSelector<ARGS extends unknown[], SELECTED> = (
   _clusterName: string,

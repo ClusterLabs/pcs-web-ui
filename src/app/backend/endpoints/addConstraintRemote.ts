@@ -1,4 +1,4 @@
-import { endpoint } from "./endpoint";
+import {endpoint} from "./endpoint";
 
 type Constraint = (
   | {
@@ -31,17 +31,17 @@ type Constraint = (
 };
 
 export const addConstraintRemote = endpoint({
-  url: ({ clusterName }: { clusterName: string }) =>
+  url: ({clusterName}: {clusterName: string}) =>
     `/managec/${clusterName}/add_constraint_remote`,
   method: "post",
-  params: ({ constraint }: { constraint: Constraint }): [string, string][] => {
+  params: ({constraint}: {constraint: Constraint}): [string, string][] => {
     const force: [string, string][] =
       "force" in constraint && constraint.force === true
         ? [["force", "true"]]
         : [];
 
     if ("order" in constraint) {
-      const { resourceId, action, order, otherResourceId, otherAction, score } =
+      const {resourceId, action, order, otherResourceId, otherAction, score} =
         constraint.order;
       return [
         ["c_type", "ord"],
@@ -56,7 +56,7 @@ export const addConstraintRemote = endpoint({
     }
 
     if ("colocation" in constraint) {
-      const { resourceId, withResourceId, score } = constraint.colocation;
+      const {resourceId, withResourceId, score} = constraint.colocation;
       return [
         ["c_type", "col"],
         ["res_id", resourceId],
@@ -67,7 +67,7 @@ export const addConstraintRemote = endpoint({
       ];
     }
 
-    const { resourceSpecification, resourceValue, nodeName, score } =
+    const {resourceSpecification, resourceValue, nodeName, score} =
       constraint.location;
     return [
       ["c_type", "loc"],

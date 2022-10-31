@@ -1,6 +1,6 @@
-import { CheckCircleIcon, TimesCircleIcon } from "@patternfly/react-icons";
+import {CheckCircleIcon, TimesCircleIcon} from "@patternfly/react-icons";
 
-import { Permission } from "./types";
+import {Permission} from "./types";
 
 type CompentenceName = Permission["allow"][number];
 

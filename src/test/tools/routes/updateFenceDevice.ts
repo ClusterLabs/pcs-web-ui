@@ -1,10 +1,10 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
-import { paramsToBody } from "./tools";
+import {paramsToBody} from "./tools";
 
-const { url, params } = endpoints.updateFenceDevice;
+const {url, params} = endpoints.updateFenceDevice;
 
 export const updateFenceDevice = ({
   clusterName,
@@ -17,12 +17,12 @@ export const updateFenceDevice = ({
   attributes: Record<string, string>;
   response?: RouteResponse;
 }) => ({
-  url: url({ clusterName }),
+  url: url({clusterName}),
   body: paramsToBody(
     params({
       resourceId: fenceDeviceId,
       attributes,
     }),
   ),
-  ...(response ?? { text: JSON.stringify({}) }),
+  ...(response ?? {text: JSON.stringify({})}),
 });

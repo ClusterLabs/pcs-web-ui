@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
 
-import { useLocation } from "./Router";
+import {useLocation} from "./Router";
 
 export const Link = ({
   to,
@@ -14,7 +14,7 @@ export const Link = ({
   ["data-test"]?: string;
   strong?: boolean;
 }) => {
-  const { navigate } = useLocation();
+  const {navigate} = useLocation();
   let caption = children;
   if (!caption) {
     const parts = to.split("/");

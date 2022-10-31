@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ReviewValue } from "./ReviewValue";
+import {ReviewValue} from "./ReviewValue";
 
 export const ReviewYesNo = ({
   label,

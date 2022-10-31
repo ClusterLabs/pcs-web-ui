@@ -1,7 +1,7 @@
-import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
+import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { Configure } from "./Configure";
+import {useTask} from "./useTask";
+import {Configure} from "./Configure";
 
 export const Task = () => {
   const {
@@ -13,7 +13,7 @@ export const Task = () => {
     isThenResourceValid,
     isScoreValid,
     state: {
-      call: { response, resultMessage },
+      call: {response, resultMessage},
     },
   } = useTask();
   return (

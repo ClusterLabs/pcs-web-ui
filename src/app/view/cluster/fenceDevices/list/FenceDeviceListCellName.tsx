@@ -1,5 +1,5 @@
-import { FenceDevice } from "app/view/cluster/types";
-import { Link } from "app/view/share";
+import {FenceDevice} from "app/view/cluster/types";
+import {Link} from "app/view/share";
 
 export const FenceDeviceListCellName = ({
   fenceDevice,

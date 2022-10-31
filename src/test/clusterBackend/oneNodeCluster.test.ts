@@ -25,13 +25,13 @@ describe("Web ui on one node cluster", () => {
   it("should succeed with essential features", async () => {
     await page.goto(`${protocol}://${host}:${port}/ui/`);
 
-    await login.submitForm({ username, password });
+    await login.submitForm({username, password});
 
     await dashboard.clusterList.waitForLoaded();
     // we expect to start with no cluster
     await dashboard.clusterList.assertNamesAre([]);
 
-    await setupCluster({ clusterName, nodeNameList: [nodeName] });
+    await setupCluster({clusterName, nodeNameList: [nodeName]});
     await dashboard.clusterList.assertNamesAre([clusterName]);
 
     await removeCluster(clusterName);
@@ -62,7 +62,7 @@ const createFenceDevice = async (
   fenceDeviceName: string,
   agentName: string,
 ) => {
-  const { fillNameAndAgent, nextFrom, open, waitForSuccess, close } =
+  const {fillNameAndAgent, nextFrom, open, waitForSuccess, close} =
     task.fenceDeviceCreate;
 
   await open();
@@ -79,7 +79,7 @@ const createFenceDevice = async (
 };
 
 const createResource = async (resourceName: string, agentName: string) => {
-  const { fillNameAndAgent, nextFrom, open, waitForSuccess, close } =
+  const {fillNameAndAgent, nextFrom, open, waitForSuccess, close} =
     task.resourceCreate;
 
   await open();
@@ -156,7 +156,7 @@ const setupCluster = async ({
     waitForSuccess,
   } = task.clusterSetup;
   await open();
-  await fillClusterNameAndNodes({ clusterName, nodeNameList });
+  await fillClusterNameAndNodes({clusterName, nodeNameList});
   await nextFrom("Cluster name and nodes");
   await reviewAndFinish();
   await Promise.all([

@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Form } from "@patternfly/react-core";
+import {Alert, Form} from "@patternfly/react-core";
 
 import {
   FormText,
@@ -8,7 +8,7 @@ import {
   ToolbarFilterTextGroupPair,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 type AgentParameter = Parameters<
   React.ComponentProps<typeof LoadedPcmkAgent>["children"]
@@ -34,12 +34,12 @@ export const InstanceAttrsForm = () => {
       agentName,
       instanceAttrs,
       showValidationErrors,
-      libCall: { reports },
+      libCall: {reports},
     },
     clusterName,
     updateState,
   } = useTask();
-  const { filterState, filterParameters } = useFilterState();
+  const {filterState, filterParameters} = useFilterState();
   return (
     <TaskLibStep title={`Instance attributes (${agentName})`} reports={reports}>
       <LoadedPcmkAgent clusterName={clusterName} agentName={agentName}>
@@ -94,7 +94,7 @@ export const InstanceAttrsForm = () => {
                         helperTextInvalid={`${hint} ${parameter.name}`}
                         onChange={value =>
                           updateState({
-                            instanceAttrs: { [parameter.name]: value },
+                            instanceAttrs: {[parameter.name]: value},
                           })
                         }
                         value={instanceAttrs[parameter.name] || ""}

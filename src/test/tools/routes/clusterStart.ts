@@ -1,6 +1,6 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
-import { RequestData, RouteResponse } from "test/tools/interception";
+import {RequestData, RouteResponse} from "test/tools/interception";
 
 export const clusterStart = ({
   clusterName,
@@ -11,12 +11,10 @@ export const clusterStart = ({
   nodeName?: string;
   response?: RouteResponse;
 }) => {
-  const body: RequestData["body"] = nodeName
-    ? { name: nodeName }
-    : { all: "1" };
+  const body: RequestData["body"] = nodeName ? {name: nodeName} : {all: "1"};
   return {
-    url: endpoints.clusterStart.url({ clusterName }),
+    url: endpoints.clusterStart.url({clusterName}),
     body,
-    ...(response ?? { text: "" }),
+    ...(response ?? {text: ""}),
   };
 };

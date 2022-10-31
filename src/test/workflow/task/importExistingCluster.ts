@@ -1,13 +1,13 @@
-import { fillForm as fillAuthForm } from "../auth";
+import {fillForm as fillAuthForm} from "../auth";
 
-import { prepareCommonTask } from "./utils";
+import {prepareCommonTask} from "./utils";
 
 const commonTask = prepareCommonTask<"Enter node name" | "Check node name">({
   taskKey: "task-cluster-import",
   openKey: "task dashboard-add-existing-cluster",
 });
 
-const { inView, selectors } = commonTask;
+const {inView, selectors} = commonTask;
 
 const task = {
   ...commonTask,
@@ -27,4 +27,4 @@ const task = {
     await fillAuthForm(nodeName, selectors.task, password, addr, port);
   },
 };
-export { task };
+export {task};

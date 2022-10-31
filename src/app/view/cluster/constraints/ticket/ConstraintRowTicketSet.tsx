@@ -1,8 +1,8 @@
 import React from "react";
-import { DataListCell } from "@patternfly/react-core";
+import {DataListCell} from "@patternfly/react-core";
 
-import { ConstraintResourceInRole, ConstraintValue } from "../common";
-import { ConstraintTicketSet } from "../types";
+import {ConstraintResourceInRole, ConstraintValue} from "../common";
+import {ConstraintTicketSet} from "../types";
 import {
   ConstraintResourceSetRscLinks,
   ConstraintRowWithResourceSet,

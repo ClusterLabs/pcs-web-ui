@@ -84,9 +84,9 @@ export const resourcesForTest = cluster("resourcesForTest", "ok", {
               }),
             ],
           }),
-          primitive("E", { status: "blocked" }),
+          primitive("E", {status: "blocked"}),
         ],
-        { status: "blocked" },
+        {status: "blocked"},
       ),
       {
         status: "blocked",

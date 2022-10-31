@@ -5,22 +5,22 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import { FenceDevice } from "app/view/cluster/types";
+import {FenceDevice} from "app/view/cluster/types";
 import {
   SelectionIndicatorInGroup,
   useGroupDetailViewContext,
 } from "app/view/share";
 
-import { FenceDeviceListCellStatus } from "./FenceDeviceListCellStatus";
-import { FenceDeviceListCellName } from "./FenceDeviceListCellName";
-import { FenceDeviceListCellType } from "./FenceDeviceListCellType";
+import {FenceDeviceListCellStatus} from "./FenceDeviceListCellStatus";
+import {FenceDeviceListCellName} from "./FenceDeviceListCellName";
+import {FenceDeviceListCellType} from "./FenceDeviceListCellType";
 
 export const FenceDeviceListItem = ({
   fenceDevice,
 }: {
   fenceDevice: FenceDevice;
 }) => {
-  const { selectedItemUrlName: fenceDeviceId } = useGroupDetailViewContext();
+  const {selectedItemUrlName: fenceDeviceId} = useGroupDetailViewContext();
   return (
     <DataListItem
       aria-labelledby={fenceDevice.id}

@@ -1,4 +1,4 @@
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   DetailLayout,
   NVPairListPage,
@@ -12,20 +12,20 @@ import {
   useUrlTabs,
 } from "app/view/share";
 
-import { NodeDetailPageToolbar } from "./NodeDetailPageToolbar";
-import { NodeDetailView } from "./NodeDetailView";
-import { NodeDoesNotExists } from "./NodeDoesNotExists";
+import {NodeDetailPageToolbar} from "./NodeDetailPageToolbar";
+import {NodeDetailView} from "./NodeDetailView";
+import {NodeDoesNotExists} from "./NodeDoesNotExists";
 
 export const nodePageTabList = ["detail", "attributes", "utilization"] as const;
 
 export const NodeDetailPage = () => {
-  const { selectedItemUrlName: nodeName } = useGroupDetailViewContext();
+  const {selectedItemUrlName: nodeName} = useGroupDetailViewContext();
 
   const [node] = useClusterSelector(selectors.getSelectedNode, nodeName);
 
-  const { currentTab, matchedContext } = useUrlTabs(nodePageTabList);
+  const {currentTab, matchedContext} = useUrlTabs(nodePageTabList);
 
-  const { nodeAttrs, nodeUtilization } = useClusterState(
+  const {nodeAttrs, nodeUtilization} = useClusterState(
     useSelectedClusterName(),
   );
   if (!node) {

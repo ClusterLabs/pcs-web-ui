@@ -1,9 +1,9 @@
 import * as workflow from "test/workflow";
-import { intercept } from "test/tools";
+import {intercept} from "test/tools";
 
-import { interceptWithNodeAttrs, node1Attrs, openNodeAttrsTab } from "./common";
+import {interceptWithNodeAttrs, node1Attrs, openNodeAttrsTab} from "./common";
 
-const { nvsets } = workflow.cluster;
+const {nvsets} = workflow.cluster;
 
 describe("Node attributes view", () => {
   afterEach(intercept.stop);

@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { ApiId } from "./common";
+import {ApiId} from "./common";
 
 export const ApiNVPair = t.type({
   id: ApiId,

@@ -7,11 +7,11 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { ResourceStatus } from "app/view/cluster/types";
-import { useClusterSelector, useDispatch } from "app/view/share";
+import {selectors} from "app/store";
+import {ResourceStatus} from "app/view/cluster/types";
+import {useClusterSelector, useDispatch} from "app/view/share";
 
-import { ResourceTreeItemCells } from "./ResourceTreeItemCells";
+import {ResourceTreeItemCells} from "./ResourceTreeItemCells";
 
 export const ResourceTreeItemCompound = ({
   resourceId,
@@ -44,8 +44,8 @@ export const ResourceTreeItemCompound = ({
           onClick={() =>
             dispatch({
               type: "RESOURCE.TREE.ITEM.TOGGLE",
-              key: { clusterName: cluster },
-              payload: { itemId: resourceId },
+              key: {clusterName: cluster},
+              payload: {itemId: resourceId},
             })
           }
         />

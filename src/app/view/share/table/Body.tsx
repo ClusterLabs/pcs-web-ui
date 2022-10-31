@@ -4,7 +4,7 @@ export const Body = ({
   children,
   isExpanded = false,
   ...rest
-}: React.PropsWithChildren<{ isExpanded?: boolean }>) => {
+}: React.PropsWithChildren<{isExpanded?: boolean}>) => {
   const classNameList = [];
   if (isExpanded) {
     classNameList.push("pf-m-expanded");

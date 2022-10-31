@@ -1,13 +1,8 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import {
-  FormCustomId,
-  FormRadios,
-  FormText,
-  TaskLibStep,
-} from "app/view/share";
+import {FormCustomId, FormRadios, FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Options = () => {
   const {
@@ -20,7 +15,7 @@ export const Options = () => {
       showValidationErrors,
       placement,
       score,
-      libCall: { reports },
+      libCall: {reports},
     },
   } = useTask();
 
@@ -29,8 +24,8 @@ export const Options = () => {
       <Form isHorizontal>
         <FormCustomId
           useCustomId={useCustomId}
-          onChangeUse={value => updateState({ useCustomId: value })}
-          onChangeId={value => updateState({ id: value })}
+          onChangeUse={value => updateState({useCustomId: value})}
+          onChangeId={value => updateState({id: value})}
           customId={id}
           showValidationErrors={showValidationErrors}
           isValid={isCustomIdValid}
@@ -41,7 +36,7 @@ export const Options = () => {
           label="Placement"
           options={["together", "apart"]}
           selected={placement}
-          onChange={value => updateState({ placement: value })}
+          onChange={value => updateState({placement: value})}
         />
 
         <FormText
@@ -51,7 +46,7 @@ export const Options = () => {
           showValidationErrors={showValidationErrors}
           isValid={isScoreValid}
           helperTextInvalid="Score must be integer or INFINITY"
-          onChange={value => updateState({ score: value })}
+          onChange={value => updateState({score: value})}
         />
       </Form>
     </TaskLibStep>

@@ -1,19 +1,19 @@
 import React from "react";
 
-import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector, useClusterTask } from "app/view/share";
+import {ActionPayload, selectors} from "app/store";
+import {useClusterSelector, useClusterTask} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintTicketCreate");
 
-  const { clusterName, dispatch, state, close } = task;
+  const {clusterName, dispatch, state, close} = task;
   const [clusterStatus] = useClusterSelector(selectors.getCluster);
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.TICKET.CREATE.UPDATE"]) =>
       dispatch({
         type: "CONSTRAINT.TICKET.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
     [dispatch, clusterName],
@@ -48,17 +48,17 @@ export const useTask = () => {
     // actions
     updateState,
 
-    createTicket: ({ force }: { force: boolean }) => {
+    createTicket: ({force}: {force: boolean}) => {
       if (!isCustomIdValid || !isTicketValid || !isResourceValid) {
         dispatch({
           type: "TASK.VALIDATION.SHOW",
-          key: { clusterName, task: task.name },
+          key: {clusterName, task: task.name},
         });
         return;
       }
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: "create constraint ticket set",
           call: {
@@ -67,9 +67,9 @@ export const useTask = () => {
               resource_id: state.resourceId,
               ticket_key: state.ticket,
               options: {
-                ...(state.useCustomId ? { id: state.id } : {}),
+                ...(state.useCustomId ? {id: state.id} : {}),
                 ...(state.role !== "no limitation"
-                  ? { "rsc-role": state.role }
+                  ? {"rsc-role": state.role}
                   : {}),
                 "loss-policy": state.lossPolicy,
               },
@@ -84,7 +84,7 @@ export const useTask = () => {
     recoverFromError: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
     },
 
@@ -92,7 +92,7 @@ export const useTask = () => {
       close();
       dispatch({
         type: "CONSTRAINT.TICKET.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
   };

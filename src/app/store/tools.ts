@@ -1,4 +1,4 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
 const fenceDeviceNamePrefix = "stonith:";
 

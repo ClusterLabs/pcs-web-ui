@@ -1,7 +1,7 @@
-import { clusterStatus } from "app/backend";
-import { Action } from "app/store/actions";
+import {clusterStatus} from "app/backend";
+import {Action} from "app/store/actions";
 
-import { api, dataLoad, fork, put } from "./common";
+import {api, dataLoad, fork, put} from "./common";
 
 function* fetchClusterData(clusterName: string) {
   const result: api.ResultOf<typeof clusterStatus> = yield api.authSafe(
@@ -17,7 +17,7 @@ function* fetchClusterData(clusterName: string) {
 
   yield put({
     type: "CLUSTER.STATUS.FETCH.OK",
-    key: { clusterName },
+    key: {clusterName},
     payload: result.payload,
   });
 }
@@ -30,7 +30,7 @@ export const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   SUCCESS: "CLUSTER.STATUS.FETCH.OK",
   refresh: (clusterName = "") => ({
     type: REFRESH,
-    key: { clusterName },
+    key: {clusterName},
   }),
   fetch: fetchClusterData,
   getSyncId: (action: Action) => {

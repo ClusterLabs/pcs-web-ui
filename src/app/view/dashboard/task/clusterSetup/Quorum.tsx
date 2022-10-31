@@ -1,15 +1,15 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormText, TaskLibStep } from "app/view/share";
-import { FormRadios } from "app/view/share";
+import {FormText, TaskLibStep} from "app/view/share";
+import {FormRadios} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Quorum = () => {
   const {
     allReports,
     updateQuorumOptions,
-    state: { quorumOptions },
+    state: {quorumOptions},
   } = useTask();
   return (
     <TaskLibStep title="Quorum" reports={allReports}>
@@ -38,7 +38,7 @@ export const Quorum = () => {
           }}
           options={["off", "on", "default"]}
           selected={quorumOptions.auto_tie_breaker}
-          onChange={value => updateQuorumOptions({ auto_tie_breaker: value })}
+          onChange={value => updateQuorumOptions({auto_tie_breaker: value})}
           data-test="quorum.auto_tie_breaker"
         />
         <FormRadios
@@ -66,7 +66,7 @@ export const Quorum = () => {
           }}
           options={["off", "on", "default"]}
           selected={quorumOptions.last_man_standing}
-          onChange={value => updateQuorumOptions({ last_man_standing: value })}
+          onChange={value => updateQuorumOptions({last_man_standing: value})}
           data-test="quorum.last_man_standing"
         />
         <FormText
@@ -85,7 +85,7 @@ export const Quorum = () => {
           }}
           value={quorumOptions.last_man_standing_window || ""}
           onChange={value =>
-            updateQuorumOptions({ last_man_standing_window: value })
+            updateQuorumOptions({last_man_standing_window: value})
           }
           data-test="quorum.last_man_standing_window"
         />
@@ -126,7 +126,7 @@ export const Quorum = () => {
           }}
           options={["off", "on", "default"]}
           selected={quorumOptions.wait_for_all}
-          onChange={value => updateQuorumOptions({ wait_for_all: value })}
+          onChange={value => updateQuorumOptions({wait_for_all: value})}
           data-test="quorum.wait_for_all"
         />
       </Form>

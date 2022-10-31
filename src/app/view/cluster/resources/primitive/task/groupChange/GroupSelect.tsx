@@ -1,14 +1,14 @@
-import { FormSelect } from "app/view/share";
+import {FormSelect} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { PositionSelect } from "./PositionSelect";
+import {useTask} from "./useTask";
+import {PositionSelect} from "./PositionSelect";
 
 export const GroupSelect = () => {
   const {
     isGroupValid,
     updateState,
     candidateGroupsIds,
-    state: { groupId, showValidationErrors },
+    state: {groupId, showValidationErrors},
   } = useTask();
   return (
     <>
@@ -21,7 +21,7 @@ export const GroupSelect = () => {
         helperTextInvalid="Please select a group"
         isRequired
         onSelect={value =>
-          updateState({ groupId: value.toString(), adjacentResourceId: "" })
+          updateState({groupId: value.toString(), adjacentResourceId: ""})
         }
         selections={groupId}
         optionsValues={candidateGroupsIds}

@@ -9,10 +9,10 @@ import {
   DataListToggle,
   Modal,
 } from "@patternfly/react-core";
-import { TrashIcon } from "@patternfly/react-icons";
+import {TrashIcon} from "@patternfly/react-icons";
 
-import { Action } from "app/store";
-import { useDispatch, useSelectedClusterName } from "app/view/share";
+import {Action} from "app/store";
+import {useDispatch, useSelectedClusterName} from "app/view/share";
 
 export const ConstraintRow = ({
   id = "",
@@ -72,8 +72,8 @@ export const ConstraintRow = ({
                       dispatch(
                         deleteAction || {
                           type: "CONSTRAINT.DELETE",
-                          key: { clusterName },
-                          payload: { constraintId: id },
+                          key: {clusterName},
+                          payload: {constraintId: id},
                         },
                       );
                       setShowConfirm(false);

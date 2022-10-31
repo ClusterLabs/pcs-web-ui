@@ -1,7 +1,7 @@
-import { ReviewList, ReviewValue, TaskLibStep } from "app/view/share";
+import {ReviewList, ReviewValue, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { ReviewLink } from "./ReviewLink";
+import {useTask} from "./useTask";
+import {ReviewLink} from "./ReviewLink";
 
 export const Review = () => {
   const {
@@ -14,7 +14,7 @@ export const Review = () => {
       transportOptions,
       compressionOptions,
       cryptoOptions,
-      libCall: { reports },
+      libCall: {reports},
     },
   } = useTask();
   return (

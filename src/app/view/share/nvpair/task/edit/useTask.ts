@@ -1,11 +1,11 @@
-import { ActionPayload } from "app/store";
-import { useClusterTask } from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterTask} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("nvpairEdit");
-  const { dispatch, clusterName, state } = task;
+  const {dispatch, clusterName, state} = task;
 
-  const key = { clusterName, task: task.name };
+  const key = {clusterName, task: task.name};
   const integerIsExpectedAsValue =
     state.owner.type === "node-utilization"
     || state.owner.type === "resource-utilization";
@@ -37,7 +37,7 @@ export const useTask = () => {
     attrSet: () => {
       dispatch({
         type: "CLUSTER.NVPAIRS.SAVE",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           owner: state.owner,
           name: state.name,

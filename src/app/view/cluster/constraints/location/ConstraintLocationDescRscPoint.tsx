@@ -1,7 +1,7 @@
 // import { types } from "app/store";
 
-import { ConstraintLink } from "../common";
-import { ConstraintLocationNode, ConstraintLocationRule } from "../types";
+import {ConstraintLink} from "../common";
+import {ConstraintLocationNode, ConstraintLocationRule} from "../types";
 
 export const ConstraintLocationDescRscPoint = ({
   constraint,

@@ -1,7 +1,7 @@
 import React from "react";
 
-import { ExpansionToggle } from "./ExpansionToggle";
-import { ExpandedContent } from "./ExpandedContent";
+import {ExpansionToggle} from "./ExpansionToggle";
+import {ExpandedContent} from "./ExpandedContent";
 
 const useExpansion = ({
   contentSpan,
@@ -11,7 +11,7 @@ const useExpansion = ({
   const [expanded, setExpanded] = React.useState("");
 
   const Toggle = React.useCallback(
-    ({ expandKey, children, ...rest }) => (
+    ({expandKey, children, ...rest}) => (
       /* eslint-disable react/jsx-props-no-spreading */
       <ExpansionToggle
         expanded={expanded}
@@ -26,7 +26,7 @@ const useExpansion = ({
   );
 
   const Content = React.useCallback(
-    ({ expandKey, children }) =>
+    ({expandKey, children}) =>
       expanded !== expandKey ? null : (
         <ExpandedContent colSpan={contentSpan}>{children}</ExpandedContent>
       ),

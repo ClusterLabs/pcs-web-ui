@@ -1,6 +1,6 @@
 export const match = (path: string, pattern: string) => {
   if (path === "/") {
-    return ["/", "/*"].includes(pattern) ? { params: {}, matched: "/" } : null;
+    return ["/", "/*"].includes(pattern) ? {params: {}, matched: "/"} : null;
   }
 
   const pathElements = path.split("/");

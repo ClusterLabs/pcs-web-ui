@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { endpoint } from "./endpoint";
+import {endpoint} from "./endpoint";
 
 export const checkAuthAgainstNodes = endpoint({
   url: "/manage/check_auth_against_nodes",

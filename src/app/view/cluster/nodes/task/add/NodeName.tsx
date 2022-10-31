@@ -1,13 +1,13 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormText, TaskLibStep } from "app/view/share";
+import {FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const NodeName = () => {
   const {
     state: {
-      libCall: { reports },
+      libCall: {reports},
       nodeName,
       showValidationErrors,
     },

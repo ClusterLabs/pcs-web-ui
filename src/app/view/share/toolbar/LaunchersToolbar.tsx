@@ -1,10 +1,10 @@
 import React from "react";
-import { Toolbar, ToolbarContent, ToolbarItem } from "@patternfly/react-core";
+import {Toolbar, ToolbarContent, ToolbarItem} from "@patternfly/react-core";
 
-import { LauncherDropdown } from "./LauncherDropdown";
-import { LauncherToolbarButtonGroup } from "./LauncherToolbarButtonGroup";
-import { LauncherItem } from "./types";
-import { tryFirstButtonPrimary } from "./tools";
+import {LauncherDropdown} from "./LauncherDropdown";
+import {LauncherToolbarButtonGroup} from "./LauncherToolbarButtonGroup";
+import {LauncherItem} from "./types";
+import {tryFirstButtonPrimary} from "./tools";
 
 export const LaunchersToolbar = ({
   toolbarName,
@@ -20,8 +20,8 @@ export const LaunchersToolbar = ({
   after?: React.ReactNode;
 }) => {
   return (
-    <Toolbar style={{ padding: "0" }}>
-      <ToolbarContent style={{ padding: "0" }}>
+    <Toolbar style={{padding: "0"}}>
+      <ToolbarContent style={{padding: "0"}}>
         {before}
         {buttonsItems.length > 0 && (
           <ToolbarItem>

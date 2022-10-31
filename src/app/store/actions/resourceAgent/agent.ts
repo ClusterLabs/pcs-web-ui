@@ -1,9 +1,9 @@
-import { api, libClusterResourceAgentDescribeAgent } from "app/backend";
+import {api, libClusterResourceAgentDescribeAgent} from "app/backend";
 
 export type ResourceAgentAgentActions = {
   "RESOURCE_AGENT.LOAD": {
     type: "RESOURCE_AGENT.LOAD";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       agentName: string;
     };
@@ -11,18 +11,18 @@ export type ResourceAgentAgentActions = {
 
   "RESOURCE_AGENT.LOAD.SUCCESS": {
     type: "RESOURCE_AGENT.LOAD.SUCCESS";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       apiAgentMetadata: Extract<
         api.PayloadOf<typeof libClusterResourceAgentDescribeAgent>,
-        { status: "success" }
+        {status: "success"}
       >["data"];
     };
   };
 
   "RESOURCE_AGENT.LOAD.FAILED": {
     type: "RESOURCE_AGENT.LOAD.FAILED";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       agentName: string;
     };
@@ -30,7 +30,7 @@ export type ResourceAgentAgentActions = {
 
   "RESOURCE_AGENT.ENSURE": {
     type: "RESOURCE_AGENT.ENSURE";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       agentName: string;
     };

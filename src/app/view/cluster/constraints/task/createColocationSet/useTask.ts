@@ -1,4 +1,4 @@
-import { ActionPayload } from "app/store";
+import {ActionPayload} from "app/store";
 import {
   isValidScore,
   prepareScore,
@@ -10,7 +10,7 @@ type TrueFalse = "true" | "false";
 
 export const useTask = () => {
   const task = useClusterTask("constraintColocationSetCreate");
-  const { clusterName, dispatch, state, close } = task;
+  const {clusterName, dispatch, state, close} = task;
 
   const resourceSets = useResourceSets(task.name);
 
@@ -29,7 +29,7 @@ export const useTask = () => {
     ) =>
       dispatch({
         type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
 
@@ -40,19 +40,19 @@ export const useTask = () => {
       ) => {
         dispatch({
           type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET",
-          key: { clusterName },
-          payload: { index, set },
+          key: {clusterName},
+          payload: {index, set},
         });
       },
 
-    create: ({ force }: { force: boolean }) => {
+    create: ({force}: {force: boolean}) => {
       const score = prepareScore({
         score: state.score,
         isNegative: state.placement === "apart",
       });
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: "create constraint colocation set",
           call: {
@@ -60,12 +60,12 @@ export const useTask = () => {
             payload: {
               constraint_options: {
                 id: state.useCustomId ? state.id : undefined,
-                ...(score.length > 0 ? { score } : {}),
+                ...(score.length > 0 ? {score} : {}),
               },
               resource_set_list: state.sets.map(set => ({
                 ids: set.resources,
                 options: {
-                  ...(set.role !== "no limitation" ? { role: set.role } : {}),
+                  ...(set.role !== "no limitation" ? {role: set.role} : {}),
                   sequential: (set.sequential ? "true" : "false") as TrueFalse,
                 },
               })),
@@ -81,11 +81,11 @@ export const useTask = () => {
       close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
   };

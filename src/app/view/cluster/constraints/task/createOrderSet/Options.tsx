@@ -1,8 +1,8 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormCustomId, TaskLibStep } from "app/view/share";
+import {FormCustomId, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Options = () => {
   const {
@@ -10,7 +10,7 @@ export const Options = () => {
     isCustomIdValid,
     state: {
       id,
-      libCall: { reports },
+      libCall: {reports},
       useCustomId,
       showValidationErrors,
     },
@@ -21,8 +21,8 @@ export const Options = () => {
       <Form isHorizontal>
         <FormCustomId
           useCustomId={useCustomId}
-          onChangeUse={value => updateState({ useCustomId: value })}
-          onChangeId={value => updateState({ id: value })}
+          onChangeUse={value => updateState({useCustomId: value})}
+          onChangeId={value => updateState({id: value})}
           customId={id}
           showValidationErrors={showValidationErrors}
           isValid={isCustomIdValid}

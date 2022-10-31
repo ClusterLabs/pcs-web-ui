@@ -1,16 +1,12 @@
-import { Alert, AlertActionCloseButton } from "@patternfly/react-core";
+import {Alert, AlertActionCloseButton} from "@patternfly/react-core";
 
-import { useDispatch } from "app/view/share";
+import {useDispatch} from "app/view/share";
 
-import { Notification } from "./types";
-import { severityToVariant } from "./severityToVariant";
-import { Description } from "./Description";
+import {Notification} from "./types";
+import {severityToVariant} from "./severityToVariant";
+import {Description} from "./Description";
 
-export const ToastAlert = ({
-  notification,
-}: {
-  notification: Notification;
-}) => {
+export const ToastAlert = ({notification}: {notification: Notification}) => {
   const dispatch = useDispatch();
   const variant = severityToVariant(notification.severity);
   return (
@@ -23,7 +19,7 @@ export const ToastAlert = ({
           onClose={() =>
             dispatch({
               type: "NOTIFICATION.REMOVE_FROM_TOAST",
-              payload: { id: notification.id },
+              payload: {id: notification.id},
             })
           }
         />

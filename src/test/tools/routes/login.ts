@@ -1,4 +1,4 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
 export const login = ({
   username,
@@ -8,6 +8,6 @@ export const login = ({
   password: string;
 }) => ({
   url: endpoints.login.url,
-  body: { username, password },
+  body: {username, password},
   text: "ajax-id-not-important",
 });

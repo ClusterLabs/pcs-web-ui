@@ -1,4 +1,4 @@
-import { intercept, location, route } from "test/tools";
+import {intercept, location, route} from "test/tools";
 import * as workflow from "test/workflow";
 
 const {
@@ -33,8 +33,8 @@ describe("Import existng cluster", () => {
   it("should import cluster", async () => {
     intercept.run([
       route.importedClusterList(),
-      route.checkAuthAgainstNodes({ nodeNameList: [nodeName] }),
-      route.existingCluster({ nodeName }),
+      route.checkAuthAgainstNodes({nodeNameList: [nodeName]}),
+      route.existingCluster({nodeName}),
     ]);
     await openTask();
     await fillNodeName(nodeName);
@@ -50,12 +50,12 @@ describe("Import existng cluster", () => {
       route.importedClusterList(),
       route.checkAuthAgainstNodes({
         nodeNameList: [nodeName],
-        response: { json: { [nodeName]: "Unable to authenticate" } },
+        response: {json: {[nodeName]: "Unable to authenticate"}},
       }),
       route.authGuiAgainstNodes({
-        [nodeName]: { password, dest_list: [{ addr, port }] },
+        [nodeName]: {password, dest_list: [{addr, port}]},
       }),
-      route.existingCluster({ nodeName }),
+      route.existingCluster({nodeName}),
     ]);
     await openTask();
     await fillNodeName(nodeName);
@@ -71,10 +71,10 @@ describe("Import existng cluster", () => {
   it("should display error on backend error", async () => {
     intercept.run([
       route.importedClusterList(),
-      route.checkAuthAgainstNodes({ nodeNameList: [nodeName] }),
+      route.checkAuthAgainstNodes({nodeNameList: [nodeName]}),
       route.existingCluster({
         nodeName,
-        response: { status: [400, "Configuration conflict detected."] },
+        response: {status: [400, "Configuration conflict detected."]},
       }),
     ]);
     await openTask();

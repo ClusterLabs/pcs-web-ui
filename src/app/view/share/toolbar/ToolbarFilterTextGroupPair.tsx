@@ -1,10 +1,10 @@
 import React from "react";
 
-import { ToolbarFilterAction } from "./ToolbarFilterActions";
-import { ToolbarFilterGroups } from "./ToolbarFilterGroups";
-import { ToolbarItem } from "./ToolbarItem";
-import { ToolbarTextSearchFilter } from "./ToolbarTextSearchFilter";
-import { LauncherItem } from "./types";
+import {ToolbarFilterAction} from "./ToolbarFilterActions";
+import {ToolbarFilterGroups} from "./ToolbarFilterGroups";
+import {ToolbarItem} from "./ToolbarItem";
+import {ToolbarTextSearchFilter} from "./ToolbarTextSearchFilter";
+import {LauncherItem} from "./types";
 
 type FilterState = {
   groupState: React.ComponentProps<typeof ToolbarFilterGroups>["filterState"];

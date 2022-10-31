@@ -1,8 +1,8 @@
-import { Alert, Form } from "@patternfly/react-core";
+import {Alert, Form} from "@patternfly/react-core";
 
-import { FormSwitch, FormText, TaskLibStep } from "app/view/share";
+import {FormSwitch, FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Sbd = () => {
   const {
@@ -12,10 +12,10 @@ export const Sbd = () => {
       sbdWatchdog,
       sbdDevices,
       sbdNoWatchdogValidation,
-      libCall: { reports },
+      libCall: {reports},
     },
   } = useTask();
-  const changeWatchdog = (value: string) => updateState({ sbdWatchdog: value });
+  const changeWatchdog = (value: string) => updateState({sbdWatchdog: value});
   const changeDevice = (index: number, value: string) =>
     updateState({
       sbdDevices: sbdDevices.map((device, i) =>
@@ -56,7 +56,7 @@ export const Sbd = () => {
               ),
             }}
             isChecked={sbdNoWatchdogValidation}
-            onChange={c => updateState({ sbdNoWatchdogValidation: c })}
+            onChange={c => updateState({sbdNoWatchdogValidation: c})}
           />
           <Alert
             variant="info"

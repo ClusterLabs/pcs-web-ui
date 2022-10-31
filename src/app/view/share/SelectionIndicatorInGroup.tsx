@@ -1,4 +1,4 @@
-import { ArrowCircleRightIcon } from "@patternfly/react-icons";
+import {ArrowCircleRightIcon} from "@patternfly/react-icons";
 
 export const SelectionIndicatorInGroup = ({
   isSelected,

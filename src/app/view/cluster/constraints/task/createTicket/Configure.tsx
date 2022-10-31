@@ -1,8 +1,8 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormCustomId, FormRadios, FormSelect, FormText } from "app/view/share";
+import {FormCustomId, FormRadios, FormSelect, FormText} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Configure = () => {
   const {
@@ -27,7 +27,7 @@ export const Configure = () => {
       <FormText
         id="constraint-ticket"
         label="Ticket"
-        onChange={value => updateState({ ticket: value })}
+        onChange={value => updateState({ticket: value})}
         value={ticket}
         helperTextInvalid="Please provide ticket"
         showValidationErrors={showValidationErrors}
@@ -53,7 +53,7 @@ export const Configure = () => {
         label="Loss policy"
         options={["stop", "fence", "freeze", "demote"]}
         selected={lossPolicy}
-        onChange={value => updateState({ lossPolicy: value })}
+        onChange={value => updateState({lossPolicy: value})}
         popover={{
           header: (
             <>
@@ -100,7 +100,7 @@ export const Configure = () => {
         isValid={isResourceValid}
         helperTextInvalid="Please select a resource"
         isRequired
-        onSelect={value => updateState({ resourceId: value.toString() })}
+        onSelect={value => updateState({resourceId: value.toString()})}
         selections={resourceId}
         optionsValues={resourceIdList}
       />
@@ -117,7 +117,7 @@ export const Configure = () => {
           "Unpromoted",
         ]}
         selected={role}
-        onChange={value => updateState({ role: value })}
+        onChange={value => updateState({role: value})}
         popover={{
           header: "Role",
           body: <>Limit the effect of the constraint to the specified role.</>,
@@ -126,8 +126,8 @@ export const Configure = () => {
 
       <FormCustomId
         useCustomId={useCustomId}
-        onChangeUse={value => updateState({ useCustomId: value })}
-        onChangeId={value => updateState({ id: value })}
+        onChangeUse={value => updateState({useCustomId: value})}
+        onChangeId={value => updateState({id: value})}
         customId={id}
         showValidationErrors={showValidationErrors}
         isValid={isCustomIdValid}

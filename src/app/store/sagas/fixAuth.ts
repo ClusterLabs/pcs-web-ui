@@ -1,28 +1,28 @@
-import { fixAuthOfCluster } from "app/backend";
-import { ActionMap, actionNewId } from "app/store";
+import {fixAuthOfCluster} from "app/backend";
+import {ActionMap, actionNewId} from "app/store";
 
-import { api, call, put, race, take } from "./common";
-import { nodeAuthWait } from "./nodeAuth";
+import {api, call, put, race, take} from "./common";
+import {nodeAuthWait} from "./nodeAuth";
 
 export function* fixAuth({
   key,
-  payload: { initialNodeList },
+  payload: {initialNodeList},
 }: ActionMap["CLUSTER.FIX_AUTH.START"]) {
   const authProcessId = actionNewId();
 
   yield put({
     type: "NODE.AUTH.START",
-    key: { process: authProcessId },
-    payload: { initialNodeList },
+    key: {process: authProcessId},
+    payload: {initialNodeList},
   });
 
   yield put({
     type: "CLUSTER.FIX_AUTH.AUTH_STARTED",
     key,
-    payload: { authProcessId },
+    payload: {authProcessId},
   });
 
-  const { cancel } = yield race({
+  const {cancel} = yield race({
     auth: call(nodeAuthWait, authProcessId),
     cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
   });
@@ -36,18 +36,17 @@ export function* fixAuth({
 
   yield put({
     type: "NODE.AUTH.STOP",
-    key: { process: authProcessId },
+    key: {process: authProcessId},
   });
 }
 
 export function* fixAuthDistribute({
   key,
 }: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
-  const { result }: { result: api.ResultOf<typeof fixAuthOfCluster> } =
-    yield race({
-      result: api.authSafe(fixAuthOfCluster, key.clusterName),
-      cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
-    });
+  const {result}: {result: api.ResultOf<typeof fixAuthOfCluster>} = yield race({
+    result: api.authSafe(fixAuthOfCluster, key.clusterName),
+    cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
+  });
 
   if (!result) {
     return;
@@ -57,7 +56,7 @@ export function* fixAuthDistribute({
     yield put({
       type: "CLUSTER.FIX_AUTH.FAIL",
       key,
-      payload: { message: result.text },
+      payload: {message: result.text},
     });
     return;
   }
@@ -70,7 +69,7 @@ export function* fixAuthDistribute({
         put({
           type: "CLUSTER.FIX_AUTH.ERROR",
           key,
-          payload: { message: api.errorMessage(result, taskLabel) },
+          payload: {message: api.errorMessage(result, taskLabel)},
         }),
       useNotification: false,
     });

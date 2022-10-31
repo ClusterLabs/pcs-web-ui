@@ -5,4 +5,5 @@ module.exports = {
   semi: true,
   bracketSameLine: false,
   arrowParens: "avoid",
+  bracketSpacing: false,
 };

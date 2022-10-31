@@ -1,7 +1,7 @@
 import React from "react";
-import { Switch } from "@patternfly/react-core";
+import {Switch} from "@patternfly/react-core";
 
-import { FormGroup } from "./FormGroup";
+import {FormGroup} from "./FormGroup";
 
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
 type SwitchProps = React.ComponentProps<typeof Switch>;

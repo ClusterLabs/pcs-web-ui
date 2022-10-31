@@ -5,10 +5,10 @@ import {
   WrenchIcon,
 } from "@patternfly/react-icons";
 
-import { selectors } from "app/store";
-import { EmptyStateNoItem, Table, useClusterSelector } from "app/view/share";
+import {selectors} from "app/store";
+import {EmptyStateNoItem, Table, useClusterSelector} from "app/view/share";
 
-const SuccessIcon = ({ label }: { label: string }) => {
+const SuccessIcon = ({label}: {label: string}) => {
   return (
     <>
       <CheckCircleIcon className="ha-u-status-success" />

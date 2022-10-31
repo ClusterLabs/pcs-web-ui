@@ -1,13 +1,11 @@
-import { api, libCallCluster } from "app/backend";
+import {api, libCallCluster} from "app/backend";
 
 /* eslint-disable no-console */
 
 type LibPayload = api.PayloadOf<typeof libCallCluster>;
 type CommunicationError = Extract<
   LibPayload,
-  | { status: "input_error" }
-  | { status: "exception" }
-  | { status: "unknown_cmd" }
+  {status: "input_error"} | {status: "exception"} | {status: "unknown_cmd"}
 >;
 
 const libInputErrorStatusMsgMap: Record<CommunicationError["status"], string> =
@@ -51,7 +49,7 @@ export const errorMessage = (
       return `${description}:\nServer returned http status: 401 (Unauthorized)`;
 
     default: {
-      const { type } = result;
+      const {type} = result;
       const _exhaustiveCheck: never = type;
       throw new Error(`Unexpected result type: "${_exhaustiveCheck}"`);
     }
@@ -83,7 +81,7 @@ export const error = (
       break;
 
     default: {
-      const { type } = result;
+      const {type} = result;
       const _exhaustiveCheck: never = type;
       throw new Error(`Unexpected result type: "${_exhaustiveCheck}"`);
     }

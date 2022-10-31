@@ -1,6 +1,6 @@
-import { CallResult, endpoints, http } from "./tools";
+import {CallResult, endpoints, http} from "./tools";
 
-const { url } = endpoints.sendKnownHosts;
+const {url} = endpoints.sendKnownHosts;
 
 export const sendKnownHosts = async (
   clusterName: string,
@@ -8,7 +8,7 @@ export const sendKnownHosts = async (
 ): CallResult => {
   const uniqueNodeList = Array.from(new Set(nodeList));
 
-  return http.post(url({ clusterName }), {
+  return http.post(url({clusterName}), {
     params: uniqueNodeList.map(node => ["node_names[]", node]),
   });
 };

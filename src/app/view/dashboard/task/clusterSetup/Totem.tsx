@@ -1,6 +1,6 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { clusterSetup } from "app/backend";
+import {clusterSetup} from "app/backend";
 import {
   FormRadios,
   FormText,
@@ -8,7 +8,7 @@ import {
   help as helpAll,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 const help = helpAll.corosync.totem;
 
@@ -24,7 +24,7 @@ const TotemFormText = ({
 }) => {
   const {
     updateTotemOptions,
-    state: { totemOptions },
+    state: {totemOptions},
   } = useTask();
   return (
     <FormText
@@ -32,7 +32,7 @@ const TotemFormText = ({
       id={`cluster-setup-totem-${optionName}`}
       popover={help[optionName]}
       value={totemOptions[optionName] || ""}
-      onChange={value => updateTotemOptions({ [optionName]: value })}
+      onChange={value => updateTotemOptions({[optionName]: value})}
       data-test={`totem.${optionName}`}
     />
   );
@@ -42,7 +42,7 @@ export const Totem = () => {
   const {
     allReports,
     updateTotemOptions,
-    state: { totemOptions },
+    state: {totemOptions},
   } = useTask();
   return (
     <TaskLibStep title="Totem" reports={allReports}>
@@ -53,7 +53,7 @@ export const Totem = () => {
           popover={help.block_unlisted_ips}
           options={["yes", "no", "default"]}
           selected={totemOptions.block_unlisted_ips}
-          onChange={value => updateTotemOptions({ block_unlisted_ips: value })}
+          onChange={value => updateTotemOptions({block_unlisted_ips: value})}
           data-test="totem.block_unlisted_ips"
         />
 

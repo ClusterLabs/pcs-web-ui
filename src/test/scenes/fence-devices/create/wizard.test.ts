@@ -1,6 +1,6 @@
 import * as responses from "dev/responses";
 
-import { intercept, location, route, shortcuts } from "test/tools";
+import {intercept, location, route, shortcuts} from "test/tools";
 import * as workflow from "test/workflow";
 
 const fenceDeviceName = "F1";
@@ -19,7 +19,7 @@ const {
 } = workflow.task.fenceDeviceCreate;
 
 const openTask = async () => {
-  await page.goto(location.fenceDeviceList({ clusterName }));
+  await page.goto(location.fenceDeviceList({clusterName}));
   await open();
 };
 
@@ -39,14 +39,14 @@ describe("Fence device create task", () => {
           clusterName,
           fenceDeviceName,
           agentName,
-          instanceAttrs: { ip, username },
+          instanceAttrs: {ip, username},
         }),
       ],
     });
     await openTask();
     await fillNameAndAgent(fenceDeviceName, agentName);
     await nextFrom("Name and type");
-    await fillAttributes({ ip, username });
+    await fillAttributes({ip, username});
     await nextFrom("Instance attributes");
     await nextFrom("Settings");
     await assertReview({

@@ -1,4 +1,4 @@
-import { endpoint } from "./endpoint";
+import {endpoint} from "./endpoint";
 
 export const rememberCluster = endpoint({
   url: "/manage/remember-cluster",

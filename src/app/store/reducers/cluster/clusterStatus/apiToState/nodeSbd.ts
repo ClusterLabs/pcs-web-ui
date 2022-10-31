@@ -1,18 +1,18 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
-import { Cluster } from "../types";
+import {Cluster} from "../types";
 
 type ApiNodeWithData = Exclude<
   ActionPayload["CLUSTER.STATUS.FETCH.OK"]["node_list"][number],
-  { status: "unknown" }
+  {status: "unknown"}
 >;
 type Sbd = Exclude<
   Cluster["nodeList"][number],
-  { status: "DATA_NOT_PROVIDED" }
+  {status: "DATA_NOT_PROVIDED"}
 >["sbd"];
 
 export const apiToNodeSbd = (apiNode: ApiNodeWithData): Sbd => {
-  const { sbd_config } = apiNode;
+  const {sbd_config} = apiNode;
 
   if (sbd_config === null) {
     return undefined;

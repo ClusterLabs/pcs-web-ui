@@ -1,9 +1,4 @@
-import {
-  Form,
-  FormFieldGroup,
-  Text,
-  TextContent,
-} from "@patternfly/react-core";
+import {Form, FormFieldGroup, Text, TextContent} from "@patternfly/react-core";
 
 import {
   FormRadios,
@@ -13,7 +8,7 @@ import {
   help as helpAll,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 const help = helpAll.knet;
 
@@ -26,7 +21,7 @@ export const TransportOptions = () => {
     updateTransportOptions,
     updateCompressionOptions,
     updateCryptoOptions,
-    state: { transportOptions, compressionOptions, cryptoOptions },
+    state: {transportOptions, compressionOptions, cryptoOptions},
   } = useTask();
   return (
     <TaskLibStep title="Transport options" reports={allReports}>
@@ -57,7 +52,7 @@ export const TransportOptions = () => {
             popover={help.options.knet_pmtud_interval}
             value={transportOptions.knet_pmtud_interval}
             onChange={value =>
-              updateTransportOptions({ knet_pmtud_interval: value })
+              updateTransportOptions({knet_pmtud_interval: value})
             }
             data-test="knet_pmtud_interval"
           />
@@ -88,7 +83,7 @@ export const TransportOptions = () => {
             id={`${ID_PREFIX_COMPRESSION}-model`}
             popover={help.compression.model}
             value={compressionOptions.model}
-            onChange={value => updateCompressionOptions({ model: value })}
+            onChange={value => updateCompressionOptions({model: value})}
             data-test="model"
           />
 
@@ -97,7 +92,7 @@ export const TransportOptions = () => {
             id={`${ID_PREFIX_COMPRESSION}-threshold`}
             popover={help.compression.threshold}
             value={compressionOptions.threshold}
-            onChange={value => updateCompressionOptions({ threshold: value })}
+            onChange={value => updateCompressionOptions({threshold: value})}
             data-test="threshold"
           />
 
@@ -106,7 +101,7 @@ export const TransportOptions = () => {
             id={`${ID_PREFIX_COMPRESSION}-level`}
             popover={help.compression.level}
             value={compressionOptions.level}
-            onChange={value => updateCompressionOptions({ level: value })}
+            onChange={value => updateCompressionOptions({level: value})}
             data-test="level"
           />
         </FormFieldGroup>
@@ -120,7 +115,7 @@ export const TransportOptions = () => {
             popover={help.crypto.model}
             options={["nss", "openssl", "default"]}
             selected={cryptoOptions.model}
-            onChange={value => updateCryptoOptions({ model: value })}
+            onChange={value => updateCryptoOptions({model: value})}
             data-test="crypto.model"
           />
 

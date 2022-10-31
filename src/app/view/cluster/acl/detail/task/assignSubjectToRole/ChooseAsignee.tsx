@@ -1,9 +1,9 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { tools } from "app/store";
-import { FormSelect } from "app/view/share";
+import {tools} from "app/store";
+import {FormSelect} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const ChooseAsignee = () => {
   const {
@@ -12,7 +12,7 @@ export const ChooseAsignee = () => {
     itemsOffer,
     assigneeType,
     assigneeId,
-    state: { showValidationErrors },
+    state: {showValidationErrors},
   } = useTask();
 
   if (itemsOffer.length === 0) {
@@ -20,7 +20,7 @@ export const ChooseAsignee = () => {
   }
 
   return (
-    <Form style={{ marginBottom: "8em" }}>
+    <Form style={{marginBottom: "8em"}}>
       <FormSelect
         id="acl-assignee-select"
         label={`${tools.labelize(assigneeType)} name`}

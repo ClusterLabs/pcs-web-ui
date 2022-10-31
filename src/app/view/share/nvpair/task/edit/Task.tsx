@@ -1,14 +1,14 @@
-import { tools } from "app/store";
+import {tools} from "app/store";
 import {
   TaskSimple,
   TaskSimpleFinish,
   TaskSimpleFooter,
 } from "app/view/share/task";
 
-import { useTask } from "./useTask";
-import { Configure } from "./Configure";
+import {useTask} from "./useTask";
+import {Configure} from "./Configure";
 
-const { labelize, getNVPairTypeLabel } = tools;
+const {labelize, getNVPairTypeLabel} = tools;
 
 export const Task = () => {
   const {
@@ -20,7 +20,7 @@ export const Task = () => {
     isNameUsed,
     isValueValid,
     state: {
-      call: { response, resultMessage },
+      call: {response, resultMessage},
       type,
       owner,
     },

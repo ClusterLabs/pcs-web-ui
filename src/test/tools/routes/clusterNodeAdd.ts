@@ -1,6 +1,6 @@
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
-import { libCluster } from "./libCluster";
+import {libCluster} from "./libCluster";
 
 export const clusterNodeAdd = (
   clusterName: string,
@@ -18,7 +18,7 @@ export const clusterNodeAdd = (
     clusterName,
     name: "cluster-add-nodes",
     payload: {
-      nodes: [{ name: nodeName }],
+      nodes: [{name: nodeName}],
       no_watchdog_validation: false,
       force_flags: [],
     },

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,11 +8,11 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { Page, PageSectionDataLoading, useDispatch } from "app/view/share";
+import {selectors} from "app/store";
+import {Page, PageSectionDataLoading, useDispatch} from "app/view/share";
 
-import { DashboardClusterList } from "./clusterList";
-import { DashboardToolbar } from "./DashboardToolbar";
+import {DashboardClusterList} from "./clusterList";
+import {DashboardToolbar} from "./DashboardToolbar";
 
 const useDashboardSync = () => {
   const dispatch = useDispatch();
@@ -22,8 +22,8 @@ const useDashboardSync = () => {
       payload: [
         {
           specificator: "syncDashboard",
-          start: { type: "CLUSTER.LIST.SYNC" },
-          stop: { type: "CLUSTER.LIST.SYNC.STOP" },
+          start: {type: "CLUSTER.LIST.SYNC"},
+          stop: {type: "CLUSTER.LIST.SYNC.STOP"},
         },
       ],
     });
@@ -44,7 +44,7 @@ export const DashboardApp = () => {
             <Breadcrumb>
               <BreadcrumbItem
                 isActive
-                onClick={() => dispatch({ type: "CLUSTER.LIST.REFRESH" })}
+                onClick={() => dispatch({type: "CLUSTER.LIST.REFRESH"})}
               >
                 Clusters
               </BreadcrumbItem>

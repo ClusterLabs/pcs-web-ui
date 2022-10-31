@@ -1,4 +1,4 @@
-import { useDispatch } from "app/view/share/useDispatch";
+import {useDispatch} from "app/view/share/useDispatch";
 
 export const useRunWithValidation = ({
   run,
@@ -16,13 +16,13 @@ export const useRunWithValidation = ({
     if (runIf) {
       dispatch({
         type: "TASK.VALIDATION.HIDE",
-        key: { clusterName, task },
+        key: {clusterName, task},
       });
       run();
     } else {
       dispatch({
         type: "TASK.VALIDATION.SHOW",
-        key: { clusterName, task },
+        key: {clusterName, task},
       });
     }
   };

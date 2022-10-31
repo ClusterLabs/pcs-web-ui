@@ -1,7 +1,7 @@
-import { endpoint } from "./endpoint";
+import {endpoint} from "./endpoint";
 
 export const addNodeAttrRemote = endpoint({
-  url: ({ clusterName }: { clusterName: string }) =>
+  url: ({clusterName}: {clusterName: string}) =>
     `/managec/${clusterName}/add_node_attr_remote`,
   method: "post",
   params: ({

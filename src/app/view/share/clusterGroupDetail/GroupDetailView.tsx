@@ -1,12 +1,12 @@
-import { PageSection } from "@patternfly/react-core";
+import {PageSection} from "@patternfly/react-core";
 
-import { Router, useLocation, useRoute, useRouter } from "app/view/share";
+import {Router, useLocation, useRoute, useRouter} from "app/view/share";
 
-import { GroupDetailViewContextProvider } from "./GroupDetailViewContext";
+import {GroupDetailViewContextProvider} from "./GroupDetailViewContext";
 
 // string[] & { 0: string; 1: string } means list of string with at least two
 // items
-type DetailTypeList = (string[] & { 0: string; 1: string }) | undefined;
+type DetailTypeList = (string[] & {0: string; 1: string}) | undefined;
 type RouteMatch = ReturnType<typeof useRoute>;
 
 const detailTypeMatch = (
@@ -36,8 +36,8 @@ export const GroupDetailView = ({
   const detail = useRoute(
     detailTypeList ? "/:detailType/:detailUrlName/*" : "/:detailUrlName/*",
   );
-  const { base } = useRouter();
-  const { navigate } = useLocation();
+  const {base} = useRouter();
+  const {navigate} = useLocation();
   const closeDetailUrl = () => navigate(`~${base}`);
 
   if (detailMatch(detail, detailTypeList)) {

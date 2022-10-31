@@ -1,15 +1,15 @@
 import React from "react";
-import { DualListSelector, Form as PfForm } from "@patternfly/react-core";
+import {DualListSelector, Form as PfForm} from "@patternfly/react-core";
 
-import { FormText, TaskLibReports } from "app/view/share";
+import {FormText, TaskLibReports} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Form = () => {
   const {
     updateState,
     availableResources,
-    state: { groupId, showValidationErrors, resourceIdList, reports },
+    state: {groupId, showValidationErrors, resourceIdList, reports},
   } = useTask();
 
   const onListChange = (
@@ -29,7 +29,7 @@ export const Form = () => {
         <FormText
           id="new-group-name"
           label="Group name"
-          onChange={value => updateState({ groupId: value })}
+          onChange={value => updateState({groupId: value})}
           value={groupId}
           helperTextInvalid="Please provide a group name"
           isRequired

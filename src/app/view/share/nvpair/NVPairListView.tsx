@@ -1,12 +1,12 @@
-import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector } from "app/view/share/useClusterSelector";
+import {ActionPayload, selectors} from "app/store";
+import {useClusterSelector} from "app/view/share/useClusterSelector";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
 } from "app/view/share/emptyState";
-import { NVPair } from "app/view/cluster/types";
+import {NVPair} from "app/view/cluster/types";
 
-import { NVPairList } from "./NVPairList";
+import {NVPairList} from "./NVPairList";
 
 export const NVPairListView = ({
   nvPairList,

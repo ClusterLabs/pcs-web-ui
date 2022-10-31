@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, FlexItem, Radio } from "@patternfly/react-core";
+import {Flex, FlexItem, Radio} from "@patternfly/react-core";
 
 export function FormRadioGroup<OPTION extends string>({
   id,

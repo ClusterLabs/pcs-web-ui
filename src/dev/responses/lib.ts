@@ -1,9 +1,9 @@
-import { api, libCallCluster } from "app/backend";
+import {api, libCallCluster} from "app/backend";
 
 type Response = api.PayloadOf<typeof libCallCluster>;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const success = (props: { data?: any } = { data: null }): Response => ({
+export const success = (props: {data?: any} = {data: null}): Response => ({
   status: "success",
   report_list: [],
   data: props.data,
@@ -39,7 +39,7 @@ export const invalidJson = (message: string): Response => ({
 });
 
 export const error = (
-  reportList: Extract<Response, { status: "error" }>["report_list"],
+  reportList: Extract<Response, {status: "error"}>["report_list"],
 ): Response => ({
   status: "error",
   report_list: reportList,

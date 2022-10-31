@@ -1,22 +1,22 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
-import { Cluster } from "../../types";
-import { transformIssues } from "../issues";
+import {Cluster} from "../../types";
+import {transformIssues} from "../issues";
 
-import { toPrimitive } from "./primitive";
-import { toFenceDevice } from "./fenceDevice";
-import { toGroup } from "./group";
-import { buildStatus, statusToSeverity } from "./statusInfoList";
+import {toPrimitive} from "./primitive";
+import {toFenceDevice} from "./fenceDevice";
+import {toGroup} from "./group";
+import {buildStatus, statusToSeverity} from "./statusInfoList";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 type ApiResource = ApiCluster["resource_list"][number];
-type ApiClone = Extract<ApiResource, { class_type: "clone" }>;
+type ApiClone = Extract<ApiResource, {class_type: "clone"}>;
 type ApiPrimitive = Extract<
   ApiResource,
-  { class_type: "primitive"; stonith: false }
+  {class_type: "primitive"; stonith: false}
 >;
 
-type Clone = Extract<Cluster["resourceTree"][number], { itemType: "clone" }>;
+type Clone = Extract<Cluster["resourceTree"][number], {itemType: "clone"}>;
 
 const buildStatusInfoList = (
   apiClone: ApiClone,
@@ -55,11 +55,11 @@ export const toClone = (
     if (apiClone.member.stonith) {
       member = toFenceDevice(apiClone.member);
     } else {
-      member = toPrimitive(apiClone.member, { inClone: true, inGroup: null });
+      member = toPrimitive(apiClone.member, {inClone: true, inGroup: null});
       apiPrimitiveList = [apiClone.member];
     }
   } else {
-    ({ apiPrimitiveList, group: member } = toGroup(apiClone.member, {
+    ({apiPrimitiveList, group: member} = toGroup(apiClone.member, {
       inClone: true,
     }));
   }

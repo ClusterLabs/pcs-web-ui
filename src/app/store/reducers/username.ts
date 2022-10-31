@@ -1,4 +1,4 @@
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 export const username: AppReducer<string> = (state = "", action) => {
   switch (action.type) {

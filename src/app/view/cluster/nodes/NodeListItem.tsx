@@ -5,8 +5,8 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import { Link } from "app/view/share";
-import { Node } from "app/view/cluster/types";
+import {Link} from "app/view/share";
+import {Node} from "app/view/cluster/types";
 import {
   SelectionIndicatorInGroup,
   StatusSign,
@@ -14,8 +14,8 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-export const NodeListItem = ({ node }: { node: Node }) => {
-  const { selectedItemUrlName } = useGroupDetailViewContext();
+export const NodeListItem = ({node}: {node: Node}) => {
+  const {selectedItemUrlName} = useGroupDetailViewContext();
   return (
     <DataListItem aria-labelledby={node.name}>
       <DataListItemRow data-test={`node-list-item ${node.name}`}>

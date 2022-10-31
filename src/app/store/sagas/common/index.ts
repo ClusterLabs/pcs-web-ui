@@ -4,7 +4,7 @@ import * as apiCall from "./apiCall";
 import * as api from "./api";
 import * as log from "./log";
 
-export { lib, log, dataLoad, api, apiCall };
+export {lib, log, dataLoad, api, apiCall};
 
 export * from "./effects";
 export * from "./apiCall";

@@ -1,6 +1,6 @@
-import { StackItem } from "@patternfly/react-core";
+import {StackItem} from "@patternfly/react-core";
 
-import { FenceDevice } from "app/view/cluster/types";
+import {FenceDevice} from "app/view/cluster/types";
 import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
@@ -19,9 +19,9 @@ export const FenceDeviceArgumentsView = ({
   fenceDevice: FenceDevice;
 }) => {
   const clusterName = useSelectedClusterName();
-  const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState();
+  const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   const fenceDeviceArguments = Object.entries(fenceDevice.arguments).reduce(
-    (nameValueMap, [name, { value }]) => ({ ...nameValueMap, [name]: value }),
+    (nameValueMap, [name, {value}]) => ({...nameValueMap, [name]: value}),
     {},
   );
 
@@ -52,7 +52,7 @@ export const FenceDeviceArgumentsView = ({
                       useTask: task.editArgs.useTask,
                       openArgs: editArgsOpenArgs,
                     },
-                    button: { variant: "primary" },
+                    button: {variant: "primary"},
                   },
                 ]}
               />

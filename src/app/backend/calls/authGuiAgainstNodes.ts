@@ -1,6 +1,6 @@
-import { CallResult, endpoints, http, t, validate } from "./tools";
+import {CallResult, endpoints, http, t, validate} from "./tools";
 
-const { url, shape, params } = endpoints.authGuiAgainstNodes;
+const {url, shape, params} = endpoints.authGuiAgainstNodes;
 
 export const authGuiAgainstNodes = async (
   nodeMap: Parameters<typeof params>[0],

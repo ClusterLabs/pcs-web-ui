@@ -2,11 +2,11 @@ import {
   getClusterPropertiesDefinition,
   updateClusterSettings,
 } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {ActionMap} from "app/store/actions";
 
-import { api, processClusterResultBasic, put } from "./common";
+import {api, processClusterResultBasic, put} from "./common";
 
-export function* load({ key }: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
+export function* load({key}: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
   const result: api.ResultOf<typeof getClusterPropertiesDefinition> =
     yield api.authSafe(getClusterPropertiesDefinition, key.clusterName);
 
@@ -25,17 +25,17 @@ export function* load({ key }: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
   yield put({
     type: "CLUSTER.PROPERTIES.LOAD.OK",
     key,
-    payload: { apiClusterProperties: result.payload },
+    payload: {apiClusterProperties: result.payload},
   });
 }
 
 export function* update({
-  key: { clusterName },
-  payload: { propertyMap },
+  key: {clusterName},
+  payload: {propertyMap},
 }: ActionMap["CLUSTER.PROPERTIES.UPDATE"]) {
   const result: api.ResultOf<typeof updateClusterSettings> = yield api.authSafe(
     updateClusterSettings,
-    { clusterName, settingsMap: propertyMap },
+    {clusterName, settingsMap: propertyMap},
   );
 
   yield processClusterResultBasic(

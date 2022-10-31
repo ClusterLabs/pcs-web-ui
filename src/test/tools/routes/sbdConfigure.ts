@@ -1,12 +1,12 @@
-import { LibClusterCommands } from "app/backend/endpoints";
+import {LibClusterCommands} from "app/backend/endpoints";
 
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
-import { libCluster } from "./libCluster";
+import {libCluster} from "./libCluster";
 
 type SbdEnablePayload = Extract<
   LibClusterCommands[number],
-  { name: "sbd-enable-sbd" }
+  {name: "sbd-enable-sbd"}
 >["payload"];
 
 export const sbdConfigure = ({

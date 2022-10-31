@@ -1,4 +1,4 @@
-import { ResourceStatus } from "app/view/cluster/types";
+import {ResourceStatus} from "app/view/cluster/types";
 import {
   ResourceStatusInfoListSigns,
   StatusIco,
@@ -6,7 +6,7 @@ import {
 } from "app/view/share";
 
 type StatusSeverity = ResourceStatus["infoList"][number]["severity"];
-type SeverityCount = { severity: StatusSeverity; count: number };
+type SeverityCount = {severity: StatusSeverity; count: number};
 
 const getSeverityCounts = (
   statusInfoList: ResourceStatus["infoList"],
@@ -33,12 +33,8 @@ const getSeverityCounts = (
     }));
 };
 
-export const ResourceTreeCellStatus = ({
-  status,
-}: {
-  status: ResourceStatus;
-}) => {
-  const { compact } = useGroupDetailViewContext();
+export const ResourceTreeCellStatus = ({status}: {status: ResourceStatus}) => {
+  const {compact} = useGroupDetailViewContext();
   if (compact) {
     return (
       <>

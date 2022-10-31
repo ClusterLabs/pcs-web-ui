@@ -1,7 +1,7 @@
 import React from "react";
 
-import { selectors } from "app/store";
-import { useClusterSelector, useDispatch } from "app/view/share";
+import {selectors} from "app/store";
+import {useClusterSelector, useDispatch} from "app/view/share";
 
 export const useClusterFenceAgent = (agentName: string) => {
   const [fenceAgent, cluster] = useClusterSelector(
@@ -13,8 +13,8 @@ export const useClusterFenceAgent = (agentName: string) => {
     if (!fenceAgent) {
       dispatch({
         type: "FENCE_AGENT.LOAD",
-        key: { clusterName: cluster },
-        payload: { agentName },
+        key: {clusterName: cluster},
+        payload: {agentName},
       });
     }
   }, [agentName, cluster, dispatch, fenceAgent]);

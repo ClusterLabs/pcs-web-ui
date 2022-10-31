@@ -1,7 +1,7 @@
-import { Router, useRoute } from "app/view/share";
+import {Router, useRoute} from "app/view/share";
 
-import { ClusterApp } from "./cluster";
-import { DashboardApp } from "./dashboard";
+import {ClusterApp} from "./cluster";
+import {DashboardApp} from "./dashboard";
 
 export const AppRouter = () => {
   const cluster = useRoute("/cluster/:name/*");

@@ -1,7 +1,7 @@
-import { clusterStatusDefault } from "app/store/reducers";
+import {clusterStatusDefault} from "app/store/reducers";
 
-import { Cluster, Root } from "./types";
-import { clusterAreDataLoaded, getCluster } from "./cluster";
+import {Cluster, Root} from "./types";
+import {clusterAreDataLoaded, getCluster} from "./cluster";
 
 type ClusterMap<T extends string> = Record<
   T,
@@ -19,16 +19,16 @@ export const dashboardAreDataLoaded = (state: Root) =>
 
 export const getClusterMap =
   <T extends string>(clusterList: T[]) =>
-    (state: Root) =>
-      clusterList.reduce<ClusterMap<T>>(
-        (map, name) => ({
-          ...map,
-          [name]: {
-            cluster: clusterAreDataLoaded(name)(state)
-              ? getCluster(name)(state)
-              : { ...clusterStatusDefault, name },
-            isLoaded: clusterAreDataLoaded(name)(state),
-          },
-        }),
-        {} as ClusterMap<T>,
-      );
+  (state: Root) =>
+    clusterList.reduce<ClusterMap<T>>(
+      (map, name) => ({
+        ...map,
+        [name]: {
+          cluster: clusterAreDataLoaded(name)(state)
+            ? getCluster(name)(state)
+            : {...clusterStatusDefault, name},
+          isLoaded: clusterAreDataLoaded(name)(state),
+        },
+      }),
+      {} as ClusterMap<T>,
+    );

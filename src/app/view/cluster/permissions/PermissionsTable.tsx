@@ -1,9 +1,9 @@
-import { AttributeHelpPopover, EmptyStateNoItem, Table } from "app/view/share";
+import {AttributeHelpPopover, EmptyStateNoItem, Table} from "app/view/share";
 
-import { PermissionMenu } from "./PermissionMenu";
-import { PermissionCompetenceCell } from "./PermissionCompetenceCell";
-import { Permission } from "./types";
-import { usePermissions } from "./usePermissions";
+import {PermissionMenu} from "./PermissionMenu";
+import {PermissionCompetenceCell} from "./PermissionCompetenceCell";
+import {Permission} from "./types";
+import {usePermissions} from "./usePermissions";
 
 const dataTest = (
   rowIndex: number,
@@ -11,7 +11,7 @@ const dataTest = (
 ) => `permission-${rowIndex}-${permissionPart}`;
 
 export const PermissionsTable = () => {
-  const { permissionList } = usePermissions();
+  const {permissionList} = usePermissions();
 
   if (permissionList.length === 0) {
     return <EmptyStateNoItem title={""} canAdd={false} />;

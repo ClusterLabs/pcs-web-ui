@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
-import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector, useClusterTask } from "app/view/share";
+import {ActionPayload, selectors} from "app/store";
+import {useClusterSelector, useClusterTask} from "app/view/share";
 
 const useAgent = (clusterName: string, agentName: string) => {
   const agent = useSelector(selectors.getPcmkAgent(clusterName, agentName));
@@ -15,9 +15,9 @@ const useAgent = (clusterName: string, agentName: string) => {
 
 export const useTask = () => {
   const task = useClusterTask("resourceCreate");
-  const { clusterName, state, dispatch } = task;
+  const {clusterName, state, dispatch} = task;
   const [groupList] = useClusterSelector(selectors.getGroups);
-  const { agent, isAgentLoaded } = useAgent(clusterName, state.agentName);
+  const {agent, isAgentLoaded} = useAgent(clusterName, state.agentName);
 
   return {
     ...task,
@@ -44,27 +44,27 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "RESOURCE.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
 
     updateState: (payload: ActionPayload["RESOURCE.CREATE.UPDATE"]) => {
       dispatch({
         type: "RESOURCE.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       });
     },
 
-    create: ({ force }: { force: boolean }) => {
+    create: ({force}: {force: boolean}) => {
       if (state.useGroup !== "no") {
         dispatch({
           type: "LIB.CALL.CLUSTER.TASK",
-          key: { clusterName, task: task.name },
+          key: {clusterName, task: task.name},
           payload: {
             taskLabel: `create resource "${state.resourceName}"`,
             call: {
@@ -91,7 +91,7 @@ export const useTask = () => {
       if (state.clone) {
         dispatch({
           type: "LIB.CALL.CLUSTER.TASK",
-          key: { clusterName, task: task.name },
+          key: {clusterName, task: task.name},
           payload: {
             taskLabel: `create resource "${state.resourceName}"`,
             call: {
@@ -101,7 +101,7 @@ export const useTask = () => {
                 resource_agent_name: state.agentName,
                 instance_attributes: state.instanceAttrs,
                 clone_meta_options: {
-                  ...(state.promotable ? { promotable: "true" } : {}),
+                  ...(state.promotable ? {promotable: "true"} : {}),
                 },
                 ensure_disabled: state.disabled,
                 operation_list: [],
@@ -118,7 +118,7 @@ export const useTask = () => {
       }
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: `create resource "${state.resourceName}"`,
           call: {

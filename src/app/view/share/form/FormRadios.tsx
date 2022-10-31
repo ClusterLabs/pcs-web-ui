@@ -1,7 +1,7 @@
 import React from "react";
 
-import { FormGroup } from "./FormGroup";
-import { FormRadioGroup } from "./FormRadioGroup";
+import {FormGroup} from "./FormGroup";
+import {FormRadioGroup} from "./FormRadioGroup";
 
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
 type FormRadioGroupProps = React.ComponentProps<typeof FormRadioGroup>;

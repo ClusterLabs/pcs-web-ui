@@ -1,6 +1,6 @@
-import { ReviewValue } from "app/view/share";
+import {ReviewValue} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 

@@ -1,8 +1,8 @@
 import * as t from "io-ts";
 
-import { endpoint } from "app/backend/endpoints/endpoint";
+import {endpoint} from "app/backend/endpoints/endpoint";
 
-import { shape } from "./shape";
+import {shape} from "./shape";
 
 export const clusterSetup = endpoint({
   url: "/manage/api/v1/cluster-setup",

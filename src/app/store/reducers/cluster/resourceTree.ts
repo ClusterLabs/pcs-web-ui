@@ -1,4 +1,4 @@
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 // contains list of opened resources
 export const resourceTree: AppReducer<string[]> = (state = [], action) => {

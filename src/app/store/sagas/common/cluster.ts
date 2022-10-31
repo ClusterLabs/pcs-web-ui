@@ -1,12 +1,12 @@
-import { put } from "./effects";
-import { putNotification } from "./notifications";
+import {put} from "./effects";
+import {putNotification} from "./notifications";
 import * as api from "./api";
-import { processError } from "./apiCall";
+import {processError} from "./apiCall";
 
 export function* clusterSuccess(clusterName: string, taskLabel: string) {
   yield put({
     type: "CLUSTER.STATUS.REFRESH",
-    key: { clusterName },
+    key: {clusterName},
   });
   yield putNotification("SUCCESS", `Succesfully done: ${taskLabel}`);
 }

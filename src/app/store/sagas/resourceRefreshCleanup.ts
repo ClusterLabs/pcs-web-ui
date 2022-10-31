@@ -1,11 +1,11 @@
-import { resourceCleanup, resourceRefresh } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {resourceCleanup, resourceRefresh} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, clusterSuccess, processError, putNotification } from "./common";
+import {api, clusterSuccess, processError, putNotification} from "./common";
 
 export function* refreshSaga({
   key,
-  payload: { resourceId, resourceType },
+  payload: {resourceId, resourceType},
 }: ActionMap["RESOURCE.REFRESH"]) {
   const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
     resourceRefresh,
@@ -21,7 +21,7 @@ export function* refreshSaga({
   }
 
   if ("error" in result.payload) {
-    const { stdout, stderror } = result.payload;
+    const {stdout, stderror} = result.payload;
     yield putNotification("ERROR", `Task failed: ${taskLabel}`, {
       type: "LINES",
       lines: ["backend error :", `stdout: ${stdout}`, `stderr: ${stderror}`],
@@ -34,7 +34,7 @@ export function* refreshSaga({
 
 export function* cleanupSaga({
   key,
-  payload: { resourceId, resourceType },
+  payload: {resourceId, resourceType},
 }: ActionMap["RESOURCE.CLEANUP"]) {
   const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
     resourceCleanup,
@@ -50,7 +50,7 @@ export function* cleanupSaga({
   }
 
   if ("error" in result.payload) {
-    const { stdout, stderror } = result.payload;
+    const {stdout, stderror} = result.payload;
     yield putNotification("ERROR", `Task failed: ${taskLabel}`, {
       type: "LINES",
       lines: ["backend error :", `stdout: ${stdout}`, `stderr: ${stderror}`],

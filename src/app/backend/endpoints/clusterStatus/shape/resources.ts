@@ -1,8 +1,8 @@
 import * as t from "io-ts";
 
-import { ApiId, ApiResourceId } from "./common";
-import { ApiWithIssues } from "./issues";
-import { ApiNVPair } from "./nvsets";
+import {ApiId, ApiResourceId} from "./common";
+import {ApiWithIssues} from "./issues";
+import {ApiNVPair} from "./nvsets";
 
 /*
 datasource: /cib/status/node_state/lrm/lrm_resources/lrm_resource/lrm_rsc_op

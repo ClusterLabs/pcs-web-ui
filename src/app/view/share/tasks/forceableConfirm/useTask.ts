@@ -1,9 +1,9 @@
-import { Action } from "app/store";
-import { useTask as useCommonTask } from "app/view/share";
+import {Action} from "app/store";
+import {useTask as useCommonTask} from "app/view/share";
 
 export const useTask = () => {
   const task = useCommonTask("forceableConfirm");
-  const { dispatch } = task;
+  const {dispatch} = task;
 
   return {
     ...task,

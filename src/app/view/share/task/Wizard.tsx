@@ -6,18 +6,18 @@ import {
   WizardStep,
 } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 
-import { wizardCreateFooterDataTest } from "./wizardCreateFooterDataTest";
-import { TaskContextProvider } from "./TaskContext";
-import { WizardFooter } from "./WizardFooter";
+import {wizardCreateFooterDataTest} from "./wizardCreateFooterDataTest";
+import {TaskContextProvider} from "./TaskContext";
+import {WizardFooter} from "./WizardFooter";
 
 const DefaultWizardStep = () => {
   return <>DEFAULT WIZARD STEP</>;
 };
 
-type Step = WizardStep & { footer?: React.ReactNode; steps?: Step[] };
-type Footer = { name: React.ReactNode; footer: React.ReactNode };
+type Step = WizardStep & {footer?: React.ReactNode; steps?: Step[]};
+type Footer = {name: React.ReactNode; footer: React.ReactNode};
 
 const defaultSteps: Step[] = [
   {
@@ -32,8 +32,8 @@ const separateStepsAndFooters = (steps: Step[]) => {
   steps.forEach(stepWithFooter => {
     let pfStep;
     if ("footer" in stepWithFooter) {
-      const { footer, ...rest } = stepWithFooter;
-      footerList.push({ name: stepWithFooter.name, footer });
+      const {footer, ...rest} = stepWithFooter;
+      footerList.push({name: stepWithFooter.name, footer});
       pfStep = rest;
     } else {
       pfStep = stepWithFooter;
@@ -44,13 +44,13 @@ const separateStepsAndFooters = (steps: Step[]) => {
       return;
     }
 
-    const { stepList: subStepList, footerList: subFooterList } =
+    const {stepList: subStepList, footerList: subFooterList} =
       separateStepsAndFooters(pfStep.steps);
 
     footerList = footerList.concat(subFooterList);
-    stepList.push({ ...pfStep, steps: subStepList });
+    stepList.push({...pfStep, steps: subStepList});
   });
-  return { stepList, footerList };
+  return {stepList, footerList};
 };
 
 export const Wizard = ({
@@ -70,9 +70,7 @@ export const Wizard = ({
   title: string;
   description: string;
 }) => {
-  const { stepList, footerList } = separateStepsAndFooters(
-    steps || defaultSteps,
-  );
+  const {stepList, footerList} = separateStepsAndFooters(steps || defaultSteps);
 
   return (
     <TaskContextProvider
@@ -91,7 +89,7 @@ export const Wizard = ({
         isNavExpandable
         footer={
           <WizardContextConsumer>
-            {({ activeStep }) => (
+            {({activeStep}) => (
               <div data-test={wizardCreateFooterDataTest(activeStep.name)}>
                 <PfWizardFooter>
                   {footerList.find(f => f.name === activeStep.name)?.footer ?? (

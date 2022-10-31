@@ -1,12 +1,12 @@
-import { Response } from "express";
+import {Response} from "express";
 
-import { api, libCallCluster } from "app/backend";
+import {api, libCallCluster} from "app/backend";
 
 import * as response from "dev/responses";
 
 export type LibReport = Extract<
   api.PayloadOf<typeof libCallCluster>,
-  { status: "success" | "error" }
+  {status: "success" | "error"}
 >["report_list"][number];
 
 const getLibResponses = (res: Response): Record<string, () => void> => ({
@@ -33,20 +33,20 @@ const getLibResponses = (res: Response): Record<string, () => void> => ({
     res.json(
       response.lib.error([
         {
-          severity: { level: "ERROR", force_code: null },
+          severity: {level: "ERROR", force_code: null},
           message: {
             code: "DEFAULT_ERROR",
             message: "Default error from devel server",
-            payload: { error: "default" },
+            payload: {error: "default"},
           },
           context: null,
         },
         {
-          severity: { level: "ERROR", force_code: null },
+          severity: {level: "ERROR", force_code: null},
           message: {
             code: "ANOTHER_DEFAULT_ERROR",
             message: "Another Default error from devel server",
-            payload: { error: "another default" },
+            payload: {error: "another default"},
           },
           context: null,
         },
@@ -57,11 +57,11 @@ const getLibResponses = (res: Response): Record<string, () => void> => ({
     res.json(
       response.lib.error([
         {
-          severity: { level: "ERROR", force_code: "FORCE_OPTIONS" },
+          severity: {level: "ERROR", force_code: "FORCE_OPTIONS"},
           message: {
             code: "DEFAULT_FORCIBLE_ERROR",
             message: "Default forcible error from devel server",
-            payload: { error: "default" },
+            payload: {error: "default"},
           },
           context: null,
         },

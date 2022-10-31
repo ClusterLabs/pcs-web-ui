@@ -1,4 +1,4 @@
-import { getConfirmDialog, getDropdownMenu } from "test/components";
+import {getConfirmDialog, getDropdownMenu} from "test/components";
 
 const clusterAction = (
   clusterName: string,

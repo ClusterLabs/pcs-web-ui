@@ -1,11 +1,11 @@
-import { authGuiAgainstNodes } from "app/backend";
-import { ActionMap } from "app/store";
+import {authGuiAgainstNodes} from "app/backend";
+import {ActionMap} from "app/store";
 
-import { api, put, take } from "./common";
+import {api, put, take} from "./common";
 
 export function* nodeAuthSaga({
   key,
-  payload: { nodeMap },
+  payload: {nodeMap},
 }: ActionMap["NODE.AUTH"]) {
   // AuthNode with id.process disappear from redux store if NODE.AUTH.STOP
   // hapens during api call and the following action NODE.AUTH.FAIL or
@@ -38,7 +38,7 @@ export function* nodeAuthSaga({
         put({
           type: "NODE.AUTH.FAIL",
           key,
-          payload: { message: api.errorMessage(result, taskLabel) },
+          payload: {message: api.errorMessage(result, taskLabel)},
         }),
       useNotification: false,
     });
@@ -48,7 +48,7 @@ export function* nodeAuthSaga({
   yield put({
     type: "NODE.AUTH.OK",
     key,
-    payload: { response: result.payload },
+    payload: {response: result.payload},
   });
 }
 
@@ -66,7 +66,7 @@ export function* nodeAuthWait(authProcessId: number) {
 
     const {
       key,
-      payload: { response },
+      payload: {response},
     } = action;
     if (
       key.process === authProcessId

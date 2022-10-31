@@ -1,11 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 
-import { LoginPage } from "./LoginPage";
+import {LoginPage} from "./LoginPage";
 
-export const EnsureLogin = ({ children }: React.PropsWithChildren<unknown>) => {
+export const EnsureLogin = ({children}: React.PropsWithChildren<unknown>) => {
   if (!useSelector(selectors.loginIsRequired)) {
     return <>{children}</>;
   }

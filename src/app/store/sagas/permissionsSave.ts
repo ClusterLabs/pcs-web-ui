@@ -1,7 +1,7 @@
-import { savePermissions } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {savePermissions} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, processError, put, putNotification } from "./common";
+import {api, processError, put, putNotification} from "./common";
 
 type SaveAction = ActionMap["CLUSTER.PERMISSIONS.SAVE"];
 type ApiResult = api.ResultOf<typeof savePermissions>;
@@ -45,10 +45,7 @@ function* processEditResult(result: ApiResult) {
   });
 }
 
-export function* permissionsSave({
-  key,
-  payload: { permissionList },
-}: SaveAction) {
+export function* permissionsSave({key, payload: {permissionList}}: SaveAction) {
   const result: ApiResult = yield api.authSafe(
     savePermissions,
     key.clusterName,

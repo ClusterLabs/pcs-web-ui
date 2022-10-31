@@ -1,15 +1,15 @@
-import { ActionLeaf } from "app/store";
-import { takeNewLoadings } from "app/store/sagas/common/dataLoad";
+import {ActionLeaf} from "app/store";
+import {takeNewLoadings} from "app/store/sagas/common/dataLoad";
 
 const clusterName1 = "cluster-1";
 const startActionClusterSync = (clusterName: string): ActionLeaf => ({
   type: "CLUSTER.STATUS.SYNC",
-  key: { clusterName: clusterName },
+  key: {clusterName: clusterName},
 });
 
 const stopActionClusterSync = (clusterName: string): ActionLeaf => ({
   type: "CLUSTER.STATUS.SYNC.STOP",
-  key: { clusterName: clusterName },
+  key: {clusterName: clusterName},
 });
 
 const stopSyncCluster = (clusterName: string) => ({
@@ -23,8 +23,8 @@ const syncCluster = (clusterName: string) => ({
   stop: stopActionClusterSync(clusterName),
 });
 
-const startDashboard: ActionLeaf = { type: "CLUSTER.LIST.SYNC" };
-const stopDashboard: ActionLeaf = { type: "CLUSTER.LIST.SYNC.STOP" };
+const startDashboard: ActionLeaf = {type: "CLUSTER.LIST.SYNC"};
+const stopDashboard: ActionLeaf = {type: "CLUSTER.LIST.SYNC.STOP"};
 
 describe("takeNewLoading", () => {
   it("should return empty results when inputs empty", () => {

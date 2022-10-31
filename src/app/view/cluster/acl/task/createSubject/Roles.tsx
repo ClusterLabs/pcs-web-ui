@@ -1,8 +1,8 @@
-import { DualListSelector } from "@patternfly/react-core";
+import {DualListSelector} from "@patternfly/react-core";
 
-import { TaskLibStep } from "app/view/share";
+import {TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Roles = () => {
   const {
@@ -10,7 +10,7 @@ export const Roles = () => {
     availableRoles,
     state: {
       roleList,
-      libCall: { reports },
+      libCall: {reports},
     },
   } = useTask();
 

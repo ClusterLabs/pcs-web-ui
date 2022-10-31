@@ -6,9 +6,9 @@ import {
   location,
   toLabel,
 } from "app/view/share";
-import { Cluster, ConnectedNode, Node } from "app/view/cluster/types";
+import {Cluster, ConnectedNode, Node} from "app/view/cluster/types";
 
-import { compareStrings } from "./utils";
+import {compareStrings} from "./utils";
 
 type StatusSeverity = ConnectedNode["statusSeverity"];
 type QuorumSeverity = ConnectedNode["quorumSeverity"];
@@ -45,10 +45,10 @@ const compareByColumn = (
   }
 };
 
-const { SortableTh } = Table;
+const {SortableTh} = Table;
 
-export const DashboardClusterNodes = ({ cluster }: { cluster: Cluster }) => {
-  const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
+export const DashboardClusterNodes = ({cluster}: {cluster: Cluster}) => {
+  const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
   return (
     <Table isCompact isBorderless data-test="node-list">
       <thead>

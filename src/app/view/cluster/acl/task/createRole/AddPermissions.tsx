@@ -1,7 +1,7 @@
-import { TaskLibStep } from "app/view/share";
-import { PermissionAddForm } from "app/view/cluster/acl/PermissionAddForm";
+import {TaskLibStep} from "app/view/share";
+import {PermissionAddForm} from "app/view/cluster/acl/PermissionAddForm";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const AddPermissions = () => {
   const {
@@ -9,7 +9,7 @@ export const AddPermissions = () => {
     invalidPermissionIndexes,
     state: {
       permissionInfoList,
-      libCall: { reports },
+      libCall: {reports},
       showValidationErrors,
     },
   } = useTask();
@@ -20,7 +20,7 @@ export const AddPermissions = () => {
         invalidPermissionIndexes={invalidPermissionIndexes}
         showValidationErrors={showValidationErrors}
         update={permissionList =>
-          updateState({ permissionInfoList: permissionList })
+          updateState({permissionInfoList: permissionList})
         }
       />
     </TaskLibStep>

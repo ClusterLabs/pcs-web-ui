@@ -1,8 +1,8 @@
-import { LibClusterCommands } from "app/backend/endpoints";
+import {LibClusterCommands} from "app/backend/endpoints";
 
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
-import { libCluster } from "./libCluster";
+import {libCluster} from "./libCluster";
 
 export const stonithCreate = ({
   clusterName,
@@ -18,7 +18,7 @@ export const stonithCreate = ({
   agentName: string;
   instanceAttrs: Extract<
     LibClusterCommands[number],
-    { name: "stonith-create" }
+    {name: "stonith-create"}
   >["payload"]["instance_attributes"];
   disabled?: boolean;
   response?: RouteResponse;

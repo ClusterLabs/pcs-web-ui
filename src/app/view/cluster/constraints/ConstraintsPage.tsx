@@ -1,4 +1,4 @@
-import { PageSection } from "@patternfly/react-core";
+import {PageSection} from "@patternfly/react-core";
 
 import {
   ClusterToolbar,
@@ -6,7 +6,7 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-import { ConstraintFilteredList } from "./ConstraintFilteredList";
+import {ConstraintFilteredList} from "./ConstraintFilteredList";
 import * as task from "./task";
 
 export const ConstraintsPage = () => {

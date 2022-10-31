@@ -1,6 +1,6 @@
-import { Alert } from "@patternfly/react-core";
+import {Alert} from "@patternfly/react-core";
 
-import { Clone } from "app/view/cluster/types";
+import {Clone} from "app/view/cluster/types";
 import {
   DetailLayout,
   NVPairListPage,
@@ -10,12 +10,12 @@ import {
   useUrlTabs,
 } from "app/view/share";
 
-import { CloneDetail } from "./CloneDetail";
+import {CloneDetail} from "./CloneDetail";
 
 const tabList = ["detail", "meta"] as const;
 
-export const ClonePage = ({ clone }: { clone: Clone }) => {
-  const { currentTab, matchedContext } = useUrlTabs(tabList);
+export const ClonePage = ({clone}: {clone: Clone}) => {
+  const {currentTab, matchedContext} = useUrlTabs(tabList);
   if (clone.member.itemType !== "fence-device") {
     return (
       <DetailLayout

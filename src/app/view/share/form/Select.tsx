@@ -13,9 +13,9 @@ export const Select = (
     onSelect: (_value: string) => void;
     onFilter?: (_value: string) => void;
     "data-test"?: string;
-  } & ({ optionsValues: string[] } | { children: React.ReactNode }),
+  } & ({optionsValues: string[]} | {children: React.ReactNode}),
 ) => {
-  const { onSelect, onFilter, ...restProps } = props;
+  const {onSelect, onFilter, ...restProps} = props;
   const [isOpen, setIsOpen] = React.useState(false);
   const select = React.useCallback(
     (
@@ -50,7 +50,7 @@ export const Select = (
       (accumulator, key) => ({
         ...accumulator,
         ...(key !== "optionsValues"
-          ? { [key]: restProps[key] }
+          ? {[key]: restProps[key]}
           : {
               children: restProps.optionsValues.map(o => (
                 <SelectOption key={o} value={o} />
@@ -65,7 +65,7 @@ export const Select = (
 
   const pfProps: SelectProps = {
     ...cleanProps,
-    ...(filter !== null ? { onFilter: filter } : {}),
+    ...(filter !== null ? {onFilter: filter} : {}),
     onToggle: () => setIsOpen(!isOpen),
     isOpen,
     onSelect: select,

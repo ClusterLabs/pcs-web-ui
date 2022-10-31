@@ -7,14 +7,14 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   ClusterToolbar,
   task,
   useClusterSelector,
   useSelectedClusterName,
 } from "app/view/share";
-import { ClusterIssueList } from "app/view/cluster/issues";
+import {ClusterIssueList} from "app/view/cluster/issues";
 
 export const ClusterDetailPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -31,7 +31,7 @@ export const ClusterDetailPage = () => {
               description: "Start the on all nodes",
               action: {
                 type: "DASHBOARD.CLUSTER.START",
-                payload: { clusterName },
+                payload: {clusterName},
               },
             },
           },
@@ -49,9 +49,9 @@ export const ClusterDetailPage = () => {
                   success: "Cluster was successfully stopped",
                   fail: "Cluster stop failed",
                 },
-                getForceableAction: ({ force }) => ({
+                getForceableAction: ({force}) => ({
                   type: "DASHBOARD.CLUSTER.STOP",
-                  payload: { clusterName, force },
+                  payload: {clusterName, force},
                 }),
               }),
               useTask: task.forceableConfirm.useTask,

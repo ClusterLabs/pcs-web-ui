@@ -1,6 +1,6 @@
 import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
-import { Handler, app } from "dev/app";
+import {Handler, app} from "dev/app";
 
 const refreshCleanup: Handler = (req, res) => {
   const name = req.body.resource.startsWith("FD_")
@@ -23,23 +23,23 @@ const refreshCleanup: Handler = (req, res) => {
     });
     return;
   }
-  res.json({ success: "true" });
+  res.json({success: "true"});
 };
 
 app.libCluster("resource-unmanage", (req, res) =>
-  shortcut.libStd({ code: req.body.resource_or_tag_ids[0], res }),
+  shortcut.libStd({code: req.body.resource_or_tag_ids[0], res}),
 );
 
 app.libCluster("resource-manage", (req, res) =>
-  shortcut.libStd({ code: req.body.resource_or_tag_ids[0], res }),
+  shortcut.libStd({code: req.body.resource_or_tag_ids[0], res}),
 );
 
 app.libCluster("resource-disable", (req, res) =>
-  shortcut.libStd({ code: req.body.resource_or_tag_ids[0], res }),
+  shortcut.libStd({code: req.body.resource_or_tag_ids[0], res}),
 );
 
 app.libCluster("resource-enable", (req, res) =>
-  shortcut.libStd({ code: req.body.resource_or_tag_ids[0], res }),
+  shortcut.libStd({code: req.body.resource_or_tag_ids[0], res}),
 );
 
 app.resourceRefresh(refreshCleanup);

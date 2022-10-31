@@ -1,10 +1,10 @@
-import { Toolbar, ToolbarContent, ToolbarItem } from "@patternfly/react-core";
+import {Toolbar, ToolbarContent, ToolbarItem} from "@patternfly/react-core";
 
-import { LauncherDropdown } from "app/view/share/toolbar";
-import { LauncherToolbarButtonGroup } from "app/view/share/toolbar";
-import { LauncherItem } from "app/view/share/toolbar/types";
+import {LauncherDropdown} from "app/view/share/toolbar";
+import {LauncherToolbarButtonGroup} from "app/view/share/toolbar";
+import {LauncherItem} from "app/view/share/toolbar/types";
 
-import { DetailLayoutClose } from "./DetailLayoutClose";
+import {DetailLayoutClose} from "./DetailLayoutClose";
 
 export const DetailToolbar = ({
   toolbarName,

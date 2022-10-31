@@ -1,5 +1,5 @@
-import { AppReducer } from "app/store/reducers/appReducer";
-import { ActionPayload } from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
 
 const initialState: Required<ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]> & {
   showValidationErrors: boolean;
@@ -27,10 +27,10 @@ export const primitiveGroupChange: AppReducer<typeof initialState> = (
 ) => {
   switch (action.type) {
     case "TASK.VALIDATION.SHOW":
-      return { ...state, showValidationErrors: true };
+      return {...state, showValidationErrors: true};
 
     case "TASK.VALIDATION.HIDE":
-      return { ...state, showValidationErrors: false };
+      return {...state, showValidationErrors: false};
 
     case "RESOURCE.GROUP.CHANGE.UPDATE":
       return {

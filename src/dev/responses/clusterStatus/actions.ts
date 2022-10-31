@@ -8,7 +8,7 @@ import {
   services,
   stonith,
 } from "./tools";
-import { constraints } from "./constraints";
+import {constraints} from "./constraints";
 
 // Purpose is to provide items like resources, nodes, fence devices with
 // standard names on which
@@ -16,20 +16,20 @@ import { constraints } from "./constraints";
 const actionResource = (resourceName: string) =>
   primitive(resourceName, {
     crm_status: [
-      crmStatus({ resourceId: resourceName, nodeId: "1", nodeName: "ok" }),
+      crmStatus({resourceId: resourceName, nodeId: "1", nodeName: "ok"}),
     ],
   });
 
 const buildNodeList = (
   nodeNameList: string[],
-  { sbdEnabled }: { sbdEnabled: boolean } = { sbdEnabled: true },
+  {sbdEnabled}: {sbdEnabled: boolean} = {sbdEnabled: true},
 ) => {
   let i = 1;
   return nodeNameList.map(name =>
     node(`${i++}`, {
       name,
       services: services({
-        sbd: { installed: true, running: true, enabled: sbdEnabled },
+        sbd: {installed: true, running: true, enabled: sbdEnabled},
       }),
     }),
   );
@@ -88,7 +88,7 @@ export const actions = cluster("actions", "ok", {
     ...stonithList,
   ],
   constraints,
-  cluster_settings: { "batch-limit": "1" },
+  cluster_settings: {"batch-limit": "1"},
 });
 
 export const actionsNoGroup = cluster("actions-no-group", "ok", {
@@ -123,18 +123,18 @@ const actionResourceAlternative = (resourceName: string) =>
       },
     ],
     crm_status: [
-      crmStatus({ resourceId: resourceName, nodeId: "1", nodeName: "ok" }),
+      crmStatus({resourceId: resourceName, nodeId: "1", nodeName: "ok"}),
     ],
   });
 
 export const actionsAlternative = cluster("actions-alt", "ok", {
-  node_list: buildNodeList(nodeNames, { sbdEnabled: false }),
+  node_list: buildNodeList(nodeNames, {sbdEnabled: false}),
   node_attr: nodeNames.reduce(
     (attrs, nodeName) => ({
       ...attrs,
       [nodeName]: [
-        { id: `${nodeName}-standby`, name: "standby", value: "on" },
-        { id: `${nodeName}-maintenance`, name: "maintenance", value: "on" },
+        {id: `${nodeName}-standby`, name: "standby", value: "on"},
+        {id: `${nodeName}-maintenance`, name: "maintenance", value: "on"},
       ],
     }),
     {},

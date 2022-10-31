@@ -5,7 +5,7 @@ import {
   DescriptionListTerm,
 } from "@patternfly/react-core";
 
-import { DefaultValue } from "app/view/share/DefaultValue";
+import {DefaultValue} from "app/view/share/DefaultValue";
 
 export const ReviewValue = (props: {
   label: React.ReactNode;
@@ -43,7 +43,7 @@ export const ReviewValue = (props: {
       <DescriptionListTerm>{props.label}</DescriptionListTerm>
       <DescriptionListDescription
         {...("data-test" in props && props["data-test"] !== undefined
-          ? { "data-test": `${props["data-test"]}-review-value` }
+          ? {"data-test": `${props["data-test"]}-review-value`}
           : {})}
       >
         {value}

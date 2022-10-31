@@ -1,10 +1,10 @@
 import React from "react";
 
-import { useTask as useTaskCommon } from "app/view/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
   const task = useTaskCommon("importExistingCluster");
-  const { state, dispatch, close } = task;
+  const {state, dispatch, close} = task;
 
   const checkNode = () => {
     dispatch({
@@ -32,7 +32,7 @@ export const useTask = () => {
     updateNodeName: (nodeName: string) => {
       dispatch({
         type: "DASHBOARD.CLUSTER.IMPORT.UPDATE_NODE",
-        payload: { nodeName },
+        payload: {nodeName},
       });
     },
 
@@ -46,7 +46,7 @@ export const useTask = () => {
     importCluster: () => {
       dispatch({
         type: "DASHBOARD.CLUSTER.IMPORT.RUN",
-        payload: { nodeName: state.nodeName },
+        payload: {nodeName: state.nodeName},
       });
     },
   };

@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
-import { ActionPayload } from "app/store/actions";
-import { AppReducer } from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 type Payload = ActionPayload["CLUSTER.PERMISSIONS.LOAD.OK"];
 type ClusterPermissions = Payload["apiClusterPermissions"];
@@ -28,7 +28,7 @@ const data: AppReducer<ClusterPermissionsService["data"]> = (
 };
 
 const fetchState: AppReducer<ClusterPermissionsService["fetchState"]> = (
-  state = { current: "NOT_STARTED", alreadyLoaded: false },
+  state = {current: "NOT_STARTED", alreadyLoaded: false},
   action,
 ) => {
   switch (action.type) {

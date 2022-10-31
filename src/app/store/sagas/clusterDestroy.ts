@@ -1,7 +1,7 @@
-import { destroyCluster, removeCluster } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {destroyCluster, removeCluster} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, log, processError, put, putNotification } from "./common";
+import {api, log, processError, put, putNotification} from "./common";
 
 export function* clusterDestroy({
   payload,
@@ -36,6 +36,6 @@ export function* clusterDestroy({
     return;
   }
 
-  yield put({ type: "CLUSTER.LIST.REFRESH" });
+  yield put({type: "CLUSTER.LIST.REFRESH"});
   yield putNotification("SUCCESS", "Cluster removed from evidence");
 }

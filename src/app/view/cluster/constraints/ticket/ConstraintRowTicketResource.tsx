@@ -1,5 +1,5 @@
 import React from "react";
-import { DataListCell } from "@patternfly/react-core";
+import {DataListCell} from "@patternfly/react-core";
 
 import {
   ConstraintCell,
@@ -9,7 +9,7 @@ import {
   ConstraintRow,
   ConstraintValue,
 } from "../common";
-import { ConstraintTicketResource } from "../types";
+import {ConstraintTicketResource} from "../types";
 
 export const ConstraintRowTicketResource = ({
   constraint,

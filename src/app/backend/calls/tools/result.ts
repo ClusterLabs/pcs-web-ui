@@ -1,12 +1,12 @@
 export type HttpFail =
-  | { type: "UNAUTHORIZED" }
+  | {type: "UNAUTHORIZED"}
   | {
       type: "BAD_HTTP_STATUS";
       status: number;
       statusText: string;
       text: string;
     };
-export type NotJson = { type: "NOT_JSON"; text: string };
+export type NotJson = {type: "NOT_JSON"; text: string};
 
 export type Ok<PAYLOAD> = {
   type: "OK";

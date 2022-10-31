@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FenceDevice } from "app/view/cluster/types";
+import {FenceDevice} from "app/view/cluster/types";
 
 export const FenceDeviceListCellType = ({
   fenceDevice,

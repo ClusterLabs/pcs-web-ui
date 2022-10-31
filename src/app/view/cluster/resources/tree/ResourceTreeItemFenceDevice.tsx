@@ -6,7 +6,7 @@ import {
   DataListToggle,
 } from "@patternfly/react-core";
 
-import { FenceDevice } from "app/view/cluster/types";
+import {FenceDevice} from "app/view/cluster/types";
 import {
   SelectionIndicatorInGroup,
   StatusIco,
@@ -14,15 +14,15 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-import { ResourceTreeCellName } from "./ResourceTreeCellName";
-import { ResourceTreeCellType } from "./ResourceTreeCellType";
+import {ResourceTreeCellName} from "./ResourceTreeCellName";
+import {ResourceTreeCellType} from "./ResourceTreeCellType";
 
 export const ResourceTreeItemFenceDevice = ({
   fenceDevice,
 }: {
   fenceDevice: FenceDevice;
 }) => {
-  const { compact, selectedItemUrlName } = useGroupDetailViewContext();
+  const {compact, selectedItemUrlName} = useGroupDetailViewContext();
   return (
     <DataListItem aria-labelledby={`resource-tree-item-${fenceDevice.id}`}>
       <DataListItemRow data-test={`resource-tree-item ${fenceDevice.id}`}>

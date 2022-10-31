@@ -1,4 +1,4 @@
-import { app } from "dev/app";
+import {app} from "dev/app";
 
 export const checkAuthAgainstNodes = (
   nodesStates: Record<string, string> = {
@@ -21,14 +21,14 @@ export const checkAuthAgainstNodes = (
     }
 
     const result = nodeList.reduce<Record<string, string>>(
-      (states, node) => ({ ...states, [node]: nodesStates[node] || "Online" }),
+      (states, node) => ({...states, [node]: nodesStates[node] || "Online"}),
       {},
     );
     res.json(result);
   });
 
 const containPassword = (
-  nodes: Record<string, { password: string }>,
+  nodes: Record<string, {password: string}>,
   password: string,
 ) =>
   Object.keys(nodes).reduce<boolean>(
@@ -42,7 +42,7 @@ const unableSaveOnBackend = (nodes: string[]) =>
 
 export const authGuiAgainstNodes = () =>
   app.authGuiAgainstNodes((req, res) => {
-    const { nodes } = JSON.parse(req.body.data_json);
+    const {nodes} = JSON.parse(req.body.data_json);
 
     if (containPassword(nodes, "error")) {
       res.status(500).send("SOMETHING WRONG");
@@ -68,7 +68,7 @@ export const authGuiAgainstNodes = () =>
     if (containPassword(nodes, "backend")) {
       res.json({
         node_auth_error: Object.keys(nodes).reduce<Record<string, 0 | 1>>(
-          (result, nodeName) => ({ ...result, [nodeName]: 0 }),
+          (result, nodeName) => ({...result, [nodeName]: 0}),
           {},
         ),
         plaintext_error: unableSaveOnBackend(["backend-1", "backend-2"]),
@@ -79,7 +79,7 @@ export const authGuiAgainstNodes = () =>
     if (containPassword(nodes, "backend-unauth")) {
       res.json({
         node_auth_error: Object.keys(nodes).reduce<Record<string, 0 | 1>>(
-          (result, nodeName) => ({ ...result, [nodeName]: 0 }),
+          (result, nodeName) => ({...result, [nodeName]: 0}),
           {},
         ),
         plaintext_error: "",
@@ -94,7 +94,7 @@ export const authGuiAgainstNodes = () =>
     if (containPassword(nodes, "backend-complex")) {
       res.json({
         node_auth_error: Object.keys(nodes).reduce<Record<string, 0 | 1>>(
-          (result, nodeName) => ({ ...result, [nodeName]: 0 }),
+          (result, nodeName) => ({...result, [nodeName]: 0}),
           {},
         ),
         plaintext_error: unableSaveOnBackend(["backend-1", "backend-2"]),

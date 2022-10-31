@@ -1,8 +1,8 @@
-import { Form, FormGroup } from "@patternfly/react-core";
+import {Form, FormGroup} from "@patternfly/react-core";
 
-import { FormRadios, FormText, TaskLibStep } from "app/view/share";
+import {FormRadios, FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Options = () => {
   const {
@@ -13,7 +13,7 @@ export const Options = () => {
       timeoutActionFlush,
       timeoutAction,
       showValidationErrors,
-      libCall: { reports },
+      libCall: {reports},
     },
     isWatchdogTimeoutValid,
     getSbdTimeout,
@@ -28,7 +28,7 @@ export const Options = () => {
           label="SBD_DELAY_START"
           options={["DEFAULT", "yes", "no"]}
           selected={delayStart}
-          onChange={value => updateState({ delayStart: value })}
+          onChange={value => updateState({delayStart: value})}
         />
 
         <FormRadios
@@ -36,13 +36,13 @@ export const Options = () => {
           label="SBD_STARTMODE"
           options={["DEFAULT", "clean", "always"]}
           selected={startmode}
-          onChange={value => updateState({ startmode: value })}
+          onChange={value => updateState({startmode: value})}
         />
 
         <FormText
           id="new_watchdog_timeout"
           label="SBD_WATCHDOG_TIMEOUT"
-          onChange={value => updateState({ watchdogTimeout: value })}
+          onChange={value => updateState({watchdogTimeout: value})}
           value={watchdogTimeout}
           placeholder={watchdogTimeout}
           showValidationErrors={showValidationErrors}
@@ -57,21 +57,19 @@ export const Options = () => {
               <>
                 <span>SBD_TIMEOUT_ACTION</span>
                 <span> </span>
-                <span style={{ fontWeight: "normal" }}>
-                  ({getSbdTimeout()})
-                </span>
+                <span style={{fontWeight: "normal"}}>({getSbdTimeout()})</span>
               </>
             }
             options={["DEFAULT", "flush", "noflush"]}
             selected={timeoutActionFlush}
-            onChange={value => updateState({ timeoutActionFlush: value })}
+            onChange={value => updateState({timeoutActionFlush: value})}
           />
           <FormRadios
             id="new_timeout_action2"
             label={null}
             options={["DEFAULT", "reboot", "crashdump", "off"]}
             selected={timeoutAction}
-            onChange={value => updateState({ timeoutAction: value })}
+            onChange={value => updateState({timeoutAction: value})}
           />
         </FormGroup>
       </Form>

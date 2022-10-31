@@ -1,11 +1,11 @@
-import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector, useClusterTask } from "app/view/share";
-import { getAssignedSubjectIdList } from "app/view/cluster/acl/detail/tools";
+import {ActionPayload, selectors} from "app/store";
+import {useClusterSelector, useClusterTask} from "app/view/share";
+import {getAssignedSubjectIdList} from "app/view/cluster/acl/detail/tools";
 
 export const useTask = () => {
   const task = useClusterTask("aclSubjectAssign");
-  const { dispatch, state, clusterName } = task;
-  const [{ acls }] = useClusterSelector(selectors.getCluster);
+  const {dispatch, state, clusterName} = task;
+  const [{acls}] = useClusterSelector(selectors.getCluster);
 
   const assigneeType =
     state.sourceObject === "role" ? state.subjectType : "role";
@@ -37,7 +37,7 @@ export const useTask = () => {
     open: (payload: ActionPayload["CLUSTER.ACL.SUBJECT_ROLE.ASSIGN"]) => {
       dispatch({
         type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       });
       task.open();
@@ -46,7 +46,7 @@ export const useTask = () => {
     updateAssigneeId: (id: string) =>
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.ASSIGN.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           [assigneeKey]: id,
         },
@@ -56,18 +56,18 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.ASSIGN.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
 
     assign: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: `assign acl ${state.subjectType}`,
           call:
@@ -93,7 +93,7 @@ export const useTask = () => {
     recoverFromError: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
     },
   };

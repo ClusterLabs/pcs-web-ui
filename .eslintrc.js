@@ -20,7 +20,7 @@ module.exports = {
   ],
   rules: {
     // specify whether double or single quotes should be used
-    quotes: ["error", "double", { avoidEscape: true }],
+    quotes: ["error", "double", {avoidEscape: true}],
 
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": "warn",
@@ -43,7 +43,7 @@ module.exports = {
 
     // ensure imports point to files/modules that can be resolved
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unresolved.md
-    "import/no-unresolved": ["off", { commonjs: true, caseSensitive: true }],
+    "import/no-unresolved": ["off", {commonjs: true, caseSensitive: true}],
     "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",
     "no-multiple-empty-lines": "error",
@@ -54,9 +54,13 @@ module.exports = {
     "function-paren-newline": "off",
     "object-curly-newline": "off",
 
+    "computed-property-spacing": ["error", "never"],
+    "object-curly-spacing": ["error", "never"],
+    "array-bracket-spacing": ["error", "never"],
+
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
     // "import/extensions": [2, { "js": "always", "jsx": "always" }],
-    "import/extensions": ["error", "never", { packages: "always" }],
+    "import/extensions": ["error", "never", {packages: "always"}],
     "import/newline-after-import": "error",
     "import/no-useless-path-segments": [
       "error",
@@ -190,7 +194,7 @@ module.exports = {
     "comma-style": [
       2,
       "first",
-      { exceptions: { ArrayExpression: true, ObjectExpression: true } },
+      {exceptions: {ArrayExpression: true, ObjectExpression: true}},
     ],
     // note you must disable the base rule as it can report incorrect errors
     "comma-dangle": [
@@ -225,7 +229,7 @@ module.exports = {
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
     "react/jsx-filename-extension": [
       "error",
-      { extensions: [".jsx", ".js", ".tsx"] },
+      {extensions: [".jsx", ".js", ".tsx"]},
     ],
 
     // TODO start check it when flow arrive

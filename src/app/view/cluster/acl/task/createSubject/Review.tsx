@@ -1,7 +1,7 @@
-import { tools } from "app/store";
-import { ReviewList, ReviewValue, TaskLibStep } from "app/view/share";
+import {tools} from "app/store";
+import {ReviewList, ReviewValue, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Review = () => {
   const {
@@ -9,7 +9,7 @@ export const Review = () => {
       subjectId,
       subjectType,
       roleList,
-      libCall: { reports },
+      libCall: {reports},
     },
   } = useTask();
   return (

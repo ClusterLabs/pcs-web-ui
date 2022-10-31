@@ -1,4 +1,4 @@
-import { Notification } from "./types";
+import {Notification} from "./types";
 
 export const severityToVariant = (severity: Notification["severity"]) => {
   switch (severity) {

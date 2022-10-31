@@ -1,15 +1,15 @@
 import * as t from "io-ts";
 
-import { endpoint } from "app/backend/endpoints/endpoint";
+import {endpoint} from "app/backend/endpoints/endpoint";
 
-import { shape as libShape } from "../shape";
+import {shape as libShape} from "../shape";
 
 const optionalString = t.union([t.string, t.null]);
 const optionalStringOrBool = t.union([t.string, t.boolean, t.null]);
 const optionalStringOrNumber = t.union([t.string, t.number, t.null]);
 const agentActions = t.array(
   t.intersection([
-    t.type({ name: t.string }),
+    t.type({name: t.string}),
     t.partial({
       //interval is always turned to string if it is for default_actions
       //but keep it here optional for simplicity
@@ -68,7 +68,7 @@ type AgentType = "resource" | "fence";
 
 export const pcmkAgentDescribeAgent = (type: AgentType) =>
   endpoint({
-    url: ({ clusterName }: { clusterName: string }) =>
+    url: ({clusterName}: {clusterName: string}) =>
       `/managec/${clusterName}/api/v1/${
         type === "resource"
           ? "resource-agent-describe-agent"
@@ -77,18 +77,18 @@ export const pcmkAgentDescribeAgent = (type: AgentType) =>
     method: "post",
     params: undefined,
     validate: undefined,
-    payload: (agentName: string): { agent_name: string } => ({
+    payload: (agentName: string): {agent_name: string} => ({
       agent_name: agentName,
     }),
     shape: libShape(pcmkAgent),
   });
 
-const agentListPayload: { describe?: boolean; search?: string } = {
+const agentListPayload: {describe?: boolean; search?: string} = {
   describe: false,
 };
 export const pcmkAgentListAgents = (type: AgentType) =>
   endpoint({
-    url: ({ clusterName }: { clusterName: string }) =>
+    url: ({clusterName}: {clusterName: string}) =>
       `/managec/${clusterName}/api/v1/${
         type === "resource"
           ? "resource-agent-list-agents"

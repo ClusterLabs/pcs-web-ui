@@ -1,10 +1,10 @@
-import { selectors } from "app/store";
-import { useClusterSelector, useDispatch } from "app/view/share";
+import {selectors} from "app/store";
+import {useClusterSelector, useDispatch} from "app/view/share";
 
 export const useTask = () => {
   const dispatch = useDispatch();
   const [
-    { authProcessId, open, fixing, errorMessage, authAttemptInProgress },
+    {authProcessId, open, fixing, errorMessage, authAttemptInProgress},
     clusterName,
   ] = useClusterSelector(selectors.getClusterTask("fixAuth"));
   return {
@@ -17,21 +17,21 @@ export const useTask = () => {
     cancel: () =>
       dispatch({
         type: "CLUSTER.FIX_AUTH.CANCEL",
-        key: { clusterName },
+        key: {clusterName},
       }),
 
     fixAuthStart: (initialNodeList: string[]) => {
       dispatch({
         type: "CLUSTER.FIX_AUTH.START",
-        key: { clusterName },
-        payload: { initialNodeList },
+        key: {clusterName},
+        payload: {initialNodeList},
       });
     },
 
     fixAuthDone: () => {
       dispatch({
         type: "CLUSTER.FIX_AUTH.AUTH_DONE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
   };

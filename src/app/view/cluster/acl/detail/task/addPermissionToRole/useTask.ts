@@ -1,11 +1,11 @@
-import { ActionPayload } from "app/store";
-import { useClusterTask, useGroupDetailViewContext } from "app/view/share";
-import { getInvalidPermissionIndexes } from "app/view/cluster/acl/PermissionAddForm";
+import {ActionPayload} from "app/store";
+import {useClusterTask, useGroupDetailViewContext} from "app/view/share";
+import {getInvalidPermissionIndexes} from "app/view/cluster/acl/PermissionAddForm";
 
 export const useTask = () => {
   const task = useClusterTask("aclRolePermissionAdd");
-  const { selectedItemUrlName: aclName } = useGroupDetailViewContext();
-  const { dispatch, state, clusterName } = task;
+  const {selectedItemUrlName: aclName} = useGroupDetailViewContext();
+  const {dispatch, state, clusterName} = task;
 
   return {
     ...task,
@@ -19,7 +19,7 @@ export const useTask = () => {
     ) =>
       dispatch({
         type: "CLUSTER.ACL.ROLE.PERMISSION.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
 
@@ -27,18 +27,18 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "CLUSTER.ACL.ROLE.PERMISSION.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
 
     aclRolePermissionAdd: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: "add permission to role",
           call: {
@@ -57,7 +57,7 @@ export const useTask = () => {
     recoverFromError: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
     },
   };

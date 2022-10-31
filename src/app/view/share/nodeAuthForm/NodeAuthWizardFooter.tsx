@@ -1,6 +1,6 @@
-import { WizardFooter } from "app/view/share/task";
+import {WizardFooter} from "app/view/share/task";
 
-import { useNodesAuth } from "./useNodesAuth";
+import {useNodesAuth} from "./useNodesAuth";
 
 export const NodeAuthWizardFooter = ({
   authProcessId,
@@ -9,7 +9,7 @@ export const NodeAuthWizardFooter = ({
 }) => {
   const {
     nodeAuth,
-    state: { sending },
+    state: {sending},
   } = useNodesAuth(authProcessId);
 
   return (

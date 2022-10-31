@@ -1,12 +1,12 @@
-import { Button } from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Footer = () => {
   const {
     close,
     createGroup,
-    state: { groupId, resourceIdList, response },
+    state: {groupId, resourceIdList, response},
   } = useTask();
 
   if (response === "success") {

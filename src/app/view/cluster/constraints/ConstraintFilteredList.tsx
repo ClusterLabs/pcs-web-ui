@@ -1,13 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import {
-  DataList,
-  Stack,
-  StackItem,
-  ToolbarItem,
-} from "@patternfly/react-core";
+import {useSelector} from "react-redux";
+import {DataList, Stack, StackItem, ToolbarItem} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   Card,
   EmptyStateClusterStopped,
@@ -17,16 +12,13 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-import {
-  ConstraintRowLocationNode,
-  ConstraintRowLocationRule,
-} from "./location";
+import {ConstraintRowLocationNode, ConstraintRowLocationRule} from "./location";
 import {
   ConstraintRowColocationPair,
   ConstraintRowColocationSet,
 } from "./colocation";
-import { ConstraintRowOrderPair, ConstraintRowOrderSet } from "./order";
-import { ConstraintRowTicketResource, ConstraintRowTicketSet } from "./ticket";
+import {ConstraintRowOrderPair, ConstraintRowOrderSet} from "./order";
+import {ConstraintRowTicketResource, ConstraintRowTicketSet} from "./ticket";
 
 type ConstraintPackList = selectors.ExtractClusterSelector<
   typeof selectors.getConstraints
@@ -51,7 +43,7 @@ const useState = () => {
       constraintPacks.filter(cp =>
         ToolbarFilterGroups.allOrIncludedGroupMembers({
           groupInclusionMap,
-          groupMembershipMap: { ...filterGroups, [cp.type]: true },
+          groupMembershipMap: {...filterGroups, [cp.type]: true},
         }),
       ),
     [groupInclusionMap],
@@ -70,7 +62,7 @@ export const ConstraintFilteredList = ({
   clusterName: string;
 }) => {
   const constraintPacks = useSelector(selectors.getConstraints(clusterName));
-  const { filterState, filterConstraintTypes } = useState();
+  const {filterState, filterConstraintTypes} = useState();
   const clearAllFilters = () => {
     const [groupInclusionMap, setGroupInclusionMap] = filterState.groupState;
     setGroupInclusionMap(

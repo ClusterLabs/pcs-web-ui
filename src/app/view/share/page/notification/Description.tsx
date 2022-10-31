@@ -1,12 +1,8 @@
-import { List, ListItem, Text } from "@patternfly/react-core";
+import {List, ListItem, Text} from "@patternfly/react-core";
 
-import { Notification } from "./types";
+import {Notification} from "./types";
 
-export const Description = ({
-  details,
-}: {
-  details: Notification["details"];
-}) => {
+export const Description = ({details}: {details: Notification["details"]}) => {
   return (
     <>
       {details && details.type === "LIST" && details.items.length > 0 && (

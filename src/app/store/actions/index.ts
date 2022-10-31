@@ -1,18 +1,18 @@
 /* eslint-disable import/max-dependencies */
-import { AuthActions } from "./auth";
-import { ClusterActions } from "./cluster";
-import { ConstraintAction } from "./constraint";
-import { DashboardActions } from "./dashboard";
-import { FenceAgentActions } from "./fenceAgent";
-import { LibActions } from "./lib";
-import { LoginActions } from "./login";
-import { NodeActions } from "./node";
-import { NotificationActions } from "./notifications";
-import { ResourceActions } from "./resource";
-import { FenceDeviceActions } from "./fenceDevice";
-import { ResourceAgentActions } from "./resourceAgent";
-import { UsernameActions } from "./username";
-import { TaskActions } from "./task";
+import {AuthActions} from "./auth";
+import {ClusterActions} from "./cluster";
+import {ConstraintAction} from "./constraint";
+import {DashboardActions} from "./dashboard";
+import {FenceAgentActions} from "./fenceAgent";
+import {LibActions} from "./lib";
+import {LoginActions} from "./login";
+import {NodeActions} from "./node";
+import {NotificationActions} from "./notifications";
+import {ResourceActions} from "./resource";
+import {FenceDeviceActions} from "./fenceDevice";
+import {ResourceAgentActions} from "./resourceAgent";
+import {UsernameActions} from "./username";
+import {TaskActions} from "./task";
 
 // prettier-ignore
 type LeafActionMap = (
@@ -48,9 +48,9 @@ export type ActionMap = LeafActionMap & {
 };
 
 export type ActionPayload = {
-  -readonly [K in keyof ActionMap]: ActionMap[K] extends { payload: unknown }
-  ? ActionMap[K]["payload"]
-  : undefined;
+  -readonly [K in keyof ActionMap]: ActionMap[K] extends {payload: unknown}
+    ? ActionMap[K]["payload"]
+    : undefined;
 };
 
 export type Action = ActionLeaf | SetupDataReading;

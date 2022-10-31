@@ -1,7 +1,7 @@
 import React from "react";
-import { StackItem } from "@patternfly/react-core";
+import {StackItem} from "@patternfly/react-core";
 
-import { Primitive } from "app/view/cluster/types";
+import {Primitive} from "app/view/cluster/types";
 import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
@@ -9,12 +9,12 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-import { PrimitiveAttrsForm } from "./PrimitiveAttrsForm";
+import {PrimitiveAttrsForm} from "./PrimitiveAttrsForm";
 
-export const PrimitiveAttrsView = ({ primitive }: { primitive: Primitive }) => {
+export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
   const clusterName = useSelectedClusterName();
   const [isEditing, setIsEditing] = React.useState(false);
-  const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState();
+  const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   return (
     <LoadedPcmkAgent clusterName={clusterName} agentName={primitive.agentName}>
       {agent => {

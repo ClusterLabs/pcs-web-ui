@@ -1,9 +1,9 @@
 import React from "react";
-import { Modal } from "@patternfly/react-core";
+import {Modal} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 
-import { TaskContextProvider } from "./TaskContext";
+import {TaskContextProvider} from "./TaskContext";
 
 export const TaskSimple = ({
   close,
@@ -23,7 +23,7 @@ export const TaskSimple = ({
   children: React.ReactNode;
 }) => {
   return (
-    <TaskContextProvider value={{ task, close }}>
+    <TaskContextProvider value={{task, close}}>
       <Modal
         variant="medium"
         title={title}

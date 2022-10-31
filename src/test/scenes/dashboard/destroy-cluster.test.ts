@@ -1,15 +1,15 @@
 import * as responses from "dev/responses";
 
-import { intercept, location, route } from "test/tools";
-import { dashboard, notification } from "test/workflow";
+import {intercept, location, route} from "test/tools";
+import {dashboard, notification} from "test/workflow";
 
 const clusterName = responses.clusterStatus.ok.cluster_name;
 const cluster = dashboard.cluster(clusterName);
 
 const interceptWithDashboard = (routeList: intercept.Route[] = []) => {
   intercept.run([
-    route.importedClusterList({ clusterNameList: [clusterName] }),
-    route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
+    route.importedClusterList({clusterNameList: [clusterName]}),
+    route.clusterStatus({clusterStatus: responses.clusterStatus.ok}),
     ...routeList,
   ]);
 };
@@ -19,8 +19,8 @@ describe("Cluster destroy", () => {
 
   it("should be successfully destroyed", async () => {
     interceptWithDashboard([
-      route.destroyCluster({ clusterName }),
-      route.removeCluster({ clusterName }),
+      route.destroyCluster({clusterName}),
+      route.removeCluster({clusterName}),
     ]);
 
     await page.goto(location.dashboard);
@@ -37,9 +37,7 @@ describe("Cluster destroy", () => {
   });
 
   it("should deal with an error", async () => {
-    interceptWithDashboard([
-      route.destroyCluster({ clusterName, status: 400 }),
-    ]);
+    interceptWithDashboard([route.destroyCluster({clusterName, status: 400})]);
 
     await page.goto(location.dashboard);
     await cluster.destroy.launch();

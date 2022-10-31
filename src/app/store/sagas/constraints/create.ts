@@ -1,11 +1,8 @@
-import { addConstraintRemote, addConstraintRuleRemote } from "app/backend";
-import { ActionMap } from "app/store";
-import { api, put } from "app/store/sagas/common";
+import {addConstraintRemote, addConstraintRuleRemote} from "app/backend";
+import {ActionMap} from "app/store";
+import {api, put} from "app/store/sagas/common";
 
-export function* create({
-  key,
-  payload,
-}: ActionMap["CONSTRAINT.SINGLE.CREATE"]) {
+export function* create({key, payload}: ActionMap["CONSTRAINT.SINGLE.CREATE"]) {
   const backendCall =
     "locationSpecification" in payload
     && payload.locationSpecification === "rule"
@@ -27,7 +24,7 @@ export function* create({
       type: "CONSTRAINT.SINGLE.CREATE.OK",
       key,
     });
-    yield put({ type: "CLUSTER.STATUS.REFRESH", key });
+    yield put({type: "CLUSTER.STATUS.REFRESH", key});
     return;
   }
 

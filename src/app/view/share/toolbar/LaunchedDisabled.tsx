@@ -1,6 +1,6 @@
-import { Button, Modal } from "@patternfly/react-core";
+import {Button, Modal} from "@patternfly/react-core";
 
-import { LauncherItem } from "./types";
+import {LauncherItem} from "./types";
 
 export const LaunchedDisabled = ({
   item,

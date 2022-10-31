@@ -4,14 +4,14 @@ import * as result from "./result";
 import * as validate from "./validate";
 
 type PayloadValidation<PAYLOAD, O, I> =
-  | { shape: t.Type<PAYLOAD, O, I> }
-  | { validate: (_payload: ReturnType<typeof JSON.parse>) => string[] };
+  | {shape: t.Type<PAYLOAD, O, I>}
+  | {validate: (_payload: ReturnType<typeof JSON.parse>) => string[]};
 
 type HttpParams = [string, string][];
 
 type PostData =
-  | { payload: Record<string, unknown> | string | [] | null }
-  | { params: HttpParams };
+  | {payload: Record<string, unknown> | string | [] | null}
+  | {params: HttpParams};
 
 type Output = "TEXT" | "PAYLOAD";
 
@@ -32,7 +32,7 @@ const httpParams = (params: HttpParams): string =>
     .map(p => `${encodeURIComponent(p[0])}=${encodeURIComponent(p[1])}`)
     .join("&");
 
-const ajaxHeaders = { "X-Requested-With": "XMLHttpRequest" };
+const ajaxHeaders = {"X-Requested-With": "XMLHttpRequest"};
 
 const httpGet = async (url: string, params: HttpParams) =>
   fetch(params.length > 0 ? `${url}?${httpParams(params)}` : url, {
@@ -49,7 +49,7 @@ const httpPost = async (url: string, opts: PostData) => {
   const body =
     "params" in opts ? httpParams(opts.params) : JSON.stringify(opts.payload);
 
-  return fetch(url, { method: "post", headers, body });
+  return fetch(url, {method: "post", headers, body});
 };
 
 function validatePayload<PAYLOAD, O, I>(
@@ -67,7 +67,7 @@ async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
 ): Promise<ApiResult<OUT, PAYLOAD>> {
   type AR = ApiResult<OUT, PAYLOAD>;
   if (response.status === 401) {
-    return { type: "UNAUTHORIZED" } as AR;
+    return {type: "UNAUTHORIZED"} as AR;
   }
 
   const text = await response.text();
@@ -82,7 +82,7 @@ async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
   }
 
   if (validationOpts === undefined) {
-    return { type: "OK", payload: text } as AR;
+    return {type: "OK", payload: text} as AR;
   }
 
   try {
@@ -93,10 +93,10 @@ async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
     );
 
     return errors.length > 0
-      ? ({ type: "INVALID_PAYLOAD", errors, payload } as AR)
-      : ({ type: "OK", payload } as AR);
+      ? ({type: "INVALID_PAYLOAD", errors, payload} as AR)
+      : ({type: "OK", payload} as AR);
   } catch (e) {
-    return { type: "NOT_JSON", text } as AR;
+    return {type: "NOT_JSON", text} as AR;
   }
 }
 
@@ -106,10 +106,10 @@ function getValidationOpts<OUT extends Output, PAYLOAD, O, I>(
     | Record<string, unknown>,
 ): ValidationOpts<OUT, PAYLOAD, O, I> {
   if ("shape" in opts) {
-    return { shape: opts.shape } as ValidationOpts<OUT, PAYLOAD, O, I>;
+    return {shape: opts.shape} as ValidationOpts<OUT, PAYLOAD, O, I>;
   }
   if ("validate" in opts) {
-    return { validate: opts.validate } as ValidationOpts<OUT, PAYLOAD, O, I>;
+    return {validate: opts.validate} as ValidationOpts<OUT, PAYLOAD, O, I>;
   }
   return undefined as ValidationOpts<OUT, PAYLOAD, O, I>;
 }
@@ -117,8 +117,8 @@ function getValidationOpts<OUT extends Output, PAYLOAD, O, I>(
 export async function get<PAYLOAD, O, I>(
   url: string,
   opts:
-    | ({ params?: HttpParams } & PayloadValidation<PAYLOAD, O, I>)
-    | { params?: HttpParams } = { params: [] },
+    | ({params?: HttpParams} & PayloadValidation<PAYLOAD, O, I>)
+    | {params?: HttpParams} = {params: []},
 ) {
   return processHttpResponse(
     await httpGet(url, opts.params || []),
@@ -135,7 +135,7 @@ export async function post<PAYLOAD, O, I>(
   return processHttpResponse(
     await httpPost(
       url,
-      "params" in opts ? { params: opts.params } : { payload: opts.payload },
+      "params" in opts ? {params: opts.params} : {payload: opts.payload},
     ),
     getValidationOpts(opts),
   );

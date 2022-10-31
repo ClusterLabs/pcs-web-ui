@@ -1,25 +1,25 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
-import { Cluster, StatusSeverity } from "../../types";
+import {Cluster, StatusSeverity} from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
-import { toPrimitive } from "./primitive";
-import { filterApiPrimitive, toGroup } from "./group";
-import { toClone } from "./clone";
-import { toFenceDevice } from "./fenceDevice";
-import { statusToSeverity } from "./statusInfoList";
+import {toPrimitive} from "./primitive";
+import {filterApiPrimitive, toGroup} from "./group";
+import {toClone} from "./clone";
+import {toFenceDevice} from "./fenceDevice";
+import {statusToSeverity} from "./statusInfoList";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 type ApiResource = ApiCluster["resource_list"][number];
-type ApiPrimitiveType = { class_type: "primitive" };
-type ApiPrimitive = Extract<ApiResource, ApiPrimitiveType & { stonith: false }>;
-type ApiStonith = Extract<ApiResource, ApiPrimitiveType & { stonith: true }>;
+type ApiPrimitiveType = {class_type: "primitive"};
+type ApiPrimitive = Extract<ApiResource, ApiPrimitiveType & {stonith: false}>;
+type ApiStonith = Extract<ApiResource, ApiPrimitiveType & {stonith: true}>;
 
 const takeResourceOnNodeStatus = (
   apiResource: ApiPrimitive,
 ): Cluster["resourceOnNodeStatusList"] =>
   apiResource.crm_status.map(crmStatus => ({
-    resource: { id: apiResource.id },
+    resource: {id: apiResource.id},
     node:
       crmStatus.node === null
         ? null
@@ -85,7 +85,7 @@ export const analyzeApiResources = (
           };
 
         case "group": {
-          const { apiPrimitiveList, group } = toGroup(apiResource);
+          const {apiPrimitiveList, group} = toGroup(apiResource);
 
           return {
             ...analyzed,
@@ -109,7 +109,7 @@ export const analyzeApiResources = (
             // don't care about clone with group of stonith only...
             return analyzed;
           }
-          const { apiPrimitiveList, clone } = toClone(apiResource);
+          const {apiPrimitiveList, clone} = toClone(apiResource);
           return {
             ...analyzed,
             resourceTree: [...analyzed.resourceTree, clone],

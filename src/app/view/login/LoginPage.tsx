@@ -1,13 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 import {
   Alert,
   LoginForm,
   LoginPage as PfLoginPage,
 } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { BackgroundImage, useDispatch } from "app/view/share";
+import {selectors} from "app/store";
+import {BackgroundImage, useDispatch} from "app/view/share";
 
 // WARNING: Don't inline this component inside EnsureLogin component.
 // It would require put react state parts (username, password) into EnsureLogin
@@ -44,7 +44,7 @@ export const LoginPage = () => {
             e.preventDefault();
             dispatch({
               type: "LOGIN.ENTER_CREDENTIALS",
-              payload: { username, password },
+              payload: {username, password},
             });
           }}
         />

@@ -4,10 +4,10 @@ import {
   setNodeUtilization,
   setResourceUtilization,
 } from "app/backend";
-import { ActionMap } from "app/store/actions";
-import { getNVPairTypeLabel, labelize } from "app/store/tools";
+import {ActionMap} from "app/store/actions";
+import {getNVPairTypeLabel, labelize} from "app/store/tools";
 
-import { api, processError, put, putNotification } from "./common";
+import {api, processError, put, putNotification} from "./common";
 
 type SaveAction = ActionMap["CLUSTER.NVPAIRS.SAVE"];
 
@@ -44,10 +44,7 @@ function* processEditResult(result: ApiResult) {
   });
 }
 
-export function* nvpairSave({
-  key,
-  payload: { name, value, owner },
-}: SaveAction) {
+export function* nvpairSave({key, payload: {name, value, owner}}: SaveAction) {
   let result: ApiResult;
 
   if (owner.type === "resource-utilization") {
@@ -82,10 +79,10 @@ export function* nvpairSave({
 
   if (value.length === 0) {
     yield processRemoveResult(result, getNVPairTypeLabel(owner));
-    yield put({ type: "CLUSTER.NVPAIRS.EDIT.CLOSE", key });
+    yield put({type: "CLUSTER.NVPAIRS.EDIT.CLOSE", key});
   } else {
     yield processEditResult(result);
   }
 
-  yield put({ type: "CLUSTER.STATUS.REFRESH", key });
+  yield put({type: "CLUSTER.STATUS.REFRESH", key});
 }

@@ -1,8 +1,8 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
-import { paramsToBody } from "./tools";
+import {paramsToBody} from "./tools";
 
 export const addMetaAttrRemote = ({
   clusterName,
@@ -17,9 +17,9 @@ export const addMetaAttrRemote = ({
   value: string;
   response?: RouteResponse;
 }) => ({
-  url: endpoints.addMetaAttrRemote.url({ clusterName }),
+  url: endpoints.addMetaAttrRemote.url({clusterName}),
   body: paramsToBody(
-    endpoints.addMetaAttrRemote.params({ resourceId, name, value }),
+    endpoints.addMetaAttrRemote.params({resourceId, name, value}),
   ),
-  ...(response ?? { text: "" }),
+  ...(response ?? {text: ""}),
 });

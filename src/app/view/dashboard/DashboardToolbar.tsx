@@ -1,4 +1,4 @@
-import { LaunchersToolbar } from "app/view/share";
+import {LaunchersToolbar} from "app/view/share";
 
 import * as task from "./task";
 

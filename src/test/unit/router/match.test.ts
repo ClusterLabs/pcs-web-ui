@@ -1,4 +1,4 @@
-import { match } from "app/view/share/router/match";
+import {match} from "app/view/share/router/match";
 
 describe("Router match", () => {
   it("should return null on different lenghts", async () => {
@@ -18,14 +18,14 @@ describe("Router match", () => {
 
   it("should return match object on matching simple parts", async () => {
     expect(match("/some/path", "/some/:name")).toEqual({
-      params: { name: "path" },
+      params: {name: "path"},
       matched: "/some/path",
     });
   });
 
   it("should deal with trailing slashes", async () => {
     expect(match("/some/path", "/some/:name/*")).toEqual({
-      params: { name: "path" },
+      params: {name: "path"},
       matched: "/some/path",
     });
   });
@@ -36,7 +36,7 @@ describe("Router match", () => {
 
   it("should return match object for longer path if pattern ends with *", async () => {
     expect(match("/some/path/to/somewhere", "/some/:name/*")).toEqual({
-      params: { name: "path" },
+      params: {name: "path"},
       matched: "/some/path",
     });
   });
@@ -48,7 +48,7 @@ describe("Router match", () => {
         "/some/:name/to/:destination/*",
       ),
     ).toEqual({
-      params: { name: "path", destination: "somewhere" },
+      params: {name: "path", destination: "somewhere"},
       matched: "/some/path/to/somewhere",
     });
   });

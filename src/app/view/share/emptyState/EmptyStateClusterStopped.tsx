@@ -1,8 +1,8 @@
 import React from "react";
 
-import { ClusterStoppedInfo } from "app/view/share/ClusterStoppedInfo";
+import {ClusterStoppedInfo} from "app/view/share/ClusterStoppedInfo";
 
-import { EmptyStateConfigure } from "./EmptyStateConfigure";
+import {EmptyStateConfigure} from "./EmptyStateConfigure";
 
 export const EmptyStateClusterStopped = ({
   title,

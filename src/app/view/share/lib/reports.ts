@@ -1,4 +1,4 @@
-import { types } from "app/store";
+import {types} from "app/store";
 
 export const allErrorsCanBeForced = (reports: types.LibReport[]) =>
   reports.every(
@@ -7,7 +7,7 @@ export const allErrorsCanBeForced = (reports: types.LibReport[]) =>
 
 export const getForceFlags = (reports: types.LibReport[]): string[] =>
   reports.reduce(
-    (forceCodes, { severity: { force_code } }) => [
+    (forceCodes, {severity: {force_code}}) => [
       ...forceCodes,
       ...(force_code !== null ? [force_code] : []),
     ],

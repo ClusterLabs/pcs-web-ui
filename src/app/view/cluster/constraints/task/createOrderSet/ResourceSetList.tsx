@@ -1,6 +1,6 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   FormRadios,
   FormResourceSetField,
@@ -10,13 +10,13 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const ResourceSetList = () => {
   const {
     state: {
       sets,
-      libCall: { reports },
+      libCall: {reports},
       showValidationErrors,
     },
     createSet,
@@ -33,7 +33,7 @@ export const ResourceSetList = () => {
         deleteSet={deleteSet}
         moveSet={moveSet}
       >
-        {({ set, i }) => {
+        {({set, i}) => {
           const update = updateSet(i);
           return (
             <Form isHorizontal>
@@ -44,7 +44,7 @@ export const ResourceSetList = () => {
                 isOnlyOne={sets.length === 1}
                 showValidationErrors={showValidationErrors}
                 update={selectedResources =>
-                  update({ resources: selectedResources })
+                  update({resources: selectedResources})
                 }
               />
 
@@ -60,7 +60,7 @@ export const ResourceSetList = () => {
                   "demote",
                 ]}
                 selected={set.action}
-                onChange={value => update({ action: value })}
+                onChange={value => update({action: value})}
                 popover={{
                   header: "Action",
                   body: "Limit the effect of the constraint to the specified action.",
@@ -71,7 +71,7 @@ export const ResourceSetList = () => {
                 id={`resource-set-${i}-sequential`}
                 label="Sequential"
                 isChecked={set.sequential}
-                onChange={() => update({ sequential: !set.sequential })}
+                onChange={() => update({sequential: !set.sequential})}
                 isDisabled={sets.length === 1}
                 popover={{
                   header: "Sequential",
@@ -94,7 +94,7 @@ export const ResourceSetList = () => {
                 id={`resource-set-${i}-require-all`}
                 label="Require all"
                 isChecked={set.requireAll}
-                onChange={() => update({ requireAll: !set.requireAll })}
+                onChange={() => update({requireAll: !set.requireAll})}
                 isDisabled={set.sequential}
                 popover={{
                   header: "Require all",

@@ -1,14 +1,14 @@
-import { clusterStop } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {clusterStop} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, errorMessage, log, put } from "./common";
+import {api, errorMessage, log, put} from "./common";
 
 export function* clusterStopSaga({
-  payload: { clusterName, force },
+  payload: {clusterName, force},
 }: ActionMap["DASHBOARD.CLUSTER.STOP"]) {
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
     clusterStop,
-    { clusterName, force },
+    {clusterName, force},
   );
 
   const taskLabel = `Stop cluster "${clusterName}"`;
@@ -19,13 +19,13 @@ export function* clusterStopSaga({
     }
     yield put({
       type: "TASK.FORCEABLE-CONFIRM.FAIL",
-      payload: { message: errorMessage(result, taskLabel) },
+      payload: {message: errorMessage(result, taskLabel)},
     });
     return;
   }
   yield put({
     type: "CLUSTER.STATUS.REFRESH",
-    key: { clusterName },
+    key: {clusterName},
   });
   yield put({
     type: "TASK.FORCEABLE-CONFIRM.OK",

@@ -6,12 +6,12 @@ import {
   lib,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
-import { NodeName } from "./NodeName";
-import { PrepareNode } from "./PrepareNode";
-import { Addresses } from "./Addresses";
-import { Sbd } from "./Sbd";
-import { Review } from "./Review";
+import {useTask} from "./useTask";
+import {NodeName} from "./NodeName";
+import {PrepareNode} from "./PrepareNode";
+import {Addresses} from "./Addresses";
+import {Sbd} from "./Sbd";
+import {Review} from "./Review";
 
 export const NodeAdd = () => {
   const {
@@ -23,7 +23,7 @@ export const NodeAdd = () => {
     state: {
       authProcessId,
       nodeName,
-      libCall: { response, reports },
+      libCall: {response, reports},
     },
   } = useTask();
   return (
@@ -39,8 +39,8 @@ export const NodeAdd = () => {
           component: <NodeName />,
           footer: (
             <WizardFooter
-              next={{ actionIf: isNameValid }}
-              back={{ disabled: true }}
+              next={{actionIf: isNameValid}}
+              back={{disabled: true}}
             />
           ),
         },
@@ -50,7 +50,7 @@ export const NodeAdd = () => {
           footer: authProcessId ? (
             <NodeAuthWizardFooter authProcessId={authProcessId} />
           ) : (
-            <WizardFooter next={{ disabled: !isNodeCheckDoneValid }} />
+            <WizardFooter next={{disabled: !isNodeCheckDoneValid}} />
           ),
           canJumpTo: isNameValid,
         },
@@ -91,11 +91,11 @@ export const NodeAdd = () => {
                     nodeStart();
                   },
                 ],
-                secondaryActions: { Close: close },
+                secondaryActions: {Close: close},
               }}
               backToUpdateSettingsStepName="Enter node name"
               proceedForce={() =>
-                nodeAdd({ newForceFlags: lib.reports.getForceFlags(reports) })
+                nodeAdd({newForceFlags: lib.reports.getForceFlags(reports)})
               }
               reports={reports}
             />

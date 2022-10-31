@@ -1,4 +1,4 @@
-import { endpoint } from "./endpoint";
+import {endpoint} from "./endpoint";
 
 export const sendKnownHostsToNode = endpoint({
   url: "/manage/send-known-hosts-to-node",

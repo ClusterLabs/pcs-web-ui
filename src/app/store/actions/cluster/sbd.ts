@@ -1,4 +1,4 @@
-import { api } from "app/backend";
+import {api} from "app/backend";
 
 type SbdEnablePayload = api.Lib.ClusterCallPayload<"sbd-enable-sbd">;
 
@@ -22,23 +22,23 @@ type SbdConfiguration = {
 export type ClusterSbdActions = {
   "CLUSTER.SBD.DISABLE.CLOSE": {
     type: "CLUSTER.SBD.DISABLE.CLOSE";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 
   "CLUSTER.SBD.CONFIGURE": {
     type: "CLUSTER.SBD.CONFIGURE";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: SbdConfiguration;
   };
 
   "CLUSTER.SBD.CONFIGURE.UPDATE": {
     type: "CLUSTER.SBD.CONFIGURE.UPDATE";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: Partial<SbdConfiguration>;
   };
 
   "CLUSTER.SBD.CONFIGURE.CLOSE": {
     type: "CLUSTER.SBD.CONFIGURE.CLOSE";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 };

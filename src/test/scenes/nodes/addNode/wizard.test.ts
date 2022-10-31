@@ -1,8 +1,8 @@
-import { intercept, route, shortcuts } from "test/tools";
-import { dt } from "test/tools/selectors";
+import {intercept, route, shortcuts} from "test/tools";
+import {dt} from "test/tools/selectors";
 import * as workflow from "test/workflow";
 
-import { TASK, url } from "./common";
+import {TASK, url} from "./common";
 
 const NODE = "newnode";
 const clusterName = "actions";
@@ -25,8 +25,8 @@ describe("Node add task", () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
-        route.canAddClusterOrNodes({ nodeNameList: [NODE] }),
-        route.checkAuthAgainstNodes({ nodeNameList: [NODE] }),
+        route.canAddClusterOrNodes({nodeNameList: [NODE]}),
+        route.checkAuthAgainstNodes({nodeNameList: [NODE]}),
         route.sendKnownHosts(clusterName, NODE),
         route.clusterNodeAdd(clusterName, NODE),
       ],
@@ -50,7 +50,7 @@ describe("Node add task", () => {
       additionalRouteList: [
         route.canAddClusterOrNodes({
           nodeNameList: [NODE],
-          response: { status: [400, reason] },
+          response: {status: [400, reason]},
         }),
       ],
     });
@@ -62,10 +62,10 @@ describe("Node add task", () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
-        route.canAddClusterOrNodes({ nodeNameList: [NODE] }),
+        route.canAddClusterOrNodes({nodeNameList: [NODE]}),
         route.checkAuthAgainstNodes({
           nodeNameList: [NODE],
-          response: { json: { [NODE]: "Offline" } },
+          response: {json: {[NODE]: "Offline"}},
         }),
       ],
     });
@@ -77,17 +77,17 @@ describe("Node add task", () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
-        route.canAddClusterOrNodes({ nodeNameList: [NODE] }),
+        route.canAddClusterOrNodes({nodeNameList: [NODE]}),
         route.checkAuthAgainstNodes({
           nodeNameList: [NODE],
-          response: { json: { [NODE]: "Unable to authenticate" } },
+          response: {json: {[NODE]: "Unable to authenticate"}},
         }),
         route.sendKnownHosts(clusterName, NODE),
         route.clusterNodeAdd(clusterName, NODE),
         route.authGuiAgainstNodes({
           [NODE]: {
             password: PASSWORD,
-            dest_list: [{ addr: ADDR, port: PORT }],
+            dest_list: [{addr: ADDR, port: PORT}],
           },
         }),
       ],

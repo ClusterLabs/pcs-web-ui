@@ -1,6 +1,6 @@
 import * as shortcut from "dev/shortcuts";
 import * as response from "dev/responses";
-import { app } from "dev/app";
+import {app} from "dev/app";
 
 shortcut.dashboard([response.clusterStatus.actions]);
 

@@ -1,10 +1,10 @@
 import * as responses from "dev/responses";
 
-import { dt } from "test/tools/selectors";
-import { intercept, location, route } from "test/tools";
-import { getConfirmDialog, getDropdownMenu } from "test/components";
+import {dt} from "test/tools/selectors";
+import {intercept, location, route} from "test/tools";
+import {getConfirmDialog, getDropdownMenu} from "test/components";
 
-import { interceptForPermissions } from "./common";
+import {interceptForPermissions} from "./common";
 
 type Permission = ReturnType<
   typeof responses.permissions
@@ -28,7 +28,7 @@ const tryRemovingPermission = async (name: string) => {
   const menu = getDropdownMenu("permission-list", `permission-${name}`);
   const confirmDialog = getConfirmDialog("remove");
 
-  await page.goto(location.permissionList({ clusterName }));
+  await page.goto(location.permissionList({clusterName}));
   await menu.launchItem("permission-remove");
   await confirmDialog.confirm();
 };
@@ -60,7 +60,7 @@ describe("Permission remove", () => {
         route.permissionsSave({
           clusterName,
           permissionList: [namePermission],
-          response: { status: [400, "Error removing permission haclient"] },
+          response: {status: [400, "Error removing permission haclient"]},
         }),
       ],
     });

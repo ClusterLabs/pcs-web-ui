@@ -1,17 +1,17 @@
-import { useDispatch } from "react-redux";
-import { Button, Modal } from "@patternfly/react-core";
+import {useDispatch} from "react-redux";
+import {Button, Modal} from "@patternfly/react-core";
 
-import { tools } from "app/store";
+import {tools} from "app/store";
 
-import { LauncherItem } from "./types";
+import {LauncherItem} from "./types";
 
-const { labelize } = tools;
+const {labelize} = tools;
 
 export const LaunchedConfirm = ({
   item,
   closeConfirm,
 }: {
-  item: Extract<LauncherItem, { confirm: unknown }>;
+  item: Extract<LauncherItem, {confirm: unknown}>;
   closeConfirm: () => void;
 }) => {
   const dispatch = useDispatch();

@@ -39,7 +39,7 @@ describe("post", () => {
     const payload = "some";
 
     const fetchSpy = mockFetch();
-    await http.post(url, { payload });
+    await http.post(url, {payload});
     expect(fetchSpy).toBeCalledWith(url, {
       method: "post",
       body: JSON.stringify(payload),
@@ -58,7 +58,7 @@ describe("post", () => {
     ];
 
     const fetchSpy = mockFetch();
-    await http.post(url, { params });
+    await http.post(url, {params});
     expect(fetchSpy).toBeCalledWith(url, {
       method: "post",
       body: "first=one&second=two",
@@ -75,7 +75,7 @@ describe("post", () => {
       status: 401,
     });
 
-    expect(await http.post("/some/url", { payload: "some" })).toEqual({
+    expect(await http.post("/some/url", {payload: "some"})).toEqual({
       type: "UNAUTHORIZED",
     });
   });
@@ -90,7 +90,7 @@ describe("post", () => {
       text,
     });
 
-    expect(await http.post("/some/url", { payload: "some" })).toEqual({
+    expect(await http.post("/some/url", {payload: "some"})).toEqual({
       type: "BAD_HTTP_STATUS",
       status: 500,
       statusText,
@@ -103,14 +103,14 @@ describe("post", () => {
     mockFetch({
       text,
     });
-    expect(await http.post("/some/url", { payload: "some" })).toEqual({
+    expect(await http.post("/some/url", {payload: "some"})).toEqual({
       type: "OK",
       payload: text,
     });
   });
 
   it("should return OK with object enforced by validate", async () => {
-    const payload = { key: "value" };
+    const payload = {key: "value"};
     mockFetch({
       text: JSON.stringify(payload),
     });
@@ -126,14 +126,14 @@ describe("post", () => {
   });
 
   it("should return OK with object enforced by shape", async () => {
-    const payload = { key: "value" };
+    const payload = {key: "value"};
     mockFetch({
       text: JSON.stringify(payload),
     });
     expect(
       await http.post("/some/url", {
         payload: "some",
-        shape: t.type({ key: t.string }),
+        shape: t.type({key: t.string}),
       }),
     ).toEqual({
       type: "OK",
@@ -142,14 +142,14 @@ describe("post", () => {
   });
 
   it("should return INVALID_PAYLOAD because of shape check", async () => {
-    const payload = { key: "value" };
+    const payload = {key: "value"};
     mockFetch({
       text: JSON.stringify(payload),
     });
     expect(
       await http.post("/some/url", {
         payload: "some",
-        shape: t.type({ name: t.string }),
+        shape: t.type({name: t.string}),
       }),
     ).toEqual({
       type: "INVALID_PAYLOAD",
@@ -161,7 +161,7 @@ describe("post", () => {
   });
 
   it("should return INVALID_PAYLOAD because of validate", async () => {
-    const payload = { key: "value" };
+    const payload = {key: "value"};
     mockFetch({
       text: JSON.stringify(payload),
     });
@@ -186,7 +186,7 @@ describe("post", () => {
     expect(
       await http.post("/some/url", {
         payload: "some",
-        shape: t.type({ name: t.string }),
+        shape: t.type({name: t.string}),
       }),
     ).toEqual({
       type: "NOT_JSON",

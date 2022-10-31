@@ -1,7 +1,7 @@
-import { TaskFinishLib, TaskSimple, TaskSimpleFooter } from "app/view/share";
+import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { ChooseAsignee } from "./ChooseAsignee";
+import {useTask} from "./useTask";
+import {ChooseAsignee} from "./ChooseAsignee";
 
 export const Task = () => {
   const {
@@ -13,7 +13,7 @@ export const Task = () => {
     itemsOffer,
     assigneeType,
     state: {
-      libCall: { response, reports },
+      libCall: {response, reports},
     },
   } = useTask();
 

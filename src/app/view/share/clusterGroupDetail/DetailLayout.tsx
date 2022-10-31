@@ -1,7 +1,7 @@
 import React from "react";
-import { Level, LevelItem, Stack, StackItem } from "@patternfly/react-core";
+import {Level, LevelItem, Stack, StackItem} from "@patternfly/react-core";
 
-import { DetailToolbar } from "./DetailToolbar";
+import {DetailToolbar} from "./DetailToolbar";
 
 export const DetailLayout = ({
   caption,

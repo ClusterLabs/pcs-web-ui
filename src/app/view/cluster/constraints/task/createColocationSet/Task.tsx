@@ -1,9 +1,9 @@
-import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
+import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { Options } from "./Options";
-import { ResourceSetList } from "./ResourceSetList";
-import { Review } from "./Review";
+import {useTask} from "./useTask";
+import {Options} from "./Options";
+import {ResourceSetList} from "./ResourceSetList";
+import {Review} from "./Review";
 
 export const Task = () => {
   const {
@@ -13,7 +13,7 @@ export const Task = () => {
     isCustomIdValid,
     isScoreValid,
     state: {
-      libCall: { reports, response },
+      libCall: {reports, response},
     },
   } = useTask();
   return (
@@ -29,8 +29,8 @@ export const Task = () => {
           component: <ResourceSetList />,
           footer: (
             <WizardFooter
-              next={{ actionIf: areSetsValid }}
-              back={{ disabled: true }}
+              next={{actionIf: areSetsValid}}
+              back={{disabled: true}}
             />
           ),
         },
@@ -53,7 +53,7 @@ export const Task = () => {
           footer: (
             <WizardFooter
               next={{
-                preAction: () => create({ force: false }),
+                preAction: () => create({force: false}),
                 label: "Create colocation constraint",
               }}
             />
@@ -66,7 +66,7 @@ export const Task = () => {
               response={response}
               taskName="create colocation constraint with resource set"
               backToUpdateSettingsStepName="Resource Sets"
-              proceedForce={() => create({ force: true })}
+              proceedForce={() => create({force: true})}
               reports={reports}
             />
           ),
