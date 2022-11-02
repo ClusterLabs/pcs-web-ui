@@ -8,11 +8,13 @@ export const Link = ({
   children,
   "data-test": dataTest,
   strong = false,
+  isInline = false,
 }: {
   to: string;
   children?: React.ReactNode;
   ["data-test"]?: string;
   strong?: boolean;
+  isInline?: boolean;
 }) => {
   const {navigate} = useLocation();
   let caption = children;
@@ -29,7 +31,12 @@ export const Link = ({
     label = <strong>{label}</strong>;
   }
   return (
-    <Button variant="link" data-test="link" onClick={() => navigate(to)}>
+    <Button
+      variant="link"
+      data-test="link"
+      onClick={() => navigate(to)}
+      isInline={isInline}
+    >
       {label}
     </Button>
   );

@@ -1,5 +1,5 @@
 import {Issue} from "app/view/cluster/types";
-import {IssueList, IssueListIssueDefault} from "app/view/share";
+import {Card, IssueList, IssueListIssueDefault} from "app/view/share";
 
 import {ClusterIssueNotAuth} from "./ClusterIssueNotAuth";
 
@@ -18,17 +18,22 @@ const compareIssuesOrder = (i1: Issue, i2: Issue) => {
   return 0;
 };
 
-export const ClusterIssueList = ({issueList}: {issueList: Issue[]}) => {
+export const IssuesCard = ({issueList}: {issueList: Issue[]}) => {
+  if (issueList.length === 0) {
+    return null;
+  }
   return (
-    <IssueList
-      issueList={issueList.sort(compareIssuesOrder)}
-      hideEmpty
-      displayIssue={issue => {
-        if (isNoAuthIssue(issue)) {
-          return <ClusterIssueNotAuth nodeList={issue.nodeList} />;
-        }
-        return <IssueListIssueDefault issue={issue} />;
-      }}
-    />
+    <Card title="Issues">
+      <IssueList
+        issueList={issueList.sort(compareIssuesOrder)}
+        hideEmpty
+        displayIssue={issue => {
+          if (isNoAuthIssue(issue)) {
+            return <ClusterIssueNotAuth nodeList={issue.nodeList} />;
+          }
+          return <IssueListIssueDefault issue={issue} />;
+        }}
+      />
+    </Card>
   );
 };
