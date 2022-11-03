@@ -11,6 +11,7 @@ import {
 
 import {IssuesCard} from "./issues";
 import {NodesCard} from "./nodes";
+import {ResourcesCard} from "./resources";
 
 const grow: FlexProps["grow"] = {default: "grow"};
 
@@ -68,6 +69,11 @@ export const ClusterDetailPage = () => {
           <FlexItem grow={grow} className="pf-u-m-0">
             <Card title="Nodes">
               <NodesCard nodeList={cluster.nodeList} />
+            </Card>
+          </FlexItem>
+          <FlexItem grow={grow} className="pf-u-m-0">
+            <Card title="Resources">
+              <ResourcesCard resourceTree={cluster.resourceTree} />
             </Card>
           </FlexItem>
         </Flex>

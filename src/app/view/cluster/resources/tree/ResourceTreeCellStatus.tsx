@@ -47,7 +47,6 @@ export const ResourceTreeCellStatus = ({status}: {status: ResourceStatus}) => {
       </>
     );
   }
-  /* eslint-disable react/no-array-index-key */
   return (
     <div className="ha-c-data-list__item-status">
       {" "}
