@@ -1,4 +1,8 @@
 import {Badge} from "@patternfly/react-core";
+import {
+  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
+} from "@patternfly/react-icons";
 
 import {Cluster} from "app/view/cluster/types";
 import {
@@ -9,6 +13,8 @@ import {
 } from "app/view/share";
 
 import {ResourceCounts} from "./ResourceCounts";
+import {ResourceIssueInfo} from "./ResourceIssueInfo";
+import {buildStatistics} from "./buildStatistics";
 
 export const ResourcesCard = ({
   resourceTree,
@@ -31,38 +37,7 @@ export const ResourcesCard = ({
     </Link>
   );
 
-  const statistics = resourceTree.reduce(
-    (statistics, resource) => {
-      const newStatistics = {...statistics};
-      if (resource.itemType === "primitive") {
-        newStatistics.plain.total.push(resource.id);
-      }
-      if (resource.itemType === "group") {
-        newStatistics.groups.total.push(resource.id);
-      }
-      if (resource.itemType === "clone") {
-        if (resource.member.itemType === "primitive") {
-          newStatistics.plain.clone.push(resource.id);
-          newStatistics.plain.total.push(resource.id);
-        }
-        if (resource.member.itemType === "group") {
-          newStatistics.groups.clone.push(resource.id);
-          newStatistics.groups.total.push(resource.id);
-        }
-      }
-      return newStatistics;
-    },
-    {
-      plain: {
-        total: [] as string[],
-        clone: [] as string[],
-      },
-      groups: {
-        total: [] as string[],
-        clone: [] as string[],
-      },
-    },
-  );
+  const statistics = buildStatistics(resourceTree);
 
   return (
     <>
@@ -71,13 +46,25 @@ export const ResourcesCard = ({
         <Badge isRead>{resourceTree.length}</Badge> {resourceTreeLink} in the
         cluster.
       </div>
-      <ResourceCounts
-        resourceIdLists={statistics.plain}
-        description="standalone resources"
+      <div className="pf-u-my-sm">
+        <ResourceCounts
+          resourceIdLists={statistics.plain}
+          description="standalone resources"
+        />
+        <ResourceCounts
+          resourceIdLists={statistics.groups}
+          description="groups"
+        />
+      </div>
+      <ResourceIssueInfo
+        issueMap={statistics.issues.errors}
+        status="danger"
+        icon={<ExclamationCircleIcon />}
       />
-      <ResourceCounts
-        resourceIdLists={statistics.groups}
-        description="groups"
+      <ResourceIssueInfo
+        issueMap={statistics.issues.warnings}
+        status="warning"
+        icon={<ExclamationTriangleIcon />}
       />
     </>
   );

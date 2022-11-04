@@ -18,6 +18,7 @@ shortcut.dashboard([
       t.node("5", {status: "offline"}),
       t.node("6", {status: "online", quorum: false}),
     ],
+    resource_list: response.clusterStatusResources.resourceTree,
   }),
   t.cluster("single-standby", "ok", {
     node_list: [t.node("1", {status: "standby"})],
