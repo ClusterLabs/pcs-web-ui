@@ -7,12 +7,14 @@ import {
 
 import {Node} from "app/view/cluster/types";
 import {Link, location, useSelectedClusterName} from "app/view/share";
+import {StatisticsIsueInfo} from "app/view/cluster/detail/StatisticsIsueInfo";
 
 import {SingleNodeView} from "./SingleNodeView";
-import {NodeAgregationInfo} from "./NodeAgregationInfo";
 
 export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
   const clusterName = useSelectedClusterName();
+  const createNodeLink = (nodeName: string) =>
+    location.node({clusterName, nodeName});
 
   if (nodeList.length === 1) {
     return <SingleNodeView singleNode={nodeList[0]} />;
@@ -72,29 +74,33 @@ export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
         There are <Badge isRead>{nodeList.length}</Badge> {nodeListLink} in the
         cluster.
       </div>
-      <NodeAgregationInfo
+      <StatisticsIsueInfo
         color="red"
         icon={<ExclamationCircleIcon />}
-        agregationName="offline"
-        nodeNameList={statistics.offline}
+        issueName="offline"
+        itemList={statistics.offline}
+        createLink={createNodeLink}
       />
-      <NodeAgregationInfo
+      <StatisticsIsueInfo
         color="orange"
         icon={<ExclamationTriangleIcon />}
-        agregationName="standby"
-        nodeNameList={statistics.standby}
+        issueName="standby"
+        itemList={statistics.standby}
+        createLink={createNodeLink}
       />
-      <NodeAgregationInfo
+      <StatisticsIsueInfo
         color="orange"
         icon={<ExclamationTriangleIcon />}
-        agregationName="without quorum"
-        nodeNameList={statistics.onlineWithoutQuorum}
+        issueName="without quorum"
+        itemList={statistics.onlineWithoutQuorum}
+        createLink={createNodeLink}
       />
-      <NodeAgregationInfo
+      <StatisticsIsueInfo
         color="orange"
         icon={<ExclamationTriangleIcon />}
-        agregationName="unknown"
-        nodeNameList={statistics.unknown}
+        issueName="unknown"
+        itemList={statistics.unknown}
+        createLink={createNodeLink}
       />
     </>
   );

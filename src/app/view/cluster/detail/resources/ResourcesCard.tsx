@@ -11,9 +11,9 @@ import {
   location,
   useSelectedClusterName,
 } from "app/view/share";
+import {StatisticsIsueInfo} from "app/view/cluster/detail/StatisticsIsueInfo";
 
 import {ResourceCounts} from "./ResourceCounts";
-import {ResourceIssueInfo} from "./ResourceIssueInfo";
 import {buildStatistics} from "./buildStatistics";
 
 export const ResourcesCard = ({
@@ -56,16 +56,34 @@ export const ResourcesCard = ({
           description="groups"
         />
       </div>
-      <ResourceIssueInfo
-        issueMap={statistics.issues.errors}
-        color="red"
-        icon={<ExclamationCircleIcon />}
-      />
-      <ResourceIssueInfo
-        issueMap={statistics.issues.warnings}
-        color="orange"
-        icon={<ExclamationTriangleIcon />}
-      />
+      {Object.entries(statistics.issues.errors).map(
+        ([label, resourceIdList]) => (
+          <StatisticsIsueInfo
+            key={label}
+            color="red"
+            icon={<ExclamationCircleIcon />}
+            issueName={label.toLowerCase()}
+            itemList={resourceIdList}
+            createLink={resourceId =>
+              location.resource({clusterName, resourceId})
+            }
+          />
+        ),
+      )}
+      {Object.entries(statistics.issues.errors).map(
+        ([label, resourceIdList]) => (
+          <StatisticsIsueInfo
+            key={label}
+            color="orange"
+            icon={<ExclamationTriangleIcon />}
+            issueName={label.toLowerCase()}
+            itemList={resourceIdList}
+            createLink={resourceId =>
+              location.resource({clusterName, resourceId})
+            }
+          />
+        ),
+      )}
     </>
   );
 };
