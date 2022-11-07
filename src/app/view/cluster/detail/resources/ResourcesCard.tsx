@@ -58,12 +58,12 @@ export const ResourcesCard = ({
       </div>
       <ResourceIssueInfo
         issueMap={statistics.issues.errors}
-        status="danger"
+        color="red"
         icon={<ExclamationCircleIcon />}
       />
       <ResourceIssueInfo
         issueMap={statistics.issues.warnings}
-        status="warning"
+        color="orange"
         icon={<ExclamationTriangleIcon />}
       />
     </>

@@ -73,25 +73,25 @@ export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
         cluster.
       </div>
       <NodeAgregationInfo
-        status="danger"
+        color="red"
         icon={<ExclamationCircleIcon />}
         agregationName="offline"
         nodeNameList={statistics.offline}
       />
       <NodeAgregationInfo
-        status="warning"
+        color="orange"
         icon={<ExclamationTriangleIcon />}
         agregationName="standby"
         nodeNameList={statistics.standby}
       />
       <NodeAgregationInfo
-        status="warning"
+        color="orange"
         icon={<ExclamationTriangleIcon />}
-        agregationName="online but without quorum"
+        agregationName="without quorum"
         nodeNameList={statistics.onlineWithoutQuorum}
       />
       <NodeAgregationInfo
-        status="warning"
+        color="orange"
         icon={<ExclamationTriangleIcon />}
         agregationName="unknown"
         nodeNameList={statistics.unknown}

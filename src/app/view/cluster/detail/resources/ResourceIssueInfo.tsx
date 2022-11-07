@@ -1,15 +1,15 @@
 import React from "react";
-import {Badge, Icon} from "@patternfly/react-core";
+import {Label} from "@patternfly/react-core";
 
 import {Link, location, useSelectedClusterName} from "app/view/share";
 
 export const ResourceIssueInfo = ({
   icon: iconComponent,
-  status,
+  color,
   issueMap,
 }: {
   icon: React.ReactNode;
-  status: React.ComponentProps<typeof Icon>["status"];
+  color: React.ComponentProps<typeof Label>["color"];
   issueMap: Record<string, string[]>;
 }) => {
   const clusterName = useSelectedClusterName();
@@ -23,14 +23,13 @@ export const ResourceIssueInfo = ({
   return (
     <>
       {issuePairs.map(([label, resourceIdList]) => (
-        <div key={label}>
-          <Icon isInline status={status}>
-            {iconComponent}
-          </Icon>{" "}
-          <Badge isRead>{resourceIdList.length}</Badge> {label.toLowerCase()}
+        <div key={label} className="pf-u-my-xs">
+          <Label icon={iconComponent} color={color}>
+            <strong className="pf-u-mr-xs">{resourceIdList.length}</strong>
+            {label.toLowerCase()}
+          </Label>{" "}
           {resourceIdList.length < 4 && (
             <span>
-              (
               {resourceIdList
                 .map<React.ReactNode>(resourceId => (
                   <Link
@@ -39,8 +38,7 @@ export const ResourceIssueInfo = ({
                     to={location.resource({clusterName, resourceId})}
                   />
                 ))
-                .reduce((prev, curr) => [prev, ", ", curr])}
-              ){" "}
+                .reduce((prev, curr) => [prev, ", ", curr])}{" "}
             </span>
           )}
         </div>

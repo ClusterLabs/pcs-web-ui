@@ -1,16 +1,16 @@
 import React from "react";
-import {Badge, Icon} from "@patternfly/react-core";
+import {Label} from "@patternfly/react-core";
 
 import {Link, location, useSelectedClusterName} from "app/view/share";
 
 export const NodeAgregationInfo = ({
   icon: iconComponent,
-  status,
+  color,
   agregationName,
   nodeNameList,
 }: {
   icon: React.ReactNode;
-  status: React.ComponentProps<typeof Icon>["status"];
+  color: React.ComponentProps<typeof Label>["color"];
   agregationName: string;
   nodeNameList: string[];
 }) => {
@@ -21,15 +21,13 @@ export const NodeAgregationInfo = ({
   }
 
   return (
-    <div className="pf-u-my-sm">
-      <Icon isInline status={status}>
-        {iconComponent}
-      </Icon>{" "}
-      <Badge isRead>{nodeNameList.length}</Badge> node
-      {nodeNameList.length === 1 ? "" : "s"}{" "}
+    <div className="pf-u-my-xs">
+      <Label icon={iconComponent} color={color}>
+        <strong className="pf-u-mr-xs">{nodeNameList.length}</strong>
+        {agregationName}
+      </Label>{" "}
       {nodeNameList.length < 4 && (
         <span>
-          (
           {nodeNameList
             .map<React.ReactNode>(nodeName => (
               <Link
@@ -38,11 +36,9 @@ export const NodeAgregationInfo = ({
                 to={location.node({clusterName, nodeName})}
               />
             ))
-            .reduce((prev, curr) => [prev, ", ", curr])}
-          ){" "}
+            .reduce((prev, curr) => [prev, ", ", curr])}{" "}
         </span>
       )}
-      {agregationName}
     </div>
   );
 };
