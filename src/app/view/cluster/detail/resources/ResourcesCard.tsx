@@ -41,10 +41,10 @@ export const ResourcesCard = ({
   return (
     <>
       <div className="pf-u-my-sm">
-        There {resourceTree.length === 1 ? "is" : "are"}
+        There {resourceTree.length === 1 ? "is" : "are"}{" "}
         <Badge isRead>{resourceTree.length}</Badge>{" "}
         <Link isInline to={location.resourceList({clusterName})}>
-          resources
+          {resourceTree.length === 1 ? "resource" : "resources"}
         </Link>{" "}
         in the cluster.
       </div>
