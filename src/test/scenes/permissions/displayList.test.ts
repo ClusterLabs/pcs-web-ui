@@ -1,9 +1,9 @@
 import * as responses from "dev/responses";
 
-import { intercept, location } from "test/tools";
-import { mkXPath } from "test/tools/selectors";
+import {intercept, location} from "test/tools";
+import {mkXPath} from "test/tools/selectors";
 
-import { interceptForPermissions } from "./common";
+import {interceptForPermissions} from "./common";
 
 type CompetenceParts = "read" | "write" | "grant" | "full";
 type PermissionParts = CompetenceParts | "name" | "type";
@@ -20,7 +20,7 @@ const permissionsStructure = {
 };
 
 const permissionsResponseData: PermissionList = [
-  { type: "user", name: "name", allow: ["read"] },
+  {type: "user", name: "name", allow: ["read"]},
   {
     type: "group",
     name: "haclient",
@@ -71,7 +71,7 @@ describe("Pemissions", () => {
       clusterName,
       usersPermissions: permissionsResponseData,
     });
-    await page.goto(location.permissionList({ clusterName }));
+    await page.goto(location.permissionList({clusterName}));
     await checkPermissionRow(0);
     await checkPermissionRow(1);
   });

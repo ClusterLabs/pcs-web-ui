@@ -15,7 +15,7 @@ import {
   select,
 } from "redux-saga/effects";
 
-import { Action } from "app/store/actions";
+import {Action} from "app/store/actions";
 
 export const put = (action: Action): PutEffect<Action> =>
   sagaPut<Action>(action);
@@ -32,4 +32,4 @@ export function take(pattern?: Action["type"] | Action["type"][]): TakeEffect {
   return sagaTake(pattern);
 }
 
-export { all, call, cancel, cancelled, delay, fork, race, sagaPut, select };
+export {all, call, cancel, cancelled, delay, fork, race, sagaPut, select};

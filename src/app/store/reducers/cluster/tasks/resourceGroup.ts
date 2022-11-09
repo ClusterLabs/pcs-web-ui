@@ -1,5 +1,5 @@
-import { LibReport } from "app/store/types";
-import { AppReducer } from "app/store/reducers/appReducer";
+import {LibReport} from "app/store/types";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 const initialState: {
   groupId: string;
@@ -21,10 +21,10 @@ export const resourceGroup: AppReducer<typeof initialState> = (
 ) => {
   switch (action.type) {
     case "RESOURCE.GROUP.CREATE.UPDATE":
-      return { ...state, ...action.payload };
+      return {...state, ...action.payload};
 
     case "RESOURCE.GROUP.CREATE":
-      return { ...state, response: "" };
+      return {...state, response: ""};
 
     case "RESOURCE.GROUP.CREATE.SUCCESS":
       return {

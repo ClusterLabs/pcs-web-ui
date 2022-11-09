@@ -1,26 +1,25 @@
-import { libCallCluster } from "app/backend";
-import { Action, ActionMap } from "app/store";
+import {libCallCluster} from "app/backend";
+import {Action, ActionMap} from "app/store";
 
-import { api, lib, log, processError, put, race, take } from "./common";
+import {api, lib, log, processError, put, race, take} from "./common";
 
 export function* create({
   key,
-  payload: { groupId, resourceIdList },
+  payload: {groupId, resourceIdList},
 }: ActionMap["RESOURCE.GROUP.CREATE"]) {
-  const { result }: { result: api.ResultOf<typeof libCallCluster> } =
-    yield race({
-      result: api.authSafe(libCallCluster, {
-        clusterName: key.clusterName,
-        command: {
-          name: "resource-group-add",
-          payload: {
-            group_id: groupId,
-            resource_id_list: resourceIdList,
-          },
+  const {result}: {result: api.ResultOf<typeof libCallCluster>} = yield race({
+    result: api.authSafe(libCallCluster, {
+      clusterName: key.clusterName,
+      command: {
+        name: "resource-group-add",
+        payload: {
+          group_id: groupId,
+          resource_id_list: resourceIdList,
         },
-      }),
-      cancel: take("RESOURCE.CREATE.CLOSE"),
-    });
+      },
+    }),
+    cancel: take("RESOURCE.CREATE.CLOSE"),
+  });
 
   if (!result) {
     // cancelled; we no longer care about the fate of the call
@@ -41,7 +40,7 @@ export function* create({
     return;
   }
 
-  const { payload } = result;
+  const {payload} = result;
   if (lib.isCommunicationError(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
     yield put(errorAction);
@@ -52,15 +51,15 @@ export function* create({
     yield put({
       type: "RESOURCE.GROUP.CREATE.FAIL",
       key,
-      payload: { reports: payload.report_list },
+      payload: {reports: payload.report_list},
     });
     return;
   }
 
-  yield put({ type: "CLUSTER.STATUS.REFRESH", key });
+  yield put({type: "CLUSTER.STATUS.REFRESH", key});
   yield put({
     type: "RESOURCE.GROUP.CREATE.SUCCESS",
     key,
-    payload: { reports: payload.report_list },
+    payload: {reports: payload.report_list},
   });
 }

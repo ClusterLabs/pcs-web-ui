@@ -1,6 +1,6 @@
-import { CallResult, endpoints, http, t, validate } from "./tools";
+import {CallResult, endpoints, http, t, validate} from "./tools";
 
-const { url, shape, params } = endpoints.checkAuthAgainstNodes;
+const {url, shape, params} = endpoints.checkAuthAgainstNodes;
 
 export const checkAuthAgainstNodes = async (
   nodeList: string[],

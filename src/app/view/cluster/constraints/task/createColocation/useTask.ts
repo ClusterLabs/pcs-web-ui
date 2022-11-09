@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ActionPayload, selectors } from "app/store";
+import {ActionPayload, selectors} from "app/store";
 import {
   isValidScore,
   prepareScore,
@@ -11,14 +11,14 @@ import {
 export const useTask = () => {
   const task = useClusterTask("constraintColocationCreate");
 
-  const { clusterName, dispatch, state, close } = task;
+  const {clusterName, dispatch, state, close} = task;
   const [clusterStatus] = useClusterSelector(selectors.getCluster);
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.COLOCATION.CREATE.UPDATE"]) =>
       dispatch({
         type: "CONSTRAINT.COLOCATION.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
     [dispatch, clusterName],
@@ -57,7 +57,7 @@ export const useTask = () => {
       });
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           constraint: {
             colocation: {
@@ -73,7 +73,7 @@ export const useTask = () => {
     recoverFromError: () => {
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE.FAIL.RECOVER",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
     },
 
@@ -81,7 +81,7 @@ export const useTask = () => {
       close();
       dispatch({
         type: "CONSTRAINT.COLOCATION.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
   };

@@ -1,5 +1,5 @@
-import { LibReport } from "app/store/types";
-import { AppReducer } from "app/store/reducers/appReducer";
+import {LibReport} from "app/store/types";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 export const initialState: {
   response:
@@ -42,10 +42,10 @@ export const libCall: AppReducer<typeof initialState> = (
       };
 
     case "LIB.CALL.CLUSTER.TASK.FAIL":
-      return { ...state, response: "fail", reports: action.payload.reports };
+      return {...state, response: "fail", reports: action.payload.reports};
 
     case "LIB.CALL.CLUSTER.TASK.ERROR":
-      return { ...state, response: "communication-error" };
+      return {...state, response: "communication-error"};
 
     case "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD":
       return {

@@ -1,5 +1,5 @@
-import { FenceAgentAgentActions } from "./agent";
-import { FenceAgentListActions } from "./list";
+import {FenceAgentAgentActions} from "./agent";
+import {FenceAgentListActions} from "./list";
 
 // prettier-ignore
 export type FenceAgentActions = (

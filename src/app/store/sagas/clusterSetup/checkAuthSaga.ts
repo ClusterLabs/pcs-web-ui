@@ -1,6 +1,6 @@
-import { checkAuthAgainstNodes } from "app/backend";
-import { actionNewId } from "app/store";
-import { Action, ActionMap } from "app/store/actions";
+import {checkAuthAgainstNodes} from "app/backend";
+import {actionNewId} from "app/store";
+import {Action, ActionMap} from "app/store/actions";
 
 import {
   api,
@@ -11,12 +11,12 @@ import {
   race,
   take,
 } from "../common";
-import { nodeAuthWait } from "../nodeAuth";
+import {nodeAuthWait} from "../nodeAuth";
 
 export function* checkAuthSaga({
-  payload: { nodeNameList, targetNode },
+  payload: {nodeNameList, targetNode},
 }: ActionMap["DASHBOARD.CLUSTER.SETUP.CHECK_AUTH"]) {
-  const { result }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } =
+  const {result}: {result: api.ResultOf<typeof checkAuthAgainstNodes>} =
     yield race({
       result: api.authSafe(checkAuthAgainstNodes, nodeNameList),
       cancel: take([
@@ -33,7 +33,7 @@ export function* checkAuthSaga({
 
   const errorAction = (message: string): Action => ({
     type: "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH.FAIL",
-    payload: { message },
+    payload: {message},
   });
   const taskLabel = "cluster setup: nodes authentication check";
 
@@ -69,7 +69,7 @@ export function* checkAuthSaga({
   ) {
     yield put({
       type: "DASHBOARD.CLUSTER.SETUP.SEND_KNOWN_HOSTS",
-      payload: { nodeNameList, targetNode },
+      payload: {nodeNameList, targetNode},
     });
     return;
   }
@@ -79,7 +79,7 @@ export function* checkAuthSaga({
   const authProcessId = actionNewId();
   yield put({
     type: "NODE.AUTH.START",
-    key: { process: authProcessId },
+    key: {process: authProcessId},
     payload: {
       initialNodeList: Object.keys(result.payload).filter(
         nodeName => result.payload[nodeName] === "Unable to authenticate",
@@ -89,10 +89,10 @@ export function* checkAuthSaga({
 
   yield put({
     type: "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH.NO_AUTH",
-    payload: { authProcessId },
+    payload: {authProcessId},
   });
 
-  const { cancel } = yield race({
+  const {cancel} = yield race({
     auth: call(nodeAuthWait, authProcessId),
     cancel: take([
       "DASHBOARD.CLUSTER.SETUP.UPDATE_CLUSTER_NAME",
@@ -104,12 +104,12 @@ export function* checkAuthSaga({
   if (!cancel) {
     yield put({
       type: "DASHBOARD.CLUSTER.SETUP.SEND_KNOWN_HOSTS",
-      payload: { nodeNameList, targetNode },
+      payload: {nodeNameList, targetNode},
     });
     return;
   }
   yield put({
     type: "NODE.AUTH.STOP",
-    key: { process: authProcessId },
+    key: {process: authProcessId},
   });
 }

@@ -1,4 +1,4 @@
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 
 export type Agent = selectors.ExtractClusterSelector<
   typeof selectors.getPcmkAgent

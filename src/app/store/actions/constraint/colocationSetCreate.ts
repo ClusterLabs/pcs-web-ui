@@ -1,11 +1,11 @@
-import { Role } from "./types";
+import {Role} from "./types";
 
 type OptionalRole = "no limitation" | Role;
 
 export type ColocationSetCreateActions = {
   "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE": {
     type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       useCustomId?: boolean;
       id?: string;
@@ -16,7 +16,7 @@ export type ColocationSetCreateActions = {
 
   "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET": {
     type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       index: number;
       set: {
@@ -29,6 +29,6 @@ export type ColocationSetCreateActions = {
 
   "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE": {
     type: "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 };

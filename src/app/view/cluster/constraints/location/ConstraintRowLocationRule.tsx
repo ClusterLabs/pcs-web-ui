@@ -1,9 +1,9 @@
 import React from "react";
-import { DataListCell } from "@patternfly/react-core";
+import {DataListCell} from "@patternfly/react-core";
 
-import { useSelectedClusterName } from "app/view/share";
+import {useSelectedClusterName} from "app/view/share";
 
-import { ConstraintLocationRule } from "../types";
+import {ConstraintLocationRule} from "../types";
 import {
   ConstraintCell,
   ConstraintCellFake,
@@ -12,8 +12,8 @@ import {
   ConstraintValue,
 } from "../common";
 
-import { ConstraintLocationDescRscPoint } from "./ConstraintLocationDescRscPoint";
-import { ConstraintLocationCellScore } from "./ConstraintLocationCellScore";
+import {ConstraintLocationDescRscPoint} from "./ConstraintLocationDescRscPoint";
+import {ConstraintLocationCellScore} from "./ConstraintLocationCellScore";
 
 const getId = (constraint: ConstraintLocationRule, uniqeId: number) => {
   if ("id" in constraint) {
@@ -76,7 +76,7 @@ export const ConstraintRowLocationRule = ({
         "id" in constraint
           ? {
               type: "CONSTRAINT.DELETE.RULE",
-              key: { clusterName },
+              key: {clusterName},
               payload: {
                 ruleId: constraint.id,
               },

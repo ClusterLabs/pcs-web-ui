@@ -1,6 +1,6 @@
 import * as t from "dev/responses/clusterStatus/tools";
 import * as shortcut from "dev/shortcuts";
-import { app } from "dev/app";
+import {app} from "dev/app";
 
 app.clusterStart((req, res) => {
   if (req.params.clusterName === "fail") {

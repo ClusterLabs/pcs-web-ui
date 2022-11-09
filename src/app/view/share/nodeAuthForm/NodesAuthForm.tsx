@@ -7,11 +7,11 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
-import { EmptyStateSpinner } from "app/view/share/emptyState";
+import {EmptyStateSpinner} from "app/view/share/emptyState";
 
-import { useNodesAuth } from "./useNodesAuth";
+import {useNodesAuth} from "./useNodesAuth";
 
-export const NodesAuthForm = ({ authProcessId }: { authProcessId: number }) => {
+export const NodesAuthForm = ({authProcessId}: {authProcessId: number}) => {
   const {
     state: {
       nodeMap,
@@ -116,9 +116,7 @@ export const NodesAuthForm = ({ authProcessId }: { authProcessId: number }) => {
                             ? ""
                             : nodeMap[nodeName].password
                         }
-                        onChange={password =>
-                          updateNode(nodeName, { password })
-                        }
+                        onChange={password => updateNode(nodeName, {password})}
                         isDisabled={i > 0 && onePasswordForAll}
                       />
                     </td>
@@ -129,7 +127,7 @@ export const NodesAuthForm = ({ authProcessId }: { authProcessId: number }) => {
                         id={addressId}
                         data-test={addressId}
                         value={nodeMap[nodeName].address}
-                        onChange={address => updateNode(nodeName, { address })}
+                        onChange={address => updateNode(nodeName, {address})}
                       />
                     </td>
                     <td className="pf-m-width-10">
@@ -140,7 +138,7 @@ export const NodesAuthForm = ({ authProcessId }: { authProcessId: number }) => {
                         id={portId}
                         data-test={portId}
                         value={nodeMap[nodeName].port}
-                        onChange={port => updateNode(nodeName, { port })}
+                        onChange={port => updateNode(nodeName, {port})}
                       />
                     </td>
                   </tr>

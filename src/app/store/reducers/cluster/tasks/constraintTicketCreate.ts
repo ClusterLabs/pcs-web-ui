@@ -1,7 +1,7 @@
-import { AppReducer } from "app/store/reducers/appReducer";
-import { ActionPayload } from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
 
-import { initialState as initalLibCall, libCall } from "./libCall";
+import {initialState as initalLibCall, libCall} from "./libCall";
 
 type Role = Exclude<
   ActionPayload["CONSTRAINT.TICKET.CREATE.UPDATE"]["role"],
@@ -45,10 +45,10 @@ export const constraintTicketCreate: AppReducer<typeof initialState> = (
       };
 
     case "TASK.VALIDATION.SHOW":
-      return { ...state, showValidationErrors: true };
+      return {...state, showValidationErrors: true};
 
     case "TASK.VALIDATION.HIDE":
-      return { ...state, showValidationErrors: false };
+      return {...state, showValidationErrors: false};
 
     case "CONSTRAINT.TICKET.CREATE.CLOSE":
       return initialState;

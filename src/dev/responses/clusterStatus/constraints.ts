@@ -1,4 +1,4 @@
-import { Cluster } from "dev/types";
+import {Cluster} from "dev/types";
 
 export const constraints: Cluster["constraints"] = {
   rsc_colocation: [

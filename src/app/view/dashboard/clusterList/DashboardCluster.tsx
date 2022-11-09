@@ -1,12 +1,12 @@
-import { Cluster } from "app/view/cluster/types";
-import { IssueList, Table } from "app/view/share";
+import {Cluster} from "app/view/cluster/types";
+import {IssueList, Table} from "app/view/share";
 
-import { DashboardClusterNodes } from "./DashboardClusterNodes";
-import { DashboardClusterResources } from "./DashboardClusterResources";
-import { DashboardClusterFenceDevices } from "./DashboardClusterFenceDevices";
-import { DashboardClusterCellName } from "./DashboardClusterCellName";
-import { DashboardClusterCellSummary } from "./DashboardClusterCellSummary";
-import { DashboardClusterMenu } from "./DashboardClusterMenu";
+import {DashboardClusterNodes} from "./DashboardClusterNodes";
+import {DashboardClusterResources} from "./DashboardClusterResources";
+import {DashboardClusterFenceDevices} from "./DashboardClusterFenceDevices";
+import {DashboardClusterCellName} from "./DashboardClusterCellName";
+import {DashboardClusterCellSummary} from "./DashboardClusterCellSummary";
+import {DashboardClusterMenu} from "./DashboardClusterMenu";
 
 const COLUMNS = {
   ISSUES: "ISSUES",
@@ -18,8 +18,8 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
-export const DashboardCluster = ({ cluster }: { cluster: Cluster }) => {
-  const { expanded, Toggle, Content } = Table.Expansion.useExpansion({
+export const DashboardCluster = ({cluster}: {cluster: Cluster}) => {
+  const {expanded, Toggle, Content} = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
   });
 

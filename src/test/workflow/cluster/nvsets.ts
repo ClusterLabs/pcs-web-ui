@@ -1,6 +1,6 @@
-import { NVPair } from "dev/types";
+import {NVPair} from "dev/types";
 
-import { dt } from "test/tools/selectors";
+import {dt} from "test/tools/selectors";
 
 export const getDisplayMap = async () => {
   return await page.$$eval(dt("nvpair-list", "^nvpair "), attrElements =>

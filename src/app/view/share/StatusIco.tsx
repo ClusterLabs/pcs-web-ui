@@ -5,13 +5,9 @@ import {
   QuestionCircleIcon,
 } from "@patternfly/react-icons";
 
-import { StatusSeverity } from "app/view/cluster/types";
+import {StatusSeverity} from "app/view/cluster/types";
 
-export const StatusIco = ({
-  status,
-}: {
-  status: StatusSeverity | "UNKNOWN";
-}) => {
+export const StatusIco = ({status}: {status: StatusSeverity | "UNKNOWN"}) => {
   switch (status) {
     case "OK":
       return <CheckCircleIcon className="ha-u-status-success" />;

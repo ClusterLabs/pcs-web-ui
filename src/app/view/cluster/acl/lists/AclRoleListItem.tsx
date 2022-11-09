@@ -6,7 +6,7 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   Link,
   SelectionIndicatorInGroup,
@@ -14,7 +14,7 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-import { AclType, Acls } from "../types";
+import {AclType, Acls} from "../types";
 
 const getAssignedSubjectCount = (
   subjectMap: Acls["user"] | Acls["group"],
@@ -33,7 +33,7 @@ export const AclRoleListItem = ({
   permissions: AclType<"role">["permissions"];
 }) => {
   const [cluster] = useClusterSelector(selectors.getCluster);
-  const { selectedItemUrlName, selectedItemUrlType, compact } =
+  const {selectedItemUrlName, selectedItemUrlType, compact} =
     useGroupDetailViewContext();
 
   return (

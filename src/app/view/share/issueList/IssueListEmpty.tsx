@@ -4,7 +4,7 @@ import {
   EmptyStateIcon,
   Title,
 } from "@patternfly/react-core";
-import { CheckCircleIcon } from "@patternfly/react-icons";
+import {CheckCircleIcon} from "@patternfly/react-icons";
 
 import * as pallete from "app/view/share/pallete";
 
@@ -13,7 +13,7 @@ export const IssueListEmpty = () => {
     <EmptyState
       variant="small"
       data-test="issues-status"
-      style={{ margin: "auto" }}
+      style={{margin: "auto"}}
     >
       <EmptyStateIcon icon={CheckCircleIcon} color={pallete.SUCCESS} />
       <Title size="lg" headingLevel="h3">

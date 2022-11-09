@@ -1,11 +1,11 @@
 import * as t from "io-ts";
 
-import { ApiWithIssues } from "./issues";
-import { ApiConstraints } from "./constraints";
-import { ApiResource } from "./resources";
-import { ApiId, ApiResourceId } from "./common";
-import { ApiNode, ApiNodeName } from "./nodes";
-import { ApiNVPair } from "./nvsets";
+import {ApiWithIssues} from "./issues";
+import {ApiConstraints} from "./constraints";
+import {ApiResource} from "./resources";
+import {ApiId, ApiResourceId} from "./common";
+import {ApiNode, ApiNodeName} from "./nodes";
+import {ApiNVPair} from "./nvsets";
 
 /*
 datasource: /cib/configuration/fencing-topology/fencing-level

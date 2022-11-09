@@ -1,10 +1,10 @@
-import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
+import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
 
-import { Review } from "./Review";
-import { useTask } from "./useTask";
-import { NameType } from "./NameType";
-import { InstanceAttrsForm } from "./InstanceAttrsForm";
-import { Settings } from "./Settings";
+import {Review} from "./Review";
+import {useTask} from "./useTask";
+import {NameType} from "./NameType";
+import {InstanceAttrsForm} from "./InstanceAttrsForm";
+import {Settings} from "./Settings";
 
 export const FenceDeviceCreate = () => {
   const {
@@ -15,7 +15,7 @@ export const FenceDeviceCreate = () => {
     areInstanceAttrsValid,
     state: {
       fenceDeviceName,
-      libCall: { reports, response },
+      libCall: {reports, response},
     },
   } = useTask();
   return (
@@ -31,8 +31,8 @@ export const FenceDeviceCreate = () => {
           component: <NameType />,
           footer: (
             <WizardFooter
-              next={{ actionIf: isNameTypeValid }}
-              back={{ disabled: true }}
+              next={{actionIf: isNameTypeValid}}
+              back={{disabled: true}}
             />
           ),
         },
@@ -60,7 +60,7 @@ export const FenceDeviceCreate = () => {
           footer: (
             <WizardFooter
               next={{
-                preAction: () => create({ force: false }),
+                preAction: () => create({force: false}),
                 label: "Create fence device",
               }}
             />
@@ -74,7 +74,7 @@ export const FenceDeviceCreate = () => {
               response={response}
               taskName={`create fence device "${fenceDeviceName}"`}
               backToUpdateSettingsStepName="Name and type"
-              proceedForce={() => create({ force: true })}
+              proceedForce={() => create({force: true})}
               reports={reports}
             />
           ),

@@ -1,8 +1,8 @@
-import { AppReducer } from "app/store/reducers/appReducer";
-import { ActionPayload } from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
 
-import { resourceSetCreateFactory } from "./resourceSet";
-import { initialState as initalLibCall, libCall } from "./libCall";
+import {resourceSetCreateFactory} from "./resourceSet";
+import {initialState as initalLibCall, libCall} from "./libCall";
 
 type Action = Exclude<
   ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]["action"],
@@ -67,7 +67,7 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
         contextUpdate = onlyOneSettings;
       } else if (action.payload.set.sequential) {
         // disabled requiereAll does not make sense if sequential is enabled
-        contextUpdate = { requireAll: true };
+        contextUpdate = {requireAll: true};
       }
 
       return {
@@ -84,18 +84,18 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
       return initialState;
 
     case "TASK.VALIDATION.SHOW":
-      return { ...state, showValidationErrors: true };
+      return {...state, showValidationErrors: true};
 
     case "TASK.VALIDATION.HIDE":
-      return { ...state, showValidationErrors: false };
+      return {...state, showValidationErrors: false};
 
     default: {
       let sets = resourceSet(state.sets, action);
       if (sets.length === 1) {
-        sets = [{ ...sets[0], ...onlyOneSettings }];
+        sets = [{...sets[0], ...onlyOneSettings}];
       }
 
-      return { ...state, sets, libCall: libCall(state.libCall, action) };
+      return {...state, sets, libCall: libCall(state.libCall, action)};
     }
   }
 };

@@ -6,7 +6,7 @@ import {
   KebabToggle,
 } from "@patternfly/react-core";
 
-import { useDispatch } from "app/view/share/useDispatch";
+import {useDispatch} from "app/view/share/useDispatch";
 
 export const DrawerDropdown = () => {
   const [isHeaderDropdownOpen, setHeaderDropdownOpen] = React.useState(false);
@@ -26,14 +26,14 @@ export const DrawerDropdown = () => {
       dropdownItems={[
         <DropdownItem
           key="markAllRead"
-          onClick={() => dispatch({ type: "NOTIFICATION.READ.ALL" })}
+          onClick={() => dispatch({type: "NOTIFICATION.READ.ALL"})}
         >
           Mark all read
         </DropdownItem>,
 
         <DropdownItem
           key="clearAll"
-          onClick={() => dispatch({ type: "NOTIFICATION.DESTROY.ALL" })}
+          onClick={() => dispatch({type: "NOTIFICATION.DESTROY.ALL"})}
         >
           Clear all
         </DropdownItem>,

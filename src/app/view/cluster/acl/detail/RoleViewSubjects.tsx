@@ -1,6 +1,6 @@
 import React from "react";
 
-import { tools } from "app/store";
+import {tools} from "app/store";
 import {
   DataListWithMenu,
   DetailViewSection,
@@ -22,8 +22,8 @@ export const RoleViewSubjects = ({
   const subjectLocation = React.useCallback(
     (subjectId: string) =>
       subjectType === "user"
-        ? location.aclUser({ clusterName, userId: subjectId })
-        : location.aclGroup({ clusterName, groupId: subjectId }),
+        ? location.aclUser({clusterName, userId: subjectId})
+        : location.aclGroup({clusterName, groupId: subjectId}),
     [clusterName, subjectType],
   );
   return (
@@ -43,18 +43,18 @@ export const RoleViewSubjects = ({
               description: `This unassigns the ${subjectType} ${subjectId}`,
               action: {
                 type: "LIB.CALL.CLUSTER",
-                key: { clusterName },
+                key: {clusterName},
                 payload: {
                   taskLabel: `unassign ${subjectType} "${subjectId}"`,
                   call:
                     subjectType === "user"
                       ? {
                           name: "acl-unassign-role-from-target",
-                          payload: { role_id: roleId, target_id: subjectId },
+                          payload: {role_id: roleId, target_id: subjectId},
                         }
                       : {
                           name: "acl-unassign-role-from-group",
-                          payload: { role_id: roleId, group_id: subjectId },
+                          payload: {role_id: roleId, group_id: subjectId},
                         },
                 },
               },

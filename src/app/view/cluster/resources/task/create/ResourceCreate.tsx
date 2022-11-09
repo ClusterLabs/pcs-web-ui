@@ -1,10 +1,10 @@
-import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
+import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
 
-import { Review } from "./Review";
-import { useTask } from "./useTask";
-import { NameType } from "./NameType";
-import { InstanceAttrsForm } from "./InstanceAttrsForm";
-import { Settings } from "./Settings";
+import {Review} from "./Review";
+import {useTask} from "./useTask";
+import {NameType} from "./NameType";
+import {InstanceAttrsForm} from "./InstanceAttrsForm";
+import {Settings} from "./Settings";
 
 export const ResourceCreate = () => {
   const {
@@ -16,7 +16,7 @@ export const ResourceCreate = () => {
     areSettingsValid,
     state: {
       resourceName,
-      libCall: { reports, response },
+      libCall: {reports, response},
     },
   } = useTask();
   return (
@@ -55,7 +55,7 @@ export const ResourceCreate = () => {
         {
           name: "Settings",
           component: <Settings />,
-          footer: <WizardFooter next={{ actionIf: areSettingsValid }} />,
+          footer: <WizardFooter next={{actionIf: areSettingsValid}} />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
@@ -64,7 +64,7 @@ export const ResourceCreate = () => {
           footer: (
             <WizardFooter
               next={{
-                preAction: () => create({ force: false }),
+                preAction: () => create({force: false}),
                 label: "Create resource",
               }}
             />
@@ -79,7 +79,7 @@ export const ResourceCreate = () => {
               response={response}
               taskName={`create resource "${resourceName}"`}
               backToUpdateSettingsStepName="Name and type"
-              proceedForce={() => create({ force: true })}
+              proceedForce={() => create({force: true})}
               reports={reports}
             />
           ),

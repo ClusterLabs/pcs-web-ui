@@ -1,4 +1,4 @@
-import { ActionPayload, selectors } from "app/store";
+import {ActionPayload, selectors} from "app/store";
 
 export type Acls = ReturnType<ReturnType<typeof selectors.getCluster>>["acls"];
 

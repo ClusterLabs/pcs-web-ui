@@ -1,4 +1,4 @@
-import { Role } from "./types";
+import {Role} from "./types";
 
 type OptionalRole = "no limitation" | Role;
 type LossPolicy = "fence" | "stop" | "freeze" | "demote";
@@ -6,7 +6,7 @@ type LossPolicy = "fence" | "stop" | "freeze" | "demote";
 export type TicketSetCreateActions = {
   "CONSTRAINT.TICKET.SET.CREATE.UPDATE": {
     type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       ticket?: string;
       useCustomId?: boolean;
@@ -16,7 +16,7 @@ export type TicketSetCreateActions = {
   };
   "CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET": {
     type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       index: number;
       set: {
@@ -28,6 +28,6 @@ export type TicketSetCreateActions = {
 
   "CONSTRAINT.TICKET.SET.CREATE.CLOSE": {
     type: "CONSTRAINT.TICKET.SET.CREATE.CLOSE";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 };

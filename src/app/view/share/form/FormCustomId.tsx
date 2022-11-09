@@ -1,7 +1,7 @@
 import React from "react";
-import { Flex, FlexItem, Switch, TextInput } from "@patternfly/react-core";
+import {Flex, FlexItem, Switch, TextInput} from "@patternfly/react-core";
 
-import { FormGroup } from "./FormGroup";
+import {FormGroup} from "./FormGroup";
 
 export const FormCustomId = ({
   useCustomId,

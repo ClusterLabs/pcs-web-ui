@@ -1,9 +1,9 @@
-import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
+import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { EnterName } from "./EnterName";
-import { Review } from "./Review";
-import { Roles } from "./Roles";
+import {useTask} from "./useTask";
+import {EnterName} from "./EnterName";
+import {Review} from "./Review";
+import {Roles} from "./Roles";
 
 export const Task = () => {
   const {
@@ -12,7 +12,7 @@ export const Task = () => {
     createSubject,
     isNameValid,
     state: {
-      libCall: { response, reports },
+      libCall: {response, reports},
       subjectType,
       subjectId,
     },
@@ -33,8 +33,8 @@ export const Task = () => {
           component: <EnterName />,
           footer: (
             <WizardFooter
-              next={{ actionIf: isNameValid }}
-              back={{ disabled: true }}
+              next={{actionIf: isNameValid}}
+              back={{disabled: true}}
             />
           ),
         },

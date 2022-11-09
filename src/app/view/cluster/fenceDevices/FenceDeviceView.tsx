@@ -1,22 +1,18 @@
 import React from "react";
 
-import { FenceDevice } from "app/view/cluster/types";
-import { DetailLayout, Router, UrlTabs, useUrlTabs } from "app/view/share";
+import {FenceDevice} from "app/view/cluster/types";
+import {DetailLayout, Router, UrlTabs, useUrlTabs} from "app/view/share";
 
-import { useClusterFenceAgent } from "./useFenceAgent";
-import { FenceDeviceDetailView } from "./FenceDeviceDetailView";
-import { FenceDeviceArgumentsView } from "./arguments";
-import { FencePageToolbar } from "./FencePageToolbar";
+import {useClusterFenceAgent} from "./useFenceAgent";
+import {FenceDeviceDetailView} from "./FenceDeviceDetailView";
+import {FenceDeviceArgumentsView} from "./arguments";
+import {FencePageToolbar} from "./FencePageToolbar";
 
 const tabList = ["detail", "arguments"] as const;
 
-export const FenceDeviceView = ({
-  fenceDevice,
-}: {
-  fenceDevice: FenceDevice;
-}) => {
+export const FenceDeviceView = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   useClusterFenceAgent(fenceDevice.agentName);
-  const { currentTab, matchedContext } = useUrlTabs(tabList);
+  const {currentTab, matchedContext} = useUrlTabs(tabList);
   return (
     <DetailLayout
       caption={fenceDevice.id}

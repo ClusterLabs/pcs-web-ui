@@ -1,15 +1,15 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormRadios, FormSwitch, FormText } from "app/view/share";
+import {FormRadios, FormSwitch, FormText} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Configure = () => {
   const {
     updateState,
     isNameValid,
     areCompetenciesValid,
-    state: { name, type, showValidationErrors, read, write, grant, full },
+    state: {name, type, showValidationErrors, read, write, grant, full},
   } = useTask();
 
   return (
@@ -18,7 +18,7 @@ export const Configure = () => {
         <FormText
           id="permission-name"
           label="Name"
-          onChange={value => updateState({ name: value })}
+          onChange={value => updateState({name: value})}
           value={name}
           showValidationErrors={showValidationErrors}
           isValid={isNameValid}
@@ -45,7 +45,7 @@ export const Configure = () => {
           switchLabel="Allowed"
           switchLabelOff="Disallowed"
           isChecked={read}
-          onChange={allow => updateState({ read: allow })}
+          onChange={allow => updateState({read: allow})}
           data-test="read"
           popover={{
             header: "Allows to view cluster settings",
@@ -58,7 +58,7 @@ export const Configure = () => {
           switchLabel="Allowed"
           switchLabelOff="Disallowed"
           isChecked={write}
-          onChange={allow => updateState({ write: allow })}
+          onChange={allow => updateState({write: allow})}
           data-test="write"
           popover={{
             header:
@@ -72,7 +72,7 @@ export const Configure = () => {
           switchLabel="Allowed"
           switchLabelOff="Disallowed"
           isChecked={grant}
-          onChange={allow => updateState({ grant: allow })}
+          onChange={allow => updateState({grant: allow})}
           data-test="grant"
           popover={{
             header: "Allows to modify cluster permissions and ACLs",
@@ -85,7 +85,7 @@ export const Configure = () => {
           switchLabel="Allowed"
           switchLabelOff="Disallowed"
           isChecked={full}
-          onChange={allow => updateState({ full: allow })}
+          onChange={allow => updateState({full: allow})}
           data-test="full"
           showValidationErrors={showValidationErrors}
           isValid={areCompetenciesValid}

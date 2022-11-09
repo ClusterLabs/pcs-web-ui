@@ -1,14 +1,14 @@
-import { Flex, FlexItem, FlexProps } from "@patternfly/react-core";
+import {Flex, FlexItem, FlexProps} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { EmptyStateClusterStopped, useClusterSelector } from "app/view/share";
+import {selectors} from "app/store";
+import {EmptyStateClusterStopped, useClusterSelector} from "app/view/share";
 
-import { AclListCard } from "./AclListCard";
-import { AclSubjectListItem } from "./AclSubjectListItem";
-import { AclRoleListItem } from "./AclRoleListItem";
+import {AclListCard} from "./AclListCard";
+import {AclSubjectListItem} from "./AclSubjectListItem";
+import {AclRoleListItem} from "./AclRoleListItem";
 
-const grow: FlexProps["grow"] = { default: "grow" };
-const spacer: FlexProps["spacer"] = { default: "spacerNone" };
+const grow: FlexProps["grow"] = {default: "grow"};
+const spacer: FlexProps["spacer"] = {default: "spacerNone"};
 
 export const AclLists = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -26,7 +26,7 @@ export const AclLists = () => {
         <AclListCard
           aclType="role"
           aclList={cluster.acls.role}
-          renderItem={(id, { permissions }) => (
+          renderItem={(id, {permissions}) => (
             <AclRoleListItem id={id} permissions={permissions} />
           )}
         />

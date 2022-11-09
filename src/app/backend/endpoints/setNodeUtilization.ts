@@ -1,7 +1,7 @@
-import { endpoint } from "./endpoint";
+import {endpoint} from "./endpoint";
 
 export const setNodeUtilization = endpoint({
-  url: ({ clusterName }: { clusterName: string }) =>
+  url: ({clusterName}: {clusterName: string}) =>
     `/managec/${clusterName}/set_node_utilization`,
   method: "post",
   params: ({

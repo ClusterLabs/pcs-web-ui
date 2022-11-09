@@ -1,6 +1,6 @@
-import { CallResult, endpoints, http } from "./tools";
+import {CallResult, endpoints, http} from "./tools";
 
-const { url, params } = endpoints.updateClusterSettings;
+const {url, params} = endpoints.updateClusterSettings;
 
 export const updateClusterSettings = async ({
   clusterName,
@@ -9,6 +9,6 @@ export const updateClusterSettings = async ({
   clusterName: string;
   settingsMap: Parameters<typeof params>[0]["settingsMap"];
 }): CallResult =>
-  http.post(url({ clusterName }), {
-    params: params({ settingsMap }),
+  http.post(url({clusterName}), {
+    params: params({settingsMap}),
   });

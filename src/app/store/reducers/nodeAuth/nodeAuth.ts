@@ -1,4 +1,4 @@
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 type NodeMap = Record<
   string,
@@ -9,7 +9,7 @@ type NodeMap = Record<
   }
 >;
 
-const initialNode = { password: "", address: "", port: "" };
+const initialNode = {password: "", address: "", port: ""};
 
 const initialState: {
   nodeMap: NodeMap;
@@ -35,7 +35,7 @@ const initialState: {
 
 const selectNodes = (
   nodeAuthError: Record<string, 0 | 1>,
-  { success }: { success: boolean },
+  {success}: {success: boolean},
 ) =>
   Object.entries(nodeAuthError)
     .filter(([_n, r]) => r === (success ? 0 : 1))
@@ -50,7 +50,7 @@ export const nodeAuth: AppReducer<typeof initialState> = (
       return {
         ...state,
         nodeMap: action.payload.initialNodeList.reduce<NodeMap>(
-          (map, node): NodeMap => ({ ...map, [node]: initialNode }),
+          (map, node): NodeMap => ({...map, [node]: initialNode}),
           {},
         ),
       };
@@ -58,7 +58,7 @@ export const nodeAuth: AppReducer<typeof initialState> = (
     case "NODE.AUTH.UPDATE.NODE": {
       const node = action.payload.nodeName;
       const stateNode = state.nodeMap[node];
-      const { password, address, port } = action.payload.state;
+      const {password, address, port} = action.payload.state;
       return {
         ...state,
         nodeMap: {
@@ -74,15 +74,15 @@ export const nodeAuth: AppReducer<typeof initialState> = (
     }
 
     case "NODE.AUTH.ADDR.ENABLE": {
-      return { ...state, useAddresses: action.payload.enable };
+      return {...state, useAddresses: action.payload.enable};
     }
 
     case "NODE.AUTH.ONE.PASSWORD.FOR.ALL.ENABLE": {
-      return { ...state, onePasswordForAll: action.payload.enable };
+      return {...state, onePasswordForAll: action.payload.enable};
     }
 
     case "NODE.AUTH.OK": {
-      const { response } = action.payload;
+      const {response} = action.payload;
       const unauthBackendNodes =
         "local_cluster_node_auth_error" in response
         && response.local_cluster_node_auth_error
@@ -101,7 +101,7 @@ export const nodeAuth: AppReducer<typeof initialState> = (
         && response.node_auth_error
       ) {
         const resultMap = response.node_auth_error;
-        const failedNodes = selectNodes(resultMap, { success: false });
+        const failedNodes = selectNodes(resultMap, {success: false});
         return {
           ...state,
           sending: false,
@@ -117,7 +117,7 @@ export const nodeAuth: AppReducer<typeof initialState> = (
             {},
           ),
           nodesResults: {
-            success: selectNodes(resultMap, { success: true }),
+            success: selectNodes(resultMap, {success: true}),
             fail: failedNodes,
           },
         };
@@ -141,7 +141,7 @@ export const nodeAuth: AppReducer<typeof initialState> = (
         nodeMap: {
           ...state.nodeMap,
           ...unauthBackendNodes.reduce<NodeMap>(
-            (map, node): NodeMap => ({ ...map, [node]: initialNode }),
+            (map, node): NodeMap => ({...map, [node]: initialNode}),
             {},
           ),
         },

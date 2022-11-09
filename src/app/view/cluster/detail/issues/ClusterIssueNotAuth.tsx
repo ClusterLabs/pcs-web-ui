@@ -1,14 +1,14 @@
-import { Alert, AlertActionLink } from "@patternfly/react-core";
+import {Alert, AlertActionLink} from "@patternfly/react-core";
 
-import { NodesAuthForm } from "app/view/share";
-import { TaskSimple } from "app/view/share";
+import {NodesAuthForm} from "app/view/share";
+import {TaskSimple} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { ClusterIssueNotAuthFooter } from "./ClusterIssueNotAuthFooter";
-import { ClusterIssueNotAuthFinish } from "./ClusterIssueNotAuthFinish";
+import {useTask} from "./useTask";
+import {ClusterIssueNotAuthFooter} from "./ClusterIssueNotAuthFooter";
+import {ClusterIssueNotAuthFinish} from "./ClusterIssueNotAuthFinish";
 
-export const ClusterIssueNotAuth = ({ nodeList }: { nodeList: string[] }) => {
-  const { open, cancel, authProcessId, fixAuthStart } = useTask();
+export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
+  const {open, cancel, authProcessId, fixAuthStart} = useTask();
   return (
     <>
       <Alert

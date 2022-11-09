@@ -1,4 +1,4 @@
-import { dt } from "test/tools/selectors";
+import {dt} from "test/tools/selectors";
 
 export * as roleDetail from "./roleDetail";
 export * as subjectDetail from "./subjectDetail";

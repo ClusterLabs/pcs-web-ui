@@ -1,13 +1,9 @@
-import { ActionPayload, selectors } from "app/store";
-import {
-  isValidScore,
-  useClusterSelector,
-  useClusterTask,
-} from "app/view/share";
+import {ActionPayload, selectors} from "app/store";
+import {isValidScore, useClusterSelector, useClusterTask} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintOrderCreate");
-  const { clusterName, dispatch, state, close } = task;
+  const {clusterName, dispatch, state, close} = task;
   const [clusterStatus] = useClusterSelector(selectors.getCluster);
 
   return {
@@ -34,14 +30,14 @@ export const useTask = () => {
     updateState: (payload: ActionPayload["CONSTRAINT.ORDER.CREATE.UPDATE"]) =>
       dispatch({
         type: "CONSTRAINT.ORDER.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
 
     createOrder: () =>
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           constraint: {
             order: {
@@ -59,7 +55,7 @@ export const useTask = () => {
     recoverFromError: () => {
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE.FAIL.RECOVER",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
     },
 
@@ -67,14 +63,14 @@ export const useTask = () => {
       close();
       dispatch({
         type: "CONSTRAINT.ORDER.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
 
     swapResources: () =>
       dispatch({
         type: "CONSTRAINT.ORDER.CREATE.SWAP_RESOURCES",
-        key: { clusterName },
+        key: {clusterName},
       }),
   };
 };

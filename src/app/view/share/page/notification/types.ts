@@ -1,4 +1,4 @@
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 
-const { getNotifications } = selectors;
+const {getNotifications} = selectors;
 export type Notification = ReturnType<typeof getNotifications>[number];

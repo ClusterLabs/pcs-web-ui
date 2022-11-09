@@ -1,20 +1,20 @@
-import { api, authGuiAgainstNodes } from "app/backend";
+import {api, authGuiAgainstNodes} from "app/backend";
 
 export type NodeAuthActions = {
   "NODE.AUTH.START": {
     type: "NODE.AUTH.START";
-    key: { process: number };
+    key: {process: number};
     payload: {
       initialNodeList: string[];
     };
   };
   "NODE.AUTH.STOP": {
     type: "NODE.AUTH.STOP";
-    key: { process: number };
+    key: {process: number};
   };
   "NODE.AUTH.UPDATE.NODE": {
     type: "NODE.AUTH.UPDATE.NODE";
-    key: { process: number };
+    key: {process: number};
     payload: {
       nodeName: string;
       state: {
@@ -26,21 +26,21 @@ export type NodeAuthActions = {
   };
   "NODE.AUTH.ADDR.ENABLE": {
     type: "NODE.AUTH.ADDR.ENABLE";
-    key: { process: number };
+    key: {process: number};
     payload: {
       enable: boolean;
     };
   };
   "NODE.AUTH.ONE.PASSWORD.FOR.ALL.ENABLE": {
     type: "NODE.AUTH.ONE.PASSWORD.FOR.ALL.ENABLE";
-    key: { process: number };
+    key: {process: number};
     payload: {
       enable: boolean;
     };
   };
   "NODE.AUTH": {
     type: "NODE.AUTH";
-    key: { process: number };
+    key: {process: number};
     payload: {
       nodeMap: Record<
         string,
@@ -54,7 +54,7 @@ export type NodeAuthActions = {
   };
   "NODE.AUTH.FAIL": {
     type: "NODE.AUTH.FAIL";
-    key: { process: number };
+    key: {process: number};
     payload: {
       message: string;
     };
@@ -62,7 +62,7 @@ export type NodeAuthActions = {
 
   "NODE.AUTH.OK": {
     type: "NODE.AUTH.OK";
-    key: { process: number };
+    key: {process: number};
     payload: {
       response: api.PayloadOf<typeof authGuiAgainstNodes>;
     };

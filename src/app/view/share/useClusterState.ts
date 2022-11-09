@@ -1,8 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
-import { ActionLeaf, selectors } from "app/store";
-import { useDispatch } from "app/view/share/useDispatch";
+import {ActionLeaf, selectors} from "app/store";
+import {useDispatch} from "app/view/share/useDispatch";
 
 export const useClusterState = (clusterName: string) => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ export const useClusterState = (clusterName: string) => {
   const start = React.useMemo<ActionLeaf>(
     () => ({
       type: "CLUSTER.STATUS.SYNC",
-      key: { clusterName },
+      key: {clusterName},
     }),
     [clusterName],
   );
@@ -18,7 +18,7 @@ export const useClusterState = (clusterName: string) => {
   const stop = React.useMemo<ActionLeaf>(
     () => ({
       type: "CLUSTER.STATUS.SYNC.STOP",
-      key: { clusterName },
+      key: {clusterName},
     }),
     [clusterName],
   );
@@ -37,21 +37,21 @@ export const useClusterState = (clusterName: string) => {
 
     dispatch({
       type: "CLUSTER.PROPERTIES.LOAD",
-      key: { clusterName },
+      key: {clusterName},
     });
 
     dispatch({
       type: "CLUSTER.PERMISSIONS.LOAD",
-      key: { clusterName },
+      key: {clusterName},
     });
 
     dispatch({
       type: "RESOURCE_AGENT.LIST.LOAD",
-      key: { clusterName },
+      key: {clusterName},
     });
     dispatch({
       type: "FENCE_AGENT.LIST.LOAD",
-      key: { clusterName },
+      key: {clusterName},
     });
   }, [clusterName, dispatch, start, stop]);
 

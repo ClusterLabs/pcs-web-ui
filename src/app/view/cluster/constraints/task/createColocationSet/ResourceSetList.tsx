@@ -1,6 +1,6 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   FormRadios,
   FormResourceSetField,
@@ -10,14 +10,14 @@ import {
   useClusterSelector,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const ResourceSetList = () => {
   const {
     state: {
       sets,
       showValidationErrors,
-      libCall: { reports },
+      libCall: {reports},
     },
     createSet,
     updateSet,
@@ -33,7 +33,7 @@ export const ResourceSetList = () => {
         deleteSet={deleteSet}
         moveSet={moveSet}
       >
-        {({ set, i }) => {
+        {({set, i}) => {
           const update = updateSet(i);
           return (
             <Form isHorizontal>
@@ -44,7 +44,7 @@ export const ResourceSetList = () => {
                 isOnlyOne={sets.length === 1}
                 showValidationErrors={showValidationErrors}
                 update={selectedResources =>
-                  update({ resources: selectedResources })
+                  update({resources: selectedResources})
                 }
               />
 
@@ -52,7 +52,7 @@ export const ResourceSetList = () => {
                 id={`resource-set-${i}-sequential`}
                 label="Sequential"
                 isChecked={set.sequential}
-                onChange={() => update({ sequential: !set.sequential })}
+                onChange={() => update({sequential: !set.sequential})}
                 isDisabled={sets.length === 1}
                 popover={{
                   header: "Sequential",
@@ -83,7 +83,7 @@ export const ResourceSetList = () => {
                   "Unpromoted",
                 ]}
                 selected={set.role}
-                onChange={value => update({ role: value })}
+                onChange={value => update({role: value})}
                 popover={{
                   header: "Role",
                   body: (

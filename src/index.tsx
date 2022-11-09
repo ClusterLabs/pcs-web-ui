@@ -18,6 +18,6 @@ import "@patternfly/react-styles/css/components/Content/content.css";
 import "@patternfly/react-styles/css/components/Radio/radio.css";
 import "@patternfly/react-styles/css/components/Select/select.css";
 
-import { App } from "app/view";
+import {App} from "app/view";
 
 ReactDOM.render(<App />, document.getElementById("root"));

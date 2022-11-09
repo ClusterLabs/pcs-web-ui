@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
-import { ActionPayload } from "app/store/actions";
-import { AppReducer } from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 type ResourceAgentMap = Record<string, string[]>;
 type ResourceAgentListService = {
@@ -38,7 +38,7 @@ type AgentNameStructure = NonNullable<ReturnType<typeof parseName>>;
 
 const groupByClassProvider = (
   grouped: ResourceAgentMap,
-  { groupName, agentName }: AgentNameStructure,
+  {groupName, agentName}: AgentNameStructure,
 ) => ({
   ...grouped,
   [groupName]: [...(grouped[groupName] ?? []), agentName],
@@ -63,7 +63,7 @@ const data: AppReducer<ResourceAgentMap> = (state = {}, action) => {
 };
 
 const fetchState: AppReducer<ResourceAgentListService["fetchState"]> = (
-  state = { current: "NOT_STARTED", alreadyLoaded: false },
+  state = {current: "NOT_STARTED", alreadyLoaded: false},
   action,
 ) => {
   switch (action.type) {

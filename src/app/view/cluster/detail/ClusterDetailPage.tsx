@@ -1,23 +1,21 @@
+import {Flex, FlexItem, FlexProps, PageSection} from "@patternfly/react-core";
+
+import {selectors} from "app/store";
 import {
   Card,
-  CardBody,
-  CardHeader,
-  PageSection,
-  Stack,
-  StackItem,
-} from "@patternfly/react-core";
-
-import { selectors } from "app/store";
-import {
   ClusterToolbar,
   task,
   useClusterSelector,
   useSelectedClusterName,
 } from "app/view/share";
 
-import { ClusterIssueList } from "./issues";
+import {IssuesCard} from "./issues";
+import {NodesCard} from "./nodes";
+import {ResourcesCard} from "./resources";
 
-export const ClusterDetail = () => {
+const grow: FlexProps["grow"] = {default: "grow"};
+
+export const ClusterDetailPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const clusterName = useSelectedClusterName();
   return (
@@ -32,7 +30,7 @@ export const ClusterDetail = () => {
               description: "Start the on all nodes",
               action: {
                 type: "DASHBOARD.CLUSTER.START",
-                payload: { clusterName },
+                payload: {clusterName},
               },
             },
           },
@@ -50,9 +48,9 @@ export const ClusterDetail = () => {
                   success: "Cluster was successfully stopped",
                   fail: "Cluster stop failed",
                 },
-                getForceableAction: ({ force }) => ({
+                getForceableAction: ({force}) => ({
                   type: "DASHBOARD.CLUSTER.STOP",
-                  payload: { clusterName, force },
+                  payload: {clusterName, force},
                 }),
               }),
               useTask: task.forceableConfirm.useTask,
@@ -62,20 +60,23 @@ export const ClusterDetail = () => {
       />
 
       <PageSection data-test="cluster-detail">
-        <Card>
-          <CardHeader>
-            <span>
-              Cluster <strong>{cluster.name}</strong>
-            </span>
-          </CardHeader>
-          <CardBody>
-            <Stack hasGutter className="pf-u-m-md">
-              <StackItem>
-                <ClusterIssueList issueList={cluster.issueList} />
-              </StackItem>
-            </Stack>
-          </CardBody>
-        </Card>
+        <Flex>
+          {cluster.issueList.length > 0 && (
+            <FlexItem grow={grow} className="pf-u-m-0">
+              <IssuesCard issueList={cluster.issueList} />
+            </FlexItem>
+          )}
+          <FlexItem grow={grow} className="pf-u-m-0">
+            <Card title="Nodes">
+              <NodesCard nodeList={cluster.nodeList} />
+            </Card>
+          </FlexItem>
+          <FlexItem grow={grow} className="pf-u-m-0">
+            <Card title="Resources">
+              <ResourcesCard resourceTree={cluster.resourceTree} />
+            </Card>
+          </FlexItem>
+        </Flex>
       </PageSection>
     </>
   );

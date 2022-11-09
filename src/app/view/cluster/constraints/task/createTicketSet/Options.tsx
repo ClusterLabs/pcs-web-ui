@@ -1,13 +1,8 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import {
-  FormCustomId,
-  FormRadios,
-  FormText,
-  TaskLibStep,
-} from "app/view/share";
+import {FormCustomId, FormRadios, FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Options = () => {
   const {
@@ -20,7 +15,7 @@ export const Options = () => {
       lossPolicy,
       showValidationErrors,
       ticket,
-      libCall: { reports },
+      libCall: {reports},
     },
   } = useTask();
   return (
@@ -28,8 +23,8 @@ export const Options = () => {
       <Form isHorizontal>
         <FormCustomId
           useCustomId={useCustomId}
-          onChangeUse={value => updateState({ useCustomId: value })}
-          onChangeId={value => updateState({ id: value })}
+          onChangeUse={value => updateState({useCustomId: value})}
+          onChangeId={value => updateState({id: value})}
           customId={id}
           showValidationErrors={showValidationErrors}
           isValid={isCustomIdValid}
@@ -38,7 +33,7 @@ export const Options = () => {
         <FormText
           id="constraint-ticket"
           label="Ticket"
-          onChange={value => updateState({ ticket: value })}
+          onChange={value => updateState({ticket: value})}
           value={ticket}
           helperTextInvalid="Please provide ticket"
           showValidationErrors={showValidationErrors}
@@ -64,7 +59,7 @@ export const Options = () => {
           label="Loss policy"
           options={["stop", "fence", "freeze", "demote"]}
           selected={lossPolicy}
-          onChange={value => updateState({ lossPolicy: value })}
+          onChange={value => updateState({lossPolicy: value})}
           popover={{
             header: (
               <>

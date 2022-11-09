@@ -1,4 +1,4 @@
-import { app } from "dev/app";
+import {app} from "dev/app";
 import * as response from "dev/responses";
 import * as types from "dev/types";
 
@@ -26,14 +26,14 @@ const getAvailResourceAgents = (
   availableResourceAgents: types.ResourceAgentListAgents,
 ) =>
   app.libClusterResourceAgentListAgents((_req, res) => {
-    res.json(response.lib.success({ data: availableResourceAgents }));
+    res.json(response.lib.success({data: availableResourceAgents}));
   });
 
 const getAvailStonithAgents = (
   availableStonithAgents: types.StonithAgentListAgents,
 ) =>
   app.libClusterStonithAgentListAgents((_req, res) => {
-    res.json(response.lib.success({ data: availableStonithAgents }));
+    res.json(response.lib.success({data: availableStonithAgents}));
   });
 
 const getResourceAgentMetadata = (
@@ -42,7 +42,7 @@ const getResourceAgentMetadata = (
   app.libClusterResourceAgentDescribeAgent((req, res) => {
     const metadata = metadatList.find(m => m.name === req.body.agent_name);
     if (metadata) {
-      res.json(response.lib.success({ data: metadata }));
+      res.json(response.lib.success({data: metadata}));
     } else {
       res.status(404).send("Not found");
     }
@@ -56,7 +56,7 @@ const getFenceAgentMetadata = (
       m => m.name === `stonith:${req.body.agent_name}`,
     );
     if (metadata) {
-      res.json(response.lib.success({ data: metadata }));
+      res.json(response.lib.success({data: metadata}));
     } else {
       res.status(404).send("Not found");
     }

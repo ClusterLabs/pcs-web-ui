@@ -1,8 +1,8 @@
 import React from "react";
 
-import { FormRadios, FormSelect, FormText } from "app/view/share";
+import {FormRadios, FormSelect, FormText} from "app/view/share";
 
-import { ClusterProperties } from "./useClusterProperties";
+import {ClusterProperties} from "./useClusterProperties";
 
 export const PropertyFormField = ({
   property,

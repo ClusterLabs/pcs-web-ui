@@ -1,5 +1,5 @@
-import { ConstraintCell, ConstraintCellFake } from "../common";
-import { ConstraintOrderPair, ConstraintOrderSet } from "../types";
+import {ConstraintCell, ConstraintCellFake} from "../common";
+import {ConstraintOrderPair, ConstraintOrderSet} from "../types";
 
 type ConstraintOrder = ConstraintOrderPair | ConstraintOrderSet;
 
@@ -8,7 +8,7 @@ export const ConstraintCellOrderScoreKind = ({
   extraScore = undefined,
 }: {
   constraint: ConstraintOrder;
-  extraScore?: Extract<ConstraintOrder, { score?: unknown }>["score"];
+  extraScore?: Extract<ConstraintOrder, {score?: unknown}>["score"];
 }) => {
   // score and kind are mutually exclusive
   if ("score" in constraint) {

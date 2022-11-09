@@ -7,12 +7,12 @@ import {
   EmptyStateSecondaryActions,
   Title,
 } from "@patternfly/react-core";
-import { ExclamationCircleIcon } from "@patternfly/react-icons";
+import {ExclamationCircleIcon} from "@patternfly/react-icons";
 
 import * as pallete from "app/view/share/pallete";
-import { ButtonWithEnter } from "app/view/share/ButtonWithEnter";
+import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
-import { useTaskContext } from "./TaskContext";
+import {useTaskContext} from "./TaskContext";
 
 export const TaskFinishError = ({
   title,
@@ -25,7 +25,7 @@ export const TaskFinishError = ({
   primaryAction: [React.ReactNode, () => void];
   secondaryActions?: Record<string, () => void>;
 }) => {
-  const { close } = useTaskContext();
+  const {close} = useTaskContext();
   return (
     <EmptyState data-test="task-error">
       <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />

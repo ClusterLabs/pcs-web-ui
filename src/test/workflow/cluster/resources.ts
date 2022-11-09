@@ -1,6 +1,6 @@
-import { primitivePageTabList } from "app/view/cluster/resources";
+import {primitivePageTabList} from "app/view/cluster/resources";
 
-import { dt } from "test/tools/selectors";
+import {dt} from "test/tools/selectors";
 
 export const getNameList = async () => {
   return await page.$$eval(

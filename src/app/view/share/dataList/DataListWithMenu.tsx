@@ -8,9 +8,9 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import { LauncherDropdown, LauncherItem } from "app/view/share/toolbar";
-import { EmptyStateNoItem } from "app/view/share/emptyState";
-import { tools } from "app/store";
+import {LauncherDropdown, LauncherItem} from "app/view/share/toolbar";
+import {EmptyStateNoItem} from "app/view/share/emptyState";
+import {tools} from "app/store";
 
 export const DataListWithMenu = ({
   name,

@@ -1,4 +1,4 @@
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 import {
   constraintSingleCall,
@@ -44,12 +44,12 @@ export const constraintLocationCreate: AppReducer<typeof initialState> = (
       return initialState;
 
     case "TASK.VALIDATION.SHOW":
-      return { ...state, showValidationErrors: true };
+      return {...state, showValidationErrors: true};
 
     case "TASK.VALIDATION.HIDE":
-      return { ...state, showValidationErrors: false };
+      return {...state, showValidationErrors: false};
 
     default:
-      return { ...state, call: constraintSingleCall(state.call, action) };
+      return {...state, call: constraintSingleCall(state.call, action)};
   }
 };

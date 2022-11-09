@@ -5,14 +5,14 @@ import {
   WizardFooter,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
-import { NameAndNodes } from "./NameAndNodes";
-import { PrepareNodes } from "./PrepareNodes";
-import { Review } from "./Review";
-import { Transport } from "./Transport";
-import { TransportOptions } from "./TransportOptions";
-import { Quorum } from "./Quorum";
-import { Totem } from "./Totem";
+import {useTask} from "./useTask";
+import {NameAndNodes} from "./NameAndNodes";
+import {PrepareNodes} from "./PrepareNodes";
+import {Review} from "./Review";
+import {Transport} from "./Transport";
+import {TransportOptions} from "./TransportOptions";
+import {Quorum} from "./Quorum";
+import {Totem} from "./Totem";
 
 export const ClusterSetup = () => {
   const {
@@ -25,7 +25,7 @@ export const ClusterSetup = () => {
     setupCluster,
     state: {
       authProcessId,
-      libCall: { reports, response },
+      libCall: {reports, response},
     },
   } = useTask();
   return (
@@ -44,7 +44,7 @@ export const ClusterSetup = () => {
               next={{
                 actionIf: isClusterNameValid && areNodeNamesValid,
               }}
-              back={{ disabled: true }}
+              back={{disabled: true}}
             />
           ),
         },
@@ -59,7 +59,7 @@ export const ClusterSetup = () => {
               next={{
                 disabled: !isClusterNameAndNodeCheckDoneValid,
               }}
-              reviewAndFinish={{ label: "Review and setup cluster" }}
+              reviewAndFinish={{label: "Review and setup cluster"}}
             />
           ),
         },
@@ -74,7 +74,7 @@ export const ClusterSetup = () => {
             {
               name: "Transport links",
               component: <Transport />,
-              footer: <WizardFooter next={{ actionIf: areLinksValid }} />,
+              footer: <WizardFooter next={{actionIf: areLinksValid}} />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid,
             },
             {
@@ -114,7 +114,7 @@ export const ClusterSetup = () => {
               response={response}
               taskName="setup new cluster"
               backToUpdateSettingsStepName="Cluster name and nodes"
-              proceedForce={() => setupCluster({ force: true })}
+              proceedForce={() => setupCluster({force: true})}
               success={{
                 secondaryActions: {
                   "Start cluster and close": startClusterAndClose,

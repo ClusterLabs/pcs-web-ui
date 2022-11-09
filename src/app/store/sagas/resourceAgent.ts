@@ -1,6 +1,6 @@
-import { libClusterResourceAgentDescribeAgent } from "app/backend";
+import {libClusterResourceAgentDescribeAgent} from "app/backend";
 import * as selectors from "app/store/selectors";
-import { Action, ActionMap } from "app/store/actions";
+import {Action, ActionMap} from "app/store/actions";
 
 import {
   api,
@@ -16,11 +16,11 @@ type ApiCallResult = api.ResultOf<typeof libClusterResourceAgentDescribeAgent>;
 
 export function* load({
   key,
-  payload: { agentName },
+  payload: {agentName},
 }: ActionMap["RESOURCE_AGENT.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
     libClusterResourceAgentDescribeAgent,
-    { clusterName: key.clusterName, agentName },
+    {clusterName: key.clusterName, agentName},
   );
 
   const taskLabel = `load resource agent ${agentName}`;
@@ -28,7 +28,7 @@ export function* load({
   const errorAction: Action = {
     type: "RESOURCE_AGENT.LOAD.FAILED",
     key,
-    payload: { agentName },
+    payload: {agentName},
   };
 
   if (result.type !== "OK") {
@@ -38,7 +38,7 @@ export function* load({
     return;
   }
 
-  const { payload } = result;
+  const {payload} = result;
 
   if (lib.isCommunicationError(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
@@ -55,7 +55,7 @@ export function* load({
   yield put({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
     key,
-    payload: { apiAgentMetadata: payload["data"] },
+    payload: {apiAgentMetadata: payload["data"]},
   });
 }
 
@@ -65,7 +65,7 @@ type PcmkAgent = selectors.ExtractClusterSelector<
 
 export function* ensure({
   key,
-  payload: { agentName },
+  payload: {agentName},
 }: ActionMap["RESOURCE_AGENT.ENSURE"]) {
   const pcmkAgent: PcmkAgent = yield select(
     selectors.getPcmkAgent(key.clusterName, agentName),
@@ -74,7 +74,7 @@ export function* ensure({
     yield put({
       type: "RESOURCE_AGENT.LOAD",
       key,
-      payload: { agentName },
+      payload: {agentName},
     });
   }
 }

@@ -1,7 +1,7 @@
 import * as t from "io-ts";
 
-import { shape as libShape } from "app/backend/endpoints/lib/shape";
-import { endpoint } from "app/backend/endpoints/endpoint";
+import {shape as libShape} from "app/backend/endpoints/lib/shape";
+import {endpoint} from "app/backend/endpoints/endpoint";
 
 type NodeName = string;
 type SbdTimeoutAction = "reboot" | "off" | "crashdump";
@@ -216,9 +216,9 @@ export type Commands = [
       constraint_options: {
         id?: string;
       } & (
-        | { score?: string }
-        | { "score-attribute"?: string }
-        | { "score-attribute-mangle"?: string }
+        | {score?: string}
+        | {"score-attribute"?: string}
+        | {"score-attribute-mangle"?: string}
       );
       resource_in_clone_alowed: boolean;
       duplication_alowed: boolean;

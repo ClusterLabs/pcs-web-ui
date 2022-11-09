@@ -1,12 +1,12 @@
-import { PermissionAddForm } from "app/view/cluster/acl/PermissionAddForm";
+import {PermissionAddForm} from "app/view/cluster/acl/PermissionAddForm";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Configure = () => {
   const {
     updateState,
     invalidPermissionIndexes,
-    state: { permissionInfoList, showValidationErrors },
+    state: {permissionInfoList, showValidationErrors},
   } = useTask();
 
   return (
@@ -15,7 +15,7 @@ export const Configure = () => {
       invalidPermissionIndexes={invalidPermissionIndexes}
       showValidationErrors={showValidationErrors}
       update={permissionList =>
-        updateState({ permissionInfoList: permissionList })
+        updateState({permissionInfoList: permissionList})
       }
     />
   );

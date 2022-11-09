@@ -1,6 +1,6 @@
-import { Alert } from "@patternfly/react-core";
+import {Alert} from "@patternfly/react-core";
 
-import { Group } from "app/view/cluster/types";
+import {Group} from "app/view/cluster/types";
 import {
   DetailLayout,
   NVPairListPage,
@@ -10,13 +10,13 @@ import {
   useUrlTabs,
 } from "app/view/share";
 
-import { GroupDetail } from "./GroupDetail";
-import { GroupPageToolbar } from "./GroupPageToolbar";
+import {GroupDetail} from "./GroupDetail";
+import {GroupPageToolbar} from "./GroupPageToolbar";
 
 const tabList = ["detail", "meta"] as const;
 
-export const GroupPage = ({ group }: { group: Group }) => {
-  const { currentTab, matchedContext } = useUrlTabs(tabList);
+export const GroupPage = ({group}: {group: Group}) => {
+  const {currentTab, matchedContext} = useUrlTabs(tabList);
   return (
     <DetailLayout
       caption={<ResourceDetailCaption resourceId={group.id} type="group" />}

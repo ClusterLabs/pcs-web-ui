@@ -1,7 +1,7 @@
-import { DataList } from "@patternfly/react-core";
+import {DataList} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { Resource } from "app/view/cluster/types";
+import {selectors} from "app/store";
+import {Resource} from "app/view/cluster/types";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
@@ -9,16 +9,12 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
-import { ResourceTreeItemClone } from "./ResourceTreeItemClone";
-import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
+import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
+import {ResourceTreeItemClone} from "./ResourceTreeItemClone";
+import {ResourceTreeItemGroup} from "./ResourceTreeItemGroup";
 
-export const ResourceTree = ({
-  resourceTree,
-}: {
-  resourceTree: Resource[];
-}) => {
-  const { compact } = useGroupDetailViewContext();
+export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
+  const {compact} = useGroupDetailViewContext();
   const [cluster] = useClusterSelector(selectors.getCluster);
 
   if (!cluster.hasCibInfo) {

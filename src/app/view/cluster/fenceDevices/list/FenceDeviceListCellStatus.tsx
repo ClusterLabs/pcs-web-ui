@@ -1,12 +1,12 @@
-import { StatusSign, toLabel, useGroupDetailViewContext } from "app/view/share";
-import { FenceDevice } from "app/view/cluster/types";
+import {StatusSign, toLabel, useGroupDetailViewContext} from "app/view/share";
+import {FenceDevice} from "app/view/cluster/types";
 
 export const FenceDeviceListCellStatus = ({
   fenceDevice,
 }: {
   fenceDevice: FenceDevice;
 }) => {
-  const { compact } = useGroupDetailViewContext();
+  const {compact} = useGroupDetailViewContext();
   return (
     <div className="ha-c-data-list__item-status">
       {compact && <StatusSign status={fenceDevice.statusSeverity} showOkIco />}

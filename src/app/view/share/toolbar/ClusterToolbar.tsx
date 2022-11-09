@@ -1,8 +1,8 @@
-import { PageSection } from "@patternfly/react-core";
+import {PageSection} from "@patternfly/react-core";
 
-import { LauncherItem } from "app/view/share/toolbar/types";
+import {LauncherItem} from "app/view/share/toolbar/types";
 
-import { LaunchersToolbar } from "./LaunchersToolbar";
+import {LaunchersToolbar} from "./LaunchersToolbar";
 
 export const ClusterToolbar = ({
   toolbarName,
@@ -20,7 +20,7 @@ export const ClusterToolbar = ({
   return (
     <PageSection
       variant="light"
-      style={{ paddingTop: "0" }}
+      style={{paddingTop: "0"}}
       data-test="cluster-section-toolbar"
     >
       <LaunchersToolbar

@@ -1,10 +1,10 @@
-import { Button } from "@patternfly/react-core";
-import { TimesIcon } from "@patternfly/react-icons";
+import {Button} from "@patternfly/react-core";
+import {TimesIcon} from "@patternfly/react-icons";
 
-import { useGroupDetailViewContext } from "./GroupDetailViewContext";
+import {useGroupDetailViewContext} from "./GroupDetailViewContext";
 
 export const DetailLayoutClose = () => {
-  const { closeDetailUrl } = useGroupDetailViewContext();
+  const {closeDetailUrl} = useGroupDetailViewContext();
   return (
     <Button
       variant="plain"

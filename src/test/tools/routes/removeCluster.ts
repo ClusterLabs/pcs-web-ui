@@ -1,4 +1,4 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
 export const removeCluster = ({
   clusterName,
@@ -8,6 +8,6 @@ export const removeCluster = ({
   status?: number;
 }) => ({
   url: endpoints.removeCluster.url,
-  body: { [`clusterid-${clusterName}`]: "true" },
+  body: {[`clusterid-${clusterName}`]: "true"},
   status: [status ?? 200, ""] as [number, string],
 });

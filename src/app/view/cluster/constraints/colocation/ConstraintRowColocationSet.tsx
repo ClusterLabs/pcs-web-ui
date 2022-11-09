@@ -1,13 +1,13 @@
-import { DataListCell } from "@patternfly/react-core";
+import {DataListCell} from "@patternfly/react-core";
 
-import { ConstraintColocationSet } from "../types";
-import { ConstraintResourceInRole, ConstraintValue } from "../common";
+import {ConstraintColocationSet} from "../types";
+import {ConstraintResourceInRole, ConstraintValue} from "../common";
 import {
   ConstraintResourceSetRscLinks,
   ConstraintRowWithResourceSet,
 } from "../resourceSet";
 
-import { ConstraintRowColocationTogether } from "./ConstraintRowColocationTogether";
+import {ConstraintRowColocationTogether} from "./ConstraintRowColocationTogether";
 
 export const ConstraintRowColocationSet = ({
   constraint,

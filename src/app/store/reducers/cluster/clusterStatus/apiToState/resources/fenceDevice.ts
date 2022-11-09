@@ -1,13 +1,13 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
-import { Cluster } from "../../types";
-import { transformIssues } from "../issues";
+import {Cluster} from "../../types";
+import {transformIssues} from "../issues";
 
-import { statusToSeverity } from "./statusInfoList";
+import {statusToSeverity} from "./statusInfoList";
 
 type ApiStonith = Extract<
   ActionPayload["CLUSTER.STATUS.FETCH.OK"]["resource_list"][number],
-  { class_type: "primitive"; stonith: true }
+  {class_type: "primitive"; stonith: true}
 >;
 type FenceDevice = Cluster["fenceDeviceList"][number];
 
@@ -41,7 +41,7 @@ export const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
   arguments: apiFenceDevice.instance_attr.reduce(
     (attrMap, nvpair) => ({
       ...attrMap,
-      [nvpair.name]: { id: nvpair.id, value: nvpair.value },
+      [nvpair.name]: {id: nvpair.id, value: nvpair.value},
     }),
     {},
   ),

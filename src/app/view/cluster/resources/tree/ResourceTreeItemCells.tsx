@@ -1,14 +1,14 @@
-import { DataListCell, DataListItemCells } from "@patternfly/react-core";
+import {DataListCell, DataListItemCells} from "@patternfly/react-core";
 
 import {
   SelectionIndicatorInGroup,
   useGroupDetailViewContext,
 } from "app/view/share";
-import { ResourceStatus } from "app/view/cluster/types";
+import {ResourceStatus} from "app/view/cluster/types";
 
-import { ResourceTreeCellName } from "./ResourceTreeCellName";
-import { ResourceTreeCellType } from "./ResourceTreeCellType";
-import { ResourceTreeCellStatus } from "./ResourceTreeCellStatus";
+import {ResourceTreeCellName} from "./ResourceTreeCellName";
+import {ResourceTreeCellType} from "./ResourceTreeCellType";
+import {ResourceTreeCellStatus} from "./ResourceTreeCellStatus";
 
 export const ResourceTreeItemCells = ({
   resourceId,
@@ -21,7 +21,7 @@ export const ResourceTreeItemCells = ({
   type: string;
   typeDescription?: string;
 }) => {
-  const { selectedItemUrlName } = useGroupDetailViewContext();
+  const {selectedItemUrlName} = useGroupDetailViewContext();
   return (
     <>
       <DataListItemCells

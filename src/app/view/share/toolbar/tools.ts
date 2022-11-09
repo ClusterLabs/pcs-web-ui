@@ -1,4 +1,4 @@
-import { LauncherItem } from "./types";
+import {LauncherItem} from "./types";
 
 export const tryFirstButtonPrimary = (
   buttonsItems: LauncherItem[],
@@ -6,5 +6,5 @@ export const tryFirstButtonPrimary = (
   buttonsItems.map((item, i) =>
     i > 0 || item?.button?.variant
       ? item
-      : { ...item, button: { variant: "primary" } },
+      : {...item, button: {variant: "primary"}},
   );

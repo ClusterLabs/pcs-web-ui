@@ -1,8 +1,8 @@
-import { selectors } from "app/store";
-import { useDispatch } from "app/view/share/useDispatch";
-import { useClusterSelector } from "app/view/share/useClusterSelector";
+import {selectors} from "app/store";
+import {useDispatch} from "app/view/share/useDispatch";
+import {useClusterSelector} from "app/view/share/useClusterSelector";
 
-import { useTaskOpenClose } from "./useTaskOpenClose";
+import {useTaskOpenClose} from "./useTaskOpenClose";
 
 export function useClusterTask<
   NAME extends Parameters<typeof selectors.getClusterTask>[0],

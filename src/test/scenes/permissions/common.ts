@@ -1,6 +1,6 @@
 import * as responses from "dev/responses";
 
-import { route, shortcuts } from "test/tools";
+import {route, shortcuts} from "test/tools";
 
 type PermissionList = ReturnType<
   typeof responses.permissions
@@ -8,7 +8,7 @@ type PermissionList = ReturnType<
 
 type ClusterName = Extract<
   Parameters<typeof shortcuts.interceptWithCluster>[0],
-  { clusterName: unknown }
+  {clusterName: unknown}
 >["clusterName"];
 
 type AdditionalRouteList = Parameters<

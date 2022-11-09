@@ -1,4 +1,4 @@
-import { Root } from "./types";
+import {Root} from "./types";
 
 export const loginIsFailed = (state: Root) => state.login.failed;
 

@@ -1,7 +1,7 @@
 import React from "react";
 
-import { selectors } from "app/store";
-import { Select, useClusterSelector } from "app/view/share";
+import {selectors} from "app/store";
+import {Select, useClusterSelector} from "app/view/share";
 
 type FenceAgentList = selectors.ExtractClusterSelector<
   typeof selectors.getFenceAgentList
@@ -33,7 +33,7 @@ export const NameTypeTypeSelect = ({
   agentName: string;
 }) => {
   const [fenceAgentList] = useClusterSelector(selectors.getFenceAgentList);
-  const { filteredFenceAgentList, onFilter } = useFiltering(fenceAgentList);
+  const {filteredFenceAgentList, onFilter} = useFiltering(fenceAgentList);
 
   return (
     <Select

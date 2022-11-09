@@ -1,7 +1,7 @@
-import { importedClusterList } from "app/backend";
-import { ActionPayload } from "app/store/actions";
+import {importedClusterList} from "app/backend";
+import {ActionPayload} from "app/store/actions";
 
-import { api, dataLoad, put } from "./common";
+import {api, dataLoad, put} from "./common";
 
 function* fetchClusterList() {
   const result: api.ResultOf<typeof importedClusterList> = yield api.authSafe(
@@ -18,7 +18,7 @@ function* fetchClusterList() {
   );
   yield put({
     type: "CLUSTER.LIST.FETCH.OK",
-    payload: { clusterNameList },
+    payload: {clusterNameList},
   });
 
   yield put({
@@ -26,19 +26,19 @@ function* fetchClusterList() {
     payload: [
       {
         specificator: "syncDashboard",
-        start: { type: "CLUSTER.LIST.SYNC" },
-        stop: { type: "CLUSTER.LIST.SYNC.STOP" },
+        start: {type: "CLUSTER.LIST.SYNC"},
+        stop: {type: "CLUSTER.LIST.SYNC.STOP"},
       },
       ...clusterNameList.map(
         (clusterName): ActionPayload["DATA_READING.SET_UP"][0] => ({
           specificator: `syncCluster:${clusterName}`,
           start: {
             type: "CLUSTER.STATUS.SYNC",
-            key: { clusterName },
+            key: {clusterName},
           },
           stop: {
             type: "CLUSTER.STATUS.SYNC.STOP",
-            key: { clusterName },
+            key: {clusterName},
           },
         }),
       ),
@@ -52,6 +52,6 @@ export const clusterListSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   STOP: "CLUSTER.LIST.SYNC.STOP",
   REFRESH,
   SUCCESS: "CLUSTER.LIST.FETCH.OK",
-  refresh: () => ({ type: REFRESH }),
+  refresh: () => ({type: REFRESH}),
   fetch: fetchClusterList,
 };

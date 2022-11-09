@@ -1,15 +1,15 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormText, TaskLibStep } from "app/view/share";
+import {FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const RoleName = () => {
   const {
     isNameValid,
     updateState,
     state: {
-      libCall: { reports },
+      libCall: {reports},
       roleId,
       description,
       showValidationErrors,
@@ -25,14 +25,14 @@ export const RoleName = () => {
           showValidationErrors={showValidationErrors}
           isValid={isNameValid}
           helperTextInvalid="Please enter a name"
-          onChange={value => updateState({ roleId: value })}
+          onChange={value => updateState({roleId: value})}
           value={roleId}
         />
 
         <FormText
           id="role-description"
           label="Description"
-          onChange={value => updateState({ description: value })}
+          onChange={value => updateState({description: value})}
           value={description}
         />
       </Form>

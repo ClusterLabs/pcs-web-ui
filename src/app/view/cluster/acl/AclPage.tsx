@@ -1,6 +1,6 @@
-import { Label, ToolbarItem } from "@patternfly/react-core";
+import {Label, ToolbarItem} from "@patternfly/react-core";
 
-import { selectors, tools } from "app/store";
+import {selectors, tools} from "app/store";
 import {
   ClusterToolbar,
   GroupDetailView,
@@ -11,8 +11,8 @@ import {
 } from "app/view/share";
 
 import * as task from "./task";
-import { AclDetailPage } from "./detail";
-import { AclLists } from "./lists";
+import {AclDetailPage} from "./detail";
+import {AclLists} from "./lists";
 
 export const AclPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
@@ -24,10 +24,10 @@ export const AclPage = () => {
   );
 
   const createUserOpenArgs: TaskOpenArgs<typeof task.createSubject.useTask> = [
-    { subjectType: "user" },
+    {subjectType: "user"},
   ];
   const createGroupOpenArgs: TaskOpenArgs<typeof task.createSubject.useTask> = [
-    { subjectType: "group" },
+    {subjectType: "group"},
   ];
 
   return (
@@ -74,11 +74,12 @@ export const AclPage = () => {
             label: `${aclEnabled ? "Disable" : "Enable"} ACL`,
             confirm: {
               title: aclEnabled ? "Disable ACL" : "Enable ACL",
-              description: `${aclEnabled ? "Disable" : "Enable"
-                } access control lists.`,
+              description: `${
+                aclEnabled ? "Disable" : "Enable"
+              } access control lists.`,
               action: {
                 type: "CLUSTER.PROPERTIES.UPDATE",
-                key: { clusterName },
+                key: {clusterName},
                 payload: {
                   propertyMap: {
                     "enable-acl": aclEnabled ? "false" : "true",

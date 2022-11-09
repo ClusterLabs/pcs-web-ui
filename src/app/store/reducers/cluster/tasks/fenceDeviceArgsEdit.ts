@@ -1,5 +1,5 @@
-import { ActionPayload } from "app/store";
-import { AppReducer } from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 type OpenPayload = ActionPayload["FENCE_DEVICE.EDIT_ARGS.OPEN"];
 type FenceDeviceArgs = OpenPayload["fenceDeviceArguments"];

@@ -1,15 +1,15 @@
-import { canAddClusterOrNodes } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {canAddClusterOrNodes} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, errorMessage, processError, put, race, take } from "../common";
+import {api, errorMessage, processError, put, race, take} from "../common";
 
 export function* checkCanAddNodeSaga({
   key,
-  payload: { nodeName },
+  payload: {nodeName},
 }: ActionMap["NODE.ADD.CHECK_CAN_ADD"]) {
-  const { result }: { result: api.ResultOf<typeof canAddClusterOrNodes> } =
+  const {result}: {result: api.ResultOf<typeof canAddClusterOrNodes>} =
     yield race({
-      result: api.authSafe(canAddClusterOrNodes, { nodeNames: [nodeName] }),
+      result: api.authSafe(canAddClusterOrNodes, {nodeNames: [nodeName]}),
       cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
     });
 
@@ -22,7 +22,7 @@ export function* checkCanAddNodeSaga({
     yield put({
       type: "NODE.ADD.CHECK_CAN_ADD.CANNOT",
       key,
-      payload: { message: result.text },
+      payload: {message: result.text},
     });
     return;
   }
@@ -34,7 +34,7 @@ export function* checkCanAddNodeSaga({
         put({
           type: "NODE.ADD.CHECK_CAN_ADD.FAIL",
           key,
-          payload: { message: errorMessage(result, taskLabel) },
+          payload: {message: errorMessage(result, taskLabel)},
         }),
       useNotification: false,
     });
@@ -44,6 +44,6 @@ export function* checkCanAddNodeSaga({
   yield put({
     type: "NODE.ADD.CHECK_AUTH",
     key,
-    payload: { nodeName },
+    payload: {nodeName},
   });
 }

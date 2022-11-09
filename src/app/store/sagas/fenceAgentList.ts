@@ -1,13 +1,13 @@
-import { libClusterStonithAgentListAgents } from "app/backend";
-import { Action, ActionMap } from "app/store/actions";
+import {libClusterStonithAgentListAgents} from "app/backend";
+import {Action, ActionMap} from "app/store/actions";
 
-import { api, lib, log, processError, put, putTaskFailed } from "./common";
+import {api, lib, log, processError, put, putTaskFailed} from "./common";
 
 type ApiCallResult = api.ResultOf<typeof libClusterStonithAgentListAgents>;
-export function* load({ key }: ActionMap["FENCE_AGENT.LIST.LOAD"]) {
+export function* load({key}: ActionMap["FENCE_AGENT.LIST.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
     libClusterStonithAgentListAgents,
-    { clusterName: key.clusterName },
+    {clusterName: key.clusterName},
   );
 
   const errorAction: Action = {
@@ -24,7 +24,7 @@ export function* load({ key }: ActionMap["FENCE_AGENT.LIST.LOAD"]) {
     return;
   }
 
-  const { payload } = result;
+  const {payload} = result;
 
   if (lib.isCommunicationError(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
@@ -42,6 +42,6 @@ export function* load({ key }: ActionMap["FENCE_AGENT.LIST.LOAD"]) {
   yield put({
     type: "FENCE_AGENT.LIST.LOAD.OK",
     key,
-    payload: { apiFenceAgentList: payload.data },
+    payload: {apiFenceAgentList: payload.data},
   });
 }

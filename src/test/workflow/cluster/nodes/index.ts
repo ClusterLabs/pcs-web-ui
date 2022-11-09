@@ -1,6 +1,6 @@
-import { nodePageTabList } from "app/view/cluster/nodes";
+import {nodePageTabList} from "app/view/cluster/nodes";
 
-import { dt } from "test/tools/selectors";
+import {dt} from "test/tools/selectors";
 
 export const getNameList = async () => {
   return await page.$$eval(

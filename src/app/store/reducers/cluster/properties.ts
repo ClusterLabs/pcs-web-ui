@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
-import { ActionPayload } from "app/store/actions";
-import { AppReducer } from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 type Payload = ActionPayload["CLUSTER.PROPERTIES.LOAD.OK"];
 type ClusterProperties = Payload["apiClusterProperties"];
@@ -20,7 +20,7 @@ const data: AppReducer<ClusterPropertiesService["data"]> = (
 ) => {
   switch (action.type) {
     case "CLUSTER.PROPERTIES.LOAD.OK": {
-      const { apiClusterProperties } = action.payload;
+      const {apiClusterProperties} = action.payload;
       return Object.keys(apiClusterProperties).map(
         n => apiClusterProperties[n],
       );
@@ -32,7 +32,7 @@ const data: AppReducer<ClusterPropertiesService["data"]> = (
 };
 
 const fetchState: AppReducer<ClusterPropertiesService["fetchState"]> = (
-  state = { current: "NOT_STARTED", alreadyLoaded: false },
+  state = {current: "NOT_STARTED", alreadyLoaded: false},
   action,
 ) => {
   switch (action.type) {

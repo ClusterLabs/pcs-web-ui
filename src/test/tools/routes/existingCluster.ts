@@ -1,6 +1,6 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
 export const existingCluster = ({
   nodeName,
@@ -10,6 +10,6 @@ export const existingCluster = ({
   response?: RouteResponse;
 }) => ({
   url: endpoints.existingCluster.url,
-  body: { "node-name": nodeName },
-  ...(response ?? { text: "" }),
+  body: {"node-name": nodeName},
+  ...(response ?? {text: ""}),
 });

@@ -1,10 +1,10 @@
-import { ActionPayload } from "app/store";
-import { useClusterTask } from "app/view/share";
-import { getInvalidPermissionIndexes } from "app/view/cluster/acl/PermissionAddForm";
+import {ActionPayload} from "app/store";
+import {useClusterTask} from "app/view/share";
+import {getInvalidPermissionIndexes} from "app/view/cluster/acl/PermissionAddForm";
 
 export const useTask = () => {
   const task = useClusterTask("aclRoleCreate");
-  const { dispatch, state, clusterName } = task;
+  const {dispatch, state, clusterName} = task;
 
   return {
     ...task,
@@ -17,7 +17,7 @@ export const useTask = () => {
     updateState: (payload: ActionPayload["CLUSTER.ACL.ROLE.CREATE.UPDATE"]) =>
       dispatch({
         type: "CLUSTER.ACL.ROLE.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
 
@@ -25,18 +25,18 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "CLUSTER.ACL.ROLE.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
 
     aclRoleCreate: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: "create acl role",
           call: {

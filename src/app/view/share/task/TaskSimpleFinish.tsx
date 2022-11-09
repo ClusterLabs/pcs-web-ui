@@ -1,8 +1,8 @@
 import React from "react";
 
-import { TaskSuccess } from "./TaskSuccess";
-import { TaskFinishError } from "./TaskFinishError";
-import { TaskProgress } from "./TaskProgress";
+import {TaskSuccess} from "./TaskSuccess";
+import {TaskFinishError} from "./TaskFinishError";
+import {TaskProgress} from "./TaskProgress";
 
 export const TaskSimpleFinish = ({
   response,
@@ -35,12 +35,12 @@ export const TaskSimpleFinish = ({
           message={resultMessage}
           {...(recoverFromError
             ? {
-              primaryAction: ["Start from the beginning", recoverFromError],
-              secondaryActions: { "Try again": tryAgain },
-            }
+                primaryAction: ["Start from the beginning", recoverFromError],
+                secondaryActions: {"Try again": tryAgain},
+              }
             : {
-              primaryAction: ["Try again", tryAgain],
-            })}
+                primaryAction: ["Try again", tryAgain],
+              })}
         />
       );
     }

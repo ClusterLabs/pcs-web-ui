@@ -1,10 +1,10 @@
 import React from "react";
 
-import { LaunchedConfirm } from "./LaunchedConfirm";
-import { LauncherItem } from "./types";
-import { LaunchedTask } from "./LaunchedTask";
-import { LaunchedDisabled } from "./LaunchedDisabled";
-import { LauncherGroupProvider } from "./LauncherGroupContext";
+import {LaunchedConfirm} from "./LaunchedConfirm";
+import {LauncherItem} from "./types";
+import {LaunchedTask} from "./LaunchedTask";
+import {LaunchedDisabled} from "./LaunchedDisabled";
+import {LauncherGroupProvider} from "./LauncherGroupContext";
 
 const getLaunchedComponent = (
   launched: LauncherItem | null,
@@ -42,7 +42,7 @@ export const LauncherGroup = ({
 
   return (
     <>
-      <LauncherGroupProvider value={{ setLaunched }}>
+      <LauncherGroupProvider value={{setLaunched}}>
         {children}
       </LauncherGroupProvider>
       {getLaunchedComponent(launched, stopLaunch)}

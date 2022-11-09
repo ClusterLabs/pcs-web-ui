@@ -1,7 +1,7 @@
 import React from "react";
-import { WizardContextConsumer } from "@patternfly/react-core";
+import {WizardContextConsumer} from "@patternfly/react-core";
 
-import { TaskFinishLib } from "./TaskFinishLib";
+import {TaskFinishLib} from "./TaskFinishLib";
 
 type TaskFinishLibProps = React.ComponentProps<typeof TaskFinishLib>;
 
@@ -24,7 +24,7 @@ export const TaskFinishLibWizard = ({
 }) => {
   return (
     <WizardContextConsumer>
-      {({ goToStepByName }) => (
+      {({goToStepByName}) => (
         <TaskFinishLib
           response={response}
           success={success}

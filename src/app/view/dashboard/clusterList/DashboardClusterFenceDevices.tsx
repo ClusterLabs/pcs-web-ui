@@ -1,4 +1,4 @@
-import { Cluster, FenceDevice } from "app/view/cluster/types";
+import {Cluster, FenceDevice} from "app/view/cluster/types";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
@@ -10,7 +10,7 @@ import {
   toLabel,
 } from "app/view/share";
 
-import { compareStrings } from "./utils";
+import {compareStrings} from "./utils";
 
 type COLUMNS = "NAME" | "STATUS";
 
@@ -27,14 +27,10 @@ const compareByColumn = (
   }
 };
 
-const { SortableTh } = Table;
+const {SortableTh} = Table;
 
-export const DashboardClusterFenceDevices = ({
-  cluster,
-}: {
-  cluster: Cluster;
-}) => {
-  const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
+export const DashboardClusterFenceDevices = ({cluster}: {cluster: Cluster}) => {
+  const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
 
   if (!cluster.hasCibInfo) {
     return (

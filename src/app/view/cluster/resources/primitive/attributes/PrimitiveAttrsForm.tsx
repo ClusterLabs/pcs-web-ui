@@ -1,15 +1,15 @@
 import React from "react";
-import { ActionGroup, Alert, Button, Form } from "@patternfly/react-core";
+import {ActionGroup, Alert, Button, Form} from "@patternfly/react-core";
 
-import { Primitive } from "app/view/cluster/types";
+import {Primitive} from "app/view/cluster/types";
 import {
   pcmkAgentTypes,
   useDispatch,
   useSelectedClusterName,
 } from "app/view/share";
 
-import { PrimitiveAttrsFormItem } from "./PrimitiveAttrsFormItem";
-import { PrimitiveAttrsFormItemLayout } from "./PrimitiveAttrsFormItemLayout";
+import {PrimitiveAttrsFormItem} from "./PrimitiveAttrsFormItem";
+import {PrimitiveAttrsFormItemLayout} from "./PrimitiveAttrsFormItemLayout";
 
 type FormAttr = {
   value: string;
@@ -33,7 +33,7 @@ const collectUpdatedAttrs = (
           && formMap[n].value !== formMap[n].initial)
         || formMap[n].srcChoice === "user"
       ) {
-        return { ...a, [n]: formMap[n].value };
+        return {...a, [n]: formMap[n].value};
       }
       return a;
     },
@@ -92,7 +92,7 @@ export const PrimitiveAttrsForm = ({
     (key: string) => (value: FormAttr["value"]) =>
       setFormMap({
         ...formMap,
-        [key]: { ...formMap[key], value },
+        [key]: {...formMap[key], value},
       }),
     [formMap, setFormMap],
   );
@@ -101,7 +101,7 @@ export const PrimitiveAttrsForm = ({
     (key: string, srcChoice: FormAttr["srcChoice"]) => () =>
       setFormMap({
         ...formMap,
-        [key]: { ...formMap[key], srcChoice },
+        [key]: {...formMap[key], srcChoice},
       }),
     [formMap, setFormMap],
   );
@@ -152,7 +152,7 @@ export const PrimitiveAttrsForm = ({
           onClick={() => {
             dispatch({
               type: "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES",
-              key: { clusterName },
+              key: {clusterName},
               payload: {
                 resourceId: primitive.id,
                 attributes: collectUpdatedAttrs(formMap, primitive),

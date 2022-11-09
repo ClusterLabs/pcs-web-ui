@@ -1,5 +1,5 @@
 import React from "react";
-import { ExpandableSection, Text } from "@patternfly/react-core";
+import {ExpandableSection, Text} from "@patternfly/react-core";
 
 export const PcmkAgentDescription = ({
   name,

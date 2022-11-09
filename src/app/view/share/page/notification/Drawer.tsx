@@ -5,10 +5,10 @@ import {
   NotificationDrawerHeader,
 } from "@patternfly/react-core";
 
-import { Notification } from "./types";
-import { DrawerDropdown } from "./DrawerDropdown";
-import { DrawerEmpty } from "./DrawerEmpty";
-import { DrawerItem } from "./DrawerItem";
+import {Notification} from "./types";
+import {DrawerDropdown} from "./DrawerDropdown";
+import {DrawerEmpty} from "./DrawerEmpty";
+import {DrawerItem} from "./DrawerItem";
 
 type DrawerProps = React.ComponentProps<typeof NotificationDrawerHeader>;
 

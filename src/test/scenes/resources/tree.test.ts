@@ -1,14 +1,14 @@
 import * as responses from "dev/responses";
 
-import { dt } from "test/tools/selectors";
-import { intercept, location, route, shortcuts } from "test/tools";
+import {dt} from "test/tools/selectors";
+import {intercept, location, route, shortcuts} from "test/tools";
 
 const RESOURCE_TREE = dt("cluster-resources");
 
 const clusterName = "resourcesForTest";
 
 const displayResources = async () => {
-  await page.goto(location.resourceList({ clusterName }));
+  await page.goto(location.resourceList({clusterName}));
   await page.waitForSelector(RESOURCE_TREE);
 };
 
@@ -50,14 +50,14 @@ const selectResource = async (resourceId: string) => {
 };
 
 const RESOURCES_UNEXPANDED = [
-  { id: "A", type: "apache" },
-  { id: "GROUP-1", type: "Group" },
-  { id: "Clone-1", type: "Clone" },
-  { id: "Clone-2", type: "Clone" },
+  {id: "A", type: "apache"},
+  {id: "GROUP-1", type: "Group"},
+  {id: "Clone-1", type: "Clone"},
+  {id: "Clone-2", type: "Clone"},
 ];
 
 describe("Resource tree", () => {
-  beforeEach(() => shortcuts.interceptWithCluster({ clusterName }));
+  beforeEach(() => shortcuts.interceptWithCluster({clusterName}));
   afterEach(intercept.stop);
 
   it("should show unexpanded resource tree", async () => {
@@ -69,12 +69,12 @@ describe("Resource tree", () => {
     await displayResources();
     await toggleExpansion("GROUP-1");
     expect(await inspectResources()).toEqual([
-      { id: "A", type: "apache" },
-      { id: "GROUP-1", type: "Group" },
-      { id: "B", type: "Dummy" },
-      { id: "C", type: "Dummy" },
-      { id: "Clone-1", type: "Clone" },
-      { id: "Clone-2", type: "Clone" },
+      {id: "A", type: "apache"},
+      {id: "GROUP-1", type: "Group"},
+      {id: "B", type: "Dummy"},
+      {id: "C", type: "Dummy"},
+      {id: "Clone-1", type: "Clone"},
+      {id: "Clone-2", type: "Clone"},
     ]);
     await toggleExpansion("GROUP-1");
     expect(await inspectResources()).toEqual(RESOURCES_UNEXPANDED);
@@ -85,13 +85,13 @@ describe("Resource tree", () => {
     await toggleExpansion("Clone-1");
     await toggleExpansion("GROUP-2");
     expect(await inspectResources()).toEqual([
-      { id: "A", type: "apache" },
-      { id: "GROUP-1", type: "Group" },
-      { id: "Clone-1", type: "Clone" },
-      { id: "GROUP-2", type: "Group" },
-      { id: "D", type: "Dummy" },
-      { id: "E", type: "Dummy" },
-      { id: "Clone-2", type: "Clone" },
+      {id: "A", type: "apache"},
+      {id: "GROUP-1", type: "Group"},
+      {id: "Clone-1", type: "Clone"},
+      {id: "GROUP-2", type: "Group"},
+      {id: "D", type: "Dummy"},
+      {id: "E", type: "Dummy"},
+      {id: "Clone-2", type: "Clone"},
     ]);
     await toggleExpansion("GROUP-2");
     await toggleExpansion("Clone-1");

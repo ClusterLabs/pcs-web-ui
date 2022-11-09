@@ -1,6 +1,6 @@
-import { CallResult, endpoints, http } from "./tools";
+import {CallResult, endpoints, http} from "./tools";
 
-const { url, params } = endpoints.clusterStop;
+const {url, params} = endpoints.clusterStop;
 
 export const clusterStop = async ({
   clusterName,
@@ -11,6 +11,6 @@ export const clusterStop = async ({
   nodeName?: string;
   force: boolean;
 }): CallResult =>
-  http.post(url({ clusterName }), {
-    params: params({ nodeName, force }),
+  http.post(url({clusterName}), {
+    params: params({nodeName, force}),
   });

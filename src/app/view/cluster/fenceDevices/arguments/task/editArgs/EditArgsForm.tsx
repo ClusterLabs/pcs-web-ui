@@ -1,13 +1,13 @@
-import { Form, Stack, StackItem } from "@patternfly/react-core";
+import {Form, Stack, StackItem} from "@patternfly/react-core";
 
-import { FormText, PcmkAgentAttrsToolbar } from "app/view/share";
+import {FormText, PcmkAgentAttrsToolbar} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const EditArgsForm = () => {
-  const { filterState, filterParameters } = PcmkAgentAttrsToolbar.useState();
+  const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   const {
-    state: { agentParameters, fenceDeviceArguments },
+    state: {agentParameters, fenceDeviceArguments},
     update,
   } = useTask();
   return (

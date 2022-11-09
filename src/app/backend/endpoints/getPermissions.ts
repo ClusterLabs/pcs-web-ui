@@ -1,6 +1,6 @@
 import * as t from "io-ts";
 
-import { endpoint } from "./endpoint";
+import {endpoint} from "./endpoint";
 
 const shape = t.type({
   permission_types: t.array(
@@ -23,9 +23,9 @@ const shape = t.type({
   users_permissions: t.array(
     t.type({
       name: t.string,
-      type: t.keyof({ user: null, group: null }),
+      type: t.keyof({user: null, group: null}),
       allow: t.array(
-        t.keyof({ read: null, write: null, grant: null, full: null }),
+        t.keyof({read: null, write: null, grant: null, full: null}),
       ),
     }),
   ),
@@ -64,7 +64,7 @@ const validate = (payload: t.TypeOf<typeof shape>) => {
 };
 
 export const getPermissions = endpoint({
-  url: ({ clusterName }: { clusterName: string }) =>
+  url: ({clusterName}: {clusterName: string}) =>
     `/managec/${clusterName}/get_permissions`,
   method: "get",
   params: undefined,

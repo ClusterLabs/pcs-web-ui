@@ -1,7 +1,7 @@
 import React from "react";
-import { TextInput } from "@patternfly/react-core";
+import {TextInput} from "@patternfly/react-core";
 
-import { FormGroup } from "./FormGroup";
+import {FormGroup} from "./FormGroup";
 
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
 

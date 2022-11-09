@@ -1,5 +1,5 @@
 import * as playwright from "playwright";
-import { ParsedQuery, parse, parseUrl } from "query-string";
+import {ParsedQuery, parse, parseUrl} from "query-string";
 
 export type RequestData = {
   body?: ParsedQuery | null;
@@ -9,12 +9,12 @@ export type RequestData = {
 type Handler = (_route: playwright.Route, _request: playwright.Request) => void;
 type RouteUrl = string | RegExp;
 export type RouteResponse =
-  | { handler: Handler }
-  | { text: string }
-  | { json: ReturnType<typeof JSON.parse> }
-  | { status: [number, string] | number };
+  | {handler: Handler}
+  | {text: string}
+  | {json: ReturnType<typeof JSON.parse>}
+  | {status: [number, string] | number};
 
-export type Route = { url: RouteUrl } & RequestData & RouteResponse;
+export type Route = {url: RouteUrl} & RequestData & RouteResponse;
 
 type RequestCheck = {
   request: playwright.Request;
@@ -30,16 +30,16 @@ const isRegExp = (candidate: unknown): candidate is RegExp =>
   || Object.prototype.toString.call(candidate) === "[object RegExp]";
 
 const urlMatch = (routeUrl: RouteUrl, realUrl: string) => {
-  const { url: querylessUrl } = parseUrl(realUrl);
+  const {url: querylessUrl} = parseUrl(realUrl);
   if (isRegExp(routeUrl)) {
     return routeUrl.test(querylessUrl);
   }
   return querylessUrl.endsWith(routeUrl);
 };
 
-const checkRequest = ({ request, route }: RequestCheck) => {
+const checkRequest = ({request, route}: RequestCheck) => {
   const url = request.url();
-  const { query } = parseUrl(url);
+  const {query} = parseUrl(url);
   let body = null;
   let payload = null;
   const postData = request.postData();
@@ -93,7 +93,7 @@ const handle = (
   } else {
     status = match.status;
   }
-  return route.fulfill({ status, body });
+  return route.fulfill({status, body});
 };
 
 let requestChecks: RequestCheck[] = [];
@@ -117,12 +117,12 @@ export async function run(routeList: Route[]) {
     const matchingRoute = routeList.find(r => urlMatch(r.url, url));
 
     if (matchingRoute) {
-      requestChecks.push({ request, route: matchingRoute });
+      requestChecks.push({request, route: matchingRoute});
       return handle(route, request, matchingRoute);
     }
 
     unmockedUrls.push(url);
-    return route.fulfill({ status: 404 });
+    return route.fulfill({status: 404});
   });
 }
 

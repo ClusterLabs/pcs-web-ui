@@ -1,5 +1,5 @@
 import * as workflow from "test/workflow";
-import { intercept, route } from "test/tools";
+import {intercept, route} from "test/tools";
 
 import {
   clusterStatus,
@@ -8,8 +8,8 @@ import {
   resourceA,
 } from "./common";
 
-const { open, fillForm, run, waitForSuccess, waitForError, close } =
-  workflow.task.nvsetListModify({ launchKey: "task nvpairs-create" });
+const {open, fillForm, run, waitForSuccess, waitForError, close} =
+  workflow.task.nvsetListModify({launchKey: "task nvpairs-create"});
 
 describe("Resource utilization task", () => {
   const name = "attribute-name";
@@ -29,7 +29,7 @@ describe("Resource utilization task", () => {
 
     await openUtilizationTab();
     await open();
-    await fillForm({ name, value });
+    await fillForm({name, value});
     await run();
     await waitForSuccess();
     await close();
@@ -54,7 +54,7 @@ describe("Resource utilization task", () => {
 
     await openUtilizationTab();
     await open();
-    await fillForm({ name, value });
+    await fillForm({name, value});
     await run();
     await waitForError();
     await close();

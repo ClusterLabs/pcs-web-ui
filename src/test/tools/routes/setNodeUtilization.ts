@@ -1,8 +1,8 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
-import { paramsToBody } from "./tools";
+import {paramsToBody} from "./tools";
 
 export const setNodeUtilization = ({
   clusterName,
@@ -17,9 +17,9 @@ export const setNodeUtilization = ({
   value: string;
   response?: RouteResponse;
 }) => ({
-  url: endpoints.setNodeUtilization.url({ clusterName }),
+  url: endpoints.setNodeUtilization.url({clusterName}),
   body: paramsToBody(
-    endpoints.setNodeUtilization.params({ nodeName, name, value }),
+    endpoints.setNodeUtilization.params({nodeName, name, value}),
   ),
-  ...(response ?? { text: "" }),
+  ...(response ?? {text: ""}),
 });

@@ -17,7 +17,7 @@ const report_list = t.array(
       message: t.string,
       payload: t.type({}),
     }),
-    context: t.union([t.type({ node: t.string }), t.null]),
+    context: t.union([t.type({node: t.string}), t.null]),
   }),
 );
 

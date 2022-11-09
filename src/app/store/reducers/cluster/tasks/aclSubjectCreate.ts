@@ -1,7 +1,7 @@
-import { AppReducer } from "app/store/reducers/appReducer";
-import { ActionPayload } from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
 
-import { initialState as initalLibCall, libCall } from "./libCall";
+import {initialState as initalLibCall, libCall} from "./libCall";
 
 const initialState: {
   subjectType: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE"]["subjectType"];
@@ -38,12 +38,12 @@ export const aclSubjectCreate: AppReducer<typeof initialState> = (
       return initialState;
 
     case "TASK.VALIDATION.SHOW":
-      return { ...state, showValidationErrors: true };
+      return {...state, showValidationErrors: true};
 
     case "TASK.VALIDATION.HIDE":
-      return { ...state, showValidationErrors: false };
+      return {...state, showValidationErrors: false};
 
     default:
-      return { ...state, libCall: libCall(state.libCall, action) };
+      return {...state, libCall: libCall(state.libCall, action)};
   }
 };

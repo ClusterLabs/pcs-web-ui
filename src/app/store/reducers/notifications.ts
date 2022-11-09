@@ -1,5 +1,5 @@
-import { ActionPayload } from "app/store/actions";
-import { AppReducer } from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 export const notifications: AppReducer<
   ActionPayload["NOTIFICATION.CREATE"][]

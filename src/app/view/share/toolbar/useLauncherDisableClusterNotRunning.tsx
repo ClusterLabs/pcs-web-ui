@@ -1,8 +1,8 @@
 import React from "react";
 
-import { selectors } from "app/store";
-import { ClusterStoppedInfo } from "app/view/share/ClusterStoppedInfo";
-import { useClusterSelector } from "app/view/share/useClusterSelector";
+import {selectors} from "app/store";
+import {ClusterStoppedInfo} from "app/view/share/ClusterStoppedInfo";
+import {useClusterSelector} from "app/view/share/useClusterSelector";
 
 export const useLauncherDisableClusterNotRunning = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);

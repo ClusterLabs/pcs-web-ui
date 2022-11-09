@@ -1,11 +1,11 @@
-import { Clone } from "app/view/cluster/types";
+import {Clone} from "app/view/cluster/types";
 
-import { ResourceTreeItemPrimitive } from "./ResourceTreeItemPrimitive";
-import { ResourceTreeItemGroup } from "./ResourceTreeItemGroup";
-import { ResourceTreeItemCompound } from "./ResourceTreeItemCompound";
-import { ResourceTreeItemFenceDevice } from "./ResourceTreeItemFenceDevice";
+import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
+import {ResourceTreeItemGroup} from "./ResourceTreeItemGroup";
+import {ResourceTreeItemCompound} from "./ResourceTreeItemCompound";
+import {ResourceTreeItemFenceDevice} from "./ResourceTreeItemFenceDevice";
 
-export const ResourceTreeItemClone = ({ clone }: { clone: Clone }) => {
+export const ResourceTreeItemClone = ({clone}: {clone: Clone}) => {
   return (
     <ResourceTreeItemCompound
       resourceId={clone.id}

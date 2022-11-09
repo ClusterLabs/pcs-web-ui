@@ -1,10 +1,10 @@
-import { Button } from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
 
-import { tools } from "app/store";
+import {tools} from "app/store";
 
-import { LauncherGroup } from "./LauncherGroup";
-import { Launcher } from "./Launcher";
-import { LauncherItem } from "./types";
+import {LauncherGroup} from "./LauncherGroup";
+import {Launcher} from "./Launcher";
+import {LauncherItem} from "./types";
 
 export const LauncherActionList = ({
   items = [],

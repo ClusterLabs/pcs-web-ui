@@ -1,4 +1,4 @@
-import { Page, chromium } from "playwright";
+import {Page, chromium} from "playwright";
 
 declare global {
   /* eslint-disable-next-line no-var */
@@ -8,6 +8,6 @@ declare global {
 export default async () => {
   const headless =
     process.env.PCS_WUI_TESTS_HEADLESS?.toLowerCase() !== "false";
-  const browser = await chromium.launch({ headless });
+  const browser = await chromium.launch({headless});
   global.page = await browser.newPage();
 };

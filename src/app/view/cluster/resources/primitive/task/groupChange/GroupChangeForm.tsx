@@ -1,19 +1,19 @@
-import { Form, Radio } from "@patternfly/react-core";
+import {Form, Radio} from "@patternfly/react-core";
 
-import { useTask } from "./useTask";
-import { GroupSelect } from "./GroupSelect";
-import { PositionSelect } from "./PositionSelect";
+import {useTask} from "./useTask";
+import {GroupSelect} from "./GroupSelect";
+import {PositionSelect} from "./PositionSelect";
 
 export const GroupChangeForm = () => {
   const {
     updateState,
     candidateGroupsIds,
-    state: { action, resourceId, oldGroupId },
+    state: {action, resourceId, oldGroupId},
   } = useTask();
 
   const updateAction = (newAction: typeof action) => (isChecked: boolean) => {
     if (isChecked) {
-      updateState({ action: newAction });
+      updateState({action: newAction});
     }
   };
 

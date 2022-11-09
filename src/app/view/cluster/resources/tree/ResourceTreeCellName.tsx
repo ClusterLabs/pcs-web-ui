@@ -1,10 +1,6 @@
-import { Link } from "app/view/share";
+import {Link} from "app/view/share";
 
-export const ResourceTreeCellName = ({
-  resourceId,
-}: {
-  resourceId: string;
-}) => {
+export const ResourceTreeCellName = ({resourceId}: {resourceId: string}) => {
   return (
     <Link strong data-test="resource-tree-item-name" to={`/${resourceId}`}>
       {resourceId}

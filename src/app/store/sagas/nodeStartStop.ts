@@ -1,17 +1,11 @@
-import { clusterStart, clusterStop } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {clusterStart, clusterStop} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import {
-  api,
-  errorMessage,
-  log,
-  processClusterResultBasic,
-  put,
-} from "./common";
+import {api, errorMessage, log, processClusterResultBasic, put} from "./common";
 
 export function* nodeStart({
   key,
-  payload: { nodeName },
+  payload: {nodeName},
 }: ActionMap["NODE.START"]) {
   const result: api.ResultOf<typeof clusterStart> = yield api.authSafe(
     clusterStart,
@@ -28,11 +22,11 @@ export function* nodeStart({
 
 export function* nodeStop({
   key,
-  payload: { nodeName, force },
+  payload: {nodeName, force},
 }: ActionMap["NODE.STOP"]) {
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
     clusterStop,
-    { clusterName: key.clusterName, nodeName, force },
+    {clusterName: key.clusterName, nodeName, force},
   );
 
   const taskLabel = `stop node "${nodeName}"`;
@@ -43,14 +37,14 @@ export function* nodeStop({
     }
     yield put({
       type: "TASK.FORCEABLE-CONFIRM.FAIL",
-      payload: { message: errorMessage(result, taskLabel) },
+      payload: {message: errorMessage(result, taskLabel)},
     });
     return;
   }
 
   yield put({
     type: "CLUSTER.STATUS.REFRESH",
-    key: { clusterName: key.clusterName },
+    key: {clusterName: key.clusterName},
   });
 
   yield put({

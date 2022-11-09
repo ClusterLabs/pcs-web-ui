@@ -1,10 +1,10 @@
-import { existingCluster } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {existingCluster} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, log, put } from "../common";
+import {api, log, put} from "../common";
 
 export function* importExistingCluster({
-  payload: { nodeName },
+  payload: {nodeName},
 }: ActionMap["DASHBOARD.CLUSTER.IMPORT.RUN"]) {
   const result: api.ResultOf<typeof existingCluster> = yield api.authSafe(
     existingCluster,
@@ -14,7 +14,7 @@ export function* importExistingCluster({
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
     yield put({
       type: "DASHBOARD.CLUSTER.IMPORT.RUN.ERROR",
-      payload: { message: result.text },
+      payload: {message: result.text},
     });
     return;
   }
@@ -29,6 +29,6 @@ export function* importExistingCluster({
     return;
   }
 
-  yield put({ type: "CLUSTER.LIST.REFRESH" });
-  yield put({ type: "DASHBOARD.CLUSTER.IMPORT.RUN.OK" });
+  yield put({type: "CLUSTER.LIST.REFRESH"});
+  yield put({type: "DASHBOARD.CLUSTER.IMPORT.RUN.OK"});
 }

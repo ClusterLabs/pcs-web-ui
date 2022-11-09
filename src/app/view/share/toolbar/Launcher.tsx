@@ -1,8 +1,8 @@
 import React from "react";
 
-import { LauncherItem } from "./types";
-import { LauncherTask } from "./LauncherTask";
-import { useLauncherGroupContext } from "./LauncherGroupContext";
+import {LauncherItem} from "./types";
+import {LauncherTask} from "./LauncherTask";
+import {useLauncherGroupContext} from "./LauncherGroupContext";
 
 export const Launcher = ({
   item,
@@ -11,7 +11,7 @@ export const Launcher = ({
   item: LauncherItem;
   children: (_launch: () => void) => React.ReactElement;
 }) => {
-  const { setLaunched } = useLauncherGroupContext();
+  const {setLaunched} = useLauncherGroupContext();
   if ("confirm" in item || item?.launchDisable?.isDisabled) {
     return children(() => setLaunched(item));
   }

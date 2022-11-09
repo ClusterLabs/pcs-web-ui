@@ -1,4 +1,4 @@
-import { StatusSeverity } from "../types";
+import {StatusSeverity} from "../types";
 
 export const max = (a: StatusSeverity, b: StatusSeverity): StatusSeverity => {
   const statuses = [a, b];

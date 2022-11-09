@@ -1,15 +1,15 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormText, TaskLibStep } from "app/view/share";
+import {FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Watchdogs = () => {
   const {
     updateState,
     state: {
       watchdogDict,
-      libCall: { reports },
+      libCall: {reports},
     },
   } = useTask();
 
@@ -25,7 +25,7 @@ export const Watchdogs = () => {
             value={watchdog}
             onChange={value =>
               updateState({
-                watchdogDict: { ...watchdogDict, [nodeName]: value },
+                watchdogDict: {...watchdogDict, [nodeName]: value},
               })
             }
           />

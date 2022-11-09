@@ -1,7 +1,7 @@
 import React from "react";
 
-import { FormGroup } from "./FormGroup";
-import { Select } from "./Select";
+import {FormGroup} from "./FormGroup";
+import {Select} from "./Select";
 
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
 type SelectProps = React.ComponentProps<typeof Select>;

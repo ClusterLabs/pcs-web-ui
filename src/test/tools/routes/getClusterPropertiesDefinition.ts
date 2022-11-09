@@ -1,4 +1,4 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 
@@ -7,6 +7,6 @@ export const getClusterPropertiesDefinition = ({
 }: {
   clusterName: string;
 }) => ({
-  url: endpoints.getClusterPropertiesDefinition.url({ clusterName }),
+  url: endpoints.getClusterPropertiesDefinition.url({clusterName}),
   json: responses.clusterProperties.ok,
 });

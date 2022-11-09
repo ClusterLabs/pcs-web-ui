@@ -1,4 +1,4 @@
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   ClusterToolbar,
   GroupDetailView,
@@ -6,8 +6,8 @@ import {
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 
-import { ResourceDetailPage } from "./ResourceDetailPage";
-import { ResourceTree } from "./tree/ResourceTree";
+import {ResourceDetailPage} from "./ResourceDetailPage";
+import {ResourceTree} from "./tree/ResourceTree";
 import * as task from "./task";
 
 export const ResourcesPage = () => {

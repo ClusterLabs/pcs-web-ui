@@ -1,10 +1,10 @@
-import { clusterSetup } from "app/backend";
-import { LibReport } from "app/store/types";
+import {clusterSetup} from "app/backend";
+import {LibReport} from "app/store/types";
 
 type SetupParams = Parameters<typeof clusterSetup>[0];
 
 type KnetLinkList = NonNullable<
-  Extract<SetupParams["setupData"], { transport_type: "knet" }>["link_list"]
+  Extract<SetupParams["setupData"], {transport_type: "knet"}>["link_list"]
 >;
 
 type ExtendedKnetLink = KnetLinkList[number] & {
@@ -77,7 +77,7 @@ export type DashboardClusterSetupActions = {
     payload: Omit<
       NonNullable<SetupParams["setupData"]["totem_options"]>,
       "block_unlisted_ips"
-    > & { block_unlisted_ips?: "yes" | "no" | "default" };
+    > & {block_unlisted_ips?: "yes" | "no" | "default"};
   };
 
   "DASHBOARD.CLUSTER.SETUP.UPDATE_NODES": {

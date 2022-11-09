@@ -1,18 +1,13 @@
-import { selectors } from "app/store";
-import {
-  Router,
-  UrlTabs,
-  useClusterSelector,
-  useUrlTabs,
-} from "app/view/share";
+import {selectors} from "app/store";
+import {Router, UrlTabs, useClusterSelector, useUrlTabs} from "app/view/share";
 
-import { AclType } from "../types";
+import {AclType} from "../types";
 
-import { Layout } from "./Layout";
-import { RoleViewToolbar } from "./RoleViewToolbar";
-import { getAssignedSubjectIdList } from "./tools";
-import { RoleViewDetail } from "./RoleViewDetail";
-import { RoleViewSubjects } from "./RoleViewSubjects";
+import {Layout} from "./Layout";
+import {RoleViewToolbar} from "./RoleViewToolbar";
+import {getAssignedSubjectIdList} from "./tools";
+import {RoleViewDetail} from "./RoleViewDetail";
+import {RoleViewSubjects} from "./RoleViewSubjects";
 
 export const aclRolePageTabList = ["detail", "users", "groups"] as const;
 
@@ -23,8 +18,8 @@ export const RoleView = ({
   roleId: string;
   role: AclType<"role">;
 }) => {
-  const [{ acls }] = useClusterSelector(selectors.getCluster);
-  const { currentTab, matchedContext } = useUrlTabs(aclRolePageTabList);
+  const [{acls}] = useClusterSelector(selectors.getCluster);
+  const {currentTab, matchedContext} = useUrlTabs(aclRolePageTabList);
 
   return (
     <Layout

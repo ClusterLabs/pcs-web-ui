@@ -1,10 +1,10 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
-import { Cluster } from "../types";
+import {Cluster} from "../types";
 
-import { issuesToSummarySeverity, transformIssues } from "./issues";
-import { processApiNodes } from "./nodes";
-import { analyzeApiResources } from "./resources";
+import {issuesToSummarySeverity, transformIssues} from "./issues";
+import {processApiNodes} from "./nodes";
+import {analyzeApiResources} from "./resources";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 
@@ -16,11 +16,10 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
     fenceDevicesSeverity,
     resourceOnNodeStatusList,
   } = analyzeApiResources(apiClusterStatus.resource_list);
-  const { nodeList, nodesSeverity, clusterStatus, hasCibInfo } =
-    processApiNodes(
-      apiClusterStatus.node_list,
-      apiClusterStatus.node_attr ?? {},
-    );
+  const {nodeList, nodesSeverity, clusterStatus, hasCibInfo} = processApiNodes(
+    apiClusterStatus.node_list,
+    apiClusterStatus.node_attr ?? {},
+  );
   return {
     name: apiClusterStatus.cluster_name,
     status: clusterStatus,

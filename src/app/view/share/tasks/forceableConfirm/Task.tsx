@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Action } from "app/store";
+import {Action} from "app/store";
 import {
   TaskFinishError,
   TaskProgress,
@@ -9,7 +9,7 @@ import {
   TaskSuccess,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const TaskComponent = ({
   confirm,
@@ -27,12 +27,12 @@ export const TaskComponent = ({
     success: React.ReactNode;
     fail: React.ReactNode;
   };
-  getForceableAction: (_props: { force: boolean }) => Action;
+  getForceableAction: (_props: {force: boolean}) => Action;
 }) => {
   const {
     close,
     runAction,
-    state: { response, resultMessage },
+    state: {response, resultMessage},
   } = useTask();
 
   const isForceable = resultMessage.includes("--force");
@@ -45,7 +45,7 @@ export const TaskComponent = ({
       footer={
         response !== "" ? null : (
           <TaskSimpleFooter
-            run={() => runAction(getForceableAction({ force: false }))}
+            run={() => runAction(getForceableAction({force: false}))}
             runLabel={runLabel}
           />
         )
@@ -62,7 +62,7 @@ export const TaskComponent = ({
           }`}
           primaryAction={[
             isForceable ? "Proceed anyway" : "Try again",
-            () => runAction(getForceableAction({ force: isForceable })),
+            () => runAction(getForceableAction({force: isForceable})),
           ]}
         />
       )}

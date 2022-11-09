@@ -1,5 +1,5 @@
-import { dt } from "test/tools/selectors";
-import { location } from "test/tools";
+import {dt} from "test/tools/selectors";
+import {location} from "test/tools";
 
 const VIEW = dt("task-node-add");
 export const TASK = {
@@ -14,7 +14,7 @@ export const TASK = {
   NODE_NAME: dt(VIEW, "form-node-name", "node-name"),
 };
 
-const NODES_URL = location.nodeList({ clusterName: "actions" });
+const NODES_URL = location.nodeList({clusterName: "actions"});
 export const url = {
   NODES: NODES_URL,
   TASK: `${NODES_URL}?task=nodeAdd`,

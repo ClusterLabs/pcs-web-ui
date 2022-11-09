@@ -1,6 +1,6 @@
-import { clusterPageTabList } from "app/view/cluster";
+import {clusterPageTabList} from "app/view/cluster";
 
-import { dt } from "test/tools/selectors";
+import {dt} from "test/tools/selectors";
 
 export * as fenceDevices from "./fenceDevices";
 export * as resources from "./resources";

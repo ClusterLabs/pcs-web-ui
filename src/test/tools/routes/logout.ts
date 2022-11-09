@@ -1,4 +1,4 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
 export const logout = () => ({
   url: endpoints.logout.url,

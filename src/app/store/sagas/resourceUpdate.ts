@@ -1,11 +1,11 @@
-import { updateResource } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {updateResource} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, clusterSuccess, processError, putNotification } from "./common";
+import {api, clusterSuccess, processError, putNotification} from "./common";
 
 export function* updateInstanceAttributes({
   key,
-  payload: { resourceId, attributes },
+  payload: {resourceId, attributes},
 }: ActionMap["RESOURCE.UPDATE_INSTANCE_ATTRIBUTES"]) {
   yield putNotification(
     "INFO",
@@ -26,7 +26,7 @@ export function* updateInstanceAttributes({
   }
 
   if ("error" in result.payload) {
-    const { stdout, stderr } = result.payload;
+    const {stdout, stderr} = result.payload;
     yield putNotification("ERROR", `Task failed: ${taskLabel}: `, {
       type: "LINES",
       lines: ["backend error :", `stdout: ${stdout}`, `stderr: ${stderr}`],

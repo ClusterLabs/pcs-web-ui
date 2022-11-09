@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
-import { dt, mkXPath } from "test/tools/selectors";
-import { intercept, location, route, shortcuts } from "test/tools";
+import {dt, mkXPath} from "test/tools/selectors";
+import {intercept, location, route, shortcuts} from "test/tools";
 
 const clusterName = "resourcesForTest";
 const fenceDeviceId = "F1";

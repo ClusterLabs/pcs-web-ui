@@ -4,7 +4,7 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclType } from "../types";
+import {AclType} from "../types";
 
 export const RoleViewDetail = ({
   roleId,
@@ -33,12 +33,12 @@ export const RoleViewDetail = ({
                 description: `This removes the permission ${permission}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
-                  key: { clusterName },
+                  key: {clusterName},
                   payload: {
                     taskLabel: `remove permission "${permission}"`,
                     call: {
                       name: "acl-remove-permission",
-                      payload: { permission_id: permission },
+                      payload: {permission_id: permission},
                     },
                   },
                 },

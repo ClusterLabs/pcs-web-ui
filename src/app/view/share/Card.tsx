@@ -1,5 +1,5 @@
 import React from "react";
-import { CardBody, CardTitle, Card as PfCard } from "@patternfly/react-core";
+import {CardBody, CardTitle, Card as PfCard} from "@patternfly/react-core";
 
 export const Card = ({
   children,
@@ -13,7 +13,7 @@ export const Card = ({
   return (
     <PfCard
       className="pf-u-mb-sm pf-u-mr-sm"
-      {...(dataTest ? { "data-test": dataTest } : {})}
+      {...(dataTest ? {"data-test": dataTest} : {})}
     >
       {title && <CardTitle>{title}</CardTitle>}
       <CardBody>{children}</CardBody>

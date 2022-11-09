@@ -4,9 +4,9 @@ import {
   WizardContextConsumer,
 } from "@patternfly/react-core";
 
-import { EmptyStateSpinner, NodesAuthForm, TaskLibStep } from "app/view/share";
+import {EmptyStateSpinner, NodesAuthForm, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const PrepareNodes = () => {
   const {
@@ -15,12 +15,12 @@ export const PrepareNodes = () => {
     checkAuth,
     sendKnownHosts,
     allReports,
-    state: { clusterAndNodesCheck, clusterAndNodesCheckMessage, authProcessId },
+    state: {clusterAndNodesCheck, clusterAndNodesCheckMessage, authProcessId},
   } = useTask();
   useClusterAndNodesCheck();
   return (
     <WizardContextConsumer>
-      {({ onBack }) => {
+      {({onBack}) => {
         return (
           <TaskLibStep title="Prepare nodes" reports={allReports}>
             {(clusterAndNodesCheck === "can-add-started"

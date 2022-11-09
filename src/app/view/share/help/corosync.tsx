@@ -1,8 +1,8 @@
 import React from "react";
 
-import { clusterSetup } from "app/backend";
+import {clusterSetup} from "app/backend";
 
-import type { Help } from "./help";
+import type {Help} from "./help";
 
 type SetupParams = Parameters<typeof clusterSetup>[0];
 type TotemOptions = NonNullable<SetupParams["setupData"]["totem_options"]>;

@@ -8,7 +8,7 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   AttributeHelpPopover,
   AttributeList,
@@ -20,11 +20,8 @@ import {
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 
-import { PropertiesForm } from "./PropertiesForm";
-import {
-  ClusterProperties,
-  useClusterProperties,
-} from "./useClusterProperties";
+import {PropertiesForm} from "./PropertiesForm";
+import {ClusterProperties, useClusterProperties} from "./useClusterProperties";
 
 const useFilter = (): {
   filterState: ReturnType<
@@ -45,9 +42,9 @@ const useFilter = (): {
   );
 
 export const ClusterPropertiesPage = () => {
-  const { clusterProperties } = useClusterProperties();
+  const {clusterProperties} = useClusterProperties();
   const [cluster] = useClusterSelector(selectors.getCluster);
-  const { filterState, filterParameters } = useFilter();
+  const {filterState, filterParameters} = useFilter();
   const [isEditing, setIsEditing] = React.useState(false);
 
   const launchDisable = useLauncherDisableClusterNotRunning();
@@ -65,14 +62,14 @@ export const ClusterPropertiesPage = () => {
                 buttonsItems={[
                   ...(!isEditing
                     ? [
-                      {
-                        name: "edit-attributes",
-                        run: () => setIsEditing(true),
-                        launchDisable: launchDisable(
-                          "Cannot edit cluster properties on stopped cluster",
-                        ),
-                      },
-                    ]
+                        {
+                          name: "edit-attributes",
+                          run: () => setIsEditing(true),
+                          launchDisable: launchDisable(
+                            "Cannot edit cluster properties on stopped cluster",
+                          ),
+                        },
+                      ]
                     : []),
                 ]}
               />
@@ -119,10 +116,10 @@ export const ClusterPropertiesPage = () => {
                             <AttributeValue
                               {...(property.name in cluster.clusterProperties
                                 ? {
-                                  value:
-                                    cluster.clusterProperties[property.name],
-                                }
-                                : { defaultValue: property.default })}
+                                    value:
+                                      cluster.clusterProperties[property.name],
+                                  }
+                                : {defaultValue: property.default})}
                             />
                           </React.Fragment>
                         )}

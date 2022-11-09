@@ -1,5 +1,5 @@
-import { clusterSetup, rememberCluster } from "app/backend";
-import { Action, ActionMap } from "app/store/actions";
+import {clusterSetup, rememberCluster} from "app/backend";
+import {Action, ActionMap} from "app/store/actions";
 import {
   api,
   lib,
@@ -14,7 +14,7 @@ import {
 function* rememberClusterSaga(clusterName: string, nodeNameList: string[]) {
   const result: api.ResultOf<typeof rememberCluster> = yield api.authSafe(
     rememberCluster,
-    { clusterName, nodeNameList },
+    {clusterName, nodeNameList},
   );
 
   if (result.type !== "OK") {
@@ -27,9 +27,9 @@ function* rememberClusterSaga(clusterName: string, nodeNameList: string[]) {
 }
 
 export function* setup({
-  payload: { targetNode, setupData },
+  payload: {targetNode, setupData},
 }: ActionMap["DASHBOARD.CLUSTER.SETUP.CALL"]) {
-  const { result }: { result: api.ResultOf<typeof clusterSetup> } = yield race({
+  const {result}: {result: api.ResultOf<typeof clusterSetup>} = yield race({
     result: api.authSafe(clusterSetup, {
       targetNode,
       setupData,
@@ -55,7 +55,7 @@ export function* setup({
     return;
   }
 
-  const { payload } = result;
+  const {payload} = result;
 
   if (lib.isCommunicationError(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
@@ -66,7 +66,7 @@ export function* setup({
   if (payload.status === "error") {
     yield put({
       type: "DASHBOARD.CLUSTER.SETUP.CALL.FAIL",
-      payload: { reports: payload.report_list },
+      payload: {reports: payload.report_list},
     });
     return;
   }
@@ -75,9 +75,9 @@ export function* setup({
     setupData.cluster_name,
     setupData.nodes.map(n => n.name),
   );
-  yield put({ type: "CLUSTER.LIST.REFRESH" });
+  yield put({type: "CLUSTER.LIST.REFRESH"});
   yield put({
     type: "DASHBOARD.CLUSTER.SETUP.CALL.OK",
-    payload: { reports: payload.report_list },
+    payload: {reports: payload.report_list},
   });
 }

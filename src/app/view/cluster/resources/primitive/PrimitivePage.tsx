@@ -1,4 +1,4 @@
-import { Primitive } from "app/view/cluster/types";
+import {Primitive} from "app/view/cluster/types";
 import {
   DetailLayout,
   NVPairListPage,
@@ -9,10 +9,10 @@ import {
   useUrlTabs,
 } from "app/view/share";
 
-import { PrimitiveAttrsView } from "./attributes";
-import { PrimitiveDetail } from "./PrimitiveDetail";
-import { useClusterResourceAgent } from "./useResourceAgent";
-import { PrimitivePageToolbar } from "./PrimitivePageToolbar";
+import {PrimitiveAttrsView} from "./attributes";
+import {PrimitiveDetail} from "./PrimitiveDetail";
+import {useClusterResourceAgent} from "./useResourceAgent";
+import {PrimitivePageToolbar} from "./PrimitivePageToolbar";
 
 export const primitivePageTabList = [
   "detail",
@@ -21,8 +21,8 @@ export const primitivePageTabList = [
   "meta",
 ] as const;
 
-export const PrimitivePage = ({ primitive }: { primitive: Primitive }) => {
-  const { currentTab, matchedContext } = useUrlTabs(primitivePageTabList);
+export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
+  const {currentTab, matchedContext} = useUrlTabs(primitivePageTabList);
 
   // Agent is loaded here to load neccessary data as soon as possible. Ideally
   // user doesn't need to wait when he needs it.

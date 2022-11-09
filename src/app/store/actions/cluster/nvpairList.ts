@@ -10,7 +10,7 @@ type Owner = {
 export type ClusterNVPairListActions = {
   "CLUSTER.NVPAIRS.SAVE": {
     type: "CLUSTER.NVPAIRS.SAVE";
-    key: { clusterName: string; task: string };
+    key: {clusterName: string; task: string};
     payload: {
       owner: Owner;
       name: string;
@@ -31,14 +31,14 @@ export type ClusterNVPairListActions = {
 
   "CLUSTER.NVPAIRS.SAVE.ERROR.RECOVER": {
     type: "CLUSTER.NVPAIRS.SAVE.ERROR.RECOVER";
-    key: { clusterName: string; task: string };
+    key: {clusterName: string; task: string};
   };
 
   "CLUSTER.NVPAIRS.EDIT": {
     type: "CLUSTER.NVPAIRS.EDIT";
-    key: { clusterName: string; task: string };
+    key: {clusterName: string; task: string};
     payload: (
-      | { type: "create" }
+      | {type: "create"}
       | {
           type: "update";
           name: string;
@@ -56,11 +56,11 @@ export type ClusterNVPairListActions = {
       name?: string;
       value?: string;
     };
-    key: { clusterName: string; task: string };
+    key: {clusterName: string; task: string};
   };
 
   "CLUSTER.NVPAIRS.EDIT.CLOSE": {
     type: "CLUSTER.NVPAIRS.EDIT.CLOSE";
-    key: { clusterName: string; task: string };
+    key: {clusterName: string; task: string};
   };
 };

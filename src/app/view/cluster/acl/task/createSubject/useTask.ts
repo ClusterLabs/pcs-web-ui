@@ -1,11 +1,11 @@
-import { ActionPayload, selectors } from "app/store";
-import { useClusterSelector, useClusterTask } from "app/view/share";
+import {ActionPayload, selectors} from "app/store";
+import {useClusterSelector, useClusterTask} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("aclSubjectCreate");
-  const { dispatch, state, clusterName } = task;
+  const {dispatch, state, clusterName} = task;
 
-  const [{ acls }] = useClusterSelector(selectors.getCluster);
+  const [{acls}] = useClusterSelector(selectors.getCluster);
 
   return {
     ...task,
@@ -19,7 +19,7 @@ export const useTask = () => {
     open: (payload: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE"]) => {
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.CREATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       });
       task.open();
@@ -30,7 +30,7 @@ export const useTask = () => {
     ) =>
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
 
@@ -38,18 +38,18 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
 
     createSubject: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: `create acl ${state.subjectType}`,
           call:
@@ -75,7 +75,7 @@ export const useTask = () => {
     recoverFromError: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
     },
   };

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AttributeHelpPopover } from "app/view/share";
+import {AttributeHelpPopover} from "app/view/share";
 
 export const PrimitiveAttrsFormItemLayout = ({
   name,

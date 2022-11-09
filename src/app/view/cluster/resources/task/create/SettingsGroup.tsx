@@ -1,12 +1,12 @@
-import { Checkbox, Flex, FlexItem, FormGroup } from "@patternfly/react-core";
+import {Checkbox, Flex, FlexItem, FormGroup} from "@patternfly/react-core";
 
-import { FormSelectOrText } from "app/view/share";
+import {FormSelectOrText} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const SettingsGroup = () => {
   const {
-    state: { useGroup, group, clone, showValidationErrors },
+    state: {useGroup, group, clone, showValidationErrors},
     updateState,
     groupIdList,
   } = useTask();
@@ -52,12 +52,12 @@ export const SettingsGroup = () => {
                 selections: groupIdList.includes(group) ? group : "",
                 isDisabled: !useGroup,
                 optionsValues: groupIdList,
-                onSelect: value => updateState({ group: value.toString() }),
+                onSelect: value => updateState({group: value.toString()}),
               }}
               text={{
                 label: "Create new group",
                 value: group,
-                onChange: value => updateState({ group: value }),
+                onChange: value => updateState({group: value}),
                 helperTextInvalid: "Please provide a name for the new group",
                 isValid: useGroup !== "new" || group.length > 0,
               }}

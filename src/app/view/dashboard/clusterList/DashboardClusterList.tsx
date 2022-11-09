@@ -1,12 +1,12 @@
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
-import { selectors } from "app/store";
-import { Cluster } from "app/view/cluster/types";
-import { Table, compareStatusSeverity } from "app/view/share";
+import {selectors} from "app/store";
+import {Cluster} from "app/view/cluster/types";
+import {Table, compareStatusSeverity} from "app/view/share";
 
-import { compareStrings } from "./utils";
-import { DashboardCluster } from "./DashboardCluster";
-import { DashboardClusterLoading } from "./DashboardClusterLoading";
+import {compareStrings} from "./utils";
+import {DashboardCluster} from "./DashboardCluster";
+import {DashboardClusterLoading} from "./DashboardClusterLoading";
 
 type COLUMNS =
   | "NAME"
@@ -50,14 +50,14 @@ const compareByColumn = (
   }
 };
 
-const { SortableTh } = Table;
+const {SortableTh} = Table;
 
 export const DashboardClusterList = ({
   importedClusterNameList,
 }: {
   importedClusterNameList: Parameters<typeof selectors.getClusterMap>[0];
 }) => {
-  const { sortState, compareItems } = SortableTh.useSorting<COLUMNS>("NAME");
+  const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
   const clusterMap = useSelector(
     selectors.getClusterMap(importedClusterNameList),
   );

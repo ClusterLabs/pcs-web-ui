@@ -1,7 +1,7 @@
 import React from "react";
-import { DataListCell } from "@patternfly/react-core";
+import {DataListCell} from "@patternfly/react-core";
 
-import { ConstraintValue } from "./ConstraintValue";
+import {ConstraintValue} from "./ConstraintValue";
 
 export const ConstraintCell = ({
   label,

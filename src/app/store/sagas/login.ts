@@ -1,7 +1,7 @@
-import { login, logout } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {login, logout} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { log } from "./common";
+import {log} from "./common";
 import {
   api,
   call,
@@ -18,8 +18,8 @@ export function* logoutSaga() {
   if (result.type === "UNAUTHORIZED") {
     // Ok we are already somehow loged out.
     yield putNotification("SUCCESS", "Already logged out");
-    yield put({ type: "LOGIN.LOGOUT.SUCCESS" });
-    yield put({ type: "AUTH.REQUIRED" });
+    yield put({type: "LOGIN.LOGOUT.SUCCESS"});
+    yield put({type: "AUTH.REQUIRED"});
     return;
   }
   if (result.type !== "OK") {
@@ -28,13 +28,13 @@ export function* logoutSaga() {
   }
 
   yield putNotification("SUCCESS", "Success logout");
-  yield put({ type: "LOGIN.LOGOUT.SUCCESS" });
-  yield put({ type: "AUTH.REQUIRED" });
-  yield put({ type: "DATA_READING.SET_UP", payload: [] });
+  yield put({type: "LOGIN.LOGOUT.SUCCESS"});
+  yield put({type: "AUTH.REQUIRED"});
+  yield put({type: "DATA_READING.SET_UP", payload: []});
 }
 
 export function* loginSaga({
-  payload: { username, password },
+  payload: {username, password},
 }: ActionMap["LOGIN.ENTER_CREDENTIALS"]) {
   const result: api.ResultOf<typeof login> = yield call(
     login,
@@ -55,7 +55,7 @@ export function* loginSaga({
     });
     return;
   }
-  yield put({ type: "AUTH.SUCCESS", payload: { username } });
+  yield put({type: "AUTH.SUCCESS", payload: {username}});
 }
 
 export default [

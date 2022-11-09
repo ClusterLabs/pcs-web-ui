@@ -5,7 +5,7 @@ import {
   EmptyStateIcon,
   Title,
 } from "@patternfly/react-core";
-import { ExclamationCircleIcon } from "@patternfly/react-icons";
+import {ExclamationCircleIcon} from "@patternfly/react-icons";
 
 import * as pallete from "app/view/share/pallete";
 
@@ -17,7 +17,7 @@ export const EmptyStateError = ({
   message: React.ReactNode;
 }) => {
   return (
-    <EmptyState style={{ margin: "auto" }}>
+    <EmptyState style={{margin: "auto"}}>
       <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
       <Title size="lg" headingLevel="h3">
         {title}

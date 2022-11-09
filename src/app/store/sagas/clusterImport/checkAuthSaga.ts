@@ -1,6 +1,6 @@
-import { checkAuthAgainstNodes } from "app/backend";
-import { actionNewId } from "app/store";
-import { Action, ActionMap } from "app/store/actions";
+import {checkAuthAgainstNodes} from "app/backend";
+import {actionNewId} from "app/store";
+import {Action, ActionMap} from "app/store/actions";
 
 import {
   api,
@@ -11,7 +11,7 @@ import {
   race,
   take,
 } from "../common";
-import { nodeAuthWait } from "../nodeAuth";
+import {nodeAuthWait} from "../nodeAuth";
 
 const cancelActions: (keyof ActionMap)[] = [
   "DASHBOARD.CLUSTER.IMPORT.UPDATE_NODE",
@@ -23,9 +23,9 @@ const checkAuthOkAction: Action = {
 };
 
 export function* checkAuth({
-  payload: { nodeName },
+  payload: {nodeName},
 }: ActionMap["DASHBOARD.CLUSTER.IMPORT.CHECK_AUTH"]) {
-  const { result }: { result: api.ResultOf<typeof checkAuthAgainstNodes> } =
+  const {result}: {result: api.ResultOf<typeof checkAuthAgainstNodes>} =
     yield race({
       result: api.authSafe(checkAuthAgainstNodes, [nodeName]),
       cancel: take(cancelActions),
@@ -37,7 +37,7 @@ export function* checkAuth({
 
   const errorAction = (message: string): Action => ({
     type: "DASHBOARD.CLUSTER.IMPORT.CHECK_AUTH.FAIL",
-    payload: { message },
+    payload: {message},
   });
   const taskLabel = "add existing cluster: node authentication check";
 
@@ -68,16 +68,16 @@ export function* checkAuth({
   const authProcessId = actionNewId();
   yield put({
     type: "NODE.AUTH.START",
-    key: { process: authProcessId },
-    payload: { initialNodeList: [nodeName] },
+    key: {process: authProcessId},
+    payload: {initialNodeList: [nodeName]},
   });
 
   yield put({
     type: "DASHBOARD.CLUSTER.IMPORT.CHECK_AUTH.NO_AUTH",
-    payload: { authProcessId },
+    payload: {authProcessId},
   });
 
-  const { cancel } = yield race({
+  const {cancel} = yield race({
     auth: call(nodeAuthWait, authProcessId),
     cancel: take(cancelActions),
   });
@@ -88,6 +88,6 @@ export function* checkAuth({
   }
   yield put({
     type: "NODE.AUTH.STOP",
-    key: { process: authProcessId },
+    key: {process: authProcessId},
   });
 }

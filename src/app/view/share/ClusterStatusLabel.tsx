@@ -1,7 +1,7 @@
 import React from "react";
-import { Label } from "@patternfly/react-core";
+import {Label} from "@patternfly/react-core";
 
-import { Cluster } from "app/view/cluster/types";
+import {Cluster} from "app/view/cluster/types";
 
 const statusColorMap: Record<
   Cluster["status"],
@@ -14,11 +14,7 @@ const statusColorMap: Record<
   unknown: "grey",
 };
 
-export const ClusterStatusLabel = ({
-  status,
-}: {
-  status: Cluster["status"];
-}) => {
+export const ClusterStatusLabel = ({status}: {status: Cluster["status"]}) => {
   return (
     <Label
       data-test="cluster-status-label"

@@ -1,4 +1,4 @@
-import { app } from "dev/app";
+import {app} from "dev/app";
 import * as shortcut from "dev/shortcuts";
 import * as response from "dev/responses";
 
@@ -9,11 +9,11 @@ app.libCluster("stonith-create", (req, res) => {
     errors: {
       exist: [
         {
-          severity: { level: "ERROR", force_code: null },
+          severity: {level: "ERROR", force_code: null},
           message: {
             code: "ID_ALREADY_EXISTS",
             message: "'exist' already exists",
-            payload: { id: "exist" },
+            payload: {id: "exist"},
           },
           context: null,
         },
@@ -29,11 +29,11 @@ app.libCluster("stonith-create-in-group", (req, res) => {
     errors: {
       exist: [
         {
-          severity: { level: "ERROR", force_code: null },
+          severity: {level: "ERROR", force_code: null},
           message: {
             code: "ID_ALREADY_EXISTS",
             message: "'exist' already exists",
-            payload: { id: "exist" },
+            payload: {id: "exist"},
           },
           context: null,
         },

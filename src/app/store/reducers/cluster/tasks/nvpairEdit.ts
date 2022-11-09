@@ -1,5 +1,5 @@
-import { AppReducer } from "app/store/reducers/appReducer";
-import { ActionPayload } from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
 
 type Owner = ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
 type OperationType = ActionPayload["CLUSTER.NVPAIRS.EDIT"]["type"];
@@ -92,10 +92,10 @@ export const nvpairEdit: AppReducer<typeof initialState> = (
       return initialState;
 
     case "TASK.VALIDATION.SHOW":
-      return { ...state, showValidationErrors: true };
+      return {...state, showValidationErrors: true};
 
     case "TASK.VALIDATION.HIDE":
-      return { ...state, showValidationErrors: false };
+      return {...state, showValidationErrors: false};
 
     default:
       return state;

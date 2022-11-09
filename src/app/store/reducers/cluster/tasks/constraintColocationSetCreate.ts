@@ -1,8 +1,8 @@
-import { AppReducer } from "app/store/reducers/appReducer";
-import { ActionPayload } from "app/store/actions";
+import {AppReducer} from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
 
-import { resourceSetCreateFactory } from "./resourceSet";
-import { initialState as initalLibCall, libCall } from "./libCall";
+import {resourceSetCreateFactory} from "./resourceSet";
+import {initialState as initalLibCall, libCall} from "./libCall";
 
 type Role = Exclude<
   ActionPayload["CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET"]["set"]["role"],
@@ -63,7 +63,7 @@ export const constraintColocationSetCreate: AppReducer<typeof initialState> = (
         ...state,
         sets: updateSet(state.sets, action.payload.index, {
           ...action.payload.set,
-          ...(state.sets.length === 1 ? { sequential: true } : {}),
+          ...(state.sets.length === 1 ? {sequential: true} : {}),
         }),
         showValidationErrors: false,
       };
@@ -72,10 +72,10 @@ export const constraintColocationSetCreate: AppReducer<typeof initialState> = (
       return initialState;
 
     case "TASK.VALIDATION.SHOW":
-      return { ...state, showValidationErrors: true };
+      return {...state, showValidationErrors: true};
 
     case "TASK.VALIDATION.HIDE":
-      return { ...state, showValidationErrors: false };
+      return {...state, showValidationErrors: false};
 
     default:
       return {

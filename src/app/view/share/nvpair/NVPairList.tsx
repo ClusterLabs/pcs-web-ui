@@ -1,9 +1,9 @@
-import { ActionPayload } from "app/store";
-import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
-import { LauncherDropdown } from "app/view/share/toolbar";
-import { TaskOpenArgs } from "app/view/share/task";
-import { NVPair } from "app/view/cluster/types";
-import { Table } from "app/view/share/table";
+import {ActionPayload} from "app/store";
+import {useSelectedClusterName} from "app/view/share/SelectedClusterContext";
+import {LauncherDropdown} from "app/view/share/toolbar";
+import {TaskOpenArgs} from "app/view/share/task";
+import {NVPair} from "app/view/cluster/types";
+import {Table} from "app/view/share/table";
 
 import * as task from "./task";
 
@@ -14,7 +14,7 @@ export const NVPairList = ({
   nvPairList: NVPair[];
   owner: ActionPayload["CLUSTER.NVPAIRS.SAVE"]["owner"];
 }) => {
-  const { name: taskName } = task.edit.useTask();
+  const {name: taskName} = task.edit.useTask();
   const clusterName = useSelectedClusterName();
 
   return (
@@ -57,7 +57,7 @@ export const NVPairList = ({
                         description: "Removes the attribute.",
                         action: {
                           type: "CLUSTER.NVPAIRS.SAVE",
-                          key: { clusterName, task: taskName },
+                          key: {clusterName, task: taskName},
                           payload: {
                             owner,
                             name: nvPair.name,

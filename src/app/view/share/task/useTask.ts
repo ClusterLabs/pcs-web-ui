@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
-import { selectors } from "app/store";
-import { useDispatch } from "app/view/share/useDispatch";
+import {selectors} from "app/store";
+import {useDispatch} from "app/view/share/useDispatch";
 
-import { useTaskOpenClose } from "./useTaskOpenClose";
+import {useTaskOpenClose} from "./useTaskOpenClose";
 
 export function useTask<NAME extends Parameters<typeof selectors.getTask>[0]>(
   name: NAME,

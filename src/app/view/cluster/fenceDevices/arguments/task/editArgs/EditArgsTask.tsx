@@ -1,9 +1,9 @@
 import React from "react";
 
-import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
+import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { EditArgsForm } from "./EditArgsForm";
+import {useTask} from "./useTask";
+import {EditArgsForm} from "./EditArgsForm";
 
 export const EditArgsTask = () => {
   const {
@@ -13,7 +13,7 @@ export const EditArgsTask = () => {
     recoverFromError,
     state: {
       fenceDeviceId,
-      call: { response, resultMessage },
+      call: {response, resultMessage},
     },
   } = useTask();
 

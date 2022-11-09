@@ -1,7 +1,7 @@
 import * as types from "dev/types";
 import * as responses from "dev/responses";
 
-import { intercept, route } from "test/tools";
+import {intercept, route} from "test/tools";
 
 export const interceptWithCluster = (
   props: {
@@ -25,7 +25,7 @@ export const interceptWithCluster = (
       }
   ),
 ) => {
-  const { additionalRouteList, replaceRoutes } = props;
+  const {additionalRouteList, replaceRoutes} = props;
 
   const clusterStatus =
     "clusterStatus" in props
@@ -33,7 +33,7 @@ export const interceptWithCluster = (
       : responses.clusterStatus[props.clusterName];
 
   const routeMap: typeof replaceRoutes = {
-    clusterStatus: route.clusterStatus({ clusterStatus }),
+    clusterStatus: route.clusterStatus({clusterStatus}),
     resourceAgent: route.resourceAgentListAgents(clusterStatus.cluster_name),
     stonithAgent: route.stonithAgentListAgents({
       clusterName: clusterStatus.cluster_name,
@@ -47,7 +47,7 @@ export const interceptWithCluster = (
   };
 
   return intercept.run([
-    ...Object.values({ ...routeMap, ...(replaceRoutes || {}) }),
+    ...Object.values({...routeMap, ...(replaceRoutes || {})}),
     ...(additionalRouteList || []),
   ]);
 };

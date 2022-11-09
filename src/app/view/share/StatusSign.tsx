@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StatusIco } from "./StatusIco";
+import {StatusIco} from "./StatusIco";
 
 export const StatusSign = ({
   status,

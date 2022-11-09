@@ -1,8 +1,8 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormRadios, FormSelect, FormText } from "app/view/share";
+import {FormRadios, FormSelect, FormText} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Configure = () => {
   const {
@@ -11,13 +11,7 @@ export const Configure = () => {
     isResourceValid,
     isWithResourceValid,
     isScoreValid,
-    state: {
-      resourceId,
-      withResourceId,
-      placement,
-      score,
-      showValidationErrors,
-    },
+    state: {resourceId, withResourceId, placement, score, showValidationErrors},
   } = useTask();
 
   return (
@@ -30,7 +24,7 @@ export const Configure = () => {
         isValid={isResourceValid}
         helperTextInvalid="Please select a resource"
         isRequired
-        onSelect={value => updateState({ resourceId: value.toString() })}
+        onSelect={value => updateState({resourceId: value.toString()})}
         selections={resourceId}
         optionsValues={resourceIdList.filter(r => r !== withResourceId)}
       />
@@ -43,7 +37,7 @@ export const Configure = () => {
         isValid={isWithResourceValid}
         helperTextInvalid="Please select a resource"
         isRequired
-        onSelect={value => updateState({ withResourceId: value.toString() })}
+        onSelect={value => updateState({withResourceId: value.toString()})}
         selections={withResourceId}
         optionsValues={resourceIdList.filter(r => r !== resourceId)}
       />
@@ -53,13 +47,13 @@ export const Configure = () => {
         label="Placement"
         options={["together", "apart"]}
         selected={placement}
-        onChange={value => updateState({ placement: value })}
+        onChange={value => updateState({placement: value})}
       />
 
       <FormText
         id="constraint-score"
         label="Score"
-        onChange={value => updateState({ score: value })}
+        onChange={value => updateState({score: value})}
         value={score}
         showValidationErrors={showValidationErrors}
         isValid={isScoreValid}

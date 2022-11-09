@@ -1,7 +1,7 @@
-import { PageSection, Stack, StackItem } from "@patternfly/react-core";
+import {PageSection, Stack, StackItem} from "@patternfly/react-core";
 
-import { tools } from "app/store";
-import { Router } from "app/view/share";
+import {tools} from "app/store";
+import {Router} from "app/view/share";
 import {
   EmptyStateSpinner,
   Page,
@@ -9,19 +9,19 @@ import {
   UrlTabs,
   useUrlTabs,
 } from "app/view/share";
-import { useClusterState } from "app/view/share";
+import {useClusterState} from "app/view/share";
 
 /* eslint-disable import/max-dependencies */
-import { NodesPage } from "./nodes";
-import { ResourcesPage } from "./resources";
-import { FenceDevicePage } from "./fenceDevices";
-import { SbdPage } from "./sbd";
-import { ConstraintsPage } from "./constraints";
-import { ClusterPropertiesPage } from "./properties";
-import { AclPage } from "./acl";
-import { ClusterDetail } from "./ClusterDetail";
-import { ClusterDetailBreadcrumb } from "./ClusterDetailBreadcrumb";
-import { ClusterPermissionsPage } from "./permissions";
+import {NodesPage} from "./nodes";
+import {ResourcesPage} from "./resources";
+import {FenceDevicePage} from "./fenceDevices";
+import {SbdPage} from "./sbd";
+import {ConstraintsPage} from "./constraints";
+import {ClusterPropertiesPage} from "./properties";
+import {AclPage} from "./acl";
+import {ClusterDetailPage} from "./detail";
+import {ClusterAppBreadcrumb} from "./ClusterAppBreadcrumb";
+import {ClusterPermissionsPage} from "./permissions";
 
 export const clusterPageTabList = [
   "detail",
@@ -40,16 +40,16 @@ const tabNameMap: Record<string, string> = {
   acl: "ACL",
 };
 
-export const ClusterDetailPage = ({ clusterName }: { clusterName: string }) => {
-  const { dataLoaded } = useClusterState(clusterName);
-  const { currentTab, matchedContext } = useUrlTabs(clusterPageTabList);
+export const ClusterApp = ({clusterName}: {clusterName: string}) => {
+  const {dataLoaded} = useClusterState(clusterName);
+  const {currentTab, matchedContext} = useUrlTabs(clusterPageTabList);
 
   return (
     <Page>
       <PageSection variant="light">
         <Stack hasGutter>
           <StackItem>
-            <ClusterDetailBreadcrumb clusterName={clusterName} />
+            <ClusterAppBreadcrumb clusterName={clusterName} />
           </StackItem>
           <StackItem>
             <UrlTabs
@@ -66,7 +66,7 @@ export const ClusterDetailPage = ({ clusterName }: { clusterName: string }) => {
       {dataLoaded && (
         <SelectedClusterProvider value={clusterName}>
           <Router base={matchedContext}>
-            {currentTab === "detail" && <ClusterDetail />}
+            {currentTab === "detail" && <ClusterDetailPage />}
             {currentTab === "nodes" && <NodesPage />}
             {currentTab === "resources" && <ResourcesPage />}
             {currentTab === "fence-devices" && <FenceDevicePage />}

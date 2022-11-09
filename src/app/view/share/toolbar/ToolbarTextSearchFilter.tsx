@@ -5,7 +5,7 @@ import {
   InputGroup,
   TextInput,
 } from "@patternfly/react-core";
-import { SearchIcon } from "@patternfly/react-icons";
+import {SearchIcon} from "@patternfly/react-icons";
 
 const useState = (initialValue = "") => React.useState(initialValue);
 

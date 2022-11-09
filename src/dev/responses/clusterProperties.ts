@@ -1,4 +1,4 @@
-import { ClusterProperties } from "dev/types";
+import {ClusterProperties} from "dev/types";
 
 export const ok: ClusterProperties = {
   "batch-limit": {

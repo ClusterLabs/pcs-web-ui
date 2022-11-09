@@ -1,8 +1,8 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormText } from "app/view/share/form";
+import {FormText} from "app/view/share/form";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Configure = () => {
   const {
@@ -11,14 +11,14 @@ export const Configure = () => {
     integerIsExpectedAsValue,
     isNameValid,
     isNameUsed,
-    state: { value, showValidationErrors, type, name },
+    state: {value, showValidationErrors, type, name},
   } = useTask();
   return (
     <Form data-test="nvpair-create">
       <FormText
         id="attr-name"
         label="Name"
-        onChange={value => updateState({ name: value })}
+        onChange={value => updateState({name: value})}
         value={name}
         showValidationErrors={showValidationErrors}
         isValid={isNameValid && (type === "update" || !isNameUsed)}
@@ -33,7 +33,7 @@ export const Configure = () => {
       <FormText
         id="attr-value"
         label="Value"
-        onChange={value => updateState({ value })}
+        onChange={value => updateState({value})}
         value={value}
         showValidationErrors={showValidationErrors}
         isValid={isValueValid}

@@ -1,8 +1,8 @@
-import { useDispatch } from "app/view/share/useDispatch";
-import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
-import { ButtonWithEnter } from "app/view/share/ButtonWithEnter";
+import {useDispatch} from "app/view/share/useDispatch";
+import {useSelectedClusterName} from "app/view/share/SelectedClusterContext";
+import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
-import { useTaskContext } from "./TaskContext";
+import {useTaskContext} from "./TaskContext";
 
 export const TaskButtonNextWithValidation = ({
   run,
@@ -21,7 +21,7 @@ export const TaskButtonNextWithValidation = ({
   const selectedClusterName = useSelectedClusterName();
   const clusterName =
     selectedClusterName.length > 0 ? selectedClusterName : null;
-  const { task } = useTaskContext();
+  const {task} = useTaskContext();
   const dispatch = useDispatch();
   return (
     <ButtonWithEnter
@@ -29,13 +29,13 @@ export const TaskButtonNextWithValidation = ({
         if (runIf) {
           dispatch({
             type: "TASK.VALIDATION.HIDE",
-            key: { clusterName, task },
+            key: {clusterName, task},
           });
           run();
         } else {
           dispatch({
             type: "TASK.VALIDATION.SHOW",
-            key: { clusterName, task },
+            key: {clusterName, task},
           });
         }
       }}

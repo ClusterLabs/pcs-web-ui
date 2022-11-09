@@ -2,15 +2,15 @@ import * as t from "dev/responses/clusterStatus/tools";
 import * as responses from "dev/responses";
 
 import * as workflow from "test/workflow";
-import { intercept, location, route, shortcuts } from "test/tools";
+import {intercept, location, route, shortcuts} from "test/tools";
 
-const { resources } = workflow.cluster;
+const {resources} = workflow.cluster;
 export const agentData = responses.resourceAgentMetadata.ocfHeartbeatDummy;
 
 export const resourceA = t.primitive("A", {
   utilization: [
-    { id: "A_test_one", name: "test_one", value: "10" },
-    { id: "A_test_two", name: "test_two", value: "20" },
+    {id: "A_test_one", name: "test_one", value: "10"},
+    {id: "A_test_two", name: "test_two", value: "20"},
   ],
   agentname: agentData.name,
 });

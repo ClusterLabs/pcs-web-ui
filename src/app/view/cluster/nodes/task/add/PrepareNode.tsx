@@ -1,9 +1,9 @@
-import { Alert, AlertActionLink } from "@patternfly/react-core";
+import {Alert, AlertActionLink} from "@patternfly/react-core";
 
-import { TaskLibStep } from "app/view/share";
-import { EmptyStateSpinner, NodesAuthForm } from "app/view/share";
+import {TaskLibStep} from "app/view/share";
+import {EmptyStateSpinner, NodesAuthForm} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const PrepareNode = () => {
   const {
@@ -15,7 +15,7 @@ export const PrepareNode = () => {
       nodeCheck,
       nodeCheckMessage,
       authProcessId,
-      libCall: { reports },
+      libCall: {reports},
     },
   } = useTask();
   useNodeCheck();

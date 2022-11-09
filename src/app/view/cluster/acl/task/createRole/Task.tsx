@@ -1,9 +1,9 @@
-import { TaskFinishLibWizard, Wizard, WizardFooter } from "app/view/share";
+import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { RoleName } from "./RoleName";
-import { AddPermissions } from "./AddPermissions";
-import { Review } from "./Review";
+import {useTask} from "./useTask";
+import {RoleName} from "./RoleName";
+import {AddPermissions} from "./AddPermissions";
+import {Review} from "./Review";
 
 export const Task = () => {
   const {
@@ -13,7 +13,7 @@ export const Task = () => {
     invalidPermissionIndexes,
     state: {
       roleId,
-      libCall: { response, reports },
+      libCall: {response, reports},
     },
   } = useTask();
   return (
@@ -29,8 +29,8 @@ export const Task = () => {
           component: <RoleName />,
           footer: (
             <WizardFooter
-              next={{ actionIf: isNameValid }}
-              back={{ disabled: true }}
+              next={{actionIf: isNameValid}}
+              back={{disabled: true}}
             />
           ),
         },

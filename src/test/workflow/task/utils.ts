@@ -1,8 +1,8 @@
-import { wizardCreateFooterDataTest as createFooterDataTest } from "app/view/share/task/wizardCreateFooterDataTest";
+import {wizardCreateFooterDataTest as createFooterDataTest} from "app/view/share/task/wizardCreateFooterDataTest";
 
-import { dt, mkXPath } from "test/tools/selectors";
+import {dt, mkXPath} from "test/tools/selectors";
 
-import { assertReview } from "./common";
+import {assertReview} from "./common";
 
 const clickMoveFrom = <STEP_NAME extends string>(
   contexts: string | string[],

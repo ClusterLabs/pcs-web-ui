@@ -1,3 +1,3 @@
-import { TaskForceableConfirmActions } from "./forceableConfirm";
+import {TaskForceableConfirmActions} from "./forceableConfirm";
 
 export type TaskActions = TaskForceableConfirmActions;

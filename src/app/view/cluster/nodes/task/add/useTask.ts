@@ -1,18 +1,18 @@
 import React from "react";
 
-import { ActionPayload } from "app/store";
-import { useClusterState, useClusterTask } from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterState, useClusterTask} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("nodeAdd");
-  const { clusterName, state, dispatch } = task;
+  const {clusterName, state, dispatch} = task;
 
-  const { clusterState } = useClusterState(clusterName);
+  const {clusterState} = useClusterState(clusterName);
 
   const checkCanAddNode = () =>
     dispatch({
       type: "NODE.ADD.CHECK_CAN_ADD",
-      key: { clusterName },
+      key: {clusterName},
       payload: {
         nodeName: state.nodeName,
       },
@@ -53,29 +53,29 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "NODE.ADD.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
 
     updateState: (payload: ActionPayload["NODE.ADD.UPDATE"]) =>
       dispatch({
         type: "NODE.ADD.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
 
     updateNodeName: (nodeName: string) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "NODE.ADD.UPDATE_NODE_NAME",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           nodeName,
         },
@@ -85,16 +85,16 @@ export const useTask = () => {
     checkAuth: () =>
       dispatch({
         type: "NODE.ADD.CHECK_AUTH",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           nodeName: state.nodeName,
         },
       }),
 
-    nodeAdd: ({ newForceFlags = [] }: { newForceFlags?: string[] } = {}) => {
+    nodeAdd: ({newForceFlags = []}: {newForceFlags?: string[]} = {}) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: `add node ${state.nodeName}`,
           call: {
@@ -104,13 +104,13 @@ export const useTask = () => {
                 {
                   name: state.nodeName,
                   ...(filledNodeAddresses.length > 0
-                    ? { addrs: filledNodeAddresses }
+                    ? {addrs: filledNodeAddresses}
                     : {}),
                   ...(filledSbdDevices.length > 0
-                    ? { devices: filledSbdDevices }
+                    ? {devices: filledSbdDevices}
                     : {}),
                   ...(state.sbdWatchdog.length > 0
-                    ? { watchdog: state.sbdWatchdog }
+                    ? {watchdog: state.sbdWatchdog}
                     : {}),
                 },
               ],
@@ -122,7 +122,7 @@ export const useTask = () => {
       });
       dispatch({
         type: "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           forceFlags: newForceFlags,
         },
@@ -132,15 +132,15 @@ export const useTask = () => {
     nodeStart: () =>
       dispatch({
         type: "NODE.START",
-        key: { clusterName },
-        payload: { nodeName: state.nodeName },
+        key: {clusterName},
+        payload: {nodeName: state.nodeName},
       }),
 
     sendKnownHosts: () =>
       dispatch({
         type: "NODE.ADD.SEND_KNOWN_HOSTS",
-        key: { clusterName },
-        payload: { nodeName: state.nodeName },
+        key: {clusterName},
+        payload: {nodeName: state.nodeName},
       }),
 
     checkCanAddNode,

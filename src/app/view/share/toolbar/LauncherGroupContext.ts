@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LauncherItem } from "./types";
+import {LauncherItem} from "./types";
 
 const LauncherGroupContext = React.createContext<{
   setLaunched: (_item: LauncherItem | null) => void;

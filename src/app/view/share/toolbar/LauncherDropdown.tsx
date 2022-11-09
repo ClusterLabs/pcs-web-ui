@@ -1,11 +1,11 @@
 import React from "react";
-import { Dropdown, DropdownItem, KebabToggle } from "@patternfly/react-core";
+import {Dropdown, DropdownItem, KebabToggle} from "@patternfly/react-core";
 
-import { tools } from "app/store";
+import {tools} from "app/store";
 
-import { LauncherGroup } from "./LauncherGroup";
-import { Launcher } from "./Launcher";
-import { LauncherItem } from "./types";
+import {LauncherGroup} from "./LauncherGroup";
+import {Launcher} from "./Launcher";
+import {LauncherItem} from "./types";
 
 export const LauncherDropdown = ({
   items = [],

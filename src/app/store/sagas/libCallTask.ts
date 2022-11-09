@@ -1,20 +1,19 @@
-import { libCallCluster } from "app/backend";
-import { Action, ActionMap } from "app/store/actions";
+import {libCallCluster} from "app/backend";
+import {Action, ActionMap} from "app/store/actions";
 
-import { api, lib, log, processError, put, race, take } from "./common";
+import {api, lib, log, processError, put, race, take} from "./common";
 
 export function* callLib({
   key,
-  payload: { call: command, taskLabel },
+  payload: {call: command, taskLabel},
 }: ActionMap["LIB.CALL.CLUSTER.TASK"]) {
-  const { result }: { result: api.ResultOf<typeof libCallCluster> } =
-    yield race({
-      result: api.authSafe(libCallCluster, {
-        clusterName: key.clusterName,
-        command,
-      }),
-      cancel: take("LIB.CALL.CLUSTER.TASK.CANCEL"),
-    });
+  const {result}: {result: api.ResultOf<typeof libCallCluster>} = yield race({
+    result: api.authSafe(libCallCluster, {
+      clusterName: key.clusterName,
+      command,
+    }),
+    cancel: take("LIB.CALL.CLUSTER.TASK.CANCEL"),
+  });
 
   if (!result) {
     // cancelled; we no longer care about the fate of the call
@@ -34,7 +33,7 @@ export function* callLib({
     return;
   }
 
-  const { payload } = result;
+  const {payload} = result;
 
   if (lib.isCommunicationError(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
@@ -46,15 +45,15 @@ export function* callLib({
     yield put({
       type: "LIB.CALL.CLUSTER.TASK.FAIL",
       key,
-      payload: { reports: payload.report_list },
+      payload: {reports: payload.report_list},
     });
     return;
   }
 
-  yield put({ type: "CLUSTER.STATUS.REFRESH", key });
+  yield put({type: "CLUSTER.STATUS.REFRESH", key});
   yield put({
     type: "LIB.CALL.CLUSTER.TASK.OK",
     key,
-    payload: { reports: payload.report_list },
+    payload: {reports: payload.report_list},
   });
 }

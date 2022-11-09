@@ -1,13 +1,9 @@
-import { Alert } from "@patternfly/react-core";
+import {Alert} from "@patternfly/react-core";
 
-import { FenceDevice } from "app/view/cluster/types";
-import { DetailLayout, ResourceDetailCaption } from "app/view/share";
+import {FenceDevice} from "app/view/cluster/types";
+import {DetailLayout, ResourceDetailCaption} from "app/view/share";
 
-export const FenceDevicePage = ({
-  fenceDevice,
-}: {
-  fenceDevice: FenceDevice;
-}) => {
+export const FenceDevicePage = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   return (
     <DetailLayout
       caption={

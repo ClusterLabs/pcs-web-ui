@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
-import { ActionPayload, selectors } from "app/store";
-import { useDispatch } from "app/view/share/useDispatch";
+import {ActionPayload, selectors} from "app/store";
+import {useDispatch} from "app/view/share/useDispatch";
 
 export const useNodesAuth = (processId: number) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const useNodesAuth = (processId: number) => {
     ) =>
       dispatch({
         type: "NODE.AUTH.UPDATE.NODE",
-        key: { process: processId },
+        key: {process: processId},
         payload: {
           nodeName,
           state,
@@ -44,24 +44,24 @@ export const useNodesAuth = (processId: number) => {
       }
       dispatch({
         type: "NODE.AUTH",
-        key: { process: processId },
-        payload: { nodeMap },
+        key: {process: processId},
+        payload: {nodeMap},
       });
     },
 
     switchAddressUse: (enable: boolean) => {
       dispatch({
         type: "NODE.AUTH.ADDR.ENABLE",
-        key: { process: processId },
-        payload: { enable },
+        key: {process: processId},
+        payload: {enable},
       });
     },
 
     switchOnePasswordForAll: (enable: boolean) => {
       dispatch({
         type: "NODE.AUTH.ONE.PASSWORD.FOR.ALL.ENABLE",
-        key: { process: processId },
-        payload: { enable },
+        key: {process: processId},
+        payload: {enable},
       });
     },
   };

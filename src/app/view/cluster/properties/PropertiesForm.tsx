@@ -1,10 +1,10 @@
 import React from "react";
-import { ActionGroup, Button, Form } from "@patternfly/react-core";
+import {ActionGroup, Button, Form} from "@patternfly/react-core";
 
-import { useDispatch, useSelectedClusterName } from "app/view/share";
+import {useDispatch, useSelectedClusterName} from "app/view/share";
 
-import { ClusterProperties } from "./useClusterProperties";
-import { PropertyFormField } from "./PropertyFormField";
+import {ClusterProperties} from "./useClusterProperties";
+import {PropertyFormField} from "./PropertyFormField";
 
 export const PropertiesForm = ({
   close,
@@ -21,17 +21,17 @@ export const PropertiesForm = ({
   const clusterName = useSelectedClusterName();
   const dispatch = useDispatch();
   return (
-    <Form isHorizontal style={{ maxWidth: "550px" }}>
+    <Form isHorizontal style={{maxWidth: "550px"}}>
       {clusterPropertiesDefinition.map(property => (
         <PropertyFormField
           key={property.name}
           property={property}
           userProperty={userProperties[property.name]}
           modifyProperty={(name, value) =>
-            setUserProperties({ ...userProperties, [name]: value })
+            setUserProperties({...userProperties, [name]: value})
           }
           {...(property.name in currentClusterProperties
-            ? { currentValue: currentClusterProperties[property.name] }
+            ? {currentValue: currentClusterProperties[property.name]}
             : {})}
         />
       ))}
@@ -41,8 +41,8 @@ export const PropertiesForm = ({
           onClick={() => {
             dispatch({
               type: "CLUSTER.PROPERTIES.UPDATE",
-              key: { clusterName },
-              payload: { propertyMap: userProperties },
+              key: {clusterName},
+              payload: {propertyMap: userProperties},
             });
             close();
           }}

@@ -1,5 +1,5 @@
 import React from "react";
-import { DataListCell } from "@patternfly/react-core";
+import {DataListCell} from "@patternfly/react-core";
 
 import {
   ConstraintCell,
@@ -7,9 +7,9 @@ import {
   ConstraintRow,
   ConstraintValue,
 } from "../common";
-import { ConstraintOrderPair } from "../types";
+import {ConstraintOrderPair} from "../types";
 
-import { ConstraintCellOrderScoreKind } from "./ConstraintCellOrderScoreKind";
+import {ConstraintCellOrderScoreKind} from "./ConstraintCellOrderScoreKind";
 
 export const ConstraintRowOrderPair = ({
   constraint,

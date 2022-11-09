@@ -1,6 +1,6 @@
-import { Label } from "@patternfly/react-core";
+import {Label} from "@patternfly/react-core";
 
-import { LauncherActionList } from "app/view/share/toolbar";
+import {LauncherActionList} from "app/view/share/toolbar";
 
 export const ClusterStoppedInfo = ({
   clusterName,
@@ -29,7 +29,7 @@ export const ClusterStoppedInfo = ({
                   ),
                   action: {
                     type: "DASHBOARD.CLUSTER.START",
-                    payload: { clusterName },
+                    payload: {clusterName},
                   },
                 },
                 button: {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StatusIco } from "app/view/share";
+import {StatusIco} from "app/view/share";
 
 export const DashboardClusterCellSummary = ({
   itemsCount,

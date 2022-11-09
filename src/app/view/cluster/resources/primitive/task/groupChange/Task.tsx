@@ -1,7 +1,7 @@
-import { TaskSimple, TaskSimpleFinish, TaskSimpleFooter } from "app/view/share";
+import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { GroupChangeForm } from "./GroupChangeForm";
+import {useTask} from "./useTask";
+import {GroupChangeForm} from "./GroupChangeForm";
 
 export const Task = () => {
   const {
@@ -13,7 +13,7 @@ export const Task = () => {
     recoverFromError,
     state: {
       resourceId,
-      call: { response, resultMessage },
+      call: {response, resultMessage},
     },
   } = useTask();
 

@@ -16,7 +16,7 @@ import {
   TrashIcon,
 } from "@patternfly/react-icons";
 
-export const ResourceSetList = <SET extends { resources: string[] }>({
+export const ResourceSetList = <SET extends {resources: string[]}>({
   sets,
   createSet,
   deleteSet,
@@ -27,7 +27,7 @@ export const ResourceSetList = <SET extends { resources: string[] }>({
   createSet: () => void;
   deleteSet: (_i: number) => void;
   moveSet: (_i: number, _direction: "up" | "down") => void;
-  children: (_settings: { set: SET; i: number }) => React.ReactNode;
+  children: (_settings: {set: SET; i: number}) => React.ReactNode;
 }) => {
   return (
     <>
@@ -43,7 +43,7 @@ export const ResourceSetList = <SET extends { resources: string[] }>({
                         Resource set {i + 1}
                       </Title>
 
-                      {children({ set, i })}
+                      {children({set, i})}
                     </DataListCell>,
                   ]}
                 />

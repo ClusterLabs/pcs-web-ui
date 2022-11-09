@@ -1,10 +1,10 @@
 import React from "react";
-import { Stack, StackItem } from "@patternfly/react-core";
+import {Stack, StackItem} from "@patternfly/react-core";
 
-import { Issue } from "app/view/cluster/types";
+import {Issue} from "app/view/cluster/types";
 
-import { IssueListEmpty } from "./IssueListEmpty";
-import { IssueListIssueDefault } from "./IssueListIssueDefault";
+import {IssueListEmpty} from "./IssueListEmpty";
+import {IssueListIssueDefault} from "./IssueListIssueDefault";
 
 const issueKey = (issue: Issue, index: string | number) =>
   `${index}:${issue.message}`;
@@ -31,7 +31,7 @@ export const IssueList = ({
   return (
     <Stack
       hasGutter
-      style={{ margin: margin ? "1rem" : "none" }}
+      style={{margin: margin ? "1rem" : "none"}}
       data-test="issues-status"
     >
       {children && <StackItem isFilled>{children}</StackItem>}

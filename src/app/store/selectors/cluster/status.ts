@@ -1,15 +1,12 @@
-import { Cluster } from "../types";
+import {Cluster} from "../types";
 
-import {
-  clusterSelector,
-  clusterStorageItemSelector,
-} from "./selectorsHelpers";
+import {clusterSelector, clusterStorageItemSelector} from "./selectorsHelpers";
 
 type Resource = Cluster["resourceTree"][number];
-type Group = Extract<Resource, { itemType: "group" }>;
-type Primitive = Extract<Group["resources"][number], { itemType: "primitive" }>;
+type Group = Extract<Resource, {itemType: "group"}>;
+type Primitive = Extract<Group["resources"][number], {itemType: "primitive"}>;
 type ClusterSbdConfig = Exclude<
-  Exclude<Cluster["nodeList"][number], { status: "DATA_NOT_PROVIDED" }>["sbd"],
+  Exclude<Cluster["nodeList"][number], {status: "DATA_NOT_PROVIDED"}>["sbd"],
   undefined
 >["config"];
 

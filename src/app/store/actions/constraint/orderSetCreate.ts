@@ -1,11 +1,11 @@
-import { Action } from "./types";
+import {Action} from "./types";
 
 type OptionalAction = Action | "no limitation";
 
 export type OrderSetCreateActions = {
   "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {
     type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       useCustomId?: boolean;
       id?: string;
@@ -14,7 +14,7 @@ export type OrderSetCreateActions = {
 
   "CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET": {
     type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       index: number;
       set: {
@@ -28,6 +28,6 @@ export type OrderSetCreateActions = {
 
   "CONSTRAINT.ORDER.SET.CREATE.CLOSE": {
     type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 };

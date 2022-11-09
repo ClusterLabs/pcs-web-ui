@@ -1,5 +1,5 @@
 import * as response from "dev/responses";
-import { Handler, app } from "dev/app";
+import {Handler, app} from "dev/app";
 
 let isLoggedIn = false;
 
@@ -34,7 +34,7 @@ app.login((req, res) => {
     res.send("1234567890-12"); // an ajax id, not important for this app
     return;
   }
-  res.status(401).send(JSON.stringify({ notauthorized: "true" }));
+  res.status(401).send(JSON.stringify({notauthorized: "true"}));
 });
 
 app.logout((_req, res) => {

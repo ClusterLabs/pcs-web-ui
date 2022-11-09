@@ -1,11 +1,11 @@
 import * as responses from "dev/responses";
 
-import { intercept, location, route } from "test/tools";
-import { dt } from "test/tools/selectors";
-import { dashboard, notification } from "test/workflow";
-import { getConfirmDialog, getDropdownMenu } from "test/components";
+import {intercept, location, route} from "test/tools";
+import {dt} from "test/tools/selectors";
+import {dashboard, notification} from "test/workflow";
+import {getConfirmDialog, getDropdownMenu} from "test/components";
 
-import { interceptForPermissions } from "./permissions/common";
+import {interceptForPermissions} from "./permissions/common";
 
 const clusterName = responses.clusterStatus.ok.cluster_name;
 const cluster = dashboard.cluster(clusterName);
@@ -27,8 +27,8 @@ const errorPermission: Permission = {
 
 const interceptWithDashboard = (routeList: intercept.Route[] = []) => {
   intercept.run([
-    route.importedClusterList({ clusterNameList: [clusterName] }),
-    route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
+    route.importedClusterList({clusterNameList: [clusterName]}),
+    route.clusterStatus({clusterStatus: responses.clusterStatus.ok}),
     ...routeList,
   ]);
 };
@@ -37,7 +37,7 @@ describe("Notification drawer", () => {
   afterEach(intercept.stop);
 
   it("should be desplayed empty", async () => {
-    interceptWithDashboard([route.removeCluster({ clusterName })]);
+    interceptWithDashboard([route.removeCluster({clusterName})]);
 
     await page.goto(location.dashboard);
     await page.click(dt("notification-badge"));
@@ -45,7 +45,7 @@ describe("Notification drawer", () => {
   });
 
   it("should desplay cluster remove success notification", async () => {
-    interceptWithDashboard([route.removeCluster({ clusterName })]);
+    interceptWithDashboard([route.removeCluster({clusterName})]);
 
     await page.goto(location.dashboard);
     await cluster.remove.launch();
@@ -55,7 +55,7 @@ describe("Notification drawer", () => {
   });
 
   it("should desplay cluster remove danger notification", async () => {
-    interceptWithDashboard([route.removeCluster({ clusterName, status: 400 })]);
+    interceptWithDashboard([route.removeCluster({clusterName, status: 400})]);
 
     await page.goto(location.dashboard);
     await cluster.remove.launch();
@@ -79,7 +79,7 @@ describe("Notification drawer", () => {
     const menu = getDropdownMenu("permission-list", "permission-ok");
     const confirmDialog = getConfirmDialog("remove");
 
-    await page.goto(location.permissionList({ clusterName }));
+    await page.goto(location.permissionList({clusterName}));
     await menu.launchItem("permission-remove");
     await confirmDialog.confirm();
 

@@ -156,7 +156,7 @@ export const crmStatus = (
     diff || {},
   );
 
-export const issues = (list: string[]) => list.map(message => ({ message }));
+export const issues = (list: string[]) => list.map(message => ({message}));
 
 export const stonith = (
   id: string,
@@ -244,11 +244,11 @@ export const cluster = (
       constraints: {},
       nodes_utilization: {
         "node-1": [
-          { id: "R1_test_one", name: "test_one", value: "100" },
-          { id: "R1_test_two", name: "test_two", value: "200" },
+          {id: "R1_test_one", name: "test_one", value: "100"},
+          {id: "R1_test_two", name: "test_two", value: "200"},
         ],
       },
     },
     diff || {},
-    { arrayMerge: overwriteMerge },
+    {arrayMerge: overwriteMerge},
   );

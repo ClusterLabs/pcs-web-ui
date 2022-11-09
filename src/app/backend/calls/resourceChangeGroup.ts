@@ -1,6 +1,6 @@
-import { CallResult, endpoints, http } from "./tools";
+import {CallResult, endpoints, http} from "./tools";
 
-const { url, params } = endpoints.resourceChangeGroup;
+const {url, params} = endpoints.resourceChangeGroup;
 
 export const resourceChangeGroup = async ({
   clusterName,
@@ -12,7 +12,7 @@ export const resourceChangeGroup = async ({
 }: {
   clusterName: string;
 } & Parameters<typeof params>[0]): CallResult =>
-  http.post(url({ clusterName }), {
+  http.post(url({clusterName}), {
     params: params({
       resourceId,
       groupId,

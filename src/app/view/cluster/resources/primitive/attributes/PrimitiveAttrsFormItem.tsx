@@ -1,8 +1,8 @@
-import { Stack, StackItem, TextInput } from "@patternfly/react-core";
+import {Stack, StackItem, TextInput} from "@patternfly/react-core";
 
-import { PrimitiveAttrsFormItemRadio } from "./PrimitiveAttrsFormItemRadio";
-import { PrimitiveAttrsFormItemLabel } from "./PrimitiveAttrsFormItemLabel";
-import { PrimitiveAttrsFormItemWarning } from "./PrimitiveAttrsFormItemWarning";
+import {PrimitiveAttrsFormItemRadio} from "./PrimitiveAttrsFormItemRadio";
+import {PrimitiveAttrsFormItemLabel} from "./PrimitiveAttrsFormItemLabel";
+import {PrimitiveAttrsFormItemWarning} from "./PrimitiveAttrsFormItemWarning";
 
 export const PrimitiveAttrsFormItem = ({
   id,

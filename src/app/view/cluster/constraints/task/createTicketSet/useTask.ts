@@ -1,9 +1,9 @@
-import { ActionPayload } from "app/store";
-import { useClusterTask, useResourceSets } from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterTask, useResourceSets} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintTicketSetCreate");
-  const { clusterName, dispatch, state, close } = task;
+  const {clusterName, dispatch, state, close} = task;
 
   const resourceSets = useResourceSets(task.name);
 
@@ -22,7 +22,7 @@ export const useTask = () => {
     ) =>
       dispatch({
         type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
     updateSet:
@@ -32,15 +32,15 @@ export const useTask = () => {
       ) => {
         dispatch({
           type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET",
-          key: { clusterName },
-          payload: { index, set },
+          key: {clusterName},
+          payload: {index, set},
         });
       },
 
-    create: ({ force }: { force: boolean }) =>
+    create: ({force}: {force: boolean}) =>
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: "create constraint ticket set",
           call: {
@@ -54,7 +54,7 @@ export const useTask = () => {
               resource_set_list: state.sets.map(set => ({
                 ids: set.resources,
                 options: {
-                  ...(set.role !== "no limitation" ? { role: set.role } : {}),
+                  ...(set.role !== "no limitation" ? {role: set.role} : {}),
                 },
               })),
               resource_in_clone_alowed: force,
@@ -68,11 +68,11 @@ export const useTask = () => {
       close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "CONSTRAINT.TICKET.SET.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
   };

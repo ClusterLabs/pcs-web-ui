@@ -1,11 +1,11 @@
-import { ActionPayload } from "app/store";
-import { useClusterTask, useResourceSets } from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterTask, useResourceSets} from "app/view/share";
 
 type TrueFalse = "true" | "false";
 
 export const useTask = () => {
   const task = useClusterTask("constraintOrderSetCreate");
-  const { clusterName, dispatch, state, close } = task;
+  const {clusterName, dispatch, state, close} = task;
 
   const resourceSets = useResourceSets(task.name);
 
@@ -23,7 +23,7 @@ export const useTask = () => {
     ) =>
       dispatch({
         type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
 
@@ -32,15 +32,15 @@ export const useTask = () => {
       (set: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]) => {
         dispatch({
           type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET",
-          key: { clusterName },
-          payload: { index, set },
+          key: {clusterName},
+          payload: {index, set},
         });
       },
 
-    create: ({ force }: { force: boolean }) =>
+    create: ({force}: {force: boolean}) =>
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: "create constraint order set",
           call: {
@@ -53,7 +53,7 @@ export const useTask = () => {
                 ids: set.resources,
                 options: {
                   ...(set.action !== "no limitation"
-                    ? { action: set.action }
+                    ? {action: set.action}
                     : {}),
                   sequential: (set.sequential ? "true" : "false") as TrueFalse,
                   "require-all": (set.requireAll
@@ -72,11 +72,11 @@ export const useTask = () => {
       close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
   };

@@ -1,6 +1,6 @@
-import { AppReducer } from "app/store/reducers/appReducer";
-import { ActionPayload } from "app/store/actions";
-import { uprefixFenceAgentName } from "app/store/tools";
+import {AppReducer} from "app/store/reducers/appReducer";
+import {ActionPayload} from "app/store/actions";
+import {uprefixFenceAgentName} from "app/store/tools";
 
 type Params =
   | ActionPayload["RESOURCE_AGENT.LOAD.SUCCESS"]["apiAgentMetadata"]["parameters"]

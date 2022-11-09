@@ -1,9 +1,9 @@
-import { api, clusterStatus } from "app/backend";
+import {api, clusterStatus} from "app/backend";
 
 import * as responses from "dev/responses";
 
-import { dt } from "test/tools/selectors";
-import { intercept, location, route } from "test/tools";
+import {dt} from "test/tools/selectors";
+import {intercept, location, route} from "test/tools";
 
 const CLUSTERS = dt("cluster-list", "^cluster ");
 const CLUSTER_OK = dt("cluster-list", "cluster ok");
@@ -28,12 +28,12 @@ const interceptWithDashboard = (routeList: intercept.Route[]) =>
         responses.clusterStatus.error,
       ],
     }),
-    route.clusterStatus({ clusterStatus: responses.clusterStatus.ok }),
+    route.clusterStatus({clusterStatus: responses.clusterStatus.ok}),
     route.resourceAgentListAgents(clusterName),
-    route.stonithAgentListAgents({ clusterName }),
-    route.getClusterPropertiesDefinition({ clusterName }),
-    route.getPermissions({ clusterName }),
-    route.clusterStatus({ clusterStatus: responses.clusterStatus.error }),
+    route.stonithAgentListAgents({clusterName}),
+    route.getClusterPropertiesDefinition({clusterName}),
+    route.getPermissions({clusterName}),
+    route.clusterStatus({clusterStatus: responses.clusterStatus.error}),
     ...routeList,
   ]);
 
@@ -126,7 +126,7 @@ describe("Dashboard to cluster scene", () => {
     interceptWithDashboard([]);
     await displayClusters();
     await page.click(dt(CLUSTER_OK, "name", "link"));
-    expect(page.url()).toEqual(location.cluster({ clusterName: "ok" }));
+    expect(page.url()).toEqual(location.cluster({clusterName: "ok"}));
   });
 
   it("should allow go to a node detail", async () => {
@@ -138,7 +138,7 @@ describe("Dashboard to cluster scene", () => {
     await page.waitForSelector(NODE_1);
     await page.click(dt(NODE_1, "name", "link"));
     expect(page.url()).toEqual(
-      location.node({ clusterName: "ok", nodeName: "node-1" }),
+      location.node({clusterName: "ok", nodeName: "node-1"}),
     );
   });
 
@@ -158,7 +158,7 @@ describe("Dashboard to cluster scene", () => {
     await page.click(dt(RESOURCE_R1, "name", "link"));
     await page.waitForSelector(dt("agent-description"));
     expect(page.url()).toEqual(
-      location.resource({ clusterName: "ok", resourceId: "R1" }),
+      location.resource({clusterName: "ok", resourceId: "R1"}),
     );
   });
 
@@ -181,7 +181,7 @@ describe("Dashboard to cluster scene", () => {
     await page.waitForSelector(FENCE_DEVICE_1);
     await page.click(dt(FENCE_DEVICE_1, "name", "link"));
     expect(page.url()).toEqual(
-      location.fenceDevice({ clusterName: "ok", fenceDeviceId: "F1" }),
+      location.fenceDevice({clusterName: "ok", fenceDeviceId: "F1"}),
     );
   });
 });

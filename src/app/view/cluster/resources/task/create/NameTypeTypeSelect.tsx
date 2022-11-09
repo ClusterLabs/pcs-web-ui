@@ -1,8 +1,8 @@
 import React from "react";
-import { SelectGroup, SelectOption } from "@patternfly/react-core";
+import {SelectGroup, SelectOption} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { Select, useClusterSelector } from "app/view/share";
+import {selectors} from "app/store";
+import {Select, useClusterSelector} from "app/view/share";
 
 type ResourceAgentMap = selectors.ExtractClusterSelector<
   typeof selectors.getResourceAgentMap
@@ -20,7 +20,7 @@ const filterSources = (
       i.toLowerCase().includes(search.toLowerCase()),
     );
     return items.length > 0
-      ? { ...filteredSources, [group]: items }
+      ? {...filteredSources, [group]: items}
       : filteredSources;
   }, {});
 };
@@ -47,7 +47,7 @@ export const NameTypeTypeSelect = ({
   agentName: string;
 }) => {
   const [resourceAgentMap] = useClusterSelector(selectors.getResourceAgentMap);
-  const { filteredResourceAgentMap, onFilter } = useFiltering(resourceAgentMap);
+  const {filteredResourceAgentMap, onFilter} = useFiltering(resourceAgentMap);
 
   return (
     <Select

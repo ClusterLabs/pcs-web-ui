@@ -1,4 +1,4 @@
-import { app } from "dev/app";
+import {app} from "dev/app";
 import * as shortcut from "dev/shortcuts";
 
 shortcut.checkAuthAgainstNodes({

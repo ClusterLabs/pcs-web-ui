@@ -1,11 +1,11 @@
-import { updateFenceDevice } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {updateFenceDevice} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, processError, put } from "./common";
+import {api, processError, put} from "./common";
 
 export function* updateArguments({
   key,
-  payload: { fenceDeviceId, attributes },
+  payload: {fenceDeviceId, attributes},
 }: ActionMap["FENCE_DEVICE.EDIT_ARGS.RUN"]) {
   const result: api.ResultOf<typeof updateFenceDevice> = yield api.authSafe(
     updateFenceDevice,
@@ -32,7 +32,7 @@ export function* updateArguments({
   }
 
   if ("error" in result.payload) {
-    const { stdout, stderr } = result.payload;
+    const {stdout, stderr} = result.payload;
     yield put({
       type: "FENCE_DEVICE.EDIT_ARGS.RUN.ERROR",
       key,
@@ -43,6 +43,6 @@ export function* updateArguments({
     return;
   }
 
-  yield put({ type: "CLUSTER.STATUS.REFRESH", key });
-  yield put({ type: "FENCE_DEVICE.EDIT_ARGS.RUN.OK", key });
+  yield put({type: "CLUSTER.STATUS.REFRESH", key});
+  yield put({type: "FENCE_DEVICE.EDIT_ARGS.RUN.OK", key});
 }

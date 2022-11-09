@@ -1,10 +1,10 @@
-import { clusterStart } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {clusterStart} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, put, putNotification } from "./common";
+import {api, put, putNotification} from "./common";
 
 export function* clusterStartSaga({
-  payload: { clusterName },
+  payload: {clusterName},
 }: ActionMap["DASHBOARD.CLUSTER.START"]) {
   const result: api.ResultOf<typeof clusterStart> = yield api.authSafe(
     clusterStart,
@@ -17,7 +17,7 @@ export function* clusterStartSaga({
   }
   yield put({
     type: "CLUSTER.STATUS.REFRESH",
-    key: { clusterName },
+    key: {clusterName},
   });
   yield putNotification("SUCCESS", "Cluster was successfully started");
 }

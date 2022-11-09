@@ -1,7 +1,7 @@
-import { AlertGroup } from "@patternfly/react-core";
+import {AlertGroup} from "@patternfly/react-core";
 
-import { Notification } from "./types";
-import { ToastAlert } from "./ToastAlert";
+import {Notification} from "./types";
+import {ToastAlert} from "./ToastAlert";
 
 export const Toast = ({
   notificationList,

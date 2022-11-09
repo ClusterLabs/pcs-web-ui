@@ -1,6 +1,6 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
-import { Cluster, StatusSeverity } from "../../types";
+import {Cluster, StatusSeverity} from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];

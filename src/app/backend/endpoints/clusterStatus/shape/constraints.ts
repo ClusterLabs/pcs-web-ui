@@ -1,12 +1,12 @@
 import * as t from "io-ts";
 
-import { ApiId, ApiResourceId } from "./common";
+import {ApiId, ApiResourceId} from "./common";
 
 const ApiScore = t.union([
   // t.number,
   // type number is correct, however from backend it comes as a string
   t.string,
-  t.keyof({ INFINITY: null, "-INFINITY": null, "+INFINITY": null }),
+  t.keyof({INFINITY: null, "-INFINITY": null, "+INFINITY": null}),
 ]);
 
 const ApiConstraintRole = t.keyof({
@@ -38,7 +38,7 @@ const ApiConstraintResourceSetOrdering = t.keyof({
 });
 
 const ApiConstraintResourceSet = t.union([
-  t.type({ "id-ref": ApiId }),
+  t.type({"id-ref": ApiId}),
   t.intersection([
     t.type({
       id: ApiId,
@@ -77,7 +77,7 @@ export const ApiConstraints = t.partial({
             without id-ref)
       */
     t.intersection([
-      t.union([t.type({ rsc: t.string }), t.type({ "rsc-pattern": t.string })]),
+      t.union([t.type({rsc: t.string}), t.type({"rsc-pattern": t.string})]),
       t.partial({
         role: ApiConstraintRole,
         "resource-discovery": t.keyof({
@@ -88,7 +88,7 @@ export const ApiConstraints = t.partial({
       }),
       t.union([
         t.intersection([
-          t.type({ id: ApiId }),
+          t.type({id: ApiId}),
           t.type({
             node: t.string,
             score: ApiScore,
@@ -99,16 +99,16 @@ export const ApiConstraints = t.partial({
             It is not the full common rule. It is just shortened version which
             attributes are mixed into location constraint in the backend.
           */
-          t.type({ rule_string: t.string }),
+          t.type({rule_string: t.string}),
           t.union([
-            t.type({ "id-ref": ApiId }),
+            t.type({"id-ref": ApiId}),
             t.intersection([
-              t.type({ id: ApiId }),
+              t.type({id: ApiId}),
               t.union([
-                t.type({ score: ApiScore }),
-                t.type({ "score-attribute": t.string }),
+                t.type({score: ApiScore}),
+                t.type({"score-attribute": t.string}),
               ]),
-              t.partial({ role: t.string }),
+              t.partial({role: t.string}),
             ]),
           ]),
         ]),
@@ -121,10 +121,10 @@ export const ApiConstraints = t.partial({
     response.
     */
     t.intersection([
-      t.type({ id: ApiId }),
-      t.partial({ score: ApiScore }),
+      t.type({id: ApiId}),
+      t.partial({score: ApiScore}),
       t.union([
-        t.type({ sets: t.array(ApiConstraintResourceSet) }),
+        t.type({sets: t.array(ApiConstraintResourceSet)}),
         t.intersection([
           t.type({
             rsc: t.string,
@@ -143,7 +143,7 @@ export const ApiConstraints = t.partial({
   ),
   rsc_order: t.array(
     t.intersection([
-      t.type({ id: ApiId }),
+      t.type({id: ApiId}),
       t.partial({
         // symmetrical and require-all should be booleans, however, strings come
         // from backend
@@ -151,7 +151,7 @@ export const ApiConstraints = t.partial({
         "require-all": t.string,
       }),
       t.union([
-        t.partial({ score: ApiScore }),
+        t.partial({score: ApiScore}),
         t.partial({
           kind: t.keyof({
             Optional: null,
@@ -185,12 +185,12 @@ export const ApiConstraints = t.partial({
         id: ApiId,
         ticket: t.string,
       }),
-      t.partial({ "loss-policy": ApiConstraintTicketLossPolicy }),
+      t.partial({"loss-policy": ApiConstraintTicketLossPolicy}),
       t.union([
-        t.type({ sets: t.array(ApiConstraintResourceSet) }),
+        t.type({sets: t.array(ApiConstraintResourceSet)}),
         t.intersection([
-          t.type({ rsc: t.string }),
-          t.partial({ "rsc-role": ApiConstraintRole }),
+          t.type({rsc: t.string}),
+          t.partial({"rsc-role": ApiConstraintRole}),
         ]),
       ]),
     ]),

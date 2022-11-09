@@ -10,9 +10,9 @@ export const AttributeValue = ({
   }
   if (defaultValue && `${defaultValue}`.length > 0) {
     return (
-      <dd style={{ color: "var(--pf-global--Color--200)" }}>
+      <dd style={{color: "var(--pf-global--Color--200)"}}>
         <div>{defaultValue}</div>
-        <div style={{ fontStyle: "italic" }}>Default value</div>
+        <div style={{fontStyle: "italic"}}>Default value</div>
       </dd>
     );
   }

@@ -13,9 +13,9 @@ import {
   LongArrowAltUpIcon,
 } from "@patternfly/react-icons";
 
-import { FormRadios, FormSelect, FormText } from "app/view/share";
+import {FormRadios, FormSelect, FormText} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Configure = () => {
   const {
@@ -53,7 +53,7 @@ export const Configure = () => {
                       helperTextInvalid="Please select a resource"
                       isRequired
                       onSelect={value =>
-                        updateState({ firstResourceId: value.toString() })
+                        updateState({firstResourceId: value.toString()})
                       }
                       selections={firstResourceId}
                       optionsValues={resourceIdList.filter(
@@ -65,7 +65,7 @@ export const Configure = () => {
                       label="Action"
                       options={["start", "stop", "promote", "demote"]}
                       selected={firstAction}
-                      onChange={value => updateState({ firstAction: value })}
+                      onChange={value => updateState({firstAction: value})}
                     />
                   </Form>
                 </DataListCell>,
@@ -101,7 +101,7 @@ export const Configure = () => {
                       helperTextInvalid="Please select a resource"
                       isRequired
                       onSelect={value =>
-                        updateState({ thenResourceId: value.toString() })
+                        updateState({thenResourceId: value.toString()})
                       }
                       selections={thenResourceId}
                       optionsValues={resourceIdList.filter(
@@ -113,7 +113,7 @@ export const Configure = () => {
                       label="Action"
                       options={["start", "stop", "promote", "demote"]}
                       selected={thenAction}
-                      onChange={value => updateState({ thenAction: value })}
+                      onChange={value => updateState({thenAction: value})}
                     />
                   </Form>
                 </DataListCell>,
@@ -138,7 +138,7 @@ export const Configure = () => {
         <FormText
           id="constraint-score"
           label="Score"
-          onChange={value => updateState({ score: value })}
+          onChange={value => updateState({score: value})}
           value={score}
           showValidationErrors={showValidationErrors}
           isValid={isScoreValid}

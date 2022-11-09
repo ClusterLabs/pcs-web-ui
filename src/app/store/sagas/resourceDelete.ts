@@ -1,7 +1,7 @@
-import { removeResource } from "app/backend";
-import { ActionMap, ActionPayload } from "app/store/actions";
+import {removeResource} from "app/backend";
+import {ActionMap, ActionPayload} from "app/store/actions";
 
-import { api, processClusterResultBasic } from "./common";
+import {api, processClusterResultBasic} from "./common";
 
 const formatResourcesFenceDeviceMsg = (
   resourceNameList: string[],
@@ -17,7 +17,7 @@ const formatResourcesFenceDeviceMsg = (
 
 export function* deleteResource({
   key,
-  payload: { resourceIds, resourceType },
+  payload: {resourceIds, resourceType},
 }: ActionMap["RESOURCE.DELETE"]) {
   const result: api.ResultOf<typeof removeResource> = yield api.authSafe(
     removeResource,

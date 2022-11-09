@@ -1,5 +1,5 @@
-import { useSelectedClusterName } from "app/view/share";
-import { DetailToolbar, TaskOpenArgs } from "app/view/share";
+import {useSelectedClusterName} from "app/view/share";
+import {DetailToolbar, TaskOpenArgs} from "app/view/share";
 
 import * as task from "./task";
 
@@ -7,14 +7,14 @@ type AssignSubjectOpenArgs = TaskOpenArgs<
   typeof task.assignSubjectToRole.useTask
 >;
 
-export const RoleViewToolbar = ({ roleId }: { roleId: string }) => {
+export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
   const clusterName = useSelectedClusterName();
 
   const assignUserOpenArgs: AssignSubjectOpenArgs = [
-    { subjectType: "user", roleId },
+    {subjectType: "user", roleId},
   ];
   const assignGroupOpenArgs: AssignSubjectOpenArgs = [
-    { subjectType: "group", roleId },
+    {subjectType: "group", roleId},
   ];
   return (
     <DetailToolbar
@@ -52,12 +52,12 @@ export const RoleViewToolbar = ({ roleId }: { roleId: string }) => {
             description: "This deletes the role",
             action: {
               type: "LIB.CALL.CLUSTER",
-              key: { clusterName },
+              key: {clusterName},
               payload: {
                 taskLabel: `delete role "${roleId}"`,
                 call: {
                   name: "acl-remove-role",
-                  payload: { role_id: roleId },
+                  payload: {role_id: roleId},
                 },
               },
             },

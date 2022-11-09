@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert } from "@patternfly/react-core";
+import {Alert} from "@patternfly/react-core";
 
 export const PrimitiveAttrsFormItemWarning = ({
   remoteValue,

@@ -1,6 +1,6 @@
 import * as t from "io-ts";
-import { isRight } from "fp-ts/lib/Either";
-import { PathReporter } from "io-ts/lib/PathReporter";
+import {isRight} from "fp-ts/lib/Either";
+import {PathReporter} from "io-ts/lib/PathReporter";
 
 export function shape<A, O, I>(
   payload: ReturnType<typeof JSON.parse>,

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DetailLayout } from "app/view/share";
+import {DetailLayout} from "app/view/share";
 
 type DetailLayoutProps = React.ComponentProps<typeof DetailLayout>;
 export const Layout = ({

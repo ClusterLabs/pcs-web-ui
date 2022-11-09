@@ -1,36 +1,53 @@
 import React from "react";
-import { Button } from "@patternfly/react-core";
 
-import { useLocation } from "./Router";
+import {useLocation} from "./Router";
+import {SimpleLink} from "./SimpleLink";
 
-export const Link = ({
-  to,
-  children,
-  "data-test": dataTest,
-  strong = false,
-}: {
-  to: string;
-  children?: React.ReactNode;
-  ["data-test"]?: string;
-  strong?: boolean;
-}) => {
-  const { navigate } = useLocation();
-  let caption = children;
-  if (!caption) {
-    const parts = to.split("/");
-    caption = parts[parts.length - 1];
+export const Link = (
+  props: {
+    ["data-test"]?: string;
+    strong?: boolean;
+    isInline?: boolean;
+  } & (
+    | {
+        to: string;
+        children?: React.ReactNode;
+      }
+    | {
+        onClick: (
+          _navigate: ReturnType<typeof useLocation>["navigate"],
+        ) => void;
+        children: React.ReactNode;
+      }
+  ),
+) => {
+  const {navigate} = useLocation();
+
+  let label = props.children;
+
+  if ("to" in props) {
+    if (!label) {
+      const parts = props.to.split("/");
+      label = parts[parts.length - 1];
+    }
+    return (
+      <SimpleLink
+        onClick={() => navigate(props.to)}
+        label={label}
+        data-test={props["data-test"]}
+        strong={props.strong}
+        isInline={props.isInline}
+      />
+    );
   }
 
-  let label = caption;
-  if (dataTest) {
-    label = <span data-test={dataTest}>{label}</span>;
-  }
-  if (strong) {
-    label = <strong>{label}</strong>;
-  }
   return (
-    <Button variant="link" data-test="link" onClick={() => navigate(to)}>
-      {label}
-    </Button>
+    <SimpleLink
+      onClick={() => props.onClick(navigate)}
+      label={label}
+      data-test={props["data-test"]}
+      strong={props.strong}
+      isInline={props.isInline}
+    />
   );
 };

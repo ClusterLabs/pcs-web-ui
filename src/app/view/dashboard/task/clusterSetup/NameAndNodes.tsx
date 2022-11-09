@@ -1,13 +1,13 @@
-import { Button, Form } from "@patternfly/react-core";
-import { PlusCircleIcon, TrashIcon } from "@patternfly/react-icons";
+import {Button, Form} from "@patternfly/react-core";
+import {PlusCircleIcon, TrashIcon} from "@patternfly/react-icons";
 
-import { FormGroup, FormText, TaskLibStep } from "app/view/share";
+import {FormGroup, FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const NameAndNodes = () => {
   const {
-    state: { clusterName, nodeNameList, showValidationErrors },
+    state: {clusterName, nodeNameList, showValidationErrors},
     allReports,
     isClusterNameValid,
     areNodeNamesValid,
@@ -23,7 +23,7 @@ export const NameAndNodes = () => {
         <FormText
           id="cluster-name"
           value={clusterName}
-          onChange={value => updateClusterName({ clusterName: value })}
+          onChange={value => updateClusterName({clusterName: value})}
           label="Cluster name"
           helperTextInvalid="Please provide the cluster name"
           showValidationErrors={showValidationErrors}
@@ -80,7 +80,7 @@ export const NameAndNodes = () => {
 
           <Button
             variant="primary"
-            onClick={() => updateNode({ nodeNameList: [...nodeNameList, ""] })}
+            onClick={() => updateNode({nodeNameList: [...nodeNameList, ""]})}
             icon={<PlusCircleIcon />}
             className="pf-u-mt-sm"
           >

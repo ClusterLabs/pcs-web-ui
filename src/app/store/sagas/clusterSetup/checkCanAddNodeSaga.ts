@@ -1,12 +1,12 @@
-import { canAddClusterOrNodes } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {canAddClusterOrNodes} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, errorMessage, processError, put, race, take } from "../common";
+import {api, errorMessage, processError, put, race, take} from "../common";
 
 export function* checkCanAddNodeSaga({
-  payload: { clusterName, nodeNameList, targetNode },
+  payload: {clusterName, nodeNameList, targetNode},
 }: ActionMap["DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD"]) {
-  const { result }: { result: api.ResultOf<typeof canAddClusterOrNodes> } =
+  const {result}: {result: api.ResultOf<typeof canAddClusterOrNodes>} =
     yield race({
       result: api.authSafe(canAddClusterOrNodes, {
         nodeNames: nodeNameList,
@@ -27,7 +27,7 @@ export function* checkCanAddNodeSaga({
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
     yield put({
       type: "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD.CANNOT",
-      payload: { errors: result.text.split("\n") },
+      payload: {errors: result.text.split("\n")},
     });
     return;
   }
@@ -40,7 +40,7 @@ export function* checkCanAddNodeSaga({
       action: () =>
         put({
           type: "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD.FAIL",
-          payload: { message: errorMessage(result, taskLabel) },
+          payload: {message: errorMessage(result, taskLabel)},
         }),
       useNotification: false,
     });
@@ -49,6 +49,6 @@ export function* checkCanAddNodeSaga({
 
   yield put({
     type: "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH",
-    payload: { nodeNameList, targetNode },
+    payload: {nodeNameList, targetNode},
   });
 }

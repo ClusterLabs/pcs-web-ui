@@ -1,7 +1,7 @@
-import { Tab, Tabs } from "@patternfly/react-core";
+import {Tab, Tabs} from "@patternfly/react-core";
 
-import { tools } from "app/store";
-import { useLocation } from "app/view/share";
+import {tools} from "app/store";
+import {useLocation} from "app/view/share";
 
 const toUrlDefault = (tabUrlParamName: string) => `/${tabUrlParamName}`;
 
@@ -18,7 +18,7 @@ export function UrlTabs<T extends string>({
   toLabel?: (_tab: string) => string;
   ["data-test"]?: string;
 }) {
-  const { navigate } = useLocation();
+  const {navigate} = useLocation();
   const paramToUrl = toUrl ?? toUrlDefault;
   const paramToLabel = toLabel ?? tools.labelize;
   return (

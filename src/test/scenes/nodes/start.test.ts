@@ -1,12 +1,12 @@
-import { intercept, location, route, shortcuts } from "test/tools";
-import { dt } from "test/tools/selectors";
-import { getConfirmDialog } from "test/components";
+import {intercept, location, route, shortcuts} from "test/tools";
+import {dt} from "test/tools/selectors";
+import {getConfirmDialog} from "test/components";
 
 const nodeName = "node-1";
 const clusterName = "ok";
 
 const launchAction = async () => {
-  await page.goto(location.node({ clusterName, nodeName }));
+  await page.goto(location.node({clusterName, nodeName}));
   await page.click(dt("task node-start"));
 };
 
@@ -18,7 +18,7 @@ describe("Node start", () => {
   it("should successfully start", async () => {
     shortcuts.interceptWithCluster({
       clusterName,
-      additionalRouteList: [route.clusterStart({ clusterName, nodeName })],
+      additionalRouteList: [route.clusterStart({clusterName, nodeName})],
     });
 
     await launchAction();
@@ -28,7 +28,7 @@ describe("Node start", () => {
   });
 
   it("should be cancelable", async () => {
-    shortcuts.interceptWithCluster({ clusterName });
+    shortcuts.interceptWithCluster({clusterName});
 
     await launchAction();
 
@@ -44,7 +44,7 @@ describe("Node start", () => {
         route.clusterStart({
           clusterName,
           nodeName,
-          response: { status: [400, "Unable to start node."] },
+          response: {status: [400, "Unable to start node."]},
         }),
       ],
     });

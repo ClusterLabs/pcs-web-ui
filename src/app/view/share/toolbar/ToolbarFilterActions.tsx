@@ -6,9 +6,9 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import { LauncherItem } from "./types";
-import { LauncherToolbarButtonGroup } from "./LauncherToolbarButtonGroup";
-import { tryFirstButtonPrimary } from "./tools";
+import {LauncherItem} from "./types";
+import {LauncherToolbarButtonGroup} from "./LauncherToolbarButtonGroup";
+import {tryFirstButtonPrimary} from "./tools";
 
 export const ToolbarFilterAction = ({
   children,

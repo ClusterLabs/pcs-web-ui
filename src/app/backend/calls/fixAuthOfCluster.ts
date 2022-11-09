@@ -1,7 +1,7 @@
-import { CallResult, endpoints, http } from "./tools";
+import {CallResult, endpoints, http} from "./tools";
 
-const { url } = endpoints.fixAuthOfCluster;
+const {url} = endpoints.fixAuthOfCluster;
 
 export const fixAuthOfCluster = async (clusterName: string): CallResult => {
-  return http.post(url({ clusterName }));
+  return http.post(url({clusterName}));
 };

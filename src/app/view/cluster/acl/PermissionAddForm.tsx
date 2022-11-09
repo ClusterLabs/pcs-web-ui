@@ -1,9 +1,9 @@
-import { Button, Form } from "@patternfly/react-core";
-import { PlusCircleIcon, TrashIcon } from "@patternfly/react-icons";
+import {Button, Form} from "@patternfly/react-core";
+import {PlusCircleIcon, TrashIcon} from "@patternfly/react-icons";
 
-import { FormGroup, FormRadios, FormText } from "app/view/share";
+import {FormGroup, FormRadios, FormText} from "app/view/share";
 
-import { PermissionListForWrite } from "./types";
+import {PermissionListForWrite} from "./types";
 
 export const getInvalidPermissionIndexes = (
   permissionList: PermissionListForWrite,

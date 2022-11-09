@@ -1,4 +1,4 @@
-import { dt } from "test/tools/selectors";
+import {dt} from "test/tools/selectors";
 
 export const getDropdownMenu = (...dataTestPath: string[]) => {
   const open = async () =>

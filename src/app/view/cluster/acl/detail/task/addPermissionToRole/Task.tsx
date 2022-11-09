@@ -1,7 +1,7 @@
-import { TaskFinishLib, TaskSimple, TaskSimpleFooter } from "app/view/share";
+import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { Configure } from "./Configure";
+import {useTask} from "./useTask";
+import {Configure} from "./Configure";
 
 export const Task = () => {
   const {
@@ -10,7 +10,7 @@ export const Task = () => {
     recoverFromError,
     invalidPermissionIndexes,
     state: {
-      libCall: { response, reports },
+      libCall: {response, reports},
     },
   } = useTask();
 

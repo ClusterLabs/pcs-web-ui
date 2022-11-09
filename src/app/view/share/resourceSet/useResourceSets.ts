@@ -1,6 +1,6 @@
-import { ActionPayload, selectors } from "app/store";
-import { useDispatch } from "app/view/share/useDispatch";
-import { useSelectedClusterName } from "app/view/share/SelectedClusterContext";
+import {ActionPayload, selectors} from "app/store";
+import {useDispatch} from "app/view/share/useDispatch";
+import {useSelectedClusterName} from "app/view/share/SelectedClusterContext";
 
 export const useResourceSets = <
   NAME extends Parameters<typeof selectors.getClusterTask>[0],
@@ -13,13 +13,13 @@ export const useResourceSets = <
     createSet: () =>
       dispatch({
         type: "RESOURCE.SET.LIST.CREATE.SET",
-        key: { clusterName, task },
+        key: {clusterName, task},
       }),
 
     deleteSet: (index: number) =>
       dispatch({
         type: "RESOURCE.SET.LIST.DELETE.SET",
-        key: { clusterName, task },
+        key: {clusterName, task},
         payload: {
           index,
         },
@@ -31,14 +31,14 @@ export const useResourceSets = <
     ) =>
       dispatch({
         type: "RESOURCE.SET.LIST.MOVE.SET",
-        key: { clusterName, task },
+        key: {clusterName, task},
         payload: {
           index,
           direction,
         },
       }),
 
-    areSetsValid: (sets: { resources: string[] }[]) => {
+    areSetsValid: (sets: {resources: string[]}[]) => {
       if (sets.length > 1) {
         return sets.every(s => s.resources.length > 0);
       }

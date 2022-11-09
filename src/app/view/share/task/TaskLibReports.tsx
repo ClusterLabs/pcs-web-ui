@@ -1,9 +1,9 @@
 import React from "react";
-import { Alert, Text, TextContent } from "@patternfly/react-core";
+import {Alert, Text, TextContent} from "@patternfly/react-core";
 
-import { types } from "app/store";
+import {types} from "app/store";
 
-import { TaskReport } from "./TaskReport";
+import {TaskReport} from "./TaskReport";
 
 const severityToAlertVariant = (
   level: types.LibReport["severity"]["level"],
@@ -20,7 +20,7 @@ const severityToAlertVariant = (
   }
 };
 
-export const TaskLibReports = ({ reports }: { reports: TaskReport[] }) => {
+export const TaskLibReports = ({reports}: {reports: TaskReport[]}) => {
   if (reports.length === 0) {
     return null;
   }

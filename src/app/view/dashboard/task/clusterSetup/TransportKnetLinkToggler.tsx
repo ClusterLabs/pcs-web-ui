@@ -1,7 +1,7 @@
 import React from "react";
-import { ExpandableSection } from "@patternfly/react-core";
+import {ExpandableSection} from "@patternfly/react-core";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 export const TransportKnetLinkToggler = ({

@@ -5,7 +5,7 @@ import {
   TaskLibStep,
 } from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const Review = () => {
   const {
@@ -13,7 +13,7 @@ export const Review = () => {
       agentName,
       fenceDeviceName,
       instanceAttrs,
-      libCall: { reports },
+      libCall: {reports},
       disabled,
     },
   } = useTask();

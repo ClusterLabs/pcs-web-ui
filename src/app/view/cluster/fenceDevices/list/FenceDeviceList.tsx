@@ -1,7 +1,7 @@
-import { DataList } from "@patternfly/react-core";
+import {DataList} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
-import { FenceDevice } from "app/view/cluster/types";
+import {selectors} from "app/store";
+import {FenceDevice} from "app/view/cluster/types";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
@@ -9,14 +9,14 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
-import { FenceDeviceListItem } from "./FenceDeviceListItem";
+import {FenceDeviceListItem} from "./FenceDeviceListItem";
 
 export const FenceDeviceList = ({
   fenceDeviceList,
 }: {
   fenceDeviceList: FenceDevice[];
 }) => {
-  const { compact } = useGroupDetailViewContext();
+  const {compact} = useGroupDetailViewContext();
   const [cluster] = useClusterSelector(selectors.getCluster);
 
   if (!cluster.hasCibInfo) {

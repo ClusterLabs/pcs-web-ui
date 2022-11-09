@@ -1,3 +1,3 @@
 export * from "./NodesPage";
 
-export { nodePageTabList } from "./NodeDetailPage";
+export {nodePageTabList} from "./NodeDetailPage";

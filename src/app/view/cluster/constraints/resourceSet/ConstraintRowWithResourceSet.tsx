@@ -7,10 +7,10 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import { ConstraintResourceSet } from "../types";
-import { ConstraintCell, ConstraintRow } from "../common";
+import {ConstraintResourceSet} from "../types";
+import {ConstraintCell, ConstraintRow} from "../common";
 
-type ResourceSetStructured = Extract<ConstraintResourceSet, { id: string }>;
+type ResourceSetStructured = Extract<ConstraintResourceSet, {id: string}>;
 export const ConstraintRowWithResourceSet = ({
   resourceSetList,
   type,

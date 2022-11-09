@@ -1,22 +1,22 @@
 import React from "react";
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormGroup, FormSelect, FormText } from "app/view/share";
+import {FormGroup, FormSelect, FormText} from "app/view/share";
 
-import { useTask } from "./useTask";
-import { TransportKnetLinkToggler } from "./TransportKnetLinkToggler";
+import {useTask} from "./useTask";
+import {TransportKnetLinkToggler} from "./TransportKnetLinkToggler";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 
-export const TransportKnetLink = ({ link }: { link: Link }) => {
+export const TransportKnetLink = ({link}: {link: Link}) => {
   const {
     updateLinkKnet,
-    state: { showValidationErrors },
+    state: {showValidationErrors},
   } = useTask();
 
   const updateLink = React.useCallback(
     (options: Partial<Link>) => {
-      updateLinkKnet({ ...link, ...options });
+      updateLinkKnet({...link, ...options});
     },
     [link, updateLinkKnet],
   );
@@ -32,7 +32,7 @@ export const TransportKnetLink = ({ link }: { link: Link }) => {
           {Object.keys(link.addresses).map((nodeName, i) => (
             <tr key={nodeName} className="pf-u-m-sm">
               <td>
-                Node <span style={{ fontWeight: "bold" }}>{nodeName}</span>{" "}
+                Node <span style={{fontWeight: "bold"}}>{nodeName}</span>{" "}
                 address
               </td>
               <td className="pf-u-p-sm">
@@ -41,7 +41,7 @@ export const TransportKnetLink = ({ link }: { link: Link }) => {
                   value={link.addresses[nodeName]}
                   onChange={value =>
                     updateLink({
-                      addresses: { ...link.addresses, [nodeName]: value },
+                      addresses: {...link.addresses, [nodeName]: value},
                     })
                   }
                   helperTextInvalid="Please provide address for the node"
@@ -68,7 +68,7 @@ export const TransportKnetLink = ({ link }: { link: Link }) => {
             ),
           }}
           value={link.link_priority || ""}
-          onChange={value => updateLink({ link_priority: value })}
+          onChange={value => updateLink({link_priority: value})}
           data-test="link_priority"
         />
         <FormText
@@ -85,7 +85,7 @@ export const TransportKnetLink = ({ link }: { link: Link }) => {
             ),
           }}
           value={link.mcastport || ""}
-          onChange={value => updateLink({ mcastport: value })}
+          onChange={value => updateLink({mcastport: value})}
           data-test="mcastport"
         />
         <FormText
@@ -104,7 +104,7 @@ export const TransportKnetLink = ({ link }: { link: Link }) => {
             defaultValue: "Token Timeout / (Pong Count * 2)",
           }}
           value={link.ping_interval || ""}
-          onChange={value => updateLink({ ping_interval: value })}
+          onChange={value => updateLink({ping_interval: value})}
           data-test="ping_interval"
         />
         <FormText
@@ -121,7 +121,7 @@ export const TransportKnetLink = ({ link }: { link: Link }) => {
             defaultValue: "2048 samples",
           }}
           value={link.ping_precision || ""}
-          onChange={value => updateLink({ ping_precision: value })}
+          onChange={value => updateLink({ping_precision: value})}
           data-test="ping_precision"
         />
         <FormText
@@ -141,7 +141,7 @@ export const TransportKnetLink = ({ link }: { link: Link }) => {
             defaultValue: "Token Timeout / (Pong Count * 2)",
           }}
           value={link.ping_timeout || ""}
-          onChange={value => updateLink({ ping_timeout: value })}
+          onChange={value => updateLink({ping_timeout: value})}
           data-test="ping_timeout"
         />
         <FormText
@@ -153,7 +153,7 @@ export const TransportKnetLink = ({ link }: { link: Link }) => {
             defaultValue: "Token Timeout / (Pong Count * 2)",
           }}
           value={link.pong_count || ""}
-          onChange={value => updateLink({ pong_count: value })}
+          onChange={value => updateLink({pong_count: value})}
           data-test="pong_count"
         />
 

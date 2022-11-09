@@ -1,6 +1,6 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 const clusterNameList: AppReducer<string[]> = (state = [], action) => {
   switch (action.type) {

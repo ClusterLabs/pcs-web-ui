@@ -1,4 +1,4 @@
-import { ResourceAgentDescribeAgent } from "dev/types";
+import {ResourceAgentDescribeAgent} from "dev/types";
 
 export const ocfHeartbeatDummy: ResourceAgentDescribeAgent = {
   name: "ocf:heartbeat:Dummy",
@@ -66,21 +66,21 @@ export const ocfHeartbeatDummy: ResourceAgentDescribeAgent = {
     },
   ],
   actions: [
-    { name: "start", timeout: "20s" },
-    { name: "stop", timeout: "20s" },
-    { name: "monitor", timeout: "20s", interval: "10s" },
-    { name: "reload", timeout: "20s" },
-    { name: "migrate_to", timeout: "20s" },
-    { name: "migrate_from", timeout: "20s" },
-    { name: "meta-data", timeout: "5s" },
-    { name: "validate-all", timeout: "20s" },
+    {name: "start", timeout: "20s"},
+    {name: "stop", timeout: "20s"},
+    {name: "monitor", timeout: "20s", interval: "10s"},
+    {name: "reload", timeout: "20s"},
+    {name: "migrate_to", timeout: "20s"},
+    {name: "migrate_from", timeout: "20s"},
+    {name: "meta-data", timeout: "5s"},
+    {name: "validate-all", timeout: "20s"},
   ],
   default_actions: [
-    { name: "start", timeout: "20s", interval: "0s" },
-    { name: "stop", timeout: "20s", interval: "0s" },
-    { name: "monitor", timeout: "20s", interval: "10s" },
-    { name: "reload", timeout: "20s", interval: "0s" },
-    { name: "migrate_to", timeout: "20s", interval: "0s" },
-    { name: "migrate_from", timeout: "20s", interval: "0s" },
+    {name: "start", timeout: "20s", interval: "0s"},
+    {name: "stop", timeout: "20s", interval: "0s"},
+    {name: "monitor", timeout: "20s", interval: "10s"},
+    {name: "reload", timeout: "20s", interval: "0s"},
+    {name: "migrate_to", timeout: "20s", interval: "0s"},
+    {name: "migrate_from", timeout: "20s", interval: "0s"},
   ],
 };

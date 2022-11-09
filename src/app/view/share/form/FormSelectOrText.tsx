@@ -1,8 +1,8 @@
 import React from "react";
-import { Radio, Stack, StackItem } from "@patternfly/react-core";
+import {Radio, Stack, StackItem} from "@patternfly/react-core";
 
-import { FormText } from "./FormText";
-import { Select } from "./Select";
+import {FormText} from "./FormText";
+import {Select} from "./Select";
 
 type Checks = "select" | "text";
 type SelectProps = React.ComponentProps<typeof Select>;

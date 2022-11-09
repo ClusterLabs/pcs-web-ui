@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
-import { uprefixFenceAgentName } from "app/store/tools";
-import { AppReducer } from "app/store/reducers/appReducer";
+import {uprefixFenceAgentName} from "app/store/tools";
+import {AppReducer} from "app/store/reducers/appReducer";
 
 type FenceAgentList = string[];
 type FenceAgentListService = {
@@ -25,7 +25,7 @@ const data: AppReducer<FenceAgentList> = (state = [], action) => {
 };
 
 const fetchState: AppReducer<FenceAgentListService["fetchState"]> = (
-  state = { current: "NOT_STARTED", alreadyLoaded: false },
+  state = {current: "NOT_STARTED", alreadyLoaded: false},
   action,
 ) => {
   switch (action.type) {

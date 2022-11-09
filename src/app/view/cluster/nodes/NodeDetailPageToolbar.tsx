@@ -1,23 +1,23 @@
-import { Action } from "app/store";
+import {Action} from "app/store";
 import {
   DetailToolbar,
   LauncherItem as ToolbarItem,
   useSelectedClusterName,
 } from "app/view/share";
-import { Node } from "app/view/cluster/types";
-import { task } from "app/view/share";
+import {Node} from "app/view/cluster/types";
+import {task} from "app/view/share";
 
-export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
+export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
   const clusterName = useSelectedClusterName();
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
-    key: { clusterName },
+    key: {clusterName},
     payload: {
       taskLabel: `standby node "${node.name}"`,
       call: {
         name: "node-standby-unstandby",
-        payload: { standby, node_names: [node.name] },
+        payload: {standby, node_names: [node.name]},
       },
     },
   });
@@ -51,7 +51,7 @@ export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
 
   const maintenanceUnmanintenanceAction = (maintenance: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
-    key: { clusterName },
+    key: {clusterName},
     payload: {
       taskLabel: `maintenance node "${node.name}"`,
       call: {
@@ -89,8 +89,8 @@ export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
       description: "Start a cluster on the node",
       action: {
         type: "NODE.START",
-        key: { clusterName },
-        payload: { nodeName: node.name },
+        key: {clusterName},
+        payload: {nodeName: node.name},
       },
     },
   };
@@ -109,10 +109,10 @@ export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
           success: "Node sucessfully stopped",
           fail: "Node stop failed",
         },
-        getForceableAction: ({ force }) => ({
+        getForceableAction: ({force}) => ({
           type: "NODE.STOP",
-          key: { clusterName },
-          payload: { nodeName: node.name, force },
+          key: {clusterName},
+          payload: {nodeName: node.name, force},
         }),
       }),
       useTask: task.forceableConfirm.useTask,
@@ -126,12 +126,12 @@ export const NodeDetailPageToolbar = ({ node }: { node: Node }) => {
       description: "Shutdown specified nodes and remove them from the cluster.",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: { clusterName },
+        key: {clusterName},
         payload: {
           taskLabel: `remove node "${node.name}"`,
           call: {
             name: "cluster-remove-nodes",
-            payload: { node_list: [node.name] },
+            payload: {node_list: [node.name]},
           },
         },
       },

@@ -1,7 +1,7 @@
 import React from "react";
 
-import { ActionPayload } from "app/store";
-import { TaskReport, useTask as useTaskCommon } from "app/view/share";
+import {ActionPayload} from "app/store";
+import {TaskReport, useTask as useTaskCommon} from "app/view/share";
 
 type SetupData = ActionPayload["DASHBOARD.CLUSTER.SETUP.CALL"]["setupData"];
 
@@ -33,7 +33,7 @@ const prepareOptionalOptions = <KEY extends string>(
 
 export const useTask = () => {
   const task = useTaskCommon("clusterSetup");
-  const { dispatch, state } = task;
+  const {dispatch, state} = task;
   const filledNodeNameList = state.nodeNameList.filter(
     nodeName => nodeName.length > 0,
   );
@@ -147,7 +147,7 @@ export const useTask = () => {
 
     allReports: (
       state.canAddClusterOrNodesMessages.map(message => ({
-        level: "ERROR" as Extract<TaskReport, { level: unknown }>["level"],
+        level: "ERROR" as Extract<TaskReport, {level: unknown}>["level"],
         message,
       })) as TaskReport[]
     ).concat(state.libCall.reports),
@@ -163,7 +163,7 @@ export const useTask = () => {
     startClusterAndClose: () => {
       dispatch({
         type: "DASHBOARD.CLUSTER.START",
-        payload: { clusterName: state.clusterName },
+        payload: {clusterName: state.clusterName},
       });
       dispatch({
         type: "DASHBOARD.CLUSTER.SETUP.CLOSE",
@@ -193,7 +193,7 @@ export const useTask = () => {
       });
     },
 
-    setupCluster: ({ force }: { force?: boolean } = { force: false }) => {
+    setupCluster: ({force}: {force?: boolean} = {force: false}) => {
       const quorumOptions: SetupData["quorum_options"] = prepareOptionalOptions(
         state.quorumOptions,
         {
@@ -300,10 +300,10 @@ export const useTask = () => {
               );
               return {
                 name: n,
-                ...(addrs.length > 0 ? { addrs } : {}),
+                ...(addrs.length > 0 ? {addrs} : {}),
               };
             }),
-            ...(force ? { force_flags: ["FORCE"] } : {}),
+            ...(force ? {force_flags: ["FORCE"]} : {}),
             transport_type: state.transportType,
             link_list: state.linkList.map(l => ({
               linknumber: l.linknumber,
@@ -316,19 +316,19 @@ export const useTask = () => {
               transport: l.transport,
             })), // TODO vynechat optional
             ...(Object.keys(quorumOptions).length > 0
-              ? { quorum_options: quorumOptions }
+              ? {quorum_options: quorumOptions}
               : {}),
             ...(Object.keys(totemOptions).length > 0
-              ? { totem_options: totemOptions }
+              ? {totem_options: totemOptions}
               : {}),
             ...(Object.keys(transportOptions).length > 0
-              ? { transport_options: transportOptions }
+              ? {transport_options: transportOptions}
               : {}),
             ...(Object.keys(compressionOptions).length > 0
-              ? { compression_options: compressionOptions }
+              ? {compression_options: compressionOptions}
               : {}),
             ...(Object.keys(cryptoOptions).length > 0
-              ? { crypto_options: cryptoOptions }
+              ? {crypto_options: cryptoOptions}
               : {}),
           },
         },

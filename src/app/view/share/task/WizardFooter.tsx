@@ -1,11 +1,11 @@
 import React from "react";
-import { WizardContextConsumer } from "@patternfly/react-core";
+import {WizardContextConsumer} from "@patternfly/react-core";
 
-import { TaskButtonBack } from "./TaskButtonBack";
-import { TaskButtonCancel } from "./TaskButtonCancel";
-import { TaskButtonReviewAndFinish } from "./TaskButtonReviewAndFinish";
-import { WizardFooterNext } from "./WizardFooterNext";
-import { useTaskContext } from "./TaskContext";
+import {TaskButtonBack} from "./TaskButtonBack";
+import {TaskButtonCancel} from "./TaskButtonCancel";
+import {TaskButtonReviewAndFinish} from "./TaskButtonReviewAndFinish";
+import {WizardFooterNext} from "./WizardFooterNext";
+import {useTaskContext} from "./TaskContext";
 
 export const WizardFooter = (props: {
   backDisabled?: boolean;
@@ -17,11 +17,11 @@ export const WizardFooter = (props: {
     label: string;
   };
 }) => {
-  const { close } = useTaskContext();
+  const {close} = useTaskContext();
 
   return (
     <WizardContextConsumer>
-      {({ onBack, goToStepByName }) => (
+      {({onBack, goToStepByName}) => (
         <>
           <WizardFooterNext {...(props.next ?? {})} />
           <TaskButtonBack

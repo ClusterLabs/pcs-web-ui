@@ -1,18 +1,18 @@
-import { ActionPayload } from "app/store/actions";
+import {ActionPayload} from "app/store/actions";
 
-import { Cluster, Issue } from "../../types";
-import { transformIssues } from "../issues";
+import {Cluster, Issue} from "../../types";
+import {transformIssues} from "../issues";
 
-import { buildStatus, isDisabled } from "./statusInfoList";
+import {buildStatus, isDisabled} from "./statusInfoList";
 
 type ApiPrimitive = Extract<
   ActionPayload["CLUSTER.STATUS.FETCH.OK"]["resource_list"][number],
-  { class_type: "primitive"; stonith: false }
+  {class_type: "primitive"; stonith: false}
 >;
 
 type Primitive = Extract<
   Cluster["resourceTree"][number],
-  { itemType: "primitive" }
+  {itemType: "primitive"}
 >;
 type StatusInfoList = Primitive["status"]["infoList"];
 
@@ -31,7 +31,7 @@ const buildStatusInfoList = (
       severity: "WARNING",
       message: "Resource is unmanaged",
     });
-    infoList.push({ label: "UNMANAGED", severity: "WARNING" });
+    infoList.push({label: "UNMANAGED", severity: "WARNING"});
   }
 
   if (isDisabled(apiPrimitive)) {
@@ -39,7 +39,7 @@ const buildStatusInfoList = (
       severity: "WARNING",
       message: "Resource is disabled",
     });
-    infoList.push({ label: "DISABLED", severity: "WARNING" });
+    infoList.push({label: "DISABLED", severity: "WARNING"});
   }
 
   if (
@@ -56,11 +56,11 @@ const buildStatusInfoList = (
         ),
     )
   ) {
-    issues.push({ severity: "ERROR", message: "Resource failed" });
-    infoList.push({ label: "FAILED", severity: "ERROR" });
+    issues.push({severity: "ERROR", message: "Resource failed"});
+    infoList.push({label: "FAILED", severity: "ERROR"});
   } else if (!apiPrimitive.crm_status.some(s => s.active)) {
-    issues.push({ severity: "ERROR", message: "Resource is blocked" });
-    infoList.push({ label: "BLOCKED", severity: "ERROR" });
+    issues.push({severity: "ERROR", message: "Resource is blocked"});
+    infoList.push({label: "BLOCKED", severity: "ERROR"});
   }
 
   if (infoList.length > 0) {
@@ -72,20 +72,20 @@ const buildStatusInfoList = (
 
   // ok
   return {
-    resourceStatusInfo: [{ label: "RUNNING", severity: "OK" }],
+    resourceStatusInfo: [{label: "RUNNING", severity: "OK"}],
     issues,
   };
 };
 
 export const toPrimitive = (
   apiResource: ApiPrimitive,
-  context: { inClone: boolean; inGroup: string | null } = {
+  context: {inClone: boolean; inGroup: string | null} = {
     inClone: false,
     inGroup: null,
   },
 ): Primitive => {
-  const { resourceStatusInfo, issues } = buildStatusInfoList(apiResource);
-  const { inClone, inGroup } = context;
+  const {resourceStatusInfo, issues} = buildStatusInfoList(apiResource);
+  const {inClone, inGroup} = context;
   return {
     id: apiResource.id,
     itemType: "primitive",
@@ -101,7 +101,7 @@ export const toPrimitive = (
     instanceAttributes: apiResource.instance_attr.reduce(
       (attrMap, nvpair) => ({
         ...attrMap,
-        [nvpair.name]: { id: nvpair.id, value: nvpair.value },
+        [nvpair.name]: {id: nvpair.id, value: nvpair.value},
       }),
       {},
     ),

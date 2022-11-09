@@ -1,8 +1,8 @@
-import { Spinner } from "@patternfly/react-core";
+import {Spinner} from "@patternfly/react-core";
 
-import { Table } from "app/view/share";
+import {Table} from "app/view/share";
 
-import { DashboardClusterCellName } from "./DashboardClusterCellName";
+import {DashboardClusterCellName} from "./DashboardClusterCellName";
 
 export const DashboardClusterLoading = ({
   clusterName,

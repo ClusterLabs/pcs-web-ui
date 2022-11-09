@@ -1,4 +1,4 @@
-import { dt } from "test/tools/selectors";
+import {dt} from "test/tools/selectors";
 
 export const waitForLoaded = async () =>
   await page.waitForSelector(dt("cluster-list"));

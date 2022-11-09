@@ -1,6 +1,6 @@
-import { Grid, GridItem, PageSection } from "@patternfly/react-core";
+import {Grid, GridItem, PageSection} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   Card,
   ClusterToolbar,
@@ -9,9 +9,9 @@ import {
 } from "app/view/share";
 
 import * as task from "./task";
-import { SbdServiceStatus } from "./SbdServiceStatus";
-import { SbdConfiguration } from "./SbdConfiguration";
-import { SbdOnNodes } from "./SbdOnNodes";
+import {SbdServiceStatus} from "./SbdServiceStatus";
+import {SbdConfiguration} from "./SbdConfiguration";
+import {SbdOnNodes} from "./SbdOnNodes";
 
 const optionToValues = <VALUE extends string>(
   option: string | undefined,
@@ -49,7 +49,7 @@ export const SbdPage = () => {
         if (node.status !== "DATA_NOT_PROVIDED") {
           watchdog = node.sbd?.watchdog ?? "";
         }
-        return { ...watchdogMap, [node.name]: watchdog };
+        return {...watchdogMap, [node.name]: watchdog};
       },
       {},
     ),

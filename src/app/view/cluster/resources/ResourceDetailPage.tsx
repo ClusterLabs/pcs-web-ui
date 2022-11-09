@@ -1,14 +1,14 @@
-import { selectors } from "app/store";
-import { useClusterSelector, useGroupDetailViewContext } from "app/view/share";
+import {selectors} from "app/store";
+import {useClusterSelector, useGroupDetailViewContext} from "app/view/share";
 
-import { ResourceDoesNotExists } from "./ResourceDoesNotExists";
-import { ClonePage } from "./clone";
-import { GroupPage } from "./group";
-import { PrimitivePage } from "./primitive";
-import { FenceDevicePage } from "./FenceDevicePage";
+import {ResourceDoesNotExists} from "./ResourceDoesNotExists";
+import {ClonePage} from "./clone";
+import {GroupPage} from "./group";
+import {PrimitivePage} from "./primitive";
+import {FenceDevicePage} from "./FenceDevicePage";
 
 export const ResourceDetailPage = () => {
-  const { selectedItemUrlName: resourceId } = useGroupDetailViewContext();
+  const {selectedItemUrlName: resourceId} = useGroupDetailViewContext();
   const [resourceTreeItem] = useClusterSelector(
     selectors.getSelectedResource,
     resourceId,

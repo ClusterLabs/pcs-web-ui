@@ -1,7 +1,7 @@
-import { all } from "redux-saga/effects";
+import {all} from "redux-saga/effects";
 
 /* eslint-disable import/max-dependencies */
-import { fork, takeEvery } from "./common";
+import {fork, takeEvery} from "./common";
 import * as clusterImport from "./clusterImport";
 import * as cluster from "./cluster";
 import * as clusterDestroy from "./clusterDestroy";
@@ -105,4 +105,4 @@ function* rootSaga() {
   ]);
 }
 
-export { rootSaga };
+export {rootSaga};

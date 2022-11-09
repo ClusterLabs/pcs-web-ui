@@ -1,11 +1,11 @@
-import { SagaIterator } from "redux-saga";
+import {SagaIterator} from "redux-saga";
 
-import { api } from "app/backend";
-import { ActionPayload } from "app/store/actions";
+import {api} from "app/backend";
+import {ActionPayload} from "app/store/actions";
 
-import { call, put, take } from "./effects";
+import {call, put, take} from "./effects";
 import * as log from "./log";
-import { messages, putNotification } from "./notifications";
+import {messages, putNotification} from "./notifications";
 /* eslint-disable no-console */
 
 type Notification = ActionPayload["NOTIFICATION.CREATE"];
@@ -87,7 +87,7 @@ export function* authSafe<
   let response: RESULT = yield call<typeof fn>(fn, ...args);
   if (response.type === "UNAUTHORIZED") {
     // Ok, we got 401. So, ask for credentials and wait for login success...
-    yield put({ type: "AUTH.REQUIRED" });
+    yield put({type: "AUTH.REQUIRED"});
     yield take("AUTH.SUCCESS");
     // ...and then second attempt.
     response = yield call(fn, ...args);

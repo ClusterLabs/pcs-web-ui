@@ -1,7 +1,7 @@
-import { Button } from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
 
-import { useTask } from "./useTask";
-import { ClusterIssueNotAuthButton } from "./ClusterIssueNotAuthButton";
+import {useTask} from "./useTask";
+import {ClusterIssueNotAuthButton} from "./ClusterIssueNotAuthButton";
 
 export const ClusterIssueNotAuthFooter = () => {
   const {

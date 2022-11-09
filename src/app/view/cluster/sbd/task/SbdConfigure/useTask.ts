@@ -1,14 +1,14 @@
-import { ActionPayload } from "app/store";
-import { useClusterTask } from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterTask} from "app/view/share";
 
 type SbdTimeoutAction = Extract<
   ActionPayload["LIB.CALL.CLUSTER.TASK"]["call"],
-  { name: "sbd-enable-sbd" }
+  {name: "sbd-enable-sbd"}
 >["payload"]["sbd_options"]["SBD_TIMEOUT_ACTION"];
 
 export const useTask = () => {
   const task = useClusterTask("sbdConfigure");
-  const { dispatch, state, clusterName } = task;
+  const {dispatch, state, clusterName} = task;
 
   const getSbdTimeout = (): SbdTimeoutAction => {
     if (
@@ -35,7 +35,7 @@ export const useTask = () => {
     open: (payload: ActionPayload["CLUSTER.SBD.CONFIGURE"]) => {
       dispatch({
         type: "CLUSTER.SBD.CONFIGURE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       });
       task.open();
@@ -45,26 +45,26 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
       });
       dispatch({
         type: "CLUSTER.SBD.CONFIGURE.CLOSE",
-        key: { clusterName },
+        key: {clusterName},
       });
     },
 
     updateState: (payload: ActionPayload["CLUSTER.SBD.CONFIGURE.UPDATE"]) =>
       dispatch({
         type: "CLUSTER.SBD.CONFIGURE.UPDATE",
-        key: { clusterName },
+        key: {clusterName},
         payload,
       }),
 
-    sbdConfigure: ({ force }: { force: boolean }) => {
+    sbdConfigure: ({force}: {force: boolean}) => {
       const sbdTimeoutAction = getSbdTimeout();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: { clusterName, task: task.name },
+        key: {clusterName, task: task.name},
         payload: {
           taskLabel: "configure sbd",
           call: {
@@ -74,7 +74,7 @@ export const useTask = () => {
               watchdog_dict: Object.entries(state.watchdogDict).reduce(
                 (watchdogDict, [nodeName, watchdog]) => ({
                   ...watchdogDict,
-                  ...(watchdog.length === 0 ? {} : { [nodeName]: watchdog }),
+                  ...(watchdog.length === 0 ? {} : {[nodeName]: watchdog}),
                 }),
                 {},
               ),
@@ -86,7 +86,7 @@ export const useTask = () => {
                 SBD_WATCHDOG_TIMEOUT: state.watchdogTimeout,
                 ...(sbdTimeoutAction === undefined
                   ? {}
-                  : { SBD_TIMEOUT_ACTION: sbdTimeoutAction }),
+                  : {SBD_TIMEOUT_ACTION: sbdTimeoutAction}),
               },
               ignore_offline_nodes: force,
             },

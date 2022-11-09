@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 
-import { Path } from "./types";
+import {Path} from "./types";
 
 /**
  * History API docs @see https://developer.mozilla.org/en-US/docs/Web/API/History
@@ -16,13 +16,13 @@ const currentPathname = (base: string, path = window.location.pathname) =>
     : "~" + path;
 
 export const useLocation = (
-  { base }: { base: Path } = { base: "" },
+  {base}: {base: Path} = {base: ""},
 ): {
   path: Path;
-  navigate: (_to: Path, _options?: { replace?: boolean }) => void;
+  navigate: (_to: Path, _options?: {replace?: boolean}) => void;
   search: string;
 } => {
-  const [{ path, search }, update] = useState(() => ({
+  const [{path, search}, update] = useState(() => ({
     path: currentPathname(base),
     search: window.location.search,
   })); // @see https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
@@ -40,7 +40,7 @@ export const useLocation = (
 
       if (prevHash.current !== hash) {
         prevHash.current = hash;
-        update({ path: pathname, search });
+        update({path: pathname, search});
       }
     };
 
@@ -62,7 +62,7 @@ export const useLocation = (
   // the function reference should stay the same between re-renders, so that
   // it can be passed down as an element prop without any performance concerns.
   const navigate = useCallback(
-    (to: string, { replace = false } = {}) =>
+    (to: string, {replace = false} = {}) =>
       window.history[replace ? eventReplaceState : eventPushState](
         null,
         "",
@@ -72,7 +72,7 @@ export const useLocation = (
     [base],
   );
 
-  return { path, navigate, search };
+  return {path, navigate, search};
 };
 
 // While History API does have `popstate` event, the only
@@ -87,7 +87,7 @@ if (typeof window.history !== "undefined") {
     ...args: Parameters<typeof window.history.pushState>
   ) {
     const result = originalPushState.apply(this, args);
-    const event = new CustomEvent("pushState", { detail: args });
+    const event = new CustomEvent("pushState", {detail: args});
 
     dispatchEvent(event);
     return result;
@@ -99,7 +99,7 @@ if (typeof window.history !== "undefined") {
     ...args: Parameters<typeof window.history.replaceState>
   ) {
     const result = originalReplaceState.apply(this, args);
-    const event = new CustomEvent("replaceState", { detail: args });
+    const event = new CustomEvent("replaceState", {detail: args});
 
     dispatchEvent(event);
     return result;

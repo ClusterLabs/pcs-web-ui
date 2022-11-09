@@ -1,4 +1,4 @@
-import { dt } from "test/tools/selectors";
+import {dt} from "test/tools/selectors";
 
 export const fillForm = async (
   nodeName: string,

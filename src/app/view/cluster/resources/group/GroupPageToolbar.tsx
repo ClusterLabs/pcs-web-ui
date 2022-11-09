@@ -1,11 +1,11 @@
-import { Group } from "app/view/cluster/types";
+import {Group} from "app/view/cluster/types";
 import {
   DetailToolbar,
   LauncherItem as ToolbarItem,
   useSelectedClusterName,
 } from "app/view/share";
 
-export const GroupPageToolbar = ({ group }: { group: Group }) => {
+export const GroupPageToolbar = ({group}: {group: Group}) => {
   const cluster = useSelectedClusterName();
   const unclone: ToolbarItem = {
     name: "unclone",
@@ -19,8 +19,8 @@ export const GroupPageToolbar = ({ group }: { group: Group }) => {
       ),
       action: {
         type: "RESOURCE.UNCLONE",
-        key: { clusterName: cluster },
-        payload: { resourceId: group.id },
+        key: {clusterName: cluster},
+        payload: {resourceId: group.id},
       },
     },
   };
@@ -32,8 +32,8 @@ export const GroupPageToolbar = ({ group }: { group: Group }) => {
       description: "Set up the specified resource or group as a clone.",
       action: {
         type: "RESOURCE.CLONE",
-        key: { clusterName: cluster },
-        payload: { resourceId: group.id },
+        key: {clusterName: cluster},
+        payload: {resourceId: group.id},
       },
     },
   };

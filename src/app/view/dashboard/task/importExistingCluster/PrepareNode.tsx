@@ -5,14 +5,14 @@ import {
   WizardContextConsumer,
 } from "@patternfly/react-core";
 
-import { EmptyStateSpinner, NodesAuthForm, TaskLibStep } from "app/view/share";
+import {EmptyStateSpinner, NodesAuthForm, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const PrepareNode = () => {
   const {
     checkNode,
-    state: { nodeCheck, nodeCheckMessage, authProcessId },
+    state: {nodeCheck, nodeCheckMessage, authProcessId},
   } = useTask();
 
   React.useEffect(() => {
@@ -23,7 +23,7 @@ export const PrepareNode = () => {
 
   return (
     <WizardContextConsumer>
-      {({ onBack }) => (
+      {({onBack}) => (
         <TaskLibStep title="Prepare node">
           {nodeCheck === "auth-check-started" && (
             <EmptyStateSpinner title="Checking if the node is authenticated" />

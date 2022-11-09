@@ -1,15 +1,15 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 import * as types from "dev/types";
 
-import { RouteResponse } from "test/tools/interception";
+import {RouteResponse} from "test/tools/interception";
 
 export const importedClusterList = (
   props:
-    | { clusterStatusList?: types.Cluster[] }
-    | { clusterNameList?: string[] }
-    | { response: RouteResponse } = {},
+    | {clusterStatusList?: types.Cluster[]}
+    | {clusterNameList?: string[]}
+    | {response: RouteResponse} = {},
 ) => {
   let response;
   if ("response" in props) {

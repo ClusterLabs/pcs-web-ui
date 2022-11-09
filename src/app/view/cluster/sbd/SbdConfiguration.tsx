@@ -1,5 +1,5 @@
-import { selectors } from "app/store";
-import { EmptyStateNoItem, Table, useClusterSelector } from "app/view/share";
+import {selectors} from "app/store";
+import {EmptyStateNoItem, Table, useClusterSelector} from "app/view/share";
 
 export const SbdConfiguration = () => {
   const [sbdConfig] = useClusterSelector(selectors.getClusterSbdConfig);

@@ -1,7 +1,7 @@
-import { removeCluster } from "app/backend";
-import { ActionMap } from "app/store/actions";
+import {removeCluster} from "app/backend";
+import {ActionMap} from "app/store/actions";
 
-import { api, processError, put, putNotification } from "./common";
+import {api, processError, put, putNotification} from "./common";
 
 export function* clusterRemove({
   payload,
@@ -27,5 +27,5 @@ export function* clusterRemove({
     undefined,
     "cluster-remove",
   );
-  yield put({ type: "CLUSTER.LIST.REFRESH" });
+  yield put({type: "CLUSTER.LIST.REFRESH"});
 }

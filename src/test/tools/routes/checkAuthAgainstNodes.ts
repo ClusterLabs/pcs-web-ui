@@ -1,6 +1,6 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
-import { RequestData, RouteResponse } from "test/tools/interception";
+import {RequestData, RouteResponse} from "test/tools/interception";
 
 export const checkAuthAgainstNodes = ({
   nodeNameList,

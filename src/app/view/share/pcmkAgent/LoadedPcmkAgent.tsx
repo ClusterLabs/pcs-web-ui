@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 
-import { selectors } from "app/store";
-import { EmptyStateError, EmptyStateSpinner } from "app/view/share/emptyState";
+import {selectors} from "app/store";
+import {EmptyStateError, EmptyStateSpinner} from "app/view/share/emptyState";
 
-import { Agent } from "./types";
+import {Agent} from "./types";
 
 export const LoadedPcmkAgent = ({
   clusterName,

@@ -1,9 +1,9 @@
-import { LibReport } from "app/store/types";
+import {LibReport} from "app/store/types";
 
 export type ResourceGroupCreateActions = {
   "RESOURCE.GROUP.CREATE": {
     type: "RESOURCE.GROUP.CREATE";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       groupId: string;
       resourceIdList: string[];
@@ -12,12 +12,12 @@ export type ResourceGroupCreateActions = {
 
   "RESOURCE.GROUP.CREATE.ERROR": {
     type: "RESOURCE.GROUP.CREATE.ERROR";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 
   "RESOURCE.GROUP.CREATE.FAIL": {
     type: "RESOURCE.GROUP.CREATE.FAIL";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       reports: LibReport[];
     };
@@ -25,7 +25,7 @@ export type ResourceGroupCreateActions = {
 
   "RESOURCE.GROUP.CREATE.SUCCESS": {
     type: "RESOURCE.GROUP.CREATE.SUCCESS";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       reports: LibReport[];
     };
@@ -33,7 +33,7 @@ export type ResourceGroupCreateActions = {
 
   "RESOURCE.GROUP.CREATE.UPDATE": {
     type: "RESOURCE.GROUP.CREATE.UPDATE";
-    key: { clusterName: string };
+    key: {clusterName: string};
     payload: {
       groupId?: string;
       resourceIdList?: string[];
@@ -42,6 +42,6 @@ export type ResourceGroupCreateActions = {
 
   "RESOURCE.GROUP.CREATE.CLOSE": {
     type: "RESOURCE.GROUP.CREATE.CLOSE";
-    key: { clusterName: string };
+    key: {clusterName: string};
   };
 };

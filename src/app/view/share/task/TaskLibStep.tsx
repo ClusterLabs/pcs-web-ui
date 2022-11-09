@@ -1,7 +1,7 @@
 import React from "react";
-import { Stack, StackItem, Text, TextContent } from "@patternfly/react-core";
+import {Stack, StackItem, Text, TextContent} from "@patternfly/react-core";
 
-import { TaskLibReports } from "./TaskLibReports";
+import {TaskLibReports} from "./TaskLibReports";
 
 export const TaskLibStep = ({
   title,

@@ -82,9 +82,9 @@ function useSorting<COLUMN extends string>(
     },
     [setDirection, setColumn],
   );
-  const sortState: SortState<COLUMN> = { column, direction, change };
-  return { sortState, compareItems };
+  const sortState: SortState<COLUMN> = {column, direction, change};
+  return {sortState, compareItems};
 }
 
 SortableTh.useSorting = useSorting;
-export { SortableTh };
+export {SortableTh};

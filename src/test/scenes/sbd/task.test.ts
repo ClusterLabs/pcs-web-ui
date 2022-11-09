@@ -1,7 +1,7 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
-import { intercept, location, route, shortcuts } from "test/tools";
-import { dt, mkXPath } from "test/tools/selectors";
+import {intercept, location, route, shortcuts} from "test/tools";
+import {dt, mkXPath} from "test/tools/selectors";
 
 const sbdOptions: Parameters<typeof route.sbdConfigure>[0]["sbd_options"] = {
   SBD_DELAY_START: "no",
@@ -22,11 +22,11 @@ const clusterStatus = t.cluster("sbd", "ok", {
     }),
     t.node("2", {
       services: {
-        pacemaker: { installed: true, running: false, enabled: true },
-        pacemaker_remote: { installed: false, running: false, enabled: false },
-        corosync: { installed: true, running: true, enabled: true },
-        pcsd: { installed: true, running: true, enabled: false },
-        sbd: { installed: false, running: false, enabled: false },
+        pacemaker: {installed: true, running: false, enabled: true},
+        pacemaker_remote: {installed: false, running: false, enabled: false},
+        corosync: {installed: true, running: true, enabled: true},
+        pcsd: {installed: true, running: true, enabled: false},
+        sbd: {installed: false, running: false, enabled: false},
       },
     }),
   ],
@@ -84,7 +84,7 @@ describe("Sbd", () => {
         route.sbdConfigure({
           clusterName: clusterStatus.cluster_name,
           sbd_options: sbdOptions,
-          watchdog_dict: { "node-1": newWatchdogName },
+          watchdog_dict: {"node-1": newWatchdogName},
         }),
       ],
     });

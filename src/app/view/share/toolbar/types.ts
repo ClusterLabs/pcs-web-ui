@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Button } from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
 
-import { Action } from "app/store";
+import {Action} from "app/store";
 
 type Task = {
   component: React.FunctionComponent;

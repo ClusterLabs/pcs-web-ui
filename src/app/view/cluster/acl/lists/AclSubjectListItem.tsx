@@ -21,7 +21,7 @@ export const AclSubjectListItem = ({
   id: string;
   roleIdList: string[];
 }) => {
-  const { selectedItemUrlName, selectedItemUrlType, compact } =
+  const {selectedItemUrlName, selectedItemUrlType, compact} =
     useGroupDetailViewContext();
 
   return (

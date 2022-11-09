@@ -7,17 +7,17 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
-import { useLocation } from "app/view/share/router";
+import {useLocation} from "app/view/share/router";
 import * as location from "app/view/share/location";
 
-import { UserMenu } from "./UserMenu";
+import {UserMenu} from "./UserMenu";
 
 export const Header = ({
   notificationBadge,
 }: {
   notificationBadge: React.ReactNode;
 }) => {
-  const { navigate } = useLocation();
+  const {navigate} = useLocation();
   return (
     <PageHeader
       logo="HA Cluster Management"

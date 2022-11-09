@@ -1,9 +1,9 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
-import { apiToState } from "./apiToState";
-import { Cluster, ClusterStatusService } from "./types";
+import {apiToState} from "./apiToState";
+import {Cluster, ClusterStatusService} from "./types";
 
 export const clusterStatusDefault: Cluster = {
   name: "",

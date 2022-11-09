@@ -1,6 +1,6 @@
-import { StackItem } from "@patternfly/react-core";
+import {StackItem} from "@patternfly/react-core";
 
-import { selectors } from "app/store";
+import {selectors} from "app/store";
 import {
   DetailLayout,
   EmptyStateNoItem,
@@ -9,17 +9,17 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 
-import { AclType } from "../types";
+import {AclType} from "../types";
 
-import { RoleView } from "./RoleView";
-import { SubjectView } from "./SubjectView";
+import {RoleView} from "./RoleView";
+import {SubjectView} from "./SubjectView";
 
 export const AclDetailPage = () => {
   const clusterName = useSelectedClusterName();
-  const { selectedItemUrlName: aclId, selectedItemUrlType: urlType } =
+  const {selectedItemUrlName: aclId, selectedItemUrlType: urlType} =
     useGroupDetailViewContext();
 
-  const [{ acls }] = useClusterSelector(selectors.getCluster);
+  const [{acls}] = useClusterSelector(selectors.getCluster);
 
   if (urlType !== "role" && urlType !== "user" && urlType !== "group") {
     <DetailLayout caption={"Type does not exists"}>

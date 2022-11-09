@@ -1,8 +1,8 @@
-import { Form } from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
-import { FormText, TaskLibStep } from "app/view/share";
+import {FormText, TaskLibStep} from "app/view/share";
 
-import { useTask } from "./useTask";
+import {useTask} from "./useTask";
 
 export const EnterName = () => {
   const {
@@ -12,7 +12,7 @@ export const EnterName = () => {
       subjectId,
       subjectType,
       showValidationErrors,
-      libCall: { reports },
+      libCall: {reports},
     },
   } = useTask();
 
@@ -26,7 +26,7 @@ export const EnterName = () => {
           showValidationErrors={showValidationErrors}
           isValid={isNameValid}
           helperTextInvalid="Please enter a name"
-          onChange={value => updateState({ subjectId: value })}
+          onChange={value => updateState({subjectId: value})}
           value={subjectId}
         />
       </Form>

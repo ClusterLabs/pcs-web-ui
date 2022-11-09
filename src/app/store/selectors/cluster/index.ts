@@ -1,4 +1,4 @@
-import { ClusterTaskKeys } from "../types";
+import {ClusterTaskKeys} from "../types";
 
 import {
   ClusterSelector as TClusterSelector,

@@ -1,6 +1,6 @@
-import { endpoints } from "app/backend/endpoints";
+import {endpoints} from "app/backend/endpoints";
 
-import { RequestData, RouteResponse } from "test/tools/interception";
+import {RequestData, RouteResponse} from "test/tools/interception";
 
 export const canAddClusterOrNodes = ({
   nodeNameList,
@@ -23,6 +23,6 @@ export const canAddClusterOrNodes = ({
   return {
     url: endpoints.canAddClusterOrNodes.url,
     query,
-    ...(response ?? { text: "" }),
+    ...(response ?? {text: ""}),
   };
 };

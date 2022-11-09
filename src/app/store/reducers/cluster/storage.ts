@@ -1,15 +1,15 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
-import { AppReducer } from "app/store/reducers/appReducer";
+import {AppReducer} from "app/store/reducers/appReducer";
 
-import { clusterStatus } from "./clusterStatus";
-import { pcmkAgents } from "./pcmkAgents";
-import { resourceTree } from "./resourceTree";
-import { clusterProperties } from "./properties";
-import { clusterPermissions } from "./permissions";
-import { resourceAgentMap } from "./resourceAgentMap";
-import { fenceAgentList } from "./fenceAgentList";
-import { tasks } from "./tasks";
+import {clusterStatus} from "./clusterStatus";
+import {pcmkAgents} from "./pcmkAgents";
+import {resourceTree} from "./resourceTree";
+import {clusterProperties} from "./properties";
+import {clusterPermissions} from "./permissions";
+import {resourceAgentMap} from "./resourceAgentMap";
+import {fenceAgentList} from "./fenceAgentList";
+import {tasks} from "./tasks";
 
 const clusterStorageItem = combineReducers({
   clusterStatus,

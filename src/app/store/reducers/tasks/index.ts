@@ -1,15 +1,10 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 
-import {
-  ReducersMapKey,
-  Task,
-  TaskState,
-  wrapTasks,
-} from "app/store/taskTools";
+import {ReducersMapKey, Task, TaskState, wrapTasks} from "app/store/taskTools";
 
-import { clusterSetup } from "./clusterSetup";
-import { importExistingCluster } from "./importExistingCluster";
-import { forceableConfirm } from "./forceableConfirm";
+import {clusterSetup} from "./clusterSetup";
+import {importExistingCluster} from "./importExistingCluster";
+import {forceableConfirm} from "./forceableConfirm";
 
 const wrapTaskReducer =
   <STATE extends TaskState>(

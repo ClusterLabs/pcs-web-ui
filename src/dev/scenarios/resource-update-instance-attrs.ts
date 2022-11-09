@@ -1,9 +1,9 @@
-import { app } from "dev/app";
-import { Primitive } from "dev/types";
+import {app} from "dev/app";
+import {Primitive} from "dev/types";
 import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
 
-const { resourceTree } = response.clusterStatus;
+const {resourceTree} = response.clusterStatus;
 
 let clusterStatusLoadCount = 0;
 app.clusterStatus((req, res) => {
