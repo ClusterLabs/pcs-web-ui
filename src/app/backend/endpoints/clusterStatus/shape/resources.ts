@@ -142,7 +142,6 @@ const ApiPrimitive = t.intersection([
   ApiPrimitiveBase,
   t.type({
     stonith: t.literal(false),
-    provider: t.string,
   }),
 ]);
 
