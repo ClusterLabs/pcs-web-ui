@@ -70,7 +70,7 @@ export const ResourcesCard = ({
           />
         ),
       )}
-      {Object.entries(statistics.issues.errors).map(
+      {Object.entries(statistics.issues.warnings).map(
         ([label, resourceIdList]) => (
           <StatisticsIsueInfo
             key={label}
