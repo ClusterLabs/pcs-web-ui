@@ -13,8 +13,6 @@ import {SingleNodeView} from "./SingleNodeView";
 
 export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
   const clusterName = useSelectedClusterName();
-  const createNodeLink = (nodeName: string) =>
-    location.node({clusterName, nodeName});
 
   if (nodeList.length === 1) {
     return <SingleNodeView singleNode={nodeList[0]} />;
@@ -68,6 +66,10 @@ export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
     },
   );
 
+  const createNodeLink = (nodeName: string) => (
+    <Link isInline to={location.node({clusterName, nodeName})} />
+  );
+
   return (
     <>
       <div className="pf-u-mb-md">
@@ -79,28 +81,28 @@ export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
         icon={<ExclamationCircleIcon />}
         issueName="offline"
         itemList={statistics.offline}
-        createLink={createNodeLink}
+        createItemLabel={createNodeLink}
       />
       <StatisticsIsueInfo
         color="orange"
         icon={<ExclamationTriangleIcon />}
         issueName="standby"
         itemList={statistics.standby}
-        createLink={createNodeLink}
+        createItemLabel={createNodeLink}
       />
       <StatisticsIsueInfo
         color="orange"
         icon={<ExclamationTriangleIcon />}
         issueName="without quorum"
         itemList={statistics.onlineWithoutQuorum}
-        createLink={createNodeLink}
+        createItemLabel={createNodeLink}
       />
       <StatisticsIsueInfo
         color="orange"
         icon={<ExclamationTriangleIcon />}
         issueName="unknown"
         itemList={statistics.unknown}
-        createLink={createNodeLink}
+        createItemLabel={createNodeLink}
       />
     </>
   );

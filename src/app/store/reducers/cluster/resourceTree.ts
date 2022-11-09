@@ -8,6 +8,9 @@ export const resourceTree: AppReducer<string[]> = (state = [], action) => {
         ? state.filter(id => id !== action.payload.itemId)
         : [...state, action.payload.itemId];
 
+    case "RESOURCE.TREE.ITEM.OPEN.EXCLUSIVE":
+      return action.payload.itemIdList;
+
     default:
       return state;
   }

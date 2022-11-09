@@ -6,4 +6,12 @@ export type ResourceTreeActions = {
       itemId: string;
     };
   };
+
+  "RESOURCE.TREE.ITEM.OPEN.EXCLUSIVE": {
+    type: "RESOURCE.TREE.ITEM.OPEN.EXCLUSIVE";
+    key: {clusterName: string};
+    payload: {
+      itemIdList: string[];
+    };
+  };
 };

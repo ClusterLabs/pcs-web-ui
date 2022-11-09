@@ -15,6 +15,7 @@ import {StatisticsIsueInfo} from "app/view/cluster/detail/StatisticsIsueInfo";
 
 import {ResourceCounts} from "./ResourceCounts";
 import {buildStatistics} from "./buildStatistics";
+import {ResourceLink} from "./ResourceLink";
 
 export const ResourcesCard = ({
   resourceTree,
@@ -31,20 +32,21 @@ export const ResourcesCard = ({
     );
   }
 
-  const resourceTreeLink = (
-    <Link isInline to={location.resourceList({clusterName})}>
-      resources
-    </Link>
-  );
-
   const statistics = buildStatistics(resourceTree);
+
+  const createResourceLink = (resourceId: string | string[]) => (
+    <ResourceLink resourceIdMixed={resourceId} />
+  );
 
   return (
     <>
       <div className="pf-u-my-sm">
         There {resourceTree.length === 1 ? "is" : "are"}
-        <Badge isRead>{resourceTree.length}</Badge> {resourceTreeLink} in the
-        cluster.
+        <Badge isRead>{resourceTree.length}</Badge>{" "}
+        <Link isInline to={location.resourceList({clusterName})}>
+          resources
+        </Link>{" "}
+        in the cluster.
       </div>
       <div className="pf-u-my-sm">
         <ResourceCounts
@@ -64,9 +66,7 @@ export const ResourcesCard = ({
             icon={<ExclamationCircleIcon />}
             issueName={label.toLowerCase()}
             itemList={resourceIdList}
-            createLink={resourceId =>
-              location.resource({clusterName, resourceId})
-            }
+            createItemLabel={createResourceLink}
           />
         ),
       )}
@@ -78,9 +78,7 @@ export const ResourcesCard = ({
             icon={<ExclamationTriangleIcon />}
             issueName={label.toLowerCase()}
             itemList={resourceIdList}
-            createLink={resourceId =>
-              location.resource({clusterName, resourceId})
-            }
+            createItemLabel={createResourceLink}
           />
         ),
       )}

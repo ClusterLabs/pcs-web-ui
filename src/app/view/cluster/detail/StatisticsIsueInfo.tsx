@@ -1,19 +1,18 @@
+import React from "react";
 import {Label} from "@patternfly/react-core";
 
-import {Link} from "app/view/share";
-
-export const StatisticsIsueInfo = ({
+export const StatisticsIsueInfo = <ITEM extends string | string[]>({
   icon: iconComponent,
   color,
   issueName,
   itemList,
-  createLink,
+  createItemLabel,
 }: {
   icon: React.ReactNode;
   color: React.ComponentProps<typeof Label>["color"];
   issueName: string;
-  itemList: string[];
-  createLink: (_item: string) => string;
+  itemList: ITEM[];
+  createItemLabel: (_item: ITEM) => React.ReactNode;
 }) => {
   if (itemList.length === 0) {
     return null;
@@ -28,8 +27,8 @@ export const StatisticsIsueInfo = ({
       {itemList.length < 4 && (
         <span>
           {itemList
-            .map<React.ReactNode>(item => (
-              <Link isInline key={item} to={createLink(item)} />
+            .map<React.ReactNode>((item, i) => (
+              <React.Fragment key={i}>{createItemLabel(item)}</React.Fragment>
             ))
             .reduce((prev, curr) => [prev, ", ", curr])}{" "}
         </span>
