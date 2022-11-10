@@ -1,4 +1,3 @@
-import {Badge} from "@patternfly/react-core";
 import {
   ExclamationCircleIcon,
   ExclamationTriangleIcon,
@@ -42,7 +41,7 @@ export const ResourcesCard = ({
     <>
       <div className="pf-u-my-sm">
         There {resourceTree.length === 1 ? "is" : "are"}{" "}
-        <Badge isRead>{resourceTree.length}</Badge>{" "}
+        <strong>{resourceTree.length}</strong>{" "}
         <Link isInline to={location.resourceList({clusterName})}>
           {resourceTree.length === 1 ? "resource" : "resources"}
         </Link>{" "}

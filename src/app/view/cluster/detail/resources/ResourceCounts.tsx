@@ -1,5 +1,3 @@
-import {Badge} from "@patternfly/react-core";
-
 export const ResourceCounts = ({
   resourceIdLists,
   description,
@@ -16,13 +14,12 @@ export const ResourceCounts = ({
   }
   return (
     <div>
-      <Badge isRead>{total.length}</Badge> {description}
+      <strong>{total.length}</strong> {description}
       {clone.length === 0 ? (
         ""
       ) : (
         <>
-          {" "}
-          (<Badge isRead>{clone.length}</Badge> in clone)
+          , including <strong>{clone.length}</strong> in clone
         </>
       )}
       .
