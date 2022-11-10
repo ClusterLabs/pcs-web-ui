@@ -16,6 +16,7 @@ export const TaskComponent = ({
   runLabel,
   processTitle,
   getForceableAction,
+  "data-test": dataTest,
 }: {
   confirm: {
     title: string;
@@ -28,6 +29,7 @@ export const TaskComponent = ({
     fail: React.ReactNode;
   };
   getForceableAction: (_props: {force: boolean}) => Action;
+  "data-test"?: string;
 }) => {
   const {
     close,
@@ -50,6 +52,7 @@ export const TaskComponent = ({
           />
         )
       }
+      data-test={`forceable-confirm${dataTest ? "-" + dataTest : ""}`}
     >
       {response === "" && confirm.description}
       {response === "sending" && <TaskProgress title={processTitle.wait} />}

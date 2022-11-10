@@ -52,6 +52,7 @@ export const ClusterDetailPage = () => {
                   type: "DASHBOARD.CLUSTER.STOP",
                   payload: {clusterName, force},
                 }),
+                "data-test": "cluster-stop",
               }),
               useTask: task.forceableConfirm.useTask,
             },

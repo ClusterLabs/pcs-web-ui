@@ -16,6 +16,41 @@ const clickMoveFrom = <STEP_NAME extends string>(
   };
 };
 
+export const prepareCommonTaskSimple = ({
+  taskKey,
+  openKey,
+}: {
+  taskKey: string;
+  openKey: string;
+}) => {
+  const inView = (...keys: string[]) => mkXPath(taskKey, ...keys);
+  const selectors = {
+    task: dt(taskKey),
+  };
+  return {
+    taskKey,
+    openKey,
+    inView,
+    open: async () => {
+      await page.click(dt(openKey));
+      await page.waitForSelector(dt(taskKey));
+    },
+    close: async () => {
+      await page.click(inView("task-close"));
+    },
+    waitForSuccess: async () => {
+      await page.waitForSelector(inView("task-success"));
+    },
+    waitForError: async () => {
+      await page.waitForSelector(inView("task-error"));
+    },
+    run: async () => {
+      await page.click(dt("task-next"));
+    },
+    selectors,
+  };
+};
+
 export const prepareCommonTask = <STEP_NAME extends string>({
   taskKey,
   openKey,
@@ -26,9 +61,6 @@ export const prepareCommonTask = <STEP_NAME extends string>({
   const inView = (...keys: string[]) => mkXPath(taskKey, ...keys);
   const selectors = {
     task: dt(taskKey),
-    success: inView("task-success"),
-    close: inView("task-close"),
-    error: inView("task-error"),
   };
   return {
     taskKey,

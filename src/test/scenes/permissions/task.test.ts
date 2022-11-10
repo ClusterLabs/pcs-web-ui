@@ -1,35 +1,27 @@
 import * as responses from "dev/responses";
 
 import {intercept, location, route} from "test/tools";
-import {mkXPath} from "test/tools/selectors";
 import * as workflow from "test/workflow";
 
 import {interceptForPermissions} from "./common";
 
-const {formSwitch, hasFieldError, radioGroup} = workflow.form;
+const {
+  open,
+  fillName,
+  selectType,
+  switchPermission,
+  hasNameError,
+  hasPermissionError,
+  run,
+  close,
+  waitForSuccess,
+} = workflow.task.permissionEdit;
 
 type Permission = ReturnType<
   typeof responses.permissions
 >["users_permissions"][number];
 
 const clusterName = "ok";
-
-const view = "permission-edit";
-const task = {
-  toolbarItem: mkXPath("task permissions-create-permission"),
-  view: mkXPath(view),
-  name: mkXPath(view, "name"),
-  type: mkXPath(view, "type"),
-  read: mkXPath(view, "read"),
-  write: mkXPath(view, "write"),
-  grant: mkXPath(view, "grant"),
-  full: mkXPath(view, "full"),
-  run: mkXPath("task-next"),
-  success: mkXPath(view, "task-success"),
-  close: mkXPath(view, "task-close"),
-};
-
-const permissionsLocation = location.permissionList({clusterName});
 
 const basicPermission: Permission = {
   type: "group",
@@ -38,16 +30,14 @@ const basicPermission: Permission = {
 };
 
 const openNewPermission = async () => {
-  await page.goto(permissionsLocation);
-  await page.click(task.toolbarItem);
-  await page.waitForSelector(task.view);
+  await page.goto(location.permissionList({clusterName}));
+  await open();
 };
 
 const finishNewPermissionSucessfully = async () => {
-  await page.click(task.run);
-  await page.waitForSelector(task.success);
-  await page.click(task.close);
-  expect(page.url()).toEqual(permissionsLocation);
+  await run();
+  await waitForSuccess();
+  await close();
 };
 
 describe("Permissions", () => {
@@ -70,10 +60,10 @@ describe("Permissions", () => {
       ],
     });
     await openNewPermission();
-    await page.type(task.name, newPermission.name);
-    await radioGroup(task.type, newPermission.type);
-    await formSwitch(task.read); // swith to off since it is on by default
-    await formSwitch(task.grant); // switch to on
+    await fillName(newPermission.name);
+    await selectType(newPermission.type);
+    await switchPermission("read"); // swith to off since it is on by default
+    await switchPermission("grant"); // switch to on
     await finishNewPermissionSucessfully();
   });
 
@@ -94,10 +84,10 @@ describe("Permissions", () => {
       ],
     });
     await openNewPermission();
-    await page.type(task.name, newPermission.name);
-    await radioGroup(task.type, newPermission.type);
-    await formSwitch(task.read); // swith to off since it is on by default
-    await formSwitch(task.full); // switch to on
+    await fillName(newPermission.name);
+    await selectType(newPermission.type);
+    await switchPermission("read"); // swith to off since it is on by default
+    await switchPermission("full"); // switch to on
     await finishNewPermissionSucessfully();
   });
 
@@ -118,10 +108,10 @@ describe("Permissions", () => {
       ],
     });
     await openNewPermission();
-    await page.type(task.name, newPermission.name);
-    await radioGroup(task.type, newPermission.type);
-    await formSwitch(task.read); // swith to off since it is on by default
-    await formSwitch(task.write); // switch to on
+    await fillName(newPermission.name);
+    await selectType(newPermission.type);
+    await switchPermission("read"); // swith to off since it is on by default
+    await switchPermission("write"); // switch to on
     await finishNewPermissionSucessfully();
   });
 
@@ -131,9 +121,9 @@ describe("Permissions", () => {
       usersPermissions: [basicPermission],
     });
     await openNewPermission();
-    await formSwitch(task.read); // swith to off since it is on by default
-    await page.click(task.run);
-    await hasFieldError(task.name);
-    await hasFieldError(`${task.full}/parent::*`);
+    await switchPermission("read"); // swith to off since it is on by default
+    await run();
+    await hasNameError();
+    await hasPermissionError("full");
   });
 });
