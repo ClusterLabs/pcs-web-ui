@@ -47,6 +47,9 @@ export const prepareCommonTaskSimple = ({
     run: async () => {
       await page.click(dt("task-next"));
     },
+    cancel: async () => {
+      await page.click(dt("task-cancel"));
+    },
     selectors,
   };
 };
