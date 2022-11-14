@@ -39,11 +39,11 @@ describe("Cluster scene", () => {
 
   afterEach(intercept.stop);
 
-  it("should show detail tab of cluster by default", async () => {
+  it("should show overview tab of cluster by default", async () => {
     await checkClusterTab(
       location.cluster({clusterName: "ok"}),
-      "Detail",
-      "cluster-detail",
+      "Overview",
+      "cluster-overview",
     );
   });
 

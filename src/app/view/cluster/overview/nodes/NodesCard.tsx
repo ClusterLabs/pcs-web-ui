@@ -7,7 +7,7 @@ import {
 
 import {Node} from "app/view/cluster/types";
 import {Link, location, useSelectedClusterName} from "app/view/share";
-import {StatisticsIsueInfo} from "app/view/cluster/detail/StatisticsIsueInfo";
+import {StatisticsIsueInfo} from "app/view/cluster/overview/StatisticsIsueInfo";
 
 import {SingleNodeView} from "./SingleNodeView";
 

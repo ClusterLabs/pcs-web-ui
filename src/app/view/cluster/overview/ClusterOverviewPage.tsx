@@ -15,13 +15,13 @@ import {ResourcesCard} from "./resources";
 
 const grow: FlexProps["grow"] = {default: "grow"};
 
-export const ClusterDetailPage = () => {
+export const ClusterOverviewPage = () => {
   const [cluster] = useClusterSelector(selectors.getCluster);
   const clusterName = useSelectedClusterName();
   return (
     <>
       <ClusterToolbar
-        toolbarName="cluster-detail"
+        toolbarName="cluster-overview"
         buttonsItems={[
           {
             name: "start",
@@ -60,7 +60,7 @@ export const ClusterDetailPage = () => {
         ]}
       />
 
-      <PageSection data-test="cluster-detail">
+      <PageSection data-test="cluster-overview">
         <Flex>
           {cluster.issueList.length > 0 && (
             <FlexItem grow={grow} className="pf-u-m-0">

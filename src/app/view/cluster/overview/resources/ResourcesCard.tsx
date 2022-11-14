@@ -10,7 +10,7 @@ import {
   location,
   useSelectedClusterName,
 } from "app/view/share";
-import {StatisticsIsueInfo} from "app/view/cluster/detail/StatisticsIsueInfo";
+import {StatisticsIsueInfo} from "app/view/cluster/overview/StatisticsIsueInfo";
 
 import {ResourceCounts} from "./ResourceCounts";
 import {buildStatistics} from "./buildStatistics";
