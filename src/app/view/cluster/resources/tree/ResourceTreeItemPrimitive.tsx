@@ -11,6 +11,8 @@ export const ResourceTreeItemPrimitive = ({
     resourceId={primitive.id}
     status={primitive.status}
     type={primitive.type}
-    typeDescription={`${primitive.class}:${primitive.provider}`}
+    typeDescription={`${primitive.class}${
+      primitive.provider ? ":" + primitive.provider : ""
+    }`}
   />
 );
