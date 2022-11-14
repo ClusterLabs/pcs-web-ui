@@ -2,6 +2,7 @@ import {clusterStart, clusterStop} from "app/backend";
 import {ActionMap} from "app/store/actions";
 
 import {api, errorMessage, log, processClusterResultBasic, put} from "./common";
+import {stripForceText} from "./clusterStopUtils";
 
 export function* nodeStart({
   key,
@@ -26,7 +27,11 @@ export function* nodeStop({
 }: ActionMap["NODE.STOP"]) {
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
     clusterStop,
-    {clusterName: key.clusterName, nodeName, force},
+    {
+      clusterName: key.clusterName,
+      nodeName,
+      force,
+    },
   );
 
   const taskLabel = `stop node "${nodeName}"`;
@@ -37,7 +42,7 @@ export function* nodeStop({
     }
     yield put({
       type: "TASK.FORCEABLE-CONFIRM.FAIL",
-      payload: {message: errorMessage(result, taskLabel)},
+      payload: {message: errorMessage(stripForceText(result), taskLabel)},
     });
     return;
   }

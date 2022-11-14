@@ -43,9 +43,9 @@ export function* putNotification(
 const detailsInConsole = "Details in the browser console.";
 export const messages = {
   taskFailed: (taskLabel: string, detail: string | null) =>
-    `Task: ${taskLabel} failed${
-      detail !== null ? ": " + detail : ""
-    }. ${detailsInConsole}`,
+    `Task: ${taskLabel} failed${detail !== null ? ": " + detail : ""}${
+      detail !== null && detail[detail.length - 1] === "." ? "" : "."
+    } ${detailsInConsole}`,
 };
 
 export function* putTaskFailed(taskLabel: string, detail: string | null) {
