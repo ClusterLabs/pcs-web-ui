@@ -1,9 +1,7 @@
-import {Label} from "@patternfly/react-core";
-
 import {LauncherDropdown, task} from "app/view/share";
 
 export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
-  const clusterLabel = <Label color="blue">{clusterName}</Label>;
+  const clusterLabel = <strong>{clusterName}</strong>;
   return (
     <LauncherDropdown
       dropdownName="cluster"
