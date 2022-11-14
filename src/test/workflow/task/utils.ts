@@ -58,30 +58,12 @@ export const prepareCommonTask = <STEP_NAME extends string>({
   taskKey: string;
   openKey: string;
 }) => {
-  const inView = (...keys: string[]) => mkXPath(taskKey, ...keys);
-  const selectors = {
-    task: dt(taskKey),
-  };
+  const taskSimple = prepareCommonTaskSimple({taskKey, openKey});
   return {
-    taskKey,
-    openKey,
-    inView,
-    open: async () => {
-      await page.click(dt(openKey));
-    },
-    close: async () => {
-      await page.click(inView("task-close"));
-    },
-    waitForSuccess: async () => {
-      await page.waitForSelector(inView("task-success"));
-    },
-    waitForError: async () => {
-      await page.waitForSelector(inView("task-error"));
-    },
-    selectors,
+    ...taskSimple,
     nextFrom: clickMoveFrom<STEP_NAME>(taskKey, "task-next"),
     backFrom: clickMoveFrom<STEP_NAME>(taskKey, "task-back"),
     assertReview: async (nameValueMap: Parameters<typeof assertReview>[1]) =>
-      await assertReview(selectors.task, nameValueMap),
+      await assertReview(taskSimple.selectors.task, nameValueMap),
   };
 };
