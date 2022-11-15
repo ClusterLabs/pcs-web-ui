@@ -53,7 +53,6 @@ export const Task = () => {
             <WizardFooter
               next={{
                 preAction: () => aclRoleCreate(),
-                actionIf: isNameValid && invalidPermissionIndexes.length === 0,
                 label: "Create role",
               }}
             />
