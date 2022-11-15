@@ -78,7 +78,16 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           </Router>
         </SelectedClusterProvider>
       )}
-      {!dataLoaded && (
+
+      {!dataLoaded && currentTab === "permissions" && (
+        <SelectedClusterProvider value={clusterName}>
+          <Router base={matchedContext}>
+            <ClusterPermissionsPage />
+          </Router>
+        </SelectedClusterProvider>
+      )}
+
+      {!dataLoaded && currentTab !== "permissions" && (
         <PageSection>
           <EmptyStateSpinner title="Loading cluster data" />
         </PageSection>
