@@ -1,9 +1,7 @@
-import {Label} from "@patternfly/react-core";
-
 import {LauncherDropdown, task} from "app/view/share";
 
 export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
-  const clusterLabel = <Label color="blue">{clusterName}</Label>;
+  const clusterLabel = <strong>{clusterName}</strong>;
   return (
     <LauncherDropdown
       dropdownName="cluster"
@@ -37,6 +35,7 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
                 type: "DASHBOARD.CLUSTER.STOP",
                 payload: {clusterName, force},
               }),
+              "data-test": "cluster-stop",
             }),
             useTask: task.forceableConfirm.useTask,
           },

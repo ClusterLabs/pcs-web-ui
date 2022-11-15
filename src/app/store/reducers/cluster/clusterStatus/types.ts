@@ -47,7 +47,7 @@ type Primitive = Resource & {
   inClone: boolean;
   inGroup: string | null;
   class: string;
-  provider: string;
+  provider: string | null;
   type: string;
   agentName: string;
   instanceAttributes: Record<string, AgentAttribute>;

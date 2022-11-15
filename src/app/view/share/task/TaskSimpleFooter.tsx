@@ -1,7 +1,7 @@
 import React from "react";
-import {Button} from "@patternfly/react-core";
 
 import {TaskButtonNextWithValidation} from "./TaskButtonNextWithValidation";
+import {TaskButtonCancel} from "./TaskButtonCancel";
 import {useTaskContext} from "./TaskContext";
 
 export const TaskSimpleFooter = ({
@@ -27,9 +27,7 @@ export const TaskSimpleFooter = ({
       >
         {runLabel}
       </TaskButtonNextWithValidation>
-      <Button variant="link" onClick={close} data-test="task-footer-cancel">
-        Cancel
-      </Button>
+      <TaskButtonCancel onClick={close} />
     </>
   );
 };

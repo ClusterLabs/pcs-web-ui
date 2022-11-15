@@ -2,6 +2,7 @@ import {clusterStop} from "app/backend";
 import {ActionMap} from "app/store/actions";
 
 import {api, errorMessage, log, put} from "./common";
+import {stripForceText} from "./clusterStopUtils";
 
 export function* clusterStopSaga({
   payload: {clusterName, force},
@@ -19,7 +20,7 @@ export function* clusterStopSaga({
     }
     yield put({
       type: "TASK.FORCEABLE-CONFIRM.FAIL",
-      payload: {message: errorMessage(result, taskLabel)},
+      payload: {message: errorMessage(stripForceText(result), taskLabel)},
     });
     return;
   }

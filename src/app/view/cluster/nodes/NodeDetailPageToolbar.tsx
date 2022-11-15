@@ -114,6 +114,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
           key: {clusterName},
           payload: {nodeName: node.name, force},
         }),
+        "data-test": "cluster-stop",
       }),
       useTask: task.forceableConfirm.useTask,
     },

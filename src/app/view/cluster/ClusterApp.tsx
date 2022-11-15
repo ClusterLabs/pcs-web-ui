@@ -19,12 +19,12 @@ import {SbdPage} from "./sbd";
 import {ConstraintsPage} from "./constraints";
 import {ClusterPropertiesPage} from "./properties";
 import {AclPage} from "./acl";
-import {ClusterDetailPage} from "./detail";
+import {ClusterOverviewPage} from "./overview";
 import {ClusterAppBreadcrumb} from "./ClusterAppBreadcrumb";
 import {ClusterPermissionsPage} from "./permissions";
 
 export const clusterPageTabList = [
-  "detail",
+  "overview",
   "nodes",
   "resources",
   "fence-devices",
@@ -66,7 +66,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
       {dataLoaded && (
         <SelectedClusterProvider value={clusterName}>
           <Router base={matchedContext}>
-            {currentTab === "detail" && <ClusterDetailPage />}
+            {currentTab === "overview" && <ClusterOverviewPage />}
             {currentTab === "nodes" && <NodesPage />}
             {currentTab === "resources" && <ResourcesPage />}
             {currentTab === "fence-devices" && <FenceDevicePage />}

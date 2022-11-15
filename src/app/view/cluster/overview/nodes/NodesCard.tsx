@@ -1,4 +1,4 @@
-import {Badge, Icon} from "@patternfly/react-core";
+import {Icon} from "@patternfly/react-core";
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -7,7 +7,7 @@ import {
 
 import {Node} from "app/view/cluster/types";
 import {Link, location, useSelectedClusterName} from "app/view/share";
-import {StatisticsIsueInfo} from "app/view/cluster/detail/StatisticsIsueInfo";
+import {StatisticsIsueInfo} from "app/view/cluster/overview/StatisticsIsueInfo";
 
 import {SingleNodeView} from "./SingleNodeView";
 
@@ -28,8 +28,8 @@ export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
     return (
       <>
         <div className="pf-u-mb-md">
-          There are <Badge isRead>{nodeList.length}</Badge> {nodeListLink} in
-          the cluster.
+          There are <strong>{nodeList.length}</strong> {nodeListLink} in the
+          cluster.
         </div>
         <div>
           <Icon isInline status="success">
@@ -73,7 +73,7 @@ export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
   return (
     <>
       <div className="pf-u-mb-md">
-        There are <Badge isRead>{nodeList.length}</Badge> {nodeListLink} in the
+        There are <strong>{nodeList.length}</strong> {nodeListLink} in the
         cluster.
       </div>
       <StatisticsIsueInfo
