@@ -4,6 +4,7 @@ type ResourceTree = Cluster["resourceTree"];
 
 type Issues = Record<string, (string | string[])[]>;
 type Stats = {
+  totalCount: number;
   plain: {total: string[]; clone: string[]};
   groups: {total: string[]; clone: string[]};
   issues: {warnings: Issues; errors: Issues};
@@ -56,15 +57,18 @@ export const buildStatistics = (resourceTree: ResourceTree) =>
       const stats = {...statistics};
 
       if (resource.itemType === "primitive") {
+        stats.totalCount += 1;
         stats.plain.total.push(resource.id);
         stats.issues = mergeIssues(stats.issues, resource);
       }
       if (resource.itemType === "group") {
+        stats.totalCount += 1;
         stats.groups.total.push(resource.id);
         stats.issues = mergeGroupIssues(stats.issues, resource);
       }
       if (resource.itemType === "clone") {
         if (resource.member.itemType === "primitive") {
+          stats.totalCount += 1;
           stats.plain.clone.push(resource.id);
           stats.plain.total.push(resource.id);
           stats.issues = mergeIssues(stats.issues, resource.member, [
@@ -72,6 +76,7 @@ export const buildStatistics = (resourceTree: ResourceTree) =>
           ]);
         }
         if (resource.member.itemType === "group") {
+          stats.totalCount += 1;
           stats.groups.clone.push(resource.id);
           stats.groups.total.push(resource.id);
           stats.issues = mergeGroupIssues(stats.issues, resource.member, [
@@ -82,6 +87,7 @@ export const buildStatistics = (resourceTree: ResourceTree) =>
       return stats;
     },
     {
+      totalCount: 0,
       plain: {total: [], clone: []},
       groups: {total: [], clone: []},
       issues: {warnings: {}, errors: {}},
