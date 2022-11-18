@@ -22,6 +22,7 @@ export function* manage({
   STOP,
   REFRESH,
   SUCCESS,
+  FAIL,
   refresh,
   fetch,
   getSyncId = null,
@@ -30,6 +31,7 @@ export function* manage({
   STOP: Action["type"];
   REFRESH: Action["type"];
   SUCCESS: Action["type"];
+  FAIL: Action["type"];
   refresh: (_id?: string) => Action;
   // It seems it selects definition of 'fork' with saga on 2nd place (index 1)
   fetch: Parameters<typeof fork>[1];
@@ -46,7 +48,7 @@ export function* manage({
   > = {};
 
   while (true) {
-    const action: Action = yield take([START, STOP, REFRESH, SUCCESS]);
+    const action: Action = yield take([START, STOP, REFRESH, SUCCESS, FAIL]);
     const id = getSyncId ? getSyncId(action) : "";
     if (action.type === START) {
       if (id in syncMap) {
@@ -66,7 +68,7 @@ export function* manage({
       continue;
     }
 
-    if ([SUCCESS].includes(action.type)) {
+    if ([SUCCESS, FAIL].includes(action.type)) {
       if (syncMap[id].fetchASAP) {
         syncMap[id].fetchASAP = false;
         syncMap[id].fetch = yield fork(fetch, id);

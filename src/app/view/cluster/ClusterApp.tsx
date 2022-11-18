@@ -3,6 +3,7 @@ import {PageSection, Stack, StackItem} from "@patternfly/react-core";
 import {tools} from "app/store";
 import {Router} from "app/view/share";
 import {
+  EmptyStateError,
   EmptyStateSpinner,
   Page,
   SelectedClusterProvider,
@@ -79,7 +80,8 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
         </SelectedClusterProvider>
       )}
 
-      {dataLoadState === "cluster-data-not-fetched"
+      {(dataLoadState === "cluster-data-not-fetched"
+        || dataLoadState === "cluster-data-forbidden")
         && currentTab === "permissions" && (
           <SelectedClusterProvider value={clusterName}>
             <Router base={matchedContext}>
@@ -95,6 +97,16 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           <EmptyStateSpinner title="Loading cluster data" />
         </PageSection>
       )}
+
+      {dataLoadState === "cluster-data-forbidden"
+        && currentTab !== "permissions" && (
+          <PageSection>
+            <EmptyStateError
+              title="Forbidden"
+              message="You don't have a read permission for this cluster."
+            />
+          </PageSection>
+        )}
     </Page>
   );
 };

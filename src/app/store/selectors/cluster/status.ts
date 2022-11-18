@@ -34,12 +34,16 @@ export const clusterDataLoadState = clusterStorageItemSelector(
   ):
     | "cluster-not-in-storage"
     | "cluster-data-successfully-fetched"
+    | "cluster-data-forbidden"
     | "cluster-data-not-fetched" => {
     if (clusterStorageItem === undefined) {
       return "cluster-not-in-storage";
     }
     if (clusterStorageItem?.clusterStatus?.dataFetchState === "SUCCESS") {
       return "cluster-data-successfully-fetched";
+    }
+    if (clusterStorageItem?.clusterStatus?.dataFetchState === "FORBIDDEN") {
+      return "cluster-data-forbidden";
     }
     return "cluster-data-not-fetched";
   },

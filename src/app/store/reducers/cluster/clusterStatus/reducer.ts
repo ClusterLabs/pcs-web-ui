@@ -34,6 +34,9 @@ const clusterData: AppReducer<ClusterStatusService["clusterData"]> = (
     case "CLUSTER.STATUS.FETCH.OK":
       return apiToState(action.payload);
 
+    case "CLUSTER.STATUS.FETCH.FORBIDDEN":
+      return clusterStatusDefault;
+
     default:
       return state;
   }
@@ -49,6 +52,9 @@ const dataFetchState: AppReducer<ClusterStatusService["dataFetchState"]> = (
 
     case "CLUSTER.STATUS.FETCH.OK":
       return "SUCCESS";
+
+    case "CLUSTER.STATUS.FETCH.FORBIDDEN":
+      return "FORBIDDEN";
 
     default:
       return state;
