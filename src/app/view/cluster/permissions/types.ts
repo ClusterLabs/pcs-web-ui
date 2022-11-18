@@ -1,5 +1,10 @@
 import {selectors} from "app/store";
 
-export type Permission = NonNullable<
+type PermissionStorage = NonNullable<
   ReturnType<ReturnType<typeof selectors.getClusterPermissions>>
+>;
+
+export type Permission = Exclude<
+  PermissionStorage["data"],
+  null
 >["users_permissions"][number];

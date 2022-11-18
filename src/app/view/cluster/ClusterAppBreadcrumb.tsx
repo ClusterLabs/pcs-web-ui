@@ -5,7 +5,7 @@ import {ClusterStatusLabel, useClusterState} from "app/view/share";
 
 export const ClusterAppBreadcrumb = ({clusterName}: {clusterName: string}) => {
   const dispatch = useDispatch();
-  const {clusterState, dataLoaded} = useClusterState(clusterName);
+  const {clusterState, dataLoadState} = useClusterState(clusterName);
   return (
     <Breadcrumb data-test="breadcrumb">
       <BreadcrumbItem component="span" data-test="dashboard">
@@ -24,7 +24,11 @@ export const ClusterAppBreadcrumb = ({clusterName}: {clusterName: string}) => {
           <strong>{clusterName}</strong>
         </span>
         <ClusterStatusLabel
-          status={dataLoaded ? clusterState.status : "unknown"}
+          status={
+            dataLoadState === "cluster-data-successfully-fetched"
+              ? clusterState.status
+              : "unknown"
+          }
         />
       </BreadcrumbItem>
     </Breadcrumb>

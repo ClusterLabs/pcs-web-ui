@@ -41,7 +41,7 @@ const tabNameMap: Record<string, string> = {
 };
 
 export const ClusterApp = ({clusterName}: {clusterName: string}) => {
-  const {dataLoaded} = useClusterState(clusterName);
+  const {dataLoadState} = useClusterState(clusterName);
   const {currentTab, matchedContext} = useUrlTabs(clusterPageTabList);
 
   return (
@@ -63,7 +63,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           </StackItem>
         </Stack>
       </PageSection>
-      {dataLoaded && (
+      {dataLoadState === "cluster-data-successfully-fetched" && (
         <SelectedClusterProvider value={clusterName}>
           <Router base={matchedContext}>
             {currentTab === "overview" && <ClusterOverviewPage />}
@@ -79,15 +79,18 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
         </SelectedClusterProvider>
       )}
 
-      {!dataLoaded && currentTab === "permissions" && (
-        <SelectedClusterProvider value={clusterName}>
-          <Router base={matchedContext}>
-            <ClusterPermissionsPage />
-          </Router>
-        </SelectedClusterProvider>
-      )}
+      {dataLoadState === "cluster-data-not-fetched"
+        && currentTab === "permissions" && (
+          <SelectedClusterProvider value={clusterName}>
+            <Router base={matchedContext}>
+              <ClusterPermissionsPage />
+            </Router>
+          </SelectedClusterProvider>
+        )}
 
-      {!dataLoaded && currentTab !== "permissions" && (
+      {(dataLoadState === "cluster-not-in-storage"
+        || (dataLoadState === "cluster-data-not-fetched"
+          && currentTab !== "permissions")) && (
         <PageSection>
           <EmptyStateSpinner title="Loading cluster data" />
         </PageSection>

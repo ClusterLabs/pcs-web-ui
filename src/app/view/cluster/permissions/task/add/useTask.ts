@@ -38,11 +38,15 @@ export const useTask = () => {
       }),
 
     permissionEdit: () => {
-      if (currentPermissionsState === null) {
+      if (
+        currentPermissionsState === null
+        || currentPermissionsState.data === null
+      ) {
         // it means current permissions are not loaded
         return;
       }
-      const currentPermissionList = currentPermissionsState.users_permissions;
+      const currentPermissionList =
+        currentPermissionsState.data.users_permissions;
       const initialPermission = state.initialPermission;
 
       const allow: AllowName[] = [

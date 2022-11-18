@@ -28,6 +28,23 @@ const findInTopLevelAndGroup = (
   return undefined;
 };
 
+export const clusterDataLoadState = clusterStorageItemSelector(
+  (
+    clusterStorageItem,
+  ):
+    | "cluster-not-in-storage"
+    | "cluster-data-successfully-fetched"
+    | "cluster-data-not-fetched" => {
+    if (clusterStorageItem === undefined) {
+      return "cluster-not-in-storage";
+    }
+    if (clusterStorageItem?.clusterStatus?.dataFetchState === "SUCCESS") {
+      return "cluster-data-successfully-fetched";
+    }
+    return "cluster-data-not-fetched";
+  },
+);
+
 export const clusterAreDataLoaded = clusterStorageItemSelector(
   clusterStorageItem =>
     clusterStorageItem?.clusterStatus?.dataFetchState === "SUCCESS",

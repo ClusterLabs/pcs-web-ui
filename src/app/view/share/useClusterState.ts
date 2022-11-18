@@ -62,6 +62,6 @@ export const useClusterState = (clusterName: string) => {
     nodeAttrs: (nodeName: string) => clusterState.nodeAttr?.[nodeName] ?? [],
     nodeUtilization: (nodeName: string) =>
       clusterState.nodesUtilization?.[nodeName] ?? [],
-    dataLoaded: useSelector(selectors.clusterAreDataLoaded(clusterName)),
+    dataLoadState: useSelector(selectors.clusterDataLoadState(clusterName)),
   };
 };
