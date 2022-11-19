@@ -16,8 +16,9 @@ function* fetchClusterData(clusterName: string) {
         type: "CLUSTER.STATUS.FETCH.FORBIDDEN",
         key: {clusterName},
       });
+    } else {
+      yield api.processError(result, taskLabel);
     }
-    yield api.processError(result, taskLabel);
     yield put({
       type: "CLUSTER.STATUS.FETCH.FAIL",
       key: {clusterName},
