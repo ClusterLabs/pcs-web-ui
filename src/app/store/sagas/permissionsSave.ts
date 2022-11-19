@@ -63,4 +63,10 @@ export function* permissionsSave({key, payload: {permissionList}}: SaveAction) {
     type: "CLUSTER.PERMISSIONS.LOAD",
     key,
   });
+
+  // reload cluster status to apply new permissions
+  yield put({
+    type: "CLUSTER.STATUS.REFRESH",
+    key,
+  });
 }

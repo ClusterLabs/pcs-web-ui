@@ -64,49 +64,46 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           </StackItem>
         </Stack>
       </PageSection>
-      {dataLoadState === "cluster-data-successfully-fetched" && (
-        <SelectedClusterProvider value={clusterName}>
-          <Router base={matchedContext}>
-            {currentTab === "overview" && <ClusterOverviewPage />}
-            {currentTab === "nodes" && <NodesPage />}
-            {currentTab === "resources" && <ResourcesPage />}
-            {currentTab === "fence-devices" && <FenceDevicePage />}
-            {currentTab === "sbd" && <SbdPage />}
-            {currentTab === "constraints" && <ConstraintsPage />}
-            {currentTab === "properties" && <ClusterPropertiesPage />}
-            {currentTab === "acl" && <AclPage />}
-            {currentTab === "permissions" && <ClusterPermissionsPage />}
-          </Router>
-        </SelectedClusterProvider>
-      )}
+      <SelectedClusterProvider value={clusterName}>
+        <Router base={matchedContext}>
+          {dataLoadState === "cluster-data-successfully-fetched"
+            && currentTab !== "permissions" && (
+              <>
+                {currentTab === "overview" && <ClusterOverviewPage />}
+                {currentTab === "nodes" && <NodesPage />}
+                {currentTab === "resources" && <ResourcesPage />}
+                {currentTab === "fence-devices" && <FenceDevicePage />}
+                {currentTab === "sbd" && <SbdPage />}
+                {currentTab === "constraints" && <ConstraintsPage />}
+                {currentTab === "properties" && <ClusterPropertiesPage />}
+                {currentTab === "acl" && <AclPage />}
+              </>
+            )}
 
-      {(dataLoadState === "cluster-data-not-fetched"
-        || dataLoadState === "cluster-data-forbidden")
-        && currentTab === "permissions" && (
-          <SelectedClusterProvider value={clusterName}>
-            <Router base={matchedContext}>
-              <ClusterPermissionsPage />
-            </Router>
-          </SelectedClusterProvider>
-        )}
+          {(dataLoadState === "cluster-data-not-fetched"
+            || dataLoadState === "cluster-data-forbidden"
+            || dataLoadState === "cluster-data-successfully-fetched")
+            && currentTab === "permissions" && <ClusterPermissionsPage />}
 
-      {(dataLoadState === "cluster-not-in-storage"
-        || (dataLoadState === "cluster-data-not-fetched"
-          && currentTab !== "permissions")) && (
-        <PageSection>
-          <EmptyStateSpinner title="Loading cluster data" />
-        </PageSection>
-      )}
+          {(dataLoadState === "cluster-not-in-storage"
+            || (dataLoadState === "cluster-data-not-fetched"
+              && currentTab !== "permissions")) && (
+            <PageSection>
+              <EmptyStateSpinner title="Loading cluster data" />
+            </PageSection>
+          )}
 
-      {dataLoadState === "cluster-data-forbidden"
-        && currentTab !== "permissions" && (
-          <PageSection>
-            <EmptyStateError
-              title="Forbidden"
-              message="You don't have a read permission for this cluster."
-            />
-          </PageSection>
-        )}
+          {dataLoadState === "cluster-data-forbidden"
+            && currentTab !== "permissions" && (
+              <PageSection>
+                <EmptyStateError
+                  title="Forbidden"
+                  message="You don't have a read permission for this cluster."
+                />
+              </PageSection>
+            )}
+        </Router>
+      </SelectedClusterProvider>
     </Page>
   );
 };
