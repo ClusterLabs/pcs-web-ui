@@ -1,9 +1,17 @@
-import {AttributeHelpPopover, EmptyStateNoItem, Table} from "app/view/share";
+import {useSelector} from "react-redux";
+
+import {selectors} from "app/store";
+import {
+  AttributeHelpPopover,
+  EmptyStateNoItem,
+  EmptyStateSpinner,
+  Table,
+  useSelectedClusterName,
+} from "app/view/share";
 
 import {PermissionMenu} from "./PermissionMenu";
 import {PermissionCompetenceCell} from "./PermissionCompetenceCell";
 import {Permission} from "./types";
-import {usePermissions} from "./usePermissions";
 
 const dataTest = (
   rowIndex: number,
@@ -11,7 +19,20 @@ const dataTest = (
 ) => `permission-${rowIndex}-${permissionPart}`;
 
 export const PermissionsTable = () => {
-  const {permissionList} = usePermissions();
+  const clusterName = useSelectedClusterName();
+  const clusterPermissions = useSelector(
+    selectors.getClusterPermissions(clusterName),
+  );
+
+  if (
+    clusterPermissions === null
+    || !clusterPermissions.fetchState.alreadyLoaded
+  ) {
+    // cluster is not yet established in the redux store
+    return <EmptyStateSpinner title="Loading cluster permission data" />;
+  }
+
+  const permissionList = clusterPermissions?.data?.users_permissions || [];
 
   if (permissionList.length === 0) {
     return <EmptyStateNoItem title={""} canAdd={false} />;
@@ -94,7 +115,10 @@ export const PermissionsTable = () => {
             />
 
             <td data-label="Menu">
-              <PermissionMenu permission={permission} />
+              <PermissionMenu
+                permission={permission}
+                permissionList={permissionList}
+              />
             </td>
           </tr>
         ))}

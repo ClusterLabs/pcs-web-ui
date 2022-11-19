@@ -9,6 +9,7 @@ function* fetchClusterList() {
   );
   const taskLabel = "sync imported cluster list";
   if (result.type !== "OK") {
+    yield put({type: "CLUSTER.LIST.FETCH.FAIL"});
     yield api.processError(result, taskLabel);
     return;
   }
@@ -52,6 +53,7 @@ export const clusterListSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   STOP: "CLUSTER.LIST.SYNC.STOP",
   REFRESH,
   SUCCESS: "CLUSTER.LIST.FETCH.OK",
+  FAIL: "CLUSTER.LIST.FETCH.FAIL",
   refresh: () => ({type: REFRESH}),
   fetch: fetchClusterList,
 };

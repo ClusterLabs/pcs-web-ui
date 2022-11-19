@@ -6,6 +6,10 @@ export type ClusterListActions = {
     };
   };
 
+  "CLUSTER.LIST.FETCH.FAIL": {
+    type: "CLUSTER.LIST.FETCH.FAIL";
+  };
+
   "CLUSTER.LIST.REFRESH": {
     type: "CLUSTER.LIST.REFRESH";
   };

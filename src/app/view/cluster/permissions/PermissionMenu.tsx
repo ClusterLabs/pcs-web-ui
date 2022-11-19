@@ -1,11 +1,20 @@
-import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
+import {
+  LauncherDropdown,
+  TaskOpenArgs,
+  useSelectedClusterName,
+} from "app/view/share";
 
 import * as task from "./task";
 import {Permission} from "./types";
-import {usePermissions} from "./usePermissions";
 
-export const PermissionMenu = ({permission}: {permission: Permission}) => {
-  const {clusterName, permissionList} = usePermissions();
+export const PermissionMenu = ({
+  permission,
+  permissionList,
+}: {
+  permission: Permission;
+  permissionList: Permission[];
+}) => {
+  const clusterName = useSelectedClusterName();
 
   const addOpenArgs: TaskOpenArgs<typeof task.add.useTask> = [
     {type: "update", permission},

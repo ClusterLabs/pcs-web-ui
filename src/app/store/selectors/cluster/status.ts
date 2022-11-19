@@ -1,6 +1,6 @@
-import {Cluster} from "../types";
+import {Cluster, ClusterStorageItem, Root} from "../types";
 
-import {clusterSelector, clusterStorageItemSelector} from "./selectorsHelpers";
+import {clusterSelector} from "./selectorsHelpers";
 
 type Resource = Cluster["resourceTree"][number];
 type Group = Extract<Resource, {itemType: "group"}>;
@@ -28,10 +28,47 @@ const findInTopLevelAndGroup = (
   return undefined;
 };
 
-export const clusterAreDataLoaded = clusterStorageItemSelector(
-  clusterStorageItem =>
-    clusterStorageItem?.clusterStatus?.dataFetchState === "SUCCESS",
+type ClusterInfo = {clusterName: string} & (
+  | {
+      state:
+        | "cluster-not-in-storage"
+        | "cluster-data-forbidden"
+        | "cluster-data-not-fetched";
+    }
+  | {
+      state: "cluster-data-successfully-fetched";
+      cluster: ClusterStorageItem["clusterStatus"]["clusterData"];
+    }
 );
+
+export const getClusterInfo =
+  (clusterName: string) =>
+  (state: Root): ClusterInfo => {
+    const clusterStorageItem = state.clusterStorage[clusterName];
+    if (clusterStorageItem === undefined) {
+      return {
+        clusterName,
+        state: "cluster-not-in-storage",
+      };
+    }
+    if (clusterStorageItem?.clusterStatus?.dataFetchState === "SUCCESS") {
+      return {
+        clusterName,
+        state: "cluster-data-successfully-fetched",
+        cluster: clusterStorageItem.clusterStatus.clusterData,
+      };
+    }
+    if (clusterStorageItem?.clusterStatus?.dataFetchState === "FORBIDDEN") {
+      return {
+        clusterName,
+        state: "cluster-data-forbidden",
+      };
+    }
+    return {
+      clusterName,
+      state: "cluster-data-not-fetched",
+    };
+  };
 
 export const getCluster = clusterSelector(cluster => cluster);
 

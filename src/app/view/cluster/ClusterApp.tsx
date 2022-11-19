@@ -3,6 +3,7 @@ import {PageSection, Stack, StackItem} from "@patternfly/react-core";
 import {tools} from "app/store";
 import {Router} from "app/view/share";
 import {
+  EmptyStateError,
   EmptyStateSpinner,
   Page,
   SelectedClusterProvider,
@@ -41,7 +42,7 @@ const tabNameMap: Record<string, string> = {
 };
 
 export const ClusterApp = ({clusterName}: {clusterName: string}) => {
-  const {dataLoaded} = useClusterState(clusterName);
+  const {clusterInfo} = useClusterState(clusterName);
   const {currentTab, matchedContext} = useUrlTabs(clusterPageTabList);
 
   return (
@@ -63,26 +64,46 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           </StackItem>
         </Stack>
       </PageSection>
-      {dataLoaded && (
-        <SelectedClusterProvider value={clusterName}>
-          <Router base={matchedContext}>
-            {currentTab === "overview" && <ClusterOverviewPage />}
-            {currentTab === "nodes" && <NodesPage />}
-            {currentTab === "resources" && <ResourcesPage />}
-            {currentTab === "fence-devices" && <FenceDevicePage />}
-            {currentTab === "sbd" && <SbdPage />}
-            {currentTab === "constraints" && <ConstraintsPage />}
-            {currentTab === "properties" && <ClusterPropertiesPage />}
-            {currentTab === "acl" && <AclPage />}
-            {currentTab === "permissions" && <ClusterPermissionsPage />}
-          </Router>
-        </SelectedClusterProvider>
-      )}
-      {!dataLoaded && (
-        <PageSection>
-          <EmptyStateSpinner title="Loading cluster data" />
-        </PageSection>
-      )}
+      <SelectedClusterProvider value={clusterName}>
+        <Router base={matchedContext}>
+          {clusterInfo.state === "cluster-data-successfully-fetched"
+            && currentTab !== "permissions" && (
+              <>
+                {currentTab === "overview" && <ClusterOverviewPage />}
+                {currentTab === "nodes" && <NodesPage />}
+                {currentTab === "resources" && <ResourcesPage />}
+                {currentTab === "fence-devices" && <FenceDevicePage />}
+                {currentTab === "sbd" && <SbdPage />}
+                {currentTab === "constraints" && <ConstraintsPage />}
+                {currentTab === "properties" && <ClusterPropertiesPage />}
+                {currentTab === "acl" && <AclPage />}
+              </>
+            )}
+
+          {(clusterInfo.state === "cluster-data-not-fetched"
+            || clusterInfo.state === "cluster-data-forbidden"
+            || clusterInfo.state === "cluster-data-successfully-fetched")
+            && currentTab === "permissions" && <ClusterPermissionsPage />}
+
+          {(clusterInfo.state === "cluster-not-in-storage"
+            || (clusterInfo.state === "cluster-data-not-fetched"
+              && currentTab !== "permissions")) && (
+            <PageSection>
+              <EmptyStateSpinner title="Loading cluster data" />
+            </PageSection>
+          )}
+
+          {clusterInfo.state === "cluster-data-forbidden"
+            && currentTab !== "permissions" && (
+              <PageSection>
+                <EmptyStateError
+                  title="Forbidden"
+                  message="You don't have a read permission for this cluster."
+                />
+              </PageSection>
+            )}
+        </Router>
+      </SelectedClusterProvider>
     </Page>
   );
 };

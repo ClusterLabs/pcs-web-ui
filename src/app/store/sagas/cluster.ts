@@ -11,7 +11,18 @@ function* fetchClusterData(clusterName: string) {
 
   const taskLabel = `sync status of cluster "${clusterName}"`;
   if (result.type !== "OK") {
-    yield api.processError(result, taskLabel);
+    if (result.type === "BAD_HTTP_STATUS" && result.status === 403) {
+      yield put({
+        type: "CLUSTER.STATUS.FETCH.FORBIDDEN",
+        key: {clusterName},
+      });
+    } else {
+      yield api.processError(result, taskLabel);
+    }
+    yield put({
+      type: "CLUSTER.STATUS.FETCH.FAIL",
+      key: {clusterName},
+    });
     return;
   }
 
@@ -28,6 +39,7 @@ export const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   STOP: "CLUSTER.STATUS.SYNC.STOP",
   REFRESH,
   SUCCESS: "CLUSTER.STATUS.FETCH.OK",
+  FAIL: "CLUSTER.STATUS.FETCH.FAIL",
   refresh: (clusterName = "") => ({
     type: REFRESH,
     key: {clusterName},
@@ -38,6 +50,7 @@ export const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
       case "CLUSTER.STATUS.SYNC":
       case "CLUSTER.STATUS.SYNC.STOP":
       case "CLUSTER.STATUS.FETCH.OK":
+      case "CLUSTER.STATUS.FETCH.FAIL":
       case "CLUSTER.STATUS.REFRESH":
         return action.key.clusterName;
 

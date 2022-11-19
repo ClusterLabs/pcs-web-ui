@@ -7,7 +7,7 @@ export const useTask = () => {
   const task = useClusterTask("nodeAdd");
   const {clusterName, state, dispatch} = task;
 
-  const {clusterState} = useClusterState(clusterName);
+  const {clusterInfo} = useClusterState(clusterName);
 
   const checkCanAddNode = () =>
     dispatch({
@@ -42,11 +42,13 @@ export const useTask = () => {
 
     isNodeCheckDoneValid: state.nodeCheck === "success",
 
-    isSbdEnabled: clusterState.nodeList.reduce(
-      (enabled, n) =>
-        enabled || (n.status !== "DATA_NOT_PROVIDED" && n.sbd !== undefined),
-      false,
-    ),
+    isSbdEnabled:
+      clusterInfo.state === "cluster-data-successfully-fetched"
+      && clusterInfo.cluster.nodeList.reduce(
+        (enabled, n) =>
+          enabled || (n.status !== "DATA_NOT_PROVIDED" && n.sbd !== undefined),
+        false,
+      ),
 
     // actions
     close: () => {
