@@ -1,15 +1,5 @@
-import {clusterStatusDefault} from "app/store/reducers";
-
-import {Cluster, Root} from "./types";
-import {clusterAreDataLoaded, getCluster} from "./cluster";
-
-type ClusterMap<T extends string> = Record<
-  T,
-  {
-    cluster: Cluster;
-    isLoaded: boolean;
-  }
->;
+import {Root} from "./types";
+import {getClusterInfo} from "./cluster";
 
 export const getImportedClusterList = (state: Root) =>
   state.dashboard.clusterNameList;
@@ -17,18 +7,5 @@ export const getImportedClusterList = (state: Root) =>
 export const dashboardAreDataLoaded = (state: Root) =>
   state.dashboard.dataFetch === "SUCCESS";
 
-export const getClusterMap =
-  <T extends string>(clusterList: T[]) =>
-  (state: Root) =>
-    clusterList.reduce<ClusterMap<T>>(
-      (map, name) => ({
-        ...map,
-        [name]: {
-          cluster: clusterAreDataLoaded(name)(state)
-            ? getCluster(name)(state)
-            : {...clusterStatusDefault, name},
-          isLoaded: clusterAreDataLoaded(name)(state),
-        },
-      }),
-      {} as ClusterMap<T>,
-    );
+export const getClusterInfoList = (clusterList: string[]) => (state: Root) =>
+  clusterList.map(clusterName => getClusterInfo(clusterName)(state));

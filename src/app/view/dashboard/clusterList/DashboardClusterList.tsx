@@ -1,12 +1,10 @@
 import {useSelector} from "react-redux";
 
 import {selectors} from "app/store";
-import {Cluster} from "app/view/cluster/types";
 import {Table, compareStatusSeverity} from "app/view/share";
 
 import {compareStrings} from "./utils";
-import {DashboardCluster} from "./DashboardCluster";
-import {DashboardClusterLoading} from "./DashboardClusterLoading";
+import {DashboardClusterListItem} from "./DashboardClusterListItem";
 
 type COLUMNS =
   | "NAME"
@@ -16,37 +14,73 @@ type COLUMNS =
   | "FENCE_DEVICES"
   | "ACTIONS";
 
+type ClusterInfo = ReturnType<
+  ReturnType<typeof selectors.getClusterInfoList>
+>[number];
+
+type ClusterStatusData = Extract<
+  ClusterInfo,
+  {state: "cluster-data-successfully-fetched"}
+>["cluster"];
+
+const compareByState =
+  (
+    compare: (
+      _clusterA: ClusterStatusData,
+      _clusterB: ClusterStatusData,
+    ) => number,
+  ) =>
+  (a: ClusterInfo, b: ClusterInfo) => {
+    if (
+      a.state === "cluster-data-successfully-fetched"
+      && b.state === "cluster-data-successfully-fetched"
+    ) {
+      return compare(a.cluster, b.cluster);
+    }
+    if (a.state === "cluster-data-successfully-fetched") {
+      return 1;
+    }
+    if (b.state === "cluster-data-successfully-fetched") {
+      return -1;
+    }
+    return compareStrings(a.clusterName, b.clusterName);
+  };
+
 const compareByColumn = (
   column: COLUMNS | "",
-): ((_a: Cluster, _b: Cluster) => number) => {
+): ((_a: ClusterInfo, _b: ClusterInfo) => number) => {
   switch (column) {
     case "ISSUES":
-      return (a, b) =>
+      return compareByState((a, b) =>
         compareStatusSeverity(
           a.summary.issuesSeverity,
           b.summary.issuesSeverity,
-        );
+        ),
+      );
 
     case "NODES":
-      return (a, b) =>
-        compareStatusSeverity(a.summary.nodesSeverity, b.summary.nodesSeverity);
+      return compareByState((a, b) =>
+        compareStatusSeverity(a.summary.nodesSeverity, b.summary.nodesSeverity),
+      );
 
     case "RESOURCES":
-      return (a, b) =>
+      return compareByState((a, b) =>
         compareStatusSeverity(
           a.summary.resourcesSeverity,
           b.summary.resourcesSeverity,
-        );
+        ),
+      );
 
     case "FENCE_DEVICES":
-      return (a, b) =>
+      return compareByState((a, b) =>
         compareStatusSeverity(
           a.summary.fenceDevicesSeverity,
           b.summary.fenceDevicesSeverity,
-        );
+        ),
+      );
 
     default:
-      return (a, b) => compareStrings(a.name, b.name);
+      return (a, b) => compareStrings(a.clusterName, b.clusterName);
   }
 };
 
@@ -55,11 +89,11 @@ const {SortableTh} = Table;
 export const DashboardClusterList = ({
   importedClusterNameList,
 }: {
-  importedClusterNameList: Parameters<typeof selectors.getClusterMap>[0];
+  importedClusterNameList: Parameters<typeof selectors.getClusterInfoList>[0];
 }) => {
   const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
-  const clusterMap = useSelector(
-    selectors.getClusterMap(importedClusterNameList),
+  const clusterInfoList = useSelector(
+    selectors.getClusterInfoList(importedClusterNameList),
   );
   return (
     <Table isExpandable aria-label="Cluster list" data-test="cluster-list">
@@ -103,19 +137,12 @@ export const DashboardClusterList = ({
           <th data-label=""></th>
         </tr>
       </thead>
-      {Object.keys(clusterMap)
-        .map(name => clusterMap[name].cluster)
-        .sort(compareItems(compareByColumn))
-        .map(cluster =>
-          clusterMap[cluster.name].isLoaded ? (
-            <DashboardCluster key={cluster.name} cluster={cluster} />
-          ) : (
-            <DashboardClusterLoading
-              key={cluster.name}
-              clusterName={cluster.name}
-            />
-          ),
-        )}
+      {clusterInfoList.sort(compareItems(compareByColumn)).map(clusterInfo => (
+        <DashboardClusterListItem
+          key={clusterInfo.clusterName}
+          clusterInfo={clusterInfo}
+        />
+      ))}
     </Table>
   );
 };

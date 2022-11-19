@@ -42,7 +42,7 @@ const tabNameMap: Record<string, string> = {
 };
 
 export const ClusterApp = ({clusterName}: {clusterName: string}) => {
-  const {dataLoadState} = useClusterState(clusterName);
+  const {clusterInfo} = useClusterState(clusterName);
   const {currentTab, matchedContext} = useUrlTabs(clusterPageTabList);
 
   return (
@@ -66,7 +66,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
       </PageSection>
       <SelectedClusterProvider value={clusterName}>
         <Router base={matchedContext}>
-          {dataLoadState === "cluster-data-successfully-fetched"
+          {clusterInfo.state === "cluster-data-successfully-fetched"
             && currentTab !== "permissions" && (
               <>
                 {currentTab === "overview" && <ClusterOverviewPage />}
@@ -80,20 +80,20 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
               </>
             )}
 
-          {(dataLoadState === "cluster-data-not-fetched"
-            || dataLoadState === "cluster-data-forbidden"
-            || dataLoadState === "cluster-data-successfully-fetched")
+          {(clusterInfo.state === "cluster-data-not-fetched"
+            || clusterInfo.state === "cluster-data-forbidden"
+            || clusterInfo.state === "cluster-data-successfully-fetched")
             && currentTab === "permissions" && <ClusterPermissionsPage />}
 
-          {(dataLoadState === "cluster-not-in-storage"
-            || (dataLoadState === "cluster-data-not-fetched"
+          {(clusterInfo.state === "cluster-not-in-storage"
+            || (clusterInfo.state === "cluster-data-not-fetched"
               && currentTab !== "permissions")) && (
             <PageSection>
               <EmptyStateSpinner title="Loading cluster data" />
             </PageSection>
           )}
 
-          {dataLoadState === "cluster-data-forbidden"
+          {clusterInfo.state === "cluster-data-forbidden"
             && currentTab !== "permissions" && (
               <PageSection>
                 <EmptyStateError
