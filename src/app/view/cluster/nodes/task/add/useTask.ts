@@ -1,13 +1,14 @@
 import React from "react";
 
 import {ActionPayload} from "app/store";
-import {useClusterState, useClusterTask} from "app/view/share";
+import {useClusterTask} from "app/view/share";
+import {useClusterStore} from "app/view/cluster/share";
 
 export const useTask = () => {
   const task = useClusterTask("nodeAdd");
   const {clusterName, state, dispatch} = task;
 
-  const {clusterInfo} = useClusterState(clusterName);
+  const {clusterInfo} = useClusterStore(clusterName);
 
   const checkCanAddNode = () =>
     dispatch({

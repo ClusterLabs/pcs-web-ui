@@ -1,11 +1,11 @@
 import {Breadcrumb, BreadcrumbItem} from "@patternfly/react-core";
 
-import {Link, location, useDispatch} from "app/view/share";
-import {ClusterStatusLabel, useClusterState} from "app/view/share";
+import {ClusterStatusLabel, Link, location, useDispatch} from "app/view/share";
+import {useClusterStore} from "app/view/cluster/share";
 
 export const ClusterAppBreadcrumb = ({clusterName}: {clusterName: string}) => {
   const dispatch = useDispatch();
-  const {clusterInfo} = useClusterState(clusterName);
+  const {clusterInfo} = useClusterStore(clusterName);
   return (
     <Breadcrumb data-test="breadcrumb">
       <BreadcrumbItem component="span" data-test="dashboard">

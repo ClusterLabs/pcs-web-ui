@@ -27,7 +27,6 @@ export * from "./table";
 export * from "./toolbar";
 export * from "./UrlTabs";
 export * from "./useUrlTabs";
-export * from "./useClusterState";
 export * from "./useUsername";
 export * from "./utilization";
 export * from "./utils";

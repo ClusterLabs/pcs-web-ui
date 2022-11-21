@@ -10,7 +10,7 @@ import {
   UrlTabs,
   useUrlTabs,
 } from "app/view/share";
-import {useClusterState} from "app/view/share";
+import {useClusterStore} from "app/view/cluster/share";
 
 /* eslint-disable import/max-dependencies */
 import {NodesPage} from "./nodes";
@@ -42,7 +42,7 @@ const tabNameMap: Record<string, string> = {
 };
 
 export const ClusterApp = ({clusterName}: {clusterName: string}) => {
-  const {clusterInfo} = useClusterState(clusterName);
+  const {clusterInfo} = useClusterStore(clusterName);
   const {currentTab, matchedContext} = useUrlTabs(clusterPageTabList);
 
   return (

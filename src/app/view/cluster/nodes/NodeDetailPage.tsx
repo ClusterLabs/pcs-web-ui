@@ -6,11 +6,11 @@ import {
   UrlTabs,
   UtilizationView,
   useClusterSelector,
-  useClusterState,
   useGroupDetailViewContext,
   useSelectedClusterName,
   useUrlTabs,
 } from "app/view/share";
+import {useClusterStore} from "app/view/cluster/share";
 
 import {NodeDetailPageToolbar} from "./NodeDetailPageToolbar";
 import {NodeDetailView} from "./NodeDetailView";
@@ -25,7 +25,7 @@ export const NodeDetailPage = () => {
 
   const {currentTab, matchedContext} = useUrlTabs(nodePageTabList);
 
-  const {nodeAttrs, nodeUtilization} = useClusterState(
+  const {nodeAttrs, nodeUtilization} = useClusterStore(
     useSelectedClusterName(),
   );
   if (!node) {
