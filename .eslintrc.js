@@ -147,13 +147,6 @@ module.exports = {
       },
     ],
     "import/no-anonymous-default-export": "off",
-    "import/max-dependencies": [
-      "error",
-      {
-        max: 10,
-        ignoreTypeImports: false,
-      },
-    ],
 
     // specify the maximum length of a line in your program
     // https://eslint.org/docs/rules/max-len

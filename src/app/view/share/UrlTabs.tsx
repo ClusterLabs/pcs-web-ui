@@ -15,7 +15,7 @@ export function UrlTabs<T extends string>({
   tabList: ReadonlyArray<T>; // {tabLabel: urlParamName}
   currentTab: T;
   toUrl?: (_tab: string) => string;
-  toLabel?: (_tab: string) => string;
+  toLabel?: (_tab: T) => string;
   ["data-test"]?: string;
 }) {
   const {navigate} = useLocation();

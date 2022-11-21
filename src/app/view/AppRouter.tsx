@@ -1,4 +1,4 @@
-import {Router, useRoute} from "app/view/share";
+import {Router, SelectedClusterProvider, useRoute} from "app/view/share";
 
 import {ClusterApp} from "./cluster";
 import {DashboardApp} from "./dashboard";
@@ -8,7 +8,9 @@ export const AppRouter = () => {
   if (cluster) {
     return (
       <Router base={cluster.matched}>
-        <ClusterApp clusterName={cluster.params.name} />
+        <SelectedClusterProvider value={cluster.params.name}>
+          <ClusterApp />
+        </SelectedClusterProvider>
       </Router>
     );
   }
