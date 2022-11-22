@@ -43,18 +43,20 @@ export const ResourcesCard = ({
         There {statistics.totalCount > 1 ? "are" : "is"}{" "}
         <strong>{statistics.totalCount}</strong>{" "}
         <Link isInline to={location.resourceList({clusterName})}>
-          {statistics.totalCount === 1 ? "resources" : "resource"}
+          {statistics.totalCount > 1 ? "resources" : "resource"}
         </Link>{" "}
         in the cluster.
       </div>
       <div className="pf-u-my-sm">
         <ResourceCounts
           resourceIdLists={statistics.plain}
-          description="standalone resources"
+          description={`standalone resource${
+            statistics.plain.total.length > 1 ? "s" : ""
+          }`}
         />
         <ResourceCounts
           resourceIdLists={statistics.groups}
-          description="groups"
+          description={`group${statistics.groups.total.length > 1 ? "s" : ""}`}
         />
       </div>
       {Object.entries(statistics.issues.errors).map(
