@@ -1,14 +1,23 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 
-const initialState: {
-  response: "" | "sending" | "ok" | "fail";
+type State = {
   resultMessage: string;
-} = {
+} & (
+  | {
+      response: "" | "sending" | "ok";
+    }
+  | {
+      response: "fail";
+      isForceable: boolean;
+    }
+);
+
+const initialState: State = {
   response: "",
   resultMessage: "",
 };
 
-export const forceableConfirm: AppReducer<typeof initialState> = (
+export const forceableConfirm: AppReducer<State> = (
   state = initialState,
   action,
 ) => {
@@ -32,6 +41,7 @@ export const forceableConfirm: AppReducer<typeof initialState> = (
         ...state,
         response: "fail",
         resultMessage: action.payload.message,
+        isForceable: action.payload.isForceable,
       };
 
     case "TASK.FORCEABLE-CONFIRM.CLOSE":

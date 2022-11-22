@@ -11,6 +11,7 @@ export type TaskForceableConfirmActions = {
     type: "TASK.FORCEABLE-CONFIRM.FAIL";
     payload: {
       message: string;
+      isForceable: boolean;
     };
   };
 

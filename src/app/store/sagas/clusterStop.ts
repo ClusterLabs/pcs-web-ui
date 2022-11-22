@@ -20,7 +20,10 @@ export function* clusterStopSaga({
     }
     yield put({
       type: "TASK.FORCEABLE-CONFIRM.FAIL",
-      payload: {message: errorMessage(stripForceText(result), taskLabel)},
+      payload: {
+        message: errorMessage(stripForceText(result), taskLabel),
+        isForceable: "text" in result && result.text.includes("--force"),
+      },
     });
     return;
   }

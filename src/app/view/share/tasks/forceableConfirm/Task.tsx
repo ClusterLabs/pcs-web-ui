@@ -31,13 +31,7 @@ export const TaskComponent = ({
   getForceableAction: (_props: {force: boolean}) => Action;
   "data-test"?: string;
 }) => {
-  const {
-    close,
-    runAction,
-    state: {response, resultMessage},
-  } = useTask();
-
-  const isForceable = resultMessage.includes("--force");
+  const {close, runAction, state} = useTask();
 
   return (
     <TaskSimple
@@ -45,7 +39,7 @@ export const TaskComponent = ({
       task="forceableConfirm"
       close={close}
       footer={
-        response !== "" ? null : (
+        state.response !== "" ? null : (
           <TaskSimpleFooter
             run={() => runAction(getForceableAction({force: false}))}
             runLabel={runLabel}
@@ -54,18 +48,20 @@ export const TaskComponent = ({
       }
       data-test={`forceable-confirm${dataTest ? "-" + dataTest : ""}`}
     >
-      {response === "" && confirm.description}
-      {response === "sending" && <TaskProgress title={processTitle.wait} />}
-      {response === "ok" && <TaskSuccess title={processTitle.success} />}
-      {response === "fail" && (
+      {state.response === "" && confirm.description}
+      {state.response === "sending" && (
+        <TaskProgress title={processTitle.wait} />
+      )}
+      {state.response === "ok" && <TaskSuccess title={processTitle.success} />}
+      {state.response === "fail" && (
         <TaskFinishError
           title={processTitle.fail}
-          message={`${resultMessage}${
-            isForceable ? " The error can be overriden." : ""
+          message={`${state.resultMessage}${
+            state.isForceable ? " The error can be overriden." : ""
           }`}
           primaryAction={[
-            isForceable ? "Proceed anyway" : "Try again",
-            () => runAction(getForceableAction({force: isForceable})),
+            state.isForceable ? "Proceed anyway" : "Try again",
+            () => runAction(getForceableAction({force: state.isForceable})),
           ]}
         />
       )}
