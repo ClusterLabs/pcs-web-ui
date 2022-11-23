@@ -89,4 +89,4 @@ export const error = (
 };
 
 export const stillUnauthorized = () =>
-  console.error("Still got unauthorized after successfull authorization.");
+  console.error("Still got unauthorized after successful authorization.");

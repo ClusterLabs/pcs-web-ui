@@ -27,7 +27,7 @@ const closeTask = async () => {
   expect(page.url()).toEqual(location.dashboard);
 };
 
-describe("Import existng cluster", () => {
+describe("Import existing cluster", () => {
   afterEach(intercept.stop);
 
   it("should import cluster", async () => {

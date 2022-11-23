@@ -42,7 +42,7 @@ export const Review = () => {
             />
             <ReviewValue
               label="Sbd watchdog validation"
-              value={sbdNoWatchdogValidation ? "Disabeld" : "Enabled"}
+              value={sbdNoWatchdogValidation ? "Disabled" : "Enabled"}
             />
 
             <ReviewValue

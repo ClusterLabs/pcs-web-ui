@@ -52,7 +52,7 @@ status (aggregation attribute)
     | some warning in warining_list
     | some node has a warning in warning_list
     | some resource has status "partially running"
-  * ok - nothing prevous happen
+  * ok - nothing previous happen
 
 warning_list
   No fencing configured in the cluster

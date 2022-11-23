@@ -64,7 +64,7 @@ describe("Validation for cluster status", () => {
   it("should accept extra service and its attribute on node", async () => {
     nodeStatus.services = {
       ...nodeStatus.services,
-      unknonwService: {
+      unknownService: {
         installed: true,
         running: true,
         enabled: true,

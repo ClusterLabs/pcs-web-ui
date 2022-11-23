@@ -8,7 +8,7 @@ export function* nodeAuthSaga({
   payload: {nodeMap},
 }: ActionMap["NODE.AUTH"]) {
   // AuthNode with id.process disappear from redux store if NODE.AUTH.STOP
-  // hapens during api call and the following action NODE.AUTH.FAIL or
+  // happens during api call and the following action NODE.AUTH.FAIL or
   // NODE.AUTH.OK has no effect on redux store.
   // So, no race needed here. And moreover race is not appropriate here since
   // only NODE.AUTH.STOP with the same id.process value should cancell api call.

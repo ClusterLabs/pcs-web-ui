@@ -21,7 +21,7 @@ function* rememberClusterSaga(clusterName: string, nodeNameList: string[]) {
     yield putNotification(
       "ERROR",
       "Cluster setup was done successfully but adding cluster to web ui failed."
-        + " Please add cluster to web ui mannualy by click on Add existing cluster",
+        + " Please add cluster to web ui manually by click on Add existing cluster",
     );
   }
 }

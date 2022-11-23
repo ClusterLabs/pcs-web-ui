@@ -1,10 +1,10 @@
 import {ActionPayload} from "app/store/actions";
 import {AppReducer} from "app/store/reducers/appReducer";
 
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: ActionPayload["CLUSTER.SBD.CONFIGURE"] & {
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
   watchdogDict: {},
@@ -13,7 +13,7 @@ const initialState: ActionPayload["CLUSTER.SBD.CONFIGURE"] & {
   watchdogTimeout: "",
   timeoutActionFlush: "DEFAULT",
   timeoutAction: "DEFAULT",
-  libCall: initalLibCall,
+  libCall: initialLibCall,
   showValidationErrors: false,
 };
 

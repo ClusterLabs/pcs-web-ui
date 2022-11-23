@@ -1,7 +1,7 @@
 import React from "react";
 import {Label} from "@patternfly/react-core";
 
-export const StatisticsIsueInfo = <ITEM extends string | string[]>({
+export const StatisticsIssueInfo = <ITEM extends string | string[]>({
   icon: iconComponent,
   color,
   issueName,

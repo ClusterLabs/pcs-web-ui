@@ -2,7 +2,7 @@ import {AppReducer} from "app/store/reducers/appReducer";
 import {ActionPayload} from "app/store/actions";
 
 import {resourceSetCreateFactory} from "./resourceSet";
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 type Action = Exclude<
   ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]["action"],
@@ -32,18 +32,18 @@ const initialState: {
   id: string;
   sets: typeof initialResourceSets;
   showValidationErrors: boolean;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
 } = {
   useCustomId: false,
   id: "",
   sets: initialResourceSets,
   showValidationErrors: false,
-  libCall: initalLibCall,
+  libCall: initialLibCall,
 };
 
 const onlyOneSettings = {
   // disabled sequential does not make sense for only one set
-  // disabled requiereAll does not make sense if sequential is enabled
+  // disabled requireAll does not make sense if sequential is enabled
   sequential: true,
   requireAll: true,
 };
@@ -66,7 +66,7 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
       if (state.sets.length === 1) {
         contextUpdate = onlyOneSettings;
       } else if (action.payload.set.sequential) {
-        // disabled requiereAll does not make sense if sequential is enabled
+        // disabled requireAll does not make sense if sequential is enabled
         contextUpdate = {requireAll: true};
       }
 

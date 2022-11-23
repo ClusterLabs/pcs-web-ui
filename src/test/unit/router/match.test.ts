@@ -1,7 +1,7 @@
 import {match} from "app/view/share/router/match";
 
 describe("Router match", () => {
-  it("should return null on different lenghts", async () => {
+  it("should return null on different lengths", async () => {
     expect(match("/some/path", "/:whatever")).toBeNull();
   });
 

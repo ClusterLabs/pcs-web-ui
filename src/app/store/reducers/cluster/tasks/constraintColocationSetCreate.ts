@@ -2,7 +2,7 @@ import {AppReducer} from "app/store/reducers/appReducer";
 import {ActionPayload} from "app/store/actions";
 
 import {resourceSetCreateFactory} from "./resourceSet";
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 type Role = Exclude<
   ActionPayload["CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET"]["set"]["role"],
@@ -35,7 +35,7 @@ const initialState: {
   score: string;
   sets: typeof initialResourceSets;
   showValidationErrors: boolean;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
 } = {
   useCustomId: false,
   id: "",
@@ -43,7 +43,7 @@ const initialState: {
   score: "",
   sets: initialResourceSets,
   showValidationErrors: false,
-  libCall: initalLibCall,
+  libCall: initialLibCall,
 };
 
 export const constraintColocationSetCreate: AppReducer<typeof initialState> = (

@@ -1,16 +1,16 @@
 import {ActionPayload} from "app/store";
 import {AppReducer} from "app/store/reducers/appReducer";
 
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"] & {
   roleId: string;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
   roleId: "",
   permissionInfoList: [["read", "id", ""]],
-  libCall: initalLibCall,
+  libCall: initialLibCall,
   showValidationErrors: false,
 };
 

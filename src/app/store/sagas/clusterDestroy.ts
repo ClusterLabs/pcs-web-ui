@@ -30,7 +30,7 @@ export function* clusterDestroy({
     log.error(removeResult, `remove cluster ${payload.clusterName}`);
     yield putNotification(
       "ERROR",
-      "Cannot remove cluster from evidence after successfull cluster destroy."
+      "Cannot remove cluster from evidence after successful cluster destroy."
         + " You can try it later manually. Details in the browser console.",
     );
     return;

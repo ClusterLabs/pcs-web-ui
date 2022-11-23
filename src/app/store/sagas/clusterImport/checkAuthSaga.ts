@@ -63,7 +63,7 @@ export function* checkAuth({
     return;
   }
 
-  // result.payload[nodeName] === "Unable to autheticate" => must go through
+  // result.payload[nodeName] === "Unable to authenticate" => must go through
   // authentication process
   const authProcessId = actionNewId();
   yield put({

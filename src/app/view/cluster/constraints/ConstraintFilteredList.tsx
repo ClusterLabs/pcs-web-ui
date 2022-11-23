@@ -120,7 +120,7 @@ export const ConstraintFilteredList = ({
                     <ConstraintRowLocationRule
                       constraint={pack.constraint}
                       key={i}
-                      uniqeId={i}
+                      uniqueId={i}
                     />
                   );
                 }

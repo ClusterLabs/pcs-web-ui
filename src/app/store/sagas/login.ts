@@ -16,7 +16,7 @@ export function* logoutSaga() {
 
   const result: api.ResultOf<typeof logout> = yield call(logout);
   if (result.type === "UNAUTHORIZED") {
-    // Ok we are already somehow loged out.
+    // Ok we are already somehow logged out.
     yield putNotification("SUCCESS", "Already logged out");
     yield put({type: "LOGIN.LOGOUT.SUCCESS"});
     yield put({type: "AUTH.REQUIRED"});

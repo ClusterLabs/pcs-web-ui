@@ -8,7 +8,7 @@ export function* clusterSuccess(clusterName: string, taskLabel: string) {
     type: "CLUSTER.STATUS.REFRESH",
     key: {clusterName},
   });
-  yield putNotification("SUCCESS", `Succesfully done: ${taskLabel}`);
+  yield putNotification("SUCCESS", `Successfully done: ${taskLabel}`);
 }
 
 export function* processClusterResultBasic(

@@ -46,7 +46,7 @@ export const CloneDetail = ({
         </IssueList>
       </DetailViewSection>
 
-      <DetailViewSection caption="Memeber status">
+      <DetailViewSection caption="Member status">
         <CrmStatusTable
           crmStatusList={crmStatusList}
           emptyMessage={`No status info for clone "${id}" found.`}

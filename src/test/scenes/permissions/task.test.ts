@@ -34,7 +34,7 @@ const openNewPermission = async () => {
   await open();
 };
 
-const finishNewPermissionSucessfully = async () => {
+const finishNewPermissionSuccessfully = async () => {
   await run();
   await waitForSuccess();
   await close();
@@ -62,9 +62,9 @@ describe("Permissions", () => {
     await openNewPermission();
     await fillName(newPermission.name);
     await selectType(newPermission.type);
-    await switchPermission("read"); // swith to off since it is on by default
+    await switchPermission("read"); // switch to off since it is on by default
     await switchPermission("grant"); // switch to on
-    await finishNewPermissionSucessfully();
+    await finishNewPermissionSuccessfully();
   });
 
   it("should add all permissions when full is selected", async () => {
@@ -86,9 +86,9 @@ describe("Permissions", () => {
     await openNewPermission();
     await fillName(newPermission.name);
     await selectType(newPermission.type);
-    await switchPermission("read"); // swith to off since it is on by default
+    await switchPermission("read"); // switch to off since it is on by default
     await switchPermission("full"); // switch to on
-    await finishNewPermissionSucessfully();
+    await finishNewPermissionSuccessfully();
   });
 
   it("should add read permissions when write is selected", async () => {
@@ -110,9 +110,9 @@ describe("Permissions", () => {
     await openNewPermission();
     await fillName(newPermission.name);
     await selectType(newPermission.type);
-    await switchPermission("read"); // swith to off since it is on by default
+    await switchPermission("read"); // switch to off since it is on by default
     await switchPermission("write"); // switch to on
-    await finishNewPermissionSucessfully();
+    await finishNewPermissionSuccessfully();
   });
 
   it("should refuse to continue without essential data", async () => {
@@ -121,7 +121,7 @@ describe("Permissions", () => {
       usersPermissions: [basicPermission],
     });
     await openNewPermission();
-    await switchPermission("read"); // swith to off since it is on by default
+    await switchPermission("read"); // switch to off since it is on by default
     await run();
     await hasNameError();
     await hasPermissionError("full");

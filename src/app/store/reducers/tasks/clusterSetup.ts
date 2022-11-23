@@ -1,12 +1,15 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 import {ActionPayload} from "app/store/actions";
 
-import {initialState as initalLibCall, libCall} from "../cluster/tasks/libCall";
+import {
+  initialState as initialLibCall,
+  libCall,
+} from "../cluster/tasks/libCall";
 
 const initialState: {
   clusterName: string;
   nodeNameList: string[];
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
   clusterAndNodesCheck:
     | "not-started"
     | "can-add-started"
@@ -95,7 +98,7 @@ const initialState: {
   clusterAndNodesCheck: "not-started",
   clusterAndNodesCheckMessage: "",
   canAddClusterOrNodesMessages: [],
-  libCall: initalLibCall,
+  libCall: initialLibCall,
   authProcessId: null,
   showValidationErrors: false,
 };

@@ -35,7 +35,7 @@ describe("Create node attribute task", () => {
     await close();
   });
 
-  it("should show error when occure during node attribute create", async () => {
+  it("should show error when occurred node attribute create", async () => {
     interceptWithNodeAttrs([
       route.addNodeAttrRemote({
         clusterName: clusterStatus.cluster_name,

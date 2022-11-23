@@ -64,7 +64,7 @@ export const TaskFinishLib = ({
                   <>
                     {" "}
                     Or you can proceed anyway with the current settings since
-                    all errors can be overriden.
+                    all errors can be overridden.
                   </>
                 )}
               </>

@@ -22,7 +22,7 @@ export const AclDetailPage = () => {
   const [{acls}] = useClusterSelector(selectors.getCluster);
 
   if (urlType !== "role" && urlType !== "user" && urlType !== "group") {
-    <DetailLayout caption={"Type does not exists"}>
+    <DetailLayout caption={"Type does not exist"}>
       <EmptyStateNoItem
         title={`ACL type ${urlType} does not exist.`}
         message={`ACL type ${urlType} does not exist.`}

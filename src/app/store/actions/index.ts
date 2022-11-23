@@ -77,7 +77,7 @@ export const actionNewId = () => {
 // type Action = SomeActions[keyouf SomeActions]
 //
 // The key of action is the same as type of action. This convention allows
-// easilly reference Action and ActionMap
+// easily reference Action and ActionMap
 //
 // -----------------------------------------------------------------------
 //

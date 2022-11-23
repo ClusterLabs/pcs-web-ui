@@ -28,7 +28,7 @@ export const Configure = () => {
   } = useTask();
 
   return (
-    <Form data-test="create-location-constrait">
+    <Form data-test="create-location-constraint">
       <FormGroup
         label="Resource"
         isRequired

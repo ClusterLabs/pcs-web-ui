@@ -12,7 +12,7 @@ export const TransportKnetLinkToggler = ({
   children: React.ReactNode;
 }) => {
   const isLinkFilled = (Object.keys(link) as (keyof Link)[]).some(attr => {
-    // unfortunatelly type script on
+    // unfortunately type script on
     //   link[attr] !== undefined && link[attr].length !== 0,
     //   complains: Object is possibly 'undefined'
     // so take longer expression :( ...

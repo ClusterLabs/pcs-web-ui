@@ -7,7 +7,7 @@ import {
 } from "@patternfly/react-core";
 import {WrenchIcon} from "@patternfly/react-icons";
 
-import * as pallete from "app/view/share/pallete";
+import * as palette from "app/view/share/palette";
 
 export const EmptyStateConfigure = ({
   title,
@@ -18,7 +18,7 @@ export const EmptyStateConfigure = ({
 }) => {
   return (
     <EmptyState style={{margin: "auto"}}>
-      <EmptyStateIcon icon={WrenchIcon} color={pallete.UNKNOWN} />
+      <EmptyStateIcon icon={WrenchIcon} color={palette.UNKNOWN} />
       <Title size="lg" headingLevel="h3">
         {title}
       </Title>

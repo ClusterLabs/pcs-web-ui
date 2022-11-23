@@ -43,7 +43,7 @@ export const Form = () => {
         availableOptions={availableResources}
         availableOptionsTitle="Available resources"
         chosenOptions={resourceIdList}
-        chosenOptionsTitle="Choosen resources"
+        chosenOptionsTitle="Chosen resources"
         onListChange={onListChange}
         id="basicSelectorWithSearch"
       />

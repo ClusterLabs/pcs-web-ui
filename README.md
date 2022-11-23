@@ -27,7 +27,7 @@ Pacemaker configuration tool.
 
 * `make tests`
 
-## Building and instalation
+## Building and installation
 
 * `make build`
 * production build is created inside `build` directory

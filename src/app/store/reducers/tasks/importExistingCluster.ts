@@ -1,12 +1,15 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 
-import {initialState as initalLibCall, libCall} from "../cluster/tasks/libCall";
+import {
+  initialState as initialLibCall,
+  libCall,
+} from "../cluster/tasks/libCall";
 
 const initialState: {
   nodeName: string;
   authProcessId: number | null;
   showValidationErrors: boolean;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
   nodeCheck:
     | "not-started"
     | "auth-check-started"
@@ -22,7 +25,7 @@ const initialState: {
   nodeName: "",
   authProcessId: null,
   showValidationErrors: false,
-  libCall: initalLibCall,
+  libCall: initialLibCall,
   nodeCheck: "not-started",
   nodeCheckMessage: "",
   importCall: {

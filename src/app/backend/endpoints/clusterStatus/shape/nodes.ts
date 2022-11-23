@@ -15,7 +15,7 @@ status
 quorum - according cib://current_dc[@with_quorum="true"]
 uptime - format is: %d day%s, %02d:%02d:%02d -> 5 days, 12:34:56
 corosync, corosync_enabled, pacemaker, pacemaker_enabled, pcsd_enabled
-  duplicit informations
+  duplicit information
   values taken from corresponding attributes of `services`
 sbd_config
   TODO:

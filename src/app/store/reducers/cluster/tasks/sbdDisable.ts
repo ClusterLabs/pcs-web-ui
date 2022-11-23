@@ -1,11 +1,11 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: {
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
 } = {
-  libCall: initalLibCall,
+  libCall: initialLibCall,
 };
 
 export const sbdDisable: AppReducer<typeof initialState> = (

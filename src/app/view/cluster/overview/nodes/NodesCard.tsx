@@ -7,7 +7,7 @@ import {
 
 import {Node} from "app/view/cluster/types";
 import {Link, location, useSelectedClusterName} from "app/view/share";
-import {StatisticsIsueInfo} from "app/view/cluster/overview/StatisticsIsueInfo";
+import {StatisticsIssueInfo} from "app/view/cluster/overview/StatisticsIssueInfo";
 
 import {SingleNodeView} from "./SingleNodeView";
 
@@ -76,28 +76,28 @@ export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
         There are <strong>{nodeList.length}</strong> {nodeListLink} in the
         cluster.
       </div>
-      <StatisticsIsueInfo
+      <StatisticsIssueInfo
         color="red"
         icon={<ExclamationCircleIcon />}
         issueName="offline"
         itemList={statistics.offline}
         createItemLabel={createNodeLink}
       />
-      <StatisticsIsueInfo
+      <StatisticsIssueInfo
         color="orange"
         icon={<ExclamationTriangleIcon />}
         issueName="standby"
         itemList={statistics.standby}
         createItemLabel={createNodeLink}
       />
-      <StatisticsIsueInfo
+      <StatisticsIssueInfo
         color="orange"
         icon={<ExclamationTriangleIcon />}
         issueName="without quorum"
         itemList={statistics.onlineWithoutQuorum}
         createItemLabel={createNodeLink}
       />
-      <StatisticsIsueInfo
+      <StatisticsIssueInfo
         color="orange"
         icon={<ExclamationTriangleIcon />}
         issueName="unknown"

@@ -9,7 +9,7 @@ datasource: /cib/status/node_state/lrm/lrm_resources/lrm_resource/lrm_rsc_op
 
 description of attributes is not available in rng so:
   * numbers are converted in backend and don't need null fallback
-  * strings are taken from xml element and when attribute does not exists a null
+  * strings are taken from xml element and when attribute does not exist a null
     value is returned
 
 on_node
@@ -75,7 +75,7 @@ const ApiResourceCrmStatus = t.intersection([
 
 /*
 disabled
-  true - parent (group, clone) disabled | meta_attr "targed-role" is "stopped"
+  true - parent (group, clone) disabled | meta_attr "target-role" is "stopped"
 parent_id
   id of parent resource (group, clone); it is used internally in backend, for
   web ui is meaningless

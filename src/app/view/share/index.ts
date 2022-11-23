@@ -1,4 +1,4 @@
-export * as pallete from "./pallete";
+export * as palette from "./palette";
 export * as location from "./location";
 export * as lib from "./lib";
 

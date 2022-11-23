@@ -23,7 +23,7 @@ const openTask = async () => {
 describe("Cluster setup", () => {
   afterEach(intercept.stop);
 
-  it("should succesfully create simplest 2 node cluster", async () => {
+  it("should successfully create simplest 2 node cluster", async () => {
     interceptForClusterSetup([
       route.checkAuthAgainstNodes({nodeNameList}),
       route.clusterSetup({
@@ -50,7 +50,7 @@ describe("Cluster setup", () => {
     await waitForSuccess();
   });
 
-  it("should succesfully setup cluster skipping optional steps", async () => {
+  it("should successfully setup cluster skipping optional steps", async () => {
     interceptForClusterSetup([
       route.checkAuthAgainstNodes({nodeNameList}),
       route.clusterSetup({

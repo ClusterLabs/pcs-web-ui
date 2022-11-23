@@ -57,7 +57,7 @@ export const TaskComponent = ({
         <TaskFinishError
           title={processTitle.fail}
           message={`${state.resultMessage}${
-            state.isForceable ? " The error can be overriden." : ""
+            state.isForceable ? " The error can be overridden." : ""
           }`}
           primaryAction={[
             state.isForceable ? "Proceed anyway" : "Try again",

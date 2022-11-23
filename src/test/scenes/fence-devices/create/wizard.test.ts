@@ -26,7 +26,7 @@ const openTask = async () => {
 describe("Fence device create task", () => {
   afterEach(intercept.stop);
 
-  it("should succesfully create new fence device", async () => {
+  it("should successfully create new fence device", async () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [

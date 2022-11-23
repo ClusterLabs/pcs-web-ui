@@ -1,4 +1,3 @@
-import React from "react";
 import {DataListCell} from "@patternfly/react-core";
 
 import {useSelectedClusterName} from "app/view/share";
@@ -15,28 +14,28 @@ import {
 import {ConstraintLocationDescRscPoint} from "./ConstraintLocationDescRscPoint";
 import {ConstraintLocationCellScore} from "./ConstraintLocationCellScore";
 
-const getId = (constraint: ConstraintLocationRule, uniqeId: number) => {
+const getId = (constraint: ConstraintLocationRule, uniqueId: number) => {
   if ("id" in constraint) {
     return constraint.id;
   }
 
   const rsc = "rsc" in constraint ? constraint.rsc : constraint["rsc-pattern"];
 
-  return `${constraint["id-ref"]}-${rsc}-${uniqeId}`;
+  return `${constraint["id-ref"]}-${rsc}-${uniqueId}`;
 };
 
 export const ConstraintRowLocationRule = ({
   constraint,
-  uniqeId,
+  uniqueId,
 }: {
   constraint: ConstraintLocationRule;
-  uniqeId: number;
+  uniqueId: number;
 }) => {
   const clusterName = useSelectedClusterName();
 
   return (
     <ConstraintRow
-      id={getId(constraint, uniqeId)}
+      id={getId(constraint, uniqueId)}
       dataListCells={
         <>
           <ConstraintCell label="Type" value="Location (rule)" width={1} />

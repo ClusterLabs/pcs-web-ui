@@ -1,6 +1,6 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 type InstanceAttrName = string;
 type InstanceAttrValue = string;
@@ -10,7 +10,7 @@ const initialState: {
   agentName: string;
   resourceName: string;
   instanceAttrs: InstanceAttrs;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
   showValidationErrors: boolean;
   clone: boolean;
   promotable: boolean;
@@ -20,7 +20,7 @@ const initialState: {
 } = {
   resourceName: "",
   agentName: "",
-  libCall: initalLibCall,
+  libCall: initialLibCall,
   instanceAttrs: {},
   showValidationErrors: false,
   clone: false,

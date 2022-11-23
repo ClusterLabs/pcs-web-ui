@@ -9,7 +9,7 @@ import {
 } from "@patternfly/react-core";
 import {ExclamationCircleIcon} from "@patternfly/react-icons";
 
-import * as pallete from "app/view/share/pallete";
+import * as palette from "app/view/share/palette";
 import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
 import {useTaskContext} from "./TaskContext";
@@ -28,7 +28,7 @@ export const TaskFinishError = ({
   const {close} = useTaskContext();
   return (
     <EmptyState data-test="task-error">
-      <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
+      <EmptyStateIcon icon={ExclamationCircleIcon} color={palette.ERROR} />
       <Title headingLevel="h4" size="lg">
         {title}
       </Title>

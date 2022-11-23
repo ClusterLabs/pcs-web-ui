@@ -1,6 +1,6 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: {
   nodeName: string;
@@ -26,7 +26,7 @@ const initialState: {
     | "send-known-hosts-fail"
     | "success";
   nodeCheckMessage: string;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
   showValidationErrors: boolean;
   sbdWatchdog: string;
   sbdDevices: [string, string, string];
@@ -46,7 +46,7 @@ const initialState: {
   },
   nodeCheck: "not-started",
   nodeCheckMessage: "",
-  libCall: initalLibCall,
+  libCall: initialLibCall,
   showValidationErrors: false,
   sbdWatchdog: "",
   sbdDevices: ["", "", ""],

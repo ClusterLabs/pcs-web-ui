@@ -35,7 +35,7 @@ export const PrimitiveAttrsFormItem = ({
             <PrimitiveAttrsFormItemRadio
               id={decideIdRemote}
               name={decideName}
-              ariaLabel={`Use concurent value: ${remoteValue}`}
+              ariaLabel={`Use concurrent value: ${remoteValue}`}
               onSelect={chooseRemoteUse}
             >
               <PrimitiveAttrsFormItemLabel

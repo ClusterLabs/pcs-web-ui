@@ -21,7 +21,7 @@ const enterNodeName = async (nodeName: string) => {
 describe("Node add task", () => {
   afterEach(intercept.stop);
 
-  it("should succesfully add new node", async () => {
+  it("should successfully add new node", async () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
@@ -33,7 +33,7 @@ describe("Node add task", () => {
     });
     await enterNodeName(NODE);
     await page.waitForSelector(TASK.PREPARE_CLUSTER.SUCCESS);
-    await page.click(TASK.NEXT); // go to adresses
+    await page.click(TASK.NEXT); // go to addresses
     await page.click(TASK.NEXT); // go to sbd
     await page.click(TASK.NEXT); // go to rewiew
     await page.click(TASK.NEXT); // go to finish
@@ -73,7 +73,7 @@ describe("Node add task", () => {
     await page.waitForSelector(TASK.PREPARE_CLUSTER.AUTH_FAILED);
   });
 
-  it("should sucessfull add new node with authentication", async () => {
+  it("should successfully add new node with authentication", async () => {
     shortcuts.interceptWithCluster({
       clusterName,
       additionalRouteList: [
@@ -96,7 +96,7 @@ describe("Node add task", () => {
     await workflow.auth.fillForm(NODE, TASK.VIEW, PASSWORD, ADDR, PORT);
     await page.click(TASK.NEXT);
     await page.waitForSelector(TASK.PREPARE_CLUSTER.SUCCESS);
-    await page.click(TASK.NEXT); // go to adresses
+    await page.click(TASK.NEXT); // go to addresses
     await page.click(TASK.NEXT); // go to sbd
     await page.click(TASK.NEXT); // go to rewiew
     await page.click(TASK.NEXT); // go to finish

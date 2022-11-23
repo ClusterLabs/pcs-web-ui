@@ -1,7 +1,7 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 import {ActionPayload} from "app/store/actions";
 
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 type Role = Exclude<
   ActionPayload["CONSTRAINT.TICKET.CREATE.UPDATE"]["role"],
@@ -18,7 +18,7 @@ const initialState: {
   lossPolicy: LossPolicy;
   role: Role;
   showValidationErrors: boolean;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
   resourceId: string;
   ticket: string;
 } = {
@@ -27,7 +27,7 @@ const initialState: {
   lossPolicy: "stop",
   role: "no limitation",
   showValidationErrors: false,
-  libCall: initalLibCall,
+  libCall: initialLibCall,
   resourceId: "",
   ticket: "",
 };

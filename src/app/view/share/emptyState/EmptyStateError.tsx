@@ -7,7 +7,7 @@ import {
 } from "@patternfly/react-core";
 import {ExclamationCircleIcon} from "@patternfly/react-icons";
 
-import * as pallete from "app/view/share/pallete";
+import * as palette from "app/view/share/palette";
 
 export const EmptyStateError = ({
   title,
@@ -18,7 +18,7 @@ export const EmptyStateError = ({
 }) => {
   return (
     <EmptyState style={{margin: "auto"}}>
-      <EmptyStateIcon icon={ExclamationCircleIcon} color={pallete.ERROR} />
+      <EmptyStateIcon icon={ExclamationCircleIcon} color={palette.ERROR} />
       <Title size="lg" headingLevel="h3">
         {title}
       </Title>

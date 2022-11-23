@@ -37,7 +37,7 @@ describe("Resource utilization task", () => {
     await close();
   });
 
-  it("should display error when occure during utilization create", async () => {
+  it("should display error when occurred utilization create", async () => {
     interceptWithUtilization([
       route.setNodeUtilization({
         clusterName: clusterStatus.cluster_name,

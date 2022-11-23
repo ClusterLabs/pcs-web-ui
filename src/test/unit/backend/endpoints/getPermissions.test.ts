@@ -4,7 +4,7 @@ import * as responses from "dev/responses";
 
 const {validate} = endpoints.getPermissions;
 
-describe("getPermissions endpont", () => {
+describe("getPermissions endpoint", () => {
   it("should succeed with proper payload", async () => {
     expect(validate(responses.permissions())).toEqual([]);
   });

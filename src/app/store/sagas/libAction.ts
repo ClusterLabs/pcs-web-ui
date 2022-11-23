@@ -67,7 +67,7 @@ export function* callLib({
     payload: {
       id: actionNewId(),
       severity: "SUCCESS",
-      message: `Succesfully done: ${taskLabel}`,
+      message: `Successfully done: ${taskLabel}`,
       inToast: true,
       isRead: false,
       creationTime: new Date(),

@@ -5,7 +5,7 @@ import {FormSelect} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-export const ChooseAsignee = () => {
+export const ChooseAssignee = () => {
   const {
     isAssigneeValid,
     updateAssigneeId,

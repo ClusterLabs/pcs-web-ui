@@ -35,7 +35,7 @@ describe("Resource meta attribute create task", () => {
     await close();
   });
 
-  it("should display error when occure during meta attr create", async () => {
+  it("should display error when occurred meta attr create", async () => {
     doInterception([
       route.addMetaAttrRemote({
         clusterName: clusterStatus.cluster_name,

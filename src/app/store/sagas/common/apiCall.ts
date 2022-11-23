@@ -81,7 +81,7 @@ export function* authSafe<
   fn: (..._fnArgs: PARAMS) => Promise<RESULT>,
   ...args: PARAMS
 ): SagaIterator<RESULT> {
-  // explicit typing of the yielded value is unfortunatelly neccessary
+  // explicit typing of the yielded value is unfortunately necessary
   // https://github.com/microsoft/TypeScript/issues/32523
   // https://github.com/microsoft/TypeScript/issues/26959
   let response: RESULT = yield call<typeof fn>(fn, ...args);

@@ -95,7 +95,7 @@ export const TransportKnet = ({linkList}: {linkList: Link[]}) => {
         <Alert
           variant="danger"
           isInline
-          title={`Unfilled adresses for links: ${linkList
+          title={`Unfilled addresses for links: ${linkList
             .filter(link =>
               Object.values(link.addresses).some(
                 address => address.length === 0,

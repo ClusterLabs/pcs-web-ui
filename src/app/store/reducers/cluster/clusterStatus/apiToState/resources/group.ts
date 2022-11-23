@@ -100,7 +100,7 @@ export const toGroup = (
   apiGroup: ApiGroup,
   context: {inClone: boolean} = {inClone: false},
 ): {group: Group; apiPrimitiveList: ApiPrimitive[]} => {
-  // Theoreticaly, group can contain primitive resources, stonith resources or
+  // Theoretically, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...
   const apiPrimitiveList = filterApiPrimitive(apiGroup.members);
   const {inClone} = context;

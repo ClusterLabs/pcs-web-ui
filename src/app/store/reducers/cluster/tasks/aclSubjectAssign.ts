@@ -1,7 +1,7 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 import {ActionPayload} from "app/store/actions";
 
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 type AssignPayload = ActionPayload["CLUSTER.ACL.SUBJECT_ROLE.ASSIGN"];
 
@@ -10,14 +10,14 @@ const initialState: {
   sourceObject: "subject" | "role";
   roleId: string;
   subjectId: string;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
   subjectType: "user",
   sourceObject: "role",
   roleId: "",
   subjectId: "",
-  libCall: initalLibCall,
+  libCall: initialLibCall,
   showValidationErrors: false,
 };
 

@@ -12,8 +12,8 @@ export const assertReview = async (
     );
 
     if (foundValues.length !== 1) {
-      expect(`but found ${foundValues.length} occurences`).toEqual(
-        `Exepected 1 occurence of "${name}" in review`,
+      expect(`but found ${foundValues.length} occurrences`).toEqual(
+        `Expected 1 occurrence of "${name}" in review`,
       );
     }
     if (foundValues[0] !== nameValueMap[name]) {

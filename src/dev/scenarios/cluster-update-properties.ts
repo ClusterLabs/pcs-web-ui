@@ -11,7 +11,7 @@ app.updateClusterSettings((req, res) => {
     return;
   }
   if (batchLimit === "3") {
-    res.status(400).send("Somethig wrong");
+    res.status(400).send("Something wrong");
     return;
   }
   res.send("Update Successful");

@@ -2,7 +2,7 @@ import {AppReducer} from "app/store/reducers/appReducer";
 import {ActionPayload} from "app/store/actions";
 
 import {resourceSetCreateFactory} from "./resourceSet";
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 type Role = Exclude<
   ActionPayload["CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET"]["set"]["role"],
@@ -34,7 +34,7 @@ const initialState: {
   lossPolicy: LossPolicy;
   sets: typeof initialResourceSets;
   showValidationErrors: boolean;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
 } = {
   ticket: "",
   useCustomId: false,
@@ -42,7 +42,7 @@ const initialState: {
   lossPolicy: "stop",
   sets: initialResourceSets,
   showValidationErrors: false,
-  libCall: initalLibCall,
+  libCall: initialLibCall,
 };
 
 export const constraintTicketSetCreate: AppReducer<typeof initialState> = (

@@ -16,7 +16,7 @@ export const FenceDeviceDoesNotExists = ({
           title={`Fence devicce "${fenceDeviceId}" does not exist.`}
           message={
             `Fence device "${fenceDeviceId}"`
-            + ` does not exists in cluster ${clusterName}.`
+            + ` does not exist in cluster "${clusterName}".`
           }
         />
       </StackItem>

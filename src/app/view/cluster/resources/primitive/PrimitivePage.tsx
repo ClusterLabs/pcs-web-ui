@@ -24,7 +24,7 @@ export const primitivePageTabList = [
 export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
   const {currentTab, matchedContext} = useUrlTabs(primitivePageTabList);
 
-  // Agent is loaded here to load neccessary data as soon as possible. Ideally
+  // Agent is loaded here to load necessary data as soon as possible. Ideally
   // user doesn't need to wait when he needs it.
   useClusterResourceAgent(primitive.agentName);
 

@@ -1,6 +1,6 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 
-import {initialState as initalLibCall, libCall} from "./libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 type InstanceAttrName = string;
 type InstanceAttrValue = string;
@@ -10,13 +10,13 @@ const initialState: {
   agentName: string;
   fenceDeviceName: string;
   instanceAttrs: InstanceAttrs;
-  libCall: typeof initalLibCall;
+  libCall: typeof initialLibCall;
   showValidationErrors: boolean;
   disabled: boolean;
 } = {
   fenceDeviceName: "",
   agentName: "",
-  libCall: initalLibCall,
+  libCall: initialLibCall,
   instanceAttrs: {},
   showValidationErrors: false,
   disabled: false,

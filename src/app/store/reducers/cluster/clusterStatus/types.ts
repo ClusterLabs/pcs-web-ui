@@ -5,7 +5,7 @@ type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 // It is more practical to deduce nvpair from one place (so e.g. resource meta
 // attributes are skipped).
 // 1. The types are the same - typescript infere the type correctly.
-// 2. Don't want a formal duty to keep it in sync a new occurences here.
+// 2. Don't want a formal duty to keep it in sync a new occurrences here.
 export type NVPair = NonNullable<
   ApiCluster["node_attr"]
 >[keyof ApiCluster["node_attr"]][number];
@@ -68,13 +68,13 @@ type FenceDevice = {
 type Group = Resource & {
   itemType: "group";
   inClone: boolean;
-  // unfortunatelly, fence device can be here and we need to display it somehow
+  // unfortunately, fence device can be here and we need to display it somehow
   resources: (Primitive | FenceDevice)[];
 };
 
 type Clone = Resource & {
   itemType: "clone";
-  // unfortunatelly, fence device can be here and we need to display it somehow
+  // unfortunately, fence device can be here and we need to display it somehow
   member: Primitive | Group | FenceDevice;
 };
 

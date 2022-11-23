@@ -7,7 +7,7 @@ type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 // It is more practical to deduce issue from one place (so resource and node are
 // skipped).
 // 1. The types are the same - typescript infere the type correctly.
-// 2. Don't want a formal duty to keep it in sync a new occurences here.
+// 2. Don't want a formal duty to keep it in sync a new occurrences here.
 type ApiIssue = (ApiCluster["error_list"] & ApiCluster["warning_list"])[number];
 
 const mapIssue =

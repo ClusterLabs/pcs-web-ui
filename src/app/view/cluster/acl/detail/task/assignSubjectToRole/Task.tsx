@@ -1,7 +1,7 @@
 import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
 
 import {useTask} from "./useTask";
-import {ChooseAsignee} from "./ChooseAsignee";
+import {ChooseAssignee} from "./ChooseAssignee";
 
 export const Task = () => {
   const {
@@ -35,7 +35,7 @@ export const Task = () => {
         )
       }
     >
-      {response === "no-response" && <ChooseAsignee />}
+      {response === "no-response" && <ChooseAssignee />}
       {response !== "no-response" && (
         <TaskFinishLib
           response={response}
