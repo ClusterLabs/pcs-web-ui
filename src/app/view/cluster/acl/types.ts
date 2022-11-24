@@ -1,6 +1,7 @@
-import {ActionPayload, selectors} from "app/store";
+import {ActionPayload} from "app/store";
+import {useLoadedCluster} from "app/view/cluster/share";
 
-export type Acls = ReturnType<ReturnType<typeof selectors.getCluster>>["acls"];
+export type Acls = ReturnType<typeof useLoadedCluster>[1]["acls"];
 
 export type AclType<ACL_TYPE extends "role" | "user" | "group"> = Exclude<
   Acls[ACL_TYPE],

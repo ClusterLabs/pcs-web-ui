@@ -1,13 +1,7 @@
 import {Flex, FlexItem, FlexProps, PageSection} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
-import {
-  Card,
-  ClusterToolbar,
-  task,
-  useClusterSelector,
-  useSelectedClusterName,
-} from "app/view/share";
+import {Card, ClusterToolbar, task} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {IssuesCard} from "./issues";
 import {NodesCard} from "./nodes";
@@ -16,8 +10,7 @@ import {ResourcesCard} from "./resources";
 const grow: FlexProps["grow"] = {default: "grow"};
 
 export const ClusterOverviewPage = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
-  const clusterName = useSelectedClusterName();
+  const [cluster] = useLoadedCluster();
   return (
     <>
       <ClusterToolbar
@@ -30,7 +23,7 @@ export const ClusterOverviewPage = () => {
               description: "Start the cluster on all nodes",
               action: {
                 type: "DASHBOARD.CLUSTER.START",
-                payload: {clusterName},
+                payload: {clusterName: cluster.name},
               },
             },
           },
@@ -50,7 +43,7 @@ export const ClusterOverviewPage = () => {
                 },
                 getForceableAction: ({force}) => ({
                   type: "DASHBOARD.CLUSTER.STOP",
-                  payload: {clusterName, force},
+                  payload: {clusterName: cluster.name, force},
                 }),
                 "data-test": "cluster-stop",
               }),

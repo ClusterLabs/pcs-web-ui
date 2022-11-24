@@ -1,3 +1,4 @@
+import React from "react";
 import {PageSection} from "@patternfly/react-core";
 
 import {
@@ -5,7 +6,7 @@ import {
   EmptyStateSpinner,
   useSelectedClusterName,
 } from "app/view/share";
-import {useClusterStore} from "app/view/cluster/share";
+import {LoadedClusterProvider, useClusterStore} from "app/view/cluster/share";
 
 import {NodesPage} from "./nodes";
 import {ResourcesPage} from "./resources";
@@ -47,35 +48,22 @@ export const ClusterAppTabDetail = ({currentTab}: {currentTab: TabName}) => {
     );
   }
 
-  switch (currentTab) {
-    case "overview":
-      return <ClusterOverviewPage />;
+  const tabComponentMap: Record<Exclude<TabName, "permissions">, React.FC> = {
+    overview: ClusterOverviewPage,
+    nodes: NodesPage,
+    resources: ResourcesPage,
+    "fence-devices": FenceDevicePage,
+    sbd: SbdPage,
+    constraints: ConstraintsPage,
+    properties: ClusterPropertiesPage,
+    acl: AclPage,
+  };
 
-    case "nodes":
-      return <NodesPage />;
+  const TabComponent = tabComponentMap[currentTab];
 
-    case "resources":
-      return <ResourcesPage />;
-
-    case "fence-devices":
-      return <FenceDevicePage />;
-
-    case "sbd":
-      return <SbdPage />;
-
-    case "constraints":
-      return <ConstraintsPage />;
-
-    case "properties":
-      return <ClusterPropertiesPage />;
-
-    case "acl":
-      return <AclPage />;
-
-    default: {
-      // this part enforces **all** tabs cases in the switch
-      const _exhaustiveCheck: never = currentTab;
-      throw new Error(`Unexpected result type: "${_exhaustiveCheck}"`);
-    }
-  }
+  return (
+    <LoadedClusterProvider value={clusterInfo.cluster}>
+      <TabComponent />
+    </LoadedClusterProvider>
+  );
 };

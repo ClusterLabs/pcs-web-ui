@@ -1,11 +1,12 @@
-import {ActionPayload, selectors} from "app/store";
-import {useClusterSelector, useClusterTask} from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterTask} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const useTask = () => {
   const task = useClusterTask("aclSubjectCreate");
   const {dispatch, state, clusterName} = task;
 
-  const [{acls}] = useClusterSelector(selectors.getCluster);
+  const [{acls}] = useLoadedCluster();
 
   return {
     ...task,

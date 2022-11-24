@@ -1,7 +1,7 @@
 import {Flex, FlexItem, FlexProps} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
-import {EmptyStateClusterStopped, useClusterSelector} from "app/view/share";
+import {EmptyStateClusterStopped} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclListCard} from "./AclListCard";
 import {AclSubjectListItem} from "./AclSubjectListItem";
@@ -11,12 +11,12 @@ const grow: FlexProps["grow"] = {default: "grow"};
 const spacer: FlexProps["spacer"] = {default: "spacerNone"};
 
 export const AclLists = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
-  if (!cluster.hasCibInfo) {
+  const [{acls, hasCibInfo, name: clusterName}] = useLoadedCluster();
+  if (!hasCibInfo) {
     return (
       <EmptyStateClusterStopped
         title={"Cannot get ACLs from stopped cluster"}
-        clusterName={cluster.name}
+        clusterName={clusterName}
       />
     );
   }
@@ -25,7 +25,7 @@ export const AclLists = () => {
       <FlexItem grow={grow} className="pf-u-m-0">
         <AclListCard
           aclType="role"
-          aclList={cluster.acls.role}
+          aclList={acls.role}
           renderItem={(id, {permissions}) => (
             <AclRoleListItem id={id} permissions={permissions} />
           )}
@@ -35,7 +35,7 @@ export const AclLists = () => {
         <FlexItem spacer={spacer} grow={grow}>
           <AclListCard
             aclType="user"
-            aclList={cluster.acls.user}
+            aclList={acls.user}
             renderItem={(id, roleIdList) => (
               <AclSubjectListItem
                 aclType="user"
@@ -48,7 +48,7 @@ export const AclLists = () => {
         <FlexItem spacer={spacer} grow={grow}>
           <AclListCard
             aclType="group"
-            aclList={cluster.acls.group}
+            aclList={acls.group}
             renderItem={(id, roleIdList) => (
               <AclSubjectListItem
                 aclType="group"

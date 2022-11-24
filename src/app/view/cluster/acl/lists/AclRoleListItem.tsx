@@ -6,13 +6,12 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import {selectors} from "app/store";
 import {
   Link,
   SelectionIndicatorInGroup,
-  useClusterSelector,
   useGroupDetailViewContext,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType, Acls} from "../types";
 
@@ -32,7 +31,7 @@ export const AclRoleListItem = ({
   id: string;
   permissions: AclType<"role">["permissions"];
 }) => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const [{acls}] = useLoadedCluster();
   const {selectedItemUrlName, selectedItemUrlType, compact} =
     useGroupDetailViewContext();
 
@@ -58,14 +57,14 @@ export const AclRoleListItem = ({
                 {compact && <div>Users</div>}
                 {!compact && "Users assigned "}
                 <Badge isRead data-test="users-count">
-                  {getAssignedSubjectCount(cluster.acls.user, id)}
+                  {getAssignedSubjectCount(acls.user, id)}
                 </Badge>
               </DataListCell>
               <DataListCell>
                 {compact && <div>Groups</div>}
                 {!compact && "Groups assigned "}
                 <Badge isRead data-test="groups-count">
-                  {getAssignedSubjectCount(cluster.acls.group, id)}
+                  {getAssignedSubjectCount(acls.group, id)}
                 </Badge>
               </DataListCell>
             </>

@@ -1,13 +1,11 @@
 import {StackItem} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
 import {
   DetailLayout,
   EmptyStateNoItem,
-  useClusterSelector,
   useGroupDetailViewContext,
-  useSelectedClusterName,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 
@@ -15,11 +13,10 @@ import {RoleView} from "./RoleView";
 import {SubjectView} from "./SubjectView";
 
 export const AclDetailPage = () => {
-  const clusterName = useSelectedClusterName();
   const {selectedItemUrlName: aclId, selectedItemUrlType: urlType} =
     useGroupDetailViewContext();
 
-  const [{acls}] = useClusterSelector(selectors.getCluster);
+  const [{acls, name: clusterName}] = useLoadedCluster();
 
   if (urlType !== "role" && urlType !== "user" && urlType !== "group") {
     <DetailLayout caption={"Type does not exist"}>
@@ -41,7 +38,7 @@ export const AclDetailPage = () => {
             title={`ACL ${aclType} "${aclId}" does not exist.`}
             message={
               `ACL ${aclType} "${aclId}"`
-              + ` does not exist in cluster ${clusterName}.`
+              + ` does not exist in cluster "${clusterName}".`
             }
           />
         </StackItem>

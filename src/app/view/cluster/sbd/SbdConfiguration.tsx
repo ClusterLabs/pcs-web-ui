@@ -1,8 +1,8 @@
-import {selectors} from "app/store";
-import {EmptyStateNoItem, Table, useClusterSelector} from "app/view/share";
+import {EmptyStateNoItem, Table} from "app/view/share";
+import {select, useLoadedCluster} from "app/view/cluster/share";
 
 export const SbdConfiguration = () => {
-  const [sbdConfig] = useClusterSelector(selectors.getClusterSbdConfig);
+  const [sbdConfig] = useLoadedCluster(select.sbdConfig);
 
   if (Object.keys(sbdConfig).length === 0) {
     return <EmptyStateNoItem title="No SBD configuration." />;
