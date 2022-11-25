@@ -1,7 +1,7 @@
 import {ActionPayload} from "app/store";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {Cluster} from "app/view/cluster/types";
 
-export type Acls = ReturnType<typeof useLoadedCluster>[1]["acls"];
+export type Acls = Cluster["acls"];
 
 export type AclType<ACL_TYPE extends "role" | "user" | "group"> = Exclude<
   Acls[ACL_TYPE],

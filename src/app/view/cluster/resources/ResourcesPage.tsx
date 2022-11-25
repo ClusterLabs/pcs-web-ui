@@ -1,17 +1,16 @@
-import {selectors} from "app/store";
 import {
   ClusterToolbar,
   GroupDetailView,
-  useClusterSelector,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";
 import * as task from "./task";
 
 export const ResourcesPage = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const [{resourceTree}] = useLoadedCluster();
 
   const launchDisable = useLauncherDisableClusterNotRunning();
 
@@ -43,7 +42,7 @@ export const ResourcesPage = () => {
         ]}
       />
       <GroupDetailView
-        groupCard={<ResourceTree resourceTree={cluster.resourceTree} />}
+        groupCard={<ResourceTree resourceTree={resourceTree} />}
         detailCard={<ResourceDetailPage />}
       />
     </>

@@ -1,4 +1,3 @@
-import {selectors} from "app/store";
 import {Group} from "app/view/cluster/types";
 import {
   CrmStatusTable,
@@ -6,13 +5,13 @@ import {
   IssueList,
   Link,
   location,
-  useClusterSelector,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
+import {selectCrmStatusForPrimitives} from "app/view/cluster/resources/select";
 
 export const GroupDetail = ({group}: {group: Group}) => {
-  const [crmStatusList, clusterName] = useClusterSelector(
-    selectors.crmStatusForPrimitive,
-    group.resources.map(r => r.id),
+  const [crmStatusList, {name: clusterName}] = useLoadedCluster(
+    selectCrmStatusForPrimitives(group.resources.map(r => r.id)),
   );
 
   return (

@@ -1,8 +1,9 @@
 import {Grid, GridItem, PageSection} from "@patternfly/react-core";
 
 import {Card, ClusterToolbar, TaskOpenArgs} from "app/view/share";
-import {select, useLoadedCluster} from "app/view/cluster/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
+import {selectSbdConfig} from "./select";
 import * as task from "./task";
 import {SbdServiceStatus} from "./SbdServiceStatus";
 import {SbdConfiguration} from "./SbdConfiguration";
@@ -22,7 +23,7 @@ const extractTimeoutAction = <VALUE extends string>(
 };
 
 export const SbdPage = () => {
-  const [sbdConfig, cluster] = useLoadedCluster(select.sbdConfig);
+  const [sbdConfig, cluster] = useLoadedCluster(selectSbdConfig);
 
   const configureOpenPayload = {
     delayStart: optionToValues(sbdConfig.SBD_DELAY_START, ["yes", "no"]),

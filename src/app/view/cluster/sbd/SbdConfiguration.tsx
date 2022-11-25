@@ -1,8 +1,10 @@
 import {EmptyStateNoItem, Table} from "app/view/share";
-import {select, useLoadedCluster} from "app/view/cluster/share";
+import {useLoadedCluster} from "app/view/cluster/share";
+
+import {selectSbdConfig} from "./select";
 
 export const SbdConfiguration = () => {
-  const [sbdConfig] = useLoadedCluster(select.sbdConfig);
+  const [sbdConfig] = useLoadedCluster(selectSbdConfig);
 
   if (Object.keys(sbdConfig).length === 0) {
     return <EmptyStateNoItem title="No SBD configuration." />;

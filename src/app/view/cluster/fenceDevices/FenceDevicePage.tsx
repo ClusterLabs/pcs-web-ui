@@ -1,17 +1,16 @@
-import {selectors} from "app/store";
 import {
   ClusterToolbar,
   GroupDetailView,
-  useClusterSelector,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
 import {FenceDeviceList} from "./list";
 
 export const FenceDevicePage = () => {
-  const [{fenceDeviceList}] = useClusterSelector(selectors.getCluster);
+  const [{fenceDeviceList}] = useLoadedCluster();
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
     <>

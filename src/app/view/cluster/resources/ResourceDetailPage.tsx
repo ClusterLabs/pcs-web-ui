@@ -1,6 +1,7 @@
-import {selectors} from "app/store";
-import {useClusterSelector, useGroupDetailViewContext} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
+import {getSelectedResource} from "./select";
 import {ResourceDoesNotExists} from "./ResourceDoesNotExists";
 import {ClonePage} from "./clone";
 import {GroupPage} from "./group";
@@ -9,10 +10,7 @@ import {FenceDevicePage} from "./FenceDevicePage";
 
 export const ResourceDetailPage = () => {
   const {selectedItemUrlName: resourceId} = useGroupDetailViewContext();
-  const [resourceTreeItem] = useClusterSelector(
-    selectors.getSelectedResource,
-    resourceId,
-  );
+  const [resourceTreeItem] = useLoadedCluster(getSelectedResource(resourceId));
 
   if (!resourceTreeItem) {
     return <ResourceDoesNotExists resourceId={resourceId} />;

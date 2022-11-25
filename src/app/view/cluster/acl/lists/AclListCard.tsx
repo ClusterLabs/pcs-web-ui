@@ -3,7 +3,7 @@ import {DataList} from "@patternfly/react-core";
 
 import {tools} from "app/store";
 import {Card, EmptyStateNoItem} from "app/view/share";
-import {Acl} from "app/view/cluster/types";
+import {Acls} from "app/view/cluster/acl/types";
 
 import {AclType} from "../types";
 
@@ -12,7 +12,7 @@ export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
   aclType,
   renderItem,
 }: {
-  aclList: Acl[ACL_TYPE] | undefined;
+  aclList: Acls[ACL_TYPE] | undefined;
   aclType: ACL_TYPE;
   renderItem: (_id: string, _aclObject: AclType<ACL_TYPE>) => React.ReactNode;
 }) => {

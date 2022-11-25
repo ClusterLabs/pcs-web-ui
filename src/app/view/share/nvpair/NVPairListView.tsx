@@ -1,9 +1,9 @@
-import {ActionPayload, selectors} from "app/store";
-import {useClusterSelector} from "app/view/share/useClusterSelector";
+import {ActionPayload} from "app/store";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
 } from "app/view/share/emptyState";
+import {useLoadedCluster} from "app/view/cluster/share";
 import {NVPair} from "app/view/cluster/types";
 
 import {NVPairList} from "./NVPairList";
@@ -15,13 +15,13 @@ export const NVPairListView = ({
   nvPairList: NVPair[];
   owner: ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
 }) => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const [{hasCibInfo, name: clusterName}] = useLoadedCluster();
 
-  if (!cluster.hasCibInfo) {
+  if (!hasCibInfo) {
     return (
       <EmptyStateClusterStopped
         title={"Cannot get attributes from stopped cluster"}
-        clusterName={cluster.name}
+        clusterName={clusterName}
       />
     );
   }

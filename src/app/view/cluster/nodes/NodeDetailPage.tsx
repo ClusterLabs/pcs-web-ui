@@ -1,16 +1,13 @@
-import {selectors} from "app/store";
 import {
   DetailLayout,
   NVPairListPage,
   Router,
   UrlTabs,
   UtilizationView,
-  useClusterSelector,
   useGroupDetailViewContext,
-  useSelectedClusterName,
   useUrlTabs,
 } from "app/view/share";
-import {useClusterStore} from "app/view/cluster/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {NodeDetailPageToolbar} from "./NodeDetailPageToolbar";
 import {NodeDetailView} from "./NodeDetailView";
@@ -19,22 +16,19 @@ import {NodeDoesNotExists} from "./NodeDoesNotExists";
 export const nodePageTabList = ["detail", "attributes", "utilization"] as const;
 
 export const NodeDetailPage = () => {
-  const {selectedItemUrlName: nodeName} = useGroupDetailViewContext();
-
-  const [node] = useClusterSelector(selectors.getSelectedNode, nodeName);
-
+  const {selectedItemUrlName: selectedNodeName} = useGroupDetailViewContext();
   const {currentTab, matchedContext} = useUrlTabs(nodePageTabList);
+  const [{nodeList, nodeAttr, nodesUtilization}] = useLoadedCluster();
 
-  const {nodeAttrs, nodeUtilization} = useClusterStore(
-    useSelectedClusterName(),
-  );
+  const node = nodeList.find(n => n.name === selectedNodeName);
+
   if (!node) {
-    return <NodeDoesNotExists nodeName={nodeName} />;
+    return <NodeDoesNotExists nodeName={selectedNodeName} />;
   }
 
   return (
     <DetailLayout
-      caption={nodeName}
+      caption={selectedNodeName}
       tabs={
         <UrlTabs
           tabList={nodePageTabList}
@@ -48,7 +42,7 @@ export const NodeDetailPage = () => {
         {currentTab === "detail" && <NodeDetailView node={node} />}
         {currentTab === "attributes" && (
           <NVPairListPage
-            nvPairList={nodeAttrs(node.name)}
+            nvPairList={nodeAttr?.[selectedNodeName] ?? []}
             owner={{
               type: "node-attr",
               id: node.name,
@@ -58,7 +52,7 @@ export const NodeDetailPage = () => {
         )}
         {currentTab === "utilization" && (
           <UtilizationView
-            utilizationAttrs={nodeUtilization(node.name)}
+            utilizationAttrs={nodesUtilization?.[selectedNodeName] ?? []}
             owner={{
               type: "node-utilization",
               id: node.name,

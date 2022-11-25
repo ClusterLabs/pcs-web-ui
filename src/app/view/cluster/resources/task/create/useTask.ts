@@ -1,7 +1,9 @@
 import {useSelector} from "react-redux";
 
 import {ActionPayload, selectors} from "app/store";
-import {useClusterSelector, useClusterTask} from "app/view/share";
+import {useClusterTask} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
+import {selectGroups} from "app/view/cluster/resources/select";
 
 const useAgent = (clusterName: string, agentName: string) => {
   const agent = useSelector(selectors.getPcmkAgent(clusterName, agentName));
@@ -16,7 +18,7 @@ const useAgent = (clusterName: string, agentName: string) => {
 export const useTask = () => {
   const task = useClusterTask("resourceCreate");
   const {clusterName, state, dispatch} = task;
-  const [groupList] = useClusterSelector(selectors.getGroups);
+  const [groupList] = useLoadedCluster(selectGroups);
   const {agent, isAgentLoaded} = useAgent(clusterName, state.agentName);
 
   return {

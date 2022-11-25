@@ -1,13 +1,13 @@
-import {ActionPayload, selectors} from "app/store";
-import {useClusterSelector, useClusterTask} from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterTask} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
+import {selectTopLevelPrimitives} from "app/view/cluster/resources/select";
 
 export const useTask = () => {
   const task = useClusterTask("resourceGroup");
 
   const {clusterName, dispatch} = task;
-  const [topLevelPrimitives] = useClusterSelector(
-    selectors.getTopLevelPrimitives,
-  );
+  const [topLevelPrimitives] = useLoadedCluster(selectTopLevelPrimitives);
 
   const {
     state: {resourceIdList, groupId},

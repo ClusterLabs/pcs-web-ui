@@ -55,12 +55,7 @@ export const useClusterStore = (clusterName: string) => {
     });
   }, [clusterName, dispatch, start, stop]);
 
-  const clusterState = useSelector(selectors.getCluster(clusterName));
-
   return {
-    nodeAttrs: (nodeName: string) => clusterState.nodeAttr?.[nodeName] ?? [],
-    nodeUtilization: (nodeName: string) =>
-      clusterState.nodesUtilization?.[nodeName] ?? [],
-    clusterInfo: useSelector(selectors.getClusterInfo(clusterName)),
+    clusterStoreInfo: useSelector(selectors.getClusterInfo(clusterName)),
   };
 };

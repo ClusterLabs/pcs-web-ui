@@ -13,9 +13,9 @@ import {PermissionsTable} from "./PermissionsTable";
 
 export const ClusterPermissionsPage = () => {
   const clusterName = useSelectedClusterName();
-  const {clusterInfo} = useClusterStore(clusterName);
+  const {clusterStoreInfo} = useClusterStore(clusterName);
 
-  if (clusterInfo.state === "cluster-not-in-storage") {
+  if (clusterStoreInfo.state === "cluster-not-in-storage") {
     return <EmptyStateSpinner title="Loading cluster permission data" />;
   }
 

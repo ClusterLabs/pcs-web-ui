@@ -1,8 +1,9 @@
-import {selectors} from "app/store";
+import {useClusterStore} from "./share";
 
-export type Cluster = NonNullable<
-  selectors.ExtractClusterSelector<typeof selectors.getCluster>
->;
+export type Cluster = Extract<
+  ReturnType<typeof useClusterStore>["clusterStoreInfo"],
+  {cluster: unknown}
+>["cluster"];
 
 export type Node = Cluster["nodeList"][number];
 export type ConnectedNode = Exclude<Node, {status: "DATA_NOT_PROVIDED"}>;
@@ -23,5 +24,3 @@ export type StatusSeverity = ConnectedNode["statusSeverity"];
 export type Issue = Cluster["issueList"][number];
 
 export type NVPair = Resource["metaAttributes"][number];
-
-export type Acl = Cluster["acls"];

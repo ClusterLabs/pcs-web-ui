@@ -1,10 +1,12 @@
-import {ActionPayload, selectors} from "app/store";
-import {useClusterSelector, useClusterTask} from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterTask} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 import {Primitive} from "app/view/cluster/types";
+import {selectGroups} from "app/view/cluster/resources/select";
 
 export const useTask = () => {
   const task = useClusterTask("primitiveGroupChange");
-  const [groupList] = useClusterSelector(selectors.getGroups);
+  const [groupList] = useLoadedCluster(selectGroups);
   const {dispatch, clusterName, state} = task;
   const groupIdList = groupList.map(g => g.id);
   const candidateGroupsIds = groupIdList.filter(g => g !== state.oldGroupId);

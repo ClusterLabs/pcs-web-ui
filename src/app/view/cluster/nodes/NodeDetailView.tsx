@@ -1,4 +1,3 @@
-import {selectors} from "app/store";
 import {
   CrmStatusTable,
   DetailViewSection,
@@ -6,18 +5,18 @@ import {
   IssueList,
   Link,
   location,
-  useClusterSelector,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 import {Node} from "app/view/cluster/types";
 
 import {NodeDaemonTable} from "./NodeDaemonTable";
 import {NodeClusterServicesView} from "./services";
 
 export const NodeDetailView = ({node}: {node: Node}) => {
-  const [crmStatusList, clusterName] = useClusterSelector(
-    selectors.crmStatusForNode,
-    node.name,
+  const [crmStatusList, {name: clusterName}] = useLoadedCluster(cluster =>
+    cluster.resourceOnNodeStatusList.filter(s => s.node?.name === node.name),
   );
+
   return (
     <>
       <DetailViewSection>

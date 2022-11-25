@@ -23,13 +23,13 @@ type TabName = typeof clusterAppTabList[number];
 
 export const ClusterAppTabDetail = ({currentTab}: {currentTab: TabName}) => {
   const clusterName = useSelectedClusterName();
-  const {clusterInfo} = useClusterStore(clusterName);
+  const {clusterStoreInfo} = useClusterStore(clusterName);
 
   if (currentTab === "permissions") {
     return <ClusterPermissionsPage />;
   }
 
-  if (clusterInfo.state === "cluster-data-forbidden") {
+  if (clusterStoreInfo.state === "cluster-data-forbidden") {
     return (
       <PageSection>
         <EmptyStateError
@@ -40,7 +40,7 @@ export const ClusterAppTabDetail = ({currentTab}: {currentTab: TabName}) => {
     );
   }
 
-  if (clusterInfo.state !== "cluster-data-successfully-fetched") {
+  if (clusterStoreInfo.state !== "cluster-data-successfully-fetched") {
     return (
       <PageSection>
         <EmptyStateSpinner title="Loading cluster data" />
@@ -62,7 +62,7 @@ export const ClusterAppTabDetail = ({currentTab}: {currentTab: TabName}) => {
   const TabComponent = tabComponentMap[currentTab];
 
   return (
-    <LoadedClusterProvider value={clusterInfo.cluster}>
+    <LoadedClusterProvider value={clusterStoreInfo.cluster}>
       <TabComponent />
     </LoadedClusterProvider>
   );
