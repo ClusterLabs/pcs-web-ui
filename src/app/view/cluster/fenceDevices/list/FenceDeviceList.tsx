@@ -16,7 +16,7 @@ export const FenceDeviceList = ({
   fenceDeviceList: FenceDevice[];
 }) => {
   const {compact} = useGroupDetailViewContext();
-  const [{hasCibInfo, name: clusterName}] = useLoadedCluster();
+  const {hasCibInfo, name: clusterName} = useLoadedCluster();
 
   if (!hasCibInfo) {
     return (

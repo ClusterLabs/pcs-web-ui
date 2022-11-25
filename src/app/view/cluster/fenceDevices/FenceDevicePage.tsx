@@ -10,7 +10,7 @@ import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
 import {FenceDeviceList} from "./list";
 
 export const FenceDevicePage = () => {
-  const [{fenceDeviceList}] = useLoadedCluster();
+  const {fenceDeviceList} = useLoadedCluster();
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
     <>

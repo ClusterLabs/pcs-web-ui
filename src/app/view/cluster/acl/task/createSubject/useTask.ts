@@ -6,7 +6,7 @@ export const useTask = () => {
   const task = useClusterTask("aclSubjectCreate");
   const {dispatch, state, clusterName} = task;
 
-  const [{acls}] = useLoadedCluster();
+  const {acls} = useLoadedCluster();
 
   return {
     ...task,

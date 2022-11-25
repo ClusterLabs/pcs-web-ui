@@ -18,7 +18,7 @@ const SuccessIcon = ({label}: {label: string}) => {
 };
 
 export const SbdServiceStatus = () => {
-  const [{nodeList}] = useLoadedCluster();
+  const {nodeList} = useLoadedCluster();
 
   if (nodeList.length === 0) {
     return <EmptyStateNoItem title="No SBD is configured." />;

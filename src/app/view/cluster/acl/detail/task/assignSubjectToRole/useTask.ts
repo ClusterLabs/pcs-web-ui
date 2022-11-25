@@ -6,7 +6,7 @@ import {getAssignedSubjectIdList} from "app/view/cluster/acl/detail/tools";
 export const useTask = () => {
   const task = useClusterTask("aclSubjectAssign");
   const {dispatch, state, clusterName} = task;
-  const [{acls}] = useLoadedCluster();
+  const {acls} = useLoadedCluster();
 
   const assigneeType =
     state.sourceObject === "role" ? state.subjectType : "role";

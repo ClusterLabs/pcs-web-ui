@@ -8,7 +8,7 @@ export const useTask = () => {
   const task = useClusterTask("constraintTicketCreate");
 
   const {clusterName, dispatch, state, close} = task;
-  const [{resourceTree, nodeList}] = useLoadedCluster();
+  const {resourceTree, nodeList} = useLoadedCluster();
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.TICKET.CREATE.UPDATE"]) =>

@@ -23,7 +23,8 @@ const extractTimeoutAction = <VALUE extends string>(
 };
 
 export const SbdPage = () => {
-  const [sbdConfig, cluster] = useLoadedCluster(selectSbdConfig);
+  const {nodeList} = useLoadedCluster();
+  const sbdConfig = selectSbdConfig(nodeList);
 
   const configureOpenPayload = {
     delayStart: optionToValues(sbdConfig.SBD_DELAY_START, ["yes", "no"]),
@@ -38,16 +39,13 @@ export const SbdPage = () => {
       "crashdump",
       "off",
     ]),
-    watchdogDict: Object.values(cluster.nodeList).reduce(
-      (watchdogMap, node) => {
-        let watchdog = "";
-        if (node.status !== "DATA_NOT_PROVIDED") {
-          watchdog = node.sbd?.watchdog ?? "";
-        }
-        return {...watchdogMap, [node.name]: watchdog};
-      },
-      {},
-    ),
+    watchdogDict: Object.values(nodeList).reduce((watchdogMap, node) => {
+      let watchdog = "";
+      if (node.status !== "DATA_NOT_PROVIDED") {
+        watchdog = node.sbd?.watchdog ?? "";
+      }
+      return {...watchdogMap, [node.name]: watchdog};
+    }, {}),
   };
 
   const configureOpenArgs: TaskOpenArgs<typeof task.configure.useTask> = [

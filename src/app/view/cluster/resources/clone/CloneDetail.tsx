@@ -9,7 +9,6 @@ import {
   location,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
-import {selectCrmStatusForPrimitives} from "app/view/cluster/resources/select";
 
 type Member = Exclude<Clone["member"], {itemType: "fence-device"}>;
 
@@ -22,12 +21,15 @@ export const CloneDetail = ({
   member: Member;
   issueList: Clone["issueList"];
 }) => {
-  const [crmStatusList, {name: clusterName}] = useLoadedCluster(
-    selectCrmStatusForPrimitives(
-      member.itemType === "primitive"
-        ? [member.id]
-        : member.resources.map(r => r.id),
-    ),
+  const {resourceOnNodeStatusList, name: clusterName} = useLoadedCluster();
+
+  const primitiveIds =
+    member.itemType === "primitive"
+      ? [member.id]
+      : member.resources.map(r => r.id);
+
+  const crmStatusList = resourceOnNodeStatusList.filter(s =>
+    primitiveIds.includes(s.resource.id),
   );
   return (
     <>

@@ -24,7 +24,7 @@ export const ResourceSetList = () => {
     deleteSet,
     moveSet,
   } = useTask();
-  const [resourceList] = useLoadedCluster(getResourcesForSet);
+  const resourceList = getResourcesForSet(useLoadedCluster().resourceTree);
 
   return (
     <TaskLibStep title="Resource sets" reports={reports}>

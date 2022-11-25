@@ -14,8 +14,7 @@ import {AclDetailPage} from "./detail";
 import {AclLists} from "./lists";
 
 export const AclPage = () => {
-  const [{clusterProperties, hasCibInfo, name: clusterName}] =
-    useLoadedCluster();
+  const {clusterProperties, hasCibInfo, name: clusterName} = useLoadedCluster();
   const launchDisable = useLauncherDisableClusterNotRunning();
 
   const aclEnabled = tools.isCibTrue(clusterProperties["enable-acl"] || "");

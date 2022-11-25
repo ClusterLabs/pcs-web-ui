@@ -19,8 +19,11 @@ const findInTopLevelAndGroup = (
 
   return undefined;
 };
-export const getSelectedResource = (id: string) => (cluster: Cluster) => {
-  for (const resource of cluster.resourceTree) {
+export const getSelectedResource = (
+  resourceTree: Cluster["resourceTree"],
+  id: string,
+) => {
+  for (const resource of resourceTree) {
     const matched = findInTopLevelAndGroup(resource, id);
     if (matched) {
       return matched;
@@ -37,8 +40,8 @@ export const getSelectedResource = (id: string) => (cluster: Cluster) => {
   return undefined;
 };
 
-export const selectGroups = (cluster: Cluster) =>
-  cluster.resourceTree.reduce<Group[]>((groups, resource) => {
+export const selectGroups = (resourceTree: Cluster["resourceTree"]) =>
+  resourceTree.reduce<Group[]>((groups, resource) => {
     if (resource.itemType === "group") {
       return [...groups, resource];
     }
@@ -47,12 +50,3 @@ export const selectGroups = (cluster: Cluster) =>
     }
     return groups;
   }, []);
-
-export const selectTopLevelPrimitives = (cluster: Cluster) =>
-  cluster.resourceTree.filter(r => r.itemType === "primitive").map(r => r.id);
-
-export const selectCrmStatusForPrimitives =
-  (primitiveIds: string[]) => (cluster: Cluster) =>
-    cluster.resourceOnNodeStatusList.filter(s =>
-      primitiveIds.includes(s.resource.id),
-    );

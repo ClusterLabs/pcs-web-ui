@@ -18,7 +18,7 @@ const useAgent = (clusterName: string, agentName: string) => {
 export const useTask = () => {
   const task = useClusterTask("resourceCreate");
   const {clusterName, state, dispatch} = task;
-  const [groupList] = useLoadedCluster(selectGroups);
+  const groupList = selectGroups(useLoadedCluster().resourceTree);
   const {agent, isAgentLoaded} = useAgent(clusterName, state.agentName);
 
   return {

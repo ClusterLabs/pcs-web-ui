@@ -1,13 +1,14 @@
 import {ActionPayload} from "app/store";
 import {useClusterTask} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
-import {selectTopLevelPrimitives} from "app/view/cluster/resources/select";
 
 export const useTask = () => {
   const task = useClusterTask("resourceGroup");
 
   const {clusterName, dispatch} = task;
-  const [topLevelPrimitives] = useLoadedCluster(selectTopLevelPrimitives);
+  const topLevelPrimitives = useLoadedCluster()
+    .resourceTree.filter(r => r.itemType === "primitive")
+    .map(r => r.id);
 
   const {
     state: {resourceIdList, groupId},

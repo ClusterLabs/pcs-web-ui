@@ -8,7 +8,7 @@ export const useTask = () => {
   const task = useClusterTask("constraintColocationCreate");
 
   const {clusterName, dispatch, state, close} = task;
-  const [{resourceTree, nodeList}] = useLoadedCluster();
+  const {resourceTree, nodeList} = useLoadedCluster();
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.COLOCATION.CREATE.UPDATE"]) =>

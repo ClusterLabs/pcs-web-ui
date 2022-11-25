@@ -6,7 +6,7 @@ import {selectGroups} from "app/view/cluster/resources/select";
 
 export const useTask = () => {
   const task = useClusterTask("primitiveGroupChange");
-  const [groupList] = useLoadedCluster(selectGroups);
+  const groupList = selectGroups(useLoadedCluster().resourceTree);
   const {dispatch, clusterName, state} = task;
   const groupIdList = groupList.map(g => g.id);
   const candidateGroupsIds = groupIdList.filter(g => g !== state.oldGroupId);

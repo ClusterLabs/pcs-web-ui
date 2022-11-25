@@ -10,7 +10,10 @@ import {FenceDevicePage} from "./FenceDevicePage";
 
 export const ResourceDetailPage = () => {
   const {selectedItemUrlName: resourceId} = useGroupDetailViewContext();
-  const [resourceTreeItem] = useLoadedCluster(getSelectedResource(resourceId));
+  const resourceTreeItem = getSelectedResource(
+    useLoadedCluster().resourceTree,
+    resourceId,
+  );
 
   if (!resourceTreeItem) {
     return <ResourceDoesNotExists resourceId={resourceId} />;

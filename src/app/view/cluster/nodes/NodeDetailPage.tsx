@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   DetailLayout,
   NVPairListPage,
@@ -18,9 +20,12 @@ export const nodePageTabList = ["detail", "attributes", "utilization"] as const;
 export const NodeDetailPage = () => {
   const {selectedItemUrlName: selectedNodeName} = useGroupDetailViewContext();
   const {currentTab, matchedContext} = useUrlTabs(nodePageTabList);
-  const [{nodeList, nodeAttr, nodesUtilization}] = useLoadedCluster();
+  const {nodeList, nodeAttr, nodesUtilization} = useLoadedCluster();
 
-  const node = nodeList.find(n => n.name === selectedNodeName);
+  const node = React.useMemo(
+    () => nodeList.find(n => n.name === selectedNodeName),
+    [nodeList, selectedNodeName],
+  );
 
   if (!node) {
     return <NodeDoesNotExists nodeName={selectedNodeName} />;

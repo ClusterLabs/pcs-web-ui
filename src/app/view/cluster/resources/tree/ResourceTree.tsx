@@ -14,7 +14,7 @@ import {ResourceTreeItemGroup} from "./ResourceTreeItemGroup";
 
 export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
   const {compact} = useGroupDetailViewContext();
-  const [{hasCibInfo, name: clusterName}] = useLoadedCluster();
+  const {hasCibInfo, name: clusterName} = useLoadedCluster();
 
   if (!hasCibInfo) {
     return (

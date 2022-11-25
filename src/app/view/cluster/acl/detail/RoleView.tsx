@@ -18,7 +18,7 @@ export const RoleView = ({
   roleId: string;
   role: AclType<"role">;
 }) => {
-  const [{acls}] = useLoadedCluster();
+  const {acls} = useLoadedCluster();
   const {currentTab, matchedContext} = useUrlTabs(aclRolePageTabList);
 
   return (

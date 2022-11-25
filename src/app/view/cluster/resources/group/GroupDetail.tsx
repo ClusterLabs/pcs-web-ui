@@ -7,11 +7,12 @@ import {
   location,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
-import {selectCrmStatusForPrimitives} from "app/view/cluster/resources/select";
 
 export const GroupDetail = ({group}: {group: Group}) => {
-  const [crmStatusList, {name: clusterName}] = useLoadedCluster(
-    selectCrmStatusForPrimitives(group.resources.map(r => r.id)),
+  const {resourceOnNodeStatusList, name: clusterName} = useLoadedCluster();
+  const primitiveIds = group.resources.map(r => r.id);
+  const crmStatusList = resourceOnNodeStatusList.filter(s =>
+    primitiveIds.includes(s.resource.id),
   );
 
   return (

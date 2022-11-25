@@ -65,9 +65,8 @@ export const ConstraintFilteredList = ({
       ToolbarFilterGroups.unselectAllOptions(groupInclusionMap),
     );
   };
-  const [constraintPacks, {hasCibInfo}] = useLoadedCluster(
-    select.constraintPacks,
-  );
+  const {constraints, hasCibInfo} = useLoadedCluster();
+  const constraintPacks = select.constraintPacks(constraints);
 
   if (!hasCibInfo) {
     return (

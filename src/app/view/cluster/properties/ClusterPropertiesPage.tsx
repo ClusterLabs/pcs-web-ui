@@ -42,8 +42,7 @@ const useFilter = (): {
 
 export const ClusterPropertiesPage = () => {
   const {clusterPropertiesDefinition} = useClusterProperties();
-  const [{hasCibInfo, clusterProperties, name: clusterName}] =
-    useLoadedCluster();
+  const {hasCibInfo, clusterProperties, name: clusterName} = useLoadedCluster();
   const {filterState, filterParameters} = useFilter();
   const [isEditing, setIsEditing] = React.useState(false);
 

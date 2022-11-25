@@ -5,7 +5,7 @@ import {useLoadedCluster} from "app/view/cluster/share";
 export const useTask = () => {
   const task = useClusterTask("constraintOrderCreate");
   const {clusterName, dispatch, state, close} = task;
-  const [{resourceTree}] = useLoadedCluster();
+  const {resourceTree} = useLoadedCluster();
 
   return {
     ...task,

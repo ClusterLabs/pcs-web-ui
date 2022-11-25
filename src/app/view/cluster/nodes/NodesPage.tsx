@@ -6,7 +6,7 @@ import {NodeList} from "./NodeList";
 import * as task from "./task";
 
 export const NodesPage = () => {
-  const [{nodeList}] = useLoadedCluster();
+  const {nodeList} = useLoadedCluster();
   return (
     <>
       <ClusterToolbar

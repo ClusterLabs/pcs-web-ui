@@ -6,7 +6,7 @@ export const useTask = () => {
   const task = useClusterTask("constraintLocationCreate");
 
   const {clusterName, dispatch, state, close} = task;
-  const [{resourceTree, nodeList}] = useLoadedCluster();
+  const {resourceTree, nodeList} = useLoadedCluster();
 
   return {
     ...task,

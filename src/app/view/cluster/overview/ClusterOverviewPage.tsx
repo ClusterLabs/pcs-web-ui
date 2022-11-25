@@ -10,7 +10,7 @@ import {ResourcesCard} from "./resources";
 const grow: FlexProps["grow"] = {default: "grow"};
 
 export const ClusterOverviewPage = () => {
-  const [cluster] = useLoadedCluster();
+  const cluster = useLoadedCluster();
   return (
     <>
       <ClusterToolbar

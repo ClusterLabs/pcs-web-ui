@@ -30,8 +30,7 @@ type ConstraintPack =
   | {type: "Ticket"; constraint: TicketResource}
   | {type: "Ticket (set)"; constraint: TicketSet};
 
-export const constraintPacks = (cluster: Cluster) => {
-  const constraintMap = cluster.constraints;
+export const constraintPacks = (constraintMap: Cluster["constraints"]) => {
   if (!constraintMap) {
     return [];
   }
@@ -71,8 +70,8 @@ export const constraintPacks = (cluster: Cluster) => {
 const removeFenceDevices = (groupMembers: Group["resources"]): Primitive[] =>
   groupMembers.filter((gm): gm is Primitive => gm.itemType !== "fence-device");
 
-export const getResourcesForSet = (cluster: Cluster) =>
-  cluster.resourceTree
+export const getResourcesForSet = (resourceTree: Cluster["resourceTree"]) =>
+  resourceTree
     .reduce<Resource[]>((resourceList, resource) => {
       switch (resource.itemType) {
         case "group":

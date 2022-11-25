@@ -10,7 +10,7 @@ import {ResourceTree} from "./tree/ResourceTree";
 import * as task from "./task";
 
 export const ResourcesPage = () => {
-  const [{resourceTree}] = useLoadedCluster();
+  const {resourceTree} = useLoadedCluster();
 
   const launchDisable = useLauncherDisableClusterNotRunning();
 

@@ -31,7 +31,7 @@ export const AclRoleListItem = ({
   id: string;
   permissions: AclType<"role">["permissions"];
 }) => {
-  const [{acls}] = useLoadedCluster();
+  const {acls} = useLoadedCluster();
   const {selectedItemUrlName, selectedItemUrlType, compact} =
     useGroupDetailViewContext();
 

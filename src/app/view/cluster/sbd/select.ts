@@ -5,8 +5,8 @@ type SbdConfig = Exclude<
   undefined
 >["config"];
 
-export const selectSbdConfig = (cluster: Cluster) =>
-  cluster.nodeList.reduce<SbdConfig>((config, node) => {
+export const selectSbdConfig = (nodeList: Cluster["nodeList"]) =>
+  nodeList.reduce<SbdConfig>((config, node) => {
     if (Object.keys(config).length > 0 || node.status === "DATA_NOT_PROVIDED") {
       return config;
     }

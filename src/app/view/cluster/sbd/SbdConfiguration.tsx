@@ -4,7 +4,7 @@ import {useLoadedCluster} from "app/view/cluster/share";
 import {selectSbdConfig} from "./select";
 
 export const SbdConfiguration = () => {
-  const [sbdConfig] = useLoadedCluster(selectSbdConfig);
+  const sbdConfig = selectSbdConfig(useLoadedCluster().nodeList);
 
   if (Object.keys(sbdConfig).length === 0) {
     return <EmptyStateNoItem title="No SBD configuration." />;

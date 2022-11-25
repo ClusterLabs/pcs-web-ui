@@ -5,7 +5,7 @@ import {SbdOnNodesWatchdog} from "./SbdOnNodesWatchdog";
 import {SbdOnNodesDevices} from "./SbdOnNodesDevices";
 
 export const SbdOnNodes = () => {
-  const [{nodeList}] = useLoadedCluster();
+  const {nodeList} = useLoadedCluster();
 
   if (nodeList.length === 0) {
     return <EmptyStateNoItem title="No SBD watchdogs." />;
