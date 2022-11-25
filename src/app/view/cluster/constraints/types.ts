@@ -1,8 +1,6 @@
-import {selectors} from "app/store";
+import {constraintPacks} from "./select";
 
-export type ConstraintPackList = selectors.ExtractClusterSelector<
-  typeof selectors.getConstraints
->;
+type ConstraintPackList = ReturnType<typeof constraintPacks>;
 
 type ExtractConstraint<TYPE extends ConstraintPackList[number]["type"]> =
   Extract<ConstraintPackList[number], {type: TYPE}>["constraint"];

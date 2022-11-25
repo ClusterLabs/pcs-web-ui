@@ -1,3 +1,3 @@
 export * from "./useClusterStore";
 export * from "./useLoadedCluster";
-export * as select from "./clusterSelectors";
+export * as select from "./select";

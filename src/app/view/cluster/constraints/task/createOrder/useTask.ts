@@ -1,30 +1,28 @@
-import {ActionPayload, selectors} from "app/store";
-import {isValidScore, useClusterSelector, useClusterTask} from "app/view/share";
+import {ActionPayload} from "app/store";
+import {isValidScore, useClusterTask} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintOrderCreate");
   const {clusterName, dispatch, state, close} = task;
-  const [clusterStatus] = useClusterSelector(selectors.getCluster);
+  const [{resourceTree}] = useLoadedCluster();
 
   return {
     ...task,
     isFirstResourceValid: state.firstResourceId.length > 0,
     isThenResourceValid: state.thenResourceId.length > 0,
     isScoreValid: state.score.length === 0 || isValidScore(state.score),
-    resourceIdList: clusterStatus.resourceTree.reduce<string[]>(
-      (idList, resource) => {
-        if (resource.itemType === "primitive") {
-          return [...idList, resource.id];
-        }
+    resourceIdList: resourceTree.reduce<string[]>((idList, resource) => {
+      if (resource.itemType === "primitive") {
+        return [...idList, resource.id];
+      }
 
-        if (resource.itemType === "group") {
-          return [...idList, resource.id, ...resource.resources.map(r => r.id)];
-        }
+      if (resource.itemType === "group") {
+        return [...idList, resource.id, ...resource.resources.map(r => r.id)];
+      }
 
-        return idList;
-      },
-      [],
-    ),
+      return idList;
+    }, []),
 
     //actions
     updateState: (payload: ActionPayload["CONSTRAINT.ORDER.CREATE.UPDATE"]) =>

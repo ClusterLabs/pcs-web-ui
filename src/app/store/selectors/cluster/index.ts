@@ -49,4 +49,3 @@ export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
   : never;
 
 export * from "./status";
-export * from "./constraints";

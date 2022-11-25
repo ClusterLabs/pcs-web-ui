@@ -4,7 +4,6 @@ import {clusterSelector} from "./selectorsHelpers";
 
 type Resource = Cluster["resourceTree"][number];
 type Group = Extract<Resource, {itemType: "group"}>;
-type Primitive = Extract<Group["resources"][number], {itemType: "primitive"}>;
 
 const findInTopLevelAndGroup = (
   resource: Resource | Cluster["fenceDeviceList"][number],
@@ -96,41 +95,6 @@ export const getGroups = clusterSelector(cluster =>
     }
     return groups;
   }, []),
-);
-
-const removeFenceDevices = (groupMembers: Group["resources"]): Primitive[] =>
-  groupMembers.filter((gm): gm is Primitive => gm.itemType !== "fence-device");
-
-export const getResourcesForSet = clusterSelector(cluster =>
-  cluster.resourceTree
-    .reduce<Resource[]>((resourceList, resource) => {
-      switch (resource.itemType) {
-        case "group":
-          return [
-            ...resourceList,
-            resource,
-            ...removeFenceDevices(resource.resources),
-          ];
-
-        case "clone": {
-          let members: Resource[] = [];
-          if (resource.member.itemType === "group") {
-            members = [
-              resource.member,
-              ...removeFenceDevices(resource.member.resources),
-            ];
-          } else if (resource.member.itemType !== "fence-device") {
-            members = [resource.member];
-          }
-
-          return [...resourceList, resource, ...members];
-        }
-
-        default:
-          return [...resourceList, resource];
-      }
-    }, [])
-    .map(resource => resource.id),
 );
 
 export const getTopLevelPrimitives = clusterSelector(cluster =>
