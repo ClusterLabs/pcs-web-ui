@@ -1,9 +1,8 @@
-import {useClusterStore} from "./share";
+import {selectors} from "app/store";
 
-export type Cluster = Extract<
-  ReturnType<typeof useClusterStore>["clusterStoreInfo"],
-  {cluster: unknown}
->["cluster"];
+export type Cluster = ReturnType<
+  ReturnType<typeof selectors.getClusterStoreInfo>
+>["clusterStoreItem"]["clusterStatus"]["clusterData"];
 
 export type Node = Cluster["nodeList"][number];
 export type ConnectedNode = Exclude<Node, {status: "DATA_NOT_PROVIDED"}>;

@@ -24,10 +24,7 @@ export const PermissionsTable = () => {
     selectors.getClusterPermissions(clusterName),
   );
 
-  if (
-    clusterPermissions === null
-    || !clusterPermissions.fetchState.alreadyLoaded
-  ) {
+  if (!clusterPermissions.fetchState.alreadyLoaded) {
     // cluster is not yet established in the redux store
     return <EmptyStateSpinner title="Loading cluster permission data" />;
   }

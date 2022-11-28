@@ -1,4 +1,4 @@
-import {ClusterTaskKeys} from "../types";
+import {ClusterStorageItem, ClusterTaskKeys, Root} from "../types";
 
 import {
   ClusterSelector as TClusterSelector,
@@ -48,4 +48,34 @@ export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
   ? SELECTED
   : never;
 
-export * from "./status";
+type ClusterInfo = {clusterStoreItem: ClusterStorageItem} & (
+  | {
+      isClusterStatusFetched: false;
+      isClusterStatusForbidden: boolean;
+    }
+  | {
+      isClusterStatusFetched: true;
+      isClusterStatusForbidden: false;
+      clusterStatusLabel: ClusterStorageItem["clusterStatus"]["clusterData"]["status"];
+    }
+);
+
+export const getClusterStoreInfo =
+  (clusterName: string) =>
+  (state: Root): ClusterInfo => {
+    const clusterStoreItem = state.clusterStorage[clusterName];
+    if (clusterStoreItem?.clusterStatus.dataFetchState === "SUCCESS") {
+      return {
+        clusterStoreItem,
+        isClusterStatusFetched: true,
+        isClusterStatusForbidden: false,
+        clusterStatusLabel: clusterStoreItem.clusterStatus.clusterData.status,
+      };
+    }
+    return {
+      clusterStoreItem,
+      isClusterStatusFetched: false,
+      isClusterStatusForbidden:
+        clusterStoreItem?.clusterStatus.dataFetchState === "FORBIDDEN",
+    };
+  };

@@ -1,5 +1,4 @@
-import {Root} from "./types";
-import {getClusterInfo} from "./cluster";
+import {ClusterStorageItem, Root} from "./types";
 
 export const getImportedClusterList = (state: Root) =>
   state.dashboard.clusterNameList;
@@ -7,5 +6,35 @@ export const getImportedClusterList = (state: Root) =>
 export const dashboardAreDataLoaded = (state: Root) =>
   state.dashboard.dataFetch === "SUCCESS";
 
-export const getClusterInfoList = (clusterList: string[]) => (state: Root) =>
-  clusterList.map(clusterName => getClusterInfo(clusterName)(state));
+type ClusterInfoList = ({clusterName: string} & (
+  | {
+      isFetched: false;
+      isForbidden: boolean;
+    }
+  | {
+      isFetched: true;
+      isForbidden: false;
+      clusterStatus: ClusterStorageItem["clusterStatus"]["clusterData"];
+    }
+))[];
+
+export const getClusterStoreInfoList =
+  (clusterNameList: string[]) =>
+  (state: Root): ClusterInfoList =>
+    clusterNameList.map(clusterName => {
+      const clusterStorageItem = state.clusterStorage[clusterName];
+      if (clusterStorageItem?.clusterStatus.dataFetchState === "SUCCESS") {
+        return {
+          clusterName,
+          isFetched: true,
+          isForbidden: false,
+          clusterStatus: clusterStorageItem.clusterStatus.clusterData,
+        };
+      }
+      return {
+        clusterName,
+        isFetched: false,
+        isForbidden:
+          clusterStorageItem?.clusterStatus.dataFetchState === "FORBIDDEN",
+      };
+    });

@@ -2,13 +2,13 @@ import React from "react";
 
 import {ActionPayload} from "app/store";
 import {useClusterTask} from "app/view/share";
-import {useClusterStore} from "app/view/cluster/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const useTask = () => {
   const task = useClusterTask("nodeAdd");
   const {clusterName, state, dispatch} = task;
 
-  const {clusterStoreInfo} = useClusterStore(clusterName);
+  const {nodeList} = useLoadedCluster();
 
   const checkCanAddNode = () =>
     dispatch({
@@ -43,13 +43,11 @@ export const useTask = () => {
 
     isNodeCheckDoneValid: state.nodeCheck === "success",
 
-    isSbdEnabled:
-      clusterStoreInfo.state === "cluster-data-successfully-fetched"
-      && clusterStoreInfo.cluster.nodeList.reduce(
-        (enabled, n) =>
-          enabled || (n.status !== "DATA_NOT_PROVIDED" && n.sbd !== undefined),
-        false,
-      ),
+    isSbdEnabled: nodeList.reduce(
+      (enabled, n) =>
+        enabled || (n.status !== "DATA_NOT_PROVIDED" && n.sbd !== undefined),
+      false,
+    ),
 
     // actions
     close: () => {

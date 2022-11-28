@@ -1,12 +1,11 @@
 import React from "react";
 import {PageSection} from "@patternfly/react-core";
 
+import {EmptyStateError, EmptyStateSpinner} from "app/view/share";
 import {
-  EmptyStateError,
-  EmptyStateSpinner,
-  useSelectedClusterName,
-} from "app/view/share";
-import {LoadedClusterProvider, useClusterStore} from "app/view/cluster/share";
+  LoadedClusterProvider,
+  useCurrentClusterStoreItem,
+} from "app/view/cluster/share";
 
 import {NodesPage} from "./nodes";
 import {ResourcesPage} from "./resources";
@@ -15,21 +14,15 @@ import {SbdPage} from "./sbd";
 import {ConstraintsPage} from "./constraints";
 import {ClusterPropertiesPage} from "./properties";
 import {AclPage} from "./acl";
-import {ClusterPermissionsPage} from "./permissions";
 import {ClusterOverviewPage} from "./overview";
 import {clusterAppTabList} from "./clusterAppTabList";
 
-type TabName = typeof clusterAppTabList[number];
+type TabName = Exclude<typeof clusterAppTabList[number], "permissions">;
 
-export const ClusterAppTabDetail = ({currentTab}: {currentTab: TabName}) => {
-  const clusterName = useSelectedClusterName();
-  const {clusterStoreInfo} = useClusterStore(clusterName);
+export const ClusterStatusDetail = ({currentTab}: {currentTab: TabName}) => {
+  const {clusterStatus} = useCurrentClusterStoreItem();
 
-  if (currentTab === "permissions") {
-    return <ClusterPermissionsPage />;
-  }
-
-  if (clusterStoreInfo.state === "cluster-data-forbidden") {
+  if (clusterStatus.dataFetchState === "FORBIDDEN") {
     return (
       <PageSection>
         <EmptyStateError
@@ -40,7 +33,7 @@ export const ClusterAppTabDetail = ({currentTab}: {currentTab: TabName}) => {
     );
   }
 
-  if (clusterStoreInfo.state !== "cluster-data-successfully-fetched") {
+  if (clusterStatus.dataFetchState !== "SUCCESS") {
     return (
       <PageSection>
         <EmptyStateSpinner title="Loading cluster data" />
@@ -48,7 +41,7 @@ export const ClusterAppTabDetail = ({currentTab}: {currentTab: TabName}) => {
     );
   }
 
-  const tabComponentMap: Record<Exclude<TabName, "permissions">, React.FC> = {
+  const tabComponentMap: Record<TabName, React.FC> = {
     overview: ClusterOverviewPage,
     nodes: NodesPage,
     resources: ResourcesPage,
@@ -62,7 +55,7 @@ export const ClusterAppTabDetail = ({currentTab}: {currentTab: TabName}) => {
   const TabComponent = tabComponentMap[currentTab];
 
   return (
-    <LoadedClusterProvider value={clusterStoreInfo.cluster}>
+    <LoadedClusterProvider value={clusterStatus.clusterData}>
       <TabComponent />
     </LoadedClusterProvider>
   );

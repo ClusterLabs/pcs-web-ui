@@ -1,10 +1,9 @@
 import React from "react";
-import {useSelector} from "react-redux";
 
-import {ActionLeaf, selectors} from "app/store";
-import {useDispatch} from "app/view/share/useDispatch";
+import {ActionLeaf} from "app/store";
+import {useDispatch} from "app/view/share";
 
-export const useClusterStore = (clusterName: string) => {
+export const useClusterLoad = (clusterName: string) => {
   const dispatch = useDispatch();
 
   const start = React.useMemo<ActionLeaf>(
@@ -54,8 +53,4 @@ export const useClusterStore = (clusterName: string) => {
       key: {clusterName},
     });
   }, [clusterName, dispatch, start, stop]);
-
-  return {
-    clusterStoreInfo: useSelector(selectors.getClusterInfo(clusterName)),
-  };
 };
