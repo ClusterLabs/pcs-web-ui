@@ -1,3 +1,4 @@
+import {mkXPath} from "test/tools/selectors";
 import {
   breadcrumb,
   cluster,
@@ -39,6 +40,14 @@ describe("Web ui on one node cluster", () => {
 
     await importExistingCluster(nodeName);
     await dashboard.clusterList.assertNamesAre([clusterName]);
+    // wait for started cluster
+    // TODO refactor it from here
+    await page.waitForSelector(
+      `xpath=${mkXPath(
+        "cluster " + clusterName,
+        "cluster-status-label",
+      )}/*[text() = "inoperative"]`,
+    );
 
     await dashboard.clusterList.goToCluster(clusterName);
 
@@ -55,7 +64,7 @@ describe("Web ui on one node cluster", () => {
     await breadcrumb.gotoDashboard();
     await destroyCluster(clusterName);
     await dashboard.clusterList.assertNamesAre([]);
-  }, 60000);
+  }, 70000);
 });
 
 const createFenceDevice = async (

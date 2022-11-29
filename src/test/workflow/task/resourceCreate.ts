@@ -6,7 +6,7 @@ const commonTask = prepareCommonTask<
   "Name and type" | "Instance attributes" | "Settings" | "Review"
 >({
   taskKey: "task-resource-create",
-  openKey: "task-launch create-resource",
+  openKey: "task resources-create-resource",
 });
 
 const {selectors: commonSelectors, inView} = commonTask;

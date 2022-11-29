@@ -6,7 +6,8 @@ export const waitForLoaded = async () =>
 export const getNameList = async () => {
   return await page.$$eval(dt("cluster-list", "^cluster "), clusterElements =>
     clusterElements.map(
-      e => e.querySelector("[data-test='name']")?.textContent ?? "",
+      e =>
+        e.querySelector("[data-test='name']")?.textContent?.split(" ")[0] ?? "",
     ),
   );
 };
