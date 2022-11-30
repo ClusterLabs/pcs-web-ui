@@ -1,9 +1,6 @@
-import {useSelector} from "react-redux";
-
-import {ActionPayload, selectors} from "app/store";
+import {ActionPayload} from "app/store";
 import {useClusterTask} from "app/view/share";
-
-const {getClusterPermissions} = selectors;
+import {useLoadedPermissions} from "app/view/cluster/permissions/LoadedPermissionsContext";
 
 type AllowName =
   ActionPayload["CLUSTER.PERMISSIONS.SAVE"]["permissionList"][number]["allow"][number];
@@ -11,9 +8,7 @@ type AllowName =
 export const useTask = () => {
   const task = useClusterTask("permissionEdit");
   const {dispatch, clusterName, state} = task;
-  const currentPermissionsState = useSelector(
-    getClusterPermissions(clusterName),
-  );
+  const {users_permissions: currentPermissionList} = useLoadedPermissions();
 
   const key = {clusterName, task: task.name};
   return {
@@ -38,15 +33,6 @@ export const useTask = () => {
       }),
 
     permissionEdit: () => {
-      if (
-        currentPermissionsState === null
-        || currentPermissionsState.data === null
-      ) {
-        // it means current permissions are not loaded
-        return;
-      }
-      const currentPermissionList =
-        currentPermissionsState.data.users_permissions;
       const initialPermission = state.initialPermission;
 
       const allow: AllowName[] = [

@@ -23,10 +23,6 @@ export const getClusterProperties = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.clusterProperties.data,
 );
 
-export const getClusterPermissions = clusterStorageItemSelector(
-  clusterStorageItem => clusterStorageItem?.clusterPermissions,
-);
-
 export const getResourceAgentMap = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.resourceAgentMap.data,
 );

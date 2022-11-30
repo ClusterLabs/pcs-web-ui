@@ -1,8 +1,11 @@
 import {selectors} from "app/store";
 
-export type Cluster = ReturnType<
-  ReturnType<typeof selectors.getClusterStoreInfo>
->["clusterStoreItem"]["clusterStatus"]["clusterData"];
+export type ClusterStoreItem = NonNullable<
+  ReturnType<
+    ReturnType<typeof selectors.getClusterStoreInfo>
+  >["clusterStoreItem"]
+>;
+export type Cluster = ClusterStoreItem["clusterStatus"]["clusterData"];
 
 export type Node = Cluster["nodeList"][number];
 export type ConnectedNode = Exclude<Node, {status: "DATA_NOT_PROVIDED"}>;

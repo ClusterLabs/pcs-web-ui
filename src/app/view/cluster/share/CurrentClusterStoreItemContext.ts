@@ -1,12 +1,6 @@
 import React from "react";
 
-import {selectors} from "app/store";
-
-type ClusterStoreItem = NonNullable<
-  ReturnType<
-    ReturnType<typeof selectors.getClusterStoreInfo>
-  >["clusterStoreItem"]
->;
+import {ClusterStoreItem} from "app/view/cluster/types";
 
 const ClusterStorageItemContext = React.createContext<
   | {
@@ -26,8 +20,9 @@ export const useCurrentClusterStoreItem = () => {
     );
   }
 
-  const {clusterStoreItem: clusterStorageItem} = value;
+  const {clusterStoreItem} = value;
   return {
-    clusterStatus: clusterStorageItem.clusterStatus,
+    clusterStatus: clusterStoreItem.clusterStatus,
+    clusterPermissions: clusterStoreItem.clusterPermissions,
   };
 };

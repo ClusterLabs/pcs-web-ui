@@ -16,7 +16,7 @@ import {
 
 import {ClusterAppBreadcrumb} from "./ClusterAppBreadcrumb";
 import {ClusterStatusDetail} from "./ClusterStatusDetail";
-import {ClusterPermissionsPage} from "./permissions";
+import {ClusterPermissionsDetail} from "./permissions";
 import {clusterAppTabList} from "./clusterAppTabList";
 
 const tabNameMap: Partial<Record<typeof clusterAppTabList[number], string>> = {
@@ -71,7 +71,7 @@ export const ClusterApp = () => {
               clusterStoreItem: clusterInfo.clusterStoreItem,
             }}
           >
-            {currentTab === "permissions" && <ClusterPermissionsPage />}
+            {currentTab === "permissions" && <ClusterPermissionsDetail />}
             {currentTab !== "permissions" && (
               <ClusterStatusDetail currentTab={currentTab} />
             )}
