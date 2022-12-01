@@ -1,15 +1,15 @@
 import {PageSection} from "@patternfly/react-core";
 
 import {EmptyStateSpinner} from "app/view/share";
-import {useCurrentClusterStoreItem} from "app/view/cluster/share";
+import {useRegisteredClusterInfo} from "app/view/cluster/share";
 
 import {ClusterPermissionsPage} from "./ClusterPermissionsPage";
 import {LoadedPermissionsProvider} from "./LoadedPermissionsContext";
 
 export const ClusterPermissionsDetail = () => {
-  const {clusterPermissions} = useCurrentClusterStoreItem();
+  const {permissions} = useRegisteredClusterInfo();
 
-  if (clusterPermissions.data === null) {
+  if (!permissions.isLoaded) {
     return (
       <PageSection>
         <EmptyStateSpinner title="Loading cluster permission data" />;
@@ -18,7 +18,7 @@ export const ClusterPermissionsDetail = () => {
   }
 
   return (
-    <LoadedPermissionsProvider value={clusterPermissions.data}>
+    <LoadedPermissionsProvider value={permissions.data}>
       <ClusterPermissionsPage />
     </LoadedPermissionsProvider>
   );

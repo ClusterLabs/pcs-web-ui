@@ -1,7 +1,6 @@
 import {PageSection, Stack, StackItem} from "@patternfly/react-core";
-import {useSelector} from "react-redux";
 
-import {selectors, tools} from "app/store";
+import {tools} from "app/store";
 import {EmptyStateSpinner, Router} from "app/view/share";
 import {
   Page,
@@ -10,7 +9,8 @@ import {
   useUrlTabs,
 } from "app/view/share";
 import {
-  ClusterStorageItemProvider,
+  RegisteredClusterInfoProvider,
+  useClusterInfo,
   useClusterLoad,
 } from "app/view/cluster/share";
 
@@ -28,7 +28,7 @@ export const ClusterApp = () => {
   const clusterName = useSelectedClusterName();
 
   useClusterLoad(clusterName);
-  const clusterInfo = useSelector(selectors.getClusterStoreInfo(clusterName));
+  const clusterInfo = useClusterInfo(clusterName);
 
   const {currentTab, matchedContext} = useUrlTabs(clusterAppTabList);
 
@@ -40,8 +40,8 @@ export const ClusterApp = () => {
             <ClusterAppBreadcrumb
               clusterName={clusterName}
               statusLabel={
-                clusterInfo.isClusterStatusFetched
-                  ? clusterInfo.clusterStatusLabel
+                clusterInfo.isRegistered && clusterInfo.clusterStatus.isLoaded
+                  ? clusterInfo.clusterStatus.data.status
                   : "unknown"
               }
             />
@@ -57,25 +57,20 @@ export const ClusterApp = () => {
         </Stack>
       </PageSection>
 
-      {clusterInfo.clusterStoreItem === undefined && (
+      {!clusterInfo.isRegistered && (
         <PageSection>
           <EmptyStateSpinner title="Preparing cluster storage" />
         </PageSection>
       )}
 
-      {clusterInfo.clusterStoreItem !== undefined && (
+      {clusterInfo.isRegistered && (
         <Router base={matchedContext}>
-          <ClusterStorageItemProvider
-            value={{
-              clusterName,
-              clusterStoreItem: clusterInfo.clusterStoreItem,
-            }}
-          >
+          <RegisteredClusterInfoProvider value={clusterInfo}>
             {currentTab === "permissions" && <ClusterPermissionsDetail />}
             {currentTab !== "permissions" && (
               <ClusterStatusDetail currentTab={currentTab} />
             )}
-          </ClusterStorageItemProvider>
+          </RegisteredClusterInfoProvider>
         </Router>
       )}
     </Page>

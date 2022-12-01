@@ -4,7 +4,7 @@ import {PageSection} from "@patternfly/react-core";
 import {EmptyStateError, EmptyStateSpinner} from "app/view/share";
 import {
   LoadedClusterProvider,
-  useCurrentClusterStoreItem,
+  useRegisteredClusterInfo,
 } from "app/view/cluster/share";
 
 import {NodesPage} from "./nodes";
@@ -20,9 +20,9 @@ import {clusterAppTabList} from "./clusterAppTabList";
 type TabName = Exclude<typeof clusterAppTabList[number], "permissions">;
 
 export const ClusterStatusDetail = ({currentTab}: {currentTab: TabName}) => {
-  const {clusterStatus} = useCurrentClusterStoreItem();
+  const {clusterStatus} = useRegisteredClusterInfo();
 
-  if (clusterStatus.dataFetchState === "FORBIDDEN") {
+  if (clusterStatus.isForbidden) {
     return (
       <PageSection>
         <EmptyStateError
@@ -33,7 +33,7 @@ export const ClusterStatusDetail = ({currentTab}: {currentTab: TabName}) => {
     );
   }
 
-  if (clusterStatus.dataFetchState !== "SUCCESS") {
+  if (!clusterStatus.isLoaded) {
     return (
       <PageSection>
         <EmptyStateSpinner title="Loading cluster data" />
@@ -55,7 +55,7 @@ export const ClusterStatusDetail = ({currentTab}: {currentTab: TabName}) => {
   const TabComponent = tabComponentMap[currentTab];
 
   return (
-    <LoadedClusterProvider value={clusterStatus.clusterData}>
+    <LoadedClusterProvider value={clusterStatus.data}>
       <TabComponent />
     </LoadedClusterProvider>
   );

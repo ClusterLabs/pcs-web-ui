@@ -44,34 +44,67 @@ export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
   ? SELECTED
   : never;
 
-type ClusterInfo = {clusterStoreItem: ClusterStorageItem} & (
+type ClusterInfoClusterStatus =
   | {
-      isClusterStatusFetched: false;
-      isClusterStatusForbidden: boolean;
+      isLoaded: false;
+      isForbidden: boolean;
     }
   | {
-      isClusterStatusFetched: true;
-      isClusterStatusForbidden: false;
-      clusterStatusLabel: ClusterStorageItem["clusterStatus"]["clusterData"]["status"];
-    }
-);
+      isLoaded: true;
+      isForbidden: false;
+      data: ClusterStorageItem["clusterStatus"]["clusterData"];
+    };
+
+type ClusterInfoPermissions =
+  | {isLoaded: false}
+  | {
+      isLoaded: true;
+      data: NonNullable<ClusterStorageItem["clusterPermissions"]["data"]>;
+    };
+
+type ClusterInfo =
+  | {isRegistered: false}
+  | {
+      isRegistered: true;
+      clusterStatus: ClusterInfoClusterStatus;
+      permissions: ClusterInfoPermissions;
+    };
 
 export const getClusterStoreInfo =
   (clusterName: string) =>
   (state: Root): ClusterInfo => {
     const clusterStoreItem = state.clusterStorage[clusterName];
-    if (clusterStoreItem?.clusterStatus.dataFetchState === "SUCCESS") {
+    if (clusterStoreItem === null) {
       return {
-        clusterStoreItem,
-        isClusterStatusFetched: true,
-        isClusterStatusForbidden: false,
-        clusterStatusLabel: clusterStoreItem.clusterStatus.clusterData.status,
+        isRegistered: false,
       };
     }
-    return {
-      clusterStoreItem,
-      isClusterStatusFetched: false,
-      isClusterStatusForbidden:
+    let clusterStatus: ClusterInfoClusterStatus = {
+      isLoaded: false,
+      isForbidden:
         clusterStoreItem?.clusterStatus.dataFetchState === "FORBIDDEN",
+    };
+
+    if (clusterStoreItem?.clusterStatus.dataFetchState === "SUCCESS") {
+      clusterStatus = {
+        isLoaded: true,
+        isForbidden: false,
+        data: clusterStoreItem.clusterStatus.clusterData,
+      };
+    }
+
+    let permissions: ClusterInfoPermissions = {isLoaded: false};
+
+    if (clusterStoreItem.clusterPermissions.data !== null) {
+      permissions = {
+        isLoaded: true,
+        data: clusterStoreItem.clusterPermissions.data,
+      };
+    }
+
+    return {
+      isRegistered: true,
+      clusterStatus,
+      permissions,
     };
   };

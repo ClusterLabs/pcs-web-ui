@@ -1,10 +1,11 @@
 import React from "react";
 
-import {useCurrentClusterStoreItem} from "app/view/cluster/share";
+import {useRegisteredClusterInfo} from "app/view/cluster/share";
 
-type ClusterPermissions = NonNullable<
-  ReturnType<typeof useCurrentClusterStoreItem>["clusterPermissions"]["data"]
->;
+type ClusterPermissions = Extract<
+  ReturnType<typeof useRegisteredClusterInfo>["permissions"],
+  {isLoaded: true}
+>["data"];
 
 const LoadedPermissionsContext = React.createContext<
   ClusterPermissions | undefined
