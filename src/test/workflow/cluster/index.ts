@@ -1,4 +1,4 @@
-import {clusterAppTabList} from "app/view/cluster/clusterAppTabList";
+import {clusterAppTabList} from "app/view/cluster/";
 
 import {dt} from "test/tools/selectors";
 

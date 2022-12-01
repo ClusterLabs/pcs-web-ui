@@ -1,28 +1,38 @@
-import {PageSection, Stack, StackItem} from "@patternfly/react-core";
+import {PageSection} from "@patternfly/react-core";
 
-import {tools} from "app/store";
-import {EmptyStateSpinner, Router} from "app/view/share";
 import {
-  Page,
-  UrlTabs,
+  EmptyStateError,
+  PageSectionSpinner,
   useSelectedClusterName,
-  useUrlTabs,
 } from "app/view/share";
 import {
-  RegisteredClusterInfoProvider,
+  LoadedClusterProvider,
   useClusterInfo,
   useClusterLoad,
 } from "app/view/cluster/share";
 
-import {ClusterAppBreadcrumb} from "./ClusterAppBreadcrumb";
-import {ClusterStatusDetail} from "./ClusterStatusDetail";
-import {ClusterPermissionsDetail} from "./permissions";
-import {clusterAppTabList} from "./clusterAppTabList";
+import {ClusterPermissionsPage, LoadedPermissionsProvider} from "./permissions";
+import {ClusterAppLayout} from "./ClusterAppLayout";
+import {NodesPage} from "./nodes";
+import {ResourcesPage} from "./resources";
+import {FenceDevicePage} from "./fenceDevices";
+import {SbdPage} from "./sbd";
+import {ConstraintsPage} from "./constraints";
+import {ClusterPropertiesPage} from "./properties";
+import {AclPage} from "./acl";
+import {ClusterOverviewPage} from "./overview";
 
-const tabNameMap: Partial<Record<typeof clusterAppTabList[number], string>> = {
-  sbd: "SBD",
-  acl: "ACL",
-};
+export const clusterAppTabList = [
+  "overview",
+  "nodes",
+  "resources",
+  "fence-devices",
+  "sbd",
+  "constraints",
+  "properties",
+  "acl",
+  "permissions",
+] as const;
 
 export const ClusterApp = () => {
   const clusterName = useSelectedClusterName();
@@ -30,49 +40,72 @@ export const ClusterApp = () => {
   useClusterLoad(clusterName);
   const clusterInfo = useClusterInfo(clusterName);
 
-  const {currentTab, matchedContext} = useUrlTabs(clusterAppTabList);
-
   return (
-    <Page>
-      <PageSection variant="light">
-        <Stack hasGutter>
-          <StackItem>
-            <ClusterAppBreadcrumb
-              clusterName={clusterName}
-              statusLabel={
-                clusterInfo.isRegistered && clusterInfo.clusterStatus.isLoaded
-                  ? clusterInfo.clusterStatus.data.status
-                  : "unknown"
-              }
-            />
-          </StackItem>
-          <StackItem>
-            <UrlTabs
-              tabList={clusterAppTabList}
-              currentTab={currentTab}
-              data-test="cluster"
-              toLabel={name => tabNameMap[name] ?? tools.labelize(name)}
-            />
-          </StackItem>
-        </Stack>
-      </PageSection>
+    <ClusterAppLayout
+      clusterName={clusterName}
+      tabList={clusterAppTabList}
+      tabNameMap={{sbd: "SBD", acl: "ACL"}}
+      statusLabel={
+        clusterInfo.isRegistered && clusterInfo.clusterStatus.isLoaded
+          ? clusterInfo.clusterStatus.data.status
+          : "unknown"
+      }
+    >
+      {currentTab => {
+        if (!clusterInfo.isRegistered) {
+          return <PageSectionSpinner title="Preparing cluster storage" />;
+        }
 
-      {!clusterInfo.isRegistered && (
-        <PageSection>
-          <EmptyStateSpinner title="Preparing cluster storage" />
-        </PageSection>
-      )}
+        if (currentTab === "permissions") {
+          if (!clusterInfo.permissions.isLoaded) {
+            return (
+              <PageSectionSpinner title="Loading cluster permission data" />
+            );
+          }
+          return (
+            <LoadedPermissionsProvider value={clusterInfo.permissions.data}>
+              <ClusterPermissionsPage />
+            </LoadedPermissionsProvider>
+          );
+        }
 
-      {clusterInfo.isRegistered && (
-        <Router base={matchedContext}>
-          <RegisteredClusterInfoProvider value={clusterInfo}>
-            {currentTab === "permissions" && <ClusterPermissionsDetail />}
-            {currentTab !== "permissions" && (
-              <ClusterStatusDetail currentTab={currentTab} />
-            )}
-          </RegisteredClusterInfoProvider>
-        </Router>
-      )}
-    </Page>
+        if (clusterInfo.clusterStatus.isForbidden) {
+          return (
+            <PageSection>
+              <EmptyStateError
+                title="Forbidden"
+                message="You don't have a read permission for this cluster."
+              />
+            </PageSection>
+          );
+        }
+
+        if (!clusterInfo.clusterStatus.isLoaded) {
+          return <PageSectionSpinner title="Loading cluster data" />;
+        }
+
+        const tabComponentMap: Record<
+          Exclude<typeof clusterAppTabList[number], "permissions">,
+          React.FC
+        > = {
+          overview: ClusterOverviewPage,
+          nodes: NodesPage,
+          resources: ResourcesPage,
+          "fence-devices": FenceDevicePage,
+          sbd: SbdPage,
+          constraints: ConstraintsPage,
+          properties: ClusterPropertiesPage,
+          acl: AclPage,
+        };
+
+        const TabComponent = tabComponentMap[currentTab];
+
+        return (
+          <LoadedClusterProvider value={clusterInfo.clusterStatus.data}>
+            <TabComponent />
+          </LoadedClusterProvider>
+        );
+      }}
+    </ClusterAppLayout>
   );
 };

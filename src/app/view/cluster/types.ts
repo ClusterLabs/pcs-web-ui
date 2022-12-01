@@ -1,10 +1,17 @@
 import {useClusterInfo} from "app/view/cluster/share";
 
+type RegisteredClusterInfo = Extract<
+  ReturnType<typeof useClusterInfo>,
+  {isRegistered: true}
+>;
+
 export type Cluster = Extract<
-  Extract<
-    ReturnType<typeof useClusterInfo>,
-    {isRegistered: true}
-  >["clusterStatus"],
+  RegisteredClusterInfo["clusterStatus"],
+  {isLoaded: true}
+>["data"];
+
+export type Permissions = Extract<
+  RegisteredClusterInfo["permissions"],
   {isLoaded: true}
 >["data"];
 

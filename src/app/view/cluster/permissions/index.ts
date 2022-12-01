@@ -1,1 +1,2 @@
-export * from "./ClusterPermissionsDetail";
+export * from "./ClusterPermissionsPage";
+export * from "./LoadedPermissionsContext";
