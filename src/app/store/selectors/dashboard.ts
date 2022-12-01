@@ -14,7 +14,9 @@ type ClusterInfoList = ({clusterName: string} & (
   | {
       isFetched: true;
       isForbidden: false;
-      clusterStatus: ClusterStorageItem["clusterStatus"]["clusterData"];
+      clusterStatus: NonNullable<
+        ClusterStorageItem["clusterStatus"]["clusterData"]
+      >;
     }
 ))[];
 
@@ -23,7 +25,10 @@ export const getClusterStoreInfoList =
   (state: Root): ClusterInfoList =>
     clusterNameList.map(clusterName => {
       const clusterStorageItem = state.clusterStorage[clusterName];
-      if (clusterStorageItem?.clusterStatus.dataFetchState === "SUCCESS") {
+      if (
+        clusterStorageItem?.clusterStatus.dataFetchState === "SUCCESS"
+        && clusterStorageItem?.clusterStatus.clusterData !== null
+      ) {
         return {
           clusterName,
           isFetched: true,

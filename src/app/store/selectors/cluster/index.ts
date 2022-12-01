@@ -52,7 +52,7 @@ type ClusterInfoClusterStatus =
   | {
       isLoaded: true;
       isForbidden: false;
-      data: ClusterStorageItem["clusterStatus"]["clusterData"];
+      data: NonNullable<ClusterStorageItem["clusterStatus"]["clusterData"]>;
     };
 
 type ClusterInfoPermissions =
@@ -85,7 +85,10 @@ export const getClusterStoreInfo =
         clusterStoreItem?.clusterStatus.dataFetchState === "FORBIDDEN",
     };
 
-    if (clusterStoreItem?.clusterStatus.dataFetchState === "SUCCESS") {
+    if (
+      clusterStoreItem?.clusterStatus.dataFetchState === "SUCCESS"
+      && clusterStoreItem.clusterStatus.clusterData !== null
+    ) {
       clusterStatus = {
         isLoaded: true,
         isForbidden: false,

@@ -3,31 +3,10 @@ import {combineReducers} from "redux";
 import {AppReducer} from "app/store/reducers/appReducer";
 
 import {apiToState} from "./apiToState";
-import {Cluster, ClusterStatusService} from "./types";
-
-export const clusterStatusDefault: Cluster = {
-  name: "",
-  status: "unknown",
-  hasCibInfo: false,
-  nodeList: [],
-  resourceTree: [],
-  fenceDeviceList: [],
-  acls: {},
-  issueList: [],
-  summary: {
-    nodesSeverity: "OK",
-    resourcesSeverity: "OK",
-    fenceDevicesSeverity: "OK",
-    issuesSeverity: "OK",
-  },
-  resourceOnNodeStatusList: [],
-  clusterProperties: {},
-  nodeAttr: {},
-  nodesUtilization: {},
-};
+import {ClusterStatusService} from "./types";
 
 const clusterData: AppReducer<ClusterStatusService["clusterData"]> = (
-  state = clusterStatusDefault,
+  state = null,
   action,
 ) => {
   switch (action.type) {
@@ -35,7 +14,7 @@ const clusterData: AppReducer<ClusterStatusService["clusterData"]> = (
       return apiToState(action.payload);
 
     case "CLUSTER.STATUS.FETCH.FORBIDDEN":
-      return clusterStatusDefault;
+      return null;
 
     default:
       return state;
