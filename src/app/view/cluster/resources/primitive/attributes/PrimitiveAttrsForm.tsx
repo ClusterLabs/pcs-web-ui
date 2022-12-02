@@ -2,11 +2,8 @@ import React from "react";
 import {ActionGroup, Alert, Button, Form} from "@patternfly/react-core";
 
 import {Primitive} from "app/view/cluster/types";
-import {
-  pcmkAgentTypes,
-  useDispatch,
-  useSelectedClusterName,
-} from "app/view/share";
+import {pcmkAgentTypes, useDispatch} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {PrimitiveAttrsFormItem} from "./PrimitiveAttrsFormItem";
 import {PrimitiveAttrsFormItemLayout} from "./PrimitiveAttrsFormItemLayout";
@@ -70,7 +67,7 @@ export const PrimitiveAttrsForm = ({
   displayNames: string[];
   close: () => void;
 }) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
 
   const dispatch = useDispatch();
 

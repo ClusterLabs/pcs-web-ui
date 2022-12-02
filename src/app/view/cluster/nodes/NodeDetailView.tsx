@@ -13,7 +13,7 @@ import {NodeDaemonTable} from "./NodeDaemonTable";
 import {NodeClusterServicesView} from "./services";
 
 export const NodeDetailView = ({node}: {node: Node}) => {
-  const {resourceOnNodeStatusList, name: clusterName} = useLoadedCluster();
+  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
   const crmStatusList = resourceOnNodeStatusList.filter(
     s => s.node?.name === node.name,
   );

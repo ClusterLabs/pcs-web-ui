@@ -11,7 +11,7 @@ import {
 import {useLoadedCluster} from "app/view/cluster/share";
 
 export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
-  const {resourceOnNodeStatusList, name: clusterName} = useLoadedCluster();
+  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
   const crmStatusList = resourceOnNodeStatusList.filter(
     s => s.resource.id === primitive.id,
   );

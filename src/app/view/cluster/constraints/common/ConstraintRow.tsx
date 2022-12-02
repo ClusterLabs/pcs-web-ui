@@ -12,7 +12,8 @@ import {
 import {TrashIcon} from "@patternfly/react-icons";
 
 import {Action} from "app/store";
-import {useDispatch, useSelectedClusterName} from "app/view/share";
+import {useDispatch} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const ConstraintRow = ({
   id = "",
@@ -33,7 +34,7 @@ export const ConstraintRow = ({
   const rowId = `constraint-${id}-row`;
   const [showConfirm, setShowConfirm] = React.useState(false);
   const dispatch = useDispatch();
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   return (
     <DataListItem aria-labelledby={rowId} isExpanded={showDetails}>
       <DataListItemRow id={rowId}>

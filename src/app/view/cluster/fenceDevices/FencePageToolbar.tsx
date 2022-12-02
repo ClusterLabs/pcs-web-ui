@@ -1,12 +1,9 @@
 import {FenceDevice} from "app/view/cluster/types";
-import {
-  DetailToolbar,
-  LauncherItem as ToolbarItem,
-  useSelectedClusterName,
-} from "app/view/share";
+import {DetailToolbar, LauncherItem as ToolbarItem} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
-  const cluster = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   const refresh: ToolbarItem = {
     name: "refresh",
     confirm: {
@@ -20,7 +17,7 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
       ),
       action: {
         type: "RESOURCE.REFRESH",
-        key: {clusterName: cluster},
+        key: {clusterName},
         payload: {
           resourceId: fenceDevice.id,
           resourceType: "fence-device",
@@ -41,7 +38,7 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
       ),
       action: {
         type: "RESOURCE.CLEANUP",
-        key: {clusterName: cluster},
+        key: {clusterName},
         payload: {
           resourceId: fenceDevice.id,
           resourceType: "fence-device",
@@ -57,7 +54,7 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
       description: <>This deletes the resource</>,
       action: {
         type: "RESOURCE.DELETE",
-        key: {clusterName: cluster},
+        key: {clusterName},
         payload: {
           resourceIds: [fenceDevice.id],
           resourceType: "fence-device",

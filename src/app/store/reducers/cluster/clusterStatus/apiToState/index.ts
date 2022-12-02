@@ -22,6 +22,7 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
   );
   return {
     name: apiClusterStatus.cluster_name,
+    clusterName: apiClusterStatus.cluster_name,
     status: clusterStatus,
     hasCibInfo: hasCibInfo,
     nodeList,

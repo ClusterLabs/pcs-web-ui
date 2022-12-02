@@ -11,7 +11,7 @@ const grow: FlexProps["grow"] = {default: "grow"};
 const spacer: FlexProps["spacer"] = {default: "spacerNone"};
 
 export const AclLists = () => {
-  const {acls, hasCibInfo, name: clusterName} = useLoadedCluster();
+  const {acls, hasCibInfo, clusterName} = useLoadedCluster();
   if (!hasCibInfo) {
     return (
       <EmptyStateClusterStopped

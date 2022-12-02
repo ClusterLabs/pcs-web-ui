@@ -6,8 +6,8 @@ import {
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
   TaskOpenArgs,
-  useSelectedClusterName,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 
@@ -18,7 +18,7 @@ export const FenceDeviceArgumentsView = ({
 }: {
   fenceDevice: FenceDevice;
 }) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   const fenceDeviceArguments = Object.entries(fenceDevice.arguments).reduce(
     (nameValueMap, [name, {value}]) => ({...nameValueMap, [name]: value}),

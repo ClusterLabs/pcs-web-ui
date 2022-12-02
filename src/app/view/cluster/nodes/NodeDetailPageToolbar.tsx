@@ -1,14 +1,11 @@
 import {Action} from "app/store";
-import {
-  DetailToolbar,
-  LauncherItem as ToolbarItem,
-  useSelectedClusterName,
-} from "app/view/share";
+import {DetailToolbar, LauncherItem as ToolbarItem} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 import {Node} from "app/view/cluster/types";
 import {task} from "app/view/share";
 
 export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",

@@ -1,14 +1,15 @@
 import {StackItem} from "@patternfly/react-core";
 
 import {EmptyStateNoItem} from "app/view/share";
-import {DetailLayout, useSelectedClusterName} from "app/view/share";
+import {DetailLayout} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const FenceDeviceDoesNotExists = ({
   fenceDeviceId,
 }: {
   fenceDeviceId: string;
 }) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   return (
     <DetailLayout caption={<strong>{fenceDeviceId}</strong>}>
       <StackItem>

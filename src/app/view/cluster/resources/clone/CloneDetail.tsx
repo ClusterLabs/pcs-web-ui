@@ -21,7 +21,7 @@ export const CloneDetail = ({
   member: Member;
   issueList: Clone["issueList"];
 }) => {
-  const {resourceOnNodeStatusList, name: clusterName} = useLoadedCluster();
+  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
 
   const primitiveIds =
     member.itemType === "primitive"

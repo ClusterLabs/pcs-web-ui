@@ -9,7 +9,7 @@ import {
 import {useLoadedCluster} from "app/view/cluster/share";
 
 export const GroupDetail = ({group}: {group: Group}) => {
-  const {resourceOnNodeStatusList, name: clusterName} = useLoadedCluster();
+  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
   const primitiveIds = group.resources.map(r => r.id);
   const crmStatusList = resourceOnNodeStatusList.filter(s =>
     primitiveIds.includes(s.resource.id),

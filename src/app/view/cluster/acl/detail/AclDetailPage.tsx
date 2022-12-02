@@ -16,7 +16,7 @@ export const AclDetailPage = () => {
   const {selectedItemUrlName: aclId, selectedItemUrlType: urlType} =
     useGroupDetailViewContext();
 
-  const {acls, name: clusterName} = useLoadedCluster();
+  const {acls, clusterName} = useLoadedCluster();
 
   if (urlType !== "role" && urlType !== "user" && urlType !== "group") {
     <DetailLayout caption={"Type does not exist"}>

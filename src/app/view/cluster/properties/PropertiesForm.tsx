@@ -1,7 +1,8 @@
 import React from "react";
 import {ActionGroup, Button, Form} from "@patternfly/react-core";
 
-import {useDispatch, useSelectedClusterName} from "app/view/share";
+import {useDispatch} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {ClusterProperties} from "./useClusterProperties";
 import {PropertyFormField} from "./PropertyFormField";
@@ -18,7 +19,7 @@ export const PropertiesForm = ({
   const [userProperties, setUserProperties] = React.useState<
     Record<string, string>
   >({});
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   const dispatch = useDispatch();
   return (
     <Form isHorizontal style={{maxWidth: "550px"}}>

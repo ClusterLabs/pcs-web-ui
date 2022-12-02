@@ -7,7 +7,7 @@ export const useTask = () => {
   const task = useClusterTask("constraintOrderSetCreate");
   const {clusterName, dispatch, state, close} = task;
 
-  const resourceSets = useResourceSets(task.name);
+  const resourceSets = useResourceSets(clusterName, task.name);
 
   return {
     ...task,

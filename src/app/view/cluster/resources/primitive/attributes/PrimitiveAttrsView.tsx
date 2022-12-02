@@ -6,13 +6,13 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
-  useSelectedClusterName,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {PrimitiveAttrsForm} from "./PrimitiveAttrsForm";
 
 export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   const [isEditing, setIsEditing] = React.useState(false);
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   return (

@@ -15,7 +15,7 @@ export const NVPairListView = ({
   nvPairList: NVPair[];
   owner: ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
 }) => {
-  const {hasCibInfo, name: clusterName} = useLoadedCluster();
+  const {hasCibInfo, clusterName} = useLoadedCluster();
 
   if (!hasCibInfo) {
     return (

@@ -4,15 +4,15 @@ import {
   IssueList,
   LoadedPcmkAgent,
   PcmkAgentDescription,
-  useSelectedClusterName,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const FenceDeviceDetailView = ({
   fenceDevice,
 }: {
   fenceDevice: FenceDevice;
 }) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   return (
     <>
       <DetailViewSection caption="Description">

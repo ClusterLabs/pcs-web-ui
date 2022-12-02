@@ -1,8 +1,5 @@
-import {
-  DataListWithMenu,
-  DetailViewSection,
-  useSelectedClusterName,
-} from "app/view/share";
+import {DataListWithMenu, DetailViewSection} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 
@@ -13,7 +10,7 @@ export const RoleViewDetail = ({
   roleId: string;
   role: AclType<"role">;
 }) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   return (
     <>
       <DetailViewSection caption="Description">

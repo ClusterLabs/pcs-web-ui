@@ -5,11 +5,12 @@ import {
   QuestionCircleIcon,
 } from "@patternfly/react-icons";
 
-import {Link, location, useSelectedClusterName} from "app/view/share";
+import {Link, location} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 import {Node} from "app/view/cluster/types";
 
 export const SingleNodeView = ({singleNode}: {singleNode: Node}) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   const nodeNameLink = (
     <Link
       isInline
