@@ -2,11 +2,11 @@ import React from "react";
 import {SelectGroup, SelectOption} from "@patternfly/react-core";
 import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
-import {Select, useClusterSelector} from "app/view/share";
+import {Select} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 type ResourceAgentMap = NonNullable<
-  selectors.ExtractClusterSelector<typeof selectors.getResourceAgentMap>["data"]
+  ReturnType<typeof useClusterSources>["resourceAgentMap"]
 >;
 const grow: FlexProps["grow"] = {default: "grow"};
 
@@ -48,18 +48,14 @@ export const NameTypeTypeSelect = ({
   onClear: () => void;
   agentName: string;
 }) => {
-  const [
-    {
-      data: resourceAgentMapData,
-      fetchState: {alreadyLoaded},
-    },
-  ] = useClusterSelector(selectors.getResourceAgentMap);
-  const resourceAgentMap = resourceAgentMapData ?? ({} as ResourceAgentMap);
-  const {filteredResourceAgentMap, onFilter} = useFiltering(resourceAgentMap);
+  const {resourceAgentMap} = useClusterSources();
+  const {filteredResourceAgentMap, onFilter} = useFiltering(
+    resourceAgentMap ?? ({} as ResourceAgentMap),
+  );
 
   return (
     <Flex>
-      {!alreadyLoaded && (
+      {!resourceAgentMap && (
         <FlexItem>
           <Spinner isSVG size="lg" />
         </FlexItem>

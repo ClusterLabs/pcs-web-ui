@@ -23,14 +23,6 @@ export const getClusterProperties = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.clusterProperties.data,
 );
 
-export const getResourceAgentMap = clusterStorageItemSelector(
-  clusterStorageItem => clusterStorageItem.resourceAgentMap,
-);
-
-export const getFenceAgentList = clusterStorageItemSelector(
-  clusterStorageItem => clusterStorageItem.fenceAgentList,
-);
-
 export type ClusterSelector<
   ARGS extends unknown[],
   SELECTED,
@@ -44,31 +36,16 @@ export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
   ? SELECTED
   : never;
 
-type ClusterInfoClusterStatus =
-  | {
-      isLoaded: false;
-      isForbidden: boolean;
-    }
-  | {
-      isLoaded: true;
-      isForbidden: false;
-      data: NonNullable<ClusterStorageItem["clusterStatus"]["clusterData"]>;
-    };
-
-type ClusterInfoPermissions =
-  | {isLoaded: false}
-  | {
-      isLoaded: true;
-      data: NonNullable<ClusterStorageItem["clusterPermissions"]["data"]>;
-    };
-
-type ClusterInfo =
-  | {isRegistered: false}
-  | {
-      isRegistered: true;
-      clusterStatus: ClusterInfoClusterStatus;
-      permissions: ClusterInfoPermissions;
-    };
+type ClusterInfo = {
+  isRegistered: boolean;
+  clusterStatus: {
+    isForbidden: boolean;
+    data: ClusterStorageItem["clusterStatus"]["clusterData"];
+  };
+  permissions: ClusterStorageItem["clusterPermissions"]["data"];
+  resourceAgentMap: ClusterStorageItem["resourceAgentMap"]["data"];
+  fenceAgentList: ClusterStorageItem["fenceAgentList"]["data"];
+};
 
 export const getClusterStoreInfo =
   (clusterName: string) =>
@@ -77,37 +54,25 @@ export const getClusterStoreInfo =
     if (clusterStoreItem === undefined) {
       return {
         isRegistered: false,
-      };
-    }
-    let clusterStatus: ClusterInfoClusterStatus = {
-      isLoaded: false,
-      isForbidden:
-        clusterStoreItem?.clusterStatus.dataFetchState === "FORBIDDEN",
-    };
-
-    if (
-      clusterStoreItem?.clusterStatus.dataFetchState === "SUCCESS"
-      && clusterStoreItem.clusterStatus.clusterData !== null
-    ) {
-      clusterStatus = {
-        isLoaded: true,
-        isForbidden: false,
-        data: clusterStoreItem.clusterStatus.clusterData,
-      };
-    }
-
-    let permissions: ClusterInfoPermissions = {isLoaded: false};
-
-    if (clusterStoreItem.clusterPermissions.data !== null) {
-      permissions = {
-        isLoaded: true,
-        data: clusterStoreItem.clusterPermissions.data,
+        clusterStatus: {
+          isForbidden: false,
+          data: null,
+        },
+        permissions: null,
+        resourceAgentMap: null,
+        fenceAgentList: null,
       };
     }
 
     return {
       isRegistered: true,
-      clusterStatus,
-      permissions,
+      clusterStatus: {
+        isForbidden:
+          clusterStoreItem.clusterStatus.dataFetchState === "FORBIDDEN",
+        data: clusterStoreItem.clusterStatus.clusterData,
+      },
+      permissions: clusterStoreItem.clusterPermissions.data,
+      resourceAgentMap: clusterStoreItem.resourceAgentMap.data,
+      fenceAgentList: clusterStoreItem.fenceAgentList.data,
     };
   };

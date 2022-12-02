@@ -6,7 +6,7 @@ import {
   useSelectedClusterName,
 } from "app/view/share";
 import {
-  LoadedClusterProvider,
+  ClusterSourcesProvider,
   useClusterInfo,
   useClusterLoad,
 } from "app/view/cluster/share";
@@ -45,11 +45,7 @@ export const ClusterApp = () => {
       clusterName={clusterName}
       tabList={clusterAppTabList}
       tabNameMap={{sbd: "SBD", acl: "ACL"}}
-      statusLabel={
-        clusterInfo.isRegistered && clusterInfo.clusterStatus.isLoaded
-          ? clusterInfo.clusterStatus.data.status
-          : "unknown"
-      }
+      statusLabel={clusterInfo.clusterStatus.data?.status ?? "unknown"}
     >
       {currentTab => {
         if (!clusterInfo.isRegistered) {
@@ -57,13 +53,13 @@ export const ClusterApp = () => {
         }
 
         if (currentTab === "permissions") {
-          if (!clusterInfo.permissions.isLoaded) {
+          if (!clusterInfo.permissions) {
             return (
               <PageSectionSpinner title="Loading cluster permission data" />
             );
           }
           return (
-            <LoadedPermissionsProvider value={clusterInfo.permissions.data}>
+            <LoadedPermissionsProvider value={clusterInfo.permissions}>
               <ClusterPermissionsPage />
             </LoadedPermissionsProvider>
           );
@@ -80,7 +76,7 @@ export const ClusterApp = () => {
           );
         }
 
-        if (!clusterInfo.clusterStatus.isLoaded) {
+        if (!clusterInfo.clusterStatus.data) {
           return <PageSectionSpinner title="Loading cluster data" />;
         }
 
@@ -101,9 +97,15 @@ export const ClusterApp = () => {
         const TabComponent = tabComponentMap[currentTab];
 
         return (
-          <LoadedClusterProvider value={clusterInfo.clusterStatus.data}>
+          <ClusterSourcesProvider
+            value={{
+              loadedCluster: clusterInfo.clusterStatus.data,
+              resourceAgentMap: clusterInfo.resourceAgentMap,
+              fenceAgentList: clusterInfo.fenceAgentList,
+            }}
+          >
             <TabComponent />
-          </LoadedClusterProvider>
+          </ClusterSourcesProvider>
         );
       }}
     </ClusterAppLayout>

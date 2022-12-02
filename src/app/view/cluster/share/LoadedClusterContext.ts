@@ -1,17 +1,28 @@
 import React from "react";
 
-import {Cluster} from "app/view/cluster/types";
+import {useClusterInfo} from "app/view/cluster/share";
 
-const LoadedClusterContext = React.createContext<Cluster | undefined>(
-  undefined,
-);
+type ClusterInfo = ReturnType<typeof useClusterInfo>;
 
-export const LoadedClusterProvider = LoadedClusterContext.Provider;
+const ClusterSourcesContext = React.createContext<
+  | {
+      loadedCluster: NonNullable<ClusterInfo["clusterStatus"]["data"]>;
+      resourceAgentMap: ClusterInfo["resourceAgentMap"];
+      fenceAgentList: ClusterInfo["fenceAgentList"];
+    }
+  | undefined
+>(undefined);
+
+export const ClusterSourcesProvider = ClusterSourcesContext.Provider;
+
+export const useClusterSources = () => {
+  const sources = React.useContext(ClusterSourcesContext);
+  if (sources === undefined) {
+    throw new Error("useClusterSources must be within ClusterSourcesProvider");
+  }
+  return sources;
+};
 
 export const useLoadedCluster = () => {
-  const cluster = React.useContext(LoadedClusterContext);
-  if (cluster === undefined) {
-    throw new Error("useLoadedCluster must be within LoadedClusterProvider");
-  }
-  return cluster;
+  return useClusterSources().loadedCluster;
 };

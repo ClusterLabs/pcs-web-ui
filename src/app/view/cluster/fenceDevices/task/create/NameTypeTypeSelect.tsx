@@ -1,11 +1,11 @@
 import React from "react";
 import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
-import {Select, useClusterSelector} from "app/view/share";
+import {Select} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 type FenceAgentList = NonNullable<
-  selectors.ExtractClusterSelector<typeof selectors.getFenceAgentList>["data"]
+  ReturnType<typeof useClusterSources>["fenceAgentList"]
 >;
 
 const useFiltering = (fenceAgentList: FenceAgentList) => {
@@ -35,18 +35,14 @@ export const NameTypeTypeSelect = ({
   onClear: () => void;
   agentName: string;
 }) => {
-  const [
-    {
-      data: fenceAgentListData,
-      fetchState: {alreadyLoaded},
-    },
-  ] = useClusterSelector(selectors.getFenceAgentList);
-  const fenceAgentList = fenceAgentListData ?? ([] as FenceAgentList);
-  const {filteredFenceAgentList, onFilter} = useFiltering(fenceAgentList);
+  const {fenceAgentList} = useClusterSources();
+  const {filteredFenceAgentList, onFilter} = useFiltering(
+    fenceAgentList ?? ([] as FenceAgentList),
+  );
 
   return (
     <Flex>
-      {!alreadyLoaded && (
+      {!fenceAgentList && (
         <FlexItem>
           <Spinner isSVG size="lg" />
         </FlexItem>

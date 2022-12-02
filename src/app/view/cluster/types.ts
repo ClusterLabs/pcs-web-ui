@@ -1,19 +1,6 @@
-import {useClusterInfo} from "app/view/cluster/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
-type RegisteredClusterInfo = Extract<
-  ReturnType<typeof useClusterInfo>,
-  {isRegistered: true}
->;
-
-export type Cluster = Extract<
-  RegisteredClusterInfo["clusterStatus"],
-  {isLoaded: true}
->["data"];
-
-export type Permissions = Extract<
-  RegisteredClusterInfo["permissions"],
-  {isLoaded: true}
->["data"];
+export type Cluster = ReturnType<typeof useLoadedCluster>;
 
 export type Node = Cluster["nodeList"][number];
 export type ConnectedNode = Exclude<Node, {status: "DATA_NOT_PROVIDED"}>;

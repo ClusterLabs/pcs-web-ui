@@ -1,10 +1,10 @@
 import React from "react";
 
-import {Permissions} from "app/view/cluster/types";
+import {useClusterInfo} from "app/view/cluster/share";
 
-const LoadedPermissionsContext = React.createContext<Permissions | undefined>(
-  undefined,
-);
+const LoadedPermissionsContext = React.createContext<
+  NonNullable<ReturnType<typeof useClusterInfo>["permissions"]> | undefined
+>(undefined);
 
 export const LoadedPermissionsProvider = LoadedPermissionsContext.Provider;
 
