@@ -3,7 +3,7 @@ import {combineReducers} from "redux";
 import {ActionPayload} from "app/store/actions";
 import {AppReducer} from "app/store/reducers/appReducer";
 
-type ResourceAgentMap = Record<string, string[]>;
+type ResourceAgentMap = Record<string, string[]> | null;
 type ResourceAgentListService = {
   data: ResourceAgentMap;
   fetchState: {
@@ -37,7 +37,7 @@ const parseName = (name: string) => {
 type AgentNameStructure = NonNullable<ReturnType<typeof parseName>>;
 
 const groupByClassProvider = (
-  grouped: ResourceAgentMap,
+  grouped: NonNullable<ResourceAgentMap>,
   {groupName, agentName}: AgentNameStructure,
 ) => ({
   ...grouped,
@@ -52,7 +52,7 @@ const groupAgentNames = (
     .filter((a): a is AgentNameStructure => a !== null)
     .reduce(groupByClassProvider, {});
 
-const data: AppReducer<ResourceAgentMap> = (state = {}, action) => {
+const data: AppReducer<ResourceAgentMap> = (state = null, action) => {
   switch (action.type) {
     case "RESOURCE_AGENT.LIST.LOAD.OK":
       return groupAgentNames(action.payload.apiResourceAgentList);
