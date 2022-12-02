@@ -1,5 +1,4 @@
-import {Router, UrlTabs, useUrlTabs} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {Router, UrlTabs, useLoadedCluster, useUrlTabs} from "app/view/share";
 
 import {AclType} from "../types";
 

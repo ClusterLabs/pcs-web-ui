@@ -1,6 +1,9 @@
 import {FenceDevice} from "app/view/cluster/types";
-import {DetailToolbar, LauncherItem as ToolbarItem} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  DetailToolbar,
+  LauncherItem as ToolbarItem,
+  useLoadedCluster,
+} from "app/view/share";
 
 export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   const {clusterName} = useLoadedCluster();

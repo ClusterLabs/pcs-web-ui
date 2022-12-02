@@ -5,8 +5,8 @@ import {
   IssueList,
   Link,
   location,
+  useLoadedCluster,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
 import {Node} from "app/view/cluster/types";
 
 import {NodeDaemonTable} from "./NodeDaemonTable";

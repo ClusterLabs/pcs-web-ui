@@ -1,4 +1,4 @@
-import {useClusterSources} from "app/view/cluster/share";
+import {useClusterSources} from "app/view/share";
 
 export type Agent = ReturnType<typeof useClusterSources>["pcmkAgents"][string];
 

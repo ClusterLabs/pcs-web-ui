@@ -1,8 +1,6 @@
 import {StackItem} from "@patternfly/react-core";
 
-import {EmptyStateNoItem} from "app/view/share";
-import {DetailLayout} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DetailLayout, EmptyStateNoItem, useLoadedCluster} from "app/view/share";
 
 export const NodeDoesNotExists = ({nodeName}: {nodeName: string}) => {
   const {clusterName} = useLoadedCluster();

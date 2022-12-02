@@ -1,5 +1,5 @@
 import {useDispatch} from "app/view/share/useDispatch";
-import {useClusterSources} from "app/view/cluster/share";
+import {useClusterSources} from "app/view/share";
 
 import {useTaskOpenClose} from "./useTaskOpenClose";
 

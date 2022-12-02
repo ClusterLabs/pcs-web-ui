@@ -1,6 +1,6 @@
 import {DataListCell} from "@patternfly/react-core";
 
-import {useLoadedCluster} from "app/view/cluster/share";
+import {useLoadedCluster} from "app/view/share";
 
 import {ConstraintLocationRule} from "../types";
 import {

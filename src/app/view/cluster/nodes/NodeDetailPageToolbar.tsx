@@ -1,8 +1,11 @@
 import {Action} from "app/store";
-import {DetailToolbar, LauncherItem as ToolbarItem} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  DetailToolbar,
+  LauncherItem as ToolbarItem,
+  task,
+  useLoadedCluster,
+} from "app/view/share";
 import {Node} from "app/view/cluster/types";
-import {task} from "app/view/share";
 
 export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
   const {clusterName} = useLoadedCluster();

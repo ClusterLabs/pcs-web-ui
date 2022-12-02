@@ -15,10 +15,6 @@ export const getPcmkAgent = clusterStorageItemSelector(
     clusterStorageItem.pcmkAgents[agentName],
 );
 
-export const resourceTreeGetOpenedItems = clusterStorageItemSelector(
-  clusterStorageItem => clusterStorageItem.resourceTree || [],
-);
-
 export const getClusterProperties = clusterStorageItemSelector(
   clusterStorageItem => clusterStorageItem.clusterProperties.data,
 );

@@ -10,8 +10,8 @@ import {
   Link,
   SelectionIndicatorInGroup,
   useGroupDetailViewContext,
+  useLoadedCluster,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType, Acls} from "../types";
 

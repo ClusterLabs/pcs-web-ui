@@ -3,7 +3,7 @@ import {SelectGroup, SelectOption} from "@patternfly/react-core";
 import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
 import {Select} from "app/view/share";
-import {useClusterSources} from "app/view/cluster/share";
+import {useClusterSources} from "app/view/share";
 
 type ResourceAgentMap = NonNullable<
   ReturnType<typeof useClusterSources>["resourceAgentMap"]

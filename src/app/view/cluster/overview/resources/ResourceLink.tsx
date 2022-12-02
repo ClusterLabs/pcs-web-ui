@@ -1,5 +1,4 @@
-import {Link, location, useDispatch} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {Link, location, useDispatch, useLoadedCluster} from "app/view/share";
 
 export const ResourceLink = ({
   resourceIdMixed,

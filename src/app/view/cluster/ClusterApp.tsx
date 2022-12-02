@@ -1,15 +1,11 @@
 import {PageSection} from "@patternfly/react-core";
 
 import {
+  ClusterSourcesProvider,
   EmptyStateError,
   PageSectionSpinner,
-  useSelectedClusterName,
 } from "app/view/share";
-import {
-  ClusterSourcesProvider,
-  useClusterInfo,
-  useClusterLoad,
-} from "app/view/cluster/share";
+import {useClusterInfo, useClusterLoad} from "app/view/cluster/share";
 
 import {ClusterPermissionsPage, LoadedPermissionsProvider} from "./permissions";
 import {ClusterAppLayout} from "./ClusterAppLayout";
@@ -34,9 +30,7 @@ export const clusterAppTabList = [
   "permissions",
 ] as const;
 
-export const ClusterApp = () => {
-  const clusterName = useSelectedClusterName();
-
+export const ClusterApp = ({clusterName}: {clusterName: string}) => {
   useClusterLoad(clusterName);
   const clusterInfo = useClusterInfo(clusterName);
 

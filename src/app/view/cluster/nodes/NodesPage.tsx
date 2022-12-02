@@ -1,5 +1,9 @@
-import {ClusterToolbar, GroupDetailView} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  ClusterToolbar,
+  GroupDetailView,
+  useLoadedCluster,
+} from "app/view/share";
+import {} from "app/view/share";
 
 import {NodeDetailPage} from "./NodeDetailPage";
 import {NodeList} from "./NodeList";

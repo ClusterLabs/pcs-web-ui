@@ -5,8 +5,7 @@ import {
   QuestionCircleIcon,
 } from "@patternfly/react-icons";
 
-import {Link, location} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {Link, location, useLoadedCluster} from "app/view/share";
 import {Node} from "app/view/cluster/types";
 
 export const SingleNodeView = ({singleNode}: {singleNode: Node}) => {

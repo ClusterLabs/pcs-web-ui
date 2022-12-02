@@ -1,5 +1,4 @@
-import {DetailToolbar, TaskOpenArgs} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar, TaskOpenArgs, useLoadedCluster} from "app/view/share";
 
 import * as task from "./task";
 

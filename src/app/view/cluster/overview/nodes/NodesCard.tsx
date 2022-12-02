@@ -6,8 +6,7 @@ import {
 } from "@patternfly/react-icons";
 
 import {Node} from "app/view/cluster/types";
-import {Link, location} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {Link, location, useLoadedCluster} from "app/view/share";
 import {StatisticsIssueInfo} from "app/view/cluster/overview/StatisticsIssueInfo";
 
 import {SingleNodeView} from "./SingleNodeView";

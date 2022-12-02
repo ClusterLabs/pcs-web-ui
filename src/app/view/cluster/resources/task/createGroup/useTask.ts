@@ -1,6 +1,5 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {useClusterTask, useLoadedCluster} from "app/view/share";
 
 export const useTask = () => {
   const task = useClusterTask("resourceGroup");

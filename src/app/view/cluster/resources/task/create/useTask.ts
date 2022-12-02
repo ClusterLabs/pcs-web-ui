@@ -1,8 +1,6 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {useClusterSources, useClusterTask} from "app/view/share";
 import {selectGroups} from "app/view/cluster/resources/select";
-import {useClusterSources} from "app/view/cluster/share";
 
 const useAgent = (agentName: string) => {
   const {pcmkAgents} = useClusterSources();
@@ -18,7 +16,9 @@ const useAgent = (agentName: string) => {
 export const useTask = () => {
   const task = useClusterTask("resourceCreate");
   const {clusterName, state, dispatch} = task;
-  const groupList = selectGroups(useLoadedCluster().resourceTree);
+  const groupList = selectGroups(
+    useClusterSources().loadedCluster.resourceTree,
+  );
   const {agent, isAgentLoaded} = useAgent(state.agentName);
 
   return {

@@ -12,8 +12,7 @@ import {
 import {TrashIcon} from "@patternfly/react-icons";
 
 import {Action} from "app/store";
-import {useDispatch} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {useDispatch, useLoadedCluster} from "app/view/share";
 
 export const ConstraintRow = ({
   id = "",

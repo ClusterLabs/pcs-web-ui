@@ -16,8 +16,8 @@ import {
   ClusterStoppedInfo,
   ToolbarFilterTextGroupPair,
   useLauncherDisableClusterNotRunning,
+  useLoadedCluster,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
 
 import {PropertiesForm} from "./PropertiesForm";
 import {ClusterProperties, useClusterProperties} from "./useClusterProperties";

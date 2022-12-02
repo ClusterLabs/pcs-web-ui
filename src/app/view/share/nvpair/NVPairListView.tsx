@@ -3,7 +3,7 @@ import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
 } from "app/view/share/emptyState";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {useLoadedCluster} from "app/view/share/LoadedClusterContext";
 import {NVPair} from "app/view/cluster/types";
 
 import {NVPairList} from "./NVPairList";

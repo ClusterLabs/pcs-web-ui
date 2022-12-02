@@ -1,3 +1,2 @@
 export * from "./useClusterLoad";
-export * from "./LoadedClusterContext";
-export * from "./RegisteredClusterInfoContext";
+export * from "./useClusterInfo";

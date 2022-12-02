@@ -5,8 +5,8 @@ import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
   useGroupDetailViewContext,
+  useLoadedCluster,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
 
 import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
 import {ResourceTreeItemClone} from "./ResourceTreeItemClone";

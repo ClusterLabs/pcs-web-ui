@@ -5,8 +5,7 @@ import {
   WrenchIcon,
 } from "@patternfly/react-icons";
 
-import {EmptyStateNoItem, Table} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {EmptyStateNoItem, Table, useLoadedCluster} from "app/view/share";
 
 const SuccessIcon = ({label}: {label: string}) => {
   return (

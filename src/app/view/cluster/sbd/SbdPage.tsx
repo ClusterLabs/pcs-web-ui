@@ -1,7 +1,11 @@
 import {Grid, GridItem, PageSection} from "@patternfly/react-core";
 
-import {Card, ClusterToolbar, TaskOpenArgs} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  Card,
+  ClusterToolbar,
+  TaskOpenArgs,
+  useLoadedCluster,
+} from "app/view/share";
 
 import {selectSbdConfig} from "./select";
 import * as task from "./task";

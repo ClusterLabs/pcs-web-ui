@@ -1,7 +1,7 @@
 import React from "react";
 
 import {ClusterStoppedInfo} from "app/view/share/ClusterStoppedInfo";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {useLoadedCluster} from "app/view/share/LoadedClusterContext";
 
 export const useLauncherDisableClusterNotRunning = () => {
   const {hasCibInfo, clusterName} = useLoadedCluster();
