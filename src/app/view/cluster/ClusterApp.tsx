@@ -102,6 +102,9 @@ export const ClusterApp = () => {
               loadedCluster: clusterInfo.clusterStatus.data,
               resourceAgentMap: clusterInfo.resourceAgentMap,
               fenceAgentList: clusterInfo.fenceAgentList,
+              pcmkAgents: clusterInfo.pcmkAgents,
+              tasks: clusterInfo.tasks,
+              uiState: clusterInfo.uiState,
             }}
           >
             <TabComponent />

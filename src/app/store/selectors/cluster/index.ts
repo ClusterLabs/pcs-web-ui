@@ -36,16 +36,35 @@ export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
   ? SELECTED
   : never;
 
-type ClusterInfo = {
-  isRegistered: boolean;
-  clusterStatus: {
-    isForbidden: boolean;
-    data: ClusterStorageItem["clusterStatus"]["clusterData"];
-  };
-  permissions: ClusterStorageItem["clusterPermissions"]["data"];
-  resourceAgentMap: ClusterStorageItem["resourceAgentMap"]["data"];
-  fenceAgentList: ClusterStorageItem["fenceAgentList"]["data"];
-};
+type ClusterInfo =
+  | {
+      isRegistered: false;
+      clusterStatus: {
+        isForbidden: false;
+        data: null;
+      };
+      permissions: null;
+      resourceAgentMap: null;
+      fenceAgentList: null;
+      pcmkAgents: null;
+      tasks: null;
+      uiState: null;
+    }
+  | {
+      isRegistered: true;
+      clusterStatus: {
+        isForbidden: boolean;
+        data: ClusterStorageItem["clusterStatus"]["clusterData"];
+      };
+      permissions: ClusterStorageItem["clusterPermissions"]["data"];
+      resourceAgentMap: ClusterStorageItem["resourceAgentMap"]["data"];
+      fenceAgentList: ClusterStorageItem["fenceAgentList"]["data"];
+      pcmkAgents: ClusterStorageItem["pcmkAgents"];
+      tasks: {[K in ClusterTaskKeys]: ClusterStorageItem["tasks"][K]};
+      uiState: {
+        resourceOpenedItems: ClusterStorageItem["resourceTree"];
+      };
+    };
 
 export const getClusterStoreInfo =
   (clusterName: string) =>
@@ -61,6 +80,9 @@ export const getClusterStoreInfo =
         permissions: null,
         resourceAgentMap: null,
         fenceAgentList: null,
+        pcmkAgents: null,
+        tasks: null,
+        uiState: null,
       };
     }
 
@@ -74,5 +96,10 @@ export const getClusterStoreInfo =
       permissions: clusterStoreItem.clusterPermissions.data,
       resourceAgentMap: clusterStoreItem.resourceAgentMap.data,
       fenceAgentList: clusterStoreItem.fenceAgentList.data,
+      pcmkAgents: clusterStoreItem.pcmkAgents,
+      tasks: clusterStoreItem.tasks,
+      uiState: {
+        resourceOpenedItems: clusterStoreItem.resourceTree,
+      },
     };
   };

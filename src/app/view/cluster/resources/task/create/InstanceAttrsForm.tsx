@@ -36,13 +36,12 @@ export const InstanceAttrsForm = () => {
       showValidationErrors,
       libCall: {reports},
     },
-    clusterName,
     updateState,
   } = useTask();
   const {filterState, filterParameters} = useFilterState();
   return (
     <TaskLibStep title={`Instance attributes (${agentName})`} reports={reports}>
-      <LoadedPcmkAgent clusterName={clusterName} agentName={agentName}>
+      <LoadedPcmkAgent agentName={agentName}>
         {agent => {
           const requiredParameters = agent.parameters.filter(p => p.required);
           return (

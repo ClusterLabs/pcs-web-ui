@@ -30,7 +30,6 @@ export * from "./useUrlTabs";
 export * from "./useUsername";
 export * from "./utilization";
 export * from "./utils";
-export * from "./useClusterSelector";
 export * from "./useDispatch";
 export * from "./nodeAuthForm";
 export * from "./emptyState";

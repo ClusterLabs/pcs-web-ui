@@ -9,6 +9,9 @@ const ClusterSourcesContext = React.createContext<
       loadedCluster: NonNullable<ClusterInfo["clusterStatus"]["data"]>;
       resourceAgentMap: ClusterInfo["resourceAgentMap"];
       fenceAgentList: ClusterInfo["fenceAgentList"];
+      pcmkAgents: NonNullable<ClusterInfo["pcmkAgents"]>;
+      tasks: NonNullable<ClusterInfo["tasks"]>;
+      uiState: NonNullable<ClusterInfo["uiState"]>;
     }
   | undefined
 >(undefined);

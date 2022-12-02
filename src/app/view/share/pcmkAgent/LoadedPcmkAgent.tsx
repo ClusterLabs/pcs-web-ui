@@ -1,20 +1,17 @@
-import {useSelector} from "react-redux";
-
-import {selectors} from "app/store";
 import {EmptyStateError, EmptyStateSpinner} from "app/view/share/emptyState";
+import {useClusterSources} from "app/view/cluster/share";
 
 import {Agent} from "./types";
 
 export const LoadedPcmkAgent = ({
-  clusterName,
   agentName,
   children,
 }: {
-  clusterName: string;
   agentName: string;
   children: (_ra: Agent) => JSX.Element;
 }) => {
-  const agent = useSelector(selectors.getPcmkAgent(clusterName, agentName));
+  const {pcmkAgents} = useClusterSources();
+  const agent = pcmkAgents[agentName];
 
   if (!agent || agent.loadStatus === "LOADING") {
     return <EmptyStateSpinner title={`Loading agent "${agentName}" data`} />;

@@ -19,10 +19,7 @@ export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
   return (
     <>
       <DetailViewSection caption="Description">
-        <LoadedPcmkAgent
-          clusterName={clusterName}
-          agentName={primitive.agentName}
-        >
+        <LoadedPcmkAgent agentName={primitive.agentName}>
           {agent => (
             <PcmkAgentDescription
               name={agent.name}

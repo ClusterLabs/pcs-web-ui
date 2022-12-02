@@ -1,15 +1,16 @@
-import {selectors} from "app/store";
 import {useDispatch} from "app/view/share/useDispatch";
-import {useClusterSelector} from "app/view/share/useClusterSelector";
+import {useClusterSources} from "app/view/cluster/share";
 
 import {useTaskOpenClose} from "./useTaskOpenClose";
 
 export function useClusterTask<
-  NAME extends Parameters<typeof selectors.getClusterTask>[0],
+  NAME extends keyof ReturnType<typeof useClusterSources>["tasks"],
 >(name: NAME) {
-  const [state, clusterName] = useClusterSelector(
-    selectors.getClusterTask(name),
-  );
+  const {
+    tasks: {[name]: state},
+    loadedCluster: {clusterName},
+  } = useClusterSources();
+
   const dispatch = useDispatch();
   const openClose = useTaskOpenClose(name);
 

@@ -1,10 +1,10 @@
-import {useSelector} from "react-redux";
-
-import {ActionPayload, selectors} from "app/store";
+import {ActionPayload} from "app/store";
 import {useClusterTask} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
-const useAgent = (clusterName: string, agentName: string) => {
-  const agent = useSelector(selectors.getPcmkAgent(clusterName, agentName));
+const useAgent = (agentName: string) => {
+  const {pcmkAgents} = useClusterSources();
+  const agent = pcmkAgents[agentName];
   return {
     agent,
     isAgentLoaded:
@@ -16,7 +16,7 @@ const useAgent = (clusterName: string, agentName: string) => {
 export const useTask = () => {
   const task = useClusterTask("fenceDeviceCreate");
   const {clusterName, state, dispatch} = task;
-  const {agent, isAgentLoaded} = useAgent(clusterName, state.agentName);
+  const {agent, isAgentLoaded} = useAgent(state.agentName);
 
   return {
     ...task,

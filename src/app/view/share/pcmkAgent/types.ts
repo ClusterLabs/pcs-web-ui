@@ -1,7 +1,5 @@
-import {selectors} from "app/store";
+import {useClusterSources} from "app/view/cluster/share";
 
-export type Agent = selectors.ExtractClusterSelector<
-  typeof selectors.getPcmkAgent
->;
+export type Agent = ReturnType<typeof useClusterSources>["pcmkAgents"][string];
 
 export type AgentParameter = Agent["parameters"][number];

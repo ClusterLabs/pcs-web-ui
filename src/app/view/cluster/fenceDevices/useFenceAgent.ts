@@ -1,24 +1,25 @@
 import React from "react";
 
-import {selectors} from "app/store";
-import {useClusterSelector, useDispatch} from "app/view/share";
+import {useDispatch} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 export const useClusterFenceAgent = (agentName: string) => {
-  const [fenceAgent, cluster] = useClusterSelector(
-    selectors.getPcmkAgent,
-    agentName,
-  );
+  const {
+    pcmkAgents,
+    loadedCluster: {clusterName},
+  } = useClusterSources();
+
   const dispatch = useDispatch();
   React.useEffect(() => {
-    if (!fenceAgent) {
+    if (!pcmkAgents[agentName]) {
       dispatch({
         type: "FENCE_AGENT.LOAD",
-        key: {clusterName: cluster},
+        key: {clusterName},
         payload: {agentName},
       });
     }
-  }, [agentName, cluster, dispatch, fenceAgent]);
+  }, [agentName, clusterName, dispatch, pcmkAgents]);
   return {
-    fenceAgent,
+    resourceAgent: pcmkAgents[agentName],
   };
 };
