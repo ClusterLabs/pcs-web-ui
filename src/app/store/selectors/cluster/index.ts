@@ -74,7 +74,7 @@ export const getClusterStoreInfo =
   (clusterName: string) =>
   (state: Root): ClusterInfo => {
     const clusterStoreItem = state.clusterStorage[clusterName];
-    if (clusterStoreItem === null) {
+    if (clusterStoreItem === undefined) {
       return {
         isRegistered: false,
       };
