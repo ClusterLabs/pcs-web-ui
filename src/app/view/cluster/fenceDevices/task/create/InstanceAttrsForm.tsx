@@ -3,10 +3,10 @@ import {Alert, Form} from "@patternfly/react-core";
 
 import {
   FormText,
-  LoadedPcmkAgent,
   TaskLibStep,
   ToolbarFilterTextGroupPair,
 } from "app/view/share";
+import {LoadedPcmkAgent} from "app/view/cluster/share";
 
 import {useTask} from "./useTask";
 

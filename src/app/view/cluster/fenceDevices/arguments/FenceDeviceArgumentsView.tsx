@@ -1,12 +1,12 @@
 import {StackItem} from "@patternfly/react-core";
 
 import {FenceDevice} from "app/view/cluster/types";
+import {TaskOpenArgs} from "app/view/share";
 import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
-  TaskOpenArgs,
-} from "app/view/share";
+} from "app/view/cluster/share";
 
 import * as task from "./task";
 

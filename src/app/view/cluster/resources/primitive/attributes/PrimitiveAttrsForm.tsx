@@ -2,8 +2,8 @@ import React from "react";
 import {ActionGroup, Alert, Button, Form} from "@patternfly/react-core";
 
 import {Primitive} from "app/view/cluster/types";
-import {pcmkAgentTypes, useDispatch} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {useDispatch} from "app/view/share";
+import {pcmkAgentTypes, useLoadedCluster} from "app/view/cluster/share";
 
 import {PrimitiveAttrsFormItem} from "./PrimitiveAttrsFormItem";
 import {PrimitiveAttrsFormItemLayout} from "./PrimitiveAttrsFormItemLayout";

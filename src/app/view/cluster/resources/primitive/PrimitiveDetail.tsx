@@ -4,11 +4,13 @@ import {
   DetailViewSection,
   IssueList,
   Link,
-  LoadedPcmkAgent,
-  PcmkAgentDescription,
   location,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  LoadedPcmkAgent,
+  PcmkAgentDescription,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
   const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();

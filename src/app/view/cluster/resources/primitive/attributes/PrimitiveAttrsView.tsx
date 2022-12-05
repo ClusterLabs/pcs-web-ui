@@ -6,7 +6,7 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
-} from "app/view/share";
+} from "app/view/cluster/share";
 
 import {PrimitiveAttrsForm} from "./PrimitiveAttrsForm";
 
