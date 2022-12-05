@@ -9,6 +9,7 @@ import {Settings} from "./Settings";
 export const FenceDeviceCreate = () => {
   const {
     close,
+    clusterName,
     create,
     isNameTypeValid,
     isAgentLoaded,
@@ -20,6 +21,7 @@ export const FenceDeviceCreate = () => {
   } = useTask();
   return (
     <Wizard
+      clusterName={clusterName}
       task="fenceDeviceCreate"
       data-test="task-fence-device-create"
       onClose={close}

@@ -7,6 +7,7 @@ export const Task = () => {
   const {
     close,
     name: taskName,
+    clusterName,
     createColocation,
     recoverFromError,
     isResourceValid,
@@ -20,6 +21,7 @@ export const Task = () => {
     <TaskSimple
       title="Create colocation constraint"
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "" ? null : (

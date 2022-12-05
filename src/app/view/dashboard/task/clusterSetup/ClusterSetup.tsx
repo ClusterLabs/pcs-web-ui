@@ -30,6 +30,7 @@ export const ClusterSetup = () => {
   } = useTask();
   return (
     <Wizard
+      clusterName={null}
       task="clusterSetup"
       data-test="task-cluster-setup"
       title="Setup cluster"

@@ -7,6 +7,7 @@ import {Review} from "./Review";
 
 export const Task = () => {
   const {
+    clusterName,
     close,
     aclRoleCreate,
     isNameValid,
@@ -19,6 +20,7 @@ export const Task = () => {
   return (
     <Wizard
       task="aclRoleCreate"
+      clusterName={clusterName}
       title="Create role"
       data-test="task-create-role"
       description="Create acl role"

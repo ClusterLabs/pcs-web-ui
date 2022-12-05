@@ -17,6 +17,7 @@ export const useTask = () => {
   } = useClusterSources();
   return {
     open,
+    clusterName,
     fixing,
     errorMessage,
     authAttemptInProgress,

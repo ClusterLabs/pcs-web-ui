@@ -57,19 +57,26 @@ export const Wizard = ({
   "data-test": dataTest,
   onClose,
   task,
+  clusterName,
   title,
   description,
   steps = undefined,
 }: {
   ["data-test"]: string;
-  task:
-    | Parameters<typeof selectors.getClusterTask>[0]
-    | Parameters<typeof selectors.getTask>[0];
   steps?: Step[] | undefined;
   onClose: () => void;
   title: string;
   description: string;
-}) => {
+} & (
+  | {
+      task: Parameters<typeof selectors.getClusterTask>[0];
+      clusterName: string;
+    }
+  | {
+      task: Parameters<typeof selectors.getTask>[0];
+      clusterName: null;
+    }
+)) => {
   const {stepList, footerList} = separateStepsAndFooters(steps || defaultSteps);
 
   return (
@@ -77,6 +84,7 @@ export const Wizard = ({
       value={{
         task: task,
         close: onClose,
+        clusterName,
       }}
     >
       <PfWizard

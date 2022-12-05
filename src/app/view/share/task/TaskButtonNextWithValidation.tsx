@@ -1,6 +1,5 @@
 import {useDispatch} from "app/view/share/useDispatch";
 import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
-import {useClusterContextCheck} from "app/view/share/LoadedClusterContext";
 
 import {useTaskContext} from "./TaskContext";
 
@@ -18,8 +17,7 @@ export const TaskButtonNextWithValidation = ({
   // Empty cluster name means that it is not in the context of cluster - ie. it
   // is dashboard. To make actions usable for dashboard tasks the key
   // clusterName must be null (so it is not propagated into cluster tasks)
-  const {clusterName} = useClusterContextCheck();
-  const {task} = useTaskContext();
+  const {task, clusterName} = useTaskContext();
   const dispatch = useDispatch();
   return (
     <ButtonWithEnter

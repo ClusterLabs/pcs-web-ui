@@ -8,6 +8,7 @@ import {Watchdogs} from "./Watchdogs";
 export const SbdConfigureTask = () => {
   const {
     close,
+    clusterName,
     sbdConfigure,
     isWatchdogTimeoutValid,
     state: {
@@ -17,6 +18,7 @@ export const SbdConfigureTask = () => {
 
   return (
     <Wizard
+      clusterName={clusterName}
       task="sbdConfigure"
       data-test="task-sbd-configure"
       onClose={close}

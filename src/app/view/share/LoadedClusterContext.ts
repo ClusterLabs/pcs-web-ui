@@ -29,12 +29,3 @@ export const useClusterSources = () => {
 export const useLoadedCluster = () => {
   return useClusterSources().loadedCluster;
 };
-
-export const useClusterContextCheck = () => {
-  const sources = React.useContext(ClusterSourcesContext);
-  return {
-    isClusterContext: sources !== undefined,
-    clusterName:
-      sources !== undefined ? sources.loadedCluster.clusterName : null,
-  };
-};

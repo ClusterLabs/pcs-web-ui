@@ -14,6 +14,7 @@ export const Task = () => {
   const {
     close,
     name: taskName,
+    clusterName,
     attrSet,
     recoverFromError,
     isNameValid,
@@ -31,6 +32,7 @@ export const Task = () => {
     <TaskSimple
       title={`${isCreate ? "Create" : "Update"} ${attrTypeLabel} attribute`}
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "" ? null : (

@@ -9,6 +9,7 @@ import {Settings} from "./Settings";
 export const ResourceCreate = () => {
   const {
     close,
+    clusterName,
     create,
     isNameTypeValid,
     isAgentLoaded,
@@ -21,6 +22,7 @@ export const ResourceCreate = () => {
   } = useTask();
   return (
     <Wizard
+      clusterName={clusterName}
       task="resourceCreate"
       data-test="task-resource-create"
       onClose={close}

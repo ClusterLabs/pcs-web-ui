@@ -9,6 +9,7 @@ export const Task = () => {
     isAdjacentResourceValid,
     close,
     name: taskName,
+    clusterName,
     changeGroup,
     recoverFromError,
     state: {
@@ -21,6 +22,7 @@ export const Task = () => {
     <TaskSimple
       title={`Change group of primitive resource "${resourceId}"?`}
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "" ? null : (

@@ -7,6 +7,7 @@ export const Task = () => {
   const {
     close,
     name: taskName,
+    clusterName,
     createOrder,
     recoverFromError,
     isFirstResourceValid,
@@ -20,6 +21,7 @@ export const Task = () => {
     <TaskSimple
       title="Create order constraint"
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "" ? null : (

@@ -7,6 +7,7 @@ export const Task = () => {
   const {
     close,
     name: taskName,
+    clusterName,
     createLocation,
     recoverFromError,
     isScoreValid,
@@ -23,6 +24,7 @@ export const Task = () => {
       title="Create location constraint"
       close={close}
       task={taskName}
+      clusterName={clusterName}
       footer={
         response !== "" ? null : (
           <TaskSimpleFooter
