@@ -1,5 +1,5 @@
-import {selectors} from "app/store";
-import {Router, UrlTabs, useClusterSelector, useUrlTabs} from "app/view/share";
+import {Router, UrlTabs, useUrlTabs} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 
@@ -18,7 +18,7 @@ export const RoleView = ({
   roleId: string;
   role: AclType<"role">;
 }) => {
-  const [{acls}] = useClusterSelector(selectors.getCluster);
+  const {acls} = useLoadedCluster();
   const {currentTab, matchedContext} = useUrlTabs(aclRolePageTabList);
 
   return (

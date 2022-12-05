@@ -6,8 +6,8 @@ import {
   Link,
   TaskOpenArgs,
   location,
-  useSelectedClusterName,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 
@@ -26,7 +26,7 @@ export const SubjectView = ({
   subjectId: string;
   roleIdList: AclType<"user" | "group">;
 }) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
 
   const assignRoleOpenArgs: AssignRoleOpenArgs = [
     {subjectType: "user", subjectId: subjectId},

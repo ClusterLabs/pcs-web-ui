@@ -1,13 +1,12 @@
 import {Primitive} from "app/view/cluster/types";
 import {
   DetailLayout,
-  NVPairListPage,
   ResourceDetailCaption,
   Router,
   UrlTabs,
-  UtilizationView,
   useUrlTabs,
 } from "app/view/share";
+import {NVPairListPage, UtilizationView} from "app/view/cluster/share";
 
 import {PrimitiveAttrsView} from "./attributes";
 import {PrimitiveDetail} from "./PrimitiveDetail";

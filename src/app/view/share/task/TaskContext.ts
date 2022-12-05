@@ -1,10 +1,12 @@
 import React from "react";
 
 const TaskContext = React.createContext<{
+  clusterName: string | null;
   task: string;
   close: () => void;
 }>({
   task: "",
+  clusterName: null,
   close: () => {
     console.log("Close wizard");
   },

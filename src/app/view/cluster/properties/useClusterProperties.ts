@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
 
 import {selectors} from "app/store";
-import {useSelectedClusterName} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 const {getClusterProperties} = selectors;
 export type ClusterProperties = selectors.ExtractClusterSelector<
@@ -9,9 +9,11 @@ export type ClusterProperties = selectors.ExtractClusterSelector<
 >;
 
 export const useClusterProperties = () => {
-  const clusterName = useSelectedClusterName();
-  const clusterProperties = useSelector(getClusterProperties(clusterName));
+  const {clusterName} = useLoadedCluster();
+  const clusterPropertiesDefinition = useSelector(
+    getClusterProperties(clusterName),
+  );
   return {
-    clusterProperties,
+    clusterPropertiesDefinition,
   };
 };

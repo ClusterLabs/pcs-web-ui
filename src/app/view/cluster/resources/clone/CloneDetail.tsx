@@ -1,6 +1,5 @@
 import {Alert} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
 import {Clone} from "app/view/cluster/types";
 import {
   CrmStatusTable,
@@ -8,8 +7,8 @@ import {
   IssueList,
   Link,
   location,
-  useClusterSelector,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 type Member = Exclude<Clone["member"], {itemType: "fence-device"}>;
 
@@ -22,11 +21,15 @@ export const CloneDetail = ({
   member: Member;
   issueList: Clone["issueList"];
 }) => {
-  const [crmStatusList, clusterName] = useClusterSelector(
-    selectors.crmStatusForPrimitive,
+  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
+
+  const primitiveIds =
     member.itemType === "primitive"
       ? [member.id]
-      : member.resources.map(r => r.id),
+      : member.resources.map(r => r.id);
+
+  const crmStatusList = resourceOnNodeStatusList.filter(s =>
+    primitiveIds.includes(s.resource.id),
   );
   return (
     <>

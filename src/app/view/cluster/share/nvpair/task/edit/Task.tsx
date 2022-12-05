@@ -1,9 +1,5 @@
 import {tools} from "app/store";
-import {
-  TaskSimple,
-  TaskSimpleFinish,
-  TaskSimpleFooter,
-} from "app/view/share/task";
+import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
@@ -14,6 +10,7 @@ export const Task = () => {
   const {
     close,
     name: taskName,
+    clusterName,
     attrSet,
     recoverFromError,
     isNameValid,
@@ -31,6 +28,7 @@ export const Task = () => {
     <TaskSimple
       title={`${isCreate ? "Create" : "Update"} ${attrTypeLabel} attribute`}
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "" ? null : (

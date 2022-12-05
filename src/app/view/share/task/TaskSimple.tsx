@@ -8,22 +8,29 @@ import {TaskContextProvider} from "./TaskContext";
 export const TaskSimple = ({
   close,
   task,
+  clusterName,
   footer,
   children,
   title,
   "data-test": dataTest,
 }: {
-  task:
-    | Parameters<typeof selectors.getClusterTask>[0]
-    | Parameters<typeof selectors.getTask>[0];
   close: () => void;
   footer: React.ReactNode;
   title: React.ComponentProps<typeof Modal>["title"];
   ["data-test"]?: string;
   children: React.ReactNode;
-}) => {
+} & (
+  | {
+      task: Parameters<typeof selectors.getClusterTask>[0];
+      clusterName: string;
+    }
+  | {
+      task: Parameters<typeof selectors.getTask>[0];
+      clusterName: null;
+    }
+)) => {
   return (
-    <TaskContextProvider value={{task, close}}>
+    <TaskContextProvider value={{task, close, clusterName}}>
       <Modal
         variant="medium"
         title={title}

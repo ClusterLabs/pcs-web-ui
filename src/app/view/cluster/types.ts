@@ -1,11 +1,9 @@
-import {selectors} from "app/store";
+import {useLoadedCluster} from "app/view/cluster/share";
 
-export type Cluster = NonNullable<
-  selectors.ExtractClusterSelector<typeof selectors.getCluster>
->;
+export type Cluster = ReturnType<typeof useLoadedCluster>;
 
 export type Node = Cluster["nodeList"][number];
-export type ConnectedNode = Exclude<Node, {status: "DATA_NOT_PROVIDED"}>;
+type ConnectedNode = Exclude<Node, {status: "DATA_NOT_PROVIDED"}>;
 export type NodeServiceMap = ConnectedNode["services"];
 export type NodeService = NodeServiceMap[keyof NodeServiceMap];
 
@@ -23,5 +21,3 @@ export type StatusSeverity = ConnectedNode["statusSeverity"];
 export type Issue = Cluster["issueList"][number];
 
 export type NVPair = Resource["metaAttributes"][number];
-
-export type Acl = Cluster["acls"];

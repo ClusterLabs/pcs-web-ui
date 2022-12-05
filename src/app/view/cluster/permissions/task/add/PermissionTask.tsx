@@ -7,6 +7,7 @@ export const PermissionTask = () => {
   const {
     close,
     name: taskName,
+    clusterName,
     recoverFromError,
     permissionEdit: permissionCreate,
     isNameValid,
@@ -23,6 +24,7 @@ export const PermissionTask = () => {
     <TaskSimple
       title={`${isCreate ? "Create" : "Update"} permission`}
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "" ? null : (

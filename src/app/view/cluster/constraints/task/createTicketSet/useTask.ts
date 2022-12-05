@@ -1,11 +1,12 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask, useResourceSets} from "app/view/share";
+import {useResourceSets} from "app/view/share";
+import {useClusterTask} from "app/view/cluster/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintTicketSetCreate");
   const {clusterName, dispatch, state, close} = task;
 
-  const resourceSets = useResourceSets(task.name);
+  const resourceSets = useResourceSets(clusterName, task.name);
 
   return {
     ...task,

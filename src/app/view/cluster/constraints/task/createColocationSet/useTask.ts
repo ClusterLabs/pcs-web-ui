@@ -1,10 +1,6 @@
 import {ActionPayload} from "app/store";
-import {
-  isValidScore,
-  prepareScore,
-  useClusterTask,
-  useResourceSets,
-} from "app/view/share";
+import {isValidScore, prepareScore, useResourceSets} from "app/view/share";
+import {useClusterTask} from "app/view/cluster/share";
 
 type TrueFalse = "true" | "false";
 
@@ -12,7 +8,7 @@ export const useTask = () => {
   const task = useClusterTask("constraintColocationSetCreate");
   const {clusterName, dispatch, state, close} = task;
 
-  const resourceSets = useResourceSets(task.name);
+  const resourceSets = useResourceSets(clusterName, task.name);
 
   return {
     ...task,

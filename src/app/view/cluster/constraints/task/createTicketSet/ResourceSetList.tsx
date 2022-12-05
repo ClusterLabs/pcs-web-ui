@@ -1,13 +1,13 @@
 import {Form} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
 import {
   FormRadios,
   FormResourceSetField,
   ResourceSetList as ResourceSetListCommon,
   TaskLibStep,
-  useClusterSelector,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
+import {getResourcesForSet} from "app/view/cluster/constraints/select";
 
 import {useTask} from "./useTask";
 
@@ -23,7 +23,7 @@ export const ResourceSetList = () => {
     deleteSet,
     moveSet,
   } = useTask();
-  const [resourceList] = useClusterSelector(selectors.getResourcesForSet);
+  const resourceList = getResourcesForSet(useLoadedCluster().resourceTree);
 
   return (
     <TaskLibStep title="Resource sets" reports={reports}>

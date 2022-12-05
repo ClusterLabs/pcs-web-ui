@@ -2,7 +2,7 @@ import {applyMiddleware, compose, createStore} from "redux";
 import createSagaMiddleware from "redux-saga";
 
 import {rootSaga} from "./sagas";
-import {root as rootReducer} from "./reducers/root";
+import {root as rootReducer} from "./reducers";
 
 /* eslint-disable no-underscore-dangle, @typescript-eslint/no-explicit-any */
 const composeMiddleware =

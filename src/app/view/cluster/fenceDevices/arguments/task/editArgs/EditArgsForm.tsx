@@ -1,6 +1,7 @@
 import {Form, Stack, StackItem} from "@patternfly/react-core";
 
-import {FormText, PcmkAgentAttrsToolbar} from "app/view/share";
+import {FormText} from "app/view/share";
+import {PcmkAgentAttrsToolbar} from "app/view/cluster/share";
 
 import {useTask} from "./useTask";
 

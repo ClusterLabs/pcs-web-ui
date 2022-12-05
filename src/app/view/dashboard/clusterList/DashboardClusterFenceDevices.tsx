@@ -1,4 +1,3 @@
-import {Cluster, FenceDevice} from "app/view/cluster/types";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
@@ -10,6 +9,7 @@ import {
   toLabel,
 } from "app/view/share";
 
+import {Cluster, FenceDevice} from "./types";
 import {compareStrings} from "./utils";
 
 type COLUMNS = "NAME" | "STATUS";

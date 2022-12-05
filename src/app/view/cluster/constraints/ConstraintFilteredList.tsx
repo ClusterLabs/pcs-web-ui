@@ -1,17 +1,16 @@
 import React from "react";
-import {useSelector} from "react-redux";
 import {DataList, Stack, StackItem, ToolbarItem} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
 import {
   Card,
   EmptyStateClusterStopped,
   EmptyStateNoItem,
   ToolbarFilterAction,
   ToolbarFilterGroups,
-  useClusterSelector,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
+import * as select from "./select";
 import {ConstraintRowLocationNode, ConstraintRowLocationRule} from "./location";
 import {
   ConstraintRowColocationPair,
@@ -20,9 +19,7 @@ import {
 import {ConstraintRowOrderPair, ConstraintRowOrderSet} from "./order";
 import {ConstraintRowTicketResource, ConstraintRowTicketSet} from "./ticket";
 
-type ConstraintPackList = selectors.ExtractClusterSelector<
-  typeof selectors.getConstraints
->;
+type ConstraintPackList = ReturnType<typeof select.constraintPacks>;
 
 const filterGroups = {
   Location: false,
@@ -61,7 +58,6 @@ export const ConstraintFilteredList = ({
 }: {
   clusterName: string;
 }) => {
-  const constraintPacks = useSelector(selectors.getConstraints(clusterName));
   const {filterState, filterConstraintTypes} = useState();
   const clearAllFilters = () => {
     const [groupInclusionMap, setGroupInclusionMap] = filterState.groupState;
@@ -69,9 +65,10 @@ export const ConstraintFilteredList = ({
       ToolbarFilterGroups.unselectAllOptions(groupInclusionMap),
     );
   };
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const {constraints, hasCibInfo} = useLoadedCluster();
+  const constraintPacks = select.constraintPacks(constraints);
 
-  if (!cluster.hasCibInfo) {
+  if (!hasCibInfo) {
     return (
       <EmptyStateClusterStopped
         title={"Cannot get constraints from stopped cluster"}

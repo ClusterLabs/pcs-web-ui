@@ -6,8 +6,8 @@ import {
   DetailViewSection,
   Link,
   location,
-  useSelectedClusterName,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const RoleViewSubjects = ({
   roleId,
@@ -18,7 +18,7 @@ export const RoleViewSubjects = ({
   assignedSubjectIds: string[];
   subjectType: "user" | "group";
 }) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   const subjectLocation = React.useCallback(
     (subjectId: string) =>
       subjectType === "user"

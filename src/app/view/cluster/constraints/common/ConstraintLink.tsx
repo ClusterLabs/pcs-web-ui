@@ -1,4 +1,5 @@
-import {Link, location, useSelectedClusterName} from "app/view/share";
+import {Link, location} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const ConstraintLink = ({
   id,
@@ -7,7 +8,7 @@ export const ConstraintLink = ({
   type: "resource" | "node";
   id: string;
 }) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
   return (
     <Link
       strong

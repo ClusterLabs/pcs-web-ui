@@ -1,13 +1,9 @@
 import {Grid, GridItem, PageSection} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
-import {
-  Card,
-  ClusterToolbar,
-  TaskOpenArgs,
-  useClusterSelector,
-} from "app/view/share";
+import {Card, ClusterToolbar, TaskOpenArgs} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
+import {selectSbdConfig} from "./select";
 import * as task from "./task";
 import {SbdServiceStatus} from "./SbdServiceStatus";
 import {SbdConfiguration} from "./SbdConfiguration";
@@ -27,8 +23,8 @@ const extractTimeoutAction = <VALUE extends string>(
 };
 
 export const SbdPage = () => {
-  const [sbdConfig] = useClusterSelector(selectors.getClusterSbdConfig);
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const {nodeList} = useLoadedCluster();
+  const sbdConfig = selectSbdConfig(nodeList);
 
   const configureOpenPayload = {
     delayStart: optionToValues(sbdConfig.SBD_DELAY_START, ["yes", "no"]),
@@ -43,16 +39,13 @@ export const SbdPage = () => {
       "crashdump",
       "off",
     ]),
-    watchdogDict: Object.values(cluster.nodeList).reduce(
-      (watchdogMap, node) => {
-        let watchdog = "";
-        if (node.status !== "DATA_NOT_PROVIDED") {
-          watchdog = node.sbd?.watchdog ?? "";
-        }
-        return {...watchdogMap, [node.name]: watchdog};
-      },
-      {},
-    ),
+    watchdogDict: Object.values(nodeList).reduce((watchdogMap, node) => {
+      let watchdog = "";
+      if (node.status !== "DATA_NOT_PROVIDED") {
+        watchdog = node.sbd?.watchdog ?? "";
+      }
+      return {...watchdogMap, [node.name]: watchdog};
+    }, {}),
   };
 
   const configureOpenArgs: TaskOpenArgs<typeof task.configure.useTask> = [

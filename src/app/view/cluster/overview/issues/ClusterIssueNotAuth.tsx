@@ -8,7 +8,7 @@ import {ClusterIssueNotAuthFooter} from "./ClusterIssueNotAuthFooter";
 import {ClusterIssueNotAuthFinish} from "./ClusterIssueNotAuthFinish";
 
 export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
-  const {open, cancel, authProcessId, fixAuthStart} = useTask();
+  const {clusterName, open, cancel, authProcessId, fixAuthStart} = useTask();
   return (
     <>
       <Alert
@@ -29,6 +29,7 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
         <TaskSimple
           title="Authentication of nodes"
           task="fixAuth"
+          clusterName={clusterName}
           close={cancel}
           footer={<ClusterIssueNotAuthFooter />}
         >

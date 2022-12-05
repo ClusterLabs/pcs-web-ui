@@ -1,16 +1,12 @@
-import {selectors} from "app/store";
-import {
-  ClusterToolbar,
-  GroupDetailView,
-  useClusterSelector,
-} from "app/view/share";
+import {ClusterToolbar, GroupDetailView} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {NodeDetailPage} from "./NodeDetailPage";
 import {NodeList} from "./NodeList";
 import * as task from "./task";
 
 export const NodesPage = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const {nodeList} = useLoadedCluster();
   return (
     <>
       <ClusterToolbar
@@ -26,7 +22,7 @@ export const NodesPage = () => {
         ]}
       />
       <GroupDetailView
-        groupCard={<NodeList nodeList={cluster.nodeList} />}
+        groupCard={<NodeList nodeList={nodeList} />}
         detailCard={<NodeDetailPage />}
       />
     </>

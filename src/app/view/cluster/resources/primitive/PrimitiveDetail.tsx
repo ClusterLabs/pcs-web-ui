@@ -1,28 +1,27 @@
-import {selectors} from "app/store";
 import {Primitive} from "app/view/cluster/types";
 import {
   CrmStatusTable,
   DetailViewSection,
   IssueList,
   Link,
+  location,
+} from "app/view/share";
+import {
   LoadedPcmkAgent,
   PcmkAgentDescription,
-  location,
-  useClusterSelector,
-} from "app/view/share";
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
-  const [crmStatusList, clusterName] = useClusterSelector(
-    selectors.crmStatusForPrimitive,
-    [primitive.id],
+  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
+  const crmStatusList = resourceOnNodeStatusList.filter(
+    s => s.resource.id === primitive.id,
   );
+
   return (
     <>
       <DetailViewSection caption="Description">
-        <LoadedPcmkAgent
-          clusterName={clusterName}
-          agentName={primitive.agentName}
-        >
+        <LoadedPcmkAgent agentName={primitive.agentName}>
           {agent => (
             <PcmkAgentDescription
               name={agent.name}

@@ -2,7 +2,7 @@ import {Alert, TextContent} from "@patternfly/react-core";
 
 import {ActionPayload} from "app/store";
 import {NVPair} from "app/view/cluster/types";
-import {NVPairListPage} from "app/view/share/nvpair";
+import {NVPairListPage} from "app/view/cluster/share/nvpair";
 
 export const UtilizationView = ({
   utilizationAttrs,

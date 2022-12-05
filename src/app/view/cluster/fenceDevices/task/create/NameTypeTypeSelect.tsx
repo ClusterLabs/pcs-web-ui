@@ -1,10 +1,11 @@
 import React from "react";
+import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
-import {Select, useClusterSelector} from "app/view/share";
+import {Select} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
-type FenceAgentList = selectors.ExtractClusterSelector<
-  typeof selectors.getFenceAgentList
+type FenceAgentList = NonNullable<
+  ReturnType<typeof useClusterSources>["fenceAgentList"]
 >;
 
 const useFiltering = (fenceAgentList: FenceAgentList) => {
@@ -23,6 +24,8 @@ const useFiltering = (fenceAgentList: FenceAgentList) => {
   };
 };
 
+const grow: FlexProps["grow"] = {default: "grow"};
+
 export const NameTypeTypeSelect = ({
   onSelect,
   onClear,
@@ -32,22 +35,33 @@ export const NameTypeTypeSelect = ({
   onClear: () => void;
   agentName: string;
 }) => {
-  const [fenceAgentList] = useClusterSelector(selectors.getFenceAgentList);
-  const {filteredFenceAgentList, onFilter} = useFiltering(fenceAgentList);
+  const {fenceAgentList} = useClusterSources();
+  const {filteredFenceAgentList, onFilter} = useFiltering(
+    fenceAgentList ?? ([] as FenceAgentList),
+  );
 
   return (
-    <Select
-      variant="typeahead"
-      typeAheadAriaLabel="Select a fence device"
-      onSelect={onSelect}
-      onClear={onClear}
-      onFilter={onFilter}
-      selections={agentName}
-      isGrouped
-      hasInlineFilter
-      customBadgeText={agentName.length > 0 ? agentName : undefined}
-      optionsValues={filteredFenceAgentList}
-      data-test="fence-device-agent"
-    ></Select>
+    <Flex>
+      {!fenceAgentList && (
+        <FlexItem>
+          <Spinner isSVG size="lg" />
+        </FlexItem>
+      )}
+      <FlexItem grow={grow}>
+        <Select
+          variant="typeahead"
+          typeAheadAriaLabel="Select a fence device"
+          onSelect={onSelect}
+          onClear={onClear}
+          onFilter={onFilter}
+          selections={agentName}
+          isGrouped
+          hasInlineFilter
+          customBadgeText={agentName.length > 0 ? agentName : undefined}
+          optionsValues={filteredFenceAgentList}
+          data-test="fence-device-agent"
+        />
+      </FlexItem>
+    </Flex>
   );
 };

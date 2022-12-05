@@ -1,13 +1,13 @@
 import React from "react";
 
-import {ActionPayload, selectors} from "app/store";
-import {useClusterSelector, useClusterTask} from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintTicketCreate");
 
   const {clusterName, dispatch, state, close} = task;
-  const [clusterStatus] = useClusterSelector(selectors.getCluster);
+  const {resourceTree, nodeList} = useLoadedCluster();
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.TICKET.CREATE.UPDATE"]) =>
@@ -19,20 +19,17 @@ export const useTask = () => {
     [dispatch, clusterName],
   );
 
-  const resourceIdList = clusterStatus.resourceTree.reduce<string[]>(
-    (idList, resource) => {
-      if (resource.itemType === "primitive") {
-        return [...idList, resource.id];
-      }
+  const resourceIdList = resourceTree.reduce<string[]>((idList, resource) => {
+    if (resource.itemType === "primitive") {
+      return [...idList, resource.id];
+    }
 
-      if (resource.itemType === "group") {
-        return [...idList, resource.id, ...resource.resources.map(r => r.id)];
-      }
+    if (resource.itemType === "group") {
+      return [...idList, resource.id, ...resource.resources.map(r => r.id)];
+    }
 
-      return idList;
-    },
-    [],
-  );
+    return idList;
+  }, []);
 
   const isCustomIdValid = !state.useCustomId || state.id.length > 0;
   const isTicketValid = state.ticket.length > 0;
@@ -40,7 +37,7 @@ export const useTask = () => {
   return {
     ...task,
     isResourceValid,
-    nodeNameList: clusterStatus.nodeList.map(n => n.name),
+    nodeNameList: nodeList.map(n => n.name),
     isCustomIdValid,
     isTicketValid,
     resourceIdList,

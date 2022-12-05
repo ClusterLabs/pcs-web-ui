@@ -1,11 +1,11 @@
-import {ActionPayload, selectors} from "app/store";
-import {useClusterSelector, useClusterTask} from "app/view/share";
+import {ActionPayload} from "app/store";
+import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
 import {getAssignedSubjectIdList} from "app/view/cluster/acl/detail/tools";
 
 export const useTask = () => {
   const task = useClusterTask("aclSubjectAssign");
   const {dispatch, state, clusterName} = task;
-  const [{acls}] = useClusterSelector(selectors.getCluster);
+  const {acls} = useLoadedCluster();
 
   const assigneeType =
     state.sourceObject === "role" ? state.subjectType : "role";

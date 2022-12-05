@@ -5,6 +5,7 @@ import {useTask} from "./useTask";
 export const SbdDisableTask = () => {
   const {
     close,
+    clusterName,
     sbdDisable,
     recoverFromError,
     state: {
@@ -16,6 +17,7 @@ export const SbdDisableTask = () => {
     <TaskSimple
       title="Disable SBD"
       task="sbdDisable"
+      clusterName={clusterName}
       data-test="task-sbd-disable"
       close={close}
       footer={

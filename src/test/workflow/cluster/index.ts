@@ -1,4 +1,4 @@
-import {clusterPageTabList} from "app/view/cluster";
+import {clusterAppTabList} from "app/view/cluster/";
 
 import {dt} from "test/tools/selectors";
 
@@ -8,6 +8,6 @@ export * as nodes from "./nodes";
 export * as nvsets from "./nvsets";
 export * as acl from "./acl";
 
-export const selectTab = async (tabName: typeof clusterPageTabList[number]) => {
+export const selectTab = async (tabName: typeof clusterAppTabList[number]) => {
   await page.click(dt("tabs cluster", tabName));
 };

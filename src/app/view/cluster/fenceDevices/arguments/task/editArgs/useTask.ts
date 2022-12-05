@@ -1,5 +1,5 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask} from "app/view/share";
+import {useClusterTask} from "app/view/cluster/share";
 
 type OpenPayload = ActionPayload["FENCE_DEVICE.EDIT_ARGS.OPEN"];
 

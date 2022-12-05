@@ -7,6 +7,7 @@ export const Task = () => {
   const {
     close,
     name: taskName,
+    clusterName,
     createTicket,
     recoverFromError,
     state: {
@@ -17,6 +18,7 @@ export const Task = () => {
     <TaskSimple
       title="Create ticket constraint"
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "no-response" ? null : (

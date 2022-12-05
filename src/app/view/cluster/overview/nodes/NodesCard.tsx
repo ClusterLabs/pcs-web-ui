@@ -6,13 +6,14 @@ import {
 } from "@patternfly/react-icons";
 
 import {Node} from "app/view/cluster/types";
-import {Link, location, useSelectedClusterName} from "app/view/share";
+import {Link, location} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 import {StatisticsIssueInfo} from "app/view/cluster/overview/StatisticsIssueInfo";
 
 import {SingleNodeView} from "./SingleNodeView";
 
 export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
 
   if (nodeList.length === 1) {
     return <SingleNodeView singleNode={nodeList[0]} />;

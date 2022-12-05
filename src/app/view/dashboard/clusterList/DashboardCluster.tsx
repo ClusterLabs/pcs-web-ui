@@ -1,6 +1,6 @@
-import {Cluster} from "app/view/cluster/types";
 import {IssueList, Table} from "app/view/share";
 
+import {Cluster} from "./types";
 import {DashboardClusterNodes} from "./DashboardClusterNodes";
 import {DashboardClusterResources} from "./DashboardClusterResources";
 import {DashboardClusterFenceDevices} from "./DashboardClusterFenceDevices";

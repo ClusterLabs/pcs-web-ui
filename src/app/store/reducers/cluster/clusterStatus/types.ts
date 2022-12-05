@@ -90,6 +90,7 @@ type ApiSbdConfig = Exclude<
 */
 export type Cluster = {
   name: string;
+  clusterName: string;
   status: "running" | "degraded" | "inoperative" | "offline" | "unknown";
   hasCibInfo: boolean;
   nodeList: ((
@@ -155,6 +156,6 @@ export type Cluster = {
 };
 
 export type ClusterStatusService = {
-  clusterData: Cluster;
+  clusterData: Cluster | null;
   dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "FORBIDDEN";
 };

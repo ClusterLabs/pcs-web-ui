@@ -1,12 +1,14 @@
 import React from "react";
 import {SelectGroup, SelectOption} from "@patternfly/react-core";
+import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
-import {Select, useClusterSelector} from "app/view/share";
+import {Select} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
-type ResourceAgentMap = selectors.ExtractClusterSelector<
-  typeof selectors.getResourceAgentMap
+type ResourceAgentMap = NonNullable<
+  ReturnType<typeof useClusterSources>["resourceAgentMap"]
 >;
+const grow: FlexProps["grow"] = {default: "grow"};
 
 const filterSources = (
   search: string,
@@ -46,35 +48,46 @@ export const NameTypeTypeSelect = ({
   onClear: () => void;
   agentName: string;
 }) => {
-  const [resourceAgentMap] = useClusterSelector(selectors.getResourceAgentMap);
-  const {filteredResourceAgentMap, onFilter} = useFiltering(resourceAgentMap);
+  const {resourceAgentMap} = useClusterSources();
+  const {filteredResourceAgentMap, onFilter} = useFiltering(
+    resourceAgentMap ?? ({} as ResourceAgentMap),
+  );
 
   return (
-    <Select
-      variant="typeahead"
-      typeAheadAriaLabel="Select a state"
-      onSelect={onSelect}
-      onClear={onClear}
-      onFilter={onFilter}
-      selections={agentName}
-      isGrouped
-      hasInlineFilter
-      customBadgeText={agentName.length > 0 ? agentName : undefined}
-      data-test="resource-agent"
-    >
-      {Object.keys(filteredResourceAgentMap).map(group => (
-        <SelectGroup label={group} key={group}>
-          {filteredResourceAgentMap[group].map((item, i) => (
-            /* eslint-disable react/no-array-index-key */
-            <SelectOption
-              key={`${group}:${item}#${i}`}
-              value={`${group}:${item}`}
-            >
-              {item}
-            </SelectOption>
+    <Flex>
+      {!resourceAgentMap && (
+        <FlexItem>
+          <Spinner isSVG size="lg" />
+        </FlexItem>
+      )}
+      <FlexItem grow={grow}>
+        <Select
+          variant="typeahead"
+          typeAheadAriaLabel="Select a state"
+          onSelect={onSelect}
+          onClear={onClear}
+          onFilter={onFilter}
+          selections={agentName}
+          isGrouped
+          hasInlineFilter
+          customBadgeText={agentName.length > 0 ? agentName : undefined}
+          data-test="resource-agent"
+        >
+          {Object.keys(filteredResourceAgentMap).map(group => (
+            <SelectGroup label={group} key={group}>
+              {filteredResourceAgentMap[group].map((item, i) => (
+                /* eslint-disable react/no-array-index-key */
+                <SelectOption
+                  key={`${group}:${item}#${i}`}
+                  value={`${group}:${item}`}
+                >
+                  {item}
+                </SelectOption>
+              ))}
+            </SelectGroup>
           ))}
-        </SelectGroup>
-      ))}
-    </Select>
+        </Select>
+      </FlexItem>
+    </Flex>
   );
 };

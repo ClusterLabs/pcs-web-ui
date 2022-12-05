@@ -8,7 +8,6 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import {selectors} from "app/store";
 import {
   AttributeHelpPopover,
   AttributeList,
@@ -16,9 +15,9 @@ import {
   AttributeValue,
   ClusterStoppedInfo,
   ToolbarFilterTextGroupPair,
-  useClusterSelector,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {PropertiesForm} from "./PropertiesForm";
 import {ClusterProperties, useClusterProperties} from "./useClusterProperties";
@@ -42,8 +41,8 @@ const useFilter = (): {
   );
 
 export const ClusterPropertiesPage = () => {
-  const {clusterProperties} = useClusterProperties();
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const {clusterPropertiesDefinition} = useClusterProperties();
+  const {hasCibInfo, clusterProperties, clusterName} = useLoadedCluster();
   const {filterState, filterParameters} = useFilter();
   const [isEditing, setIsEditing] = React.useState(false);
 
@@ -75,20 +74,20 @@ export const ClusterPropertiesPage = () => {
               />
             </StackItem>
             <StackItem>
-              {clusterProperties.length > 0 && (
+              {clusterPropertiesDefinition.length > 0 && (
                 <>
                   {isEditing && (
                     <PropertiesForm
                       clusterPropertiesDefinition={filterParameters(
-                        clusterProperties,
+                        clusterPropertiesDefinition,
                       )}
-                      currentClusterProperties={cluster.clusterProperties}
+                      currentClusterProperties={clusterProperties}
                       close={() => setIsEditing(false)}
                     />
                   )}
                   {!isEditing && (
                     <>
-                      {!cluster.hasCibInfo && (
+                      {!hasCibInfo && (
                         <Alert
                           isInline
                           variant="warning"
@@ -97,12 +96,14 @@ export const ClusterPropertiesPage = () => {
                         >
                           <ClusterStoppedInfo
                             startButton="link"
-                            clusterName={cluster.name}
+                            clusterName={clusterName}
                           />
                         </Alert>
                       )}
                       <AttributeList
-                        attributes={filterParameters(clusterProperties)}
+                        attributes={filterParameters(
+                          clusterPropertiesDefinition,
+                        )}
                       >
                         {property => (
                           <React.Fragment key={property.name}>
@@ -114,10 +115,9 @@ export const ClusterPropertiesPage = () => {
                               />
                             </AttributeName>
                             <AttributeValue
-                              {...(property.name in cluster.clusterProperties
+                              {...(property.name in clusterProperties
                                 ? {
-                                    value:
-                                      cluster.clusterProperties[property.name],
+                                    value: clusterProperties[property.name],
                                   }
                                 : {defaultValue: property.default})}
                             />

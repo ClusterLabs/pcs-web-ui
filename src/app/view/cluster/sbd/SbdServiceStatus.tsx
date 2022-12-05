@@ -5,8 +5,8 @@ import {
   WrenchIcon,
 } from "@patternfly/react-icons";
 
-import {selectors} from "app/store";
-import {EmptyStateNoItem, Table, useClusterSelector} from "app/view/share";
+import {EmptyStateNoItem, Table} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 const SuccessIcon = ({label}: {label: string}) => {
   return (
@@ -18,9 +18,9 @@ const SuccessIcon = ({label}: {label: string}) => {
 };
 
 export const SbdServiceStatus = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const {nodeList} = useLoadedCluster();
 
-  if (cluster.nodeList.length === 0) {
+  if (nodeList.length === 0) {
     return <EmptyStateNoItem title="No SBD is configured." />;
   }
 
@@ -36,7 +36,7 @@ export const SbdServiceStatus = () => {
       </thead>
 
       <Table.Body data-test="sbd-service-list">
-        {cluster.nodeList.map(node =>
+        {nodeList.map(node =>
           node.status !== "DATA_NOT_PROVIDED" ? (
             <tr key={node.name} data-test={`row-${node.name}`}>
               <td data-label="Node" data-test={"node"}>

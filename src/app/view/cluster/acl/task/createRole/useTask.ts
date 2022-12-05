@@ -1,5 +1,5 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask} from "app/view/share";
+import {useClusterTask} from "app/view/cluster/share";
 import {getInvalidPermissionIndexes} from "app/view/cluster/acl/PermissionAddForm";
 
 export const useTask = () => {

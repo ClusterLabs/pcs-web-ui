@@ -1,9 +1,5 @@
-import {
-  Link,
-  location,
-  useDispatch,
-  useSelectedClusterName,
-} from "app/view/share";
+import {Link, location, useDispatch} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const ResourceLink = ({
   resourceIdMixed,
@@ -11,7 +7,7 @@ export const ResourceLink = ({
   resourceIdMixed: string | string[];
 }) => {
   const dispatch = useDispatch();
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
 
   if (Array.isArray(resourceIdMixed)) {
     return (
@@ -20,7 +16,7 @@ export const ResourceLink = ({
         onClick={navigate => {
           dispatch({
             type: "RESOURCE.TREE.ITEM.OPEN.EXCLUSIVE",
-            key: {clusterName: clusterName},
+            key: {clusterName},
             payload: {
               itemIdList: resourceIdMixed.slice(0, resourceIdMixed.length),
             },

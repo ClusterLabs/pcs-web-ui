@@ -1,11 +1,12 @@
-import {ActionPayload, selectors} from "app/store";
-import {isValidScore, useClusterSelector, useClusterTask} from "app/view/share";
+import {ActionPayload} from "app/store";
+import {isValidScore} from "app/view/share";
+import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintLocationCreate");
 
   const {clusterName, dispatch, state, close} = task;
-  const [clusterStatus] = useClusterSelector(selectors.getCluster);
+  const {resourceTree, nodeList} = useLoadedCluster();
 
   return {
     ...task,
@@ -19,21 +20,18 @@ export const useTask = () => {
       state.locationSpecification === "rule" || state.nodeName.length > 0,
     isRuleValid:
       state.locationSpecification === "node" || state.rule.length > 0,
-    nodeNameList: clusterStatus.nodeList.map(n => n.name),
-    resourceIdList: clusterStatus.resourceTree.reduce<string[]>(
-      (idList, resource) => {
-        if (resource.itemType === "primitive") {
-          return [...idList, resource.id];
-        }
+    nodeNameList: nodeList.map(n => n.name),
+    resourceIdList: resourceTree.reduce<string[]>((idList, resource) => {
+      if (resource.itemType === "primitive") {
+        return [...idList, resource.id];
+      }
 
-        if (resource.itemType === "group") {
-          return [...idList, resource.id, ...resource.resources.map(r => r.id)];
-        }
+      if (resource.itemType === "group") {
+        return [...idList, resource.id, ...resource.resources.map(r => r.id)];
+      }
 
-        return idList;
-      },
-      [],
-    ),
+      return idList;
+    }, []),
 
     // actions
     updateState: (

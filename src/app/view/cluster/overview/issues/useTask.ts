@@ -1,14 +1,23 @@
-import {selectors} from "app/store";
-import {useClusterSelector, useDispatch} from "app/view/share";
+import {useDispatch} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 export const useTask = () => {
   const dispatch = useDispatch();
-  const [
-    {authProcessId, open, fixing, errorMessage, authAttemptInProgress},
-    clusterName,
-  ] = useClusterSelector(selectors.getClusterTask("fixAuth"));
+  const {
+    tasks: {
+      fixAuth: {
+        authProcessId,
+        open,
+        fixing,
+        errorMessage,
+        authAttemptInProgress,
+      },
+    },
+    loadedCluster: {clusterName},
+  } = useClusterSources();
   return {
     open,
+    clusterName,
     fixing,
     errorMessage,
     authAttemptInProgress,

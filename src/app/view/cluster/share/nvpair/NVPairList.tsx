@@ -1,9 +1,7 @@
 import {ActionPayload} from "app/store";
-import {useSelectedClusterName} from "app/view/share/SelectedClusterContext";
-import {LauncherDropdown} from "app/view/share/toolbar";
-import {TaskOpenArgs} from "app/view/share/task";
+import {LauncherDropdown, Table, TaskOpenArgs} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 import {NVPair} from "app/view/cluster/types";
-import {Table} from "app/view/share/table";
 
 import * as task from "./task";
 
@@ -15,7 +13,7 @@ export const NVPairList = ({
   owner: ActionPayload["CLUSTER.NVPAIRS.SAVE"]["owner"];
 }) => {
   const {name: taskName} = task.edit.useTask();
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
 
   return (
     <Table>

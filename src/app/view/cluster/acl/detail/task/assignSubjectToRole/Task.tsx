@@ -6,6 +6,7 @@ import {ChooseAssignee} from "./ChooseAssignee";
 export const Task = () => {
   const {
     name: taskName,
+    clusterName,
     close,
     assign,
     recoverFromError,
@@ -23,6 +24,7 @@ export const Task = () => {
     <TaskSimple
       title={title}
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "no-response" ? null : (

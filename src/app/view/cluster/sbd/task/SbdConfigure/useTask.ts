@@ -1,5 +1,5 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask} from "app/view/share";
+import {useClusterTask} from "app/view/cluster/share";
 
 type SbdTimeoutAction = Extract<
   ActionPayload["LIB.CALL.CLUSTER.TASK"]["call"],

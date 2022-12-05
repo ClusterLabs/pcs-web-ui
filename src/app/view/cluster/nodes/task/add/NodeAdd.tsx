@@ -15,6 +15,7 @@ import {Review} from "./Review";
 
 export const NodeAdd = () => {
   const {
+    clusterName,
     close,
     nodeStart,
     isNameValid,
@@ -29,6 +30,7 @@ export const NodeAdd = () => {
   return (
     <Wizard
       task="nodeAdd"
+      clusterName={clusterName}
       data-test="task-node-add"
       onClose={close}
       title="Add node"

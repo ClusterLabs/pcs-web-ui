@@ -6,6 +6,7 @@ import {Configure} from "./Configure";
 export const Task = () => {
   const {
     close,
+    clusterName,
     aclRolePermissionAdd,
     recoverFromError,
     invalidPermissionIndexes,
@@ -18,6 +19,7 @@ export const Task = () => {
     <TaskSimple
       title="Add permissions to role"
       task={"aclRolePermissionAdd"}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "no-response" ? null : (

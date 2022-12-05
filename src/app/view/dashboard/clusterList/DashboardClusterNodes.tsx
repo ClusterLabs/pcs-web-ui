@@ -6,8 +6,8 @@ import {
   location,
   toLabel,
 } from "app/view/share";
-import {Cluster, ConnectedNode, Node} from "app/view/cluster/types";
 
+import {Cluster, ConnectedNode, Node} from "./types";
 import {compareStrings} from "./utils";
 
 type StatusSeverity = ConnectedNode["statusSeverity"];

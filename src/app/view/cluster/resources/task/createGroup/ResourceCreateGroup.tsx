@@ -8,6 +8,7 @@ import {Footer} from "./Footer";
 export const ResourceCreateGroup = () => {
   const {
     close,
+    clusterName,
     name: taskName,
     state: {response},
   } = useTask();
@@ -16,6 +17,7 @@ export const ResourceCreateGroup = () => {
     <TaskSimple
       title="Create group"
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={<Footer />}
     >

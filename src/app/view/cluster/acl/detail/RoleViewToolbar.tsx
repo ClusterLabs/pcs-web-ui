@@ -1,5 +1,5 @@
-import {useSelectedClusterName} from "app/view/share";
 import {DetailToolbar, TaskOpenArgs} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 
@@ -8,7 +8,7 @@ type AssignSubjectOpenArgs = TaskOpenArgs<
 >;
 
 export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
 
   const assignUserOpenArgs: AssignSubjectOpenArgs = [
     {subjectType: "user", roleId},

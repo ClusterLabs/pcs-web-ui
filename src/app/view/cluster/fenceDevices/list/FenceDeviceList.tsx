@@ -1,13 +1,12 @@
 import {DataList} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
 import {FenceDevice} from "app/view/cluster/types";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
-  useClusterSelector,
   useGroupDetailViewContext,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {FenceDeviceListItem} from "./FenceDeviceListItem";
 
@@ -17,13 +16,13 @@ export const FenceDeviceList = ({
   fenceDeviceList: FenceDevice[];
 }) => {
   const {compact} = useGroupDetailViewContext();
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const {hasCibInfo, clusterName} = useLoadedCluster();
 
-  if (!cluster.hasCibInfo) {
+  if (!hasCibInfo) {
     return (
       <EmptyStateClusterStopped
         title={"Cannot get fence devices from stopped cluster"}
-        clusterName={cluster.name}
+        clusterName={clusterName}
       />
     );
   }

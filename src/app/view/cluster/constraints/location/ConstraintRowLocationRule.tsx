@@ -1,6 +1,6 @@
 import {DataListCell} from "@patternfly/react-core";
 
-import {useSelectedClusterName} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {ConstraintLocationRule} from "../types";
 import {
@@ -31,7 +31,7 @@ export const ConstraintRowLocationRule = ({
   constraint: ConstraintLocationRule;
   uniqueId: number;
 }) => {
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
 
   return (
     <ConstraintRow

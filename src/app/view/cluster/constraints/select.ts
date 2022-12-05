@@ -1,6 +1,4 @@
-import {Cluster} from "../types";
-
-import {clusterSelector} from "./selectorsHelpers";
+import {Cluster} from "app/view/cluster/types";
 
 type Constraints = NonNullable<Cluster["constraints"]>;
 
@@ -8,6 +6,10 @@ type ExtractConstraint<GROUP extends keyof Constraints, SHAPE> = Extract<
   NonNullable<Constraints[GROUP]>[number],
   SHAPE
 >;
+
+type Resource = Cluster["resourceTree"][number];
+type Group = Extract<Resource, {itemType: "group"}>;
+type Primitive = Extract<Group["resources"][number], {itemType: "primitive"}>;
 
 type LocationNode = ExtractConstraint<"rsc_location", {node: string}>;
 type LocationRule = ExtractConstraint<"rsc_location", {rule_string: string}>;
@@ -18,7 +20,7 @@ type OrderSet = ExtractConstraint<"rsc_order", {sets: unknown}>;
 type TicketResource = ExtractConstraint<"rsc_ticket", {rsc: string}>;
 type TicketSet = ExtractConstraint<"rsc_ticket", {sets: unknown}>;
 
-export type ConstraintPack =
+type ConstraintPack =
   | {type: "Location"; constraint: LocationNode}
   | {type: "Location (rule)"; constraint: LocationRule}
   | {type: "Colocation"; constraint: ColocationPair}
@@ -28,8 +30,7 @@ export type ConstraintPack =
   | {type: "Ticket"; constraint: TicketResource}
   | {type: "Ticket (set)"; constraint: TicketSet};
 
-export const getConstraints = clusterSelector(clusterStatus => {
-  const constraintMap = clusterStatus.constraints;
+export const constraintPacks = (constraintMap: Cluster["constraints"]) => {
   if (!constraintMap) {
     return [];
   }
@@ -64,4 +65,38 @@ export const getConstraints = clusterSelector(clusterStatus => {
   );
 
   return [...locationsNode, ...colocations, ...orders, ...tickets];
-});
+};
+
+const removeFenceDevices = (groupMembers: Group["resources"]): Primitive[] =>
+  groupMembers.filter((gm): gm is Primitive => gm.itemType !== "fence-device");
+
+export const getResourcesForSet = (resourceTree: Cluster["resourceTree"]) =>
+  resourceTree
+    .reduce<Resource[]>((resourceList, resource) => {
+      switch (resource.itemType) {
+        case "group":
+          return [
+            ...resourceList,
+            resource,
+            ...removeFenceDevices(resource.resources),
+          ];
+
+        case "clone": {
+          let members: Resource[] = [];
+          if (resource.member.itemType === "group") {
+            members = [
+              resource.member,
+              ...removeFenceDevices(resource.member.resources),
+            ];
+          } else if (resource.member.itemType !== "fence-device") {
+            members = [resource.member];
+          }
+
+          return [...resourceList, resource, ...members];
+        }
+
+        default:
+          return [...resourceList, resource];
+      }
+    }, [])
+    .map(resource => resource.id);

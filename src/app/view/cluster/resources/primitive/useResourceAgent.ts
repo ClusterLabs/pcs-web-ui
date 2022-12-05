@@ -1,24 +1,25 @@
 import React from "react";
 
-import {selectors} from "app/store";
-import {useClusterSelector, useDispatch} from "app/view/share";
+import {useDispatch} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 export const useClusterResourceAgent = (agentName: string) => {
-  const [resourceAgent, cluster] = useClusterSelector(
-    selectors.getPcmkAgent,
-    agentName,
-  );
+  const {
+    pcmkAgents,
+    loadedCluster: {clusterName},
+  } = useClusterSources();
+
   const dispatch = useDispatch();
   React.useEffect(() => {
-    if (!resourceAgent) {
+    if (!pcmkAgents[agentName]) {
       dispatch({
         type: "RESOURCE_AGENT.LOAD",
-        key: {clusterName: cluster},
+        key: {clusterName},
         payload: {agentName},
       });
     }
-  }, [agentName, cluster, dispatch, resourceAgent]);
+  }, [agentName, clusterName, dispatch, pcmkAgents]);
   return {
-    resourceAgent,
+    resourceAgent: pcmkAgents[agentName],
   };
 };

@@ -1,10 +1,5 @@
-import {selectors} from "app/store";
+import {useLoadedPermissions} from "./LoadedPermissionsContext";
 
-type PermissionStorage = NonNullable<
-  ReturnType<ReturnType<typeof selectors.getClusterPermissions>>
->;
-
-export type Permission = Exclude<
-  PermissionStorage["data"],
-  null
->["users_permissions"][number];
+export type Permission = ReturnType<
+  typeof useLoadedPermissions
+>["permissions"]["users_permissions"][number];

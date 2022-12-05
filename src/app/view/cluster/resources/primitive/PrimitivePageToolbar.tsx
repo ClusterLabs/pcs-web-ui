@@ -3,8 +3,8 @@ import {
   DetailToolbar,
   TaskOpenArgs,
   LauncherItem as ToolbarItem,
-  useSelectedClusterName,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 
@@ -22,7 +22,7 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
 
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   const {canChange: canChangeGroup} = task.groupChange.useTask();
-  const clusterName = useSelectedClusterName();
+  const {clusterName} = useLoadedCluster();
 
   const unclone: ToolbarItem = {
     name: "unclone",

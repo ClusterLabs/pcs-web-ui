@@ -1,27 +1,23 @@
 import {Label, ToolbarItem} from "@patternfly/react-core";
 
-import {selectors, tools} from "app/store";
+import {tools} from "app/store";
 import {
   ClusterToolbar,
   GroupDetailView,
   TaskOpenArgs,
-  useClusterSelector,
   useLauncherDisableClusterNotRunning,
-  useSelectedClusterName,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 import {AclDetailPage} from "./detail";
 import {AclLists} from "./lists";
 
 export const AclPage = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
-  const clusterName = useSelectedClusterName();
+  const {clusterProperties, hasCibInfo, clusterName} = useLoadedCluster();
   const launchDisable = useLauncherDisableClusterNotRunning();
 
-  const aclEnabled = tools.isCibTrue(
-    cluster.clusterProperties["enable-acl"] || "",
-  );
+  const aclEnabled = tools.isCibTrue(clusterProperties["enable-acl"] || "");
 
   const createUserOpenArgs: TaskOpenArgs<typeof task.createSubject.useTask> = [
     {subjectType: "user"},
@@ -93,7 +89,7 @@ export const AclPage = () => {
           },
         ]}
         after={
-          cluster.hasCibInfo ? (
+          hasCibInfo ? (
             <>
               <ToolbarItem variant="separator" />
               <ToolbarItem>

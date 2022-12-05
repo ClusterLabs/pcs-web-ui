@@ -1,14 +1,6 @@
-import {useSelector} from "react-redux";
+import {AttributeHelpPopover, EmptyStateNoItem, Table} from "app/view/share";
 
-import {selectors} from "app/store";
-import {
-  AttributeHelpPopover,
-  EmptyStateNoItem,
-  EmptyStateSpinner,
-  Table,
-  useSelectedClusterName,
-} from "app/view/share";
-
+import {useLoadedPermissions} from "./LoadedPermissionsContext";
 import {PermissionMenu} from "./PermissionMenu";
 import {PermissionCompetenceCell} from "./PermissionCompetenceCell";
 import {Permission} from "./types";
@@ -19,20 +11,9 @@ const dataTest = (
 ) => `permission-${rowIndex}-${permissionPart}`;
 
 export const PermissionsTable = () => {
-  const clusterName = useSelectedClusterName();
-  const clusterPermissions = useSelector(
-    selectors.getClusterPermissions(clusterName),
-  );
-
-  if (
-    clusterPermissions === null
-    || !clusterPermissions.fetchState.alreadyLoaded
-  ) {
-    // cluster is not yet established in the redux store
-    return <EmptyStateSpinner title="Loading cluster permission data" />;
-  }
-
-  const permissionList = clusterPermissions?.data?.users_permissions || [];
+  const {
+    permissions: {users_permissions: permissionList},
+  } = useLoadedPermissions();
 
   if (permissionList.length === 0) {
     return <EmptyStateNoItem title={""} canAdd={false} />;

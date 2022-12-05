@@ -1,19 +1,18 @@
 import React from "react";
 
-import {selectors} from "app/store";
 import {ClusterStoppedInfo} from "app/view/share/ClusterStoppedInfo";
-import {useClusterSelector} from "app/view/share/useClusterSelector";
+import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 
 export const useLauncherDisableClusterNotRunning = () => {
-  const [cluster] = useClusterSelector(selectors.getCluster);
+  const {hasCibInfo, clusterName} = useLoadedCluster();
   return React.useCallback(
     (title: string) => ({
-      isDisabled: !cluster.hasCibInfo,
+      isDisabled: !hasCibInfo,
       title,
       message: (
-        <ClusterStoppedInfo startButton="link" clusterName={cluster.name} />
+        <ClusterStoppedInfo startButton="link" clusterName={clusterName} />
       ),
     }),
-    [cluster],
+    [hasCibInfo, clusterName],
   );
 };

@@ -1,30 +1,37 @@
-import {useSelector} from "react-redux";
-
-import {ActionPayload, selectors} from "app/store";
-import {useClusterTask} from "app/view/share";
-
-const {getClusterPermissions} = selectors;
+import {ActionMap, ActionPayload} from "app/store";
+import {useDispatch} from "app/view/share/useDispatch";
+import {useLoadedPermissions} from "app/view/cluster/permissions/LoadedPermissionsContext";
+import {useTaskOpenClose} from "app/view/share";
 
 type AllowName =
   ActionPayload["CLUSTER.PERMISSIONS.SAVE"]["permissionList"][number]["allow"][number];
 
-export const useTask = () => {
-  const task = useClusterTask("permissionEdit");
-  const {dispatch, clusterName, state} = task;
-  const currentPermissionsState = useSelector(
-    getClusterPermissions(clusterName),
-  );
+const taskName: ActionMap["CLUSTER.PERMISSIONS.SAVE"]["key"]["task"] =
+  "permissionEdit";
 
-  const key = {clusterName, task: task.name};
+export const useTask = () => {
+  const dispatch = useDispatch();
+  const openClose = useTaskOpenClose(taskName);
+  const {
+    clusterName,
+    permissions: {users_permissions: currentPermissionList},
+    tasks: {permissionEdit: state},
+  } = useLoadedPermissions();
+
+  const key = {clusterName, task: taskName};
   return {
-    ...task,
+    name: taskName,
+    state,
+    ...openClose,
+    clusterName,
+    dispatch,
     open: (payload: ActionPayload["CLUSTER.PERMISSIONS.EDIT"]) => {
       dispatch({
         type: "CLUSTER.PERMISSIONS.EDIT",
         key,
         payload,
       });
-      task.open();
+      openClose.open();
     },
 
     isNameValid: state.name.length > 0,
@@ -38,15 +45,6 @@ export const useTask = () => {
       }),
 
     permissionEdit: () => {
-      if (
-        currentPermissionsState === null
-        || currentPermissionsState.data === null
-      ) {
-        // it means current permissions are not loaded
-        return;
-      }
-      const currentPermissionList =
-        currentPermissionsState.data.users_permissions;
       const initialPermission = state.initialPermission;
 
       const allow: AllowName[] = [
@@ -90,7 +88,7 @@ export const useTask = () => {
         type: "CLUSTER.PERMISSIONS.EDIT.CLOSE",
         key,
       });
-      task.close();
+      openClose.close();
     },
   };
 };

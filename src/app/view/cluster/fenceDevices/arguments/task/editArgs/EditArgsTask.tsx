@@ -9,6 +9,7 @@ export const EditArgsTask = () => {
   const {
     close,
     name: taskName,
+    clusterName,
     runUpdate,
     recoverFromError,
     state: {
@@ -27,6 +28,7 @@ export const EditArgsTask = () => {
     <TaskSimple
       title="Edit fence device arguments"
       task={taskName}
+      clusterName={clusterName}
       close={close}
       footer={
         response !== "" ? null : (

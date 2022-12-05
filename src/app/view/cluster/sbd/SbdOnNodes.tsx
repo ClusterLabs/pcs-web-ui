@@ -1,11 +1,11 @@
-import {selectors} from "app/store";
-import {EmptyStateNoItem, Table, useClusterSelector} from "app/view/share";
+import {EmptyStateNoItem, Table} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {SbdOnNodesWatchdog} from "./SbdOnNodesWatchdog";
 import {SbdOnNodesDevices} from "./SbdOnNodesDevices";
 
 export const SbdOnNodes = () => {
-  const [{nodeList}] = useClusterSelector(selectors.getCluster);
+  const {nodeList} = useLoadedCluster();
 
   if (nodeList.length === 0) {
     return <EmptyStateNoItem title="No SBD watchdogs." />;

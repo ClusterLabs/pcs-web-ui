@@ -37,6 +37,7 @@ export const TaskComponent = ({
     <TaskSimple
       title={confirm.title}
       task="forceableConfirm"
+      clusterName={null}
       close={close}
       footer={
         state.response !== "" ? null : (
