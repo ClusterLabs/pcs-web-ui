@@ -3,12 +3,12 @@ import {Alert} from "@patternfly/react-core";
 import {Clone} from "app/view/cluster/types";
 import {
   DetailLayout,
-  NVPairListPage,
   ResourceDetailCaption,
   Router,
   UrlTabs,
   useUrlTabs,
 } from "app/view/share";
+import {NVPairListPage} from "app/view/cluster/share";
 
 import {CloneDetail} from "./CloneDetail";
 

@@ -1,6 +1,6 @@
 import {Form} from "@patternfly/react-core";
 
-import {FormText} from "app/view/share/form";
+import {FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
 

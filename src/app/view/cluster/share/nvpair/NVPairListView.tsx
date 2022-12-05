@@ -1,8 +1,5 @@
 import {ActionPayload} from "app/store";
-import {
-  EmptyStateClusterStopped,
-  EmptyStateNoItem,
-} from "app/view/share/emptyState";
+import {EmptyStateClusterStopped, EmptyStateNoItem} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 import {NVPair} from "app/view/cluster/types";
 

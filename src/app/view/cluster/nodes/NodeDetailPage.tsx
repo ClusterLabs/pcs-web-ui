@@ -2,14 +2,16 @@ import React from "react";
 
 import {
   DetailLayout,
-  NVPairListPage,
   Router,
   UrlTabs,
-  UtilizationView,
   useGroupDetailViewContext,
   useUrlTabs,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  NVPairListPage,
+  UtilizationView,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {NodeDetailPageToolbar} from "./NodeDetailPageToolbar";
 import {NodeDetailView} from "./NodeDetailView";

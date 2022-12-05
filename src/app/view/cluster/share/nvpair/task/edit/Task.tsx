@@ -1,9 +1,5 @@
 import {tools} from "app/store";
-import {
-  TaskSimple,
-  TaskSimpleFinish,
-  TaskSimpleFooter,
-} from "app/view/share/task";
+import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
