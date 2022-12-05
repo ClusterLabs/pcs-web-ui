@@ -1,6 +1,5 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask} from "app/view/share";
-import {useClusterSources} from "app/view/cluster/share";
+import {useClusterSources, useClusterTask} from "app/view/cluster/share";
 import {selectGroups} from "app/view/cluster/resources/select";
 
 const useAgent = (agentName: string) => {

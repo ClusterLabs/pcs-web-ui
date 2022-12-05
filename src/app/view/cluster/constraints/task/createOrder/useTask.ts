@@ -1,6 +1,6 @@
 import {ActionPayload} from "app/store";
-import {isValidScore, useClusterTask} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {isValidScore} from "app/view/share";
+import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
 
 export const useTask = () => {
   const task = useClusterTask("constraintOrderCreate");

@@ -1,10 +1,6 @@
 import {ActionPayload} from "app/store";
-import {
-  isValidScore,
-  prepareScore,
-  useClusterTask,
-  useResourceSets,
-} from "app/view/share";
+import {isValidScore, prepareScore, useResourceSets} from "app/view/share";
+import {useClusterTask} from "app/view/cluster/share";
 
 type TrueFalse = "true" | "false";
 

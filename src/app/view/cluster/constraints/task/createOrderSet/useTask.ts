@@ -1,5 +1,6 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask, useResourceSets} from "app/view/share";
+import {useResourceSets} from "app/view/share";
+import {useClusterTask} from "app/view/cluster/share";
 
 type TrueFalse = "true" | "false";
 

@@ -1,7 +1,5 @@
-import {useDispatch} from "app/view/share/useDispatch";
+import {useDispatch, useTaskOpenClose} from "app/view/share";
 import {useClusterSources} from "app/view/cluster/share";
-
-import {useTaskOpenClose} from "./useTaskOpenClose";
 
 export function useClusterTask<
   NAME extends keyof ReturnType<typeof useClusterSources>["tasks"],
