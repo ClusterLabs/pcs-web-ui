@@ -1,6 +1,6 @@
 import {Table, compareStatusSeverity} from "app/view/share";
-import {selectors} from "app/store";
 
+import {Cluster, ClusterInfo} from "./types";
 import {compareStrings} from "./utils";
 
 type COLUMNS =
@@ -11,13 +11,8 @@ type COLUMNS =
   | "FENCE_DEVICES"
   | "ACTIONS";
 
-type ClusterInfo = ReturnType<
-  ReturnType<typeof selectors.getClusterStoreInfoList>
->[number];
-type ClusterStatus = Extract<ClusterInfo, {isFetched: true}>["clusterStatus"];
-
 const compareByState =
-  (compare: (_clusterA: ClusterStatus, _clusterB: ClusterStatus) => number) =>
+  (compare: (_clusterA: Cluster, _clusterB: Cluster) => number) =>
   (a: ClusterInfo, b: ClusterInfo) => {
     if (a.isFetched && b.isFetched) {
       return compare(a.clusterStatus, b.clusterStatus);

@@ -1,4 +1,3 @@
-import {Cluster, Resource} from "app/view/cluster/types";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
@@ -9,6 +8,7 @@ import {
   location,
 } from "app/view/share";
 
+import {Cluster, Resource} from "./types";
 import {compareStrings} from "./utils";
 
 type COLUMNS = "NAME" | "STATUS";

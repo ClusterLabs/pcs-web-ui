@@ -3,7 +3,7 @@ import {useLoadedCluster} from "app/view/cluster/share";
 export type Cluster = ReturnType<typeof useLoadedCluster>;
 
 export type Node = Cluster["nodeList"][number];
-export type ConnectedNode = Exclude<Node, {status: "DATA_NOT_PROVIDED"}>;
+type ConnectedNode = Exclude<Node, {status: "DATA_NOT_PROVIDED"}>;
 export type NodeServiceMap = ConnectedNode["services"];
 export type NodeService = NodeServiceMap[keyof NodeServiceMap];
 
