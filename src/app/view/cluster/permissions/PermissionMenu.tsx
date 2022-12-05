@@ -1,5 +1,6 @@
-import {LauncherDropdown, TaskOpenArgs, useLoadedCluster} from "app/view/share";
+import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
 
+import {useLoadedPermissions} from "./LoadedPermissionsContext";
 import * as task from "./task";
 import {Permission} from "./types";
 
@@ -10,7 +11,7 @@ export const PermissionMenu = ({
   permission: Permission;
   permissionList: Permission[];
 }) => {
-  const {clusterName} = useLoadedCluster();
+  const {clusterName} = useLoadedPermissions();
 
   const addOpenArgs: TaskOpenArgs<typeof task.add.useTask> = [
     {type: "update", permission},

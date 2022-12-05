@@ -2,8 +2,15 @@ import React from "react";
 
 import {useClusterInfo} from "app/view/cluster/share";
 
+type ClusterInfo = ReturnType<typeof useClusterInfo>;
+
 const LoadedPermissionsContext = React.createContext<
-  NonNullable<ReturnType<typeof useClusterInfo>["permissions"]> | undefined
+  | {
+      clusterName: string;
+      permissions: NonNullable<ClusterInfo["permissions"]>;
+      tasks: NonNullable<ClusterInfo["tasks"]>;
+    }
+  | undefined
 >(undefined);
 
 export const LoadedPermissionsProvider = LoadedPermissionsContext.Provider;

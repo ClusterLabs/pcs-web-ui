@@ -53,7 +53,13 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
             );
           }
           return (
-            <LoadedPermissionsProvider value={clusterInfo.permissions}>
+            <LoadedPermissionsProvider
+              value={{
+                clusterName,
+                permissions: clusterInfo.permissions,
+                tasks: clusterInfo.tasks,
+              }}
+            >
               <ClusterPermissionsPage />
             </LoadedPermissionsProvider>
           );

@@ -11,7 +11,9 @@ const dataTest = (
 ) => `permission-${rowIndex}-${permissionPart}`;
 
 export const PermissionsTable = () => {
-  const {users_permissions: permissionList} = useLoadedPermissions();
+  const {
+    permissions: {users_permissions: permissionList},
+  } = useLoadedPermissions();
 
   if (permissionList.length === 0) {
     return <EmptyStateNoItem title={""} canAdd={false} />;
