@@ -5,8 +5,8 @@ import {
   IssueList,
   Link,
   location,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const GroupDetail = ({group}: {group: Group}) => {
   const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();

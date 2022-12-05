@@ -4,8 +4,8 @@ import {
   DetailLayout,
   EmptyStateNoItem,
   useGroupDetailViewContext,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 

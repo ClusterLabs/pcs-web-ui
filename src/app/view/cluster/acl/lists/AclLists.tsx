@@ -1,6 +1,7 @@
 import {Flex, FlexItem, FlexProps} from "@patternfly/react-core";
 
-import {EmptyStateClusterStopped, useLoadedCluster} from "app/view/share";
+import {EmptyStateClusterStopped} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclListCard} from "./AclListCard";
 import {AclSubjectListItem} from "./AclSubjectListItem";

@@ -7,8 +7,8 @@ import {
   IssueList,
   Link,
   location,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 type Member = Exclude<Clone["member"], {itemType: "fence-device"}>;
 

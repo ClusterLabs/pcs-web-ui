@@ -7,8 +7,8 @@ import {
   EmptyStateNoItem,
   ToolbarFilterAction,
   ToolbarFilterGroups,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import * as select from "./select";
 import {ConstraintRowLocationNode, ConstraintRowLocationRule} from "./location";

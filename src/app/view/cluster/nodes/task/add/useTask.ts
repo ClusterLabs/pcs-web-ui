@@ -1,7 +1,8 @@
 import React from "react";
 
 import {ActionPayload} from "app/store";
-import {useClusterTask, useLoadedCluster} from "app/view/share";
+import {useClusterTask} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const useTask = () => {
   const task = useClusterTask("nodeAdd");

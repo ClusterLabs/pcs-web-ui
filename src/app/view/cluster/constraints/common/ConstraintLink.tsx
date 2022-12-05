@@ -1,4 +1,5 @@
-import {Link, location, useLoadedCluster} from "app/view/share";
+import {Link, location} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const ConstraintLink = ({
   id,

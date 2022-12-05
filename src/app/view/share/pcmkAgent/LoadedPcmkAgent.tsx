@@ -1,5 +1,5 @@
 import {EmptyStateError, EmptyStateSpinner} from "app/view/share/emptyState";
-import {useClusterSources} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 import {Agent} from "./types";
 

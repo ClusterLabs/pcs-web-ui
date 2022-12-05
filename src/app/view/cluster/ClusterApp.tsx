@@ -1,10 +1,7 @@
 import {PageSection} from "@patternfly/react-core";
 
-import {
-  ClusterSourcesProvider,
-  EmptyStateError,
-  PageSectionSpinner,
-} from "app/view/share";
+import {EmptyStateError, PageSectionSpinner} from "app/view/share";
+import {ClusterSourcesProvider} from "app/view/cluster/share";
 import {useClusterInfo, useClusterLoad} from "app/view/cluster/share";
 
 import {ClusterPermissionsPage, LoadedPermissionsProvider} from "./permissions";

@@ -2,7 +2,7 @@ import React from "react";
 import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
 import {Select} from "app/view/share";
-import {useClusterSources} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 type FenceAgentList = NonNullable<
   ReturnType<typeof useClusterSources>["fenceAgentList"]

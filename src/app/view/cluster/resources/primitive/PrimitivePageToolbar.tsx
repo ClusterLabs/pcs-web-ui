@@ -3,8 +3,8 @@ import {
   DetailToolbar,
   TaskOpenArgs,
   LauncherItem as ToolbarItem,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 

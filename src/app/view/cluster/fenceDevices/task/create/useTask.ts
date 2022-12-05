@@ -1,6 +1,6 @@
 import {ActionPayload} from "app/store";
 import {useClusterTask} from "app/view/share";
-import {useClusterSources} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 const useAgent = (agentName: string) => {
   const {pcmkAgents} = useClusterSources();

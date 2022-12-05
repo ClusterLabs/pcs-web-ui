@@ -3,8 +3,8 @@ import {PageSection} from "@patternfly/react-core";
 import {
   ClusterToolbar,
   useLauncherDisableClusterNotRunning,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {ConstraintFilteredList} from "./ConstraintFilteredList";
 import * as task from "./task";

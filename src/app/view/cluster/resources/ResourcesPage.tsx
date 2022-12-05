@@ -2,8 +2,8 @@ import {
   ClusterToolbar,
   GroupDetailView,
   useLauncherDisableClusterNotRunning,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";

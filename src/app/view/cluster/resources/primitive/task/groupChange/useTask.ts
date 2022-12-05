@@ -1,5 +1,6 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask, useLoadedCluster} from "app/view/share";
+import {useClusterTask} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 import {Primitive} from "app/view/cluster/types";
 import {selectGroups} from "app/view/cluster/resources/select";
 

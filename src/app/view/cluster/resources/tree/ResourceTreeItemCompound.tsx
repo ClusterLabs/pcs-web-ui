@@ -9,7 +9,7 @@ import {
 
 import {ResourceStatus} from "app/view/cluster/types";
 import {useDispatch} from "app/view/share";
-import {useClusterSources} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 import {ResourceTreeItemCells} from "./ResourceTreeItemCells";
 

@@ -5,8 +5,8 @@ import {
   FormResourceSetField,
   ResourceSetList as ResourceSetListCommon,
   TaskLibStep,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 import {getResourcesForSet} from "app/view/cluster/constraints/select";
 
 import {useTask} from "./useTask";

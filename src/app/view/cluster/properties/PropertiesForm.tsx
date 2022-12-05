@@ -1,7 +1,8 @@
 import React from "react";
 import {ActionGroup, Button, Form} from "@patternfly/react-core";
 
-import {useDispatch, useLoadedCluster} from "app/view/share";
+import {useDispatch} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {ClusterProperties} from "./useClusterProperties";
 import {PropertyFormField} from "./PropertyFormField";

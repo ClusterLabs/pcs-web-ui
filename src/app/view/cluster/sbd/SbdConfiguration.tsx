@@ -1,4 +1,5 @@
-import {EmptyStateNoItem, Table, useLoadedCluster} from "app/view/share";
+import {EmptyStateNoItem, Table} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {selectSbdConfig} from "./select";
 

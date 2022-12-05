@@ -1,4 +1,5 @@
-import {useGroupDetailViewContext, useLoadedCluster} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {FenceDeviceDoesNotExists} from "./FenceDeviceDoesNotExists";
 import {FenceDeviceView} from "./FenceDeviceView";

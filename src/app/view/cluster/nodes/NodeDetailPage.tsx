@@ -7,9 +7,9 @@ import {
   UrlTabs,
   UtilizationView,
   useGroupDetailViewContext,
-  useLoadedCluster,
   useUrlTabs,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 import {NodeDetailPageToolbar} from "./NodeDetailPageToolbar";
 import {NodeDetailView} from "./NodeDetailView";

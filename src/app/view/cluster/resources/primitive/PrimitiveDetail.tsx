@@ -7,8 +7,8 @@ import {
   LoadedPcmkAgent,
   PcmkAgentDescription,
   location,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
   const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();

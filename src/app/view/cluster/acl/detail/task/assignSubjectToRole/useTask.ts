@@ -1,5 +1,6 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask, useLoadedCluster} from "app/view/share";
+import {useClusterTask} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 import {getAssignedSubjectIdList} from "app/view/cluster/acl/detail/tools";
 
 export const useTask = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 
 import {useDispatch} from "app/view/share";
-import {useClusterSources} from "app/view/share";
+import {useClusterSources} from "app/view/cluster/share";
 
 export const useClusterFenceAgent = (agentName: string) => {
   const {

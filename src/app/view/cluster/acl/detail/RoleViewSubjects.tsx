@@ -6,8 +6,8 @@ import {
   DetailViewSection,
   Link,
   location,
-  useLoadedCluster,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const RoleViewSubjects = ({
   roleId,
