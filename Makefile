@@ -11,6 +11,10 @@ ifndef TEST
 	TEST=""
 endif
 
+ifndef TEST_CONFIG
+	TEST_CONFIG=""
+endif
+
 ifndef BUILD_USE_EXISTING_NODE_MODULES
 	BUILD_USE_EXISTING_NODE_MODULES=false
 endif
@@ -79,7 +83,11 @@ teste:
 	@./.bin/run-tests.sh
 
 testc:
-	@./.bin/run-tests.sh cluster
+ifeq ($(TEST_CONFIG),"")
+	@./.bin/run-tests.sh -t cluster -w
+else
+	@./.bin/run-tests.sh -t cluster  -c $(TEST_CONFIG)
+endif
 
 clean:
 	rm -rf build

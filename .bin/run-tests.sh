@@ -1,15 +1,36 @@
 #!/bin/sh
+usage() {
+	echo "Usage: $0 [ -t <cluster|mocked>] [ -c <path>] [-w]" 1>&2
+}
 
 DEV_CONFIG=".dev/cluster-test-conf.sh"
 RUN_CLUSTER_TESTS=false
-[ "$1" = "cluster" ] && RUN_CLUSTER_TESTS=true
+WATCH=false
+
+while getopts c:t:w name; do
+	case ${name} in
+	c)
+		DEV_CONFIG=${OPTARG}
+		;;
+	t)
+		[ "${OPTARG}" = "cluster" ] && RUN_CLUSTER_TESTS=true
+		;;
+	w)
+		WATCH=true
+		;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
+done
 
 echo Launching jest, please wait for a while...
 
 run() {
 	if [ -f "$DEV_CONFIG" ]; then
 		# shellcheck disable=SC1090
-		. "$DEV_CONFIG"
+		. "./$DEV_CONFIG"
 	fi
 
 	if [ "$RUN_CLUSTER_TESTS" = true ]; then
@@ -42,7 +63,9 @@ inotifyRun() {
 	done
 }
 
-if [ -x "$(command -v inotifywait)" ]; then
+if [ "$WATCH" = false ]; then
+	run
+elif [ -x "$(command -v inotifywait)" ]; then
 	inotifyRun
 else
 	echo "inotifywait is not installed; running just onetime jest"

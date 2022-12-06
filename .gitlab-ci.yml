@@ -1,12 +1,20 @@
 pcsd_integration_test:
   script:
+    # install current version of pcs
+    - 'curl -Lk --output artifacts.zip --header "PRIVATE-TOKEN: ${PCS_REPO_TOKEN}" "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/main/download?job=rpm_build"'
+    - unzip artifacts.zip
+    - "dnf install -y rpms/pcs-*.rpm"
+    - rm -rf rpms/ artifacts.zip
+    # build and install webui
     - mkdir -p .git/hooks
     - 'echo "${NEXUS_CERT_PATH}" | make init NEXUS_REPO=true'
     - echo y | npx npm ci
     - echo y | .bin/patch-node-modules-for-fips.sh node_modules
     - echo y | make build BUILD_USE_EXISTING_NODE_MODULES=true
-    - 'curl -Lk --output artifacts.zip --header "PRIVATE-TOKEN: ${PCS_REPO_TOKEN}" "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/main/download?job=rpm_build"'
-    - unzip artifacts.zip
-    - 'dnf install -y rpms/pcs-*.rpm'
-    - rm -rf rpms/ artifacts.zip
+    - mv ./build /usr/lib64/pcsd/public/ui
+    # run pcsd
     - systemctl enable pcsd --now
+    # set hacluster password that the tests use
+    - echo "hh"| passwd hacluster --stdin
+    # run tests
+    - make testc TEST_CONFIG=.cluster-test-conf-gitlab.sh
