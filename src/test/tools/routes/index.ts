@@ -15,6 +15,7 @@ export * from "./sbdConfigure";
 export * from "./sbdDisable";
 export * from "./stonithAgentListAgents";
 export * from "./resourceAgentDescribeAgent";
+export * from "./resourceCreate";
 export * from "./stonithAgentDescribeAgent";
 export * from "./updateFenceDevice";
 export * from "./stonithCreate";
