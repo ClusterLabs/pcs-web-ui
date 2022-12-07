@@ -1,8 +1,8 @@
-import {LibClusterCommands} from "app/backend/endpoints";
-
 import {RouteResponse} from "test/tools/interception";
 
-import {libCluster} from "./libCluster";
+import {LibClusterCommandPayload, libCluster} from "./libCluster";
+
+type ResourceCreatePayload = LibClusterCommandPayload["resource-create"];
 
 export const resourceCreate = ({
   clusterName,
@@ -16,10 +16,7 @@ export const resourceCreate = ({
   clusterName: string;
   resourceId: string;
   agentName: string;
-  instanceAttrs: Extract<
-    LibClusterCommands[number],
-    {name: "resource-create"}
-  >["payload"]["instance_attributes"];
+  instanceAttrs: ResourceCreatePayload["instance_attributes"];
   disabled?: boolean;
   response?: RouteResponse;
   force?: boolean;

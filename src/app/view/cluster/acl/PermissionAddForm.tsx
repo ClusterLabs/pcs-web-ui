@@ -30,7 +30,7 @@ export const PermissionAddForm = ({
   return (
     <Form>
       <FormGroup label="" fieldId="role-permissions">
-        <table>
+        <table data-test="permission-list">
           <thead>
             <tr>
               <th className="pf-u-pb-md">Scope Type</th>
@@ -41,7 +41,7 @@ export const PermissionAddForm = ({
           </thead>
           <tbody>
             {permissionList.map(([kind, scopeType, scope], i) => (
-              <tr key={i}>
+              <tr key={i} data-test={`permission-${i}`}>
                 <td className="pf-u-pr-sm pf-u-pb-sm">
                   <FormRadios
                     label=""
@@ -57,7 +57,7 @@ export const PermissionAddForm = ({
                         ),
                       )
                     }
-                    data-test="type"
+                    data-test="scope-type"
                   />
                 </td>
                 <td className="pf-u-pr-md pf-u-pb-sm">
@@ -77,6 +77,7 @@ export const PermissionAddForm = ({
                         ),
                       )
                     }
+                    data-test="scope"
                   />
                 </td>
                 <td className="pf-u-pr-md pf-u-pb-sm">
@@ -94,7 +95,7 @@ export const PermissionAddForm = ({
                         ),
                       )
                     }
-                    data-test="type"
+                    data-test="kind"
                   />
                 </td>
                 <td className="pf-u-pb-sm">
@@ -119,6 +120,7 @@ export const PermissionAddForm = ({
           onClick={() => update([...permissionList, ["read", "id", ""]])}
           icon={<PlusCircleIcon />}
           className="pf-u-mt-sm"
+          data-test="permission-add"
         >
           Add permission
         </Button>

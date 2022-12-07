@@ -3,7 +3,7 @@ import {Flex, FlexItem, Radio} from "@patternfly/react-core";
 
 export function FormRadioGroup<OPTION extends string>({
   id,
-  options,
+  options: optionList,
   selected,
   onChange,
   isDisabled,
@@ -18,20 +18,20 @@ export function FormRadioGroup<OPTION extends string>({
 }) {
   return (
     <Flex data-test={dataTest}>
-      {options.map(o => (
-        <FlexItem key={o}>
+      {optionList.map(option => (
+        <FlexItem key={option}>
           <Radio
-            isChecked={o === selected}
-            name={`${id}-${o}`}
+            isChecked={option === selected}
+            name={`${id}-${option}`}
             onChange={isChecked => {
               if (isChecked) {
-                onChange(o);
+                onChange(option);
               }
             }}
-            label={o}
-            id={`${id}-${o}`}
+            label={option}
+            id={`${id}-${option}`}
             isDisabled={isDisabled}
-            data-test="abcd-radio"
+            data-test={option}
           />
         </FlexItem>
       ))}
