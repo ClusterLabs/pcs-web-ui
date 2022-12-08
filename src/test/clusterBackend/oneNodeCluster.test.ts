@@ -14,6 +14,12 @@ const nodeName = process.env.PCSD_NODE_1 || "";
 const port = process.env.PCSD_PORT_1 || 2224;
 const username = process.env.PCSD_USERNAME_1 ?? "";
 const password = process.env.PCSD_PASSWORD_1 ?? "";
+const recordVideo =
+  process.env.PCS_WUI_TESTS_VIDEO_RECORD?.toLowerCase() === "true";
+
+console.log("VIDEO:");
+console.log(process.env.PCS_WUI_TESTS_VIDEO_RECORD);
+console.log(recordVideo);
 
 const clusterName = "test-cluster";
 const fenceDeviceName = "F1";
@@ -23,6 +29,11 @@ const resourceAgentName = "Dummy"; //"ocf:heartbeat:Dummy";
 const resourceName = "A";
 
 describe("Web ui on one node cluster", () => {
+  afterEach(async () => {
+    if (recordVideo) {
+      await page.context().close();
+    }
+  });
   it("should succeed with essential features", async () => {
     await page.goto(`${protocol}://${host}:${port}/ui/`);
 

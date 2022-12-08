@@ -8,5 +8,6 @@ export PCSD_USERNAME_1=hacluster
 export PCSD_PASSWORD_1=hh
 
 export PCS_WUI_TESTS_HEADLESS=true
+export PCS_WUI_TESTS_VIDEO_RECORD=true
 
 export PCS_WUI_TESTS=$*

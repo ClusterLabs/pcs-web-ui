@@ -37,4 +37,14 @@ pcsd_integration_test:
     # set hacluster password that the tests use
     - echo "hh"| passwd hacluster --stdin
     # run tests
+    - mkdir .tmp
     - make testc TEST_CONFIG=.cluster-test-conf-gitlab.sh
+    - ls -la .tmp
+    - echo "artifacts test" > .tmp/test.txt
+    - ls -la .tmp
+  artifacts:
+    untracked: true
+    when: on_failure
+    paths:
+      - .tmp/*
+    expire_in: 1 week
