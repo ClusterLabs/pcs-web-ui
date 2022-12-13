@@ -31,7 +31,7 @@ export const Select = (
   const filter = onFilter
     ? (_event: React.ChangeEvent<HTMLInputElement> | null, value: string) => {
         onFilter(value);
-        return null as unknown as React.ReactElement[];
+        return undefined;
       }
     : null;
 

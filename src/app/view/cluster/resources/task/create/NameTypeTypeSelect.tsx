@@ -63,13 +63,13 @@ export const NameTypeTypeSelect = ({
       <FlexItem grow={grow}>
         <Select
           variant="typeahead"
-          typeAheadAriaLabel="Select a state"
+          typeAheadAriaLabel="Select a resource agent"
+          placeholderText="Select a resource agent"
           onSelect={onSelect}
           onClear={onClear}
           onFilter={onFilter}
           selections={agentName}
           isGrouped
-          hasInlineFilter
           customBadgeText={agentName.length > 0 ? agentName : undefined}
           data-test="resource-agent"
         >

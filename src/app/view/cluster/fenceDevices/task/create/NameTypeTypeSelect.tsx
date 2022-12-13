@@ -50,13 +50,13 @@ export const NameTypeTypeSelect = ({
       <FlexItem grow={grow}>
         <Select
           variant="typeahead"
-          typeAheadAriaLabel="Select a fence device"
+          typeAheadAriaLabel="Select a fence device agent"
+          placeholderText="Select a fence device agent"
           onSelect={onSelect}
           onClear={onClear}
           onFilter={onFilter}
           selections={agentName}
           isGrouped
-          hasInlineFilter
           customBadgeText={agentName.length > 0 ? agentName : undefined}
           optionsValues={filteredFenceAgentList}
           data-test="fence-device-agent"
