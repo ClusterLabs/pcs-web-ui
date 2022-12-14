@@ -7,6 +7,10 @@ ifndef NEXUS_REPO
 	NEXUS_REPO=true
 endif
 
+ifndef NEXUS_CERT_PATH
+	NEXUS_CERT_PATH=""
+endif
+
 ifndef TEST
 	TEST=""
 endif
@@ -92,6 +96,16 @@ endif
 clean:
 	rm -rf build
 	rm pcs-web-ui-node-modules-*.tar.xz
+
+init_nexus:
+ifeq ($(NEXUS_CERT_PATH),"")
+	echo "Specify path of nexus certificate, please"
+else
+	echo "registry="${NEXUS} > .npmrc
+	echo cafile=${NEXUS_CERT_PATH} >> .npmrc
+endif
+
+
 
 init:
 ifeq ($(NEXUS_REPO),true)

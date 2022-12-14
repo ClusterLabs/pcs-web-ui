@@ -26,8 +26,7 @@ pcsd_integration_test:
     - "dnf install -y rpms/pcs-*.rpm"
     - rm -rf rpms/ artifacts.zip
     # build and install webui
-    - mkdir -p .git/hooks
-    - 'echo "${NEXUS_CERT_PATH}" | make init NEXUS_REPO=true'
+    - make init_nexus NEXUS_CERT_PATH="${NEXUS_CERT_PATH}"
     - echo y | npx npm ci
     - echo y | .bin/patch-node-modules-for-fips.sh node_modules
     - echo y | make build BUILD_USE_EXISTING_NODE_MODULES=true
