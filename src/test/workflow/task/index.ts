@@ -6,4 +6,4 @@ export {task as importExistingCluster} from "./importExistingCluster";
 export {task as fenceDeviceCreate} from "./fenceDeviceCreate";
 export {task as resourceCreate} from "./resourceCreate";
 export {task as nvsetListModify} from "./nvsetListModify";
-export {task as aclRoleCreate} from "./aclRoleCreate";
+export * from "./acl";

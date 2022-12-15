@@ -36,7 +36,7 @@ inotifyRun() {
 	run
 	while inotifywait -r -e MODIFY -e CREATE -e MOVE -e DELETE \
 		src/ \
-		.dev/cluster-test-conf.sh \
+		.dev/ \
 		; do
 		run
 	done
