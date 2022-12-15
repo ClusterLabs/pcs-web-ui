@@ -18,7 +18,7 @@ export function* clusterDestroy({
 
   yield putNotification(
     "SUCCESS",
-    "Cluster destroyed. Trying to remove it from webUI...",
+    "Cluster destroyed. Trying to remove it from cluster list...",
   );
 
   const removeResult: api.ResultOf<typeof removeCluster> = yield api.authSafe(
@@ -30,12 +30,12 @@ export function* clusterDestroy({
     log.error(removeResult, `remove cluster ${payload.clusterName}`);
     yield putNotification(
       "ERROR",
-      "Cannot remove cluster from webUI after successful cluster destroy."
+      "Cannot remove cluster from cluster list after successful cluster destroy."
         + " You can try it later manually. Details in the browser console.",
     );
     return;
   }
 
   yield put({type: "CLUSTER.LIST.REFRESH"});
-  yield putNotification("SUCCESS", "Cluster removed from webUI");
+  yield putNotification("SUCCESS", "Cluster removed from cluster list");
 }
