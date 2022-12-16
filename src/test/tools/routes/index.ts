@@ -1,5 +1,6 @@
 /* eslint-disable import/max-dependencies */
 export * from "./aclAddPermission";
+export * from "./aclAssignRoleToTarget";
 export * from "./aclRoleCreate";
 export * from "./addMetaAttrRemote";
 export * from "./addNodeAttrRemote";
