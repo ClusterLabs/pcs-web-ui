@@ -1,9 +1,9 @@
-import { intercept, location, route } from "test/tools";
+import {intercept, location, route} from "test/tools";
 import * as workflow from "test/workflow";
 
-import { clusterName, interceptForClusterSetup, nodeNameList } from "./common";
+import {clusterName, interceptForClusterSetup, nodeNameList} from "./common";
 
-const { select, radioGroup } = workflow.form;
+const {select, radioGroup} = workflow.form;
 const {
   assertReview,
   fillClusterNameAndNodes,
@@ -15,14 +15,14 @@ const {
 
 type SetupData = Extract<
   Parameters<typeof route.clusterSetup>[0]["payload"]["setupData"],
-  { transport_type: "knet" }
+  {transport_type: "knet"}
 >;
 
 // type to make non nullable attributes
 // so we don't have to always write defaulting to string, e.g.:
 // await
 // page.type(selectors.knetTransport.link_priority, link.link_priority || "");
-type StrictProps<T> = { [K in keyof T]-?: NonNullable<T[K]> };
+type StrictProps<T> = {[K in keyof T]-?: NonNullable<T[K]>};
 
 const addrs = [
   ["192.168.0.1", "192.168.0.2"],
@@ -88,18 +88,18 @@ const onOff = (value: string) => (value === "1" ? "on" : "off");
 describe("Cluster setup", () => {
   it("should create full filled cluster", async () => {
     interceptForClusterSetup([
-      route.checkAuthAgainstNodes({ nodeNameList }),
+      route.checkAuthAgainstNodes({nodeNameList}),
       route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
           setupData: {
             cluster_name: clusterName,
             nodes: [
-              { name: nodeNameList[0], addrs: [addrs[0][0], addrs[1][0]] },
-              { name: nodeNameList[1], addrs: [addrs[0][1], addrs[1][1]] },
+              {name: nodeNameList[0], addrs: [addrs[0][0], addrs[1][0]]},
+              {name: nodeNameList[1], addrs: [addrs[0][1], addrs[1][1]]},
             ],
             transport_type: "knet",
-            link_list: [{ linknumber: 0, ...link }, { linknumber: 1 }],
+            link_list: [{linknumber: 0, ...link}, {linknumber: 1}],
             quorum_options: quorum,
             totem_options: totem,
             transport_options: transport,
