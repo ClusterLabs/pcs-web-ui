@@ -23,6 +23,7 @@ export const ChooseAssignee = () => {
     <Form style={{marginBottom: "8em"}}>
       <FormSelect
         id="acl-assignee-select"
+        data-test="subject-name"
         label={`${tools.labelize(assigneeType)} name`}
         placeholderText={`Please select a ${assigneeType}`}
         showValidationErrors={showValidationErrors}

@@ -24,6 +24,7 @@ export const Task = () => {
     <TaskSimple
       title={title}
       task={taskName}
+      data-test={`task-acl-role-assign-${assigneeType}`}
       clusterName={clusterName}
       close={close}
       footer={
