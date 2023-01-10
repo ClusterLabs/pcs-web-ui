@@ -43,6 +43,9 @@ export const sbdList = ({clusterName}: {clusterName: string}) =>
 export const permissionList = ({clusterName}: {clusterName: string}) =>
   `${cluster({clusterName})}/permissions`;
 
+export const acl = ({clusterName}: {clusterName: string}) =>
+  `${cluster({clusterName})}/acl`;
+
 export const aclGroup = ({
   clusterName,
   groupId,

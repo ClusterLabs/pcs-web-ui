@@ -19,6 +19,7 @@ export const Task = () => {
     <TaskSimple
       title="Add permissions to role"
       task={"aclRolePermissionAdd"}
+      data-test="task-acl-role-add-permissions"
       clusterName={clusterName}
       close={close}
       footer={

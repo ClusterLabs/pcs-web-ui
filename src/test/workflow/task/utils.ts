@@ -16,6 +16,10 @@ const clickMoveFrom = <STEP_NAME extends string>(
   };
 };
 
+const waitForOpen = (taskKey: string) => async () => {
+  await page.waitForSelector(dt(taskKey));
+};
+
 export const prepareCommonTaskSimple = ({
   taskKey,
   openKey,
@@ -31,9 +35,9 @@ export const prepareCommonTaskSimple = ({
     taskKey,
     openKey,
     inView,
+    waitForOpen: waitForOpen(taskKey),
     open: async () => {
       await page.click(dt(openKey));
-      await page.waitForSelector(dt(taskKey));
     },
     close: async () => {
       await page.click(inView("task-close"));

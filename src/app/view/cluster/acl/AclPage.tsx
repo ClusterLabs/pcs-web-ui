@@ -29,7 +29,7 @@ export const AclPage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="resources"
+        toolbarName="acl"
         buttonsItems={[
           {
             name: "create-role",

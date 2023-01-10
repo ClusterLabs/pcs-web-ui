@@ -2,9 +2,11 @@ import {RouteResponse} from "test/tools/interception";
 
 import {LibClusterCommandPayload, libCluster} from "./libCluster";
 
-export const stonithCreate = ({
+type ResourceCreatePayload = LibClusterCommandPayload["resource-create"];
+
+export const resourceCreate = ({
   clusterName,
-  fenceDeviceName,
+  resourceId,
   agentName,
   instanceAttrs,
   disabled,
@@ -12,23 +14,24 @@ export const stonithCreate = ({
   force,
 }: {
   clusterName: string;
-  fenceDeviceName: string;
+  resourceId: string;
   agentName: string;
-  instanceAttrs: LibClusterCommandPayload["stonith-create"]["instance_attributes"];
+  instanceAttrs: ResourceCreatePayload["instance_attributes"];
   disabled?: boolean;
   response?: RouteResponse;
   force?: boolean;
 }) =>
   libCluster({
     clusterName,
-    name: "stonith-create",
+    name: "resource-create",
     payload: {
-      stonith_id: fenceDeviceName,
-      stonith_agent_name: agentName,
-      operations: [],
+      resource_id: resourceId,
+      resource_agent_name: agentName,
+      operation_list: [],
       meta_attributes: {},
       instance_attributes: instanceAttrs,
       allow_absent_agent: force === undefined ? false : force,
+      allow_not_suitable_command: force === undefined ? false : force,
       allow_invalid_operation: force === undefined ? false : force,
       allow_invalid_instance_attributes: force === undefined ? false : force,
       ensure_disabled: !!disabled,

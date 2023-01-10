@@ -27,6 +27,7 @@ export const RoleName = () => {
           helperTextInvalid="Please enter a name"
           onChange={value => updateState({roleId: value})}
           value={roleId}
+          data-test="role-name"
         />
 
         <FormText
@@ -34,6 +35,7 @@ export const RoleName = () => {
           label="Description"
           onChange={value => updateState({description: value})}
           value={description}
+          data-test="role-description"
         />
       </Form>
     </TaskLibStep>

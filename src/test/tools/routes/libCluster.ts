@@ -20,3 +20,10 @@ export const libCluster = (
     ...response,
   };
 };
+
+export type LibClusterCommandPayload = {
+  -readonly [K in LibClusterCommands[number]["name"]]: Extract<
+    LibClusterCommands[number],
+    {name: K}
+  >["payload"];
+};
