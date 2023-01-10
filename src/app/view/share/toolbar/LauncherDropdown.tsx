@@ -30,7 +30,7 @@ export const LauncherDropdown = ({
                 component="button"
                 onClick={launch}
                 data-test={`${dropdownName}-${item.name}`}
-                isDisabled={item?.disabled ?? false}
+                isDisabled={item.disabled ?? false}
               >
                 {tools.labelize(item.label || item.name)}
               </DropdownItem>

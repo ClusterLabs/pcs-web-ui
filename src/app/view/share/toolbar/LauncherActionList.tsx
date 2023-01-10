@@ -19,10 +19,10 @@ export const LauncherActionList = ({
         <Launcher key={i} item={item}>
           {launch => (
             <Button
-              variant={item?.button?.variant ?? "secondary"}
+              variant={item.button?.variant ?? "secondary"}
               onClick={launch}
               data-test={`task ${name}-${item.name}`}
-              isDisabled={item?.disabled ?? false}
+              isDisabled={item.disabled ?? false}
             >
               {tools.labelize(item.label || item.name)}
             </Button>
