@@ -43,6 +43,7 @@ pcsd_integration_test:
     when: on_failure
     paths:
       - .tmp/
+      - /var/log/pcsd/pcsd.log
     exclude:
       - node_modules/
       - .npmrc
