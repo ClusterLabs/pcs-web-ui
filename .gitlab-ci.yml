@@ -1,6 +1,9 @@
 pcsd_integration_test:
   script:
+    #
+    #
     # install playwright dependencies
+    #
     - dnf install -y
       alsa-lib-1.2.7.2-1.el9
       atk-2.36.0-5.el9
@@ -20,29 +23,51 @@ pcsd_integration_test:
       libXrandr-1.5.2-8.el9
       mesa-libgbm-22.1.5-2.el9
       pango-1.48.7-2.el9
+    #
+    #
     # install current version of pcs
+    #
     - 'curl -Lk --output artifacts.zip --header "PRIVATE-TOKEN: ${PCS_REPO_TOKEN}" "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/main/download?job=rpm_build"'
     - unzip artifacts.zip
     - "dnf install -y rpms/pcs-*.rpm"
     - rm -rf rpms/ artifacts.zip
+    #
+    #
     # build and install webui
+    #
     - make init_nexus NEXUS_CERT_PATH="${NEXUS_CERT_PATH}"
     - echo y | npx npm ci
     - echo y | .bin/patch-node-modules-for-fips.sh node_modules
     - echo y | make build BUILD_USE_EXISTING_NODE_MODULES=true
     - mv ./build /usr/lib64/pcsd/public/ui
-    # run pcsd
+    #
+    #
+    # prepare environment for tests
+    #
+    - export PCSD_PROTOCOL_1=https
+    - export PCSD_HOST_1=localhost
+    - export PCSD_NODE_1=localhost
+    - export PCSD_PORT_1=2224
+    - export PCSD_USERNAME_1="hacluster"
+    - export PCSD_PASSWORD_1=hh
+    - export PCS_WUI_TESTS_HEADLESS=true
+    - export PCS_WUI_TESTS_VIDEO_DIR=.test-records
     - systemctl enable pcsd --now
-    # set hacluster password that the tests use
-    - echo "hh"| passwd hacluster --stdin
-    - pcs host auth localhost -u hacluster -p hh
+    # hacluster user should already exists
+    - echo "$PCSD_PASSWORD_1" | passwd "$PCSD_USERNAME_1" --stdin
+    # tests expects that pcs is authenticated against the node
+    - pcs host auth "$PCSD_NODE_1" -u "$PCSD_USERNAME_1" -p "$PCSD_PASSWORD_1"
+    - mkdir "$PCS_WUI_TESTS_VIDEO_DIR"
+    #
+    #
     # run tests
-    - mkdir .tmp
-    - make testc TEST_CONFIG=.cluster-test-conf-gitlab.sh
+    #
+    - make ci-cluster-test
+
   artifacts:
     when: on_failure
     paths:
-      - .tmp/
+      - .test-records/
       - /var/log/pcsd/pcsd.log
     exclude:
       - node_modules/

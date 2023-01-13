@@ -15,10 +15,6 @@ ifndef TEST
 	TEST=""
 endif
 
-ifndef TEST_CONFIG
-	TEST_CONFIG=""
-endif
-
 ifndef BUILD_USE_EXISTING_NODE_MODULES
 	BUILD_USE_EXISTING_NODE_MODULES=false
 endif
@@ -84,14 +80,13 @@ testu:
 
 #end2end tests
 teste:
-	@./.bin/run-tests.sh
+	@./.bin/run-dev-tests.sh -c ./.dev/cluster-test-conf.sh
 
 testc:
-ifeq ($(TEST_CONFIG),"")
-	@./.bin/run-tests.sh -t cluster -w
-else
-	@./.bin/run-tests.sh -t cluster  -c $(TEST_CONFIG)
-endif
+	@./.bin/run-dev-tests.sh -t cluster -c ./.dev/cluster-test-conf.sh
+
+ci-cluster-test:
+	@./.bin/run-jest.sh -s -p src/test/clusterBackend
 
 clean:
 	rm -rf build

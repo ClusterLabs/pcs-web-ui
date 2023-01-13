@@ -8,17 +8,16 @@ declare global {
 export default async () => {
   const headless =
     process.env.PCS_WUI_TESTS_HEADLESS?.toLowerCase() !== "false";
-  const recordVideo =
-    process.env.PCS_WUI_TESTS_VIDEO_RECORD?.toLowerCase() === "true";
+  const videoDir = process.env.PCS_WUI_TESTS_VIDEO_DIR;
 
   const browser = await chromium.launch({headless});
 
   global.page = await browser.newPage({
     ignoreHTTPSErrors: true,
-    ...(recordVideo
+    ...(videoDir
       ? {
           recordVideo: {
-            dir: "./.tmp",
+            dir: videoDir,
           },
         }
       : {}),
