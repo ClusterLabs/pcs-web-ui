@@ -7,7 +7,12 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import {ClusterStatusLabel, Link, Router, location} from "app/view/share";
+import {
+  ClusterStatusLabel,
+  Router,
+  location,
+  useLocation,
+} from "app/view/share";
 import {tools} from "app/store";
 import {Page, UrlTabs, useDispatch, useUrlTabs} from "app/view/share";
 
@@ -26,6 +31,7 @@ export const ClusterAppLayout = <TAB_NAME extends string>({
 }) => {
   const {currentTab, matchedContext} = useUrlTabs(tabList);
   const dispatch = useDispatch();
+  const {navigate} = useLocation();
 
   return (
     <Page>
@@ -33,8 +39,16 @@ export const ClusterAppLayout = <TAB_NAME extends string>({
         <Stack hasGutter>
           <StackItem>
             <Breadcrumb data-test="breadcrumb">
-              <BreadcrumbItem component="span" data-test="dashboard">
-                <Link to={location.dashboard}>Clusters</Link>
+              <BreadcrumbItem
+                to={location.dashboard}
+                component="a"
+                data-test="dashboard"
+                onClick={(e: React.SyntheticEvent) => {
+                  e.preventDefault();
+                  navigate(location.dashboard);
+                }}
+              >
+                Clusters
               </BreadcrumbItem>
               <BreadcrumbItem
                 isActive
