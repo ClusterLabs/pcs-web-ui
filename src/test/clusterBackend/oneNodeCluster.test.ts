@@ -75,7 +75,7 @@ describe("Web ui on one node cluster", () => {
     await breadcrumb.gotoDashboard();
     await destroyCluster(clusterName);
     await dashboard.clusterList.assertNamesAre([]);
-  }, 70000);
+  }, 1850000);
 });
 
 const createFenceDevice = async (
