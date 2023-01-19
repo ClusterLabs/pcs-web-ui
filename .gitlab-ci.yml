@@ -46,7 +46,7 @@ pcsd_integration_test:
     #
     - export PCSD_PROTOCOL_1=https
     - export PCSD_HOST_1=localhost
-    - export PCSD_NODE_1=localhost
+    - export PCSD_NODE_1=wuitest
     - export PCSD_PORT_1=2224
     - export PCSD_USERNAME_1="hacluster"
     - export PCSD_PASSWORD_1=hh
@@ -56,6 +56,7 @@ pcsd_integration_test:
     # hacluster user should already exists
     - echo "$PCSD_PASSWORD_1" | passwd "$PCSD_USERNAME_1" --stdin
     # tests expects that pcs is authenticated against the node
+    - echo "127.0.0.1 $PCSD_NODE_1" >> /etc/hosts
     - pcs host auth "$PCSD_NODE_1" -u "$PCSD_USERNAME_1" -p "$PCSD_PASSWORD_1"
     - mkdir "$PCS_WUI_TESTS_VIDEO_DIR"
     #
