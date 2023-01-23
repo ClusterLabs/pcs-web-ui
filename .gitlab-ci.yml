@@ -57,6 +57,7 @@ pcsd_integration_test:
     - export PCSD_PASSWORD_1=hh
     - export PCS_WUI_TESTS_HEADLESS=true
     - export PCS_WUI_TESTS_VIDEO_DIR=.test-records
+    - export PCS_WUI_TEST_TIMEOUT=1000000
     - systemctl enable pcsd --now
     # hacluster user should already exists
     - echo "$PCSD_PASSWORD_1" | passwd "$PCSD_USERNAME_1" --stdin
