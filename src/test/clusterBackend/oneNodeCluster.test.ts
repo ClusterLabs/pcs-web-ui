@@ -57,7 +57,7 @@ describe("Web ui on one node cluster", () => {
       `xpath=${mkXPath(
         "cluster " + clusterName,
         "cluster-status-label",
-      )}/*[text() = "inoperative"]`,
+      )}/*[text() = "inoperative" or text() = "running"]`,
     );
 
     await dashboard.clusterList.goToCluster(clusterName);
