@@ -65,6 +65,7 @@ pcsd_integration_test:
     - echo "127.0.0.1 $PCSD_NODE_1" >> /etc/hosts
     - pcs host auth "$PCSD_NODE_1" -u "$PCSD_USERNAME_1" -p "$PCSD_PASSWORD_1"
     - mkdir "$PCS_WUI_TESTS_VIDEO_DIR"
+    - ln /var/log/pcsd/pcsd.log "$PCS_WUI_TESTS_VIDEO_DIR/pcsd.log"
     #
     #
     # run tests
@@ -75,7 +76,6 @@ pcsd_integration_test:
     when: on_failure
     paths:
       - .test-records/
-      - /var/log/pcsd/pcsd.log
     exclude:
       - node_modules/
       - .npmrc
