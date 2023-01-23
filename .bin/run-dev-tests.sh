@@ -9,7 +9,7 @@ usage() {
 RUN_JEST=$(dirname "$0")/run-jest.sh
 RUN_CLUSTER_TESTS=false
 
-while getopts c:t name; do
+while getopts c:t: name; do
 	case ${name} in
 	c)
 		DEV_CONFIG=${OPTARG}
@@ -54,6 +54,7 @@ if [ -x "$(command -v inotifywait)" ]; then
 	run
 	while inotifywait -r -e MODIFY -e CREATE -e MOVE -e DELETE \
 		src/ \
+		.dev/ \
 		"$DEV_CONFIG" \
 		; do
 		run
