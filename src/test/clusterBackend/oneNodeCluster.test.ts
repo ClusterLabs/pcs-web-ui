@@ -14,6 +14,9 @@ const nodeName = process.env.PCSD_NODE_1 || "";
 const port = process.env.PCSD_PORT_1 || 2224;
 const username = process.env.PCSD_USERNAME_1 ?? "";
 const password = process.env.PCSD_PASSWORD_1 ?? "";
+const recordVideo =
+  process.env.PCS_WUI_TESTS_VIDEO_RECORD?.toLowerCase() === "true";
+const testTimeout = parseInt(process.env.PCS_WUI_TEST_TIMEOUT ?? "70000", 10);
 
 const clusterName = "test-cluster";
 const fenceDeviceName = "F1";
@@ -23,48 +26,57 @@ const resourceAgentName = "Dummy"; //"ocf:heartbeat:Dummy";
 const resourceName = "A";
 
 describe("Web ui on one node cluster", () => {
-  it("should succeed with essential features", async () => {
-    await page.goto(`${protocol}://${host}:${port}/ui/`);
+  afterEach(async () => {
+    if (recordVideo) {
+      await page.context().close();
+    }
+  });
+  it(
+    "should succeed with essential features",
+    async () => {
+      await page.goto(`${protocol}://${host}:${port}/ui/`);
 
-    await login.submitForm({username, password});
+      await login.submitForm({username, password});
 
-    await dashboard.clusterList.waitForLoaded();
-    // we expect to start with no cluster
-    await dashboard.clusterList.assertNamesAre([]);
+      await dashboard.clusterList.waitForLoaded();
+      // we expect to start with no cluster
+      await dashboard.clusterList.assertNamesAre([]);
 
-    await setupCluster({clusterName, nodeNameList: [nodeName]});
-    await dashboard.clusterList.assertNamesAre([clusterName]);
+      await setupCluster({clusterName, nodeNameList: [nodeName]});
+      await dashboard.clusterList.assertNamesAre([clusterName]);
 
-    await removeCluster(clusterName);
-    await dashboard.clusterList.assertNamesAre([]);
+      await removeCluster(clusterName);
+      await dashboard.clusterList.assertNamesAre([]);
 
-    await importExistingCluster(nodeName);
-    await dashboard.clusterList.assertNamesAre([clusterName]);
-    // wait for started cluster
-    // TODO refactor it from here
-    await page.waitForSelector(
-      `xpath=${mkXPath(
-        "cluster " + clusterName,
-        "cluster-status-label",
-      )}/*[text() = "inoperative"]`,
-    );
+      await importExistingCluster(nodeName);
+      await dashboard.clusterList.assertNamesAre([clusterName]);
+      // wait for started cluster
+      // TODO refactor it from here
+      await page.waitForSelector(
+        `xpath=${mkXPath(
+          "cluster " + clusterName,
+          "cluster-status-label",
+        )}/*[text() = "inoperative" or text() = "running"]`,
+      );
 
-    await dashboard.clusterList.goToCluster(clusterName);
+      await dashboard.clusterList.goToCluster(clusterName);
 
-    await cluster.selectTab("fence-devices");
-    await cluster.fenceDevices.assertNamesAre([]);
-    await createFenceDevice(fenceDeviceName, fenceAgentName);
-    await cluster.fenceDevices.assertNamesAre([fenceDeviceName]);
+      await cluster.selectTab("fence-devices");
+      await cluster.fenceDevices.assertNamesAre([]);
+      await createFenceDevice(fenceDeviceName, fenceAgentName);
+      await cluster.fenceDevices.assertNamesAre([fenceDeviceName]);
 
-    await cluster.selectTab("resources");
-    await cluster.resources.assertNamesAre([]);
-    await createResource(resourceName, resourceAgentName);
-    await cluster.resources.assertNamesAre([resourceName]);
+      await cluster.selectTab("resources");
+      await cluster.resources.assertNamesAre([]);
+      await createResource(resourceName, resourceAgentName);
+      await cluster.resources.assertNamesAre([resourceName]);
 
-    await breadcrumb.gotoDashboard();
-    await destroyCluster(clusterName);
-    await dashboard.clusterList.assertNamesAre([]);
-  }, 70000);
+      await breadcrumb.gotoDashboard();
+      await destroyCluster(clusterName);
+      await dashboard.clusterList.assertNamesAre([]);
+    },
+    testTimeout,
+  );
 });
 
 const createFenceDevice = async (

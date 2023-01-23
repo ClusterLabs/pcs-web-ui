@@ -7,6 +7,10 @@ ifndef NEXUS_REPO
 	NEXUS_REPO=true
 endif
 
+ifndef NEXUS_CERT_PATH
+	NEXUS_CERT_PATH=""
+endif
+
 ifndef TEST
 	TEST=""
 endif
@@ -76,14 +80,27 @@ testu:
 
 #end2end tests
 teste:
-	@./.bin/run-tests.sh
+	@./.bin/run-dev-tests.sh -c ./.dev/cluster-test-conf.sh
 
 testc:
-	@./.bin/run-tests.sh cluster
+	@./.bin/run-dev-tests.sh -t cluster -c ./.dev/cluster-test-conf.sh
+
+ci-cluster-test:
+	@./.bin/run-jest.sh -s -p src/test/clusterBackend
 
 clean:
 	rm -rf build
 	rm pcs-web-ui-node-modules-*.tar.xz
+
+init_nexus:
+ifeq ($(NEXUS_CERT_PATH),"")
+	echo "Specify path of nexus certificate, please"
+else
+	echo "registry="${NEXUS} > .npmrc
+	echo cafile=${NEXUS_CERT_PATH} >> .npmrc
+endif
+
+
 
 init:
 ifeq ($(NEXUS_REPO),true)
