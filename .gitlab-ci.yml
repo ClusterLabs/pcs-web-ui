@@ -25,6 +25,11 @@ pcsd_integration_test:
       pango-1.48.7-2.el9
     #
     #
+    # install fence-xvm
+    #
+    - dnf install -y fence-agents-all
+    #
+    #
     # install current version of pcs
     #
     - 'curl -Lk --output artifacts.zip --header "PRIVATE-TOKEN: ${PCS_REPO_TOKEN}" "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/main/download?job=rpm_build%3A%20%5BPcsRhel9CurrentRelease%5D"'
