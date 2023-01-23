@@ -17,10 +17,6 @@ const password = process.env.PCSD_PASSWORD_1 ?? "";
 const recordVideo =
   process.env.PCS_WUI_TESTS_VIDEO_RECORD?.toLowerCase() === "true";
 
-console.log("VIDEO:");
-console.log(process.env.PCS_WUI_TESTS_VIDEO_RECORD);
-console.log(recordVideo);
-
 const clusterName = "test-cluster";
 const fenceDeviceName = "F1";
 const fenceAgentName = "fence_xvm";
