@@ -8,7 +8,17 @@ import * as Notification from "./notification";
 import {BackgroundImage} from "./BackgroundImage";
 import {Header} from "./Header";
 
-export const Page = ({children}: {children: React.ReactNode}) => {
+type NotificationList = ReturnType<typeof selectors.getNotifications>;
+
+export const Page = ({
+  children,
+}: {
+  children: (_notificationProps: {
+    list: NotificationList;
+    isDrawerOpen: boolean;
+    setDrawerOpen: (_isDrawerOpen: boolean) => void;
+  }) => React.ReactNode;
+}) => {
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
   const notificationList = useSelector(selectors.getNotifications);
 
@@ -34,7 +44,7 @@ export const Page = ({children}: {children: React.ReactNode}) => {
         }
         isNotificationDrawerExpanded={isDrawerOpen}
       >
-        {children}
+        {children({list: notificationList, isDrawerOpen, setDrawerOpen})}
       </PfPage>
       <Notification.Toast notificationList={notificationList} />
     </>

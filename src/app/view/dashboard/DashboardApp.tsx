@@ -9,7 +9,12 @@ import {
 } from "@patternfly/react-core";
 
 import {selectors} from "app/store";
-import {Page, PageSectionDataLoading, useDispatch} from "app/view/share";
+import {
+  Page,
+  PageSectionDataLoading,
+  PageToolbar,
+  useDispatch,
+} from "app/view/share";
 
 import {DashboardClusterList} from "./clusterList";
 import {DashboardToolbar} from "./DashboardToolbar";
@@ -38,28 +43,36 @@ export const DashboardApp = () => {
 
   return (
     <Page>
-      <PageSection variant="light">
-        <Stack hasGutter>
-          <StackItem>
-            <Breadcrumb>
-              <BreadcrumbItem
-                isActive
-                onClick={() => dispatch({type: "CLUSTER.LIST.REFRESH"})}
-              >
-                Clusters
-              </BreadcrumbItem>
-            </Breadcrumb>
-          </StackItem>
-          <StackItem>
-            <DashboardToolbar />
-          </StackItem>
-        </Stack>
-      </PageSection>
-      <PageSectionDataLoading done={dataLoaded}>
-        <DashboardClusterList
-          importedClusterNameList={importedClusterNameList}
-        />
-      </PageSectionDataLoading>
+      {notifications => (
+        <>
+          <PageSection variant="light">
+            <Stack hasGutter>
+              <PageToolbar
+                breadcrumbs={
+                  <Breadcrumb data-test="breadcrumb">
+                    <BreadcrumbItem
+                      component="span"
+                      isActive
+                      onClick={() => dispatch({type: "CLUSTER.LIST.REFRESH"})}
+                    >
+                      Clusters
+                    </BreadcrumbItem>
+                  </Breadcrumb>
+                }
+                notifications={notifications}
+              />
+              <StackItem>
+                <DashboardToolbar />
+              </StackItem>
+            </Stack>
+          </PageSection>
+          <PageSectionDataLoading done={dataLoaded}>
+            <DashboardClusterList
+              importedClusterNameList={importedClusterNameList}
+            />
+          </PageSectionDataLoading>
+        </>
+      )}
     </Page>
   );
 };
