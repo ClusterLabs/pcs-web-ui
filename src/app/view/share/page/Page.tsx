@@ -26,16 +26,7 @@ export const Page = ({
     <>
       <BackgroundImage />
       <PfPage
-        header={
-          <Header
-            notificationBadge={
-              <Notification.Badge
-                notificationList={notificationList}
-                switchDrawer={() => setDrawerOpen(!isDrawerOpen)}
-              />
-            }
-          />
-        }
+        header={<Header />}
         notificationDrawer={
           <Notification.Drawer
             notificationList={notificationList}
