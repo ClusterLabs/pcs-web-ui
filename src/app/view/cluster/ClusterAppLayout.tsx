@@ -7,9 +7,20 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
-import {ClusterStatusLabel, Link, Router, location} from "app/view/share";
+import {
+  ClusterStatusLabel,
+  Router,
+  location,
+  useLocation,
+} from "app/view/share";
 import {tools} from "app/store";
-import {Page, UrlTabs, useDispatch, useUrlTabs} from "app/view/share";
+import {
+  Page,
+  PageToolbar,
+  UrlTabs,
+  useDispatch,
+  useUrlTabs,
+} from "app/view/share";
 
 export const ClusterAppLayout = <TAB_NAME extends string>({
   clusterName,
@@ -26,44 +37,60 @@ export const ClusterAppLayout = <TAB_NAME extends string>({
 }) => {
   const {currentTab, matchedContext} = useUrlTabs(tabList);
   const dispatch = useDispatch();
+  const {navigate} = useLocation();
 
   return (
     <Page>
-      <PageSection variant="light">
-        <Stack hasGutter>
-          <StackItem>
-            <Breadcrumb data-test="breadcrumb">
-              <BreadcrumbItem component="span" data-test="dashboard">
-                <Link to={location.dashboard}>Clusters</Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem
-                isActive
-                onClick={() =>
-                  dispatch({
-                    type: "CLUSTER.STATUS.REFRESH",
-                    key: {clusterName},
-                  })
+      {notifications => (
+        <>
+          <PageSection variant="light">
+            <Stack hasGutter>
+              <PageToolbar
+                breadcrumbs={
+                  <Breadcrumb data-test="breadcrumb">
+                    <BreadcrumbItem
+                      to={location.dashboard}
+                      component="a"
+                      data-test="dashboard"
+                      onClick={(e: React.SyntheticEvent) => {
+                        e.preventDefault();
+                        navigate(location.dashboard);
+                      }}
+                    >
+                      Clusters
+                    </BreadcrumbItem>
+                    <BreadcrumbItem
+                      isActive
+                      onClick={() =>
+                        dispatch({
+                          type: "CLUSTER.STATUS.REFRESH",
+                          key: {clusterName},
+                        })
+                      }
+                    >
+                      <span className="pf-u-mr-sm">
+                        <strong>{clusterName}</strong>
+                      </span>
+                      <ClusterStatusLabel status={statusLabel} />
+                    </BreadcrumbItem>
+                  </Breadcrumb>
                 }
-              >
-                <span className="pf-u-mr-sm">
-                  <strong>{clusterName}</strong>
-                </span>
-                <ClusterStatusLabel status={statusLabel} />
-              </BreadcrumbItem>
-            </Breadcrumb>
-          </StackItem>
-          <StackItem>
-            <UrlTabs
-              tabList={tabList}
-              currentTab={currentTab}
-              data-test="cluster"
-              toLabel={name => tabNameMap[name] ?? tools.labelize(name)}
-            />
-          </StackItem>
-        </Stack>
-      </PageSection>
+                notifications={notifications}
+              />
+              <StackItem>
+                <UrlTabs
+                  tabList={tabList}
+                  currentTab={currentTab}
+                  data-test="cluster"
+                  toLabel={name => tabNameMap[name] ?? tools.labelize(name)}
+                />
+              </StackItem>
+            </Stack>
+          </PageSection>
 
-      <Router base={matchedContext}>{children(currentTab)}</Router>
+          <Router base={matchedContext}>{children(currentTab)}</Router>
+        </>
+      )}
     </Page>
   );
 };

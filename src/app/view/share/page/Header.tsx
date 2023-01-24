@@ -12,11 +12,7 @@ import * as location from "app/view/share/location";
 
 import {UserMenu} from "./UserMenu";
 
-export const Header = ({
-  notificationBadge,
-}: {
-  notificationBadge: React.ReactNode;
-}) => {
+export const Header = () => {
   const {navigate} = useLocation();
   return (
     <PageHeader
@@ -25,8 +21,6 @@ export const Header = ({
         <PageHeaderTools>
           <Toolbar>
             <ToolbarGroup>
-              <ToolbarItem>{notificationBadge}</ToolbarItem>
-
               <ToolbarItem>
                 <UserMenu />
               </ToolbarItem>
