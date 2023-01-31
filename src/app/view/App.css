@@ -67,7 +67,7 @@ body,
    If the contents overflow the screen, the card touches the bottom. This is the max-height property.
    The max-height is calculated from the height of the parent container plus the size of the bottom padding
    of the page. */
-.pf-c-card.ha-c-panel__tree-view {
+.ha-c-panel__tree-view {
   overflow: auto;
   max-height: calc(100% + var(--pf-c-page__main-section--PaddingBottom));
 }
