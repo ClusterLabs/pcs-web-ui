@@ -43,7 +43,11 @@ ifeq ($(BUILD_USE_EXISTING_NODE_MODULES), false)
 	if [ -d "node_modules" ]; then mv node_modules node_modules.build-backup; fi
 	npx npm ci
 endif
+ifeq ($(BUILD_FOR_COCKPIT),true)
+	@./.bin/build-cockpit.sh
+else
 	@npx react-scripts build
+endif
 	rm -f build/service-worker.js
 	rm -f build/precache-manifest.*.js
 	rm -f build/asset-manifest.json

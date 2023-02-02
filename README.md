@@ -32,3 +32,11 @@ Pacemaker configuration tool.
 * `make build`
 * production build is created inside `build` directory
 * content of `build` directory copy to `pcsd/public/ui/` directory
+
+### Building and installation for cockpit
+
+* `make build BUILD_FOR_COCKPIT=true`
+* production build is created inside `build` directory
+* content of `build` directory copy (or symlink) to the path where cockpit will find it, e.g.
+  - `mkdir -p ~/.local/share/cockpit`
+  - `ln -snf "$PWD"/build ~/.local/share/cockpit/ha-cluster`
