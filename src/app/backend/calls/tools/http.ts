@@ -2,6 +2,7 @@ import * as t from "io-ts";
 
 import * as result from "./result";
 import * as validate from "./validate";
+import {HttpResponse, httpLayer} from "./httpLayer";
 
 type PayloadValidation<PAYLOAD, O, I> =
   | {shape: t.Type<PAYLOAD, O, I>}
@@ -35,9 +36,10 @@ const httpParams = (params: HttpParams): string =>
 const ajaxHeaders = {"X-Requested-With": "XMLHttpRequest"};
 
 const httpGet = async (url: string, params: HttpParams) =>
-  fetch(params.length > 0 ? `${url}?${httpParams(params)}` : url, {
-    headers: ajaxHeaders,
-  });
+  httpLayer.get(
+    params.length > 0 ? `${url}?${httpParams(params)}` : url,
+    ajaxHeaders,
+  );
 
 const httpPost = async (url: string, opts: PostData) => {
   const headers = {
@@ -49,7 +51,7 @@ const httpPost = async (url: string, opts: PostData) => {
   const body =
     "params" in opts ? httpParams(opts.params) : JSON.stringify(opts.payload);
 
-  return fetch(url, {method: "post", headers, body});
+  return httpLayer.post(url, body, headers);
 };
 
 function validatePayload<PAYLOAD, O, I>(
@@ -62,7 +64,7 @@ function validatePayload<PAYLOAD, O, I>(
 }
 
 async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
-  response: Response,
+  response: HttpResponse,
   validationOpts?: ValidationOpts<OUT, PAYLOAD, O, I>,
 ): Promise<ApiResult<OUT, PAYLOAD>> {
   type AR = ApiResult<OUT, PAYLOAD>;
@@ -70,9 +72,9 @@ async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
     return {type: "UNAUTHORIZED"} as AR;
   }
 
-  const text = await response.text();
+  const text = response.text;
 
-  if (!response.ok) {
+  if (response.status < 200 || response.status > 299) {
     return {
       type: "BAD_HTTP_STATUS",
       status: response.status,
