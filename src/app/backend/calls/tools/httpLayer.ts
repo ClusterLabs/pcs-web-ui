@@ -17,54 +17,65 @@ const fetchResponse = async (
   };
 };
 
+const fetchCockpitResponse = async (
+  cockpit: Cockpit,
+  {
+    path,
+    headers,
+    body,
+  }: {
+    path: string;
+    headers: Headers;
+    body?: string;
+  },
+) => {
+  try {
+    const http = cockpit.http(
+      process.env.REACT_APP_PCS_WEB_UI_COCKPIT_ENDPOINT
+        ?? "/var/run/pcsd.socket",
+    );
+    const result = await (body === undefined
+      ? http.get(path, {}, headers)
+      : http.post(path, body, headers));
+    return {
+      status: 200,
+      statusText: "OK",
+      text: result,
+    };
+  } catch (e) {
+    const exception = e as
+      | {
+          message: string;
+          status: number;
+          reason: string;
+        }
+      | {
+          message: string;
+          problem: string;
+        };
+
+    if ("status" in exception) {
+      return {
+        status: exception.status,
+        statusText: exception.reason,
+        text: exception.message,
+      };
+    }
+    return {
+      status: 500,
+      statusText: exception.problem,
+      text: exception.message,
+    };
+  }
+};
+
 export const httpLayer =
   process.env.REACT_APP_PCS_WEB_UI_ENVIRONMENT === "cockpit"
     ? {
-        get: async (path: string, headers: Headers) => {
-          try {
-            const http = cockpit.http("/var/run/pcsd.socket");
-            const result = await http.get(path, {}, headers);
-            return {
-              status: 200,
-              statusText: "OK",
-              text: result,
-            };
-          } catch (e) {
-            const exception = e as {
-              message: string;
-              status: number;
-              reason: string;
-            };
-            return {
-              status: exception.status,
-              statusText: exception.reason,
-              text: exception.message,
-            };
-          }
-        },
-        // TODO
-        post: async (path: string, body: string, headers: Headers) => {
-          try {
-            const http = cockpit.http("/var/run/pcsd.socket");
-            const result = await http.post(path, body, headers);
-            return {
-              status: 200,
-              statusText: "OK",
-              text: result,
-            };
-          } catch (e) {
-            const exception = e as {
-              message: string;
-              status: number;
-              reason: string;
-            };
-            return {
-              status: exception.status,
-              statusText: exception.reason,
-              text: exception.message,
-            };
-          }
-        },
+        get: async (path: string, headers: Headers) =>
+          fetchCockpitResponse(cockpit, {path, headers}),
+        post: async (path: string, body: string, headers: Headers) =>
+          fetchCockpitResponse(cockpit, {path, headers, body}),
       }
     : {
         get: async (path: string, headers: Headers) =>

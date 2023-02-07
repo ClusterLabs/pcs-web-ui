@@ -20,16 +20,19 @@ type HttpOperations = {
   ) => Promise<string>;
 };
 
-type Cockpit = {
-  http: (_endpoint: string | number, _options?: HttpOptions) => HttpOperations;
-};
-
 // indicate that the file is a module
 // https://stackoverflow.com/a/59499895
 // https://stackoverflow.com/a/42257742
 export { };
 
 declare global {
+  type Cockpit = {
+    http: (
+      _endpoint: string | number,
+      _options?: HttpOptions,
+    ) => HttpOperations;
+  };
+
   /* eslint-disable-next-line  */
   var cockpit: Cockpit;
 }
