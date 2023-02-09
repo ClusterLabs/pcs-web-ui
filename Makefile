@@ -20,7 +20,7 @@ ifndef BUILD_USE_EXISTING_NODE_MODULES
 endif
 
 app:
-	npx react-scripts start
+	node scripts/start.js
 
 # Some files are removed from build directory:
 # service-worker.js
@@ -46,7 +46,7 @@ endif
 ifeq ($(BUILD_FOR_COCKPIT),true)
 	@./.bin/build-cockpit.sh
 else
-	@npx react-scripts build
+	@node scripts/build.js
 endif
 	rm -f build/service-worker.js
 	rm -f build/precache-manifest.*.js
