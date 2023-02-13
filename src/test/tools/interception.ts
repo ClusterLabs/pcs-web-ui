@@ -47,6 +47,7 @@ type RequestCheck = {
 const isAppLoadingUrl = (url: string) =>
   /\/images\/favicon\.png/.exec(url)
   || (/\/ui\//.exec(url) && !/\/ui\/(login|logout)/.exec(url))
+  || /\/base1\/cockpit\.js/.exec(url)
   || /\/static\//.exec(url);
 
 const isRegExp = (candidate: unknown): candidate is RegExp =>
