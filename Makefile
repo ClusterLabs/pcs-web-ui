@@ -46,6 +46,8 @@ endif
 ifeq ($(BUILD_FOR_COCKPIT),true)
 	@./.bin/build-cockpit.sh
 else
+	# It is possible to use TSC_COMPILE_ON_ERROR=true when typescript errors
+	# should not interupt the build
 	@node scripts/build.js
 endif
 	rm -f build/service-worker.js
