@@ -157,38 +157,40 @@ module.exports = function ({isProduction}) {
         ? "source-map"
         : false
       : "cheap-module-source-map",
-    // These are the "entry points" to our application.
-    // This means they will be the "root" imports that are included in JS
-    // bundle.
+
+    // An entry point indicates which module webpack should use to begin
     entry: paths.appIndexJs,
+
+    // Where to emit the bundles it creates and how to name these files.
     output: {
-      // The build folder.
       path: paths.appBuild,
-      // Add /* filename */ comments to generated require()s in the output.
+
+      // Include comments in bundles with info about the contained modules.
       pathinfo: !isProduction,
+
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: isProduction
         ? "static/js/[name].[contenthash:8].js"
         : "static/js/bundle.js",
+
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isProduction
         ? "static/js/[name].[contenthash:8].chunk.js"
         : "static/js/[name].chunk.js",
+
       assetModuleFilename: "static/media/[name].[hash][ext]",
-      // webpack uses `publicPath` to determine where the app is being served
-      // from. It requires a trailing slash, or the file assets will get an
-      // incorrect path. We inferred the "public path" (such as / or
-      // /my-project) from homepage.
+
+      // To determine where the app is being served from. It requires a trailing
+      // slash, or the file assets will get an incorrect path.
       publicPath: paths.publicUrlOrPath,
-      // Point sourcemap entries to original disk location (format as URL on
-      // Windows)
-      devtoolModuleFilenameTemplate: isProduction
-        ? info =>
-            path
-              .relative(paths.appSrc, info.absoluteResourcePath)
-              .replace(/\\/g, "/")
-        : info => path.resolve(info.absoluteResourcePath).replace(/\\/g, "/"),
+
+      // Point sourcemap entries to original disk location.
+      devtoolModuleFilenameTemplate: info =>
+        (isProduction
+          ? path.relative(paths.appSrc, info.absoluteResourcePath)
+          : path.resolve(info.absoluteResourcePath)
+        ).replace(/\\/g, "/"),
     },
     cache: {
       type: "filesystem",
@@ -285,13 +287,10 @@ module.exports = function ({isProduction}) {
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or
-        // node_modules/).
-        // This often causes confusion because we only process files within
-        // src/ with babel.
-        // To fix this, we prevent you from importing files out of src/ -- if
-        // you'd like to,
-        // please link the files into your node_modules/ and let
-        // module-resolution kick in.
+        // node_modules/). This often causes confusion because we only process
+        // files within src/ with babel. To fix this, we prevent you from
+        // importing files out of src/ -- if you'd like to, please link the
+        // files into your node_modules/ and let module-resolution kick in.
         // Make sure your source files are compiled, as they will not be
         // processed in any way.
         new ModuleScopePlugin(paths.appSrc, [
@@ -636,7 +635,7 @@ module.exports = function ({isProduction}) {
           extensions: ["js", "jsx", "ts", "tsx"],
           formatter: require.resolve("react-dev-utils/eslintFormatter"),
           eslintPath: require.resolve("eslint"),
-          failOnError: !(!isProduction && emitErrorsAsWarnings),
+          failOnError: isProduction || !emitErrorsAsWarnings,
           context: paths.appSrc,
           cache: true,
           cacheLocation: path.resolve(
