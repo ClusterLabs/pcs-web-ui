@@ -40,7 +40,7 @@ const argv = process.argv.slice(2);
 const writeStatsJson = argv.indexOf("--stats") !== -1;
 
 // Generate configuration
-const config = configFactory("production");
+const config = configFactory({isProduction: true});
 
 // First, read the current file sizes in build directory.
 // This lets us display how much they changed later.
