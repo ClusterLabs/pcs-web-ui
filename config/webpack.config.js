@@ -63,13 +63,10 @@ const cssModuleRegex = /\.module\.css$/;
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function ({isProduction}) {
-  const isEnvDevelopment = !isProduction;
-  const isEnvProduction = isProduction;
-
   // Variable used for enabling profiling in Production
   // passed into alias object. Uses a flag if passed into the build command
   const isEnvProductionProfile =
-    isEnvProduction && process.argv.includes("--profile");
+    isProduction && process.argv.includes("--profile");
 
   // We will provide `paths.publicUrlOrPath` to our app
   // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
@@ -82,8 +79,8 @@ module.exports = function ({isProduction}) {
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor) => {
     const loaders = [
-      isEnvDevelopment && require.resolve("style-loader"),
-      isEnvProduction && {
+      !isProduction && require.resolve("style-loader"),
+      isProduction && {
         loader: MiniCssExtractPlugin.loader,
         // css is located in `static/css`, use '../../' to locate index.html
         // folder in production `paths.publicUrlOrPath` can be a relative path
@@ -124,7 +121,7 @@ module.exports = function ({isProduction}) {
               "postcss-normalize",
             ],
           },
-          sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+          sourceMap: !isProduction || shouldUseSourceMap,
         },
       },
     ].filter(Boolean);
@@ -133,7 +130,7 @@ module.exports = function ({isProduction}) {
         {
           loader: require.resolve("resolve-url-loader"),
           options: {
-            sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+            sourceMap: !isProduction || shouldUseSourceMap,
             root: paths.appSrc,
           },
         },
@@ -152,14 +149,14 @@ module.exports = function ({isProduction}) {
     target: ["browserslist"],
     // Webpack noise constrained to errors and warnings
     stats: "errors-warnings",
-    mode: isEnvProduction ? "production" : isEnvDevelopment && "development",
+    mode: isProduction ? "production" : "development",
     // Stop compilation early in production
-    bail: isEnvProduction,
-    devtool: isEnvProduction
+    bail: isProduction,
+    devtool: isProduction
       ? shouldUseSourceMap
         ? "source-map"
         : false
-      : isEnvDevelopment && "cheap-module-source-map",
+      : "cheap-module-source-map",
     // These are the "entry points" to our application.
     // This means they will be the "root" imports that are included in JS
     // bundle.
@@ -168,16 +165,16 @@ module.exports = function ({isProduction}) {
       // The build folder.
       path: paths.appBuild,
       // Add /* filename */ comments to generated require()s in the output.
-      pathinfo: isEnvDevelopment,
+      pathinfo: !isProduction,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: isEnvProduction
+      filename: isProduction
         ? "static/js/[name].[contenthash:8].js"
-        : isEnvDevelopment && "static/js/bundle.js",
+        : "static/js/bundle.js",
       // There are also additional JS chunk files if you use code splitting.
-      chunkFilename: isEnvProduction
+      chunkFilename: isProduction
         ? "static/js/[name].[contenthash:8].chunk.js"
-        : isEnvDevelopment && "static/js/[name].chunk.js",
+        : "static/js/[name].chunk.js",
       assetModuleFilename: "static/media/[name].[hash][ext]",
       // webpack uses `publicPath` to determine where the app is being served
       // from. It requires a trailing slash, or the file assets will get an
@@ -186,13 +183,12 @@ module.exports = function ({isProduction}) {
       publicPath: paths.publicUrlOrPath,
       // Point sourcemap entries to original disk location (format as URL on
       // Windows)
-      devtoolModuleFilenameTemplate: isEnvProduction
+      devtoolModuleFilenameTemplate: isProduction
         ? info =>
             path
               .relative(paths.appSrc, info.absoluteResourcePath)
               .replace(/\\/g, "/")
-        : isEnvDevelopment
-          && (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, "/")),
+        : info => path.resolve(info.absoluteResourcePath).replace(/\\/g, "/"),
     },
     cache: {
       type: "filesystem",
@@ -211,7 +207,7 @@ module.exports = function ({isProduction}) {
       level: "none",
     },
     optimization: {
-      minimize: isEnvProduction,
+      minimize: isProduction,
       minimizer: [
         // This is only used in production mode
         new TerserPlugin({
@@ -393,7 +389,7 @@ module.exports = function ({isProduction}) {
                 ],
 
                 plugins: [
-                  isEnvDevelopment
+                  !isProduction
                     && shouldUseReactRefresh
                     && require.resolve("react-refresh/babel"),
                 ].filter(Boolean),
@@ -404,7 +400,7 @@ module.exports = function ({isProduction}) {
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
-                compact: isEnvProduction,
+                compact: isProduction,
               },
             },
             // Process any JS outside of the app with Babel.
@@ -449,9 +445,7 @@ module.exports = function ({isProduction}) {
               exclude: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
-                sourceMap: isEnvProduction
-                  ? shouldUseSourceMap
-                  : isEnvDevelopment,
+                sourceMap: !isProduction || shouldUseSourceMap,
                 modules: {
                   mode: "icss",
                 },
@@ -468,9 +462,7 @@ module.exports = function ({isProduction}) {
               test: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
-                sourceMap: isEnvProduction
-                  ? shouldUseSourceMap
-                  : isEnvDevelopment,
+                sourceMap: !isProduction || shouldUseSourceMap,
                 modules: {
                   mode: "local",
                   getLocalIdent: getCSSModuleLocalIdent,
@@ -507,7 +499,7 @@ module.exports = function ({isProduction}) {
             inject: true,
             template: paths.appHtml,
           },
-          isEnvProduction
+          isProduction
             ? {
                 minify: {
                   removeComments: true,
@@ -542,7 +534,7 @@ module.exports = function ({isProduction}) {
       new webpack.DefinePlugin(env.stringified),
       // Experimental hot reloading for React .
       // https://github.com/facebook/react/tree/main/packages/react-refresh
-      isEnvDevelopment
+      !isProduction
         && shouldUseReactRefresh
         && new ReactRefreshWebpackPlugin({
           overlay: false,
@@ -550,8 +542,8 @@ module.exports = function ({isProduction}) {
       // Watcher doesn't work well if you mistype casing in a path so we use
       // a plugin that prints an error when you attempt to do this.
       // See https://github.com/facebook/create-react-app/issues/240
-      isEnvDevelopment && new CaseSensitivePathsPlugin(),
-      isEnvProduction
+      !isProduction && new CaseSensitivePathsPlugin(),
+      isProduction
         && new MiniCssExtractPlugin({
           // Options similar to the same options in webpackOptions.output
           // both options are optional
@@ -584,7 +576,7 @@ module.exports = function ({isProduction}) {
       }),
       // Generate a service worker script that will precache, and keep up to
       // date, the HTML & assets that are part of the webpack build.
-      isEnvProduction
+      isProduction
         && fs.existsSync(swSrc)
         && new WorkboxWebpackPlugin.InjectManifest({
           swSrc,
@@ -597,16 +589,14 @@ module.exports = function ({isProduction}) {
         }),
       // TypeScript type checking
       new ForkTsCheckerWebpackPlugin({
-        async: isEnvDevelopment,
+        async: !isProduction,
         typescript: {
           typescriptPath: resolve.sync("typescript", {
             basedir: paths.appNodeModules,
           }),
           configOverwrite: {
             compilerOptions: {
-              sourceMap: isEnvProduction
-                ? shouldUseSourceMap
-                : isEnvDevelopment,
+              sourceMap: !isProduction || shouldUseSourceMap,
               skipLibCheck: true,
               inlineSourceMap: false,
               declarationMap: false,
@@ -646,7 +636,7 @@ module.exports = function ({isProduction}) {
           extensions: ["js", "jsx", "ts", "tsx"],
           formatter: require.resolve("react-dev-utils/eslintFormatter"),
           eslintPath: require.resolve("eslint"),
-          failOnError: !(isEnvDevelopment && emitErrorsAsWarnings),
+          failOnError: !(!isProduction && emitErrorsAsWarnings),
           context: paths.appSrc,
           cache: true,
           cacheLocation: path.resolve(
