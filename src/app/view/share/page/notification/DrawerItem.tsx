@@ -16,7 +16,7 @@ const getTimeStamp = (creationTime: Date) => {
   const secElapsed = Math.floor((Date.now() - creationTime.getTime()) / 1000);
 
   if (secElapsed < 60) {
-    return `${secElapsed} ${secElapsed === 1 ? "second" : "secondes"} ago`;
+    return `${secElapsed} ${secElapsed === 1 ? "second" : "seconds"} ago`;
   }
   if (secElapsed < 60 * 60) {
     return `${Math.floor(secElapsed / 60)} ${
