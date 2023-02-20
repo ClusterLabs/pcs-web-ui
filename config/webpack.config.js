@@ -51,10 +51,6 @@ const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === "true";
 // Get the path to the uncompiled service worker (if it exists).
 const swSrc = paths.swSrc;
 
-// style files regexes
-const cssRegex = /\.css$/;
-const cssModuleRegex = /\.module\.css$/;
-
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function ({isProduction}) {
@@ -70,75 +66,6 @@ module.exports = function ({isProduction}) {
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
   const shouldUseReactRefresh = env.raw.FAST_REFRESH;
-
-  // common function to get style loaders
-  const getStyleLoaders = (cssOptions, preProcessor) => {
-    const loaders = [
-      !isProduction && require.resolve("style-loader"),
-      isProduction && {
-        loader: MiniCssExtractPlugin.loader,
-        // css is located in `static/css`, use '../../' to locate index.html
-        // folder in production `paths.publicUrlOrPath` can be a relative path
-        options: paths.publicUrlOrPath.startsWith(".")
-          ? {publicPath: "../../"}
-          : {},
-      },
-      {
-        loader: require.resolve("css-loader"),
-        options: cssOptions,
-      },
-      {
-        // Options for PostCSS as we reference these options twice
-        // Adds vendor prefixing based on your specified browser support in
-        // package.json
-        loader: require.resolve("postcss-loader"),
-        options: {
-          postcssOptions: {
-            // Necessary for external CSS imports to work
-            // https://github.com/facebook/create-react-app/issues/2677
-            ident: "postcss",
-            config: false,
-            plugins: [
-              "postcss-flexbugs-fixes",
-              [
-                "postcss-preset-env",
-                {
-                  autoprefixer: {
-                    flexbox: "no-2009",
-                  },
-                  stage: 3,
-                },
-              ],
-              // Adds PostCSS Normalize as the reset css with default options,
-              // so that it honors browserslist config in package.json
-              // which in turn let's users customize the target behavior as per
-              // their needs.
-              "postcss-normalize",
-            ],
-          },
-          sourceMap: !isProduction || shouldUseSourceMap,
-        },
-      },
-    ].filter(Boolean);
-    if (preProcessor) {
-      loaders.push(
-        {
-          loader: require.resolve("resolve-url-loader"),
-          options: {
-            sourceMap: !isProduction || shouldUseSourceMap,
-            root: paths.appSrc,
-          },
-        },
-        {
-          loader: require.resolve(preProcessor),
-          options: {
-            sourceMap: true,
-          },
-        },
-      );
-    }
-    return loaders;
-  };
 
   return {
     target: ["browserslist"],
@@ -383,25 +310,69 @@ module.exports = function ({isProduction}) {
                 inputSourceMap: shouldUseSourceMap,
               },
             },
-            // "postcss" loader applies autoprefixer to our CSS.
-            // "css" loader resolves paths in CSS and adds assets as
-            // dependencies.
-            // "style" loader turns CSS into JS modules that inject <style>
-            // tags.
+            // "postcss" loader applies autoprefixer to our CSS. "css" loader
+            // resolves paths in CSS and adds assets as dependencies. "style"
+            // loader turns CSS into JS modules that inject <style> tags.
             // In production, we use MiniCSSExtractPlugin to extract that CSS
             // to a file, but in development "style" loader enables hot editing
             // of CSS.
             // By default we support CSS Modules with the extension .module.css
             {
-              test: cssRegex,
-              exclude: cssModuleRegex,
-              use: getStyleLoaders({
-                importLoaders: 1,
-                sourceMap: !isProduction || shouldUseSourceMap,
-                modules: {
-                  mode: "icss",
+              test: /\.css$/,
+              use: [
+                !isProduction && require.resolve("style-loader"),
+                isProduction && {
+                  loader: MiniCssExtractPlugin.loader,
+                  // css is located in `static/css`, use '../../' to locate
+                  // index.html folder in production `paths.publicUrlOrPath` can
+                  // be a relative path
+                  options: paths.publicUrlOrPath.startsWith(".")
+                    ? {publicPath: "../../"}
+                    : {},
                 },
-              }),
+                {
+                  loader: require.resolve("css-loader"),
+                  options: {
+                    importLoaders: 1,
+                    sourceMap: !isProduction || shouldUseSourceMap,
+                    modules: {
+                      mode: "icss",
+                    },
+                  },
+                },
+                {
+                  // Options for PostCSS as we reference these options twice
+                  // adds vendor prefixing based on your specified browser
+                  // support in package.json
+                  loader: require.resolve("postcss-loader"),
+                  options: {
+                    postcssOptions: {
+                      // Necessary for external CSS imports to work
+                      // https://github.com/facebook/create-react-app/issues/2677
+                      ident: "postcss",
+                      config: false,
+                      plugins: [
+                        "postcss-flexbugs-fixes",
+                        [
+                          "postcss-preset-env",
+                          {
+                            autoprefixer: {
+                              flexbox: "no-2009",
+                            },
+                            stage: 3,
+                          },
+                        ],
+                        // Adds PostCSS Normalize as the reset css with default
+                        // options, so that it honors browserslist config in
+                        // package.json which in turn let's users customize the
+                        // target behavior as per their needs.
+                        "postcss-normalize",
+                      ],
+                    },
+                    sourceMap: !isProduction || shouldUseSourceMap,
+                  },
+                },
+              ].filter(Boolean),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
               // Remove this when webpack adds a warning or an error for this.
