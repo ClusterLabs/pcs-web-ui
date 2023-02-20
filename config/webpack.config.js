@@ -66,6 +66,7 @@ module.exports = function ({isProduction}) {
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
   const shouldUseReactRefresh = env.raw.FAST_REFRESH;
+  const sourceMap = !isProduction || shouldUseSourceMap;
 
   return {
     target: ["browserslist"],
@@ -334,7 +335,7 @@ module.exports = function ({isProduction}) {
                   loader: require.resolve("css-loader"),
                   options: {
                     importLoaders: 1,
-                    sourceMap: !isProduction || shouldUseSourceMap,
+                    sourceMap,
                     modules: {
                       mode: "icss",
                     },
@@ -369,7 +370,7 @@ module.exports = function ({isProduction}) {
                         "postcss-normalize",
                       ],
                     },
-                    sourceMap: !isProduction || shouldUseSourceMap,
+                    sourceMap,
                   },
                 },
               ].filter(Boolean),
@@ -506,7 +507,7 @@ module.exports = function ({isProduction}) {
           }),
           configOverwrite: {
             compilerOptions: {
-              sourceMap: !isProduction || shouldUseSourceMap,
+              sourceMap,
               skipLibCheck: true,
               inlineSourceMap: false,
               declarationMap: false,
