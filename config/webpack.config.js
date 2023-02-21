@@ -10,7 +10,6 @@ const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const {WebpackManifestPlugin} = require("webpack-manifest-plugin");
 const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
@@ -80,34 +79,26 @@ module.exports = function ({isProduction}) {
         ? "source-map"
         : false
       : "cheap-module-source-map",
-
     // An entry point indicates which module webpack should use to begin
     entry: paths.appIndexJs,
-
     // Where to emit the bundles it creates and how to name these files.
     output: {
       path: paths.appBuild,
-
       // Include comments in bundles with info about the contained modules.
       pathinfo: !isProduction,
-
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: isProduction
         ? "static/js/[name].[contenthash:8].js"
         : "static/js/bundle.js",
-
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isProduction
         ? "static/js/[name].[contenthash:8].chunk.js"
         : "static/js/[name].chunk.js",
-
       assetModuleFilename: "static/media/[name].[hash][ext]",
-
       // To determine where the app is being served from. It requires a trailing
       // slash, or the file assets will get an incorrect path.
       publicPath: paths.publicUrlOrPath,
-
       // Point sourcemap entries to original disk location.
       devtoolModuleFilenameTemplate: info =>
         (isProduction
@@ -461,30 +452,6 @@ module.exports = function ({isProduction}) {
           filename: "static/css/[name].[contenthash:8].css",
           chunkFilename: "static/css/[name].[contenthash:8].chunk.css",
         }),
-      // Generate an asset manifest file with the following content:
-      // - "files" key: Mapping of all asset filenames to their corresponding
-      //   output file so that tools can pick it up without having to parse
-      //   `index.html`
-      // - "entrypoints" key: Array of files which are included in `index.html`,
-      //   can be used to reconstruct the HTML if necessary
-      new WebpackManifestPlugin({
-        fileName: "asset-manifest.json",
-        publicPath: paths.publicUrlOrPath,
-        generate: (seed, files, entrypoints) => {
-          const manifestFiles = files.reduce((manifest, file) => {
-            manifest[file.name] = file.path;
-            return manifest;
-          }, seed);
-          const entrypointFiles = entrypoints.main.filter(
-            fileName => !fileName.endsWith(".map"),
-          );
-
-          return {
-            files: manifestFiles,
-            entrypoints: entrypointFiles,
-          };
-        },
-      }),
       // Generate a service worker script that will precache, and keep up to
       // date, the HTML & assets that are part of the webpack build.
       isProduction

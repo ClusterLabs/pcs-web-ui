@@ -52,7 +52,6 @@ else
 endif
 	rm -f build/service-worker.js
 	rm -f build/precache-manifest.*.js
-	rm -f build/asset-manifest.json
 	rm -f build/images/favicon.png
 	find build/images -type d -empty -delete
 ifeq ($(BUILD_USE_EXISTING_NODE_MODULES), false)
