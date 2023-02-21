@@ -50,7 +50,6 @@ else
 	# should not interupt the build
 	@node scripts/build.js
 endif
-	rm -f build/service-worker.js
 	rm -f build/precache-manifest.*.js
 	rm -f build/images/favicon.png
 	find build/images -type d -empty -delete
