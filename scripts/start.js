@@ -14,8 +14,6 @@ process.on("unhandledRejection", err => {
 // Ensure environment variables are read.
 require("../config/env");
 
-const fs = require("fs");
-
 const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
 const clearConsole = require("react-dev-utils/clearConsole");
@@ -73,7 +71,6 @@ checkBrowsers(paths.appPath, isInteractive)
     const protocol = process.env.HTTPS === "true" ? "https" : "http";
     const appName = require(paths.appPackageJson).name;
 
-    const useTypeScript = fs.existsSync(paths.appTsConfig);
     const urls = prepareUrls(
       protocol,
       HOST,
@@ -85,7 +82,7 @@ checkBrowsers(paths.appPath, isInteractive)
       appName,
       config,
       urls,
-      useTypeScript,
+      useTypeScript: true,
       webpack,
     });
     // Load proxy config
