@@ -16,7 +16,6 @@ require("../config/env");
 
 const fs = require("fs");
 
-const chalk = require("react-dev-utils/chalk");
 const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
 const clearConsole = require("react-dev-utils/clearConsole");
@@ -29,6 +28,9 @@ const {
 } = require("react-dev-utils/WebpackDevServerUtils");
 const openBrowser = require("react-dev-utils/openBrowser");
 const semver = require("semver");
+// We require that you explicitly set browsers and do not fall back to
+// browserslist defaults.
+const {checkBrowsers} = require("react-dev-utils/browsersHelper");
 
 const paths = require("../config/paths");
 const configFactory = require("../config/webpack.config");
@@ -52,29 +54,20 @@ const HOST = process.env.HOST || "0.0.0.0";
 
 if (process.env.HOST) {
   console.log(
-    chalk.cyan(
-      `Attempting to bind to HOST environment variable: ${chalk.yellow(
-        chalk.bold(process.env.HOST),
-      )}`,
-    ),
+    `Attempting to bind to HOST environment variable: ${process.env.HOST}`,
   );
   console.log(
     "If this was unintentional, check that you haven't mistakenly set it in your shell.",
   );
-  console.log(
-    `Learn more here: ${chalk.yellow("https://cra.link/advanced-config")}`,
-  );
+  console.log(`Learn more here: ${"https://cra.link/advanced-config"}`);
   console.log();
 }
 
-// We require that you explicitly set browsers and do not fall back to
-// browserslist defaults.
-const {checkBrowsers} = require("react-dev-utils/browsersHelper");
-
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
-    // We attempt to use the default port but if it is busy, we offer the user to
-    // run on a different port. `choosePort()` Promise resolves to the next free port.
+    // We attempt to use the default port but if it is busy, we offer the user
+    // to run on a different port. `choosePort()` Promise resolves to the next
+    // free port.
     return choosePort(HOST, DEFAULT_PORT);
   })
   .then(port => {
@@ -125,13 +118,11 @@ checkBrowsers(paths.appPath, isInteractive)
 
       if (env.raw.FAST_REFRESH && semver.lt(react.version, "16.10.0")) {
         console.log(
-          chalk.yellow(
-            `Fast Refresh requires React 16.10 or higher. You are using React ${react.version}.`,
-          ),
+          `Fast Refresh requires React 16.10 or higher. You are using React ${react.version}.`,
         );
       }
 
-      console.log(chalk.cyan("Starting the development server...\n"));
+      console.log("Starting the development server...\n");
       openBrowser(urls.localUrlForBrowser);
     });
 
