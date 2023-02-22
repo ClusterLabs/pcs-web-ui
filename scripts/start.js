@@ -34,7 +34,6 @@ const paths = require("../config/paths");
 const configFactory = require("../config/webpack.config");
 const createDevServerConfig = require("../config/webpackDevServer.config");
 
-const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
 
 // Warn and crash if required files are missing
@@ -86,7 +85,6 @@ checkBrowsers(paths.appPath, isInteractive)
       appName,
       config,
       urls,
-      useYarn,
       useTypeScript,
       webpack,
     });
