@@ -44,64 +44,6 @@ const writeStatsJson = argv.indexOf("--stats") !== -1;
 // Generate configuration
 const config = configFactory({isProduction: true});
 
-// First, read the current file sizes in build directory.
-// This lets us display how much they changed later.
-measureFileSizesBeforeBuild(paths.appBuild)
-  .then(previousFileSizes => {
-    // Remove all content but keep the directory so that
-    // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild);
-    // Merge with the public folder
-    copyPublicFolder();
-    // Start the webpack build
-    return build(previousFileSizes);
-  })
-  .then(
-    ({stats, previousFileSizes, warnings}) => {
-      if (warnings.length) {
-        console.log("Compiled with warnings.\n");
-        console.log(warnings.join("\n\n"));
-        console.log(
-          "\nSearch for the keywords to learn more about each warning.",
-        );
-        console.log(
-          "To ignore, add // eslint-disable-next-line to the line before.\n",
-        );
-      } else {
-        console.log("Compiled successfully.\n");
-      }
-
-      console.log("File sizes after gzip:\n");
-      printFileSizesAfterBuild(
-        stats,
-        previousFileSizes,
-        paths.appBuild,
-        WARN_AFTER_BUNDLE_GZIP_SIZE,
-        WARN_AFTER_CHUNK_GZIP_SIZE,
-      );
-      console.log();
-    },
-    err => {
-      const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === "true";
-      if (tscCompileOnError) {
-        console.log(
-          "Compiled with the following type errors (you may want to check these before deploying your app):\n",
-        );
-        printBuildError(err);
-      } else {
-        console.log("Failed to compile.\n");
-        printBuildError(err);
-        process.exit(1);
-      }
-    },
-  )
-  .catch(err => {
-    if (err && err.message) {
-      console.log(err.message);
-    }
-    process.exit(1);
-  });
-
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
   console.log("Creating an optimized production build...");
@@ -166,3 +108,61 @@ function copyPublicFolder() {
     filter: file => file !== paths.appHtml,
   });
 }
+
+// First, read the current file sizes in build directory.
+// This lets us display how much they changed later.
+measureFileSizesBeforeBuild(paths.appBuild)
+  .then(previousFileSizes => {
+    // Remove all content but keep the directory so that
+    // if you're in it, you don't end up in Trash
+    fs.emptyDirSync(paths.appBuild);
+    // Merge with the public folder
+    copyPublicFolder();
+    // Start the webpack build
+    return build(previousFileSizes);
+  })
+  .then(
+    ({stats, previousFileSizes, warnings}) => {
+      if (warnings.length) {
+        console.log("Compiled with warnings.\n");
+        console.log(warnings.join("\n\n"));
+        console.log(
+          "\nSearch for the keywords to learn more about each warning.",
+        );
+        console.log(
+          "To ignore, add // eslint-disable-next-line to the line before.\n",
+        );
+      } else {
+        console.log("Compiled successfully.\n");
+      }
+
+      console.log("File sizes after gzip:\n");
+      printFileSizesAfterBuild(
+        stats,
+        previousFileSizes,
+        paths.appBuild,
+        WARN_AFTER_BUNDLE_GZIP_SIZE,
+        WARN_AFTER_CHUNK_GZIP_SIZE,
+      );
+      console.log();
+    },
+    err => {
+      const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === "true";
+      if (tscCompileOnError) {
+        console.log(
+          "Compiled with the following type errors (you may want to check these before deploying your app):\n",
+        );
+        printBuildError(err);
+      } else {
+        console.log("Failed to compile.\n");
+        printBuildError(err);
+        process.exit(1);
+      }
+    },
+  )
+  .catch(err => {
+    if (err && err.message) {
+      console.log(err.message);
+    }
+    process.exit(1);
+  });
