@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable import/no-extraneous-dependencies */
 
 const fs = require("fs");
 const path = require("path");
@@ -61,7 +62,7 @@ module.exports = function ({isProduction}) {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
-  const shouldUseReactRefresh = env.raw.FAST_REFRESH;
+  const shouldUseReactRefresh = env.FAST_REFRESH;
   const sourceMap = !isProduction || shouldUseSourceMap;
 
   return {
@@ -105,7 +106,7 @@ module.exports = function ({isProduction}) {
     },
     cache: {
       type: "filesystem",
-      version: createEnvironmentHash(env.raw),
+      version: createEnvironmentHash(env),
       cacheDirectory: paths.appWebpackCache,
       store: "pack",
       buildDependencies: {
@@ -421,7 +422,7 @@ module.exports = function ({isProduction}) {
       // <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
       // It will be an empty string unless you specify "homepage"
       // in `package.json`, in which case it will be the pathname of that URL.
-      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
+      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env),
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
       new ModuleNotFoundPlugin(paths.appPath),
@@ -430,7 +431,15 @@ module.exports = function ({isProduction}) {
       // It is absolutely essential that NODE_ENV is set to production
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
-      new webpack.DefinePlugin(env.stringified),
+      new webpack.DefinePlugin({
+        "process.env": Object.entries(env).reduce(
+          (processEnv, [key, value]) => ({
+            ...processEnv,
+            [key]: JSON.stringify(value),
+          }),
+          {},
+        ),
+      }),
       // Experimental hot reloading for React .
       // https://github.com/facebook/react/tree/main/packages/react-refresh
       !isProduction
