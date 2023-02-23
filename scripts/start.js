@@ -38,14 +38,7 @@ const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 const HOST = process.env.HOST || "0.0.0.0";
 
 if (process.env.HOST) {
-  console.log(
-    `Attempting to bind to HOST environment variable: ${process.env.HOST}`,
-  );
-  console.log(
-    "If this was unintentional, check that you haven't mistakenly set it in your shell.",
-  );
-  console.log(`Learn more here: ${"https://cra.link/advanced-config"}`);
-  console.log();
+  console.log(`Attempting to bind to env.HOST: ${process.env.HOST}`);
 }
 
 // We attempt to use the default port but if it is busy, we offer the user
@@ -54,7 +47,6 @@ if (process.env.HOST) {
 choosePort(HOST, DEFAULT_PORT)
   .then(port => {
     if (port == null) {
-      // We have not found a port.
       return;
     }
 
