@@ -50,7 +50,12 @@ const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === "true";
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = function ({isProduction}) {
+module.exports = function (
+  {isProduction, isCockpitContext} = {
+    isProduction: false,
+    isCockpitContext: false,
+  },
+) {
   // Variable used for enabling profiling in Production
   // passed into alias object. Uses a flag if passed into the build command
   const isEnvProductionProfile =
@@ -395,6 +400,9 @@ module.exports = function ({isProduction}) {
           {
             inject: true,
             template: paths.appHtml,
+            templateParameters: {
+              isCockpitContext,
+            },
           },
           isProduction
             ? {

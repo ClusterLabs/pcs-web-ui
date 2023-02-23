@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable import/no-extraneous-dependencies */
 
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = "production";
@@ -23,7 +24,7 @@ const FileSizeReporter = require("react-dev-utils/FileSizeReporter");
 const printBuildError = require("react-dev-utils/printBuildError");
 
 const paths = require("../config/paths");
-const configFactory = require("../config/webpack.config");
+const webpackConfig = require("../config/webpack.config");
 
 const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
@@ -41,14 +42,17 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 const argv = process.argv.slice(2);
 const writeStatsJson = argv.indexOf("--stats") !== -1;
 
-// Generate configuration
-const config = configFactory({isProduction: true});
-
 // Create the production build and print the deployment instructions.
 function build(previousFileSizes) {
   console.log("Creating an optimized production build...");
 
-  const compiler = webpack(config);
+  const compiler = webpack(
+    webpackConfig({
+      isProduction: true,
+      isCockpitContext:
+        process.env.REACT_APP_PCS_WEB_UI_ENVIRONMENT === "cockpit",
+    }),
+  );
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       let messages;

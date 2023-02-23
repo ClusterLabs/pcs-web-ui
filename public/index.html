@@ -20,7 +20,9 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>HA Cluster UI</title>
+    <% if (isCockpitContext) { %>
     <script src="../base1/cockpit.js"></script>
+    <% } %>
   </head>
   <body>
     <noscript>

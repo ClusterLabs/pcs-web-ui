@@ -26,7 +26,7 @@ const {
 } = require("react-dev-utils/WebpackDevServerUtils");
 
 const paths = require("../config/paths");
-const configFactory = require("../config/webpack.config");
+const webpackConfig = require("../config/webpack.config");
 const createDevServerConfig = require("../config/webpackDevServer.config");
 
 // Warn and crash if required files are missing
@@ -51,7 +51,6 @@ choosePort(HOST, DEFAULT_PORT)
       return;
     }
 
-    const config = configFactory({isProduction: false});
     const protocol = process.env.HTTPS === "true" ? "https" : "http";
     const appName = require(paths.appPackageJson).name;
 
@@ -64,7 +63,7 @@ choosePort(HOST, DEFAULT_PORT)
     // Create a webpack compiler that is configured with custom messages.
     const compiler = createCompiler({
       appName,
-      config,
+      config: webpackConfig(),
       urls,
       useTypeScript: true,
       webpack,
