@@ -62,7 +62,6 @@ module.exports = function ({isProduction}) {
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
-  const shouldUseReactRefresh = env.FAST_REFRESH;
   const sourceMap = !isProduction || shouldUseSourceMap;
 
   return {
@@ -258,9 +257,7 @@ module.exports = function ({isProduction}) {
                 ],
 
                 plugins: [
-                  !isProduction
-                    && shouldUseReactRefresh
-                    && require.resolve("react-refresh/babel"),
+                  !isProduction && require.resolve("react-refresh/babel"),
                 ].filter(Boolean),
                 // This is a feature of `babel-loader` for webpack (not Babel
                 // itself). It enables caching results in
@@ -442,11 +439,7 @@ module.exports = function ({isProduction}) {
       }),
       // Experimental hot reloading for React .
       // https://github.com/facebook/react/tree/main/packages/react-refresh
-      !isProduction
-        && shouldUseReactRefresh
-        && new ReactRefreshWebpackPlugin({
-          overlay: false,
-        }),
+      !isProduction && new ReactRefreshWebpackPlugin({overlay: false}),
       // Watcher doesn't work well if you mistype casing in a path so we use
       // a plugin that prints an error when you attempt to do this.
       // See https://github.com/facebook/create-react-app/issues/240
