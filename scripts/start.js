@@ -16,7 +16,6 @@ require("../config/env");
 
 const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
-const clearConsole = require("react-dev-utils/clearConsole");
 const checkRequiredFiles = require("react-dev-utils/checkRequiredFiles");
 const {
   choosePort,
@@ -31,8 +30,6 @@ const {checkBrowsers} = require("react-dev-utils/browsersHelper");
 const paths = require("../config/paths");
 const configFactory = require("../config/webpack.config");
 const createDevServerConfig = require("../config/webpackDevServer.config");
-
-const isInteractive = process.stdout.isTTY;
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
@@ -99,14 +96,7 @@ checkBrowsers(paths.appPath, isInteractive)
       port,
     };
     const devServer = new WebpackDevServer(serverConfig, compiler);
-    // Launch WebpackDevServer.
-    devServer.startCallback(() => {
-      if (isInteractive) {
-        clearConsole();
-      }
-
-      console.log("Starting the development server...\n");
-    });
+    devServer.start();
 
     ["SIGINT", "SIGTERM"].forEach(function (sig) {
       process.on(sig, function () {
