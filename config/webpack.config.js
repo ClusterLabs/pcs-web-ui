@@ -68,16 +68,14 @@ if (
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = function (
+module.exports = (
   {isProduction, isCockpitContext, publicPath, enableProfiling} = {
     isProduction: false,
     isCockpitContext: false,
     publicPath: "/",
     enableProfiling: false,
   },
-) {
-  const sourceMap = !isProduction || shouldUseSourceMap;
-
+) => {
   return {
     target: ["browserslist"],
     // Webpack noise constrained to errors and warnings
@@ -321,7 +319,7 @@ module.exports = function (
                   loader: require.resolve("css-loader"),
                   options: {
                     importLoaders: 1,
-                    sourceMap,
+                    sourceMap: !isProduction || shouldUseSourceMap,
                     modules: {
                       mode: "icss",
                     },
@@ -356,7 +354,7 @@ module.exports = function (
                         "postcss-normalize",
                       ],
                     },
-                    sourceMap,
+                    sourceMap: !isProduction || shouldUseSourceMap,
                   },
                 },
               ].filter(Boolean),
@@ -456,7 +454,7 @@ module.exports = function (
           typescriptPath,
           configOverwrite: {
             compilerOptions: {
-              sourceMap,
+              sourceMap: !isProduction || shouldUseSourceMap,
               skipLibCheck: true,
               inlineSourceMap: false,
               declarationMap: false,
