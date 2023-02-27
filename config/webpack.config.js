@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
 
-const fs = require("fs");
 const path = require("path");
 
 const webpack = require("webpack");
@@ -116,9 +115,7 @@ module.exports = function (
       buildDependencies: {
         defaultWebpack: ["webpack/lib/"],
         config: [__filename],
-        tsconfig: [paths.appTsConfig, paths.appJsConfig].filter(f =>
-          fs.existsSync(f),
-        ),
+        tsconfig: [paths.appTsConfig],
       },
     },
     infrastructureLogging: {
