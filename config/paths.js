@@ -4,25 +4,21 @@
 const path = require("path");
 const fs = require("fs");
 
-// Make sure any symlinks in the project folder are resolved:
-// https://github.com/facebook/create-react-app/issues/637
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
-
-const buildPath = process.env.BUILD_PATH || "build";
-
-module.exports = {
-  appPath: resolveApp("."),
-  appBuild: resolveApp(buildPath),
-  appPublic: resolveApp("public"),
-  appHtml: resolveApp("public/index.html"),
-  appIndexJs: resolveApp("src/index.tsx"),
-  appPackageJson: resolveApp("package.json"),
-  appSrc: resolveApp("src"),
-  appTsConfig: resolveApp("tsconfig.json"),
-  appJsConfig: resolveApp("jsconfig.json"),
-  yarnLockFile: resolveApp("yarn.lock"),
-  appNodeModules: resolveApp("node_modules"),
-  appWebpackCache: resolveApp("node_modules/.cache"),
-  appTsBuildInfoFile: resolveApp("node_modules/.cache/tsconfig.tsbuildinfo"),
-};
+module.exports = Object.entries({
+  appPath: ".",
+  appBuild: process.env.BUILD_PATH || "build",
+  appPublic: "public",
+  appHtml: "public/index.html",
+  appIndexJs: "src/index.tsx",
+  appPackageJson: "package.json",
+  appSrc: "src",
+  appTsConfig: "tsconfig.json",
+  appNodeModules: "node_modules",
+  appWebpackCache: "node_modules/.cache",
+  appTsBuildInfoFile: "node_modules/.cache/tsconfig.tsbuildinfo",
+}).reduce((allPaths, [key, relativePath]) => {
+  return {
+    ...allPaths,
+    [key]: path.resolve(fs.realpathSync(process.cwd()), relativePath),
+  };
+}, {});
