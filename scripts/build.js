@@ -57,6 +57,7 @@ function build(previousFileSizes) {
       // to load something like /todos/42/static/js/bundle.7289d.js. We have to
       // know the root.
       publicPath: "./",
+      enableProfiling: process.argv.includes("--profile"),
     }),
   );
   return new Promise((resolve, reject) => {

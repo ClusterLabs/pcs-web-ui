@@ -69,17 +69,13 @@ if (
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function (
-  {isProduction, isCockpitContext, publicPath} = {
+  {isProduction, isCockpitContext, publicPath, enableProfiling} = {
     isProduction: false,
     isCockpitContext: false,
     publicPath: "/",
+    enableProfiling: false,
   },
 ) {
-  // Variable used for enabling profiling in Production
-  // passed into alias object. Uses a flag if passed into the build command
-  const isEnvProductionProfile =
-    isProduction && process.argv.includes("--profile");
-
   const sourceMap = !isProduction || shouldUseSourceMap;
 
   return {
@@ -169,8 +165,8 @@ module.exports = function (
               safari10: true,
             },
             // Added for profiling in devtools
-            keep_classnames: isEnvProductionProfile,
-            keep_fnames: isEnvProductionProfile,
+            keep_classnames: enableProfiling,
+            keep_fnames: enableProfiling,
             output: {
               ecma: 5,
               comments: false,
@@ -196,7 +192,7 @@ module.exports = function (
       alias: {
         src: paths.appSrc,
         // Allows for better profiling with ReactDevTools
-        ...(isEnvProductionProfile && {
+        ...(enableProfiling && {
           "react-dom$": "react-dom/profiling",
           "scheduler/tracing": "scheduler/tracing-profiling",
         }),

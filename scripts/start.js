@@ -64,7 +64,7 @@ choosePort(HOST, DEFAULT_PORT)
     // Create a webpack compiler that is configured with custom messages.
     const compiler = createCompiler({
       appName,
-      config: webpackConfig(),
+      config: webpackConfig({publicPath}),
       urls,
       useTypeScript: true,
       webpack,
