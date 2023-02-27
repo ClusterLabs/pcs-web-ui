@@ -198,7 +198,7 @@ module.exports = function (
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
       modules: ["node_modules", paths.appNodeModules, paths.appSrc],
-      extensions: paths.moduleFileExtensions.map(ext => `.${ext}`),
+      extensions: [".js", ".ts", ".tsx", ".json", ".jsx"],
       alias: {
         src: paths.appSrc,
         // Allows for better profiling with ReactDevTools
