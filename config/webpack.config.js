@@ -10,7 +10,6 @@ const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const ModuleNotFoundPlugin = require("react-dev-utils/ModuleNotFoundPlugin");
@@ -23,7 +22,7 @@ const ForkTsCheckerWebpackPlugin =
     : require("react-dev-utils/ForkTsCheckerWebpackPlugin");
 
 const paths = require("./paths");
-const getClientEnvironment = require("./env");
+const env = require("./env");
 const createEnvironmentHash = require("./webpack/persistentCache/createEnvironmentHash");
 
 // Source maps are resource heavy and can cause out of memory issue for large
@@ -70,21 +69,16 @@ if (
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function (
-  {isProduction, isCockpitContext} = {
+  {isProduction, isCockpitContext, publicPath} = {
     isProduction: false,
     isCockpitContext: false,
+    publicPath: "/",
   },
 ) {
   // Variable used for enabling profiling in Production
   // passed into alias object. Uses a flag if passed into the build command
   const isEnvProductionProfile =
     isProduction && process.argv.includes("--profile");
-
-  // We will provide `paths.publicUrlOrPath` to our app
-  // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
-  // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
-  // Get environment variables to inject into our app.
-  const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
   const sourceMap = !isProduction || shouldUseSourceMap;
 
@@ -119,7 +113,7 @@ module.exports = function (
       assetModuleFilename: "static/media/[name].[hash][ext]",
       // To determine where the app is being served from. It requires a trailing
       // slash, or the file assets will get an incorrect path.
-      publicPath: paths.publicUrlOrPath,
+      publicPath,
       // Point sourcemap entries to original disk location.
       devtoolModuleFilenameTemplate: info =>
         (isProduction
@@ -314,7 +308,6 @@ module.exports = function (
             // In production, we use MiniCSSExtractPlugin to extract that CSS
             // to a file, but in development "style" loader enables hot editing
             // of CSS.
-            // By default we support CSS Modules with the extension .module.css
             {
               test: /\.css$/,
               use: [
@@ -322,9 +315,9 @@ module.exports = function (
                 isProduction && {
                   loader: MiniCssExtractPlugin.loader,
                   // css is located in `static/css`, use '../../' to locate
-                  // index.html folder in production `paths.publicUrlOrPath` can
-                  // be a relative path
-                  options: paths.publicUrlOrPath.startsWith(".")
+                  // index.html folder in production `publicPath` can be a
+                  // relative path
+                  options: publicPath.startsWith(".")
                     ? {publicPath: "../../"}
                     : {},
                 },
@@ -408,6 +401,7 @@ module.exports = function (
             template: paths.appHtml,
             templateParameters: {
               isCockpitContext,
+              publicPath,
             },
           },
           isProduction
@@ -428,12 +422,6 @@ module.exports = function (
             : undefined,
         ),
       ),
-      // Makes some environment variables available in index.html.
-      // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
-      // <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
-      // It will be an empty string unless you specify "homepage"
-      // in `package.json`, in which case it will be the pathname of that URL.
-      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env),
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
       new ModuleNotFoundPlugin(paths.appPath),
