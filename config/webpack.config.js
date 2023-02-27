@@ -23,7 +23,6 @@ const ForkTsCheckerWebpackPlugin =
     : require("react-dev-utils/ForkTsCheckerWebpackPlugin");
 
 const paths = require("./paths");
-const modules = require("./modules");
 const getClientEnvironment = require("./env");
 const createEnvironmentHash = require("./webpack/persistentCache/createEnvironmentHash");
 
@@ -46,6 +45,27 @@ const babelRuntimeRegenerator = require.resolve("@babel/runtime/regenerator", {
 
 const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === "true";
 const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === "true";
+
+const typescriptPath = resolve.sync("typescript", {
+  basedir: paths.appNodeModules,
+});
+
+// The following check is there because it could be hard to find possible issue
+const ts = require(typescriptPath);
+const options =
+  ts.readConfigFile(paths.appTsConfig, ts.sys.readFile).config
+    .compilerOptions || {};
+if (
+  path.relative(paths.appSrc, path.resolve(paths.appPath, options.baseUrl))
+  !== ""
+) {
+  throw new Error(
+    `An option baseUrl in .tsconfig should point to "${paths.appSrc}".`
+      + " The path 'src' is also hardcoded into webpack config (see sections"
+      + " resolve.modules and resolve.alias)."
+      + " So, please chek if you haven't break anything by changing baseUrl.",
+  );
+}
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -177,9 +197,7 @@ module.exports = function (
       // We placed these paths second because we want `node_modules` to "win"
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
-      modules: ["node_modules", paths.appNodeModules].concat(
-        modules.additionalModulePaths || [],
-      ),
+      modules: ["node_modules", paths.appNodeModules, paths.appSrc],
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
       // some tools, although we do not recommend using it, see:
@@ -191,12 +209,12 @@ module.exports = function (
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         "react-native": "react-native-web",
+        src: paths.appSrc,
         // Allows for better profiling with ReactDevTools
         ...(isEnvProductionProfile && {
           "react-dom$": "react-dom/profiling",
           "scheduler/tracing": "scheduler/tracing-profiling",
         }),
-        ...(modules.webpackAliases || {}),
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or
@@ -460,9 +478,7 @@ module.exports = function (
       new ForkTsCheckerWebpackPlugin({
         async: !isProduction,
         typescript: {
-          typescriptPath: resolve.sync("typescript", {
-            basedir: paths.appNodeModules,
-          }),
+          typescriptPath,
           configOverwrite: {
             compilerOptions: {
               sourceMap,
