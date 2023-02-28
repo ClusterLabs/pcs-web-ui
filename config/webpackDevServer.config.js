@@ -2,7 +2,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 const evalSourceMapMiddleware = require("react-dev-utils/evalSourceMapMiddleware");
-const redirectServedPath = require("react-dev-utils/redirectServedPathMiddleware");
 
 const paths = require("./paths");
 const getHttpsConfig = require("./getHttpsConfig");
@@ -104,8 +103,6 @@ module.exports = function (proxy, allowedHost, publicPath = "/") {
         // `redirectServedPath` otherwise will not have any effect. This lets us
         // fetch source contents from webpack for the error overlay
         evalSourceMapMiddleware(devServer),
-        // Redirect to `publicPath` if url not match
-        redirectServedPath(publicPath),
       );
 
       return middlewares;
