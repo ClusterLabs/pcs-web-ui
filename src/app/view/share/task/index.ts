@@ -11,7 +11,6 @@ export * from "./TaskFinishLibWizard";
 export * from "./TaskFinishError";
 export * from "./TaskProgress";
 export * from "./TaskSuccess";
-export * from "./useTaskOpenClose";
 export * from "./useTask";
 export * from "./TaskSimple";
 export * from "./TaskSimpleFooter";
