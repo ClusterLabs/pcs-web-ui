@@ -1,3 +1,8 @@
 import {TaskForceableConfirmActions} from "./forceableConfirm";
+import {TaskOpenCloseActions} from "./taskOpenClose";
 
-export type TaskActions = TaskForceableConfirmActions;
+// prettier-ignore
+export type TaskActions = (
+  & TaskForceableConfirmActions
+  & TaskOpenCloseActions
+);

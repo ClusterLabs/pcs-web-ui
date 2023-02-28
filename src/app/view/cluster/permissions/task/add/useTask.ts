@@ -1,7 +1,7 @@
 import {ActionMap, ActionPayload} from "app/store";
 import {useDispatch} from "app/view/share/useDispatch";
 import {useLoadedPermissions} from "app/view/cluster/permissions/LoadedPermissionsContext";
-import {useTaskOpenClose} from "app/view/share";
+import {useTaskOpenClose} from "app/view/cluster/share";
 
 type AllowName =
   ActionPayload["CLUSTER.PERMISSIONS.SAVE"]["permissionList"][number]["allow"][number];
@@ -11,12 +11,12 @@ const taskName: ActionMap["CLUSTER.PERMISSIONS.SAVE"]["key"]["task"] =
 
 export const useTask = () => {
   const dispatch = useDispatch();
-  const openClose = useTaskOpenClose(taskName);
   const {
     clusterName,
     permissions: {users_permissions: currentPermissionList},
     tasks: {permissionEdit: state},
   } = useLoadedPermissions();
+  const openClose = useTaskOpenClose(taskName, clusterName);
 
   const key = {clusterName, task: taskName};
   return {

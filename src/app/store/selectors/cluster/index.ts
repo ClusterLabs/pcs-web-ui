@@ -10,6 +10,10 @@ export const getClusterTask = <NAME extends ClusterTaskKeys>(name: NAME) =>
     clusterStorageItem => clusterStorageItem.tasks[name],
   );
 
+export const getCurrentClusterTaskKey = clusterStorageItemSelector(
+  clusterStorageItem => clusterStorageItem.currentTaskKey,
+);
+
 export const getPcmkAgent = clusterStorageItemSelector(
   (clusterStorageItem, agentName: string) =>
     clusterStorageItem.pcmkAgents[agentName],
