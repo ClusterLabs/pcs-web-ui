@@ -2,7 +2,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 const evalSourceMapMiddleware = require("react-dev-utils/evalSourceMapMiddleware");
-const ignoredFiles = require("react-dev-utils/ignoredFiles");
 const redirectServedPath = require("react-dev-utils/redirectServedPathMiddleware");
 
 const paths = require("./paths");
@@ -65,9 +64,7 @@ module.exports = function (proxy, allowedHost, publicPath = "/") {
       watch: {
         // Reportedly, this avoids CPU overload on some systems.
         // https://github.com/facebook/create-react-app/issues/293
-        // src/node_modules is not ignored to support absolute imports
-        // https://github.com/facebook/create-react-app/issues/1065
-        ignored: ignoredFiles(paths.appSrc),
+        ignored: /node_modules/,
       },
     },
     client: {
