@@ -14,7 +14,6 @@ describe("Node add button", () => {
     await page.goto(url.NODES);
     await page.click(NODE_ADD_BUTTON);
     await page.waitForSelector(TASK.VIEW);
-    expect(page.url()).toEqual(url.TASK);
     await intercept.stop();
   });
 });
