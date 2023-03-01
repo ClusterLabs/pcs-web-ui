@@ -1,5 +1,28 @@
 import * as playwright from "playwright";
-import {ParsedQuery, parse, parseUrl} from "query-string";
+
+type ParsedQuery = Record<string, string | string[]>;
+
+const parse = (queryString: string) => {
+  const query: ParsedQuery = {};
+  for (const [key, value] of new URLSearchParams(queryString)) {
+    query[key] =
+      key in query ? ([] as string[]).concat(query[key], value) : value;
+  }
+  return query;
+};
+
+const parseUrl = (rawUrl: string) => {
+  const hashStart = rawUrl.indexOf("#");
+  const url = hashStart === -1 ? rawUrl : rawUrl.slice(0, hashStart);
+
+  const queryStart = url.indexOf("?");
+  return queryStart === -1
+    ? {url, query: {}}
+    : {
+        url: url.slice(0, queryStart),
+        query: parse(url.slice(queryStart)),
+      };
+};
 
 export type RequestData = {
   body?: ParsedQuery | null;
