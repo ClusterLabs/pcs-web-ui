@@ -18,7 +18,6 @@ require("../config/env");
 const fs = require("fs-extra");
 const bfj = require("bfj");
 const webpack = require("webpack");
-const checkRequiredFiles = require("react-dev-utils/checkRequiredFiles");
 const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
 const FileSizeReporter = require("react-dev-utils/FileSizeReporter");
 const printBuildError = require("react-dev-utils/printBuildError");
@@ -33,11 +32,6 @@ const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
 // These sizes are pretty large. We'll warn for bundles exceeding them.
 const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
 const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
-
-// Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
-  process.exit(1);
-}
 
 const argv = process.argv.slice(2);
 const writeStatsJson = argv.indexOf("--stats") !== -1;

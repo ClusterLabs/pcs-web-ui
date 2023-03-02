@@ -20,6 +20,7 @@ ifndef BUILD_USE_EXISTING_NODE_MODULES
 endif
 
 app:
+	@./.bin/check-assumptions.sh
 	node scripts/start.js
 
 # Some files are removed from build directory:
@@ -39,6 +40,7 @@ app:
 #   duplicate it.
 #
 build:
+	@./.bin/check-assumptions.sh
 ifeq ($(BUILD_USE_EXISTING_NODE_MODULES), false)
 	if [ -d "node_modules" ]; then mv node_modules node_modules.build-backup; fi
 	npx npm ci

@@ -17,7 +17,6 @@ require("../config/env");
 
 const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
-const checkRequiredFiles = require("react-dev-utils/checkRequiredFiles");
 const {
   choosePort,
   createCompiler,
@@ -28,11 +27,6 @@ const {
 const paths = require("../config/paths");
 const webpackConfig = require("../config/webpack.config");
 const createDevServerConfig = require("../config/webpackDevServer.config");
-
-// Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
-  process.exit(1);
-}
 
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
