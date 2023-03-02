@@ -45,27 +45,6 @@ const babelRuntimeRegenerator = require.resolve("@babel/runtime/regenerator", {
 const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === "true";
 const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === "true";
 
-const typescriptPath = resolve.sync("typescript", {
-  basedir: paths.appNodeModules,
-});
-
-// The following check is there because it could be hard to find possible issue
-const ts = require(typescriptPath);
-const options =
-  ts.readConfigFile(paths.appTsConfig, ts.sys.readFile).config
-    .compilerOptions || {};
-if (
-  path.relative(paths.appSrc, path.resolve(paths.appPath, options.baseUrl))
-  !== ""
-) {
-  throw new Error(
-    `An option baseUrl in .tsconfig should point to "${paths.appSrc}".`
-      + " The path 'src' is also hardcoded into webpack config (see sections"
-      + " resolve.modules and resolve.alias)."
-      + " So, please chek if you haven't break anything by changing baseUrl.",
-  );
-}
-
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = (
@@ -449,7 +428,9 @@ module.exports = (
     new ForkTsCheckerWebpackPlugin({
       async: !isProduction,
       typescript: {
-        typescriptPath,
+        typescriptPath: resolve.sync("typescript", {
+          basedir: paths.appNodeModules,
+        }),
         configOverwrite: {
           compilerOptions: {
             sourceMap: !isProduction || shouldUseSourceMap,
