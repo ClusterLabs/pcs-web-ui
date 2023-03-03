@@ -23,43 +23,16 @@ app:
 	@./.bin/check-assumptions.sh
 	node scripts/start.js
 
-# Some files are removed from build directory:
-# service-worker.js
-# precache-manifest.*.js (information about URLs that need to be precached)
-#   It doesn't work with self signed certificates and `pcsd` daemon uses it by
-#   default.
-#   SecurityError: Failed to register a ServiceWorker:
-#   An SSL certificate error occurred when fetching the script.
-#   https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
-# asset-manifest.json
-#   It should be useful for integrations. However, there is not a known use case
-#   for it now.
-#   https://github.com/facebook/create-react-app/issues/600
-# images/favicon.png
-#   Current (default) pcs web ui provide its own /images/favicon. No need to
-#   duplicate it.
-#
 build:
 	@./.bin/check-assumptions.sh
 ifeq ($(BUILD_USE_EXISTING_NODE_MODULES), false)
-	if [ -d "node_modules" ]; then mv node_modules node_modules.build-backup; fi
-	npx npm ci
-endif
-ifeq ($(BUILD_FOR_COCKPIT),true)
-	@./.bin/build-cockpit.sh
+	@./.bin/build.sh
 else
-	# It is possible to use TSC_COMPILE_ON_ERROR=true when typescript errors
-	# should not interupt the build
-	@node scripts/build.js
-	@./.bin/get-build-sizes.sh
-	@echo ""
-endif
-	rm -f build/precache-manifest.*.js
-	rm -f build/images/favicon.png
-	find build/images -type d -empty -delete
-ifeq ($(BUILD_USE_EXISTING_NODE_MODULES), false)
-	rm -rf node_modules
-	if [ -d "node_modules.build-backup" ]; then mv node_modules.build-backup node_modules; fi
+	@echo "Depracated: Instad of" \
+		"'make build BUILD_USE_EXISTING_NODE_MODULES=true'" \
+		"use 'BUILD_USE_EXISTING_NODE_MODULES=true make build'"
+	export BUILD_USE_EXISTING_NODE_MODULES=true
+	@./.bin/build.sh
 endif
 
 
