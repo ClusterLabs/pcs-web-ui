@@ -129,14 +129,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
   .then(
     ({stats, previousFileSizes, warnings}) => {
       if (warnings.length) {
-        console.log("Compiled with warnings.\n");
-        console.log(warnings.join("\n\n"));
-        console.log(
-          "\nSearch for the keywords to learn more about each warning.",
-        );
-        console.log(
-          "To ignore, add // eslint-disable-next-line to the line before.\n",
-        );
+        console.log(`Compiled with warnings.\n\n${warnings.join("\n\n")}`);
       } else {
         console.log("Compiled successfully.\n");
       }
@@ -154,9 +147,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
     err => {
       const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === "true";
       if (tscCompileOnError) {
-        console.log(
-          "Compiled with the following type errors (you may want to check these before deploying your app):\n",
-        );
+        console.log("Compiled with the following type errors:\n");
         printBuildError(err);
       } else {
         console.log("Failed to compile.\n");
