@@ -3,16 +3,8 @@
 # If assumptions are not met, build and dev server fails even so. But it can
 # be harder to realize where the root cause is.
 
-query_json() {
-	JSON_FILE=$1
-	QUERY=$2
-	node -pe "JSON.parse(process.argv[1]).$QUERY" "$(cat "$JSON_FILE")"
-}
-
-get_path() {
-	PATH_KEY=$1
-	query_json config/paths.json "$PATH_KEY"
-}
+# shellcheck disable=SC1090
+. "$(dirname "$0")/tools.sh"
 
 REQUIRED_FILES="\
  $(get_path "appHtml")

@@ -51,6 +51,8 @@ else
 	# It is possible to use TSC_COMPILE_ON_ERROR=true when typescript errors
 	# should not interupt the build
 	@node scripts/build.js
+	@./.bin/get-build-sizes.sh
+	@echo ""
 endif
 	rm -f build/precache-manifest.*.js
 	rm -f build/images/favicon.png

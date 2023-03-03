@@ -19,25 +19,16 @@ const fs = require("fs-extra");
 const bfj = require("bfj");
 const webpack = require("webpack");
 const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
-const FileSizeReporter = require("react-dev-utils/FileSizeReporter");
 const printBuildError = require("react-dev-utils/printBuildError");
 
 const paths = require("../config/paths");
 const webpackConfig = require("../config/webpack.config");
 
-const measureFileSizesBeforeBuild =
-  FileSizeReporter.measureFileSizesBeforeBuild;
-const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
-
-// These sizes are pretty large. We'll warn for bundles exceeding them.
-const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
-const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
-
 const argv = process.argv.slice(2);
 const writeStatsJson = argv.indexOf("--stats") !== -1;
 
 // Create the production build and print the deployment instructions.
-function build(previousFileSizes) {
+function build() {
   console.log("Creating an optimized production build...");
 
   const compiler = webpack(
@@ -89,11 +80,7 @@ function build(previousFileSizes) {
         return reject(new Error(messages.errors.join("\n\n")));
       }
 
-      const resolveArgs = {
-        stats,
-        previousFileSizes,
-        warnings: messages.warnings,
-      };
+      const resolveArgs = {warnings: messages.warnings};
 
       if (writeStatsJson) {
         return bfj
@@ -107,42 +94,22 @@ function build(previousFileSizes) {
   });
 }
 
-function copyPublicFolder() {
-  fs.copySync(paths.appPublic, paths.appBuild, {
-    dereference: true,
-    filter: file => file !== paths.appHtml,
-  });
-}
-
-// First, read the current file sizes in build directory.
-// This lets us display how much they changed later.
-measureFileSizesBeforeBuild(paths.appBuild)
-  .then(previousFileSizes => {
-    // Remove all content but keep the directory so that
-    // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild);
-    // Merge with the public folder
-    copyPublicFolder();
-    // Start the webpack build
-    return build(previousFileSizes);
-  })
+// Remove all content but keep the directory so that
+// if you're in it, you don't end up in Trash
+fs.emptyDirSync(paths.appBuild);
+// Merge with the public folder
+fs.copySync(paths.appPublic, paths.appBuild, {
+  dereference: true,
+  filter: file => file !== paths.appHtml,
+});
+build()
   .then(
-    ({stats, previousFileSizes, warnings}) => {
+    ({warnings}) => {
       if (warnings.length) {
         console.log(`Compiled with warnings.\n\n${warnings.join("\n\n")}`);
       } else {
         console.log("Compiled successfully.\n");
       }
-
-      console.log("File sizes after gzip:\n");
-      printFileSizesAfterBuild(
-        stats,
-        previousFileSizes,
-        paths.appBuild,
-        WARN_AFTER_BUNDLE_GZIP_SIZE,
-        WARN_AFTER_CHUNK_GZIP_SIZE,
-      );
-      console.log();
     },
     err => {
       const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === "true";
