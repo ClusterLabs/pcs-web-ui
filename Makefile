@@ -31,7 +31,7 @@ else
 	@echo "Depracated: Instad of" \
 		"'make build BUILD_USE_EXISTING_NODE_MODULES=true'" \
 		"use 'BUILD_USE_EXISTING_NODE_MODULES=true make build'"
-	export BUILD_USE_EXISTING_NODE_MODULES=true
+	@export BUILD_USE_EXISTING_NODE_MODULES=true
 	@./.bin/build.sh
 endif
 

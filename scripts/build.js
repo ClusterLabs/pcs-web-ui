@@ -15,7 +15,6 @@ process.on("unhandledRejection", err => {
 // Ensure environment variables are read.
 require("../config/env");
 
-const fs = require("fs-extra");
 const bfj = require("bfj");
 const webpack = require("webpack");
 const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
@@ -93,14 +92,6 @@ function build() {
   });
 }
 
-// Remove all content but keep the directory so that
-// if you're in it, you don't end up in Trash
-fs.emptyDirSync(paths.appBuild);
-// Merge with the public folder
-fs.copySync(paths.appPublic, paths.appBuild, {
-  dereference: true,
-  filter: file => file !== paths.appHtml,
-});
 build()
   .then(
     ({warnings}) => {

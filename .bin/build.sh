@@ -2,6 +2,7 @@
 
 # shellcheck disable=SC1090
 . "$(dirname "$0")/tools.sh"
+
 node_modules=$(get_path "appNodeModules")
 node_modules_backup="${node_modules}.build-backup"
 if [ "$BUILD_USE_EXISTING_NODE_MODULES" = "true" ]; then
@@ -24,6 +25,15 @@ if [ "$install_node_modules" -eq 1 ]; then
 	fi
 	npx npm ci
 fi
+
+# Using :? will cause the command to fail if the variable is null or unset. This
+# prevents deleting everything in the system's root directory when `build_dir`
+# variable is empty.
+build_dir=$(get_path "appBuild")
+public_dir=$(get_path "appPublic")
+mkdir -p "$build_dir"
+rm -rf "${build_dir:?}/"*
+cp -r "${public_dir:?}/"* "$build_dir"
 
 # It is possible to use TSC_COMPILE_ON_ERROR=true when typescript errors
 # should not interupt the build
