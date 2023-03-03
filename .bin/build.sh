@@ -2,12 +2,12 @@
 
 # shellcheck disable=SC1090
 . "$(dirname "$0")/tools.sh"
-NODE_MODULES=$(get_path "appNodeModules")
-NODE_MODULES_BACKUP="${NODE_MODULES}.build-backup"
+node_modules=$(get_path "appNodeModules")
+node_modules_backup="${node_modules}.build-backup"
 if [ "$BUILD_USE_EXISTING_NODE_MODULES" = "true" ]; then
-	INSTALL_NODE_MODULES=0
+	install_node_modules=0
 else
-	INSTALL_NODE_MODULES=1
+	install_node_modules=1
 fi
 
 if [ "$BUILD_FOR_COCKPIT" = "true" ]; then
@@ -18,9 +18,9 @@ else
 	echo "Building for standalone usage"
 fi
 
-if [ "$INSTALL_NODE_MODULES" -eq 1 ]; then
-	if [ -d "$NODE_MODULES" ]; then
-		mv "$NODE_MODULES" "${NODE_MODULES_BACKUP}"
+if [ "$install_node_modules" -eq 1 ]; then
+	if [ -d "$node_modules" ]; then
+		mv "$node_modules" "${node_modules_backup}"
 	fi
 	npx npm ci
 fi
@@ -57,9 +57,9 @@ rm -f build/precache-manifest.*.js
 rm -f build/images/favicon.png
 find build/images -type d -empty -delete
 
-if [ "$INSTALL_NODE_MODULES" -eq 1 ]; then
-	rm -rf "$NODE_MODULES"
-	if [ -d "$NODE_MODULES_BACKUP" ]; then
-		mv "$NODE_MODULES_BACKUP" "$NODE_MODULES"
+if [ "$install_node_modules" -eq 1 ]; then
+	rm -rf "$node_modules"
+	if [ -d "$node_modules_backup" ]; then
+		mv "$node_modules_backup" "$node_modules"
 	fi
 fi

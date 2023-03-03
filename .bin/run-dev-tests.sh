@@ -6,16 +6,16 @@ usage() {
 	echo "  -c      config file; will be watched and sourced before each run" 1>&2
 }
 
-RUN_JEST=$(dirname "$0")/run-jest.sh
-RUN_CLUSTER_TESTS=false
+run_jest=$(dirname "$0")/run-jest.sh
+run_cluster_tests=false
 
 while getopts c:t: name; do
 	case ${name} in
 	c)
-		DEV_CONFIG=${OPTARG}
+		dev_config=${OPTARG}
 		;;
 	t)
-		[ "${OPTARG}" = "cluster" ] && RUN_CLUSTER_TESTS=true
+		[ "${OPTARG}" = "cluster" ] && run_cluster_tests=true
 		;;
 	*)
 		usage
@@ -27,26 +27,26 @@ done
 echo Launching jest, please wait for a while...
 
 scenes_path_pattern() {
-	SCENES=src/test/scenes
+	scenes=src/test/scenes
 	if [ -z ${PCS_WUI_TESTS+x} ]; then
-		echo "$SCENES"
+		echo "$scenes"
 	else
-		echo "$SCENES/($(echo "$PCS_WUI_TESTS" | tr ' ' '|'))"
+		echo "$scenes/($(echo "$PCS_WUI_TESTS" | tr ' ' '|'))"
 	fi
 }
 
 run() {
-	if [ -f "$DEV_CONFIG" ]; then
+	if [ -f "$dev_config" ]; then
 		# In POSIX sh, source in place of . is undefined.
 		# Can't follow non-constant source.
 		# shellcheck disable=SC1090
-		. "$DEV_CONFIG"
+		. "$dev_config"
 	fi
 
-	if [ "$RUN_CLUSTER_TESTS" = true ]; then
-		"$RUN_JEST" -s -p src/test/clusterBackend
+	if [ "$run_cluster_tests" = true ]; then
+		"$run_jest" -s -p src/test/clusterBackend
 	else
-		"$RUN_JEST" -p "$(scenes_path_pattern)"
+		"$run_jest" -p "$(scenes_path_pattern)"
 	fi
 }
 
@@ -55,7 +55,7 @@ if [ -x "$(command -v inotifywait)" ]; then
 	while inotifywait -r -e MODIFY -e CREATE -e MOVE -e DELETE \
 		src/ \
 		.dev/ \
-		"$DEV_CONFIG" \
+		"$dev_config" \
 		; do
 		run
 	done

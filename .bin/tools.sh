@@ -1,12 +1,12 @@
 #!/bin/sh
 
 query_json() {
-	JSON_FILE=$1
-	QUERY=$2
-	node -pe "JSON.parse(process.argv[1]).$QUERY" "$(cat "$JSON_FILE")"
+	json_file=$1
+	query=$2
+	node -pe "JSON.parse(process.argv[1]).$query" "$(cat "$json_file")"
 }
 
 get_path() {
-	PATH_KEY=$1
-	query_json config/paths.json "$PATH_KEY"
+	path_key=$1
+	query_json config/paths.json "$path_key"
 }

@@ -6,16 +6,16 @@ usage() {
 	echo "  -s      run test serially (no worker pool of child processes)" 1>&2
 }
 
-RUN_IN_BAND=false
-PATH_PATTERN=src/test/scenes
+run_in_band=false
+path_pattern=src/test/scenes
 
 while getopts p:s name; do
 	case ${name} in
 	p)
-		PATH_PATTERN=${OPTARG}
+		path_pattern=${OPTARG}
 		;;
 	s)
-		RUN_IN_BAND=true
+		run_in_band=true
 		;;
 	*)
 		usage
@@ -26,7 +26,7 @@ done
 
 npx jest \
 	--config=jest.config.js \
-	--runInBand="$RUN_IN_BAND" \
-	--testPathPattern="$PATH_PATTERN" \
+	--runInBand="$run_in_band" \
+	--testPathPattern="$path_pattern" \
 	--detectOpenHandles \
 	--forceExit
