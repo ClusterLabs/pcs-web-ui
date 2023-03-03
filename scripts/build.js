@@ -19,7 +19,6 @@ const fs = require("fs-extra");
 const bfj = require("bfj");
 const webpack = require("webpack");
 const formatWebpackMessages = require("react-dev-utils/formatWebpackMessages");
-const printBuildError = require("react-dev-utils/printBuildError");
 
 const paths = require("../config/paths");
 const webpackConfig = require("../config/webpack.config");
@@ -115,10 +114,10 @@ build()
       const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === "true";
       if (tscCompileOnError) {
         console.log("Compiled with the following type errors:\n");
-        printBuildError(err);
+        console.log(err);
       } else {
         console.log("Failed to compile.\n");
-        printBuildError(err);
+        console.log(err);
         process.exit(1);
       }
     },
