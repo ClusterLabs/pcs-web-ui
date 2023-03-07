@@ -21,7 +21,7 @@ endif
 
 app:
 	@./.bin/check-assumptions.sh
-	node scripts/start.js
+	@./.bin/start-dev-server.sh
 
 build:
 	@./.bin/check-assumptions.sh
@@ -48,9 +48,9 @@ pack-modules:
 
 dev:
 ifdef SCENARIO
-	@./.bin/dev-server.sh $(SCENARIOS_DIR) $(SCENARIO)
+	@./.bin/dev-backend.sh $(SCENARIOS_DIR) $(SCENARIO)
 else
-	@./.bin/dev-server.sh $(SCENARIOS_DIR)
+	@./.bin/dev-backend.sh $(SCENARIOS_DIR)
 endif
 
 
