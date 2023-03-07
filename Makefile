@@ -30,9 +30,8 @@ ifeq ($(BUILD_USE_EXISTING_NODE_MODULES), false)
 else
 	@echo "Depracated: Instad of" \
 		"'make build BUILD_USE_EXISTING_NODE_MODULES=true'" \
-		"use 'BUILD_USE_EXISTING_NODE_MODULES=true make build'"
-	@export BUILD_USE_EXISTING_NODE_MODULES=true
-	@./.bin/build.sh
+		"use 'BUILD_USE_CURRENT_NODE_MODULES=true make build'"
+	@BUILD_USE_CURRENT_NODE_MODULES=true ./.bin/build.sh
 endif
 
 

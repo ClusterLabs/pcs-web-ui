@@ -21,99 +21,46 @@ const webpack = require("webpack");
 const paths = require("../config/paths");
 const webpackConfig = require("../config/webpack.config");
 
-const cleanupMessages = require("./cleanupMessages");
-
 const argv = process.argv.slice(2);
-const writeStatsJson = argv.indexOf("--stats") !== -1;
 
-// Create the production build and print the deployment instructions.
-function build() {
-  console.log("Creating an optimized production build...");
+const postcssSuffix = err =>
+  Object.prototype.hasOwnProperty.call(err, "postcssNode")
+    ? "\nCompileError: Begins at CSS selector " + err["postcssNode"].selector
+    : "";
 
-  const compiler = webpack(
-    webpackConfig({
-      isProduction: true,
-      isCockpitContext:
-        process.env.REACT_APP_PCS_WEB_UI_ENVIRONMENT === "cockpit",
-      // webpack needs to know it to put the right <script> hrefs into HTML even
-      // in single-page apps that may serve index.html for nested URLs like
-      // /todos/42. We can't use a relative path in HTML because we don't want
-      // to load something like /todos/42/static/js/bundle.7289d.js. We have to
-      // know the root.
-      publicPath: "./",
-      enableProfiling: process.argv.includes("--profile"),
-    }),
-  );
-  return new Promise((resolve, reject) => {
-    compiler.run((err, stats) => {
-      let messages;
-      if (err) {
-        if (!err.message) {
-          return reject(err);
-        }
-
-        let errMessage = err.message;
-
-        // Add additional information for postcss errors
-        if (Object.prototype.hasOwnProperty.call(err, "postcssNode")) {
-          errMessage
-            += "\nCompileError: Begins at CSS selector "
-            + err["postcssNode"].selector;
-        }
-
-        messages = cleanupMessages({errors: [errMessage]});
-      } else {
-        messages = cleanupMessages(
-          stats.toJson({all: false, warnings: true, errors: true}),
-        );
-      }
-      if (messages.errors.length) {
-        // Only keep the first error. Others are often indicative
-        // of the same problem, but confuse the reader with noise.
-        if (messages.errors.length > 1) {
-          messages.errors.length = 1;
-        }
-        return reject(new Error(messages.errors.join("\n\n")));
-      }
-
-      const resolveArgs = {warnings: messages.warnings};
-
-      if (writeStatsJson) {
-        return bfj
-          .write(paths.appBuild + "/bundle-stats.json", stats.toJson())
-          .then(() => resolve(resolveArgs))
-          .catch(error => reject(new Error(error)));
-      }
-
-      return resolve(resolveArgs);
-    });
-  });
-}
-
-build()
-  .then(
-    ({warnings}) => {
-      if (warnings.length) {
-        console.log(`Compiled with warnings.\n\n${warnings.join("\n\n")}`);
-      } else {
-        console.log("Compiled successfully.\n");
-      }
-    },
-    err => {
-      const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === "true";
-      if (tscCompileOnError) {
-        console.log("Compiled with the following type errors:\n");
-        console.log(err);
-      } else {
-        console.log("Failed to compile.\n");
-        console.log(err);
-        process.exit(1);
-      }
-    },
-  )
-  .catch(err => {
-    if (err && err.message) {
-      console.log(err.message);
+webpack(
+  webpackConfig({
+    isProduction: true,
+    isCockpitContext:
+      process.env.REACT_APP_PCS_WEB_UI_ENVIRONMENT === "cockpit",
+    // webpack needs to know it to put the right <script> hrefs into HTML even
+    // in single-page apps that may serve index.html for nested URLs like
+    // /todos/42. We can't use a relative path in HTML because we don't want
+    // to load something like /todos/42/static/js/bundle.7289d.js. We have to
+    // know the root.
+    publicPath: "./",
+    enableProfiling: process.argv.includes("--profile"),
+  }),
+  (err, stats) => {
+    if (err) {
+      console.log(err.message ? err.message + postcssSuffix(err) : err);
+      throw new Error("The build failed due to the errors above.");
     }
-    process.exit(1);
-  });
+
+    if (stats.hasErrors()) {
+      console.log(stats.toString({all: false, errors: true}));
+      throw new Error("The build failed due to the errors above.");
+    }
+
+    if (argv.indexOf("--stats") !== -1) {
+      bfj
+        .write(`${paths.appBuild}/bundle-stats.json`, stats.toJson())
+        .catch(error => console.log(`Writing stats failed\n\n${error}`));
+    }
+
+    if (stats.hasWarnings()) {
+      console.log(stats.toString({all: false, warnings: true}));
+    }
+    console.log("Compiled successfully.");
+  },
+);

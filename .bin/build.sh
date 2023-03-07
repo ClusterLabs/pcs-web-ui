@@ -5,7 +5,7 @@
 
 node_modules=$(get_path "appNodeModules")
 node_modules_backup="${node_modules}.build-backup"
-if [ "$BUILD_USE_EXISTING_NODE_MODULES" = "true" ]; then
+if [ "$BUILD_USE_CURRENT_NODE_MODULES" = "true" ]; then
 	install_node_modules=0
 else
 	install_node_modules=1
@@ -35,15 +35,16 @@ mkdir -p "$build_dir"
 rm -rf "${build_dir:?}/"*
 cp -r "${public_dir:?}/"* "$build_dir"
 
-# It is possible to use TSC_COMPILE_ON_ERROR=true when typescript errors
-# should not interupt the build
-node scripts/build.js
+if ! node scripts/build.js; then
+	exit 1
+fi
 
 if [ "$BUILD_FOR_COCKPIT" = "true" ]; then
 	cp ./cockpit/manifest.json build/
 fi
 
 # shellcheck disable=SC1090
+echo ""
 . "$(dirname "$0")/get-build-sizes.sh"
 echo ""
 
