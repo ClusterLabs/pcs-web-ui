@@ -21,7 +21,7 @@ endif
 
 app:
 	@./.bin/check-assumptions.sh
-	@./.bin/start-dev-server.sh
+	@./.bin/dev-server.sh
 
 build:
 	@./.bin/check-assumptions.sh
