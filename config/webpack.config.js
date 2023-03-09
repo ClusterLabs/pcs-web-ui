@@ -458,10 +458,7 @@ module.exports = (
           {file: "../**/src/**/*.{ts,tsx}"},
           {file: "**/src/**/*.{ts,tsx}"},
         ],
-        exclude: [
-          {file: "**/src/**/?(*.){spec|test}.*"},
-          {file: "**/src/setupProxy.*"},
-        ],
+        exclude: [{file: "**/src/**/?(*.){spec|test}.*"}],
       },
       logger: {
         infrastructure: "silent",
