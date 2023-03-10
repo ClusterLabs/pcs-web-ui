@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
 
-const evalSourceMapMiddleware = require("react-dev-utils/evalSourceMapMiddleware");
-
 const paths = require("./paths");
 const getHttpsConfig = require("./getHttpsConfig");
 
@@ -98,12 +96,37 @@ module.exports = function (proxy, allowedHost, publicPath = "/") {
         throw new Error("webpack-dev-server is not defined");
       }
 
-      middlewares.push(
-        // Keep `evalSourceMapMiddleware` middlewares before
-        // `redirectServedPath` otherwise will not have any effect. This lets us
-        // fetch source contents from webpack for the error overlay
-        evalSourceMapMiddleware(devServer),
-      );
+      middlewares.push((req, res, next) => {
+        // Middleware responsible for retrieving a generated source
+        // Receives a webpack internal url: "webpack-internal:///<module-id>"
+        // Returns a generated source:
+        // "<source-text>\n<sourceMappingURL>\n<sourceURL>"
+        if (!req.url.startsWith("/__get-internal-source")) {
+          next();
+          return;
+        }
+        const id = req.query.fileName.match(/webpack-internal:\/\/\/(.+)/)[1];
+        if (!id || !devServer._stats) {
+          next();
+          return;
+        }
+
+        const {compilation} = devServer._stats;
+        const source = Array.from(compilation.modules)
+          .find(m => compilation.chunkGraph.getModuleId(m) === id)
+          .originalSource();
+
+        const base64Src = Buffer.from(
+          JSON.stringify(source.map()),
+          "utf8",
+        ).toString("base64");
+
+        res.end(
+          source.source()
+            + `\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,${base64Src}`
+            + `\n//# sourceURL=webpack-internal:///${module.id}`,
+        );
+      });
 
       return middlewares;
     },
