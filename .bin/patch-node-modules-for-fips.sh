@@ -11,7 +11,6 @@ nc='\033[0m' # No Color
 node_modules_dir=$1
 
 files_to_patch="\
-  react-scripts/config/webpack/persistentCache/createEnvironmentHash.js
   babel-loader/lib/cache.js \
 "
 
