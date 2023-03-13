@@ -41,7 +41,6 @@ if (process.env.HOST) {
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
 const publicPath = "/";
 
-const protocol = process.env.HTTPS === "true" ? "https" : "http";
 const allowedLanHost = process.env.ALLOWED_HOST;
 
 const compiler = webpack(webpackConfig({publicPath}));
@@ -72,8 +71,8 @@ compiler.hooks.done.tap("done", async stats => {
   }
   console.log("Compiled successfully!");
   console.log(
-    `In browser open ${protocol}://${prettyHost}:${port}`
-      + ` or ${protocol}://${allowedLanHost}:${port}`,
+    `In browser open http://${prettyHost}:${port}`
+      + ` or http://${allowedLanHost}:${port}`,
   );
 });
 

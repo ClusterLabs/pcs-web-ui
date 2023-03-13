@@ -2,7 +2,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 const paths = require("./paths");
-const getHttpsConfig = require("./getHttpsConfig");
 
 const host = process.env.HOST || "0.0.0.0";
 const sockHost = process.env.WDS_SOCKET_HOST;
@@ -81,7 +80,7 @@ module.exports = function (proxy, allowedHost, publicPath = "/") {
     // Use the same "publicPath" path as in the webpack config.
     devMiddleware: {publicPath},
 
-    https: getHttpsConfig(),
+    https: false,
     host,
     historyApiFallback: {
       // Paths with dots should still use the history fallback.
