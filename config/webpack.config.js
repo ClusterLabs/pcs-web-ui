@@ -11,7 +11,6 @@ const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
-const ModuleNotFoundPlugin = require("react-dev-utils/ModuleNotFoundPlugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 // ForkTsCheckerWarningWebpackPlugin makes all issues warnings
@@ -362,9 +361,6 @@ module.exports = (
           : undefined,
       ),
     ),
-    // This gives some necessary context to module not found errors, such as
-    // the requesting resource.
-    new ModuleNotFoundPlugin(paths.appPath),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV is set to production
