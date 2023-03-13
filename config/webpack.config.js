@@ -10,7 +10,6 @@ const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const ModuleNotFoundPlugin = require("react-dev-utils/ModuleNotFoundPlugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
@@ -28,19 +27,6 @@ const createEnvironmentHash = require("./webpack/persistentCache/createEnvironme
 // Source maps are resource heavy and can cause out of memory issue for large
 // source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
-
-const reactRefreshRuntimeEntry = require.resolve("react-refresh/runtime");
-const reactRefreshWebpackPluginRuntimeEntry = require.resolve(
-  "@pmmmwh/react-refresh-webpack-plugin",
-);
-const babelRuntimeEntry = require.resolve("babel-preset-react-app");
-const babelRuntimeEntryHelpers = require.resolve(
-  "@babel/runtime/helpers/esm/assertThisInitialized",
-  {paths: [babelRuntimeEntry]},
-);
-const babelRuntimeRegenerator = require.resolve("@babel/runtime/regenerator", {
-  paths: [babelRuntimeEntry],
-});
 
 const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === "true";
 const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === "true";
@@ -172,23 +158,6 @@ module.exports = (
         "scheduler/tracing": "scheduler/tracing-profiling",
       }),
     },
-    plugins: [
-      // Prevents users from importing files from outside of src/ (or
-      // node_modules/). This often causes confusion because we only process
-      // files within src/ with babel. To fix this, we prevent you from
-      // importing files out of src/ -- if you'd like to, please link the files
-      // into your node_modules/ and let module-resolution kick in.
-      // Make sure your source files are compiled, as they will not be
-      // processed in any way.
-      new ModuleScopePlugin(paths.appSrc, [
-        paths.appPackageJson,
-        reactRefreshRuntimeEntry,
-        reactRefreshWebpackPluginRuntimeEntry,
-        babelRuntimeEntry,
-        babelRuntimeEntryHelpers,
-        babelRuntimeRegenerator,
-      ]),
-    ],
   },
   module: {
     // Makes missing exports an error instead of warning.
