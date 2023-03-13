@@ -12,16 +12,24 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-
-// ForkTsCheckerWarningWebpackPlugin makes all issues warnings
-const ForkTsCheckerWebpackPlugin =
-  process.env.TSC_COMPILE_ON_ERROR === "true"
-    ? require("react-dev-utils/ForkTsCheckerWarningWebpackPlugin")
-    : require("react-dev-utils/ForkTsCheckerWebpackPlugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const paths = require("./paths");
 const env = require("./env");
 const createEnvironmentHash = require("./webpack/persistentCache/createEnvironmentHash");
+
+class ForkTsCheckerPlugin {
+  apply(compiler) {
+    new ForkTsCheckerWebpackPlugin().apply(compiler);
+    if (process.env.TSC_COMPILE_ON_ERROR === "true") {
+      // Makes all issues warnings
+      ForkTsCheckerWebpackPlugin.getCompilerHooks(compiler).issues.tap(
+        "ForkTsCheckerPlugin",
+        issues => issues.map(issue => ({...issue, severity: "warning"})),
+      );
+    }
+  }
+}
 
 // Source maps are resource heavy and can cause out of memory issue for large
 // source files.
@@ -390,7 +398,7 @@ module.exports = (
         chunkFilename: "static/css/[name].[contenthash:8].chunk.css",
       }),
     // TypeScript type checking
-    new ForkTsCheckerWebpackPlugin({
+    new ForkTsCheckerPlugin({
       async: !isProduction,
       typescript: {
         typescriptPath: resolve.sync("typescript", {
