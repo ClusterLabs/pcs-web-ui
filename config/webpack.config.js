@@ -433,7 +433,6 @@ module.exports = (
       && new ESLintPlugin({
         // Plugin options
         extensions: ["js", "jsx", "ts", "tsx"],
-        formatter: require.resolve("react-dev-utils/eslintFormatter"),
         eslintPath: require.resolve("eslint"),
         failOnError: isProduction || !emitErrorsAsWarnings,
         context: paths.appSrc,
