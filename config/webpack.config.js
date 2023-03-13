@@ -2,6 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 const path = require("path");
+const {createHash} = require("crypto");
 
 const webpack = require("webpack");
 const resolve = require("resolve");
@@ -16,7 +17,10 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const paths = require("./paths");
 const env = require("./env");
-const createEnvironmentHash = require("./webpack/persistentCache/createEnvironmentHash");
+
+const hash = createHash("sha256");
+hash.update(JSON.stringify(env));
+const envHash = hash.digest("hex");
 
 class ForkTsCheckerPlugin {
   apply(compiler) {
@@ -88,7 +92,7 @@ module.exports = (
   },
   cache: {
     type: "filesystem",
-    version: createEnvironmentHash(env),
+    version: envHash,
     cacheDirectory: paths.appWebpackCache,
     store: "pack",
     buildDependencies: {
