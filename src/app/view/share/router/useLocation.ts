@@ -1,9 +1,10 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 
-import {locationLayer} from "./locationLayer";
 import {Path} from "./types";
 
-const currentPathname = (base: string, path = locationLayer.getPath()) =>
+const {location} = pcsUiEnvAdapter;
+
+const currentPathname = (base: string, path = location.getPath()) =>
   path.toLowerCase().startsWith(base.toLowerCase())
     ? path.slice(base.length)
     : "~" + path;
@@ -17,7 +18,7 @@ export const useLocation = (
 } => {
   const [{path, search}, update] = useState(() => ({
     path: currentPathname(base),
-    search: locationLayer.getSearch(),
+    search: location.getSearch(),
   })); // @see https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
   const prevHash = useRef(path + search);
 
@@ -28,7 +29,7 @@ export const useLocation = (
     // that's why we store the last pathname in a ref.
     const checkForUpdates = () => {
       const pathname = currentPathname(base);
-      const search = locationLayer.getSearch();
+      const search = location.getSearch();
       const hash = pathname + search;
 
       if (prevHash.current !== hash) {
@@ -37,7 +38,7 @@ export const useLocation = (
       }
     };
 
-    locationLayer.addEventsListener(checkForUpdates);
+    location.addEventsListener(checkForUpdates);
 
     // it's possible that an update has occurred between render and the effect
     // handler, so we run additional check on mount to catch these updates.
@@ -45,7 +46,7 @@ export const useLocation = (
     // https://gist.github.com/bvaughn/e25397f70e8c65b0ae0d7c90b731b189
     checkForUpdates();
 
-    return () => locationLayer.removeEventsListener(checkForUpdates);
+    return () => location.removeEventsListener(checkForUpdates);
   }, [base]);
 
   // the 2nd argument of the `useLocation` return value is a function
@@ -55,7 +56,7 @@ export const useLocation = (
   // it can be passed down as an element prop without any performance concerns.
   const navigate = useCallback(
     (to: string, {replace = false} = {}) =>
-      locationLayer.navigate(to[0] === "~" ? to.slice(1) : base + to, {
+      location.navigate(to[0] === "~" ? to.slice(1) : base + to, {
         replace,
       }),
     [base],
@@ -63,5 +64,3 @@ export const useLocation = (
 
   return {path, navigate, search};
 };
-
-locationLayer.setup();

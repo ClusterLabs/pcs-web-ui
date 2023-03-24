@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2019",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["jest", "expect-playwright", "node", "Cockpit"],
+    "types": ["jest", "expect-playwright", "node"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true,
-    "typeRoots": ["./node_modules/@types", "./cockpit/@types"]
+    "typeRoots": ["./src/app/@types", "./node_modules/@types"]
   },
   "include": ["src"]
 }

@@ -8,12 +8,8 @@ import * as Notification from "./notification";
 import {BackgroundImage} from "./BackgroundImage";
 import {Header} from "./Header";
 
-const CockpitHeader = () => <></>;
+const {showMasthead} = pcsUiEnvAdapter;
 
-const EnvHeader =
-  process.env.REACT_APP_PCS_WEB_UI_ENVIRONMENT === "cockpit"
-    ? CockpitHeader
-    : Header;
 type NotificationList = ReturnType<typeof selectors.getNotifications>;
 
 export const Page = ({
@@ -32,7 +28,7 @@ export const Page = ({
     <>
       <BackgroundImage />
       <PfPage
-        header={<EnvHeader />}
+        header={showMasthead && <Header />}
         notificationDrawer={
           <Notification.Drawer
             notificationList={notificationList}

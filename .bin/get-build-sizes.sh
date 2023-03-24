@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# load scripts: get_path
 # shellcheck disable=SC1090
 . "$(dirname "$0")/tools.sh"
 

@@ -2,7 +2,17 @@ import * as t from "io-ts";
 
 import * as result from "./result";
 import * as validate from "./validate";
-import {HttpResponse, httpLayer} from "./httpLayer";
+
+const request = (
+  path: string,
+  headers: Record<string, string> = {},
+  postBody?: string,
+) =>
+  pcsUiEnvAdapter.request(
+    path,
+    {"X-Requested-With": "XMLHttpRequest", ...headers}, // added ajax header
+    postBody,
+  );
 
 type PayloadValidation<PAYLOAD, O, I> =
   | {shape: t.Type<PAYLOAD, O, I>}
@@ -33,27 +43,6 @@ const httpParams = (params: HttpParams): string =>
     .map(p => `${encodeURIComponent(p[0])}=${encodeURIComponent(p[1])}`)
     .join("&");
 
-const ajaxHeaders = {"X-Requested-With": "XMLHttpRequest"};
-
-const httpGet = async (url: string, params: HttpParams) =>
-  httpLayer.get(
-    params.length > 0 ? `${url}?${httpParams(params)}` : url,
-    ajaxHeaders,
-  );
-
-const httpPost = async (url: string, opts: PostData) => {
-  const headers = {
-    ...ajaxHeaders,
-    "Content-Type": `application/${
-      "params" in opts ? "x-www-form-urlencoded;charset=UTF-8" : "json"
-    }`,
-  };
-  const body =
-    "params" in opts ? httpParams(opts.params) : JSON.stringify(opts.payload);
-
-  return httpLayer.post(url, body, headers);
-};
-
 function validatePayload<PAYLOAD, O, I>(
   payload: PAYLOAD,
   payloadValidation: PayloadValidation<PAYLOAD, O, I>,
@@ -64,7 +53,7 @@ function validatePayload<PAYLOAD, O, I>(
 }
 
 async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
-  response: HttpResponse,
+  response: ReturnType<typeof request> extends Promise<infer U> ? U : never,
   validationOpts?: ValidationOpts<OUT, PAYLOAD, O, I>,
 ): Promise<ApiResult<OUT, PAYLOAD>> {
   type AR = ApiResult<OUT, PAYLOAD>;
@@ -123,7 +112,11 @@ export async function get<PAYLOAD, O, I>(
     | {params?: HttpParams} = {params: []},
 ) {
   return processHttpResponse(
-    await httpGet(url, opts.params || []),
+    await request(
+      opts.params && opts.params.length > 0
+        ? `${url}?${httpParams(opts.params)}`
+        : url,
+    ),
     getValidationOpts(opts),
   );
 }
@@ -135,10 +128,17 @@ export async function post<PAYLOAD, O, I>(
   },
 ) {
   return processHttpResponse(
-    await httpPost(
-      url,
-      "params" in opts ? {params: opts.params} : {payload: opts.payload},
-    ),
+    "params" in opts
+      ? await request(
+          url,
+          {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"},
+          httpParams(opts.params),
+        )
+      : await request(
+          url,
+          {"Content-Type": "application/json"},
+          JSON.stringify(opts.payload),
+        ),
     getValidationOpts(opts),
   );
 }

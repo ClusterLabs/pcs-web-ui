@@ -74,7 +74,7 @@ module.exports = (
     // In development, it does not produce real files.
     filename: isProduction
       ? "static/js/[name].[contenthash:8].js"
-      : "static/js/bundle.js",
+      : "static/js/[name].js",
     // There are also additional JS chunk files if you use code splitting.
     chunkFilename: isProduction
       ? "static/js/[name].[contenthash:8].chunk.js"
