@@ -13,10 +13,12 @@ The key of record is a target.
 */
 const ApiFencingLevels = t.record(
   t.string,
-  t.type({
-    level: t.string,
-    devices: t.array(t.string),
-  }),
+  t.array(
+    t.type({
+      level: t.string,
+      devices: t.string,
+    }),
+  ),
 );
 
 export const ApiClusterStatusFlag = t.keyof({
