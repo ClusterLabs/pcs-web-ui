@@ -45,9 +45,8 @@ const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === "true";
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = (
-  {isProduction, isCockpitContext, publicPath, enableProfiling} = {
+  {isProduction, publicPath, enableProfiling} = {
     isProduction: false,
-    isCockpitContext: false,
     publicPath: "/",
     enableProfiling: false,
   },
@@ -349,9 +348,8 @@ module.exports = (
         {},
         {
           inject: true,
-          template: paths.appHtml,
+          template: paths.appBuildHtml,
           templateParameters: {
-            isCockpitContext,
             publicPath,
           },
         },

@@ -18,15 +18,15 @@ prepare_build_dir() {
 
 prepare_for_environment() {
 	for_cockpit=$1
-	manifest_path=$2
-	manifest_cockpit_path=$3
-	adapter_path=$4
-	adapter_cockpit_path=$5
-	pcsd_socket=$6
+	html_index_path=$2
+	manifest_path=$3
+	manifest_cockpit_path=$4
+	adapter_path=$5
+	adapter_cockpit_path=$6
+	pcsd_socket=$7
 
 	if [ "$for_cockpit" = "true" ]; then
 		echo "Building for usage inside cockpit."
-		export REACT_APP_PCS_WEB_UI_ENVIRONMENT="cockpit"
 
 		mv "$manifest_cockpit_path" "$manifest_path"
 
@@ -34,6 +34,10 @@ prepare_for_environment() {
 			"s#^var pcsdSocket = \".*\";#var pcsdSocket = \"$pcsd_socket\";#" \
 			"$adapter_cockpit_path"
 		mv "$adapter_cockpit_path" "$adapter_path"
+
+		sed -i \
+			'/<script.*adapter.js/i <script src="../base1/cockpit.js"></script>' \
+			"$html_index_path"
 	else
 		echo "Building for standalone usage."
 		rm "$adapter_cockpit_path"
@@ -85,6 +89,7 @@ prepare_build_dir "$build_dir" "$(get_path "appPublic")"
 
 prepare_for_environment \
 	"${BUILD_FOR_COCKPIT:-false}" \
+	"$build_dir"/index.html \
 	"$build_dir"/manifest.json \
 	"$build_dir"/manifestCockpit.json \
 	"$build_dir"/static/js/adapter.js \

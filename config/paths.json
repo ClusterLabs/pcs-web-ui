@@ -1,6 +1,7 @@
 {
   "appPath": ".",
   "appBuild": "build",
+  "appBuildHtml": "build/index.html",
   "appPublic": "public",
   "appHtml": "public/index.html",
   "appIndexJs": "src/index.tsx",

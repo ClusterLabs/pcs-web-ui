@@ -31,8 +31,6 @@ const postcssSuffix = err =>
 webpack(
   webpackConfig({
     isProduction: true,
-    isCockpitContext:
-      process.env.REACT_APP_PCS_WEB_UI_ENVIRONMENT === "cockpit",
     // webpack needs to know it to put the right <script> hrefs into HTML even
     // in single-page apps that may serve index.html for nested URLs like
     // /todos/42. We can't use a relative path in HTML because we don't want
