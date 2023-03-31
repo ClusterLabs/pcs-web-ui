@@ -343,34 +343,12 @@ module.exports = (
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
-    new HtmlWebpackPlugin(
-      Object.assign(
-        {},
-        {
-          inject: true,
-          template: paths.appBuildHtml,
-          templateParameters: {
-            publicPath,
-          },
-        },
-        isProduction
-          ? {
-              minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeRedundantAttributes: true,
-                useShortDoctype: true,
-                removeEmptyAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                keepClosingSlash: true,
-                minifyJS: true,
-                minifyCSS: true,
-                minifyURLs: true,
-              },
-            }
-          : undefined,
-      ),
-    ),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: paths.appBuildHtml,
+      templateParameters: {publicPath},
+      minify: false,
+    }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV is set to production
@@ -392,8 +370,8 @@ module.exports = (
     // a plugin that prints an error when you attempt to do this.
     // See https://github.com/facebook/create-react-app/issues/240
     !isProduction && new CaseSensitivePathsPlugin(),
-    isProduction
-      && new MiniCssExtractPlugin({
+    isProduction &&
+      new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
         filename: "static/css/[name].[contenthash:8].css",
@@ -439,8 +417,8 @@ module.exports = (
         infrastructure: "silent",
       },
     }),
-    !disableESLintPlugin
-      && new ESLintPlugin({
+    !disableESLintPlugin &&
+      new ESLintPlugin({
         // Plugin options
         extensions: ["js", "jsx", "ts", "tsx"],
         eslintPath: require.resolve("eslint"),
