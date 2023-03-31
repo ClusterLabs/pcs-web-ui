@@ -15,13 +15,9 @@ process.on("unhandledRejection", err => {
 // Ensure environment variables are read.
 require("./config/env");
 
-const bfj = require("bfj");
 const webpack = require("webpack");
 
-const paths = require("./config/paths");
 const webpackConfig = require("./config/webpack.config");
-
-const argv = process.argv.slice(2);
 
 const postcssSuffix = err =>
   Object.prototype.hasOwnProperty.call(err, "postcssNode")
@@ -48,12 +44,6 @@ webpack(
     if (stats.hasErrors()) {
       console.log(stats.toString({all: false, errors: true}));
       throw new Error("The build failed due to the errors above.");
-    }
-
-    if (argv.indexOf("--stats") !== -1) {
-      bfj
-        .write(`${paths.appBuild}/bundle-stats.json`, stats.toJson())
-        .catch(error => console.log(`Writing stats failed\n\n${error}`));
     }
 
     if (stats.hasWarnings()) {
