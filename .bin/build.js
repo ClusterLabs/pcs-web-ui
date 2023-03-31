@@ -13,13 +13,13 @@ process.on("unhandledRejection", err => {
 });
 
 // Ensure environment variables are read.
-require("../config/env");
+require("./config/env");
 
 const bfj = require("bfj");
 const webpack = require("webpack");
 
-const paths = require("../config/paths");
-const webpackConfig = require("../config/webpack.config");
+const paths = require("./config/paths");
+const webpackConfig = require("./config/webpack.config");
 
 const argv = process.argv.slice(2);
 

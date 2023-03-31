@@ -96,7 +96,7 @@ prepare_for_environment \
 	"$build_dir"/static/js/adapterCockpit.js \
 	"/var/run/pcsd.socket"
 
-node scripts/build.js
+node "$(dirname "$0")"/build.js
 
 restore_node_modules \
 	"$BUILD_USE_CURRENT_NODE_MODULES" \

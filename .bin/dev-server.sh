@@ -20,4 +20,4 @@ if lsof -i :"$PORT" >/dev/null; then
 	exit 1
 fi
 
-node scripts/start.js
+node "$(dirname "$0")"/start.js

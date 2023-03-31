@@ -13,7 +13,7 @@ process.on("unhandledRejection", err => {
 });
 
 // Ensure environment variables are read.
-require("../config/env");
+require("./config/env");
 
 const fs = require("fs");
 const path = require("path");
@@ -22,9 +22,9 @@ const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
 var forkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
-const paths = require("../config/paths");
-const webpackConfig = require("../config/webpack.config");
-const createDevServerConfig = require("../config/webpackDevServer.config");
+const paths = require("./config/paths");
+const webpackConfig = require("./config/webpack.config");
+const createDevServerConfig = require("./config/webpackDevServer.config");
 
 // Tools like Cloud9 rely on this.
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -71,8 +71,8 @@ compiler.hooks.done.tap("done", async stats => {
   }
   console.log("Compiled successfully!");
   console.log(
-    `In browser open http://${prettyHost}:${port}`
-      + ` or http://${allowedLanHost}:${port}`,
+    `In browser open http://${prettyHost}:${port}` +
+      ` or http://${allowedLanHost}:${port}`,
   );
 });
 
@@ -112,8 +112,8 @@ const proxyConfig = [
     },
     onError: (/*err*/ {code}, /*req*/ {headers, url}, res) => {
       const msg =
-        `Couldn't proxy request ${url}`
-        + ` from ${headers?.host} to ${proxy} (${code})`;
+        `Couldn't proxy request ${url}` +
+        ` from ${headers?.host} to ${proxy} (${code})`;
       console.log(msg);
       console.log(
         "See https://nodejs.org/api/errors.html#errors_common_system_errors\n",
