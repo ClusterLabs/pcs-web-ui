@@ -6,7 +6,6 @@ const {createHash} = require("crypto");
 
 const webpack = require("webpack");
 const resolve = require("resolve");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -342,13 +341,6 @@ module.exports = (
     ].filter(Boolean),
   },
   plugins: [
-    // Generates an `index.html` file with the <script> injected.
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appBuildHtml,
-      templateParameters: {publicPath},
-      minify: false,
-    }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV is set to production
