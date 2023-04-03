@@ -76,19 +76,22 @@ restore_node_modules() {
 	fi
 }
 
+build_use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
+build_for_cockpit=${BUILD_FOR_COCKPIT:-"false"}
+
 node_modules=$(get_path "appNodeModules")
 node_modules_backup="${node_modules}.build-backup"
 build_dir=$(get_path "appBuild")
 
 prepare_node_modules \
-	"$BUILD_USE_CURRENT_NODE_MODULES" \
+	"$build_use_current_node_modules" \
 	"$node_modules" \
 	"$node_modules_backup"
 
 prepare_build_dir "$build_dir" "$(get_path "appPublic")"
 
 prepare_for_environment \
-	"${BUILD_FOR_COCKPIT:-false}" \
+	"${build_for_cockpit}" \
 	"$build_dir"/index.html \
 	"$build_dir"/manifest.json \
 	"$build_dir"/manifestCockpit.json \
@@ -99,10 +102,8 @@ prepare_for_environment \
 node "$(dirname "$0")"/build.js
 
 restore_node_modules \
-	"$BUILD_USE_CURRENT_NODE_MODULES" \
+	"$build_use_current_node_modules" \
 	"$node_modules" \
 	"$node_modules_backup"
 
-# shellcheck disable=SC1090
-echo ""
-. "$(dirname "$0")/get-build-sizes.sh"
+printf "\n%s\n" "$("$(dirname "$0")/get-build-sizes.sh")"
