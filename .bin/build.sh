@@ -2,7 +2,7 @@
 
 # load scripts: get_path
 # shellcheck disable=SC1090
-. "$(dirname "$0")/tools.sh"
+. "$(dirname "$0")"/tools.sh
 
 prepare_node_modules() {
 	use_current_node_modules=$1
