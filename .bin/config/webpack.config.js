@@ -146,6 +146,7 @@ module.exports = (
             ascii_only: true,
           },
         },
+        extractComments: false,
       }),
       // This is only used in production mode
       new CssMinimizerPlugin(),
