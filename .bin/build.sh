@@ -147,7 +147,7 @@ fix_asset_paths "$build_dir"/index.html "." \
 	static/js \
 	static/css \
 	manifest.json \
-	images/favicon.png
+	static/media/favicon.png
 
 minimize_adapter "$build_dir"/static/js/adapter.js
 
