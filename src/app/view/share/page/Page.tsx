@@ -8,6 +8,8 @@ import * as Notification from "./notification";
 import {BackgroundImage} from "./BackgroundImage";
 import {Header} from "./Header";
 
+const {showMasthead} = pcsUiEnvAdapter;
+
 type NotificationList = ReturnType<typeof selectors.getNotifications>;
 
 export const Page = ({
@@ -26,7 +28,7 @@ export const Page = ({
     <>
       <BackgroundImage />
       <PfPage
-        header={<Header />}
+        header={showMasthead && <Header />}
         notificationDrawer={
           <Notification.Drawer
             notificationList={notificationList}

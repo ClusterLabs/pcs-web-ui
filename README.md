@@ -30,5 +30,15 @@ Pacemaker configuration tool.
 ## Building and installation
 
 * `make build`
+  - you can use `BUILD_USE_CURRENT_NODE_MODULES=true make build` if correct node
+    modules already exists
 * production build is created inside `build` directory
 * content of `build` directory copy to `pcsd/public/ui/` directory
+
+### Building and installation for cockpit
+
+* `BUILD_FOR_COCKPIT=true make build`
+* production build is created inside `build` directory
+* content of `build` directory copy (or symlink) to the path where cockpit will find it, e.g.
+  - `mkdir -p ~/.local/share/cockpit`
+  - `ln -snf "$PWD"/build ~/.local/share/cockpit/ha-cluster`

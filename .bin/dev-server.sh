@@ -1,64 +1,23 @@
 #!/bin/sh
 
-NAME=$0
-SCENARIO_DIR=$1
-SCENARIO_NAME=$2
+# Dev server will be started on this HOST and PORT
+export HOST="${HOST:-0.0.0.0}"
+export PORT="${PORT:-3000}"
+# Dev server proxifies backend requests to PCSD_DEV_BACKEND.
+export PCSD_DEV_BACKEND="${PCSD_DEV_BACKEND:-http://localhost:5000}"
+# Dev server uses ALLOWED_HOST for preventing remotes to access local content.
+# The logic (originally js using npm module "address") is extracted from CRA.
+export ALLOWED_HOST="${ALLOWED_HOST:-$(ip addr show |
+	grep 'inet ' |
+	grep -vE 'inet 127' |
+	head -n1 |
+	awk '{print $2}' |
+	sed 's|/.*||')}"
 
-usage() {
-	echo "Usage: $NAME scenario-directory [scenario]" >&2
-	echo "Example: $NAME src/dev/scenarios login" >&2
-}
-
-run() {
-	SCENARIO_NAME_SELECTED="$1"
-	DEV_CONFIG=".dev/cluster-test-conf.sh"
-	if [ -f "$DEV_CONFIG" ]; then
-		# shellcheck disable=SC1090
-		. "$DEV_CONFIG"
-	fi
-	npx ts-node-dev \
-		-r tsconfig-paths/register \
-		-r esm \
-		--respawn \
-		--transpile-only \
-		--rs \
-		"$SCENARIO_DIR/$SCENARIO_NAME_SELECTED"
-}
-
-list_scenarios() {
-	find "$1" -type f -iname "*.ts" -printf '%f\n' | sed 's/\.ts$//1' | sort
-}
-
-if [ "$#" -lt 1 ]; then
-	usage
+if lsof -i :"$PORT" >/dev/null; then
+	printf "Port %s is occupied.\n\n" "$PORT"
+	lsof -i :"$PORT"
 	exit 1
 fi
 
-if [ ! -d "$SCENARIO_DIR" ]; then
-	echo "Scenario directory '${SCENARIO_DIR}' does not exist!"
-	usage
-	exit 1
-fi
-
-if [ "$#" -eq 2 ]; then
-	SCENARIO_FILE_NAME="$SCENARIO_NAME.ts"
-	SCENARIO="$SCENARIO_DIR/$SCENARIO_FILE_NAME"
-	if [ ! -f "$SCENARIO" ]; then
-		echo "Scenario '${SCENARIO}' does not exist!"
-		echo "Please use one of scenarios inside '${SCENARIO_DIR}':"
-		list_scenarios "$SCENARIO_DIR"
-		exit 1
-	fi
-	run "$SCENARIO_FILE_NAME"
-	exit 0
-fi
-
-if ! [ -x "$(command -v fzf)" ]; then
-	usage
-	echo "Please use one of scenarios inside '${SCENARIO_DIR}':"
-	list_scenarios "$SCENARIO_DIR"
-	echo "Tip: install fzf. Then you get an interactive offer of scenarios."
-	exit 1
-fi
-
-run "$(list_scenarios "$SCENARIO_DIR" | fzf)"
+node "$(dirname "$0")"/start.js

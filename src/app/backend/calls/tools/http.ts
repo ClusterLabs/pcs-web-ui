@@ -3,6 +3,17 @@ import * as t from "io-ts";
 import * as result from "./result";
 import * as validate from "./validate";
 
+const request = (
+  path: string,
+  headers: Record<string, string> = {},
+  postBody?: string,
+) =>
+  pcsUiEnvAdapter.request(
+    path,
+    {"X-Requested-With": "XMLHttpRequest", ...headers}, // added ajax header
+    postBody,
+  );
+
 type PayloadValidation<PAYLOAD, O, I> =
   | {shape: t.Type<PAYLOAD, O, I>}
   | {validate: (_payload: ReturnType<typeof JSON.parse>) => string[]};
@@ -32,26 +43,6 @@ const httpParams = (params: HttpParams): string =>
     .map(p => `${encodeURIComponent(p[0])}=${encodeURIComponent(p[1])}`)
     .join("&");
 
-const ajaxHeaders = {"X-Requested-With": "XMLHttpRequest"};
-
-const httpGet = async (url: string, params: HttpParams) =>
-  fetch(params.length > 0 ? `${url}?${httpParams(params)}` : url, {
-    headers: ajaxHeaders,
-  });
-
-const httpPost = async (url: string, opts: PostData) => {
-  const headers = {
-    ...ajaxHeaders,
-    "Content-Type": `application/${
-      "params" in opts ? "x-www-form-urlencoded;charset=UTF-8" : "json"
-    }`,
-  };
-  const body =
-    "params" in opts ? httpParams(opts.params) : JSON.stringify(opts.payload);
-
-  return fetch(url, {method: "post", headers, body});
-};
-
 function validatePayload<PAYLOAD, O, I>(
   payload: PAYLOAD,
   payloadValidation: PayloadValidation<PAYLOAD, O, I>,
@@ -62,7 +53,7 @@ function validatePayload<PAYLOAD, O, I>(
 }
 
 async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
-  response: Response,
+  response: ReturnType<typeof request> extends Promise<infer U> ? U : never,
   validationOpts?: ValidationOpts<OUT, PAYLOAD, O, I>,
 ): Promise<ApiResult<OUT, PAYLOAD>> {
   type AR = ApiResult<OUT, PAYLOAD>;
@@ -70,9 +61,9 @@ async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
     return {type: "UNAUTHORIZED"} as AR;
   }
 
-  const text = await response.text();
+  const text = response.text;
 
-  if (!response.ok) {
+  if (response.status < 200 || response.status > 299) {
     return {
       type: "BAD_HTTP_STATUS",
       status: response.status,
@@ -121,7 +112,11 @@ export async function get<PAYLOAD, O, I>(
     | {params?: HttpParams} = {params: []},
 ) {
   return processHttpResponse(
-    await httpGet(url, opts.params || []),
+    await request(
+      opts.params && opts.params.length > 0
+        ? `${url}?${httpParams(opts.params)}`
+        : url,
+    ),
     getValidationOpts(opts),
   );
 }
@@ -133,10 +128,17 @@ export async function post<PAYLOAD, O, I>(
   },
 ) {
   return processHttpResponse(
-    await httpPost(
-      url,
-      "params" in opts ? {params: opts.params} : {payload: opts.payload},
-    ),
+    "params" in opts
+      ? await request(
+          url,
+          {"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"},
+          httpParams(opts.params),
+        )
+      : await request(
+          url,
+          {"Content-Type": "application/json"},
+          JSON.stringify(opts.payload),
+        ),
     getValidationOpts(opts),
   );
 }

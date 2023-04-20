@@ -1,0 +1,10 @@
+{
+  "version": 0,
+
+  "tools": {
+    "ha-cluster": {
+      "label": "HA Cluster Management",
+      "path": "index.html"
+    }
+  }
+}
