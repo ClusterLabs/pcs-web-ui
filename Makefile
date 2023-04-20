@@ -15,24 +15,13 @@ ifndef TEST
 	TEST=""
 endif
 
-ifndef BUILD_USE_EXISTING_NODE_MODULES
-	BUILD_USE_EXISTING_NODE_MODULES=false
-endif
-
 app:
 	@./.bin/check-assumptions.sh
 	@./.bin/dev-server.sh
 
 build:
 	@./.bin/check-assumptions.sh
-ifeq ($(BUILD_USE_EXISTING_NODE_MODULES), false)
 	@./.bin/build.sh
-else
-	@echo "Depracated: Instad of" \
-		"'make build BUILD_USE_EXISTING_NODE_MODULES=true'" \
-		"use 'BUILD_USE_CURRENT_NODE_MODULES=true make build'"
-	@BUILD_USE_CURRENT_NODE_MODULES=true ./.bin/build.sh
-endif
 
 
 # prepare tarball with node modules that are necessary to build the application
