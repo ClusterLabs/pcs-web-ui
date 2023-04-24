@@ -151,7 +151,7 @@ adapt_for_environment \
 	manifestCockpit.json \
 	static/js/adapter.js \
 	static/js/adapterCockpit.js \
-	"/var/run/pcsd.socket"
+	"${PCSD_UINIX_SOCKET:-"/var/run/pcsd.socket"}"
 
 fix_asset_paths "$build_dir"/index.html "." \
 	static/js \
