@@ -43,6 +43,10 @@ prepare_build_dir() {
 }
 
 inject_built_assets() {
+	# There is a tag <script src="static/js/main.js"></script> in index.html.
+	# This function:
+	# * append link to built css after the tag
+	# * change source of the tag to built javascript
 	build_dir=$1
 	html="$build_dir/$2"
 	js_path=$3
@@ -56,17 +60,24 @@ inject_built_assets() {
 		echo "/$path/$(basename "$(ls "$build_dir/$path/$name".*"$ext")")"
 	}
 
-	main_src=$(echo "src=\"/$js_path/$name.js\"" | sed 's#/#\\/#g')
+	# Find script tag by src attribute.
+	script_src=$(echo "src=\"/$js_path/$name.js\"" | sed 's#/#\\/#g')
 
+	# Append css link.
 	css_link="<link href=\"$(make_asset "$css_path" .css)\" rel=\"stylesheet\">"
-	sed --in-place "/$main_src/a \    $css_link" "$html"
+	sed --in-place "/$script_src/a \    $css_link" "$html"
 
-	sed --in-place "s#$main_src#src=\"$(make_asset "$js_path" .js)\"#" "$html"
+	# Set correct correct src.
+	sed --in-place "s#$script_src#src=\"$(make_asset "$js_path" .js)\"#" "$html"
 }
 
 fix_asset_paths() {
+	# All assets in index.html uses absolute path. This function makes them
+	# relative. The index.html is also used by development server which needs
+	# absolute paths. There is no copy/edit phase in development server, so it is
+	# done here.
 	html=$1
-	prefix=$2
+	path_prefix=$2
 	js_path="$3/"
 	css_path="$4/"
 	manifest=$5
@@ -74,7 +85,7 @@ fix_asset_paths() {
 
 	paths="$js_path|$css_path|$manifest|$ico"
 	sed --regexp-extended --in-place \
-		"s#(src|href)=\"/($paths)#\1=\"$prefix/\2#" \
+		"s#(src|href)=\"/($paths)#\1=\"$path_prefix/\2#" \
 		"$html"
 }
 
@@ -86,7 +97,7 @@ minimize_adapter() {
 		--output "$adapter_path"
 }
 
-prepare_for_environment() {
+adapt_for_environment() {
 	for_cockpit=$1
 	build_dir=$2
 	html="$build_dir/$3"
@@ -114,7 +125,6 @@ prepare_for_environment() {
 		rm "$adapter_cockpit"
 		rm "$manifest_cockpit"
 	fi
-
 }
 
 use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
@@ -133,7 +143,7 @@ node "$(dirname "$0")"/build.js
 
 inject_built_assets "$build_dir" index.html static/js static/css main
 
-prepare_for_environment \
+adapt_for_environment \
 	"${BUILD_FOR_COCKPIT:-"false"}" \
 	"$build_dir" \
 	index.html \
