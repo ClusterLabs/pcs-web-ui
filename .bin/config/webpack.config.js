@@ -191,6 +191,9 @@ module.exports = (
           {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
             type: "asset",
+            ...(publicPath.startsWith(".")
+              ? {generator: {publicPath: "../../"}}
+              : {}),
           },
           // Process application JS with Babel. The preset includes JSX, Flow,
           // TypeScript, and some ESnext features.
