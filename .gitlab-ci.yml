@@ -43,7 +43,8 @@ pcsd_integration_test:
     - make init_nexus NEXUS_CERT_PATH="${NEXUS_CERT_PATH}"
     - echo y | npx npm ci
     - echo y | .bin/patch-node-modules-for-fips.sh node_modules
-    - echo y | make build BUILD_USE_EXISTING_NODE_MODULES=true
+    - export BUILD_USE_CURRENT_NODE_MODULES=true
+    - echo y | make build
     - mv ./build /usr/lib64/pcsd/public/ui
     #
     #
