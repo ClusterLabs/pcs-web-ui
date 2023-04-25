@@ -52,7 +52,7 @@ export const Task = () => {
             <WizardFooter
               next={{
                 preAction: () => createSubject(),
-                label: "Create role",
+                label: `Create ${subjectType}`,
               }}
             />
           ),
