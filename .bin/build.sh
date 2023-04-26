@@ -1,8 +1,10 @@
 #!/bin/sh
 
 # load scripts: get_path
-# shellcheck disable=SC1090
+# shellcheck source=./tools.sh
 . "$(dirname "$0")"/tools.sh
+# shellcheck source=./get-build-sizes.sh
+. "$(dirname "$0")"/get-build-sizes.sh
 
 prepare_node_modules() {
 	use_current_node_modules=$1
@@ -130,22 +132,22 @@ adapt_for_environment() {
 use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
 node_modules=$(get_path "appNodeModules")
 node_modules_backup="${node_modules}.build-backup"
-build_dir=$(get_path "appBuild")
+export BUILD_DIR="${BUILD_DIR:-$(realpath "$(dirname "$0")"/../build)}"
 
 prepare_node_modules \
 	"$use_current_node_modules" \
 	"$node_modules" \
 	"$node_modules_backup"
 
-prepare_build_dir "$build_dir" "$(get_path "appPublic")"
+prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
 
 node "$(dirname "$0")"/build.js
 
-inject_built_assets "$build_dir" index.html static/js static/css main
+inject_built_assets "$BUILD_DIR" index.html static/js static/css main
 
 adapt_for_environment \
 	"${BUILD_FOR_COCKPIT:-"false"}" \
-	"$build_dir" \
+	"$BUILD_DIR" \
 	index.html \
 	manifest.json \
 	manifestCockpit.json \
@@ -153,17 +155,17 @@ adapt_for_environment \
 	static/js/adapterCockpit.js \
 	"${PCSD_UINIX_SOCKET:-"/var/run/pcsd.socket"}"
 
-fix_asset_paths "$build_dir"/index.html "." \
+fix_asset_paths "$BUILD_DIR"/index.html "." \
 	static/js \
 	static/css \
 	manifest.json \
 	static/media/favicon.png
 
-minimize_adapter "$build_dir"/static/js/adapter.js
+minimize_adapter "$BUILD_DIR"/static/js/adapter.js
 
 restore_node_modules \
 	"$use_current_node_modules" \
 	"$node_modules" \
 	"$node_modules_backup"
 
-printf "\n%s\n" "$("$(dirname "$0")/get-build-sizes.sh")"
+printf "\n%s\n" "$(print_bundle_sizes "$BUILD_DIR")"

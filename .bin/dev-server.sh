@@ -20,4 +20,7 @@ if lsof -i :"$PORT" >/dev/null; then
 	exit 1
 fi
 
+BUILD_DIR=$(realpath "$(dirname "$0")"/../build)
+export BUILD_DIR
+
 node "$(dirname "$0")"/start.js

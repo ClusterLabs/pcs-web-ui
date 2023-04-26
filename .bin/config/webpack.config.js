@@ -40,6 +40,11 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 
 const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === "true";
 const disableESLintPlugin = process.env.DISABLE_ESLINT_PLUGIN === "true";
+const buildDir = process.env.BUILD_DIR;
+
+if (!buildDir) {
+  throw new Error("Required environment variable BUILD_DIR is not set");
+}
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -65,7 +70,9 @@ module.exports = (
   entry: paths.appIndexJs,
   // Where to emit the bundles it creates and how to name these files.
   output: {
-    path: paths.appBuild,
+    // Place to write generated assets. No files are written in the case of dev
+    // server if it is not explicitly set by `writeToDisk` option.
+    path: buildDir,
     // Include comments in bundles with info about the contained modules.
     pathinfo: !isProduction,
     // There will be one main bundle, and one file per asynchronous chunk.
