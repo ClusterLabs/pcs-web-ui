@@ -369,11 +369,11 @@ module.exports = (
     }),
     // Experimental hot reloading for React .
     // https://github.com/facebook/react/tree/main/packages/react-refresh
-    !isProduction && new ReactRefreshWebpackPlugin({overlay: false}),
+    new ReactRefreshWebpackPlugin({overlay: false}),
     // Watcher doesn't work well if you mistype casing in a path so we use
     // a plugin that prints an error when you attempt to do this.
     // See https://github.com/facebook/create-react-app/issues/240
-    !isProduction && new CaseSensitivePathsPlugin(),
+    new CaseSensitivePathsPlugin(),
     isProduction &&
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output

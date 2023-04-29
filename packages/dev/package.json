@@ -1,0 +1,10 @@
+{
+  "name": "pcs-web-ui-dev-tools",
+  "version": "0.1.16",
+  "private": true,
+  "dependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "webpack-dev-server": "^4.6.0"
+  }
+}

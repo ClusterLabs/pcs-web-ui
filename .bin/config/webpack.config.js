@@ -6,12 +6,10 @@ const {createHash} = require("crypto");
 
 const webpack = require("webpack");
 const resolve = require("resolve");
-const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const paths = require("./paths");
@@ -366,13 +364,6 @@ module.exports = (
         {},
       ),
     }),
-    // Experimental hot reloading for React .
-    // https://github.com/facebook/react/tree/main/packages/react-refresh
-    !isProduction && new ReactRefreshWebpackPlugin({overlay: false}),
-    // Watcher doesn't work well if you mistype casing in a path so we use
-    // a plugin that prints an error when you attempt to do this.
-    // See https://github.com/facebook/create-react-app/issues/240
-    !isProduction && new CaseSensitivePathsPlugin(),
     isProduction &&
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
