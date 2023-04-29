@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
 
-const paths = require("./paths");
+const paths = require("../../../../.bin/config/paths");
 
 const host = process.env.HOST || "0.0.0.0";
 const sockHost = process.env.WDS_SOCKET_HOST;
@@ -121,9 +121,9 @@ module.exports = function (proxy, allowedHost, publicPath = "/") {
         ).toString("base64");
 
         res.end(
-          source.source()
-            + `\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,${base64Src}`
-            + `\n//# sourceURL=webpack-internal:///${module.id}`,
+          source.source() +
+            `\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,${base64Src}` +
+            `\n//# sourceURL=webpack-internal:///${module.id}`,
         );
       });
 

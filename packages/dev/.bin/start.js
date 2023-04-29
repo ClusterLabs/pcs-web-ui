@@ -22,7 +22,7 @@ const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
 var forkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
-const paths = require("./config/paths");
+const paths = require("../../../.bin/config/paths");
 const webpackConfig = require("./config/webpack.config");
 const createDevServerConfig = require("./config/webpackDevServer.config");
 
