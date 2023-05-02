@@ -1,7 +1,7 @@
 {
   "appPath": "packages/app/.",
-  "appPublic": "public",
-  "appHtml": "public/index.html",
+  "appPublic": "packages/app/public",
+  "appHtml": "packages/app/public/index.html",
   "appIndexJs": "packages/app/src/index.tsx",
   "appPackageJson": "package.json",
   "appSrc": "packages/app/src",
