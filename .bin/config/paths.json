@@ -1,11 +1,11 @@
 {
-  "appPath": ".",
+  "appPath": "packages/app/.",
   "appPublic": "public",
   "appHtml": "public/index.html",
-  "appIndexJs": "src/index.tsx",
+  "appIndexJs": "packages/app/src/index.tsx",
   "appPackageJson": "package.json",
-  "appSrc": "src",
-  "appTsConfig": "tsconfig.json",
+  "appSrc": "packages/app/src",
+  "appTsConfig": "packages/app/tsconfig.json",
   "appNodeModules": "node_modules",
   "appWebpackCache": "node_modules/.cache",
   "appTsBuildInfoFile": "node_modules/.cache/tsconfig.tsbuildinfo"

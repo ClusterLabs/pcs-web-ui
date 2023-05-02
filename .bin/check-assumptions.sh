@@ -18,7 +18,7 @@ for f in $required_files; do
 	fi
 done
 
-ts_base_url=$(query_json tsconfig.json "compilerOptions.baseUrl")
+ts_base_url=$(query_json packages/app/tsconfig.json "compilerOptions.baseUrl")
 base_url=$(get_path "appSrc")
 
 if [ "$ts_base_url" != "$base_url" ]; then

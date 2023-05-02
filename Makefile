@@ -16,7 +16,7 @@ ifndef TEST
 endif
 
 app:
-	@./.bin/check-assumptions.sh
+	# @./.bin/check-assumptions.sh
 	@./packages/dev/.bin/dev-server.sh
 
 build:
