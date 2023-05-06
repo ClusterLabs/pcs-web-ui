@@ -4,15 +4,14 @@
 const path = require("path");
 const {createHash} = require("crypto");
 
-const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
-const paths = require("../../../../.bin/config/paths");
-const plugins = require("../../../app/.bin/config/webpack.plugins");
-const rules = require("../../../app/.bin/config/webpack.rules");
+const paths = require("./paths");
 const env = require("./env");
+
+const plugins = require("./webpack.plugins");
+const rules = require("./webpack.rules");
 
 const hash = createHash("sha256");
 hash.update(JSON.stringify(env));
@@ -22,7 +21,6 @@ const envHash = hash.digest("hex");
 // source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 
-const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === "true";
 const buildDir = process.env.BUILD_DIR;
 
 if (!buildDir) {
@@ -32,18 +30,15 @@ if (!buildDir) {
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = (
-  {publicPath, enableProfiling} = {
-    publicPath: "/",
-    enableProfiling: false,
-  },
+  {publicPath, enableProfiling} = {publicPath: "/", enableProfiling: false},
 ) => ({
   target: ["browserslist"],
   // Webpack noise constrained to errors and warnings
   stats: "errors-warnings",
-  mode: "development",
+  mode: "production",
   // Stop compilation early in production
-  bail: false,
-  devtool: "cheap-module-source-map",
+  bail: true,
+  devtool: shouldUseSourceMap ? "source-map" : false,
   // An entry point indicates which module webpack should use to begin
   entry: paths.appIndexJs,
   // Where to emit the bundles it creates and how to name these files.
@@ -52,19 +47,21 @@ module.exports = (
     // server if it is not explicitly set by `writeToDisk` option.
     path: buildDir,
     // Include comments in bundles with info about the contained modules.
-    pathinfo: true,
+    pathinfo: false,
     // There will be one main bundle, and one file per asynchronous chunk.
     // In development, it does not produce real files.
-    filename: "static/js/[name].js",
+    filename: "static/js/[name].[contenthash:8].js",
     // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: "static/js/[name].chunk.js",
+    chunkFilename: "static/js/[name].[contenthash:8].chunk.js",
     assetModuleFilename: "static/media/[name].[hash][ext]",
     // To determine where the app is being served from. It requires a trailing
     // slash, or the file assets will get an incorrect path.
     publicPath,
     // Point sourcemap entries to original disk location.
     devtoolModuleFilenameTemplate: info =>
-      path.resolve(info.absoluteResourcePath).replace(/\\/g, "/"),
+      path
+        .relative(paths.appSrc, info.absoluteResourcePath)
+        .replace(/\\/g, "/"),
   },
   cache: {
     type: "filesystem",
@@ -81,7 +78,7 @@ module.exports = (
     level: "none",
   },
   optimization: {
-    minimize: false,
+    minimize: true,
     minimizer: [
       // This is only used in production mode
       new TerserPlugin({
@@ -113,8 +110,8 @@ module.exports = (
             safari10: true,
           },
           // Added for profiling in devtools
-          keep_classnames: enableProfiling,
-          keep_fnames: enableProfiling,
+          keep_classnames: true,
+          keep_fnames: true,
           output: {
             ecma: 5,
             comments: false,
@@ -163,18 +160,24 @@ module.exports = (
         // Only the first matching is used when the it matches. When no match
         // it will fall back to the "file" loader at the end of the loaders.
         oneOf: [
-          rules.images(),
-          rules.scripts({
-            plugins: [require.resolve("react-refresh/babel")],
-            compact: false,
-          }),
+          rules.images(
+            publicPath.startsWith(".")
+              ? {generator: {publicPath: "../../"}}
+              : {},
+          ),
+          rules.scripts(),
           rules.outsideScripts({
             sourceMaps: shouldUseSourceMap,
             inputSourceMap: shouldUseSourceMap,
           }),
           rules.css({
-            styleLoader: require.resolve("style-loader"),
-            sourceMap: true,
+            // css is located in `static/css`, use '../../' to locate
+            // index.html folder in production `publicPath` can be a
+            // relative path
+            defaultStyleLoaderOptions: publicPath.startsWith(".")
+              ? {publicPath: "../../"}
+              : {},
+            sourceMap: shouldUseSourceMap,
           }),
           rules.fallback,
         ],
@@ -183,19 +186,13 @@ module.exports = (
   },
   plugins: [
     plugins.environmentVariables,
-    // Experimental hot reloading for React .
-    // https://github.com/facebook/react/tree/main/packages/react-refresh
-    new ReactRefreshWebpackPlugin({overlay: false}),
-    // Watcher doesn't work well if you mistype casing in a path so we use
-    // a plugin that prints an error when you attempt to do this.
-    // See https://github.com/facebook/create-react-app/issues/240
-    new CaseSensitivePathsPlugin(),
+    plugins.miniCssExtract,
     plugins.forkTsChecker({
-      async: true,
-      sourceMap: true,
+      async: false,
+      sourceMap: shouldUseSourceMap,
     }),
-    plugins.eslint({failOnError: !emitErrorsAsWarnings}),
-  ],
+    plugins.eslint({failOnError: true}),
+  ].filter(Boolean),
   // Turn off performance processing because we utilize
   // our own hints via the FileSizeReporter
   performance: false,

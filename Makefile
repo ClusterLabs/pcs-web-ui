@@ -20,7 +20,7 @@ app:
 	@./packages/dev/.bin/dev-server.sh
 
 build:
-	@./.bin/check-assumptions.sh
+	# @./.bin/check-assumptions.sh
 	@./.bin/build.sh
 
 

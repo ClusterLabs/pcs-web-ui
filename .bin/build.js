@@ -17,7 +17,7 @@ require("./config/env");
 
 const webpack = require("webpack");
 
-const webpackConfig = require("./config/webpack.config");
+const webpackConfig = require("../packages/app/.bin/config/webpack.config");
 
 const postcssSuffix = err =>
   Object.prototype.hasOwnProperty.call(err, "postcssNode")
@@ -26,7 +26,6 @@ const postcssSuffix = err =>
 
 webpack(
   webpackConfig({
-    isProduction: true,
     // webpack needs to know it to put the right <script> hrefs into HTML even
     // in single-page apps that may serve index.html for nested URLs like
     // /todos/42. We can't use a relative path in HTML because we don't want
