@@ -12,8 +12,9 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
+const appConfigPath = "../../app/.bin/config";
 // Ensure environment variables are read.
-require("./config/env");
+require(`${appConfigPath}/env`);
 
 const fs = require("fs");
 const path = require("path");

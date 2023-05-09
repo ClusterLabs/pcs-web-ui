@@ -110,8 +110,8 @@ module.exports = (
             safari10: true,
           },
           // Added for profiling in devtools
-          keep_classnames: true,
-          keep_fnames: true,
+          keep_classnames: enableProfiling,
+          keep_fnames: enableProfiling,
           output: {
             ecma: 5,
             comments: false,
@@ -149,13 +149,7 @@ module.exports = (
     strictExportPresence: true,
 
     rules: [
-      // Handle node_modules packages that contain sourcemaps
-      shouldUseSourceMap && {
-        enforce: "pre",
-        exclude: /@babel(?:\/|\\{1,2})runtime/,
-        test: /\.(js|jsx|ts|tsx|css)$/,
-        loader: require.resolve("source-map-loader"),
-      },
+      shouldUseSourceMap && rules.sourceMaps,
       {
         // Only the first matching is used when the it matches. When no match
         // it will fall back to the "file" loader at the end of the loaders.
@@ -182,17 +176,14 @@ module.exports = (
           rules.fallback,
         ],
       },
-    ].filter(Boolean),
+    ],
   },
   plugins: [
     plugins.environmentVariables,
     plugins.miniCssExtract,
-    plugins.forkTsChecker({
-      async: false,
-      sourceMap: shouldUseSourceMap,
-    }),
+    plugins.forkTsChecker({async: false, sourceMap: shouldUseSourceMap}),
     plugins.eslint({failOnError: true}),
-  ].filter(Boolean),
+  ],
   // Turn off performance processing because we utilize
   // our own hints via the FileSizeReporter
   performance: false,

@@ -5,6 +5,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const paths = require("./paths");
 
 module.exports = {
+  // Handle node_modules packages that contain sourcemaps
+  sourceMaps: {
+    enforce: "pre",
+    exclude: /@babel(?:\/|\\{1,2})runtime/,
+    test: /\.(js|jsx|ts|tsx|css)$/,
+    loader: require.resolve("source-map-loader"),
+  },
+
   // "url" loader works like "file" loader except that it embeds
   // assets smaller than specified limit in bytes as data URLs to
   // avoid requests. A missing `test` is equivalent to a match.
@@ -16,7 +24,7 @@ module.exports = {
 
   // Process application JS with Babel. The preset includes JSX, Flow,
   // TypeScript, and some ESnext features.
-  scripts: ({plugins = [], compact = true}) => ({
+  scripts: ({plugins, compact} = {plugins: [], compact: true}) => ({
     test: /\.(js|jsx|ts|tsx)$/,
     include: paths.appSrc,
     loader: require.resolve("babel-loader"),
@@ -127,7 +135,7 @@ module.exports = {
           sourceMap,
         },
       },
-    ].filter(Boolean),
+    ],
     // Don't consider CSS imports dead code even if the
     // containing package claims to have no side effects.
     // Remove this when webpack adds a warning or an error for this.
