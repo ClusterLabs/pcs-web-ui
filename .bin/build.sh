@@ -147,7 +147,8 @@ prepare_node_modules \
 
 prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
 
-node "$(dirname "$0")"/build.js
+app_dir=$(realpath "$(dirname "$0")"/../packages/app)
+node "$app_dir"/.bin/build.js
 
 inject_built_assets "$BUILD_DIR" index.html static/js static/css main
 

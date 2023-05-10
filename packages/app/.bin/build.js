@@ -12,13 +12,12 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
-const appConfigPath = "../packages/app/.bin/config";
 // Ensure environment variables are read.
-require(`${appConfigPath}/env`);
+require("./config/env");
 
 const webpack = require("webpack");
 
-const webpackConfig = require(`${appConfigPath}/webpack.config`);
+const webpackConfig = require("./config/webpack.config");
 
 const postcssSuffix = err =>
   Object.prototype.hasOwnProperty.call(err, "postcssNode")
