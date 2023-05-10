@@ -140,7 +140,7 @@ use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
 url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
 node_modules=$(get_path "appNodeModules")
 node_modules_backup="${node_modules}.build-backup"
-export BUILD_DIR="${BUILD_DIR:-$(realpath "$(dirname "$0")"/../build)}"
+export BUILD_DIR="${BUILD_DIR:-"$(pwd)"/build}"
 
 prepare_node_modules \
 	"$use_current_node_modules" \
@@ -149,8 +149,7 @@ prepare_node_modules \
 
 prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
 
-app_dir=$(realpath "$(dirname "$0")"/../packages/app)
-node "$app_dir"/.bin/build.js
+node "$(dirname "$0")"/build.js
 
 inject_built_assets "$BUILD_DIR" index.html static/js static/css main
 
@@ -170,7 +169,7 @@ fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
 	manifest.json \
 	static/media/favicon.png
 
-minimize_adapter "$app_dir" "$BUILD_DIR"/static/js/adapter.js
+minimize_adapter "$node_modules" "$BUILD_DIR"/static/js/adapter.js
 
 restore_node_modules \
 	"$use_current_node_modules" \

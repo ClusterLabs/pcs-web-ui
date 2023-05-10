@@ -16,12 +16,12 @@ ifndef TEST
 endif
 
 app:
-	# @./.bin/check-assumptions.sh
+	@./packages/app/.bin/check-assumptions.sh
 	@./packages/dev/.bin/dev-server.sh
 
 build:
-	# @./.bin/check-assumptions.sh
-	@./.bin/build.sh
+	@./packages/app/.bin/check-assumptions.sh
+	@./packages/app/.bin/build.sh
 
 
 # prepare tarball with node modules that are necessary to build the application
