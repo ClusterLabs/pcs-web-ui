@@ -97,9 +97,11 @@ fix_asset_paths() {
 }
 
 minimize_adapter() {
-	adapter_path=$1
+	npm_prefix=$1
+	adapter_path=$2
 
-	npx terser "$adapter_path" \
+	npm exec --prefix "$npm_prefix" -- \
+		terser "$adapter_path" \
 		--compress ecma=5,warnings=false,comparisons=false,inline=2 \
 		--output "$adapter_path"
 }
@@ -168,7 +170,7 @@ fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
 	manifest.json \
 	static/media/favicon.png
 
-minimize_adapter "$BUILD_DIR"/static/js/adapter.js
+minimize_adapter "$app_dir" "$BUILD_DIR"/static/js/adapter.js
 
 restore_node_modules \
 	"$use_current_node_modules" \
