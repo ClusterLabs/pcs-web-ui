@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable import/no-extraneous-dependencies */
-
 const path = require("path");
 const {createHash} = require("crypto");
 
@@ -9,7 +6,6 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const paths = require("./paths");
 const env = require("./env");
-
 const plugins = require("./webpack.plugins");
 const rules = require("./webpack.rules");
 

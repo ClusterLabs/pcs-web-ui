@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 const path = require("path");
+
 const resolve = require("resolve");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -84,7 +83,7 @@ module.exports = {
         ],
         exclude: [{file: "**/src/**/?(*.){spec|test}.*"}],
       },
-      // TODO - why `infrastructure: "silent"` stopped to work in development mode?
+      // TODO - why `infrastructure: "silent"` stopped to work in dev mode?
       logger: console,
       // logger: {
       //   infrastructure: "silent",

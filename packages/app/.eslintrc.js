@@ -17,6 +17,9 @@ module.exports = {
     "plugin:jest-playwright/recommended",
     "plugin:react-hooks/recommended",
   ],
+  // ESlint default behaviour ignores file/folders starting with "."
+  // https://github.com/eslint/eslint/issues/10341
+  ignorePatterns: ["!.bin*", "node_modules"],
   rules: {
     // specify whether double or single quotes should be used
     quotes: ["error", "double", {avoidEscape: true}],
@@ -277,6 +280,14 @@ module.exports = {
       files: ["src/react-app-env.d.ts"],
       rules: {
         "spaced-comment": "off",
+      },
+    },
+    {
+      files: [".bin/**/*.{js,ts,tsx}"],
+      rules: {
+        // Commonjs requires are used, for now...
+        "@typescript-eslint/no-var-requires": "off",
+        "import/no-extraneous-dependencies": ["error", {devDependencies: true}],
       },
     },
     {
