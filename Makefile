@@ -104,4 +104,8 @@ endif
 
 install: build _install
 
+npm_install:
+	npm --prefix=packages/app install
+	npm --prefix=packages/dev install
+
 .PHONY: test build
