@@ -1,12 +1,13 @@
 #!/bin/sh
 
 name=$0
-scenario_dir=$1
-scenario_name=$2
+
+dev_root_dir=$(realpath "$(dirname "$0")"/..)
+scenario_dir="$dev_root_dir"/src/dev/scenarios
 
 usage() {
-	echo "Usage: $name scenario-directory [scenario]" >&2
-	echo "Example: $name src/dev/scenarios login" >&2
+	echo "Usage: $name" >&2
+	echo "Example: PCSD_SCENARIO=login $name" >&2
 }
 
 run() {
@@ -29,19 +30,8 @@ list_scenarios() {
 	find "$1" -type f -iname "*.ts" -printf '%f\n' | sed 's/\.ts$//1' | sort
 }
 
-if [ "$#" -lt 1 ]; then
-	usage
-	exit 1
-fi
-
-if [ ! -d "$scenario_dir" ]; then
-	echo "Scenario directory '${scenario_dir}' does not exist!"
-	usage
-	exit 1
-fi
-
-if [ "$#" -eq 2 ]; then
-	scenario_file_name="$scenario_name.ts"
+if [ -n "$PCSD_SCENARIO" ]; then
+	scenario_file_name="$PCSD_SCENARIO.ts"
 	scenario="$scenario_dir/$scenario_file_name"
 	if [ ! -f "$scenario" ]; then
 		echo "Scenario '${scenario}' does not exist!"

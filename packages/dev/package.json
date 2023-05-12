@@ -1,5 +1,5 @@
 {
-  "name": "pcs-web-ui-dev-tools",
+  "name": "pcs-web-ui-dev",
   "version": "0.1.16",
   "private": true,
   "dependencies": {

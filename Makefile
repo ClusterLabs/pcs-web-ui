@@ -36,11 +36,7 @@ pack-modules:
 
 
 dev:
-ifdef SCENARIO
-	@./.bin/dev-backend.sh $(SCENARIOS_DIR) $(SCENARIO)
-else
-	@./.bin/dev-backend.sh $(SCENARIOS_DIR)
-endif
+	@cd ./packages/dev-backend && .bin/dev-backend.sh
 
 
 #unit tests
@@ -105,7 +101,11 @@ endif
 install: build _install
 
 npm_install:
-	npm --prefix=packages/app install
-	npm --prefix=packages/dev install
+	@printf "%s\n" "----- app -----"
+	@npm --prefix=packages/app install
+	@printf "\n%s\n" "----- dev -----"
+	@npm --prefix=packages/dev install
+	@printf "\n%s\n" "----- dev-backend -----"
+	@npm --prefix=packages/dev-backend install
 
 .PHONY: test build

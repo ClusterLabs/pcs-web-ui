@@ -5,6 +5,7 @@ import express, {Express, Request, Response} from "express";
 
 // import endpoints from "app/backend/calls";
 import {LibClusterCommands, endpoints} from "app/backend/endpoints";
+// import {endpoints} from "app";
 
 const parserUrlEncoded = express.urlencoded({extended: false});
 const parserJson = express.json();
@@ -51,8 +52,8 @@ const delayed =
   (req, res) => {
     setTimeout(
       () => handler(req, res),
-      getDelay(process.env.DELAY, 100)
-        + Math.floor(getDelay(process.env.DELAY_RND, 100) * Math.random()),
+      getDelay(process.env.DELAY, 100) +
+        Math.floor(getDelay(process.env.DELAY_RND, 100) * Math.random()),
     );
   };
 
