@@ -6,6 +6,9 @@ usage() {
 	echo "  -c      config file; will be watched and sourced before each run" 1>&2
 }
 
+dev_dir=$(realpath "$(dirname "$0")"/../../../.dev)
+dev_config="$dev_dir"/cluster-test-conf.sh
+
 run_jest=$(dirname "$0")/run-jest.sh
 run_cluster_tests=false
 
@@ -54,7 +57,7 @@ if [ -x "$(command -v inotifywait)" ]; then
 	run
 	while inotifywait -r -e MODIFY -e CREATE -e MOVE -e DELETE \
 		src/ \
-		.dev/ \
+		"$dev_dir"/ \
 		"$dev_config" \
 		; do
 		run

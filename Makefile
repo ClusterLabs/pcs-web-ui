@@ -45,13 +45,13 @@ testu:
 
 #end2end tests
 teste:
-	@./.bin/run-dev-tests.sh -c ./.dev/cluster-test-conf.sh
+	@cd ./packages/test && .bin/run-dev-tests.sh
 
 testc:
-	@./.bin/run-dev-tests.sh -t cluster -c ./.dev/cluster-test-conf.sh
+	@cd ./packages/test && .bin/run-dev-tests.sh -t cluster
 
 ci-cluster-test:
-	@./.bin/run-jest.sh -s -p src/test/clusterBackend
+	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/clusterBackend
 
 clean:
 	rm -rf build
@@ -107,5 +107,7 @@ npm_install:
 	@npm --prefix=packages/dev install
 	@printf "\n%s\n" "----- dev-backend -----"
 	@npm --prefix=packages/dev-backend install
+	@printf "\n%s\n" "----- test -----"
+	@npm --prefix=packages/test install
 
 .PHONY: test build
