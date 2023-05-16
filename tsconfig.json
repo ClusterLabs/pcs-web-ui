@@ -1,3 +1,0 @@
-{
-  "extends": ["./packages/app/tsconfig", "./packages/dev-backend/tsconfig"]
-}
