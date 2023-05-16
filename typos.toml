@@ -1,2 +1,6 @@
 [files]                                                                                                                                                                                                                                                                                                                                                                     
-extend-exclude = ["package-lock.json", "src/dev/responses/resourceAgentListWithoutDescribe.ts", "src/app/backend/endpoints/lib/cluster/libCluster.ts"] 
+extend-exclude = [
+  "package-lock.json",
+  "packages/dev-backend/src/dev/responses/resourceAgentListWithoutDescribe.ts",
+  "packages/app/src/app/backend/endpoints/lib/cluster/libCluster.ts"
+] 
