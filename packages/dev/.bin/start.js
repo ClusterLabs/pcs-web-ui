@@ -69,8 +69,8 @@ compiler.hooks.done.tap("done", async stats => {
   }
   console.log("Compiled successfully!");
   console.log(
-    `In browser open http://${prettyHost}:${port}` +
-      ` or http://${allowedLanHost}:${port}`,
+    `In browser open http://${prettyHost}:${port}`
+      + ` or http://${allowedLanHost}:${port}`,
   );
 });
 
@@ -110,8 +110,8 @@ const proxyConfig = [
     },
     onError: (/*err*/ {code}, /*req*/ {headers, url}, res) => {
       const msg =
-        `Couldn't proxy request ${url}` +
-        ` from ${headers?.host} to ${proxy} (${code})`;
+        `Couldn't proxy request ${url}`
+        + ` from ${headers?.host} to ${proxy} (${code})`;
       console.log(msg);
       console.log(
         "See https://nodejs.org/api/errors.html#errors_common_system_errors\n",
