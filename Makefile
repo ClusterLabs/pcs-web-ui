@@ -61,8 +61,7 @@ init_nexus:
 ifeq ($(NEXUS_CERT_PATH),"")
 	echo "Specify path of nexus certificate, please"
 else
-	echo "registry="${NEXUS} > .npmrc
-	echo cafile=${NEXUS_CERT_PATH} >> .npmrc
+	@.bin/init_nexus.sh ./packages ${NEXUS} ${NEXUS_CERT_PATH}
 endif
 
 
@@ -70,17 +69,10 @@ endif
 init:
 ifeq ($(NEXUS_REPO),true)
 	@echo "Use \`make init NEXUS_REPO=false\` not to use the Nexus repo."
-	@read -p "Specify path to a Nexus repo certificate: " cert; \
-	echo "registry="${NEXUS} > .npmrc; \
-	echo cafile=$$cert >> .npmrc
-	@cp .githooks/pre-commit .git/hooks/pre-commit
+	@.bin/init.sh ${NEXUS}
 else
 	@echo "If you will need reinit with the Nexus repo run \`make init\`"
-endif
-	@npm install
-ifeq ($(NEXUS_REPO),true)
-	@sed -i \
-	"s#repository.engineering.redhat.com/nexus/repository/##g" package-lock.json
+	@.bin/init.sh
 endif
 
 lint:
@@ -101,13 +93,6 @@ endif
 install: build _install
 
 npm_install:
-	@printf "%s\n" "----- app -----"
-	@npm --prefix=packages/app install
-	@printf "\n%s\n" "----- dev -----"
-	@npm --prefix=packages/dev install
-	@printf "\n%s\n" "----- dev-backend -----"
-	@npm --prefix=packages/dev-backend install
-	@printf "\n%s\n" "----- test -----"
-	@npm --prefix=packages/test install
+	@.bin/npm_install.sh ./packages
 
 .PHONY: test build
