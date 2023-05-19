@@ -142,6 +142,12 @@ node_modules=$(get_path "appNodeModules")
 node_modules_backup="${node_modules}.build-backup"
 export BUILD_DIR="${BUILD_DIR:-"$(pwd)"/build}"
 
+if [ "$use_current_node_modules" = "true" ] && [ ! -d "$node_modules" ]; then
+	echo "Current node modules should be used but directory $node_modules does" \
+		"not exist"
+	exit 1
+fi
+
 prepare_node_modules \
 	"$use_current_node_modules" \
 	"$node_modules" \
