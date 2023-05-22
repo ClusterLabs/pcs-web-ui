@@ -1,234 +1,38 @@
+const restrictedGlobals = require("confusing-browser-globals");
+
+const useImportMessage =
+  "Please use import() instead. More info: "
+  + "https://facebook.github.io/create-react-app/docs/code-splitting";
+
 module.exports = {
-  root: true,
-  parser: "@typescript-eslint/parser",
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react", "react-hooks", "jsx-a11y"],
+  parserOptions: {ecmaFeatures: {jsx: true}},
   env: {
     browser: true,
-    jest: true,
     es6: true,
     node: true,
   },
   extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
+    "./.eslintrc.common.js",
+    "./.eslintrc.import.js",
     "plugin:react/recommended",
-    "react-app",
-    "plugin:jest-playwright/recommended",
     "plugin:react-hooks/recommended",
   ],
-  // ESlint default behaviour ignores file/folders starting with "."
-  // https://github.com/eslint/eslint/issues/10341
-  ignorePatterns: ["!.bin*", "node_modules"],
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
   rules: {
-    // specify whether double or single quotes should be used
-    quotes: ["error", "double", {avoidEscape: true}],
-
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": "warn",
-    "no-unused-vars": [
+    "no-restricted-properties": [
       "error",
-      {
-        argsIgnorePattern: "^(dummy|_)",
-        varsIgnorePattern: "^_",
-        ignoreRestSiblings: true,
-      },
+      {object: "require", property: "ensure", message: useImportMessage},
+      {object: "System", property: "import", message: useImportMessage},
     ],
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        argsIgnorePattern: "^(dummy|_)",
-        varsIgnorePattern: "^_",
-        ignoreRestSiblings: true,
-      },
-    ],
+    "no-restricted-globals": ["error"].concat(restrictedGlobals),
 
-    // ensure imports point to files/modules that can be resolved
-    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unresolved.md
-    "import/no-unresolved": ["off", {commonjs: true, caseSensitive: true}],
-    "import/prefer-default-export": "off",
-    "no-underscore-dangle": "off",
-    "no-multiple-empty-lines": "error",
-    "lines-between-class-members": "off",
-    // It creates messy diff when there is need to switch from => ( to => {
-    "arrow-body-style": "off",
-    "arrow-parens": ["error", "as-needed"],
-    "function-paren-newline": "off",
-    "object-curly-newline": "off",
-
-    "computed-property-spacing": ["error", "never"],
-    "object-curly-spacing": ["error", "never"],
-    "array-bracket-spacing": ["error", "never"],
-
-    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
-    // "import/extensions": [2, { "js": "always", "jsx": "always" }],
-    "import/extensions": ["error", "never", {packages: "always"}],
-    "import/newline-after-import": "error",
-    "import/no-useless-path-segments": [
-      "error",
-      {
-        noUselessIndex: true,
-      },
-    ],
-    "import/no-cycle": "error",
-    "react/jsx-curly-newline": "off",
-    "react/react-in-jsx-scope": "off",
-    "react/no-unescaped-entities": [
-      "error",
-      {
-        forbid: [
-          {
-            char: ">",
-            alternatives: ["&gt;"],
-          },
-          {
-            char: "}",
-            alternatives: ["&#125;"],
-          },
-          {
-            char: '"',
-            alternatives: ["&quot;", "&ldquo;", "&#34;", "&rdquo;"],
-          },
-        ],
-      },
-    ],
-    "sort-imports": [
-      "error",
-      {
-        ignoreCase: false,
-        ignoreDeclarationSort: true,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
-      },
-    ],
-
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        devDependencies: [
-          "**/test/*.js",
-          "src/dev/**/*.js",
-          "src/dev/**/*.ts",
-          "src/test/**/*.js",
-          "src/test/**/*.ts",
-        ],
-      },
-    ],
-
-    "import/order": [
-      "error",
-      {
-        groups: [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "object",
-        ],
-        pathGroups: [
-          {
-            pattern: "app/**",
-            group: "external",
-            position: "after",
-          },
-          {
-            pattern: "dev/**",
-            group: "external",
-            position: "after",
-          },
-          {
-            pattern: "test/**",
-            group: "external",
-            position: "after",
-          },
-        ],
-        pathGroupsExcludedImportTypes: ["builtin"],
-        "newlines-between": "always",
-      },
-    ],
-    "import/no-anonymous-default-export": "off",
-
-    // specify the maximum length of a line in your program
-    // https://eslint.org/docs/rules/max-len
-    "max-len": [
-      "error",
-      80,
-      2,
-      {
-        ignoreUrls: true,
-        ignoreComments: false,
-        ignoreRegExpLiterals: true,
-        ignoreStrings: true,
-        ignoreTemplateLiterals: true,
-      },
-    ],
-
-    // Enforce location of semicolons
-    // https://eslint.org/docs/rules/semi-style
-    "semi-style": "off",
-    semi: ["error", "always"],
-    "@typescript-eslint/semi": ["error", "always"],
-    "@typescript-eslint/member-delimiter-style": [
-      "error",
-      {
-        multiline: {
-          delimiter: "semi",
-          requireLast: true,
-        },
-        singleline: {
-          delimiter: "semi",
-          requireLast: false,
-        },
-        multilineDetection: "brackets",
-      },
-    ],
-    "implicit-arrow-linebreak": "off",
-
-    "comma-style": [
-      2,
-      "first",
-      {exceptions: {ArrayExpression: true, ObjectExpression: true}},
-    ],
-    // note you must disable the base rule as it can report incorrect errors
-    "comma-dangle": [
-      "error",
-      {
-        arrays: "always-multiline",
-        objects: "always-multiline",
-        imports: "always-multiline",
-        exports: "always-multiline",
-        functions: "always-multiline",
-      },
-    ],
-    "@typescript-eslint/comma-dangle": [
-      "error",
-      {
-        arrays: "always-multiline",
-        objects: "always-multiline",
-        imports: "always-multiline",
-        exports: "always-multiline",
-        functions: "always-multiline",
-        enums: "always-multiline",
-        generics: "always-multiline",
-        tuples: "always-multiline",
-      },
-    ],
-
-    // disallow use of the continue statement
-    // https://eslint.org/docs/rules/no-continue
-    "no-continue": "off",
-
-    // only .jsx files may have JSX
-    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
-    "react/jsx-filename-extension": [
-      "error",
-      {extensions: [".jsx", ".js", ".tsx"]},
-    ],
-
-    // TODO start check it when flow arrive
-    "react/prop-types": "off",
+    // https://github.com/yannickcr/eslint-plugin-react/tree/master/docs/rules
+    "react/forbid-foreign-prop-types": ["warn", {allowInPropTypes: true}],
     "react/jsx-wrap-multilines": [
       "error",
       {
@@ -241,63 +45,56 @@ module.exports = {
         prop: "ignore",
       },
     ],
-
-    // disallow use of unary operators, ++ and --
-    // https://eslint.org/docs/rules/no-plusplus
-    "no-plusplus": "off",
-    "no-restricted-syntax": [
+    "react/jsx-filename-extension": ["error", {extensions: [".tsx"]}],
+    "react/jsx-no-comment-textnodes": "warn",
+    "react/jsx-no-duplicate-props": "warn",
+    "react/jsx-no-target-blank": "warn",
+    "react/jsx-no-undef": "error",
+    "react/no-unescaped-entities": [
       "error",
-      "ForInStatement",
-      "LabeledStatement",
-      "WithStatement",
-    ],
-
-    // Requires operator at the beginning of the line in multiline statements
-    // https://eslint.org/docs/rules/operator-linebreak
-    "operator-linebreak": [
-      "error",
-      "before",
       {
-        overrides: {
-          "=": "ignore",
-          // "&&": "ignore",
-          // "||": "ignore",
-        },
+        forbid: [
+          {char: ">", alternatives: ["&gt;"]},
+          {char: "}", alternatives: ["&#125;"]},
+          {char: '"', alternatives: ["&quot;", "&ldquo;", "&#34;", "&rdquo;"]},
+        ],
       },
     ],
-    "jsx-a11y/label-has-for": "off",
-    "jsx-a11y/label-has-associated-control": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "react/jsx-pascal-case": ["warn", {allowAllCaps: true, ignore: []}],
+    "react/no-danger-with-children": "warn",
+    "react/no-direct-mutation-state": "warn",
+    "react/no-is-mounted": "warn",
+    "react/no-typos": "error",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-render-return": "error",
+    "react/style-prop-object": "warn",
+
+    // https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
+
+    // https://github.com/evcohen/eslint-plugin-jsx-a11y/tree/master/docs/rules
+    "jsx-a11y/alt-text": "warn",
+    "jsx-a11y/anchor-has-content": "warn",
+    "jsx-a11y/anchor-is-valid": ["warn", {aspects: ["noHref", "invalidHref"]}],
+    "jsx-a11y/aria-activedescendant-has-tabindex": "warn",
+    "jsx-a11y/aria-props": "warn",
+    "jsx-a11y/aria-proptypes": "warn",
+    "jsx-a11y/aria-role": ["warn", {ignoreNonDOM: true}],
+    "jsx-a11y/aria-unsupported-elements": "warn",
+    "jsx-a11y/heading-has-content": "warn",
+    "jsx-a11y/iframe-has-title": "warn",
+    "jsx-a11y/img-redundant-alt": "warn",
+    "jsx-a11y/no-access-key": "warn",
+    "jsx-a11y/no-distracting-elements": "warn",
+    "jsx-a11y/no-redundant-roles": "warn",
+    "jsx-a11y/role-has-required-aria-props": "warn",
+    "jsx-a11y/role-supports-aria-props": "warn",
+    "jsx-a11y/scope": "warn",
   },
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    loggerFn: false,
-  },
+
   overrides: [
-    {
-      files: ["src/react-app-env.d.ts"],
-      rules: {
-        "spaced-comment": "off",
-      },
-    },
-    {
-      files: [".bin/**/*.{js,ts,tsx}"],
-      rules: {
-        // Commonjs requires are used, for now...
-        "@typescript-eslint/no-var-requires": "off",
-        "import/no-extraneous-dependencies": ["error", {devDependencies: true}],
-      },
-    },
-    {
-      files: ["src/dev/**/*.{js,ts,tsx}", "src/test/**/*.{js,ts,tsx}"],
-      rules: {
-        "@typescript-eslint/no-var-requires": "off",
-        camelcase: "off",
-        "@typescript-eslint/camelcase": "off",
-      },
-    },
     {
       files: ["src/app/backend/**/*.{js,ts,tsx}"],
       rules: {
@@ -307,16 +104,28 @@ module.exports = {
       },
     },
     {
-      files: [
-        // Explicit funtion return type for generators is not required.
-        "src/app/store/sagas/**/*.{js,ts,tsx}",
-        // TODO Exclude ts files from here (i.e. apply the rule). Don't use the
-        // rule for tsx - we don't want to write React.FC<Props> for each
-        // component.
-        "src/**/*.{js,tsx,ts}",
-      ],
+      files: [".bin/**/*.js"],
+      env: {
+        commonjs: true,
+        es6: true,
+        node: true,
+      },
+      parserOptions: {
+        sourceType: "script",
+      },
       rules: {
-        "@typescript-eslint/explicit-function-return-type": "off",
+        camelcase: "off",
+        "@typescript-eslint/camelcase": "off",
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
+    {
+      files: [".eslintrc.js"],
+      env: {
+        commonjs: true,
+      },
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
       },
     },
   ],

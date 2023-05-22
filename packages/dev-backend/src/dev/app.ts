@@ -52,8 +52,8 @@ const delayed =
   (req, res) => {
     setTimeout(
       () => handler(req, res),
-      getDelay(process.env.DELAY, 100) +
-        Math.floor(getDelay(process.env.DELAY_RND, 100) * Math.random()),
+      getDelay(process.env.DELAY, 100)
+        + Math.floor(getDelay(process.env.DELAY_RND, 100) * Math.random()),
     );
   };
 

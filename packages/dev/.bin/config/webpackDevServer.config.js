@@ -116,9 +116,9 @@ module.exports = function (proxy, allowedHost, staticDir, publicPath = "/") {
         ).toString("base64");
 
         res.end(
-          source.source() +
-            `\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,${base64Src}` +
-            `\n//# sourceURL=webpack-internal:///${module.id}`,
+          source.source()
+            + `\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,${base64Src}`
+            + `\n//# sourceURL=webpack-internal:///${module.id}`,
         );
       });
 

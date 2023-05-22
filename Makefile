@@ -76,7 +76,7 @@ else
 endif
 
 lint:
-	npx eslint --fix --ext .js,.ts,.tsx src/
+	@.bin/lint.sh ./packages
 
 fmt:
 	npx prettier "src/" --write

@@ -1,11 +1,16 @@
 module.exports = {
-  // parserOptions: {
-  //   ecmaVersion: "latest",
-  // },
-  //
-  // env: {
-  //   es6: true,
-  // },
-
-  extends: ["../app/.eslintrc.js"],
+  extends: ["../app/.eslintrc.common.js"],
+  env: {
+    commonjs: true,
+    es6: true,
+    node: true,
+  },
+  parserOptions: {
+    sourceType: "script",
+  },
+  rules: {
+    camelcase: "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-var-requires": "off",
+  },
 };
