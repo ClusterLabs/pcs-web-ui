@@ -7,7 +7,11 @@ import {EnsureLogin} from "./login";
 import {AppRouter} from "./AppRouter";
 import "./App.css";
 
-export const App = ({store = setupStore()}) => (
+export const App = ({
+  store = setupStore(),
+}: {
+  store: ReturnType<typeof setupStore>;
+}) => (
   <Provider store={store}>
     <EnsureLogin>
       <Router base="/ui">

@@ -6,7 +6,6 @@ module.exports = {
     "import/extensions": ["error", "never", {packages: "always"}],
     "import/newline-after-import": "error",
     "import/no-amd": "error",
-    "import/no-anonymous-default-export": "off",
     "import/no-cycle": "error",
     "import/no-extraneous-dependencies": "error",
     "import/no-webpack-loader-syntax": "error",

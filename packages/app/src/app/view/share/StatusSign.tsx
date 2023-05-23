@@ -6,7 +6,8 @@ export const StatusSign = ({
   status,
   label = "",
   showOkIco = false,
-}: React.ComponentProps<typeof StatusIco> & {
+}: {
+  status: React.ComponentProps<typeof StatusIco>["status"];
   label?: string | React.ReactNode;
   showOkIco?: boolean;
 }) => (
