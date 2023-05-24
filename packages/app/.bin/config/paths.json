@@ -3,7 +3,6 @@
   "appPublic": "public",
   "appHtml": "public/index.html",
   "appIndexJs": "src/index.tsx",
-  "appPackageJson": "package.json",
   "appSrc": "src",
   "appTsConfig": "tsconfig.json",
   "appNodeModules": "node_modules",
