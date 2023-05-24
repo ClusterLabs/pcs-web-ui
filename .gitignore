@@ -4,11 +4,6 @@
 /node_modules
 /packages/*/node_modules
 
-# testing
-/coverage
-/src/app/scenes/*/test/recordings/
-/src/test/tools/recordings/
-
 # production
 /build
 
