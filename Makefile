@@ -1,7 +1,5 @@
 NEXUS="https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
-LAST_COMMIT_HASH=$(shell git rev-parse HEAD)
-
-SCENARIOS_DIR=src/dev/scenarios/
+CURRENT_DIR=$(shell pwd)
 
 ifndef NEXUS_REPO
 	NEXUS_REPO=true
@@ -9,10 +7,6 @@ endif
 
 ifndef NEXUS_CERT_PATH
 	NEXUS_CERT_PATH=""
-endif
-
-ifndef TEST
-	TEST=""
 endif
 
 app:
@@ -23,25 +17,13 @@ build:
 	@./packages/app/.bin/check-assumptions.sh
 	@./packages/app/.bin/build.sh
 
-
 # prepare tarball with node modules that are necessary to build the application
 pack-modules:
-	if [ -d "node_modules" ]; then mv node_modules node_modules.backup; fi
-	npx npm ci
-	@./.bin/patch-node-modules-for-fips.sh ./node_modules
-	tar -Jcf pcs-web-ui-node-modules-${LAST_COMMIT_HASH}.tar.xz node_modules
-	rm -r node_modules
-	if [ -d "node_modules.backup" ]; then mv node_modules.backup node_modules; fi
-	ls -l *.tar.xz
-
+	@cd ./packages/app && .bin/pack-modules.sh ${CURRENT_DIR}
+	@ls -l ./*.tar.xz
 
 dev:
 	@cd ./packages/dev-backend && .bin/dev-backend.sh
-
-
-#unit tests
-testu:
-	npx jest --watch --config=jest.config.js --testPathPattern=src/test/unit/$(TEST)
 
 #end2end tests
 teste:
