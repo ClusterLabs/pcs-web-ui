@@ -10,7 +10,7 @@ import "./App.css";
 export const App = ({
   store = setupStore(),
 }: {
-  store: ReturnType<typeof setupStore>;
+  store?: ReturnType<typeof setupStore>;
 }) => (
   <Provider store={store}>
     <EnsureLogin>
