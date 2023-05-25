@@ -1,0 +1,7 @@
+[*.sh]
+indent_style = space
+indent_size = 2
+
+switch_case_indent = true  # --case-indent
+keep_padding       = true
+space_redirects    = true
