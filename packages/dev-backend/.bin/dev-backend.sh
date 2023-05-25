@@ -4,6 +4,7 @@ name=$0
 
 dev_root_dir=$(realpath "$(dirname "$0")"/..)
 scenario_dir="$dev_root_dir"/src/dev/scenarios
+dev_config="$(realpath "$(dirname "$0")"/../../..)"/.dev/cluster-test-conf.sh
 
 usage() {
 	echo "Usage: $name" >&2
@@ -12,7 +13,6 @@ usage() {
 
 run() {
 	scenario_name_selected="$1"
-	dev_config=".dev/cluster-test-conf.sh"
 	if [ -f "$dev_config" ]; then
 		# shellcheck disable=SC1090
 		. "$dev_config"
