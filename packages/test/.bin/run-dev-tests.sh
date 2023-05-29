@@ -1,36 +1,13 @@
 #!/bin/sh
 
-usage() {
-  cat << END_OF_USAGE
-Usage: $0 [ -t <mocked|standalone|cockpit>] [ -c <path>]
-  -t      test type: mocked (default) or with real cluster: standalone or
-          cockpit
-  -c      config file; will be watched and sourced before each run
-END_OF_USAGE
-}
-
+package_dir=$(realpath "$(dirname "$0")"/../..)
 dev_dir=$(realpath "$(dirname "$0")"/../../../.dev)
 dev_config="$dev_dir"/cluster-test-conf.sh
 
 run_jest=$(dirname "$0")/run-jest.sh
-test_type="mocked"
-
-while getopts c:t: name; do
-  case $name in
-    c)
-      dev_config=${OPTARG}
-      ;;
-    t)
-      test_type=${OPTARG}
-      ;;
-    *)
-      usage
-      exit 1
-      ;;
-  esac
-done
-
-echo Launching jest, please wait for a while...
+if [ -z ${PCS_WUI_TEST_TYPE+x} ]; then
+  export PCS_WUI_TEST_TYPE="mocked"
+fi
 
 scenes_path_pattern() {
   scenes=src/test/scenes
@@ -48,15 +25,13 @@ run() {
     . "$dev_config"
   fi
 
-  case "$test_type" in
-    standalone)
-      "$run_jest" -s -p src/test/clusterBackend
-      ;;
-    cockpit)
-      "$run_jest" -s -p src/test/cockpitBackend
+  echo Launching "$PCS_WUI_TEST_TYPE" tests
+  case "$PCS_WUI_TEST_TYPE" in
+    mocked)
+      "$run_jest" -p "$(scenes_path_pattern)"
       ;;
     *)
-      "$run_jest" -p "$(scenes_path_pattern)"
+      "$run_jest" -s -p src/test/realBackend
       ;;
   esac
 }
@@ -64,7 +39,9 @@ run() {
 if [ -x "$(command -v inotifywait)" ]; then
   run
   while inotifywait -r -e MODIFY -e CREATE -e MOVE -e DELETE \
-    src/ \
+    "$package_dir"/app/src/ \
+    "$package_dir"/dev-backend/src/ \
+    "$package_dir"/test/src/ \
     "$dev_dir"/ \
     "$dev_config" \
     ; do

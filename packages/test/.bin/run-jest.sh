@@ -24,6 +24,7 @@ while getopts p:s name; do
   esac
 done
 
+echo Launching jest, please wait for a while...
 npx jest \
   --config=jest.config.js \
   --runInBand="$run_in_band" \

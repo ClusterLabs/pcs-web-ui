@@ -25,18 +25,11 @@ pack-modules:
 dev:
 	@cd ./packages/dev-backend && .bin/dev-backend.sh
 
-#end2end tests
-teste:
+test:
 	@cd ./packages/test && .bin/run-dev-tests.sh
 
-testc:
-	@cd ./packages/test && .bin/run-dev-tests.sh -t standalone
-
-testc-cockpit:
-	@cd ./packages/test && .bin/run-dev-tests.sh -t cockpit
-
 ci-cluster-test:
-	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/clusterBackend
+	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/realBackend
 
 clean:
 	rm -rf build
