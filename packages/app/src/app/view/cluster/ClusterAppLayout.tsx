@@ -28,19 +28,21 @@ export const ClusterAppLayout = <TAB_NAME extends string>({
   tabList,
   tabNameMap,
   children,
+  "data-test": dataTest,
 }: {
   clusterName: string;
   statusLabel: React.ComponentProps<typeof ClusterStatusLabel>["status"];
   tabList: readonly TAB_NAME[];
   tabNameMap: Partial<Record<TAB_NAME, string>>;
   children: (_currentTab: TAB_NAME) => React.ReactNode;
+  "data-test"?: string;
 }) => {
   const {currentTab, matchedContext} = useUrlTabs(tabList);
   const dispatch = useDispatch();
   const {navigate} = useLocation();
 
   return (
-    <Page>
+    <Page data-test={dataTest}>
       {notifications => (
         <>
           <PageSection variant="light">

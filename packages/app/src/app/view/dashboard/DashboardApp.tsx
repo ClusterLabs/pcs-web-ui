@@ -8,6 +8,7 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
+import {dataTest} from "app/view/dataTest";
 import {selectors} from "app/store";
 import {
   Page,
@@ -42,7 +43,7 @@ export const DashboardApp = () => {
   const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
 
   return (
-    <Page>
+    <Page data-test={dataTest("dashboard")}>
       {notifications => (
         <>
           <PageSection variant="light">

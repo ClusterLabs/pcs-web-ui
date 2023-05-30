@@ -14,12 +14,14 @@ type NotificationList = ReturnType<typeof selectors.getNotifications>;
 
 export const Page = ({
   children,
+  "data-test": dataTest,
 }: {
   children: (_notificationProps: {
     list: NotificationList;
     isDrawerOpen: boolean;
     setDrawerOpen: (_isDrawerOpen: boolean) => void;
   }) => React.ReactNode;
+  "data-test"?: string;
 }) => {
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
   const notificationList = useSelector(selectors.getNotifications);
@@ -36,6 +38,7 @@ export const Page = ({
           />
         }
         isNotificationDrawerExpanded={isDrawerOpen}
+        data-test={dataTest}
       >
         {children({list: notificationList, isDrawerOpen, setDrawerOpen})}
       </PfPage>
