@@ -1,6 +1,10 @@
 const structure = {
   "cluster-detail": {},
   dashboard: {
+    toolbar: {
+      "setup-cluster": {},
+      "add-existing-cluster": {},
+    },
     "cluster-list": {},
   },
 };

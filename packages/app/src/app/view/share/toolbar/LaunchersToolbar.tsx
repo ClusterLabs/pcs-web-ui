@@ -12,15 +12,17 @@ export const LaunchersToolbar = ({
   dropdownItems = [],
   before,
   after,
+  "data-test": dataTest,
 }: {
   toolbarName: string;
   buttonsItems?: LauncherItem[];
   dropdownItems?: LauncherItem[];
   before?: React.ReactNode;
   after?: React.ReactNode;
+  "data-test"?: string;
 }) => {
   return (
-    <Toolbar style={{padding: "0"}}>
+    <Toolbar style={{padding: "0"}} data-test={dataTest}>
       <ToolbarContent style={{padding: "0"}}>
         {before}
         {buttonsItems.length > 0 && (

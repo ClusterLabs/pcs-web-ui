@@ -1,3 +1,4 @@
+import {dataTest} from "app/view/dataTest";
 import {LaunchersToolbar} from "app/view/share";
 
 import * as task from "./task";
@@ -22,6 +23,7 @@ export const DashboardToolbar = () => {
           },
         },
       ]}
+      data-test={dataTest("dashboard.toolbar")}
     />
   );
 };
