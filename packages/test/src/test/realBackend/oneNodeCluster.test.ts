@@ -1,7 +1,5 @@
 import {Path} from "app/view/dataTest";
 
-export const dt = (...dataTests: string[]): string =>
-  "//*" + dataTests.map(value => `[@data-test="${value}"]`).join("//*");
 const dataTest = (path: Path) =>
   "//*"
   + path
