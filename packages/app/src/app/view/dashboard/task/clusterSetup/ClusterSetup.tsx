@@ -1,3 +1,4 @@
+import {dataTest} from "app/view/dataTest";
 import {
   NodeAuthWizardFooter,
   TaskFinishLibWizard,
@@ -32,7 +33,7 @@ export const ClusterSetup = () => {
     <Wizard
       clusterName={null}
       task="clusterSetup"
-      data-test="task-cluster-setup"
+      data-test={dataTest("dashboard.setup-cluster")}
       title="Setup cluster"
       description="Setup new cluster on nodes"
       onClose={close}

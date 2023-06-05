@@ -20,8 +20,10 @@ describe("Web ui inside cockpit on one node cluster", () => {
 
       // we expect to start with no cluster
       await locator(dataTest("dashboard.cluster-list")).waitFor();
-      await locator(dt("task dashboard-setup-cluster")).click();
-      await locator(dt("task-cluster-setup")).waitFor({state: "visible"});
+      await locator(dataTest("dashboard.toolbar.setup-cluster")).click();
+      await locator(dataTest("dashboard.setup-cluster")).waitFor({
+        state: "visible",
+      });
     },
     testTimeout,
   );

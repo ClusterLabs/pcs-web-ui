@@ -34,6 +34,7 @@ type ItemRun = {
 
 export type LauncherItem = {
   name: string;
+  "data-test"?: string;
   label?: string;
   disabled?: boolean;
   launchDisable?: {

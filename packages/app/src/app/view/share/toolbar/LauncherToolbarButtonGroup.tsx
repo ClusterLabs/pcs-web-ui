@@ -23,7 +23,11 @@ export const LauncherToolbarButtonGroup = ({
                 <Button
                   variant={item.button?.variant ?? "secondary"}
                   onClick={launch}
-                  data-test={`task ${toolbarName}-${item.name}`}
+                  data-test={
+                    "data-test" in item
+                      ? item["data-test"]
+                      : `task ${toolbarName}-${item.name}`
+                  }
                   isDisabled={item.disabled ?? false}
                 >
                   {tools.labelize(item.label || item.name)}

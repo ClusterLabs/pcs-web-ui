@@ -6,6 +6,7 @@ const structure = {
       "add-existing-cluster": {},
     },
     "cluster-list": {},
+    "setup-cluster": {},
   },
 };
 
