@@ -5,7 +5,17 @@ const structure = {
       "setup-cluster": {},
       "add-existing-cluster": {},
     },
-    "cluster-list": {},
+    "cluster-list": {
+      cluster: {
+        name: {},
+        loaded: {
+          issues: {},
+          nodes: {},
+          resources: {},
+          "fence-devices": {},
+        },
+      },
+    },
     "setup-cluster": {},
   },
 };
