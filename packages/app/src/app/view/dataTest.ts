@@ -1,22 +1,22 @@
-const structure = {
-  "cluster-detail": {},
+export const structure = {
+  clusterDetail: {},
   dashboard: {
     toolbar: {
-      "setup-cluster": {},
-      "add-existing-cluster": {},
+      setupCluster: {},
+      addExistingCluster: {},
     },
-    "cluster-list": {
+    clusterList: {
       cluster: {
         name: {},
         loaded: {
           issues: {},
           nodes: {},
           resources: {},
-          "fence-devices": {},
+          fenceDevices: {},
         },
       },
     },
-    "setup-cluster": {},
+    setupCluster: {},
   },
 };
 

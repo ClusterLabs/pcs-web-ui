@@ -38,7 +38,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
       tabList={clusterAppTabList}
       tabNameMap={{sbd: "SBD", acl: "ACL"}}
       statusLabel={clusterInfo.clusterStatus.data?.status ?? "unknown"}
-      data-test={dataTest("cluster-detail")}
+      data-test={dataTest("clusterDetail")}
     >
       {currentTab => {
         if (!clusterInfo.isRegistered) {

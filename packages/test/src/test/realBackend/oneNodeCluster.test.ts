@@ -13,8 +13,8 @@ describe("Web ui inside cockpit on one node cluster", () => {
       // we expect to start with no cluster
       await dashboard.clusterList.assertNamesAre([]);
 
-      await dataTest("dashboard.toolbar.setup-cluster").click();
-      await dataTest("dashboard.setup-cluster").waitFor({state: "visible"});
+      await dataTest("dashboard.toolbar.setupCluster").click();
+      await dataTest("dashboard.setupCluster").waitFor({state: "visible"});
     },
     testTimeout,
   );

@@ -79,7 +79,7 @@ export const DashboardClusterListSorting = ({
     <Table
       isExpandable
       aria-label="Cluster list"
-      data-test={dataTest("dashboard.cluster-list")}
+      data-test={dataTest("dashboard.clusterList")}
     >
       <thead>
         <tr>

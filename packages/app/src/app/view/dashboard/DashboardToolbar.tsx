@@ -10,7 +10,7 @@ export const DashboardToolbar = () => {
       buttonsItems={[
         {
           name: "add-existing-cluster",
-          "data-test": dataTest("dashboard.toolbar.add-existing-cluster"),
+          "data-test": dataTest("dashboard.toolbar.addExistingCluster"),
           task: {
             component: task.importExistingCluster.ImportExistingCluster,
             useTask: task.importExistingCluster.useTask,
@@ -18,7 +18,7 @@ export const DashboardToolbar = () => {
         },
         {
           name: "setup-cluster",
-          "data-test": dataTest("dashboard.toolbar.setup-cluster"),
+          "data-test": dataTest("dashboard.toolbar.setupCluster"),
           task: {
             component: task.clusterSetup.ClusterSetup,
             useTask: task.clusterSetup.useTask,
