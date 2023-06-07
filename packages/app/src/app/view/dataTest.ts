@@ -34,19 +34,4 @@ export const dataTest = (path: Path) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface SubStructure extends Record<string, SubStructure> {}
-
-export const isValidPath = (path: string): path is Path => {
-  let currentSubStructure: SubStructure = structure;
-  const parts = path.split(".");
-
-  for (let i = 0; i < parts.length; i++) {
-    if (!(parts[i] in currentSubStructure)) {
-      return false;
-    }
-    currentSubStructure = currentSubStructure[parts[i]];
-  }
-  return true;
-};
-
-export default structure;
+export interface SubStructure extends Record<string, SubStructure> {}

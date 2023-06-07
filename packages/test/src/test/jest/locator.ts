@@ -1,26 +1,37 @@
 import {Locator, Page} from "playwright";
 
-import {Path} from "app/view/dataTest";
+import {SubStructure, structure as testMarksStructure} from "./dataTest";
 
 type LocatorArgs = Parameters<Page["locator"]>;
+type EnvType = "cockpit" | "standalone";
+type WithLocator<STRUCT extends SubStructure> = {
+  [KEY in keyof STRUCT]: WithLocator<STRUCT[KEY]> & {locator: Locator};
+};
 
-const dataTestToXpath = (path: Path) =>
-  "//*"
-  + path
-    .split(".")
-    .map(value => `[@data-test="${value}"]`)
-    .join("//*");
+const testMarksToXpath = (path: string[]) =>
+  path.map(value => `//*[@data-test="${value}"]`).join("");
 
 export const getLocator =
-  (environmentType: "cockpit" | "standalone") =>
-  (...args: LocatorArgs): Locator => {
-    if (environmentType === "cockpit") {
-      return page.frameLocator('[name$="/ha-cluster"]').locator(...args);
-    }
-    return page.locator(...args);
-  };
+  (envType: EnvType) =>
+  (...args: LocatorArgs): Locator =>
+    envType === "cockpit"
+      ? page.frameLocator('[name$="/ha-cluster"]').locator(...args)
+      : page.locator(...args);
 
-export const getDataTest =
-  (environmentType: "cockpit" | "standalone") =>
-  (path: Path, options: LocatorArgs[1] = undefined) =>
-    getLocator(environmentType)(dataTestToXpath(path), options);
+const addLocators = <STRUCTURE extends SubStructure>(
+  createLocator: (...args: LocatorArgs) => Locator,
+  structure: STRUCTURE,
+  path: string[] = [],
+): WithLocator<STRUCTURE> =>
+  Object.entries(structure).reduce<WithLocator<STRUCTURE>>(
+    (structureWithLocators, [key, subStructure]) => ({
+      ...structureWithLocators,
+      [key]: addLocators(createLocator, subStructure, [...path, key]),
+    }),
+    (path.length > 0
+      ? {locator: createLocator(testMarksToXpath(path))}
+      : {}) as WithLocator<STRUCTURE>,
+  );
+
+export const getApp = (envType: EnvType) =>
+  addLocators(getLocator(envType), testMarksStructure);
