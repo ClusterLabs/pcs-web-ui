@@ -33,7 +33,7 @@ export const ClusterSetup = () => {
     <Wizard
       clusterName={null}
       task="clusterSetup"
-      data-test={dataTest("dashboard.setupCluster")}
+      {...dataTest("dashboard.setupCluster")}
       title="Setup cluster"
       description="Setup new cluster on nodes"
       onClose={close}

@@ -43,7 +43,7 @@ export const DashboardApp = () => {
   const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
 
   return (
-    <Page data-test={dataTest("dashboard")}>
+    <Page {...dataTest("dashboard")}>
       {notifications => (
         <>
           <PageSection variant="light">

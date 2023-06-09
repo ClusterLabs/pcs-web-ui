@@ -28,10 +28,9 @@ type StructurePaths<STRUCTURE extends object> = {
 
 export type Path = StructurePaths<typeof structure>;
 
-export const dataTest = (path: Path) => {
-  const lastIndexOfDot = path.lastIndexOf(".");
-  return lastIndexOfDot === -1 ? path : path.slice(lastIndexOfDot + 1);
-};
+export const dataTest = (path: Path) => ({
+  "data-test": path.slice(path.lastIndexOf(".") + 1),
+});
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubStructure extends Record<string, SubStructure> {}

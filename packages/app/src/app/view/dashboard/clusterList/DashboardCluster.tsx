@@ -21,17 +21,15 @@ export const DashboardCluster = ({
   return (
     <Table.Body
       isExpanded={isExpanded}
-      data-test={dataTest("dashboard.clusterList.cluster")}
+      {...dataTest("dashboard.clusterList.cluster")}
     >
       <tr
         role="row"
-        {...(isLoading
-          ? {}
-          : {"data-test": dataTest("dashboard.clusterList.cluster.loaded")})}
+        {...(isLoading ? {} : dataTest("dashboard.clusterList.cluster.loaded"))}
       >
         <th role="rowheader">
           <Link to={location.cluster({clusterName})}>
-            <strong data-test={dataTest("dashboard.clusterList.cluster.name")}>
+            <strong {...dataTest("dashboard.clusterList.cluster.name")}>
               {clusterName}
             </strong>{" "}
             <ClusterStatusLabel status={status} />
