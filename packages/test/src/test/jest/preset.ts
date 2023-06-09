@@ -7,8 +7,7 @@ declare global {
   /* eslint-disable no-var */
   var page: ReturnType<typeof getPage> extends Promise<infer P> ? P : never;
   var locator: ReturnType<typeof getLocator>;
-  var dashboard: ReturnType<typeof getApp>["dashboard"];
-  var clusterDetail: ReturnType<typeof getApp>["clusterDetail"];
+  var app: ReturnType<typeof getApp>;
   var backend: ReturnType<typeof getBackend>;
   var login: ReturnType<typeof getLogin>;
 }
@@ -21,7 +20,5 @@ export default async () => {
   global.locator = getLocator(environmentType);
   global.backend = getBackend(environmentType);
   global.login = getLogin(environmentType);
-  const app = getApp(environmentType);
-  global.dashboard = app.dashboard;
-  global.clusterDetail = app.clusterDetail;
+  global.app = getApp(environmentType);
 };
