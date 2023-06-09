@@ -1,5 +1,3 @@
-export {};
-
 const testTimeout = parseInt(process.env.PCS_WUI_TEST_TIMEOUT ?? "70000", 10);
 
 const assertImportedClusterNamesAre = async (clusterNameList: string[]) => {
