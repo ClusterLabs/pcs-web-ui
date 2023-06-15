@@ -1,9 +1,10 @@
-import {dataTest} from "app/view/dataTest";
+import {subDataTest} from "app/view/dataTest";
 import {LaunchersToolbar} from "app/view/share";
 
 import * as task from "./task";
 
 export const DashboardToolbar = () => {
+  const dataTest = subDataTest("dashboard.toolbar");
   return (
     <LaunchersToolbar
       toolbarName="dashboard"
@@ -14,7 +15,7 @@ export const DashboardToolbar = () => {
             component: task.importExistingCluster.ImportExistingCluster,
             useTask: task.importExistingCluster.useTask,
           },
-          ...dataTest("dashboard.toolbar.addExistingCluster"),
+          ...dataTest("runAddExistingCluster"),
         },
         {
           name: "setup-cluster",
@@ -22,10 +23,10 @@ export const DashboardToolbar = () => {
             component: task.clusterSetup.ClusterSetup,
             useTask: task.clusterSetup.useTask,
           },
-          ...dataTest("dashboard.toolbar.setupCluster"),
+          ...dataTest("runSetupCluster"),
         },
       ]}
-      {...dataTest("dashboard.toolbar")}
+      {...dataTest(".")}
     />
   );
 };
