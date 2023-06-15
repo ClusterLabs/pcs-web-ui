@@ -1,4 +1,4 @@
-import {subDataTest} from "app/view/dataTest";
+import {testMarks} from "app/view/dataTest";
 import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -12,8 +12,6 @@ import {Transport} from "./Transport";
 import {TransportOptions} from "./TransportOptions";
 import {Quorum} from "./Quorum";
 import {Totem} from "./Totem";
-
-const dataTest = subDataTest("setupCluster");
 
 export const ClusterSetup = () => {
   const {
@@ -32,7 +30,7 @@ export const ClusterSetup = () => {
     <Wizard
       clusterName={null}
       task="clusterSetup"
-      {...dataTest(".")}
+      {...testMarks.setupCluster.mark}
       title="Setup cluster"
       description="Setup new cluster on nodes"
       onClose={close}

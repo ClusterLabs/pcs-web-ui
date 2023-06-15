@@ -1,6 +1,6 @@
 import {PageSection} from "@patternfly/react-core";
 
-import {dataTest} from "app/view/dataTest";
+import {testMarks} from "app/view/dataTest";
 import {EmptyStateError, PageSectionSpinner} from "app/view/share";
 import {ClusterSourcesProvider} from "app/view/cluster/share";
 import {useClusterInfo, useClusterLoad} from "app/view/cluster/share";
@@ -38,7 +38,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
       tabList={clusterAppTabList}
       tabNameMap={{sbd: "SBD", acl: "ACL"}}
       statusLabel={clusterInfo.clusterStatus.data?.status ?? "unknown"}
-      {...dataTest("clusterDetail")}
+      {...testMarks.clusterDetail.mark}
     >
       {currentTab => {
         if (!clusterInfo.isRegistered) {

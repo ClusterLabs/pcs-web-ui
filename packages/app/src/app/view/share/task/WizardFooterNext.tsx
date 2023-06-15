@@ -9,7 +9,7 @@ export const WizardFooterNext = (
   props: {
     disabled?: boolean;
     label?: React.ComponentProps<typeof ButtonWithEnter>["children"];
-    dataTest?: () => {"data-test": string};
+    "data-test"?: string;
   } & ({preAction?: () => void} | {actionIf?: boolean} | {action?: () => void}),
 ) => {
   const {onNext} = React.useContext(WizardContext);
@@ -20,7 +20,7 @@ export const WizardFooterNext = (
         run={onNext}
         runIf={props.actionIf}
         disabled={props.disabled ?? false}
-        dataTest={props.dataTest}
+        data-test={props["data-test"]}
       >
         {props.label ?? "Next"}
       </TaskButtonNextWithValidation>
@@ -43,7 +43,7 @@ export const WizardFooterNext = (
     <ButtonWithEnter
       onClick={action}
       isDisabled={props.disabled ?? false}
-      {...(props.dataTest ? props.dataTest() : {"data-test": "task-next"})}
+      data-test={props["data-test"] ?? "task-next"}
     >
       {props.label ?? "Next"}
     </ButtonWithEnter>

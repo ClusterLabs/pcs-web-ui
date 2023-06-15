@@ -1,7 +1,10 @@
 import React from "react";
 
-import {dataTest} from "app/view/dataTest";
+import {testMarks} from "app/view/dataTest";
 import {ClusterStatusLabel, Link, Table, location} from "app/view/share";
+
+const testMarksCluster = testMarks.dashboard.clusterList.cluster;
+const {loaded, name} = testMarksCluster;
 
 export const DashboardCluster = ({
   clusterName,
@@ -19,19 +22,11 @@ export const DashboardCluster = ({
   expandedContent?: React.ReactNode;
 }) => {
   return (
-    <Table.Body
-      isExpanded={isExpanded}
-      {...dataTest("dashboard.clusterList.cluster")}
-    >
-      <tr
-        role="row"
-        {...(isLoading ? {} : dataTest("dashboard.clusterList.cluster.loaded"))}
-      >
+    <Table.Body isExpanded={isExpanded} {...testMarksCluster.mark}>
+      <tr role="row" {...(isLoading ? {} : loaded.mark)}>
         <th role="rowheader">
           <Link to={location.cluster({clusterName})}>
-            <strong {...dataTest("dashboard.clusterList.cluster.name")}>
-              {clusterName}
-            </strong>{" "}
+            <strong {...name.mark}>{clusterName}</strong>{" "}
             <ClusterStatusLabel status={status} />
           </Link>
         </th>

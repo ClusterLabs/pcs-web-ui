@@ -1,4 +1,4 @@
-import {subDataTest} from "app/view/dataTest";
+import {testMarks} from "app/view/dataTest";
 import {
   TaskButtonBack,
   TaskButtonCancel,
@@ -8,19 +8,19 @@ import {
 
 import {useTask} from "./useTask";
 
-const dataTest = subDataTest("setupCluster.review");
+const {next, back, cancel} = testMarks.setupCluster.review;
 
 export const ReviewFooter = () => {
   const {setupCluster} = useTask();
   return (
-    <TaskFooter dataTest={() => dataTest(".")}>
+    <TaskFooter {...testMarks.setupCluster.review.mark}>
       <WizardFooterNext
         label="Setup cluster"
         preAction={() => setupCluster()}
-        dataTest={() => dataTest("next")}
+        {...next.mark}
       />
-      <TaskButtonBack dataTest={() => dataTest("back")} />
-      <TaskButtonCancel dataTest={() => dataTest("cancel")} />
+      <TaskButtonBack {...back.mark} />
+      <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>
   );
 };

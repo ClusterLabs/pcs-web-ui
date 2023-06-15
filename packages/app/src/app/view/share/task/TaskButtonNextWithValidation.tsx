@@ -3,24 +3,19 @@ import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
 import {useTaskContext} from "./TaskContext";
 
-export const TaskButtonNextWithValidation = ({
-  run,
-  runIf,
-  dataTest,
-  children = "Next",
-  disabled = false,
-}: {
+export const TaskButtonNextWithValidation = (props: {
   run: () => void;
-  dataTest?: () => {"data-test": string};
   runIf?: boolean;
   children?: React.ReactNode;
   disabled?: boolean;
+  "data-test"?: string;
 }) => {
   // Empty cluster name means that it is not in the context of cluster - ie. it
   // is dashboard. To make actions usable for dashboard tasks the key
   // clusterName must be null (so it is not propagated into cluster tasks)
   const {task, clusterName} = useTaskContext();
   const dispatch = useDispatch();
+  const {run, runIf, children, disabled} = props;
   return (
     <ButtonWithEnter
       onClick={() => {
@@ -38,7 +33,7 @@ export const TaskButtonNextWithValidation = ({
         }
       }}
       isDisabled={disabled ?? false}
-      {...(dataTest ? dataTest() : {"data-test": "task-next"})}
+      data-test={props["data-test"] ?? "task-next"}
     >
       {children ?? "Next"}
     </ButtonWithEnter>

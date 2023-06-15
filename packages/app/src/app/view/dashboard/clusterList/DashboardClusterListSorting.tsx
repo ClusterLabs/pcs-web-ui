@@ -1,5 +1,5 @@
 import {Table, compareStatusSeverity} from "app/view/share";
-import {dataTest} from "app/view/dataTest";
+import {testMarks} from "app/view/dataTest";
 
 import {Cluster, ClusterInfo} from "./types";
 import {compareStrings} from "./utils";
@@ -79,7 +79,7 @@ export const DashboardClusterListSorting = ({
     <Table
       isExpandable
       aria-label="Cluster list"
-      {...dataTest("dashboard.clusterList")}
+      {...testMarks.dashboard.clusterList.mark}
     >
       <thead>
         <tr>

@@ -1,7 +1,7 @@
 import {Button, Form} from "@patternfly/react-core";
 import {PlusCircleIcon, TrashIcon} from "@patternfly/react-icons";
 
-import {subDataTest} from "app/view/dataTest";
+import {testMarks} from "app/view/dataTest";
 import {FormGroup, FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -15,13 +15,14 @@ export const NameAndNodes = () => {
     updateClusterName,
     updateNode,
   } = useTask();
-  const dataTest = subDataTest("setupCluster.nameAndNodes");
+  const testMarksForm = testMarks.setupCluster.nameAndNodes;
+  const {node} = testMarksForm;
   return (
     <TaskLibStep
       title="Essential information about cluster"
       reports={allReports}
     >
-      <Form {...dataTest(".")}>
+      <Form {...testMarksForm.mark}>
         <FormText
           id="cluster-name"
           value={clusterName}
@@ -30,14 +31,14 @@ export const NameAndNodes = () => {
           helperTextInvalid="Please provide the cluster name"
           showValidationErrors={showValidationErrors}
           isValid={isClusterNameValid}
-          {...dataTest("clusterName")}
+          {...testMarksForm.clusterName.mark}
         />
 
         <FormGroup label="Node name list" fieldId="node-list">
           <table>
             <tbody>
               {nodeNameList.map((nodeName, i) => (
-                <tr key={i} {...dataTest("node")}>
+                <tr key={i} {...node.mark}>
                   <td className="pf-u-pr-sm pf-u-pb-sm">
                     <FormText
                       id={`node-name-${i}`}
@@ -49,7 +50,7 @@ export const NameAndNodes = () => {
                           ),
                         })
                       }
-                      {...dataTest("node.name")}
+                      {...node.name.mark}
                       {...(i === nodeNameList.length - 1
                         ? {
                             helperTextInvalid:

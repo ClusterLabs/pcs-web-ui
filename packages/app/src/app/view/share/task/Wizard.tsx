@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Wizard as PfWizard,
-  WizardFooter as PfWizardFooter,
   WizardContextConsumer,
   WizardStep,
 } from "@patternfly/react-core";

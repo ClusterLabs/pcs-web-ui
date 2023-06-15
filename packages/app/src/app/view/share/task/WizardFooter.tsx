@@ -4,7 +4,6 @@ import {TaskButtonBack} from "./TaskButtonBack";
 import {TaskButtonCancel} from "./TaskButtonCancel";
 import {TaskButtonReviewAndFinish} from "./TaskButtonReviewAndFinish";
 import {WizardFooterNext} from "./WizardFooterNext";
-import {useTaskContext} from "./TaskContext";
 import {TaskFooter} from "./TaskFooter";
 
 export const WizardFooter = (props: {
@@ -18,18 +17,14 @@ export const WizardFooter = (props: {
   >;
   "data-test"?: string;
 }) => {
-  const {close} = useTaskContext();
-
   return (
-    <TaskFooter
-      dataTest={() => ({"data-test": props["data-test"] ?? "footer"})}
-    >
+    <TaskFooter data-test={props["data-test"] ?? "footer"}>
       <WizardFooterNext {...(props.next ?? {})} />
       <TaskButtonBack {...(props.back ?? {})} />
       {props.reviewAndFinish !== undefined && (
         <TaskButtonReviewAndFinish {...(props.reviewAndFinish ?? {})} />
       )}
-      <TaskButtonCancel onClick={close} {...(props.cancel ?? {})} />
+      <TaskButtonCancel {...(props.cancel ?? {})} />
     </TaskFooter>
   );
 };

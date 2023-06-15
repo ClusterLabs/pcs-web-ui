@@ -1,13 +1,9 @@
 import {Button, WizardContextConsumer} from "@patternfly/react-core";
 
-export const TaskButtonReviewAndFinish = ({
-  onClick = undefined,
-  label = "Review and finish",
-  dataTest,
-}: {
+export const TaskButtonReviewAndFinish = (props: {
   onClick?: () => void;
   label?: string;
-  dataTest?: () => {"data-test": string};
+  "data-test"?: string;
 }) => {
   return (
     <WizardContextConsumer>
@@ -15,10 +11,10 @@ export const TaskButtonReviewAndFinish = ({
         <Button
           variant="tertiary"
           type="submit"
-          onClick={onClick ?? (() => goToStepByName("Review"))}
-          {...(dataTest ? dataTest() : {"data-test": "review-and-finish"})}
+          onClick={props.onClick ?? (() => goToStepByName("Review"))}
+          data-test={props["data-test"] ?? "review-and-finish"}
         >
-          {label}
+          {props.label ?? "Review and finish"}
         </Button>
       )}
     </WizardContextConsumer>

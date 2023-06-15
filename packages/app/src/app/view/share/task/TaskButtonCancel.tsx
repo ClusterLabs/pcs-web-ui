@@ -2,19 +2,16 @@ import {Button} from "@patternfly/react-core";
 
 import {useTaskContext} from "./TaskContext";
 
-export const TaskButtonCancel = ({
-  dataTest,
-  onClick,
-}: {
+export const TaskButtonCancel = (props: {
   onClick?: () => void;
-  dataTest?: () => {"data-test": string};
+  "data-test"?: string;
 }) => {
   const {close} = useTaskContext();
   return (
     <Button
       variant="link"
-      onClick={onClick ?? close}
-      {...(dataTest ? dataTest() : {"data-test": "task-cancel"})}
+      onClick={props.onClick ?? close}
+      data-test={props["data-test"] ?? "task-cancel"}
     >
       Cancel
     </Button>

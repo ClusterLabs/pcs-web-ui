@@ -1,22 +1,18 @@
 import {Button, WizardContextConsumer} from "@patternfly/react-core";
 
-export const TaskButtonBack = ({
-  onClick,
-  dataTest,
-  disabled = false,
-}: {
+export const TaskButtonBack = (props: {
   onClick?: () => void;
   disabled?: boolean;
-  dataTest?: () => {"data-test": string};
+  "data-test"?: string;
 }) => {
   return (
     <WizardContextConsumer>
       {({onBack}) => (
         <Button
           variant="secondary"
-          onClick={onClick ?? onBack}
-          className={disabled ? "pf-m-disabled" : ""}
-          {...(dataTest ? dataTest() : {"data-test": "task-back"})}
+          onClick={props.onClick ?? onBack}
+          className={props.disabled ? "pf-m-disabled" : ""}
+          data-test={props["data-test"] ?? "task-back"}
         >
           Back
         </Button>

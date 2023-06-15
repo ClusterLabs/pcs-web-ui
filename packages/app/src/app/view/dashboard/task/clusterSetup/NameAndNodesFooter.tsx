@@ -1,4 +1,4 @@
-import {subDataTest} from "app/view/dataTest";
+import {testMarks} from "app/view/dataTest";
 import {
   TaskButtonBack,
   TaskButtonCancel,
@@ -8,18 +8,18 @@ import {
 
 import {useTask} from "./useTask";
 
-const dataTest = subDataTest("setupCluster.nameAndNodes");
+const {next, back, cancel} = testMarks.setupCluster.nameAndNodes;
 
 export const NameAndNodesFooter = () => {
   const {isClusterNameValid, areNodeNamesValid} = useTask();
   return (
-    <TaskFooter dataTest={() => dataTest(".")}>
+    <TaskFooter {...testMarks.setupCluster.nameAndNodes.mark}>
       <WizardFooterNext
         actionIf={isClusterNameValid && areNodeNamesValid}
-        dataTest={() => dataTest("next")}
+        {...next.mark}
       />
-      <TaskButtonBack dataTest={() => dataTest("back")} disabled={true} />
-      <TaskButtonCancel dataTest={() => dataTest("cancel")} />
+      <TaskButtonBack disabled={true} {...back.mark} />
+      <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>
   );
 };

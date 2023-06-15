@@ -6,6 +6,11 @@ export interface SubStructure extends Record<string, SubStructure> {}
 //
 // Tasks (wizards) are separated from "dashboard" or "clusterDetail" because
 // theirs modality is done by element outside #root element of application.
+//
+// Don't use names:
+// - mark
+// - locator
+// The structure is enhanced by this keys
 export const structure = {
   clusterDetail: {},
   dashboard: {
@@ -53,32 +58,30 @@ export const structure = {
   },
 };
 
-type StructurePaths<STRUCTURE extends object> = {
-  [KEY in keyof STRUCTURE & (string | number)]: STRUCTURE[KEY] extends object
-    ? `${KEY}` | `${KEY}.${StructurePaths<STRUCTURE[KEY]>}`
-    : `${KEY}`;
-}[keyof STRUCTURE & (string | number)];
+type MarkTools<KEY> = {
+  mark: {"data-test": KEY};
+};
 
-export type Path = StructurePaths<typeof structure>;
+type WithMarkTools<STRUCTURE extends SubStructure> = {
+  [KEY in keyof STRUCTURE]: WithMarkTools<STRUCTURE[KEY]> & MarkTools<KEY>;
+};
 
-type SubPath<
-  PREFIX extends string,
-  STRUCTURE extends SubStructure,
-> = PREFIX extends `${infer KEY}.${infer REMAINING}`
-  ? KEY extends keyof STRUCTURE
-    ? `${SubPath<REMAINING, STRUCTURE[KEY]>}`
-    : never
-  : PREFIX extends keyof STRUCTURE
-  ? StructurePaths<STRUCTURE[PREFIX]>
-  : never;
+const createMarkTools = <KEY extends string>(key: KEY): MarkTools<KEY> => ({
+  mark: {"data-test": key},
+});
 
-const afterLastDot = (path: string) => path.slice(path.lastIndexOf(".") + 1);
+const addMarkTools = <STRUCTURE extends SubStructure>(
+  structure: STRUCTURE,
+  currentKey = "",
+): WithMarkTools<STRUCTURE> =>
+  Object.entries(structure).reduce<WithMarkTools<STRUCTURE>>(
+    (structureWithLocators, [key, subStructure]) => ({
+      ...structureWithLocators,
+      [key]: addMarkTools(subStructure, key),
+    }),
+    (currentKey !== ""
+      ? createMarkTools(currentKey)
+      : {}) as WithMarkTools<STRUCTURE>,
+  );
 
-const last = (path: string) => ({"data-test": afterLastDot(path)});
-
-export const dataTest = (path: Path) => last(path);
-
-export const subDataTest =
-  <PATH extends Path>(path: PATH) =>
-  (subPath: SubPath<PATH, typeof structure> | ".") =>
-    last(subPath === "." ? path : subPath);
+export const testMarks = addMarkTools(structure);

@@ -1,4 +1,4 @@
-import {subDataTest} from "app/view/dataTest";
+import {testMarks} from "app/view/dataTest";
 import {
   NodeAuthWizardFooter,
   TaskButtonBack,
@@ -10,7 +10,8 @@ import {
 
 import {useTask} from "./useTask";
 
-const dataTest = subDataTest("setupCluster.prepareNodes");
+const {next, back, cancel, reviewAndFinish} =
+  testMarks.setupCluster.prepareNodes;
 
 export const PrepareNodesFooter = () => {
   const {
@@ -23,17 +24,17 @@ export const PrepareNodesFooter = () => {
   }
 
   return (
-    <TaskFooter dataTest={() => dataTest(".")}>
+    <TaskFooter {...testMarks.setupCluster.prepareNodes.mark}>
       <WizardFooterNext
-        dataTest={() => dataTest("next")}
         disabled={!isClusterNameAndNodeCheckDoneValid}
+        {...next.mark}
       />
-      <TaskButtonBack dataTest={() => dataTest("back")} />
+      <TaskButtonBack {...back.mark} />
       <TaskButtonReviewAndFinish
         label="Review and setup cluster"
-        dataTest={() => dataTest("reviewAndFinish")}
+        {...reviewAndFinish.mark}
       />
-      <TaskButtonCancel dataTest={() => dataTest("cancel")} />
+      <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>
   );
 };
