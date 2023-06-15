@@ -99,11 +99,9 @@ export const Wizard = ({
           <WizardContextConsumer>
             {({activeStep}) => (
               <div data-test={wizardCreateFooterDataTest(activeStep.name)}>
-                <PfWizardFooter>
-                  {footerList.find(f => f.name === activeStep.name)?.footer ?? (
-                    <WizardFooter />
-                  )}
-                </PfWizardFooter>
+                {footerList.find(f => f.name === activeStep.name)?.footer ?? (
+                  <WizardFooter />
+                )}
               </div>
             )}
           </WizardContextConsumer>

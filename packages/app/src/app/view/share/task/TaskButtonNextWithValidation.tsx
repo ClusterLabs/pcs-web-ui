@@ -6,10 +6,12 @@ import {useTaskContext} from "./TaskContext";
 export const TaskButtonNextWithValidation = ({
   run,
   runIf,
+  dataTest,
   children = "Next",
   disabled = false,
 }: {
   run: () => void;
+  dataTest?: () => {"data-test": string};
   runIf?: boolean;
   children?: React.ReactNode;
   disabled?: boolean;
@@ -36,7 +38,7 @@ export const TaskButtonNextWithValidation = ({
         }
       }}
       isDisabled={disabled ?? false}
-      data-test="task-next"
+      {...(dataTest ? dataTest() : {"data-test": "task-next"})}
     >
       {children ?? "Next"}
     </ButtonWithEnter>

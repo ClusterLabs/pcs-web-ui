@@ -1,12 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubStructure extends Record<string, SubStructure> {}
 
+// Avoid ambiguous paths. E.g. if there is `dashboard.toolbar.setupCluster` and
+// also `setupCluster` then xpath `//*[@data-test="setupCluster"]` selects both.
+//
+// Tasks (wizards) are separated from "dashboard" or "clusterDetail" because
+// theirs modality is done by element outside #root element of application.
 export const structure = {
   clusterDetail: {},
   dashboard: {
     toolbar: {
-      setupCluster: {},
-      addExistingCluster: {},
+      runSetupCluster: {},
+      runAddExistingCluster: {},
     },
     clusterList: {
       cluster: {
@@ -19,13 +24,31 @@ export const structure = {
         },
       },
     },
-    setupCluster: {
-      nameAndNodes: {
-        clusterName: {},
-        node: {
-          name: {},
-        },
+  },
+  setupCluster: {
+    nameAndNodes: {
+      clusterName: {},
+      node: {
+        name: {},
       },
+      next: {},
+      back: {},
+      cancel: {},
+    },
+    prepareNodes: {
+      next: {},
+      back: {},
+      cancel: {},
+      reviewAndFinish: {},
+    },
+    review: {
+      next: {},
+      back: {},
+      cancel: {},
+    },
+    success: {
+      close: {},
+      startAndClose: {},
     },
   },
 };
@@ -50,11 +73,12 @@ type SubPath<
   : never;
 
 const afterLastDot = (path: string) => path.slice(path.lastIndexOf(".") + 1);
+
 const last = (path: string) => ({"data-test": afterLastDot(path)});
 
 export const dataTest = (path: Path) => last(path);
 
 export const subDataTest =
-  <PATH extends Path>(_path: PATH) =>
-  (subPath: SubPath<PATH, typeof structure>) =>
-    last(subPath);
+  <PATH extends Path>(path: PATH) =>
+  (subPath: SubPath<PATH, typeof structure> | ".") =>
+    last(subPath === "." ? path : subPath);
