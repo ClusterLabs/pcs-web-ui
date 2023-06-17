@@ -39,7 +39,7 @@ export const Task = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle="Creating order constraint"
-          successTitle="Order created successfully"
+          taskName={"create order constraint"}
           failTitle="Create order constraint failed"
           tryAgain={createOrder}
           recoverFromError={recoverFromError}

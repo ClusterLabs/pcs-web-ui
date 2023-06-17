@@ -1,6 +1,8 @@
 import {
   NodeAuthWizardFooter,
   TaskFinishLibWizard,
+  TaskSuccess,
+  TaskSuccessAction,
   Wizard,
   WizardFooter,
   lib,
@@ -85,16 +87,21 @@ export const NodeAdd = () => {
             <TaskFinishLibWizard
               response={response}
               taskName={`add node ${nodeName}`}
-              success={{
-                primaryAction: [
-                  "Start node and close",
-                  () => {
-                    close();
-                    nodeStart();
-                  },
-                ],
-                secondaryActions: {Close: close},
-              }}
+              success={
+                <TaskSuccess
+                  taskName={`add node ${nodeName}`}
+                  primaryAction={
+                    <TaskSuccessAction
+                      label="Start node and close"
+                      action={() => {
+                        close();
+                        nodeStart();
+                      }}
+                    />
+                  }
+                  secondaryActions={<TaskSuccessAction variant="secondary" />}
+                />
+              }
               backToUpdateSettingsStepName="Enter node name"
               proceedForce={() =>
                 nodeAdd({newForceFlags: lib.reports.getForceFlags(reports)})

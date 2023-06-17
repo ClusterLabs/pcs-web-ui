@@ -1,6 +1,7 @@
 import React from "react";
 
 import {TaskSuccess} from "./TaskSuccess";
+import {TaskSuccessAction} from "./TaskSuccessAction";
 import {TaskFinishError} from "./TaskFinishError";
 import {TaskProgress} from "./TaskProgress";
 
@@ -8,7 +9,7 @@ export const TaskSimpleFinish = ({
   response,
   resultMessage,
   waitTitle,
-  successTitle,
+  taskName,
   failTitle,
   tryAgain,
   recoverFromError,
@@ -16,7 +17,7 @@ export const TaskSimpleFinish = ({
   response: "" | "sending" | "ok" | "fail";
   resultMessage: string;
   waitTitle: React.ReactNode;
-  successTitle: React.ReactNode;
+  taskName: string;
   failTitle: React.ReactNode;
   tryAgain: () => void;
   recoverFromError?: () => void;
@@ -26,7 +27,12 @@ export const TaskSimpleFinish = ({
       return <TaskProgress title={waitTitle} />;
 
     case "ok":
-      return <TaskSuccess title={successTitle} />;
+      return (
+        <TaskSuccess
+          taskName={taskName}
+          primaryAction={<TaskSuccessAction />}
+        />
+      );
 
     default: {
       return (

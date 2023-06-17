@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {Wizard, WizardFooter} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {NameAndNodes} from "./NameAndNodes";
@@ -12,19 +12,15 @@ import {Transport} from "./Transport";
 import {TransportOptions} from "./TransportOptions";
 import {Quorum} from "./Quorum";
 import {Totem} from "./Totem";
+import {Result} from "./Result";
 
 export const ClusterSetup = () => {
   const {
     close,
-    startClusterAndClose,
     isClusterNameValid,
     areNodeNamesValid,
     isClusterNameAndNodeCheckDoneValid,
     areLinksValid,
-    setupCluster,
-    state: {
-      libCall: {reports, response},
-    },
   } = useTask();
   return (
     <Wizard
@@ -86,20 +82,7 @@ export const ClusterSetup = () => {
         },
         {
           name: "Result",
-          component: (
-            <TaskFinishLibWizard
-              response={response}
-              taskName="setup new cluster"
-              backToUpdateSettingsStepName="Cluster name and nodes"
-              proceedForce={() => setupCluster({force: true})}
-              success={{
-                secondaryActions: {
-                  "Start cluster and close": startClusterAndClose,
-                },
-              }}
-              reports={reports}
-            />
-          ),
+          component: <Result />,
           isFinishedStep: true,
         },
       ]}

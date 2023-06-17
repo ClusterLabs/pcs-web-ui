@@ -1,8 +1,6 @@
 import React from "react";
 import {
-  Button,
   EmptyState,
-  EmptyStateBody,
   EmptyStateIcon,
   EmptyStateSecondaryActions,
   Title,
@@ -10,61 +8,26 @@ import {
 import {CheckCircleIcon} from "@patternfly/react-icons";
 
 import * as palette from "app/view/share/palette";
-import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
-import {useTaskContext} from "./TaskContext";
-
-export const TaskSuccess = ({
-  title,
-  primaryAction,
-  secondaryActions,
-  message = "",
-}: {
-  title: React.ReactNode;
-  message?: string;
-  closeLabel?: React.ReactNode;
-  primaryAction?: [React.ReactNode, () => void];
-  secondaryActions?: Record<string, () => void>;
+export const TaskSuccess = (props: {
+  taskName: string;
+  primaryAction: React.ReactNode;
+  secondaryActions?: React.ReactNode;
+  "data-test"?: string;
 }) => {
-  const {close} = useTaskContext();
-  const primary: {label: React.ReactNode; action: () => void} = {
-    label: "Close",
-    action: close,
-  };
-
-  if (primaryAction) {
-    [primary.label, primary.action] = primaryAction;
-  }
-
   return (
-    <EmptyState style={{margin: "auto"}} data-test="task-success">
+    <EmptyState
+      style={{margin: "auto"}}
+      data-test={props["data-test"] ?? "task-success"}
+    >
       <EmptyStateIcon icon={CheckCircleIcon} color={palette.SUCCESS} />
       <Title headingLevel="h4" size="lg">
-        {title}
+        {`Task "${props.taskName}" has been done successfully`}
       </Title>
-      {message.length > 0 && <EmptyStateBody>{message}</EmptyStateBody>}
 
-      <ButtonWithEnter
-        variant="primary"
-        onClick={primary.action}
-        data-test="task-close"
-      >
-        {primary.label}
-      </ButtonWithEnter>
+      {props.primaryAction}
       <EmptyStateSecondaryActions>
-        {secondaryActions
-          && Object.entries(secondaryActions).map(([label, action]) => (
-            <Button
-              key={label}
-              variant="link"
-              onClick={action}
-              data-test={`secondary-action ${label
-                .toLowerCase()
-                .replaceAll(" ", "-")}`}
-            >
-              {label}
-            </Button>
-          ))}
+        {props.secondaryActions}
       </EmptyStateSecondaryActions>
     </EmptyState>
   );

@@ -7,6 +7,7 @@ import {
   TaskSimple,
   TaskSimpleFooter,
   TaskSuccess,
+  TaskSuccessAction,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -15,6 +16,7 @@ export const TaskComponent = ({
   confirm,
   runLabel,
   processTitle,
+  taskName,
   getForceableAction,
   "data-test": dataTest,
 }: {
@@ -23,9 +25,9 @@ export const TaskComponent = ({
     description: React.ReactNode;
   };
   runLabel: string;
+  taskName: string;
   processTitle: {
     wait: React.ReactNode;
-    success: React.ReactNode;
     fail: React.ReactNode;
   };
   getForceableAction: (_props: {force: boolean}) => Action;
@@ -53,7 +55,12 @@ export const TaskComponent = ({
       {state.response === "sending" && (
         <TaskProgress title={processTitle.wait} />
       )}
-      {state.response === "ok" && <TaskSuccess title={processTitle.success} />}
+      {state.response === "ok" && (
+        <TaskSuccess
+          taskName={taskName}
+          primaryAction={<TaskSuccessAction />}
+        />
+      )}
       {state.response === "fail" && (
         <TaskFinishError
           title={processTitle.fail}

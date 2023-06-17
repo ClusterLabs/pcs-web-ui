@@ -47,7 +47,7 @@ export const Task = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle="Creating location constraint"
-          successTitle="Location created successfully"
+          taskName={"create location constraint"}
           failTitle="Create location constraint failed"
           tryAgain={createLocation}
           recoverFromError={recoverFromError}

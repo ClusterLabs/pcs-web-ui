@@ -1,6 +1,11 @@
 import {WizardContextConsumer} from "@patternfly/react-core";
 
-import {TaskFinishError, TaskProgress, TaskSuccess} from "app/view/share";
+import {
+  TaskFinishError,
+  TaskProgress,
+  TaskSuccess,
+  TaskSuccessAction,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -39,7 +44,10 @@ export const TaskFinish = ({
             />
           )}
           {importCall.status === "success" && (
-            <TaskSuccess title={"Cluster has been added successfully"} />
+            <TaskSuccess
+              taskName="add existing cluster"
+              primaryAction={<TaskSuccessAction />}
+            />
           )}
         </>
       )}

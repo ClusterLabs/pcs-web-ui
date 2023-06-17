@@ -54,7 +54,8 @@ const setupCluster = async ({
   clusterName: string;
   nodeNameList: string[];
 }) => {
-  const {locator, nameAndNodes, prepareNodes, review} = app.setupCluster;
+  const {locator, nameAndNodes, prepareNodes, review, success} =
+    app.setupCluster;
   await locator.waitFor({state: "visible"});
 
   await fillClusterNameAndNodes({clusterName, nodeNameList});
@@ -68,5 +69,8 @@ const setupCluster = async ({
     review.next.locator.click(),
   ]);
 
+  await success.locator.waitFor();
+  await page.waitForTimeout(3000);
+  await success.startAndClose.locator.click();
   await page.waitForTimeout(3000);
 };

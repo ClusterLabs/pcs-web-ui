@@ -43,7 +43,7 @@ export const EditArgsTask = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle="Updating fence device arguments"
-          successTitle="Fence device arguments updated successfully"
+          taskName="update fence device arguments"
           failTitle="Fence device arguments update failed"
           tryAgain={runUpdate}
           recoverFromError={recoverFromError}

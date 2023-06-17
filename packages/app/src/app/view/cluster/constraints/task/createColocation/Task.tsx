@@ -39,7 +39,7 @@ export const Task = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle="Creating colocation constraint"
-          successTitle="Colocation created successfully"
+          taskName={"create colocation constraint"}
           failTitle="Create colocation constraint failed"
           tryAgain={createColocation}
           recoverFromError={recoverFromError}

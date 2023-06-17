@@ -28,9 +28,9 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
               runLabel: "Stop",
               processTitle: {
                 wait: <>Stopping cluster {clusterLabel}</>,
-                success: <>Cluster {clusterLabel} was successfully stopped</>,
                 fail: <>Failed to stop cluster {clusterLabel}</>,
               },
+              taskName: `stop cluster ${clusterLabel}`,
               getForceableAction: ({force}) => ({
                 type: "DASHBOARD.CLUSTER.STOP",
                 payload: {clusterName, force},

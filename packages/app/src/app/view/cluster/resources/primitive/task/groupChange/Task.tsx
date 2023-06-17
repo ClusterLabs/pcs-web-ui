@@ -40,7 +40,7 @@ export const Task = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle={`Changing group of primitive resource "${resourceId}"`}
-          successTitle="Group changed successfully"
+          taskName="change group"
           failTitle={`Changing group of primitive resource "${resourceId}" failed`}
           tryAgain={changeGroup}
           recoverFromError={recoverFromError}

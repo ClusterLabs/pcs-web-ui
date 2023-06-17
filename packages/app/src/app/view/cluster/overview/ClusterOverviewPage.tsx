@@ -38,9 +38,9 @@ export const ClusterOverviewPage = () => {
                 runLabel: "Stop",
                 processTitle: {
                   wait: "Stopping cluster",
-                  success: "Cluster was successfully stopped",
                   fail: "Cluster stop failed",
                 },
+                taskName: "stop cluster",
                 getForceableAction: ({force}) => ({
                   type: "DASHBOARD.CLUSTER.STOP",
                   payload: {clusterName: cluster.name, force},

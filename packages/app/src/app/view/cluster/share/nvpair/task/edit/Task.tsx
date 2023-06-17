@@ -53,9 +53,9 @@ export const Task = () => {
           waitTitle={`${
             isCreate ? "Creating" : "Updating"
           } ${attrTypeLabel} attribute`}
-          successTitle={`${labelize(attrTypeLabel)} attribute ${
-            isCreate ? "created" : "updated"
-          } successfully`}
+          taskName={`${isCreate ? "create" : "update"} ${labelize(
+            attrTypeLabel,
+          )} attribute`}
           failTitle={`${labelize(attrTypeLabel)} attribute ${
             isCreate ? "create" : "update"
           } failed`}

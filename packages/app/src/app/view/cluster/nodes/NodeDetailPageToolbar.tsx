@@ -102,9 +102,9 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
         runLabel: "Stop",
         processTitle: {
           wait: "Stopping node",
-          success: "Node successfully stopped",
           fail: "Node stop failed",
         },
+        taskName: "stop node",
         getForceableAction: ({force}) => ({
           type: "NODE.STOP",
           key: {clusterName},
