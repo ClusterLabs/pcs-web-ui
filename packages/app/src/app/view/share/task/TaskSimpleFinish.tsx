@@ -1,7 +1,7 @@
 import React from "react";
 
 import {TaskSuccess} from "./TaskSuccess";
-import {TaskSuccessAction} from "./TaskSuccessAction";
+import {TaskResultAction} from "./TaskResultAction";
 import {TaskFinishError} from "./TaskFinishError";
 import {TaskProgress} from "./TaskProgress";
 
@@ -28,10 +28,7 @@ export const TaskSimpleFinish = ({
 
     case "ok":
       return (
-        <TaskSuccess
-          taskName={taskName}
-          primaryAction={<TaskSuccessAction />}
-        />
+        <TaskSuccess taskName={taskName} primaryAction={<TaskResultAction />} />
       );
 
     default: {

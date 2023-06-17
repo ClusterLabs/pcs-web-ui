@@ -1,8 +1,8 @@
 import {testMarks} from "app/view/dataTest";
 import {
   TaskFinishLibWizard,
+  TaskResultAction,
   TaskSuccess,
-  TaskSuccessAction,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -25,9 +25,9 @@ export const Result = () => {
       success={
         <TaskSuccess
           taskName={"setup new cluster"}
-          primaryAction={<TaskSuccessAction {...success.close.mark} />}
+          primaryAction={<TaskResultAction {...success.close.mark} />}
           secondaryActions={
-            <TaskSuccessAction
+            <TaskResultAction
               variant="secondary"
               action={startClusterAndClose}
               label="Start cluster and close"

@@ -1,8 +1,8 @@
 import {
   NodeAuthWizardFooter,
   TaskFinishLibWizard,
+  TaskResultAction,
   TaskSuccess,
-  TaskSuccessAction,
   Wizard,
   WizardFooter,
   lib,
@@ -91,7 +91,7 @@ export const NodeAdd = () => {
                 <TaskSuccess
                   taskName={`add node ${nodeName}`}
                   primaryAction={
-                    <TaskSuccessAction
+                    <TaskResultAction
                       label="Start node and close"
                       action={() => {
                         close();
@@ -99,7 +99,7 @@ export const NodeAdd = () => {
                       }}
                     />
                   }
-                  secondaryActions={<TaskSuccessAction variant="secondary" />}
+                  secondaryActions={<TaskResultAction variant="secondary" />}
                 />
               }
               backToUpdateSettingsStepName="Enter node name"

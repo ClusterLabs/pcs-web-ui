@@ -4,10 +4,10 @@ import {Action} from "app/store";
 import {
   TaskFinishError,
   TaskProgress,
+  TaskResultAction,
   TaskSimple,
   TaskSimpleFooter,
   TaskSuccess,
-  TaskSuccessAction,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -56,10 +56,7 @@ export const TaskComponent = ({
         <TaskProgress title={processTitle.wait} />
       )}
       {state.response === "ok" && (
-        <TaskSuccess
-          taskName={taskName}
-          primaryAction={<TaskSuccessAction />}
-        />
+        <TaskSuccess taskName={taskName} primaryAction={<TaskResultAction />} />
       )}
       {state.response === "fail" && (
         <TaskFinishError

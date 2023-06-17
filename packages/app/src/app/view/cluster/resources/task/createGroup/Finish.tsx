@@ -1,4 +1,4 @@
-import {TaskLibReports, TaskSuccess, TaskSuccessAction} from "app/view/share";
+import {TaskLibReports, TaskResultAction, TaskSuccess} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -10,7 +10,7 @@ export const Finish = () => {
     <>
       <TaskSuccess
         taskName={`create group ${groupId}`}
-        primaryAction={<TaskSuccessAction />}
+        primaryAction={<TaskResultAction />}
       />
       <TaskLibReports reports={reports} />
     </>

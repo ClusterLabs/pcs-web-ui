@@ -14,7 +14,7 @@ export * from "./TaskFinishError";
 export * from "./TaskFooter";
 export * from "./TaskProgress";
 export * from "./TaskSuccess";
-export * from "./TaskSuccessAction";
+export * from "./TaskResultAction";
 export * from "./useTask";
 export * from "./TaskSimple";
 export * from "./TaskSimpleFooter";

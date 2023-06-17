@@ -4,7 +4,7 @@ import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
 import {useTaskContext} from "./TaskContext";
 
-export const TaskSuccessAction = (props: {
+export const TaskResultAction = (props: {
   variant?: "primary" | "secondary";
   action?: () => void;
   label?: string;
