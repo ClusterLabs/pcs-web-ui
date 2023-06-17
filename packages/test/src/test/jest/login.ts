@@ -1,5 +1,7 @@
-export const getLogin = (environmentType: "cockpit" | "standalone") => {
-  if (environmentType === "cockpit") {
+type EnvType = "cockpit" | "standalone" | "mocked";
+
+export const getLogin = (envType: EnvType) => {
+  if (envType === "cockpit") {
     return async (username: string, password: string) => {
       // Looks like the cockpit wipe out username + password if we are too fast.
       await page.waitForTimeout(200);

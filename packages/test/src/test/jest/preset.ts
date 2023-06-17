@@ -1,3 +1,4 @@
+import {EnvType} from "./envType";
 import {getLogin} from "./login";
 import {getBackend} from "./backend";
 import {getApp, getLocator} from "./locator";
@@ -12,13 +13,22 @@ declare global {
   var login: ReturnType<typeof getLogin>;
 }
 
+const getEnvType = (): EnvType => {
+  if (process.env.PCS_WUI_TEST_TYPE === "mocked") {
+    return "mocked";
+  }
+  if (process.env.PCS_WUI_TEST_TYPE === "cockpit") {
+    return "cockpit";
+  }
+  return "standalone";
+};
+
 export default async () => {
-  const environmentType =
-    process.env.PCS_WUI_TEST_TYPE === "cockpit" ? "cockpit" : "standalone";
+  const envType = getEnvType();
 
   global.page = await getPage();
-  global.locator = getLocator(environmentType);
-  global.backend = getBackend(environmentType);
-  global.login = getLogin(environmentType);
-  global.app = getApp(environmentType);
+  global.locator = getLocator(envType);
+  global.backend = getBackend(envType);
+  global.login = getLogin(envType);
+  global.app = getApp(envType);
 };

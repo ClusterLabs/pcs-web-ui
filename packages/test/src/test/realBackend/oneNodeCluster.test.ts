@@ -1,3 +1,5 @@
+import * as shortcuts from "test/shortcuts";
+
 const testTimeout = parseInt(process.env.PCS_WUI_TEST_TIMEOUT ?? "70000", 10);
 const username = process.env.PCSD_USERNAME_1 ?? "";
 const password = process.env.PCSD_PASSWORD_1 ?? "";
@@ -31,22 +33,6 @@ describe("Web ui inside cockpit on one node cluster", () => {
   );
 });
 
-const fillClusterNameAndNodes = async ({
-  clusterName,
-  nodeNameList,
-}: {
-  clusterName: string;
-  nodeNameList: string[];
-}) => {
-  const {nameAndNodes} = app.setupCluster;
-  await nameAndNodes.clusterName.locator.fill(clusterName);
-  for (let i = 0; i < nodeNameList.length; i++) {
-    // WARNING: only up to 3 nodes
-    // TODO: add more nodes if required
-    await nameAndNodes.node.name.locator.nth(i).fill(nodeName);
-  }
-};
-
 const setupCluster = async ({
   clusterName,
   nodeNameList,
@@ -56,6 +42,7 @@ const setupCluster = async ({
 }) => {
   const {locator, nameAndNodes, prepareNodes, review, success} =
     app.setupCluster;
+  const {fillClusterNameAndNodes} = shortcuts.setupCluster;
   await locator.waitFor({state: "visible"});
 
   await fillClusterNameAndNodes({clusterName, nodeNameList});
@@ -70,7 +57,5 @@ const setupCluster = async ({
   ]);
 
   await success.locator.waitFor();
-  await page.waitForTimeout(3000);
   await success.startAndClose.locator.click();
-  await page.waitForTimeout(3000);
 };
