@@ -23,13 +23,12 @@ export const Task = () => {
       libCall: {reports, response},
     },
   } = useTask();
-  const title = "create colocation constraint with resource set";
   return (
     <Wizard
       clusterName={clusterName}
       task="constraintColocationSetCreate"
       data-test="task-constraint-colocation-set-create"
-      title="New colocation set constraint"
+      taskLabel="create colocation constraint with resource set"
       description="Create colocation set constraint"
       onClose={close}
       steps={[
@@ -73,13 +72,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={title}
-              success={
-                <TaskSuccess
-                  taskName={title}
-                  primaryAction={<TaskResultAction />}
-                />
-              }
+              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
               backToUpdateSettingsStepName="Resource Sets"
               proceedForce={() => create({force: true})}
               reports={reports}

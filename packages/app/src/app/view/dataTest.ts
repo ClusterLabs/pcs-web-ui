@@ -36,17 +36,19 @@ export const structure = {
       node: {
         name: {},
       },
+    },
+    nameAndNodesFooter: {
       next: {},
       back: {},
       cancel: {},
     },
-    prepareNodes: {
+    prepareNodesFooter: {
       next: {},
       back: {},
       cancel: {},
       reviewAndFinish: {},
     },
-    review: {
+    reviewFooter: {
       next: {},
       back: {},
       cancel: {},
@@ -54,6 +56,15 @@ export const structure = {
     success: {
       close: {},
       startAndClose: {},
+    },
+    unsuccess: {
+      back: {},
+      proceedAnyway: {},
+      cancel: {},
+    },
+    communicationError: {
+      tryAgain: {},
+      cancel: {},
     },
   },
 };

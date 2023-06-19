@@ -25,7 +25,6 @@ export const FenceDeviceCreate = () => {
       libCall: {reports, response},
     },
   } = useTask();
-  const title = `create fence device "${fenceDeviceName}"`;
 
   return (
     <Wizard
@@ -33,7 +32,7 @@ export const FenceDeviceCreate = () => {
       task="fenceDeviceCreate"
       data-test="task-fence-device-create"
       onClose={close}
-      title="New fence device"
+      taskLabel={`create fence device "${fenceDeviceName}"`}
       description="Create new fence device"
       steps={[
         {
@@ -82,13 +81,7 @@ export const FenceDeviceCreate = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={title}
-              success={
-                <TaskSuccess
-                  taskName={title}
-                  primaryAction={<TaskResultAction />}
-                />
-              }
+              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
               backToUpdateSettingsStepName="Name and type"
               proceedForce={() => create({force: true})}
               reports={reports}

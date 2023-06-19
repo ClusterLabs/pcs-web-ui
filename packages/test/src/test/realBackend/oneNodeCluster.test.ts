@@ -40,20 +40,25 @@ const setupCluster = async ({
   clusterName: string;
   nodeNameList: string[];
 }) => {
-  const {locator, nameAndNodes, prepareNodes, review, success} =
-    app.setupCluster;
+  const {
+    locator,
+    nameAndNodesFooter,
+    prepareNodesFooter,
+    reviewFooter,
+    success,
+  } = app.setupCluster;
   const {fillClusterNameAndNodes} = shortcuts.setupCluster;
   await locator.waitFor({state: "visible"});
 
   await fillClusterNameAndNodes({clusterName, nodeNameList});
-  await nameAndNodes.next.locator.click();
-  await prepareNodes.reviewAndFinish.locator.click();
+  await nameAndNodesFooter.next.locator.click();
+  await prepareNodesFooter.reviewAndFinish.locator.click();
   // Task moves to next stage after imported-cluster-list response is done. The
   // request imported-cluster-list is run immediatelly after cluster setup
   // backend call is done.
   await Promise.all([
     page.waitForResponse(/.*\/imported-cluster-list$/),
-    review.next.locator.click(),
+    reviewFooter.next.locator.click(),
   ]);
 
   await success.locator.waitFor();

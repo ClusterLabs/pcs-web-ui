@@ -9,12 +9,14 @@ import {CheckCircleIcon} from "@patternfly/react-icons";
 
 import * as palette from "app/view/share/palette";
 
+import {useTaskContext} from "./TaskContext";
+
 export const TaskSuccess = (props: {
-  taskName: string;
   primaryAction: React.ReactNode;
   secondaryActions?: React.ReactNode;
   "data-test"?: string;
 }) => {
+  const {taskLabel} = useTaskContext();
   return (
     <EmptyState
       style={{margin: "auto"}}
@@ -22,7 +24,7 @@ export const TaskSuccess = (props: {
     >
       <EmptyStateIcon icon={CheckCircleIcon} color={palette.SUCCESS} />
       <Title headingLevel="h4" size="lg">
-        {`Task "${props.taskName}" has been done successfully`}
+        {`Task "${taskLabel}" has been done successfully`}
       </Title>
 
       {props.primaryAction}

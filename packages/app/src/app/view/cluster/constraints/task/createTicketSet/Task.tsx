@@ -23,13 +23,12 @@ export const Task = () => {
       libCall: {reports, response},
     },
   } = useTask();
-  const title = "Create ticket constraint with resource set";
   return (
     <Wizard
       clusterName={clusterName}
       task="constraintTicketSetCreate"
       data-test="task-constraint-ticket-set-create"
-      title="New ticket set constraint"
+      taskLabel="Create ticket constraint with resource set"
       description="Create ticket set constraint"
       onClose={close}
       steps={[
@@ -73,13 +72,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={title}
-              success={
-                <TaskSuccess
-                  taskName={title}
-                  primaryAction={<TaskResultAction />}
-                />
-              }
+              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
               backToUpdateSettingsStepName="Resource Sets"
               proceedForce={() => create({force: true})}
               reports={reports}

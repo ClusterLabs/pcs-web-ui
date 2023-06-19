@@ -26,7 +26,7 @@ export const EditArgsTask = () => {
 
   return (
     <TaskSimple
-      title="Edit fence device arguments"
+      taskLabel="Edit fence device arguments"
       task={taskName}
       clusterName={clusterName}
       close={close}
@@ -43,7 +43,6 @@ export const EditArgsTask = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle="Updating fence device arguments"
-          taskName="update fence device arguments"
           failTitle="Fence device arguments update failed"
           tryAgain={runUpdate}
           recoverFromError={recoverFromError}

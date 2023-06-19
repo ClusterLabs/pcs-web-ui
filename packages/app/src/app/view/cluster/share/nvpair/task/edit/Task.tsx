@@ -26,7 +26,9 @@ export const Task = () => {
   const attrTypeLabel = getNVPairTypeLabel(owner);
   return (
     <TaskSimple
-      title={`${isCreate ? "Create" : "Update"} ${attrTypeLabel} attribute`}
+      taskLabel={`${isCreate ? "create" : "update"} ${labelize(
+        attrTypeLabel,
+      )} attribute`}
       task={taskName}
       clusterName={clusterName}
       close={close}
@@ -53,9 +55,6 @@ export const Task = () => {
           waitTitle={`${
             isCreate ? "Creating" : "Updating"
           } ${attrTypeLabel} attribute`}
-          taskName={`${isCreate ? "create" : "update"} ${labelize(
-            attrTypeLabel,
-          )} attribute`}
           failTitle={`${labelize(attrTypeLabel)} attribute ${
             isCreate ? "create" : "update"
           } failed`}

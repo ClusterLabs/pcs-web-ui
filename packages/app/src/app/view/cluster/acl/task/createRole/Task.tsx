@@ -23,12 +23,12 @@ export const Task = () => {
       libCall: {response, reports},
     },
   } = useTask();
-  const title = `create acl role ${roleId}`;
+  const taskLabel = `create acl role ${roleId}`;
   return (
     <Wizard
       task="aclRoleCreate"
       clusterName={clusterName}
-      title="Create role"
+      taskLabel={taskLabel}
       data-test="task-create-role"
       description="Create acl role"
       onClose={close}
@@ -73,13 +73,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={title}
-              success={
-                <TaskSuccess
-                  taskName={title}
-                  primaryAction={<TaskResultAction />}
-                />
-              }
+              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
               backToUpdateSettingsStepName="Enter role name"
               reports={reports}
             />

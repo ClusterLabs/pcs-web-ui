@@ -1,6 +1,12 @@
+import deepmerge from "deepmerge";
+
 import {api, libCallCluster} from "app/backend";
 
 type Response = api.PayloadOf<typeof libCallCluster>;
+type Report = Response["report_list"][number];
+type PartialReport = {
+  [KEY in keyof Report]?: Partial<Report[KEY]>;
+};
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const success = (props: {data?: any} = {data: null}): Response => ({
@@ -38,11 +44,30 @@ export const invalidJson = (message: string): Response => ({
   data: null,
 });
 
-export const error = (
-  reportList: Extract<Response, {status: "error"}>["report_list"],
-): Response => ({
+export const error = (reportList: Response["report_list"]): Response => ({
   status: "error",
   report_list: reportList,
   data: null,
   status_msg: null,
 });
+
+const errorReport = (partialReport: PartialReport = {}): Report =>
+  deepmerge<Report>(
+    {
+      severity: {
+        level: "ERROR",
+        force_code: null,
+      },
+      message: {
+        message: "Something wrong happened",
+        code: "SOME_CODE",
+        payload: {},
+      },
+      context: null,
+    },
+    partialReport as Partial<Report>,
+  );
+
+export const report = {
+  error: errorReport,
+};

@@ -1,22 +1,22 @@
 import React from "react";
 
 import {TaskProgress} from "./TaskProgress";
+import {useTaskContext} from "./TaskContext";
 
-export const TaskResultLib = (
-  props: {
-    response:
-      | "no-response"
-      | "success"
-      | "forceable-fail"
-      | "fail"
-      | "communication-error"
-      | "progress";
-    success: React.ReactNode;
-    libraryFail: React.ReactNode;
-    communicationError: React.ReactNode;
-    reports: React.ReactNode;
-  } & ({progress: React.ReactNode} | {taskName: string}),
-) => {
+export const TaskResultLib = (props: {
+  response:
+    | "no-response"
+    | "success"
+    | "forceable-fail"
+    | "fail"
+    | "communication-error"
+    | "progress";
+  success: React.ReactNode;
+  unsuccess: React.ReactNode;
+  communicationError: React.ReactNode;
+  reports: React.ReactNode;
+}) => {
+  const {taskLabel} = useTaskContext();
   switch (props.response) {
     case "success":
       return (
@@ -29,7 +29,7 @@ export const TaskResultLib = (
     case "fail":
       return (
         <>
-          {props.libraryFail}
+          {props.unsuccess}
           {props.reports}
         </>
       );
@@ -38,10 +38,6 @@ export const TaskResultLib = (
       return <>props.communicationError</>;
 
     default:
-      return "progress" in props ? (
-        <>props.progress</>
-      ) : (
-        <TaskProgress title={`Processing task "${props.taskName}".`} />
-      );
+      return <TaskProgress title={`Processing task "${taskLabel}".`} />;
   }
 };

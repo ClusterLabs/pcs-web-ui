@@ -4,14 +4,11 @@ import {useTask} from "./useTask";
 
 export const Finish = () => {
   const {
-    state: {groupId, reports},
+    state: {reports},
   } = useTask();
   return (
     <>
-      <TaskSuccess
-        taskName={`create group ${groupId}`}
-        primaryAction={<TaskResultAction />}
-      />
+      <TaskSuccess primaryAction={<TaskResultAction />} />
       <TaskLibReports reports={reports} />
     </>
   );

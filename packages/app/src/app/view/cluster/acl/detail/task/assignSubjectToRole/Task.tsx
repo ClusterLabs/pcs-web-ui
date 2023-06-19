@@ -1,6 +1,13 @@
 import {
-  TaskFinishLib,
+  TaskFinishLibCommunicationError,
+  TaskFinishLibUnsuccess,
+  TaskLibReports,
   TaskResultAction,
+  TaskResultActionBackCluster,
+  TaskResultActionCancel,
+  TaskResultActionProceedAnyway,
+  TaskResultActionTryAgain,
+  TaskResultLib,
   TaskSimple,
   TaskSimpleFooter,
   TaskSuccess,
@@ -15,7 +22,6 @@ export const Task = () => {
     clusterName,
     close,
     assign,
-    recoverFromError,
     isAssigneeValid,
     itemsOffer,
     assigneeType,
@@ -24,12 +30,12 @@ export const Task = () => {
     },
   } = useTask();
 
-  const title = `Assign ${assigneeType}`;
+  const taskLabel = `Assign ${assigneeType}`;
 
   return (
     <TaskSimple
-      title={title}
       task={taskName}
+      taskLabel={taskLabel}
       data-test={`task-acl-role-assign-${assigneeType}`}
       clusterName={clusterName}
       close={close}
@@ -39,26 +45,31 @@ export const Task = () => {
             nextIf={isAssigneeValid}
             nextDisabled={itemsOffer.length === 0}
             run={assign}
-            runLabel={title}
+            runLabel={taskLabel}
           />
         )
       }
     >
       {response === "no-response" && <ChooseAssignee />}
       {response !== "no-response" && (
-        <TaskFinishLib
+        <TaskResultLib
           response={response}
-          taskName={title}
-          success={
-            <TaskSuccess
-              taskName={title}
-              primaryAction={<TaskResultAction />}
+          success={<TaskSuccess primaryAction={<TaskResultAction />} />}
+          unsuccess={
+            <TaskFinishLibUnsuccess
+              reports={reports}
+              back={<TaskResultActionBackCluster />}
+              proceed={<TaskResultActionProceedAnyway action={assign} />}
+              cancel={<TaskResultActionCancel />}
             />
           }
-          backToUpdateSettings={recoverFromError}
-          proceedForce={assign}
-          tryAgain={assign}
-          reports={reports}
+          communicationError={
+            <TaskFinishLibCommunicationError
+              tryAgain={<TaskResultActionTryAgain action={assign} />}
+              cancel={<TaskResultActionCancel />}
+            />
+          }
+          reports={<TaskLibReports reports={reports} />}
         />
       )}
     </TaskSimple>

@@ -21,7 +21,7 @@ export const Task = () => {
   } = useTask();
   return (
     <TaskSimple
-      title="Create location constraint"
+      taskLabel="Create location constraint"
       close={close}
       task={taskName}
       clusterName={clusterName}
@@ -47,7 +47,6 @@ export const Task = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle="Creating location constraint"
-          taskName={"create location constraint"}
           failTitle="Create location constraint failed"
           tryAgain={createLocation}
           recoverFromError={recoverFromError}

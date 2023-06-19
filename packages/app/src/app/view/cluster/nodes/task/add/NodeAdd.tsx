@@ -35,8 +35,8 @@ export const NodeAdd = () => {
       clusterName={clusterName}
       data-test="task-node-add"
       onClose={close}
-      title="Add node"
-      description="Add node to the cluster wizard"
+      taskLabel={`add node ${nodeName}`}
+      description="Add node to the cluster"
       steps={[
         {
           name: "Enter node name",
@@ -86,10 +86,8 @@ export const NodeAdd = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={`add node ${nodeName}`}
               success={
                 <TaskSuccess
-                  taskName={`add node ${nodeName}`}
                   primaryAction={
                     <TaskResultAction
                       label="Start node and close"

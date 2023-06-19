@@ -13,23 +13,15 @@ import {
 import {useTask} from "./useTask";
 
 export const TaskComponent = ({
-  confirm,
+  description,
   runLabel,
-  processTitle,
-  taskName,
+  taskLabel,
   getForceableAction,
   "data-test": dataTest,
 }: {
-  confirm: {
-    title: string;
-    description: React.ReactNode;
-  };
+  description: React.ReactNode;
   runLabel: string;
-  taskName: string;
-  processTitle: {
-    wait: React.ReactNode;
-    fail: React.ReactNode;
-  };
+  taskLabel: string;
   getForceableAction: (_props: {force: boolean}) => Action;
   "data-test"?: string;
 }) => {
@@ -37,7 +29,8 @@ export const TaskComponent = ({
 
   return (
     <TaskSimple
-      title={confirm.title}
+      title={`${taskLabel}?`}
+      taskLabel={taskLabel}
       task="forceableConfirm"
       clusterName={null}
       close={close}
@@ -51,23 +44,30 @@ export const TaskComponent = ({
       }
       data-test={`forceable-confirm${dataTest ? "-" + dataTest : ""}`}
     >
-      {state.response === "" && confirm.description}
+      {state.response === "" && description}
       {state.response === "sending" && (
-        <TaskProgress title={processTitle.wait} />
+        <TaskProgress title={`Task "${taskLabel}" in progress`} />
       )}
       {state.response === "ok" && (
-        <TaskSuccess taskName={taskName} primaryAction={<TaskResultAction />} />
+        <TaskSuccess primaryAction={<TaskResultAction />} />
       )}
       {state.response === "fail" && (
         <TaskFinishError
-          title={processTitle.fail}
+          title={`Task "${taskLabel}" failed`}
           message={`${state.resultMessage}${
             state.isForceable ? " The error can be overridden." : ""
           }`}
-          primaryAction={[
-            state.isForceable ? "Proceed anyway" : "Try again",
-            () => runAction(getForceableAction({force: state.isForceable})),
-          ]}
+          primaryAction={
+            <TaskResultAction
+              label={state.isForceable ? "Proceed anyway" : "Try again"}
+              action={() =>
+                runAction(getForceableAction({force: state.isForceable}))
+              }
+            />
+          }
+          secondaryActions={
+            <TaskResultAction variant="secondary" label="Cancel" />
+          }
         />
       )}
     </TaskSimple>

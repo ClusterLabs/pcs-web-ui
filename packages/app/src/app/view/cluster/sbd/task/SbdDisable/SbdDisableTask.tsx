@@ -1,6 +1,13 @@
 import {
-  TaskFinishLib,
+  TaskFinishLibCommunicationError,
+  TaskFinishLibUnsuccess,
+  TaskLibReports,
   TaskResultAction,
+  TaskResultActionBackCluster,
+  TaskResultActionCancel,
+  TaskResultActionProceedAnyway,
+  TaskResultActionTryAgain,
+  TaskResultLib,
   TaskSimple,
   TaskSimpleFooter,
   TaskSuccess,
@@ -13,18 +20,17 @@ export const SbdDisableTask = () => {
     close,
     clusterName,
     sbdDisable,
-    recoverFromError,
     state: {
       libCall: {response, reports},
     },
   } = useTask();
 
-  const title = "Disable SBD";
+  const taskLabel = "Disable SBD";
 
   return (
     <TaskSimple
-      title="Disable SBD"
       task="sbdDisable"
+      taskLabel={taskLabel}
       clusterName={clusterName}
       data-test="task-sbd-disable"
       close={close}
@@ -39,19 +45,32 @@ export const SbdDisableTask = () => {
     >
       {response === "no-response" && "Disable SBD in cluster."}
       {response !== "no-response" && (
-        <TaskFinishLib
+        <TaskResultLib
           response={response}
-          taskName={title}
-          success={
-            <TaskSuccess
-              taskName={title}
-              primaryAction={<TaskResultAction />}
+          success={<TaskSuccess primaryAction={<TaskResultAction />} />}
+          unsuccess={
+            <TaskFinishLibUnsuccess
+              reports={reports}
+              back={<TaskResultActionBackCluster />}
+              proceed={
+                <TaskResultActionProceedAnyway
+                  action={() => sbdDisable({force: true})}
+                />
+              }
+              cancel={<TaskResultActionCancel />}
             />
           }
-          backToUpdateSettings={recoverFromError}
-          proceedForce={() => sbdDisable({force: true})}
-          tryAgain={() => sbdDisable({force: false})}
-          reports={reports}
+          communicationError={
+            <TaskFinishLibCommunicationError
+              tryAgain={
+                <TaskResultActionTryAgain
+                  action={() => sbdDisable({force: false})}
+                />
+              }
+              cancel={<TaskResultActionCancel />}
+            />
+          }
+          reports={<TaskLibReports reports={reports} />}
         />
       )}
     </TaskSimple>

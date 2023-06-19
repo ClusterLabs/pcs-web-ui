@@ -34,20 +34,23 @@ export const TaskFinish = ({
                   operation again.
                 </>
               }
-              primaryAction={[
-                "Change settings",
-                () => goToStepByName(backToUpdateSettingsStepName),
-              ]}
-              secondaryActions={{
-                "Try again": importCluster,
-              }}
+              primaryAction={
+                <TaskResultAction
+                  label="Change settings"
+                  action={() => goToStepByName(backToUpdateSettingsStepName)}
+                />
+              }
+              secondaryActions={
+                <TaskResultAction
+                  variant="secondary"
+                  label="Try again"
+                  action={importCluster}
+                />
+              }
             />
           )}
           {importCall.status === "success" && (
-            <TaskSuccess
-              taskName="add existing cluster"
-              primaryAction={<TaskResultAction />}
-            />
+            <TaskSuccess primaryAction={<TaskResultAction />} />
           )}
         </>
       )}

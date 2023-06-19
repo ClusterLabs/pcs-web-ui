@@ -27,12 +27,11 @@ export const Task = () => {
 
   const enterSubjectNameLabel = `Enter ${subjectType} name`;
 
-  const title = `create ${subjectType} ${subjectId}`;
   return (
     <Wizard
       task={taskName}
       clusterName={clusterName}
-      title={`Create ${subjectType}`}
+      taskLabel={`create ${subjectType} ${subjectId}`}
       data-test={`task-create-${subjectType}`}
       description={`Create ACL ${subjectType}`}
       onClose={close}
@@ -70,13 +69,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={title}
-              success={
-                <TaskSuccess
-                  taskName={title}
-                  primaryAction={<TaskResultAction />}
-                />
-              }
+              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
               backToUpdateSettingsStepName={enterSubjectNameLabel}
               reports={reports}
             />

@@ -1,42 +1,61 @@
 import React from "react";
-import {WizardContextConsumer} from "@patternfly/react-core";
 
-import {TaskFinishLib} from "./TaskFinishLib";
-
-type TaskFinishLibProps = React.ComponentProps<typeof TaskFinishLib>;
+import {TaskResultLib} from "./TaskResultLib";
+import {TaskFinishLibUnsuccess} from "./TaskFinishLibUnsuccess";
+import {TaskResultActionWizardBack} from "./TaskResultActionWizardBack";
+import {TaskFinishLibCommunicationError} from "./TaskFinishLibCommunicationError";
+import {TaskResultActionWizardTryAgain} from "./TaskResultActionWizardTryAgain";
+import {TaskResultActionCancel} from "./TaskResultActionCancel";
+import {TaskResultActionProceedAnyway} from "./TaskResultActionProceedAnyway";
 
 export const TaskFinishLibWizard = ({
   response,
-  taskName,
   proceedForce,
   backToUpdateSettingsStepName,
   reports,
   success,
   tryAgainStepName = "Review",
 }: {
-  response: TaskFinishLibProps["response"];
-  taskName: TaskFinishLibProps["taskName"];
-  proceedForce?: TaskFinishLibProps["proceedForce"];
-  reports: TaskFinishLibProps["reports"];
+  response: React.ComponentProps<typeof TaskResultLib>["response"];
+  proceedForce?: () => void;
+  reports: React.ComponentProps<typeof TaskFinishLibUnsuccess>["reports"];
   backToUpdateSettingsStepName: string;
   tryAgainStepName?: string;
-  success: TaskFinishLibProps["success"];
+  success: React.ReactNode;
 }) => {
   return (
-    <WizardContextConsumer>
-      {({goToStepByName}) => (
-        <TaskFinishLib
-          response={response}
-          success={success}
-          taskName={taskName}
-          backToUpdateSettings={() =>
-            goToStepByName(backToUpdateSettingsStepName)
-          }
-          proceedForce={proceedForce}
-          tryAgain={() => goToStepByName(tryAgainStepName)}
+    <TaskResultLib
+      response={response}
+      success={success}
+      unsuccess={
+        <TaskFinishLibUnsuccess
           reports={reports}
+          back={
+            <TaskResultActionWizardBack
+              stepName={backToUpdateSettingsStepName}
+              data-test="task-back"
+            />
+          }
+          proceed={
+            proceedForce && (
+              <TaskResultActionProceedAnyway action={proceedForce} />
+            )
+          }
+          cancel={<TaskResultActionCancel />}
         />
-      )}
-    </WizardContextConsumer>
+      }
+      reports={reports}
+      communicationError={
+        <TaskFinishLibCommunicationError
+          tryAgain={
+            <TaskResultActionWizardTryAgain
+              stepName={tryAgainStepName}
+              data-test="task-try-again"
+            />
+          }
+          cancel={<TaskResultActionCancel />}
+        />
+      }
+    />
   );
 };

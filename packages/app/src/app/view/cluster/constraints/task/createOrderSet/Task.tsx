@@ -22,13 +22,12 @@ export const Task = () => {
       libCall: {reports, response},
     },
   } = useTask();
-  const title = "create order constraint with resource set";
   return (
     <Wizard
       task="constraintOrderSetCreate"
       clusterName={clusterName}
       data-test="task-constraint-order-set-create"
-      title="New order set constraint"
+      taskLabel="create order constraint with resource set"
       description="Create order set constraint"
       onClose={close}
       steps={[
@@ -74,13 +73,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={title}
-              success={
-                <TaskSuccess
-                  taskName={title}
-                  primaryAction={<TaskResultAction />}
-                />
-              }
+              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
               backToUpdateSettingsStepName="Resource Sets"
               proceedForce={() => create({force: true})}
               reports={reports}

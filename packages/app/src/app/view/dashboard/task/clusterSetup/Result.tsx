@@ -1,13 +1,26 @@
 import {testMarks} from "app/view/dataTest";
 import {
-  TaskFinishLibWizard,
+  TaskFinishLibCommunicationError,
+  TaskFinishLibUnsuccess,
+  TaskLibReports,
   TaskResultAction,
+  TaskResultActionCancel,
+  TaskResultActionProceedAnyway,
+  TaskResultActionWizardBack,
+  TaskResultActionWizardTryAgain,
+  TaskResultLib,
   TaskSuccess,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
 
-export const Result = () => {
+export const Result = ({
+  backStep,
+  reviewStep,
+}: {
+  backStep: string;
+  reviewStep: string;
+}) => {
   const {
     startClusterAndClose,
     setupCluster,
@@ -15,16 +28,12 @@ export const Result = () => {
       libCall: {reports, response},
     },
   } = useTask();
-  const {success} = testMarks.setupCluster;
+  const {success, unsuccess, communicationError} = testMarks.setupCluster;
   return (
-    <TaskFinishLibWizard
+    <TaskResultLib
       response={response}
-      taskName="setup new cluster"
-      backToUpdateSettingsStepName="Cluster name and nodes"
-      proceedForce={() => setupCluster({force: true})}
       success={
         <TaskSuccess
-          taskName={"setup new cluster"}
           primaryAction={<TaskResultAction {...success.close.mark} />}
           secondaryActions={
             <TaskResultAction
@@ -37,7 +46,38 @@ export const Result = () => {
           {...success.mark}
         />
       }
-      reports={reports}
+      unsuccess={
+        <TaskFinishLibUnsuccess
+          reports={reports}
+          back={
+            <TaskResultActionWizardBack
+              stepName={backStep}
+              {...unsuccess.back.mark}
+            />
+          }
+          proceed={
+            <TaskResultActionProceedAnyway
+              action={() => setupCluster({force: true})}
+              {...unsuccess.proceedAnyway.mark}
+            />
+          }
+          cancel={<TaskResultActionCancel {...unsuccess.cancel.mark} />}
+          {...unsuccess.mark}
+        />
+      }
+      reports={<TaskLibReports reports={reports} />}
+      communicationError={
+        <TaskFinishLibCommunicationError
+          tryAgain={
+            <TaskResultActionWizardTryAgain
+              stepName={reviewStep}
+              {...communicationError.tryAgain.mark}
+            />
+          }
+          cancel={<TaskResultActionCancel />}
+          {...communicationError.mark}
+        />
+      }
     />
   );
 };

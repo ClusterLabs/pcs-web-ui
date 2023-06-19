@@ -20,7 +20,7 @@ export const Task = () => {
 
   return (
     <TaskSimple
-      title={`Change group of primitive resource "${resourceId}"?`}
+      taskLabel={`Change group of primitive resource "${resourceId}"?`}
       task={taskName}
       clusterName={clusterName}
       close={close}
@@ -40,7 +40,6 @@ export const Task = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle={`Changing group of primitive resource "${resourceId}"`}
-          taskName="change group"
           failTitle={`Changing group of primitive resource "${resourceId}" failed`}
           tryAgain={changeGroup}
           recoverFromError={recoverFromError}

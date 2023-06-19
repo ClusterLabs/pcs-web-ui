@@ -11,7 +11,7 @@ import {
 import {useTask} from "./useTask";
 
 const {next, back, cancel, reviewAndFinish} =
-  testMarks.setupCluster.prepareNodes;
+  testMarks.setupCluster.prepareNodesFooter;
 
 export const PrepareNodesFooter = () => {
   const {
@@ -24,7 +24,7 @@ export const PrepareNodesFooter = () => {
   }
 
   return (
-    <TaskFooter {...testMarks.setupCluster.prepareNodes.mark}>
+    <TaskFooter {...testMarks.setupCluster.prepareNodesFooter.mark}>
       <WizardFooterNext
         disabled={!isClusterNameAndNodeCheckDoneValid}
         {...next.mark}

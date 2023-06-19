@@ -26,14 +26,13 @@ export const ResourceCreate = () => {
       libCall: {reports, response},
     },
   } = useTask();
-  const title = `create resource "${resourceName}"`;
   return (
     <Wizard
       clusterName={clusterName}
       task="resourceCreate"
       data-test="task-resource-create"
       onClose={close}
-      title="New resource"
+      taskLabel={`create resource "${resourceName}"`}
       description="Create new resource"
       steps={[
         {
@@ -86,13 +85,7 @@ export const ResourceCreate = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={title}
-              success={
-                <TaskSuccess
-                  taskName={title}
-                  primaryAction={<TaskResultAction />}
-                />
-              }
+              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
               backToUpdateSettingsStepName="Name and type"
               proceedForce={() => create({force: true})}
               reports={reports}

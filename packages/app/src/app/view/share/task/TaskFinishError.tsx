@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Button,
   EmptyState,
   EmptyStateBody,
   EmptyStateIcon,
@@ -10,46 +9,25 @@ import {
 import {ExclamationCircleIcon} from "@patternfly/react-icons";
 
 import * as palette from "app/view/share/palette";
-import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
-import {useTaskContext} from "./TaskContext";
-
-export const TaskFinishError = ({
-  title,
-  message,
-  primaryAction,
-  secondaryActions = undefined,
-}: {
+export const TaskFinishError = (props: {
   title: React.ReactNode;
   message: React.ReactNode;
-  primaryAction: [React.ReactNode, () => void];
-  secondaryActions?: Record<string, () => void>;
+  primaryAction: React.ReactNode;
+  secondaryActions?: React.ReactNode;
+  "data-test"?: string;
 }) => {
-  const {close} = useTaskContext();
   return (
-    <EmptyState data-test="task-error">
+    <EmptyState data-test={props["data-test"] ?? "task-error"}>
       <EmptyStateIcon icon={ExclamationCircleIcon} color={palette.ERROR} />
       <Title headingLevel="h4" size="lg">
-        {title}
+        {props.title}
       </Title>
-      <EmptyStateBody>{message}</EmptyStateBody>
-      <ButtonWithEnter
-        variant="primary"
-        onClick={primaryAction[1]}
-        data-test="task-close"
-      >
-        {primaryAction[0]}
-      </ButtonWithEnter>
+      <EmptyStateBody>{props.message}</EmptyStateBody>
+
+      {props.primaryAction}
       <EmptyStateSecondaryActions>
-        {secondaryActions
-          && Object.entries(secondaryActions).map(([label, action]) => (
-            <Button key={label} variant="link" onClick={action}>
-              {label}
-            </Button>
-          ))}
-        <Button variant="link" onClick={close}>
-          Cancel
-        </Button>
+        {props.secondaryActions}
       </EmptyStateSecondaryActions>
     </EmptyState>
   );

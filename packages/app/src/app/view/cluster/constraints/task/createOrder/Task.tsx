@@ -19,7 +19,7 @@ export const Task = () => {
   } = useTask();
   return (
     <TaskSimple
-      title="Create order constraint"
+      taskLabel="Create order constraint"
       task={taskName}
       clusterName={clusterName}
       close={close}
@@ -39,7 +39,6 @@ export const Task = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle="Creating order constraint"
-          taskName={"create order constraint"}
           failTitle="Create order constraint failed"
           tryAgain={createOrder}
           recoverFromError={recoverFromError}

@@ -1,6 +1,13 @@
 import {
-  TaskFinishLib,
+  TaskFinishLibCommunicationError,
+  TaskFinishLibUnsuccess,
+  TaskLibReports,
   TaskResultAction,
+  TaskResultActionBackCluster,
+  TaskResultActionCancel,
+  TaskResultActionProceedAnyway,
+  TaskResultActionTryAgain,
+  TaskResultLib,
   TaskSimple,
   TaskSimpleFooter,
   TaskSuccess,
@@ -14,18 +21,17 @@ export const Task = () => {
     close,
     clusterName,
     aclRolePermissionAdd,
-    recoverFromError,
     invalidPermissionIndexes,
     state: {
       libCall: {response, reports},
     },
   } = useTask();
 
-  const title = "Add permissions to role";
+  const taskLabel = "Add permissions to role";
 
   return (
     <TaskSimple
-      title="Add permissions to role"
+      taskLabel={taskLabel}
       task={"aclRolePermissionAdd"}
       data-test="task-acl-role-add-permissions"
       clusterName={clusterName}
@@ -42,19 +48,28 @@ export const Task = () => {
     >
       {response === "no-response" && <Configure />}
       {response !== "no-response" && (
-        <TaskFinishLib
+        <TaskResultLib
           response={response}
-          taskName={title}
-          success={
-            <TaskSuccess
-              taskName={title}
-              primaryAction={<TaskResultAction />}
+          success={<TaskSuccess primaryAction={<TaskResultAction />} />}
+          unsuccess={
+            <TaskFinishLibUnsuccess
+              reports={reports}
+              back={<TaskResultActionBackCluster />}
+              proceed={
+                <TaskResultActionProceedAnyway action={aclRolePermissionAdd} />
+              }
+              cancel={<TaskResultActionCancel />}
             />
           }
-          backToUpdateSettings={recoverFromError}
-          proceedForce={aclRolePermissionAdd}
-          tryAgain={aclRolePermissionAdd}
-          reports={reports}
+          communicationError={
+            <TaskFinishLibCommunicationError
+              tryAgain={
+                <TaskResultActionTryAgain action={aclRolePermissionAdd} />
+              }
+              cancel={<TaskResultActionCancel />}
+            />
+          }
+          reports={<TaskLibReports reports={reports} />}
         />
       )}
     </TaskSimple>

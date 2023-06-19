@@ -19,7 +19,7 @@ export const ImportExistingCluster = () => {
       task="importExistingCluster"
       clusterName={null}
       data-test="task-cluster-import"
-      title="Add existing cluster"
+      taskLabel="Add existing cluster"
       description="Manage existing cluster from web ui"
       onClose={close}
       steps={[

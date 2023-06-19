@@ -31,16 +31,9 @@ export const ClusterOverviewPage = () => {
             name: "stop",
             task: {
               component: task.forceableConfirm.Task({
-                confirm: {
-                  title: "Stop cluster?",
-                  description: "Stop the cluster on all nodes",
-                },
                 runLabel: "Stop",
-                processTitle: {
-                  wait: "Stopping cluster",
-                  fail: "Cluster stop failed",
-                },
-                taskName: "stop cluster",
+                taskLabel: "Stop cluster",
+                description: "Stop the cluster on all nodes",
                 getForceableAction: ({force}) => ({
                   type: "DASHBOARD.CLUSTER.STOP",
                   payload: {clusterName: cluster.name, force},

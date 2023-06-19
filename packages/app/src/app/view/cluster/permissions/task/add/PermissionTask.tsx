@@ -22,7 +22,7 @@ export const PermissionTask = () => {
 
   return (
     <TaskSimple
-      title={`${isCreate ? "Create" : "Update"} permission`}
+      taskLabel={`${isCreate ? "create" : "update"} permission`}
       task={taskName}
       clusterName={clusterName}
       close={close}
@@ -43,7 +43,6 @@ export const PermissionTask = () => {
           response={response}
           resultMessage={resultMessage}
           waitTitle={`${isCreate ? "Creating" : "Updating"} permission`}
-          taskName={`${isCreate ? "create" : "update"} permission`}
           failTitle={`Permission ${isCreate ? "create" : "update"} failed`}
           tryAgain={permissionCreate}
           recoverFromError={recoverFromError}

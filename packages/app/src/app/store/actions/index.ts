@@ -53,6 +53,12 @@ export type ActionPayload = {
     : undefined;
 };
 
+export type ActionKey = {
+  -readonly [K in keyof ActionMap]: ActionMap[K] extends {key: unknown}
+    ? ActionMap[K]["key"]
+    : undefined;
+};
+
 export type Action = ActionLeaf | SetupDataReading;
 
 let nextId = 1;

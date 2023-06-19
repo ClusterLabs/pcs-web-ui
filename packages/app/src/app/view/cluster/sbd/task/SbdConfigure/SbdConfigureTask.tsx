@@ -22,14 +22,13 @@ export const SbdConfigureTask = () => {
     },
   } = useTask();
 
-  const title = "Configure SBD";
   return (
     <Wizard
       clusterName={clusterName}
       task="sbdConfigure"
       data-test="task-sbd-configure"
       onClose={close}
-      title={title}
+      taskLabel="Configure SBD"
       description="Configure SBD in cluster"
       steps={[
         {
@@ -66,13 +65,7 @@ export const SbdConfigureTask = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={title}
-              success={
-                <TaskSuccess
-                  taskName={title}
-                  primaryAction={<TaskResultAction />}
-                />
-              }
+              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
               backToUpdateSettingsStepName="Watchdog devices"
               proceedForce={() => sbdConfigure({force: true})}
               reports={reports}

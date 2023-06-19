@@ -95,16 +95,9 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
     name: "stop",
     task: {
       component: task.forceableConfirm.Task({
-        confirm: {
-          title: "Stop node?",
-          description: "Stop a cluster on the node",
-        },
         runLabel: "Stop",
-        processTitle: {
-          wait: "Stopping node",
-          fail: "Node stop failed",
-        },
-        taskName: "stop node",
+        taskLabel: "Stop node",
+        description: "Stop a cluster on the node",
         getForceableAction: ({force}) => ({
           type: "NODE.STOP",
           key: {clusterName},

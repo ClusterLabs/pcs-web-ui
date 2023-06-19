@@ -22,18 +22,19 @@ export const ClusterSetup = () => {
     isClusterNameAndNodeCheckDoneValid,
     areLinksValid,
   } = useTask();
+  const clusterNameAndNodes = "Cluster name and nodes";
+  const review = "Review";
   return (
     <Wizard
       clusterName={null}
       task="clusterSetup"
       {...testMarks.setupCluster.mark}
-      title="Setup cluster"
+      taskLabel="Setup cluster"
       description="Setup new cluster on nodes"
       onClose={close}
       steps={[
         {
-          id: "clusterNameAndNodes",
-          name: "Cluster name and nodes",
+          name: clusterNameAndNodes,
           component: <NameAndNodes />,
           footer: <NameAndNodesFooter />,
         },
@@ -75,14 +76,16 @@ export const ClusterSetup = () => {
           ],
         },
         {
-          name: "Review",
+          name: review,
           component: <Review />,
           footer: <ReviewFooter />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
         },
         {
           name: "Result",
-          component: <Result />,
+          component: (
+            <Result backStep={clusterNameAndNodes} reviewStep={review} />
+          ),
           isFinishedStep: true,
         },
       ]}

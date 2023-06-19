@@ -27,7 +27,7 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
       </Alert>
       {open && (
         <TaskSimple
-          title="Authentication of nodes"
+          taskLabel="Authentication of nodes"
           task="fixAuth"
           clusterName={clusterName}
           close={cancel}

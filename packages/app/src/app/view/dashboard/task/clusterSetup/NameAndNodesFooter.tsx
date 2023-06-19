@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.setupCluster.nameAndNodes;
+const {next, back, cancel} = testMarks.setupCluster.nameAndNodesFooter;
 
 export const NameAndNodesFooter = () => {
   const {isClusterNameValid, areNodeNamesValid} = useTask();
   return (
-    <TaskFooter {...testMarks.setupCluster.nameAndNodes.mark}>
+    <TaskFooter {...testMarks.setupCluster.nameAndNodesFooter.mark}>
       <WizardFooterNext
         actionIf={isClusterNameValid && areNodeNamesValid}
         {...next.mark}

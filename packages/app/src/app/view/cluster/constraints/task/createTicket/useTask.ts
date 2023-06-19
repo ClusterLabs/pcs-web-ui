@@ -78,13 +78,6 @@ export const useTask = () => {
       });
     },
 
-    recoverFromError: () => {
-      dispatch({
-        type: "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET",
-        key: {clusterName, task: task.name},
-      });
-    },
-
     close: () => {
       close();
       dispatch({
