@@ -1,4 +1,10 @@
-import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
+import {
+  TaskFinishLib,
+  TaskResultAction,
+  TaskSimple,
+  TaskSimpleFooter,
+  TaskSuccess,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
@@ -14,6 +20,8 @@ export const Task = () => {
       libCall: {response, reports},
     },
   } = useTask();
+
+  const title = "Create ticket constraint";
   return (
     <TaskSimple
       title="Create ticket constraint"
@@ -24,7 +32,7 @@ export const Task = () => {
         response !== "no-response" ? null : (
           <TaskSimpleFooter
             run={() => createTicket({force: false})}
-            runLabel="Create ticket constraint"
+            runLabel={title}
           />
         )
       }
@@ -33,7 +41,13 @@ export const Task = () => {
       {response !== "no-response" && (
         <TaskFinishLib
           response={response}
-          taskName="create ticket constraint"
+          taskName={title}
+          success={
+            <TaskSuccess
+              taskName={title}
+              primaryAction={<TaskResultAction />}
+            />
+          }
           backToUpdateSettings={recoverFromError}
           proceedForce={() => createTicket({force: true})}
           tryAgain={() => createTicket({force: false})}

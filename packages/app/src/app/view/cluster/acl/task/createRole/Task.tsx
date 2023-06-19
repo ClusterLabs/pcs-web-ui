@@ -1,4 +1,10 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {
+  TaskFinishLibWizard,
+  TaskResultAction,
+  TaskSuccess,
+  Wizard,
+  WizardFooter,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {RoleName} from "./RoleName";
@@ -17,6 +23,7 @@ export const Task = () => {
       libCall: {response, reports},
     },
   } = useTask();
+  const title = `create acl role ${roleId}`;
   return (
     <Wizard
       task="aclRoleCreate"
@@ -66,7 +73,13 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={`create acl role ${roleId}`}
+              taskName={title}
+              success={
+                <TaskSuccess
+                  taskName={title}
+                  primaryAction={<TaskResultAction />}
+                />
+              }
               backToUpdateSettingsStepName="Enter role name"
               reports={reports}
             />

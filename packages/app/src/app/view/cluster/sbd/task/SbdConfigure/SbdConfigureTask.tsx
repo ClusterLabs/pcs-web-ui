@@ -1,4 +1,10 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {
+  TaskFinishLibWizard,
+  TaskResultAction,
+  TaskSuccess,
+  Wizard,
+  WizardFooter,
+} from "app/view/share";
 
 import {Options} from "./Options";
 import {Review} from "./Review";
@@ -16,13 +22,14 @@ export const SbdConfigureTask = () => {
     },
   } = useTask();
 
+  const title = "Configure SBD";
   return (
     <Wizard
       clusterName={clusterName}
       task="sbdConfigure"
       data-test="task-sbd-configure"
       onClose={close}
-      title="Configure SBD"
+      title={title}
       description="Configure SBD in cluster"
       steps={[
         {
@@ -59,7 +66,13 @@ export const SbdConfigureTask = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={"configure SBD"}
+              taskName={title}
+              success={
+                <TaskSuccess
+                  taskName={title}
+                  primaryAction={<TaskResultAction />}
+                />
+              }
               backToUpdateSettingsStepName="Watchdog devices"
               proceedForce={() => sbdConfigure({force: true})}
               reports={reports}

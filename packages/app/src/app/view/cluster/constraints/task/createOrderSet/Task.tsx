@@ -1,4 +1,10 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {
+  TaskFinishLibWizard,
+  TaskResultAction,
+  TaskSuccess,
+  Wizard,
+  WizardFooter,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Options} from "./Options";
@@ -16,6 +22,7 @@ export const Task = () => {
       libCall: {reports, response},
     },
   } = useTask();
+  const title = "create order constraint with resource set";
   return (
     <Wizard
       task="constraintOrderSetCreate"
@@ -67,7 +74,13 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName="create order constraint with resource set"
+              taskName={title}
+              success={
+                <TaskSuccess
+                  taskName={title}
+                  primaryAction={<TaskResultAction />}
+                />
+              }
               backToUpdateSettingsStepName="Resource Sets"
               proceedForce={() => create({force: true})}
               reports={reports}

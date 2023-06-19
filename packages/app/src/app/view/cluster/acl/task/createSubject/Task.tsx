@@ -1,4 +1,10 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {
+  TaskFinishLibWizard,
+  TaskResultAction,
+  TaskSuccess,
+  Wizard,
+  WizardFooter,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {EnterName} from "./EnterName";
@@ -21,6 +27,7 @@ export const Task = () => {
 
   const enterSubjectNameLabel = `Enter ${subjectType} name`;
 
+  const title = `create ${subjectType} ${subjectId}`;
   return (
     <Wizard
       task={taskName}
@@ -63,7 +70,13 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={`create ${subjectType} ${subjectId}`}
+              taskName={title}
+              success={
+                <TaskSuccess
+                  taskName={title}
+                  primaryAction={<TaskResultAction />}
+                />
+              }
               backToUpdateSettingsStepName={enterSubjectNameLabel}
               reports={reports}
             />

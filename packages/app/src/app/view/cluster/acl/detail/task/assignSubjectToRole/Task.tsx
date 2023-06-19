@@ -1,4 +1,10 @@
-import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
+import {
+  TaskFinishLib,
+  TaskResultAction,
+  TaskSimple,
+  TaskSimpleFooter,
+  TaskSuccess,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {ChooseAssignee} from "./ChooseAssignee";
@@ -43,6 +49,12 @@ export const Task = () => {
         <TaskFinishLib
           response={response}
           taskName={title}
+          success={
+            <TaskSuccess
+              taskName={title}
+              primaryAction={<TaskResultAction />}
+            />
+          }
           backToUpdateSettings={recoverFromError}
           proceedForce={assign}
           tryAgain={assign}

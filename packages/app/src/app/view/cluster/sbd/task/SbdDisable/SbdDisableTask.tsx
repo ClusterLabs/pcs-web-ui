@@ -1,4 +1,10 @@
-import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
+import {
+  TaskFinishLib,
+  TaskResultAction,
+  TaskSimple,
+  TaskSimpleFooter,
+  TaskSuccess,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -12,6 +18,8 @@ export const SbdDisableTask = () => {
       libCall: {response, reports},
     },
   } = useTask();
+
+  const title = "Disable SBD";
 
   return (
     <TaskSimple
@@ -33,7 +41,13 @@ export const SbdDisableTask = () => {
       {response !== "no-response" && (
         <TaskFinishLib
           response={response}
-          taskName="Disable SBD"
+          taskName={title}
+          success={
+            <TaskSuccess
+              taskName={title}
+              primaryAction={<TaskResultAction />}
+            />
+          }
           backToUpdateSettings={recoverFromError}
           proceedForce={() => sbdDisable({force: true})}
           tryAgain={() => sbdDisable({force: false})}

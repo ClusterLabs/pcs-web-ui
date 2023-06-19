@@ -1,4 +1,10 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {
+  TaskFinishLibWizard,
+  TaskResultAction,
+  TaskSuccess,
+  Wizard,
+  WizardFooter,
+} from "app/view/share";
 
 import {Review} from "./Review";
 import {useTask} from "./useTask";
@@ -20,6 +26,7 @@ export const ResourceCreate = () => {
       libCall: {reports, response},
     },
   } = useTask();
+  const title = `create resource "${resourceName}"`;
   return (
     <Wizard
       clusterName={clusterName}
@@ -79,7 +86,13 @@ export const ResourceCreate = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName={`create resource "${resourceName}"`}
+              taskName={title}
+              success={
+                <TaskSuccess
+                  taskName={title}
+                  primaryAction={<TaskResultAction />}
+                />
+              }
               backToUpdateSettingsStepName="Name and type"
               proceedForce={() => create({force: true})}
               reports={reports}

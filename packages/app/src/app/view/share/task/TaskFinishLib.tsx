@@ -22,7 +22,7 @@ export const TaskFinishLib = ({
   proceedForce?: () => void;
   tryAgain: () => void;
   reports: types.LibReport[];
-  success?: React.ReactNode;
+  success: React.ReactNode;
 }) => {
   const isForcible = lib.reports.allErrorsCanBeForced(reports) && proceedForce;
   return (

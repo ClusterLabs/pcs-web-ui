@@ -20,7 +20,7 @@ export const TaskFinishLibWizard = ({
   reports: TaskFinishLibProps["reports"];
   backToUpdateSettingsStepName: string;
   tryAgainStepName?: string;
-  success?: TaskFinishLibProps["success"];
+  success: TaskFinishLibProps["success"];
 }) => {
   return (
     <WizardContextConsumer>

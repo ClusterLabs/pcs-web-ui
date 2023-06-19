@@ -1,4 +1,10 @@
-import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
+import {
+  TaskFinishLib,
+  TaskResultAction,
+  TaskSimple,
+  TaskSimpleFooter,
+  TaskSuccess,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
@@ -14,6 +20,8 @@ export const Task = () => {
       libCall: {response, reports},
     },
   } = useTask();
+
+  const title = "Add permissions to role";
 
   return (
     <TaskSimple
@@ -36,7 +44,13 @@ export const Task = () => {
       {response !== "no-response" && (
         <TaskFinishLib
           response={response}
-          taskName="Add permissions to role"
+          taskName={title}
+          success={
+            <TaskSuccess
+              taskName={title}
+              primaryAction={<TaskResultAction />}
+            />
+          }
           backToUpdateSettings={recoverFromError}
           proceedForce={aclRolePermissionAdd}
           tryAgain={aclRolePermissionAdd}
