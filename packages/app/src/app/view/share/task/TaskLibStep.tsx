@@ -1,7 +1,7 @@
 import React from "react";
 import {Stack, StackItem, Text, TextContent} from "@patternfly/react-core";
 
-import {TaskLibReports} from "./TaskLibReports";
+import {TaskLibReportList} from "./TaskLibReportList";
 
 export const TaskLibStep = ({
   title,
@@ -9,7 +9,7 @@ export const TaskLibStep = ({
   reports = [],
 }: {
   title: string;
-  reports?: React.ComponentProps<typeof TaskLibReports>["reports"];
+  reports?: React.ComponentProps<typeof TaskLibReportList>["reports"];
   children?: React.ReactNode;
 }) => {
   return (
@@ -21,7 +21,7 @@ export const TaskLibStep = ({
       </StackItem>
       <StackItem>{children}</StackItem>
       <StackItem>
-        <TaskLibReports reports={reports} />
+        <TaskLibReportList reports={reports} />
       </StackItem>
     </Stack>
   );

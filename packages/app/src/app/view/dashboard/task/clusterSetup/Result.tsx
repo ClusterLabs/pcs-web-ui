@@ -2,7 +2,8 @@ import {testMarks} from "app/view/dataTest";
 import {
   TaskFinishLibCommunicationError,
   TaskFinishLibUnsuccess,
-  TaskLibReports,
+  TaskLibReport,
+  TaskLibReportList,
   TaskResultAction,
   TaskResultActionCancel,
   TaskResultActionProceedAnyway,
@@ -28,10 +29,24 @@ export const Result = ({
       libCall: {reports, response},
     },
   } = useTask();
-  const {success, unsuccess, communicationError} = testMarks.setupCluster;
+  const {success, unsuccess, communicationError, reportList} =
+    testMarks.setupCluster;
   return (
     <TaskResultLib
       response={response}
+      reports={
+        <TaskLibReportList
+          reports={reports}
+          renderReport={(report, i) => (
+            <TaskLibReport
+              key={i}
+              report={report}
+              {...reportList.report.mark}
+            />
+          )}
+          {...reportList.mark}
+        />
+      }
       success={
         <TaskSuccess
           primaryAction={<TaskResultAction {...success.close.mark} />}
@@ -65,7 +80,6 @@ export const Result = ({
           {...unsuccess.mark}
         />
       }
-      reports={<TaskLibReports reports={reports} />}
       communicationError={
         <TaskFinishLibCommunicationError
           tryAgain={

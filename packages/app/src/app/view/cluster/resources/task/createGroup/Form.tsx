@@ -1,7 +1,7 @@
 import React from "react";
 import {DualListSelector, Form as PfForm} from "@patternfly/react-core";
 
-import {FormText, TaskLibReports} from "app/view/share";
+import {FormText, TaskLibReportList} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -47,7 +47,7 @@ export const Form = () => {
         onListChange={onListChange}
         id="basicSelectorWithSearch"
       />
-      <TaskLibReports reports={reports} />
+      <TaskLibReportList reports={reports} />
     </>
   );
 };

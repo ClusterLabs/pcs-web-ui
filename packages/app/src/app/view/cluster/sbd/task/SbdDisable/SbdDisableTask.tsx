@@ -1,7 +1,7 @@
 import {
   TaskFinishLibCommunicationError,
   TaskFinishLibUnsuccess,
-  TaskLibReports,
+  TaskLibReportList,
   TaskResultAction,
   TaskResultActionBackCluster,
   TaskResultActionCancel,
@@ -70,7 +70,7 @@ export const SbdDisableTask = () => {
               cancel={<TaskResultActionCancel />}
             />
           }
-          reports={<TaskLibReports reports={reports} />}
+          reports={<TaskLibReportList reports={reports} />}
         />
       )}
     </TaskSimple>

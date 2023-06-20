@@ -66,6 +66,9 @@ export const structure = {
       tryAgain: {},
       cancel: {},
     },
+    reportList: {
+      report: {},
+    },
   },
 };
 
