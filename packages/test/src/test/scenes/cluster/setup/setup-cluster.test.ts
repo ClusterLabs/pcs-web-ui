@@ -42,7 +42,7 @@ const routeCheckAuth = route.checkAuthAgainstNodes({nodeNameList});
 
 const openTask = async () => {
   await page.goto(backend.rootUrl);
-  await app.dashboard.toolbar.runSetupCluster.locator.click();
+  await app.dashboard.toolbar.setupCluster.locator.click();
   await app.setupCluster.locator.waitFor({state: "visible"});
 };
 

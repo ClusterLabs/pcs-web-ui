@@ -9,7 +9,7 @@ type WithLocator<STRUCT extends SubStructure> = {
 };
 
 const testMarksToXpath = (path: string[]) =>
-  path.map(value => `//*[@data-test="${value}"]`).join("");
+  `//*[@data-test="${path.join(".")}"]`;
 
 export const getLocator =
   (envType: EnvType) =>

@@ -26,7 +26,7 @@ describe("Web ui inside cockpit on one node cluster", () => {
       // we expect to start with no cluster
       await assertImportedClusterNamesAre([]);
 
-      await app.dashboard.toolbar.runSetupCluster.locator.click();
+      await app.dashboard.toolbar.setupCluster.locator.click();
       await setupCluster({clusterName, nodeNameList: [nodeName]});
     },
     testTimeout,
