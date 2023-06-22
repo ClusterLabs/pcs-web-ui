@@ -3,25 +3,22 @@ import {Stack, StackItem, Text, TextContent} from "@patternfly/react-core";
 
 import {TaskLibReportList} from "./TaskLibReportList";
 
-export const TaskLibStep = ({
-  title,
-  children,
-  reports = [],
-}: {
+export const TaskLibStep = (props: {
   title: string;
   reports?: React.ComponentProps<typeof TaskLibReportList>["reports"];
   children?: React.ReactNode;
+  "data-test"?: string;
 }) => {
   return (
-    <Stack hasGutter>
+    <Stack hasGutter data-test={props["data-test"]}>
       <StackItem>
         <TextContent>
-          <Text component="h2">{title}</Text>
+          <Text component="h2">{props.title}</Text>
         </TextContent>
       </StackItem>
-      <StackItem>{children}</StackItem>
+      <StackItem>{props.children}</StackItem>
       <StackItem>
-        <TaskLibReportList reports={reports} />
+        <TaskLibReportList reports={props.reports ?? []} />
       </StackItem>
     </Stack>
   );

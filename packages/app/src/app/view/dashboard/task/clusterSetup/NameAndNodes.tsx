@@ -21,8 +21,9 @@ export const NameAndNodes = () => {
     <TaskLibStep
       title="Essential information about cluster"
       reports={allReports}
+      {...testMarksForm.mark}
     >
-      <Form {...testMarksForm.mark}>
+      <Form>
         <FormText
           id="cluster-name"
           value={clusterName}

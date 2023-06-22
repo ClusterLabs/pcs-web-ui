@@ -1,9 +1,13 @@
 import React from "react";
 import {ExpandableSection} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
+
 import {useTask} from "./useTask";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
+const {toggleAdvancedOptions} =
+  testMarks.setupCluster.advancedOptions.transportKnet.link;
 export const TransportKnetLinkToggler = ({
   link,
   children,
@@ -26,18 +30,17 @@ export const TransportKnetLinkToggler = ({
     return false;
   });
   const [advancedExpanded, setAdvancedExpanded] = React.useState(isLinkFilled);
+  const toggleText = isLinkFilled
+    ? "Advanced options (some filled, cannot hide)"
+    : advancedExpanded
+    ? "Hide advanced options"
+    : "Show advanced options";
   return (
     <ExpandableSection
       isExpanded={isLinkFilled || advancedExpanded}
-      toggleText={
-        isLinkFilled
-          ? "Advanced options (some filled, cannot hide)"
-          : advancedExpanded
-          ? "Hide advanced options"
-          : "Show advanced options"
-      }
+      toggleText={toggleText}
       onToggle={() => setAdvancedExpanded(isLinkFilled || !advancedExpanded)}
-      data-test="link-advanced-options"
+      toggleContent={<span {...toggleAdvancedOptions.mark}>{toggleText}</span>}
     >
       {children}
     </ExpandableSection>

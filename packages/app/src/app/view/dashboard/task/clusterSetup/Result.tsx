@@ -29,8 +29,7 @@ export const Result = ({
       libCall: {reports, response},
     },
   } = useTask();
-  const {success, unsuccess, communicationError, reportList} =
-    testMarks.setupCluster;
+  const {success, unsuccess, communicationError} = testMarks.setupCluster;
   return (
     <TaskResultLib
       response={response}
@@ -41,10 +40,9 @@ export const Result = ({
             <TaskLibReport
               key={i}
               report={report}
-              {...reportList.report.mark}
+              {...testMarks.setupCluster.report.mark}
             />
           )}
-          {...reportList.mark}
         />
       }
       success={

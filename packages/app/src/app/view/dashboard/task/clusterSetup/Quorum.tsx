@@ -1,9 +1,12 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText, TaskLibStep} from "app/view/share";
 import {FormRadios} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {quorum} = testMarks.setupCluster.advancedOptions;
 
 export const Quorum = () => {
   const {
@@ -13,7 +16,7 @@ export const Quorum = () => {
   } = useTask();
   return (
     <TaskLibStep title="Quorum" reports={allReports}>
-      <Form>
+      <Form {...quorum.mark}>
         <FormRadios
           id="cluster-setup-quorum-auto-tie-breaker"
           label="Auto tie breaker"
@@ -39,7 +42,7 @@ export const Quorum = () => {
           options={["off", "on", "default"]}
           selected={quorumOptions.auto_tie_breaker}
           onChange={value => updateQuorumOptions({auto_tie_breaker: value})}
-          data-test="quorum.auto_tie_breaker"
+          {...quorum.auto_tie_breaker.mark}
         />
         <FormRadios
           id="cluster-setup-quorum-last-man-standing"
@@ -67,7 +70,7 @@ export const Quorum = () => {
           options={["off", "on", "default"]}
           selected={quorumOptions.last_man_standing}
           onChange={value => updateQuorumOptions({last_man_standing: value})}
-          data-test="quorum.last_man_standing"
+          {...quorum.last_man_standing.mark}
         />
         <FormText
           label="Last man standing window"
@@ -87,7 +90,7 @@ export const Quorum = () => {
           onChange={value =>
             updateQuorumOptions({last_man_standing_window: value})
           }
-          data-test="quorum.last_man_standing_window"
+          {...quorum.last_man_standing_window.mark}
         />
         <FormRadios
           id="cluster-setup-quorum-wait-for-all"
@@ -127,7 +130,7 @@ export const Quorum = () => {
           options={["off", "on", "default"]}
           selected={quorumOptions.wait_for_all}
           onChange={value => updateQuorumOptions({wait_for_all: value})}
-          data-test="quorum.wait_for_all"
+          {...quorum.wait_for_all.mark}
         />
       </Form>
     </TaskLibStep>

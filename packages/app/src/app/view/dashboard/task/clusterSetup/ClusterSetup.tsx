@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {Wizard, WizardFooter} from "app/view/share";
+import {Wizard} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {NameAndNodes} from "./NameAndNodes";
@@ -12,6 +12,7 @@ import {Transport} from "./Transport";
 import {TransportOptions} from "./TransportOptions";
 import {Quorum} from "./Quorum";
 import {Totem} from "./Totem";
+import {AdvancedOptionsFooter} from "./AdvancedOptionsFooter";
 import {Result} from "./Result";
 
 export const ClusterSetup = () => {
@@ -55,22 +56,25 @@ export const ClusterSetup = () => {
             {
               name: "Transport links",
               component: <Transport />,
-              footer: <WizardFooter next={{actionIf: areLinksValid}} />,
+              footer: <AdvancedOptionsFooter />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid,
             },
             {
               name: "Transport Options",
               component: <TransportOptions />,
+              footer: <AdvancedOptionsFooter />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Quorum",
               component: <Quorum />,
+              footer: <AdvancedOptionsFooter />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Totem",
               component: <Totem />,
+              footer: <AdvancedOptionsFooter />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
           ],

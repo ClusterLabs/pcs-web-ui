@@ -3,7 +3,13 @@ import * as responses from "dev/responses";
 import {intercept, route} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
-import {clusterName, interceptForClusterSetup, nodeNameList} from "./common";
+import {
+  clusterName,
+  expectReports,
+  interceptForClusterSetup,
+  nodeNameList,
+  openTask,
+} from "./common";
 
 const {
   nameAndNodes,
@@ -12,7 +18,6 @@ const {
   reviewFooter,
   success,
   unsuccess,
-  reportList,
 } = app.setupCluster;
 const {fillClusterNameAndNodes} = shortcuts.setupCluster;
 
@@ -40,30 +45,17 @@ const routeClusterSetup = (
 
 const routeCheckAuth = route.checkAuthAgainstNodes({nodeNameList});
 
-const openTask = async () => {
-  await page.goto(backend.rootUrl);
-  await app.dashboard.toolbar.setupCluster.locator.click();
-  await app.setupCluster.locator.waitFor({state: "visible"});
-};
-
 const sendMinimalSetup = async () => {
+  await page.goto(backend.rootUrl);
   await openTask();
   await fillClusterNameAndNodes({clusterName, nodeNameList});
-  await nameAndNodesFooter.next.locator.click();
-  await prepareNodesFooter.reviewAndFinish.locator.click();
-  await reviewFooter.next.locator.click();
-};
-
-const unsuccessVisible = async () => {
-  await unsuccess.locator.waitFor({state: "visible"});
+  await click(nameAndNodesFooter.next);
+  await click(prepareNodesFooter.reviewAndFinish);
+  await click(reviewFooter.next);
 };
 
 const taskClosed = async () => {
   await app.setupCluster.locator.waitFor({state: "detached"});
-};
-
-const expectReports = async (count: number) => {
-  expect(await reportList.report.locator.count()).toEqual(count);
 };
 
 describe("Cluster setup", () => {
@@ -72,9 +64,9 @@ describe("Cluster setup", () => {
   it("should successfully setup cluster skipping optional steps", async () => {
     interceptForClusterSetup([routeCheckAuth, routeClusterSetup()]);
     await sendMinimalSetup();
-    await success.locator.waitFor();
+    await isVisible(success);
     await expectReports(0);
-    await success.close.locator.click();
+    await click(success.close);
     await taskClosed();
   });
 
@@ -84,9 +76,9 @@ describe("Cluster setup", () => {
       routeClusterSetup([responses.lib.report.error()]),
     ]);
     await sendMinimalSetup();
-    await unsuccessVisible();
+    await isVisible(unsuccess);
     await expectReports(1);
-    await unsuccess.cancel.locator.click();
+    await click(unsuccess.cancel);
     await taskClosed();
   });
 
@@ -96,11 +88,11 @@ describe("Cluster setup", () => {
       routeClusterSetup([responses.lib.report.error()]),
     ]);
     await sendMinimalSetup();
-    await unsuccessVisible();
+    await isVisible(unsuccess);
     await expectReports(1);
-    await unsuccess.back.locator.click();
+    await click(unsuccess.back);
 
-    await nameAndNodes.locator.waitFor({state: "visible"});
+    await isVisible(nameAndNodes);
   });
 
   it("shold display all reports", async () => {
@@ -112,8 +104,7 @@ describe("Cluster setup", () => {
       ]),
     ]);
     await sendMinimalSetup();
-    await unsuccessVisible();
-    await reportList.locator.waitFor({state: "visible"});
+    await isVisible(unsuccess);
     await expectReports(2);
   });
 });

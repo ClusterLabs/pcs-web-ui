@@ -8,6 +8,7 @@ type WithLocator<STRUCT extends SubStructure> = {
   [KEY in keyof STRUCT]: WithLocator<STRUCT[KEY]> & {locator: Locator};
 };
 
+export type Mark = {locator: Locator} | Locator;
 const testMarksToXpath = (path: string[]) =>
   `//*[@data-test="${path.join(".")}"]`;
 
@@ -35,3 +36,18 @@ const addLocators = <STRUCTURE extends SubStructure>(
 
 export const getApp = (envType: EnvType) =>
   addLocators(getLocator(envType), testMarksStructure);
+
+export const click = async (withLocator: {locator: Locator}) => {
+  await withLocator.locator.click();
+};
+
+export const isVisible = async (withLocator: {locator: Locator}) => {
+  await withLocator.locator.waitFor({state: "visible"});
+};
+
+export const fill = async (withLocator: {locator: Locator}, value: string) => {
+  await withLocator.locator.fill(value);
+};
+
+export const isLocator = (mark: Mark): mark is Locator =>
+  typeof mark.locator === "function";

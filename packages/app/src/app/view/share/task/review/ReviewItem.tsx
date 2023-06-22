@@ -41,11 +41,7 @@ export const ReviewItem = (props: {
   return (
     <DescriptionListGroup>
       <DescriptionListTerm>{props.label}</DescriptionListTerm>
-      <DescriptionListDescription
-        {...("data-test" in props && props["data-test"] !== undefined
-          ? {"data-test": `${props["data-test"]}-review-value`}
-          : {})}
-      >
+      <DescriptionListDescription data-test={props["data-test"]}>
         {value}
       </DescriptionListDescription>
     </DescriptionListGroup>

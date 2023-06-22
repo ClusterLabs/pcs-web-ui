@@ -12,3 +12,12 @@ export const interceptForClusterSetup = (routeList: intercept.Route[] = []) =>
     route.rememberCluster({clusterName, nodeNameList}),
     ...routeList,
   ]);
+
+export const openTask = async () => {
+  await click(app.dashboard.toolbar.setupCluster);
+  await isVisible(app.setupCluster);
+};
+
+export const expectReports = async (count: number) => {
+  expect(await app.setupCluster.report.locator.count()).toEqual(count);
+};

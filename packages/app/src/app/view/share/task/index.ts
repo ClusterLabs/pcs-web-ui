@@ -29,7 +29,7 @@ export * from "./TaskSimple";
 export * from "./TaskSimpleFooter";
 export * from "./TaskSimpleFinish";
 export * from "./review/ReviewList";
-export * from "./review/ReviewValue";
+export * from "./review/ReviewItem";
 export * from "./review/ReviewYesNo";
 export * from "./TaskReport";
 export * from "./types";

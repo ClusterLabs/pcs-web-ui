@@ -10,6 +10,7 @@ import {
 } from "@patternfly/react-core";
 import {PlusIcon, TimesIcon} from "@patternfly/react-icons";
 
+import {testMarks} from "app/view/dataTest";
 import {TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -23,6 +24,8 @@ type TabIndex = Parameters<
 const ADD_LINK = "add";
 const NO_LINK = "no link";
 const MAX_LINKS = 8;
+
+const {addKnetLink} = testMarks.setupCluster.advancedOptions.transportKnet;
 
 export const TransportKnet = ({linkList}: {linkList: Link[]}) => {
   const [currentTabIndex, setCurrentTabIndex] = React.useState<
@@ -90,7 +93,11 @@ export const TransportKnet = ({linkList}: {linkList: Link[]}) => {
   );
 
   return (
-    <TaskLibStep title="Knet transport" reports={allReports}>
+    <TaskLibStep
+      title="Knet transport"
+      reports={allReports}
+      {...testMarks.setupCluster.advancedOptions.transportKnet.mark}
+    >
       {!areLinksValid && showValidationErrors && (
         <Alert
           variant="danger"
@@ -136,9 +143,7 @@ export const TransportKnet = ({linkList}: {linkList: Link[]}) => {
                     <TabTitleIcon>
                       <PlusIcon />
                     </TabTitleIcon>
-                    <TabTitleText data-test="knet-link-add">
-                      Add Link
-                    </TabTitleText>
+                    <TabTitleText {...addKnetLink.mark}>Add Link</TabTitleText>
                   </>
                 }
               />

@@ -1,12 +1,15 @@
 import React from "react";
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormGroup, FormSelect, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {TransportKnetLinkToggler} from "./TransportKnetLinkToggler";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
+
+const {transportKnet} = testMarks.setupCluster.advancedOptions;
 
 export const TransportKnetLink = ({link}: {link: Link}) => {
   const {
@@ -22,17 +25,23 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
   );
 
   return (
-    <Form className="pf-u-m-lg">
+    <Form className="pf-u-m-lg" {...transportKnet.link.mark}>
       <FormGroup
         label={`Node addresses for link ${link.linknumber}`}
         fieldId="node-list"
       ></FormGroup>
       <table>
         <tbody>
-          {Object.keys(link.addresses).map((nodeName, i) => (
+          {Object.keys(link.addresses).map(nodeName => (
             <tr key={nodeName} className="pf-u-m-sm">
               <td>
-                Node <span style={{fontWeight: "bold"}}>{nodeName}</span>{" "}
+                Node{" "}
+                <span
+                  style={{fontWeight: "bold"}}
+                  {...transportKnet.link.nodeName.mark}
+                >
+                  {nodeName}
+                </span>{" "}
                 address
               </td>
               <td className="pf-u-p-sm">
@@ -47,7 +56,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
                   helperTextInvalid="Please provide address for the node"
                   showValidationErrors={showValidationErrors}
                   isValid={link.addresses[nodeName].length > 0}
-                  data-test={`knet-link-node-${i}`}
+                  {...transportKnet.link.address.mark}
                 />
               </td>
             </tr>
@@ -69,7 +78,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           }}
           value={link.link_priority || ""}
           onChange={value => updateLink({link_priority: value})}
-          data-test="link_priority"
+          {...transportKnet.link.link_priority.mark}
         />
         <FormText
           label="Port"
@@ -86,7 +95,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           }}
           value={link.mcastport || ""}
           onChange={value => updateLink({mcastport: value})}
-          data-test="mcastport"
+          {...transportKnet.link.mcastport.mark}
         />
         <FormText
           label="Ping interval"
@@ -105,7 +114,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           }}
           value={link.ping_interval || ""}
           onChange={value => updateLink({ping_interval: value})}
-          data-test="ping_interval"
+          {...transportKnet.link.ping_interval.mark}
         />
         <FormText
           label="Ping precision"
@@ -122,7 +131,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           }}
           value={link.ping_precision || ""}
           onChange={value => updateLink({ping_precision: value})}
-          data-test="ping_precision"
+          {...transportKnet.link.ping_precision.mark}
         />
         <FormText
           label="Ping timeout"
@@ -142,7 +151,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           }}
           value={link.ping_timeout || ""}
           onChange={value => updateLink({ping_timeout: value})}
-          data-test="ping_timeout"
+          {...transportKnet.link.ping_timeout.mark}
         />
         <FormText
           label="Pong count"
@@ -154,7 +163,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           }}
           value={link.pong_count || ""}
           onChange={value => updateLink({pong_count: value})}
-          data-test="pong_count"
+          {...transportKnet.link.pong_count.mark}
         />
 
         <FormSelect
@@ -173,7 +182,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           placeholderText="Select transport"
           selections={link.transport}
           optionsValues={["udp", "sctp"]}
-          data-test="transport"
+          {...transportKnet.link.transport.mark}
         />
       </TransportKnetLinkToggler>
     </Form>
