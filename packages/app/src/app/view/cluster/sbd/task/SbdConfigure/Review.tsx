@@ -1,4 +1,4 @@
-import {ReviewList, ReviewValue, TaskLibStep} from "app/view/share";
+import {ReviewItem, ReviewList, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -21,12 +21,12 @@ export const Review = () => {
           default: "20ch",
         }}
       >
-        <ReviewValue
+        <ReviewItem
           label="Watchdog devices"
           value={
             <ReviewList>
               {Object.entries(watchdogDict).map(([nodeName, watchdog]) => (
-                <ReviewValue
+                <ReviewItem
                   key={nodeName}
                   label={nodeName}
                   value={watchdog}
@@ -36,22 +36,22 @@ export const Review = () => {
             </ReviewList>
           }
         />
-        <ReviewValue
+        <ReviewItem
           label="SBD_DELAY_START"
           value={delayStart}
           useDefault={{whenValue: "DEFAULT", defaultValue: "no"}}
         />
-        <ReviewValue
+        <ReviewItem
           label="SBD_STARTMODE"
           value={startmode}
           useDefault={{whenValue: "DEFAULT", defaultValue: "always"}}
         />
-        <ReviewValue
+        <ReviewItem
           label="SBD_WATCHDOG_TIMEOUT"
           value={watchdogTimeout}
           useDefault={{whenValue: "", defaultValue: "5"}}
         />
-        <ReviewValue
+        <ReviewItem
           label="SBD_TIMEOUT_ACTION"
           value={getSbdTimeout()}
           useDefault={{whenValue: undefined, defaultValue: "flush,reboot"}}

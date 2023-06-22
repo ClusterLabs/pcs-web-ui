@@ -1,4 +1,4 @@
-import {ReviewList, ReviewValue, TaskLibStep} from "app/view/share";
+import {ReviewItem, ReviewList, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -14,9 +14,9 @@ export const Review = () => {
   return (
     <TaskLibStep title="Review settings" reports={reports}>
       <ReviewList>
-        <ReviewValue label="Role name" value={roleId} />
-        <ReviewValue label="Role description" value={description} />
-        <ReviewValue
+        <ReviewItem label="Role name" value={roleId} />
+        <ReviewItem label="Role description" value={description} />
+        <ReviewItem
           label="Permissions"
           value={
             <ReviewList>

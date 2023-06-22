@@ -1,4 +1,4 @@
-import {ReviewValue} from "app/view/share";
+import {ReviewItem} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -17,7 +17,7 @@ export const ReviewLink = ({
 }) => {
   if (field in link) {
     return (
-      <ReviewValue label={label} value={link[field]} data-test={dataTest} />
+      <ReviewItem label={label} value={link[field]} data-test={dataTest} />
     );
   }
   return null;

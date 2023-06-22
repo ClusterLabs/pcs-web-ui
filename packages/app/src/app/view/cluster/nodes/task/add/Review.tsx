@@ -1,4 +1,4 @@
-import {ReviewList, ReviewValue, TaskLibStep} from "app/view/share";
+import {ReviewItem, ReviewList, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -18,8 +18,8 @@ export const Review = () => {
   return (
     <TaskLibStep title="Review settings" reports={reports}>
       <ReviewList>
-        <ReviewValue label="Node name" value={nodeName} />
-        <ReviewValue
+        <ReviewItem label="Node name" value={nodeName} />
+        <ReviewItem
           label="Node addresses"
           value={
             filledNodeAddresses.length === 0 ? (
@@ -32,7 +32,7 @@ export const Review = () => {
 
         {isSbdEnabled && (
           <>
-            <ReviewValue
+            <ReviewItem
               label="Sbd watchdog"
               value={sbdWatchdog}
               useDefault={{
@@ -40,12 +40,12 @@ export const Review = () => {
                 defaultValue: "/dev/watchdog",
               }}
             />
-            <ReviewValue
+            <ReviewItem
               label="Sbd watchdog validation"
               value={sbdNoWatchdogValidation ? "Disabled" : "Enabled"}
             />
 
-            <ReviewValue
+            <ReviewItem
               label="Sbd devices"
               value={
                 filledSbdDevices.length === 0 ? (

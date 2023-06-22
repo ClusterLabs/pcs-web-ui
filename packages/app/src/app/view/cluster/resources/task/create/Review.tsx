@@ -1,9 +1,4 @@
-import {
-  ReviewList,
-  ReviewValue,
-  ReviewYesNo,
-  TaskLibStep,
-} from "app/view/share";
+import {ReviewItem, ReviewList, ReviewYesNo, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -24,15 +19,15 @@ export const Review = () => {
   return (
     <TaskLibStep title="Review new resource configuration" reports={reports}>
       <ReviewList>
-        <ReviewValue label="Resource name" value={resourceName} />
-        <ReviewValue label="Resource type" value={agentName} />
-        <ReviewValue
+        <ReviewItem label="Resource name" value={resourceName} />
+        <ReviewItem label="Resource type" value={agentName} />
+        <ReviewItem
           label="Instance attributes"
           value={
             Object.keys(instanceAttrs).length > 0 ? (
               <ReviewList>
                 {Object.keys(instanceAttrs).map(attrName => (
-                  <ReviewValue
+                  <ReviewItem
                     key={attrName}
                     label={attrName}
                     value={instanceAttrs[attrName]}
@@ -45,12 +40,12 @@ export const Review = () => {
           }
         />
 
-        <ReviewValue
+        <ReviewItem
           label="Clone"
           value={clone ? `yes${promotable ? " - promotable" : ""}` : "no"}
         />
 
-        <ReviewValue
+        <ReviewItem
           label="Group"
           value={
             <>

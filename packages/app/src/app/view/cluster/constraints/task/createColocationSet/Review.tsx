@@ -1,9 +1,4 @@
-import {
-  ReviewList,
-  ReviewValue,
-  ReviewYesNo,
-  TaskLibStep,
-} from "app/view/share";
+import {ReviewItem, ReviewList, ReviewYesNo, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -20,7 +15,7 @@ export const Review = () => {
   return (
     <TaskLibStep title="Review settings" reports={reports}>
       <ReviewList>
-        <ReviewValue
+        <ReviewItem
           label="Id"
           value={id}
           useDefault={{
@@ -30,17 +25,17 @@ export const Review = () => {
         />
 
         {sets.map((set, i) => (
-          <ReviewValue
+          <ReviewItem
             key={i}
             label={`Resource set ${i + 1}`}
             value={
               <ReviewList>
-                <ReviewValue
+                <ReviewItem
                   label="Resources"
                   value={set.resources.join(", ")}
                 />
                 <ReviewYesNo label="Sequential" value={set.sequential} />
-                <ReviewValue label="Role" value={set.role} />
+                <ReviewItem label="Role" value={set.role} />
               </ReviewList>
             }
           />

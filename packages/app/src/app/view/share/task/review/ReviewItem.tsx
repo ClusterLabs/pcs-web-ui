@@ -7,7 +7,7 @@ import {
 
 import {DefaultValue} from "app/view/share/DefaultValue";
 
-export const ReviewValue = (props: {
+export const ReviewItem = (props: {
   label: React.ReactNode;
   value: React.ReactNode;
   "data-test"?: string;

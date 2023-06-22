@@ -1,4 +1,4 @@
-import {ReviewList, ReviewValue, TaskLibStep} from "app/view/share";
+import {ReviewItem, ReviewList, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {ReviewLink} from "./ReviewLink";
@@ -20,19 +20,19 @@ export const Review = () => {
   return (
     <TaskLibStep title="Review settings" reports={reports}>
       <ReviewList>
-        <ReviewValue
+        <ReviewItem
           label="Cluster name"
           value={clusterName}
           data-test="clusterName"
         />
-        <ReviewValue
+        <ReviewItem
           label="Node names"
           value={nodeNameList.map((nodeName, i) => (
             <div key={i}>{nodeName}</div>
           ))}
           data-test="nodeNames"
         />
-        <ReviewValue
+        <ReviewItem
           label="Knet links"
           value={
             <>
@@ -40,18 +40,18 @@ export const Review = () => {
               {linkList.length > 0 && (
                 <ReviewList>
                   {linkList.map(link => (
-                    <ReviewValue
+                    <ReviewItem
                       label={`Link ${link.linknumber}`}
                       key={link.linknumber}
                       value={
                         <ReviewList>
-                          <ReviewValue
+                          <ReviewItem
                             label="Addresses"
                             value={
                               <ReviewList>
                                 {Object.entries(link.addresses).map(
                                   ([nodeName, address]) => (
-                                    <ReviewValue
+                                    <ReviewItem
                                       key={nodeName}
                                       label={nodeName}
                                       value={address}
@@ -113,11 +113,11 @@ export const Review = () => {
             </>
           }
         />
-        <ReviewValue
+        <ReviewItem
           label="Transport options"
           value={
             <ReviewList>
-              <ReviewValue
+              <ReviewItem
                 label="Ip version"
                 value={transportOptions.ip_version}
                 useDefault={{
@@ -127,7 +127,7 @@ export const Review = () => {
                 data-test="transport.ip_version"
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="PMTUd Interval"
                 value={transportOptions.knet_pmtud_interval}
                 useDefault={{
@@ -137,7 +137,7 @@ export const Review = () => {
                 data-test="transport.knet_pmtud_interval"
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Link mode"
                 value={transportOptions.link_mode}
                 useDefault={{
@@ -149,11 +149,11 @@ export const Review = () => {
             </ReviewList>
           }
         />
-        <ReviewValue
+        <ReviewItem
           label="Compression options"
           value={
             <ReviewList>
-              <ReviewValue
+              <ReviewItem
                 label="Model"
                 value={compressionOptions.model}
                 useDefault={{
@@ -163,7 +163,7 @@ export const Review = () => {
                 data-test="compression.model"
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Threshold"
                 value={compressionOptions.threshold}
                 useDefault={{
@@ -173,7 +173,7 @@ export const Review = () => {
                 data-test="compression.threshold"
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Level"
                 value={compressionOptions.level}
                 useDefault={{
@@ -185,11 +185,11 @@ export const Review = () => {
             </ReviewList>
           }
         />
-        <ReviewValue
+        <ReviewItem
           label="Crypto options"
           value={
             <ReviewList>
-              <ReviewValue
+              <ReviewItem
                 label="Model"
                 value={cryptoOptions.model}
                 useDefault={{
@@ -199,7 +199,7 @@ export const Review = () => {
                 data-test="crypto.model"
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Hash"
                 value={cryptoOptions.hash}
                 useDefault={{
@@ -209,7 +209,7 @@ export const Review = () => {
                 data-test="crypto.hash"
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Cipher"
                 value={cryptoOptions.cipher}
                 useDefault={{
@@ -221,11 +221,11 @@ export const Review = () => {
             </ReviewList>
           }
         />
-        <ReviewValue
+        <ReviewItem
           label="Quorum options"
           value={
             <ReviewList>
-              <ReviewValue
+              <ReviewItem
                 label="Auto tie breaker"
                 value={quorumOptions.auto_tie_breaker}
                 useDefault={{
@@ -235,7 +235,7 @@ export const Review = () => {
                 data-test="quorum.auto_tie_breaker"
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Last man standing"
                 value={quorumOptions.last_man_standing}
                 useDefault={{
@@ -245,7 +245,7 @@ export const Review = () => {
                 data-test="quorum.last_man_standing"
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Last man standing window"
                 value={quorumOptions.last_man_standing_window}
                 useDefault={{
@@ -255,7 +255,7 @@ export const Review = () => {
                 data-test="quorum.last_man_standing_window"
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Wait for all"
                 value={quorumOptions.wait_for_all}
                 useDefault={{
@@ -267,11 +267,11 @@ export const Review = () => {
             </ReviewList>
           }
         />
-        <ReviewValue
+        <ReviewItem
           label="Totem options"
           value={
             <ReviewList>
-              <ReviewValue
+              <ReviewItem
                 label="Block unlisted ips"
                 value={totemOptions.block_unlisted_ips}
                 data-test="totem.block_unlisted_ips"
@@ -281,7 +281,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Consensus timeout"
                 value={totemOptions.consensus}
                 data-test="totem.consensus"
@@ -291,7 +291,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Downcheck timeout"
                 value={totemOptions.downcheck}
                 data-test="totem.downcheck"
@@ -301,7 +301,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Fail receive constant"
                 value={totemOptions.fail_recv_const}
                 data-test="totem.fail_recv_const"
@@ -311,7 +311,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Heartbeat failures allowed"
                 value={totemOptions.heartbeat_failures_allowed}
                 data-test="totem.heartbeat_failures_allowed"
@@ -321,7 +321,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Hold timeout"
                 value={totemOptions.hold}
                 data-test="totem.hold"
@@ -331,7 +331,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Join timeout"
                 value={totemOptions.join}
                 data-test="totem.join"
@@ -341,7 +341,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Max messages"
                 value={totemOptions.max_messages}
                 data-test="totem.max_messages"
@@ -351,7 +351,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Max network delay"
                 value={totemOptions.max_network_delay}
                 data-test="totem.max_network_delay"
@@ -361,7 +361,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Merge timeout"
                 value={totemOptions.merge}
                 data-test="totem.merge"
@@ -371,7 +371,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Miss count const"
                 value={totemOptions.miss_count_const}
                 data-test="totem.miss_count_const"
@@ -381,7 +381,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Send join timeout"
                 value={totemOptions.send_join}
                 data-test="totem.send_join"
@@ -391,7 +391,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Seqno unchanged constant"
                 value={totemOptions.seqno_unchanged_const}
                 data-test="totem.seqno_unchanged_const"
@@ -401,7 +401,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Token timeout"
                 value={totemOptions.token}
                 data-test="totem.token"
@@ -411,7 +411,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Token coefficient"
                 value={totemOptions.token_coefficient}
                 data-test="totem.token_coefficient"
@@ -421,7 +421,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Token retransmit timeout"
                 value={totemOptions.token_retransmit}
                 data-test="totem.token_retransmit"
@@ -431,7 +431,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Token retransmits before loss constant"
                 value={totemOptions.token_retransmits_before_loss_const}
                 data-test="totem.token_retransmits_before_loss_const"
@@ -441,7 +441,7 @@ export const Review = () => {
                 }}
               />
 
-              <ReviewValue
+              <ReviewItem
                 label="Window size"
                 value={totemOptions.window_size}
                 data-test="totem.window_size"
