@@ -7,7 +7,7 @@ import {useTask} from "./useTask";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 const {toggleAdvancedOptions} =
-  testMarks.setupCluster.advancedOptions.transportKnet.link;
+  testMarks.setupCluster.advancedOptions.transportKnet.knetLink;
 export const TransportKnetLinkToggler = ({
   link,
   children,

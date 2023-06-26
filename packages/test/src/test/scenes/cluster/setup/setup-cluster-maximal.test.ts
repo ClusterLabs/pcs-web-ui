@@ -14,7 +14,6 @@ import {
 const {select, radioGroup} = shortcuts.patternfly;
 
 const {
-  // nameAndNodes,
   nameAndNodesFooter,
   prepareNodesFooter,
   advancedOptionsFooter,
@@ -32,6 +31,7 @@ const {
 
 const {transportKnet, transport, quorum, totem} =
   app.setupCluster.advancedOptions;
+
 const {fillClusterNameAndNodes} = shortcuts.setupCluster;
 
 const addrs = [
@@ -112,7 +112,7 @@ const fillLinkAddresses = async (
 ) => {
   for (let i = 0; i < addresses.length; i++) {
     await link.locator
-      .locator(transportKnet.link.address.locator.nth(i))
+      .locator(transportKnet.knetLink.address.locator.nth(i))
       .fill(addresses[i]);
   }
 };
@@ -126,7 +126,7 @@ const fillKnetAdvancedOptions = async () => {
     ping_precision,
     ping_interval,
     mcastport,
-  } = transportKnet.link;
+  } = transportKnet.knetLink;
 
   await fill(link_priority, link.link_priority);
   await fill(mcastport, link.mcastport);
@@ -177,12 +177,12 @@ describe("Cluster setup", () => {
     // ---------------------
     // First link is fully filled
     await click(transportKnet.addKnetLink);
-    await fillLinkAddresses(transportKnet.link, addrs[0]);
-    await click(transportKnet.link.toggleAdvancedOptions);
+    await fillLinkAddresses(transportKnet.knetLink, addrs[0]);
+    await click(transportKnet.knetLink.toggleAdvancedOptions);
     await fillKnetAdvancedOptions();
 
     await click(transportKnet.addKnetLink);
-    await fillLinkAddresses(transportKnet.link, addrs[1]);
+    await fillLinkAddresses(transportKnet.knetLink, addrs[1]);
     await click(advancedOptionsFooter.next);
 
     // STEP: Transport options
