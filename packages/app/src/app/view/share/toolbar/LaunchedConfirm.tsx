@@ -29,7 +29,7 @@ export const LaunchedConfirm = ({
             dispatch(item.confirm.action);
             closeConfirm();
           }}
-          data-test={"confirm"}
+          {...(item.confirm.runMark ?? {"data-test": "confirm"})}
         >
           {labelize(item.label || item.name)}
         </Button>,
@@ -37,12 +37,16 @@ export const LaunchedConfirm = ({
           key="cancel"
           variant="link"
           onClick={closeConfirm}
-          data-test={"cancel"}
+          {...(item.confirm.cancelMark ?? {"data-test": "cancel"})}
         >
           Cancel
         </Button>,
       ]}
-      data-test={`confirm ${item.name}`}
+      data-test={
+        "data-test" in item.confirm
+          ? item.confirm["data-test"]
+          : `confirm ${item.name}`
+      }
     >
       {item.confirm.description}
     </Modal>

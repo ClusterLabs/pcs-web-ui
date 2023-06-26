@@ -7,29 +7,32 @@ import {LauncherGroup} from "./LauncherGroup";
 import {Launcher} from "./Launcher";
 import {LauncherItem} from "./types";
 
-export const LauncherDropdown = ({
-  items = [],
-  dropdownName,
-}: {
+export const LauncherDropdown = (props: {
   items: LauncherItem[];
   dropdownName: string;
+  "data-test"?: string;
 }) => {
   const [kebabOpen, setKebabOpen] = React.useState(false);
 
   return (
-    <LauncherGroup items={items}>
+    <LauncherGroup items={props.items}>
       <Dropdown
+        data-test={props["data-test"]}
         toggle={<KebabToggle onToggle={() => setKebabOpen(!kebabOpen)} />}
         onSelect={() => setKebabOpen(false)}
         isOpen={kebabOpen}
         isPlain
-        dropdownItems={items.map((item, i) => (
+        dropdownItems={props.items.map((item, i) => (
           <Launcher key={i} item={item}>
             {launch => (
               <DropdownItem
                 component="button"
                 onClick={launch}
-                data-test={`${dropdownName}-${item.name}`}
+                data-test={
+                  "data-test" in item
+                    ? item["data-test"]
+                    : `${props.dropdownName}-${item.name}`
+                }
                 isDisabled={item.disabled ?? false}
               >
                 {tools.labelize(item.label || item.name)}

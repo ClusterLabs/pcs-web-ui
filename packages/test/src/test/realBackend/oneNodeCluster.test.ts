@@ -22,16 +22,35 @@ describe("Web ui inside cockpit on one node cluster", () => {
       await page.goto(backend.rootUrl);
       await login(username, password);
 
-      await app.dashboard.clusterList.locator.waitFor();
+      await isVisible(app.dashboard.clusterList);
       // we expect to start with no cluster
       await assertImportedClusterNamesAre([]);
 
-      await app.dashboard.toolbar.setupCluster.locator.click();
+      await click(app.dashboard.toolbar.setupCluster);
       await setupCluster({clusterName, nodeNameList: [nodeName]});
+      await assertImportedClusterNamesAre([clusterName]);
+
+      await removeCluster();
+      await assertImportedClusterNamesAre([clusterName]);
     },
     testTimeout,
   );
 });
+
+const removeCluster = async () => {
+  const {actions} = app.dashboard.clusterList.cluster.loaded;
+  await click(actions);
+  await click(actions.remove);
+  await isVisible(actions.remove.confirm);
+  await Promise.all([
+    page.waitForResponse(/.*\/imported-cluster-list$/),
+    page.waitForResponse(/.*\/manage\/removecluster$/),
+    isVisible(app.notifications.toast.success),
+    click(actions.remove.confirm.run),
+  ]);
+  // give page chance to redraw after loading imported-cluster-list
+  await page.waitForTimeout(100);
+};
 
 const setupCluster = async ({
   clusterName,
@@ -40,27 +59,22 @@ const setupCluster = async ({
   clusterName: string;
   nodeNameList: string[];
 }) => {
-  const {
-    locator,
-    nameAndNodesFooter,
-    prepareNodesFooter,
-    reviewFooter,
-    success,
-  } = app.setupCluster;
+  const {nameAndNodesFooter, prepareNodesFooter, reviewFooter, success} =
+    app.setupCluster;
   const {fillClusterNameAndNodes} = shortcuts.setupCluster;
-  await locator.waitFor({state: "visible"});
+  await isVisible(app.setupCluster);
 
   await fillClusterNameAndNodes({clusterName, nodeNameList});
-  await nameAndNodesFooter.next.locator.click();
-  await prepareNodesFooter.reviewAndFinish.locator.click();
+  await click(nameAndNodesFooter.next);
+  await click(prepareNodesFooter.reviewAndFinish);
   // Task moves to next stage after imported-cluster-list response is done. The
   // request imported-cluster-list is run immediatelly after cluster setup
   // backend call is done.
   await Promise.all([
     page.waitForResponse(/.*\/imported-cluster-list$/),
-    reviewFooter.next.locator.click(),
+    click(reviewFooter.next),
   ]);
 
-  await success.locator.waitFor();
-  await success.startAndClose.locator.click();
+  await isVisible(success);
+  await click(success.startAndClose);
 };

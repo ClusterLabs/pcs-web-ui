@@ -18,6 +18,9 @@ type Confirm = {
   title: string;
   description: React.ReactNode;
   action: Action;
+  "data-test"?: string;
+  runMark?: {"data-test": string};
+  cancelMark?: {"data-test": string};
 };
 
 type ItemTask = {

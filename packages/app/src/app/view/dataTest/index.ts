@@ -29,6 +29,17 @@ export const structure = {
           nodes: {},
           resources: {},
           fenceDevices: {},
+          actions: {
+            start: {},
+            stop: {},
+            remove: {
+              confirm: {
+                run: {},
+                cancel: {},
+              },
+            },
+            destroy: {},
+          },
         },
       },
     },

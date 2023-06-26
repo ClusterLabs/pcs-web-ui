@@ -1,9 +1,13 @@
 import {LauncherDropdown, task} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+
+const {actions} = testMarks.dashboard.clusterList.cluster.loaded;
 
 export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
   const clusterLabel = <strong>{clusterName}</strong>;
   return (
     <LauncherDropdown
+      {...actions.mark}
       dropdownName="cluster"
       items={[
         {
@@ -16,6 +20,7 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
               payload: {clusterName},
             },
           },
+          ...actions.start.mark,
         },
         {
           name: "stop",
@@ -28,10 +33,10 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
                 type: "DASHBOARD.CLUSTER.STOP",
                 payload: {clusterName, force},
               }),
-              "data-test": "cluster-stop",
             }),
             useTask: task.forceableConfirm.useTask,
           },
+          ...actions.stop.mark,
         },
         {
           name: "remove",
@@ -47,7 +52,11 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
               type: "DASHBOARD.CLUSTER.REMOVE",
               payload: {clusterName},
             },
+            runMark: actions.remove.confirm.run.mark,
+            cancelMark: actions.remove.confirm.cancel.mark,
+            ...actions.remove.confirm.mark,
           },
+          ...actions.remove.mark,
         },
         {
           name: "destroy",
@@ -64,6 +73,7 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
               payload: {clusterName},
             },
           },
+          ...actions.destroy.mark,
         },
       ]}
     />
