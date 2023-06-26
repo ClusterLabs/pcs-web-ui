@@ -1,4 +1,5 @@
 import {setupCluster} from "./setupCluster";
+import {notifications} from "./notifications";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubStructure extends Record<string, SubStructure> {}
@@ -32,6 +33,7 @@ export const structure = {
       },
     },
   },
+  notifications,
   setupCluster,
 };
 

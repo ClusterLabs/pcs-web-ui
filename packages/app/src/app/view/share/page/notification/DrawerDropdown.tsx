@@ -6,7 +6,10 @@ import {
   KebabToggle,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {useDispatch} from "app/view/share/useDispatch";
+
+const {drawer} = testMarks.notifications;
 
 export const DrawerDropdown = () => {
   const [isHeaderDropdownOpen, setHeaderDropdownOpen] = React.useState(false);
@@ -27,6 +30,7 @@ export const DrawerDropdown = () => {
         <DropdownItem
           key="markAllRead"
           onClick={() => dispatch({type: "NOTIFICATION.READ.ALL"})}
+          {...drawer.markAllRead.mark}
         >
           Mark all read
         </DropdownItem>,
@@ -34,6 +38,7 @@ export const DrawerDropdown = () => {
         <DropdownItem
           key="clearAll"
           onClick={() => dispatch({type: "NOTIFICATION.DESTROY.ALL"})}
+          {...drawer.clearAll.mark}
         >
           Clear all
         </DropdownItem>,

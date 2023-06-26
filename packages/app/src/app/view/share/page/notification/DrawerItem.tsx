@@ -6,6 +6,7 @@ import {
 } from "@patternfly/react-core";
 import {TimesIcon} from "@patternfly/react-icons";
 
+import {testMarks} from "app/view/dataTest";
 import {useDispatch} from "app/view/share/useDispatch";
 
 import {Notification} from "./types";
@@ -29,18 +30,22 @@ const getTimeStamp = (creationTime: Date) => {
   ).toLocaleString();
 };
 
+const {success, info, error} = testMarks.notifications.drawer;
+
 export const DrawerItem = ({notification}: {notification: Notification}) => {
   const dispatch = useDispatch();
   const severityVariant = severityToVariant(notification.severity);
+  const typeMark =
+    notification.severity === "SUCCESS"
+      ? success
+      : notification.severity === "INFO"
+      ? info
+      : error;
 
   return (
     <PfNotificationDrawerListItem
+      {...typeMark.mark}
       variant={severityVariant}
-      data-test={
-        notification.description
-          ? `notification-${severityVariant}-${notification.description}`
-          : `notification-${severityVariant}`
-      }
       onClick={() =>
         dispatch({
           type: "NOTIFICATION.READ",
@@ -50,12 +55,13 @@ export const DrawerItem = ({notification}: {notification: Notification}) => {
       isRead={notification.isRead}
     >
       <NotificationDrawerListItemHeader
+        {...typeMark.message.mark}
         variant={severityVariant}
         title={notification.message}
         srTitle="Info notification:"
       >
         <Button
-          data-test={`destroy-${notification.description}`}
+          {...typeMark.destroy.mark}
           variant="plain"
           onClick={() =>
             dispatch({

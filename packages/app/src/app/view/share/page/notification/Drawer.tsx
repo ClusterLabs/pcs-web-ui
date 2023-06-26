@@ -5,6 +5,8 @@ import {
   NotificationDrawerHeader,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
+
 import {Notification} from "./types";
 import {DrawerDropdown} from "./DrawerDropdown";
 import {DrawerEmpty} from "./DrawerEmpty";
@@ -20,7 +22,7 @@ export const Drawer = ({
   onClose: DrawerProps["onClose"];
 }) => {
   return (
-    <NotificationDrawer>
+    <NotificationDrawer {...testMarks.notifications.drawer.mark}>
       <NotificationDrawerHeader
         count={notificationList.filter(n => !n.isRead).length}
         onClose={onClose}
