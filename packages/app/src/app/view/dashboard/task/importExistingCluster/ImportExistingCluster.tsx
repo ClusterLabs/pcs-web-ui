@@ -1,16 +1,17 @@
-import {NodeAuthWizardFooter, Wizard, WizardFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {NodeAuthWizardFooter, Wizard} from "app/view/share";
 
 import {NodeName} from "./NodeName";
+import {NodeNameFooter} from "./NodeNameFooter";
 import {PrepareNode} from "./PrepareNode";
+import {PrepareNodeFooter} from "./PrepareNodeFooter";
 import {useTask} from "./useTask";
 import {TaskFinish} from "./TaskFinish";
 
 export const ImportExistingCluster = () => {
   const {
     close,
-    importCluster,
     isNodeNameValid,
-    isNodeCheckDoneValid,
     state: {authProcessId},
   } = useTask();
 
@@ -18,7 +19,7 @@ export const ImportExistingCluster = () => {
     <Wizard
       task="importExistingCluster"
       clusterName={null}
-      data-test="task-cluster-import"
+      {...testMarks.importExistingCluster.mark}
       taskLabel="Add existing cluster"
       description="Manage existing cluster from web ui"
       onClose={close}
@@ -26,15 +27,7 @@ export const ImportExistingCluster = () => {
         {
           name: "Enter node name",
           component: <NodeName />,
-          footer: (
-            <WizardFooter
-              next={{
-                actionIf: isNodeNameValid,
-                label: "Check authentication",
-              }}
-              back={{disabled: true}}
-            />
-          ),
+          footer: <NodeNameFooter />,
         },
         {
           name: "Check node name",
@@ -43,13 +36,7 @@ export const ImportExistingCluster = () => {
           footer: authProcessId ? (
             <NodeAuthWizardFooter authProcessId={authProcessId} />
           ) : (
-            <WizardFooter
-              next={{
-                disabled: !isNodeCheckDoneValid,
-                preAction: importCluster,
-                label: "Add existing cluster",
-              }}
-            />
+            <PrepareNodeFooter />
           ),
         },
         {

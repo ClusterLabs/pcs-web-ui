@@ -1,5 +1,6 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -29,7 +30,7 @@ export const NodeName = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={nodeName.length > 0}
-          data-test="node-name"
+          {...testMarks.importExistingCluster.nodeName.mark}
         />
       </Form>
     </TaskLibStep>

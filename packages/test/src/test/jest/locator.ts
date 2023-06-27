@@ -45,6 +45,10 @@ export const isVisible = async (withLocator: {locator: Locator}) => {
   await withLocator.locator.waitFor({state: "visible"});
 };
 
+export const isAbsent = async (withLocator: {locator: Locator}) => {
+  await withLocator.locator.waitFor({state: "detached"});
+};
+
 export const fill = async (withLocator: {locator: Locator}, value: string) => {
   await withLocator.locator.fill(value);
 };

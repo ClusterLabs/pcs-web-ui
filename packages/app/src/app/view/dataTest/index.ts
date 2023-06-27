@@ -19,7 +19,7 @@ export const structure = {
   dashboard: {
     toolbar: {
       setupCluster: {},
-      addExistingCluster: {},
+      importExistingCluster: {},
     },
     clusterList: {
       cluster: {
@@ -46,6 +46,25 @@ export const structure = {
   },
   notifications,
   setupCluster,
+  importExistingCluster: {
+    nodeName: {},
+    nodeNameFooter: {
+      checkAuthentication: {},
+      back: {},
+      cancel: {},
+    },
+    prepareNode: {
+      success: {},
+    },
+    prepareNodeFooter: {
+      addExistringCluster: {},
+      back: {},
+      cancel: {},
+    },
+    success: {
+      close: {},
+    },
+  },
 };
 
 type MarkTools = {

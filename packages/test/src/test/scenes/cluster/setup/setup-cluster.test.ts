@@ -55,7 +55,7 @@ const sendMinimalSetup = async () => {
 };
 
 const taskClosed = async () => {
-  await app.setupCluster.locator.waitFor({state: "detached"});
+  await isAbsent(app.setupCluster);
 };
 
 describe("Cluster setup", () => {

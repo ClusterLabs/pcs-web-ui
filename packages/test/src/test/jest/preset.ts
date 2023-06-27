@@ -10,6 +10,7 @@ declare global {
   var locator: ReturnType<typeof locatorTools.getLocator>;
   var click: typeof locatorTools.click;
   var isVisible: typeof locatorTools.isVisible;
+  var isAbsent: typeof locatorTools.isAbsent;
   var fill: typeof locatorTools.fill;
   var isLocator: typeof locatorTools.isLocator;
   var app: ReturnType<typeof locatorTools.getApp>;
@@ -39,5 +40,6 @@ export default async () => {
   global.click = locatorTools.click;
   global.fill = locatorTools.fill;
   global.isVisible = locatorTools.isVisible;
+  global.isAbsent = locatorTools.isAbsent;
   global.isLocator = locatorTools.isLocator;
 };

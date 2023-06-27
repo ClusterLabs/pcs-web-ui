@@ -15,7 +15,7 @@ export const DashboardToolbar = () => {
             component: task.importExistingCluster.ImportExistingCluster,
             useTask: task.importExistingCluster.useTask,
           },
-          ...testMarksToolbar.addExistingCluster.mark,
+          ...testMarksToolbar.importExistingCluster.mark,
         },
         {
           name: "setup-cluster",

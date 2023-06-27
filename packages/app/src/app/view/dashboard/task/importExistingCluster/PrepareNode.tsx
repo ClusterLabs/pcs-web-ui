@@ -5,10 +5,12 @@ import {
   WizardContextConsumer,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {EmptyStateSpinner, NodesAuthForm, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
+const {prepareNode} = testMarks.importExistingCluster;
 export const PrepareNode = () => {
   const {
     checkNode,
@@ -67,7 +69,7 @@ export const PrepareNode = () => {
                 "The cluster node is authenticated"
                 + " and it is possible to add the cluster to web ui."
               }
-              data-test="prepare-node-success"
+              {...prepareNode.success.mark}
             />
           )}
         </TaskLibStep>

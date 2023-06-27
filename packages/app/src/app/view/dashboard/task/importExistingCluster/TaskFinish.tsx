@@ -1,5 +1,6 @@
 import {WizardContextConsumer} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   TaskFinishError,
   TaskProgress,
@@ -8,6 +9,8 @@ import {
 } from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {success} = testMarks.importExistingCluster;
 
 export const TaskFinish = ({
   backToUpdateSettingsStepName,
@@ -50,7 +53,10 @@ export const TaskFinish = ({
             />
           )}
           {importCall.status === "success" && (
-            <TaskSuccess primaryAction={<TaskResultAction />} />
+            <TaskSuccess
+              primaryAction={<TaskResultAction {...success.close.mark} />}
+              {...success.mark}
+            />
           )}
         </>
       )}
