@@ -31,11 +31,34 @@ describe("Web ui inside cockpit on one node cluster", () => {
       await assertImportedClusterNamesAre([clusterName]);
 
       await removeCluster();
+      await assertImportedClusterNamesAre([]);
+
+      await click(app.dashboard.toolbar.importExistingCluster);
+      await importExistingCluster(nodeName);
       await assertImportedClusterNamesAre([clusterName]);
     },
     testTimeout,
   );
 });
+
+const importExistingCluster = async (nodeName: string) => {
+  await isVisible(app.importExistingCluster);
+
+  const {nodeNameFooter, prepareNode, prepareNodeFooter, success} =
+    app.importExistingCluster;
+
+  await fill(app.importExistingCluster.nodeName, nodeName);
+  await click(nodeNameFooter.checkAuthentication);
+  await isVisible(prepareNode.success);
+
+  await Promise.all([
+    page.waitForResponse(/.*\/imported-cluster-list$/),
+    page.waitForResponse(/.*\/cluster_status$/),
+    await click(prepareNodeFooter.addExistringCluster),
+  ]);
+  await isVisible(success);
+  await click(success.close);
+};
 
 const removeCluster = async () => {
   const {actions} = app.dashboard.clusterList.cluster.loaded;
