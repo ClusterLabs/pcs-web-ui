@@ -30,15 +30,30 @@ export const structure = {
           resources: {},
           fenceDevices: {},
           actions: {
-            start: {},
-            stop: {},
+            start: {
+              confirm: {
+                run: {},
+                cancel: {},
+              },
+            },
+            stop: {
+              confirm: {
+                run: {},
+                cancel: {},
+              },
+            },
             remove: {
               confirm: {
                 run: {},
                 cancel: {},
               },
             },
-            destroy: {},
+            destroy: {
+              confirm: {
+                run: {},
+                cancel: {},
+              },
+            },
           },
         },
       },

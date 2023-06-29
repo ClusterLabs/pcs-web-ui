@@ -37,21 +37,21 @@ const addLocators = <STRUCTURE extends SubStructure>(
 export const getApp = (envType: EnvType) =>
   addLocators(getLocator(envType), testMarksStructure);
 
-export const click = async (withLocator: {locator: Locator}) => {
-  await withLocator.locator.click();
-};
-
-export const isVisible = async (withLocator: {locator: Locator}) => {
-  await withLocator.locator.waitFor({state: "visible"});
-};
-
-export const isAbsent = async (withLocator: {locator: Locator}) => {
-  await withLocator.locator.waitFor({state: "detached"});
-};
-
-export const fill = async (withLocator: {locator: Locator}, value: string) => {
-  await withLocator.locator.fill(value);
-};
-
 export const isLocator = (mark: Mark): mark is Locator =>
   typeof mark.locator === "function";
+
+export const click = async (mark: Mark) => {
+  await (isLocator(mark) ? mark : mark.locator).click();
+};
+
+export const isVisible = async (mark: Mark) => {
+  await (isLocator(mark) ? mark : mark.locator).waitFor({state: "visible"});
+};
+
+export const isAbsent = async (mark: Mark) => {
+  await (isLocator(mark) ? mark : mark.locator).waitFor({state: "detached"});
+};
+
+export const fill = async (mark: Mark, value: string) => {
+  await (isLocator(mark) ? mark : mark.locator).fill(value);
+};

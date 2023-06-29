@@ -15,6 +15,17 @@ const assertImportedClusterNamesAre = async (clusterNameList: string[]) => {
   ).toEqual(clusterNameList);
 };
 
+const inParticularClusterContext = (clusterName: string) => (mark: Mark) =>
+  app.dashboard.clusterList.cluster.name.locator
+    .getByText(clusterName)
+    .locator(
+      'xpath=/ancestor::node()[@data-test="dashboard.clusterList.cluster"]',
+    )
+    .locator(isLocator(mark) ? mark : mark.locator);
+
+const waitForImportedClusterList = async () =>
+  await page.waitForResponse(/.*\/imported-cluster-list$/);
+
 describe("Web ui inside cockpit on one node cluster", () => {
   it(
     "should succeed with essential features",
@@ -30,12 +41,15 @@ describe("Web ui inside cockpit on one node cluster", () => {
       await setupCluster({clusterName, nodeNameList: [nodeName]});
       await assertImportedClusterNamesAre([clusterName]);
 
-      await removeCluster();
+      await removeCluster(clusterName);
       await assertImportedClusterNamesAre([]);
 
       await click(app.dashboard.toolbar.importExistingCluster);
       await importExistingCluster(nodeName);
       await assertImportedClusterNamesAre([clusterName]);
+
+      await destroyCluster(clusterName);
+      await assertImportedClusterNamesAre([]);
     },
     testTimeout,
   );
@@ -52,7 +66,7 @@ const importExistingCluster = async (nodeName: string) => {
   await isVisible(prepareNode.success);
 
   await Promise.all([
-    page.waitForResponse(/.*\/imported-cluster-list$/),
+    waitForImportedClusterList(),
     page.waitForResponse(/.*\/cluster_status$/),
     await click(prepareNodeFooter.addExistringCluster),
   ]);
@@ -60,16 +74,33 @@ const importExistingCluster = async (nodeName: string) => {
   await click(success.close);
 };
 
-const removeCluster = async () => {
+const removeCluster = async (clusterName: string) => {
+  const inParticularCluster = inParticularClusterContext(clusterName);
   const {actions} = app.dashboard.clusterList.cluster.loaded;
-  await click(actions);
-  await click(actions.remove);
+  await click(inParticularCluster(actions));
+  await click(inParticularCluster(actions.remove));
   await isVisible(actions.remove.confirm);
   await Promise.all([
-    page.waitForResponse(/.*\/imported-cluster-list$/),
+    waitForImportedClusterList(),
     page.waitForResponse(/.*\/manage\/removecluster$/),
     isVisible(app.notifications.toast.success),
     click(actions.remove.confirm.run),
+  ]);
+  // give page chance to redraw after loading imported-cluster-list
+  await page.waitForTimeout(100);
+};
+
+const destroyCluster = async (clusterName: string) => {
+  const inParticularCluster = inParticularClusterContext(clusterName);
+  const {actions} = app.dashboard.clusterList.cluster.loaded;
+  await click(inParticularCluster(actions));
+  await click(inParticularCluster(actions.destroy));
+  await isVisible(actions.destroy.confirm);
+  await Promise.all([
+    waitForImportedClusterList(),
+    page.waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
+    isVisible(app.notifications.toast.success),
+    click(actions.destroy.confirm.run),
   ]);
   // give page chance to redraw after loading imported-cluster-list
   await page.waitForTimeout(100);
@@ -93,10 +124,7 @@ const setupCluster = async ({
   // Task moves to next stage after imported-cluster-list response is done. The
   // request imported-cluster-list is run immediatelly after cluster setup
   // backend call is done.
-  await Promise.all([
-    page.waitForResponse(/.*\/imported-cluster-list$/),
-    click(reviewFooter.next),
-  ]);
+  await Promise.all([waitForImportedClusterList(), click(reviewFooter.next)]);
 
   await isVisible(success);
   await click(success.startAndClose);
