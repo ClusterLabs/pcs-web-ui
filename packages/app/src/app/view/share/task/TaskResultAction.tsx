@@ -5,7 +5,7 @@ import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 import {useTaskContext} from "./TaskContext";
 
 export const TaskResultAction = (props: {
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "link";
   action?: () => void;
   label?: string;
   "data-test"?: string;

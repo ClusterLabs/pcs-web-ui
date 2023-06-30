@@ -6,11 +6,20 @@ import {
 } from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {EmptyStateSpinner, NodesAuthForm, TaskLibStep} from "app/view/share";
+import {
+  EmptyStateSpinner,
+  NodesAuthCustomAddrSwitch,
+  NodesAuthForm,
+  NodesAuthInputAddress,
+  NodesAuthInputPassword,
+  NodesAuthInputPort,
+  TaskLibStep,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 
 const {prepareNode} = testMarks.importExistingCluster;
+const {auth} = prepareNode;
 export const PrepareNode = () => {
   const {
     checkNode,
@@ -57,7 +66,35 @@ export const PrepareNode = () => {
                 title={"Node is not authenticated. Please authenticate it."}
                 data-test="prepare-node-auth"
               />
-              <NodesAuthForm authProcessId={authProcessId} />
+              <NodesAuthForm
+                authProcessId={authProcessId}
+                customAddresSwitcher={
+                  <NodesAuthCustomAddrSwitch {...auth.customAddrSwitch.mark} />
+                }
+                inputPassword={(nodeName, elementId, index) => (
+                  <NodesAuthInputPassword
+                    index={index}
+                    nodeName={nodeName}
+                    elementId={elementId}
+                    {...auth.password.mark}
+                  />
+                )}
+                inputAddress={(nodeName, elementId) => (
+                  <NodesAuthInputAddress
+                    nodeName={nodeName}
+                    elementId={elementId}
+                    {...auth.address.mark}
+                  />
+                )}
+                inputPort={(nodeName, elementId) => (
+                  <NodesAuthInputPort
+                    nodeName={nodeName}
+                    elementId={elementId}
+                    {...auth.port.mark}
+                  />
+                )}
+                {...auth.mark}
+              />
             </>
           )}
 

@@ -4,7 +4,15 @@ import {
   WizardContextConsumer,
 } from "@patternfly/react-core";
 
-import {EmptyStateSpinner, NodesAuthForm, TaskLibStep} from "app/view/share";
+import {
+  EmptyStateSpinner,
+  NodesAuthCustomAddrSwitch,
+  NodesAuthForm,
+  NodesAuthInputAddress,
+  NodesAuthInputPassword,
+  NodesAuthInputPort,
+  TaskLibStep,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -109,7 +117,29 @@ export const PrepareNodes = () => {
                   variant="warning"
                   title={"Node(s) not authenticated. Please authenticate it."}
                 />
-                <NodesAuthForm authProcessId={authProcessId} />
+                <NodesAuthForm
+                  authProcessId={authProcessId}
+                  customAddresSwitcher={<NodesAuthCustomAddrSwitch />}
+                  inputPassword={(nodeName, elementId, index) => (
+                    <NodesAuthInputPassword
+                      index={index}
+                      nodeName={nodeName}
+                      elementId={elementId}
+                    />
+                  )}
+                  inputAddress={(nodeName, elementId) => (
+                    <NodesAuthInputAddress
+                      nodeName={nodeName}
+                      elementId={elementId}
+                    />
+                  )}
+                  inputPort={(nodeName, elementId) => (
+                    <NodesAuthInputPort
+                      nodeName={nodeName}
+                      elementId={elementId}
+                    />
+                  )}
+                />
               </>
             )}
 

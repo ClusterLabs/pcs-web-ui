@@ -5,12 +5,13 @@ import {
   TaskFinishError,
   TaskProgress,
   TaskResultAction,
+  TaskResultActionCancel,
   TaskSuccess,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {success} = testMarks.importExistingCluster;
+const {success, error} = testMarks.importExistingCluster;
 
 export const TaskFinish = ({
   backToUpdateSettingsStepName,
@@ -41,15 +42,24 @@ export const TaskFinish = ({
                 <TaskResultAction
                   label="Change settings"
                   action={() => goToStepByName(backToUpdateSettingsStepName)}
+                  {...error.changeSettings.mark}
                 />
               }
               secondaryActions={
-                <TaskResultAction
-                  variant="secondary"
-                  label="Try again"
-                  action={importCluster}
-                />
+                <>
+                  <TaskResultAction
+                    variant="link"
+                    label="Try again"
+                    action={importCluster}
+                    {...error.tryAgain.mark}
+                  />
+                  <TaskResultActionCancel
+                    variant="link"
+                    {...error.cancel.mark}
+                  />
+                </>
               }
+              {...error.mark}
             />
           )}
           {importCall.status === "success" && (

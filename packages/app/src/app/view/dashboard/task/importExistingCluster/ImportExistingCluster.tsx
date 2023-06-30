@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {NodeAuthWizardFooter, Wizard} from "app/view/share";
+import {Wizard} from "app/view/share";
 
 import {NodeName} from "./NodeName";
 import {NodeNameFooter} from "./NodeNameFooter";
@@ -9,11 +9,7 @@ import {useTask} from "./useTask";
 import {TaskFinish} from "./TaskFinish";
 
 export const ImportExistingCluster = () => {
-  const {
-    close,
-    isNodeNameValid,
-    state: {authProcessId},
-  } = useTask();
+  const {close, isNodeNameValid} = useTask();
 
   return (
     <Wizard
@@ -33,11 +29,7 @@ export const ImportExistingCluster = () => {
           name: "Check node name",
           component: <PrepareNode />,
           canJumpTo: isNodeNameValid,
-          footer: authProcessId ? (
-            <NodeAuthWizardFooter authProcessId={authProcessId} />
-          ) : (
-            <PrepareNodeFooter />
-          ),
+          footer: <PrepareNodeFooter />,
         },
         {
           name: "Result",

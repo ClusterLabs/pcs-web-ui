@@ -1,5 +1,6 @@
 import {testMarks} from "app/view/dataTest";
 import {
+  NodesAuthWizardNext,
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
@@ -8,19 +9,30 @@ import {
 
 import {useTask} from "./useTask";
 
-const {addExistringCluster, back, cancel} =
+const {addExistringCluster, back, cancel, authenticate} =
   testMarks.importExistingCluster.prepareNodeFooter;
 
 export const PrepareNodeFooter = () => {
-  const {isNodeCheckDoneValid, importCluster} = useTask();
+  const {
+    isNodeCheckDoneValid,
+    importCluster,
+    state: {authProcessId},
+  } = useTask();
   return (
     <TaskFooter {...testMarks.setupCluster.nameAndNodesFooter.mark}>
-      <WizardFooterNext
-        label="Add existing cluster"
-        preAction={importCluster}
-        disabled={!isNodeCheckDoneValid}
-        {...addExistringCluster.mark}
-      />
+      {authProcessId ? (
+        <NodesAuthWizardNext
+          authProcessId={authProcessId}
+          {...authenticate.mark}
+        />
+      ) : (
+        <WizardFooterNext
+          label="Add existing cluster"
+          preAction={importCluster}
+          disabled={!isNodeCheckDoneValid}
+          {...addExistringCluster.mark}
+        />
+      )}
       <TaskButtonBack {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>

@@ -1,6 +1,12 @@
 import {Alert, AlertActionLink} from "@patternfly/react-core";
 
-import {NodesAuthForm} from "app/view/share";
+import {
+  NodesAuthCustomAddrSwitch,
+  NodesAuthForm,
+  NodesAuthInputAddress,
+  NodesAuthInputPassword,
+  NodesAuthInputPort,
+} from "app/view/share";
 import {TaskSimple} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -35,7 +41,26 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
         >
           {authProcessId === null && <ClusterIssueNotAuthFinish />}
           {authProcessId !== null && (
-            <NodesAuthForm authProcessId={authProcessId} />
+            <NodesAuthForm
+              authProcessId={authProcessId}
+              customAddresSwitcher={<NodesAuthCustomAddrSwitch />}
+              inputPassword={(nodeName, elementId, index) => (
+                <NodesAuthInputPassword
+                  index={index}
+                  nodeName={nodeName}
+                  elementId={elementId}
+                />
+              )}
+              inputAddress={(nodeName, elementId) => (
+                <NodesAuthInputAddress
+                  nodeName={nodeName}
+                  elementId={elementId}
+                />
+              )}
+              inputPort={(nodeName, elementId) => (
+                <NodesAuthInputPort nodeName={nodeName} elementId={elementId} />
+              )}
+            />
           )}
         </TaskSimple>
       )}
