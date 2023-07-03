@@ -16,18 +16,6 @@ import {ClusterPropertiesPage} from "./properties";
 import {AclPage} from "./acl";
 import {ClusterOverviewPage} from "./overview";
 
-export const clusterAppTabList = [
-  "overview",
-  "nodes",
-  "resources",
-  "fence-devices",
-  "sbd",
-  "constraints",
-  "properties",
-  "acl",
-  "permissions",
-] as const;
-
 export const ClusterApp = ({clusterName}: {clusterName: string}) => {
   useClusterLoad(clusterName);
   const clusterInfo = useClusterInfo(clusterName);
@@ -35,8 +23,6 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
   return (
     <ClusterAppLayout
       clusterName={clusterName}
-      tabList={clusterAppTabList}
-      tabNameMap={{sbd: "SBD", acl: "ACL"}}
       statusLabel={clusterInfo.clusterStatus.data?.status ?? "unknown"}
       {...testMarks.clusterDetail.mark}
     >
@@ -80,7 +66,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
         }
 
         const tabComponentMap: Record<
-          Exclude<(typeof clusterAppTabList)[number], "permissions">,
+          Exclude<typeof currentTab, "permissions">,
           React.FC
         > = {
           overview: ClusterOverviewPage,

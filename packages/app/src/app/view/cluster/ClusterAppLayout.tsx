@@ -22,22 +22,36 @@ import {
   useUrlTabs,
 } from "app/view/share";
 
-export const ClusterAppLayout = <TAB_NAME extends string>({
+
+export const clusterAppTabList = [
+  "overview",
+  "nodes",
+  "resources",
+  "fence-devices",
+  "sbd",
+  "constraints",
+  "properties",
+  "acl",
+  "permissions",
+] as const;
+const tabNameMap: Partial<Record<(typeof clusterAppTabList)[number], string>> =
+  {
+    sbd: "SBD",
+    acl: "ACL",
+  };
+
+export const ClusterAppLayout = ({
   clusterName,
   statusLabel,
-  tabList,
-  tabNameMap,
   children,
   "data-test": dataTest,
 }: {
   clusterName: string;
   statusLabel: React.ComponentProps<typeof ClusterStatusLabel>["status"];
-  tabList: readonly TAB_NAME[];
-  tabNameMap: Partial<Record<TAB_NAME, string>>;
-  children: (_currentTab: TAB_NAME) => React.ReactNode;
   "data-test"?: string;
+  children: (currentTab: (typeof clusterAppTabList)[number]) => React.ReactNode;
 }) => {
-  const {currentTab, matchedContext} = useUrlTabs(tabList);
+  const {currentTab, matchedContext} = useUrlTabs(clusterAppTabList);
   const dispatch = useDispatch();
   const {navigate} = useLocation();
 
@@ -81,7 +95,7 @@ export const ClusterAppLayout = <TAB_NAME extends string>({
               />
               <StackItem>
                 <UrlTabs
-                  tabList={tabList}
+                  tabList={clusterAppTabList}
                   currentTab={currentTab}
                   data-test="cluster"
                   toLabel={name => tabNameMap[name] ?? tools.labelize(name)}
