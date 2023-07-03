@@ -5,73 +5,92 @@ import {
   PageSection,
   Stack,
   StackItem,
+  Tab,
+  Tabs,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   ClusterStatusLabel,
   Router,
   location,
   useLocation,
 } from "app/view/share";
-import {tools} from "app/store";
-import {
-  Page,
-  PageToolbar,
-  UrlTabs,
-  useDispatch,
-  useUrlTabs,
-} from "app/view/share";
+import {Page, PageToolbar, useDispatch, useUrlTabs} from "app/view/share";
 
+const {clusterDetail} = testMarks;
+const {tabs} = clusterDetail;
 
-export const clusterAppTabList = [
-  "overview",
-  "nodes",
-  "resources",
-  "fence-devices",
-  "sbd",
-  "constraints",
-  "properties",
-  "acl",
-  "permissions",
-] as const;
-const tabNameMap: Partial<Record<(typeof clusterAppTabList)[number], string>> =
-  {
-    sbd: "SBD",
-    acl: "ACL",
-  };
+const tabMap = {
+  overview: (
+    <Tab eventKey="overview" title={"Overview"} {...tabs.overview.mark} />
+  ),
+  nodes: <Tab eventKey="nodes" title="Nodes" {...tabs.nodes.mark} />,
+  resources: (
+    <Tab eventKey="resources" title="Resources" {...tabs.resources.mark} />
+  ),
+  "fence-devices": (
+    <Tab
+      eventKey="fence-devices"
+      title="Fence devices"
+      {...tabs.fenceDevices.mark}
+    />
+  ),
+  sbd: <Tab eventKey="sbd" title="SBD" {...tabs.sbd.mark} />,
+  constraints: (
+    <Tab
+      eventKey="constraints"
+      title="Constraints"
+      {...tabs.constraints.mark}
+    />
+  ),
+  properties: (
+    <Tab eventKey="properties" title="Properties" {...tabs.properties.mark} />
+  ),
+  acl: <Tab eventKey="acl" title="ACL" {...tabs.acl.mark} />,
+  permissions: (
+    <Tab
+      eventKey="permissions"
+      title="Permissions"
+      {...tabs.permissions.mark}
+    />
+  ),
+};
+
+type TabName = keyof typeof tabMap;
 
 export const ClusterAppLayout = ({
   clusterName,
   statusLabel,
   children,
-  "data-test": dataTest,
 }: {
   clusterName: string;
   statusLabel: React.ComponentProps<typeof ClusterStatusLabel>["status"];
-  "data-test"?: string;
-  children: (currentTab: (typeof clusterAppTabList)[number]) => React.ReactNode;
+  children: (currentTab: TabName) => React.ReactNode;
 }) => {
-  const {currentTab, matchedContext} = useUrlTabs(clusterAppTabList);
+  const {currentTab, matchedContext, onSelect} = useUrlTabs(
+    Object.keys(tabMap) as TabName[],
+  );
   const dispatch = useDispatch();
   const {navigate} = useLocation();
 
   return (
-    <Page data-test={dataTest}>
+    <Page {...clusterDetail.mark}>
       {notifications => (
         <>
           <PageSection variant="light">
             <Stack hasGutter>
               <PageToolbar
                 breadcrumbs={
-                  <Breadcrumb data-test="breadcrumb">
+                  <Breadcrumb {...clusterDetail.breadcrumbs.mark}>
                     <BreadcrumbItem
                       to={location.dashboard}
                       component="a"
-                      data-test="dashboard"
                       onClick={(e: React.SyntheticEvent) => {
                         e.preventDefault();
                         navigate(location.dashboard);
                       }}
+                      {...clusterDetail.breadcrumbs.dashboard.mark}
                     >
                       Clusters
                     </BreadcrumbItem>
@@ -85,7 +104,9 @@ export const ClusterAppLayout = ({
                       }
                     >
                       <span className="pf-u-mr-sm">
-                        <strong>{clusterName}</strong>
+                        <strong {...clusterDetail.breadcrumbs.clusterName.mark}>
+                          {clusterName}
+                        </strong>
                       </span>
                       <ClusterStatusLabel status={statusLabel} />
                     </BreadcrumbItem>
@@ -94,12 +115,9 @@ export const ClusterAppLayout = ({
                 notifications={notifications}
               />
               <StackItem>
-                <UrlTabs
-                  tabList={clusterAppTabList}
-                  currentTab={currentTab}
-                  data-test="cluster"
-                  toLabel={name => tabNameMap[name] ?? tools.labelize(name)}
-                />
+                <Tabs activeKey={currentTab} onSelect={onSelect} {...tabs.mark}>
+                  {Object.values(tabMap)}
+                </Tabs>
               </StackItem>
             </Stack>
           </PageSection>

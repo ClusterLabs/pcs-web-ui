@@ -15,7 +15,23 @@ export interface SubStructure extends Record<string, SubStructure> {}
 // - locator
 // The structure is enhanced by this keys
 export const structure = {
-  clusterDetail: {},
+  clusterDetail: {
+    breadcrumbs: {
+      dashboard: {},
+      clusterName: {},
+    },
+    tabs: {
+      overview: {},
+      nodes: {},
+      resources: {},
+      fenceDevices: {},
+      sbd: {},
+      constraints: {},
+      properties: {},
+      acl: {},
+      permissions: {},
+    },
+  },
   dashboard: {
     toolbar: {
       setupCluster: {},
