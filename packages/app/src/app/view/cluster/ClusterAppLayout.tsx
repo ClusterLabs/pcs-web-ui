@@ -1,25 +1,11 @@
 import React from "react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  PageSection,
-  Stack,
-  StackItem,
-  Tab,
-  Tabs,
-} from "@patternfly/react-core";
+import {PageSection, Stack, StackItem, Tab, Tabs} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {
-  ClusterStatusLabel,
-  Router,
-  location,
-  useLocation,
-} from "app/view/share";
-import {Page, PageToolbar, useDispatch, useUrlTabs} from "app/view/share";
+import {Router} from "app/view/share";
+import {Page, PageToolbar, useUrlTabs} from "app/view/share";
 
-const {clusterDetail} = testMarks;
-const {tabs} = clusterDetail;
+const {tabs} = testMarks.clusterDetail;
 
 const tabMap = {
   overview: (
@@ -60,58 +46,24 @@ const tabMap = {
 type TabName = keyof typeof tabMap;
 
 export const ClusterAppLayout = ({
-  clusterName,
-  statusLabel,
+  breadcrumbs,
   children,
 }: {
-  clusterName: string;
-  statusLabel: React.ComponentProps<typeof ClusterStatusLabel>["status"];
+  breadcrumbs: React.ReactNode;
   children: (currentTab: TabName) => React.ReactNode;
 }) => {
   const {currentTab, matchedContext, onSelect} = useUrlTabs(
     Object.keys(tabMap) as TabName[],
   );
-  const dispatch = useDispatch();
-  const {navigate} = useLocation();
 
   return (
-    <Page {...clusterDetail.mark}>
+    <Page {...testMarks.clusterDetail.mark}>
       {notifications => (
         <>
           <PageSection variant="light">
             <Stack hasGutter>
               <PageToolbar
-                breadcrumbs={
-                  <Breadcrumb {...clusterDetail.breadcrumbs.mark}>
-                    <BreadcrumbItem
-                      to={location.dashboard}
-                      component="a"
-                      onClick={(e: React.SyntheticEvent) => {
-                        e.preventDefault();
-                        navigate(location.dashboard);
-                      }}
-                      {...clusterDetail.breadcrumbs.dashboard.mark}
-                    >
-                      Clusters
-                    </BreadcrumbItem>
-                    <BreadcrumbItem
-                      isActive
-                      onClick={() =>
-                        dispatch({
-                          type: "CLUSTER.STATUS.REFRESH",
-                          key: {clusterName},
-                        })
-                      }
-                    >
-                      <span className="pf-u-mr-sm">
-                        <strong {...clusterDetail.breadcrumbs.clusterName.mark}>
-                          {clusterName}
-                        </strong>
-                      </span>
-                      <ClusterStatusLabel status={statusLabel} />
-                    </BreadcrumbItem>
-                  </Breadcrumb>
-                }
+                breadcrumbs={breadcrumbs}
                 notifications={notifications}
               />
               <StackItem>

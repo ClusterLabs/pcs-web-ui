@@ -6,6 +6,7 @@ import {useClusterInfo, useClusterLoad} from "app/view/cluster/share";
 
 import {ClusterPermissionsPage, LoadedPermissionsProvider} from "./permissions";
 import {ClusterAppLayout} from "./ClusterAppLayout";
+import {ClusterAppBreadcrumbs} from "./ClusterAppBreadcrumbs";
 import {NodesPage} from "./nodes";
 import {ResourcesPage} from "./resources";
 import {FenceDevicePage} from "./fenceDevices";
@@ -21,8 +22,12 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
 
   return (
     <ClusterAppLayout
-      clusterName={clusterName}
-      statusLabel={clusterInfo.clusterStatus.data?.status ?? "unknown"}
+      breadcrumbs={
+        <ClusterAppBreadcrumbs
+          clusterName={clusterName}
+          statusLabel={clusterInfo.clusterStatus.data?.status ?? "unknown"}
+        />
+      }
     >
       {currentTab => {
         if (!clusterInfo.isRegistered) {
