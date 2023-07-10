@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
@@ -28,6 +29,8 @@ const compareByColumn = (
 
 const {SortableTh} = Table;
 
+const {list} = testMarks.dashboard.clusterList.cluster.loaded.resources;
+
 export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
   const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
 
@@ -50,7 +53,7 @@ export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
   }
 
   return (
-    <Table isCompact isBorderless data-test="resource-list">
+    <Table isCompact isBorderless {...list.mark}>
       <thead>
         <tr>
           <SortableTh columnName="NAME" sortState={sortState} data-label="name">
@@ -70,16 +73,17 @@ export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
         {cluster.resourceTree
           .sort(compareItems(compareByColumn))
           .map(resource => (
-            <tr key={resource.id} data-test={`resource ${resource.id}`}>
-              <td data-test="name">
+            <tr key={resource.id} {...list.resource.mark}>
+              <td>
                 <Link
                   to={location.resource({
                     clusterName: cluster.name,
                     resourceId: resource.id,
                   })}
+                  {...list.resource.id.mark}
                 />
               </td>
-              <td data-label="status">
+              <td {...list.resource.status.mark}>
                 <ResourceStatusInfoListSigns
                   resourceStatusInfoList={resource.status.infoList}
                 />

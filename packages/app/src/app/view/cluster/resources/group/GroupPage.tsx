@@ -1,5 +1,6 @@
 import {Alert} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Group} from "app/view/cluster/types";
 import {
   DetailLayout,
@@ -15,14 +16,22 @@ import {GroupPageToolbar} from "./GroupPageToolbar";
 
 const tabList = ["detail", "meta"] as const;
 
+const {currentResurce} = testMarks.clusterDetail.resources.detail;
+
 export const GroupPage = ({group}: {group: Group}) => {
   const {currentTab, matchedContext} = useUrlTabs(tabList);
   return (
     <DetailLayout
-      caption={<ResourceDetailCaption resourceId={group.id} type="group" />}
+      caption={
+        <ResourceDetailCaption
+          resourceId={group.id}
+          type="group"
+          {...currentResurce.group.id.mark}
+        />
+      }
       tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
       toolbar={<GroupPageToolbar group={group} />}
-      data-test={`resource-detail ${group.id}`}
+      {...currentResurce.mark}
     >
       {group.resources.some(r => r.itemType === "fence-device") && (
         <Alert

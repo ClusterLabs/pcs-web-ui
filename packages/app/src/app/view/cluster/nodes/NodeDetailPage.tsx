@@ -1,5 +1,6 @@
 import React from "react";
 
+import {testMarks} from "app/view/dataTest";
 import {
   DetailLayout,
   Router,
@@ -19,6 +20,7 @@ import {NodeDoesNotExists} from "./NodeDoesNotExists";
 
 export const nodePageTabList = ["detail", "attributes", "utilization"] as const;
 
+const {currentNode} = testMarks.clusterDetail.nodes.detail;
 export const NodeDetailPage = () => {
   const {selectedItemUrlName: selectedNodeName} = useGroupDetailViewContext();
   const {currentTab, matchedContext} = useUrlTabs(nodePageTabList);
@@ -35,7 +37,7 @@ export const NodeDetailPage = () => {
 
   return (
     <DetailLayout
-      caption={selectedNodeName}
+      caption={<strong {...currentNode.name.mark}>{selectedNodeName}</strong>}
       tabs={
         <UrlTabs
           tabList={nodePageTabList}
@@ -44,6 +46,7 @@ export const NodeDetailPage = () => {
         />
       }
       toolbar={<NodeDetailPageToolbar node={node} />}
+      {...currentNode.mark}
     >
       <Router base={matchedContext}>
         {currentTab === "detail" && <NodeDetailView node={node} />}

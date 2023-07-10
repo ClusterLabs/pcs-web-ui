@@ -1,7 +1,10 @@
 import {Alert} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
 import {DetailLayout, ResourceDetailCaption} from "app/view/share";
+
+const {currentResurce} = testMarks.clusterDetail.resources.detail;
 
 export const FenceDevicePage = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   return (
@@ -10,9 +13,10 @@ export const FenceDevicePage = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
         <ResourceDetailCaption
           resourceId={fenceDevice.id}
           type={fenceDevice.type}
+          {...currentResurce.fenceDevice.id}
         />
       }
-      data-test={`resource-detail ${fenceDevice.id}`}
+      {...currentResurce.mark}
     >
       <Alert variant="danger" isInline title="Unsupported fence device context">
         Cloned fence device or fence device inside group is not supported.

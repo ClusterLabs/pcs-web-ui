@@ -7,6 +7,8 @@ const nodeName = process.env.PCSD_NODE_1 || "";
 
 const clusterName = "test-cluster";
 
+const {clusterList} = shortcuts.dashboard;
+
 const assertImportedClusterNamesAre = async (clusterNameList: string[]) => {
   expect(
     await app.dashboard.clusterList.cluster.name.locator.evaluateAll(
@@ -14,14 +16,6 @@ const assertImportedClusterNamesAre = async (clusterNameList: string[]) => {
     ),
   ).toEqual(clusterNameList);
 };
-
-const inParticularClusterContext = (clusterName: string) => (mark: Mark) =>
-  app.dashboard.clusterList.cluster.name.locator
-    .getByText(clusterName)
-    .locator(
-      'xpath=/ancestor::node()[@data-test="dashboard.clusterList.cluster"]',
-    )
-    .locator(isLocator(mark) ? mark : mark.locator);
 
 const waitForImportedClusterList = async () =>
   await page.waitForResponse(/.*\/imported-cluster-list$/);
@@ -75,7 +69,7 @@ const importExistingCluster = async (nodeName: string) => {
 };
 
 const removeCluster = async (clusterName: string) => {
-  const inParticularCluster = inParticularClusterContext(clusterName);
+  const inParticularCluster = clusterList.inCluster(clusterName);
   const {actions} = app.dashboard.clusterList.cluster.loaded;
   await click(inParticularCluster(actions));
   await click(inParticularCluster(actions.remove));
@@ -91,7 +85,7 @@ const removeCluster = async (clusterName: string) => {
 };
 
 const destroyCluster = async (clusterName: string) => {
-  const inParticularCluster = inParticularClusterContext(clusterName);
+  const inParticularCluster = clusterList.inCluster(clusterName);
   const {actions} = app.dashboard.clusterList.cluster.loaded;
   await click(inParticularCluster(actions));
   await click(inParticularCluster(actions.destroy));

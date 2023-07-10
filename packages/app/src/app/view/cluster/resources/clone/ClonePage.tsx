@@ -1,5 +1,6 @@
 import {Alert} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Clone} from "app/view/cluster/types";
 import {
   DetailLayout,
@@ -14,14 +15,22 @@ import {CloneDetail} from "./CloneDetail";
 
 const tabList = ["detail", "meta"] as const;
 
+const {currentResurce} = testMarks.clusterDetail.resources.detail;
+
 export const ClonePage = ({clone}: {clone: Clone}) => {
   const {currentTab, matchedContext} = useUrlTabs(tabList);
   if (clone.member.itemType !== "fence-device") {
     return (
       <DetailLayout
-        caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
+        caption={
+          <ResourceDetailCaption
+            resourceId={clone.id}
+            type="clone"
+            {...currentResurce.clone.id.mark}
+          />
+        }
         tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
-        data-test={`resource-detail ${clone.id}`}
+        {...currentResurce.mark}
       >
         <Router base={matchedContext}>
           {currentTab === "detail" && (
@@ -47,8 +56,14 @@ export const ClonePage = ({clone}: {clone: Clone}) => {
   }
   return (
     <DetailLayout
-      caption={<ResourceDetailCaption resourceId={clone.id} type="clone" />}
-      data-test={`resource-detail ${clone.id}`}
+      caption={
+        <ResourceDetailCaption
+          resourceId={clone.id}
+          type="clone"
+          {...currentResurce.clone.id.mark}
+        />
+      }
+      {...currentResurce.mark}
     >
       <Alert
         variant="danger"

@@ -11,17 +11,19 @@ const useExpansion = ({
   const [expanded, setExpanded] = React.useState("");
 
   const Toggle = React.useCallback(
-    ({expandKey, children, ...rest}) => (
-      /* eslint-disable react/jsx-props-no-spreading */
-      <ExpansionToggle
-        expanded={expanded}
-        setExpanded={setExpanded}
-        expandKey={expandKey}
-        {...rest}
-      >
-        {children}
-      </ExpansionToggle>
-    ),
+    ({expandKey, children, ...rest}) => {
+      return (
+        /* eslint-disable react/jsx-props-no-spreading */
+        <ExpansionToggle
+          expanded={expanded}
+          setExpanded={setExpanded}
+          expandKey={expandKey}
+          {...rest}
+        >
+          {children}
+        </ExpansionToggle>
+      );
+    },
     [expanded, setExpanded],
   );
 

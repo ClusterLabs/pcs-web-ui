@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {
   DetailLayout,
@@ -20,6 +21,8 @@ export const primitivePageTabList = [
   "meta",
 ] as const;
 
+const {currentResurce} = testMarks.clusterDetail.resources.detail;
+
 export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
   const {currentTab, matchedContext} = useUrlTabs(primitivePageTabList);
 
@@ -33,6 +36,7 @@ export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
         <ResourceDetailCaption
           resourceId={primitive.id}
           type={primitive.type}
+          {...currentResurce.primitive.id.mark}
         />
       }
       tabs={
@@ -42,7 +46,7 @@ export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
           data-test="primitive"
         />
       }
-      data-test={`resource-detail ${primitive.id}`}
+      {...currentResurce.mark}
       toolbar={<PrimitivePageToolbar primitive={primitive} />}
     >
       <Router base={matchedContext}>

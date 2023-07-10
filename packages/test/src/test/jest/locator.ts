@@ -40,18 +40,20 @@ export const getApp = (envType: EnvType) =>
 export const isLocator = (mark: Mark): mark is Locator =>
   typeof mark.locator === "function";
 
+const locatorFor = (mark: Mark) => (isLocator(mark) ? mark : mark.locator);
+
 export const click = async (mark: Mark) => {
-  await (isLocator(mark) ? mark : mark.locator).click();
+  await locatorFor(mark).click();
 };
 
 export const isVisible = async (mark: Mark) => {
-  await (isLocator(mark) ? mark : mark.locator).waitFor({state: "visible"});
+  await locatorFor(mark).waitFor({state: "visible"});
 };
 
 export const isAbsent = async (mark: Mark) => {
-  await (isLocator(mark) ? mark : mark.locator).waitFor({state: "detached"});
+  await locatorFor(mark).waitFor({state: "detached"});
 };
 
 export const fill = async (mark: Mark, value: string) => {
-  await (isLocator(mark) ? mark : mark.locator).fill(value);
+  await locatorFor(mark).fill(value);
 };

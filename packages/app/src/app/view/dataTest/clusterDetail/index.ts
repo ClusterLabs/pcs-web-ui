@@ -1,4 +1,7 @@
 import {overview} from "./overview";
+import {nodes} from "./nodes";
+import {resources} from "./resources";
+import {fenceDevices} from "./fenceDevices";
 
 export const clusterDetail = {
   breadcrumbs: {
@@ -19,25 +22,9 @@ export const clusterDetail = {
   forbiden: {},
   loading: {},
   overview,
-  nodes: {
-    toolbar: {
-      addNode: {},
-    },
-    detail: {},
-  },
-  resources: {
-    toolbar: {
-      createResource: {},
-      createGroup: {},
-    },
-    detail: {},
-  },
-  fenceDevices: {
-    toolbar: {
-      createFenceDevice: {},
-    },
-    detail: {},
-  },
+  nodes,
+  resources,
+  fenceDevices,
   sbd: {
     toolbar: {
       configureSbd: {},

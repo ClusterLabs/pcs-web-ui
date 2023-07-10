@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {IssueList, Table} from "app/view/share";
 
 import {Cluster} from "./types";
@@ -18,6 +19,9 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
+const {issues, nodes, resources, fenceDevices} =
+  testMarks.dashboard.clusterList.cluster.loaded;
+
 export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
   const {expanded, Toggle, Content} = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
@@ -29,19 +33,19 @@ export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
       status={cluster.status}
       columns={
         <>
-          <Toggle expandKey={COLUMNS.ISSUES} data-test="issues">
+          <Toggle expandKey={COLUMNS.ISSUES} {...issues.mark}>
             <DashboardClusterCellSummary
               itemsCount={cluster.issueList.length}
               summaryStatus={cluster.summary.issuesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.NODES} data-test="nodes">
+          <Toggle expandKey={COLUMNS.NODES} {...nodes.mark}>
             <DashboardClusterCellSummary
               itemsCount={cluster.nodeList.length}
               summaryStatus={cluster.summary.nodesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.RESOURCES} data-test="resources">
+          <Toggle expandKey={COLUMNS.RESOURCES} {...resources.mark}>
             <DashboardClusterCellSummary
               itemsCount={
                 cluster.hasCibInfo ? cluster.resourceTree.length : "?"
@@ -49,7 +53,7 @@ export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
               summaryStatus={cluster.summary.resourcesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.FENCE_DEVICES} data-test="fence-devices">
+          <Toggle expandKey={COLUMNS.FENCE_DEVICES} {...fenceDevices.mark}>
             <DashboardClusterCellSummary
               itemsCount={
                 cluster.hasCibInfo ? cluster.fenceDeviceList.length : "?"

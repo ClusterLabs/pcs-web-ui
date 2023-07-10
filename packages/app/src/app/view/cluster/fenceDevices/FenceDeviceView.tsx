@@ -1,5 +1,4 @@
-import React from "react";
-
+import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
 import {DetailLayout, Router, UrlTabs, useUrlTabs} from "app/view/share";
 
@@ -10,15 +9,19 @@ import {FencePageToolbar} from "./FencePageToolbar";
 
 const tabList = ["detail", "arguments"] as const;
 
+const {currentFenceDevice} = testMarks.clusterDetail.fenceDevices.detail;
+
 export const FenceDeviceView = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   useClusterFenceAgent(fenceDevice.agentName);
   const {currentTab, matchedContext} = useUrlTabs(tabList);
   return (
     <DetailLayout
-      caption={fenceDevice.id}
+      caption={
+        <strong {...currentFenceDevice.id.mark}>{fenceDevice.id}</strong>
+      }
       tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
-      data-test={`fence-device-detail ${fenceDevice.id}`}
       toolbar={<FencePageToolbar fenceDevice={fenceDevice} />}
+      {...currentFenceDevice.mark}
     >
       <Router base={matchedContext}>
         {currentTab === "detail" && (

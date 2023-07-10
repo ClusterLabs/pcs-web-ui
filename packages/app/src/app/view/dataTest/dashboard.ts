@@ -8,9 +8,31 @@ export const dashboard = {
       name: {},
       loaded: {
         issues: {},
-        nodes: {},
-        resources: {},
-        fenceDevices: {},
+        nodes: {
+          list: {
+            node: {
+              name: {},
+              status: {},
+              quorum: {},
+            },
+          },
+        },
+        resources: {
+          list: {
+            resource: {
+              id: {},
+              status: {},
+            },
+          },
+        },
+        fenceDevices: {
+          list: {
+            fenceDevice: {
+              id: {},
+              status: {},
+            },
+          },
+        },
         actions: {
           start: {
             confirm: {

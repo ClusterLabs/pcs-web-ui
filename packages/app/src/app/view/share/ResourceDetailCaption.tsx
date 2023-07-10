@@ -1,14 +1,10 @@
-import React from "react";
-
-export const ResourceDetailCaption = ({
-  resourceId,
-  type,
-}: {
+export const ResourceDetailCaption = (props: {
   resourceId: string;
   type: string;
+  "data-test"?: string;
 }) => (
   <>
-    <strong>{`${resourceId} `}</strong>
-    <span>{`(${type})`}</span>
+    <strong data-test={props["data-test"]}>{`${props.resourceId} `}</strong>
+    <span>{`(${props.type})`}</span>
   </>
 );
