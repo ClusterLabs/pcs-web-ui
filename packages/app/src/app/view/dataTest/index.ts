@@ -1,5 +1,8 @@
 import {setupCluster} from "./setupCluster";
+import {importExistingCluster} from "./importExistingCluster";
 import {notifications} from "./notifications";
+import {dashboard} from "./dashboard";
+import {clusterDetail} from "./clusterDetail";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubStructure extends Record<string, SubStructure> {}
@@ -15,170 +18,11 @@ export interface SubStructure extends Record<string, SubStructure> {}
 // - locator
 // The structure is enhanced by this keys
 export const structure = {
-  clusterDetail: {
-    breadcrumbs: {
-      dashboard: {},
-      clusterName: {},
-    },
-    tabs: {
-      overview: {},
-      nodes: {},
-      resources: {},
-      fenceDevices: {},
-      sbd: {},
-      constraints: {},
-      properties: {},
-      acl: {},
-      permissions: {},
-    },
-    forbiden: {},
-    loading: {},
-    overview: {
-      toolbar: {
-        startCluster: {},
-        stopCluster: {},
-      },
-      detail: {},
-    },
-    nodes: {
-      toolbar: {
-        addNode: {},
-      },
-      detail: {},
-    },
-    resources: {
-      toolbar: {
-        createResource: {},
-        createGroup: {},
-      },
-      detail: {},
-    },
-    fenceDevices: {
-      toolbar: {
-        createFenceDevice: {},
-      },
-      detail: {},
-    },
-    sbd: {
-      toolbar: {
-        configureSbd: {},
-        disableSbd: {},
-      },
-      detail: {},
-    },
-    constraints: {
-      toolbar: {
-        createLocation: {},
-        createOrder: {},
-        createColocation: {},
-        createTicket: {},
-        createOrderSet: {},
-        createColocationSet: {},
-        createTicketSet: {},
-      },
-      detail: {},
-    },
-    properties: {
-      toolbar: {},
-      detail: {},
-    },
-    acl: {
-      toolbar: {
-        createRole: {},
-        createUser: {},
-        createGroup: {},
-        switchEnablement: {
-          confirm: {
-            run: {},
-            cancel: {},
-          },
-        },
-      },
-      detail: {},
-    },
-    permissions: {
-      toolbar: {
-        createPermission: {},
-      },
-      detail: {},
-    },
-  },
-  dashboard: {
-    toolbar: {
-      setupCluster: {},
-      importExistingCluster: {},
-    },
-    clusterList: {
-      cluster: {
-        name: {},
-        loaded: {
-          issues: {},
-          nodes: {},
-          resources: {},
-          fenceDevices: {},
-          actions: {
-            start: {
-              confirm: {
-                run: {},
-                cancel: {},
-              },
-            },
-            stop: {
-              confirm: {
-                run: {},
-                cancel: {},
-              },
-            },
-            remove: {
-              confirm: {
-                run: {},
-                cancel: {},
-              },
-            },
-            destroy: {
-              confirm: {
-                run: {},
-                cancel: {},
-              },
-            },
-          },
-        },
-      },
-    },
-  },
+  clusterDetail,
+  dashboard,
   notifications,
   setupCluster,
-  importExistingCluster: {
-    nodeName: {},
-    nodeNameFooter: {
-      checkAuthentication: {},
-      back: {},
-      cancel: {},
-    },
-    prepareNode: {
-      auth: {
-        customAddrSwitch: {},
-        password: {},
-        address: {},
-        port: {},
-      },
-      success: {},
-    },
-    prepareNodeFooter: {
-      addExistringCluster: {},
-      back: {},
-      cancel: {},
-      authenticate: {},
-    },
-    success: {
-      close: {},
-    },
-    error: {
-      changeSettings: {},
-      tryAgain: {},
-      cancel: {},
-    },
-  },
+  importExistingCluster,
 };
 
 type MarkTools = {
