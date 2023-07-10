@@ -1,9 +1,12 @@
 import {PageSection} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {ClusterToolbar, TaskOpenArgs} from "app/view/share";
 
 import * as task from "./task";
 import {PermissionsTable} from "./PermissionsTable";
+
+const {detail, toolbar} = testMarks.clusterDetail.permissions;
 
 export const ClusterPermissionsPage = () => {
   const addOpenArgs: TaskOpenArgs<typeof task.add.useTask> = [{type: "create"}];
@@ -19,11 +22,13 @@ export const ClusterPermissionsPage = () => {
               useTask: task.add.useTask,
               openArgs: addOpenArgs,
             },
+            ...toolbar.createPermission.mark,
           },
         ]}
+        {...toolbar.mark}
       />
 
-      <PageSection>
+      <PageSection {...detail.mark}>
         <PermissionsTable />
       </PageSection>
     </>

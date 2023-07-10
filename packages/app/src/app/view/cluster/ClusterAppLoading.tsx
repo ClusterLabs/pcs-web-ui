@@ -1,15 +1,16 @@
 import React from "react";
 import {PageSection} from "@patternfly/react-core";
 
-import {EmptyStateSpinner} from "app/view/share/emptyState";
+import {testMarks} from "app/view/dataTest";
+import {EmptyStateSpinner} from "app/view/share";
 
-export const PageSectionSpinner = ({
+export const ClusterAppLoading = ({
   title,
 }: {
   title: React.ComponentProps<typeof EmptyStateSpinner>["title"];
 }) => {
   return (
-    <PageSection>
+    <PageSection {...testMarks.clusterDetail.loading.mark}>
       <EmptyStateSpinner title={title} />
     </PageSection>
   );

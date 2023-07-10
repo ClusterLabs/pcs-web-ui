@@ -1,5 +1,6 @@
 import {Label, ToolbarItem} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {tools} from "app/store";
 import {
   ClusterToolbar,
@@ -13,6 +14,7 @@ import * as task from "./task";
 import {AclDetailPage} from "./detail";
 import {AclLists} from "./lists";
 
+const {detail, toolbar} = testMarks.clusterDetail.acl;
 export const AclPage = () => {
   const {clusterProperties, hasCibInfo, clusterName} = useLoadedCluster();
   const launchDisable = useLauncherDisableClusterNotRunning();
@@ -40,6 +42,7 @@ export const AclPage = () => {
             launchDisable: launchDisable(
               "Cannot create role on stopped cluster",
             ),
+            ...toolbar.createRole.mark,
           },
           {
             name: "create-user",
@@ -51,6 +54,7 @@ export const AclPage = () => {
             launchDisable: launchDisable(
               "Cannot create user on stopped cluster",
             ),
+            ...toolbar.createUser.mark,
           },
         ]}
         dropdownItems={[
@@ -64,6 +68,7 @@ export const AclPage = () => {
             launchDisable: launchDisable(
               "Cannot create group on stopped cluster",
             ),
+            ...toolbar.createGroup.mark,
           },
           {
             name: aclEnabled ? "disable-acl" : "enable-acl",
@@ -82,10 +87,14 @@ export const AclPage = () => {
                   },
                 },
               },
+              runMark: toolbar.switchEnablement.confirm.run.mark,
+              cancelMark: toolbar.switchEnablement.confirm.cancel.mark,
+              ...toolbar.switchEnablement.confirm.mark,
             },
             launchDisable: launchDisable(
               "Cannot enable/disable acl on stopped cluster",
             ),
+            ...toolbar.switchEnablement.mark,
           },
         ]}
         after={
@@ -100,12 +109,14 @@ export const AclPage = () => {
             </>
           ) : null
         }
+        {...toolbar.mark}
       />
 
       <GroupDetailView
         groupCard={<AclLists />}
         detailCard={<AclDetailPage />}
         detailTypeList={["role", "user", "group"]}
+        {...detail.mark}
       />
     </>
   );

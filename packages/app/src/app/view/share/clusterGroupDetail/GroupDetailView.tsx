@@ -24,27 +24,26 @@ const detailMatch = (
 ): detail is Exclude<RouteMatch, null> =>
   detail !== null && detailTypeMatch(detailTypeList, detail.params.detailType);
 
-export const GroupDetailView = ({
-  groupCard,
-  detailCard,
-  detailTypeList,
-}: {
+export const GroupDetailView = (props: {
   groupCard: React.ReactNode;
   detailCard: React.ReactNode;
   detailTypeList?: DetailTypeList;
+  "data-test"?: string;
 }) => {
   const detail = useRoute(
-    detailTypeList ? "/:detailType/:detailUrlName/*" : "/:detailUrlName/*",
+    props.detailTypeList
+      ? "/:detailType/:detailUrlName/*"
+      : "/:detailUrlName/*",
   );
   const {base} = useRouter();
   const {navigate} = useLocation();
   const closeDetailUrl = () => navigate(`~${base}`);
 
-  if (detailMatch(detail, detailTypeList)) {
+  if (detailMatch(detail, props.detailTypeList)) {
     return (
       <PageSection
         className="ha-m-full-height pf-m-fill"
-        data-test="group-detail"
+        data-test={props["data-test"]}
       >
         <div className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100">
           <GroupDetailViewContextProvider
@@ -56,13 +55,13 @@ export const GroupDetailView = ({
             }}
           >
             <div className="ha-c-panel__tree-view" data-test="group-card">
-              {groupCard}
+              {props.groupCard}
             </div>
             <div
               className="pf-c-card pf-m-flex-1 ha-c-panel__details-view"
               data-test="detail-card"
             >
-              <Router base={detail.matched}>{detailCard}</Router>
+              <Router base={detail.matched}>{props.detailCard}</Router>
             </div>
           </GroupDetailViewContextProvider>
         </div>
@@ -71,7 +70,7 @@ export const GroupDetailView = ({
   }
 
   return (
-    <PageSection>
+    <PageSection data-test={props["data-test"]}>
       <GroupDetailViewContextProvider
         value={{
           compact: false,
@@ -80,7 +79,7 @@ export const GroupDetailView = ({
           closeDetailUrl,
         }}
       >
-        {groupCard}
+        {props.groupCard}
       </GroupDetailViewContextProvider>
     </PageSection>
   );

@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   ClusterToolbar,
   GroupDetailView,
@@ -8,6 +9,8 @@ import {useLoadedCluster} from "app/view/cluster/share";
 import * as task from "./task";
 import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
 import {FenceDeviceList} from "./list";
+
+const {detail, toolbar} = testMarks.clusterDetail.fenceDevices;
 
 export const FenceDevicePage = () => {
   const {fenceDeviceList} = useLoadedCluster();
@@ -26,12 +29,15 @@ export const FenceDevicePage = () => {
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),
+            ...toolbar.createFenceDevice.mark,
           },
         ]}
+        {...toolbar.mark}
       />
       <GroupDetailView
         detailCard={<FenceDeviceDetailPage />}
         groupCard={<FenceDeviceList fenceDeviceList={fenceDeviceList} />}
+        {...detail.mark}
       />
     </>
   );

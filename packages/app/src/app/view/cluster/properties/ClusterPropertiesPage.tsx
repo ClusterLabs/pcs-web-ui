@@ -8,6 +8,7 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   AttributeHelpPopover,
   AttributeList,
@@ -40,6 +41,8 @@ const useFilter = (): {
     p => p.readable_name,
   );
 
+const {detail} = testMarks.clusterDetail.properties;
+
 export const ClusterPropertiesPage = () => {
   const {clusterPropertiesDefinition} = useClusterProperties();
   const {hasCibInfo, clusterProperties, clusterName} = useLoadedCluster();
@@ -48,7 +51,7 @@ export const ClusterPropertiesPage = () => {
 
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
-    <PageSection>
+    <PageSection {...detail.mark}>
       <Card>
         <CardBody>
           <Stack hasGutter>

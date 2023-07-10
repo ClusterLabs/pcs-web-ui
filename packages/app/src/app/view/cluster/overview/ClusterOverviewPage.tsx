@@ -1,5 +1,6 @@
 import {Flex, FlexItem, FlexProps, PageSection} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Card, ClusterToolbar, task} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
@@ -8,6 +9,8 @@ import {NodesCard} from "./nodes";
 import {ResourcesCard} from "./resources";
 
 const grow: FlexProps["grow"] = {default: "grow"};
+
+const {detail, toolbar} = testMarks.clusterDetail.overview;
 
 export const ClusterOverviewPage = () => {
   const cluster = useLoadedCluster();
@@ -26,6 +29,7 @@ export const ClusterOverviewPage = () => {
                 payload: {clusterName: cluster.name},
               },
             },
+            ...toolbar.startCluster.mark,
           },
           {
             name: "stop",
@@ -42,11 +46,13 @@ export const ClusterOverviewPage = () => {
               }),
               useTask: task.forceableConfirm.useTask,
             },
+            ...toolbar.stopCluster.mark,
           },
         ]}
+        {...toolbar.mark}
       />
 
-      <PageSection data-test="cluster-overview">
+      <PageSection {...detail.mark}>
         <Flex>
           {cluster.issueList.length > 0 && (
             <FlexItem grow={grow} className="pf-u-m-0">

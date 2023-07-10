@@ -1,12 +1,11 @@
-import {PageSection} from "@patternfly/react-core";
-
-import {EmptyStateError, PageSectionSpinner} from "app/view/share";
 import {ClusterSourcesProvider} from "app/view/cluster/share";
 import {useClusterInfo, useClusterLoad} from "app/view/cluster/share";
 
 import {ClusterPermissionsPage, LoadedPermissionsProvider} from "./permissions";
 import {ClusterAppLayout} from "./ClusterAppLayout";
 import {ClusterAppBreadcrumbs} from "./ClusterAppBreadcrumbs";
+import {ClusterAppLoading} from "./ClusterAppLoading";
+import {ClusterAppForbidden} from "./ClusterAppForbidden";
 import {NodesPage} from "./nodes";
 import {ResourcesPage} from "./resources";
 import {FenceDevicePage} from "./fenceDevices";
@@ -31,13 +30,13 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
     >
       {currentTab => {
         if (!clusterInfo.isRegistered) {
-          return <PageSectionSpinner title="Preparing cluster storage" />;
+          return <ClusterAppLoading title="Preparing cluster storage" />;
         }
 
         if (currentTab === "permissions") {
           if (!clusterInfo.permissions) {
             return (
-              <PageSectionSpinner title="Loading cluster permission data" />
+              <ClusterAppLoading title="Loading cluster permission data" />
             );
           }
           return (
@@ -54,18 +53,11 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
         }
 
         if (clusterInfo.clusterStatus.isForbidden) {
-          return (
-            <PageSection>
-              <EmptyStateError
-                title="Forbidden"
-                message="You don't have a read permission for this cluster."
-              />
-            </PageSection>
-          );
+          return <ClusterAppForbidden />;
         }
 
         if (!clusterInfo.clusterStatus.data) {
-          return <PageSectionSpinner title="Loading cluster data" />;
+          return <ClusterAppLoading title="Loading cluster data" />;
         }
 
         const tabComponentMap: Record<

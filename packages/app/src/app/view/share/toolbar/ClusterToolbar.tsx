@@ -4,31 +4,26 @@ import {LauncherItem} from "app/view/share/toolbar/types";
 
 import {LaunchersToolbar} from "./LaunchersToolbar";
 
-export const ClusterToolbar = ({
-  toolbarName,
-  buttonsItems = [],
-  dropdownItems = [],
-  before,
-  after,
-}: {
+export const ClusterToolbar = (props: {
   toolbarName: string;
   buttonsItems?: LauncherItem[];
   dropdownItems?: LauncherItem[];
   after?: React.ReactNode;
   before?: React.ReactNode;
+  "data-test"?: string;
 }) => {
   return (
     <PageSection
       variant="light"
       style={{paddingTop: "0"}}
-      data-test="cluster-section-toolbar"
+      data-test={props["data-test"]}
     >
       <LaunchersToolbar
-        toolbarName={toolbarName}
-        buttonsItems={buttonsItems}
-        dropdownItems={dropdownItems}
-        after={after}
-        before={before}
+        toolbarName={props.toolbarName}
+        buttonsItems={props.buttonsItems}
+        dropdownItems={props.dropdownItems}
+        after={props.after}
+        before={props.before}
       />
     </PageSection>
   );

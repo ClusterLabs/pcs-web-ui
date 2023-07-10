@@ -31,6 +31,77 @@ export const structure = {
       acl: {},
       permissions: {},
     },
+    forbiden: {},
+    loading: {},
+    overview: {
+      toolbar: {
+        startCluster: {},
+        stopCluster: {},
+      },
+      detail: {},
+    },
+    nodes: {
+      toolbar: {
+        addNode: {},
+      },
+      detail: {},
+    },
+    resources: {
+      toolbar: {
+        createResource: {},
+        createGroup: {},
+      },
+      detail: {},
+    },
+    fenceDevices: {
+      toolbar: {
+        createFenceDevice: {},
+      },
+      detail: {},
+    },
+    sbd: {
+      toolbar: {
+        configureSbd: {},
+        disableSbd: {},
+      },
+      detail: {},
+    },
+    constraints: {
+      toolbar: {
+        createLocation: {},
+        createOrder: {},
+        createColocation: {},
+        createTicket: {},
+        createOrderSet: {},
+        createColocationSet: {},
+        createTicketSet: {},
+      },
+      detail: {},
+    },
+    properties: {
+      toolbar: {},
+      detail: {},
+    },
+    acl: {
+      toolbar: {
+        createRole: {},
+        createUser: {},
+        createGroup: {},
+        switchEnablement: {
+          confirm: {
+            run: {},
+            cancel: {},
+          },
+        },
+      },
+      detail: {},
+    },
+    permissions: {
+      toolbar: {
+        createPermission: {},
+      },
+      detail: {},
+    },
   },
   dashboard: {
     toolbar: {

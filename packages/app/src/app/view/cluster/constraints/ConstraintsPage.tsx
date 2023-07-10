@@ -1,5 +1,6 @@
 import {PageSection} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   ClusterToolbar,
   useLauncherDisableClusterNotRunning,
@@ -8,6 +9,8 @@ import {useLoadedCluster} from "app/view/cluster/share";
 
 import {ConstraintFilteredList} from "./ConstraintFilteredList";
 import * as task from "./task";
+
+const {detail, toolbar} = testMarks.clusterDetail.constraints;
 
 export const ConstraintsPage = () => {
   const launchDisable = useLauncherDisableClusterNotRunning();
@@ -26,6 +29,7 @@ export const ConstraintsPage = () => {
             launchDisable: launchDisable(
               "Cannot create location constraint on stopped cluster",
             ),
+            ...toolbar.createLocation.mark,
           },
           {
             name: "create-order",
@@ -36,6 +40,7 @@ export const ConstraintsPage = () => {
             launchDisable: launchDisable(
               "Cannot create order constraint on stopped cluster",
             ),
+            ...toolbar.createOrder.mark,
           },
           {
             name: "create-colocation",
@@ -46,6 +51,7 @@ export const ConstraintsPage = () => {
             launchDisable: launchDisable(
               "Cannot create colocation constraint on stopped cluster",
             ),
+            ...toolbar.createColocation.mark,
           },
         ]}
         dropdownItems={[
@@ -58,6 +64,7 @@ export const ConstraintsPage = () => {
             launchDisable: launchDisable(
               "Cannot create ticket constraint on stopped cluster",
             ),
+            ...toolbar.createTicket.mark,
           },
           {
             name: "create-order-set",
@@ -68,6 +75,7 @@ export const ConstraintsPage = () => {
             launchDisable: launchDisable(
               "Cannot create order set constraint on stopped cluster",
             ),
+            ...toolbar.createOrderSet.mark,
           },
           {
             name: "create-colocation-set",
@@ -78,6 +86,7 @@ export const ConstraintsPage = () => {
             launchDisable: launchDisable(
               "Cannot create colocation set constraint on stopped cluster",
             ),
+            ...toolbar.createColocationSet.mark,
           },
           {
             name: "create-ticket-set",
@@ -88,10 +97,12 @@ export const ConstraintsPage = () => {
             launchDisable: launchDisable(
               "Cannot create ticket set constraint on stopped cluster",
             ),
+            ...toolbar.createTicket.mark,
           },
         ]}
+        {...toolbar.mark}
       />
-      <PageSection>
+      <PageSection {...detail.mark}>
         <ConstraintFilteredList clusterName={clusterName} />
       </PageSection>
     </>
