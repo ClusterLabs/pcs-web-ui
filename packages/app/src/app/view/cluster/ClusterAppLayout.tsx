@@ -9,34 +9,54 @@ const {tabs} = testMarks.clusterDetail;
 
 const tabMap = {
   overview: (
-    <Tab eventKey="overview" title={"Overview"} {...tabs.overview.mark} />
+    <Tab
+      eventKey="overview"
+      key="overview"
+      title={"Overview"}
+      {...tabs.overview.mark}
+    />
   ),
-  nodes: <Tab eventKey="nodes" title="Nodes" {...tabs.nodes.mark} />,
+  nodes: (
+    <Tab eventKey="nodes" key="nodes" title="Nodes" {...tabs.nodes.mark} />
+  ),
   resources: (
-    <Tab eventKey="resources" title="Resources" {...tabs.resources.mark} />
+    <Tab
+      eventKey="resources"
+      key="resources"
+      title="Resources"
+      {...tabs.resources.mark}
+    />
   ),
   "fence-devices": (
     <Tab
       eventKey="fence-devices"
+      key="fence-devices"
       title="Fence devices"
       {...tabs.fenceDevices.mark}
     />
   ),
-  sbd: <Tab eventKey="sbd" title="SBD" {...tabs.sbd.mark} />,
+  sbd: <Tab eventKey="sbd" key="sbd" title="SBD" {...tabs.sbd.mark} />,
   constraints: (
     <Tab
       eventKey="constraints"
+      key="constraints"
       title="Constraints"
       {...tabs.constraints.mark}
     />
   ),
   properties: (
-    <Tab eventKey="properties" title="Properties" {...tabs.properties.mark} />
+    <Tab
+      eventKey="properties"
+      key="properties"
+      title="Properties"
+      {...tabs.properties.mark}
+    />
   ),
-  acl: <Tab eventKey="acl" title="ACL" {...tabs.acl.mark} />,
+  acl: <Tab eventKey="acl" key="acl" title="ACL" {...tabs.acl.mark} />,
   permissions: (
     <Tab
       eventKey="permissions"
+      key="permissions"
       title="Permissions"
       {...tabs.permissions.mark}
     />
