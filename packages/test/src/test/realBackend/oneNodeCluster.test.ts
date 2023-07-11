@@ -7,7 +7,7 @@ const nodeName = process.env.PCSD_NODE_1 || "";
 
 const clusterName = "test-cluster";
 
-const {clusterList} = shortcuts.dashboard;
+const {inCluster} = shortcuts.dashboard.clusterList;
 
 const assertImportedClusterNamesAre = async (clusterNameList: string[]) => {
   expect(
@@ -78,10 +78,9 @@ const importExistingCluster = async (nodeName: string) => {
 };
 
 const removeCluster = async (clusterName: string) => {
-  const inParticularCluster = clusterList.inCluster(clusterName);
   const {actions} = app.dashboard.clusterList.cluster.loaded;
-  await click(inParticularCluster(actions));
-  await click(inParticularCluster(actions.remove));
+  await click(inCluster(clusterName)(actions));
+  await click(inCluster(clusterName)(actions.remove));
   await isVisible(actions.remove.confirm);
   await Promise.all([
     waitForImportedClusterList(),
@@ -94,10 +93,9 @@ const removeCluster = async (clusterName: string) => {
 };
 
 const destroyCluster = async (clusterName: string) => {
-  const inParticularCluster = clusterList.inCluster(clusterName);
   const {actions} = app.dashboard.clusterList.cluster.loaded;
-  await click(inParticularCluster(actions));
-  await click(inParticularCluster(actions.destroy));
+  await click(inCluster(clusterName)(actions));
+  await click(inCluster(clusterName)(actions.destroy));
   await isVisible(actions.destroy.confirm);
   await Promise.all([
     waitForImportedClusterList(),

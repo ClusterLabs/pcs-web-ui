@@ -1,6 +1,6 @@
-import * as responses from "dev/responses";
+import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const {goToCluster} = shortcuts.clusterDetail;
@@ -17,16 +17,10 @@ const startOnOverview = async () => {
 
 describe("Cluster detail tab switch", () => {
   beforeEach(
-    intercept.start([
-      route.importedClusterList({
-        clusterStatusList: [responses.clusterStatus.ok],
+    async () =>
+      await intercept.shortcuts.interceptWithCluster({
+        clusterStatus: cs.cluster(clusterName, "ok"),
       }),
-      route.clusterStatus({clusterStatus: responses.clusterStatus.ok}),
-      route.resourceAgentListAgents("ok"),
-      route.stonithAgentListAgents({clusterName: "ok"}),
-      route.getClusterPropertiesDefinition({clusterName: "ok"}),
-      route.getPermissions({clusterName}),
-    ]),
   );
   afterEach(intercept.stop);
 

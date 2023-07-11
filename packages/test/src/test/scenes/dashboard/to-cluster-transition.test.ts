@@ -1,118 +1,88 @@
-import * as responses from "dev/responses";
+import * as cs from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 
-const {cluster} = app.dashboard.clusterList;
-const {clusterDetail} = app;
+const {breadcrumbs, overview, nodes, resources, fenceDevices} =
+  app.clusterDetail;
 
-const {clusterList} = shortcuts.dashboard;
 const {textIs} = shortcuts.expect;
+const {inClusterFenceDevice, inClusterResource, inClusterNode, inCluster} =
+  shortcuts.dashboard.clusterList;
 
 const clusterName = "ok";
-const nodeName = "node-1";
+const nodeNumber = "1";
+const nodeName = `node-${nodeNumber}`;
+const resourceId = "R1";
+const fenceDeviceId = "F1";
 
-const interceptWithDashboard = (routeList: intercept.Route[]) =>
-  intercept.run([
-    route.importedClusterList({
-      clusterStatusList: [
-        responses.clusterStatus.ok,
-        responses.clusterStatus.error,
-      ],
-    }),
-    route.clusterStatus({clusterStatus: responses.clusterStatus.ok}),
-    route.resourceAgentListAgents(clusterName),
-    route.stonithAgentListAgents({clusterName}),
-    route.getClusterPropertiesDefinition({clusterName}),
-    route.getPermissions({clusterName}),
-    route.clusterStatus({clusterStatus: responses.clusterStatus.error}),
-    ...routeList,
-  ]);
-
-const inTheCluster = clusterList.inCluster(clusterName);
-const inTheClusterNode = clusterList.inClusterNode(clusterName)(nodeName);
+const inTheCluster = inCluster(clusterName);
 
 const clusterListLoaded = async () => {
   await page.goto(backend.rootUrl);
-  await isVisible(inTheCluster(cluster.loaded));
+  await isVisible(inTheCluster(cluster => cluster.loaded));
 };
 
 const expectOnTheCluster = async () => {
-  await textIs(clusterDetail.breadcrumbs.clusterName, clusterName);
+  await textIs(breadcrumbs.clusterName, clusterName);
 };
+
+const clusterStatus = cs.cluster(clusterName, "ok", {
+  node_list: [cs.node(nodeNumber)],
+  resource_list: [cs.primitive(resourceId), cs.stonith(fenceDeviceId)],
+});
 
 describe("To cluster transition", () => {
   afterEach(intercept.stop);
+
   it("should allow go to a cluster detail and back", async () => {
-    interceptWithDashboard([]);
+    intercept.shortcuts.interceptWithCluster({clusterStatus});
     await clusterListLoaded();
 
-    await click(inTheCluster(cluster.name));
+    await click(inTheCluster(cluster => cluster.name));
     await expectOnTheCluster();
-    await isVisible(clusterDetail.overview.detail);
+    await isVisible(overview.detail);
 
-    await click(clusterDetail.breadcrumbs.dashboard);
+    await click(breadcrumbs.dashboard);
     await isVisible(app.dashboard);
   });
 
   it("should allow to go to a node detail", async () => {
-    interceptWithDashboard([]);
+    intercept.shortcuts.interceptWithCluster({clusterStatus});
     await clusterListLoaded();
 
-    await click(inTheCluster(cluster.loaded.nodes));
-    await click(inTheClusterNode(cluster.loaded.nodes.list.node.name));
+    await click(inTheCluster(cluster => cluster.loaded.nodes));
+    await click(inClusterNode(clusterName)(nodeName)(({name}) => name));
     await expectOnTheCluster();
-    await isVisible(clusterDetail.nodes.detail);
-    await textIs(clusterDetail.nodes.detail.currentNode.name, nodeName);
+    await isVisible(nodes.detail);
+    await textIs(nodes.detail.currentNode.name, nodeName);
   });
 
   it("should allow go to a resource detail", async () => {
-    interceptWithDashboard([
-      route.resourceAgentDescribeAgent({
-        clusterName: "ok",
-        agentName: "ocf:heartbeat:Dummy",
-        agentData: responses.resourceAgentMetadata.ocfHeartbeatDummy,
-      }),
-    ]);
-    const resourceId = "R1";
-    const inTheClusterResource =
-      clusterList.inClusterResource(clusterName)(resourceId);
+    intercept.shortcuts.interceptWithCluster({
+      clusterStatus,
+      optionalRoutes: ["agentDummy"],
+    });
 
     await clusterListLoaded();
-    await click(inTheCluster(cluster.loaded.resources));
-    await click(
-      inTheClusterResource(cluster.loaded.resources.list.resource.id),
-    );
+    await click(inTheCluster(cluster => cluster.loaded.resources));
+    await click(inClusterResource(clusterName)(resourceId)(({id}) => id));
     await expectOnTheCluster();
-    await isVisible(clusterDetail.resources.detail);
-    await textIs(
-      clusterDetail.resources.detail.currentResurce.primitive.id,
-      resourceId,
-    );
+    await isVisible(resources.detail);
+    await textIs(resources.detail.currentResurce.primitive.id, resourceId);
   });
 
   it("should allow go to a fence device detail", async () => {
-    interceptWithDashboard([
-      route.stonithAgentDescribeAgent({
-        clusterName: "ok",
-        agentName: "fence_apc",
-        agentData: responses.fenceAgentMetadata.ok,
-      }),
-    ]);
-    const fenceDeviceId = "F1";
-    const inTheClusterFenceDevice =
-      clusterList.inClusterFenceDevice(clusterName)(fenceDeviceId);
+    intercept.shortcuts.interceptWithCluster({
+      clusterStatus,
+      optionalRoutes: ["agentFenceApc"],
+    });
 
     await clusterListLoaded();
-    await click(inTheCluster(cluster.loaded.fenceDevices));
-    await click(
-      inTheClusterFenceDevice(cluster.loaded.fenceDevices.list.fenceDevice.id),
-    );
+    await click(inTheCluster(cluster => cluster.loaded.fenceDevices));
+    await click(inClusterFenceDevice(clusterName)(fenceDeviceId)(({id}) => id));
     await expectOnTheCluster();
-    await isVisible(clusterDetail.fenceDevices.detail);
-    await textIs(
-      clusterDetail.fenceDevices.detail.currentFenceDevice.id,
-      fenceDeviceId,
-    );
+    await isVisible(fenceDevices.detail);
+    await textIs(fenceDevices.detail.currentFenceDevice.id, fenceDeviceId);
   });
 });

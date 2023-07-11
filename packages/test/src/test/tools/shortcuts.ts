@@ -1,21 +1,24 @@
 import * as types from "dev/types";
 import * as responses from "dev/responses";
 
-import {intercept, route} from "test/tools";
+import {Route, run} from "./interception";
+import * as route from "./routes";
 
 export const interceptWithCluster = (
   props: {
-    additionalRouteList?: intercept.Route[];
+    additionalRouteList?: Route[];
     replaceRoutes?: Partial<
       Record<
         | "clusterStatus"
         | "resourceAgent"
         | "stonithAgent"
         | "propertiesDefinition"
-        | "permissions",
-        Parameters<typeof intercept.run>[0][number]
+        | "permissions"
+        | "importedClusterList",
+        Parameters<typeof run>[0][number]
       >
     >;
+    optionalRoutes?: ("agentDummy" | "agentFenceApc")[];
   } & (
     | {
         clusterName: keyof typeof responses.clusterStatus;
@@ -44,10 +47,32 @@ export const interceptWithCluster = (
     permissions: route.getPermissions({
       clusterName: clusterStatus.cluster_name,
     }),
+    importedClusterList: route.importedClusterList({
+      clusterStatusList: [clusterStatus],
+    }),
   };
 
-  return intercept.run([
+  const optionalRouteMap: Partial<
+    Record<
+      NonNullable<typeof props.optionalRoutes>[number],
+      Parameters<typeof run>[0][number]
+    >
+  > = {
+    agentDummy: route.resourceAgentDescribeAgent({
+      clusterName: "ok",
+      agentName: "ocf:heartbeat:Dummy",
+      agentData: responses.resourceAgentMetadata.ocfHeartbeatDummy,
+    }),
+    agentFenceApc: route.stonithAgentDescribeAgent({
+      clusterName: "ok",
+      agentName: "fence_apc",
+      agentData: responses.fenceAgentMetadata.ok,
+    }),
+  };
+
+  return run([
     ...Object.values({...routeMap, ...(replaceRoutes || {})}),
     ...(additionalRouteList || []),
+    ...Object.values({...optionalRouteMap}),
   ]);
 };
