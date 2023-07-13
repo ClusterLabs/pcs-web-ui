@@ -7,8 +7,7 @@ const {breadcrumbs, overview, nodes, resources, fenceDevices} =
   app.clusterDetail;
 
 const {textIs} = shortcuts.expect;
-const {inClusterFenceDevice, inClusterResource, inClusterNode, inCluster} =
-  shortcuts.dashboard.clusterList;
+const {inCluster} = shortcuts.dashboard.importedClusters;
 
 const clusterName = "ok";
 const nodeNumber = "1";
@@ -16,11 +15,9 @@ const nodeName = `node-${nodeNumber}`;
 const resourceId = "R1";
 const fenceDeviceId = "F1";
 
-const inTheCluster = inCluster(clusterName);
-
 const clusterListLoaded = async () => {
   await page.goto(backend.rootUrl);
-  await isVisible(inTheCluster(cluster => cluster.loaded));
+  await isVisible(inCluster(clusterName).get(cluster => cluster.loaded));
 };
 
 const expectOnTheCluster = async () => {
@@ -39,7 +36,7 @@ describe("To cluster transition", () => {
     intercept.shortcuts.interceptWithCluster({clusterStatus});
     await clusterListLoaded();
 
-    await click(inTheCluster(cluster => cluster.name));
+    await click(inCluster(clusterName).get(cluster => cluster.name));
     await expectOnTheCluster();
     await isVisible(overview.detail);
 
@@ -51,8 +48,12 @@ describe("To cluster transition", () => {
     intercept.shortcuts.interceptWithCluster({clusterStatus});
     await clusterListLoaded();
 
-    await click(inTheCluster(cluster => cluster.loaded.nodes));
-    await click(inClusterNode(clusterName)(nodeName)(({name}) => name));
+    await click(inCluster(clusterName).get(cluster => cluster.loaded.nodes));
+    await click(
+      inCluster(clusterName)
+        .inNode(nodeName)
+        .get(({name}) => name),
+    );
     await expectOnTheCluster();
     await isVisible(nodes.detail);
     await textIs(nodes.detail.currentNode.name, nodeName);
@@ -65,8 +66,14 @@ describe("To cluster transition", () => {
     });
 
     await clusterListLoaded();
-    await click(inTheCluster(cluster => cluster.loaded.resources));
-    await click(inClusterResource(clusterName)(resourceId)(({id}) => id));
+    await click(
+      inCluster(clusterName).get(cluster => cluster.loaded.resources),
+    );
+    await click(
+      inCluster(clusterName)
+        .inResource(resourceId)
+        .get(({id}) => id),
+    );
     await expectOnTheCluster();
     await isVisible(resources.detail);
     await textIs(resources.detail.currentResurce.primitive.id, resourceId);
@@ -79,8 +86,14 @@ describe("To cluster transition", () => {
     });
 
     await clusterListLoaded();
-    await click(inTheCluster(cluster => cluster.loaded.fenceDevices));
-    await click(inClusterFenceDevice(clusterName)(fenceDeviceId)(({id}) => id));
+    await click(
+      inCluster(clusterName).get(cluster => cluster.loaded.fenceDevices),
+    );
+    await click(
+      inCluster(clusterName)
+        .inFenceDevice(fenceDeviceId)
+        .get(({id}) => id),
+    );
     await expectOnTheCluster();
     await isVisible(fenceDevices.detail);
     await textIs(fenceDevices.detail.currentFenceDevice.id, fenceDeviceId);

@@ -3,7 +3,7 @@ import * as cs from "dev/responses/clusterStatus/tools";
 import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
-const {goToCluster} = shortcuts.clusterDetail;
+const {goToCluster} = shortcuts.dashboard;
 const {textIs} = shortcuts.expect;
 const {clusterDetail} = app;
 

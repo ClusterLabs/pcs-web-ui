@@ -5,14 +5,17 @@ import {SubStructure, structure as testMarksStructure} from "./dataTest";
 
 type LocatorArgs = Parameters<Page["locator"]>;
 type WithLocator<STRUCT extends SubStructure> = {
-  [KEY in keyof STRUCT]: WithLocator<STRUCT[KEY]> & {locator: Locator};
+  [KEY in keyof STRUCT]: WithLocator<STRUCT[KEY]> & {
+    locator: Locator;
+    path: string;
+  };
 };
 
 export type Mark = {locator: Locator} | Locator;
 const testMarksToXpath = (path: string[]) =>
   `//*[@data-test="${path.join(".")}"]`;
 
-export const getLocator =
+const getLocator =
   (envType: EnvType) =>
   (...args: LocatorArgs): Locator =>
     envType === "cockpit"
@@ -30,7 +33,10 @@ const addLocators = <STRUCTURE extends SubStructure>(
       [key]: addLocators(createLocator, subStructure, [...path, key]),
     }),
     (path.length > 0
-      ? {locator: createLocator(testMarksToXpath(path))}
+      ? {
+          locator: createLocator(testMarksToXpath(path)),
+          path: path.join("."),
+        }
       : {}) as WithLocator<STRUCTURE>,
   );
 
@@ -40,7 +46,8 @@ export const getApp = (envType: EnvType) =>
 export const isLocator = (mark: Mark): mark is Locator =>
   typeof mark.locator === "function";
 
-const locatorFor = (mark: Mark) => (isLocator(mark) ? mark : mark.locator);
+export const locatorFor = (mark: Mark) =>
+  isLocator(mark) ? mark : mark.locator;
 
 export const click = async (mark: Mark) => {
   await locatorFor(mark).click();

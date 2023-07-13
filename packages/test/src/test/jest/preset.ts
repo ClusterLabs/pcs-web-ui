@@ -7,7 +7,7 @@ import {getPage} from "./page";
 declare global {
   /* eslint-disable no-var */
   var page: ReturnType<typeof getPage> extends Promise<infer P> ? P : never;
-  var locator: ReturnType<typeof locatorTools.getLocator>;
+  var locatorFor: typeof locatorTools.locatorFor;
   var click: typeof locatorTools.click;
   var isVisible: typeof locatorTools.isVisible;
   var isAbsent: typeof locatorTools.isAbsent;
@@ -33,7 +33,7 @@ export default async () => {
   const envType = getEnvType();
 
   global.page = await getPage();
-  global.locator = locatorTools.getLocator(envType);
+  global.locatorFor = locatorTools.locatorFor;
   global.backend = getBackend(envType);
   global.login = getLogin(envType);
   global.app = locatorTools.getApp(envType);

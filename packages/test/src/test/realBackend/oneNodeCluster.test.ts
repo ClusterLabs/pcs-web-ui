@@ -7,15 +7,7 @@ const nodeName = process.env.PCSD_NODE_1 || "";
 
 const clusterName = "test-cluster";
 
-const {inCluster} = shortcuts.dashboard.clusterList;
-
-const assertImportedClusterNamesAre = async (clusterNameList: string[]) => {
-  expect(
-    await app.dashboard.clusterList.cluster.name.locator.evaluateAll(
-      (nodeList: HTMLElement[]) => nodeList.map(n => n.innerText),
-    ),
-  ).toEqual(clusterNameList);
-};
+const {importedClusters} = shortcuts.dashboard;
 
 const waitForImportedClusterList = async () =>
   await page.waitForResponse(/.*\/imported-cluster-list$/);
@@ -29,18 +21,18 @@ describe("Web ui inside cockpit on one node cluster", () => {
 
       await isVisible(app.dashboard.clusterList);
       // we expect to start with no cluster
-      await assertImportedClusterNamesAre([]);
+      await importedClusters.expectNamesAre([]);
 
       await click(app.dashboard.toolbar.setupCluster);
       await setupCluster({clusterName, nodeNameList: [nodeName]});
-      await assertImportedClusterNamesAre([clusterName]);
+      await importedClusters.expectNamesAre([clusterName]);
 
       await removeCluster(clusterName);
-      await assertImportedClusterNamesAre([]);
+      await importedClusters.expectNamesAre([]);
 
       await click(app.dashboard.toolbar.importExistingCluster);
       await importExistingCluster(nodeName);
-      await assertImportedClusterNamesAre([clusterName]);
+      await importedClusters.expectNamesAre([clusterName]);
 
       // wait for started cluster
       // TODO refactor it from here
@@ -52,7 +44,7 @@ describe("Web ui inside cockpit on one node cluster", () => {
       // );
 
       await destroyCluster(clusterName);
-      await assertImportedClusterNamesAre([]);
+      await importedClusters.expectNamesAre([]);
     },
     testTimeout,
   );
@@ -79,8 +71,8 @@ const importExistingCluster = async (nodeName: string) => {
 
 const removeCluster = async (clusterName: string) => {
   const {actions} = app.dashboard.clusterList.cluster.loaded;
-  await click(inCluster(clusterName)(actions));
-  await click(inCluster(clusterName)(actions.remove));
+  await click(importedClusters.inCluster(clusterName).get(actions));
+  await click(importedClusters.inCluster(clusterName).get(actions.remove));
   await isVisible(actions.remove.confirm);
   await Promise.all([
     waitForImportedClusterList(),
@@ -94,8 +86,8 @@ const removeCluster = async (clusterName: string) => {
 
 const destroyCluster = async (clusterName: string) => {
   const {actions} = app.dashboard.clusterList.cluster.loaded;
-  await click(inCluster(clusterName)(actions));
-  await click(inCluster(clusterName)(actions.destroy));
+  await click(importedClusters.inCluster(clusterName).get(actions));
+  await click(importedClusters.inCluster(clusterName).get(actions.destroy));
   await isVisible(actions.destroy.confirm);
   await Promise.all([
     waitForImportedClusterList(),
