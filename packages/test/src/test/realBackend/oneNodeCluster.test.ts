@@ -8,9 +8,14 @@ const nodeName = process.env.PCSD_NODE_1 || "";
 const clusterName = "test-cluster";
 
 const {importedClusters} = shortcuts.dashboard;
+const {expectKeysAre} = shortcuts.expect;
 
 const waitForImportedClusterList = async () =>
   await page.waitForResponse(/.*\/imported-cluster-list$/);
+
+const expectImportedClusterNamesAre = async (nameList: string[]) => {
+  await expectKeysAre(app.dashboard.clusterList.cluster.name, nameList);
+};
 
 describe("Web ui inside cockpit on one node cluster", () => {
   it(
@@ -21,18 +26,18 @@ describe("Web ui inside cockpit on one node cluster", () => {
 
       await isVisible(app.dashboard.clusterList);
       // we expect to start with no cluster
-      await importedClusters.expectNamesAre([]);
+      await expectImportedClusterNamesAre([]);
 
       await click(app.dashboard.toolbar.setupCluster);
       await setupCluster({clusterName, nodeNameList: [nodeName]});
-      await importedClusters.expectNamesAre([clusterName]);
+      await expectImportedClusterNamesAre([clusterName]);
 
       await removeCluster(clusterName);
-      await importedClusters.expectNamesAre([]);
+      await expectImportedClusterNamesAre([]);
 
       await click(app.dashboard.toolbar.importExistingCluster);
       await importExistingCluster(nodeName);
-      await importedClusters.expectNamesAre([clusterName]);
+      await expectImportedClusterNamesAre([clusterName]);
 
       // wait for started cluster
       // TODO refactor it from here
@@ -44,7 +49,7 @@ describe("Web ui inside cockpit on one node cluster", () => {
       // );
 
       await destroyCluster(clusterName);
-      await importedClusters.expectNamesAre([]);
+      await expectImportedClusterNamesAre([]);
     },
     testTimeout,
   );

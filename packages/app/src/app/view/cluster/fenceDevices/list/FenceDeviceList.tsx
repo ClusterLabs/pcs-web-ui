@@ -1,5 +1,6 @@
 import {DataList} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
 import {
   EmptyStateClusterStopped,
@@ -9,6 +10,8 @@ import {
 import {useLoadedCluster} from "app/view/cluster/share";
 
 import {FenceDeviceListItem} from "./FenceDeviceListItem";
+
+const {empty, list, stopped} = testMarks.clusterDetail.fenceDevices.detail;
 
 export const FenceDeviceList = ({
   fenceDeviceList,
@@ -23,6 +26,7 @@ export const FenceDeviceList = ({
       <EmptyStateClusterStopped
         title={"Cannot get fence devices from stopped cluster"}
         clusterName={clusterName}
+        {...stopped.mark}
       />
     );
   }
@@ -31,14 +35,15 @@ export const FenceDeviceList = ({
       <EmptyStateNoItem
         title="No fence device is configured."
         message="You don't have any configured fence device here."
+        {...empty.mark}
       />
     );
   }
   return (
     <DataList
-      data-test="cluster-fence-devices"
       aria-label="Cluster fence devices"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
+      {...list.mark}
     >
       {fenceDeviceList.map(fenceDevice => (
         <FenceDeviceListItem key={fenceDevice.id} fenceDevice={fenceDevice} />

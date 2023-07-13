@@ -1,6 +1,7 @@
-import React from "react";
-
+import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
+
+const {item} = testMarks.clusterDetail.fenceDevices.detail.list;
 
 export const FenceDeviceListCellType = ({
   fenceDevice,
@@ -10,7 +11,7 @@ export const FenceDeviceListCellType = ({
   return (
     <>
       <span>Type </span>
-      <strong>{fenceDevice.type}</strong>
+      <strong {...item.type.mark}>{fenceDevice.type}</strong>
     </>
   );
 };

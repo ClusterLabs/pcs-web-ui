@@ -3,7 +3,15 @@ export const fenceDevices = {
     createFenceDevice: {},
   },
   detail: {
-    list: {},
+    empty: {},
+    stopped: {},
+    list: {
+      item: {
+        id: {},
+        type: {},
+        status: {},
+      },
+    },
     currentFenceDevice: {
       id: {},
     },

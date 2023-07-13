@@ -53,11 +53,3 @@ export const inCluster = (clusterName: string) => {
     }),
   };
 };
-
-export const expectNamesAre = async (clusterNameList: string[]) => {
-  expect(
-    await app.dashboard.clusterList.cluster.name.locator.evaluateAll(
-      (nodeList: HTMLElement[]) => nodeList.map(n => n.innerText),
-    ),
-  ).toEqual(clusterNameList);
-};
