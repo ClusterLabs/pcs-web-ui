@@ -59,12 +59,12 @@ export const interceptWithCluster = (
     >
   > = {
     agentDummy: route.resourceAgentDescribeAgent({
-      clusterName: "ok",
+      clusterName: clusterStatus.cluster_name,
       agentName: "ocf:heartbeat:Dummy",
       agentData: responses.resourceAgentMetadata.ocfHeartbeatDummy,
     }),
     agentFenceApc: route.stonithAgentDescribeAgent({
-      clusterName: "ok",
+      clusterName: clusterStatus.cluster_name,
       agentName: "fence_apc",
       agentData: responses.fenceAgentMetadata.ok,
     }),

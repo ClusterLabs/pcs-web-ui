@@ -1,22 +1,9 @@
+import {SearchExp, item, search} from "test/shortcuts/common";
+
 const {cluster} = app.dashboard.clusterList;
 const {node} = cluster.loaded.nodes.list;
 const {resource} = cluster.loaded.resources.list;
 const {fenceDevice} = cluster.loaded.fenceDevices.list;
-
-type SearchExp<MARK_PART extends Mark> = Mark | ((markPart: MARK_PART) => Mark);
-
-const search = <MARK_PART extends Mark>(
-  mark: SearchExp<MARK_PART>,
-  markPart: MARK_PART,
-) => locatorFor(typeof mark === "function" ? mark(markPart) : mark);
-
-const ancestor = (mark: {path: string}) =>
-  `xpath=/ancestor::node()[@data-test="${mark.path}"]`;
-
-const item = (itemMark: {path: string}) => ({
-  byKey: (keyMark: Mark, key: string) =>
-    locatorFor(keyMark).getByText(key).locator(ancestor(itemMark)),
-});
 
 export const inCluster = (clusterName: string) => {
   const theCluster = item(cluster).byKey(cluster.name, clusterName);

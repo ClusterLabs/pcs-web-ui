@@ -124,7 +124,10 @@ let requestChecks: RequestCheck[] = [];
 
 let unmockedUrls: string[] = [];
 
+let usedRouteList: Route[] = [];
+
 export async function run(routeList: Route[]) {
+  usedRouteList = [...routeList];
   if (requestChecks.length > 0) {
     expect(
       "Page requests are already intercepted."
@@ -158,8 +161,14 @@ export const stop = async () => {
   requestChecks = [];
   const oldUnmockedUrls = [...unmockedUrls];
   unmockedUrls = [];
+  const oldUsedRouteList = [...usedRouteList];
+  usedRouteList = [];
   if (oldUnmockedUrls.length > 0) {
-    expect(`Unmocked urls detected: ${oldUnmockedUrls.join("\n")}`).toEqual("");
+    expect(
+      `Unmocked urls detected: ${oldUnmockedUrls.join(
+        "\n",
+      )}\nMocked urls:\n  ${oldUsedRouteList.map(r => r.url).join("\n  ")}`,
+    ).toEqual("");
   }
   oldChecks.forEach(rc => checkRequest(rc));
 };

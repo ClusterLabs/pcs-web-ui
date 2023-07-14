@@ -5,18 +5,22 @@ import {intercept} from "test/tools";
 
 const {goToCluster} = shortcuts.dashboard;
 const {expectKeysAre} = shortcuts.expect;
+const {item} = shortcuts.common;
+const {textIs} = shortcuts.expect;
+
 const {fenceDevices} = app.clusterDetail;
-const {list} = fenceDevices.detail;
+const {list: fenceDeviceList} = fenceDevices.detail;
 
 const clusterName = "test-cluster";
-const fenceDevice1Id = "F1";
-const fenceDevice2Id = "F2";
+const fenceDeviceId_1 = "F1";
+const fenceDeviceId_2 = "F2";
 
 const interceptWithStonith = (stonithList: ReturnType<typeof cs.stonith>[]) =>
   intercept.shortcuts.interceptWithCluster({
     clusterStatus: cs.cluster(clusterName, "ok", {
       resource_list: stonithList,
     }),
+    optionalRoutes: ["agentFenceApc"],
   });
 
 const goToFenceDevices = async () => {
@@ -30,17 +34,43 @@ describe("List of fence devices", () => {
   it("should be empty when no devices there", async () => {
     interceptWithStonith([]);
     await goToFenceDevices();
-    await isAbsent(list);
+    await isAbsent(fenceDeviceList);
     await isVisible(fenceDevices.detail.empty);
   });
 
-  it("should contain arrived fence device", async () => {
+  it("should be visible fence devices list", async () => {
     interceptWithStonith([
-      cs.stonith(fenceDevice1Id),
-      cs.stonith(fenceDevice2Id),
+      cs.stonith(fenceDeviceId_1),
+      cs.stonith(fenceDeviceId_2),
     ]);
     await goToFenceDevices();
-    await isVisible(list);
-    await expectKeysAre(list.item.id, [fenceDevice1Id, fenceDevice2Id]);
+    await isVisible(fenceDeviceList);
+  });
+
+  it("should contain arrived fence devices", async () => {
+    interceptWithStonith([
+      cs.stonith(fenceDeviceId_1),
+      cs.stonith(fenceDeviceId_2),
+    ]);
+    await goToFenceDevices();
+    await expectKeysAre(fenceDeviceList.item.id, [
+      fenceDeviceId_1,
+      fenceDeviceId_2,
+    ]);
+  });
+
+  it("should be able open detail from list", async () => {
+    interceptWithStonith([
+      cs.stonith(fenceDeviceId_1),
+      cs.stonith(fenceDeviceId_2),
+    ]);
+    await goToFenceDevices();
+    await click(
+      item(fenceDeviceList.item)
+        .byKey(fenceDeviceList.item.id, fenceDeviceId_1)
+        .locator(fenceDeviceList.item.id),
+    );
+    await isVisible(fenceDevices.detail.currentFenceDevice);
+    await textIs(fenceDevices.detail.currentFenceDevice.id, fenceDeviceId_1);
   });
 });
