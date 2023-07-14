@@ -74,10 +74,15 @@ inject_built_assets() {
 }
 
 fix_asset_paths() {
-	# All assets in index.html uses absolute path. This function makes them
-	# relative. The index.html is also used by development server which needs
-	# absolute paths. There is no copy/edit phase in development server, so it is
-	# done here.
+	# All assets in index.html uses absolute path. The index.html is also used by
+	# development server which needs absolute paths. There is no copy/edit phase
+	# in development server, so it is done here.
+	# Here is the absolute path prefixed according to pcsd url namespace for
+	# webui.
+	# WARNING: Don't use relative path. It works well in dashboard but in the
+	# cluster detail the resulting url contains word "cluster" inside, so instead
+	# of "/ui/static/..." we get "/ui/cluster/static" and asset loading fails.
+	# see: https://bugzilla.redhat.com/show_bug.cgi?id=2222788
 	html=$1
 	path_prefix=$2
 	js_path="$3/"
@@ -130,6 +135,7 @@ adapt_for_environment() {
 }
 
 use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
+url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
 node_modules=$(get_path "appNodeModules")
 node_modules_backup="${node_modules}.build-backup"
 export BUILD_DIR="${BUILD_DIR:-$(realpath "$(dirname "$0")"/../build)}"
@@ -155,7 +161,7 @@ adapt_for_environment \
 	static/js/adapterCockpit.js \
 	"${PCSD_UINIX_SOCKET:-"/var/run/pcsd.socket"}"
 
-fix_asset_paths "$BUILD_DIR"/index.html "." \
+fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
 	static/js \
 	static/css \
 	manifest.json \
