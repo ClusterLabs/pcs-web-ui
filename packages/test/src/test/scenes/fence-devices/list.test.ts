@@ -9,7 +9,6 @@ const {item} = shortcuts.common;
 const {textIs} = shortcuts.expect;
 
 const {fenceDevices} = app.clusterDetail;
-const {list: fenceDeviceList} = fenceDevices.detail;
 
 const clusterName = "test-cluster";
 const fenceDeviceId_1 = "F1";
@@ -25,7 +24,7 @@ const interceptWithStonith = (stonithList: ReturnType<typeof cs.stonith>[]) =>
 
 const goToFenceDevices = async () => {
   await goToCluster(clusterName, tabs => tabs.fenceDevices);
-  await isVisible(fenceDevices.detail);
+  await isVisible(fenceDevices);
 };
 
 describe("List of fence devices", () => {
@@ -34,8 +33,8 @@ describe("List of fence devices", () => {
   it("should be empty when no devices there", async () => {
     interceptWithStonith([]);
     await goToFenceDevices();
-    await isAbsent(fenceDeviceList);
-    await isVisible(fenceDevices.detail.empty);
+    await isAbsent(fenceDevices.list);
+    await isVisible(fenceDevices.empty);
   });
 
   it("should be visible fence devices list", async () => {
@@ -44,7 +43,7 @@ describe("List of fence devices", () => {
       cs.stonith(fenceDeviceId_2),
     ]);
     await goToFenceDevices();
-    await isVisible(fenceDeviceList);
+    await isVisible(fenceDevices.list);
   });
 
   it("should contain arrived fence devices", async () => {
@@ -53,7 +52,7 @@ describe("List of fence devices", () => {
       cs.stonith(fenceDeviceId_2),
     ]);
     await goToFenceDevices();
-    await expectKeysAre(fenceDeviceList.item.id, [
+    await expectKeysAre(fenceDevices.list.item.id, [
       fenceDeviceId_1,
       fenceDeviceId_2,
     ]);
@@ -66,11 +65,11 @@ describe("List of fence devices", () => {
     ]);
     await goToFenceDevices();
     await click(
-      item(fenceDeviceList.item)
-        .byKey(fenceDeviceList.item.id, fenceDeviceId_1)
-        .locator(fenceDeviceList.item.id),
+      item(fenceDevices.list.item)
+        .byKey(fenceDevices.list.item.id, fenceDeviceId_1)
+        .locator(fenceDevices.list.item.id),
     );
-    await isVisible(fenceDevices.detail.currentFenceDevice);
-    await textIs(fenceDevices.detail.currentFenceDevice.id, fenceDeviceId_1);
+    await isVisible(fenceDevices.currentFenceDevice);
+    await textIs(fenceDevices.currentFenceDevice.id, fenceDeviceId_1);
   });
 });

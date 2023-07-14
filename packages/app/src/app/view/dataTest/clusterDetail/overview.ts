@@ -1,7 +1,1 @@
-export const overview = {
-  toolbar: {
-    startCluster: {},
-    stopCluster: {},
-  },
-  detail: {},
-};
+export const overview = {};

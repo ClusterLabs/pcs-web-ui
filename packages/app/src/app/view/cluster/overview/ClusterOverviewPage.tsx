@@ -10,7 +10,7 @@ import {ResourcesCard} from "./resources";
 
 const grow: FlexProps["grow"] = {default: "grow"};
 
-const {detail, toolbar} = testMarks.clusterDetail.overview;
+const {overview, overviewToolbar} = testMarks.clusterDetail;
 
 export const ClusterOverviewPage = () => {
   const cluster = useLoadedCluster();
@@ -29,7 +29,7 @@ export const ClusterOverviewPage = () => {
                 payload: {clusterName: cluster.name},
               },
             },
-            ...toolbar.startCluster.mark,
+            ...overviewToolbar.startCluster.mark,
           },
           {
             name: "stop",
@@ -46,13 +46,13 @@ export const ClusterOverviewPage = () => {
               }),
               useTask: task.forceableConfirm.useTask,
             },
-            ...toolbar.stopCluster.mark,
+            ...overviewToolbar.stopCluster.mark,
           },
         ]}
-        {...toolbar.mark}
+        {...overviewToolbar.mark}
       />
 
-      <PageSection {...detail.mark}>
+      <PageSection {...overview.mark}>
         <Flex>
           {cluster.issueList.length > 0 && (
             <FlexItem grow={grow} className="pf-u-m-0">

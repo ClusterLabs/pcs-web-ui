@@ -10,7 +10,7 @@ import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";
 import * as task from "./task";
 
-const {detail, toolbar} = testMarks.clusterDetail.resources;
+const {resources, resourcesToolbar} = testMarks.clusterDetail;
 
 export const ResourcesPage = () => {
   const {resourceTree} = useLoadedCluster();
@@ -31,7 +31,7 @@ export const ResourcesPage = () => {
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),
-            ...toolbar.createGroup.mark,
+            ...resourcesToolbar.createGroup.mark,
           },
           {
             name: "create-group",
@@ -42,15 +42,15 @@ export const ResourcesPage = () => {
             launchDisable: launchDisable(
               "Cannot create resource group on stopped cluster",
             ),
-            ...toolbar.createGroup.mark,
+            ...resourcesToolbar.createGroup.mark,
           },
         ]}
-        {...toolbar.mark}
+        {...resourcesToolbar.mark}
       />
       <GroupDetailView
         groupCard={<ResourceTree resourceTree={resourceTree} />}
         detailCard={<ResourceDetailPage />}
-        {...detail.mark}
+        {...resources.mark}
       />
     </>
   );

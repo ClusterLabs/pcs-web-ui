@@ -20,7 +20,7 @@ import {NodeDoesNotExists} from "./NodeDoesNotExists";
 
 export const nodePageTabList = ["detail", "attributes", "utilization"] as const;
 
-const {currentNode} = testMarks.clusterDetail.nodes.detail;
+const {currentNode} = testMarks.clusterDetail.nodes;
 export const NodeDetailPage = () => {
   const {selectedItemUrlName: selectedNodeName} = useGroupDetailViewContext();
   const {currentTab, matchedContext} = useUrlTabs(nodePageTabList);

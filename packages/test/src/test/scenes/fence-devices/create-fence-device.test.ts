@@ -9,7 +9,7 @@ const {select} = shortcuts.patternfly;
 const {item} = shortcuts.common;
 const {expectReview, expectReports} = shortcuts.task;
 
-const {fenceDevices} = app.clusterDetail;
+const {fenceDevicesToolbar} = app.clusterDetail;
 
 const fenceDeviceName = "F1";
 const clusterName = "actions";
@@ -21,7 +21,7 @@ const {createFenceDevice} = app;
 const {review} = createFenceDevice;
 
 const openTask = async () => {
-  await click(fenceDevices.toolbar.createFenceDevice);
+  await click(fenceDevicesToolbar.createFenceDevice);
   await isVisible(app.createFenceDevice);
 };
 
@@ -64,7 +64,6 @@ describe("Fence device create task", () => {
     await fillInstanceAttr("username", username);
     await click(createFenceDevice.instanceAttrsFooter.next);
     await click(createFenceDevice.settingsFooter.next);
-    console.log(reviewAttr("ip"));
     await expectReview([
       [review.name, fenceDeviceName],
       [review.agentName, agentName],

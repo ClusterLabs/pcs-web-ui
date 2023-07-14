@@ -9,7 +9,7 @@ import {FencePageToolbar} from "./FencePageToolbar";
 
 const tabList = ["detail", "arguments"] as const;
 
-const {currentFenceDevice} = testMarks.clusterDetail.fenceDevices.detail;
+const {currentFenceDevice} = testMarks.clusterDetail.fenceDevices;
 
 export const FenceDeviceView = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   useClusterFenceAgent(fenceDevice.agentName);

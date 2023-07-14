@@ -6,7 +6,7 @@ import {ClusterToolbar, TaskOpenArgs} from "app/view/share";
 import * as task from "./task";
 import {PermissionsTable} from "./PermissionsTable";
 
-const {detail, toolbar} = testMarks.clusterDetail.permissions;
+const {permissions, permissionsToolbar} = testMarks.clusterDetail;
 
 export const ClusterPermissionsPage = () => {
   const addOpenArgs: TaskOpenArgs<typeof task.add.useTask> = [{type: "create"}];
@@ -22,13 +22,13 @@ export const ClusterPermissionsPage = () => {
               useTask: task.add.useTask,
               openArgs: addOpenArgs,
             },
-            ...toolbar.createPermission.mark,
+            ...permissionsToolbar.createPermission.mark,
           },
         ]}
-        {...toolbar.mark}
+        {...permissionsToolbar.mark}
       />
 
-      <PageSection {...detail.mark}>
+      <PageSection {...permissions.mark}>
         <PermissionsTable />
       </PageSection>
     </>

@@ -21,7 +21,7 @@ export const primitivePageTabList = [
   "meta",
 ] as const;
 
-const {currentResurce} = testMarks.clusterDetail.resources.detail;
+const {currentResurce} = testMarks.clusterDetail.resources;
 
 export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
   const {currentTab, matchedContext} = useUrlTabs(primitivePageTabList);

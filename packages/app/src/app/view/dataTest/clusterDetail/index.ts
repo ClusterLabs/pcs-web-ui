@@ -22,50 +22,53 @@ export const clusterDetail = {
   forbiden: {},
   loading: {},
   overview,
+  overviewToolbar: {
+    startCluster: {},
+    stopCluster: {},
+  },
   nodes,
+  nodesToolbar: {
+    addNode: {},
+  },
   resources,
+  resourcesToolbar: {
+    createResource: {},
+    createGroup: {},
+  },
   fenceDevices,
-  sbd: {
-    toolbar: {
-      configureSbd: {},
-      disableSbd: {},
-    },
-    detail: {},
+  fenceDevicesToolbar: {
+    createFenceDevice: {},
   },
-  constraints: {
-    toolbar: {
-      createLocation: {},
-      createOrder: {},
-      createColocation: {},
-      createTicket: {},
-      createOrderSet: {},
-      createColocationSet: {},
-      createTicketSet: {},
-    },
-    detail: {},
+  sbd: {},
+  sbdToolbar: {
+    configureSbd: {},
+    disableSbd: {},
   },
-  properties: {
-    toolbar: {},
-    detail: {},
+  constraints: {},
+  constraintsToolbar: {
+    createLocation: {},
+    createOrder: {},
+    createColocation: {},
+    createTicket: {},
+    createOrderSet: {},
+    createColocationSet: {},
+    createTicketSet: {},
   },
-  acl: {
-    toolbar: {
-      createRole: {},
-      createUser: {},
-      createGroup: {},
-      switchEnablement: {
-        confirm: {
-          run: {},
-          cancel: {},
-        },
+  properties: {},
+  acl: {},
+  aclToolbar: {
+    createRole: {},
+    createUser: {},
+    createGroup: {},
+    switchEnablement: {
+      confirm: {
+        run: {},
+        cancel: {},
       },
     },
-    detail: {},
   },
-  permissions: {
-    toolbar: {
-      createPermission: {},
-    },
-    detail: {},
+  permissions: {},
+  permissionsToolbar: {
+    createPermission: {},
   },
 };

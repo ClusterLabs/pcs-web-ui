@@ -6,7 +6,7 @@ import {NodeDetailPage} from "./NodeDetailPage";
 import {NodeList} from "./NodeList";
 import * as task from "./task";
 
-const {detail, toolbar} = testMarks.clusterDetail.nodes;
+const {nodes, nodesToolbar} = testMarks.clusterDetail;
 export const NodesPage = () => {
   const {nodeList} = useLoadedCluster();
   return (
@@ -20,15 +20,15 @@ export const NodesPage = () => {
               component: task.add.NodeAdd,
               useTask: task.add.useTask,
             },
-            ...toolbar.addNode.mark,
+            ...nodesToolbar.addNode.mark,
           },
         ]}
-        {...toolbar.mark}
+        {...nodesToolbar.mark}
       />
       <GroupDetailView
         groupCard={<NodeList nodeList={nodeList} />}
         detailCard={<NodeDetailPage />}
-        {...detail.mark}
+        {...nodes.mark}
       />
     </>
   );

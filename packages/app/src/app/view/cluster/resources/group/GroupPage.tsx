@@ -16,7 +16,7 @@ import {GroupPageToolbar} from "./GroupPageToolbar";
 
 const tabList = ["detail", "meta"] as const;
 
-const {currentResurce} = testMarks.clusterDetail.resources.detail;
+const {currentResurce} = testMarks.clusterDetail.resources;
 
 export const GroupPage = ({group}: {group: Group}) => {
   const {currentTab, matchedContext} = useUrlTabs(tabList);

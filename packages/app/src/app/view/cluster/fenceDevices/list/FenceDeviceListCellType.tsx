@@ -1,7 +1,7 @@
 import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
 
-const {item} = testMarks.clusterDetail.fenceDevices.detail.list;
+const {item} = testMarks.clusterDetail.fenceDevices.list;
 
 export const FenceDeviceListCellType = ({
   fenceDevice,

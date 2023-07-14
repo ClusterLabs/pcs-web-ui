@@ -41,7 +41,7 @@ const useFilter = (): {
     p => p.readable_name,
   );
 
-const {detail} = testMarks.clusterDetail.properties;
+const {properties} = testMarks.clusterDetail;
 
 export const ClusterPropertiesPage = () => {
   const {clusterPropertiesDefinition} = useClusterProperties();
@@ -51,7 +51,7 @@ export const ClusterPropertiesPage = () => {
 
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
-    <PageSection {...detail.mark}>
+    <PageSection {...properties.mark}>
       <Card>
         <CardBody>
           <Stack hasGutter>

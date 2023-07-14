@@ -38,7 +38,7 @@ describe("To cluster transition", () => {
 
     await click(inCluster(clusterName).get(cluster => cluster.name));
     await expectOnTheCluster();
-    await isVisible(overview.detail);
+    await isVisible(overview);
 
     await click(breadcrumbs.dashboard);
     await isVisible(app.dashboard);
@@ -55,8 +55,8 @@ describe("To cluster transition", () => {
         .get(({name}) => name),
     );
     await expectOnTheCluster();
-    await isVisible(nodes.detail);
-    await textIs(nodes.detail.currentNode.name, nodeName);
+    await isVisible(nodes);
+    await textIs(nodes.currentNode.name, nodeName);
   });
 
   it("should allow go to a resource detail", async () => {
@@ -75,8 +75,8 @@ describe("To cluster transition", () => {
         .get(({id}) => id),
     );
     await expectOnTheCluster();
-    await isVisible(resources.detail);
-    await textIs(resources.detail.currentResurce.primitive.id, resourceId);
+    await isVisible(resources);
+    await textIs(resources.currentResurce.primitive.id, resourceId);
   });
 
   it("should allow go to a fence device detail", async () => {
@@ -95,7 +95,7 @@ describe("To cluster transition", () => {
         .get(({id}) => id),
     );
     await expectOnTheCluster();
-    await isVisible(fenceDevices.detail);
-    await textIs(fenceDevices.detail.currentFenceDevice.id, fenceDeviceId);
+    await isVisible(fenceDevices);
+    await textIs(fenceDevices.currentFenceDevice.id, fenceDeviceId);
   });
 });

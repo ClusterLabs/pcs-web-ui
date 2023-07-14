@@ -11,7 +11,7 @@ import {useLoadedCluster} from "app/view/cluster/share";
 
 import {FenceDeviceListItem} from "./FenceDeviceListItem";
 
-const {empty, list, stopped} = testMarks.clusterDetail.fenceDevices.detail;
+const {empty, list, stopped} = testMarks.clusterDetail.fenceDevices;
 
 export const FenceDeviceList = ({
   fenceDeviceList,
