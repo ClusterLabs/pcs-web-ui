@@ -15,7 +15,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {success, unsuccess, communicationError} = testMarks.setupCluster;
+const {success, unsuccess, communicationError} = testMarks.createFenceDevice;
 
 export const Result = ({
   backStep,
@@ -25,8 +25,7 @@ export const Result = ({
   reviewStep: string;
 }) => {
   const {
-    startClusterAndClose,
-    setupCluster,
+    create,
     state: {
       libCall: {reports, response},
     },
@@ -49,14 +48,6 @@ export const Result = ({
       success={
         <TaskSuccess
           primaryAction={<TaskResultAction {...success.close.mark} />}
-          secondaryActions={
-            <TaskResultAction
-              variant="secondary"
-              action={startClusterAndClose}
-              label="Start cluster and close"
-              {...success.startAndClose.mark}
-            />
-          }
           {...success.mark}
         />
       }
@@ -71,7 +62,7 @@ export const Result = ({
           }
           proceed={
             <TaskResultActionProceedAnyway
-              action={() => setupCluster({force: true})}
+              action={() => create({force: true})}
               {...unsuccess.proceedAnyway.mark}
             />
           }

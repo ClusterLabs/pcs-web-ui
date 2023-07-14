@@ -1,4 +1,5 @@
 import {setupCluster} from "./setupCluster";
+import {createFenceDevice} from "./createFenceDevice";
 import {importExistingCluster} from "./importExistingCluster";
 import {notifications} from "./notifications";
 import {dashboard} from "./dashboard";
@@ -18,11 +19,12 @@ export interface SubStructure extends Record<string, SubStructure> {}
 // - locator
 // The structure is enhanced by this keys
 export const structure = {
-  clusterDetail,
-  dashboard,
   notifications,
+  dashboard,
+  clusterDetail,
   setupCluster,
   importExistingCluster,
+  createFenceDevice,
 };
 
 type MarkTools = {

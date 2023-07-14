@@ -19,7 +19,7 @@ export const PrepareNodeFooter = () => {
     state: {authProcessId},
   } = useTask();
   return (
-    <TaskFooter {...testMarks.setupCluster.nameAndNodesFooter.mark}>
+    <TaskFooter {...testMarks.importExistingCluster.prepareNodeFooter.mark}>
       {authProcessId ? (
         <NodesAuthWizardNext
           authProcessId={authProcessId}

@@ -1,6 +1,9 @@
 import {ReviewItem, ReviewList, ReviewYesNo, TaskLibStep} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
 
 import {useTask} from "./useTask";
+
+const {review} = testMarks.createFenceDevice;
 
 export const Review = () => {
   const {
@@ -16,17 +19,18 @@ export const Review = () => {
     <TaskLibStep
       title="Review new fence device configuration"
       reports={reports}
+      {...review.mark}
     >
       <ReviewList>
         <ReviewItem
           label="Fence device name"
           value={fenceDeviceName}
-          data-test="name"
+          {...review.name.mark}
         />
         <ReviewItem
           label="Fence device type"
           value={agentName}
-          data-test="agentName"
+          {...review.agentName.mark}
         />
         <ReviewItem
           label="Instance attributes"
@@ -34,12 +38,13 @@ export const Review = () => {
             Object.keys(instanceAttrs).length > 0 ? (
               <ReviewList>
                 {Object.keys(instanceAttrs).map(attrName => (
-                  <ReviewItem
-                    key={attrName}
-                    label={attrName}
-                    value={instanceAttrs[attrName]}
-                    data-test={`instanceAttr_${attrName}`}
-                  />
+                  <span {...review.attr.mark} key={attrName}>
+                    <ReviewItem
+                      label={<span {...review.attr.name.mark}>{attrName}</span>}
+                      value={instanceAttrs[attrName]}
+                      {...review.attr.value.mark}
+                    />
+                  </span>
                 ))}
               </ReviewList>
             ) : (
@@ -48,7 +53,11 @@ export const Review = () => {
           }
         />
 
-        <ReviewYesNo label="Disabled" value={disabled} />
+        <ReviewYesNo
+          label="Disabled"
+          value={disabled}
+          {...review.disabled.mark}
+        />
       </ReviewList>
     </TaskLibStep>
   );

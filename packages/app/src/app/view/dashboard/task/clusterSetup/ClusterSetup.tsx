@@ -15,6 +15,9 @@ import {Totem} from "./Totem";
 import {AdvancedOptionsFooter} from "./AdvancedOptionsFooter";
 import {Result} from "./Result";
 
+const clusterNameAndNodes = "Cluster name and nodes";
+const review = "Review";
+
 export const ClusterSetup = () => {
   const {
     close,
@@ -23,8 +26,6 @@ export const ClusterSetup = () => {
     isClusterNameAndNodeCheckDoneValid,
     areLinksValid,
   } = useTask();
-  const clusterNameAndNodes = "Cluster name and nodes";
-  const review = "Review";
   return (
     <Wizard
       clusterName={null}

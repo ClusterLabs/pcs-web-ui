@@ -8,3 +8,9 @@ export const expectReview = async (pairs: [Mark, string][]) => {
     }
   }
 };
+
+export const expectReports = (mark: Mark) => ({
+  count: async (count: number) => {
+    expect(await locatorFor(mark).count()).toEqual(count);
+  },
+});

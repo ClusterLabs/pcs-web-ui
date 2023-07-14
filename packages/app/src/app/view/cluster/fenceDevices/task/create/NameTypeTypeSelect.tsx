@@ -1,6 +1,7 @@
 import React from "react";
 import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Select} from "app/view/share";
 import {useClusterSources} from "app/view/cluster/share";
 
@@ -59,7 +60,7 @@ export const NameTypeTypeSelect = ({
           isGrouped
           customBadgeText={agentName.length > 0 ? agentName : undefined}
           optionsValues={filteredFenceAgentList}
-          data-test="fence-device-agent"
+          {...testMarks.createFenceDevice.nameType.agentName.mark}
         />
       </FlexItem>
     </Flex>
