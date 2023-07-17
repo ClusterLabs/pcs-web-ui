@@ -1,9 +1,11 @@
 import {Alert, Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormSwitch, FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
+const {sbd} = testMarks.addNode;
 export const Sbd = () => {
   const {
     isSbdEnabled,
@@ -23,7 +25,7 @@ export const Sbd = () => {
       ) as typeof sbdDevices,
     });
   return (
-    <TaskLibStep title="Configure sbd" reports={reports}>
+    <TaskLibStep title="Configure sbd" reports={reports} {...sbd.mark}>
       {!isSbdEnabled && (
         <Alert
           variant="info"
@@ -39,6 +41,7 @@ export const Sbd = () => {
             onChange={changeWatchdog}
             value={sbdWatchdog}
             placeholder="/dev/watchdog"
+            {...sbd.watchdog.mark}
           />
 
           <FormSwitch
@@ -57,6 +60,7 @@ export const Sbd = () => {
             }}
             isChecked={sbdNoWatchdogValidation}
             onChange={c => updateState({sbdNoWatchdogValidation: c})}
+            {...sbd.validation.mark}
           />
           <Alert
             variant="info"
@@ -73,6 +77,7 @@ export const Sbd = () => {
               label={`Device ${i + 1}`}
               value={device}
               onChange={(value: string) => changeDevice(i, value)}
+              {...sbd.device.mark}
             />
           ))}
         </Form>

@@ -15,3 +15,7 @@ export const radioGroup = async (
 ) => {
   await withLocator.locator.locator(`//*[text()="${value}"]`).click();
 };
+
+export const toggle = async (mark: Mark) => {
+  await locatorFor(mark).locator('//*[@class="pf-c-switch__toggle"]').click();
+};

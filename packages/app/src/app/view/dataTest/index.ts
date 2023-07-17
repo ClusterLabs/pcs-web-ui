@@ -1,6 +1,7 @@
 import {setupCluster} from "./setupCluster";
 import {createFenceDevice} from "./createFenceDevice";
 import {createResource} from "./createResource";
+import {addNode} from "./addNode";
 import {importExistingCluster} from "./importExistingCluster";
 import {notifications} from "./notifications";
 import {dashboard} from "./dashboard";
@@ -27,6 +28,7 @@ export const structure = {
   importExistingCluster,
   createFenceDevice,
   createResource,
+  addNode,
 };
 
 type MarkTools = {

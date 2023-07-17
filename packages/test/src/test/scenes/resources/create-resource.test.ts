@@ -8,7 +8,8 @@ const {goToCluster} = shortcuts.dashboard;
 const {select} = shortcuts.patternfly;
 const {expectReview, expectReports} = shortcuts.task;
 
-const {resourcesToolbar} = app.clusterDetail;
+const {createResource} = app;
+const {review} = createResource;
 
 const agent = responses.resourceAgentMetadata.ocfHeartbeatDummy;
 
@@ -16,11 +17,8 @@ const resourceId = "A";
 const clusterName = "test-cluster";
 const agentName = agent.name;
 
-const {createResource} = app;
-const {review} = createResource;
-
 const openTask = async () => {
-  await click(resourcesToolbar.createResource);
+  await click(app.clusterDetail.resourcesToolbar.createResource);
   await isVisible(createResource);
 };
 

@@ -1,6 +1,9 @@
+import {testMarks} from "app/view/dataTest";
 import {ReviewItem, ReviewList, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {review} = testMarks.addNode;
 
 export const Review = () => {
   const {
@@ -18,14 +21,22 @@ export const Review = () => {
   return (
     <TaskLibStep title="Review settings" reports={reports}>
       <ReviewList>
-        <ReviewItem label="Node name" value={nodeName} />
+        <ReviewItem
+          label="Node name"
+          value={nodeName}
+          {...review.nodeName.mark}
+        />
         <ReviewItem
           label="Node addresses"
           value={
             filledNodeAddresses.length === 0 ? (
               <>No address configured</>
             ) : (
-              filledNodeAddresses.map((a, i) => <div key={i}>{a}</div>)
+              filledNodeAddresses.map((a, i) => (
+                <div {...review.address.mark} key={i}>
+                  {a}
+                </div>
+              ))
             )
           }
         />
@@ -39,10 +50,12 @@ export const Review = () => {
                 whenValue: "",
                 defaultValue: "/dev/watchdog",
               }}
+              {...review.sbdWatchdog.mark}
             />
             <ReviewItem
               label="Sbd watchdog validation"
               value={sbdNoWatchdogValidation ? "Disabled" : "Enabled"}
+              {...review.sbdValidation.mark}
             />
 
             <ReviewItem
@@ -51,7 +64,11 @@ export const Review = () => {
                 filledSbdDevices.length === 0 ? (
                   <>No sbd devices configured</>
                 ) : (
-                  filledSbdDevices.map((a, i) => <div key={i}>{a}</div>)
+                  filledSbdDevices.map((a, i) => (
+                    <div {...review.sbdDevice.mark} key={i}>
+                      {a}
+                    </div>
+                  ))
                 )
               }
             />

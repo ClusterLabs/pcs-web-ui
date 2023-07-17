@@ -1,6 +1,6 @@
 import {testMarks} from "app/view/dataTest";
 import {
-  NodeAuthWizardFooter,
+  NodesAuthNext,
   TaskButtonBack,
   TaskButtonCancel,
   TaskButtonReviewAndFinish,
@@ -10,7 +10,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel, reviewAndFinish} =
+const {auth, next, back, cancel, reviewAndFinish} =
   testMarks.setupCluster.prepareNodesFooter;
 
 export const PrepareNodesFooter = () => {
@@ -19,16 +19,16 @@ export const PrepareNodesFooter = () => {
     state: {authProcessId},
   } = useTask();
 
-  if (authProcessId) {
-    return <NodeAuthWizardFooter authProcessId={authProcessId} />;
-  }
-
   return (
     <TaskFooter {...testMarks.setupCluster.prepareNodesFooter.mark}>
-      <WizardFooterNext
-        disabled={!isClusterNameAndNodeCheckDoneValid}
-        {...next.mark}
-      />
+      {authProcessId ? (
+        <NodesAuthNext authProcessId={authProcessId} {...auth.mark} />
+      ) : (
+        <WizardFooterNext
+          disabled={!isClusterNameAndNodeCheckDoneValid}
+          {...next.mark}
+        />
+      )}
       <TaskButtonBack {...back.mark} />
       <TaskButtonReviewAndFinish
         label="Review and setup cluster"

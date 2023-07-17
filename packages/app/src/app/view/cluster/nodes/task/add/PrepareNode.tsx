@@ -1,5 +1,6 @@
 import {Alert, AlertActionLink} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   NodesAuthInputAddress,
   NodesAuthInputPassword,
@@ -13,6 +14,8 @@ import {
 } from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {success, auth} = testMarks.addNode.prepareNode;
 
 export const PrepareNode = () => {
   const {
@@ -93,23 +96,32 @@ export const PrepareNode = () => {
           />
           <NodesAuthForm
             authProcessId={authProcessId}
-            customAddresSwitcher={<NodesAuthCustomAddrSwitch />}
+            customAddresSwitcher={
+              <NodesAuthCustomAddrSwitch {...auth.useCustomAddress.mark} />
+            }
             inputPassword={(nodeName, elementId, index) => (
               <NodesAuthInputPassword
                 index={index}
                 nodeName={nodeName}
                 elementId={elementId}
+                {...auth.password.mark}
               />
             )}
             inputAddress={(nodeName, elementId) => (
               <NodesAuthInputAddress
                 nodeName={nodeName}
                 elementId={elementId}
+                {...auth.address.mark}
               />
             )}
             inputPort={(nodeName, elementId) => (
-              <NodesAuthInputPort nodeName={nodeName} elementId={elementId} />
+              <NodesAuthInputPort
+                nodeName={nodeName}
+                elementId={elementId}
+                {...auth.port.mark}
+              />
             )}
+            {...auth.mark}
           />
         </>
       )}
@@ -134,7 +146,7 @@ export const PrepareNode = () => {
           variant="success"
           isInline
           title="The node is prepared for adding to the cluster."
-          data-test="prepare-cluster-for-node-success"
+          {...success.mark}
         />
       )}
     </TaskLibStep>

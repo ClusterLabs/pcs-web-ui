@@ -1,9 +1,11 @@
 import {Alert, Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
+const {addresses} = testMarks.addNode;
 export const Addresses = () => {
   const {
     state: {
@@ -19,7 +21,11 @@ export const Addresses = () => {
   };
 
   return (
-    <TaskLibStep title="Specify node addresses" reports={reports}>
+    <TaskLibStep
+      title="Specify node addresses"
+      reports={reports}
+      {...addresses.mark}
+    >
       <Alert
         variant="info"
         isInline
@@ -34,6 +40,7 @@ export const Addresses = () => {
             label={`Address ${i + 1}`}
             onChange={changeAddress(addrName as AddrName)}
             value={nodeAddresses[addrName as AddrName]}
+            {...addresses.address.mark}
           />
         ))}
       </Form>

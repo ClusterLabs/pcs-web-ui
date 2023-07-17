@@ -1,4 +1,7 @@
 import {intercept, route} from "test/tools";
+import * as shortcuts from "test/shortcuts";
+
+const {toggle} = shortcuts.patternfly;
 
 const {
   nodeName,
@@ -67,11 +70,7 @@ describe("Import existing cluster", () => {
     await fill(nodeName, data.nodeName);
     await click(nodeNameFooter.checkAuthentication);
     await isVisible(auth);
-    await click(
-      auth.customAddrSwitch.locator.locator(
-        '//*[@class="pf-c-switch__toggle"]',
-      ),
-    );
+    await toggle(auth.customAddrSwitch);
     await fill(auth.password, data.password);
     await fill(auth.address, data.addr);
     await fill(auth.port, data.port);

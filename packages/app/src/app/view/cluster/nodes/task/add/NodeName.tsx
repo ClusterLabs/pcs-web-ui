@@ -1,8 +1,11 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {nodeName: nodeNameStep} = testMarks.addNode;
 
 export const NodeName = () => {
   const {
@@ -15,8 +18,12 @@ export const NodeName = () => {
   } = useTask();
 
   return (
-    <TaskLibStep title="Choose node name" reports={reports}>
-      <Form data-test="form-node-name">
+    <TaskLibStep
+      title="Choose node name"
+      reports={reports}
+      {...nodeNameStep.mark}
+    >
+      <Form>
         <FormText
           id="new-node-name"
           label="Node name"
@@ -26,7 +33,7 @@ export const NodeName = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={nodeName.length > 0}
-          data-test="node-name"
+          {...nodeNameStep.name.mark}
         />
       </Form>
     </TaskLibStep>

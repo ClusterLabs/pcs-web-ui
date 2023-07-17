@@ -70,6 +70,7 @@ export const setupCluster = {
     cancel: {},
   },
   prepareNodesFooter: {
+    auth: {},
     next: {},
     back: {},
     cancel: {},
