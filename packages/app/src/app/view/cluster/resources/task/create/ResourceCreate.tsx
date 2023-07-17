@@ -1,96 +1,65 @@
-import {
-  TaskFinishLibWizard,
-  TaskResultAction,
-  TaskSuccess,
-  Wizard,
-  WizardFooter,
-} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {Wizard} from "app/view/share";
 
-import {Review} from "./Review";
 import {useTask} from "./useTask";
 import {NameType} from "./NameType";
+import {NameTypeFooter} from "./NameTypeFooter";
 import {InstanceAttrsForm} from "./InstanceAttrsForm";
+import {InstanceAttrsFormFooter} from "./InstanceAttrsFormFooter";
 import {Settings} from "./Settings";
+import {SettingsFooter} from "./SettingsFooter";
+import {Review} from "./Review";
+import {ReviewFooter} from "./ReviewFooter";
+import {Result} from "./Result";
+
+const nameType = "Name and type";
+const review = "Review";
 
 export const ResourceCreate = () => {
   const {
     close,
     clusterName,
-    create,
     isNameTypeValid,
-    isAgentLoaded,
     areInstanceAttrsValid,
     areSettingsValid,
-    state: {
-      resourceName,
-      libCall: {reports, response},
-    },
+    state: {resourceName},
   } = useTask();
   return (
     <Wizard
       clusterName={clusterName}
       task="resourceCreate"
-      data-test="task-resource-create"
+      {...testMarks.createResource.mark}
       onClose={close}
       taskLabel={`create resource "${resourceName}"`}
       description="Create new resource"
       steps={[
         {
-          name: "Name and type",
+          name: nameType,
           component: <NameType />,
-          footer: (
-            <WizardFooter
-              next={{
-                actionIf: isNameTypeValid,
-              }}
-              backDisabled
-            />
-          ),
+          footer: <NameTypeFooter />,
         },
         {
           name: "Instance attributes",
           component: <InstanceAttrsForm />,
-          footer: (
-            <WizardFooter
-              next={{
-                actionIf: areInstanceAttrsValid,
-                disabled: !isAgentLoaded,
-              }}
-            />
-          ),
+          footer: <InstanceAttrsFormFooter />,
           canJumpTo: isNameTypeValid,
         },
         {
           name: "Settings",
           component: <Settings />,
-          footer: <WizardFooter next={{actionIf: areSettingsValid}} />,
+          footer: <SettingsFooter />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
-          name: "Review",
+          name: review,
           component: <Review />,
-          footer: (
-            <WizardFooter
-              next={{
-                preAction: () => create({force: false}),
-                label: "Create resource",
-              }}
-            />
-          ),
+          footer: <ReviewFooter />,
           canJumpTo:
             isNameTypeValid && areInstanceAttrsValid && areSettingsValid,
         },
         {
           name: "Result",
-          component: (
-            <TaskFinishLibWizard
-              response={response}
-              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
-              backToUpdateSettingsStepName="Name and type"
-              proceedForce={() => create({force: true})}
-              reports={reports}
-            />
-          ),
+          component: <Result backStep={nameType} reviewStep={review} />,
           isFinishedStep: true,
         },
       ]}

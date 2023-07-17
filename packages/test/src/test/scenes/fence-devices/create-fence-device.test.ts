@@ -22,7 +22,7 @@ const {review} = createFenceDevice;
 
 const openTask = async () => {
   await click(fenceDevicesToolbar.createFenceDevice);
-  await isVisible(app.createFenceDevice);
+  await isVisible(createFenceDevice);
 };
 
 const fillInstanceAttr = async (name: string, value: string) => {

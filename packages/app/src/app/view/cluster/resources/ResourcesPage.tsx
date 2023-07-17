@@ -31,7 +31,7 @@ export const ResourcesPage = () => {
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),
-            ...resourcesToolbar.createGroup.mark,
+            ...resourcesToolbar.createResource.mark,
           },
           {
             name: "create-group",

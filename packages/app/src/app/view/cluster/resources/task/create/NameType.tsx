@@ -1,10 +1,12 @@
 import {Form, FormGroup} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {NameTypeTypeSelect} from "./NameTypeTypeSelect";
 
+const {nameType} = testMarks.createResource;
 export const NameType = () => {
   const {
     state: {
@@ -50,7 +52,7 @@ export const NameType = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={resourceName.length > 0}
-          data-test="resource-name"
+          {...nameType.name.mark}
         />
         <FormGroup
           label="Resource type"

@@ -1,6 +1,6 @@
 import {Flex, FlexItem, Form, FormGroup, Radio} from "@patternfly/react-core";
 
-import {FormSelectOrText, FormText} from "app/view/share";
+import {FormSelectOrText, FormText, Select} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -43,23 +43,28 @@ export const Configure = () => {
                 checked === "select" ? "resource" : "pattern",
             })
           }
-          showValidationErrors={showValidationErrors}
-          select={{
-            label: "Select a resource",
-            placeholderText: "Select a resource",
-            isValid: isResourceValid,
-            selections: resourceId,
-            optionsValues: resourceIdList,
-            onSelect: value => updateState({resourceId: value.toString()}),
-          }}
-          text={{
-            label: "Type resource pattern",
-            value: resourcePattern,
-            onChange: value => updateState({resourcePattern: value}),
-            helperTextInvalid: "Please provide resource pattern",
-            isValid: isPatternValid,
-            "data-test": "resource-pattern",
-          }}
+          selectLabel="Select a resource"
+          select={
+            <Select
+              placeholderText="Select a resource"
+              validated={
+                showValidationErrors && !isResourceValid ? "error" : "default"
+              }
+              selections={resourceId}
+              optionsValues={resourceIdList}
+              onSelect={value => updateState({resourceId: value.toString()})}
+            />
+          }
+          textLabel="Type resource pattern"
+          text={
+            <FormText
+              id="type-resource-pattern"
+              value={resourcePattern}
+              onChange={value => updateState({resourcePattern: value})}
+              helperTextInvalid="Please provide resource pattern"
+              isValid={isPatternValid}
+            />
+          }
         />
       </FormGroup>
 
@@ -76,23 +81,28 @@ export const Configure = () => {
               locationSpecification: checked === "select" ? "node" : "rule",
             })
           }
-          showValidationErrors={showValidationErrors}
-          select={{
-            label: "Select a node",
-            placeholderText: "Select a node",
-            isValid: isNodeValid,
-            selections: nodeName,
-            optionsValues: nodeNameList,
-            onSelect: value => updateState({nodeName: value.toString()}),
-          }}
-          text={{
-            label: "Type rule",
-            value: rule,
-            onChange: value => updateState({rule: value}),
-            helperTextInvalid: "Please provide rule",
-            isValid: isRuleValid,
-            "data-test": "rule",
-          }}
+          selectLabel="Select a node"
+          select={
+            <Select
+              placeholderText="Select a node"
+              validated={
+                showValidationErrors && !isNodeValid ? "error" : "default"
+              }
+              selections={nodeName}
+              optionsValues={nodeNameList}
+              onSelect={value => updateState({nodeName: value.toString()})}
+            />
+          }
+          textLabel="Type a rule"
+          text={
+            <FormText
+              id="type-a-rule"
+              value={rule}
+              onChange={value => updateState({rule: value})}
+              helperTextInvalid={"Please provide rule"}
+              isValid={isRuleValid}
+            />
+          }
         />
       </FormGroup>
 
