@@ -4,6 +4,7 @@ import {
   WizardContextConsumer,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   EmptyStateSpinner,
   NodesAuthCustomAddrSwitch,
@@ -15,6 +16,8 @@ import {
 } from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {success, auth} = testMarks.setupCluster.prepareNodes;
 
 export const PrepareNodes = () => {
   const {
@@ -119,26 +122,34 @@ export const PrepareNodes = () => {
                 />
                 <NodesAuthForm
                   authProcessId={authProcessId}
-                  customAddresSwitcher={<NodesAuthCustomAddrSwitch />}
+                  customAddresSwitcher={
+                    <NodesAuthCustomAddrSwitch
+                      {...auth.useCustomAddress.mark}
+                    />
+                  }
                   inputPassword={(nodeName, elementId, index) => (
                     <NodesAuthInputPassword
                       index={index}
                       nodeName={nodeName}
                       elementId={elementId}
+                      {...auth.password.mark}
                     />
                   )}
                   inputAddress={(nodeName, elementId) => (
                     <NodesAuthInputAddress
                       nodeName={nodeName}
                       elementId={elementId}
+                      {...auth.address.mark}
                     />
                   )}
                   inputPort={(nodeName, elementId) => (
                     <NodesAuthInputPort
                       nodeName={nodeName}
                       elementId={elementId}
+                      {...auth.port.mark}
                     />
                   )}
+                  {...auth.mark}
                 />
               </>
             )}
@@ -168,7 +179,7 @@ export const PrepareNodes = () => {
                 variant="success"
                 isInline
                 title="The nodes are prepared for the cluster setup."
-                data-test="prepare-cluster-for-node-success"
+                {...success.mark}
               />
             )}
           </TaskLibStep>

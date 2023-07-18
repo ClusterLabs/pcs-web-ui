@@ -69,6 +69,15 @@ export const setupCluster = {
     back: {},
     cancel: {},
   },
+  prepareNodes: {
+    success: {},
+    auth: {
+      useCustomAddress: {},
+      password: {},
+      address: {},
+      port: {},
+    },
+  },
   prepareNodesFooter: {
     auth: {},
     next: {},

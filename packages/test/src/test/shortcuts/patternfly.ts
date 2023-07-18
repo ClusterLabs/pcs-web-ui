@@ -19,3 +19,8 @@ export const radioGroup = async (
 export const toggle = async (mark: Mark) => {
   await locatorFor(mark).locator('//*[@class="pf-c-switch__toggle"]').click();
 };
+
+export const fieldError = (mark: Mark) =>
+  locatorFor(mark).locator(
+    'xpath=/following-sibling::*[contains(@class, "pf-m-error")]',
+  );
