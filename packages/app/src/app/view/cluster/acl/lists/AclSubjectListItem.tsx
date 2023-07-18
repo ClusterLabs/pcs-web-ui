@@ -7,39 +7,30 @@ import {
 } from "@patternfly/react-core";
 
 import {
-  Link,
   SelectionIndicatorInGroup,
   useGroupDetailViewContext,
 } from "app/view/share";
 
-export const AclSubjectListItem = ({
-  aclType,
-  id,
-  roleIdList,
-}: {
+export const AclSubjectListItem = (props: {
   aclType: "user" | "group";
   id: string;
-  roleIdList: string[];
+  idLink: React.ReactNode;
+  rolesCount: React.ReactNode;
+  "data-test"?: string;
 }) => {
   const {selectedItemUrlName, selectedItemUrlType, compact} =
     useGroupDetailViewContext();
 
   return (
-    <DataListItem aria-labelledby={id} data-test={`list-item ${id}`}>
+    <DataListItem data-test={props["data-test"]}>
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
             <>
-              <DataListCell data-test="name">
-                <Link strong to={`/${aclType}/${id}`}>
-                  {id}
-                </Link>
-              </DataListCell>
+              <DataListCell>{props.idLink}</DataListCell>
               <DataListCell>
                 {compact ? "Roles" : "Roles assigned"}&nbsp;
-                <Badge isRead data-test="roles-count">
-                  {roleIdList.length}
-                </Badge>
+                <Badge isRead>{props.rolesCount}</Badge>
               </DataListCell>
             </>
           }
@@ -47,7 +38,8 @@ export const AclSubjectListItem = ({
         {selectedItemUrlName !== "" && (
           <SelectionIndicatorInGroup
             isSelected={
-              selectedItemUrlType === aclType && id === selectedItemUrlName
+              selectedItemUrlType === props.aclType
+              && props.id === selectedItemUrlName
             }
           />
         )}

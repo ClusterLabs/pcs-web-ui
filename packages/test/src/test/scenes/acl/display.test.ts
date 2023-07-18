@@ -1,78 +1,66 @@
-import {cluster} from "test/workflow";
-import {intercept, shortcuts} from "test/tools";
+import {intercept} from "test/tools";
+import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus} from "./common";
 
-const rolesForUser1 = ["first", "second"];
+const {goToCluster} = shortcuts.dashboard;
+const {item} = shortcuts.common;
+const {textIs} = shortcuts.expect;
 
-const assertAclListDisplayed = async () => {
-  expect(await cluster.acl.getRoleList()).toEqual([
-    {
-      name: "first",
-      permissionsCount: "3",
-      usersCount: "1",
-      groupsCount: "1",
-    },
-    {
-      name: "second",
-      permissionsCount: "0",
-      usersCount: "1",
-      groupsCount: "1",
-    },
-  ]);
-  expect(await cluster.acl.getSubjectList("user")).toEqual([
-    {name: "user1", rolesCount: "2"},
-    {name: "user2", rolesCount: "0"},
-  ]);
-  expect(await cluster.acl.getSubjectList("group")).toEqual([
-    {name: "group1", rolesCount: "1"},
-    {name: "group2", rolesCount: "1"},
-  ]);
-};
+const {acl} = app.clusterDetail;
+const {lists} = acl;
 
-describe("SBD view", () => {
+const roleListValue = (roleId: string) => (mark: Mark) =>
+  item(lists.role).byKey(lists.role.id, roleId).locator(locatorFor(mark));
+
+const userListValue = (userId: string) => (mark: Mark) =>
+  item(lists.user).byKey(lists.user.id, userId).locator(locatorFor(mark));
+
+const groupListValue = (groupId: string) => (mark: Mark) =>
+  item(lists.group).byKey(lists.group.id, groupId).locator(locatorFor(mark));
+
+describe("ACL view", () => {
   beforeEach(async () => {
-    shortcuts.interceptWithCluster({clusterStatus});
-    await cluster.goTo({
-      clusterName: clusterStatus.cluster_name,
-      tabName: "acl",
-    });
+    intercept.shortcuts.interceptWithCluster({clusterStatus});
+    await goToCluster(clusterStatus.cluster_name, tabs => tabs.acl);
   });
   afterEach(intercept.stop);
 
   it("should display 3 lists", async () => {
-    await assertAclListDisplayed();
+    await isVisible(lists);
+
+    const role_1 = roleListValue("first");
+    await textIs(role_1(lists.role.permissionsCount), "3");
+    await textIs(role_1(lists.role.usersCount), "1");
+    await textIs(role_1(lists.role.groupsCount), "1");
+
+    const role_2 = roleListValue("second");
+    await textIs(role_2(lists.role.permissionsCount), "0");
+    await textIs(role_2(lists.role.usersCount), "1");
+    await textIs(role_2(lists.role.groupsCount), "1");
+
+    await textIs(userListValue("user1")(lists.user.rolesCount), "2");
+    await textIs(userListValue("user2")(lists.user.rolesCount), "0");
+
+    await textIs(groupListValue("group1")(lists.group.rolesCount), "1");
+    await textIs(groupListValue("group2")(lists.group.rolesCount), "1");
   });
 
   it("should display role", async () => {
-    await assertAclListDisplayed();
-    await page.click(cluster.acl.roleLinkSelector("first"));
-    expect(await cluster.acl.roleDetail.getPermissionList()).toEqual(
-      clusterStatus.acls?.role?.first.permissions,
-    );
+    await click(roleListValue("first")(lists.role.id));
+    await isVisible(acl.currentRole);
+    await textIs(acl.currentRole.id, "first");
   });
 
   it("should display user", async () => {
-    await assertAclListDisplayed();
-
-    await page.click(cluster.acl.subjectLinkSelector("user", "user1"));
-    expect(await cluster.acl.subjectDetail.getRoleList()).toEqual(
-      rolesForUser1,
-    );
-
-    await page.click(cluster.acl.subjectLinkSelector("user", "user2"));
-    expect(await cluster.acl.subjectDetail.getRoleList()).toEqual([]);
+    await click(userListValue("user1")(lists.user.id));
+    await isVisible(acl.currentUser);
+    await textIs(acl.currentUser.id, "user1");
   });
 
   it("should display group", async () => {
-    await assertAclListDisplayed();
-
-    await page.click(cluster.acl.subjectLinkSelector("user", "user1"));
-    expect(await cluster.acl.subjectDetail.getRoleList()).toEqual(
-      rolesForUser1,
-    );
-
-    await page.click(cluster.acl.subjectLinkSelector("user", "user2"));
-    expect(await cluster.acl.subjectDetail.getRoleList()).toEqual([]);
+    await click(groupListValue("group1")(lists.group.id));
+    await isVisible(acl.currentGroup);
+    await textIs(acl.currentGroup.id, "group1");
   });
 });

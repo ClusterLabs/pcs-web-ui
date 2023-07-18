@@ -2,6 +2,7 @@ import {overview} from "./overview";
 import {nodes} from "./nodes";
 import {resources} from "./resources";
 import {fenceDevices} from "./fenceDevices";
+import {acl} from "./acl";
 
 export const clusterDetail = {
   breadcrumbs: {
@@ -55,7 +56,7 @@ export const clusterDetail = {
     createTicketSet: {},
   },
   properties: {},
-  acl: {},
+  acl,
   aclToolbar: {
     createRole: {},
     createUser: {},

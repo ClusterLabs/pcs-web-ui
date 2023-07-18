@@ -6,6 +6,7 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   Link,
   SelectionIndicatorInGroup,
@@ -24,6 +25,8 @@ const getAssignedSubjectCount = (
   ).length;
 };
 
+const {role} = testMarks.clusterDetail.acl.lists;
+
 export const AclRoleListItem = ({
   id,
   permissions,
@@ -36,34 +39,34 @@ export const AclRoleListItem = ({
     useGroupDetailViewContext();
 
   return (
-    <DataListItem aria-labelledby={id} data-test={`list-item ${id}`}>
+    <DataListItem aria-labelledby={id} {...role.mark}>
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
             <>
-              <DataListCell data-test="name">
-                <Link strong to={`/role/${id}`}>
+              <DataListCell>
+                <Link strong to={`/role/${id}`} {...role.id.mark}>
                   {id}
                 </Link>
               </DataListCell>
               <DataListCell>
                 {compact && <div>Permissions</div>}
                 {!compact && "Permissions "}
-                <Badge isRead data-test="permissions-count">
+                <Badge isRead {...role.permissionsCount.mark}>
                   {permissions.length}
                 </Badge>
               </DataListCell>
               <DataListCell>
                 {compact && <div>Users</div>}
                 {!compact && "Users assigned "}
-                <Badge isRead data-test="users-count">
+                <Badge isRead {...role.usersCount.mark}>
                   {getAssignedSubjectCount(acls.user, id)}
                 </Badge>
               </DataListCell>
               <DataListCell>
                 {compact && <div>Groups</div>}
                 {!compact && "Groups assigned "}
-                <Badge isRead data-test="groups-count">
+                <Badge isRead {...role.groupsCount.mark}>
                   {getAssignedSubjectCount(acls.group, id)}
                 </Badge>
               </DataListCell>
