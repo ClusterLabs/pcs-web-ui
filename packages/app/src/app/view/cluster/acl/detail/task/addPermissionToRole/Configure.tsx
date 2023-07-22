@@ -1,22 +1,49 @@
-import {PermissionAddForm} from "app/view/cluster/acl/PermissionAddForm";
+import {
+  Add,
+  Kind,
+  PermissionsForm,
+  Remove,
+  Scope,
+  ScopeType,
+} from "app/view/cluster/acl/permissions";
 
 import {useTask} from "./useTask";
 
 export const Configure = () => {
   const {
-    updateState,
-    invalidPermissionIndexes,
+    updatePermissions,
     state: {permissionInfoList, showValidationErrors},
   } = useTask();
 
   return (
-    <PermissionAddForm
+    <PermissionsForm
       permissionList={permissionInfoList}
-      invalidPermissionIndexes={invalidPermissionIndexes}
-      showValidationErrors={showValidationErrors}
-      update={permissionList =>
-        updateState({permissionInfoList: permissionList})
-      }
+      scope={(permission, index) => (
+        <Scope
+          index={index}
+          scope={permission[2]}
+          showValidationErrors={showValidationErrors}
+          updatePermissions={updatePermissions}
+        />
+      )}
+      scopeType={(permission, index) => (
+        <ScopeType
+          index={index}
+          scopeType={permission[1]}
+          updatePermissions={updatePermissions}
+        />
+      )}
+      kind={(permission, index) => (
+        <Kind
+          index={index}
+          kind={permission[0]}
+          updatePermissions={updatePermissions}
+        />
+      )}
+      remove={(_, index) => (
+        <Remove index={index} updatePermissions={updatePermissions} />
+      )}
+      add={<Add updatePermissions={updatePermissions} />}
     />
   );
 };

@@ -1,12 +1,23 @@
 import {ActionPayload} from "app/store";
 import {useGroupDetailViewContext} from "app/view/share";
 import {useClusterTask} from "app/view/cluster/share";
-import {getInvalidPermissionIndexes} from "app/view/cluster/acl/PermissionAddForm";
+import {getInvalidPermissionIndexes} from "app/view/cluster/acl/permissions";
 
 export const useTask = () => {
   const task = useClusterTask("aclRolePermissionAdd");
   const {selectedItemUrlName: aclName} = useGroupDetailViewContext();
   const {dispatch, state, clusterName} = task;
+
+  type Permissions = typeof state.permissionInfoList;
+
+  const updateState = (
+    payload: ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"],
+  ) =>
+    dispatch({
+      type: "CLUSTER.ACL.ROLE.PERMISSION.UPDATE",
+      key: {clusterName},
+      payload,
+    });
 
   return {
     ...task,
@@ -15,14 +26,9 @@ export const useTask = () => {
       state.permissionInfoList,
     ),
     //actions
-    updateState: (
-      payload: ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"],
-    ) =>
-      dispatch({
-        type: "CLUSTER.ACL.ROLE.PERMISSION.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+    updateState,
+    updatePermissions: (transform: (permissions: Permissions) => Permissions) =>
+      updateState({permissionInfoList: transform(state.permissionInfoList)}),
 
     close: () => {
       task.close();

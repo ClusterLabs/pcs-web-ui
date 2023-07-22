@@ -1,8 +1,11 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {roleName} = testMarks.createAclRole;
 
 export const RoleName = () => {
   const {
@@ -16,7 +19,7 @@ export const RoleName = () => {
     },
   } = useTask();
   return (
-    <TaskLibStep title="Enter role name" reports={reports}>
+    <TaskLibStep title="Enter role name" reports={reports} {...roleName.mark}>
       <Form>
         <FormText
           id="role-name"
@@ -27,7 +30,7 @@ export const RoleName = () => {
           helperTextInvalid="Please enter a name"
           onChange={value => updateState({roleId: value})}
           value={roleId}
-          data-test="role-name"
+          {...roleName.roleId.mark}
         />
 
         <FormText
@@ -35,7 +38,7 @@ export const RoleName = () => {
           label="Description"
           onChange={value => updateState({description: value})}
           value={description}
-          data-test="role-description"
+          {...roleName.description.mark}
         />
       </Form>
     </TaskLibStep>

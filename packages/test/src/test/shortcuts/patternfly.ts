@@ -1,5 +1,3 @@
-import {Locator} from "playwright";
-
 export const select = async (
   mark: Mark,
   value: string | undefined,
@@ -9,11 +7,8 @@ export const select = async (
   await locatorFor(mark).locator(`//*[text()="${value}"]`).nth(nth).click();
 };
 
-export const radioGroup = async (
-  withLocator: {locator: Locator},
-  value: string,
-) => {
-  await withLocator.locator.locator(`//*[text()="${value}"]`).click();
+export const radioGroup = async (mark: Mark, value: string) => {
+  await locatorFor(mark).locator(`//*[text()="${value}"]`).click();
 };
 
 export const toggle = async (mark: Mark) => {

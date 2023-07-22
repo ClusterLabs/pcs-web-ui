@@ -10,3 +10,5 @@ export type AclType<ACL_TYPE extends "role" | "user" | "group"> = Exclude<
 
 export type PermissionListForWrite =
   ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"]["permissionInfoList"];
+
+export type Permission = PermissionListForWrite[number];

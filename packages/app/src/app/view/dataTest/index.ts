@@ -6,6 +6,7 @@ import {importExistingCluster} from "./importExistingCluster";
 import {notifications} from "./notifications";
 import {dashboard} from "./dashboard";
 import {clusterDetail} from "./clusterDetail";
+import {createAclRole} from "./createAclRole";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubStructure extends Record<string, SubStructure> {}
@@ -24,11 +25,12 @@ export const structure = {
   notifications,
   dashboard,
   clusterDetail,
-  setupCluster,
-  importExistingCluster,
+  addNode,
+  createAclRole,
   createFenceDevice,
   createResource,
-  addNode,
+  importExistingCluster,
+  setupCluster,
 };
 
 type MarkTools = {

@@ -1,3 +1,5 @@
+import {Locator} from "playwright";
+
 export type SearchExp<MARK_PART extends Mark> =
   | Mark
   | ((markPart: MARK_PART) => Mark);
@@ -10,7 +12,9 @@ export const search = <MARK_PART extends Mark>(
 const ancestor = (mark: {path: string}) =>
   `xpath=/ancestor::node()[@data-test="${mark.path}"]`;
 
-export const item = (itemMark: {path: string}) => ({
+export const item = <ITEM_MARK extends {path: string; locator: Locator}>(
+  itemMark: ITEM_MARK,
+) => ({
   byKey: (keyMark: Mark, key: string) => {
     const theItem = locatorFor(keyMark)
       .getByText(key)
@@ -18,6 +22,14 @@ export const item = (itemMark: {path: string}) => ({
 
     return {
       locator: (mark: Mark) => theItem.locator(locatorFor(mark)),
+    };
+  },
+  byIndex: (index: number) => {
+    const theItem = itemMark.locator.nth(index);
+
+    return {
+      locator: (search: (_itemMark: ITEM_MARK) => Mark) =>
+        theItem.locator(locatorFor(search(itemMark))),
     };
   },
 });
