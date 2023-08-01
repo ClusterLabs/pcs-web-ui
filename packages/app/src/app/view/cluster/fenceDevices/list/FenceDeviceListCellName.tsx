@@ -2,7 +2,7 @@ import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
 import {Link} from "app/view/share";
 
-const {item} = testMarks.clusterDetail.fenceDevices.list;
+const {item} = testMarks.cluster.fenceDevices.list;
 
 export const FenceDeviceListCellName = ({
   fenceDevice,

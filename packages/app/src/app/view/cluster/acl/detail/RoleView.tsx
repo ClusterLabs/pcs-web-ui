@@ -11,7 +11,7 @@ import {RoleViewSubjects} from "./RoleViewSubjects";
 
 export const aclRolePageTabList = ["detail", "users", "groups"] as const;
 
-const {currentRole} = testMarks.clusterDetail.acl;
+const {currentRole} = testMarks.cluster.acl;
 
 export const RoleView = ({
   roleId,

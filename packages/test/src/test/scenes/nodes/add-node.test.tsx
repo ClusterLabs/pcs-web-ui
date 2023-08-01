@@ -14,7 +14,7 @@ const addr = "192.168.0.10";
 const port = "1234";
 
 const openTask = async () => {
-  await click(marks.clusterDetail.nodesToolbar.addNode);
+  await click(marks.cluster.nodesToolbar.addNode);
   await isVisible(addNode);
 };
 

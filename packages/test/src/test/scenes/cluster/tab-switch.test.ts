@@ -5,14 +5,14 @@ import * as shortcuts from "test/shortcuts";
 
 const {goToCluster} = shortcuts.dashboard;
 const {textIs} = shortcuts.expect;
-const {clusterDetail} = marks;
+const {cluster} = marks;
 
 const clusterName = "ok";
 
 const startOnOverview = async () => {
   await goToCluster(clusterName);
-  await textIs(clusterDetail.breadcrumbs.clusterName, clusterName);
-  await isVisible(clusterDetail.overview);
+  await textIs(cluster.breadcrumbs.clusterName, clusterName);
+  await isVisible(cluster.overview);
 };
 
 describe("Cluster detail tab switch", () => {
@@ -26,49 +26,49 @@ describe("Cluster detail tab switch", () => {
 
   it("should allow switch to nodes", async () => {
     await startOnOverview();
-    await click(clusterDetail.tabs.nodes);
-    await isVisible(clusterDetail.nodes);
+    await click(cluster.tabs.nodes);
+    await isVisible(cluster.nodes);
   });
 
   it("should allow switch to resources", async () => {
     await startOnOverview();
-    await click(clusterDetail.tabs.resources);
-    await isVisible(clusterDetail.resources);
+    await click(cluster.tabs.resources);
+    await isVisible(cluster.resources);
   });
 
   it("should allow switch to fence devices", async () => {
     await startOnOverview();
-    await click(clusterDetail.tabs.fenceDevices);
-    await isVisible(clusterDetail.fenceDevices);
+    await click(cluster.tabs.fenceDevices);
+    await isVisible(cluster.fenceDevices);
   });
 
   it("should allow switch to sbd", async () => {
     await startOnOverview();
-    await click(clusterDetail.tabs.sbd);
-    await isVisible(clusterDetail.sbd);
+    await click(cluster.tabs.sbd);
+    await isVisible(cluster.sbd);
   });
 
   it("should allow switch to constraits", async () => {
     await startOnOverview();
-    await click(clusterDetail.tabs.constraints);
-    await isVisible(clusterDetail.constraints);
+    await click(cluster.tabs.constraints);
+    await isVisible(cluster.constraints);
   });
 
   it("should allow switch to properties", async () => {
     await startOnOverview();
-    await click(clusterDetail.tabs.properties);
-    await isVisible(clusterDetail.properties);
+    await click(cluster.tabs.properties);
+    await isVisible(cluster.properties);
   });
 
   it("should allow switch to acl", async () => {
     await startOnOverview();
-    await click(clusterDetail.tabs.acl);
-    await isVisible(clusterDetail.acl);
+    await click(cluster.tabs.acl);
+    await isVisible(cluster.acl);
   });
 
   it("should allow switch to permissions", async () => {
     await startOnOverview();
-    await click(clusterDetail.tabs.permissions);
-    await isVisible(clusterDetail.permissions);
+    await click(cluster.tabs.permissions);
+    await isVisible(cluster.permissions);
   });
 });

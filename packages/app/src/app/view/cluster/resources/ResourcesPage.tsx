@@ -10,7 +10,7 @@ import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";
 import * as task from "./task";
 
-const {resources, resourcesToolbar} = testMarks.clusterDetail;
+const {resources, resourcesToolbar} = testMarks.cluster;
 
 export const ResourcesPage = () => {
   const {resourceTree} = useLoadedCluster();

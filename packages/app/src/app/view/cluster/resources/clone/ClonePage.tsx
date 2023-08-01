@@ -15,7 +15,7 @@ import {CloneDetail} from "./CloneDetail";
 
 const tabList = ["detail", "meta"] as const;
 
-const {currentResurce} = testMarks.clusterDetail.resources;
+const {currentResurce} = testMarks.cluster.resources;
 
 export const ClonePage = ({clone}: {clone: Clone}) => {
   const {currentTab, matchedContext} = useUrlTabs(tabList);

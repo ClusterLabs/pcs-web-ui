@@ -10,7 +10,7 @@ import {useLoadedCluster} from "app/view/cluster/share";
 import {ConstraintFilteredList} from "./ConstraintFilteredList";
 import * as task from "./task";
 
-const {constraints, constraintsToolbar} = testMarks.clusterDetail;
+const {constraints, constraintsToolbar} = testMarks.cluster;
 
 export const ConstraintsPage = () => {
   const launchDisable = useLauncherDisableClusterNotRunning();

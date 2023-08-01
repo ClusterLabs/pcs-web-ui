@@ -9,7 +9,7 @@ import {RolesAssignedTo} from "./RolesAssignedTo";
 
 type AssignRoleOpenArgs = TaskOpenArgs<typeof task.assignSubjectToRole.useTask>;
 
-const {currentGroup} = testMarks.clusterDetail.acl;
+const {currentGroup} = testMarks.cluster.acl;
 
 export const GroupView = ({
   groupId,

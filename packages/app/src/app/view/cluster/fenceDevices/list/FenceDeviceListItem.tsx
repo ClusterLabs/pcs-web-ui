@@ -16,7 +16,7 @@ import {FenceDeviceListCellStatus} from "./FenceDeviceListCellStatus";
 import {FenceDeviceListCellName} from "./FenceDeviceListCellName";
 import {FenceDeviceListCellType} from "./FenceDeviceListCellType";
 
-const {item} = testMarks.clusterDetail.fenceDevices.list;
+const {item} = testMarks.cluster.fenceDevices.list;
 
 export const FenceDeviceListItem = ({
   fenceDevice,

@@ -18,7 +18,7 @@ const permission_1: Permission = ["read", "id", "some-id"];
 const permission_2: Permission = ["write", "xpath", "some-xpath"];
 
 const openTask = async () => {
-  await click(marks.clusterDetail.aclToolbar.createRole);
+  await click(marks.cluster.aclToolbar.createRole);
   await isVisible(createAclRole);
 };
 

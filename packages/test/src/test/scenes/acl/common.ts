@@ -4,7 +4,7 @@ import * as shortcuts from "test/shortcuts";
 
 const {item} = shortcuts.common;
 
-const {acl} = marks.clusterDetail;
+const {acl} = marks.cluster;
 const {lists} = acl;
 
 export const clusterName = "test-cluster";

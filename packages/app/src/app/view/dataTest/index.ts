@@ -1,6 +1,6 @@
 import {notifications} from "./notifications";
 import {dashboard} from "./dashboard";
-import {clusterDetail} from "./clusterDetail";
+import {cluster} from "./clusterDetail";
 import {task} from "./task";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -17,7 +17,7 @@ export interface SubStructure extends Record<string, SubStructure> {}
 export const structure = {
   notifications,
   dashboard,
-  clusterDetail,
+  cluster,
   task,
 };
 

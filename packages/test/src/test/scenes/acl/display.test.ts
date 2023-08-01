@@ -7,7 +7,7 @@ const {goToCluster} = shortcuts.dashboard;
 const {item} = shortcuts.common;
 const {textIs} = shortcuts.expect;
 
-const {acl} = marks.clusterDetail;
+const {acl} = marks.cluster;
 const {lists} = acl;
 
 const roleListValue = (roleId: string) => (mark: Mark) =>

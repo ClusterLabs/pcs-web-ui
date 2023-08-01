@@ -25,7 +25,7 @@ const getAssignedSubjectCount = (
   ).length;
 };
 
-const {role} = testMarks.clusterDetail.acl.lists;
+const {role} = testMarks.cluster.acl.lists;
 
 export const AclRoleListItem = ({
   id,

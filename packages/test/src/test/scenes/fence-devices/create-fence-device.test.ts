@@ -9,7 +9,7 @@ const {select} = shortcuts.patternfly;
 const {item} = shortcuts.common;
 const {expectReview, expectReports} = shortcuts.task;
 
-const {fenceDevicesToolbar} = marks.clusterDetail;
+const {fenceDevicesToolbar} = marks.cluster;
 
 const fenceDeviceName = "F1";
 const clusterName = "actions";

@@ -10,7 +10,7 @@ import * as task from "./task";
 import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
 import {FenceDeviceList} from "./list";
 
-const {fenceDevices, fenceDevicesToolbar} = testMarks.clusterDetail;
+const {fenceDevices, fenceDevicesToolbar} = testMarks.cluster;
 
 export const FenceDevicePage = () => {
   const {fenceDeviceList} = useLoadedCluster();

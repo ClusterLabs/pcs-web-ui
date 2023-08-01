@@ -14,7 +14,7 @@ import * as task from "./task";
 import {AclDetailPage} from "./detail";
 import {AclLists} from "./lists";
 
-const {acl, aclToolbar} = testMarks.clusterDetail;
+const {acl, aclToolbar} = testMarks.cluster;
 export const AclPage = () => {
   const {clusterProperties, hasCibInfo, clusterName} = useLoadedCluster();
   const launchDisable = useLauncherDisableClusterNotRunning();

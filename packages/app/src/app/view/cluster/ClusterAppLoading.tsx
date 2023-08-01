@@ -10,7 +10,7 @@ export const ClusterAppLoading = ({
   title: React.ComponentProps<typeof EmptyStateSpinner>["title"];
 }) => {
   return (
-    <PageSection {...testMarks.clusterDetail.loading.mark}>
+    <PageSection {...testMarks.cluster.loading.mark}>
       <EmptyStateSpinner title={title} />
     </PageSection>
   );

@@ -11,7 +11,7 @@ import {AclRoleListItem} from "./AclRoleListItem";
 const grow: FlexProps["grow"] = {default: "grow"};
 const spacer: FlexProps["spacer"] = {default: "spacerNone"};
 
-const {lists} = testMarks.clusterDetail.acl;
+const {lists} = testMarks.cluster.acl;
 
 export const AclLists = () => {
   const {acls, hasCibInfo, clusterName} = useLoadedCluster();

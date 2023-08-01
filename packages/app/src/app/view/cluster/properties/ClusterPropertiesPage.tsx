@@ -41,7 +41,7 @@ const useFilter = (): {
     p => p.readable_name,
   );
 
-const {properties} = testMarks.clusterDetail;
+const {properties} = testMarks.cluster;
 
 export const ClusterPropertiesPage = () => {
   const {clusterPropertiesDefinition} = useClusterProperties();

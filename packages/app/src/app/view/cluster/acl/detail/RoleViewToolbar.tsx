@@ -8,7 +8,7 @@ type AssignSubjectOpenArgs = TaskOpenArgs<
   typeof task.assignSubjectToRole.useTask
 >;
 
-const {toolbar} = testMarks.clusterDetail.acl.currentRole;
+const {toolbar} = testMarks.cluster.acl.currentRole;
 
 export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
   const {clusterName} = useLoadedCluster();

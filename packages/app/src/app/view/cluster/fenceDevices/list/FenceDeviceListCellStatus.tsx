@@ -2,7 +2,7 @@ import {testMarks} from "app/view/dataTest";
 import {StatusSign, toLabel, useGroupDetailViewContext} from "app/view/share";
 import {FenceDevice} from "app/view/cluster/types";
 
-const {item} = testMarks.clusterDetail.fenceDevices.list;
+const {item} = testMarks.cluster.fenceDevices.list;
 
 export const FenceDeviceListCellStatus = ({
   fenceDevice,

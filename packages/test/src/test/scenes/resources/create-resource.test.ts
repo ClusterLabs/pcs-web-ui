@@ -18,7 +18,7 @@ const clusterName = "test-cluster";
 const agentName = agent.name;
 
 const openTask = async () => {
-  await click(marks.clusterDetail.resourcesToolbar.createResource);
+  await click(marks.cluster.resourcesToolbar.createResource);
   await isVisible(createResource);
 };
 

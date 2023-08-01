@@ -4,7 +4,7 @@ import {resources} from "./resources";
 import {fenceDevices} from "./fenceDevices";
 import {acl} from "./acl";
 
-export const clusterDetail = {
+export const cluster = {
   breadcrumbs: {
     dashboard: {},
     clusterName: {},

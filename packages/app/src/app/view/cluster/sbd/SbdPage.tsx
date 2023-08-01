@@ -23,7 +23,7 @@ const extractTimeoutAction = <VALUE extends string>(
   return values.find(v => parts.includes(v)) ?? "DEFAULT";
 };
 
-const {sbd, sbdToolbar} = testMarks.clusterDetail;
+const {sbd, sbdToolbar} = testMarks.cluster;
 export const SbdPage = () => {
   const {nodeList} = useLoadedCluster();
   const sbdConfig = selectSbdConfig(nodeList);

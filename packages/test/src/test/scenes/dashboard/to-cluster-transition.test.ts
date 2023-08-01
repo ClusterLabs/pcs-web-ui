@@ -3,8 +3,7 @@ import * as cs from "dev/responses/clusterStatus/tools";
 import * as shortcuts from "test/shortcuts";
 import {intercept} from "test/tools";
 
-const {breadcrumbs, overview, nodes, resources, fenceDevices} =
-  marks.clusterDetail;
+const {breadcrumbs, overview, nodes, resources, fenceDevices} = marks.cluster;
 
 const {textIs} = shortcuts.expect;
 const {inCluster} = shortcuts.dashboard.importedClusters;
