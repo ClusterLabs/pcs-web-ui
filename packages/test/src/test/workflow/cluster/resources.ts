@@ -19,7 +19,7 @@ export const assertNamesAre = async (resourceNameList: string[]) => {
 };
 
 export const selectTab = async (
-  tabName: typeof primitivePageTabList[number],
+  tabName: (typeof primitivePageTabList)[number],
 ) => {
   await page.click(dt("tabs primitive", tabName));
 };

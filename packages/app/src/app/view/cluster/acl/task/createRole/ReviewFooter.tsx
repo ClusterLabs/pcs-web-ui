@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.createAclRole.reviewFooter;
+const {next, back, cancel} = testMarks.task.createAclRole.reviewFooter;
 
 export const ReviewFooter = () => {
   const {aclRoleCreate} = useTask();
   return (
-    <TaskFooter {...testMarks.createAclRole.reviewFooter.mark}>
+    <TaskFooter {...testMarks.task.createAclRole.reviewFooter.mark}>
       <WizardFooterNext
         label="Create role"
         preAction={() => aclRoleCreate()}

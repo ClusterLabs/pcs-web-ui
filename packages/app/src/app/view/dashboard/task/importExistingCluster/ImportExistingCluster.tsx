@@ -15,7 +15,7 @@ export const ImportExistingCluster = () => {
     <Wizard
       task="importExistingCluster"
       clusterName={null}
-      {...testMarks.importExistingCluster.mark}
+      {...testMarks.task.importExistingCluster.mark}
       taskLabel="Add existing cluster"
       description="Manage existing cluster from web ui"
       onClose={close}

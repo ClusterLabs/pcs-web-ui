@@ -15,7 +15,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {success, unsuccess, communicationError} = testMarks.createResource;
+const {success, unsuccess, communicationError} = testMarks.task.createResource;
 
 export const Result = ({
   backStep,
@@ -40,7 +40,7 @@ export const Result = ({
             <TaskLibReport
               key={i}
               report={report}
-              {...testMarks.setupCluster.report.mark}
+              {...testMarks.task.createResource.report.mark}
             />
           )}
         />

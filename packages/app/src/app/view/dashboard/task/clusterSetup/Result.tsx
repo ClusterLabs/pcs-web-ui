@@ -15,7 +15,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {success, unsuccess, communicationError} = testMarks.setupCluster;
+const {success, unsuccess, communicationError} = testMarks.task.setupCluster;
 
 export const Result = ({
   backStep,
@@ -41,7 +41,7 @@ export const Result = ({
             <TaskLibReport
               key={i}
               report={report}
-              {...testMarks.setupCluster.report.mark}
+              {...testMarks.task.setupCluster.report.mark}
             />
           )}
         />

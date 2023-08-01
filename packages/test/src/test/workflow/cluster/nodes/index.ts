@@ -18,6 +18,6 @@ export const assertNamesAre = async (nodeNameList: string[]) => {
   expect(await getNameList()).toEqual(nodeNameList);
 };
 
-export const selectTab = async (tabName: typeof nodePageTabList[number]) => {
+export const selectTab = async (tabName: (typeof nodePageTabList)[number]) => {
   await page.click(dt("tabs node", tabName));
 };

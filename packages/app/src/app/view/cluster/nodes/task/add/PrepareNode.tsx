@@ -15,7 +15,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {success, auth} = testMarks.addNode.prepareNode;
+const {success, auth} = testMarks.task.addNode.prepareNode;
 
 export const PrepareNode = () => {
   const {

@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.createFenceDevice.reviewFooter;
+const {next, back, cancel} = testMarks.task.createFenceDevice.reviewFooter;
 
 export const ReviewFooter = () => {
   const {create} = useTask();
   return (
-    <TaskFooter {...testMarks.setupCluster.reviewFooter.mark}>
+    <TaskFooter {...testMarks.task.createFenceDevice.reviewFooter.mark}>
       <WizardFooterNext
         label="Create fence device"
         preAction={() => create({force: false})}

@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.addNode.nodeNameFooter;
+const {next, back, cancel} = testMarks.task.addNode.nodeNameFooter;
 
 export const NodeNameFooter = () => {
   const {isNameValid} = useTask();
   return (
-    <TaskFooter {...testMarks.addNode.nodeNameFooter.mark}>
+    <TaskFooter {...testMarks.task.addNode.nodeNameFooter.mark}>
       <WizardFooterNext actionIf={isNameValid} {...next.mark} />
       <TaskButtonBack disabled={true} {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />

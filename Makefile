@@ -57,8 +57,8 @@ lint:
 	@.bin/lint.sh ./packages
 
 fmt:
-	npx prettier "src/" --write
-	npx eslint --fix --ext .js,.ts,.tsx src/
+	npx prettier "packages/app/src/" --write
+	packages/app/node_modules/.bin/eslint --fix --ext .js,.ts,.tsx packages/app/src/
 
 _install:
 ifndef PCSD_DIR

@@ -4,7 +4,7 @@ import * as shortcuts from "test/shortcuts";
 const {goToCluster} = shortcuts.dashboard;
 const {toggle} = shortcuts.patternfly;
 
-const {addNode} = app;
+const {addNode} = app.task;
 
 const clusterName = "actions";
 const nodeName = "newnode";

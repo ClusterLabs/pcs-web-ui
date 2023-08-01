@@ -1,38 +1,24 @@
-import {setupCluster} from "./setupCluster";
-import {createFenceDevice} from "./createFenceDevice";
-import {createResource} from "./createResource";
-import {addNode} from "./addNode";
-import {importExistingCluster} from "./importExistingCluster";
 import {notifications} from "./notifications";
 import {dashboard} from "./dashboard";
 import {clusterDetail} from "./clusterDetail";
-import {createAclRole} from "./createAclRole";
-import {aclRoleAddPermission} from "./aclRoleAddPermission";
+import {task} from "./task";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubStructure extends Record<string, SubStructure> {}
 
-// Avoid ambiguous paths. E.g. if there is `dashboard.toolbar.setupCluster` and
-// also `setupCluster` then xpath `//*[@data-test="setupCluster"]` selects both.
-//
 // Tasks (wizards) are separated from "dashboard" or "clusterDetail" because
 // theirs modality is done by element outside #root element of application.
 //
 // Don't use names:
 // - mark
 // - locator
-// The structure is enhanced by this keys
+// - path
+// The structure is enhanced by this keys (here or in tests)
 export const structure = {
   notifications,
   dashboard,
   clusterDetail,
-  addNode,
-  createAclRole,
-  aclRoleAddPermission,
-  createFenceDevice,
-  createResource,
-  importExistingCluster,
-  setupCluster,
+  task,
 };
 
 type MarkTools = {

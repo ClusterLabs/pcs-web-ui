@@ -6,11 +6,11 @@ import {
   WizardFooterNext,
 } from "app/view/share";
 
-const {next, back, cancel} = testMarks.createFenceDevice.settingsFooter;
+const {next, back, cancel} = testMarks.task.createFenceDevice.settingsFooter;
 
 export const SettingsFooter = () => {
   return (
-    <TaskFooter {...testMarks.createFenceDevice.settingsFooter.mark}>
+    <TaskFooter {...testMarks.task.createFenceDevice.settingsFooter.mark}>
       <WizardFooterNext {...next.mark} />
       <TaskButtonBack {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />

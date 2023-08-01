@@ -8,7 +8,7 @@ export * as nodes from "./nodes";
 export * as nvsets from "./nvsets";
 export * as acl from "./acl";
 
-type ClusterTabName = typeof clusterAppTabList[number];
+type ClusterTabName = (typeof clusterAppTabList)[number];
 
 export const selectTab = async (tabName: ClusterTabName) => {
   await page.click(selectors.dt("tabs cluster", tabName));

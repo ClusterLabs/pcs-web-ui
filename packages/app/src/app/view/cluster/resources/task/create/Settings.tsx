@@ -6,7 +6,7 @@ import {TaskLibStep} from "app/view/share";
 import {SettingsGroup} from "./SettingsGroup";
 import {useTask} from "./useTask";
 
-const {settings} = testMarks.createResource;
+const {settings} = testMarks.task.createResource;
 
 export const Settings = () => {
   const {

@@ -12,7 +12,7 @@ import {
 import {useTask} from "./useTask";
 
 const {options, compression, crypto} =
-  testMarks.setupCluster.advancedOptions.transport;
+  testMarks.task.setupCluster.advancedOptions.transport;
 const help = helpAll.knet;
 
 const ID_PREFIX_OPTIONS = "cluster-setup-transport-options";

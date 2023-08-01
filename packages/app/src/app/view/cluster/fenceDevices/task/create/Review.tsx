@@ -3,7 +3,7 @@ import {ReviewItem, ReviewList, ReviewYesNo, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {review} = testMarks.createFenceDevice;
+const {review} = testMarks.task.createFenceDevice;
 
 export const Review = () => {
   const {

@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.createResource.nameTypeFooter;
+const {next, back, cancel} = testMarks.task.createResource.nameTypeFooter;
 
 export const NameTypeFooter = () => {
   const {isNameTypeValid} = useTask();
   return (
-    <TaskFooter {...testMarks.createResource.nameTypeFooter.mark}>
+    <TaskFooter {...testMarks.task.createResource.nameTypeFooter.mark}>
       <WizardFooterNext actionIf={isNameTypeValid} {...next.mark} />
       <TaskButtonBack disabled={true} {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />

@@ -20,7 +20,7 @@ const {
   review,
   reviewFooter,
   success,
-} = app.setupCluster;
+} = app.task.setupCluster;
 
 const {knetLink} = review;
 const {
@@ -30,7 +30,7 @@ const {
 } = review.transport;
 
 const {transportKnet, transport, quorum, totem} =
-  app.setupCluster.advancedOptions;
+  app.task.setupCluster.advancedOptions;
 
 const {fillClusterNameAndNodes} = shortcuts.setupCluster;
 

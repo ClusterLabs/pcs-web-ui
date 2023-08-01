@@ -30,7 +30,7 @@ export const NodeName = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={nodeName.length > 0}
-          {...testMarks.importExistingCluster.nodeName.mark}
+          {...testMarks.task.importExistingCluster.nodeName.mark}
         />
       </Form>
     </TaskLibStep>

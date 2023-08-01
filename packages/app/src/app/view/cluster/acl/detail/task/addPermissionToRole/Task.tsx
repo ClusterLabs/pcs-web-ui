@@ -18,7 +18,7 @@ import {
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
 
-const {aclRoleAddPermission: task} = testMarks;
+const {aclRoleAddPermission: task} = testMarks.task;
 
 export const Task = () => {
   const {

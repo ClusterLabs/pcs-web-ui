@@ -5,7 +5,7 @@ import {clusterStatus, goToAcl} from "./common";
 
 const {radioGroup} = shortcuts.patternfly;
 
-const {createAclRole} = app;
+const {createAclRole} = app.task;
 const {review} = createAclRole;
 
 type Permission = Parameters<

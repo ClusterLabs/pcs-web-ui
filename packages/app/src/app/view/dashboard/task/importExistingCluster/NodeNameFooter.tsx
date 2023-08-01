@@ -8,13 +8,13 @@ import {
 
 import {useTask} from "./useTask";
 
-const {checkAuthentication, back, cancel} =
-  testMarks.importExistingCluster.nodeNameFooter;
+const {nodeNameFooter} = testMarks.task.importExistingCluster;
+const {checkAuthentication, back, cancel} = nodeNameFooter;
 
 export const NodeNameFooter = () => {
   const {isNodeNameValid} = useTask();
   return (
-    <TaskFooter {...testMarks.setupCluster.nameAndNodesFooter.mark}>
+    <TaskFooter {...nodeNameFooter.mark}>
       <WizardFooterNext
         label="Check authentication"
         actionIf={isNodeNameValid}

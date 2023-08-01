@@ -8,7 +8,7 @@ type Permission = Parameters<
 >[0]["permissionInfoList"][number];
 
 const {radioGroup} = shortcuts.patternfly;
-const {aclRoleAddPermission} = app;
+const {aclRoleAddPermission} = app.task;
 
 const roleId = "first";
 const permission_1: Permission = ["read", "id", "some-id"];

@@ -5,7 +5,7 @@ import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {addresses} = testMarks.addNode;
+const {addresses} = testMarks.task.addNode;
 export const Addresses = () => {
   const {
     state: {

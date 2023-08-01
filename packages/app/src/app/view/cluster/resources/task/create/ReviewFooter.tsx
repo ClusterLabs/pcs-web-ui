@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.createResource.reviewFooter;
+const {next, back, cancel} = testMarks.task.createResource.reviewFooter;
 
 export const ReviewFooter = () => {
   const {create} = useTask();
   return (
-    <TaskFooter {...testMarks.setupCluster.reviewFooter.mark}>
+    <TaskFooter {...testMarks.task.createResource.reviewFooter.mark}>
       <WizardFooterNext
         label="Create resource"
         preAction={() => create({force: false})}

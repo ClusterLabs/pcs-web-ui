@@ -60,7 +60,7 @@ export const NameTypeTypeSelect = ({
           isGrouped
           customBadgeText={agentName.length > 0 ? agentName : undefined}
           optionsValues={filteredFenceAgentList}
-          {...testMarks.createFenceDevice.nameType.agentName.mark}
+          {...testMarks.task.createFenceDevice.nameType.agentName.mark}
         />
       </FlexItem>
     </Flex>

@@ -10,12 +10,12 @@ import {
 import {useTask} from "./useTask";
 
 const {next, back, cancel, reviewAndFinish} =
-  testMarks.setupCluster.advancedOptionsFooter;
+  testMarks.task.setupCluster.advancedOptionsFooter;
 
 export const AdvancedOptionsFooter = () => {
   const {areLinksValid} = useTask();
   return (
-    <TaskFooter {...testMarks.setupCluster.advancedOptionsFooter.mark}>
+    <TaskFooter {...testMarks.task.setupCluster.advancedOptionsFooter.mark}>
       <WizardFooterNext actionIf={areLinksValid} {...next.mark} />
       <TaskButtonBack {...back.mark} />
       <TaskButtonReviewAndFinish

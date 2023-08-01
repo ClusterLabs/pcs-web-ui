@@ -16,7 +16,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {success, unsuccess, communicationError} = testMarks.addNode;
+const {success, unsuccess, communicationError} = testMarks.task.addNode;
 
 export const Result = ({
   backStep,
@@ -43,7 +43,7 @@ export const Result = ({
             <TaskLibReport
               key={i}
               report={report}
-              {...testMarks.setupCluster.report.mark}
+              {...testMarks.task.addNode.report.mark}
             />
           )}
         />

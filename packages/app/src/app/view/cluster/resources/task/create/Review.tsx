@@ -3,7 +3,7 @@ import {ReviewItem, ReviewList, ReviewYesNo, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {review} = testMarks.createResource;
+const {review} = testMarks.task.createResource;
 
 export const Review = () => {
   const {

@@ -8,7 +8,7 @@ const {goToCluster} = shortcuts.dashboard;
 const {select} = shortcuts.patternfly;
 const {expectReview, expectReports} = shortcuts.task;
 
-const {createResource} = app;
+const {createResource} = app.task;
 const {review} = createResource;
 
 const agent = responses.resourceAgentMetadata.ocfHeartbeatDummy;

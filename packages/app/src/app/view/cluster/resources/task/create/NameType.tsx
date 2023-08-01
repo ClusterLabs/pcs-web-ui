@@ -6,7 +6,7 @@ import {FormText, TaskLibStep} from "app/view/share";
 import {useTask} from "./useTask";
 import {NameTypeTypeSelect} from "./NameTypeTypeSelect";
 
-const {nameType} = testMarks.createResource;
+const {nameType} = testMarks.task.createResource;
 export const NameType = () => {
   const {
     state: {
