@@ -8,14 +8,14 @@ type Permission = Parameters<
 >[0]["permissionInfoList"][number];
 
 const {radioGroup} = shortcuts.patternfly;
-const {aclRoleAddPermission} = app.task;
+const {aclRoleAddPermission} = marks.task;
 
 const roleId = "first";
 const permission_1: Permission = ["read", "id", "some-id"];
 const permission_2: Permission = ["write", "xpath", "some-xpath"];
 
 const openTask = async () => {
-  await click(app.clusterDetail.acl.currentRole.toolbar.addPermissions);
+  await click(marks.clusterDetail.acl.currentRole.toolbar.addPermissions);
   await isVisible(aclRoleAddPermission);
 };
 

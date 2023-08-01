@@ -5,7 +5,7 @@ import * as shortcuts from "test/shortcuts";
 
 const {goToCluster} = shortcuts.dashboard;
 const {textIs} = shortcuts.expect;
-const {clusterDetail} = app;
+const {clusterDetail} = marks;
 
 const clusterName = "ok";
 

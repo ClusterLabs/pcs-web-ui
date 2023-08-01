@@ -9,7 +9,7 @@ const {select} = shortcuts.patternfly;
 const {item} = shortcuts.common;
 const {expectReview, expectReports} = shortcuts.task;
 
-const {fenceDevicesToolbar} = app.clusterDetail;
+const {fenceDevicesToolbar} = marks.clusterDetail;
 
 const fenceDeviceName = "F1";
 const clusterName = "actions";
@@ -17,7 +17,7 @@ const agentName = "fence_apc";
 const ip = "127.0.0.1";
 const username = "user1";
 
-const {createFenceDevice} = app.task;
+const {createFenceDevice} = marks.task;
 const {review} = createFenceDevice;
 
 const openTask = async () => {

@@ -5,7 +5,7 @@ import {clusterStatus, goToAcl} from "./common";
 
 const {radioGroup} = shortcuts.patternfly;
 
-const {createAclRole} = app.task;
+const {createAclRole} = marks.task;
 const {review} = createAclRole;
 
 type Permission = Parameters<
@@ -18,7 +18,7 @@ const permission_1: Permission = ["read", "id", "some-id"];
 const permission_2: Permission = ["write", "xpath", "some-xpath"];
 
 const openTask = async () => {
-  await click(app.clusterDetail.aclToolbar.createRole);
+  await click(marks.clusterDetail.aclToolbar.createRole);
   await isVisible(createAclRole);
 };
 

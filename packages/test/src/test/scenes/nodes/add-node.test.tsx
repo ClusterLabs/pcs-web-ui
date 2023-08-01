@@ -4,7 +4,7 @@ import * as shortcuts from "test/shortcuts";
 const {goToCluster} = shortcuts.dashboard;
 const {toggle} = shortcuts.patternfly;
 
-const {addNode} = app.task;
+const {addNode} = marks.task;
 
 const clusterName = "actions";
 const nodeName = "newnode";
@@ -14,7 +14,7 @@ const addr = "192.168.0.10";
 const port = "1234";
 
 const openTask = async () => {
-  await click(app.clusterDetail.nodesToolbar.addNode);
+  await click(marks.clusterDetail.nodesToolbar.addNode);
   await isVisible(addNode);
 };
 

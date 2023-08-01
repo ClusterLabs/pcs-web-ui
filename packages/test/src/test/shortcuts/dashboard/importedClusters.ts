@@ -1,6 +1,6 @@
 import {SearchExp, item, search} from "test/shortcuts/common";
 
-const {cluster} = app.dashboard.clusterList;
+const {cluster} = marks.dashboard.clusterList;
 const {node} = cluster.loaded.nodes.list;
 const {resource} = cluster.loaded.resources.list;
 const {fenceDevice} = cluster.loaded.fenceDevices.list;

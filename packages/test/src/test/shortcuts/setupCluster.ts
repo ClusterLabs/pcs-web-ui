@@ -5,7 +5,7 @@ export const fillClusterNameAndNodes = async ({
   clusterName: string;
   nodeNameList: string[];
 }) => {
-  const {nameAndNodes} = app.setupCluster;
+  const {nameAndNodes} = marks.task.setupCluster;
   await nameAndNodes.clusterName.locator.fill(clusterName);
   for (let i = 0; i < nodeNameList.length; i++) {
     // WARNING: only up to 3 nodes

@@ -8,7 +8,7 @@ const {expectKeysAre} = shortcuts.expect;
 const {item} = shortcuts.common;
 const {textIs} = shortcuts.expect;
 
-const {fenceDevices} = app.clusterDetail;
+const {fenceDevices} = marks.clusterDetail;
 
 const clusterName = "test-cluster";
 const fenceDeviceId_1 = "F1";

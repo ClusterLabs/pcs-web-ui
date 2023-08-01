@@ -4,7 +4,7 @@ import * as shortcuts from "test/shortcuts";
 import {intercept} from "test/tools";
 
 const {breadcrumbs, overview, nodes, resources, fenceDevices} =
-  app.clusterDetail;
+  marks.clusterDetail;
 
 const {textIs} = shortcuts.expect;
 const {inCluster} = shortcuts.dashboard.importedClusters;
@@ -41,7 +41,7 @@ describe("To cluster transition", () => {
     await isVisible(overview);
 
     await click(breadcrumbs.dashboard);
-    await isVisible(app.dashboard);
+    await isVisible(marks.dashboard);
   });
 
   it("should allow to go to a node detail", async () => {

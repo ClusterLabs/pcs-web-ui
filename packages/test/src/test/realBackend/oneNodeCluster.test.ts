@@ -14,7 +14,7 @@ const waitForImportedClusterList = async () =>
   await page.waitForResponse(/.*\/imported-cluster-list$/);
 
 const expectImportedClusterNamesAre = async (nameList: string[]) => {
-  await expectKeysAre(app.dashboard.clusterList.cluster.name, nameList);
+  await expectKeysAre(marks.dashboard.clusterList.cluster.name, nameList);
 };
 
 describe("Web ui inside cockpit on one node cluster", () => {
@@ -24,18 +24,18 @@ describe("Web ui inside cockpit on one node cluster", () => {
       await page.goto(backend.rootUrl);
       await login(username, password);
 
-      await isVisible(app.dashboard.clusterList);
+      await isVisible(marks.dashboard.clusterList);
       // we expect to start with no cluster
       await expectImportedClusterNamesAre([]);
 
-      await click(app.dashboard.toolbar.setupCluster);
+      await click(marks.dashboard.toolbar.setupCluster);
       await setupCluster({clusterName, nodeNameList: [nodeName]});
       await expectImportedClusterNamesAre([clusterName]);
 
       await removeCluster(clusterName);
       await expectImportedClusterNamesAre([]);
 
-      await click(app.dashboard.toolbar.importExistingCluster);
+      await click(marks.dashboard.toolbar.importExistingCluster);
       await importExistingCluster(nodeName);
       await expectImportedClusterNamesAre([clusterName]);
 
@@ -56,12 +56,12 @@ describe("Web ui inside cockpit on one node cluster", () => {
 });
 
 const importExistingCluster = async (nodeName: string) => {
-  await isVisible(app.task.importExistingCluster);
+  await isVisible(marks.task.importExistingCluster);
 
   const {nodeNameFooter, prepareNode, prepareNodeFooter, success} =
-    app.task.importExistingCluster;
+    marks.task.importExistingCluster;
 
-  await fill(app.task.importExistingCluster.nodeName, nodeName);
+  await fill(marks.task.importExistingCluster.nodeName, nodeName);
   await click(nodeNameFooter.checkAuthentication);
   await isVisible(prepareNode.success);
 
@@ -75,14 +75,14 @@ const importExistingCluster = async (nodeName: string) => {
 };
 
 const removeCluster = async (clusterName: string) => {
-  const {actions} = app.dashboard.clusterList.cluster.loaded;
+  const {actions} = marks.dashboard.clusterList.cluster.loaded;
   await click(importedClusters.inCluster(clusterName).get(actions));
   await click(importedClusters.inCluster(clusterName).get(actions.remove));
   await isVisible(actions.remove.confirm);
   await Promise.all([
     waitForImportedClusterList(),
     page.waitForResponse(/.*\/manage\/removecluster$/),
-    isVisible(app.notifications.toast.success),
+    isVisible(marks.notifications.toast.success),
     click(actions.remove.confirm.run),
   ]);
   // give page chance to redraw after loading imported-cluster-list
@@ -90,14 +90,14 @@ const removeCluster = async (clusterName: string) => {
 };
 
 const destroyCluster = async (clusterName: string) => {
-  const {actions} = app.dashboard.clusterList.cluster.loaded;
+  const {actions} = marks.dashboard.clusterList.cluster.loaded;
   await click(importedClusters.inCluster(clusterName).get(actions));
   await click(importedClusters.inCluster(clusterName).get(actions.destroy));
   await isVisible(actions.destroy.confirm);
   await Promise.all([
     waitForImportedClusterList(),
     page.waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
-    isVisible(app.notifications.toast.success),
+    isVisible(marks.notifications.toast.success),
     click(actions.destroy.confirm.run),
   ]);
   // give page chance to redraw after loading imported-cluster-list
@@ -112,9 +112,9 @@ const setupCluster = async ({
   nodeNameList: string[];
 }) => {
   const {nameAndNodesFooter, prepareNodesFooter, reviewFooter, success} =
-    app.task.setupCluster;
+    marks.task.setupCluster;
   const {fillClusterNameAndNodes} = shortcuts.setupCluster;
-  await isVisible(app.task.setupCluster);
+  await isVisible(marks.task.setupCluster);
 
   await fillClusterNameAndNodes({clusterName, nodeNameList});
   await click(nameAndNodesFooter.next);

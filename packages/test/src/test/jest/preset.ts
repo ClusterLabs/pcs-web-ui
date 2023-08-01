@@ -13,7 +13,7 @@ declare global {
   var isAbsent: typeof locatorTools.isAbsent;
   var fill: typeof locatorTools.fill;
   var isLocator: typeof locatorTools.isLocator;
-  var app: ReturnType<typeof locatorTools.getApp>;
+  var marks: ReturnType<typeof locatorTools.getApp>;
   var backend: ReturnType<typeof getBackend>;
   var login: ReturnType<typeof getLogin>;
   type Mark = locatorTools.Mark;
@@ -36,7 +36,7 @@ export default async () => {
   global.locatorFor = locatorTools.locatorFor;
   global.backend = getBackend(envType);
   global.login = getLogin(envType);
-  global.app = locatorTools.getApp(envType);
+  global.marks = locatorTools.getApp(envType);
   global.click = locatorTools.click;
   global.fill = locatorTools.fill;
   global.isVisible = locatorTools.isVisible;
