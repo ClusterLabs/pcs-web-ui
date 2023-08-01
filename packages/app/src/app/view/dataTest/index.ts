@@ -7,6 +7,7 @@ import {notifications} from "./notifications";
 import {dashboard} from "./dashboard";
 import {clusterDetail} from "./clusterDetail";
 import {createAclRole} from "./createAclRole";
+import {aclRoleAddPermission} from "./aclRoleAddPermission";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubStructure extends Record<string, SubStructure> {}
@@ -27,6 +28,7 @@ export const structure = {
   clusterDetail,
   addNode,
   createAclRole,
+  aclRoleAddPermission,
   createFenceDevice,
   createResource,
   importExistingCluster,

@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   Add,
   Kind,
@@ -9,6 +10,8 @@ import {
 
 import {useTask} from "./useTask";
 
+const {permission, add} = testMarks.aclRoleAddPermission;
+
 export const Configure = () => {
   const {
     updatePermissions,
@@ -18,32 +21,40 @@ export const Configure = () => {
   return (
     <PermissionsForm
       permissionList={permissionInfoList}
-      scope={(permission, index) => (
+      scope={(p, index) => (
         <Scope
           index={index}
-          scope={permission[2]}
+          scope={p[2]}
           showValidationErrors={showValidationErrors}
           updatePermissions={updatePermissions}
+          {...permission.scope.mark}
         />
       )}
-      scopeType={(permission, index) => (
+      scopeType={(p, index) => (
         <ScopeType
           index={index}
-          scopeType={permission[1]}
+          scopeType={p[1]}
           updatePermissions={updatePermissions}
+          {...permission.scopeType.mark}
         />
       )}
-      kind={(permission, index) => (
+      kind={(p, index) => (
         <Kind
           index={index}
-          kind={permission[0]}
+          kind={p[0]}
           updatePermissions={updatePermissions}
+          {...permission.kind.mark}
         />
       )}
       remove={(_, index) => (
-        <Remove index={index} updatePermissions={updatePermissions} />
+        <Remove
+          index={index}
+          updatePermissions={updatePermissions}
+          {...permission.remove.mark}
+        />
       )}
-      add={<Add updatePermissions={updatePermissions} />}
+      add={<Add updatePermissions={updatePermissions} {...add.mark} />}
+      {...permission.mark}
     />
   );
 };

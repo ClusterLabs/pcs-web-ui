@@ -1,7 +1,7 @@
 import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
-import {clusterStatus} from "./common";
+import {clusterStatus, openRole, roleListItem} from "./common";
 
 const {goToCluster} = shortcuts.dashboard;
 const {item} = shortcuts.common;
@@ -11,7 +11,7 @@ const {acl} = app.clusterDetail;
 const {lists} = acl;
 
 const roleListValue = (roleId: string) => (mark: Mark) =>
-  item(lists.role).byKey(lists.role.id, roleId).locator(locatorFor(mark));
+  roleListItem(roleId).locator(locatorFor(mark));
 
 const userListValue = (userId: string) => (mark: Mark) =>
   item(lists.user).byKey(lists.user.id, userId).locator(locatorFor(mark));
@@ -47,7 +47,7 @@ describe("ACL view", () => {
   });
 
   it("should display role", async () => {
-    await click(roleListValue("first")(lists.role.id));
+    await openRole("first");
     await isVisible(acl.currentRole);
     await textIs(acl.currentRole.id, "first");
   });

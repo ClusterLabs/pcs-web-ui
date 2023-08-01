@@ -2,6 +2,7 @@
 export * from "./TaskButtonBack";
 export * from "./TaskButtonCancel";
 export * from "./TaskButtonReviewAndFinish";
+export * from "./TaskButtonNextWithValidation";
 export * from "./TaskLibReportList";
 export * from "./TaskLibReport";
 export * from "./TaskLibStep";

@@ -22,11 +22,6 @@ const openTask = async () => {
   await isVisible(createAclRole);
 };
 
-const reviewPermission = (
-  nth: number,
-  getMark: (permission: typeof review.permission) => Mark,
-) => shortcuts.common.item(review.permission).byIndex(nth).locator(getMark);
-
 describe("Create acl role task", () => {
   it("should successfully create new role", async () => {
     intercept.shortcuts.interceptWithCluster({
@@ -66,12 +61,12 @@ describe("Create acl role task", () => {
     await shortcuts.task.expectReview([
       [review.roleId, roleId],
       [review.roleDescription, description],
-      [reviewPermission(0, ({kind}) => kind), permission_1[0]],
-      [reviewPermission(0, ({scopeType}) => scopeType), permission_1[1]],
-      [reviewPermission(0, ({scope}) => scope), permission_1[2]],
-      [reviewPermission(1, ({kind}) => kind), permission_2[0]],
-      [reviewPermission(1, ({scopeType}) => scopeType), permission_2[1]],
-      [reviewPermission(1, ({scope}) => scope), permission_2[2]],
+      [review.permission.kind.locator.nth(0), permission_1[0]],
+      [review.permission.scopeType.locator.nth(0), permission_1[1]],
+      [review.permission.scope.locator.nth(0), permission_1[2]],
+      [review.permission.kind.locator.nth(1), permission_2[0]],
+      [review.permission.scopeType.locator.nth(1), permission_2[1]],
+      [review.permission.scope.locator.nth(1), permission_2[2]],
     ]);
 
     await click(createAclRole.reviewFooter.next);

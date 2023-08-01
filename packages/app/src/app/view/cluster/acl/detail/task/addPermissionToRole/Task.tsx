@@ -1,4 +1,7 @@
+import {testMarks} from "app/view/dataTest";
 import {
+  TaskButtonCancel,
+  TaskButtonNextWithValidation,
   TaskFinishLibCommunicationError,
   TaskFinishLibUnsuccess,
   TaskLibReportList,
@@ -9,12 +12,13 @@ import {
   TaskResultActionTryAgain,
   TaskResultLib,
   TaskSimple,
-  TaskSimpleFooter,
   TaskSuccess,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
+
+const {aclRoleAddPermission: task} = testMarks;
 
 export const Task = () => {
   const {
@@ -33,43 +37,72 @@ export const Task = () => {
     <TaskSimple
       taskLabel={taskLabel}
       task={"aclRolePermissionAdd"}
-      data-test="task-acl-role-add-permissions"
+      {...task.mark}
       clusterName={clusterName}
       close={close}
       footer={
         response !== "no-response" ? null : (
-          <TaskSimpleFooter
-            run={aclRolePermissionAdd}
-            runLabel="Add permissions to role"
-            nextIf={invalidPermissionIndexes.length === 0}
-          />
+          <>
+            <TaskButtonNextWithValidation
+              run={aclRolePermissionAdd}
+              runIf={invalidPermissionIndexes.length === 0}
+              {...task.run.mark}
+            >
+              Add permissions to role
+            </TaskButtonNextWithValidation>
+            <TaskButtonCancel {...task.cancel.mark} />
+          </>
         )
       }
     >
-      {response === "no-response" && <Configure />}
-      {response !== "no-response" && (
+      {response === "no-response" ? (
+        <Configure />
+      ) : (
         <TaskResultLib
           response={response}
-          success={<TaskSuccess primaryAction={<TaskResultAction />} />}
+          success={
+            <TaskSuccess
+              primaryAction={<TaskResultAction {...task.success.close.mark} />}
+              {...task.success.mark}
+            />
+          }
           unsuccess={
             <TaskFinishLibUnsuccess
               reports={reports}
-              back={<TaskResultActionBackCluster />}
-              proceed={
-                <TaskResultActionProceedAnyway action={aclRolePermissionAdd} />
+              back={
+                <TaskResultActionBackCluster {...task.unsuccess.back.mark} />
               }
-              cancel={<TaskResultActionCancel />}
+              proceed={
+                <TaskResultActionProceedAnyway
+                  action={aclRolePermissionAdd}
+                  {...task.unsuccess.proceedAnyway.mark}
+                />
+              }
+              cancel={
+                <TaskResultActionCancel {...task.unsuccess.cancel.mark} />
+              }
+              {...task.unsuccess.mark}
             />
           }
           communicationError={
             <TaskFinishLibCommunicationError
               tryAgain={
-                <TaskResultActionTryAgain action={aclRolePermissionAdd} />
+                <TaskResultActionTryAgain
+                  action={aclRolePermissionAdd}
+                  {...task.communicationError.tryAgain.mark}
+                />
               }
-              cancel={<TaskResultActionCancel />}
+              cancel={
+                <TaskResultActionCancel
+                  {...task.communicationError.cancel.mark}
+                />
+              }
+              {...task.communicationError.mark}
             />
           }
-          reports={<TaskLibReportList reports={reports} />}
+          reports={
+            <TaskLibReportList reports={reports} {...task.report.mark} />
+          }
         />
       )}
     </TaskSimple>

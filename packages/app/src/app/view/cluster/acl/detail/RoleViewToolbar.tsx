@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {DetailToolbar, TaskOpenArgs} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
@@ -6,6 +7,8 @@ import * as task from "./task";
 type AssignSubjectOpenArgs = TaskOpenArgs<
   typeof task.assignSubjectToRole.useTask
 >;
+
+const {toolbar} = testMarks.clusterDetail.acl.currentRole;
 
 export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
   const {clusterName} = useLoadedCluster();
@@ -27,6 +30,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
             useTask: task.assignSubjectToRole.useTask,
             openArgs: assignUserOpenArgs,
           },
+          ...toolbar.assignUser.mark,
         },
         {
           name: "add-permissions",
@@ -34,6 +38,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
             component: task.addPermissionToRole.Task,
             useTask: task.addPermissionToRole.useTask,
           },
+          ...toolbar.addPermissions.mark,
         },
       ]}
       dropdownItems={[
@@ -44,6 +49,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
             useTask: task.assignSubjectToRole.useTask,
             openArgs: assignGroupOpenArgs,
           },
+          ...toolbar.assignGroup.mark,
         },
         {
           name: "delete-role",
@@ -61,9 +67,14 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
                 },
               },
             },
+            runMark: toolbar.deleteRole.confirm.run.mark,
+            cancelMark: toolbar.deleteRole.confirm.cancel.mark,
+            ...toolbar.deleteRole.confirm.mark,
           },
+          ...toolbar.deleteRole.mark,
         },
       ]}
+      {...toolbar.mark}
     />
   );
 };

@@ -17,6 +17,17 @@ export const acl = {
   },
   currentRole: {
     id: {},
+    toolbar: {
+      addPermissions: {},
+      assignUser: {},
+      assignGroup: {},
+      deleteRole: {
+        confirm: {
+          run: {},
+          cancel: {},
+        },
+      },
+    },
   },
   currentUser: {
     id: {},
