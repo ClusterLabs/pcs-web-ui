@@ -1,17 +1,17 @@
 import {aclRoleAddPermission} from "./aclRoleAddPermission";
-import {addNode} from "./addNode";
-import {createAclRole} from "./createAclRole";
-import {createFenceDevice} from "./createFenceDevice";
-import {createResource} from "./createResource";
-import {importExistingCluster} from "./importExistingCluster";
-import {setupCluster} from "./setupCluster";
+import {nodeAdd} from "./nodeAdd";
+import {aclRoleCreate} from "./aclRoleCreate";
+import {fenceDeviceCreate} from "./fenceDeviceCreate";
+import {resourceCreate} from "./resourceCreate";
+import {clusterImportExisting} from "./clusterImportExisting";
+import {clusterSetup} from "./clusterSetup";
 
 export const task = {
   aclRoleAddPermission,
-  addNode,
-  createAclRole,
-  createFenceDevice,
-  createResource,
-  importExistingCluster,
-  setupCluster,
+  aclRoleCreate,
+  clusterImportExisting,
+  clusterSetup,
+  fenceDeviceCreate,
+  nodeAdd,
+  resourceCreate,
 };

@@ -6,7 +6,7 @@ import {FormRadios} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {quorum} = testMarks.task.setupCluster.advancedOptions;
+const {quorum} = testMarks.task.clusterSetup.advancedOptions;
 
 export const Quorum = () => {
   const {

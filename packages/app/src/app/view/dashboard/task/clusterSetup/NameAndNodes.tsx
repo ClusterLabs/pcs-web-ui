@@ -15,7 +15,7 @@ export const NameAndNodes = () => {
     updateClusterName,
     updateNode,
   } = useTask();
-  const testMarksForm = testMarks.task.setupCluster.nameAndNodes;
+  const testMarksForm = testMarks.task.clusterSetup.nameAndNodes;
   const {node} = testMarksForm;
   return (
     <TaskLibStep

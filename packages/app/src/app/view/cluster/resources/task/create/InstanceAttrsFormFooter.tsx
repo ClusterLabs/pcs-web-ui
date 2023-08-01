@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.task.createResource.instanceAttrsFooter;
+const {next, back, cancel} = testMarks.task.resourceCreate.instanceAttrsFooter;
 
 export const InstanceAttrsFormFooter = () => {
   const {areInstanceAttrsValid, isAgentLoaded} = useTask();
   return (
-    <TaskFooter {...testMarks.task.createResource.instanceAttrsFooter.mark}>
+    <TaskFooter {...testMarks.task.resourceCreate.instanceAttrsFooter.mark}>
       <WizardFooterNext
         actionIf={areInstanceAttrsValid}
         disabled={!isAgentLoaded}

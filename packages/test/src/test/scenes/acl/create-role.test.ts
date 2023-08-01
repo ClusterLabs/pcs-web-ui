@@ -5,8 +5,8 @@ import {clusterStatus, goToAcl} from "./common";
 
 const {radioGroup} = shortcuts.patternfly;
 
-const {createAclRole} = marks.task;
-const {review} = createAclRole;
+const {aclRoleCreate} = marks.task;
+const {review} = aclRoleCreate;
 
 type Permission = Parameters<
   typeof route.aclRoleCreate
@@ -19,7 +19,7 @@ const permission_2: Permission = ["write", "xpath", "some-xpath"];
 
 const openTask = async () => {
   await click(marks.cluster.aclToolbar.createRole);
-  await isVisible(createAclRole);
+  await isVisible(aclRoleCreate);
 };
 
 describe("Create acl role task", () => {
@@ -37,15 +37,15 @@ describe("Create acl role task", () => {
     });
     await goToAcl(clusterStatus.cluster_name);
     await openTask();
-    await fill(createAclRole.roleName.roleId, roleId);
-    await fill(createAclRole.roleName.description, description);
+    await fill(aclRoleCreate.roleName.roleId, roleId);
+    await fill(aclRoleCreate.roleName.description, description);
 
-    await click(createAclRole.roleNameFooter.next);
+    await click(aclRoleCreate.roleNameFooter.next);
 
     const {
       add,
       permission: {kind, scopeType, scope},
-    } = createAclRole.addPermissions;
+    } = aclRoleCreate.addPermissions;
 
     await radioGroup(kind.locator.nth(0), permission_1[0]);
     await radioGroup(scopeType.locator.nth(0), permission_1[1]);
@@ -56,7 +56,7 @@ describe("Create acl role task", () => {
     await radioGroup(scopeType.locator.nth(1), permission_2[1]);
     await fill(scope.locator.nth(1), permission_2[2]);
 
-    await click(createAclRole.addPermissionsFooter.next);
+    await click(aclRoleCreate.addPermissionsFooter.next);
 
     await shortcuts.task.expectReview([
       [review.roleId, roleId],
@@ -69,7 +69,7 @@ describe("Create acl role task", () => {
       [review.permission.scope.locator.nth(1), permission_2[2]],
     ]);
 
-    await click(createAclRole.reviewFooter.next);
-    await isVisible(createAclRole.success);
+    await click(aclRoleCreate.reviewFooter.next);
+    await isVisible(aclRoleCreate.success);
   });
 });

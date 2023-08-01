@@ -1,4 +1,4 @@
-export const createFenceDevice = {
+export const resourceCreate = {
   nameType: {
     name: {},
     agentName: {},
@@ -21,6 +21,11 @@ export const createFenceDevice = {
   },
   settings: {
     disabled: {},
+    clone: {},
+    promotable: {},
+    useGroup: {},
+    existingGroup: {},
+    newGroup: {},
   },
   settingsFooter: {
     next: {},
@@ -35,6 +40,11 @@ export const createFenceDevice = {
       value: {},
     },
     disabled: {},
+    clone: {},
+    promotable: {},
+    noGroup: {},
+    newGroup: {},
+    existingGroup: {},
   },
   reviewFooter: {
     next: {},

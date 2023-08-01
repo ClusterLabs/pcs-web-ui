@@ -28,7 +28,7 @@ export const ResourceCreate = () => {
     <Wizard
       clusterName={clusterName}
       task="resourceCreate"
-      {...testMarks.task.createResource.mark}
+      {...testMarks.task.resourceCreate.mark}
       onClose={close}
       taskLabel={`create resource "${resourceName}"`}
       description="Create new resource"

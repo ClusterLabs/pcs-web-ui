@@ -14,7 +14,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {success, unsuccess, communicationError} = testMarks.task.createAclRole;
+const {success, unsuccess, communicationError} = testMarks.task.aclRoleCreate;
 
 export const Result = ({
   backStep,
@@ -38,7 +38,7 @@ export const Result = ({
             <TaskLibReport
               key={i}
               report={report}
-              {...testMarks.task.createAclRole.report.mark}
+              {...testMarks.task.aclRoleCreate.report.mark}
             />
           )}
         />

@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.task.createFenceDevice.nameTypeFooter;
+const {next, back, cancel} = testMarks.task.fenceDeviceCreate.nameTypeFooter;
 
 export const NameTypeFooter = () => {
   const {isNameTypeValid} = useTask();
   return (
-    <TaskFooter {...testMarks.task.createFenceDevice.nameTypeFooter.mark}>
+    <TaskFooter {...testMarks.task.fenceDeviceCreate.nameTypeFooter.mark}>
       <WizardFooterNext actionIf={isNameTypeValid} {...next.mark} />
       <TaskButtonBack disabled={true} {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />

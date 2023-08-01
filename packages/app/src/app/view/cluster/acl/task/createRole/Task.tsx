@@ -10,7 +10,7 @@ import {Review} from "./Review";
 import {ReviewFooter} from "./ReviewFooter";
 import {Result} from "./Result";
 
-const {createAclRole} = testMarks.task;
+const {aclRoleCreate: createAclRole} = testMarks.task;
 
 const enterRoleName = "Enter role name";
 const review = "Review";

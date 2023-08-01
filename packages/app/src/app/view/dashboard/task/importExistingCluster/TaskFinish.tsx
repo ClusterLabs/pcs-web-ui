@@ -11,7 +11,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {success, error} = testMarks.task.importExistingCluster;
+const {success, error} = testMarks.task.clusterImportExisting;
 
 export const TaskFinish = ({
   backToUpdateSettingsStepName,

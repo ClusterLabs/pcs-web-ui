@@ -10,7 +10,7 @@ import {
 import {useTask} from "./useTask";
 
 const {addExistringCluster, back, cancel, authenticate} =
-  testMarks.task.importExistingCluster.prepareNodeFooter;
+  testMarks.task.clusterImportExisting.prepareNodeFooter;
 
 export const PrepareNodeFooter = () => {
   const {
@@ -20,7 +20,7 @@ export const PrepareNodeFooter = () => {
   } = useTask();
   return (
     <TaskFooter
-      {...testMarks.task.importExistingCluster.prepareNodeFooter.mark}
+      {...testMarks.task.clusterImportExisting.prepareNodeFooter.mark}
     >
       {authProcessId ? (
         <NodesAuthWizardNext

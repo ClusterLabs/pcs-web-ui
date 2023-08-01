@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.task.createAclRole.roleNameFooter;
+const {next, back, cancel} = testMarks.task.aclRoleCreate.roleNameFooter;
 
 export const RoleNameFooter = () => {
   const {isNameValid} = useTask();
   return (
-    <TaskFooter {...testMarks.task.createAclRole.roleNameFooter.mark}>
+    <TaskFooter {...testMarks.task.aclRoleCreate.roleNameFooter.mark}>
       <WizardFooterNext actionIf={isNameValid} {...next.mark} />
       <TaskButtonBack disabled={true} {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />

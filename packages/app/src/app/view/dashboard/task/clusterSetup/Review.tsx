@@ -4,7 +4,7 @@ import {testMarks} from "app/view/dataTest";
 import {useTask} from "./useTask";
 import {ReviewLink} from "./ReviewLink";
 
-const {review} = testMarks.task.setupCluster;
+const {review} = testMarks.task.clusterSetup;
 const {knetLink, transport, quorum, totem} = review;
 export const Review = () => {
   const {

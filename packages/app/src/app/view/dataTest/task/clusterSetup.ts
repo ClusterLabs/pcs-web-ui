@@ -57,7 +57,7 @@ const transport = {
   },
 };
 
-export const setupCluster = {
+export const clusterSetup = {
   nameAndNodes: {
     clusterName: {},
     node: {

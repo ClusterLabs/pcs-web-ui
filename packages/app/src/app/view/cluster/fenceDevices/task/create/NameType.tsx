@@ -6,7 +6,7 @@ import {FormText, TaskLibStep} from "app/view/share";
 import {useTask} from "./useTask";
 import {NameTypeTypeSelect} from "./NameTypeTypeSelect";
 
-const {nameType} = testMarks.task.createFenceDevice;
+const {nameType} = testMarks.task.fenceDeviceCreate;
 
 export const NameType = () => {
   const {

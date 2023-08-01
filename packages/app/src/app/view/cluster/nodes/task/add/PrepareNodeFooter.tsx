@@ -9,7 +9,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {auth, next, back, cancel} = testMarks.task.addNode.prepareNodeFooter;
+const {auth, next, back, cancel} = testMarks.task.nodeAdd.prepareNodeFooter;
 
 export const PrepareNodeFooter = () => {
   const {
@@ -18,7 +18,7 @@ export const PrepareNodeFooter = () => {
   } = useTask();
 
   return (
-    <TaskFooter {...testMarks.task.addNode.prepareNodeFooter.mark}>
+    <TaskFooter {...testMarks.task.nodeAdd.prepareNodeFooter.mark}>
       {authProcessId ? (
         <NodesAuthNext authProcessId={authProcessId} {...auth.mark} />
       ) : (

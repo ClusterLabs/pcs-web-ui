@@ -1,4 +1,4 @@
-export const addNode = {
+export const nodeAdd = {
   nodeName: {
     name: {},
   },

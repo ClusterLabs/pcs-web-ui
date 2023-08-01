@@ -18,7 +18,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {prepareNode} = testMarks.task.importExistingCluster;
+const {prepareNode} = testMarks.task.clusterImportExisting;
 const {auth} = prepareNode;
 export const PrepareNode = () => {
   const {

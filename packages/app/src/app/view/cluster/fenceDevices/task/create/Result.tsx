@@ -16,7 +16,7 @@ import {
 import {useTask} from "./useTask";
 
 const {success, unsuccess, communicationError} =
-  testMarks.task.createFenceDevice;
+  testMarks.task.fenceDeviceCreate;
 
 export const Result = ({
   backStep,
@@ -41,7 +41,7 @@ export const Result = ({
             <TaskLibReport
               key={i}
               report={report}
-              {...testMarks.task.createFenceDevice.report.mark}
+              {...testMarks.task.fenceDeviceCreate.report.mark}
             />
           )}
         />

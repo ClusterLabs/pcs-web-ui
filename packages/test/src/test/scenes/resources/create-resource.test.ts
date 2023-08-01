@@ -8,8 +8,8 @@ const {goToCluster} = shortcuts.dashboard;
 const {select} = shortcuts.patternfly;
 const {expectReview, expectReports} = shortcuts.task;
 
-const {createResource} = marks.task;
-const {review} = createResource;
+const {resourceCreate} = marks.task;
+const {review} = resourceCreate;
 
 const agent = responses.resourceAgentMetadata.ocfHeartbeatDummy;
 
@@ -19,7 +19,7 @@ const agentName = agent.name;
 
 const openTask = async () => {
   await click(marks.cluster.resourcesToolbar.createResource);
-  await isVisible(createResource);
+  await isVisible(resourceCreate);
 };
 
 describe("Create resource task", () => {
@@ -46,20 +46,20 @@ describe("Create resource task", () => {
   it("should successfully create new fence device", async () => {
     await goToCluster(clusterName, tabs => tabs.resources);
     await openTask();
-    await fill(createResource.nameType.name, resourceId);
+    await fill(resourceCreate.nameType.name, resourceId);
     await select(
-      createResource.nameType.agentName,
+      resourceCreate.nameType.agentName,
       agentName.split(":").at(-1),
     );
-    await click(createResource.nameTypeFooter.next);
-    await click(createResource.instanceAttrsFooter.next);
-    await click(createResource.settingsFooter.next);
+    await click(resourceCreate.nameTypeFooter.next);
+    await click(resourceCreate.instanceAttrsFooter.next);
+    await click(resourceCreate.settingsFooter.next);
     await expectReview([
       [review.name, resourceId],
       [review.agentName, agentName],
     ]);
-    await click(createResource.reviewFooter.next);
-    await isVisible(createResource.success);
-    await expectReports(createResource.report).count(0);
+    await click(resourceCreate.reviewFooter.next);
+    await isVisible(resourceCreate.success);
+    await expectReports(resourceCreate.report).count(0);
   });
 });

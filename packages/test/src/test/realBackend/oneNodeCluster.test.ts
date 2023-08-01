@@ -56,12 +56,12 @@ describe("Web ui inside cockpit on one node cluster", () => {
 });
 
 const importExistingCluster = async (nodeName: string) => {
-  await isVisible(marks.task.importExistingCluster);
+  await isVisible(marks.task.clusterImportExisting);
 
   const {nodeNameFooter, prepareNode, prepareNodeFooter, success} =
-    marks.task.importExistingCluster;
+    marks.task.clusterImportExisting;
 
-  await fill(marks.task.importExistingCluster.nodeName, nodeName);
+  await fill(marks.task.clusterImportExisting.nodeName, nodeName);
   await click(nodeNameFooter.checkAuthentication);
   await isVisible(prepareNode.success);
 
@@ -112,9 +112,9 @@ const setupCluster = async ({
   nodeNameList: string[];
 }) => {
   const {nameAndNodesFooter, prepareNodesFooter, reviewFooter, success} =
-    marks.task.setupCluster;
+    marks.task.clusterSetup;
   const {fillClusterNameAndNodes} = shortcuts.setupCluster;
-  await isVisible(marks.task.setupCluster);
+  await isVisible(marks.task.clusterSetup);
 
   await fillClusterNameAndNodes({clusterName, nodeNameList});
   await click(nameAndNodesFooter.next);

@@ -21,7 +21,7 @@ const {
   reviewFooter,
   success,
   unsuccess,
-} = marks.task.setupCluster;
+} = marks.task.clusterSetup;
 
 const {fillClusterNameAndNodes} = shortcuts.setupCluster;
 const {fieldError} = shortcuts.patternfly;
@@ -60,7 +60,7 @@ const sendMinimalSetup = async () => {
 };
 
 const taskClosed = async () => {
-  await isAbsent(marks.task.setupCluster);
+  await isAbsent(marks.task.clusterSetup);
 };
 
 describe("Cluster setup", () => {

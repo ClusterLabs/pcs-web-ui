@@ -1,6 +1,6 @@
 import {notifications} from "./notifications";
 import {dashboard} from "./dashboard";
-import {cluster} from "./clusterDetail";
+import {cluster} from "./cluster";
 import {task} from "./task";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

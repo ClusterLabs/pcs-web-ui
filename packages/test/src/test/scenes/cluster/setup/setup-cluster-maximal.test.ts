@@ -20,7 +20,7 @@ const {
   review,
   reviewFooter,
   success,
-} = marks.task.setupCluster;
+} = marks.task.clusterSetup;
 
 const {knetLink} = review;
 const {
@@ -30,7 +30,7 @@ const {
 } = review.transport;
 
 const {transportKnet, transport, quorum, totem} =
-  marks.task.setupCluster.advancedOptions;
+  marks.task.clusterSetup.advancedOptions;
 
 const {fillClusterNameAndNodes} = shortcuts.setupCluster;
 

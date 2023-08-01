@@ -11,7 +11,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {totem} = testMarks.task.setupCluster.advancedOptions;
+const {totem} = testMarks.task.clusterSetup.advancedOptions;
 const help = helpAll.corosync.totem;
 
 type SetupParams = Parameters<typeof clusterSetup>[0];

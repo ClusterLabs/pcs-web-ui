@@ -5,7 +5,7 @@ import {TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {settings} = testMarks.task.createFenceDevice;
+const {settings} = testMarks.task.fenceDeviceCreate;
 
 export const Settings = () => {
   const {

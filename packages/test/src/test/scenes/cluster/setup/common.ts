@@ -16,9 +16,9 @@ export const interceptForClusterSetup = (routeList: intercept.Route[] = []) =>
 
 export const openTask = async () => {
   await click(marks.dashboard.toolbar.setupCluster);
-  await isVisible(marks.task.setupCluster);
+  await isVisible(marks.task.clusterSetup);
 };
 
 export const expectReports = shortcuts.task.expectReports(
-  marks.task.setupCluster.report,
+  marks.task.clusterSetup.report,
 ).count;

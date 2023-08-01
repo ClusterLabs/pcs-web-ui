@@ -5,7 +5,7 @@ import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {roleName} = testMarks.task.createAclRole;
+const {roleName} = testMarks.task.aclRoleCreate;
 
 export const RoleName = () => {
   const {

@@ -9,12 +9,12 @@ import {
 import {useTask} from "./useTask";
 
 const {next, back, cancel} =
-  testMarks.task.createFenceDevice.instanceAttrsFooter;
+  testMarks.task.fenceDeviceCreate.instanceAttrsFooter;
 
 export const InstanceAttrsFormFooter = () => {
   const {areInstanceAttrsValid, isAgentLoaded} = useTask();
   return (
-    <TaskFooter {...testMarks.task.createFenceDevice.instanceAttrsFooter.mark}>
+    <TaskFooter {...testMarks.task.fenceDeviceCreate.instanceAttrsFooter.mark}>
       <WizardFooterNext
         actionIf={areInstanceAttrsValid}
         disabled={!isAgentLoaded}

@@ -26,7 +26,7 @@ export const FenceDeviceCreate = () => {
 
   return (
     <Wizard
-      {...testMarks.task.createFenceDevice.mark}
+      {...testMarks.task.fenceDeviceCreate.mark}
       clusterName={clusterName}
       task="fenceDeviceCreate"
       onClose={close}

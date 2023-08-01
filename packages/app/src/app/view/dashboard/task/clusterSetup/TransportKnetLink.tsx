@@ -9,7 +9,7 @@ import {TransportKnetLinkToggler} from "./TransportKnetLinkToggler";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 
-const {knetLink} = testMarks.task.setupCluster.advancedOptions.transportKnet;
+const {knetLink} = testMarks.task.clusterSetup.advancedOptions.transportKnet;
 
 export const TransportKnetLink = ({link}: {link: Link}) => {
   const {

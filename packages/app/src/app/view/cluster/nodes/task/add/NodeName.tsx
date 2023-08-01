@@ -5,7 +5,7 @@ import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {nodeName: nodeNameStep} = testMarks.task.addNode;
+const {nodeName: nodeNameStep} = testMarks.task.nodeAdd;
 
 export const NodeName = () => {
   const {

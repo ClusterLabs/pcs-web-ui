@@ -1,4 +1,4 @@
-export const importExistingCluster = {
+export const clusterImportExisting = {
   nodeName: {},
   nodeNameFooter: {
     checkAuthentication: {},

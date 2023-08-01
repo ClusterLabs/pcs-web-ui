@@ -5,7 +5,7 @@ import {FormSelectOrText, FormText, Select} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {settings} = testMarks.task.createResource;
+const {settings} = testMarks.task.resourceCreate;
 
 export const SettingsGroup = () => {
   const {

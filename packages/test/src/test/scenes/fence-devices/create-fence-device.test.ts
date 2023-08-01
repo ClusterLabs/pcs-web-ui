@@ -17,16 +17,16 @@ const agentName = "fence_apc";
 const ip = "127.0.0.1";
 const username = "user1";
 
-const {createFenceDevice} = marks.task;
-const {review} = createFenceDevice;
+const {fenceDeviceCreate} = marks.task;
+const {review} = fenceDeviceCreate;
 
 const openTask = async () => {
   await click(fenceDevicesToolbar.createFenceDevice);
-  await isVisible(createFenceDevice);
+  await isVisible(fenceDeviceCreate);
 };
 
 const fillInstanceAttr = async (name: string, value: string) => {
-  const {attr} = createFenceDevice.instanceAttrs;
+  const {attr} = fenceDeviceCreate.instanceAttrs;
   await fill(item(attr).byKey(attr.name, name).locator(attr.value), value);
 };
 
@@ -57,21 +57,21 @@ describe("Fence device create task", () => {
   it("should successfully create new fence device", async () => {
     await goToCluster(clusterName, tabs => tabs.fenceDevices);
     await openTask();
-    await fill(createFenceDevice.nameType.name, fenceDeviceName);
-    await select(createFenceDevice.nameType.agentName, agentName);
-    await click(createFenceDevice.nameTypeFooter.next);
+    await fill(fenceDeviceCreate.nameType.name, fenceDeviceName);
+    await select(fenceDeviceCreate.nameType.agentName, agentName);
+    await click(fenceDeviceCreate.nameTypeFooter.next);
     await fillInstanceAttr("ip", ip);
     await fillInstanceAttr("username", username);
-    await click(createFenceDevice.instanceAttrsFooter.next);
-    await click(createFenceDevice.settingsFooter.next);
+    await click(fenceDeviceCreate.instanceAttrsFooter.next);
+    await click(fenceDeviceCreate.settingsFooter.next);
     await expectReview([
       [review.name, fenceDeviceName],
       [review.agentName, agentName],
       [reviewAttr("ip"), ip],
       [reviewAttr("username"), username],
     ]);
-    await click(createFenceDevice.reviewFooter.next);
-    await isVisible(createFenceDevice.success);
-    await expectReports(createFenceDevice.report).count(0);
+    await click(fenceDeviceCreate.reviewFooter.next);
+    await isVisible(fenceDeviceCreate.success);
+    await expectReports(fenceDeviceCreate.report).count(0);
   });
 });

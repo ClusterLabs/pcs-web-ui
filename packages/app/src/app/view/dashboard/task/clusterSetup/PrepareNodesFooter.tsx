@@ -11,7 +11,7 @@ import {
 import {useTask} from "./useTask";
 
 const {auth, next, back, cancel, reviewAndFinish} =
-  testMarks.task.setupCluster.prepareNodesFooter;
+  testMarks.task.clusterSetup.prepareNodesFooter;
 
 export const PrepareNodesFooter = () => {
   const {
@@ -20,7 +20,7 @@ export const PrepareNodesFooter = () => {
   } = useTask();
 
   return (
-    <TaskFooter {...testMarks.task.setupCluster.prepareNodesFooter.mark}>
+    <TaskFooter {...testMarks.task.clusterSetup.prepareNodesFooter.mark}>
       {authProcessId ? (
         <NodesAuthNext authProcessId={authProcessId} {...auth.mark} />
       ) : (

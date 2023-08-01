@@ -29,7 +29,7 @@ export const NodeAdd = () => {
     <Wizard
       task="nodeAdd"
       clusterName={clusterName}
-      {...testMarks.task.addNode.mark}
+      {...testMarks.task.nodeAdd.mark}
       onClose={close}
       taskLabel={`add node ${nodeName}`}
       description="Add node to the cluster"

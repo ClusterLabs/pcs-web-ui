@@ -8,7 +8,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {nodeNameFooter} = testMarks.task.importExistingCluster;
+const {nodeNameFooter} = testMarks.task.clusterImportExisting;
 const {checkAuthentication, back, cancel} = nodeNameFooter;
 
 export const NodeNameFooter = () => {

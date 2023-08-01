@@ -29,7 +29,7 @@ const useFilterState = () =>
     "all-off-display-none",
   );
 
-const {attr} = testMarks.task.createFenceDevice.instanceAttrs;
+const {attr} = testMarks.task.fenceDeviceCreate.instanceAttrs;
 
 export const InstanceAttrsForm = () => {
   const {
@@ -46,7 +46,7 @@ export const InstanceAttrsForm = () => {
     <TaskLibStep
       title={`Instance attributes (${agentName})`}
       reports={reports}
-      {...testMarks.task.createFenceDevice.instanceAttrs.mark}
+      {...testMarks.task.fenceDeviceCreate.instanceAttrs.mark}
     >
       <LoadedPcmkAgent agentName={agentName}>
         {agent => {

@@ -5,7 +5,7 @@ import {FormSwitch, FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
-const {sbd} = testMarks.task.addNode;
+const {sbd} = testMarks.task.nodeAdd;
 export const Sbd = () => {
   const {
     isSbdEnabled,

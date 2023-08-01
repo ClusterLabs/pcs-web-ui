@@ -25,7 +25,7 @@ const ADD_LINK = "add";
 const NO_LINK = "no link";
 const MAX_LINKS = 8;
 
-const {addKnetLink} = testMarks.task.setupCluster.advancedOptions.transportKnet;
+const {addKnetLink} = testMarks.task.clusterSetup.advancedOptions.transportKnet;
 
 export const TransportKnet = ({linkList}: {linkList: Link[]}) => {
   const [currentTabIndex, setCurrentTabIndex] = React.useState<
@@ -96,7 +96,7 @@ export const TransportKnet = ({linkList}: {linkList: Link[]}) => {
     <TaskLibStep
       title="Knet transport"
       reports={allReports}
-      {...testMarks.task.setupCluster.advancedOptions.transportKnet.mark}
+      {...testMarks.task.clusterSetup.advancedOptions.transportKnet.mark}
     >
       {!areLinksValid && showValidationErrors && (
         <Alert

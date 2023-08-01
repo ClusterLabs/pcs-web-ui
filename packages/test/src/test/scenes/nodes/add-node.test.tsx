@@ -4,7 +4,7 @@ import * as shortcuts from "test/shortcuts";
 const {goToCluster} = shortcuts.dashboard;
 const {toggle} = shortcuts.patternfly;
 
-const {addNode} = marks.task;
+const {nodeAdd} = marks.task;
 
 const clusterName = "actions";
 const nodeName = "newnode";
@@ -15,7 +15,7 @@ const port = "1234";
 
 const openTask = async () => {
   await click(marks.cluster.nodesToolbar.addNode);
-  await isVisible(addNode);
+  await isVisible(nodeAdd);
 };
 
 describe("Add node task", () => {
@@ -37,20 +37,20 @@ describe("Add node task", () => {
     });
     await goToCluster(clusterName, tabs => tabs.nodes);
     await openTask();
-    await fill(addNode.nodeName.name, nodeName);
-    await click(addNode.nodeNameFooter.next);
+    await fill(nodeAdd.nodeName.name, nodeName);
+    await click(nodeAdd.nodeNameFooter.next);
 
-    await toggle(addNode.prepareNode.auth.useCustomAddress);
-    await fill(addNode.prepareNode.auth.password, password);
-    await fill(addNode.prepareNode.auth.address, addr);
-    await fill(addNode.prepareNode.auth.port, port);
-    await click(addNode.prepareNodeFooter.auth);
-    await isVisible(addNode.prepareNode.success);
-    await click(addNode.prepareNodeFooter.next);
-    await click(addNode.addressesFooter.next);
-    await click(addNode.sbdFooter.next);
-    await click(addNode.reviewFooter.next);
-    await isVisible(addNode.success);
-    await click(addNode.success.close);
+    await toggle(nodeAdd.prepareNode.auth.useCustomAddress);
+    await fill(nodeAdd.prepareNode.auth.password, password);
+    await fill(nodeAdd.prepareNode.auth.address, addr);
+    await fill(nodeAdd.prepareNode.auth.port, port);
+    await click(nodeAdd.prepareNodeFooter.auth);
+    await isVisible(nodeAdd.prepareNode.success);
+    await click(nodeAdd.prepareNodeFooter.next);
+    await click(nodeAdd.addressesFooter.next);
+    await click(nodeAdd.sbdFooter.next);
+    await click(nodeAdd.reviewFooter.next);
+    await isVisible(nodeAdd.success);
+    await click(nodeAdd.success.close);
   });
 });

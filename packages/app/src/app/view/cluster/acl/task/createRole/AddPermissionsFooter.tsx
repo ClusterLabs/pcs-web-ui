@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.task.createAclRole.addPermissionsFooter;
+const {next, back, cancel} = testMarks.task.aclRoleCreate.addPermissionsFooter;
 
 export const AddPermissionsFooter = () => {
   const {isNameValid, invalidPermissionIndexes} = useTask();
   return (
-    <TaskFooter {...testMarks.task.createAclRole.addPermissionsFooter.mark}>
+    <TaskFooter {...testMarks.task.aclRoleCreate.addPermissionsFooter.mark}>
       <WizardFooterNext
         actionIf={isNameValid && invalidPermissionIndexes.length === 0}
         {...next.mark}

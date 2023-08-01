@@ -30,7 +30,7 @@ export const ClusterSetup = () => {
     <Wizard
       clusterName={null}
       task="clusterSetup"
-      {...testMarks.task.setupCluster.mark}
+      {...testMarks.task.clusterSetup.mark}
       taskLabel="Setup cluster"
       description="Setup new cluster on nodes"
       onClose={close}

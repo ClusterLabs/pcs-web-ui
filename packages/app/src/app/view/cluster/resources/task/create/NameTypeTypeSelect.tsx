@@ -72,7 +72,7 @@ export const NameTypeTypeSelect = ({
           selections={agentName}
           isGrouped
           customBadgeText={agentName.length > 0 ? agentName : undefined}
-          {...testMarks.task.createResource.nameType.agentName.mark}
+          {...testMarks.task.resourceCreate.nameType.agentName.mark}
         >
           {Object.keys(filteredResourceAgentMap).map(group => (
             <SelectGroup label={group} key={group}>

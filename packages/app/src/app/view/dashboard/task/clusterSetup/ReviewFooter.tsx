@@ -8,12 +8,12 @@ import {
 
 import {useTask} from "./useTask";
 
-const {next, back, cancel} = testMarks.task.setupCluster.reviewFooter;
+const {next, back, cancel} = testMarks.task.clusterSetup.reviewFooter;
 
 export const ReviewFooter = () => {
   const {setupCluster} = useTask();
   return (
-    <TaskFooter {...testMarks.task.setupCluster.reviewFooter.mark}>
+    <TaskFooter {...testMarks.task.clusterSetup.reviewFooter.mark}>
       <WizardFooterNext
         label="Setup cluster"
         preAction={() => setupCluster()}

@@ -10,18 +10,18 @@ const {
   prepareNodeFooter,
   success,
   error,
-} = marks.task.importExistingCluster;
+} = marks.task.clusterImportExisting;
 
 const {auth} = prepareNode;
 
 export const openTask = async () => {
   await click(marks.dashboard.toolbar.importExistingCluster);
-  await isVisible(marks.task.importExistingCluster);
+  await isVisible(marks.task.clusterImportExisting);
 };
 
 const closeTask = async () => {
   await click(success.close);
-  await isAbsent(marks.task.importExistingCluster);
+  await isAbsent(marks.task.clusterImportExisting);
 };
 
 const data = {
@@ -97,6 +97,6 @@ describe("Import existing cluster", () => {
     await click(prepareNodeFooter.addExistringCluster);
     await isVisible(error);
     await click(error.cancel);
-    await isAbsent(marks.task.importExistingCluster);
+    await isAbsent(marks.task.clusterImportExisting);
   });
 });
