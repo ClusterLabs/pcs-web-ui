@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   TaskFinishLibUnsuccess,
   TaskResultActionBackCluster,
@@ -7,6 +8,7 @@ import {
 
 import {useTask} from "./useTask";
 
+const {unsuccess} = testMarks.task.aclAssignSubjectToRole;
 export const Unsuccess = () => {
   const {
     assign,
@@ -17,9 +19,15 @@ export const Unsuccess = () => {
   return (
     <TaskFinishLibUnsuccess
       reports={reports}
-      back={<TaskResultActionBackCluster />}
-      proceed={<TaskResultActionProceedAnyway action={assign} />}
-      cancel={<TaskResultActionCancel />}
+      back={<TaskResultActionBackCluster {...unsuccess.back.mark} />}
+      proceed={
+        <TaskResultActionProceedAnyway
+          action={assign}
+          {...unsuccess.proceedAnyway.mark}
+        />
+      }
+      cancel={<TaskResultActionCancel {...unsuccess.cancel.mark} />}
+      {...unsuccess.mark}
     />
   );
 };

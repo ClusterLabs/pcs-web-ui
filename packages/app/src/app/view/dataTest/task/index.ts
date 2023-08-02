@@ -1,12 +1,14 @@
+import {aclAssignSubjectToRole} from "./aclAssignSubjectToRole";
 import {aclRoleAddPermission} from "./aclRoleAddPermission";
-import {nodeAdd} from "./nodeAdd";
 import {aclRoleCreate} from "./aclRoleCreate";
-import {fenceDeviceCreate} from "./fenceDeviceCreate";
-import {resourceCreate} from "./resourceCreate";
 import {clusterImportExisting} from "./clusterImportExisting";
 import {clusterSetup} from "./clusterSetup";
+import {fenceDeviceCreate} from "./fenceDeviceCreate";
+import {nodeAdd} from "./nodeAdd";
+import {resourceCreate} from "./resourceCreate";
 
 export const task = {
+  aclAssignSubjectToRole,
   aclRoleAddPermission,
   aclRoleCreate,
   clusterImportExisting,

@@ -1,9 +1,9 @@
 import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
-import {clusterStatus, openRole, roleListItem} from "./common";
+import {clusterStatus, goToAcl} from "./common";
+import {openRole, roleListItem} from "./commonRole";
 
-const {goToCluster} = shortcuts.dashboard;
 const {item} = shortcuts.common;
 const {textIs} = shortcuts.expect;
 
@@ -22,7 +22,7 @@ const groupListValue = (groupId: string) => (mark: Mark) =>
 describe("ACL view", () => {
   beforeEach(async () => {
     intercept.shortcuts.interceptWithCluster({clusterStatus});
-    await goToCluster(clusterStatus.cluster_name, tabs => tabs.acl);
+    await goToAcl();
   });
   afterEach(intercept.stop);
 

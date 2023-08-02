@@ -2,11 +2,6 @@ import * as t from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
 
-const {item} = shortcuts.common;
-
-const {acl} = marks.cluster;
-const {lists} = acl;
-
 export const clusterName = "test-cluster";
 export const permissionsForFirst = [
   "read id abc (id1)",
@@ -38,13 +33,17 @@ export const clusterStatus = t.cluster(clusterName, "ok", {
   },
 });
 
-export const goToAcl = async (clusterName: string) => {
-  await shortcuts.dashboard.goToCluster(clusterName, tabs => tabs.acl);
+export const goToAcl = async () => {
+  await shortcuts.dashboard.goToCluster(
+    clusterStatus.cluster_name,
+    tabs => tabs.acl,
+  );
 };
 
-export const roleListItem = (roleId: string) =>
-  item(lists.role).byKey(lists.role.id, roleId);
+const {aclToolbar} = marks.cluster;
 
-export const openRole = async (roleId: string) => {
-  await click(roleListItem(roleId).locator(lists.role.id));
+export const openTask = async (
+  getToolbarItem: (toolbar: typeof aclToolbar) => Mark,
+) => {
+  await click(getToolbarItem(aclToolbar));
 };

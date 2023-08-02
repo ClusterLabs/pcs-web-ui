@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {TaskLibReportList, TaskSimpleLib} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -7,13 +8,14 @@ import {Success} from "./Success";
 import {Unsuccess} from "./Unsuccess";
 import {CommunicationError} from "./CommunicationError";
 
+const {aclAssignSubjectToRole: task} = testMarks.task;
+
 export const Task = () => {
   const {
     name: taskName,
     label,
     clusterName,
     close,
-    assigneeType,
     state: {
       libCall: {response, reports},
     },
@@ -23,7 +25,6 @@ export const Task = () => {
     <TaskSimpleLib
       task={taskName}
       taskLabel={label}
-      data-test={`task-acl-role-assign-${assigneeType}`}
       clusterName={clusterName}
       close={close}
       footer={<Footer />}
@@ -32,7 +33,8 @@ export const Task = () => {
       success={<Success />}
       unsuccess={<Unsuccess />}
       communicationError={<CommunicationError />}
-      reports={<TaskLibReportList reports={reports} />}
+      reports={<TaskLibReportList reports={reports} {...task.report.mark} />}
+      {...task.mark}
     />
   );
 };

@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   TaskFinishLibCommunicationError,
   TaskResultActionCancel,
@@ -6,12 +7,20 @@ import {
 
 import {useTask} from "./useTask";
 
+const {communicationError} = testMarks.task.aclAssignSubjectToRole;
+
 export const CommunicationError = () => {
   const {assign} = useTask();
   return (
     <TaskFinishLibCommunicationError
-      tryAgain={<TaskResultActionTryAgain action={assign} />}
-      cancel={<TaskResultActionCancel />}
+      tryAgain={
+        <TaskResultActionTryAgain
+          action={assign}
+          {...communicationError.tryAgain.mark}
+        />
+      }
+      cancel={<TaskResultActionCancel {...communicationError.cancel.mark} />}
+      {...communicationError.mark}
     />
   );
 };
