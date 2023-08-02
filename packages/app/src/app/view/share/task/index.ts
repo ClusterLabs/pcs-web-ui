@@ -27,6 +27,7 @@ export * from "./TaskSuccess";
 export * from "./TaskResultAction";
 export * from "./useTask";
 export * from "./TaskSimple";
+export * from "./TaskSimpleLib";
 export * from "./TaskSimpleFooter";
 export * from "./TaskSimpleFinish";
 export * from "./review/ReviewList";

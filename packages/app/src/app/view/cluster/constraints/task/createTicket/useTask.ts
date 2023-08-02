@@ -36,6 +36,7 @@ export const useTask = () => {
   const isResourceValid = state.resourceId.length > 0;
   return {
     ...task,
+    label: "Create ticket constraint",
     isResourceValid,
     nodeNameList: nodeList.map(n => n.name),
     isCustomIdValid,

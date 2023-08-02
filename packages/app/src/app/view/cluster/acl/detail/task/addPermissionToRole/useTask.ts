@@ -21,7 +21,7 @@ export const useTask = () => {
 
   return {
     ...task,
-
+    label: "Add permissions to role",
     invalidPermissionIndexes: getInvalidPermissionIndexes(
       state.permissionInfoList,
     ),

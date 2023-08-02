@@ -20,6 +20,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    label: `Assign ${assigneeType}`,
     isAssigneeValid:
       state.sourceObject === "subject"
         ? state.roleId.length > 0

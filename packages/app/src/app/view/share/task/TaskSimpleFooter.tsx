@@ -2,12 +2,13 @@ import React from "react";
 
 import {TaskButtonNextWithValidation} from "./TaskButtonNextWithValidation";
 import {TaskButtonCancel} from "./TaskButtonCancel";
+import {useTaskContext} from "./TaskContext";
 
 export const TaskSimpleFooter = ({
   run,
   nextIf = true,
   nextDisabled = false,
-  runLabel = "Create",
+  runLabel,
 }: {
   run: () => void;
   runLabel?: React.ComponentProps<
@@ -16,6 +17,7 @@ export const TaskSimpleFooter = ({
   nextIf?: boolean;
   nextDisabled?: boolean;
 }) => {
+  const {taskLabel} = useTaskContext();
   return (
     <>
       <TaskButtonNextWithValidation
@@ -23,7 +25,7 @@ export const TaskSimpleFooter = ({
         runIf={nextIf}
         disabled={nextDisabled}
       >
-        {runLabel}
+        {runLabel ?? taskLabel}
       </TaskButtonNextWithValidation>
       <TaskButtonCancel />
     </>

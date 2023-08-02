@@ -1,78 +1,36 @@
-import {
-  TaskFinishLibCommunicationError,
-  TaskFinishLibUnsuccess,
-  TaskLibReportList,
-  TaskResultAction,
-  TaskResultActionBackCluster,
-  TaskResultActionCancel,
-  TaskResultActionProceedAnyway,
-  TaskResultActionTryAgain,
-  TaskResultLib,
-  TaskSimple,
-  TaskSimpleFooter,
-  TaskSuccess,
-} from "app/view/share";
+import {TaskLibReportList, TaskSimpleLib} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Unsuccess} from "./Unsuccess";
+import {CommunicationError} from "./CommunicationError";
 
 export const Task = () => {
   const {
     close,
     name: taskName,
+    label,
     clusterName,
-    createTicket,
     state: {
       libCall: {response, reports},
     },
   } = useTask();
 
-  const taskLabel = "Create ticket constraint";
   return (
-    <TaskSimple
-      taskLabel={taskLabel}
+    <TaskSimpleLib
+      taskLabel={label}
       task={taskName}
       clusterName={clusterName}
       close={close}
-      footer={
-        response !== "no-response" ? null : (
-          <TaskSimpleFooter
-            run={() => createTicket({force: false})}
-            runLabel={taskLabel}
-          />
-        )
-      }
-    >
-      {response === "no-response" && <Configure />}
-      {response !== "no-response" && (
-        <TaskResultLib
-          response={response}
-          success={<TaskSuccess primaryAction={<TaskResultAction />} />}
-          unsuccess={
-            <TaskFinishLibUnsuccess
-              reports={reports}
-              back={<TaskResultActionBackCluster />}
-              proceed={
-                <TaskResultActionProceedAnyway
-                  action={() => createTicket({force: true})}
-                />
-              }
-              cancel={<TaskResultActionCancel />}
-            />
-          }
-          communicationError={
-            <TaskFinishLibCommunicationError
-              tryAgain={
-                <TaskResultActionTryAgain
-                  action={() => createTicket({force: false})}
-                />
-              }
-              cancel={<TaskResultActionCancel />}
-            />
-          }
-          reports={<TaskLibReportList reports={reports} />}
-        />
-      )}
-    </TaskSimple>
+      footer={<Footer />}
+      configure={<Configure />}
+      response={response}
+      success={<Success />}
+      unsuccess={<Unsuccess />}
+      communicationError={<CommunicationError />}
+      reports={<TaskLibReportList reports={reports} />}
+    />
   );
 };

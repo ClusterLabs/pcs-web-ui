@@ -6,6 +6,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    label: "Disable SBD",
 
     //actions
     close: () => {
