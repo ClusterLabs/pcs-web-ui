@@ -1,5 +1,10 @@
 import {Action} from "app/store";
-import {DetailToolbar, LauncherItem as ToolbarItem, task} from "app/view/share";
+import {
+  DetailToolbar,
+  LauncherDropdown,
+  LauncherItem as ToolbarItem,
+  task,
+} from "app/view/share";
 import {Node} from "app/view/cluster/types";
 import {useLoadedCluster} from "app/view/cluster/share";
 
@@ -131,11 +136,15 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
     <DetailToolbar
       toolbarName="node"
       buttonsItems={[start, stop]}
-      dropdownItems={[
-        ...[node.inStandby ? unstandby : standby],
-        ...[node.inMaintenance ? unmaintenance : maintenance],
-        remove,
-      ]}
+      dropdown={
+        <LauncherDropdown
+          items={[
+            ...[node.inStandby ? unstandby : standby],
+            ...[node.inMaintenance ? unmaintenance : maintenance],
+            remove,
+          ]}
+        />
+      }
     />
   );
 };

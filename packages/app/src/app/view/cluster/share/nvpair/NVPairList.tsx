@@ -38,7 +38,6 @@ export const NVPairList = ({
               </td>
               <td data-label="Menu">
                 <LauncherDropdown
-                  dropdownName="nvpair"
                   items={[
                     {
                       name: "edit",

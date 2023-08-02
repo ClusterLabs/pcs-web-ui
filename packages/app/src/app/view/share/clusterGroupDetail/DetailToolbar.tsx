@@ -1,6 +1,6 @@
+import React from "react";
 import {Toolbar, ToolbarContent, ToolbarItem} from "@patternfly/react-core";
 
-import {LauncherDropdown} from "app/view/share/toolbar";
 import {LauncherToolbarButtonGroup} from "app/view/share/toolbar";
 import {LauncherItem} from "app/view/share/toolbar/types";
 
@@ -9,10 +9,10 @@ import {DetailLayoutClose} from "./DetailLayoutClose";
 export const DetailToolbar = (props: {
   toolbarName: string;
   buttonsItems?: LauncherItem[];
-  dropdownItems?: LauncherItem[];
+  dropdown?: React.ReactNode;
   "data-test"?: string;
 }) => {
-  const {toolbarName, buttonsItems, dropdownItems} = props;
+  const {toolbarName, buttonsItems, dropdown} = props;
   return (
     <Toolbar
       id="group-detail-layout-detail-toolbar"
@@ -27,14 +27,7 @@ export const DetailToolbar = (props: {
             />
           </ToolbarItem>
         )}
-        {dropdownItems && dropdownItems.length > 0 && (
-          <ToolbarItem>
-            <LauncherDropdown
-              items={dropdownItems}
-              dropdownName={toolbarName}
-            />
-          </ToolbarItem>
-        )}
+        {dropdown && <ToolbarItem>{props.dropdown}</ToolbarItem>}
         <ToolbarItem>
           <DetailLayoutClose />
         </ToolbarItem>

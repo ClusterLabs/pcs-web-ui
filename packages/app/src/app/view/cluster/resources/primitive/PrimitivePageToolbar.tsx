@@ -1,6 +1,7 @@
 import {Primitive} from "app/view/cluster/types";
 import {
   DetailToolbar,
+  LauncherDropdown,
   TaskOpenArgs,
   LauncherItem as ToolbarItem,
 } from "app/view/share";
@@ -209,23 +210,27 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           ...[isPrimitiveManaged(primitive) ? unmanage : manage],
           ...[isPrimitiveEnabled(primitive) ? disable : enable],
         ]}
-        dropdownItems={[
-          {
-            name: "change-group",
-            task: {
-              component: task.groupChange.Task,
-              useTask: task.groupChange.useTask,
-              openArgs: groupChangeOpenArgs,
-            },
-            disabled: !canChangeGroup(primitive),
-          },
-          refresh,
-          cleanup,
-          ...(primitive.inGroup !== null
-            ? []
-            : [primitive.inClone ? unclone : clone]),
-          deleteItem,
-        ]}
+        dropdown={
+          <LauncherDropdown
+            items={[
+              {
+                name: "change-group",
+                task: {
+                  component: task.groupChange.Task,
+                  useTask: task.groupChange.useTask,
+                  openArgs: groupChangeOpenArgs,
+                },
+                disabled: !canChangeGroup(primitive),
+              },
+              refresh,
+              cleanup,
+              ...(primitive.inGroup !== null
+                ? []
+                : [primitive.inClone ? unclone : clone]),
+              deleteItem,
+            ]}
+          />
+        }
       />
     </>
   );

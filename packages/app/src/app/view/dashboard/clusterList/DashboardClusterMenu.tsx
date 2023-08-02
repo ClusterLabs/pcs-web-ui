@@ -8,7 +8,6 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
   return (
     <LauncherDropdown
       {...actions.mark}
-      dropdownName="cluster"
       items={[
         {
           name: "start",

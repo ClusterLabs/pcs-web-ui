@@ -35,10 +35,7 @@ export const LaunchersToolbar = ({
         )}
         {dropdownItems.length > 0 && (
           <ToolbarItem>
-            <LauncherDropdown
-              items={dropdownItems}
-              dropdownName={toolbarName}
-            />
+            <LauncherDropdown items={dropdownItems} />
           </ToolbarItem>
         )}
         {after}

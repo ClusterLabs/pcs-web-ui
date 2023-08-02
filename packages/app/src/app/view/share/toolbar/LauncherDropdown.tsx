@@ -9,7 +9,6 @@ import {LauncherItem} from "./types";
 
 export const LauncherDropdown = (props: {
   items: LauncherItem[];
-  dropdownName: string;
   "data-test"?: string;
 }) => {
   const [kebabOpen, setKebabOpen] = React.useState(false);
@@ -28,11 +27,7 @@ export const LauncherDropdown = (props: {
               <DropdownItem
                 component="button"
                 onClick={launch}
-                data-test={
-                  "data-test" in item
-                    ? item["data-test"]
-                    : `${props.dropdownName}-${item.name}`
-                }
+                data-test={"data-test" in item ? item["data-test"] : item.name}
                 isDisabled={item.disabled ?? false}
               >
                 {tools.labelize(item.label || item.name)}

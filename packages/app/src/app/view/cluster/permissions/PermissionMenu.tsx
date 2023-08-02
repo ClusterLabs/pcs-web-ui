@@ -18,7 +18,6 @@ export const PermissionMenu = ({
   ];
   return (
     <LauncherDropdown
-      dropdownName="permission"
       items={[
         {
           name: "edit",

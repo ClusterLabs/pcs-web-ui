@@ -1,5 +1,9 @@
 import {FenceDevice} from "app/view/cluster/types";
-import {DetailToolbar, LauncherItem as ToolbarItem} from "app/view/share";
+import {
+  DetailToolbar,
+  LauncherDropdown,
+  LauncherItem as ToolbarItem,
+} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
@@ -66,7 +70,7 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
     <DetailToolbar
       toolbarName="fence-device"
       buttonsItems={[refresh, cleanup]}
-      dropdownItems={[deleteItem]}
+      dropdown={<LauncherDropdown items={[deleteItem]} />}
     />
   );
 };

@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {DetailToolbar, TaskOpenArgs} from "app/view/share";
+import {DetailToolbar, LauncherDropdown, TaskOpenArgs} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
@@ -41,39 +41,43 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
           ...toolbar.addPermissions.mark,
         },
       ]}
-      dropdownItems={[
-        {
-          name: "assign-group",
-          task: {
-            component: task.assignSubjectToRole.Task,
-            useTask: task.assignSubjectToRole.useTask,
-            openArgs: assignGroupOpenArgs,
-          },
-          ...toolbar.assignGroup.mark,
-        },
-        {
-          name: "delete-role",
-          confirm: {
-            title: "Delete role?",
-            description: "This deletes the role",
-            action: {
-              type: "LIB.CALL.CLUSTER",
-              key: {clusterName},
-              payload: {
-                taskLabel: `delete role "${roleId}"`,
-                call: {
-                  name: "acl-remove-role",
-                  payload: {role_id: roleId},
-                },
+      dropdown={
+        <LauncherDropdown
+          items={[
+            {
+              name: "assign-group",
+              task: {
+                component: task.assignSubjectToRole.Task,
+                useTask: task.assignSubjectToRole.useTask,
+                openArgs: assignGroupOpenArgs,
               },
+              ...toolbar.assignGroup.mark,
             },
-            runMark: toolbar.deleteRole.confirm.run.mark,
-            cancelMark: toolbar.deleteRole.confirm.cancel.mark,
-            ...toolbar.deleteRole.confirm.mark,
-          },
-          ...toolbar.deleteRole.mark,
-        },
-      ]}
+            {
+              name: "delete-role",
+              confirm: {
+                title: "Delete role?",
+                description: "This deletes the role",
+                action: {
+                  type: "LIB.CALL.CLUSTER",
+                  key: {clusterName},
+                  payload: {
+                    taskLabel: `delete role "${roleId}"`,
+                    call: {
+                      name: "acl-remove-role",
+                      payload: {role_id: roleId},
+                    },
+                  },
+                },
+                runMark: toolbar.deleteRole.confirm.run.mark,
+                cancelMark: toolbar.deleteRole.confirm.cancel.mark,
+                ...toolbar.deleteRole.confirm.mark,
+              },
+              ...toolbar.deleteRole.mark,
+            },
+          ]}
+        />
+      }
       {...toolbar.mark}
     />
   );

@@ -49,10 +49,7 @@ export const DataListWithMenu = ({
               aria-labelledby={`${name}-${itemName}-menu`}
               aria-label={`${tools.labelize(name)} ${itemName} menu`}
             >
-              <LauncherDropdown
-                items={menuItems.map(mi => mi(itemName))}
-                dropdownName={`${name}-${itemName}`}
-              />
+              <LauncherDropdown items={menuItems.map(mi => mi(itemName))} />
             </DataListAction>
           </DataListItemRow>
         </DataListItem>
