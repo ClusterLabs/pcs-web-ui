@@ -27,6 +27,7 @@ export const acl = {
           cancel: {},
         },
       },
+      dropdown: {},
     },
   },
   currentUser: {

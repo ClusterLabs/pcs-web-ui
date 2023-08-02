@@ -76,6 +76,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
               ...toolbar.deleteRole.mark,
             },
           ]}
+          {...toolbar.dropdown.mark}
         />
       }
       {...toolbar.mark}

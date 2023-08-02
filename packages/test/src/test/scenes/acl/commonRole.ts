@@ -20,7 +20,14 @@ export const goToRole = async (roleId: string) => {
 
 const roleToolbar = marks.cluster.acl.currentRole.toolbar;
 export const openTask = async (
-  getToolbarItem: (toolbar: typeof roleToolbar) => Mark,
+  getToolbarItem: (toolbar: typeof roleToolbar) => Mark | Mark[],
 ) => {
-  await click(getToolbarItem(roleToolbar));
+  const markOrMarkList = getToolbarItem(roleToolbar);
+  const markList = Array.isArray(markOrMarkList)
+    ? markOrMarkList
+    : [markOrMarkList];
+
+  for (let i = 0; i < markList.length; i++) {
+    await click(markList[i]);
+  }
 };
