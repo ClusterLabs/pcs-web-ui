@@ -6,6 +6,7 @@ import {clusterSetup} from "./clusterSetup";
 import {fenceDeviceCreate} from "./fenceDeviceCreate";
 import {nodeAdd} from "./nodeAdd";
 import {resourceCreate} from "./resourceCreate";
+import {sbdDisable} from "./sbdDisable";
 
 export const task = {
   aclAssignSubjectToRole,
@@ -16,4 +17,5 @@ export const task = {
   fenceDeviceCreate,
   nodeAdd,
   resourceCreate,
+  sbdDisable,
 };

@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {TaskLibReportList, TaskSimpleLib} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -5,6 +6,8 @@ import {Footer} from "./Footer";
 import {Success} from "./Success";
 import {Unsuccess} from "./Unsuccess";
 import {CommunicationError} from "./CommunicationError";
+
+const {sbdDisable: task} = testMarks.task;
 
 export const SbdDisableTask = () => {
   const {
@@ -21,7 +24,6 @@ export const SbdDisableTask = () => {
       task="sbdDisable"
       taskLabel={label}
       clusterName={clusterName}
-      data-test="task-sbd-disable"
       close={close}
       footer={<Footer />}
       configure="Disable SBD in cluster."
@@ -29,7 +31,8 @@ export const SbdDisableTask = () => {
       success={<Success />}
       unsuccess={<Unsuccess />}
       communicationError={<CommunicationError />}
-      reports={<TaskLibReportList reports={reports} />}
+      reports={<TaskLibReportList reports={reports} {...task.report.mark} />}
+      {...task.mark}
     />
   );
 };

@@ -1,10 +1,21 @@
-import {TaskSimpleFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskButtonCancel, TaskButtonNextWithValidation} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {sbdDisable: task} = testMarks.task;
 
 export const Footer = () => {
   const {label, sbdDisable} = useTask();
   return (
-    <TaskSimpleFooter run={() => sbdDisable({force: false})} runLabel={label} />
+    <>
+      <TaskButtonNextWithValidation
+        run={() => sbdDisable({force: false})}
+        {...task.run.mark}
+      >
+        {label}
+      </TaskButtonNextWithValidation>
+      <TaskButtonCancel {...task.cancel.mark} />
+    </>
   );
 };

@@ -19,7 +19,7 @@ export const TaskButtonNextWithValidation = (props: {
   return (
     <ButtonWithEnter
       onClick={() => {
-        if (runIf) {
+        if (runIf || runIf === undefined) {
           dispatch({
             type: "TASK.VALIDATION.HIDE",
             key: {clusterName, task},
