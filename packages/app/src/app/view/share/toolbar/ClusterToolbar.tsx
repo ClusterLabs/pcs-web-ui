@@ -1,3 +1,4 @@
+import React from "react";
 import {PageSection} from "@patternfly/react-core";
 
 import {LauncherItem} from "app/view/share/toolbar/types";
@@ -7,7 +8,7 @@ import {LaunchersToolbar} from "./LaunchersToolbar";
 export const ClusterToolbar = (props: {
   toolbarName: string;
   buttonsItems?: LauncherItem[];
-  dropdownItems?: LauncherItem[];
+  dropdown?: React.ReactNode;
   after?: React.ReactNode;
   before?: React.ReactNode;
   "data-test"?: string;
@@ -21,7 +22,7 @@ export const ClusterToolbar = (props: {
       <LaunchersToolbar
         toolbarName={props.toolbarName}
         buttonsItems={props.buttonsItems}
-        dropdownItems={props.dropdownItems}
+        dropdown={props.dropdown}
         after={props.after}
         before={props.before}
       />

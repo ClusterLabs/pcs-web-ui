@@ -3,6 +3,7 @@ import {PageSection} from "@patternfly/react-core";
 import {testMarks} from "app/view/dataTest";
 import {
   ClusterToolbar,
+  LauncherDropdown,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
@@ -54,52 +55,57 @@ export const ConstraintsPage = () => {
             ...constraintsToolbar.createColocation.mark,
           },
         ]}
-        dropdownItems={[
-          {
-            name: "create-ticket",
-            task: {
-              component: task.createTicket.Task,
-              useTask: task.createTicket.useTask,
-            },
-            launchDisable: launchDisable(
-              "Cannot create ticket constraint on stopped cluster",
-            ),
-            ...constraintsToolbar.createTicket.mark,
-          },
-          {
-            name: "create-order-set",
-            task: {
-              component: task.createOrderSet.Task,
-              useTask: task.createOrderSet.useTask,
-            },
-            launchDisable: launchDisable(
-              "Cannot create order set constraint on stopped cluster",
-            ),
-            ...constraintsToolbar.createOrderSet.mark,
-          },
-          {
-            name: "create-colocation-set",
-            task: {
-              component: task.createColocationSet.Task,
-              useTask: task.createColocationSet.useTask,
-            },
-            launchDisable: launchDisable(
-              "Cannot create colocation set constraint on stopped cluster",
-            ),
-            ...constraintsToolbar.createColocationSet.mark,
-          },
-          {
-            name: "create-ticket-set",
-            task: {
-              component: task.createTicketSet.Task,
-              useTask: task.createTicketSet.useTask,
-            },
-            launchDisable: launchDisable(
-              "Cannot create ticket set constraint on stopped cluster",
-            ),
-            ...constraintsToolbar.createTicket.mark,
-          },
-        ]}
+        dropdown={
+          <LauncherDropdown
+            items={[
+              {
+                name: "create-ticket",
+                task: {
+                  component: task.createTicket.Task,
+                  useTask: task.createTicket.useTask,
+                },
+                launchDisable: launchDisable(
+                  "Cannot create ticket constraint on stopped cluster",
+                ),
+                ...constraintsToolbar.createTicket.mark,
+              },
+              {
+                name: "create-order-set",
+                task: {
+                  component: task.createOrderSet.Task,
+                  useTask: task.createOrderSet.useTask,
+                },
+                launchDisable: launchDisable(
+                  "Cannot create order set constraint on stopped cluster",
+                ),
+                ...constraintsToolbar.createOrderSet.mark,
+              },
+              {
+                name: "create-colocation-set",
+                task: {
+                  component: task.createColocationSet.Task,
+                  useTask: task.createColocationSet.useTask,
+                },
+                launchDisable: launchDisable(
+                  "Cannot create colocation set constraint on stopped cluster",
+                ),
+                ...constraintsToolbar.createColocationSet.mark,
+              },
+              {
+                name: "create-ticket-set",
+                task: {
+                  component: task.createTicketSet.Task,
+                  useTask: task.createTicketSet.useTask,
+                },
+                launchDisable: launchDisable(
+                  "Cannot create ticket set constraint on stopped cluster",
+                ),
+                ...constraintsToolbar.createTicket.mark,
+              },
+            ]}
+            {...constraintsToolbar.dropdown.mark}
+          />
+        }
         {...constraintsToolbar.mark}
       />
       <PageSection {...constraints.mark}>

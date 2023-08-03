@@ -5,6 +5,7 @@ import {tools} from "app/store";
 import {
   ClusterToolbar,
   GroupDetailView,
+  LauncherDropdown,
   TaskOpenArgs,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
@@ -57,46 +58,51 @@ export const AclPage = () => {
             ...aclToolbar.createUser.mark,
           },
         ]}
-        dropdownItems={[
-          {
-            name: "create-group",
-            task: {
-              component: task.createSubject.Task,
-              useTask: task.createSubject.useTask,
-              openArgs: createGroupOpenArgs,
-            },
-            launchDisable: launchDisable(
-              "Cannot create group on stopped cluster",
-            ),
-            ...aclToolbar.createGroup.mark,
-          },
-          {
-            name: aclEnabled ? "disable-acl" : "enable-acl",
-            label: `${aclEnabled ? "Disable" : "Enable"} ACL`,
-            confirm: {
-              title: aclEnabled ? "Disable ACL" : "Enable ACL",
-              description: `${
-                aclEnabled ? "Disable" : "Enable"
-              } access control lists.`,
-              action: {
-                type: "CLUSTER.PROPERTIES.UPDATE",
-                key: {clusterName},
-                payload: {
-                  propertyMap: {
-                    "enable-acl": aclEnabled ? "false" : "true",
-                  },
+        dropdown={
+          <LauncherDropdown
+            items={[
+              {
+                name: "create-group",
+                task: {
+                  component: task.createSubject.Task,
+                  useTask: task.createSubject.useTask,
+                  openArgs: createGroupOpenArgs,
                 },
+                launchDisable: launchDisable(
+                  "Cannot create group on stopped cluster",
+                ),
+                ...aclToolbar.createGroup.mark,
               },
-              runMark: aclToolbar.switchEnablement.confirm.run.mark,
-              cancelMark: aclToolbar.switchEnablement.confirm.cancel.mark,
-              ...aclToolbar.switchEnablement.confirm.mark,
-            },
-            launchDisable: launchDisable(
-              "Cannot enable/disable acl on stopped cluster",
-            ),
-            ...aclToolbar.switchEnablement.mark,
-          },
-        ]}
+              {
+                name: aclEnabled ? "disable-acl" : "enable-acl",
+                label: `${aclEnabled ? "Disable" : "Enable"} ACL`,
+                confirm: {
+                  title: aclEnabled ? "Disable ACL" : "Enable ACL",
+                  description: `${
+                    aclEnabled ? "Disable" : "Enable"
+                  } access control lists.`,
+                  action: {
+                    type: "CLUSTER.PROPERTIES.UPDATE",
+                    key: {clusterName},
+                    payload: {
+                      propertyMap: {
+                        "enable-acl": aclEnabled ? "false" : "true",
+                      },
+                    },
+                  },
+                  runMark: aclToolbar.switchEnablement.confirm.run.mark,
+                  cancelMark: aclToolbar.switchEnablement.confirm.cancel.mark,
+                  ...aclToolbar.switchEnablement.confirm.mark,
+                },
+                launchDisable: launchDisable(
+                  "Cannot enable/disable acl on stopped cluster",
+                ),
+                ...aclToolbar.switchEnablement.mark,
+              },
+            ]}
+            {...aclToolbar.dropdown.mark}
+          />
+        }
         after={
           hasCibInfo ? (
             <>

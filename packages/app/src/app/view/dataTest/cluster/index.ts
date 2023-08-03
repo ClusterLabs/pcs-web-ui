@@ -54,6 +54,7 @@ export const cluster = {
     createOrderSet: {},
     createColocationSet: {},
     createTicketSet: {},
+    dropdown: {},
   },
   properties: {},
   acl,
@@ -67,6 +68,7 @@ export const cluster = {
         cancel: {},
       },
     },
+    dropdown: {},
   },
   permissions: {},
   permissionsToolbar: {

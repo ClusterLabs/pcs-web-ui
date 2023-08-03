@@ -1,7 +1,6 @@
 import React from "react";
 import {Toolbar, ToolbarContent, ToolbarItem} from "@patternfly/react-core";
 
-import {LauncherDropdown} from "./LauncherDropdown";
 import {LauncherToolbarButtonGroup} from "./LauncherToolbarButtonGroup";
 import {LauncherItem} from "./types";
 import {tryFirstButtonPrimary} from "./tools";
@@ -9,14 +8,14 @@ import {tryFirstButtonPrimary} from "./tools";
 export const LaunchersToolbar = ({
   toolbarName,
   buttonsItems = [],
-  dropdownItems = [],
+  dropdown,
   before,
   after,
   "data-test": dataTest,
 }: {
   toolbarName: string;
   buttonsItems?: LauncherItem[];
-  dropdownItems?: LauncherItem[];
+  dropdown?: React.ReactNode;
   before?: React.ReactNode;
   after?: React.ReactNode;
   "data-test"?: string;
@@ -33,11 +32,7 @@ export const LaunchersToolbar = ({
             />
           </ToolbarItem>
         )}
-        {dropdownItems.length > 0 && (
-          <ToolbarItem>
-            <LauncherDropdown items={dropdownItems} />
-          </ToolbarItem>
-        )}
+        {dropdown && <ToolbarItem>{dropdown}</ToolbarItem>}
         {after}
       </ToolbarContent>
     </Toolbar>
