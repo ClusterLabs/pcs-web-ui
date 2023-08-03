@@ -8,7 +8,7 @@ import {
   expectReports,
   interceptForClusterSetup,
   nodeNameList,
-  openTask,
+  toolbar,
 } from "./common";
 
 const {select, radioGroup} = shortcuts.patternfly;
@@ -167,7 +167,7 @@ describe("Cluster setup", () => {
     ]);
 
     await page.goto(backend.rootUrl);
-    await openTask();
+    await toolbar.launch(toolbar => toolbar.setupCluster);
     await fillClusterNameAndNodes({clusterName, nodeNameList});
     await click(nameAndNodesFooter.next);
     await click(prepareNodesFooter.next);

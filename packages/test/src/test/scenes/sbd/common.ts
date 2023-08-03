@@ -41,9 +41,4 @@ export const goToSbd = async () => {
   );
 };
 
-const {sbdToolbar} = marks.cluster;
-export const openTask = async (
-  getToolbarItem: (toolbar: typeof sbdToolbar) => Mark,
-) => {
-  await click(getToolbarItem(sbdToolbar));
-};
+export const toolbar = shortcuts.toolbar(marks.cluster.sbdToolbar);

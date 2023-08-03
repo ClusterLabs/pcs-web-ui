@@ -17,11 +17,6 @@ const resourceId = "A";
 const clusterName = "test-cluster";
 const agentName = agent.name;
 
-const openTask = async () => {
-  await click(marks.cluster.resourcesToolbar.createResource);
-  await isVisible(resourceCreate);
-};
-
 describe("Create resource task", () => {
   afterEach(intercept.stop);
   beforeEach(async () => {
@@ -45,7 +40,9 @@ describe("Create resource task", () => {
 
   it("should successfully create new fence device", async () => {
     await goToCluster(clusterName, tabs => tabs.resources);
-    await openTask();
+    await shortcuts
+      .toolbar(marks.cluster.resourcesToolbar)
+      .launch(toolbar => toolbar.createResource);
     await fill(resourceCreate.nameType.name, resourceId);
     await select(
       resourceCreate.nameType.agentName,

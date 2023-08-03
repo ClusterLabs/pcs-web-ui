@@ -1,6 +1,6 @@
 import {intercept, route} from "test/tools";
 
-import {clusterStatus, goToSbd, openTask} from "./common";
+import {clusterStatus, goToSbd, toolbar} from "./common";
 
 const {sbdDisable: task} = marks.task;
 
@@ -11,8 +11,7 @@ describe("Sbd disable", () => {
       additionalRouteList: [route.sbdDisable(clusterStatus.cluster_name)],
     });
     await goToSbd();
-    await openTask(toolbar => toolbar.disableSbd);
-    await task.run.locator.highlight();
+    await toolbar.launch(toolbar => toolbar.disableSbd);
     await click(task.run);
     await isVisible(task.success);
     await click(task.success.close);

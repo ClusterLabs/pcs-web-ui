@@ -20,11 +20,6 @@ const username = "user1";
 const {fenceDeviceCreate} = marks.task;
 const {review} = fenceDeviceCreate;
 
-const openTask = async () => {
-  await click(fenceDevicesToolbar.createFenceDevice);
-  await isVisible(fenceDeviceCreate);
-};
-
 const fillInstanceAttr = async (name: string, value: string) => {
   const {attr} = fenceDeviceCreate.instanceAttrs;
   await fill(item(attr).byKey(attr.name, name).locator(attr.value), value);
@@ -56,7 +51,9 @@ describe("Fence device create task", () => {
 
   it("should successfully create new fence device", async () => {
     await goToCluster(clusterName, tabs => tabs.fenceDevices);
-    await openTask();
+    await shortcuts
+      .toolbar(fenceDevicesToolbar)
+      .launch(toolbar => toolbar.createFenceDevice);
     await fill(fenceDeviceCreate.nameType.name, fenceDeviceName);
     await select(fenceDeviceCreate.nameType.agentName, agentName);
     await click(fenceDeviceCreate.nameTypeFooter.next);

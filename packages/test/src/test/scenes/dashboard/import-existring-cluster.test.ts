@@ -14,9 +14,10 @@ const {
 
 const {auth} = prepareNode;
 
-export const openTask = async () => {
-  await click(marks.dashboard.toolbar.importExistingCluster);
-  await isVisible(marks.task.clusterImportExisting);
+export const launchTask = async () => {
+  await shortcuts
+    .toolbar(marks.dashboard.toolbar)
+    .launch(toolbar => toolbar.importExistingCluster);
 };
 
 const closeTask = async () => {
@@ -41,7 +42,7 @@ describe("Import existing cluster", () => {
       route.existingCluster({nodeName: data.nodeName}),
     ]);
     await page.goto(backend.rootUrl);
-    await openTask();
+    await launchTask();
     await fill(nodeName, data.nodeName);
     await click(nodeNameFooter.checkAuthentication);
     await isVisible(prepareNode.success);
@@ -66,7 +67,7 @@ describe("Import existing cluster", () => {
       route.existingCluster({nodeName: data.nodeName}),
     ]);
     await page.goto(backend.rootUrl);
-    await openTask();
+    await launchTask();
     await fill(nodeName, data.nodeName);
     await click(nodeNameFooter.checkAuthentication);
     await isVisible(auth);
@@ -90,7 +91,7 @@ describe("Import existing cluster", () => {
         response: {status: [400, "Configuration conflict detected."]},
       }),
     ]);
-    await openTask();
+    await launchTask();
     await fill(nodeName, data.nodeName);
     await click(nodeNameFooter.checkAuthentication);
     await isVisible(prepareNode.success);

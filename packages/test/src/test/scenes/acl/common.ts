@@ -40,10 +40,4 @@ export const goToAcl = async () => {
   );
 };
 
-const {aclToolbar} = marks.cluster;
-
-export const openTask = async (
-  getToolbarItem: (toolbar: typeof aclToolbar) => Mark,
-) => {
-  await click(getToolbarItem(aclToolbar));
-};
+export const toolbar = shortcuts.toolbar(marks.cluster.aclToolbar);

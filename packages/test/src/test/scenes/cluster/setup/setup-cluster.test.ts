@@ -8,7 +8,7 @@ import {
   expectReports,
   interceptForClusterSetup,
   nodeNameList,
-  openTask,
+  toolbar,
 } from "./common";
 
 const {
@@ -52,7 +52,7 @@ const routeCheckAuth = route.checkAuthAgainstNodes({nodeNameList});
 
 const sendMinimalSetup = async () => {
   await page.goto(backend.rootUrl);
-  await openTask();
+  await toolbar.launch(toolbar => toolbar.setupCluster);
   await fillClusterNameAndNodes({clusterName, nodeNameList});
   await click(nameAndNodesFooter.next);
   await click(prepareNodesFooter.reviewAndFinish);
@@ -78,7 +78,7 @@ describe("Cluster setup", () => {
   it("should refuse to continue without essential data", async () => {
     intercept.run([route.importedClusterList()]);
     await page.goto(backend.rootUrl);
-    await openTask();
+    await toolbar.launch(toolbar => toolbar.setupCluster);
     await click(nameAndNodesFooter.next);
     await isVisible(fieldError(nameAndNodes.clusterName));
     await isVisible(fieldError(nameAndNodes.node.name.locator.last()));
@@ -97,7 +97,7 @@ describe("Cluster setup", () => {
       }),
     ]);
     await page.goto(backend.rootUrl);
-    await openTask();
+    await toolbar.launch(toolbar => toolbar.setupCluster);
     await fillClusterNameAndNodes({clusterName, nodeNameList});
     await click(nameAndNodesFooter.next);
     await isVisible(prepareNodes.auth);
@@ -124,7 +124,7 @@ describe("Cluster setup", () => {
     ]);
     const {transportKnet} = advancedOptions;
     await page.goto(backend.rootUrl);
-    await openTask();
+    await toolbar.launch(toolbar => toolbar.setupCluster);
     await fillClusterNameAndNodes({clusterName, nodeNameList});
     await click(nameAndNodesFooter.next);
     await click(prepareNodesFooter.next);

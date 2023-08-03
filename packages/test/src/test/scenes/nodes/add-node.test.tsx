@@ -13,11 +13,6 @@ const password = "pwd";
 const addr = "192.168.0.10";
 const port = "1234";
 
-const openTask = async () => {
-  await click(marks.cluster.nodesToolbar.addNode);
-  await isVisible(nodeAdd);
-};
-
 describe("Add node task", () => {
   it("should successfully add new node with authentication", async () => {
     intercept.shortcuts.interceptWithCluster({
@@ -36,7 +31,9 @@ describe("Add node task", () => {
       ],
     });
     await goToCluster(clusterName, tabs => tabs.nodes);
-    await openTask();
+    await shortcuts
+      .toolbar(marks.cluster.nodesToolbar)
+      .launch(toolbar => toolbar.addNode);
     await fill(nodeAdd.nodeName.name, nodeName);
     await click(nodeAdd.nodeNameFooter.next);
 

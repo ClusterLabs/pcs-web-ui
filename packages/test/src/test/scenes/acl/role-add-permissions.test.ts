@@ -2,7 +2,7 @@ import {intercept, route} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus} from "./common";
-import {goToRole, openTask} from "./commonRole";
+import {goToRole, toolbar} from "./commonRole";
 
 type Permission = Parameters<
   typeof route.aclAddPermission
@@ -30,7 +30,7 @@ describe("ACL role add permission task", () => {
     });
 
     await goToRole(roleId);
-    await openTask(toolbar => toolbar.addPermissions);
+    await toolbar.launch(toolbar => toolbar.addPermissions);
 
     const {
       add,

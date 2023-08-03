@@ -2,7 +2,7 @@ import {intercept, route} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus} from "./common";
-import {goToRole, openTask} from "./commonRole";
+import {goToRole, toolbar} from "./commonRole";
 
 const {select} = shortcuts.patternfly;
 
@@ -26,7 +26,10 @@ describe("ACL role assign group task", () => {
       ],
     });
     await goToRole(roleId);
-    await openTask(toolbar => [toolbar.dropdown, toolbar.dropdown.assignGroup]);
+    await toolbar.launch(toolbar => [
+      toolbar.dropdown,
+      toolbar.dropdown.assignGroup,
+    ]);
     await select(task.name, groupId);
     await click(task.run);
     await isVisible(task.success);

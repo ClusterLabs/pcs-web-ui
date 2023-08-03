@@ -1,7 +1,7 @@
 import {intercept, route} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
-import {clusterStatus, goToAcl, openTask} from "./common";
+import {clusterStatus, goToAcl, toolbar} from "./common";
 
 const {radioGroup} = shortcuts.patternfly;
 
@@ -31,7 +31,7 @@ describe("Create acl role task", () => {
       ],
     });
     await goToAcl();
-    await openTask(toolbar => toolbar.createRole);
+    await toolbar.launch(toolbar => toolbar.createRole);
     await fill(aclRoleCreate.roleName.roleId, roleId);
     await fill(aclRoleCreate.roleName.description, description);
 
