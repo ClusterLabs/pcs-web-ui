@@ -12,6 +12,7 @@ import {ConstraintFilteredList} from "./ConstraintFilteredList";
 import * as task from "./task";
 
 const {constraints, constraintsToolbar} = testMarks.cluster;
+const {dropdown} = constraintsToolbar;
 
 export const ConstraintsPage = () => {
   const launchDisable = useLauncherDisableClusterNotRunning();
@@ -67,7 +68,7 @@ export const ConstraintsPage = () => {
                 launchDisable: launchDisable(
                   "Cannot create ticket constraint on stopped cluster",
                 ),
-                ...constraintsToolbar.createTicket.mark,
+                ...dropdown.createTicket.mark,
               },
               {
                 name: "create-order-set",
@@ -78,7 +79,7 @@ export const ConstraintsPage = () => {
                 launchDisable: launchDisable(
                   "Cannot create order set constraint on stopped cluster",
                 ),
-                ...constraintsToolbar.createOrderSet.mark,
+                ...dropdown.createOrderSet.mark,
               },
               {
                 name: "create-colocation-set",
@@ -89,7 +90,7 @@ export const ConstraintsPage = () => {
                 launchDisable: launchDisable(
                   "Cannot create colocation set constraint on stopped cluster",
                 ),
-                ...constraintsToolbar.createColocationSet.mark,
+                ...dropdown.createColocationSet.mark,
               },
               {
                 name: "create-ticket-set",
@@ -100,10 +101,10 @@ export const ConstraintsPage = () => {
                 launchDisable: launchDisable(
                   "Cannot create ticket set constraint on stopped cluster",
                 ),
-                ...constraintsToolbar.createTicket.mark,
+                ...dropdown.createTicketSet.mark,
               },
             ]}
-            {...constraintsToolbar.dropdown.mark}
+            {...dropdown.mark}
           />
         }
         {...constraintsToolbar.mark}

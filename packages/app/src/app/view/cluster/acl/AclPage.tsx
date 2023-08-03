@@ -16,6 +16,7 @@ import {AclDetailPage} from "./detail";
 import {AclLists} from "./lists";
 
 const {acl, aclToolbar} = testMarks.cluster;
+const {dropdown} = aclToolbar;
 export const AclPage = () => {
   const {clusterProperties, hasCibInfo, clusterName} = useLoadedCluster();
   const launchDisable = useLauncherDisableClusterNotRunning();
@@ -71,7 +72,7 @@ export const AclPage = () => {
                 launchDisable: launchDisable(
                   "Cannot create group on stopped cluster",
                 ),
-                ...aclToolbar.createGroup.mark,
+                ...dropdown.createGroup.mark,
               },
               {
                 name: aclEnabled ? "disable-acl" : "enable-acl",
@@ -90,17 +91,17 @@ export const AclPage = () => {
                       },
                     },
                   },
-                  runMark: aclToolbar.switchEnablement.confirm.run.mark,
-                  cancelMark: aclToolbar.switchEnablement.confirm.cancel.mark,
-                  ...aclToolbar.switchEnablement.confirm.mark,
+                  runMark: dropdown.switchEnablement.confirm.run.mark,
+                  cancelMark: dropdown.switchEnablement.confirm.cancel.mark,
+                  ...dropdown.switchEnablement.confirm.mark,
                 },
                 launchDisable: launchDisable(
                   "Cannot enable/disable acl on stopped cluster",
                 ),
-                ...aclToolbar.switchEnablement.mark,
+                ...dropdown.switchEnablement.mark,
               },
             ]}
-            {...aclToolbar.dropdown.mark}
+            {...dropdown.mark}
           />
         }
         after={

@@ -26,7 +26,7 @@ describe("ACL role assign group task", () => {
       ],
     });
     await goToRole(roleId);
-    await openTask(toolbar => [toolbar.dropdown, toolbar.assignGroup]);
+    await openTask(toolbar => [toolbar.dropdown, toolbar.dropdown.assignGroup]);
     await select(task.name, groupId);
     await click(task.run);
     await isVisible(task.success);

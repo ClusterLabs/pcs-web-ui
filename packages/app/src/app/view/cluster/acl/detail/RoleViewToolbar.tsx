@@ -9,6 +9,7 @@ type AssignSubjectOpenArgs = TaskOpenArgs<
 >;
 
 const {toolbar} = testMarks.cluster.acl.currentRole;
+const {dropdown} = toolbar;
 
 export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
   const {clusterName} = useLoadedCluster();
@@ -51,7 +52,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
                 useTask: task.assignSubjectToRole.useTask,
                 openArgs: assignGroupOpenArgs,
               },
-              ...toolbar.assignGroup.mark,
+              ...dropdown.assignGroup.mark,
             },
             {
               name: "delete-role",
@@ -69,14 +70,14 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
                     },
                   },
                 },
-                runMark: toolbar.deleteRole.confirm.run.mark,
-                cancelMark: toolbar.deleteRole.confirm.cancel.mark,
-                ...toolbar.deleteRole.confirm.mark,
+                runMark: dropdown.deleteRole.confirm.run.mark,
+                cancelMark: dropdown.deleteRole.confirm.cancel.mark,
+                ...dropdown.deleteRole.confirm.mark,
               },
-              ...toolbar.deleteRole.mark,
+              ...dropdown.deleteRole.mark,
             },
           ]}
-          {...toolbar.dropdown.mark}
+          {...dropdown.mark}
         />
       }
       {...toolbar.mark}

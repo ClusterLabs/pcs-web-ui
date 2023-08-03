@@ -20,14 +20,15 @@ export const acl = {
     toolbar: {
       addPermissions: {},
       assignUser: {},
-      assignGroup: {},
-      deleteRole: {
-        confirm: {
-          run: {},
-          cancel: {},
+      dropdown: {
+        assignGroup: {},
+        deleteRole: {
+          confirm: {
+            run: {},
+            cancel: {},
+          },
         },
       },
-      dropdown: {},
     },
   },
   currentUser: {

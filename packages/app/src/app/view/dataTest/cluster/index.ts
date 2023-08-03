@@ -50,25 +50,27 @@ export const cluster = {
     createLocation: {},
     createOrder: {},
     createColocation: {},
-    createTicket: {},
-    createOrderSet: {},
-    createColocationSet: {},
-    createTicketSet: {},
-    dropdown: {},
+    dropdown: {
+      createTicket: {},
+      createOrderSet: {},
+      createColocationSet: {},
+      createTicketSet: {},
+    },
   },
   properties: {},
   acl,
   aclToolbar: {
     createRole: {},
     createUser: {},
-    createGroup: {},
-    switchEnablement: {
-      confirm: {
-        run: {},
-        cancel: {},
+    dropdown: {
+      createGroup: {},
+      switchEnablement: {
+        confirm: {
+          run: {},
+          cancel: {},
+        },
       },
     },
-    dropdown: {},
   },
   permissions: {},
   permissionsToolbar: {
