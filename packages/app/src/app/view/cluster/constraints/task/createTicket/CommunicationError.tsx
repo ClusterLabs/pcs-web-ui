@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   TaskFinishLibCommunicationError,
   TaskResultActionCancel,
@@ -6,14 +7,20 @@ import {
 
 import {useTask} from "./useTask";
 
+const {communicationError} = testMarks.task.constraintTicketCreate;
+
 export const CommunicationError = () => {
   const {createTicket} = useTask();
   return (
     <TaskFinishLibCommunicationError
       tryAgain={
-        <TaskResultActionTryAgain action={() => createTicket({force: false})} />
+        <TaskResultActionTryAgain
+          action={() => createTicket({force: false})}
+          {...communicationError.tryAgain.mark}
+        />
       }
-      cancel={<TaskResultActionCancel />}
+      cancel={<TaskResultActionCancel {...communicationError.cancel.mark} />}
+      {...communicationError.mark}
     />
   );
 };

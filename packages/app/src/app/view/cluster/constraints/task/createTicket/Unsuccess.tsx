@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   TaskFinishLibUnsuccess,
   TaskResultActionBackCluster,
@@ -6,6 +7,8 @@ import {
 } from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {unsuccess} = testMarks.task.sbdDisable;
 
 export const Unsuccess = () => {
   const {
@@ -17,13 +20,15 @@ export const Unsuccess = () => {
   return (
     <TaskFinishLibUnsuccess
       reports={reports}
-      back={<TaskResultActionBackCluster />}
+      back={<TaskResultActionBackCluster {...unsuccess.back.mark} />}
       proceed={
         <TaskResultActionProceedAnyway
           action={() => createTicket({force: true})}
+          {...unsuccess.proceedAnyway.mark}
         />
       }
       cancel={<TaskResultActionCancel />}
+      {...unsuccess.mark}
     />
   );
 };

@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {TaskLibReportList, TaskSimpleLib} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -6,6 +7,8 @@ import {Footer} from "./Footer";
 import {Success} from "./Success";
 import {Unsuccess} from "./Unsuccess";
 import {CommunicationError} from "./CommunicationError";
+
+const {constraintTicketCreate} = testMarks.task;
 
 export const Task = () => {
   const {
@@ -31,6 +34,7 @@ export const Task = () => {
       unsuccess={<Unsuccess />}
       communicationError={<CommunicationError />}
       reports={<TaskLibReportList reports={reports} />}
+      {...constraintTicketCreate.mark}
     />
   );
 };
