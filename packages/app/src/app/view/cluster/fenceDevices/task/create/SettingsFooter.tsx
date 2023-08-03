@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 const {next, back, cancel} = testMarks.task.fenceDeviceCreate.settingsFooter;
@@ -11,7 +11,7 @@ const {next, back, cancel} = testMarks.task.fenceDeviceCreate.settingsFooter;
 export const SettingsFooter = () => {
   return (
     <TaskFooter {...testMarks.task.fenceDeviceCreate.settingsFooter.mark}>
-      <WizardFooterNext {...next.mark} />
+      <TaskButtonWizardNext {...next.mark} />
       <TaskButtonBack {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>

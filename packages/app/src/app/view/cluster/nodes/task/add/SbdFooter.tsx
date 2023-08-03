@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 const {next, back, cancel} = testMarks.task.nodeAdd.sbdFooter;
@@ -11,7 +11,7 @@ const {next, back, cancel} = testMarks.task.nodeAdd.sbdFooter;
 export const SbdFooter = () => {
   return (
     <TaskFooter {...testMarks.task.nodeAdd.sbdFooter.mark}>
-      <WizardFooterNext {...next.mark} />
+      <TaskButtonWizardNext {...next.mark} />
       <TaskButtonBack {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>

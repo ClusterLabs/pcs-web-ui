@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -14,7 +14,7 @@ export const SettingsFooter = () => {
   const {areSettingsValid} = useTask();
   return (
     <TaskFooter {...testMarks.task.resourceCreate.settingsFooter.mark}>
-      <WizardFooterNext actionIf={areSettingsValid} {...next.mark} />
+      <TaskButtonWizardNext actionIf={areSettingsValid} {...next.mark} />
       <TaskButtonBack {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>

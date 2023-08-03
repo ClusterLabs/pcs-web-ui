@@ -1,6 +1,6 @@
 import {
+  TaskButtonResult,
   TaskFinishLibWizard,
-  TaskResultAction,
   TaskSuccess,
   Wizard,
   WizardFooter,
@@ -65,7 +65,7 @@ export const SbdConfigureTask = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
+              success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
               backToUpdateSettingsStepName="Watchdog devices"
               proceedForce={() => sbdConfigure({force: true})}
               reports={reports}

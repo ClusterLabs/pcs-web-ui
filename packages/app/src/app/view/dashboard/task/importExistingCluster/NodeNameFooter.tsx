@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -15,7 +15,7 @@ export const NodeNameFooter = () => {
   const {isNodeNameValid} = useTask();
   return (
     <TaskFooter {...nodeNameFooter.mark}>
-      <WizardFooterNext
+      <TaskButtonWizardNext
         label="Check authentication"
         actionIf={isNodeNameValid}
         {...checkAuthentication.mark}

@@ -1,12 +1,12 @@
 import {testMarks} from "app/view/dataTest";
 import {
+  TaskButtonResult,
+  TaskButtonResultCancel,
+  TaskButtonWizardResultBack,
   TaskFinishLibCommunicationError,
   TaskFinishLibUnsuccess,
   TaskLibReport,
   TaskLibReportList,
-  TaskResultAction,
-  TaskResultActionCancel,
-  TaskResultActionWizardBack,
   TaskResultActionWizardTryAgain,
   TaskResultLib,
   TaskSuccess,
@@ -45,7 +45,7 @@ export const Result = ({
       }
       success={
         <TaskSuccess
-          primaryAction={<TaskResultAction {...success.close.mark} />}
+          primaryAction={<TaskButtonResult {...success.close.mark} />}
           {...success.mark}
         />
       }
@@ -53,12 +53,12 @@ export const Result = ({
         <TaskFinishLibUnsuccess
           reports={reports}
           back={
-            <TaskResultActionWizardBack
+            <TaskButtonWizardResultBack
               stepName={backStep}
               {...unsuccess.back.mark}
             />
           }
-          cancel={<TaskResultActionCancel {...unsuccess.cancel.mark} />}
+          cancel={<TaskButtonResultCancel {...unsuccess.cancel.mark} />}
           {...unsuccess.mark}
         />
       }
@@ -70,7 +70,7 @@ export const Result = ({
               {...communicationError.tryAgain.mark}
             />
           }
-          cancel={<TaskResultActionCancel />}
+          cancel={<TaskButtonResultCancel />}
           {...communicationError.mark}
         />
       }

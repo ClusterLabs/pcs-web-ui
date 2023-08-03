@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -14,7 +14,7 @@ export const AddPermissionsFooter = () => {
   const {isNameValid, invalidPermissionIndexes} = useTask();
   return (
     <TaskFooter {...testMarks.task.aclRoleCreate.addPermissionsFooter.mark}>
-      <WizardFooterNext
+      <TaskButtonWizardNext
         actionIf={isNameValid && invalidPermissionIndexes.length === 0}
         {...next.mark}
       />

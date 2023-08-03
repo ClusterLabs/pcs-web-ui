@@ -1,12 +1,14 @@
 import React from "react";
 
+import {
+  TaskButtonResultCancel,
+  TaskButtonResultProceedAnyway,
+  TaskButtonWizardResultBack,
+  TaskResultActionWizardTryAgain,
+} from "./button";
 import {TaskResultLib} from "./TaskResultLib";
 import {TaskFinishLibUnsuccess} from "./TaskFinishLibUnsuccess";
-import {TaskResultActionWizardBack} from "./TaskResultActionWizardBack";
 import {TaskFinishLibCommunicationError} from "./TaskFinishLibCommunicationError";
-import {TaskResultActionWizardTryAgain} from "./TaskResultActionWizardTryAgain";
-import {TaskResultActionCancel} from "./TaskResultActionCancel";
-import {TaskResultActionProceedAnyway} from "./TaskResultActionProceedAnyway";
 
 export const TaskFinishLibWizard = ({
   response,
@@ -31,17 +33,17 @@ export const TaskFinishLibWizard = ({
         <TaskFinishLibUnsuccess
           reports={reports}
           back={
-            <TaskResultActionWizardBack
+            <TaskButtonWizardResultBack
               stepName={backToUpdateSettingsStepName}
               data-test="task-back"
             />
           }
           proceed={
             proceedForce && (
-              <TaskResultActionProceedAnyway action={proceedForce} />
+              <TaskButtonResultProceedAnyway action={proceedForce} />
             )
           }
-          cancel={<TaskResultActionCancel />}
+          cancel={<TaskButtonResultCancel />}
         />
       }
       reports={reports}
@@ -53,7 +55,7 @@ export const TaskFinishLibWizard = ({
               data-test="task-try-again"
             />
           }
-          cancel={<TaskResultActionCancel />}
+          cancel={<TaskButtonResultCancel />}
         />
       }
     />

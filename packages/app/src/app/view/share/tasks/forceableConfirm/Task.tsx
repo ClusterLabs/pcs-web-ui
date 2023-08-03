@@ -2,9 +2,9 @@ import React from "react";
 
 import {Action} from "app/store";
 import {
+  TaskButtonResult,
   TaskFinishError,
   TaskProgress,
-  TaskResultAction,
   TaskSimple,
   TaskSimpleFooter,
   TaskSuccess,
@@ -49,7 +49,7 @@ export const TaskComponent = ({
         <TaskProgress title={`Task "${taskLabel}" in progress`} />
       )}
       {state.response === "ok" && (
-        <TaskSuccess primaryAction={<TaskResultAction />} />
+        <TaskSuccess primaryAction={<TaskButtonResult />} />
       )}
       {state.response === "fail" && (
         <TaskFinishError
@@ -58,7 +58,7 @@ export const TaskComponent = ({
             state.isForceable ? " The error can be overridden." : ""
           }`}
           primaryAction={
-            <TaskResultAction
+            <TaskButtonResult
               label={state.isForceable ? "Proceed anyway" : "Try again"}
               action={() =>
                 runAction(getForceableAction({force: state.isForceable}))
@@ -66,7 +66,7 @@ export const TaskComponent = ({
             />
           }
           secondaryActions={
-            <TaskResultAction variant="secondary" label="Cancel" />
+            <TaskButtonResult variant="secondary" label="Cancel" />
           }
         />
       )}

@@ -1,4 +1,4 @@
-import {WizardFooterNext} from "app/view/share/task";
+import {TaskButtonWizardNext} from "app/view/share/task";
 
 import {useNodesAuth} from "./useNodesAuth";
 
@@ -11,7 +11,7 @@ export const NodesAuthNext = (props: {
     state: {sending},
   } = useNodesAuth(props.authProcessId);
   return (
-    <WizardFooterNext
+    <TaskButtonWizardNext
       action={nodeAuth}
       label="Authenticate"
       disabled={sending}

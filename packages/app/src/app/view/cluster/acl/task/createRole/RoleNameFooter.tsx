@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -14,7 +14,7 @@ export const RoleNameFooter = () => {
   const {isNameValid} = useTask();
   return (
     <TaskFooter {...testMarks.task.aclRoleCreate.roleNameFooter.mark}>
-      <WizardFooterNext actionIf={isNameValid} {...next.mark} />
+      <TaskButtonWizardNext actionIf={isNameValid} {...next.mark} />
       <TaskButtonBack disabled={true} {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>

@@ -1,6 +1,6 @@
 import {
+  TaskButtonResult,
   TaskFinishLibWizard,
-  TaskResultAction,
   TaskSuccess,
   Wizard,
   WizardFooter,
@@ -72,7 +72,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
+              success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
               backToUpdateSettingsStepName="Resource Sets"
               proceedForce={() => create({force: true})}
               reports={reports}

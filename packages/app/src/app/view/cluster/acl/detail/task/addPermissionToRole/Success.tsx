@@ -1,11 +1,11 @@
 import {testMarks} from "app/view/dataTest";
-import {TaskResultAction, TaskSuccess} from "app/view/share";
+import {TaskButtonResult, TaskSuccess} from "app/view/share";
 
 const {success} = testMarks.task.aclRoleAddPermission;
 export const Success = () => {
   return (
     <TaskSuccess
-      primaryAction={<TaskResultAction {...success.close.mark} />}
+      primaryAction={<TaskButtonResult {...success.close.mark} />}
       {...success.mark}
     />
   );

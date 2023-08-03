@@ -4,7 +4,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -22,7 +22,7 @@ export const PrepareNodeFooter = () => {
       {authProcessId ? (
         <NodesAuthNext authProcessId={authProcessId} {...auth.mark} />
       ) : (
-        <WizardFooterNext disabled={!isNodeCheckDoneValid} {...next.mark} />
+        <TaskButtonWizardNext disabled={!isNodeCheckDoneValid} {...next.mark} />
       )}
       <TaskButtonBack {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />

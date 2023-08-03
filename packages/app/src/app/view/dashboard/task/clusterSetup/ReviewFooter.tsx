@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -14,7 +14,7 @@ export const ReviewFooter = () => {
   const {setupCluster} = useTask();
   return (
     <TaskFooter {...testMarks.task.clusterSetup.reviewFooter.mark}>
-      <WizardFooterNext
+      <TaskButtonWizardNext
         label="Setup cluster"
         preAction={() => setupCluster()}
         {...next.mark}

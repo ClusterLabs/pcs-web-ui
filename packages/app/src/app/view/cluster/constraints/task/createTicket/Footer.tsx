@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {TaskButtonCancel, TaskButtonNextWithValidation} from "app/view/share";
+import {TaskButtonCancel, TaskButtonNext} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -9,12 +9,12 @@ export const Footer = () => {
   const {label, createTicket} = useTask();
   return (
     <>
-      <TaskButtonNextWithValidation
+      <TaskButtonNext
         run={() => createTicket({force: false})}
         {...task.run.mark}
       >
         {label}
-      </TaskButtonNextWithValidation>
+      </TaskButtonNext>
       <TaskButtonCancel {...task.cancel.mark} />
     </>
   );

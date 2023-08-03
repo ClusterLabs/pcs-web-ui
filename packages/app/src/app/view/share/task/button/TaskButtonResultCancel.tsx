@@ -1,11 +1,11 @@
-import {TaskResultAction} from "./TaskResultAction";
+import {TaskButtonResult} from "./TaskButtonResult";
 
-export const TaskResultActionCancel = (props: {
+export const TaskButtonResultCancel = (props: {
   "data-test"?: string;
   variant?: "secondary" | "link";
 }) => {
   return (
-    <TaskResultAction
+    <TaskButtonResult
       variant={props.variant ?? "secondary"}
       label="Cancel"
       data-test={props["data-test"]}

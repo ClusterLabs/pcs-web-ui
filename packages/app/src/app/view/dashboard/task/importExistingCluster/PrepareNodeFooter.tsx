@@ -4,7 +4,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -28,7 +28,7 @@ export const PrepareNodeFooter = () => {
           {...authenticate.mark}
         />
       ) : (
-        <WizardFooterNext
+        <TaskButtonWizardNext
           label="Add existing cluster"
           preAction={importCluster}
           disabled={!isNodeCheckDoneValid}

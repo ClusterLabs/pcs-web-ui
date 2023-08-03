@@ -2,10 +2,10 @@ import {WizardContextConsumer} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {
+  TaskButtonResult,
+  TaskButtonResultCancel,
   TaskFinishError,
   TaskProgress,
-  TaskResultAction,
-  TaskResultActionCancel,
   TaskSuccess,
 } from "app/view/share";
 
@@ -39,7 +39,7 @@ export const TaskFinish = ({
                 </>
               }
               primaryAction={
-                <TaskResultAction
+                <TaskButtonResult
                   label="Change settings"
                   action={() => goToStepByName(backToUpdateSettingsStepName)}
                   {...error.changeSettings.mark}
@@ -47,13 +47,13 @@ export const TaskFinish = ({
               }
               secondaryActions={
                 <>
-                  <TaskResultAction
+                  <TaskButtonResult
                     variant="link"
                     label="Try again"
                     action={importCluster}
                     {...error.tryAgain.mark}
                   />
-                  <TaskResultActionCancel
+                  <TaskButtonResultCancel
                     variant="link"
                     {...error.cancel.mark}
                   />
@@ -64,7 +64,7 @@ export const TaskFinish = ({
           )}
           {importCall.status === "success" && (
             <TaskSuccess
-              primaryAction={<TaskResultAction {...success.close.mark} />}
+              primaryAction={<TaskButtonResult {...success.close.mark} />}
               {...success.mark}
             />
           )}

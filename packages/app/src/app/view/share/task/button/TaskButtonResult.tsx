@@ -2,9 +2,9 @@ import {Button} from "@patternfly/react-core";
 
 import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
-import {useTaskContext} from "./TaskContext";
+import {useTaskContext} from "../TaskContext";
 
-export const TaskResultAction = (props: {
+export const TaskButtonResult = (props: {
   variant?: "primary" | "secondary" | "link";
   action?: () => void;
   label?: string;

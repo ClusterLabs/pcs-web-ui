@@ -1,8 +1,8 @@
 import {testMarks} from "app/view/dataTest";
 import {
+  TaskButtonResultCancel,
+  TaskButtonResultTryAgain,
   TaskFinishLibCommunicationError,
-  TaskResultActionCancel,
-  TaskResultActionTryAgain,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -14,12 +14,12 @@ export const CommunicationError = () => {
   return (
     <TaskFinishLibCommunicationError
       tryAgain={
-        <TaskResultActionTryAgain
+        <TaskButtonResultTryAgain
           action={() => sbdDisable({force: false})}
           {...communicationError.tryAgain.mark}
         />
       }
-      cancel={<TaskResultActionCancel {...communicationError.cancel.mark} />}
+      cancel={<TaskButtonResultCancel {...communicationError.cancel.mark} />}
       {...communicationError.mark}
     />
   );

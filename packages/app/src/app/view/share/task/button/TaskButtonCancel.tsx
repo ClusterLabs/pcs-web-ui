@@ -1,6 +1,6 @@
 import {Button} from "@patternfly/react-core";
 
-import {useTaskContext} from "./TaskContext";
+import {useTaskContext} from "../TaskContext";
 
 export const TaskButtonCancel = (props: {
   onClick?: () => void;

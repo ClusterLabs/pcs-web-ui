@@ -1,6 +1,6 @@
 import {
+  TaskButtonResult,
   TaskFinishLibWizard,
-  TaskResultAction,
   TaskSuccess,
   Wizard,
   WizardFooter,
@@ -69,7 +69,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              success={<TaskSuccess primaryAction={<TaskResultAction />} />}
+              success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
               backToUpdateSettingsStepName={enterSubjectNameLabel}
               reports={reports}
             />

@@ -1,17 +1,17 @@
 import {WizardContextConsumer} from "@patternfly/react-core";
 
-import {TaskResultAction} from "./TaskResultAction";
+import {TaskButtonResult} from "./TaskButtonResult";
 
-export const TaskResultActionWizard = (props: {
+export const TaskButtonResultWizard = (props: {
   stepName: string;
   label: string;
-  variant?: React.ComponentProps<typeof TaskResultAction>["variant"];
+  variant?: React.ComponentProps<typeof TaskButtonResult>["variant"];
   "data-test": string;
 }) => {
   return (
     <WizardContextConsumer>
       {({goToStepByName}) => (
-        <TaskResultAction
+        <TaskButtonResult
           variant={props.variant ?? "secondary"}
           label={props.label}
           action={() => goToStepByName(props.stepName)}

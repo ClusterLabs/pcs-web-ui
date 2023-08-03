@@ -1,11 +1,11 @@
-import {TaskResultActionWizard} from "./TaskResultActionWizard";
+import {TaskButtonResultWizard} from "./TaskButtonResultWizard";
 
-export const TaskResultActionWizardBack = (props: {
+export const TaskButtonWizardResultBack = (props: {
   stepName: string;
   "data-test": string;
 }) => {
   return (
-    <TaskResultActionWizard
+    <TaskButtonResultWizard
       variant="primary"
       label="Back to update settings"
       stepName={props.stepName}

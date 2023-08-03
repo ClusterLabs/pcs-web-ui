@@ -4,7 +4,7 @@ import {
   TaskButtonCancel,
   TaskButtonReviewAndFinish,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -16,7 +16,7 @@ export const AdvancedOptionsFooter = () => {
   const {areLinksValid} = useTask();
   return (
     <TaskFooter {...testMarks.task.clusterSetup.advancedOptionsFooter.mark}>
-      <WizardFooterNext actionIf={areLinksValid} {...next.mark} />
+      <TaskButtonWizardNext actionIf={areLinksValid} {...next.mark} />
       <TaskButtonBack {...back.mark} />
       <TaskButtonReviewAndFinish
         label="Review and setup cluster"

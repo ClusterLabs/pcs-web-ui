@@ -1,4 +1,4 @@
-import {TaskLibReportList, TaskResultAction, TaskSuccess} from "app/view/share";
+import {TaskButtonResult, TaskLibReportList, TaskSuccess} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -8,7 +8,7 @@ export const Finish = () => {
   } = useTask();
   return (
     <>
-      <TaskSuccess primaryAction={<TaskResultAction />} />
+      <TaskSuccess primaryAction={<TaskButtonResult />} />
       <TaskLibReportList reports={reports} />
     </>
   );

@@ -3,9 +3,9 @@ import {WizardContext} from "@patternfly/react-core";
 
 import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
-import {TaskButtonNextWithValidation} from "./TaskButtonNextWithValidation";
+import {TaskButtonNext} from "./TaskButtonNext";
 
-export const WizardFooterNext = (
+export const TaskButtonWizardNext = (
   props: {
     disabled?: boolean;
     label?: React.ComponentProps<typeof ButtonWithEnter>["children"];
@@ -16,14 +16,14 @@ export const WizardFooterNext = (
 
   if ("actionIf" in props) {
     return (
-      <TaskButtonNextWithValidation
+      <TaskButtonNext
         run={onNext}
         runIf={props.actionIf}
         disabled={props.disabled ?? false}
         data-test={props["data-test"]}
       >
         {props.label ?? "Next"}
-      </TaskButtonNextWithValidation>
+      </TaskButtonNext>
     );
   }
 

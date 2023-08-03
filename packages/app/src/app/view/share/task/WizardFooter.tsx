@@ -1,15 +1,17 @@
 import React from "react";
 
-import {TaskButtonBack} from "./TaskButtonBack";
-import {TaskButtonCancel} from "./TaskButtonCancel";
-import {TaskButtonReviewAndFinish} from "./TaskButtonReviewAndFinish";
-import {WizardFooterNext} from "./WizardFooterNext";
+import {
+  TaskButtonBack,
+  TaskButtonCancel,
+  TaskButtonReviewAndFinish,
+} from "./button";
+import {TaskButtonWizardNext} from "./button";
 import {TaskFooter} from "./TaskFooter";
 
 export const WizardFooter = (props: {
   backDisabled?: boolean;
   back?: Omit<React.ComponentProps<typeof TaskButtonBack>, "onClick">;
-  next?: React.ComponentProps<typeof WizardFooterNext>;
+  next?: React.ComponentProps<typeof TaskButtonWizardNext>;
   cancel?: Omit<React.ComponentProps<typeof TaskButtonCancel>, "onClick">;
   reviewAndFinish?: Omit<
     React.ComponentProps<typeof TaskButtonReviewAndFinish>,
@@ -19,7 +21,7 @@ export const WizardFooter = (props: {
 }) => {
   return (
     <TaskFooter data-test={props["data-test"] ?? "footer"}>
-      <WizardFooterNext {...(props.next ?? {})} />
+      <TaskButtonWizardNext {...(props.next ?? {})} />
       <TaskButtonBack {...(props.back ?? {})} />
       {props.reviewAndFinish !== undefined && (
         <TaskButtonReviewAndFinish {...(props.reviewAndFinish ?? {})} />

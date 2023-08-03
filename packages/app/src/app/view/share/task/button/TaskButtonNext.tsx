@@ -1,9 +1,9 @@
 import {useDispatch} from "app/view/share/useDispatch";
 import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
-import {useTaskContext} from "./TaskContext";
+import {useTaskContext} from "../TaskContext";
 
-export const TaskButtonNextWithValidation = (props: {
+export const TaskButtonNext = (props: {
   run: () => void;
   runIf?: boolean;
   children?: React.ReactNode;

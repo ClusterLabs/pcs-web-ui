@@ -1,11 +1,11 @@
-import {TaskResultAction} from "./TaskResultAction";
+import {TaskButtonResult} from "./TaskButtonResult";
 
-export const TaskResultActionProceedAnyway = (props: {
+export const TaskButtonResultProceedAnyway = (props: {
   action: () => void;
   "data-test"?: string;
 }) => {
   return (
-    <TaskResultAction
+    <TaskButtonResult
       variant="secondary"
       label="Proceed anyway with current settings"
       action={props.action}

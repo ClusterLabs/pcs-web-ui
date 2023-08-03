@@ -1,7 +1,7 @@
 import React from "react";
 
 import {TaskSuccess} from "./TaskSuccess";
-import {TaskResultAction} from "./TaskResultAction";
+import {TaskButtonResult} from "./button";
 import {TaskFinishError} from "./TaskFinishError";
 import {TaskProgress} from "./TaskProgress";
 
@@ -25,24 +25,24 @@ export const TaskSimpleFinish = ({
       return <TaskProgress title={waitTitle} />;
 
     case "ok":
-      return <TaskSuccess primaryAction={<TaskResultAction />} />;
+      return <TaskSuccess primaryAction={<TaskButtonResult />} />;
 
     default: {
-      const cancel = <TaskResultAction variant="secondary" label="Cancel" />;
+      const cancel = <TaskButtonResult variant="secondary" label="Cancel" />;
       if (recoverFromError) {
         return (
           <TaskFinishError
             title={failTitle}
             message={resultMessage}
             primaryAction={
-              <TaskResultAction
+              <TaskButtonResult
                 label="Start from the beginning"
                 action={recoverFromError}
               />
             }
             secondaryActions={
               <>
-                <TaskResultAction
+                <TaskButtonResult
                   variant="secondary"
                   label="Try again"
                   action={tryAgain}
@@ -58,7 +58,7 @@ export const TaskSimpleFinish = ({
           title={failTitle}
           message={resultMessage}
           primaryAction={
-            <TaskResultAction label="Try again" action={tryAgain} />
+            <TaskButtonResult label="Try again" action={tryAgain} />
           }
           secondaryActions={cancel}
         />

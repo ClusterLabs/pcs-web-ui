@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -14,7 +14,7 @@ export const NameAndNodesFooter = () => {
   const {isClusterNameValid, areNodeNamesValid} = useTask();
   return (
     <TaskFooter {...testMarks.task.clusterSetup.nameAndNodesFooter.mark}>
-      <WizardFooterNext
+      <TaskButtonWizardNext
         actionIf={isClusterNameValid && areNodeNamesValid}
         {...next.mark}
       />

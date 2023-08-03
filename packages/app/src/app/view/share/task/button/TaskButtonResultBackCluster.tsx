@@ -1,13 +1,14 @@
 import {useDispatch} from "app/view/share";
 
-import {useTaskContext} from "./TaskContext";
-import {TaskResultAction} from "./TaskResultAction";
+import {useTaskContext} from "../TaskContext";
 
-export const TaskResultActionBackCluster = () => {
+import {TaskButtonResult} from "./TaskButtonResult";
+
+export const TaskButtonResultnBackCluster = () => {
   const {clusterName, task} = useTaskContext();
   const dispatch = useDispatch();
   return (
-    <TaskResultAction
+    <TaskButtonResult
       variant="secondary"
       label="Back to update settings"
       action={() => {

@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -14,7 +14,7 @@ export const ReviewFooter = () => {
   const {create} = useTask();
   return (
     <TaskFooter {...testMarks.task.fenceDeviceCreate.reviewFooter.mark}>
-      <WizardFooterNext
+      <TaskButtonWizardNext
         label="Create fence device"
         preAction={() => create({force: false})}
         {...next.mark}

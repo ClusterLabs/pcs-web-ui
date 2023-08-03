@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -15,7 +15,7 @@ export const InstanceAttrsFormFooter = () => {
   const {areInstanceAttrsValid, isAgentLoaded} = useTask();
   return (
     <TaskFooter {...testMarks.task.fenceDeviceCreate.instanceAttrsFooter.mark}>
-      <WizardFooterNext
+      <TaskButtonWizardNext
         actionIf={areInstanceAttrsValid}
         disabled={!isAgentLoaded}
         {...next.mark}

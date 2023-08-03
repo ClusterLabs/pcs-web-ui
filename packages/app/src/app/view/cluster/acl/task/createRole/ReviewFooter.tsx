@@ -3,7 +3,7 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskFooter,
-  WizardFooterNext,
+  TaskButtonWizardNext,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -14,7 +14,7 @@ export const ReviewFooter = () => {
   const {aclRoleCreate} = useTask();
   return (
     <TaskFooter {...testMarks.task.aclRoleCreate.reviewFooter.mark}>
-      <WizardFooterNext
+      <TaskButtonWizardNext
         label="Create role"
         preAction={() => aclRoleCreate()}
         {...next.mark}

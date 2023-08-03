@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {TaskButtonCancel, TaskButtonNextWithValidation} from "app/view/share";
+import {TaskButtonCancel, TaskButtonNext} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -9,13 +9,13 @@ export const Footer = () => {
   const {label, aclRolePermissionAdd, invalidPermissionIndexes} = useTask();
   return (
     <>
-      <TaskButtonNextWithValidation
+      <TaskButtonNext
         run={aclRolePermissionAdd}
         runIf={invalidPermissionIndexes.length === 0}
         {...aclRoleAddPermission.run.mark}
       >
         {label}
-      </TaskButtonNextWithValidation>
+      </TaskButtonNext>
       <TaskButtonCancel {...aclRoleAddPermission.cancel.mark} />
     </>
   );

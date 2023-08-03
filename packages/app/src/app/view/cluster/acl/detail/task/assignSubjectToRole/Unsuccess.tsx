@@ -1,9 +1,9 @@
 import {testMarks} from "app/view/dataTest";
 import {
+  TaskButtonResultCancel,
+  TaskButtonResultProceedAnyway,
+  TaskButtonResultnBackCluster,
   TaskFinishLibUnsuccess,
-  TaskResultActionBackCluster,
-  TaskResultActionCancel,
-  TaskResultActionProceedAnyway,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -19,14 +19,14 @@ export const Unsuccess = () => {
   return (
     <TaskFinishLibUnsuccess
       reports={reports}
-      back={<TaskResultActionBackCluster {...unsuccess.back.mark} />}
+      back={<TaskButtonResultnBackCluster {...unsuccess.back.mark} />}
       proceed={
-        <TaskResultActionProceedAnyway
+        <TaskButtonResultProceedAnyway
           action={assign}
           {...unsuccess.proceedAnyway.mark}
         />
       }
-      cancel={<TaskResultActionCancel {...unsuccess.cancel.mark} />}
+      cancel={<TaskButtonResultCancel {...unsuccess.cancel.mark} />}
       {...unsuccess.mark}
     />
   );
