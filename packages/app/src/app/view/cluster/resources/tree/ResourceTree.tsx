@@ -1,5 +1,6 @@
 import {DataList} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Resource} from "app/view/cluster/types";
 import {
   EmptyStateClusterStopped,
@@ -36,9 +37,9 @@ export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
 
   return (
     <DataList
-      data-test="cluster-resources"
       aria-label="Cluster resources"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
+      {...testMarks.cluster.resources.tree.mark}
     >
       {resourceTree.map(resourceTreeItem => {
         switch (resourceTreeItem.itemType) {

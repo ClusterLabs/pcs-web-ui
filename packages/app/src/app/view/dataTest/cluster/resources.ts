@@ -1,5 +1,20 @@
+const resource = {
+  id: {},
+  type: {},
+  status: {},
+};
 export const resources = {
-  tree: {},
+  tree: {
+    primitive: resource,
+    group: {
+      ...resource,
+      toggle: {},
+    },
+    clone: {
+      ...resource,
+      toggle: {},
+    },
+  },
   currentPrimitive: {
     id: {},
     toolbar: {

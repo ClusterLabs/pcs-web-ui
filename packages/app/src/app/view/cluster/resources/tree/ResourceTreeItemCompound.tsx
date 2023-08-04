@@ -10,45 +10,41 @@ import {useClusterSources} from "app/view/cluster/share";
 
 import {ResourceTreeItemCells} from "./ResourceTreeItemCells";
 
-export const ResourceTreeItemCompound = ({
-  resourceId,
-  idCell,
-  typeCell,
-  statusCell,
-  toggle,
-  nestingDepth,
-  children,
-}: React.PropsWithChildren<{
-  resourceId: string;
-  idCell: React.ReactNode;
-  typeCell: React.ReactNode;
-  statusCell: React.ReactNode;
-  toggle: React.ReactNode;
-  nestingDepth: number;
-}>) => {
+export const ResourceTreeItemCompound = (
+  props: React.PropsWithChildren<{
+    resourceId: string;
+    idCell: React.ReactNode;
+    typeCell: React.ReactNode;
+    statusCell: React.ReactNode;
+    toggle: React.ReactNode;
+    nestingDepth: number;
+    "data-test"?: string;
+  }>,
+) => {
   const {
     uiState: {resourceOpenedItems},
   } = useClusterSources();
-  const expanded = resourceOpenedItems.includes(resourceId);
-  const label = `Members of resource item ${resourceId}`;
+  const expanded = resourceOpenedItems.includes(props.resourceId);
+  const label = `Members of resource item ${props.resourceId}`;
   return (
     <DataListItem
-      aria-labelledby={`resource-tree-item-${resourceId}`}
+      aria-labelledby={`resource-tree-item-${props.resourceId}`}
       isExpanded={expanded}
+      data-test={props["data-test"]}
     >
-      <DataListItemRow data-test={`resource-tree-item ${resourceId}`}>
-        {toggle}
+      <DataListItemRow>
+        {props.toggle}
         <ResourceTreeItemCells
-          resourceId={resourceId}
-          idCell={idCell}
-          typeCell={typeCell}
-          statusCell={statusCell}
+          resourceId={props.resourceId}
+          idCell={props.idCell}
+          typeCell={props.typeCell}
+          statusCell={props.statusCell}
         />
       </DataListItemRow>
       {expanded && (
         <DataListContent aria-label={label} hasNoPadding>
-          <DataList aria-label={label} data-level={nestingDepth}>
-            {children}
+          <DataList aria-label={label} data-level={props.nestingDepth}>
+            {props.children}
           </DataList>
         </DataListContent>
       )}

@@ -33,25 +33,28 @@ const getSeverityCounts = (
     }));
 };
 
-export const ResourceTreeCellStatus = ({status}: {status: ResourceStatus}) => {
+export const ResourceTreeCellStatus = (props: {
+  status: ResourceStatus;
+  "data-test": string;
+}) => {
   const {compact} = useGroupDetailViewContext();
   if (compact) {
     return (
-      <>
-        {getSeverityCounts(status.infoList).map((sc: SeverityCount) => (
+      <span data-test={props["data-test"]}>
+        {getSeverityCounts(props.status.infoList).map((sc: SeverityCount) => (
           <div key={sc.severity} className="ha-c-data-list__item-status">
             <StatusIco key={sc.severity} status={sc.severity} />
             {sc.severity !== "OK" && ` ${sc.count}`}
           </div>
         ))}
-      </>
+      </span>
     );
   }
   return (
-    <div className="ha-c-data-list__item-status">
+    <div className="ha-c-data-list__item-status" data-test={props["data-test"]}>
       {" "}
       <ResourceStatusInfoListSigns
-        resourceStatusInfoList={status.infoList}
+        resourceStatusInfoList={props.status.infoList}
         showOkIco
       />
     </div>

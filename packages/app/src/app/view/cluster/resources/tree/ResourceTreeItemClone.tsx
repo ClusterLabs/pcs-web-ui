@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {Clone} from "app/view/cluster/types";
 
 import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
@@ -9,15 +10,30 @@ import {ResourceTreeCellName} from "./ResourceTreeCellName";
 import {ResourceTreeCellType} from "./ResourceTreeCellType";
 import {ResourceTreeCellStatus} from "./ResourceTreeCellStatus";
 
+const {clone: cloneMark} = testMarks.cluster.resources.tree;
+
 export const ResourceTreeItemClone = ({clone}: {clone: Clone}) => {
   return (
     <ResourceTreeItemCompound
       resourceId={clone.id}
       nestingDepth={1}
-      toggle={<ResourceTreeItemCompoundToggle resourceId={clone.id} />}
-      idCell={<ResourceTreeCellName resourceId={clone.id} />}
-      typeCell={<ResourceTreeCellType type="Clone" />}
-      statusCell={<ResourceTreeCellStatus status={clone.status} />}
+      toggle={
+        <ResourceTreeItemCompoundToggle
+          resourceId={clone.id}
+          {...cloneMark.toggle.mark}
+        />
+      }
+      idCell={
+        <ResourceTreeCellName resourceId={clone.id} {...cloneMark.id.mark} />
+      }
+      typeCell={<ResourceTreeCellType type="Clone" {...cloneMark.type.mark} />}
+      statusCell={
+        <ResourceTreeCellStatus
+          status={clone.status}
+          {...cloneMark.status.mark}
+        />
+      }
+      {...cloneMark.mark}
     >
       {clone.member.itemType === "primitive" && (
         <ResourceTreeItemPrimitive primitive={clone.member} />

@@ -1,15 +1,13 @@
-export const ResourceTreeCellType = ({
-  type,
-  typeDescription = "",
-}: {
+export const ResourceTreeCellType = (props: {
   type: string;
   typeDescription?: string;
+  "data-test"?: string;
 }) => {
   return (
     <>
       <span>Type </span>
-      <strong data-test="resource-tree-item-type">{type}</strong>
-      {typeDescription && <span>{` (${typeDescription})`}</span>}
+      <strong data-test={props["data-test"]}>{props.type}</strong>
+      {props.typeDescription && <span>{` (${props.typeDescription})`}</span>}
     </>
   );
 };
