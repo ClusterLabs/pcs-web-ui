@@ -15,7 +15,7 @@ import {CloneDetail} from "./CloneDetail";
 
 const tabList = ["detail", "meta"] as const;
 
-const {currentResurce} = testMarks.cluster.resources;
+const {currentClone} = testMarks.cluster.resources;
 
 export const ClonePage = ({clone}: {clone: Clone}) => {
   const {currentTab, matchedContext} = useUrlTabs(tabList);
@@ -26,11 +26,11 @@ export const ClonePage = ({clone}: {clone: Clone}) => {
           <ResourceDetailCaption
             resourceId={clone.id}
             type="clone"
-            {...currentResurce.clone.id.mark}
+            {...currentClone.id.mark}
           />
         }
         tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
-        {...currentResurce.mark}
+        {...currentClone.mark}
       >
         <Router base={matchedContext}>
           {currentTab === "detail" && (
@@ -60,10 +60,10 @@ export const ClonePage = ({clone}: {clone: Clone}) => {
         <ResourceDetailCaption
           resourceId={clone.id}
           type="clone"
-          {...currentResurce.clone.id.mark}
+          {...currentClone.id.mark}
         />
       }
-      {...currentResurce.mark}
+      {...currentClone.mark}
     >
       <Alert
         variant="danger"

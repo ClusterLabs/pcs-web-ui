@@ -4,7 +4,7 @@ import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
 import {DetailLayout, ResourceDetailCaption} from "app/view/share";
 
-const {currentResurce} = testMarks.cluster.resources;
+const {currentFenceDevice} = testMarks.cluster.resources;
 
 export const FenceDevicePage = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   return (
@@ -13,10 +13,10 @@ export const FenceDevicePage = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
         <ResourceDetailCaption
           resourceId={fenceDevice.id}
           type={fenceDevice.type}
-          {...currentResurce.fenceDevice.id}
+          {...currentFenceDevice.id}
         />
       }
-      {...currentResurce.mark}
+      {...currentFenceDevice.mark}
     >
       <Alert variant="danger" isInline title="Unsupported fence device context">
         Cloned fence device or fence device inside group is not supported.

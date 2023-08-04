@@ -21,7 +21,7 @@ export const primitivePageTabList = [
   "meta",
 ] as const;
 
-const {currentResurce} = testMarks.cluster.resources;
+const {currentPrimitive} = testMarks.cluster.resources;
 
 export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
   const {currentTab, matchedContext} = useUrlTabs(primitivePageTabList);
@@ -36,7 +36,7 @@ export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
         <ResourceDetailCaption
           resourceId={primitive.id}
           type={primitive.type}
-          {...currentResurce.primitive.id.mark}
+          {...currentPrimitive.id.mark}
         />
       }
       tabs={
@@ -46,7 +46,7 @@ export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
           data-test="primitive"
         />
       }
-      {...currentResurce.mark}
+      {...currentPrimitive.mark}
       toolbar={<PrimitivePageToolbar primitive={primitive} />}
     >
       <Router base={matchedContext}>

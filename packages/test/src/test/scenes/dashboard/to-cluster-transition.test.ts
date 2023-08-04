@@ -75,7 +75,7 @@ describe("To cluster transition", () => {
     );
     await expectOnTheCluster();
     await isVisible(resources);
-    await textIs(resources.currentResurce.primitive.id, resourceId);
+    await textIs(resources.currentPrimitive.id, resourceId);
   });
 
   it("should allow go to a fence device detail", async () => {

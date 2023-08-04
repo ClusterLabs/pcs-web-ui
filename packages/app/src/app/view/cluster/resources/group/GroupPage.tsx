@@ -16,7 +16,7 @@ import {GroupPageToolbar} from "./GroupPageToolbar";
 
 const tabList = ["detail", "meta"] as const;
 
-const {currentResurce} = testMarks.cluster.resources;
+const {currentGroup} = testMarks.cluster.resources;
 
 export const GroupPage = ({group}: {group: Group}) => {
   const {currentTab, matchedContext} = useUrlTabs(tabList);
@@ -26,12 +26,12 @@ export const GroupPage = ({group}: {group: Group}) => {
         <ResourceDetailCaption
           resourceId={group.id}
           type="group"
-          {...currentResurce.group.id.mark}
+          {...currentGroup.id.mark}
         />
       }
       tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
       toolbar={<GroupPageToolbar group={group} />}
-      {...currentResurce.mark}
+      {...currentGroup.mark}
     >
       {group.resources.some(r => r.itemType === "fence-device") && (
         <Alert
