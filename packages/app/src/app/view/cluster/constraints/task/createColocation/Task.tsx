@@ -1,4 +1,13 @@
-import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
+import {
+  TaskButtonResult,
+  TaskButtonResultCancel,
+  TaskButtonResultTryAgain,
+  TaskButtonSimpleResultBack,
+  TaskFinishError,
+  TaskSimpleFooter,
+  TaskSimpleOldApi,
+  TaskSuccess,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
@@ -18,32 +27,37 @@ export const Task = () => {
     },
   } = useTask();
   return (
-    <TaskSimple
+    <TaskSimpleOldApi
       taskLabel="Create colocation constraint"
       task={taskName}
       clusterName={clusterName}
+      waitTitle="Creating colocation constraint"
       close={close}
       footer={
-        response !== "" ? null : (
-          <TaskSimpleFooter
-            nextIf={isResourceValid && isWithResourceValid && isScoreValid}
-            run={createColocation}
-            runLabel="Create colocation constraint"
-          />
-        )
-      }
-    >
-      {response === "" && <Configure />}
-      {response !== "" && (
-        <TaskSimpleFinish
-          response={response}
-          resultMessage={resultMessage}
-          waitTitle="Creating colocation constraint"
-          failTitle="Create colocation constraint failed"
-          tryAgain={createColocation}
-          recoverFromError={recoverFromError}
+        <TaskSimpleFooter
+          nextIf={isResourceValid && isWithResourceValid && isScoreValid}
+          run={createColocation}
+          runLabel="Create colocation constraint"
         />
-      )}
-    </TaskSimple>
+      }
+      configure={<Configure />}
+      response={response}
+      success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
+      fail={
+        <TaskFinishError
+          title="Create colocation constraint failed"
+          message={resultMessage}
+          primaryAction={
+            <TaskButtonSimpleResultBack action={recoverFromError} />
+          }
+          secondaryActions={
+            <>
+              <TaskButtonResultTryAgain action={createColocation} />
+              <TaskButtonResultCancel />
+            </>
+          }
+        />
+      }
+    />
   );
 };

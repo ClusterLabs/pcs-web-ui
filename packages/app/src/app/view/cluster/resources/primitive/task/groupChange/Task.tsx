@@ -1,4 +1,13 @@
-import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
+import {
+  TaskButtonResult,
+  TaskButtonResultCancel,
+  TaskButtonResultTryAgain,
+  TaskButtonSimpleResultBack,
+  TaskFinishError,
+  TaskSimpleFooter,
+  TaskSimpleOldApi,
+  TaskSuccess,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {GroupChangeForm} from "./GroupChangeForm";
@@ -19,32 +28,37 @@ export const Task = () => {
   } = useTask();
 
   return (
-    <TaskSimple
+    <TaskSimpleOldApi
       taskLabel={`Change group of primitive resource "${resourceId}"?`}
       task={taskName}
       clusterName={clusterName}
       close={close}
+      waitTitle={`Changing group of primitive resource "${resourceId}"`}
+      configure={<GroupChangeForm />}
       footer={
-        response !== "" ? null : (
-          <TaskSimpleFooter
-            nextIf={isGroupValid && isAdjacentResourceValid}
-            run={changeGroup}
-            runLabel="Change group"
-          />
-        )
-      }
-    >
-      {response === "" && <GroupChangeForm />}
-      {response !== "" && (
-        <TaskSimpleFinish
-          response={response}
-          resultMessage={resultMessage}
-          waitTitle={`Changing group of primitive resource "${resourceId}"`}
-          failTitle={`Changing group of primitive resource "${resourceId}" failed`}
-          tryAgain={changeGroup}
-          recoverFromError={recoverFromError}
+        <TaskSimpleFooter
+          nextIf={isGroupValid && isAdjacentResourceValid}
+          run={changeGroup}
+          runLabel="Change group"
         />
-      )}
-    </TaskSimple>
+      }
+      response={response}
+      success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
+      fail={
+        <TaskFinishError
+          title={`Changing group of primitive resource "${resourceId}" failed`}
+          message={resultMessage}
+          primaryAction={
+            <TaskButtonSimpleResultBack action={recoverFromError} />
+          }
+          secondaryActions={
+            <>
+              <TaskButtonResultTryAgain action={changeGroup} />
+              <TaskButtonResultCancel />
+            </>
+          }
+        />
+      }
+    />
   );
 };

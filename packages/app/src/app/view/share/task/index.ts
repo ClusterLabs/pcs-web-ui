@@ -18,7 +18,7 @@ export * from "./TaskSuccess";
 export * from "./useTask";
 export * from "./TaskSimple";
 export * from "./TaskSimpleLib";
+export * from "./TaskSimpleOldApi";
 export * from "./TaskSimpleFooter";
-export * from "./TaskSimpleFinish";
 export * from "./TaskReport";
 export * from "./types";

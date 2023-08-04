@@ -1,6 +1,15 @@
 import React from "react";
 
-import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
+import {
+  TaskButtonResult,
+  TaskButtonResultCancel,
+  TaskButtonResultTryAgain,
+  TaskButtonSimpleResultBack,
+  TaskFinishError,
+  TaskSimpleFooter,
+  TaskSimpleOldApi,
+  TaskSuccess,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {EditArgsForm} from "./EditArgsForm";
@@ -25,29 +34,32 @@ export const EditArgsTask = () => {
   }, [fenceDeviceId, close]);
 
   return (
-    <TaskSimple
+    <TaskSimpleOldApi
       taskLabel="Edit fence device arguments"
       task={taskName}
       clusterName={clusterName}
       close={close}
-      footer={
-        response !== "" ? null : (
-          <TaskSimpleFooter runLabel="Save arguments" run={runUpdate} />
-        )
+      waitTitle="Updating fence device arguments"
+      footer={<TaskSimpleFooter runLabel="Save arguments" run={runUpdate} />}
+      configure={<EditArgsForm />}
+      response={response}
+      success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
+      fail={
+        <TaskFinishError
+          title="Fence device arguments update failed"
+          message={resultMessage}
+          primaryAction={
+            <TaskButtonSimpleResultBack action={recoverFromError} />
+          }
+          secondaryActions={
+            <>
+              <TaskButtonResultTryAgain action={runUpdate} />
+              <TaskButtonResultCancel />
+            </>
+          }
+        />
       }
       data-test="fence-device-args-edit"
-    >
-      {response === "" && <EditArgsForm />}
-      {response !== "" && (
-        <TaskSimpleFinish
-          response={response}
-          resultMessage={resultMessage}
-          waitTitle="Updating fence device arguments"
-          failTitle="Fence device arguments update failed"
-          tryAgain={runUpdate}
-          recoverFromError={recoverFromError}
-        />
-      )}
-    </TaskSimple>
+    />
   );
 };

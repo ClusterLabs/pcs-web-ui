@@ -7,6 +7,7 @@ export * from "./TaskButtonResultCancel";
 export * from "./TaskButtonResultProceedAnyway";
 export * from "./TaskButtonResultTryAgain";
 export * from "./TaskButtonReviewAndFinish";
+export * from "./TaskButtonSimpleResultBack";
 export * from "./TaskButtonWizardNext";
 export * from "./TaskButtonWizardResultBack";
 export * from "./TaskButtonWizardResultTryAgain";

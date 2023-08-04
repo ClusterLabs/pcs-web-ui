@@ -1,5 +1,14 @@
 import {tools} from "app/store";
-import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
+import {
+  TaskButtonResult,
+  TaskButtonResultCancel,
+  TaskButtonResultTryAgain,
+  TaskButtonSimpleResultBack,
+  TaskFinishError,
+  TaskSimpleFooter,
+  TaskSimpleOldApi,
+  TaskSuccess,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
@@ -25,43 +34,48 @@ export const Task = () => {
   const isCreate = type === "create";
   const attrTypeLabel = getNVPairTypeLabel(owner);
   return (
-    <TaskSimple
+    <TaskSimpleOldApi
       taskLabel={`${isCreate ? "create" : "update"} ${labelize(
         attrTypeLabel,
       )} attribute`}
       task={taskName}
       clusterName={clusterName}
       close={close}
+      waitTitle={`${
+        isCreate ? "Creating" : "Updating"
+      } ${attrTypeLabel} attribute`}
       footer={
-        response !== "" ? null : (
-          <TaskSimpleFooter
-            nextIf={
-              isNameValid && (type === "update" || !isNameUsed) && isValueValid
-            }
-            run={attrSet}
-            runLabel={`${
-              isCreate ? "Create" : "Update"
-            } ${attrTypeLabel} attribute`}
-          />
-        )
-      }
-      data-test="nvpair-edit"
-    >
-      {response === "" && <Configure />}
-      {response !== "" && (
-        <TaskSimpleFinish
-          response={response}
-          resultMessage={resultMessage}
-          waitTitle={`${
-            isCreate ? "Creating" : "Updating"
+        <TaskSimpleFooter
+          nextIf={
+            isNameValid && (type === "update" || !isNameUsed) && isValueValid
+          }
+          run={attrSet}
+          runLabel={`${
+            isCreate ? "Create" : "Update"
           } ${attrTypeLabel} attribute`}
-          failTitle={`${labelize(attrTypeLabel)} attribute ${
+        />
+      }
+      response={response}
+      configure={<Configure />}
+      success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
+      fail={
+        <TaskFinishError
+          title={`${labelize(attrTypeLabel)} attribute ${
             isCreate ? "create" : "update"
           } failed`}
-          tryAgain={attrSet}
-          recoverFromError={recoverFromError}
+          message={resultMessage}
+          primaryAction={
+            <TaskButtonSimpleResultBack action={recoverFromError} />
+          }
+          secondaryActions={
+            <>
+              <TaskButtonResultTryAgain action={attrSet} />
+              <TaskButtonResultCancel />
+            </>
+          }
         />
-      )}
-    </TaskSimple>
+      }
+      data-test="nvpair-edit"
+    />
   );
 };
