@@ -31,7 +31,6 @@ export function FormRadioGroup<OPTION extends string>({
             label={option}
             id={`${id}-${option}`}
             isDisabled={isDisabled}
-            data-test={option}
           />
         </FlexItem>
       ))}

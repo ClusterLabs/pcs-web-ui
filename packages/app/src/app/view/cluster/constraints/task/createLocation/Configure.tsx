@@ -1,8 +1,11 @@
 import {Flex, FlexItem, Form, FormGroup, Radio} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormSelectOrText, FormText, Select} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {constraintLocationCreate: task} = testMarks.task;
 
 export const Configure = () => {
   const {
@@ -53,6 +56,7 @@ export const Configure = () => {
               selections={resourceId}
               optionsValues={resourceIdList}
               onSelect={value => updateState({resourceId: value.toString()})}
+              {...task.target.resource.mark}
             />
           }
           textLabel="Type resource pattern"
@@ -63,8 +67,10 @@ export const Configure = () => {
               onChange={value => updateState({resourcePattern: value})}
               helperTextInvalid="Please provide resource pattern"
               isValid={isPatternValid}
+              {...task.target.pattern.mark}
             />
           }
+          {...task.target.mark}
         />
       </FormGroup>
 
@@ -91,6 +97,7 @@ export const Configure = () => {
               selections={nodeName}
               optionsValues={nodeNameList}
               onSelect={value => updateState({nodeName: value.toString()})}
+              {...task.location.node.mark}
             />
           }
           textLabel="Type a rule"
@@ -101,8 +108,10 @@ export const Configure = () => {
               onChange={value => updateState({rule: value})}
               helperTextInvalid={"Please provide rule"}
               isValid={isRuleValid}
+              {...task.location.rule.mark}
             />
           }
+          {...task.location.mark}
         />
       </FormGroup>
 
@@ -111,7 +120,7 @@ export const Configure = () => {
         isRequired
         fieldId="constraint-location-create-preference"
       >
-        <Flex>
+        <Flex {...task.preference.mark}>
           <FlexItem>
             <Radio
               isChecked={preference === "prefer"}
@@ -145,7 +154,7 @@ export const Configure = () => {
         showValidationErrors={showValidationErrors}
         isValid={isScoreValid}
         helperTextInvalid="Score must be integer or INFINITY"
-        data-test="score"
+        {...task.score.mark}
       />
     </Form>
   );

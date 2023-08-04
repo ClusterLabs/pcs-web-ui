@@ -2,15 +2,7 @@ import React from "react";
 import {Radio, Stack, StackItem} from "@patternfly/react-core";
 
 type Checks = "select" | "text";
-export const FormSelectOrText = ({
-  id,
-  checked,
-  onChange,
-  select,
-  selectLabel,
-  text,
-  textLabel,
-}: {
+export const FormSelectOrText = (props: {
   id: string;
   checked: Checks;
   onChange: (_checked: Checks) => void;
@@ -18,28 +10,29 @@ export const FormSelectOrText = ({
   selectLabel: string;
   text: React.ReactNode;
   textLabel: string;
+  "data-test"?: string;
 }) => {
   return (
-    <Stack hasGutter>
+    <Stack hasGutter data-test={props["data-test"]}>
       <StackItem>
         <Radio
-          isChecked={checked === "select"}
-          name={`${id}-name-select`}
-          onChange={isChecked => onChange(isChecked ? "select" : "text")}
-          label={selectLabel}
-          id={`${id}-choice-select`}
+          isChecked={props.checked === "select"}
+          name={`${props.id}-name-select`}
+          onChange={isChecked => props.onChange(isChecked ? "select" : "text")}
+          label={props.selectLabel}
+          id={`${props.id}-choice-select`}
         />
-        {checked === "select" && select}
+        {props.checked === "select" && props.select}
       </StackItem>
       <StackItem>
         <Radio
-          isChecked={checked === "text"}
-          name={`${id}-name-text`}
-          onChange={isChecked => onChange(isChecked ? "text" : "select")}
-          label={textLabel}
-          id={`${id}-choice-text`}
+          isChecked={props.checked === "text"}
+          name={`${props.id}-name-text`}
+          onChange={isChecked => props.onChange(isChecked ? "text" : "select")}
+          label={props.textLabel}
+          id={`${props.id}-choice-text`}
         />
-        {checked === "text" && text}
+        {props.checked === "text" && props.text}
       </StackItem>
     </Stack>
   );

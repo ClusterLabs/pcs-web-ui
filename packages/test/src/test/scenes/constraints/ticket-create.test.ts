@@ -1,4 +1,4 @@
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToConstraints, toolbar} from "./common";
@@ -12,12 +12,13 @@ const rscRole = "Promoted";
 
 const {constraintTicketCreate: task} = marks.task;
 
-describe("Sbd disable", () => {
-  it("should sucessfully disable sbd", async () => {
+describe("Create ticket counstraint", () => {
+  afterEach(intercept.stop);
+  it("should be done sucessfully", async () => {
     intercept.shortcuts.interceptWithCluster({
       clusterStatus,
       additionalRouteList: [
-        route.constraintTicketCreate({
+        intercept.route.constraintTicketCreate({
           clusterName: clusterStatus.cluster_name,
           ticketKey,
           resourceId: resourceId,
