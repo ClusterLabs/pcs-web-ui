@@ -2,7 +2,11 @@ import {Group} from "app/view/cluster/types";
 
 import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
 import {ResourceTreeItemCompound} from "./ResourceTreeItemCompound";
+import {ResourceTreeItemCompoundToggle} from "./ResourceTreeItemCompoundToggle";
 import {ResourceTreeItemFenceDevice} from "./ResourceTreeItemFenceDevice";
+import {ResourceTreeCellName} from "./ResourceTreeCellName";
+import {ResourceTreeCellType} from "./ResourceTreeCellType";
+import {ResourceTreeCellStatus} from "./ResourceTreeCellStatus";
 
 export const ResourceTreeItemGroup = ({
   group,
@@ -14,8 +18,10 @@ export const ResourceTreeItemGroup = ({
   <ResourceTreeItemCompound
     resourceId={group.id}
     nestingDepth={1 + nestedLevel}
-    status={group.status}
-    type="Group"
+    toggle={<ResourceTreeItemCompoundToggle resourceId={group.id} />}
+    idCell={<ResourceTreeCellName resourceId={group.id} />}
+    typeCell={<ResourceTreeCellType type="Group" />}
+    statusCell={<ResourceTreeCellStatus status={group.status} />}
   >
     {group.resources.map(resource =>
       resource.itemType === "fence-device" ? (
