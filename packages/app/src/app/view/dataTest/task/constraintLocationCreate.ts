@@ -17,6 +17,7 @@ export const constraintLocationCreate = {
   fail: {
     tryAgain: {},
     cancel: {},
+    back: {},
   },
   report: {},
 };

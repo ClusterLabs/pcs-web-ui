@@ -1,63 +1,35 @@
-import {
-  TaskButtonResult,
-  TaskButtonResultCancel,
-  TaskButtonResultTryAgain,
-  TaskButtonSimpleResultBack,
-  TaskFinishError,
-  TaskSimpleFooter,
-  TaskSimpleOldApi,
-  TaskSuccess,
-} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskSimpleOldApi} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Fail} from "./Fail";
 
 export const Task = () => {
   const {
     close,
+    label,
     name: taskName,
     clusterName,
-    createColocation,
-    recoverFromError,
-    isResourceValid,
-    isWithResourceValid,
-    isScoreValid,
     state: {
-      call: {response, resultMessage},
+      call: {response},
     },
   } = useTask();
   return (
     <TaskSimpleOldApi
-      taskLabel="Create colocation constraint"
+      taskLabel={label}
       task={taskName}
       clusterName={clusterName}
       waitTitle="Creating colocation constraint"
       close={close}
-      footer={
-        <TaskSimpleFooter
-          nextIf={isResourceValid && isWithResourceValid && isScoreValid}
-          run={createColocation}
-          runLabel="Create colocation constraint"
-        />
-      }
+      footer={<Footer />}
       configure={<Configure />}
       response={response}
-      success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
-      fail={
-        <TaskFinishError
-          title="Create colocation constraint failed"
-          message={resultMessage}
-          primaryAction={
-            <TaskButtonSimpleResultBack action={recoverFromError} />
-          }
-          secondaryActions={
-            <>
-              <TaskButtonResultTryAgain action={createColocation} />
-              <TaskButtonResultCancel />
-            </>
-          }
-        />
-      }
+      success={<Success />}
+      fail={<Fail />}
+      {...testMarks.task.constraintColocationCreate.mark}
     />
   );
 };

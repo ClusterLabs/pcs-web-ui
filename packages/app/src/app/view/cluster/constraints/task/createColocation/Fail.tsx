@@ -8,11 +8,11 @@ import {
 
 import {useTask} from "./useTask";
 
-const {fail} = testMarks.task.constraintOrderCreate;
+const {fail} = testMarks.task.constraintColocationCreate;
 
 export const Fail = () => {
   const {
-    createOrder,
+    createColocation,
     recoverFromError,
     state: {
       call: {resultMessage},
@@ -20,7 +20,7 @@ export const Fail = () => {
   } = useTask();
   return (
     <TaskFinishError
-      title="Create order constraint failed"
+      title="Create colocation constraint failed"
       message={resultMessage}
       primaryAction={
         <TaskButtonSimpleResultBack
@@ -31,7 +31,7 @@ export const Fail = () => {
       secondaryActions={
         <>
           <TaskButtonResultTryAgain
-            action={createOrder}
+            action={createColocation}
             {...fail.tryAgain.mark}
           />
           <TaskButtonResultCancel {...fail.cancel.mark} />

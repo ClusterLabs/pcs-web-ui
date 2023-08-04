@@ -34,6 +34,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    label: "Create colocation constraint",
     isResourceValid: state.resourceId.length > 0,
     isWithResourceValid: state.withResourceId.length > 0,
     isScoreValid: state.score.length === 0 || isValidScore(state.score),

@@ -18,6 +18,7 @@ export const constraintOrderCreate = {
   fail: {
     tryAgain: {},
     cancel: {},
+    back: {},
   },
   report: {},
 };

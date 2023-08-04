@@ -3,6 +3,7 @@ import {aclRoleAddPermission} from "./aclRoleAddPermission";
 import {aclRoleCreate} from "./aclRoleCreate";
 import {clusterImportExisting} from "./clusterImportExisting";
 import {clusterSetup} from "./clusterSetup";
+import {constraintColocationCreate} from "./constraintColocationCreate";
 import {constraintLocationCreate} from "./constraintLocationCreate";
 import {constraintOrderCreate} from "./constraintOrderCreate";
 import {constraintTicketCreate} from "./constraintTicketCreate";
@@ -17,6 +18,7 @@ export const task = {
   aclRoleCreate,
   clusterImportExisting,
   clusterSetup,
+  constraintColocationCreate,
   constraintLocationCreate,
   constraintOrderCreate,
   constraintTicketCreate,

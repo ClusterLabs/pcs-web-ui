@@ -1,8 +1,11 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormRadios, FormSelect, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {constraintColocationCreate: task} = testMarks.task;
 
 export const Configure = () => {
   const {
@@ -15,7 +18,7 @@ export const Configure = () => {
   } = useTask();
 
   return (
-    <Form data-test="create-location-constraint">
+    <Form>
       <FormSelect
         id={"constraint-colocation-create-resource"}
         label="Resource"
@@ -27,6 +30,7 @@ export const Configure = () => {
         onSelect={value => updateState({resourceId: value.toString()})}
         selections={resourceId}
         optionsValues={resourceIdList.filter(r => r !== withResourceId)}
+        {...task.resource.mark}
       />
 
       <FormSelect
@@ -40,6 +44,7 @@ export const Configure = () => {
         onSelect={value => updateState({withResourceId: value.toString()})}
         selections={withResourceId}
         optionsValues={resourceIdList.filter(r => r !== resourceId)}
+        {...task.withResource.mark}
       />
 
       <FormRadios
@@ -48,6 +53,7 @@ export const Configure = () => {
         options={["together", "apart"]}
         selected={placement}
         onChange={value => updateState({placement: value})}
+        {...task.placement.mark}
       />
 
       <FormText
@@ -58,7 +64,7 @@ export const Configure = () => {
         showValidationErrors={showValidationErrors}
         isValid={isScoreValid}
         helperTextInvalid="Score must be integer or INFINITY"
-        data-test="score"
+        {...task.score.mark}
       />
     </Form>
   );

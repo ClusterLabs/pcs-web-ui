@@ -22,7 +22,12 @@ export const Fail = () => {
     <TaskFinishError
       title="Create location constraint failed"
       message={resultMessage}
-      primaryAction={<TaskButtonSimpleResultBack action={recoverFromError} />}
+      primaryAction={
+        <TaskButtonSimpleResultBack
+          action={recoverFromError}
+          {...fail.back.mark}
+        />
+      }
       secondaryActions={
         <>
           <TaskButtonResultTryAgain
