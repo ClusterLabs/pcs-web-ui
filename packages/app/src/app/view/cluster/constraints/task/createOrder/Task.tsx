@@ -1,63 +1,35 @@
-import {
-  TaskButtonResult,
-  TaskButtonResultCancel,
-  TaskButtonResultTryAgain,
-  TaskButtonSimpleResultBack,
-  TaskFinishError,
-  TaskSimpleFooter,
-  TaskSimpleOldApi,
-  TaskSuccess,
-} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskSimpleOldApi} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Fail} from "./Fail";
 
 export const Task = () => {
   const {
     close,
+    label,
     name: taskName,
     clusterName,
-    createOrder,
-    recoverFromError,
-    isFirstResourceValid,
-    isThenResourceValid,
-    isScoreValid,
     state: {
-      call: {response, resultMessage},
+      call: {response},
     },
   } = useTask();
   return (
     <TaskSimpleOldApi
-      taskLabel="Create order constraint"
+      taskLabel={label}
       task={taskName}
       clusterName={clusterName}
       close={close}
       waitTitle="Creating order constraint"
       configure={<Configure />}
-      footer={
-        <TaskSimpleFooter
-          nextIf={isFirstResourceValid && isThenResourceValid && isScoreValid}
-          run={createOrder}
-          runLabel="Create order constraint"
-        />
-      }
+      footer={<Footer />}
       response={response}
-      success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
-      fail={
-        <TaskFinishError
-          title="Create order constraint failed"
-          message={resultMessage}
-          primaryAction={
-            <TaskButtonSimpleResultBack action={recoverFromError} />
-          }
-          secondaryActions={
-            <>
-              <TaskButtonResultTryAgain action={createOrder} />
-              <TaskButtonResultCancel />
-            </>
-          }
-        />
-      }
+      success={<Success />}
+      fail={<Fail />}
+      {...testMarks.task.constraintOrderCreate.mark}
     />
   );
 };

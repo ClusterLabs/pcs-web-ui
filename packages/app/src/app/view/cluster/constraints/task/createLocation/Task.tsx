@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {TaskSimpleOldApi} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -28,6 +29,7 @@ export const Task = () => {
       configure={<Configure />}
       success={<Success />}
       fail={<Fail />}
+      {...testMarks.task.constraintLocationCreate.mark}
     />
   );
 };
