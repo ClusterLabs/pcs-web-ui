@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {
   DetailToolbar,
@@ -21,6 +22,8 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
       metaAttribute.name !== "target-role" || metaAttribute.value !== "Stopped",
   );
 
+const {toolbar} = testMarks.cluster.resources.currentPrimitive;
+
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   const {canChange: canChangeGroup} = task.groupChange.useTask();
   const {clusterName} = useLoadedCluster();
@@ -42,7 +45,11 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceId: primitive.id,
         },
       },
+      runMark: toolbar.dropdown.unclone.confirm.run.mark,
+      cancelMark: toolbar.dropdown.unclone.confirm.cancel.mark,
+      ...toolbar.dropdown.unclone.confirm.mark,
     },
+    ...toolbar.dropdown.unclone.mark,
   };
 
   const clone: ToolbarItem = {
@@ -57,7 +64,11 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceId: primitive.id,
         },
       },
+      runMark: toolbar.dropdown.clone.confirm.run.mark,
+      cancelMark: toolbar.dropdown.clone.confirm.cancel.mark,
+      ...toolbar.dropdown.clone.confirm.mark,
     },
+    ...toolbar.dropdown.clone.mark,
   };
 
   const deleteItem: ToolbarItem = {
@@ -73,7 +84,11 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceType: "resource",
         },
       },
+      runMark: toolbar.dropdown.delete.confirm.run.mark,
+      cancelMark: toolbar.dropdown.delete.confirm.cancel.mark,
+      ...toolbar.dropdown.delete.confirm.mark,
     },
+    ...toolbar.dropdown.delete.mark,
   };
 
   const refresh: ToolbarItem = {
@@ -94,7 +109,11 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceType: "resource",
         },
       },
+      runMark: toolbar.dropdown.refresh.confirm.run.mark,
+      cancelMark: toolbar.dropdown.refresh.confirm.cancel.mark,
+      ...toolbar.dropdown.refresh.confirm.mark,
     },
+    ...toolbar.dropdown.refresh.mark,
   };
 
   const cleanup: ToolbarItem = {
@@ -115,7 +134,11 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceType: "resource",
         },
       },
+      runMark: toolbar.dropdown.cleanup.confirm.run.mark,
+      cancelMark: toolbar.dropdown.cleanup.confirm.cancel.mark,
+      ...toolbar.dropdown.cleanup.confirm.mark,
     },
+    ...toolbar.dropdown.cleanup.mark,
   };
 
   const unmanage: ToolbarItem = {
@@ -134,7 +157,11 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           },
         },
       },
+      runMark: toolbar.unmanage.confirm.run.mark,
+      cancelMark: toolbar.unmanage.confirm.cancel.mark,
+      ...toolbar.unmanage.confirm.mark,
     },
+    ...toolbar.unmanage.mark,
   };
 
   const manage: ToolbarItem = {
@@ -153,7 +180,11 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           },
         },
       },
+      runMark: toolbar.manage.confirm.run.mark,
+      cancelMark: toolbar.manage.confirm.cancel.mark,
+      ...toolbar.manage.confirm.mark,
     },
+    ...toolbar.manage.mark,
   };
 
   const disable: ToolbarItem = {
@@ -177,7 +208,11 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           },
         },
       },
+      runMark: toolbar.disable.confirm.run.mark,
+      cancelMark: toolbar.disable.confirm.cancel.mark,
+      ...toolbar.disable.confirm.mark,
     },
+    ...toolbar.disable.mark,
   };
 
   const enable: ToolbarItem = {
@@ -196,7 +231,11 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           },
         },
       },
+      runMark: toolbar.enable.confirm.run.mark,
+      cancelMark: toolbar.enable.confirm.cancel.mark,
+      ...toolbar.enable.confirm.mark,
     },
+    ...toolbar.enable.mark,
   };
 
   const groupChangeOpenArgs: TaskOpenArgs<typeof task.groupChange.useTask> = [
@@ -221,6 +260,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
                   openArgs: groupChangeOpenArgs,
                 },
                 disabled: !canChangeGroup(primitive),
+                ...toolbar.dropdown.changeGroup.mark,
               },
               refresh,
               cleanup,
@@ -229,8 +269,10 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
                 : [primitive.inClone ? unclone : clone]),
               deleteItem,
             ]}
+            {...toolbar.dropdown.mark}
           />
         }
+        {...toolbar.mark}
       />
     </>
   );
