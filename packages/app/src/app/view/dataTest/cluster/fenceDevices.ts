@@ -10,5 +10,9 @@ export const fenceDevices = {
   },
   currentFenceDevice: {
     id: {},
+    tabs: {
+      detail: {},
+      arguments: {},
+    },
   },
 };
