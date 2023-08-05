@@ -19,10 +19,14 @@ export const useTask = () => {
   const openClose = useTaskOpenClose(taskName, clusterName);
 
   const key = {clusterName, task: taskName};
+
+  const isCreate = state.initialPermission === null;
   return {
     name: taskName,
     state,
     ...openClose,
+    label: `${isCreate ? "Creating" : "Updating"} permission`,
+    isCreate,
     clusterName,
     dispatch,
     open: (payload: ActionPayload["CLUSTER.PERMISSIONS.EDIT"]) => {

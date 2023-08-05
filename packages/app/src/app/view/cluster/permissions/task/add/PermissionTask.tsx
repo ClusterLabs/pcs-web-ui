@@ -1,67 +1,37 @@
-import {
-  TaskButtonResult,
-  TaskButtonResultCancel,
-  TaskButtonResultTryAgain,
-  TaskButtonSimpleResultBack,
-  TaskFinishError,
-  TaskSimpleFooter,
-  TaskSimpleOldApi,
-  TaskSuccess,
-} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskSimpleOldApi} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Fail} from "./Fail";
 
 export const PermissionTask = () => {
   const {
     close,
     name: taskName,
     clusterName,
-    recoverFromError,
-    permissionEdit: permissionCreate,
-    isNameValid,
-    areCompetenciesValid,
+    isCreate,
+    label,
     state: {
-      call: {response, resultMessage},
-      initialPermission,
+      call: {response},
     },
   } = useTask();
 
-  const isCreate = initialPermission === null;
-
   return (
     <TaskSimpleOldApi
-      taskLabel={`${isCreate ? "create" : "update"} permission`}
+      taskLabel={label}
       task={taskName}
       clusterName={clusterName}
       close={close}
       configure={<Configure />}
-      footer={
-        <TaskSimpleFooter
-          nextIf={isNameValid && areCompetenciesValid}
-          run={permissionCreate}
-          runLabel={isCreate ? "Create permission" : "Update permission"}
-        />
-      }
+      footer={<Footer />}
       response={response}
       waitTitle={`${isCreate ? "Creating" : "Updating"} permission`}
-      success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
-      fail={
-        <TaskFinishError
-          title={`Permission ${isCreate ? "create" : "update"} failed`}
-          message={resultMessage}
-          primaryAction={
-            <TaskButtonSimpleResultBack action={recoverFromError} />
-          }
-          secondaryActions={
-            <>
-              <TaskButtonResultTryAgain action={permissionCreate} />
-              <TaskButtonResultCancel />
-            </>
-          }
-        />
-      }
-      data-test="permission-edit"
+      success={<Success />}
+      fail={<Fail />}
+      {...testMarks.task.permissionEdit.mark}
     />
   );
 };

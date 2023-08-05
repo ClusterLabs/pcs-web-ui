@@ -10,13 +10,14 @@ export const NodesAuthCustomAddrSwitch = (props: {"data-test"?: string}) => {
     switchAddressUse,
   } = useNodesAuth(processId);
   return (
-    <StackItem data-test={props["data-test"] ?? "use-custom-address"}>
+    <StackItem>
       <Switch
         id="add-cluster-use-custom-address-port"
         label=""
         aria-label="use custom address port"
         isChecked={useAddresses}
         onChange={() => switchAddressUse(!useAddresses)}
+        data-test={props["data-test"] ?? "use-custom-address"}
       />{" "}
       Use custom address and port
     </StackItem>

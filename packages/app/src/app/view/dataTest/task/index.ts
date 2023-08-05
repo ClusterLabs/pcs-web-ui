@@ -9,6 +9,7 @@ import {constraintOrderCreate} from "./constraintOrderCreate";
 import {constraintTicketCreate} from "./constraintTicketCreate";
 import {fenceDeviceCreate} from "./fenceDeviceCreate";
 import {nodeAdd} from "./nodeAdd";
+import {permissionEdit} from "./permissionEdit";
 import {resourceCreate} from "./resourceCreate";
 import {resourcePrimitiveGroupChange} from "./resourcePrimitiveGroupChange";
 import {sbdDisable} from "./sbdDisable";
@@ -25,6 +26,7 @@ export const task = {
   constraintTicketCreate,
   fenceDeviceCreate,
   nodeAdd,
+  permissionEdit,
   resourceCreate,
   resourcePrimitiveGroupChange,
   sbdDisable,

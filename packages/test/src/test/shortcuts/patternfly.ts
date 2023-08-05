@@ -11,8 +11,11 @@ export const radioGroup = async (mark: Mark, value: string) => {
   await locatorFor(mark).locator(`//*[text()="${value}"]`).click();
 };
 
+export const getToggle = (mark: Mark) =>
+  locatorFor(mark).locator("xpath=/parent::*");
+
 export const toggle = async (mark: Mark) => {
-  await locatorFor(mark).locator('//*[@class="pf-c-switch__toggle"]').click();
+  await getToggle(mark).click();
 };
 
 export const fieldError = (mark: Mark) =>
