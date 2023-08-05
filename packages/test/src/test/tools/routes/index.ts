@@ -39,3 +39,4 @@ export * from "./clusterStart";
 export * from "./clusterStop";
 export * from "./constraintTicketCreate";
 export * from "./addConstraintRemote";
+export * from "./resourceChangeGroup";

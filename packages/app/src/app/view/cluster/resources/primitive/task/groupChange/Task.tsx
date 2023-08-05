@@ -1,29 +1,19 @@
-import {
-  TaskButtonResult,
-  TaskButtonResultCancel,
-  TaskButtonResultTryAgain,
-  TaskButtonSimpleResultBack,
-  TaskFinishError,
-  TaskSimpleFooter,
-  TaskSimpleOldApi,
-  TaskSuccess,
-} from "app/view/share";
+import {TaskSimpleOldApi} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {GroupChangeForm} from "./GroupChangeForm";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Fail} from "./Fail";
 
 export const Task = () => {
   const {
-    isGroupValid,
-    isAdjacentResourceValid,
     close,
     name: taskName,
     clusterName,
-    changeGroup,
-    recoverFromError,
     state: {
       resourceId,
-      call: {response, resultMessage},
+      call: {response},
     },
   } = useTask();
 
@@ -35,30 +25,10 @@ export const Task = () => {
       close={close}
       waitTitle={`Changing group of primitive resource "${resourceId}"`}
       configure={<GroupChangeForm />}
-      footer={
-        <TaskSimpleFooter
-          nextIf={isGroupValid && isAdjacentResourceValid}
-          run={changeGroup}
-          runLabel="Change group"
-        />
-      }
+      footer={<Footer />}
       response={response}
-      success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
-      fail={
-        <TaskFinishError
-          title={`Changing group of primitive resource "${resourceId}" failed`}
-          message={resultMessage}
-          primaryAction={
-            <TaskButtonSimpleResultBack action={recoverFromError} />
-          }
-          secondaryActions={
-            <>
-              <TaskButtonResultTryAgain action={changeGroup} />
-              <TaskButtonResultCancel />
-            </>
-          }
-        />
-      }
+      success={<Success />}
+      fail={<Fail />}
     />
   );
 };

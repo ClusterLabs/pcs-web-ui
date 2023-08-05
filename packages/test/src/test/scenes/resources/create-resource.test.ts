@@ -4,7 +4,8 @@ import * as cs from "dev/responses/clusterStatus/tools";
 import {intercept, route} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
-const {goToCluster} = shortcuts.dashboard;
+import {clusterName, goToResources, toolbar} from "./common";
+
 const {select} = shortcuts.patternfly;
 const {expectReview, expectReports} = shortcuts.task;
 
@@ -14,7 +15,6 @@ const {review} = resourceCreate;
 const agent = responses.resourceAgentMetadata.ocfHeartbeatDummy;
 
 const resourceId = "A";
-const clusterName = "test-cluster";
 const agentName = agent.name;
 
 describe("Create resource task", () => {
@@ -39,10 +39,8 @@ describe("Create resource task", () => {
   });
 
   it("should successfully create new fence device", async () => {
-    await goToCluster(clusterName, tabs => tabs.resources);
-    await shortcuts
-      .toolbar(marks.cluster.resourcesToolbar)
-      .launch(toolbar => toolbar.createResource);
+    await goToResources();
+    await toolbar.launch(toolbar => toolbar.createResource);
     await fill(resourceCreate.nameType.name, resourceId);
     await select(
       resourceCreate.nameType.agentName,

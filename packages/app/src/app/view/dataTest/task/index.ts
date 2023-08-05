@@ -10,6 +10,7 @@ import {constraintTicketCreate} from "./constraintTicketCreate";
 import {fenceDeviceCreate} from "./fenceDeviceCreate";
 import {nodeAdd} from "./nodeAdd";
 import {resourceCreate} from "./resourceCreate";
+import {resourcePrimitiveGroupChange} from "./resourcePrimitiveGroupChange";
 import {sbdDisable} from "./sbdDisable";
 
 export const task = {
@@ -25,5 +26,6 @@ export const task = {
   fenceDeviceCreate,
   nodeAdd,
   resourceCreate,
+  resourcePrimitiveGroupChange,
   sbdDisable,
 };

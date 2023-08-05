@@ -1,8 +1,12 @@
 import {Form, Radio} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
+
 import {useTask} from "./useTask";
 import {GroupSelect} from "./GroupSelect";
 import {PositionSelect} from "./PositionSelect";
+
+const {resourcePrimitiveGroupChange: task} = testMarks.task;
 
 export const GroupChangeForm = () => {
   const {
@@ -44,6 +48,7 @@ export const GroupChangeForm = () => {
         name="move-in-group"
         onChange={updateAction("move-in-group")}
         label={`Move resource "${resourceId}" inside current group "${oldGroupId}"`}
+        {...task.moveInGroup.mark}
       />
       {action === "move-in-group" && (
         <div className="pf-u-mb-md pf-u-ml-lg">
@@ -56,6 +61,7 @@ export const GroupChangeForm = () => {
         name="remove-group"
         onChange={updateAction("remove-group")}
         label={`Remove resource "${resourceId}" from the group "${oldGroupId}"`}
+        {...task.removeGroup.mark}
       />
 
       {candidateGroupsIds.length > 0 && (
@@ -66,6 +72,7 @@ export const GroupChangeForm = () => {
             name="set-group"
             onChange={updateAction("set-group")}
             label={`Move resource "${resourceId}" to a group`}
+            {...task.setGroup.mark}
           />
 
           {action === "set-group" && (
