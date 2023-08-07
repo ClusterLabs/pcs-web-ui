@@ -1,18 +1,17 @@
-import * as responses from "dev/responses";
-import * as cs from "dev/responses/clusterStatus/tools";
-
 import {intercept, route} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
-const {goToCluster} = shortcuts.dashboard;
+import {
+  clusterName,
+  goToFenceDevices,
+  interceptWithStonith,
+  toolbar,
+} from "./common";
+
 const {select} = shortcuts.patternfly;
 const {item} = shortcuts.common;
-const {expectReview, expectReports} = shortcuts.task;
-
-const {fenceDevicesToolbar} = marks.cluster;
 
 const fenceDeviceName = "F1";
-const clusterName = "actions";
 const agentName = "fence_apc";
 const ip = "127.0.0.1";
 const username = "user1";
@@ -31,14 +30,8 @@ const reviewAttr = (name: string) =>
 describe("Fence device create task", () => {
   afterEach(intercept.stop);
   beforeEach(async () => {
-    await intercept.shortcuts.interceptWithCluster({
-      clusterStatus: cs.cluster(clusterName, "ok"),
+    await interceptWithStonith({
       additionalRouteList: [
-        route.stonithAgentDescribeAgent({
-          clusterName,
-          agentName,
-          agentData: responses.fenceAgentMetadata.ok,
-        }),
         route.stonithCreate({
           clusterName,
           fenceDeviceName,
@@ -50,10 +43,8 @@ describe("Fence device create task", () => {
   });
 
   it("should successfully create new fence device", async () => {
-    await goToCluster(clusterName, tabs => tabs.fenceDevices);
-    await shortcuts
-      .toolbar(fenceDevicesToolbar)
-      .launch(toolbar => toolbar.createFenceDevice);
+    await goToFenceDevices();
+    await toolbar.launch(toolbar => toolbar.createFenceDevice);
     await fill(fenceDeviceCreate.nameType.name, fenceDeviceName);
     await select(fenceDeviceCreate.nameType.agentName, agentName);
     await click(fenceDeviceCreate.nameTypeFooter.next);
@@ -61,7 +52,7 @@ describe("Fence device create task", () => {
     await fillInstanceAttr("username", username);
     await click(fenceDeviceCreate.instanceAttrsFooter.next);
     await click(fenceDeviceCreate.settingsFooter.next);
-    await expectReview([
+    await shortcuts.task.expectReview([
       [review.name, fenceDeviceName],
       [review.agentName, agentName],
       [reviewAttr("ip"), ip],
@@ -69,6 +60,6 @@ describe("Fence device create task", () => {
     ]);
     await click(fenceDeviceCreate.reviewFooter.next);
     await isVisible(fenceDeviceCreate.success);
-    await expectReports(fenceDeviceCreate.report).count(0);
+    await shortcuts.task.expectReports(fenceDeviceCreate.report).count(0);
   });
 });

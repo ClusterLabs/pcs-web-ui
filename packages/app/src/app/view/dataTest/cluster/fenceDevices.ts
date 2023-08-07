@@ -14,5 +14,9 @@ export const fenceDevices = {
       detail: {},
       arguments: {},
     },
+    argumentsToolbar: {
+      edit: {},
+    },
+    arguments: {},
   },
 };

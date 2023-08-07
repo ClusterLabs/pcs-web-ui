@@ -17,7 +17,7 @@ export const item = <ITEM_MARK extends {path: string; locator: Locator}>(
 ) => ({
   byKey: (keyMark: Mark, key: string) => {
     const theItem = locatorFor(keyMark)
-      .getByText(key)
+      .getByText(key, {exact: true})
       .locator(ancestor(itemMark));
 
     return {

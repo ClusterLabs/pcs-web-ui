@@ -1,5 +1,6 @@
 import {StackItem} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
 import {TaskOpenArgs} from "app/view/share";
 import {
@@ -11,6 +12,8 @@ import {
 import * as task from "./task";
 
 type EditArgsOpenArgs = TaskOpenArgs<typeof task.editArgs.useTask>;
+
+const {argumentsToolbar} = testMarks.cluster.fenceDevices.currentFenceDevice;
 
 export const FenceDeviceArgumentsView = ({
   fenceDevice,
@@ -35,7 +38,7 @@ export const FenceDeviceArgumentsView = ({
         ];
         return (
           <>
-            <StackItem>
+            <StackItem {...argumentsToolbar.mark}>
               <PcmkAgentAttrsToolbar
                 toolbarName="fence-device-args"
                 filterState={filterState}
@@ -48,6 +51,7 @@ export const FenceDeviceArgumentsView = ({
                       openArgs: editArgsOpenArgs,
                     },
                     button: {variant: "primary"},
+                    ...argumentsToolbar.edit.mark,
                   },
                 ]}
               />

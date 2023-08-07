@@ -7,6 +7,7 @@ import {constraintColocationCreate} from "./constraintColocationCreate";
 import {constraintLocationCreate} from "./constraintLocationCreate";
 import {constraintOrderCreate} from "./constraintOrderCreate";
 import {constraintTicketCreate} from "./constraintTicketCreate";
+import {fenceDeviceArgumentsEdit} from "./fenceDeviceArgumentsEdit";
 import {fenceDeviceCreate} from "./fenceDeviceCreate";
 import {nodeAdd} from "./nodeAdd";
 import {permissionEdit} from "./permissionEdit";
@@ -24,6 +25,7 @@ export const task = {
   constraintLocationCreate,
   constraintOrderCreate,
   constraintTicketCreate,
+  fenceDeviceArgumentsEdit,
   fenceDeviceCreate,
   nodeAdd,
   permissionEdit,

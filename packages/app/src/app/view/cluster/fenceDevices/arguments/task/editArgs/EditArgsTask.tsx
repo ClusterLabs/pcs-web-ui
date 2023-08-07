@@ -1,29 +1,22 @@
 import React from "react";
 
-import {
-  TaskButtonResult,
-  TaskButtonResultCancel,
-  TaskButtonResultTryAgain,
-  TaskButtonSimpleResultBack,
-  TaskFinishError,
-  TaskSimpleFooter,
-  TaskSimpleOldApi,
-  TaskSuccess,
-} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskSimpleOldApi} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {EditArgsForm} from "./EditArgsForm";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Fail} from "./Fail";
 
 export const EditArgsTask = () => {
   const {
     close,
     name: taskName,
     clusterName,
-    runUpdate,
-    recoverFromError,
     state: {
       fenceDeviceId,
-      call: {response, resultMessage},
+      call: {response},
     },
   } = useTask();
 
@@ -40,26 +33,12 @@ export const EditArgsTask = () => {
       clusterName={clusterName}
       close={close}
       waitTitle="Updating fence device arguments"
-      footer={<TaskSimpleFooter runLabel="Save arguments" run={runUpdate} />}
+      footer={<Footer />}
       configure={<EditArgsForm />}
       response={response}
-      success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
-      fail={
-        <TaskFinishError
-          title="Fence device arguments update failed"
-          message={resultMessage}
-          primaryAction={
-            <TaskButtonSimpleResultBack action={recoverFromError} />
-          }
-          secondaryActions={
-            <>
-              <TaskButtonResultTryAgain action={runUpdate} />
-              <TaskButtonResultCancel />
-            </>
-          }
-        />
-      }
-      data-test="fence-device-args-edit"
+      success={<Success />}
+      fail={<Fail />}
+      {...testMarks.task.fenceDeviceArgumentsEdit.mark}
     />
   );
 };
