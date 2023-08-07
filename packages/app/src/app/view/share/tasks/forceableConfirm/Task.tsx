@@ -1,23 +1,26 @@
 import React from "react";
 
+import {testMarks} from "app/view/dataTest";
 import {Action} from "app/store";
 import {
+  TaskButtonCancel,
+  TaskButtonNext,
   TaskButtonResult,
+  TaskButtonResultCancel,
   TaskFinishError,
-  TaskProgress,
-  TaskSimple,
-  TaskSimpleFooter,
-  TaskSuccess,
+  TaskSimpleOldApi,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
+import {Success} from "./Success";
+
+const {forceableConfirm: task} = testMarks.task;
 
 export const TaskComponent = ({
   description,
   runLabel,
   taskLabel,
   getForceableAction,
-  "data-test": dataTest,
 }: {
   description: React.ReactNode;
   runLabel: string;
@@ -27,50 +30,51 @@ export const TaskComponent = ({
 }) => {
   const {close, runAction, state} = useTask();
 
+  const isForceable = state.response === "fail" && state.isForceable;
+
   return (
-    <TaskSimple
+    <TaskSimpleOldApi
       title={`${taskLabel}?`}
       taskLabel={taskLabel}
       task="forceableConfirm"
       clusterName={null}
       close={close}
+      response={state.response}
+      waitTitle={`Task "${taskLabel}" in progress`}
       footer={
-        state.response !== "" ? null : (
-          <TaskSimpleFooter
+        <>
+          <TaskButtonNext
             run={() => runAction(getForceableAction({force: false}))}
-            runLabel={runLabel}
-          />
-        )
+            {...task.run.mark}
+          >
+            {runLabel}
+          </TaskButtonNext>
+          <TaskButtonCancel {...task.cancel.mark} />
+        </>
       }
-      data-test={`forceable-confirm${dataTest ? "-" + dataTest : ""}`}
-    >
-      {state.response === "" && description}
-      {state.response === "sending" && (
-        <TaskProgress title={`Task "${taskLabel}" in progress`} />
-      )}
-      {state.response === "ok" && (
-        <TaskSuccess primaryAction={<TaskButtonResult />} />
-      )}
-      {state.response === "fail" && (
+      configure={description}
+      success={<Success />}
+      fail={
         <TaskFinishError
           title={`Task "${taskLabel}" failed`}
           message={`${state.resultMessage}${
-            state.isForceable ? " The error can be overridden." : ""
+            isForceable ? " The error can be overridden." : ""
           }`}
           primaryAction={
             <TaskButtonResult
-              label={state.isForceable ? "Proceed anyway" : "Try again"}
-              action={() =>
-                runAction(getForceableAction({force: state.isForceable}))
-              }
+              label={isForceable ? "Proceed anyway" : "Try again"}
+              action={() => runAction(getForceableAction({force: isForceable}))}
+              {...task.fail.tryAgain.mark}
             />
           }
           secondaryActions={
-            <TaskButtonResult variant="secondary" label="Cancel" />
+            <TaskButtonResultCancel {...task.fail.cancel.mark} />
           }
+          {...task.fail.mark}
         />
-      )}
-    </TaskSimple>
+      }
+      {...task.mark}
+    />
   );
 };
 

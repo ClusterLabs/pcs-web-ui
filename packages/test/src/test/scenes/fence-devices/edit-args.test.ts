@@ -8,7 +8,6 @@ import {
   openFenceDevice,
 } from "./common";
 
-// const {radioGroup, getToggle, toggle, fieldError} = shortcuts.patternfly;
 const {item} = shortcuts.common;
 
 const {tabs, argumentsToolbar} = marks.cluster.fenceDevices.currentFenceDevice;

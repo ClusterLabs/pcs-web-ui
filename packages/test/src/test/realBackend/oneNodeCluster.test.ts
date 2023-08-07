@@ -75,30 +75,32 @@ const importExistingCluster = async (nodeName: string) => {
 };
 
 const removeCluster = async (clusterName: string) => {
-  const {actions} = marks.dashboard.clusterList.cluster.loaded;
-  await click(importedClusters.inCluster(clusterName).get(actions));
-  await click(importedClusters.inCluster(clusterName).get(actions.remove));
-  await isVisible(actions.remove.confirm);
+  const {remove} = marks.dashboard.clusterList.cluster.loaded.actions;
+  await importedClusters
+    .inCluster(clusterName)
+    .launchAction(actions => actions.remove);
+  await isVisible(remove.confirm);
   await Promise.all([
     waitForImportedClusterList(),
     page.waitForResponse(/.*\/manage\/removecluster$/),
     isVisible(marks.notifications.toast.success),
-    click(actions.remove.confirm.run),
+    click(remove.confirm.run),
   ]);
   // give page chance to redraw after loading imported-cluster-list
   await page.waitForTimeout(100);
 };
 
 const destroyCluster = async (clusterName: string) => {
-  const {actions} = marks.dashboard.clusterList.cluster.loaded;
-  await click(importedClusters.inCluster(clusterName).get(actions));
-  await click(importedClusters.inCluster(clusterName).get(actions.destroy));
-  await isVisible(actions.destroy.confirm);
+  const {destroy} = marks.dashboard.clusterList.cluster.loaded.actions;
+  await importedClusters
+    .inCluster(clusterName)
+    .launchAction(actions => actions.remove);
+  await isVisible(destroy.confirm);
   await Promise.all([
     waitForImportedClusterList(),
     page.waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
     isVisible(marks.notifications.toast.success),
-    click(actions.destroy.confirm.run),
+    click(destroy.confirm.run),
   ]);
   // give page chance to redraw after loading imported-cluster-list
   await page.waitForTimeout(100);

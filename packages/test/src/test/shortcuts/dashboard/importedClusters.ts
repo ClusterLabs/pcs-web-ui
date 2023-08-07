@@ -11,6 +11,12 @@ export const inCluster = (clusterName: string) => {
   return {
     get: (searchExp: SearchExp<typeof cluster>) =>
       theCluster.locator(search(searchExp, cluster)),
+    launchAction: async (
+      findAction: (actions: typeof cluster.loaded.actions) => Mark,
+    ) => {
+      await click(theCluster.locator(cluster.loaded.actions));
+      await click(findAction(cluster.loaded.actions));
+    },
 
     inNode: (nodeName: string) => ({
       get: (searchExp: SearchExp<typeof node>) =>

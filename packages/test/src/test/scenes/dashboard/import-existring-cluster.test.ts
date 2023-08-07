@@ -1,7 +1,10 @@
 import {intercept, route} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
+import {toolbar} from "./common";
+
 const {toggle} = shortcuts.patternfly;
+const {goToDashboard} = shortcuts.dashboard;
 
 const {
   nodeName,
@@ -15,9 +18,7 @@ const {
 const {auth} = prepareNode;
 
 export const launchTask = async () => {
-  await shortcuts
-    .toolbar(marks.dashboard.toolbar)
-    .launch(toolbar => toolbar.importExistingCluster);
+  await toolbar.launch(toolbar => toolbar.importExistingCluster);
 };
 
 const closeTask = async () => {
@@ -41,7 +42,7 @@ describe("Import existing cluster", () => {
       route.checkAuthAgainstNodes({nodeNameList: [data.nodeName]}),
       route.existingCluster({nodeName: data.nodeName}),
     ]);
-    await page.goto(backend.rootUrl);
+    await goToDashboard();
     await launchTask();
     await fill(nodeName, data.nodeName);
     await click(nodeNameFooter.checkAuthentication);
@@ -66,7 +67,7 @@ describe("Import existing cluster", () => {
       }),
       route.existingCluster({nodeName: data.nodeName}),
     ]);
-    await page.goto(backend.rootUrl);
+    await goToDashboard();
     await launchTask();
     await fill(nodeName, data.nodeName);
     await click(nodeNameFooter.checkAuthentication);
@@ -91,6 +92,7 @@ describe("Import existing cluster", () => {
         response: {status: [400, "Configuration conflict detected."]},
       }),
     ]);
+    await goToDashboard();
     await launchTask();
     await fill(nodeName, data.nodeName);
     await click(nodeNameFooter.checkAuthentication);

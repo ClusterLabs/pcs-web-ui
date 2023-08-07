@@ -4,11 +4,15 @@ import * as importedClusters from "./importedClusters";
 
 export {importedClusters};
 
+export const goToDashboard = async () => {
+  await page.goto(backend.rootUrl);
+};
+
 export const goToCluster = async (
   clusterName: string,
   tab?: ((tabs: typeof marks.cluster.tabs) => Mark) | undefined,
 ) => {
-  await page.goto(backend.rootUrl);
+  await goToDashboard();
 
   const theCluster = importedClusters.inCluster(clusterName);
   await isVisible(theCluster.get(cluster => cluster.loaded));
