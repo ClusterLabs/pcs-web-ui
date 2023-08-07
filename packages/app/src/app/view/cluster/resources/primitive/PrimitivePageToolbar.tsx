@@ -45,9 +45,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceId: primitive.id,
         },
       },
-      runMark: toolbar.dropdown.unclone.confirm.run.mark,
-      cancelMark: toolbar.dropdown.unclone.confirm.cancel.mark,
-      ...toolbar.dropdown.unclone.confirm.mark,
     },
     ...toolbar.dropdown.unclone.mark,
   };
@@ -64,9 +61,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceId: primitive.id,
         },
       },
-      runMark: toolbar.dropdown.clone.confirm.run.mark,
-      cancelMark: toolbar.dropdown.clone.confirm.cancel.mark,
-      ...toolbar.dropdown.clone.confirm.mark,
     },
     ...toolbar.dropdown.clone.mark,
   };
@@ -84,9 +78,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceType: "resource",
         },
       },
-      runMark: toolbar.dropdown.delete.confirm.run.mark,
-      cancelMark: toolbar.dropdown.delete.confirm.cancel.mark,
-      ...toolbar.dropdown.delete.confirm.mark,
     },
     ...toolbar.dropdown.delete.mark,
   };
@@ -109,9 +100,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceType: "resource",
         },
       },
-      runMark: toolbar.dropdown.refresh.confirm.run.mark,
-      cancelMark: toolbar.dropdown.refresh.confirm.cancel.mark,
-      ...toolbar.dropdown.refresh.confirm.mark,
     },
     ...toolbar.dropdown.refresh.mark,
   };
@@ -134,9 +122,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           resourceType: "resource",
         },
       },
-      runMark: toolbar.dropdown.cleanup.confirm.run.mark,
-      cancelMark: toolbar.dropdown.cleanup.confirm.cancel.mark,
-      ...toolbar.dropdown.cleanup.confirm.mark,
     },
     ...toolbar.dropdown.cleanup.mark,
   };
@@ -157,9 +142,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           },
         },
       },
-      runMark: toolbar.unmanage.confirm.run.mark,
-      cancelMark: toolbar.unmanage.confirm.cancel.mark,
-      ...toolbar.unmanage.confirm.mark,
     },
     ...toolbar.unmanage.mark,
   };
@@ -180,9 +162,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           },
         },
       },
-      runMark: toolbar.manage.confirm.run.mark,
-      cancelMark: toolbar.manage.confirm.cancel.mark,
-      ...toolbar.manage.confirm.mark,
     },
     ...toolbar.manage.mark,
   };
@@ -208,9 +187,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           },
         },
       },
-      runMark: toolbar.disable.confirm.run.mark,
-      cancelMark: toolbar.disable.confirm.cancel.mark,
-      ...toolbar.disable.confirm.mark,
     },
     ...toolbar.disable.mark,
   };
@@ -231,9 +207,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
           },
         },
       },
-      runMark: toolbar.enable.confirm.run.mark,
-      cancelMark: toolbar.enable.confirm.cancel.mark,
-      ...toolbar.enable.confirm.mark,
     },
     ...toolbar.enable.mark,
   };

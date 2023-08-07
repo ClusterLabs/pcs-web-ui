@@ -1,11 +1,14 @@
 import {useDispatch} from "react-redux";
 import {Button, Modal} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {tools} from "app/store";
 
 import {LauncherItem} from "./types";
 
 const {labelize} = tools;
+
+const {task} = testMarks;
 
 export const LaunchedConfirm = ({
   item,
@@ -18,7 +21,11 @@ export const LaunchedConfirm = ({
   return (
     <Modal
       variant="small"
-      title={item.confirm.title}
+      header={
+        <h1 className="pf-c-modal-box__title" {...task.confirm.title.mark}>
+          {item.confirm.title}
+        </h1>
+      }
       isOpen
       onClose={closeConfirm}
       actions={[
@@ -29,7 +36,7 @@ export const LaunchedConfirm = ({
             dispatch(item.confirm.action);
             closeConfirm();
           }}
-          {...(item.confirm.runMark ?? {"data-test": "confirm"})}
+          {...task.confirm.run.mark}
         >
           {labelize(item.label || item.name)}
         </Button>,
@@ -37,18 +44,14 @@ export const LaunchedConfirm = ({
           key="cancel"
           variant="link"
           onClick={closeConfirm}
-          {...(item.confirm.cancelMark ?? {"data-test": "cancel"})}
+          {...task.confirm.cancel.mark}
         >
           Cancel
         </Button>,
       ]}
-      data-test={
-        "data-test" in item.confirm
-          ? item.confirm["data-test"]
-          : `confirm ${item.name}`
-      }
+      {...task.confirm.mark}
     >
-      {item.confirm.description}
+      <span {...task.confirm.description.mark}>{item.confirm.description}</span>
     </Modal>
   );
 };

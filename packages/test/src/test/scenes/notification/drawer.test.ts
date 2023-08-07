@@ -20,9 +20,7 @@ const launchClusterRemove = async () => {
   await shortcuts.dashboard.importedClusters
     .inCluster(clusterName)
     .launchAction(action => action.remove);
-  await click(
-    marks.dashboard.clusterList.cluster.loaded.actions.remove.confirm.run,
-  );
+  await click(marks.task.confirm.run);
 };
 
 const expectNotificationsInDrawer = async ({

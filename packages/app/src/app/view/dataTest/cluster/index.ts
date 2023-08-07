@@ -64,12 +64,7 @@ export const cluster = {
     createUser: {},
     dropdown: {
       createGroup: {},
-      switchEnablement: {
-        confirm: {
-          run: {},
-          cancel: {},
-        },
-      },
+      switchEnablement: {},
     },
   },
   permissions: {},

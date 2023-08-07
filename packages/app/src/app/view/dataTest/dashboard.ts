@@ -34,30 +34,10 @@ export const dashboard = {
           },
         },
         actions: {
-          start: {
-            confirm: {
-              run: {},
-              cancel: {},
-            },
-          },
-          stop: {
-            confirm: {
-              run: {},
-              cancel: {},
-            },
-          },
-          remove: {
-            confirm: {
-              run: {},
-              cancel: {},
-            },
-          },
-          destroy: {
-            confirm: {
-              run: {},
-              cancel: {},
-            },
-          },
+          start: {},
+          stop: {},
+          remove: {},
+          destroy: {},
         },
       },
     },

@@ -22,12 +22,7 @@ export const acl = {
       assignUser: {},
       dropdown: {
         assignGroup: {},
-        deleteRole: {
-          confirm: {
-            run: {},
-            cancel: {},
-          },
-        },
+        deleteRole: {},
       },
     },
   },

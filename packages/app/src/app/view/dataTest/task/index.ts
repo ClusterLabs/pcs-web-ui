@@ -34,4 +34,10 @@ export const task = {
   resourceCreate,
   resourcePrimitiveGroupChange,
   sbdDisable,
+  confirm: {
+    title: {},
+    description: {},
+    run: {},
+    cancel: {},
+  },
 };

@@ -91,9 +91,6 @@ export const AclPage = () => {
                       },
                     },
                   },
-                  runMark: dropdown.switchEnablement.confirm.run.mark,
-                  cancelMark: dropdown.switchEnablement.confirm.cancel.mark,
-                  ...dropdown.switchEnablement.confirm.mark,
                 },
                 launchDisable: launchDisable(
                   "Cannot enable/disable acl on stopped cluster",
