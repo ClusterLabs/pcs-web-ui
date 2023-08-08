@@ -5,6 +5,7 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Link} from "app/view/share";
 import {Node} from "app/view/cluster/types";
 import {
@@ -14,20 +15,18 @@ import {
   useGroupDetailViewContext,
 } from "app/view/share";
 
+const {node: nodeMark} = testMarks.cluster.nodes.list;
+
 export const NodeListItem = ({node}: {node: Node}) => {
   const {selectedItemUrlName} = useGroupDetailViewContext();
   return (
     <DataListItem aria-labelledby={node.name}>
-      <DataListItemRow data-test={`node-list-item ${node.name}`}>
+      <DataListItemRow {...nodeMark.mark}>
         <DataListItemCells
           dataListCells={
             <>
               <DataListCell>
-                <Link
-                  strong
-                  to={`/${node.name}`}
-                  data-test="node-list-item-name"
-                >
+                <Link strong to={`/${node.name}`} {...nodeMark.name.mark}>
                   {node.name}
                 </Link>
               </DataListCell>
@@ -38,7 +37,11 @@ export const NodeListItem = ({node}: {node: Node}) => {
                       ? "WARNING"
                       : node.statusSeverity
                   }
-                  label={<strong>{toLabel(node.status)}</strong>}
+                  label={
+                    <strong {...nodeMark.status.mark}>
+                      {toLabel(node.status)}
+                    </strong>
+                  }
                   showOkIco
                 />
               </DataListCell>
@@ -50,7 +53,7 @@ export const NodeListItem = ({node}: {node: Node}) => {
                       : node.quorumSeverity
                   }
                   label={
-                    <strong>
+                    <strong {...nodeMark.quorum.mark}>
                       {node.status === "DATA_NOT_PROVIDED"
                         && "Unknown quorum status"}
                       {node.status !== "DATA_NOT_PROVIDED"

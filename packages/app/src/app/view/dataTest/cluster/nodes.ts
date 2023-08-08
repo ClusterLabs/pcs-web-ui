@@ -1,6 +1,23 @@
 export const nodes = {
-  list: {},
+  list: {
+    node: {
+      name: {},
+      status: {},
+      quorum: {},
+    },
+  },
   currentNode: {
     name: {},
+    toolbar: {
+      start: {},
+      stop: {},
+      dropdown: {
+        standby: {},
+        unstandby: {},
+        maintenance: {},
+        unmaintenance: {},
+        remove: {},
+      },
+    },
   },
 };

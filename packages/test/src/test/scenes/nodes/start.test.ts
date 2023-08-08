@@ -1,47 +1,48 @@
-import {intercept, location, route, shortcuts} from "test/tools";
-import {dt} from "test/tools/selectors";
-import {getConfirmDialog} from "test/components";
+import * as cs from "dev/responses/clusterStatus/tools";
+
+import {intercept} from "test/tools";
+
+import {clusterName, currentNodeToolbar, goToNode} from "./common";
 
 const nodeName = "node-1";
-const clusterName = "ok";
 
 const launchAction = async () => {
-  await page.goto(location.node({clusterName, nodeName}));
-  await page.click(dt("task node-start"));
+  await goToNode(nodeName);
+  await currentNodeToolbar.launch(toolbar => toolbar.start);
 };
-
-const confirmDialog = getConfirmDialog("start");
+const clusterStatus = cs.cluster(clusterName, "ok");
 
 describe("Node start", () => {
   afterEach(intercept.stop);
 
   it("should successfully start", async () => {
-    shortcuts.interceptWithCluster({
-      clusterName,
-      additionalRouteList: [route.clusterStart({clusterName, nodeName})],
+    intercept.shortcuts.interceptWithCluster({
+      clusterStatus,
+      additionalRouteList: [
+        intercept.route.clusterStart({clusterName, nodeName}),
+      ],
     });
 
     await launchAction();
 
-    await confirmDialog.confirm();
-    await page.waitForSelector(dt("notification-success"));
+    await click(marks.task.confirm.run);
+    await isVisible(marks.notifications.toast.success);
   });
 
   it("should be cancelable", async () => {
-    shortcuts.interceptWithCluster({clusterName});
+    intercept.shortcuts.interceptWithCluster({clusterStatus});
 
     await launchAction();
 
-    await confirmDialog.isDisplayed();
-    await confirmDialog.cancel();
-    await confirmDialog.isHidden();
+    await click(marks.task.confirm.cancel);
+    await isAbsent(marks.task.confirm);
   });
 
   it("should deal with an error from backend", async () => {
-    shortcuts.interceptWithCluster({
-      clusterName,
+    intercept.shortcuts.interceptWithCluster({
+      clusterStatus,
       additionalRouteList: [
-        route.clusterStart({
+        intercept.route.clusterStart({
           clusterName,
           nodeName,
           response: {status: [400, "Unable to start node."]},
@@ -51,7 +52,7 @@ describe("Node start", () => {
 
     await launchAction();
 
-    await confirmDialog.confirm();
-    await page.waitForSelector(dt("notification-danger"));
+    await click(marks.task.confirm.run);
+    await isVisible(marks.notifications.toast.error);
   });
 });
