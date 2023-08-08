@@ -21,15 +21,16 @@ export const item = <ITEM_MARK extends {path: string; locator: Locator}>(
       .locator(ancestor(itemMark));
 
     return {
-      locator: (mark: Mark) => theItem.locator(locatorFor(mark)),
+      locator: (searchExp: SearchExp<ITEM_MARK>) =>
+        theItem.locator(locatorFor(search(searchExp, itemMark))),
     };
   },
   byIndex: (index: number) => {
     const theItem = itemMark.locator.nth(index);
 
     return {
-      locator: (search: (_itemMark: ITEM_MARK) => Mark) =>
-        theItem.locator(locatorFor(search(itemMark))),
+      locator: (searchExp: SearchExp<ITEM_MARK>) =>
+        theItem.locator(locatorFor(search(searchExp, itemMark))),
     };
   },
 });

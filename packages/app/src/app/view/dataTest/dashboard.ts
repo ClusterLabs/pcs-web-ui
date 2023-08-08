@@ -7,7 +7,10 @@ export const dashboard = {
     cluster: {
       name: {},
       loaded: {
-        issues: {},
+        issuesCount: {},
+        issue: {
+          message: {},
+        },
         nodes: {
           list: {
             node: {

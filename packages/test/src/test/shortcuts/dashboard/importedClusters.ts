@@ -4,6 +4,7 @@ const {cluster} = marks.dashboard.clusterList;
 const {node} = cluster.loaded.nodes.list;
 const {resource} = cluster.loaded.resources.list;
 const {fenceDevice} = cluster.loaded.fenceDevices.list;
+const {issue} = cluster.loaded;
 
 export const inCluster = (clusterName: string) => {
   const theCluster = item(cluster).byKey(cluster.name, clusterName);
@@ -42,6 +43,13 @@ export const inCluster = (clusterName: string) => {
           item(fenceDevice)
             .byKey(fenceDevice.id, fenceDeviceId)
             .locator(search(searchExp, fenceDevice)),
+        ),
+    }),
+
+    inIssue: (index: number) => ({
+      get: (searchExp: SearchExp<typeof issue>) =>
+        theCluster.locator(
+          item(issue).byIndex(index).locator(search(searchExp, issue)),
         ),
     }),
   };

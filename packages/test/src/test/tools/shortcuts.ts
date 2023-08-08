@@ -76,3 +76,17 @@ export const interceptWithCluster = (
     ...Object.values({...optionalRouteMap}),
   ]);
 };
+
+export const interceptWithDashboard = (props: {
+  clusterStatus: types.Cluster | types.Cluster[];
+  routeList?: Route[];
+}) => {
+  const clusterStatusList = Array.isArray(props.clusterStatus)
+    ? props.clusterStatus
+    : [props.clusterStatus];
+  run([
+    route.importedClusterList({clusterStatusList}),
+    ...clusterStatusList.map(s => route.clusterStatus({clusterStatus: s})),
+    ...(props.routeList || []),
+  ]);
+};

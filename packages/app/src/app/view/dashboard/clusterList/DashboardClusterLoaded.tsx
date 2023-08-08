@@ -1,3 +1,5 @@
+import {Alert} from "@patternfly/react-core";
+
 import {testMarks} from "app/view/dataTest";
 import {IssueList, Table} from "app/view/share";
 
@@ -19,8 +21,7 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
-const {issues, nodes, resources, fenceDevices} =
-  testMarks.dashboard.clusterList.cluster.loaded;
+const {loaded} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
   const {expanded, Toggle, Content} = Table.Expansion.useExpansion({
@@ -33,19 +34,19 @@ export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
       status={cluster.status}
       columns={
         <>
-          <Toggle expandKey={COLUMNS.ISSUES} {...issues.mark}>
+          <Toggle expandKey={COLUMNS.ISSUES} {...loaded.issuesCount.mark}>
             <DashboardClusterCellSummary
               itemsCount={cluster.issueList.length}
               summaryStatus={cluster.summary.issuesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.NODES} {...nodes.mark}>
+          <Toggle expandKey={COLUMNS.NODES} {...loaded.nodes.mark}>
             <DashboardClusterCellSummary
               itemsCount={cluster.nodeList.length}
               summaryStatus={cluster.summary.nodesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.RESOURCES} {...resources.mark}>
+          <Toggle expandKey={COLUMNS.RESOURCES} {...loaded.resources.mark}>
             <DashboardClusterCellSummary
               itemsCount={
                 cluster.hasCibInfo ? cluster.resourceTree.length : "?"
@@ -53,7 +54,10 @@ export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
               summaryStatus={cluster.summary.resourcesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.FENCE_DEVICES} {...fenceDevices.mark}>
+          <Toggle
+            expandKey={COLUMNS.FENCE_DEVICES}
+            {...loaded.fenceDevices.mark}
+          >
             <DashboardClusterCellSummary
               itemsCount={
                 cluster.hasCibInfo ? cluster.fenceDeviceList.length : "?"
@@ -70,7 +74,20 @@ export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
       expandedContent={
         <>
           <Content expandKey={COLUMNS.ISSUES}>
-            <IssueList margin issueList={cluster.issueList} />
+            <IssueList
+              margin
+              issueList={cluster.issueList}
+              displayIssue={issue => (
+                <Alert
+                  isInline
+                  variant={issue.severity === "ERROR" ? "danger" : "warning"}
+                  title={
+                    <span {...loaded.issue.message.mark}>{issue.message}</span>
+                  }
+                  {...loaded.issue.mark}
+                />
+              )}
+            />
           </Content>
           <Content expandKey={COLUMNS.NODES}>
             <DashboardClusterNodes cluster={cluster} />
