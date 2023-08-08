@@ -11,30 +11,21 @@ export const dashboard = {
         issue: {
           message: {},
         },
-        nodes: {
-          list: {
-            node: {
-              name: {},
-              status: {},
-              quorum: {},
-            },
-          },
+        nodeCount: {},
+        node: {
+          name: {},
+          status: {},
+          quorum: {},
         },
-        resources: {
-          list: {
-            resource: {
-              id: {},
-              status: {},
-            },
-          },
+        resourceCount: {},
+        resource: {
+          id: {},
+          status: {},
         },
-        fenceDevices: {
-          list: {
-            fenceDevice: {
-              id: {},
-              status: {},
-            },
-          },
+        fenceDeviceCount: {},
+        fenceDevice: {
+          id: {},
+          status: {},
         },
         actions: {
           start: {},

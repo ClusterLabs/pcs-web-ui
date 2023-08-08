@@ -40,13 +40,13 @@ export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
               summaryStatus={cluster.summary.issuesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.NODES} {...loaded.nodes.mark}>
+          <Toggle expandKey={COLUMNS.NODES} {...loaded.nodeCount.mark}>
             <DashboardClusterCellSummary
               itemsCount={cluster.nodeList.length}
               summaryStatus={cluster.summary.nodesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.RESOURCES} {...loaded.resources.mark}>
+          <Toggle expandKey={COLUMNS.RESOURCES} {...loaded.resourceCount.mark}>
             <DashboardClusterCellSummary
               itemsCount={
                 cluster.hasCibInfo ? cluster.resourceTree.length : "?"
@@ -56,7 +56,7 @@ export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
           </Toggle>
           <Toggle
             expandKey={COLUMNS.FENCE_DEVICES}
-            {...loaded.fenceDevices.mark}
+            {...loaded.fenceDeviceCount.mark}
           >
             <DashboardClusterCellSummary
               itemsCount={

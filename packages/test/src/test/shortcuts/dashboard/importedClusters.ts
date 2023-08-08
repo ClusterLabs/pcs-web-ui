@@ -1,10 +1,7 @@
 import {SearchExp, item, search} from "test/shortcuts/common";
 
 const {cluster} = marks.dashboard.clusterList;
-const {node} = cluster.loaded.nodes.list;
-const {resource} = cluster.loaded.resources.list;
-const {fenceDevice} = cluster.loaded.fenceDevices.list;
-const {issue} = cluster.loaded;
+const {node, resource, fenceDevice, issue} = cluster.loaded;
 
 export const inCluster = (clusterName: string) => {
   const theCluster = item(cluster).byKey(cluster.name, clusterName);

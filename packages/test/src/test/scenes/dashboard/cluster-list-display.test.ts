@@ -62,15 +62,15 @@ describe("Dashboard scene", () => {
 
     const first = wrapCluster(firstStatus.cluster_name);
     await first.thereIs(cluster => cluster.loaded.issuesCount, "0");
-    await first.thereIs(cluster => cluster.loaded.nodes, "2");
-    await first.thereIs(cluster => cluster.loaded.resources, "1");
-    await first.thereIs(cluster => cluster.loaded.fenceDevices, "1");
+    await first.thereIs(cluster => cluster.loaded.nodeCount, "2");
+    await first.thereIs(cluster => cluster.loaded.resourceCount, "1");
+    await first.thereIs(cluster => cluster.loaded.fenceDeviceCount, "1");
 
     const second = wrapCluster(secondStatus.cluster_name);
     await second.thereIs(cluster => cluster.loaded.issuesCount, "3");
-    await second.thereIs(cluster => cluster.loaded.nodes, "3");
-    await second.thereIs(cluster => cluster.loaded.resources, "2");
-    await second.thereIs(cluster => cluster.loaded.fenceDevices, "2");
+    await second.thereIs(cluster => cluster.loaded.nodeCount, "3");
+    await second.thereIs(cluster => cluster.loaded.resourceCount, "2");
+    await second.thereIs(cluster => cluster.loaded.fenceDeviceCount, "2");
   });
 
   it("should allow to display cluster issues", async () => {

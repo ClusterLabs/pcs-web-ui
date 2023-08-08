@@ -47,7 +47,9 @@ describe("To cluster transition", () => {
     intercept.shortcuts.interceptWithCluster({clusterStatus});
     await clusterListLoaded();
 
-    await click(inCluster(clusterName).get(cluster => cluster.loaded.nodes));
+    await click(
+      inCluster(clusterName).get(cluster => cluster.loaded.nodeCount),
+    );
     await click(
       inCluster(clusterName)
         .inNode(nodeName)
@@ -66,7 +68,7 @@ describe("To cluster transition", () => {
 
     await clusterListLoaded();
     await click(
-      inCluster(clusterName).get(cluster => cluster.loaded.resources),
+      inCluster(clusterName).get(cluster => cluster.loaded.resourceCount),
     );
     await click(
       inCluster(clusterName)
@@ -86,7 +88,7 @@ describe("To cluster transition", () => {
 
     await clusterListLoaded();
     await click(
-      inCluster(clusterName).get(cluster => cluster.loaded.fenceDevices),
+      inCluster(clusterName).get(cluster => cluster.loaded.fenceDeviceCount),
     );
     await click(
       inCluster(clusterName)

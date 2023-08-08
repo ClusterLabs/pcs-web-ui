@@ -29,7 +29,7 @@ const compareByColumn = (
 
 const {SortableTh} = Table;
 
-const {list} = testMarks.dashboard.clusterList.cluster.loaded.resources;
+const {resource: resourceMark} = testMarks.dashboard.clusterList.cluster.loaded;
 
 export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
   const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
@@ -53,7 +53,7 @@ export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
   }
 
   return (
-    <Table isCompact isBorderless {...list.mark}>
+    <Table isCompact isBorderless>
       <thead>
         <tr>
           <SortableTh columnName="NAME" sortState={sortState} data-label="name">
@@ -73,17 +73,17 @@ export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
         {cluster.resourceTree
           .sort(compareItems(compareByColumn))
           .map(resource => (
-            <tr key={resource.id} {...list.resource.mark}>
+            <tr key={resource.id} {...resourceMark.mark}>
               <td>
                 <Link
                   to={location.resource({
                     clusterName: cluster.name,
                     resourceId: resource.id,
                   })}
-                  {...list.resource.id.mark}
+                  {...resourceMark.id.mark}
                 />
               </td>
-              <td {...list.resource.status.mark}>
+              <td {...resourceMark.status.mark}>
                 <ResourceStatusInfoListSigns
                   resourceStatusInfoList={resource.status.infoList}
                 />
