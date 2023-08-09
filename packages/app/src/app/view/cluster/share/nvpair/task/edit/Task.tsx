@@ -1,11 +1,12 @@
 import {tools} from "app/store";
 import {
+  TaskButtonCancel,
+  TaskButtonNext,
   TaskButtonResult,
   TaskButtonResultCancel,
   TaskButtonResultTryAgain,
   TaskButtonSimpleResultBack,
   TaskFinishError,
-  TaskSimpleFooter,
   TaskSimpleOldApi,
   TaskSuccess,
 } from "app/view/share";
@@ -45,15 +46,17 @@ export const Task = () => {
         isCreate ? "Creating" : "Updating"
       } ${attrTypeLabel} attribute`}
       footer={
-        <TaskSimpleFooter
-          nextIf={
-            isNameValid && (type === "update" || !isNameUsed) && isValueValid
-          }
-          run={attrSet}
-          runLabel={`${
-            isCreate ? "Create" : "Update"
-          } ${attrTypeLabel} attribute`}
-        />
+        <>
+          <TaskButtonNext
+            run={attrSet}
+            runIf={
+              isNameValid && (type === "update" || !isNameUsed) && isValueValid
+            }
+          >
+            {`${isCreate ? "Create" : "Update"} ${attrTypeLabel} attribute`}
+          </TaskButtonNext>
+          <TaskButtonCancel />
+        </>
       }
       response={response}
       configure={<Configure />}
