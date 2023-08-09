@@ -1,8 +1,9 @@
-import {overview} from "./overview";
-import {nodes} from "./nodes";
-import {resources} from "./resources";
-import {fenceDevices} from "./fenceDevices";
 import {acl} from "./acl";
+import {fenceDevices} from "./fenceDevices";
+import {nodes} from "./nodes";
+import {overview} from "./overview";
+import {permissions} from "./permissions";
+import {resources} from "./resources";
 
 export const cluster = {
   breadcrumbs: {
@@ -67,7 +68,7 @@ export const cluster = {
       switchEnablement: {},
     },
   },
-  permissions: {},
+  permissions,
   permissionsToolbar: {
     createPermission: {},
   },

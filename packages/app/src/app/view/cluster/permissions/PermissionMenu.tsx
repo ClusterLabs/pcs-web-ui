@@ -1,8 +1,11 @@
+import {testMarks} from "app/view/dataTest";
 import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
 
 import {useLoadedPermissions} from "./LoadedPermissionsContext";
 import * as task from "./task";
 import {Permission} from "./types";
+
+const {actions} = testMarks.cluster.permissions.permission;
 
 export const PermissionMenu = ({
   permission,
@@ -26,6 +29,7 @@ export const PermissionMenu = ({
             useTask: task.add.useTask,
             openArgs: addOpenArgs,
           },
+          ...actions.edit.mark,
         },
         {
           name: "remove",
@@ -42,8 +46,10 @@ export const PermissionMenu = ({
               },
             },
           },
+          ...actions.remove.mark,
         },
       ]}
+      {...actions.mark}
     />
   );
 };

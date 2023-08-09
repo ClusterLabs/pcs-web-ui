@@ -37,16 +37,14 @@ const interceptWithDashboard = () =>
     clusterStatus: [firstStatus, secondStatus],
   });
 
-const wrapCluster = (clusterName: string) => {
-  return {
-    thereIs: async (searchInCluster: SearchInCluster, value: string) => {
-      await shortcuts.expect.textIs(
-        importedClusters.inCluster(clusterName).get(searchInCluster),
-        value,
-      );
-    },
-  };
-};
+const wrapCluster = (clusterName: string) => ({
+  thereIs: async (searchInCluster: SearchInCluster, value: string) => {
+    await shortcuts.expect.textIs(
+      importedClusters.inCluster(clusterName).get(searchInCluster),
+      value,
+    );
+  },
+});
 
 describe("Dashboard scene", () => {
   beforeEach(interceptWithDashboard);

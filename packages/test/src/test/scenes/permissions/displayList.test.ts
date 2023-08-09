@@ -1,78 +1,65 @@
-import * as responses from "dev/responses";
+import * as shortcuts from "test/shortcuts";
+import {intercept} from "test/tools";
 
-import {intercept, location} from "test/tools";
-import {mkXPath} from "test/tools/selectors";
+import {goToPermissions, interceptForPermissions} from "./common";
 
-import {interceptForPermissions} from "./common";
+const {item} = shortcuts.common;
 
-type CompetenceParts = "read" | "write" | "grant" | "full";
-type PermissionParts = CompetenceParts | "name" | "type";
-type PermissionList = ReturnType<
-  typeof responses.permissions
->["users_permissions"];
+const {permission: permissionMark} = marks.cluster.permissions;
 
-const clusterName = "ok";
+type SearchInPermission = Parameters<
+  ReturnType<ReturnType<typeof item<typeof permissionMark>>["byKey"]>["locator"]
+>[0];
 
-const list = "permission-list";
-const permissionsStructure = {
-  row: (i: number, permissionPart: PermissionParts) =>
-    mkXPath(list, `permission-${i}-${permissionPart}`),
-};
+type Permission = Parameters<
+  typeof interceptForPermissions
+>[0]["usersPermissions"][number];
 
-const permissionsResponseData: PermissionList = [
-  {type: "user", name: "name", allow: ["read"]},
+const usersPermissions: Permission[] = [
+  {name: "user1", type: "user", allow: ["read"]},
   {
-    type: "group",
     name: "haclient",
+    type: "group",
     allow: ["grant", "read", "write"],
   },
 ];
 
-const checkPermissionRowValue = async (
-  i: number,
-  permissionPart: Parameters<typeof permissionsStructure.row>[1],
-  expectedValue: string,
-) => {
-  const [value] = await page.$$eval(
-    permissionsStructure.row(i, permissionPart),
-    el => el.map(e => (e as HTMLElement).innerText),
-  );
-  expect(value.trim()).toEqual(expectedValue);
-};
+const wrapPermission = (name: string) => ({
+  thereIs: async (searchInPermission: SearchInPermission, value: string) => {
+    await shortcuts.expect.textIs(
+      item(permissionMark)
+        .byKey(permissionMark.name, name)
+        .locator(searchInPermission),
+      value,
+    );
+  },
+});
 
-const checkPermissionRowCompetence = async (
-  i: number,
-  competence: CompetenceParts,
-) => {
-  await checkPermissionRowValue(
-    i,
-    competence,
-    permissionsResponseData[i].allow.includes(competence)
-      ? "Allowed"
-      : "Disallowed",
-  );
-};
-
-const checkPermissionRow = async (i: number) => {
-  const permission = permissionsResponseData[i];
-  await checkPermissionRowValue(i, "name", permission.name);
-  await checkPermissionRowValue(i, "type", permission.type);
-  await checkPermissionRowCompetence(i, "read");
-  await checkPermissionRowCompetence(i, "write");
-  await checkPermissionRowCompetence(i, "grant");
-  await checkPermissionRowCompetence(i, "full");
-};
+const competenceValue = (
+  permission: Permission,
+  competence: Permission["allow"][number],
+) => (permission.allow.includes(competence) ? "Allowed" : "Disallowed");
 
 describe("Pemissions", () => {
   afterEach(intercept.stop);
 
   it("should be displayed according to response data", async () => {
-    interceptForPermissions({
-      clusterName,
-      usersPermissions: permissionsResponseData,
-    });
-    await page.goto(location.permissionList({clusterName}));
-    await checkPermissionRow(0);
-    await checkPermissionRow(1);
+    interceptForPermissions({usersPermissions});
+    await goToPermissions();
+    const pd_1 = usersPermissions[0];
+    const user1 = wrapPermission(pd_1.name);
+    await user1.thereIs(p => p.type, pd_1.type);
+    await user1.thereIs(p => p.read, competenceValue(pd_1, "read"));
+    await user1.thereIs(p => p.write, competenceValue(pd_1, "write"));
+    await user1.thereIs(p => p.grant, competenceValue(pd_1, "grant"));
+    await user1.thereIs(p => p.full, competenceValue(pd_1, "full"));
+
+    const pd_2 = usersPermissions[1];
+    const user2 = wrapPermission(pd_2.name);
+    await user2.thereIs(p => p.type, pd_2.type);
+    await user2.thereIs(p => p.read, competenceValue(pd_2, "read"));
+    await user2.thereIs(p => p.write, competenceValue(pd_2, "write"));
+    await user2.thereIs(p => p.grant, competenceValue(pd_2, "grant"));
+    await user2.thereIs(p => p.full, competenceValue(pd_2, "full"));
   });
 });
