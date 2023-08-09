@@ -1,128 +1,144 @@
-import * as responses from "dev/responses";
+import * as cs from "dev/responses/clusterStatus/tools";
 
-import {dt} from "test/tools/selectors";
-import {intercept, location, route, shortcuts} from "test/tools";
+import {intercept} from "test/tools";
+import * as shortcuts from "test/shortcuts";
 
-const RESOURCE_TREE = dt("cluster-resources");
+import {clusterName, goToResources} from "./common";
+import {openPrimitive} from "./commonPrimitive";
 
-const clusterName = "resourcesForTest";
+const {item} = shortcuts.common;
+const {textIs} = shortcuts.expect;
 
-const displayResources = async () => {
-  await page.goto(location.resourceList({clusterName}));
-  await page.waitForSelector(RESOURCE_TREE);
-};
+const {resources} = marks.cluster;
 
-const inspectResources = async () =>
-  page.$$eval(dt(RESOURCE_TREE, "^resource-tree-item "), resourceElements =>
-    resourceElements.map(e => ({
-      id: e.querySelector("[data-test='resource-tree-item-name']")?.textContent,
-      type: e.querySelector("[data-test='resource-tree-item-type']")
-        ?.textContent,
-    })),
-  );
-
-const toggleExpansion = async (resourceId: string) => {
-  await page.click(
-    dt(
-      RESOURCE_TREE,
-      `resource-tree-item ${resourceId}`,
-      "resource-tree-item-toggle",
-    ),
-  );
-};
-
-const selectResource = async (resourceId: string) => {
-  await page.click(
-    dt(
-      RESOURCE_TREE,
-      `resource-tree-item ${resourceId}`,
-      "resource-tree-item-name",
-    ),
-  );
-  await page.waitForSelector(dt(`resource-detail ${resourceId}`));
-  await page.waitForSelector(
-    dt(
-      RESOURCE_TREE,
-      `resource-tree-item ${resourceId}`,
-      "resource-tree-item-selection",
-    ),
-  );
-};
-
-const RESOURCES_UNEXPANDED = [
-  {id: "A", type: "apache"},
-  {id: "GROUP-1", type: "Group"},
-  {id: "Clone-1", type: "Clone"},
-  {id: "Clone-2", type: "Clone"},
+const resourceList = [
+  cs.primitive("A"),
+  cs.group("G1", [cs.primitive("B"), cs.primitive("C")]),
+  cs.clone("C1", cs.group("G2", [cs.primitive("D"), cs.primitive("E")])),
+  cs.clone("C2", cs.primitive("F")),
 ];
 
+const primitiveItem = (id: string) =>
+  item(resources.tree.primitive)
+    .byKey(resources.tree.primitive.id, id)
+    .locator(primitive => primitive.id);
+
+const groupItem = (id: string) =>
+  item(resources.tree.group)
+    .byKey(resources.tree.group.id, id)
+    .locator(group => group.id);
+
+const groupToggle = async (id: string) =>
+  await click(
+    item(resources.tree.group)
+      .byKey(resources.tree.group.id, id)
+      .locator(group => group.toggle),
+  );
+
+const openGroup = async (id: string) => {
+  await click(groupItem(id));
+};
+
+const cloneItem = (id: string) =>
+  item(resources.tree.clone)
+    .byKey(resources.tree.clone.id, id)
+    .locator(clone => clone.id);
+
+const cloneToggle = async (id: string) =>
+  await click(
+    item(resources.tree.clone)
+      .byKey(resources.tree.clone.id, id)
+      .locator(clone => clone.toggle),
+  );
+
+const openClone = async (id: string) => {
+  await click(cloneItem(id));
+};
+
 describe("Resource tree", () => {
-  beforeEach(() => shortcuts.interceptWithCluster({clusterName}));
+  beforeEach(() =>
+    intercept.shortcuts.interceptWithCluster({
+      clusterStatus: cs.cluster(clusterName, "ok", {
+        resource_list: resourceList,
+      }),
+    }),
+  );
   afterEach(intercept.stop);
 
   it("should show unexpanded resource tree", async () => {
-    await displayResources();
-    expect(await inspectResources()).toEqual(RESOURCES_UNEXPANDED);
+    await goToResources();
+
+    await isVisible(primitiveItem("A"));
+    await isVisible(groupItem("G1"));
+    await isVisible(cloneItem("C1"));
+    await isVisible(cloneItem("C2"));
+
+    await isAbsent(primitiveItem("B"));
+    await isAbsent(primitiveItem("C"));
+    await isAbsent(primitiveItem("D"));
+    await isAbsent(primitiveItem("E"));
+    await isAbsent(primitiveItem("F"));
+    await isAbsent(groupItem("G2"));
   });
 
   it("should show expanded group", async () => {
-    await displayResources();
-    await toggleExpansion("GROUP-1");
-    expect(await inspectResources()).toEqual([
-      {id: "A", type: "apache"},
-      {id: "GROUP-1", type: "Group"},
-      {id: "B", type: "Dummy"},
-      {id: "C", type: "Dummy"},
-      {id: "Clone-1", type: "Clone"},
-      {id: "Clone-2", type: "Clone"},
-    ]);
-    await toggleExpansion("GROUP-1");
-    expect(await inspectResources()).toEqual(RESOURCES_UNEXPANDED);
+    await goToResources();
+
+    await isAbsent(primitiveItem("B"));
+    await isAbsent(primitiveItem("C"));
+
+    await groupToggle("G1");
+    await isVisible(primitiveItem("B"));
+    await isVisible(primitiveItem("C"));
+
+    await groupToggle("G1");
+    await isAbsent(primitiveItem("B"));
+    await isAbsent(primitiveItem("C"));
   });
 
   it("should show expanded clone with group", async () => {
-    await displayResources();
-    await toggleExpansion("Clone-1");
-    await toggleExpansion("GROUP-2");
-    expect(await inspectResources()).toEqual([
-      {id: "A", type: "apache"},
-      {id: "GROUP-1", type: "Group"},
-      {id: "Clone-1", type: "Clone"},
-      {id: "GROUP-2", type: "Group"},
-      {id: "D", type: "Dummy"},
-      {id: "E", type: "Dummy"},
-      {id: "Clone-2", type: "Clone"},
-    ]);
-    await toggleExpansion("GROUP-2");
-    await toggleExpansion("Clone-1");
-    expect(await inspectResources()).toEqual(RESOURCES_UNEXPANDED);
+    await goToResources();
+
+    await isAbsent(groupItem("G2"));
+    await isAbsent(primitiveItem("D"));
+    await isAbsent(primitiveItem("E"));
+
+    await cloneToggle("C1");
+    await isVisible(groupItem("G2"));
+    await isAbsent(primitiveItem("D"));
+    await isAbsent(primitiveItem("E"));
+
+    await groupToggle("G2");
+    await isVisible(primitiveItem("D"));
+    await isVisible(primitiveItem("E"));
+
+    await cloneToggle("C1");
+    await isAbsent(groupItem("G2"));
+    await isAbsent(primitiveItem("D"));
+    await isAbsent(primitiveItem("E"));
   });
 
-  it("should show group detail", async () => {
-    await displayResources();
-    await selectResource("GROUP-1");
-  });
-
-  it("should show clone detail", async () => {
-    await displayResources();
-    await selectResource("Clone-1");
-  });
-});
-
-describe("Resource tree", () => {
-  afterEach(intercept.stop);
   it("should show primitive resource detail", async () => {
-    shortcuts.interceptWithCluster({
-      clusterName,
-      additionalRouteList: [
-        route.resourceAgentDescribeAgent({
-          clusterName,
-          agentName: "ocf:heartbeat:apache",
-          agentData: responses.resourceAgentMetadata.ocfHeartbeatApache,
-        }),
-      ],
-    });
-    await displayResources();
-    await selectResource("A");
+    await goToResources();
+
+    await openPrimitive("A");
+    await isVisible(resources.currentPrimitive);
+    await textIs(resources.currentPrimitive.id, "A");
+  });
+
+  it("should show primitive group detail", async () => {
+    await goToResources();
+
+    await openGroup("G1");
+    await isVisible(resources.currentGroup);
+    await textIs(resources.currentGroup.id, "G1");
+  });
+
+  it("should show primitive clone detail", async () => {
+    await goToResources();
+
+    await openClone("C1");
+    await isVisible(resources.currentClone);
+    await textIs(resources.currentClone.id, "C1");
   });
 });
