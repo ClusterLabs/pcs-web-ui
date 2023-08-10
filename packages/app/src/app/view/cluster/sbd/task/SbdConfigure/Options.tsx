@@ -1,8 +1,11 @@
 import {Form, FormGroup} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormRadios, FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {options} = testMarks.task.sbdConfigure;
 
 export const Options = () => {
   const {
@@ -21,14 +24,15 @@ export const Options = () => {
   } = useTask();
 
   return (
-    <TaskLibStep title="SBD options" reports={reports}>
-      <Form data-test="form-options">
+    <TaskLibStep title="SBD options" reports={reports} {...options.mark}>
+      <Form>
         <FormRadios
           id="new_sbd_delay_start"
           label="SBD_DELAY_START"
           options={["DEFAULT", "yes", "no"]}
           selected={delayStart}
           onChange={value => updateState({delayStart: value})}
+          {...options.delayStart.mark}
         />
 
         <FormRadios
@@ -37,6 +41,7 @@ export const Options = () => {
           options={["DEFAULT", "clean", "always"]}
           selected={startmode}
           onChange={value => updateState({startmode: value})}
+          {...options.startmode.mark}
         />
 
         <FormText
@@ -48,6 +53,7 @@ export const Options = () => {
           showValidationErrors={showValidationErrors}
           isValid={isWatchdogTimeoutValid}
           helperTextInvalid="Please enter a non negative integer"
+          {...options.watchdogTimeout.mark}
         />
 
         <FormGroup fieldId={"new_timeout_action"}>
@@ -63,6 +69,7 @@ export const Options = () => {
             options={["DEFAULT", "flush", "noflush"]}
             selected={timeoutActionFlush}
             onChange={value => updateState({timeoutActionFlush: value})}
+            {...options.timeoutActionFlush.mark}
           />
           <FormRadios
             id="new_timeout_action2"
@@ -70,6 +77,7 @@ export const Options = () => {
             options={["DEFAULT", "reboot", "crashdump", "off"]}
             selected={timeoutAction}
             onChange={value => updateState({timeoutAction: value})}
+            {...options.timeoutActionDo.mark}
           />
         </FormGroup>
       </Form>

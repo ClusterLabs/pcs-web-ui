@@ -15,6 +15,7 @@ import {permissionEdit} from "./permissionEdit";
 import {resourceCreate} from "./resourceCreate";
 import {resourcePrimitiveGroupChange} from "./resourcePrimitiveGroupChange";
 import {sbdDisable} from "./sbdDisable";
+import {sbdConfigure} from "./sbdConfigure";
 
 export const task = {
   aclAssignSubjectToRole,
@@ -34,6 +35,7 @@ export const task = {
   resourceCreate,
   resourcePrimitiveGroupChange,
   sbdDisable,
+  sbdConfigure,
   confirm: {
     title: {},
     description: {},
