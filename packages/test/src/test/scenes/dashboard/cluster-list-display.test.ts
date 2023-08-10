@@ -5,10 +5,6 @@ import {intercept} from "test/tools";
 
 const {importedClusters, goToDashboard} = shortcuts.dashboard;
 
-type SearchInCluster = Parameters<
-  ReturnType<typeof importedClusters.inCluster>["get"]
->[0];
-
 const firstName = "first";
 const firstStatus = cs.cluster(firstName, "ok", {
   resource_list: [cs.primitive("A"), cs.stonith("F1")],
@@ -37,15 +33,6 @@ const interceptWithDashboard = () =>
     clusterStatus: [firstStatus, secondStatus],
   });
 
-const wrapCluster = (clusterName: string) => ({
-  thereIs: async (searchInCluster: SearchInCluster, value: string) => {
-    await shortcuts.expect.textIs(
-      importedClusters.inCluster(clusterName).get(searchInCluster),
-      value,
-    );
-  },
-});
-
 describe("Dashboard scene", () => {
   beforeEach(interceptWithDashboard);
 
@@ -58,13 +45,13 @@ describe("Dashboard scene", () => {
       2,
     );
 
-    const first = wrapCluster(firstStatus.cluster_name);
+    const first = importedClusters.inCluster(firstStatus.cluster_name);
     await first.thereIs(cluster => cluster.loaded.issuesCount, "0");
     await first.thereIs(cluster => cluster.loaded.nodeCount, "2");
     await first.thereIs(cluster => cluster.loaded.resourceCount, "1");
     await first.thereIs(cluster => cluster.loaded.fenceDeviceCount, "1");
 
-    const second = wrapCluster(secondStatus.cluster_name);
+    const second = importedClusters.inCluster(secondStatus.cluster_name);
     await second.thereIs(cluster => cluster.loaded.issuesCount, "3");
     await second.thereIs(cluster => cluster.loaded.nodeCount, "3");
     await second.thereIs(cluster => cluster.loaded.resourceCount, "2");

@@ -9,6 +9,9 @@ export const inCluster = (clusterName: string) => {
   return {
     get: (searchExp: SearchExp<typeof cluster>) =>
       theCluster.locator(search(searchExp, cluster)),
+
+    thereIs: theCluster.thereIs,
+
     launchAction: async (
       findAction: (actions: typeof cluster.loaded.actions) => Mark,
     ) => {

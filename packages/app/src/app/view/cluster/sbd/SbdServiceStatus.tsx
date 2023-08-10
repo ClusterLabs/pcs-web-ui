@@ -5,17 +5,11 @@ import {
   WrenchIcon,
 } from "@patternfly/react-icons";
 
+import {testMarks} from "app/view/dataTest";
 import {EmptyStateNoItem, Table} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
-const SuccessIcon = ({label}: {label: string}) => {
-  return (
-    <>
-      <CheckCircleIcon className="ha-u-status-success" />
-      {` ${label}`}
-    </>
-  );
-};
+const {service} = testMarks.cluster.sbd;
 
 export const SbdServiceStatus = () => {
   const {nodeList} = useLoadedCluster();
@@ -35,57 +29,66 @@ export const SbdServiceStatus = () => {
         </tr>
       </thead>
 
-      <Table.Body data-test="sbd-service-list">
+      <Table.Body>
         {nodeList.map(node =>
           node.status !== "DATA_NOT_PROVIDED" ? (
-            <tr key={node.name} data-test={`row-${node.name}`}>
-              <td data-label="Node" data-test={"node"}>
+            <tr key={node.name} {...service.mark}>
+              <td data-label="Node" {...service.node.mark}>
                 {node.name}
               </td>
 
-              <td data-label="Installed" data-test="installed">
+              <td data-label="Installed">
                 {node.services.sbd.installed ? (
-                  <SuccessIcon label="Installed" />
+                  <>
+                    <CheckCircleIcon className="ha-u-status-success" />
+                    <span {...service.installed.mark}>{" Installed"}</span>
+                  </>
                 ) : (
                   <>
                     <PlusCircleIcon className="ha-u-status-unknown" />
-                    {" Not installed"}
+                    <span {...service.installed.mark}>{" Not installed"}</span>
                   </>
                 )}
               </td>
 
-              <td data-label="Enabled" data-test="enabled">
+              <td data-label="Enabled">
                 {node.services.sbd.enabled ? (
-                  <SuccessIcon label="Enabled" />
+                  <>
+                    <CheckCircleIcon className="ha-u-status-success" />
+                    <span {...service.enabled.mark}>{" Enabled"}</span>
+                  </>
                 ) : (
                   <>
                     <WrenchIcon className="ha-u-status-unknown" />
-                    {" Not enabled"}
+                    <span {...service.enabled.mark}>{" Not enabled"}</span>
                   </>
                 )}
               </td>
 
-              <td data-label="Running" data-test="running">
+              <td data-label="Running">
                 {node.services.sbd.running ? (
-                  <SuccessIcon label="Running" />
+                  <>
+                    <CheckCircleIcon className="ha-u-status-success" />
+                    <span {...service.running.mark}>{" Running"}</span>
+                  </>
                 ) : (
                   <>
                     <ExclamationCircleIcon className="ha-u-status-unknown" />
-                    {" Not running"}
+                    <span {...service.running.mark}>{" Not running"}</span>
                   </>
                 )}
               </td>
             </tr>
           ) : (
-            <tr key={node.name} data-test={`sbd-service-list-${node.name}`}>
-              <td data-label="Node" data-test="node">
+            <tr key={node.name} {...service.mark}>
+              <td data-label="Node" {...service.node.mark}>
                 {node.name}
               </td>
 
               <td
                 colSpan={3}
                 data-label="Data for node not provided"
-                data-test="without-data"
+                {...service.noData.mark}
               >
                 Data not provided
               </td>

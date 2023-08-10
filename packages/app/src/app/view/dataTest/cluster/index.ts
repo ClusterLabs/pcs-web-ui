@@ -4,6 +4,7 @@ import {nodes} from "./nodes";
 import {overview} from "./overview";
 import {permissions} from "./permissions";
 import {resources} from "./resources";
+import {sbd} from "./sbd";
 
 export const cluster = {
   breadcrumbs: {
@@ -41,7 +42,7 @@ export const cluster = {
   fenceDevicesToolbar: {
     createFenceDevice: {},
   },
-  sbd: {},
+  sbd,
   sbdToolbar: {
     configureSbd: {},
     disableSbd: {},

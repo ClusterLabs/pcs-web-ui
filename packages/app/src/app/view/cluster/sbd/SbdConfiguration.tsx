@@ -1,7 +1,10 @@
+import {testMarks} from "app/view/dataTest";
 import {EmptyStateNoItem, Table} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 import {selectSbdConfig} from "./select";
+
+const {config} = testMarks.cluster.sbd;
 
 export const SbdConfiguration = () => {
   const sbdConfig = selectSbdConfig(useLoadedCluster().nodeList);
@@ -19,7 +22,7 @@ export const SbdConfiguration = () => {
         </tr>
       </thead>
 
-      <Table.Body data-test="sbd-configuration-list">
+      <Table.Body>
         {(Object.keys(sbdConfig) as (keyof typeof sbdConfig)[])
           .filter(
             option =>
@@ -29,11 +32,11 @@ export const SbdConfiguration = () => {
               && option !== "SBD_DEVICE",
           )
           .map(option => (
-            <tr key={option} data-test={`row-${option}`}>
-              <td data-label="Option" data-test="option">
+            <tr key={option} {...config.mark}>
+              <td data-label="Option" {...config.name.mark}>
                 {option}
               </td>
-              <td data-label="Value" data-test="value">
+              <td data-label="Value" {...config.value.mark}>
                 {sbdConfig[option]}
               </td>
             </tr>

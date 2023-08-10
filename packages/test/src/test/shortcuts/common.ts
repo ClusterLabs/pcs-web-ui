@@ -1,5 +1,7 @@
 import {Locator} from "playwright";
 
+import {textIs} from "./expect";
+
 export type SearchExp<MARK_PART extends Mark> =
   | Mark
   | ((markPart: MARK_PART) => Mark);
@@ -21,16 +23,27 @@ export const item = <ITEM_MARK extends {path: string; locator: Locator}>(
       .locator(ancestor(itemMark));
 
     return {
-      locator: (searchExp: SearchExp<ITEM_MARK>) =>
-        theItem.locator(locatorFor(search(searchExp, itemMark))),
+      locator: (searchExp?: SearchExp<ITEM_MARK>) =>
+        searchExp === undefined
+          ? theItem
+          : theItem.locator(locatorFor(search(searchExp, itemMark))),
+
+      thereIs: async (searchExp: SearchExp<ITEM_MARK>, value: string) => {
+        await textIs(
+          theItem.locator(locatorFor(search(searchExp, itemMark))),
+          value,
+        );
+      },
     };
   },
   byIndex: (index: number) => {
     const theItem = itemMark.locator.nth(index);
 
     return {
-      locator: (searchExp: SearchExp<ITEM_MARK>) =>
-        theItem.locator(locatorFor(search(searchExp, itemMark))),
+      locator: (searchExp?: SearchExp<ITEM_MARK>) =>
+        searchExp === undefined
+          ? theItem
+          : theItem.locator(locatorFor(search(searchExp, itemMark))),
     };
   },
 });
