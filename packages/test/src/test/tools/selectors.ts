@@ -10,6 +10,3 @@ export const dt = (...args: string[]) =>
       return `[data-test="${arg}"]`;
     })
     .join(" ");
-
-export const mkXPath = (...dataTests: string[]): string =>
-  "//*" + dataTests.map(value => `[@data-test="${value}"]`).join("//*");
