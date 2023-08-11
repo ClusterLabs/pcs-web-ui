@@ -19,7 +19,7 @@ export const Review = () => {
   } = useTask();
 
   return (
-    <TaskLibStep title="Review settings" reports={reports}>
+    <TaskLibStep title="Review settings" reports={reports} {...review.mark}>
       <ReviewList>
         <ReviewItem
           label="Node name"

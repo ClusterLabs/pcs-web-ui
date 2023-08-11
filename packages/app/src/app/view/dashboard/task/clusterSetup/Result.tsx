@@ -87,7 +87,9 @@ export const Result = ({
               {...communicationError.tryAgain.mark}
             />
           }
-          cancel={<TaskButtonResultCancel />}
+          cancel={
+            <TaskButtonResultCancel {...communicationError.cancel.mark} />
+          }
           {...communicationError.mark}
         />
       }

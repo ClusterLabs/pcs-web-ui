@@ -27,7 +27,7 @@ export const Unsuccess = () => {
           {...unsuccess.proceedAnyway.mark}
         />
       }
-      cancel={<TaskButtonResultCancel />}
+      cancel={<TaskButtonResultCancel {...unsuccess.cancel.mark} />}
       {...unsuccess.mark}
     />
   );
