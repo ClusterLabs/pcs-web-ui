@@ -1,3 +1,4 @@
+import * as React from "react";
 import {Alert, TextContent} from "@patternfly/react-core";
 
 import {ActionPayload} from "app/store";
@@ -7,15 +8,17 @@ import {NVPairListPage} from "app/view/cluster/share/nvpair";
 export const UtilizationView = ({
   utilizationAttrs,
   owner,
+  toolbar,
 }: {
   utilizationAttrs: NVPair[];
   owner: ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
+  toolbar: React.ReactNode;
 }) => {
   return (
     <NVPairListPage
       nvPairList={utilizationAttrs}
       owner={owner}
-      createLabel="Create utilization attribute"
+      toolbar={toolbar}
       beforeList={
         <Alert isInline title="Utilization attributes" variant="info">
           <TextContent>

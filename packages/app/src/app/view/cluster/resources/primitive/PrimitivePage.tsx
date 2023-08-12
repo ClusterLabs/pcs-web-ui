@@ -7,12 +7,13 @@ import {
   UrlTabs,
   useUrlTabs,
 } from "app/view/share";
-import {NVPairListPage, UtilizationView} from "app/view/cluster/share";
 
 import {PrimitiveAttrsView} from "./attributes";
 import {PrimitiveDetail} from "./PrimitiveDetail";
 import {useClusterResourceAgent} from "./useResourceAgent";
 import {PrimitivePageToolbar} from "./PrimitivePageToolbar";
+import {PrimitiveMeta} from "./PrimitiveMeta";
+import {PrimitiveUtilization} from "./PrimitiveUtilization";
 
 export const primitivePageTabList = [
   "detail",
@@ -55,24 +56,9 @@ export const PrimitivePage = ({primitive}: {primitive: Primitive}) => {
           <PrimitiveAttrsView primitive={primitive} />
         )}
         {currentTab === "utilization" && (
-          <UtilizationView
-            utilizationAttrs={primitive.utilization}
-            owner={{
-              type: "resource-utilization",
-              id: primitive.id,
-            }}
-          />
+          <PrimitiveUtilization primitive={primitive} />
         )}
-        {currentTab === "meta" && (
-          <NVPairListPage
-            nvPairList={primitive.metaAttributes}
-            owner={{
-              type: "resource-meta",
-              id: primitive.id,
-            }}
-            createLabel="Create meta attribute"
-          />
-        )}
+        {currentTab === "meta" && <PrimitiveMeta primitive={primitive} />}
       </Router>
     </DetailLayout>
   );

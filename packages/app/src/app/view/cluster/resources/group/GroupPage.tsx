@@ -9,10 +9,10 @@ import {
   UrlTabs,
   useUrlTabs,
 } from "app/view/share";
-import {NVPairListPage} from "app/view/cluster/share";
 
 import {GroupDetail} from "./GroupDetail";
 import {GroupPageToolbar} from "./GroupPageToolbar";
+import {GroupMeta} from "./GroupMeta";
 
 const tabList = ["detail", "meta"] as const;
 
@@ -45,16 +45,7 @@ export const GroupPage = ({group}: {group: Group}) => {
       )}
       <Router base={matchedContext}>
         {currentTab === "detail" && <GroupDetail group={group} />}
-        {currentTab === "meta" && (
-          <NVPairListPage
-            nvPairList={group.metaAttributes}
-            owner={{
-              type: "resource-meta",
-              id: group.id,
-            }}
-            createLabel="Create meta attribute"
-          />
-        )}
+        {currentTab === "meta" && <GroupMeta group={group} />}
       </Router>
     </DetailLayout>
   );

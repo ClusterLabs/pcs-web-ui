@@ -9,9 +9,9 @@ import {
   UrlTabs,
   useUrlTabs,
 } from "app/view/share";
-import {NVPairListPage} from "app/view/cluster/share";
 
 import {CloneDetail} from "./CloneDetail";
+import {CloneMeta} from "./CloneMeta";
 
 const tabList = ["detail", "meta"] as const;
 
@@ -40,16 +40,7 @@ export const ClonePage = ({clone}: {clone: Clone}) => {
               issueList={clone.issueList}
             />
           )}
-          {currentTab === "meta" && (
-            <NVPairListPage
-              nvPairList={clone.metaAttributes}
-              owner={{
-                type: "resource-meta",
-                id: clone.id,
-              }}
-              createLabel="Create meta attribute"
-            />
-          )}
+          {currentTab === "meta" && <CloneMeta clone={clone} />}
         </Router>
       </DetailLayout>
     );
