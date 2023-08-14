@@ -1,3 +1,5 @@
+import {nvpairs} from "./nvpairs";
+
 const resource = {
   id: {},
   type: {},
@@ -37,6 +39,10 @@ export const resources = {
       utilization: {},
       meta: {},
     },
+    detail: {},
+    attributes: {},
+    utilization: nvpairs,
+    meta: nvpairs,
   },
   currentGroup: {
     id: {},
@@ -44,6 +50,8 @@ export const resources = {
       detail: {},
       meta: {},
     },
+    detail: {},
+    meta: nvpairs,
   },
   currentClone: {
     id: {},
@@ -51,6 +59,8 @@ export const resources = {
       detail: {},
       meta: {},
     },
+    detail: {},
+    meta: nvpairs,
   },
   currentFenceDevice: {
     id: {},

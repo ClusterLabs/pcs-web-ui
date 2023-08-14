@@ -5,22 +5,18 @@ import {NVPairListPage} from "app/view/cluster/share/nvpair";
 
 type PageProps = React.ComponentProps<typeof NVPairListPage>;
 
-export const UtilizationView = ({
-  owner,
-  nvPairList,
-  toolbar,
-  listItem,
-}: {
+export const UtilizationView = (props: {
   owner: PageProps["owner"];
   nvPairList: PageProps["nvPairList"];
   toolbar: React.ReactNode;
   listItem: PageProps["listItem"];
+  "data-test": string;
 }) => {
   return (
     <NVPairListPage
-      nvPairList={nvPairList}
-      owner={owner}
-      toolbar={toolbar}
+      nvPairList={props.nvPairList}
+      owner={props.owner}
+      toolbar={props.toolbar}
       beforeList={
         <Alert isInline title="Utilization attributes" variant="info">
           <TextContent>
@@ -31,7 +27,8 @@ export const UtilizationView = ({
           </TextContent>
         </Alert>
       }
-      listItem={listItem}
+      listItem={props.listItem}
+      data-test={props["data-test"]}
     />
   );
 };

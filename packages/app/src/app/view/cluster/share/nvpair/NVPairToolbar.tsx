@@ -11,12 +11,10 @@ type Launcher = NonNullable<
   React.ComponentProps<typeof LaunchersToolbar>["buttonsItems"]
 >[number];
 
-export const NVPairToolbar = ({
-  createLabel,
-  launcherCreate,
-}: {
+export const NVPairToolbar = (props: {
   createLabel: string;
   launcherCreate: (createData: Launcher) => Launcher;
+  "data-test"?: string;
 }) => {
   const {owner, nvPairList} = useNVPairListContext();
   const launchDisable = useLauncherDisableClusterNotRunning();
@@ -31,9 +29,9 @@ export const NVPairToolbar = ({
     <LaunchersToolbar
       toolbarName={owner.type}
       buttonsItems={[
-        launcherCreate({
+        props.launcherCreate({
           name: "create",
-          label: createLabel,
+          label: props.createLabel,
           task: {
             component: task.edit.Task,
             useTask: task.edit.useTask,
@@ -44,6 +42,7 @@ export const NVPairToolbar = ({
           ),
         }),
       ]}
+      data-test={props["data-test"]}
     />
   );
 };

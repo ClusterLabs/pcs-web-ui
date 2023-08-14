@@ -7,12 +7,10 @@ import {useNVPairListItemContext} from "./NVPairListItemContext";
 
 type Launcher = React.ComponentProps<typeof LauncherDropdown>["items"][number];
 
-export const NVPairListItemMenu = ({
-  launcherEdit,
-  launcherRemove,
-}: {
+export const NVPairListItemMenu = (props: {
   launcherEdit: (editData: Launcher) => Launcher;
   launcherRemove: (removeData: Launcher) => Launcher;
+  "data-test"?: string;
 }) => {
   const {name: taskName} = task.edit.useTask();
   const {clusterName} = useLoadedCluster();
@@ -30,7 +28,7 @@ export const NVPairListItemMenu = ({
   return (
     <LauncherDropdown
       items={[
-        launcherEdit({
+        props.launcherEdit({
           name: "edit",
           task: {
             component: task.edit.Task,
@@ -38,7 +36,7 @@ export const NVPairListItemMenu = ({
             openArgs: editOpenArgs,
           },
         }),
-        launcherRemove({
+        props.launcherRemove({
           name: "remove",
           confirm: {
             title: `Remove the attribute "${nvPair.name}"?`,
@@ -55,6 +53,7 @@ export const NVPairListItemMenu = ({
           },
         }),
       ]}
+      data-test={props["data-test"]}
     />
   );
 };

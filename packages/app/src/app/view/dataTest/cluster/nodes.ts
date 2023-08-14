@@ -1,3 +1,5 @@
+import {nvpairs} from "./nvpairs";
+
 export const nodes = {
   list: {
     node: {
@@ -24,5 +26,8 @@ export const nodes = {
       attributes: {},
       utilization: {},
     },
+    detail: {},
+    attributes: nvpairs,
+    utilization: nvpairs,
   },
 };

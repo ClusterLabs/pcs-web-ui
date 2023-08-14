@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   NVPairListItem,
   NVPairListItemMenu,
@@ -5,6 +6,10 @@ import {
   NVPairToolbar,
   useLoadedCluster,
 } from "app/view/cluster/share";
+
+const {attributes: nvpairs} = testMarks.cluster.nodes.currentNode;
+const {pair, toolbar} = nvpairs;
+const {menu} = pair;
 
 export const NodeAttributes = ({nodeName}: {nodeName: string}) => {
   return (
@@ -14,22 +19,26 @@ export const NodeAttributes = ({nodeName}: {nodeName: string}) => {
       toolbar={
         <NVPairToolbar
           createLabel="Create node attribute"
-          launcherCreate={launcherCreate => ({...launcherCreate})}
+          launcherCreate={create => ({...create, ...toolbar.create.mark})}
+          {...toolbar.mark}
         />
       }
       listItem={nvPair => (
         <NVPairListItem
           nvPair={nvPair}
-          name={name => name}
-          value={value => value}
+          name={name => <span {...pair.name.mark}>{name}</span>}
+          value={value => <span {...pair.value.mark}>{value}</span>}
           menu={
             <NVPairListItemMenu
-              launcherEdit={launcherEdit => ({...launcherEdit})}
-              launcherRemove={launcherRemove => ({...launcherRemove})}
+              launcherEdit={edit => ({...edit, ...menu.edit.mark})}
+              launcherRemove={remove => ({...remove, ...menu.remove.mark})}
+              {...menu.mark}
             />
           }
+          {...pair.mark}
         />
       )}
+      {...nvpairs.mark}
     />
   );
 };

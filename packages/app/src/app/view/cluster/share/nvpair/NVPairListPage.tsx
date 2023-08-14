@@ -14,25 +14,22 @@ type ContextProps = React.ComponentProps<
   typeof NVPairListContextProvider
 >["value"];
 
-export const NVPairListPage = ({
-  nvPairList,
-  owner,
-  toolbar,
-  listItem,
-  beforeList,
-}: {
+export const NVPairListPage = (props: {
   nvPairList: ContextProps["nvPairList"];
   owner: ContextProps["owner"];
   toolbar: React.ReactNode;
   listItem: (nvPair: ContextProps["nvPairList"][number]) => React.ReactNode;
+  "data-test": string;
   beforeList?: React.ReactNode;
 }) => {
   const {hasCibInfo, clusterName} = useLoadedCluster();
   return (
-    <NVPairListContextProvider value={{nvPairList, owner}}>
-      <StackItem>{toolbar}</StackItem>
+    <NVPairListContextProvider
+      value={{nvPairList: props.nvPairList, owner: props.owner}}
+    >
+      <StackItem>{props.toolbar}</StackItem>
 
-      {beforeList && <StackItem>{beforeList}</StackItem>}
+      {props.beforeList && <StackItem>{props.beforeList}</StackItem>}
 
       <StackItem>
         {!hasCibInfo && (
@@ -42,17 +39,17 @@ export const NVPairListPage = ({
           />
         )}
 
-        {hasCibInfo && nvPairList.length === 0 && (
+        {hasCibInfo && props.nvPairList.length === 0 && (
           <EmptyStateNoItem
             title="No attribute here."
             message="No attribute has been added."
           />
         )}
 
-        {hasCibInfo && nvPairList.length > 0 && (
+        {hasCibInfo && props.nvPairList.length > 0 && (
           <Table>
             <Table.Body>
-              {nvPairList.map(nvPair => listItem(nvPair))}
+              {props.nvPairList.map(nvPair => props.listItem(nvPair))}
             </Table.Body>
           </Table>
         )}

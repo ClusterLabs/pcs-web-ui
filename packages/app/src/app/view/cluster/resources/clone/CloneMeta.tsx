@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {Clone} from "app/view/cluster/types";
 import {
   NVPairListItem,
@@ -5,6 +6,10 @@ import {
   NVPairListPage,
   NVPairToolbar,
 } from "app/view/cluster/share";
+
+const {meta: nvpairs} = testMarks.cluster.resources.currentClone;
+const {pair, toolbar} = nvpairs;
+const {menu} = pair;
 
 export const CloneMeta = ({clone}: {clone: Clone}) => {
   return (
@@ -14,22 +19,26 @@ export const CloneMeta = ({clone}: {clone: Clone}) => {
       toolbar={
         <NVPairToolbar
           createLabel="Create meta attribute"
-          launcherCreate={launcherCreate => ({...launcherCreate})}
+          launcherCreate={create => ({...create, ...toolbar.create.mark})}
+          {...toolbar.mark}
         />
       }
       listItem={nvPair => (
         <NVPairListItem
           nvPair={nvPair}
-          name={name => name}
-          value={value => value}
+          name={name => <span {...pair.name.mark}>{name}</span>}
+          value={value => <span {...pair.value.mark}>{value}</span>}
           menu={
             <NVPairListItemMenu
-              launcherEdit={launcherEdit => ({...launcherEdit})}
-              launcherRemove={launcherRemove => ({...launcherRemove})}
+              launcherEdit={edit => ({...edit, ...menu.edit.mark})}
+              launcherRemove={remove => ({...remove, ...menu.remove.mark})}
+              {...menu.mark}
             />
           }
+          {...pair.mark}
         />
       )}
+      {...nvpairs.mark}
     />
   );
 };
