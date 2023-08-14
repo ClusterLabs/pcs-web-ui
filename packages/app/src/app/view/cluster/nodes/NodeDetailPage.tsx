@@ -1,10 +1,10 @@
 import React from "react";
+import {Tab, Tabs} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {
   DetailLayout,
   Router,
-  UrlTabs,
   useGroupDetailViewContext,
   useUrlTabs,
 } from "app/view/share";
@@ -19,9 +19,39 @@ import {NodeUtilization} from "./NodeUtilization";
 export const nodePageTabList = ["detail", "attributes", "utilization"] as const;
 
 const {currentNode} = testMarks.cluster.nodes;
+const {tabs} = currentNode;
+const tabMap = {
+  detail: (
+    <Tab
+      eventKey="detail"
+      key="detail"
+      title={"Detail"}
+      {...tabs.detail.mark}
+    />
+  ),
+  attributes: (
+    <Tab
+      eventKey="attributes"
+      key="attributes"
+      title="Attributes"
+      {...tabs.attributes.mark}
+    />
+  ),
+  utilization: (
+    <Tab
+      eventKey="utilization"
+      key="utilization"
+      title="Utilization"
+      {...tabs.utilization.mark}
+    />
+  ),
+};
+
 export const NodeDetailPage = () => {
   const {selectedItemUrlName: selectedNodeName} = useGroupDetailViewContext();
-  const {currentTab, matchedContext} = useUrlTabs(nodePageTabList);
+  const {currentTab, matchedContext, onSelect} = useUrlTabs(
+    Object.keys(tabMap) as (keyof typeof tabMap)[],
+  );
   const {nodeList} = useLoadedCluster();
 
   const node = React.useMemo(
@@ -37,11 +67,9 @@ export const NodeDetailPage = () => {
     <DetailLayout
       caption={<strong {...currentNode.name.mark}>{selectedNodeName}</strong>}
       tabs={
-        <UrlTabs
-          tabList={nodePageTabList}
-          currentTab={currentTab}
-          data-test="node"
-        />
+        <Tabs activeKey={currentTab} onSelect={onSelect} {...tabs.mark}>
+          {Object.values(tabMap)}
+        </Tabs>
       }
       toolbar={<NodeDetailPageToolbar node={node} />}
       {...currentNode.mark}

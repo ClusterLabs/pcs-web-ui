@@ -31,20 +31,18 @@ export const NVPairToolbar = ({
     <LaunchersToolbar
       toolbarName={owner.type}
       buttonsItems={[
-        {
-          ...launcherCreate({
-            name: "create",
-            label: createLabel,
-            task: {
-              component: task.edit.Task,
-              useTask: task.edit.useTask,
-              openArgs: editOpenArgs,
-            },
-            launchDisable: launchDisable(
-              "Cannot create attribute on stopped cluster",
-            ),
-          }),
-        },
+        launcherCreate({
+          name: "create",
+          label: createLabel,
+          task: {
+            component: task.edit.Task,
+            useTask: task.edit.useTask,
+            openArgs: editOpenArgs,
+          },
+          launchDisable: launchDisable(
+            "Cannot create attribute on stopped cluster",
+          ),
+        }),
       ]}
     />
   );

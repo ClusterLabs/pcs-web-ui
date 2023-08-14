@@ -30,12 +30,11 @@ const tabMap = {
     />
   ),
 };
-type TabName = keyof typeof tabMap;
 
 export const FenceDeviceView = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   useClusterFenceAgent(fenceDevice.agentName);
   const {currentTab, matchedContext, onSelect} = useUrlTabs(
-    Object.keys(tabMap) as TabName[],
+    Object.keys(tabMap) as (keyof typeof tabMap)[],
   );
   return (
     <DetailLayout

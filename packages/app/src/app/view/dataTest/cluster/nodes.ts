@@ -19,5 +19,10 @@ export const nodes = {
         remove: {},
       },
     },
+    tabs: {
+      detail: {},
+      attributes: {},
+      utilization: {},
+    },
   },
 };

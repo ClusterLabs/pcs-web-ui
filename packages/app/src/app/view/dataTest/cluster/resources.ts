@@ -31,12 +31,26 @@ export const resources = {
         delete: {},
       },
     },
+    tabs: {
+      detail: {},
+      attributes: {},
+      utilization: {},
+      meta: {},
+    },
   },
   currentGroup: {
     id: {},
+    tabs: {
+      detail: {},
+      meta: {},
+    },
   },
   currentClone: {
     id: {},
+    tabs: {
+      detail: {},
+      meta: {},
+    },
   },
   currentFenceDevice: {
     id: {},
