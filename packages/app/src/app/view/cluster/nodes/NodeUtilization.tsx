@@ -1,4 +1,5 @@
 import {
+  NVPairListItemMenu,
   UtilizationView,
   useLaunchNVPairCreate,
   useLoadedCluster,
@@ -13,22 +14,32 @@ export const NodeUtilization = ({nodeName}: {nodeName: string}) => {
   } satisfies Parameters<typeof useLaunchNVPairCreate>[0]["owner"];
 
   const utilizationAttrs = nodesUtilization?.[nodeName] ?? [];
+  const utilizationAttrNameList = utilizationAttrs.map(nvPair => nvPair.name);
 
   const launchNVPairCreate = useLaunchNVPairCreate({
     owner,
     createLabel: "Create utilization attribute",
-    nameList: utilizationAttrs.map(nvPair => nvPair.name),
+    nameList: utilizationAttrNameList,
   });
   return (
     <UtilizationView
       utilizationAttrs={utilizationAttrs}
-      owner={owner}
       toolbar={
         <LaunchersToolbar
           toolbarName="node-utilization-attributes"
           buttonsItems={[{...launchNVPairCreate}]}
         />
       }
+      menu={(itemName, itemValue) => (
+        <NVPairListItemMenu
+          owner={owner}
+          itemName={itemName}
+          itemValue={itemValue}
+          nvPairNameList={utilizationAttrNameList}
+          launcherEdit={launcherEdit => ({...launcherEdit})}
+          launcherRemove={launcherRemove => ({...launcherRemove})}
+        />
+      )}
     />
   );
 };

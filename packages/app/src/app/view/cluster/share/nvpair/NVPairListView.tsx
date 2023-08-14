@@ -1,4 +1,3 @@
-import {ActionPayload} from "app/store";
 import {EmptyStateClusterStopped, EmptyStateNoItem} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 import {NVPair} from "app/view/cluster/types";
@@ -7,10 +6,10 @@ import {NVPairList} from "./NVPairList";
 
 export const NVPairListView = ({
   nvPairList,
-  owner,
+  menu,
 }: {
   nvPairList: NVPair[];
-  owner: ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
+  menu: React.ComponentProps<typeof NVPairList>["menu"];
 }) => {
   const {hasCibInfo, clusterName} = useLoadedCluster();
 
@@ -32,5 +31,5 @@ export const NVPairListView = ({
     );
   }
 
-  return <NVPairList nvPairList={nvPairList} owner={owner} />;
+  return <NVPairList nvPairList={nvPairList} menu={menu} />;
 };

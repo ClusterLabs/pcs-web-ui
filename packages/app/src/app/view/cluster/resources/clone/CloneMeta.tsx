@@ -1,5 +1,9 @@
 import {Clone} from "app/view/cluster/types";
-import {NVPairListPage, useLaunchNVPairCreate} from "app/view/cluster/share";
+import {
+  NVPairListItemMenu,
+  NVPairListPage,
+  useLaunchNVPairCreate,
+} from "app/view/cluster/share";
 import {LaunchersToolbar} from "app/view/share";
 
 export const CloneMeta = ({clone}: {clone: Clone}) => {
@@ -8,6 +12,7 @@ export const CloneMeta = ({clone}: {clone: Clone}) => {
     id: clone.id,
   } satisfies Parameters<typeof useLaunchNVPairCreate>[0]["owner"];
 
+  const metaAttributeNameList = clone.metaAttributes.map(nvPair => nvPair.name);
   const launchNVPairCreate = useLaunchNVPairCreate({
     owner,
     createLabel: "Create meta attribute",
@@ -16,13 +21,22 @@ export const CloneMeta = ({clone}: {clone: Clone}) => {
   return (
     <NVPairListPage
       nvPairList={clone.metaAttributes}
-      owner={owner}
       toolbar={
         <LaunchersToolbar
           toolbarName="clone-meta-attributes"
           buttonsItems={[{...launchNVPairCreate}]}
         />
       }
+      menu={(nvPairName, nvPairValue) => (
+        <NVPairListItemMenu
+          owner={owner}
+          itemName={nvPairName}
+          itemValue={nvPairValue}
+          nvPairNameList={metaAttributeNameList}
+          launcherEdit={launcherEdit => ({...launcherEdit})}
+          launcherRemove={launcherRemove => ({...launcherRemove})}
+        />
+      )}
     />
   );
 };

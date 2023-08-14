@@ -1,5 +1,9 @@
 import {LaunchersToolbar} from "app/view/share";
-import {NVPairListPage, useLaunchNVPairCreate} from "app/view/cluster/share";
+import {
+  NVPairListItemMenu,
+  NVPairListPage,
+  useLaunchNVPairCreate,
+} from "app/view/cluster/share";
 import {Primitive} from "app/view/cluster/types";
 
 export const PrimitiveMeta = ({primitive}: {primitive: Primitive}) => {
@@ -8,21 +12,34 @@ export const PrimitiveMeta = ({primitive}: {primitive: Primitive}) => {
     id: primitive.id,
   } satisfies Parameters<typeof useLaunchNVPairCreate>[0]["owner"];
 
+  const metaAttributeNameList = primitive.metaAttributes.map(
+    nvPair => nvPair.name,
+  );
+
   const launchNVPairCreate = useLaunchNVPairCreate({
     owner,
     createLabel: "Create meta attribute",
-    nameList: primitive.metaAttributes.map(nvPair => nvPair.name),
+    nameList: metaAttributeNameList,
   });
   return (
     <NVPairListPage
       nvPairList={primitive.metaAttributes}
-      owner={owner}
       toolbar={
         <LaunchersToolbar
           toolbarName="primitive-meta-attributes"
           buttonsItems={[{...launchNVPairCreate}]}
         />
       }
+      menu={(nvPairName, nvPairValue) => (
+        <NVPairListItemMenu
+          owner={owner}
+          itemName={nvPairName}
+          itemValue={nvPairValue}
+          nvPairNameList={metaAttributeNameList}
+          launcherEdit={launcherEdit => ({...launcherEdit})}
+          launcherRemove={launcherRemove => ({...launcherRemove})}
+        />
+      )}
     />
   );
 };

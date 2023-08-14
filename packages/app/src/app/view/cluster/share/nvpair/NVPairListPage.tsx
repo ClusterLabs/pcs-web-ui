@@ -1,21 +1,20 @@
 import * as React from "react";
 import {StackItem} from "@patternfly/react-core";
 
-import {ActionPayload} from "app/store";
 import {NVPair} from "app/view/cluster/types";
 
 import {NVPairListView} from "./NVPairListView";
 
 export const NVPairListPage = ({
   nvPairList,
-  owner,
   toolbar,
   beforeList,
+  menu,
 }: {
   nvPairList: NVPair[];
-  owner: ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
   toolbar: React.ReactNode;
   beforeList?: React.ReactNode;
+  menu: React.ComponentProps<typeof NVPairListView>["menu"];
 }) => {
   return (
     <>
@@ -24,7 +23,7 @@ export const NVPairListPage = ({
       {beforeList && <StackItem>{beforeList}</StackItem>}
 
       <StackItem>
-        <NVPairListView nvPairList={nvPairList} owner={owner} />
+        <NVPairListView nvPairList={nvPairList} menu={menu} />
       </StackItem>
     </>
   );
