@@ -1,31 +1,28 @@
-import {ActionPayload} from "app/store";
 import {LaunchersToolbar} from "app/view/share";
 
 import {useLaunchNVPairCreate} from "./useLaunchNVPairCreate";
+import {useNVPairListContext} from "./NVPairListContext";
 
 type LauncherItem = NonNullable<
   React.ComponentProps<typeof LaunchersToolbar>["buttonsItems"]
 >[number];
 
 export const NVPairToolbar = ({
-  owner,
-  nvPairNameList,
   createLabel,
   launcherCreate,
 }: {
-  owner: ActionPayload["CLUSTER.NVPAIRS.SAVE"]["owner"];
-  nvPairNameList: string[];
   createLabel: string;
   launcherCreate: (createData: LauncherItem) => LauncherItem;
 }) => {
+  const {owner, nvPairList} = useNVPairListContext();
   const launchNVPairCreate = useLaunchNVPairCreate({
     owner,
     createLabel,
-    nameList: nvPairNameList,
+    nameList: nvPairList.map(pair => pair.name),
   });
   return (
     <LaunchersToolbar
-      toolbarName="nv-pairs"
+      toolbarName={owner.type}
       buttonsItems={[{...launcherCreate(launchNVPairCreate)}]}
     />
   );

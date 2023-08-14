@@ -1,4 +1,5 @@
 import {
+  NVPairListItem,
   NVPairListItemMenu,
   NVPairListPage,
   NVPairToolbar,
@@ -6,32 +7,27 @@ import {
 } from "app/view/cluster/share";
 
 export const NodeAttributes = ({nodeName}: {nodeName: string}) => {
-  const owner = {
-    type: "node-attr",
-    id: nodeName,
-  } satisfies React.ComponentProps<typeof NVPairToolbar>["owner"];
-
-  const nodeAttributes = useLoadedCluster().nodeAttr?.[nodeName] ?? [];
-  const nameList = nodeAttributes.map(nvPair => nvPair.name);
   return (
     <NVPairListPage
-      nvPairList={nodeAttributes}
+      nvPairList={useLoadedCluster().nodeAttr?.[nodeName] ?? []}
+      owner={{type: "node-attr", id: nodeName}}
       toolbar={
         <NVPairToolbar
-          owner={owner}
           createLabel="Create node attribute"
-          nvPairNameList={nameList}
           launcherCreate={launcherCreate => ({...launcherCreate})}
         />
       }
-      itemMenu={(itemName, itemValue) => (
-        <NVPairListItemMenu
-          owner={owner}
-          itemName={itemName}
-          itemValue={itemValue}
-          nvPairNameList={nameList}
-          launcherEdit={launcherEdit => ({...launcherEdit})}
-          launcherRemove={launcherRemove => ({...launcherRemove})}
+      listItem={nvPair => (
+        <NVPairListItem
+          nvPair={nvPair}
+          name={name => name}
+          value={value => value}
+          menu={
+            <NVPairListItemMenu
+              launcherEdit={launcherEdit => ({...launcherEdit})}
+              launcherRemove={launcherRemove => ({...launcherRemove})}
+            />
+          }
         />
       )}
     />

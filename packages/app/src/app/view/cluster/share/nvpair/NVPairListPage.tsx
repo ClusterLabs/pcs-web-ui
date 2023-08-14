@@ -1,26 +1,35 @@
 import * as React from "react";
 import {StackItem} from "@patternfly/react-core";
 
-import {EmptyStateClusterStopped} from "app/view/share";
+import {
+  EmptyStateClusterStopped,
+  EmptyStateNoItem,
+  Table,
+} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
-import {NVPair} from "app/view/cluster/types";
 
-import {NVPairList} from "./NVPairList";
+import {NVPairListContextProvider} from "./NVPairListContext";
+
+type ContextProps = React.ComponentProps<
+  typeof NVPairListContextProvider
+>["value"];
 
 export const NVPairListPage = ({
   nvPairList,
+  owner,
   toolbar,
+  listItem,
   beforeList,
-  itemMenu,
 }: {
-  nvPairList: NVPair[];
+  nvPairList: ContextProps["nvPairList"];
+  owner: ContextProps["owner"];
   toolbar: React.ReactNode;
+  listItem: (nvPair: ContextProps["nvPairList"][number]) => React.ReactNode;
   beforeList?: React.ReactNode;
-  itemMenu: React.ComponentProps<typeof NVPairList>["itemMenu"];
 }) => {
   const {hasCibInfo, clusterName} = useLoadedCluster();
   return (
-    <>
+    <NVPairListContextProvider value={{nvPairList, owner}}>
       <StackItem>{toolbar}</StackItem>
 
       {beforeList && <StackItem>{beforeList}</StackItem>}
@@ -32,10 +41,22 @@ export const NVPairListPage = ({
             clusterName={clusterName}
           />
         )}
-        {hasCibInfo && (
-          <NVPairList nvPairList={nvPairList} itemMenu={itemMenu} />
+
+        {hasCibInfo && nvPairList.length === 0 && (
+          <EmptyStateNoItem
+            title="No attribute here."
+            message="No attribute has been added."
+          />
+        )}
+
+        {hasCibInfo && nvPairList.length > 0 && (
+          <Table>
+            <Table.Body>
+              {nvPairList.map(nvPair => listItem(nvPair))}
+            </Table.Body>
+          </Table>
         )}
       </StackItem>
-    </>
+    </NVPairListContextProvider>
   );
 };

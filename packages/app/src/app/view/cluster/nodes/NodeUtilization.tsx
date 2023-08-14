@@ -1,4 +1,5 @@
 import {
+  NVPairListItem,
   NVPairListItemMenu,
   NVPairToolbar,
   UtilizationView,
@@ -6,34 +7,27 @@ import {
 } from "app/view/cluster/share";
 
 export const NodeUtilization = ({nodeName}: {nodeName: string}) => {
-  const {nodesUtilization} = useLoadedCluster();
-  const owner = {
-    type: "node-utilization",
-    id: nodeName,
-  } satisfies React.ComponentProps<typeof NVPairToolbar>["owner"];
-
-  const utilizationAttrs = nodesUtilization?.[nodeName] ?? [];
-  const nameList = utilizationAttrs.map(nvPair => nvPair.name);
-
   return (
     <UtilizationView
-      utilizationAttrs={utilizationAttrs}
+      nvPairList={useLoadedCluster().nodesUtilization?.[nodeName] ?? []}
+      owner={{type: "node-utilization", id: nodeName}}
       toolbar={
         <NVPairToolbar
-          owner={owner}
           createLabel="Create utilization attribute"
-          nvPairNameList={nameList}
           launcherCreate={launcherCreate => ({...launcherCreate})}
         />
       }
-      itemMenu={(itemName, itemValue) => (
-        <NVPairListItemMenu
-          owner={owner}
-          itemName={itemName}
-          itemValue={itemValue}
-          nvPairNameList={nameList}
-          launcherEdit={launcherEdit => ({...launcherEdit})}
-          launcherRemove={launcherRemove => ({...launcherRemove})}
+      listItem={nvPair => (
+        <NVPairListItem
+          nvPair={nvPair}
+          name={name => name}
+          value={value => value}
+          menu={
+            <NVPairListItemMenu
+              launcherEdit={launcherEdit => ({...launcherEdit})}
+              launcherRemove={launcherRemove => ({...launcherRemove})}
+            />
+          }
         />
       )}
     />

@@ -1,37 +1,32 @@
-import {ActionPayload} from "app/store";
 import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 
 import * as task from "./task";
+import {useNVPairListContext} from "./NVPairListContext";
+import {useNVPairListItemContext} from "./NVPairListItemContext";
 
 type LauncherItem = React.ComponentProps<
   typeof LauncherDropdown
 >["items"][number];
 
 export const NVPairListItemMenu = ({
-  owner,
-  itemName,
-  itemValue,
-  nvPairNameList,
   launcherEdit,
   launcherRemove,
 }: {
-  owner: ActionPayload["CLUSTER.NVPAIRS.SAVE"]["owner"];
-  itemName: string;
-  itemValue: string;
-  nvPairNameList: string[];
   launcherEdit: (editData: LauncherItem) => LauncherItem;
   launcherRemove: (removeData: LauncherItem) => LauncherItem;
 }) => {
   const {name: taskName} = task.edit.useTask();
   const {clusterName} = useLoadedCluster();
+  const {nvPairList, owner} = useNVPairListContext();
+  const nvPair = useNVPairListItemContext();
   const editOpenArgs: TaskOpenArgs<typeof task.edit.useTask> = [
     {
       type: "update",
       owner,
-      name: itemName,
-      value: itemValue,
-      nameList: nvPairNameList,
+      name: nvPair.name,
+      value: nvPair.value,
+      nameList: nvPairList.map(pair => pair.name),
     },
   ];
   return (
@@ -48,14 +43,14 @@ export const NVPairListItemMenu = ({
         launcherRemove({
           name: "remove",
           confirm: {
-            title: `Remove the attribute "${itemName}"?`,
+            title: `Remove the attribute "${nvPair.name}"?`,
             description: "Removes the attribute.",
             action: {
               type: "CLUSTER.NVPAIRS.SAVE",
               key: {clusterName, task: taskName},
               payload: {
                 owner,
-                name: itemName,
+                name: nvPair.name,
                 value: "",
               },
             },
