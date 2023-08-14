@@ -23,11 +23,11 @@ export const PrimitiveUtilization = ({primitive}: {primitive: Primitive}) => {
           launcherCreate={launcherCreate => ({...launcherCreate})}
         />
       }
-      menu={(nvPairName, nvPairValue) => (
+      itemMenu={(itemName, itemValue) => (
         <NVPairListItemMenu
           owner={owner}
-          itemName={nvPairName}
-          itemValue={nvPairValue}
+          itemName={itemName}
+          itemValue={itemValue}
           nvPairNameList={nameList}
           launcherEdit={launcherEdit => ({...launcherEdit})}
           launcherRemove={launcherRemove => ({...launcherRemove})}

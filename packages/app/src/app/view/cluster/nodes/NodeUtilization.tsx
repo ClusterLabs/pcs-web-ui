@@ -26,7 +26,7 @@ export const NodeUtilization = ({nodeName}: {nodeName: string}) => {
           launcherCreate={launcherCreate => ({...launcherCreate})}
         />
       }
-      menu={(itemName, itemValue) => (
+      itemMenu={(itemName, itemValue) => (
         <NVPairListItemMenu
           owner={owner}
           itemName={itemName}

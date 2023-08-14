@@ -9,12 +9,12 @@ export const NVPairListPage = ({
   nvPairList,
   toolbar,
   beforeList,
-  menu,
+  itemMenu,
 }: {
   nvPairList: NVPair[];
   toolbar: React.ReactNode;
   beforeList?: React.ReactNode;
-  menu: React.ComponentProps<typeof NVPairListView>["menu"];
+  itemMenu: React.ComponentProps<typeof NVPairListView>["itemMenu"];
 }) => {
   return (
     <>
@@ -23,7 +23,7 @@ export const NVPairListPage = ({
       {beforeList && <StackItem>{beforeList}</StackItem>}
 
       <StackItem>
-        <NVPairListView nvPairList={nvPairList} menu={menu} />
+        <NVPairListView nvPairList={nvPairList} itemMenu={itemMenu} />
       </StackItem>
     </>
   );

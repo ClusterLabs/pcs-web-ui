@@ -6,10 +6,10 @@ import {NVPairList} from "./NVPairList";
 
 export const NVPairListView = ({
   nvPairList,
-  menu,
+  itemMenu,
 }: {
   nvPairList: NVPair[];
-  menu: React.ComponentProps<typeof NVPairList>["menu"];
+  itemMenu: React.ComponentProps<typeof NVPairList>["itemMenu"];
 }) => {
   const {hasCibInfo, clusterName} = useLoadedCluster();
 
@@ -31,5 +31,5 @@ export const NVPairListView = ({
     );
   }
 
-  return <NVPairList nvPairList={nvPairList} menu={menu} />;
+  return <NVPairList nvPairList={nvPairList} itemMenu={itemMenu} />;
 };

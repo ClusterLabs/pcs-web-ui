@@ -7,11 +7,11 @@ import {NVPairListPage} from "app/view/cluster/share/nvpair";
 export const UtilizationView = ({
   utilizationAttrs,
   toolbar,
-  menu,
+  itemMenu,
 }: {
   utilizationAttrs: NVPair[];
   toolbar: React.ReactNode;
-  menu: React.ComponentProps<typeof NVPairListPage>["menu"];
+  itemMenu: React.ComponentProps<typeof NVPairListPage>["itemMenu"];
 }) => {
   return (
     <NVPairListPage
@@ -27,7 +27,7 @@ export const UtilizationView = ({
           </TextContent>
         </Alert>
       }
-      menu={menu}
+      itemMenu={itemMenu}
     />
   );
 };

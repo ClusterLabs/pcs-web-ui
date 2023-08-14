@@ -5,7 +5,7 @@ import {NVPair} from "app/view/cluster/types";
 
 export const NVPairList = (props: {
   nvPairList: NVPair[];
-  menu: (nvPairName: string, nvPairValue: string) => React.ReactNode;
+  itemMenu: (nvPairName: string, nvPairValue: string) => React.ReactNode;
 }) => {
   return (
     <Table>
@@ -15,7 +15,9 @@ export const NVPairList = (props: {
             <tr key={nvPair.id} data-test={`nvpair ${nvPair.id}`}>
               <td data-label="name">{nvPair.name}</td>
               <td data-label="value">{nvPair.value}</td>
-              <td data-label="Menu">{props.menu(nvPair.name, nvPair.value)}</td>
+              <td data-label="Menu">
+                {props.itemMenu(nvPair.name, nvPair.value)}
+              </td>
             </tr>
           );
         })}
