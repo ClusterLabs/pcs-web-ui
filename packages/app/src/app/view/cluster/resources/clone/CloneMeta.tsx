@@ -2,29 +2,25 @@ import {Clone} from "app/view/cluster/types";
 import {
   NVPairListItemMenu,
   NVPairListPage,
-  useLaunchNVPairCreate,
+  NVPairToolbar,
 } from "app/view/cluster/share";
-import {LaunchersToolbar} from "app/view/share";
 
 export const CloneMeta = ({clone}: {clone: Clone}) => {
   const owner = {
     type: "resource-meta",
     id: clone.id,
-  } satisfies Parameters<typeof useLaunchNVPairCreate>[0]["owner"];
+  } satisfies React.ComponentProps<typeof NVPairToolbar>["owner"];
 
-  const metaAttributeNameList = clone.metaAttributes.map(nvPair => nvPair.name);
-  const launchNVPairCreate = useLaunchNVPairCreate({
-    owner,
-    createLabel: "Create meta attribute",
-    nameList: clone.metaAttributes.map(nvPair => nvPair.name),
-  });
+  const nameList = clone.metaAttributes.map(nvPair => nvPair.name);
   return (
     <NVPairListPage
       nvPairList={clone.metaAttributes}
       toolbar={
-        <LaunchersToolbar
-          toolbarName="clone-meta-attributes"
-          buttonsItems={[{...launchNVPairCreate}]}
+        <NVPairToolbar
+          owner={owner}
+          createLabel="Create meta attribute"
+          nvPairNameList={nameList}
+          launcherCreate={launcherCreate => ({...launcherCreate})}
         />
       }
       menu={(nvPairName, nvPairValue) => (
@@ -32,7 +28,7 @@ export const CloneMeta = ({clone}: {clone: Clone}) => {
           owner={owner}
           itemName={nvPairName}
           itemValue={nvPairValue}
-          nvPairNameList={metaAttributeNameList}
+          nvPairNameList={nameList}
           launcherEdit={launcherEdit => ({...launcherEdit})}
           launcherRemove={launcherRemove => ({...launcherRemove})}
         />

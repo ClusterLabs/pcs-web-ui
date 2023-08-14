@@ -1,32 +1,26 @@
 import {
   NVPairListItemMenu,
+  NVPairToolbar,
   UtilizationView,
-  useLaunchNVPairCreate,
 } from "app/view/cluster/share";
 import {Primitive} from "app/view/cluster/types";
-import {LaunchersToolbar} from "app/view/share";
 
 export const PrimitiveUtilization = ({primitive}: {primitive: Primitive}) => {
   const owner = {
     type: "resource-utilization",
     id: primitive.id,
-  } satisfies Parameters<typeof useLaunchNVPairCreate>[0]["owner"];
+  } satisfies React.ComponentProps<typeof NVPairToolbar>["owner"];
 
-  const metaAttributeNameList = primitive.metaAttributes.map(
-    nvPair => nvPair.name,
-  );
-  const launchNVPairCreate = useLaunchNVPairCreate({
-    owner,
-    createLabel: "Create utilization attribute",
-    nameList: metaAttributeNameList,
-  });
+  const nameList = primitive.metaAttributes.map(nvPair => nvPair.name);
   return (
     <UtilizationView
       utilizationAttrs={primitive.utilization}
       toolbar={
-        <LaunchersToolbar
-          toolbarName="primitive-utilization-attributes"
-          buttonsItems={[{...launchNVPairCreate}]}
+        <NVPairToolbar
+          owner={owner}
+          createLabel="Create utilization attribute"
+          nvPairNameList={nameList}
+          launcherCreate={launcherCreate => ({...launcherCreate})}
         />
       }
       menu={(nvPairName, nvPairValue) => (
@@ -34,7 +28,7 @@ export const PrimitiveUtilization = ({primitive}: {primitive: Primitive}) => {
           owner={owner}
           itemName={nvPairName}
           itemValue={nvPairValue}
-          nvPairNameList={metaAttributeNameList}
+          nvPairNameList={nameList}
           launcherEdit={launcherEdit => ({...launcherEdit})}
           launcherRemove={launcherRemove => ({...launcherRemove})}
         />
