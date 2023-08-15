@@ -5,16 +5,16 @@ import {intercept} from "test/tools";
 import {clusterName} from "./common";
 import {goToPrimitive} from "./commonPrimitive";
 
-const {tabs, meta} = marks.cluster.resources.currentPrimitive;
+const {tabs, utilization} = marks.cluster.resources.currentPrimitive;
 const {nvsetEdit: task} = marks.task;
 
 const resourceId = "A";
-const metaAttr = {
-  name: "meta_one",
+const utilizationPair = {
+  name: "utilization_one",
   value: "10",
 };
 
-describe("Primitive meta attributes create", () => {
+describe("Primitive utilization attributes create", () => {
   afterEach(intercept.stop);
 
   it("should be done successfully", async () => {
@@ -23,21 +23,21 @@ describe("Primitive meta attributes create", () => {
         resource_list: [cs.primitive(resourceId)],
       }),
       additionalRouteList: [
-        intercept.route.addMetaAttrRemote({
+        intercept.route.setResourceUtilization({
           clusterName,
           resourceId: resourceId,
-          name: metaAttr.name,
-          value: metaAttr.value,
+          name: utilizationPair.name,
+          value: utilizationPair.value,
         }),
       ],
     });
 
     await goToPrimitive(resourceId);
-    await click(tabs.meta);
-    await click(meta.toolbar.create);
+    await click(tabs.utilization);
+    await click(utilization.toolbar.create);
 
-    await fill(task.name, metaAttr.name);
-    await fill(task.value, metaAttr.value);
+    await fill(task.name, utilizationPair.name);
+    await fill(task.value, utilizationPair.value);
 
     await click(task.run);
     await isVisible(task.success);
@@ -45,21 +45,21 @@ describe("Primitive meta attributes create", () => {
     await isAbsent(task);
   });
 
-  it("should display error when occurred meta attr create", async () => {
+  it("should display error when occurred utilization create", async () => {
     intercept.shortcuts.interceptWithCluster({
       clusterStatus: cs.cluster(clusterName, "ok", {
         resource_list: [cs.primitive(resourceId)],
       }),
       additionalRouteList: [
-        intercept.route.addMetaAttrRemote({
+        intercept.route.setResourceUtilization({
           clusterName,
           resourceId: resourceId,
-          name: metaAttr.name,
-          value: metaAttr.value,
+          name: utilizationPair.name,
+          value: utilizationPair.value,
           response: {
             status: [
               400,
-              `Unable to set meta attribute '${metaAttr.name}=${metaAttr.value}'`
+              `Unable to set utilization attribute '${utilizationPair.name}=${utilizationPair.value}'`
                 + ` for resource "'${resourceId}': Some stderr...`,
             ],
           },
@@ -68,11 +68,11 @@ describe("Primitive meta attributes create", () => {
     });
 
     await goToPrimitive(resourceId);
-    await click(tabs.meta);
-    await click(meta.toolbar.create);
+    await click(tabs.utilization);
+    await click(utilization.toolbar.create);
 
-    await fill(task.name, metaAttr.name);
-    await fill(task.value, metaAttr.value);
+    await fill(task.name, utilizationPair.name);
+    await fill(task.value, utilizationPair.value);
 
     await click(task.run);
     await isVisible(task.fail);
