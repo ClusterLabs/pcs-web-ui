@@ -1,5 +1,7 @@
-import {ActionPayload} from "app/store";
+import {ActionPayload, tools} from "app/store";
 import {useClusterTask} from "app/view/cluster/share";
+
+const {labelize, getNVPairTypeLabel} = tools;
 
 export const useTask = () => {
   const task = useClusterTask("nvpairEdit");
@@ -9,8 +11,16 @@ export const useTask = () => {
   const integerIsExpectedAsValue =
     state.owner.type === "node-utilization"
     || state.owner.type === "resource-utilization";
+
+  const attrDesc = `${labelize(getNVPairTypeLabel(state.owner))} attribute`;
+  const isCreate = state.type === "create";
+  const label = `${isCreate ? "Create" : "Update"} ${attrDesc}`;
+
   return {
     ...task,
+    attrDesc,
+    isCreate,
+    label,
     integerIsExpectedAsValue,
     isValueValid: integerIsExpectedAsValue
       ? /^([1-9]\d*)$/.test(state.value)

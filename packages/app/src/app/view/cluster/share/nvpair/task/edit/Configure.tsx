@@ -1,8 +1,11 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {nvsetEdit: task} = testMarks.task;
 
 export const Configure = () => {
   const {
@@ -28,7 +31,7 @@ export const Configure = () => {
             : "Attribute with this name already exists"
         }
         isDisabled={type === "update"}
-        data-test="name"
+        {...task.name.mark}
       />
       <FormText
         id="attr-value"
@@ -42,7 +45,7 @@ export const Configure = () => {
             ? "Please enter a non zero integer"
             : "Please enter a value"
         }
-        data-test="value"
+        {...task.value.mark}
       />
     </Form>
   );

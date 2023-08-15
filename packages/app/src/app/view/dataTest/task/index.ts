@@ -11,6 +11,7 @@ import {fenceDeviceArgumentsEdit} from "./fenceDeviceArgumentsEdit";
 import {fenceDeviceCreate} from "./fenceDeviceCreate";
 import {forceableConfirm} from "./forceableConfirm";
 import {nodeAdd} from "./nodeAdd";
+import {nvsetEdit} from "./nvsetEdit";
 import {permissionEdit} from "./permissionEdit";
 import {resourceCreate} from "./resourceCreate";
 import {resourcePrimitiveGroupChange} from "./resourcePrimitiveGroupChange";
@@ -31,6 +32,7 @@ export const task = {
   fenceDeviceCreate,
   forceableConfirm,
   nodeAdd,
+  nvsetEdit,
   permissionEdit,
   resourceCreate,
   resourcePrimitiveGroupChange,
