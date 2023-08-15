@@ -6,6 +6,7 @@ import {clusterStatus, goToSbd, sbdOptions} from "./common";
 const {service, perNode, config} = marks.cluster.sbd;
 
 const {item} = shortcuts.common;
+const {countIs} = shortcuts.expect;
 
 const device = (index: number) => item(perNode.device).byIndex(index).locator();
 
@@ -29,8 +30,10 @@ describe("Sbd", () => {
     const perNode_1 = item(perNode).byKey(perNode.node, "node-1");
     await perNode_1.thereIs(perNode => perNode.watchdog, "/dev/watchdog");
 
-    expect(await perNode_1.locator(pn => pn.device).count()).toEqual(2);
-
+    await countIs(
+      perNode_1.locator(pn => pn.device),
+      2,
+    );
     await perNode_1.thereIs(device(0), "/dev/sdb@node1");
     await perNode_1.thereIs(device(1), "/dev/sda");
 

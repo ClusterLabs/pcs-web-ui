@@ -10,3 +10,7 @@ export const expectKeysAre = async (mark: Mark, keys: string[]) => {
     ),
   ).toEqual(keys);
 };
+
+export const countIs = async (mark: Mark, count: number) => {
+  expect(await locatorFor(mark).count()).toEqual(count);
+};

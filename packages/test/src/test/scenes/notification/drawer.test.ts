@@ -3,6 +3,8 @@ import * as responses from "dev/responses";
 import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
+const {countIs} = shortcuts.expect;
+
 const clusterName = responses.clusterStatus.ok.cluster_name;
 
 const interceptWithDashboard = (routeList: intercept.Route[] = []) => {
@@ -30,8 +32,8 @@ const expectNotificationsInDrawer = async ({
   success: number;
   error: number;
 }) => {
-  expect(await notifications.drawer.success.locator.count()).toEqual(success);
-  expect(await notifications.drawer.error.locator.count()).toEqual(error);
+  await countIs(notifications.drawer.success, success);
+  await countIs(notifications.drawer.error, error);
 };
 
 describe("Notification drawer", () => {
