@@ -9,8 +9,6 @@ const {countIs} = shortcuts.expect;
 const {item} = shortcuts.common;
 const {tabs, attributes} = marks.cluster.nodes.currentNode;
 
-const nodeName = "node-1";
-
 export const node1 = cs.node("1");
 export const node1Attrs = [
   {id: "N1_attr_one", name: "attr_one", value: "one"},
@@ -26,7 +24,7 @@ describe("Node attributes view", () => {
       }),
     });
 
-    await goToNode(nodeName);
+    await goToNode(node1.name);
     await click(tabs.attributes);
     await countIs(attributes.pair, 2);
     await item(attributes.pair)
