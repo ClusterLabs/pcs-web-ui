@@ -30,5 +30,8 @@ describe("Primitive meta attributes view", () => {
     await item(meta.pair)
       .byKey(pair => pair.name, metaAttrs[0].name)
       .thereIs(pair => pair.value, metaAttrs[0].value);
+    await item(meta.pair)
+      .byKey(pair => pair.name, metaAttrs[1].name)
+      .thereIs(pair => pair.value, metaAttrs[1].value);
   });
 });
