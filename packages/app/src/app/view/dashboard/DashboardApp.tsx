@@ -43,14 +43,14 @@ export const DashboardApp = () => {
   const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
 
   return (
-    <Page {...testMarks.dashboard.mark}>
+    <Page>
       {notifications => (
-        <>
+        <span {...testMarks.dashboard.mark}>
           <PageSection variant="light">
             <Stack hasGutter>
               <PageToolbar
                 breadcrumbs={
-                  <Breadcrumb data-test="breadcrumb">
+                  <Breadcrumb>
                     <BreadcrumbItem
                       component="span"
                       isActive
@@ -72,7 +72,7 @@ export const DashboardApp = () => {
               importedClusterNameList={importedClusterNameList}
             />
           </PageSectionDataLoading>
-        </>
+        </span>
       )}
     </Page>
   );

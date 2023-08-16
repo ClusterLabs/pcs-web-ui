@@ -1,8 +1,12 @@
 import {Dropdown, DropdownItem, DropdownToggle} from "@patternfly/react-core";
 import React from "react";
 
+import {testMarks} from "app/view/dataTest";
+
 import {useDispatch} from "../useDispatch";
 import {useUsername} from "../useUsername";
+
+const {userMenu} = testMarks.header;
 
 export const UserMenu = () => {
   const [isDropdownOpen, setDropdownOpen] = React.useState(false);
@@ -11,7 +15,6 @@ export const UserMenu = () => {
 
   return (
     <Dropdown
-      data-test="menu-user"
       isPlain
       position="right"
       onSelect={() => setDropdownOpen(!isDropdownOpen)}
@@ -23,13 +26,14 @@ export const UserMenu = () => {
       }
       dropdownItems={[
         <DropdownItem
-          data-test="logout"
           key="0"
           onClick={() => dispatch({type: "LOGIN.LOGOUT"})}
+          {...userMenu.logout.mark}
         >
           Logout
         </DropdownItem>,
       ]}
+      {...userMenu.mark}
     />
   );
 };

@@ -77,9 +77,9 @@ export const ClusterAppLayout = ({
   );
 
   return (
-    <Page {...testMarks.cluster.mark}>
+    <Page>
       {notifications => (
-        <>
+        <span {...testMarks.cluster.mark}>
           <PageSection variant="light">
             <Stack hasGutter>
               <PageToolbar
@@ -95,7 +95,7 @@ export const ClusterAppLayout = ({
           </PageSection>
 
           <Router base={matchedContext}>{children(currentTab)}</Router>
-        </>
+        </span>
       )}
     </Page>
   );

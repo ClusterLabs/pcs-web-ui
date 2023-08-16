@@ -12,7 +12,7 @@ export const getLogin = (envType: EnvType) => {
   }
 
   return async (username: string, password: string) => {
-    const loginForm = '//*[@data-test="form-login"]';
+    const loginForm = '//*[@data-test="login.form"]';
     await page.type(`${loginForm}//*[@name="pf-login-username-id"]`, username);
     await page.type(`${loginForm}//*[@name="pf-login-password-id"]`, password);
     await page.click(`${loginForm}//button[@type="submit"]`);

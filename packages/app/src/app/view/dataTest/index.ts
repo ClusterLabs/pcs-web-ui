@@ -15,6 +15,14 @@ export interface SubStructure extends Record<string, SubStructure> {}
 // - path
 // The structure is enhanced by this keys (here or in tests)
 export const structure = {
+  login: {
+    form: {},
+  },
+  header: {
+    userMenu: {
+      logout: {},
+    },
+  },
   notifications,
   dashboard,
   cluster,
