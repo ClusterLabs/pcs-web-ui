@@ -1,11 +1,11 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus} from "./common";
 import {goToRole, toolbar} from "./commonRole";
 
 type Permission = Parameters<
-  typeof intercept.route.aclAddPermission
+  typeof mock.route.aclAddPermission
 >[0]["permissionInfoList"][number];
 
 const {radioGroup} = shortcuts.patternfly;
@@ -16,12 +16,12 @@ const permission_1: Permission = ["read", "id", "some-id"];
 const permission_2: Permission = ["write", "xpath", "some-xpath"];
 
 describe("ACL role add permission task", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
   it("should successfully add permissions to role", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        intercept.route.aclAddPermission({
+        mock.route.aclAddPermission({
           clusterName: clusterStatus.cluster_name,
           roleId,
           permissionInfoList: [permission_1, permission_2],

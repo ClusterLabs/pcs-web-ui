@@ -1,10 +1,10 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
   clusterName,
   goToFenceDevices,
-  interceptWithStonith,
+  mockWithStonith,
   toolbar,
 } from "./common";
 
@@ -28,11 +28,11 @@ const reviewAttr = (name: string) =>
   item(review.attr).byKey(review.attr.name, name).locator(review.attr.value);
 
 describe("Fence device create task", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
   beforeEach(async () => {
-    await interceptWithStonith({
+    await mockWithStonith({
       additionalRouteList: [
-        intercept.route.stonithCreate({
+        mock.route.stonithCreate({
           clusterName,
           fenceDeviceName,
           agentName,

@@ -1,4 +1,4 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToAcl, toolbar} from "./common";
@@ -9,7 +9,7 @@ const {aclRoleCreate} = marks.task;
 const {review} = aclRoleCreate;
 
 type Permission = Parameters<
-  typeof intercept.route.aclRoleCreate
+  typeof mock.route.aclRoleCreate
 >[0]["permissionInfoList"][number];
 
 const roleId = "third";
@@ -19,10 +19,10 @@ const permission_2: Permission = ["write", "xpath", "some-xpath"];
 
 describe("Create acl role task", () => {
   it("should successfully create new role", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        intercept.route.aclRoleCreate({
+        mock.route.aclRoleCreate({
           clusterName: clusterStatus.cluster_name,
           roleId,
           description,

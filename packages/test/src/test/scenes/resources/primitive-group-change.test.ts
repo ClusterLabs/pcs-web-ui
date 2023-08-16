@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName} from "./common";
@@ -15,9 +15,9 @@ const adjacentResourceId = "B";
 const resourceId = "C";
 
 describe("Create location counstraint", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
   it("should be done sucessfully", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok", {
         resource_list: [
           cs.group(groupId, [
@@ -28,7 +28,7 @@ describe("Create location counstraint", () => {
         ],
       }),
       additionalRouteList: [
-        intercept.route.resourceChangeGroup({
+        mock.route.resourceChangeGroup({
           resourceId,
           adjacentResourceId,
           groupId,

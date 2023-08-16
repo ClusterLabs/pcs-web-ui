@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
 import {clusterName, goToNode} from "./common";
 
@@ -14,13 +14,13 @@ const attribute = {
 };
 
 describe("Node attributes create", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should be done successfully", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        intercept.route.addNodeAttrRemote({
+        mock.route.addNodeAttrRemote({
           clusterName,
           nodeName,
           name: attribute.name,
@@ -43,10 +43,10 @@ describe("Node attributes create", () => {
   });
 
   it("should display error when occurred attr create fail", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        intercept.route.addNodeAttrRemote({
+        mock.route.addNodeAttrRemote({
           clusterName,
           nodeName,
           name: attribute.name,

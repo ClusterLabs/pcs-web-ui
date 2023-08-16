@@ -1,9 +1,9 @@
 import * as responses from "dev/responses";
 
 import * as shortcuts from "test/shortcuts";
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
-import {clusterName, goToPermissions, interceptForPermissions} from "./common";
+import {clusterName, goToPermissions, mockForPermissions} from "./common";
 
 type Permission = ReturnType<
   typeof responses.permissions
@@ -33,13 +33,13 @@ const launchRemove = async (name: string) => {
 };
 
 describe("Permission remove", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should be successfully removed", async () => {
-    interceptForPermissions({
+    mockForPermissions({
       usersPermissions: [haclientPermission, namePermission],
       additionalRouteList: [
-        intercept.route.permissionsSave({
+        mock.route.permissionsSave({
           clusterName,
           permissionList: [haclientPermission],
         }),
@@ -52,10 +52,10 @@ describe("Permission remove", () => {
   });
 
   it("should deal with an error", async () => {
-    interceptForPermissions({
+    mockForPermissions({
       usersPermissions: [haclientPermission, namePermission],
       additionalRouteList: [
-        intercept.route.permissionsSave({
+        mock.route.permissionsSave({
           clusterName,
           permissionList: [namePermission],
           response: {status: [400, "Error removing permission haclient"]},

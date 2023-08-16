@@ -1,12 +1,12 @@
 import {Locator} from "playwright";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
   clusterName,
   expectReports,
-  interceptForClusterSetup,
+  mockForClusterSetup,
   nodeNameList,
   toolbar,
 } from "./common";
@@ -40,7 +40,7 @@ const addrs = [
 ];
 
 type SetupData = Extract<
-  Parameters<typeof intercept.route.clusterSetup>[0]["payload"]["setupData"],
+  Parameters<typeof mock.route.clusterSetup>[0]["payload"]["setupData"],
   {transport_type: "knet"}
 >;
 
@@ -141,11 +141,11 @@ const reviewLink = (nth: number) => (mark: Mark) =>
   knetLink.locator.nth(nth).locator(isLocator(mark) ? mark : mark.locator);
 
 describe("Cluster setup", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
   it("should create full filled cluster", async () => {
-    interceptForClusterSetup([
-      intercept.route.checkAuthAgainstNodes({nodeNameList}),
-      intercept.route.clusterSetup({
+    mockForClusterSetup([
+      mock.route.checkAuthAgainstNodes({nodeNameList}),
+      mock.route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
           setupData: {

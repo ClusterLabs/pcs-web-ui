@@ -1,24 +1,22 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {intercept} from "test/tools";
-
-const {interceptWithCluster} = intercept.shortcuts;
+import {mock} from "test/tools";
 
 const {fenceDevices, fenceDevicesToolbar} = marks.cluster;
 
 export const clusterName = "test-cluster";
 
-export const interceptWithStonith = (
+export const mockWithStonith = (
   props: {
     fenceDeviceIdList?: string[];
     additionalRouteList?: Parameters<
-      typeof interceptWithCluster
+      typeof mock.shortcuts.withCluster
     >[0]["additionalRouteList"];
   } = {fenceDeviceIdList: [], additionalRouteList: []},
 ) => {
   const fenceDeviceIdList = props.fenceDeviceIdList ?? [];
-  return interceptWithCluster({
+  return mock.shortcuts.withCluster({
     clusterStatus: cs.cluster(clusterName, "ok", {
       resource_list: fenceDeviceIdList.map(id => cs.stonith(id)),
     }),

@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToResources} from "./common";
@@ -57,13 +57,13 @@ const openClone = async (id: string) => {
 
 describe("Resource tree", () => {
   beforeEach(() =>
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok", {
         resource_list: resourceList,
       }),
     }),
   );
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should show unexpanded resource tree", async () => {
     await goToResources();

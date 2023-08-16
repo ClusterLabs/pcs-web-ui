@@ -1,4 +1,4 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToAcl} from "./common";
@@ -21,10 +21,10 @@ const groupListValue = (groupId: string) => (mark: Mark) =>
 
 describe("ACL view", () => {
   beforeEach(async () => {
-    intercept.shortcuts.interceptWithCluster({clusterStatus});
+    mock.shortcuts.withCluster({clusterStatus});
     await goToAcl();
   });
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should display 3 lists", async () => {
     await isVisible(lists);

@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
 import {clusterName, goToNode} from "./common";
 
@@ -14,13 +14,13 @@ const utilizationPair = {
 };
 
 describe("Node utilization attributes create", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should be done successfully", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        intercept.route.setNodeUtilization({
+        mock.route.setNodeUtilization({
           clusterName,
           nodeName,
           name: utilizationPair.name,
@@ -43,10 +43,10 @@ describe("Node utilization attributes create", () => {
   });
 
   it("should display error when occurred utilization create", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        intercept.route.setNodeUtilization({
+        mock.route.setNodeUtilization({
           clusterName,
           nodeName,
           name: utilizationPair.name,

@@ -1,7 +1,7 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
 const {importedClusters, goToDashboard} = shortcuts.dashboard;
 const {countIs} = shortcuts.expect;
@@ -29,15 +29,14 @@ const secondStatus = cs.cluster(secondName, "error", {
   error_list: cs.issues([issueList[2]]),
 });
 
-const interceptWithDashboard = () =>
-  intercept.shortcuts.interceptWithDashboard({
-    clusterStatus: [firstStatus, secondStatus],
-  });
-
 describe("Dashboard scene", () => {
-  beforeEach(interceptWithDashboard);
+  beforeEach(() =>
+    mock.shortcuts.withDashboard({
+      clusterStatus: [firstStatus, secondStatus],
+    }),
+  );
 
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should render multiple cluster information", async () => {
     await goToDashboard();

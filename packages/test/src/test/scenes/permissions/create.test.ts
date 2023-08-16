@@ -1,15 +1,15 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
   clusterName,
   goToPermissions,
-  interceptForPermissions,
+  mockForPermissions,
   toolbar,
 } from "./common";
 
 type Permission = Parameters<
-  typeof interceptForPermissions
+  typeof mockForPermissions
 >[0]["usersPermissions"][number];
 
 const {radioGroup, getToggle, toggle, fieldError} = shortcuts.patternfly;
@@ -24,11 +24,11 @@ const basicPermission: Permission = {
 const name = "User1";
 const type = "group";
 
-const interceptEditPermission = (allow: Permission["allow"]) =>
-  interceptForPermissions({
+const mockEditPermission = (allow: Permission["allow"]) =>
+  mockForPermissions({
     usersPermissions: [basicPermission],
     additionalRouteList: [
-      intercept.route.permissionsSave({
+      mock.route.permissionsSave({
         clusterName,
         permissionList: [basicPermission, {name, type, allow}],
       }),
@@ -54,9 +54,9 @@ const finishTask = async () => {
 };
 
 describe("Create permission", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
   it("should be done sucessfully", async () => {
-    interceptEditPermission(["grant"]);
+    mockEditPermission(["grant"]);
     await launchTask();
     await prefillTask();
     await toggle(task.grant);
@@ -65,7 +65,7 @@ describe("Create permission", () => {
   });
 
   it("should add all permissions when full is selected", async () => {
-    interceptEditPermission(["read", "write", "grant", "full"]);
+    mockEditPermission(["read", "write", "grant", "full"]);
     await launchTask();
     await prefillTask();
     await toggle(task.full);
@@ -74,7 +74,7 @@ describe("Create permission", () => {
   });
 
   it("should add read permissions when write is selected", async () => {
-    interceptEditPermission(["read", "write"]);
+    mockEditPermission(["read", "write"]);
     await launchTask();
     await prefillTask();
     await toggle(task.write);
@@ -83,7 +83,7 @@ describe("Create permission", () => {
   });
 
   it("should refuse to continue without essential data", async () => {
-    interceptForPermissions({
+    mockForPermissions({
       usersPermissions: [basicPermission],
     });
     await launchTask();

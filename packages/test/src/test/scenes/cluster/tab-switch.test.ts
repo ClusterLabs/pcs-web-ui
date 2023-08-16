@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const {goToCluster} = shortcuts.dashboard;
@@ -18,11 +18,11 @@ const startOnOverview = async () => {
 describe("Cluster detail tab switch", () => {
   beforeEach(
     async () =>
-      await intercept.shortcuts.interceptWithCluster({
+      await mock.shortcuts.withCluster({
         clusterStatus: cs.cluster(clusterName, "ok"),
       }),
   );
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should allow switch to nodes", async () => {
     await startOnOverview();

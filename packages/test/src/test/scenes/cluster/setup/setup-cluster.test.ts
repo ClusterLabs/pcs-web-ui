@@ -1,12 +1,12 @@
 import * as responses from "dev/responses";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
   clusterName,
   expectReports,
-  interceptForClusterSetup,
+  mockForClusterSetup,
   nodeNameList,
   toolbar,
 } from "./common";
@@ -29,7 +29,7 @@ const {fieldError} = shortcuts.patternfly;
 const routeClusterSetup = (
   errorList: Parameters<typeof responses.lib.error>[0] = [],
 ) =>
-  intercept.route.clusterSetup({
+  mock.route.clusterSetup({
     payload: {
       targetNode: nodeNameList[0],
       setupData: {
@@ -48,7 +48,7 @@ const routeClusterSetup = (
         }),
   });
 
-const routeCheckAuth = intercept.route.checkAuthAgainstNodes({nodeNameList});
+const routeCheckAuth = mock.route.checkAuthAgainstNodes({nodeNameList});
 
 const sendMinimalSetup = async () => {
   await page.goto(backend.rootUrl);
@@ -64,10 +64,10 @@ const taskClosed = async () => {
 };
 
 describe("Cluster setup", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should successfully setup cluster skipping optional steps", async () => {
-    interceptForClusterSetup([routeCheckAuth, routeClusterSetup()]);
+    mockForClusterSetup([routeCheckAuth, routeClusterSetup()]);
     await sendMinimalSetup();
     await isVisible(success);
     await expectReports(0);
@@ -76,7 +76,7 @@ describe("Cluster setup", () => {
   });
 
   it("should refuse to continue without essential data", async () => {
-    intercept.run([intercept.route.importedClusterList()]);
+    mock.run([mock.route.importedClusterList()]);
     await page.goto(backend.rootUrl);
     await toolbar.launch(toolbar => toolbar.setupCluster);
     await click(nameAndNodesFooter.next);
@@ -85,8 +85,8 @@ describe("Cluster setup", () => {
   });
 
   it("should be possible go back from auth and change node name", async () => {
-    interceptForClusterSetup([
-      intercept.route.checkAuthAgainstNodes({
+    mockForClusterSetup([
+      mock.route.checkAuthAgainstNodes({
         nodeNameList,
         response: {
           json: {
@@ -108,9 +108,9 @@ describe("Cluster setup", () => {
   });
 
   it("should be mandatory fill node addresses in links", async () => {
-    interceptForClusterSetup([
-      intercept.route.checkAuthAgainstNodes({nodeNameList}),
-      intercept.route.clusterSetup({
+    mockForClusterSetup([
+      mock.route.checkAuthAgainstNodes({nodeNameList}),
+      mock.route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
           setupData: {
@@ -135,7 +135,7 @@ describe("Cluster setup", () => {
   });
 
   it("should display fail when backend returns an error", async () => {
-    interceptForClusterSetup([
+    mockForClusterSetup([
       routeCheckAuth,
       routeClusterSetup([responses.lib.report.error()]),
     ]);
@@ -147,7 +147,7 @@ describe("Cluster setup", () => {
   });
 
   it("should get back when it fails", async () => {
-    interceptForClusterSetup([
+    mockForClusterSetup([
       routeCheckAuth,
       routeClusterSetup([responses.lib.report.error()]),
     ]);
@@ -160,7 +160,7 @@ describe("Cluster setup", () => {
   });
 
   it("shold display all reports", async () => {
-    interceptForClusterSetup([
+    mockForClusterSetup([
       routeCheckAuth,
       routeClusterSetup([
         responses.lib.report.error({message: {code: "ERROR_1"}}),

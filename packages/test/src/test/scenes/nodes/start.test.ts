@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
 import {clusterName, currentNodeToolbar, goToNode} from "./common";
 
@@ -13,14 +13,12 @@ const launchAction = async () => {
 const clusterStatus = cs.cluster(clusterName, "ok");
 
 describe("Node start", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should successfully start", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
-      additionalRouteList: [
-        intercept.route.clusterStart({clusterName, nodeName}),
-      ],
+      additionalRouteList: [mock.route.clusterStart({clusterName, nodeName})],
     });
 
     await launchAction();
@@ -30,7 +28,7 @@ describe("Node start", () => {
   });
 
   it("should be cancelable", async () => {
-    intercept.shortcuts.interceptWithCluster({clusterStatus});
+    mock.shortcuts.withCluster({clusterStatus});
 
     await launchAction();
 
@@ -39,10 +37,10 @@ describe("Node start", () => {
   });
 
   it("should deal with an error from backend", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        intercept.route.clusterStart({
+        mock.route.clusterStart({
           clusterName,
           nodeName,
           response: {status: [400, "Unable to start node."]},

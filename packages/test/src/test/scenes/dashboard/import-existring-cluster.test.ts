@@ -1,4 +1,4 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {toolbar} from "./common";
@@ -34,13 +34,13 @@ const data = {
 };
 
 describe("Import existing cluster", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should import cluster", async () => {
-    intercept.run([
-      intercept.route.importedClusterList(),
-      intercept.route.checkAuthAgainstNodes({nodeNameList: [data.nodeName]}),
-      intercept.route.existingCluster({nodeName: data.nodeName}),
+    mock.run([
+      mock.route.importedClusterList(),
+      mock.route.checkAuthAgainstNodes({nodeNameList: [data.nodeName]}),
+      mock.route.existingCluster({nodeName: data.nodeName}),
     ]);
     await goToDashboard();
     await launchTask();
@@ -53,19 +53,19 @@ describe("Import existing cluster", () => {
   });
 
   it("should import cluster with authentication", async () => {
-    intercept.run([
-      intercept.route.importedClusterList(),
-      intercept.route.checkAuthAgainstNodes({
+    mock.run([
+      mock.route.importedClusterList(),
+      mock.route.checkAuthAgainstNodes({
         nodeNameList: [data.nodeName],
         response: {json: {[data.nodeName]: "Unable to authenticate"}},
       }),
-      intercept.route.authGuiAgainstNodes({
+      mock.route.authGuiAgainstNodes({
         [data.nodeName]: {
           password: data.password,
           dest_list: [{addr: data.addr, port: data.port}],
         },
       }),
-      intercept.route.existingCluster({nodeName: data.nodeName}),
+      mock.route.existingCluster({nodeName: data.nodeName}),
     ]);
     await goToDashboard();
     await launchTask();
@@ -84,10 +84,10 @@ describe("Import existing cluster", () => {
   });
 
   it("should display error on backend error", async () => {
-    intercept.run([
-      intercept.route.importedClusterList(),
-      intercept.route.checkAuthAgainstNodes({nodeNameList: [data.nodeName]}),
-      intercept.route.existingCluster({
+    mock.run([
+      mock.route.importedClusterList(),
+      mock.route.checkAuthAgainstNodes({nodeNameList: [data.nodeName]}),
+      mock.route.existingCluster({
         nodeName: data.nodeName,
         response: {status: [400, "Configuration conflict detected."]},
       }),

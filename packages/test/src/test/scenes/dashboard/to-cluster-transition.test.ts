@@ -1,7 +1,7 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
 const {breadcrumbs, overview, nodes, resources, fenceDevices} = marks.cluster;
 
@@ -29,10 +29,10 @@ const clusterStatus = cs.cluster(clusterName, "ok", {
 });
 
 describe("To cluster transition", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should allow go to a cluster detail and back", async () => {
-    intercept.shortcuts.interceptWithCluster({clusterStatus});
+    mock.shortcuts.withCluster({clusterStatus});
     await clusterListLoaded();
 
     await click(inCluster(clusterName).get(cluster => cluster.name));
@@ -44,7 +44,7 @@ describe("To cluster transition", () => {
   });
 
   it("should allow to go to a node detail", async () => {
-    intercept.shortcuts.interceptWithCluster({clusterStatus});
+    mock.shortcuts.withCluster({clusterStatus});
     await clusterListLoaded();
 
     await click(
@@ -61,7 +61,7 @@ describe("To cluster transition", () => {
   });
 
   it("should allow go to a resource detail", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
       optionalRoutes: ["agentDummy"],
     });
@@ -81,7 +81,7 @@ describe("To cluster transition", () => {
   });
 
   it("should allow go to a fence device detail", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
       optionalRoutes: ["agentFenceApc"],
     });

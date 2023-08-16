@@ -4,7 +4,7 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
 const clusterName = "test-cluster";
 
@@ -15,7 +15,7 @@ const deceiveTypeCheck = (maybeInvalidPart: ReturnType<typeof JSON.parse>) =>
 
 describe("Cluster with advanced status", () => {
   it("accept fence levels", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: t.cluster(clusterName, "ok", {
         fence_levels: deceiveTypeCheck({
           "node-1": [

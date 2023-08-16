@@ -1,10 +1,10 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
   clusterName,
   goToFenceDevices,
-  interceptWithStonith,
+  mockWithStonith,
   openFenceDevice,
 } from "./common";
 
@@ -37,12 +37,12 @@ const fillArgs = async () => {
 };
 
 describe("Edit fence device args", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
   it("should be done sucessfully", async () => {
-    interceptWithStonith({
+    mockWithStonith({
       fenceDeviceIdList: [fenceDeviceId],
       additionalRouteList: [
-        intercept.route.updateFenceDevice({
+        mock.route.updateFenceDevice({
           clusterName,
           fenceDeviceId,
           attributes,
@@ -59,10 +59,10 @@ describe("Edit fence device args", () => {
   });
 
   it("should deal with backend error", async () => {
-    interceptWithStonith({
+    mockWithStonith({
       fenceDeviceIdList: [fenceDeviceId],
       additionalRouteList: [
-        intercept.route.updateFenceDevice({
+        mock.route.updateFenceDevice({
           clusterName,
           fenceDeviceId,
           attributes,

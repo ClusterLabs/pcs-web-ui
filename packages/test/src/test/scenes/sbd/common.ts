@@ -1,6 +1,6 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 export const sbdOptions = {
@@ -8,7 +8,7 @@ export const sbdOptions = {
   SBD_STARTMODE: "always",
   SBD_TIMEOUT_ACTION: "flush,reboot",
   SBD_WATCHDOG_TIMEOUT: "5",
-} satisfies Parameters<typeof intercept.route.sbdConfigure>[0]["sbd_options"];
+} satisfies Parameters<typeof mock.route.sbdConfigure>[0]["sbd_options"];
 
 export const clusterStatus = t.cluster("sbd", "ok", {
   node_list: [

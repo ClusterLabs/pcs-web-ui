@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToResources, toolbar} from "./common";
@@ -18,17 +18,17 @@ const resourceId = "A";
 const agentName = agent.name;
 
 describe("Create resource task", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
   beforeEach(async () => {
-    await intercept.shortcuts.interceptWithCluster({
+    await mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        intercept.route.resourceAgentDescribeAgent({
+        mock.route.resourceAgentDescribeAgent({
           clusterName,
           agentName,
           agentData: agent,
         }),
-        intercept.route.resourceCreate({
+        mock.route.resourceCreate({
           clusterName,
           resourceId,
           agentName,

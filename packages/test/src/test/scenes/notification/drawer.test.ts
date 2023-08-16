@@ -1,16 +1,16 @@
 import * as responses from "dev/responses";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const {countIs} = shortcuts.expect;
 
 const clusterName = responses.clusterStatus.ok.cluster_name;
 
-const interceptWithDashboard = (routeList: intercept.Route[] = []) => {
-  intercept.run([
-    intercept.route.importedClusterList({clusterNameList: [clusterName]}),
-    intercept.route.clusterStatus({clusterStatus: responses.clusterStatus.ok}),
+const mockWithDashboard = (routeList: mock.Route[] = []) => {
+  mock.run([
+    mock.route.importedClusterList({clusterNameList: [clusterName]}),
+    mock.route.clusterStatus({clusterStatus: responses.clusterStatus.ok}),
     ...routeList,
   ]);
 };
@@ -37,10 +37,10 @@ const expectNotificationsInDrawer = async ({
 };
 
 describe("Notification drawer", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should be displayed", async () => {
-    interceptWithDashboard();
+    mockWithDashboard();
 
     await shortcuts.dashboard.goToDashboard();
     await click(notifications.badge);
@@ -49,7 +49,7 @@ describe("Notification drawer", () => {
   });
 
   it("should display cluster remove success notification", async () => {
-    interceptWithDashboard([intercept.route.removeCluster({clusterName})]);
+    mockWithDashboard([mock.route.removeCluster({clusterName})]);
 
     await launchClusterRemove();
     await isVisible(notifications.toast.success);
@@ -58,7 +58,7 @@ describe("Notification drawer", () => {
   });
 
   it("should be able to close notification in badge", async () => {
-    interceptWithDashboard([intercept.route.removeCluster({clusterName})]);
+    mockWithDashboard([mock.route.removeCluster({clusterName})]);
 
     await launchClusterRemove();
     await isVisible(notifications.toast.success);
@@ -69,9 +69,7 @@ describe("Notification drawer", () => {
   });
 
   it("should display cluster remove error notification", async () => {
-    interceptWithDashboard([
-      intercept.route.removeCluster({clusterName, status: 400}),
-    ]);
+    mockWithDashboard([mock.route.removeCluster({clusterName, status: 400})]);
 
     await launchClusterRemove();
     await isVisible(notifications.toast.error);

@@ -1,4 +1,4 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToConstraints, toolbar} from "./common";
@@ -15,12 +15,12 @@ const order = "after";
 const {constraintOrderCreate: task} = marks.task;
 
 describe("Create order counstraint", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
   it("should be done sucessfully", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        intercept.route.addConstraintRemote({
+        mock.route.addConstraintRemote({
           clusterName: clusterStatus.cluster_name,
           constraint: {
             order: {

@@ -1,19 +1,19 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 export const clusterName = "new-cluster";
 export const nodeNameList = ["node-1", "node-2"];
 
-export const interceptForClusterSetup = (routeList: intercept.Route[] = []) =>
-  intercept.run([
-    intercept.route.importedClusterList(),
-    intercept.route.resourceAgentListAgents(clusterName),
-    intercept.route.canAddClusterOrNodes({clusterName, nodeNameList}),
-    intercept.route.sendKnownHostsToNode({
+export const mockForClusterSetup = (routeList: mock.Route[] = []) =>
+  mock.run([
+    mock.route.importedClusterList(),
+    mock.route.resourceAgentListAgents(clusterName),
+    mock.route.canAddClusterOrNodes({clusterName, nodeNameList}),
+    mock.route.sendKnownHostsToNode({
       nodeNameList,
       targetNode: nodeNameList[0],
     }),
-    intercept.route.rememberCluster({clusterName, nodeNameList}),
+    mock.route.rememberCluster({clusterName, nodeNameList}),
     ...routeList,
   ]);
 

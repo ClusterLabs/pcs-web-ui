@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName} from "./common";
@@ -18,7 +18,7 @@ const metaAttrs = [
 
 describe("Primitive meta attributes view", () => {
   it("should render meta attributes", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok", {
         resource_list: [cs.primitive(resourceId, {meta_attr: metaAttrs})],
       }),

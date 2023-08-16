@@ -1,14 +1,14 @@
 import * as shortcuts from "test/shortcuts";
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
-import {goToPermissions, interceptForPermissions} from "./common";
+import {goToPermissions, mockForPermissions} from "./common";
 
 const {item} = shortcuts.common;
 
 const {permission: permissionMark} = marks.cluster.permissions;
 
 type Permission = Parameters<
-  typeof interceptForPermissions
+  typeof mockForPermissions
 >[0]["usersPermissions"][number];
 
 const usersPermissions: Permission[] = [
@@ -26,10 +26,10 @@ const competenceValue = (
 ) => (permission.allow.includes(competence) ? "Allowed" : "Disallowed");
 
 describe("Pemissions", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should be displayed according to response data", async () => {
-    interceptForPermissions({usersPermissions});
+    mockForPermissions({usersPermissions});
     await goToPermissions();
     const pd_1 = usersPermissions[0];
     const user1 = item(permissionMark).byKey(permissionMark.name, pd_1.name);

@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
 import {clusterName} from "./common";
 import {goToPrimitive} from "./commonPrimitive";
@@ -15,15 +15,15 @@ const metaAttr = {
 };
 
 describe("Primitive meta attributes create", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should be done successfully", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok", {
         resource_list: [cs.primitive(resourceId)],
       }),
       additionalRouteList: [
-        intercept.route.addMetaAttrRemote({
+        mock.route.addMetaAttrRemote({
           clusterName,
           resourceId: resourceId,
           name: metaAttr.name,
@@ -46,12 +46,12 @@ describe("Primitive meta attributes create", () => {
   });
 
   it("should display error when occurred meta attr create", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok", {
         resource_list: [cs.primitive(resourceId)],
       }),
       additionalRouteList: [
-        intercept.route.addMetaAttrRemote({
+        mock.route.addMetaAttrRemote({
           clusterName,
           resourceId: resourceId,
           name: metaAttr.name,

@@ -1,4 +1,4 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus} from "./common";
@@ -13,12 +13,12 @@ const roleId = "first";
 const userId = "user2";
 
 describe("ACL role assign user task", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
   it("should successfully assign user to role", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        intercept.route.aclAssignRoleToTarget({
+        mock.route.aclAssignRoleToTarget({
           clusterName,
           roleId,
           targetId: userId,

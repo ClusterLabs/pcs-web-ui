@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToNodes, toolbar} from "./common";
@@ -15,17 +15,17 @@ const port = "1234";
 
 describe("Add node task", () => {
   it("should successfully add new node with authentication", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        intercept.route.canAddClusterOrNodes({nodeNameList: [nodeName]}),
-        intercept.route.checkAuthAgainstNodes({
+        mock.route.canAddClusterOrNodes({nodeNameList: [nodeName]}),
+        mock.route.checkAuthAgainstNodes({
           nodeNameList: [nodeName],
           response: {json: {[nodeName]: "Unable to authenticate"}},
         }),
-        intercept.route.sendKnownHosts(clusterName, nodeName),
-        intercept.route.clusterNodeAdd(clusterName, nodeName),
-        intercept.route.authGuiAgainstNodes({
+        mock.route.sendKnownHosts(clusterName, nodeName),
+        mock.route.clusterNodeAdd(clusterName, nodeName),
+        mock.route.authGuiAgainstNodes({
           [nodeName]: {password, dest_list: [{addr, port}]},
         }),
       ],

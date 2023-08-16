@@ -1,4 +1,4 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToSbd, sbdOptions, toolbar} from "./common";
@@ -12,13 +12,13 @@ const {radioGroup} = shortcuts.patternfly;
 const newWatchdogName = "/dev/watchdog-test";
 
 describe("Sbd", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should be configured", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        intercept.route.sbdConfigure({
+        mock.route.sbdConfigure({
           clusterName: clusterStatus.cluster_name,
           sbd_options: sbdOptions,
           watchdog_dict: {"node-1": newWatchdogName},

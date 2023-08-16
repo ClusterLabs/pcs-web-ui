@@ -1,1 +1,1 @@
-export * as intercept from "./intercept";
+export * as mock from "./mock";

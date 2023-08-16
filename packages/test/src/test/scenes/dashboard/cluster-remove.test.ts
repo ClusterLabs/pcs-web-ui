@@ -1,13 +1,13 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const clusterName = "test-cluster";
 const clusterStatus = cs.cluster(clusterName, "ok");
 
-const interceptWithDashboard = (routeList: intercept.Route[] = []) => {
-  intercept.shortcuts.interceptWithDashboard({
+const mockWithDashboard = (routeList: mock.Route[] = []) => {
+  mock.shortcuts.withDashboard({
     clusterStatus,
     routeList,
   });
@@ -21,10 +21,10 @@ const launchRemove = async () => {
 };
 
 describe("Cluster remove", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should be successfully removed", async () => {
-    interceptWithDashboard([intercept.route.removeCluster({clusterName})]);
+    mockWithDashboard([mock.route.removeCluster({clusterName})]);
 
     await launchRemove();
     await click(marks.task.confirm.run);
@@ -32,7 +32,7 @@ describe("Cluster remove", () => {
   });
 
   it("should be cancelable", async () => {
-    interceptWithDashboard();
+    mockWithDashboard();
 
     await launchRemove();
     await click(marks.task.confirm.cancel);
@@ -40,9 +40,7 @@ describe("Cluster remove", () => {
   });
 
   it("should deal with an error", async () => {
-    interceptWithDashboard([
-      intercept.route.removeCluster({clusterName, status: 400}),
-    ]);
+    mockWithDashboard([mock.route.removeCluster({clusterName, status: 400})]);
 
     await launchRemove();
     await click(marks.task.confirm.run);

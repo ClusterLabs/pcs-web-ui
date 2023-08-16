@@ -1,4 +1,4 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 
 import {clusterStatus, goToSbd, toolbar} from "./common";
 
@@ -6,11 +6,9 @@ const {sbdDisable: task} = marks.task;
 
 describe("Sbd disable", () => {
   it("should sucessfully disable sbd", async () => {
-    intercept.shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus,
-      additionalRouteList: [
-        intercept.route.sbdDisable(clusterStatus.cluster_name),
-      ],
+      additionalRouteList: [mock.route.sbdDisable(clusterStatus.cluster_name)],
     });
     await goToSbd();
     await toolbar.launch(toolbar => toolbar.disableSbd);

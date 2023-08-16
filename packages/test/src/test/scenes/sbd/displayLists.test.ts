@@ -1,4 +1,4 @@
-import {intercept} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToSbd, sbdOptions} from "./common";
@@ -11,10 +11,10 @@ const {countIs} = shortcuts.expect;
 const device = (index: number) => item(perNode.device).byIndex(index).locator();
 
 describe("Sbd", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("service status should be displayed", async () => {
-    intercept.shortcuts.interceptWithCluster({clusterStatus});
+    mock.shortcuts.withCluster({clusterStatus});
     await goToSbd();
 
     const service_1 = item(service).byKey(service.node, "node-1");
@@ -24,7 +24,7 @@ describe("Sbd", () => {
   });
 
   it("watchdogs should be displayed", async () => {
-    intercept.shortcuts.interceptWithCluster({clusterStatus});
+    mock.shortcuts.withCluster({clusterStatus});
     await goToSbd();
 
     const perNode_1 = item(perNode).byKey(perNode.node, "node-1");
@@ -43,7 +43,7 @@ describe("Sbd", () => {
   });
 
   it("configuration should be displayed", async () => {
-    intercept.shortcuts.interceptWithCluster({clusterStatus});
+    mock.shortcuts.withCluster({clusterStatus});
     await goToSbd();
     await Promise.all(
       Object.entries(sbdOptions).map(async ([name, value]) => {
