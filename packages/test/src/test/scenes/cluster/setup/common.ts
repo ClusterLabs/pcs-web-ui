@@ -1,4 +1,4 @@
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 export const clusterName = "new-cluster";
@@ -6,11 +6,14 @@ export const nodeNameList = ["node-1", "node-2"];
 
 export const interceptForClusterSetup = (routeList: intercept.Route[] = []) =>
   intercept.run([
-    route.importedClusterList(),
-    route.resourceAgentListAgents(clusterName),
-    route.canAddClusterOrNodes({clusterName, nodeNameList}),
-    route.sendKnownHostsToNode({nodeNameList, targetNode: nodeNameList[0]}),
-    route.rememberCluster({clusterName, nodeNameList}),
+    intercept.route.importedClusterList(),
+    intercept.route.resourceAgentListAgents(clusterName),
+    intercept.route.canAddClusterOrNodes({clusterName, nodeNameList}),
+    intercept.route.sendKnownHostsToNode({
+      nodeNameList,
+      targetNode: nodeNameList[0],
+    }),
+    intercept.route.rememberCluster({clusterName, nodeNameList}),
     ...routeList,
   ]);
 

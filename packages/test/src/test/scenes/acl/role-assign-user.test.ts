@@ -1,4 +1,4 @@
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus} from "./common";
@@ -18,7 +18,7 @@ describe("ACL role assign user task", () => {
     intercept.shortcuts.interceptWithCluster({
       clusterStatus,
       additionalRouteList: [
-        route.aclAssignRoleToTarget({
+        intercept.route.aclAssignRoleToTarget({
           clusterName,
           roleId,
           targetId: userId,

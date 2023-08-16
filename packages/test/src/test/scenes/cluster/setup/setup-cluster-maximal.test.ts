@@ -1,6 +1,6 @@
 import {Locator} from "playwright";
 
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
@@ -40,7 +40,7 @@ const addrs = [
 ];
 
 type SetupData = Extract<
-  Parameters<typeof route.clusterSetup>[0]["payload"]["setupData"],
+  Parameters<typeof intercept.route.clusterSetup>[0]["payload"]["setupData"],
   {transport_type: "knet"}
 >;
 
@@ -144,8 +144,8 @@ describe("Cluster setup", () => {
   afterEach(intercept.stop);
   it("should create full filled cluster", async () => {
     interceptForClusterSetup([
-      route.checkAuthAgainstNodes({nodeNameList}),
-      route.clusterSetup({
+      intercept.route.checkAuthAgainstNodes({nodeNameList}),
+      intercept.route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
           setupData: {

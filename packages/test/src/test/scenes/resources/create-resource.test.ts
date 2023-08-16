@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToResources, toolbar} from "./common";
@@ -23,12 +23,12 @@ describe("Create resource task", () => {
     await intercept.shortcuts.interceptWithCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        route.resourceAgentDescribeAgent({
+        intercept.route.resourceAgentDescribeAgent({
           clusterName,
           agentName,
           agentData: agent,
         }),
-        route.resourceCreate({
+        intercept.route.resourceCreate({
           clusterName,
           resourceId,
           agentName,

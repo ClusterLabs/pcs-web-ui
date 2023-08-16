@@ -1,6 +1,6 @@
 import * as responses from "dev/responses";
 
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
@@ -29,7 +29,7 @@ const {fieldError} = shortcuts.patternfly;
 const routeClusterSetup = (
   errorList: Parameters<typeof responses.lib.error>[0] = [],
 ) =>
-  route.clusterSetup({
+  intercept.route.clusterSetup({
     payload: {
       targetNode: nodeNameList[0],
       setupData: {
@@ -48,7 +48,7 @@ const routeClusterSetup = (
         }),
   });
 
-const routeCheckAuth = route.checkAuthAgainstNodes({nodeNameList});
+const routeCheckAuth = intercept.route.checkAuthAgainstNodes({nodeNameList});
 
 const sendMinimalSetup = async () => {
   await page.goto(backend.rootUrl);
@@ -76,7 +76,7 @@ describe("Cluster setup", () => {
   });
 
   it("should refuse to continue without essential data", async () => {
-    intercept.run([route.importedClusterList()]);
+    intercept.run([intercept.route.importedClusterList()]);
     await page.goto(backend.rootUrl);
     await toolbar.launch(toolbar => toolbar.setupCluster);
     await click(nameAndNodesFooter.next);
@@ -86,7 +86,7 @@ describe("Cluster setup", () => {
 
   it("should be possible go back from auth and change node name", async () => {
     interceptForClusterSetup([
-      route.checkAuthAgainstNodes({
+      intercept.route.checkAuthAgainstNodes({
         nodeNameList,
         response: {
           json: {
@@ -109,8 +109,8 @@ describe("Cluster setup", () => {
 
   it("should be mandatory fill node addresses in links", async () => {
     interceptForClusterSetup([
-      route.checkAuthAgainstNodes({nodeNameList}),
-      route.clusterSetup({
+      intercept.route.checkAuthAgainstNodes({nodeNameList}),
+      intercept.route.clusterSetup({
         payload: {
           targetNode: nodeNameList[0],
           setupData: {

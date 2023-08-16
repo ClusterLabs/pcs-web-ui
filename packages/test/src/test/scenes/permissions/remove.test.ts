@@ -1,7 +1,7 @@
 import * as responses from "dev/responses";
 
 import * as shortcuts from "test/shortcuts";
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 
 import {clusterName, goToPermissions, interceptForPermissions} from "./common";
 
@@ -39,7 +39,7 @@ describe("Permission remove", () => {
     interceptForPermissions({
       usersPermissions: [haclientPermission, namePermission],
       additionalRouteList: [
-        route.permissionsSave({
+        intercept.route.permissionsSave({
           clusterName,
           permissionList: [haclientPermission],
         }),
@@ -55,7 +55,7 @@ describe("Permission remove", () => {
     interceptForPermissions({
       usersPermissions: [haclientPermission, namePermission],
       additionalRouteList: [
-        route.permissionsSave({
+        intercept.route.permissionsSave({
           clusterName,
           permissionList: [namePermission],
           response: {status: [400, "Error removing permission haclient"]},

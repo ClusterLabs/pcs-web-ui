@@ -1,4 +1,4 @@
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToAcl, toolbar} from "./common";
@@ -9,7 +9,7 @@ const {aclRoleCreate} = marks.task;
 const {review} = aclRoleCreate;
 
 type Permission = Parameters<
-  typeof route.aclRoleCreate
+  typeof intercept.route.aclRoleCreate
 >[0]["permissionInfoList"][number];
 
 const roleId = "third";
@@ -22,7 +22,7 @@ describe("Create acl role task", () => {
     intercept.shortcuts.interceptWithCluster({
       clusterStatus,
       additionalRouteList: [
-        route.aclRoleCreate({
+        intercept.route.aclRoleCreate({
           clusterName: clusterStatus.cluster_name,
           roleId,
           description,

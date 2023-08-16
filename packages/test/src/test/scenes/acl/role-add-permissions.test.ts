@@ -1,11 +1,11 @@
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus} from "./common";
 import {goToRole, toolbar} from "./commonRole";
 
 type Permission = Parameters<
-  typeof route.aclAddPermission
+  typeof intercept.route.aclAddPermission
 >[0]["permissionInfoList"][number];
 
 const {radioGroup} = shortcuts.patternfly;
@@ -21,7 +21,7 @@ describe("ACL role add permission task", () => {
     intercept.shortcuts.interceptWithCluster({
       clusterStatus,
       additionalRouteList: [
-        route.aclAddPermission({
+        intercept.route.aclAddPermission({
           clusterName: clusterStatus.cluster_name,
           roleId,
           permissionInfoList: [permission_1, permission_2],

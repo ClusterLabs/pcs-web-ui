@@ -1,6 +1,6 @@
 import {clusterStatus} from "dev/responses";
 
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 
 const username = "hacluster";
 const password = "hh";
@@ -9,8 +9,8 @@ describe("Login scene", () => {
   afterEach(intercept.stop);
   it("should be rendered and can send credentials", async () => {
     await intercept.run([
-      route.importedClusterList({response: {status: 401}}),
-      route.login({username, password}),
+      intercept.route.importedClusterList({response: {status: 401}}),
+      intercept.route.login({username, password}),
     ]);
 
     await page.goto(backend.rootUrl);
@@ -21,11 +21,11 @@ describe("Login scene", () => {
 describe("Logout", () => {
   it("should call logout on backend after click", async () => {
     await intercept.run([
-      route.importedClusterList(),
-      route.clusterStatus({clusterStatus: clusterStatus.empty}),
-      route.logout(),
+      intercept.route.importedClusterList(),
+      intercept.route.clusterStatus({clusterStatus: clusterStatus.empty}),
+      intercept.route.logout(),
       // TODO Firefox wants to have this mocked. Why
-      route.login({username, password}),
+      intercept.route.login({username, password}),
     ]);
     await page.goto(backend.rootUrl);
     await click(marks.header.userMenu);

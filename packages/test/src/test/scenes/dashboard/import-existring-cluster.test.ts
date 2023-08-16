@@ -1,4 +1,4 @@
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {toolbar} from "./common";
@@ -38,9 +38,9 @@ describe("Import existing cluster", () => {
 
   it("should import cluster", async () => {
     intercept.run([
-      route.importedClusterList(),
-      route.checkAuthAgainstNodes({nodeNameList: [data.nodeName]}),
-      route.existingCluster({nodeName: data.nodeName}),
+      intercept.route.importedClusterList(),
+      intercept.route.checkAuthAgainstNodes({nodeNameList: [data.nodeName]}),
+      intercept.route.existingCluster({nodeName: data.nodeName}),
     ]);
     await goToDashboard();
     await launchTask();
@@ -54,18 +54,18 @@ describe("Import existing cluster", () => {
 
   it("should import cluster with authentication", async () => {
     intercept.run([
-      route.importedClusterList(),
-      route.checkAuthAgainstNodes({
+      intercept.route.importedClusterList(),
+      intercept.route.checkAuthAgainstNodes({
         nodeNameList: [data.nodeName],
         response: {json: {[data.nodeName]: "Unable to authenticate"}},
       }),
-      route.authGuiAgainstNodes({
+      intercept.route.authGuiAgainstNodes({
         [data.nodeName]: {
           password: data.password,
           dest_list: [{addr: data.addr, port: data.port}],
         },
       }),
-      route.existingCluster({nodeName: data.nodeName}),
+      intercept.route.existingCluster({nodeName: data.nodeName}),
     ]);
     await goToDashboard();
     await launchTask();
@@ -85,9 +85,9 @@ describe("Import existing cluster", () => {
 
   it("should display error on backend error", async () => {
     intercept.run([
-      route.importedClusterList(),
-      route.checkAuthAgainstNodes({nodeNameList: [data.nodeName]}),
-      route.existingCluster({
+      intercept.route.importedClusterList(),
+      intercept.route.checkAuthAgainstNodes({nodeNameList: [data.nodeName]}),
+      intercept.route.existingCluster({
         nodeName: data.nodeName,
         response: {status: [400, "Configuration conflict detected."]},
       }),

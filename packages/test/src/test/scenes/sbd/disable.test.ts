@@ -1,4 +1,4 @@
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 
 import {clusterStatus, goToSbd, toolbar} from "./common";
 
@@ -8,7 +8,9 @@ describe("Sbd disable", () => {
   it("should sucessfully disable sbd", async () => {
     intercept.shortcuts.interceptWithCluster({
       clusterStatus,
-      additionalRouteList: [route.sbdDisable(clusterStatus.cluster_name)],
+      additionalRouteList: [
+        intercept.route.sbdDisable(clusterStatus.cluster_name),
+      ],
     });
     await goToSbd();
     await toolbar.launch(toolbar => toolbar.disableSbd);

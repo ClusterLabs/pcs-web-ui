@@ -1,4 +1,4 @@
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
@@ -32,7 +32,7 @@ describe("Fence device create task", () => {
   beforeEach(async () => {
     await interceptWithStonith({
       additionalRouteList: [
-        route.stonithCreate({
+        intercept.route.stonithCreate({
           clusterName,
           fenceDeviceName,
           agentName,

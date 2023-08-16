@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {intercept, route} from "test/tools";
+import {intercept} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToNodes, toolbar} from "./common";
@@ -18,14 +18,14 @@ describe("Add node task", () => {
     intercept.shortcuts.interceptWithCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        route.canAddClusterOrNodes({nodeNameList: [nodeName]}),
-        route.checkAuthAgainstNodes({
+        intercept.route.canAddClusterOrNodes({nodeNameList: [nodeName]}),
+        intercept.route.checkAuthAgainstNodes({
           nodeNameList: [nodeName],
           response: {json: {[nodeName]: "Unable to authenticate"}},
         }),
-        route.sendKnownHosts(clusterName, nodeName),
-        route.clusterNodeAdd(clusterName, nodeName),
-        route.authGuiAgainstNodes({
+        intercept.route.sendKnownHosts(clusterName, nodeName),
+        intercept.route.clusterNodeAdd(clusterName, nodeName),
+        intercept.route.authGuiAgainstNodes({
           [nodeName]: {password, dest_list: [{addr, port}]},
         }),
       ],
