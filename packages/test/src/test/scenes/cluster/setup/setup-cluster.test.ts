@@ -1,6 +1,6 @@
 import * as responses from "dev/responses";
 
-import {mock} from "test/tools";
+import {goToDashboard, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
@@ -40,7 +40,7 @@ const routeClusterSetup = (
 const routeCheckAuth = mock.route.checkAuthAgainstNodes({nodeNameList});
 
 const launchTask = async () => {
-  await shortcuts.dashboard.goToDashboard();
+  await goToDashboard();
   await toolbar.launch(toolbar => toolbar.setupCluster);
 };
 

@@ -1,3 +1,4 @@
+import {goToCluster} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const {nodes} = marks.cluster;
@@ -7,7 +8,7 @@ export const clusterName = "test-cluster";
 export const toolbar = shortcuts.toolbar(marks.cluster.nodesToolbar);
 
 export const goToNodes = async () => {
-  await shortcuts.dashboard.goToCluster(clusterName, tabs => tabs.nodes);
+  await goToCluster(clusterName, tabs => tabs.nodes);
 };
 
 export const nodeListItem = (nodeName: string) =>

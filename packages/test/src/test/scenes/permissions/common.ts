@@ -1,7 +1,7 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 import * as responses from "dev/responses";
 
-import {mock} from "test/tools";
+import {goToCluster, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 type PermissionList = ReturnType<
@@ -38,5 +38,5 @@ export const mockForPermissions = ({
 
 export const toolbar = shortcuts.toolbar(marks.cluster.permissionsToolbar);
 export const goToPermissions = async () => {
-  await shortcuts.dashboard.goToCluster(clusterName, tabs => tabs.permissions);
+  await goToCluster(clusterName, tabs => tabs.permissions);
 };

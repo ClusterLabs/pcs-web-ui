@@ -1,10 +1,9 @@
-import {mock} from "test/tools";
+import {goToDashboard, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {toolbar} from "./common";
 
 const {toggle} = shortcuts.patternfly;
-const {goToDashboard} = shortcuts.dashboard;
 
 const {
   nodeName,

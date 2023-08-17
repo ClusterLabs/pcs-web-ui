@@ -1,5 +1,6 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
+import {goToCluster} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 export const clusterName = "test-cluster";
@@ -34,10 +35,7 @@ export const clusterStatus = t.cluster(clusterName, "ok", {
 });
 
 export const goToAcl = async () => {
-  await shortcuts.dashboard.goToCluster(
-    clusterStatus.cluster_name,
-    tabs => tabs.acl,
-  );
+  await goToCluster(clusterStatus.cluster_name, tabs => tabs.acl);
 };
 
 export const toolbar = shortcuts.toolbar(marks.cluster.aclToolbar);

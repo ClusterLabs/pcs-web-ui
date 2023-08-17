@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {mock} from "test/tools";
+import {goToDashboard, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const clusterName = "test-cluster";
@@ -14,7 +14,7 @@ const mockWithDashboard = (routeList: mock.Route[] = []) => {
 };
 
 const launchStart = async () => {
-  await shortcuts.dashboard.goToDashboard();
+  await goToDashboard();
   await shortcuts.dashboard.importedClusters
     .inCluster(clusterName)
     .launchAction(action => action.start);

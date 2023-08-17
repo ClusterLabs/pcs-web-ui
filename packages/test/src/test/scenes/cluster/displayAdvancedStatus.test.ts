@@ -3,8 +3,7 @@
 
 import * as t from "dev/responses/clusterStatus/tools";
 
-import * as shortcuts from "test/shortcuts";
-import {mock} from "test/tools";
+import {goToCluster, mock} from "test/tools";
 
 const clusterName = "test-cluster";
 
@@ -31,7 +30,7 @@ describe("Cluster with advanced status", () => {
         }),
       }),
     });
-    await shortcuts.dashboard.goToCluster(clusterName);
+    await goToCluster(clusterName);
     await isVisible(marks.cluster.overview);
   });
 });

@@ -1,9 +1,9 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {mock} from "test/tools";
+import {goToDashboard, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
-const {goToDashboard, importedClusters} = shortcuts.dashboard;
+const {importedClusters} = shortcuts.dashboard;
 
 const {forceableConfirm: task} = marks.task;
 

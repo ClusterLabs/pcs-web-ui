@@ -1,9 +1,9 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {assert, mock} from "test/tools";
+import {assert, goToDashboard, mock} from "test/tools";
 
-const {importedClusters, goToDashboard} = shortcuts.dashboard;
+const {importedClusters} = shortcuts.dashboard;
 
 const firstName = "first";
 const firstStatus = cs.cluster(firstName, "ok", {

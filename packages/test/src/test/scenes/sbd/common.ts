@@ -1,6 +1,6 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
-import {mock} from "test/tools";
+import {goToCluster, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 export const sbdOptions = {
@@ -34,10 +34,7 @@ export const clusterStatus = t.cluster("sbd", "ok", {
 });
 
 export const goToSbd = async () => {
-  await shortcuts.dashboard.goToCluster(
-    clusterStatus.cluster_name,
-    tabs => tabs.sbd,
-  );
+  await goToCluster(clusterStatus.cluster_name, tabs => tabs.sbd);
 };
 
 export const toolbar = shortcuts.toolbar(marks.cluster.sbdToolbar);

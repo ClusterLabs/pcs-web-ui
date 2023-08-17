@@ -1,6 +1,6 @@
 import * as responses from "dev/responses";
 
-import {assert, mock} from "test/tools";
+import {assert, goToDashboard, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const clusterName = responses.clusterStatus.ok.cluster_name;
@@ -16,7 +16,7 @@ const mockWithDashboard = (routeList: mock.Route[] = []) => {
 const {notifications} = marks;
 
 const launchClusterRemove = async () => {
-  await shortcuts.dashboard.goToDashboard();
+  await goToDashboard();
   await shortcuts.dashboard.importedClusters
     .inCluster(clusterName)
     .launchAction(action => action.remove);
@@ -40,7 +40,7 @@ describe("Notification drawer", () => {
   it("should be displayed", async () => {
     mockWithDashboard();
 
-    await shortcuts.dashboard.goToDashboard();
+    await goToDashboard();
     await click(notifications.badge);
     await isVisible(notifications.drawer);
     await expectNotificationsInDrawer({success: 0, error: 0});
