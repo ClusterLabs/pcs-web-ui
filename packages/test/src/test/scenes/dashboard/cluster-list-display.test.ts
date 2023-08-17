@@ -3,7 +3,9 @@ import * as cs from "dev/responses/clusterStatus/tools";
 import * as shortcuts from "test/shortcuts";
 import {assert, mock} from "test/tools";
 
-const {importedClusters} = shortcuts.dashboard;
+const {item} = shortcuts.common;
+
+const {cluster} = marks.dashboard.clusterList;
 
 const firstName = "first";
 const firstStatus = cs.cluster(firstName, "ok", {
@@ -40,28 +42,61 @@ describe("Dashboard scene", () => {
   it("should render multiple cluster information", async () => {
     await goToDashboard();
 
-    await assert.countIs(marks.dashboard.clusterList.cluster, 2);
+    await assert.countIs(cluster, 2);
 
-    const first = importedClusters.inCluster(firstStatus.cluster_name);
-    await first.thereIs(cluster => cluster.loaded.issuesCount, "0");
-    await first.thereIs(cluster => cluster.loaded.nodeCount, "2");
-    await first.thereIs(cluster => cluster.loaded.resourceCount, "1");
-    await first.thereIs(cluster => cluster.loaded.fenceDeviceCount, "1");
+    const first = item(cluster).byKey(c => c.name, firstName);
+    await assert.textIs(
+      first.locator(c => c.loaded.issuesCount),
+      "0",
+    );
+    await assert.textIs(
+      first.locator(c => c.loaded.nodeCount),
+      "2",
+    );
+    await assert.textIs(
+      first.locator(c => c.loaded.resourceCount),
+      "1",
+    );
+    await assert.textIs(
+      first.locator(c => c.loaded.fenceDeviceCount),
+      "1",
+    );
 
-    const second = importedClusters.inCluster(secondStatus.cluster_name);
-    await second.thereIs(cluster => cluster.loaded.issuesCount, "3");
-    await second.thereIs(cluster => cluster.loaded.nodeCount, "3");
-    await second.thereIs(cluster => cluster.loaded.resourceCount, "2");
-    await second.thereIs(cluster => cluster.loaded.fenceDeviceCount, "2");
+    const second = item(cluster).byKey(c => c.name, secondName);
+    await assert.textIs(
+      second.locator(c => c.loaded.issuesCount),
+      "3",
+    );
+    await assert.textIs(
+      second.locator(c => c.loaded.nodeCount),
+      "3",
+    );
+    await assert.textIs(
+      second.locator(c => c.loaded.resourceCount),
+      "2",
+    );
+    await assert.textIs(
+      second.locator(c => c.loaded.fenceDeviceCount),
+      "2",
+    );
   });
 
   it("should allow to display cluster issues", async () => {
     await goToDashboard();
-    const theCluster = importedClusters.inCluster(secondName);
-    await click(theCluster.get(cluster => cluster.loaded.issuesCount));
+    await click(
+      item(cluster)
+        .byKey(c => c.name, secondName)
+        .locator(c => c.loaded.issuesCount),
+    );
     const issueContentIs = async (index: number, message: string) => {
       await assert.textIs(
-        theCluster.inIssue(index).get(issue => issue.message),
+        item(cluster)
+          .byKey(c => c.name, secondName)
+          .locator(c =>
+            item(c.loaded.issue)
+              .byIndex(index)
+              .locator(issue => issue.message),
+          ),
         message,
       );
     };

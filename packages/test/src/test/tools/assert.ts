@@ -1,3 +1,7 @@
+import {Locator} from "playwright";
+
+import {item} from "test/shortcuts/common";
+
 export const textIs = async (mark: Mark, expectedText: string) => {
   expect((await locatorFor(mark).textContent())?.trim()).toEqual(expectedText);
 };
@@ -19,4 +23,20 @@ export const inTaskReview = async (pairs: [Mark, string][]) => {
     const [mark, expectedValue] = pairs[i];
     expect(await locatorFor(mark).innerText()).toEqual(expectedValue);
   }
+};
+
+type PureMark = {path: string; locator: Locator};
+
+export const nvPairIs = async (
+  pairMark: PureMark & {
+    name: PureMark;
+    value: PureMark;
+  },
+  name: string,
+  value: string,
+) => {
+  await textIs(
+    item(pairMark).byKey(pairMark.name, name).locator(pairMark.value),
+    value,
+  );
 };

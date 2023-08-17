@@ -17,9 +17,18 @@ describe("Sbd", () => {
     await goToSbd();
 
     const service_1 = item(service).byKey(service.node, "node-1");
-    await service_1.thereIs(service => service.installed, "Installed");
-    await service_1.thereIs(service => service.enabled, "Enabled");
-    await service_1.thereIs(service => service.running, "Running");
+    await assert.textIs(
+      service_1.locator(service => service.installed),
+      "Installed",
+    );
+    await assert.textIs(
+      service_1.locator(service => service.enabled),
+      "Enabled",
+    );
+    await assert.textIs(
+      service_1.locator(service => service.running),
+      "Running",
+    );
   });
 
   it("watchdogs should be displayed", async () => {
@@ -27,14 +36,17 @@ describe("Sbd", () => {
     await goToSbd();
 
     const perNode_1 = item(perNode).byKey(perNode.node, "node-1");
-    await perNode_1.thereIs(perNode => perNode.watchdog, "/dev/watchdog");
+    await assert.textIs(
+      perNode_1.locator(perNode => perNode.watchdog),
+      "/dev/watchdog",
+    );
 
     await assert.countIs(
       perNode_1.locator(pn => pn.device),
       2,
     );
-    await perNode_1.thereIs(device(0), "/dev/sdb@node1");
-    await perNode_1.thereIs(device(1), "/dev/sda");
+    await assert.textIs(perNode_1.locator(device(0)), "/dev/sdb@node1");
+    await assert.textIs(perNode_1.locator(device(1)), "/dev/sda");
 
     const perNode_2 = item(perNode).byKey(perNode.node, "node-2");
     await isVisible(perNode_2.locator(pn => pn.watchdogNotConfigured));
@@ -46,9 +58,7 @@ describe("Sbd", () => {
     await goToSbd();
     await Promise.all(
       Object.entries(sbdOptions).map(async ([name, value]) => {
-        await item(config)
-          .byKey(config.name, name)
-          .thereIs(config => config.value, value);
+        await assert.nvPairIs(config, name, value);
       }),
     );
   });

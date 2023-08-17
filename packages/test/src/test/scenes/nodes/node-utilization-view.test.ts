@@ -1,14 +1,14 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import {assert, mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToNode} from "./common";
 
-const {item} = shortcuts.common;
 const {tabs, utilization} = marks.cluster.nodes.currentNode;
 
 export const node1 = cs.node("1");
+const util_1 = {id: "N1_test_one", name: "test_one", value: "100"};
+const util_2 = {id: "N1_test_two", name: "test_two", value: "200"};
 export const utilizationList = [
   {id: "N1_test_one", name: "test_one", value: "100"},
   {id: "N1_test_two", name: "test_two", value: "200"},
@@ -19,7 +19,7 @@ describe("Primitive meta attributes view", () => {
     mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok", {
         node_list: [node1],
-        nodes_utilization: {[node1.name]: utilizationList},
+        nodes_utilization: {[node1.name]: [util_1, util_2]},
       }),
     });
 
@@ -27,11 +27,7 @@ describe("Primitive meta attributes view", () => {
     await click(tabs.utilization);
 
     await assert.countIs(utilization.pair, 2);
-    await item(utilization.pair)
-      .byKey(pair => pair.name, utilizationList[0].name)
-      .thereIs(pair => pair.value, utilizationList[0].value);
-    await item(utilization.pair)
-      .byKey(pair => pair.name, utilizationList[1].name)
-      .thereIs(pair => pair.value, utilizationList[1].value);
+    await assert.nvPairIs(utilization.pair, util_1.name, util_1.value);
+    await assert.nvPairIs(utilization.pair, util_2.name, util_2.value);
   });
 });

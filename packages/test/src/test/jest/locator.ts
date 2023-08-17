@@ -11,7 +11,7 @@ type WithLocator<STRUCT extends SubStructure> = {
   };
 };
 
-export type Mark = {locator: Locator} | Locator;
+export type Mark = {locator: Locator; path: string} | Locator;
 const testMarksToXpath = (path: string[]) =>
   `//*[@data-test="${path.join(".")}"]`;
 

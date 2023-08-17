@@ -1,6 +1,6 @@
 import {Locator} from "playwright";
 
-type itemMark = {path: string; locator: Locator};
+type PureMark = {path: string; locator: Locator};
 
 export type SearchExp<MARK_PART extends Mark> =
   | Mark
@@ -15,33 +15,30 @@ const ancestor = (mark: {path: string}) =>
   `xpath=/ancestor::node()[@data-test="${mark.path}"]`;
 
 const getLocator =
-  <ITEM_MARK extends itemMark>(itemMark: ITEM_MARK, theItem: Locator) =>
+  <ITEM_MARK extends PureMark>(itemMark: ITEM_MARK, theItem: Locator) =>
   (searchExp?: SearchExp<ITEM_MARK>) =>
     searchExp === undefined
       ? theItem
       : theItem.locator(search(searchExp, itemMark));
 
-export const item = <ITEM_MARK extends itemMark>(itemMark: ITEM_MARK) => ({
+export const item = <ITEM_MARK extends PureMark>(itemMark: ITEM_MARK) => ({
   byKey: (searchExp: SearchExp<ITEM_MARK>, key: string) => {
     const theItem = search(searchExp, itemMark)
       .getByText(key, {exact: true})
       .locator(ancestor(itemMark));
 
     return {
+      theItem,
+      itemMark,
       locator: getLocator(itemMark, theItem),
-
-      thereIs: async (searchExp: SearchExp<ITEM_MARK>, value: string) => {
-        expect(
-          (
-            await locatorFor(
-              theItem.locator(search(searchExp, itemMark)),
-            ).textContent()
-          )?.trim(),
-        ).toEqual(value);
-      },
     };
   },
-  byIndex: (index: number) => ({
-    locator: getLocator(itemMark, itemMark.locator.nth(index)),
-  }),
+  byIndex: (index: number) => {
+    const theItem = itemMark.locator.nth(index);
+    return {
+      theItem,
+      itemMark,
+      locator: getLocator(itemMark, theItem),
+    };
+  },
 });
