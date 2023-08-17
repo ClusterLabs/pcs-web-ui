@@ -8,7 +8,6 @@ import {
   toolbar,
 } from "./common";
 
-const {select} = shortcuts.patternfly;
 const {item} = shortcuts.common;
 
 const fenceDeviceName = "F1";

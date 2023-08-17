@@ -7,7 +7,6 @@ const {sbdConfigure: task} = marks.task;
 const {options, review} = task;
 
 const {item} = shortcuts.common;
-const {radioGroup} = shortcuts.patternfly;
 
 const newWatchdogName = "/dev/watchdog-test";
 

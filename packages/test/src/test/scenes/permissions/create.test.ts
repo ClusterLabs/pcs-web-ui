@@ -1,5 +1,4 @@
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {
   clusterName,
@@ -11,8 +10,6 @@ import {
 type Permission = Parameters<
   typeof mockForPermissions
 >[0]["usersPermissions"][number];
-
-const {radioGroup, getToggle, toggle, fieldError} = shortcuts.patternfly;
 
 const {permissionEdit: task} = marks.task;
 

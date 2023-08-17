@@ -1,5 +1,4 @@
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus} from "./common";
 import {goToRole, toolbar} from "./commonRole";
@@ -8,7 +7,6 @@ type Permission = Parameters<
   typeof mock.route.aclAddPermission
 >[0]["permissionInfoList"][number];
 
-const {radioGroup} = shortcuts.patternfly;
 const {aclRoleAddPermission: task} = marks.task;
 
 const roleId = "first";

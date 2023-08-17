@@ -1,7 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToNodes, toolbar} from "./common";
 
@@ -35,7 +34,7 @@ describe("Add node task", () => {
     await fill(task.nodeName.name, nodeName);
     await click(task.nodeNameFooter.next);
 
-    await shortcuts.patternfly.toggle(task.prepareNode.auth.useCustomAddress);
+    await toggle(task.prepareNode.auth.useCustomAddress);
     await fill(task.prepareNode.auth.password, password);
     await fill(task.prepareNode.auth.address, addr);
     await fill(task.prepareNode.auth.port, port);

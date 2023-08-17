@@ -1,10 +1,7 @@
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus} from "./common";
 import {goToRole, toolbar} from "./commonRole";
-
-const {select} = shortcuts.patternfly;
 
 const {aclAssignSubjectToRole: task} = marks.task;
 

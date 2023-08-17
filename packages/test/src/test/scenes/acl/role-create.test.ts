@@ -1,9 +1,6 @@
 import {assert, mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToAcl, toolbar} from "./common";
-
-const {radioGroup} = shortcuts.patternfly;
 
 const {aclRoleCreate} = marks.task;
 const {review} = aclRoleCreate;

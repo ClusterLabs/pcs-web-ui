@@ -1,12 +1,9 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterName} from "./common";
 import {goToPrimitive, toolbar} from "./commonPrimitive";
-
-const {select} = shortcuts.patternfly;
 
 const {resourcePrimitiveGroupChange: task} = marks.task;
 

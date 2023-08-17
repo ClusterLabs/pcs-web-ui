@@ -1,9 +1,6 @@
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToConstraints, toolbar} from "./common";
-
-const {radioGroup, select} = shortcuts.patternfly;
 
 const ticketKey = "testTicket";
 const lossPolicy = "fence";

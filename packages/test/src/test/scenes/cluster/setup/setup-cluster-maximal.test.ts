@@ -11,7 +11,6 @@ import {
   toolbar,
 } from "./common";
 
-const {select, radioGroup} = shortcuts.patternfly;
 const {item} = shortcuts.common;
 
 const {clusterSetup: task} = marks.task;

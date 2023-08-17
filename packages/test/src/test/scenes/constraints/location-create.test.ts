@@ -1,9 +1,6 @@
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToConstraints, toolbar} from "./common";
-
-const {select, radioGroup} = shortcuts.patternfly;
 
 const resourceId = clusterStatus.resource_list[1].id;
 const nodeName = clusterStatus.node_list[1].name;

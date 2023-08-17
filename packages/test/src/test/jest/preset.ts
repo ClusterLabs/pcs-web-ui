@@ -12,6 +12,11 @@ declare global {
   var isVisible: typeof locatorTools.isVisible;
   var isAbsent: typeof locatorTools.isAbsent;
   var fill: typeof locatorTools.fill;
+  var select: typeof locatorTools.select;
+  var radioGroup: typeof locatorTools.radioGroup;
+  var getToggle: typeof locatorTools.getToggle;
+  var toggle: typeof locatorTools.toggle;
+  var fieldError: typeof locatorTools.fieldError;
   var isLocator: typeof locatorTools.isLocator;
   var marks: ReturnType<typeof locatorTools.getApp>;
   var backend: ReturnType<typeof getBackend>;
@@ -39,6 +44,11 @@ export default async () => {
   global.marks = locatorTools.getApp(envType);
   global.click = locatorTools.click;
   global.fill = locatorTools.fill;
+  global.select = locatorTools.select;
+  global.radioGroup = locatorTools.radioGroup;
+  global.getToggle = locatorTools.getToggle;
+  global.toggle = locatorTools.toggle;
+  global.fieldError = locatorTools.fieldError;
   global.isVisible = locatorTools.isVisible;
   global.isAbsent = locatorTools.isAbsent;
   global.isLocator = locatorTools.isLocator;

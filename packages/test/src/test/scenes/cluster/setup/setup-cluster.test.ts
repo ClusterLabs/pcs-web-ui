@@ -1,7 +1,6 @@
 import * as responses from "dev/responses";
 
 import {goToDashboard, mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {
   clusterName,
@@ -12,8 +11,6 @@ import {
 } from "./common";
 
 const {clusterSetup: task} = marks.task;
-
-const {fieldError} = shortcuts.patternfly;
 
 const routeClusterSetup = (
   errorList: Parameters<typeof responses.lib.error>[0] = [],

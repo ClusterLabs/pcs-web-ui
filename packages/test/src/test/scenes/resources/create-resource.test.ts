@@ -2,11 +2,8 @@ import * as responses from "dev/responses";
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import {assert, mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToResources, toolbar} from "./common";
-
-const {select} = shortcuts.patternfly;
 
 const {resourceCreate} = marks.task;
 const {review} = resourceCreate;
