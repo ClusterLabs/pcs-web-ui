@@ -5,7 +5,6 @@ const host = process.env.PCSD_HOST_1 || "";
 const port = process.env.PCSD_PORT_1 || 2224;
 
 const rootUrl = (envType: EnvType) => {
-  console.log("ENV TYPE", envType);
   if (envType === "cockpit") {
     return `${protocol}://${host}:${port}/ha-cluster/`;
   }
@@ -17,9 +16,29 @@ const rootUrl = (envType: EnvType) => {
   return `${protocol}://${host}:${port}/`;
 };
 
-export const getBackend = (envType: EnvType) => ({
-  protocol,
-  host,
-  port,
-  rootUrl: rootUrl(envType),
-});
+export const getGoToDashboard = (envType: EnvType) => {
+  const url = rootUrl(envType);
+  return async () => {
+    await page.goto(url);
+  };
+};
+
+export const getGoToCluster = (envType: EnvType) => {
+  const url = rootUrl(envType);
+  return async (
+    clusterName: string,
+    tab?: ((tabs: typeof marks.cluster.tabs) => Mark) | undefined,
+  ) => {
+    await page.goto(url);
+
+    await click(
+      marks.dashboard.clusterList.cluster.name.locator.getByText(clusterName, {
+        exact: true,
+      }),
+    );
+
+    if (tab) {
+      await click(tab(marks.cluster.tabs));
+    }
+  };
+};

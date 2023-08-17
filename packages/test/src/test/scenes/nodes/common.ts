@@ -1,4 +1,3 @@
-import {goToCluster} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const {nodes} = marks.cluster;

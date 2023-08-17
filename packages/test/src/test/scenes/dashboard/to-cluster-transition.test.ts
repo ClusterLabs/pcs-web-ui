@@ -14,7 +14,7 @@ const resourceId = "R1";
 const fenceDeviceId = "F1";
 
 const clusterListLoaded = async () => {
-  await page.goto(backend.rootUrl);
+  await goToDashboard();
   await isVisible(inCluster(clusterName).get(cluster => cluster.loaded));
 };
 

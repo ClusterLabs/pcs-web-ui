@@ -1,6 +1,6 @@
 import * as responses from "dev/responses";
 
-import {assert, goToDashboard, mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const clusterName = responses.clusterStatus.ok.cluster_name;

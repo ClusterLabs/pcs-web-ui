@@ -1,4 +1,4 @@
-import {goToDashboard, mock} from "test/tools";
+import {mock} from "test/tools";
 
 import {toolbar} from "./common";
 

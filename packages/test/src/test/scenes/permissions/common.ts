@@ -1,7 +1,7 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 import * as responses from "dev/responses";
 
-import {goToCluster, mock} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 type PermissionList = ReturnType<

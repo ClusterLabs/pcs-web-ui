@@ -1,6 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {assert, goToCluster, mock} from "test/tools";
+import {assert, mock} from "test/tools";
 
 const {cluster} = marks;
 

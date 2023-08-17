@@ -13,7 +13,7 @@ describe("Login scene", () => {
       mock.route.login({username, password}),
     ]);
 
-    await page.goto(backend.rootUrl);
+    await goToDashboard();
     await login(username, password);
   });
 });
@@ -27,7 +27,7 @@ describe("Logout", () => {
       // TODO Firefox wants to have this mocked. Why
       mock.route.login({username, password}),
     ]);
-    await page.goto(backend.rootUrl);
+    await goToDashboard();
     await click(marks.header.userMenu);
     await click(marks.header.userMenu.logout);
   });

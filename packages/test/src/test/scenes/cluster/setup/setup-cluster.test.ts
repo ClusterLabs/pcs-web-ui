@@ -1,6 +1,6 @@
 import * as responses from "dev/responses";
 
-import {goToDashboard, mock} from "test/tools";
+import {mock} from "test/tools";
 
 import {
   clusterName,

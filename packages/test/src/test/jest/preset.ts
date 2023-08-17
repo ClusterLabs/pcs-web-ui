@@ -1,7 +1,7 @@
 import {EnvType} from "./envType";
 import {getLogin} from "./login";
-import {getBackend} from "./backend";
 import * as locatorTools from "./locator";
+import {getGoToCluster, getGoToDashboard} from "./backend";
 import {getPage} from "./page";
 
 declare global {
@@ -18,8 +18,9 @@ declare global {
   var toggle: typeof locatorTools.toggle;
   var fieldError: typeof locatorTools.fieldError;
   var isLocator: typeof locatorTools.isLocator;
+  var goToCluster: ReturnType<typeof getGoToCluster>;
+  var goToDashboard: ReturnType<typeof getGoToDashboard>;
   var marks: ReturnType<typeof locatorTools.getApp>;
-  var backend: ReturnType<typeof getBackend>;
   var login: ReturnType<typeof getLogin>;
   type Mark = locatorTools.Mark;
 }
@@ -39,7 +40,6 @@ export default async () => {
 
   global.page = await getPage();
   global.locatorFor = locatorTools.locatorFor;
-  global.backend = getBackend(envType);
   global.login = getLogin(envType);
   global.marks = locatorTools.getApp(envType);
   global.click = locatorTools.click;
@@ -52,4 +52,6 @@ export default async () => {
   global.isVisible = locatorTools.isVisible;
   global.isAbsent = locatorTools.isAbsent;
   global.isLocator = locatorTools.isLocator;
+  global.goToCluster = getGoToCluster(envType);
+  global.goToDashboard = getGoToDashboard(envType);
 };

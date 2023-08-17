@@ -1,7 +1,7 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {goToCluster, mock} from "test/tools";
+import {mock} from "test/tools";
 
 const {fenceDevices, fenceDevicesToolbar} = marks.cluster;
 

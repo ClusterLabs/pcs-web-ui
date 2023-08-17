@@ -26,7 +26,7 @@ describe("Web ui inside cockpit on one node cluster", () => {
   it(
     "should succeed with essential features",
     async () => {
-      await page.goto(backend.rootUrl);
+      await goToDashboard();
       await login(username, password);
 
       await isVisible(marks.dashboard.clusterList);

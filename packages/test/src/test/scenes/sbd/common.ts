@@ -1,6 +1,6 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
-import {goToCluster, mock} from "test/tools";
+import {mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 export const sbdOptions = {

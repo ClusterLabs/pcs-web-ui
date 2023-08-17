@@ -1,7 +1,7 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {assert, goToDashboard, mock} from "test/tools";
+import {assert, mock} from "test/tools";
 
 const {importedClusters} = shortcuts.dashboard;
 

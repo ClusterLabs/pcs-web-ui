@@ -157,7 +157,7 @@ describe("Cluster setup", () => {
       }),
     ]);
 
-    await page.goto(backend.rootUrl);
+    await goToDashboard();
     await toolbar.launch(toolbar => toolbar.setupCluster);
     await fill(task.nameAndNodes.clusterName, clusterName);
     await fill(

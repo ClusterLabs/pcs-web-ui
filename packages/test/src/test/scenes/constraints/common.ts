@@ -1,6 +1,5 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
-import {goToCluster} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const clusterName = "test-cluster";
