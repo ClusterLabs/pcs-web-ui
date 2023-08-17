@@ -1,4 +1,4 @@
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToAcl, toolbar} from "./common";
@@ -53,7 +53,7 @@ describe("Create acl role task", () => {
 
     await click(aclRoleCreate.addPermissionsFooter.next);
 
-    await shortcuts.task.expectReview([
+    await assert.inTaskReview([
       [review.roleId, roleId],
       [review.roleDescription, description],
       [review.permission.kind.locator.nth(0), permission_1[0]],

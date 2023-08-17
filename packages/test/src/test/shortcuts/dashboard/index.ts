@@ -1,4 +1,4 @@
-import {textIs} from "test/shortcuts/expect";
+import {assert} from "test/tools";
 
 import * as importedClusters from "./importedClusters";
 
@@ -17,7 +17,7 @@ export const goToCluster = async (
   const theCluster = importedClusters.inCluster(clusterName);
   await isVisible(theCluster.get(cluster => cluster.loaded));
   await click(theCluster.get(cluster => cluster.name));
-  await textIs(marks.cluster.breadcrumbs.clusterName, clusterName);
+  await assert.textIs(marks.cluster.breadcrumbs.clusterName, clusterName);
 
   if (tab) {
     await click(tab(marks.cluster.tabs));

@@ -1,13 +1,12 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToResources} from "./common";
 import {openPrimitive} from "./commonPrimitive";
 
 const {item} = shortcuts.common;
-const {textIs} = shortcuts.expect;
 
 const {resources} = marks.cluster;
 
@@ -123,7 +122,7 @@ describe("Resource tree", () => {
 
     await openPrimitive("A");
     await isVisible(resources.currentPrimitive);
-    await textIs(resources.currentPrimitive.id, "A");
+    await assert.textIs(resources.currentPrimitive.id, "A");
   });
 
   it("should show primitive group detail", async () => {
@@ -131,7 +130,7 @@ describe("Resource tree", () => {
 
     await openGroup("G1");
     await isVisible(resources.currentGroup);
-    await textIs(resources.currentGroup.id, "G1");
+    await assert.textIs(resources.currentGroup.id, "G1");
   });
 
   it("should show primitive clone detail", async () => {
@@ -139,6 +138,6 @@ describe("Resource tree", () => {
 
     await openClone("C1");
     await isVisible(resources.currentClone);
-    await textIs(resources.currentClone.id, "C1");
+    await assert.textIs(resources.currentClone.id, "C1");
   });
 });

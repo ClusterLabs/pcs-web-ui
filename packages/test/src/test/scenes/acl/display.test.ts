@@ -1,11 +1,10 @@
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToAcl} from "./common";
 import {openRole, roleListItem} from "./commonRole";
 
 const {item} = shortcuts.common;
-const {textIs} = shortcuts.expect;
 
 const {acl} = marks.cluster;
 const {lists} = acl;
@@ -30,37 +29,37 @@ describe("ACL view", () => {
     await isVisible(lists);
 
     const role_1 = roleListValue("first");
-    await textIs(role_1(lists.role.permissionsCount), "3");
-    await textIs(role_1(lists.role.usersCount), "1");
-    await textIs(role_1(lists.role.groupsCount), "1");
+    await assert.textIs(role_1(lists.role.permissionsCount), "3");
+    await assert.textIs(role_1(lists.role.usersCount), "1");
+    await assert.textIs(role_1(lists.role.groupsCount), "1");
 
     const role_2 = roleListValue("second");
-    await textIs(role_2(lists.role.permissionsCount), "0");
-    await textIs(role_2(lists.role.usersCount), "1");
-    await textIs(role_2(lists.role.groupsCount), "1");
+    await assert.textIs(role_2(lists.role.permissionsCount), "0");
+    await assert.textIs(role_2(lists.role.usersCount), "1");
+    await assert.textIs(role_2(lists.role.groupsCount), "1");
 
-    await textIs(userListValue("user1")(lists.user.rolesCount), "2");
-    await textIs(userListValue("user2")(lists.user.rolesCount), "0");
+    await assert.textIs(userListValue("user1")(lists.user.rolesCount), "2");
+    await assert.textIs(userListValue("user2")(lists.user.rolesCount), "0");
 
-    await textIs(groupListValue("group1")(lists.group.rolesCount), "1");
-    await textIs(groupListValue("group2")(lists.group.rolesCount), "1");
+    await assert.textIs(groupListValue("group1")(lists.group.rolesCount), "1");
+    await assert.textIs(groupListValue("group2")(lists.group.rolesCount), "1");
   });
 
   it("should display role", async () => {
     await openRole("first");
     await isVisible(acl.currentRole);
-    await textIs(acl.currentRole.id, "first");
+    await assert.textIs(acl.currentRole.id, "first");
   });
 
   it("should display user", async () => {
     await click(userListValue("user1")(lists.user.id));
     await isVisible(acl.currentUser);
-    await textIs(acl.currentUser.id, "user1");
+    await assert.textIs(acl.currentUser.id, "user1");
   });
 
   it("should display group", async () => {
     await click(groupListValue("group1")(lists.group.id));
     await isVisible(acl.currentGroup);
-    await textIs(acl.currentGroup.id, "group1");
+    await assert.textIs(acl.currentGroup.id, "group1");
   });
 });

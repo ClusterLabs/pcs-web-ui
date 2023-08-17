@@ -1,11 +1,10 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToNode} from "./common";
 
-const {countIs} = shortcuts.expect;
 const {item} = shortcuts.common;
 const {tabs, attributes} = marks.cluster.nodes.currentNode;
 
@@ -26,7 +25,7 @@ describe("Node attributes view", () => {
 
     await goToNode(node1.name);
     await click(tabs.attributes);
-    await countIs(attributes.pair, 2);
+    await assert.countIs(attributes.pair, 2);
     await item(attributes.pair)
       .byKey(pair => pair.name, node1Attrs[0].name)
       .thereIs(pair => pair.value, node1Attrs[0].value);

@@ -1,6 +1,5 @@
 export const textIs = async (mark: Mark, expectedText: string) => {
-  const locator = isLocator(mark) ? mark : mark.locator;
-  expect((await locator.textContent())?.trim()).toEqual(expectedText);
+  expect((await locatorFor(mark).textContent())?.trim()).toEqual(expectedText);
 };
 
 export const expectKeysAre = async (mark: Mark, keys: string[]) => {
@@ -13,4 +12,11 @@ export const expectKeysAre = async (mark: Mark, keys: string[]) => {
 
 export const countIs = async (mark: Mark, count: number) => {
   expect(await locatorFor(mark).count()).toEqual(count);
+};
+
+export const inTaskReview = async (pairs: [Mark, string][]) => {
+  for (let i = 0; i < pairs.length; i++) {
+    const [mark, expectedValue] = pairs[i];
+    expect(await locatorFor(mark).innerText()).toEqual(expectedValue);
+  }
 };

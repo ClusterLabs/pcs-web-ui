@@ -1,4 +1,4 @@
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToSbd, sbdOptions, toolbar} from "./common";
@@ -46,7 +46,7 @@ describe("Sbd", () => {
 
     await click(task.optionsFooter.next);
 
-    await shortcuts.task.expectReview([
+    await assert.inTaskReview([
       [review.delayStart, sbdOptions.SBD_DELAY_START],
       [review.watchdogTimeout, sbdOptions.SBD_WATCHDOG_TIMEOUT],
       [review.startmode, sbdOptions.SBD_STARTMODE],

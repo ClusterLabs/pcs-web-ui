@@ -1,3 +1,4 @@
+import {assert} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const testTimeout = parseInt(process.env.PCS_WUI_TEST_TIMEOUT ?? "70000", 10);
@@ -8,13 +9,15 @@ const nodeName = process.env.PCSD_NODE_1 || "";
 const clusterName = "test-cluster";
 
 const {importedClusters} = shortcuts.dashboard;
-const {expectKeysAre} = shortcuts.expect;
 
 const waitForImportedClusterList = async () =>
   await page.waitForResponse(/.*\/imported-cluster-list$/);
 
 const expectImportedClusterNamesAre = async (nameList: string[]) => {
-  await expectKeysAre(marks.dashboard.clusterList.cluster.name, nameList);
+  await assert.expectKeysAre(
+    marks.dashboard.clusterList.cluster.name,
+    nameList,
+  );
 };
 
 const {task} = marks;

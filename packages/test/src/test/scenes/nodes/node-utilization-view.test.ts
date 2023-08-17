@@ -1,11 +1,10 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToNode} from "./common";
 
-const {countIs} = shortcuts.expect;
 const {item} = shortcuts.common;
 const {tabs, utilization} = marks.cluster.nodes.currentNode;
 
@@ -27,7 +26,7 @@ describe("Primitive meta attributes view", () => {
     await goToNode(node1.name);
     await click(tabs.utilization);
 
-    await countIs(utilization.pair, 2);
+    await assert.countIs(utilization.pair, 2);
     await item(utilization.pair)
       .byKey(pair => pair.name, utilizationList[0].name)
       .thereIs(pair => pair.value, utilizationList[0].value);

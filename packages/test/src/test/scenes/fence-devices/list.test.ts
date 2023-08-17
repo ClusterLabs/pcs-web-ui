@@ -1,10 +1,6 @@
-import * as shortcuts from "test/shortcuts";
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 
 import {goToFenceDevices, mockWithStonith, openFenceDevice} from "./common";
-
-const {expectKeysAre} = shortcuts.expect;
-const {textIs} = shortcuts.expect;
 
 const {fenceDevices} = marks.cluster;
 
@@ -30,7 +26,7 @@ describe("List of fence devices", () => {
   it("should contain arrived fence devices", async () => {
     mockWithStonith({fenceDeviceIdList: [fdId_1, fdId_2]});
     await goToFenceDevices();
-    await expectKeysAre(fenceDevices.list.item.id, [fdId_1, fdId_2]);
+    await assert.expectKeysAre(fenceDevices.list.item.id, [fdId_1, fdId_2]);
   });
 
   it("should be able open detail from list", async () => {
@@ -38,6 +34,6 @@ describe("List of fence devices", () => {
     await goToFenceDevices();
     await openFenceDevice(fdId_1);
     await isVisible(fenceDevices.currentFenceDevice);
-    await textIs(fenceDevices.currentFenceDevice.id, fdId_1);
+    await assert.textIs(fenceDevices.currentFenceDevice.id, fdId_1);
   });
 });

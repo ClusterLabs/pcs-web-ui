@@ -1,11 +1,10 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 
 const {breadcrumbs, overview, nodes, resources, fenceDevices} = marks.cluster;
 
-const {textIs} = shortcuts.expect;
 const {inCluster} = shortcuts.dashboard.importedClusters;
 
 const clusterName = "ok";
@@ -20,7 +19,7 @@ const clusterListLoaded = async () => {
 };
 
 const expectOnTheCluster = async () => {
-  await textIs(breadcrumbs.clusterName, clusterName);
+  await assert.textIs(breadcrumbs.clusterName, clusterName);
 };
 
 const clusterStatus = cs.cluster(clusterName, "ok", {
@@ -57,7 +56,7 @@ describe("To cluster transition", () => {
     );
     await expectOnTheCluster();
     await isVisible(nodes);
-    await textIs(nodes.currentNode.name, nodeName);
+    await assert.textIs(nodes.currentNode.name, nodeName);
   });
 
   it("should allow go to a resource detail", async () => {
@@ -77,7 +76,7 @@ describe("To cluster transition", () => {
     );
     await expectOnTheCluster();
     await isVisible(resources);
-    await textIs(resources.currentPrimitive.id, resourceId);
+    await assert.textIs(resources.currentPrimitive.id, resourceId);
   });
 
   it("should allow go to a fence device detail", async () => {
@@ -97,6 +96,6 @@ describe("To cluster transition", () => {
     );
     await expectOnTheCluster();
     await isVisible(fenceDevices);
-    await textIs(fenceDevices.currentFenceDevice.id, fenceDeviceId);
+    await assert.textIs(fenceDevices.currentFenceDevice.id, fenceDeviceId);
   });
 });

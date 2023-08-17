@@ -1,10 +1,9 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import * as shortcuts from "test/shortcuts";
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 
 const {importedClusters, goToDashboard} = shortcuts.dashboard;
-const {countIs} = shortcuts.expect;
 
 const firstName = "first";
 const firstStatus = cs.cluster(firstName, "ok", {
@@ -41,7 +40,7 @@ describe("Dashboard scene", () => {
   it("should render multiple cluster information", async () => {
     await goToDashboard();
 
-    await countIs(marks.dashboard.clusterList.cluster, 2);
+    await assert.countIs(marks.dashboard.clusterList.cluster, 2);
 
     const first = importedClusters.inCluster(firstStatus.cluster_name);
     await first.thereIs(cluster => cluster.loaded.issuesCount, "0");
@@ -61,7 +60,7 @@ describe("Dashboard scene", () => {
     const theCluster = importedClusters.inCluster(secondName);
     await click(theCluster.get(cluster => cluster.loaded.issuesCount));
     const issueContentIs = async (index: number, message: string) => {
-      await shortcuts.expect.textIs(
+      await assert.textIs(
         theCluster.inIssue(index).get(issue => issue.message),
         message,
       );

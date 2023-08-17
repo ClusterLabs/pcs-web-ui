@@ -1,4 +1,4 @@
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 export const clusterName = "new-cluster";
@@ -18,6 +18,6 @@ export const mockForClusterSetup = (routeList: mock.Route[] = []) =>
   ]);
 
 export const toolbar = shortcuts.toolbar(marks.dashboard.toolbar);
-export const expectReports = shortcuts.task.expectReports(
-  marks.task.clusterSetup.report,
-).count;
+export const expectReports = async (count: number) => {
+  await assert.countIs(marks.task.clusterSetup.report, count);
+};

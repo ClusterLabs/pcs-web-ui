@@ -1,9 +1,7 @@
 import * as responses from "dev/responses";
 
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
-
-const {countIs} = shortcuts.expect;
 
 const clusterName = responses.clusterStatus.ok.cluster_name;
 
@@ -32,8 +30,8 @@ const expectNotificationsInDrawer = async ({
   success: number;
   error: number;
 }) => {
-  await countIs(notifications.drawer.success, success);
-  await countIs(notifications.drawer.error, error);
+  await assert.countIs(notifications.drawer.success, success);
+  await assert.countIs(notifications.drawer.error, error);
 };
 
 describe("Notification drawer", () => {

@@ -1,7 +1,5 @@
 import {Locator} from "playwright";
 
-import {textIs} from "./expect";
-
 type itemMark = {path: string; locator: Locator};
 
 export type SearchExp<MARK_PART extends Mark> =
@@ -33,7 +31,13 @@ export const item = <ITEM_MARK extends itemMark>(itemMark: ITEM_MARK) => ({
       locator: getLocator(itemMark, theItem),
 
       thereIs: async (searchExp: SearchExp<ITEM_MARK>, value: string) => {
-        await textIs(theItem.locator(search(searchExp, itemMark)), value);
+        expect(
+          (
+            await locatorFor(
+              theItem.locator(search(searchExp, itemMark)),
+            ).textContent()
+          )?.trim(),
+        ).toEqual(value);
       },
     };
   },

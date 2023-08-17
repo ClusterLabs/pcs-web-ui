@@ -1,4 +1,4 @@
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
@@ -52,7 +52,7 @@ describe("Fence device create task", () => {
     await fillInstanceAttr("username", username);
     await click(fenceDeviceCreate.instanceAttrsFooter.next);
     await click(fenceDeviceCreate.settingsFooter.next);
-    await shortcuts.task.expectReview([
+    await assert.inTaskReview([
       [review.name, fenceDeviceName],
       [review.agentName, agentName],
       [reviewAttr("ip"), ip],
@@ -60,6 +60,6 @@ describe("Fence device create task", () => {
     ]);
     await click(fenceDeviceCreate.reviewFooter.next);
     await isVisible(fenceDeviceCreate.success);
-    await shortcuts.task.expectReports(fenceDeviceCreate.report).count(0);
+    await assert.countIs(fenceDeviceCreate.report, 0);
   });
 });

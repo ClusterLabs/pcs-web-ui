@@ -1,17 +1,16 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 const {goToCluster} = shortcuts.dashboard;
-const {textIs} = shortcuts.expect;
 const {cluster} = marks;
 
 const clusterName = "ok";
 
 const startOnOverview = async () => {
   await goToCluster(clusterName);
-  await textIs(cluster.breadcrumbs.clusterName, clusterName);
+  await assert.textIs(cluster.breadcrumbs.clusterName, clusterName);
   await isVisible(cluster.overview);
 };
 

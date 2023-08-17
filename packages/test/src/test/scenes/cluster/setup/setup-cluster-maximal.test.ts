@@ -1,6 +1,6 @@
 import {Locator} from "playwright";
 
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {
@@ -252,7 +252,7 @@ describe("Cluster setup", () => {
 
     const link1 = reviewLink(0);
     const link2 = reviewLink(1);
-    await shortcuts.task.expectReview([
+    await assert.inTaskReview([
       [review.clusterName, clusterName],
       [review.nodeNames, nodeNameList.join("\n")],
       [link1(knetLink.address).nth(0), addrs[0][0]],

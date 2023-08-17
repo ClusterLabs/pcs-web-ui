@@ -1,4 +1,4 @@
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToSbd, sbdOptions} from "./common";
@@ -6,7 +6,6 @@ import {clusterStatus, goToSbd, sbdOptions} from "./common";
 const {service, perNode, config} = marks.cluster.sbd;
 
 const {item} = shortcuts.common;
-const {countIs} = shortcuts.expect;
 
 const device = (index: number) => item(perNode.device).byIndex(index).locator();
 
@@ -30,7 +29,7 @@ describe("Sbd", () => {
     const perNode_1 = item(perNode).byKey(perNode.node, "node-1");
     await perNode_1.thereIs(perNode => perNode.watchdog, "/dev/watchdog");
 
-    await countIs(
+    await assert.countIs(
       perNode_1.locator(pn => pn.device),
       2,
     );

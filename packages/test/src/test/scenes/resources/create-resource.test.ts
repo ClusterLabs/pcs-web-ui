@@ -1,13 +1,12 @@
 import * as responses from "dev/responses";
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import {mock} from "test/tools";
+import {assert, mock} from "test/tools";
 import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToResources, toolbar} from "./common";
 
 const {select} = shortcuts.patternfly;
-const {expectReview, expectReports} = shortcuts.task;
 
 const {resourceCreate} = marks.task;
 const {review} = resourceCreate;
@@ -49,12 +48,12 @@ describe("Create resource task", () => {
     await click(resourceCreate.nameTypeFooter.next);
     await click(resourceCreate.instanceAttrsFooter.next);
     await click(resourceCreate.settingsFooter.next);
-    await expectReview([
+    await assert.inTaskReview([
       [review.name, resourceId],
       [review.agentName, agentName],
     ]);
     await click(resourceCreate.reviewFooter.next);
     await isVisible(resourceCreate.success);
-    await expectReports(resourceCreate.report).count(0);
+    await assert.countIs(resourceCreate.report, 0);
   });
 });
