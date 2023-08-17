@@ -2,11 +2,9 @@ import {Locator} from "playwright";
 
 type PureMark = {path: string; locator: Locator};
 
-export type SearchExp<MARK_PART extends Mark> =
-  | Mark
-  | ((markPart: MARK_PART) => Mark);
+type SearchExp<MARK_PART extends Mark> = Mark | ((markPart: MARK_PART) => Mark);
 
-export const search = <MARK_PART extends Mark>(
+const search = <MARK_PART extends Mark>(
   mark: SearchExp<MARK_PART>,
   markPart: MARK_PART,
 ) => locatorFor(typeof mark === "function" ? mark(markPart) : mark);
@@ -28,16 +26,12 @@ export const item = <ITEM_MARK extends PureMark>(itemMark: ITEM_MARK) => ({
       .locator(ancestor(itemMark));
 
     return {
-      theItem,
-      itemMark,
       locator: getLocator(itemMark, theItem),
     };
   },
   byIndex: (index: number) => {
     const theItem = itemMark.locator.nth(index);
     return {
-      theItem,
-      itemMark,
       locator: getLocator(itemMark, theItem),
     };
   },

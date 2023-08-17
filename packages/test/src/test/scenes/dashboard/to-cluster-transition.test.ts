@@ -4,8 +4,9 @@ import * as shortcuts from "test/shortcuts";
 import {assert, mock} from "test/tools";
 
 const {breadcrumbs, overview, nodes, resources, fenceDevices} = marks.cluster;
+const {cluster: importedCluster} = marks.dashboard.clusterList;
 
-const {inCluster} = shortcuts.dashboard.importedClusters;
+const {item} = shortcuts.common;
 
 const clusterName = "ok";
 const nodeNumber = "1";
@@ -13,9 +14,18 @@ const nodeName = `node-${nodeNumber}`;
 const resourceId = "R1";
 const fenceDeviceId = "F1";
 
+const inTheCluster = (search: (c: typeof importedCluster) => Mark) =>
+  item(importedCluster)
+    .byKey(c => c.name, clusterName)
+    .locator(search);
+
 const clusterListLoaded = async () => {
   await goToDashboard();
-  await isVisible(inCluster(clusterName).get(cluster => cluster.loaded));
+  await isVisible(
+    item(importedCluster)
+      .byKey(c => c.name, clusterName)
+      .locator(c => c.loaded),
+  );
 };
 
 const expectOnTheCluster = async () => {
@@ -34,7 +44,7 @@ describe("To cluster transition", () => {
     mock.shortcuts.withCluster({clusterStatus});
     await clusterListLoaded();
 
-    await click(inCluster(clusterName).get(cluster => cluster.name));
+    await click(inTheCluster(c => c.name));
     await expectOnTheCluster();
     await isVisible(overview);
 
@@ -46,13 +56,13 @@ describe("To cluster transition", () => {
     mock.shortcuts.withCluster({clusterStatus});
     await clusterListLoaded();
 
+    await click(inTheCluster(c => c.loaded.nodeCount));
     await click(
-      inCluster(clusterName).get(cluster => cluster.loaded.nodeCount),
-    );
-    await click(
-      inCluster(clusterName)
-        .inNode(nodeName)
-        .get(({name}) => name),
+      inTheCluster(c =>
+        item(c.loaded.node)
+          .byKey(n => n.name, nodeName)
+          .locator(n => n.name),
+      ),
     );
     await expectOnTheCluster();
     await isVisible(nodes);
@@ -66,13 +76,13 @@ describe("To cluster transition", () => {
     });
 
     await clusterListLoaded();
+    await click(inTheCluster(c => c.loaded.resourceCount));
     await click(
-      inCluster(clusterName).get(cluster => cluster.loaded.resourceCount),
-    );
-    await click(
-      inCluster(clusterName)
-        .inResource(resourceId)
-        .get(({id}) => id),
+      inTheCluster(c =>
+        item(c.loaded.resource)
+          .byKey(r => r.id, resourceId)
+          .locator(r => r.id),
+      ),
     );
     await expectOnTheCluster();
     await isVisible(resources);
@@ -86,13 +96,13 @@ describe("To cluster transition", () => {
     });
 
     await clusterListLoaded();
+    await click(inTheCluster(c => c.loaded.fenceDeviceCount));
     await click(
-      inCluster(clusterName).get(cluster => cluster.loaded.fenceDeviceCount),
-    );
-    await click(
-      inCluster(clusterName)
-        .inFenceDevice(fenceDeviceId)
-        .get(({id}) => id),
+      inTheCluster(c =>
+        item(c.loaded.fenceDevice)
+          .byKey(f => f.id, fenceDeviceId)
+          .locator(f => f.id),
+      ),
     );
     await expectOnTheCluster();
     await isVisible(fenceDevices);

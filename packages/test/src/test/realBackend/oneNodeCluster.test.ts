@@ -6,18 +6,26 @@ const username = process.env.PCSD_USERNAME_1 ?? "";
 const password = process.env.PCSD_PASSWORD_1 ?? "";
 const nodeName = process.env.PCSD_NODE_1 || "";
 
+const {item} = shortcuts.common;
 const clusterName = "test-cluster";
 
-const {importedClusters} = shortcuts.dashboard;
+const {clusterList} = marks.dashboard;
 
 const waitForImportedClusterList = async () =>
   await page.waitForResponse(/.*\/imported-cluster-list$/);
 
 const expectImportedClusterNamesAre = async (nameList: string[]) => {
-  await assert.expectKeysAre(
-    marks.dashboard.clusterList.cluster.name,
-    nameList,
-  );
+  await assert.expectKeysAre(clusterList.cluster.name, nameList);
+};
+
+export const launchClusterItemAction = async (
+  clusterName: string,
+  search: (c: typeof clusterList.cluster.loaded.actions) => Mark,
+) => {
+  const theCluster = item(clusterList.cluster).byKey(c => c.name, clusterName);
+
+  await click(theCluster.locator(c => c.loaded.actions));
+  await click(theCluster.locator(c => search(c.loaded.actions)));
 };
 
 const {task} = marks;
@@ -29,7 +37,7 @@ describe("Web ui inside cockpit on one node cluster", () => {
       await goToDashboard();
       await login(username, password);
 
-      await isVisible(marks.dashboard.clusterList);
+      await isVisible(clusterList);
       // we expect to start with no cluster
       await expectImportedClusterNamesAre([]);
 
@@ -80,9 +88,7 @@ const importExistingCluster = async (nodeName: string) => {
 };
 
 const removeCluster = async (clusterName: string) => {
-  await importedClusters
-    .inCluster(clusterName)
-    .launchAction(actions => actions.remove);
+  await launchClusterItemAction(clusterName, a => a.remove);
   await isVisible(task.confirm);
   await Promise.all([
     waitForImportedClusterList(),
@@ -95,9 +101,7 @@ const removeCluster = async (clusterName: string) => {
 };
 
 const destroyCluster = async (clusterName: string) => {
-  await importedClusters
-    .inCluster(clusterName)
-    .launchAction(actions => actions.remove);
+  await launchClusterItemAction(clusterName, a => a.destroy);
   await isVisible(task.confirm);
   await Promise.all([
     waitForImportedClusterList(),

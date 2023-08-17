@@ -1,9 +1,8 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
-const {importedClusters} = shortcuts.dashboard;
+import {launchClusterItemAction} from "./common";
 
 const {forceableConfirm: task} = marks.task;
 
@@ -20,9 +19,7 @@ const mockWithDashboard = (routeList: mock.Route[] = []) => {
 
 const launchTask = async () => {
   await goToDashboard();
-  await importedClusters
-    .inCluster(clusterName)
-    .launchAction(action => action.stop);
+  await launchClusterItemAction(clusterName, a => a.stop);
 };
 
 describe("Cluster stop", () => {

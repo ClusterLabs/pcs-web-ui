@@ -1,7 +1,8 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
+
+import {launchClusterItemAction} from "./common";
 
 const clusterName = "test-cluster";
 const clusterStatus = cs.cluster(clusterName, "ok");
@@ -15,9 +16,7 @@ const mockWithDashboard = (routeList: mock.Route[] = []) => {
 
 const launchStart = async () => {
   await goToDashboard();
-  await shortcuts.dashboard.importedClusters
-    .inCluster(clusterName)
-    .launchAction(action => action.start);
+  await launchClusterItemAction(clusterName, a => a.start);
 };
 
 describe("Cluster destroy", () => {
