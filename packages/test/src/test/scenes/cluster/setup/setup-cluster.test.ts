@@ -11,19 +11,8 @@ import {
   toolbar,
 } from "./common";
 
-const {
-  nameAndNodes,
-  nameAndNodesFooter,
-  prepareNodes,
-  prepareNodesFooter,
-  advancedOptions,
-  advancedOptionsFooter,
-  reviewFooter,
-  success,
-  unsuccess,
-} = marks.task.clusterSetup;
+const {clusterSetup: task} = marks.task;
 
-const {fillClusterNameAndNodes} = shortcuts.setupCluster;
 const {fieldError} = shortcuts.patternfly;
 
 const routeClusterSetup = (
@@ -50,13 +39,23 @@ const routeClusterSetup = (
 
 const routeCheckAuth = mock.route.checkAuthAgainstNodes({nodeNameList});
 
-const sendMinimalSetup = async () => {
-  await page.goto(backend.rootUrl);
+const launchTask = async () => {
+  await shortcuts.dashboard.goToDashboard();
   await toolbar.launch(toolbar => toolbar.setupCluster);
-  await fillClusterNameAndNodes({clusterName, nodeNameList});
-  await click(nameAndNodesFooter.next);
-  await click(prepareNodesFooter.reviewAndFinish);
-  await click(reviewFooter.next);
+};
+
+const fillNodeNames = async (nodeNameList: string[]) => {
+  await fill(task.nameAndNodes.node.name.locator.nth(0), nodeNameList[0]);
+  await fill(task.nameAndNodes.node.name.locator.nth(1), nodeNameList[1]);
+};
+
+const sendMinimalSetup = async () => {
+  await launchTask();
+  await fill(task.nameAndNodes.clusterName, clusterName);
+  await fillNodeNames(nodeNameList);
+  await click(task.nameAndNodesFooter.next);
+  await click(task.prepareNodesFooter.reviewAndFinish);
+  await click(task.reviewFooter.next);
 };
 
 const taskClosed = async () => {
@@ -69,19 +68,18 @@ describe("Cluster setup", () => {
   it("should successfully setup cluster skipping optional steps", async () => {
     mockForClusterSetup([routeCheckAuth, routeClusterSetup()]);
     await sendMinimalSetup();
-    await isVisible(success);
+    await isVisible(task.success);
     await expectReports(0);
-    await click(success.close);
+    await click(task.success.close);
     await taskClosed();
   });
 
   it("should refuse to continue without essential data", async () => {
     mock.run([mock.route.importedClusterList()]);
-    await page.goto(backend.rootUrl);
-    await toolbar.launch(toolbar => toolbar.setupCluster);
-    await click(nameAndNodesFooter.next);
-    await isVisible(fieldError(nameAndNodes.clusterName));
-    await isVisible(fieldError(nameAndNodes.node.name.locator.last()));
+    await launchTask();
+    await click(task.nameAndNodesFooter.next);
+    await isVisible(fieldError(task.nameAndNodes.clusterName));
+    await isVisible(fieldError(task.nameAndNodes.node.name.locator.last()));
   });
 
   it("should be possible go back from auth and change node name", async () => {
@@ -96,13 +94,13 @@ describe("Cluster setup", () => {
         },
       }),
     ]);
-    await page.goto(backend.rootUrl);
-    await toolbar.launch(toolbar => toolbar.setupCluster);
-    await fillClusterNameAndNodes({clusterName, nodeNameList});
-    await click(nameAndNodesFooter.next);
-    await isVisible(prepareNodes.auth);
-    await click(prepareNodesFooter.back);
-    await isVisible(nameAndNodes.node.locator.first());
+    await launchTask();
+    await fill(task.nameAndNodes.clusterName, clusterName);
+    await fillNodeNames(nodeNameList);
+    await click(task.nameAndNodesFooter.next);
+    await isVisible(task.prepareNodes.auth);
+    await click(task.prepareNodesFooter.back);
+    await isVisible(task.nameAndNodes.node.locator.first());
     // TODO currently it is not possible to have multiple
     // check_auth_against_nodes with different query and strings...
   });
@@ -122,14 +120,14 @@ describe("Cluster setup", () => {
         },
       }),
     ]);
-    const {transportKnet} = advancedOptions;
-    await page.goto(backend.rootUrl);
-    await toolbar.launch(toolbar => toolbar.setupCluster);
-    await fillClusterNameAndNodes({clusterName, nodeNameList});
-    await click(nameAndNodesFooter.next);
-    await click(prepareNodesFooter.next);
+    const {transportKnet} = task.advancedOptions;
+    await launchTask();
+    await fill(task.nameAndNodes.clusterName, clusterName);
+    await fillNodeNames(nodeNameList);
+    await click(task.nameAndNodesFooter.next);
+    await click(task.prepareNodesFooter.next);
     await click(transportKnet.addKnetLink);
-    await click(advancedOptionsFooter.next);
+    await click(task.advancedOptionsFooter.next);
     await isVisible(fieldError(transportKnet.knetLink.address.locator.nth(0)));
     await isVisible(fieldError(transportKnet.knetLink.address.locator.nth(1)));
   });
@@ -140,9 +138,9 @@ describe("Cluster setup", () => {
       routeClusterSetup([responses.lib.report.error()]),
     ]);
     await sendMinimalSetup();
-    await isVisible(unsuccess);
+    await isVisible(task.unsuccess);
     await expectReports(1);
-    await click(unsuccess.cancel);
+    await click(task.unsuccess.cancel);
     await taskClosed();
   });
 
@@ -152,11 +150,11 @@ describe("Cluster setup", () => {
       routeClusterSetup([responses.lib.report.error()]),
     ]);
     await sendMinimalSetup();
-    await isVisible(unsuccess);
+    await isVisible(task.unsuccess);
     await expectReports(1);
-    await click(unsuccess.back);
+    await click(task.unsuccess.back);
 
-    await isVisible(nameAndNodes);
+    await isVisible(task.nameAndNodes);
   });
 
   it("shold display all reports", async () => {
@@ -168,7 +166,7 @@ describe("Cluster setup", () => {
       ]),
     ]);
     await sendMinimalSetup();
-    await isVisible(unsuccess);
+    await isVisible(task.unsuccess);
     await expectReports(2);
   });
 });

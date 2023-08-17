@@ -34,7 +34,7 @@ describe("Web ui inside cockpit on one node cluster", () => {
       await expectImportedClusterNamesAre([]);
 
       await click(marks.dashboard.toolbar.setupCluster);
-      await setupCluster({clusterName, nodeNameList: [nodeName]});
+      await setupCluster(clusterName, nodeName);
       await expectImportedClusterNamesAre([clusterName]);
 
       await removeCluster(clusterName);
@@ -109,26 +109,21 @@ const destroyCluster = async (clusterName: string) => {
   await page.waitForTimeout(100);
 };
 
-const setupCluster = async ({
-  clusterName,
-  nodeNameList,
-}: {
-  clusterName: string;
-  nodeNameList: string[];
-}) => {
-  const {nameAndNodesFooter, prepareNodesFooter, reviewFooter, success} =
-    task.clusterSetup;
-  const {fillClusterNameAndNodes} = shortcuts.setupCluster;
+const setupCluster = async (clusterName: string, oneNode: string) => {
   await isVisible(task.clusterSetup);
 
-  await fillClusterNameAndNodes({clusterName, nodeNameList});
-  await click(nameAndNodesFooter.next);
-  await click(prepareNodesFooter.reviewAndFinish);
+  await fill(task.clusterSetup.nameAndNodes.clusterName, clusterName);
+  await fill(task.clusterSetup.nameAndNodes.node.name.locator.nth(0), oneNode);
+  await click(task.clusterSetup.nameAndNodesFooter.next);
+  await click(task.clusterSetup.prepareNodesFooter.reviewAndFinish);
   // Task moves to next stage after imported-cluster-list response is done. The
   // request imported-cluster-list is run immediatelly after cluster setup
   // backend call is done.
-  await Promise.all([waitForImportedClusterList(), click(reviewFooter.next)]);
+  await Promise.all([
+    waitForImportedClusterList(),
+    click(task.clusterSetup.reviewFooter.next),
+  ]);
 
-  await isVisible(success);
-  await click(success.startAndClose);
+  await isVisible(task.clusterSetup.success);
+  await click(task.clusterSetup.success.startAndClose);
 };

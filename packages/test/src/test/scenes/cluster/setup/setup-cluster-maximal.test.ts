@@ -12,15 +12,10 @@ import {
 } from "./common";
 
 const {select, radioGroup} = shortcuts.patternfly;
+const {item} = shortcuts.common;
 
-const {
-  nameAndNodesFooter,
-  prepareNodesFooter,
-  advancedOptionsFooter,
-  review,
-  reviewFooter,
-  success,
-} = marks.task.clusterSetup;
+const {clusterSetup: task} = marks.task;
+const {review} = task;
 
 const {knetLink} = review;
 const {
@@ -29,10 +24,7 @@ const {
   crypto: reviewCrypto,
 } = review.transport;
 
-const {transportKnet, transport, quorum, totem} =
-  marks.task.clusterSetup.advancedOptions;
-
-const {fillClusterNameAndNodes} = shortcuts.setupCluster;
+const {transportKnet, transport, quorum, totem} = task.advancedOptions;
 
 const addrs = [
   ["192.168.0.1", "192.168.0.2"],
@@ -168,9 +160,17 @@ describe("Cluster setup", () => {
 
     await page.goto(backend.rootUrl);
     await toolbar.launch(toolbar => toolbar.setupCluster);
-    await fillClusterNameAndNodes({clusterName, nodeNameList});
-    await click(nameAndNodesFooter.next);
-    await click(prepareNodesFooter.next);
+    await fill(task.nameAndNodes.clusterName, clusterName);
+    await fill(
+      item(task.nameAndNodes.node.name).byIndex(0).locator(),
+      nodeNameList[0],
+    );
+    await fill(
+      item(task.nameAndNodes.node.name).byIndex(1).locator(),
+      nodeNameList[1],
+    );
+    await click(task.nameAndNodesFooter.next);
+    await click(task.prepareNodesFooter.next);
     await isVisible(transportKnet);
 
     // STEP: Transport links
@@ -183,7 +183,7 @@ describe("Cluster setup", () => {
 
     await click(transportKnet.addKnetLink);
     await fillLinkAddresses(transportKnet.knetLink, addrs[1]);
-    await click(advancedOptionsFooter.next);
+    await click(task.advancedOptionsFooter.next);
 
     // STEP: Transport options
     // -----------------------
@@ -200,7 +200,7 @@ describe("Cluster setup", () => {
     await select(transport.crypto.hash, crypto.hash);
     await radioGroup(transport.crypto.model, crypto.model);
 
-    await click(advancedOptionsFooter.next);
+    await click(task.advancedOptionsFooter.next);
 
     // STEP: Quorum options
     // -----------------------
@@ -218,7 +218,7 @@ describe("Cluster setup", () => {
     );
     await radioGroup(quorum.wait_for_all, onOff(quorumOpts.wait_for_all));
 
-    await click(advancedOptionsFooter.next);
+    await click(task.advancedOptionsFooter.next);
 
     // STEP: Totem options
     // -------------------
@@ -248,7 +248,7 @@ describe("Cluster setup", () => {
     );
     await fill(totem.window_size, totemOpts.window_size);
 
-    await click(advancedOptionsFooter.next);
+    await click(task.advancedOptionsFooter.next);
 
     const link1 = reviewLink(0);
     const link2 = reviewLink(1);
@@ -307,9 +307,9 @@ describe("Cluster setup", () => {
       ],
       [review.totem.window_size, totemOpts.window_size],
     ]);
-    await click(reviewFooter.next);
-    await isVisible(success);
+    await click(task.reviewFooter.next);
+    await isVisible(task.success);
     await expectReports(0);
-    await click(success.close);
+    await click(task.success.close);
   }, 30_000);
 });
