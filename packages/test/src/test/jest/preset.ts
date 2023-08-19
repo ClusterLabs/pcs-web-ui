@@ -21,6 +21,7 @@ declare global {
   var goToCluster: ReturnType<typeof getGoToCluster>;
   var goToDashboard: ReturnType<typeof getGoToDashboard>;
   var marks: ReturnType<typeof locatorTools.getApp>;
+  var item: typeof locatorTools.item;
   var login: ReturnType<typeof getLogin>;
   type Mark = locatorTools.Mark;
 }
@@ -42,6 +43,7 @@ export default async () => {
   global.locatorFor = locatorTools.locatorFor;
   global.login = getLogin(envType);
   global.marks = locatorTools.getApp(envType);
+  global.item = locatorTools.item;
   global.click = locatorTools.click;
   global.fill = locatorTools.fill;
   global.select = locatorTools.select;

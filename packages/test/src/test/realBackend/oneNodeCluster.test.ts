@@ -1,12 +1,10 @@
 import {assert} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 const testTimeout = parseInt(process.env.PCS_WUI_TEST_TIMEOUT ?? "70000", 10);
 const username = process.env.PCSD_USERNAME_1 ?? "";
 const password = process.env.PCSD_PASSWORD_1 ?? "";
 const nodeName = process.env.PCSD_NODE_1 || "";
 
-const {item} = shortcuts.common;
 const clusterName = "test-cluster";
 
 const {clusterList} = marks.dashboard;
@@ -22,10 +20,12 @@ export const launchClusterItemAction = async (
   clusterName: string,
   search: (c: typeof clusterList.cluster.loaded.actions) => Mark,
 ) => {
-  const theCluster = item(clusterList.cluster).byKey(c => c.name, clusterName);
-
-  await click(theCluster.locator(c => c.loaded.actions));
-  await click(theCluster.locator(c => search(c.loaded.actions)));
+  await click(
+    item.byName(clusterList.cluster, clusterName, [
+      c => c.loaded.actions,
+      c => search(c.loaded.actions),
+    ]),
+  );
 };
 
 const {task} = marks;

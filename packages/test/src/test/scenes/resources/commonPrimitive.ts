@@ -4,11 +4,8 @@ import {goToResources} from "./common";
 
 const {tree} = marks.cluster.resources;
 
-export const primitiveListItem = (primitiveId: string) =>
-  shortcuts.common.item(tree.primitive).byKey(tree.primitive.id, primitiveId);
-
 export const openPrimitive = async (primitiveId: string) => {
-  await click(primitiveListItem(primitiveId).locator(tree.primitive.id));
+  await click(item.byId(tree.primitive, primitiveId, p => p.id));
 };
 
 export const goToPrimitive = async (primitiveId: string) => {

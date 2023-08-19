@@ -1,9 +1,6 @@
-import * as shortcuts from "test/shortcuts";
 import {assert, mock} from "test/tools";
 
 import {goToPermissions, mockForPermissions} from "./common";
-
-const {item} = shortcuts.common;
 
 const {permission: permissionMark} = marks.cluster.permissions;
 
@@ -32,49 +29,23 @@ describe("Pemissions", () => {
     mockForPermissions({usersPermissions});
     await goToPermissions();
     const pd_1 = usersPermissions[0];
-    const user1 = item(permissionMark).byKey(permissionMark.name, pd_1.name);
-    await assert.textIs(
-      user1.locator(p => p.type),
-      pd_1.type,
-    );
-    await assert.textIs(
-      user1.locator(p => p.read),
-      competenceValue(pd_1, "read"),
-    );
-    await assert.textIs(
-      user1.locator(p => p.write),
-      competenceValue(pd_1, "write"),
-    );
-    await assert.textIs(
-      user1.locator(p => p.grant),
-      competenceValue(pd_1, "grant"),
-    );
-    await assert.textIs(
-      user1.locator(p => p.full),
-      competenceValue(pd_1, "full"),
-    );
+    const user1 = item.byName(permissionMark, pd_1.name);
+    await assert.textIs([
+      [user1(p => p.type), pd_1.type],
+      [user1(p => p.read), competenceValue(pd_1, "read")],
+      [user1(p => p.write), competenceValue(pd_1, "write")],
+      [user1(p => p.grant), competenceValue(pd_1, "grant")],
+      [user1(p => p.full), competenceValue(pd_1, "full")],
+    ]);
 
     const pd_2 = usersPermissions[1];
-    const user2 = item(permissionMark).byKey(permissionMark.name, pd_2.name);
-    await assert.textIs(
-      user2.locator(p => p.type),
-      pd_2.type,
-    );
-    await assert.textIs(
-      user2.locator(p => p.read),
-      competenceValue(pd_2, "read"),
-    );
-    await assert.textIs(
-      user2.locator(p => p.write),
-      competenceValue(pd_2, "write"),
-    );
-    await assert.textIs(
-      user2.locator(p => p.grant),
-      competenceValue(pd_2, "grant"),
-    );
-    await assert.textIs(
-      user2.locator(p => p.full),
-      competenceValue(pd_2, "full"),
-    );
+    const user2 = item.byName(permissionMark, pd_2.name);
+    await assert.textIs([
+      [user2(p => p.type), pd_2.type],
+      [user2(p => p.read), competenceValue(pd_2, "read")],
+      [user2(p => p.write), competenceValue(pd_2, "write")],
+      [user2(p => p.grant), competenceValue(pd_2, "grant")],
+      [user2(p => p.full), competenceValue(pd_2, "full")],
+    ]);
   });
 });

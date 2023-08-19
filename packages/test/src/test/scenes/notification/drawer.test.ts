@@ -1,10 +1,8 @@
 import * as responses from "dev/responses";
 
 import {assert, mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 const clusterName = responses.clusterStatus.ok.cluster_name;
-const {item} = shortcuts.common;
 const {cluster: importedCluster} = marks.dashboard.clusterList;
 
 const mockWithDashboard = (routeList: mock.Route[] = []) => {
@@ -17,15 +15,14 @@ const mockWithDashboard = (routeList: mock.Route[] = []) => {
 
 const {notifications} = marks;
 
-const inTheCluster = (search: (c: typeof importedCluster) => Mark) =>
-  item(importedCluster)
-    .byKey(c => c.name, clusterName)
-    .locator(search);
-
 const launchClusterRemove = async () => {
   await goToDashboard();
-  await click(inTheCluster(c => c.loaded.actions));
-  await click(inTheCluster(c => c.loaded.actions.remove));
+  await click(
+    item.byName(importedCluster, clusterName, [
+      c => c.loaded.actions,
+      c => c.loaded.actions.remove,
+    ]),
+  );
   await click(marks.task.confirm.run);
 };
 

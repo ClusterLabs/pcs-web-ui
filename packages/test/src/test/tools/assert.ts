@@ -1,10 +1,22 @@
 import {Locator} from "playwright";
 
-import {item} from "test/shortcuts/common";
+export async function textIs(pairs: [Mark, string][]): Promise<void>;
+export async function textIs(mark: Mark, expectedText: string): Promise<void>;
+export async function textIs(
+  markOrPairs: Mark | [Mark, string][],
+  expectedText?: string,
+) {
+  const pairs: [Mark, string][] = Array.isArray(markOrPairs)
+    ? markOrPairs
+    : [[markOrPairs, expectedText ?? ""]];
 
-export const textIs = async (mark: Mark, expectedText: string) => {
-  expect((await locatorFor(mark).textContent())?.trim()).toEqual(expectedText);
-};
+  for (let i = 0; i < pairs.length; i++) {
+    const [mark, expectedValue] = pairs[i];
+    expect((await locatorFor(mark).textContent())?.trim()).toEqual(
+      expectedValue,
+    );
+  }
+}
 
 export const expectKeysAre = async (mark: Mark, keys: string[]) => {
   expect(
@@ -36,7 +48,7 @@ export const nvPairIs = async (
   value: string,
 ) => {
   await textIs(
-    item(pairMark).byKey(pairMark.name, name).locator(pairMark.value),
+    item.byName(pairMark, name, p => p.value),
     value,
   );
 };

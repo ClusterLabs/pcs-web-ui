@@ -1,7 +1,7 @@
 import {Locator, Page} from "playwright";
 
-import {EnvType} from "./envType";
-import {SubStructure, structure as testMarksStructure} from "./dataTest";
+import {EnvType} from "../envType";
+import {SubStructure, structure as testMarksStructure} from "../dataTest";
 
 type LocatorArgs = Parameters<Page["locator"]>;
 type WithLocator<STRUCT extends SubStructure> = {
@@ -49,8 +49,11 @@ export const isLocator = (mark: Mark): mark is Locator =>
 export const locatorFor = (mark: Mark) =>
   isLocator(mark) ? mark : mark.locator;
 
-export const click = async (mark: Mark) => {
-  await locatorFor(mark).click();
+export const click = async (mark: Mark | Mark[]) => {
+  const markList = Array.isArray(mark) ? mark : [mark];
+  for (let i = 0; i < markList.length; i++) {
+    await locatorFor(markList[i]).click();
+  }
 };
 
 export const isVisible = async (mark: Mark) => {
@@ -91,3 +94,5 @@ export const fieldError = (mark: Mark) =>
   locatorFor(mark).locator(
     'xpath=/following-sibling::*[contains(@class, "pf-m-error")]',
   );
+
+export * as item from "./item";

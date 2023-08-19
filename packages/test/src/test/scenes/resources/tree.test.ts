@@ -1,12 +1,9 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import {assert, mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterName, goToResources} from "./common";
 import {openPrimitive} from "./commonPrimitive";
-
-const {item} = shortcuts.common;
 
 const {resources} = marks.cluster;
 
@@ -18,37 +15,23 @@ const resourceList = [
 ];
 
 const primitiveItem = (id: string) =>
-  item(resources.tree.primitive)
-    .byKey(resources.tree.primitive.id, id)
-    .locator(primitive => primitive.id);
+  item.byId(resources.tree.primitive, id, p => p.id);
 
 const groupItem = (id: string) =>
-  item(resources.tree.group)
-    .byKey(resources.tree.group.id, id)
-    .locator(group => group.id);
+  item.byId(resources.tree.group, id, g => g.id);
 
 const groupToggle = async (id: string) =>
-  await click(
-    item(resources.tree.group)
-      .byKey(resources.tree.group.id, id)
-      .locator(group => group.toggle),
-  );
+  await click(item.byId(resources.tree.group, id, g => g.toggle));
 
 const openGroup = async (id: string) => {
   await click(groupItem(id));
 };
 
 const cloneItem = (id: string) =>
-  item(resources.tree.clone)
-    .byKey(resources.tree.clone.id, id)
-    .locator(clone => clone.id);
+  item.byId(resources.tree.clone, id, c => c.id);
 
 const cloneToggle = async (id: string) =>
-  await click(
-    item(resources.tree.clone)
-      .byKey(resources.tree.clone.id, id)
-      .locator(clone => clone.toggle),
-  );
+  await click(item.byId(resources.tree.clone, id, c => c.toggle));
 
 const openClone = async (id: string) => {
   await click(cloneItem(id));

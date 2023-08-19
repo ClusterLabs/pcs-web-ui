@@ -1,7 +1,6 @@
 import {Locator} from "playwright";
 
 import {assert, mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {
   clusterName,
@@ -10,8 +9,6 @@ import {
   nodeNameList,
   toolbar,
 } from "./common";
-
-const {item} = shortcuts.common;
 
 const {clusterSetup: task} = marks.task;
 const {review} = task;
@@ -161,11 +158,11 @@ describe("Cluster setup", () => {
     await toolbar.launch(toolbar => toolbar.setupCluster);
     await fill(task.nameAndNodes.clusterName, clusterName);
     await fill(
-      item(task.nameAndNodes.node.name).byIndex(0).locator(),
+      item.byIndex(task.nameAndNodes.node, 0, n => n.name),
       nodeNameList[0],
     );
     await fill(
-      item(task.nameAndNodes.node.name).byIndex(1).locator(),
+      item.byIndex(task.nameAndNodes.node, 1, n => n.name),
       nodeNameList[1],
     );
     await click(task.nameAndNodesFooter.next);

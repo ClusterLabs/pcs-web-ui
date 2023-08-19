@@ -1,6 +1,5 @@
 import * as responses from "dev/responses";
 
-import * as shortcuts from "test/shortcuts";
 import {mock} from "test/tools";
 
 import {clusterName, goToPermissions, mockForPermissions} from "./common";
@@ -25,11 +24,12 @@ const {permission: permissionMark} = marks.cluster.permissions;
 
 const launchRemove = async (name: string) => {
   await goToPermissions();
-  const thePermission = shortcuts.common
-    .item(permissionMark)
-    .byKey(permissionMark.name, name);
-  await click(thePermission.locator(permission => permission.actions));
-  await click(thePermission.locator(permission => permission.actions.remove));
+  await click(
+    item.byName(permissionMark, name, [
+      permission => permission.actions,
+      permission => permission.actions.remove,
+    ]),
+  );
 };
 
 describe("Permission remove", () => {

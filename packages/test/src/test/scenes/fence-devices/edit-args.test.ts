@@ -1,5 +1,4 @@
 import {mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {
   clusterName,
@@ -7,8 +6,6 @@ import {
   mockWithStonith,
   openFenceDevice,
 } from "./common";
-
-const {item} = shortcuts.common;
 
 const {tabs, argumentsToolbar} = marks.cluster.fenceDevices.currentFenceDevice;
 const {fenceDeviceArgumentsEdit: task} = marks.task;
@@ -19,11 +16,6 @@ const attributes = {
   ip: "127.0.0.1",
 };
 
-const fillArg = async (name: string, value: string) => {
-  const {arg} = task;
-  await fill(item(arg).byKey(arg.name, name).locator(arg.value), value);
-};
-
 const launchTask = async (id: string) => {
   await goToFenceDevices();
   await openFenceDevice(id);
@@ -32,8 +24,14 @@ const launchTask = async (id: string) => {
 };
 
 const fillArgs = async () => {
-  await fillArg("cmd_prompt", attributes.cmd_prompt);
-  await fillArg("ip", attributes.ip);
+  await fill(
+    item.byName(task.arg, "cmd_prompt", a => a.value),
+    attributes.cmd_prompt,
+  );
+  await fill(
+    item.byName(task.arg, "ip", a => a.value),
+    attributes.ip,
+  );
 };
 
 describe("Edit fence device args", () => {

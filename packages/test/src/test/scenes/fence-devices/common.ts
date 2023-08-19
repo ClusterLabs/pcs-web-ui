@@ -33,13 +33,6 @@ export const goToFenceDevices = async () => {
   await goToCluster(clusterName, tabs => tabs.fenceDevices);
 };
 
-export const fenceDeviceListItem = (fenceDeviceId: string) =>
-  shortcuts.common
-    .item(fenceDevices.list.item)
-    .byKey(fenceDevices.list.item.id, fenceDeviceId);
-
 export const openFenceDevice = async (fenceDeviceId: string) => {
-  await click(
-    fenceDeviceListItem(fenceDeviceId).locator(fenceDevices.list.item.id),
-  );
+  await click(item.byId(fenceDevices.list.item, fenceDeviceId, f => f.id));
 };

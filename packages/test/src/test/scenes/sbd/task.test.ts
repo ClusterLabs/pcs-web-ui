@@ -1,12 +1,9 @@
 import {assert, mock} from "test/tools";
-import * as shortcuts from "test/shortcuts";
 
 import {clusterStatus, goToSbd, sbdOptions, toolbar} from "./common";
 
 const {sbdConfigure: task} = marks.task;
 const {options, review} = task;
-
-const {item} = shortcuts.common;
 
 const newWatchdogName = "/dev/watchdog-test";
 
@@ -29,9 +26,12 @@ describe("Sbd", () => {
     await toolbar.launch(toolbar => toolbar.configureSbd);
 
     await fill(
-      item(task.watchdogs.perNode)
-        .byKey(perNode => perNode.node, "node-1")
-        .locator(perNode => perNode.value),
+      item.byKey(
+        task.watchdogs.perNode,
+        w => w.node,
+        "node-1",
+        w => w.value,
+      ),
       newWatchdogName,
     );
 
@@ -50,9 +50,12 @@ describe("Sbd", () => {
       [review.watchdogTimeout, sbdOptions.SBD_WATCHDOG_TIMEOUT],
       [review.startmode, sbdOptions.SBD_STARTMODE],
       [
-        item(review.watchdog)
-          .byKey(w => w.node, "node-1")
-          .locator(w => w.value),
+        item.byKey(
+          review.watchdog,
+          w => w.node,
+          "node-1",
+          w => w.value,
+        ),
         newWatchdogName,
       ],
     ]);

@@ -2,8 +2,6 @@ import * as cs from "dev/responses/clusterStatus/tools";
 
 import {mock} from "test/tools";
 
-import {launchClusterItemAction} from "./common";
-
 const clusterName = "test-cluster";
 const clusterStatus = cs.cluster(clusterName, "ok");
 
@@ -16,7 +14,12 @@ const mockWithDashboard = (routeList: mock.Route[] = []) => {
 
 const launchDestroy = async () => {
   await goToDashboard();
-  await launchClusterItemAction(clusterName, a => a.destroy);
+  await click(
+    item.byName(marks.dashboard.clusterList.cluster, clusterName, [
+      c => c.loaded.actions,
+      c => c.loaded.actions.destroy,
+    ]),
+  );
 };
 
 describe("Cluster destroy", () => {

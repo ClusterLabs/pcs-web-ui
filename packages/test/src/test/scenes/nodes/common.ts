@@ -10,11 +10,8 @@ export const goToNodes = async () => {
   await goToCluster(clusterName, tabs => tabs.nodes);
 };
 
-export const nodeListItem = (nodeName: string) =>
-  shortcuts.common.item(nodes.list.node).byKey(nodes.list.node.name, nodeName);
-
 export const openNode = async (nodeName: string) => {
-  await click(nodeListItem(nodeName).locator(nodes.list.node.name));
+  await click(item.byName(nodes.list.node, nodeName, n => n.name));
 };
 
 export const goToNode = async (nodeName: string) => {
