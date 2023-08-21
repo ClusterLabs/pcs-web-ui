@@ -1,7 +1,5 @@
 import {mock} from "test/tools";
 
-import {toolbar} from "./common";
-
 const {
   nodeName,
   nodeNameFooter,
@@ -14,7 +12,7 @@ const {
 const {auth} = prepareNode;
 
 export const launchTask = async () => {
-  await toolbar.launch(toolbar => toolbar.importExistingCluster);
+  await click(marks.dashboard.toolbar.importExistingCluster);
 };
 
 const closeTask = async () => {

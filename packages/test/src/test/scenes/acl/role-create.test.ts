@@ -1,6 +1,6 @@
 import {assert, mock} from "test/tools";
 
-import {clusterStatus, goToAcl, toolbar} from "./common";
+import {clusterStatus, goToAcl} from "./common";
 
 const {aclRoleCreate} = marks.task;
 const {review} = aclRoleCreate;
@@ -28,7 +28,7 @@ describe("Create acl role task", () => {
       ],
     });
     await goToAcl();
-    await toolbar.launch(toolbar => toolbar.createRole);
+    await click(marks.cluster.aclToolbar.createRole);
     await fill(aclRoleCreate.roleName.roleId, roleId);
     await fill(aclRoleCreate.roleName.description, description);
 

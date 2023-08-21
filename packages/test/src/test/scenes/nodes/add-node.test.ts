@@ -2,7 +2,7 @@ import * as cs from "dev/responses/clusterStatus/tools";
 
 import {mock} from "test/tools";
 
-import {clusterName, goToNodes, toolbar} from "./common";
+import {clusterName, goToNodes} from "./common";
 
 const {nodeAdd: task} = marks.task;
 
@@ -30,7 +30,7 @@ describe("Add node task", () => {
       ],
     });
     await goToNodes();
-    await toolbar.launch(toolbar => toolbar.addNode);
+    await click(marks.cluster.nodesToolbar.addNode);
     await fill(task.nodeName.name, nodeName);
     await click(task.nodeNameFooter.next);
 

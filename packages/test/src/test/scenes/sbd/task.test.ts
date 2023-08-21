@@ -1,6 +1,6 @@
 import {assert, mock} from "test/tools";
 
-import {clusterStatus, goToSbd, sbdOptions, toolbar} from "./common";
+import {clusterStatus, goToSbd, sbdOptions} from "./common";
 
 const {sbdConfigure: task} = marks.task;
 const {options, review} = task;
@@ -23,7 +23,7 @@ describe("Sbd", () => {
     });
 
     await goToSbd();
-    await toolbar.launch(toolbar => toolbar.configureSbd);
+    await click(marks.cluster.sbdToolbar.configureSbd);
 
     await fill(
       item.byKey(

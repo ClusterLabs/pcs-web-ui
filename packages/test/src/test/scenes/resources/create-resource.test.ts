@@ -3,7 +3,7 @@ import * as cs from "dev/responses/clusterStatus/tools";
 
 import {assert, mock} from "test/tools";
 
-import {clusterName, goToResources, toolbar} from "./common";
+import {clusterName, goToResources} from "./common";
 
 const {resourceCreate} = marks.task;
 const {review} = resourceCreate;
@@ -36,7 +36,7 @@ describe("Create resource task", () => {
 
   it("should successfully create new fence device", async () => {
     await goToResources();
-    await toolbar.launch(toolbar => toolbar.createResource);
+    await click(marks.cluster.resourcesToolbar.createResource);
     await fill(resourceCreate.nameType.name, resourceId);
     await select(
       resourceCreate.nameType.agentName,

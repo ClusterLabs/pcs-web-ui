@@ -1,6 +1,6 @@
 import {mock} from "test/tools";
 
-import {clusterStatus, goToSbd, toolbar} from "./common";
+import {clusterStatus, goToSbd} from "./common";
 
 const {sbdDisable: task} = marks.task;
 
@@ -11,7 +11,7 @@ describe("Sbd disable", () => {
       additionalRouteList: [mock.route.sbdDisable(clusterStatus.cluster_name)],
     });
     await goToSbd();
-    await toolbar.launch(toolbar => toolbar.disableSbd);
+    await click(marks.cluster.sbdToolbar.disableSbd);
     await click(task.run);
     await isVisible(task.success);
     await click(task.success.close);

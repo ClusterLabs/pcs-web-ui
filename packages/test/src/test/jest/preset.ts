@@ -56,4 +56,6 @@ export default async () => {
   global.isLocator = locatorTools.isLocator;
   global.goToCluster = getGoToCluster(envType);
   global.goToDashboard = getGoToDashboard(envType);
+
+  // page.setDefaultTimeout(5_000);
 };

@@ -2,13 +2,13 @@ import * as cs from "dev/responses/clusterStatus/tools";
 
 import {mock} from "test/tools";
 
-import {clusterName, currentNodeToolbar, goToNode} from "./common";
+import {clusterName, goToNode} from "./common";
 
 const nodeName = "node-1";
 
 const launchAction = async () => {
   await goToNode(nodeName);
-  await currentNodeToolbar.launch(toolbar => toolbar.start);
+  await click(marks.cluster.nodes.currentNode.toolbar.start);
 };
 const clusterStatus = cs.cluster(clusterName, "ok");
 

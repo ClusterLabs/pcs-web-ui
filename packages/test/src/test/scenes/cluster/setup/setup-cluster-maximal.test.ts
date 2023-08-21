@@ -7,7 +7,6 @@ import {
   expectReports,
   mockForClusterSetup,
   nodeNameList,
-  toolbar,
 } from "./common";
 
 const {clusterSetup: task} = marks.task;
@@ -155,7 +154,7 @@ describe("Cluster setup", () => {
     ]);
 
     await goToDashboard();
-    await toolbar.launch(toolbar => toolbar.setupCluster);
+    await click(marks.dashboard.toolbar.setupCluster);
     await fill(task.nameAndNodes.clusterName, clusterName);
     await fill(
       item.byIndex(task.nameAndNodes.node, 0, n => n.name),

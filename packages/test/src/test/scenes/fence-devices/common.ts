@@ -1,9 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
-import * as shortcuts from "test/shortcuts";
 import {mock} from "test/tools";
-
-const {fenceDevices, fenceDevicesToolbar} = marks.cluster;
 
 export const clusterName = "test-cluster";
 
@@ -27,12 +24,12 @@ export const mockWithStonith = (
   });
 };
 
-export const toolbar = shortcuts.toolbar(fenceDevicesToolbar);
-
 export const goToFenceDevices = async () => {
   await goToCluster(clusterName, tabs => tabs.fenceDevices);
 };
 
 export const openFenceDevice = async (fenceDeviceId: string) => {
-  await click(item.byId(fenceDevices.list.item, fenceDeviceId, f => f.id));
+  await click(
+    item.byId(marks.cluster.fenceDevices.list.item, fenceDeviceId, f => f.id),
+  );
 };

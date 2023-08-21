@@ -4,8 +4,6 @@ import {clusterStatus, goToSbd, sbdOptions} from "./common";
 
 const {service, perNode, config} = marks.cluster.sbd;
 
-const device = (index: number) => item.byIndex(perNode, index, p => p.device);
-
 describe("Sbd", () => {
   afterEach(mock.stop);
 
@@ -26,17 +24,16 @@ describe("Sbd", () => {
     await goToSbd();
 
     const perNode_1 = item.byKey(perNode, perNode.node, "node-1");
-    await assert.textIs(
-      perNode_1(perNode => perNode.watchdog),
-      "/dev/watchdog",
-    );
 
     await assert.countIs(
       perNode_1(pn => pn.device),
       2,
     );
-    await assert.textIs(perNode_1(device(0)), "/dev/sdb@node1");
-    await assert.textIs(perNode_1(device(1)), "/dev/sda");
+    await assert.textIs([
+      [perNode_1(pn => pn.device.locator.nth(0)), "/dev/sdb@node1"],
+      [perNode_1(pn => pn.device.locator.nth(1)), "/dev/sda"],
+      [perNode_1(pn => pn.watchdog), "/dev/watchdog"],
+    ]);
 
     const perNode_2 = item.byKey(perNode, perNode.node, "node-2");
     await isVisible(perNode_2(pn => pn.watchdogNotConfigured));

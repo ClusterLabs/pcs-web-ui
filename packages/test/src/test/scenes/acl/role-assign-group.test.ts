@@ -1,7 +1,7 @@
 import {mock} from "test/tools";
 
 import {clusterStatus} from "./common";
-import {goToRole, toolbar} from "./commonRole";
+import {goToRole} from "./commonRole";
 
 const {aclAssignSubjectToRole: task} = marks.task;
 
@@ -23,9 +23,9 @@ describe("ACL role assign group task", () => {
       ],
     });
     await goToRole(roleId);
-    await toolbar.launch(toolbar => [
-      toolbar.dropdown,
-      toolbar.dropdown.assignGroup,
+    await click([
+      marks.cluster.acl.currentRole.toolbar.dropdown,
+      marks.cluster.acl.currentRole.toolbar.dropdown.assignGroup,
     ]);
     await select(task.name, groupId);
     await click(task.run);

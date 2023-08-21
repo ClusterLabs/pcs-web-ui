@@ -1,6 +1,6 @@
 import {mock} from "test/tools";
 
-import {clusterStatus, goToConstraints, toolbar} from "./common";
+import {clusterStatus, goToConstraints} from "./common";
 
 const ticketKey = "testTicket";
 const lossPolicy = "fence";
@@ -25,9 +25,9 @@ describe("Create ticket counstraint", () => {
       ],
     });
     await goToConstraints();
-    await toolbar.launch(toolbar => [
-      toolbar.dropdown,
-      toolbar.dropdown.createTicket,
+    await click([
+      marks.cluster.constraintsToolbar.dropdown,
+      marks.cluster.constraintsToolbar.dropdown.createTicket,
     ]);
     await fill(task.ticket, ticketKey);
     await radioGroup(task.lossPolicy, lossPolicy);

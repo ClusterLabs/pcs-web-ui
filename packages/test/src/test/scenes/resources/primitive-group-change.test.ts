@@ -3,7 +3,7 @@ import * as cs from "dev/responses/clusterStatus/tools";
 import {mock} from "test/tools";
 
 import {clusterName} from "./common";
-import {goToPrimitive, toolbar} from "./commonPrimitive";
+import {goToPrimitive} from "./commonPrimitive";
 
 const {resourcePrimitiveGroupChange: task} = marks.task;
 
@@ -36,9 +36,9 @@ describe("Create location counstraint", () => {
       ],
     });
     await goToPrimitive(resourceId);
-    await toolbar.launch(toolbar => [
-      toolbar.dropdown,
-      toolbar.dropdown.changeGroup,
+    await click([
+      marks.cluster.resources.currentPrimitive.toolbar.dropdown,
+      marks.cluster.resources.currentPrimitive.toolbar.dropdown.changeGroup,
     ]);
     await select(task.targetGroup, groupId);
     await select(task.adjacentResource, adjacentResourceId);

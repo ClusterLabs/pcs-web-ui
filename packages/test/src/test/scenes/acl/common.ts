@@ -1,7 +1,5 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
-import * as shortcuts from "test/shortcuts";
-
 export const clusterName = "test-cluster";
 export const permissionsForFirst = [
   "read id abc (id1)",
@@ -36,5 +34,3 @@ export const clusterStatus = t.cluster(clusterName, "ok", {
 export const goToAcl = async () => {
   await goToCluster(clusterStatus.cluster_name, tabs => tabs.acl);
 };
-
-export const toolbar = shortcuts.toolbar(marks.cluster.aclToolbar);

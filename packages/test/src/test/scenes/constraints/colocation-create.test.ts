@@ -1,6 +1,6 @@
 import {mock} from "test/tools";
 
-import {clusterStatus, goToConstraints, toolbar} from "./common";
+import {clusterStatus, goToConstraints} from "./common";
 
 const resourceId = clusterStatus.resource_list[1].id;
 const withResourceId = clusterStatus.resource_list[0].id;
@@ -28,7 +28,7 @@ describe("Create colocation counstraint", () => {
       ],
     });
     await goToConstraints();
-    await toolbar.launch(toolbar => toolbar.createColocation);
+    await click(marks.cluster.constraintsToolbar.createColocation);
 
     await select(task.resource, resourceId);
     await select(task.withResource, withResourceId);

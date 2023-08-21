@@ -1,6 +1,6 @@
 import {mock} from "test/tools";
 
-import {clusterStatus, goToConstraints, toolbar} from "./common";
+import {clusterStatus, goToConstraints} from "./common";
 
 const resourceId = clusterStatus.resource_list[0].id;
 const otherResourceId = clusterStatus.resource_list[1].id;
@@ -33,7 +33,7 @@ describe("Create order counstraint", () => {
       ],
     });
     await goToConstraints();
-    await toolbar.launch(toolbar => toolbar.createOrder);
+    await click(marks.cluster.constraintsToolbar.createOrder);
 
     await select(task.first.resource, resourceId);
     await radioGroup(task.first.action, action);

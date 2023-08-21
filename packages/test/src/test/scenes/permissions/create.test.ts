@@ -1,11 +1,6 @@
 import {mock} from "test/tools";
 
-import {
-  clusterName,
-  goToPermissions,
-  mockForPermissions,
-  toolbar,
-} from "./common";
+import {clusterName, goToPermissions, mockForPermissions} from "./common";
 
 type Permission = Parameters<
   typeof mockForPermissions
@@ -34,7 +29,7 @@ const mockEditPermission = (allow: Permission["allow"]) =>
 
 const launchTask = async () => {
   await goToPermissions();
-  await toolbar.launch(toolbar => toolbar.createPermission);
+  await click(marks.cluster.permissionsToolbar.createPermission);
 };
 
 const prefillTask = async () => {

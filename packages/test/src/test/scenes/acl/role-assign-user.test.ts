@@ -1,7 +1,7 @@
 import {mock} from "test/tools";
 
 import {clusterStatus} from "./common";
-import {goToRole, toolbar} from "./commonRole";
+import {goToRole} from "./commonRole";
 
 const {aclAssignSubjectToRole: task} = marks.task;
 
@@ -23,7 +23,7 @@ describe("ACL role assign user task", () => {
       ],
     });
     await goToRole(roleId);
-    await toolbar.launch(toolbar => toolbar.assignUser);
+    await click(marks.cluster.acl.currentRole.toolbar.assignUser);
     await select(task.name, userId);
     await click(task.run);
     await isVisible(task.success);

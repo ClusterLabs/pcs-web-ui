@@ -1,5 +1,3 @@
-import * as shortcuts from "test/shortcuts";
-
 import {goToResources} from "./common";
 
 const {tree} = marks.cluster.resources;
@@ -12,7 +10,3 @@ export const goToPrimitive = async (primitiveId: string) => {
   await goToResources();
   await openPrimitive(primitiveId);
 };
-
-export const toolbar = shortcuts.toolbar(
-  marks.cluster.resources.currentPrimitive.toolbar,
-);

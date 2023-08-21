@@ -1,11 +1,6 @@
 import {assert, mock} from "test/tools";
 
-import {
-  clusterName,
-  goToFenceDevices,
-  mockWithStonith,
-  toolbar,
-} from "./common";
+import {clusterName, goToFenceDevices, mockWithStonith} from "./common";
 
 const fenceDeviceName = "F1";
 const agentName = "fence_apc";
@@ -32,7 +27,7 @@ describe("Fence device create task", () => {
 
   it("should successfully create new fence device", async () => {
     await goToFenceDevices();
-    await toolbar.launch(toolbar => toolbar.createFenceDevice);
+    await click(marks.cluster.fenceDevicesToolbar.createFenceDevice);
     await fill(task.nameType.name, fenceDeviceName);
     await select(task.nameType.agentName, agentName);
     await click(task.nameTypeFooter.next);

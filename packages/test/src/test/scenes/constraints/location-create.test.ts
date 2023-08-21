@@ -1,6 +1,6 @@
 import {mock} from "test/tools";
 
-import {clusterStatus, goToConstraints, toolbar} from "./common";
+import {clusterStatus, goToConstraints} from "./common";
 
 const resourceId = clusterStatus.resource_list[1].id;
 const nodeName = clusterStatus.node_list[1].name;
@@ -30,7 +30,7 @@ describe("Create location counstraint", () => {
       ],
     });
     await goToConstraints();
-    await toolbar.launch(toolbar => toolbar.createLocation);
+    await click(marks.cluster.constraintsToolbar.createLocation);
 
     await select(task.target.resource, resourceId);
     await select(task.location.node, nodeName);

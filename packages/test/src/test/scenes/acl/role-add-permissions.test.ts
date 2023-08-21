@@ -1,7 +1,7 @@
 import {mock} from "test/tools";
 
 import {clusterStatus} from "./common";
-import {goToRole, toolbar} from "./commonRole";
+import {goToRole} from "./commonRole";
 
 type Permission = Parameters<
   typeof mock.route.aclAddPermission
@@ -28,7 +28,7 @@ describe("ACL role add permission task", () => {
     });
 
     await goToRole(roleId);
-    await toolbar.launch(toolbar => toolbar.addPermissions);
+    await click(marks.cluster.acl.currentRole.toolbar.addPermissions);
 
     const {
       add,

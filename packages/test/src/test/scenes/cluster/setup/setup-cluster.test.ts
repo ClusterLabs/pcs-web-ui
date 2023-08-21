@@ -7,7 +7,6 @@ import {
   expectReports,
   mockForClusterSetup,
   nodeNameList,
-  toolbar,
 } from "./common";
 
 const {clusterSetup: task} = marks.task;
@@ -38,7 +37,7 @@ const routeCheckAuth = mock.route.checkAuthAgainstNodes({nodeNameList});
 
 const launchTask = async () => {
   await goToDashboard();
-  await toolbar.launch(toolbar => toolbar.setupCluster);
+  await click(marks.dashboard.toolbar.setupCluster);
 };
 
 const fillNodeNames = async (nodeNameList: string[]) => {
