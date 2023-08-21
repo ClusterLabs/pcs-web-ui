@@ -10,6 +10,7 @@ export const cluster = {
   breadcrumbs: {
     dashboard: {},
     clusterName: {},
+    clusterStatus: {},
   },
   tabs: {
     overview: {},

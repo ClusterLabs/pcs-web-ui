@@ -6,6 +6,7 @@ export const dashboard = {
   clusterList: {
     cluster: {
       name: {},
+      status: {},
       loaded: {
         issuesCount: {},
         issue: {

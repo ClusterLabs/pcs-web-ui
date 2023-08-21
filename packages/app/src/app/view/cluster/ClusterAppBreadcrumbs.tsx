@@ -45,7 +45,10 @@ export const ClusterAppBreadcrumbs = ({
         <span className="pf-u-mr-sm">
           <strong {...breadcrumbs.clusterName.mark}>{clusterName}</strong>
         </span>
-        <ClusterStatusLabel status={statusLabel} />
+        <ClusterStatusLabel
+          status={statusLabel}
+          {...breadcrumbs.clusterStatus.mark}
+        />
       </BreadcrumbItem>
     </Breadcrumb>
   );

@@ -3,17 +3,10 @@ import React from "react";
 import {testMarks} from "app/view/dataTest";
 import {ClusterStatusLabel, Link, Table, location} from "app/view/share";
 
-const testMarksCluster = testMarks.dashboard.clusterList.cluster;
-const {loaded, name} = testMarksCluster;
+const {cluster: clusterMark} = testMarks.dashboard.clusterList;
+const {loaded, name, status} = clusterMark;
 
-export const DashboardCluster = ({
-  clusterName,
-  status,
-  columns,
-  isLoading,
-  isExpanded,
-  expandedContent,
-}: {
+export const DashboardCluster = (props: {
   clusterName: string;
   status: React.ComponentProps<typeof ClusterStatusLabel>["status"];
   columns: React.ReactNode;
@@ -22,17 +15,17 @@ export const DashboardCluster = ({
   expandedContent?: React.ReactNode;
 }) => {
   return (
-    <Table.Body isExpanded={isExpanded} {...testMarksCluster.mark}>
-      <tr role="row" {...(isLoading ? {} : loaded.mark)}>
+    <Table.Body isExpanded={props.isExpanded} {...clusterMark.mark}>
+      <tr role="row" {...(props.isLoading ? {} : loaded.mark)}>
         <th role="rowheader">
-          <Link to={location.cluster({clusterName})}>
-            <strong {...name.mark}>{clusterName}</strong>{" "}
-            <ClusterStatusLabel status={status} />
+          <Link to={location.cluster({clusterName: props.clusterName})}>
+            <strong {...name.mark}>{props.clusterName}</strong>{" "}
+            <ClusterStatusLabel status={props.status} {...status.mark} />
           </Link>
         </th>
-        {columns}
+        {props.columns}
       </tr>
-      {expandedContent}
+      {props.expandedContent}
     </Table.Body>
   );
 };

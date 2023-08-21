@@ -52,14 +52,11 @@ describe("Web ui inside cockpit on one node cluster", () => {
       await importExistingCluster(nodeName);
       await expectImportedClusterNamesAre([clusterName]);
 
-      // wait for started cluster
-      // TODO refactor it from here
-      // await page.waitForSelector(
-      //   `xpath=${mkXPath(
-      //     "cluster " + clusterName,
-      //     "cluster-status-label",
-      //   )}/*[text() = "inoperative" or text() = "running"]`,
-      // );
+      await isVisible(
+        marks.dashboard.clusterList.cluster.status.locator.locator(
+          '/*[text() = "inoperative" or text() = "running"]',
+        ),
+      );
 
       await destroyCluster(clusterName);
       await expectImportedClusterNamesAre([]);
