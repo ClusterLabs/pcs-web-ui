@@ -5,8 +5,7 @@ import {assert, mock} from "test/tools";
 
 import {clusterName, goToResources} from "./common";
 
-const {resourceCreate} = marks.task;
-const {review} = resourceCreate;
+const {resourceCreate: task} = marks.task;
 
 const agent = responses.resourceAgentMetadata.ocfHeartbeatDummy;
 
@@ -37,20 +36,19 @@ describe("Create resource task", () => {
   it("should successfully create new fence device", async () => {
     await goToResources();
     await click(marks.cluster.resourcesToolbar.createResource);
-    await fill(resourceCreate.nameType.name, resourceId);
-    await select(
-      resourceCreate.nameType.agentName,
-      agentName.split(":").at(-1),
-    );
-    await click(resourceCreate.nameTypeFooter.next);
-    await click(resourceCreate.instanceAttrsFooter.next);
-    await click(resourceCreate.settingsFooter.next);
-    await assert.inTaskReview([
-      [review.name, resourceId],
-      [review.agentName, agentName],
+    await fill(task.nameType.name, resourceId);
+    await select(task.nameType.agentName, agentName.split(":").at(-1));
+    await click([
+      task.nameTypeFooter.next,
+      task.instanceAttrsFooter.next,
+      task.settingsFooter.next,
     ]);
-    await click(resourceCreate.reviewFooter.next);
-    await isVisible(resourceCreate.success);
-    await assert.countIs(resourceCreate.report, 0);
+    await assert.textIs([
+      [task.review.name, resourceId],
+      [task.review.agentName, agentName],
+    ]);
+    await click(task.reviewFooter.next);
+    await isVisible(task.success);
+    await assert.countIs(task.report, 0);
   });
 });

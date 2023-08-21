@@ -3,7 +3,6 @@ import {assert, mock} from "test/tools";
 import {clusterStatus, goToSbd, sbdOptions} from "./common";
 
 const {sbdConfigure: task} = marks.task;
-const {options, review} = task;
 
 const newWatchdogName = "/dev/watchdog-test";
 
@@ -37,21 +36,21 @@ describe("Sbd", () => {
 
     await click(task.watchdogsFooter.next);
 
-    await radioGroup(options.delayStart, sbdOptions.SBD_DELAY_START);
-    await fill(options.watchdogTimeout, sbdOptions.SBD_WATCHDOG_TIMEOUT);
-    await radioGroup(options.startmode, sbdOptions.SBD_STARTMODE);
-    await radioGroup(options.timeoutActionFlush, "flush");
-    await radioGroup(options.timeoutActionDo, "reboot");
+    await radioGroup(task.options.delayStart, sbdOptions.SBD_DELAY_START);
+    await fill(task.options.watchdogTimeout, sbdOptions.SBD_WATCHDOG_TIMEOUT);
+    await radioGroup(task.options.startmode, sbdOptions.SBD_STARTMODE);
+    await radioGroup(task.options.timeoutActionFlush, "flush");
+    await radioGroup(task.options.timeoutActionDo, "reboot");
 
     await click(task.optionsFooter.next);
 
-    await assert.inTaskReview([
-      [review.delayStart, sbdOptions.SBD_DELAY_START],
-      [review.watchdogTimeout, sbdOptions.SBD_WATCHDOG_TIMEOUT],
-      [review.startmode, sbdOptions.SBD_STARTMODE],
+    await assert.textIs([
+      [task.review.delayStart, sbdOptions.SBD_DELAY_START],
+      [task.review.watchdogTimeout, sbdOptions.SBD_WATCHDOG_TIMEOUT],
+      [task.review.startmode, sbdOptions.SBD_STARTMODE],
       [
         item.byKey(
-          review.watchdog,
+          task.review.watchdog,
           w => w.node,
           "node-1",
           w => w.value,

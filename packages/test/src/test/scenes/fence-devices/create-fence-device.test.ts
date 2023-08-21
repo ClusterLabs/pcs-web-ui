@@ -41,7 +41,7 @@ describe("Fence device create task", () => {
     );
     await click(task.instanceAttrsFooter.next);
     await click(task.settingsFooter.next);
-    await assert.inTaskReview([
+    await assert.textIs([
       [review.name, fenceDeviceName],
       [review.agentName, agentName],
       [item.byName(review.attr, "ip", a => a.value), ip],

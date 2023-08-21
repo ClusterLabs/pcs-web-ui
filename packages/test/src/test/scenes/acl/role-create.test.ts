@@ -50,7 +50,7 @@ describe("Create acl role task", () => {
 
     await click(aclRoleCreate.addPermissionsFooter.next);
 
-    await assert.inTaskReview([
+    await assert.textIs([
       [review.roleId, roleId],
       [review.roleDescription, description],
       [review.permission.kind.locator.nth(0), permission_1[0]],
