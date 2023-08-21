@@ -19,8 +19,8 @@ const launchClusterRemove = async () => {
   await goToDashboard();
   await click(
     item.byName(importedCluster, clusterName, [
-      c => c.loaded.actions,
-      c => c.loaded.actions.remove,
+      c => c.actions,
+      c => c.actions.remove,
     ]),
   );
   await click(marks.task.confirm.run);

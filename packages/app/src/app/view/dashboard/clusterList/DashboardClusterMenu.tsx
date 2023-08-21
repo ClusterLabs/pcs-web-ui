@@ -1,7 +1,7 @@
 import {LauncherDropdown, task} from "app/view/share";
 import {testMarks} from "app/view/dataTest";
 
-const {actions} = testMarks.dashboard.clusterList.cluster.loaded;
+const {actions} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
   const clusterLabel = <strong>{clusterName}</strong>;

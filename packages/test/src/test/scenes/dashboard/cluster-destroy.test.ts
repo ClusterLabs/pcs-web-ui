@@ -16,8 +16,8 @@ const launchDestroy = async () => {
   await goToDashboard();
   await click(
     item.byName(marks.dashboard.clusterList.cluster, clusterName, [
-      c => c.loaded.actions,
-      c => c.loaded.actions.destroy,
+      c => c.actions,
+      c => c.actions.destroy,
     ]),
   );
 };

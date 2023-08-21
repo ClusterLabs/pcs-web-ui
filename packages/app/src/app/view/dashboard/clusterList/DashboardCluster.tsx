@@ -4,7 +4,7 @@ import {testMarks} from "app/view/dataTest";
 import {ClusterStatusLabel, Link, Table, location} from "app/view/share";
 
 const {cluster: clusterMark} = testMarks.dashboard.clusterList;
-const {loaded, name, status} = clusterMark;
+const {name, status} = clusterMark;
 
 export const DashboardCluster = (props: {
   clusterName: string;
@@ -16,7 +16,7 @@ export const DashboardCluster = (props: {
 }) => {
   return (
     <Table.Body isExpanded={props.isExpanded} {...clusterMark.mark}>
-      <tr role="row" {...(props.isLoading ? {} : loaded.mark)}>
+      <tr role="row">
         <th role="rowheader">
           <Link to={location.cluster({clusterName: props.clusterName})}>
             <strong {...name.mark}>{props.clusterName}</strong>{" "}

@@ -48,7 +48,7 @@ const compareByColumn = (
 
 const {SortableTh} = Table;
 
-const {node: nodeMark} = testMarks.dashboard.clusterList.cluster.loaded;
+const {node: nodeMark} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterNodes = ({cluster}: {cluster: Cluster}) => {
   const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");

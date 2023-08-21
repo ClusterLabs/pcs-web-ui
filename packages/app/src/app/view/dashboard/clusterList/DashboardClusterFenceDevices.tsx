@@ -30,8 +30,7 @@ const compareByColumn = (
 
 const {SortableTh} = Table;
 
-const {fenceDevice: fenceDeviceMark} =
-  testMarks.dashboard.clusterList.cluster.loaded;
+const {fenceDevice: fenceDeviceMark} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterFenceDevices = ({cluster}: {cluster: Cluster}) => {
   const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");

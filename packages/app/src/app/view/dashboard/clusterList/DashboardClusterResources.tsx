@@ -29,7 +29,7 @@ const compareByColumn = (
 
 const {SortableTh} = Table;
 
-const {resource: resourceMark} = testMarks.dashboard.clusterList.cluster.loaded;
+const {resource: resourceMark} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
   const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");

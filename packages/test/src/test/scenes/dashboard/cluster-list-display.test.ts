@@ -30,7 +30,7 @@ const secondStatus = cs.cluster(secondName, "error", {
 const issueContentIs = async (index: number, message: string) => {
   await assert.textIs(
     item.byName(cluster, secondName, c =>
-      item.byIndex(c.loaded.issue, index, i => i.message),
+      item.byIndex(c.issue, index, i => i.message),
     ),
     message,
   );
@@ -53,20 +53,20 @@ describe("Dashboard scene", () => {
     const first = item.byName(cluster, firstName);
     const second = item.byName(cluster, secondName);
     await assert.textIs([
-      [first(c => c.loaded.issuesCount), "0"],
-      [first(c => c.loaded.nodeCount), "2"],
-      [first(c => c.loaded.resourceCount), "1"],
-      [first(c => c.loaded.fenceDeviceCount), "1"],
-      [second(c => c.loaded.issuesCount), "3"],
-      [second(c => c.loaded.nodeCount), "3"],
-      [second(c => c.loaded.resourceCount), "2"],
-      [second(c => c.loaded.fenceDeviceCount), "2"],
+      [first(c => c.issuesCount), "0"],
+      [first(c => c.nodeCount), "2"],
+      [first(c => c.resourceCount), "1"],
+      [first(c => c.fenceDeviceCount), "1"],
+      [second(c => c.issuesCount), "3"],
+      [second(c => c.nodeCount), "3"],
+      [second(c => c.resourceCount), "2"],
+      [second(c => c.fenceDeviceCount), "2"],
     ]);
   });
 
   it("should allow to display cluster issues", async () => {
     await goToDashboard();
-    await click(item.byName(cluster, secondName, c => c.loaded.issuesCount));
+    await click(item.byName(cluster, secondName, c => c.issuesCount));
 
     // errors are displayed before warnings, so the third issue is first
     await issueContentIs(0, issueList[2]);

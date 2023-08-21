@@ -21,52 +21,56 @@ const COLUMNS = {
 const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
 const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
-const {loaded} = testMarks.dashboard.clusterList.cluster;
+const {cluster} = testMarks.dashboard.clusterList;
 
-export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
+export const DashboardClusterLoaded = (props: {cluster: Cluster}) => {
   const {expanded, Toggle, Content} = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
   });
 
   return (
     <DashboardCluster
-      clusterName={cluster.name}
-      status={cluster.status}
+      clusterName={props.cluster.name}
+      status={props.cluster.status}
       columns={
         <>
-          <Toggle expandKey={COLUMNS.ISSUES} {...loaded.issuesCount.mark}>
+          <Toggle expandKey={COLUMNS.ISSUES} {...cluster.issuesCount.mark}>
             <DashboardClusterCellSummary
-              itemsCount={cluster.issueList.length}
-              summaryStatus={cluster.summary.issuesSeverity}
+              itemsCount={props.cluster.issueList.length}
+              summaryStatus={props.cluster.summary.issuesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.NODES} {...loaded.nodeCount.mark}>
+          <Toggle expandKey={COLUMNS.NODES} {...cluster.nodeCount.mark}>
             <DashboardClusterCellSummary
-              itemsCount={cluster.nodeList.length}
-              summaryStatus={cluster.summary.nodesSeverity}
+              itemsCount={props.cluster.nodeList.length}
+              summaryStatus={props.cluster.summary.nodesSeverity}
             />
           </Toggle>
-          <Toggle expandKey={COLUMNS.RESOURCES} {...loaded.resourceCount.mark}>
+          <Toggle expandKey={COLUMNS.RESOURCES} {...cluster.resourceCount.mark}>
             <DashboardClusterCellSummary
               itemsCount={
-                cluster.hasCibInfo ? cluster.resourceTree.length : "?"
+                props.cluster.hasCibInfo
+                  ? props.cluster.resourceTree.length
+                  : "?"
               }
-              summaryStatus={cluster.summary.resourcesSeverity}
+              summaryStatus={props.cluster.summary.resourcesSeverity}
             />
           </Toggle>
           <Toggle
             expandKey={COLUMNS.FENCE_DEVICES}
-            {...loaded.fenceDeviceCount.mark}
+            {...cluster.fenceDeviceCount.mark}
           >
             <DashboardClusterCellSummary
               itemsCount={
-                cluster.hasCibInfo ? cluster.fenceDeviceList.length : "?"
+                props.cluster.hasCibInfo
+                  ? props.cluster.fenceDeviceList.length
+                  : "?"
               }
-              summaryStatus={cluster.summary.fenceDevicesSeverity}
+              summaryStatus={props.cluster.summary.fenceDevicesSeverity}
             />
           </Toggle>
           <td>
-            <DashboardClusterMenu clusterName={cluster.name} />
+            <DashboardClusterMenu clusterName={props.cluster.name} />
           </td>
         </>
       }
@@ -76,27 +80,27 @@ export const DashboardClusterLoaded = ({cluster}: {cluster: Cluster}) => {
           <Content expandKey={COLUMNS.ISSUES}>
             <IssueList
               margin
-              issueList={cluster.issueList}
+              issueList={props.cluster.issueList}
               displayIssue={issue => (
                 <Alert
                   isInline
                   variant={issue.severity === "ERROR" ? "danger" : "warning"}
                   title={
-                    <span {...loaded.issue.message.mark}>{issue.message}</span>
+                    <span {...cluster.issue.message.mark}>{issue.message}</span>
                   }
-                  {...loaded.issue.mark}
+                  {...cluster.issue.mark}
                 />
               )}
             />
           </Content>
           <Content expandKey={COLUMNS.NODES}>
-            <DashboardClusterNodes cluster={cluster} />
+            <DashboardClusterNodes cluster={props.cluster} />
           </Content>
           <Content expandKey={COLUMNS.RESOURCES}>
-            <DashboardClusterResources cluster={cluster} />
+            <DashboardClusterResources cluster={props.cluster} />
           </Content>
           <Content expandKey={COLUMNS.FENCE_DEVICES}>
-            <DashboardClusterFenceDevices cluster={cluster} />
+            <DashboardClusterFenceDevices cluster={props.cluster} />
           </Content>
         </>
       }

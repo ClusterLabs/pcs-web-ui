@@ -18,12 +18,12 @@ const expectImportedClusterNamesAre = async (nameList: string[]) => {
 
 export const launchClusterItemAction = async (
   clusterName: string,
-  search: (c: typeof clusterList.cluster.loaded.actions) => Mark,
+  search: (c: typeof clusterList.cluster.actions) => Mark,
 ) => {
   await click(
     item.byName(clusterList.cluster, clusterName, [
-      c => c.loaded.actions,
-      c => search(c.loaded.actions),
+      c => c.actions,
+      c => search(c.actions),
     ]),
   );
 };

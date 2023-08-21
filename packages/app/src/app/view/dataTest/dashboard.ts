@@ -7,33 +7,31 @@ export const dashboard = {
     cluster: {
       name: {},
       status: {},
-      loaded: {
-        issuesCount: {},
-        issue: {
-          message: {},
-        },
-        nodeCount: {},
-        node: {
-          name: {},
-          status: {},
-          quorum: {},
-        },
-        resourceCount: {},
-        resource: {
-          id: {},
-          status: {},
-        },
-        fenceDeviceCount: {},
-        fenceDevice: {
-          id: {},
-          status: {},
-        },
-        actions: {
-          start: {},
-          stop: {},
-          remove: {},
-          destroy: {},
-        },
+      issuesCount: {},
+      issue: {
+        message: {},
+      },
+      nodeCount: {},
+      node: {
+        name: {},
+        status: {},
+        quorum: {},
+      },
+      resourceCount: {},
+      resource: {
+        id: {},
+        status: {},
+      },
+      fenceDeviceCount: {},
+      fenceDevice: {
+        id: {},
+        status: {},
+      },
+      actions: {
+        start: {},
+        stop: {},
+        remove: {},
+        destroy: {},
       },
     },
   },
