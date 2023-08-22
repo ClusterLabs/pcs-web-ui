@@ -8,10 +8,8 @@ import {LauncherItem} from "./types";
 
 export const LauncherToolbarButtonGroup = ({
   items = [],
-  toolbarName,
 }: {
   items: LauncherItem[];
-  toolbarName: string;
 }) => {
   return (
     <LauncherGroup items={items}>
@@ -23,11 +21,7 @@ export const LauncherToolbarButtonGroup = ({
                 <Button
                   variant={item.button?.variant ?? "secondary"}
                   onClick={launch}
-                  data-test={
-                    "data-test" in item
-                      ? item["data-test"]
-                      : `task ${toolbarName}-${item.name}`
-                  }
+                  data-test={item["data-test"]}
                   isDisabled={item.disabled ?? false}
                 >
                   {tools.labelize(item.label || item.name)}

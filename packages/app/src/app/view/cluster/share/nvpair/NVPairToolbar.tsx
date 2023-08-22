@@ -27,7 +27,6 @@ export const NVPairToolbar = (props: {
   ];
   return (
     <LaunchersToolbar
-      toolbarName={owner.type}
       buttonsItems={[
         props.launcherCreate({
           name: "create",

@@ -59,7 +59,6 @@ export const ClusterPropertiesPage = () => {
               <ToolbarFilterTextGroupPair
                 textSearchId="cluster-properties-name"
                 groupName="Importance"
-                toolbarName="cluster-properties"
                 filterState={filterState}
                 buttonsItems={[
                   ...(!isEditing

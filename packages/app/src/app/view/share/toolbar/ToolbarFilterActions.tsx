@@ -14,11 +14,9 @@ export const ToolbarFilterAction = ({
   children,
   clearAllFilters,
   buttonsItems,
-  toolbarName,
 }: React.PropsWithChildren<{
   clearAllFilters: () => void;
   buttonsItems?: LauncherItem[];
-  toolbarName: string;
 }>) => {
   return (
     <Toolbar
@@ -31,7 +29,6 @@ export const ToolbarFilterAction = ({
           {buttonsItems && (
             <ToolbarItem>
               <LauncherToolbarButtonGroup
-                toolbarName={toolbarName}
                 items={tryFirstButtonPrimary(buttonsItems)}
               />
             </ToolbarItem>

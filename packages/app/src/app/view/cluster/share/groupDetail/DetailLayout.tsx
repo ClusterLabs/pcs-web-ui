@@ -23,7 +23,7 @@ export const DetailLayout = ({
           <LevelItem>{caption}</LevelItem>
           <LevelItem>
             {toolbar}
-            {!toolbar && <DetailToolbar toolbarName="default" />}
+            {!toolbar && <DetailToolbar />}
           </LevelItem>
         </Level>
       </StackItem>

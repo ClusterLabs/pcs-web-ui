@@ -57,7 +57,6 @@ export const SbdPage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="sbd"
         buttonsItems={[
           {
             name: "configure-SBD",

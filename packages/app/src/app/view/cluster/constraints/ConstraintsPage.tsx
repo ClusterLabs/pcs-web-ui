@@ -20,7 +20,6 @@ export const ConstraintsPage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="constraints"
         buttonsItems={[
           {
             name: "create-location",

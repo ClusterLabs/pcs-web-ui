@@ -64,7 +64,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   };
   return (
     <DetailToolbar
-      toolbarName="fence-device"
       buttonsItems={[refresh, cleanup]}
       dropdown={<LauncherDropdown items={[deleteItem]} />}
     />

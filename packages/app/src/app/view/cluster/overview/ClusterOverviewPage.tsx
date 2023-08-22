@@ -17,7 +17,6 @@ export const ClusterOverviewPage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="cluster-overview"
         buttonsItems={[
           {
             name: "start",

@@ -7,7 +7,6 @@ const {dashboardToolbar: toolbar} = testMarks;
 export const DashboardToolbar = () => {
   return (
     <LaunchersToolbar
-      toolbarName="dashboard"
       buttonsItems={[
         {
           name: "add-existing-cluster",

@@ -40,7 +40,6 @@ export const FenceDeviceArgumentsView = ({
           <>
             <StackItem {...argumentsToolbar.mark}>
               <PcmkAgentAttrsToolbar
-                toolbarName="fence-device-args"
                 filterState={filterState}
                 buttonsItems={[
                   {

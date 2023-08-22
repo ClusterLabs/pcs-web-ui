@@ -23,10 +23,7 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
           return (
             <span {...attributes.mark}>
               <StackItem>
-                <PcmkAgentAttrsToolbar
-                  toolbarName="primitive-attrs"
-                  filterState={filterState}
-                />
+                <PcmkAgentAttrsToolbar filterState={filterState} />
               </StackItem>
               <StackItem>
                 <PrimitiveAttrsForm
@@ -46,7 +43,6 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
           <span {...attributes.mark}>
             <StackItem>
               <PcmkAgentAttrsToolbar
-                toolbarName="primitive-attrs"
                 buttonsItems={[
                   {
                     name: "edit-attributes",

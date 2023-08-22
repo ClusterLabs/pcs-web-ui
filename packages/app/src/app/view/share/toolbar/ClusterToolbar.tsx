@@ -6,7 +6,6 @@ import {LauncherItem} from "app/view/share/toolbar/types";
 import {LaunchersToolbar} from "./LaunchersToolbar";
 
 export const ClusterToolbar = (props: {
-  toolbarName: string;
   buttonsItems?: LauncherItem[];
   dropdown?: React.ReactNode;
   after?: React.ReactNode;
@@ -20,7 +19,6 @@ export const ClusterToolbar = (props: {
       data-test={props["data-test"]}
     >
       <LaunchersToolbar
-        toolbarName={props.toolbarName}
         buttonsItems={props.buttonsItems}
         dropdown={props.dropdown}
         after={props.after}

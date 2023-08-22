@@ -16,7 +16,6 @@ export const NodesPage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="nodes"
         buttonsItems={[
           {
             name: "add-node",

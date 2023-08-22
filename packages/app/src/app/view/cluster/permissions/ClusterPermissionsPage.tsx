@@ -13,7 +13,6 @@ export const ClusterPermissionsPage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="permissions"
         buttonsItems={[
           {
             name: "create-permission",

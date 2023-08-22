@@ -31,11 +31,9 @@ const useState = (
 export const PcmkAgentAttrsToolbar = ({
   buttonsItems,
   filterState,
-  toolbarName,
 }: {
   buttonsItems?: LauncherItem[];
   filterState: ReturnType<typeof useState>["filterState"];
-  toolbarName: string;
 }) => {
   return (
     <ToolbarFilterTextGroupPair
@@ -43,7 +41,6 @@ export const PcmkAgentAttrsToolbar = ({
       groupName="Importance"
       filterState={filterState}
       buttonsItems={buttonsItems}
-      toolbarName={toolbarName}
     />
   );
 };

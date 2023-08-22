@@ -37,7 +37,6 @@ export const GroupView = ({
       }
       toolbar={
         <DetailToolbar
-          toolbarName="group"
           buttonsItems={[
             {
               name: "assign-role",

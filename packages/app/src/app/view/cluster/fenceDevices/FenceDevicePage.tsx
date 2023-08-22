@@ -21,7 +21,6 @@ export const FenceDevicePage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="fence-devices"
         buttonsItems={[
           {
             name: "create-fence-device",

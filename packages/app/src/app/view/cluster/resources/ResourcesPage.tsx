@@ -23,7 +23,6 @@ export const ResourcesPage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="resources"
         buttonsItems={[
           {
             name: "create-resource",

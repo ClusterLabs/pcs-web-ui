@@ -22,7 +22,6 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
   ];
   return (
     <DetailToolbar
-      toolbarName="acl-role"
       buttonsItems={[
         {
           name: "assign-user",

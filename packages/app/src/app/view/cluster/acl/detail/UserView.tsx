@@ -37,7 +37,6 @@ export const UserView = ({
       }
       toolbar={
         <DetailToolbar
-          toolbarName="user"
           buttonsItems={[
             {
               name: "assign-role",

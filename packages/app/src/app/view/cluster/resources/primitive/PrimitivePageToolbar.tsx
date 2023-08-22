@@ -216,7 +216,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   return (
     <>
       <DetailToolbar
-        toolbarName="primitive"
         buttonsItems={[
           ...[isPrimitiveManaged(primitive) ? unmanage : manage],
           ...[isPrimitiveEnabled(primitive) ? disable : enable],

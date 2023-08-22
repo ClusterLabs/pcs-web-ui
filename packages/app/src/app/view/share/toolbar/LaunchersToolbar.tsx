@@ -6,14 +6,12 @@ import {LauncherItem} from "./types";
 import {tryFirstButtonPrimary} from "./tools";
 
 export const LaunchersToolbar = ({
-  toolbarName,
   buttonsItems = [],
   dropdown,
   before,
   after,
   "data-test": dataTest,
 }: {
-  toolbarName: string;
   buttonsItems?: LauncherItem[];
   dropdown?: React.ReactNode;
   before?: React.ReactNode;
@@ -28,7 +26,6 @@ export const LaunchersToolbar = ({
           <ToolbarItem>
             <LauncherToolbarButtonGroup
               items={tryFirstButtonPrimary(buttonsItems)}
-              toolbarName={toolbarName}
             />
           </ToolbarItem>
         )}

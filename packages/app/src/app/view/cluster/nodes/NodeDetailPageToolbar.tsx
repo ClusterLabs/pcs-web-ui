@@ -143,7 +143,6 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
   };
   return (
     <DetailToolbar
-      toolbarName="node"
       buttonsItems={[start, stop]}
       dropdown={
         <LauncherDropdown

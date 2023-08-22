@@ -91,10 +91,7 @@ export const ConstraintFilteredList = ({
     <Card {...testMarks.cluster.constraints.mark}>
       <Stack hasGutter>
         <StackItem>
-          <ToolbarFilterAction
-            clearAllFilters={clearAllFilters}
-            toolbarName="constraints"
-          >
+          <ToolbarFilterAction clearAllFilters={clearAllFilters}>
             <ToolbarItem>
               <ToolbarFilterGroups
                 name="Constraint type"
