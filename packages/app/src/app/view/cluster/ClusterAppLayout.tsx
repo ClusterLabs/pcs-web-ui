@@ -5,7 +5,7 @@ import {testMarks} from "app/view/dataTest";
 import {Router} from "app/view/share";
 import {Page, PageToolbar, useUrlTabs} from "app/view/share";
 
-const {tabs} = testMarks.cluster;
+const {clusterTabs: tabs} = testMarks;
 
 const tabMap = {
   overview: (
@@ -79,7 +79,7 @@ export const ClusterAppLayout = ({
   return (
     <Page>
       {notifications => (
-        <span {...testMarks.cluster.mark}>
+        <>
           <PageSection variant="light">
             <Stack hasGutter>
               <PageToolbar
@@ -95,7 +95,7 @@ export const ClusterAppLayout = ({
           </PageSection>
 
           <Router base={matchedContext}>{children(currentTab)}</Router>
-        </span>
+        </>
       )}
     </Page>
   );

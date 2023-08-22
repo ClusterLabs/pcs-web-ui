@@ -3,8 +3,8 @@ import {LaunchersToolbar} from "app/view/share";
 
 import * as task from "./task";
 
+const {dashboardToolbar: toolbar} = testMarks;
 export const DashboardToolbar = () => {
-  const testMarksToolbar = testMarks.dashboard.toolbar;
   return (
     <LaunchersToolbar
       toolbarName="dashboard"
@@ -15,7 +15,7 @@ export const DashboardToolbar = () => {
             component: task.importExistingCluster.ImportExistingCluster,
             useTask: task.importExistingCluster.useTask,
           },
-          ...testMarksToolbar.importExistingCluster.mark,
+          ...toolbar.importExistingCluster.mark,
         },
         {
           name: "setup-cluster",
@@ -23,10 +23,10 @@ export const DashboardToolbar = () => {
             component: task.clusterSetup.ClusterSetup,
             useTask: task.clusterSetup.useTask,
           },
-          ...testMarksToolbar.setupCluster.mark,
+          ...toolbar.setupCluster.mark,
         },
       ]}
-      {...testMarksToolbar.mark}
+      {...toolbar.mark}
     />
   );
 };

@@ -37,7 +37,7 @@ const routeCheckAuth = mock.route.checkAuthAgainstNodes({nodeNameList});
 
 const launchTask = async () => {
   await goToDashboard();
-  await click(marks.dashboard.toolbar.setupCluster);
+  await click(marks.dashboardToolbar.setupCluster);
 };
 
 const fillNodeNames = async (nodeNameList: string[]) => {

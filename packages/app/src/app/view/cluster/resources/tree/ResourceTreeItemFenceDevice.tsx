@@ -7,12 +7,8 @@ import {
 } from "@patternfly/react-core";
 
 import {FenceDevice} from "app/view/cluster/types";
-import {
-  SelectionIndicatorInGroup,
-  StatusIco,
-  StatusSign,
-  useGroupDetailViewContext,
-} from "app/view/share";
+import {SelectionIndicatorInGroup, StatusIco, StatusSign} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 import {ResourceTreeCellName} from "./ResourceTreeCellName";
 import {ResourceTreeCellType} from "./ResourceTreeCellType";

@@ -1,6 +1,8 @@
 import {ActionPayload} from "app/store";
-import {useGroupDetailViewContext} from "app/view/share";
-import {useClusterTask} from "app/view/cluster/share";
+import {
+  useClusterTask,
+  useGroupDetailViewContext,
+} from "app/view/cluster/share";
 import {getInvalidPermissionIndexes} from "app/view/cluster/acl/permissions";
 
 export const useTask = () => {

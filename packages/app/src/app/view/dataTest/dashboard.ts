@@ -1,8 +1,4 @@
 export const dashboard = {
-  toolbar: {
-    setupCluster: {},
-    importExistingCluster: {},
-  },
   clusterList: {
     cluster: {
       name: {},

@@ -4,12 +4,15 @@ import {testMarks} from "app/view/dataTest";
 import {tools} from "app/store";
 import {
   ClusterToolbar,
-  GroupDetailView,
   LauncherDropdown,
   TaskOpenArgs,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  GroupDetailSection,
+  GroupDetailView,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import * as task from "./task";
 import {AclDetailPage} from "./detail";
@@ -30,6 +33,11 @@ export const AclPage = () => {
     {subjectType: "group"},
   ];
 
+  const detailTypeList = [
+    "role",
+    "user",
+    "group",
+  ] satisfies React.ComponentProps<typeof GroupDetailView>["detailTypeList"];
   return (
     <>
       <ClusterToolbar
@@ -116,12 +124,17 @@ export const AclPage = () => {
         {...aclToolbar.mark}
       />
 
-      <GroupDetailView
-        groupCard={<AclLists />}
-        detailCard={<AclDetailPage />}
-        detailTypeList={["role", "user", "group"]}
-        {...acl.mark}
-      />
+      <GroupDetailSection
+        detailTypeList={detailTypeList}
+        {...testMarks.cluster.mark}
+      >
+        <GroupDetailView
+          groupCard={<AclLists />}
+          detailCard={<AclDetailPage />}
+          detailTypeList={detailTypeList}
+          {...acl.mark}
+        />
+      </GroupDetailSection>
     </>
   );
 };

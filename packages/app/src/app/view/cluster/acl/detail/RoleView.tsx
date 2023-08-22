@@ -1,6 +1,6 @@
 import {testMarks} from "app/view/dataTest";
-import {DetailLayout, Router, UrlTabs, useUrlTabs} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {Router, UrlTabs, useUrlTabs} from "app/view/share";
+import {DetailLayout, useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 

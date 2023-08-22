@@ -1,11 +1,6 @@
 import {ActionPayload} from "app/store";
-import {
-  DataListWithMenu,
-  DetailViewSection,
-  Link,
-  location,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DataListWithMenu, Link, location} from "app/view/share";
+import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 

@@ -6,10 +6,8 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import {
-  SelectionIndicatorInGroup,
-  useGroupDetailViewContext,
-} from "app/view/share";
+import {SelectionIndicatorInGroup} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 export const AclSubjectListItem = (props: {
   aclType: "user" | "group";

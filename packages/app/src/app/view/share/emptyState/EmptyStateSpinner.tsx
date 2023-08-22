@@ -6,16 +6,15 @@ import {
   Title,
 } from "@patternfly/react-core";
 
-export const EmptyStateSpinner = ({
-  title: message,
-}: {
+export const EmptyStateSpinner = (props: {
   title: React.ReactNode;
+  "data-test"?: string;
 }) => {
   return (
-    <EmptyState style={{margin: "auto"}}>
+    <EmptyState style={{margin: "auto"}} data-test={props["data-test"]}>
       <EmptyStateIcon variant="container" component={Spinner} />
       <Title size="lg" headingLevel="h3">
-        {message}
+        {props.title}
       </Title>
     </EmptyState>
   );

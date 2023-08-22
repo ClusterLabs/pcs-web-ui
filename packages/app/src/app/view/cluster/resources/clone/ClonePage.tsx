@@ -2,12 +2,8 @@ import {Alert, Tab, Tabs} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {Clone} from "app/view/cluster/types";
-import {
-  DetailLayout,
-  ResourceDetailCaption,
-  Router,
-  useUrlTabs,
-} from "app/view/share";
+import {ResourceDetailCaption, Router, useUrlTabs} from "app/view/share";
+import {DetailLayout} from "app/view/cluster/share";
 
 import {CloneDetail} from "./CloneDetail";
 import {CloneMeta} from "./CloneMeta";

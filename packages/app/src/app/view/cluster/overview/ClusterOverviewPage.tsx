@@ -52,8 +52,8 @@ export const ClusterOverviewPage = () => {
         {...overviewToolbar.mark}
       />
 
-      <PageSection {...overview.mark}>
-        <Flex>
+      <PageSection {...testMarks.cluster.mark}>
+        <Flex {...overview.mark}>
           {cluster.issueList.length > 0 && (
             <FlexItem grow={grow} className="pf-u-m-0">
               <IssuesCard issueList={cluster.issueList} />

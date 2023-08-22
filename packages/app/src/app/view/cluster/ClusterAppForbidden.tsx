@@ -5,10 +5,11 @@ import {EmptyStateError} from "app/view/share";
 
 export const ClusterAppForbidden = () => {
   return (
-    <PageSection {...testMarks.cluster.forbiden.mark}>
+    <PageSection {...testMarks.cluster.mark}>
       <EmptyStateError
         title="Forbidden"
         message="You don't have a read permission for this cluster."
+        {...testMarks.cluster.forbiden.mark}
       />
     </PageSection>
   );

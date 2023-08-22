@@ -1,6 +1,10 @@
 import {testMarks} from "app/view/dataTest";
-import {ClusterToolbar, GroupDetailView} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {ClusterToolbar} from "app/view/share";
+import {
+  GroupDetailSection,
+  GroupDetailView,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {NodeDetailPage} from "./NodeDetailPage";
 import {NodeList} from "./NodeList";
@@ -25,11 +29,13 @@ export const NodesPage = () => {
         ]}
         {...nodesToolbar.mark}
       />
-      <GroupDetailView
-        groupCard={<NodeList nodeList={nodeList} />}
-        detailCard={<NodeDetailPage />}
-        {...nodes.mark}
-      />
+      <GroupDetailSection {...testMarks.cluster.mark}>
+        <GroupDetailView
+          groupCard={<NodeList nodeList={nodeList} />}
+          detailCard={<NodeDetailPage />}
+          {...nodes.mark}
+        />
+      </GroupDetailSection>
     </>
   );
 };

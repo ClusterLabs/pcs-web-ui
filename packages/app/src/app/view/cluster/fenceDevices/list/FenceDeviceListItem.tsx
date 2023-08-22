@@ -7,10 +7,8 @@ import {
 
 import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
-import {
-  SelectionIndicatorInGroup,
-  useGroupDetailViewContext,
-} from "app/view/share";
+import {SelectionIndicatorInGroup} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 import {FenceDeviceListCellStatus} from "./FenceDeviceListCellStatus";
 import {FenceDeviceListCellName} from "./FenceDeviceListCellName";

@@ -1,13 +1,12 @@
 import {testMarks} from "app/view/dataTest";
 import {Action} from "app/store";
 import {
-  DetailToolbar,
   LauncherDropdown,
   LauncherItem as ToolbarItem,
   task,
 } from "app/view/share";
 import {Node} from "app/view/cluster/types";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
 const {toolbar} = testMarks.cluster.nodes.currentNode;
 

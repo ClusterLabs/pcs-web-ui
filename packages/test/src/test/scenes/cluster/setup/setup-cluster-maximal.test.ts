@@ -154,7 +154,7 @@ describe("Cluster setup", () => {
     ]);
 
     await goToDashboard();
-    await click(marks.dashboard.toolbar.setupCluster);
+    await click(marks.dashboardToolbar.setupCluster);
     await fill(task.nameAndNodes.clusterName, clusterName);
     await fill(
       item.byIndex(task.nameAndNodes.node, 0, n => n.name),

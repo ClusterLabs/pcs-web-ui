@@ -7,12 +7,11 @@ import {
 } from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
+import {Link, SelectionIndicatorInGroup} from "app/view/share";
 import {
-  Link,
-  SelectionIndicatorInGroup,
   useGroupDetailViewContext,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {AclType, Acls} from "../types";
 

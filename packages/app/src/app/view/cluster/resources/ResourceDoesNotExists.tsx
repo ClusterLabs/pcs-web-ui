@@ -1,6 +1,7 @@
 import {StackItem} from "@patternfly/react-core";
 
-import {DetailLayout, EmptyStateNoItem} from "app/view/share";
+import {EmptyStateNoItem} from "app/view/share";
+import {DetailLayout} from "app/view/cluster/share";
 
 export const ResourceDoesNotExists = ({resourceId}: {resourceId: string}) => {
   return (

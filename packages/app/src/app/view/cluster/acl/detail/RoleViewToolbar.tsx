@@ -1,6 +1,6 @@
 import {testMarks} from "app/view/dataTest";
-import {DetailToolbar, LauncherDropdown, TaskOpenArgs} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
+import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 

@@ -51,8 +51,8 @@ export const ClusterPropertiesPage = () => {
 
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
-    <PageSection {...properties.mark}>
-      <Card>
+    <PageSection {...testMarks.cluster.mark}>
+      <Card {...properties.mark}>
         <CardBody>
           <Stack hasGutter>
             <StackItem>

@@ -9,7 +9,7 @@ import {
   useLocation,
 } from "app/view/share";
 
-const {breadcrumbs} = testMarks.cluster;
+const {clusterBreadcrumbs: breadcrumbs} = testMarks;
 
 export const ClusterAppBreadcrumbs = ({
   clusterName,

@@ -17,7 +17,7 @@ export const PermissionsTable = () => {
   }
 
   return (
-    <Table>
+    <Table {...testMarks.cluster.permissions.mark}>
       <thead>
         <tr>
           <th data-label="Name">Name</th>

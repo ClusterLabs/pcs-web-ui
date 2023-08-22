@@ -1,10 +1,13 @@
 import {testMarks} from "app/view/dataTest";
 import {
   ClusterToolbar,
-  GroupDetailView,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  GroupDetailSection,
+  GroupDetailView,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";
@@ -47,11 +50,13 @@ export const ResourcesPage = () => {
         ]}
         {...resourcesToolbar.mark}
       />
-      <GroupDetailView
-        groupCard={<ResourceTree resourceTree={resourceTree} />}
-        detailCard={<ResourceDetailPage />}
-        {...resources.mark}
-      />
+      <GroupDetailSection {...testMarks.cluster.mark}>
+        <GroupDetailView
+          groupCard={<ResourceTree resourceTree={resourceTree} />}
+          detailCard={<ResourceDetailPage />}
+          {...resources.mark}
+        />
+      </GroupDetailSection>
     </>
   );
 };

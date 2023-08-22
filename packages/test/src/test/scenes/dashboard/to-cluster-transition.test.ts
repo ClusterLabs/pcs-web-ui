@@ -2,7 +2,8 @@ import * as cs from "dev/responses/clusterStatus/tools";
 
 import {assert, mock} from "test/tools";
 
-const {breadcrumbs, overview, nodes, resources, fenceDevices} = marks.cluster;
+const {clusterBreadcrumbs} = marks;
+const {overview, nodes, resources, fenceDevices} = marks.cluster;
 const {cluster: importedCluster} = marks.dashboard.clusterList;
 
 const clusterName = "ok";
@@ -20,7 +21,7 @@ const clusterListLoaded = async () => {
 };
 
 const expectOnTheCluster = async () => {
-  await assert.textIs(breadcrumbs.clusterName, clusterName);
+  await assert.textIs(clusterBreadcrumbs.clusterName, clusterName);
 };
 
 const clusterStatus = cs.cluster(clusterName, "ok", {
@@ -39,7 +40,7 @@ describe("To cluster transition", () => {
     await expectOnTheCluster();
     await isVisible(overview);
 
-    await click(breadcrumbs.dashboard);
+    await click(clusterBreadcrumbs.dashboard);
     await isVisible(marks.dashboard);
   });
 

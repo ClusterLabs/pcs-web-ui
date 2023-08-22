@@ -2,13 +2,12 @@ import React from "react";
 import {Tab, Tabs} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
+import {Router, useUrlTabs} from "app/view/share";
 import {
   DetailLayout,
-  Router,
   useGroupDetailViewContext,
-  useUrlTabs,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {NodeDetailPageToolbar} from "./NodeDetailPageToolbar";
 import {NodeDetailView} from "./NodeDetailView";

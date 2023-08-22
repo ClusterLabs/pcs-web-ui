@@ -11,7 +11,7 @@ import {useLoadedCluster} from "app/view/cluster/share";
 import {ConstraintFilteredList} from "./ConstraintFilteredList";
 import * as task from "./task";
 
-const {constraints, constraintsToolbar} = testMarks.cluster;
+const {constraintsToolbar} = testMarks.cluster;
 const {dropdown} = constraintsToolbar;
 
 export const ConstraintsPage = () => {
@@ -109,7 +109,7 @@ export const ConstraintsPage = () => {
         }
         {...constraintsToolbar.mark}
       />
-      <PageSection {...constraints.mark}>
+      <PageSection {...testMarks.cluster.mark}>
         <ConstraintFilteredList clusterName={clusterName} />
       </PageSection>
     </>

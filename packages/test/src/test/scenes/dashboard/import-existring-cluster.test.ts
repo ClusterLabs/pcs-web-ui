@@ -12,7 +12,7 @@ const {
 const {auth} = prepareNode;
 
 export const launchTask = async () => {
-  await click(marks.dashboard.toolbar.importExistingCluster);
+  await click(marks.dashboardToolbar.importExistingCluster);
 };
 
 const closeTask = async () => {

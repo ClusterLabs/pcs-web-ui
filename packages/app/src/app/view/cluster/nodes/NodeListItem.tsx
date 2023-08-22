@@ -8,12 +8,8 @@ import {
 import {testMarks} from "app/view/dataTest";
 import {Link} from "app/view/share";
 import {Node} from "app/view/cluster/types";
-import {
-  SelectionIndicatorInGroup,
-  StatusSign,
-  toLabel,
-  useGroupDetailViewContext,
-} from "app/view/share";
+import {SelectionIndicatorInGroup, StatusSign, toLabel} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 const {node: nodeMark} = testMarks.cluster.nodes.list;
 

@@ -2,12 +2,11 @@ import {DataList} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
+import {EmptyStateClusterStopped, EmptyStateNoItem} from "app/view/share";
 import {
-  EmptyStateClusterStopped,
-  EmptyStateNoItem,
   useGroupDetailViewContext,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {FenceDeviceListItem} from "./FenceDeviceListItem";
 

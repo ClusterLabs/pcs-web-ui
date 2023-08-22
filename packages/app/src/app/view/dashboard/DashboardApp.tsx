@@ -45,7 +45,7 @@ export const DashboardApp = () => {
   return (
     <Page>
       {notifications => (
-        <span {...testMarks.dashboard.mark}>
+        <>
           <PageSection variant="light">
             <Stack hasGutter>
               <PageToolbar
@@ -67,12 +67,15 @@ export const DashboardApp = () => {
               </StackItem>
             </Stack>
           </PageSection>
-          <PageSectionDataLoading done={dataLoaded}>
+          <PageSectionDataLoading
+            done={dataLoaded}
+            {...testMarks.dashboard.mark}
+          >
             <DashboardClusterList
               importedClusterNameList={importedClusterNameList}
             />
           </PageSectionDataLoading>
-        </span>
+        </>
       )}
     </Page>
   );

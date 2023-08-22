@@ -1,13 +1,8 @@
 import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
+import {CrmStatusTable, IssueList, Link, location} from "app/view/share";
 import {
-  CrmStatusTable,
   DetailViewSection,
-  IssueList,
-  Link,
-  location,
-} from "app/view/share";
-import {
   LoadedPcmkAgent,
   PcmkAgentDescription,
   useLoadedCluster,

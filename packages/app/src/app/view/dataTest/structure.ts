@@ -12,16 +12,36 @@ import {task} from "./task";
 // - path
 // The structure is enhanced by this keys (here or in tests)
 export const structure = {
-  login: {
-    form: {},
-  },
   header: {
     userMenu: {
       logout: {},
     },
   },
   notifications,
+  login: {
+    form: {},
+  },
+  dashboardToolbar: {
+    setupCluster: {},
+    importExistingCluster: {},
+  },
   dashboard,
+  clusterBreadcrumbs: {
+    dashboard: {},
+    clusterName: {},
+    clusterStatus: {},
+  },
+  clusterTabs: {
+    overview: {},
+    nodes: {},
+    resources: {},
+    fenceDevices: {},
+    sbd: {},
+    constraints: {},
+    properties: {},
+    acl: {},
+    permissions: {},
+  },
   cluster,
   task,
 };

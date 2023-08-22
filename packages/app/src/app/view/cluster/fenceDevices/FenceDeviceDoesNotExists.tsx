@@ -1,7 +1,7 @@
 import {StackItem} from "@patternfly/react-core";
 
-import {DetailLayout, EmptyStateNoItem} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {EmptyStateNoItem} from "app/view/share";
+import {DetailLayout, useLoadedCluster} from "app/view/cluster/share";
 
 export const FenceDeviceDoesNotExists = ({
   fenceDeviceId,

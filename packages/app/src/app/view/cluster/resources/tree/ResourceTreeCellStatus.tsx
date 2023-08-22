@@ -1,9 +1,6 @@
 import {ResourceStatus} from "app/view/cluster/types";
-import {
-  ResourceStatusInfoListSigns,
-  StatusIco,
-  useGroupDetailViewContext,
-} from "app/view/share";
+import {ResourceStatusInfoListSigns, StatusIco} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 type StatusSeverity = ResourceStatus["infoList"][number]["severity"];
 type SeverityCount = {severity: StatusSeverity; count: number};

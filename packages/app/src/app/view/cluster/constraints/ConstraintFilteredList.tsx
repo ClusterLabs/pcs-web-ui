@@ -1,6 +1,7 @@
 import React from "react";
 import {DataList, Stack, StackItem, ToolbarItem} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   Card,
   EmptyStateClusterStopped,
@@ -73,6 +74,7 @@ export const ConstraintFilteredList = ({
       <EmptyStateClusterStopped
         title={"Cannot get constraints from stopped cluster"}
         clusterName={clusterName}
+        {...testMarks.cluster.constraints.mark}
       />
     );
   }
@@ -81,11 +83,12 @@ export const ConstraintFilteredList = ({
       <EmptyStateNoItem
         title="No constraint is configured."
         message="You don't have any configured constraint here."
+        {...testMarks.cluster.constraints.mark}
       />
     );
   }
   return (
-    <Card>
+    <Card {...testMarks.cluster.constraints.mark}>
       <Stack hasGutter>
         <StackItem>
           <ToolbarFilterAction

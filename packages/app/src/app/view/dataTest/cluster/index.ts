@@ -7,22 +7,6 @@ import {resources} from "./resources";
 import {sbd} from "./sbd";
 
 export const cluster = {
-  breadcrumbs: {
-    dashboard: {},
-    clusterName: {},
-    clusterStatus: {},
-  },
-  tabs: {
-    overview: {},
-    nodes: {},
-    resources: {},
-    fenceDevices: {},
-    sbd: {},
-    constraints: {},
-    properties: {},
-    acl: {},
-    permissions: {},
-  },
   forbiden: {},
   loading: {},
   overview,

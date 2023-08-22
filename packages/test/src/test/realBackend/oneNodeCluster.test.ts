@@ -41,14 +41,14 @@ describe("Web ui inside cockpit on one node cluster", () => {
       // we expect to start with no cluster
       await expectImportedClusterNamesAre([]);
 
-      await click(marks.dashboard.toolbar.setupCluster);
+      await click(marks.dashboardToolbar.setupCluster);
       await setupCluster(clusterName, nodeName);
       await expectImportedClusterNamesAre([clusterName]);
 
       await removeCluster(clusterName);
       await expectImportedClusterNamesAre([]);
 
-      await click(marks.dashboard.toolbar.importExistingCluster);
+      await click(marks.dashboardToolbar.importExistingCluster);
       await importExistingCluster(nodeName);
       await expectImportedClusterNamesAre([clusterName]);
 

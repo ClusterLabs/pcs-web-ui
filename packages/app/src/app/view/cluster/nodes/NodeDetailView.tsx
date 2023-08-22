@@ -1,12 +1,11 @@
 import {
   CrmStatusTable,
-  DetailViewSection,
   EmptyStateError,
   IssueList,
   Link,
   location,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 import {Node} from "app/view/cluster/types";
 
 import {NodeDaemonTable} from "./NodeDaemonTable";

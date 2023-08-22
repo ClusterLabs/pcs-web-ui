@@ -80,8 +80,8 @@ export const SbdPage = () => {
         {...sbdToolbar.mark}
       />
 
-      <PageSection {...sbd.mark}>
-        <Grid hasGutter>
+      <PageSection {...testMarks.cluster.mark}>
+        <Grid hasGutter {...sbd.mark}>
           <GridItem span={12}>
             <Card title="SBD service status">
               <SbdServiceStatus />

@@ -1,10 +1,13 @@
 import {testMarks} from "app/view/dataTest";
 import {
   ClusterToolbar,
-  GroupDetailView,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  GroupDetailSection,
+  GroupDetailView,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import * as task from "./task";
 import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
@@ -34,11 +37,13 @@ export const FenceDevicePage = () => {
         ]}
         {...fenceDevicesToolbar.mark}
       />
-      <GroupDetailView
-        detailCard={<FenceDeviceDetailPage />}
-        groupCard={<FenceDeviceList fenceDeviceList={fenceDeviceList} />}
-        {...fenceDevices.mark}
-      />
+      <GroupDetailSection {...testMarks.cluster.mark}>
+        <GroupDetailView
+          detailCard={<FenceDeviceDetailPage />}
+          groupCard={<FenceDeviceList fenceDeviceList={fenceDeviceList} />}
+          {...fenceDevices.mark}
+        />
+      </GroupDetailSection>
     </>
   );
 };

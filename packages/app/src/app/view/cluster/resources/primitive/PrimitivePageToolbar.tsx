@@ -1,12 +1,11 @@
 import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {
-  DetailToolbar,
   LauncherDropdown,
   TaskOpenArgs,
   LauncherItem as ToolbarItem,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 

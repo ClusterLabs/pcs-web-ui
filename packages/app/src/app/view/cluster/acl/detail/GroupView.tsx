@@ -1,6 +1,10 @@
 import {testMarks} from "app/view/dataTest";
-import {DetailLayout, DetailToolbar, TaskOpenArgs} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {TaskOpenArgs} from "app/view/share";
+import {
+  DetailLayout,
+  DetailToolbar,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 

@@ -2,12 +2,8 @@ import {Tab, Tabs} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
-import {
-  DetailLayout,
-  ResourceDetailCaption,
-  Router,
-  useUrlTabs,
-} from "app/view/share";
+import {ResourceDetailCaption, Router, useUrlTabs} from "app/view/share";
+import {DetailLayout} from "app/view/cluster/share";
 
 import {PrimitiveAttrsView} from "./attributes";
 import {PrimitiveDetail} from "./PrimitiveDetail";

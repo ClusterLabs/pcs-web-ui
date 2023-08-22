@@ -1,11 +1,11 @@
 import {StackItem} from "@patternfly/react-core";
 
+import {EmptyStateNoItem} from "app/view/share";
 import {
   DetailLayout,
-  EmptyStateNoItem,
   useGroupDetailViewContext,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 
