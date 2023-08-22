@@ -10,7 +10,6 @@ export const SelectionIndicatorInGroup = ({
       className={`ha-c-tree-view__selected-status${
         isSelected ? " ha-m-active" : ""
       }`}
-      data-test="resource-tree-item-selection"
     >
       <ArrowCircleRightIcon />
     </div>

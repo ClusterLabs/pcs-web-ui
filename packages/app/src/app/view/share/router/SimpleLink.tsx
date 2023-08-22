@@ -21,12 +21,7 @@ export const SimpleLink = ({
     decoratedLabel = <strong>{decoratedLabel}</strong>;
   }
   return (
-    <Button
-      variant="link"
-      data-test="link"
-      onClick={onClick}
-      isInline={isInline}
-    >
+    <Button variant="link" onClick={onClick} isInline={isInline}>
       {decoratedLabel}
     </Button>
   );

@@ -9,7 +9,7 @@ import {SearchIcon} from "@patternfly/react-icons";
 
 export const DrawerEmpty = () => {
   return (
-    <EmptyState variant={EmptyStateVariant.full} data-test={"drawer-empty"}>
+    <EmptyState variant={EmptyStateVariant.full}>
       <EmptyStateIcon icon={SearchIcon} />
       <Title headingLevel="h2" size="lg">
         No alerts found

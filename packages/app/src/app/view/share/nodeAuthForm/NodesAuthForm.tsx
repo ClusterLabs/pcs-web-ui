@@ -55,12 +55,7 @@ export const NodesAuthForm = (props: {
             </Alert>
           )}
           {nodesResults.fail.length > 0 && (
-            <Alert
-              isInline
-              variant="danger"
-              title="Nodes not authenticated"
-              data-test="alert-nodes-not-auth"
-            >
+            <Alert isInline variant="danger" title="Nodes not authenticated">
               {`Authentication of ${
                 nodesResults.fail.length === 1 ? "node" : "nodes"
               } ${nodesResults.fail.join(", ")} failed`}
@@ -69,7 +64,7 @@ export const NodesAuthForm = (props: {
           {sending && <EmptyStateSpinner title="Authentication in progress" />}
         </StackItem>
         {!sending && Object.keys(nodeMap).length > 0 && (
-          <Form data-test="form-auth-node" isHorizontal>
+          <Form isHorizontal>
             {props.customAddresSwitcher}
             {Object.keys(nodeMap).length > 1 && (
               <StackItem>

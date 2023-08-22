@@ -17,7 +17,7 @@ export const Configure = () => {
     state: {value, showValidationErrors, type, name},
   } = useTask();
   return (
-    <Form data-test="nvpair-create">
+    <Form>
       <FormText
         id="attr-name"
         label="Name"

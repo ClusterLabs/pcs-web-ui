@@ -65,12 +65,7 @@ export const PrepareNode = () => {
       )}
 
       {nodeCheck === "can-add-cannot" && (
-        <Alert
-          variant="danger"
-          isInline
-          title={nodeCheckMessage}
-          data-test="prepare-cluster-for-node-cannot-add"
-        />
+        <Alert variant="danger" isInline title={nodeCheckMessage} />
       )}
 
       {nodeCheck === "auth-check-failed" && (
@@ -81,7 +76,6 @@ export const PrepareNode = () => {
           actionLinks={
             <AlertActionLink onClick={checkAuth}>Try again</AlertActionLink>
           }
-          data-test="prepare-cluster-for-node-auth-failed"
         >
           {nodeCheckMessage}
         </Alert>

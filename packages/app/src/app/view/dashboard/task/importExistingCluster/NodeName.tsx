@@ -20,7 +20,7 @@ export const NodeName = () => {
       title="Enter name of a node from a cluster you want to add"
       reports={reports}
     >
-      <Form data-test="form-node-name">
+      <Form>
         <FormText
           id="node-name"
           label="Node name"

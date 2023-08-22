@@ -11,7 +11,7 @@ export function ExpansionToggle({
   expanded: string;
   setExpanded: (_key: string) => void;
   expandKey: string;
-  "data-test"?: string;
+  "data-test": string;
 }>) {
   const tdClassNames = ["pf-c-table__compound-expansion-toggle"];
   if (expanded === expandKey) {
@@ -25,7 +25,7 @@ export function ExpansionToggle({
         type="button"
         className="pf-c-table__button pf-m-link"
         onClick={() => setExpanded(expanded !== expandKey ? expandKey : "")}
-        data-test={dataTest ?? "expansion-button"}
+        data-test={dataTest}
       >
         {children}
       </button>

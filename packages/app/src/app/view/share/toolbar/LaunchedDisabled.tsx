@@ -16,16 +16,10 @@ export const LaunchedDisabled = ({
       isOpen
       onClose={close}
       actions={[
-        <Button
-          key="cancel"
-          variant="primary"
-          onClick={close}
-          data-test={"close"}
-        >
+        <Button key="cancel" variant="primary" onClick={close}>
           Close
         </Button>,
       ]}
-      data-test={`disabled launch ${item.name}`}
     >
       {item.launchDisable?.message || "Launch disabled"}
     </Modal>

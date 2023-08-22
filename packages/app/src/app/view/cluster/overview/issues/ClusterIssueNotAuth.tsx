@@ -26,7 +26,6 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
             Fix authentication
           </AlertActionLink>
         }
-        data-test={"cluster-issue-nodes-not-auth"}
       >
         Unauthenticated nodes:{" "}
         <span> {[...new Set(nodeList)].join(", ")} </span>

@@ -52,7 +52,6 @@ export const PrepareNode = () => {
                   </AlertActionLink>
                 </>
               }
-              data-test="prepare-node-auth-failed"
             >
               {nodeCheckMessage}
             </Alert>
@@ -64,7 +63,6 @@ export const PrepareNode = () => {
                 isInline
                 variant="warning"
                 title={"Node is not authenticated. Please authenticate it."}
-                data-test="prepare-node-auth"
               />
               <NodesAuthForm
                 authProcessId={authProcessId}

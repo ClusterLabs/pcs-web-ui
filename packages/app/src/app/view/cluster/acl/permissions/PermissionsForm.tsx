@@ -21,7 +21,7 @@ export const PermissionsForm = (props: {
   return (
     <Form data-test={props["data-test"]}>
       <FormGroup label="" fieldId="role-permissions">
-        <table data-test="permission-list">
+        <table>
           <thead>
             <tr>
               <th className="pf-u-pb-md">Scope Type</th>
@@ -32,7 +32,7 @@ export const PermissionsForm = (props: {
           </thead>
           <tbody>
             {props.permissionList.map((permission, i) => (
-              <tr key={i} data-test={`permission-${i}`}>
+              <tr key={i}>
                 <td className="pf-u-pr-sm pf-u-pb-sm">
                   {props.scopeType(permission, i)}
                 </td>

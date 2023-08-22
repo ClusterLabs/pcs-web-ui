@@ -25,7 +25,7 @@ export const Form = () => {
     });
   return (
     <>
-      <PfForm data-test="create-group">
+      <PfForm>
         <FormText
           id="new-group-name"
           label="Group name"
@@ -35,7 +35,6 @@ export const Form = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={groupId.length > 0}
-          data-test="group-name"
         />
       </PfForm>
       <DualListSelector

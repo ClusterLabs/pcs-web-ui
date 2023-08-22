@@ -58,7 +58,6 @@ export const PrepareNodes = () => {
                   "Errors appeared during check if cluster name and nodes can be used"
                   + " for the new cluster"
                 }
-                data-test="prepare-backend-for-cluster-and-nodes-cannot-add"
                 actionLinks={
                   <>
                     <AlertActionLink onClick={onBack}>Go back</AlertActionLink>
@@ -107,7 +106,6 @@ export const PrepareNodes = () => {
                     </AlertActionLink>
                   </>
                 }
-                data-test="prepare-cluster-for-node-auth-failed"
               >
                 {clusterAndNodesCheckMessage}
               </Alert>

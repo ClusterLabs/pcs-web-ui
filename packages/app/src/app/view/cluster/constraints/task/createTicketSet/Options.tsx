@@ -51,7 +51,6 @@ export const Options = () => {
               </>
             ),
           }}
-          data-test="score"
         />
 
         <FormRadios

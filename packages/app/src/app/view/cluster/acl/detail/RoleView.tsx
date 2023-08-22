@@ -31,13 +31,7 @@ export const RoleView = ({
         </span>
       }
       toolbar={<RoleViewToolbar roleId={roleId} />}
-      tabs={
-        <UrlTabs
-          tabList={aclRolePageTabList}
-          currentTab={currentTab}
-          data-test="node"
-        />
-      }
+      tabs={<UrlTabs tabList={aclRolePageTabList} currentTab={currentTab} />}
       {...currentRole.mark}
     >
       <Router base={matchedContext}>

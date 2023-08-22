@@ -69,7 +69,7 @@ export const DashboardClusterFenceDevices = ({cluster}: {cluster: Cluster}) => {
           .sort(compareItems(compareByColumn))
           .map(fenceDevice => (
             <tr key={fenceDevice.id} {...fenceDeviceMark.mark}>
-              <td data-test="name">
+              <td>
                 <Link
                   to={location.fenceDevice({
                     clusterName: cluster.name,

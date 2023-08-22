@@ -21,7 +21,7 @@ export const ResourceTreeItemFenceDevice = ({
   const {compact, selectedItemUrlName} = useGroupDetailViewContext();
   return (
     <DataListItem aria-labelledby={`resource-tree-item-${fenceDevice.id}`}>
-      <DataListItemRow data-test={`resource-tree-item ${fenceDevice.id}`}>
+      <DataListItemRow>
         <DataListToggle
           aria-label="Resource toggle"
           id={`resource-tree-toggle-${fenceDevice.id}`}
