@@ -136,6 +136,21 @@ adapt_for_environment() {
   fi
 }
 
+prepare_marks() {
+  marks_source=$1
+  marks_name=$2
+  npm_prefix=$3
+  build_dir=$4
+
+  js_dir="$build_dir"/"$marks_name"
+
+  npx tsc --outDir "$js_dir" "$marks_source"
+  node -e \
+    "console.log(JSON.stringify(require(\"$js_dir/structure\").structure));" \
+    > "$build_dir"/"$marks_name".json
+  rm -rf "$js_dir"
+}
+
 use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
 url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
 node_modules=$(get_path "appNodeModules")
@@ -176,6 +191,11 @@ fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
   static/media/favicon.png
 
 minimize_adapter "$node_modules" "$BUILD_DIR"/static/js/adapter.js
+prepare_marks \
+  "$(realpath "$(dirname "$0")"/../src/app/view/dataTest/structure.ts)" \
+  manifest_test_marks \
+  "$node_modules" \
+  "$BUILD_DIR"
 
 restore_node_modules \
   "$use_current_node_modules" \
