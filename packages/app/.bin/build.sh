@@ -144,10 +144,17 @@ prepare_marks() {
 
   js_dir="$build_dir"/"$marks_name"
 
+  echo "Going to transpile ts -> js test marks: ${marks_source} -> ${js_dir}."
+
   npx tsc --outDir "$js_dir" "$marks_source"
+
+  echo "Going to export marks to JSON: ${build_dir}/${marks_name}.json"
+
   node -e \
     "console.log(JSON.stringify(require(\"$js_dir/structure\").structure));" \
     > "$build_dir"/"$marks_name".json
+
+  echo "Going to remove temporary js dir: ${js_dir}."
   rm -rf "$js_dir"
 }
 
@@ -163,16 +170,27 @@ if [ "$use_current_node_modules" = "true" ] && [ ! -d "$node_modules" ]; then
   exit 1
 fi
 
+echo "Starting build"
+
 prepare_node_modules \
   "$use_current_node_modules" \
   "$node_modules" \
   "$node_modules_backup"
 
+echo "Node modules prepared: ${node_modules}."
+
 prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
+
+echo "Build dir prepared: ${BUILD_DIR}."
+echo "Going to build assets."
 
 node "$(dirname "$0")"/build.js
 
+echo "Assets compiled."
+
 inject_built_assets "$BUILD_DIR" index.html static/js static/css main
+
+echo "Compiled assets injected to html page."
 
 adapt_for_environment \
   "${BUILD_FOR_COCKPIT:-"false"}" \
@@ -184,18 +202,27 @@ adapt_for_environment \
   static/js/adapterCockpit.js \
   "${PCSD_UINIX_SOCKET:-"/var/run/pcsd.socket"}"
 
+echo "Adapted for environment"
+
 fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
   static/js \
   static/css \
   manifest.json \
   static/media/favicon.png
 
+echo "Prefixed asset paths: '${url_prefix}'."
+
 minimize_adapter "$node_modules" "$BUILD_DIR"/static/js/adapter.js
+
+echo "Environment adapter mimimizhed"
+
 prepare_marks \
   "$(realpath "$(dirname "$0")"/../src/app/view/dataTest/structure.ts)" \
   manifest_test_marks \
   "$node_modules" \
   "$BUILD_DIR"
+
+echo "Marks prepared"
 
 restore_node_modules \
   "$use_current_node_modules" \

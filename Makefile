@@ -14,8 +14,8 @@ app:
 	@./packages/dev/.bin/dev-server.sh
 
 build:
-	@./packages/app/.bin/check-assumptions.sh
-	@./packages/app/.bin/build.sh
+	./packages/app/.bin/check-assumptions.sh
+	./packages/app/.bin/build.sh
 
 # prepare tarball with node modules that are necessary to build the application
 pack-modules:
