@@ -9,10 +9,7 @@ export const Footer = () => {
   const {label, sbdDisable} = useTask();
   return (
     <>
-      <TaskButtonNext
-        run={() => sbdDisable({force: false})}
-        {...task.run.mark}
-      >
+      <TaskButtonNext run={() => sbdDisable({force: false})} {...task.run.mark}>
         {label}
       </TaskButtonNext>
       <TaskButtonCancel {...task.cancel.mark} />

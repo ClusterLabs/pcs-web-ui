@@ -2,8 +2,8 @@ import {testMarks} from "app/view/dataTest";
 import {
   TaskButtonBack,
   TaskButtonCancel,
-  TaskFooter,
   TaskButtonWizardNext,
+  TaskFooter,
 } from "app/view/share";
 
 const {next, back, cancel} = testMarks.task.nodeAdd.addressesFooter;
