@@ -146,7 +146,7 @@ prepare_marks() {
 
   echo "Going to transpile ts -> js test marks: ${marks_source} -> ${js_dir}."
 
-  npx tsc --outDir "$js_dir" "$marks_source"
+  npx tsc --skipLibCheck --verbose --outDir "$js_dir" "$marks_source"
 
   echo "Going to export marks to JSON: ${build_dir}/${marks_name}.json"
 
