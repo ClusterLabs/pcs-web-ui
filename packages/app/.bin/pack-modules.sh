@@ -41,21 +41,25 @@ patch_modules() {
 }
 
 pack_modules() {
-  archive_dir=$1
+  project_root=$1
   node_modules=$2
 
-  echo "Packing modules..."
   last_commit_hash=$(git rev-parse HEAD)
-  archive="$archive_dir"/pcs-web-ui-node-modules-"$last_commit_hash".tar.xz
-  tar --create --xz --file "$archive" "$node_modules"
+
+  echo "Packing modules (for commit: $last_commit_hash)..."
+
+  tar --create --xz \
+    --file "$project_root"/pcs-web-ui-node-modules-"$last_commit_hash".tar.xz \
+    --directory "$project_root" \
+    "$(realpath --relative-to="$project_root" "$node_modules")"
 }
 
-archive_dir="${1:-"$(pwd)"}"
+# Expression `eval echo $dir` is there to expand any `~` character.
+project_root=$(realpath "$(eval echo "${1:-"$(pwd)"}")")
+node_modules=$(realpath ./node_modules)
+backup=$(realpath ./node_modules.backup)
 
-node_modules=./node_modules
-backup=./node_modules.backup
-
-prepare_node_modules $node_modules $backup
-patch_modules $node_modules
-pack_modules "$archive_dir" $node_modules
-restore_node_modules $node_modules $backup
+prepare_node_modules "$node_modules" "$backup"
+patch_modules "$node_modules"
+pack_modules "$project_root" "$node_modules"
+restore_node_modules "$node_modules" "$backup"

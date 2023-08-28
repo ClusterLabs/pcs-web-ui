@@ -1,5 +1,5 @@
 NEXUS="https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
-CURRENT_DIR=$(shell pwd)
+PROJECT_DIR=$(shell pwd)
 
 ifndef NEXUS_REPO
 	NEXUS_REPO=true
@@ -19,7 +19,7 @@ build:
 
 # prepare tarball with node modules that are necessary to build the application
 pack-modules:
-	@cd ./packages/app && .bin/pack-modules.sh ${CURRENT_DIR}
+	@cd ./packages/app && .bin/pack-modules.sh ${PROJECT_DIR}
 	@ls -l ./*.tar.xz
 
 dev:
