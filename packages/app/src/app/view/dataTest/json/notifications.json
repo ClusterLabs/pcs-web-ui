@@ -1,0 +1,33 @@
+{
+  "badge": {},
+  "drawer": {
+    "clearAll": {},
+    "error": {
+      "destroy": {},
+      "message": {}
+    },
+    "info": {
+      "destroy": {},
+      "message": {}
+    },
+    "markAllRead": {},
+    "success": {
+      "destroy": {},
+      "message": {}
+    }
+  },
+  "toast": {
+    "error": {
+      "close": {},
+      "message": {}
+    },
+    "info": {
+      "close": {},
+      "message": {}
+    },
+    "success": {
+      "close": {},
+      "message": {}
+    }
+  }
+}

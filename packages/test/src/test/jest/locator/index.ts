@@ -1,7 +1,7 @@
 import {Locator, Page} from "playwright";
 
 import {EnvType} from "../envType";
-import {SubStructure, structure as testMarksStructure} from "../dataTest";
+import {SubStructure, markStructure as testMarksStructure} from "../dataTest";
 
 type LocatorArgs = Parameters<Page["locator"]>;
 type WithLocator<STRUCT extends SubStructure> = {

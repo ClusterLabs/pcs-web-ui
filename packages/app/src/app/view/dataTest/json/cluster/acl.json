@@ -1,0 +1,35 @@
+{
+  "currentGroup": {
+    "id": {}
+  },
+  "currentRole": {
+    "id": {},
+    "toolbar": {
+      "addPermissions": {},
+      "assignUser": {},
+      "dropdown": {
+        "assignGroup": {},
+        "deleteRole": {}
+      }
+    }
+  },
+  "currentUser": {
+    "id": {}
+  },
+  "lists": {
+    "group": {
+      "id": {},
+      "rolesCount": {}
+    },
+    "role": {
+      "groupsCount": {},
+      "id": {},
+      "permissionsCount": {},
+      "usersCount": {}
+    },
+    "user": {
+      "id": {},
+      "rolesCount": {}
+    }
+  }
+}

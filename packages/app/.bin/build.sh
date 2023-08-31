@@ -1,10 +1,12 @@
 #!/bin/sh
 
+bin="$(dirname "$0")"
+
 # load scripts: get_path
 # shellcheck source=./tools.sh
-. "$(dirname "$0")"/tools.sh
+. "$bin"/tools.sh
 # shellcheck source=./get-build-sizes.sh
-. "$(dirname "$0")"/get-build-sizes.sh
+. "$bin"/get-build-sizes.sh
 
 prepare_node_modules() {
   use_current_node_modules=$1
@@ -136,28 +138,6 @@ adapt_for_environment() {
   fi
 }
 
-prepare_marks() {
-  marks_source=$1
-  marks_name=$2
-  npm_prefix=$3
-  build_dir=$4
-
-  js_dir="$build_dir"/"$marks_name"
-
-  echo "Going to transpile ts -> js test marks: ${marks_source} -> ${js_dir}."
-
-  npx tsc --skipLibCheck --verbose --outDir "$js_dir" "$marks_source"
-
-  echo "Going to export marks to JSON: ${build_dir}/${marks_name}.json"
-
-  node -e \
-    "console.log(JSON.stringify(require(\"$js_dir/structure\").structure));" \
-    > "$build_dir"/"$marks_name".json
-
-  echo "Going to remove temporary js dir: ${js_dir}."
-  rm -rf "$js_dir"
-}
-
 use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
 url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
 node_modules=$(get_path "appNodeModules")
@@ -184,7 +164,7 @@ prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
 echo "Build dir prepared: ${BUILD_DIR}."
 echo "Going to build assets."
 
-node "$(dirname "$0")"/build.js
+node "$bin"/build.js
 
 echo "Assets compiled."
 
@@ -214,13 +194,11 @@ echo "Prefixed asset paths: '${url_prefix}'."
 
 minimize_adapter "$node_modules" "$BUILD_DIR"/static/js/adapter.js
 
-echo "Environment adapter mimimizhed"
+echo "Environment adapter minimized"
 
-prepare_marks \
-  "$(realpath "$(dirname "$0")"/../src/app/view/dataTest/structure.ts)" \
-  manifest_test_marks \
-  "$node_modules" \
-  "$BUILD_DIR"
+node "$bin"/merge-test-marks.js \
+  "$(realpath "$bin"/../src/app/view/dataTest/json)" \
+  > "$BUILD_DIR"/manifest_test_marks.json
 
 echo "Marks prepared"
 

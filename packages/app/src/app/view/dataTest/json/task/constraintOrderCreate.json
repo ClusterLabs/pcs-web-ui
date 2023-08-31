@@ -1,0 +1,24 @@
+{
+  "cancel": {},
+  "fail": {
+    "back": {},
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "first": {
+    "action": {},
+    "down": {},
+    "resource": {}
+  },
+  "report": {},
+  "run": {},
+  "score": {},
+  "success": {
+    "close": {}
+  },
+  "then": {
+    "action": {},
+    "resource": {},
+    "up": {}
+  }
+}
