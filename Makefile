@@ -1,5 +1,6 @@
 NEXUS="https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
 PROJECT_DIR=$(shell pwd)
+APP_MODULES_DIR=$(shell realpath ${PROJECT_DIR}/packages/app/node_modules)
 
 ifndef NEXUS_REPO
 	NEXUS_REPO=true
@@ -15,12 +16,22 @@ app:
 
 build:
 	./packages/app/.bin/check-assumptions.sh
-	./packages/app/.bin/build.sh
+	@cd ./packages/app && .bin/build.sh ${PROJECT_DIR}
 
 # prepare tarball with node modules that are necessary to build the application
-pack-modules:
-	@cd ./packages/app && .bin/pack-modules.sh ${PROJECT_DIR}
+modules-pack:
+	@cd ./packages/app \
+		&& .bin/modules-prepare.sh ${APP_MODULES_DIR} \
+		&& .bin/modules-patch.sh ${APP_MODULES_DIR} \
+		&& .bin/modules-tar.sh ${APP_MODULES_DIR} ${PROJECT_DIR} \
+		&& .bin/modules-restore.sh ${APP_MODULES_DIR} \
 	@ls -l ./*.tar.xz
+
+modules-prepare:
+	@cd ./packages/app  && echo y |  .bin/modules-prepare.sh ${APP_MODULES_DIR} 
+
+modules-patch:
+	@cd ./packages/app  && .bin/modules-patch.sh ${APP_MODULES_DIR} 
 
 dev:
 	@cd ./packages/dev-backend && .bin/dev-backend.sh

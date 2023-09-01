@@ -8,32 +8,6 @@ bin="$(dirname "$0")"
 # shellcheck source=./get-build-sizes.sh
 . "$bin"/get-build-sizes.sh
 
-prepare_node_modules() {
-  use_current_node_modules=$1
-  node_modules=$2
-  node_modules_backup=$3
-
-  if [ "$use_current_node_modules" != "true" ]; then
-    if [ -d "$node_modules" ]; then
-      mv "$node_modules" "${node_modules_backup}"
-    fi
-    npx npm ci
-  fi
-}
-
-restore_node_modules() {
-  use_current_node_modules=$1
-  node_modules=$2
-  node_modules_backup=$3
-
-  if [ "$use_current_node_modules" != "true" ]; then
-    rm -rf "$node_modules"
-    if [ -d "$node_modules_backup" ]; then
-      mv "$node_modules_backup" "$node_modules"
-    fi
-  fi
-}
-
 prepare_build_dir() {
   build_dir=$1
   public_dir=$2
@@ -99,11 +73,9 @@ fix_asset_paths() {
 }
 
 minimize_adapter() {
-  npm_prefix=$1
-  adapter_path=$2
+  adapter_path=$1
 
-  npm exec --prefix "$npm_prefix" -- \
-    terser "$adapter_path" \
+  npx terser "$adapter_path" \
     --compress ecma=5,warnings=false,comparisons=false,inline=2 \
     --output "$adapter_path"
 }
@@ -138,11 +110,12 @@ adapt_for_environment() {
   fi
 }
 
+# Expression `eval echo $dir` is there to expand any `~` character.
+project_dir=$(realpath "$(eval echo "${1:-"$(pwd)"}")")
 use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
 url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
 node_modules=$(get_path "appNodeModules")
-node_modules_backup="${node_modules}.build-backup"
-export BUILD_DIR="${BUILD_DIR:-"$(pwd)"/build}"
+export BUILD_DIR="${BUILD_DIR:-"$project_dir"/build}"
 
 if [ "$use_current_node_modules" = "true" ] && [ ! -d "$node_modules" ]; then
   echo "Current node modules should be used but directory $node_modules does" \
@@ -152,10 +125,9 @@ fi
 
 echo "Starting build"
 
-prepare_node_modules \
-  "$use_current_node_modules" \
-  "$node_modules" \
-  "$node_modules_backup"
+if [ "$use_current_node_modules" != "true" ]; then
+  "$bin"/modules-prepare.sh "$node_modules"
+fi
 
 echo "Node modules prepared: ${node_modules}."
 
@@ -192,7 +164,7 @@ fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
 
 echo "Prefixed asset paths: '${url_prefix}'."
 
-minimize_adapter "$node_modules" "$BUILD_DIR"/static/js/adapter.js
+minimize_adapter "$BUILD_DIR"/static/js/adapter.js
 
 echo "Environment adapter minimized"
 
@@ -202,9 +174,8 @@ node "$bin"/merge-test-marks.js \
 
 echo "Marks prepared"
 
-restore_node_modules \
-  "$use_current_node_modules" \
-  "$node_modules" \
-  "$node_modules_backup"
+if [ "$use_current_node_modules" != "true" ]; then
+  "$bin"/modules-restore.sh "$node_modules"
+fi
 
 printf "\n%s\n" "$(print_bundle_sizes "$BUILD_DIR")"

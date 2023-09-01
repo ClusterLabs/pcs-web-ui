@@ -30,6 +30,11 @@ pcsd_integration_test:
     - dnf install -y fence-agents-all
     #
     #
+    # install npm
+    #
+    - dnf install -y npm
+    #
+    #
     # install current version of pcs
     #
     - 'curl -Lk --output artifacts.zip --header "PRIVATE-TOKEN: ${PCS_REPO_TOKEN}" "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/main/download?job=rpm_build%3A%20%5BPcsRhel9CurrentRelease%5D"'
@@ -41,10 +46,10 @@ pcsd_integration_test:
     # build and install webui
     #
     - make init_nexus NEXUS_CERT_PATH="${NEXUS_CERT_PATH}"
-    - echo y | npx npm ci
-    - echo y | .bin/patch-node-modules-for-fips.sh node_modules
+    - make modules-prepare
+    - make modules-patch
     - export BUILD_USE_CURRENT_NODE_MODULES=true
-    - echo y | make build
+    - make build
     - mv ./build /usr/lib64/pcsd/public/ui
     #
     #
