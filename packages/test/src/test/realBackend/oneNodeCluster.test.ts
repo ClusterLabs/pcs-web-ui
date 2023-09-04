@@ -30,7 +30,7 @@ export const launchClusterItemAction = async (
 
 const {task} = marks;
 
-describe("Web ui inside cockpit on one node cluster", () => {
+describe("Web ui on one node cluster", () => {
   it(
     "should succeed with essential features",
     async () => {
@@ -54,7 +54,7 @@ describe("Web ui inside cockpit on one node cluster", () => {
 
       await isVisible(
         marks.dashboard.clusterList.cluster.status.locator.locator(
-          '/*[text() = "inoperative" or text() = "running"]',
+          'xpath=/*[text() = "inoperative" or text() = "running"]',
         ),
       );
 
@@ -100,10 +100,12 @@ const removeCluster = async (clusterName: string) => {
 const destroyCluster = async (clusterName: string) => {
   await launchClusterItemAction(clusterName, a => a.destroy);
   await isVisible(task.confirm);
+  const {success} = marks.notifications.toast;
   await Promise.all([
     waitForImportedClusterList(),
     page.waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
-    isVisible(marks.notifications.toast.success),
+    isVisible(success.locator.getByText("Cluster removed from cluster list")),
+    isVisible(success.locator.getByText("Cluster destroyed.")),
     click(task.confirm.run),
   ]);
   // give page chance to redraw after loading imported-cluster-list
