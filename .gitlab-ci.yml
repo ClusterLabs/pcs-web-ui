@@ -55,6 +55,7 @@ pcsd_integration_test:
     #
     # prepare environment for tests
     #
+    - make test-modules-prepare
     - export PCSD_PROTOCOL_1=https
     - export PCSD_HOST_1=localhost
     - export PCSD_NODE_1=wuitest
