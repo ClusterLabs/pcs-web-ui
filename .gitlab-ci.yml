@@ -25,14 +25,12 @@ pcsd_integration_test:
       pango-1.48.7-2.el9
     #
     #
-    # install fence-xvm
+    # install other dependencies
     #
-    - dnf install -y fence-agents-all
-    #
-    #
-    # install npm
-    #
-    - dnf install -y npm
+    - dnf install -y
+      npm
+      cockpit-bridge
+      fence-agents-all
     #
     #
     # install current version of pcs
@@ -49,23 +47,28 @@ pcsd_integration_test:
     - make modules-prepare
     - make modules-patch
     - export BUILD_USE_CURRENT_NODE_MODULES=true
+    #
+    - export BUILD_DIR="$(pwd)"/build-standalone
     - make build
-    - mv ./build /usr/lib64/pcsd/public/ui
+    - mv "$BUILD_DIR" /usr/lib64/pcsd/public/ui
+    #
+    - export BUILD_FOR_COCKPIT=true
+    - export BUILD_DIR="$(pwd)"/build-cockpit
+    - make build
+    - mv "$BUILD_DIR" /usr/share/cockpit/ha-cluster
     #
     #
-    # prepare environment for tests
+    # prepare environment for test (all)
     #
     - make test-modules-prepare
     - export PCSD_PROTOCOL_1=https
     - export PCSD_HOST_1=localhost
     - export PCSD_NODE_1=wuitest
-    - export PCSD_PORT_1=2224
     - export PCSD_USERNAME_1="hacluster"
     - export PCSD_PASSWORD_1=hh
     - export PCS_WUI_TESTS_HEADLESS=true
     - export PCS_WUI_TESTS_VIDEO_DIR=.test-records
     - export PCS_WUI_TEST_TIMEOUT=1000000
-    - export PCS_WUI_TEST_TYPE="standalone"
     - systemctl enable pcsd --now
     # hacluster user should already exists
     - echo "$PCSD_PASSWORD_1" | passwd "$PCSD_USERNAME_1" --stdin
@@ -76,8 +79,18 @@ pcsd_integration_test:
     - ln /var/log/pcsd/pcsd.log "$PCS_WUI_TESTS_VIDEO_DIR/pcsd.log"
     #
     #
-    # run tests
+    # test (standalone)
     #
+    - export PCS_WUI_TEST_TYPE="standalone"
+    - export PCSD_PORT_1=2224
+    - make ci-cluster-test
+    #
+    #
+    # test (cockpit)
+    #
+    - usermod --shell /bin/bash "$PCSD_USERNAME_1"
+    - export PCS_WUI_TEST_TYPE="cockpit"
+    - export PCSD_PORT_1=9090
     - make ci-cluster-test
 
   artifacts:
