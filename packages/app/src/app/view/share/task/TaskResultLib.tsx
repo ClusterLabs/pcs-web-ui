@@ -35,7 +35,7 @@ export const TaskResultLib = (props: {
       );
 
     case "communication-error":
-      return <>props.communicationError</>;
+      return <>{props.communicationError}</>;
 
     default:
       return <TaskProgress title={`Processing task "${taskLabel}".`} />;
