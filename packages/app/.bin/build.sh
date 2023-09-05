@@ -113,7 +113,12 @@ adapt_for_environment() {
 # Expression `eval echo $dir` is there to expand any `~` character.
 project_dir=$(realpath "$(eval echo "${1:-"$(pwd)"}")")
 use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
-url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
+build_for_cockpit=${BUILD_FOR_COCKPIT:-"false"}
+if [ "$build_for_cockpit" != "true" ]; then
+  url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
+else
+  url_prefix=${PCSD_BUILD_URL_PREFIX:-"."}
+fi
 node_modules=$(get_path "appNodeModules")
 export BUILD_DIR="${BUILD_DIR:-"$project_dir"/build}"
 
@@ -145,7 +150,7 @@ inject_built_assets "$BUILD_DIR" index.html static/js static/css main
 echo "Compiled assets injected to html page."
 
 adapt_for_environment \
-  "${BUILD_FOR_COCKPIT:-"false"}" \
+  "$build_for_cockpit" \
   "$BUILD_DIR" \
   index.html \
   manifest.json \
