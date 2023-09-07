@@ -88,11 +88,20 @@ pcsd_integration_test:
     #
     # test (cockpit)
     #
-    - systemctl status cockpit
-    - usermod --shell /bin/bash "$PCSD_USERNAME_1"
-    - export PCS_WUI_TEST_TYPE="cockpit"
-    - export PCSD_PORT_1=9090
-    - make ci-cluster-test
+    # It is disabled for now. The main reason is that tests require to wait for
+    # a response e.g. `await page.waitForResponse(/.*\/imported-cluster-list$/)`
+    # after cluster setup before continue. These responses are encapsulated in
+    # cockpit mechanism, so are invisible for playwright. There are more options
+    # how to deal with it:
+    # 1) introduce extra events for cockpit (and playwright will wait for it)
+    # 2) rewrite test to eliminate a need to wait for a response if it is
+    # feasible (e.g. when something appear in the page).
+    #
+    # - systemctl enable cockpit --now
+    # - usermod --shell /bin/bash "$PCSD_USERNAME_1"
+    # - export PCS_WUI_TEST_TYPE="cockpit"
+    # - export PCSD_PORT_1=9090
+    # - make ci-cluster-test
 
   artifacts:
     when: on_failure
