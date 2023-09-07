@@ -1,7 +1,5 @@
 NEXUS="https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
-LAST_COMMIT_HASH=$(shell git rev-parse HEAD)
-
-SCENARIOS_DIR=src/dev/scenarios/
+CURRENT_DIR=$(shell pwd)
 
 ifndef NEXUS_REPO
 	NEXUS_REPO=true
@@ -11,51 +9,31 @@ ifndef NEXUS_CERT_PATH
 	NEXUS_CERT_PATH=""
 endif
 
-ifndef TEST
-	TEST=""
-endif
-
 app:
-	@./.bin/check-assumptions.sh
-	@./.bin/dev-server.sh
+	@./packages/app/.bin/check-assumptions.sh
+	@./packages/dev/.bin/dev-server.sh
 
 build:
-	@./.bin/check-assumptions.sh
-	@./.bin/build.sh
-
+	@./packages/app/.bin/check-assumptions.sh
+	@./packages/app/.bin/build.sh
 
 # prepare tarball with node modules that are necessary to build the application
 pack-modules:
-	if [ -d "node_modules" ]; then mv node_modules node_modules.backup; fi
-	npx npm ci
-	@./.bin/patch-node-modules-for-fips.sh ./node_modules
-	tar -Jcf pcs-web-ui-node-modules-${LAST_COMMIT_HASH}.tar.xz node_modules
-	rm -r node_modules
-	if [ -d "node_modules.backup" ]; then mv node_modules.backup node_modules; fi
-	ls -l *.tar.xz
-
+	@cd ./packages/app && .bin/pack-modules.sh ${CURRENT_DIR}
+	@ls -l ./*.tar.xz
 
 dev:
-ifdef SCENARIO
-	@./.bin/dev-backend.sh $(SCENARIOS_DIR) $(SCENARIO)
-else
-	@./.bin/dev-backend.sh $(SCENARIOS_DIR)
-endif
-
-
-#unit tests
-testu:
-	npx jest --watch --config=jest.config.js --testPathPattern=src/test/unit/$(TEST)
+	@cd ./packages/dev-backend && .bin/dev-backend.sh
 
 #end2end tests
 teste:
-	@./.bin/run-dev-tests.sh -c ./.dev/cluster-test-conf.sh
+	@cd ./packages/test && .bin/run-dev-tests.sh
 
 testc:
-	@./.bin/run-dev-tests.sh -t cluster -c ./.dev/cluster-test-conf.sh
+	@cd ./packages/test && .bin/run-dev-tests.sh -t cluster
 
 ci-cluster-test:
-	@./.bin/run-jest.sh -s -p src/test/clusterBackend
+	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/clusterBackend
 
 clean:
 	rm -rf build
@@ -65,8 +43,7 @@ init_nexus:
 ifeq ($(NEXUS_CERT_PATH),"")
 	echo "Specify path of nexus certificate, please"
 else
-	echo "registry="${NEXUS} > .npmrc
-	echo cafile=${NEXUS_CERT_PATH} >> .npmrc
+	@.bin/init_nexus.sh ./packages ${NEXUS} ${NEXUS_CERT_PATH}
 endif
 
 
@@ -74,21 +51,14 @@ endif
 init:
 ifeq ($(NEXUS_REPO),true)
 	@echo "Use \`make init NEXUS_REPO=false\` not to use the Nexus repo."
-	@read -p "Specify path to a Nexus repo certificate: " cert; \
-	echo "registry="${NEXUS} > .npmrc; \
-	echo cafile=$$cert >> .npmrc
-	@cp .githooks/pre-commit .git/hooks/pre-commit
+	@.bin/init.sh ${NEXUS}
 else
 	@echo "If you will need reinit with the Nexus repo run \`make init\`"
-endif
-	@npm install
-ifeq ($(NEXUS_REPO),true)
-	@sed -i \
-	"s#repository.engineering.redhat.com/nexus/repository/##g" package-lock.json
+	@.bin/init.sh
 endif
 
 lint:
-	npx eslint --fix --ext .js,.ts,.tsx src/
+	@.bin/lint.sh ./packages
 
 fmt:
 	npx prettier "src/" --write
@@ -103,5 +73,8 @@ endif
 	cp -r build/* $(PCSD_DIR)/public/ui
 
 install: build _install
+
+npm_install:
+	@.bin/npm_install.sh ./packages
 
 .PHONY: test build

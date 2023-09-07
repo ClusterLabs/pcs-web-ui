@@ -2,12 +2,7 @@
 
 # dependencies
 /node_modules
-/dev-backend/node_modules
-
-# testing
-/coverage
-/src/app/scenes/*/test/recordings/
-/src/test/tools/recordings/
+/packages/*/node_modules
 
 # production
 /build
