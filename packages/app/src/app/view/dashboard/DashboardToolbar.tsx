@@ -1,11 +1,12 @@
+import {testMarks} from "app/view/dataTest";
 import {LaunchersToolbar} from "app/view/share";
 
 import * as task from "./task";
 
+const {dashboardToolbar: toolbar} = testMarks;
 export const DashboardToolbar = () => {
   return (
     <LaunchersToolbar
-      toolbarName="dashboard"
       buttonsItems={[
         {
           name: "add-existing-cluster",
@@ -13,6 +14,7 @@ export const DashboardToolbar = () => {
             component: task.importExistingCluster.ImportExistingCluster,
             useTask: task.importExistingCluster.useTask,
           },
+          ...toolbar.importExistingCluster.mark,
         },
         {
           name: "setup-cluster",
@@ -20,8 +22,10 @@ export const DashboardToolbar = () => {
             component: task.clusterSetup.ClusterSetup,
             useTask: task.clusterSetup.useTask,
           },
+          ...toolbar.setupCluster.mark,
         },
       ]}
+      {...toolbar.mark}
     />
   );
 };

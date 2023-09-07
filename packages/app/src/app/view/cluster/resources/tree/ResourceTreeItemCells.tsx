@@ -1,43 +1,29 @@
 import {DataListCell, DataListItemCells} from "@patternfly/react-core";
 
-import {
-  SelectionIndicatorInGroup,
-  useGroupDetailViewContext,
-} from "app/view/share";
-import {ResourceStatus} from "app/view/cluster/types";
-
-import {ResourceTreeCellName} from "./ResourceTreeCellName";
-import {ResourceTreeCellType} from "./ResourceTreeCellType";
-import {ResourceTreeCellStatus} from "./ResourceTreeCellStatus";
+import {SelectionIndicatorInGroup} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 export const ResourceTreeItemCells = ({
   resourceId,
-  status,
-  type,
-  typeDescription = "",
+  idCell,
+  typeCell,
+  statusCell,
 }: {
   resourceId: string;
-  status: ResourceStatus;
-  type: string;
-  typeDescription?: string;
+  idCell: React.ReactNode;
+  typeCell: React.ReactNode;
+  statusCell: React.ReactNode;
 }) => {
   const {selectedItemUrlName} = useGroupDetailViewContext();
   return (
     <>
       <DataListItemCells
         dataListCells={[
-          <DataListCell key={resourceId}>
-            <ResourceTreeCellName resourceId={resourceId} />
-          </DataListCell>,
-          <DataListCell key={`${resourceId}.type`}>
-            <ResourceTreeCellType
-              type={type}
-              typeDescription={typeDescription}
-            />
-          </DataListCell>,
+          <DataListCell key="resourceId">{idCell}</DataListCell>,
+          <DataListCell key="resourceType">{typeCell}</DataListCell>,
         ]}
       />
-      <ResourceTreeCellStatus status={status} />
+      {statusCell}
       {selectedItemUrlName !== "" && (
         <SelectionIndicatorInGroup
           isSelected={resourceId === selectedItemUrlName}

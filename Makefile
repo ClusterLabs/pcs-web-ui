@@ -25,15 +25,11 @@ pack-modules:
 dev:
 	@cd ./packages/dev-backend && .bin/dev-backend.sh
 
-#end2end tests
-teste:
+test:
 	@cd ./packages/test && .bin/run-dev-tests.sh
 
-testc:
-	@cd ./packages/test && .bin/run-dev-tests.sh -t cluster
-
 ci-cluster-test:
-	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/clusterBackend
+	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/realBackend
 
 clean:
 	rm -rf build
@@ -61,8 +57,8 @@ lint:
 	@.bin/lint.sh ./packages
 
 fmt:
-	npx prettier "src/" --write
-	npx eslint --fix --ext .js,.ts,.tsx src/
+	npx prettier "packages/app/src/" --write
+	packages/app/node_modules/.bin/eslint --fix --ext .js,.ts,.tsx packages/app/src/
 
 _install:
 ifndef PCSD_DIR

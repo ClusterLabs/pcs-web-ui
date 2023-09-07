@@ -1,6 +1,9 @@
-import {ReviewList, ReviewValue, TaskLibStep} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {ReviewItem, ReviewList, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {review} = testMarks.task.nodeAdd;
 
 export const Review = () => {
   const {
@@ -16,42 +19,56 @@ export const Review = () => {
   } = useTask();
 
   return (
-    <TaskLibStep title="Review settings" reports={reports}>
+    <TaskLibStep title="Review settings" reports={reports} {...review.mark}>
       <ReviewList>
-        <ReviewValue label="Node name" value={nodeName} />
-        <ReviewValue
+        <ReviewItem
+          label="Node name"
+          value={nodeName}
+          {...review.nodeName.mark}
+        />
+        <ReviewItem
           label="Node addresses"
           value={
             filledNodeAddresses.length === 0 ? (
               <>No address configured</>
             ) : (
-              filledNodeAddresses.map((a, i) => <div key={i}>{a}</div>)
+              filledNodeAddresses.map((a, i) => (
+                <div {...review.address.mark} key={i}>
+                  {a}
+                </div>
+              ))
             )
           }
         />
 
         {isSbdEnabled && (
           <>
-            <ReviewValue
+            <ReviewItem
               label="Sbd watchdog"
               value={sbdWatchdog}
               useDefault={{
                 whenValue: "",
                 defaultValue: "/dev/watchdog",
               }}
+              {...review.sbdWatchdog.mark}
             />
-            <ReviewValue
+            <ReviewItem
               label="Sbd watchdog validation"
               value={sbdNoWatchdogValidation ? "Disabled" : "Enabled"}
+              {...review.sbdValidation.mark}
             />
 
-            <ReviewValue
+            <ReviewItem
               label="Sbd devices"
               value={
                 filledSbdDevices.length === 0 ? (
                   <>No sbd devices configured</>
                 ) : (
-                  filledSbdDevices.map((a, i) => <div key={i}>{a}</div>)
+                  filledSbdDevices.map((a, i) => (
+                    <div {...review.sbdDevice.mark} key={i}>
+                      {a}
+                    </div>
+                  ))
                 )
               }
             />

@@ -1,8 +1,11 @@
 import {Flex, FlexItem, Form, FormGroup, Radio} from "@patternfly/react-core";
 
-import {FormSelectOrText, FormText} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {FormSelectOrText, FormText, Select} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {constraintLocationCreate: task} = testMarks.task;
 
 export const Configure = () => {
   const {
@@ -28,7 +31,7 @@ export const Configure = () => {
   } = useTask();
 
   return (
-    <Form data-test="create-location-constraint">
+    <Form>
       <FormGroup
         label="Resource"
         isRequired
@@ -43,23 +46,31 @@ export const Configure = () => {
                 checked === "select" ? "resource" : "pattern",
             })
           }
-          showValidationErrors={showValidationErrors}
-          select={{
-            label: "Select a resource",
-            placeholderText: "Select a resource",
-            isValid: isResourceValid,
-            selections: resourceId,
-            optionsValues: resourceIdList,
-            onSelect: value => updateState({resourceId: value.toString()}),
-          }}
-          text={{
-            label: "Type resource pattern",
-            value: resourcePattern,
-            onChange: value => updateState({resourcePattern: value}),
-            helperTextInvalid: "Please provide resource pattern",
-            isValid: isPatternValid,
-            "data-test": "resource-pattern",
-          }}
+          selectLabel="Select a resource"
+          select={
+            <Select
+              placeholderText="Select a resource"
+              validated={
+                showValidationErrors && !isResourceValid ? "error" : "default"
+              }
+              selections={resourceId}
+              optionsValues={resourceIdList}
+              onSelect={value => updateState({resourceId: value.toString()})}
+              {...task.target.resource.mark}
+            />
+          }
+          textLabel="Type resource pattern"
+          text={
+            <FormText
+              id="type-resource-pattern"
+              value={resourcePattern}
+              onChange={value => updateState({resourcePattern: value})}
+              helperTextInvalid="Please provide resource pattern"
+              isValid={isPatternValid}
+              {...task.target.pattern.mark}
+            />
+          }
+          {...task.target.mark}
         />
       </FormGroup>
 
@@ -76,23 +87,31 @@ export const Configure = () => {
               locationSpecification: checked === "select" ? "node" : "rule",
             })
           }
-          showValidationErrors={showValidationErrors}
-          select={{
-            label: "Select a node",
-            placeholderText: "Select a node",
-            isValid: isNodeValid,
-            selections: nodeName,
-            optionsValues: nodeNameList,
-            onSelect: value => updateState({nodeName: value.toString()}),
-          }}
-          text={{
-            label: "Type rule",
-            value: rule,
-            onChange: value => updateState({rule: value}),
-            helperTextInvalid: "Please provide rule",
-            isValid: isRuleValid,
-            "data-test": "rule",
-          }}
+          selectLabel="Select a node"
+          select={
+            <Select
+              placeholderText="Select a node"
+              validated={
+                showValidationErrors && !isNodeValid ? "error" : "default"
+              }
+              selections={nodeName}
+              optionsValues={nodeNameList}
+              onSelect={value => updateState({nodeName: value.toString()})}
+              {...task.location.node.mark}
+            />
+          }
+          textLabel="Type a rule"
+          text={
+            <FormText
+              id="type-a-rule"
+              value={rule}
+              onChange={value => updateState({rule: value})}
+              helperTextInvalid={"Please provide rule"}
+              isValid={isRuleValid}
+              {...task.location.rule.mark}
+            />
+          }
+          {...task.location.mark}
         />
       </FormGroup>
 
@@ -101,7 +120,7 @@ export const Configure = () => {
         isRequired
         fieldId="constraint-location-create-preference"
       >
-        <Flex>
+        <Flex {...task.preference.mark}>
           <FlexItem>
             <Radio
               isChecked={preference === "prefer"}
@@ -135,7 +154,7 @@ export const Configure = () => {
         showValidationErrors={showValidationErrors}
         isValid={isScoreValid}
         helperTextInvalid="Score must be integer or INFINITY"
-        data-test="score"
+        {...task.score.mark}
       />
     </Form>
   );

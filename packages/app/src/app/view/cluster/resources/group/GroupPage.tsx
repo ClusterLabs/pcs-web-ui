@@ -1,28 +1,49 @@
-import {Alert} from "@patternfly/react-core";
+import {Alert, Tab, Tabs} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Group} from "app/view/cluster/types";
-import {
-  DetailLayout,
-  ResourceDetailCaption,
-  Router,
-  UrlTabs,
-  useUrlTabs,
-} from "app/view/share";
-import {NVPairListPage} from "app/view/cluster/share";
+import {ResourceDetailCaption, Router, useUrlTabs} from "app/view/share";
+import {DetailLayout} from "app/view/cluster/share";
 
 import {GroupDetail} from "./GroupDetail";
 import {GroupPageToolbar} from "./GroupPageToolbar";
+import {GroupMeta} from "./GroupMeta";
 
-const tabList = ["detail", "meta"] as const;
+const {currentGroup} = testMarks.cluster.resources;
+const {tabs} = currentGroup;
+
+const tabMap = {
+  detail: (
+    <Tab
+      eventKey="detail"
+      key="detail"
+      title={"Detail"}
+      {...tabs.detail.mark}
+    />
+  ),
+  meta: <Tab eventKey="meta" key="meta" title="Meta" {...tabs.meta.mark} />,
+};
 
 export const GroupPage = ({group}: {group: Group}) => {
-  const {currentTab, matchedContext} = useUrlTabs(tabList);
+  const {currentTab, matchedContext, onSelect} = useUrlTabs(
+    Object.keys(tabMap) as (keyof typeof tabMap)[],
+  );
   return (
     <DetailLayout
-      caption={<ResourceDetailCaption resourceId={group.id} type="group" />}
-      tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
+      caption={
+        <ResourceDetailCaption
+          resourceId={group.id}
+          type="group"
+          {...currentGroup.id.mark}
+        />
+      }
+      tabs={
+        <Tabs activeKey={currentTab} onSelect={onSelect} {...tabs.mark}>
+          {Object.values(tabMap)}
+        </Tabs>
+      }
       toolbar={<GroupPageToolbar group={group} />}
-      data-test={`resource-detail ${group.id}`}
+      {...currentGroup.mark}
     >
       {group.resources.some(r => r.itemType === "fence-device") && (
         <Alert
@@ -36,16 +57,7 @@ export const GroupPage = ({group}: {group: Group}) => {
       )}
       <Router base={matchedContext}>
         {currentTab === "detail" && <GroupDetail group={group} />}
-        {currentTab === "meta" && (
-          <NVPairListPage
-            nvPairList={group.metaAttributes}
-            owner={{
-              type: "resource-meta",
-              id: group.id,
-            }}
-            createLabel="Create meta attribute"
-          />
-        )}
+        {currentTab === "meta" && <GroupMeta group={group} />}
       </Router>
     </DetailLayout>
   );

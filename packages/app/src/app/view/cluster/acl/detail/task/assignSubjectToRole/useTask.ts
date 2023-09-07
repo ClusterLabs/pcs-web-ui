@@ -20,6 +20,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    label: `Assign ${assigneeType}`,
     isAssigneeValid:
       state.sourceObject === "subject"
         ? state.roleId.length > 0
@@ -87,13 +88,6 @@ export const useTask = () => {
                   },
                 },
         },
-      });
-    },
-
-    recoverFromError: () => {
-      dispatch({
-        type: "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET",
-        key: {clusterName, task: task.name},
       });
     },
   };

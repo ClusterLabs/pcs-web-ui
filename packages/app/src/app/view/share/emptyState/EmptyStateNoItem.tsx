@@ -7,22 +7,19 @@ import {
 } from "@patternfly/react-core";
 import {PlusCircleIcon, SearchIcon} from "@patternfly/react-icons";
 
-export const EmptyStateNoItem = ({
-  title,
-  message = null,
-  canAdd = true,
-}: {
+export const EmptyStateNoItem = (props: {
   title: React.ReactNode;
   message?: React.ReactNode;
   canAdd?: boolean;
+  "data-test"?: string;
 }) => {
   return (
-    <EmptyState style={{margin: "auto"}}>
-      <EmptyStateIcon icon={canAdd ? PlusCircleIcon : SearchIcon} />
+    <EmptyState style={{margin: "auto"}} data-test={props["data-test"]}>
+      <EmptyStateIcon icon={props.canAdd ? PlusCircleIcon : SearchIcon} />
       <Title size="lg" headingLevel="h3">
-        {title}
+        {props.title}
       </Title>
-      {message && <EmptyStateBody>{message}</EmptyStateBody>}
+      {props.message && <EmptyStateBody>{props.message}</EmptyStateBody>}
     </EmptyState>
   );
 };

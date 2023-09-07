@@ -8,6 +8,7 @@ import {
   StackItem,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {selectors} from "app/store";
 import {
   Page,
@@ -49,7 +50,7 @@ export const DashboardApp = () => {
             <Stack hasGutter>
               <PageToolbar
                 breadcrumbs={
-                  <Breadcrumb data-test="breadcrumb">
+                  <Breadcrumb>
                     <BreadcrumbItem
                       component="span"
                       isActive
@@ -66,7 +67,10 @@ export const DashboardApp = () => {
               </StackItem>
             </Stack>
           </PageSection>
-          <PageSectionDataLoading done={dataLoaded}>
+          <PageSectionDataLoading
+            done={dataLoaded}
+            {...testMarks.dashboard.mark}
+          >
             <DashboardClusterList
               importedClusterNameList={importedClusterNameList}
             />

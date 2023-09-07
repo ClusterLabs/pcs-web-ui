@@ -1,7 +1,14 @@
+import {testMarks} from "app/view/dataTest";
 import {Action} from "app/store";
-import {DetailToolbar, LauncherItem as ToolbarItem, task} from "app/view/share";
+import {
+  LauncherDropdown,
+  LauncherItem as ToolbarItem,
+  task,
+} from "app/view/share";
 import {Node} from "app/view/cluster/types";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+
+const {toolbar} = testMarks.cluster.nodes.currentNode;
 
 export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
   const {clusterName} = useLoadedCluster();
@@ -29,6 +36,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       ),
       action: standbyUnstandbyAction(true),
     },
+    ...toolbar.dropdown.standby.mark,
   };
 
   const unstandby: ToolbarItem = {
@@ -43,6 +51,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       ),
       action: standbyUnstandbyAction(false),
     },
+    ...toolbar.dropdown.unstandby.mark,
   };
 
   const maintenanceUnmanintenanceAction = (maintenance: boolean): Action => ({
@@ -67,6 +76,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       description: "Put the node into maintenance mode",
       action: maintenanceUnmanintenanceAction(true),
     },
+    ...toolbar.dropdown.maintenance.mark,
   };
 
   const unmaintenance: ToolbarItem = {
@@ -76,6 +86,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       description: "Remove the node into maintenance mode",
       action: maintenanceUnmanintenanceAction(false),
     },
+    ...toolbar.dropdown.unmaintenance.mark,
   };
 
   const start: ToolbarItem = {
@@ -89,22 +100,16 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
         payload: {nodeName: node.name},
       },
     },
+    ...toolbar.start.mark,
   };
 
   const stop: ToolbarItem = {
     name: "stop",
     task: {
       component: task.forceableConfirm.Task({
-        confirm: {
-          title: "Stop node?",
-          description: "Stop a cluster on the node",
-        },
         runLabel: "Stop",
-        processTitle: {
-          wait: "Stopping node",
-          success: "Node successfully stopped",
-          fail: "Node stop failed",
-        },
+        taskLabel: "Stop node",
+        description: "Stop a cluster on the node",
         getForceableAction: ({force}) => ({
           type: "NODE.STOP",
           key: {clusterName},
@@ -114,6 +119,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       }),
       useTask: task.forceableConfirm.useTask,
     },
+    ...toolbar.stop.mark,
   };
 
   const remove: ToolbarItem = {
@@ -133,16 +139,22 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
         },
       },
     },
+    ...toolbar.dropdown.remove.mark,
   };
   return (
     <DetailToolbar
-      toolbarName="node"
       buttonsItems={[start, stop]}
-      dropdownItems={[
-        ...[node.inStandby ? unstandby : standby],
-        ...[node.inMaintenance ? unmaintenance : maintenance],
-        remove,
-      ]}
+      dropdown={
+        <LauncherDropdown
+          items={[
+            ...[node.inStandby ? unstandby : standby],
+            ...[node.inMaintenance ? unmaintenance : maintenance],
+            remove,
+          ]}
+          {...toolbar.dropdown.mark}
+        />
+      }
+      {...toolbar.mark}
     />
   );
 };

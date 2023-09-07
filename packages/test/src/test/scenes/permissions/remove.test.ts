@@ -1,16 +1,12 @@
 import * as responses from "dev/responses";
 
-import {dt} from "test/tools/selectors";
-import {intercept, location, route} from "test/tools";
-import {getConfirmDialog, getDropdownMenu} from "test/components";
+import {mock} from "test/tools";
 
-import {interceptForPermissions} from "./common";
+import {clusterName, goToPermissions, mockForPermissions} from "./common";
 
 type Permission = ReturnType<
   typeof responses.permissions
 >["users_permissions"][number];
-
-const clusterName = "ok";
 
 const namePermission: Permission = {
   type: "user",
@@ -24,40 +20,42 @@ const haclientPermission: Permission = {
   allow: ["grant", "read", "write"],
 };
 
-const tryRemovingPermission = async (name: string) => {
-  const menu = getDropdownMenu("permission-list", `permission-${name}`);
-  const confirmDialog = getConfirmDialog("remove");
+const {permission: permissionMark} = marks.cluster.permissions;
 
-  await page.goto(location.permissionList({clusterName}));
-  await menu.launchItem("permission-remove");
-  await confirmDialog.confirm();
+const launchRemove = async (name: string) => {
+  await goToPermissions();
+  await click(
+    item.byName(permissionMark, name, [
+      permission => permission.actions,
+      permission => permission.actions.remove,
+    ]),
+  );
 };
 
 describe("Permission remove", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("should be successfully removed", async () => {
-    interceptForPermissions({
-      clusterName,
+    mockForPermissions({
       usersPermissions: [haclientPermission, namePermission],
       additionalRouteList: [
-        route.permissionsSave({
+        mock.route.permissionsSave({
           clusterName,
           permissionList: [haclientPermission],
         }),
       ],
     });
 
-    await tryRemovingPermission("name");
-    await page.waitForSelector(dt("notification-success"));
+    await launchRemove("name");
+    await click(marks.task.confirm.run);
+    await isVisible(marks.notifications.toast.success);
   });
 
   it("should deal with an error", async () => {
-    interceptForPermissions({
-      clusterName,
+    mockForPermissions({
       usersPermissions: [haclientPermission, namePermission],
       additionalRouteList: [
-        route.permissionsSave({
+        mock.route.permissionsSave({
           clusterName,
           permissionList: [namePermission],
           response: {status: [400, "Error removing permission haclient"]},
@@ -65,7 +63,8 @@ describe("Permission remove", () => {
       ],
     });
 
-    await tryRemovingPermission("haclient");
-    await page.waitForSelector(dt("notification-danger"));
+    await launchRemove("haclient");
+    await click(marks.task.confirm.run);
+    await isVisible(marks.notifications.toast.error);
   });
 });

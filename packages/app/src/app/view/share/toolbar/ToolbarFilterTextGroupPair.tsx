@@ -68,13 +68,11 @@ export const ToolbarFilterTextGroupPair = ({
   groupName,
   filterState,
   buttonsItems,
-  toolbarName,
 }: {
   textSearchId: string;
   groupName: string;
   filterState: ReturnType<typeof useState>["filterState"];
   buttonsItems?: LauncherItem[];
-  toolbarName: string;
 }) => {
   const clearAllFilters = () => {
     const [groupInclusionMap, setGroupInclusionMap] = filterState.groupState;
@@ -87,7 +85,6 @@ export const ToolbarFilterTextGroupPair = ({
     <ToolbarFilterAction
       clearAllFilters={clearAllFilters}
       buttonsItems={buttonsItems}
-      toolbarName={toolbarName}
     >
       <>
         <ToolbarItem>

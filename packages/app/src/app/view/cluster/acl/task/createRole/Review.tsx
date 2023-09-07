@@ -1,6 +1,10 @@
-import {ReviewList, ReviewValue, TaskLibStep} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {ReviewItem, ReviewList, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {review} = testMarks.task.aclRoleCreate;
+const {permission} = review;
 
 export const Review = () => {
   const {
@@ -12,16 +16,24 @@ export const Review = () => {
     },
   } = useTask();
   return (
-    <TaskLibStep title="Review settings" reports={reports}>
+    <TaskLibStep title="Review settings" reports={reports} {...review.mark}>
       <ReviewList>
-        <ReviewValue label="Role name" value={roleId} />
-        <ReviewValue label="Role description" value={description} />
-        <ReviewValue
+        <ReviewItem label="Role name" value={roleId} {...review.roleId.mark} />
+        <ReviewItem
+          label="Role description"
+          value={description}
+          {...review.roleDescription.mark}
+        />
+        <ReviewItem
           label="Permissions"
           value={
             <ReviewList>
               {permissionInfoList.map(([kind, scopeType, scope], i) => (
-                <div key={i}>{`(${scopeType}) ${scope}: ${kind}`}</div>
+                <div key={i} {...permission.mark}>
+                  (<span {...permission.scopeType.mark}>{scopeType}</span>){" "}
+                  <span {...permission.scope.mark}>{scope}</span>:{" "}
+                  <span {...permission.kind.mark}>{kind}</span>
+                </div>
               ))}
             </ReviewList>
           }

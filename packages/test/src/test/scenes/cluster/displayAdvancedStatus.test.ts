@@ -3,8 +3,7 @@
 
 import * as t from "dev/responses/clusterStatus/tools";
 
-import {dt} from "test/tools/selectors";
-import {location, shortcuts} from "test/tools";
+import {mock} from "test/tools";
 
 const clusterName = "test-cluster";
 
@@ -15,7 +14,7 @@ const deceiveTypeCheck = (maybeInvalidPart: ReturnType<typeof JSON.parse>) =>
 
 describe("Cluster with advanced status", () => {
   it("accept fence levels", async () => {
-    shortcuts.interceptWithCluster({
+    mock.shortcuts.withCluster({
       clusterStatus: t.cluster(clusterName, "ok", {
         fence_levels: deceiveTypeCheck({
           "node-1": [
@@ -31,7 +30,7 @@ describe("Cluster with advanced status", () => {
         }),
       }),
     });
-    await page.goto(location.cluster({clusterName}));
-    await page.waitForSelector(dt("cluster-overview"));
+    await goToCluster(clusterName);
+    await isVisible(marks.cluster.overview);
   });
 });

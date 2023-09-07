@@ -1,6 +1,7 @@
 import React from "react";
 import {Alert, Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   FormText,
   TaskLibStep,
@@ -28,6 +29,8 @@ const useFilterState = () =>
     "all-off-display-none",
   );
 
+const {attr} = testMarks.task.fenceDeviceCreate.instanceAttrs;
+
 export const InstanceAttrsForm = () => {
   const {
     state: {
@@ -40,7 +43,11 @@ export const InstanceAttrsForm = () => {
   } = useTask();
   const {filterState, filterParameters} = useFilterState();
   return (
-    <TaskLibStep title={`Instance attributes (${agentName})`} reports={reports}>
+    <TaskLibStep
+      title={`Instance attributes (${agentName})`}
+      reports={reports}
+      {...testMarks.task.fenceDeviceCreate.instanceAttrs.mark}
+    >
       <LoadedPcmkAgent agentName={agentName}>
         {agent => {
           const nonDeprecatedParameters = agent.parameters.filter(
@@ -65,7 +72,6 @@ export const InstanceAttrsForm = () => {
                 textSearchId="agent-attributes-name"
                 groupName="More attributes"
                 filterState={filterState}
-                toolbarName="instance-attributes"
               />
               <Form isHorizontal>
                 {requiredParameters
@@ -74,31 +80,34 @@ export const InstanceAttrsForm = () => {
                     const hint =
                       "Please provide a value for required attribute";
                     return (
-                      <FormText
-                        key={parameter.name}
-                        id={`instance-attr-${parameter.name}`}
-                        label={parameter.name}
-                        popover={{
-                          header: parameter.shortdesc,
-                          body: parameter.longdesc,
-                          defaultValue: parameter.default,
-                        }}
-                        isRequired={parameter.required}
-                        showValidationErrors={showValidationErrors}
-                        isValid={
-                          !parameter.required
-                          || (parameter.name in instanceAttrs
-                            && instanceAttrs[parameter.name].length > 0)
-                        }
-                        helperTextInvalid={`${hint} ${parameter.name}`}
-                        onChange={value =>
-                          updateState({
-                            instanceAttrs: {[parameter.name]: value},
-                          })
-                        }
-                        value={instanceAttrs[parameter.name] || ""}
-                        data-test={`attr ${parameter.name}`}
-                      />
+                      <div key={parameter.name} {...attr.mark}>
+                        <FormText
+                          id={`instance-attr-${parameter.name}`}
+                          label={
+                            <span {...attr.name.mark}>{parameter.name}</span>
+                          }
+                          popover={{
+                            header: parameter.shortdesc,
+                            body: parameter.longdesc,
+                            defaultValue: parameter.default,
+                          }}
+                          isRequired={parameter.required}
+                          showValidationErrors={showValidationErrors}
+                          isValid={
+                            !parameter.required
+                            || (parameter.name in instanceAttrs
+                              && instanceAttrs[parameter.name].length > 0)
+                          }
+                          helperTextInvalid={`${hint} ${parameter.name}`}
+                          onChange={value =>
+                            updateState({
+                              instanceAttrs: {[parameter.name]: value},
+                            })
+                          }
+                          value={instanceAttrs[parameter.name] || ""}
+                          {...attr.value.mark}
+                        />
+                      </div>
                     );
                   })}
               </Form>

@@ -1,9 +1,21 @@
 import {Alert, AlertActionLink} from "@patternfly/react-core";
 
-import {TaskLibStep} from "app/view/share";
-import {EmptyStateSpinner, NodesAuthForm} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {
+  NodesAuthInputAddress,
+  NodesAuthInputPassword,
+  NodesAuthInputPort,
+  TaskLibStep,
+} from "app/view/share";
+import {
+  EmptyStateSpinner,
+  NodesAuthCustomAddrSwitch,
+  NodesAuthForm,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {success, auth} = testMarks.task.nodeAdd.prepareNode;
 
 export const PrepareNode = () => {
   const {
@@ -53,12 +65,7 @@ export const PrepareNode = () => {
       )}
 
       {nodeCheck === "can-add-cannot" && (
-        <Alert
-          variant="danger"
-          isInline
-          title={nodeCheckMessage}
-          data-test="prepare-cluster-for-node-cannot-add"
-        />
+        <Alert variant="danger" isInline title={nodeCheckMessage} />
       )}
 
       {nodeCheck === "auth-check-failed" && (
@@ -69,7 +76,6 @@ export const PrepareNode = () => {
           actionLinks={
             <AlertActionLink onClick={checkAuth}>Try again</AlertActionLink>
           }
-          data-test="prepare-cluster-for-node-auth-failed"
         >
           {nodeCheckMessage}
         </Alert>
@@ -82,7 +88,35 @@ export const PrepareNode = () => {
             variant="warning"
             title={"Node is not authenticated. Please authenticate it."}
           />
-          <NodesAuthForm authProcessId={authProcessId} />
+          <NodesAuthForm
+            authProcessId={authProcessId}
+            customAddresSwitcher={
+              <NodesAuthCustomAddrSwitch {...auth.useCustomAddress.mark} />
+            }
+            inputPassword={(nodeName, elementId, index) => (
+              <NodesAuthInputPassword
+                index={index}
+                nodeName={nodeName}
+                elementId={elementId}
+                {...auth.password.mark}
+              />
+            )}
+            inputAddress={(nodeName, elementId) => (
+              <NodesAuthInputAddress
+                nodeName={nodeName}
+                elementId={elementId}
+                {...auth.address.mark}
+              />
+            )}
+            inputPort={(nodeName, elementId) => (
+              <NodesAuthInputPort
+                nodeName={nodeName}
+                elementId={elementId}
+                {...auth.port.mark}
+              />
+            )}
+            {...auth.mark}
+          />
         </>
       )}
 
@@ -106,7 +140,7 @@ export const PrepareNode = () => {
           variant="success"
           isInline
           title="The node is prepared for adding to the cluster."
-          data-test="prepare-cluster-for-node-success"
+          {...success.mark}
         />
       )}
     </TaskLibStep>

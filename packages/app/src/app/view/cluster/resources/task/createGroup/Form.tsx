@@ -1,7 +1,7 @@
 import React from "react";
 import {DualListSelector, Form as PfForm} from "@patternfly/react-core";
 
-import {FormText, TaskLibReports} from "app/view/share";
+import {FormText, TaskLibReportList} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -25,7 +25,7 @@ export const Form = () => {
     });
   return (
     <>
-      <PfForm data-test="create-group">
+      <PfForm>
         <FormText
           id="new-group-name"
           label="Group name"
@@ -35,7 +35,6 @@ export const Form = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={groupId.length > 0}
-          data-test="group-name"
         />
       </PfForm>
       <DualListSelector
@@ -47,7 +46,7 @@ export const Form = () => {
         onListChange={onListChange}
         id="basicSelectorWithSearch"
       />
-      <TaskLibReports reports={reports} />
+      <TaskLibReportList reports={reports} />
     </>
   );
 };

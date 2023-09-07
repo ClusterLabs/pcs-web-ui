@@ -1,13 +1,8 @@
 import React from "react";
 
 import {tools} from "app/store";
-import {
-  DataListWithMenu,
-  DetailViewSection,
-  Link,
-  location,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DataListWithMenu, Link, location} from "app/view/share";
+import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
 export const RoleViewSubjects = ({
   roleId,

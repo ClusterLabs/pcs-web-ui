@@ -1,45 +1,38 @@
-import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskLibReportList, TaskSimpleLib} from "app/view/share";
 
 import {useTask} from "./useTask";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Unsuccess} from "./Unsuccess";
+import {CommunicationError} from "./CommunicationError";
+
+const {sbdDisable: task} = testMarks.task;
 
 export const SbdDisableTask = () => {
   const {
     close,
     clusterName,
-    sbdDisable,
-    recoverFromError,
+    label,
     state: {
       libCall: {response, reports},
     },
   } = useTask();
 
   return (
-    <TaskSimple
-      title="Disable SBD"
+    <TaskSimpleLib
       task="sbdDisable"
+      taskLabel={label}
       clusterName={clusterName}
-      data-test="task-sbd-disable"
       close={close}
-      footer={
-        response !== "no-response" ? null : (
-          <TaskSimpleFooter
-            run={() => sbdDisable({force: false})}
-            runLabel="Disable SBD"
-          />
-        )
-      }
-    >
-      {response === "no-response" && "Disable SBD in cluster."}
-      {response !== "no-response" && (
-        <TaskFinishLib
-          response={response}
-          taskName="Disable SBD"
-          backToUpdateSettings={recoverFromError}
-          proceedForce={() => sbdDisable({force: true})}
-          tryAgain={() => sbdDisable({force: false})}
-          reports={reports}
-        />
-      )}
-    </TaskSimple>
+      footer={<Footer />}
+      configure="Disable SBD in cluster."
+      response={response}
+      success={<Success />}
+      unsuccess={<Unsuccess />}
+      communicationError={<CommunicationError />}
+      reports={<TaskLibReportList reports={reports} {...task.report.mark} />}
+      {...task.mark}
+    />
   );
 };

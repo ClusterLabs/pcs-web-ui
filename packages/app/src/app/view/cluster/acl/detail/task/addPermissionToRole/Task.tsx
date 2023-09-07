@@ -1,48 +1,39 @@
-import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskLibReportList, TaskSimpleLib} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Unsuccess} from "./Unsuccess";
+import {CommunicationError} from "./CommunicationError";
+
+const {aclRoleAddPermission: task} = testMarks.task;
 
 export const Task = () => {
   const {
     close,
     clusterName,
-    aclRolePermissionAdd,
-    recoverFromError,
-    invalidPermissionIndexes,
+    label,
     state: {
       libCall: {response, reports},
     },
   } = useTask();
 
   return (
-    <TaskSimple
-      title="Add permissions to role"
+    <TaskSimpleLib
+      taskLabel={label}
       task={"aclRolePermissionAdd"}
-      data-test="task-acl-role-add-permissions"
       clusterName={clusterName}
       close={close}
-      footer={
-        response !== "no-response" ? null : (
-          <TaskSimpleFooter
-            run={aclRolePermissionAdd}
-            runLabel="Add permissions to role"
-            nextIf={invalidPermissionIndexes.length === 0}
-          />
-        )
-      }
-    >
-      {response === "no-response" && <Configure />}
-      {response !== "no-response" && (
-        <TaskFinishLib
-          response={response}
-          taskName="Add permissions to role"
-          backToUpdateSettings={recoverFromError}
-          proceedForce={aclRolePermissionAdd}
-          tryAgain={aclRolePermissionAdd}
-          reports={reports}
-        />
-      )}
-    </TaskSimple>
+      configure={<Configure />}
+      footer={<Footer />}
+      response={response}
+      success={<Success />}
+      unsuccess={<Unsuccess />}
+      communicationError={<CommunicationError />}
+      reports={<TaskLibReportList reports={reports} {...task.report.mark} />}
+      {...task.mark}
+    />
   );
 };

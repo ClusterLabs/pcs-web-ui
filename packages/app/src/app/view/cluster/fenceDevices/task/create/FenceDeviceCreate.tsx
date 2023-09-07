@@ -1,85 +1,64 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {Wizard} from "app/view/share";
 
-import {Review} from "./Review";
 import {useTask} from "./useTask";
 import {NameType} from "./NameType";
+import {NameTypeFooter} from "./NameTypeFooter";
 import {InstanceAttrsForm} from "./InstanceAttrsForm";
+import {InstanceAttrsFormFooter} from "./InstanceAttrsFormFooter";
 import {Settings} from "./Settings";
+import {SettingsFooter} from "./SettingsFooter";
+import {Review} from "./Review";
+import {ReviewFooter} from "./ReviewFooter";
+import {Result} from "./Result";
+
+const nameType = "Name and type";
+const review = "Review";
 
 export const FenceDeviceCreate = () => {
   const {
     close,
     clusterName,
-    create,
     isNameTypeValid,
-    isAgentLoaded,
     areInstanceAttrsValid,
-    state: {
-      fenceDeviceName,
-      libCall: {reports, response},
-    },
+    state: {fenceDeviceName},
   } = useTask();
+
   return (
     <Wizard
+      {...testMarks.task.fenceDeviceCreate.mark}
       clusterName={clusterName}
       task="fenceDeviceCreate"
-      data-test="task-fence-device-create"
       onClose={close}
-      title="New fence device"
+      taskLabel={`create fence device "${fenceDeviceName}"`}
       description="Create new fence device"
       steps={[
         {
-          name: "Name and type",
+          name: nameType,
           component: <NameType />,
-          footer: (
-            <WizardFooter
-              next={{actionIf: isNameTypeValid}}
-              back={{disabled: true}}
-            />
-          ),
+          footer: <NameTypeFooter />,
         },
         {
           name: "Instance attributes",
           component: <InstanceAttrsForm />,
-          footer: (
-            <WizardFooter
-              next={{
-                actionIf: areInstanceAttrsValid,
-                disabled: !isAgentLoaded,
-              }}
-            />
-          ),
+          footer: <InstanceAttrsFormFooter />,
           canJumpTo: isNameTypeValid,
         },
         {
           name: "Settings",
           component: <Settings />,
+          footer: <SettingsFooter />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
-          name: "Review",
+          name: review,
           component: <Review />,
-          footer: (
-            <WizardFooter
-              next={{
-                preAction: () => create({force: false}),
-                label: "Create fence device",
-              }}
-            />
-          ),
+          footer: <ReviewFooter />,
           canJumpTo: isNameTypeValid && areInstanceAttrsValid,
         },
         {
           name: "Result",
-          component: (
-            <TaskFinishLibWizard
-              response={response}
-              taskName={`create fence device "${fenceDeviceName}"`}
-              backToUpdateSettingsStepName="Name and type"
-              proceedForce={() => create({force: true})}
-              reports={reports}
-            />
-          ),
+          component: <Result backStep={nameType} reviewStep={review} />,
           isFinishedStep: true,
         },
       ]}

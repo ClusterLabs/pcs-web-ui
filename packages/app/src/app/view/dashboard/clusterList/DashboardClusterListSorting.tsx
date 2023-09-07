@@ -1,4 +1,5 @@
 import {Table, compareStatusSeverity} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
 
 import {Cluster, ClusterInfo} from "./types";
 import {compareStrings} from "./utils";
@@ -75,7 +76,11 @@ export const DashboardClusterListSorting = ({
 }) => {
   const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
   return (
-    <Table isExpandable aria-label="Cluster list" data-test="cluster-list">
+    <Table
+      isExpandable
+      aria-label="Cluster list"
+      {...testMarks.dashboard.clusterList.mark}
+    >
       <thead>
         <tr>
           <SortableTh columnName="NAME" sortState={sortState} data-label="name">

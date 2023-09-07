@@ -1,16 +1,17 @@
 import {StackItem} from "@patternfly/react-core";
 
+import {EmptyStateNoItem} from "app/view/share";
 import {
   DetailLayout,
-  EmptyStateNoItem,
   useGroupDetailViewContext,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 
 import {RoleView} from "./RoleView";
-import {SubjectView} from "./SubjectView";
+import {GroupView} from "./GroupView";
+import {UserView} from "./UserView";
 
 export const AclDetailPage = () => {
   const {selectedItemUrlName: aclId, selectedItemUrlType: urlType} =
@@ -50,10 +51,17 @@ export const AclDetailPage = () => {
     return <RoleView roleId={aclId} role={aclObject as AclType<"role">} />;
   }
 
+  if (aclType === "user") {
+    return (
+      <UserView
+        userId={aclId}
+        roleIdList={aclObject as AclType<typeof aclType>}
+      />
+    );
+  }
   return (
-    <SubjectView
-      subjectType={aclType}
-      subjectId={aclId}
+    <GroupView
+      groupId={aclId}
       roleIdList={aclObject as AclType<typeof aclType>}
     />
   );

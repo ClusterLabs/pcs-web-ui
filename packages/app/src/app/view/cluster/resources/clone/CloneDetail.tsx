@@ -1,14 +1,8 @@
 import {Alert} from "@patternfly/react-core";
 
 import {Clone} from "app/view/cluster/types";
-import {
-  CrmStatusTable,
-  DetailViewSection,
-  IssueList,
-  Link,
-  location,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {CrmStatusTable, IssueList, Link, location} from "app/view/share";
+import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
 type Member = Exclude<Clone["member"], {itemType: "fence-device"}>;
 

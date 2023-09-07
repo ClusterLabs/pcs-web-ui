@@ -1,5 +1,6 @@
 import {Grid, GridItem, PageSection} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Card, ClusterToolbar, TaskOpenArgs} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
@@ -22,6 +23,7 @@ const extractTimeoutAction = <VALUE extends string>(
   return values.find(v => parts.includes(v)) ?? "DEFAULT";
 };
 
+const {sbd, sbdToolbar} = testMarks.cluster;
 export const SbdPage = () => {
   const {nodeList} = useLoadedCluster();
   const sbdConfig = selectSbdConfig(nodeList);
@@ -55,7 +57,6 @@ export const SbdPage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="sbd"
         buttonsItems={[
           {
             name: "configure-SBD",
@@ -64,6 +65,7 @@ export const SbdPage = () => {
               useTask: task.configure.useTask,
               openArgs: configureOpenArgs,
             },
+            ...sbdToolbar.configureSbd.mark,
           },
           {
             name: "disable-SBD",
@@ -71,12 +73,14 @@ export const SbdPage = () => {
               component: task.disable.SbdDisableTask,
               useTask: task.disable.useTask,
             },
+            ...sbdToolbar.disableSbd.mark,
           },
         ]}
+        {...sbdToolbar.mark}
       />
 
-      <PageSection>
-        <Grid hasGutter>
+      <PageSection {...testMarks.cluster.mark}>
+        <Grid hasGutter {...sbd.mark}>
           <GridItem span={12}>
             <Card title="SBD service status">
               <SbdServiceStatus />

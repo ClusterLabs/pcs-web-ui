@@ -1,20 +1,22 @@
 import React from "react";
 
-import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskSimpleOldApi} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {EditArgsForm} from "./EditArgsForm";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Fail} from "./Fail";
 
 export const EditArgsTask = () => {
   const {
     close,
     name: taskName,
     clusterName,
-    runUpdate,
-    recoverFromError,
     state: {
       fenceDeviceId,
-      call: {response, resultMessage},
+      call: {response},
     },
   } = useTask();
 
@@ -25,30 +27,18 @@ export const EditArgsTask = () => {
   }, [fenceDeviceId, close]);
 
   return (
-    <TaskSimple
-      title="Edit fence device arguments"
+    <TaskSimpleOldApi
+      taskLabel="Edit fence device arguments"
       task={taskName}
       clusterName={clusterName}
       close={close}
-      footer={
-        response !== "" ? null : (
-          <TaskSimpleFooter runLabel="Save arguments" run={runUpdate} />
-        )
-      }
-      data-test="fence-device-args-edit"
-    >
-      {response === "" && <EditArgsForm />}
-      {response !== "" && (
-        <TaskSimpleFinish
-          response={response}
-          resultMessage={resultMessage}
-          waitTitle="Updating fence device arguments"
-          successTitle="Fence device arguments updated successfully"
-          failTitle="Fence device arguments update failed"
-          tryAgain={runUpdate}
-          recoverFromError={recoverFromError}
-        />
-      )}
-    </TaskSimple>
+      waitTitle="Updating fence device arguments"
+      footer={<Footer />}
+      configure={<EditArgsForm />}
+      response={response}
+      success={<Success />}
+      fail={<Fail />}
+      {...testMarks.task.fenceDeviceArgumentsEdit.mark}
+    />
   );
 };

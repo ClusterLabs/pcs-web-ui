@@ -1,5 +1,8 @@
+import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
 import {Link} from "app/view/share";
+
+const {item} = testMarks.cluster.fenceDevices.list;
 
 export const FenceDeviceListCellName = ({
   fenceDevice,
@@ -7,7 +10,7 @@ export const FenceDeviceListCellName = ({
   fenceDevice: FenceDevice;
 }) => {
   return (
-    <Link strong to={`/${fenceDevice.id}`}>
+    <Link strong to={`/${fenceDevice.id}`} {...item.id.mark}>
       {fenceDevice.id}
     </Link>
   );

@@ -1,58 +1,35 @@
-import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskSimpleOldApi} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Fail} from "./Fail";
 
 export const Task = () => {
   const {
     close,
     name: taskName,
+    label,
     clusterName,
-    createLocation,
-    recoverFromError,
-    isScoreValid,
-    isResourceValid,
-    isPatternValid,
-    isNodeValid,
-    isRuleValid,
     state: {
-      call: {response, resultMessage},
+      call: {response},
     },
   } = useTask();
   return (
-    <TaskSimple
-      title="Create location constraint"
+    <TaskSimpleOldApi
+      taskLabel={label}
       close={close}
       task={taskName}
       clusterName={clusterName}
-      footer={
-        response !== "" ? null : (
-          <TaskSimpleFooter
-            nextIf={
-              isScoreValid
-              && isResourceValid
-              && isPatternValid
-              && isNodeValid
-              && isRuleValid
-            }
-            run={createLocation}
-            runLabel="Create location constraint"
-          />
-        )
-      }
-    >
-      {response === "" && <Configure />}
-      {response !== "" && (
-        <TaskSimpleFinish
-          response={response}
-          resultMessage={resultMessage}
-          waitTitle="Creating location constraint"
-          successTitle="Location created successfully"
-          failTitle="Create location constraint failed"
-          tryAgain={createLocation}
-          recoverFromError={recoverFromError}
-        />
-      )}
-    </TaskSimple>
+      waitTitle="Creating location constraint"
+      response={response}
+      footer={<Footer />}
+      configure={<Configure />}
+      success={<Success />}
+      fail={<Fail />}
+      {...testMarks.task.constraintLocationCreate.mark}
+    />
   );
 };

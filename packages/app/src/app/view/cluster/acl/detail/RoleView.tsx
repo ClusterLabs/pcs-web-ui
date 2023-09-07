@@ -1,15 +1,17 @@
+import {testMarks} from "app/view/dataTest";
 import {Router, UrlTabs, useUrlTabs} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DetailLayout, useLoadedCluster} from "app/view/cluster/share";
 
 import {AclType} from "../types";
 
-import {Layout} from "./Layout";
 import {RoleViewToolbar} from "./RoleViewToolbar";
 import {getAssignedSubjectIdList} from "./tools";
 import {RoleViewDetail} from "./RoleViewDetail";
 import {RoleViewSubjects} from "./RoleViewSubjects";
 
 export const aclRolePageTabList = ["detail", "users", "groups"] as const;
+
+const {currentRole} = testMarks.cluster.acl;
 
 export const RoleView = ({
   roleId,
@@ -22,17 +24,15 @@ export const RoleView = ({
   const {currentTab, matchedContext} = useUrlTabs(aclRolePageTabList);
 
   return (
-    <Layout
-      aclType="role"
-      aclId={roleId}
-      toolbar={<RoleViewToolbar roleId={roleId} />}
-      tabs={
-        <UrlTabs
-          tabList={aclRolePageTabList}
-          currentTab={currentTab}
-          data-test="node"
-        />
+    <DetailLayout
+      caption={
+        <span>
+          role: <strong {...currentRole.id.mark}>{roleId}</strong>
+        </span>
       }
+      toolbar={<RoleViewToolbar roleId={roleId} />}
+      tabs={<UrlTabs tabList={aclRolePageTabList} currentTab={currentTab} />}
+      {...currentRole.mark}
     >
       <Router base={matchedContext}>
         {currentTab === "detail" && (
@@ -53,6 +53,6 @@ export const RoleView = ({
           />
         )}
       </Router>
-    </Layout>
+    </DetailLayout>
   );
 };

@@ -1,18 +1,25 @@
 import {Label, ToolbarItem} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {tools} from "app/store";
 import {
   ClusterToolbar,
-  GroupDetailView,
+  LauncherDropdown,
   TaskOpenArgs,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  GroupDetailSection,
+  GroupDetailView,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import * as task from "./task";
 import {AclDetailPage} from "./detail";
 import {AclLists} from "./lists";
 
+const {acl, aclToolbar} = testMarks.cluster;
+const {dropdown} = aclToolbar;
 export const AclPage = () => {
   const {clusterProperties, hasCibInfo, clusterName} = useLoadedCluster();
   const launchDisable = useLauncherDisableClusterNotRunning();
@@ -26,10 +33,14 @@ export const AclPage = () => {
     {subjectType: "group"},
   ];
 
+  const detailTypeList = [
+    "role",
+    "user",
+    "group",
+  ] satisfies React.ComponentProps<typeof GroupDetailView>["detailTypeList"];
   return (
     <>
       <ClusterToolbar
-        toolbarName="acl"
         buttonsItems={[
           {
             name: "create-role",
@@ -40,6 +51,7 @@ export const AclPage = () => {
             launchDisable: launchDisable(
               "Cannot create role on stopped cluster",
             ),
+            ...aclToolbar.createRole.mark,
           },
           {
             name: "create-user",
@@ -51,43 +63,51 @@ export const AclPage = () => {
             launchDisable: launchDisable(
               "Cannot create user on stopped cluster",
             ),
+            ...aclToolbar.createUser.mark,
           },
         ]}
-        dropdownItems={[
-          {
-            name: "create-group",
-            task: {
-              component: task.createSubject.Task,
-              useTask: task.createSubject.useTask,
-              openArgs: createGroupOpenArgs,
-            },
-            launchDisable: launchDisable(
-              "Cannot create group on stopped cluster",
-            ),
-          },
-          {
-            name: aclEnabled ? "disable-acl" : "enable-acl",
-            label: `${aclEnabled ? "Disable" : "Enable"} ACL`,
-            confirm: {
-              title: aclEnabled ? "Disable ACL" : "Enable ACL",
-              description: `${
-                aclEnabled ? "Disable" : "Enable"
-              } access control lists.`,
-              action: {
-                type: "CLUSTER.PROPERTIES.UPDATE",
-                key: {clusterName},
-                payload: {
-                  propertyMap: {
-                    "enable-acl": aclEnabled ? "false" : "true",
+        dropdown={
+          <LauncherDropdown
+            items={[
+              {
+                name: "create-group",
+                task: {
+                  component: task.createSubject.Task,
+                  useTask: task.createSubject.useTask,
+                  openArgs: createGroupOpenArgs,
+                },
+                launchDisable: launchDisable(
+                  "Cannot create group on stopped cluster",
+                ),
+                ...dropdown.createGroup.mark,
+              },
+              {
+                name: aclEnabled ? "disable-acl" : "enable-acl",
+                label: `${aclEnabled ? "Disable" : "Enable"} ACL`,
+                confirm: {
+                  title: aclEnabled ? "Disable ACL" : "Enable ACL",
+                  description: `${
+                    aclEnabled ? "Disable" : "Enable"
+                  } access control lists.`,
+                  action: {
+                    type: "CLUSTER.PROPERTIES.UPDATE",
+                    key: {clusterName},
+                    payload: {
+                      propertyMap: {
+                        "enable-acl": aclEnabled ? "false" : "true",
+                      },
+                    },
                   },
                 },
+                launchDisable: launchDisable(
+                  "Cannot enable/disable acl on stopped cluster",
+                ),
+                ...dropdown.switchEnablement.mark,
               },
-            },
-            launchDisable: launchDisable(
-              "Cannot enable/disable acl on stopped cluster",
-            ),
-          },
-        ]}
+            ]}
+            {...dropdown.mark}
+          />
+        }
         after={
           hasCibInfo ? (
             <>
@@ -100,13 +120,20 @@ export const AclPage = () => {
             </>
           ) : null
         }
+        {...aclToolbar.mark}
       />
 
-      <GroupDetailView
-        groupCard={<AclLists />}
-        detailCard={<AclDetailPage />}
-        detailTypeList={["role", "user", "group"]}
-      />
+      <GroupDetailSection
+        detailTypeList={detailTypeList}
+        {...testMarks.cluster.mark}
+      >
+        <GroupDetailView
+          groupCard={<AclLists />}
+          detailCard={<AclDetailPage />}
+          detailTypeList={detailTypeList}
+          {...acl.mark}
+        />
+      </GroupDetailSection>
     </>
   );
 };

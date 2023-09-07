@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   EmptyStateClusterStopped,
   EmptyStateNoItem,
@@ -29,6 +30,8 @@ const compareByColumn = (
 
 const {SortableTh} = Table;
 
+const {fenceDevice: fenceDeviceMark} = testMarks.dashboard.clusterList.cluster;
+
 export const DashboardClusterFenceDevices = ({cluster}: {cluster: Cluster}) => {
   const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
 
@@ -50,7 +53,7 @@ export const DashboardClusterFenceDevices = ({cluster}: {cluster: Cluster}) => {
     );
   }
   return (
-    <Table isCompact isBorderless data-test="fence-device-list">
+    <Table isCompact isBorderless>
       <thead>
         <tr>
           <SortableTh columnName="NAME" sortState={sortState}>
@@ -65,19 +68,17 @@ export const DashboardClusterFenceDevices = ({cluster}: {cluster: Cluster}) => {
         {cluster.fenceDeviceList
           .sort(compareItems(compareByColumn))
           .map(fenceDevice => (
-            <tr
-              key={fenceDevice.id}
-              data-test={`fence-device ${fenceDevice.id}`}
-            >
-              <td data-test="name">
+            <tr key={fenceDevice.id} {...fenceDeviceMark.mark}>
+              <td>
                 <Link
                   to={location.fenceDevice({
                     clusterName: cluster.name,
                     fenceDeviceId: fenceDevice.id,
                   })}
+                  {...fenceDeviceMark.id.mark}
                 />
               </td>
-              <td>
+              <td {...fenceDeviceMark.status.mark}>
                 <StatusSign
                   status={fenceDevice.statusSeverity}
                   label={toLabel(fenceDevice.status)}

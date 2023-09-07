@@ -1,6 +1,7 @@
 import React from "react";
 import {StackItem} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {
   LoadedPcmkAgent,
@@ -10,6 +11,8 @@ import {
 
 import {PrimitiveAttrsForm} from "./PrimitiveAttrsForm";
 
+const {attributes} = testMarks.cluster.resources.currentPrimitive;
+
 export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
@@ -18,12 +21,9 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
       {agent => {
         if (isEditing) {
           return (
-            <>
+            <span {...attributes.mark}>
               <StackItem>
-                <PcmkAgentAttrsToolbar
-                  toolbarName="primitive-attrs"
-                  filterState={filterState}
-                />
+                <PcmkAgentAttrsToolbar filterState={filterState} />
               </StackItem>
               <StackItem>
                 <PrimitiveAttrsForm
@@ -35,15 +35,14 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
                   close={() => setIsEditing(false)}
                 />
               </StackItem>
-            </>
+            </span>
           );
         }
 
         return (
-          <>
+          <span {...attributes.mark}>
             <StackItem>
               <PcmkAgentAttrsToolbar
-                toolbarName="primitive-attrs"
                 buttonsItems={[
                   {
                     name: "edit-attributes",
@@ -59,7 +58,7 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
                 resourceAgentParameters={filterParameters(agent.parameters)}
               />
             </StackItem>
-          </>
+          </span>
         );
       }}
     </LoadedPcmkAgent>

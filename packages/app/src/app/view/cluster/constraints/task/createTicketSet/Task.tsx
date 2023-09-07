@@ -1,4 +1,10 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {
+  TaskButtonResult,
+  TaskFinishLibWizard,
+  TaskSuccess,
+  Wizard,
+  WizardFooter,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Options} from "./Options";
@@ -22,7 +28,7 @@ export const Task = () => {
       clusterName={clusterName}
       task="constraintTicketSetCreate"
       data-test="task-constraint-ticket-set-create"
-      title="New ticket set constraint"
+      taskLabel="Create ticket constraint with resource set"
       description="Create ticket set constraint"
       onClose={close}
       steps={[
@@ -66,7 +72,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName="create ticket constraint with resource set"
+              success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
               backToUpdateSettingsStepName="Resource Sets"
               proceedForce={() => create({force: true})}
               reports={reports}

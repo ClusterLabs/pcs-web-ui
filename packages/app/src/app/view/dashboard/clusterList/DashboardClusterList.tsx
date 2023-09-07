@@ -4,8 +4,8 @@ import {ExclamationCircleIcon} from "@patternfly/react-icons";
 
 import {selectors} from "app/store";
 
+import {DashboardClusterLoaded} from "./DashboardClusterLoaded";
 import {DashboardCluster} from "./DashboardCluster";
-import {DashboardClusterLoading} from "./DashboardClusterLoading";
 import {DashboardClusterListSorting} from "./DashboardClusterListSorting";
 
 export const DashboardClusterList = ({
@@ -22,32 +22,32 @@ export const DashboardClusterList = ({
         sortedClusterInfoList.map(clusterInfo => {
           if (clusterInfo.isFetched) {
             return (
-              <DashboardCluster
+              <DashboardClusterLoaded
                 key={clusterInfo.clusterName}
                 cluster={clusterInfo.clusterStatus}
               />
             );
           }
-          if (clusterInfo.isForbidden) {
-            return (
-              <DashboardClusterLoading
-                key={clusterInfo.clusterName}
-                clusterName={clusterInfo.clusterName}
-              >
-                <Icon isInline status="danger">
-                  <ExclamationCircleIcon />
-                </Icon>{" "}
-                Forbidden
-              </DashboardClusterLoading>
-            );
-          }
           return (
-            <DashboardClusterLoading
+            <DashboardCluster
               key={clusterInfo.clusterName}
               clusterName={clusterInfo.clusterName}
-            >
-              <Spinner size="md" />
-            </DashboardClusterLoading>
+              status="unknown"
+              isLoading
+              columns={
+                <td colSpan={4}>
+                  {!clusterInfo.isForbidden && <Spinner size="md" />}
+                  {clusterInfo.isForbidden && (
+                    <>
+                      <Icon isInline status="danger">
+                        <ExclamationCircleIcon />
+                      </Icon>{" "}
+                      Forbidden
+                    </>
+                  )}
+                </td>
+              }
+            />
           );
         })
       }

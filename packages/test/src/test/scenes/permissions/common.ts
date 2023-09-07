@@ -1,34 +1,30 @@
+import * as cs from "dev/responses/clusterStatus/tools";
 import * as responses from "dev/responses";
 
-import {route, shortcuts} from "test/tools";
+import {mock} from "test/tools";
 
 type PermissionList = ReturnType<
   typeof responses.permissions
 >["users_permissions"];
 
-type ClusterName = Extract<
-  Parameters<typeof shortcuts.interceptWithCluster>[0],
-  {clusterName: unknown}
->["clusterName"];
-
 type AdditionalRouteList = Parameters<
-  typeof shortcuts.interceptWithCluster
+  typeof mock.shortcuts.withCluster
 >[0]["additionalRouteList"];
 
-export const interceptForPermissions = ({
-  clusterName,
+export const clusterName = "test-cluster";
+
+export const mockForPermissions = ({
   additionalRouteList,
   usersPermissions,
 }: {
-  clusterName: ClusterName;
   additionalRouteList?: AdditionalRouteList;
   usersPermissions: PermissionList;
 }) => {
-  shortcuts.interceptWithCluster({
-    clusterName,
+  mock.shortcuts.withCluster({
+    clusterStatus: cs.cluster(clusterName, "ok"),
     additionalRouteList,
     replaceRoutes: {
-      permissions: route.getPermissions({
+      permissions: mock.route.getPermissions({
         clusterName,
         permissions: {
           ...responses.permissions(),
@@ -37,4 +33,8 @@ export const interceptForPermissions = ({
       }),
     },
   });
+};
+
+export const goToPermissions = async () => {
+  await goToCluster(clusterName, tabs => tabs.permissions);
 };

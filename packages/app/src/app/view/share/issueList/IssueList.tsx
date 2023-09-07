@@ -29,11 +29,7 @@ export const IssueList = ({
     return <IssueListEmpty />;
   }
   return (
-    <Stack
-      hasGutter
-      style={{margin: margin ? "1rem" : "none"}}
-      data-test="issues-status"
-    >
+    <Stack hasGutter style={{margin: margin ? "1rem" : "none"}}>
       {children && <StackItem isFilled>{children}</StackItem>}
       {issueList.map((issue, i) => (
         <StackItem key={issueKey(issue, i)} isFilled>

@@ -1,6 +1,7 @@
 import {Form} from "@patternfly/react-core";
 
 import {clusterSetup} from "app/backend";
+import {testMarks} from "app/view/dataTest";
 import {
   FormRadios,
   FormText,
@@ -10,6 +11,7 @@ import {
 
 import {useTask} from "./useTask";
 
+const {totem} = testMarks.task.clusterSetup.advancedOptions;
 const help = helpAll.corosync.totem;
 
 type SetupParams = Parameters<typeof clusterSetup>[0];
@@ -33,7 +35,7 @@ const TotemFormText = ({
       popover={help[optionName]}
       value={totemOptions[optionName] || ""}
       onChange={value => updateTotemOptions({[optionName]: value})}
-      data-test={`totem.${optionName}`}
+      {...totem[optionName].mark}
     />
   );
 };
@@ -46,7 +48,7 @@ export const Totem = () => {
   } = useTask();
   return (
     <TaskLibStep title="Totem" reports={allReports}>
-      <Form>
+      <Form {...totem.mark}>
         <FormRadios
           id="cluster-setup-totem-block-unlisted-ips"
           label="Block unlisted ips"
@@ -54,7 +56,7 @@ export const Totem = () => {
           options={["yes", "no", "default"]}
           selected={totemOptions.block_unlisted_ips}
           onChange={value => updateTotemOptions({block_unlisted_ips: value})}
-          data-test="totem.block_unlisted_ips"
+          {...totem.block_unlisted_ips.mark}
         />
 
         <TotemFormText optionName="consensus" />

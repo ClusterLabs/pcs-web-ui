@@ -1,8 +1,17 @@
 import {WizardContextConsumer} from "@patternfly/react-core";
 
-import {TaskFinishError, TaskProgress, TaskSuccess} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {
+  TaskButtonResult,
+  TaskButtonResultCancel,
+  TaskFinishError,
+  TaskProgress,
+  TaskSuccess,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {success, error} = testMarks.task.clusterImportExisting;
 
 export const TaskFinish = ({
   backToUpdateSettingsStepName,
@@ -29,17 +38,35 @@ export const TaskFinish = ({
                   operation again.
                 </>
               }
-              primaryAction={[
-                "Change settings",
-                () => goToStepByName(backToUpdateSettingsStepName),
-              ]}
-              secondaryActions={{
-                "Try again": importCluster,
-              }}
+              primaryAction={
+                <TaskButtonResult
+                  label="Change settings"
+                  action={() => goToStepByName(backToUpdateSettingsStepName)}
+                  {...error.changeSettings.mark}
+                />
+              }
+              secondaryActions={
+                <>
+                  <TaskButtonResult
+                    variant="link"
+                    label="Try again"
+                    action={importCluster}
+                    {...error.tryAgain.mark}
+                  />
+                  <TaskButtonResultCancel
+                    variant="link"
+                    {...error.cancel.mark}
+                  />
+                </>
+              }
+              {...error.mark}
             />
           )}
           {importCall.status === "success" && (
-            <TaskSuccess title={"Cluster has been added successfully"} />
+            <TaskSuccess
+              primaryAction={<TaskButtonResult {...success.close.mark} />}
+              {...success.mark}
+            />
           )}
         </>
       )}

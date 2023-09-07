@@ -1,5 +1,9 @@
-import {StatusSign, toLabel, useGroupDetailViewContext} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {StatusSign, toLabel} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/cluster/share";
 import {FenceDevice} from "app/view/cluster/types";
+
+const {item} = testMarks.cluster.fenceDevices.list;
 
 export const FenceDeviceListCellStatus = ({
   fenceDevice,
@@ -13,7 +17,9 @@ export const FenceDeviceListCellStatus = ({
       {!compact && (
         <StatusSign
           status={fenceDevice.statusSeverity}
-          label={toLabel(fenceDevice.status)}
+          label={
+            <span {...item.status.mark}>{toLabel(fenceDevice.status)}</span>
+          }
           showOkIco
         />
       )}

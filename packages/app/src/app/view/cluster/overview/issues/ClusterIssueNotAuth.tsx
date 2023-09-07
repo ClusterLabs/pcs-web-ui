@@ -1,6 +1,12 @@
 import {Alert, AlertActionLink} from "@patternfly/react-core";
 
-import {NodesAuthForm} from "app/view/share";
+import {
+  NodesAuthCustomAddrSwitch,
+  NodesAuthForm,
+  NodesAuthInputAddress,
+  NodesAuthInputPassword,
+  NodesAuthInputPort,
+} from "app/view/share";
 import {TaskSimple} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -20,14 +26,13 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
             Fix authentication
           </AlertActionLink>
         }
-        data-test={"cluster-issue-nodes-not-auth"}
       >
         Unauthenticated nodes:{" "}
         <span> {[...new Set(nodeList)].join(", ")} </span>
       </Alert>
       {open && (
         <TaskSimple
-          title="Authentication of nodes"
+          taskLabel="Authentication of nodes"
           task="fixAuth"
           clusterName={clusterName}
           close={cancel}
@@ -35,7 +40,26 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
         >
           {authProcessId === null && <ClusterIssueNotAuthFinish />}
           {authProcessId !== null && (
-            <NodesAuthForm authProcessId={authProcessId} />
+            <NodesAuthForm
+              authProcessId={authProcessId}
+              customAddresSwitcher={<NodesAuthCustomAddrSwitch />}
+              inputPassword={(nodeName, elementId, index) => (
+                <NodesAuthInputPassword
+                  index={index}
+                  nodeName={nodeName}
+                  elementId={elementId}
+                />
+              )}
+              inputAddress={(nodeName, elementId) => (
+                <NodesAuthInputAddress
+                  nodeName={nodeName}
+                  elementId={elementId}
+                />
+              )}
+              inputPort={(nodeName, elementId) => (
+                <NodesAuthInputPort nodeName={nodeName} elementId={elementId} />
+              )}
+            />
           )}
         </TaskSimple>
       )}

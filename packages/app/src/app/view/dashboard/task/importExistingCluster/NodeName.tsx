@@ -1,5 +1,6 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -19,7 +20,7 @@ export const NodeName = () => {
       title="Enter name of a node from a cluster you want to add"
       reports={reports}
     >
-      <Form data-test="form-node-name">
+      <Form>
         <FormText
           id="node-name"
           label="Node name"
@@ -29,7 +30,7 @@ export const NodeName = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={nodeName.length > 0}
-          data-test="node-name"
+          {...testMarks.task.clusterImportExisting.nodeName.mark}
         />
       </Form>
     </TaskLibStep>

@@ -5,15 +5,16 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
-import {
-  SelectionIndicatorInGroup,
-  useGroupDetailViewContext,
-} from "app/view/share";
+import {SelectionIndicatorInGroup} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 import {FenceDeviceListCellStatus} from "./FenceDeviceListCellStatus";
 import {FenceDeviceListCellName} from "./FenceDeviceListCellName";
 import {FenceDeviceListCellType} from "./FenceDeviceListCellType";
+
+const {item} = testMarks.cluster.fenceDevices.list;
 
 export const FenceDeviceListItem = ({
   fenceDevice,
@@ -22,15 +23,12 @@ export const FenceDeviceListItem = ({
 }) => {
   const {selectedItemUrlName: fenceDeviceId} = useGroupDetailViewContext();
   return (
-    <DataListItem
-      aria-labelledby={fenceDevice.id}
-      data-test={`fence-device ${fenceDevice.id}`}
-    >
+    <DataListItem aria-labelledby={fenceDevice.id} {...item.mark}>
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
             <>
-              <DataListCell data-test="name">
+              <DataListCell>
                 <FenceDeviceListCellName fenceDevice={fenceDevice} />
               </DataListCell>
               <DataListCell>

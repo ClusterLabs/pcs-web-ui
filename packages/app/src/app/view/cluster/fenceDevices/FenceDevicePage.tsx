@@ -1,13 +1,19 @@
+import {testMarks} from "app/view/dataTest";
 import {
   ClusterToolbar,
-  GroupDetailView,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  GroupDetailSection,
+  GroupDetailView,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import * as task from "./task";
 import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
 import {FenceDeviceList} from "./list";
+
+const {fenceDevices, fenceDevicesToolbar} = testMarks.cluster;
 
 export const FenceDevicePage = () => {
   const {fenceDeviceList} = useLoadedCluster();
@@ -15,7 +21,6 @@ export const FenceDevicePage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="fence-devices"
         buttonsItems={[
           {
             name: "create-fence-device",
@@ -26,13 +31,18 @@ export const FenceDevicePage = () => {
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),
+            ...fenceDevicesToolbar.createFenceDevice.mark,
           },
         ]}
+        {...fenceDevicesToolbar.mark}
       />
-      <GroupDetailView
-        detailCard={<FenceDeviceDetailPage />}
-        groupCard={<FenceDeviceList fenceDeviceList={fenceDeviceList} />}
-      />
+      <GroupDetailSection {...testMarks.cluster.mark}>
+        <GroupDetailView
+          detailCard={<FenceDeviceDetailPage />}
+          groupCard={<FenceDeviceList fenceDeviceList={fenceDeviceList} />}
+          {...fenceDevices.mark}
+        />
+      </GroupDetailSection>
     </>
   );
 };

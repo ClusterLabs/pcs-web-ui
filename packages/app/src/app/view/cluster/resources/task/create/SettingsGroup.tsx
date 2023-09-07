@@ -1,8 +1,11 @@
 import {Checkbox, Flex, FlexItem, FormGroup} from "@patternfly/react-core";
 
-import {FormSelectOrText} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {FormSelectOrText, FormText, Select} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {settings} = testMarks.task.resourceCreate;
 
 export const SettingsGroup = () => {
   const {
@@ -32,6 +35,7 @@ export const SettingsGroup = () => {
               group: value === "existing" ? groupIdList[0] : "",
             });
           }}
+          {...settings.useGroup.mark}
         />
       </FlexItem>
       {useGroup !== "no" && (
@@ -46,21 +50,29 @@ export const SettingsGroup = () => {
                   group: checked === "select" ? groupIdList[0] : "",
                 })
               }
-              showValidationErrors={showValidationErrors}
-              select={{
-                label: "Select existing group",
-                selections: groupIdList.includes(group) ? group : "",
-                isDisabled: !useGroup,
-                optionsValues: groupIdList,
-                onSelect: value => updateState({group: value.toString()}),
-              }}
-              text={{
-                label: "Create new group",
-                value: group,
-                onChange: value => updateState({group: value}),
-                helperTextInvalid: "Please provide a name for the new group",
-                isValid: useGroup !== "new" || group.length > 0,
-              }}
+              selectLabel="Select existing group"
+              select={
+                <Select
+                  selections={groupIdList.includes(group) ? group : ""}
+                  isDisabled={!useGroup}
+                  optionsValues={groupIdList}
+                  onSelect={value => updateState({group: value.toString()})}
+                  {...settings.existingGroup.mark}
+                />
+              }
+              textLabel="Create new group"
+              text={
+                <FormText
+                  id="create-new-group"
+                  value={group}
+                  isRequired
+                  onChange={value => updateState({group: value})}
+                  helperTextInvalid="Please provide a name for the new group"
+                  showValidationErrors={showValidationErrors}
+                  isValid={useGroup !== "new" || group.length > 0}
+                  {...settings.newGroup.mark}
+                />
+              }
             />
           </FormGroup>
         </FlexItem>

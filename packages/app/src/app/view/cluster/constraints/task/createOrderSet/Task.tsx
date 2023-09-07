@@ -1,4 +1,10 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {
+  TaskButtonResult,
+  TaskFinishLibWizard,
+  TaskSuccess,
+  Wizard,
+  WizardFooter,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Options} from "./Options";
@@ -21,7 +27,7 @@ export const Task = () => {
       task="constraintOrderSetCreate"
       clusterName={clusterName}
       data-test="task-constraint-order-set-create"
-      title="New order set constraint"
+      taskLabel="create order constraint with resource set"
       description="Create order set constraint"
       onClose={close}
       steps={[
@@ -67,7 +73,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName="create order constraint with resource set"
+              success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
               backToUpdateSettingsStepName="Resource Sets"
               proceedForce={() => create({force: true})}
               reports={reports}

@@ -1,9 +1,12 @@
 import {Checkbox, Form, FormGroup} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {TaskLibStep} from "app/view/share";
 
 import {SettingsGroup} from "./SettingsGroup";
 import {useTask} from "./useTask";
+
+const {settings} = testMarks.task.resourceCreate;
 
 export const Settings = () => {
   const {
@@ -33,6 +36,7 @@ export const Settings = () => {
                 ...(!checked ? {promotable: false} : {}),
               })
             }
+            {...settings.disabled.mark}
           />
           {clone && (
             <Checkbox
@@ -43,6 +47,7 @@ export const Settings = () => {
               onChange={(checked: boolean) =>
                 updateState({promotable: checked})
               }
+              {...settings.promotable.mark}
             />
           )}
         </FormGroup>
@@ -58,6 +63,7 @@ export const Settings = () => {
             aria-label="Disabled"
             isChecked={disabled}
             onChange={(checked: boolean) => updateState({disabled: checked})}
+            {...settings.disabled.mark}
           />
         </FormGroup>
       </Form>

@@ -1,16 +1,14 @@
+import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
+import {CrmStatusTable, IssueList, Link, location} from "app/view/share";
 import {
-  CrmStatusTable,
   DetailViewSection,
-  IssueList,
-  Link,
-  location,
-} from "app/view/share";
-import {
   LoadedPcmkAgent,
   PcmkAgentDescription,
   useLoadedCluster,
 } from "app/view/cluster/share";
+
+const {detail} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
   const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
@@ -19,7 +17,7 @@ export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
   );
 
   return (
-    <>
+    <span {...detail.mark}>
       <DetailViewSection caption="Description">
         <LoadedPcmkAgent agentName={primitive.agentName}>
           {agent => (
@@ -57,6 +55,6 @@ export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
           }}
         />
       </DetailViewSection>
-    </>
+    </span>
   );
 };

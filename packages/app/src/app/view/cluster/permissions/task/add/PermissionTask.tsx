@@ -1,56 +1,37 @@
-import {TaskSimple, TaskSimpleFinish, TaskSimpleFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskSimpleOldApi} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Fail} from "./Fail";
 
 export const PermissionTask = () => {
   const {
     close,
     name: taskName,
     clusterName,
-    recoverFromError,
-    permissionEdit: permissionCreate,
-    isNameValid,
-    areCompetenciesValid,
+    isCreate,
+    label,
     state: {
-      call: {response, resultMessage},
-      initialPermission,
+      call: {response},
     },
   } = useTask();
 
-  const isCreate = initialPermission === null;
-
   return (
-    <TaskSimple
-      title={`${isCreate ? "Create" : "Update"} permission`}
+    <TaskSimpleOldApi
+      taskLabel={label}
       task={taskName}
       clusterName={clusterName}
       close={close}
-      footer={
-        response !== "" ? null : (
-          <TaskSimpleFooter
-            nextIf={isNameValid && areCompetenciesValid}
-            run={permissionCreate}
-            runLabel={isCreate ? "Create permission" : "Update permission"}
-          />
-        )
-      }
-      data-test="permission-edit"
-    >
-      {response === "" && <Configure />}
-      {response !== "" && (
-        <TaskSimpleFinish
-          response={response}
-          resultMessage={resultMessage}
-          waitTitle={`${isCreate ? "Creating" : "Updating"} permission`}
-          successTitle={`Permission ${
-            isCreate ? "created" : "updated"
-          } successfully`}
-          failTitle={`Permission ${isCreate ? "create" : "update"} failed`}
-          tryAgain={permissionCreate}
-          recoverFromError={recoverFromError}
-        />
-      )}
-    </TaskSimple>
+      configure={<Configure />}
+      footer={<Footer />}
+      response={response}
+      waitTitle={`${isCreate ? "Creating" : "Updating"} permission`}
+      success={<Success />}
+      fail={<Fail />}
+      {...testMarks.task.permissionEdit.mark}
+    />
   );
 };

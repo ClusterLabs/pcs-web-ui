@@ -1,12 +1,6 @@
 import {Group} from "app/view/cluster/types";
-import {
-  CrmStatusTable,
-  DetailViewSection,
-  IssueList,
-  Link,
-  location,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {CrmStatusTable, IssueList, Link, location} from "app/view/share";
+import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
 export const GroupDetail = ({group}: {group: Group}) => {
   const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();

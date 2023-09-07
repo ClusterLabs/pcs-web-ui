@@ -1,6 +1,6 @@
 import React from "react";
 
-import {ReviewValue} from "./ReviewValue";
+import {ReviewItem} from "./ReviewItem";
 
 export const ReviewYesNo = ({
   label,
@@ -9,5 +9,5 @@ export const ReviewYesNo = ({
   label: React.ReactNode;
   value: boolean;
 }) => {
-  return <ReviewValue label={label} value={value ? "yes" : "no"} />;
+  return <ReviewItem label={label} value={value ? "yes" : "no"} />;
 };

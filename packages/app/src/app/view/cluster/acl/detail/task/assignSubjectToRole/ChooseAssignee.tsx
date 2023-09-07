@@ -1,5 +1,6 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {tools} from "app/store";
 import {FormSelect} from "app/view/share";
 
@@ -23,7 +24,6 @@ export const ChooseAssignee = () => {
     <Form style={{marginBottom: "8em"}}>
       <FormSelect
         id="acl-assignee-select"
-        data-test="subject-name"
         label={`${tools.labelize(assigneeType)} name`}
         placeholderText={`Please select a ${assigneeType}`}
         showValidationErrors={showValidationErrors}
@@ -33,6 +33,7 @@ export const ChooseAssignee = () => {
         onSelect={value => updateAssigneeId(value.toString())}
         selections={assigneeId}
         optionsValues={itemsOffer.filter(i => i !== assigneeId)}
+        {...testMarks.task.aclAssignSubjectToRole.name.mark}
       />
     </Form>
   );

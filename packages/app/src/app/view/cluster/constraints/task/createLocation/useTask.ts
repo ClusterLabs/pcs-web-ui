@@ -10,6 +10,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    label: "Create location constraint",
     isScoreValid: state.score.length === 0 || isValidScore(state.score),
     isResourceValid:
       state.resourceSpecification === "pattern" || state.resourceId.length > 0,

@@ -1,5 +1,6 @@
 import {Flex, FlexItem, FlexProps, PageSection} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Card, ClusterToolbar, task} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
@@ -9,12 +10,13 @@ import {ResourcesCard} from "./resources";
 
 const grow: FlexProps["grow"] = {default: "grow"};
 
+const {overview, overviewToolbar} = testMarks.cluster;
+
 export const ClusterOverviewPage = () => {
   const cluster = useLoadedCluster();
   return (
     <>
       <ClusterToolbar
-        toolbarName="cluster-overview"
         buttonsItems={[
           {
             name: "start",
@@ -26,21 +28,15 @@ export const ClusterOverviewPage = () => {
                 payload: {clusterName: cluster.name},
               },
             },
+            ...overviewToolbar.startCluster.mark,
           },
           {
             name: "stop",
             task: {
               component: task.forceableConfirm.Task({
-                confirm: {
-                  title: "Stop cluster?",
-                  description: "Stop the cluster on all nodes",
-                },
                 runLabel: "Stop",
-                processTitle: {
-                  wait: "Stopping cluster",
-                  success: "Cluster was successfully stopped",
-                  fail: "Cluster stop failed",
-                },
+                taskLabel: "Stop cluster",
+                description: "Stop the cluster on all nodes",
                 getForceableAction: ({force}) => ({
                   type: "DASHBOARD.CLUSTER.STOP",
                   payload: {clusterName: cluster.name, force},
@@ -49,12 +45,14 @@ export const ClusterOverviewPage = () => {
               }),
               useTask: task.forceableConfirm.useTask,
             },
+            ...overviewToolbar.stopCluster.mark,
           },
         ]}
+        {...overviewToolbar.mark}
       />
 
-      <PageSection data-test="cluster-overview">
-        <Flex>
+      <PageSection {...testMarks.cluster.mark}>
+        <Flex {...overview.mark}>
           {cluster.issueList.length > 0 && (
             <FlexItem grow={grow} className="pf-u-m-0">
               <IssuesCard issueList={cluster.issueList} />

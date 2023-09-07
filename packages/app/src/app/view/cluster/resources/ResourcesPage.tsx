@@ -1,13 +1,19 @@
+import {testMarks} from "app/view/dataTest";
 import {
   ClusterToolbar,
-  GroupDetailView,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {
+  GroupDetailSection,
+  GroupDetailView,
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";
 import * as task from "./task";
+
+const {resources, resourcesToolbar} = testMarks.cluster;
 
 export const ResourcesPage = () => {
   const {resourceTree} = useLoadedCluster();
@@ -17,7 +23,6 @@ export const ResourcesPage = () => {
   return (
     <>
       <ClusterToolbar
-        toolbarName="resources"
         buttonsItems={[
           {
             name: "create-resource",
@@ -28,6 +33,7 @@ export const ResourcesPage = () => {
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),
+            ...resourcesToolbar.createResource.mark,
           },
           {
             name: "create-group",
@@ -38,13 +44,18 @@ export const ResourcesPage = () => {
             launchDisable: launchDisable(
               "Cannot create resource group on stopped cluster",
             ),
+            ...resourcesToolbar.createGroup.mark,
           },
         ]}
+        {...resourcesToolbar.mark}
       />
-      <GroupDetailView
-        groupCard={<ResourceTree resourceTree={resourceTree} />}
-        detailCard={<ResourceDetailPage />}
-      />
+      <GroupDetailSection {...testMarks.cluster.mark}>
+        <GroupDetailView
+          groupCard={<ResourceTree resourceTree={resourceTree} />}
+          detailCard={<ResourceDetailPage />}
+          {...resources.mark}
+        />
+      </GroupDetailSection>
     </>
   );
 };

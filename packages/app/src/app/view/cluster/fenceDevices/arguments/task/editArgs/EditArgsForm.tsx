@@ -1,9 +1,12 @@
 import {Form, Stack, StackItem} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText} from "app/view/share";
 import {PcmkAgentAttrsToolbar} from "app/view/cluster/share";
 
 import {useTask} from "./useTask";
+
+const {fenceDeviceArgumentsEdit: task} = testMarks.task;
 
 export const EditArgsForm = () => {
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
@@ -14,27 +17,25 @@ export const EditArgsForm = () => {
   return (
     <Stack>
       <StackItem>
-        <PcmkAgentAttrsToolbar
-          toolbarName="fence-device-args"
-          filterState={filterState}
-        />
+        <PcmkAgentAttrsToolbar filterState={filterState} />
       </StackItem>
       <StackItem>
         <Form isHorizontal>
           {filterParameters(agentParameters).map(parameter => (
-            <FormText
-              key={parameter.name}
-              id={`arg-${parameter.name}`}
-              label={parameter.name}
-              popover={{
-                header: parameter.shortdesc,
-                body: parameter.longdesc,
-                defaultValue: parameter.default,
-              }}
-              value={fenceDeviceArguments[parameter.name] ?? ""}
-              onChange={value => update(parameter.name, value)}
-              data-test={`fence-device-arg-${parameter.name}`}
-            />
+            <span {...task.arg.mark} key={parameter.name}>
+              <FormText
+                id={`arg-${parameter.name}`}
+                label={<span {...task.arg.name.mark}>{parameter.name}</span>}
+                popover={{
+                  header: parameter.shortdesc,
+                  body: parameter.longdesc,
+                  defaultValue: parameter.default,
+                }}
+                value={fenceDeviceArguments[parameter.name] ?? ""}
+                onChange={value => update(parameter.name, value)}
+                {...task.arg.value.mark}
+              />
+            </span>
           ))}
         </Form>
       </StackItem>

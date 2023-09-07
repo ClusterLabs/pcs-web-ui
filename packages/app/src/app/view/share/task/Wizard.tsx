@@ -1,14 +1,13 @@
 import React from "react";
 import {
   Wizard as PfWizard,
-  WizardFooter as PfWizardFooter,
   WizardContextConsumer,
   WizardStep,
 } from "@patternfly/react-core";
 
 import {selectors} from "app/store";
+import {capitalizeFirst} from "app/store/tools";
 
-import {wizardCreateFooterDataTest} from "./wizardCreateFooterDataTest";
 import {TaskContextProvider} from "./TaskContext";
 import {WizardFooter} from "./WizardFooter";
 
@@ -58,6 +57,7 @@ export const Wizard = ({
   onClose,
   task,
   clusterName,
+  taskLabel,
   title,
   description,
   steps = undefined,
@@ -65,7 +65,8 @@ export const Wizard = ({
   ["data-test"]: string;
   steps?: Step[] | undefined;
   onClose: () => void;
-  title: string;
+  taskLabel: string;
+  title?: string;
   description: string;
 } & (
   | {
@@ -85,6 +86,7 @@ export const Wizard = ({
         task: task,
         close: onClose,
         clusterName,
+        taskLabel,
       }}
     >
       <PfWizard
@@ -92,20 +94,16 @@ export const Wizard = ({
         steps={stepList}
         isOpen
         onClose={onClose}
-        title={title}
+        title={capitalizeFirst(title ?? taskLabel)}
         description={description}
         isNavExpandable
         footer={
           <WizardContextConsumer>
-            {({activeStep}) => (
-              <div data-test={wizardCreateFooterDataTest(activeStep.name)}>
-                <PfWizardFooter>
-                  {footerList.find(f => f.name === activeStep.name)?.footer ?? (
-                    <WizardFooter />
-                  )}
-                </PfWizardFooter>
-              </div>
-            )}
+            {({activeStep}) =>
+              footerList.find(f => f.name === activeStep.name)?.footer ?? (
+                <WizardFooter />
+              )
+            }
           </WizardContextConsumer>
         }
       />

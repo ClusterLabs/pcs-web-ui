@@ -1,63 +1,59 @@
 import * as React from "react";
 import {StackItem} from "@patternfly/react-core";
 
-import {ActionPayload} from "app/store";
-import {NVPair} from "app/view/cluster/types";
 import {
-  LaunchersToolbar,
-  TaskOpenArgs,
-  useLauncherDisableClusterNotRunning,
+  EmptyStateClusterStopped,
+  EmptyStateNoItem,
+  Table,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 
-import {NVPairListView} from "./NVPairListView";
-import * as task from "./task";
+import {NVPairListContextProvider} from "./NVPairListContext";
 
-export const NVPairListPage = ({
-  nvPairList,
-  owner,
-  createLabel,
-  beforeList,
-}: {
-  nvPairList: NVPair[];
-  owner: ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
-  createLabel: string;
+type ContextProps = React.ComponentProps<
+  typeof NVPairListContextProvider
+>["value"];
+
+export const NVPairListPage = (props: {
+  nvPairList: ContextProps["nvPairList"];
+  owner: ContextProps["owner"];
+  toolbar: React.ReactNode;
+  listItem: (nvPair: ContextProps["nvPairList"][number]) => React.ReactNode;
+  "data-test": string;
   beforeList?: React.ReactNode;
 }) => {
-  const launchDisable = useLauncherDisableClusterNotRunning();
-  const editOpenArgs: TaskOpenArgs<typeof task.edit.useTask> = [
-    {
-      type: "create",
-      owner,
-      nameList: nvPairList.map(nvPair => nvPair.name),
-    },
-  ];
+  const {hasCibInfo, clusterName} = useLoadedCluster();
   return (
-    <>
-      <StackItem>
-        <LaunchersToolbar
-          toolbarName="nvpairs"
-          buttonsItems={[
-            {
-              name: "create",
-              label: createLabel,
-              task: {
-                component: task.edit.Task,
-                useTask: task.edit.useTask,
-                openArgs: editOpenArgs,
-              },
-              launchDisable: launchDisable(
-                "Cannot create attribute on stopped cluster",
-              ),
-            },
-          ]}
-        />
-      </StackItem>
+    <NVPairListContextProvider
+      value={{nvPairList: props.nvPairList, owner: props.owner}}
+    >
+      <StackItem>{props.toolbar}</StackItem>
 
-      {beforeList && <StackItem>{beforeList}</StackItem>}
+      {props.beforeList && <StackItem>{props.beforeList}</StackItem>}
 
       <StackItem>
-        <NVPairListView nvPairList={nvPairList} owner={owner} />
+        {!hasCibInfo && (
+          <EmptyStateClusterStopped
+            title={"Cannot get attributes from stopped cluster"}
+            clusterName={clusterName}
+          />
+        )}
+
+        {hasCibInfo && props.nvPairList.length === 0 && (
+          <EmptyStateNoItem
+            title="No attribute here."
+            message="No attribute has been added."
+          />
+        )}
+
+        {hasCibInfo && props.nvPairList.length > 0 && (
+          <Table>
+            <Table.Body>
+              {props.nvPairList.map(nvPair => props.listItem(nvPair))}
+            </Table.Body>
+          </Table>
+        )}
       </StackItem>
-    </>
+    </NVPairListContextProvider>
   );
 };

@@ -1,5 +1,7 @@
 import {NotificationBadge as PfNotificationBadge} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
+
 import {Notification} from "./types";
 
 export const Badge = ({
@@ -25,7 +27,7 @@ export const Badge = ({
       count={unreadErrorCount}
       onClick={switchDrawer}
       aria-label="Notifications"
-      data-test="notification-badge"
+      {...testMarks.notifications.badge.mark}
     />
   );
 };

@@ -1,80 +1,31 @@
-import {IssueList, Table} from "app/view/share";
+import React from "react";
 
-import {Cluster} from "./types";
-import {DashboardClusterNodes} from "./DashboardClusterNodes";
-import {DashboardClusterResources} from "./DashboardClusterResources";
-import {DashboardClusterFenceDevices} from "./DashboardClusterFenceDevices";
-import {DashboardClusterCellName} from "./DashboardClusterCellName";
-import {DashboardClusterCellSummary} from "./DashboardClusterCellSummary";
-import {DashboardClusterMenu} from "./DashboardClusterMenu";
+import {testMarks} from "app/view/dataTest";
+import {ClusterStatusLabel, Link, Table, location} from "app/view/share";
 
-const COLUMNS = {
-  ISSUES: "ISSUES",
-  NODES: "NODES",
-  RESOURCES: "RESOURCES",
-  FENCE_DEVICES: "FENCE_DEVICES",
-  ACTIONS: "ACTIONS",
-};
-const EXPANDABLE_COLUMNS = Object.keys(COLUMNS);
-const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
+const {cluster: clusterMark} = testMarks.dashboard.clusterList;
+const {name, status} = clusterMark;
 
-export const DashboardCluster = ({cluster}: {cluster: Cluster}) => {
-  const {expanded, Toggle, Content} = Table.Expansion.useExpansion({
-    contentSpan: CELL_COUNT,
-  });
-
+export const DashboardCluster = (props: {
+  clusterName: string;
+  status: React.ComponentProps<typeof ClusterStatusLabel>["status"];
+  columns: React.ReactNode;
+  isLoading?: boolean;
+  isExpanded?: boolean;
+  expandedContent?: React.ReactNode;
+}) => {
   return (
-    <Table.Body
-      isExpanded={EXPANDABLE_COLUMNS.includes(expanded)}
-      data-test={`cluster ${cluster.name}`}
-    >
-      <tr role="row" data-test="loaded">
-        <DashboardClusterCellName
-          clusterName={cluster.name}
-          status={cluster.status}
-        />
-        <Toggle expandKey={COLUMNS.ISSUES} data-test="issues">
-          <DashboardClusterCellSummary
-            itemsCount={cluster.issueList.length}
-            summaryStatus={cluster.summary.issuesSeverity}
-          />
-        </Toggle>
-        <Toggle expandKey={COLUMNS.NODES} data-test="nodes">
-          <DashboardClusterCellSummary
-            itemsCount={cluster.nodeList.length}
-            summaryStatus={cluster.summary.nodesSeverity}
-          />
-        </Toggle>
-        <Toggle expandKey={COLUMNS.RESOURCES} data-test="resources">
-          <DashboardClusterCellSummary
-            itemsCount={cluster.hasCibInfo ? cluster.resourceTree.length : "?"}
-            summaryStatus={cluster.summary.resourcesSeverity}
-          />
-        </Toggle>
-        <Toggle expandKey={COLUMNS.FENCE_DEVICES} data-test="fence-devices">
-          <DashboardClusterCellSummary
-            itemsCount={
-              cluster.hasCibInfo ? cluster.fenceDeviceList.length : "?"
-            }
-            summaryStatus={cluster.summary.fenceDevicesSeverity}
-          />
-        </Toggle>
-        <td>
-          <DashboardClusterMenu clusterName={cluster.name} />
-        </td>
+    <Table.Body isExpanded={props.isExpanded} {...clusterMark.mark}>
+      <tr role="row">
+        <th role="rowheader">
+          <Link to={location.cluster({clusterName: props.clusterName})}>
+            <strong {...name.mark}>{props.clusterName}</strong>{" "}
+            <ClusterStatusLabel status={props.status} {...status.mark} />
+          </Link>
+        </th>
+        {props.columns}
       </tr>
-      <Content expandKey={COLUMNS.ISSUES}>
-        <IssueList margin issueList={cluster.issueList} />
-      </Content>
-      <Content expandKey={COLUMNS.NODES}>
-        <DashboardClusterNodes cluster={cluster} />
-      </Content>
-      <Content expandKey={COLUMNS.RESOURCES}>
-        <DashboardClusterResources cluster={cluster} />
-      </Content>
-      <Content expandKey={COLUMNS.FENCE_DEVICES}>
-        <DashboardClusterFenceDevices cluster={cluster} />
-      </Content>
+      {props.expandedContent}
     </Table.Body>
   );
 };

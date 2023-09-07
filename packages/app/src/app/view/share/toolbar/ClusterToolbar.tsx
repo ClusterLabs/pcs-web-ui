@@ -1,34 +1,28 @@
+import React from "react";
 import {PageSection} from "@patternfly/react-core";
 
 import {LauncherItem} from "app/view/share/toolbar/types";
 
 import {LaunchersToolbar} from "./LaunchersToolbar";
 
-export const ClusterToolbar = ({
-  toolbarName,
-  buttonsItems = [],
-  dropdownItems = [],
-  before,
-  after,
-}: {
-  toolbarName: string;
+export const ClusterToolbar = (props: {
   buttonsItems?: LauncherItem[];
-  dropdownItems?: LauncherItem[];
+  dropdown?: React.ReactNode;
   after?: React.ReactNode;
   before?: React.ReactNode;
+  "data-test"?: string;
 }) => {
   return (
     <PageSection
       variant="light"
       style={{paddingTop: "0"}}
-      data-test="cluster-section-toolbar"
+      data-test={props["data-test"]}
     >
       <LaunchersToolbar
-        toolbarName={toolbarName}
-        buttonsItems={buttonsItems}
-        dropdownItems={dropdownItems}
-        after={after}
-        before={before}
+        buttonsItems={props.buttonsItems}
+        dropdown={props.dropdown}
+        after={props.after}
+        before={props.before}
       />
     </PageSection>
   );

@@ -1,6 +1,7 @@
 import {Flex, FlexItem, FlexProps} from "@patternfly/react-core";
 
-import {EmptyStateClusterStopped} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {EmptyStateClusterStopped, Link} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 import {AclListCard} from "./AclListCard";
@@ -9,6 +10,8 @@ import {AclRoleListItem} from "./AclRoleListItem";
 
 const grow: FlexProps["grow"] = {default: "grow"};
 const spacer: FlexProps["spacer"] = {default: "spacerNone"};
+
+const {lists} = testMarks.cluster.acl;
 
 export const AclLists = () => {
   const {acls, hasCibInfo, clusterName} = useLoadedCluster();
@@ -21,7 +24,7 @@ export const AclLists = () => {
     );
   }
   return (
-    <Flex>
+    <Flex {...lists.mark}>
       <FlexItem grow={grow} className="pf-u-m-0">
         <AclListCard
           aclType="role"
@@ -40,7 +43,17 @@ export const AclLists = () => {
               <AclSubjectListItem
                 aclType="user"
                 id={id}
-                roleIdList={roleIdList}
+                rolesCount={
+                  <span {...lists.user.rolesCount.mark}>
+                    {roleIdList.length}
+                  </span>
+                }
+                idLink={
+                  <Link strong to={`/user/${id}`} {...lists.user.id.mark}>
+                    {id}
+                  </Link>
+                }
+                {...lists.user.mark}
               />
             )}
           />
@@ -53,7 +66,17 @@ export const AclLists = () => {
               <AclSubjectListItem
                 aclType="group"
                 id={id}
-                roleIdList={roleIdList}
+                rolesCount={
+                  <span {...lists.group.rolesCount.mark}>
+                    {roleIdList.length}
+                  </span>
+                }
+                idLink={
+                  <Link strong to={`/group/${id}`} {...lists.group.id.mark}>
+                    {id}
+                  </Link>
+                }
+                {...lists.group.mark}
               />
             )}
           />

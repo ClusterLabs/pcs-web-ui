@@ -1,4 +1,10 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {
+  TaskButtonResult,
+  TaskFinishLibWizard,
+  TaskSuccess,
+  Wizard,
+  WizardFooter,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Options} from "./Options";
@@ -22,7 +28,7 @@ export const Task = () => {
       clusterName={clusterName}
       task="constraintColocationSetCreate"
       data-test="task-constraint-colocation-set-create"
-      title="New colocation set constraint"
+      taskLabel="create colocation constraint with resource set"
       description="Create colocation set constraint"
       onClose={close}
       steps={[
@@ -66,7 +72,7 @@ export const Task = () => {
           component: (
             <TaskFinishLibWizard
               response={response}
-              taskName="create colocation constraint with resource set"
+              success={<TaskSuccess primaryAction={<TaskButtonResult />} />}
               backToUpdateSettingsStepName="Resource Sets"
               proceedForce={() => create({force: true})}
               reports={reports}

@@ -1,54 +1,40 @@
-import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskLibReportList, TaskSimpleLib} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {ChooseAssignee} from "./ChooseAssignee";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Unsuccess} from "./Unsuccess";
+import {CommunicationError} from "./CommunicationError";
+
+const {aclAssignSubjectToRole: task} = testMarks.task;
 
 export const Task = () => {
   const {
     name: taskName,
+    label,
     clusterName,
     close,
-    assign,
-    recoverFromError,
-    isAssigneeValid,
-    itemsOffer,
-    assigneeType,
     state: {
       libCall: {response, reports},
     },
   } = useTask();
 
-  const title = `Assign ${assigneeType}`;
-
   return (
-    <TaskSimple
-      title={title}
+    <TaskSimpleLib
       task={taskName}
-      data-test={`task-acl-role-assign-${assigneeType}`}
+      taskLabel={label}
       clusterName={clusterName}
       close={close}
-      footer={
-        response !== "no-response" ? null : (
-          <TaskSimpleFooter
-            nextIf={isAssigneeValid}
-            nextDisabled={itemsOffer.length === 0}
-            run={assign}
-            runLabel={title}
-          />
-        )
-      }
-    >
-      {response === "no-response" && <ChooseAssignee />}
-      {response !== "no-response" && (
-        <TaskFinishLib
-          response={response}
-          taskName={title}
-          backToUpdateSettings={recoverFromError}
-          proceedForce={assign}
-          tryAgain={assign}
-          reports={reports}
-        />
-      )}
-    </TaskSimple>
+      footer={<Footer />}
+      configure={<ChooseAssignee />}
+      response={response}
+      success={<Success />}
+      unsuccess={<Unsuccess />}
+      communicationError={<CommunicationError />}
+      reports={<TaskLibReportList reports={reports} {...task.report.mark} />}
+      {...task.mark}
+    />
   );
 };

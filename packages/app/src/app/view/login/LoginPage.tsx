@@ -6,6 +6,7 @@ import {
   LoginPage as PfLoginPage,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {selectors} from "app/store";
 import {BackgroundImage, useDispatch} from "app/view/share";
 
@@ -27,10 +28,10 @@ export const LoginPage = () => {
       <PfLoginPage
         loginTitle="Please log in"
         textContent="HA Cluster Management"
+        {...testMarks.login.mark}
       >
         {failed && <Alert variant="danger" isInline title={failMessage} />}
         <LoginForm
-          data-test="form-login"
           usernameLabel="Username"
           usernameValue={username}
           onChangeUsername={value => setUsername(value)}
@@ -47,6 +48,7 @@ export const LoginPage = () => {
               payload: {username, password},
             });
           }}
+          {...testMarks.login.form.mark}
         />
       </PfLoginPage>
     </>

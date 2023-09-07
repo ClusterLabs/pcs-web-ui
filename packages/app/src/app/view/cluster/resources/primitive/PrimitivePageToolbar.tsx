@@ -1,10 +1,11 @@
+import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {
-  DetailToolbar,
+  LauncherDropdown,
   TaskOpenArgs,
   LauncherItem as ToolbarItem,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 
@@ -19,6 +20,8 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
     metaAttribute =>
       metaAttribute.name !== "target-role" || metaAttribute.value !== "Stopped",
   );
+
+const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   const {canChange: canChangeGroup} = task.groupChange.useTask();
@@ -42,6 +45,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         },
       },
     },
+    ...toolbar.dropdown.unclone.mark,
   };
 
   const clone: ToolbarItem = {
@@ -57,6 +61,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         },
       },
     },
+    ...toolbar.dropdown.clone.mark,
   };
 
   const deleteItem: ToolbarItem = {
@@ -73,6 +78,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         },
       },
     },
+    ...toolbar.dropdown.delete.mark,
   };
 
   const refresh: ToolbarItem = {
@@ -94,6 +100,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         },
       },
     },
+    ...toolbar.dropdown.refresh.mark,
   };
 
   const cleanup: ToolbarItem = {
@@ -115,6 +122,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         },
       },
     },
+    ...toolbar.dropdown.cleanup.mark,
   };
 
   const unmanage: ToolbarItem = {
@@ -134,6 +142,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         },
       },
     },
+    ...toolbar.unmanage.mark,
   };
 
   const manage: ToolbarItem = {
@@ -153,6 +162,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         },
       },
     },
+    ...toolbar.manage.mark,
   };
 
   const disable: ToolbarItem = {
@@ -177,6 +187,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         },
       },
     },
+    ...toolbar.disable.mark,
   };
 
   const enable: ToolbarItem = {
@@ -196,6 +207,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         },
       },
     },
+    ...toolbar.enable.mark,
   };
 
   const groupChangeOpenArgs: TaskOpenArgs<typeof task.groupChange.useTask> = [
@@ -204,28 +216,34 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   return (
     <>
       <DetailToolbar
-        toolbarName="primitive"
         buttonsItems={[
           ...[isPrimitiveManaged(primitive) ? unmanage : manage],
           ...[isPrimitiveEnabled(primitive) ? disable : enable],
         ]}
-        dropdownItems={[
-          {
-            name: "change-group",
-            task: {
-              component: task.groupChange.Task,
-              useTask: task.groupChange.useTask,
-              openArgs: groupChangeOpenArgs,
-            },
-            disabled: !canChangeGroup(primitive),
-          },
-          refresh,
-          cleanup,
-          ...(primitive.inGroup !== null
-            ? []
-            : [primitive.inClone ? unclone : clone]),
-          deleteItem,
-        ]}
+        dropdown={
+          <LauncherDropdown
+            items={[
+              {
+                name: "change-group",
+                task: {
+                  component: task.groupChange.Task,
+                  useTask: task.groupChange.useTask,
+                  openArgs: groupChangeOpenArgs,
+                },
+                disabled: !canChangeGroup(primitive),
+                ...toolbar.dropdown.changeGroup.mark,
+              },
+              refresh,
+              cleanup,
+              ...(primitive.inGroup !== null
+                ? []
+                : [primitive.inClone ? unclone : clone]),
+              deleteItem,
+            ]}
+            {...toolbar.dropdown.mark}
+          />
+        }
+        {...toolbar.mark}
       />
     </>
   );

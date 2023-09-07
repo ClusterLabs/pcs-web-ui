@@ -9,20 +9,18 @@ import {WrenchIcon} from "@patternfly/react-icons";
 
 import * as palette from "app/view/share/palette";
 
-export const EmptyStateConfigure = ({
-  title,
-  message,
-}: {
+export const EmptyStateConfigure = (props: {
   title: React.ReactNode;
   message: React.ReactNode;
+  "data-test"?: string;
 }) => {
   return (
-    <EmptyState style={{margin: "auto"}}>
+    <EmptyState style={{margin: "auto"}} data-test={props["data-test"]}>
       <EmptyStateIcon icon={WrenchIcon} color={palette.UNKNOWN} />
       <Title size="lg" headingLevel="h3">
-        {title}
+        {props.title}
       </Title>
-      <EmptyStateBody>{message}</EmptyStateBody>
+      <EmptyStateBody>{props.message}</EmptyStateBody>
     </EmptyState>
   );
 };

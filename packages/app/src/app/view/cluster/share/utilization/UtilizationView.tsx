@@ -1,21 +1,22 @@
+import * as React from "react";
 import {Alert, TextContent} from "@patternfly/react-core";
 
-import {ActionPayload} from "app/store";
-import {NVPair} from "app/view/cluster/types";
 import {NVPairListPage} from "app/view/cluster/share/nvpair";
 
-export const UtilizationView = ({
-  utilizationAttrs,
-  owner,
-}: {
-  utilizationAttrs: NVPair[];
-  owner: ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
+type PageProps = React.ComponentProps<typeof NVPairListPage>;
+
+export const UtilizationView = (props: {
+  owner: PageProps["owner"];
+  nvPairList: PageProps["nvPairList"];
+  toolbar: React.ReactNode;
+  listItem: PageProps["listItem"];
+  "data-test": string;
 }) => {
   return (
     <NVPairListPage
-      nvPairList={utilizationAttrs}
-      owner={owner}
-      createLabel="Create utilization attribute"
+      nvPairList={props.nvPairList}
+      owner={props.owner}
+      toolbar={props.toolbar}
       beforeList={
         <Alert isInline title="Utilization attributes" variant="info">
           <TextContent>
@@ -26,6 +27,8 @@ export const UtilizationView = ({
           </TextContent>
         </Alert>
       }
+      listItem={props.listItem}
+      data-test={props["data-test"]}
     />
   );
 };

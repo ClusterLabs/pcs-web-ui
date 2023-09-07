@@ -1,5 +1,6 @@
 import {Form, FormFieldGroup, Text, TextContent} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   FormRadios,
   FormSelect,
@@ -10,6 +11,8 @@ import {
 
 import {useTask} from "./useTask";
 
+const {options, compression, crypto} =
+  testMarks.task.clusterSetup.advancedOptions.transport;
 const help = helpAll.knet;
 
 const ID_PREFIX_OPTIONS = "cluster-setup-transport-options";
@@ -29,7 +32,7 @@ export const TransportOptions = () => {
         <TextContent>
           <Text component="h3">Knet options</Text>
         </TextContent>
-        <FormFieldGroup>
+        <FormFieldGroup {...options.mark}>
           <FormSelect
             label="Ip version"
             id={`${ID_PREFIX_OPTIONS}-ip_version`}
@@ -43,7 +46,7 @@ export const TransportOptions = () => {
                 >,
               })
             }
-            data-test="ip_version"
+            {...options.ip_version.mark}
           />
 
           <FormText
@@ -54,7 +57,7 @@ export const TransportOptions = () => {
             onChange={value =>
               updateTransportOptions({knet_pmtud_interval: value})
             }
-            data-test="knet_pmtud_interval"
+            {...options.knet_pmtud_interval.mark}
           />
 
           <FormSelect
@@ -70,21 +73,21 @@ export const TransportOptions = () => {
                 >,
               })
             }
-            data-test="link_mode"
+            {...options.link_mode.mark}
           />
         </FormFieldGroup>
 
         <TextContent>
           <Text component="h3">Compression</Text>
         </TextContent>
-        <FormFieldGroup>
+        <FormFieldGroup {...compression.mark}>
           <FormText
             label="Model"
             id={`${ID_PREFIX_COMPRESSION}-model`}
             popover={help.compression.model}
             value={compressionOptions.model}
             onChange={value => updateCompressionOptions({model: value})}
-            data-test="model"
+            {...compression.model.mark}
           />
 
           <FormText
@@ -93,7 +96,7 @@ export const TransportOptions = () => {
             popover={help.compression.threshold}
             value={compressionOptions.threshold}
             onChange={value => updateCompressionOptions({threshold: value})}
-            data-test="threshold"
+            {...compression.threshold.mark}
           />
 
           <FormText
@@ -102,13 +105,13 @@ export const TransportOptions = () => {
             popover={help.compression.level}
             value={compressionOptions.level}
             onChange={value => updateCompressionOptions({level: value})}
-            data-test="level"
+            {...compression.level.mark}
           />
         </FormFieldGroup>
         <TextContent>
           <Text component="h3">Crypto</Text>
         </TextContent>
-        <FormFieldGroup>
+        <FormFieldGroup {...crypto.mark}>
           <FormRadios
             label="Model"
             id={`${ID_PREFIX_CRYPTO}-model`}
@@ -116,7 +119,7 @@ export const TransportOptions = () => {
             options={["nss", "openssl", "default"]}
             selected={cryptoOptions.model}
             onChange={value => updateCryptoOptions({model: value})}
-            data-test="crypto.model"
+            {...crypto.model.mark}
           />
 
           <FormSelect
@@ -140,7 +143,7 @@ export const TransportOptions = () => {
                 >,
               })
             }
-            data-test="crypto.hash"
+            {...crypto.hash.mark}
           />
 
           <FormSelect
@@ -156,7 +159,7 @@ export const TransportOptions = () => {
                 >,
               })
             }
-            data-test="crypto.cipher"
+            {...crypto.cipher.mark}
           />
         </FormFieldGroup>
       </Form>

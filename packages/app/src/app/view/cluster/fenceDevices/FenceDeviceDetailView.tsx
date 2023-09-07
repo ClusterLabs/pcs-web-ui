@@ -1,6 +1,10 @@
 import {FenceDevice} from "app/view/cluster/types";
-import {DetailViewSection, IssueList} from "app/view/share";
-import {LoadedPcmkAgent, PcmkAgentDescription} from "app/view/cluster/share";
+import {IssueList} from "app/view/share";
+import {
+  DetailViewSection,
+  LoadedPcmkAgent,
+  PcmkAgentDescription,
+} from "app/view/cluster/share";
 
 export const FenceDeviceDetailView = ({
   fenceDevice,

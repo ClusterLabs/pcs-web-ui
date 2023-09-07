@@ -1,68 +1,50 @@
-import {
-  NodeAuthWizardFooter,
-  TaskFinishLibWizard,
-  Wizard,
-  WizardFooter,
-} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {Wizard} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {NameAndNodes} from "./NameAndNodes";
+import {NameAndNodesFooter} from "./NameAndNodesFooter";
 import {PrepareNodes} from "./PrepareNodes";
+import {PrepareNodesFooter} from "./PrepareNodesFooter";
 import {Review} from "./Review";
+import {ReviewFooter} from "./ReviewFooter";
 import {Transport} from "./Transport";
 import {TransportOptions} from "./TransportOptions";
 import {Quorum} from "./Quorum";
 import {Totem} from "./Totem";
+import {AdvancedOptionsFooter} from "./AdvancedOptionsFooter";
+import {Result} from "./Result";
+
+const clusterNameAndNodes = "Cluster name and nodes";
+const review = "Review";
 
 export const ClusterSetup = () => {
   const {
     close,
-    startClusterAndClose,
     isClusterNameValid,
     areNodeNamesValid,
     isClusterNameAndNodeCheckDoneValid,
     areLinksValid,
-    setupCluster,
-    state: {
-      authProcessId,
-      libCall: {reports, response},
-    },
   } = useTask();
   return (
     <Wizard
       clusterName={null}
       task="clusterSetup"
-      data-test="task-cluster-setup"
-      title="Setup cluster"
+      {...testMarks.task.clusterSetup.mark}
+      taskLabel="Setup cluster"
       description="Setup new cluster on nodes"
       onClose={close}
       steps={[
         {
-          name: "Cluster name and nodes",
+          name: clusterNameAndNodes,
           component: <NameAndNodes />,
-          footer: (
-            <WizardFooter
-              next={{
-                actionIf: isClusterNameValid && areNodeNamesValid,
-              }}
-              back={{disabled: true}}
-            />
-          ),
+          footer: <NameAndNodesFooter />,
         },
         {
           name: "Check cluster name and nodes",
           component: <PrepareNodes />,
           canJumpTo: isClusterNameValid && areNodeNamesValid,
-          footer: authProcessId ? (
-            <NodeAuthWizardFooter authProcessId={authProcessId} />
-          ) : (
-            <WizardFooter
-              next={{
-                disabled: !isClusterNameAndNodeCheckDoneValid,
-              }}
-              reviewAndFinish={{label: "Review and setup cluster"}}
-            />
-          ),
+          footer: <PrepareNodesFooter />,
         },
         {
           name: "Advanced options",
@@ -75,54 +57,39 @@ export const ClusterSetup = () => {
             {
               name: "Transport links",
               component: <Transport />,
-              footer: <WizardFooter next={{actionIf: areLinksValid}} />,
+              footer: <AdvancedOptionsFooter />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid,
             },
             {
               name: "Transport Options",
               component: <TransportOptions />,
+              footer: <AdvancedOptionsFooter />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Quorum",
               component: <Quorum />,
+              footer: <AdvancedOptionsFooter />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
             {
               name: "Totem",
               component: <Totem />,
+              footer: <AdvancedOptionsFooter />,
               canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
             },
           ],
         },
         {
-          name: "Review",
+          name: review,
           component: <Review />,
-          footer: (
-            <WizardFooter
-              next={{
-                preAction: () => setupCluster(),
-                label: "Setup cluster",
-              }}
-            />
-          ),
+          footer: <ReviewFooter />,
           canJumpTo: isClusterNameAndNodeCheckDoneValid && areLinksValid,
         },
         {
           name: "Result",
           component: (
-            <TaskFinishLibWizard
-              response={response}
-              taskName="setup new cluster"
-              backToUpdateSettingsStepName="Cluster name and nodes"
-              proceedForce={() => setupCluster({force: true})}
-              success={{
-                secondaryActions: {
-                  "Start cluster and close": startClusterAndClose,
-                },
-              }}
-              reports={reports}
-            />
+            <Result backStep={clusterNameAndNodes} reviewStep={review} />
           ),
           isFinishedStep: true,
         },

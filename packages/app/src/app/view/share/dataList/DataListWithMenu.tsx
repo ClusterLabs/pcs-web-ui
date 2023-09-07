@@ -29,16 +29,14 @@ export const DataListWithMenu = ({
     return <EmptyStateNoItem title={emptyTitle} />;
   }
 
-  const nameList = `${name}-list`;
-
   return (
-    <DataList aria-label={tools.labelize(nameList)} data-test={nameList}>
+    <DataList aria-label={`${tools.labelize(name)}-list`}>
       {itemList.map((itemName, i) => (
-        <DataListItem key={i} data-test={"list-item"}>
+        <DataListItem key={i}>
           <DataListItemRow>
             <DataListItemCells
               dataListCells={
-                <DataListCell data-test="name">
+                <DataListCell>
                   {formatItem ? formatItem(itemName) : itemName}
                 </DataListCell>
               }
@@ -49,10 +47,7 @@ export const DataListWithMenu = ({
               aria-labelledby={`${name}-${itemName}-menu`}
               aria-label={`${tools.labelize(name)} ${itemName} menu`}
             >
-              <LauncherDropdown
-                items={menuItems.map(mi => mi(itemName))}
-                dropdownName={`${name}-${itemName}`}
-              />
+              <LauncherDropdown items={menuItems.map(mi => mi(itemName))} />
             </DataListAction>
           </DataListItemRow>
         </DataListItem>

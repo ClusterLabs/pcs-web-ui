@@ -7,6 +7,7 @@ import {
   ToolbarItem,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {useLocation} from "app/view/share/router";
 import * as location from "app/view/share/location";
 
@@ -34,6 +35,7 @@ export const Header = () => {
           navigate(location.dashboard);
         },
       }}
+      {...testMarks.header.mark}
     />
   );
 };

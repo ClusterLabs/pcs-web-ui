@@ -6,13 +6,7 @@ import {LauncherGroup} from "./LauncherGroup";
 import {Launcher} from "./Launcher";
 import {LauncherItem} from "./types";
 
-export const LauncherActionList = ({
-  items = [],
-  name,
-}: {
-  items: LauncherItem[];
-  name: string;
-}) => {
+export const LauncherActionList = ({items = []}: {items: LauncherItem[]}) => {
   return (
     <LauncherGroup items={items}>
       {items.map((item, i) => (
@@ -21,7 +15,6 @@ export const LauncherActionList = ({
             <Button
               variant={item.button?.variant ?? "secondary"}
               onClick={launch}
-              data-test={`task ${name}-${item.name}`}
               isDisabled={item.disabled ?? false}
             >
               {tools.labelize(item.label || item.name)}

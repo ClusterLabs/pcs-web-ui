@@ -1,11 +1,15 @@
-import {DetailToolbar, TaskOpenArgs} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {testMarks} from "app/view/dataTest";
+import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
+import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
 
 type AssignSubjectOpenArgs = TaskOpenArgs<
   typeof task.assignSubjectToRole.useTask
 >;
+
+const {toolbar} = testMarks.cluster.acl.currentRole;
+const {dropdown} = toolbar;
 
 export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
   const {clusterName} = useLoadedCluster();
@@ -18,7 +22,6 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
   ];
   return (
     <DetailToolbar
-      toolbarName="acl-role"
       buttonsItems={[
         {
           name: "assign-user",
@@ -27,6 +30,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
             useTask: task.assignSubjectToRole.useTask,
             openArgs: assignUserOpenArgs,
           },
+          ...toolbar.assignUser.mark,
         },
         {
           name: "add-permissions",
@@ -34,36 +38,45 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
             component: task.addPermissionToRole.Task,
             useTask: task.addPermissionToRole.useTask,
           },
+          ...toolbar.addPermissions.mark,
         },
       ]}
-      dropdownItems={[
-        {
-          name: "assign-group",
-          task: {
-            component: task.assignSubjectToRole.Task,
-            useTask: task.assignSubjectToRole.useTask,
-            openArgs: assignGroupOpenArgs,
-          },
-        },
-        {
-          name: "delete-role",
-          confirm: {
-            title: "Delete role?",
-            description: "This deletes the role",
-            action: {
-              type: "LIB.CALL.CLUSTER",
-              key: {clusterName},
-              payload: {
-                taskLabel: `delete role "${roleId}"`,
-                call: {
-                  name: "acl-remove-role",
-                  payload: {role_id: roleId},
+      dropdown={
+        <LauncherDropdown
+          items={[
+            {
+              name: "assign-group",
+              task: {
+                component: task.assignSubjectToRole.Task,
+                useTask: task.assignSubjectToRole.useTask,
+                openArgs: assignGroupOpenArgs,
+              },
+              ...dropdown.assignGroup.mark,
+            },
+            {
+              name: "delete-role",
+              confirm: {
+                title: "Delete role?",
+                description: "This deletes the role",
+                action: {
+                  type: "LIB.CALL.CLUSTER",
+                  key: {clusterName},
+                  payload: {
+                    taskLabel: `delete role "${roleId}"`,
+                    call: {
+                      name: "acl-remove-role",
+                      payload: {role_id: roleId},
+                    },
+                  },
                 },
               },
+              ...dropdown.deleteRole.mark,
             },
-          },
-        },
-      ]}
+          ]}
+          {...dropdown.mark}
+        />
+      }
+      {...toolbar.mark}
     />
   );
 };

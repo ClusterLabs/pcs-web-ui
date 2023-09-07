@@ -13,10 +13,12 @@ import {
   LongArrowAltUpIcon,
 } from "@patternfly/react-icons";
 
+import {testMarks} from "app/view/dataTest";
 import {FormRadios, FormSelect, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
 
+const {constraintOrderCreate: task} = testMarks.task;
 export const Configure = () => {
   const {
     resourceIdList,
@@ -43,7 +45,7 @@ export const Configure = () => {
             <DataListItemCells
               dataListCells={[
                 <DataListCell key="all">
-                  <Form>
+                  <Form {...task.first.mark}>
                     <FormSelect
                       id="constraint-order-create-first-resource"
                       label="First resource"
@@ -59,6 +61,7 @@ export const Configure = () => {
                       optionsValues={resourceIdList.filter(
                         r => r !== thenResourceId,
                       )}
+                      {...task.first.resource.mark}
                     />
                     <FormRadios
                       id="constraint-order-first-resource-action"
@@ -66,6 +69,7 @@ export const Configure = () => {
                       options={["start", "stop", "promote", "demote"]}
                       selected={firstAction}
                       onChange={value => updateState({firstAction: value})}
+                      {...task.first.action.mark}
                     />
                   </Form>
                 </DataListCell>,
@@ -81,6 +85,7 @@ export const Configure = () => {
                 className="pf-u-m-0 pf-u-p-0"
                 onClick={swapResources}
                 icon={<LongArrowAltDownIcon />}
+                {...task.first.down.mark}
               />
             </DataListAction>
           </DataListItemRow>
@@ -91,7 +96,7 @@ export const Configure = () => {
             <DataListItemCells
               dataListCells={[
                 <DataListCell key="all">
-                  <Form>
+                  <Form {...task.then.mark}>
                     <FormSelect
                       id="constraint-order-create-then-resource"
                       label="Then resource"
@@ -107,6 +112,7 @@ export const Configure = () => {
                       optionsValues={resourceIdList.filter(
                         r => r !== firstResourceId,
                       )}
+                      {...task.then.resource.mark}
                     />
                     <FormRadios
                       id="constraint-order-then-resource-action"
@@ -114,6 +120,7 @@ export const Configure = () => {
                       options={["start", "stop", "promote", "demote"]}
                       selected={thenAction}
                       onChange={value => updateState({thenAction: value})}
+                      {...task.then.action.mark}
                     />
                   </Form>
                 </DataListCell>,
@@ -129,6 +136,7 @@ export const Configure = () => {
                 className="pf-u-m-0 pf-u-p-0"
                 onClick={swapResources}
                 icon={<LongArrowAltUpIcon />}
+                {...task.then.up.mark}
               />
             </DataListAction>
           </DataListItemRow>
@@ -143,7 +151,7 @@ export const Configure = () => {
           showValidationErrors={showValidationErrors}
           isValid={isScoreValid}
           helperTextInvalid="Score must be integer or INFINITY"
-          data-test="score"
+          {...task.score.mark}
         />
       </Form>
     </>

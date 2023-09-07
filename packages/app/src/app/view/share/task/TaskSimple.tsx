@@ -12,13 +12,15 @@ export const TaskSimple = ({
   footer,
   children,
   title,
+  taskLabel,
   "data-test": dataTest,
 }: {
   close: () => void;
   footer: React.ReactNode;
-  title: React.ComponentProps<typeof Modal>["title"];
   ["data-test"]?: string;
   children: React.ReactNode;
+  taskLabel: string;
+  title?: React.ComponentProps<typeof Modal>["title"];
 } & (
   | {
       task: Parameters<typeof selectors.getClusterTask>[0];
@@ -30,10 +32,10 @@ export const TaskSimple = ({
     }
 )) => {
   return (
-    <TaskContextProvider value={{task, close, clusterName}}>
+    <TaskContextProvider value={{task, close, clusterName, taskLabel}}>
       <Modal
         variant="medium"
-        title={title}
+        title={title ?? taskLabel}
         isOpen
         onClose={close}
         actions={[<React.Fragment key="footer">{footer}</React.Fragment>]}

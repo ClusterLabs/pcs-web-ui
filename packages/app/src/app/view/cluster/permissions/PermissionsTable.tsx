@@ -1,14 +1,11 @@
+import {testMarks} from "app/view/dataTest";
 import {AttributeHelpPopover, EmptyStateNoItem, Table} from "app/view/share";
 
 import {useLoadedPermissions} from "./LoadedPermissionsContext";
 import {PermissionMenu} from "./PermissionMenu";
 import {PermissionCompetenceCell} from "./PermissionCompetenceCell";
-import {Permission} from "./types";
 
-const dataTest = (
-  rowIndex: number,
-  permissionPart: Permission["allow"][number] | "name" | "type",
-) => `permission-${rowIndex}-${permissionPart}`;
+const {permission: permissionMark} = testMarks.cluster.permissions;
 
 export const PermissionsTable = () => {
   const {
@@ -20,7 +17,7 @@ export const PermissionsTable = () => {
   }
 
   return (
-    <Table>
+    <Table {...testMarks.cluster.permissions.mark}>
       <thead>
         <tr>
           <th data-label="Name">Name</th>
@@ -61,13 +58,13 @@ export const PermissionsTable = () => {
         </tr>
       </thead>
 
-      <Table.Body data-test="permission-list">
+      <Table.Body>
         {permissionList.map((permission, i) => (
-          <tr key={i} data-test={`permission-${permission.name}`}>
-            <td data-label="Name" data-test={dataTest(i, "name")}>
+          <tr key={i} {...permissionMark.mark}>
+            <td data-label="Name" {...permissionMark.name.mark}>
               {permission.name}
             </td>
-            <td data-label="Type" data-test={dataTest(i, "type")}>
+            <td data-label="Type" {...permissionMark.type.mark}>
               {permission.type}
             </td>
 
@@ -75,24 +72,24 @@ export const PermissionsTable = () => {
               permission={permission}
               competenceName="read"
               presentInCompetenceNames={["write", "full"]}
-              data-test={dataTest(i, "read")}
+              {...permissionMark.read.mark}
             />
             <PermissionCompetenceCell
               permission={permission}
               competenceName="write"
               presentInCompetenceNames={["full"]}
-              data-test={dataTest(i, "write")}
+              {...permissionMark.write.mark}
             />
             <PermissionCompetenceCell
               permission={permission}
               competenceName="grant"
               presentInCompetenceNames={["full"]}
-              data-test={dataTest(i, "grant")}
+              {...permissionMark.grant.mark}
             />
             <PermissionCompetenceCell
               permission={permission}
               competenceName="full"
-              data-test={dataTest(i, "full")}
+              {...permissionMark.full.mark}
             />
 
             <td data-label="Menu">

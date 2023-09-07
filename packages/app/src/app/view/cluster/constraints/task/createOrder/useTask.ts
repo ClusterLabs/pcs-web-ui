@@ -9,6 +9,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    label: "Create order constraint",
     isFirstResourceValid: state.firstResourceId.length > 0,
     isThenResourceValid: state.thenResourceId.length > 0,
     isScoreValid: state.score.length === 0 || isValidScore(state.score),

@@ -1,8 +1,11 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormRadios, FormSwitch, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {permissionEdit: task} = testMarks.task;
 
 export const Configure = () => {
   const {
@@ -14,7 +17,7 @@ export const Configure = () => {
 
   return (
     <>
-      <Form data-test="permission-create">
+      <Form>
         <FormText
           id="permission-name"
           label="Name"
@@ -23,7 +26,7 @@ export const Configure = () => {
           showValidationErrors={showValidationErrors}
           isValid={isNameValid}
           helperTextInvalid="Please enter a name"
-          data-test="name"
+          {...task.permissionName.mark}
         />
         <FormRadios
           label="Type"
@@ -35,10 +38,10 @@ export const Configure = () => {
               type: value.toString() as typeof type,
             })
           }
-          data-test="type"
+          {...task.permissionType.mark}
         />
       </Form>
-      <Form data-test="permission-create" isHorizontal className="pf-u-mt-md">
+      <Form isHorizontal className="pf-u-mt-md">
         <FormSwitch
           id="allow-read"
           label="Read"
@@ -46,11 +49,11 @@ export const Configure = () => {
           switchLabelOff="Disallowed"
           isChecked={read}
           onChange={allow => updateState({read: allow})}
-          data-test="read"
           popover={{
             header: "Allows to view cluster settings",
             body: "",
           }}
+          {...task.read.mark}
         />
         <FormSwitch
           id="allow-write"
@@ -59,12 +62,12 @@ export const Configure = () => {
           switchLabelOff="Disallowed"
           isChecked={write}
           onChange={allow => updateState({write: allow})}
-          data-test="write"
           popover={{
             header:
               "Allows to modify cluster settings except permissions and ACLs",
             body: "",
           }}
+          {...task.write.mark}
         />
         <FormSwitch
           id="allow-grant"
@@ -73,11 +76,11 @@ export const Configure = () => {
           switchLabelOff="Disallowed"
           isChecked={grant}
           onChange={allow => updateState({grant: allow})}
-          data-test="grant"
           popover={{
             header: "Allows to modify cluster permissions and ACLs",
             body: "",
           }}
+          {...task.grant.mark}
         />
         <FormSwitch
           id="allow-full"
@@ -86,7 +89,6 @@ export const Configure = () => {
           switchLabelOff="Disallowed"
           isChecked={full}
           onChange={allow => updateState({full: allow})}
-          data-test="full"
           showValidationErrors={showValidationErrors}
           isValid={areCompetenciesValid}
           helperTextInvalid="Please select at least one permission"
@@ -95,6 +97,7 @@ export const Configure = () => {
               "Allows unrestricted access to a cluster except for adding nodes",
             body: "",
           }}
+          {...task.full.mark}
         />
       </Form>
     </>

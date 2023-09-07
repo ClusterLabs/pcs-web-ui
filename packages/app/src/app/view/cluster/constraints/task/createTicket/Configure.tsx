@@ -1,8 +1,11 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormCustomId, FormRadios, FormSelect, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {constraintTicketCreate: task} = testMarks.task;
 
 export const Configure = () => {
   const {
@@ -23,7 +26,7 @@ export const Configure = () => {
   } = useTask();
 
   return (
-    <Form data-test="create-location-constraint">
+    <Form>
       <FormText
         id="constraint-ticket"
         label="Ticket"
@@ -45,7 +48,7 @@ export const Configure = () => {
             </>
           ),
         }}
-        data-test="score"
+        {...task.ticket.mark}
       />
 
       <FormRadios
@@ -90,6 +93,7 @@ export const Configure = () => {
             </>
           ),
         }}
+        {...task.lossPolicy.mark}
       />
 
       <FormSelect
@@ -103,6 +107,7 @@ export const Configure = () => {
         onSelect={value => updateState({resourceId: value.toString()})}
         selections={resourceId}
         optionsValues={resourceIdList}
+        {...task.resource.mark}
       />
 
       <FormRadios
@@ -122,6 +127,7 @@ export const Configure = () => {
           header: "Role",
           body: <>Limit the effect of the constraint to the specified role.</>,
         }}
+        {...task.role.mark}
       />
 
       <FormCustomId

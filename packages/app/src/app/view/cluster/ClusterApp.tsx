@@ -1,11 +1,11 @@
-import {PageSection} from "@patternfly/react-core";
-
-import {EmptyStateError, PageSectionSpinner} from "app/view/share";
 import {ClusterSourcesProvider} from "app/view/cluster/share";
 import {useClusterInfo, useClusterLoad} from "app/view/cluster/share";
 
 import {ClusterPermissionsPage, LoadedPermissionsProvider} from "./permissions";
 import {ClusterAppLayout} from "./ClusterAppLayout";
+import {ClusterAppBreadcrumbs} from "./ClusterAppBreadcrumbs";
+import {ClusterAppLoading} from "./ClusterAppLoading";
+import {ClusterAppForbidden} from "./ClusterAppForbidden";
 import {NodesPage} from "./nodes";
 import {ResourcesPage} from "./resources";
 import {FenceDevicePage} from "./fenceDevices";
@@ -15,38 +15,28 @@ import {ClusterPropertiesPage} from "./properties";
 import {AclPage} from "./acl";
 import {ClusterOverviewPage} from "./overview";
 
-export const clusterAppTabList = [
-  "overview",
-  "nodes",
-  "resources",
-  "fence-devices",
-  "sbd",
-  "constraints",
-  "properties",
-  "acl",
-  "permissions",
-] as const;
-
 export const ClusterApp = ({clusterName}: {clusterName: string}) => {
   useClusterLoad(clusterName);
   const clusterInfo = useClusterInfo(clusterName);
 
   return (
     <ClusterAppLayout
-      clusterName={clusterName}
-      tabList={clusterAppTabList}
-      tabNameMap={{sbd: "SBD", acl: "ACL"}}
-      statusLabel={clusterInfo.clusterStatus.data?.status ?? "unknown"}
+      breadcrumbs={
+        <ClusterAppBreadcrumbs
+          clusterName={clusterName}
+          statusLabel={clusterInfo.clusterStatus.data?.status ?? "unknown"}
+        />
+      }
     >
       {currentTab => {
         if (!clusterInfo.isRegistered) {
-          return <PageSectionSpinner title="Preparing cluster storage" />;
+          return <ClusterAppLoading title="Preparing cluster storage" />;
         }
 
         if (currentTab === "permissions") {
           if (!clusterInfo.permissions) {
             return (
-              <PageSectionSpinner title="Loading cluster permission data" />
+              <ClusterAppLoading title="Loading cluster permission data" />
             );
           }
           return (
@@ -63,22 +53,15 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
         }
 
         if (clusterInfo.clusterStatus.isForbidden) {
-          return (
-            <PageSection>
-              <EmptyStateError
-                title="Forbidden"
-                message="You don't have a read permission for this cluster."
-              />
-            </PageSection>
-          );
+          return <ClusterAppForbidden />;
         }
 
         if (!clusterInfo.clusterStatus.data) {
-          return <PageSectionSpinner title="Loading cluster data" />;
+          return <ClusterAppLoading title="Loading cluster data" />;
         }
 
         const tabComponentMap: Record<
-          Exclude<typeof clusterAppTabList[number], "permissions">,
+          Exclude<typeof currentTab, "permissions">,
           React.FC
         > = {
           overview: ClusterOverviewPage,

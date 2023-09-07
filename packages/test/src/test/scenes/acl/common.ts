@@ -30,3 +30,7 @@ export const clusterStatus = t.cluster(clusterName, "ok", {
     },
   },
 });
+
+export const goToAcl = async () => {
+  await goToCluster(clusterStatus.cluster_name, tabs => tabs.acl);
+};

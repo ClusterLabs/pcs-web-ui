@@ -1,63 +1,51 @@
-import {intercept, location, shortcuts} from "test/tools";
-import {mkXPath} from "test/tools/selectors";
+import {assert, mock} from "test/tools";
 
-const clusterName = "sbd";
-const sbdConfigTestData = {
-  SBD_DELAY_START: "no",
-  SBD_STARTMODE: "always",
-  SBD_TIMEOUT_ACTION: "flush,reboot",
-  SBD_WATCHDOG_TIMEOUT: "5",
-};
+import {clusterStatus, goToSbd, sbdOptions} from "./common";
 
-const getListValueMiner =
-  (listName: string) => (rowKey: string) => async (columnName: string) => {
-    const [value] = await page.$$eval(
-      mkXPath(listName, `row-${rowKey}`, columnName),
-      el => el.map(e => (e as HTMLElement).innerText),
-    );
-    return value.trim();
-  };
+const {service, perNode, config} = marks.cluster.sbd;
 
 describe("Sbd", () => {
-  afterEach(intercept.stop);
+  afterEach(mock.stop);
 
   it("service status should be displayed", async () => {
-    shortcuts.interceptWithCluster({
-      clusterName,
-      additionalRouteList: [],
-    });
-    await page.goto(location.sbdList({clusterName}));
+    mock.shortcuts.withCluster({clusterStatus});
+    await goToSbd();
 
-    const getColumnValue = getListValueMiner("sbd-service-list")("node-1");
-    expect(await getColumnValue("node")).toEqual("node-1");
-    expect(await getColumnValue("installed")).toEqual("Installed");
-    expect(await getColumnValue("enabled")).toEqual("Enabled");
-    expect(await getColumnValue("running")).toEqual("Running");
+    const service_1 = item.byKey(service, service.node, "node-1");
+    await assert.textIs([
+      [service_1(s => s.installed), "Installed"],
+      [service_1(s => s.enabled), "Enabled"],
+      [service_1(s => s.running), "Running"],
+    ]);
   });
 
   it("watchdogs should be displayed", async () => {
-    shortcuts.interceptWithCluster({
-      clusterName,
-      additionalRouteList: [],
-    });
-    await page.goto(location.sbdList({clusterName}));
+    mock.shortcuts.withCluster({clusterStatus});
+    await goToSbd();
 
-    const getColumnValue = getListValueMiner("sbd-watchdog-list")("node-1");
-    expect(await getColumnValue("node")).toEqual("node-1");
-    expect(await getColumnValue("watchdog")).toEqual("/dev/watchdog");
+    const perNode_1 = item.byKey(perNode, perNode.node, "node-1");
+
+    await assert.countIs(
+      perNode_1(pn => pn.device),
+      2,
+    );
+    await assert.textIs([
+      [perNode_1(pn => pn.device.locator.nth(0)), "/dev/sdb@node1"],
+      [perNode_1(pn => pn.device.locator.nth(1)), "/dev/sda"],
+      [perNode_1(pn => pn.watchdog), "/dev/watchdog"],
+    ]);
+
+    const perNode_2 = item.byKey(perNode, perNode.node, "node-2");
+    await isVisible(perNode_2(pn => pn.watchdogNotConfigured));
+    await isVisible(perNode_2(pn => pn.deviceNotConfigured));
   });
 
   it("configuration should be displayed", async () => {
-    shortcuts.interceptWithCluster({
-      clusterName,
-      additionalRouteList: [],
-    });
-    await page.goto(location.sbdList({clusterName}));
-
-    const getRowValueMiner = getListValueMiner("sbd-configuration-list");
+    mock.shortcuts.withCluster({clusterStatus});
+    await goToSbd();
     await Promise.all(
-      Object.entries(sbdConfigTestData).map(async ([option, value]) => {
-        expect(await getRowValueMiner(option)("value")).toEqual(value);
+      Object.entries(sbdOptions).map(async ([name, value]) => {
+        await assert.nvPairIs(config, name, value);
       }),
     );
   });

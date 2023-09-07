@@ -1,76 +1,58 @@
-import {TaskFinishLibWizard, Wizard, WizardFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {Wizard} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {RoleName} from "./RoleName";
+import {RoleNameFooter} from "./RoleNameFooter";
 import {AddPermissions} from "./AddPermissions";
+import {AddPermissionsFooter} from "./AddPermissionsFooter";
 import {Review} from "./Review";
+import {ReviewFooter} from "./ReviewFooter";
+import {Result} from "./Result";
+
+const {aclRoleCreate: createAclRole} = testMarks.task;
+
+const enterRoleName = "Enter role name";
+const review = "Review";
 
 export const Task = () => {
   const {
     clusterName,
     close,
-    aclRoleCreate,
     isNameValid,
     invalidPermissionIndexes,
-    state: {
-      roleId,
-      libCall: {response, reports},
-    },
+    state: {roleId},
   } = useTask();
+  const taskLabel = `create acl role ${roleId}`;
   return (
     <Wizard
       task="aclRoleCreate"
       clusterName={clusterName}
-      title="Create role"
-      data-test="task-create-role"
+      taskLabel={taskLabel}
+      {...createAclRole.mark}
       description="Create acl role"
       onClose={close}
       steps={[
         {
-          name: "Enter role name",
+          name: enterRoleName,
           component: <RoleName />,
-          footer: (
-            <WizardFooter
-              next={{actionIf: isNameValid}}
-              back={{disabled: true}}
-            />
-          ),
+          footer: <RoleNameFooter />,
         },
         {
           name: "Specify permissions",
           component: <AddPermissions />,
           canJumpTo: isNameValid,
-          footer: (
-            <WizardFooter
-              next={{
-                actionIf: isNameValid && invalidPermissionIndexes.length === 0,
-              }}
-            />
-          ),
+          footer: <AddPermissionsFooter />,
         },
         {
-          name: "Review",
+          name: review,
           component: <Review />,
-          footer: (
-            <WizardFooter
-              next={{
-                preAction: () => aclRoleCreate(),
-                label: "Create role",
-              }}
-            />
-          ),
+          footer: <ReviewFooter />,
           canJumpTo: isNameValid && invalidPermissionIndexes.length === 0,
         },
         {
           name: "Result",
-          component: (
-            <TaskFinishLibWizard
-              response={response}
-              taskName={`create acl role ${roleId}`}
-              backToUpdateSettingsStepName="Enter role name"
-              reports={reports}
-            />
-          ),
+          component: <Result backStep={enterRoleName} reviewStep={review} />,
           isFinishedStep: true,
         },
       ]}

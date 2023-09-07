@@ -13,6 +13,9 @@ export const labelize = (rawName: string) =>
     .map(word => word[0].toUpperCase() + word.slice(1))
     .join(" ");
 
+export const capitalizeFirst = (text: string) =>
+  text[0].toUpperCase() + text.slice(1);
+
 export const getNVPairTypeLabel = (
   owner: ActionPayload["CLUSTER.NVPAIRS.SAVE"]["owner"],
 ) => {

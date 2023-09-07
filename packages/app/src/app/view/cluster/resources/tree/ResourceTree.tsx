@@ -1,12 +1,12 @@
 import {DataList} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Resource} from "app/view/cluster/types";
+import {EmptyStateClusterStopped, EmptyStateNoItem} from "app/view/share";
 import {
-  EmptyStateClusterStopped,
-  EmptyStateNoItem,
   useGroupDetailViewContext,
-} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+  useLoadedCluster,
+} from "app/view/cluster/share";
 
 import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
 import {ResourceTreeItemClone} from "./ResourceTreeItemClone";
@@ -36,9 +36,9 @@ export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
 
   return (
     <DataList
-      data-test="cluster-resources"
       aria-label="Cluster resources"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
+      {...testMarks.cluster.resources.tree.mark}
     >
       {resourceTree.map(resourceTreeItem => {
         switch (resourceTreeItem.itemType) {

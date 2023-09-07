@@ -14,14 +14,17 @@ const statusColorMap: Record<
   unknown: "grey",
 };
 
-export const ClusterStatusLabel = ({status}: {status: Cluster["status"]}) => {
+export const ClusterStatusLabel = (props: {
+  status: Cluster["status"];
+  "data-test": string;
+}) => {
   return (
     <Label
-      data-test="cluster-status-label"
-      color={statusColorMap[status]}
+      color={statusColorMap[props.status]}
       isCompact
+      data-test={props["data-test"]}
     >
-      {status}
+      {props.status}
     </Label>
   );
 };

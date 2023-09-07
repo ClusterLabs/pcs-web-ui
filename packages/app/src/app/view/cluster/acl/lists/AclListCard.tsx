@@ -18,10 +18,7 @@ export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
 }) => {
   const hasItems = aclList !== undefined && Object.keys(aclList).length > 0;
   return (
-    <Card
-      title={`${tools.labelize(aclType)}s`}
-      data-test={`acl-${aclType}-list`}
-    >
+    <Card title={`${tools.labelize(aclType)}s`}>
       {!hasItems && (
         <EmptyStateNoItem
           title={`No ACL ${aclType} is configured.`}

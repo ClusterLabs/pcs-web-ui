@@ -15,7 +15,6 @@ export const ClusterStoppedInfo = ({
       {startButton && (
         <div>
           <LauncherActionList
-            name="stopped-cluster-actions"
             items={[
               {
                 name: "start cluster",

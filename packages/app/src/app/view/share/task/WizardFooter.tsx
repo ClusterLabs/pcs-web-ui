@@ -1,42 +1,32 @@
 import React from "react";
-import {WizardContextConsumer} from "@patternfly/react-core";
 
-import {TaskButtonBack} from "./TaskButtonBack";
-import {TaskButtonCancel} from "./TaskButtonCancel";
-import {TaskButtonReviewAndFinish} from "./TaskButtonReviewAndFinish";
-import {WizardFooterNext} from "./WizardFooterNext";
-import {useTaskContext} from "./TaskContext";
+import {
+  TaskButtonBack,
+  TaskButtonCancel,
+  TaskButtonReviewAndFinish,
+} from "./button";
+import {TaskButtonWizardNext} from "./button";
+import {TaskFooter} from "./TaskFooter";
 
 export const WizardFooter = (props: {
   backDisabled?: boolean;
-  back?: {
-    disabled?: boolean;
-  };
-  next?: React.ComponentProps<typeof WizardFooterNext>;
-  reviewAndFinish?: {
-    label: string;
-  };
+  back?: Omit<React.ComponentProps<typeof TaskButtonBack>, "onClick">;
+  next?: React.ComponentProps<typeof TaskButtonWizardNext>;
+  cancel?: Omit<React.ComponentProps<typeof TaskButtonCancel>, "onClick">;
+  reviewAndFinish?: Omit<
+    React.ComponentProps<typeof TaskButtonReviewAndFinish>,
+    "onClick"
+  >;
+  "data-test"?: string;
 }) => {
-  const {close} = useTaskContext();
-
   return (
-    <WizardContextConsumer>
-      {({onBack, goToStepByName}) => (
-        <>
-          <WizardFooterNext {...(props.next ?? {})} />
-          <TaskButtonBack
-            onClick={onBack}
-            disabled={props.back?.disabled ?? false}
-          />
-          {props.reviewAndFinish !== undefined && (
-            <TaskButtonReviewAndFinish
-              onClick={() => goToStepByName("Review")}
-              label={props.reviewAndFinish.label}
-            />
-          )}
-          <TaskButtonCancel onClick={close} />
-        </>
+    <TaskFooter data-test={props["data-test"] ?? "footer"}>
+      <TaskButtonWizardNext {...(props.next ?? {})} />
+      <TaskButtonBack {...(props.back ?? {})} />
+      {props.reviewAndFinish !== undefined && (
+        <TaskButtonReviewAndFinish {...(props.reviewAndFinish ?? {})} />
       )}
-    </WizardContextConsumer>
+      <TaskButtonCancel {...(props.cancel ?? {})} />
+    </TaskFooter>
   );
 };

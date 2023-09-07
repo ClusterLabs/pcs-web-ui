@@ -1,45 +1,40 @@
-import {TaskFinishLib, TaskSimple, TaskSimpleFooter} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {TaskLibReportList, TaskSimpleLib} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {Configure} from "./Configure";
+import {Footer} from "./Footer";
+import {Success} from "./Success";
+import {Unsuccess} from "./Unsuccess";
+import {CommunicationError} from "./CommunicationError";
+
+const {constraintTicketCreate} = testMarks.task;
 
 export const Task = () => {
   const {
     close,
     name: taskName,
+    label,
     clusterName,
-    createTicket,
-    recoverFromError,
     state: {
       libCall: {response, reports},
     },
   } = useTask();
+
   return (
-    <TaskSimple
-      title="Create ticket constraint"
+    <TaskSimpleLib
+      taskLabel={label}
       task={taskName}
       clusterName={clusterName}
       close={close}
-      footer={
-        response !== "no-response" ? null : (
-          <TaskSimpleFooter
-            run={() => createTicket({force: false})}
-            runLabel="Create ticket constraint"
-          />
-        )
-      }
-    >
-      {response === "no-response" && <Configure />}
-      {response !== "no-response" && (
-        <TaskFinishLib
-          response={response}
-          taskName="create ticket constraint"
-          backToUpdateSettings={recoverFromError}
-          proceedForce={() => createTicket({force: true})}
-          tryAgain={() => createTicket({force: false})}
-          reports={reports}
-        />
-      )}
-    </TaskSimple>
+      footer={<Footer />}
+      configure={<Configure />}
+      response={response}
+      success={<Success />}
+      unsuccess={<Unsuccess />}
+      communicationError={<CommunicationError />}
+      reports={<TaskLibReportList reports={reports} />}
+      {...constraintTicketCreate.mark}
+    />
   );
 };

@@ -19,16 +19,16 @@ export const PermissionCompetenceCell = ({
     permission.allow.includes(competenceName)
     || permission.allow.some(c => (presentInCompetenceNames || []).includes(c));
   return (
-    <td data-label={competenceName} data-test={dataTest}>
+    <td data-label={competenceName}>
       {isAllowed ? (
         <>
           <CheckCircleIcon className="ha-u-status-success" />
-          {" Allowed"}
+          <span data-test={dataTest}>{" Allowed"}</span>
         </>
       ) : (
         <>
           <TimesCircleIcon className="ha-u-status-danger" />
-          {" Disallowed"}
+          <span data-test={dataTest}>{" Disallowed"}</span>
         </>
       )}
     </td>

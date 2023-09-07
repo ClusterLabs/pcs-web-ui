@@ -5,7 +5,7 @@ export const resourceSetCreateFactory = <
 >(
   initialSet: INITIAL_SET,
 ) => {
-  const initialState: typeof initialSet[] = [initialSet];
+  const initialState: (typeof initialSet)[] = [initialSet];
   const resourceSet: AppReducer<typeof initialState> = (
     state = initialState,
     action,

@@ -1,107 +1,71 @@
-import {
-  NodeAuthWizardFooter,
-  TaskFinishLibWizard,
-  Wizard,
-  WizardFooter,
-  lib,
-} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {Wizard} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {NodeName} from "./NodeName";
+import {NodeNameFooter} from "./NodeNameFooter";
 import {PrepareNode} from "./PrepareNode";
+import {PrepareNodeFooter} from "./PrepareNodeFooter";
 import {Addresses} from "./Addresses";
+import {AddressesFooter} from "./AddressesFooter";
 import {Sbd} from "./Sbd";
+import {SbdFooter} from "./SbdFooter";
 import {Review} from "./Review";
+import {ReviewFooter} from "./ReviewFooter";
+import {Result} from "./Result";
+
+const enterNodeName = "Enter node name";
+const review = "Review";
 
 export const NodeAdd = () => {
   const {
     clusterName,
     close,
-    nodeStart,
     isNameValid,
     isNodeCheckDoneValid,
-    nodeAdd,
-    state: {
-      authProcessId,
-      nodeName,
-      libCall: {response, reports},
-    },
+    state: {nodeName},
   } = useTask();
   return (
     <Wizard
       task="nodeAdd"
       clusterName={clusterName}
-      data-test="task-node-add"
+      {...testMarks.task.nodeAdd.mark}
       onClose={close}
-      title="Add node"
-      description="Add node to the cluster wizard"
+      taskLabel={`add node ${nodeName}`}
+      description="Add node to the cluster"
       steps={[
         {
-          name: "Enter node name",
+          name: enterNodeName,
           component: <NodeName />,
-          footer: (
-            <WizardFooter
-              next={{actionIf: isNameValid}}
-              back={{disabled: true}}
-            />
-          ),
+          footer: <NodeNameFooter />,
         },
         {
           name: "Check node",
           component: <PrepareNode />,
-          footer: authProcessId ? (
-            <NodeAuthWizardFooter authProcessId={authProcessId} />
-          ) : (
-            <WizardFooter next={{disabled: !isNodeCheckDoneValid}} />
-          ),
+          footer: <PrepareNodeFooter />,
           canJumpTo: isNameValid,
         },
         {
           name: "Specify node addresses",
           component: <Addresses />,
+          footer: <AddressesFooter />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Configure sbd",
           component: <Sbd />,
+          footer: <SbdFooter />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
-          name: "Review",
+          name: review,
           component: <Review />,
-          footer: (
-            <WizardFooter
-              next={{
-                preAction: () => nodeAdd(),
-                label: "Add node",
-              }}
-            />
-          ),
+          footer: <ReviewFooter />,
           canJumpTo: isNameValid && isNodeCheckDoneValid,
         },
         {
           name: "Result",
-          component: (
-            <TaskFinishLibWizard
-              response={response}
-              taskName={`add node ${nodeName}`}
-              success={{
-                primaryAction: [
-                  "Start node and close",
-                  () => {
-                    close();
-                    nodeStart();
-                  },
-                ],
-                secondaryActions: {Close: close},
-              }}
-              backToUpdateSettingsStepName="Enter node name"
-              proceedForce={() =>
-                nodeAdd({newForceFlags: lib.reports.getForceFlags(reports)})
-              }
-              reports={reports}
-            />
-          ),
+          component: <Result backStep={enterNodeName} reviewStep={review} />,
           isFinishedStep: true,
         },
       ]}

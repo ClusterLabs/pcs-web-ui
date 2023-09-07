@@ -1,10 +1,13 @@
 import {LauncherDropdown, task} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+
+const {actions} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
   const clusterLabel = <strong>{clusterName}</strong>;
   return (
     <LauncherDropdown
-      dropdownName="cluster"
+      {...actions.mark}
       items={[
         {
           name: "start",
@@ -16,29 +19,23 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
               payload: {clusterName},
             },
           },
+          ...actions.start.mark,
         },
         {
           name: "stop",
           task: {
             component: task.forceableConfirm.Task({
-              confirm: {
-                title: "Stop cluster?",
-                description: <>Stop the cluster {clusterLabel} on all nodes</>,
-              },
               runLabel: "Stop",
-              processTitle: {
-                wait: <>Stopping cluster {clusterLabel}</>,
-                success: <>Cluster {clusterLabel} was successfully stopped</>,
-                fail: <>Failed to stop cluster {clusterLabel}</>,
-              },
+              taskLabel: `Stop cluster ${clusterLabel}`,
+              description: <>Stop the cluster {clusterLabel} on all nodes</>,
               getForceableAction: ({force}) => ({
                 type: "DASHBOARD.CLUSTER.STOP",
                 payload: {clusterName, force},
               }),
-              "data-test": "cluster-stop",
             }),
             useTask: task.forceableConfirm.useTask,
           },
+          ...actions.stop.mark,
         },
         {
           name: "remove",
@@ -55,6 +52,7 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
               payload: {clusterName},
             },
           },
+          ...actions.remove.mark,
         },
         {
           name: "destroy",
@@ -71,6 +69,7 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
               payload: {clusterName},
             },
           },
+          ...actions.destroy.mark,
         },
       ]}
     />

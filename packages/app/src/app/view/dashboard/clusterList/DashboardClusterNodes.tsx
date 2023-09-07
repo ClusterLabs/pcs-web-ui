@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import {
   Link,
   StatusSign,
@@ -47,10 +48,12 @@ const compareByColumn = (
 
 const {SortableTh} = Table;
 
+const {node: nodeMark} = testMarks.dashboard.clusterList.cluster;
+
 export const DashboardClusterNodes = ({cluster}: {cluster: Cluster}) => {
   const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
   return (
-    <Table isCompact isBorderless data-test="node-list">
+    <Table isCompact isBorderless>
       <thead>
         <tr>
           <SortableTh columnName="NAME" sortState={sortState}>
@@ -66,22 +69,23 @@ export const DashboardClusterNodes = ({cluster}: {cluster: Cluster}) => {
       </thead>
       <tbody>
         {cluster.nodeList.sort(compareItems(compareByColumn)).map(node => (
-          <tr key={node.name} data-test={`node ${node.name}`}>
-            <td data-test="name">
+          <tr key={node.name} {...nodeMark.mark}>
+            <td>
               <Link
                 to={location.node({
                   clusterName: cluster.name,
                   nodeName: node.name,
                 })}
+                {...nodeMark.name.mark}
               />
             </td>
-            <td>
+            <td {...nodeMark.status.mark}>
               <StatusSign
                 status={statusSeverity(node)}
                 label={toLabel(node.status)}
               />
             </td>
-            <td>
+            <td {...nodeMark.quorum.mark}>
               <StatusSign
                 status={quorumSeverity(node)}
                 label={toLabel(quorum(node))}

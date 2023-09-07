@@ -1,8 +1,12 @@
 import {Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
+
+const {sbdConfigure: task} = testMarks.task;
+const {perNode} = task.watchdogs;
 
 export const Watchdogs = () => {
   const {
@@ -14,21 +18,30 @@ export const Watchdogs = () => {
   } = useTask();
 
   return (
-    <TaskLibStep title="Specify watchdog devices for nodes" reports={reports}>
-      <Form data-test="form-watchdogs">
+    <TaskLibStep
+      title="Specify watchdog devices for nodes"
+      reports={reports}
+      {...task.watchdogs.mark}
+    >
+      <Form>
         {Object.entries(watchdogDict).map(([nodeName, watchdog]) => (
-          <FormText
-            key={nodeName}
-            id={`watchdog-${nodeName}`}
-            data-test={`watchdog-${nodeName}`}
-            label={`${nodeName} :`}
-            value={watchdog}
-            onChange={value =>
-              updateState({
-                watchdogDict: {...watchdogDict, [nodeName]: value},
-              })
-            }
-          />
+          <span key={nodeName} {...perNode.mark}>
+            <FormText
+              id={`watchdog-${nodeName}`}
+              label={
+                <>
+                  <span {...perNode.node.mark}>{nodeName}</span>:
+                </>
+              }
+              value={watchdog}
+              onChange={value =>
+                updateState({
+                  watchdogDict: {...watchdogDict, [nodeName]: value},
+                })
+              }
+              {...perNode.value.mark}
+            />
+          </span>
         ))}
       </Form>
     </TaskLibStep>

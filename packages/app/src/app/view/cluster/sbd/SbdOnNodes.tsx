@@ -1,8 +1,11 @@
+import {testMarks} from "app/view/dataTest";
 import {EmptyStateNoItem, Table} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 import {SbdOnNodesWatchdog} from "./SbdOnNodesWatchdog";
 import {SbdOnNodesDevices} from "./SbdOnNodesDevices";
+
+const {perNode} = testMarks.cluster.sbd;
 
 export const SbdOnNodes = () => {
   const {nodeList} = useLoadedCluster();
@@ -21,16 +24,16 @@ export const SbdOnNodes = () => {
         </tr>
       </thead>
 
-      <Table.Body data-test="sbd-watchdog-list">
+      <Table.Body>
         {Object.values(nodeList).map(node => (
-          <tr key={node.name} data-test={`row-${node.name}`}>
-            <td data-label="Node" data-test="node">
+          <tr key={node.name} {...perNode.mark}>
+            <td data-label="Node" {...perNode.node.mark}>
               {node.name}
             </td>
-            <td data-label="Watchdog" data-test="watchdog">
+            <td data-label="Watchdog">
               <SbdOnNodesWatchdog node={node} />
             </td>
-            <td data-label="Devices" data-test="devices">
+            <td data-label="Devices">
               <SbdOnNodesDevices node={node} />
             </td>
           </tr>

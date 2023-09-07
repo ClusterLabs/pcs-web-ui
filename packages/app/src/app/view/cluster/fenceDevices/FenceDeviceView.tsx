@@ -1,24 +1,54 @@
-import React from "react";
+import {Tab, Tabs} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
-import {DetailLayout, Router, UrlTabs, useUrlTabs} from "app/view/share";
+import {Router, useUrlTabs} from "app/view/share";
+import {DetailLayout} from "app/view/cluster/share";
 
 import {useClusterFenceAgent} from "./useFenceAgent";
 import {FenceDeviceDetailView} from "./FenceDeviceDetailView";
 import {FenceDeviceArgumentsView} from "./arguments";
 import {FencePageToolbar} from "./FencePageToolbar";
 
-const tabList = ["detail", "arguments"] as const;
+const {currentFenceDevice} = testMarks.cluster.fenceDevices;
+const {tabs} = currentFenceDevice;
+
+const tabMap = {
+  detail: (
+    <Tab
+      eventKey="detail"
+      key="detail"
+      title={"Detail"}
+      {...tabs.detail.mark}
+    />
+  ),
+  arguments: (
+    <Tab
+      eventKey="arguments"
+      key="arguments"
+      title="Arguments"
+      {...tabs.arguments.mark}
+    />
+  ),
+};
 
 export const FenceDeviceView = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   useClusterFenceAgent(fenceDevice.agentName);
-  const {currentTab, matchedContext} = useUrlTabs(tabList);
+  const {currentTab, matchedContext, onSelect} = useUrlTabs(
+    Object.keys(tabMap) as (keyof typeof tabMap)[],
+  );
   return (
     <DetailLayout
-      caption={fenceDevice.id}
-      tabs={<UrlTabs tabList={tabList} currentTab={currentTab} />}
-      data-test={`fence-device-detail ${fenceDevice.id}`}
+      caption={
+        <strong {...currentFenceDevice.id.mark}>{fenceDevice.id}</strong>
+      }
+      tabs={
+        <Tabs activeKey={currentTab} onSelect={onSelect} {...tabs.mark}>
+          {Object.values(tabMap)}
+        </Tabs>
+      }
       toolbar={<FencePageToolbar fenceDevice={fenceDevice} />}
+      {...currentFenceDevice.mark}
     >
       <Router base={matchedContext}>
         {currentTab === "detail" && (

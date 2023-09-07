@@ -1,6 +1,6 @@
 import {Group} from "app/view/cluster/types";
-import {DetailToolbar, LauncherItem as ToolbarItem} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
+import {LauncherItem as ToolbarItem} from "app/view/share";
+import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
 export const GroupPageToolbar = ({group}: {group: Group}) => {
   const {clusterName} = useLoadedCluster();
@@ -34,10 +34,5 @@ export const GroupPageToolbar = ({group}: {group: Group}) => {
       },
     },
   };
-  return (
-    <DetailToolbar
-      toolbarName="group"
-      buttonsItems={[group.inClone ? unclone : clone]}
-    />
-  );
+  return <DetailToolbar buttonsItems={[group.inClone ? unclone : clone]} />;
 };

@@ -11,12 +11,7 @@ export const ClusterIssueNotAuthButton = ({
 }) => {
   const {nodeAuth} = useNodesAuth(authProcessId);
   return (
-    <Button
-      variant="primary"
-      isDisabled={isDisabled}
-      onClick={nodeAuth}
-      data-test="task-fix-no-auth-nodes-button-auth"
-    >
+    <Button variant="primary" isDisabled={isDisabled} onClick={nodeAuth}>
       Authenticate
     </Button>
   );

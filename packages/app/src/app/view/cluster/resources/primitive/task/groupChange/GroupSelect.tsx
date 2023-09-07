@@ -1,7 +1,10 @@
+import {testMarks} from "app/view/dataTest";
 import {FormSelect} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {PositionSelect} from "./PositionSelect";
+
+const {targetGroup} = testMarks.task.resourcePrimitiveGroupChange;
 
 export const GroupSelect = () => {
   const {
@@ -26,6 +29,7 @@ export const GroupSelect = () => {
         selections={groupId}
         optionsValues={candidateGroupsIds}
         className="pf-u-mb-xl"
+        {...targetGroup.mark}
       />
 
       <PositionSelect />

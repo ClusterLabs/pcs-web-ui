@@ -1,9 +1,12 @@
 import {Form, FormGroup} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {NameTypeTypeSelect} from "./NameTypeTypeSelect";
+
+const {nameType} = testMarks.task.fenceDeviceCreate;
 
 export const NameType = () => {
   const {
@@ -39,8 +42,9 @@ export const NameType = () => {
     <TaskLibStep
       title="Choose name and type for the new fence device"
       reports={reports}
+      {...nameType.mark}
     >
-      <Form data-test="form-name-type">
+      <Form>
         <FormText
           id="new-fence-devicd-name"
           label="Fence device name"
@@ -50,7 +54,7 @@ export const NameType = () => {
           isRequired
           showValidationErrors={showValidationErrors}
           isValid={fenceDeviceName.length > 0}
-          data-test="fence-device-name"
+          {...nameType.name.mark}
         />
         <FormGroup
           label="Fence device type"

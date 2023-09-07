@@ -15,7 +15,7 @@ export const ResourceCreateGroup = () => {
 
   return (
     <TaskSimple
-      title="Create group"
+      taskLabel="Create group"
       task={taskName}
       clusterName={clusterName}
       close={close}

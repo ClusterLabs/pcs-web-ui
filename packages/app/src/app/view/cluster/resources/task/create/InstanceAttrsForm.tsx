@@ -1,6 +1,7 @@
 import React from "react";
 import {Alert, Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {
   FormText,
   TaskLibStep,
@@ -28,6 +29,7 @@ const useFilterState = () =>
     "all-off-display-none",
   );
 
+const {attr} = testMarks.task.resourceCreate.instanceAttrs;
 export const InstanceAttrsForm = () => {
   const {
     state: {
@@ -40,7 +42,11 @@ export const InstanceAttrsForm = () => {
   } = useTask();
   const {filterState, filterParameters} = useFilterState();
   return (
-    <TaskLibStep title={`Instance attributes (${agentName})`} reports={reports}>
+    <TaskLibStep
+      title={`Instance attributes (${agentName})`}
+      reports={reports}
+      {...testMarks.task.resourceCreate.instanceAttrs.mark}
+    >
       <LoadedPcmkAgent agentName={agentName}>
         {agent => {
           const requiredParameters = agent.parameters.filter(p => p.required);
@@ -60,7 +66,6 @@ export const InstanceAttrsForm = () => {
                 textSearchId="agent-attributes-name"
                 groupName="More attributes"
                 filterState={filterState}
-                toolbarName="instance-attributes"
               />
               <Form isHorizontal>
                 {requiredParameters
@@ -72,7 +77,9 @@ export const InstanceAttrsForm = () => {
                       <FormText
                         key={parameter.name}
                         id={`instance-attr-${parameter.name}`}
-                        label={parameter.name}
+                        label={
+                          <span {...attr.name.mark}>{parameter.name}</span>
+                        }
                         popover={{
                           header: parameter.shortdesc,
                           body: parameter.longdesc,
@@ -92,7 +99,7 @@ export const InstanceAttrsForm = () => {
                           })
                         }
                         value={instanceAttrs[parameter.name] || ""}
-                        data-test={`attr ${parameter.name}`}
+                        {...attr.value.mark}
                       />
                     );
                   })}

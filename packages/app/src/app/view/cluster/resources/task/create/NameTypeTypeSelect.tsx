@@ -2,6 +2,7 @@ import React from "react";
 import {SelectGroup, SelectOption} from "@patternfly/react-core";
 import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {Select} from "app/view/share";
 import {useClusterSources} from "app/view/cluster/share";
 
@@ -71,7 +72,7 @@ export const NameTypeTypeSelect = ({
           selections={agentName}
           isGrouped
           customBadgeText={agentName.length > 0 ? agentName : undefined}
-          data-test="resource-agent"
+          {...testMarks.task.resourceCreate.nameType.agentName.mark}
         >
           {Object.keys(filteredResourceAgentMap).map(group => (
             <SelectGroup label={group} key={group}>
