@@ -1,0 +1,14 @@
+{
+  "cancel": {},
+  "fail": {
+    "back": {},
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "label": {},
+  "report": {},
+  "run": {},
+  "success": {
+    "close": {}
+  }
+}

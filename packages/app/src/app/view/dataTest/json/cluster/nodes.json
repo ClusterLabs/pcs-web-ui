@@ -1,0 +1,55 @@
+{
+    "currentNode": {
+        "attributes": {
+            "pair": {
+                "menu": {
+                    "edit": {},
+                    "remove": {}
+                },
+                "name": {},
+                "value": {}
+            },
+            "toolbar": {
+                "create": {}
+            }
+        },
+        "detail": {},
+        "name": {},
+        "tabs": {
+            "attributes": {},
+            "detail": {},
+            "utilization": {}
+        },
+        "toolbar": {
+            "dropdown": {
+                "maintenance": {},
+                "remove": {},
+                "standby": {},
+                "unmaintenance": {},
+                "unstandby": {}
+            },
+            "start": {},
+            "stop": {}
+        },
+        "utilization": {
+            "pair": {
+                "menu": {
+                    "edit": {},
+                    "remove": {}
+                },
+                "name": {},
+                "value": {}
+            },
+            "toolbar": {
+                "create": {}
+            }
+        }
+    },
+    "list": {
+        "node": {
+            "name": {},
+            "quorum": {},
+            "status": {}
+        }
+    }
+}

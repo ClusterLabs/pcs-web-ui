@@ -25,9 +25,12 @@ pcsd_integration_test:
       pango-1.48.7-2.el9
     #
     #
-    # install fence-xvm
+    # install other dependencies
     #
-    - dnf install -y fence-agents-all
+    - dnf install -y
+      npm
+      cockpit-bridge
+      fence-agents-all
     #
     #
     # install current version of pcs
@@ -41,25 +44,31 @@ pcsd_integration_test:
     # build and install webui
     #
     - make init_nexus NEXUS_CERT_PATH="${NEXUS_CERT_PATH}"
-    - echo y | npx npm ci
-    - echo y | .bin/patch-node-modules-for-fips.sh node_modules
+    - make modules-prepare
+    - make modules-patch
     - export BUILD_USE_CURRENT_NODE_MODULES=true
-    - echo y | make build
-    - mv ./build /usr/lib64/pcsd/public/ui
+    #
+    - export BUILD_DIR="$(pwd)"/build-standalone
+    - make build
+    - mv "$BUILD_DIR" /usr/lib64/pcsd/public/ui
+    #
+    - export BUILD_FOR_COCKPIT=true
+    - export BUILD_DIR="$(pwd)"/build-cockpit
+    - make build
+    - mv "$BUILD_DIR" /usr/share/cockpit/ha-cluster
     #
     #
-    # prepare environment for tests
+    # prepare environment for test (all)
     #
+    - make test-modules-prepare
     - export PCSD_PROTOCOL_1=https
     - export PCSD_HOST_1=localhost
     - export PCSD_NODE_1=wuitest
-    - export PCSD_PORT_1=2224
     - export PCSD_USERNAME_1="hacluster"
     - export PCSD_PASSWORD_1=hh
     - export PCS_WUI_TESTS_HEADLESS=true
     - export PCS_WUI_TESTS_VIDEO_DIR=.test-records
     - export PCS_WUI_TEST_TIMEOUT=1000000
-    - export PCS_WUI_TEST_TYPE="standalone"
     - systemctl enable pcsd --now
     # hacluster user should already exists
     - echo "$PCSD_PASSWORD_1" | passwd "$PCSD_USERNAME_1" --stdin
@@ -70,9 +79,29 @@ pcsd_integration_test:
     - ln /var/log/pcsd/pcsd.log "$PCS_WUI_TESTS_VIDEO_DIR/pcsd.log"
     #
     #
-    # run tests
+    # test (standalone)
     #
+    - export PCS_WUI_TEST_TYPE="standalone"
+    - export PCSD_PORT_1=2224
     - make ci-cluster-test
+    #
+    #
+    # test (cockpit)
+    #
+    # It is disabled for now. The main reason is that tests require to wait for
+    # a response e.g. `await page.waitForResponse(/.*\/imported-cluster-list$/)`
+    # after cluster setup before continue. These responses are encapsulated in
+    # cockpit mechanism, so are invisible for playwright. There are more options
+    # how to deal with it:
+    # 1) introduce extra events for cockpit (and playwright will wait for it)
+    # 2) rewrite test to eliminate a need to wait for a response if it is
+    # feasible (e.g. when something appear in the page).
+    #
+    # - systemctl enable cockpit --now
+    # - usermod --shell /bin/bash "$PCSD_USERNAME_1"
+    # - export PCS_WUI_TEST_TYPE="cockpit"
+    # - export PCSD_PORT_1=9090
+    # - make ci-cluster-test
 
   artifacts:
     when: on_failure

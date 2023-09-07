@@ -1,0 +1,67 @@
+{
+  "communicationError": {
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "instanceAttrs": {
+    "attr": {
+      "name": {},
+      "value": {}
+    }
+  },
+  "instanceAttrsFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "nameType": {
+    "agentName": {},
+    "name": {}
+  },
+  "nameTypeFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "report": {},
+  "review": {
+    "agentName": {},
+    "attr": {
+      "name": {},
+      "value": {}
+    },
+    "clone": {},
+    "disabled": {},
+    "existingGroup": {},
+    "name": {},
+    "newGroup": {},
+    "noGroup": {},
+    "promotable": {}
+  },
+  "reviewFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "settings": {
+    "clone": {},
+    "disabled": {},
+    "existingGroup": {},
+    "newGroup": {},
+    "promotable": {},
+    "useGroup": {}
+  },
+  "settingsFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "success": {
+    "close": {}
+  },
+  "unsuccess": {
+    "back": {},
+    "cancel": {},
+    "proceedAnyway": {}
+  }
+}

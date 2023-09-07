@@ -1,0 +1,23 @@
+{
+  "cancel": {},
+  "fail": {
+    "back": {},
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "location": {
+    "node": {},
+    "rule": {}
+  },
+  "preference": {},
+  "report": {},
+  "run": {},
+  "score": {},
+  "success": {
+    "close": {}
+  },
+  "target": {
+    "pattern": {},
+    "resource": {}
+  }
+}

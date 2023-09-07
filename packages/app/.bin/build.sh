@@ -1,36 +1,12 @@
 #!/bin/sh
 
+bin="$(dirname "$0")"
+
 # load scripts: get_path
 # shellcheck source=./tools.sh
-. "$(dirname "$0")"/tools.sh
+. "$bin"/tools.sh
 # shellcheck source=./get-build-sizes.sh
-. "$(dirname "$0")"/get-build-sizes.sh
-
-prepare_node_modules() {
-  use_current_node_modules=$1
-  node_modules=$2
-  node_modules_backup=$3
-
-  if [ "$use_current_node_modules" != "true" ]; then
-    if [ -d "$node_modules" ]; then
-      mv "$node_modules" "${node_modules_backup}"
-    fi
-    npx npm ci
-  fi
-}
-
-restore_node_modules() {
-  use_current_node_modules=$1
-  node_modules=$2
-  node_modules_backup=$3
-
-  if [ "$use_current_node_modules" != "true" ]; then
-    rm -rf "$node_modules"
-    if [ -d "$node_modules_backup" ]; then
-      mv "$node_modules_backup" "$node_modules"
-    fi
-  fi
-}
+. "$bin"/get-build-sizes.sh
 
 prepare_build_dir() {
   build_dir=$1
@@ -97,11 +73,9 @@ fix_asset_paths() {
 }
 
 minimize_adapter() {
-  npm_prefix=$1
-  adapter_path=$2
+  adapter_path=$1
 
-  npm exec --prefix "$npm_prefix" -- \
-    terser "$adapter_path" \
+  npx terser "$adapter_path" \
     --compress ecma=5,warnings=false,comparisons=false,inline=2 \
     --output "$adapter_path"
 }
@@ -136,26 +110,17 @@ adapt_for_environment() {
   fi
 }
 
-prepare_marks() {
-  marks_source=$1
-  marks_name=$2
-  npm_prefix=$3
-  build_dir=$4
-
-  js_dir="$build_dir"/"$marks_name"
-
-  npx tsc --outDir "$js_dir" "$marks_source"
-  node -e \
-    "console.log(JSON.stringify(require(\"$js_dir/structure\").structure));" \
-    > "$build_dir"/"$marks_name".json
-  rm -rf "$js_dir"
-}
-
+# Expression `eval echo $dir` is there to expand any `~` character.
+project_dir=$(realpath "$(eval echo "${1:-"$(pwd)"}")")
 use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
-url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
+build_for_cockpit=${BUILD_FOR_COCKPIT:-"false"}
+if [ "$build_for_cockpit" != "true" ]; then
+  url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
+else
+  url_prefix=${PCSD_BUILD_URL_PREFIX:-"."}
+fi
 node_modules=$(get_path "appNodeModules")
-node_modules_backup="${node_modules}.build-backup"
-export BUILD_DIR="${BUILD_DIR:-"$(pwd)"/build}"
+export BUILD_DIR="${BUILD_DIR:-"$project_dir"/build}"
 
 if [ "$use_current_node_modules" = "true" ] && [ ! -d "$node_modules" ]; then
   echo "Current node modules should be used but directory $node_modules does" \
@@ -163,19 +128,29 @@ if [ "$use_current_node_modules" = "true" ] && [ ! -d "$node_modules" ]; then
   exit 1
 fi
 
-prepare_node_modules \
-  "$use_current_node_modules" \
-  "$node_modules" \
-  "$node_modules_backup"
+echo "Starting build"
+
+if [ "$use_current_node_modules" != "true" ]; then
+  "$bin"/modules-prepare.sh "$node_modules"
+fi
+
+echo "Node modules prepared: ${node_modules}."
 
 prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
 
-node "$(dirname "$0")"/build.js
+echo "Build dir prepared: ${BUILD_DIR}."
+echo "Going to build assets."
+
+node "$bin"/build.js
+
+echo "Assets compiled."
 
 inject_built_assets "$BUILD_DIR" index.html static/js static/css main
 
+echo "Compiled assets injected to html page."
+
 adapt_for_environment \
-  "${BUILD_FOR_COCKPIT:-"false"}" \
+  "$build_for_cockpit" \
   "$BUILD_DIR" \
   index.html \
   manifest.json \
@@ -184,22 +159,28 @@ adapt_for_environment \
   static/js/adapterCockpit.js \
   "${PCSD_UINIX_SOCKET:-"/var/run/pcsd.socket"}"
 
+echo "Adapted for environment"
+
 fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
   static/js \
   static/css \
   manifest.json \
   static/media/favicon.png
 
-minimize_adapter "$node_modules" "$BUILD_DIR"/static/js/adapter.js
-prepare_marks \
-  "$(realpath "$(dirname "$0")"/../src/app/view/dataTest/structure.ts)" \
-  manifest_test_marks \
-  "$node_modules" \
-  "$BUILD_DIR"
+echo "Prefixed asset paths: '${url_prefix}'."
 
-restore_node_modules \
-  "$use_current_node_modules" \
-  "$node_modules" \
-  "$node_modules_backup"
+minimize_adapter "$BUILD_DIR"/static/js/adapter.js
+
+echo "Environment adapter minimized"
+
+node "$bin"/merge-test-marks.js \
+  "$(realpath "$bin"/../src/app/view/dataTest/json)" \
+  > "$BUILD_DIR"/manifest_test_marks.json
+
+echo "Marks prepared"
+
+if [ "$use_current_node_modules" != "true" ]; then
+  "$bin"/modules-restore.sh "$node_modules"
+fi
 
 printf "\n%s\n" "$(print_bundle_sizes "$BUILD_DIR")"

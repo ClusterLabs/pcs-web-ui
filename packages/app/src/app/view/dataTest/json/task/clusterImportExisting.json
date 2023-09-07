@@ -1,0 +1,31 @@
+{
+  "error": {
+    "cancel": {},
+    "changeSettings": {},
+    "tryAgain": {}
+  },
+  "nodeName": {},
+  "nodeNameFooter": {
+    "back": {},
+    "cancel": {},
+    "checkAuthentication": {}
+  },
+  "prepareNode": {
+    "auth": {
+      "address": {},
+      "customAddrSwitch": {},
+      "password": {},
+      "port": {}
+    },
+    "success": {}
+  },
+  "prepareNodeFooter": {
+    "addExistringCluster": {},
+    "authenticate": {},
+    "back": {},
+    "cancel": {}
+  },
+  "success": {
+    "close": {}
+  }
+}

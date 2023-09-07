@@ -1,0 +1,172 @@
+{
+  "advancedOptions": {
+    "quorum": {
+      "auto_tie_breaker": {},
+      "last_man_standing": {},
+      "last_man_standing_window": {},
+      "wait_for_all": {}
+    },
+    "totem": {
+      "block_unlisted_ips": {},
+      "consensus": {},
+      "downcheck": {},
+      "fail_recv_const": {},
+      "heartbeat_failures_allowed": {},
+      "hold": {},
+      "join": {},
+      "max_messages": {},
+      "max_network_delay": {},
+      "merge": {},
+      "miss_count_const": {},
+      "send_join": {},
+      "seqno_unchanged_const": {},
+      "token": {},
+      "token_coefficient": {},
+      "token_retransmit": {},
+      "token_retransmits_before_loss_const": {},
+      "window_size": {}
+    },
+    "transport": {
+      "compression": {
+        "level": {},
+        "model": {},
+        "threshold": {}
+      },
+      "crypto": {
+        "cipher": {},
+        "hash": {},
+        "model": {}
+      },
+      "options": {
+        "ip_version": {},
+        "knet_pmtud_interval": {},
+        "link_mode": {}
+      }
+    },
+    "transportKnet": {
+      "addKnetLink": {},
+      "knetLink": {
+        "address": {},
+        "link_priority": {},
+        "mcastport": {},
+        "nodeName": {},
+        "ping_interval": {},
+        "ping_precision": {},
+        "ping_timeout": {},
+        "pong_count": {},
+        "toggleAdvancedOptions": {},
+        "transport": {}
+      }
+    }
+  },
+  "advancedOptionsFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {},
+    "reviewAndFinish": {}
+  },
+  "communicationError": {
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "nameAndNodes": {
+    "clusterName": {},
+    "node": {
+      "name": {}
+    }
+  },
+  "nameAndNodesFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "prepareNodes": {
+    "auth": {
+      "address": {},
+      "password": {},
+      "port": {},
+      "useCustomAddress": {}
+    },
+    "success": {}
+  },
+  "prepareNodesFooter": {
+    "auth": {},
+    "back": {},
+    "cancel": {},
+    "next": {},
+    "reviewAndFinish": {}
+  },
+  "report": {},
+  "review": {
+    "clusterName": {},
+    "knetLink": {
+      "address": {},
+      "link_priority": {},
+      "mcastport": {},
+      "nodeName": {},
+      "ping_interval": {},
+      "ping_precision": {},
+      "ping_timeout": {},
+      "pong_count": {},
+      "transport": {}
+    },
+    "nodeNames": {},
+    "quorum": {
+      "auto_tie_breaker": {},
+      "last_man_standing": {},
+      "last_man_standing_window": {},
+      "wait_for_all": {}
+    },
+    "totem": {
+      "block_unlisted_ips": {},
+      "consensus": {},
+      "downcheck": {},
+      "fail_recv_const": {},
+      "heartbeat_failures_allowed": {},
+      "hold": {},
+      "join": {},
+      "max_messages": {},
+      "max_network_delay": {},
+      "merge": {},
+      "miss_count_const": {},
+      "send_join": {},
+      "seqno_unchanged_const": {},
+      "token": {},
+      "token_coefficient": {},
+      "token_retransmit": {},
+      "token_retransmits_before_loss_const": {},
+      "window_size": {}
+    },
+    "transport": {
+      "compression": {
+        "level": {},
+        "model": {},
+        "threshold": {}
+      },
+      "crypto": {
+        "cipher": {},
+        "hash": {},
+        "model": {}
+      },
+      "options": {
+        "ip_version": {},
+        "knet_pmtud_interval": {},
+        "link_mode": {}
+      }
+    }
+  },
+  "reviewFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "success": {
+    "close": {},
+    "startAndClose": {}
+  },
+  "unsuccess": {
+    "back": {},
+    "cancel": {},
+    "proceedAnyway": {}
+  }
+}

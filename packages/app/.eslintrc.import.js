@@ -3,7 +3,11 @@ module.exports = {
   rules: {
     // https://github.com/benmosher/eslint-plugin-import/tree/master/docs/rules
     "import/first": "error",
-    "import/extensions": ["error", "never", {packages: "always"}],
+    "import/extensions": [
+      "error",
+      "never",
+      {packages: "always", json: "always"},
+    ],
     "import/newline-after-import": "error",
     "import/no-amd": "error",
     "import/no-cycle": "error",

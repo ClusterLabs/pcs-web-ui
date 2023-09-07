@@ -1,0 +1,51 @@
+{
+  "addPermissions": {
+    "add": {},
+    "permission": {
+      "kind": {},
+      "remove": {},
+      "scope": {},
+      "scopeType": {}
+    }
+  },
+  "addPermissionsFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "communicationError": {
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "report": {},
+  "review": {
+    "permission": {
+      "kind": {},
+      "scope": {},
+      "scopeType": {}
+    },
+    "roleDescription": {},
+    "roleId": {}
+  },
+  "reviewFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "roleName": {
+    "description": {},
+    "roleId": {}
+  },
+  "roleNameFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "success": {
+    "close": {}
+  },
+  "unsuccess": {
+    "back": {},
+    "cancel": {}
+  }
+}

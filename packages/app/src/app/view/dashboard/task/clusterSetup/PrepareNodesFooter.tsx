@@ -4,8 +4,8 @@ import {
   TaskButtonBack,
   TaskButtonCancel,
   TaskButtonReviewAndFinish,
-  TaskFooter,
   TaskButtonWizardNext,
+  TaskFooter,
 } from "app/view/share";
 
 import {useTask} from "./useTask";

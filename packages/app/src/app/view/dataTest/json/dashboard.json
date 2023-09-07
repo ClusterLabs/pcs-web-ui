@@ -1,0 +1,34 @@
+{
+  "clusterList": {
+    "cluster": {
+      "actions": {
+        "destroy": {},
+        "remove": {},
+        "start": {},
+        "stop": {}
+      },
+      "fenceDevice": {
+        "id": {},
+        "status": {}
+      },
+      "fenceDeviceCount": {},
+      "issue": {
+        "message": {}
+      },
+      "issuesCount": {},
+      "name": {},
+      "node": {
+        "name": {},
+        "quorum": {},
+        "status": {}
+      },
+      "nodeCount": {},
+      "resource": {
+        "id": {},
+        "status": {}
+      },
+      "resourceCount": {},
+      "status": {}
+    }
+  }
+}

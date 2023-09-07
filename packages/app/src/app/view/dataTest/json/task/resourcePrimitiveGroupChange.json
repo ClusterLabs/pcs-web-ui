@@ -1,0 +1,20 @@
+{
+  "action": {},
+  "adjacentResource": {},
+  "cancel": {},
+  "fail": {
+    "back": {},
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "moveInGroup": {},
+  "position": {},
+  "removeGroup": {},
+  "report": {},
+  "run": {},
+  "setGroup": {},
+  "success": {
+    "close": {}
+  },
+  "targetGroup": {}
+}

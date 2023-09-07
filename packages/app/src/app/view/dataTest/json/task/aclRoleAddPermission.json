@@ -1,0 +1,24 @@
+{
+  "add": {},
+  "cancel": {},
+  "communicationError": {
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "permission": {
+    "kind": {},
+    "remove": {},
+    "scope": {},
+    "scopeType": {}
+  },
+  "report": {},
+  "run": {},
+  "success": {
+    "close": {}
+  },
+  "unsuccess": {
+    "back": {},
+    "cancel": {},
+    "proceedAnyway": {}
+  }
+}

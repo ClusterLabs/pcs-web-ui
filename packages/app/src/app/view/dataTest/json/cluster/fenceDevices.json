@@ -1,0 +1,22 @@
+{
+  "currentFenceDevice": {
+    "arguments": {},
+    "argumentsToolbar": {
+      "edit": {}
+    },
+    "id": {},
+    "tabs": {
+      "arguments": {},
+      "detail": {}
+    }
+  },
+  "empty": {},
+  "list": {
+    "item": {
+      "id": {},
+      "status": {},
+      "type": {}
+    }
+  },
+  "stopped": {}
+}

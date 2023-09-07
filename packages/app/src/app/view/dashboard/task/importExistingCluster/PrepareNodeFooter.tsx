@@ -3,8 +3,8 @@ import {
   NodesAuthWizardNext,
   TaskButtonBack,
   TaskButtonCancel,
-  TaskFooter,
   TaskButtonWizardNext,
+  TaskFooter,
 } from "app/view/share";
 
 import {useTask} from "./useTask";

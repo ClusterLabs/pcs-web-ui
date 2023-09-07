@@ -1,0 +1,69 @@
+{
+  "addresses": {
+    "address": {}
+  },
+  "addressesFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "communicationError": {
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "nodeName": {
+    "name": {}
+  },
+  "nodeNameFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "prepareNode": {
+    "auth": {
+      "address": {},
+      "password": {},
+      "port": {},
+      "useCustomAddress": {}
+    },
+    "success": {}
+  },
+  "prepareNodeFooter": {
+    "auth": {},
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "report": {},
+  "review": {
+    "address": {},
+    "nodeName": {},
+    "sbdDevice": {},
+    "sbdValidation": {},
+    "sbdWatchdog": {}
+  },
+  "reviewFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "sbd": {
+    "device": {},
+    "validation": {},
+    "watchdog": {}
+  },
+  "sbdFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "success": {
+    "close": {},
+    "startAndClose": {}
+  },
+  "unsuccess": {
+    "back": {},
+    "cancel": {},
+    "proceedAnyway": {}
+  }
+}

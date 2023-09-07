@@ -26,6 +26,7 @@ export const LaunchedConfirm = ({
           {item.confirm.title}
         </h1>
       }
+      aria-label={item.confirm.title}
       isOpen
       onClose={closeConfirm}
       actions={[

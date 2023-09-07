@@ -1,0 +1,19 @@
+{
+  "cancel": {},
+  "fail": {
+    "back": {},
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "full": {},
+  "grant": {},
+  "permissionName": {},
+  "permissionType": {},
+  "read": {},
+  "report": {},
+  "run": {},
+  "success": {
+    "close": {}
+  },
+  "write": {}
+}

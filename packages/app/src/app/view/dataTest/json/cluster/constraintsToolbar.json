@@ -1,0 +1,11 @@
+{
+  "createLocation": {},
+  "createOrder": {},
+  "createColocation": {},
+  "dropdown": {
+    "createTicket": {},
+    "createOrderSet": {},
+    "createColocationSet": {},
+    "createTicketSet": {}
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cancel": {},
+  "communicationError": {
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "name": {},
+  "report": {},
+  "run": {},
+  "success": {
+    "close": {}
+  },
+  "unsuccess": {
+    "back": {},
+    "cancel": {},
+    "proceedAnyway": {}
+  }
+}

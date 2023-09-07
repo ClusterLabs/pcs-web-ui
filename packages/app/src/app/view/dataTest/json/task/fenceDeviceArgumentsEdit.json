@@ -1,0 +1,17 @@
+{
+  "arg": {
+    "name": {},
+    "value": {}
+  },
+  "cancel": {},
+  "fail": {
+    "back": {},
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "report": {},
+  "run": {},
+  "success": {
+    "close": {}
+  }
+}

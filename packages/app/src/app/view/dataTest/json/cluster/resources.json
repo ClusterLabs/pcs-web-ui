@@ -1,0 +1,117 @@
+{
+    "currentClone": {
+        "detail": {},
+        "id": {},
+        "meta": {
+            "pair": {
+                "menu": {
+                    "edit": {},
+                    "remove": {}
+                },
+                "name": {},
+                "value": {}
+            },
+            "toolbar": {
+                "create": {}
+            }
+        },
+        "tabs": {
+            "detail": {},
+            "meta": {}
+        }
+    },
+    "currentFenceDevice": {
+        "id": {}
+    },
+    "currentGroup": {
+        "detail": {},
+        "id": {},
+        "meta": {
+            "pair": {
+                "menu": {
+                    "edit": {},
+                    "remove": {}
+                },
+                "name": {},
+                "value": {}
+            },
+            "toolbar": {
+                "create": {}
+            }
+        },
+        "tabs": {
+            "detail": {},
+            "meta": {}
+        }
+    },
+    "currentPrimitive": {
+        "attributes": {},
+        "detail": {},
+        "id": {},
+        "meta": {
+            "pair": {
+                "menu": {
+                    "edit": {},
+                    "remove": {}
+                },
+                "name": {},
+                "value": {}
+            },
+            "toolbar": {
+                "create": {}
+            }
+        },
+        "tabs": {
+            "attributes": {},
+            "detail": {},
+            "meta": {},
+            "utilization": {}
+        },
+        "toolbar": {
+            "disable": {},
+            "dropdown": {
+                "changeGroup": {},
+                "cleanup": {},
+                "clone": {},
+                "delete": {},
+                "refresh": {},
+                "unclone": {}
+            },
+            "enable": {},
+            "manage": {},
+            "unmanage": {}
+        },
+        "utilization": {
+            "pair": {
+                "menu": {
+                    "edit": {},
+                    "remove": {}
+                },
+                "name": {},
+                "value": {}
+            },
+            "toolbar": {
+                "create": {}
+            }
+        }
+    },
+    "tree": {
+        "clone": {
+            "id": {},
+            "status": {},
+            "toggle": {},
+            "type": {}
+        },
+        "group": {
+            "id": {},
+            "status": {},
+            "toggle": {},
+            "type": {}
+        },
+        "primitive": {
+            "id": {},
+            "status": {},
+            "type": {}
+        }
+    }
+}
