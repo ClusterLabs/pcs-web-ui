@@ -2,11 +2,15 @@ import {useSelector} from "react-redux";
 import {Icon, Spinner} from "@patternfly/react-core";
 import {ExclamationCircleIcon} from "@patternfly/react-icons";
 
+import {testMarks} from "app/view/dataTest";
 import {selectors} from "app/store";
+import {ClusterStatusLabel} from "app/view/share";
 
 import {DashboardClusterLoaded} from "./DashboardClusterLoaded";
 import {DashboardCluster} from "./DashboardCluster";
 import {DashboardClusterListSorting} from "./DashboardClusterListSorting";
+
+const {status} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterList = ({
   importedClusterNameList,
@@ -21,10 +25,17 @@ export const DashboardClusterList = ({
       {sortedClusterInfoList =>
         sortedClusterInfoList.map(clusterInfo => {
           if (clusterInfo.isFetched) {
+            const {clusterStatus} = clusterInfo;
             return (
               <DashboardClusterLoaded
                 key={clusterInfo.clusterName}
-                cluster={clusterInfo.clusterStatus}
+                cluster={clusterStatus}
+                status={
+                  <ClusterStatusLabel
+                    status={clusterStatus.status}
+                    {...status.mark}
+                  />
+                }
               />
             );
           }
@@ -32,7 +43,7 @@ export const DashboardClusterList = ({
             <DashboardCluster
               key={clusterInfo.clusterName}
               clusterName={clusterInfo.clusterName}
-              status="unknown"
+              status={<ClusterStatusLabel status="unknown" {...status.mark} />}
               isLoading
               columns={
                 <td colSpan={4}>

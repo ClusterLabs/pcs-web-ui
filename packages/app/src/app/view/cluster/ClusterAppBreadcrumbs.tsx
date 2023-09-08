@@ -2,21 +2,16 @@ import React from "react";
 import {Breadcrumb, BreadcrumbItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {
-  ClusterStatusLabel,
-  location,
-  useDispatch,
-  useLocation,
-} from "app/view/share";
+import {location, useDispatch, useLocation} from "app/view/share";
 
 const {clusterBreadcrumbs: breadcrumbs} = testMarks;
 
 export const ClusterAppBreadcrumbs = ({
   clusterName,
-  statusLabel,
+  status,
 }: {
   clusterName: string;
-  statusLabel: React.ComponentProps<typeof ClusterStatusLabel>["status"];
+  status: React.ReactNode;
 }) => {
   const dispatch = useDispatch();
   const {navigate} = useLocation();
@@ -45,10 +40,7 @@ export const ClusterAppBreadcrumbs = ({
         <span className="pf-u-mr-sm">
           <strong {...breadcrumbs.clusterName.mark}>{clusterName}</strong>
         </span>
-        <ClusterStatusLabel
-          status={statusLabel}
-          {...breadcrumbs.clusterStatus.mark}
-        />
+        {status}
       </BreadcrumbItem>
     </Breadcrumb>
   );
