@@ -24,17 +24,49 @@ export const DashboardClusterList = ({
     <DashboardClusterListSorting clusterInfoList={clusterInfoList}>
       {sortedClusterInfoList =>
         sortedClusterInfoList.map(clusterInfo => {
-          if (clusterInfo.isFetched) {
+          if (clusterInfo.isRegistered && clusterInfo.isFetched) {
             const {clusterStatus} = clusterInfo;
             return (
               <DashboardClusterLoaded
                 key={clusterInfo.clusterName}
-                cluster={clusterStatus}
+                cluster={clusterStatus.data}
                 status={
                   <ClusterStatusLabel
-                    status={clusterStatus.status}
+                    status={clusterStatus.data.status}
+                    when={clusterStatus.load.when}
+                    isLoading={clusterStatus.load.currently}
                     {...status.mark}
                   />
+                }
+              />
+            );
+          }
+          if (clusterInfo.isRegistered) {
+            return (
+              <DashboardCluster
+                key={clusterInfo.clusterName}
+                clusterName={clusterInfo.clusterName}
+                status={
+                  <ClusterStatusLabel
+                    status="unknown"
+                    when={clusterInfo.clusterStatus.load.when}
+                    isLoading={clusterInfo.clusterStatus.load.currently}
+                    {...status.mark}
+                  />
+                }
+                isLoading
+                columns={
+                  <td colSpan={4}>
+                    {!clusterInfo.isForbidden && <Spinner size="md" />}
+                    {clusterInfo.isForbidden && (
+                      <>
+                        <Icon isInline status="danger">
+                          <ExclamationCircleIcon />
+                        </Icon>{" "}
+                        Forbidden
+                      </>
+                    )}
+                  </td>
                 }
               />
             );
@@ -43,19 +75,10 @@ export const DashboardClusterList = ({
             <DashboardCluster
               key={clusterInfo.clusterName}
               clusterName={clusterInfo.clusterName}
-              status={<ClusterStatusLabel status="unknown" {...status.mark} />}
               isLoading
               columns={
                 <td colSpan={4}>
-                  {!clusterInfo.isForbidden && <Spinner size="md" />}
-                  {clusterInfo.isForbidden && (
-                    <>
-                      <Icon isInline status="danger">
-                        <ExclamationCircleIcon />
-                      </Icon>{" "}
-                      Forbidden
-                    </>
-                  )}
+                  <Spinner size="md" />
                 </td>
               }
             />

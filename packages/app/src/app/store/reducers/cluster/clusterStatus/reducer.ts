@@ -21,19 +21,37 @@ const clusterData: AppReducer<ClusterStatusService["clusterData"]> = (
   }
 };
 
-const dataFetchState: AppReducer<ClusterStatusService["dataFetchState"]> = (
-  state = "NOT_STARTED",
+const load: AppReducer<ClusterStatusService["load"]> = (
+  state = {
+    result: "NO_DATA_YET",
+    when: Date.now(),
+    currently: false,
+  },
   action,
 ) => {
   switch (action.type) {
     case "CLUSTER.STATUS.SYNC":
-      return state === "SUCCESS" ? "SUCCESS" : "IN_PROGRESS";
+    case "CLUSTER.STATUS.REFRESH":
+      return {
+        ...state,
+        currently: true,
+      };
 
     case "CLUSTER.STATUS.FETCH.OK":
-      return "SUCCESS";
+      return {
+        ...state,
+        result: "SUCCESS",
+        when: Date.now(),
+        currently: false,
+      };
 
     case "CLUSTER.STATUS.FETCH.FORBIDDEN":
-      return "FORBIDDEN";
+      return {
+        ...state,
+        result: "FORBIDDEN",
+        when: Date.now(),
+        currently: false,
+      };
 
     default:
       return state;
@@ -42,5 +60,5 @@ const dataFetchState: AppReducer<ClusterStatusService["dataFetchState"]> = (
 
 export const clusterStatus = combineReducers<ClusterStatusService>({
   clusterData,
-  dataFetchState,
+  load: load,
 });

@@ -157,5 +157,9 @@ export type Cluster = {
 
 export type ClusterStatusService = {
   clusterData: Cluster | null;
-  dataFetchState: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "FORBIDDEN";
+  load: {
+    currently: boolean;
+    result: "SUCCESS" | "FORBIDDEN" | "NO_DATA_YET";
+    when: number;
+  };
 };

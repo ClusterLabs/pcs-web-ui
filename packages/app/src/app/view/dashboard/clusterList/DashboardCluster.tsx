@@ -8,8 +8,8 @@ const {name} = clusterMark;
 
 export const DashboardCluster = (props: {
   clusterName: string;
-  status: React.ReactNode;
   columns: React.ReactNode;
+  status?: React.ReactNode;
   isLoading?: boolean;
   isExpanded?: boolean;
   expandedContent?: React.ReactNode;

@@ -15,11 +15,32 @@ const statusColorMap: Record<
   unknown: "grey",
 };
 
+const age = (when: number) => Math.floor((Date.now() - when) / 1000);
+
 export const ClusterStatusLabel = (props: {
   status: Cluster["status"];
+  when: number;
+  isLoading: boolean;
   "data-test": string;
 }) => {
   const [refreshHovered, setRefreshHovered] = React.useState(false);
+  const [ageSeconds, setAgeSecons] = React.useState(age(props.when));
+
+  React.useEffect(() => {
+    setAgeSecons(age(props.when));
+    const interval = setInterval(() => setAgeSecons(age(props.when)), 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [props.when]);
+
+  let loadingLabel = `${ageSeconds} s ago`;
+  if (props.isLoading) {
+    loadingLabel = "loading";
+  } else if (ageSeconds < 5) {
+    loadingLabel = "now";
+  }
+
   return (
     <>
       <Label
@@ -41,7 +62,7 @@ export const ClusterStatusLabel = (props: {
         onMouseLeave={() => setRefreshHovered(false)}
         style={{cursor: "pointer"}}
       >
-        25 s ago
+        {loadingLabel}
       </Label>
     </>
   );

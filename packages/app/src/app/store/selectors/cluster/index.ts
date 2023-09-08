@@ -55,6 +55,7 @@ type ClusterInfo =
       clusterStatus: {
         isForbidden: boolean;
         data: ClusterStorageItem["clusterStatus"]["clusterData"];
+        load: {when: number; currently: boolean};
       };
       permissions: ClusterStorageItem["clusterPermissions"]["data"];
       resourceAgentMap: ClusterStorageItem["resourceAgentMap"]["data"];
@@ -71,6 +72,7 @@ export const getClusterStoreInfo =
   (state: Root): ClusterInfo => {
     const clusterStoreItem = state.clusterStorage[clusterName];
     if (clusterStoreItem === undefined) {
+      // A very short init period before first cluster request action is run.
       return {
         isRegistered: false,
         clusterStatus: {
@@ -86,12 +88,16 @@ export const getClusterStoreInfo =
       };
     }
 
+    const {
+      clusterData: data,
+      load: {when, currently, result},
+    } = clusterStoreItem.clusterStatus;
     return {
       isRegistered: true,
       clusterStatus: {
-        isForbidden:
-          clusterStoreItem.clusterStatus.dataFetchState === "FORBIDDEN",
-        data: clusterStoreItem.clusterStatus.clusterData,
+        isForbidden: result === "FORBIDDEN",
+        data,
+        load: {when, currently},
       },
       permissions: clusterStoreItem.clusterPermissions.data,
       resourceAgentMap: clusterStoreItem.resourceAgentMap.data,

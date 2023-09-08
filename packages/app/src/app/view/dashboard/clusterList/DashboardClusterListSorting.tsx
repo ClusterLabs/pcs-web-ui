@@ -15,13 +15,13 @@ type COLUMNS =
 const compareByState =
   (compare: (_clusterA: Cluster, _clusterB: Cluster) => number) =>
   (a: ClusterInfo, b: ClusterInfo) => {
-    if (a.isFetched && b.isFetched) {
-      return compare(a.clusterStatus, b.clusterStatus);
+    if (a.isRegistered && a.isFetched && b.isRegistered && b.isFetched) {
+      return compare(a.clusterStatus.data, b.clusterStatus.data);
     }
-    if (a.isFetched) {
+    if (a.isRegistered && a.isFetched) {
       return 1;
     }
-    if (b.isFetched) {
+    if (b.isRegistered && b.isFetched) {
       return -1;
     }
     return compareStrings(a.clusterName, b.clusterName);

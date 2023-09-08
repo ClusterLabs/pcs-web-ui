@@ -8,15 +8,24 @@ export const dashboardAreDataLoaded = (state: Root) =>
 
 type ClusterInfoList = ({clusterName: string} & (
   | {
-      isFetched: false;
-      isForbidden: boolean;
+      isRegistered: false;
     }
   | {
+      isRegistered: true;
+      isFetched: false;
+      isForbidden: boolean;
+      clusterStatus: {
+        load: {when: number; currently: boolean};
+      };
+    }
+  | {
+      isRegistered: true;
       isFetched: true;
       isForbidden: false;
-      clusterStatus: NonNullable<
-        ClusterStorageItem["clusterStatus"]["clusterData"]
-      >;
+      clusterStatus: {
+        data: NonNullable<ClusterStorageItem["clusterStatus"]["clusterData"]>;
+        load: {when: number; currently: boolean};
+      };
     }
 ))[];
 
@@ -24,22 +33,38 @@ export const getClusterStoreInfoList =
   (clusterNameList: string[]) =>
   (state: Root): ClusterInfoList =>
     clusterNameList.map(clusterName => {
-      const clusterStorageItem = state.clusterStorage[clusterName];
-      if (
-        clusterStorageItem?.clusterStatus.dataFetchState === "SUCCESS"
-        && clusterStorageItem?.clusterStatus.clusterData !== null
-      ) {
+      if (!(clusterName in state.clusterStorage)) {
+        // A very short init period before first cluster request action is run.
+        return {clusterName, isRegistered: false};
+      }
+
+      const {
+        clusterStatus: {
+          load: {when, currently, result},
+          clusterData: data,
+        },
+      } = state.clusterStorage[clusterName];
+
+      if (result === "SUCCESS" && data !== null) {
         return {
           clusterName,
+          isRegistered: true,
           isFetched: true,
           isForbidden: false,
-          clusterStatus: clusterStorageItem.clusterStatus.clusterData,
+          clusterStatus: {
+            data,
+            load: {when, currently},
+          },
         };
       }
+
       return {
         clusterName,
+        isRegistered: true,
         isFetched: false,
-        isForbidden:
-          clusterStorageItem?.clusterStatus.dataFetchState === "FORBIDDEN",
+        isForbidden: result === "FORBIDDEN",
+        clusterStatus: {
+          load: {when, currently},
+        },
       };
     });
