@@ -20,8 +20,8 @@ export const DashboardCluster = (props: {
         <th role="rowheader">
           <Link to={location.cluster({clusterName: props.clusterName})}>
             <strong {...name.mark}>{props.clusterName}</strong>{" "}
-            <ClusterStatusLabel status={props.status} {...status.mark} />
           </Link>
+          <ClusterStatusLabel status={props.status} {...status.mark} />
         </th>
         {props.columns}
       </tr>
