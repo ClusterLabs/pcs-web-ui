@@ -2,6 +2,7 @@ import React from "react";
 import {Label} from "@patternfly/react-core";
 import {SyncAltIcon} from "@patternfly/react-icons";
 
+import {useDispatch} from "app/view/share";
 import {Cluster} from "app/view/cluster/types";
 
 const statusColorMap: Record<
@@ -18,6 +19,7 @@ const statusColorMap: Record<
 const age = (when: number) => Math.floor((Date.now() - when) / 1000);
 
 export const ClusterStatusLabel = (props: {
+  clusterName: string;
   status: Cluster["status"];
   when: number;
   isLoading: boolean;
@@ -25,6 +27,7 @@ export const ClusterStatusLabel = (props: {
 }) => {
   const [refreshHovered, setRefreshHovered] = React.useState(false);
   const [ageSeconds, setAgeSecons] = React.useState(age(props.when));
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     setAgeSecons(age(props.when));
@@ -57,7 +60,12 @@ export const ClusterStatusLabel = (props: {
         isCompact
         className="pf-u-ml-xs"
         icon={<SyncAltIcon />}
-        onClick={() => console.log("cluster sync")}
+        onClick={() =>
+          dispatch({
+            type: "CLUSTER.STATUS.REFRESH",
+            key: {clusterName: props.clusterName},
+          })
+        }
         onMouseEnter={() => setRefreshHovered(true)}
         onMouseLeave={() => setRefreshHovered(false)}
         style={{cursor: "pointer"}}

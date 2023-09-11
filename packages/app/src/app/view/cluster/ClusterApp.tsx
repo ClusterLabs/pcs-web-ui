@@ -34,6 +34,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           status={
             clusterInfo.isRegistered ? (
               <ClusterStatusLabel
+                clusterName={clusterName}
                 status={clusterInfo.clusterStatus.data?.status ?? "unknown"}
                 when={clusterInfo.clusterStatus.load.when}
                 isLoading={clusterInfo.clusterStatus.load.currently}

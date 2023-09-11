@@ -32,6 +32,7 @@ export const DashboardClusterList = ({
                 cluster={clusterStatus.data}
                 status={
                   <ClusterStatusLabel
+                    clusterName={clusterInfo.clusterName}
                     status={clusterStatus.data.status}
                     when={clusterStatus.load.when}
                     isLoading={clusterStatus.load.currently}
@@ -48,6 +49,7 @@ export const DashboardClusterList = ({
                 clusterName={clusterInfo.clusterName}
                 status={
                   <ClusterStatusLabel
+                    clusterName={clusterInfo.clusterName}
                     status="unknown"
                     when={clusterInfo.clusterStatus.load.when}
                     isLoading={clusterInfo.clusterStatus.load.currently}
