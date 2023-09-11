@@ -1,6 +1,6 @@
 import {Task} from "redux-saga";
 
-import {Action, ActionLeaf, ActionMap, ActionPayload} from "app/store/actions";
+import {Action, ActionMap, ActionPayload} from "app/store/actions";
 
 import {all, cancel, delay, fork, put, take} from "./effects";
 
@@ -100,47 +100,30 @@ export function* manage({
   }
 }
 
-type Stop = {stop: ActionLeaf; specificator: string};
-
-export const takeNewLoadings = (
-  readings: ActionPayload["DATA_READING.SET_UP"],
-  stops: Stop[],
-) => {
-  const newNames = readings.map(r => r.specificator);
-  const oldNames = stops.map(s => s.specificator);
-
-  return {
-    startActions: readings
-      .filter(r => !oldNames.includes(r.specificator))
-      .map(r => r.start),
-    stopActions: stops
-      .filter(s => !newNames.includes(s.specificator))
-      .map(s => s.stop),
-    nextStops: readings.map(r => ({
-      stop: r.stop,
-      specificator: r.specificator,
-    })),
-  };
-};
-
 export function* setUpDataReading() {
-  let stops: Stop[] = [];
+  let currents: ActionPayload["DATA_READING.SET_UP"]["readings"] = [];
 
   /* eslint-disable no-constant-condition */
   while (true) {
-    const {payload}: ActionMap["DATA_READING.SET_UP"] = yield take(
-      "DATA_READING.SET_UP",
-    );
-    const {startActions, stopActions, nextStops} = takeNewLoadings(
-      payload,
-      stops,
-    );
+    const {
+      payload: {behavior, readings},
+    }: ActionMap["DATA_READING.SET_UP"] = yield take("DATA_READING.SET_UP");
 
-    stops = nextStops;
+    const currentIds = currents.map(s => s.id);
+    const newIds = readings.map(r => r.id);
 
-    yield all([
-      ...stopActions.map(a => put(a)),
-      ...startActions.map(a => put(a)),
-    ]);
+    const news = readings.filter(r => !currentIds.includes(r.id));
+
+    if (behavior === "replace") {
+      const olds = currents.filter(s => !newIds.includes(s.id));
+      currents = readings;
+      yield all([
+        ...olds.map(r => put(r.stop)),
+        ...news.map(r => put(r.start)),
+      ]);
+    } else {
+      currents = [...currents, ...news];
+      yield all([...news.map(r => put(r.start))]);
+    }
   }
 }

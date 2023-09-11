@@ -3,6 +3,8 @@ import {ActionPayload} from "app/store/actions";
 
 import {api, dataLoad, put} from "./common";
 
+type Reading = ActionPayload["DATA_READING.SET_UP"]["readings"][number];
+
 function* fetchClusterList() {
   const result: api.ResultOf<typeof importedClusterList> = yield api.authSafe(
     importedClusterList,
@@ -14,36 +16,30 @@ function* fetchClusterList() {
     return;
   }
 
-  const clusterNameList = result.payload.cluster_list.map(
-    cluster => cluster.name,
-  );
-  yield put({
-    type: "CLUSTER.LIST.FETCH.OK",
-    payload: {clusterNameList},
-  });
+  const clusterNameList = result.payload.cluster_list.map(c => c.name);
 
+  yield put({type: "CLUSTER.LIST.FETCH.OK", payload: {clusterNameList}});
   yield put({
     type: "DATA_READING.SET_UP",
-    payload: [
-      {
-        specificator: "syncDashboard",
-        start: {type: "CLUSTER.LIST.SYNC"},
-        stop: {type: "CLUSTER.LIST.SYNC.STOP"},
-      },
-      ...clusterNameList.map(
-        (clusterName): ActionPayload["DATA_READING.SET_UP"][0] => ({
-          specificator: `syncCluster:${clusterName}`,
-          start: {
-            type: "CLUSTER.STATUS.SYNC",
-            key: {clusterName},
-          },
-          stop: {
-            type: "CLUSTER.STATUS.SYNC.STOP",
-            key: {clusterName},
-          },
-        }),
-      ),
-    ],
+    payload: {
+      behavior: "replace",
+      readings: [
+        {
+          // syncDashboard must be here, because DATA_READING.SET_UP stops
+          // everything old, that is not renewed in this new action payload
+          id: "syncDashboard",
+          start: {type: "CLUSTER.LIST.SYNC"},
+          stop: {type: "CLUSTER.LIST.SYNC.STOP"},
+        },
+        ...clusterNameList.map(
+          (clusterName): Reading => ({
+            id: `syncCluster:${clusterName}`,
+            start: {type: "CLUSTER.STATUS.SYNC", key: {clusterName}},
+            stop: {type: "CLUSTER.STATUS.SYNC.STOP", key: {clusterName}},
+          }),
+        ),
+      ],
+    },
   });
 }
 

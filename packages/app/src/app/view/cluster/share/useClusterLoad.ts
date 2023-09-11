@@ -25,13 +25,10 @@ export const useClusterLoad = (clusterName: string) => {
   React.useEffect(() => {
     dispatch({
       type: "DATA_READING.SET_UP",
-      payload: [
-        {
-          specificator: `syncCluster:${clusterName}`,
-          start,
-          stop,
-        },
-      ],
+      payload: {
+        behavior: "replace",
+        readings: [{id: `syncCluster:${clusterName}`, start, stop}],
+      },
     });
 
     dispatch({

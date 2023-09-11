@@ -30,7 +30,10 @@ export function* logoutSaga() {
   yield putNotification("SUCCESS", "Success logout");
   yield put({type: "LOGIN.LOGOUT.SUCCESS"});
   yield put({type: "AUTH.REQUIRED"});
-  yield put({type: "DATA_READING.SET_UP", payload: []});
+  yield put({
+    type: "DATA_READING.SET_UP",
+    payload: {behavior: "replace", readings: []},
+  });
 }
 
 export function* loginSaga({
