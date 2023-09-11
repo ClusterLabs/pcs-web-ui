@@ -37,7 +37,7 @@ export const ClusterStatusLabel = (props: {
   let loadingLabel = `${ageSeconds} s ago`;
   if (props.isLoading) {
     loadingLabel = "loading";
-  } else if (ageSeconds < 5) {
+  } else if (ageSeconds < 1) {
     loadingLabel = "now";
   }
 
