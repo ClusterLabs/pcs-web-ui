@@ -6,7 +6,7 @@ export * as lib from "./lib";
 export * from "./attributes";
 export * from "./ButtonWithEnter";
 export * from "./Card";
-export * from "./ClusterStatusLabel";
+export * from "./clusterStatus";
 export * from "./ClusterStoppedInfo";
 export * from "./CrmStatusTable";
 export * from "./dataList";

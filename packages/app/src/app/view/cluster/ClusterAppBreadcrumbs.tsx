@@ -15,7 +15,7 @@ export const ClusterAppBreadcrumbs = ({
 }) => {
   const {navigate} = useLocation();
   return (
-    <Breadcrumb {...breadcrumbs.mark}>
+    <Breadcrumb {...breadcrumbs.mark} className="pf-u-pb-xs">
       <BreadcrumbItem
         to={location.dashboard}
         component="a"
