@@ -4,7 +4,7 @@ import {ExclamationCircleIcon} from "@patternfly/react-icons";
 
 import {testMarks} from "app/view/dataTest";
 import {selectors} from "app/store";
-import {ClusterStatusLabel} from "app/view/share";
+import {ClusterStatusLabel, ClusterStatusLoadingLabel} from "app/view/share";
 
 import {DashboardClusterLoaded} from "./DashboardClusterLoaded";
 import {DashboardCluster} from "./DashboardCluster";
@@ -31,13 +31,17 @@ export const DashboardClusterList = ({
                 key={clusterInfo.clusterName}
                 cluster={clusterStatus.data}
                 status={
-                  <ClusterStatusLabel
-                    clusterName={clusterInfo.clusterName}
-                    status={clusterStatus.data.status}
-                    when={clusterStatus.load.when}
-                    isLoading={clusterStatus.load.currently}
-                    {...status.mark}
-                  />
+                  <>
+                    <ClusterStatusLabel
+                      status={clusterStatus.data.status}
+                      {...status.mark}
+                    />
+                    <ClusterStatusLoadingLabel
+                      clusterName={clusterInfo.clusterName}
+                      when={clusterStatus.load.when}
+                      isLoading={clusterStatus.load.currently}
+                    />
+                  </>
                 }
               />
             );
@@ -48,13 +52,14 @@ export const DashboardClusterList = ({
                 key={clusterInfo.clusterName}
                 clusterName={clusterInfo.clusterName}
                 status={
-                  <ClusterStatusLabel
-                    clusterName={clusterInfo.clusterName}
-                    status="unknown"
-                    when={clusterInfo.clusterStatus.load.when}
-                    isLoading={clusterInfo.clusterStatus.load.currently}
-                    {...status.mark}
-                  />
+                  <>
+                    <ClusterStatusLabel status="unknown" {...status.mark} />
+                    <ClusterStatusLoadingLabel
+                      clusterName={clusterInfo.clusterName}
+                      when={clusterInfo.clusterStatus.load.when}
+                      isLoading={clusterInfo.clusterStatus.load.currently}
+                    />
+                  </>
                 }
                 isLoading
                 columns={

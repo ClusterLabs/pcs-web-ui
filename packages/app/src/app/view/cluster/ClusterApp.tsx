@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {ClusterStatusLabel} from "app/view/share";
+import {ClusterStatusLabel, ClusterStatusLoadingLabel} from "app/view/share";
 import {
   ClusterSourcesProvider,
   useClusterInfo,
@@ -33,13 +33,17 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           clusterName={clusterName}
           status={
             clusterInfo.isRegistered ? (
-              <ClusterStatusLabel
-                clusterName={clusterName}
-                status={clusterInfo.clusterStatus.data?.status ?? "unknown"}
-                when={clusterInfo.clusterStatus.load.when}
-                isLoading={clusterInfo.clusterStatus.load.currently}
-                {...clusterBreadcrumbs.clusterStatus.mark}
-              />
+              <>
+                <ClusterStatusLabel
+                  status={clusterInfo.clusterStatus.data?.status ?? "unknown"}
+                  {...clusterBreadcrumbs.clusterStatus.mark}
+                />
+                <ClusterStatusLoadingLabel
+                  clusterName={clusterName}
+                  when={clusterInfo.clusterStatus.load.when}
+                  isLoading={clusterInfo.clusterStatus.load.currently}
+                />
+              </>
             ) : null
           }
         />
