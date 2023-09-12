@@ -1,17 +1,33 @@
 import React from "react";
-import {Label} from "@patternfly/react-core";
+import {Label, Popover} from "@patternfly/react-core";
 
 import {Cluster} from "app/view/cluster/types";
 
-const statusColorMap: Record<
+const statusMap: Record<
   Cluster["status"],
-  React.ComponentProps<typeof Label>["color"]
+  {
+    color: React.ComponentProps<typeof Label>["color"];
+    description: string;
+  }
 > = {
-  running: "green",
-  degraded: "gold",
-  inoperative: "orange",
-  offline: "red",
-  unknown: "grey",
+  running: {
+    color: "green",
+    description: "all nodes are online and some nodes has quorum",
+  },
+  degraded: {
+    color: "gold",
+    description: "some (not all) nodes are online and some nodes has quorum",
+  },
+  inoperative: {
+    color: "orange",
+    description:
+      "not considered running or degraded but some nodes are online or standby",
+  },
+  offline: {color: "red", description: "all nodes are offline"},
+  unknown: {
+    color: "grey",
+    description: "some nodes are unknown, the rest is offline",
+  },
 };
 
 export const ClusterStatusLabel = (props: {
@@ -19,12 +35,28 @@ export const ClusterStatusLabel = (props: {
   "data-test": string;
 }) => {
   return (
-    <Label
-      color={statusColorMap[props.status]}
-      isCompact
-      data-test={props["data-test"]}
+    <Popover
+      headerContent={"Cluster status summary (meaning)"}
+      bodyContent={
+        <>
+          {Object.entries(statusMap).map(([status, {color, description}]) => (
+            <div key={status}>
+              <Label color={color} isCompact>
+                {status}
+              </Label>
+              {` ${description}`}
+            </div>
+          ))}
+        </>
+      }
     >
-      {props.status}
-    </Label>
+      <Label
+        color={statusMap[props.status].color}
+        isCompact
+        data-test={props["data-test"]}
+      >
+        {props.status}
+      </Label>
+    </Popover>
   );
 };
