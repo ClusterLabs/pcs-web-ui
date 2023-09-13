@@ -1,14 +1,12 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {
-  Alert,
-  LoginForm,
-  LoginPage as PfLoginPage,
-} from "@patternfly/react-core";
+import {Alert, LoginPage as PfLoginPage} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {selectors} from "app/store";
 import {BackgroundImage, useDispatch} from "app/view/share";
+
+import {LoginForm} from "./LoginForm";
 
 // WARNING: Don't inline this component inside EnsureLogin component.
 // It would require put react state parts (username, password) into EnsureLogin
@@ -32,14 +30,10 @@ export const LoginPage = () => {
       >
         {failed && <Alert variant="danger" isInline title={failMessage} />}
         <LoginForm
-          usernameLabel="Username"
           usernameValue={username}
           onChangeUsername={value => setUsername(value)}
-          isValidUsername
-          passwordLabel="Password"
           passwordValue={password}
           onChangePassword={value => setPassword(value)}
-          isValidPassword
           isLoginButtonDisabled={!isAcceptingLoginData}
           onLoginButtonClick={e => {
             e.preventDefault();
