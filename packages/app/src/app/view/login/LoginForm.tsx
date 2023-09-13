@@ -35,6 +35,7 @@ export const LoginForm = (props: {
           name="pf-login-username-id"
           value={props.usernameValue}
           onChange={props.onChangeUsername}
+          autoComplete="off"
         />
       </FormGroup>
       <FormGroup
