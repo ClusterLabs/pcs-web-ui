@@ -7,8 +7,12 @@ import {
   TextInput,
 } from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
+
 type TextInputProps = React.ComponentProps<typeof TextInput>;
 type ButtonProps = React.ComponentProps<typeof Button>;
+
+const {form} = testMarks.login;
 
 export const LoginForm = (props: {
   usernameValue: TextInputProps["value"];
@@ -19,7 +23,7 @@ export const LoginForm = (props: {
   onLoginButtonClick: ButtonProps["onClick"];
 }) => {
   return (
-    <Form>
+    <Form {...form.mark}>
       <FormGroup
         label="Username"
         isRequired
@@ -36,6 +40,7 @@ export const LoginForm = (props: {
           value={props.usernameValue}
           onChange={props.onChangeUsername}
           autoComplete="off"
+          {...form.username.mark}
         />
       </FormGroup>
       <FormGroup
@@ -52,6 +57,7 @@ export const LoginForm = (props: {
           validated="default"
           value={props.passwordValue}
           onChange={props.onChangePassword}
+          {...form.password.mark}
         />
       </FormGroup>
       <ActionGroup>
@@ -61,6 +67,7 @@ export const LoginForm = (props: {
           onClick={props.onLoginButtonClick}
           isBlock
           isDisabled={props.isLoginButtonDisabled}
+          {...form.login.mark}
         >
           Log In
         </Button>
