@@ -24,7 +24,7 @@ export const LoadingLabel = (props: {
       onMouseLeave={props.onMouseLeave}
       style={props.style}
     >
-      <div style={{width: "4em"}}>{props.children}</div>
+      <div style={{minWidth: "8em"}}>{props.children}</div>
     </Label>
   );
 };
