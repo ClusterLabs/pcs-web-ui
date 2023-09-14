@@ -12,7 +12,7 @@ var pcsUiEnvAdapter = {
   showMasthead: false,
   request: async (path, headers, postBody) => {
     try {
-      const http = cockpit.http(pcsdSocket);
+      const http = cockpit.http(pcsdSocket, {superuser: "try"});
       const result = postBody
         ? await http.post(path, postBody, headers)
         : await http.get(path, {}, headers);
