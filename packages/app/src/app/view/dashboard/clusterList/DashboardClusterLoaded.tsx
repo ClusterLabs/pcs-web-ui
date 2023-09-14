@@ -23,7 +23,10 @@ const CELL_COUNT = 1 + EXPANDABLE_COLUMNS.length;
 
 const {cluster} = testMarks.dashboard.clusterList;
 
-export const DashboardClusterLoaded = (props: {cluster: Cluster}) => {
+export const DashboardClusterLoaded = (props: {
+  cluster: Cluster;
+  status: React.ReactNode;
+}) => {
   const {expanded, Toggle, Content} = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
   });
@@ -31,7 +34,7 @@ export const DashboardClusterLoaded = (props: {cluster: Cluster}) => {
   return (
     <DashboardCluster
       clusterName={props.cluster.name}
-      status={props.cluster.status}
+      status={props.status}
       columns={
         <>
           <Toggle expandKey={COLUMNS.ISSUES} {...cluster.issuesCount.mark}>

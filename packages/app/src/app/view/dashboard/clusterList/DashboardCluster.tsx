@@ -1,15 +1,15 @@
 import React from "react";
 
 import {testMarks} from "app/view/dataTest";
-import {ClusterStatusLabel, Link, Table, location} from "app/view/share";
+import {Link, Table, location} from "app/view/share";
 
 const {cluster: clusterMark} = testMarks.dashboard.clusterList;
-const {name, status} = clusterMark;
+const {name} = clusterMark;
 
 export const DashboardCluster = (props: {
   clusterName: string;
-  status: React.ComponentProps<typeof ClusterStatusLabel>["status"];
   columns: React.ReactNode;
+  status?: React.ReactNode;
   isLoading?: boolean;
   isExpanded?: boolean;
   expandedContent?: React.ReactNode;
@@ -20,8 +20,8 @@ export const DashboardCluster = (props: {
         <th role="rowheader">
           <Link to={location.cluster({clusterName: props.clusterName})}>
             <strong {...name.mark}>{props.clusterName}</strong>{" "}
-            <ClusterStatusLabel status={props.status} {...status.mark} />
           </Link>
+          {props.status}
         </th>
         {props.columns}
       </tr>

@@ -37,10 +37,13 @@ export type ActionLeaf = LeafActionMap[keyof LeafActionMap];
 type SetupDataReading = {
   type: "DATA_READING.SET_UP";
   payload: {
-    specificator: string;
-    start: ActionLeaf;
-    stop: ActionLeaf;
-  }[];
+    behavior: "replace" | "add";
+    readings: {
+      id: string;
+      start: ActionLeaf;
+      stop: ActionLeaf;
+    }[];
+  };
 };
 
 export type ActionMap = LeafActionMap & {

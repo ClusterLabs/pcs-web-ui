@@ -1,5 +1,10 @@
-import {ClusterSourcesProvider} from "app/view/cluster/share";
-import {useClusterInfo, useClusterLoad} from "app/view/cluster/share";
+import {testMarks} from "app/view/dataTest";
+import {ClusterStatusLabel, ClusterStatusLoadingLabel} from "app/view/share";
+import {
+  ClusterSourcesProvider,
+  useClusterInfo,
+  useClusterLoad,
+} from "app/view/cluster/share";
 
 import {ClusterPermissionsPage, LoadedPermissionsProvider} from "./permissions";
 import {ClusterAppLayout} from "./ClusterAppLayout";
@@ -15,6 +20,8 @@ import {ClusterPropertiesPage} from "./properties";
 import {AclPage} from "./acl";
 import {ClusterOverviewPage} from "./overview";
 
+const {clusterBreadcrumbs} = testMarks;
+
 export const ClusterApp = ({clusterName}: {clusterName: string}) => {
   useClusterLoad(clusterName);
   const clusterInfo = useClusterInfo(clusterName);
@@ -24,7 +31,21 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
       breadcrumbs={
         <ClusterAppBreadcrumbs
           clusterName={clusterName}
-          statusLabel={clusterInfo.clusterStatus.data?.status ?? "unknown"}
+          status={
+            clusterInfo.isRegistered ? (
+              <>
+                <ClusterStatusLabel
+                  status={clusterInfo.clusterStatus.data?.status ?? "unknown"}
+                  {...clusterBreadcrumbs.clusterStatus.mark}
+                />
+                <ClusterStatusLoadingLabel
+                  clusterName={clusterName}
+                  when={clusterInfo.clusterStatus.load.when}
+                  isLoading={clusterInfo.clusterStatus.load.currently}
+                />
+              </>
+            ) : null
+          }
         />
       }
     >

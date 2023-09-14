@@ -2,26 +2,20 @@ import React from "react";
 import {Breadcrumb, BreadcrumbItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {
-  ClusterStatusLabel,
-  location,
-  useDispatch,
-  useLocation,
-} from "app/view/share";
+import {location, useLocation} from "app/view/share";
 
 const {clusterBreadcrumbs: breadcrumbs} = testMarks;
 
 export const ClusterAppBreadcrumbs = ({
   clusterName,
-  statusLabel,
+  status,
 }: {
   clusterName: string;
-  statusLabel: React.ComponentProps<typeof ClusterStatusLabel>["status"];
+  status: React.ReactNode;
 }) => {
-  const dispatch = useDispatch();
   const {navigate} = useLocation();
   return (
-    <Breadcrumb {...breadcrumbs.mark}>
+    <Breadcrumb {...breadcrumbs.mark} className="pf-u-pb-xs">
       <BreadcrumbItem
         to={location.dashboard}
         component="a"
@@ -33,22 +27,11 @@ export const ClusterAppBreadcrumbs = ({
       >
         Clusters
       </BreadcrumbItem>
-      <BreadcrumbItem
-        isActive
-        onClick={() =>
-          dispatch({
-            type: "CLUSTER.STATUS.REFRESH",
-            key: {clusterName},
-          })
-        }
-      >
+      <BreadcrumbItem isActive>
         <span className="pf-u-mr-sm">
           <strong {...breadcrumbs.clusterName.mark}>{clusterName}</strong>
         </span>
-        <ClusterStatusLabel
-          status={statusLabel}
-          {...breadcrumbs.clusterStatus.mark}
-        />
+        {status}
       </BreadcrumbItem>
     </Breadcrumb>
   );

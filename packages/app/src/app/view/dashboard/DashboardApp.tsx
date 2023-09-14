@@ -25,13 +25,16 @@ const useDashboardSync = () => {
   React.useEffect(() => {
     dispatch({
       type: "DATA_READING.SET_UP",
-      payload: [
-        {
-          specificator: "syncDashboard",
-          start: {type: "CLUSTER.LIST.SYNC"},
-          stop: {type: "CLUSTER.LIST.SYNC.STOP"},
-        },
-      ],
+      payload: {
+        behavior: "add",
+        readings: [
+          {
+            id: "syncDashboard",
+            start: {type: "CLUSTER.LIST.SYNC"},
+            stop: {type: "CLUSTER.LIST.SYNC.STOP"},
+          },
+        ],
+      },
     });
   }, [dispatch]);
 };
