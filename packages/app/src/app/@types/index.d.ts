@@ -19,5 +19,6 @@ declare global {
       addEventsListener: (_listener: () => void) => void;
       removeEventsListener: (_listener: () => void) => void;
     };
+    user: () => Promise<{isHaclient: boolean}>;
   };
 }

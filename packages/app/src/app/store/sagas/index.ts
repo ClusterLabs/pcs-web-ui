@@ -15,6 +15,7 @@ import * as fenceDeviceUpdate from "./fenceDeviceUpdate";
 import * as resourceAgent from "./resourceAgent";
 import * as fenceAgent from "./fenceAgent";
 import * as username from "./username";
+import * as user from "./user";
 import * as clusterProperties from "./clusterProperties";
 import * as clusterPermissions from "./clusterPermissions";
 import * as resourceAgentList from "./resourceAgentList";
@@ -43,6 +44,7 @@ function* rootSaga() {
     fork(dataLoad.manage, dashboard.clusterListSyncOptions),
     fork(dataLoad.manage, cluster.clusterDataSyncOptions),
     takeEvery("USERNAME.LOAD", username.usernameLoad),
+    takeEvery("USER.INIT", user.init),
     takeEvery("AUTH.SUCCESS", username.checkLogin),
     takeEvery("LOGIN.LOGOUT", login.logoutSaga),
     takeEvery("LOGIN.ENTER_CREDENTIALS", login.loginSaga),

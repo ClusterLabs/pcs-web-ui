@@ -5,3 +5,4 @@ export * from "./notifications";
 export * from "./nodeAuth";
 export * from "./task";
 export * from "./username";
+export * from "./user";

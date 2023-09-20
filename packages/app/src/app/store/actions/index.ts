@@ -12,6 +12,7 @@ import {ResourceActions} from "./resource";
 import {FenceDeviceActions} from "./fenceDevice";
 import {ResourceAgentActions} from "./resourceAgent";
 import {UsernameActions} from "./username";
+import {UserActions} from "./user";
 import {TaskActions} from "./task";
 
 // prettier-ignore
@@ -30,6 +31,7 @@ type LeafActionMap = (
   & ResourceAgentActions
   & TaskActions
   & UsernameActions
+  & UserActions
 );
 
 export type ActionLeaf = LeafActionMap[keyof LeafActionMap];

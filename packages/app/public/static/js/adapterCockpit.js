@@ -53,4 +53,10 @@ var pcsUiEnvAdapter = {
     navigate: (to, {replace = false} = {}) =>
       cockpit.location[replace ? "replace" : "go"](to),
   },
+  user: async () => {
+    const currentUser = await cockpit.user();
+    return {
+      isHaclient: currentUser.groups.includes("haclient"),
+    };
+  },
 };
