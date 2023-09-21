@@ -16,6 +16,14 @@ type Primitive = Extract<
 >;
 type StatusInfoList = Primitive["status"]["infoList"];
 
+const operationFailed = (operation: ApiPrimitive["operations"][number]) =>
+  operation.rc_code !== 0
+  // 7: OCF_NOT_RUNNING: The resource is safely stopped.
+  && !(operation.rc_code === 7 && operation.operation === "monitor")
+  // 8: OCF_RUNNING_MASTER: The resource is running in master mode.
+  // 193: PCMK_OCF_UNKNOWN: The resource operation is still in progress.
+  && ![8, 193].includes(operation.rc_code);
+
 const buildStatusInfoList = (
   apiPrimitive: ApiPrimitive,
 ): {
@@ -34,7 +42,9 @@ const buildStatusInfoList = (
     infoList.push({label: "UNMANAGED", severity: "WARNING"});
   }
 
-  if (isDisabled(apiPrimitive)) {
+  const primitiveIsDisabled = isDisabled(apiPrimitive);
+
+  if (primitiveIsDisabled) {
     issues.push({
       severity: "WARNING",
       message: "Resource is disabled",
@@ -42,25 +52,22 @@ const buildStatusInfoList = (
     infoList.push({label: "DISABLED", severity: "WARNING"});
   }
 
+  const someCrmStatusActive = apiPrimitive.crm_status.some(s => s.active);
+  const someOperationFailed = apiPrimitive.operations.some(operationFailed);
+
   if (
-    apiPrimitive.crm_status.some(s => s.failed)
-    || apiPrimitive.operations.some(
-      o =>
-        !(
-          o.rc_code === 0
-          // 7: OCF_NOT_RUNNING: The resource is safely stopped.
-          || (o.operation === "monitor" && o.rc_code === 7)
-          // 8: OCF_RUNNING_MASTER: The resource is running in master mode.
-          // 193: PCMK_OCF_UNKNOWN: The resource operation is still in progress.
-          || [8, 193].includes(o.rc_code)
-        ),
-    )
+    !primitiveIsDisabled
+    && !someCrmStatusActive
+    && !apiPrimitive.crm_status.some(s => s.failed)
+    && apiPrimitive.error_list.length === 0
+    && someOperationFailed
   ) {
-    issues.push({severity: "ERROR", message: "Resource failed"});
     infoList.push({label: "FAILED", severity: "ERROR"});
-  } else if (!apiPrimitive.crm_status.some(s => s.active)) {
+  } else if (!someCrmStatusActive && !primitiveIsDisabled) {
     issues.push({severity: "ERROR", message: "Resource is blocked"});
     infoList.push({label: "BLOCKED", severity: "ERROR"});
+  } else if (someOperationFailed) {
+    infoList.push({label: "FAILED OPERATIONS", severity: "WARNING"});
   }
 
   if (infoList.length > 0) {
