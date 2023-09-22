@@ -39,6 +39,7 @@ export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
       aria-label="Cluster resources"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
       {...testMarks.cluster.resources.tree.mark}
+      gridBreakpoint="lg"
     >
       {resourceTree.map(resourceTreeItem => {
         switch (resourceTreeItem.itemType) {
