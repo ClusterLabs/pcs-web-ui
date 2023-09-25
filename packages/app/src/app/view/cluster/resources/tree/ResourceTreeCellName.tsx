@@ -5,7 +5,12 @@ export const ResourceTreeCellName = (props: {
   "data-test"?: string;
 }) => {
   return (
-    <Link strong data-test={props["data-test"]} to={`/${props.resourceId}`}>
+    <Link
+      strong
+      isInline
+      data-test={props["data-test"]}
+      to={`/${props.resourceId}`}
+    >
       {props.resourceId}
     </Link>
   );

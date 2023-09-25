@@ -51,38 +51,33 @@ export const analyzeApiResources = (
 ): AnalyzedResources =>
   apiResourceList.reduce<AnalyzedResources>(
     (analyzed, apiResource) => {
-      const maxResourcesSeverity = (): StatusSeverity =>
-        statusSeverity.max(
-          analyzed.resourcesSeverity,
-          statusToSeverity(apiResource.status),
-        );
       switch (apiResource.class_type) {
-        case "primitive":
+        case "primitive": {
           if (apiResource.stonith) {
+            const fenceDevice = toFenceDevice(apiResource as ApiStonith);
             return {
               ...analyzed,
-              fenceDeviceList: [
-                ...analyzed.fenceDeviceList,
-                toFenceDevice(apiResource as ApiStonith),
-              ],
+              fenceDeviceList: [...analyzed.fenceDeviceList, fenceDevice],
               fenceDevicesSeverity: statusSeverity.max(
                 analyzed.fenceDevicesSeverity,
                 statusToSeverity(apiResource.status),
               ),
             };
           }
+          const primitive = toPrimitive(apiResource as ApiPrimitive);
           return {
             ...analyzed,
-            resourceTree: [
-              ...analyzed.resourceTree,
-              toPrimitive(apiResource as ApiPrimitive),
-            ],
-            resourcesSeverity: maxResourcesSeverity(),
+            resourceTree: [...analyzed.resourceTree, primitive],
+            resourcesSeverity: statusSeverity.max(
+              analyzed.resourcesSeverity,
+              primitive.status.maxSeverity,
+            ),
             resourceOnNodeStatusList: [
               ...analyzed.resourceOnNodeStatusList,
               ...takeResourceOnNodeStatus(apiResource as ApiPrimitive),
             ],
           };
+        }
 
         case "group": {
           const {apiPrimitiveList, group} = toGroup(apiResource);
@@ -90,7 +85,10 @@ export const analyzeApiResources = (
           return {
             ...analyzed,
             resourceTree: [...analyzed.resourceTree, group],
-            resourcesSeverity: maxResourcesSeverity(),
+            resourcesSeverity: statusSeverity.max(
+              analyzed.resourcesSeverity,
+              group.status.maxSeverity,
+            ),
             resourceOnNodeStatusList: [
               ...analyzed.resourceOnNodeStatusList,
               ...filterApiPrimitive(apiPrimitiveList)
@@ -113,7 +111,10 @@ export const analyzeApiResources = (
           return {
             ...analyzed,
             resourceTree: [...analyzed.resourceTree, clone],
-            resourcesSeverity: maxResourcesSeverity(),
+            resourcesSeverity: statusSeverity.max(
+              analyzed.resourcesSeverity,
+              clone.status.maxSeverity,
+            ),
             resourceOnNodeStatusList: [
               ...analyzed.resourceOnNodeStatusList,
               ...apiPrimitiveList.map(takeResourceOnNodeStatus).flat(),
