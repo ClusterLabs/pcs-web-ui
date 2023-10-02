@@ -59,10 +59,14 @@ var pcsUiEnvAdapter = {
         window.history[replace ? replaceState : pushState](null, "", to),
     };
   })(),
-  user: async () =>
-    Promise.resolve({
-      // user who is not in group haclient cannot login => logged user is
-      // in group haclient
-      isHaclient: true,
-    }),
+  user: {
+    isHaclient: async () =>
+      // user who is not in group haclient cannot login => logged user is in
+      // the group haclient
+      Promise.resolve(true),
+    isSuperuser: false,
+    addChangeListener: () => {
+      // no change to listen in standalone mode
+    },
+  },
 };

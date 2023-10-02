@@ -23,7 +23,7 @@ export const AppRouter = () => {
     return <AppLoadingUserInfo />;
   }
 
-  if (!user.isHaclient) {
+  if (!(user.isHaclient || user.isSuperuser)) {
     return <AppUserNotHaclient />;
   }
 

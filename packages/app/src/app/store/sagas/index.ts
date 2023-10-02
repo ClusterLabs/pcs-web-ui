@@ -1,4 +1,4 @@
-import {all} from "redux-saga/effects";
+import {all, takeEvery as takeEverySaga} from "redux-saga/effects";
 
 /* eslint-disable import/max-dependencies */
 import {fork, takeEvery} from "./common";
@@ -45,6 +45,7 @@ function* rootSaga() {
     fork(dataLoad.manage, cluster.clusterDataSyncOptions),
     takeEvery("USERNAME.LOAD", username.usernameLoad),
     takeEvery("USER.INIT", user.init),
+    takeEverySaga(user.changeChannel, user.changed),
     takeEvery("AUTH.SUCCESS", username.checkLogin),
     takeEvery("LOGIN.LOGOUT", login.logoutSaga),
     takeEvery("LOGIN.ENTER_CREDENTIALS", login.loginSaga),

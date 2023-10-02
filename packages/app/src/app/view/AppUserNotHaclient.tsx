@@ -22,7 +22,7 @@ export const AppUserNotHaclient = () => {
               </Title>
               <EmptyStateBody>
                 To access HA clusters management you need to be in the group
-                haclient.
+                haclient or gain administrative access.
               </EmptyStateBody>
             </EmptyState>
           </PageSection>
