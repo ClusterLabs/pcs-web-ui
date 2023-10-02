@@ -3,9 +3,9 @@ import {useSelector} from "react-redux";
 
 import {selectors} from "app/store";
 import {Router, useDispatch, useRoute} from "app/view/share";
+import {ClusterApp} from "app/view/cluster";
+import {DashboardApp} from "app/view/dashboard";
 
-import {ClusterApp} from "./cluster";
-import {DashboardApp} from "./dashboard";
 import {AppLoadingUserInfo} from "./AppLoadingUserInfo";
 import {AppUserNotHaclient} from "./AppUserNotHaclient";
 
