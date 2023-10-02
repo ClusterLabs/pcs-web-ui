@@ -8,6 +8,7 @@ const clusterNameList: AppReducer<string[]> = (state = [], action) => {
       return action.payload.clusterNameList;
 
     case "AUTH.REQUIRED":
+    case "USER.PERMISSIONS_LOST":
       return [];
 
     default:
@@ -27,6 +28,7 @@ const dataFetch: AppReducer<"NOT_STARTED" | "IN_PROGRESS" | "SUCCESS"> = (
       return "SUCCESS";
 
     case "AUTH.REQUIRED":
+    case "USER.PERMISSIONS_LOST":
       return "NOT_STARTED";
 
     default:
