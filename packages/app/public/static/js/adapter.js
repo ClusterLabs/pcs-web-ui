@@ -60,11 +60,10 @@ var pcsUiEnvAdapter = {
     };
   })(),
   user: {
-    isHaclient: async () =>
-      // user who is not in group haclient cannot login => logged user is in
-      // the group haclient
-      Promise.resolve(true),
-    isSuperuser: false,
+    // user who is not in group haclient cannot login => logged user is in the
+    // group haclient
+    isHaclient: async () => Promise.resolve(true),
+    isSuperuser: () => false,
     addChangeListener: () => {
       // no change to listen in standalone mode
     },
