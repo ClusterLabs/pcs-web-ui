@@ -45,6 +45,12 @@ const load: AppReducer<ClusterStatusService["load"]> = (
         currently: false,
       };
 
+    case "CLUSTER.STATUS.FETCH.FAIL":
+      return {
+        ...state,
+        currently: false,
+      };
+
     case "CLUSTER.STATUS.FETCH.FORBIDDEN":
       return {
         ...state,
