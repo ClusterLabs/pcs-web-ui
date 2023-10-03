@@ -31,6 +31,7 @@ export const PrepareNodesFooter = () => {
       )}
       <TaskButtonBack {...back.mark} />
       <TaskButtonReviewAndFinish
+        disabled={!isClusterNameAndNodeCheckDoneValid}
         label="Review and setup cluster"
         {...reviewAndFinish.mark}
       />
