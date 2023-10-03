@@ -35,6 +35,7 @@ export const notifications: AppReducer<
     }
 
     case "AUTH.REQUIRED":
+    case "USER.PERMISSIONS_LOST":
       return [];
 
     default:

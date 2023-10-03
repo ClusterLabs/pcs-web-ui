@@ -30,7 +30,10 @@ export const clusterStorage: AppReducer<ClusterStorage> = (
   state = {},
   action,
 ) => {
-  if (action.type === "AUTH.REQUIRED") {
+  if (
+    action.type === "AUTH.REQUIRED"
+    || action.type === "USER.PERMISSIONS_LOST"
+  ) {
     return {};
   }
   if ("key" in action && "clusterName" in action.key) {
