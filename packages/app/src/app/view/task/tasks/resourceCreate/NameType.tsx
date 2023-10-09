@@ -41,6 +41,7 @@ export const NameType = () => {
     <TaskLibStep
       title="Choose name and type for the new resource"
       reports={reports}
+      {...nameType.mark}
     >
       <Form>
         <FormText

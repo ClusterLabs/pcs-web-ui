@@ -24,6 +24,7 @@ import {NvPairEdit} from "./nvpairEdit";
 import {PermissionEdit} from "./permissionEdit";
 import {ResourcePrimitiveGroupChange} from "./resourcePrimitiveGroupChange";
 import {ResourceCreate} from "./resourceCreate";
+import {ResourceMove} from "./resourceMove";
 import {ResourceGroupCreate} from "./resourceGroupCreate";
 import {SbdConfigure} from "./sbdConfigure";
 import {SbdDisable} from "./sbdDisable";
@@ -54,6 +55,7 @@ export const taskMap = {
   permissionEdit: PermissionEdit,
   primitiveGroupChange: ResourcePrimitiveGroupChange,
   resourceCreate: ResourceCreate,
+  resourceMove: ResourceMove,
   resourceGroup: ResourceGroupCreate,
   sbdConfigure: SbdConfigure,
   sbdDisable: SbdDisable,

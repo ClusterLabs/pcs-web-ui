@@ -1,9 +1,11 @@
 import {Group} from "app/view/cluster/types";
+import {useOpenTask} from "app/view/task";
 import {LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
 export const GroupPageToolbar = ({group}: {group: Group}) => {
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
   const unclone: ToolbarItem = {
     name: "unclone",
     confirm: {
@@ -34,5 +36,23 @@ export const GroupPageToolbar = ({group}: {group: Group}) => {
       },
     },
   };
-  return <DetailToolbar buttonsItems={[group.inClone ? unclone : clone]} />;
+  return (
+    <DetailToolbar
+      buttonsItems={[
+        group.inClone ? unclone : clone,
+        {
+          name: "move",
+          run: () =>
+            openTask("resourceMove", {
+              type: "RESOURCE.MOVE.OPEN",
+              key: {clusterName},
+              payload: {
+                clusterName,
+                resourceId: group.id,
+              },
+            }),
+        },
+      ]}
+    />
+  );
 };

@@ -81,6 +81,16 @@ export type Commands = [
     };
   },
   {
+    name: "resource-move-autoclean";
+    payload: {
+      resource_id: string;
+      node?: string;
+      master?: boolean;
+      wait_timeout?: number;
+      strict?: boolean;
+    };
+  },
+  {
     name: "resource-create-as-clone";
     payload: {
       resource_id: string;
