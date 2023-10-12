@@ -28,3 +28,28 @@ export const wrapTasks =
       {} as ReducersMap<STATE>,
     );
   };
+
+export type ClusterTasks = [
+  "aclRoleCreate",
+  "aclRolePermissionAdd",
+  "aclSubjectAssign",
+  "aclSubjectCreate",
+  "constraintColocationCreate",
+  "constraintColocationSetCreate",
+  "constraintLocationCreate",
+  "constraintOrderCreate",
+  "constraintOrderSetCreate",
+  "constraintTicketCreate",
+  "constraintTicketSetCreate",
+  "fenceDeviceArgsEdit",
+  "fenceDeviceCreate",
+  "fixAuth",
+  "nodeAdd",
+  "nvpairEdit",
+  "permissionEdit",
+  "primitiveGroupChange",
+  "resourceCreate",
+  "resourceGroup",
+  "sbdConfigure",
+  "sbdDisable",
+];

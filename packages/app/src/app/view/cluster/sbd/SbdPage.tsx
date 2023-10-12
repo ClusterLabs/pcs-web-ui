@@ -1,11 +1,10 @@
 import {Grid, GridItem, PageSection} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Card, ClusterToolbar, TaskOpenArgs} from "app/view/share";
+import {Card, ClusterToolbar} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 import {selectSbdConfig} from "./select";
-import * as task from "./task";
 import {SbdServiceStatus} from "./SbdServiceStatus";
 import {SbdConfiguration} from "./SbdConfiguration";
 import {SbdOnNodes} from "./SbdOnNodes";
@@ -25,7 +24,7 @@ const extractTimeoutAction = <VALUE extends string>(
 
 const {sbd, sbdToolbar} = testMarks.cluster;
 export const SbdPage = () => {
-  const {nodeList} = useLoadedCluster();
+  const {nodeList, clusterName} = useLoadedCluster();
   const sbdConfig = selectSbdConfig(nodeList);
 
   const configureOpenPayload = {
@@ -50,29 +49,23 @@ export const SbdPage = () => {
     }, {}),
   };
 
-  const configureOpenArgs: TaskOpenArgs<typeof task.configure.useTask> = [
-    configureOpenPayload,
-  ];
-
   return (
     <>
       <ClusterToolbar
         buttonsItems={[
           {
             name: "configure-SBD",
-            task: {
-              component: task.configure.SbdConfigureTask,
-              useTask: task.configure.useTask,
-              openArgs: configureOpenArgs,
+            taskName: "sbdConfigure",
+            taskInitAction: {
+              type: "CLUSTER.SBD.CONFIGURE",
+              key: {clusterName},
+              payload: configureOpenPayload,
             },
             ...sbdToolbar.configureSbd.mark,
           },
           {
             name: "disable-SBD",
-            task: {
-              component: task.disable.SbdDisableTask,
-              useTask: task.disable.useTask,
-            },
+            taskName: "sbdDisable",
             ...sbdToolbar.disableSbd.mark,
           },
         ]}

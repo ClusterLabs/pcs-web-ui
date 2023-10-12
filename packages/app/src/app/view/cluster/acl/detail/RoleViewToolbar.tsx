@@ -1,12 +1,6 @@
 import {testMarks} from "app/view/dataTest";
-import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
+import {LauncherDropdown} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
-
-import * as task from "./task";
-
-type AssignSubjectOpenArgs = TaskOpenArgs<
-  typeof task.assignSubjectToRole.useTask
->;
 
 const {toolbar} = testMarks.cluster.acl.currentRole;
 const {dropdown} = toolbar;
@@ -14,30 +8,22 @@ const {dropdown} = toolbar;
 export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
   const {clusterName} = useLoadedCluster();
 
-  const assignUserOpenArgs: AssignSubjectOpenArgs = [
-    {subjectType: "user", roleId},
-  ];
-  const assignGroupOpenArgs: AssignSubjectOpenArgs = [
-    {subjectType: "group", roleId},
-  ];
   return (
     <DetailToolbar
       buttonsItems={[
         {
           name: "assign-user",
-          task: {
-            component: task.assignSubjectToRole.Task,
-            useTask: task.assignSubjectToRole.useTask,
-            openArgs: assignUserOpenArgs,
+          taskName: "aclSubjectAssign",
+          taskInitAction: {
+            type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
+            key: {clusterName},
+            payload: {subjectType: "user", roleId},
           },
           ...toolbar.assignUser.mark,
         },
         {
           name: "add-permissions",
-          task: {
-            component: task.addPermissionToRole.Task,
-            useTask: task.addPermissionToRole.useTask,
-          },
+          taskName: "aclRolePermissionAdd",
           ...toolbar.addPermissions.mark,
         },
       ]}
@@ -46,10 +32,11 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
           items={[
             {
               name: "assign-group",
-              task: {
-                component: task.assignSubjectToRole.Task,
-                useTask: task.assignSubjectToRole.useTask,
-                openArgs: assignGroupOpenArgs,
+              taskName: "aclSubjectAssign",
+              taskInitAction: {
+                type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
+                key: {clusterName},
+                payload: {subjectType: "group", roleId},
               },
               ...dropdown.assignGroup.mark,
             },

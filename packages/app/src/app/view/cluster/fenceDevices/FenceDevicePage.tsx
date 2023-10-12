@@ -9,7 +9,6 @@ import {
   useLoadedCluster,
 } from "app/view/cluster/share";
 
-import * as task from "./task";
 import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
 import {FenceDeviceList} from "./list";
 
@@ -24,10 +23,7 @@ export const FenceDevicePage = () => {
         buttonsItems={[
           {
             name: "create-fence-device",
-            task: {
-              component: task.create.FenceDeviceCreate,
-              useTask: task.create.useTask,
-            },
+            taskName: "fenceDeviceCreate",
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),

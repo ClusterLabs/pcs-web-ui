@@ -1,8 +1,7 @@
 import {testMarks} from "app/view/dataTest";
-import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
+import {LauncherDropdown} from "app/view/share";
 
 import {useLoadedPermissions} from "./LoadedPermissionsContext";
-import * as task from "./task";
 import {Permission} from "./types";
 
 const {actions} = testMarks.cluster.permissions.permission;
@@ -16,18 +15,16 @@ export const PermissionMenu = ({
 }) => {
   const {clusterName} = useLoadedPermissions();
 
-  const addOpenArgs: TaskOpenArgs<typeof task.add.useTask> = [
-    {type: "update", permission},
-  ];
   return (
     <LauncherDropdown
       items={[
         {
           name: "edit",
-          task: {
-            component: task.add.PermissionTask,
-            useTask: task.add.useTask,
-            openArgs: addOpenArgs,
+          taskName: "permissionEdit",
+          taskInitAction: {
+            type: "CLUSTER.PERMISSIONS.EDIT",
+            key: {clusterName, task: "permissionEdit"},
+            payload: {type: "update", permission},
           },
           ...actions.edit.mark,
         },

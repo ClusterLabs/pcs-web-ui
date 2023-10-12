@@ -1,4 +1,4 @@
-import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
+import {LauncherDropdown} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 
 import * as task from "./task";
@@ -16,24 +16,22 @@ export const NVPairListItemMenu = (props: {
   const {clusterName} = useLoadedCluster();
   const {nvPairList, owner} = useNVPairListContext();
   const nvPair = useNVPairListItemContext();
-  const editOpenArgs: TaskOpenArgs<typeof task.edit.useTask> = [
-    {
-      type: "update",
-      owner,
-      name: nvPair.name,
-      value: nvPair.value,
-      nameList: nvPairList.map(pair => pair.name),
-    },
-  ];
   return (
     <LauncherDropdown
       items={[
         props.launcherEdit({
           name: "edit",
-          task: {
-            component: task.edit.Task,
-            useTask: task.edit.useTask,
-            openArgs: editOpenArgs,
+          taskName: "nvpairEdit",
+          taskInitAction: {
+            type: "CLUSTER.NVPAIRS.EDIT",
+            key: {clusterName, task: "nvpairEdit"},
+            payload: {
+              type: "update",
+              owner,
+              name: nvPair.name,
+              value: nvPair.value,
+              nameList: nvPairList.map(pair => pair.name),
+            },
           },
         }),
         props.launcherRemove({

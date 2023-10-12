@@ -6,6 +6,7 @@ import {
   useClusterLoad,
 } from "app/view/cluster/share";
 
+import {TaskContainter} from "./task";
 import {ClusterPermissionsPage, LoadedPermissionsProvider} from "./permissions";
 import {ClusterAppLayout} from "./ClusterAppLayout";
 import {ClusterAppBreadcrumbs} from "./ClusterAppBreadcrumbs";
@@ -108,6 +109,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
               uiState: clusterInfo.uiState,
             }}
           >
+            <TaskContainter clusterName={clusterName} />
             <TabComponent />
           </ClusterSourcesProvider>
         );

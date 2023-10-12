@@ -11,7 +11,6 @@ import {
 
 import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";
-import * as task from "./task";
 
 const {resources, resourcesToolbar} = testMarks.cluster;
 
@@ -26,10 +25,7 @@ export const ResourcesPage = () => {
         buttonsItems={[
           {
             name: "create-resource",
-            task: {
-              component: task.create.ResourceCreate,
-              useTask: task.create.useTask,
-            },
+            taskName: "resourceCreate",
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),
@@ -37,10 +33,7 @@ export const ResourcesPage = () => {
           },
           {
             name: "create-group",
-            task: {
-              component: task.createGroup.ResourceCreateGroup,
-              useTask: task.createGroup.useTask,
-            },
+            taskName: "resourceGroup",
             launchDisable: launchDisable(
               "Cannot create resource group on stopped cluster",
             ),

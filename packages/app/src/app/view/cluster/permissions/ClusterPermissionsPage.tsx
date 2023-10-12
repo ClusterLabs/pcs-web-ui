@@ -1,25 +1,26 @@
 import {PageSection} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {ClusterToolbar, TaskOpenArgs} from "app/view/share";
+import {ClusterToolbar} from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
 
-import * as task from "./task";
 import {PermissionsTable} from "./PermissionsTable";
 
 const {permissionsToolbar} = testMarks.cluster;
 
 export const ClusterPermissionsPage = () => {
-  const addOpenArgs: TaskOpenArgs<typeof task.add.useTask> = [{type: "create"}];
+  const {clusterName} = useLoadedCluster();
   return (
     <>
       <ClusterToolbar
         buttonsItems={[
           {
             name: "create-permission",
-            task: {
-              component: task.add.PermissionTask,
-              useTask: task.add.useTask,
-              openArgs: addOpenArgs,
+            taskName: "permissionEdit",
+            taskInitAction: {
+              type: "CLUSTER.PERMISSIONS.EDIT",
+              key: {clusterName, task: "permissionEdit"},
+              payload: {type: "create"},
             },
             ...permissionsToolbar.createPermission.mark,
           },

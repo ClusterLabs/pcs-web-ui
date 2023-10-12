@@ -8,7 +8,6 @@ import {
 
 import {NodeDetailPage} from "./NodeDetailPage";
 import {NodeList} from "./NodeList";
-import * as task from "./task";
 
 const {nodes, nodesToolbar} = testMarks.cluster;
 export const NodesPage = () => {
@@ -19,10 +18,7 @@ export const NodesPage = () => {
         buttonsItems={[
           {
             name: "add-node",
-            task: {
-              component: task.add.NodeAdd,
-              useTask: task.add.useTask,
-            },
+            taskName: "nodeAdd",
             ...nodesToolbar.addNode.mark,
           },
         ]}

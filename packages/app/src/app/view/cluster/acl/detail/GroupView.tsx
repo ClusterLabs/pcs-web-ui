@@ -1,5 +1,4 @@
 import {testMarks} from "app/view/dataTest";
-import {TaskOpenArgs} from "app/view/share";
 import {
   DetailLayout,
   DetailToolbar,
@@ -8,10 +7,7 @@ import {
 
 import {AclType} from "../types";
 
-import * as task from "./task";
 import {RolesAssignedTo} from "./RolesAssignedTo";
-
-type AssignRoleOpenArgs = TaskOpenArgs<typeof task.assignSubjectToRole.useTask>;
 
 const {currentGroup} = testMarks.cluster.acl;
 
@@ -23,10 +19,6 @@ export const GroupView = ({
   roleIdList: AclType<"user" | "group">;
 }) => {
   const {clusterName} = useLoadedCluster();
-
-  const assignRoleOpenArgs: AssignRoleOpenArgs = [
-    {subjectType: "group", subjectId: groupId},
-  ];
 
   return (
     <DetailLayout
@@ -40,10 +32,11 @@ export const GroupView = ({
           buttonsItems={[
             {
               name: "assign-role",
-              task: {
-                component: task.assignSubjectToRole.Task,
-                useTask: task.assignSubjectToRole.useTask,
-                openArgs: assignRoleOpenArgs,
+              taskName: "aclSubjectAssign",
+              taskInitAction: {
+                type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
+                key: {clusterName},
+                payload: {subjectType: "group", subjectId: groupId},
               },
             },
             {

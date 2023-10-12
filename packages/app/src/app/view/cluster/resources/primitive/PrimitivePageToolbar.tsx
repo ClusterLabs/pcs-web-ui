@@ -1,10 +1,6 @@
 import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
-import {
-  LauncherDropdown,
-  TaskOpenArgs,
-  LauncherItem as ToolbarItem,
-} from "app/view/share";
+import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
 import * as task from "./task";
@@ -210,9 +206,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
     ...toolbar.enable.mark,
   };
 
-  const groupChangeOpenArgs: TaskOpenArgs<typeof task.groupChange.useTask> = [
-    primitive,
-  ];
   return (
     <>
       <DetailToolbar
@@ -225,10 +218,19 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
             items={[
               {
                 name: "change-group",
-                task: {
-                  component: task.groupChange.Task,
-                  useTask: task.groupChange.useTask,
-                  openArgs: groupChangeOpenArgs,
+                taskName: "primitiveGroupChange",
+                taskInitAction: {
+                  type: "RESOURCE.GROUP.CHANGE.UPDATE",
+                  key: {clusterName},
+                  payload: {
+                    resourceId: primitive.id,
+                    oldGroupId: primitive.inGroup ?? "",
+                    groupId: primitive.inGroup ?? "",
+                    action:
+                      primitive.inGroup !== null && primitive.inGroup !== ""
+                        ? "move-in-group"
+                        : "set-group",
+                  },
                 },
                 disabled: !canChangeGroup(primitive),
                 ...toolbar.dropdown.changeGroup.mark,

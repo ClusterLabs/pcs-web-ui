@@ -2,16 +2,12 @@ import {StackItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
-import {TaskOpenArgs} from "app/view/share";
 import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
+  useLoadedCluster,
 } from "app/view/cluster/share";
-
-import * as task from "./task";
-
-type EditArgsOpenArgs = TaskOpenArgs<typeof task.editArgs.useTask>;
 
 const {argumentsToolbar} = testMarks.cluster.fenceDevices.currentFenceDevice;
 
@@ -20,6 +16,7 @@ export const FenceDeviceArgumentsView = ({
 }: {
   fenceDevice: FenceDevice;
 }) => {
+  const {clusterName} = useLoadedCluster();
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   const fenceDeviceArguments = Object.entries(fenceDevice.arguments).reduce(
     (nameValueMap, [name, {value}]) => ({...nameValueMap, [name]: value}),
@@ -29,13 +26,6 @@ export const FenceDeviceArgumentsView = ({
   return (
     <LoadedPcmkAgent agentName={fenceDevice.agentName}>
       {agent => {
-        const editArgsOpenArgs: EditArgsOpenArgs = [
-          {
-            fenceDeviceId: fenceDevice.id,
-            fenceDeviceArguments,
-            agentParameters: agent.parameters,
-          },
-        ];
         return (
           <>
             <StackItem {...argumentsToolbar.mark}>
@@ -44,10 +34,15 @@ export const FenceDeviceArgumentsView = ({
                 buttonsItems={[
                   {
                     name: "edit-arguments",
-                    task: {
-                      component: task.editArgs.EditArgsTask,
-                      useTask: task.editArgs.useTask,
-                      openArgs: editArgsOpenArgs,
+                    taskName: "fenceDeviceArgsEdit",
+                    taskInitAction: {
+                      type: "FENCE_DEVICE.EDIT_ARGS.OPEN",
+                      key: {clusterName},
+                      payload: {
+                        fenceDeviceId: fenceDevice.id,
+                        fenceDeviceArguments,
+                        agentParameters: agent.parameters,
+                      },
                     },
                     button: {variant: "primary"},
                     ...argumentsToolbar.edit.mark,
