@@ -1,4 +1,3 @@
-import {ActionPayload} from "app/store";
 import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
 import {getAssignedSubjectIdList} from "app/view/cluster/acl/detail/tools";
 
@@ -35,15 +34,6 @@ export const useTask = () => {
     ),
 
     //actions
-    open: (payload: ActionPayload["CLUSTER.ACL.SUBJECT_ROLE.ASSIGN"]) => {
-      dispatch({
-        type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-        key: {clusterName},
-        payload,
-      });
-      task.open();
-    },
-
     updateAssigneeId: (id: string) =>
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.ASSIGN.UPDATE",

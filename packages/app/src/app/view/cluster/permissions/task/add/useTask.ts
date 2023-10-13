@@ -29,14 +29,6 @@ export const useTask = () => {
     isCreate,
     clusterName,
     dispatch,
-    open: (payload: ActionPayload["CLUSTER.PERMISSIONS.EDIT"]) => {
-      dispatch({
-        type: "CLUSTER.PERMISSIONS.EDIT",
-        key,
-        payload,
-      });
-      openClose.open();
-    },
 
     isNameValid: state.name.length > 0,
     areCompetenciesValid:

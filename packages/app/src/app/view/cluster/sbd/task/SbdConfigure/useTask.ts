@@ -32,15 +32,6 @@ export const useTask = () => {
     isWatchdogTimeoutValid: /^(\d*)$/.test(state.watchdogTimeout),
 
     //actions
-    open: (payload: ActionPayload["CLUSTER.SBD.CONFIGURE"]) => {
-      dispatch({
-        type: "CLUSTER.SBD.CONFIGURE",
-        key: {clusterName},
-        payload,
-      });
-      task.open();
-    },
-
     close: () => {
       task.close();
       dispatch({

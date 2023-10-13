@@ -16,15 +16,6 @@ export const useTask = () => {
     ),
 
     //actions
-    open: (payload: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE"]) => {
-      dispatch({
-        type: "CLUSTER.ACL.SUBJECT.CREATE",
-        key: {clusterName},
-        payload,
-      });
-      task.open();
-    },
-
     updateState: (
       payload: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE.UPDATE"],
     ) =>

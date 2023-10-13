@@ -35,19 +35,11 @@ const prepareAttributes = (
 
 export const useTask = () => {
   const task = useClusterTask("fenceDeviceArgsEdit");
-  const {open, dispatch, clusterName, state} = task;
+  const {dispatch, clusterName, state} = task;
   const key = {clusterName};
 
   return {
     ...task,
-    open: (payload: OpenPayload) => {
-      dispatch({
-        type: "FENCE_DEVICE.EDIT_ARGS.OPEN",
-        key,
-        payload,
-      });
-      open();
-    },
 
     update: (name: string, value: string) =>
       dispatch({

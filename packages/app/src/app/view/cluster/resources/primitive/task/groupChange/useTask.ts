@@ -60,22 +60,5 @@ export const useTask = () => {
       });
       task.close();
     },
-
-    open: (primitive: Primitive) => {
-      dispatch({
-        type: "RESOURCE.GROUP.CHANGE.UPDATE",
-        key: {clusterName},
-        payload: {
-          resourceId: primitive.id,
-          oldGroupId: primitive.inGroup ?? "",
-          groupId: primitive.inGroup ?? "",
-          action:
-            primitive.inGroup !== null && primitive.inGroup !== ""
-              ? "move-in-group"
-              : "set-group",
-        },
-      });
-      task.open();
-    },
   };
 };

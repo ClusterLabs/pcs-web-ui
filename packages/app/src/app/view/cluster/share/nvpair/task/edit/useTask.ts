@@ -28,15 +28,6 @@ export const useTask = () => {
     isNameValid: state.name.length > 0,
     isNameUsed: state.existingNameList.includes(state.name),
 
-    open: (payload: ActionPayload["CLUSTER.NVPAIRS.EDIT"]) => {
-      dispatch({
-        type: "CLUSTER.NVPAIRS.EDIT",
-        key,
-        payload,
-      });
-      task.open();
-    },
-
     updateState: (payload: ActionPayload["CLUSTER.NVPAIRS.EDIT.UPDATE"]) =>
       dispatch({
         type: "CLUSTER.NVPAIRS.EDIT.UPDATE",
