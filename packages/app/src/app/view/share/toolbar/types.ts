@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Button} from "@patternfly/react-core";
 
-import {Action, ClusterTasks} from "app/store";
+import {Action, selectors} from "app/store";
 
 type Task = {
   component: React.FunctionComponent;
@@ -33,7 +33,7 @@ type ItemRun = {
 };
 
 type ItemTaskOpen = {
-  taskName: ClusterTasks[number];
+  taskName: Parameters<typeof selectors.getClusterTask>[0];
   taskInitAction?: Action;
 };
 

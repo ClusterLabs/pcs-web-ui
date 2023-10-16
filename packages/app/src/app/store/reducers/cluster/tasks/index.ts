@@ -1,7 +1,6 @@
 import {combineReducers} from "redux";
 
 import {
-  ClusterTasks,
   ReducersMapKey,
   Task,
   TaskState,
@@ -75,5 +74,5 @@ export const tasks = combineReducers(
     aclRolePermissionAdd,
     aclSubjectCreate,
     aclSubjectAssign,
-  } satisfies Record<ClusterTasks[number], unknown>),
+  }),
 );

@@ -1,6 +1,6 @@
 import React from "react";
 
-import {ClusterTasks} from "app/store";
+import {useClusterSources} from "app/view/cluster/share";
 import * as resourceTask from "app/view/cluster/resources/task";
 import * as permissionTask from "app/view/cluster/permissions/task";
 import * as aclTask from "app/view/cluster/acl/task";
@@ -12,6 +12,8 @@ import * as sbdTask from "app/view/cluster/sbd/task";
 import * as fenceDeviceTask from "app/view/cluster/fenceDevices/task";
 import * as fenceDeviceArgumentsTask from "app/view/cluster/fenceDevices/arguments/task";
 import * as nvpairTask from "app/view/cluster/share/nvpair/task";
+
+type TaskNames = keyof ReturnType<typeof useClusterSources>["tasks"];
 
 export const taskMap = {
   aclRoleCreate: aclTask.createRole.Task,
@@ -36,7 +38,4 @@ export const taskMap = {
   sbdConfigure: sbdTask.configure.SbdConfigureTask,
   sbdDisable: sbdTask.disable.SbdDisableTask,
   // fixAuth: ,
-} satisfies Record<
-  Exclude<ClusterTasks[number], "fixAuth">,
-  React.FunctionComponent
->;
+} satisfies Record<Exclude<TaskNames, "fixAuth">, React.FunctionComponent>;
