@@ -2,12 +2,8 @@ import {Form} from "@patternfly/react-core";
 
 import {clusterSetup} from "app/backend";
 import {testMarks} from "app/view/dataTest";
-import {
-  FormRadios,
-  FormText,
-  TaskLibStep,
-  help as helpAll,
-} from "app/view/share";
+import {FormRadios, FormText, TaskLibStep} from "app/view/share";
+import * as helpAll from "app/view/share/help";
 
 import {useTask} from "./useTask";
 

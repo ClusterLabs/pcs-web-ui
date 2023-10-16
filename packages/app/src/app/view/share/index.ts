@@ -35,4 +35,3 @@ export * as task from "./tasks";
 export * from "./compareStatusSeverity";
 export * from "./constraints";
 export * from "./router";
-export * as help from "./help";

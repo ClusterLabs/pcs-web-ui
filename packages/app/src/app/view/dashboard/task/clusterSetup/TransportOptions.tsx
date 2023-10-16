@@ -1,13 +1,8 @@
 import {Form, FormFieldGroup, Text, TextContent} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {
-  FormRadios,
-  FormSelect,
-  FormText,
-  TaskLibStep,
-  help as helpAll,
-} from "app/view/share";
+import {FormRadios, FormSelect, FormText, TaskLibStep} from "app/view/share";
+import * as helpAll from "app/view/share/help";
 
 import {useTask} from "./useTask";
 
