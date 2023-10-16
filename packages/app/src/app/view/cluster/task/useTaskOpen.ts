@@ -2,11 +2,7 @@ import {Action} from "app/store";
 import {useDispatch} from "app/view/share/useDispatch";
 import {useClusterSources} from "app/view/cluster/share";
 
-export const useTaskOpen = () => {
-  const {
-    loadedCluster: {clusterName},
-  } = useClusterSources();
-
+export const useOpenTask = (clusterName: string) => {
   const dispatch = useDispatch();
 
   return (

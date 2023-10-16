@@ -5,20 +5,22 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {useOpenTask} from "app/view/cluster/task";
 
 import {NodeDetailPage} from "./NodeDetailPage";
 import {NodeList} from "./NodeList";
 
 const {nodes, nodesToolbar} = testMarks.cluster;
 export const NodesPage = () => {
-  const {nodeList} = useLoadedCluster();
+  const {nodeList, clusterName} = useLoadedCluster();
+  const openTask = useOpenTask(clusterName);
   return (
     <>
       <ClusterToolbar
         buttonsItems={[
           {
             name: "add-node",
-            taskName: "nodeAdd",
+            run: () => openTask("nodeAdd"),
             ...nodesToolbar.addNode.mark,
           },
         ]}

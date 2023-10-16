@@ -2,6 +2,7 @@ import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {useOpenTask} from "app/view/cluster/task";
 
 import * as task from "./task";
 
@@ -22,6 +23,7 @@ const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   const {canChange: canChangeGroup} = task.groupChange.useTask();
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask(clusterName);
 
   const unclone: ToolbarItem = {
     name: "unclone",
@@ -218,20 +220,20 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
             items={[
               {
                 name: "change-group",
-                taskName: "primitiveGroupChange",
-                taskInitAction: {
-                  type: "RESOURCE.GROUP.CHANGE.UPDATE",
-                  key: {clusterName},
-                  payload: {
-                    resourceId: primitive.id,
-                    oldGroupId: primitive.inGroup ?? "",
-                    groupId: primitive.inGroup ?? "",
-                    action:
-                      primitive.inGroup !== null && primitive.inGroup !== ""
-                        ? "move-in-group"
-                        : "set-group",
-                  },
-                },
+                run: () =>
+                  openTask("primitiveGroupChange", {
+                    type: "RESOURCE.GROUP.CHANGE.UPDATE",
+                    key: {clusterName},
+                    payload: {
+                      resourceId: primitive.id,
+                      oldGroupId: primitive.inGroup ?? "",
+                      groupId: primitive.inGroup ?? "",
+                      action:
+                        primitive.inGroup !== null && primitive.inGroup !== ""
+                          ? "move-in-group"
+                          : "set-group",
+                    },
+                  }),
                 disabled: !canChangeGroup(primitive),
                 ...toolbar.dropdown.changeGroup.mark,
               },

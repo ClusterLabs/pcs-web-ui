@@ -3,6 +3,7 @@ import {
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
+import {useOpenTask} from "app/view/cluster/task";
 
 import {useNVPairListContext} from "./NVPairListContext";
 
@@ -16,6 +17,7 @@ export const NVPairToolbar = (props: {
   "data-test"?: string;
 }) => {
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask(clusterName);
   const {owner, nvPairList} = useNVPairListContext();
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
@@ -24,16 +26,16 @@ export const NVPairToolbar = (props: {
         props.launcherCreate({
           name: "create",
           label: props.createLabel,
-          taskName: "nvpairEdit",
-          taskInitAction: {
-            type: "CLUSTER.NVPAIRS.EDIT",
-            key: {clusterName, task: "nvpairEdit"},
-            payload: {
-              type: "create",
-              owner,
-              nameList: nvPairList.map(pair => pair.name),
-            },
-          },
+          run: () =>
+            openTask("nvpairEdit", {
+              type: "CLUSTER.NVPAIRS.EDIT",
+              key: {clusterName, task: "nvpairEdit"},
+              payload: {
+                type: "create",
+                owner,
+                nameList: nvPairList.map(pair => pair.name),
+              },
+            }),
           launchDisable: launchDisable(
             "Cannot create attribute on stopped cluster",
           ),

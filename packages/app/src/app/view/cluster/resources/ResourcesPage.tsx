@@ -8,6 +8,7 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {useOpenTask} from "app/view/cluster/task";
 
 import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";
@@ -15,7 +16,8 @@ import {ResourceTree} from "./tree/ResourceTree";
 const {resources, resourcesToolbar} = testMarks.cluster;
 
 export const ResourcesPage = () => {
-  const {resourceTree} = useLoadedCluster();
+  const {resourceTree, clusterName} = useLoadedCluster();
+  const openTask = useOpenTask(clusterName);
 
   const launchDisable = useLauncherDisableClusterNotRunning();
 
@@ -25,7 +27,7 @@ export const ResourcesPage = () => {
         buttonsItems={[
           {
             name: "create-resource",
-            taskName: "resourceCreate",
+            run: () => openTask("resourceCreate"),
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),
@@ -33,7 +35,7 @@ export const ResourcesPage = () => {
           },
           {
             name: "create-group",
-            taskName: "resourceGroup",
+            run: () => openTask("resourceGroup"),
             launchDisable: launchDisable(
               "Cannot create resource group on stopped cluster",
             ),

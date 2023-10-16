@@ -1,29 +1,31 @@
 import {testMarks} from "app/view/dataTest";
 import {LauncherDropdown} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {useOpenTask} from "app/view/cluster/task";
 
 const {toolbar} = testMarks.cluster.acl.currentRole;
 const {dropdown} = toolbar;
 
 export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask(clusterName);
 
   return (
     <DetailToolbar
       buttonsItems={[
         {
           name: "assign-user",
-          taskName: "aclSubjectAssign",
-          taskInitAction: {
-            type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-            key: {clusterName},
-            payload: {subjectType: "user", roleId},
-          },
+          run: () =>
+            openTask("aclSubjectAssign", {
+              type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
+              key: {clusterName},
+              payload: {subjectType: "user", roleId},
+            }),
           ...toolbar.assignUser.mark,
         },
         {
           name: "add-permissions",
-          taskName: "aclRolePermissionAdd",
+          run: () => openTask("aclRolePermissionAdd"),
           ...toolbar.addPermissions.mark,
         },
       ]}
@@ -32,12 +34,12 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
           items={[
             {
               name: "assign-group",
-              taskName: "aclSubjectAssign",
-              taskInitAction: {
-                type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-                key: {clusterName},
-                payload: {subjectType: "group", roleId},
-              },
+              run: () =>
+                openTask("aclSubjectAssign", {
+                  type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
+                  key: {clusterName},
+                  payload: {subjectType: "group", roleId},
+                }),
               ...dropdown.assignGroup.mark,
             },
             {

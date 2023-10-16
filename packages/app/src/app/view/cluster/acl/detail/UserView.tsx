@@ -4,6 +4,7 @@ import {
   DetailToolbar,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {useOpenTask} from "app/view/cluster/task";
 
 import {AclType} from "../types";
 
@@ -19,6 +20,7 @@ export const UserView = ({
   roleIdList: AclType<"user">;
 }) => {
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask(clusterName);
 
   return (
     <DetailLayout
@@ -32,12 +34,12 @@ export const UserView = ({
           buttonsItems={[
             {
               name: "assign-role",
-              taskName: "aclSubjectAssign",
-              taskInitAction: {
-                type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-                key: {clusterName},
-                payload: {subjectType: "user", subjectId: userId},
-              },
+              run: () =>
+                openTask("aclSubjectAssign", {
+                  type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
+                  key: {clusterName},
+                  payload: {subjectType: "user", subjectId: userId},
+                }),
             },
             {
               name: "delete-user",

@@ -8,6 +8,7 @@ import {
   PcmkAgentAttrsToolbar,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {useOpenTask} from "app/view/cluster/task";
 
 const {argumentsToolbar} = testMarks.cluster.fenceDevices.currentFenceDevice;
 
@@ -17,6 +18,7 @@ export const FenceDeviceArgumentsView = ({
   fenceDevice: FenceDevice;
 }) => {
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask(clusterName);
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   const fenceDeviceArguments = Object.entries(fenceDevice.arguments).reduce(
     (nameValueMap, [name, {value}]) => ({...nameValueMap, [name]: value}),
@@ -34,16 +36,16 @@ export const FenceDeviceArgumentsView = ({
                 buttonsItems={[
                   {
                     name: "edit-arguments",
-                    taskName: "fenceDeviceArgsEdit",
-                    taskInitAction: {
-                      type: "FENCE_DEVICE.EDIT_ARGS.OPEN",
-                      key: {clusterName},
-                      payload: {
-                        fenceDeviceId: fenceDevice.id,
-                        fenceDeviceArguments,
-                        agentParameters: agent.parameters,
-                      },
-                    },
+                    run: () =>
+                      openTask("fenceDeviceArgsEdit", {
+                        type: "FENCE_DEVICE.EDIT_ARGS.OPEN",
+                        key: {clusterName},
+                        payload: {
+                          fenceDeviceId: fenceDevice.id,
+                          fenceDeviceArguments,
+                          agentParameters: agent.parameters,
+                        },
+                      }),
                     button: {variant: "primary"},
                     ...argumentsToolbar.edit.mark,
                   },

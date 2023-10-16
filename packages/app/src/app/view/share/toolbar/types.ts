@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Button} from "@patternfly/react-core";
 
-import {Action, selectors} from "app/store";
+import {Action} from "app/store";
 
 type Task = {
   component: React.FunctionComponent;
@@ -32,11 +32,6 @@ type ItemRun = {
   run: () => void;
 };
 
-type ItemTaskOpen = {
-  taskName: Parameters<typeof selectors.getClusterTask>[0];
-  taskInitAction?: Action;
-};
-
 export type LauncherItem = {
   name: string;
   "data-test"?: string;
@@ -50,7 +45,7 @@ export type LauncherItem = {
   button?: {
     variant: React.ComponentProps<typeof Button>["variant"];
   };
-} & (ItemRun | ItemConfirm | ItemTask | ItemTaskOpen);
+} & (ItemRun | ItemConfirm | ItemTask);
 
 // export type TaskOpenParams<USE_TASK> = USE_TASK extends () => {
 //   open: (..._args: infer ARGS) => void;

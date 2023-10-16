@@ -7,6 +7,7 @@ import {
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
+import {useOpenTask} from "app/view/cluster/task";
 
 import {ConstraintFilteredList} from "./ConstraintFilteredList";
 
@@ -16,13 +17,14 @@ const {dropdown} = constraintsToolbar;
 export const ConstraintsPage = () => {
   const launchDisable = useLauncherDisableClusterNotRunning();
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask(clusterName);
   return (
     <>
       <ClusterToolbar
         buttonsItems={[
           {
             name: "create-location",
-            taskName: "constraintLocationCreate",
+            run: () => openTask("constraintLocationCreate"),
             launchDisable: launchDisable(
               "Cannot create location constraint on stopped cluster",
             ),
@@ -30,7 +32,7 @@ export const ConstraintsPage = () => {
           },
           {
             name: "create-order",
-            taskName: "constraintOrderCreate",
+            run: () => openTask("constraintOrderCreate"),
             launchDisable: launchDisable(
               "Cannot create order constraint on stopped cluster",
             ),
@@ -38,7 +40,7 @@ export const ConstraintsPage = () => {
           },
           {
             name: "create-colocation",
-            taskName: "constraintColocationCreate",
+            run: () => openTask("constraintColocationCreate"),
             launchDisable: launchDisable(
               "Cannot create colocation constraint on stopped cluster",
             ),
@@ -50,7 +52,7 @@ export const ConstraintsPage = () => {
             items={[
               {
                 name: "create-ticket",
-                taskName: "constraintTicketCreate",
+                run: () => openTask("constraintTicketCreate"),
                 launchDisable: launchDisable(
                   "Cannot create ticket constraint on stopped cluster",
                 ),
@@ -59,7 +61,7 @@ export const ConstraintsPage = () => {
               {
                 name: "create-order-set",
 
-                taskName: "constraintOrderSetCreate",
+                run: () => openTask("constraintOrderSetCreate"),
                 launchDisable: launchDisable(
                   "Cannot create order set constraint on stopped cluster",
                 ),
@@ -67,7 +69,7 @@ export const ConstraintsPage = () => {
               },
               {
                 name: "create-colocation-set",
-                taskName: "constraintColocationSetCreate",
+                run: () => openTask("constraintColocationSetCreate"),
                 launchDisable: launchDisable(
                   "Cannot create colocation set constraint on stopped cluster",
                 ),
@@ -75,7 +77,7 @@ export const ConstraintsPage = () => {
               },
               {
                 name: "create-ticket-set",
-                taskName: "constraintTicketSetCreate",
+                run: () => openTask("constraintTicketSetCreate"),
                 launchDisable: launchDisable(
                   "Cannot create ticket set constraint on stopped cluster",
                 ),

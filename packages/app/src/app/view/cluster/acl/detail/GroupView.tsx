@@ -4,6 +4,7 @@ import {
   DetailToolbar,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {useOpenTask} from "app/view/cluster/task";
 
 import {AclType} from "../types";
 
@@ -19,6 +20,7 @@ export const GroupView = ({
   roleIdList: AclType<"user" | "group">;
 }) => {
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask(clusterName);
 
   return (
     <DetailLayout
@@ -32,12 +34,12 @@ export const GroupView = ({
           buttonsItems={[
             {
               name: "assign-role",
-              taskName: "aclSubjectAssign",
-              taskInitAction: {
-                type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-                key: {clusterName},
-                payload: {subjectType: "group", subjectId: groupId},
-              },
+              run: () =>
+                openTask("aclSubjectAssign", {
+                  type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
+                  key: {clusterName},
+                  payload: {subjectType: "group", subjectId: groupId},
+                }),
             },
             {
               name: "delete-group",
