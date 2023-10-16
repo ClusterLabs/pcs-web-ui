@@ -1,6 +1,12 @@
 import {combineReducers} from "redux";
 
-import {ReducersMapKey, Task, TaskState, wrapTasks} from "app/store/taskTools";
+import {
+  ClusterTasks,
+  ReducersMapKey,
+  Task,
+  TaskState,
+  wrapTasks,
+} from "app/store/taskTools";
 
 /* eslint-disable import/max-dependencies */
 import {resourceCreate} from "./resourceCreate";
@@ -69,5 +75,5 @@ export const tasks = combineReducers(
     aclRolePermissionAdd,
     aclSubjectCreate,
     aclSubjectAssign,
-  }),
+  } satisfies Record<ClusterTasks[number], unknown>),
 );
