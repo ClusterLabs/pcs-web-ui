@@ -1,7 +1,7 @@
 import {Provider} from "react-redux";
 
 import {setupStore} from "app/store";
-import {Router} from "app/view/share";
+import {Router, TaskContainer} from "app/view/share";
 
 import {EnsureLogin} from "./login";
 import {EnsurePermissions} from "./EnsurePermissions";
@@ -17,6 +17,7 @@ export const App = ({
     <EnsureLogin>
       <EnsurePermissions>
         <Router base="/ui">
+          <TaskContainer />
           <AppRouter />
         </Router>
       </EnsurePermissions>
