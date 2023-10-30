@@ -2,15 +2,15 @@ import {PageSection} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {ClusterToolbar} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/cluster/task";
 
+import {useLoadedPermissions} from "./LoadedPermissionsContext";
 import {PermissionsTable} from "./PermissionsTable";
 
 const {permissionsToolbar} = testMarks.cluster;
 
 export const ClusterPermissionsPage = () => {
-  const {clusterName} = useLoadedCluster();
+  const {clusterName} = useLoadedPermissions();
   const openTask = useOpenTask(clusterName);
   return (
     <>
