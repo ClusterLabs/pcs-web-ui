@@ -26,7 +26,7 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
           task: {
             component: task.forceableConfirm.Task({
               runLabel: "Stop",
-              taskLabel: `Stop cluster ${clusterLabel}`,
+              taskLabel: `Stop cluster ${clusterName}`,
               description: <>Stop the cluster {clusterLabel} on all nodes</>,
               getForceableAction: ({force}) => ({
                 type: "DASHBOARD.CLUSTER.STOP",
