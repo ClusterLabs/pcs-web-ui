@@ -30,6 +30,7 @@ export const taskMap = {
   fenceDeviceArgsEdit: fenceDeviceArgumentsTask.editArgs.EditArgsTask,
   fenceDeviceCreate: fenceDeviceTask.create.FenceDeviceCreate,
   nodeAdd: nodesTask.add.NodeAdd,
+  nodeStop: nodesTask.stop.Task,
   nvpairEdit: nvpairTask.edit.Task,
   permissionEdit: permissionTask.add.PermissionTask,
   primitiveGroupChange: primitiveTask.groupChange.Task,

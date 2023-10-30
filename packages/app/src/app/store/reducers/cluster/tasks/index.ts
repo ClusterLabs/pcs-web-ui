@@ -1,11 +1,6 @@
 import {combineReducers} from "redux";
 
-import {
-  ReducersMapKey,
-  Task,
-  TaskState,
-  wrapTasks,
-} from "app/store/taskTools";
+import {ReducersMapKey, Task, TaskState, wrapTasks} from "app/store/taskTools";
 
 /* eslint-disable import/max-dependencies */
 import {resourceCreate} from "./resourceCreate";
@@ -21,6 +16,7 @@ import {constraintColocationCreate} from "./constraintColocationCreate";
 import {constraintColocationSetCreate} from "./constraintColocationSetCreate";
 import {resourceGroup} from "./resourceGroup";
 import {nodeAdd} from "./nodeAdd";
+import {nodeStop} from "./nodeStop";
 import {fixAuth} from "./fixAuth";
 import {permissionEdit} from "./permissionEdit";
 import {nvpairEdit} from "./nvpairEdit";
@@ -65,6 +61,7 @@ export const tasks = combineReducers(
     constraintColocationSetCreate,
     resourceGroup,
     nodeAdd,
+    nodeStop,
     fixAuth,
     permissionEdit,
     nvpairEdit,

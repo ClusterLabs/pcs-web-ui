@@ -41,7 +41,8 @@ export function* nodeStop({
       log.error(result, taskLabel);
     }
     yield put({
-      type: "TASK.FORCEABLE-CONFIRM.FAIL",
+      type: "NODE.STOP.FAIL",
+      key: {clusterName: key.clusterName},
       payload: {
         message: errorMessage(stripForceText(result), taskLabel),
         isForceable: "text" in result && result.text.includes("--force"),
@@ -56,6 +57,7 @@ export function* nodeStop({
   });
 
   yield put({
-    type: "TASK.FORCEABLE-CONFIRM.OK",
+    type: "NODE.STOP.OK",
+    key: {clusterName: key.clusterName},
   });
 }

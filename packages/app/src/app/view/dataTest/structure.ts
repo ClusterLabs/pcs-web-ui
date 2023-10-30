@@ -19,6 +19,7 @@ import fenceDeviceArgumentsEdit from "./json/task/fenceDeviceArgumentsEdit.json"
 import fenceDeviceCreate from "./json/task/fenceDeviceCreate.json";
 import forceableConfirm from "./json/task/forceableConfirm.json";
 import nodeAdd from "./json/task/nodeAdd.json";
+import nodeStop from "./json/task/nodeStop.json";
 import nvsetEdit from "./json/task/nvsetEdit.json";
 import permissionEdit from "./json/task/permissionEdit.json";
 import resourceCreate from "./json/task/resourceCreate.json";
@@ -96,6 +97,7 @@ export const structure = {
     fenceDeviceCreate,
     forceableConfirm,
     nodeAdd,
+    nodeStop,
     nvsetEdit,
     permissionEdit,
     resourceCreate,
