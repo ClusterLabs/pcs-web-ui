@@ -13,6 +13,7 @@ type LossPolicy = Exclude<
 >;
 
 const initialState: {
+  clusterName: string;
   useCustomId: boolean;
   id: string;
   lossPolicy: LossPolicy;
@@ -22,6 +23,7 @@ const initialState: {
   resourceId: string;
   ticket: string;
 } = {
+  clusterName: "",
   useCustomId: false,
   id: "",
   lossPolicy: "stop",
@@ -37,6 +39,11 @@ export const constraintTicketCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "CONSTRAINT.TICKET.CREATE.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
     case "CONSTRAINT.TICKET.CREATE.UPDATE":
       return {
         ...state,

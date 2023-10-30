@@ -3,6 +3,14 @@ type LocationSpecification = "node" | "rule";
 type LocationPreference = "prefer" | "avoid";
 
 export type LocationCreateActions = {
+  "CONSTRAINT.LOCATION.CREATE.INIT": {
+    type: "CONSTRAINT.LOCATION.CREATE.INIT";
+    key: {clusterName: string};
+    payload: {
+      clusterName: string;
+    };
+  };
+
   "CONSTRAINT.LOCATION.CREATE.UPDATE": {
     type: "CONSTRAINT.LOCATION.CREATE.UPDATE";
     key: {clusterName: string};

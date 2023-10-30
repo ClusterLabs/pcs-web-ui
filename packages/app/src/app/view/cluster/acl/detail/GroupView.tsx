@@ -38,7 +38,11 @@ export const GroupView = ({
                 openTask("aclSubjectAssign", {
                   type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
                   key: {clusterName},
-                  payload: {subjectType: "group", subjectId: groupId},
+                  payload: {
+                    clusterName,
+                    subjectType: "group",
+                    subjectId: groupId,
+                  },
                 }),
             },
             {

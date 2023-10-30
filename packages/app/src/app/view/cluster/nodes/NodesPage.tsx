@@ -20,7 +20,12 @@ export const NodesPage = () => {
         buttonsItems={[
           {
             name: "add-node",
-            run: () => openTask("nodeAdd"),
+            run: () =>
+              openTask("nodeAdd", {
+                type: "NODE.ADD.INIT",
+                key: {clusterName},
+                payload: {clusterName},
+              }),
             ...nodesToolbar.addNode.mark,
           },
         ]}

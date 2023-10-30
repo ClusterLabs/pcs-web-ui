@@ -12,6 +12,7 @@ type Action<T extends "firstAction" | "thenAction"> = Exclude<
 >;
 
 const initialState: {
+  clusterName: string;
   firstResourceId: string;
   firstAction: Action<"firstAction">;
   thenResourceId: string;
@@ -20,6 +21,7 @@ const initialState: {
   score: string;
   showValidationErrors: boolean;
 } = {
+  clusterName: "",
   firstResourceId: "",
   firstAction: "start",
   thenResourceId: "",
@@ -34,6 +36,11 @@ export const constraintOrderCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "CONSTRAINT.ORDER.CREATE.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
     case "CONSTRAINT.ORDER.CREATE.UPDATE":
       return {
         ...state,

@@ -11,6 +11,7 @@ const initialState: OpenPayload & {
     resultMessage: string;
   };
 } = {
+  clusterName: "",
   fenceDeviceId: "",
   agentParameters: [],
   originalFenceDeviceArguments: {},

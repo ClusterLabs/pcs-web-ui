@@ -28,6 +28,7 @@ const {
 } = resourceSetCreateFactory(initialSet);
 
 const initialState: {
+  clusterName: string;
   ticket: string;
   useCustomId: boolean;
   id: string;
@@ -36,6 +37,7 @@ const initialState: {
   showValidationErrors: boolean;
   libCall: typeof initialLibCall;
 } = {
+  clusterName: "",
   ticket: "",
   useCustomId: false,
   id: "",
@@ -50,6 +52,11 @@ export const constraintTicketSetCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "CONSTRAINT.TICKET.SET.CREATE.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
     case "CONSTRAINT.TICKET.SET.CREATE.UPDATE":
       return {
         ...state,

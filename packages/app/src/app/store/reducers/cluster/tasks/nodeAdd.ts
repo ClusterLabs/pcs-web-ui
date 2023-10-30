@@ -3,6 +3,7 @@ import {AppReducer} from "app/store/reducers/appReducer";
 import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: {
+  clusterName: string;
   nodeName: string;
   nodeAddresses: {
     address1: string;
@@ -33,6 +34,7 @@ const initialState: {
   sbdNoWatchdogValidation: boolean;
   authProcessId: number | null;
 } = {
+  clusterName: "",
   nodeName: "",
   nodeAddresses: {
     address1: "",
@@ -59,6 +61,12 @@ export const nodeAdd: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "NODE.ADD.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
+
     case "NODE.ADD.UPDATE_NODE_NAME":
       return {
         ...state,

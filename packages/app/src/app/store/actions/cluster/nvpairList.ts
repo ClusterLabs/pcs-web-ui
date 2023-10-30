@@ -37,7 +37,7 @@ export type ClusterNVPairListActions = {
   "CLUSTER.NVPAIRS.EDIT": {
     type: "CLUSTER.NVPAIRS.EDIT";
     key: {clusterName: string; task: string};
-    payload: (
+    payload: {clusterName: string} & (
       | {type: "create"}
       | {
           type: "update";
@@ -45,9 +45,9 @@ export type ClusterNVPairListActions = {
           value: string;
         }
     ) & {
-      owner: Owner;
-      nameList: string[];
-    };
+        owner: Owner;
+        nameList: string[];
+      };
   };
 
   "CLUSTER.NVPAIRS.EDIT.UPDATE": {

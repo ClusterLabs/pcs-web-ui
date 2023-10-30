@@ -8,9 +8,9 @@ export function useClusterTask<
 >(name: NAME) {
   const {
     tasks: {[name]: state},
-    loadedCluster: {clusterName},
   } = useClusterSources();
 
+  const {clusterName} = state;
   const dispatch = useDispatch();
   const openClose = useTaskOpenClose(name, clusterName);
 

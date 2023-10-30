@@ -3,6 +3,13 @@ import {Action} from "./types";
 type OptionalAction = Action | "no limitation";
 
 export type OrderSetCreateActions = {
+  "CONSTRAINT.ORDER.SET.CREATE.INIT": {
+    type: "CONSTRAINT.ORDER.SET.CREATE.INIT";
+    key: {clusterName: string};
+    payload: {
+      clusterName: string;
+    };
+  };
   "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {
     type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE";
     key: {clusterName: string};

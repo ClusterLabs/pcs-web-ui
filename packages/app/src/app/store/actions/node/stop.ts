@@ -11,6 +11,7 @@ export type NodeStopActions = {
     type: "NODE.STOP.INIT";
     key: {clusterName: string};
     payload: {
+      clusterName: string;
       nodeName: string;
     };
   };

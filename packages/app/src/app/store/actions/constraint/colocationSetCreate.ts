@@ -3,6 +3,14 @@ import {Role} from "./types";
 type OptionalRole = "no limitation" | Role;
 
 export type ColocationSetCreateActions = {
+  "CONSTRAINT.COLOCATION.SET.CREATE.INIT": {
+    type: "CONSTRAINT.COLOCATION.SET.CREATE.INIT";
+    key: {clusterName: string};
+    payload: {
+      clusterName: string;
+    };
+  };
+
   "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE": {
     type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE";
     key: {clusterName: string};

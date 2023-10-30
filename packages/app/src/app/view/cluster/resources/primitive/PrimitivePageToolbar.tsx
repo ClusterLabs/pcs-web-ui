@@ -222,9 +222,10 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
                 name: "change-group",
                 run: () =>
                   openTask("primitiveGroupChange", {
-                    type: "RESOURCE.GROUP.CHANGE.UPDATE",
+                    type: "RESOURCE.GROUP.CHANGE.INIT",
                     key: {clusterName},
                     payload: {
+                      clusterName,
                       resourceId: primitive.id,
                       oldGroupId: primitive.inGroup ?? "",
                       groupId: primitive.inGroup ?? "",

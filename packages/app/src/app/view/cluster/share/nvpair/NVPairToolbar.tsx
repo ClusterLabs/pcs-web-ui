@@ -31,6 +31,7 @@ export const NVPairToolbar = (props: {
               type: "CLUSTER.NVPAIRS.EDIT",
               key: {clusterName, task: "nvpairEdit"},
               payload: {
+                clusterName,
                 type: "create",
                 owner,
                 nameList: nvPairList.map(pair => pair.name),

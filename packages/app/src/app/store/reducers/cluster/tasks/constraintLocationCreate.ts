@@ -6,6 +6,7 @@ import {
 } from "./constraintSingleCall";
 
 const initialState: {
+  clusterName: string;
   resourceSpecification: "resource" | "pattern";
   resourceId: string;
   resourcePattern: string;
@@ -17,6 +18,7 @@ const initialState: {
   score: string;
   showValidationErrors: boolean;
 } = {
+  clusterName: "",
   resourceSpecification: "resource",
   resourceId: "",
   resourcePattern: "",
@@ -34,6 +36,11 @@ export const constraintLocationCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "CONSTRAINT.LOCATION.CREATE.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
     case "CONSTRAINT.LOCATION.CREATE.UPDATE":
       return {
         ...state,

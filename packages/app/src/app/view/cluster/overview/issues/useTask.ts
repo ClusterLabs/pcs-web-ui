@@ -33,7 +33,7 @@ export const useTask = () => {
       dispatch({
         type: "CLUSTER.FIX_AUTH.START",
         key: {clusterName},
-        payload: {initialNodeList},
+        payload: {clusterName, initialNodeList},
       });
     },
 

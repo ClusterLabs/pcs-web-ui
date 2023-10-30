@@ -22,7 +22,10 @@ export const ClusterPermissionsPage = () => {
               openTask("permissionEdit", {
                 type: "CLUSTER.PERMISSIONS.EDIT",
                 key: {clusterName, task: "permissionEdit"},
-                payload: {type: "create"},
+                payload: {
+                  clusterName,
+                  type: "create",
+                },
               }),
             ...permissionsToolbar.createPermission.mark,
           },

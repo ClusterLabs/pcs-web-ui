@@ -7,6 +7,7 @@ type InstanceAttrValue = string;
 type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
 
 const initialState: {
+  clusterName: string;
   agentName: string;
   resourceName: string;
   instanceAttrs: InstanceAttrs;
@@ -18,6 +19,7 @@ const initialState: {
   useGroup: "no" | "existing" | "new";
   group: string;
 } = {
+  clusterName: "",
   resourceName: "",
   agentName: "",
   libCall: initialLibCall,
@@ -44,6 +46,11 @@ export const resourceCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "RESOURCE.CREATE.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
     case "RESOURCE.CREATE.UPDATE": {
       return {
         ...state,

@@ -12,6 +12,7 @@ type Placement = Exclude<
 >;
 
 const initialState: {
+  clusterName: string;
   resourceId: string;
   withResourceId: string;
   placement: Placement;
@@ -19,6 +20,7 @@ const initialState: {
   call: typeof initialCall;
   showValidationErrors: boolean;
 } = {
+  clusterName: "",
   resourceId: "",
   withResourceId: "",
   placement: "together",
@@ -32,6 +34,11 @@ export const constraintColocationCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "CONSTRAINT.COLOCATION.CREATE.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
     case "CONSTRAINT.COLOCATION.CREATE.UPDATE":
       return {
         ...state,

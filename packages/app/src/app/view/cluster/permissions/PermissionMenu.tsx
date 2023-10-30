@@ -26,7 +26,11 @@ export const PermissionMenu = ({
             openTask("permissionEdit", {
               type: "CLUSTER.PERMISSIONS.EDIT",
               key: {clusterName, task: "permissionEdit"},
-              payload: {type: "update", permission},
+              payload: {
+                clusterName,
+                type: "update",
+                permission,
+              },
             }),
           ...actions.edit.mark,
         },

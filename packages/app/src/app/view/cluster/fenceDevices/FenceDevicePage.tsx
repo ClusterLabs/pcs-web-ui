@@ -25,7 +25,12 @@ export const FenceDevicePage = () => {
         buttonsItems={[
           {
             name: "create-fence-device",
-            run: () => openTask("fenceDeviceCreate"),
+            run: () =>
+              openTask("fenceDeviceCreate", {
+                type: "FENCE_DEVICE.CREATE.INIT",
+                key: {clusterName},
+                payload: {clusterName},
+              }),
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),

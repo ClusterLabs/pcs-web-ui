@@ -2,12 +2,14 @@ import {AppReducer} from "app/store/reducers/appReducer";
 import {ActionPayload} from "app/store/actions";
 
 const initialState: Required<ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]> & {
+  clusterName: string;
   showValidationErrors: boolean;
   call: {
     response: "" | "sending" | "ok" | "fail";
     resultMessage: string;
   };
 } = {
+  clusterName: "",
   action: "remove-group",
   resourceId: "",
   groupId: "",
@@ -26,6 +28,25 @@ export const primitiveGroupChange: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "RESOURCE.GROUP.CHANGE.INIT":
+      return {
+        ...state,
+        ...action.payload,
+        clusterName: action.payload.clusterName,
+        ...(action.payload?.action === "set-group"
+          ? {
+              groupId: "",
+              adjacentResourceId: "",
+            }
+          : {}),
+        ...(action.payload?.action === "move-in-group"
+          ? {
+              groupId: action.payload?.oldGroupId ?? state.oldGroupId,
+              adjacentResourceId: "",
+            }
+          : {}),
+      };
+
     case "TASK.VALIDATION.SHOW":
       return {...state, showValidationErrors: true};
 

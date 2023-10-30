@@ -28,12 +28,14 @@ const {
 } = resourceSetCreateFactory(initialSet);
 
 const initialState: {
+  clusterName: string;
   useCustomId: boolean;
   id: string;
   sets: typeof initialResourceSets;
   showValidationErrors: boolean;
   libCall: typeof initialLibCall;
 } = {
+  clusterName: "",
   useCustomId: false,
   id: "",
   sets: initialResourceSets,
@@ -53,6 +55,11 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "CONSTRAINT.ORDER.SET.CREATE.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
     case "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {
       return {
         ...state,

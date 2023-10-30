@@ -3,6 +3,7 @@ export type ClusterFixAuthActions = {
     type: "CLUSTER.FIX_AUTH.START";
     key: {clusterName: string};
     payload: {
+      clusterName: string;
       initialNodeList: string[];
     };
   };

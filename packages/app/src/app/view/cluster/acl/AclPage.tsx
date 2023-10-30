@@ -37,7 +37,12 @@ export const AclPage = () => {
         buttonsItems={[
           {
             name: "create-role",
-            run: () => openTask("aclRoleCreate"),
+            run: () =>
+              openTask("aclRoleCreate", {
+                type: "CLUSTER.ACL.ROLE.CREATE",
+                key: {clusterName},
+                payload: {clusterName},
+              }),
             launchDisable: launchDisable(
               "Cannot create role on stopped cluster",
             ),
@@ -49,7 +54,7 @@ export const AclPage = () => {
               openTask("aclSubjectCreate", {
                 type: "CLUSTER.ACL.SUBJECT.CREATE",
                 key: {clusterName},
-                payload: {subjectType: "user"},
+                payload: {clusterName, subjectType: "user"},
               }),
             launchDisable: launchDisable(
               "Cannot create user on stopped cluster",
@@ -66,7 +71,7 @@ export const AclPage = () => {
                   openTask("aclSubjectCreate", {
                     type: "CLUSTER.ACL.SUBJECT.CREATE",
                     key: {clusterName},
-                    payload: {subjectType: "group"},
+                    payload: {clusterName, subjectType: "group"},
                   }),
                 launchDisable: launchDisable(
                   "Cannot create group on stopped cluster",

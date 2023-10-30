@@ -107,7 +107,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       openTask("nodeStop", {
         type: "NODE.STOP.INIT",
         key: {clusterName},
-        payload: {nodeName: node.name},
+        payload: {clusterName, nodeName: node.name},
       }),
     ...toolbar.stop.mark,
   };

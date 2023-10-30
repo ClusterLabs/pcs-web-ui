@@ -2,12 +2,14 @@ import {LibReport} from "app/store/types";
 import {AppReducer} from "app/store/reducers/appReducer";
 
 const initialState: {
+  clusterName: string;
   groupId: string;
   resourceIdList: string[];
   reports: LibReport[];
   showValidationErrors: boolean;
   response: "" | "success" | "fail";
 } = {
+  clusterName: "",
   groupId: "",
   reports: [],
   resourceIdList: [],
@@ -20,6 +22,11 @@ export const resourceGroup: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "RESOURCE.GROUP.CREATE.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
     case "RESOURCE.GROUP.CREATE.UPDATE":
       return {...state, ...action.payload};
 

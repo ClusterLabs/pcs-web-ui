@@ -28,6 +28,7 @@ export const NVPairListItemMenu = (props: {
               type: "CLUSTER.NVPAIRS.EDIT",
               key: {clusterName, task: "nvpairEdit"},
               payload: {
+                clusterName,
                 type: "update",
                 owner,
                 name: nvPair.name,

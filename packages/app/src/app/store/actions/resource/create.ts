@@ -1,4 +1,11 @@
 export type ResourceCreateActions = {
+  "RESOURCE.CREATE.INIT": {
+    type: "RESOURCE.CREATE.INIT";
+    key: {clusterName: string};
+    payload: {
+      clusterName: string;
+    };
+  };
   "RESOURCE.CREATE.UPDATE": {
     type: "RESOURCE.CREATE.UPDATE";
     key: {clusterName: string};

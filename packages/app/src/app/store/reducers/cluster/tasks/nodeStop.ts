@@ -1,11 +1,18 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 
 const initialState: {
+  clusterName: string;
   resultMessage: string;
   nodeName: string;
   response: "" | "sending" | "ok" | "fail";
   isForceable: boolean;
-} = {nodeName: "", response: "", resultMessage: "", isForceable: false};
+} = {
+  clusterName: "",
+  nodeName: "",
+  response: "",
+  resultMessage: "",
+  isForceable: false,
+};
 
 export const nodeStop: AppReducer<typeof initialState> = (
   state = initialState,
@@ -16,6 +23,7 @@ export const nodeStop: AppReducer<typeof initialState> = (
       return {
         ...state,
         nodeName: action.payload.nodeName,
+        clusterName: action.payload.clusterName,
       };
 
     case "NODE.STOP":

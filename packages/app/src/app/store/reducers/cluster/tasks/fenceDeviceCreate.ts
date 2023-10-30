@@ -7,6 +7,7 @@ type InstanceAttrValue = string;
 type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
 
 const initialState: {
+  clusterName: string;
   agentName: string;
   fenceDeviceName: string;
   instanceAttrs: InstanceAttrs;
@@ -14,6 +15,7 @@ const initialState: {
   showValidationErrors: boolean;
   disabled: boolean;
 } = {
+  clusterName: "",
   fenceDeviceName: "",
   agentName: "",
   libCall: initialLibCall,
@@ -36,6 +38,11 @@ export const fenceDeviceCreate: AppReducer<typeof initialState> = (
   action,
 ) => {
   switch (action.type) {
+    case "FENCE_DEVICE.CREATE.INIT":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
     case "FENCE_DEVICE.CREATE.UPDATE": {
       const removeInstanceAttrs =
         "instanceAttrs" in action.payload

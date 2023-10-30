@@ -6,6 +6,15 @@ type ChangeGroupParams = Omit<
 >;
 
 export type ResourceGroupChangeActions = {
+  "RESOURCE.GROUP.CHANGE.INIT": {
+    type: "RESOURCE.GROUP.CHANGE.INIT";
+    key: {clusterName: string};
+    payload: Partial<ChangeGroupParams> & {
+      clusterName: string;
+      action?: "remove-group" | "set-group" | "move-in-group";
+    };
+  };
+
   "RESOURCE.GROUP.CHANGE.UPDATE": {
     type: "RESOURCE.GROUP.CHANGE.UPDATE";
     key: {clusterName: string};

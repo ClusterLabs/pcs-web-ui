@@ -1,4 +1,11 @@
 export type NodeAddActions = {
+  "NODE.ADD.INIT": {
+    type: "NODE.ADD.INIT";
+    key: {clusterName: string};
+    payload: {
+      clusterName: string;
+    };
+  };
   "NODE.ADD.CLOSE": {
     type: "NODE.ADD.CLOSE";
     key: {clusterName: string};

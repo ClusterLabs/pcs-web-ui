@@ -1,12 +1,14 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 
 const initialState: {
+  clusterName: string;
   authProcessId: number | null;
   open: boolean;
   fixing: boolean;
   authAttemptInProgress: boolean;
   errorMessage: string;
 } = {
+  clusterName: "",
   authProcessId: null,
   open: false,
   fixing: false,

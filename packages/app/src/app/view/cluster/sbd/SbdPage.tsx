@@ -61,13 +61,18 @@ export const SbdPage = () => {
               openTask("sbdConfigure", {
                 type: "CLUSTER.SBD.CONFIGURE",
                 key: {clusterName},
-                payload: configureOpenPayload,
+                payload: {clusterName, ...configureOpenPayload},
               }),
             ...sbdToolbar.configureSbd.mark,
           },
           {
             name: "disable-SBD",
-            run: () => openTask("sbdDisable"),
+            run: () =>
+              openTask("sbdDisable", {
+                type: "CLUSTER.SBD.DISABLE.INIT",
+                key: {clusterName},
+                payload: {clusterName},
+              }),
             ...sbdToolbar.disableSbd.mark,
           },
         ]}

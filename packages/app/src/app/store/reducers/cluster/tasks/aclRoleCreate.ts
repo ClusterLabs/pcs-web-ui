@@ -6,12 +6,14 @@ import {initialState as initialLibCall, libCall} from "./libCall";
 const initialState: Required<
   ActionPayload["CLUSTER.ACL.ROLE.CREATE.UPDATE"]
 > & {
+  clusterName: string;
   libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
   roleId: "",
   permissionInfoList: [["read", "id", ""]],
   description: "",
+  clusterName: "",
   libCall: initialLibCall,
   showValidationErrors: false,
 };
@@ -21,6 +23,12 @@ export const aclRoleCreate: AppReducer<typeof initialState> = (
   action,
 ): typeof initialState => {
   switch (action.type) {
+    case "CLUSTER.ACL.ROLE.CREATE":
+      return {
+        ...state,
+        clusterName: action.payload.clusterName,
+      };
+
     case "CLUSTER.ACL.ROLE.CREATE.UPDATE":
       return {
         ...state,

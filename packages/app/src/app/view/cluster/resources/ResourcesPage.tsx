@@ -27,7 +27,12 @@ export const ResourcesPage = () => {
         buttonsItems={[
           {
             name: "create-resource",
-            run: () => openTask("resourceCreate"),
+            run: () =>
+              openTask("resourceCreate", {
+                type: "RESOURCE.CREATE.INIT",
+                key: {clusterName},
+                payload: {clusterName},
+              }),
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),
@@ -35,7 +40,12 @@ export const ResourcesPage = () => {
           },
           {
             name: "create-group",
-            run: () => openTask("resourceGroup"),
+            run: () =>
+              openTask("resourceGroup", {
+                type: "RESOURCE.GROUP.CREATE.INIT",
+                key: {clusterName},
+                payload: {clusterName},
+              }),
             launchDisable: launchDisable(
               "Cannot create resource group on stopped cluster",
             ),
