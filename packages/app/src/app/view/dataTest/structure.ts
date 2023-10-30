@@ -10,6 +10,7 @@ import aclRoleAddPermission from "./json/task/aclRoleAddPermission.json";
 import aclRoleCreate from "./json/task/aclRoleCreate.json";
 import clusterImportExisting from "./json/task/clusterImportExisting.json";
 import clusterSetup from "./json/task/clusterSetup.json";
+import clusterStop from "./json/task/clusterStop.json";
 import confirm from "./json/task/confirm.json";
 import constraintColocationCreate from "./json/task/constraintColocationCreate.json";
 import constraintLocationCreate from "./json/task/constraintLocationCreate.json";
@@ -89,6 +90,7 @@ export const structure = {
     aclRoleCreate,
     clusterImportExisting,
     clusterSetup,
+    clusterStop,
     constraintColocationCreate,
     constraintLocationCreate,
     constraintOrderCreate,

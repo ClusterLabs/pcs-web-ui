@@ -7,6 +7,7 @@ type TaskNames = Parameters<typeof selectors.getTask>[0];
 
 export const taskMap = {
   clusterSetup: task.clusterSetup.ClusterSetup,
+  clusterStop: task.clusterStop.Task,
   importExistingCluster: task.importExistingCluster.ImportExistingCluster,
   // forceableConfirm: ,
 } satisfies Record<

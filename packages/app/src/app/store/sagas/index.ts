@@ -78,7 +78,7 @@ function* rootSaga() {
     takeEvery("CONSTRAINT.DELETE", constraints.deleteConstraint),
     takeEvery("CONSTRAINT.DELETE.RULE", constraints.deleteConstraintRule),
     takeEvery("DASHBOARD.CLUSTER.START", clusterStart.clusterStartSaga),
-    takeEvery("DASHBOARD.CLUSTER.STOP", clusterStop.clusterStopSaga),
+    takeEvery("CLUSTER.STOP", clusterStop.clusterStopSaga),
     takeEvery("DASHBOARD.CLUSTER.REMOVE", clusterRemove.clusterRemove),
     takeEvery("DASHBOARD.CLUSTER.DESTROY", clusterDestroy.clusterDestroy),
     takeEvery("NODE.START", nodeStartStop.nodeStart),
