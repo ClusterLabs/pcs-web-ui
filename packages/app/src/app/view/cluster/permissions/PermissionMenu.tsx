@@ -28,6 +28,7 @@ export const PermissionMenu = ({
               key: {clusterName, task: "permissionEdit"},
               payload: {
                 clusterName,
+                currentPermissionList: permissionList,
                 type: "update",
                 permission,
               },

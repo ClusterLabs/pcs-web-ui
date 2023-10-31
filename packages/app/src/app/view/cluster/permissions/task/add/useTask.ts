@@ -12,10 +12,9 @@ const taskName: ActionMap["CLUSTER.PERMISSIONS.SAVE"]["key"]["task"] =
 export const useTask = () => {
   const dispatch = useDispatch();
   const {
-    clusterName,
-    permissions: {users_permissions: currentPermissionList},
     tasks: {permissionEdit: state},
   } = useLoadedPermissions();
+  const {clusterName, currentPermissionList} = state;
   const openClose = useTaskOpenClose(taskName, clusterName);
 
   const key = {clusterName, task: taskName};

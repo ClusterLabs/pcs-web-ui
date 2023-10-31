@@ -8,6 +8,7 @@ type Competence = "read" | "write" | "grant" | "full";
 
 const initialState: Required<UpdatePayload> & {
   clusterName: string;
+  currentPermissionList: InitPayload["currentPermissionList"];
   initialPermission: InitialPermission | null;
   call: {
     response: "" | "sending" | "ok" | "fail";
@@ -16,6 +17,7 @@ const initialState: Required<UpdatePayload> & {
   showValidationErrors: boolean;
 } = {
   clusterName: "",
+  currentPermissionList: [],
   initialPermission: null,
   name: "",
   type: "user",
@@ -42,6 +44,7 @@ const initToState = (initPayload: InitPayload) => {
   return {
     ...initialState,
     clusterName: initPayload.clusterName,
+    currentPermissionList: initPayload.currentPermissionList,
     initialPermission: permission,
     name: permission.name,
     type: permission.type,

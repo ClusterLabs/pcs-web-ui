@@ -30,7 +30,10 @@ export type ClusterPermissionsActions = {
   "CLUSTER.PERMISSIONS.EDIT": {
     type: "CLUSTER.PERMISSIONS.EDIT";
     key: {clusterName: string; task: string};
-    payload: {clusterName: string} & (
+    payload: {
+      clusterName: string;
+      currentPermissionList: ApiPermissions["users_permissions"];
+    } & (
       | {type: "create"}
       | {
           type: "update";

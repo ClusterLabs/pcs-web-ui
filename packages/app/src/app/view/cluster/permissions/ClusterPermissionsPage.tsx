@@ -10,7 +10,10 @@ import {PermissionsTable} from "./PermissionsTable";
 const {permissionsToolbar} = testMarks.cluster;
 
 export const ClusterPermissionsPage = () => {
-  const {clusterName} = useLoadedPermissions();
+  const {
+    clusterName,
+    permissions: {users_permissions: currentPermissionList},
+  } = useLoadedPermissions();
   const openTask = useOpenTask(clusterName);
   return (
     <>
@@ -24,6 +27,7 @@ export const ClusterPermissionsPage = () => {
                 key: {clusterName, task: "permissionEdit"},
                 payload: {
                   clusterName,
+                  currentPermissionList,
                   type: "create",
                 },
               }),
