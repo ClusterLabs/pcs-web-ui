@@ -1,24 +1,25 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("resourceGroup");
+  const task = useTaskCommon("resourceGroup");
 
-  const {clusterName, dispatch} = task;
-  const topLevelPrimitives = useLoadedCluster()
-    .resourceTree.filter(r => r.itemType === "primitive")
-    .map(r => r.id);
+  const {
+    dispatch,
+    state: {clusterName, topLevelPrimitiveIds},
+  } = task;
 
   const {
     state: {resourceIdList, groupId},
   } = task;
 
-  const availableResources = topLevelPrimitives.filter(
+  const availableResources = topLevelPrimitiveIds.filter(
     p => !resourceIdList.includes(p),
   );
 
   return {
     ...task,
+    clusterName,
     close: () => {
       task.close();
       dispatch({

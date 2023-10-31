@@ -12,6 +12,7 @@ export type ResourceGroupChangeActions = {
     payload: Partial<ChangeGroupParams> & {
       clusterName: string;
       action?: "remove-group" | "set-group" | "move-in-group";
+      groupIdStructureList: {id: string; resources: {id: string}[]}[];
     };
   };
 

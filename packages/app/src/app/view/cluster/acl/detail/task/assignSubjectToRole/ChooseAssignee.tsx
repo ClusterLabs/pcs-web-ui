@@ -10,13 +10,13 @@ export const ChooseAssignee = () => {
   const {
     isAssigneeValid,
     updateAssigneeId,
-    itemsOffer,
     assigneeType,
     assigneeId,
+    assignableitems,
     state: {showValidationErrors},
   } = useTask();
 
-  if (itemsOffer.length === 0) {
+  if (assignableitems.length === 0) {
     return <div>Nothing to assign</div>;
   }
 
@@ -32,7 +32,7 @@ export const ChooseAssignee = () => {
         isRequired
         onSelect={value => updateAssigneeId(value.toString())}
         selections={assigneeId}
-        optionsValues={itemsOffer.filter(i => i !== assigneeId)}
+        optionsValues={assignableitems.filter(i => i !== assigneeId)}
         {...testMarks.task.aclAssignSubjectToRole.name.mark}
       />
     </Form>

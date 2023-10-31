@@ -8,6 +8,8 @@ export type LocationCreateActions = {
     key: {clusterName: string};
     payload: {
       clusterName: string;
+      nodeNameList: string[];
+      resourceIdList: string[];
     };
   };
 

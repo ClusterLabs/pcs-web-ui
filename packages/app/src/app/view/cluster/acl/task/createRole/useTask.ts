@@ -1,10 +1,11 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 import {getInvalidPermissionIndexes} from "app/view/cluster/acl/permissions";
 
 export const useTask = () => {
-  const task = useClusterTask("aclRoleCreate");
-  const {dispatch, state, clusterName} = task;
+  const task = useTaskCommon("aclRoleCreate");
+  const {dispatch, state} = task;
+  const {clusterName} = state;
 
   type Permissions = typeof state.permissionInfoList;
 
@@ -19,6 +20,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    clusterName,
     isNameValid: state.roleId.length > 0,
     invalidPermissionIndexes: getInvalidPermissionIndexes(
       state.permissionInfoList,

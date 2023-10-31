@@ -8,16 +8,17 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";
+import {selectGroups} from "./select";
 
 const {resources, resourcesToolbar} = testMarks.cluster;
 
 export const ResourcesPage = () => {
   const {resourceTree, clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const openTask = useOpenTask();
 
   const launchDisable = useLauncherDisableClusterNotRunning();
 
@@ -31,7 +32,10 @@ export const ResourcesPage = () => {
               openTask("resourceCreate", {
                 type: "RESOURCE.CREATE.INIT",
                 key: {clusterName},
-                payload: {clusterName},
+                payload: {
+                  clusterName,
+                  groupIdStructureList: selectGroups(resourceTree),
+                },
               }),
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
@@ -44,7 +48,12 @@ export const ResourcesPage = () => {
               openTask("resourceGroup", {
                 type: "RESOURCE.GROUP.CREATE.INIT",
                 key: {clusterName},
-                payload: {clusterName},
+                payload: {
+                  clusterName,
+                  topLevelPrimitiveIds: resourceTree
+                    .filter(r => r.itemType === "primitive")
+                    .map(r => r.id),
+                },
               }),
             launchDisable: launchDisable(
               "Cannot create resource group on stopped cluster",

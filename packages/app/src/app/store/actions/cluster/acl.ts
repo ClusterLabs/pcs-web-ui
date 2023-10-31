@@ -31,6 +31,7 @@ export type ClusterAclActions = {
     key: {clusterName: string};
     payload: {
       clusterName: string;
+      roleId: string;
     };
   };
 
@@ -51,8 +52,15 @@ export type ClusterAclActions = {
     type: "CLUSTER.ACL.SUBJECT.CREATE";
     key: {clusterName: string};
     payload: {
-      subjectType: "user" | "group";
       clusterName: string;
+      subjectType: "user" | "group";
+      roleMap: Record<
+        string,
+        {
+          description: string;
+          permissions: string[];
+        }
+      >;
     };
   };
 
@@ -76,6 +84,8 @@ export type ClusterAclActions = {
     payload: {
       clusterName: string;
       subjectType: "user" | "group";
+      alreadyAssigned: string[];
+      assignableItems: string[];
     } & ({roleId: string} | {subjectId: string});
   };
 

@@ -6,6 +6,7 @@ export type OrderCreateActions = {
     key: {clusterName: string};
     payload: {
       clusterName: string;
+      resourceIdList: string[];
     };
   };
   "CONSTRAINT.ORDER.CREATE.UPDATE": {

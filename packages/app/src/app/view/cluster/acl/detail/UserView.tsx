@@ -4,7 +4,7 @@ import {
   DetailToolbar,
   useLoadedCluster,
 } from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 import {AclType} from "../types";
 
@@ -19,8 +19,8 @@ export const UserView = ({
   userId: string;
   roleIdList: AclType<"user">;
 }) => {
-  const {clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const {clusterName, acls} = useLoadedCluster();
+  const openTask = useOpenTask();
 
   return (
     <DetailLayout
@@ -42,6 +42,8 @@ export const UserView = ({
                     clusterName,
                     subjectType: "user",
                     subjectId: userId,
+                    alreadyAssigned: acls.user?.[userId] ?? [],
+                    assignableItems: Object.keys(acls.user ?? {}),
                   },
                 }),
             },

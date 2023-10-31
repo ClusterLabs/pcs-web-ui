@@ -1,16 +1,16 @@
-import {useClusterTask} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("nodeStop");
+  const task = useTaskCommon("nodeStop");
 
   const {
-    clusterName,
-    state: {nodeName},
+    state: {clusterName, nodeName},
     dispatch,
   } = task;
 
   return {
     ...task,
+    clusterName,
 
     nodeStop: ({force}: {force: boolean}) => {
       dispatch({

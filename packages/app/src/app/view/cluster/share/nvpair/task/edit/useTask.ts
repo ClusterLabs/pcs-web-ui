@@ -1,11 +1,12 @@
 import {ActionPayload, tools} from "app/store";
-import {useClusterTask} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 const {labelize, getNVPairTypeLabel} = tools;
 
 export const useTask = () => {
-  const task = useClusterTask("nvpairEdit");
-  const {dispatch, clusterName, state} = task;
+  const task = useTaskCommon("nvpairEdit");
+  const {dispatch, state} = task;
+  const {clusterName} = state;
 
   const key = {clusterName, task: task.name};
   const integerIsExpectedAsValue =
@@ -18,6 +19,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    clusterName,
     attrDesc,
     isCreate,
     label,

@@ -1,15 +1,17 @@
 import {ActionPayload} from "app/store";
 import {useResourceSets} from "app/view/share";
-import {useClusterTask} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("constraintTicketSetCreate");
-  const {clusterName, dispatch, state, close} = task;
+  const task = useTaskCommon("constraintTicketSetCreate");
+  const {dispatch, state, close} = task;
+  const {clusterName} = state;
 
   const resourceSets = useResourceSets(clusterName, task.name);
 
   return {
     ...task,
+    clusterName,
     ...resourceSets,
 
     isCustomIdValid: !state.useCustomId || state.id.length > 0,

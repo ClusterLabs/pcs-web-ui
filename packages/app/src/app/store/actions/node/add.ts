@@ -4,6 +4,7 @@ export type NodeAddActions = {
     key: {clusterName: string};
     payload: {
       clusterName: string;
+      isSbdEnabled: boolean;
     };
   };
   "NODE.ADD.CLOSE": {

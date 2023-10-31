@@ -6,13 +6,13 @@ import {useTask} from "./useTask";
 const {aclAssignSubjectToRole} = testMarks.task;
 
 export const Footer = () => {
-  const {label, assign, isAssigneeValid, itemsOffer} = useTask();
+  const {label, assign, isAssigneeValid, assignableitems} = useTask();
   return (
     <>
       <TaskButtonNext
         run={assign}
         runIf={isAssigneeValid}
-        disabled={itemsOffer.length === 0}
+        disabled={assignableitems.length === 0}
         {...aclAssignSubjectToRole.run.mark}
       >
         {label}

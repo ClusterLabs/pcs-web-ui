@@ -1,38 +1,30 @@
-import {ActionPayload} from "app/store";
-import {useClusterSources, useClusterTask} from "app/view/cluster/share";
-import {selectGroups} from "app/view/cluster/resources/select";
+import {useSelector} from "react-redux";
 
-const useAgent = (agentName: string) => {
-  const {pcmkAgents} = useClusterSources();
-  const agent = pcmkAgents[agentName];
-  return {
-    agent,
-    isAgentLoaded:
-      agent
-      && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING"),
-  };
-};
+import {ActionPayload, selectors} from "app/store";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("resourceCreate");
-  const {clusterName, state, dispatch} = task;
-  const groupList = selectGroups(
-    useClusterSources().loadedCluster.resourceTree,
+  const task = useTaskCommon("resourceCreate");
+  const {state, dispatch} = task;
+  const {clusterName} = state;
+  const agentInfo = useSelector(
+    selectors.getAgentInfo(clusterName, state.agentName),
   );
-  const {agent, isAgentLoaded} = useAgent(state.agentName);
 
   return {
     ...task,
-    groupIdList: groupList.map(g => g.id),
-    isAgentLoaded,
+    clusterName,
+    groupIdList: state.groupIdStructureList.map(g => g.id),
+    isAgentLoaded: agentInfo !== null && agentInfo.isAgentLoaded,
 
     // validations
     isNameTypeValid:
       state.resourceName.length > 0 && state.agentName.length > 0,
 
     areInstanceAttrsValid:
-      isAgentLoaded
-      && agent.parameters.every(
+      agentInfo !== null
+      && agentInfo.isAgentLoaded
+      && agentInfo.agent.parameters.every(
         param =>
           !param.required
           || ("deprecated" in param && param.deprecated)

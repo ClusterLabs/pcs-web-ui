@@ -1,14 +1,11 @@
 import {ActionPayload} from "app/store";
-import {
-  useClusterTask,
-  useGroupDetailViewContext,
-} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 import {getInvalidPermissionIndexes} from "app/view/cluster/acl/permissions";
 
 export const useTask = () => {
-  const task = useClusterTask("aclRolePermissionAdd");
-  const {selectedItemUrlName: aclName} = useGroupDetailViewContext();
-  const {dispatch, state, clusterName} = task;
+  const task = useTaskCommon("aclRolePermissionAdd");
+  const {dispatch, state} = task;
+  const {clusterName, roleId} = state;
 
   type Permissions = typeof state.permissionInfoList;
 
@@ -23,6 +20,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    clusterName,
     label: "Add permissions to role",
     invalidPermissionIndexes: getInvalidPermissionIndexes(
       state.permissionInfoList,
@@ -53,7 +51,7 @@ export const useTask = () => {
           call: {
             name: "acl-add-permission",
             payload: {
-              role_id: aclName,
+              role_id: roleId,
               permission_info_list: state.permissionInfoList.filter(
                 permission => permission.length > 0,
               ),

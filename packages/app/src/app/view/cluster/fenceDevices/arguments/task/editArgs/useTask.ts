@@ -1,5 +1,5 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 type OpenPayload = ActionPayload["FENCE_DEVICE.EDIT_ARGS.OPEN"];
 
@@ -34,12 +34,14 @@ const prepareAttributes = (
 };
 
 export const useTask = () => {
-  const task = useClusterTask("fenceDeviceArgsEdit");
-  const {dispatch, clusterName, state} = task;
+  const task = useTaskCommon("fenceDeviceArgsEdit");
+  const {dispatch, state} = task;
+  const {clusterName} = state;
   const key = {clusterName};
 
   return {
     ...task,
+    clusterName,
 
     update: (name: string, value: string) =>
       dispatch({

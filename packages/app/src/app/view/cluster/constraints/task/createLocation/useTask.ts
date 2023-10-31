@@ -1,15 +1,16 @@
 import {ActionPayload} from "app/store";
 import {isValidScore} from "app/view/share";
-import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("constraintLocationCreate");
+  const task = useTaskCommon("constraintLocationCreate");
 
-  const {clusterName, dispatch, state, close} = task;
-  const {resourceTree, nodeList} = useLoadedCluster();
+  const {dispatch, state, close} = task;
+  const {clusterName} = state;
 
   return {
     ...task,
+    clusterName,
     label: "Create location constraint",
     isScoreValid: state.score.length === 0 || isValidScore(state.score),
     isResourceValid:
@@ -21,18 +22,6 @@ export const useTask = () => {
       state.locationSpecification === "rule" || state.nodeName.length > 0,
     isRuleValid:
       state.locationSpecification === "node" || state.rule.length > 0,
-    nodeNameList: nodeList.map(n => n.name),
-    resourceIdList: resourceTree.reduce<string[]>((idList, resource) => {
-      if (resource.itemType === "primitive") {
-        return [...idList, resource.id];
-      }
-
-      if (resource.itemType === "group") {
-        return [...idList, resource.id, ...resource.resources.map(r => r.id)];
-      }
-
-      return idList;
-    }, []),
 
     // actions
     updateState: (

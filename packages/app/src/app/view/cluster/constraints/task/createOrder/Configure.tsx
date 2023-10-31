@@ -21,13 +21,13 @@ import {useTask} from "./useTask";
 const {constraintOrderCreate: task} = testMarks.task;
 export const Configure = () => {
   const {
-    resourceIdList,
     updateState,
     swapResources,
     isFirstResourceValid,
     isThenResourceValid,
     isScoreValid,
     state: {
+      resourceIdList,
       firstResourceId,
       firstAction,
       thenResourceId,

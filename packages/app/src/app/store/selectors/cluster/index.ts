@@ -10,10 +10,6 @@ export const getClusterTask = <NAME extends ClusterTaskKeys>(name: NAME) =>
     clusterStorageItem => clusterStorageItem.tasks[name],
   );
 
-export const getCurrentClusterTaskKey = clusterStorageItemSelector(
-  clusterStorageItem => clusterStorageItem.currentTaskKey,
-);
-
 export const getPcmkAgent = clusterStorageItemSelector(
   (clusterStorageItem, agentName: string) =>
     clusterStorageItem.pcmkAgents[agentName],
@@ -107,5 +103,25 @@ export const getClusterStoreInfo =
       uiState: {
         resourceOpenedItems: clusterStoreItem.resourceTree,
       },
+    };
+  };
+
+type PcmkAgent =
+  ClusterStorageItem["pcmkAgents"][keyof ClusterStorageItem["pcmkAgents"]];
+
+export const getAgentInfo =
+  (clusterName: string, agentName: string) =>
+  (state: Root): {agent: PcmkAgent; isAgentLoaded: boolean} | null => {
+    const clusterStoreItem = state.clusterStorage[clusterName];
+    if (clusterStoreItem === undefined) {
+      return null;
+    }
+
+    const agent = clusterStoreItem.pcmkAgents[agentName];
+    return {
+      agent,
+      isAgentLoaded:
+        agent
+        && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING"),
     };
   };

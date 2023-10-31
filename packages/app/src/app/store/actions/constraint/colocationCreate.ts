@@ -4,6 +4,7 @@ export type ColocationCreateActions = {
     key: {clusterName: string};
     payload: {
       clusterName: string;
+      resourceIdList: string[];
     };
   };
   "CONSTRAINT.COLOCATION.CREATE.UPDATE": {

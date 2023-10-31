@@ -4,6 +4,7 @@ export type ResourceCreateActions = {
     key: {clusterName: string};
     payload: {
       clusterName: string;
+      groupIdStructureList: {id: string; resources: {id: string}[]}[];
     };
   };
   "RESOURCE.CREATE.UPDATE": {

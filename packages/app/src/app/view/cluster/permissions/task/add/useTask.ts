@@ -1,7 +1,6 @@
 import {ActionMap, ActionPayload} from "app/store";
-import {useDispatch} from "app/view/share/useDispatch";
 import {useLoadedPermissions} from "app/view/cluster/permissions/LoadedPermissionsContext";
-import {useTaskOpenClose} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 type AllowName =
   ActionPayload["CLUSTER.PERMISSIONS.SAVE"]["permissionList"][number]["allow"][number];
@@ -10,20 +9,20 @@ const taskName: ActionMap["CLUSTER.PERMISSIONS.SAVE"]["key"]["task"] =
   "permissionEdit";
 
 export const useTask = () => {
-  const dispatch = useDispatch();
+  const task = useTaskCommon("permissionEdit");
+  const {dispatch, close} = task;
   const {
     tasks: {permissionEdit: state},
   } = useLoadedPermissions();
   const {clusterName, currentPermissionList} = state;
-  const openClose = useTaskOpenClose(taskName, clusterName);
 
   const key = {clusterName, task: taskName};
 
   const isCreate = state.initialPermission === null;
   return {
+    ...task,
     name: taskName,
     state,
-    ...openClose,
     label: `${isCreate ? "Creating" : "Updating"} permission`,
     isCreate,
     clusterName,
@@ -83,7 +82,7 @@ export const useTask = () => {
         type: "CLUSTER.PERMISSIONS.EDIT.CLOSE",
         key,
       });
-      openClose.close();
+      close();
     },
   };
 };

@@ -1,13 +1,12 @@
 import React from "react";
 
 import {ActionPayload} from "app/store";
-import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("nodeAdd");
-  const {clusterName, state, dispatch} = task;
-
-  const {nodeList} = useLoadedCluster();
+  const task = useTaskCommon("nodeAdd");
+  const {state, dispatch} = task;
+  const {clusterName} = state;
 
   const checkCanAddNode = () =>
     dispatch({
@@ -33,6 +32,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    clusterName,
 
     filledSbdDevices,
 
@@ -41,12 +41,6 @@ export const useTask = () => {
     isNameValid: state.nodeName.length > 0,
 
     isNodeCheckDoneValid: state.nodeCheck === "success",
-
-    isSbdEnabled: nodeList.reduce(
-      (enabled, n) =>
-        enabled || (n.status !== "DATA_NOT_PROVIDED" && n.sbd !== undefined),
-      false,
-    ),
 
     // actions
     close: () => {

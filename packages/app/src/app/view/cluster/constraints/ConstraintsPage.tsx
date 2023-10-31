@@ -7,7 +7,7 @@ import {
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 import {ConstraintFilteredList} from "./ConstraintFilteredList";
 
@@ -16,8 +16,19 @@ const {dropdown} = constraintsToolbar;
 
 export const ConstraintsPage = () => {
   const launchDisable = useLauncherDisableClusterNotRunning();
-  const {clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const {clusterName, resourceTree, nodeList} = useLoadedCluster();
+  const openTask = useOpenTask();
+  const resourceIdList = resourceTree.reduce<string[]>((idList, resource) => {
+    if (resource.itemType === "primitive") {
+      return [...idList, resource.id];
+    }
+
+    if (resource.itemType === "group") {
+      return [...idList, resource.id, ...resource.resources.map(r => r.id)];
+    }
+
+    return idList;
+  }, []);
   return (
     <>
       <ClusterToolbar
@@ -28,7 +39,11 @@ export const ConstraintsPage = () => {
               openTask("constraintLocationCreate", {
                 type: "CONSTRAINT.LOCATION.CREATE.INIT",
                 key: {clusterName},
-                payload: {clusterName},
+                payload: {
+                  clusterName,
+                  nodeNameList: nodeList.map(n => n.name),
+                  resourceIdList,
+                },
               }),
             launchDisable: launchDisable(
               "Cannot create location constraint on stopped cluster",
@@ -41,7 +56,7 @@ export const ConstraintsPage = () => {
               openTask("constraintOrderCreate", {
                 type: "CONSTRAINT.ORDER.CREATE.INIT",
                 key: {clusterName},
-                payload: {clusterName},
+                payload: {clusterName, resourceIdList},
               }),
             launchDisable: launchDisable(
               "Cannot create order constraint on stopped cluster",
@@ -54,7 +69,7 @@ export const ConstraintsPage = () => {
               openTask("constraintColocationCreate", {
                 type: "CONSTRAINT.COLOCATION.CREATE.INIT",
                 key: {clusterName},
-                payload: {clusterName},
+                payload: {clusterName, resourceIdList},
               }),
             launchDisable: launchDisable(
               "Cannot create colocation constraint on stopped cluster",
@@ -71,7 +86,7 @@ export const ConstraintsPage = () => {
                   openTask("constraintTicketCreate", {
                     type: "CONSTRAINT.TICKET.CREATE.INIT",
                     key: {clusterName},
-                    payload: {clusterName},
+                    payload: {clusterName, resourceIdList},
                   }),
                 launchDisable: launchDisable(
                   "Cannot create ticket constraint on stopped cluster",

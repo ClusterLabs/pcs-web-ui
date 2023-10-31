@@ -1,33 +1,29 @@
-import {ActionPayload} from "app/store";
-import {useClusterSources, useClusterTask} from "app/view/cluster/share";
+import {useSelector} from "react-redux";
 
-const useAgent = (agentName: string) => {
-  const {pcmkAgents} = useClusterSources();
-  const agent = pcmkAgents[agentName];
-  return {
-    agent,
-    isAgentLoaded:
-      agent
-      && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING"),
-  };
-};
+import {ActionPayload, selectors} from "app/store";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("fenceDeviceCreate");
-  const {clusterName, state, dispatch} = task;
-  const {agent, isAgentLoaded} = useAgent(state.agentName);
+  const task = useTaskCommon("fenceDeviceCreate");
+  const {state, dispatch} = task;
+  const {clusterName} = state;
+  const agentInfo = useSelector(
+    selectors.getAgentInfo(clusterName, state.agentName),
+  );
 
   return {
     ...task,
-    isAgentLoaded,
+    clusterName,
+    isAgentLoaded: agentInfo !== null && agentInfo.isAgentLoaded,
 
     // validations
     isNameTypeValid:
       state.fenceDeviceName.length > 0 && state.agentName.length > 0,
 
     areInstanceAttrsValid:
-      isAgentLoaded
-      && agent.parameters.every(
+      agentInfo !== null
+      && agentInfo.isAgentLoaded
+      && agentInfo.agent.parameters.every(
         param =>
           !param.required
           || ("deprecated" in param && param.deprecated)

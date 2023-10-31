@@ -7,10 +7,10 @@ const {review} = testMarks.task.nodeAdd;
 
 export const Review = () => {
   const {
-    isSbdEnabled,
     filledSbdDevices,
     filledNodeAddresses,
     state: {
+      isSbdEnabled,
       nodeName,
       sbdWatchdog,
       sbdNoWatchdogValidation,

@@ -10,13 +10,13 @@ const {constraintTicketCreate: task} = testMarks.task;
 export const Configure = () => {
   const {
     updateState,
-    resourceIdList,
     isCustomIdValid,
     isTicketValid,
     isResourceValid,
     state: {
       ticket,
       resourceId,
+      resourceIdList,
       lossPolicy,
       useCustomId,
       showValidationErrors,

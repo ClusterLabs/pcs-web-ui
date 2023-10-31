@@ -1,6 +1,6 @@
 import {LauncherDropdown} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 import * as task from "./task";
 import {useNVPairListContext} from "./NVPairListContext";
@@ -15,7 +15,7 @@ export const NVPairListItemMenu = (props: {
 }) => {
   const {name: taskName} = task.edit.useTask();
   const {clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const openTask = useOpenTask();
   const {nvPairList, owner} = useNVPairListContext();
   const nvPair = useNVPairListItemContext();
   return (

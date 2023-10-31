@@ -10,11 +10,17 @@ const {constraintColocationCreate: task} = testMarks.task;
 export const Configure = () => {
   const {
     updateState,
-    resourceIdList,
     isResourceValid,
     isWithResourceValid,
     isScoreValid,
-    state: {resourceId, withResourceId, placement, score, showValidationErrors},
+    state: {
+      resourceId,
+      resourceIdList,
+      withResourceId,
+      placement,
+      score,
+      showValidationErrors,
+    },
   } = useTask();
 
   return (

@@ -1,17 +1,17 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("aclSubjectCreate");
-  const {dispatch, state, clusterName} = task;
-
-  const {acls} = useLoadedCluster();
+  const task = useTaskCommon("aclSubjectCreate");
+  const {dispatch, state} = task;
+  const {clusterName} = state;
 
   return {
     ...task,
+    clusterName,
 
     isNameValid: state.subjectId.length > 0,
-    availableRoles: Object.keys(acls.role || {}).filter(
+    availableRoles: Object.keys(state.roleMap).filter(
       r => !state.roleList.includes(r),
     ),
 

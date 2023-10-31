@@ -8,7 +8,7 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
 import {FenceDeviceList} from "./list";
@@ -17,7 +17,7 @@ const {fenceDevices, fenceDevicesToolbar} = testMarks.cluster;
 
 export const FenceDevicePage = () => {
   const {fenceDeviceList, clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const openTask = useOpenTask();
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
     <>

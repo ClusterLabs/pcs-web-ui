@@ -8,9 +8,9 @@ import {useTask} from "./useTask";
 const {sbd} = testMarks.task.nodeAdd;
 export const Sbd = () => {
   const {
-    isSbdEnabled,
     updateState,
     state: {
+      isSbdEnabled,
       sbdWatchdog,
       sbdDevices,
       sbdNoWatchdogValidation,

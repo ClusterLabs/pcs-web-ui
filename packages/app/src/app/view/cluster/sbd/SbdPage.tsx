@@ -3,7 +3,7 @@ import {Grid, GridItem, PageSection} from "@patternfly/react-core";
 import {testMarks} from "app/view/dataTest";
 import {Card, ClusterToolbar} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 import {selectSbdConfig} from "./select";
 import {SbdServiceStatus} from "./SbdServiceStatus";
@@ -26,7 +26,7 @@ const extractTimeoutAction = <VALUE extends string>(
 const {sbd, sbdToolbar} = testMarks.cluster;
 export const SbdPage = () => {
   const {nodeList, clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const openTask = useOpenTask();
   const sbdConfig = selectSbdConfig(nodeList);
 
   const configureOpenPayload = {

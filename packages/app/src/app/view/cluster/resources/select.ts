@@ -40,13 +40,24 @@ export const getSelectedResource = (
   return undefined;
 };
 
+const groupToIdGhost = (group: Group) => ({
+  id: group.id,
+  resources: group.resources.map(r => ({id: r.id})),
+});
+
 export const selectGroups = (resourceTree: Cluster["resourceTree"]) =>
-  resourceTree.reduce<Group[]>((groups, resource) => {
-    if (resource.itemType === "group") {
-      return [...groups, resource];
-    }
-    if (resource.itemType === "clone" && resource.member.itemType === "group") {
-      return [...groups, resource.member];
-    }
-    return groups;
-  }, []);
+  resourceTree.reduce<{id: string; resources: {id: string}[]}[]>(
+    (groups, resource) => {
+      if (resource.itemType === "group") {
+        return [...groups, groupToIdGhost(resource)];
+      }
+      if (
+        resource.itemType === "clone"
+        && resource.member.itemType === "group"
+      ) {
+        return [...groups, groupToIdGhost(resource.member)];
+      }
+      return groups;
+    },
+    [],
+  );

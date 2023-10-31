@@ -1,11 +1,13 @@
-import {useClusterTask} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("sbdDisable");
-  const {dispatch, clusterName} = task;
+  const task = useTaskCommon("sbdDisable");
+  const {dispatch, state} = task;
+  const {clusterName} = state;
 
   return {
     ...task,
+    clusterName,
     label: "Disable SBD",
 
     //actions

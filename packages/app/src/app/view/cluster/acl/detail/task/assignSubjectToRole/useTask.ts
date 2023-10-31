@@ -1,10 +1,9 @@
-import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
-import {getAssignedSubjectIdList} from "app/view/cluster/acl/detail/tools";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("aclSubjectAssign");
-  const {dispatch, state, clusterName} = task;
-  const {acls} = useLoadedCluster();
+  const task = useTaskCommon("aclSubjectAssign");
+  const {dispatch, state} = task;
+  const {clusterName} = state;
 
   const assigneeType =
     state.sourceObject === "role" ? state.subjectType : "role";
@@ -12,13 +11,9 @@ export const useTask = () => {
   const assigneeKey = state.sourceObject === "subject" ? "roleId" : "subjectId";
   const assigneeId = state[assigneeKey];
 
-  const alreadyAssigned =
-    state.sourceObject === "role"
-      ? getAssignedSubjectIdList(acls[state.subjectType] || {}, state.roleId)
-      : acls[state.subjectType]?.[state.subjectId] || [];
-
   return {
     ...task,
+    clusterName,
     label: `Assign ${assigneeType}`,
     isAssigneeValid:
       state.sourceObject === "subject"
@@ -27,10 +22,9 @@ export const useTask = () => {
 
     assigneeType,
     assigneeId,
-    alreadyAssigned,
 
-    itemsOffer: Object.keys(acls[assigneeType] || {}).filter(
-      i => !alreadyAssigned.includes(i),
+    assignableitems: state.assignableItems.filter(
+      i => !state.alreadyAssigned.includes(i),
     ),
 
     //actions

@@ -3,13 +3,13 @@ import {Action} from "app/store";
 import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {Node} from "app/view/cluster/types";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 const {toolbar} = testMarks.cluster.nodes.currentNode;
 
 export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
   const {clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const openTask = useOpenTask();
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",

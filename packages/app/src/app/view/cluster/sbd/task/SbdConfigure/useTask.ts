@@ -1,5 +1,5 @@
 import {ActionPayload} from "app/store";
-import {useClusterTask} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 type SbdTimeoutAction = Extract<
   ActionPayload["LIB.CALL.CLUSTER.TASK"]["call"],
@@ -7,8 +7,9 @@ type SbdTimeoutAction = Extract<
 >["payload"]["sbd_options"]["SBD_TIMEOUT_ACTION"];
 
 export const useTask = () => {
-  const task = useClusterTask("sbdConfigure");
-  const {dispatch, state, clusterName} = task;
+  const task = useTaskCommon("sbdConfigure");
+  const {dispatch, state} = task;
+  const {clusterName} = state;
 
   const getSbdTimeout = (): SbdTimeoutAction => {
     if (
@@ -28,6 +29,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    clusterName,
     getSbdTimeout,
     isWatchdogTimeoutValid: /^(\d*)$/.test(state.watchdogTimeout),
 

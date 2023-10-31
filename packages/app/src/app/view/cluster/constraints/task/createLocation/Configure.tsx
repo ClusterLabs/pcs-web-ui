@@ -10,14 +10,14 @@ const {constraintLocationCreate: task} = testMarks.task;
 export const Configure = () => {
   const {
     updateState,
-    nodeNameList,
-    resourceIdList,
     isScoreValid,
     isResourceValid,
     isPatternValid,
     isNodeValid,
     isRuleValid,
     state: {
+      resourceIdList,
+      nodeNameList,
       resourceSpecification,
       resourceId,
       resourcePattern,

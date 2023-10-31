@@ -1,14 +1,21 @@
 import {testMarks} from "app/view/dataTest";
 import {LauncherDropdown} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
+
+import {getAssignedSubjectIdList} from "./tools";
 
 const {toolbar} = testMarks.cluster.acl.currentRole;
 const {dropdown} = toolbar;
 
 export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
-  const {clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const {clusterName, acls} = useLoadedCluster();
+  const openTask = useOpenTask();
+  const alreadyAssignedSubjects = getAssignedSubjectIdList(
+    acls.group ?? {},
+    roleId,
+  );
+  const groupNameList = Object.keys(acls.group ?? {});
 
   return (
     <DetailToolbar
@@ -19,7 +26,13 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
             openTask("aclSubjectAssign", {
               type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
               key: {clusterName},
-              payload: {clusterName, subjectType: "user", roleId},
+              payload: {
+                clusterName,
+                subjectType: "user",
+                roleId,
+                alreadyAssigned: alreadyAssignedSubjects,
+                assignableItems: groupNameList,
+              },
             }),
           ...toolbar.assignUser.mark,
         },
@@ -29,7 +42,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
             openTask("aclRolePermissionAdd", {
               type: "CLUSTER.ACL.ROLE.PERMISSION",
               key: {clusterName},
-              payload: {clusterName},
+              payload: {clusterName, roleId},
             }),
           ...toolbar.addPermissions.mark,
         },
@@ -43,7 +56,13 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
                 openTask("aclSubjectAssign", {
                   type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
                   key: {clusterName},
-                  payload: {clusterName, subjectType: "group", roleId},
+                  payload: {
+                    clusterName,
+                    subjectType: "group",
+                    roleId,
+                    alreadyAssigned: alreadyAssignedSubjects,
+                    assignableItems: groupNameList,
+                  },
                 }),
               ...dropdown.assignGroup.mark,
             },

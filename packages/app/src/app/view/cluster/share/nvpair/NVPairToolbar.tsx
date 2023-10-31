@@ -3,7 +3,7 @@ import {
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 import {useNVPairListContext} from "./NVPairListContext";
 
@@ -17,7 +17,7 @@ export const NVPairToolbar = (props: {
   "data-test"?: string;
 }) => {
   const {clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const openTask = useOpenTask();
   const {owner, nvPairList} = useNVPairListContext();
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (

@@ -1,17 +1,19 @@
 import {ActionPayload} from "app/store";
 import {useResourceSets} from "app/view/share";
-import {useClusterTask} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 type TrueFalse = "true" | "false";
 
 export const useTask = () => {
-  const task = useClusterTask("constraintOrderSetCreate");
-  const {clusterName, dispatch, state, close} = task;
+  const task = useTaskCommon("constraintOrderSetCreate");
+  const {dispatch, state, close} = task;
+  const {clusterName} = state;
 
   const resourceSets = useResourceSets(clusterName, task.name);
 
   return {
     ...task,
+    clusterName,
     ...resourceSets,
 
     areSetsValid: resourceSets.areSetsValid(state.sets),

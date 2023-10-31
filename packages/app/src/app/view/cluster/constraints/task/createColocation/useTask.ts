@@ -2,13 +2,13 @@ import React from "react";
 
 import {ActionPayload} from "app/store";
 import {isValidScore, prepareScore} from "app/view/share";
-import {useClusterTask, useLoadedCluster} from "app/view/cluster/share";
+import {useTask as useTaskCommon} from "app/view/share";
 
 export const useTask = () => {
-  const task = useClusterTask("constraintColocationCreate");
+  const task = useTaskCommon("constraintColocationCreate");
 
-  const {clusterName, dispatch, state, close} = task;
-  const {resourceTree, nodeList} = useLoadedCluster();
+  const {dispatch, state, close} = task;
+  const {clusterName} = state;
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.COLOCATION.CREATE.UPDATE"]) =>
@@ -20,26 +20,13 @@ export const useTask = () => {
     [dispatch, clusterName],
   );
 
-  const resourceIdList = resourceTree.reduce<string[]>((idList, resource) => {
-    if (resource.itemType === "primitive") {
-      return [...idList, resource.id];
-    }
-
-    if (resource.itemType === "group") {
-      return [...idList, resource.id, ...resource.resources.map(r => r.id)];
-    }
-
-    return idList;
-  }, []);
-
   return {
     ...task,
+    clusterName,
     label: "Create colocation constraint",
     isResourceValid: state.resourceId.length > 0,
     isWithResourceValid: state.withResourceId.length > 0,
     isScoreValid: state.score.length === 0 || isValidScore(state.score),
-    nodeNameList: nodeList.map(n => n.name),
-    resourceIdList,
 
     // actions
     updateState,

@@ -1,6 +1,6 @@
 import {testMarks} from "app/view/dataTest";
 import {LauncherDropdown} from "app/view/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 import {useLoadedPermissions} from "./LoadedPermissionsContext";
 import {Permission} from "./types";
@@ -15,7 +15,7 @@ export const PermissionMenu = ({
   permissionList: Permission[];
 }) => {
   const {clusterName} = useLoadedPermissions();
-  const openTask = useOpenTask(clusterName);
+  const openTask = useOpenTask();
 
   return (
     <LauncherDropdown

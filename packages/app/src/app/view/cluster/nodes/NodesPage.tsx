@@ -5,7 +5,7 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 import {NodeDetailPage} from "./NodeDetailPage";
 import {NodeList} from "./NodeList";
@@ -13,7 +13,7 @@ import {NodeList} from "./NodeList";
 const {nodes, nodesToolbar} = testMarks.cluster;
 export const NodesPage = () => {
   const {nodeList, clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const openTask = useOpenTask();
   return (
     <>
       <ClusterToolbar
@@ -24,7 +24,15 @@ export const NodesPage = () => {
               openTask("nodeAdd", {
                 type: "NODE.ADD.INIT",
                 key: {clusterName},
-                payload: {clusterName},
+                payload: {
+                  clusterName,
+                  isSbdEnabled: nodeList.reduce(
+                    (enabled, n) =>
+                      enabled
+                      || (n.status !== "DATA_NOT_PROVIDED" && n.sbd !== undefined),
+                    false,
+                  ),
+                },
               }),
             ...nodesToolbar.addNode.mark,
           },

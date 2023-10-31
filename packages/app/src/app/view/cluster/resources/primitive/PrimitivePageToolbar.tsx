@@ -2,9 +2,9 @@ import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
-import * as task from "./task";
+import {selectGroups} from "../select";
 
 const isPrimitiveManaged = (primitive: Primitive) =>
   primitive.metaAttributes.every(
@@ -21,9 +21,8 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
 const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
-  const {canChange: canChangeGroup} = task.groupChange.useTask();
-  const {clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const {resourceTree, clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
 
   const unclone: ToolbarItem = {
     name: "unclone",
@@ -208,6 +207,8 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
     ...toolbar.enable.mark,
   };
 
+  const groupIdStructureList = selectGroups(resourceTree);
+
   return (
     <>
       <DetailToolbar
@@ -226,6 +227,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
                     key: {clusterName},
                     payload: {
                       clusterName,
+                      groupIdStructureList,
                       resourceId: primitive.id,
                       oldGroupId: primitive.inGroup ?? "",
                       groupId: primitive.inGroup ?? "",
@@ -235,7 +237,8 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
                           : "set-group",
                     },
                   }),
-                disabled: !canChangeGroup(primitive),
+                disabled:
+                  primitive.inGroup === null && groupIdStructureList.length > 0,
                 ...toolbar.dropdown.changeGroup.mark,
               },
               refresh,

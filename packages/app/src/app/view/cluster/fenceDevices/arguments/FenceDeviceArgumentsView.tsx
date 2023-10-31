@@ -8,7 +8,7 @@ import {
   PcmkAgentAttrsToolbar,
   useLoadedCluster,
 } from "app/view/cluster/share";
-import {useOpenTask} from "app/view/cluster/task";
+import {useOpenTask} from "app/view/share";
 
 const {argumentsToolbar} = testMarks.cluster.fenceDevices.currentFenceDevice;
 
@@ -18,7 +18,7 @@ export const FenceDeviceArgumentsView = ({
   fenceDevice: FenceDevice;
 }) => {
   const {clusterName} = useLoadedCluster();
-  const openTask = useOpenTask(clusterName);
+  const openTask = useOpenTask();
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   const fenceDeviceArguments = Object.entries(fenceDevice.arguments).reduce(
     (nameValueMap, [name, {value}]) => ({...nameValueMap, [name]: value}),
