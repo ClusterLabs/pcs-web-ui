@@ -37,7 +37,7 @@ export const useTask = () => {
       if (!isCustomIdValid || !isTicketValid || !isResourceValid) {
         dispatch({
           type: "TASK.VALIDATION.SHOW",
-          key: {clusterName, task: task.name},
+          key: {task: task.name},
         });
         return;
       }

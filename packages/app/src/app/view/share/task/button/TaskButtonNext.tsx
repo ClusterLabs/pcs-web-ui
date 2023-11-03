@@ -10,10 +10,7 @@ export const TaskButtonNext = (props: {
   disabled?: boolean;
   "data-test"?: string;
 }) => {
-  // Empty cluster name means that it is not in the context of cluster - ie. it
-  // is dashboard. To make actions usable for dashboard tasks the key
-  // clusterName must be null (so it is not propagated into cluster tasks)
-  const {task, clusterName} = useTaskContext();
+  const {task} = useTaskContext();
   const dispatch = useDispatch();
   const {run, runIf, children, disabled} = props;
   return (
@@ -22,13 +19,13 @@ export const TaskButtonNext = (props: {
         if (runIf || runIf === undefined) {
           dispatch({
             type: "TASK.VALIDATION.HIDE",
-            key: {clusterName, task},
+            key: {task},
           });
           run();
         } else {
           dispatch({
             type: "TASK.VALIDATION.SHOW",
-            key: {clusterName, task},
+            key: {task},
           });
         }
       }}

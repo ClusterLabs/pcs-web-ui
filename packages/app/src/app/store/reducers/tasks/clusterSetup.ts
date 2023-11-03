@@ -1,10 +1,7 @@
 import {AppReducer} from "app/store/reducers/appReducer";
 import {ActionPayload} from "app/store/actions";
 
-import {
-  initialState as initialLibCall,
-  libCall,
-} from "../cluster/tasks/libCall";
+import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: {
   clusterName: string;
