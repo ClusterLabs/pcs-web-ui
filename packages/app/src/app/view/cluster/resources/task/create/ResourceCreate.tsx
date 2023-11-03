@@ -18,7 +18,6 @@ const review = "Review";
 export const ResourceCreate = () => {
   const {
     close,
-    clusterName,
     isNameTypeValid,
     areInstanceAttrsValid,
     areSettingsValid,
@@ -26,7 +25,6 @@ export const ResourceCreate = () => {
   } = useTask();
   return (
     <Wizard
-      clusterName={clusterName}
       task="resourceCreate"
       {...testMarks.task.resourceCreate.mark}
       onClose={close}

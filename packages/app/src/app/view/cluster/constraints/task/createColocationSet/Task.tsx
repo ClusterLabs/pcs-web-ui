@@ -14,7 +14,6 @@ import {Review} from "./Review";
 export const Task = () => {
   const {
     close,
-    clusterName,
     create,
     areSetsValid,
     isCustomIdValid,
@@ -25,7 +24,6 @@ export const Task = () => {
   } = useTask();
   return (
     <Wizard
-      clusterName={clusterName}
       task="constraintColocationSetCreate"
       data-test="task-constraint-colocation-set-create"
       taskLabel="create colocation constraint with resource set"

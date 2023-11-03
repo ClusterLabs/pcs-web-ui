@@ -17,7 +17,6 @@ const review = "Review";
 
 export const Task = () => {
   const {
-    clusterName,
     close,
     isNameValid,
     invalidPermissionIndexes,
@@ -27,7 +26,6 @@ export const Task = () => {
   return (
     <Wizard
       task="aclRoleCreate"
-      clusterName={clusterName}
       taskLabel={taskLabel}
       {...createAclRole.mark}
       description="Create acl role"

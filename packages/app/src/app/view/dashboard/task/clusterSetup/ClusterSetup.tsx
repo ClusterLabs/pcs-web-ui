@@ -28,7 +28,6 @@ export const ClusterSetup = () => {
   } = useTask();
   return (
     <Wizard
-      clusterName={null}
       task="clusterSetup"
       {...testMarks.task.clusterSetup.mark}
       taskLabel="Setup cluster"

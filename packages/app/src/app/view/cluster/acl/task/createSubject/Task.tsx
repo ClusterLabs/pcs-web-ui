@@ -14,7 +14,6 @@ import {Roles} from "./Roles";
 export const Task = () => {
   const {
     name: taskName,
-    clusterName,
     close,
     createSubject,
     isNameValid,
@@ -30,7 +29,6 @@ export const Task = () => {
   return (
     <Wizard
       task={taskName}
-      clusterName={clusterName}
       taskLabel={`create ${subjectType} ${subjectId}`}
       data-test={`task-create-${subjectType}`}
       description={`Create ACL ${subjectType}`}

@@ -14,7 +14,6 @@ import {Review} from "./Review";
 export const Task = () => {
   const {
     close,
-    clusterName,
     create,
     areSetsValid,
     isCustomIdValid,
@@ -25,7 +24,6 @@ export const Task = () => {
   return (
     <Wizard
       task="constraintOrderSetCreate"
-      clusterName={clusterName}
       data-test="task-constraint-order-set-create"
       taskLabel="create order constraint with resource set"
       description="Create order set constraint"

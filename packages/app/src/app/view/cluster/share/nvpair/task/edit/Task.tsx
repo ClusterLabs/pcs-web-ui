@@ -14,7 +14,6 @@ export const Task = () => {
     attrDesc,
     isCreate,
     name: taskName,
-    clusterName,
     state: {
       call: {response},
     },
@@ -23,7 +22,6 @@ export const Task = () => {
     <TaskSimpleOldApi
       taskLabel={label}
       task={taskName}
-      clusterName={clusterName}
       close={close}
       waitTitle={`${isCreate ? "Creating" : "Updating"} ${attrDesc}`}
       footer={<Footer />}

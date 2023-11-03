@@ -37,7 +37,6 @@ export const TaskComponent = ({
       title={`${taskLabel}?`}
       taskLabel={taskLabel}
       task="forceableConfirm"
-      clusterName={null}
       close={close}
       response={state.response}
       waitTitle={`Task "${taskLabel}" in progress`}

@@ -13,7 +13,6 @@ export const EditArgsTask = () => {
   const {
     close,
     name: taskName,
-    clusterName,
     state: {
       fenceDeviceId,
       call: {response},
@@ -30,7 +29,6 @@ export const EditArgsTask = () => {
     <TaskSimpleOldApi
       taskLabel="Edit fence device arguments"
       task={taskName}
-      clusterName={clusterName}
       close={close}
       waitTitle="Updating fence device arguments"
       footer={<Footer />}

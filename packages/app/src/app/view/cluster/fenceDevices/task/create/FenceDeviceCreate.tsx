@@ -18,7 +18,6 @@ const review = "Review";
 export const FenceDeviceCreate = () => {
   const {
     close,
-    clusterName,
     isNameTypeValid,
     areInstanceAttrsValid,
     state: {fenceDeviceName},
@@ -27,7 +26,6 @@ export const FenceDeviceCreate = () => {
   return (
     <Wizard
       {...testMarks.task.fenceDeviceCreate.mark}
-      clusterName={clusterName}
       task="fenceDeviceCreate"
       onClose={close}
       taskLabel={`create fence device "${fenceDeviceName}"`}

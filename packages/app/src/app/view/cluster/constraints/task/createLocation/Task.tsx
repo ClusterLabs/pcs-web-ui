@@ -12,7 +12,6 @@ export const Task = () => {
     close,
     name: taskName,
     label,
-    clusterName,
     state: {
       call: {response},
     },
@@ -22,7 +21,6 @@ export const Task = () => {
       taskLabel={label}
       close={close}
       task={taskName}
-      clusterName={clusterName}
       waitTitle="Creating location constraint"
       response={response}
       footer={<Footer />}

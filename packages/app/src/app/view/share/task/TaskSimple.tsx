@@ -8,7 +8,6 @@ import {TaskContextProvider} from "./TaskContext";
 export const TaskSimple = ({
   close,
   task,
-  clusterName,
   footer,
   children,
   title,
@@ -24,15 +23,13 @@ export const TaskSimple = ({
 } & (
   | {
       task: Parameters<typeof selectors.getClusterTask>[0];
-      clusterName: string;
     }
   | {
       task: Parameters<typeof selectors.getTask>[0];
-      clusterName: null;
     }
 )) => {
   return (
-    <TaskContextProvider value={{task, close, clusterName, taskLabel}}>
+    <TaskContextProvider value={{task, close, clusterName: null, taskLabel}}>
       <Modal
         variant="medium"
         title={title ?? taskLabel}

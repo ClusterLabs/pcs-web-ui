@@ -19,7 +19,6 @@ const review = "Review";
 
 export const NodeAdd = () => {
   const {
-    clusterName,
     close,
     isNameValid,
     isNodeCheckDoneValid,
@@ -28,7 +27,6 @@ export const NodeAdd = () => {
   return (
     <Wizard
       task="nodeAdd"
-      clusterName={clusterName}
       {...testMarks.task.nodeAdd.mark}
       onClose={close}
       taskLabel={`add node ${nodeName}`}

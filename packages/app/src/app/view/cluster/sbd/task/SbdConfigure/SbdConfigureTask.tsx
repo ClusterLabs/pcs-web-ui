@@ -14,11 +14,10 @@ const review = "Review";
 const watchdogDevices = "Watchdog devices";
 
 export const SbdConfigureTask = () => {
-  const {close, clusterName, isWatchdogTimeoutValid} = useTask();
+  const {close, isWatchdogTimeoutValid} = useTask();
 
   return (
     <Wizard
-      clusterName={clusterName}
       task="sbdConfigure"
       {...testMarks.task.sbdConfigure.mark}
       onClose={close}

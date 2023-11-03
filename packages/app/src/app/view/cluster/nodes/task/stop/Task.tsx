@@ -14,7 +14,7 @@ import {Success} from "./Success";
 const {nodeStop: task} = testMarks.task;
 
 export const Task = () => {
-  const {name: taskName, close, nodeStop, state, clusterName} = useTask();
+  const {name: taskName, close, nodeStop, state} = useTask();
 
   const isForceable = state.response === "fail" && state.isForceable;
   const taskLabel = "Stop node";
@@ -24,7 +24,6 @@ export const Task = () => {
       title={`${taskLabel}?`}
       taskLabel={taskLabel}
       task={taskName}
-      clusterName={clusterName}
       close={close}
       response={state.response}
       waitTitle={`Task "${taskLabel}" in progress`}

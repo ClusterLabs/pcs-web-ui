@@ -13,7 +13,6 @@ const {aclRoleAddPermission: task} = testMarks.task;
 export const Task = () => {
   const {
     close,
-    clusterName,
     label,
     state: {
       libCall: {response, reports},
@@ -24,7 +23,6 @@ export const Task = () => {
     <TaskSimpleLib
       taskLabel={label}
       task={"aclRolePermissionAdd"}
-      clusterName={clusterName}
       close={close}
       configure={<Configure />}
       footer={<Footer />}

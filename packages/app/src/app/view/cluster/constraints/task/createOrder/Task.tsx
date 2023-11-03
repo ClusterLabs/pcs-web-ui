@@ -12,7 +12,6 @@ export const Task = () => {
     close,
     label,
     name: taskName,
-    clusterName,
     state: {
       call: {response},
     },
@@ -21,7 +20,6 @@ export const Task = () => {
     <TaskSimpleOldApi
       taskLabel={label}
       task={taskName}
-      clusterName={clusterName}
       close={close}
       waitTitle="Creating order constraint"
       configure={<Configure />}

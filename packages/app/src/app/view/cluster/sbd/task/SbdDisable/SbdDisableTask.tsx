@@ -12,7 +12,6 @@ const {sbdDisable: task} = testMarks.task;
 export const SbdDisableTask = () => {
   const {
     close,
-    clusterName,
     label,
     state: {
       libCall: {response, reports},
@@ -23,7 +22,6 @@ export const SbdDisableTask = () => {
     <TaskSimpleLib
       task="sbdDisable"
       taskLabel={label}
-      clusterName={clusterName}
       close={close}
       footer={<Footer />}
       configure="Disable SBD in cluster."

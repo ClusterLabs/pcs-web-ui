@@ -29,11 +29,9 @@ export const TaskSimpleLib = (
   } & (
     | {
         task: Parameters<typeof selectors.getClusterTask>[0];
-        clusterName: string;
       }
     | {
         task: Parameters<typeof selectors.getTask>[0];
-        clusterName: null;
       }
   ),
 ) => {
@@ -42,7 +40,7 @@ export const TaskSimpleLib = (
       value={{
         task: props.task,
         close: props.close,
-        clusterName: props.clusterName,
+        clusterName: null,
         taskLabel: props.taskLabel,
       }}
     >

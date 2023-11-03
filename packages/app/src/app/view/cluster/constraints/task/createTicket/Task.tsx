@@ -15,7 +15,6 @@ export const Task = () => {
     close,
     name: taskName,
     label,
-    clusterName,
     state: {
       libCall: {response, reports},
     },
@@ -25,7 +24,6 @@ export const Task = () => {
     <TaskSimpleLib
       taskLabel={label}
       task={taskName}
-      clusterName={clusterName}
       close={close}
       footer={<Footer />}
       configure={<Configure />}

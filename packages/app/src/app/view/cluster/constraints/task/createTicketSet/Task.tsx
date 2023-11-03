@@ -14,7 +14,6 @@ import {Review} from "./Review";
 export const Task = () => {
   const {
     close,
-    clusterName,
     areSetsValid,
     isTicketValid,
     isCustomIdValid,
@@ -25,7 +24,6 @@ export const Task = () => {
   } = useTask();
   return (
     <Wizard
-      clusterName={clusterName}
       task="constraintTicketSetCreate"
       data-test="task-constraint-ticket-set-create"
       taskLabel="Create ticket constraint with resource set"

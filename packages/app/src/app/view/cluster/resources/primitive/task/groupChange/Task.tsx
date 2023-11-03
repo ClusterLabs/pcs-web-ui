@@ -10,7 +10,6 @@ export const Task = () => {
   const {
     close,
     name: taskName,
-    clusterName,
     state: {
       resourceId,
       call: {response},
@@ -21,7 +20,6 @@ export const Task = () => {
     <TaskSimpleOldApi
       taskLabel={`Change group of primitive resource "${resourceId}"?`}
       task={taskName}
-      clusterName={clusterName}
       close={close}
       waitTitle={`Changing group of primitive resource "${resourceId}"`}
       configure={<GroupChangeForm />}

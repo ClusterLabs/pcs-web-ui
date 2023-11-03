@@ -11,7 +11,6 @@ export const PermissionTask = () => {
   const {
     close,
     name: taskName,
-    clusterName,
     isCreate,
     label,
     state: {
@@ -23,7 +22,6 @@ export const PermissionTask = () => {
     <TaskSimpleOldApi
       taskLabel={label}
       task={taskName}
-      clusterName={clusterName}
       close={close}
       configure={<Configure />}
       footer={<Footer />}

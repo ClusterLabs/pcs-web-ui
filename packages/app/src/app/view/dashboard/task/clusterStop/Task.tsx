@@ -24,7 +24,6 @@ export const Task = () => {
       title={`${taskLabel}?`}
       taskLabel={taskLabel}
       task={taskName}
-      clusterName={null}
       close={close}
       response={state.response}
       waitTitle={`Task "${taskLabel}" in progress`}
