@@ -1,4 +1,4 @@
-import {ClusterStorageItem, ClusterTaskKeys, Root} from "../types";
+import {ClusterStorageItem, Root} from "../types";
 
 import {
   ClusterSelector as TClusterSelector,
@@ -38,7 +38,6 @@ type ClusterInfo =
       resourceAgentMap: null;
       fenceAgentList: null;
       pcmkAgents: null;
-      tasks: null;
       uiState: null;
     }
   | {
@@ -52,7 +51,6 @@ type ClusterInfo =
       resourceAgentMap: ClusterStorageItem["resourceAgentMap"]["data"];
       fenceAgentList: ClusterStorageItem["fenceAgentList"]["data"];
       pcmkAgents: ClusterStorageItem["pcmkAgents"];
-      tasks: {[K in ClusterTaskKeys]: ClusterStorageItem["tasks"][K]};
       uiState: {
         resourceOpenedItems: ClusterStorageItem["resourceTree"];
       };
@@ -74,7 +72,6 @@ export const getClusterStoreInfo =
         resourceAgentMap: null,
         fenceAgentList: null,
         pcmkAgents: null,
-        tasks: null,
         uiState: null,
       };
     }
@@ -94,7 +91,6 @@ export const getClusterStoreInfo =
       resourceAgentMap: clusterStoreItem.resourceAgentMap.data,
       fenceAgentList: clusterStoreItem.fenceAgentList.data,
       pcmkAgents: clusterStoreItem.pcmkAgents,
-      tasks: clusterStoreItem.tasks,
       uiState: {
         resourceOpenedItems: clusterStoreItem.resourceTree,
       },
