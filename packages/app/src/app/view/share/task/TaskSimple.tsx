@@ -18,16 +18,10 @@ export const TaskSimple = ({
   footer: React.ReactNode;
   ["data-test"]?: string;
   children: React.ReactNode;
+  task: Parameters<typeof selectors.getTask>[0];
   taskLabel: string;
   title?: React.ComponentProps<typeof Modal>["title"];
-} & (
-  | {
-      task: Parameters<typeof selectors.getClusterTask>[0];
-    }
-  | {
-      task: Parameters<typeof selectors.getTask>[0];
-    }
-)) => {
+}) => {
   return (
     <TaskContextProvider value={{task, close, taskLabel}}>
       <Modal

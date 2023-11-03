@@ -64,17 +64,11 @@ export const Wizard = ({
   ["data-test"]: string;
   steps?: Step[] | undefined;
   onClose: () => void;
+  task: Parameters<typeof selectors.getTask>[0];
   taskLabel: string;
   title?: string;
   description: string;
-} & (
-  | {
-      task: Parameters<typeof selectors.getClusterTask>[0];
-    }
-  | {
-      task: Parameters<typeof selectors.getTask>[0];
-    }
-)) => {
+}) => {
   const {stepList, footerList} = separateStepsAndFooters(steps || defaultSteps);
 
   return (

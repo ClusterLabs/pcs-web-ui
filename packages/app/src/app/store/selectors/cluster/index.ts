@@ -5,11 +5,6 @@ import {
   clusterStorageItemSelector,
 } from "./selectorsHelpers";
 
-export const getClusterTask = <NAME extends ClusterTaskKeys>(name: NAME) =>
-  clusterStorageItemSelector(
-    clusterStorageItem => clusterStorageItem.tasks[name],
-  );
-
 export const getPcmkAgent = clusterStorageItemSelector(
   (clusterStorageItem, agentName: string) =>
     clusterStorageItem.pcmkAgents[agentName],
