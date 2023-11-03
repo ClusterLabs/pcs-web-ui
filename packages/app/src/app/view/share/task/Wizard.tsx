@@ -82,7 +82,6 @@ export const Wizard = ({
       value={{
         task: task,
         close: onClose,
-        clusterName: null,
         taskLabel,
       }}
     >

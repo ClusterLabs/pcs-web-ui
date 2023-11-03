@@ -38,7 +38,6 @@ export const TaskSimpleOldApi = (
       value={{
         task: props.task,
         close: props.close,
-        clusterName: null,
         taskLabel: props.taskLabel,
       }}
     >

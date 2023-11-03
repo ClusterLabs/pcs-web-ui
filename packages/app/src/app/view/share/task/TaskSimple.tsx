@@ -29,7 +29,7 @@ export const TaskSimple = ({
     }
 )) => {
   return (
-    <TaskContextProvider value={{task, close, clusterName: null, taskLabel}}>
+    <TaskContextProvider value={{task, close, taskLabel}}>
       <Modal
         variant="medium"
         title={title ?? taskLabel}
