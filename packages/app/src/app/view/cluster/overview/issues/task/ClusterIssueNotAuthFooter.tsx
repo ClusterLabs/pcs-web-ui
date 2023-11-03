@@ -5,12 +5,9 @@ import {ClusterIssueNotAuthButton} from "./ClusterIssueNotAuthButton";
 
 export const ClusterIssueNotAuthFooter = () => {
   const {
-    authProcessId,
-    fixing,
-    errorMessage,
-    authAttemptInProgress,
     cancel,
     fixAuthDone,
+    state: {authProcessId, fixing, errorMessage, authAttemptInProgress},
   } = useTask();
 
   if (authProcessId) {

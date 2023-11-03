@@ -13,6 +13,7 @@ export type ClusterFixAuthActions = {
     key: {clusterName: string};
     payload: {
       authProcessId: number;
+      clusterName: string;
     };
   };
 

@@ -6,7 +6,7 @@ import {nodeAuthWait} from "./nodeAuth";
 
 export function* fixAuth({
   key,
-  payload: {initialNodeList},
+  payload: {initialNodeList, clusterName},
 }: ActionMap["CLUSTER.FIX_AUTH.START"]) {
   const authProcessId = actionNewId();
 
@@ -19,7 +19,7 @@ export function* fixAuth({
   yield put({
     type: "CLUSTER.FIX_AUTH.AUTH_STARTED",
     key,
-    payload: {authProcessId},
+    payload: {authProcessId, clusterName},
   });
 
   const {cancel} = yield race({

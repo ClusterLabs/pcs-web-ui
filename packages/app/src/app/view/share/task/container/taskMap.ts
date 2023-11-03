@@ -13,6 +13,7 @@ import * as sbdTask from "app/view/cluster/sbd/task";
 import * as fenceDeviceTask from "app/view/cluster/fenceDevices/task";
 import * as fenceDeviceArgumentsTask from "app/view/cluster/fenceDevices/arguments/task";
 import * as nvpairTask from "app/view/cluster/share/nvpair/task";
+import {task as fixAuthTask} from "app/view/cluster/overview/issues";
 
 type TaskNames = Parameters<typeof selectors.getTask>[0];
 
@@ -42,8 +43,9 @@ export const taskMap = {
   resourceGroup: resourceTask.createGroup.ResourceCreateGroup,
   sbdConfigure: sbdTask.configure.SbdConfigureTask,
   sbdDisable: sbdTask.disable.SbdDisableTask,
+  fixAuth: fixAuthTask.Task,
   // forceableConfirm: ,
 } satisfies Record<
-  Exclude<TaskNames, "forceableConfirm" | "fixAuth">,
+  Exclude<TaskNames, "forceableConfirm">,
   React.FunctionComponent
 >;

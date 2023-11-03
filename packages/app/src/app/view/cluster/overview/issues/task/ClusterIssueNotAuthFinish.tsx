@@ -5,7 +5,9 @@ import {EmptyStateSpinner} from "app/view/share";
 import {useTask} from "./useTask";
 
 export const ClusterIssueNotAuthFinish = () => {
-  const {fixing, errorMessage} = useTask();
+  const {
+    state: {fixing, errorMessage},
+  } = useTask();
 
   if (fixing) {
     return <EmptyStateSpinner title="Distributing auth tokens to cluster" />;

@@ -3,14 +3,12 @@ import {AppReducer} from "app/store/reducers/appReducer";
 const initialState: {
   clusterName: string;
   authProcessId: number | null;
-  open: boolean;
   fixing: boolean;
   authAttemptInProgress: boolean;
   errorMessage: string;
 } = {
   clusterName: "",
   authProcessId: null,
-  open: false,
   fixing: false,
   authAttemptInProgress: false,
   errorMessage: "",
@@ -25,7 +23,7 @@ export const fixAuth: AppReducer<typeof initialState> = (
       return {
         ...state,
         authProcessId: action.payload.authProcessId,
-        open: true,
+        clusterName: action.payload.clusterName,
       };
 
     case "CLUSTER.FIX_AUTH.OK":
@@ -54,7 +52,6 @@ export const fixAuth: AppReducer<typeof initialState> = (
         ...state,
         authProcessId: null,
         fixing: true,
-        open: false,
         errorMessage: "",
       };
 
