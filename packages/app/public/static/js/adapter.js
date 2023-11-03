@@ -32,7 +32,7 @@ var pcsUiEnvAdapter = {
   request: async (path, headers, postBody) => {
     const response = await fetch(path, {
       headers,
-      ...(postBody ? {method: "post", body: postBody} : {}),
+      ...(postBody !== undefined ? {method: "post", body: postBody} : {}),
     });
     return {
       status: response.status,
