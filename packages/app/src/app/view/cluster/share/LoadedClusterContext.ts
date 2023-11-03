@@ -10,7 +10,6 @@ const ClusterSourcesContext = React.createContext<
       resourceAgentMap: ClusterInfo["resourceAgentMap"];
       fenceAgentList: ClusterInfo["fenceAgentList"];
       pcmkAgents: NonNullable<ClusterInfo["pcmkAgents"]>;
-      tasks: NonNullable<ClusterInfo["tasks"]>;
       uiState: NonNullable<ClusterInfo["uiState"]>;
     }
   | undefined

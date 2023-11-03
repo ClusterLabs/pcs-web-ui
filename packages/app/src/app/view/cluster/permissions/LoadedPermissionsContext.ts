@@ -8,7 +8,6 @@ const LoadedPermissionsContext = React.createContext<
   | {
       clusterName: string;
       permissions: NonNullable<ClusterInfo["permissions"]>;
-      tasks: NonNullable<ClusterInfo["tasks"]>;
     }
   | undefined
 >(undefined);

@@ -1,5 +1,4 @@
 import {ActionMap, ActionPayload} from "app/store";
-import {useLoadedPermissions} from "app/view/cluster/permissions/LoadedPermissionsContext";
 import {useTask as useTaskCommon} from "app/view/share";
 
 type AllowName =
@@ -10,10 +9,7 @@ const taskName: ActionMap["CLUSTER.PERMISSIONS.SAVE"]["key"]["task"] =
 
 export const useTask = () => {
   const task = useTaskCommon("permissionEdit");
-  const {dispatch, close} = task;
-  const {
-    tasks: {permissionEdit: state},
-  } = useLoadedPermissions();
+  const {dispatch, close, state} = task;
   const {clusterName, currentPermissionList} = state;
 
   const key = {clusterName, task: taskName};
