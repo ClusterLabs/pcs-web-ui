@@ -1,13 +1,16 @@
 import React from "react";
+import {useSelector} from "react-redux";
 import {SelectGroup, SelectOption} from "@patternfly/react-core";
 import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
+import {selectors} from "app/store";
 import {testMarks} from "app/view/dataTest";
 import {Select} from "app/view/share";
-import {useClusterSources} from "app/view/cluster/share";
+
+import {useTask} from "./useTask";
 
 type ResourceAgentMap = NonNullable<
-  ReturnType<typeof useClusterSources>["resourceAgentMap"]
+  ReturnType<ReturnType<typeof selectors.getResourceAgentMap>>
 >;
 const grow: FlexProps["grow"] = {default: "grow"};
 
@@ -49,7 +52,12 @@ export const NameTypeTypeSelect = ({
   onClear: () => void;
   agentName: string;
 }) => {
-  const {resourceAgentMap} = useClusterSources();
+  const {
+    state: {clusterName},
+  } = useTask();
+  const resourceAgentMap = useSelector(
+    selectors.getResourceAgentMap(clusterName),
+  );
   const {filteredResourceAgentMap, onFilter} = useFiltering(
     resourceAgentMap ?? ({} as ResourceAgentMap),
   );

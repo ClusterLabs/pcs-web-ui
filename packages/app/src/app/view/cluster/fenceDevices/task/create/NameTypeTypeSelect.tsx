@@ -1,12 +1,15 @@
 import React from "react";
+import {useSelector} from "react-redux";
 import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
 
+import {selectors} from "app/store";
 import {testMarks} from "app/view/dataTest";
 import {Select} from "app/view/share";
-import {useClusterSources} from "app/view/cluster/share";
+
+import {useTask} from "./useTask";
 
 type FenceAgentList = NonNullable<
-  ReturnType<typeof useClusterSources>["fenceAgentList"]
+  ReturnType<ReturnType<typeof selectors.getFenceAgentList>>
 >;
 
 const useFiltering = (fenceAgentList: FenceAgentList) => {
@@ -36,7 +39,10 @@ export const NameTypeTypeSelect = ({
   onClear: () => void;
   agentName: string;
 }) => {
-  const {fenceAgentList} = useClusterSources();
+  const {
+    state: {clusterName},
+  } = useTask();
+  const fenceAgentList = useSelector(selectors.getFenceAgentList(clusterName));
   const {filteredFenceAgentList, onFilter} = useFiltering(
     fenceAgentList ?? ([] as FenceAgentList),
   );

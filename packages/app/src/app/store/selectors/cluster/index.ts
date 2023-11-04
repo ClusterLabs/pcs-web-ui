@@ -100,6 +100,16 @@ export const getClusterStoreInfo =
 type PcmkAgent =
   ClusterStorageItem["pcmkAgents"][keyof ClusterStorageItem["pcmkAgents"]];
 
+export const getResourceAgentMap =
+  (clusterName: string) =>
+  (state: Root): ClusterStorageItem["resourceAgentMap"]["data"] =>
+    state.clusterStorage[clusterName]?.resourceAgentMap.data ?? null;
+
+export const getFenceAgentList =
+  (clusterName: string) =>
+  (state: Root): ClusterStorageItem["fenceAgentList"]["data"] =>
+    state.clusterStorage[clusterName]?.fenceAgentList.data ?? null;
+
 export const getAgentInfo =
   (clusterName: string, agentName: string) =>
   (
