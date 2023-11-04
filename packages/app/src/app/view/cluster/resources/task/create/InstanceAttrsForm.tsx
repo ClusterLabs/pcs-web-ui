@@ -33,6 +33,7 @@ const {attr} = testMarks.task.resourceCreate.instanceAttrs;
 export const InstanceAttrsForm = () => {
   const {
     state: {
+      clusterName,
       agentName,
       instanceAttrs,
       showValidationErrors,
@@ -47,7 +48,7 @@ export const InstanceAttrsForm = () => {
       reports={reports}
       {...testMarks.task.resourceCreate.instanceAttrs.mark}
     >
-      <LoadedPcmkAgent agentName={agentName}>
+      <LoadedPcmkAgent clusterName={clusterName} agentName={agentName}>
         {agent => {
           const requiredParameters = agent.parameters.filter(p => p.required);
           return (

@@ -7,6 +7,7 @@ import {
   LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
+  useLoadedCluster,
 } from "app/view/cluster/share";
 
 import {PrimitiveAttrsForm} from "./PrimitiveAttrsForm";
@@ -14,10 +15,11 @@ import {PrimitiveAttrsForm} from "./PrimitiveAttrsForm";
 const {attributes} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
+  const {clusterName} = useLoadedCluster();
   const [isEditing, setIsEditing] = React.useState(false);
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   return (
-    <LoadedPcmkAgent agentName={primitive.agentName}>
+    <LoadedPcmkAgent clusterName={clusterName} agentName={primitive.agentName}>
       {agent => {
         if (isEditing) {
           return (

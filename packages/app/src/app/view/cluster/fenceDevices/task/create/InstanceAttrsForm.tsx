@@ -35,6 +35,7 @@ export const InstanceAttrsForm = () => {
   const {
     state: {
       agentName,
+      clusterName,
       instanceAttrs,
       showValidationErrors,
       libCall: {reports},
@@ -48,7 +49,7 @@ export const InstanceAttrsForm = () => {
       reports={reports}
       {...testMarks.task.fenceDeviceCreate.instanceAttrs.mark}
     >
-      <LoadedPcmkAgent agentName={agentName}>
+      <LoadedPcmkAgent clusterName={clusterName} agentName={agentName}>
         {agent => {
           const nonDeprecatedParameters = agent.parameters.filter(
             p => !("deprecated" in p && p.deprecated),

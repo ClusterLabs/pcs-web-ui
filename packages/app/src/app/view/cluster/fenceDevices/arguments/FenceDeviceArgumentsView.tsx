@@ -26,7 +26,10 @@ export const FenceDeviceArgumentsView = ({
   );
 
   return (
-    <LoadedPcmkAgent agentName={fenceDevice.agentName}>
+    <LoadedPcmkAgent
+      clusterName={clusterName}
+      agentName={fenceDevice.agentName}
+    >
       {agent => {
         return (
           <>

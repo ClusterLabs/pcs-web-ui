@@ -102,7 +102,13 @@ type PcmkAgent =
 
 export const getAgentInfo =
   (clusterName: string, agentName: string) =>
-  (state: Root): {agent: PcmkAgent; isAgentLoaded: boolean} | null => {
+  (
+    state: Root,
+  ): {
+    agent: PcmkAgent;
+    isAgentLoaded: boolean;
+    isAgentLoadFailed: boolean;
+  } | null => {
     const clusterStoreItem = state.clusterStorage[clusterName];
     if (clusterStoreItem === undefined) {
       return null;
@@ -114,5 +120,6 @@ export const getAgentInfo =
       isAgentLoaded:
         agent
         && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING"),
+      isAgentLoadFailed: agent && agent.loadStatus === "FAILED",
     };
   };
