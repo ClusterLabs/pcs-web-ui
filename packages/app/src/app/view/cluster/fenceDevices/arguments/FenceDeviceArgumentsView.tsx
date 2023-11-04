@@ -3,11 +3,11 @@ import {StackItem} from "@patternfly/react-core";
 import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
 import {
-  LoadedPcmkAgent,
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {LoadedPcmkAgent} from "app/view/share";
 import {useOpenTask} from "app/view/share";
 
 const {argumentsToolbar} = testMarks.cluster.fenceDevices.currentFenceDevice;

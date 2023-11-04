@@ -3,10 +3,10 @@ import {Primitive} from "app/view/cluster/types";
 import {CrmStatusTable, IssueList, Link, location} from "app/view/share";
 import {
   DetailViewSection,
-  LoadedPcmkAgent,
   PcmkAgentDescription,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {LoadedPcmkAgent} from "app/view/share";
 
 const {detail} = testMarks.cluster.resources.currentPrimitive;
 
