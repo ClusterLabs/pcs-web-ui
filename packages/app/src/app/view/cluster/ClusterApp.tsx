@@ -100,8 +100,6 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           <ClusterSourcesProvider
             value={{
               loadedCluster: clusterInfo.clusterStatus.data,
-              resourceAgentMap: clusterInfo.resourceAgentMap,
-              fenceAgentList: clusterInfo.fenceAgentList,
               pcmkAgents: clusterInfo.pcmkAgents,
               uiState: clusterInfo.uiState,
             }}

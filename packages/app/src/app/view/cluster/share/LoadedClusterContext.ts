@@ -7,8 +7,6 @@ type ClusterInfo = ReturnType<typeof useClusterInfo>;
 const ClusterSourcesContext = React.createContext<
   | {
       loadedCluster: NonNullable<ClusterInfo["clusterStatus"]["data"]>;
-      resourceAgentMap: ClusterInfo["resourceAgentMap"];
-      fenceAgentList: ClusterInfo["fenceAgentList"];
       pcmkAgents: NonNullable<ClusterInfo["pcmkAgents"]>;
       uiState: NonNullable<ClusterInfo["uiState"]>;
     }

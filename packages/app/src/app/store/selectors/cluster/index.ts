@@ -35,8 +35,6 @@ type ClusterInfo =
         data: null;
       };
       permissions: null;
-      resourceAgentMap: null;
-      fenceAgentList: null;
       pcmkAgents: null;
       uiState: null;
     }
@@ -48,8 +46,6 @@ type ClusterInfo =
         load: {when: number; currently: boolean};
       };
       permissions: ClusterStorageItem["clusterPermissions"]["data"];
-      resourceAgentMap: ClusterStorageItem["resourceAgentMap"]["data"];
-      fenceAgentList: ClusterStorageItem["fenceAgentList"]["data"];
       pcmkAgents: ClusterStorageItem["pcmkAgents"];
       uiState: {
         resourceOpenedItems: ClusterStorageItem["resourceTree"];
@@ -69,8 +65,6 @@ export const getClusterStoreInfo =
           data: null,
         },
         permissions: null,
-        resourceAgentMap: null,
-        fenceAgentList: null,
         pcmkAgents: null,
         uiState: null,
       };
@@ -88,8 +82,6 @@ export const getClusterStoreInfo =
         load: {when, currently},
       },
       permissions: clusterStoreItem.clusterPermissions.data,
-      resourceAgentMap: clusterStoreItem.resourceAgentMap.data,
-      fenceAgentList: clusterStoreItem.fenceAgentList.data,
       pcmkAgents: clusterStoreItem.pcmkAgents,
       uiState: {
         resourceOpenedItems: clusterStoreItem.resourceTree,
