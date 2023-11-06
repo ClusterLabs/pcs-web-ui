@@ -44,8 +44,4 @@ export const taskMap = {
   sbdConfigure: sbdTask.configure.SbdConfigureTask,
   sbdDisable: sbdTask.disable.SbdDisableTask,
   fixAuth: fixAuthTask.Task,
-  // forceableConfirm: ,
-} satisfies Record<
-  Exclude<TaskNames, "forceableConfirm">,
-  React.FunctionComponent
->;
+} satisfies Record<TaskNames, React.FunctionComponent>;

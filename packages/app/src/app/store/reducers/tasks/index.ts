@@ -5,7 +5,6 @@ import {ReducersMapKey, Task, TaskState, wrapTasks} from "app/store/taskTools";
 import {clusterSetup} from "./clusterSetup";
 import {clusterStop} from "./clusterStop";
 import {importExistingCluster} from "./importExistingCluster";
-import {forceableConfirm} from "./forceableConfirm";
 import {resourceCreate} from "./resourceCreate";
 import {fenceDeviceCreate} from "./fenceDeviceCreate";
 import {fenceDeviceArgsEdit} from "./fenceDeviceArgsEdit";
@@ -52,7 +51,6 @@ export const tasks = combineReducers(
   wrapTasks(wrapTaskReducer)({
     clusterSetup,
     clusterStop,
-    forceableConfirm,
     importExistingCluster,
     resourceCreate,
     fenceDeviceCreate,

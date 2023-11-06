@@ -18,7 +18,6 @@ import constraintOrderCreate from "./json/task/constraintOrderCreate.json";
 import constraintTicketCreate from "./json/task/constraintTicketCreate.json";
 import fenceDeviceArgumentsEdit from "./json/task/fenceDeviceArgumentsEdit.json";
 import fenceDeviceCreate from "./json/task/fenceDeviceCreate.json";
-import forceableConfirm from "./json/task/forceableConfirm.json";
 import nodeAdd from "./json/task/nodeAdd.json";
 import nodeStop from "./json/task/nodeStop.json";
 import nvsetEdit from "./json/task/nvsetEdit.json";
@@ -97,7 +96,6 @@ export const structure = {
     constraintTicketCreate,
     fenceDeviceArgumentsEdit,
     fenceDeviceCreate,
-    forceableConfirm,
     nodeAdd,
     nodeStop,
     nvsetEdit,
