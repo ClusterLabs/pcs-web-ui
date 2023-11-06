@@ -37,6 +37,7 @@ const initToState = (initPayload: InitPayload) => {
     return {
       ...initialState,
       clusterName: initPayload.clusterName,
+      currentPermissionList: initPayload.currentPermissionList,
     };
   }
 
