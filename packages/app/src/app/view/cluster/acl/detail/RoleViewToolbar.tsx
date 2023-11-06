@@ -15,7 +15,6 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
     acls.group ?? {},
     roleId,
   );
-  const groupNameList = Object.keys(acls.group ?? {});
 
   return (
     <DetailToolbar
@@ -31,7 +30,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
                 subjectType: "user",
                 roleId,
                 alreadyAssigned: alreadyAssignedSubjects,
-                assignableItems: groupNameList,
+                assignableItems: Object.keys(acls.user ?? {}),
               },
             }),
           ...toolbar.assignUser.mark,
@@ -61,7 +60,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
                     subjectType: "group",
                     roleId,
                     alreadyAssigned: alreadyAssignedSubjects,
-                    assignableItems: groupNameList,
+                    assignableItems: Object.keys(acls.group ?? {}),
                   },
                 }),
               ...dropdown.assignGroup.mark,
