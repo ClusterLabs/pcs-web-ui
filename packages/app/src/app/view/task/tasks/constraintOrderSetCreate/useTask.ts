@@ -1,6 +1,7 @@
 import {ActionPayload} from "app/store";
 import {useResourceSets} from "app/view/share";
-import {useTask as useTaskCommon} from "app/view/share";
+
+import {useTaskCommon} from "../useTaskCommon";
 
 type TrueFalse = "true" | "false";
 

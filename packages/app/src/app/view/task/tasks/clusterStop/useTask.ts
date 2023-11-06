@@ -1,7 +1,7 @@
-import {useTask as useCommonTask} from "app/view/share";
+import {useTaskCommon} from "../useTaskCommon";
 
 export const useTask = () => {
-  const task = useCommonTask("clusterStop");
+  const task = useTaskCommon("clusterStop");
 
   const {
     state: {clusterName},

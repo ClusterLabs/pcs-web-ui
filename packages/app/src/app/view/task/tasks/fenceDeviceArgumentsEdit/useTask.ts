@@ -1,5 +1,6 @@
 import {ActionPayload} from "app/store";
-import {useTask as useTaskCommon} from "app/view/share";
+
+import {useTaskCommon} from "../useTaskCommon";
 
 type OpenPayload = ActionPayload["FENCE_DEVICE.EDIT_ARGS.OPEN"];
 

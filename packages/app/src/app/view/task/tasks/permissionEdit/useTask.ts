@@ -1,5 +1,6 @@
 import {ActionMap, ActionPayload} from "app/store";
-import {useTask as useTaskCommon} from "app/view/share";
+
+import {useTaskCommon} from "../useTaskCommon";
 
 type AllowName =
   ActionPayload["CLUSTER.PERMISSIONS.SAVE"]["permissionList"][number]["allow"][number];

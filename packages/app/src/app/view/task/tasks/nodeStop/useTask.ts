@@ -1,4 +1,4 @@
-import {useTask as useTaskCommon} from "app/view/share";
+import {useTaskCommon} from "../useTaskCommon";
 
 export const useTask = () => {
   const task = useTaskCommon("nodeStop");

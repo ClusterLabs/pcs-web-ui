@@ -1,7 +1,9 @@
 import React from "react";
 
 import {ActionPayload} from "app/store";
-import {TaskReport, useTask as useTaskCommon} from "app/view/share";
+import {TaskReport} from "app/view/share";
+
+import {useTaskCommon} from "../useTaskCommon";
 
 type SetupData = ActionPayload["DASHBOARD.CLUSTER.SETUP.CALL"]["setupData"];
 
