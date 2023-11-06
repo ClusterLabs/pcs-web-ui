@@ -45,6 +45,7 @@ export const constraintLocationCreate: AppReducer<typeof initialState> = (
         ...state,
         clusterName: action.payload.clusterName,
         nodeNameList: action.payload.nodeNameList,
+        resourceIdList: action.payload.resourceIdList,
       };
     case "CONSTRAINT.LOCATION.CREATE.UPDATE":
       return {
