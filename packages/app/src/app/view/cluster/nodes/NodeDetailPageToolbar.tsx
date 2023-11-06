@@ -3,7 +3,7 @@ import {Action} from "app/store";
 import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {Node} from "app/view/cluster/types";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
 const {toolbar} = testMarks.cluster.nodes.currentNode;
 

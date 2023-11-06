@@ -1,7 +1,8 @@
 import {Flex, FlexItem, FlexProps, PageSection} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Card, ClusterToolbar, useOpenTask} from "app/view/share";
+import {Card, ClusterToolbar} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 import {IssuesCard} from "./issues";

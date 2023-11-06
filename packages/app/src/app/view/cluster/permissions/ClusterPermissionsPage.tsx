@@ -2,7 +2,7 @@ import {PageSection} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {ClusterToolbar} from "app/view/share";
-import {useOpenTask} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
 import {useLoadedPermissions} from "./LoadedPermissionsContext";
 import {PermissionsTable} from "./PermissionsTable";

@@ -1,8 +1,7 @@
 import {LauncherDropdown} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
-import {useOpenTask} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
-import * as task from "./task";
 import {useNVPairListContext} from "./NVPairListContext";
 import {useNVPairListItemContext} from "./NVPairListItemContext";
 
@@ -13,7 +12,6 @@ export const NVPairListItemMenu = (props: {
   launcherRemove: (removeData: Launcher) => Launcher;
   "data-test"?: string;
 }) => {
-  const {name: taskName} = task.edit.useTask();
   const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
   const {nvPairList, owner} = useNVPairListContext();
@@ -44,7 +42,7 @@ export const NVPairListItemMenu = (props: {
             description: "Removes the attribute.",
             action: {
               type: "CLUSTER.NVPAIRS.SAVE",
-              key: {clusterName, task: taskName},
+              key: {clusterName, task: "nvpairEdit"},
               payload: {
                 owner,
                 name: nvPair.name,

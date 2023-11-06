@@ -1,7 +1,8 @@
 import {Provider} from "react-redux";
 
 import {setupStore} from "app/store";
-import {Router, TaskContainer} from "app/view/share";
+import {Router} from "app/view/share";
+import {TaskContainer} from "app/view/task";
 
 import {EnsureLogin} from "./login";
 import {EnsurePermissions} from "./EnsurePermissions";

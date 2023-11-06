@@ -7,7 +7,7 @@ import {DetailLayout} from "app/view/cluster/share";
 
 import {useClusterFenceAgent} from "./useFenceAgent";
 import {FenceDeviceDetailView} from "./FenceDeviceDetailView";
-import {FenceDeviceArgumentsView} from "./arguments";
+import {FenceDeviceArgumentsView} from "./FenceDeviceArgumentsView";
 import {FencePageToolbar} from "./FencePageToolbar";
 
 const {currentFenceDevice} = testMarks.cluster.fenceDevices;

@@ -1,6 +1,6 @@
 import {Alert, AlertActionLink} from "@patternfly/react-core";
 
-import {useOpenTask} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {

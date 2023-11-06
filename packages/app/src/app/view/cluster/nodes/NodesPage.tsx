@@ -5,7 +5,7 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
-import {useOpenTask} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
 import {NodeDetailPage} from "./NodeDetailPage";
 import {NodeList} from "./NodeList";

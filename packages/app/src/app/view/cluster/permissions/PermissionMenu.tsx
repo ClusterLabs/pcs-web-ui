@@ -1,6 +1,6 @@
 import {testMarks} from "app/view/dataTest";
 import {LauncherDropdown} from "app/view/share";
-import {useOpenTask} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
 import {useLoadedPermissions} from "./LoadedPermissionsContext";
 import {Permission} from "./types";

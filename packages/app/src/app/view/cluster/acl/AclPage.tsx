@@ -12,7 +12,7 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
-import {useOpenTask} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
 import {AclDetailPage} from "./detail";
 import {AclLists} from "./lists";

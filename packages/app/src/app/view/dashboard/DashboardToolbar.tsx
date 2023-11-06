@@ -1,5 +1,6 @@
 import {testMarks} from "app/view/dataTest";
-import {LaunchersToolbar, useOpenTask} from "app/view/share";
+import {LaunchersToolbar} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
 const {dashboardToolbar: toolbar} = testMarks;
 export const DashboardToolbar = () => {

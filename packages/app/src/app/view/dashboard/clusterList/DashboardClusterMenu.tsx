@@ -1,4 +1,5 @@
-import {LauncherDropdown, useOpenTask} from "app/view/share";
+import {LauncherDropdown} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 import {testMarks} from "app/view/dataTest";
 
 const {actions} = testMarks.dashboard.clusterList.cluster;

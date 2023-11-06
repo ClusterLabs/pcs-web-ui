@@ -8,7 +8,7 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
-import {useOpenTask} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
 import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
 import {FenceDeviceList} from "./list";

@@ -7,7 +7,7 @@ import {
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
 import {ConstraintFilteredList} from "./ConstraintFilteredList";
 
