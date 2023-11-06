@@ -238,7 +238,8 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
                     },
                   }),
                 disabled:
-                  primitive.inGroup === null && groupIdStructureList.length > 0,
+                  primitive.inGroup === null
+                  && groupIdStructureList.length === 0,
                 ...toolbar.dropdown.changeGroup.mark,
               },
               refresh,
