@@ -1,4 +1,7 @@
-import {PermissionListForWrite} from "../types";
+import {ActionPayload} from "app/store";
+
+export type PermissionListForWrite =
+  ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"]["permissionInfoList"];
 
 export const getInvalidPermissionIndexes = (
   permissionList: PermissionListForWrite,

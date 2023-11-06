@@ -1,6 +1,6 @@
 import {ActionPayload} from "app/store";
-import {getInvalidPermissionIndexes} from "app/view/cluster/acl/permissions";
 
+import {getInvalidPermissionIndexes} from "../common";
 import {useTaskCommon} from "../useTaskCommon";
 
 export const useTask = () => {
