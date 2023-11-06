@@ -4,7 +4,7 @@ import {mock} from "test/tools";
 
 import {launchClusterItemAction} from "./common";
 
-const {forceableConfirm: task} = marks.task;
+const {clusterStop: task} = marks.task;
 
 const clusterName = "test-cluster";
 const clusterStatus = cs.cluster(clusterName, "ok");

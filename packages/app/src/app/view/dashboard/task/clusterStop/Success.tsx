@@ -1,7 +1,7 @@
 import {testMarks} from "app/view/dataTest";
 import {TaskButtonResult, TaskSuccess} from "app/view/share";
 
-const {forceableConfirm: task} = testMarks.task;
+const {clusterStop: task} = testMarks.task;
 
 export const Success = () => {
   return (
