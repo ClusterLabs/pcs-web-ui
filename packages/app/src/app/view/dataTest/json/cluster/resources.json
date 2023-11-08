@@ -15,6 +15,9 @@
         "create": {}
       }
     },
+    "toolbar": {
+      "move": {}
+    },
     "tabs": {
       "detail": {},
       "meta": {}

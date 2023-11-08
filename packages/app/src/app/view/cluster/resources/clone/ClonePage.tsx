@@ -7,6 +7,7 @@ import {DetailLayout} from "app/view/cluster/share";
 
 import {CloneDetail} from "./CloneDetail";
 import {CloneMeta} from "./CloneMeta";
+import {ClonePageToolbar} from "./ClonePageToolbar";
 
 const {currentClone} = testMarks.cluster.resources;
 
@@ -43,6 +44,7 @@ export const ClonePage = ({clone}: {clone: Clone}) => {
             {Object.values(tabMap)}
           </Tabs>
         }
+        toolbar={<ClonePageToolbar clone={clone} />}
         {...currentClone.mark}
       >
         <Router base={matchedContext}>
