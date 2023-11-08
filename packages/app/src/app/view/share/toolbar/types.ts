@@ -14,18 +14,16 @@ type Task = {
   openArgs?: unknown[];
 };
 
-type Confirm = {
-  title: string;
-  description: React.ReactNode;
-  action: Action;
-};
-
 type ItemTask = {
   task: Task;
 };
 
 type ItemConfirm = {
-  confirm: Confirm;
+  confirm: {
+    title: string;
+    description: React.ReactNode;
+    label?: string;
+  } & ({action: Action} | {run: () => void});
 };
 
 type ItemRun = {
