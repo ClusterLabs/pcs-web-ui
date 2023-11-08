@@ -1,14 +1,14 @@
 {
-    "permission": {
-        "actions": {
-            "edit": {},
-            "remove": {}
-        },
-        "full": {},
-        "grant": {},
-        "name": {},
-        "read": {},
-        "type": {},
-        "write": {}
-    }
+  "permission": {
+    "actions": {
+      "edit": {},
+      "remove": {}
+    },
+    "full": {},
+    "grant": {},
+    "name": {},
+    "read": {},
+    "type": {},
+    "write": {}
+  }
 }

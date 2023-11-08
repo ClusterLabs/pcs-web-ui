@@ -1,55 +1,55 @@
 {
-    "currentNode": {
-        "attributes": {
-            "pair": {
-                "menu": {
-                    "edit": {},
-                    "remove": {}
-                },
-                "name": {},
-                "value": {}
-            },
-            "toolbar": {
-                "create": {}
-            }
+  "currentNode": {
+    "attributes": {
+      "pair": {
+        "menu": {
+          "edit": {},
+          "remove": {}
         },
-        "detail": {},
         "name": {},
-        "tabs": {
-            "attributes": {},
-            "detail": {},
-            "utilization": {}
-        },
-        "toolbar": {
-            "dropdown": {
-                "maintenance": {},
-                "remove": {},
-                "standby": {},
-                "unmaintenance": {},
-                "unstandby": {}
-            },
-            "start": {},
-            "stop": {}
-        },
-        "utilization": {
-            "pair": {
-                "menu": {
-                    "edit": {},
-                    "remove": {}
-                },
-                "name": {},
-                "value": {}
-            },
-            "toolbar": {
-                "create": {}
-            }
-        }
+        "value": {}
+      },
+      "toolbar": {
+        "create": {}
+      }
     },
-    "list": {
-        "node": {
-            "name": {},
-            "quorum": {},
-            "status": {}
-        }
+    "detail": {},
+    "name": {},
+    "tabs": {
+      "attributes": {},
+      "detail": {},
+      "utilization": {}
+    },
+    "toolbar": {
+      "dropdown": {
+        "maintenance": {},
+        "remove": {},
+        "standby": {},
+        "unmaintenance": {},
+        "unstandby": {}
+      },
+      "start": {},
+      "stop": {}
+    },
+    "utilization": {
+      "pair": {
+        "menu": {
+          "edit": {},
+          "remove": {}
+        },
+        "name": {},
+        "value": {}
+      },
+      "toolbar": {
+        "create": {}
+      }
     }
+  },
+  "list": {
+    "node": {
+      "name": {},
+      "quorum": {},
+      "status": {}
+    }
+  }
 }

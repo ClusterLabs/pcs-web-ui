@@ -1,22 +1,22 @@
 {
-    "config": {
-        "name": {},
-        "value": {}
-    },
-    "perNode": {
-        "device": {},
-        "deviceNotConfigured": {},
-        "deviceNotProvided": {},
-        "node": {},
-        "watchdog": {},
-        "watchdogNotConfigured": {},
-        "watchdogNotProvided": {}
-    },
-    "service": {
-        "enabled": {},
-        "installed": {},
-        "noData": {},
-        "node": {},
-        "running": {}
-    }
+  "config": {
+    "name": {},
+    "value": {}
+  },
+  "perNode": {
+    "device": {},
+    "deviceNotConfigured": {},
+    "deviceNotProvided": {},
+    "node": {},
+    "watchdog": {},
+    "watchdogNotConfigured": {},
+    "watchdogNotProvided": {}
+  },
+  "service": {
+    "enabled": {},
+    "installed": {},
+    "noData": {},
+    "node": {},
+    "running": {}
+  }
 }
