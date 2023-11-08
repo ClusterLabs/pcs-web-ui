@@ -74,6 +74,7 @@
         "cleanup": {},
         "clone": {},
         "delete": {},
+        "move": {},
         "refresh": {},
         "unclone": {}
       },

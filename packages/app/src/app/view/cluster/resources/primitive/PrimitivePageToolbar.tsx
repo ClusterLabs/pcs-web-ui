@@ -23,6 +23,15 @@ const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   const {resourceTree, clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
+  const openMoveTask = (resourceId: string) =>
+    openTask("resourceMove", {
+      type: "RESOURCE.MOVE.OPEN",
+      key: {clusterName},
+      payload: {
+        clusterName,
+        resourceId,
+      },
+    });
 
   const unclone: ToolbarItem = {
     name: "unclone",
@@ -59,6 +68,29 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       },
     },
     ...toolbar.dropdown.clone.mark,
+  };
+
+  const groupId = primitive.inGroup;
+  const move: ToolbarItem = {
+    name: "move",
+    ...toolbar.dropdown.move.mark,
+    ...(groupId !== null
+      ? {
+          confirm: {
+            title: "Cannot move resource",
+            description: (
+              <>
+                The resource is in the group and cannot be moved individually.
+                You can move the whole group.
+              </>
+            ),
+            label: "move the whole group",
+            run: () => openMoveTask(groupId),
+          },
+        }
+      : {
+          run: () => openMoveTask(primitive.id),
+        }),
   };
 
   const deleteItem: ToolbarItem = {
@@ -247,6 +279,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
               ...(primitive.inGroup !== null
                 ? []
                 : [primitive.inClone ? unclone : clone]),
+              move,
               deleteItem,
             ]}
             {...toolbar.dropdown.mark}
