@@ -15,7 +15,6 @@ export const ClonePageToolbar = ({clone}: {clone: Clone}) => {
     run: () =>
       openTask("resourceMove", {
         type: "RESOURCE.MOVE.OPEN",
-        key: {clusterName},
         payload: {
           clusterName,
           resourceId: clone.id,

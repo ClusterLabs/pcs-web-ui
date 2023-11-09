@@ -9,7 +9,6 @@ export const useToolbarItemMove = (group: Group): ToolbarItem => {
   const openMoveTask = (resourceId: string) =>
     openTask("resourceMove", {
       type: "RESOURCE.MOVE.OPEN",
-      key: {clusterName},
       payload: {
         clusterName,
         resourceId,
