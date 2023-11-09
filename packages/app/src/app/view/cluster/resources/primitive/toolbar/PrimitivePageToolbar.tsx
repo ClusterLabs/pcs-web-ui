@@ -2,8 +2,9 @@ import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/task";
-import {selectGroups} from "app/view/cluster/resources/select";
+
+import {useToolbarItemMove} from "./useToolbarItemMove";
+import {useToolbarItemGroupChange} from "./useToolbarItemGroupChange";
 
 const isPrimitiveManaged = (primitive: Primitive) =>
   primitive.metaAttributes.every(
@@ -20,17 +21,17 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
 const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
-  const {resourceTree, clusterName} = useLoadedCluster();
-  const openTask = useOpenTask();
-  const openMoveTask = (resourceId: string) =>
-    openTask("resourceMove", {
-      type: "RESOURCE.MOVE.OPEN",
-      key: {clusterName},
-      payload: {
-        clusterName,
-        resourceId,
-      },
-    });
+  const {clusterName} = useLoadedCluster();
+
+  const move = {
+    ...useToolbarItemMove(primitive),
+    ...toolbar.dropdown.move.mark,
+  };
+
+  const changeGroup = {
+    ...useToolbarItemGroupChange(primitive),
+    ...toolbar.dropdown.changeGroup.mark,
+  };
 
   const unclone: ToolbarItem = {
     name: "unclone",
@@ -67,29 +68,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       },
     },
     ...toolbar.dropdown.clone.mark,
-  };
-
-  const groupId = primitive.inGroup;
-  const move: ToolbarItem = {
-    name: "move",
-    ...toolbar.dropdown.move.mark,
-    ...(groupId !== null
-      ? {
-          confirm: {
-            title: "Cannot move resource",
-            description: (
-              <>
-                The resource is in the group and cannot be moved individually.
-                You can move the whole group.
-              </>
-            ),
-            label: "move the whole group",
-            run: () => openMoveTask(groupId),
-          },
-        }
-      : {
-          run: () => openMoveTask(primitive.id),
-        }),
   };
 
   const deleteItem: ToolbarItem = {
@@ -238,8 +216,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
     ...toolbar.enable.mark,
   };
 
-  const groupIdStructureList = selectGroups(resourceTree);
-
   return (
     <>
       <DetailToolbar
@@ -250,29 +226,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         dropdown={
           <LauncherDropdown
             items={[
-              {
-                name: "change-group",
-                run: () =>
-                  openTask("primitiveGroupChange", {
-                    type: "RESOURCE.GROUP.CHANGE.INIT",
-                    key: {clusterName},
-                    payload: {
-                      clusterName,
-                      groupIdStructureList,
-                      resourceId: primitive.id,
-                      oldGroupId: primitive.inGroup ?? "",
-                      groupId: primitive.inGroup ?? "",
-                      action:
-                        primitive.inGroup !== null && primitive.inGroup !== ""
-                          ? "move-in-group"
-                          : "set-group",
-                    },
-                  }),
-                disabled:
-                  primitive.inGroup === null
-                  && groupIdStructureList.length === 0,
-                ...toolbar.dropdown.changeGroup.mark,
-              },
+              changeGroup,
               refresh,
               cleanup,
               ...(primitive.inGroup !== null
