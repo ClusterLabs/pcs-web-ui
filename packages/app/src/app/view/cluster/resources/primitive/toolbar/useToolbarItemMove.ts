@@ -28,6 +28,7 @@ export const useToolbarItemMove = (primitive: Primitive): ToolbarItem => {
       name: "move",
       confirm: {
         title: "Cannot move primitive resource",
+        titleVariant: "warning",
         description:
           "The resource is in the clone and cannot be moved individually."
           + " You can move the clone. ",
@@ -41,6 +42,7 @@ export const useToolbarItemMove = (primitive: Primitive): ToolbarItem => {
     name: "move",
     confirm: {
       title: "Cannot move primitive resource",
+      titleVariant: "warning",
       description:
         "The resource is in the group and cannot be moved individually."
         + " You can move the whole group. ",
