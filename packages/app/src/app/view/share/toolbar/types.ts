@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Button} from "@patternfly/react-core";
+import {Button, Modal} from "@patternfly/react-core";
 
 import {Action} from "app/store";
 
@@ -23,6 +23,7 @@ type ItemConfirm = {
     title: string;
     description: React.ReactNode;
     label?: string;
+    titleVariant?: React.ComponentProps<typeof Modal>["titleIconVariant"];
   } & ({action: Action} | {run: () => void});
 };
 

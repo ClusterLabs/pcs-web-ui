@@ -20,16 +20,11 @@ export const LaunchedConfirm = ({
   const dispatch = useDispatch();
   const {confirm} = item;
   const run = "run" in confirm ? confirm.run : () => dispatch(confirm.action);
-
   return (
     <Modal
       variant="small"
-      header={
-        <h1 className="pf-c-modal-box__title" {...task.confirm.title.mark}>
-          {confirm.title}
-        </h1>
-      }
-      aria-label={confirm.title}
+      title={confirm.title}
+      titleIconVariant={confirm.titleVariant}
       isOpen
       onClose={closeConfirm}
       actions={[
