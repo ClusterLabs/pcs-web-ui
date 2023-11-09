@@ -3,8 +3,7 @@ import {Primitive} from "app/view/cluster/types";
 import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
-
-import {selectGroups} from "../select";
+import {selectGroups} from "app/view/cluster/resources/select";
 
 const isPrimitiveManaged = (primitive: Primitive) =>
   primitive.metaAttributes.every(
