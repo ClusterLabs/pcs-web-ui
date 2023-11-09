@@ -16,23 +16,36 @@ export const useToolbarItemMove = (primitive: Primitive): ToolbarItem => {
       },
     });
 
-  const groupId = primitive.inGroup;
+  if (primitive.inGroup === null && primitive.inClone === null) {
+    return {
+      name: "move",
+      run: () => openMoveTask(primitive.id),
+    };
+  }
+
+  if (primitive.inClone !== null) {
+    return {
+      name: "move",
+      confirm: {
+        title: "Cannot move primitive resource",
+        description:
+          "The resource is in the clone and cannot be moved individually."
+          + " You can move the clone. ",
+        label: "move the clone",
+        run: () => openMoveTask(primitive.inClone as string),
+      },
+    };
+  }
 
   return {
     name: "move",
-    ...(groupId !== null
-      ? {
-          confirm: {
-            title: "Cannot move resource",
-            description:
-              "The resource is in the group and cannot be moved individually."
-              + " You can move the whole group. ",
-            label: "move the whole group",
-            run: () => openMoveTask(groupId),
-          },
-        }
-      : {
-          run: () => openMoveTask(primitive.id),
-        }),
+    confirm: {
+      title: "Cannot move primitive resource",
+      description:
+        "The resource is in the group and cannot be moved individually."
+        + " You can move the whole group. ",
+      label: "move the whole group",
+      run: () => openMoveTask(primitive.inGroup as string),
+    },
   };
 };
