@@ -5,6 +5,8 @@ import {mock} from "test/tools";
 const clusterName = "test-cluster";
 const clusterStatus = cs.cluster(clusterName, "ok");
 
+const confirmTitle = `Destroy the cluster "${clusterName}"?`;
+
 const mockWithDashboard = (routeList: mock.Route[] = []) => {
   mock.shortcuts.withDashboard({
     clusterStatus,
@@ -32,23 +34,31 @@ describe("Cluster destroy", () => {
     ]);
 
     await launchDestroy();
-    await click(marks.task.confirm.run);
-    await isVisible(marks.notifications.toast.success);
+    await appConfirm.run(confirmTitle);
+    await isVisible(
+      marks.notifications.toast.success.locator.getByText(
+        "Cluster removed from cluster list",
+      ),
+    );
+    await isVisible(
+      marks.notifications.toast.success.locator.getByText(
+        "Cluster destroyed. Trying to remove it from cluster list...",
+      ),
+    );
   });
 
   it("should be cancelable", async () => {
     mockWithDashboard();
 
     await launchDestroy();
-    await click(marks.task.confirm.cancel);
-    await isAbsent(marks.task.confirm);
+    await appConfirm.cancel(confirmTitle);
   });
 
   it("should deal with an error", async () => {
     mockWithDashboard([mock.route.destroyCluster({clusterName, status: 400})]);
 
     await launchDestroy();
-    await click(marks.task.confirm.run);
+    await appConfirm.run(confirmTitle);
     await isVisible(marks.notifications.toast.error);
   });
 });

@@ -7,6 +7,8 @@ import {launchClusterItemAction} from "./common";
 const clusterName = "test-cluster";
 const clusterStatus = cs.cluster(clusterName, "ok");
 
+const confirmTitle = `Remove the cluster "${clusterName}"?`;
+
 const mockWithDashboard = (routeList: mock.Route[] = []) => {
   mock.shortcuts.withDashboard({
     clusterStatus,
@@ -26,7 +28,7 @@ describe("Cluster remove", () => {
     mockWithDashboard([mock.route.removeCluster({clusterName})]);
 
     await launchRemove();
-    await click(marks.task.confirm.run);
+    await appConfirm.run(confirmTitle);
     await isVisible(marks.notifications.toast.success);
   });
 
@@ -34,15 +36,14 @@ describe("Cluster remove", () => {
     mockWithDashboard();
 
     await launchRemove();
-    await click(marks.task.confirm.cancel);
-    await isAbsent(marks.task.confirm);
+    await appConfirm.cancel(confirmTitle);
   });
 
   it("should deal with an error", async () => {
     mockWithDashboard([mock.route.removeCluster({clusterName, status: 400})]);
 
     await launchRemove();
-    await click(marks.task.confirm.run);
+    await appConfirm.run(confirmTitle);
     await isVisible(marks.notifications.toast.error);
   });
 });

@@ -13,6 +13,7 @@ declare global {
   var isAbsent: typeof locatorTools.isAbsent;
   var fill: typeof locatorTools.fill;
   var select: typeof locatorTools.select;
+  var appConfirm: typeof locatorTools.appConfirm;
   var radioGroup: typeof locatorTools.radioGroup;
   var getToggle: typeof locatorTools.getToggle;
   var toggle: typeof locatorTools.toggle;
@@ -47,6 +48,7 @@ export default async () => {
   global.click = locatorTools.click;
   global.fill = locatorTools.fill;
   global.select = locatorTools.select;
+  global.appConfirm = locatorTools.appConfirm;
   global.radioGroup = locatorTools.radioGroup;
   global.getToggle = locatorTools.getToggle;
   global.toggle = locatorTools.toggle;
