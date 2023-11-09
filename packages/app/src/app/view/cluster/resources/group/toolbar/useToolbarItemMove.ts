@@ -1,0 +1,38 @@
+import {LauncherItem as ToolbarItem} from "app/view/share";
+import {Group} from "app/view/cluster/types";
+import {useOpenTask} from "app/view/task";
+import {useLoadedCluster} from "app/view/cluster/share";
+
+export const useToolbarItemMove = (group: Group): ToolbarItem => {
+  const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
+  const openMoveTask = (resourceId: string) =>
+    openTask("resourceMove", {
+      type: "RESOURCE.MOVE.OPEN",
+      key: {clusterName},
+      payload: {
+        clusterName,
+        resourceId,
+      },
+    });
+
+  if (group.inClone === null) {
+    return {
+      name: "move",
+      run: () => openMoveTask(group.id),
+    };
+  }
+
+  return {
+    name: "move",
+    confirm: {
+      title: "Cannot move group",
+      description:
+        "The group is in the clone and cannot be moved individually."
+        + " You can move the clone. ",
+      label: "move the clone",
+      titleVariant: "warning",
+      run: () => openMoveTask(group.inClone as string),
+    },
+  };
+};
