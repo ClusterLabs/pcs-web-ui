@@ -44,7 +44,7 @@ type Resource = {
 
 type Primitive = Resource & {
   itemType: "primitive";
-  inClone: boolean;
+  inClone: string | null;
   inGroup: string | null;
   class: string;
   provider: string | null;
@@ -67,7 +67,7 @@ type FenceDevice = {
 
 type Group = Resource & {
   itemType: "group";
-  inClone: boolean;
+  inClone: string | null;
   // unfortunately, fence device can be here and we need to display it somehow
   resources: (Primitive | FenceDevice)[];
 };

@@ -39,7 +39,7 @@ export const GroupPageToolbar = ({group}: {group: Group}) => {
   return (
     <DetailToolbar
       buttonsItems={[
-        group.inClone ? unclone : clone,
+        group.inClone !== null ? unclone : clone,
         {
           name: "move",
           run: () =>

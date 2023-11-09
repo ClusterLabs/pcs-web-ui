@@ -278,7 +278,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
               cleanup,
               ...(primitive.inGroup !== null
                 ? []
-                : [primitive.inClone ? unclone : clone]),
+                : [primitive.inClone !== null ? unclone : clone]),
               move,
               deleteItem,
             ]}
