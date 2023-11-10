@@ -8,6 +8,8 @@ const initialState: {
   useNode: boolean;
   node: string;
   nodeNameList: string[];
+  constraintHandling: "autoclean" | "keep" | "expire";
+  constraintLifetime: string;
   libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
@@ -16,6 +18,8 @@ const initialState: {
   useNode: false,
   node: "",
   nodeNameList: [],
+  constraintHandling: "autoclean",
+  constraintLifetime: "",
   libCall: initialLibCall,
   showValidationErrors: false,
 };

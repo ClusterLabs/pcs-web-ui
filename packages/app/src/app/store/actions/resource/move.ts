@@ -17,6 +17,8 @@ export type ResourceMoveActions = {
     payload: {
       useNode?: boolean;
       node?: string;
+      constraintHandling?: "autoclean" | "keep" | "expire";
+      constraintLifetime?: string;
     };
   };
 };

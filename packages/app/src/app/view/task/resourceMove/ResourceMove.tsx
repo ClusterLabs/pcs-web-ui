@@ -7,12 +7,15 @@ import {NodeFooter} from "./NodeFooter";
 import {Review} from "./Review";
 import {ReviewFooter} from "./ReviewFooter";
 import {Result} from "./Result";
+import {Advanced} from "./Advanced";
+import {AdvancedFooter} from "./AdvancedFooter";
 
 const node = "Select node";
 const review = "Review";
 
 export const ResourceMove = () => {
-  const {close, isNodeSettingConsistent} = useTask();
+  const {close, isNodeSettingConsistent, isConstraintLifetimeConsistent} =
+    useTask();
   return (
     <Wizard
       task="resourceMove"
@@ -27,10 +30,16 @@ export const ResourceMove = () => {
           footer: <NodeFooter />,
         },
         {
+          name: "Advanced settings",
+          component: <Advanced />,
+          footer: <AdvancedFooter />,
+          canJumpTo: isNodeSettingConsistent,
+        },
+        {
           name: review,
           component: <Review />,
-          canJumpTo: isNodeSettingConsistent,
           footer: <ReviewFooter />,
+          canJumpTo: isNodeSettingConsistent && isConstraintLifetimeConsistent,
         },
         {
           name: "Result",

@@ -8,6 +8,8 @@ export const Review = () => {
     state: {
       useNode,
       node,
+      constraintHandling,
+      constraintLifetime,
       libCall: {reports},
     },
   } = useTask();
@@ -25,6 +27,14 @@ export const Review = () => {
             when: !useNode,
             defaultValue: "Not specified",
           }}
+        />
+        <ReviewItem
+          label="Constraint handling"
+          value={
+            constraintHandling !== "expire"
+              ? constraintHandling
+              : `expire after ${constraintLifetime}`
+          }
         />
       </ReviewList>
     </TaskLibStep>

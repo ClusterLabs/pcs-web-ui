@@ -28,3 +28,10 @@ app.libCluster("resource-move-autoclean", (req, res) => {
     res,
   });
 });
+
+app.libCluster("resource-move", (req, res) => {
+  shortcut.libStd({
+    code: req.body.resource_id,
+    res,
+  });
+});

@@ -10,6 +10,11 @@ export const useTask = () => {
   return {
     ...task,
     isNodeSettingConsistent: !state.useNode || state.node.length > 0,
+    isConstraintLifetimeConsistent:
+      state.constraintHandling !== "expire"
+      || state.constraintLifetime.match(
+        /^P(?!$)(\d+Y)?(\d+M)?(\d+W)?(\d+D)?(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?$/,
+      ) != null,
 
     updateState: (payload: ActionPayload["RESOURCE.MOVE.UPDATE"]) => {
       dispatch({
@@ -19,19 +24,33 @@ export const useTask = () => {
     },
 
     move: ({force}: {force: boolean}) => {
+      const commonPayload = {
+        resource_id: state.resourceId,
+        ...(state.useNode ? {node: state.node} : {}),
+        ...(force ? {strict: true} : {}),
+      };
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
         key: {clusterName, task: task.name},
         payload: {
-          taskLabel: `create resource "${state.resourceId}"`,
-          call: {
-            name: "resource-move-autoclean",
-            payload: {
-              resource_id: state.resourceId,
-              ...(state.useNode ? {node: state.node} : {}),
-              ...(force ? {strict: true} : {}),
-            },
-          },
+          taskLabel: `move resource "${state.resourceId}"`,
+          call:
+            state.constraintHandling === "autoclean"
+              ? {
+                  name: "resource-move-autoclean",
+                  payload: {
+                    ...commonPayload,
+                  },
+                }
+              : {
+                  name: "resource-move",
+                  payload: {
+                    ...commonPayload,
+                    ...(state.constraintHandling === "expire"
+                      ? {lifetime: state.constraintLifetime}
+                      : {}),
+                  },
+                },
         },
       });
     },

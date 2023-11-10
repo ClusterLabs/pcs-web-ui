@@ -91,6 +91,16 @@ export type Commands = [
     };
   },
   {
+    name: "resource-move";
+    payload: {
+      resource_id: string;
+      node?: string;
+      master?: boolean;
+      lifetime?: string;
+      wait?: number;
+    };
+  },
+  {
     name: "resource-create-as-clone";
     payload: {
       resource_id: string;

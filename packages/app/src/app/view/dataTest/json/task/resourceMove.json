@@ -9,6 +9,12 @@
     "cancel": {},
     "next": {}
   },
+  "advanced": {},
+  "advancedFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
   "report": {},
   "review": {},
   "reviewFooter": {
