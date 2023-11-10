@@ -19,7 +19,7 @@ export const Node = () => {
   } = useTask();
   return (
     <TaskLibStep
-      title=""
+      title="Destination node"
       reports={reports}
       {...testMarks.task.resourceMove.mark}
     >
@@ -27,8 +27,8 @@ export const Node = () => {
         <Flex>
           <FlexItem>
             <Checkbox
-              label="Specify node"
-              aria-label="Specify node"
+              label="Specify destination node"
+              aria-label="Specify destination node"
               id="settings-specify-node"
               isChecked={useNode}
               onChange={(checked: boolean) => updateState({useNode: checked})}
