@@ -19,6 +19,7 @@ export type ResourceMoveActions = {
       node?: string;
       constraintHandling?: "autoclean" | "keep" | "expire";
       constraintLifetime?: string;
+      strictMode?: boolean;
     };
   };
 };

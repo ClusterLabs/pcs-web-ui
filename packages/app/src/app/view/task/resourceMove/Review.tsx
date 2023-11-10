@@ -10,6 +10,7 @@ export const Review = () => {
       node,
       constraintHandling,
       constraintLifetime,
+      strictMode,
       libCall: {reports},
     },
   } = useTask();
@@ -36,6 +37,9 @@ export const Review = () => {
               : `expire after ${constraintLifetime}`
           }
         />
+        {constraintHandling === "autoclean" && (
+          <ReviewItem label="Strict mode" value={strictMode ? "yes" : "no"} />
+        )}
       </ReviewList>
     </TaskLibStep>
   );

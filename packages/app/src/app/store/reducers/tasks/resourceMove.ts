@@ -10,6 +10,7 @@ const initialState: {
   nodeNameList: string[];
   constraintHandling: "autoclean" | "keep" | "expire";
   constraintLifetime: string;
+  strictMode: boolean;
   libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
@@ -20,6 +21,7 @@ const initialState: {
   nodeNameList: [],
   constraintHandling: "autoclean",
   constraintLifetime: "",
+  strictMode: false,
   libCall: initialLibCall,
   showValidationErrors: false,
 };
