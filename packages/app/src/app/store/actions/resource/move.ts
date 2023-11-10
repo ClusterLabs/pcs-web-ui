@@ -7,6 +7,11 @@ export type ResourceMoveActions = {
       nodeNameList: string[];
     };
   };
+
+  "RESOURCE.MOVE.CLOSE": {
+    type: "RESOURCE.MOVE.CLOSE";
+  };
+
   "RESOURCE.MOVE.UPDATE": {
     type: "RESOURCE.MOVE.UPDATE";
     payload: {

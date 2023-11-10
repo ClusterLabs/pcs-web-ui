@@ -28,11 +28,16 @@ export const resourceMove: AppReducer<typeof initialState> = (
         ...state,
         ...action.payload,
       };
+
     case "RESOURCE.MOVE.UPDATE":
       return {
         ...state,
         ...action.payload,
       };
+
+    case "RESOURCE.MOVE.CLOSE":
+      return initialState;
+
     default:
       return {...state, libCall: libCall(state.libCall, action)};
   }
