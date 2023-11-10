@@ -4,7 +4,7 @@ import {useOpenTask} from "app/view/task";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 export const useToolbarItemMove = (group: Group): ToolbarItem => {
-  const {clusterName} = useLoadedCluster();
+  const {clusterName, nodeList} = useLoadedCluster();
   const openTask = useOpenTask();
   const openMoveTask = (resourceId: string) =>
     openTask("resourceMove", {
@@ -12,6 +12,7 @@ export const useToolbarItemMove = (group: Group): ToolbarItem => {
       payload: {
         clusterName,
         resourceId,
+        nodeNameList: nodeList.map(n => n.name),
       },
     });
 

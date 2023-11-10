@@ -1,3 +1,5 @@
+import {ActionPayload} from "app/store";
+
 import {useTaskCommon} from "../useTaskCommon";
 
 export const useTask = () => {
@@ -6,6 +8,14 @@ export const useTask = () => {
 
   return {
     ...task,
+
+    updateState: (payload: ActionPayload["RESOURCE.MOVE.UPDATE"]) => {
+      dispatch({
+        type: "RESOURCE.MOVE.UPDATE",
+        payload,
+      });
+    },
+
     move: ({force}: {force: boolean}) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
@@ -16,6 +26,7 @@ export const useTask = () => {
             name: "resource-move-autoclean",
             payload: {
               resource_id: state.resourceId,
+              ...(state.useNode ? {node: state.node} : {}),
               ...(force ? {} : {strict: true}),
             },
           },

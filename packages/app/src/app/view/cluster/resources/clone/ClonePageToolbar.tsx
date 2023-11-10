@@ -7,7 +7,7 @@ import {useOpenTask} from "app/view/task";
 const {toolbar} = testMarks.cluster.resources.currentClone;
 
 export const ClonePageToolbar = ({clone}: {clone: Clone}) => {
-  const {clusterName} = useLoadedCluster();
+  const {clusterName, nodeList} = useLoadedCluster();
   const openTask = useOpenTask();
   const move: ToolbarItem = {
     name: "move",
@@ -18,6 +18,7 @@ export const ClonePageToolbar = ({clone}: {clone: Clone}) => {
         payload: {
           clusterName,
           resourceId: clone.id,
+          nodeNameList: nodeList.map(n => n.name),
         },
       }),
   };

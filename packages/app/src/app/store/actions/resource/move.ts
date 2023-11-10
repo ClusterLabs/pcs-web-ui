@@ -4,6 +4,14 @@ export type ResourceMoveActions = {
     payload: {
       clusterName: string;
       resourceId: string;
+      nodeNameList: string[];
+    };
+  };
+  "RESOURCE.MOVE.UPDATE": {
+    type: "RESOURCE.MOVE.UPDATE";
+    payload: {
+      useNode?: boolean;
+      node?: string;
     };
   };
 };
