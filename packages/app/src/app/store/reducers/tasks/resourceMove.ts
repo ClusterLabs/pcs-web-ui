@@ -4,6 +4,7 @@ import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: {
   resourceId: string;
+  resourceType: "primitive resource" | "group" | "clone";
   clusterName: string;
   useNode: boolean;
   node: string;
@@ -15,6 +16,7 @@ const initialState: {
   showValidationErrors: boolean;
 } = {
   resourceId: "",
+  resourceType: "primitive resource",
   clusterName: "",
   useNode: false,
   node: "",

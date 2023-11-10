@@ -4,6 +4,7 @@ export type ResourceMoveActions = {
     payload: {
       clusterName: string;
       resourceId: string;
+      resourceType: "primitive resource" | "group" | "clone";
       nodeNameList: string[];
     };
   };

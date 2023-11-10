@@ -18,6 +18,7 @@ export const ClonePageToolbar = ({clone}: {clone: Clone}) => {
         payload: {
           clusterName,
           resourceId: clone.id,
+          resourceType: "clone",
           nodeNameList: nodeList.map(n => n.name),
         },
       }),
