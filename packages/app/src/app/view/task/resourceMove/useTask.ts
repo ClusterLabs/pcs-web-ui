@@ -9,6 +9,7 @@ export const useTask = () => {
 
   return {
     ...task,
+    isNodeSettingConsistent: !state.useNode || state.node.length > 0,
 
     updateState: (payload: ActionPayload["RESOURCE.MOVE.UPDATE"]) => {
       dispatch({

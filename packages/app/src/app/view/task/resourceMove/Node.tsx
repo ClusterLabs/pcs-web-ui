@@ -1,23 +1,19 @@
-import {
-  Checkbox,
-  Flex,
-  FlexItem,
-  Form,
-  FormGroup,
-} from "@patternfly/react-core";
+import {Checkbox, Flex, FlexItem, Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Select, TaskLibStep} from "app/view/share";
+import {FormGroup, Select, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
 export const Node = () => {
   const {
     updateState,
+    isNodeSettingConsistent,
     state: {
       useNode,
       node,
       nodeNameList,
+      showValidationErrors,
       libCall: {reports},
     },
   } = useTask();
@@ -31,16 +27,21 @@ export const Node = () => {
         <Flex>
           <FlexItem>
             <Checkbox
-              label="Use node"
-              aria-label="Use node"
-              id="settings-use-node"
+              label="Specify node"
+              aria-label="Specify node"
+              id="settings-specify-node"
               isChecked={useNode}
               onChange={(checked: boolean) => updateState({useNode: checked})}
             />
           </FlexItem>
           {useNode && (
             <FlexItem>
-              <FormGroup fieldId="settings-node">
+              <FormGroup
+                fieldId="settings-node"
+                showValidationErrors={showValidationErrors}
+                isValid={isNodeSettingConsistent}
+                helperTextInvalid="Please select a node"
+              >
                 <Select
                   selections={node}
                   placeholderText="Select a node"

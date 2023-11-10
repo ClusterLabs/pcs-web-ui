@@ -9,6 +9,7 @@ const initialState: {
   node: string;
   nodeNameList: string[];
   libCall: typeof initialLibCall;
+  showValidationErrors: boolean;
 } = {
   resourceId: "",
   clusterName: "",
@@ -16,6 +17,7 @@ const initialState: {
   node: "",
   nodeNameList: [],
   libCall: initialLibCall,
+  showValidationErrors: false,
 };
 
 export const resourceMove: AppReducer<typeof initialState> = (
@@ -37,6 +39,12 @@ export const resourceMove: AppReducer<typeof initialState> = (
 
     case "RESOURCE.MOVE.CLOSE":
       return initialState;
+
+    case "TASK.VALIDATION.SHOW":
+      return {...state, showValidationErrors: true};
+
+    case "TASK.VALIDATION.HIDE":
+      return {...state, showValidationErrors: false};
 
     default:
       return {...state, libCall: libCall(state.libCall, action)};

@@ -6,12 +6,15 @@ import {
   TaskFooter,
 } from "app/view/share";
 
+import {useTask} from "./useTask";
+
 const {next, back, cancel} = testMarks.task.resourceMove.nodeFooter;
 
 export const NodeFooter = () => {
+  const {isNodeSettingConsistent} = useTask();
   return (
     <TaskFooter {...testMarks.task.resourceMove.nodeFooter.mark}>
-      <TaskButtonWizardNext {...next.mark} />
+      <TaskButtonWizardNext actionIf={isNodeSettingConsistent} {...next.mark} />
       <TaskButtonBack disabled={true} {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>

@@ -12,7 +12,7 @@ const node = "Select node";
 const review = "Review";
 
 export const ResourceMove = () => {
-  const {close} = useTask();
+  const {close, isNodeSettingConsistent} = useTask();
   return (
     <Wizard
       task="resourceMove"
@@ -29,6 +29,7 @@ export const ResourceMove = () => {
         {
           name: review,
           component: <Review />,
+          canJumpTo: isNodeSettingConsistent,
           footer: <ReviewFooter />,
         },
         {
