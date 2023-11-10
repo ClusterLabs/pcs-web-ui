@@ -27,7 +27,7 @@ export const useTask = () => {
             payload: {
               resource_id: state.resourceId,
               ...(state.useNode ? {node: state.node} : {}),
-              ...(force ? {} : {strict: true}),
+              ...(force ? {strict: true} : {}),
             },
           },
         },
