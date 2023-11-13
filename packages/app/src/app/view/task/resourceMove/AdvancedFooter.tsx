@@ -18,7 +18,7 @@ export const AdvancedFooter = () => {
         actionIf={isConstraintLifetimeConsistent}
         {...next.mark}
       />
-      <TaskButtonBack disabled={true} {...back.mark} />
+      <TaskButtonBack {...back.mark} />
       <TaskButtonCancel {...cancel.mark} />
     </TaskFooter>
   );
