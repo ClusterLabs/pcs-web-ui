@@ -35,3 +35,10 @@ app.libCluster("resource-move", (req, res) => {
     res,
   });
 });
+
+app.libCluster("resource-ban", (req, res) => {
+  shortcut.libStd({
+    code: req.body.resource_id,
+    res,
+  });
+});
