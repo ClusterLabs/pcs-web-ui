@@ -24,6 +24,7 @@ import nvsetEdit from "./json/task/nvsetEdit.json";
 import permissionEdit from "./json/task/permissionEdit.json";
 import resourceCreate from "./json/task/resourceCreate.json";
 import resourceMove from "./json/task/resourceMove.json";
+import resourceBan from "./json/task/resourceBan.json";
 import resourcePrimitiveGroupChange from "./json/task/resourcePrimitiveGroupChange.json";
 import sbdConfigure from "./json/task/sbdConfigure.json";
 import sbdDisable from "./json/task/sbdDisable.json";
@@ -103,6 +104,7 @@ export const structure = {
     permissionEdit,
     resourceCreate,
     resourceMove,
+    resourceBan,
     resourcePrimitiveGroupChange,
     sbdDisable,
     sbdConfigure,

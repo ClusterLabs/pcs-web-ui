@@ -25,6 +25,7 @@ import {PermissionEdit} from "./permissionEdit";
 import {ResourcePrimitiveGroupChange} from "./resourcePrimitiveGroupChange";
 import {ResourceCreate} from "./resourceCreate";
 import {ResourceMove} from "./resourceMove";
+import {ResourceBan} from "./resourceBan";
 import {ResourceGroupCreate} from "./resourceGroupCreate";
 import {SbdConfigure} from "./sbdConfigure";
 import {SbdDisable} from "./sbdDisable";
@@ -56,6 +57,7 @@ export const taskMap = {
   primitiveGroupChange: ResourcePrimitiveGroupChange,
   resourceCreate: ResourceCreate,
   resourceMove: ResourceMove,
+  resourceBan: ResourceBan,
   resourceGroup: ResourceGroupCreate,
   sbdConfigure: SbdConfigure,
   sbdDisable: SbdDisable,
