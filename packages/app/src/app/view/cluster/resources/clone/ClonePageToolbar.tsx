@@ -1,28 +1,17 @@
 import {testMarks} from "app/view/dataTest";
 import {LauncherItem as ToolbarItem} from "app/view/share";
 import {Clone} from "app/view/cluster/types";
-import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/task";
+import {DetailToolbar} from "app/view/cluster/share";
+import {useOpenMoveTask} from "app/view/cluster/resources";
 
 const {toolbar} = testMarks.cluster.resources.currentClone;
 
 export const ClonePageToolbar = ({clone}: {clone: Clone}) => {
-  const {clusterName, nodeList} = useLoadedCluster();
-  const openTask = useOpenTask();
+  const openMoveTask = useOpenMoveTask();
   const move: ToolbarItem = {
     name: "move",
     ...toolbar.move.mark,
-    run: () =>
-      openTask("resourceMove", {
-        type: "RESOURCE.MOVE.OPEN",
-        payload: {
-          clusterName,
-          resourceId: clone.id,
-          resourceType: "clone",
-          isPromotable: clone.promotable,
-          nodeNameList: nodeList.map(n => n.name),
-        },
-      }),
+    run: () => openMoveTask("clone", clone.id),
   };
   return (
     <>
