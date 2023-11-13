@@ -18,14 +18,14 @@ export const ResourceMove = () => {
     close,
     isNodeSettingConsistent,
     isConstraintLifetimeConsistent,
-    state: {resourceType},
+    state: {resourceType, resourceId},
   } = useTask();
   return (
     <Wizard
       task="resourceMove"
       {...testMarks.task.resourceMove.mark}
       onClose={close}
-      taskLabel={`Move ${resourceType}`}
+      taskLabel={`Move ${resourceType} ${resourceId}`}
       description="Move resource off the node it is currently running on"
       steps={[
         {

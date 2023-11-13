@@ -18,14 +18,14 @@ export const ResourceBan = () => {
     close,
     isNodeSettingConsistent,
     isConstraintLifetimeConsistent,
-    state: {resourceType},
+    state: {resourceType, resourceId},
   } = useTask();
   return (
     <Wizard
       task="resourceBan"
       {...testMarks.task.resourceBan.mark}
       onClose={close}
-      taskLabel={`Ban ${resourceType}`}
+      taskLabel={`Ban ${resourceType} ${resourceId}`}
       description="Ban resource on the node it is currently running on"
       steps={[
         {
