@@ -1,13 +1,17 @@
+import {testMarks} from "app/view/dataTest";
 import {Group} from "app/view/cluster/types";
-import {LauncherItem as ToolbarItem} from "app/view/share";
+import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
-import {useToolbarItemMove} from "./useToolbarItemMove";
+import {useToolbarItemMoveBan} from "./useToolbarItemMoveBan";
+
+const {toolbar} = testMarks.cluster.resources.currentGroup;
 
 export const GroupPageToolbar = ({group}: {group: Group}) => {
   const {clusterName} = useLoadedCluster();
 
-  const move = useToolbarItemMove(group);
+  const move = useToolbarItemMoveBan(group, "move");
+  const ban = useToolbarItemMoveBan(group, "ban");
 
   const unclone: ToolbarItem = {
     name: "unclone",
@@ -41,7 +45,16 @@ export const GroupPageToolbar = ({group}: {group: Group}) => {
   };
   return (
     <DetailToolbar
-      buttonsItems={[group.inClone !== null ? unclone : clone, move]}
+      buttonsItems={[
+        group.inClone !== null ? unclone : clone,
+        {...move, ...toolbar.move.mark},
+      ]}
+      dropdown={
+        <LauncherDropdown
+          items={[{...ban, ...toolbar.dropdown.ban.mark}]}
+          {...toolbar.dropdown.mark}
+        />
+      }
     />
   );
 };

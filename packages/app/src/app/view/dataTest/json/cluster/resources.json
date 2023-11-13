@@ -16,7 +16,8 @@
       }
     },
     "toolbar": {
-      "move": {}
+      "move": {},
+      "ban": {}
     },
     "tabs": {
       "detail": {},
@@ -45,6 +46,14 @@
     "tabs": {
       "detail": {},
       "meta": {}
+    },
+    "toolbar": {
+      "clone": {},
+      "unclone": {},
+      "move": {},
+      "dropdown": {
+        "ban": {}
+      }
     }
   },
   "currentPrimitive": {
@@ -78,6 +87,7 @@
         "clone": {},
         "delete": {},
         "move": {},
+        "ban": {},
         "refresh": {},
         "unclone": {}
       },

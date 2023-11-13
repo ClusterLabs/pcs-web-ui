@@ -3,15 +3,38 @@ import {Clone} from "app/view/cluster/types";
 import {useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
-export const useOpenMoveTask = () => {
+type Operation = "move" | "ban";
+const operationMap = {
+  move: {
+    taskName: "resourceMove",
+    actionType: "RESOURCE.MOVE.OPEN",
+  },
+  ban: {
+    taskName: "resourceBan",
+    actionType: "RESOURCE.BAN.OPEN",
+  },
+} satisfies Record<
+  Operation,
+  {
+    taskName: Parameters<ReturnType<typeof useOpenTask>>[0];
+    actionType: keyof ActionPayload;
+  }
+>;
+
+type ActionTypes =
+  (typeof operationMap)[keyof typeof operationMap]["actionType"];
+
+export const useOpenMoveBanTask = () => {
   const {clusterName, nodeList, resourceTree} = useLoadedCluster();
   const openTask = useOpenTask();
   return (
-    resourceType: ActionPayload["RESOURCE.MOVE.OPEN"]["resourceType"],
+    resourceType: ActionPayload[ActionTypes]["resourceType"],
     resourceId: string,
-  ) =>
-    openTask("resourceMove", {
-      type: "RESOURCE.MOVE.OPEN",
+    operation: Operation,
+  ) => {
+    const {taskName, actionType} = operationMap[operation];
+    return openTask(taskName, {
+      type: actionType,
       payload: {
         clusterName,
         resourceId,
@@ -29,4 +52,5 @@ export const useOpenMoveTask = () => {
         nodeNameList: nodeList.map(n => n.name),
       },
     });
+  };
 };

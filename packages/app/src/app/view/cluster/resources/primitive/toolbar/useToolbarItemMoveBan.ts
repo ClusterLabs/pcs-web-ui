@@ -1,14 +1,17 @@
 import {LauncherItem as ToolbarItem} from "app/view/share";
 import {Primitive} from "app/view/cluster/types";
-import {useOpenMoveTask} from "app/view/cluster/resources";
+import {useOpenMoveBanTask} from "app/view/cluster/resources";
 
-export const useToolbarItemMove = (primitive: Primitive): ToolbarItem => {
-  const openMoveTask = useOpenMoveTask();
+export const useToolbarItemMoveBan = (
+  primitive: Primitive,
+  operation: "move" | "ban",
+): ToolbarItem => {
+  const openMoveTask = useOpenMoveBanTask();
 
   if (primitive.inGroup === null && primitive.inClone === null) {
     return {
       name: "move",
-      run: () => openMoveTask("primitive resource", primitive.id),
+      run: () => openMoveTask("primitive resource", primitive.id, operation),
     };
   }
 
@@ -22,7 +25,8 @@ export const useToolbarItemMove = (primitive: Primitive): ToolbarItem => {
           "The resource is in the clone and cannot be moved individually."
           + " You can move the clone. ",
         label: "move the clone",
-        run: () => openMoveTask("clone", primitive.inClone as string),
+        run: () =>
+          openMoveTask("clone", primitive.inClone as string, operation),
       },
     };
   }
@@ -36,7 +40,7 @@ export const useToolbarItemMove = (primitive: Primitive): ToolbarItem => {
         "The resource is in the group and cannot be moved individually."
         + " You can move the whole group. ",
       label: "move the whole group",
-      run: () => openMoveTask("group", primitive.inGroup as string),
+      run: () => openMoveTask("group", primitive.inGroup as string, operation),
     },
   };
 };

@@ -3,7 +3,7 @@ import {Primitive} from "app/view/cluster/types";
 import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 
-import {useToolbarItemMove} from "./useToolbarItemMove";
+import {useToolbarItemMoveBan} from "./useToolbarItemMoveBan";
 import {useToolbarItemGroupChange} from "./useToolbarItemGroupChange";
 
 const isPrimitiveManaged = (primitive: Primitive) =>
@@ -23,10 +23,8 @@ const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   const {clusterName} = useLoadedCluster();
 
-  const move = {
-    ...useToolbarItemMove(primitive),
-    ...toolbar.dropdown.move.mark,
-  };
+  const move = useToolbarItemMoveBan(primitive, "move");
+  const ban = useToolbarItemMoveBan(primitive, "ban");
 
   const changeGroup = {
     ...useToolbarItemGroupChange(primitive),
@@ -232,7 +230,8 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
               ...(primitive.inGroup !== null
                 ? []
                 : [primitive.inClone !== null ? unclone : clone]),
-              move,
+              {...move, ...toolbar.dropdown.move.mark},
+              {...ban, ...toolbar.dropdown.ban.mark},
               deleteItem,
             ]}
             {...toolbar.dropdown.mark}
