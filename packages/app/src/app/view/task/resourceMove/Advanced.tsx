@@ -1,7 +1,7 @@
-import {Form} from "@patternfly/react-core";
+import {Checkbox, Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormRadios, TaskLibStep} from "app/view/share";
+import {FormGroup, FormRadios, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {AdvancedLifetime} from "./AdvancedLifetime";
@@ -11,7 +11,10 @@ export const Advanced = () => {
   const {
     updateState,
     state: {
+      resourceType,
       constraintHandling,
+      isPromotable,
+      limitToPromoted,
       libCall: {reports},
     },
   } = useTask();
@@ -22,6 +25,22 @@ export const Advanced = () => {
       {...testMarks.task.resourceMove.mark}
     >
       <Form>
+        {resourceType === "clone" && isPromotable && (
+          <FormGroup
+            fieldId="settings-promotable-clone"
+            label="Promotable clone"
+          >
+            <Checkbox
+              label="Limit the action scope to the Promoted role"
+              aria-label="Limit the action scope to the Promoted role"
+              id="settings-limit-to-promoted"
+              isChecked={limitToPromoted}
+              onChange={(checked: boolean) =>
+                updateState({limitToPromoted: checked})
+              }
+            />
+          </FormGroup>
+        )}
         <FormRadios
           id="settings-constraint-handling"
           label="Constraint handling"

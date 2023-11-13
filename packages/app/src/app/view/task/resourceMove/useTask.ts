@@ -28,6 +28,9 @@ export const useTask = () => {
         resource_id: state.resourceId,
         ...(state.useNode ? {node: state.node} : {}),
         ...(force ? {strict: true} : {}),
+        ...(state.resourceType === "clone" && state.isPromotable
+          ? {master: state.limitToPromoted}
+          : {}),
       };
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",

@@ -76,6 +76,7 @@ type Clone = Resource & {
   itemType: "clone";
   // unfortunately, fence device can be here and we need to display it somehow
   member: Primitive | Group | FenceDevice;
+  promotable: boolean;
 };
 
 type ApiNode = ApiCluster["node_list"][number];

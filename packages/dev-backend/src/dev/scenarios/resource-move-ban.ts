@@ -16,7 +16,7 @@ shortcut.dashboard([
           crm_status: [t.resourceStatus("C2-ok")],
         }),
       ]),
-      t.clone("C1", t.primitive("D")),
+      t.clone("C1", t.primitive("D"), {promotable: true}),
       t.clone("C2", t.group("G2", [t.primitive("E"), t.primitive("F")])),
     ],
   }),

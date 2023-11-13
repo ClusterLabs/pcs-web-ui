@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {ReviewItem, ReviewList, TaskLibStep} from "app/view/share";
+import {ReviewItem, ReviewList, ReviewYesNo, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -11,6 +11,9 @@ export const Review = () => {
       constraintHandling,
       constraintLifetime,
       strictMode,
+      resourceType,
+      isPromotable,
+      limitToPromoted,
       libCall: {reports},
     },
   } = useTask();
@@ -38,7 +41,10 @@ export const Review = () => {
           }
         />
         {constraintHandling === "autoclean" && (
-          <ReviewItem label="Strict mode" value={strictMode ? "yes" : "no"} />
+          <ReviewYesNo label="Strict mode" value={strictMode} />
+        )}
+        {resourceType === "clone" && isPromotable && (
+          <ReviewYesNo label="Limit to promoted" value={limitToPromoted} />
         )}
       </ReviewList>
     </TaskLibStep>

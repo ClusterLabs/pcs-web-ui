@@ -19,6 +19,7 @@ export const ClonePageToolbar = ({clone}: {clone: Clone}) => {
           clusterName,
           resourceId: clone.id,
           resourceType: "clone",
+          isPromotable: clone.promotable,
           nodeNameList: nodeList.map(n => n.name),
         },
       }),

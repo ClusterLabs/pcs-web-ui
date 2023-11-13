@@ -73,6 +73,7 @@ export const toClone = (
       id: apiClone.id,
       itemType: "clone",
       member,
+      promotable: apiClone.promotable,
       status: buildStatus(buildStatusInfoList(apiClone)),
       issueList: transformIssues(apiClone),
       metaAttributes: apiClone.meta_attr,

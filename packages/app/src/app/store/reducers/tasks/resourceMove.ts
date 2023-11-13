@@ -5,6 +5,7 @@ import {initialState as initialLibCall, libCall} from "./libCall";
 const initialState: {
   resourceId: string;
   resourceType: "primitive resource" | "group" | "clone";
+  isPromotable: boolean;
   clusterName: string;
   useNode: boolean;
   node: string;
@@ -12,11 +13,13 @@ const initialState: {
   constraintHandling: "autoclean" | "keep" | "expire";
   constraintLifetime: string;
   strictMode: boolean;
+  limitToPromoted: boolean;
   libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
   resourceId: "",
   resourceType: "primitive resource",
+  isPromotable: false,
   clusterName: "",
   useNode: false,
   node: "",
@@ -24,6 +27,7 @@ const initialState: {
   constraintHandling: "autoclean",
   constraintLifetime: "",
   strictMode: false,
+  limitToPromoted: false,
   libCall: initialLibCall,
   showValidationErrors: false,
 };

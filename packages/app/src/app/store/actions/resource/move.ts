@@ -4,9 +4,12 @@ export type ResourceMoveActions = {
     payload: {
       clusterName: string;
       resourceId: string;
-      resourceType: "primitive resource" | "group" | "clone";
+
       nodeNameList: string[];
-    };
+    } & (
+      | {resourceType: "primitive resource" | "group"}
+      | {resourceType: "clone"; isPromotable: boolean}
+    );
   };
 
   "RESOURCE.MOVE.CLOSE": {
@@ -21,6 +24,7 @@ export type ResourceMoveActions = {
       constraintHandling?: "autoclean" | "keep" | "expire";
       constraintLifetime?: string;
       strictMode?: boolean;
+      limitToPromoted?: boolean;
     };
   };
 };

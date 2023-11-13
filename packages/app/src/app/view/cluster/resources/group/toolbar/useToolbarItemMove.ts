@@ -1,11 +1,11 @@
 import {ActionPayload} from "app/store";
 import {LauncherItem as ToolbarItem} from "app/view/share";
-import {Group} from "app/view/cluster/types";
+import {Clone, Group} from "app/view/cluster/types";
 import {useOpenTask} from "app/view/task";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 export const useToolbarItemMove = (group: Group): ToolbarItem => {
-  const {clusterName, nodeList} = useLoadedCluster();
+  const {clusterName, nodeList, resourceTree} = useLoadedCluster();
   const openTask = useOpenTask();
   const openMoveTask = (
     resourceId: string,
@@ -16,7 +16,17 @@ export const useToolbarItemMove = (group: Group): ToolbarItem => {
       payload: {
         clusterName,
         resourceId,
-        resourceType,
+        ...(resourceType !== "clone"
+          ? {resourceType}
+          : {
+              resourceType,
+              isPromotable:
+                (
+                  resourceTree.find(
+                    r => r.itemType === "clone" && r.id === resourceId,
+                  ) as Clone
+                )?.promotable ?? false,
+            }),
         nodeNameList: nodeList.map(n => n.name),
       },
     });
