@@ -2,7 +2,6 @@ import {testMarks} from "app/view/dataTest";
 import {
   TaskButtonResult,
   TaskButtonResultCancel,
-  TaskButtonResultProceedAnyway,
   TaskButtonWizardResultBack,
   TaskFinishLibCommunicationError,
   TaskFinishLibUnsuccess,
@@ -25,7 +24,6 @@ export const Result = ({
   reviewStep: string;
 }) => {
   const {
-    move,
     state: {
       libCall: {reports, response},
     },
@@ -58,12 +56,6 @@ export const Result = ({
             <TaskButtonWizardResultBack
               stepName={backStep}
               {...unsuccess.back.mark}
-            />
-          }
-          proceed={
-            <TaskButtonResultProceedAnyway
-              action={() => move({force: true})}
-              {...unsuccess.proceedAnyway.mark}
             />
           }
           cancel={<TaskButtonResultCancel {...unsuccess.cancel.mark} />}

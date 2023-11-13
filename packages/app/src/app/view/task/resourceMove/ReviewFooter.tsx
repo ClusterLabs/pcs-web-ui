@@ -16,7 +16,7 @@ export const ReviewFooter = () => {
     <TaskFooter {...testMarks.task.resourceMove.reviewFooter.mark}>
       <TaskButtonWizardNext
         label="Move resource"
-        preAction={() => move({force: false})}
+        preAction={move}
         {...next.mark}
       />
       <TaskButtonBack {...back.mark} />

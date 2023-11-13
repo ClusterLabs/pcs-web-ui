@@ -23,11 +23,10 @@ export const useTask = () => {
       });
     },
 
-    move: ({force}: {force: boolean}) => {
+    move: () => {
       const commonPayload = {
         resource_id: state.resourceId,
         ...(state.useNode ? {node: state.node} : {}),
-        ...(force ? {strict: true} : {}),
         ...(state.resourceType === "clone" && state.isPromotable
           ? {master: state.limitToPromoted}
           : {}),
@@ -43,6 +42,7 @@ export const useTask = () => {
                   name: "resource-move-autoclean",
                   payload: {
                     ...commonPayload,
+                    ...(state.strictMode ? {strict: true} : {}),
                   },
                 }
               : {
