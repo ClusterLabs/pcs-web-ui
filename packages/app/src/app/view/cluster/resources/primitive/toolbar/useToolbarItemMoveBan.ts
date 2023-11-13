@@ -10,21 +10,21 @@ export const useToolbarItemMoveBan = (
 
   if (primitive.inGroup === null && primitive.inClone === null) {
     return {
-      name: "move",
+      name: operation,
       run: () => openMoveTask("primitive resource", primitive.id, operation),
     };
   }
 
   if (primitive.inClone !== null) {
     return {
-      name: "move",
+      name: operation,
       confirm: {
-        title: "Cannot move primitive resource",
+        title: `Cannot ${operation} primitive resource`,
         titleVariant: "warning",
-        description:
-          "The resource is in the clone and cannot be moved individually."
-          + " You can move the clone. ",
-        label: "move the clone",
+        description: `The resource is in the clone and cannot be ${
+          operation === "move" ? "moved" : "banned"
+        } individually. You can ${operation} the whole group. `,
+        label: `${operation} the clone`,
         run: () =>
           openMoveTask("clone", primitive.inClone as string, operation),
       },
@@ -32,14 +32,14 @@ export const useToolbarItemMoveBan = (
   }
 
   return {
-    name: "move",
+    name: operation,
     confirm: {
-      title: "Cannot move primitive resource",
+      title: `Cannot ${operation} primitive resource`,
       titleVariant: "warning",
-      description:
-        "The resource is in the group and cannot be moved individually."
-        + " You can move the whole group. ",
-      label: "move the whole group",
+      description: `The resource is in the group and cannot be ${
+        operation === "move" ? "moved" : "banned"
+      } individually. You can ${operation} the whole group. `,
+      label: `${operation} the whole group`,
       run: () => openMoveTask("group", primitive.inGroup as string, operation),
     },
   };

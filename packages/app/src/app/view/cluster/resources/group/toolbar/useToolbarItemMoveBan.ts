@@ -19,9 +19,9 @@ export const useToolbarItemMoveBan = (
     name: operation,
     confirm: {
       title: `Cannot ${operation} group`,
-      description:
-        "The group is in the clone and cannot be moved individually."
-        + ` You can ${operation} the clone. `,
+      description: `The resource is in the clone and cannot be ${
+        operation === "move" ? "moved" : "banned"
+      } individually. You can ${operation} the whole group. `,
       label: `${operation} the clone`,
       titleVariant: "warning",
       run: () => openMoveTask("clone", group.inClone as string, operation),
