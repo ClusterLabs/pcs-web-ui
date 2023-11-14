@@ -2,6 +2,7 @@ import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {useOpenMoveBanTask} from "app/view/cluster/resources";
 
 import {useToolbarItemMoveBan} from "./useToolbarItemMoveBan";
 import {useToolbarItemGroupChange} from "./useToolbarItemGroupChange";
@@ -22,9 +23,14 @@ const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   const {clusterName} = useLoadedCluster();
+  const openMoveBanTask = useOpenMoveBanTask();
 
   const move = useToolbarItemMoveBan(primitive, "move");
   const ban = useToolbarItemMoveBan(primitive, "ban");
+  const clear = {
+    name: "clear",
+    run: () => openMoveBanTask("primitive resource", primitive.id, "clear"),
+  };
 
   const changeGroup = {
     ...useToolbarItemGroupChange(primitive),
@@ -232,6 +238,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
                 : [primitive.inClone !== null ? unclone : clone]),
               {...move, ...toolbar.dropdown.move.mark},
               {...ban, ...toolbar.dropdown.ban.mark},
+              {...clear, ...toolbar.dropdown.clear.mark},
               deleteItem,
             ]}
             {...toolbar.dropdown.mark}

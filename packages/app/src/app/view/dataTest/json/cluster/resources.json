@@ -17,7 +17,10 @@
     },
     "toolbar": {
       "move": {},
-      "ban": {}
+      "ban": {},
+      "dropdown": {
+        "clear": {}
+      }
     },
     "tabs": {
       "detail": {},
@@ -52,7 +55,8 @@
       "unclone": {},
       "move": {},
       "dropdown": {
-        "ban": {}
+        "ban": {},
+        "clear": {}
       }
     }
   },
@@ -88,6 +92,7 @@
         "delete": {},
         "move": {},
         "ban": {},
+        "clear": {},
         "refresh": {},
         "unclone": {}
       },

@@ -3,7 +3,7 @@ import {Clone} from "app/view/cluster/types";
 import {useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
-type Operation = "move" | "ban";
+type Operation = "move" | "ban" | "clear";
 const operationMap = {
   move: {
     taskName: "resourceMove",
@@ -12,6 +12,10 @@ const operationMap = {
   ban: {
     taskName: "resourceBan",
     actionType: "RESOURCE.BAN.OPEN",
+  },
+  clear: {
+    taskName: "resourceClear",
+    actionType: "RESOURCE.CLEAR.OPEN",
   },
 } satisfies Record<
   Operation,

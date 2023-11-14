@@ -2,6 +2,7 @@ import {testMarks} from "app/view/dataTest";
 import {Clone} from "app/view/cluster/types";
 import {DetailToolbar} from "app/view/cluster/share";
 import {useOpenMoveBanTask} from "app/view/cluster/resources";
+import {LauncherDropdown} from "app/view/share";
 
 const {toolbar} = testMarks.cluster.resources.currentClone;
 
@@ -22,6 +23,18 @@ export const ClonePageToolbar = ({clone}: {clone: Clone}) => {
             ...toolbar.ban.mark,
           },
         ]}
+        dropdown={
+          <LauncherDropdown
+            items={[
+              {
+                name: "clear",
+                run: () => openMoveTask("clone", clone.id, "clear"),
+                ...toolbar.dropdown.clear.mark,
+              },
+            ]}
+            {...toolbar.dropdown.mark}
+          />
+        }
         {...toolbar.mark}
       />
     </>
