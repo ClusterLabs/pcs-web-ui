@@ -111,6 +111,16 @@ export type Commands = [
     };
   },
   {
+    name: "resource-unmove_unban";
+    payload: {
+      resource_id: string;
+      node?: string;
+      master?: boolean;
+      expired?: boolean;
+      wait?: number;
+    };
+  },
+  {
     name: "resource-create-as-clone";
     payload: {
       resource_id: string;

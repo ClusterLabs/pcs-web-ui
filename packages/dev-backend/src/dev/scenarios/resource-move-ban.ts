@@ -42,3 +42,10 @@ app.libCluster("resource-ban", (req, res) => {
     res,
   });
 });
+
+app.libCluster("resource-unmove_unban", (req, res) => {
+  shortcut.libStd({
+    code: req.body.resource_id,
+    res,
+  });
+});

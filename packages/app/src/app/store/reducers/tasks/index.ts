@@ -7,6 +7,7 @@ import {clusterStop} from "./clusterStop";
 import {importExistingCluster} from "./importExistingCluster";
 import {resourceCreate} from "./resourceCreate";
 import {resourceBan} from "./resourceBan";
+import {resourceClear} from "./resourceClear";
 import {resourceMove} from "./resourceMove";
 import {fenceDeviceCreate} from "./fenceDeviceCreate";
 import {fenceDeviceArgsEdit} from "./fenceDeviceArgsEdit";
@@ -56,6 +57,7 @@ export const tasks = combineReducers(
     importExistingCluster,
     resourceCreate,
     resourceBan,
+    resourceClear,
     resourceMove,
     fenceDeviceCreate,
     fenceDeviceArgsEdit,
