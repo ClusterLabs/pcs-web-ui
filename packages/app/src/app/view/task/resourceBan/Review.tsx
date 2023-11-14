@@ -10,7 +10,6 @@ export const Review = () => {
       node,
       constraintHandling,
       constraintLifetime,
-      strictMode,
       resourceType,
       isPromotable,
       limitToPromoted,
@@ -40,9 +39,6 @@ export const Review = () => {
               : `expire after ${constraintLifetime}`
           }
         />
-        {constraintHandling === "autoclean" && (
-          <ReviewYesNo label="Strict mode" value={strictMode} />
-        )}
         {resourceType === "clone" && isPromotable && (
           <ReviewYesNo label="Limit to promoted" value={limitToPromoted} />
         )}

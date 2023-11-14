@@ -21,9 +21,8 @@ export type ResourceBanActions = {
     payload: {
       useNode?: boolean;
       node?: string;
-      constraintHandling?: "autoclean" | "keep" | "expire";
+      constraintHandling?: "keep" | "expire";
       constraintLifetime?: string;
-      strictMode?: boolean;
       limitToPromoted?: boolean;
     };
   };

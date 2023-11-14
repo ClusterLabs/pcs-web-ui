@@ -5,7 +5,6 @@ import {FormGroup, FormRadios, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {AdvancedLifetime} from "./AdvancedLifetime";
-import {AdvancedStrict} from "./AdvancedStrict";
 
 export const Advanced = () => {
   const {
@@ -44,33 +43,17 @@ export const Advanced = () => {
         <FormRadios
           id="settings-constraint-handling"
           label="Constraint handling"
-          options={["autoclean", "expire", "keep"]}
+          options={["keep", "expire"]}
           selected={constraintHandling}
           onChange={value => updateState({constraintHandling: value})}
           popover={{
             header: <>Constraint handling</>,
             body: (
               <>
-                Ban the resource off the node it is currently running on is
-                achieved by creating a location constraint and there are 3
+                Ban the resource on the node it is currently running on is
+                achieved by creating a location constraint and there are 2
                 options to deal with it:
                 <dl>
-                  <dd>
-                    <strong>autoclean</strong>
-                  </dd>
-                  <dt>
-                    The constraint is deleted once the resource is running on
-                    its new location. This option also allows to use strict
-                    mode.
-                  </dt>
-                  <dd>
-                    <strong>expire</strong>
-                  </dd>
-                  <dt>
-                    The constraint will expire after some period. Constraint
-                    needs to be cleared manually. A lifetime must be specified
-                    for this option.
-                  </dt>
                   <dd>
                     <strong>keep</strong>
                   </dd>
@@ -78,13 +61,20 @@ export const Advanced = () => {
                     The constraint will not expire and needs to be cleared
                     manually.
                   </dt>
+                  <dd>
+                    <strong>expire</strong>
+                  </dd>
+                  <dt>
+                    The constraint will expire after some period. Constraint
+                    itself needs to be cleared manually aftermath. A lifetime
+                    must be specified for this option.
+                  </dt>
                 </dl>
               </>
             ),
           }}
         />
         {constraintHandling === "expire" && <AdvancedLifetime />}
-        {constraintHandling === "autoclean" && <AdvancedStrict />}
       </Form>
     </TaskLibStep>
   );

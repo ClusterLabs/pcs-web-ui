@@ -10,9 +10,8 @@ const initialState: {
   useNode: boolean;
   node: string;
   nodeNameList: string[];
-  constraintHandling: "autoclean" | "keep" | "expire";
+  constraintHandling: "keep" | "expire";
   constraintLifetime: string;
-  strictMode: boolean;
   limitToPromoted: boolean;
   libCall: typeof initialLibCall;
   showValidationErrors: boolean;
@@ -24,9 +23,8 @@ const initialState: {
   useNode: false,
   node: "",
   nodeNameList: [],
-  constraintHandling: "autoclean",
+  constraintHandling: "keep",
   constraintLifetime: "",
-  strictMode: false,
   limitToPromoted: false,
   libCall: initialLibCall,
   showValidationErrors: false,
