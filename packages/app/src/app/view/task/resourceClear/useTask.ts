@@ -29,8 +29,10 @@ export const useTask = () => {
             payload: {
               resource_id: state.resourceId,
               ...(state.useNode ? {node: state.node} : {}),
-              ...(state.resourceType === "clone" && state.isPromotable
-                ? {master: state.limitToPromoted}
+              ...(state.resourceType === "clone"
+              && state.isPromotable
+              && state.limitToPromoted
+                ? {master: true}
                 : {}),
               ...(state.expiredOnly ? {expired: true} : {}),
             },
