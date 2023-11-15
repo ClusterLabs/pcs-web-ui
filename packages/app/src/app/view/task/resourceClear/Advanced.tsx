@@ -12,6 +12,7 @@ export const Advanced = () => {
       resourceType,
       isPromotable,
       limitToPromoted,
+      expiredOnly,
       libCall: {reports},
     },
   } = useTask();
@@ -38,6 +39,18 @@ export const Advanced = () => {
             />
           </FormGroup>
         )}
+        <FormGroup
+          fieldId="settings-expired-only"
+          label="Expired constraints only"
+        >
+          <Checkbox
+            label="Remove already expired constraints only"
+            aria-label="Remove only already expired constraints"
+            id="settings-expired-only"
+            isChecked={expiredOnly}
+            onChange={(checked: boolean) => updateState({expiredOnly: checked})}
+          />
+        </FormGroup>
       </Form>
     </TaskLibStep>
   );

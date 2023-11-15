@@ -11,6 +11,7 @@ export const Review = () => {
       resourceType,
       isPromotable,
       limitToPromoted,
+      expiredOnly,
       libCall: {reports},
     },
   } = useTask();
@@ -32,6 +33,7 @@ export const Review = () => {
         {resourceType === "clone" && isPromotable && (
           <ReviewYesNo label="Limit to promoted" value={limitToPromoted} />
         )}
+        <ReviewYesNo label="Expired constraints only" value={expiredOnly} />
       </ReviewList>
     </TaskLibStep>
   );
