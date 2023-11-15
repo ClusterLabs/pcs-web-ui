@@ -19,7 +19,7 @@ export const Node = () => {
   } = useTask();
   return (
     <TaskLibStep
-      title="Destination node"
+      title="Banned node"
       reports={reports}
       {...testMarks.task.resourceBan.mark}
     >
@@ -27,8 +27,8 @@ export const Node = () => {
         <Flex>
           <FlexItem>
             <Checkbox
-              label="Specify destination node"
-              aria-label="Specify destination node"
+              label="Specify banned node"
+              aria-label="Specify banned node"
               id="settings-specify-node"
               isChecked={useNode}
               onChange={(checked: boolean) => updateState({useNode: checked})}

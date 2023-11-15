@@ -19,7 +19,7 @@ export const Node = () => {
   } = useTask();
   return (
     <TaskLibStep
-      title="Destination node"
+      title="Node"
       reports={reports}
       {...testMarks.task.resourceClear.mark}
     >
@@ -27,8 +27,8 @@ export const Node = () => {
         <Flex>
           <FlexItem>
             <Checkbox
-              label="Specify destination node"
-              aria-label="Specify destination node"
+              label="Limit the clear action to a specific node"
+              aria-label="Limit the clear action to a specific node"
               id="settings-specify-node"
               isChecked={useNode}
               onChange={(checked: boolean) => updateState({useNode: checked})}

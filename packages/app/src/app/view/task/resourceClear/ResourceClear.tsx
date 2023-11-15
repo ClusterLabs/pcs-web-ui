@@ -25,7 +25,7 @@ export const ResourceClear = () => {
       {...testMarks.task.resourceClear.mark}
       onClose={close}
       taskLabel={`Clear ${resourceType} ${resourceId}`}
-      description="Clear resource on the node it is currently running on"
+      description="Remove constraints created by move and/or ban"
       steps={[
         {
           name: node,

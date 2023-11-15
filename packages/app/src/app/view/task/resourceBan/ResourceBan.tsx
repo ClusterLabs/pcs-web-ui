@@ -26,7 +26,7 @@ export const ResourceBan = () => {
       {...testMarks.task.resourceBan.mark}
       onClose={close}
       taskLabel={`Ban ${resourceType} ${resourceId}`}
-      description="Ban resource on the node it is currently running on"
+      description="Ban resource on a node"
       steps={[
         {
           name: node,
