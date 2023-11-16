@@ -2,7 +2,14 @@ import * as cs from "dev/responses/clusterStatus/tools";
 
 import {assert, mock} from "test/tools";
 
-import {clusterName, goToResources} from "./common";
+import {
+  cloneToggle,
+  clusterName,
+  goToResources,
+  groupToggle,
+  openClone,
+  openGroup,
+} from "./common";
 import {openPrimitive} from "./commonPrimitive";
 
 const {resources} = marks.cluster;
@@ -20,22 +27,8 @@ const primitiveItem = (id: string) =>
 const groupItem = (id: string) =>
   item.byId(resources.tree.group, id, g => g.id);
 
-const groupToggle = async (id: string) =>
-  await click(item.byId(resources.tree.group, id, g => g.toggle));
-
-const openGroup = async (id: string) => {
-  await click(groupItem(id));
-};
-
 const cloneItem = (id: string) =>
   item.byId(resources.tree.clone, id, c => c.id);
-
-const cloneToggle = async (id: string) =>
-  await click(item.byId(resources.tree.clone, id, c => c.toggle));
-
-const openClone = async (id: string) => {
-  await click(cloneItem(id));
-};
 
 describe("Resource tree", () => {
   beforeEach(() =>

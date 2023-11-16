@@ -102,6 +102,9 @@ export const appConfirm = {
   },
 };
 
+export const taskTitle = (taskMark: Mark) =>
+  locatorFor(taskMark).locator("//*[contains(@class, 'pf-c-wizard__title')]");
+
 export const radioGroup = async (mark: Mark, value: string) => {
   await locatorFor(mark).locator(`//*[text()="${value}"]`).click();
 };
