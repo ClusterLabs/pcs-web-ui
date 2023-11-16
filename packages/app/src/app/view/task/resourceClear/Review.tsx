@@ -3,6 +3,8 @@ import {ReviewItem, ReviewList, ReviewYesNo, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
+const {resourceClear: task} = testMarks.task;
+
 export const Review = () => {
   const {
     state: {
@@ -19,21 +21,30 @@ export const Review = () => {
     <TaskLibStep
       title="Review resource clear"
       reports={reports}
-      {...testMarks.task.resourceClear.mark}
+      {...task.review.mark}
     >
       <ReviewList>
         <ReviewItem
-          label="Destination node"
+          label="Node"
           value={node}
           useDefault={{
             when: !useNode,
             defaultValue: "Not specified",
           }}
+          {...task.review.node.mark}
         />
         {resourceType === "clone" && isPromotable && (
-          <ReviewYesNo label="Limit to promoted" value={limitToPromoted} />
+          <ReviewYesNo
+            label="Limit to promoted"
+            value={limitToPromoted}
+            {...task.review.promoted.mark}
+          />
         )}
-        <ReviewYesNo label="Expired constraints only" value={expiredOnly} />
+        <ReviewYesNo
+          label="Expired constraints only"
+          value={expiredOnly}
+          {...task.review.expiredOnly.mark}
+        />
       </ReviewList>
     </TaskLibStep>
   );

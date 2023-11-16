@@ -3,21 +3,31 @@
     "cancel": {},
     "tryAgain": {}
   },
-  "node": {},
+  "node": {
+    "useNode": {},
+    "nodeList": {}
+  },
   "nodeFooter": {
     "back": {},
     "cancel": {},
     "next": {},
     "reviewAndFinish": {}
   },
-  "advanced": {},
+  "advanced": {
+    "promoted": {},
+    "expiredOnly": {}
+  },
   "advancedFooter": {
     "back": {},
     "cancel": {},
     "next": {}
   },
   "report": {},
-  "review": {},
+  "review": {
+    "node": {},
+    "expiredOnly": {},
+    "promoted": {}
+  },
   "reviewFooter": {
     "back": {},
     "cancel": {},

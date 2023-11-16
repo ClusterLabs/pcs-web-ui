@@ -19,7 +19,11 @@ export const Review = () => {
     },
   } = useTask();
   return (
-    <TaskLibStep title="Review resource ban" reports={reports} {...task.mark}>
+    <TaskLibStep
+      title="Review resource ban"
+      reports={reports}
+      {...task.review.mark}
+    >
       <ReviewList>
         <ReviewItem
           label="Banned node"

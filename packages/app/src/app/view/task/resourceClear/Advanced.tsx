@@ -5,6 +5,7 @@ import {FormGroup, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
+const {resourceClear: task} = testMarks.task;
 export const Advanced = () => {
   const {
     updateState,
@@ -20,7 +21,7 @@ export const Advanced = () => {
     <TaskLibStep
       title="Advanced settings"
       reports={reports}
-      {...testMarks.task.resourceClear.mark}
+      {...task.advanced.mark}
     >
       <Form>
         {resourceType === "clone" && isPromotable && (
@@ -36,6 +37,7 @@ export const Advanced = () => {
               onChange={(checked: boolean) =>
                 updateState({limitToPromoted: checked})
               }
+              {...task.advanced.promoted.mark}
             />
           </FormGroup>
         )}
@@ -49,6 +51,7 @@ export const Advanced = () => {
             id="settings-expired-only"
             isChecked={expiredOnly}
             onChange={(checked: boolean) => updateState({expiredOnly: checked})}
+            {...task.advanced.expiredOnly.mark}
           />
         </FormGroup>
       </Form>
