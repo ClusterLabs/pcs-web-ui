@@ -6,6 +6,8 @@ import {FormGroup, FormRadios, TaskLibStep} from "app/view/share";
 import {useTask} from "./useTask";
 import {AdvancedLifetime} from "./AdvancedLifetime";
 
+const {resourceBan: task} = testMarks.task;
+
 export const Advanced = () => {
   const {
     updateState,
@@ -21,7 +23,7 @@ export const Advanced = () => {
     <TaskLibStep
       title="Advanced settings"
       reports={reports}
-      {...testMarks.task.resourceBan.mark}
+      {...task.advanced.mark}
     >
       <Form>
         {resourceType === "clone" && isPromotable && (
@@ -37,6 +39,7 @@ export const Advanced = () => {
               onChange={(checked: boolean) =>
                 updateState({limitToPromoted: checked})
               }
+              {...task.advanced.promoted.mark}
             />
           </FormGroup>
         )}
@@ -73,6 +76,7 @@ export const Advanced = () => {
               </>
             ),
           }}
+          {...task.advanced.constraintHandling.mark}
         />
         {constraintHandling === "expire" && <AdvancedLifetime />}
       </Form>

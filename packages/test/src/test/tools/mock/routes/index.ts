@@ -22,6 +22,7 @@ export * from "./resourceAgentDescribeAgent";
 export * from "./resourceCreate";
 export * from "./resourceMove";
 export * from "./resourceMoveAutoclean";
+export * from "./resourceBan";
 export * from "./stonithAgentDescribeAgent";
 export * from "./updateFenceDevice";
 export * from "./stonithCreate";
