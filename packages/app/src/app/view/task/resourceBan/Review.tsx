@@ -24,7 +24,7 @@ export const Review = () => {
     >
       <ReviewList>
         <ReviewItem
-          label="Destination node"
+          label="Banned node"
           value={node}
           useDefault={{
             when: !useNode,
