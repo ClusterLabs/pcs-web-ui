@@ -5,6 +5,8 @@ import {FormGroup, Select, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
+const {resourceMove: task} = testMarks.task;
+
 export const Node = () => {
   const {
     updateState,
@@ -18,11 +20,7 @@ export const Node = () => {
     },
   } = useTask();
   return (
-    <TaskLibStep
-      title="Destination node"
-      reports={reports}
-      {...testMarks.task.resourceMove.mark}
-    >
+    <TaskLibStep title="Destination node" reports={reports} {...task.node.mark}>
       <Form>
         <Flex>
           <FlexItem>
@@ -32,6 +30,7 @@ export const Node = () => {
               id="settings-specify-node"
               isChecked={useNode}
               onChange={(checked: boolean) => updateState({useNode: checked})}
+              {...task.node.useNode.mark}
             />
           </FlexItem>
           {useNode && (
@@ -48,6 +47,7 @@ export const Node = () => {
                   isDisabled={!useNode}
                   optionsValues={nodeNameList}
                   onSelect={value => updateState({node: value.toString()})}
+                  {...task.node.nodeList.mark}
                 />
               </FormGroup>
             </FlexItem>

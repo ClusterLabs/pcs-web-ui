@@ -1,6 +1,9 @@
 import {FormText} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
 
 import {useTask} from "./useTask";
+
+const {resourceMove: task} = testMarks.task;
 
 export const AdvancedLifetime = () => {
   const {
@@ -75,6 +78,7 @@ export const AdvancedLifetime = () => {
           </>
         ),
       }}
+      {...task.advanced.constraintLifetime.mark}
     />
   );
 };

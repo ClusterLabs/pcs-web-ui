@@ -20,6 +20,8 @@ export * from "./sbdDisable";
 export * from "./stonithAgentListAgents";
 export * from "./resourceAgentDescribeAgent";
 export * from "./resourceCreate";
+export * from "./resourceMove";
+export * from "./resourceMoveAutoclean";
 export * from "./stonithAgentDescribeAgent";
 export * from "./updateFenceDevice";
 export * from "./stonithCreate";

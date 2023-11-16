@@ -1,9 +1,11 @@
 import {Checkbox} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {FormGroup} from "app/view/share";
 
 import {useTask} from "./useTask";
 
+const {resourceMove: task} = testMarks.task;
 export const AdvancedStrict = () => {
   const {
     updateState,
@@ -29,6 +31,7 @@ export const AdvancedStrict = () => {
         id="settings-specify-node"
         isChecked={strictMode}
         onChange={(checked: boolean) => updateState({strictMode: checked})}
+        {...task.advanced.strictMode.mark}
       />
     </FormGroup>
   );

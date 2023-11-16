@@ -3,21 +3,35 @@
     "cancel": {},
     "tryAgain": {}
   },
-  "node": {},
+  "node": {
+    "useNode": {},
+    "nodeList": {}
+  },
   "nodeFooter": {
     "back": {},
     "cancel": {},
     "next": {},
     "reviewAndFinish": {}
   },
-  "advanced": {},
+  "advanced": {
+    "strictMode": {},
+    "promoted": {},
+    "constraintHandling": {},
+    "constraintLifetime": {}
+  },
   "advancedFooter": {
     "back": {},
     "cancel": {},
     "next": {}
   },
   "report": {},
-  "review": {},
+  "review": {
+    "node": {},
+    "constraintHandling": {},
+    "constraintLifetime": {},
+    "promoted": {},
+    "strictMode": {}
+  },
   "reviewFooter": {
     "back": {},
     "cancel": {},

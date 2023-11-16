@@ -7,6 +7,7 @@ import {useTask} from "./useTask";
 import {AdvancedLifetime} from "./AdvancedLifetime";
 import {AdvancedStrict} from "./AdvancedStrict";
 
+const {resourceMove: task} = testMarks.task;
 export const Advanced = () => {
   const {
     updateState,
@@ -22,7 +23,7 @@ export const Advanced = () => {
     <TaskLibStep
       title="Advanced settings"
       reports={reports}
-      {...testMarks.task.resourceMove.mark}
+      {...task.advanced.mark}
     >
       <Form>
         {resourceType === "clone" && isPromotable && (
@@ -38,6 +39,7 @@ export const Advanced = () => {
               onChange={(checked: boolean) =>
                 updateState({limitToPromoted: checked})
               }
+              {...task.advanced.promoted.mark}
             />
           </FormGroup>
         )}
@@ -82,6 +84,7 @@ export const Advanced = () => {
               </>
             ),
           }}
+          {...task.advanced.constraintHandling.mark}
         />
         {constraintHandling === "expire" && <AdvancedLifetime />}
         {constraintHandling === "autoclean" && <AdvancedStrict />}
