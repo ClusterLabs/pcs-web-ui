@@ -8,6 +8,7 @@ export type ColocationSetCreateActions = {
     key: {clusterName: string};
     payload: {
       clusterName: string;
+      offeredResourceIdList: string[];
     };
   };
 

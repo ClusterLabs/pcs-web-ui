@@ -30,6 +30,7 @@ const {
 
 const initialState: {
   clusterName: string;
+  offeredResourceIdList: string[];
   useCustomId: boolean;
   id: string;
   placement: Placement;
@@ -39,6 +40,7 @@ const initialState: {
   libCall: typeof initialLibCall;
 } = {
   clusterName: "",
+  offeredResourceIdList: [],
   useCustomId: false,
   id: "",
   placement: "together",
@@ -57,6 +59,7 @@ export const constraintColocationSetCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         clusterName: action.payload.clusterName,
+        offeredResourceIdList: action.payload.offeredResourceIdList,
       };
 
     case "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE": {
