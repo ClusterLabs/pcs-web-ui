@@ -1,10 +1,11 @@
-import {LauncherDropdown, task} from "app/view/share";
+import {LauncherDropdown} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 import {testMarks} from "app/view/dataTest";
 
 const {actions} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
-  const clusterLabel = <strong>{clusterName}</strong>;
+  const openTask = useOpenTask();
   return (
     <LauncherDropdown
       {...actions.mark}
@@ -23,18 +24,11 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
         },
         {
           name: "stop",
-          task: {
-            component: task.forceableConfirm.Task({
-              runLabel: "Stop",
-              taskLabel: `Stop cluster ${clusterLabel}`,
-              description: <>Stop the cluster {clusterLabel} on all nodes</>,
-              getForceableAction: ({force}) => ({
-                type: "DASHBOARD.CLUSTER.STOP",
-                payload: {clusterName, force},
-              }),
+          run: () =>
+            openTask("clusterStop", {
+              type: "CLUSTER.STOP.INIT",
+              payload: {clusterName},
             }),
-            useTask: task.forceableConfirm.useTask,
-          },
           ...actions.stop.mark,
         },
         {

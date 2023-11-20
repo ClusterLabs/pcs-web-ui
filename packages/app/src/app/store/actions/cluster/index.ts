@@ -9,6 +9,7 @@ import {ClusterStatusActions} from "./status";
 import {ClusterTaskActions} from "./task";
 import {ClusterNVPairListActions} from "./nvpairList";
 import {ClusterAclActions} from "./acl";
+import {ClusterStopActions} from "./stop";
 
 // prettier-ignore
 export type ClusterActions = (
@@ -20,6 +21,7 @@ export type ClusterActions = (
   & ClusterPropertiesActions
   & ClusterSbdActions
   & ClusterStatusActions
+  & ClusterStopActions
   & ClusterTaskActions
   & ClusterNVPairListActions
 );

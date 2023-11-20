@@ -3,6 +3,14 @@ import {api} from "app/backend";
 type AclCreateRolePayload = api.Lib.ClusterCallPayload<"acl-create-role">;
 
 export type ClusterAclActions = {
+  "CLUSTER.ACL.ROLE.CREATE": {
+    type: "CLUSTER.ACL.ROLE.CREATE";
+    key: {clusterName: string};
+    payload: {
+      clusterName: string;
+    };
+  };
+
   "CLUSTER.ACL.ROLE.CREATE.UPDATE": {
     type: "CLUSTER.ACL.ROLE.CREATE.UPDATE";
     key: {clusterName: string};
@@ -16,6 +24,15 @@ export type ClusterAclActions = {
   "CLUSTER.ACL.ROLE.CREATE.CLOSE": {
     type: "CLUSTER.ACL.ROLE.CREATE.CLOSE";
     key: {clusterName: string};
+  };
+
+  "CLUSTER.ACL.ROLE.PERMISSION": {
+    type: "CLUSTER.ACL.ROLE.PERMISSION";
+    key: {clusterName: string};
+    payload: {
+      clusterName: string;
+      roleId: string;
+    };
   };
 
   "CLUSTER.ACL.ROLE.PERMISSION.UPDATE": {
@@ -35,7 +52,15 @@ export type ClusterAclActions = {
     type: "CLUSTER.ACL.SUBJECT.CREATE";
     key: {clusterName: string};
     payload: {
+      clusterName: string;
       subjectType: "user" | "group";
+      roleMap: Record<
+        string,
+        {
+          description: string;
+          permissions: string[];
+        }
+      >;
     };
   };
 
@@ -57,7 +82,10 @@ export type ClusterAclActions = {
     type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN";
     key: {clusterName: string};
     payload: {
+      clusterName: string;
       subjectType: "user" | "group";
+      alreadyAssigned: string[];
+      assignableItems: string[];
     } & ({roleId: string} | {subjectId: string});
   };
 

@@ -1,17 +1,14 @@
 import {testMarks} from "app/view/dataTest";
-import {TaskOpenArgs} from "app/view/share";
 import {
   DetailLayout,
   DetailToolbar,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {useOpenTask} from "app/view/task";
 
 import {AclType} from "../types";
 
-import * as task from "./task";
 import {RolesAssignedTo} from "./RolesAssignedTo";
-
-type AssignRoleOpenArgs = TaskOpenArgs<typeof task.assignSubjectToRole.useTask>;
 
 const {currentUser} = testMarks.cluster.acl;
 
@@ -22,11 +19,8 @@ export const UserView = ({
   userId: string;
   roleIdList: AclType<"user">;
 }) => {
-  const {clusterName} = useLoadedCluster();
-
-  const assignRoleOpenArgs: AssignRoleOpenArgs = [
-    {subjectType: "user", subjectId: userId},
-  ];
+  const {clusterName, acls} = useLoadedCluster();
+  const openTask = useOpenTask();
 
   return (
     <DetailLayout
@@ -40,11 +34,18 @@ export const UserView = ({
           buttonsItems={[
             {
               name: "assign-role",
-              task: {
-                component: task.assignSubjectToRole.Task,
-                useTask: task.assignSubjectToRole.useTask,
-                openArgs: assignRoleOpenArgs,
-              },
+              run: () =>
+                openTask("aclSubjectAssign", {
+                  type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
+                  key: {clusterName},
+                  payload: {
+                    clusterName,
+                    subjectType: "user",
+                    subjectId: userId,
+                    alreadyAssigned: acls.user?.[userId] ?? [],
+                    assignableItems: Object.keys(acls.user ?? {}),
+                  },
+                }),
             },
             {
               name: "delete-user",

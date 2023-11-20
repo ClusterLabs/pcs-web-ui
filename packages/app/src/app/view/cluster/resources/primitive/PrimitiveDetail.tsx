@@ -3,10 +3,10 @@ import {Primitive} from "app/view/cluster/types";
 import {CrmStatusTable, IssueList, Link, location} from "app/view/share";
 import {
   DetailViewSection,
-  LoadedPcmkAgent,
   PcmkAgentDescription,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {LoadedPcmkAgent} from "app/view/share";
 
 const {detail} = testMarks.cluster.resources.currentPrimitive;
 
@@ -19,7 +19,10 @@ export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
   return (
     <span {...detail.mark}>
       <DetailViewSection caption="Description">
-        <LoadedPcmkAgent agentName={primitive.agentName}>
+        <LoadedPcmkAgent
+          clusterName={clusterName}
+          agentName={primitive.agentName}
+        >
           {agent => (
             <PcmkAgentDescription
               name={agent.name}

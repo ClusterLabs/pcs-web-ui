@@ -4,4 +4,3 @@ export * from "./ScopeType";
 export * from "./Kind";
 export * from "./Remove";
 export * from "./Add";
-export * from "./getInvalidPermissionIndexes";

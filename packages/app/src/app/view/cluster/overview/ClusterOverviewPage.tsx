@@ -1,7 +1,8 @@
 import {Flex, FlexItem, FlexProps, PageSection} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Card, ClusterToolbar, task} from "app/view/share";
+import {Card, ClusterToolbar} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 import {useLoadedCluster} from "app/view/cluster/share";
 
 import {IssuesCard} from "./issues";
@@ -13,6 +14,7 @@ const grow: FlexProps["grow"] = {default: "grow"};
 const {overview, overviewToolbar} = testMarks.cluster;
 
 export const ClusterOverviewPage = () => {
+  const openTask = useOpenTask();
   const cluster = useLoadedCluster();
   return (
     <>
@@ -32,19 +34,11 @@ export const ClusterOverviewPage = () => {
           },
           {
             name: "stop",
-            task: {
-              component: task.forceableConfirm.Task({
-                runLabel: "Stop",
-                taskLabel: "Stop cluster",
-                description: "Stop the cluster on all nodes",
-                getForceableAction: ({force}) => ({
-                  type: "DASHBOARD.CLUSTER.STOP",
-                  payload: {clusterName: cluster.name, force},
-                }),
-                "data-test": "cluster-stop",
+            run: () =>
+              openTask("clusterStop", {
+                type: "CLUSTER.STOP.INIT",
+                payload: {clusterName: cluster.name},
               }),
-              useTask: task.forceableConfirm.useTask,
-            },
             ...overviewToolbar.stopCluster.mark,
           },
         ]}

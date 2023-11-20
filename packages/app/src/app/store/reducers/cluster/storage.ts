@@ -9,8 +9,6 @@ import {clusterProperties} from "./properties";
 import {clusterPermissions} from "./permissions";
 import {resourceAgentMap} from "./resourceAgentMap";
 import {fenceAgentList} from "./fenceAgentList";
-import {tasks} from "./tasks";
-import {currentTaskKey} from "./currentTaskKey";
 
 const clusterStorageItem = combineReducers({
   clusterStatus,
@@ -20,8 +18,6 @@ const clusterStorageItem = combineReducers({
   clusterPermissions,
   resourceAgentMap,
   fenceAgentList,
-  tasks,
-  currentTaskKey,
 });
 
 type ClusterStorage = Record<string, ReturnType<typeof clusterStorageItem>>;

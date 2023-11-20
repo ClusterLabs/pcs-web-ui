@@ -7,26 +7,44 @@ import {
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
+import {useOpenTask} from "app/view/task";
 
 import {ConstraintFilteredList} from "./ConstraintFilteredList";
-import * as task from "./task";
 
 const {constraintsToolbar} = testMarks.cluster;
 const {dropdown} = constraintsToolbar;
 
 export const ConstraintsPage = () => {
   const launchDisable = useLauncherDisableClusterNotRunning();
-  const {clusterName} = useLoadedCluster();
+  const {clusterName, resourceTree, nodeList} = useLoadedCluster();
+  const openTask = useOpenTask();
+  const resourceIdList = resourceTree.reduce<string[]>((idList, resource) => {
+    if (resource.itemType === "primitive") {
+      return [...idList, resource.id];
+    }
+
+    if (resource.itemType === "group") {
+      return [...idList, resource.id, ...resource.resources.map(r => r.id)];
+    }
+
+    return idList;
+  }, []);
   return (
     <>
       <ClusterToolbar
         buttonsItems={[
           {
             name: "create-location",
-            task: {
-              component: task.createLocation.Task,
-              useTask: task.createLocation.useTask,
-            },
+            run: () =>
+              openTask("constraintLocationCreate", {
+                type: "CONSTRAINT.LOCATION.CREATE.INIT",
+                key: {clusterName},
+                payload: {
+                  clusterName,
+                  nodeNameList: nodeList.map(n => n.name),
+                  resourceIdList,
+                },
+              }),
             launchDisable: launchDisable(
               "Cannot create location constraint on stopped cluster",
             ),
@@ -34,10 +52,12 @@ export const ConstraintsPage = () => {
           },
           {
             name: "create-order",
-            task: {
-              component: task.createOrder.Task,
-              useTask: task.createOrder.useTask,
-            },
+            run: () =>
+              openTask("constraintOrderCreate", {
+                type: "CONSTRAINT.ORDER.CREATE.INIT",
+                key: {clusterName},
+                payload: {clusterName, resourceIdList},
+              }),
             launchDisable: launchDisable(
               "Cannot create order constraint on stopped cluster",
             ),
@@ -45,10 +65,12 @@ export const ConstraintsPage = () => {
           },
           {
             name: "create-colocation",
-            task: {
-              component: task.createColocation.Task,
-              useTask: task.createColocation.useTask,
-            },
+            run: () =>
+              openTask("constraintColocationCreate", {
+                type: "CONSTRAINT.COLOCATION.CREATE.INIT",
+                key: {clusterName},
+                payload: {clusterName, resourceIdList},
+              }),
             launchDisable: launchDisable(
               "Cannot create colocation constraint on stopped cluster",
             ),
@@ -60,10 +82,12 @@ export const ConstraintsPage = () => {
             items={[
               {
                 name: "create-ticket",
-                task: {
-                  component: task.createTicket.Task,
-                  useTask: task.createTicket.useTask,
-                },
+                run: () =>
+                  openTask("constraintTicketCreate", {
+                    type: "CONSTRAINT.TICKET.CREATE.INIT",
+                    key: {clusterName},
+                    payload: {clusterName, resourceIdList},
+                  }),
                 launchDisable: launchDisable(
                   "Cannot create ticket constraint on stopped cluster",
                 ),
@@ -71,10 +95,13 @@ export const ConstraintsPage = () => {
               },
               {
                 name: "create-order-set",
-                task: {
-                  component: task.createOrderSet.Task,
-                  useTask: task.createOrderSet.useTask,
-                },
+
+                run: () =>
+                  openTask("constraintOrderSetCreate", {
+                    type: "CONSTRAINT.ORDER.SET.CREATE.INIT",
+                    key: {clusterName},
+                    payload: {clusterName},
+                  }),
                 launchDisable: launchDisable(
                   "Cannot create order set constraint on stopped cluster",
                 ),
@@ -82,10 +109,12 @@ export const ConstraintsPage = () => {
               },
               {
                 name: "create-colocation-set",
-                task: {
-                  component: task.createColocationSet.Task,
-                  useTask: task.createColocationSet.useTask,
-                },
+                run: () =>
+                  openTask("constraintColocationSetCreate", {
+                    type: "CONSTRAINT.COLOCATION.SET.CREATE.INIT",
+                    key: {clusterName},
+                    payload: {clusterName},
+                  }),
                 launchDisable: launchDisable(
                   "Cannot create colocation set constraint on stopped cluster",
                 ),
@@ -93,10 +122,12 @@ export const ConstraintsPage = () => {
               },
               {
                 name: "create-ticket-set",
-                task: {
-                  component: task.createTicketSet.Task,
-                  useTask: task.createTicketSet.useTask,
-                },
+                run: () =>
+                  openTask("constraintTicketSetCreate", {
+                    type: "CONSTRAINT.TICKET.SET.CREATE.INIT",
+                    key: {clusterName},
+                    payload: {clusterName},
+                  }),
                 launchDisable: launchDisable(
                   "Cannot create ticket set constraint on stopped cluster",
                 ),

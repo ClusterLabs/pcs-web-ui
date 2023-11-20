@@ -3,6 +3,7 @@ export type ClusterFixAuthActions = {
     type: "CLUSTER.FIX_AUTH.START";
     key: {clusterName: string};
     payload: {
+      clusterName: string;
       initialNodeList: string[];
     };
   };
@@ -12,6 +13,7 @@ export type ClusterFixAuthActions = {
     key: {clusterName: string};
     payload: {
       authProcessId: number;
+      clusterName: string;
     };
   };
 

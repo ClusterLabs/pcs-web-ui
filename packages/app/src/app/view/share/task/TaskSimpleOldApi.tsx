@@ -9,38 +9,27 @@ import {TaskProgress} from "./TaskProgress";
 type TaskContextProps = React.ComponentProps<typeof TaskContextProvider>;
 type ModalProps = React.ComponentProps<typeof Modal>;
 
-export const TaskSimpleOldApi = (
-  props: {
-    close: TaskContextProps["value"]["close"];
-    taskLabel: TaskContextProps["value"]["taskLabel"];
+export const TaskSimpleOldApi = (props: {
+  close: TaskContextProps["value"]["close"];
+  task: Parameters<typeof selectors.getTask>[0];
+  taskLabel: TaskContextProps["value"]["taskLabel"];
 
-    footer: React.ReactNode;
-    configure: React.ReactNode;
+  footer: React.ReactNode;
+  configure: React.ReactNode;
 
-    response: "" | "sending" | "ok" | "fail";
-    waitTitle: React.ReactNode;
-    success: React.ReactNode;
-    fail: React.ReactNode;
+  response: "" | "sending" | "ok" | "fail";
+  waitTitle: React.ReactNode;
+  success: React.ReactNode;
+  fail: React.ReactNode;
 
-    title?: ModalProps["title"];
-    ["data-test"]?: string;
-  } & (
-    | {
-        task: Parameters<typeof selectors.getClusterTask>[0];
-        clusterName: string;
-      }
-    | {
-        task: Parameters<typeof selectors.getTask>[0];
-        clusterName: null;
-      }
-  ),
-) => {
+  title?: ModalProps["title"];
+  ["data-test"]?: string;
+}) => {
   return (
     <TaskContextProvider
       value={{
         task: props.task,
         close: props.close,
-        clusterName: props.clusterName,
         taskLabel: props.taskLabel,
       }}
     >

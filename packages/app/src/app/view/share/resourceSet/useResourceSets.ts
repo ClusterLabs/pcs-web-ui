@@ -2,7 +2,7 @@ import {ActionPayload, selectors} from "app/store";
 import {useDispatch} from "app/view/share/useDispatch";
 
 export const useResourceSets = <
-  NAME extends Parameters<typeof selectors.getClusterTask>[0],
+  NAME extends Parameters<typeof selectors.getTask>[0],
 >(
   clusterName: string,
   task: NAME,

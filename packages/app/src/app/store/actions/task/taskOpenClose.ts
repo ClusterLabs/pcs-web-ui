@@ -9,6 +9,7 @@ export type TaskOpenCloseActions = {
   "TASK.CLOSE": {
     type: "TASK.CLOSE";
   };
+
   "TASK.CLUSTER.OPEN": {
     type: "TASK.CLUSTER.OPEN";
     key: {clusterName: string};

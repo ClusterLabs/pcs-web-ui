@@ -1,7 +1,7 @@
-import {LauncherDropdown, TaskOpenArgs} from "app/view/share";
+import {LauncherDropdown} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
+import {useOpenTask} from "app/view/task";
 
-import * as task from "./task";
 import {useNVPairListContext} from "./NVPairListContext";
 import {useNVPairListItemContext} from "./NVPairListItemContext";
 
@@ -12,29 +12,28 @@ export const NVPairListItemMenu = (props: {
   launcherRemove: (removeData: Launcher) => Launcher;
   "data-test"?: string;
 }) => {
-  const {name: taskName} = task.edit.useTask();
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
   const {nvPairList, owner} = useNVPairListContext();
   const nvPair = useNVPairListItemContext();
-  const editOpenArgs: TaskOpenArgs<typeof task.edit.useTask> = [
-    {
-      type: "update",
-      owner,
-      name: nvPair.name,
-      value: nvPair.value,
-      nameList: nvPairList.map(pair => pair.name),
-    },
-  ];
   return (
     <LauncherDropdown
       items={[
         props.launcherEdit({
           name: "edit",
-          task: {
-            component: task.edit.Task,
-            useTask: task.edit.useTask,
-            openArgs: editOpenArgs,
-          },
+          run: () =>
+            openTask("nvpairEdit", {
+              type: "CLUSTER.NVPAIRS.EDIT",
+              key: {clusterName, task: "nvpairEdit"},
+              payload: {
+                clusterName,
+                type: "update",
+                owner,
+                name: nvPair.name,
+                value: nvPair.value,
+                nameList: nvPairList.map(pair => pair.name),
+              },
+            }),
         }),
         props.launcherRemove({
           name: "remove",
@@ -43,7 +42,7 @@ export const NVPairListItemMenu = (props: {
             description: "Removes the attribute.",
             action: {
               type: "CLUSTER.NVPAIRS.SAVE",
-              key: {clusterName, task: taskName},
+              key: {clusterName, task: "nvpairEdit"},
               payload: {
                 owner,
                 name: nvPair.name,

@@ -6,7 +6,7 @@ import {stripForceText} from "./clusterStopUtils";
 
 export function* clusterStopSaga({
   payload: {clusterName, force},
-}: ActionMap["DASHBOARD.CLUSTER.STOP"]) {
+}: ActionMap["CLUSTER.STOP"]) {
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
     clusterStop,
     {clusterName, force},
@@ -19,7 +19,7 @@ export function* clusterStopSaga({
       log.error(result, taskLabel);
     }
     yield put({
-      type: "TASK.FORCEABLE-CONFIRM.FAIL",
+      type: "CLUSTER.STOP.FAIL",
       payload: {
         message: errorMessage(stripForceText(result), taskLabel),
         isForceable: "text" in result && result.text.includes("--force"),
@@ -32,6 +32,6 @@ export function* clusterStopSaga({
     key: {clusterName},
   });
   yield put({
-    type: "TASK.FORCEABLE-CONFIRM.OK",
+    type: "CLUSTER.STOP.OK",
   });
 }

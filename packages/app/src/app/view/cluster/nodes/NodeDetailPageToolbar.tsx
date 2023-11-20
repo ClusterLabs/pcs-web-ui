@@ -1,17 +1,15 @@
 import {testMarks} from "app/view/dataTest";
 import {Action} from "app/store";
-import {
-  LauncherDropdown,
-  LauncherItem as ToolbarItem,
-  task,
-} from "app/view/share";
+import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {Node} from "app/view/cluster/types";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {useOpenTask} from "app/view/task";
 
 const {toolbar} = testMarks.cluster.nodes.currentNode;
 
 export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
@@ -105,20 +103,12 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
 
   const stop: ToolbarItem = {
     name: "stop",
-    task: {
-      component: task.forceableConfirm.Task({
-        runLabel: "Stop",
-        taskLabel: "Stop node",
-        description: "Stop a cluster on the node",
-        getForceableAction: ({force}) => ({
-          type: "NODE.STOP",
-          key: {clusterName},
-          payload: {nodeName: node.name, force},
-        }),
-        "data-test": "cluster-stop",
+    run: () =>
+      openTask("nodeStop", {
+        type: "NODE.STOP.INIT",
+        key: {clusterName},
+        payload: {clusterName, nodeName: node.name},
       }),
-      useTask: task.forceableConfirm.useTask,
-    },
     ...toolbar.stop.mark,
   };
 

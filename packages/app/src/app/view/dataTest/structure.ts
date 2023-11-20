@@ -10,6 +10,7 @@ import aclRoleAddPermission from "./json/task/aclRoleAddPermission.json";
 import aclRoleCreate from "./json/task/aclRoleCreate.json";
 import clusterImportExisting from "./json/task/clusterImportExisting.json";
 import clusterSetup from "./json/task/clusterSetup.json";
+import clusterStop from "./json/task/clusterStop.json";
 import confirm from "./json/task/confirm.json";
 import constraintColocationCreate from "./json/task/constraintColocationCreate.json";
 import constraintLocationCreate from "./json/task/constraintLocationCreate.json";
@@ -17,8 +18,8 @@ import constraintOrderCreate from "./json/task/constraintOrderCreate.json";
 import constraintTicketCreate from "./json/task/constraintTicketCreate.json";
 import fenceDeviceArgumentsEdit from "./json/task/fenceDeviceArgumentsEdit.json";
 import fenceDeviceCreate from "./json/task/fenceDeviceCreate.json";
-import forceableConfirm from "./json/task/forceableConfirm.json";
 import nodeAdd from "./json/task/nodeAdd.json";
+import nodeStop from "./json/task/nodeStop.json";
 import nvsetEdit from "./json/task/nvsetEdit.json";
 import permissionEdit from "./json/task/permissionEdit.json";
 import resourceCreate from "./json/task/resourceCreate.json";
@@ -88,14 +89,15 @@ export const structure = {
     aclRoleCreate,
     clusterImportExisting,
     clusterSetup,
+    clusterStop,
     constraintColocationCreate,
     constraintLocationCreate,
     constraintOrderCreate,
     constraintTicketCreate,
     fenceDeviceArgumentsEdit,
     fenceDeviceCreate,
-    forceableConfirm,
     nodeAdd,
+    nodeStop,
     nvsetEdit,
     permissionEdit,
     resourceCreate,

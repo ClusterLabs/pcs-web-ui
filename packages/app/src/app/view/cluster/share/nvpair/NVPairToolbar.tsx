@@ -1,11 +1,11 @@
-import {LaunchersToolbar} from "app/view/share";
 import {
-  TaskOpenArgs,
+  LaunchersToolbar,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
+import {useLoadedCluster} from "app/view/cluster/share";
+import {useOpenTask} from "app/view/task";
 
 import {useNVPairListContext} from "./NVPairListContext";
-import * as task from "./task";
 
 type Launcher = NonNullable<
   React.ComponentProps<typeof LaunchersToolbar>["buttonsItems"]
@@ -16,26 +16,27 @@ export const NVPairToolbar = (props: {
   launcherCreate: (createData: Launcher) => Launcher;
   "data-test"?: string;
 }) => {
+  const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
   const {owner, nvPairList} = useNVPairListContext();
   const launchDisable = useLauncherDisableClusterNotRunning();
-  const editOpenArgs: TaskOpenArgs<typeof task.edit.useTask> = [
-    {
-      type: "create",
-      owner,
-      nameList: nvPairList.map(pair => pair.name),
-    },
-  ];
   return (
     <LaunchersToolbar
       buttonsItems={[
         props.launcherCreate({
           name: "create",
           label: props.createLabel,
-          task: {
-            component: task.edit.Task,
-            useTask: task.edit.useTask,
-            openArgs: editOpenArgs,
-          },
+          run: () =>
+            openTask("nvpairEdit", {
+              type: "CLUSTER.NVPAIRS.EDIT",
+              key: {clusterName, task: "nvpairEdit"},
+              payload: {
+                clusterName,
+                type: "create",
+                owner,
+                nameList: nvPairList.map(pair => pair.name),
+              },
+            }),
           launchDisable: launchDisable(
             "Cannot create attribute on stopped cluster",
           ),

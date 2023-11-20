@@ -1,20 +1,11 @@
 import {Alert, AlertActionLink} from "@patternfly/react-core";
 
-import {
-  NodesAuthCustomAddrSwitch,
-  NodesAuthForm,
-  NodesAuthInputAddress,
-  NodesAuthInputPassword,
-  NodesAuthInputPort,
-} from "app/view/share";
-import {TaskSimple} from "app/view/share";
-
-import {useTask} from "./useTask";
-import {ClusterIssueNotAuthFooter} from "./ClusterIssueNotAuthFooter";
-import {ClusterIssueNotAuthFinish} from "./ClusterIssueNotAuthFinish";
+import {useOpenTask} from "app/view/task";
+import {useLoadedCluster} from "app/view/cluster/share";
 
 export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
-  const {clusterName, open, cancel, authProcessId, fixAuthStart} = useTask();
+  const openTask = useOpenTask();
+  const {clusterName} = useLoadedCluster();
   return (
     <>
       <Alert
@@ -22,7 +13,15 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
         variant={"warning"}
         title="Cluster is not authenticated against nodes"
         actionLinks={
-          <AlertActionLink onClick={() => fixAuthStart(nodeList)}>
+          <AlertActionLink
+            onClick={() =>
+              openTask("fixAuth", {
+                type: "CLUSTER.FIX_AUTH.START",
+                key: {clusterName},
+                payload: {clusterName, initialNodeList: nodeList},
+              })
+            }
+          >
             Fix authentication
           </AlertActionLink>
         }
@@ -30,39 +29,6 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
         Unauthenticated nodes:{" "}
         <span> {[...new Set(nodeList)].join(", ")} </span>
       </Alert>
-      {open && (
-        <TaskSimple
-          taskLabel="Authentication of nodes"
-          task="fixAuth"
-          clusterName={clusterName}
-          close={cancel}
-          footer={<ClusterIssueNotAuthFooter />}
-        >
-          {authProcessId === null && <ClusterIssueNotAuthFinish />}
-          {authProcessId !== null && (
-            <NodesAuthForm
-              authProcessId={authProcessId}
-              customAddresSwitcher={<NodesAuthCustomAddrSwitch />}
-              inputPassword={(nodeName, elementId, index) => (
-                <NodesAuthInputPassword
-                  index={index}
-                  nodeName={nodeName}
-                  elementId={elementId}
-                />
-              )}
-              inputAddress={(nodeName, elementId) => (
-                <NodesAuthInputAddress
-                  nodeName={nodeName}
-                  elementId={elementId}
-                />
-              )}
-              inputPort={(nodeName, elementId) => (
-                <NodesAuthInputPort nodeName={nodeName} elementId={elementId} />
-              )}
-            />
-          )}
-        </TaskSimple>
-      )}
     </>
   );
 };

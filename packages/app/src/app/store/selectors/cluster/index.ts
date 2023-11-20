@@ -1,18 +1,9 @@
-import {ClusterStorageItem, ClusterTaskKeys, Root} from "../types";
+import {ClusterStorageItem, Root} from "../types";
 
 import {
   ClusterSelector as TClusterSelector,
   clusterStorageItemSelector,
 } from "./selectorsHelpers";
-
-export const getClusterTask = <NAME extends ClusterTaskKeys>(name: NAME) =>
-  clusterStorageItemSelector(
-    clusterStorageItem => clusterStorageItem.tasks[name],
-  );
-
-export const getCurrentClusterTaskKey = clusterStorageItemSelector(
-  clusterStorageItem => clusterStorageItem.currentTaskKey,
-);
 
 export const getPcmkAgent = clusterStorageItemSelector(
   (clusterStorageItem, agentName: string) =>
@@ -44,10 +35,7 @@ type ClusterInfo =
         data: null;
       };
       permissions: null;
-      resourceAgentMap: null;
-      fenceAgentList: null;
       pcmkAgents: null;
-      tasks: null;
       uiState: null;
     }
   | {
@@ -58,10 +46,7 @@ type ClusterInfo =
         load: {when: number; currently: boolean};
       };
       permissions: ClusterStorageItem["clusterPermissions"]["data"];
-      resourceAgentMap: ClusterStorageItem["resourceAgentMap"]["data"];
-      fenceAgentList: ClusterStorageItem["fenceAgentList"]["data"];
       pcmkAgents: ClusterStorageItem["pcmkAgents"];
-      tasks: {[K in ClusterTaskKeys]: ClusterStorageItem["tasks"][K]};
       uiState: {
         resourceOpenedItems: ClusterStorageItem["resourceTree"];
       };
@@ -80,10 +65,7 @@ export const getClusterStoreInfo =
           data: null,
         },
         permissions: null,
-        resourceAgentMap: null,
-        fenceAgentList: null,
         pcmkAgents: null,
-        tasks: null,
         uiState: null,
       };
     }
@@ -100,12 +82,46 @@ export const getClusterStoreInfo =
         load: {when, currently},
       },
       permissions: clusterStoreItem.clusterPermissions.data,
-      resourceAgentMap: clusterStoreItem.resourceAgentMap.data,
-      fenceAgentList: clusterStoreItem.fenceAgentList.data,
       pcmkAgents: clusterStoreItem.pcmkAgents,
-      tasks: clusterStoreItem.tasks,
       uiState: {
         resourceOpenedItems: clusterStoreItem.resourceTree,
       },
+    };
+  };
+
+type PcmkAgent =
+  ClusterStorageItem["pcmkAgents"][keyof ClusterStorageItem["pcmkAgents"]];
+
+export const getResourceAgentMap =
+  (clusterName: string) =>
+  (state: Root): ClusterStorageItem["resourceAgentMap"]["data"] =>
+    state.clusterStorage[clusterName]?.resourceAgentMap.data ?? null;
+
+export const getFenceAgentList =
+  (clusterName: string) =>
+  (state: Root): ClusterStorageItem["fenceAgentList"]["data"] =>
+    state.clusterStorage[clusterName]?.fenceAgentList.data ?? null;
+
+export const getAgentInfo =
+  (clusterName: string, agentName: string) =>
+  (
+    state: Root,
+  ): {
+    agent: PcmkAgent;
+    isAgentLoaded: boolean;
+    isAgentLoadFailed: boolean;
+  } | null => {
+    const clusterStoreItem = state.clusterStorage[clusterName];
+    if (clusterStoreItem === undefined) {
+      return null;
+    }
+
+    const agent = clusterStoreItem.pcmkAgents[agentName];
+    return {
+      agent,
+      isAgentLoaded:
+        agent
+        && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING"),
+      isAgentLoadFailed: agent && agent.loadStatus === "FAILED",
     };
   };

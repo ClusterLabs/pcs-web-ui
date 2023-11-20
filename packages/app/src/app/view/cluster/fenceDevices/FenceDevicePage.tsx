@@ -8,15 +8,16 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {useOpenTask} from "app/view/task";
 
-import * as task from "./task";
 import {FenceDeviceDetailPage} from "./FenceDeviceDetailPage";
 import {FenceDeviceList} from "./list";
 
 const {fenceDevices, fenceDevicesToolbar} = testMarks.cluster;
 
 export const FenceDevicePage = () => {
-  const {fenceDeviceList} = useLoadedCluster();
+  const {fenceDeviceList, clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
     <>
@@ -24,10 +25,12 @@ export const FenceDevicePage = () => {
         buttonsItems={[
           {
             name: "create-fence-device",
-            task: {
-              component: task.create.FenceDeviceCreate,
-              useTask: task.create.useTask,
-            },
+            run: () =>
+              openTask("fenceDeviceCreate", {
+                type: "FENCE_DEVICE.CREATE.INIT",
+                key: {clusterName},
+                payload: {clusterName},
+              }),
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),

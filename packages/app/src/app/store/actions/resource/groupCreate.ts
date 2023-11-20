@@ -1,6 +1,14 @@
 import {LibReport} from "app/store/types";
 
 export type ResourceGroupCreateActions = {
+  "RESOURCE.GROUP.CREATE.INIT": {
+    type: "RESOURCE.GROUP.CREATE.INIT";
+    key: {clusterName: string};
+    payload: {
+      clusterName: string;
+      topLevelPrimitiveIds: string[];
+    };
+  };
   "RESOURCE.GROUP.CREATE": {
     type: "RESOURCE.GROUP.CREATE";
     key: {clusterName: string};

@@ -5,7 +5,6 @@ import {tools} from "app/store";
 import {
   ClusterToolbar,
   LauncherDropdown,
-  TaskOpenArgs,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 import {
@@ -13,25 +12,19 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {useOpenTask} from "app/view/task";
 
-import * as task from "./task";
 import {AclDetailPage} from "./detail";
 import {AclLists} from "./lists";
 
 const {acl, aclToolbar} = testMarks.cluster;
 const {dropdown} = aclToolbar;
 export const AclPage = () => {
-  const {clusterProperties, hasCibInfo, clusterName} = useLoadedCluster();
+  const {acls, clusterProperties, hasCibInfo, clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
   const launchDisable = useLauncherDisableClusterNotRunning();
 
   const aclEnabled = tools.isCibTrue(clusterProperties["enable-acl"] || "");
-
-  const createUserOpenArgs: TaskOpenArgs<typeof task.createSubject.useTask> = [
-    {subjectType: "user"},
-  ];
-  const createGroupOpenArgs: TaskOpenArgs<typeof task.createSubject.useTask> = [
-    {subjectType: "group"},
-  ];
 
   const detailTypeList = [
     "role",
@@ -44,10 +37,12 @@ export const AclPage = () => {
         buttonsItems={[
           {
             name: "create-role",
-            task: {
-              component: task.createRole.Task,
-              useTask: task.createRole.useTask,
-            },
+            run: () =>
+              openTask("aclRoleCreate", {
+                type: "CLUSTER.ACL.ROLE.CREATE",
+                key: {clusterName},
+                payload: {clusterName},
+              }),
             launchDisable: launchDisable(
               "Cannot create role on stopped cluster",
             ),
@@ -55,11 +50,16 @@ export const AclPage = () => {
           },
           {
             name: "create-user",
-            task: {
-              component: task.createSubject.Task,
-              useTask: task.createSubject.useTask,
-              openArgs: createUserOpenArgs,
-            },
+            run: () =>
+              openTask("aclSubjectCreate", {
+                type: "CLUSTER.ACL.SUBJECT.CREATE",
+                key: {clusterName},
+                payload: {
+                  clusterName,
+                  subjectType: "user",
+                  roleMap: acls.role || {},
+                },
+              }),
             launchDisable: launchDisable(
               "Cannot create user on stopped cluster",
             ),
@@ -71,11 +71,16 @@ export const AclPage = () => {
             items={[
               {
                 name: "create-group",
-                task: {
-                  component: task.createSubject.Task,
-                  useTask: task.createSubject.useTask,
-                  openArgs: createGroupOpenArgs,
-                },
+                run: () =>
+                  openTask("aclSubjectCreate", {
+                    type: "CLUSTER.ACL.SUBJECT.CREATE",
+                    key: {clusterName},
+                    payload: {
+                      clusterName,
+                      subjectType: "group",
+                      roleMap: acls.role || {},
+                    },
+                  }),
                 launchDisable: launchDisable(
                   "Cannot create group on stopped cluster",
                 ),

@@ -6,12 +6,4 @@ export type NodeActionActions = {
       nodeName: string;
     };
   };
-  "NODE.STOP": {
-    type: "NODE.STOP";
-    key: {clusterName: string};
-    payload: {
-      nodeName: string;
-      force: boolean;
-    };
-  };
 };

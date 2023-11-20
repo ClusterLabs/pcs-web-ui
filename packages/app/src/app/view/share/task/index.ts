@@ -15,7 +15,6 @@ export * from "./TaskResultLib";
 export * from "./TaskFooter";
 export * from "./TaskProgress";
 export * from "./TaskSuccess";
-export * from "./useTask";
 export * from "./TaskSimple";
 export * from "./TaskSimpleLib";
 export * from "./TaskSimpleOldApi";

@@ -8,15 +8,17 @@ import {
   GroupDetailView,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {useOpenTask} from "app/view/task";
 
 import {ResourceDetailPage} from "./ResourceDetailPage";
 import {ResourceTree} from "./tree/ResourceTree";
-import * as task from "./task";
+import {selectGroups} from "./select";
 
 const {resources, resourcesToolbar} = testMarks.cluster;
 
 export const ResourcesPage = () => {
-  const {resourceTree} = useLoadedCluster();
+  const {resourceTree, clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
 
   const launchDisable = useLauncherDisableClusterNotRunning();
 
@@ -26,10 +28,15 @@ export const ResourcesPage = () => {
         buttonsItems={[
           {
             name: "create-resource",
-            task: {
-              component: task.create.ResourceCreate,
-              useTask: task.create.useTask,
-            },
+            run: () =>
+              openTask("resourceCreate", {
+                type: "RESOURCE.CREATE.INIT",
+                key: {clusterName},
+                payload: {
+                  clusterName,
+                  groupIdStructureList: selectGroups(resourceTree),
+                },
+              }),
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),
@@ -37,10 +44,17 @@ export const ResourcesPage = () => {
           },
           {
             name: "create-group",
-            task: {
-              component: task.createGroup.ResourceCreateGroup,
-              useTask: task.createGroup.useTask,
-            },
+            run: () =>
+              openTask("resourceGroup", {
+                type: "RESOURCE.GROUP.CREATE.INIT",
+                key: {clusterName},
+                payload: {
+                  clusterName,
+                  topLevelPrimitiveIds: resourceTree
+                    .filter(r => r.itemType === "primitive")
+                    .map(r => r.id),
+                },
+              }),
             launchDisable: launchDisable(
               "Cannot create resource group on stopped cluster",
             ),

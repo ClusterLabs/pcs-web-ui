@@ -65,7 +65,6 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
               value={{
                 clusterName,
                 permissions: clusterInfo.permissions,
-                tasks: clusterInfo.tasks,
               }}
             >
               <ClusterPermissionsPage />
@@ -101,10 +100,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           <ClusterSourcesProvider
             value={{
               loadedCluster: clusterInfo.clusterStatus.data,
-              resourceAgentMap: clusterInfo.resourceAgentMap,
-              fenceAgentList: clusterInfo.fenceAgentList,
               pcmkAgents: clusterInfo.pcmkAgents,
-              tasks: clusterInfo.tasks,
               uiState: clusterInfo.uiState,
             }}
           >
