@@ -25,7 +25,7 @@ export const useTask = () => {
         payload: {
           taskLabel: `clear resource "${state.resourceId}"`,
           call: {
-            name: "resource-unmove_unban",
+            name: "resource-unmove-unban",
             payload: {
               resource_id: state.resourceId,
               ...(state.useNode ? {node: state.node} : {}),

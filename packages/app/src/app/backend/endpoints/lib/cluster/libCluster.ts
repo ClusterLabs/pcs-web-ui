@@ -111,7 +111,7 @@ export type Commands = [
     };
   },
   {
-    name: "resource-unmove_unban";
+    name: "resource-unmove-unban";
     payload: {
       resource_id: string;
       node?: string;
