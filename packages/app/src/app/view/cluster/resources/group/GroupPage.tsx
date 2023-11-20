@@ -6,7 +6,7 @@ import {ResourceDetailCaption, Router, useUrlTabs} from "app/view/share";
 import {DetailLayout} from "app/view/cluster/share";
 
 import {GroupDetail} from "./GroupDetail";
-import {GroupPageToolbar} from "./GroupPageToolbar";
+import {GroupPageToolbar} from "./toolbar";
 import {GroupMeta} from "./GroupMeta";
 
 const {currentGroup} = testMarks.cluster.resources;

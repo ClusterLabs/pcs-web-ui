@@ -6,6 +6,8 @@ import {clusterName, goToNode} from "./common";
 
 const nodeName = "node-1";
 
+const confirmTitle = "Start node?";
+
 const launchAction = async () => {
   await goToNode(nodeName);
   await click(marks.cluster.nodes.currentNode.toolbar.start);
@@ -23,7 +25,7 @@ describe("Node start", () => {
 
     await launchAction();
 
-    await click(marks.task.confirm.run);
+    await appConfirm.run(confirmTitle);
     await isVisible(marks.notifications.toast.success);
   });
 
@@ -31,9 +33,7 @@ describe("Node start", () => {
     mock.shortcuts.withCluster({clusterStatus});
 
     await launchAction();
-
-    await click(marks.task.confirm.cancel);
-    await isAbsent(marks.task.confirm);
+    await appConfirm.cancel(confirmTitle);
   });
 
   it("should deal with an error from backend", async () => {
@@ -50,7 +50,7 @@ describe("Node start", () => {
 
     await launchAction();
 
-    await click(marks.task.confirm.run);
+    await appConfirm.run(confirmTitle);
     await isVisible(marks.notifications.toast.error);
   });
 });

@@ -9,6 +9,7 @@ export type TicketSetCreateActions = {
     key: {clusterName: string};
     payload: {
       clusterName: string;
+      offeredResourceIdList: string[];
     };
   };
   "CONSTRAINT.TICKET.SET.CREATE.UPDATE": {

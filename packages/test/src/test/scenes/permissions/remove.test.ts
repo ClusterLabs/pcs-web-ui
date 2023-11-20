@@ -31,6 +31,8 @@ const launchRemove = async (name: string) => {
     ]),
   );
 };
+const confirmTitle = (permissionName: string) =>
+  `Remove the permission "${permissionName}"?`;
 
 describe("Permission remove", () => {
   afterEach(mock.stop);
@@ -46,8 +48,9 @@ describe("Permission remove", () => {
       ],
     });
 
-    await launchRemove("name");
-    await click(marks.task.confirm.run);
+    const permissionName = "name";
+    await launchRemove(permissionName);
+    await appConfirm.run(confirmTitle(permissionName));
     await isVisible(marks.notifications.toast.success);
   });
 
@@ -63,8 +66,9 @@ describe("Permission remove", () => {
       ],
     });
 
-    await launchRemove("haclient");
-    await click(marks.task.confirm.run);
+    const permissionName = "haclient";
+    await launchRemove(permissionName);
+    await appConfirm.run(confirmTitle(permissionName));
     await isVisible(marks.notifications.toast.error);
   });
 });

@@ -79,6 +79,32 @@ export const select = async (
   await locatorFor(mark).locator(`//*[text()="${value}"]`).nth(nth).click();
 };
 
+const appConfirmTitleIs = async (title: string) =>
+  await isVisible(
+    marks.task.confirm.locator.locator(
+      "xpath=/parent::*//*["
+        + "contains(@class, 'pf-c-modal-box__title-text')"
+        + ` and text()='${title}'`
+        + "]",
+    ),
+  );
+export const appConfirm = {
+  titleIs: appConfirmTitleIs,
+  run: async (title: string) => {
+    await appConfirmTitleIs(title);
+    await click(marks.task.confirm.run);
+    await isAbsent(marks.task.confirm);
+  },
+  cancel: async (title: string) => {
+    await appConfirmTitleIs(title);
+    await click(marks.task.confirm.cancel);
+    await isAbsent(marks.task.confirm);
+  },
+};
+
+export const taskTitle = (taskMark: Mark) =>
+  locatorFor(taskMark).locator("//*[contains(@class, 'pf-c-wizard__title')]");
+
 export const radioGroup = async (mark: Mark, value: string) => {
   await locatorFor(mark).locator(`//*[text()="${value}"]`).click();
 };

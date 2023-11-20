@@ -6,8 +6,6 @@ import {
   ResourceSetList as ResourceSetListCommon,
   TaskLibStep,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
-import {getResourcesForSet} from "app/view/cluster/constraints/select";
 
 import {useTask} from "./useTask";
 
@@ -16,6 +14,7 @@ export const ResourceSetList = () => {
     state: {
       sets,
       showValidationErrors,
+      offeredResourceIdList,
       libCall: {reports},
     },
     createSet,
@@ -23,7 +22,6 @@ export const ResourceSetList = () => {
     deleteSet,
     moveSet,
   } = useTask();
-  const resourceList = getResourcesForSet(useLoadedCluster().resourceTree);
 
   return (
     <TaskLibStep title="Resource sets" reports={reports}>
@@ -40,7 +38,7 @@ export const ResourceSetList = () => {
             <Form isHorizontal>
               <FormResourceSetField
                 selectedResources={set.resources}
-                offeredResources={resourceList}
+                offeredResources={offeredResourceIdList}
                 id={`resource-set-${i}-resources`}
                 isOnlyOne={sets.length === 1}
                 showValidationErrors={showValidationErrors}

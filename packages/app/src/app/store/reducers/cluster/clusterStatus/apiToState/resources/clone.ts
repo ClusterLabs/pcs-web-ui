@@ -55,12 +55,15 @@ export const toClone = (
     if (apiClone.member.stonith) {
       member = toFenceDevice(apiClone.member);
     } else {
-      member = toPrimitive(apiClone.member, {inClone: true, inGroup: null});
+      member = toPrimitive(apiClone.member, {
+        inClone: apiClone.id,
+        inGroup: null,
+      });
       apiPrimitiveList = [apiClone.member];
     }
   } else {
     ({apiPrimitiveList, group: member} = toGroup(apiClone.member, {
-      inClone: true,
+      inClone: apiClone.id,
     }));
   }
 
@@ -70,6 +73,7 @@ export const toClone = (
       id: apiClone.id,
       itemType: "clone",
       member,
+      promotable: apiClone.promotable,
       status: buildStatus(buildStatusInfoList(apiClone)),
       issueList: transformIssues(apiClone),
       metaAttributes: apiClone.meta_attr,

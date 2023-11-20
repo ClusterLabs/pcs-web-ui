@@ -2,9 +2,10 @@ import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
 import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
-import {useOpenTask} from "app/view/task";
+import {useOpenMoveBanTask} from "app/view/cluster/resources";
 
-import {selectGroups} from "../select";
+import {useToolbarItemMoveBan} from "./useToolbarItemMoveBan";
+import {useToolbarItemGroupChange} from "./useToolbarItemGroupChange";
 
 const isPrimitiveManaged = (primitive: Primitive) =>
   primitive.metaAttributes.every(
@@ -21,8 +22,20 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
 const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
-  const {resourceTree, clusterName} = useLoadedCluster();
-  const openTask = useOpenTask();
+  const {clusterName} = useLoadedCluster();
+  const openMoveBanTask = useOpenMoveBanTask();
+
+  const move = useToolbarItemMoveBan(primitive, "move");
+  const ban = useToolbarItemMoveBan(primitive, "ban");
+  const clear = {
+    name: "clear",
+    run: () => openMoveBanTask("primitive resource", primitive.id, "clear"),
+  };
+
+  const changeGroup = {
+    ...useToolbarItemGroupChange(primitive),
+    ...toolbar.dropdown.changeGroup.mark,
+  };
 
   const unclone: ToolbarItem = {
     name: "unclone",
@@ -207,8 +220,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
     ...toolbar.enable.mark,
   };
 
-  const groupIdStructureList = selectGroups(resourceTree);
-
   return (
     <>
       <DetailToolbar
@@ -219,34 +230,15 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         dropdown={
           <LauncherDropdown
             items={[
-              {
-                name: "change-group",
-                run: () =>
-                  openTask("primitiveGroupChange", {
-                    type: "RESOURCE.GROUP.CHANGE.INIT",
-                    key: {clusterName},
-                    payload: {
-                      clusterName,
-                      groupIdStructureList,
-                      resourceId: primitive.id,
-                      oldGroupId: primitive.inGroup ?? "",
-                      groupId: primitive.inGroup ?? "",
-                      action:
-                        primitive.inGroup !== null && primitive.inGroup !== ""
-                          ? "move-in-group"
-                          : "set-group",
-                    },
-                  }),
-                disabled:
-                  primitive.inGroup === null
-                  && groupIdStructureList.length === 0,
-                ...toolbar.dropdown.changeGroup.mark,
-              },
+              changeGroup,
               refresh,
               cleanup,
               ...(primitive.inGroup !== null
                 ? []
-                : [primitive.inClone ? unclone : clone]),
+                : [primitive.inClone !== null ? unclone : clone]),
+              {...move, ...toolbar.dropdown.move.mark},
+              {...ban, ...toolbar.dropdown.ban.mark},
+              {...clear, ...toolbar.dropdown.clear.mark},
               deleteItem,
             ]}
             {...toolbar.dropdown.mark}

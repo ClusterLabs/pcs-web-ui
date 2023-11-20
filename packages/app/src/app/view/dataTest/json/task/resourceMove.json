@@ -1,0 +1,48 @@
+{
+  "communicationError": {
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "node": {
+    "useNode": {},
+    "nodeList": {}
+  },
+  "nodeFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {},
+    "reviewAndFinish": {}
+  },
+  "advanced": {
+    "strictMode": {},
+    "promoted": {},
+    "constraintHandling": {},
+    "constraintLifetime": {}
+  },
+  "advancedFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "report": {},
+  "review": {
+    "node": {},
+    "constraintHandling": {},
+    "constraintLifetime": {},
+    "promoted": {},
+    "strictMode": {}
+  },
+  "reviewFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "success": {
+    "close": {}
+  },
+  "unsuccess": {
+    "back": {},
+    "cancel": {},
+    "proceedAnyway": {}
+  }
+}

@@ -86,12 +86,11 @@ const importExistingCluster = async (nodeName: string) => {
 
 const removeCluster = async (clusterName: string) => {
   await launchClusterItemAction(clusterName, a => a.remove);
-  await isVisible(task.confirm);
   await Promise.all([
     waitForImportedClusterList(),
     page.waitForResponse(/.*\/manage\/removecluster$/),
     isVisible(marks.notifications.toast.success),
-    click(task.confirm.run),
+    appConfirm.run(`Remove the cluster "${clusterName}"?`),
   ]);
   // give page chance to redraw after loading imported-cluster-list
   await page.waitForTimeout(100);
@@ -99,14 +98,13 @@ const removeCluster = async (clusterName: string) => {
 
 const destroyCluster = async (clusterName: string) => {
   await launchClusterItemAction(clusterName, a => a.destroy);
-  await isVisible(task.confirm);
   const {success} = marks.notifications.toast;
   await Promise.all([
     waitForImportedClusterList(),
     page.waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
     isVisible(success.locator.getByText("Cluster removed from cluster list")),
     isVisible(success.locator.getByText("Cluster destroyed.")),
-    click(task.confirm.run),
+    appConfirm.run(`Destroy the cluster "${clusterName}"?`),
   ]);
   // give page chance to redraw after loading imported-cluster-list
   await page.waitForTimeout(100);

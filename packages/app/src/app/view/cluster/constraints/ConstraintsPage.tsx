@@ -10,6 +10,7 @@ import {useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
 import {ConstraintFilteredList} from "./ConstraintFilteredList";
+import {getResourcesForSet} from "./select";
 
 const {constraintsToolbar} = testMarks.cluster;
 const {dropdown} = constraintsToolbar;
@@ -29,6 +30,7 @@ export const ConstraintsPage = () => {
 
     return idList;
   }, []);
+  const offeredResourceIdList = getResourcesForSet(resourceTree);
   return (
     <>
       <ClusterToolbar
@@ -100,7 +102,7 @@ export const ConstraintsPage = () => {
                   openTask("constraintOrderSetCreate", {
                     type: "CONSTRAINT.ORDER.SET.CREATE.INIT",
                     key: {clusterName},
-                    payload: {clusterName},
+                    payload: {clusterName, offeredResourceIdList},
                   }),
                 launchDisable: launchDisable(
                   "Cannot create order set constraint on stopped cluster",
@@ -113,7 +115,7 @@ export const ConstraintsPage = () => {
                   openTask("constraintColocationSetCreate", {
                     type: "CONSTRAINT.COLOCATION.SET.CREATE.INIT",
                     key: {clusterName},
-                    payload: {clusterName},
+                    payload: {clusterName, offeredResourceIdList},
                   }),
                 launchDisable: launchDisable(
                   "Cannot create colocation set constraint on stopped cluster",
@@ -126,7 +128,7 @@ export const ConstraintsPage = () => {
                   openTask("constraintTicketSetCreate", {
                     type: "CONSTRAINT.TICKET.SET.CREATE.INIT",
                     key: {clusterName},
-                    payload: {clusterName},
+                    payload: {clusterName, offeredResourceIdList},
                   }),
                 launchDisable: launchDisable(
                   "Cannot create ticket set constraint on stopped cluster",

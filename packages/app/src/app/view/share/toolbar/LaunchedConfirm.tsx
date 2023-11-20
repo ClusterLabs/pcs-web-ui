@@ -18,15 +18,13 @@ export const LaunchedConfirm = ({
   closeConfirm: () => void;
 }) => {
   const dispatch = useDispatch();
+  const {confirm} = item;
+  const run = "run" in confirm ? confirm.run : () => dispatch(confirm.action);
   return (
     <Modal
       variant="small"
-      header={
-        <h1 className="pf-c-modal-box__title" {...task.confirm.title.mark}>
-          {item.confirm.title}
-        </h1>
-      }
-      aria-label={item.confirm.title}
+      title={confirm.title}
+      titleIconVariant={confirm.titleVariant}
       isOpen
       onClose={closeConfirm}
       actions={[
@@ -34,12 +32,12 @@ export const LaunchedConfirm = ({
           key="confirm"
           variant="primary"
           onClick={() => {
-            dispatch(item.confirm.action);
+            run();
             closeConfirm();
           }}
           {...task.confirm.run.mark}
         >
-          {labelize(item.label || item.name)}
+          {labelize(confirm.label ?? item.label ?? item.name)}
         </Button>,
         <Button
           key="cancel"
@@ -52,7 +50,7 @@ export const LaunchedConfirm = ({
       ]}
       {...task.confirm.mark}
     >
-      <span {...task.confirm.description.mark}>{item.confirm.description}</span>
+      <span {...task.confirm.description.mark}>{confirm.description}</span>
     </Modal>
   );
 };

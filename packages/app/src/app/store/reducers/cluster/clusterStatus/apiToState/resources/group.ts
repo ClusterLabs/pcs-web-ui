@@ -98,7 +98,7 @@ const filterPrimitive = (candidateList: Group["resources"]): Primitive[] =>
 
 export const toGroup = (
   apiGroup: ApiGroup,
-  context: {inClone: boolean} = {inClone: false},
+  context: {inClone: string | null} = {inClone: null},
 ): {group: Group; apiPrimitiveList: ApiPrimitive[]} => {
   // Theoretically, group can contain primitive resources, stonith resources or
   // mix of both. A decision here is to filter out stonith...

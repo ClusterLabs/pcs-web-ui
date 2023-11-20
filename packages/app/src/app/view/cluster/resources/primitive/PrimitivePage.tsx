@@ -8,7 +8,7 @@ import {DetailLayout} from "app/view/cluster/share";
 import {PrimitiveAttrsView} from "./attributes";
 import {PrimitiveDetail} from "./PrimitiveDetail";
 import {useClusterResourceAgent} from "./useResourceAgent";
-import {PrimitivePageToolbar} from "./PrimitivePageToolbar";
+import {PrimitivePageToolbar} from "./toolbar";
 import {PrimitiveMeta} from "./PrimitiveMeta";
 import {PrimitiveUtilization} from "./PrimitiveUtilization";
 

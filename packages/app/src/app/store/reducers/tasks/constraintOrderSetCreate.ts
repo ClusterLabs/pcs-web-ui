@@ -29,6 +29,7 @@ const {
 
 const initialState: {
   clusterName: string;
+  offeredResourceIdList: string[];
   useCustomId: boolean;
   id: string;
   sets: typeof initialResourceSets;
@@ -36,6 +37,7 @@ const initialState: {
   libCall: typeof initialLibCall;
 } = {
   clusterName: "",
+  offeredResourceIdList: [],
   useCustomId: false,
   id: "",
   sets: initialResourceSets,
@@ -59,6 +61,7 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         clusterName: action.payload.clusterName,
+        offeredResourceIdList: action.payload.offeredResourceIdList,
       };
     case "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {
       return {

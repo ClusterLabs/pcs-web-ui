@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 
 import {selectors} from "app/store";
 
-import {taskMap} from "./tasks/taskMap";
+import {taskMap} from "./taskMap";
 
 export const TaskContainer = () => {
   const currentTask = useSelector(selectors.getCurrentTaskKey);

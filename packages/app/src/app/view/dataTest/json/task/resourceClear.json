@@ -1,0 +1,44 @@
+{
+  "communicationError": {
+    "cancel": {},
+    "tryAgain": {}
+  },
+  "node": {
+    "useNode": {},
+    "nodeList": {}
+  },
+  "nodeFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {},
+    "reviewAndFinish": {}
+  },
+  "advanced": {
+    "promoted": {},
+    "expiredOnly": {}
+  },
+  "advancedFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "report": {},
+  "review": {
+    "node": {},
+    "expiredOnly": {},
+    "promoted": {}
+  },
+  "reviewFooter": {
+    "back": {},
+    "cancel": {},
+    "next": {}
+  },
+  "success": {
+    "close": {}
+  },
+  "unsuccess": {
+    "back": {},
+    "cancel": {},
+    "proceedAnyway": {}
+  }
+}

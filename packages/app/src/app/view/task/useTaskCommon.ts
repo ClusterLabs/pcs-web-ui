@@ -8,7 +8,6 @@ export function useTaskCommon<
 >(name: NAME) {
   const state = useSelector(selectors.getTask(name));
   const dispatch = useDispatch();
-  const currentTaskKey = useSelector(selectors.getCurrentTaskKey);
 
   return {
     name,
@@ -22,7 +21,6 @@ export function useTaskCommon<
       dispatch({
         type: "TASK.CLOSE",
       }),
-    isOpened: currentTaskKey === name,
     dispatch,
   };
 }

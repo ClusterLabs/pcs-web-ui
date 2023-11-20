@@ -29,6 +29,7 @@ const {
 
 const initialState: {
   clusterName: string;
+  offeredResourceIdList: string[];
   ticket: string;
   useCustomId: boolean;
   id: string;
@@ -38,6 +39,7 @@ const initialState: {
   libCall: typeof initialLibCall;
 } = {
   clusterName: "",
+  offeredResourceIdList: [],
   ticket: "",
   useCustomId: false,
   id: "",
@@ -56,6 +58,7 @@ export const constraintTicketSetCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         clusterName: action.payload.clusterName,
+        offeredResourceIdList: action.payload.offeredResourceIdList,
       };
     case "CONSTRAINT.TICKET.SET.CREATE.UPDATE":
       return {

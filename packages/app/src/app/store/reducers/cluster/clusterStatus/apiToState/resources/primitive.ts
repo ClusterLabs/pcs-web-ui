@@ -86,8 +86,8 @@ const buildStatusInfoList = (
 
 export const toPrimitive = (
   apiResource: ApiPrimitive,
-  context: {inClone: boolean; inGroup: string | null} = {
-    inClone: false,
+  context: {inClone: string | null; inGroup: string | null} = {
+    inClone: null,
     inGroup: null,
   },
 ): Primitive => {
