@@ -39,7 +39,6 @@ export const LoginForm = (props: {
           name="pf-login-username-id"
           value={props.usernameValue}
           onChange={props.onChangeUsername}
-          autoComplete="off"
           {...form.username.mark}
         />
       </FormGroup>
@@ -57,6 +56,7 @@ export const LoginForm = (props: {
           validated="default"
           value={props.passwordValue}
           onChange={props.onChangePassword}
+          autoComplete="off"
           {...form.password.mark}
         />
       </FormGroup>
