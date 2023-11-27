@@ -1,6 +1,4 @@
-import {FormGroup} from "@patternfly/react-core";
-
-import {Select} from "app/view/share/form";
+import {FormGroup, Select} from "app/view/share/form";
 
 export const FormResourceSetField = ({
   selectedResources,

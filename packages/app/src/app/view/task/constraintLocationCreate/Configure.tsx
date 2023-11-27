@@ -1,7 +1,7 @@
-import {Flex, FlexItem, Form, FormGroup, Radio} from "@patternfly/react-core";
+import {Flex, FlexItem, Form, Radio} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormSelectOrText, FormText, Select} from "app/view/share";
+import {FormGroup, FormSelectOrText, FormText, Select} from "app/view/share";
 
 import {useTask} from "./useTask";
 

@@ -11,6 +11,7 @@ export const FormGroup = ({
   helperText,
   isRequired,
   helperTextInvalid,
+  isInline,
   isValid = true,
   showValidationErrors = false,
   popover,
@@ -22,6 +23,7 @@ export const FormGroup = ({
   isRequired?: FormGroupProps["isRequired"];
   helperTextInvalid?: FormGroupProps["helperTextInvalid"];
   validated?: FormGroupProps["validated"];
+  isInline?: FormGroupProps["isInline"];
   isValid?: boolean;
   showValidationErrors?: boolean;
   popover?: React.ComponentProps<typeof AttributeHelpPopover>;
@@ -49,6 +51,7 @@ export const FormGroup = ({
       helperTextInvalid={helperTextInvalid}
       validated={validated}
       className={className}
+      isInline={isInline}
       {...labelIcon}
     >
       {children}
