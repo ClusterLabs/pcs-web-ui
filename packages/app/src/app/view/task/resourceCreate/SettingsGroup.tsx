@@ -1,7 +1,13 @@
-import {Checkbox, Flex, FlexItem} from "@patternfly/react-core";
+import {Flex, FlexItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormGroup, FormSelectOrText, FormText, Select} from "app/view/share";
+import {
+  Checkbox,
+  FormGroup,
+  FormSelectOrText,
+  FormText,
+  Select,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 

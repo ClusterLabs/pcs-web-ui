@@ -1,7 +1,5 @@
-import {Checkbox} from "@patternfly/react-core";
-
 import {testMarks} from "app/view/dataTest";
-import {FormGroup} from "app/view/share";
+import {Checkbox, FormGroup} from "app/view/share";
 
 import {useTask} from "./useTask";
 
