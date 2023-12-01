@@ -51,7 +51,7 @@ export const NameTypeTypeSelect = ({
     <Flex>
       {!fenceAgentList && (
         <FlexItem>
-          <Spinner isSVG size="lg" />
+          <Spinner size="lg" />
         </FlexItem>
       )}
       <FlexItem grow={grow}>

@@ -66,7 +66,7 @@ export const NameTypeTypeSelect = ({
     <Flex>
       {!resourceAgentMap && (
         <FlexItem>
-          <Spinner isSVG size="lg" />
+          <Spinner size="lg" />
         </FlexItem>
       )}
       <FlexItem grow={grow}>
