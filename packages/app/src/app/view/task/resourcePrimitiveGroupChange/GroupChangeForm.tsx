@@ -1,6 +1,7 @@
-import {Form, Radio} from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
+import {Radio} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {GroupSelect} from "./GroupSelect";
