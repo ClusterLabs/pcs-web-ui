@@ -1,4 +1,5 @@
 export * from "./Checkbox";
+export * from "./DualListSelector";
 export * from "./Radio";
 export * from "./Select";
 export * from "./FormText";
