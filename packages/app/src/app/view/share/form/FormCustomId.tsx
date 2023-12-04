@@ -1,6 +1,7 @@
 import React from "react";
-import {Flex, FlexItem, Switch} from "@patternfly/react-core";
+import {Flex, FlexItem} from "@patternfly/react-core";
 
+import {Switch} from "./Switch";
 import {TextInput} from "./TextInput";
 import {FormGroup} from "./FormGroup";
 

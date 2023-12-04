@@ -1,4 +1,6 @@
-import {StackItem, Switch} from "@patternfly/react-core";
+import {StackItem} from "@patternfly/react-core";
+
+import {Switch} from "app/view/share/form";
 
 import {useNodesAuth} from "./useNodesAuth";
 import {useNodesAuthProcesContext} from "./NodesAuthProcessContext";

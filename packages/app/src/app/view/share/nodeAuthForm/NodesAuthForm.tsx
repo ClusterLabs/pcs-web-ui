@@ -1,6 +1,7 @@
 import React from "react";
-import {Alert, Form, Stack, StackItem, Switch} from "@patternfly/react-core";
+import {Alert, Form, Stack, StackItem} from "@patternfly/react-core";
 
+import {Switch} from "app/view/share/form";
 import {EmptyStateSpinner} from "app/view/share/emptyState";
 
 import {useNodesAuth} from "./useNodesAuth";
