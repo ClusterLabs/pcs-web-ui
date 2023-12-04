@@ -1,4 +1,6 @@
-import {Stack, StackItem, TextInput} from "@patternfly/react-core";
+import {Stack, StackItem} from "@patternfly/react-core";
+
+import {TextInput} from "app/view/share";
 
 import {PrimitiveAttrsFormItemRadio} from "./PrimitiveAttrsFormItemRadio";
 import {PrimitiveAttrsFormItemLabel} from "./PrimitiveAttrsFormItemLabel";
