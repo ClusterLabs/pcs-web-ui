@@ -120,34 +120,41 @@ export const TransportKnet = ({linkList}: {linkList: Link[]}) => {
             activeKey={currentTabIndex}
             onSelect={selectLink}
           >
-            {linkList.map(link => (
-              <Tab
-                key={link.linknumber}
-                eventKey={link.linknumber}
-                title={
-                  <>
-                    <TabTitleText>{`Link ${link.linknumber}`}</TabTitleText>
-                    <TabTitleIcon onClick={removeLink(link.linknumber)}>
-                      <TimesIcon />
-                    </TabTitleIcon>
-                  </>
-                }
-              />
-            ))}
-            {linkList.length < MAX_LINKS && (
-              <Tab
-                key={ADD_LINK}
-                eventKey={ADD_LINK}
-                title={
-                  <>
-                    <TabTitleIcon>
-                      <PlusIcon />
-                    </TabTitleIcon>
-                    <TabTitleText {...addKnetLink.mark}>Add Link</TabTitleText>
-                  </>
-                }
-              />
-            )}
+            {linkList
+              .map(link => (
+                <Tab
+                  key={link.linknumber}
+                  eventKey={link.linknumber}
+                  title={
+                    <>
+                      <TabTitleText>{`Link ${link.linknumber}`}</TabTitleText>
+                      <TabTitleIcon onClick={removeLink(link.linknumber)}>
+                        <TimesIcon />
+                      </TabTitleIcon>
+                    </>
+                  }
+                />
+              ))
+              .concat(
+                linkList.length < MAX_LINKS ? (
+                  <Tab
+                    key={ADD_LINK}
+                    eventKey={ADD_LINK}
+                    title={
+                      <>
+                        <TabTitleIcon>
+                          <PlusIcon />
+                        </TabTitleIcon>
+                        <TabTitleText {...addKnetLink.mark}>
+                          Add Link
+                        </TabTitleText>
+                      </>
+                    }
+                  />
+                ) : (
+                  []
+                ),
+              )}
           </Tabs>
         </GridItem>
         <GridItem span={10}>
