@@ -1,4 +1,4 @@
-import {FormGroup, Select} from "app/view/share/form";
+import {FormGroup, SelectMultiTypeahead} from "app/view/share/form";
 
 export const FormResourceSetField = ({
   selectedResources,
@@ -30,14 +30,12 @@ export const FormResourceSetField = ({
       }`}
       validated={resourcesValidated}
     >
-      <Select
+      <SelectMultiTypeahead
         id={id}
-        variant="typeaheadmulti"
-        selections={selectedResources}
-        chipGroupProps={{numChips: 10}}
-        optionsValues={resourceOfferList.filter(
+        offeredOptions={resourceOfferList.filter(
           r => !selectedResources.includes(r),
         )}
+        selected={selectedResources}
         onSelect={value =>
           update([
             ...(selectedResources.includes(value)

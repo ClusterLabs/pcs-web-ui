@@ -2,6 +2,7 @@ export * from "./Checkbox";
 export * from "./DualListSelector";
 export * from "./Radio";
 export * from "./Select";
+export * from "./SelectMultipleTypeaheadChips";
 export * from "./Switch";
 export * from "./TextInput";
 export * from "./FormText";
