@@ -12,7 +12,7 @@ export const EmptyStateSpinner = (props: {
 }) => {
   return (
     <EmptyState style={{margin: "auto"}} data-test={props["data-test"]}>
-      <EmptyStateIcon variant="container" component={Spinner} />
+      <EmptyStateIcon icon={Spinner} />
       <Title size="lg" headingLevel="h3">
         {props.title}
       </Title>

@@ -1,9 +1,9 @@
 import React from "react";
 import {
   EmptyState,
+  EmptyStateActions,
   EmptyStateBody,
   EmptyStateIcon,
-  EmptyStateSecondaryActions,
   Title,
 } from "@patternfly/react-core";
 import {ExclamationCircleIcon} from "@patternfly/react-icons";
@@ -25,10 +25,8 @@ export const TaskFinishError = (props: {
       </Title>
       <EmptyStateBody>{props.message}</EmptyStateBody>
 
-      {props.primaryAction}
-      <EmptyStateSecondaryActions>
-        {props.secondaryActions}
-      </EmptyStateSecondaryActions>
+      <EmptyStateActions>{props.primaryAction}</EmptyStateActions>
+      <EmptyStateActions>{props.secondaryActions}</EmptyStateActions>
     </EmptyState>
   );
 };
