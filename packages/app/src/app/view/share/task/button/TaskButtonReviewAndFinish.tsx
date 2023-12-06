@@ -1,4 +1,4 @@
-import {Button, WizardContextConsumer} from "@patternfly/react-core";
+import {Button, useWizardContext} from "@patternfly/react-core";
 
 import {useDispatch} from "app/view/share/useDispatch";
 
@@ -13,35 +13,32 @@ export const TaskButtonReviewAndFinish = (props: {
 }) => {
   const {task} = useTaskContext();
   const dispatch = useDispatch();
+  const {goToStepByName} = useWizardContext();
   return (
-    <WizardContextConsumer>
-      {({goToStepByName}) => (
-        <Button
-          variant="tertiary"
-          type="submit"
-          onClick={
-            props.onClick
-            ?? (() => {
-              if (props.runIf || props.runIf === undefined) {
-                dispatch({
-                  type: "TASK.VALIDATION.HIDE",
-                  key: {task},
-                });
-                goToStepByName("Review");
-              } else {
-                dispatch({
-                  type: "TASK.VALIDATION.SHOW",
-                  key: {task},
-                });
-              }
-            })
+    <Button
+      variant="tertiary"
+      type="submit"
+      onClick={
+        props.onClick
+        ?? (() => {
+          if (props.runIf || props.runIf === undefined) {
+            dispatch({
+              type: "TASK.VALIDATION.HIDE",
+              key: {task},
+            });
+            goToStepByName("Review");
+          } else {
+            dispatch({
+              type: "TASK.VALIDATION.SHOW",
+              key: {task},
+            });
           }
-          data-test={props["data-test"] ?? "review-and-finish"}
-          isDisabled={props.disabled ?? false}
-        >
-          {props.label ?? "Review and finish"}
-        </Button>
-      )}
-    </WizardContextConsumer>
+        })
+      }
+      data-test={props["data-test"] ?? "review-and-finish"}
+      isDisabled={props.disabled ?? false}
+    >
+      {props.label ?? "Review and finish"}
+    </Button>
   );
 };

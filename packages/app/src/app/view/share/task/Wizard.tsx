@@ -1,9 +1,9 @@
 import React from "react";
+import {useWizardContext} from "@patternfly/react-core";
 import {
   Wizard as PfWizard,
-  WizardContextConsumer,
   WizardStep,
-} from "@patternfly/react-core";
+} from "@patternfly/react-core/deprecated";
 
 import {selectors} from "app/store";
 import {capitalizeFirst} from "app/store/tools";
@@ -70,6 +70,7 @@ export const Wizard = ({
   description: string;
 }) => {
   const {stepList, footerList} = separateStepsAndFooters(steps || defaultSteps);
+  const {activeStep} = useWizardContext();
 
   return (
     <TaskContextProvider
@@ -88,13 +89,9 @@ export const Wizard = ({
         description={description}
         isNavExpandable
         footer={
-          <WizardContextConsumer>
-            {({activeStep}) =>
-              footerList.find(f => f.name === activeStep.name)?.footer ?? (
-                <WizardFooter />
-              )
-            }
-          </WizardContextConsumer>
+          footerList.find(f => f.name === activeStep.name)?.footer ?? (
+            <WizardFooter />
+          )
         }
       />
     </TaskContextProvider>
