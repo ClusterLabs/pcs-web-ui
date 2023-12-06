@@ -24,7 +24,7 @@ export const FormSwitch = ({
   label: FormGroupProps["label"];
   isDisabled?: SwitchProps["isDisabled"];
   isChecked: SwitchProps["isChecked"];
-  onChange: SwitchProps["onChange"];
+  onChange: (checked: boolean) => void;
   switchLabel?: SwitchProps["label"];
   switchLabelOff?: SwitchProps["labelOff"];
   helperTextInvalid?: React.ReactNode;

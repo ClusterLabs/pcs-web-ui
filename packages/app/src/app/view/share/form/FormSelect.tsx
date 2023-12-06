@@ -16,7 +16,6 @@ export const FormSelect = (props: {
   isRequired?: FormGroupProps["isRequired"];
   isDisabled?: boolean;
   placeholderText?: string;
-  helperText?: FormGroupProps["helperText"];
   helperTextInvalid?: React.ReactNode;
   isValid?: boolean;
   showValidationErrors?: boolean;
@@ -37,7 +36,6 @@ export const FormSelect = (props: {
     placeholderText = undefined,
     popover = undefined,
     helperTextInvalid = null,
-    helperText = undefined,
   } = props;
   return (
     <FormGroup
@@ -49,7 +47,6 @@ export const FormSelect = (props: {
       helperTextInvalid={helperTextInvalid}
       isValid={isValid}
       showValidationErrors={showValidationErrors}
-      helperText={helperText}
     >
       <Select
         id={id}

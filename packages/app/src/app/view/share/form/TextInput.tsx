@@ -17,6 +17,7 @@ export const TextInput = (props: {
   value?: Props["value"];
   "data-test"?: string;
 }) => {
+  const {onChange} = props;
   return (
     <PfTextInput
       autoComplete={props.autoComplete}
@@ -26,7 +27,7 @@ export const TextInput = (props: {
       isDisabled={props.isDisabled}
       isRequired={props.isRequired}
       name={props.name}
-      onChange={props.onChange}
+      onChange={onChange ? (_event, value) => onChange(value) : onChange}
       placeholder={props.placeholder}
       type={props.type}
       validated={props.validated}

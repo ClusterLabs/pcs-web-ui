@@ -13,6 +13,7 @@ export const Switch = (props: {
   onChange?: (checked: boolean) => void;
   "data-test"?: string;
 }) => {
+  const {onChange} = props;
   return (
     <PfSwitch
       aria-label={props["aria-label"]}
@@ -21,7 +22,7 @@ export const Switch = (props: {
       isDisabled={props.isDisabled}
       labelOff={props.labelOff}
       label={props.label}
-      onChange={props.onChange}
+      onChange={onChange ? (_event, checked) => onChange(checked) : onChange}
       data-test={props["data-test"]}
     />
   );

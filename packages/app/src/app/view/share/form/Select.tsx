@@ -1,17 +1,23 @@
 import React from "react";
-import {
-  Select as PfSelect,
-  SelectOption,
-  SelectOptionObject,
-} from "@patternfly/react-core";
+import {Select as PfSelect, SelectOption} from "@patternfly/react-core";
 
 type SelectProps = React.ComponentProps<typeof PfSelect>;
-type Props = Omit<SelectProps, "isOpen" | "onToggle" | "onSelect" | "onFilter">;
+type Props = Omit<SelectProps, "isOpen" | "toggle" | "onSelect" | "onFilter">;
 
 export const Select = (
   props: Props & {
+    id?: string;
+    variant?: "single" | "typeahead" | "checkbox";
+    placeholderText?: string;
     onSelect: (_value: string) => void;
+    selections?: string | string[];
+    isDisabled?: boolean;
+    typeAheadAriaLabel?: string;
+    onClear?: (event: React.MouseEvent) => void;
     onFilter?: (_value: string) => void;
+    isGrouped?: boolean;
+    customBadgeText?: string | number;
+    validated?: "error" | "default";
     "data-test"?: string;
   } & ({optionsValues: string[]} | {children: React.ReactNode}),
 ) => {
@@ -19,10 +25,10 @@ export const Select = (
   const [isOpen, setIsOpen] = React.useState(false);
   const select = React.useCallback(
     (
-      _event: React.MouseEvent | React.ChangeEvent,
-      value: string | SelectOptionObject,
+      _event?: React.MouseEvent | React.ChangeEvent,
+      value?: string | number,
     ) => {
-      onSelect(value.toString());
+      onSelect(`${value}` ?? "");
       setIsOpen(false);
     },
     [onSelect],
@@ -66,7 +72,7 @@ export const Select = (
   const pfProps: SelectProps = {
     ...cleanProps,
     ...(filter !== null ? {onFilter: filter} : {}),
-    onToggle: () => setIsOpen(!isOpen),
+    toggle: () => setIsOpen(!isOpen),
     isOpen,
     onSelect: select,
   };

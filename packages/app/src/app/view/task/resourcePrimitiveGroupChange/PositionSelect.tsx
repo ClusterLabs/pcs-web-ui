@@ -43,7 +43,6 @@ export const PositionSelect = () => {
         <FlexItem>
           <Select
             id="select-adjacent-resource"
-            label="Resource"
             placeholderText="Select a resource"
             onSelect={value =>
               updateState({adjacentResourceId: value.toString()})

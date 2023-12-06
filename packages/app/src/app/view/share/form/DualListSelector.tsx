@@ -10,11 +10,12 @@ export const DualListSelector = (props: {
   chosenOptions?: Props["chosenOptions"];
   chosenOptionsTitle?: string;
   onListChange?: (
-    _newAvailableOptions: React.ReactNode[],
+    newAvailableOptions: React.ReactNode[],
     newChosenOptions: React.ReactNode[],
   ) => void;
   id?: string;
 }) => {
+  const {onListChange} = props;
   return (
     <PfDualListSelector
       isSearchable={props.isSearchable}
@@ -22,7 +23,12 @@ export const DualListSelector = (props: {
       availableOptionsTitle={props.availableOptionsTitle}
       chosenOptions={props.chosenOptions}
       chosenOptionsTitle={props.chosenOptionsTitle}
-      onListChange={props.onListChange}
+      onListChange={
+        onListChange
+          ? (_event, newAvailableOptions, newChosenOptions) =>
+              onListChange(newAvailableOptions, newChosenOptions)
+          : onListChange
+      }
       id={props.id}
     />
   );

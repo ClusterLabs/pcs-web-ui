@@ -1,5 +1,5 @@
 import React from "react";
-import {WizardFooter as PfWizardFooter} from "@patternfly/react-core";
+import {WizardFooter as PfWizardFooter} from "@patternfly/react-core/deprecated";
 
 export const TaskFooter = (
   props: React.PropsWithChildren<{"data-test": string}>,

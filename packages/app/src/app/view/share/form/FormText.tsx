@@ -16,12 +16,11 @@ export const FormText = ({
   isRequired = false,
   placeholder = "",
   popover = undefined,
-  helperText = undefined,
   isDisabled = false,
   "data-test": dataTest = undefined,
 }: {
   id: string;
-  onChange: React.ComponentProps<typeof TextInput>["onChange"];
+  onChange?: (value: string) => void;
   value: React.ComponentProps<typeof TextInput>["value"];
   label?: React.ComponentProps<typeof FormGroup>["label"];
   helperTextInvalid?: React.ReactNode;
@@ -30,7 +29,6 @@ export const FormText = ({
   showValidationErrors?: boolean;
   popover?: FormGroupProps["popover"];
   placeholder?: string;
-  helperText?: React.ComponentProps<typeof FormGroup>["helperText"];
   isDisabled?: boolean;
   ["data-test"]?: string | undefined;
 }) => {
@@ -42,7 +40,6 @@ export const FormText = ({
       helperTextInvalid={helperTextInvalid}
       isValid={isValid}
       showValidationErrors={showValidationErrors}
-      helperText={helperText}
       popover={popover}
     >
       <TextInput
@@ -51,7 +48,7 @@ export const FormText = ({
         isRequired={isRequired}
         type="text"
         data-test={dataTest}
-        onChange={onChange}
+        onChange={onChange ? (_event, value) => onChange(value) : onChange}
         validated={!isValid && showValidationErrors ? "error" : "default"}
         placeholder={placeholder}
         isDisabled={isDisabled}

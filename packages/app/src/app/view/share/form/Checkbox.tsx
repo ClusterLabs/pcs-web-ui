@@ -11,7 +11,7 @@ export const Checkbox = (props: {
   const {onChange} = props;
   return (
     <PfCheckbox
-      onChange={onChange ? checked => onChange(checked) : onChange}
+      onChange={onChange ? (_event, checked) => onChange(checked) : onChange}
       isChecked={props.isChecked}
       label={props.label}
       id={props.id}

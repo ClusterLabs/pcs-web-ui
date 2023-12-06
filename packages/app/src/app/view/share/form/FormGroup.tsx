@@ -1,5 +1,11 @@
 import React from "react";
-import {FormGroup as PfFormGroup} from "@patternfly/react-core";
+import {
+  FormHelperText,
+  HelperText,
+  HelperTextItem,
+  FormGroup as PfFormGroup,
+} from "@patternfly/react-core";
+import {ExclamationCircleIcon} from "@patternfly/react-icons";
 
 import {AttributeHelpPopover} from "app/view/share/attributes";
 
@@ -8,7 +14,6 @@ export const FormGroup = ({
   fieldId,
   label,
   children,
-  helperText,
   isRequired,
   helperTextInvalid,
   isInline,
@@ -19,10 +24,9 @@ export const FormGroup = ({
 }: {
   fieldId: FormGroupProps["fieldId"];
   label?: FormGroupProps["label"];
-  helperText?: FormGroupProps["helperText"];
   isRequired?: FormGroupProps["isRequired"];
-  helperTextInvalid?: FormGroupProps["helperTextInvalid"];
-  validated?: FormGroupProps["validated"];
+  helperTextInvalid?: React.ReactNode;
+  validated?: "default" | "error";
   isInline?: FormGroupProps["isInline"];
   isValid?: boolean;
   showValidationErrors?: boolean;
@@ -45,16 +49,25 @@ export const FormGroup = ({
   return (
     <PfFormGroup
       fieldId={fieldId}
-      helperText={helperText}
       label={label}
       isRequired={isRequired}
-      helperTextInvalid={helperTextInvalid}
-      validated={validated}
       className={className}
       isInline={isInline}
       {...labelIcon}
     >
       {children}
+      {validated === "error" && (
+        <FormHelperText>
+          <HelperText>
+            <HelperTextItem
+              icon={<ExclamationCircleIcon />}
+              variant={validated}
+            >
+              {helperTextInvalid}
+            </HelperTextItem>
+          </HelperText>
+        </FormHelperText>
+      )}
     </PfFormGroup>
   );
 };

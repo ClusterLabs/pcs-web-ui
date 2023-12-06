@@ -10,12 +10,13 @@ export const Radio = (props: {
   isDisabled?: boolean;
   "data-test"?: string;
 }) => {
+  const {onChange} = props;
   return (
     <PfRadio
       id={props.id}
       name={props.name}
       isChecked={props.isChecked}
-      onChange={props.onChange}
+      onChange={onChange ? (_event, checked) => onChange(checked) : onChange}
       label={props.label}
       isDisabled={props.isDisabled}
       data-test={props["data-test"]}
