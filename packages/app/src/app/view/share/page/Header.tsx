@@ -1,7 +1,9 @@
 import React from "react";
 import {
-  PageHeader,
-  PageHeaderTools,
+  Masthead,
+  MastheadBrand,
+  MastheadContent,
+  MastheadMain,
   Toolbar,
   ToolbarGroup,
   ToolbarItem,
@@ -16,10 +18,17 @@ import {UserMenu} from "./UserMenu";
 export const Header = () => {
   const {navigate} = useLocation();
   return (
-    <PageHeader
-      logo="HA Cluster Management"
-      headerTools={
-        <PageHeaderTools>
+    <Masthead {...testMarks.header.mark}>
+      <MastheadMain>
+        <MastheadBrand
+          onClick={(e: React.SyntheticEvent) => {
+            e.preventDefault();
+            navigate(location.dashboard);
+          }}
+        >
+          HA Cluster Management
+        </MastheadBrand>
+        <MastheadContent>
           <Toolbar>
             <ToolbarGroup>
               <ToolbarItem>
@@ -27,15 +36,8 @@ export const Header = () => {
               </ToolbarItem>
             </ToolbarGroup>
           </Toolbar>
-        </PageHeaderTools>
-      }
-      logoProps={{
-        onClick: (e: React.SyntheticEvent) => {
-          e.preventDefault();
-          navigate(location.dashboard);
-        },
-      }}
-      {...testMarks.header.mark}
-    />
+        </MastheadContent>
+      </MastheadMain>
+    </Masthead>
   );
 };

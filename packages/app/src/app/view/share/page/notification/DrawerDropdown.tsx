@@ -1,10 +1,10 @@
 import React from "react";
+import {DropdownItem} from "@patternfly/react-core";
 import {
   Dropdown,
-  DropdownItem,
   DropdownPosition,
   KebabToggle,
-} from "@patternfly/react-core";
+} from "@patternfly/react-core/deprecated";
 
 import {testMarks} from "app/view/dataTest";
 import {useDispatch} from "app/view/share/useDispatch";
