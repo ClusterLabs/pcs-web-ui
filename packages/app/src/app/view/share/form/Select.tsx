@@ -7,7 +7,7 @@ type Props = Omit<SelectProps, "isOpen" | "toggle" | "onSelect" | "onFilter">;
 export const Select = (
   props: Props & {
     id?: string;
-    variant?: "single" | "typeahead" | "checkbox";
+    variant?: "single" | "typeahead";
     placeholderText?: string;
     onSelect: (_value: string) => void;
     selections?: string | string[];

@@ -5,7 +5,7 @@ import {
   ToolbarFilter,
 } from "@patternfly/react-core";
 
-import {Select} from "app/view/share/form";
+import {SelectCheckboxes} from "app/view/share/form";
 
 function unselectAllOptions<T extends Record<string, boolean>>(options: T): T {
   return Object.keys(options).reduce<T>(
@@ -86,13 +86,11 @@ export const ToolbarFilterGroups = ({
       deleteChipGroup={unselectAll}
       categoryName={name}
     >
-      <Select
-        variant="checkbox"
-        aria-label={name}
+      <SelectCheckboxes
+        insideLabel={name}
         onSelect={select}
-        selections={groupList.filter(group => options[group])}
-        placeholderText={name}
-        optionsValues={Object.keys(options)}
+        selected={groupList.filter(group => options[group])}
+        offeredOptions={Object.keys(options)}
       />
     </ToolbarFilter>
   );
