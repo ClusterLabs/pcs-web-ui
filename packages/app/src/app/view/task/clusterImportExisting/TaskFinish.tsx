@@ -1,4 +1,4 @@
-import {useWizardContext} from "@patternfly/react-core";
+import {WizardContextConsumer} from "@patternfly/react-core/deprecated";
 
 import {testMarks} from "app/view/dataTest";
 import {
@@ -22,48 +22,54 @@ export const TaskFinish = ({
     importCluster,
     state: {importCall},
   } = useTask();
-  const {goToStepByName} = useWizardContext();
   return (
-    <>
-      {importCall.status === "started" && (
-        <TaskProgress title="Adding existing cluster" />
-      )}
-      {importCall.status === "error" && (
-        <TaskFinishError
-          title="Error during adding existing cluster"
-          message={
-            <>
-              Error: {importCall.message}. You can try to perform the operation
-              again.
-            </>
-          }
-          primaryAction={
-            <TaskButtonResult
-              label="Change settings"
-              action={() => goToStepByName(backToUpdateSettingsStepName)}
-              {...error.changeSettings.mark}
+    <WizardContextConsumer>
+      {({goToStepByName}) => (
+        <>
+          {importCall.status === "started" && (
+            <TaskProgress title="Adding existing cluster" />
+          )}
+          {importCall.status === "error" && (
+            <TaskFinishError
+              title="Error during adding existing cluster"
+              message={
+                <>
+                  Error: {importCall.message}. You can try to perform the
+                  operation again.
+                </>
+              }
+              primaryAction={
+                <TaskButtonResult
+                  label="Change settings"
+                  action={() => goToStepByName(backToUpdateSettingsStepName)}
+                  {...error.changeSettings.mark}
+                />
+              }
+              secondaryActions={
+                <>
+                  <TaskButtonResult
+                    variant="link"
+                    label="Try again"
+                    action={importCluster}
+                    {...error.tryAgain.mark}
+                  />
+                  <TaskButtonResultCancel
+                    variant="link"
+                    {...error.cancel.mark}
+                  />
+                </>
+              }
+              {...error.mark}
             />
-          }
-          secondaryActions={
-            <>
-              <TaskButtonResult
-                variant="link"
-                label="Try again"
-                action={importCluster}
-                {...error.tryAgain.mark}
-              />
-              <TaskButtonResultCancel variant="link" {...error.cancel.mark} />
-            </>
-          }
-          {...error.mark}
-        />
+          )}
+          {importCall.status === "success" && (
+            <TaskSuccess
+              primaryAction={<TaskButtonResult {...success.close.mark} />}
+              {...success.mark}
+            />
+          )}
+        </>
       )}
-      {importCall.status === "success" && (
-        <TaskSuccess
-          primaryAction={<TaskButtonResult {...success.close.mark} />}
-          {...success.mark}
-        />
-      )}
-    </>
+    </WizardContextConsumer>
   );
 };

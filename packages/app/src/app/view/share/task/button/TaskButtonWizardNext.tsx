@@ -1,5 +1,5 @@
 import React from "react";
-import {useWizardContext} from "@patternfly/react-core";
+import {WizardContext} from "@patternfly/react-core/deprecated";
 
 import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 
@@ -12,12 +12,12 @@ export const TaskButtonWizardNext = (
     "data-test"?: string;
   } & ({preAction?: () => void} | {actionIf?: boolean} | {action?: () => void}),
 ) => {
-  const {goToNextStep} = useWizardContext();
+  const {onNext} = React.useContext(WizardContext);
 
   if ("actionIf" in props) {
     return (
       <TaskButtonNext
-        run={goToNextStep}
+        run={onNext}
         runIf={props.actionIf}
         disabled={props.disabled ?? false}
         data-test={props["data-test"]}
@@ -35,7 +35,7 @@ export const TaskButtonWizardNext = (
       if ("preAction" in props && props.preAction) {
         props.preAction();
       }
-      goToNextStep();
+      onNext();
     };
   }
 
