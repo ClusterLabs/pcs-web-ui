@@ -15,21 +15,8 @@ export const NameType = () => {
       showValidationErrors,
       libCall: {reports},
     },
-    clusterName,
-    dispatch,
     updateState,
   } = useTask();
-
-  const onSelect = (value: string) => {
-    dispatch({
-      type: "RESOURCE_AGENT.ENSURE",
-      key: {clusterName},
-      payload: {agentName: value.toString()},
-    });
-    updateState({agentName: value.toString()});
-  };
-
-  const onClear = () => updateState({agentName: ""});
 
   const changeResourceName = (value: string) =>
     updateState({resourceName: value});
@@ -62,11 +49,7 @@ export const NameType = () => {
           helperTextInvalid="Please select a resource agent"
           validated={agentNameValidated}
         >
-          <NameTypeTypeSelect
-            onSelect={onSelect}
-            onClear={onClear}
-            agentName={agentName}
-          />
+          <NameTypeTypeSelect />
         </FormGroup>
       </Form>
     </TaskLibStep>

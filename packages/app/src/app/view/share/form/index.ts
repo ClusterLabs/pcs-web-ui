@@ -4,6 +4,7 @@ export * from "./Radio";
 export * from "./Select";
 export * from "./SelectMultipleTypeaheadChips";
 export * from "./SelectCheckboxes";
+export * from "./useSelectControll";
 export * from "./Switch";
 export * from "./TextInput";
 export * from "./FormText";
