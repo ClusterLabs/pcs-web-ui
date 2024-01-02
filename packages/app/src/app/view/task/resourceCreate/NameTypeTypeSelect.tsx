@@ -176,7 +176,10 @@ export const NameTypeTypeSelect = () => {
           id="typeahead-select"
           isOpen={isOpen}
           selected={agentName}
-          onSelect={(_event, value) => onSelect(`${value}`)}
+          onSelect={(_event, value) => {
+            onSelect(`${value}`);
+            close();
+          }}
           onOpenChange={close}
           isScrollable
           toggle={toggleRef => (
