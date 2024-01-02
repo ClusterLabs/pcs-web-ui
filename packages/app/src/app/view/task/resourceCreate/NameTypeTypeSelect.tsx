@@ -1,14 +1,20 @@
 import React from "react";
 import {useSelector} from "react-redux";
 import {
+  Button,
+  Flex,
+  FlexItem,
+  FlexProps,
   MenuToggle,
   Select,
   SelectGroup,
   SelectOption,
+  Spinner,
   TextInputGroup,
   TextInputGroupMain,
+  TextInputGroupUtilities,
 } from "@patternfly/react-core";
-import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
+import TimesIcon from "@patternfly/react-icons/dist/esm/icons/times-icon";
 
 import {selectors} from "app/store";
 // import {useSelectControll} from "app/view/share";
@@ -207,6 +213,22 @@ export const NameTypeTypeSelect = () => {
                   isExpanded={isOpen}
                   aria-controls={mkId("-listbox")}
                 />
+                <TextInputGroupUtilities>
+                  {!!inputValue && (
+                    <Button
+                      variant="plain"
+                      onClick={() => {
+                        selectAgent("");
+                        setInputValue("");
+                        setSearch("");
+                        textInputRef?.current?.focus();
+                      }}
+                      aria-label="Clear input value"
+                    >
+                      <TimesIcon aria-hidden />
+                    </Button>
+                  )}
+                </TextInputGroupUtilities>
               </TextInputGroup>
             </MenuToggle>
           )}
