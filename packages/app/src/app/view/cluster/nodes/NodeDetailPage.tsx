@@ -15,8 +15,6 @@ import {NodeDoesNotExists} from "./NodeDoesNotExists";
 import {NodeAttributes} from "./NodeAttributes";
 import {NodeUtilization} from "./NodeUtilization";
 
-export const nodePageTabList = ["detail", "attributes", "utilization"] as const;
-
 const {currentNode} = testMarks.cluster.nodes;
 const {tabs} = currentNode;
 const tabMap = {
