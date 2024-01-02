@@ -6,13 +6,14 @@ import {testMarks} from "app/view/dataTest";
 import {Cluster, ClusterInfo} from "./types";
 import {compareStrings} from "./utils";
 
-type COLUMNS =
-  | "NAME"
-  | "ISSUES"
-  | "NODES"
-  | "RESOURCES"
-  | "FENCE_DEVICES"
-  | "ACTIONS";
+const columnList = [
+  "NAME",
+  "ISSUES",
+  "NODES",
+  "RESOURCES",
+  "FENCE_DEVICES",
+  "ACTIONS",
+];
 
 const compareByState =
   (compare: (_clusterA: Cluster, _clusterB: Cluster) => number) =>
@@ -30,7 +31,7 @@ const compareByState =
   };
 
 const compareByColumn = (
-  column: COLUMNS | "",
+  column: (typeof columnList)[number],
 ): ((_a: ClusterInfo, _b: ClusterInfo) => number) => {
   switch (column) {
     case "ISSUES":
@@ -76,7 +77,7 @@ export const DashboardClusterListSorting = ({
   clusterInfoList: ClusterInfo[];
   children: (_clusterInfoList: ClusterInfo[]) => React.ReactNode;
 }) => {
-  const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
+  const {sortState, compareItems} = SortableTh.useSorting(columnList);
   return (
     <Table aria-label="Cluster list" {...testMarks.dashboard.clusterList.mark}>
       <Thead>

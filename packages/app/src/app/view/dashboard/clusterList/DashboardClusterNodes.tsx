@@ -13,7 +13,7 @@ import {compareStrings} from "./utils";
 
 type StatusSeverity = ConnectedNode["statusSeverity"];
 type QuorumSeverity = ConnectedNode["quorumSeverity"];
-type COLUMNS = "NAME" | "STATUS" | "QUORUM";
+const columnList = ["NAME", "STATUS", "QUORUM"] as const;
 
 const quorumSeverity = (node: Node): QuorumSeverity =>
   node.status === "DATA_NOT_PROVIDED" ? "WARNING" : node.quorumSeverity;
@@ -30,7 +30,7 @@ const quorum = (node: Node): string => {
 };
 
 const compareByColumn = (
-  column: COLUMNS | "",
+  column: (typeof columnList)[number],
 ): ((_a: Node, _b: Node) => number) => {
   switch (column) {
     case "QUORUM":
@@ -51,7 +51,7 @@ const {SortableTh} = Table;
 const {node: nodeMark} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterNodes = ({cluster}: {cluster: Cluster}) => {
-  const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
+  const {sortState, compareItems} = SortableTh.useSorting(columnList, "NAME");
   return (
     <Table isCompact isBorderless>
       <thead>

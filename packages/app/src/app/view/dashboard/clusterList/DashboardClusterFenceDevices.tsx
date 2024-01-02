@@ -13,10 +13,10 @@ import {
 import {Cluster, FenceDevice} from "./types";
 import {compareStrings} from "./utils";
 
-type COLUMNS = "NAME" | "STATUS";
+const columnList = ["NAME", "STATUS"] as const;
 
 const compareByColumn = (
-  column: COLUMNS | "",
+  column: (typeof columnList)[number],
 ): ((_a: FenceDevice, _b: FenceDevice) => number) => {
   switch (column) {
     case "STATUS":
@@ -33,7 +33,7 @@ const {SortableTh} = Table;
 const {fenceDevice: fenceDeviceMark} = testMarks.dashboard.clusterList.cluster;
 
 export const DashboardClusterFenceDevices = ({cluster}: {cluster: Cluster}) => {
-  const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
+  const {sortState, compareItems} = SortableTh.useSorting(columnList);
 
   if (!cluster.hasCibInfo) {
     return (
