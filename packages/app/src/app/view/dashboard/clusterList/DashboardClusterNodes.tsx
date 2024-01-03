@@ -1,3 +1,5 @@
+import {Tbody, Td, Thead, Tr} from "@patternfly/react-table";
+
 import {testMarks} from "app/view/dataTest";
 import {
   Link,
@@ -54,8 +56,8 @@ export const DashboardClusterNodes = ({cluster}: {cluster: Cluster}) => {
   const {sortState, compareItems} = SortableTh.useSorting(columnList, "NAME");
   return (
     <Table isCompact isBorderless>
-      <thead>
-        <tr>
+      <Thead>
+        <Tr>
           <SortableTh columnName="NAME" sortState={sortState}>
             Node
           </SortableTh>
@@ -65,12 +67,12 @@ export const DashboardClusterNodes = ({cluster}: {cluster: Cluster}) => {
           <SortableTh columnName="QUORUM" sortState={sortState} startDesc>
             Quorum
           </SortableTh>
-        </tr>
-      </thead>
-      <tbody>
+        </Tr>
+      </Thead>
+      <Tbody>
         {cluster.nodeList.sort(compareItems(compareByColumn)).map(node => (
-          <tr key={node.name} {...nodeMark.mark}>
-            <td>
+          <Tr key={node.name} {...nodeMark.mark}>
+            <Td>
               <Link
                 to={location.node({
                   clusterName: cluster.name,
@@ -78,22 +80,22 @@ export const DashboardClusterNodes = ({cluster}: {cluster: Cluster}) => {
                 })}
                 {...nodeMark.name.mark}
               />
-            </td>
-            <td {...nodeMark.status.mark}>
+            </Td>
+            <Td {...nodeMark.status.mark}>
               <StatusSign
                 status={statusSeverity(node)}
                 label={toLabel(node.status)}
               />
-            </td>
-            <td {...nodeMark.quorum.mark}>
+            </Td>
+            <Td {...nodeMark.quorum.mark}>
               <StatusSign
                 status={quorumSeverity(node)}
                 label={toLabel(quorum(node))}
               />
-            </td>
-          </tr>
+            </Td>
+          </Tr>
         ))}
-      </tbody>
+      </Tbody>
     </Table>
   );
 };

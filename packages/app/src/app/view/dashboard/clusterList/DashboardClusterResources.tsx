@@ -1,3 +1,5 @@
+import {Tbody, Td, Thead, Tr} from "@patternfly/react-table";
+
 import {testMarks} from "app/view/dataTest";
 import {
   EmptyStateClusterStopped,
@@ -54,8 +56,8 @@ export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
 
   return (
     <Table isCompact isBorderless>
-      <thead>
-        <tr>
+      <Thead>
+        <Tr>
           <SortableTh columnName="NAME" sortState={sortState} data-label="name">
             Resource
           </SortableTh>
@@ -67,14 +69,14 @@ export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
           >
             Status
           </SortableTh>
-        </tr>
-      </thead>
-      <tbody>
+        </Tr>
+      </Thead>
+      <Tbody>
         {cluster.resourceTree
           .sort(compareItems(compareByColumn))
           .map(resource => (
-            <tr key={resource.id} {...resourceMark.mark}>
-              <td>
+            <Tr key={resource.id} {...resourceMark.mark}>
+              <Td>
                 <Link
                   to={location.resource({
                     clusterName: cluster.name,
@@ -82,15 +84,15 @@ export const DashboardClusterResources = ({cluster}: {cluster: Cluster}) => {
                   })}
                   {...resourceMark.id.mark}
                 />
-              </td>
-              <td {...resourceMark.status.mark}>
+              </Td>
+              <Td {...resourceMark.status.mark}>
                 <ResourceStatusInfoListSigns
                   resourceStatusInfoList={resource.status.infoList}
                 />
-              </td>
-            </tr>
+              </Td>
+            </Tr>
           ))}
-      </tbody>
+      </Tbody>
     </Table>
   );
 };

@@ -11,9 +11,7 @@ export const ExpandedContent = ({
 }>) => (
   <Tr isExpanded>
     <Td colSpan={colSpan} noPadding={!padding}>
-      <ExpandableRowContent>
-        <div className="pf-v5-u-pl-xl">{children}</div>
-      </ExpandableRowContent>
+      <ExpandableRowContent>{children}</ExpandableRowContent>
     </Td>
   </Tr>
 );
