@@ -14,7 +14,7 @@ export const DashboardClusterCellSummary = ({
   }
   return (
     <>
-      <span className="pf-u-pr-lg">{itemsCount}</span>
+      <span className="pf-v5-u-pr-lg">{itemsCount}</span>
       <StatusIco status={summaryStatus} />
     </>
   );

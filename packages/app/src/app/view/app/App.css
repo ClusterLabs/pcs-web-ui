@@ -198,16 +198,16 @@ body,
 
 /* Composite Status component */
 .ha-u-status-danger {
-  color: var(--pf-global--danger-color--100);
+  color: var(--pf-v5-global--danger-color--100);
 }
 .ha-u-status-warning {
-  color: var(--pf-global--warning-color--100);
+  color: var(--pf-v5-global--warning-color--100);
 }
 .ha-u-status-success {
-  color: var(--pf-global--success-color--100);
+  color: var(--pf-v5-global--success-color--100);
 }
 .ha-u-status-unknown {
-  color: var(--pf-global--icon--Color--light);
+  color: var(--pf-v5-global--icon--Color--light);
 }
 
 /* Attributes form - radio button spacing */
