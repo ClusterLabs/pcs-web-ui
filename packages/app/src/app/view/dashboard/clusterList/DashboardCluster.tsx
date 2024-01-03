@@ -1,4 +1,5 @@
 import React from "react";
+import {Th, Tr} from "@patternfly/react-table";
 
 import {testMarks} from "app/view/dataTest";
 import {Link, Table, location} from "app/view/share";
@@ -16,15 +17,15 @@ export const DashboardCluster = (props: {
 }) => {
   return (
     <Table.Body isExpanded={props.isExpanded} {...clusterMark.mark}>
-      <tr role="row">
-        <th role="rowheader">
+      <Tr>
+        <Th>
           <Link to={location.cluster({clusterName: props.clusterName})}>
             <strong {...name.mark}>{props.clusterName}</strong>{" "}
           </Link>
           {props.status}
-        </th>
+        </Th>
         {props.columns}
-      </tr>
+      </Tr>
       {props.expandedContent}
     </Table.Body>
   );
