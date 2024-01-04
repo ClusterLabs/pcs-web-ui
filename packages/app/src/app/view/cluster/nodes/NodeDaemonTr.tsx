@@ -1,3 +1,4 @@
+import {Td, Tr} from "@patternfly/react-table";
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -15,10 +16,10 @@ export const NodeDaemonTr = ({
   service: NodeService;
 }) => {
   return (
-    <tr>
-      <td data-label="Daemon">{serviceName}</td>
+    <Tr>
+      <Td data-label="Daemon">{serviceName}</Td>
 
-      <td data-label="Installed">
+      <Td data-label="Installed">
         {service.installed && (
           <>
             <CheckCircleIcon className="ha-u-status-success" />
@@ -31,9 +32,9 @@ export const NodeDaemonTr = ({
             {" Not installed"}
           </>
         )}
-      </td>
+      </Td>
 
-      <td data-label="Enabled">
+      <Td data-label="Enabled">
         {service.enabled && (
           <>
             <CheckCircleIcon className="ha-u-status-success" />
@@ -46,9 +47,9 @@ export const NodeDaemonTr = ({
             {" Not enabled"}
           </>
         )}
-      </td>
+      </Td>
 
-      <td data-label="Running">
+      <Td data-label="Running">
         {service.running && (
           <>
             <CheckCircleIcon className="ha-u-status-success" />
@@ -61,7 +62,7 @@ export const NodeDaemonTr = ({
             {" Not running"}
           </>
         )}
-      </td>
-    </tr>
+      </Td>
+    </Tr>
   );
 };
