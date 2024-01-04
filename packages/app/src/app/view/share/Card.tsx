@@ -12,7 +12,7 @@ export const Card = ({
 }) => {
   return (
     <PfCard
-      className="pf-u-mb-sm pf-u-mr-sm"
+      className="pf-v5-u-mb-sm pf-v5-u-mr-sm"
       {...(dataTest ? {"data-test": dataTest} : {})}
     >
       {title && <CardTitle>{title}</CardTitle>}

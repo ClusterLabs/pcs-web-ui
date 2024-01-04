@@ -39,7 +39,7 @@ export const FormCustomId = ({
       }}
     >
       <Flex>
-        <FlexItem className="pf-u-pt-sm">
+        <FlexItem className="pf-v5-u-pt-sm">
           <Switch
             id={id}
             isChecked={useCustomId}

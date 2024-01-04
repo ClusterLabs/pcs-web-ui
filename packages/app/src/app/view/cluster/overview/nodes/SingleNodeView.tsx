@@ -22,7 +22,7 @@ export const SingleNodeView = ({singleNode}: {singleNode: Node}) => {
   );
   return (
     <>
-      <div className="pf-u-mb-md">This is a single node cluster.</div>
+      <div className="pf-v5-u-mb-md">This is a single node cluster.</div>
       <div>
         {singleNode.status !== "DATA_NOT_PROVIDED" && (
           <>

@@ -17,7 +17,7 @@ export const DetailLayout = ({
 }) => {
   return (
     /* eslint-disable react/jsx-props-no-spreading */
-    <Stack hasGutter className="pf-u-p-md" {...rest}>
+    <Stack hasGutter className="pf-v5-u-p-md" {...rest}>
       <StackItem>
         <Level>
           <LevelItem>{caption}</LevelItem>

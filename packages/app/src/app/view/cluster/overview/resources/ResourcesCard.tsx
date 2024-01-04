@@ -35,7 +35,7 @@ export const ResourcesCard = ({
 
   return (
     <>
-      <div className="pf-u-my-sm">
+      <div className="pf-v5-u-my-sm">
         There {statistics.totalCount > 1 ? "are" : "is"}{" "}
         <strong>{statistics.totalCount}</strong>{" "}
         <Link isInline to={location.resourceList({clusterName})}>
@@ -43,7 +43,7 @@ export const ResourcesCard = ({
         </Link>{" "}
         in the cluster.
       </div>
-      <div className="pf-u-my-sm">
+      <div className="pf-v5-u-my-sm">
         <ResourceCounts
           resourceIdLists={statistics.plain}
           description={`standalone resource${

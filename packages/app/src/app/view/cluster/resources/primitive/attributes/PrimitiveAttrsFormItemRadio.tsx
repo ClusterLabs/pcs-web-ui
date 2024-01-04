@@ -15,10 +15,10 @@ export const PrimitiveAttrsFormItemRadio = ({
   active?: boolean;
 }>) => {
   return (
-    <div className={active ? "pf-c-radio ha-c-radio" : ""}>
+    <div className={active ? "pf-v5-c-radio ha-c-radio" : ""}>
       {active && (
         <input
-          className="pf-c-radio__input"
+          className="pf-v5-c-radio__input"
           type="radio"
           id={id}
           name={name}

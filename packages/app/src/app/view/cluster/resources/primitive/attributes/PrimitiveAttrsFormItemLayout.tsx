@@ -17,11 +17,11 @@ export const PrimitiveAttrsFormItemLayout = ({
   required: boolean;
 }>) => {
   return (
-    <div className="pf-c-form__group">
-      <span className="pf-c-form__label pf-u-pt-md">
-        <span className="pf-c-form__label-text">{name}</span>
+    <div className="pf-v5-c-form__group">
+      <span className="pf-v5-c-form__label pf-v5-u-pt-md">
+        <span className="pf-v5-c-form__label-text">{name}</span>
         {required && (
-          <span className="pf-c-form__label-required" aria-hidden="true">
+          <span className="pf-v5-c-form__label-required" aria-hidden="true">
             &#42;
           </span>
         )}{" "}
@@ -32,7 +32,7 @@ export const PrimitiveAttrsFormItemLayout = ({
         />
       </span>
       <div
-        className="pf-c-form__horizontal-group"
+        className="pf-v5-c-form__horizontal-group"
         role="group"
         aria-labelledby={`resource-attribute-value-${name}`}
       >

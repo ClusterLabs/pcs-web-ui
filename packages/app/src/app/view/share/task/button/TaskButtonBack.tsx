@@ -12,7 +12,7 @@ export const TaskButtonBack = (props: {
         <Button
           variant="secondary"
           onClick={props.onClick ?? onBack}
-          className={props.disabled ? "pf-m-disabled" : ""}
+          className={props.disabled ? "pf-v5-m-disabled" : ""}
           data-test={props["data-test"] ?? "task-back"}
         >
           Back

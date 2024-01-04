@@ -39,7 +39,11 @@ export const ResourceSetList = <SET extends {resources: string[]}>({
                 <DataListItemCells
                   dataListCells={[
                     <DataListCell key="all">
-                      <Title headingLevel="h3" size="lg" className="pf-u-mb-md">
+                      <Title
+                        headingLevel="h3"
+                        size="lg"
+                        className="pf-v5-u-mb-md"
+                      >
                         Resource set {i + 1}
                       </Title>
 
@@ -55,14 +59,14 @@ export const ResourceSetList = <SET extends {resources: string[]}>({
                   >
                     <Button
                       variant="link"
-                      className="pf-u-m-0 pf-u-p-0"
+                      className="pf-v5-u-m-0 pf-v5-u-p-0"
                       onClick={() => deleteSet(i)}
                       icon={<TrashIcon />}
                     />
                     {i > 0 && (
                       <Button
                         variant="link"
-                        className="pf-u-m-0 pf-u-p-0"
+                        className="pf-v5-u-m-0 pf-v5-u-p-0"
                         onClick={() => moveSet(i, "up")}
                         icon={<LongArrowAltUpIcon />}
                       />
@@ -70,7 +74,7 @@ export const ResourceSetList = <SET extends {resources: string[]}>({
                     {i < sets.length - 1 && (
                       <Button
                         variant="link"
-                        className="pf-u-m-0 pf-u-p-0"
+                        className="pf-v5-u-m-0 pf-v5-u-p-0"
                         onClick={() => moveSet(i, "down")}
                         icon={<LongArrowAltDownIcon />}
                       />
@@ -87,7 +91,7 @@ export const ResourceSetList = <SET extends {resources: string[]}>({
         variant="primary"
         onClick={createSet}
         icon={<PlusCircleIcon />}
-        className="pf-u-mt-sm"
+        className="pf-v5-u-mt-sm"
       >
         Add resource set
       </Button>
