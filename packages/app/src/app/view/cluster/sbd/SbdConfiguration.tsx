@@ -1,3 +1,5 @@
+import {Td, Thead, Tr} from "@patternfly/react-table";
+
 import {testMarks} from "app/view/dataTest";
 import {EmptyStateNoItem, Table} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
@@ -15,12 +17,12 @@ export const SbdConfiguration = () => {
 
   return (
     <Table>
-      <thead>
-        <tr>
+      <Thead>
+        <Tr>
           <th data-label="Option">Option</th>
           <th data-label="Value">Value</th>
-        </tr>
-      </thead>
+        </Tr>
+      </Thead>
 
       <Table.Body>
         {(Object.keys(sbdConfig) as (keyof typeof sbdConfig)[])
@@ -32,14 +34,14 @@ export const SbdConfiguration = () => {
               && option !== "SBD_DEVICE",
           )
           .map(option => (
-            <tr key={option} {...config.mark}>
-              <td data-label="Option" {...config.name.mark}>
+            <Tr key={option} {...config.mark}>
+              <Td data-label="Option" {...config.name.mark}>
                 {option}
-              </td>
-              <td data-label="Value" {...config.value.mark}>
+              </Td>
+              <Td data-label="Value" {...config.value.mark}>
                 {sbdConfig[option]}
-              </td>
-            </tr>
+              </Td>
+            </Tr>
           ))}
       </Table.Body>
     </Table>
