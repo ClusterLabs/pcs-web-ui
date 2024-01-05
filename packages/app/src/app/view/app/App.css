@@ -78,6 +78,7 @@ body,
   overflow: auto;
   min-height: 100%;
   max-height: calc(100% + var(--pf-v5-c-page__main-section--PaddingBottom));
+  flex: 1 0;
 }
 
 /* RESOURC TREE --------------------------------------------------------------*/
