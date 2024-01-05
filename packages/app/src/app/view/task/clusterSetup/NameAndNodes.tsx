@@ -40,7 +40,7 @@ export const NameAndNodes = () => {
             <tbody>
               {nodeNameList.map((nodeName, i) => (
                 <tr key={i} {...node.mark}>
-                  <td className="pf-u-pr-sm pf-u-pb-sm">
+                  <td className="pf-v5-u-pr-sm pf-v5-u-pb-sm">
                     <FormText
                       id={`node-name-${i}`}
                       value={nodeName}
@@ -65,7 +65,7 @@ export const NameAndNodes = () => {
                   <td>
                     <Button
                       variant="link"
-                      className="pf-u-m-0 pf-u-p-0"
+                      className="pf-v5-u-m-0 pf-v5-u-p-0"
                       isDisabled={nodeNameList.length < 2}
                       onClick={() =>
                         updateNode({
@@ -86,7 +86,7 @@ export const NameAndNodes = () => {
             variant="primary"
             onClick={() => updateNode({nodeNameList: [...nodeNameList, ""]})}
             icon={<PlusCircleIcon />}
-            className="pf-u-mt-sm"
+            className="pf-v5-u-mt-sm"
           >
             Add node
           </Button>
