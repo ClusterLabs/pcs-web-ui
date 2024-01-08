@@ -2,7 +2,7 @@ import React from "react";
 import {Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormGroup, FormText, SelectSimple} from "app/view/share";
+import {FormGroup, FormSelectSimple, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {TransportKnetLinkToggler} from "./TransportKnetLinkToggler";
@@ -10,8 +10,6 @@ import {TransportKnetLinkToggler} from "./TransportKnetLinkToggler";
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 
 const {knetLink} = testMarks.task.clusterSetup.advancedOptions.transportKnet;
-
-const transportId = "transport";
 
 export const TransportKnetLink = ({link}: {link: Link}) => {
   const {
@@ -165,24 +163,24 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           {...knetLink.pong_count.mark}
         />
 
-        <FormGroup
-          fieldId={transportId}
+        <FormSelectSimple
           label="transport"
+          id="transport"
           popover={{
             header: "Transport",
             body: "Which IP transport knet should use.",
             defaultValue: "udp",
           }}
-        >
-          <SelectSimple
-            id={transportId}
-            offeredOptions={["udp", "sctp"]}
-            onSelect={value => updateLink({transport: value})}
-            selected={link.transport}
-            placeholderText="Select transport"
-            {...knetLink.transport.mark}
-          />
-        </FormGroup>
+          onSelect={value =>
+            updateLink({
+              transport: value.toString() as NonNullable<Link["transport"]>,
+            })
+          }
+          placeholderText="Select transport"
+          selected={link.transport}
+          offeredOptions={["udp", "sctp"]}
+          {...knetLink.transport.mark}
+        />
       </TransportKnetLinkToggler>
     </Form>
   );

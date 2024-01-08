@@ -15,4 +15,5 @@ export * from "./FormRadios";
 export * from "./FormSwitch";
 export * from "./FormGroup";
 export * from "./FormSelect";
+export * from "./FormSelectSimple";
 export * from "./FormCustomId";
