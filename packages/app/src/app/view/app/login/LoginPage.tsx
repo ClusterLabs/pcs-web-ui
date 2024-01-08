@@ -4,7 +4,7 @@ import {Alert, LoginPage as PfLoginPage} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {selectors} from "app/store";
-import {BackgroundImage, useDispatch} from "app/view/share";
+import {useDispatch} from "app/view/share";
 
 import {LoginForm} from "./LoginForm";
 
@@ -22,10 +22,12 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <BackgroundImage />
       <PfLoginPage
         loginTitle="Please log in"
         textContent="HA Cluster Management"
+        style={{
+          backgroundColor: "var(--pf-v5-global--BackgroundColor--dark-100)",
+        }}
         {...testMarks.login.mark}
       >
         {failed && <Alert variant="danger" isInline title={failMessage} />}
