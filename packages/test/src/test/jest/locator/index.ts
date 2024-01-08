@@ -103,7 +103,9 @@ export const appConfirm = {
 };
 
 export const taskTitle = (taskMark: Mark) =>
-  locatorFor(taskMark).locator("//*[contains(@class, 'pf-c-wizard__title')]");
+  locatorFor(taskMark).locator(
+    "//*[contains(@class, 'pf-v5-c-wizard__title-text')]",
+  );
 
 export const radioGroup = async (mark: Mark, value: string) => {
   await locatorFor(mark).locator(`//*[text()="${value}"]`).click();
@@ -118,7 +120,7 @@ export const toggle = async (mark: Mark) => {
 
 export const fieldError = (mark: Mark) =>
   locatorFor(mark).locator(
-    'xpath=/following-sibling::*[contains(@class, "pf-m-error")]',
+    'xpath=/parent::*/descendant-or-self::*[contains(@class, "pf-m-error")]',
   );
 
 export * as item from "./item";

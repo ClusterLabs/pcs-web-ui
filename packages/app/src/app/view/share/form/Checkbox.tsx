@@ -7,6 +7,7 @@ export const Checkbox = (props: {
   label?: React.ReactNode;
   id: string;
   "aria-label"?: string;
+  "data-test"?: string;
 }) => {
   const {onChange} = props;
   return (
@@ -16,6 +17,7 @@ export const Checkbox = (props: {
       label={props.label}
       id={props.id}
       aria-label={props["aria-label"]}
+      data-test={props["data-test"]}
     />
   );
 };

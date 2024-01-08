@@ -1,7 +1,7 @@
 import {Flex, FlexItem, Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Checkbox, FormGroup, Select, TaskLibStep} from "app/view/share";
+import {Checkbox, FormGroup, SelectSimple, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -41,11 +41,11 @@ export const Node = () => {
                 isValid={isNodeSettingConsistent}
                 helperTextInvalid="Please select a node"
               >
-                <Select
-                  selections={node}
+                <SelectSimple
+                  id="node-to-ban"
+                  selected={node}
                   placeholderText="Select a node"
-                  isDisabled={!useNode}
-                  optionsValues={nodeNameList}
+                  offeredOptions={nodeNameList}
                   onSelect={value => updateState({node: value.toString()})}
                   {...task.node.nodeList.mark}
                 />
