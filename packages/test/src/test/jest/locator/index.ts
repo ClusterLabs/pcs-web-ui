@@ -83,7 +83,7 @@ const appConfirmTitleIs = async (title: string) =>
   await isVisible(
     marks.task.confirm.locator.locator(
       "xpath=/parent::*//*["
-        + "contains(@class, 'pf-c-modal-box__title-text')"
+        + "contains(@class, 'pf-v5-c-modal-box__title-text')"
         + ` and text()='${title}'`
         + "]",
     ),
