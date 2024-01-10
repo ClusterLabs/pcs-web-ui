@@ -30,7 +30,7 @@ export const Addresses = () => {
         variant="info"
         isInline
         title="Please specify the number of addresses that is compatible with this cluster"
-        style={{marginBottom: "var(--pf-global--spacer--lg)"}}
+        style={{marginBottom: "var(--pf-v5-global--spacer--lg)"}}
       />
       <Form isHorizontal>
         {Object.keys(nodeAddresses).map((addrName, i) => (

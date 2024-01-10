@@ -82,7 +82,7 @@ export const Configure = () => {
             >
               <Button
                 variant="link"
-                className="pf-u-m-0 pf-u-p-0"
+                className="pf-v5-u-m-0 pf-v5-u-p-0"
                 onClick={swapResources}
                 icon={<LongArrowAltDownIcon />}
                 {...task.first.down.mark}
