@@ -35,7 +35,7 @@ const launchTask = async () => {
 const prefillTask = async () => {
   await fill(task.permissionName, name);
   await radioGroup(task.permissionType, type);
-  await toggle(task.read);
+  await click(task.read);
 };
 
 const finishTask = async () => {
@@ -51,7 +51,7 @@ describe("Create permission", () => {
     mockEditPermission(["grant"]);
     await launchTask();
     await prefillTask();
-    await toggle(task.grant);
+    await click(task.grant);
 
     await finishTask();
   });
@@ -60,7 +60,7 @@ describe("Create permission", () => {
     mockEditPermission(["read", "write", "grant", "full"]);
     await launchTask();
     await prefillTask();
-    await toggle(task.full);
+    await click(task.full);
 
     await finishTask();
   });
@@ -69,7 +69,7 @@ describe("Create permission", () => {
     mockEditPermission(["read", "write"]);
     await launchTask();
     await prefillTask();
-    await toggle(task.write);
+    await click(task.write);
 
     await finishTask();
   });
@@ -81,6 +81,6 @@ describe("Create permission", () => {
     await launchTask();
     await prefillTask();
     await click(task.run);
-    await isVisible(fieldError(getToggle(task.full)));
+    await isVisible(fieldError(task.full));
   });
 });

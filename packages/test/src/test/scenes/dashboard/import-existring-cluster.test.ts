@@ -66,7 +66,7 @@ describe("Import existing cluster", () => {
     await fill(nodeName, data.nodeName);
     await click(nodeNameFooter.checkAuthentication);
     await isVisible(auth);
-    await toggle(auth.customAddrSwitch);
+    await click(auth.customAddrSwitch);
     await fill(auth.password, data.password);
     await fill(auth.address, data.addr);
     await fill(auth.port, data.port);

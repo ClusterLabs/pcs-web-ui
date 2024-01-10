@@ -15,15 +15,16 @@ export const Switch = (props: {
 }) => {
   const {onChange} = props;
   return (
-    <PfSwitch
-      aria-label={props["aria-label"]}
-      id={props.id}
-      isChecked={props.isChecked}
-      isDisabled={props.isDisabled}
-      labelOff={props.labelOff}
-      label={props.label}
-      onChange={onChange ? (_event, checked) => onChange(checked) : onChange}
-      data-test={props["data-test"]}
-    />
+    <span data-test={props["data-test"]}>
+      <PfSwitch
+        aria-label={props["aria-label"]}
+        id={props.id}
+        isChecked={props.isChecked}
+        isDisabled={props.isDisabled}
+        labelOff={props.labelOff}
+        label={props.label}
+        onChange={onChange ? (_event, checked) => onChange(checked) : onChange}
+      />
+    </span>
   );
 };
