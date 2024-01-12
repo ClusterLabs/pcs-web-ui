@@ -178,79 +178,80 @@ export const NameTypeTypeSelect = () => {
         </FlexItem>
       )}
       <FlexItem grow={grow}>
-        <Select
-          id="typeahead-select"
-          isOpen={isOpen}
-          selected={agentName}
-          onSelect={(_event, value) => {
-            onSelect(`${value}`);
-            close();
-          }}
-          onOpenChange={close}
-          isScrollable
-          toggle={toggleRef => (
-            <MenuToggle
-              ref={toggleRef}
-              variant="typeahead"
-              onClick={switchOpen}
-              isExpanded={isOpen}
-              isFullWidth
-            >
-              <TextInputGroup isPlain>
-                <TextInputGroupMain
-                  value={inputValue}
-                  onClick={switchOpen}
-                  onChange={onInputValueChange}
-                  onKeyDown={onInputKeyDown}
-                  id={mkId("-input")}
-                  autoComplete="off"
-                  innerRef={textInputRef}
-                  placeholder="Search"
-                  {...(agentName !== "" && {
-                    "aria-activedescendant": optionId(agentName),
-                  })}
-                  role="combobox"
-                  isExpanded={isOpen}
-                  aria-controls={mkId("-listbox")}
-                />
-                <TextInputGroupUtilities>
-                  {!!inputValue && (
-                    <Button
-                      variant="plain"
-                      onClick={() => {
-                        selectAgent("");
-                        setInputValue("");
-                        setSearch("");
-                        textInputRef?.current?.focus();
-                      }}
-                      aria-label="Clear input value"
-                    >
-                      <TimesIcon aria-hidden />
-                    </Button>
-                  )}
-                </TextInputGroupUtilities>
-              </TextInputGroup>
-            </MenuToggle>
-          )}
-          {...testMarks.task.resourceCreate.nameType.agentName.mark}
-        >
-          {Object.keys(filteredResourceAgentMap).map(group => (
-            <SelectGroup label={group} key={group}>
-              {filteredResourceAgentMap[group].map(agentInfo => (
-                /* eslint-disable react/no-array-index-key */
-                <SelectOption
-                  id={optionId(agentInfo.fullAgentName)}
-                  key={agentInfo.fullAgentName}
-                  value={agentInfo.fullAgentName}
-                  isFocused={isFocused(agentInfo.globalIndex)}
-                  ref={null}
-                >
-                  {agentInfo.agentName}
-                </SelectOption>
-              ))}
-            </SelectGroup>
-          ))}
-        </Select>
+        <span {...testMarks.task.resourceCreate.nameType.agentName.mark}>
+          <Select
+            id="typeahead-select"
+            isOpen={isOpen}
+            selected={agentName}
+            onSelect={(_event, value) => {
+              onSelect(`${value}`);
+              close();
+            }}
+            onOpenChange={close}
+            isScrollable
+            toggle={toggleRef => (
+              <MenuToggle
+                ref={toggleRef}
+                variant="typeahead"
+                onClick={switchOpen}
+                isExpanded={isOpen}
+                isFullWidth
+              >
+                <TextInputGroup isPlain>
+                  <TextInputGroupMain
+                    value={inputValue}
+                    onClick={switchOpen}
+                    onChange={onInputValueChange}
+                    onKeyDown={onInputKeyDown}
+                    id={mkId("-input")}
+                    autoComplete="off"
+                    innerRef={textInputRef}
+                    placeholder="Search"
+                    {...(agentName !== "" && {
+                      "aria-activedescendant": optionId(agentName),
+                    })}
+                    role="combobox"
+                    isExpanded={isOpen}
+                    aria-controls={mkId("-listbox")}
+                  />
+                  <TextInputGroupUtilities>
+                    {!!inputValue && (
+                      <Button
+                        variant="plain"
+                        onClick={() => {
+                          selectAgent("");
+                          setInputValue("");
+                          setSearch("");
+                          textInputRef?.current?.focus();
+                        }}
+                        aria-label="Clear input value"
+                      >
+                        <TimesIcon aria-hidden />
+                      </Button>
+                    )}
+                  </TextInputGroupUtilities>
+                </TextInputGroup>
+              </MenuToggle>
+            )}
+          >
+            {Object.keys(filteredResourceAgentMap).map(group => (
+              <SelectGroup label={group} key={group}>
+                {filteredResourceAgentMap[group].map(agentInfo => (
+                  /* eslint-disable react/no-array-index-key */
+                  <SelectOption
+                    id={optionId(agentInfo.fullAgentName)}
+                    key={agentInfo.fullAgentName}
+                    value={agentInfo.fullAgentName}
+                    isFocused={isFocused(agentInfo.globalIndex)}
+                    ref={null}
+                  >
+                    {agentInfo.agentName}
+                  </SelectOption>
+                ))}
+              </SelectGroup>
+            ))}
+          </Select>
+        </span>
       </FlexItem>
     </Flex>
   );
