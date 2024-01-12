@@ -12,6 +12,7 @@ export const SelectSimple = <OPT extends string>(props: {
   onSelect: (value: OPT) => void;
   selected?: OPT;
   placeholderText?: string;
+  isDisabled?: boolean;
   "data-test": string;
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -41,6 +42,7 @@ export const SelectSimple = <OPT extends string>(props: {
             onClick={() => setIsOpen(!isOpen)}
             isExpanded={isOpen}
             style={{width: "200px"}}
+            isDisabled={props.isDisabled}
           >
             {selected}
           </MenuToggle>
