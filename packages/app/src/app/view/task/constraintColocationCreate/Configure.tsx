@@ -1,7 +1,7 @@
 import {Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormRadios, FormSelect, FormText} from "app/view/share";
+import {FormRadios, FormSelectSimple, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -25,7 +25,7 @@ export const Configure = () => {
 
   return (
     <Form>
-      <FormSelect
+      <FormSelectSimple
         id={"constraint-colocation-create-resource"}
         label="Resource"
         placeholderText="Select a resource"
@@ -34,12 +34,12 @@ export const Configure = () => {
         helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({resourceId: value.toString()})}
-        selections={resourceId}
-        optionsValues={resourceIdList.filter(r => r !== withResourceId)}
+        selected={resourceId}
+        offeredOptions={resourceIdList.filter(r => r !== withResourceId)}
         {...task.resource.mark}
       />
 
-      <FormSelect
+      <FormSelectSimple
         id={"constraint-colocation-create-resource"}
         label="With resource"
         placeholderText="Select a resource"
@@ -48,8 +48,8 @@ export const Configure = () => {
         helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({withResourceId: value.toString()})}
-        selections={withResourceId}
-        optionsValues={resourceIdList.filter(r => r !== resourceId)}
+        selected={withResourceId}
+        offeredOptions={resourceIdList.filter(r => r !== resourceId)}
         {...task.withResource.mark}
       />
 
