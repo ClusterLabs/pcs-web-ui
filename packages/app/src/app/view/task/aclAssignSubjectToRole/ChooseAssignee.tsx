@@ -2,7 +2,7 @@ import {Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {tools} from "app/store";
-import {FormSelect} from "app/view/share";
+import {FormSelectSimple} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -22,7 +22,7 @@ export const ChooseAssignee = () => {
 
   return (
     <Form style={{marginBottom: "8em"}}>
-      <FormSelect
+      <FormSelectSimple
         id="acl-assignee-select"
         label={`${tools.labelize(assigneeType)} name`}
         placeholderText={`Please select a ${assigneeType}`}
@@ -31,8 +31,8 @@ export const ChooseAssignee = () => {
         helperTextInvalid={`Please select a ${assigneeType}`}
         isRequired
         onSelect={value => updateAssigneeId(value.toString())}
-        selections={assigneeId}
-        optionsValues={assignableitems.filter(i => i !== assigneeId)}
+        selected={assigneeId}
+        offeredOptions={assignableitems.filter(i => i !== assigneeId)}
         {...testMarks.task.aclAssignSubjectToRole.name.mark}
       />
     </Form>
