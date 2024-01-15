@@ -6,7 +6,7 @@ import {
   FormSelectOrText,
   FormText,
   Radio,
-  Select,
+  SelectSimple,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -17,9 +17,7 @@ export const Configure = () => {
   const {
     updateState,
     isScoreValid,
-    isResourceValid,
     isPatternValid,
-    isNodeValid,
     isRuleValid,
     state: {
       resourceIdList,
@@ -54,13 +52,11 @@ export const Configure = () => {
           }
           selectLabel="Select a resource"
           select={
-            <Select
+            <SelectSimple
+              id="select-resource"
               placeholderText="Select a resource"
-              validated={
-                showValidationErrors && !isResourceValid ? "error" : "default"
-              }
-              selections={resourceId}
-              optionsValues={resourceIdList}
+              selected={resourceId}
+              offeredOptions={resourceIdList}
               onSelect={value => updateState({resourceId: value.toString()})}
               {...task.target.resource.mark}
             />
@@ -95,13 +91,11 @@ export const Configure = () => {
           }
           selectLabel="Select a node"
           select={
-            <Select
+            <SelectSimple
+              id="selectNode"
               placeholderText="Select a node"
-              validated={
-                showValidationErrors && !isNodeValid ? "error" : "default"
-              }
-              selections={nodeName}
-              optionsValues={nodeNameList}
+              selected={nodeName}
+              offeredOptions={nodeNameList}
               onSelect={value => updateState({nodeName: value.toString()})}
               {...task.location.node.mark}
             />
