@@ -14,7 +14,7 @@ import {
 } from "@patternfly/react-icons";
 
 import {testMarks} from "app/view/dataTest";
-import {FormRadios, FormSelect, FormText} from "app/view/share";
+import {FormRadios, FormSelectSimple, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -46,7 +46,7 @@ export const Configure = () => {
               dataListCells={[
                 <DataListCell key="all">
                   <Form {...task.first.mark}>
-                    <FormSelect
+                    <FormSelectSimple
                       id="constraint-order-create-first-resource"
                       label="First resource"
                       placeholderText="Select a resource"
@@ -57,8 +57,8 @@ export const Configure = () => {
                       onSelect={value =>
                         updateState({firstResourceId: value.toString()})
                       }
-                      selections={firstResourceId}
-                      optionsValues={resourceIdList.filter(
+                      selected={firstResourceId}
+                      offeredOptions={resourceIdList.filter(
                         r => r !== thenResourceId,
                       )}
                       {...task.first.resource.mark}
@@ -97,7 +97,7 @@ export const Configure = () => {
               dataListCells={[
                 <DataListCell key="all">
                   <Form {...task.then.mark}>
-                    <FormSelect
+                    <FormSelectSimple
                       id="constraint-order-create-then-resource"
                       label="Then resource"
                       placeholderText="Select a resource"
@@ -108,8 +108,8 @@ export const Configure = () => {
                       onSelect={value =>
                         updateState({thenResourceId: value.toString()})
                       }
-                      selections={thenResourceId}
-                      optionsValues={resourceIdList.filter(
+                      selected={thenResourceId}
+                      offeredOptions={resourceIdList.filter(
                         r => r !== firstResourceId,
                       )}
                       {...task.then.resource.mark}
