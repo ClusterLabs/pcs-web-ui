@@ -1,7 +1,12 @@
 import {Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormCustomId, FormRadios, FormSelect, FormText} from "app/view/share";
+import {
+  FormCustomId,
+  FormRadios,
+  FormSelectSimple,
+  FormText,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -96,7 +101,7 @@ export const Configure = () => {
         {...task.lossPolicy.mark}
       />
 
-      <FormSelect
+      <FormSelectSimple
         id={"constraint-ticket-create-resource"}
         label="Resource"
         placeholderText="Select a resource"
@@ -105,8 +110,8 @@ export const Configure = () => {
         helperTextInvalid="Please select a resource"
         isRequired
         onSelect={value => updateState({resourceId: value.toString()})}
-        selections={resourceId}
-        optionsValues={resourceIdList}
+        selected={resourceId}
+        offeredOptions={resourceIdList}
         {...task.resource.mark}
       />
 
