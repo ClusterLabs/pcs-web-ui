@@ -1,6 +1,7 @@
 import React from "react";
 import {ActionGroup, Button, Form} from "@patternfly/react-core";
 
+import {testMarks} from "app/view/dataTest";
 import {useDispatch} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
@@ -24,17 +25,21 @@ export const PropertiesForm = ({
   return (
     <Form isHorizontal style={{maxWidth: "550px"}}>
       {clusterPropertiesDefinition.map(property => (
-        <PropertyFormField
+        <span
           key={property.name}
-          property={property}
-          userProperty={userProperties[property.name]}
-          modifyProperty={(name, value) =>
-            setUserProperties({...userProperties, [name]: value})
-          }
-          {...(property.name in currentClusterProperties
-            ? {currentValue: currentClusterProperties[property.name]}
-            : {})}
-        />
+          {...testMarks.cluster.properties.property.mark}
+        >
+          <PropertyFormField
+            property={property}
+            userProperty={userProperties[property.name]}
+            modifyProperty={(name, value) =>
+              setUserProperties({...userProperties, [name]: value})
+            }
+            {...(property.name in currentClusterProperties
+              ? {currentValue: currentClusterProperties[property.name]}
+              : {})}
+          />
+        </span>
       ))}
       <ActionGroup>
         <Button
