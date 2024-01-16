@@ -1,3 +1,5 @@
+import {Td, Thead, Tr} from "@patternfly/react-table";
+
 import {testMarks} from "app/view/dataTest";
 import {AttributeHelpPopover, EmptyStateNoItem, Table} from "app/view/share";
 
@@ -18,8 +20,8 @@ export const PermissionsTable = () => {
 
   return (
     <Table {...testMarks.cluster.permissions.mark}>
-      <thead>
-        <tr>
+      <Thead>
+        <Tr>
           <th data-label="Name">Name</th>
           <th data-label="Type">Type</th>
           <th data-label="Read">
@@ -55,18 +57,18 @@ export const PermissionsTable = () => {
             />
           </th>
           <th data-label="Menu"> </th>
-        </tr>
-      </thead>
+        </Tr>
+      </Thead>
 
       <Table.Body>
         {permissionList.map((permission, i) => (
-          <tr key={i} {...permissionMark.mark}>
-            <td data-label="Name" {...permissionMark.name.mark}>
+          <Tr key={i} {...permissionMark.mark}>
+            <Td data-label="Name" {...permissionMark.name.mark}>
               {permission.name}
-            </td>
-            <td data-label="Type" {...permissionMark.type.mark}>
+            </Td>
+            <Td data-label="Type" {...permissionMark.type.mark}>
               {permission.type}
-            </td>
+            </Td>
 
             <PermissionCompetenceCell
               permission={permission}
@@ -92,13 +94,13 @@ export const PermissionsTable = () => {
               {...permissionMark.full.mark}
             />
 
-            <td data-label="Menu">
+            <Td data-label="Menu">
               <PermissionMenu
                 permission={permission}
                 permissionList={permissionList}
               />
-            </td>
-          </tr>
+            </Td>
+          </Tr>
         ))}
       </Table.Body>
     </Table>
