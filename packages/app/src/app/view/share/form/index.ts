@@ -1,7 +1,6 @@
 export * from "./Checkbox";
 export * from "./DualListSelector";
 export * from "./Radio";
-export * from "./Select";
 export * from "./SelectSimple";
 export * from "./SelectMultipleTypeaheadChips";
 export * from "./SelectCheckboxes";
@@ -15,6 +14,5 @@ export * from "./FormRadioGroup";
 export * from "./FormRadios";
 export * from "./FormSwitch";
 export * from "./FormGroup";
-export * from "./FormSelect";
 export * from "./FormSelectSimple";
 export * from "./FormCustomId";
