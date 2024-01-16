@@ -5,6 +5,7 @@ import {
   MastheadContent,
   MastheadMain,
   Toolbar,
+  ToolbarContent,
   ToolbarGroup,
   ToolbarItem,
 } from "@patternfly/react-core";
@@ -28,16 +29,18 @@ export const Header = () => {
         >
           HA Cluster Management
         </MastheadBrand>
-        <MastheadContent>
-          <Toolbar>
-            <ToolbarGroup>
+      </MastheadMain>
+      <MastheadContent>
+        <Toolbar isFullHeight isStatic>
+          <ToolbarContent>
+            <ToolbarGroup align={{default: "alignRight"}}>
               <ToolbarItem>
                 <UserMenu />
               </ToolbarItem>
             </ToolbarGroup>
-          </Toolbar>
-        </MastheadContent>
-      </MastheadMain>
+          </ToolbarContent>
+        </Toolbar>
+      </MastheadContent>
     </Masthead>
   );
 };
