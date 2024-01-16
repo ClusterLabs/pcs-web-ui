@@ -1,7 +1,7 @@
 import React from "react";
 
-import {FormRadios, FormSelect, FormText} from "app/view/share";
 import {testMarks} from "app/view/dataTest";
+import {FormRadios, FormSelectSimple, FormText} from "app/view/share";
 
 import {ClusterProperties} from "./useClusterProperties";
 
@@ -54,12 +54,12 @@ export const PropertyFormField = ({
       );
     }
     return (
-      <FormSelect
+      <FormSelectSimple
         id={id}
         label={label}
         onSelect={modifyPropertyWithDefault}
-        selections={value}
-        optionsValues={["DEFAULT", ...property.enum]}
+        selected={value}
+        offeredOptions={["DEFAULT", ...property.enum]}
         popover={popover}
         {...propertyMark.value.mark}
       />
