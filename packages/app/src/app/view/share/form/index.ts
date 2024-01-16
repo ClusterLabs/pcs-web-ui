@@ -5,6 +5,7 @@ export * from "./Select";
 export * from "./SelectSimple";
 export * from "./SelectMultipleTypeaheadChips";
 export * from "./SelectCheckboxes";
+export * from "./SelectTypeahead";
 export * from "./useSelectControll";
 export * from "./Switch";
 export * from "./TextInput";
