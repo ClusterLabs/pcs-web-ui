@@ -6,7 +6,7 @@ import {
   FormGroup,
   FormSelectOrText,
   FormText,
-  Select,
+  SelectSimple,
 } from "app/view/share";
 
 import {useTask} from "./useTask";
@@ -58,10 +58,11 @@ export const SettingsGroup = () => {
               }
               selectLabel="Select existing group"
               select={
-                <Select
-                  selections={groupIdList.includes(group) ? group : ""}
+                <SelectSimple
+                  id="select-existing-group"
+                  selected={groupIdList.includes(group) ? group : ""}
                   isDisabled={!useGroup}
-                  optionsValues={groupIdList}
+                  offeredOptions={groupIdList}
                   onSelect={value => updateState({group: value.toString()})}
                   {...settings.existingGroup.mark}
                 />
