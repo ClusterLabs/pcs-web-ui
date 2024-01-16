@@ -28,12 +28,10 @@ export const SelectSimple = <OPT extends string>(props: {
         selected={selected}
         onSelect={(_event, value) => {
           if ((props.offeredOptions as (typeof value)[]).includes(value)) {
-            console.log("CALL onSelect");
             props.onSelect(value as OPT);
             setSelected(value as string);
             setIsOpen(false);
           }
-          console.groupEnd();
         }}
         onOpenChange={isOpen => setIsOpen(isOpen)}
         toggle={toggleRef => (
