@@ -1,13 +1,9 @@
 import React from "react";
-import {
-  FormHelperText,
-  HelperText,
-  HelperTextItem,
-  FormGroup as PfFormGroup,
-} from "@patternfly/react-core";
-import {ExclamationCircleIcon} from "@patternfly/react-icons";
+import {FormGroup as PfFormGroup} from "@patternfly/react-core";
 
 import {AttributeHelpPopover} from "app/view/share/attributes";
+
+import {FormError} from "./FormError";
 
 type FormGroupProps = React.ComponentProps<typeof PfFormGroup>;
 export const FormGroup = ({
@@ -56,18 +52,7 @@ export const FormGroup = ({
       {...labelIcon}
     >
       {children}
-      {validated === "error" && (
-        <FormHelperText>
-          <HelperText>
-            <HelperTextItem
-              icon={<ExclamationCircleIcon />}
-              variant={validated}
-            >
-              {helperTextInvalid}
-            </HelperTextItem>
-          </HelperText>
-        </FormHelperText>
-      )}
+      {validated === "error" && <FormError errorText={helperTextInvalid} />}
     </PfFormGroup>
   );
 };

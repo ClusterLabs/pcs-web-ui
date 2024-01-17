@@ -17,7 +17,9 @@ export const SelectSimple = <OPT extends string>(props: {
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(
-    props.selected ?? props.placeholderText ?? "Select a value",
+    props.selected && props.selected.length > 0
+      ? props.selected
+      : props.placeholderText ?? "Select a value",
   );
 
   return (

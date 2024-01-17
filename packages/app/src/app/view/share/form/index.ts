@@ -8,6 +8,7 @@ export * from "./SelectTypeahead";
 export * from "./useSelectControll";
 export * from "./Switch";
 export * from "./TextInput";
+export * from "./FormError";
 export * from "./FormText";
 export * from "./FormSelectOrText";
 export * from "./FormRadioGroup";

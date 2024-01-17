@@ -2,6 +2,7 @@ import {Flex, FlexItem, Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {
+  FormError,
   FormGroup,
   FormSelectOrText,
   FormText,
@@ -17,6 +18,7 @@ export const Configure = () => {
   const {
     updateState,
     isScoreValid,
+    isResourceValid,
     isPatternValid,
     isRuleValid,
     state: {
@@ -52,14 +54,19 @@ export const Configure = () => {
           }
           selectLabel="Select a resource"
           select={
-            <SelectSimple
-              id="select-resource"
-              placeholderText="Select a resource"
-              selected={resourceId}
-              offeredOptions={resourceIdList}
-              onSelect={value => updateState({resourceId: value.toString()})}
-              {...task.target.resource.mark}
-            />
+            <>
+              <SelectSimple
+                id="select-resource"
+                placeholderText="Select a resource"
+                selected={resourceId}
+                offeredOptions={resourceIdList}
+                onSelect={value => updateState({resourceId: value.toString()})}
+                {...task.target.resource.mark}
+              />
+              {showValidationErrors && !isResourceValid && (
+                <FormError errorText="Please, select a resource" />
+              )}
+            </>
           }
           textLabel="Type resource pattern"
           text={
@@ -91,14 +98,19 @@ export const Configure = () => {
           }
           selectLabel="Select a node"
           select={
-            <SelectSimple
-              id="selectNode"
-              placeholderText="Select a node"
-              selected={nodeName}
-              offeredOptions={nodeNameList}
-              onSelect={value => updateState({nodeName: value.toString()})}
-              {...task.location.node.mark}
-            />
+            <>
+              <SelectSimple
+                id="selectNode"
+                placeholderText="Select a node"
+                selected={nodeName}
+                offeredOptions={nodeNameList}
+                onSelect={value => updateState({nodeName: value.toString()})}
+                {...task.location.node.mark}
+              />
+              {showValidationErrors && !isResourceValid && (
+                <FormError errorText="Please, select a node" />
+              )}
+            </>
           }
           textLabel="Type a rule"
           text={
