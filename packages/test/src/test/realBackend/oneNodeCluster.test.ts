@@ -54,7 +54,7 @@ describe("Web ui on one node cluster", () => {
 
       await isVisible(
         marks.dashboard.clusterList.cluster.status.locator.locator(
-          'xpath=/*[text() = "inoperative" or text() = "running"]',
+          'xpath=//*[text() = "inoperative" or text() = "running"]',
         ),
       );
 
