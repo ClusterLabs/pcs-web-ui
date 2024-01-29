@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  ActionGroup,
-  Button,
-  Form,
-  FormGroup,
-  TextInput,
-} from "@patternfly/react-core";
+import {ActionGroup, Button, Form} from "@patternfly/react-core";
 
+import {FormGroup, TextInput} from "app/view/share";
 import {testMarks} from "app/view/dataTest";
 
 type TextInputProps = React.ComponentProps<typeof TextInput>;

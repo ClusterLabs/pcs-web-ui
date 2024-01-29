@@ -3,14 +3,16 @@ import {FormGroup as PfFormGroup} from "@patternfly/react-core";
 
 import {AttributeHelpPopover} from "app/view/share/attributes";
 
+import {FormError} from "./FormError";
+
 type FormGroupProps = React.ComponentProps<typeof PfFormGroup>;
 export const FormGroup = ({
   fieldId,
   label,
   children,
-  helperText,
   isRequired,
   helperTextInvalid,
+  isInline,
   isValid = true,
   showValidationErrors = false,
   popover,
@@ -18,10 +20,10 @@ export const FormGroup = ({
 }: {
   fieldId: FormGroupProps["fieldId"];
   label?: FormGroupProps["label"];
-  helperText?: FormGroupProps["helperText"];
   isRequired?: FormGroupProps["isRequired"];
-  helperTextInvalid?: FormGroupProps["helperTextInvalid"];
-  validated?: FormGroupProps["validated"];
+  helperTextInvalid?: React.ReactNode;
+  validated?: "default" | "error";
+  isInline?: FormGroupProps["isInline"];
   isValid?: boolean;
   showValidationErrors?: boolean;
   popover?: React.ComponentProps<typeof AttributeHelpPopover>;
@@ -43,15 +45,14 @@ export const FormGroup = ({
   return (
     <PfFormGroup
       fieldId={fieldId}
-      helperText={helperText}
       label={label}
       isRequired={isRequired}
-      helperTextInvalid={helperTextInvalid}
-      validated={validated}
       className={className}
+      isInline={isInline}
       {...labelIcon}
     >
       {children}
+      {validated === "error" && <FormError errorText={helperTextInvalid} />}
     </PfFormGroup>
   );
 };

@@ -1,7 +1,13 @@
-import {Checkbox, Flex, FlexItem, FormGroup} from "@patternfly/react-core";
+import {Flex, FlexItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormSelectOrText, FormText, Select} from "app/view/share";
+import {
+  Checkbox,
+  FormGroup,
+  FormSelectOrText,
+  FormText,
+  SelectSimple,
+} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -52,10 +58,11 @@ export const SettingsGroup = () => {
               }
               selectLabel="Select existing group"
               select={
-                <Select
-                  selections={groupIdList.includes(group) ? group : ""}
+                <SelectSimple
+                  id="select-existing-group"
+                  selected={groupIdList.includes(group) ? group : ""}
                   isDisabled={!useGroup}
-                  optionsValues={groupIdList}
+                  offeredOptions={groupIdList}
                   onSelect={value => updateState({group: value.toString()})}
                   {...settings.existingGroup.mark}
                 />

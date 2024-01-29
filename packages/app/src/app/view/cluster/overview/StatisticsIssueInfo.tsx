@@ -19,9 +19,9 @@ export const StatisticsIssueInfo = <ITEM extends string | string[]>({
   }
 
   return (
-    <div className="pf-u-my-xs">
+    <div className="pf-v5-u-my-xs">
       <Label icon={iconComponent} color={color}>
-        <strong className="pf-u-mr-xs">{itemList.length}</strong>
+        <strong className="pf-v5-u-mr-xs">{itemList.length}</strong>
         {issueName}
       </Label>{" "}
       {itemList.length < 4 && (

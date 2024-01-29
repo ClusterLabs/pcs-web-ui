@@ -1,16 +1,19 @@
+import {Thead, Tr} from "@patternfly/react-table";
+
 import {Table, compareStatusSeverity} from "app/view/share";
 import {testMarks} from "app/view/dataTest";
 
 import {Cluster, ClusterInfo} from "./types";
 import {compareStrings} from "./utils";
 
-type COLUMNS =
-  | "NAME"
-  | "ISSUES"
-  | "NODES"
-  | "RESOURCES"
-  | "FENCE_DEVICES"
-  | "ACTIONS";
+const columnList = [
+  "NAME",
+  "ISSUES",
+  "NODES",
+  "RESOURCES",
+  "FENCE_DEVICES",
+  "ACTIONS",
+];
 
 const compareByState =
   (compare: (_clusterA: Cluster, _clusterB: Cluster) => number) =>
@@ -28,7 +31,7 @@ const compareByState =
   };
 
 const compareByColumn = (
-  column: COLUMNS | "",
+  column: (typeof columnList)[number],
 ): ((_a: ClusterInfo, _b: ClusterInfo) => number) => {
   switch (column) {
     case "ISSUES":
@@ -74,15 +77,11 @@ export const DashboardClusterListSorting = ({
   clusterInfoList: ClusterInfo[];
   children: (_clusterInfoList: ClusterInfo[]) => React.ReactNode;
 }) => {
-  const {sortState, compareItems} = SortableTh.useSorting<COLUMNS>("NAME");
+  const {sortState, compareItems} = SortableTh.useSorting(columnList);
   return (
-    <Table
-      isExpandable
-      aria-label="Cluster list"
-      {...testMarks.dashboard.clusterList.mark}
-    >
-      <thead>
-        <tr>
+    <Table aria-label="Cluster list" {...testMarks.dashboard.clusterList.mark}>
+      <Thead>
+        <Tr>
           <SortableTh columnName="NAME" sortState={sortState} data-label="name">
             Clusters
           </SortableTh>
@@ -119,8 +118,8 @@ export const DashboardClusterListSorting = ({
             Fence devices
           </SortableTh>
           <th data-label=""></th>
-        </tr>
-      </thead>
+        </Tr>
+      </Thead>
       {children(clusterInfoList.sort(compareItems(compareByColumn)))}
     </Table>
   );

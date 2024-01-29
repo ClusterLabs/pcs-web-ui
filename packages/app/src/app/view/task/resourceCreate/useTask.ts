@@ -11,6 +11,13 @@ export const useTask = () => {
   const agentInfo = useSelector(
     selectors.getAgentInfo(clusterName, state.agentName),
   );
+  const updateState = (payload: ActionPayload["RESOURCE.CREATE.UPDATE"]) => {
+    dispatch({
+      type: "RESOURCE.CREATE.UPDATE",
+      key: {clusterName},
+      payload,
+    });
+  };
 
   return {
     ...task,
@@ -47,12 +54,15 @@ export const useTask = () => {
       });
     },
 
-    updateState: (payload: ActionPayload["RESOURCE.CREATE.UPDATE"]) => {
+    updateState,
+
+    selectAgent: (value: string) => {
       dispatch({
-        type: "RESOURCE.CREATE.UPDATE",
+        type: "RESOURCE_AGENT.ENSURE",
         key: {clusterName},
-        payload,
+        payload: {agentName: value},
       });
+      updateState({agentName: value});
     },
 
     create: ({force}: {force: boolean}) => {

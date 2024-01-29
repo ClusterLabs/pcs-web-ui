@@ -1,43 +1,38 @@
 import React from "react";
 
 import {FormGroup} from "./FormGroup";
-import {Select} from "./Select";
+import {SelectSimple} from "./SelectSimple";
 
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
-type SelectProps = React.ComponentProps<typeof Select>;
 
-export const FormSelect = (props: {
-  id: FormGroupProps["fieldId"];
+export const FormSelectSimple = <OPT extends string>(props: {
+  id: string;
   label: FormGroupProps["label"];
-  onSelect: (_value: string) => void;
-  selections: SelectProps["selections"];
+  offeredOptions: OPT[];
+  onSelect: (value: OPT) => void;
+  "data-test": string;
+  selected?: OPT;
   popover?: FormGroupProps["popover"];
   className?: FormGroupProps["className"];
   isRequired?: FormGroupProps["isRequired"];
-  isDisabled?: boolean;
   placeholderText?: string;
-  helperText?: FormGroupProps["helperText"];
   helperTextInvalid?: React.ReactNode;
   isValid?: boolean;
   showValidationErrors?: boolean;
-  optionsValues: string[];
-  "data-test"?: string;
 }) => {
   const {
     id,
     label,
     onSelect,
-    selections,
+    offeredOptions,
     className = "",
     isRequired = false,
-    isDisabled = false,
     isValid = true,
     showValidationErrors = false,
     "data-test": dataTest,
     placeholderText = undefined,
     popover = undefined,
     helperTextInvalid = null,
-    helperText = undefined,
   } = props;
   return (
     <FormGroup
@@ -49,16 +44,13 @@ export const FormSelect = (props: {
       helperTextInvalid={helperTextInvalid}
       isValid={isValid}
       showValidationErrors={showValidationErrors}
-      helperText={helperText}
     >
-      <Select
+      <SelectSimple
         id={id}
-        variant="single"
+        offeredOptions={offeredOptions}
         placeholderText={placeholderText ?? ""}
         onSelect={onSelect}
-        selections={selections}
-        isDisabled={isDisabled}
-        optionsValues={props.optionsValues}
+        selected={props.selected}
         data-test={dataTest}
       />
     </FormGroup>

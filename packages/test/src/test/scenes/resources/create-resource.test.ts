@@ -33,7 +33,7 @@ describe("Create resource task", () => {
     });
   });
 
-  it("should successfully create new fence device", async () => {
+  it("should successfully create new resource", async () => {
     await goToResources();
     await click(marks.cluster.resourcesToolbar.createResource);
     await fill(task.nameType.name, resourceId);

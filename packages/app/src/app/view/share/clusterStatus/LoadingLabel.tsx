@@ -17,7 +17,7 @@ export const LoadingLabel = (props: {
       variant={props.variant ?? "outline"}
       color="blue"
       isCompact
-      className="pf-u-ml-xs"
+      className="pf-v5-u-ml-xs"
       icon={props.icon}
       onClick={props.onClick}
       onMouseEnter={props.onMouseEnter}

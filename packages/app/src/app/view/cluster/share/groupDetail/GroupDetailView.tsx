@@ -17,7 +17,7 @@ export const GroupDetailView = (props: {
   if (matchingDetail) {
     return (
       <div
-        className="pf-l-flex pf-u-align-items-flex-start pf-u-h-100"
+        className="pf-v5-l-flex pf-v5-u-align-items-flex-start pf-v5-u-h-100"
         data-test={props["data-test"]}
       >
         <GroupDetailViewContextProvider
@@ -29,7 +29,7 @@ export const GroupDetailView = (props: {
           }}
         >
           <div className="ha-c-panel__tree-view">{props.groupCard}</div>
-          <div className="pf-c-card pf-m-flex-1 ha-c-panel__details-view">
+          <div className="pf-v5-c-card pf-v5-m-flex-1 ha-c-panel__details-view">
             <Router base={matchingDetail.matched}>{props.detailCard}</Router>
           </div>
         </GroupDetailViewContextProvider>

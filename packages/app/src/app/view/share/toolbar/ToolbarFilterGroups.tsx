@@ -1,13 +1,11 @@
 import React from "react";
 import {
-  Select,
-  SelectOption,
-  SelectOptionObject,
-  SelectVariant,
   ToolbarChip,
   ToolbarChipGroup,
   ToolbarFilter,
 } from "@patternfly/react-core";
+
+import {SelectCheckboxes} from "app/view/share/form";
 
 function unselectAllOptions<T extends Record<string, boolean>>(options: T): T {
   return Object.keys(options).reduce<T>(
@@ -56,17 +54,13 @@ export const ToolbarFilterGroups = ({
   name: string;
   filterState: ReturnType<typeof useState>;
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
   const [options, setSelected] = filterState;
 
   const select = React.useCallback(
-    (
-      _event: React.MouseEvent | React.ChangeEvent,
-      value: string | SelectOptionObject,
-    ) =>
+    (value: string) =>
       setSelected({
         ...options,
-        [value.toString()]: !options[value.toString() as keyof typeof options],
+        [value]: !options[value as keyof typeof options],
       }),
     [options, setSelected],
   );
@@ -92,19 +86,12 @@ export const ToolbarFilterGroups = ({
       deleteChipGroup={unselectAll}
       categoryName={name}
     >
-      <Select
-        variant={SelectVariant.checkbox}
-        aria-label={name}
-        onToggle={() => setIsOpen(!isOpen)}
+      <SelectCheckboxes
+        insideLabel={name}
         onSelect={select}
-        selections={groupList.filter(group => options[group])}
-        isOpen={isOpen}
-        placeholderText={name}
-      >
-        {Object.keys(options).map(o => (
-          <SelectOption key={o} value={o} />
-        ))}
-      </Select>
+        selected={groupList.filter(group => options[group])}
+        offeredOptions={Object.keys(options)}
+      />
     </ToolbarFilter>
   );
 };

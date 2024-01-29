@@ -10,7 +10,7 @@ import * as palette from "app/view/share/palette";
 
 export const IssueListEmpty = () => {
   return (
-    <EmptyState variant="small" style={{margin: "auto"}}>
+    <EmptyState variant="sm" style={{margin: "auto"}}>
       <EmptyStateIcon icon={CheckCircleIcon} color={palette.SUCCESS} />
       <Title size="lg" headingLevel="h3">
         No issues

@@ -1,4 +1,5 @@
-import {Button, WizardContextConsumer} from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
+import {WizardContextConsumer} from "@patternfly/react-core/deprecated";
 
 import {useDispatch} from "app/view/share/useDispatch";
 

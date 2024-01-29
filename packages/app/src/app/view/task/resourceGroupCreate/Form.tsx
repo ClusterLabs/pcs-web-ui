@@ -1,7 +1,7 @@
 import React from "react";
-import {DualListSelector, Form as PfForm} from "@patternfly/react-core";
+import {Form as PfForm} from "@patternfly/react-core";
 
-import {FormText, TaskLibReportList} from "app/view/share";
+import {DualListSelector, FormText, TaskLibReportList} from "app/view/share";
 
 import {useTask} from "./useTask";
 

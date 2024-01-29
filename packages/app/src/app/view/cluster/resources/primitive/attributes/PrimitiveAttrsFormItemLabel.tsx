@@ -9,7 +9,7 @@ export const PrimitiveAttrsFormItemLabel = ({
 }) => {
   return (
     <>
-      <label className="pf-c-radio__label" htmlFor={htmlFor}>
+      <label className="pf-v5-c-radio__label" htmlFor={htmlFor}>
         {remoteValue.length > 0
           ? "Use the new value"
           : "Keep the value removed"}

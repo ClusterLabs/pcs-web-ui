@@ -1,5 +1,7 @@
 import React from "react";
-import {Radio, Stack, StackItem} from "@patternfly/react-core";
+import {Stack, StackItem} from "@patternfly/react-core";
+
+import {Radio} from "./Radio";
 
 type Checks = "select" | "text";
 export const FormSelectOrText = (props: {

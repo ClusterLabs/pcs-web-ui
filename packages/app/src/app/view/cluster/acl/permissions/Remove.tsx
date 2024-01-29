@@ -11,7 +11,7 @@ export const Remove = (props: {
   return (
     <Button
       variant="link"
-      className="pf-u-m-0 pf-u-p-0"
+      className="pf-v5-u-m-0 pf-v5-u-p-0"
       onClick={() =>
         props.updatePermissions(permissions =>
           permissions.filter((_, i) => i !== props.index),

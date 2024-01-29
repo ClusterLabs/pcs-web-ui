@@ -83,7 +83,7 @@ const appConfirmTitleIs = async (title: string) =>
   await isVisible(
     marks.task.confirm.locator.locator(
       "xpath=/parent::*//*["
-        + "contains(@class, 'pf-c-modal-box__title-text')"
+        + "contains(@class, 'pf-v5-c-modal-box__title-text')"
         + ` and text()='${title}'`
         + "]",
     ),
@@ -103,22 +103,20 @@ export const appConfirm = {
 };
 
 export const taskTitle = (taskMark: Mark) =>
-  locatorFor(taskMark).locator("//*[contains(@class, 'pf-c-wizard__title')]");
+  locatorFor(taskMark).locator(
+    "//*[contains(@class, 'pf-v5-c-wizard__title-text')]",
+  );
 
 export const radioGroup = async (mark: Mark, value: string) => {
   await locatorFor(mark).locator(`//*[text()="${value}"]`).click();
 };
 
-export const getToggle = (mark: Mark) =>
-  locatorFor(mark).locator("xpath=/parent::*");
-
-export const toggle = async (mark: Mark) => {
-  await getToggle(mark).click();
-};
-
 export const fieldError = (mark: Mark) =>
   locatorFor(mark).locator(
-    'xpath=/following-sibling::*[contains(@class, "pf-m-error")]',
+    "xpath=/parent::*/descendant-or-self::*["
+      + 'contains(@class, "pf-v5-m-error")'
+      + ' or contains(@class, "pf-m-error")'
+      + "]",
   );
 
 export * as item from "./item";

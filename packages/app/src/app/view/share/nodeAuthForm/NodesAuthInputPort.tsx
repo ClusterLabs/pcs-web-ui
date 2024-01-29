@@ -1,4 +1,4 @@
-import {TextInput} from "@patternfly/react-core";
+import {TextInput} from "app/view/share/form";
 
 import {useNodesAuthProcesContext} from "./NodesAuthProcessContext";
 import {useNodesAuth} from "./useNodesAuth";

@@ -1,4 +1,4 @@
-import React from "react";
+import {Th, Thead, Tr} from "@patternfly/react-table";
 
 import {Table} from "app/view/share";
 import {NodeServiceMap} from "app/view/cluster/types";
@@ -8,14 +8,14 @@ import {NodeDaemonTr} from "./NodeDaemonTr";
 export const NodeDaemonTable = ({services}: {services: NodeServiceMap}) => {
   return (
     <Table>
-      <thead>
-        <tr>
-          <th data-label="Daemon">Daemon</th>
-          <th data-label="Installed">Installed</th>
-          <th data-label="Enabled">Enabled</th>
-          <th data-label="Running">Running</th>
-        </tr>
-      </thead>
+      <Thead>
+        <Tr>
+          <Th data-label="Daemon">Daemon</Th>
+          <Th data-label="Installed">Installed</Th>
+          <Th data-label="Enabled">Enabled</Th>
+          <Th data-label="Running">Running</Th>
+        </Tr>
+      </Thead>
       <Table.Body>
         <NodeDaemonTr serviceName="corosync" service={services.corosync} />
         {services.pacemaker_remote.installed && (

@@ -5,7 +5,6 @@ import {useSelector} from "react-redux";
 import {selectors} from "app/store";
 
 import * as Notification from "./notification";
-import {BackgroundImage} from "./BackgroundImage";
 import {Header} from "./Header";
 
 const {showMasthead} = pcsUiEnvAdapter;
@@ -26,7 +25,6 @@ export const Page = ({
 
   return (
     <>
-      <BackgroundImage />
       <PfPage
         header={showMasthead && <Header />}
         notificationDrawer={

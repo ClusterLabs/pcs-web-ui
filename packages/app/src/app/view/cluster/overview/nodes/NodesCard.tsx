@@ -28,7 +28,7 @@ export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
   if (nodeList.every(n => n.status === "ONLINE" && n.quorum)) {
     return (
       <>
-        <div className="pf-u-mb-md">
+        <div className="pf-v5-u-mb-md">
           There are <strong>{nodeList.length}</strong> {nodeListLink} in the
           cluster.
         </div>
@@ -73,7 +73,7 @@ export const NodesCard = ({nodeList}: {nodeList: Node[]}) => {
 
   return (
     <>
-      <div className="pf-u-mb-md">
+      <div className="pf-v5-u-mb-md">
         There are <strong>{nodeList.length}</strong> {nodeListLink} in the
         cluster.
       </div>

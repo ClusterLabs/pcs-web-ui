@@ -1,7 +1,7 @@
 import React from "react";
-import {Switch} from "@patternfly/react-core";
 
 import {FormGroup} from "./FormGroup";
+import {Switch} from "./Switch";
 
 type FormGroupProps = React.ComponentProps<typeof FormGroup>;
 type SwitchProps = React.ComponentProps<typeof Switch>;
@@ -24,7 +24,7 @@ export const FormSwitch = ({
   label: FormGroupProps["label"];
   isDisabled?: SwitchProps["isDisabled"];
   isChecked: SwitchProps["isChecked"];
-  onChange: SwitchProps["onChange"];
+  onChange: (checked: boolean) => void;
   switchLabel?: SwitchProps["label"];
   switchLabelOff?: SwitchProps["labelOff"];
   helperTextInvalid?: React.ReactNode;

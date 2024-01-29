@@ -41,7 +41,7 @@ export const Configure = () => {
           {...task.permissionType.mark}
         />
       </Form>
-      <Form isHorizontal className="pf-u-mt-md">
+      <Form isHorizontal className="pf-v5-u-mt-md">
         <FormSwitch
           id="allow-read"
           label="Read"

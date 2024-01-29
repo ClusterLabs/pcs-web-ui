@@ -1,4 +1,8 @@
-import {Dropdown, DropdownItem, DropdownToggle} from "@patternfly/react-core";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownToggle,
+} from "@patternfly/react-core/deprecated";
 import React from "react";
 
 import {testMarks} from "app/view/dataTest";

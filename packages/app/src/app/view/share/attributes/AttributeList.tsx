@@ -18,7 +18,7 @@ export function AttributeList<T>({
     );
   }
   return (
-    <div className="pf-c-content">
+    <div className="pf-v5-c-content">
       <dl>{attributes.map(a => children(a))}</dl>
     </div>
   );

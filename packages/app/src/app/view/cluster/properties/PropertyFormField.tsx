@@ -1,8 +1,11 @@
 import React from "react";
 
-import {FormRadios, FormSelect, FormText} from "app/view/share";
+import {testMarks} from "app/view/dataTest";
+import {FormRadios, FormSelectSimple, FormText} from "app/view/share";
 
 import {ClusterProperties} from "./useClusterProperties";
+
+const {property: propertyMark} = testMarks.cluster.properties;
 
 export const PropertyFormField = ({
   property,
@@ -27,6 +30,10 @@ export const PropertyFormField = ({
     [modifyProperty, property],
   );
 
+  const label = (
+    <span {...propertyMark.name.mark}>{property.readable_name}</span>
+  );
+
   const id = `cluster-property-${property.name}`;
   if ("enum" in property) {
     const value =
@@ -37,21 +44,24 @@ export const PropertyFormField = ({
       return (
         <FormRadios
           id={id}
-          label={property.readable_name}
+          label={label}
           options={["DEFAULT", ...property.enum]}
           selected={value}
           onChange={modifyPropertyWithDefault}
           popover={popover}
+          {...propertyMark.value.mark}
         />
       );
     }
     return (
-      <FormSelect
+      <FormSelectSimple
         id={id}
-        label={property.readable_name}
+        label={label}
         onSelect={modifyPropertyWithDefault}
-        selections={value}
-        optionsValues={["DEFAULT", ...property.enum]}
+        selected={value}
+        offeredOptions={["DEFAULT", ...property.enum]}
+        popover={popover}
+        {...propertyMark.value.mark}
       />
     );
   }
@@ -69,11 +79,12 @@ export const PropertyFormField = ({
     return (
       <FormRadios
         id={id}
-        label={property.readable_name}
+        label={label}
         options={["DEFAULT", "true", "false"]}
         selected={value}
         onChange={modifyPropertyWithDefault}
         popover={popover}
+        {...propertyMark.value.mark}
       />
     );
   }
@@ -81,11 +92,12 @@ export const PropertyFormField = ({
   return (
     <FormText
       id={id}
-      label={property.readable_name}
+      label={label}
       popover={popover}
       onChange={value => modifyProperty(property.name, value)}
       value={userProperty ?? (currentValue || "")}
       placeholder={property.default as string}
+      {...propertyMark.value.mark}
     />
   );
 };

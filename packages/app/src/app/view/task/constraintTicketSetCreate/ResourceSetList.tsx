@@ -49,7 +49,7 @@ export const ResourceSetList = () => {
 
               <FormRadios
                 label="role"
-                className="pf-u-mt-sm"
+                className="pf-v5-u-mt-sm"
                 id={`resource-set-${i}-role`}
                 options={[
                   "no limitation",

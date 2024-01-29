@@ -16,8 +16,6 @@ declare global {
   var appConfirm: typeof locatorTools.appConfirm;
   var radioGroup: typeof locatorTools.radioGroup;
   var taskTitle: typeof locatorTools.taskTitle;
-  var getToggle: typeof locatorTools.getToggle;
-  var toggle: typeof locatorTools.toggle;
   var fieldError: typeof locatorTools.fieldError;
   var isLocator: typeof locatorTools.isLocator;
   var goToCluster: ReturnType<typeof getGoToCluster>;
@@ -52,8 +50,6 @@ export default async () => {
   global.appConfirm = locatorTools.appConfirm;
   global.radioGroup = locatorTools.radioGroup;
   global.taskTitle = locatorTools.taskTitle;
-  global.getToggle = locatorTools.getToggle;
-  global.toggle = locatorTools.toggle;
   global.fieldError = locatorTools.fieldError;
   global.isVisible = locatorTools.isVisible;
   global.isAbsent = locatorTools.isAbsent;

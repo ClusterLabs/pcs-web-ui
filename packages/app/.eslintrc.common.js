@@ -43,7 +43,7 @@ module.exports = {
     "dot-location": ["warn", "property"],
     eqeqeq: ["warn", "smart"],
     "max-len": [
-      "error",
+      "warn",
       80,
       2,
       {

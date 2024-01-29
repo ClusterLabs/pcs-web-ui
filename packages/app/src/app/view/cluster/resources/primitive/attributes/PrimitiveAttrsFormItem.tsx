@@ -1,4 +1,6 @@
-import {Stack, StackItem, TextInput} from "@patternfly/react-core";
+import {Stack, StackItem} from "@patternfly/react-core";
+
+import {TextInput} from "app/view/share";
 
 import {PrimitiveAttrsFormItemRadio} from "./PrimitiveAttrsFormItemRadio";
 import {PrimitiveAttrsFormItemLabel} from "./PrimitiveAttrsFormItemLabel";
@@ -28,10 +30,10 @@ export const PrimitiveAttrsFormItem = ({
     <Stack>
       {remoteValue !== initialValue && (
         <>
-          <StackItem className="pf-u-mb-sm">
+          <StackItem className="pf-v5-u-mb-sm">
             <PrimitiveAttrsFormItemWarning remoteValue={remoteValue} />
           </StackItem>
-          <StackItem className="pf-u-mt-sm">
+          <StackItem className="pf-v5-u-mt-sm">
             <PrimitiveAttrsFormItemRadio
               id={decideIdRemote}
               name={decideName}
@@ -46,7 +48,7 @@ export const PrimitiveAttrsFormItem = ({
           </StackItem>
         </>
       )}
-      <StackItem className="pf-u-mt-sm">
+      <StackItem className="pf-v5-u-mt-sm">
         <PrimitiveAttrsFormItemRadio
           id={decideIdUser}
           name={decideName}
@@ -54,10 +56,10 @@ export const PrimitiveAttrsFormItem = ({
           onSelect={chooseValueUse}
           active={remoteValue !== initialValue}
         >
-          <span className="pf-c-radio__label pf-u-w-100">
+          <span className="pf-v5-c-radio__label pf-v5-u-w-100">
             {remoteValue !== initialValue && (
               <>
-                <label className="pf-c-radio__label" htmlFor={decideIdUser}>
+                <label className="pf-v5-c-radio__label" htmlFor={decideIdUser}>
                   Use the following value
                 </label>
                 <br />

@@ -25,7 +25,7 @@ export const AclLists = () => {
   }
   return (
     <Flex {...lists.mark}>
-      <FlexItem grow={grow} className="pf-u-m-0">
+      <FlexItem grow={grow} className="pf-v5-u-m-0">
         <AclListCard
           aclType="role"
           aclList={acls.role}

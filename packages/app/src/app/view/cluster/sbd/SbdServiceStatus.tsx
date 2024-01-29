@@ -1,3 +1,4 @@
+import {Td, Thead, Tr} from "@patternfly/react-table";
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -20,24 +21,24 @@ export const SbdServiceStatus = () => {
 
   return (
     <Table>
-      <thead>
-        <tr>
+      <Thead>
+        <Tr>
           <th data-label="Node">Node</th>
           <th data-label="Installed">Installed</th>
           <th data-label="Enabled">Enabled</th>
           <th data-label="Running">Running</th>
-        </tr>
-      </thead>
+        </Tr>
+      </Thead>
 
       <Table.Body>
         {nodeList.map(node =>
           node.status !== "DATA_NOT_PROVIDED" ? (
-            <tr key={node.name} {...service.mark}>
-              <td data-label="Node" {...service.node.mark}>
+            <Tr key={node.name} {...service.mark}>
+              <Td data-label="Node" {...service.node.mark}>
                 {node.name}
-              </td>
+              </Td>
 
-              <td data-label="Installed">
+              <Td data-label="Installed">
                 {node.services.sbd.installed ? (
                   <>
                     <CheckCircleIcon className="ha-u-status-success" />
@@ -49,9 +50,9 @@ export const SbdServiceStatus = () => {
                     <span {...service.installed.mark}>{" Not installed"}</span>
                   </>
                 )}
-              </td>
+              </Td>
 
-              <td data-label="Enabled">
+              <Td data-label="Enabled">
                 {node.services.sbd.enabled ? (
                   <>
                     <CheckCircleIcon className="ha-u-status-success" />
@@ -63,9 +64,9 @@ export const SbdServiceStatus = () => {
                     <span {...service.enabled.mark}>{" Not enabled"}</span>
                   </>
                 )}
-              </td>
+              </Td>
 
-              <td data-label="Running">
+              <Td data-label="Running">
                 {node.services.sbd.running ? (
                   <>
                     <CheckCircleIcon className="ha-u-status-success" />
@@ -77,22 +78,22 @@ export const SbdServiceStatus = () => {
                     <span {...service.running.mark}>{" Not running"}</span>
                   </>
                 )}
-              </td>
-            </tr>
+              </Td>
+            </Tr>
           ) : (
-            <tr key={node.name} {...service.mark}>
-              <td data-label="Node" {...service.node.mark}>
+            <Tr key={node.name} {...service.mark}>
+              <Td data-label="Node" {...service.node.mark}>
                 {node.name}
-              </td>
+              </Td>
 
-              <td
+              <Td
                 colSpan={3}
                 data-label="Data for node not provided"
                 {...service.noData.mark}
               >
                 Data not provided
-              </td>
-            </tr>
+              </Td>
+            </Tr>
           ),
         )}
       </Table.Body>

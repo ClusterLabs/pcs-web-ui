@@ -45,7 +45,7 @@ body,
 
 /* At larger viewport heights, the page header will be fixed, and scrolling in each panel is independent */
 @media screen and (min-height: 50rem) {
-  .pf-c-page__main-section.pf-m-fill.ha-m-full-height {
+  .pf-v5-c-page__main-section.pf-v5-m-fill.ha-m-full-height {
     flex: 1 1 auto;
     min-height: 0;
     height: 100%;
@@ -69,30 +69,33 @@ body,
    of the page. */
 .ha-c-panel__tree-view {
   overflow: auto;
-  max-height: calc(100% + var(--pf-c-page__main-section--PaddingBottom));
+  max-height: calc(100% + var(--pf-v5-c-page__main-section--PaddingBottom));
 }
 /* The details panel is designed to fill the height regardless of height of contents.
    If the contents do not need to scroll, then consistent padding displays around the edges of the card
    But if the contents overflow the screen and require scrolling, then the card touches the bottom of the window. */
-.pf-c-card.ha-c-panel__details-view {
+.pf-v5-c-card.ha-c-panel__details-view {
   overflow: auto;
   min-height: 100%;
-  max-height: calc(100% + var(--pf-c-page__main-section--PaddingBottom));
+  max-height: calc(100% + var(--pf-v5-c-page__main-section--PaddingBottom));
+  flex: 1 0;
 }
 
 /* RESOURC TREE --------------------------------------------------------------*/
-.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__item-row {
-  --pf-c-data-list__item-action--MarginLeft: var(--pf-global--spacer--md);
+.ha-c-tree-view:not(.ha-m-full-width) .pf-v5-c-data-list__item-row {
+  --pf-v5-c-data-list__item-action--MarginLeft: var(--pf-v5-global--spacer--md);
 } /* decreases horizontal spacing in split layout */
 
 /* Styles for extending the DataList to create a tree view */
 /* TODO: test that the toggle indentation works in IE. */
-.ha-c-tree-view.pf-c-data-list,
-.ha-c-tree-view .pf-c-data-list {
-  --pf-c-data-list__item-control--MarginRight: var(--pf-global--spacer--md);
+.ha-c-tree-view.pf-v5-c-data-list,
+.ha-c-tree-view .pf-v5-c-data-list {
+  --pf-v5-c-data-list__item-control--MarginRight: var(
+    --pf-v5-global--spacer--md
+  );
   --ha-c-data-list__toggle--TotalWidth: calc(
-    1em + var(--pf-c-data-list__item-control--MarginRight) +
-      (var(--pf-global--spacer--md))
+    1em + var(--pf-v5-c-data-list__item-control--MarginRight) +
+      (var(--pf-v5-global--spacer--md))
   );
 } /* The second variable creates the spacing needed to indent the toggle by one level 
      (i.e. the variable represents the size of one toggle, and therefore the size of the indentation)
@@ -101,40 +104,40 @@ body,
      The other instance of global--spacer--md is used for left margin on the data list itself */
 
 /* NOTE: additional rulesets are needed to support additional levels */
-[data-level="1"] .pf-c-data-list__toggle {
+[data-level="1"] .pf-v5-c-data-list__toggle {
   padding-left: var(--ha-c-data-list__toggle--TotalWidth);
 }
-[data-level="2"] .pf-c-data-list__toggle {
+[data-level="2"] .pf-v5-c-data-list__toggle {
   padding-left: calc(var(--ha-c-data-list__toggle--TotalWidth) * 2);
 }
-.pf-c-data-list[data-level] {
-  margin-left: var(--pf-global--spacer--md);
-  --pf-c-data-list--BorderTopColor: transparent;
-  --pf-c-data-list--BorderBottomColor: transparent;
+.pf-v5-c-data-list[data-level] {
+  margin-left: var(--pf-v5-global--spacer--md);
+  --pf-v5-c-data-list--BorderTopColor: transparent;
+  --pf-v5-c-data-list--BorderBottomColor: transparent;
 }
 
-.ha-c-tree-view .pf-c-data-list__toggle {
-  border-right: var(--pf-global--BorderWidth--sm) solid
-    var(--pf-c-data-list__item-item--BorderTopColor);
+.ha-c-tree-view .pf-v5-c-data-list__toggle {
+  border-right: var(--pf-v5-global--BorderWidth--sm) solid
+    var(--pf-v5-c-data-list__item-item--BorderTopColor);
 }
 
 /* expand buttons are included for all nodes, but only visible for nodes with children */
-.pf-c-data-list__item-control[aria-hidden="true"] .pf-c-button {
+.pf-v5-c-data-list__item-control[aria-hidden="true"] .pf-v5-c-button {
   visibility: hidden;
 }
 
 /* selected status is also included for all nodes, but only visible for the active node */
 .ha-c-tree-view__selected-status {
-  margin-left: var(--pf-c-data-list__item-action--MarginLeft);
-  padding-top: var(--pf-c-data-list__cell--PaddingTop);
-  color: var(--pf-global--active-color--100);
+  margin-left: var(--pf-v5-c-data-list__item-action--MarginLeft);
+  padding-top: var(--pf-v5-c-data-list__cell--PaddingTop);
+  color: var(--pf-v5-global--active-color--100);
   visibility: hidden;
 }
 .ha-c-tree-view__selected-status.ha-m-active {
   visibility: visible;
 }
 
-.ha-c-tree-view .pf-c-data-list__cell + .pf-c-data-list__cell {
+.ha-c-tree-view .pf-v5-c-data-list__cell + .pf-v5-c-data-list__cell {
   flex: 0 0 calc(45vw - 10rem);
   margin-left: auto;
   white-space: nowrap;
@@ -142,46 +145,46 @@ body,
 .ha-c-data-list__item-status {
   flex: 0 0 10rem;
   margin-left: auto;
-  padding-top: var(--pf-c-data-list__cell--PaddingTop);
-  padding-bottom: var(--pf-c-data-list__item-content--PaddingBottom);
+  padding-top: var(--pf-v5-c-data-list__cell--PaddingTop);
+  padding-bottom: var(--pf-v5-c-data-list__item-content--PaddingBottom);
 } /* sets spacing for Status column */
 
 @media screen and (max-width: 62rem) {
-  .ha-c-tree-view .pf-c-data-list__item-content {
+  .ha-c-tree-view .pf-v5-c-data-list__item-content {
     display: grid;
     width: 100%;
     grid-template-columns: auto 1fr;
     padding-bottom: 0;
   }
-  .ha-c-tree-view .pf-c-data-list__cell {
-    padding-bottom: var(--pf-global--spacer--xs);
+  .ha-c-tree-view .pf-v5-c-data-list__cell {
+    padding-bottom: var(--pf-v5-global--spacer--xs);
   }
-  .ha-c-tree-view .pf-c-data-list__cell + .pf-c-data-list__cell {
+  .ha-c-tree-view .pf-v5-c-data-list__cell + .pf-v5-c-data-list__cell {
     margin-left: 0;
   }
-  .ha-c-tree-view .pf-c-data-list__cell:last-child {
+  .ha-c-tree-view .pf-v5-c-data-list__cell:last-child {
     padding-top: 0;
-    padding-bottom: var(--pf-global--spacer--md);
+    padding-bottom: var(--pf-v5-global--spacer--md);
   }
 }
 /* similar styles used for the max-width breakpoint above are used for the split screen */
-.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__item-content {
+.ha-c-tree-view:not(.ha-m-full-width) .pf-v5-c-data-list__item-content {
   display: grid;
   width: 100%;
   grid-template-columns: auto 1fr;
   padding-bottom: 0;
 }
-.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__cell {
-  padding-bottom: var(--pf-global--spacer--xs);
+.ha-c-tree-view:not(.ha-m-full-width) .pf-v5-c-data-list__cell {
+  padding-bottom: var(--pf-v5-global--spacer--xs);
 }
 .ha-c-tree-view:not(.ha-m-full-width)
-  .pf-c-data-list__cell
-  + .pf-c-data-list__cell {
+  .pf-v5-c-data-list__cell
+  + .pf-v5-c-data-list__cell {
   margin-left: 0;
 }
-.ha-c-tree-view:not(.ha-m-full-width) .pf-c-data-list__cell:last-child {
+.ha-c-tree-view:not(.ha-m-full-width) .pf-v5-c-data-list__cell:last-child {
   padding-top: 0;
-  padding-bottom: var(--pf-global--spacer--md);
+  padding-bottom: var(--pf-v5-global--spacer--md);
 }
 /* In the split screen layout, only the status icon is visible. */
 .ha-c-tree-view:not(.ha-m-full-width) .ha-c-data-list__item-status {
@@ -198,25 +201,25 @@ body,
 
 /* Composite Status component */
 .ha-u-status-danger {
-  color: var(--pf-global--danger-color--100);
+  color: var(--pf-v5-global--danger-color--100);
 }
 .ha-u-status-warning {
-  color: var(--pf-global--warning-color--100);
+  color: var(--pf-v5-global--warning-color--100);
 }
 .ha-u-status-success {
-  color: var(--pf-global--success-color--100);
+  color: var(--pf-v5-global--success-color--100);
 }
 .ha-u-status-unknown {
-  color: var(--pf-global--icon--Color--light);
+  color: var(--pf-v5-global--icon--Color--light);
 }
 
 /* Attributes form - radio button spacing */
 .ha-c-radio {
   align-items: flex-start;
 }
-.ha-c-radio .pf-c-radio__input {
-  min-height: calc(var(--pf-global--LineHeight--md) * 1rem);
+.ha-c-radio .pf-v5-c-radio__input {
+  min-height: calc(var(--pf-v5-global--LineHeight--md) * 1rem);
 }
-.ha-c-radio .pf-c-radio__label {
-  line-height: var(--pf-global--LineHeight--md);
+.ha-c-radio .pf-v5-c-radio__label {
+  line-height: var(--pf-v5-global--LineHeight--md);
 }

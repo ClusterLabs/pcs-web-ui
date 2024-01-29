@@ -1,6 +1,7 @@
-import {Form, Radio} from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
+import {Radio} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {GroupSelect} from "./GroupSelect";
@@ -32,8 +33,8 @@ export const GroupChangeForm = () => {
     }
 
     return (
-      <Form className="pf-u-mb-3xl">
-        <div className="pf-u-mb-3xl">
+      <Form className="pf-v5-u-mb-3xl">
+        <div className="pf-v5-u-mb-3xl">
           <GroupSelect />
         </div>
       </Form>
@@ -41,7 +42,7 @@ export const GroupChangeForm = () => {
   }
 
   return (
-    <Form className="pf-u-mb-3xl">
+    <Form className="pf-v5-u-mb-3xl">
       <Radio
         id="move-in-group"
         isChecked={action === "move-in-group"}
@@ -51,7 +52,7 @@ export const GroupChangeForm = () => {
         {...task.moveInGroup.mark}
       />
       {action === "move-in-group" && (
-        <div className="pf-u-mb-md pf-u-ml-lg">
+        <div className="pf-v5-u-mb-md pf-v5-u-ml-lg">
           <PositionSelect />
         </div>
       )}
@@ -76,7 +77,7 @@ export const GroupChangeForm = () => {
           />
 
           {action === "set-group" && (
-            <div className="pf-u-mb-3xl pf-u-ml-lg">
+            <div className="pf-v5-u-mb-3xl pf-v5-u-ml-lg">
               <GroupSelect />
             </div>
           )}

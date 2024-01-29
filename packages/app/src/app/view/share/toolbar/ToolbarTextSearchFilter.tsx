@@ -1,11 +1,8 @@
 import React from "react";
-import {
-  Button,
-  ButtonVariant,
-  InputGroup,
-  TextInput,
-} from "@patternfly/react-core";
+import {Button, ButtonVariant, InputGroup} from "@patternfly/react-core";
 import {SearchIcon} from "@patternfly/react-icons";
+
+import {TextInput} from "app/view/share/form";
 
 const useState = (initialValue = "") => React.useState(initialValue);
 

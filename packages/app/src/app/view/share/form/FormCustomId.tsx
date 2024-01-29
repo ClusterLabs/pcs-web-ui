@@ -1,6 +1,8 @@
 import React from "react";
-import {Flex, FlexItem, Switch, TextInput} from "@patternfly/react-core";
+import {Flex, FlexItem} from "@patternfly/react-core";
 
+import {Switch} from "./Switch";
+import {TextInput} from "./TextInput";
 import {FormGroup} from "./FormGroup";
 
 export const FormCustomId = ({
@@ -37,7 +39,7 @@ export const FormCustomId = ({
       }}
     >
       <Flex>
-        <FlexItem className="pf-u-pt-sm">
+        <FlexItem className="pf-v5-u-pt-sm">
           <Switch
             id={id}
             isChecked={useCustomId}

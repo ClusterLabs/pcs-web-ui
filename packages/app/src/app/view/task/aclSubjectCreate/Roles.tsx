@@ -1,6 +1,4 @@
-import {DualListSelector} from "@patternfly/react-core";
-
-import {TaskLibStep} from "app/view/share";
+import {DualListSelector, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 

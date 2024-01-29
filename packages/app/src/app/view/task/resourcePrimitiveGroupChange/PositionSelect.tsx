@@ -1,7 +1,7 @@
 import {Flex, FlexItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormGroup, FormRadioGroup, Select} from "app/view/share";
+import {FormGroup, FormRadioGroup, SelectSimple} from "app/view/share";
 
 import {useTask} from "./useTask";
 
@@ -41,15 +41,14 @@ export const PositionSelect = () => {
           />
         </FlexItem>
         <FlexItem>
-          <Select
+          <SelectSimple
             id="select-adjacent-resource"
-            label="Resource"
             placeholderText="Select a resource"
             onSelect={value =>
               updateState({adjacentResourceId: value.toString()})
             }
-            selections={adjacentResourceId}
-            optionsValues={memberResourcesIds.filter(r => r !== resourceId)}
+            selected={adjacentResourceId}
+            offeredOptions={memberResourcesIds.filter(r => r !== resourceId)}
             isDisabled={groupId === ""}
             {...task.adjacentResource.mark}
           />

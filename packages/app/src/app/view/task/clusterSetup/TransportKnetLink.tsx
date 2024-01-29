@@ -2,7 +2,7 @@ import React from "react";
 import {Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormGroup, FormSelect, FormText} from "app/view/share";
+import {FormGroup, FormSelectSimple, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {TransportKnetLinkToggler} from "./TransportKnetLinkToggler";
@@ -25,7 +25,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
   );
 
   return (
-    <Form className="pf-u-m-lg" {...knetLink.mark}>
+    <Form className="pf-v5-u-m-lg" {...knetLink.mark}>
       <FormGroup
         label={`Node addresses for link ${link.linknumber}`}
         fieldId="node-list"
@@ -33,7 +33,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
       <table>
         <tbody>
           {Object.keys(link.addresses).map(nodeName => (
-            <tr key={nodeName} className="pf-u-m-sm">
+            <tr key={nodeName} className="pf-v5-u-m-sm">
               <td>
                 Node{" "}
                 <span style={{fontWeight: "bold"}} {...knetLink.nodeName.mark}>
@@ -41,7 +41,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
                 </span>{" "}
                 address
               </td>
-              <td className="pf-u-p-sm">
+              <td className="pf-v5-u-p-sm">
                 <FormText
                   id={`node-name-${nodeName}`}
                   value={link.addresses[nodeName]}
@@ -163,7 +163,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           {...knetLink.pong_count.mark}
         />
 
-        <FormSelect
+        <FormSelectSimple
           label="transport"
           id="transport"
           popover={{
@@ -177,8 +177,8 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
             })
           }
           placeholderText="Select transport"
-          selections={link.transport}
-          optionsValues={["udp", "sctp"]}
+          selected={link.transport}
+          offeredOptions={["udp", "sctp"]}
           {...knetLink.transport.mark}
         />
       </TransportKnetLinkToggler>

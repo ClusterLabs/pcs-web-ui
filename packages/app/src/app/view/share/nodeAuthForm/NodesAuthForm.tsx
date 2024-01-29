@@ -1,6 +1,7 @@
 import React from "react";
-import {Alert, Form, Stack, StackItem, Switch} from "@patternfly/react-core";
+import {Alert, Form, Stack, StackItem} from "@patternfly/react-core";
 
+import {Switch} from "app/view/share/form";
 import {EmptyStateSpinner} from "app/view/share/emptyState";
 
 import {useNodesAuth} from "./useNodesAuth";
@@ -78,7 +79,7 @@ export const NodesAuthForm = (props: {
                 Use one password for all nodes
               </StackItem>
             )}
-            <table className="pf-c-table pf-m-compact pf-m-grid-md pf-m-no-border-rows">
+            <table className="pf-v5-c-table pf-v5-m-compact pf-v5-m-grid-md pf-v5-m-no-border-rows">
               <thead>
                 <tr>
                   <th>Node</th>
@@ -99,7 +100,7 @@ export const NodesAuthForm = (props: {
                       </td>
                       <td>{props.inputPassword(nodeName, passwordId, i)}</td>
                       <td>{props.inputAddress(nodeName, addressId, i)}</td>
-                      <td className="pf-m-width-10">
+                      <td className="pf-v5-m-width-10">
                         {props.inputPort(nodeName, portId, i)}
                       </td>
                     </tr>

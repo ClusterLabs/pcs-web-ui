@@ -1,4 +1,5 @@
 import {Alert} from "@patternfly/react-core";
+import {Td} from "@patternfly/react-table";
 
 import {testMarks} from "app/view/dataTest";
 import {IssueList, Table} from "app/view/share";
@@ -72,9 +73,9 @@ export const DashboardClusterLoaded = (props: {
               summaryStatus={props.cluster.summary.fenceDevicesSeverity}
             />
           </Toggle>
-          <td>
+          <Td>
             <DashboardClusterMenu clusterName={props.cluster.name} />
-          </td>
+          </Td>
         </>
       }
       isExpanded={EXPANDABLE_COLUMNS.includes(expanded)}

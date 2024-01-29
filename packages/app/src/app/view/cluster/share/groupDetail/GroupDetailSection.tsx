@@ -13,7 +13,7 @@ export const GroupDetailSection = (props: {
   if (matchingDetail) {
     return (
       <PageSection
-        className="ha-m-full-height pf-m-fill"
+        className="ha-m-full-height pf-v5-m-fill"
         data-test={props["data-test"]}
       >
         {props.children}

@@ -1,9 +1,6 @@
 import React from "react";
-import {
-  Alert,
-  AlertActionLink,
-  WizardContextConsumer,
-} from "@patternfly/react-core";
+import {Alert, AlertActionLink} from "@patternfly/react-core";
+import {WizardContextConsumer} from "@patternfly/react-core/deprecated";
 
 import {testMarks} from "app/view/dataTest";
 import {

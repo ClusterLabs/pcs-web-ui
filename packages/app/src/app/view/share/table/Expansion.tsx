@@ -13,7 +13,6 @@ const useExpansion = ({
   const Toggle = React.useCallback(
     ({expandKey, children, ...rest}) => {
       return (
-        /* eslint-disable react/jsx-props-no-spreading */
         <ExpansionToggle
           expanded={expanded}
           setExpanded={setExpanded}

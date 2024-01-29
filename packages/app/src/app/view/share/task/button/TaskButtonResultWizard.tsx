@@ -1,4 +1,4 @@
-import {WizardContextConsumer} from "@patternfly/react-core";
+import {WizardContextConsumer} from "@patternfly/react-core/deprecated";
 
 import {TaskButtonResult} from "./TaskButtonResult";
 

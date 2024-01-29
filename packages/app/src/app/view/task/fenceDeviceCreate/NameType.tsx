@@ -1,7 +1,7 @@
-import {Form, FormGroup} from "@patternfly/react-core";
+import {Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormText, TaskLibStep} from "app/view/share";
+import {FormGroup, FormText, TaskLibStep} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {NameTypeTypeSelect} from "./NameTypeTypeSelect";

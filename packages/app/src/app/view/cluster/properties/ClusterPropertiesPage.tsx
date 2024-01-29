@@ -94,7 +94,7 @@ export const ClusterPropertiesPage = () => {
                           isInline
                           variant="warning"
                           title="Cannot get cluster properties values from stopped cluster"
-                          className="pf-u-mb-sm"
+                          className="pf-v5-u-mb-sm"
                         >
                           <ClusterStoppedInfo
                             startButton="link"

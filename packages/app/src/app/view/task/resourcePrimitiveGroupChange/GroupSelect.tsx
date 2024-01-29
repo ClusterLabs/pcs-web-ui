@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {FormSelect} from "app/view/share";
+import {FormSelectSimple} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {PositionSelect} from "./PositionSelect";
@@ -15,7 +15,7 @@ export const GroupSelect = () => {
   } = useTask();
   return (
     <>
-      <FormSelect
+      <FormSelectSimple
         id="select-group"
         label="Group"
         placeholderText="Select a group"
@@ -26,9 +26,9 @@ export const GroupSelect = () => {
         onSelect={value =>
           updateState({groupId: value.toString(), adjacentResourceId: ""})
         }
-        selections={groupId}
-        optionsValues={candidateGroupsIds}
-        className="pf-u-mb-xl"
+        selected={groupId}
+        offeredOptions={candidateGroupsIds}
+        className="pf-v5-u-mb-xl"
         {...targetGroup.mark}
       />
 

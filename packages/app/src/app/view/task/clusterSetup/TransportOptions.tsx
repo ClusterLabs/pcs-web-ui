@@ -1,7 +1,12 @@
 import {Form, FormFieldGroup, Text, TextContent} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormRadios, FormSelect, FormText, TaskLibStep} from "app/view/share";
+import {
+  FormRadios,
+  FormSelectSimple,
+  FormText,
+  TaskLibStep,
+} from "app/view/share";
 import * as helpAll from "app/view/share/help";
 
 import {useTask} from "./useTask";
@@ -21,6 +26,7 @@ export const TransportOptions = () => {
     updateCryptoOptions,
     state: {transportOptions, compressionOptions, cryptoOptions},
   } = useTask();
+
   return (
     <TaskLibStep title="Transport options" reports={allReports}>
       <Form>
@@ -28,12 +34,12 @@ export const TransportOptions = () => {
           <Text component="h3">Knet options</Text>
         </TextContent>
         <FormFieldGroup {...options.mark}>
-          <FormSelect
+          <FormSelectSimple
             label="Ip version"
             id={`${ID_PREFIX_OPTIONS}-ip_version`}
             popover={help.options.ip_version}
-            optionsValues={["ipv4", "ipv6", "ipv4-6", "ipv6-4", "default"]}
-            selections={transportOptions.ip_version}
+            offeredOptions={["ipv4", "ipv6", "ipv4-6", "ipv6-4", "default"]}
+            selected={transportOptions.ip_version}
             onSelect={value =>
               updateTransportOptions({
                 ip_version: value.toString() as NonNullable<
@@ -55,12 +61,12 @@ export const TransportOptions = () => {
             {...options.knet_pmtud_interval.mark}
           />
 
-          <FormSelect
+          <FormSelectSimple
             label="Link mode"
             id={`${ID_PREFIX_OPTIONS}-link_mode`}
             popover={help.options.link_mode}
-            optionsValues={["active", "passive", "rr", "default"]}
-            selections={transportOptions.link_mode}
+            offeredOptions={["active", "passive", "rr", "default"]}
+            selected={transportOptions.link_mode}
             onSelect={value =>
               updateTransportOptions({
                 link_mode: value.toString() as NonNullable<
@@ -117,11 +123,11 @@ export const TransportOptions = () => {
             {...crypto.model.mark}
           />
 
-          <FormSelect
+          <FormSelectSimple
             label="Hash"
             id={`${ID_PREFIX_CRYPTO}-hash`}
             popover={help.crypto.hash}
-            optionsValues={[
+            offeredOptions={[
               "none",
               "md5",
               "sha1",
@@ -130,7 +136,7 @@ export const TransportOptions = () => {
               "sha512",
               "default",
             ]}
-            selections={cryptoOptions.hash}
+            selected={cryptoOptions.hash}
             onSelect={value =>
               updateCryptoOptions({
                 hash: value.toString() as NonNullable<
@@ -141,12 +147,12 @@ export const TransportOptions = () => {
             {...crypto.hash.mark}
           />
 
-          <FormSelect
+          <FormSelectSimple
             label="Cipher"
             id={`${ID_PREFIX_CRYPTO}-cipher`}
             popover={help.crypto.cipher}
-            optionsValues={["none", "aes256", "aes192", "aes128", "default"]}
-            selections={cryptoOptions.cipher}
+            offeredOptions={["none", "aes256", "aes192", "aes128", "default"]}
+            selected={cryptoOptions.cipher}
             onSelect={value =>
               updateCryptoOptions({
                 cipher: value.toString() as NonNullable<

@@ -1,5 +1,5 @@
 import React from "react";
-import {WizardContext} from "@patternfly/react-core";
+import {WizardContext} from "@patternfly/react-core/deprecated";
 
 import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 

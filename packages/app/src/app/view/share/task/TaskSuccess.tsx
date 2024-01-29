@@ -1,8 +1,8 @@
 import React from "react";
 import {
   EmptyState,
+  EmptyStateActions,
   EmptyStateIcon,
-  EmptyStateSecondaryActions,
   Title,
 } from "@patternfly/react-core";
 import {CheckCircleIcon} from "@patternfly/react-icons";
@@ -27,10 +27,8 @@ export const TaskSuccess = (props: {
         {`Task "${taskLabel}" has been done successfully`}
       </Title>
 
-      {props.primaryAction}
-      <EmptyStateSecondaryActions>
-        {props.secondaryActions}
-      </EmptyStateSecondaryActions>
+      <EmptyStateActions>{props.primaryAction}</EmptyStateActions>
+      <EmptyStateActions>{props.secondaryActions}</EmptyStateActions>
     </EmptyState>
   );
 };

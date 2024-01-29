@@ -1,3 +1,5 @@
+import {Td, Thead, Tr} from "@patternfly/react-table";
+
 import {testMarks} from "app/view/dataTest";
 import {EmptyStateNoItem, Table} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
@@ -16,27 +18,27 @@ export const SbdOnNodes = () => {
 
   return (
     <Table>
-      <thead>
-        <tr>
+      <Thead>
+        <Tr>
           <th data-label="Node">Node</th>
           <th data-label="Watchdog">Watchdog</th>
           <th data-label="Devices">Devices</th>
-        </tr>
-      </thead>
+        </Tr>
+      </Thead>
 
       <Table.Body>
         {Object.values(nodeList).map(node => (
-          <tr key={node.name} {...perNode.mark}>
-            <td data-label="Node" {...perNode.node.mark}>
+          <Tr key={node.name} {...perNode.mark}>
+            <Td data-label="Node" {...perNode.node.mark}>
               {node.name}
-            </td>
-            <td data-label="Watchdog">
+            </Td>
+            <Td data-label="Watchdog">
               <SbdOnNodesWatchdog node={node} />
-            </td>
-            <td data-label="Devices">
+            </Td>
+            <Td data-label="Devices">
               <SbdOnNodesDevices node={node} />
-            </td>
-          </tr>
+            </Td>
+          </Tr>
         ))}
       </Table.Body>
     </Table>

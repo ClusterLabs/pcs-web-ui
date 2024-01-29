@@ -12,7 +12,7 @@ export const PcmkAgentDescription = ({
   const lastIndex = name.lastIndexOf(":");
 
   return (
-    <div className="pf-c-content">
+    <div className="pf-v5-c-content">
       <dl>
         <dt>Type</dt>
         <dd>

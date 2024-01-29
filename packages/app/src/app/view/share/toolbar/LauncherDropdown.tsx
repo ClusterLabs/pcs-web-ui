@@ -1,5 +1,9 @@
 import React from "react";
-import {Dropdown, DropdownItem, KebabToggle} from "@patternfly/react-core";
+import {
+  Dropdown,
+  DropdownItem,
+  KebabToggle,
+} from "@patternfly/react-core/deprecated";
 
 import {tools} from "app/store";
 

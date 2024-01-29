@@ -3,7 +3,7 @@ import {
   Wizard as PfWizard,
   WizardContextConsumer,
   WizardStep,
-} from "@patternfly/react-core";
+} from "@patternfly/react-core/deprecated";
 
 import {selectors} from "app/store";
 import {capitalizeFirst} from "app/store/tools";

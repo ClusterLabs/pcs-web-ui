@@ -49,7 +49,7 @@ export const ResourceSetList = () => {
 
               <FormRadios
                 label="Action"
-                className="pf-u-mt-sm"
+                className="pf-v5-u-mt-sm"
                 id={`resource-set-${i}-action`}
                 options={[
                   "no limitation",
@@ -80,7 +80,7 @@ export const ResourceSetList = () => {
                         Whether the members of the set must be acted on in
                         order.
                       </p>
-                      <p className="pf-u-mt-sm">
+                      <p className="pf-v5-u-mt-sm">
                         Disabled value makes sense only if there is another set
                         in the constraint.
                       </p>
