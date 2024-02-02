@@ -68,6 +68,9 @@ else
 	@.bin/init.sh
 endif
 
+check_sources:
+	@.bin/check-no-nexus.sh
+
 lint:
 	@.bin/lint.sh ./packages
 
