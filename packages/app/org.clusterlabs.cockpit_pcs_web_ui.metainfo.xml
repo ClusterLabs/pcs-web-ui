@@ -10,7 +10,7 @@
       Configuration System (pcs) in the background.
     </p>
   </description>
-  <extends>cockpit.desktop</extends>
+  <extends>org.cockpit_project.cockpit</extends>
   <launchable type="cockpit-manifest">ha-cluster</launchable>
   <url type="homepage">https://github.com/ClusterLabs/pcs-web-ui</url>
 </component>
