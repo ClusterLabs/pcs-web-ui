@@ -2,6 +2,11 @@ pcsd_integration_test:
   script:
     #
     #
+    # check no nexus proxy in resoulved urls in package-lock.json files
+    #
+    - make check_sources
+    #
+    #
     # install playwright dependencies
     #
     - dnf install -y
