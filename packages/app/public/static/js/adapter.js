@@ -68,4 +68,9 @@ var pcsUiEnvAdapter = {
       // no change to listen in standalone mode
     },
   },
+  colorScheme: {
+    addChangeListener: () => {
+      // no change to listen in standalone mode
+    },
+  },
 };

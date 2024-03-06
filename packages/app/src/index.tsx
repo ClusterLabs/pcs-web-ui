@@ -20,4 +20,7 @@ import "@patternfly/react-styles/css/components/Select/select.css";
 
 import {App} from "app/view";
 
+import * as colorScheme from "./colorScheme";
+
+colorScheme.setup();
 ReactDOM.render(<App />, document.getElementById("root"));

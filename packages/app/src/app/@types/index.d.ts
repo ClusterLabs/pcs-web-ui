@@ -24,5 +24,8 @@ declare global {
       isSuperuser: () => boolean;
       addChangeListener: (_listener: () => void) => void;
     };
+    colorScheme: {
+      addChangeListener: (_listener: (style: string) => void) => void;
+    };
   };
 }

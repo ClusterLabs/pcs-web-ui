@@ -118,4 +118,14 @@ var pcsUiEnvAdapter = {
       superuser.addEventListener("changed", listener);
     },
   },
+  colorScheme: {
+    addChangeListener: listener => {
+      // Cockpit: When changing the theme from the shell switcher the
+      // localstorage change will not fire for the same page (aka shell) so we
+      // need to listen for the event on the window object.
+      window.addEventListener("cockpit-style", event => {
+        listener(event.detail.style);
+      });
+    },
+  },
 };
