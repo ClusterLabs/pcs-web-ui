@@ -24,6 +24,8 @@ if (typeof window.history !== "undefined") {
   };
 }
 
+const colorSchemeChangeEventName = "pcsd-standalone-style";
+
 // Variable pcsUiEnvAdapter will be used by main application included by another
 // javascript file
 /* eslint-disable-next-line */
@@ -69,10 +71,19 @@ var pcsUiEnvAdapter = {
     },
   },
   colorScheme: {
+    storageKey: "shell:style",
     addChangeListener: listener => {
-      window.addEventListener("pcsd-standalone-style", event => {
+      window.addEventListener(colorSchemeChangeEventName, event => {
         listener(event.detail.style);
       });
     },
+    dispatchChangeEvent: requestedTheme =>
+      window.dispatchEvent(
+        new CustomEvent(colorSchemeChangeEventName, {
+          detail: {
+            style: requestedTheme,
+          },
+        }),
+      ),
   },
 };

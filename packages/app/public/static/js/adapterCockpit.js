@@ -119,6 +119,7 @@ var pcsUiEnvAdapter = {
     },
   },
   colorScheme: {
+    storageKey: "shell:style",
     addChangeListener: listener => {
       // Cockpit: When changing the theme from the shell switcher the
       // localstorage change will not fire for the same page (aka shell) so we
@@ -126,6 +127,9 @@ var pcsUiEnvAdapter = {
       window.addEventListener("cockpit-style", event => {
         listener(event.detail.style);
       });
+    },
+    dispatchChangeEvent: (/*requestedTheme*/) => {
+      // This event is dispatched from cockpit. Pcs-web-ui should not set this.
     },
   },
 };

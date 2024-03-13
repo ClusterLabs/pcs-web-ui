@@ -25,7 +25,9 @@ declare global {
       addChangeListener: (_listener: () => void) => void;
     };
     colorScheme: {
+      storageKey: string;
       addChangeListener: (_listener: (style: string) => void) => void;
+      dispatchChangeEvent: (requestedTheme: "dark" | "light" | "auto") => void;
     };
   };
 }

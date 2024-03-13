@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Dropdown,
   DropdownGroup,
@@ -7,9 +8,9 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@patternfly/react-core";
-import React from "react";
 
 import {testMarks} from "app/view/dataTest";
+import {getLocalStyle, setLocalStyle} from "app/view/colorScheme";
 
 import {useDispatch} from "../useDispatch";
 import {useUsername} from "../useUsername";
@@ -18,20 +19,11 @@ const {userMenu} = testMarks.header;
 
 export const UserMenu = () => {
   const [isDropdownOpen, setDropdownOpen] = React.useState(false);
-  const [theme, setTheme] = React.useState(
-    localStorage.getItem("shell:style") || "auto",
-  );
+  const [theme, setTheme] = React.useState(getLocalStyle());
   const changeTheme = React.useCallback(
     (requestedTheme: "dark" | "light" | "auto") => {
       setTheme(requestedTheme);
-      window.dispatchEvent(
-        new CustomEvent("pcsd-standalone-style", {
-          detail: {
-            style: requestedTheme,
-          },
-        }),
-      );
-      localStorage.setItem("shell:style", requestedTheme);
+      setLocalStyle(requestedTheme);
     },
     [setTheme],
   );

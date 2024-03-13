@@ -1,8 +1,9 @@
-const storageStyleKey = "shell:style";
+const storageStyleKey = pcsUiEnvAdapter.colorScheme.storageKey;
 const mediaQuery = "(prefers-color-scheme: dark)";
+const dispatchChange = pcsUiEnvAdapter.colorScheme.dispatchChangeEvent;
 
 const set = (forcedStyle?: string) => {
-  const style = forcedStyle || localStorage.getItem(storageStyleKey) || "auto";
+  const style = forcedStyle || getLocalStyle();
   if (
     style === "dark"
     || (style === "auto" && window.matchMedia?.(mediaQuery).matches)
@@ -22,4 +23,12 @@ export const setup = () => {
   });
   pcsUiEnvAdapter.colorScheme.addChangeListener(style => set(style));
   set();
+};
+
+export const getLocalStyle = () =>
+  localStorage.getItem(storageStyleKey) || "auto";
+
+export const setLocalStyle = (theme: Parameters<typeof dispatchChange>[0]) => {
+  localStorage.setItem(storageStyleKey, theme);
+  dispatchChange(theme);
 };
