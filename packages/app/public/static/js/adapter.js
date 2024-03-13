@@ -69,8 +69,10 @@ var pcsUiEnvAdapter = {
     },
   },
   colorScheme: {
-    addChangeListener: () => {
-      // no change to listen in standalone mode
+    addChangeListener: listener => {
+      window.addEventListener("pcsd-standalone-style", event => {
+        listener(event.detail.style);
+      });
     },
   },
 };
