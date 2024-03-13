@@ -19,5 +19,7 @@ import "@patternfly/react-styles/css/components/Radio/radio.css";
 import "@patternfly/react-styles/css/components/Select/select.css";
 
 import {App} from "app/view";
+import * as colorScheme from "app/view/colorScheme";
 
+colorScheme.setup();
 ReactDOM.render(<App />, document.getElementById("root"));
