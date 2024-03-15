@@ -14,7 +14,6 @@ export * from "./DefaultValue";
 export * from "./issueList";
 export * from "./LoadedPcmkAgent";
 export * from "./page";
-export * from "./PageSectionDataLoading";
 export * from "./ResourceDetailCaption";
 export * from "./resourceSet";
 export * from "./ResourceStatusInfoListSigns";

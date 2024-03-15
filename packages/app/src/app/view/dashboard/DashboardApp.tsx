@@ -11,8 +11,8 @@ import {
 import {testMarks} from "app/view/dataTest";
 import {selectors} from "app/store";
 import {
+  EmptyStateSpinner,
   Page,
-  PageSectionDataLoading,
   PageToolbar,
   useDispatch,
 } from "app/view/share";
@@ -70,14 +70,15 @@ export const DashboardApp = () => {
               </StackItem>
             </Stack>
           </PageSection>
-          <PageSectionDataLoading
-            done={dataLoaded}
-            {...testMarks.dashboard.mark}
-          >
-            <DashboardClusterList
-              importedClusterNameList={importedClusterNameList}
-            />
-          </PageSectionDataLoading>
+          <PageSection {...testMarks.dashboard.mark}>
+            {dataLoaded ? (
+              <DashboardClusterList
+                importedClusterNameList={importedClusterNameList}
+              />
+            ) : (
+              <EmptyStateSpinner title="Loading data" />
+            )}
+          </PageSection>
         </>
       )}
     </Page>
