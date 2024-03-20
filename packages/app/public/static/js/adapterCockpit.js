@@ -87,10 +87,12 @@ var pcsUiEnvAdapter = {
           text: e.message,
         };
       }
+      if (e.problem === "not-found") {
+        return {type: "BACKEND_NOT_FOUND"};
+      }
       return {
-        status: 500,
-        statusText: e.problem,
-        text: e.message,
+        type: "NON_HTTP_PROBLEM",
+        problem: e.problem,
       };
     }
   },

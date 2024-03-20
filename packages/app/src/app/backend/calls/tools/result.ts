@@ -1,5 +1,10 @@
 export type HttpFail =
   | {type: "UNAUTHORIZED"}
+  | {type: "BACKEND_NOT_FOUND"}
+  | {
+      type: "NON_HTTP_PROBLEM";
+      problem: string;
+    }
   | {
       type: "BAD_HTTP_STATUS";
       status: number;

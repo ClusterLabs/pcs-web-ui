@@ -24,7 +24,7 @@ export function* change({key, payload}: ActionMap["RESOURCE.GROUP.CHANGE"]) {
     type: "RESOURCE.GROUP.CHANGE.FAIL",
     key,
     payload: {
-      message: result.type === "UNAUTHORIZED" ? "Unauthorized" : result.text,
+      message: api.getNonOkMessage(result),
     },
   });
 }

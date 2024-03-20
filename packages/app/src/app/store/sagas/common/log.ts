@@ -48,6 +48,12 @@ export const errorMessage = (
     case "UNAUTHORIZED":
       return `${description}:\nServer returned http status: 401 (Unauthorized)`;
 
+    case "BACKEND_NOT_FOUND":
+      return `${description}:\nBackend server not found`;
+
+    case "NON_HTTP_PROBLEM":
+      return `${description}:\nNon http problem: ${result.problem}`;
+
     default: {
       const {type} = result;
       const _exhaustiveCheck: never = type;
@@ -75,6 +81,8 @@ export const error = (
       break;
 
     case "BAD_HTTP_STATUS":
+    case "BACKEND_NOT_FOUND":
+    case "NON_HTTP_PROBLEM":
     case "NOT_JSON":
     case "UNAUTHORIZED":
       console.error(errorMessage(result, taskLabel));
