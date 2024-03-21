@@ -51,6 +51,14 @@ const load: AppReducer<ClusterStatusService["load"]> = (
         currently: false,
       };
 
+    case "CLUSTER.STATUS.BACKEND_NOT_FOUND":
+      return {
+        ...state,
+        result:
+          state.result === "NO_DATA_YET" ? "BACKEND_NOT_FOUND" : state.result,
+        currently: false,
+      };
+
     case "CLUSTER.STATUS.FETCH.FORBIDDEN":
       return {
         ...state,

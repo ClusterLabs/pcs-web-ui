@@ -11,6 +11,11 @@ export type ClusterStatusActions = {
     key: {clusterName: string};
   };
 
+  "CLUSTER.STATUS.BACKEND_NOT_FOUND": {
+    type: "CLUSTER.STATUS.BACKEND_NOT_FOUND";
+    key: {clusterName: string};
+  };
+
   "CLUSTER.STATUS.FETCH.FORBIDDEN": {
     type: "CLUSTER.STATUS.FETCH.FORBIDDEN";
     key: {clusterName: string};

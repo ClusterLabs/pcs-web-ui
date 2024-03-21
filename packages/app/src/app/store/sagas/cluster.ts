@@ -17,12 +17,24 @@ function* fetchClusterData(clusterName: string) {
         key: {clusterName},
       });
     } else {
-      yield api.processError(result, taskLabel);
+      yield api.processError(result, taskLabel, {
+        useNotification: result.type !== "BACKEND_NOT_FOUND",
+      });
     }
     yield put({
       type: "CLUSTER.STATUS.FETCH.FAIL",
       key: {clusterName},
     });
+    if (result.type === "BACKEND_NOT_FOUND") {
+      // In the case of BACKEND_NOT_FOUND it is still necessary put action
+      // CLUSTER.STATUS.FETCH.FAIL because it is a signal for periodical cluster
+      // status reloading.
+      // Redux store reacts on CLUSTER.STATUS.BACKEND_NOT_FOUND
+      yield put({
+        type: "CLUSTER.STATUS.BACKEND_NOT_FOUND",
+        key: {clusterName},
+      });
+    }
     return;
   }
 
