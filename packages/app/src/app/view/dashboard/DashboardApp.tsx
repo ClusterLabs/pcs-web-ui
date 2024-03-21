@@ -55,7 +55,7 @@ export const DashboardApp = () => {
     <Page>
       {notifications => (
         <>
-          <PageSection variant="light">
+          <PageSection variant="light" hasShadowBottom>
             <Stack hasGutter>
               <PageToolbar
                 breadcrumbs={

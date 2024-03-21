@@ -17,6 +17,7 @@ export const ClusterToolbar = (props: {
       variant="light"
       style={{paddingTop: "0"}}
       data-test={props["data-test"]}
+      hasShadowBottom
     >
       <LaunchersToolbar
         buttonsItems={props.buttonsItems}
