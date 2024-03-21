@@ -11,8 +11,19 @@ function* fetchClusterList() {
   );
   const taskLabel = "sync imported cluster list";
   if (result.type !== "OK") {
-    yield put({type: "CLUSTER.LIST.FETCH.FAIL"});
-    yield api.processError(result, taskLabel);
+    yield put({
+      type: "CLUSTER.LIST.FETCH.FAIL",
+    });
+    if (result.type === "BACKEND_NOT_FOUND") {
+      // In the case of BACKEND_NOT_FOUND it is still necessary put action
+      // CLUSTER.LIST.FETCH.FAIL because it is a signal for periodical imported
+      // cluster reloading.
+      // Redux store reacts on CLUSTER.LIST.BACKEND_NOT_FOUND
+      yield put({type: "CLUSTER.LIST.BACKEND_NOT_FOUND"});
+    }
+    yield api.processError(result, taskLabel, {
+      useNotification: result.type !== "BACKEND_NOT_FOUND",
+    });
     return;
   }
 

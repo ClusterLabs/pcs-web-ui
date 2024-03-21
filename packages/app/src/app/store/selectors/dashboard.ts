@@ -3,8 +3,17 @@ import {ClusterStorageItem, Root} from "./types";
 export const getImportedClusterList = (state: Root) =>
   state.dashboard.clusterNameList;
 
-export const dashboardAreDataLoaded = (state: Root) =>
-  state.dashboard.dataFetch === "SUCCESS";
+export const dashboardGetLoadingStatus = (
+  state: Root,
+): "not-loaded" | "loaded" | "not-found" => {
+  if (state.dashboard.dataFetch === "SUCCESS") {
+    return "loaded";
+  }
+  if (state.dashboard.dataFetch === "BACKEND_NOT_FOUND") {
+    return "not-found";
+  }
+  return "not-loaded";
+};
 
 type ClusterInfoList = ({clusterName: string} & (
   | {

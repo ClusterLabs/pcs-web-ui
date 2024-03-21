@@ -86,4 +86,7 @@ var pcsUiEnvAdapter = {
         }),
       ),
   },
+  jump: () => {
+    // In standalone mode jump makes not sens.
+  },
 };

@@ -58,7 +58,7 @@ export function* processError(
   result: api.result.HttpFail | api.result.NotJson | api.result.InvalidPayload,
   taskLabel: string,
   options: {
-    action: (() => void) | undefined;
+    action?: (() => void) | undefined;
     useNotification?: boolean;
   } = {
     useNotification: true,

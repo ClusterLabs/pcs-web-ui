@@ -10,6 +10,10 @@ export type ClusterListActions = {
     type: "CLUSTER.LIST.FETCH.FAIL";
   };
 
+  "CLUSTER.LIST.BACKEND_NOT_FOUND": {
+    type: "CLUSTER.LIST.BACKEND_NOT_FOUND";
+  };
+
   "CLUSTER.LIST.REFRESH": {
     type: "CLUSTER.LIST.REFRESH";
   };

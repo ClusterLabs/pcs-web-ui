@@ -134,4 +134,5 @@ var pcsUiEnvAdapter = {
       // This event is dispatched from cockpit. Pcs-web-ui should not set this.
     },
   },
+  jump: path => cockpit.jump(path),
 };

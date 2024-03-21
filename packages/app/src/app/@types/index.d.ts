@@ -40,5 +40,6 @@ declare global {
       addChangeListener: (_listener: (style: string) => void) => void;
       dispatchChangeEvent: (requestedTheme: "dark" | "light" | "auto") => void;
     };
+    jump: (path: string) => void;
   };
 }

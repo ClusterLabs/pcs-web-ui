@@ -3,9 +3,15 @@ import {useSelector} from "react-redux";
 import {
   Breadcrumb,
   BreadcrumbItem,
+  Button,
+  EmptyState,
+  EmptyStateActions,
+  EmptyStateBody,
+  EmptyStateFooter,
   PageSection,
   Stack,
   StackItem,
+  Title,
 } from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
@@ -43,7 +49,7 @@ export const DashboardApp = () => {
   useDashboardSync();
   const dispatch = useDispatch();
   const importedClusterNameList = useSelector(selectors.getImportedClusterList);
-  const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
+  const dataLoadingStatus = useSelector(selectors.dashboardGetLoadingStatus);
 
   return (
     <Page>
@@ -71,12 +77,38 @@ export const DashboardApp = () => {
             </Stack>
           </PageSection>
           <PageSection {...testMarks.dashboard.mark}>
-            {dataLoaded ? (
+            {dataLoadingStatus === "loaded" && (
               <DashboardClusterList
                 importedClusterNameList={importedClusterNameList}
               />
-            ) : (
+            )}
+            {dataLoadingStatus === "not-loaded" && (
               <EmptyStateSpinner title="Loading data" />
+            )}
+            {dataLoadingStatus === "not-found" && (
+              <>
+                <EmptyState style={{margin: "auto"}}>
+                  <Title size="lg" headingLevel="h2">
+                    Pcsd server (backend) not found.
+                  </Title>
+                  <EmptyStateBody>
+                    To use HA Cluster Management, make sure pcsd service is
+                    running.
+                  </EmptyStateBody>
+                  <EmptyStateFooter>
+                    <EmptyStateActions>
+                      <Button
+                        variant="primary"
+                        onClick={() =>
+                          pcsUiEnvAdapter.jump("/system/services#/pcsd.service")
+                        }
+                      >
+                        Go to pcsd service settings.
+                      </Button>
+                    </EmptyStateActions>
+                  </EmptyStateFooter>
+                </EmptyState>
+              </>
             )}
           </PageSection>
         </>
