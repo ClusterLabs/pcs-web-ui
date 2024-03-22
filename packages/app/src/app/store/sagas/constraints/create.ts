@@ -32,7 +32,7 @@ export function* create({key, payload}: ActionMap["CONSTRAINT.SINGLE.CREATE"]) {
     type: "CONSTRAINT.SINGLE.CREATE.FAIL",
     key,
     payload: {
-      message: result.type === "UNAUTHORIZED" ? "Unauthorized" : result.text,
+      message: api.getNonOkMessage(result),
     },
   });
 }

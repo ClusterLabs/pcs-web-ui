@@ -10,10 +10,12 @@ import {messages, putNotification} from "./notifications";
 
 type Notification = ActionPayload["NOTIFICATION.CREATE"];
 
-export const errorMessage = (
-  result: api.result.HttpFail | api.result.NotJson | api.result.InvalidPayload,
-  taskLabel: string,
-) => {
+type ResultNotOk =
+  | api.result.HttpFail
+  | api.result.NotJson
+  | api.result.InvalidPayload;
+
+export const errorMessage = (result: ResultNotOk, taskLabel: string) => {
   const detailsInConsole = "Details in the browser console.";
   switch (result.type) {
     case "UNAUTHORIZED":
@@ -28,7 +30,7 @@ export const errorMessage = (
 };
 
 function* error(
-  result: api.result.HttpFail | api.result.NotJson | api.result.InvalidPayload,
+  result: ResultNotOk,
   taskLabel: string,
   description: Notification["description"] = undefined,
 ) {
@@ -56,7 +58,7 @@ export function* processError(
   result: api.result.HttpFail | api.result.NotJson | api.result.InvalidPayload,
   taskLabel: string,
   options: {
-    action: (() => void) | undefined;
+    action?: (() => void) | undefined;
     useNotification?: boolean;
   } = {
     useNotification: true,
@@ -97,3 +99,19 @@ export function* authSafe<
   }
   return response;
 }
+
+export const getNonOkMessage = (result: ResultNotOk) => {
+  if (result.type === "UNAUTHORIZED") {
+    return "Unauthorized";
+  }
+  if (result.type === "BACKEND_NOT_FOUND") {
+    return "Backend not found";
+  }
+  if (result.type === "NON_HTTP_PROBLEM") {
+    return `Non http problem: ${result.problem}`;
+  }
+  if (result.type === "INVALID_PAYLOAD") {
+    return `Invalid response payload: ${result.errors.join("\n")}`;
+  }
+  return result.text;
+};

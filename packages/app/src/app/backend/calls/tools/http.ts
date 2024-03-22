@@ -57,6 +57,21 @@ async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
   validationOpts?: ValidationOpts<OUT, PAYLOAD, O, I>,
 ): Promise<ApiResult<OUT, PAYLOAD>> {
   type AR = ApiResult<OUT, PAYLOAD>;
+
+  if ("type" in response) {
+    switch (response.type) {
+      case "BACKEND_NOT_FOUND":
+        return {type: "BACKEND_NOT_FOUND"} as AR;
+      case "NON_HTTP_PROBLEM":
+        return {type: "NON_HTTP_PROBLEM", problem: response.problem} as AR;
+      default: {
+        const {type} = response;
+        const _exhaustiveCheck: never = type;
+        throw new Error(`Unexpected response type: "${_exhaustiveCheck}"`);
+      }
+    }
+  }
+
   if (response.status === 401) {
     return {type: "UNAUTHORIZED"} as AR;
   }

@@ -32,6 +32,7 @@ type ClusterInfo =
       isRegistered: false;
       clusterStatus: {
         isForbidden: false;
+        isBackendNotFoundCase: false;
         data: null;
       };
       permissions: null;
@@ -42,6 +43,7 @@ type ClusterInfo =
       isRegistered: true;
       clusterStatus: {
         isForbidden: boolean;
+        isBackendNotFoundCase: boolean;
         data: ClusterStorageItem["clusterStatus"]["clusterData"];
         load: {when: number; currently: boolean};
       };
@@ -62,6 +64,7 @@ export const getClusterStoreInfo =
         isRegistered: false,
         clusterStatus: {
           isForbidden: false,
+          isBackendNotFoundCase: false,
           data: null,
         },
         permissions: null,
@@ -78,6 +81,7 @@ export const getClusterStoreInfo =
       isRegistered: true,
       clusterStatus: {
         isForbidden: result === "FORBIDDEN",
+        isBackendNotFoundCase: result === "BACKEND_NOT_FOUND",
         data,
         load: {when, currently},
       },

@@ -11,8 +11,10 @@ import {
 import {testMarks} from "app/view/dataTest";
 import {selectors} from "app/store";
 import {
+  EmptyStateBackendNotFound,
+  EmptyStateSpinner,
+  LoadingDataLabel,
   Page,
-  PageSectionDataLoading,
   PageToolbar,
   useDispatch,
 } from "app/view/share";
@@ -43,23 +45,24 @@ export const DashboardApp = () => {
   useDashboardSync();
   const dispatch = useDispatch();
   const importedClusterNameList = useSelector(selectors.getImportedClusterList);
-  const dataLoaded = useSelector(selectors.dashboardAreDataLoaded);
+  const loading = useSelector(selectors.dashboardGetLoadingStatus);
 
   return (
     <Page>
       {notifications => (
         <>
-          <PageSection variant="light">
+          <PageSection variant="light" hasShadowBottom>
             <Stack hasGutter>
               <PageToolbar
                 breadcrumbs={
                   <Breadcrumb>
-                    <BreadcrumbItem
-                      component="span"
-                      isActive
-                      onClick={() => dispatch({type: "CLUSTER.LIST.REFRESH"})}
-                    >
+                    <BreadcrumbItem component="span" isActive>
                       Clusters
+                      <LoadingDataLabel
+                        onClick={() => dispatch({type: "CLUSTER.LIST.REFRESH"})}
+                        when={loading.when}
+                        isLoading={loading.currently}
+                      />
                     </BreadcrumbItem>
                   </Breadcrumb>
                 }
@@ -70,14 +73,20 @@ export const DashboardApp = () => {
               </StackItem>
             </Stack>
           </PageSection>
-          <PageSectionDataLoading
-            done={dataLoaded}
-            {...testMarks.dashboard.mark}
-          >
-            <DashboardClusterList
-              importedClusterNameList={importedClusterNameList}
-            />
-          </PageSectionDataLoading>
+          <PageSection {...testMarks.dashboard.mark}>
+            {loading.status === "SUCCESS" && (
+              <DashboardClusterList
+                importedClusterNameList={importedClusterNameList}
+              />
+            )}
+            {loading.status === "IN_PROGRESS"
+              || (loading.status === "NOT_STARTED" && (
+                <EmptyStateSpinner title="Loading data" />
+              ))}
+            {loading.status === "BACKEND_NOT_FOUND" && (
+              <EmptyStateBackendNotFound />
+            )}
+          </PageSection>
         </>
       )}
     </Page>

@@ -19,6 +19,7 @@ import {ConstraintsPage} from "./constraints";
 import {ClusterPropertiesPage} from "./properties";
 import {AclPage} from "./acl";
 import {ClusterOverviewPage} from "./overview";
+import {ClusterAppBackendNotFound} from "./ClusterAppBackendNotFound";
 
 const {clusterBreadcrumbs} = testMarks;
 
@@ -74,6 +75,10 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
 
         if (clusterInfo.clusterStatus.isForbidden) {
           return <ClusterAppForbidden />;
+        }
+
+        if (clusterInfo.clusterStatus.isBackendNotFoundCase) {
+          return <ClusterAppBackendNotFound />;
         }
 
         if (!clusterInfo.clusterStatus.data) {

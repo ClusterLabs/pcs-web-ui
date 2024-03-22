@@ -1,16 +1,16 @@
 import {InProgressIcon} from "@patternfly/react-icons";
 
-import {ClusterStatusAgeLabel} from "./ClusterStatusAgeLabel";
+import {LoadingDataAgeLabel} from "./LoadingDataAgeLabel";
 import {LoadingLabel} from "./LoadingLabel";
 
-export const ClusterStatusLoadingLabel = (props: {
-  clusterName: string;
+export const LoadingDataLabel = (props: {
+  onClick: () => void;
   when: number;
   isLoading: boolean;
 }) => {
   return props.isLoading ? (
     <LoadingLabel icon={<InProgressIcon />}>loading</LoadingLabel>
   ) : (
-    <ClusterStatusAgeLabel clusterName={props.clusterName} when={props.when} />
+    <LoadingDataAgeLabel onClick={props.onClick} when={props.when} />
   );
 };

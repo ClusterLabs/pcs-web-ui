@@ -6,7 +6,7 @@ module.exports = {
     "import/extensions": [
       "error",
       "never",
-      {packages: "always", json: "always"},
+      {packages: "always", json: "always", css: "always"},
     ],
     "import/newline-after-import": "error",
     "import/no-amd": "error",

@@ -87,10 +87,12 @@ var pcsUiEnvAdapter = {
           text: e.message,
         };
       }
+      if (e.problem === "not-found") {
+        return {type: "BACKEND_NOT_FOUND"};
+      }
       return {
-        status: 500,
-        statusText: e.problem,
-        text: e.message,
+        type: "NON_HTTP_PROBLEM",
+        problem: e.problem,
       };
     }
   },
@@ -132,4 +134,5 @@ var pcsUiEnvAdapter = {
       // This event is dispatched from cockpit. Pcs-web-ui should not set this.
     },
   },
+  jump: path => cockpit.jump(path),
 };

@@ -11,7 +11,18 @@ declare global {
       _path: string,
       _headers: Record<string, string>,
       _postBody?: string,
-    ) => Promise<{status: number; statusText: string; text: string}>;
+    ) => Promise<
+      | {
+          status: number;
+          statusText: string;
+          text: string;
+        }
+      | {
+          type: "NON_HTTP_PROBLEM";
+          problem: string;
+        }
+      | {type: "BACKEND_NOT_FOUND"}
+    >;
     location: {
       getSearch: () => string;
       getPath: () => string;
@@ -29,5 +40,6 @@ declare global {
       addChangeListener: (_listener: (style: string) => void) => void;
       dispatchChangeEvent: (requestedTheme: "dark" | "light" | "auto") => void;
     };
+    jump: (path: string) => void;
   };
 }

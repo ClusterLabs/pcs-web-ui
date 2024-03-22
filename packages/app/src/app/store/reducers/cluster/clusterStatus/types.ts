@@ -160,7 +160,7 @@ export type ClusterStatusService = {
   clusterData: Cluster | null;
   load: {
     currently: boolean;
-    result: "SUCCESS" | "FORBIDDEN" | "NO_DATA_YET";
+    result: "SUCCESS" | "FORBIDDEN" | "BACKEND_NOT_FOUND" | "NO_DATA_YET";
     when: number;
   };
 };
