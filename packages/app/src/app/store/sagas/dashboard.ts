@@ -1,7 +1,8 @@
 import {importedClusterList} from "app/backend";
 import {ActionPayload} from "app/store/actions";
+import {dashboardGetLoadingStatus} from "app/store/selectors";
 
-import {api, dataLoad, put} from "./common";
+import {api, dataLoad, put, select} from "./common";
 
 type Reading = ActionPayload["DATA_READING.SET_UP"]["readings"][number];
 
@@ -11,19 +12,24 @@ function* fetchClusterList() {
   );
   const taskLabel = "sync imported cluster list";
   if (result.type !== "OK") {
-    yield put({
-      type: "CLUSTER.LIST.FETCH.FAIL",
-    });
-    if (result.type === "BACKEND_NOT_FOUND") {
+    yield put({type: "CLUSTER.LIST.FETCH.FAIL"});
+
+    const loadingStatus: ReturnType<typeof dashboardGetLoadingStatus> =
+      yield select(dashboardGetLoadingStatus);
+
+    const notFoundOnStart =
+      result.type === "BACKEND_NOT_FOUND"
+      && (loadingStatus === "not-loaded" || loadingStatus === "not-found");
+
+    if (notFoundOnStart) {
       // In the case of BACKEND_NOT_FOUND it is still necessary put action
       // CLUSTER.LIST.FETCH.FAIL because it is a signal for periodical imported
       // cluster reloading.
       // Redux store reacts on CLUSTER.LIST.BACKEND_NOT_FOUND
       yield put({type: "CLUSTER.LIST.BACKEND_NOT_FOUND"});
+    } else {
+      yield api.processError(result, taskLabel);
     }
-    yield api.processError(result, taskLabel, {
-      useNotification: result.type !== "BACKEND_NOT_FOUND",
-    });
     return;
   }
 

@@ -1,7 +1,10 @@
 import {clusterStatus} from "app/backend";
 import {Action} from "app/store/actions";
+import {getClusterStoreInfo} from "app/store/selectors";
 
-import {api, dataLoad, fork, put} from "./common";
+import {api, dataLoad, fork, put, select} from "./common";
+
+type ClusterStoreInfo = ReturnType<ReturnType<typeof getClusterStoreInfo>>;
 
 function* fetchClusterData(clusterName: string) {
   const result: api.ResultOf<typeof clusterStatus> = yield api.authSafe(
@@ -9,40 +12,38 @@ function* fetchClusterData(clusterName: string) {
     clusterName,
   );
 
-  const taskLabel = `sync status of cluster "${clusterName}"`;
-  if (result.type !== "OK") {
-    if (result.type === "BAD_HTTP_STATUS" && result.status === 403) {
-      yield put({
-        type: "CLUSTER.STATUS.FETCH.FORBIDDEN",
-        key: {clusterName},
-      });
-    } else {
-      yield api.processError(result, taskLabel, {
-        useNotification: result.type !== "BACKEND_NOT_FOUND",
-      });
-    }
+  if (result.type === "OK") {
     yield put({
-      type: "CLUSTER.STATUS.FETCH.FAIL",
+      type: "CLUSTER.STATUS.FETCH.OK",
       key: {clusterName},
+      payload: result.payload,
     });
-    if (result.type === "BACKEND_NOT_FOUND") {
-      // In the case of BACKEND_NOT_FOUND it is still necessary put action
-      // CLUSTER.STATUS.FETCH.FAIL because it is a signal for periodical cluster
-      // status reloading.
-      // Redux store reacts on CLUSTER.STATUS.BACKEND_NOT_FOUND
-      yield put({
-        type: "CLUSTER.STATUS.BACKEND_NOT_FOUND",
-        key: {clusterName},
-      });
-    }
     return;
   }
 
-  yield put({
-    type: "CLUSTER.STATUS.FETCH.OK",
-    key: {clusterName},
-    payload: result.payload,
-  });
+  // In the case of BACKEND_NOT_FOUND it is still necessary put action
+  // CLUSTER.STATUS.FETCH.FAIL because it is a signal for periodical cluster
+  // status reloading.
+  // Redux store reacts on CLUSTER.STATUS.BACKEND_NOT_FOUND
+  yield put({type: "CLUSTER.STATUS.FETCH.FAIL", key: {clusterName}});
+
+  const {
+    clusterStatus: {data, isBackendNotFoundCase},
+  }: ClusterStoreInfo = yield select(getClusterStoreInfo(clusterName));
+
+  const backendNotFoundOnStart =
+    result.type === "BACKEND_NOT_FOUND" && (!data || isBackendNotFoundCase);
+
+  const isForbidden =
+    result.type === "BAD_HTTP_STATUS" && result.status === 403;
+
+  if (isForbidden) {
+    yield put({type: "CLUSTER.STATUS.FETCH.FORBIDDEN", key: {clusterName}});
+  } else if (backendNotFoundOnStart) {
+    yield put({type: "CLUSTER.STATUS.BACKEND_NOT_FOUND", key: {clusterName}});
+  } else {
+    yield api.processError(result, `sync status of cluster "${clusterName}"`);
+  }
 }
 
 const REFRESH = "CLUSTER.STATUS.REFRESH";
