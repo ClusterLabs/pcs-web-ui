@@ -1,8 +1,6 @@
 import React from "react";
 import {SyncAltIcon} from "@patternfly/react-icons";
 
-import {useDispatch} from "app/view/share";
-
 import {LoadingLabel} from "./LoadingLabel";
 
 const age = (when: number) => Math.floor((Date.now() - when) / 1000);
@@ -35,13 +33,12 @@ const ageLabel = (ageSeconds: number) => {
   return ageUnitLabel(ageSeconds, "day");
 };
 
-export const ClusterStatusAgeLabel = (props: {
-  clusterName: string;
+export const LoadingDataAgeLabel = (props: {
+  onClick: () => void;
   when: number;
 }) => {
   const [refreshHovered, setRefreshHovered] = React.useState(false);
   const [ageSeconds, setAgeSecons] = React.useState(age(props.when));
-  const dispatch = useDispatch();
 
   React.useEffect(() => {
     setAgeSecons(age(props.when));
@@ -55,12 +52,7 @@ export const ClusterStatusAgeLabel = (props: {
     <LoadingLabel
       variant={refreshHovered ? "filled" : "outline"}
       icon={<SyncAltIcon />}
-      onClick={() =>
-        dispatch({
-          type: "CLUSTER.STATUS.REFRESH",
-          key: {clusterName: props.clusterName},
-        })
-      }
+      onClick={props.onClick}
       onMouseEnter={() => setRefreshHovered(true)}
       onMouseLeave={() => setRefreshHovered(false)}
       style={{cursor: "pointer"}}
