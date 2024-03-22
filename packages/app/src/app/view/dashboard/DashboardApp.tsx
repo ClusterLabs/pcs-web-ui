@@ -13,6 +13,7 @@ import {selectors} from "app/store";
 import {
   EmptyStateBackendNotFound,
   EmptyStateSpinner,
+  LoadingDataLabel,
   Page,
   PageToolbar,
   useDispatch,
@@ -44,7 +45,7 @@ export const DashboardApp = () => {
   useDashboardSync();
   const dispatch = useDispatch();
   const importedClusterNameList = useSelector(selectors.getImportedClusterList);
-  const dataLoadingStatus = useSelector(selectors.dashboardGetLoadingStatus);
+  const loading = useSelector(selectors.dashboardGetLoadingStatus);
 
   return (
     <Page>
@@ -55,12 +56,13 @@ export const DashboardApp = () => {
               <PageToolbar
                 breadcrumbs={
                   <Breadcrumb>
-                    <BreadcrumbItem
-                      component="span"
-                      isActive
-                      onClick={() => dispatch({type: "CLUSTER.LIST.REFRESH"})}
-                    >
+                    <BreadcrumbItem component="span" isActive>
                       Clusters
+                      <LoadingDataLabel
+                        onClick={() => dispatch({type: "CLUSTER.LIST.REFRESH"})}
+                        when={loading.when}
+                        isLoading={loading.currently}
+                      />
                     </BreadcrumbItem>
                   </Breadcrumb>
                 }
@@ -72,15 +74,18 @@ export const DashboardApp = () => {
             </Stack>
           </PageSection>
           <PageSection {...testMarks.dashboard.mark}>
-            {dataLoadingStatus === "loaded" && (
+            {loading.status === "SUCCESS" && (
               <DashboardClusterList
                 importedClusterNameList={importedClusterNameList}
               />
             )}
-            {dataLoadingStatus === "not-loaded" && (
-              <EmptyStateSpinner title="Loading data" />
+            {loading.status === "IN_PROGRESS"
+              || (loading.status === "NOT_STARTED" && (
+                <EmptyStateSpinner title="Loading data" />
+              ))}
+            {loading.status === "BACKEND_NOT_FOUND" && (
+              <EmptyStateBackendNotFound />
             )}
-            {dataLoadingStatus === "not-found" && <EmptyStateBackendNotFound />}
           </PageSection>
         </>
       )}

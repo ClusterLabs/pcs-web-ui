@@ -14,12 +14,14 @@ function* fetchClusterList() {
   if (result.type !== "OK") {
     yield put({type: "CLUSTER.LIST.FETCH.FAIL"});
 
-    const loadingStatus: ReturnType<typeof dashboardGetLoadingStatus> =
+    const {status: loadStatus}: ReturnType<typeof dashboardGetLoadingStatus> =
       yield select(dashboardGetLoadingStatus);
 
     const notFoundOnStart =
       result.type === "BACKEND_NOT_FOUND"
-      && (loadingStatus === "not-loaded" || loadingStatus === "not-found");
+      && (loadStatus === "NOT_STARTED"
+        || loadStatus === "BACKEND_NOT_FOUND"
+        || loadStatus === "IN_PROGRESS");
 
     if (notFoundOnStart) {
       // In the case of BACKEND_NOT_FOUND it is still necessary put action
