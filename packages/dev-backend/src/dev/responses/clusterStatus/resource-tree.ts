@@ -52,6 +52,10 @@ export const resourceTree: Cluster = cluster("resourceTree", "ok", {
       ],
     }),
   ],
+  cluster_settings: {
+    "placement-strategy": "default",
+    // "placement-strategy": "utilization",
+  },
   nodes_utilization: {
     "node-1": [
       {

@@ -29,6 +29,9 @@ export const resource = ({
 export const fenceDeviceList = ({clusterName}: {clusterName: string}) =>
   `${cluster({clusterName})}/fence-devices`;
 
+export const properties = ({clusterName}: {clusterName: string}) =>
+  `${cluster({clusterName})}/properties`;
+
 export const fenceDevice = ({
   clusterName,
   fenceDeviceId,
