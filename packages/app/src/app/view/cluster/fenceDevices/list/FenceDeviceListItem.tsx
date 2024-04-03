@@ -7,8 +7,6 @@ import {
 
 import {testMarks} from "app/view/dataTest";
 import {FenceDevice} from "app/view/cluster/types";
-import {SelectionIndicatorInGroup} from "app/view/share";
-import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 import {FenceDeviceListCellStatus} from "./FenceDeviceListCellStatus";
 import {FenceDeviceListCellName} from "./FenceDeviceListCellName";
@@ -21,9 +19,12 @@ export const FenceDeviceListItem = ({
 }: {
   fenceDevice: FenceDevice;
 }) => {
-  const {selectedItemUrlName: fenceDeviceId} = useGroupDetailViewContext();
   return (
-    <DataListItem aria-labelledby={fenceDevice.id} {...item.mark}>
+    <DataListItem
+      aria-labelledby={fenceDevice.id}
+      id={fenceDevice.id}
+      {...item.mark}
+    >
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
@@ -38,11 +39,6 @@ export const FenceDeviceListItem = ({
           }
         />
         <FenceDeviceListCellStatus fenceDevice={fenceDevice} />
-        {fenceDeviceId !== "" && (
-          <SelectionIndicatorInGroup
-            isSelected={fenceDevice.id === fenceDeviceId}
-          />
-        )}
       </DataListItemRow>
     </DataListItem>
   );
