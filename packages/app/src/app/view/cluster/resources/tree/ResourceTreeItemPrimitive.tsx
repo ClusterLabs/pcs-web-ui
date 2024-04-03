@@ -21,6 +21,7 @@ export const ResourceTreeItemPrimitive = ({
 }) => {
   return (
     <DataListItem
+      id={primitive.id}
       aria-labelledby={`resource-tree-item-${primitive.id}`}
       {...primitiveMark.mark}
     >
@@ -31,7 +32,6 @@ export const ResourceTreeItemPrimitive = ({
           aria-hidden="true"
         />
         <ResourceTreeItemCells
-          resourceId={primitive.id}
           idCell={
             <ResourceTreeCellName
               resourceId={primitive.id}

@@ -13,7 +13,7 @@ import {ResourceTreeItemClone} from "./ResourceTreeItemClone";
 import {ResourceTreeItemGroup} from "./ResourceTreeItemGroup";
 
 export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
-  const {compact} = useGroupDetailViewContext();
+  const {compact, selectedItemUrlName} = useGroupDetailViewContext();
   const {hasCibInfo, clusterName} = useLoadedCluster();
 
   if (!hasCibInfo) {
@@ -40,6 +40,7 @@ export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
       {...testMarks.cluster.resources.tree.mark}
       gridBreakpoint="lg"
+      selectedDataListItemId={selectedItemUrlName}
     >
       {resourceTree.map(resourceTreeItem => {
         switch (resourceTreeItem.itemType) {

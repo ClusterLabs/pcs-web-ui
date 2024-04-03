@@ -6,7 +6,10 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import {useClusterSources} from "app/view/cluster/share";
+import {
+  useClusterSources,
+  useGroupDetailViewContext,
+} from "app/view/cluster/share";
 
 import {ResourceTreeItemCells} from "./ResourceTreeItemCells";
 
@@ -24,10 +27,12 @@ export const ResourceTreeItemCompound = (
   const {
     uiState: {resourceOpenedItems},
   } = useClusterSources();
+  const {selectedItemUrlName} = useGroupDetailViewContext();
   const expanded = resourceOpenedItems.includes(props.resourceId);
   const label = `Members of resource item ${props.resourceId}`;
   return (
     <DataListItem
+      id={props.resourceId}
       aria-labelledby={`resource-tree-item-${props.resourceId}`}
       isExpanded={expanded}
       data-test={props["data-test"]}
@@ -35,7 +40,6 @@ export const ResourceTreeItemCompound = (
       <DataListItemRow>
         {props.toggle}
         <ResourceTreeItemCells
-          resourceId={props.resourceId}
           idCell={props.idCell}
           typeCell={props.typeCell}
           statusCell={props.statusCell}
@@ -47,6 +51,7 @@ export const ResourceTreeItemCompound = (
             aria-label={label}
             data-level={props.nestingDepth}
             gridBreakpoint="lg"
+            selectedDataListItemId={selectedItemUrlName}
           >
             {props.children}
           </DataList>

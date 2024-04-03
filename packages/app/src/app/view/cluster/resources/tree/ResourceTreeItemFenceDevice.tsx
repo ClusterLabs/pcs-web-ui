@@ -7,7 +7,7 @@ import {
 } from "@patternfly/react-core";
 
 import {FenceDevice} from "app/view/cluster/types";
-import {SelectionIndicatorInGroup, StatusIco, StatusSign} from "app/view/share";
+import {StatusIco, StatusSign} from "app/view/share";
 import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 import {ResourceTreeCellName} from "./ResourceTreeCellName";
@@ -18,9 +18,12 @@ export const ResourceTreeItemFenceDevice = ({
 }: {
   fenceDevice: FenceDevice;
 }) => {
-  const {compact, selectedItemUrlName} = useGroupDetailViewContext();
+  const {compact} = useGroupDetailViewContext();
   return (
-    <DataListItem aria-labelledby={`resource-tree-item-${fenceDevice.id}`}>
+    <DataListItem
+      aria-labelledby={`resource-tree-item-${fenceDevice.id}`}
+      id={fenceDevice.id}
+    >
       <DataListItemRow>
         <DataListToggle
           aria-label="Resource toggle"
@@ -50,11 +53,6 @@ export const ResourceTreeItemFenceDevice = ({
           <div className="ha-c-data-list__item-status">
             <StatusSign status="ERROR" label="Bad placement" />
           </div>
-        )}
-        {selectedItemUrlName !== "" && (
-          <SelectionIndicatorInGroup
-            isSelected={fenceDevice.id === selectedItemUrlName}
-          />
         )}
       </DataListItemRow>
     </DataListItem>
