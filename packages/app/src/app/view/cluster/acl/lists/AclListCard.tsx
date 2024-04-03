@@ -3,6 +3,7 @@ import {DataList} from "@patternfly/react-core";
 
 import {tools} from "app/store";
 import {Card, EmptyStateNoItem} from "app/view/share";
+import {useGroupDetailViewContext} from "app/view/cluster/share";
 import {Acls} from "app/view/cluster/acl/types";
 
 import {AclType} from "../types";
@@ -17,6 +18,8 @@ export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
   renderItem: (_id: string, _aclObject: AclType<ACL_TYPE>) => React.ReactNode;
 }) => {
   const hasItems = aclList !== undefined && Object.keys(aclList).length > 0;
+  const {selectedItemUrlName, selectedItemUrlType} =
+    useGroupDetailViewContext();
   return (
     <Card title={`${tools.labelize(aclType)}s`}>
       {!hasItems && (
@@ -27,7 +30,10 @@ export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
       )}
 
       {hasItems && (
-        <DataList aria-label={`Cluster ${aclType} acls`}>
+        <DataList
+          aria-label={`Cluster ${aclType} acls`}
+          selectedDataListItemId={`${selectedItemUrlType}-${selectedItemUrlName}`}
+        >
           {Object.entries(aclList).map(([id, aclObject]) => (
             <React.Fragment key={id}>
               {renderItem(id, aclObject)}
