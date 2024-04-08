@@ -2,6 +2,7 @@ import {ActionPayload} from "app/store/actions";
 
 import {Cluster, StatusSeverity} from "../../types";
 import * as statusSeverity from "../statusSeverity";
+import {remapDeprecatedRoles} from "../remapDeprecatedRoles";
 
 import {toPrimitive} from "./primitive";
 import {filterApiPrimitive, toGroup} from "./group";
@@ -30,8 +31,8 @@ const takeResourceOnNodeStatus = (
     failed: crmStatus.failed,
     failureIgnored: crmStatus.failure_ignored,
     managed: crmStatus.managed,
-    targetRole: crmStatus.target_role ?? undefined,
-    role: crmStatus.role,
+    targetRole: remapDeprecatedRoles(crmStatus.target_role) ?? undefined,
+    role: remapDeprecatedRoles(crmStatus.role),
     pending: crmStatus.pending,
     orphaned: crmStatus.orphaned,
     nodesRunningOn: crmStatus.nodes_running_on,

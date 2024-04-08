@@ -1,3 +1,5 @@
+import {remapDeprecatedRoles} from "app/store";
+
 export const ConstraintResourceInRole = ({
   role,
 }: {
@@ -6,7 +8,7 @@ export const ConstraintResourceInRole = ({
   return (
     <>
       {" in role "}
-      <strong>{role || "Started"}</strong>
+      <strong>{remapDeprecatedRoles(role) || "Started"}</strong>
     </>
   );
 };

@@ -1,5 +1,7 @@
 import {DataListCell} from "@patternfly/react-core";
 
+import {remapDeprecatedRoles} from "app/store";
+
 import {ConstraintColocationSet} from "../types";
 import {ConstraintResourceInRole, ConstraintValue} from "../common";
 import {
@@ -24,7 +26,9 @@ export const ConstraintRowColocationSet = ({
           <DataListCell width={4}>
             {"Resources "}
             <ConstraintResourceSetRscLinks resourceSet={resourceSet} />
-            <ConstraintResourceInRole role={resourceSet.role} />
+            <ConstraintResourceInRole
+              role={remapDeprecatedRoles(resourceSet.role)}
+            />
             <ConstraintRowColocationTogether constraint={constraint} />
           </DataListCell>
           <DataListCell width={1}>

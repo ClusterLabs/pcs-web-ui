@@ -1,6 +1,7 @@
 import {DataListCell} from "@patternfly/react-core";
 
 import {useLoadedCluster} from "app/view/cluster/share";
+import {remapDeprecatedRoles} from "app/store";
 
 import {ConstraintLocationRule} from "../types";
 import {
@@ -53,7 +54,9 @@ export const ConstraintRowLocationRule = ({
             <>
               <DataListCell width={3}>
                 <ConstraintLocationDescRscPoint constraint={constraint} />
-                <ConstraintResourceInRole role={constraint.role} />
+                <ConstraintResourceInRole
+                  role={remapDeprecatedRoles(constraint.role)}
+                />
                 {" according to the rule "}
                 <strong>{constraint.rule_string}</strong>
               </DataListCell>
