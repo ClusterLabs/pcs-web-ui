@@ -10,10 +10,12 @@ import {Table} from "./table";
 const isRoleOk = (crmStatus: ResourceOnNodeStatus): boolean =>
   crmStatus.role === crmStatus.targetRole
   || (!crmStatus.targetRole
-    && ["started", "master", "slave"].includes(crmStatus.role.toLowerCase()));
+    && ["started", "promoted", "unpromoted"].includes(
+      crmStatus.role.toLowerCase(),
+    ));
 
 const isTargetRoleOk = (targetRole: string): boolean =>
-  ["started", "master"].includes(targetRole.toLowerCase());
+  ["started", "unpromoted"].includes(targetRole.toLowerCase());
 
 export const CrmStatusTable = ({
   crmStatusList,
