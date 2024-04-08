@@ -17,7 +17,7 @@ export const FenceDeviceList = ({
 }: {
   fenceDeviceList: FenceDevice[];
 }) => {
-  const {compact} = useGroupDetailViewContext();
+  const {compact, selectedItemUrlName} = useGroupDetailViewContext();
   const {hasCibInfo, clusterName} = useLoadedCluster();
 
   if (!hasCibInfo) {
@@ -42,6 +42,7 @@ export const FenceDeviceList = ({
     <DataList
       aria-label="Cluster fence devices"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
+      selectedDataListItemId={selectedItemUrlName}
       {...list.mark}
     >
       {fenceDeviceList.map(fenceDevice => (

@@ -8,15 +8,13 @@ import {
 import {testMarks} from "app/view/dataTest";
 import {Link} from "app/view/share";
 import {Node} from "app/view/cluster/types";
-import {SelectionIndicatorInGroup, StatusSign, toLabel} from "app/view/share";
-import {useGroupDetailViewContext} from "app/view/cluster/share";
+import {StatusSign, toLabel} from "app/view/share";
 
 const {node: nodeMark} = testMarks.cluster.nodes.list;
 
 export const NodeListItem = ({node}: {node: Node}) => {
-  const {selectedItemUrlName} = useGroupDetailViewContext();
   return (
-    <DataListItem aria-labelledby={node.name}>
+    <DataListItem aria-labelledby={node.name} id={node.name}>
       <DataListItemRow {...nodeMark.mark}>
         <DataListItemCells
           dataListCells={
@@ -62,11 +60,6 @@ export const NodeListItem = ({node}: {node: Node}) => {
             </>
           }
         />
-        {selectedItemUrlName !== "" && (
-          <SelectionIndicatorInGroup
-            isSelected={node.name === selectedItemUrlName}
-          />
-        )}
       </DataListItemRow>
     </DataListItem>
   );

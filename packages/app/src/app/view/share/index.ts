@@ -17,7 +17,6 @@ export * from "./page";
 export * from "./ResourceDetailCaption";
 export * from "./resourceSet";
 export * from "./ResourceStatusInfoListSigns";
-export * from "./SelectionIndicatorInGroup";
 export * from "./StatusIco";
 export * from "./StatusSign";
 export * from "./table";

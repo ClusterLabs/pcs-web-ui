@@ -7,7 +7,7 @@ import {
 } from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Link, SelectionIndicatorInGroup} from "app/view/share";
+import {Link} from "app/view/share";
 import {
   useGroupDetailViewContext,
   useLoadedCluster,
@@ -34,11 +34,10 @@ export const AclRoleListItem = ({
   permissions: AclType<"role">["permissions"];
 }) => {
   const {acls} = useLoadedCluster();
-  const {selectedItemUrlName, selectedItemUrlType, compact} =
-    useGroupDetailViewContext();
+  const {compact} = useGroupDetailViewContext();
 
   return (
-    <DataListItem aria-labelledby={id} {...role.mark}>
+    <DataListItem aria-labelledby={id} id={`role-${id}`} {...role.mark}>
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
@@ -72,13 +71,6 @@ export const AclRoleListItem = ({
             </>
           }
         />
-        {selectedItemUrlName !== "" && (
-          <SelectionIndicatorInGroup
-            isSelected={
-              selectedItemUrlType === "role" && id === selectedItemUrlName
-            }
-          />
-        )}
       </DataListItemRow>
     </DataListItem>
   );

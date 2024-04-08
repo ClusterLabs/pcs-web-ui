@@ -6,7 +6,6 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import {SelectionIndicatorInGroup} from "app/view/share";
 import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 export const AclSubjectListItem = (props: {
@@ -16,11 +15,13 @@ export const AclSubjectListItem = (props: {
   rolesCount: React.ReactNode;
   "data-test"?: string;
 }) => {
-  const {selectedItemUrlName, selectedItemUrlType, compact} =
-    useGroupDetailViewContext();
+  const {compact} = useGroupDetailViewContext();
 
   return (
-    <DataListItem data-test={props["data-test"]}>
+    <DataListItem
+      id={`${props.aclType}-${props.id}`}
+      data-test={props["data-test"]}
+    >
       <DataListItemRow>
         <DataListItemCells
           dataListCells={
@@ -33,14 +34,6 @@ export const AclSubjectListItem = (props: {
             </>
           }
         />
-        {selectedItemUrlName !== "" && (
-          <SelectionIndicatorInGroup
-            isSelected={
-              selectedItemUrlType === props.aclType
-              && props.id === selectedItemUrlName
-            }
-          />
-        )}
       </DataListItemRow>
     </DataListItem>
   );
