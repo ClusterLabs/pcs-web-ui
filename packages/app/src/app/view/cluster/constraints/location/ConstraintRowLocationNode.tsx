@@ -1,5 +1,6 @@
-import React from "react";
 import {DataListCell} from "@patternfly/react-core";
+
+import {remapDeprecatedRoles} from "app/store";
 
 import {
   ConstraintCell,
@@ -25,7 +26,9 @@ export const ConstraintRowLocationNode = ({
           <ConstraintCell label="Type" value="Location" width={1} />
           <DataListCell width={3}>
             <ConstraintLocationDescRscPoint constraint={constraint} />
-            <ConstraintResourceInRole role={constraint.role} />
+            <ConstraintResourceInRole
+              role={remapDeprecatedRoles(constraint.role)}
+            />
             {" on node "}
             <ConstraintLink type="node" id={constraint.node} />
           </DataListCell>

@@ -1,5 +1,7 @@
 import {DataListCell} from "@patternfly/react-core";
 
+import {remapDeprecatedRoles} from "app/store";
+
 import {ConstraintColocationPair} from "../types";
 import {
   ConstraintCell,
@@ -26,12 +28,16 @@ export const ConstraintRowColocationPair = ({
             {"Resources "}
 
             <ConstraintLink type="resource" id={constraint.rsc} />
-            <ConstraintResourceInRole role={constraint["rsc-role"]} />
+            <ConstraintResourceInRole
+              role={remapDeprecatedRoles(constraint["rsc-role"])}
+            />
 
             {" and "}
 
             <ConstraintLink type="resource" id={constraint["with-rsc"]} />
-            <ConstraintResourceInRole role={constraint["with-rsc-role"]} />
+            <ConstraintResourceInRole
+              role={remapDeprecatedRoles(constraint["with-rsc-role"])}
+            />
 
             <ConstraintRowColocationTogether constraint={constraint} />
           </DataListCell>

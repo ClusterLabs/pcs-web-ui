@@ -91,8 +91,8 @@ export const Configure = () => {
                   <strong>demote</strong>
                 </dd>
                 <dt>
-                  Demote relevant resources that are running in master mode to
-                  slave mode.
+                  Demote relevant resources that are running in promoted mode to
+                  unpromoted mode.
                 </dt>
               </dl>
             </>

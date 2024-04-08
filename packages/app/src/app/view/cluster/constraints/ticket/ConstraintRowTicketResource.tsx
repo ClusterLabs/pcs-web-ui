@@ -1,5 +1,6 @@
-import React from "react";
 import {DataListCell} from "@patternfly/react-core";
+
+import {remapDeprecatedRoles} from "app/store";
 
 import {
   ConstraintCell,
@@ -27,7 +28,9 @@ export const ConstraintRowTicketResource = ({
             {"Resource "}
             <ConstraintLink type="resource" id={constraint.rsc} />
             {constraint["rsc-role"] !== undefined && (
-              <ConstraintResourceInRole role={constraint["rsc-role"]} />
+              <ConstraintResourceInRole
+                role={remapDeprecatedRoles(constraint["rsc-role"])}
+              />
             )}
             {" depends on ticket "}
             <strong>{constraint.ticket}</strong>
