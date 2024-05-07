@@ -40,7 +40,7 @@ pcsd_integration_test:
     #
     # install current version of pcs
     #
-    - 'curl -Lk --output artifacts.zip --header "PRIVATE-TOKEN: ${PCS_REPO_TOKEN}" "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/main/download?job=rpm_build%3A%20%5BPcsRhel9CurrentRelease%5D"'
+    - 'curl -Lk --output artifacts.zip --header "PRIVATE-TOKEN: ${PCS_REPO_TOKEN}" "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/pcs-0.11/download?job=rpm_build%3A%20%5BPcsRhel9CurrentRelease%5D"'
     - unzip artifacts.zip
     - "dnf install -y rpms/pcs-*.rpm"
     - rm -rf rpms/ artifacts.zip
