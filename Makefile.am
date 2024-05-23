@@ -1,14 +1,12 @@
-NEXUS="https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
-PROJECT_DIR=$(shell pwd)
-APP_MODULES_DIR=$(shell realpath ${PROJECT_DIR}/packages/app/node_modules)
+AUTOMAKE_OPTIONS = foreign
 
-ifndef NEXUS_REPO
-	NEXUS_REPO=true
-endif
+SUBDIRS = .
 
-ifndef NEXUS_CERT_PATH
-	NEXUS_CERT_PATH=""
-endif
+NEXUS = "https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
+PROJECT_DIR = $(shell pwd)
+APP_MODULES_DIR = $(shell realpath ${PROJECT_DIR}/packages/app/node_modules)
+
+PCSD_WEBUI_DIR = @PCSD_WEBUI_DIR@
 
 app:
 	@./packages/app/.bin/check-assumptions.sh
@@ -28,10 +26,10 @@ modules-pack:
 	@ls -l ./*.tar.xz
 
 modules-prepare:
-	@cd ./packages/app  && echo y |  .bin/modules-prepare.sh ${APP_MODULES_DIR} 
+	@cd ./packages/app  && echo y |  .bin/modules-prepare.sh ${APP_MODULES_DIR}
 
 modules-patch:
-	@cd ./packages/app  && .bin/modules-patch.sh ${APP_MODULES_DIR} 
+	@cd ./packages/app  && .bin/modules-patch.sh ${APP_MODULES_DIR}
 
 dev:
 	@cd ./packages/dev-backend && .bin/dev-backend.sh
@@ -51,22 +49,19 @@ clean:
 	rm pcs-web-ui-node-modules-*.tar.xz
 
 init_nexus:
-ifeq ($(NEXUS_CERT_PATH),"")
-	echo "Specify path of nexus certificate, please"
-else
+	@[ "${NEXUS_CERT_PATH}" ] || ( \
+	  echo "Specify path of nexus certificate via NEXUS_CERT_PATH parameter, please"; \
+		exit 1 )
 	@.bin/init_nexus.sh ./packages ${NEXUS} ${NEXUS_CERT_PATH}
-endif
-
-
 
 init:
-ifeq ($(NEXUS_REPO),true)
-	@echo "Use \`make init NEXUS_REPO=false\` not to use the Nexus repo."
-	@.bin/init.sh ${NEXUS}
-else
-	@echo "If you will need reinit with the Nexus repo run \`make init\`"
-	@.bin/init.sh
-endif
+	@if [ "${NEXUS_REPO}" ] && [ "${NEXUS_REPO}" = "false" ]; then \
+		echo "Use \`make init NEXUS_REPO=false\` not to use the Nexus repo."; \
+		.bin/init.sh ${NEXUS}; \
+	else \
+		echo "If you will need reinit with the Nexus repo run \`make init\`"
+		.bin/init.sh
+	fi
 
 check_sources:
 	@.bin/check-no-nexus.sh
@@ -78,17 +73,13 @@ fmt:
 	npx prettier "packages/app/src/" --write
 	packages/app/node_modules/.bin/eslint --fix --ext .js,.ts,.tsx packages/app/src/
 
-_install:
-ifndef PCSD_DIR
-	$(error PCSD_DIR has to be specified)
-endif
-	@if test ! -d build; then echo "Run 'make build' first"; false; fi
-	mkdir -p $(PCSD_DIR)/public/ui
-	cp -r build/* $(PCSD_DIR)/public/ui
-
-install: build _install
+install-exec-local:
+	mkdir -p $(PCSD_WEBUI_DIR)/ui
+	cp -r build/* $(PCSD_WEBUI_DIR)
 
 npm_install:
 	@.bin/npm_install.sh ./packages
+
+all: build
 
 .PHONY: test build
