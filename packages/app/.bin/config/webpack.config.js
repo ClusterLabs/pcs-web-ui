@@ -2,7 +2,6 @@ const path = require("path");
 const {createHash} = require("crypto");
 
 const TerserPlugin = require("terser-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const paths = require("./paths");
 const env = require("./env");
@@ -120,7 +119,6 @@ module.exports = (
         extractComments: false,
       }),
       // This is only used in production mode
-      new CssMinimizerPlugin(),
     ],
   },
   resolve: {

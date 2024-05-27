@@ -143,6 +143,8 @@ echo "Going to build assets."
 
 node "$bin"/build.js
 
+node "$bin"/minify-css.js "$(ls "$BUILD_DIR"/static/css/main.*.css)"
+
 echo "Assets compiled."
 
 inject_built_assets "$BUILD_DIR" index.html static/js static/css main
