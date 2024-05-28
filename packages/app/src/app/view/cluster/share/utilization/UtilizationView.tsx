@@ -29,11 +29,11 @@ export const UtilizationView = (props: {
             ).toLowerCase() === "default" && (
               <Alert
                 isInline
-                title="Utilization attributes has no effect"
+                title="Utilization attributes have no effect"
                 variant="warning"
               >
                 <p>
-                  Utilization attributes has no effect because the cluster
+                  Utilization attributes have no effect because the cluster
                   property placement-strategy is
                   {clusterProperties["placement-strategy"]
                     ? " set to value default. "
