@@ -223,3 +223,6 @@ body,
 .ha-c-radio .pf-v5-c-radio__label {
   line-height: var(--pf-v5-global--LineHeight--md);
 }
+:where(.pf-v5-theme-dark) .pf-v5-c-label__content::before {
+  border-color: currentColor;
+}
