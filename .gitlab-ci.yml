@@ -1,4 +1,41 @@
+variables:
+  BASE_IMAGE_NAME: "web-ui"
+
+.parallel:
+  parallel:
+    matrix:
+      - COMPOSE_ALIAS: "PcsCentos10Stream"
+        PCS_BRANCH: "main"
+        OS_TAG: "centos10"
+      - COMPOSE_ALIAS: "PcsFedoraCurrentRelease"
+        PCS_BRANCH: "main"
+        OS_TAG: "generic"
+      - COMPOSE_ALIAS: ["PcsRhel9CurrentRelease", "PcsRhel9Next"]
+        PCS_BRANCH: "pcs-0.11"
+        OS_TAG: [""]
+  rules:
+    # WORKERAOUND URL to a specific artifacts by a job id in case of failed pcs pipeline
+    # - if: $OS_TAG == "centos10"
+    #   variables:
+    #     PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/23333413/artifacts"
+    - if: $OS_TAG != ""
+      variables:
+        PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/${PCS_BRANCH}/download?job=rpm_build%3A%20%5B${COMPOSE_ALIAS}%2C%20${OS_TAG}%5D"
+    - if: $OS_TAG == ""
+      variables:
+        PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/${PCS_BRANCH}/download?job=rpm_build%3A%20%5B${COMPOSE_ALIAS}%5D"
+
+# avoid running duplicate pipelines
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
 pcsd_integration_test:
+  extends: .parallel
   script:
     #
     #
@@ -40,7 +77,8 @@ pcsd_integration_test:
     #
     # install current version of pcs
     #
-    - 'curl -Lk --output artifacts.zip --header "PRIVATE-TOKEN: ${PCS_REPO_TOKEN}" "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/pcs-0.11/download?job=rpm_build%3A%20%5BPcsRhel9CurrentRelease%5D"'
+    # https://docs.gitlab.com/ee/api/job_artifacts.html#download-the-artifacts-archive
+    - "curl --fail-with-body --location --insecure --output artifacts.zip --header \"JOB-TOKEN: ${CI_JOB_TOKEN}\" \"${PCS_ARTIFACTS_URL}\""
     - unzip artifacts.zip
     - "dnf install -y rpms/pcs-*.rpm"
     - rm -rf rpms/ artifacts.zip
