@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -e
 bin="$(dirname "$0")"
 
 # load scripts: get_path
@@ -112,29 +113,16 @@ adapt_for_environment() {
 
 # Expression `eval echo $dir` is there to expand any `~` character.
 project_dir=$(realpath "$(eval echo "${1:-"$(pwd)"}")")
-use_current_node_modules=${BUILD_USE_CURRENT_NODE_MODULES:-"false"}
 build_for_cockpit=${BUILD_FOR_COCKPIT:-"false"}
 if [ "$build_for_cockpit" != "true" ]; then
   url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
 else
   url_prefix=${PCSD_BUILD_URL_PREFIX:-"."}
 fi
-node_modules=$(get_path "appNodeModules")
 export BUILD_DIR="${BUILD_DIR:-"$project_dir"/build}"
-
-if [ "$use_current_node_modules" = "true" ] && [ ! -d "$node_modules" ]; then
-  echo "Current node modules should be used but directory $node_modules does" \
-    "not exist"
-  exit 1
-fi
 
 echo "Starting build"
 
-if [ "$use_current_node_modules" != "true" ]; then
-  "$bin"/modules-prepare.sh "$node_modules"
-fi
-
-echo "Node modules prepared: ${node_modules}."
 
 prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
 
@@ -180,9 +168,5 @@ node "$bin"/merge-test-marks.js \
   > "$BUILD_DIR"/manifest_test_marks.json
 
 echo "Marks prepared"
-
-if [ "$use_current_node_modules" != "true" ]; then
-  "$bin"/modules-restore.sh "$node_modules"
-fi
 
 printf "\n%s\n" "$(print_bundle_sizes "$BUILD_DIR")"
