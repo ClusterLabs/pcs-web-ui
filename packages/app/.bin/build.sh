@@ -74,9 +74,10 @@ fix_asset_paths() {
 }
 
 minimize_adapter() {
-  adapter_path=$1
+  node_path=$1
+  adapter_path=$2
 
-  npx terser "$adapter_path" \
+  "$node_path"/.bin/terser "$adapter_path" \
     --compress ecma=5,warnings=false,comparisons=false,inline=2 \
     --output "$adapter_path"
 }
@@ -123,7 +124,6 @@ export BUILD_DIR="${BUILD_DIR:-"$project_dir"/build}"
 
 echo "Starting build"
 
-
 prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
 
 echo "Build dir prepared: ${BUILD_DIR}."
@@ -159,7 +159,8 @@ fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
 
 echo "Prefixed asset paths: '${url_prefix}'."
 
-minimize_adapter "$BUILD_DIR"/static/js/adapter.js
+NODE_PATH="$project_dir/packages/app/node_modules"
+minimize_adapter "$NODE_PATH" "$BUILD_DIR"/static/js/adapter.js
 
 echo "Environment adapter minimized"
 
