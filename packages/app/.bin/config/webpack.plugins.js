@@ -1,12 +1,9 @@
-const path = require("path");
-
 const resolve = require("resolve");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 
-const paths = require("./paths");
 const env = require("./env");
 
 class ForkTsCheckerPlugin extends ForkTsCheckerWebpackPlugin {
@@ -46,14 +43,19 @@ module.exports = {
   }),
 
   // TypeScript type checking
-  forkTsChecker: ({async, sourceMap}) =>
+  forkTsChecker: ({
+    async,
+    sourceMap,
+    nodeModules,
+    configFile,
+    tsBuildInfoFile,
+    tsConfigPathsContext,
+  }) =>
     new ForkTsCheckerPlugin({
       async,
       typescript: {
-        typescriptPath: resolve.sync("typescript", {
-          basedir: paths.appNodeModules,
-        }),
-        configFile: paths.appTsConfig,
+        typescriptPath: resolve.sync("typescript", {basedir: nodeModules}),
+        configFile,
         configOverwrite: {
           compilerOptions: {
             sourceMap,
@@ -62,10 +64,10 @@ module.exports = {
             declarationMap: false,
             noEmit: true,
             incremental: true,
-            tsBuildInfoFile: paths.appTsBuildInfoFile,
+            tsBuildInfoFile,
           },
         },
-        context: paths.appPath,
+        context:tsConfigPathsContext,
         diagnosticOptions: {
           syntactic: true,
         },
@@ -90,16 +92,16 @@ module.exports = {
       // },
     }),
 
-  eslint: ({failOnError}) =>
+  eslint: ({failOnError, context, cacheLocation, cwd}) =>
     new ESLintPlugin({
       extensions: ["js", "jsx", "ts", "tsx"],
       eslintPath: require.resolve("eslint"),
       failOnError,
-      context: paths.appSrc,
+      context,
       cache: true,
-      cacheLocation: path.resolve(paths.appNodeModules, ".cache/.eslintcache"),
+      cacheLocation,
       // ESLint class options
-      cwd: paths.appPath,
+      cwd,
       resolvePluginsRelativeTo: __dirname,
       // baseConfig: {
       //   extends: [require.resolve("eslint-config-react-app/base")],

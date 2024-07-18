@@ -4,8 +4,5 @@
   "appHtml": "public/index.html",
   "appIndexJs": "src/index.tsx",
   "appSrc": "src",
-  "appTsConfig": "tsconfig.json",
-  "appNodeModules": "node_modules",
-  "appWebpackCache": "node_modules/.cache",
-  "appTsBuildInfoFile": "node_modules/.cache/tsconfig.tsbuildinfo"
+  "appTsConfig": "tsconfig.json"
 }

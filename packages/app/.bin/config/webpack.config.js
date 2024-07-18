@@ -3,7 +3,6 @@ const {createHash} = require("crypto");
 
 const TerserPlugin = require("terser-webpack-plugin");
 
-const paths = require("./paths");
 const env = require("./env");
 const plugins = require("./webpack.plugins");
 const rules = require("./webpack.rules");
@@ -24,9 +23,18 @@ if (!buildDir) {
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = (
-  {publicPath, enableProfiling} = {publicPath: "/", enableProfiling: false},
-) => ({
+module.exports = ({
+  publicPath,
+  enableProfiling,
+  appIndexJs,
+  srcDir,
+  cacheDirectory,
+  tsConfig,
+  nodeModules,
+  tsBuildInfoFile,
+  tsConfigPathsContext,
+  eslintCwd,
+}) => ({
   target: ["browserslist"],
   // Webpack noise constrained to errors and warnings
   stats: "errors-warnings",
@@ -35,7 +43,7 @@ module.exports = (
   bail: true,
   devtool: shouldUseSourceMap ? "source-map" : false,
   // An entry point indicates which module webpack should use to begin
-  entry: paths.appIndexJs,
+  entry: appIndexJs,
   // Where to emit the bundles it creates and how to name these files.
   output: {
     // Place to write generated assets. No files are written in the case of dev
@@ -55,18 +63,18 @@ module.exports = (
     // Point sourcemap entries to original disk location.
     devtoolModuleFilenameTemplate: info =>
       path
-        .relative(paths.appSrc, info.absoluteResourcePath)
+        .relative(srcDir, info.absoluteResourcePath)
         .replace(/\\/g, "/"),
   },
   cache: {
     type: "filesystem",
     version: envHash,
-    cacheDirectory: paths.appWebpackCache,
+    cacheDirectory,
     store: "pack",
     buildDependencies: {
       defaultWebpack: ["webpack/lib/"],
       config: [__filename],
-      tsconfig: [paths.appTsConfig],
+      tsconfig: [tsConfig],
     },
   },
   infrastructureLogging: {
@@ -127,10 +135,10 @@ module.exports = (
     // We placed these paths second because we want `node_modules` to "win"
     // if there are any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebook/create-react-app/issues/253
-    modules: ["node_modules", paths.appNodeModules, paths.appSrc],
+    modules: ["node_modules", nodeModules, srcDir],
     extensions: [".js", ".ts", ".tsx", ".json", ".jsx"],
     alias: {
-      src: paths.appSrc,
+      src: srcDir,
       // Allows for better profiling with ReactDevTools
       ...(enableProfiling && {
         "react-dom$": "react-dom/profiling",
@@ -153,7 +161,7 @@ module.exports = (
               ? {generator: {publicPath: "../../"}}
               : {},
           ),
-          rules.scripts(),
+          rules.scripts({plugins: [], compact: true, include: srcDir}),
           rules.outsideScripts({
             sourceMaps: shouldUseSourceMap,
             inputSourceMap: shouldUseSourceMap,
@@ -175,8 +183,20 @@ module.exports = (
   plugins: [
     plugins.environmentVariables,
     plugins.miniCssExtract,
-    plugins.forkTsChecker({async: false, sourceMap: shouldUseSourceMap}),
-    plugins.eslint({failOnError: true}),
+      plugins.forkTsChecker({
+        async: false,
+        sourceMap: shouldUseSourceMap,
+        nodeModules,
+        configFile: tsConfig,
+        tsBuildInfoFile,
+        tsConfigPathsContext,
+      }),
+      plugins.eslint({
+        failOnError: true,
+        context: srcDir,
+        cacheLocation: path.resolve(nodeModules, ".cache/.eslintcache"),
+        cwd: eslintCwd,
+      }),
   ],
   // Turn off performance processing because we utilize
   // our own hints via the FileSizeReporter

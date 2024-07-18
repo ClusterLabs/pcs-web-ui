@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+// const fs = require("fs");
+// const path = require("path");
 
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
@@ -18,12 +18,12 @@ if (!NODE_ENV) {
 // webpack shims.
 // https://github.com/facebook/create-react-app/issues/1023#issuecomment-265344421
 // We also resolve them to make sure all tools using them work consistently.
-const appDirectory = fs.realpathSync(process.cwd());
-process.env.NODE_PATH = (process.env.NODE_PATH || "")
-  .split(path.delimiter)
-  .filter(folder => folder && !path.isAbsolute(folder))
-  .map(folder => path.resolve(appDirectory, folder))
-  .join(path.delimiter);
+// const appDirectory = fs.realpathSync(process.cwd());
+// process.env.NODE_PATH = (process.env.NODE_PATH || "")
+//   .split(path.delimiter)
+//   .filter(folder => folder && !path.isAbsolute(folder))
+//   .map(folder => path.resolve(appDirectory, folder))
+//   .join(path.delimiter);
 
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in webpack configuration.

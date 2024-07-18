@@ -15,7 +15,18 @@ process.on("unhandledRejection", err => {
 // Ensure environment variables are read.
 require("./config/env");
 
+const path = require("path");
 const webpack = require("webpack");
+
+let paths = Object.entries(require("./config/paths.json")).reduce(
+  (allPaths, [key, relativePath]) => {
+    return {
+      ...allPaths,
+      [key]: path.resolve(`${__dirname}/../${relativePath}`),
+    };
+  },
+  {},
+);
 
 const webpackConfig = require("./config/webpack.config");
 
@@ -23,6 +34,8 @@ const postcssSuffix = err =>
   Object.prototype.hasOwnProperty.call(err, "postcssNode")
     ? "\nCompileError: Begins at CSS selector " + err["postcssNode"].selector
     : "";
+
+const appNodeModules = process.env.NODE_PATH;
 
 webpack(
   webpackConfig({
@@ -33,6 +46,14 @@ webpack(
     // know the root.
     publicPath: "./",
     enableProfiling: process.argv.includes("--profile"),
+    appIndexJs: paths.appIndexJs,
+    srcDir: paths.appSrc,
+    cacheDirectory: `${appNodeModules}/.cache`,
+    tsConfig: paths.appTsConfig,
+    nodeModules: appNodeModules,
+    tsBuildInfoFile: `${appNodeModules}/.cache/tsconfig.tsbuildinfo`,
+    tsConfigPathsContext: paths.appPath,
+    eslintCwd: paths.appPath,
   }),
   (err, stats) => {
     if (err) {

@@ -129,6 +129,7 @@ prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
 echo "Build dir prepared: ${BUILD_DIR}."
 echo "Going to build assets."
 
+export NODE_PATH="$project_dir/packages/app/node_modules"
 node "$bin"/build.js
 
 node "$bin"/minify-css.js "$(ls "$BUILD_DIR"/static/css/main.*.css)"
@@ -159,7 +160,6 @@ fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
 
 echo "Prefixed asset paths: '${url_prefix}'."
 
-NODE_PATH="$project_dir/packages/app/node_modules"
 minimize_adapter "$NODE_PATH" "$BUILD_DIR"/static/js/adapter.js
 
 echo "Environment adapter minimized"

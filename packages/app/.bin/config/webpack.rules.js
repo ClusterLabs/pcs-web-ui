@@ -1,7 +1,5 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const paths = require("./paths");
-
 module.exports = {
   // Handle node_modules packages that contain sourcemaps
   sourceMaps: {
@@ -22,9 +20,13 @@ module.exports = {
 
   // Process application JS with Babel. The preset includes JSX, Flow,
   // TypeScript, and some ESnext features.
-  scripts: ({plugins, compact} = {plugins: [], compact: true}) => ({
+  scripts: ({plugins, compact, include} = {
+    plugins: [],
+    compact: true,
+    include: "",
+  }) => ({
     test: /\.(js|jsx|ts|tsx)$/,
-    include: paths.appSrc,
+    include,
     loader: require.resolve("babel-loader"),
     options: {
       customize: require.resolve("babel-preset-react-app/webpack-overrides"),
