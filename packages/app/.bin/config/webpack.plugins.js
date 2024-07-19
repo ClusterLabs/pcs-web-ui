@@ -2,7 +2,6 @@ const resolve = require("resolve");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const ESLintPlugin = require("eslint-webpack-plugin");
 
 const env = require("./env");
 
@@ -89,22 +88,6 @@ module.exports = {
       logger: console,
       // logger: {
       //   infrastructure: "silent",
-      // },
-    }),
-
-  eslint: ({failOnError, context, cacheLocation, cwd}) =>
-    new ESLintPlugin({
-      extensions: ["js", "jsx", "ts", "tsx"],
-      eslintPath: require.resolve("eslint"),
-      failOnError,
-      context,
-      cache: true,
-      cacheLocation,
-      // ESLint class options
-      cwd,
-      resolvePluginsRelativeTo: __dirname,
-      // baseConfig: {
-      //   extends: [require.resolve("eslint-config-react-app/base")],
       // },
     }),
 };

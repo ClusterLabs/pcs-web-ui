@@ -33,7 +33,6 @@ module.exports = ({
   nodeModules,
   tsBuildInfoFile,
   tsConfigPathsContext,
-  eslintCwd,
 }) => ({
   target: ["browserslist"],
   // Webpack noise constrained to errors and warnings
@@ -190,12 +189,6 @@ module.exports = ({
         configFile: tsConfig,
         tsBuildInfoFile,
         tsConfigPathsContext,
-      }),
-      plugins.eslint({
-        failOnError: true,
-        context: srcDir,
-        cacheLocation: path.resolve(nodeModules, ".cache/.eslintcache"),
-        cwd: eslintCwd,
       }),
   ],
   // Turn off performance processing because we utilize

@@ -53,7 +53,6 @@ webpack(
     nodeModules: appNodeModules,
     tsBuildInfoFile: `${appNodeModules}/.cache/tsconfig.tsbuildinfo`,
     tsConfigPathsContext: paths.appPath,
-    eslintCwd: paths.appPath,
   }),
   (err, stats) => {
     if (err) {
