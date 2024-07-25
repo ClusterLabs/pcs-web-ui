@@ -15,15 +15,10 @@ const envHash = hash.digest("hex");
 // source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 
-const buildDir = process.env.BUILD_DIR;
-
-if (!buildDir) {
-  throw new Error("Required environment variable BUILD_DIR is not set");
-}
-
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = ({
+  buildDir,
   publicPath,
   enableProfiling,
   appIndexJs,

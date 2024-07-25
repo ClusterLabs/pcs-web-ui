@@ -9,6 +9,9 @@ bin="$(dirname "$0")"
 # shellcheck source=./get-build-sizes.sh
 . "$bin"/get-build-sizes.sh
 
+node_modules=$(realpath "$(eval echo "${1}")")
+build_dir=$(realpath "$(eval echo "${2:-"$(pwd)"/build}")")
+
 prepare_build_dir() {
   build_dir=$1
   public_dir=$2
@@ -74,10 +77,10 @@ fix_asset_paths() {
 }
 
 minimize_adapter() {
-  node_path=$1
+  node_modules=$1
   adapter_path=$2
 
-  "$node_path"/.bin/terser "$adapter_path" \
+  "$node_modules"/.bin/terser "$adapter_path" \
     --compress ecma=5,warnings=false,comparisons=false,inline=2 \
     --output "$adapter_path"
 }
@@ -113,36 +116,33 @@ adapt_for_environment() {
 }
 
 # Expression `eval echo $dir` is there to expand any `~` character.
-project_dir=$(realpath "$(eval echo "${1:-"$(pwd)"}")")
 build_for_cockpit=${BUILD_FOR_COCKPIT:-"false"}
 if [ "$build_for_cockpit" != "true" ]; then
   url_prefix=${PCSD_BUILD_URL_PREFIX:-"/ui"}
 else
   url_prefix=${PCSD_BUILD_URL_PREFIX:-"."}
 fi
-export BUILD_DIR="${BUILD_DIR:-"$project_dir"/build}"
 
 echo "Starting build"
 
-prepare_build_dir "$BUILD_DIR" "$(get_path "appPublic")"
+prepare_build_dir "$build_dir" "$(get_path "appPublic")"
 
-echo "Build dir prepared: ${BUILD_DIR}."
+echo "Build dir prepared: ${build_dir}."
 echo "Going to build assets."
 
-export NODE_PATH="$project_dir/packages/app/node_modules"
-node "$bin"/build.js
+node "$bin"/build.js "$node_modules" "$build_dir"
 
-node "$bin"/minify-css.js "$(ls "$BUILD_DIR"/static/css/main.*.css)"
+node "$bin"/minify-css.js "$(ls "$build_dir"/static/css/main.*.css)"
 
 echo "Assets compiled."
 
-inject_built_assets "$BUILD_DIR" index.html static/js static/css main
+inject_built_assets "$build_dir" index.html static/js static/css main
 
 echo "Compiled assets injected to html page."
 
 adapt_for_environment \
   "$build_for_cockpit" \
-  "$BUILD_DIR" \
+  "$build_dir" \
   index.html \
   manifest.json \
   manifestCockpit.json \
@@ -152,7 +152,7 @@ adapt_for_environment \
 
 echo "Adapted for environment"
 
-fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
+fix_asset_paths "$build_dir"/index.html "$url_prefix" \
   static/js \
   static/css \
   manifest.json \
@@ -160,14 +160,14 @@ fix_asset_paths "$BUILD_DIR"/index.html "$url_prefix" \
 
 echo "Prefixed asset paths: '${url_prefix}'."
 
-minimize_adapter "$NODE_PATH" "$BUILD_DIR"/static/js/adapter.js
+minimize_adapter "$node_modules" "$build_dir"/static/js/adapter.js
 
 echo "Environment adapter minimized"
 
 node "$bin"/merge-test-marks.js \
   "$(realpath "$bin"/../src/app/view/dataTest/json)" \
-  > "$BUILD_DIR"/manifest_test_marks.json
+  > "$build_dir"/manifest_test_marks.json
 
 echo "Marks prepared"
 
-printf "\n%s\n" "$(print_bundle_sizes "$BUILD_DIR")"
+printf "\n%s\n" "$(print_bundle_sizes "$build_dir")"

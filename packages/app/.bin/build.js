@@ -16,6 +16,7 @@ process.on("unhandledRejection", err => {
 require("./config/env");
 
 const path = require("path");
+
 const webpack = require("webpack");
 
 let paths = Object.entries(require("./config/paths.json")).reduce(
@@ -35,10 +36,21 @@ const postcssSuffix = err =>
     ? "\nCompileError: Begins at CSS selector " + err["postcssNode"].selector
     : "";
 
-const appNodeModules = process.env.NODE_PATH;
+const {argv} = process;
+
+if (argv.length !== 4) {
+  console.error(
+    `Usage: ${argv[0]} ${argv[1]} <node_modules_path> <build_dir>`,
+  );
+  process.exit(1);
+}
+
+const appNodeModules = argv[2];
+const buildDir = argv[3];
 
 webpack(
   webpackConfig({
+    buildDir,
     // webpack needs to know it to put the right <script> hrefs into HTML even
     // in single-page apps that may serve index.html for nested URLs like
     // /todos/42. We can't use a relative path in HTML because we don't want
