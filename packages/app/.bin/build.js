@@ -1,6 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
 
+if (process.argv.length !== 3) {
+  console.error(`Usage: ${process.argv[0]} ${process.argv[1]} <build_dir>`);
+  process.exit(1);
+}
+
+const appNodeModules = process.env.NODE_PATH;
+const buildDir = process.argv[2];
+
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = "production";
 process.env.NODE_ENV = "production";
@@ -35,18 +43,6 @@ const postcssSuffix = err =>
   Object.prototype.hasOwnProperty.call(err, "postcssNode")
     ? "\nCompileError: Begins at CSS selector " + err["postcssNode"].selector
     : "";
-
-const {argv} = process;
-
-if (argv.length !== 4) {
-  console.error(
-    `Usage: ${argv[0]} ${argv[1]} <node_modules_path> <build_dir>`,
-  );
-  process.exit(1);
-}
-
-const appNodeModules = argv[2];
-const buildDir = argv[3];
 
 webpack(
   webpackConfig({

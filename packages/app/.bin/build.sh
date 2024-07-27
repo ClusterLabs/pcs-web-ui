@@ -10,6 +10,9 @@ bin="$(dirname "$0")"
 . "$bin"/get-build-sizes.sh
 
 node_modules=$(realpath "$(eval echo "${1}")")
+# export node_modules location for js files
+export NODE_PATH="$node_modules"
+
 build_dir=$(realpath "$(eval echo "${2:-"$(pwd)"/build}")")
 
 prepare_build_dir() {
@@ -22,6 +25,7 @@ prepare_build_dir() {
   # `build_dir` variable is empty.
   rm -rf "${build_dir:?}/"*
   cp -r "${public_dir:?}/"* "$build_dir"
+  chmod --recursive ug+w "$build_dir"
 }
 
 inject_built_assets() {
@@ -130,8 +134,7 @@ prepare_build_dir "$build_dir" "$(get_path "appPublic")"
 echo "Build dir prepared: ${build_dir}."
 echo "Going to build assets."
 
-node "$bin"/build.js "$node_modules" "$build_dir"
-
+node "$bin"/build.js "$build_dir"
 node "$bin"/minify-css.js "$(ls "$build_dir"/static/css/main.*.css)"
 
 echo "Assets compiled."

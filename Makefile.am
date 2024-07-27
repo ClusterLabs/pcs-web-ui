@@ -1,6 +1,38 @@
 AUTOMAKE_OPTIONS = foreign
 
-SUBDIRS = .
+SUBDIRS = . packages/app/ packages/test/
+MAINTAINERCLEANFILES	= \
+			  aclocal.m4 \
+			  autoconf \
+			  autoheader \
+			  automake \
+			  autoscan.log \
+			  compile \
+			  config.guess \
+			  config.sub \
+			  configure \
+			  configure.scan \
+			  depcomp \
+			  install-sh \
+			  libtool \
+			  libtoolize \
+			  ltmain.sh \
+			  Makefile.in \
+			  missing
+
+EXTRA_DIST		= \
+			  autogen.sh \
+			  .bin/check-no-nexus.sh \
+			  .bin/init_nexus.sh \
+			  .bin/init.sh \
+			  .bin/lint.sh \
+			  .bin/npm_install.sh \
+			  .bin/pre-commit.sh \
+			  .browserslistrc \
+			  COPYING \
+			  .gitlab-ci.yml \
+			  README.md \
+			  typos.toml 
 
 NEXUS = "https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
 PROJECT_DIR = $(shell pwd)
@@ -13,8 +45,15 @@ app:
 	@./packages/dev/.bin/dev-server.sh
 
 build:
-	./packages/app/.bin/check-assumptions.sh
-	@cd ./packages/app && .bin/build.sh ${PROJECT_DIR}
+	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
+	  cp $(srcdir)/packages/app/package-build.json ${abs_top_builddir}/package.json; \
+	  cp $(srcdir)/packages/app/package-build-lock.json ${abs_top_builddir}/package-lock.json; \
+	fi
+	if [ ! -d ${abs_top_builddir}/node_modules ]; then \
+		npm ci --prefix ${abs_top_builddir}; \
+	fi
+	$(srcdir)/packages/app/.bin/check-assumptions.sh
+	$(srcdir)/packages/app/.bin/build.sh ${abs_top_builddir}/node_modules ${abs_top_builddir}/build
 
 # prepare tarball with node modules that are necessary to build the application
 modules-pack:
@@ -74,8 +113,19 @@ fmt:
 	packages/app/node_modules/.bin/eslint --fix --ext .js,.ts,.tsx packages/app/src/
 
 install-exec-local:
-	mkdir -p $(PCSD_WEBUI_DIR)/ui
-	cp -r build/* $(PCSD_WEBUI_DIR)
+	if [ "x${PCSD_WEBUI_DIR}" != "x" ]; then \
+		mkdir -p ${PCSD_WEBUI_DIR}; \
+		cp -r build/* ${PCSD_WEBUI_DIR}; \
+	else \
+	  echo "No install location found, skipping installation"; \
+	fi
+
+clean-local:
+	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
+		rm -rf ${abs_top_builddir}/node_modules; \
+		rm -rf ${abs_top_builddir}/build; \
+		rm -rf ${abs_top_builddir}/package*.json; \
+	fi
 
 generate-package-build:
 	@packages/app/.bin/package-build-gen.sh packages/app/package.json
