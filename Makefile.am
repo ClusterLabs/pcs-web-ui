@@ -77,6 +77,10 @@ install-exec-local:
 	mkdir -p $(PCSD_WEBUI_DIR)/ui
 	cp -r build/* $(PCSD_WEBUI_DIR)
 
+generate-package-build:
+	@packages/app/.bin/package-build-gen.sh packages/app/package.json
+
+
 npm_install:
 	@.bin/npm_install.sh ./packages
 
