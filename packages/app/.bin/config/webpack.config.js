@@ -56,9 +56,7 @@ module.exports = ({
     publicPath,
     // Point sourcemap entries to original disk location.
     devtoolModuleFilenameTemplate: info =>
-      path
-        .relative(srcDir, info.absoluteResourcePath)
-        .replace(/\\/g, "/"),
+      path.relative(srcDir, info.absoluteResourcePath).replace(/\\/g, "/"),
   },
   cache: {
     type: "filesystem",
@@ -155,10 +153,16 @@ module.exports = ({
               ? {generator: {publicPath: "../../"}}
               : {},
           ),
-          rules.scripts({plugins: [], compact: true, include: srcDir}),
+          rules.scripts({
+            plugins: [],
+            compact: true,
+            include: srcDir,
+            cacheDirectory,
+          }),
           rules.outsideScripts({
             sourceMaps: shouldUseSourceMap,
             inputSourceMap: shouldUseSourceMap,
+            cacheDirectory,
           }),
           rules.css({
             // css is located in `static/css`, use '../../' to locate
@@ -177,14 +181,14 @@ module.exports = ({
   plugins: [
     plugins.environmentVariables,
     plugins.miniCssExtract,
-      plugins.forkTsChecker({
-        async: false,
-        sourceMap: shouldUseSourceMap,
-        nodeModules,
-        configFile: tsConfig,
-        tsBuildInfoFile,
-        tsConfigPathsContext,
-      }),
+    plugins.forkTsChecker({
+      async: false,
+      sourceMap: shouldUseSourceMap,
+      nodeModules,
+      configFile: tsConfig,
+      tsBuildInfoFile,
+      tsConfigPathsContext,
+    }),
   ],
   // Turn off performance processing because we utilize
   // our own hints via the FileSizeReporter
