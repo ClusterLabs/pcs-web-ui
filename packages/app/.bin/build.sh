@@ -9,11 +9,13 @@ bin="$(dirname "$0")"
 # shellcheck source=./get-build-sizes.sh
 . "$bin"/get-build-sizes.sh
 
-node_modules=$(realpath "$(eval echo "${1}")")
+src_dir=$(realpath "$(eval echo "${1:-"$(realpath "$bin"/..)"}")")
+
+node_modules=$(realpath "$(eval echo "${2}")")
 # export node_modules location for js files
 export NODE_PATH="$node_modules"
 
-build_dir=$(realpath "$(eval echo "${2:-"$(pwd)"/build}")")
+build_dir=$(realpath "$(eval echo "${3:-"$(pwd)"/build}")")
 
 prepare_build_dir() {
   build_dir=$1
@@ -129,12 +131,12 @@ fi
 
 echo "Starting build"
 
-prepare_build_dir "$build_dir" "$(get_path "appPublic")"
+prepare_build_dir "$build_dir" "$src_dir"/"$(get_path "appPublic")"
 
 echo "Build dir prepared: ${build_dir}."
 echo "Going to build assets."
 
-node "$bin"/build.js "$build_dir"
+node "$bin"/build.js "$src_dir" "$build_dir"
 node "$bin"/minify-css.js "$(ls "$build_dir"/static/css/main.*.css)"
 
 echo "Assets compiled."

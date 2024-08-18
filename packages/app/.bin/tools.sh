@@ -10,6 +10,5 @@ query_json() {
 get_path() {
   path_key=$1
 
-  config_path=$(query_json "$(dirname "$0")"/config/paths.json "$path_key")
-  realpath "$(dirname "$0")"/../"$config_path"
+  query_json "$(dirname "$0")"/config/paths.json "$path_key"
 }

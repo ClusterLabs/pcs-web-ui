@@ -52,8 +52,11 @@ build:
 	if [ ! -d ${abs_top_builddir}/node_modules ]; then \
 		npm ci --prefix ${abs_top_builddir}; \
 	fi
-	$(srcdir)/packages/app/.bin/check-assumptions.sh
-	$(srcdir)/packages/app/.bin/build.sh ${abs_top_builddir}/node_modules ${abs_top_builddir}/build
+	$(srcdir)/packages/app/.bin/check-assumptions.sh ${srcdir}/packages/app
+	$(srcdir)/packages/app/.bin/build.sh \
+		${srcdir}/packages/app \
+		${abs_top_builddir}/node_modules \
+		${abs_top_builddir}/build
 
 # prepare tarball with node modules that are necessary to build the application
 modules-pack:
@@ -123,8 +126,8 @@ install-exec-local:
 clean-local:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
 		rm -rf ${abs_top_builddir}/node_modules; \
-		rm -rf ${abs_top_builddir}/build; \
 		rm -rf ${abs_top_builddir}/package*.json; \
+		rm -rf ${abs_top_builddir}/build; \
 	fi
 
 generate-package-build:

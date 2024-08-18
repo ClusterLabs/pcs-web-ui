@@ -6,9 +6,12 @@
 # shellcheck disable=SC1090
 . "$(dirname "$0")/tools.sh"
 
+bin="$(dirname "$0")"
+src_dir=$(realpath "$(eval echo "${1:-"$(realpath "$bin"/..)"}")")
+
 required_files="\
- $(get_path "appHtml")
- $(get_path "appIndexJs") \
+ $src_dir/$(get_path "appHtml")
+ $src_dir/$(get_path "appIndexJs") \
 "
 
 for f in $required_files; do
@@ -18,11 +21,10 @@ for f in $required_files; do
   fi
 done
 
-app_dir=$(realpath "$(dirname "$0")"/..)
-tsconfig="$app_dir"/tsconfig.json
+tsconfig="$src_dir"/"$(get_path "appTsConfig")"
 
-ts_base_url="$app_dir"/$(query_json "$tsconfig" "compilerOptions.baseUrl")
-base_url=$(get_path "appSrc")
+ts_base_url="$src_dir"/$(query_json "$tsconfig" "compilerOptions.baseUrl")
+base_url="$src_dir"/"$(get_path "appSrc")"
 
 if [ "$ts_base_url" != "$base_url" ]; then
   echo "Option baseUrl in .tsconfig should be the same as appSrc in paths.json."

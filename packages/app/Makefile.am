@@ -4,7 +4,6 @@ EXTRA_DIST		= \
 			  .bin/build.sh \
 			  .bin/check-assumptions.sh \
 			  .bin/config/env.js \
-			  .bin/config/paths.js \
 			  .bin/config/paths.json \
 			  .bin/config/webpack.config.js \
 			  .bin/config/webpack.plugins.js \
