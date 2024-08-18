@@ -129,6 +129,8 @@ else
   url_prefix=${PCSD_BUILD_URL_PREFIX:-"."}
 fi
 
+"$bin"/check-assumptions.sh "$src_dir"
+
 echo "Starting build"
 
 prepare_build_dir "$build_dir" "$src_dir"/"$(get_path "appPublic")"

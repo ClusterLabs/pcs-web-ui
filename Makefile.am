@@ -40,23 +40,27 @@ APP_MODULES_DIR = $(shell realpath ${PROJECT_DIR}/packages/app/node_modules)
 
 PCSD_WEBUI_DIR = @PCSD_WEBUI_DIR@
 
+APP_SRC = $(abs_top_srcdir)/packages/app
+APP_BUILD = $(abs_top_builddir)/packages/app
+
 app:
 	@./packages/app/.bin/check-assumptions.sh
 	@./packages/dev/.bin/dev-server.sh
 
 build:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
-		mkdir -p ${abs_top_builddir}/packages/app; \
-	  cp $(srcdir)/packages/app/package-build.json ${abs_top_builddir}/packages/app/package.json; \
-	  cp $(srcdir)/packages/app/package-build-lock.json ${abs_top_builddir}/packages/app/package-lock.json; \
+		mkdir -p $(APP_BUILD); \
+	  cp $(APP_SRC)/package-build.json $(APP_BUILD)/package.json; \
+	  cp $(APP_SRC)/package-build-lock.json $(APP_BUILD)/package-lock.json; \
 	fi
-	if [ ! -d ${abs_top_builddir}/packages/app/node_modules ]; then \
-		npm ci --prefix ${abs_top_builddir}/packages/app; \
+
+	if [ ! -d $(APP_BUILD)/node_modules ]; then \
+		npm ci --no-progress --prefix $(APP_BUILD); \
 	fi
-	$(srcdir)/packages/app/.bin/check-assumptions.sh ${srcdir}/packages/app
-	$(srcdir)/packages/app/.bin/build.sh \
-		${srcdir}/packages/app \
-		${abs_top_builddir}/packages/app/node_modules \
+
+	$(abs_top_srcdir)/packages/app/.bin/build.sh \
+		${APP_SRC} \
+		$(APP_BUILD)/node_modules \
 		${abs_top_builddir}/build
 
 # prepare tarball with node modules that are necessary to build the application
