@@ -39,6 +39,7 @@ PROJECT_DIR = $(shell pwd)
 APP_MODULES_DIR = $(shell realpath ${PROJECT_DIR}/packages/app/node_modules)
 
 PCSD_WEBUI_DIR = @PCSD_WEBUI_DIR@
+PCSD_UNIX_SOCKET = @PCSD_UNIX_SOCKET@
 
 APP_SRC = $(abs_top_srcdir)/packages/app
 APP_BUILD = $(abs_top_builddir)/packages/app
@@ -58,10 +59,11 @@ build:
 		npm ci --no-progress --prefix $(APP_BUILD); \
 	fi
 
-	$(abs_top_srcdir)/packages/app/.bin/build.sh \
+	$(abs_top_srcdir)/packages/app/.bin/build/main.sh \
 		${APP_SRC} \
 		$(APP_BUILD)/node_modules \
-		${abs_top_builddir}/build
+		${abs_top_builddir}/build \
+		$(PCSD_UNIX_SOCKET)
 
 # prepare tarball with node modules that are necessary to build the application
 modules-pack:

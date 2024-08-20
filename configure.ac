@@ -39,6 +39,9 @@ AC_PROG_MKDIR_P
 PKG_CHECK_VAR([PCSD_WEBUI_DIR], [pcs], [webui_dir])
 AC_SUBST([PCSD_WEBUI_DIR])
 
+PKG_CHECK_VAR([PCSD_WEBUI_DIR], [pcs], [pcsd_unix_socket])
+AC_SUBST([PCSD_UNIX_SOCKET])
+
 AC_CONFIG_FILES([Makefile
 		 packages/app/Makefile
 		 packages/test/Makefile])
