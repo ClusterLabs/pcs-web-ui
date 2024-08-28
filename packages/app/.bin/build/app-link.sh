@@ -7,7 +7,7 @@ node_modules=$2
 build_dir=$3
 path_prefix=$4
 
-bin="$(dirname "$0")"
+exec="$(dirname "$0")"
 
 # TODO extract this info so that webpack is able to read it as well
 html="$build_dir"/index.html
@@ -69,4 +69,4 @@ sed --regexp-extended --in-place \
 
 # Build marks
 # ------------------------------------------------------------------------------
-node "$bin"/merge-test-marks.js "$marks_src" > "$marks_build"
+node "$exec"/merge-test-marks.js "$marks_src" > "$marks_build"

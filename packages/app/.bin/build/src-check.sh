@@ -3,16 +3,21 @@
 # If assumptions are not met, build and dev server fails even so. But it can
 # be harder to realize where the root cause is.
 
-# shellcheck disable=SC1090
-. "$(dirname "$0")/tools.sh"
+set -e
 
-bin="$(dirname "$0")"
-src_dir=$(realpath "$(eval echo "${1:-"$(realpath "$bin"/..)"}")")
+exec="$(dirname "$0")"
+src_dir=$(realpath "$(eval echo "${1:-"$(realpath "$exec"/..)"}")")
 
-required_files="\
- $src_dir/$(get_path "appHtml")
- $src_dir/$(get_path "appIndexJs") \
-"
+path() {
+  # shellcheck disable=SC2086
+  echo "$src_dir"/"$("$exec"/paths.sh $1 $2)"
+}
+
+tsconfig() {
+  path "$(path "appTsConfig")" "$1"
+}
+
+required_files="$(path "appHtml") $(path "appIndexJs")"
 
 for f in $required_files; do
   if [ ! -f "$f" ]; then
@@ -21,16 +26,14 @@ for f in $required_files; do
   fi
 done
 
-tsconfig="$src_dir"/"$(get_path "appTsConfig")"
-
-ts_base_url="$src_dir"/$(query_json "$tsconfig" "compilerOptions.baseUrl")
-base_url="$src_dir"/"$(get_path "appSrc")"
+ts_base_url=$(tsconfig "compilerOptions.baseUrl")
+base_url=$(path "appSrc")
 
 if [ "$ts_base_url" != "$base_url" ]; then
   echo "Option baseUrl in .tsconfig should be the same as appSrc in paths.json."
   echo "(But they are: $ts_base_url vs $base_url)"
   echo "In other words, typescript and webpack should work with the same dir."
-  echo "Please, check it especialy in config/webpack.config.js."
+  echo "Please, check it especialy in webpack.config.js."
   echo "(Look at the sections resolve.module and resolve.alias)"
   echo "If this check is not appropriate anymore you can change it."
   exit 1

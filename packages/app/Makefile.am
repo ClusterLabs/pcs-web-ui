@@ -1,22 +1,30 @@
 MAINTAINERCLEANFILES	= Makefile.in
 EXTRA_DIST		= \
-			  .bin/build.js \
-			  .bin/build.sh \
-			  .bin/check-assumptions.sh \
-			  .bin/config/env.js \
-			  .bin/config/paths.json \
-			  .bin/config/webpack.config.js \
-			  .bin/config/webpack.plugins.js \
-			  .bin/config/webpack.rules.js \
-			  .bin/get-build-sizes.sh \
-			  .bin/last-commit-mark.sh \
-			  .bin/merge-test-marks.js \
-			  .bin/minify-css.js \
-			  .bin/modules-patch.sh \
-			  .bin/modules-prepare.sh \
-			  .bin/modules-restore.sh \
-			  .bin/modules-tar.sh \
-			  .bin/tools.sh \
+				.bin/build/app-adapt-cockpit.sh \
+				.bin/build/app-adapt-standalone.sh \
+				.bin/build/app-dir-init.sh \
+				.bin/build/app-link.sh \
+				.bin/build/build.js \
+				.bin/build/config/env.js \
+				.bin/build/config/paths.json \
+				.bin/build/config/webpack.config.js \
+				.bin/build/config/webpack.plugins.js \
+				.bin/build/config/webpack.rules.js \
+				.bin/build/main.sh \
+				.bin/build/merge-test-marks.js \
+				.bin/build/minify-css.js \
+				.bin/build/paths.sh \
+				.bin/build/src-check.sh \
+				.bin/build/webpack-compile.sh \
+				.bin/last-commit-mark.sh \
+				.bin/modules-patch.sh \
+				.bin/modules-prepare.sh \
+				.bin/modules-restore.sh \
+				.bin/modules-tar.sh \
+				.bin/package-build-check.sh \
+				.bin/package-build-fname.sh \
+				.bin/package-build-gen.sh \
+				.bin/package-build-remove-eslint.js \
 			  .eslintrc.common.js \
 			  .eslintrc.import.js \
 			  .eslintrc.js \

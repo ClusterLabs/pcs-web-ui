@@ -1,16 +1,22 @@
 #!/bin/sh
 
 set -e
+
+if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]; then
+  echo "Usage: $0 src_dir node_modules output_dir [pcsd_unix_socket]" >&2
+  exit 1
+fi
+
 exec="$(dirname "$0")"
 
-src_dir=$(realpath "$(eval echo "${1:-"$(realpath "$exec"/..)"}")")
-"$exec"/src-check.sh "$src_dir"
+src_dir=$(realpath "$1")
+node_modules=$(realpath "$2")
+output_dir=$(realpath "$3")
 
-node_modules=$(realpath "$(eval echo "${2}")")
-# export node_modules location for js files
+# Export node_modules location for js files. Not only webpack.js but also
+# minify-css.js etc.
 export NODE_PATH="$node_modules"
-
-output_dir=$(realpath "$(eval echo "${3:-"$(pwd)"/build}")")
+"$exec"/src-check.sh "$src_dir"
 
 pcsd_unix_socket="${4:-"/var/run/pcsd.socket"}"
 
@@ -18,21 +24,18 @@ mkdir -p "$output_dir"
 rm -rf "${output_dir:?}/"*
 
 echo "Starting build"
-webpack_out_dir="$output_dir"/webpack-output
-"$exec"/assets-compile.sh "$src_dir" "$webpack_out_dir"
-"$exec"/assets-sizes.sh "$webpack_out_dir"
+webpack_output_dir="$output_dir"/webpack-output
+"$exec"/webpack-compile.sh "$src_dir" "$webpack_output_dir"
 echo
 
-standalone_dir="$output_dir"/for-pcsd
-mkdir -p "$standalone_dir"
-"$exec"/build-dir-prepare.sh "$src_dir" "$webpack_out_dir" "$standalone_dir"
-"$exec"/adapter-standalone.sh "$standalone_dir"
-"$exec"/link.sh "$src_dir" "$node_modules" "$standalone_dir" "/ui"
+standalone_dir="$output_dir"/for-standalone
+"$exec"/app-dir-init.sh "$src_dir" "$webpack_output_dir" "$standalone_dir"
+"$exec"/app-adapt-standalone.sh "$standalone_dir"
+"$exec"/app-link.sh "$src_dir" "$node_modules" "$standalone_dir" "/ui"
 echo "Build prepared: ${standalone_dir}."
 
 cockpit_dir="$output_dir"/for-cockpit
-mkdir -p "$cockpit_dir"
-"$exec"/build-dir-prepare.sh "$src_dir" "$webpack_out_dir" "$cockpit_dir"
-"$exec"/adapter-cockpit.sh "$cockpit_dir" "$pcsd_unix_socket"
-"$exec"/link.sh "$src_dir" "$node_modules" "$cockpit_dir" "."
+"$exec"/app-dir-init.sh "$src_dir" "$webpack_output_dir" "$cockpit_dir"
+"$exec"/app-adapt-cockpit.sh "$cockpit_dir" "$pcsd_unix_socket"
+"$exec"/app-link.sh "$src_dir" "$node_modules" "$cockpit_dir" "."
 echo "Build prepared: ${cockpit_dir}."
