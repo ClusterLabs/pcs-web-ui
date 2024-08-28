@@ -67,7 +67,6 @@ export const SelectTypeahead = <OPT extends string>(props: {
   };
 
   const onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log("EVENT:" + event.key);
     switch (event.key) {
       case "Enter":
         event.preventDefault();

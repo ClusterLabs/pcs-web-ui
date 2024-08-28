@@ -23,6 +23,7 @@ export function* deleteResource({
     removeResource,
     key.clusterName,
     resourceIds,
+    resourceType === "fence-device",
   );
 
   yield processClusterResultBasic(
