@@ -4,7 +4,7 @@ variables:
 .parallel:
   parallel:
     matrix:
-      - COMPOSE_ALIAS: "PcsCentos10Stream"
+      - COMPOSE_ALIAS: "PcsRhel10Next"
         PCS_BRANCH: "main"
         OS_TAG: "centos10"
       - COMPOSE_ALIAS: "PcsFedoraCurrentRelease"
