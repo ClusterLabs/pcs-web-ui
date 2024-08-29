@@ -3,8 +3,6 @@ const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
-const env = require("./env");
-
 class ForkTsCheckerPlugin extends ForkTsCheckerWebpackPlugin {
   apply(compiler) {
     new ForkTsCheckerWebpackPlugin(this.options).apply(compiler);
@@ -24,15 +22,16 @@ module.exports = {
   // It is absolutely essential that NODE_ENV is set to production
   // during a production build.
   // Otherwise React will be compiled in the very slow development mode.
-  environmentVariables: new webpack.DefinePlugin({
-    "process.env": Object.entries(env).reduce(
-      (processEnv, [key, value]) => ({
-        ...processEnv,
-        [key]: JSON.stringify(value),
-      }),
-      {},
-    ),
-  }),
+  environmentVariables: envForApp =>
+    new webpack.DefinePlugin({
+      "process.env": Object.entries(envForApp).reduce(
+        (processEnv, [key, value]) => ({
+          ...processEnv,
+          [key]: JSON.stringify(value),
+        }),
+        {},
+      ),
+    }),
 
   miniCssExtract: new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
@@ -66,7 +65,7 @@ module.exports = {
             tsBuildInfoFile,
           },
         },
-        context:tsConfigPathsContext,
+        context: tsConfigPathsContext,
         diagnosticOptions: {
           syntactic: true,
         },

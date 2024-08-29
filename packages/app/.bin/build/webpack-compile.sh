@@ -8,7 +8,7 @@ webpack_output_dir=$2
 
 # compile
 mkdir -p "$webpack_output_dir"
-node "$exec"/build.js "$src_dir" "$webpack_output_dir"
+node "$exec"/webpack.js "$src_dir" "$webpack_output_dir"
 
 static_dir="$webpack_output_dir"/static
 node "$exec"/minify-css.js "$(ls "$static_dir"/css/main.*.css)"

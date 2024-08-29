@@ -3,13 +3,14 @@ const {createHash} = require("crypto");
 
 const TerserPlugin = require("terser-webpack-plugin");
 
-const env = require("./env");
 const plugins = require("./webpack.plugins");
 const rules = require("./webpack.rules");
 
-const hash = createHash("sha256");
-hash.update(JSON.stringify(env));
-const envHash = hash.digest("hex");
+const envHash = env => {
+  const hash = createHash("sha256");
+  hash.update(JSON.stringify(env));
+  return hash.digest("hex");
+};
 
 // Source maps are resource heavy and can cause out of memory issue for large
 // source files.
@@ -28,6 +29,7 @@ module.exports = ({
   nodeModules,
   tsBuildInfoFile,
   tsConfigPathsContext,
+  envForApp,
 }) => ({
   target: ["browserslist"],
   // Webpack noise constrained to errors and warnings
@@ -60,7 +62,7 @@ module.exports = ({
   },
   cache: {
     type: "filesystem",
-    version: envHash,
+    version: envHash(envForApp),
     cacheDirectory,
     store: "pack",
     buildDependencies: {
@@ -179,7 +181,7 @@ module.exports = ({
     ],
   },
   plugins: [
-    plugins.environmentVariables,
+    plugins.environmentVariables(envForApp),
     plugins.miniCssExtract,
     plugins.forkTsChecker({
       async: false,

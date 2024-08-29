@@ -14,7 +14,11 @@ const buildDir = process.argv[3];
 
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = "production";
-process.env.NODE_ENV = "production";
+// It is absolutely essential that NODE_ENV is set to production during a
+// production build. Otherwise React will be compiled in the very slow
+// development mode.
+const NODE_ENV = "production";
+process.env.NODE_ENV = NODE_ENV;
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
@@ -23,14 +27,11 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
-// Ensure environment variables are read.
-require("./config/env");
-
 const path = require("path");
 
 const webpack = require("webpack");
 
-let paths = Object.entries(require("./config/paths.json")).reduce(
+let paths = Object.entries(require("./paths.json")).reduce(
   (allPaths, [key, relativePath]) => {
     return {
       ...allPaths,
@@ -40,7 +41,7 @@ let paths = Object.entries(require("./config/paths.json")).reduce(
   {},
 );
 
-const webpackConfig = require("./config/webpack.config");
+const webpackConfig = require("./webpack.config");
 
 const postcssSuffix = err =>
   Object.prototype.hasOwnProperty.call(err, "postcssNode")
@@ -64,6 +65,7 @@ webpack(
     nodeModules: appNodeModules,
     tsBuildInfoFile: `${appNodeModules}/.cache/tsconfig.tsbuildinfo`,
     tsConfigPathsContext: paths.appPath,
+    envForApp: {NODE_ENV},
   }),
   (err, stats) => {
     if (err) {

@@ -6,7 +6,7 @@ if [ "$#" -eq 2 ]; then
   json=$1
   key=$2
 elif [ "$#" -eq 1 ]; then
-  json="$exec"/config/paths.json
+  json="$exec"/paths.json
   key=$1
 else
   echo "Usage: $0 [json-file] key" >&2
