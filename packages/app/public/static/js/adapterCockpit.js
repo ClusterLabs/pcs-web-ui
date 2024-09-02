@@ -68,33 +68,42 @@ var superuser = Superuser();
 var pcsUiEnvAdapter = {
   showMasthead: false,
   request: async (path, headers, postBody) => {
-    try {
-      const http = cockpit.http(pcsdSocket, {superuser: "try"});
-      const result =
-        postBody !== undefined
-          ? await http.post(path, postBody, headers)
-          : await http.get(path, {}, headers);
-      return {
-        status: 200,
-        statusText: "OK",
-        text: result,
-      };
-    } catch (e) {
-      if ("status" in e) {
-        return {
-          status: e.status,
-          statusText: e.reason,
-          text: e.message,
-        };
+    return new Promise((resolve, reject) => {
+      try {
+        const http = cockpit.http(pcsdSocket, {superuser: "try"});
+        const requestPromise =
+          postBody !== undefined
+            ? http.post(path, postBody, headers)
+            : http.get(path, {}, headers);
+
+        requestPromise
+          .then(result => {
+            resolve({
+              status: 200,
+              statusText: "OK",
+              text: result,
+            });
+          })
+          .catch((e, data) => {
+            if ("status" in e) {
+              resolve({
+                status: e.status,
+                statusText: e.reason,
+                text: data ?? e.message,
+              });
+            } else if (e.problem === "not-found") {
+              resolve({type: "BACKEND_NOT_FOUND"});
+            } else {
+              resolve({
+                type: "NON_HTTP_PROBLEM",
+                problem: e.problem,
+              });
+            }
+          });
+      } catch (e) {
+        reject(e);
       }
-      if (e.problem === "not-found") {
-        return {type: "BACKEND_NOT_FOUND"};
-      }
-      return {
-        type: "NON_HTTP_PROBLEM",
-        problem: e.problem,
-      };
-    }
+    });
   },
   location: {
     getPath: () => cockpit.location.href.split("?")[0],
