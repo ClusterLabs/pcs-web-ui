@@ -69,4 +69,4 @@ sed --regexp-extended --in-place \
 
 # Build marks
 # ------------------------------------------------------------------------------
-node "$exec"/merge-test-marks.js "$marks_src" > "$marks_build"
+node "$exec"/app-merge-test-marks.js "$marks_src" > "$marks_build"

@@ -4,17 +4,14 @@ EXTRA_DIST		= \
 				.bin/build/app-adapt-standalone.sh \
 				.bin/build/app-dir-init.sh \
 				.bin/build/app-link.sh \
+				.bin/build/app-merge-test-marks.js \
 				.bin/build/main.sh \
-				.bin/build/merge-test-marks.js \
-				.bin/build/minify-css.js \
-				.bin/build/paths.json \
-				.bin/build/paths.sh \
-				.bin/build/src-check.sh \
-				.bin/build/webpack-compile.sh \
 				.bin/build/webpack.config.js \
 				.bin/build/webpack.js \
+				.bin/build/webpack-minify-css.js \
 				.bin/build/webpack.plugins.js \
 				.bin/build/webpack.rules.js \
+				.bin/build/webpack-sizes.sh \
 				.bin/last-commit-mark.sh \
 				.bin/modules-patch.sh \
 				.bin/modules-prepare.sh \

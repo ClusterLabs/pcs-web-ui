@@ -1,16 +1,19 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable import/no-extraneous-dependencies */
-
-if (process.argv.length !== 4) {
+if (process.argv.length !== 7) {
+  console.log(process.argv.length);
   console.error(
-    `Usage: ${process.argv[0]} ${process.argv[1]} <src_dir> <build_dir>`,
+    `Usage: ${process.argv[0]} ${process.argv[1]}`
+      + " <appIndexJs> <appSrc> <appTsConfig> <appPath> <build_dir>",
   );
   process.exit(1);
 }
 
 const appNodeModules = process.env.NODE_PATH;
-const srcDir = process.argv[2];
-const buildDir = process.argv[3];
+
+const appIndexJs = process.argv[2];
+const appSrc = process.argv[3];
+const appTsConfig = process.argv[4];
+const appTsConfigPathsContext = process.argv[5];
+const buildDir = process.argv[6];
 
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = "production";
@@ -27,29 +30,13 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
-const path = require("path");
-
-const webpack = require("webpack");
-
-let paths = Object.entries(require("./paths.json")).reduce(
-  (allPaths, [key, relativePath]) => {
-    return {
-      ...allPaths,
-      [key]: path.resolve(`${srcDir}/${relativePath}`),
-    };
-  },
-  {},
-);
-
-const webpackConfig = require("./webpack.config");
-
 const postcssSuffix = err =>
   Object.prototype.hasOwnProperty.call(err, "postcssNode")
     ? "\nCompileError: Begins at CSS selector " + err["postcssNode"].selector
     : "";
 
-webpack(
-  webpackConfig({
+require("webpack")(
+  require("./webpack.config")({
     buildDir,
     // webpack needs to know it to put the right <script> hrefs into HTML even
     // in single-page apps that may serve index.html for nested URLs like
@@ -58,13 +45,13 @@ webpack(
     // know the root.
     publicPath: "./",
     enableProfiling: process.argv.includes("--profile"),
-    appIndexJs: paths.appIndexJs,
-    srcDir: paths.appSrc,
+    appIndexJs: appIndexJs,
+    srcDir: appSrc,
     cacheDirectory: `${appNodeModules}/.cache`,
-    tsConfig: paths.appTsConfig,
+    tsConfig: appTsConfig,
     nodeModules: appNodeModules,
     tsBuildInfoFile: `${appNodeModules}/.cache/tsconfig.tsbuildinfo`,
-    tsConfigPathsContext: paths.appPath,
+    tsConfigPathsContext: appTsConfigPathsContext,
     envForApp: {NODE_ENV},
   }),
   (err, stats) => {

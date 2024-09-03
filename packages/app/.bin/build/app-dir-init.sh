@@ -1,10 +1,8 @@
 #!/bin/sh
 
 set -e
-exec="$(dirname "$0")"
 
-src_dir=$1
-template_dir="$src_dir"/"$("$exec"/paths.sh "appPublic")"
+template_dir=$1
 webpack_output_dir=$2
 app_dir=$3
 
@@ -19,7 +17,8 @@ rm -rf "${app_dir:?}/"*
 
 # Copy src "template" dir
 cp -r "${template_dir:?}/"* "$app_dir"
-# Dirs/files copied from src_dir can be readonly (e.g. when `make distcheck`).
+# Dirs/files copied from src_dir (i.e. template_dir) can be readonly (e.g. when
+# `make distcheck`).
 chmod --recursive ug+w "$app_dir"
 
 # Copy compiled assets

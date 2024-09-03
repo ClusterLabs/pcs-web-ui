@@ -1,8 +1,0 @@
-{
-  "appPath": ".",
-  "appPublic": "public",
-  "appHtml": "public/index.html",
-  "appIndexJs": "src/index.tsx",
-  "appSrc": "src",
-  "appTsConfig": "tsconfig.json"
-}
