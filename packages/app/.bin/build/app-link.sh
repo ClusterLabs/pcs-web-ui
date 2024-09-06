@@ -5,17 +5,18 @@ set -e
 src_dir=$1
 node_modules=$2
 build_dir=$3
-path_prefix=$4
+out_js=$4
+out_css=$5
+out_media=$6
+out_main=$7
+out_html=$8
+path_prefix=$9
 
 exec="$(dirname "$0")"
 
-# TODO extract this info so that webpack is able to read it as well
-html="$build_dir"/index.html
-js_path=static/js
-css_path=static/css
-main=main
+html="$build_dir"/"$out_html"
 manifest=manifest.json
-ico=static/media/favicon.png
+ico="$out_media"/favicon.png
 
 adapter="$build_dir"/static/js/adapter.js
 marks_src="$src_dir"/src/app/view/dataTest/json
@@ -25,7 +26,7 @@ make_asset() {
   _path=$1
   _ext=$2
 
-  echo "/$_path/$(basename "$(ls "$build_dir/$_path/$main".*"$_ext")")"
+  echo "/$_path/$(basename "$(ls "$build_dir/$_path/$out_main".*"$_ext")")"
 }
 
 # > Inject compiled assets
@@ -36,14 +37,14 @@ make_asset() {
 # * change source of the tag to built javascript
 
 # Find script tag by src attribute.
-script_src=$(echo "src=\"/$js_path/$main.js\"" | sed 's#/#\\/#g')
+script_src=$(echo "src=\"/$out_js/$out_main.js\"" | sed 's#/#\\/#g')
 
 # Append css link.
-css_link="<link href=\"$(make_asset "$css_path" .css)\" rel=\"stylesheet\">"
+css_link="<link href=\"$(make_asset "$out_css" .css)\" rel=\"stylesheet\">"
 sed --in-place "/$script_src/a \    $css_link" "$html"
 
 # Set correct correct src.
-sed --in-place "s#$script_src#src=\"$(make_asset "$js_path" .js)\"#" "$html"
+sed --in-place "s#$script_src#src=\"$(make_asset "$out_js" .js)\"#" "$html"
 
 # Fix assets path
 # ------------------------------------------------------------------------------
@@ -56,7 +57,7 @@ sed --in-place "s#$script_src#src=\"$(make_asset "$js_path" .js)\"#" "$html"
 # cluster detail the resulting url contains word "cluster" inside, so instead
 # of "/ui/static/..." we get "/ui/cluster/static" and asset loading fails.
 # see: https://bugzilla.redhat.com/show_bug.cgi?id=2222788
-paths="$js_path|$css_path|$manifest|$ico"
+paths="$out_js|$out_css|$manifest|$ico"
 sed --regexp-extended --in-place \
   "s#(src|href)=\"/($paths)#\1=\"$path_prefix/\2#" \
   "$html"

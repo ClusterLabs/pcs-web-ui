@@ -33,12 +33,13 @@ module.exports = {
       ),
     }),
 
-  miniCssExtract: new MiniCssExtractPlugin({
-    // Options similar to the same options in webpackOptions.output
-    // both options are optional
-    filename: "static/css/[name].[contenthash:8].css",
-    chunkFilename: "static/css/[name].[contenthash:8].chunk.css",
-  }),
+  miniCssExtract: ({outCss, outMain}) =>
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: `${outCss}/${outMain}.[contenthash:8].css`,
+      chunkFilename: `${outCss}/${outMain}.[contenthash:8].chunk.css`,
+    }),
 
   // TypeScript type checking
   forkTsChecker: ({

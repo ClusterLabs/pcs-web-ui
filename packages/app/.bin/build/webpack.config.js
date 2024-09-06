@@ -30,6 +30,10 @@ module.exports = ({
   tsBuildInfoFile,
   tsConfigPathsContext,
   envForApp,
+  outJs,
+  outCss,
+  outMedia,
+  outMain,
 }) => ({
   target: ["browserslist"],
   // Webpack noise constrained to errors and warnings
@@ -49,10 +53,10 @@ module.exports = ({
     pathinfo: false,
     // There will be one main bundle, and one file per asynchronous chunk.
     // In development, it does not produce real files.
-    filename: "static/js/[name].[contenthash:8].js",
+    filename: `${outJs}/${outMain}.[contenthash:8].js`,
     // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: "static/js/[name].[contenthash:8].chunk.js",
-    assetModuleFilename: "static/media/[name].[hash][ext]",
+    chunkFilename: `${outJs}/${outMain}.[contenthash:8].chunk.js`,
+    assetModuleFilename: `${outMedia}/${outMain}.[hash][ext]`,
     // To determine where the app is being served from. It requires a trailing
     // slash, or the file assets will get an incorrect path.
     publicPath,
@@ -182,7 +186,7 @@ module.exports = ({
   },
   plugins: [
     plugins.environmentVariables(envForApp),
-    plugins.miniCssExtract,
+    plugins.miniCssExtract({outCss, outMain}),
     plugins.forkTsChecker({
       async: false,
       sourceMap: shouldUseSourceMap,

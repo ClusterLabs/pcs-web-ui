@@ -4,13 +4,16 @@ set -e
 exec="$(dirname "$0")"
 
 webpack_output_dir=$1
+out_css=$2
+out_media=$3
+out_main=$4
 
-static_dir="$webpack_output_dir"/static
-node "$exec"/webpack-minify-css.js "$(ls "$static_dir"/css/main.*.css)"
+node "$exec"/webpack-minify-css.js \
+  "$(ls "$webpack_output_dir"/"$out_css"/"$out_main".*.css)"
 
 # measure sizes of compiled assets
-find "$static_dir" -type f \
-    -not -path "$static_dir/media/*" \
+find "$webpack_output_dir" -type f \
+    -not -path "$webpack_output_dir/$out_media/*" \
     -not -name "*.txt" \
     -not -name "*.map" |
   while read -r file; do

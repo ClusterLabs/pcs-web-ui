@@ -16,7 +16,7 @@ pcsd_unix_socket="${4:-"/var/run/pcsd.socket"}"
 # Export node_modules location for js files. E.g. webpack-minify-css.js etc.
 export NODE_PATH="$node_modules"
 
-# Sources structure
+# Sources structure (multiple parts needs to agree on this)
 # ------------------------------------------------------------------------------
 app_html="$src_dir"/public/index.html
 app_index_js="$src_dir"/src/index.tsx
@@ -24,6 +24,14 @@ app_ts_config_paths_context=$src_dir
 app_ts_config="$src_dir"/tsconfig.json
 app_src="$src_dir"/src
 app_public="$src_dir"/public
+
+# Output structure (multiple parts needs to agree on this)
+# ------------------------------------------------------------------------------
+out_js="static/js"
+out_css="static/css"
+out_media="static/media"
+out_main="main"
+out_html="index.html"
 
 # Check sources assumptions
 # ------------------------------------------------------------------------------
@@ -50,7 +58,7 @@ if [ "$ts_base_url" != "$app_src" ]; then
   exit 1
 fi
 
-# Main build
+# Webpack compiles assets for all apps
 # ------------------------------------------------------------------------------
 mkdir -p "$output_dir"
 rm -rf "${output_dir:?}/"*
@@ -63,18 +71,52 @@ node "$exec"/webpack.js \
   "$app_src" \
   "$app_ts_config" \
   "$app_ts_config_paths_context" \
-  "$webpack_output_dir"
-"$exec"/webpack-sizes.sh "$webpack_output_dir"
+  "$webpack_output_dir" \
+  "$out_js" \
+  "$out_css" \
+  "$out_media" \
+  "$out_main"
+"$exec"/webpack-sizes.sh \
+  "$webpack_output_dir" \
+  "$out_css" \
+  "$out_media" \
+  "$out_main"
 echo
 
+# Make standalone application from webpack output
+# ------------------------------------------------------------------------------
 standalone_dir="$output_dir"/for-standalone
 "$exec"/app-dir-init.sh "$app_public" "$webpack_output_dir" "$standalone_dir"
-"$exec"/app-adapt-standalone.sh "$standalone_dir"
-"$exec"/app-link.sh "$src_dir" "$node_modules" "$standalone_dir" "/ui"
+"$exec"/app-adapt-standalone.sh "$standalone_dir" "$out_js"
+"$exec"/app-link.sh \
+  "$src_dir" \
+  "$node_modules" \
+  "$standalone_dir" \
+  "$out_js" \
+  "$out_css" \
+  "$out_media" \
+  "$out_main" \
+  "$out_html" \
+  "/ui"
 echo "Build prepared: ${standalone_dir}."
 
+# Make cockpit application from webpack output
+# ------------------------------------------------------------------------------
 cockpit_dir="$output_dir"/for-cockpit
 "$exec"/app-dir-init.sh "$app_public" "$webpack_output_dir" "$cockpit_dir"
-"$exec"/app-adapt-cockpit.sh "$cockpit_dir" "$pcsd_unix_socket"
-"$exec"/app-link.sh "$src_dir" "$node_modules" "$cockpit_dir" "."
+"$exec"/app-adapt-cockpit.sh \
+  "$cockpit_dir" \
+  "$out_js" \
+  "$out_html" \
+  "$pcsd_unix_socket"
+"$exec"/app-link.sh \
+  "$src_dir" \
+  "$node_modules" \
+  "$cockpit_dir" \
+  "$out_js" \
+  "$out_css" \
+  "$out_media" \
+  "$out_main" \
+  "$out_html" \
+  "."
 echo "Build prepared: ${cockpit_dir}."
