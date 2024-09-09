@@ -45,8 +45,13 @@ APP_SRC = $(abs_top_srcdir)/packages/app
 APP_BUILD = $(abs_top_builddir)/packages/app
 
 app:
-	@./packages/app/.bin/check-assumptions.sh
-	@./packages/dev/.bin/dev-server.sh
+	if [ ! -d $(APP_BUILD)/node_modules ]; then \
+		npm ci --no-progress --prefix $(APP_BUILD); \
+	fi
+	@$(abs_top_srcdir)/packages/dev/.bin/dev-server.sh \
+		${APP_SRC} \
+		$(APP_BUILD)/node_modules \
+		${abs_top_builddir}/build 
 
 build:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \

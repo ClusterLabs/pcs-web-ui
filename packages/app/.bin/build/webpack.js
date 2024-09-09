@@ -50,7 +50,7 @@ require("webpack")(
     // know the root.
     publicPath: "./",
     enableProfiling: process.argv.includes("--profile"),
-    appIndexJs: appIndexJs,
+    appIndexJs,
     srcDir: appSrc,
     cacheDirectory: `${appNodeModules}/.cache`,
     tsConfig: appTsConfig,
