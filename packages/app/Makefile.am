@@ -1,17 +1,14 @@
 MAINTAINERCLEANFILES	= Makefile.in
 EXTRA_DIST		= \
-				.bin/build/app-adapt-cockpit.sh \
-				.bin/build/app-adapt-standalone.sh \
-				.bin/build/app-dir-init.sh \
-				.bin/build/app-link.sh \
-				.bin/build/app-merge-test-marks.js \
-				.bin/build/main.sh \
-				.bin/build/webpack.config.js \
-				.bin/build/webpack.js \
-				.bin/build/webpack-minify-css.js \
-				.bin/build/webpack.plugins.js \
 				.bin/build/webpack.rules.js \
-				.bin/build/webpack-sizes.sh \
+				.bin/build/webpack-minify-css.js \
+				.bin/build/main.sh \
+				.bin/build/app-merge-test-marks.js \
+				.bin/build/in-json.sh \
+				.bin/build/webpack.js \
+				.bin/build/structure.json \
+				.bin/build/webpack.config.js \
+				.bin/build/webpack.plugins.js \
 				.bin/last-commit-mark.sh \
 				.bin/modules-patch.sh \
 				.bin/modules-prepare.sh \

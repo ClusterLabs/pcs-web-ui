@@ -8,26 +8,35 @@ if [ "$#" -ne 3 ]; then
 fi
 
 exec="$(dirname "$0")"
+
+build_system="$(realpath "$exec"/../../app/.bin/build)"
+in_json="$build_system"/in-json.sh
+
 src_dir=$(realpath "$1")
 node_modules=$(realpath "$2")
 output_dir=$(realpath "$3")
 
 export NODE_PATH="$node_modules"
 
+structure() {
+  "$in_json" "$build_system"/structure.json "$1"."$2"
+}
+
 # Sources structure (multiple parts needs to agree on this)
 # ------------------------------------------------------------------------------
-app_index_js="$src_dir"/src/index.tsx
+app_index_js="$src_dir"/$(structure app index)
+app_ts_config="$src_dir"/$(structure app tsConfig)
 app_ts_config_paths_context=$src_dir
-app_ts_config="$src_dir"/tsconfig.json
-app_src="$src_dir"/src
-app_public="$src_dir"/public
+app_src="$src_dir"/$("$in_json" "$app_ts_config" "compilerOptions.baseUrl")
+
+template_dir=$src_dir/$(structure template dir)
 
 # Output structure (multiple parts needs to agree on this)
 # ------------------------------------------------------------------------------
-out_js="static/js"
-out_css="static/css"
-out_media="static/media"
-out_main="main"
+out_js=$(structure output js)
+out_css=$(structure output css)
+out_media=$(structure output media)
+out_main=$(structure output main)
 
 # Dev server will be started on this HOST and PORT
 export HOST="${HOST:-0.0.0.0}"
@@ -49,12 +58,9 @@ if lsof -i :"$PORT" > /dev/null; then
   exit 1
 fi
 
-BUILD_DIR=$(realpath "$(dirname "$0")"/../build)
-export BUILD_DIR
-
 webpack_output_dir="$output_dir"/webpack-output
 node "$exec"/start.js \
-  "$app_public" \
+  "$template_dir" \
   "$app_index_js" \
   "$app_src" \
   "$app_ts_config" \

@@ -13,50 +13,51 @@ node_modules=$(realpath "$2")
 output_dir=$(realpath "$3")
 pcsd_unix_socket="${4:-"/var/run/pcsd.socket"}"
 
+in_json="$exec"/in-json.sh
+
 # Export node_modules location for js files. E.g. webpack-minify-css.js etc.
 export NODE_PATH="$node_modules"
 
-# Sources structure (multiple parts needs to agree on this)
+structure() {
+  "$in_json" "$exec"/structure.json "$1"."$2"
+}
+
+# Js application structure (multiple parts needs to agree on this)
 # ------------------------------------------------------------------------------
-app_html="$src_dir"/public/index.html
-app_index_js="$src_dir"/src/index.tsx
+app_index_js="$src_dir"/$(structure app index)
+app_ts_config="$src_dir"/$(structure app tsConfig)
 app_ts_config_paths_context=$src_dir
-app_ts_config="$src_dir"/tsconfig.json
-app_src="$src_dir"/src
-app_public="$src_dir"/public
+app_src="$src_dir"/$("$in_json" "$app_ts_config" "compilerOptions.baseUrl")
+app_marks="$src_dir"/$(structure app marks)
+
+# Website template structure (multiple parts needs to agree on this)
+# ------------------------------------------------------------------------------
+template_dir=$src_dir/$(structure template dir)
+template_index=$(structure template index)
+template_adapter=$(structure template adapter)
+template_adapter_cockpit=$(structure template adapterCockpit)
+template_manifest=$(structure template manifest)
+template_manifest_cockpit=$(structure template manifestCockpit)
+template_ico=$(structure template ico)
 
 # Output structure (multiple parts needs to agree on this)
 # ------------------------------------------------------------------------------
-out_js="static/js"
-out_css="static/css"
-out_media="static/media"
-out_main="main"
-out_html="index.html"
+out_js=$(structure output js)
+out_css=$(structure output css)
+out_media=$(structure output media)
+out_main=$(structure output main)
+out_marks=$(structure output marks)
 
 # Check sources assumptions
 # ------------------------------------------------------------------------------
 # If assumptions are not met, build and dev server fails even so. But it can
 # be harder to realize where the root cause is.
-for f in $app_html $app_index_js; do
+for f in "$template_dir"/"$template_index" $app_index_js; do
   if [ ! -f "$f" ]; then
     echo "Could not find required file: '$f'"
     exit 1
   fi
 done
-
-ts_base_url="$src_dir"/$(
-  node --print --eval="JSON.parse(process.argv[1]).compilerOptions.baseUrl" \
-    "$(cat "$app_ts_config")"
-)
-if [ "$ts_base_url" != "$app_src" ]; then
-  echo "baseUrl in .tsconfig should be the same as app_src in main.sh."
-  echo "(But they are: $ts_base_url vs $app_src)"
-  echo "In other words, typescript and webpack should work with the same dir."
-  echo "Please, check it especialy in webpack.config.js."
-  echo "(Look at the sections resolve.module and resolve.alias)"
-  echo "If this check is not appropriate anymore you can change it."
-  exit 1
-fi
 
 # Webpack compiles assets for all apps
 # ------------------------------------------------------------------------------
@@ -76,47 +77,136 @@ node "$exec"/webpack.js \
   "$out_css" \
   "$out_media" \
   "$out_main"
-"$exec"/webpack-sizes.sh \
-  "$webpack_output_dir" \
-  "$out_css" \
-  "$out_media" \
-  "$out_main"
+
+node "$exec"/webpack-minify-css.js \
+  "$(ls "$webpack_output_dir"/"$out_css"/"$out_main".*.css)"
+
+# measure sizes of compiled assets
+find "$webpack_output_dir" -type f \
+    -not -path "$webpack_output_dir/$out_media/*" \
+    -not -name "*.txt" \
+    -not -name "*.map" |
+  while read -r file; do
+    size=$(gzip -c "$file" | wc -c)
+    working_directory="$(pwd)"/
+
+    if [ "${file#"$working_directory"}" != "$file" ]; then
+      print_name="${file#"$working_directory"}"
+    else
+      print_name="$file"
+    fi
+
+    if [ "$size" -gt "$((512 * 1024))" ]; then
+      echo "$print_name: $size !!! TOO BIG !!!"
+    else
+      echo "$print_name: $size"
+    fi
+  done
 echo
+
+# Make all applications
+# ------------------------------------------------------------------------------
+app_dir_init() {
+  _app_dir=$1
+  # Maybe app_dir does not exists.
+  mkdir -p "$_app_dir"
+
+  # Maybe there is an obsolete content.
+  # Using :? will cause the command to fail if the variable is null or unset.
+  # This prevents deleting everything in the system's root directory when
+  # `build_dir/compile_dir` variable is empty.
+  rm -rf "${_app_dir:?}/"*
+
+  # Copy src "template" dir
+  cp -r "${template_dir:?}/"* "$_app_dir"
+  # Dirs/files copied from src_dir (i.e. template_dir) can be readonly (e.g.
+  # when `make distcheck`).
+  chmod --recursive ug+w "$_app_dir"
+
+  # Copy compiled assets
+  cp -r "${webpack_output_dir:?}/"* "$_app_dir"
+}
+app_link() {
+  _build_dir=$1
+  _path_prefix=$2
+  make_asset() {
+    _path=$1
+    _ext=$2
+
+    echo "/$_path/$(basename "$(ls "$_build_dir/$_path/$out_main".*"$_ext")")"
+  }
+  # Inject compiled assets
+  # --------------------------------------------------------------------------
+  # There is a tag <script src="static/js/main.js"></script> in index.html.
+  # This function:
+  # * append link to built css after the tag
+  # * change source of the tag to built javascript
+
+  # Find script tag by src attribute.
+  script_src=$(echo "src=\"/$out_js/$out_main.js\"" | sed 's#/#\\/#g')
+
+  # Append css link.
+  css_link="<link href=\"$(make_asset "$out_css" .css)\" rel=\"stylesheet\">"
+  sed --in-place \
+    "/$script_src/a \    $css_link" \
+    "$_build_dir"/"$template_index"
+
+  # Set correct correct src.
+  sed --in-place \
+    "s#$script_src#src=\"$(make_asset "$out_js" .js)\"#" \
+    "$_build_dir"/"$template_index"
+
+  # Fix assets path
+  # --------------------------------------------------------------------------
+  # All assets in index.html uses absolute path. The index.html is also used by
+  # development server which needs absolute paths. There is no copy/edit phase
+  # in development server, so it is done here.
+  # Here is the absolute path prefixed according to pcsd url namespace for
+  # webui.
+  # WARNING: Don't use relative path. It works well in dashboard but in the
+  # cluster detail the resulting url contains word "cluster" inside, so instead
+  # of "/ui/static/..." we get "/ui/cluster/static" and asset loading fails.
+  # see: https://bugzilla.redhat.com/show_bug.cgi?id=2222788
+  paths="$out_js|$out_css|$template_manifest|$template_ico"
+  sed --regexp-extended --in-place \
+    "s#(src|href)=\"/($paths)#\1=\"$_path_prefix/\2#" \
+    "$_build_dir"/"$template_index"
+
+  # Minimize adapter
+  # --------------------------------------------------------------------------
+  "$node_modules"/.bin/terser "$_build_dir"/"$template_adapter" \
+    --compress ecma=5,warnings=false,comparisons=false,inline=2 \
+    --output "$_build_dir"/"$template_adapter"
+
+  # Build marks
+  # --------------------------------------------------------------------------
+  node "$exec"/app-merge-test-marks.js "$app_marks" > "$_build_dir"/"$out_marks"
+}
 
 # Make standalone application from webpack output
 # ------------------------------------------------------------------------------
 standalone_dir="$output_dir"/for-standalone
-"$exec"/app-dir-init.sh "$app_public" "$webpack_output_dir" "$standalone_dir"
-"$exec"/app-adapt-standalone.sh "$standalone_dir" "$out_js"
-"$exec"/app-link.sh \
-  "$src_dir" \
-  "$node_modules" \
-  "$standalone_dir" \
-  "$out_js" \
-  "$out_css" \
-  "$out_media" \
-  "$out_main" \
-  "$out_html" \
-  "/ui"
+app_dir_init "$standalone_dir"
+rm "$standalone_dir"/"$template_adapter_cockpit"
+rm "$standalone_dir"/"$template_manifest_cockpit"
+app_link "$standalone_dir" "/ui"
 echo "Build prepared: ${standalone_dir}."
 
 # Make cockpit application from webpack output
 # ------------------------------------------------------------------------------
 cockpit_dir="$output_dir"/for-cockpit
-"$exec"/app-dir-init.sh "$app_public" "$webpack_output_dir" "$cockpit_dir"
-"$exec"/app-adapt-cockpit.sh \
-  "$cockpit_dir" \
-  "$out_js" \
-  "$out_html" \
-  "$pcsd_unix_socket"
-"$exec"/app-link.sh \
-  "$src_dir" \
-  "$node_modules" \
-  "$cockpit_dir" \
-  "$out_js" \
-  "$out_css" \
-  "$out_media" \
-  "$out_main" \
-  "$out_html" \
-  "."
+app_dir_init "$cockpit_dir"
+sed --in-place \
+  '/<script.*adapter/i \    <script src="../base1/cockpit.js"></script>' \
+  "$cockpit_dir"/"$template_index"
+sed --in-place \
+  "s#^var pcsdSocket = \".*\";#var pcsdSocket = \"$pcsd_unix_socket\";#" \
+  "$cockpit_dir"/"$template_adapter_cockpit"
+mv \
+  "$cockpit_dir"/"$template_adapter_cockpit" \
+  "$cockpit_dir"/"$template_adapter"
+mv \
+  "$cockpit_dir"/"$template_manifest_cockpit" \
+  "$cockpit_dir"/"$template_manifest"
+app_link "$cockpit_dir" "."
 echo "Build prepared: ${cockpit_dir}."

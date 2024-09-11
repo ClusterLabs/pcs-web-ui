@@ -10,7 +10,7 @@ if (process.argv.length !== 12) {
 
 const appNodeModules = process.env.NODE_PATH;
 
-const appPublic = process.argv[2];
+const appTemplate = process.argv[2];
 const appIndexJs = process.argv[3];
 const appSrc = process.argv[4];
 const appTsConfig = process.argv[5];
@@ -123,7 +123,7 @@ const proxyConfig = [
       // method, we can proxy all non-GET requests.
       const isStaticAsset = fs.existsSync(
         path.resolve(
-          appPublic,
+          appTemplate,
           pathname.replace(new RegExp(`^${publicPath}`), ""),
         ),
       );
@@ -172,7 +172,7 @@ const devServer = new WebpackDevServer(
     ...createDevServerConfig(
       proxyConfig,
       allowedLanHost,
-      appPublic,
+      appTemplate,
       publicPath,
     ),
     host,

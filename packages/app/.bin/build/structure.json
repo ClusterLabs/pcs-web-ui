@@ -1,0 +1,23 @@
+{
+  "app": {
+    "index": "src/index.tsx",
+    "tsConfig": "tsconfig.json",
+    "marks": "src/app/view/dataTest/json"
+  },
+  "template": {
+    "dir": "public",
+    "index": "index.html",
+    "adapter": "static/js/adapter.js",
+    "adapterCockpit": "static/js/adapterCockpit.js",
+    "manifest": "manifest.json",
+    "manifestCockpit": "manifestCockpit.json",
+    "ico": "static/media/favicon.png"
+  },
+  "output": {
+    "js": "static/js",
+    "css": "static/css",
+    "media": "static/media",
+    "main": "main",
+    "marks": "manifest_test_marks.json"
+  }
+}
