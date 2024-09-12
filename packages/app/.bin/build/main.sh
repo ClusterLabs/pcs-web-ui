@@ -22,16 +22,10 @@ structure() {
   "$in_json" "$exec"/structure.json "$1"."$2"
 }
 
-# Js application structure (multiple parts needs to agree on this)
+# Source / output files structure
 # ------------------------------------------------------------------------------
-app_index_js="$src_dir"/$(structure app index)
-app_ts_config="$src_dir"/$(structure app tsConfig)
-app_ts_config_paths_context=$src_dir
-app_src="$src_dir"/$("$in_json" "$app_ts_config" "compilerOptions.baseUrl")
 app_marks="$src_dir"/$(structure app marks)
 
-# Website template structure (multiple parts needs to agree on this)
-# ------------------------------------------------------------------------------
 template_dir=$src_dir/$(structure template dir)
 template_index=$(structure template index)
 template_adapter=$(structure template adapter)
@@ -40,24 +34,11 @@ template_manifest=$(structure template manifest)
 template_manifest_cockpit=$(structure template manifestCockpit)
 template_ico=$(structure template ico)
 
-# Output structure (multiple parts needs to agree on this)
-# ------------------------------------------------------------------------------
 out_js=$(structure output js)
 out_css=$(structure output css)
 out_media=$(structure output media)
 out_main=$(structure output main)
 out_marks=$(structure output marks)
-
-# Check sources assumptions
-# ------------------------------------------------------------------------------
-# If assumptions are not met, build and dev server fails even so. But it can
-# be harder to realize where the root cause is.
-for f in "$template_dir"/"$template_index" $app_index_js; do
-  if [ ! -f "$f" ]; then
-    echo "Could not find required file: '$f'"
-    exit 1
-  fi
-done
 
 # Webpack compiles assets for all apps
 # ------------------------------------------------------------------------------
@@ -68,10 +49,7 @@ echo "Starting build"
 webpack_output_dir="$output_dir"/webpack-output
 mkdir -p "$webpack_output_dir"
 node "$exec"/webpack.js \
-  "$app_index_js" \
-  "$app_src" \
-  "$app_ts_config" \
-  "$app_ts_config_paths_context" \
+  "$src_dir" \
   "$webpack_output_dir" \
   "$out_js" \
   "$out_css" \
@@ -126,6 +104,7 @@ app_dir_init() {
   # Copy compiled assets
   cp -r "${webpack_output_dir:?}/"* "$_app_dir"
 }
+
 app_link() {
   _build_dir=$1
   _path_prefix=$2

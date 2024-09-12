@@ -22,17 +22,10 @@ structure() {
   "$in_json" "$build_system"/structure.json "$1"."$2"
 }
 
-# Sources structure (multiple parts needs to agree on this)
+# Source / output files structure
 # ------------------------------------------------------------------------------
-app_index_js="$src_dir"/$(structure app index)
-app_ts_config="$src_dir"/$(structure app tsConfig)
-app_ts_config_paths_context=$src_dir
-app_src="$src_dir"/$("$in_json" "$app_ts_config" "compilerOptions.baseUrl")
-
 template_dir=$src_dir/$(structure template dir)
 
-# Output structure (multiple parts needs to agree on this)
-# ------------------------------------------------------------------------------
 out_js=$(structure output js)
 out_css=$(structure output css)
 out_media=$(structure output media)
@@ -61,10 +54,7 @@ fi
 webpack_output_dir="$output_dir"/webpack-output
 node "$exec"/start.js \
   "$template_dir" \
-  "$app_index_js" \
-  "$app_src" \
-  "$app_ts_config" \
-  "$app_ts_config_paths_context" \
+  "$src_dir" \
   "$webpack_output_dir" \
   "$out_js" \
   "$out_css" \

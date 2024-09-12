@@ -2,6 +2,7 @@
   "app": {
     "index": "src/index.tsx",
     "tsConfig": "tsconfig.json",
+    "tsConfigPathsContext": ".",
     "marks": "src/app/view/dataTest/json"
   },
   "template": {

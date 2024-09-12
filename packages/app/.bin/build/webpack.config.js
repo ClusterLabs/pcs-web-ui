@@ -5,6 +5,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 const plugins = require("./webpack.plugins");
 const rules = require("./webpack.rules");
+const {app: src} = require("./structure.json");
 
 const envHash = env => {
   const hash = createHash("sha256");
@@ -19,22 +20,22 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = ({
-  buildDir,
-  publicPath,
-  enableProfiling,
-  appIndexJs,
   srcDir,
-  cacheDirectory,
-  tsConfig,
-  nodeModules,
-  tsBuildInfoFile,
-  tsConfigPathsContext,
-  envForApp,
+  outputDir,
+  publicPath,
   outJs,
   outCss,
   outMedia,
   outMain,
 }) => {
+  const appIndexJs = path.join(srcDir, src.index);
+  const tsConfig = path.join(srcDir, src.tsConfig);
+  const tsConfigPathsContext = path.join(srcDir, src.tsConfigPathsContext);
+  const appSrc = path.join(srcDir, require(tsConfig).compilerOptions.baseUrl);
+  const nodeModules = process.env.NODE_PATH;
+  const cacheDirectory = path.join(nodeModules, ".cache");
+  const envForApp = {NODE_ENV: process.env.NODE_ENV};
+
   return {
     target: ["browserslist"],
     // Webpack noise constrained to errors and warnings
@@ -49,7 +50,7 @@ module.exports = ({
     output: {
       // Place to write generated assets. No files are written in the case of
       // dev server if it is not explicitly set by `writeToDisk` option.
-      path: buildDir,
+      path: outputDir,
       // Include comments in bundles with info about the contained modules.
       pathinfo: false,
       // There will be one main bundle, and one file per asynchronous chunk.
@@ -63,7 +64,7 @@ module.exports = ({
       publicPath,
       // Point sourcemap entries to original disk location.
       devtoolModuleFilenameTemplate: info =>
-        path.relative(srcDir, info.absoluteResourcePath).replace(/\\/g, "/"),
+        path.relative(appSrc, info.absoluteResourcePath).replace(/\\/g, "/"),
     },
     cache: {
       type: "filesystem",
@@ -112,8 +113,8 @@ module.exports = ({
               safari10: true,
             },
             // Added for profiling in devtools
-            keep_classnames: enableProfiling,
-            keep_fnames: enableProfiling,
+            keep_classnames: false,
+            keep_fnames: false,
             output: {
               ecma: 5,
               comments: false,
@@ -134,15 +135,10 @@ module.exports = ({
       // We placed these paths second because we want `node_modules` to "win"
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
-      modules: ["node_modules", nodeModules, srcDir],
+      modules: ["node_modules", nodeModules, appSrc],
       extensions: [".js", ".ts", ".tsx", ".json", ".jsx"],
       alias: {
-        src: srcDir,
-        // Allows for better profiling with ReactDevTools
-        ...(enableProfiling && {
-          "react-dom$": "react-dom/profiling",
-          "scheduler/tracing": "scheduler/tracing-profiling",
-        }),
+        src: appSrc,
       },
     },
     module: {
@@ -163,7 +159,7 @@ module.exports = ({
             rules.scripts({
               plugins: [],
               compact: true,
-              include: srcDir,
+              include: appSrc,
               cacheDirectory,
             }),
             rules.outsideScripts({
@@ -193,7 +189,7 @@ module.exports = ({
         sourceMap: shouldUseSourceMap,
         nodeModules,
         configFile: tsConfig,
-        tsBuildInfoFile,
+        tsBuildInfoFile: path.join(cacheDirectory, "tsconfig.tsbuildinfo"),
         tsConfigPathsContext,
       }),
     ],

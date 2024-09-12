@@ -9,6 +9,7 @@ const appWebpackPath = "../../../app/.bin/build";
 const plugins = require(`${appWebpackPath}/webpack.plugins`);
 const rules = require(`${appWebpackPath}/webpack.rules`);
 const config = require(`${appWebpackPath}/webpack.config`);
+const {app: src} = require(`${appWebpackPath}/structure.json`);
 
 // Source maps are resource heavy and can cause out of memory issue for large
 // source files.
@@ -17,34 +18,23 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === "true";
 
 module.exports = ({
-  buildDir,
-  publicPath,
-  enableProfiling,
-  appIndexJs,
   srcDir,
-  cacheDirectory,
-  tsConfig,
-  nodeModules,
-  tsBuildInfoFile,
-  tsConfigPathsContext,
-  envForApp,
+  outputDir,
+  publicPath,
   outJs,
   outCss,
   outMedia,
   outMain,
 }) => {
+  const nodeModules = process.env.NODE_PATH;
+  const cacheDirectory = path.join(nodeModules, ".cache");
+  const tsConfig = path.join(srcDir, src.tsConfig);
+  const tsConfigPathsContext = path.join(srcDir, src.tsConfigPathsContext);
+  const envForApp = {NODE_ENV: process.env.NODE_ENV};
   const appConfig = config({
-    buildDir,
+    outputDir,
     publicPath,
-    enableProfiling,
-    appIndexJs,
     srcDir,
-    cacheDirectory,
-    tsConfig,
-    nodeModules,
-    tsBuildInfoFile,
-    tsConfigPathsContext,
-    envForApp,
     outJs,
     outCss,
     outMedia,
@@ -114,7 +104,7 @@ module.exports = ({
         sourceMap: true,
         nodeModules,
         configFile: tsConfig,
-        tsBuildInfoFile,
+        tsBuildInfoFile: path.join(cacheDirectory, "tsconfig.tsbuildinfo"),
         tsConfigPathsContext,
       }),
       new ESLintPlugin({
