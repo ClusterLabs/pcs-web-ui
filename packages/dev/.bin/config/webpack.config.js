@@ -31,6 +31,10 @@ module.exports = ({
   const tsConfig = path.join(srcDir, src.tsConfig);
   const tsConfigPathsContext = path.join(srcDir, src.tsConfigPathsContext);
   const envForApp = {NODE_ENV: process.env.NODE_ENV};
+  const appSrc = path.join(
+    srcDir,
+    require(path.join(srcDir, src.tsConfig)).compilerOptions.baseUrl,
+  );
   const appConfig = config({
     outputDir,
     publicPath,
@@ -76,10 +80,13 @@ module.exports = ({
             rules.scripts({
               plugins: [require.resolve("react-refresh/babel")],
               compact: false,
+              include: appSrc,
+              cacheDirectory,
             }),
             rules.outsideScripts({
               sourceMaps: shouldUseSourceMap,
               inputSourceMap: shouldUseSourceMap,
+              cacheDirectory,
             }),
             rules.css({
               styleLoader: require.resolve("style-loader"),
