@@ -33,6 +33,9 @@ EXTRA_DIST		= \
 			  .gitlab-ci.yml \
 			  README.md \
 			  typos.toml 
+			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
+CLEANFILES		= \
+			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
 
 NEXUS = "https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
 PROJECT_DIR = $(shell pwd)
@@ -127,6 +130,14 @@ fmt:
 	npx prettier "packages/app/src/" --write
 	packages/app/node_modules/.bin/eslint --fix --ext .js,.ts,.tsx packages/app/src/
 
+
+dist-hook:
+	$(abs_top_srcdir)/packages/app/.bin/package-build/fetch-and-pack.sh \
+		$(APP_SRC) \
+		packages/app \
+		$(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
+
+
 install-exec-local:
 	if [ "x${PCSD_WEBUI_DIR}" != "x" ]; then \
 		mkdir -p ${PCSD_WEBUI_DIR}; \
@@ -143,7 +154,7 @@ clean-local:
 	fi
 
 generate-package-build:
-	@packages/app/.bin/package-build-gen.sh packages/app/package.json
+	@packages/app/.bin/package-build/generate.sh packages/app
 
 
 npm_install:

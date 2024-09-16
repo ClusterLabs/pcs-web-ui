@@ -20,12 +20,12 @@ done
 
 # Deal with reduced packages (for building process).
 app=packages/app
-bin="$app"/.bin
+package_build="$app"/.bin/package-build
 
-packages_build="$app"/$("$bin"/package-build-fname.sh)
-packages_build_lock="$app"/$("$bin"/package-build-fname.sh -l)
+packages_build="$app"/$("$package_build"/fname.sh)
+packages_build_lock="$app"/$("$package_build"/fname.sh -l)
 
-"$bin"/package-build-gen.sh "$app"/package.json
+"$package_build"/generate.sh "$app"
 git add "$packages_build" "$packages_build_lock"
 
 fix_lock "$packages_build_lock"
