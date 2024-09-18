@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.63])
 AC_INIT([pcs-web-ui],
-	[m4_esyscmd([make/git-version-gen .tarball-version .gitarchivever])],
+	m4_esyscmd([make/git-version-gen .tarball-version .gitarchivever --prefix ""]),
 	[developers@clusterlabs.org])
 
 # dist-bzip2 dist-xz - which archivers try to use for distribution archive

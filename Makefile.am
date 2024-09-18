@@ -130,6 +130,10 @@ fmt:
 	npx prettier "packages/app/src/" --write
 	packages/app/node_modules/.bin/eslint --fix --ext .js,.ts,.tsx packages/app/src/
 
+.PHONY: bump-version
+bump-version:
+	@node .bin/bump-version.js $(version)
+	@git tag -a -m "$(version) release" $(version) HEAD
 
 dist-hook:
 	$(abs_top_srcdir)/packages/app/.bin/package-build/fetch-and-pack.sh \
