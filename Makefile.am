@@ -73,21 +73,6 @@ build:
 		${abs_top_builddir}/build \
 		$(PCSD_UNIX_SOCKET)
 
-# prepare tarball with node modules that are necessary to build the application
-modules-pack:
-	@cd ./packages/app \
-		&& .bin/modules-prepare.sh ${APP_MODULES_DIR} \
-		&& .bin/modules-patch.sh ${APP_MODULES_DIR} \
-		&& .bin/modules-tar.sh ${APP_MODULES_DIR} ${PROJECT_DIR} \
-		&& .bin/modules-restore.sh ${APP_MODULES_DIR} \
-	@ls -l ./*.tar.xz
-
-modules-prepare:
-	@cd ./packages/app  && echo y |  .bin/modules-prepare.sh ${APP_MODULES_DIR}
-
-modules-patch:
-	@cd ./packages/app  && .bin/modules-patch.sh ${APP_MODULES_DIR}
-
 dev:
 	@cd ./packages/dev-backend && .bin/dev-backend.sh
 

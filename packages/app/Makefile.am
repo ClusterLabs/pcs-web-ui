@@ -9,10 +9,6 @@ EXTRA_DIST		= \
 				.bin/build/structure.json \
 				.bin/build/webpack.config.js \
 				.bin/build/webpack.plugins.js \
-				.bin/last-commit-mark.sh \
-				.bin/modules-restore.sh \
-				.bin/modules-tar.sh \
-				.bin/modules-prepare.sh \
 				.bin/package-build/check-package.sh \
 				.bin/package-build/check-lock.sh \
 				.bin/package-build/generate-hash.sh \
@@ -20,7 +16,6 @@ EXTRA_DIST		= \
 				.bin/package-build/fetch-and-pack.sh \
 				.bin/package-build/remove-eslint.js \
 				.bin/package-build/fname.sh \
-				.bin/modules-patch.sh \
 			  .eslintrc.common.js \
 			  .eslintrc.import.js \
 			  .eslintrc.js \
