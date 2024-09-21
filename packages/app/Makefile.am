@@ -19,7 +19,6 @@ EXTRA_DIST		= \
 			  .eslintrc.common.js \
 			  .eslintrc.import.js \
 			  .eslintrc.js \
-			  .npmrc \
 			  .build.hash \
 			  org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml \
 			  package.json \
