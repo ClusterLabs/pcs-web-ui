@@ -28,14 +28,25 @@ EXTRA_DIST		= \
 			  .bin/lint.sh \
 			  .bin/npm_install.sh \
 			  .bin/pre-commit.sh \
+			  .bin/render-spec.sh \
 			  .browserslistrc \
+			  rpm/pcs-web-ui.spec.in \
 			  COPYING \
 			  .gitlab-ci.yml \
+			  make/git-version-gen \
 			  README.md \
 			  typos.toml 
 			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
+
 CLEANFILES		= \
 			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
+
+TARFILES		= \
+			  $(PACKAGE_NAME)-$(VERSION).tar.bz2 \
+			  $(PACKAGE_NAME)-$(VERSION).tar.gz \
+			  $(PACKAGE_NAME)-$(VERSION).tar.xz \
+			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
+SPEC			= rpm/$(PACKAGE_NAME).spec
 
 NEXUS = "https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
 PROJECT_DIR = $(shell pwd)
@@ -46,6 +57,7 @@ PCSD_UNIX_SOCKET = @PCSD_UNIX_SOCKET@
 
 APP_SRC = $(abs_top_srcdir)/packages/app
 APP_BUILD = $(abs_top_builddir)/packages/app
+RPM_DIR = $(abs_top_builddir)/rpm
 
 app:
 	if [ ! -d $(APP_BUILD)/node_modules ]; then \
@@ -88,7 +100,7 @@ ci-cluster-test:
 
 clean:
 	rm -rf build
-	rm pcs-web-ui-node-modules-*.tar.xz
+	rm -f pcs-web-ui-node-modules-*.tar.xz
 
 init_nexus:
 	@[ "${NEXUS_CERT_PATH}" ] || ( \
@@ -125,12 +137,14 @@ dist-hook:
 		$(APP_SRC) \
 		packages/app \
 		$(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
+	echo $(VERSION) > $(distdir)/.tarball-version
+	echo $(SOURCE_EPOCH) > $(distdir)/source_epoch
 
 
 install-exec-local:
 	if [ "x${PCSD_WEBUI_DIR}" != "x" ]; then \
-		mkdir -p ${PCSD_WEBUI_DIR}; \
-		cp -r build/* ${PCSD_WEBUI_DIR}; \
+		mkdir -p ${DESTDIR}/${PCSD_WEBUI_DIR}; \
+		cp -r build/for-standalone/* ${DESTDIR}/${PCSD_WEBUI_DIR}; \
 	else \
 	  echo "No install location found, skipping installation"; \
 	fi
@@ -150,5 +164,40 @@ npm_install:
 	@.bin/npm_install.sh ./packages
 
 all: build
+
+BUILT_SOURCES	= .version
+.version:
+	echo $(VERSION) > $@-t && mv $@-t $@
+
+VERSIONGENOPTS		= \
+			  --fallback $(VERSION) .tarball-version .gitarchivever --prefix ""
+
+$(SPEC): $(SPEC).in .version config.status
+	rm -f $@-t $@
+	date="`LC_ALL=C $(UTC_DATE_AT)$(SOURCE_EPOCH) "+%a %b %d %Y"`" && \
+	full_version="`cd $(abs_srcdir); make/git-version-gen $(VERSIONGENOPTS)`" && \
+	.bin/render-spec.sh $@.in $$full_version "$$date" $(PCSD_WEBUI_DIR) > $@-t
+	chmod a-w $@-t
+	mv $@-t $@
+	rm -f $@-t*
+
+RPMBUILDOPTS    = \
+			--define "_sourcedir $(RPM_DIR)" \
+		  --define "_specdir $(RPM_DIR)" \
+		  --define "_builddir $(RPM_DIR)" \
+		  --define "_srcrpmdir $(RPM_DIR)" \
+		  --define "_rpmdir $(RPM_DIR)"
+
+$(TARFILES):
+	$(MAKE) dist
+	cp $(TARFILES) $(RPM_DIR)
+
+srpm: clean
+	$(MAKE) $(SPEC) $(TARFILES)
+	rpmbuild $(RPMBUILDOPTS) --nodeps -bs $(SPEC)
+
+rpm: clean
+	$(MAKE) $(SPEC) $(TARFILES)
+	rpmbuild $(RPMBUILDOPTS) -ba $(SPEC)
 
 .PHONY: test build

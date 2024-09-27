@@ -19,6 +19,7 @@ yarn-debug.log*
 yarn-error.log*
 
 pcs-web-ui-*
+pcs-web-ui.spec
 .npmrc
 .eslintcache
 
@@ -34,6 +35,7 @@ configure
 configure~
 missing
 install-sh
+.version
 
 /.dev
 /.tmp
