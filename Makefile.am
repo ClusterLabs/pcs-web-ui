@@ -142,12 +142,7 @@ dist-hook:
 
 
 install-exec-local:
-	if [ "x${PCSD_WEBUI_DIR}" != "x" ]; then \
-		mkdir -p ${DESTDIR}/${PCSD_WEBUI_DIR}; \
-		cp -r build/for-standalone/* ${DESTDIR}/${PCSD_WEBUI_DIR}; \
-	else \
-	  echo "No install location found, skipping installation"; \
-	fi
+	.bin/install.sh $(DESTDIR) $(PCSD_WEBUI_DIR) $(COCKPIT_DIR)
 
 clean-local:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
@@ -176,7 +171,9 @@ $(SPEC): $(SPEC).in .version config.status
 	rm -f $@-t $@
 	date="`LC_ALL=C $(UTC_DATE_AT)$(SOURCE_EPOCH) "+%a %b %d %Y"`" && \
 	full_version="`cd $(abs_srcdir); make/git-version-gen $(VERSIONGENOPTS)`" && \
-	.bin/render-spec.sh $@.in $$full_version "$$date" $(PCSD_WEBUI_DIR) > $@-t
+	.bin/render-spec.sh \
+	  $@.in $$full_version "$$date" $(PCSD_WEBUI_DIR) $(COCKPIT_DIR) \
+		> $@-t
 	chmod a-w $@-t
 	mv $@-t $@
 	rm -f $@-t*

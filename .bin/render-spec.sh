@@ -4,14 +4,19 @@ spec_template=$1
 version=$2
 date="$3"
 pcsd_webui_dir="$4"
+cockpit_dir="$5"
 
 expressions="s/@date@/$date/g"
 delete_global(){
   expressions="${expressions};/^%glo.*${1}.*$/d"
 }
+delete_var(){
+  expressions="${expressions};/^@${1}@.*$/d"
+}
 replace(){
   expressions="${expressions};s|@${1}@|${2}|g"
 }
+
 
 replace pcsd-webui-dir "$pcsd_webui_dir"
 
@@ -42,5 +47,20 @@ if [ -z "$CI_BRANCH" ]; then
 else
   replace cibranch "$CI_BRANCH"
 fi
+
+if [ ! "$pcsd_webui_dir" = "" ] && [ ! "$cockpit_dir" = "" ]; then
+   flags="--with-pcsd-webui-dir=$pcsd_webui_dir --with-cockpit-dir=$cockpit_dir"
+   replace pcsd-webui-dir "$pcsd_webui_dir"
+   replace cockpit-dir "$cockpit_dir"
+elif [ ! "$cockpit_dir" = "" ]; then
+   flags="--with-cockpit-dir=$cockpit_dir --disable-standalone-mode"
+   replace cockpit_dir-dir "$cockpit_dir"
+   delete_var pcsd-webui-dir
+else
+   flags="--with-pcsd-webui-dir=$pcsd_webui_dir"
+   replace pcsd-webui-dir "$pcsd_webui_dir"
+   delete_var cockpit-dir
+fi
+replace configure-flags "$flags"
 
 sed --expression "$expressions" "$spec_template"

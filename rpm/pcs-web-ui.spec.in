@@ -40,16 +40,16 @@ pacemaker based clusters.
 # Don't want to generate debug files
 %define debug_package %{nil}
 ./autogen.sh
-%{configure} --with-pcsd-webui-dir=@pcsd-webui-dir@
+%{configure} @configure-flags@
 make all
 
 %install
-mkdir -p @pcsd-webui-dir@
 %make_install DESTDIR=%{buildroot}
 
 %files
 %license COPYING
 @pcsd-webui-dir@/*
+@cockpit-dir@/*
 
 %changelog
 * @date@ Autotools generated version <nobody@nowhere.org> - @version@-1+@commits_ahead_tag@.@current_commit@.@dirty@
