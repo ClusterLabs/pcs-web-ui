@@ -25,6 +25,7 @@ EXTRA_DIST		= \
 			  .bin/check-no-nexus.sh \
 			  .bin/init_nexus.sh \
 			  .bin/init.sh \
+			  .bin/install.sh \
 			  .bin/lint.sh \
 			  .bin/npm_install.sh \
 			  .bin/pre-commit.sh \
@@ -36,7 +37,8 @@ EXTRA_DIST		= \
 			  make/git-version-gen \
 			  README.md \
 			  typos.toml 
-			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
+			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz\
+			  .version
 
 CLEANFILES		= \
 			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
@@ -142,7 +144,7 @@ dist-hook:
 
 
 install-exec-local:
-	.bin/install.sh $(DESTDIR) $(PCSD_WEBUI_DIR) $(COCKPIT_DIR)
+	$(abs_top_srcdir)/.bin/install.sh $(DESTDIR) $(PCSD_WEBUI_DIR) $(COCKPIT_DIR)
 
 clean-local:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
