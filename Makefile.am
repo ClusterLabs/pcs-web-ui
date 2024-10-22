@@ -151,6 +151,7 @@ clean-local:
 		rm -rf ${abs_top_builddir}/packages/app/node_modules; \
 		rm -rf ${abs_top_builddir}/packages/app/package*.json; \
 		rm -rf ${abs_top_builddir}/build; \
+		rm -f ${abs_top_builddir}/.version; \
 	fi
 
 generate-package-build:
