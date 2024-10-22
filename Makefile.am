@@ -94,8 +94,8 @@ test:
 	@cd ./packages/test && .bin/run-dev-tests.sh
 
 test-modules-prepare:
-	@cd ./packages/test && npx npm ci
-	@cd ./packages/dev-backend && npx npm ci
+	@cd ./packages/test && npm ci
+	@cd ./packages/dev-backend && npm ci
 
 ci-cluster-test:
 	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/realBackend
