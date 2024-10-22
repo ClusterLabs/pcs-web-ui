@@ -2,7 +2,6 @@
 %global current_commit @current_commit@
 %global dirty @dirty@
 %global cibranch @cibranch@
-%global src_suffix %{version}%{?commits_ahead_tag:+%{commits_ahead_tag}}%{?current_commit:-%{current_commit}}%{?dirty:-%{dirty}}
 
 Name: pcs-web-ui
 Version: @version@
@@ -11,8 +10,8 @@ Summary: Web interface for pcs
 
 License: GPL
 URL: https://github.com/ClusterLabs/pcs-web-ui
-Source0: %{name}-%{src_suffix}.tar.gz
-Source1: %{name}-node-modules-%{src_suffix}.tar.xz
+Source0: %{name}-%{version}%{?commits_ahead_tag:+%{commits_ahead_tag}}%{?current_commit:-%{current_commit}}%{?dirty:-%{dirty}}.tar.gz
+Source1: %{name}-node-modules-%{version}%{?commits_ahead_tag:+%{commits_ahead_tag}}%{?current_commit:-%{current_commit}}%{?dirty:-%{dirty}}.tar.xz
 
 BuildRequires: make
 BuildRequires: npm
@@ -26,6 +25,10 @@ pacemaker based clusters.
 # documentation for setup/autosetup/autopatch:
 #   * http://ftp.rpm.org/max-rpm/s1-rpm-inside-macros.html
 #   * https://rpm-software-management.github.io/rpm/manual/autosetup.html
+# -q limits verbosity of %setup macro. Only tar -xof is executed instead of tar
+#    -xvvof. This option has to be used as first.
+#    This option is used to suppress a listing of all node_modules files that is
+#    too long and exceeds capacity of CI log
 # -n <name> — Set Name of Build Directory
 # -T — Do Not Perform Default Archive Unpacking
 # -b <n> — Unpack The nth Sources Before Changing Directory
@@ -34,7 +37,7 @@ pacemaker based clusters.
 # 1. unpack sources (-b 0)
 # 2. then cd into sources tree (the setup macro itself)
 # 3. then unpack node_modules into sources tree (-a 1).
-%setup -T -b 0 -a 1 -n %{name}-%{src_suffix}
+%setup -q -T -b 0 -a 1 -n %{name}-%{version}%{?commits_ahead_tag:+%{commits_ahead_tag}}%{?current_commit:-%{current_commit}}%{?dirty:-%{dirty}}
 
 %build
 # Don't want to generate debug files
