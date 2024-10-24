@@ -60,6 +60,7 @@ PCSD_UNIX_SOCKET = @PCSD_UNIX_SOCKET@
 APP_SRC = $(abs_top_srcdir)/packages/app
 APP_BUILD = $(abs_top_builddir)/packages/app
 RPM_DIR = $(abs_top_builddir)/rpm
+BUILD_DIR = $(abs_top_builddir)/build 
 
 app:
 	if [ ! -d $(APP_BUILD)/node_modules ]; then \
@@ -68,7 +69,7 @@ app:
 	@$(abs_top_srcdir)/packages/dev/.bin/dev-server.sh \
 		${APP_SRC} \
 		$(APP_BUILD)/node_modules \
-		${abs_top_builddir}/build 
+		$(BUILD_DIR)
 
 build:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
@@ -84,7 +85,7 @@ build:
 	$(abs_top_srcdir)/packages/app/.bin/build/main.sh \
 		${APP_SRC} \
 		$(APP_BUILD)/node_modules \
-		${abs_top_builddir}/build \
+		$(BUILD_DIR) \
 		$(PCSD_UNIX_SOCKET)
 
 dev:
@@ -148,9 +149,9 @@ install-exec-local:
 
 clean-local:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
-		rm -rf ${abs_top_builddir}/packages/app/node_modules; \
-		rm -rf ${abs_top_builddir}/packages/app/package*.json; \
-		rm -rf ${abs_top_builddir}/build; \
+		rm -rf $(APP_BUILD)/node_modules; \
+		rm -rf $(APP_BUILD)//package*.json; \
+		rm -rf $(BUILD_DIR); \
 		rm -f ${abs_top_builddir}/.version; \
 	fi
 
