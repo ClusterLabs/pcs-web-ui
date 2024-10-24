@@ -33,44 +33,46 @@ AC_PROG_MKDIR_P
 
 # Checks for library functions.
 
-# Deal with standalone mode location.
-# Standalone mode can be disabled explicitly --disable-standalone-mode
-# Location can be specified explicitly --with-pcsd-webui-dir
-# Location from pkg-conf or if nothing given explicitly
-# Standalone mode disabled if cannot take information from pkg-conf
-AC_ARG_ENABLE([standalone-mode],
-  [AS_HELP_STRING([--disable-standalone-mode],
-    [Disable standalone mode and prevent setting pcsd-webui-dir])],
-  [if test "x$enable_standalone_mode" = "xno"; then
-     DISABLE_STANDALONE_MODE=yes
-  else
-     DISABLE_STANDALONE_MODE=no
-  fi]
+# Decide what to install. 3 options here:
+# * both - standalone and cockpit
+# * just standalone
+# * just cockpit
+AC_ARG_ENABLE([standalone],
+  [AS_HELP_STRING([--disable-standalone], [Disable standalone installation])],
+  [enable_standalone="$enableval"],
+  [enable_standalone="yes"],
 )
+AC_ARG_ENABLE([cockpit],
+  [AS_HELP_STRING([--disable-cockpit], [Disable cockpit installation])],
+  [enable_cockpit="$enableval"],
+  [enable_cockpit="yes"],
+)
+if test "x$enable_standalone" != "xyes" && test "x$enable_cockpit" != "xyes";
+then
+  AC_MSG_ERROR([--disable-cockpit cannot be used with --disable-standalone])
+fi
+AM_CONDITIONAL([ENABLE_STANDALONE], [test "x$enable_standalone" = "xyes"])
+AM_CONDITIONAL([ENABLE_COCKPIT], [test "x$enable_cockpit" = "xyes"])
 
+# Deal with installation locations. Priorities:
+# * user input
+# * pkg-config
+# * default value
 AC_ARG_WITH([pcsd-webui-dir],
-  [AS_HELP_STRING([--with-pcsd-webui-dir=DIR],
-    [webui installation directory (default: pkg-config detection from pcs)])],
+  [AS_HELP_STRING(
+    [--with-pcsd-webui-dir=DIR],
+    [webui installation directory (default: pkg-config detection from pcs)]
+  )],
   [PCSD_WEBUI_DIR="$withval"],
   [PKG_CHECK_VAR([PCSD_WEBUI_DIR], [pcs], [webui_dir])]
 )
-
-if test "x$DISABLE_STANDALONE_MODE" = "xyes" &&
-  test "x$with_pcsd_webui_dir" != "x"; then
-  AC_MSG_ERROR(
-    [--with-pcsd-webui-dir cannot be used with --disable-standalone-mode]
-  )
-fi
-
-if test "x$DISABLE_STANDALONE_MODE" = "xyes"; then
-  PCSD_WEBUI_DIR=""
-fi
-
 AC_SUBST([PCSD_WEBUI_DIR])
 
 AC_ARG_WITH([cockpit-dir],
-  [AS_HELP_STRING([--with-pcsd-webui-dir=DIR],
-    [cockpit installation directory (default: no cockpit installation)])],
+  [AS_HELP_STRING(
+    [--with-cockpit-dir=DIR],
+    [cockpit installation directory (default: no cockpit installation)]
+  )],
   [COCKPIT_DIR="$withval"],
 )
 AC_SUBST([COCKPIT_DIR])

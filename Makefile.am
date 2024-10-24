@@ -25,7 +25,6 @@ EXTRA_DIST		= \
 			  .bin/check-no-nexus.sh \
 			  .bin/init_nexus.sh \
 			  .bin/init.sh \
-			  .bin/install.sh \
 			  .bin/lint.sh \
 			  .bin/npm_install.sh \
 			  .bin/pre-commit.sh \
@@ -145,7 +144,15 @@ dist-hook:
 
 
 install-exec-local:
-	$(abs_top_srcdir)/.bin/install.sh $(DESTDIR) $(PCSD_WEBUI_DIR) $(COCKPIT_DIR)
+if ENABLE_STANDALONE
+	mkdir -p $(DESTDIR)/$(PCSD_WEBUI_DIR)
+	cp -r $(BUILD_DIR)/for-standalone/* $(DESTDIR)/$(PCSD_WEBUI_DIR)
+endif
+
+if ENABLE_COCKPIT
+	mkdir -p $(DESTDIR)/$(COCKPIT_DIR)/ha-cluster
+	cp -r $(BUILD_DIR)/for-cockpit/* $(DESTDIR)/$(COCKPIT_DIR)/ha-cluster
+endif
 
 clean-local:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
