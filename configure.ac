@@ -33,54 +33,160 @@ AC_PROG_MKDIR_P
 
 # Checks for library functions.
 
-# Decide what to install. 3 options here:
+# Decide what to install
+#-------------------------------------------------------------------------------
+# 3 options here:
 # * both - standalone and cockpit
 # * just standalone
 # * just cockpit
+
 AC_ARG_ENABLE([standalone],
   [AS_HELP_STRING([--disable-standalone], [Disable standalone installation])],
   [enable_standalone="$enableval"],
   [enable_standalone="yes"],
 )
+
 AC_ARG_ENABLE([cockpit],
   [AS_HELP_STRING([--disable-cockpit], [Disable cockpit installation])],
   [enable_cockpit="$enableval"],
   [enable_cockpit="yes"],
 )
+
 if test "x$enable_standalone" != "xyes" && test "x$enable_cockpit" != "xyes";
 then
   AC_MSG_ERROR([--disable-cockpit cannot be used with --disable-standalone])
 fi
+
 AM_CONDITIONAL([ENABLE_STANDALONE], [test "x$enable_standalone" = "xyes"])
 AM_CONDITIONAL([ENABLE_COCKPIT], [test "x$enable_cockpit" = "xyes"])
 
-# Deal with installation locations. Priorities:
+# Detect distro to get default pcs lib dir (to get default pcsd webui dir)
+#-------------------------------------------------------------------------------
+AC_ARG_WITH([distro],
+  [AS_HELP_STRING(
+    [--with-distro=DISTRO],
+    [Set defaults to specified distro. Default: autodetected]
+  )],
+  [DISTRO="$withval"]
+)
+
+os_release_value(){
+  cat /etc/os-release |
+    grep ^"$1"= |
+    cut -d "=" -f 2 |
+    sed -s 's#"##g'
+}
+
+if test "x$DISTRO" = "x"; then
+  AC_MSG_CHECKING([linux distribution])
+  if test -f /etc/os-release; then
+    DISTRO=$(os_release_value ID)
+    if test "x$DISTRO" = "x"; then
+      AC_MSG_ERROR(
+        [Unable to detect linux distribution. Please specify --with-distro=]
+      )
+    fi
+    DISTROS=$(os_release_value ID_LIKE)
+  fi
+  AC_MSG_RESULT([$DISTRO])
+else
+  AC_MSG_RESULT([Distro detection disabled. Setting forced to: $DISTRO])
+fi
+
+# Get default pcs lib dir (according to distro) to get default pcsd webui dir
+#-------------------------------------------------------------------------------
+
+# We stick to the values of the $prefix and $libdir from autoconf if autoconf
+# variable $prefix is provided. Else we set own defaults.
+if test "$prefix" = "NONE"; then
+  prefix="/usr"
+  if test "$libdir" = "\${exec_prefix}/lib"; then
+    if test -e /usr/lib64; then
+      libdir="/usr/lib64"
+    else
+      libdir="/usr/lib"
+    fi
+  fi
+fi
+
+# Expand any vars in $libdir (e.g. ${exec_prefix}) before assigning to LIBDIR.
+eval LIBDIR="`eval echo ${libdir}`"
+
+for i in $DISTRO $DISTROS; do
+  case $i in
+    debian|ubuntu)
+      PCSLIBDIR="$prefix/share"
+      break
+    ;;
+    fedora*|rhel|centos|centos-stream*|opensuse*)
+      PCSLIBDIR="$LIBDIR"
+      break
+    ;;
+    opencloudos)
+      PCSLIBDIR="$LIBDIR"
+      break
+    ;;
+  esac
+done
+
+# Deal with installation locations
+#-------------------------------------------------------------------------------
+# Priorities:
 # * user input
 # * pkg-config
 # * default value
+#
+
 AC_ARG_WITH([pcsd-webui-dir],
   [AS_HELP_STRING(
     [--with-pcsd-webui-dir=DIR],
-    [webui installation directory (default: pkg-config detection from pcs)]
+    [standalone webui installation directory (default: autodetected)]
   )],
   [PCSD_WEBUI_DIR="$withval"],
-  [PKG_CHECK_VAR([PCSD_WEBUI_DIR], [pcs], [webui_dir])]
+  [PCS_PKG_CHECK_VAR(
+    [PCSD_WEBUI_DIR],
+    [pcs],
+    [webui_dir],
+    ["$PCSLIBDIR/pcsd/public"]
+  )]
 )
 AC_SUBST([PCSD_WEBUI_DIR])
 
 AC_ARG_WITH([cockpit-dir],
   [AS_HELP_STRING(
     [--with-cockpit-dir=DIR],
-    [cockpit installation directory (default: no cockpit installation)]
+    [cockpit plugin installation directory (default: autodetected)]
   )],
   [COCKPIT_DIR="$withval"],
+  [COCKPIT_DIR="/usr/share/cockpit"],
 )
 AC_SUBST([COCKPIT_DIR])
 
-PKG_CHECK_VAR([PCSD_UNIX_SOCKET], [pcs], [pcsd_unix_socket])
+# Get pcsd socket
+#-------------------------------------------------------------------------------
+# Priorities:
+# * user input
+# * pkg-config
+# * default value
+
+AC_ARG_WITH([pcsd-unix-socket],
+  [AS_HELP_STRING(
+    [--with-pcsd-unix-socket=PATH],
+    [webui installation directory (default: autodetected)]
+  )],
+  [PCSD_UNIX_SOCKET="$withval"],
+  [PCS_PKG_CHECK_VAR(
+    [PCSD_UNIX_SOCKET],
+    [pcs],
+    [pcsd_unix_socket],
+    [/var/run/pcsd.socket]
+  )]
+)
 AC_SUBST([PCSD_UNIX_SOCKET])
 
-# required for man page and spec file generation
+# Deal with date
+#-------------------------------------------------------------------------------
+# required for spec file generation
 AX_PROG_DATE
 AS_IF([test "$ax_cv_prog_date_gnu_date:$ax_cv_prog_date_gnu_utc" = yes:yes],
 	[UTC_DATE_AT="date -u -d@"],
