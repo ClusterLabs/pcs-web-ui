@@ -1,8 +1,4 @@
-import {
-  DataListItem,
-  DataListItemRow,
-  DataListToggle,
-} from "@patternfly/react-core";
+import {DataListItem, DataListItemRow} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {Primitive} from "app/view/cluster/types";
@@ -16,45 +12,41 @@ const {primitive: primitiveMark} = testMarks.cluster.resources.tree;
 
 export const ResourceTreeItemPrimitive = ({
   primitive,
+  nestingLevel,
 }: {
   primitive: Primitive;
-}) => {
-  return (
-    <DataListItem
-      id={primitive.id}
-      aria-labelledby={`resource-tree-item-${primitive.id}`}
-      {...primitiveMark.mark}
-    >
-      <DataListItemRow>
-        <DataListToggle
-          aria-label="Resource toggle"
-          id={`resource-tree-toggle-${primitive.id}`}
-          aria-hidden="true"
-        />
-        <ResourceTreeItemCells
-          idCell={
-            <ResourceTreeCellName
-              resourceId={primitive.id}
-              {...primitiveMark.id.mark}
-            />
-          }
-          typeCell={
-            <ResourceTreeCellType
-              type={primitive.type}
-              typeDescription={`${primitive.class}${
-                primitive.provider ? ":" + primitive.provider : ""
-              }`}
-              {...primitiveMark.type.mark}
-            />
-          }
-          statusCell={
-            <ResourceTreeCellStatus
-              status={primitive.status}
-              {...primitiveMark.status.mark}
-            />
-          }
-        />
-      </DataListItemRow>
-    </DataListItem>
-  );
-};
+  nestingLevel: 0 | 1 | 2;
+}) => (
+  <DataListItem
+    id={primitive.id}
+    aria-labelledby={`resource-tree-item-${primitive.id}`}
+    {...primitiveMark.mark}
+  >
+    <DataListItemRow>
+      <ResourceTreeItemCells
+        nestingLevel={nestingLevel ?? 0}
+        idCell={
+          <ResourceTreeCellName
+            resourceId={primitive.id}
+            {...primitiveMark.id.mark}
+          />
+        }
+        typeCell={
+          <ResourceTreeCellType
+            type={primitive.type}
+            typeDescription={`${primitive.class}${
+              primitive.provider ? ":" + primitive.provider : ""
+            }`}
+            {...primitiveMark.type.mark}
+          />
+        }
+        statusCell={
+          <ResourceTreeCellStatus
+            status={primitive.status}
+            {...primitiveMark.status.mark}
+          />
+        }
+      />
+    </DataListItemRow>
+  </DataListItem>
+);

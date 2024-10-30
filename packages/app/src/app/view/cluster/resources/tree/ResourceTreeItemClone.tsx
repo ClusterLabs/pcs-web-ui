@@ -4,7 +4,6 @@ import {Clone} from "app/view/cluster/types";
 import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
 import {ResourceTreeItemGroup} from "./ResourceTreeItemGroup";
 import {ResourceTreeItemCompound} from "./ResourceTreeItemCompound";
-import {ResourceTreeItemCompoundToggle} from "./ResourceTreeItemCompoundToggle";
 import {ResourceTreeItemFenceDevice} from "./ResourceTreeItemFenceDevice";
 import {ResourceTreeCellName} from "./ResourceTreeCellName";
 import {ResourceTreeCellType} from "./ResourceTreeCellType";
@@ -16,13 +15,7 @@ export const ResourceTreeItemClone = ({clone}: {clone: Clone}) => {
   return (
     <ResourceTreeItemCompound
       resourceId={clone.id}
-      nestingDepth={1}
-      toggle={
-        <ResourceTreeItemCompoundToggle
-          resourceId={clone.id}
-          {...cloneMark.toggle.mark}
-        />
-      }
+      nestingLevel={0}
       idCell={
         <ResourceTreeCellName resourceId={clone.id} {...cloneMark.id.mark} />
       }
@@ -36,15 +29,16 @@ export const ResourceTreeItemClone = ({clone}: {clone: Clone}) => {
       {...cloneMark.mark}
     >
       {clone.member.itemType === "primitive" && (
-        <ResourceTreeItemPrimitive primitive={clone.member} />
+        <ResourceTreeItemPrimitive primitive={clone.member} nestingLevel={1} />
       )}
       {clone.member.itemType === "group" && (
-        <ResourceTreeItemGroup group={clone.member} nestedLevel={1} />
+        <ResourceTreeItemGroup group={clone.member} nestingLevel={1} />
       )}
       {clone.member.itemType === "fence-device" && (
         <ResourceTreeItemFenceDevice
           key={clone.member.id}
           fenceDevice={clone.member}
+          nestingLevel={1}
         />
       )}
     </ResourceTreeItemCompound>
