@@ -23,6 +23,7 @@ export const ResourceTreeItemFenceDevice = ({
     >
       <DataListItemRow>
         <ResourceTreeItemCells
+          resourceId={fenceDevice.id}
           nestingLevel={nestingLevel ?? 0}
           idCell={<ResourceTreeCellName resourceId={fenceDevice.id} />}
           typeCell={

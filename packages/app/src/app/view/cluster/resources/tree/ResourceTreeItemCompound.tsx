@@ -31,6 +31,7 @@ export const ResourceTreeItemCompound = (
     >
       <DataListItemRow>
         <ResourceTreeItemCells
+          resourceId={props.resourceId}
           idCell={props.idCell}
           typeCell={props.typeCell}
           statusCell={props.statusCell}

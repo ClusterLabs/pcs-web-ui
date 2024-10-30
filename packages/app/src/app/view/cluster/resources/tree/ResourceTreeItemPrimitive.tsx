@@ -24,6 +24,7 @@ export const ResourceTreeItemPrimitive = ({
   >
     <DataListItemRow>
       <ResourceTreeItemCells
+        resourceId={primitive.id}
         nestingLevel={nestingLevel ?? 0}
         idCell={
           <ResourceTreeCellName

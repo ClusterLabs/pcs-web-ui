@@ -1,5 +1,7 @@
 import {DataListCell, DataListItemCells} from "@patternfly/react-core";
 
+import {useLocation} from "app/view/share";
+
 const nestIndentMap = {
   0: "pf-v5-u-ml-0",
   1: "pf-v5-u-ml-lg",
@@ -7,16 +9,19 @@ const nestIndentMap = {
 };
 
 export const ResourceTreeItemCells = ({
+  resourceId,
   idCell,
   typeCell,
   statusCell,
   nestingLevel,
 }: {
+  resourceId: string;
   idCell: React.ReactNode;
   typeCell: React.ReactNode;
   statusCell: React.ReactNode;
   nestingLevel: 0 | 1 | 2;
 }) => {
+  const {navigate} = useLocation();
   return (
     <>
       <DataListItemCells
@@ -34,6 +39,7 @@ export const ResourceTreeItemCells = ({
             {typeCell}
           </DataListCell>,
         ]}
+        onClick={() => navigate(`/${resourceId}`)}
       />
       {statusCell}
     </>
