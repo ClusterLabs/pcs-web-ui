@@ -8,7 +8,6 @@ const ClusterSourcesContext = React.createContext<
   | {
       loadedCluster: NonNullable<ClusterInfo["clusterStatus"]["data"]>;
       pcmkAgents: NonNullable<ClusterInfo["pcmkAgents"]>;
-      uiState: NonNullable<ClusterInfo["uiState"]>;
     }
   | undefined
 >(undefined);

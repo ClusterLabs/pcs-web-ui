@@ -37,7 +37,6 @@ type ClusterInfo =
       };
       permissions: null;
       pcmkAgents: null;
-      uiState: null;
     }
   | {
       isRegistered: true;
@@ -49,9 +48,6 @@ type ClusterInfo =
       };
       permissions: ClusterStorageItem["clusterPermissions"]["data"];
       pcmkAgents: ClusterStorageItem["pcmkAgents"];
-      uiState: {
-        resourceOpenedItems: ClusterStorageItem["resourceTree"];
-      };
     };
 
 export const getClusterStoreInfo =
@@ -69,7 +65,6 @@ export const getClusterStoreInfo =
         },
         permissions: null,
         pcmkAgents: null,
-        uiState: null,
       };
     }
 
@@ -87,9 +82,6 @@ export const getClusterStoreInfo =
       },
       permissions: clusterStoreItem.clusterPermissions.data,
       pcmkAgents: clusterStoreItem.pcmkAgents,
-      uiState: {
-        resourceOpenedItems: clusterStoreItem.resourceTree,
-      },
     };
   };
 
