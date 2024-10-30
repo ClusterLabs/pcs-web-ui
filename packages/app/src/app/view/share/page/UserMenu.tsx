@@ -41,11 +41,11 @@ export const UserMenu = () => {
           onClick={() => setDropdownOpen(!isDropdownOpen)}
           isExpanded={isDropdownOpen}
           isFullHeight
+          {...userMenu.mark}
         >
           {username}
         </MenuToggle>
       )}
-      {...userMenu.mark}
     >
       <DropdownList>
         <DropdownItem key="dark-switcher" component="div">
