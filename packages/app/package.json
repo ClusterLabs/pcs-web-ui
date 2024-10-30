@@ -47,6 +47,6 @@
     "resolve": "^1.22.8",
     "source-map-loader": "^4.0.1",
     "terser-webpack-plugin": "^5.2.5",
-    "webpack": "^5.89.0"
+    "webpack": "^5.95.0"
   }
 }
