@@ -43,7 +43,7 @@ export const GroupView = ({
                     subjectType: "group",
                     subjectId: groupId,
                     alreadyAssigned: acls.group?.[groupId] ?? [],
-                    assignableItems: Object.keys(acls.group ?? {}),
+                    assignableItems: Object.keys(acls.role ?? {}),
                   },
                 }),
             },

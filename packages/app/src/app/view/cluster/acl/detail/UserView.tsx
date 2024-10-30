@@ -43,7 +43,7 @@ export const UserView = ({
                     subjectType: "user",
                     subjectId: userId,
                     alreadyAssigned: acls.user?.[userId] ?? [],
-                    assignableItems: Object.keys(acls.user ?? {}),
+                    assignableItems: Object.keys(acls.role ?? {}),
                   },
                 }),
             },
