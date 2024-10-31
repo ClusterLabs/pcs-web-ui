@@ -1,3 +1,6 @@
+import React from "react";
+import {SearchInput, ToolbarItem} from "@patternfly/react-core";
+
 import {testMarks} from "app/view/dataTest";
 import {
   ClusterToolbar,
@@ -11,13 +14,14 @@ import {
 import {useOpenTask} from "app/view/task";
 
 import {ResourceDetailPage} from "./ResourceDetailPage";
-import {ResourceTree} from "./tree/ResourceTree";
+import {ResourceTree, filterTree} from "./tree";
 import {selectGroups} from "./select";
 
 const {resources, resourcesToolbar} = testMarks.cluster;
 
 export const ResourcesPage = () => {
   const {resourceTree, clusterName} = useLoadedCluster();
+  const [filter, setFilter] = React.useState("");
   const openTask = useOpenTask();
 
   const launchDisable = useLauncherDisableClusterNotRunning();
@@ -61,11 +65,23 @@ export const ResourcesPage = () => {
             ...resourcesToolbar.createGroup.mark,
           },
         ]}
+        before={
+          <ToolbarItem>
+            <SearchInput
+              placeholder="find by id or type"
+              onChange={(_event, value) => setFilter(value)}
+              value={filter}
+              onClear={() => setFilter("")}
+            />
+          </ToolbarItem>
+        }
         {...resourcesToolbar.mark}
       />
       <GroupDetailSection {...testMarks.cluster.mark}>
         <GroupDetailView
-          groupCard={<ResourceTree resourceTree={resourceTree} />}
+          groupCard={
+            <ResourceTree resourceTree={filterTree(resourceTree, filter)} />
+          }
           detailCard={<ResourceDetailPage />}
           {...resources.mark}
         />
