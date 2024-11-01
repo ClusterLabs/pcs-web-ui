@@ -72,6 +72,7 @@ export const ResourcesPage = () => {
               onChange={(_event, value) => setFilter(value)}
               value={filter}
               onClear={() => setFilter("")}
+              {...resourcesToolbar.treeFilter.mark}
             />
           </ToolbarItem>
         }
