@@ -16,18 +16,23 @@ export const Badge = ({
   ).length;
 
   return (
-    <PfNotificationBadge
-      variant={
-        notificationList.some(n => !n.isRead)
-          ? unreadErrorCount > 0
-            ? "attention"
-            : "unread"
-          : "read"
-      }
-      count={unreadErrorCount}
-      onClick={switchDrawer}
-      aria-label="Notifications"
-      {...testMarks.notifications.badge.mark}
-    />
+    <>
+      <PfNotificationBadge
+        variant={
+          notificationList.some(n => !n.isRead)
+            ? unreadErrorCount > 0
+              ? "attention"
+              : "unread"
+            : "read"
+        }
+        count={unreadErrorCount}
+        onClick={switchDrawer}
+        aria-label="Notifications"
+        {...testMarks.notifications.badge.mark}
+      />
+      <span onClick={switchDrawer} style={{cursor: "pointer"}}>
+        Notifications
+      </span>
+    </>
   );
 };
