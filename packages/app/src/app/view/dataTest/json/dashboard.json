@@ -2,7 +2,9 @@
   "clusterList": {
     "cluster": {
       "actions": {
-        "destroy": {},
+        "destroy": {
+          "warning": {}
+        },
         "remove": {},
         "start": {},
         "stop": {}

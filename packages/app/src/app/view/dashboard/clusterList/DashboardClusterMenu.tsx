@@ -1,3 +1,5 @@
+import {Alert} from "@patternfly/react-core";
+
 import {LauncherDropdown} from "app/view/share";
 import {useOpenTask} from "app/view/task";
 import {testMarks} from "app/view/dataTest";
@@ -52,10 +54,24 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
           name: "destroy",
           confirm: {
             title: `Destroy the cluster "${clusterName}"?`,
+            titleVariant: "warning",
             description: (
               <>
-                The cluster will be stopped and all its configuration files will
-                be deleted. This action cannot be undone.
+                <div className="pf-v5-u-mb-sm">
+                  The cluster will be stopped and all its configuration files
+                  will be deleted.
+                </div>
+                <Alert
+                  title={
+                    <div {...actions.destroy.warning.mark}>
+                      This command permanently removes any cluster configuration
+                      that has been created. This action cannot be undone.
+                    </div>
+                  }
+                  isPlain
+                  isInline
+                  variant="warning"
+                ></Alert>
               </>
             ),
             action: {
