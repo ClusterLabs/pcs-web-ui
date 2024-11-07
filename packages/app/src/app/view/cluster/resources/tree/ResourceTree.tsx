@@ -1,7 +1,6 @@
 import {DataList} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Resource} from "app/view/cluster/types";
 import {EmptyStateClusterStopped, EmptyStateNoItem} from "app/view/share";
 import {
   useGroupDetailViewContext,
@@ -11,8 +10,9 @@ import {
 import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
 import {ResourceTreeItemClone} from "./ResourceTreeItemClone";
 import {ResourceTreeItemGroup} from "./ResourceTreeItemGroup";
+import {FilteredTree} from "./filter";
 
-export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
+export const ResourceTree = ({resourceTree}: {resourceTree: FilteredTree}) => {
   const {compact, selectedItemUrlName} = useGroupDetailViewContext();
   const {hasCibInfo, clusterName} = useLoadedCluster();
 
