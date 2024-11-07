@@ -1,10 +1,4 @@
-import {
-  DataListCell,
-  DataListItem,
-  DataListItemCells,
-  DataListItemRow,
-  DataListToggle,
-} from "@patternfly/react-core";
+import {DataListItem, DataListItemRow} from "@patternfly/react-core";
 
 import {FenceDevice} from "app/view/cluster/types";
 import {StatusIco, StatusSign} from "app/view/share";
@@ -12,11 +6,14 @@ import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 import {ResourceTreeCellName} from "./ResourceTreeCellName";
 import {ResourceTreeCellType} from "./ResourceTreeCellType";
+import {ResourceTreeItemCells} from "./ResourceTreeItemCells";
 
 export const ResourceTreeItemFenceDevice = ({
   fenceDevice,
+  nestingLevel,
 }: {
   fenceDevice: FenceDevice;
+  nestingLevel: 0 | 1 | 2;
 }) => {
   const {compact} = useGroupDetailViewContext();
   return (
@@ -25,35 +22,32 @@ export const ResourceTreeItemFenceDevice = ({
       id={fenceDevice.id}
     >
       <DataListItemRow>
-        <DataListToggle
-          aria-label="Resource toggle"
-          id={`resource-tree-toggle-${fenceDevice.id}`}
-          aria-hidden="true"
+        <ResourceTreeItemCells
+          resourceId={fenceDevice.id}
+          nestingLevel={nestingLevel ?? 0}
+          idCell={<ResourceTreeCellName resourceId={fenceDevice.id} />}
+          typeCell={
+            <ResourceTreeCellType
+              type={fenceDevice.type}
+              typeDescription="stonith"
+            />
+          }
+          statusCell={
+            <>
+              {compact && (
+                <div className="ha-c-data-list__item-status">
+                  <StatusIco status="ERROR" />
+                  {fenceDevice.statusSeverity !== "OK" && " 1"}
+                </div>
+              )}
+              {!compact && (
+                <div className="ha-c-data-list__item-status">
+                  <StatusSign status="ERROR" label="Bad placement" />
+                </div>
+              )}
+            </>
+          }
         />
-        <DataListItemCells
-          dataListCells={[
-            <DataListCell key={fenceDevice.id}>
-              <ResourceTreeCellName resourceId={fenceDevice.id} />
-            </DataListCell>,
-            <DataListCell key={`${fenceDevice.id}.type`}>
-              <ResourceTreeCellType
-                type={fenceDevice.type}
-                typeDescription="stonith"
-              />
-            </DataListCell>,
-          ]}
-        />
-        {compact && (
-          <div className="ha-c-data-list__item-status">
-            <StatusIco status="ERROR" />
-            {fenceDevice.statusSeverity !== "OK" && " 1"}
-          </div>
-        )}
-        {!compact && (
-          <div className="ha-c-data-list__item-status">
-            <StatusSign status="ERROR" label="Bad placement" />
-          </div>
-        )}
       </DataListItemRow>
     </DataListItem>
   );

@@ -40,8 +40,12 @@ export const ResourceTreeCellStatus = (props: {
       <span data-test={props["data-test"]}>
         {getSeverityCounts(props.status.infoList).map((sc: SeverityCount) => (
           <div key={sc.severity} className="ha-c-data-list__item-status">
-            <StatusIco key={sc.severity} status={sc.severity} />
-            {sc.severity !== "OK" && ` ${sc.count}`}
+            {sc.severity !== "OK" && (
+              <>
+                <StatusIco key={sc.severity} status={sc.severity} />
+                {` ${sc.count}`}
+              </>
+            )}
           </div>
         ))}
       </span>

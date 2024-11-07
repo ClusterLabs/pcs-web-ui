@@ -2,13 +2,7 @@ import * as cs from "dev/responses/clusterStatus/tools";
 
 import {assert, mock} from "test/tools";
 
-import {
-  cloneToggle,
-  goToResources,
-  groupToggle,
-  openClone,
-  openGroup,
-} from "./common";
+import {goToResources, openClone, openGroup} from "./common";
 import {openPrimitive} from "./commonPrimitive";
 
 const clusterStatus = {
@@ -60,7 +54,6 @@ describe("Primitive resource move launch", () => {
   });
 
   it("should launch group move inside group", async () => {
-    await groupToggle("G1");
     await openPrimitive("G1_A");
     await runMovePrimitive();
 
@@ -69,7 +62,6 @@ describe("Primitive resource move launch", () => {
   });
 
   it("should launch clone move inside clone", async () => {
-    await cloneToggle("CL1");
     await openPrimitive("CL1_A");
     await runMovePrimitive();
 
@@ -78,8 +70,6 @@ describe("Primitive resource move launch", () => {
   });
 
   it("should launch clone move inside clonned group", async () => {
-    await cloneToggle("CL2");
-    await groupToggle("G2");
     await openPrimitive("G2_A");
     await runMovePrimitive();
 
@@ -104,7 +94,6 @@ describe("Primitive resource ban launch", () => {
   });
 
   it("should launch group ban inside group", async () => {
-    await groupToggle("G1");
     await openPrimitive("G1_A");
     await runBanPrimitive();
 
@@ -113,7 +102,6 @@ describe("Primitive resource ban launch", () => {
   });
 
   it("should launch clone ban inside clone", async () => {
-    await cloneToggle("CL1");
     await openPrimitive("CL1_A");
     await runBanPrimitive();
 
@@ -122,8 +110,6 @@ describe("Primitive resource ban launch", () => {
   });
 
   it("should launch clone ban inside clonned group", async () => {
-    await cloneToggle("CL2");
-    await groupToggle("G2");
     await openPrimitive("G2_A");
     await runBanPrimitive();
 
@@ -145,7 +131,6 @@ describe("Group move launch", () => {
   });
 
   it("should launch clone move inside clonned group", async () => {
-    await cloneToggle("CL2");
     await openGroup("G2");
     await runMoveGroup();
 
@@ -170,7 +155,6 @@ describe("Group ban launch", () => {
   });
 
   it("should launch clone ban inside clonned group", async () => {
-    await cloneToggle("CL2");
     await openGroup("G2");
     await runBanGroup();
 

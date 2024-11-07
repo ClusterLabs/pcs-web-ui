@@ -4,12 +4,6 @@ export const goToResources = async () => {
   await goToCluster(clusterName, tabs => tabs.resources);
 };
 
-export const groupToggle = async (id: string) =>
-  await click(item.byId(marks.cluster.resources.tree.group, id, g => g.toggle));
-
-export const cloneToggle = async (id: string) =>
-  await click(item.byId(marks.cluster.resources.tree.clone, id, c => c.toggle));
-
 export const openGroup = async (id: string) => {
   await click(item.byId(marks.cluster.resources.tree.group, id, g => g.id));
 };

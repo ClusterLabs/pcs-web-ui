@@ -106,7 +106,6 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
             value={{
               loadedCluster: clusterInfo.clusterStatus.data,
               pcmkAgents: clusterInfo.pcmkAgents,
-              uiState: clusterInfo.uiState,
             }}
           >
             <TabComponent />

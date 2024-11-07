@@ -54,9 +54,9 @@ body,
 
 /* styles for layout of split view */
 .ha-c-panel__tree-view {
-  width: 35rem;
+  width: 32rem;
 }
-@media screen and (max-width: 70rem) {
+@media screen and (max-width: 67rem) {
   .ha-c-panel__tree-view {
     display: none;
     visibility: hidden;
@@ -93,23 +93,12 @@ body,
   --pf-v5-c-data-list__item-control--MarginRight: var(
     --pf-v5-global--spacer--md
   );
-  --ha-c-data-list__toggle--TotalWidth: calc(
-    1em + var(--pf-v5-c-data-list__item-control--MarginRight) +
-      (var(--pf-v5-global--spacer--md))
-  );
 } /* The second variable creates the spacing needed to indent the toggle by one level 
      (i.e. the variable represents the size of one toggle, and therefore the size of the indentation)
      The md spacer occurs twice for button padding, one on left and one on right, but
      only one is used in the TotalWidth variable. 
      The other instance of global--spacer--md is used for left margin on the data list itself */
 
-/* NOTE: additional rulesets are needed to support additional levels */
-[data-level="1"] .pf-v5-c-data-list__toggle {
-  padding-left: var(--ha-c-data-list__toggle--TotalWidth);
-}
-[data-level="2"] .pf-v5-c-data-list__toggle {
-  padding-left: calc(var(--ha-c-data-list__toggle--TotalWidth) * 2);
-}
 .pf-v5-c-data-list[data-level] {
   margin-left: var(--pf-v5-global--spacer--md);
   --pf-v5-c-data-list--BorderTopColor: transparent;

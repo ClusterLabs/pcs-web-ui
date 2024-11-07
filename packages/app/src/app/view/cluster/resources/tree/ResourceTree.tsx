@@ -49,6 +49,7 @@ export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
               <ResourceTreeItemPrimitive
                 key={resourceTreeItem.id}
                 primitive={resourceTreeItem}
+                nestingLevel={0}
               />
             );
 
@@ -57,6 +58,7 @@ export const ResourceTree = ({resourceTree}: {resourceTree: Resource[]}) => {
               <ResourceTreeItemGroup
                 key={resourceTreeItem.id}
                 group={resourceTreeItem}
+                nestingLevel={0}
               />
             );
 
