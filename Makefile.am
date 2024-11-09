@@ -53,13 +53,10 @@ NEXUS = "https://repository.engineering.redhat.com/nexus/repository/registry.npm
 PROJECT_DIR = $(shell pwd)
 APP_MODULES_DIR = $(shell realpath ${PROJECT_DIR}/packages/app/node_modules)
 
-PCSD_WEBUI_DIR = @PCSD_WEBUI_DIR@
-PCSD_UNIX_SOCKET = @PCSD_UNIX_SOCKET@
-
 APP_SRC = $(abs_top_srcdir)/packages/app
 APP_BUILD = $(abs_top_builddir)/packages/app
 RPM_DIR = $(abs_top_builddir)/rpm
-BUILD_DIR = $(abs_top_builddir)/build 
+BUILD_DIR = $(abs_top_builddir)/build
 
 app:
 	if [ ! -d $(APP_BUILD)/node_modules ]; then \
@@ -183,8 +180,9 @@ $(SPEC): $(SPEC).in .version config.status
 	date="`LC_ALL=C $(UTC_DATE_AT)$(SOURCE_EPOCH) "+%a %b %d %Y"`" && \
 	full_version="`cd $(abs_srcdir); make/git-version-gen $(VERSIONGENOPTS)`" && \
 	.bin/render-spec.sh \
-	  $@.in $$full_version "$$date" $(PCSD_WEBUI_DIR) $(COCKPIT_DIR) \
-		> $@-t
+	  $@.in $$full_version "$$date" \
+	  $(PCSD_WEBUI_DIR) $(COCKPIT_DIR) $(PCSD_UNIX_SOCKET) \
+	  > $@-t
 	chmod a-w $@-t
 	mv $@-t $@
 	rm -f $@-t*

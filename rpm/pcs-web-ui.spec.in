@@ -3,6 +3,8 @@
 %global dirty @dirty@
 %global cibranch @cibranch@
 
+%global pkg_cockpit_ha_cluster cockpit-ha-cluster
+
 Name: pcs-web-ui
 Version: @version@
 Release: 99+git%{?commits_ahead_tag:.%{commits_ahead_tag}}%{?current_commit:.%{current_commit}}%{?dirty:.%{dirty}}%{?cibranch:.%{cibranch}}%{?dist}
@@ -16,10 +18,22 @@ Source1: %{name}-node-modules-%{version}%{?commits_ahead_tag:+%{commits_ahead_ta
 BuildRequires: make
 BuildRequires: npm
 
+Requires: pcs
+
 %description
 pcs-web-ui is web interface for pcs, which is a corosync and pacemaker
 configuration tool. It permits users to easily view, modify and create
 pacemaker based clusters.
+
+%package -n %{pkg_cockpit_ha_cluster}
+Summary: Cockpit application for managing Pacemaker based clusters
+License: GPL-2.0-only AND CC0-1.0
+Requires: cockpit
+Requires: pcs-standalone-webui-provider
+
+%description -n %{pkg_cockpit_ha_cluster}
+Cockpit application for managing Pacemaker based clusters. Uses
+Pacemaker/Corosync Configuration System (pcs) in the background.
 
 %prep
 # documentation for setup/autosetup/autopatch:
@@ -43,7 +57,10 @@ pacemaker based clusters.
 # Don't want to generate debug files
 %define debug_package %{nil}
 ./autogen.sh
-%{configure} @configure-flags@
+%{configure} \
+  --with-pcsd-webui-dir=@pcsd-webui-dir@ \
+  --with-cockpit-dir=@cockpit-dir@ \
+  --with-pcsd-unix-socket=@pcsd-unix-socket@
 make all
 
 %install
@@ -52,6 +69,9 @@ make all
 %files
 %license COPYING
 @pcsd-webui-dir@/*
+
+%files -n %{pkg_cockpit_ha_cluster}
+%license COPYING
 @cockpit-dir@/*
 
 %changelog
