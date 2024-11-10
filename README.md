@@ -7,6 +7,7 @@ Pacemaker configuration tool.
 
 * [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
+* autoconf, automake
 
 ## Preparation
 
@@ -15,6 +16,7 @@ Pacemaker configuration tool.
 * `make init`
 
 ## Development
+
 ### Running dev environment
 
 * `make app`
@@ -29,16 +31,19 @@ Pacemaker configuration tool.
 
 ## Building and installation
 
-* `make build`
-  - you can use `BUILD_USE_CURRENT_NODE_MODULES=true make build` if correct node
-    modules already exists
-* production build is created inside `build` directory
-* content of `build` directory copy to `pcsd/public/ui/` directory
+To install pcs-web-ui run the following in terminal:
+```shell
+./autogen.sh
+./configure
+make
+make install
+```
 
-### Building and installation for cockpit
+### Fine-tuning the installation
 
-* `BUILD_FOR_COCKPIT=true make build`
-* production build is created inside `build` directory
-* content of `build` directory copy (or symlink) to the path where cockpit will find it, e.g.
-  - `mkdir -p ~/.local/share/cockpit`
-  - `ln -snf "$PWD"/build ~/.local/share/cockpit/ha-cluster`
+You can add following flags to `./configure`:
+
+* `--disable-cockpit` to disable cockpit installation
+* `--disable-standalone` to disable standalone installation
+* `-- with-pcsd-webui-dir` to specify standalone installation directory
+* `--with-cockpit-dir` to specify cockpit plugin installation directory
