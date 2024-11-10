@@ -189,7 +189,6 @@ EXTRA_DIST		= \
 			  src/app/store/actions/resource/index.ts \
 			  src/app/store/actions/resource/move.ts \
 			  src/app/store/actions/resource/resourceSet.ts \
-			  src/app/store/actions/resource/tree.ts \
 			  src/app/store/actions/task/index.ts \
 			  src/app/store/actions/task/taskOpenClose.ts \
 			  src/app/store/actions/username.ts \
@@ -217,7 +216,6 @@ EXTRA_DIST		= \
 			  src/app/store/reducers/cluster/permissions.ts \
 			  src/app/store/reducers/cluster/properties.ts \
 			  src/app/store/reducers/cluster/resourceAgentMap.ts \
-			  src/app/store/reducers/cluster/resourceTree.ts \
 			  src/app/store/reducers/cluster/storage.ts \
 			  src/app/store/reducers/currentTaskKey.ts \
 			  src/app/store/reducers/dashboard.ts \
@@ -502,13 +500,13 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/resources/ResourceDoesNotExists.tsx \
 			  src/app/view/cluster/resources/ResourcesPage.tsx \
 			  src/app/view/cluster/resources/select.ts \
+			  src/app/view/cluster/resources/tree/filter.ts \
 			  src/app/view/cluster/resources/tree/index.ts \
 			  src/app/view/cluster/resources/tree/ResourceTreeCellName.tsx \
 			  src/app/view/cluster/resources/tree/ResourceTreeCellStatus.tsx \
 			  src/app/view/cluster/resources/tree/ResourceTreeCellType.tsx \
 			  src/app/view/cluster/resources/tree/ResourceTreeItemCells.tsx \
 			  src/app/view/cluster/resources/tree/ResourceTreeItemClone.tsx \
-			  src/app/view/cluster/resources/tree/ResourceTreeItemCompoundToggle.tsx \
 			  src/app/view/cluster/resources/tree/ResourceTreeItemCompound.tsx \
 			  src/app/view/cluster/resources/tree/ResourceTreeItemFenceDevice.tsx \
 			  src/app/view/cluster/resources/tree/ResourceTreeItemGroup.tsx \
