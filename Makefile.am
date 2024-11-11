@@ -129,6 +129,8 @@ fmt:
 .PHONY: bump-version
 bump-version:
 	@node .bin/bump-version.js $(version)
+	@packages/app/.bin/package-build/generate.sh packages/app
+	@git commit -a -m "bump new version ($(version))"
 	@git tag -a -m "$(version) release" $(version) HEAD
 
 dist-hook:
