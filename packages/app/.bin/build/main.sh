@@ -96,13 +96,13 @@ app_dir_init() {
   rm -rf "${_app_dir:?}/"*
 
   # Copy src "template" dir
-  cp -r "${template_dir:?}/"* "$_app_dir"
+  cp -rf "${template_dir:?}/"* "$_app_dir"
   # Dirs/files copied from src_dir (i.e. template_dir) can be readonly (e.g.
   # when `make distcheck`).
   chmod --recursive ug+w "$_app_dir"
 
   # Copy compiled assets
-  cp -r "${webpack_output_dir:?}/"* "$_app_dir"
+  cp -rf "${webpack_output_dir:?}/"* "$_app_dir"
 }
 
 app_link() {
@@ -166,8 +166,8 @@ app_link() {
 # ------------------------------------------------------------------------------
 standalone_dir="$output_dir"/for-standalone
 app_dir_init "$standalone_dir"
-rm "$standalone_dir"/"$template_adapter_cockpit"
-rm "$standalone_dir"/"$template_manifest_cockpit"
+rm -f "$standalone_dir"/"$template_adapter_cockpit"
+rm -f "$standalone_dir"/"$template_manifest_cockpit"
 app_link "$standalone_dir" "/ui"
 echo "Build prepared: ${standalone_dir}."
 
@@ -181,10 +181,10 @@ sed --in-place \
 sed --in-place \
   "s#^var pcsdSocket = \".*\";#var pcsdSocket = \"$pcsd_unix_socket\";#" \
   "$cockpit_dir"/"$template_adapter_cockpit"
-mv \
+mv -f \
   "$cockpit_dir"/"$template_adapter_cockpit" \
   "$cockpit_dir"/"$template_adapter"
-mv \
+mv -f \
   "$cockpit_dir"/"$template_manifest_cockpit" \
   "$cockpit_dir"/"$template_manifest"
 app_link "$cockpit_dir" "."
