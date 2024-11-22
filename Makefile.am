@@ -57,6 +57,7 @@ APP_SRC = $(abs_top_srcdir)/packages/app
 APP_BUILD = $(abs_top_builddir)/packages/app
 RPM_DIR = $(abs_top_builddir)/rpm
 BUILD_DIR = $(abs_top_builddir)/build
+METAINFO_FILE = org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml
 
 app:
 	if [ ! -d $(APP_BUILD)/node_modules ]; then \
@@ -150,7 +151,9 @@ endif
 
 if ENABLE_COCKPIT
 	mkdir -p $(DESTDIR)/$(COCKPIT_DIR)/ha-cluster
+	mkdir -p $(DESTDIR)/$(METAINFO_DIR)
 	cp -r $(BUILD_DIR)/for-cockpit/* $(DESTDIR)/$(COCKPIT_DIR)/ha-cluster
+	cp $(APP_SRC)/$(METAINFO_FILE) $(DESTDIR)/$(METAINFO_DIR)
 endif
 
 clean-local:
@@ -182,8 +185,13 @@ $(SPEC): $(SPEC).in .version config.status
 	date="`LC_ALL=C $(UTC_DATE_AT)$(SOURCE_EPOCH) "+%a %b %d %Y"`" && \
 	full_version="`cd $(abs_srcdir); make/git-version-gen $(VERSIONGENOPTS)`" && \
 	.bin/render-spec.sh \
-	  $@.in $$full_version "$$date" \
-	  $(PCSD_WEBUI_DIR) $(COCKPIT_DIR) $(PCSD_UNIX_SOCKET) \
+	  $@.in \
+	  $$full_version \
+	  "$$date" \
+	  $(PCSD_WEBUI_DIR) \
+	  $(COCKPIT_DIR) \
+	  $(PCSD_UNIX_SOCKET) \
+	  $(METAINFO_DIR)/$(METAINFO_FILE) \
 	  > $@-t
 	chmod a-w $@-t
 	mv $@-t $@

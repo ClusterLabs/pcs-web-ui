@@ -155,12 +155,23 @@ AC_SUBST([PCSD_WEBUI_DIR])
 AC_ARG_WITH([cockpit-dir],
   [AS_HELP_STRING(
     [--with-cockpit-dir=DIR],
-    [cockpit plugin installation directory (default: autodetected)]
+    [cockpit plugin installation directory (default: /usr/share/cockpit)]
   )],
   [COCKPIT_DIR="$withval"],
   [COCKPIT_DIR="/usr/share/cockpit"],
 )
 AC_SUBST([COCKPIT_DIR])
+
+AC_ARG_WITH([metainfo-dir],
+  [AS_HELP_STRING(
+    [--with-metainfo-dir=DIR],
+    [appstream metainfo directory (default: /usr/share/metainfo)]
+  )],
+  [METAINFO_DIR="$withval"],
+  [METAINFO_DIR="/usr/share/metainfo"],
+)
+
+AC_SUBST([METAINFO_DIR])
 
 # Get pcsd socket
 #-------------------------------------------------------------------------------

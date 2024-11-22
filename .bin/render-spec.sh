@@ -6,6 +6,7 @@ date="$3"
 pcsd_webui_dir="$4"
 cockpit_dir="$5"
 pcsd_unix_socket="$6"
+metainfo="$7"
 
 expressions="s/@date@/$date/g"
 delete_global() {
@@ -17,6 +18,7 @@ replace() {
 
 replace pcsd-webui-dir "$pcsd_webui_dir"
 replace cockpit-dir "$cockpit_dir"
+replace metainfo "$metainfo"
 replace pcsd-unix-socket "$pcsd_unix_socket"
 
 if echo "$version" | grep '-' --quiet; then
