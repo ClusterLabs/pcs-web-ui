@@ -90,6 +90,7 @@ test:
 	@cd ./packages/test && .bin/run-dev-tests.sh
 
 test-modules-prepare:
+	@cd ./packages/app && npm ci
 	@cd ./packages/test && npm ci
 	@cd ./packages/dev-backend && npm ci
 
@@ -115,8 +116,10 @@ init:
 		.bin/init.sh ${NEXUS}; \
 	fi
 
-check_sources:
-	@.bin/check-no-nexus.sh
+prevent_dev_mistakes:
+	.bin/check-no-nexus.sh
+	npx biome lint --error-on-warnings ./
+	npx biome format ./
 
 lint:
 	@npx biome lint --error-on-warnings ./
