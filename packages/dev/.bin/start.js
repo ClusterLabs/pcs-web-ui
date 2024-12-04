@@ -1,3 +1,21 @@
+if (process.argv.length !== 9) {
+  console.log(process.argv);
+  console.error(
+    `Usage: ${process.argv[0]} ${process.argv[1]}`
+      + " <appTemplateDir> <srcDir> <outputDir>"
+      + " <outJs> <outCss> <outMedia> <outMain>",
+  );
+  process.exit(1);
+}
+
+const appTemplateDir = process.argv[2];
+const srcDir = process.argv[3];
+const outputDir = process.argv[4];
+const outJs = process.argv[5];
+const outCss = process.argv[6];
+const outMedia = process.argv[7];
+const outMain = process.argv[8];
+
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = "development";
 process.env.NODE_ENV = "development";
@@ -9,19 +27,12 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
-const appConfigPath = "../../app/.bin/config";
-// Ensure environment variables are read.
-require(`${appConfigPath}/env`);
-
 const fs = require("fs");
 const path = require("path");
 
-const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");
 var forkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
-const paths = require(`${appConfigPath}/paths`);
-const webpackConfig = require("./config/webpack.config");
 const createDevServerConfig = require("./config/webpackDevServer.config");
 
 // Tools like Cloud9 rely on this.
@@ -41,7 +52,17 @@ const publicPath = "/";
 
 const allowedLanHost = process.env.ALLOWED_HOST;
 
-const compiler = webpack(webpackConfig({publicPath}));
+const compiler = require("webpack")(
+  require("./config/webpack.config")({
+    srcDir,
+    outputDir,
+    publicPath,
+    outJs,
+    outCss,
+    outMedia,
+    outMain,
+  }),
+);
 
 compiler.hooks.invalid.tap("invalid", () => {
   // "invalid" is short for "bundle invalidated", it doesn't imply any errors.
@@ -88,7 +109,7 @@ const proxyConfig = [
       // method, we can proxy all non-GET requests.
       const isStaticAsset = fs.existsSync(
         path.resolve(
-          paths.appPublic,
+          appTemplateDir,
           pathname.replace(new RegExp(`^${publicPath}`), ""),
         ),
       );
@@ -137,7 +158,7 @@ const devServer = new WebpackDevServer(
     ...createDevServerConfig(
       proxyConfig,
       allowedLanHost,
-      paths.appPublic,
+      appTemplateDir,
       publicPath,
     ),
     host,

@@ -18,9 +18,24 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-pcs-web-ui-node-modules-*.tar.xz
+pcs-web-ui-*
+pcs-web-ui.spec
 .npmrc
 .eslintcache
+
+stamps*
+
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache/
+config.log
+config.status
+configure
+configure~
+missing
+install-sh
+.version
 
 /.dev
 /.tmp

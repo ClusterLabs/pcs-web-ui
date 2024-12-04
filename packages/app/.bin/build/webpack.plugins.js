@@ -1,13 +1,7 @@
-const path = require("path");
-
 const resolve = require("resolve");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const ESLintPlugin = require("eslint-webpack-plugin");
-
-const paths = require("./paths");
-const env = require("./env");
 
 class ForkTsCheckerPlugin extends ForkTsCheckerWebpackPlugin {
   apply(compiler) {
@@ -28,32 +22,39 @@ module.exports = {
   // It is absolutely essential that NODE_ENV is set to production
   // during a production build.
   // Otherwise React will be compiled in the very slow development mode.
-  environmentVariables: new webpack.DefinePlugin({
-    "process.env": Object.entries(env).reduce(
-      (processEnv, [key, value]) => ({
-        ...processEnv,
-        [key]: JSON.stringify(value),
-      }),
-      {},
-    ),
-  }),
+  environmentVariables: envForApp =>
+    new webpack.DefinePlugin({
+      "process.env": Object.entries(envForApp).reduce(
+        (processEnv, [key, value]) => ({
+          ...processEnv,
+          [key]: JSON.stringify(value),
+        }),
+        {},
+      ),
+    }),
 
-  miniCssExtract: new MiniCssExtractPlugin({
-    // Options similar to the same options in webpackOptions.output
-    // both options are optional
-    filename: "static/css/[name].[contenthash:8].css",
-    chunkFilename: "static/css/[name].[contenthash:8].chunk.css",
-  }),
+  miniCssExtract: ({outCss, outMain}) =>
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: `${outCss}/${outMain}.[contenthash:8].css`,
+      chunkFilename: `${outCss}/${outMain}.[contenthash:8].chunk.css`,
+    }),
 
   // TypeScript type checking
-  forkTsChecker: ({async, sourceMap}) =>
+  forkTsChecker: ({
+    async,
+    sourceMap,
+    nodeModules,
+    configFile,
+    tsBuildInfoFile,
+    tsConfigPathsContext,
+  }) =>
     new ForkTsCheckerPlugin({
       async,
       typescript: {
-        typescriptPath: resolve.sync("typescript", {
-          basedir: paths.appNodeModules,
-        }),
-        configFile: paths.appTsConfig,
+        typescriptPath: resolve.sync("typescript", {basedir: nodeModules}),
+        configFile,
         configOverwrite: {
           compilerOptions: {
             sourceMap,
@@ -62,10 +63,10 @@ module.exports = {
             declarationMap: false,
             noEmit: true,
             incremental: true,
-            tsBuildInfoFile: paths.appTsBuildInfoFile,
+            tsBuildInfoFile,
           },
         },
-        context: paths.appPath,
+        context: tsConfigPathsContext,
         diagnosticOptions: {
           syntactic: true,
         },
@@ -87,22 +88,6 @@ module.exports = {
       logger: console,
       // logger: {
       //   infrastructure: "silent",
-      // },
-    }),
-
-  eslint: ({failOnError}) =>
-    new ESLintPlugin({
-      extensions: ["js", "jsx", "ts", "tsx"],
-      eslintPath: require.resolve("eslint"),
-      failOnError,
-      context: paths.appSrc,
-      cache: true,
-      cacheLocation: path.resolve(paths.appNodeModules, ".cache/.eslintcache"),
-      // ESLint class options
-      cwd: paths.appPath,
-      resolvePluginsRelativeTo: __dirname,
-      // baseConfig: {
-      //   extends: [require.resolve("eslint-config-react-app/base")],
       // },
     }),
 };
