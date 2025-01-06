@@ -1,4 +1,5 @@
 import {NotificationBadge as PfNotificationBadge} from "@patternfly/react-core";
+import {AttentionBellIcon, BellIcon} from "@patternfly/react-icons";
 
 import {testMarks} from "app/view/dataTest";
 
@@ -15,24 +16,23 @@ export const Badge = ({
     n => !n.isRead && n.severity === "ERROR",
   ).length;
 
+  const icon = unreadErrorCount > 0 ? <AttentionBellIcon /> : <BellIcon />;
+
   return (
-    <>
-      <PfNotificationBadge
-        variant={
-          notificationList.some(n => !n.isRead)
-            ? unreadErrorCount > 0
-              ? "attention"
-              : "unread"
-            : "read"
-        }
-        count={unreadErrorCount}
-        onClick={switchDrawer}
-        aria-label="Notifications"
-        {...testMarks.notifications.badge.mark}
-      />
-      <span onClick={switchDrawer} style={{cursor: "pointer"}}>
-        Notifications
-      </span>
-    </>
+    <PfNotificationBadge
+      variant={
+        notificationList.some(n => !n.isRead)
+          ? unreadErrorCount > 0
+            ? "attention"
+            : "unread"
+          : "read"
+      }
+      count={unreadErrorCount}
+      onClick={switchDrawer}
+      aria-label="Notifications"
+      {...testMarks.notifications.badge.mark}
+    >
+     {icon} Notifications
+    </PfNotificationBadge>
   );
 };
