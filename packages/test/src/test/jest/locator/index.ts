@@ -10,11 +10,17 @@ type LocatorArgs = Parameters<Page["locator"]>;
 type WithLocator<STRUCT extends SubStructure> = {
   [KEY in keyof STRUCT]: WithLocator<STRUCT[KEY]> & {
     locator: Locator;
+    locatorRelative: Locator;
     path: string;
   };
 };
 
-export type Mark = {locator: Locator; path: string} | Locator;
+export type MarkPure = {
+  path: string;
+  locatorRelative: Locator;
+  locator: Locator;
+};
+export type Mark = MarkPure | Locator;
 const testMarksToXpath = (path: string[]) =>
   `//*[@data-test="${path.join(".")}"]`;
 
@@ -38,6 +44,7 @@ const addLocators = <STRUCTURE extends SubStructure>(
     (path.length > 0
       ? {
           locator: createLocator(testMarksToXpath(path)),
+          locatorRelative: page.locator(testMarksToXpath(path)),
           path: path.join("."),
         }
       : {}) as WithLocator<STRUCTURE>,
@@ -51,6 +58,9 @@ export const isLocator = (mark: Mark): mark is Locator =>
 
 export const locatorFor = (mark: Mark) =>
   isLocator(mark) ? mark : mark.locator;
+
+export const locatorRelativeFor = (mark: Mark) =>
+  isLocator(mark) ? mark : mark.locatorRelative;
 
 export const click = async (mark: Mark | Mark[]) => {
   const markList = Array.isArray(mark) ? mark : [mark];

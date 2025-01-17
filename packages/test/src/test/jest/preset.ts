@@ -7,6 +7,7 @@ import {getPage} from "./page";
 declare global {
   var page: ReturnType<typeof getPage> extends Promise<infer P> ? P : never;
   var locatorFor: typeof locatorTools.locatorFor;
+  var locatorRelativeFor: typeof locatorTools.locatorRelativeFor;
   var click: typeof locatorTools.click;
   var isVisible: typeof locatorTools.isVisible;
   var isAbsent: typeof locatorTools.isAbsent;
@@ -23,6 +24,10 @@ declare global {
   var item: typeof locatorTools.item;
   var login: ReturnType<typeof getLogin>;
   type Mark = locatorTools.Mark;
+  type MarkPure = locatorTools.MarkPure;
+  interface DocumentEventMap {
+    "pcsd-response": CustomEvent<{path: string}>;
+  }
 }
 
 const getEnvType = (): EnvType => {
@@ -40,6 +45,7 @@ export default async () => {
 
   global.page = await getPage();
   global.locatorFor = locatorTools.locatorFor;
+  global.locatorRelativeFor = locatorTools.locatorRelativeFor;
   global.login = getLogin(envType);
   global.marks = locatorTools.getApp(envType);
   global.item = locatorTools.item;
