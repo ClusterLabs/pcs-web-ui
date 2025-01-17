@@ -37,6 +37,9 @@ var pcsUiEnvAdapter = {
       headers,
       ...(postBody !== undefined ? {method: "post", body: postBody} : {}),
     });
+    document.dispatchEvent(
+      new CustomEvent("pcsd-response", {detail: {url: path}}),
+    );
     return {
       status: response.status,
       statusText: response.statusText,

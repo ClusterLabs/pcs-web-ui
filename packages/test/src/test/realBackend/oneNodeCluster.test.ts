@@ -40,7 +40,7 @@ async function waitForResponse(urlPattern: RegExp): Promise<any> {
 }
 
 const waitForImportedClusterList = async () =>
-  await page.waitForResponse(/.*\/imported-cluster-list$/);
+  await waitForResponse(/.*\/imported-cluster-list$/);
 
 const expectImportedClusterNamesAre = async (nameList: string[]) => {
   await assert.expectKeysAre(clusterList.cluster.name, nameList);
@@ -107,7 +107,7 @@ const importExistingCluster = async (nodeName: string) => {
 
   await Promise.all([
     waitForImportedClusterList(),
-    page.waitForResponse(/.*\/cluster_status$/),
+    waitForResponse(/.*\/cluster_status$/),
     await click(prepareNodeFooter.addExistringCluster),
   ]);
   await isVisible(success);
@@ -118,7 +118,7 @@ const removeCluster = async (clusterName: string) => {
   await launchClusterItemAction(clusterName, a => a.remove);
   await Promise.all([
     waitForImportedClusterList(),
-    page.waitForResponse(/.*\/manage\/removecluster$/),
+    waitForResponse(/.*\/manage\/removecluster$/),
     isVisible(marks.notifications.toast.success),
     appConfirm.run(`Remove the cluster "${clusterName}"?`),
   ]);
@@ -131,7 +131,7 @@ const destroyCluster = async (clusterName: string) => {
   const {success} = marks.notifications.toast;
   await Promise.all([
     waitForImportedClusterList(),
-    page.waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
+    waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
     isVisible(success.locator.getByText("Cluster removed from cluster list")),
     isVisible(success.locator.getByText("Cluster destroyed.")),
     appConfirm.run(`Destroy the cluster "${clusterName}"?`),
