@@ -156,6 +156,11 @@ if ENABLE_COCKPIT
 	cp $(APP_SRC)/$(METAINFO_FILE) $(DESTDIR)/$(METAINFO_DIR)
 endif
 
+uninstall-local:
+	rm -rf $(DESTDIR)/$(PCSD_WEBUI_DIR)/*
+	rm -rf $(DESTDIR)/$(COCKPIT_DIR)/ha-cluster
+	rm -f $(DESTDIR)/$(METAINFO_DIR)/$(METAINFO_FILE)
+
 clean-local:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
 		rm -rf $(APP_BUILD)/node_modules; \
