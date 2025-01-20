@@ -19,7 +19,15 @@ const resourceList = [
     "Clone1",
     cs.group("Group2", [cs.primitive("ResourceD"), cs.primitive("ResourceE")]),
   ),
-  cs.clone("Clone2", cs.primitive("ResourceF")),
+  cs.clone(
+    "Clone2",
+    cs.primitive("ResourceF", {
+      agentname: "ocf:heartbeat:apache",
+      provider: "heartbeat",
+      class: "ocf",
+      type: "apache",
+    }),
+  ),
 ];
 
 const primitiveItem = (id: string) =>
@@ -129,7 +137,7 @@ describe("Resource tree filter", () => {
     await isAbsent(groupItem("Group2"));
     await isAbsent(primitiveItem("ResourceD"));
     await isAbsent(primitiveItem("ResourceE"));
-    await isAbsent(cloneItem("Clone2"));
-    await isAbsent(primitiveItem("ResourceF"));
+    await isVisible(cloneItem("Clone2"));
+    await isVisible(primitiveItem("ResourceF"));
   });
 });

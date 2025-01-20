@@ -1,4 +1,4 @@
-import {Resource} from "app/view/cluster/types";
+import type {FenceDevice, Resource} from "app/view/cluster/types";
 
 type Group = Extract<Resource, {itemType: "group"}>;
 type Clone = Extract<Resource, {itemType: "clone"}>;
@@ -14,13 +14,14 @@ const createResourceFilter = (filter: string) => {
   const match = (searchable: string) =>
     searchable.toLowerCase().includes(filter.toLowerCase());
 
+  const matchPrimitive = (primitive: Primitive | FenceDevice) =>
+    match(primitive.id) || match(primitive.agentName);
+
   const filterPrimitive = (primitive: Primitive) =>
-    match(primitive.id) || match(primitive.agentName) ? primitive : null;
+    matchPrimitive(primitive) ? primitive : null;
 
   const filterGroup = (group: Group): Group | null => {
-    const primitives = group.resources.filter(
-      primitive => match(primitive.id) || match(primitive.agentName),
-    );
+    const primitives = group.resources.filter(matchPrimitive);
     return match(group.id) || primitives.length > 0
       ? {...group, resources: primitives}
       : null;
@@ -34,7 +35,7 @@ const createResourceFilter = (filter: string) => {
         : null;
     }
 
-    if (match(clone.member.id)) {
+    if (matchPrimitive(clone.member)) {
       return clone;
     }
 
