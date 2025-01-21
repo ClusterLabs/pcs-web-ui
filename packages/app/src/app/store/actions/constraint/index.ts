@@ -1,14 +1,14 @@
-import {LocationCreateActions} from "./locationCreate";
-import {ColocationCreateActions} from "./colocationCreate";
-import {OrderCreateActions} from "./orderCreate";
-import {OrderSetCreateActions} from "./orderSetCreate";
-import {ColocationSetCreateActions} from "./colocationSetCreate";
-import {TicketCreateActions} from "./ticketCreate";
-import {TicketSetCreateActions} from "./ticketSetCreate";
-import {SingleCreateActions} from "./singleCreate";
-import {ConstraintDeleteActions} from "./delete";
+import type {LocationCreateActions} from "./locationCreate";
+import type {ColocationCreateActions} from "./colocationCreate";
+import type {OrderCreateActions} from "./orderCreate";
+import type {OrderSetCreateActions} from "./orderSetCreate";
+import type {ColocationSetCreateActions} from "./colocationSetCreate";
+import type {TicketCreateActions} from "./ticketCreate";
+import type {TicketSetCreateActions} from "./ticketSetCreate";
+import type {SingleCreateActions} from "./singleCreate";
+import type {ConstraintDeleteActions} from "./delete";
 
-// prettier-ignore
+// biome-ignore format:
 export type ConstraintAction = (
   & LocationCreateActions
   & OrderCreateActions

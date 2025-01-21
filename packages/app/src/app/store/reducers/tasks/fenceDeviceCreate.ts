@@ -1,4 +1,4 @@
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 import {initialState as initialLibCall, libCall} from "./libCall";
 
@@ -45,9 +45,9 @@ export const fenceDeviceCreate: AppReducer<typeof initialState> = (
       };
     case "FENCE_DEVICE.CREATE.UPDATE": {
       const removeInstanceAttrs =
-        "instanceAttrs" in action.payload
-        && action.payload.instanceAttrs
-        && Object.keys(action.payload.instanceAttrs).length === 0;
+        "instanceAttrs" in action.payload &&
+        action.payload.instanceAttrs &&
+        Object.keys(action.payload.instanceAttrs).length === 0;
 
       return {
         ...state,

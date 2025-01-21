@@ -1,5 +1,5 @@
 import * as response from "dev/responses";
-import {Handler, app} from "dev/app";
+import {type Handler, app} from "dev/app";
 
 let isLoggedIn = false;
 

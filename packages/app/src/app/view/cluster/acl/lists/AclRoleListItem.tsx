@@ -13,7 +13,7 @@ import {
   useLoadedCluster,
 } from "app/view/cluster/share";
 
-import {AclType, Acls} from "../types";
+import type {AclType, Acls} from "../types";
 
 const getAssignedSubjectCount = (
   subjectMap: Acls["user"] | Acls["group"],

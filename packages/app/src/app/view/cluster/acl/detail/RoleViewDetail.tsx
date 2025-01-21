@@ -1,7 +1,7 @@
 import {DataListWithMenu} from "app/view/share";
 import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
-import {AclType} from "../types";
+import type {AclType} from "../types";
 
 export const RoleViewDetail = ({
   roleId,

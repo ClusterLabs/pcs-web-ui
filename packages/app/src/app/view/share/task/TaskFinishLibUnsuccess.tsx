@@ -1,4 +1,5 @@
-import {types} from "app/store";
+import type React from "react";
+import type {types} from "app/store";
 import * as lib from "app/view/share/lib";
 
 import {TaskFinishError} from "./TaskFinishError";

@@ -36,8 +36,8 @@ app.canAddClusterOrNodes((req, res) => {
     res
       .status(400)
       .send(
-        `The node '${nodeName}' is already a part of the 'ClusterName' cluster.`
-          + " You may not add a node to two different clusters.",
+        `The node '${nodeName}' is already a part of the 'ClusterName'` +
+          " cluster. You may not add a node to two different clusters.",
       );
     return;
   }

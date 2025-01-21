@@ -16,9 +16,6 @@ EXTRA_DIST		= \
 				.bin/package-build/fetch-and-pack.sh \
 				.bin/package-build/remove-eslint.js \
 				.bin/package-build/fname.sh \
-			  .eslintrc.common.js \
-			  .eslintrc.import.js \
-			  .eslintrc.js \
 			  .build.hash \
 			  org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml \
 			  package.json \

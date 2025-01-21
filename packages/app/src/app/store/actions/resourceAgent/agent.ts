@@ -1,4 +1,4 @@
-import {api, libClusterResourceAgentDescribeAgent} from "app/backend";
+import type {api, libClusterResourceAgentDescribeAgent} from "app/backend";
 
 export type ResourceAgentAgentActions = {
   "RESOURCE_AGENT.LOAD": {

@@ -19,8 +19,8 @@ describe("getPermissions endpoint", () => {
         }),
       ),
     ).toEqual([
-      'Permission dependency key "nonsense"'
-        + " is not in types: read, write, grant, full",
+      'Permission dependency key "nonsense"' +
+        " is not in types: read, write, grant, full",
     ]);
   });
 });

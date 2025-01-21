@@ -1,4 +1,4 @@
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 import {isValidScore} from "app/view/share";
 
 import {useTaskCommon} from "../useTaskCommon";

@@ -12,7 +12,7 @@ import {
   toLabel,
 } from "app/view/share";
 
-import {Cluster, FenceDevice} from "./types";
+import type {Cluster, FenceDevice} from "./types";
 import {compareStrings} from "./utils";
 
 const columnList = ["NAME", "STATUS"] as const;

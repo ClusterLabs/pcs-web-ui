@@ -1,4 +1,4 @@
-import * as playwright from "playwright";
+import type * as playwright from "playwright";
 
 type ParsedQuery = Record<string, string | string[]>;
 
@@ -45,13 +45,13 @@ type RequestCheck = {
 };
 
 const isAppLoadingUrl = (url: string) =>
-  /\/images\/favicon\.png/.exec(url)
-  || (/\/ui\//.exec(url) && !/\/ui\/(login|logout)/.exec(url))
-  || /\/static\//.exec(url);
+  /\/images\/favicon\.png/.exec(url) ||
+  (/\/ui\//.exec(url) && !/\/ui\/(login|logout)/.exec(url)) ||
+  /\/static\//.exec(url);
 
 const isRegExp = (candidate: unknown): candidate is RegExp =>
-  candidate instanceof RegExp
-  || Object.prototype.toString.call(candidate) === "[object RegExp]";
+  candidate instanceof RegExp ||
+  Object.prototype.toString.call(candidate) === "[object RegExp]";
 
 const urlMatch = (routeUrl: RouteUrl, realUrl: string) => {
   const {url: querylessUrl} = parseUrl(realUrl);
@@ -70,7 +70,7 @@ const checkRequest = ({request, route}: RequestCheck) => {
   if (postData) {
     try {
       payload = JSON.parse(postData);
-    } catch (e) {
+    } catch (_e) {
       body = parse(postData);
     }
   }
@@ -130,8 +130,8 @@ export async function run(routeList: Route[]) {
   usedRouteList = [...routeList];
   if (requestChecks.length > 0) {
     expect(
-      "Page requests are already mockeded."
-        + " Have you forget to cleanup by `await mock.stop()`?",
+      "Page requests are already mockeded." +
+        " Have you forget to cleanup by `await mock.stop()`?",
     ).toEqual("");
   }
   page.route("**/*", (route: playwright.Route) => {

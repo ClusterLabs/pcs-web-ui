@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {CardBody, CardTitle, Card as PfCard} from "@patternfly/react-core";
 
 export const Card = ({
@@ -8,7 +8,7 @@ export const Card = ({
 }: {
   title?: React.ReactNode;
   children: React.ReactNode;
-  ["data-test"]?: string;
+  "data-test"?: string;
 }) => {
   return (
     <PfCard

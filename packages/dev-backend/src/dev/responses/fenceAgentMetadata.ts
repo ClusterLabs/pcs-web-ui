@@ -1,4 +1,4 @@
-import {StonithAgentDescribeAgent} from "dev/types";
+import type {StonithAgentDescribeAgent} from "dev/types";
 
 export const ok: StonithAgentDescribeAgent = {
   name: "stonith:fence_apc",

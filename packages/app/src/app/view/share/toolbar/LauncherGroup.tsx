@@ -1,7 +1,7 @@
 import React from "react";
 
 import {LaunchedConfirm} from "./LaunchedConfirm";
-import {LauncherItem} from "./types";
+import type {LauncherItem} from "./types";
 import {LaunchedTask} from "./LaunchedTask";
 import {LaunchedDisabled} from "./LaunchedDisabled";
 import {LauncherGroupProvider} from "./LauncherGroupContext";
@@ -34,7 +34,7 @@ export const LauncherGroup = ({
 }) => {
   const [launched, setLaunched] = React.useState<LauncherItem | null>(null);
 
-  const stopLaunch = React.useCallback(() => setLaunched(null), [setLaunched]);
+  const stopLaunch = React.useCallback(() => setLaunched(null), []);
 
   if (Object.keys(items).length === 0) {
     return null;

@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 import {FormGroup} from "./FormGroup";
 import {SelectSimple} from "./SelectSimple";

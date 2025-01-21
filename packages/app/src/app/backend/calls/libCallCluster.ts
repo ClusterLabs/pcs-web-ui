@@ -1,6 +1,6 @@
-import {LibClusterCommands} from "app/backend/endpoints";
+import type {LibClusterCommands} from "app/backend/endpoints";
 
-import {CallResult, endpoints, http} from "./tools";
+import {type CallResult, endpoints, http} from "./tools";
 
 const {shape, url} = endpoints.libCluster;
 

@@ -1,4 +1,4 @@
-import {Cluster} from "dev/types";
+import type {Cluster} from "dev/types";
 import {firstSet as aclFirstSet} from "dev/responses/acl";
 
 import {cluster, node} from "./tools";

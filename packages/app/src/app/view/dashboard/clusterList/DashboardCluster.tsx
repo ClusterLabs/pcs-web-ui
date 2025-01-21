@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Th, Tr} from "@patternfly/react-table";
 
 import {testMarks} from "app/view/dataTest";

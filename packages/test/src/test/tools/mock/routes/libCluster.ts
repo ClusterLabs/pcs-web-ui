@@ -1,8 +1,8 @@
-import {LibClusterCommands, endpoints} from "app/backend/endpoints";
+import {type LibClusterCommands, endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 
-import {RouteResponse} from "../mock";
+import type {RouteResponse} from "../mock";
 
 export const libCluster = (
   props: LibClusterCommands[number] & {

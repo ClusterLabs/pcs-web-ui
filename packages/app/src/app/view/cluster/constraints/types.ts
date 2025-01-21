@@ -1,4 +1,4 @@
-import {constraintPacks} from "./select";
+import type {constraintPacks} from "./select";
 
 type ConstraintPackList = ReturnType<typeof constraintPacks>;
 

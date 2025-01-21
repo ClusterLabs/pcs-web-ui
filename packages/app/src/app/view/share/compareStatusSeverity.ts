@@ -1,4 +1,4 @@
-import {StatusSeverity} from "app/view/cluster/types";
+import type {StatusSeverity} from "app/view/cluster/types";
 
 const severity = (status: StatusSeverity): number => {
   switch (status) {

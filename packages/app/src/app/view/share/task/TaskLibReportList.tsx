@@ -1,8 +1,8 @@
-import React from "react";
+import type React from "react";
 import {Text, TextContent} from "@patternfly/react-core";
 
 import {TaskLibReport} from "./TaskLibReport";
-import {TaskReport} from "./TaskReport";
+import type {TaskReport} from "./TaskReport";
 
 export const TaskLibReportList = (props: {
   reports: TaskReport[];
@@ -18,12 +18,10 @@ export const TaskLibReportList = (props: {
       <TextContent>
         <Text component="h3">Messages</Text>
       </TextContent>
-      <>
-        {props.reports.map(
-          props.renderReport
-            ?? ((report, i) => <TaskLibReport key={i} report={report} />),
-        )}
-      </>
+      {props.reports.map(
+        props.renderReport ??
+          ((report, i) => <TaskLibReport key={i} report={report} />),
+      )}
     </div>
   );
 };

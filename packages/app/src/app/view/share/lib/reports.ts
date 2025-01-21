@@ -1,4 +1,4 @@
-import {types} from "app/store";
+import type {types} from "app/store";
 
 export const allErrorsCanBeForced = (reports: types.LibReport[]) =>
   reports.every(

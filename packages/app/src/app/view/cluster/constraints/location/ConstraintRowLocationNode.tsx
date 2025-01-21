@@ -9,7 +9,7 @@ import {
   ConstraintRow,
   ConstraintValue,
 } from "../common";
-import {ConstraintLocationNode} from "../types";
+import type {ConstraintLocationNode} from "../types";
 
 import {ConstraintLocationDescRscPoint} from "./ConstraintLocationDescRscPoint";
 
@@ -35,14 +35,10 @@ export const ConstraintRowLocationNode = ({
           <ConstraintCell label="Score" value={constraint.score} width={1} />
         </>
       }
-      content={
-        <>
-          <ConstraintValue
-            label="Resource discovery"
-            value={constraint["resource-discovery"]}
-          />
-        </>
-      }
+      content=<ConstraintValue
+        label="Resource discovery"
+        value={constraint["resource-discovery"]}
+      />
     />
   );
 };

@@ -3,7 +3,7 @@ import {DataListCell} from "@patternfly/react-core";
 import {useLoadedCluster} from "app/view/cluster/share";
 import {remapDeprecatedRoles} from "app/store";
 
-import {ConstraintLocationRule} from "../types";
+import type {ConstraintLocationRule} from "../types";
 import {
   ConstraintCell,
   ConstraintCellFake,
@@ -65,14 +65,10 @@ export const ConstraintRowLocationRule = ({
           )}
         </>
       }
-      content={
-        <>
-          <ConstraintValue
-            label="Resource discovery"
-            value={constraint["resource-discovery"]}
-          />
-        </>
-      }
+      content=<ConstraintValue
+        label="Resource discovery"
+        value={constraint["resource-discovery"]}
+      />
       canDelete={"id" in constraint}
       deleteAction={
         "id" in constraint

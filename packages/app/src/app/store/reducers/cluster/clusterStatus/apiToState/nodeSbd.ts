@@ -1,6 +1,6 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 
-import {Cluster} from "../types";
+import type {Cluster} from "../types";
 
 type ApiNodeWithData = Exclude<
   ActionPayload["CLUSTER.STATUS.FETCH.OK"]["node_list"][number],

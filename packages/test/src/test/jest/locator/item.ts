@@ -1,4 +1,4 @@
-import {Locator} from "playwright";
+import type {Locator} from "playwright";
 
 type Search<MARK_PART extends Mark> = Mark | ((markPart: MARK_PART) => Mark);
 

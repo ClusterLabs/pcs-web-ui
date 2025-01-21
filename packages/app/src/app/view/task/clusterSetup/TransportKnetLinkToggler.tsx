@@ -3,7 +3,7 @@ import {ExpandableSection} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 
-import {useTask} from "./useTask";
+import type {useTask} from "./useTask";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 const {toggleAdvancedOptions} =
@@ -33,8 +33,8 @@ export const TransportKnetLinkToggler = ({
   const toggleText = isLinkFilled
     ? "Advanced options (some filled, cannot hide)"
     : advancedExpanded
-    ? "Hide advanced options"
-    : "Show advanced options";
+      ? "Hide advanced options"
+      : "Show advanced options";
   return (
     <ExpandableSection
       isExpanded={isLinkFilled || advancedExpanded}

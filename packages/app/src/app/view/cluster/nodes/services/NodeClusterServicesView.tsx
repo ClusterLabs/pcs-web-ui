@@ -1,7 +1,7 @@
 import React from "react";
 import {Gallery, GalleryItem} from "@patternfly/react-core";
 
-import {Node} from "app/view/cluster/types";
+import type {Node} from "app/view/cluster/types";
 
 import {NodeServiceCard} from "./NodeServiceCard";
 import {NodeServiceFlag} from "./NodeServiceFlag";

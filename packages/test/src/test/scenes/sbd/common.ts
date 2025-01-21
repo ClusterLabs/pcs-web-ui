@@ -1,6 +1,6 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
-import {mock} from "test/tools";
+import type {mock} from "test/tools";
 
 export const sbdOptions = {
   SBD_DELAY_START: "no",

@@ -1,7 +1,7 @@
-const fs = require("fs");
+const fs = require("node:fs");
 
 if (process.argv.length !== 3) {
-  throw Error(`Usage: ${process.argv[0]} ${process.argv[1]} <version>`);
+  throw new Error(`Usage: ${process.argv[0]} ${process.argv[1]} <version>`);
 }
 
 const version = process.argv[2];

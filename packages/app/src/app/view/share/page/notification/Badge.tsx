@@ -3,7 +3,7 @@ import {AttentionBellIcon, BellIcon} from "@patternfly/react-icons";
 
 import {testMarks} from "app/view/dataTest";
 
-import {Notification} from "./types";
+import type {Notification} from "./types";
 
 export const Badge = ({
   notificationList,
@@ -32,7 +32,7 @@ export const Badge = ({
       aria-label="Notifications"
       {...testMarks.notifications.badge.mark}
     >
-     {icon} Notifications
+      {icon} Notifications
     </PfNotificationBadge>
   );
 };

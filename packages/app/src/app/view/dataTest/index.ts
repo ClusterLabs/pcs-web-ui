@@ -1,5 +1,4 @@
 import {structure} from "./structure";
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubStructure extends Record<string, SubStructure> {}
 
 // Don't use `export {structure};`. Since structure is in JSON, the mentioned

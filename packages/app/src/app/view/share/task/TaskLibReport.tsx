@@ -1,9 +1,9 @@
-import React from "react";
+import type React from "react";
 import {Alert} from "@patternfly/react-core";
 
-import {types} from "app/store";
+import type {types} from "app/store";
 
-import {TaskReport} from "./TaskReport";
+import type {TaskReport} from "./TaskReport";
 
 const severityToAlertVariant = (
   level: types.LibReport["severity"]["level"],

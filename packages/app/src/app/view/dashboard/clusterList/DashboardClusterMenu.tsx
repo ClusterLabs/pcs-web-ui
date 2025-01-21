@@ -71,7 +71,7 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
                   isPlain
                   isInline
                   variant="warning"
-                ></Alert>
+                />
               </>
             ),
             action: {

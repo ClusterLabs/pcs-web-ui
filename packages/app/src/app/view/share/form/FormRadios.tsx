@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 import {FormGroup} from "./FormGroup";
 import {FormRadioGroup} from "./FormRadioGroup";
@@ -27,7 +27,7 @@ export function FormRadios<OPTION extends string>({
   className?: FormGroupProps["className"];
   isRequired?: FormGroupProps["isRequired"];
   isDisabled?: FormRadioGroupProps["isDisabled"];
-  ["data-test"]?: string;
+  "data-test"?: string;
 }) {
   return (
     <FormGroup

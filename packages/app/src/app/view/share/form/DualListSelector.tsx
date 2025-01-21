@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {DualListSelector as PfDualListSelector} from "@patternfly/react-core";
 
 type Props = React.ComponentProps<typeof PfDualListSelector>;

@@ -1,5 +1,5 @@
-import * as http from "http";
-import * as https from "https";
+import * as http from "node:http";
+import * as https from "node:https";
 
 // WARNING: Do not use arrow function for listeners, e.g.:
 // nodeResponse.on("end", response.end);
@@ -34,15 +34,15 @@ http
       headers: request.headers,
     };
 
-    const nodeRequest = https.request(options, function (nodeResponse) {
+    const nodeRequest = https.request(options, nodeResponse => {
       nodeResponse.pipe(response);
       response.writeHead(nodeResponse.statusCode || 500, nodeResponse.headers);
     });
 
-    request.addListener("data", function (chunk) {
+    request.addListener("data", chunk => {
       nodeRequest.write(chunk, "binary");
     });
-    request.addListener("end", function () {
+    request.addListener("end", () => {
       nodeRequest.end();
     });
     nodeRequest.on("error", e => console.error(e));

@@ -1,8 +1,7 @@
-const path = require("path");
+const path = require("node:path");
 
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
-const ESLintPlugin = require("eslint-webpack-plugin");
 
 const appWebpackPath = "../../../app/.bin/build";
 
@@ -14,8 +13,6 @@ const {app: src} = require(`${appWebpackPath}/structure.json`);
 // Source maps are resource heavy and can cause out of memory issue for large
 // source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
-
-const emitErrorsAsWarnings = process.env.ESLINT_NO_DEV_ERRORS === "true";
 
 module.exports = ({
   srcDir,
@@ -113,20 +110,6 @@ module.exports = ({
         configFile: tsConfig,
         tsBuildInfoFile: path.join(cacheDirectory, "tsconfig.tsbuildinfo"),
         tsConfigPathsContext,
-      }),
-      new ESLintPlugin({
-        extensions: ["js", "jsx", "ts", "tsx"],
-        eslintPath: require.resolve("eslint"),
-        failOnError: !emitErrorsAsWarnings,
-        context: srcDir,
-        cache: true,
-        cacheLocation: path.resolve(nodeModules, ".cache/.eslintcache"),
-        // ESLint class options
-        cwd: tsConfigPathsContext,
-        resolvePluginsRelativeTo: __dirname,
-        // baseConfig: {
-        //   extends: [require.resolve("eslint-config-react-app/base")],
-        // },
       }),
     ],
     // Turn off performance processing because we utilize

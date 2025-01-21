@@ -1,4 +1,4 @@
-import {api, getClusterPropertiesDefinition} from "app/backend";
+import type {api, getClusterPropertiesDefinition} from "app/backend";
 
 export type ClusterPropertiesActions = {
   "CLUSTER.PROPERTIES.LOAD": {

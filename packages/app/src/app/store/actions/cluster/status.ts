@@ -1,4 +1,4 @@
-import {api, clusterStatus} from "app/backend";
+import type {api, clusterStatus} from "app/backend";
 
 export type ClusterStatusActions = {
   "CLUSTER.STATUS.FETCH.OK": {

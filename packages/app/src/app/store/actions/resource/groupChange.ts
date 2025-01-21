@@ -1,4 +1,4 @@
-import {resourceChangeGroup} from "app/backend";
+import type {resourceChangeGroup} from "app/backend";
 
 type ChangeGroupParams = Omit<
   Parameters<typeof resourceChangeGroup>[0],

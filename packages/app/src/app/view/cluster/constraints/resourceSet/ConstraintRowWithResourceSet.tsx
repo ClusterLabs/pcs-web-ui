@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {
   DataList,
   DataListCell,
@@ -7,7 +7,7 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import {ConstraintResourceSet} from "../types";
+import type {ConstraintResourceSet} from "../types";
 import {ConstraintCell, ConstraintRow} from "../common";
 
 type ResourceSetStructured = Extract<ConstraintResourceSet, {id: string}>;

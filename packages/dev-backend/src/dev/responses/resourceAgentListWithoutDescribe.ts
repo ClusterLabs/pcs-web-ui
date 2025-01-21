@@ -1,4 +1,4 @@
-import {ResourceAgentListAgents} from "dev/types";
+import type {ResourceAgentListAgents} from "dev/types";
 
 export const ok: ResourceAgentListAgents = [
   {

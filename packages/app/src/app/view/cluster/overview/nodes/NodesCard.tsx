@@ -5,7 +5,7 @@ import {
   ExclamationTriangleIcon,
 } from "@patternfly/react-icons";
 
-import {Node} from "app/view/cluster/types";
+import type {Node} from "app/view/cluster/types";
 import {Link, location} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 import {StatisticsIssueInfo} from "app/view/cluster/overview/StatisticsIssueInfo";

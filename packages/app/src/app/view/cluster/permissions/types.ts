@@ -1,4 +1,4 @@
-import {useLoadedPermissions} from "./LoadedPermissionsContext";
+import type {useLoadedPermissions} from "./LoadedPermissionsContext";
 
 export type Permission = ReturnType<
   typeof useLoadedPermissions

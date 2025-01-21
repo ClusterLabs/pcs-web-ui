@@ -1,4 +1,4 @@
-import {Action, selectors} from "app/store";
+import type {Action, selectors} from "app/store";
 import {useDispatch} from "app/view/share/useDispatch";
 
 export const useOpenTask = () => {

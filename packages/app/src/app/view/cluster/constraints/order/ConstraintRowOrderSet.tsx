@@ -6,7 +6,7 @@ import {
   ConstraintRowWithResourceSet,
 } from "../resourceSet";
 import {ConstraintValue} from "../common";
-import {ConstraintOrderSet} from "../types";
+import type {ConstraintOrderSet} from "../types";
 
 import {ConstraintCellOrderScoreKind} from "./ConstraintCellOrderScoreKind";
 

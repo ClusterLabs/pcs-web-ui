@@ -1,4 +1,4 @@
-import {api, getPermissions, savePermissions} from "app/backend";
+import type {api, getPermissions, savePermissions} from "app/backend";
 
 type ApiPermissions = api.PayloadOf<typeof getPermissions>;
 

@@ -3,6 +3,7 @@
 
 // The following can be replaced by sed in build script. Don't change it
 // blindly!
+// biome-ignore lint/style/noVar:
 var pcsdSocket = "/var/run/pcsd.socket";
 
 // Variable pcsUiEnvAdapter will be used by main application included by another
@@ -62,9 +63,13 @@ function Superuser() {
   return self;
 }
 
+// biome-ignore lint/style/noVar:
 var superuser = Superuser();
 
-/* eslint-disable-next-line */
+// Variable pcsUiEnvAdapter will be used by main application included by another
+// javascript file
+// biome-ignore lint/correctness/noUnusedVariables:see in comment above
+// biome-ignore lint/style/noVar:
 var pcsUiEnvAdapter = {
   showMasthead: false,
   request: async (path, headers, postBody) => {

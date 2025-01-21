@@ -1,7 +1,8 @@
+import type React from "react";
 import {Router, useLocation, useRouter} from "app/view/share";
 
 import {GroupDetailViewContextProvider} from "./GroupDetailViewContext";
-import {DetailTypeList, useDetailMatch} from "./useDetailMatch";
+import {type DetailTypeList, useDetailMatch} from "./useDetailMatch";
 
 export const GroupDetailView = (props: {
   groupCard: React.ReactNode;

@@ -10,8 +10,8 @@ export const match = (path: string, pattern: string) => {
   const mathPartCount = patternElements.length - (endsWithAsterisk ? 1 : 0);
 
   const matchByLength =
-    pathElements.length === patternElements.length
-    || (endsWithAsterisk && pathElements.length >= mathPartCount);
+    pathElements.length === patternElements.length ||
+    (endsWithAsterisk && pathElements.length >= mathPartCount);
 
   if (!matchByLength) {
     return null;

@@ -1,11 +1,11 @@
-import React from "react";
+import type React from "react";
 
 import {useLocation} from "./Router";
 import {SimpleLink} from "./SimpleLink";
 
 export const Link = (
   props: {
-    ["data-test"]?: string;
+    "data-test"?: string;
     strong?: boolean;
     isInline?: boolean;
   } & (

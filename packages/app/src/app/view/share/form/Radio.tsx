@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Radio as PfRadio} from "@patternfly/react-core";
 
 export const Radio = (props: {

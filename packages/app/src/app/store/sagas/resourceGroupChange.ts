@@ -1,5 +1,5 @@
 import {resourceChangeGroup} from "app/backend";
-import {ActionMap} from "app/store";
+import type {ActionMap} from "app/store";
 import {api, put} from "app/store/sagas/common";
 
 export function* change({key, payload}: ActionMap["RESOURCE.GROUP.CHANGE"]) {

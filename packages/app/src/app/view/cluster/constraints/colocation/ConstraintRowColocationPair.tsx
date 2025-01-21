@@ -2,7 +2,7 @@ import {DataListCell} from "@patternfly/react-core";
 
 import {remapDeprecatedRoles} from "app/store";
 
-import {ConstraintColocationPair} from "../types";
+import type {ConstraintColocationPair} from "../types";
 import {
   ConstraintCell,
   ConstraintLink,

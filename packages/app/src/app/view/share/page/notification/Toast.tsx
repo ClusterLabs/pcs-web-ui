@@ -2,7 +2,7 @@ import {AlertGroup} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 
-import {Notification} from "./types";
+import type {Notification} from "./types";
 import {ToastAlert} from "./ToastAlert";
 
 export const Toast = ({

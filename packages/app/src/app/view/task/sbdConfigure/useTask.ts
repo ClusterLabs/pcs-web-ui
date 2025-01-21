@@ -1,4 +1,4 @@
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 
 import {useTaskCommon} from "../useTaskCommon";
 
@@ -14,8 +14,8 @@ export const useTask = () => {
 
   const getSbdTimeout = (): SbdTimeoutAction => {
     if (
-      state.timeoutAction !== "DEFAULT"
-      && state.timeoutActionFlush !== "DEFAULT"
+      state.timeoutAction !== "DEFAULT" &&
+      state.timeoutActionFlush !== "DEFAULT"
     ) {
       return `${state.timeoutActionFlush},${state.timeoutAction}`;
     }

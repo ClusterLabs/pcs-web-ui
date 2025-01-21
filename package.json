@@ -2,7 +2,7 @@
   "name": "pcs-web-ui-project",
   "version": "0.1.22",
   "private": true,
-  "dependencies": {
-    "prettier": "^2.8.1"
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4"
   }
 }

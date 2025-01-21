@@ -1,4 +1,4 @@
-import {ResourceAgentDescribeAgent} from "dev/types";
+import type {ResourceAgentDescribeAgent} from "dev/types";
 
 export const ocfHeartbeatDummy: ResourceAgentDescribeAgent = {
   name: "ocf:heartbeat:Dummy",

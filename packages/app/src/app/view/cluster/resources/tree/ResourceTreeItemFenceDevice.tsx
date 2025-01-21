@@ -1,6 +1,6 @@
 import {DataListItem, DataListItemRow} from "@patternfly/react-core";
 
-import {FenceDevice} from "app/view/cluster/types";
+import type {FenceDevice} from "app/view/cluster/types";
 import {StatusIco, StatusSign} from "app/view/share";
 import {useGroupDetailViewContext} from "app/view/cluster/share";
 

@@ -9,10 +9,10 @@ const detailTypeMatch = (
   detailTypeList: DetailTypeList,
   detailType: string | undefined,
 ) =>
-  (detailTypeList === undefined && detailType === undefined)
-  || (detailTypeList !== undefined
-    && detailType !== undefined
-    && detailTypeList.includes(detailType));
+  (detailTypeList === undefined && detailType === undefined) ||
+  (detailTypeList !== undefined &&
+    detailType !== undefined &&
+    detailTypeList.includes(detailType));
 
 const detailMatch = (
   detail: RouteMatch,

@@ -10,7 +10,6 @@ import * as importedClusterList from "./importedClusterList";
 import {permissions} from "./permissions";
 import * as lib from "./lib";
 
-/* eslint-disable import/max-dependencies */
 export * as acl from "./acl";
 
 export {

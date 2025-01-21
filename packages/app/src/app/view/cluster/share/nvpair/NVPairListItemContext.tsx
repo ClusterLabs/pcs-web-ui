@@ -1,6 +1,6 @@
 import React from "react";
 
-import {NVPair} from "app/view/cluster/types";
+import type {NVPair} from "app/view/cluster/types";
 
 const NVPairListItemContext = React.createContext<NVPair>({
   id: "",

@@ -25,7 +25,6 @@ EXTRA_DIST		= \
 			  .bin/check-no-nexus.sh \
 			  .bin/init_nexus.sh \
 			  .bin/init.sh \
-			  .bin/lint.sh \
 			  .bin/npm_install.sh \
 			  .bin/pre-commit.sh \
 			  .bin/render-spec.sh \
@@ -121,11 +120,10 @@ check_sources:
 	@.bin/check-no-nexus.sh
 
 lint:
-	@.bin/lint.sh ./packages
+	@npx biome lint --error-on-warnings ./
 
 fmt:
-	npx prettier "packages/app/src/" --write
-	packages/app/node_modules/.bin/eslint --fix --ext .js,.ts,.tsx packages/app/src/
+	npx biome format --write ./
 
 .PHONY: bump-version
 bump-version:

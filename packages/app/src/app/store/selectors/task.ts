@@ -1,4 +1,4 @@
-import {Root, TaskKeys} from "./types";
+import type {Root, TaskKeys} from "./types";
 
 export const getTask =
   <NAME extends TaskKeys>(name: NAME) =>

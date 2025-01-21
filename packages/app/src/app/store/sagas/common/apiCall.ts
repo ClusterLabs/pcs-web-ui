@@ -1,12 +1,11 @@
-import {SagaIterator} from "redux-saga";
+import type {SagaIterator} from "redux-saga";
 
-import {api} from "app/backend";
-import {ActionPayload} from "app/store/actions";
+import type {api} from "app/backend";
+import type {ActionPayload} from "app/store/actions";
 
 import {call, put, take} from "./effects";
 import * as log from "./log";
 import {messages, putNotification} from "./notifications";
-/* eslint-disable no-console */
 
 type Notification = ActionPayload["NOTIFICATION.CREATE"];
 

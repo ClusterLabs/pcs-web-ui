@@ -1,6 +1,6 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 
-import {Cluster} from "../../types";
+import type {Cluster} from "../../types";
 import {transformIssues} from "../issues";
 
 import {toPrimitive} from "./primitive";
@@ -22,9 +22,9 @@ const buildStatusInfoList = (
   apiClone: ApiClone,
 ): Clone["status"]["infoList"] => {
   if (
-    (apiClone.member.class_type === "primitive" && apiClone.member.stonith)
-    || (apiClone.member.class_type === "group"
-      && apiClone.member.members.some(m => m.stonith))
+    (apiClone.member.class_type === "primitive" && apiClone.member.stonith) ||
+    (apiClone.member.class_type === "group" &&
+      apiClone.member.members.some(m => m.stonith))
   ) {
     return [
       {

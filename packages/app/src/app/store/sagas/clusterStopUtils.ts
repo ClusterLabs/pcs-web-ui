@@ -1,6 +1,6 @@
-import {clusterStop} from "app/backend";
+import type {clusterStop} from "app/backend";
 
-import {api} from "./common";
+import type {api} from "./common";
 
 export const stripForceText = (
   result: Exclude<api.ResultOf<typeof clusterStop>, {type: "OK"}>,

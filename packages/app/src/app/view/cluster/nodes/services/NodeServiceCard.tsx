@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {
   Card,
   CardBody,
@@ -27,7 +27,6 @@ export const NodeServiceCard = ({
         <Table isCompact isBorderless>
           <Table.Body>
             {flagList.map((flag, i) => (
-              /* eslint-disable react/no-array-index-key */
               <tr key={i}>
                 <td>{flag}</td>
               </tr>

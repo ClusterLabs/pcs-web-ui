@@ -3,7 +3,7 @@ import React from "react";
 import {testMarks} from "app/view/dataTest";
 import {FormRadios, FormSelectSimple, FormText} from "app/view/share";
 
-import {ClusterProperties} from "./useClusterProperties";
+import type {ClusterProperties} from "./useClusterProperties";
 
 const {property: propertyMark} = testMarks.cluster.properties;
 

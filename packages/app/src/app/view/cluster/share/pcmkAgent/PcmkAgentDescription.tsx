@@ -24,7 +24,6 @@ export const PcmkAgentDescription = ({
           {shortdesc}
           <ExpandableSection toggleText="Full description">
             {(longdesc || "").split("\n\n").map((line, i) => (
-              /* eslint-disable react/no-array-index-key */
               <Text component="p" key={i}>
                 {line}
               </Text>

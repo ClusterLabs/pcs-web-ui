@@ -1,5 +1,5 @@
 import {existingCluster} from "app/backend";
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 
 import {api, log, put} from "../common";
 

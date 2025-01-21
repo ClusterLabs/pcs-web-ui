@@ -1,4 +1,4 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 

@@ -1,11 +1,11 @@
-import React from "react";
+import type React from "react";
 import {
   Wizard as PfWizard,
   WizardContextConsumer,
-  WizardStep,
+  type WizardStep,
 } from "@patternfly/react-core/deprecated";
 
-import {selectors} from "app/store";
+import type {selectors} from "app/store";
 import {capitalizeFirst} from "app/store/tools";
 
 import {TaskContextProvider} from "./TaskContext";
@@ -29,6 +29,7 @@ const separateStepsAndFooters = (steps: Step[]) => {
   const stepList: WizardStep[] = [];
   let footerList: Footer[] = [];
   steps.forEach(stepWithFooter => {
+    // biome-ignore lint/suspicious/noImplicitAnyLet:
     let pfStep;
     if ("footer" in stepWithFooter) {
       const {footer, ...rest} = stepWithFooter;
@@ -61,7 +62,7 @@ export const Wizard = ({
   description,
   steps = undefined,
 }: {
-  ["data-test"]: string;
+  "data-test": string;
   steps?: Step[] | undefined;
   onClose: () => void;
   task: Parameters<typeof selectors.getTask>[0];

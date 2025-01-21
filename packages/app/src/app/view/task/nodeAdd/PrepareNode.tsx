@@ -33,9 +33,9 @@ export const PrepareNode = () => {
   useNodeCheck();
   return (
     <TaskLibStep title="Prepare node" reports={reports}>
-      {(nodeCheck === "can-add-started"
-        || nodeCheck === "auth-check-started"
-        || nodeCheck === "send-known-hosts-started") && (
+      {(nodeCheck === "can-add-started" ||
+        nodeCheck === "auth-check-started" ||
+        nodeCheck === "send-known-hosts-started") && (
         <EmptyStateSpinner
           title={
             {

@@ -6,7 +6,7 @@ import {
   location,
 } from "app/view/share";
 import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
-import {Node} from "app/view/cluster/types";
+import type {Node} from "app/view/cluster/types";
 
 import {NodeDaemonTable} from "./NodeDaemonTable";
 import {NodeClusterServicesView} from "./services";
@@ -28,7 +28,6 @@ export const NodeDetailView = ({node}: {node: Node}) => {
           emptyMessage={`No resource running on node "${node.name}".`}
           rowObject={{
             header: "Resource",
-            /* eslint-disable-next-line react/display-name */
             cell: crmStatus => (
               <Link
                 to={location.resource({

@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Stack, StackItem, Text, TextContent} from "@patternfly/react-core";
 
 import {TaskLibReportList} from "./TaskLibReportList";

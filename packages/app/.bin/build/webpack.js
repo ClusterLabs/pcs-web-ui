@@ -1,8 +1,8 @@
 if (process.argv.length !== 8) {
   console.log(process.argv);
   console.error(
-    `Usage: ${process.argv[0]} ${process.argv[1]}`
-      + "<srcDir> <build_dir> <outJs> <outCss> <outMedia> <outMain>",
+    `Usage: ${process.argv[0]} ${process.argv[1]}` +
+      "<srcDir> <build_dir> <outJs> <outCss> <outMedia> <outMain>",
   );
   process.exit(1);
 }
@@ -30,7 +30,7 @@ process.on("unhandledRejection", err => {
 
 const postcssSuffix = err =>
   Object.prototype.hasOwnProperty.call(err, "postcssNode")
-    ? "\nCompileError: Begins at CSS selector " + err["postcssNode"].selector
+    ? "\nCompileError: Begins at CSS selector " + err.postcssNode.selector
     : "";
 
 require("webpack")(

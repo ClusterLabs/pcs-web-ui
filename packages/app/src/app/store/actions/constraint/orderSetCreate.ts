@@ -1,4 +1,4 @@
-import {Action} from "./types";
+import type {Action} from "./types";
 
 type OptionalAction = Action | "no limitation";
 

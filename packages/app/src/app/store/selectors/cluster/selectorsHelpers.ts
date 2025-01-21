@@ -1,4 +1,4 @@
-import {ClusterStorageItem, Root} from "../types";
+import type {ClusterStorageItem, Root} from "../types";
 
 export type ClusterSelector<ARGS extends unknown[], SELECTED> = (
   _clusterName: string,

@@ -4,7 +4,7 @@ import {Button, Modal} from "@patternfly/react-core";
 import {testMarks} from "app/view/dataTest";
 import {tools} from "app/store";
 
-import {LauncherItem} from "./types";
+import type {LauncherItem} from "./types";
 
 const {labelize} = tools;
 

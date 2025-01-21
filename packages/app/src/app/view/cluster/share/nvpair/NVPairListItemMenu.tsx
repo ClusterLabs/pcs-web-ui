@@ -1,3 +1,4 @@
+import type React from "react";
 import {LauncherDropdown} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 import {useOpenTask} from "app/view/task";

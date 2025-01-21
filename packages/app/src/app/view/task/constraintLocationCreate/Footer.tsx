@@ -20,11 +20,11 @@ export const Footer = () => {
       <TaskButtonNext
         run={createLocation}
         runIf={
-          isScoreValid
-          && isResourceValid
-          && isPatternValid
-          && isNodeValid
-          && isRuleValid
+          isScoreValid &&
+          isResourceValid &&
+          isPatternValid &&
+          isNodeValid &&
+          isRuleValid
         }
         {...task.run.mark}
       >

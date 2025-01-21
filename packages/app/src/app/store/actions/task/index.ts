@@ -1,6 +1,6 @@
-import {TaskOpenCloseActions} from "./taskOpenClose";
+import type {TaskOpenCloseActions} from "./taskOpenClose";
 
-// prettier-ignore
+// biome-ignore format:
 export type TaskActions = (
   & TaskOpenCloseActions
 );

@@ -3,7 +3,7 @@ import {
   Chip,
   ChipGroup,
   MenuToggle,
-  MenuToggleElement,
+  type MenuToggleElement,
   Select,
   SelectList,
   SelectOption,
@@ -26,20 +26,13 @@ export const SelectMultiTypeahead = (props: {
   const [activeItem, setActiveItem] = React.useState<string | null>(null);
   const textInputRef = React.useRef<HTMLInputElement>();
 
-  const {
-    onInputKeyDown,
-    open,
-    close,
-    switchOpen,
-    isOpen,
-    isFocused,
-    noFocus,
-  } = useSelectControll({
-    activateItem: i =>
-      setActiveItem(i !== null ? optionId(filteredOpts[i]) : null),
-    select: i => onSelect(filteredOpts[i ?? 0]),
-    itemsCount: filteredOpts.length,
-  });
+  const {onInputKeyDown, open, close, switchOpen, isOpen, isFocused, noFocus} =
+    useSelectControll({
+      activateItem: i =>
+        setActiveItem(i !== null ? optionId(filteredOpts[i]) : null),
+      select: i => onSelect(filteredOpts[i ?? 0]),
+      itemsCount: filteredOpts.length,
+    });
 
   React.useEffect(() => {
     let newFilteredOpts = props.offeredOptions;
@@ -62,7 +55,7 @@ export const SelectMultiTypeahead = (props: {
     setFilteredOpts(newFilteredOpts);
     noFocus();
     setActiveItem(null);
-  }, [filter, isOpen, open, props.offeredOptions, noFocus]);
+  }, [filter, open, props.offeredOptions, noFocus]);
 
   const onSelect = (value: string) => {
     if (value) {

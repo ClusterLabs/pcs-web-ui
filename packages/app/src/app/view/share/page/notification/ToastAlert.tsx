@@ -3,7 +3,7 @@ import {Alert, AlertActionCloseButton} from "@patternfly/react-core";
 import {testMarks} from "app/view/dataTest";
 import {useDispatch} from "app/view/share";
 
-import {Notification} from "./types";
+import type {Notification} from "./types";
 import {severityToVariant} from "./severityToVariant";
 import {Description} from "./Description";
 
@@ -16,8 +16,8 @@ export const ToastAlert = ({notification}: {notification: Notification}) => {
     notification.severity === "SUCCESS"
       ? success
       : notification.severity === "INFO"
-      ? info
-      : error;
+        ? info
+        : error;
   return (
     <Alert
       key={notification.id}

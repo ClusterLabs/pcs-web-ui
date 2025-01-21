@@ -1,7 +1,7 @@
 import React from "react";
 import {Modal} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
+import type {selectors} from "app/store";
 
 import {TaskResultLib} from "./TaskResultLib";
 import {TaskContextProvider} from "./TaskContext";
@@ -25,7 +25,7 @@ export const TaskSimpleLib = (props: {
   reports: TaskResultProps["reports"];
 
   title?: ModalProps["title"];
-  ["data-test"]?: string;
+  "data-test"?: string;
 }) => {
   return (
     <TaskContextProvider

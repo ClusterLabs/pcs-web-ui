@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {ActionGroup, Button, Form} from "@patternfly/react-core";
 
 import {FormGroup, TextInput} from "app/view/share";

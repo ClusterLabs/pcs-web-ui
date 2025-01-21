@@ -1,12 +1,12 @@
-import * as React from "react";
-import {Button, Modal} from "@patternfly/react-core";
+import type * as React from "react";
+import type {Button, Modal} from "@patternfly/react-core";
 
-import {Action} from "app/store";
+import type {Action} from "app/store";
 
 type Task = {
   component: React.FunctionComponent;
   useTask: () => {
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    // biome-ignore lint/suspicious/noExplicitAny:
     open: (..._args: any[]) => void;
     isOpened: boolean;
     close: () => void;

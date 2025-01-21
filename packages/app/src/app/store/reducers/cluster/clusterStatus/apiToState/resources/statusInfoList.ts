@@ -1,6 +1,6 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 
-import {Cluster, StatusSeverity} from "../../types";
+import type {Cluster, StatusSeverity} from "../../types";
 import * as statusSeverity from "../statusSeverity";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
@@ -12,8 +12,8 @@ type Status = Resource["status"];
 export const isDisabled = (apiResource: ApiResource): boolean =>
   apiResource.meta_attr.some(
     apiMetaAttribute =>
-      apiMetaAttribute.name === "target-role"
-      && apiMetaAttribute.value.toLowerCase() === "stopped",
+      apiMetaAttribute.name === "target-role" &&
+      apiMetaAttribute.value.toLowerCase() === "stopped",
   );
 
 export function getMaxSeverity<T>(
@@ -44,8 +44,6 @@ export const statusToSeverity = (
     case "disabled":
     case "partially running":
       return "WARNING";
-
-    case "running":
     default:
       return "OK";
   }

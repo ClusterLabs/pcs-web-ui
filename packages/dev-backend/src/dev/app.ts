@@ -1,10 +1,9 @@
-/* eslint-disable no-console */
-import {dirname} from "path";
+import {dirname} from "node:path";
 
-import express, {Express, Request, Response} from "express";
+import express, {type Express, type Request, type Response} from "express";
 
 // import endpoints from "app/backend/calls";
-import {LibClusterCommands, endpoints} from "app/backend/endpoints";
+import {type LibClusterCommands, endpoints} from "app/backend/endpoints";
 // import {endpoints} from "app";
 
 const parserUrlEncoded = express.urlencoded({extended: false});
@@ -12,7 +11,7 @@ const parserJson = express.json();
 
 export type Handler = (_req: Request, _res: Response) => void;
 
-/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+// biome-ignore lint/suspicious/noExplicitAny:
 type R = any;
 const application = express();
 const port = process.env.PORT || 5000;
@@ -52,8 +51,8 @@ const delayed =
   (req, res) => {
     setTimeout(
       () => handler(req, res),
-      getDelay(process.env.DELAY, 100)
-        + Math.floor(getDelay(process.env.DELAY_RND, 100) * Math.random()),
+      getDelay(process.env.DELAY, 100) +
+        Math.floor(getDelay(process.env.DELAY_RND, 100) * Math.random()),
     );
   };
 

@@ -1,5 +1,5 @@
-import React from "react";
-import {Tabs} from "@patternfly/react-core";
+import type React from "react";
+import type {Tabs} from "@patternfly/react-core";
 
 import {useLocation} from "app/view/share/router";
 import {useRoute} from "app/view/share/router";

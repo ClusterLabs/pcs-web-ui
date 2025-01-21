@@ -1,4 +1,4 @@
-import {RouteResponse} from "../mock";
+import type {RouteResponse} from "../mock";
 
 import {libCluster} from "./libCluster";
 

@@ -1,9 +1,9 @@
 import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
-import * as types from "dev/types";
+import type * as types from "dev/types";
 
-import {RouteResponse} from "../mock";
+import type {RouteResponse} from "../mock";
 
 export const importedClusterList = (
   props:
@@ -11,19 +11,20 @@ export const importedClusterList = (
     | {clusterNameList?: string[]}
     | {response: RouteResponse} = {},
 ) => {
+  // biome-ignore lint/suspicious/noImplicitAnyLet:
   let response;
   if ("response" in props) {
     response = props.response;
   } else if (
-    "clusterNameList" in props
-    && props.clusterNameList !== undefined
+    "clusterNameList" in props &&
+    props.clusterNameList !== undefined
   ) {
     response = {
       json: responses.importedClusterList.withClusters(props.clusterNameList),
     };
   } else if (
-    "clusterStatusList" in props
-    && props.clusterStatusList !== undefined
+    "clusterStatusList" in props &&
+    props.clusterStatusList !== undefined
   ) {
     response = {
       json: responses.importedClusterList.withClusters(

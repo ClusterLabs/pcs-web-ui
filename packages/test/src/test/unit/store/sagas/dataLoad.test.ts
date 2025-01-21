@@ -1,4 +1,4 @@
-import {ActionLeaf} from "app/store";
+import type {ActionLeaf} from "app/store";
 import {takeNewLoadings} from "app/store/sagas/common/dataLoad";
 
 const clusterName1 = "cluster-1";

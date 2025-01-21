@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 
-import {ActionPayload, selectors} from "app/store";
+import {type ActionPayload, selectors} from "app/store";
 import {useDispatch} from "app/view/share/useDispatch";
 
 export const useNodesAuth = (processId: number) => {

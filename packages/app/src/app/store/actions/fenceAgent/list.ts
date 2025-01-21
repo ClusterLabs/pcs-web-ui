@@ -1,4 +1,4 @@
-import {api, libClusterStonithAgentListAgents} from "app/backend";
+import type {api, libClusterStonithAgentListAgents} from "app/backend";
 
 export type FenceAgentListActions = {
   "FENCE_AGENT.LIST.LOAD": {

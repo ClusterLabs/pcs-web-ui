@@ -1,4 +1,4 @@
-import * as types from "dev/types";
+import type * as types from "dev/types";
 
 export const withClusters = (
   clusterList: string[],

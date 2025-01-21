@@ -1,4 +1,4 @@
-import {EnvType} from "./envType";
+import type {EnvType} from "./envType";
 
 const protocol = process.env.PCSD_PROTOCOL_1 || "https";
 const host = process.env.PCSD_HOST_1 || "";

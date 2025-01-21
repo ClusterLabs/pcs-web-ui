@@ -1,7 +1,7 @@
 import React from "react";
 import {Modal} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
+import type {selectors} from "app/store";
 
 import {TaskContextProvider} from "./TaskContext";
 
@@ -16,7 +16,7 @@ export const TaskSimple = ({
 }: {
   close: () => void;
   footer: React.ReactNode;
-  ["data-test"]?: string;
+  "data-test"?: string;
   children: React.ReactNode;
   task: Parameters<typeof selectors.getTask>[0];
   taskLabel: string;

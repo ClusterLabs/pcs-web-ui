@@ -1,4 +1,4 @@
-import {Cluster} from "app/view/cluster/types";
+import type {Cluster} from "app/view/cluster/types";
 
 type SbdConfig = Exclude<
   Exclude<Cluster["nodeList"][number], {status: "DATA_NOT_PROVIDED"}>["sbd"],

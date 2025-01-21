@@ -1,3 +1,4 @@
+import type React from "react";
 import {testMarks} from "app/view/dataTest";
 import {ClusterStatusLabel, ClusterStatusLoadingLabel} from "app/view/share";
 import {

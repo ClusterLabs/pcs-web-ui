@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Td} from "@patternfly/react-table";
 
 export function ExpansionToggle({

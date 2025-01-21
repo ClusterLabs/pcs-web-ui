@@ -1,6 +1,6 @@
 import React from "react";
 
-import {ActionLeaf} from "app/store";
+import type {ActionLeaf} from "app/store";
 import {useDispatch} from "app/view/share";
 
 export const useClusterLoad = (clusterName: string) => {

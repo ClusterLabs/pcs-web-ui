@@ -5,7 +5,7 @@ import {
   NVPairListPage,
   NVPairToolbar,
 } from "app/view/cluster/share";
-import {Primitive} from "app/view/cluster/types";
+import type {Primitive} from "app/view/cluster/types";
 
 const {meta: nvpairs} = testMarks.cluster.resources.currentPrimitive;
 const {pair, toolbar} = nvpairs;

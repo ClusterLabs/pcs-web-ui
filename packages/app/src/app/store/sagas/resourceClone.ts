@@ -1,5 +1,5 @@
 import {resourceClone, resourceUnclone} from "app/backend";
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 
 import {api, processClusterResultBasic} from "./common";
 

@@ -1,6 +1,6 @@
 import {checkAuthAgainstNodes} from "app/backend";
 import {actionNewId} from "app/store";
-import {Action, ActionMap} from "app/store/actions";
+import type {Action, ActionMap} from "app/store/actions";
 
 import {
   api,

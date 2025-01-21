@@ -1,3 +1,4 @@
+import type React from "react";
 import {Checkbox as PfCheckbox} from "@patternfly/react-core";
 
 export const Checkbox = (props: {

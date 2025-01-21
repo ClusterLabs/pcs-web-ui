@@ -7,7 +7,7 @@ import {
   ConstraintRow,
   ConstraintValue,
 } from "../common";
-import {ConstraintOrderPair} from "../types";
+import type {ConstraintOrderPair} from "../types";
 
 import {ConstraintCellOrderScoreKind} from "./ConstraintCellOrderScoreKind";
 
@@ -32,9 +32,9 @@ export const ConstraintRowOrderPair = ({
             <ConstraintLink type="resource" id={constraint.then} />
             <strong>
               {` ${
-                constraint["then-action"]
-                || constraint["first-action"]
-                || "start"
+                constraint["then-action"] ||
+                constraint["first-action"] ||
+                "start"
               }s`}
             </strong>
           </DataListCell>

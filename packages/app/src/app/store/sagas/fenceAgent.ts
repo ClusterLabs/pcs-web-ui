@@ -1,9 +1,9 @@
 import {libClusterStonithAgentDescribeAgent} from "app/backend";
-import {Action, ActionMap} from "app/store/actions";
+import type {Action, ActionMap} from "app/store/actions";
 import * as selectors from "app/store/selectors";
 
 import {
-  api,
+  type api,
   authSafe,
   lib,
   log,

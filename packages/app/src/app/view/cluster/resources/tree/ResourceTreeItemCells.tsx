@@ -1,3 +1,4 @@
+import type React from "react";
 import {DataListCell, DataListItemCells} from "@patternfly/react-core";
 
 import {useLocation} from "app/view/share";

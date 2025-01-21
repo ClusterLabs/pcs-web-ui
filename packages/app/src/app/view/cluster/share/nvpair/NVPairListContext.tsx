@@ -1,7 +1,7 @@
 import React from "react";
 
-import {ActionPayload} from "app/store";
-import {NVPair} from "app/view/cluster/types";
+import type {ActionPayload} from "app/store";
+import type {NVPair} from "app/view/cluster/types";
 
 const NVPairListContext = React.createContext<{
   nvPairList: NVPair[];

@@ -1,5 +1,5 @@
 import {destroyCluster, removeCluster} from "app/backend";
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 
 import {api, log, processError, put, putNotification} from "./common";
 
@@ -30,8 +30,8 @@ export function* clusterDestroy({
     log.error(removeResult, `remove cluster ${payload.clusterName}`);
     yield putNotification(
       "ERROR",
-      "Cannot remove cluster from cluster list after successful cluster destroy."
-        + " You can try it later manually. Details in the browser console.",
+      "Cannot remove cluster from cluster list after successful cluster destroy." +
+        " You can try it later manually. Details in the browser console.",
     );
     return;
   }

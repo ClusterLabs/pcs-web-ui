@@ -1,7 +1,7 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 import {isCibTrue} from "app/store/tools";
 
-import {Cluster, StatusSeverity} from "../types";
+import type {Cluster, StatusSeverity} from "../types";
 
 import * as statusSeverity from "./statusSeverity";
 import {transformIssues} from "./issues";
@@ -99,8 +99,8 @@ const countNodesSeverity = (apiNodeList: ApiNode[]): StatusSeverity => {
 
 const getClusterStatus = (apiNodeList: ApiNode[]): Cluster["status"] => {
   if (
-    apiNodeList.every(n => n.status === "online")
-    && apiNodeList.some(n => "quorum" in n && n.quorum)
+    apiNodeList.every(n => n.status === "online") &&
+    apiNodeList.some(n => "quorum" in n && n.quorum)
   ) {
     return "running";
   }

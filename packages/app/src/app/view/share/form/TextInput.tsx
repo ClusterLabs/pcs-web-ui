@@ -1,3 +1,4 @@
+import type React from "react";
 import {TextInput as PfTextInput} from "@patternfly/react-core";
 
 type Props = React.ComponentProps<typeof PfTextInput>;

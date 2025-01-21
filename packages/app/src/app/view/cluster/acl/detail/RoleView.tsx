@@ -2,7 +2,7 @@ import {testMarks} from "app/view/dataTest";
 import {Router, UrlTabs, useUrlTabs} from "app/view/share";
 import {DetailLayout, useLoadedCluster} from "app/view/cluster/share";
 
-import {AclType} from "../types";
+import type {AclType} from "../types";
 
 import {RoleViewToolbar} from "./RoleViewToolbar";
 import {getAssignedSubjectIdList} from "./tools";

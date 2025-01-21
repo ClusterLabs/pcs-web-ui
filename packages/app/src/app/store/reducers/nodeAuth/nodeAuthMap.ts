@@ -1,4 +1,4 @@
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 import {nodeAuth} from "./nodeAuth";
 
@@ -28,9 +28,9 @@ export const nodeAuthMap: AppReducer<typeof initialState> = (
 
     default:
       if (
-        "key" in action
-        && "process" in action.key
-        && action.key.process in state
+        "key" in action &&
+        "process" in action.key &&
+        action.key.process in state
       ) {
         return {
           ...state,

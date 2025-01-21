@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 
 import {uprefixFenceAgentName} from "app/store/tools";
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 type FenceAgentList = string[] | null;
 type FenceAgentListService = {

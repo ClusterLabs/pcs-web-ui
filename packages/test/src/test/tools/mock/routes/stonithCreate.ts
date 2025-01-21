@@ -1,6 +1,6 @@
-import {RouteResponse} from "../mock";
+import type {RouteResponse} from "../mock";
 
-import {LibClusterCommandPayload, libCluster} from "./libCluster";
+import {type LibClusterCommandPayload, libCluster} from "./libCluster";
 
 export const stonithCreate = ({
   clusterName,

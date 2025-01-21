@@ -1,7 +1,10 @@
-import {Locator, Page} from "playwright";
+import type {Locator, Page} from "playwright";
 
-import {EnvType} from "../envType";
-import {SubStructure, markStructure as testMarksStructure} from "../dataTest";
+import type {EnvType} from "../envType";
+import {
+  type SubStructure,
+  markStructure as testMarksStructure,
+} from "../dataTest";
 
 type LocatorArgs = Parameters<Page["locator"]>;
 type WithLocator<STRUCT extends SubStructure> = {
@@ -82,10 +85,10 @@ export const select = async (
 const appConfirmTitleIs = async (title: string) =>
   await isVisible(
     marks.task.confirm.locator.locator(
-      "xpath=/parent::*//*["
-        + "contains(@class, 'pf-v5-c-modal-box__title-text')"
-        + ` and text()='${title}'`
-        + "]",
+      "xpath=/parent::*//*[" +
+        "contains(@class, 'pf-v5-c-modal-box__title-text')" +
+        ` and text()='${title}'` +
+        "]",
     ),
   );
 export const appConfirm = {
@@ -113,10 +116,10 @@ export const radioGroup = async (mark: Mark, value: string) => {
 
 export const fieldError = (mark: Mark) =>
   locatorFor(mark).locator(
-    "xpath=/parent::*/descendant-or-self::*["
-      + 'contains(@class, "pf-v5-m-error")'
-      + ' or contains(@class, "pf-m-error")'
-      + "]",
+    "xpath=/parent::*/descendant-or-self::*[" +
+      'contains(@class, "pf-v5-m-error")' +
+      ' or contains(@class, "pf-m-error")' +
+      "]",
   );
 
 export * as item from "./item";

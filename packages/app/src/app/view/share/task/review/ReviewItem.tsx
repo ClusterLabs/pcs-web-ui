@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {
   DescriptionListDescription,
   DescriptionListGroup,
@@ -24,11 +24,11 @@ export const ReviewItem = (props: {
 }) => {
   let value = props.value;
   if (
-    "useDefault" in props
-    && props.useDefault
-    && (("when" in props.useDefault && props.useDefault.when)
-      || ("whenValue" in props.useDefault
-        && props.value === props.useDefault.whenValue))
+    "useDefault" in props &&
+    props.useDefault &&
+    (("when" in props.useDefault && props.useDefault.when) ||
+      ("whenValue" in props.useDefault &&
+        props.value === props.useDefault.whenValue))
   ) {
     value = (
       <>

@@ -1,6 +1,6 @@
 import deepmerge from "deepmerge";
 
-import * as types from "dev/types";
+import type * as types from "dev/types";
 
 const overwriteMerge = (_destArr: unknown[], srcArr: unknown[]) => srcArr;
 

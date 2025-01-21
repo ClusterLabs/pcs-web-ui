@@ -1,4 +1,4 @@
-import * as responses from "dev/responses";
+import type * as responses from "dev/responses";
 
 import {mock} from "test/tools";
 

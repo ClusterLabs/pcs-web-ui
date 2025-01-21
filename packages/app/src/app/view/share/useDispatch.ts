@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch as useReduxDispatch} from "react-redux";
 
-import {Action} from "app/store";
+import type {Action} from "app/store";
 
 export const useDispatch = () => {
   const reduxDispatch = useReduxDispatch();

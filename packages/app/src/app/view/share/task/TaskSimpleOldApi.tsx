@@ -1,7 +1,7 @@
 import React from "react";
 import {Modal} from "@patternfly/react-core";
 
-import {selectors} from "app/store";
+import type {selectors} from "app/store";
 
 import {TaskContextProvider} from "./TaskContext";
 import {TaskProgress} from "./TaskProgress";
@@ -23,7 +23,7 @@ export const TaskSimpleOldApi = (props: {
   fail: React.ReactNode;
 
   title?: ModalProps["title"];
-  ["data-test"]?: string;
+  "data-test"?: string;
 }) => {
   return (
     <TaskContextProvider

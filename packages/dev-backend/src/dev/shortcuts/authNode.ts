@@ -37,8 +37,8 @@ const containPassword = (
   );
 
 const unableSaveOnBackend = (nodes: string[]) =>
-  `Unable to save settings on local cluster node(s) ${nodes.join(", ")}.`
-  + " Make sure pcsd is running on the nodes and the nodes are authorized.";
+  `Unable to save settings on local cluster node(s) ${nodes.join(", ")}.` +
+  " Make sure pcsd is running on the nodes and the nodes are authorized.";
 
 export const authGuiAgainstNodes = () =>
   app.authGuiAgainstNodes((req, res) => {
@@ -57,10 +57,10 @@ export const authGuiAgainstNodes = () =>
     if (containPassword(nodes, "conflict")) {
       res.json({
         plaintext_error:
-          "Configuration conflict detected."
-          + "\n\nSome nodes had a newer configuration than the local node."
-          + " Local node's configuration was updated."
-          + " Please repeat the last action if appropriate.",
+          "Configuration conflict detected." +
+          "\n\nSome nodes had a newer configuration than the local node." +
+          " Local node's configuration was updated." +
+          " Please repeat the last action if appropriate.",
       });
       return;
     }

@@ -1,4 +1,4 @@
-import {api, authGuiAgainstNodes} from "app/backend";
+import type {api, authGuiAgainstNodes} from "app/backend";
 
 export type NodeAuthActions = {
   "NODE.AUTH.START": {

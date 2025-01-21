@@ -1,4 +1,4 @@
-import {LauncherItem} from "./types";
+import type {LauncherItem} from "./types";
 
 export const tryFirstButtonPrimary = (
   buttonsItems: LauncherItem[],

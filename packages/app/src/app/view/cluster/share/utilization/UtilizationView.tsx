@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import {Alert, AlertActionLink, AlertGroup} from "@patternfly/react-core";
 
 import {location, useLocation} from "app/view/share";
@@ -23,8 +23,8 @@ export const UtilizationView = (props: {
       toolbar={props.toolbar}
       beforeList={
         <AlertGroup>
-          {hasCibInfo
-            && (
+          {hasCibInfo &&
+            (
               clusterProperties["placement-strategy"] ?? "default"
             ).toLowerCase() === "default" && (
               <Alert

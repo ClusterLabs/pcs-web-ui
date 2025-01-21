@@ -1,7 +1,7 @@
-import React from "react";
+import type React from "react";
 import {PageSection} from "@patternfly/react-core";
 
-import {LauncherItem} from "app/view/share/toolbar/types";
+import type {LauncherItem} from "app/view/share/toolbar/types";
 
 import {LaunchersToolbar} from "./LaunchersToolbar";
 

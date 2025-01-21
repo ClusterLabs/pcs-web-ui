@@ -1,10 +1,11 @@
+import type React from "react";
 import {Alert} from "@patternfly/react-core";
 import {Td} from "@patternfly/react-table";
 
 import {testMarks} from "app/view/dataTest";
 import {IssueList, Table} from "app/view/share";
 
-import {Cluster} from "./types";
+import type {Cluster} from "./types";
 import {DashboardCluster} from "./DashboardCluster";
 import {DashboardClusterNodes} from "./DashboardClusterNodes";
 import {DashboardClusterResources} from "./DashboardClusterResources";

@@ -1,6 +1,6 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 
-import {Cluster, StatusSeverity} from "../../types";
+import type {Cluster, StatusSeverity} from "../../types";
 import * as statusSeverity from "../statusSeverity";
 import {remapDeprecatedRoles} from "../remapDeprecatedRoles";
 
@@ -92,18 +92,17 @@ export const analyzeApiResources = (
             ),
             resourceOnNodeStatusList: [
               ...analyzed.resourceOnNodeStatusList,
-              ...filterApiPrimitive(apiPrimitiveList)
-                .map(takeResourceOnNodeStatus)
-                .flat(),
+              ...filterApiPrimitive(apiPrimitiveList).flatMap(
+                takeResourceOnNodeStatus,
+              ),
             ],
           };
         }
 
-        case "clone":
         default: {
           if (
-            apiResource.member.class_type === "group"
-            && filterApiPrimitive(apiResource.member.members).length === 0
+            apiResource.member.class_type === "group" &&
+            filterApiPrimitive(apiResource.member.members).length === 0
           ) {
             // don't care about clone with group of stonith only...
             return analyzed;
@@ -118,7 +117,7 @@ export const analyzeApiResources = (
             ),
             resourceOnNodeStatusList: [
               ...analyzed.resourceOnNodeStatusList,
-              ...apiPrimitiveList.map(takeResourceOnNodeStatus).flat(),
+              ...apiPrimitiveList.flatMap(takeResourceOnNodeStatus),
             ],
           };
         }

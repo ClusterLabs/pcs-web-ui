@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Alert, Form, Stack, StackItem} from "@patternfly/react-core";
 
 import {Switch} from "app/view/share/form";

@@ -13,9 +13,9 @@ app.removeCluster((req, res) => {
       .send(
         [
           "Configuration conflict detected.",
-          "Some nodes had a newer configuration than the local node."
-            + " Local node's configuration was updated."
-            + "  Please repeat the last action if appropriate.",
+          "Some nodes had a newer configuration than the local node." +
+            " Local node's configuration was updated." +
+            "  Please repeat the last action if appropriate.",
         ].join("\n\n"),
       );
     return;
@@ -25,9 +25,9 @@ app.removeCluster((req, res) => {
     res
       .status(400)
       .send(
-        "Unable to save settings on local cluster node(s) node-1, node-2."
-          + " Make sure pcsd is running on the nodes and the nodes are"
-          + " authorized.",
+        "Unable to save settings on local cluster node(s) node-1, node-2." +
+          " Make sure pcsd is running on the nodes and the nodes are" +
+          " authorized.",
       );
     return;
   }

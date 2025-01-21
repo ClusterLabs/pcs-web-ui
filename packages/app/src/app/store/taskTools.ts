@@ -1,4 +1,4 @@
-import {AppReducer} from "./reducers/appReducer";
+import type {AppReducer} from "./reducers/appReducer";
 
 export type TaskState = Record<string, unknown>;
 type ReducersMap<STATE extends TaskState> = {

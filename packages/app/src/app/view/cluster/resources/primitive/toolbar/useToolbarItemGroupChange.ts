@@ -1,5 +1,5 @@
-import {LauncherItem as ToolbarItem} from "app/view/share";
-import {Primitive} from "app/view/cluster/types";
+import type {LauncherItem as ToolbarItem} from "app/view/share";
+import type {Primitive} from "app/view/cluster/types";
 import {useOpenTask} from "app/view/task";
 import {selectGroups} from "app/view/cluster/resources/select";
 import {useLoadedCluster} from "app/view/cluster/share";

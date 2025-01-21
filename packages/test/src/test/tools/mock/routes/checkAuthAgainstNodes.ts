@@ -1,6 +1,6 @@
 import {endpoints} from "app/backend/endpoints";
 
-import {RequestData, RouteResponse} from "../mock";
+import type {RequestData, RouteResponse} from "../mock";
 
 export const checkAuthAgainstNodes = ({
   nodeNameList,

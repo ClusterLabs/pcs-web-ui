@@ -1,4 +1,4 @@
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 
 export type PermissionListForWrite =
   ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"]["permissionInfoList"];

@@ -1,7 +1,7 @@
-import React from "react";
+import type React from "react";
 import {Stack, StackItem} from "@patternfly/react-core";
 
-import {Issue} from "app/view/cluster/types";
+import type {Issue} from "app/view/cluster/types";
 
 import {IssueListEmpty} from "./IssueListEmpty";
 import {IssueListIssueDefault} from "./IssueListIssueDefault";

@@ -10,7 +10,7 @@ import {
   ConstraintRow,
   ConstraintValue,
 } from "../common";
-import {ConstraintTicketResource} from "../types";
+import type {ConstraintTicketResource} from "../types";
 
 export const ConstraintRowTicketResource = ({
   constraint,
@@ -38,14 +38,10 @@ export const ConstraintRowTicketResource = ({
           <ConstraintCellFake />
         </>
       }
-      content={
-        <>
-          <ConstraintValue
-            label="Loss policy"
-            value={constraint["loss-policy"]}
-          />
-        </>
-      }
+      content=<ConstraintValue
+        label="Loss policy"
+        value={constraint["loss-policy"]}
+      />
     />
   );
 };

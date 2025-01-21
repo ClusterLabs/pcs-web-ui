@@ -1,9 +1,9 @@
-const fs = require("fs");
+const fs = require("node:fs");
 
 const {argv} = process;
 
 if (argv.length !== 3) {
-  throw Error(`Usage: ${argv[0]} ${argv[1]} <package.json>`);
+  throw new Error(`Usage: ${argv[0]} ${argv[1]} <package.json>`);
 }
 
 const inputFileName = argv[2];
@@ -17,8 +17,8 @@ console.log(
         : Object.fromEntries(
             Object.entries(value).filter(
               ([pkgName]) =>
-                pkgName !== "confusing-browser-globals"
-                && !pkgName.match(/eslint/),
+                pkgName !== "confusing-browser-globals" &&
+                !pkgName.match(/eslint/),
             ),
           ),
     2,

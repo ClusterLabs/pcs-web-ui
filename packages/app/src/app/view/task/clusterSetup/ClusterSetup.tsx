@@ -49,9 +49,9 @@ export const ClusterSetup = () => {
           name: "Advanced options",
           component: <Transport />,
           canJumpTo:
-            isClusterNameValid
-            && areNodeNamesValid
-            && isClusterNameAndNodeCheckDoneValid,
+            isClusterNameValid &&
+            areNodeNamesValid &&
+            isClusterNameAndNodeCheckDoneValid,
           steps: [
             {
               name: "Transport links",

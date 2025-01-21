@@ -1,10 +1,10 @@
-import {ConstraintColocationPair, ConstraintColocationSet} from "../types";
+import type {ConstraintColocationPair, ConstraintColocationSet} from "../types";
 
 type Colocation = ConstraintColocationPair | ConstraintColocationSet;
 
 const isTogether = (constraint: Colocation) =>
-  constraint.score === "INFINITY"
-  || (constraint.score && !constraint.score.startsWith("-"));
+  constraint.score === "INFINITY" ||
+  (constraint.score && !constraint.score.startsWith("-"));
 
 export const ConstraintRowColocationTogether = ({
   constraint,

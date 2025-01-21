@@ -1,4 +1,4 @@
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 
 import {getInvalidPermissionIndexes} from "../common";
 import {useTaskCommon} from "../useTaskCommon";

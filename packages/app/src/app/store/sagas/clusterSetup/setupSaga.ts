@@ -1,5 +1,5 @@
 import {clusterSetup, rememberCluster} from "app/backend";
-import {Action, ActionMap} from "app/store/actions";
+import type {Action, ActionMap} from "app/store/actions";
 import {
   api,
   lib,
@@ -20,8 +20,8 @@ function* rememberClusterSaga(clusterName: string, nodeNameList: string[]) {
   if (result.type !== "OK") {
     yield putNotification(
       "ERROR",
-      "Cluster setup was done successfully but adding cluster to web ui failed."
-        + " Please add cluster to web ui manually by click on Add existing cluster",
+      "Cluster setup was done successfully but adding cluster to web ui failed." +
+        " Please add cluster to web ui manually by click on Add existing cluster",
     );
   }
 }

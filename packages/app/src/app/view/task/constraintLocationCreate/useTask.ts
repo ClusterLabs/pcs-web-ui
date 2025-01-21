@@ -1,4 +1,4 @@
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 import {isValidScore} from "app/view/share";
 
 import {useTaskCommon} from "../useTaskCommon";
@@ -17,8 +17,8 @@ export const useTask = () => {
     isResourceValid:
       state.resourceSpecification === "pattern" || state.resourceId.length > 0,
     isPatternValid:
-      state.resourceSpecification === "resource"
-      || state.resourcePattern.length > 0,
+      state.resourceSpecification === "resource" ||
+      state.resourcePattern.length > 0,
     isNodeValid:
       state.locationSpecification === "rule" || state.nodeName.length > 0,
     isRuleValid:

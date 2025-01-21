@@ -1,6 +1,6 @@
 import {FormText} from "app/view/share";
 
-import {Permission, UpdatePermissions} from "./types";
+import type {Permission, UpdatePermissions} from "./types";
 
 export const Scope = (props: {
   index: number;

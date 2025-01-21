@@ -1,4 +1,4 @@
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 export const resourceSetCreateFactory = <
   INITIAL_SET extends {resources: string[]},

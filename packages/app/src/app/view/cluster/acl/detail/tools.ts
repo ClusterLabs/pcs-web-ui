@@ -1,4 +1,4 @@
-import {Acls} from "../types";
+import type {Acls} from "../types";
 
 export const getAssignedSubjectIdList = (
   subjectMap: Acls["user"] | Acls["group"],

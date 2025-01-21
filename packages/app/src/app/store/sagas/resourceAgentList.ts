@@ -1,5 +1,5 @@
 import {libClusterResourceAgentListAgents} from "app/backend";
-import {Action, ActionMap} from "app/store/actions";
+import type {Action, ActionMap} from "app/store/actions";
 
 import {api, lib, log, processError, put, putTaskFailed} from "./common";
 

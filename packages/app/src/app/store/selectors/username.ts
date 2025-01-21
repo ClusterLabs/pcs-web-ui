@@ -1,4 +1,4 @@
-import {Root} from "./types";
+import type {Root} from "./types";
 
 export const getUsername = (state: Root) => state.username;
 

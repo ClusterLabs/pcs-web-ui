@@ -1,4 +1,4 @@
-import {Flex, FlexItem, FlexProps} from "@patternfly/react-core";
+import {Flex, FlexItem, type FlexProps} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {EmptyStateClusterStopped, Link} from "app/view/share";

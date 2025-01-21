@@ -1,7 +1,7 @@
 import {Button} from "@patternfly/react-core";
 import {TrashIcon} from "@patternfly/react-icons";
 
-import {UpdatePermissions} from "./types";
+import type {UpdatePermissions} from "./types";
 
 export const Remove = (props: {
   index: number;

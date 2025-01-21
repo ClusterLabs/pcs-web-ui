@@ -1,4 +1,4 @@
-import {Cluster} from "dev/types";
+import type {Cluster} from "dev/types";
 
 export const firstSet: Cluster["acls"] = {
   role: {

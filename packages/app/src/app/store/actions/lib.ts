@@ -1,5 +1,5 @@
-import {api} from "app/backend";
-import {LibReport} from "app/store/types";
+import type {api} from "app/backend";
+import type {LibReport} from "app/store/types";
 
 export type LibActions = {
   "LIB.CALL.CLUSTER": {

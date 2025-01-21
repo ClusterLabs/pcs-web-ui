@@ -5,8 +5,8 @@ const dispatchChange = pcsUiEnvAdapter.colorScheme.dispatchChangeEvent;
 const set = (forcedStyle?: string) => {
   const style = forcedStyle || getLocalStyle();
   if (
-    style === "dark"
-    || (style === "auto" && window.matchMedia?.(mediaQuery).matches)
+    style === "dark" ||
+    (style === "auto" && window.matchMedia?.(mediaQuery).matches)
   ) {
     document.documentElement.classList.add("pf-v5-theme-dark");
   } else {

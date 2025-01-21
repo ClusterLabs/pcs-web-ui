@@ -1,17 +1,16 @@
-/* eslint-disable import/max-dependencies */
-import {ClusterAddActions} from "./add";
-import {ClusterFixAuthActions} from "./fixAuth";
-import {ClusterListActions} from "./list";
-import {ClusterPermissionsActions} from "./permissions";
-import {ClusterPropertiesActions} from "./properties";
-import {ClusterSbdActions} from "./sbd";
-import {ClusterStatusActions} from "./status";
-import {ClusterTaskActions} from "./task";
-import {ClusterNVPairListActions} from "./nvpairList";
-import {ClusterAclActions} from "./acl";
-import {ClusterStopActions} from "./stop";
+import type {ClusterAddActions} from "./add";
+import type {ClusterFixAuthActions} from "./fixAuth";
+import type {ClusterListActions} from "./list";
+import type {ClusterPermissionsActions} from "./permissions";
+import type {ClusterPropertiesActions} from "./properties";
+import type {ClusterSbdActions} from "./sbd";
+import type {ClusterStatusActions} from "./status";
+import type {ClusterTaskActions} from "./task";
+import type {ClusterNVPairListActions} from "./nvpairList";
+import type {ClusterAclActions} from "./acl";
+import type {ClusterStopActions} from "./stop";
 
-// prettier-ignore
+// biome-ignore format:
 export type ClusterActions = (
   & ClusterAclActions
   & ClusterAddActions

@@ -1,5 +1,5 @@
-import {LibReport} from "app/store/types";
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {LibReport} from "app/store/types";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 export const initialState: {
   response:

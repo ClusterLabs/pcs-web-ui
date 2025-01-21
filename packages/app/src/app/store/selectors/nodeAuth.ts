@@ -1,4 +1,4 @@
-import {Root} from "./types";
+import type {Root} from "./types";
 
 export const getAuthNodeState = (id: number) => (state: Root) =>
   state.nodeAuthMap[id];

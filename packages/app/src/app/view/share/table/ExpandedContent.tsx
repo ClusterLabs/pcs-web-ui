@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {ExpandableRowContent, Td, Tr} from "@patternfly/react-table";
 
 export const ExpandedContent = ({

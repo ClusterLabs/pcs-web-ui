@@ -1,4 +1,4 @@
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 
 import {call, put, race, take} from "./common";
 

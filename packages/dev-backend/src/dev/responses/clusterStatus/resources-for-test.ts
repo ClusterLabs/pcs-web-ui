@@ -157,6 +157,7 @@ export const resourcesForTest = cluster("resourcesForTest", "ok", {
         first: "A",
         "first-action": "start",
         id: "order-A-G1-mandatory",
+        // biome-ignore lint/suspicious/noThenProperty:it is a backend format
         then: "GROUP-1",
         "then-action": "start",
       },
@@ -166,6 +167,7 @@ export const resourcesForTest = cluster("resourcesForTest", "ok", {
         "require-all": "true",
         score: "INFINITY",
         first: "A",
+        // biome-ignore lint/suspicious/noThenProperty:it is a backend format
         then: "GROUP-1",
       },
       {
@@ -174,6 +176,7 @@ export const resourcesForTest = cluster("resourcesForTest", "ok", {
         "require-all": "false",
         kind: "Mandatory",
         first: "Clone-1",
+        // biome-ignore lint/suspicious/noThenProperty:it is a backend format
         then: "A",
       },
       {

@@ -1,6 +1,6 @@
-import {Response} from "express";
+import type {Response} from "express";
 
-import {api, libCallCluster} from "app/backend";
+import type {api, libCallCluster} from "app/backend";
 
 import * as response from "dev/responses";
 

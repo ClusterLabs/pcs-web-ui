@@ -1,7 +1,7 @@
-import React from "react";
+import type React from "react";
 import {Label, Popover} from "@patternfly/react-core";
 
-import {Cluster} from "app/view/cluster/types";
+import type {Cluster} from "app/view/cluster/types";
 
 const statusMap: Record<
   Cluster["status"],
@@ -37,18 +37,16 @@ export const ClusterStatusLabel = (props: {
   return (
     <Popover
       headerContent={"Cluster status summary (meaning)"}
-      bodyContent={
-        <>
-          {Object.entries(statusMap).map(([status, {color, description}]) => (
-            <div key={status}>
-              <Label color={color} isCompact>
-                {status}
-              </Label>
-              {` ${description}`}
-            </div>
-          ))}
-        </>
-      }
+      bodyContent={Object.entries(statusMap).map(
+        ([status, {color, description}]) => (
+          <div key={status}>
+            <Label color={color} isCompact>
+              {status}
+            </Label>
+            {` ${description}`}
+          </div>
+        ),
+      )}
     >
       <Label
         color={statusMap[props.status].color}

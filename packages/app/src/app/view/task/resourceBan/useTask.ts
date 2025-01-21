@@ -1,4 +1,4 @@
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 
 import {useTaskCommon} from "../useTaskCommon";
 
@@ -11,8 +11,8 @@ export const useTask = () => {
     ...task,
     isNodeSettingConsistent: !state.useNode || state.node.length > 0,
     isConstraintLifetimeConsistent:
-      state.constraintHandling !== "expire"
-      || state.constraintLifetime.match(
+      state.constraintHandling !== "expire" ||
+      state.constraintLifetime.match(
         /^P(?!$)(\d+Y)?(\d+M)?(\d+W)?(\d+D)?(T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?$/,
       ) != null,
 
@@ -34,9 +34,9 @@ export const useTask = () => {
             payload: {
               resource_id: state.resourceId,
               ...(state.useNode ? {node: state.node} : {}),
-              ...(state.resourceType === "clone"
-              && state.isPromotable
-              && state.limitToPromoted
+              ...(state.resourceType === "clone" &&
+              state.isPromotable &&
+              state.limitToPromoted
                 ? {master: true}
                 : {}),
               ...(state.constraintHandling === "expire"

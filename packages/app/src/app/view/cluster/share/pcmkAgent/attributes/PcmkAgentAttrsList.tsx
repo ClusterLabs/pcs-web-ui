@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Primitive} from "app/view/cluster/types";
+import type {Primitive} from "app/view/cluster/types";
 import {
   AttributeHelpPopover,
   AttributeList,
@@ -8,7 +8,7 @@ import {
   AttributeValue,
 } from "app/view/share/attributes";
 
-import {AgentParameter} from "../types";
+import type {AgentParameter} from "../types";
 
 export const PcmkAgentAttrsList = ({
   agentAttributes,

@@ -1,5 +1,5 @@
 import {
-  CallResult,
+  type CallResult,
   endpoints,
   http,
   validate as validatePayload,

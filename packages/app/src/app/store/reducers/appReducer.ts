@@ -1,5 +1,5 @@
-import {Reducer} from "redux";
+import type {Reducer} from "redux";
 
-import {Action} from "app/store/actions";
+import type {Action} from "app/store/actions";
 
 export type AppReducer<S> = Reducer<S, Action>;

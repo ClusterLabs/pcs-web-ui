@@ -6,7 +6,7 @@ import {
   WrenchIcon,
 } from "@patternfly/react-icons";
 
-import {NodeService} from "app/view/cluster/types";
+import type {NodeService} from "app/view/cluster/types";
 
 export const NodeDaemonTr = ({
   serviceName,

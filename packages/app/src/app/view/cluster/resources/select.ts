@@ -1,4 +1,4 @@
-import {Cluster, Group} from "app/view/cluster/types";
+import type {Cluster, Group} from "app/view/cluster/types";
 
 const findInTopLevelAndGroup = (
   resource:
@@ -52,8 +52,8 @@ export const selectGroups = (resourceTree: Cluster["resourceTree"]) =>
         return [...groups, groupToIdGhost(resource)];
       }
       if (
-        resource.itemType === "clone"
-        && resource.member.itemType === "group"
+        resource.itemType === "clone" &&
+        resource.member.itemType === "group"
       ) {
         return [...groups, groupToIdGhost(resource.member)];
       }

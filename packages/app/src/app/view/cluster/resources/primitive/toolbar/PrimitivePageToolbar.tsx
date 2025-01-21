@@ -1,6 +1,9 @@
 import {testMarks} from "app/view/dataTest";
-import {Primitive} from "app/view/cluster/types";
-import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
+import type {Primitive} from "app/view/cluster/types";
+import {
+  LauncherDropdown,
+  type LauncherItem as ToolbarItem,
+} from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 import {useOpenMoveBanTask} from "app/view/cluster/resources";
 

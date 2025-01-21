@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {WizardFooter as PfWizardFooter} from "@patternfly/react-core/deprecated";
 
 export const TaskFooter = (

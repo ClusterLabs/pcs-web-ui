@@ -1,6 +1,6 @@
 import React from "react";
 
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 import {isValidScore, prepareScore} from "app/view/share";
 
 import {useTaskCommon} from "../useTaskCommon";

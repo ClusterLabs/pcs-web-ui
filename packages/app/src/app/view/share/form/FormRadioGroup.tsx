@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Flex, FlexItem} from "@patternfly/react-core";
 
 import {Radio} from "./Radio";
@@ -16,7 +16,7 @@ export function FormRadioGroup<OPTION extends string>({
   selected: OPTION;
   onChange: (_value: OPTION) => void;
   isDisabled?: React.ComponentProps<typeof Radio>["isDisabled"];
-  ["data-test"]?: string;
+  "data-test"?: string;
 }) {
   return (
     <Flex data-test={dataTest}>

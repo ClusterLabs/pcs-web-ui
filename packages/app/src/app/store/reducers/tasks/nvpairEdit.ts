@@ -1,5 +1,5 @@
-import {AppReducer} from "app/store/reducers/appReducer";
-import {ActionPayload} from "app/store/actions";
+import type {AppReducer} from "app/store/reducers/appReducer";
+import type {ActionPayload} from "app/store/actions";
 
 type Owner = ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
 type OperationType = ActionPayload["CLUSTER.NVPAIRS.EDIT"]["type"];

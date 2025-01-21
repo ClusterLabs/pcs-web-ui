@@ -98,8 +98,8 @@ export const PrepareNode = () => {
               variant="success"
               isInline
               title={
-                "The cluster node is authenticated"
-                + " and it is possible to add the cluster to web ui."
+                "The cluster node is authenticated" +
+                " and it is possible to add the cluster to web ui."
               }
               {...prepareNode.success.mark}
             />

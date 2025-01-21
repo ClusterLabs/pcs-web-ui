@@ -1,6 +1,9 @@
 import {assert} from "test/tools";
 
-const testTimeout = parseInt(process.env.PCS_WUI_TEST_TIMEOUT ?? "70000", 10);
+const testTimeout = Number.parseInt(
+  process.env.PCS_WUI_TEST_TIMEOUT ?? "70000",
+  10,
+);
 const username = process.env.PCSD_USERNAME_1 ?? "";
 const password = process.env.PCSD_PASSWORD_1 ?? "";
 const nodeName = process.env.PCSD_NODE_1 || "";

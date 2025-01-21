@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {PageSection, Stack, StackItem, Tab, Tabs} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";

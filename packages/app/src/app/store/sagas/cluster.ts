@@ -1,5 +1,5 @@
 import {clusterStatus} from "app/backend";
-import {Action} from "app/store/actions";
+import type {Action} from "app/store/actions";
 import {getClusterStoreInfo} from "app/store/selectors";
 
 import {api, dataLoad, fork, put, select} from "./common";

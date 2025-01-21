@@ -1,6 +1,5 @@
-/* eslint-disable import/max-dependencies */
 import {
-  Commands,
+  type Commands,
   libCluster,
   pcmkAgentDescribeAgent,
   pcmkAgentListAgents,

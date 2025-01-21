@@ -1,3 +1,4 @@
+import type React from "react";
 import {Label, ToolbarItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";

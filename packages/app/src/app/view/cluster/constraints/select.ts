@@ -1,4 +1,4 @@
-import {Cluster} from "app/view/cluster/types";
+import type {Cluster} from "app/view/cluster/types";
 
 type Constraints = NonNullable<Cluster["constraints"]>;
 

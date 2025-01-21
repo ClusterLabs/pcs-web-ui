@@ -6,7 +6,7 @@ import {
 } from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
-import {AclType} from "../types";
+import type {AclType} from "../types";
 
 import {RolesAssignedTo} from "./RolesAssignedTo";
 

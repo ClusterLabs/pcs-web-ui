@@ -1,4 +1,4 @@
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 
 import {useTaskCommon} from "../useTaskCommon";
 

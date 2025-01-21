@@ -1,9 +1,9 @@
 if (process.argv.length !== 9) {
   console.log(process.argv);
   console.error(
-    `Usage: ${process.argv[0]} ${process.argv[1]}`
-      + " <appTemplateDir> <srcDir> <outputDir>"
-      + " <outJs> <outCss> <outMedia> <outMain>",
+    `Usage: ${process.argv[0]} ${process.argv[1]}` +
+      " <appTemplateDir> <srcDir> <outputDir>" +
+      " <outJs> <outCss> <outMedia> <outMain>",
   );
   process.exit(1);
 }
@@ -27,16 +27,17 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const WebpackDevServer = require("webpack-dev-server");
+// biome-ignore lint/style/noVar:
 var forkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const createDevServerConfig = require("./config/webpackDevServer.config");
 
 // Tools like Cloud9 rely on this.
-const port = parseInt(process.env.PORT, 10) || 3000;
+const port = Number.parseInt(process.env.PORT, 10) || 3000;
 const host = process.env.HOST || "0.0.0.0";
 const prettyHost = host === "0.0.0.0" || host === "::" ? "localhost" : host;
 
@@ -90,8 +91,8 @@ compiler.hooks.done.tap("done", async stats => {
   }
   console.log("Compiled successfully!");
   console.log(
-    `In browser open http://${prettyHost}:${port}`
-      + ` or http://${allowedLanHost}:${port}`,
+    `In browser open http://${prettyHost}:${port}` +
+      ` or http://${allowedLanHost}:${port}`,
   );
 });
 
@@ -131,8 +132,8 @@ const proxyConfig = [
     },
     onError: (/*err*/ {code}, /*req*/ {headers, url}, res) => {
       const msg =
-        `Couldn't proxy request ${url}`
-        + ` from ${headers?.host} to ${proxy} (${code})`;
+        `Couldn't proxy request ${url}` +
+        ` from ${headers?.host} to ${proxy} (${code})`;
       console.log(msg);
       console.log(
         "See https://nodejs.org/api/errors.html#errors_common_system_errors\n",
@@ -168,8 +169,8 @@ const devServer = new WebpackDevServer(
 );
 devServer.start();
 
-["SIGINT", "SIGTERM"].forEach(function (sig) {
-  process.on(sig, function () {
+["SIGINT", "SIGTERM"].forEach(sig => {
+  process.on(sig, () => {
     devServer.close();
     process.exit();
   });

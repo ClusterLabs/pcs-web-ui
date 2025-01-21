@@ -1,4 +1,4 @@
-import {ResourceStatus} from "app/view/cluster/types";
+import type {ResourceStatus} from "app/view/cluster/types";
 import {ResourceStatusInfoListSigns, StatusIco} from "app/view/share";
 import {useGroupDetailViewContext} from "app/view/cluster/share";
 

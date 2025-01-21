@@ -1,4 +1,4 @@
-import {libCallCluster} from "./calls";
+import type {libCallCluster} from "./calls";
 
 export type ClusterCall = Parameters<typeof libCallCluster>[0]["command"];
 

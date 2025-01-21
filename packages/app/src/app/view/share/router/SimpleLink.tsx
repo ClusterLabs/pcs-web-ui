@@ -1,3 +1,4 @@
+import type React from "react";
 import {Button} from "@patternfly/react-core";
 
 export const SimpleLink = ({
@@ -9,7 +10,7 @@ export const SimpleLink = ({
 }: {
   onClick: () => void;
   label: React.ReactNode;
-  ["data-test"]?: string;
+  "data-test"?: string;
   strong?: boolean;
   isInline?: boolean;
 }) => {

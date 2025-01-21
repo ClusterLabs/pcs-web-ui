@@ -59,8 +59,9 @@ describe("Primitive meta attributes create", () => {
           response: {
             status: [
               400,
-              `Unable to set meta attribute '${metaAttr.name}=${metaAttr.value}'`
-                + ` for resource "'${resourceId}': Some stderr...`,
+              "Unable to set meta attribute" +
+                ` '${metaAttr.name}=${metaAttr.value}'` +
+                ` for resource "'${resourceId}': Some stderr...`,
             ],
           },
         }),

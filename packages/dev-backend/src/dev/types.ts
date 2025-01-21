@@ -1,5 +1,5 @@
-import {api} from "app/backend";
-import * as call from "app/backend";
+import type {api} from "app/backend";
+import type * as call from "app/backend";
 
 export type ImportedClusterList = api.PayloadOf<
   typeof call.importedClusterList
