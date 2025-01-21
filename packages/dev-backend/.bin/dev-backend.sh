@@ -17,12 +17,8 @@ run() {
     # shellcheck disable=SC1090
     . "$dev_config"
   fi
-  npx ts-node-dev \
+  npx tsx watch \
     -r tsconfig-paths/register \
-    -r esm \
-    --respawn \
-    --transpile-only \
-    --rs \
     "$scenario_dir/$scenario_name_selected"
 }
 
