@@ -70,8 +70,8 @@ app:
 build:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
 		mkdir -p $(APP_BUILD); \
-	  cp $(APP_SRC)/package-build.json $(APP_BUILD)/package.json; \
-	  cp $(APP_SRC)/package-build-lock.json $(APP_BUILD)/package-lock.json; \
+	  cp $(APP_SRC)/package.json $(APP_BUILD)/package.json; \
+	  cp $(APP_SRC)/package-lock.json $(APP_BUILD)/package-lock.json; \
 	fi
 
 	if [ ! -d $(APP_BUILD)/node_modules ]; then \
@@ -128,12 +128,11 @@ fmt:
 .PHONY: bump-version
 bump-version:
 	@node .bin/bump-version.js $(version)
-	@packages/app/.bin/package-build/generate.sh packages/app
 	@git commit -a -m "bump new version ($(version))"
 	@git tag -a -m "$(version) release" $(version) HEAD
 
 dist-hook:
-	$(abs_top_srcdir)/packages/app/.bin/package-build/fetch-and-pack.sh \
+	$(abs_top_srcdir)/packages/app/.bin/fetch-and-pack-node-modules.sh \
 		$(APP_SRC) \
 		packages/app \
 		$(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
@@ -166,10 +165,6 @@ clean-local:
 		rm -rf $(BUILD_DIR); \
 		rm -f ${abs_top_builddir}/.version; \
 	fi
-
-generate-package-build:
-	@packages/app/.bin/package-build/generate.sh packages/app
-
 
 npm_install:
 	@.bin/npm_install.sh ./packages
