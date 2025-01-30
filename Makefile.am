@@ -110,11 +110,11 @@ init_nexus:
 
 init:
 	@if [ "${NEXUS_REPO}" ] && [ "${NEXUS_REPO}" = "false" ]; then \
+		echo "If you will need reinit with the Nexus repo run \`make init\`"; \
+		.bin/init.sh; \
+	else \
 		echo "Use \`make init NEXUS_REPO=false\` not to use the Nexus repo."; \
 		.bin/init.sh ${NEXUS}; \
-	else \
-		echo "If you will need reinit with the Nexus repo run \`make init\`"
-		.bin/init.sh
 	fi
 
 check_sources:
