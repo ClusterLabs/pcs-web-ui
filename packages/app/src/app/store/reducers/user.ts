@@ -1,4 +1,4 @@
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 const initialState: {
   isLoaded: boolean;

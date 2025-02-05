@@ -1,9 +1,9 @@
 import {login, logout} from "app/backend";
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 
 import {log} from "./common";
 import {
-  api,
+  type api,
   call,
   processError,
   put,

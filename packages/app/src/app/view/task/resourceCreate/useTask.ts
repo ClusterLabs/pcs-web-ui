@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 
-import {ActionPayload, selectors} from "app/store";
+import {type ActionPayload, selectors} from "app/store";
 
 import {useTaskCommon} from "../useTaskCommon";
 
@@ -23,20 +23,19 @@ export const useTask = () => {
     ...task,
     clusterName,
     groupIdList: state.groupIdStructureList.map(g => g.id),
-    isAgentLoaded: agentInfo !== null && agentInfo.isAgentLoaded,
+    isAgentLoaded: agentInfo?.isAgentLoaded,
 
     // validations
     isNameTypeValid:
       state.resourceName.length > 0 && state.agentName.length > 0,
 
     areInstanceAttrsValid:
-      agentInfo !== null
-      && agentInfo.isAgentLoaded
-      && agentInfo.agent.parameters.every(
+      agentInfo?.isAgentLoaded &&
+      agentInfo.agent.parameters.every(
         param =>
-          !param.required
-          || ("deprecated" in param && param.deprecated)
-          || param.name in state.instanceAttrs,
+          !param.required ||
+          ("deprecated" in param && param.deprecated) ||
+          param.name in state.instanceAttrs,
       ),
 
     areSettingsValid: state.useGroup !== "new" || state.group.length > 0,

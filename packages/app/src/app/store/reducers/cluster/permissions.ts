@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 
-import {ActionPayload} from "app/store/actions";
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {ActionPayload} from "app/store/actions";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 type Payload = ActionPayload["CLUSTER.PERMISSIONS.LOAD.OK"];
 type ClusterPermissions = Payload["apiClusterPermissions"];

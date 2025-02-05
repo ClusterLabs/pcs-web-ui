@@ -1,7 +1,7 @@
-import React from "react";
+import type React from "react";
 import {Level, LevelItem, StackItem} from "@patternfly/react-core";
 
-import {Badge, types} from "../notification";
+import {Badge, type types} from "../notification";
 
 export const PageToolbar = ({
   breadcrumbs,

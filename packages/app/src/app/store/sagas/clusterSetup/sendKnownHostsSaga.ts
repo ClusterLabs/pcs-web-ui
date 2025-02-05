@@ -1,5 +1,5 @@
 import {sendKnownHostsToNode} from "app/backend";
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 
 import {api, errorMessage, processError, put, race, take} from "../common";
 

@@ -1,4 +1,4 @@
-import {ResourceStatus} from "app/view/cluster/types";
+import type {ResourceStatus} from "app/view/cluster/types";
 import {StatusSign} from "app/view/share/StatusSign";
 import {toLabel} from "app/view/share/utils";
 import {compareStatusSeverity} from "app/view/share/compareStatusSeverity";

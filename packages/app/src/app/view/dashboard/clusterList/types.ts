@@ -1,4 +1,4 @@
-import {selectors} from "app/store";
+import type {selectors} from "app/store";
 
 export type ClusterInfo = ReturnType<
   ReturnType<typeof selectors.getClusterStoreInfoList>

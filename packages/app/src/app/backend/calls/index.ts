@@ -1,4 +1,3 @@
-/* eslint-disable import/max-dependencies */
 export * from "./authGuiAgainstNodes";
 export * from "./addMetaAttrRemote";
 export * from "./addNodeAttrRemote";

@@ -1,4 +1,5 @@
-import {NVPair} from "app/view/cluster/types";
+import type React from "react";
+import type {NVPair} from "app/view/cluster/types";
 
 import {NVPairListItemContextProvider} from "./NVPairListItemContext";
 

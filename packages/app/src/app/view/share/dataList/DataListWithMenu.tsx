@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {
   DataList,
   DataListAction,
@@ -8,7 +8,7 @@ import {
   DataListItemRow,
 } from "@patternfly/react-core";
 
-import {LauncherDropdown, LauncherItem} from "app/view/share/toolbar";
+import {LauncherDropdown, type LauncherItem} from "app/view/share/toolbar";
 import {EmptyStateNoItem} from "app/view/share/emptyState";
 import {tools} from "app/store";
 

@@ -4,7 +4,7 @@ import {ToolbarFilterAction} from "./ToolbarFilterActions";
 import {ToolbarFilterGroups} from "./ToolbarFilterGroups";
 import {ToolbarItem} from "./ToolbarItem";
 import {ToolbarTextSearchFilter} from "./ToolbarTextSearchFilter";
-import {LauncherItem} from "./types";
+import type {LauncherItem} from "./types";
 
 type FilterState = {
   groupState: React.ComponentProps<typeof ToolbarFilterGroups>["filterState"];
@@ -42,8 +42,8 @@ function useState<K extends string, I>(
             : ToolbarFilterGroups.includedGroupMembers({
                 groupInclusionMap,
                 groupMembershipMap: groupMembershipMap(i),
-              }))
-          && ToolbarTextSearchFilter.match(itemSearchableText(i), searchedText),
+              })) &&
+          ToolbarTextSearchFilter.match(itemSearchableText(i), searchedText),
       ),
     [
       groupInclusionMap,

@@ -1,6 +1,6 @@
-import {Task} from "redux-saga";
+import type {Task} from "redux-saga";
 
-import {Action, ActionMap, ActionPayload} from "app/store/actions";
+import type {Action, ActionMap, ActionPayload} from "app/store/actions";
 
 import {all, cancel, delay, fork, put, take} from "./effects";
 
@@ -37,7 +37,6 @@ export function* manage({
   fetch: Parameters<typeof fork>[1];
   getSyncId?: ((_action: Action) => string) | null;
 }) {
-  /* eslint-disable no-constant-condition, no-console */
   const syncMap: Record<
     string,
     {
@@ -103,7 +102,6 @@ export function* manage({
 export function* setUpDataReading() {
   let currents: ActionPayload["DATA_READING.SET_UP"]["readings"] = [];
 
-  /* eslint-disable no-constant-condition */
   while (true) {
     const {
       payload: {behavior, readings},

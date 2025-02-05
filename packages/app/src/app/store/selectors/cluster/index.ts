@@ -1,7 +1,7 @@
-import {ClusterStorageItem, Root} from "../types";
+import type {ClusterStorageItem, Root} from "../types";
 
 import {
-  ClusterSelector as TClusterSelector,
+  type ClusterSelector as TClusterSelector,
   clusterStorageItemSelector,
 } from "./selectorsHelpers";
 
@@ -19,8 +19,8 @@ export type ClusterSelector<
   SELECTED,
 > = TClusterSelector<ARGS, SELECTED>;
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
+  // biome-ignore lint/suspicious/noExplicitAny:
   any[],
   infer SELECTED
 >
@@ -116,8 +116,8 @@ export const getAgentInfo =
     return {
       agent,
       isAgentLoaded:
-        agent
-        && (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING"),
+        agent &&
+        (agent.loadStatus === "LOADED" || agent.loadStatus === "RELOADING"),
       isAgentLoadFailed: agent && agent.loadStatus === "FAILED",
     };
   };

@@ -1,6 +1,6 @@
 import deepmerge from "deepmerge";
 
-import {ClusterPermissions} from "dev/types";
+import type {ClusterPermissions} from "dev/types";
 
 export const permissions = (
   diff: Partial<ClusterPermissions> = {},
@@ -28,8 +28,8 @@ export const permissions = (
           code: "full",
           label: "Full",
           description:
-            "Allows unrestricted access to a cluster including adding and removing"
-            + " nodes and access to keys and certificates",
+            "Allows unrestricted access to a cluster including adding and" +
+            " removing nodes and access to keys and certificates",
         },
       ],
       permissions_dependencies: {

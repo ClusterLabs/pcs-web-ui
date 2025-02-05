@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {FormGroup as PfFormGroup} from "@patternfly/react-core";
 
 import {AttributeHelpPopover} from "app/view/share/attributes";

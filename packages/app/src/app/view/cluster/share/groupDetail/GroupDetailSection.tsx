@@ -1,7 +1,7 @@
-import React from "react";
+import type React from "react";
 import {PageSection} from "@patternfly/react-core";
 
-import {DetailTypeList, useDetailMatch} from "./useDetailMatch";
+import {type DetailTypeList, useDetailMatch} from "./useDetailMatch";
 
 export const GroupDetailSection = (props: {
   children: React.ReactNode;

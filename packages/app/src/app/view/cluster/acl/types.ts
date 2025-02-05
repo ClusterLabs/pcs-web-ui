@@ -1,5 +1,5 @@
-import {ActionPayload} from "app/store";
-import {Cluster} from "app/view/cluster/types";
+import type {ActionPayload} from "app/store";
+import type {Cluster} from "app/view/cluster/types";
 
 export type Acls = Cluster["acls"];
 

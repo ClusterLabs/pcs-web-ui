@@ -21,7 +21,6 @@ yarn-error.log*
 pcs-web-ui-*
 pcs-web-ui.spec
 .npmrc
-.eslintcache
 
 stamps*
 

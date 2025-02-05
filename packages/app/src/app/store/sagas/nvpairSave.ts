@@ -4,7 +4,7 @@ import {
   setNodeUtilization,
   setResourceUtilization,
 } from "app/backend";
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 import {getNVPairTypeLabel, labelize} from "app/store/tools";
 
 import {api, processError, put, putNotification} from "./common";

@@ -1,8 +1,9 @@
+import type React from "react";
 import {Form} from "@patternfly/react-core";
 
 import {FormGroup} from "app/view/share";
 
-import {PermissionListForWrite} from "../types";
+import type {PermissionListForWrite} from "../types";
 
 type ItemComponent = (
   permission: PermissionListForWrite[number],
@@ -27,7 +28,7 @@ export const PermissionsForm = (props: {
               <th className="pf-v5-u-pb-md">Scope Type</th>
               <th className="pf-v5-u-pb-md">Scope</th>
               <th className="pf-v5-u-pb-md">Kind</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>

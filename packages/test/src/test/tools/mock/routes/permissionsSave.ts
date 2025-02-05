@@ -1,6 +1,6 @@
 import {endpoints} from "app/backend/endpoints";
 
-import {RouteResponse} from "../mock";
+import type {RouteResponse} from "../mock";
 
 import {paramsToBody} from "./tools";
 

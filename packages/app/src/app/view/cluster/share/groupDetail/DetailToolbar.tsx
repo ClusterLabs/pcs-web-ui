@@ -1,8 +1,8 @@
-import React from "react";
+import type React from "react";
 import {Toolbar, ToolbarContent, ToolbarItem} from "@patternfly/react-core";
 
 import {LauncherToolbarButtonGroup} from "app/view/share/toolbar";
-import {LauncherItem} from "app/view/share/toolbar/types";
+import type {LauncherItem} from "app/view/share/toolbar/types";
 
 import {DetailLayoutClose} from "./DetailLayoutClose";
 

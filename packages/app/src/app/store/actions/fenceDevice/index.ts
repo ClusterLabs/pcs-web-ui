@@ -1,7 +1,7 @@
-import {FenceDeviceCreateActions} from "./create";
-import {FenceDeviceEditArgsActions} from "./editArgs";
+import type {FenceDeviceCreateActions} from "./create";
+import type {FenceDeviceEditArgsActions} from "./editArgs";
 
-// prettier-ignore
+// biome-ignore format:
 export type FenceDeviceActions = (
   & FenceDeviceCreateActions
   & FenceDeviceEditArgsActions

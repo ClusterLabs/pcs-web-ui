@@ -8,28 +8,13 @@ if [ "$#" -ne 3 ]; then
   exit 1
 fi
 
-exec="$(dirname "$0")"
 package_dir=$(realpath "$1")
 app_relative_path="$2"
 archive_path=$(realpath "$3")
 
 package="$package_dir"/package.json
-package_build="$package_dir"/"$("$exec"/fname.sh)"
-package_build_lock="$package_dir"/"$("$exec"/fname.sh -l)"
+package_lock="$package_dir"/package-lock.json
 npmrc="$package_dir"/.npmrc
-
-if ! "$exec"/check-package.sh "$package_dir" > /dev/null; then
-  echo It seems that difference between "$package" and "$package_build" is not \
-    just eslint. Please regenerate "$package_build" by running \
-    '"make generate-package-build"'
-  exit 1
-fi
-
-if ! "$exec"/check-lock.sh "$package_dir" > /dev/null; then
-  echo It seems that "$package_build_lock" does not match "$package_build" \
-    Please regenerate it by running '"make generate-package-build"'
-  exit 1
-fi
 
 temp_dir=$(mktemp -d)
 # We need to keep the same relative path to node_modules as from pcs-web-ui root
@@ -40,8 +25,8 @@ temp_app_dir="$temp_dir"/"$app_relative_path"
 mkdir -p "$temp_app_dir"
 node_modules="$temp_app_dir"/node_modules
 
-cp "$package_build" "$temp_app_dir"/package.json
-cp "$package_build_lock" "$temp_app_dir"/package-lock.json
+cp "$package" "$temp_app_dir"/package.json
+cp "$package_lock" "$temp_app_dir"/package-lock.json
 if [ -f "$npmrc" ]; then
   cp "$npmrc" "$temp_app_dir"/.npmrc
 fi
@@ -50,7 +35,8 @@ fi
 echo Fetching node_modules:
 npm ci --prefix="$temp_app_dir"
 
-echo \\nPatching node_modules:
+echo
+echo Patching node_modules:
 files_to_patch="\
     babel-loader/lib/cache.js \
   "
@@ -63,7 +49,8 @@ for file in $files_to_patch; do
   sed --in-place "$substitution" "$node_modules/$file"
 done
 
-echo \\nPacking node_modules to "$archive_path":
+echo
+echo Packing node_modules to "$archive_path":
 tar --create --xz \
   --file "$archive_path" \
   --directory "$temp_dir" \

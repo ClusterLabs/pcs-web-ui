@@ -1,5 +1,5 @@
 import {authGuiAgainstNodes} from "app/backend";
-import {ActionMap} from "app/store";
+import type {ActionMap} from "app/store";
 
 import {api, put, take} from "./common";
 
@@ -69,16 +69,16 @@ export function* nodeAuthWait(authProcessId: number) {
       payload: {response},
     } = action;
     if (
-      key.process === authProcessId
-      && response.plaintext_error.length === 0
-      && !(
-        "local_cluster_node_auth_error" in response
-        && response.local_cluster_node_auth_error !== undefined
-        && Object.keys(response.local_cluster_node_auth_error).length > 0
-      )
-      && "node_auth_error" in response
-      && response.node_auth_error
-      && Object.values(response.node_auth_error).every(v => v === 0)
+      key.process === authProcessId &&
+      response.plaintext_error.length === 0 &&
+      !(
+        "local_cluster_node_auth_error" in response &&
+        response.local_cluster_node_auth_error !== undefined &&
+        Object.keys(response.local_cluster_node_auth_error).length > 0
+      ) &&
+      "node_auth_error" in response &&
+      response.node_auth_error &&
+      Object.values(response.node_auth_error).every(v => v === 0)
     ) {
       return;
     }

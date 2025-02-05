@@ -2,7 +2,7 @@ import React from "react";
 import {StackItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Primitive} from "app/view/cluster/types";
+import type {Primitive} from "app/view/cluster/types";
 import {
   PcmkAgentAttrsList,
   PcmkAgentAttrsToolbar,

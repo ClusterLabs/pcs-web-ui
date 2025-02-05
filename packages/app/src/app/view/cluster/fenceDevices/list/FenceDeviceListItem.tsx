@@ -6,7 +6,7 @@ import {
 } from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FenceDevice} from "app/view/cluster/types";
+import type {FenceDevice} from "app/view/cluster/types";
 
 import {FenceDeviceListCellStatus} from "./FenceDeviceListCellStatus";
 import {FenceDeviceListCellName} from "./FenceDeviceListCellName";

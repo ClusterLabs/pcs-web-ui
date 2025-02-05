@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Stack, StackItem} from "@patternfly/react-core";
 
 import {Radio} from "./Radio";

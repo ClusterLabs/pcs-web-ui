@@ -1,4 +1,4 @@
-import {ActionPayload, tools} from "app/store";
+import {type ActionPayload, tools} from "app/store";
 
 import {useTaskCommon} from "../useTaskCommon";
 
@@ -11,8 +11,8 @@ export const useTask = () => {
 
   const key = {clusterName, task: task.name};
   const integerIsExpectedAsValue =
-    state.owner.type === "node-utilization"
-    || state.owner.type === "resource-utilization";
+    state.owner.type === "node-utilization" ||
+    state.owner.type === "resource-utilization";
 
   const attrDesc = `${labelize(getNVPairTypeLabel(state.owner))} attribute`;
   const isCreate = state.type === "create";

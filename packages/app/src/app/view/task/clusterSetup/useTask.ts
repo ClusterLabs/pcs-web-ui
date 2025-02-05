@@ -1,7 +1,7 @@
 import React from "react";
 
-import {ActionPayload} from "app/store";
-import {TaskReport} from "app/view/share";
+import type {ActionPayload} from "app/store";
+import type {TaskReport} from "app/view/share";
 
 import {useTaskCommon} from "../useTaskCommon";
 

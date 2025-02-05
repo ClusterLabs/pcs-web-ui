@@ -10,8 +10,8 @@ app.fixAuthOfCluster((_req, res) => {
   res
     .status(400)
     .send(
-      "Old version of PCS/PCSD is running on cluster nodes."
-        + " Fixing authentication is not supported."
-        + " Use 'pcs host auth' command to authenticate the nodes.",
+      "Old version of PCS/PCSD is running on cluster nodes." +
+        " Fixing authentication is not supported." +
+        " Use 'pcs host auth' command to authenticate the nodes.",
     );
 });

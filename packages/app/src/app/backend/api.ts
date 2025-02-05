@@ -1,6 +1,6 @@
 import * as result from "./calls/tools/result";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// biome-ignore lint/suspicious/noExplicitAny:
 type Call<PAYLOAD> = (..._args: any[]) => Promise<result.Overall<PAYLOAD>>;
 
 export type ResultOf<APICALL> = APICALL extends Call<infer PAYLOAD>

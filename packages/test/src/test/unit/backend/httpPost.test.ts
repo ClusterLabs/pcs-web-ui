@@ -19,8 +19,8 @@ const mockFetch = (
     ...specificResponseParts,
   };
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
   return jest.spyOn(global, "fetch").mockImplementation(
+    // biome-ignore lint/suspicious/noExplicitAny:
     (): Promise<any> =>
       Promise.resolve({
         ...response,

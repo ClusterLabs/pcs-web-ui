@@ -25,14 +25,14 @@ export const PermissionsTable = () => {
           <th data-label="Name">Name</th>
           <th data-label="Type">Type</th>
           <th data-label="Read">
-            <>Read </>
+            Read
             <AttributeHelpPopover
               header={"Allows to view cluster settings"}
               body={""}
             />
           </th>
           <th data-label="Write">
-            <>Write </>
+            Write
             <AttributeHelpPopover
               header={
                 "Allows to modify cluster settings except permissions and ACLs"
@@ -41,14 +41,14 @@ export const PermissionsTable = () => {
             />
           </th>
           <th data-label="Grant">
-            <>Grant </>
+            Grant
             <AttributeHelpPopover
               header={"Allows to modify cluster permissions and ACLs"}
               body={""}
             />
           </th>
           <th data-label="Full">
-            <>Full </>
+            Full
             <AttributeHelpPopover
               header={
                 "Allows unrestricted access to a cluster except for adding nodes"

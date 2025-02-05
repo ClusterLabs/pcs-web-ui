@@ -7,7 +7,7 @@ import {
 
 import {testMarks} from "app/view/dataTest";
 import {Link} from "app/view/share";
-import {Node} from "app/view/cluster/types";
+import type {Node} from "app/view/cluster/types";
 import {StatusSign, toLabel} from "app/view/share";
 
 const {node: nodeMark} = testMarks.cluster.nodes.list;
@@ -48,10 +48,10 @@ export const NodeListItem = ({node}: {node: Node}) => {
                   }
                   label={
                     <strong {...nodeMark.quorum.mark}>
-                      {node.status === "DATA_NOT_PROVIDED"
-                        && "Unknown quorum status"}
-                      {node.status !== "DATA_NOT_PROVIDED"
-                        && (node.quorum ? "Has quorum" : "Does not have quorum")}
+                      {node.status === "DATA_NOT_PROVIDED" &&
+                        "Unknown quorum status"}
+                      {node.status !== "DATA_NOT_PROVIDED" &&
+                        (node.quorum ? "Has quorum" : "Does not have quorum")}
                     </strong>
                   }
                   showOkIco

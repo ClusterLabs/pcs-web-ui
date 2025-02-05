@@ -54,8 +54,8 @@ describe("Node attributes create", () => {
           response: {
             status: [
               400,
-              `Unable to set attribute '${attribute.name}=${attribute.value}'`
-                + ` for node "'${nodeName}': Some stderr...`,
+              `Unable to set attribute '${attribute.name}=${attribute.value}'` +
+                ` for node "'${nodeName}': Some stderr...`,
             ],
           },
         }),

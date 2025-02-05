@@ -1,5 +1,5 @@
 import {ConstraintCell, ConstraintCellFake} from "../common";
-import {ConstraintOrderPair, ConstraintOrderSet} from "../types";
+import type {ConstraintOrderPair, ConstraintOrderSet} from "../types";
 
 type ConstraintOrder = ConstraintOrderPair | ConstraintOrderSet;
 

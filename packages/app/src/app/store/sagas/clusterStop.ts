@@ -1,5 +1,5 @@
 import {clusterStop} from "app/backend";
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 
 import {api, errorMessage, log, put} from "./common";
 import {stripForceText} from "./clusterStopUtils";

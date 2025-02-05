@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  ToolbarChip,
-  ToolbarChipGroup,
+  type ToolbarChip,
+  type ToolbarChipGroup,
   ToolbarFilter,
 } from "@patternfly/react-core";
 
@@ -36,8 +36,8 @@ function allOrIncludedGroupMembers<T extends string>({
 }) {
   const groupList = Object.keys(groupInclusionMap) as Array<T>;
   return (
-    groupList.every(group => !groupInclusionMap[group])
-    || groupList.some(
+    groupList.every(group => !groupInclusionMap[group]) ||
+    groupList.some(
       group => groupInclusionMap[group] && groupMembershipMap[group],
     )
   );

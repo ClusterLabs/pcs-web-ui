@@ -3,7 +3,7 @@ import {DataListCell} from "@patternfly/react-core";
 import {remapDeprecatedRoles} from "app/store";
 
 import {ConstraintResourceInRole, ConstraintValue} from "../common";
-import {ConstraintTicketSet} from "../types";
+import type {ConstraintTicketSet} from "../types";
 import {
   ConstraintResourceSetRscLinks,
   ConstraintRowWithResourceSet,

@@ -1,4 +1,4 @@
-import {ClusterStorageItem, Root} from "./types";
+import type {ClusterStorageItem, Root} from "./types";
 
 export const getImportedClusterList = (state: Root) =>
   state.dashboard.clusterNameList;

@@ -1,7 +1,7 @@
 import {Alert, Tab, Tabs} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Group} from "app/view/cluster/types";
+import type {Group} from "app/view/cluster/types";
 import {ResourceDetailCaption, Router, useUrlTabs} from "app/view/share";
 import {DetailLayout} from "app/view/cluster/share";
 

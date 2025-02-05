@@ -4,7 +4,7 @@ import {tools} from "app/store";
 
 import {LauncherGroup} from "./LauncherGroup";
 import {Launcher} from "./Launcher";
-import {LauncherItem} from "./types";
+import type {LauncherItem} from "./types";
 
 export const LauncherToolbarButtonGroup = ({
   items = [],

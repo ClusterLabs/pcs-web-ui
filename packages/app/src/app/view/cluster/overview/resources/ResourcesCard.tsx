@@ -3,7 +3,7 @@ import {
   ExclamationTriangleIcon,
 } from "@patternfly/react-icons";
 
-import {Cluster} from "app/view/cluster/types";
+import type {Cluster} from "app/view/cluster/types";
 import {EmptyStateNoItem, Link, location} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 import {StatisticsIssueInfo} from "app/view/cluster/overview/StatisticsIssueInfo";

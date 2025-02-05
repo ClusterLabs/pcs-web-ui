@@ -2,7 +2,7 @@ import * as t from "io-ts";
 
 import {endpoints} from "app/backend/endpoints";
 
-import * as result from "./result";
+import type * as result from "./result";
 import * as validate from "./validate";
 import * as http from "./http";
 

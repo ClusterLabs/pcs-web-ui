@@ -1,7 +1,7 @@
 import {Th, Thead, Tr} from "@patternfly/react-table";
 
 import {Table} from "app/view/share";
-import {NodeServiceMap} from "app/view/cluster/types";
+import type {NodeServiceMap} from "app/view/cluster/types";
 
 import {NodeDaemonTr} from "./NodeDaemonTr";
 

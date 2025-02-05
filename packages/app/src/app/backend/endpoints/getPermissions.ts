@@ -53,8 +53,8 @@ const validate = (payload: t.TypeOf<typeof shape>) => {
         ...(permissionCodes.includes(key)
           ? []
           : [
-              `Permission dependency key "${key}"`
-                + ` is not in types: ${permissionCodes.join(", ")}`,
+              `Permission dependency key "${key}"` +
+                ` is not in types: ${permissionCodes.join(", ")}`,
             ]),
       ],
       [],

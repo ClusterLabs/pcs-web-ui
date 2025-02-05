@@ -1,9 +1,10 @@
+import type React from "react";
 import {Thead, Tr} from "@patternfly/react-table";
 
 import {Table, compareStatusSeverity} from "app/view/share";
 import {testMarks} from "app/view/dataTest";
 
-import {Cluster, ClusterInfo} from "./types";
+import type {Cluster, ClusterInfo} from "./types";
 import {compareStrings} from "./utils";
 
 const columnList = [
@@ -117,7 +118,7 @@ export const DashboardClusterListSorting = ({
           >
             Fence devices
           </SortableTh>
-          <th data-label=""></th>
+          <th data-label="" />
         </Tr>
       </Thead>
       {children(clusterInfoList.sort(compareItems(compareByColumn)))}

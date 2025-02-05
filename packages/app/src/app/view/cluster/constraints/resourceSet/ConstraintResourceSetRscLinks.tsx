@@ -1,6 +1,6 @@
-import React from "react";
+import type React from "react";
 
-import {ConstraintResourceSet} from "../types";
+import type {ConstraintResourceSet} from "../types";
 import {ConstraintLink} from "../common";
 
 type ResourceSetStructured = Extract<ConstraintResourceSet, {id: string}>;

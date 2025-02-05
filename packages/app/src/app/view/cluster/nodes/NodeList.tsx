@@ -1,7 +1,7 @@
 import {DataList} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Node} from "app/view/cluster/types";
+import type {Node} from "app/view/cluster/types";
 import {useGroupDetailViewContext} from "app/view/cluster/share";
 
 import {NodeListItem} from "./NodeListItem";

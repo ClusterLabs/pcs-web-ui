@@ -1,10 +1,7 @@
-import React from "react";
+import type React from "react";
 import {QuestionCircleIcon} from "@patternfly/react-icons";
 import {Popover} from "@patternfly/react-core";
-// prettier-ignore
-import {
-  global_disabled_color_100 as helpColor,
-} from "@patternfly/react-tokens";
+import {global_disabled_color_100 as helpColor} from "@patternfly/react-tokens";
 
 type PopoverProps = React.ComponentProps<typeof Popover>;
 

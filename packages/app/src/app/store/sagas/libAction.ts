@@ -1,5 +1,5 @@
 import {libCallCluster} from "app/backend";
-import {ActionMap, actionNewId} from "app/store/actions";
+import {type ActionMap, actionNewId} from "app/store/actions";
 
 import {api, lib, log, processError, put} from "./common";
 

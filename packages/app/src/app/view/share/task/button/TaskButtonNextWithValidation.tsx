@@ -1,3 +1,4 @@
+import type React from "react";
 import {useDispatch} from "app/view/share/useDispatch";
 import {ButtonWithEnter} from "app/view/share/ButtonWithEnter";
 

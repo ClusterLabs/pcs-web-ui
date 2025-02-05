@@ -1,4 +1,4 @@
-import {LibReport} from "app/store/types";
+import type {LibReport} from "app/store/types";
 
 export type ResourceGroupCreateActions = {
   "RESOURCE.GROUP.CREATE.INIT": {

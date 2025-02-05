@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Alert, Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
@@ -64,8 +64,8 @@ export const InstanceAttrsForm = () => {
                   variant="info"
                   isInline
                   title={
-                    "No instance attribute is required."
-                    + " Other available attributes can be added."
+                    "No instance attribute is required." +
+                    " Other available attributes can be added."
                   }
                 />
               )}
@@ -95,9 +95,9 @@ export const InstanceAttrsForm = () => {
                           isRequired={parameter.required}
                           showValidationErrors={showValidationErrors}
                           isValid={
-                            !parameter.required
-                            || (parameter.name in instanceAttrs
-                              && instanceAttrs[parameter.name].length > 0)
+                            !parameter.required ||
+                            (parameter.name in instanceAttrs &&
+                              instanceAttrs[parameter.name].length > 0)
                           }
                           helperTextInvalid={`${hint} ${parameter.name}`}
                           onChange={value =>

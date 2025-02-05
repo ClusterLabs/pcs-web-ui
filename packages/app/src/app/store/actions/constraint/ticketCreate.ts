@@ -1,4 +1,4 @@
-import {Role} from "./types";
+import type {Role} from "./types";
 
 type OptionalRole = "no limitation" | Role;
 type LossPolicy = "fence" | "stop" | "freeze" | "demote";

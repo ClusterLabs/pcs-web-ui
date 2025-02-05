@@ -25,8 +25,13 @@ EXTRA_DIST		= \
 			  .bin/check-no-nexus.sh \
 			  .bin/init_nexus.sh \
 			  .bin/init.sh \
-			  .bin/lint.sh \
 			  .bin/npm_install.sh \
+			  .bin/pre-commit/extract-extra-dist.sh \
+			  .bin/pre-commit/check-all.sh \
+			  .bin/pre-commit/check-format.sh \
+			  .bin/pre-commit/check-lint.sh \
+			  .bin/pre-commit/check-makefile-file-listing.sh \
+			  .bin/pre-commit/remove-nexus.sh \
 			  .bin/pre-commit.sh \
 			  .bin/render-spec.sh \
 			  .browserslistrc \
@@ -71,8 +76,8 @@ app:
 build:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
 		mkdir -p $(APP_BUILD); \
-	  cp $(APP_SRC)/package-build.json $(APP_BUILD)/package.json; \
-	  cp $(APP_SRC)/package-build-lock.json $(APP_BUILD)/package-lock.json; \
+	  cp $(APP_SRC)/package.json $(APP_BUILD)/package.json; \
+	  cp $(APP_SRC)/package-lock.json $(APP_BUILD)/package-lock.json; \
 	fi
 
 	if [ ! -d $(APP_BUILD)/node_modules ]; then \
@@ -121,21 +126,19 @@ check_sources:
 	@.bin/check-no-nexus.sh
 
 lint:
-	@.bin/lint.sh ./packages
+	@npx biome lint --error-on-warnings ./
 
 fmt:
-	npx prettier "packages/app/src/" --write
-	packages/app/node_modules/.bin/eslint --fix --ext .js,.ts,.tsx packages/app/src/
+	npx biome format --write ./
 
 .PHONY: bump-version
 bump-version:
 	@node .bin/bump-version.js $(version)
-	@packages/app/.bin/package-build/generate.sh packages/app
 	@git commit -a -m "bump new version ($(version))"
 	@git tag -a -m "$(version) release" $(version) HEAD
 
 dist-hook:
-	$(abs_top_srcdir)/packages/app/.bin/package-build/fetch-and-pack.sh \
+	$(abs_top_srcdir)/packages/app/.bin/fetch-and-pack-node-modules.sh \
 		$(APP_SRC) \
 		packages/app \
 		$(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
@@ -168,10 +171,6 @@ clean-local:
 		rm -rf $(BUILD_DIR); \
 		rm -f ${abs_top_builddir}/.version; \
 	fi
-
-generate-package-build:
-	@packages/app/.bin/package-build/generate.sh packages/app
-
 
 npm_install:
 	@.bin/npm_install.sh ./packages

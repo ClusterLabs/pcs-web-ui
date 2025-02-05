@@ -1,4 +1,4 @@
-import * as t from "io-ts";
+import type * as t from "io-ts";
 import {isRight} from "fp-ts/lib/Either";
 
 import {endpoints} from "app/backend/endpoints";
@@ -41,11 +41,15 @@ describe("Validation for cluster status", () => {
 
   // we are going to add unknown properties to clusterStatus (and to its
   // attributes), so clusterStatus is any (typescript would complain else)
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  let clusterStatus: any, nodeStatus: any;
+  // biome-ignore lint/suspicious/noExplicitAny: see in comment above
+  let clusterStatus: any;
+  // biome-ignore lint/suspicious/noExplicitAny: see in comment above
+  let nodeStatus: any;
 
   beforeEach(() => {
+    // biome-ignore lint/suspicious/noExplicitAny:
     clusterStatus = cluster("Cluster name", "ok", {}) as any;
+    // biome-ignore lint/suspicious/noExplicitAny:
     nodeStatus = node("1") as any;
   });
 

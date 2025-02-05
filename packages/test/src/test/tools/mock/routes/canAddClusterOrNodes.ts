@@ -1,6 +1,6 @@
 import {endpoints} from "app/backend/endpoints";
 
-import {RequestData, RouteResponse} from "../mock";
+import type {RequestData, RouteResponse} from "../mock";
 
 export const canAddClusterOrNodes = ({
   nodeNameList,
@@ -18,7 +18,7 @@ export const canAddClusterOrNodes = ({
       nodeNameList.length === 1 ? nodeNameList[0] : nodeNameList;
   }
   if (clusterName !== undefined) {
-    query["cluster"] = clusterName;
+    query.cluster = clusterName;
   }
   return {
     url: endpoints.canAddClusterOrNodes.url,

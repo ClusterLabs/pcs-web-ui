@@ -11,7 +11,7 @@ import {
   location,
 } from "app/view/share";
 
-import {Cluster, Resource} from "./types";
+import type {Cluster, Resource} from "./types";
 import {compareStrings} from "./utils";
 
 const columnList = ["NAME", "STATUS"] as const;

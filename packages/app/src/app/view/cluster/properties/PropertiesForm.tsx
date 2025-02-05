@@ -5,7 +5,7 @@ import {testMarks} from "app/view/dataTest";
 import {useDispatch} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 
-import {ClusterProperties} from "./useClusterProperties";
+import type {ClusterProperties} from "./useClusterProperties";
 import {PropertyFormField} from "./PropertyFormField";
 
 export const PropertiesForm = ({

@@ -79,8 +79,8 @@ export const DashboardApp = () => {
                 importedClusterNameList={importedClusterNameList}
               />
             )}
-            {loading.status === "IN_PROGRESS"
-              || (loading.status === "NOT_STARTED" && (
+            {loading.status === "IN_PROGRESS" ||
+              (loading.status === "NOT_STARTED" && (
                 <EmptyStateSpinner title="Loading data" />
               ))}
             {loading.status === "BACKEND_NOT_FOUND" && (

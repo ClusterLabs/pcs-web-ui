@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {Clone} from "app/view/cluster/types";
+import type {Clone} from "app/view/cluster/types";
 import {DetailToolbar} from "app/view/cluster/share";
 import {useOpenMoveBanTask} from "app/view/cluster/resources";
 import {LauncherDropdown} from "app/view/share";

@@ -1,6 +1,6 @@
-import * as t from "io-ts";
+import type * as t from "io-ts";
 
-import * as result from "./result";
+import type * as result from "./result";
 import * as validate from "./validate";
 
 const request = (
@@ -29,14 +29,14 @@ type Output = "TEXT" | "PAYLOAD";
 type ValidationOpts<OUT extends Output, PAYLOAD, O, I> = [OUT] extends ["TEXT"]
   ? undefined
   : [OUT] extends ["PAYLOAD"]
-  ? PayloadValidation<PAYLOAD, O, I>
-  : never;
+    ? PayloadValidation<PAYLOAD, O, I>
+    : never;
 
 type ApiResult<OUT extends Output, PAYLOAD = string> = [OUT] extends ["TEXT"]
   ? result.Overall<string>
   : [OUT] extends ["PAYLOAD"]
-  ? result.Overall<PAYLOAD>
-  : never;
+    ? result.Overall<PAYLOAD>
+    : never;
 
 const httpParams = (params: HttpParams): string =>
   params
@@ -101,7 +101,7 @@ async function processHttpResponse<OUT extends Output, PAYLOAD, O, I>(
     return errors.length > 0
       ? ({type: "INVALID_PAYLOAD", errors, payload} as AR)
       : ({type: "OK", payload} as AR);
-  } catch (e) {
+  } catch (_e) {
     return {type: "NOT_JSON", text} as AR;
   }
 }

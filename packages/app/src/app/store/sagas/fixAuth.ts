@@ -1,5 +1,5 @@
 import {fixAuthOfCluster} from "app/backend";
-import {ActionMap, actionNewId} from "app/store";
+import {type ActionMap, actionNewId} from "app/store";
 
 import {api, call, put, race, take} from "./common";
 import {nodeAuthWait} from "./nodeAuth";

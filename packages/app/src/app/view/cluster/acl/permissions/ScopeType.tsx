@@ -1,6 +1,6 @@
 import {FormRadios} from "app/view/share";
 
-import {Permission, UpdatePermissions} from "./types";
+import type {Permission, UpdatePermissions} from "./types";
 
 export const ScopeType = (props: {
   index: number;

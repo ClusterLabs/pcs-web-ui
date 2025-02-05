@@ -3,7 +3,7 @@ import {LauncherDropdown} from "app/view/share";
 import {useOpenTask} from "app/view/task";
 
 import {useLoadedPermissions} from "./LoadedPermissionsContext";
-import {Permission} from "./types";
+import type {Permission} from "./types";
 
 const {actions} = testMarks.cluster.permissions.permission;
 

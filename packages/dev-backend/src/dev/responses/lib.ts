@@ -1,6 +1,6 @@
 import deepmerge from "deepmerge";
 
-import {api, libCallCluster} from "app/backend";
+import type {api, libCallCluster} from "app/backend";
 
 type Response = api.PayloadOf<typeof libCallCluster>;
 type Report = Response["report_list"][number];
@@ -8,7 +8,7 @@ type PartialReport = {
   [KEY in keyof Report]?: Partial<Report[KEY]>;
 };
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// biome-ignore lint/suspicious/noExplicitAny:
 export const success = (props: {data?: any} = {data: null}): Response => ({
   status: "success",
   report_list: [],

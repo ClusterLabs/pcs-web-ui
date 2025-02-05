@@ -1,4 +1,4 @@
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 type NodeMap = Record<
   string,
@@ -84,9 +84,9 @@ export const nodeAuth: AppReducer<typeof initialState> = (
     case "NODE.AUTH.OK": {
       const {response} = action.payload;
       const unauthBackendNodes =
-        "local_cluster_node_auth_error" in response
-        && response.local_cluster_node_auth_error
-        && Object.keys(response.local_cluster_node_auth_error).length > 0
+        "local_cluster_node_auth_error" in response &&
+        response.local_cluster_node_auth_error &&
+        Object.keys(response.local_cluster_node_auth_error).length > 0
           ? Object.keys(response.local_cluster_node_auth_error)
           : [];
 
@@ -95,10 +95,10 @@ export const nodeAuth: AppReducer<typeof initialState> = (
         // local cluster) when there is something in plaintext_error. So,
         // results in "node_auth_error" are meningless - even when nodes was
         // successfully authenticated, the tokens was not saved on backend.
-        response.plaintext_error.length === 0
-        && unauthBackendNodes.length === 0
-        && "node_auth_error" in response
-        && response.node_auth_error
+        response.plaintext_error.length === 0 &&
+        unauthBackendNodes.length === 0 &&
+        "node_auth_error" in response &&
+        response.node_auth_error
       ) {
         const resultMap = response.node_auth_error;
         const failedNodes = selectNodes(resultMap, {success: false});
@@ -131,10 +131,10 @@ export const nodeAuth: AppReducer<typeof initialState> = (
             : []),
           ...(unauthBackendNodes.length > 0
             ? [
-                "Unable to save new cluster settings as the local cluster nodes"
-                  + ` (${unauthBackendNodes.join(", ")})`
-                  + " are not authenticated."
-                  + " Please, authenticate them as well.",
+                "Unable to save new cluster settings as the local cluster nodes" +
+                  ` (${unauthBackendNodes.join(", ")})` +
+                  " are not authenticated." +
+                  " Please, authenticate them as well.",
               ]
             : []),
         ],

@@ -11,7 +11,7 @@ import {
 } from "@patternfly/react-core";
 import {TrashIcon} from "@patternfly/react-icons";
 
-import {Action} from "app/store";
+import type {Action} from "app/store";
 import {useDispatch} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
 

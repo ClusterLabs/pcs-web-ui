@@ -1,7 +1,7 @@
-import * as types from "dev/types";
+import type * as types from "dev/types";
 import * as responses from "dev/responses";
 
-import {Route, run} from "./mock";
+import {type Route, run} from "./mock";
 import * as route from "./routes";
 
 export const withCluster = (

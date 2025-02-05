@@ -161,8 +161,6 @@ export const ConstraintFilteredList = ({
                       key={i}
                     />
                   );
-
-                case "Order (set)":
                 default:
                   return (
                     <ConstraintRowOrderSet

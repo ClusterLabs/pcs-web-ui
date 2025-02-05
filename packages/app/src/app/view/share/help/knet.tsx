@@ -1,4 +1,4 @@
-import {clusterSetup} from "app/backend";
+import type {clusterSetup} from "app/backend";
 
 import type {Help} from "./help";
 

@@ -1,5 +1,5 @@
-const path = require("path");
-const {createHash} = require("crypto");
+const path = require("node:path");
+const {createHash} = require("node:crypto");
 
 const TerserPlugin = require("terser-webpack-plugin");
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import {useClusterInfo} from "app/view/cluster/share";
+import type {useClusterInfo} from "app/view/cluster/share";
 
 type ClusterInfo = ReturnType<typeof useClusterInfo>;
 

@@ -56,11 +56,12 @@ function useSorting<COLUMN extends string>(
     [columnList, columnIndex],
   );
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
   const compareItems = (
+    // biome-ignore lint/suspicious/noExplicitAny:
     compareByColumn: (_column: COLUMN) => (_a: any, _b: any) => number,
   ) => {
     const compare = compareByColumn(column);
+    // biome-ignore lint/suspicious/noExplicitAny:
     return direction === "desc" ? (a: any, b: any) => compare(b, a) : compare;
   };
 
@@ -69,7 +70,7 @@ function useSorting<COLUMN extends string>(
       setColumnIndex(columnIndex);
       setDirection(sortDirection);
     },
-    [setDirection, setColumnIndex],
+    [],
   );
   const sortState: SortState<COLUMN> = {
     column,

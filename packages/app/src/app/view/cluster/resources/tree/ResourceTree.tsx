@@ -10,7 +10,7 @@ import {
 import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
 import {ResourceTreeItemClone} from "./ResourceTreeItemClone";
 import {ResourceTreeItemGroup} from "./ResourceTreeItemGroup";
-import {FilteredTree} from "./filter";
+import type {FilteredTree} from "./filter";
 
 export const ResourceTree = ({resourceTree}: {resourceTree: FilteredTree}) => {
   const {compact, selectedItemUrlName} = useGroupDetailViewContext();
@@ -61,8 +61,6 @@ export const ResourceTree = ({resourceTree}: {resourceTree: FilteredTree}) => {
                 nestingLevel={0}
               />
             );
-
-          case "clone":
           default:
             return (
               <ResourceTreeItemClone

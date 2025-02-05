@@ -1,6 +1,6 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 
-import {Cluster} from "../../types";
+import type {Cluster} from "../../types";
 import {transformIssues} from "../issues";
 
 import {statusToSeverity} from "./statusInfoList";
@@ -23,8 +23,6 @@ const transformStatus = (
 
     case "disabled":
       return "DISABLED";
-
-    case "running":
     default:
       return "RUNNING";
   }

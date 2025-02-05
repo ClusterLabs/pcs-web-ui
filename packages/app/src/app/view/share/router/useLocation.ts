@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 
-import {Path} from "./types";
+import type {Path} from "./types";
 
 const {location} = pcsUiEnvAdapter;
 

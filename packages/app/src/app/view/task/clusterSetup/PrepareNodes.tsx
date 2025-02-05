@@ -30,9 +30,9 @@ export const PrepareNodes = () => {
     <WizardContextConsumer>
       {({onBack}) => (
         <TaskLibStep title="Prepare nodes" reports={allReports}>
-          {(clusterAndNodesCheck === "can-add-started"
-            || clusterAndNodesCheck === "auth-check-started"
-            || clusterAndNodesCheck === "send-known-hosts-started") && (
+          {(clusterAndNodesCheck === "can-add-started" ||
+            clusterAndNodesCheck === "auth-check-started" ||
+            clusterAndNodesCheck === "send-known-hosts-started") && (
             <EmptyStateSpinner
               title={
                 {
@@ -51,8 +51,8 @@ export const PrepareNodes = () => {
               variant="danger"
               isInline
               title={
-                "Errors appeared during check if cluster name and nodes can be used"
-                + " for the new cluster"
+                "Errors appeared during check if cluster name and nodes can be used" +
+                " for the new cluster"
               }
               actionLinks={
                 <>

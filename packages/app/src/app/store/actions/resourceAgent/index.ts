@@ -1,7 +1,7 @@
-import {ResourceAgentAgentActions} from "./agent";
-import {ResourceAgentListActions} from "./list";
+import type {ResourceAgentAgentActions} from "./agent";
+import type {ResourceAgentListActions} from "./list";
 
-// prettier-ignore
+// biome-ignore format:
 export type ResourceAgentActions = (
   & ResourceAgentAgentActions
   & ResourceAgentListActions

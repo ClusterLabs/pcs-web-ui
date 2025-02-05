@@ -1,11 +1,11 @@
 import {addConstraintRemote, addConstraintRuleRemote} from "app/backend";
-import {ActionMap} from "app/store";
+import type {ActionMap} from "app/store";
 import {api, put} from "app/store/sagas/common";
 
 export function* create({key, payload}: ActionMap["CONSTRAINT.SINGLE.CREATE"]) {
   const backendCall =
-    "locationSpecification" in payload
-    && payload.locationSpecification === "rule"
+    "locationSpecification" in payload &&
+    payload.locationSpecification === "rule"
       ? api.authSafe(addConstraintRuleRemote, {
           clusterName: key.clusterName,
           constraint: payload.constraint,

@@ -4,9 +4,9 @@ import {DataList} from "@patternfly/react-core";
 import {tools} from "app/store";
 import {Card, EmptyStateNoItem} from "app/view/share";
 import {useGroupDetailViewContext} from "app/view/cluster/share";
-import {Acls} from "app/view/cluster/acl/types";
+import type {Acls} from "app/view/cluster/acl/types";
 
-import {AclType} from "../types";
+import type {AclType} from "../types";
 
 export const AclListCard = <ACL_TYPE extends "role" | "user" | "group">({
   aclList,

@@ -1,4 +1,4 @@
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 
 import {useTaskCommon} from "../useTaskCommon";
 
@@ -11,8 +11,8 @@ const prepareAttributes = (
   const changed = Object.entries(fenceDeviceArgs).reduce(
     (changedArgs, [name, value]) => {
       if (
-        !(name in originalFenceDeviceArgs)
-        || value !== originalFenceDeviceArgs[name]
+        !(name in originalFenceDeviceArgs) ||
+        value !== originalFenceDeviceArgs[name]
       ) {
         return {...changedArgs, [name]: value};
       }

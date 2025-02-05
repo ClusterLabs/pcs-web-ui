@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 import {FormGroup} from "./FormGroup";
 import {Switch} from "./Switch";
@@ -31,7 +31,7 @@ export const FormSwitch = ({
   isValid?: boolean;
   showValidationErrors?: boolean;
   popover?: FormGroupProps["popover"];
-  ["data-test"]?: string;
+  "data-test"?: string;
 }) => {
   return (
     <FormGroup

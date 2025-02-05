@@ -25,7 +25,7 @@ export const UserMenu = () => {
       setTheme(requestedTheme);
       setLocalStyle(requestedTheme);
     },
-    [setTheme],
+    [],
   );
   const dispatch = useDispatch();
   const username = useUsername();

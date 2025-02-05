@@ -1,6 +1,6 @@
 import {ReviewItem} from "app/view/share";
 
-import {useTask} from "./useTask";
+import type {useTask} from "./useTask";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
 

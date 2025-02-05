@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 export const DefaultValue = (props: {
   value: React.ReactNode;

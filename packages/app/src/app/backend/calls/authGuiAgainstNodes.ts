@@ -1,4 +1,4 @@
-import {CallResult, endpoints, http, t, validate} from "./tools";
+import {type CallResult, endpoints, http, type t, validate} from "./tools";
 
 const {url, shape, params} = endpoints.authGuiAgainstNodes;
 

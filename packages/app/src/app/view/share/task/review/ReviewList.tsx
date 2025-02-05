@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {DescriptionList} from "@patternfly/react-core";
 
 export const ReviewList = (

@@ -7,7 +7,7 @@ import {
   useLoadedCluster,
 } from "app/view/cluster/share";
 
-import {AclType} from "../types";
+import type {AclType} from "../types";
 
 import {RoleView} from "./RoleView";
 import {GroupView} from "./GroupView";
@@ -38,8 +38,8 @@ export const AclDetailPage = () => {
           <EmptyStateNoItem
             title={`ACL ${aclType} "${aclId}" does not exist.`}
             message={
-              `ACL ${aclType} "${aclId}"`
-              + ` does not exist in cluster "${clusterName}".`
+              `ACL ${aclType} "${aclId}"` +
+              ` does not exist in cluster "${clusterName}".`
             }
           />
         </StackItem>

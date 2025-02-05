@@ -1,6 +1,6 @@
 import {endpoints} from "app/backend/endpoints";
 
-import * as types from "dev/types";
+import type * as types from "dev/types";
 
 export const clusterStatus = ({
   clusterStatus,

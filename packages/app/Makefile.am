@@ -9,22 +9,10 @@ EXTRA_DIST		= \
 				.bin/build/structure.json \
 				.bin/build/webpack.config.js \
 				.bin/build/webpack.plugins.js \
-				.bin/package-build/check-package.sh \
-				.bin/package-build/check-lock.sh \
-				.bin/package-build/generate-hash.sh \
-				.bin/package-build/generate.sh \
-				.bin/package-build/fetch-and-pack.sh \
-				.bin/package-build/remove-eslint.js \
-				.bin/package-build/fname.sh \
-			  .eslintrc.common.js \
-			  .eslintrc.import.js \
-			  .eslintrc.js \
-			  .build.hash \
+				.bin/fetch-and-pack-node-modules.sh \
 			  org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml \
 			  package.json \
 			  package-lock.json \
-			  package-build.json \
-			  package-build-lock.json \
 			  public/index.html \
 			  public/manifestCockpit.json \
 			  public/manifest.json \

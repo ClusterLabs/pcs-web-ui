@@ -1,21 +1,20 @@
-/* eslint-disable import/max-dependencies */
-import {AuthActions} from "./auth";
-import {ClusterActions} from "./cluster";
-import {ConstraintAction} from "./constraint";
-import {DashboardActions} from "./dashboard";
-import {FenceAgentActions} from "./fenceAgent";
-import {LibActions} from "./lib";
-import {LoginActions} from "./login";
-import {NodeActions} from "./node";
-import {NotificationActions} from "./notifications";
-import {ResourceActions} from "./resource";
-import {FenceDeviceActions} from "./fenceDevice";
-import {ResourceAgentActions} from "./resourceAgent";
-import {UsernameActions} from "./username";
-import {UserActions} from "./user";
-import {TaskActions} from "./task";
+import type {AuthActions} from "./auth";
+import type {ClusterActions} from "./cluster";
+import type {ConstraintAction} from "./constraint";
+import type {DashboardActions} from "./dashboard";
+import type {FenceAgentActions} from "./fenceAgent";
+import type {LibActions} from "./lib";
+import type {LoginActions} from "./login";
+import type {NodeActions} from "./node";
+import type {NotificationActions} from "./notifications";
+import type {ResourceActions} from "./resource";
+import type {FenceDeviceActions} from "./fenceDevice";
+import type {ResourceAgentActions} from "./resourceAgent";
+import type {UsernameActions} from "./username";
+import type {UserActions} from "./user";
+import type {TaskActions} from "./task";
 
-// prettier-ignore
+// biome-ignore format:
 type LeafActionMap = (
   & AuthActions
   & ClusterActions

@@ -1,4 +1,3 @@
-/* eslint-disable import/max-dependencies */
 export * from "./button";
 export * from "./review";
 export * from "./TaskLibReportList";

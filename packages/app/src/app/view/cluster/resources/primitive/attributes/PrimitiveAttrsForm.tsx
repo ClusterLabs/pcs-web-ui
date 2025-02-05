@@ -1,9 +1,9 @@
 import React from "react";
 import {ActionGroup, Alert, Button, Form} from "@patternfly/react-core";
 
-import {Primitive} from "app/view/cluster/types";
+import type {Primitive} from "app/view/cluster/types";
 import {useDispatch} from "app/view/share";
-import {pcmkAgentTypes, useLoadedCluster} from "app/view/cluster/share";
+import {type pcmkAgentTypes, useLoadedCluster} from "app/view/cluster/share";
 
 import {PrimitiveAttrsFormItem} from "./PrimitiveAttrsFormItem";
 import {PrimitiveAttrsFormItemLayout} from "./PrimitiveAttrsFormItemLayout";
@@ -26,15 +26,15 @@ const collectUpdatedAttrs = (
   Object.keys(formMap).reduce(
     (a, n) => {
       if (
-        (instanceAttr(primitive, n) === formMap[n].initial
-          && formMap[n].value !== formMap[n].initial)
-        || formMap[n].srcChoice === "user"
+        (instanceAttr(primitive, n) === formMap[n].initial &&
+          formMap[n].value !== formMap[n].initial) ||
+        formMap[n].srcChoice === "user"
       ) {
         return {...a, [n]: formMap[n].value};
       }
       return a;
     },
-    /* eslint-disable @typescript-eslint/no-explicit-any */
+    // biome-ignore lint/suspicious/noExplicitAny:
     {} as Record<string, any>,
   );
 
@@ -44,8 +44,8 @@ const hasUndecidedSrc = (
 ) =>
   Object.keys(formMap).some(
     n =>
-      instanceAttr(primitive, n) !== formMap[n].initial
-      && formMap[n].srcChoice === "undecided",
+      instanceAttr(primitive, n) !== formMap[n].initial &&
+      formMap[n].srcChoice === "undecided",
   );
 
 const hasBackendChange = (
@@ -91,7 +91,7 @@ export const PrimitiveAttrsForm = ({
         ...formMap,
         [key]: {...formMap[key], value},
       }),
-    [formMap, setFormMap],
+    [formMap],
   );
 
   const chooseSrc = React.useCallback(
@@ -100,7 +100,7 @@ export const PrimitiveAttrsForm = ({
         ...formMap,
         [key]: {...formMap[key], srcChoice},
       }),
-    [formMap, setFormMap],
+    [formMap],
   );
 
   return (
@@ -110,8 +110,8 @@ export const PrimitiveAttrsForm = ({
           variant="warning"
           isInline
           title={
-            "One or more values in this form were updated by another user after"
-            + " you opened the form."
+            "One or more values in this form were updated by another user after" +
+            " you opened the form."
           }
         >
           Values that were updated will require an additional input from you on
@@ -127,8 +127,8 @@ export const PrimitiveAttrsForm = ({
             longdesc={parameter.longdesc}
             defaultValue={parameter.default}
             required={
-              formMap[parameter.name].initial
-              !== instanceAttr(primitive, parameter.name)
+              formMap[parameter.name].initial !==
+              instanceAttr(primitive, parameter.name)
             }
             key={parameter.name}
           >

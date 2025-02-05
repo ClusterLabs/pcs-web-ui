@@ -10,7 +10,7 @@ import {
   toLabel,
 } from "app/view/share";
 
-import {Cluster, ConnectedNode, Node} from "./types";
+import type {Cluster, ConnectedNode, Node} from "./types";
 import {compareStrings} from "./utils";
 
 type StatusSeverity = ConnectedNode["statusSeverity"];

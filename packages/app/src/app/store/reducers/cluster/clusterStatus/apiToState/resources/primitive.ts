@@ -1,6 +1,6 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 
-import {Cluster, Issue} from "../../types";
+import type {Cluster, Issue} from "../../types";
 import {transformIssues} from "../issues";
 
 import {buildStatus, isDisabled} from "./statusInfoList";
@@ -17,12 +17,12 @@ type Primitive = Extract<
 type StatusInfoList = Primitive["status"]["infoList"];
 
 const operationFailed = (operation: ApiPrimitive["operations"][number]) =>
-  operation.rc_code !== 0
+  operation.rc_code !== 0 &&
   // 7: OCF_NOT_RUNNING: The resource is safely stopped.
-  && !(operation.rc_code === 7 && operation.operation === "monitor")
+  !(operation.rc_code === 7 && operation.operation === "monitor") &&
   // 8: OCF_RUNNING_MASTER: The resource is running in master mode.
   // 193: PCMK_OCF_UNKNOWN: The resource operation is still in progress.
-  && ![8, 193].includes(operation.rc_code);
+  ![8, 193].includes(operation.rc_code);
 
 const buildStatusInfoList = (
   apiPrimitive: ApiPrimitive,
@@ -56,11 +56,11 @@ const buildStatusInfoList = (
   const someOperationFailed = apiPrimitive.operations.some(operationFailed);
 
   if (
-    !primitiveIsDisabled
-    && !someCrmStatusActive
-    && !apiPrimitive.crm_status.some(s => s.failed)
-    && apiPrimitive.error_list.length === 0
-    && someOperationFailed
+    !primitiveIsDisabled &&
+    !someCrmStatusActive &&
+    !apiPrimitive.crm_status.some(s => s.failed) &&
+    apiPrimitive.error_list.length === 0 &&
+    someOperationFailed
   ) {
     infoList.push({label: "FAILED", severity: "ERROR"});
   } else if (!someCrmStatusActive && !primitiveIsDisabled) {

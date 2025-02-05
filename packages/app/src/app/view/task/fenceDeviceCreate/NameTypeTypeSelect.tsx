@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {Flex, FlexItem, FlexProps, Spinner} from "@patternfly/react-core";
+import {Flex, FlexItem, type FlexProps, Spinner} from "@patternfly/react-core";
 
 import {selectors} from "app/store";
 import {testMarks} from "app/view/dataTest";

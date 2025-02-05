@@ -15,8 +15,8 @@ export const FenceDeviceDoesNotExists = ({
         <EmptyStateNoItem
           title={`Fence devicce "${fenceDeviceId}" does not exist.`}
           message={
-            `Fence device "${fenceDeviceId}"`
-            + ` does not exist in cluster "${clusterName}".`
+            `Fence device "${fenceDeviceId}"` +
+            ` does not exist in cluster "${clusterName}".`
           }
         />
       </StackItem>

@@ -1,6 +1,6 @@
 import {app} from "dev/app";
 import * as response from "dev/responses";
-import * as types from "dev/types";
+import type * as types from "dev/types";
 
 // basic
 export const importedClusterList = (

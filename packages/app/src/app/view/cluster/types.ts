@@ -1,4 +1,4 @@
-import {useLoadedCluster} from "app/view/cluster/share";
+import type {useLoadedCluster} from "app/view/cluster/share";
 
 export type Cluster = ReturnType<typeof useLoadedCluster>;
 

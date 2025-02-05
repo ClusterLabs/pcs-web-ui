@@ -1,6 +1,6 @@
 import {put} from "./effects";
 import {putNotification} from "./notifications";
-import * as api from "./api";
+import type * as api from "./api";
 import {processError} from "./apiCall";
 
 export function* clusterSuccess(clusterName: string, taskLabel: string) {

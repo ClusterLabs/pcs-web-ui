@@ -1,4 +1,4 @@
-import {addConstraintRemote, addConstraintRuleRemote} from "app/backend";
+import type {addConstraintRemote, addConstraintRuleRemote} from "app/backend";
 
 type Constraint = Parameters<typeof addConstraintRemote>[0]["constraint"];
 

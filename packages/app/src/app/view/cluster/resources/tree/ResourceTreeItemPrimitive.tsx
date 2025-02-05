@@ -1,7 +1,7 @@
 import {DataListItem, DataListItemRow} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {Primitive} from "app/view/cluster/types";
+import type {Primitive} from "app/view/cluster/types";
 
 import {ResourceTreeItemCells} from "./ResourceTreeItemCells";
 import {ResourceTreeCellName} from "./ResourceTreeCellName";

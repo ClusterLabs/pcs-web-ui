@@ -1,8 +1,8 @@
-import React from "react";
+import type React from "react";
 import {Toolbar, ToolbarContent, ToolbarItem} from "@patternfly/react-core";
 
 import {LauncherToolbarButtonGroup} from "./LauncherToolbarButtonGroup";
-import {LauncherItem} from "./types";
+import type {LauncherItem} from "./types";
 import {tryFirstButtonPrimary} from "./tools";
 
 export const LaunchersToolbar = ({

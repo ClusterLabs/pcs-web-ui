@@ -1,5 +1,5 @@
 import {clusterStart} from "app/backend";
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 
 import {api, put, putNotification} from "./common";
 

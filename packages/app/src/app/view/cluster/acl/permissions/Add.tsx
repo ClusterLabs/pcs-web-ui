@@ -1,7 +1,7 @@
 import {Button} from "@patternfly/react-core";
 import {PlusCircleIcon} from "@patternfly/react-icons";
 
-import {UpdatePermissions} from "./types";
+import type {UpdatePermissions} from "./types";
 
 export const Add = (props: {
   updatePermissions: UpdatePermissions;

@@ -1,4 +1,4 @@
-import {Issue} from "app/view/cluster/types";
+import type {Issue} from "app/view/cluster/types";
 import {Card, IssueList, IssueListIssueDefault} from "app/view/share";
 
 import {ClusterIssueNotAuth} from "./ClusterIssueNotAuth";

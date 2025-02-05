@@ -1,4 +1,4 @@
-import {Locator} from "playwright";
+import type {Locator} from "playwright";
 
 export async function textIs(pairs: [Mark, string][]): Promise<void>;
 export async function textIs(mark: Mark, expectedText: string): Promise<void>;

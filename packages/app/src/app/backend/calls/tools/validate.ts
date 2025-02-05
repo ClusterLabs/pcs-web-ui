@@ -1,4 +1,4 @@
-import * as t from "io-ts";
+import type * as t from "io-ts";
 import {isRight} from "fp-ts/lib/Either";
 import {PathReporter} from "io-ts/lib/PathReporter";
 

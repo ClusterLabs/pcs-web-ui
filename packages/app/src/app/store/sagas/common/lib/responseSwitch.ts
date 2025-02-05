@@ -1,4 +1,4 @@
-import {api, libCallCluster} from "app/backend";
+import type {api, libCallCluster} from "app/backend";
 
 type LibPayload = api.PayloadOf<typeof libCallCluster>;
 

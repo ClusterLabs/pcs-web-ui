@@ -4,7 +4,7 @@ import {
   Button,
   Flex,
   FlexItem,
-  FlexProps,
+  type FlexProps,
   MenuToggle,
   Select,
   SelectGroup,
@@ -134,7 +134,7 @@ export const NameTypeTypeSelect = () => {
     [itemsCount, currIndex],
   );
 
-  const open = React.useCallback(() => setIsOpen(true), [setIsOpen]);
+  const open = React.useCallback(() => setIsOpen(true), []);
   const close = () => setIsOpen(false);
   const switchOpen = () => setIsOpen(isOpenCurrently => !isOpenCurrently);
   const isFocused = (index: number) => currIndex === index;
@@ -237,7 +237,6 @@ export const NameTypeTypeSelect = () => {
             {Object.keys(filteredResourceAgentMap).map(group => (
               <SelectGroup label={group} key={group}>
                 {filteredResourceAgentMap[group].map(agentInfo => (
-                  /* eslint-disable react/no-array-index-key */
                   <SelectOption
                     id={optionId(agentInfo.fullAgentName)}
                     key={agentInfo.fullAgentName}

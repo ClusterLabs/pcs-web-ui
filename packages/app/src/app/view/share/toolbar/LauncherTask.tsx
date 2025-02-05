@@ -1,6 +1,6 @@
-import React from "react";
+import type React from "react";
 
-import {LauncherItem} from "./types";
+import type {LauncherItem} from "./types";
 
 type ItemTask = Extract<LauncherItem, {task: unknown}>;
 

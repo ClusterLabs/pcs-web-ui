@@ -21,8 +21,8 @@ export const TaskButtonReviewAndFinish = (props: {
           variant="tertiary"
           type="submit"
           onClick={
-            props.onClick
-            ?? (() => {
+            props.onClick ??
+            (() => {
               if (props.runIf || props.runIf === undefined) {
                 dispatch({
                   type: "TASK.VALIDATION.HIDE",

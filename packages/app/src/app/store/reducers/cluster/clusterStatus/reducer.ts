@@ -1,9 +1,9 @@
 import {combineReducers} from "redux";
 
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 import {apiToState} from "./apiToState";
-import {ClusterStatusService} from "./types";
+import type {ClusterStatusService} from "./types";
 
 const clusterData: AppReducer<ClusterStatusService["clusterData"]> = (
   state = null,

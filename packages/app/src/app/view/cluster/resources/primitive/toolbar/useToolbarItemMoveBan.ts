@@ -1,5 +1,5 @@
-import {LauncherItem as ToolbarItem} from "app/view/share";
-import {Primitive} from "app/view/cluster/types";
+import type {LauncherItem as ToolbarItem} from "app/view/share";
+import type {Primitive} from "app/view/cluster/types";
 import {useOpenMoveBanTask} from "app/view/cluster/resources";
 
 export const useToolbarItemMoveBan = (

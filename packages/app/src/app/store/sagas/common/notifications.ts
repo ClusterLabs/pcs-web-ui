@@ -1,6 +1,10 @@
-import {PutEffect} from "redux-saga/effects";
+import type {PutEffect} from "redux-saga/effects";
 
-import {ActionMap, ActionPayload, actionNewId} from "app/store/actions";
+import {
+  type ActionMap,
+  type ActionPayload,
+  actionNewId,
+} from "app/store/actions";
 
 import {delay, put} from "./effects";
 

@@ -1,5 +1,5 @@
 import {removeResource} from "app/backend";
-import {ActionMap, ActionPayload} from "app/store/actions";
+import type {ActionMap, ActionPayload} from "app/store/actions";
 
 import {api, processClusterResultBasic} from "./common";
 

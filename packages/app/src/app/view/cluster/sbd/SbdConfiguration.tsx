@@ -28,10 +28,10 @@ export const SbdConfiguration = () => {
         {(Object.keys(sbdConfig) as (keyof typeof sbdConfig)[])
           .filter(
             option =>
-              option !== "SBD_OPTS"
-              && option !== "SBD_PACEMAKER"
-              && option !== "SBD_WATCHDOG_DEV"
-              && option !== "SBD_DEVICE",
+              option !== "SBD_OPTS" &&
+              option !== "SBD_PACEMAKER" &&
+              option !== "SBD_WATCHDOG_DEV" &&
+              option !== "SBD_DEVICE",
           )
           .map(option => (
             <Tr key={option} {...config.mark}>

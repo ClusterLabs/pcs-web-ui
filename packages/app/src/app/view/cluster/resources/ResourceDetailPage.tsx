@@ -30,8 +30,6 @@ export const ResourceDetailPage = () => {
 
     case "fence-device":
       return <FenceDevicePage fenceDevice={resourceTreeItem} />;
-
-    case "clone":
     default:
       return <ClonePage clone={resourceTreeItem} />;
   }

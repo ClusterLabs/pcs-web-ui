@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {TextInput} from "@patternfly/react-core";
 
 import {FormGroup} from "./FormGroup";
@@ -30,7 +30,7 @@ export const FormText = ({
   popover?: FormGroupProps["popover"];
   placeholder?: string;
   isDisabled?: boolean;
-  ["data-test"]?: string | undefined;
+  "data-test"?: string | undefined;
 }) => {
   return (
     <FormGroup

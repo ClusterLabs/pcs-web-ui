@@ -1,6 +1,6 @@
-import {$CombinedState} from "redux";
+import type {$CombinedState} from "redux";
 
-import {root} from "app/store/reducers";
+import type {root} from "app/store/reducers";
 
 // combineReducers puts key $CombinedState
 // see https://github.com/reduxjs/redux/issues/3689 :(

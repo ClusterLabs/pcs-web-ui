@@ -7,7 +7,7 @@ import {ResourceTreeItemFenceDevice} from "./ResourceTreeItemFenceDevice";
 import {ResourceTreeCellName} from "./ResourceTreeCellName";
 import {ResourceTreeCellType} from "./ResourceTreeCellType";
 import {ResourceTreeCellStatus} from "./ResourceTreeCellStatus";
-import {EmptyableClone} from "./filter";
+import type {EmptyableClone} from "./filter";
 
 const {clone: cloneMark} = testMarks.cluster.resources.tree;
 

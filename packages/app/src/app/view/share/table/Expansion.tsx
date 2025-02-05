@@ -23,7 +23,7 @@ const useExpansion = ({
         </ExpansionToggle>
       );
     },
-    [expanded, setExpanded],
+    [expanded],
   );
 
   const Content = React.useCallback(

@@ -1,7 +1,10 @@
 import {testMarks} from "app/view/dataTest";
-import {Action} from "app/store";
-import {LauncherDropdown, LauncherItem as ToolbarItem} from "app/view/share";
-import {Node} from "app/view/cluster/types";
+import type {Action} from "app/store";
+import {
+  LauncherDropdown,
+  type LauncherItem as ToolbarItem,
+} from "app/view/share";
+import type {Node} from "app/view/cluster/types";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 

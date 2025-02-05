@@ -1,11 +1,10 @@
-import {EnvType} from "./envType";
+import type {EnvType} from "./envType";
 import {getLogin} from "./login";
 import * as locatorTools from "./locator";
 import {getGoToCluster, getGoToDashboard} from "./backend";
 import {getPage} from "./page";
 
 declare global {
-  /* eslint-disable no-var */
   var page: ReturnType<typeof getPage> extends Promise<infer P> ? P : never;
   var locatorFor: typeof locatorTools.locatorFor;
   var click: typeof locatorTools.click;

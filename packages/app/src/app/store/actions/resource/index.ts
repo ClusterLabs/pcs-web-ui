@@ -1,13 +1,13 @@
-import {ResourceCreateActions} from "./create";
-import {ResourceMoveActions} from "./move";
-import {ResourceBanActions} from "./ban";
-import {ResourceClearActions} from "./clear";
-import {ResourceActionsActions} from "./actions";
-import {ResourceGroupCreateActions} from "./groupCreate";
-import {ResourceSetActions} from "./resourceSet";
-import {ResourceGroupChangeActions} from "./groupChange";
+import type {ResourceCreateActions} from "./create";
+import type {ResourceMoveActions} from "./move";
+import type {ResourceBanActions} from "./ban";
+import type {ResourceClearActions} from "./clear";
+import type {ResourceActionsActions} from "./actions";
+import type {ResourceGroupCreateActions} from "./groupCreate";
+import type {ResourceSetActions} from "./resourceSet";
+import type {ResourceGroupChangeActions} from "./groupChange";
 
-// prettier-ignore
+// biome-ignore format:
 export type ResourceActions = (
   & ResourceCreateActions
   & ResourceMoveActions

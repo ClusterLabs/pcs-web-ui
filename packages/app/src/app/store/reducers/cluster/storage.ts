@@ -1,6 +1,6 @@
 import {combineReducers} from "redux";
 
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 import {clusterStatus} from "./clusterStatus";
 import {pcmkAgents} from "./pcmkAgents";
@@ -25,8 +25,8 @@ export const clusterStorage: AppReducer<ClusterStorage> = (
   action,
 ) => {
   if (
-    action.type === "AUTH.REQUIRED"
-    || action.type === "USER.PERMISSIONS_LOST"
+    action.type === "AUTH.REQUIRED" ||
+    action.type === "USER.PERMISSIONS_LOST"
   ) {
     return {};
   }

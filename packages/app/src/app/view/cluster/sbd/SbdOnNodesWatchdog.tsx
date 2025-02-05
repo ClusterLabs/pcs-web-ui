@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {Node} from "app/view/cluster/types";
+import type {Node} from "app/view/cluster/types";
 import {DefaultValue} from "app/view/share";
 
 const {watchdog, watchdogNotProvided, watchdogNotConfigured} =

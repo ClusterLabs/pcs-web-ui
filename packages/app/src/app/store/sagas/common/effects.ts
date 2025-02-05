@@ -1,7 +1,7 @@
 import {
-  ForkEffect,
-  PutEffect,
-  TakeEffect,
+  type ForkEffect,
+  type PutEffect,
+  type TakeEffect,
   all,
   call,
   cancel,
@@ -15,14 +15,14 @@ import {
   select,
 } from "redux-saga/effects";
 
-import {Action} from "app/store/actions";
+import type {Action} from "app/store/actions";
 
 export const put = (action: Action): PutEffect<Action> =>
   sagaPut<Action>(action);
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export function takeEvery<A extends Action>(
   typeOfAction: A["type"],
+  // biome-ignore lint/suspicious/noExplicitAny:
   worker: (_action: A) => any,
 ): ForkEffect<never> {
   return sagaTakeEvery(typeOfAction, worker);

@@ -1,5 +1,5 @@
-import {clusterSetup} from "app/backend";
-import {LibReport} from "app/store/types";
+import type {clusterSetup} from "app/backend";
+import type {LibReport} from "app/store/types";
 
 type SetupParams = Parameters<typeof clusterSetup>[0];
 

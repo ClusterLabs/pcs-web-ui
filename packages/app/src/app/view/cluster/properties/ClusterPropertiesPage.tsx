@@ -21,7 +21,10 @@ import {
 import {useLoadedCluster} from "app/view/cluster/share";
 
 import {PropertiesForm} from "./PropertiesForm";
-import {ClusterProperties, useClusterProperties} from "./useClusterProperties";
+import {
+  type ClusterProperties,
+  useClusterProperties,
+} from "./useClusterProperties";
 
 const useFilter = (): {
   filterState: ReturnType<

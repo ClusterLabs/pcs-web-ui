@@ -9,7 +9,7 @@ import {TimesIcon} from "@patternfly/react-icons";
 import {testMarks} from "app/view/dataTest";
 import {useDispatch} from "app/view/share/useDispatch";
 
-import {Notification} from "./types";
+import type {Notification} from "./types";
 import {severityToVariant} from "./severityToVariant";
 import {Description} from "./Description";
 
@@ -39,8 +39,8 @@ export const DrawerItem = ({notification}: {notification: Notification}) => {
     notification.severity === "SUCCESS"
       ? success
       : notification.severity === "INFO"
-      ? info
-      : error;
+        ? info
+        : error;
 
   return (
     <PfNotificationDrawerListItem

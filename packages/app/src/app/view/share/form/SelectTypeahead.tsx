@@ -52,7 +52,7 @@ export const SelectTypeahead = <OPT extends string>(props: {
     [itemsCount, currIndex],
   );
 
-  const open = React.useCallback(() => setIsOpen(true), [setIsOpen]);
+  const open = React.useCallback(() => setIsOpen(true), []);
   const close = () => setIsOpen(false);
   const switchOpen = () => setIsOpen(isOpenCurrently => !isOpenCurrently);
 
@@ -83,6 +83,8 @@ export const SelectTypeahead = <OPT extends string>(props: {
       case "ArrowDown":
         event.preventDefault();
         setCurrIndex(nextIndex);
+        break;
+      default:
         break;
     }
   };
@@ -148,7 +150,6 @@ export const SelectTypeahead = <OPT extends string>(props: {
       >
         <SelectList id="select-typeahead-listbox">
           {filteredOptions.map((option, i) => (
-            /* eslint-disable react/no-array-index-key */
             <SelectOption
               id={optionId(option)}
               key={option}

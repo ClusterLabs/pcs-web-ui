@@ -1,5 +1,5 @@
-import {AppReducer} from "app/store/reducers/appReducer";
-import {ActionPayload} from "app/store/actions";
+import type {AppReducer} from "app/store/reducers/appReducer";
+import type {ActionPayload} from "app/store/actions";
 
 type InitPayload = ActionPayload["RESOURCE.GROUP.CHANGE.INIT"];
 const initialState: Required<ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]> & {

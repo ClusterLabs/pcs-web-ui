@@ -66,8 +66,8 @@ export const Sbd = () => {
             variant="info"
             isInline
             title={
-              "Please specify the number of devices that is compatible with"
-              + " this cluster"
+              "Please specify the number of devices that is compatible with" +
+              " this cluster"
             }
           />
           {sbdDevices.map((device, i) => (

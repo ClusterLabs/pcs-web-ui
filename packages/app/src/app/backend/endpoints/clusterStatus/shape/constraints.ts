@@ -167,6 +167,7 @@ export const ApiConstraints = t.partial({
         t.intersection([
           t.type({
             first: ApiId,
+            // biome-ignore lint/suspicious/noThenProperty:it is a backend format
             then: ApiId,
           }),
           t.partial({

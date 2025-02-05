@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {Primitive} from "app/view/cluster/types";
+import type {Primitive} from "app/view/cluster/types";
 import {CrmStatusTable, IssueList, Link, location} from "app/view/share";
 import {
   DetailViewSection,
@@ -45,7 +45,6 @@ export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
           emptyMessage={`No status info form resource "${primitive.id}" found.`}
           rowObject={{
             header: "Node",
-            /* eslint-disable-next-line react/display-name */
             cell: crmStatus =>
               !crmStatus.node ? null : (
                 <Link

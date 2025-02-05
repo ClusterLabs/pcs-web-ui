@@ -28,7 +28,8 @@ const colorSchemeChangeEventName = "pcsd-standalone-style";
 
 // Variable pcsUiEnvAdapter will be used by main application included by another
 // javascript file
-/* eslint-disable-next-line */
+// biome-ignore lint/correctness/noUnusedVariables:see in comment above
+// biome-ignore lint/style/noVar:
 var pcsUiEnvAdapter = {
   showMasthead: true,
   request: async (path, headers, postBody) => {

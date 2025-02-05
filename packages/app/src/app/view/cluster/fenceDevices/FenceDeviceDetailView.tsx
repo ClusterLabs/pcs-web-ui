@@ -1,4 +1,4 @@
-import {FenceDevice} from "app/view/cluster/types";
+import type {FenceDevice} from "app/view/cluster/types";
 import {IssueList} from "app/view/share";
 import {
   DetailViewSection,

@@ -4,7 +4,6 @@
 export {};
 
 declare global {
-  /* eslint-disable-next-line  */
   var pcsUiEnvAdapter: {
     showMasthead: boolean;
     request: (

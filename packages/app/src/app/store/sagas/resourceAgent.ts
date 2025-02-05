@@ -1,6 +1,6 @@
 import {libClusterResourceAgentDescribeAgent} from "app/backend";
 import * as selectors from "app/store/selectors";
-import {Action, ActionMap} from "app/store/actions";
+import type {Action, ActionMap} from "app/store/actions";
 
 import {
   api,
@@ -55,7 +55,7 @@ export function* load({
   yield put({
     type: "RESOURCE_AGENT.LOAD.SUCCESS",
     key,
-    payload: {apiAgentMetadata: payload["data"]},
+    payload: {apiAgentMetadata: payload.data},
   });
 }
 

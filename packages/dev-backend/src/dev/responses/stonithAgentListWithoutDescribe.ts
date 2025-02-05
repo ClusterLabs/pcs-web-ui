@@ -1,4 +1,4 @@
-import {StonithAgentListAgents} from "dev/types";
+import type {StonithAgentListAgents} from "dev/types";
 
 export const ok: StonithAgentListAgents = [
   {

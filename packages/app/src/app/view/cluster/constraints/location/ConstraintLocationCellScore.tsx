@@ -1,4 +1,4 @@
-import {ConstraintLocationRule} from "../types";
+import type {ConstraintLocationRule} from "../types";
 import {ConstraintCell, ConstraintCellFake} from "../common";
 
 export const ConstraintLocationCellScore = ({

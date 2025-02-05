@@ -3,7 +3,6 @@ EXTRA_DIST		= \
 			  .babelrc.json \
 			  .bin/run-dev-tests.sh \
 			  .bin/run-jest.sh \
-			  .eslintrc.js \
 			  jest.config.js \
 			  package.json \
 			  package-lock.json \

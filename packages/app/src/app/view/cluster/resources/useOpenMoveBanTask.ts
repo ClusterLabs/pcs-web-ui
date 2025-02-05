@@ -1,5 +1,5 @@
-import {ActionPayload} from "app/store";
-import {Clone} from "app/view/cluster/types";
+import type {ActionPayload} from "app/store";
+import type {Clone} from "app/view/cluster/types";
 import {useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 

@@ -2,7 +2,7 @@ import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 
-import {RouteResponse} from "../mock";
+import type {RouteResponse} from "../mock";
 
 import {paramsToBody} from "./tools";
 

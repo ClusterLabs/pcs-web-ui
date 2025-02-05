@@ -1,9 +1,9 @@
-import {NodeAddActions} from "./add";
-import {NodeAuthActions} from "./auth";
-import {NodeActionActions} from "./action";
-import {NodeStopActions} from "./stop";
+import type {NodeAddActions} from "./add";
+import type {NodeAuthActions} from "./auth";
+import type {NodeActionActions} from "./action";
+import type {NodeStopActions} from "./stop";
 
-// prettier-ignore
+// biome-ignore format:
 export type NodeActions = (
   & NodeActionActions
   & NodeAddActions

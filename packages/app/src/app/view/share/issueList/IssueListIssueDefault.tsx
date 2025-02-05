@@ -1,6 +1,6 @@
 import {Alert} from "@patternfly/react-core";
 
-import {Issue} from "app/view/cluster/types";
+import type {Issue} from "app/view/cluster/types";
 
 export const IssueListIssueDefault = (props: {
   issue: Issue;

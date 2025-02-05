@@ -1,5 +1,5 @@
 import {getPermissions} from "app/backend";
-import {ActionMap} from "app/store/actions";
+import type {ActionMap} from "app/store/actions";
 
 import {api, put} from "./common";
 

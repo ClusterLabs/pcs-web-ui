@@ -1,6 +1,4 @@
-import {api, libCallCluster} from "app/backend";
-
-/* eslint-disable no-console */
+import type {api, libCallCluster} from "app/backend";
 
 type LibPayload = api.PayloadOf<typeof libCallCluster>;
 type CommunicationError = Extract<
@@ -35,14 +33,14 @@ export const errorMessage = (
   switch (result.type) {
     case "BAD_HTTP_STATUS":
       return (
-        `${description}:\n`
-        + `Server returned http status: ${result.status} (${result.text})`
+        `${description}:\n` +
+        `Server returned http status: ${result.status} (${result.text})`
       );
 
     case "NOT_JSON":
       return (
-        `${description}:\n`
-        + `Data returned from server is not in JSON format: '${result.text}'`
+        `${description}:\n` +
+        `Data returned from server is not in JSON format: '${result.text}'`
       );
 
     case "UNAUTHORIZED":

@@ -1,4 +1,4 @@
-import {ActionMap, ActionPayload} from "app/store";
+import type {ActionMap, ActionPayload} from "app/store";
 
 import {useTaskCommon} from "../useTaskCommon";
 
@@ -49,6 +49,7 @@ export const useTask = () => {
         type: state.type,
         allow,
       };
+      // biome-ignore lint/suspicious/noImplicitAnyLet:
       let permissionList;
       if (initialPermission === null) {
         permissionList = [...currentPermissionList, editPermission];

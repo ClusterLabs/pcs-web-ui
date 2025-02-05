@@ -1,5 +1,5 @@
-import {AppReducer} from "app/store/reducers/appReducer";
-import {ActionMap, ActionPayload} from "app/store/actions";
+import type {AppReducer} from "app/store/reducers/appReducer";
+import type {ActionMap, ActionPayload} from "app/store/actions";
 
 type UpdatePayload = ActionPayload["CLUSTER.PERMISSION.EDIT.UPDATE"];
 type InitPayload = ActionPayload["CLUSTER.PERMISSIONS.EDIT"];

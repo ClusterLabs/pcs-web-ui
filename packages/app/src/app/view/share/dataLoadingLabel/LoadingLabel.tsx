@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Label} from "@patternfly/react-core";
 
 type LabelProps = React.ComponentProps<typeof Label>;

@@ -1,4 +1,4 @@
-import {CallResult, endpoints, http} from "./tools";
+import {type CallResult, endpoints, http} from "./tools";
 
 const {url, shape} = endpoints.clusterStatus;
 

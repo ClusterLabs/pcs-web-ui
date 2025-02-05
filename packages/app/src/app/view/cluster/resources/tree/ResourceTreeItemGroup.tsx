@@ -1,5 +1,5 @@
 import {testMarks} from "app/view/dataTest";
-import {Group} from "app/view/cluster/types";
+import type {Group} from "app/view/cluster/types";
 
 import {ResourceTreeItemPrimitive} from "./ResourceTreeItemPrimitive";
 import {ResourceTreeItemCompound} from "./ResourceTreeItemCompound";

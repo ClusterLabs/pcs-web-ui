@@ -1,4 +1,4 @@
-import {Action} from "./types";
+import type {Action} from "./types";
 
 export type OrderCreateActions = {
   "CONSTRAINT.ORDER.CREATE.INIT": {

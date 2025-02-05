@@ -1,4 +1,4 @@
-import {api} from "app/backend";
+import type {api} from "app/backend";
 
 type AclCreateRolePayload = api.Lib.ClusterCallPayload<"acl-create-role">;
 

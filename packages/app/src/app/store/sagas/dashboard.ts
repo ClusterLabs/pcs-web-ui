@@ -1,15 +1,14 @@
 import {importedClusterList} from "app/backend";
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 import {dashboardGetLoadingStatus} from "app/store/selectors";
 
-import {api, dataLoad, put, select} from "./common";
+import {api, type dataLoad, put, select} from "./common";
 
 type Reading = ActionPayload["DATA_READING.SET_UP"]["readings"][number];
 
 function* fetchClusterList() {
-  const result: api.ResultOf<typeof importedClusterList> = yield api.authSafe(
-    importedClusterList,
-  );
+  const result: api.ResultOf<typeof importedClusterList> =
+    yield api.authSafe(importedClusterList);
   const taskLabel = "sync imported cluster list";
   if (result.type !== "OK") {
     yield put({type: "CLUSTER.LIST.FETCH.FAIL"});
@@ -18,10 +17,10 @@ function* fetchClusterList() {
       yield select(dashboardGetLoadingStatus);
 
     const notFoundOnStart =
-      result.type === "BACKEND_NOT_FOUND"
-      && (loadStatus === "NOT_STARTED"
-        || loadStatus === "BACKEND_NOT_FOUND"
-        || loadStatus === "IN_PROGRESS");
+      result.type === "BACKEND_NOT_FOUND" &&
+      (loadStatus === "NOT_STARTED" ||
+        loadStatus === "BACKEND_NOT_FOUND" ||
+        loadStatus === "IN_PROGRESS");
 
     if (notFoundOnStart) {
       // In the case of BACKEND_NOT_FOUND it is still necessary put action

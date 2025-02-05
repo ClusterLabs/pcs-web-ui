@@ -1,16 +1,16 @@
-import React from "react";
+import type React from "react";
 import {Td, Th, Thead, Tr} from "@patternfly/react-table";
 
 import {EmptyStateNoItem} from "app/view/share/emptyState";
-import {ResourceOnNodeStatus} from "app/view/cluster/types";
+import type {ResourceOnNodeStatus} from "app/view/cluster/types";
 
 import {StatusSign} from "./StatusSign";
 import {Table} from "./table";
 
 const isRoleOk = (crmStatus: ResourceOnNodeStatus): boolean =>
-  crmStatus.role === crmStatus.targetRole
-  || (!crmStatus.targetRole
-    && ["started", "promoted", "unpromoted"].includes(
+  crmStatus.role === crmStatus.targetRole ||
+  (!crmStatus.targetRole &&
+    ["started", "promoted", "unpromoted"].includes(
       crmStatus.role.toLowerCase(),
     ));
 
@@ -49,7 +49,6 @@ export const CrmStatusTable = ({
       </Thead>
       <Table.Body>
         {crmStatusList.map((crmStatus, i) => (
-          /* eslint-disable react/no-array-index-key */
           <Tr key={i}>
             <th data-label={rowObject.header}>{rowObject.cell(crmStatus)}</th>
             <Td data-label="Active">
@@ -89,8 +88,8 @@ export const CrmStatusTable = ({
                   showOkIco
                 />
               )}
-              {crmStatus.targetRole
-                && !isTargetRoleOk(crmStatus.targetRole) && (
+              {crmStatus.targetRole &&
+                !isTargetRoleOk(crmStatus.targetRole) && (
                   <StatusSign status="WARNING" label={crmStatus.targetRole} />
                 )}
             </Td>

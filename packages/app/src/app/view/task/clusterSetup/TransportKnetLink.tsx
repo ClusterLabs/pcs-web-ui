@@ -29,7 +29,7 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
       <FormGroup
         label={`Node addresses for link ${link.linknumber}`}
         fieldId="node-list"
-      ></FormGroup>
+      />
       <table>
         <tbody>
           {Object.keys(link.addresses).map(nodeName => (

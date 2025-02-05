@@ -1,4 +1,4 @@
-import {ResourceAgentDescribeAgent} from "dev/types";
+import type {ResourceAgentDescribeAgent} from "dev/types";
 
 export const ocfHeartbeatApache: ResourceAgentDescribeAgent = {
   name: "ocf:heartbeat:apache",

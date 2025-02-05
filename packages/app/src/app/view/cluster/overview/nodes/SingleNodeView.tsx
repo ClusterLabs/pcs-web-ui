@@ -7,7 +7,7 @@ import {
 
 import {Link, location} from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
-import {Node} from "app/view/cluster/types";
+import type {Node} from "app/view/cluster/types";
 
 export const SingleNodeView = ({singleNode}: {singleNode: Node}) => {
   const {clusterName} = useLoadedCluster();

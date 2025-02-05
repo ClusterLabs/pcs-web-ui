@@ -1,4 +1,4 @@
-import {api} from "app/backend";
+import type {api} from "app/backend";
 
 type SbdEnablePayload = api.Lib.ClusterCallPayload<"sbd-enable-sbd">;
 

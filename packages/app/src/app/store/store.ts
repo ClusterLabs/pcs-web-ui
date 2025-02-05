@@ -4,16 +4,17 @@ import createSagaMiddleware from "redux-saga";
 import {rootSaga} from "./sagas";
 import {root as rootReducer} from "./reducers";
 
-/* eslint-disable no-underscore-dangle, @typescript-eslint/no-explicit-any */
 const composeMiddleware =
-  (process.env.NODE_ENV !== "production"
-    && window
-    && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+  (process.env.NODE_ENV !== "production" &&
+    window &&
+    // biome-ignore lint/suspicious/noExplicitAny:
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+    // biome-ignore lint/suspicious/noExplicitAny:
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
       trace: true,
       traceLimit: 25,
-    }))
-  || compose;
+    })) ||
+  compose;
 
 const sagaMiddleware = createSagaMiddleware();
 

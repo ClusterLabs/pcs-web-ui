@@ -54,8 +54,9 @@ describe("Node utilization attributes create", () => {
           response: {
             status: [
               400,
-              `Unable to set utilization '${utilizationPair.name}=${utilizationPair.value}'`
-                + ` for node "'${nodeName}': Some stderr...`,
+              "Unable to set utilization " +
+                `'${utilizationPair.name}=${utilizationPair.value}'` +
+                ` for node "'${nodeName}': Some stderr...`,
             ],
           },
         }),

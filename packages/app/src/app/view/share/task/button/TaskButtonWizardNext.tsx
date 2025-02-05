@@ -27,6 +27,7 @@ export const TaskButtonWizardNext = (
     );
   }
 
+  // biome-ignore lint/suspicious/noImplicitAnyLet:
   let action;
   if ("action" in props && props.action) {
     action = props.action;

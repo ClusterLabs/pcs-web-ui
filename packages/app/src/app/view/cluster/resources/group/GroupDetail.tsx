@@ -1,4 +1,4 @@
-import {Group} from "app/view/cluster/types";
+import type {Group} from "app/view/cluster/types";
 import {CrmStatusTable, IssueList, Link, location} from "app/view/share";
 import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
@@ -21,7 +21,6 @@ export const GroupDetail = ({group}: {group: Group}) => {
           emptyMessage={`No status info for resources of group "${group.id}" found.`}
           rowObject={{
             header: "Resource / Node",
-            /* eslint-disable-next-line react/display-name */
             cell: crmStatus => (
               <>
                 <Link

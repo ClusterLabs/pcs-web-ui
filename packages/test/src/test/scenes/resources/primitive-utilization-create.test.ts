@@ -59,8 +59,9 @@ describe("Primitive utilization attributes create", () => {
           response: {
             status: [
               400,
-              `Unable to set utilization attribute '${utilizationPair.name}=${utilizationPair.value}'`
-                + ` for resource "'${resourceId}': Some stderr...`,
+              "Unable to set utilization attribute" +
+                ` '${utilizationPair.name}=${utilizationPair.value}'` +
+                ` for resource "'${resourceId}': Some stderr...`,
             ],
           },
         }),

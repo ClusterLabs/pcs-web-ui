@@ -1,6 +1,6 @@
 import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
-import {Handler, app} from "dev/app";
+import {type Handler, app} from "dev/app";
 
 const refreshCleanup: Handler = (req, res) => {
   const name = req.body.resource.startsWith("FD_")
@@ -104,8 +104,8 @@ app.resourceChangeGroup((req, res) => {
       res
         .status(400)
         .send(
-          `Unable to add resource '${req.body.resource_id}' to `
-            + `group '${req.body.group_id}': Something wrong happened`,
+          `Unable to add resource '${req.body.resource_id}' to ` +
+            `group '${req.body.group_id}': Something wrong happened`,
         );
       break;
 

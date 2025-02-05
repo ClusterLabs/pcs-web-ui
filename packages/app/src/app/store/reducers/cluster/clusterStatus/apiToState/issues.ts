@@ -1,6 +1,6 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 
-import {Cluster, Issue} from "../types";
+import type {Cluster, Issue} from "../types";
 
 type ApiCluster = ActionPayload["CLUSTER.STATUS.FETCH.OK"];
 
@@ -14,9 +14,9 @@ const mapIssue =
   (severity: Issue["severity"]) =>
   (issue: ApiIssue): Issue => {
     if (
-      "type" in issue
-      && "node_list" in issue
-      && issue.type === "nodes_not_authorized"
+      "type" in issue &&
+      "node_list" in issue &&
+      issue.type === "nodes_not_authorized"
     ) {
       return {
         severity,

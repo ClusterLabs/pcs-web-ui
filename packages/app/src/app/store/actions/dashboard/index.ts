@@ -1,8 +1,8 @@
-import {DashboardClusterActions} from "./cluster";
-import {DashboardClusterSetupActions} from "./clusterSetup";
-import {DashboardImportExistingClusterActions} from "./importExistingCluster";
+import type {DashboardClusterActions} from "./cluster";
+import type {DashboardClusterSetupActions} from "./clusterSetup";
+import type {DashboardImportExistingClusterActions} from "./importExistingCluster";
 
-// prettier-ignore
+// biome-ignore format:
 export type DashboardActions = (
   & DashboardClusterActions
   & DashboardClusterSetupActions

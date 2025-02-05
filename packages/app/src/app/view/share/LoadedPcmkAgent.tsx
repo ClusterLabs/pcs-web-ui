@@ -21,11 +21,11 @@ export const LoadedPcmkAgent = ({
   // const {pcmkAgents} = useClusterSources();
   // const agent = pcmkAgents[agentName];
 
-  if (agentInfo !== null && agentInfo.isAgentLoaded) {
+  if (agentInfo?.isAgentLoaded) {
     return children(agentInfo.agent);
   }
 
-  if (agentInfo !== null && agentInfo.isAgentLoadFailed) {
+  if (agentInfo?.isAgentLoadFailed) {
     return (
       <EmptyStateError
         title="Cannot load data"

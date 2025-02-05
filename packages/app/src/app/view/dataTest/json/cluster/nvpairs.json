@@ -1,13 +1,13 @@
 {
-    "pair": {
-        "menu": {
-            "edit": {},
-            "remove": {}
-        },
-        "name": {},
-        "value": {}
+  "pair": {
+    "menu": {
+      "edit": {},
+      "remove": {}
     },
-    "toolbar": {
-        "create": {}
-    }
+    "name": {},
+    "value": {}
+  },
+  "toolbar": {
+    "create": {}
+  }
 }

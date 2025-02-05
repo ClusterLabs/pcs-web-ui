@@ -28,8 +28,8 @@ export const NodesPage = () => {
                   clusterName,
                   isSbdEnabled: nodeList.reduce(
                     (enabled, n) =>
-                      enabled
-                      || (n.status !== "DATA_NOT_PROVIDED" && n.sbd !== undefined),
+                      enabled ||
+                      (n.status !== "DATA_NOT_PROVIDED" && n.sbd !== undefined),
                     false,
                   ),
                 },

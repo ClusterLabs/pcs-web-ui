@@ -1,4 +1,9 @@
-import {Flex, FlexItem, FlexProps, PageSection} from "@patternfly/react-core";
+import {
+  Flex,
+  FlexItem,
+  type FlexProps,
+  PageSection,
+} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import {Card, ClusterToolbar} from "app/view/share";

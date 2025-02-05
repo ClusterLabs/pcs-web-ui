@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {DataListCell} from "@patternfly/react-core";
 
 import {ConstraintValue} from "./ConstraintValue";

@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 
-import {ActionPayload} from "app/store/actions";
-import {AppReducer} from "app/store/reducers/appReducer";
+import type {ActionPayload} from "app/store/actions";
+import type {AppReducer} from "app/store/reducers/appReducer";
 
 type ResourceAgentMap = Record<string, string[]> | null;
 type ResourceAgentListService = {
@@ -14,8 +14,8 @@ type ResourceAgentListService = {
 
 const parseName = (name: string) => {
   const result =
-    /^(?<standard>systemd|service):(?<type>[^:@]+@.*)$/.exec(name)
-    || /^(?<standard>[^:]+)(:(?<provider>[^:]+))?:(?<type>[^:]+)$/.exec(name);
+    /^(?<standard>systemd|service):(?<type>[^:@]+@.*)$/.exec(name) ||
+    /^(?<standard>[^:]+)(:(?<provider>[^:]+))?:(?<type>[^:]+)$/.exec(name);
 
   if (result === null) {
     return null;

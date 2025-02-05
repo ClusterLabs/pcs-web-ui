@@ -24,9 +24,9 @@ app.removeCluster((_req, res) => {
       .send(
         [
           "Configuration conflict detected.",
-          "Some nodes had a newer configuration than the local node."
-            + " Local node's configuration was updated."
-            + "  Please repeat the last action if appropriate.",
+          "Some nodes had a newer configuration than the local node." +
+            " Local node's configuration was updated." +
+            "  Please repeat the last action if appropriate.",
         ].join("\n\n"),
       );
     return;

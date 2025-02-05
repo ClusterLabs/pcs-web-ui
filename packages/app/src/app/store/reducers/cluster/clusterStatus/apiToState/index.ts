@@ -1,6 +1,6 @@
-import {ActionPayload} from "app/store/actions";
+import type {ActionPayload} from "app/store/actions";
 
-import {Cluster} from "../types";
+import type {Cluster} from "../types";
 
 import {issuesToSummarySeverity, transformIssues} from "./issues";
 import {processApiNodes} from "./nodes";

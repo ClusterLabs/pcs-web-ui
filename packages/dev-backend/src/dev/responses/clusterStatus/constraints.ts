@@ -1,4 +1,4 @@
-import {Cluster} from "dev/types";
+import type {Cluster} from "dev/types";
 
 export const constraints: Cluster["constraints"] = {
   rsc_colocation: [
@@ -99,6 +99,7 @@ export const constraints: Cluster["constraints"] = {
       first: "A",
       "first-action": "start",
       id: "order-A-G1-mandatory",
+      // biome-ignore lint/suspicious/noThenProperty:it is a backend format
       then: "GROUP-1",
       "then-action": "promote",
     },
@@ -108,6 +109,7 @@ export const constraints: Cluster["constraints"] = {
       "require-all": "true",
       score: "INFINITY",
       first: "A",
+      // biome-ignore lint/suspicious/noThenProperty:it is a backend format
       then: "GROUP-1",
     },
     {
@@ -116,6 +118,7 @@ export const constraints: Cluster["constraints"] = {
       "require-all": "false",
       kind: "Mandatory",
       first: "Clone-1",
+      // biome-ignore lint/suspicious/noThenProperty:it is a backend format
       then: "A",
     },
     {

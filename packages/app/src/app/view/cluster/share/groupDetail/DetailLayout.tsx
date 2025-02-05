@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Level, LevelItem, Stack, StackItem} from "@patternfly/react-core";
 
 import {DetailToolbar} from "./DetailToolbar";
@@ -16,7 +16,6 @@ export const DetailLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    /* eslint-disable react/jsx-props-no-spreading */
     <Stack hasGutter className="pf-v5-u-p-md" {...rest}>
       <StackItem>
         <Level>

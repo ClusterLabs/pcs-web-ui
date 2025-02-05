@@ -1,6 +1,6 @@
-import React from "react";
+import type React from "react";
 
-import {selectors} from "app/store";
+import type {selectors} from "app/store";
 
 import {ClusterSetup} from "./clusterSetup";
 import {ClusterStop} from "./clusterStop";

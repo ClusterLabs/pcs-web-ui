@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {
   NotificationDrawer,
   NotificationDrawerBody,
@@ -7,7 +7,7 @@ import {
 
 import {testMarks} from "app/view/dataTest";
 
-import {Notification} from "./types";
+import type {Notification} from "./types";
 import {DrawerDropdown} from "./DrawerDropdown";
 import {DrawerEmpty} from "./DrawerEmpty";
 import {DrawerItem} from "./DrawerItem";

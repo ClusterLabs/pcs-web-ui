@@ -1,8 +1,8 @@
-import {ActionPayload} from "app/store";
+import type {ActionPayload} from "app/store";
 import {DataListWithMenu, Link, location} from "app/view/share";
 import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
-import {AclType} from "../types";
+import type {AclType} from "../types";
 
 type LibCall = ActionPayload["LIB.CALL.CLUSTER"]["call"];
 

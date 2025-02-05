@@ -1,4 +1,4 @@
-import {CallResult, endpoints, http} from "./tools";
+import {type CallResult, endpoints, http} from "./tools";
 
 const {url} = endpoints.existingCluster;
 export const existingCluster = async (nodeName: string): CallResult =>

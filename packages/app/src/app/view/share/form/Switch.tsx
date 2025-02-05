@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import {Switch as PfSwitch} from "@patternfly/react-core";
 
 type Props = React.ComponentProps<typeof PfSwitch>;

@@ -1,6 +1,6 @@
 import {List, ListItem, Text} from "@patternfly/react-core";
 
-import {Notification} from "./types";
+import type {Notification} from "./types";
 
 export const Description = ({details}: {details: Notification["details"]}) => {
   return (
@@ -10,15 +10,14 @@ export const Description = ({details}: {details: Notification["details"]}) => {
           <Text component="p">{details.title}</Text>
           <List>
             {details.items.map((item, i) => (
-              /* eslint-disable react/no-array-index-key */
               <ListItem key={i}>{item}</ListItem>
             ))}
           </List>
         </>
       )}
-      {details
-        && details.type === "LINES"
-        && details.lines.map((line, i) => <p key={i}>{line}</p>)}
+      {details &&
+        details.type === "LINES" &&
+        details.lines.map((line, i) => <p key={i}>{line}</p>)}
     </>
   );
 };
