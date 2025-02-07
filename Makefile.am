@@ -26,13 +26,6 @@ EXTRA_DIST		= \
 			  .bin/init_nexus.sh \
 			  .bin/init.sh \
 			  .bin/npm_install.sh \
-			  .bin/pre-commit/extract-extra-dist.sh \
-			  .bin/pre-commit/check-all.sh \
-			  .bin/pre-commit/check-format.sh \
-			  .bin/pre-commit/check-lint.sh \
-			  .bin/pre-commit/check-makefile-file-listing.sh \
-			  .bin/pre-commit/remove-nexus.sh \
-			  .bin/pre-commit.sh \
 			  .bin/render-spec.sh \
 			  .browserslistrc \
 			  rpm/pcs-web-ui.spec.in \
