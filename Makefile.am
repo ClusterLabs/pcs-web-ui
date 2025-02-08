@@ -26,13 +26,6 @@ EXTRA_DIST		= \
 			  .bin/init_nexus.sh \
 			  .bin/init.sh \
 			  .bin/npm_install.sh \
-			  .bin/pre-commit/extract-extra-dist.sh \
-			  .bin/pre-commit/check-all.sh \
-			  .bin/pre-commit/check-format.sh \
-			  .bin/pre-commit/check-lint.sh \
-			  .bin/pre-commit/check-makefile-file-listing.sh \
-			  .bin/pre-commit/remove-nexus.sh \
-			  .bin/pre-commit.sh \
 			  .bin/render-spec.sh \
 			  .browserslistrc \
 			  rpm/pcs-web-ui.spec.in \
@@ -97,6 +90,7 @@ test:
 	@cd ./packages/test && .bin/run-dev-tests.sh
 
 test-modules-prepare:
+	@cd ./packages/app && npm ci
 	@cd ./packages/test && npm ci
 	@cd ./packages/dev-backend && npm ci
 
@@ -122,8 +116,10 @@ init:
 		.bin/init.sh ${NEXUS}; \
 	fi
 
-check_sources:
-	@.bin/check-no-nexus.sh
+prevent_dev_mistakes:
+	.bin/check-no-nexus.sh
+	npx biome lint --error-on-warnings ./
+	npx biome format ./
 
 lint:
 	@npx biome lint --error-on-warnings ./

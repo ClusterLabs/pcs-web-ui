@@ -12,8 +12,35 @@ const clusterName = "test-cluster";
 
 const {clusterList} = marks.dashboard;
 
+// biome-ignore lint/suspicious/noExplicitAny:
+async function waitForResponse(urlPattern: RegExp): Promise<any> {
+  return page.evaluate(
+    pattern =>
+      new Promise(resolve => {
+        // If there is iframe we are in cockpit and we need listen to events
+        // inside iframe. Else, in standalone mode, we need to listen to global
+        // `document`.
+        const doc =
+          (
+            document.querySelector(
+              'iframe[name$="/ha-cluster"]',
+            ) as HTMLIFrameElement
+          )?.contentWindow?.document ?? document;
+
+        const listener = (event: CustomEvent) => {
+          if (pattern.test(event.detail.url)) {
+            doc.removeEventListener("pcsd-response", listener);
+            resolve(event.detail);
+          }
+        };
+        doc.addEventListener("pcsd-response", listener);
+      }),
+    urlPattern,
+  );
+}
+
 const waitForImportedClusterList = async () =>
-  await page.waitForResponse(/.*\/imported-cluster-list$/);
+  await waitForResponse(/.*\/imported-cluster-list$/);
 
 const expectImportedClusterNamesAre = async (nameList: string[]) => {
   await assert.expectKeysAre(clusterList.cluster.name, nameList);
@@ -80,7 +107,7 @@ const importExistingCluster = async (nodeName: string) => {
 
   await Promise.all([
     waitForImportedClusterList(),
-    page.waitForResponse(/.*\/cluster_status$/),
+    waitForResponse(/.*\/cluster_status$/),
     await click(prepareNodeFooter.addExistringCluster),
   ]);
   await isVisible(success);
@@ -91,7 +118,7 @@ const removeCluster = async (clusterName: string) => {
   await launchClusterItemAction(clusterName, a => a.remove);
   await Promise.all([
     waitForImportedClusterList(),
-    page.waitForResponse(/.*\/manage\/removecluster$/),
+    waitForResponse(/.*\/manage\/removecluster$/),
     isVisible(marks.notifications.toast.success),
     appConfirm.run(`Remove the cluster "${clusterName}"?`),
   ]);
@@ -104,7 +131,7 @@ const destroyCluster = async (clusterName: string) => {
   const {success} = marks.notifications.toast;
   await Promise.all([
     waitForImportedClusterList(),
-    page.waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
+    waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
     isVisible(success.locator.getByText("Cluster removed from cluster list")),
     isVisible(success.locator.getByText("Cluster destroyed.")),
     appConfirm.run(`Destroy the cluster "${clusterName}"?`),

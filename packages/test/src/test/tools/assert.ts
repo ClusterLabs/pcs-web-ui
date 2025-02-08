@@ -1,5 +1,3 @@
-import type {Locator} from "playwright";
-
 export async function textIs(pairs: [Mark, string][]): Promise<void>;
 export async function textIs(mark: Mark, expectedText: string): Promise<void>;
 export async function textIs(
@@ -28,12 +26,10 @@ export const countIs = async (mark: Mark, count: number) => {
   expect(await locatorFor(mark).count()).toEqual(count);
 };
 
-type PureMark = {path: string; locator: Locator};
-
 export const nvPairIs = async (
-  pairMark: PureMark & {
-    name: PureMark;
-    value: PureMark;
+  pairMark: MarkPure & {
+    name: MarkPure;
+    value: MarkPure;
   },
   name: string,
   value: string,

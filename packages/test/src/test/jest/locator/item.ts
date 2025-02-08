@@ -2,7 +2,6 @@ import type {Locator} from "playwright";
 
 type Search<MARK_PART extends Mark> = Mark | ((markPart: MARK_PART) => Mark);
 
-type MarkPure = {path: string; locator: Locator};
 type MarkName = MarkPure & {name: MarkPure};
 type MarkId = MarkPure & {id: MarkPure};
 
@@ -12,6 +11,9 @@ type SearchFn<M extends MarkPure> = <S extends Search<M> | Search<M>[]>(
 
 const search = <M extends Mark>(mark: Search<M>, markPart: M) =>
   locatorFor(typeof mark === "function" ? mark(markPart) : mark);
+
+const searchRelative = <M extends Mark>(mark: Search<M>, markPart: M) =>
+  locatorRelativeFor(typeof mark === "function" ? mark(markPart) : mark);
 
 const ancestor = (mark: {path: string}) =>
   `xpath=/ancestor::node()[@data-test="${mark.path}"]`;
@@ -23,8 +25,8 @@ function findByRoot<M extends MarkPure>(
 ) {
   const findInside = (searchExp: Search<M> | Search<M>[]) =>
     Array.isArray(searchExp)
-      ? searchExp.map(se => root.locator(search(se, itemMark)))
-      : root.locator(search(searchExp, itemMark));
+      ? searchExp.map(se => root.locator(searchRelative(se, itemMark)))
+      : root.locator(searchRelative(searchExp, itemMark));
 
   return searchExp !== undefined ? findInside(searchExp) : findInside;
 }

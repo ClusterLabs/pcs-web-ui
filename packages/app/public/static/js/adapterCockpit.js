@@ -73,6 +73,10 @@ var superuser = Superuser();
 var pcsUiEnvAdapter = {
   showMasthead: false,
   request: async (path, headers, postBody) => {
+    const dispatchPcsdResponse = () =>
+      document.dispatchEvent(
+        new CustomEvent("pcsd-response", {detail: {url: path}}),
+      );
     return new Promise((resolve, reject) => {
       try {
         const http = cockpit.http(pcsdSocket, {superuser: "try"});
@@ -83,6 +87,7 @@ var pcsUiEnvAdapter = {
 
         requestPromise
           .then(result => {
+            dispatchPcsdResponse();
             resolve({
               status: 200,
               statusText: "OK",
@@ -90,6 +95,7 @@ var pcsUiEnvAdapter = {
             });
           })
           .catch((e, data) => {
+            dispatchPcsdResponse();
             if ("status" in e) {
               resolve({
                 status: e.status,

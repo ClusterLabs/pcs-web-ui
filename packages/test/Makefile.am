@@ -13,7 +13,6 @@ EXTRA_DIST		= \
 			  src/test/jest/login.ts \
 			  src/test/jest/page.ts \
 			  src/test/jest/preset.ts \
-			  src/test/realBackend/oneNodeCluster.test.old.ts \
 			  src/test/realBackend/oneNodeCluster.test.ts \
 			  src/test/scenes/acl/commonRole.ts \
 			  src/test/scenes/acl/common.ts \
