@@ -3,36 +3,23 @@
 Web interface for [pcs](https://github.com/ClusterLabs/pcs) - a Corosync and
 Pacemaker configuration tool.
 
+It can run in two modes:
+* a standalone application (provided by `pcsd` backend)
+* a cockpit plugin
+
 ## Prerequisites
 
-* [Git](http://git-scm.com/)
 * [Node.js](http://nodejs.org/) (with NPM)
 * autoconf, automake
-
-## Preparation
-
-* `git clone <repository-url>` this repository
-* change into the new directory
-* `make init`
-
-## Development
-
-### Running dev environment
-
-* `make app`
-* `make dev`
-    * dev backend doesn't run fully featured backend mock
-    * it runs only scenario with limited features
-* Open http://localhost:3000 to view it in the browser
-
-### Running tests
-
-* `make tests`
+* pkgconf
+* [pcs](https://github.com/ClusterLabs/pcs)
+* [cockpit](https://cockpit-project.org/) (optional)
 
 ## Building and installation
 
 To install pcs-web-ui run the following in terminal:
-```shell
+
+```sh
 ./autogen.sh
 ./configure
 make

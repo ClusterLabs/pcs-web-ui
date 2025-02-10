@@ -33,6 +33,7 @@ EXTRA_DIST		= \
 			  .gitlab-ci.yml \
 			  make/git-version-gen \
 			  README.md \
+			  CONTRIBUTING.md \
 			  typos.toml 
 			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz\
 			  .version
