@@ -130,5 +130,7 @@
       "status": {},
       "type": {}
     }
-  }
+  },
+  "empty": {},
+  "stopped": {}
 }

@@ -12,6 +12,8 @@ import {ResourceTreeItemClone} from "./ResourceTreeItemClone";
 import {ResourceTreeItemGroup} from "./ResourceTreeItemGroup";
 import type {FilteredTree} from "./filter";
 
+const {empty, tree, stopped} = testMarks.cluster.resources;
+
 export const ResourceTree = ({resourceTree}: {resourceTree: FilteredTree}) => {
   const {compact, selectedItemUrlName} = useGroupDetailViewContext();
   const {hasCibInfo, clusterName} = useLoadedCluster();
@@ -21,6 +23,7 @@ export const ResourceTree = ({resourceTree}: {resourceTree: FilteredTree}) => {
       <EmptyStateClusterStopped
         title={"Cannot get resources from stopped cluster"}
         clusterName={clusterName}
+        {...stopped.mark}
       />
     );
   }
@@ -30,6 +33,7 @@ export const ResourceTree = ({resourceTree}: {resourceTree: FilteredTree}) => {
       <EmptyStateNoItem
         title="No resource is configured."
         message="You don't have any configured resources here."
+        {...empty.mark}
       />
     );
   }
@@ -38,7 +42,7 @@ export const ResourceTree = ({resourceTree}: {resourceTree: FilteredTree}) => {
     <DataList
       aria-label="Cluster resources"
       className={`ha-c-tree-view${compact ? "" : " ha-m-full-width"}`}
-      {...testMarks.cluster.resources.tree.mark}
+      {...tree.mark}
       gridBreakpoint="lg"
       selectedDataListItemId={selectedItemUrlName}
     >

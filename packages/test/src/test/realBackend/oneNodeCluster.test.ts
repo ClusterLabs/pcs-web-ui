@@ -1,4 +1,6 @@
-import {assert} from "test/tools";
+import * as dashboard from "./dashboard";
+import * as fenceDevices from "./fenceDevices";
+import * as resources from "./resources";
 
 const testTimeout = Number.parseInt(
   process.env.PCS_WUI_TEST_TIMEOUT ?? "70000",
@@ -10,41 +12,13 @@ const nodeName = process.env.PCSD_NODE_1 || "";
 
 const clusterName = "test-cluster";
 
+const fenceDeviceId = "F1";
+const fenceAgentName = "fence_xvm";
+
+const resourceAgentName = "ocf:heartbeat:Dummy";
+const resourceId = "A";
+
 const {clusterList} = marks.dashboard;
-
-// biome-ignore lint/suspicious/noExplicitAny:
-async function waitForResponse(urlPattern: RegExp): Promise<any> {
-  return page.evaluate(
-    pattern =>
-      new Promise(resolve => {
-        // If there is iframe we are in cockpit and we need listen to events
-        // inside iframe. Else, in standalone mode, we need to listen to global
-        // `document`.
-        const doc =
-          (
-            document.querySelector(
-              'iframe[name$="/ha-cluster"]',
-            ) as HTMLIFrameElement
-          )?.contentWindow?.document ?? document;
-
-        const listener = (event: CustomEvent) => {
-          if (pattern.test(event.detail.url)) {
-            doc.removeEventListener("pcsd-response", listener);
-            resolve(event.detail);
-          }
-        };
-        doc.addEventListener("pcsd-response", listener);
-      }),
-    urlPattern,
-  );
-}
-
-const waitForImportedClusterList = async () =>
-  await waitForResponse(/.*\/imported-cluster-list$/);
-
-const expectImportedClusterNamesAre = async (nameList: string[]) => {
-  await assert.expectKeysAre(clusterList.cluster.name, nameList);
-};
 
 export const launchClusterItemAction = async (
   clusterName: string,
@@ -58,8 +32,6 @@ export const launchClusterItemAction = async (
   );
 };
 
-const {task} = marks;
-
 describe("Web ui on one node cluster", () => {
   it(
     "should succeed with essential features",
@@ -67,94 +39,42 @@ describe("Web ui on one node cluster", () => {
       await goToDashboard();
       await login(username, password);
 
-      await isVisible(clusterList);
-      // we expect to start with no cluster
-      await expectImportedClusterNamesAre([]);
+      await dashboard.loaded();
+      await dashboard.importedClusterNamesAre([]);
 
-      await click(marks.dashboardToolbar.setupCluster);
-      await setupCluster(clusterName, nodeName);
-      await expectImportedClusterNamesAre([clusterName]);
+      // setup cluster
+      await dashboard.setupCluster(clusterName, nodeName);
+      await dashboard.importedClusterNamesAre([clusterName]);
 
-      await removeCluster(clusterName);
-      await expectImportedClusterNamesAre([]);
+      // remove cluster and import its back
+      await dashboard.removeCluster(clusterName);
+      await dashboard.importedClusterNamesAre([]);
+      await dashboard.importExistingCluster(nodeName);
+      await dashboard.importedClusterNamesAre([clusterName]);
 
-      await click(marks.dashboardToolbar.importExistingCluster);
-      await importExistingCluster(nodeName);
-      await expectImportedClusterNamesAre([clusterName]);
+      // test the cluster
+      await dashboard.clusterIsReady(clusterName);
+      await dashboard.goToCluster(clusterName);
 
-      await isVisible(
-        marks.dashboard.clusterList.cluster.status.locator.locator(
-          'xpath=//*[text() = "inoperative" or text() = "running"]',
-        ),
-      );
+      await fenceDevices.selectTab();
+      await fenceDevices.empty();
+      await fenceDevices.create(fenceDeviceId, fenceAgentName);
+      await fenceDevices.visibleInList(fenceDeviceId);
 
-      await destroyCluster(clusterName);
-      await expectImportedClusterNamesAre([]);
+      await resources.selectTab();
+      await resources.empty();
+      await resources.create(resourceId, resourceAgentName);
+      await resources.visibleInTree(resourceId);
+
+      // destroy cluster
+      await clusterToDashboardTransition();
+      await dashboard.destroyCluster(clusterName);
+      await dashboard.importedClusterNamesAre([]);
     },
     testTimeout,
   );
 });
 
-const importExistingCluster = async (nodeName: string) => {
-  await isVisible(task.clusterImportExisting);
-
-  const {nodeNameFooter, prepareNode, prepareNodeFooter, success} =
-    task.clusterImportExisting;
-
-  await fill(task.clusterImportExisting.nodeName, nodeName);
-  await click(nodeNameFooter.checkAuthentication);
-  await isVisible(prepareNode.success);
-
-  await Promise.all([
-    waitForImportedClusterList(),
-    waitForResponse(/.*\/cluster_status$/),
-    await click(prepareNodeFooter.addExistringCluster),
-  ]);
-  await isVisible(success);
-  await click(success.close);
-};
-
-const removeCluster = async (clusterName: string) => {
-  await launchClusterItemAction(clusterName, a => a.remove);
-  await Promise.all([
-    waitForImportedClusterList(),
-    waitForResponse(/.*\/manage\/removecluster$/),
-    isVisible(marks.notifications.toast.success),
-    appConfirm.run(`Remove the cluster "${clusterName}"?`),
-  ]);
-  // give page chance to redraw after loading imported-cluster-list
-  await page.waitForTimeout(100);
-};
-
-const destroyCluster = async (clusterName: string) => {
-  await launchClusterItemAction(clusterName, a => a.destroy);
-  const {success} = marks.notifications.toast;
-  await Promise.all([
-    waitForImportedClusterList(),
-    waitForResponse(/.*\/managec\/.*\/cluster_destroy$/),
-    isVisible(success.locator.getByText("Cluster removed from cluster list")),
-    isVisible(success.locator.getByText("Cluster destroyed.")),
-    appConfirm.run(`Destroy the cluster "${clusterName}"?`),
-  ]);
-  // give page chance to redraw after loading imported-cluster-list
-  await page.waitForTimeout(100);
-};
-
-const setupCluster = async (clusterName: string, oneNode: string) => {
-  await isVisible(task.clusterSetup);
-
-  await fill(task.clusterSetup.nameAndNodes.clusterName, clusterName);
-  await fill(task.clusterSetup.nameAndNodes.node.name.locator.nth(0), oneNode);
-  await click(task.clusterSetup.nameAndNodesFooter.next);
-  await click(task.clusterSetup.prepareNodesFooter.reviewAndFinish);
-  // Task moves to next stage after imported-cluster-list response is done. The
-  // request imported-cluster-list is run immediatelly after cluster setup
-  // backend call is done.
-  await Promise.all([
-    waitForImportedClusterList(),
-    click(task.clusterSetup.reviewFooter.next),
-  ]);
-
-  await isVisible(task.clusterSetup.success);
-  await click(task.clusterSetup.success.startAndClose);
+const clusterToDashboardTransition = async () => {
+  await click(marks.clusterBreadcrumbs.dashboard);
 };
