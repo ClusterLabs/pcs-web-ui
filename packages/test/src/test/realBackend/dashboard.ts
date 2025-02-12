@@ -85,7 +85,7 @@ export const goToCluster = async (clusterName: string) => {
 export const clusterIsReady = async (clusterName: string) => {
   await isVisible(
     item.byName(dashboard.clusterList.cluster, clusterName, c =>
-      c.status.locator.locator(
+      c.status.locatorRelative.locator(
         'xpath=//*[text() = "inoperative" or text() = "running"]',
       ),
     ),
