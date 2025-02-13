@@ -21,12 +21,12 @@ export const create = async (fenceDeviceId: string, agentName: string) => {
   await click(task.success.close);
 };
 
-export const empty = async () => {
+export const assertEmptyList = async () => {
   await isVisible(fenceDevices.empty);
   await isAbsent(fenceDevices.list);
 };
 
-export const visibleInList = async (fenceDeviceId: string) => {
+export const assertVisibleInList = async (fenceDeviceId: string) => {
   await isVisible(fenceDevices.list);
   await assert.expectKeysAre(fenceDevices.list.item.id, [fenceDeviceId]);
 };

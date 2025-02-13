@@ -21,12 +21,12 @@ export const create = async (resourceId: string, agentName: string) => {
   await click(task.success.close);
 };
 
-export const empty = async () => {
+export const assertEmptyTree = async () => {
   await isVisible(resources.empty);
   await isAbsent(resources.tree);
 };
 
-export const visibleInTree = async (resourceId: string) => {
+export const assertVisibleInTree = async (resourceId: string) => {
   await isVisible(resources.tree);
   await isVisible(item.byId(resources.tree.primitive, resourceId, p => p.id));
 };
@@ -35,7 +35,7 @@ export const openDetail = async (resourceId: string) => {
   await click(item.byId(resources.tree.primitive, resourceId, p => p.id));
 };
 
-export const agentInfoInDetail = async () => {
+export const assertAgentInfoInDetail = async () => {
   await isVisible(resources.currentPrimitive.detail.pcmkAgent);
 };
 

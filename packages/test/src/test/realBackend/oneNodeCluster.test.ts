@@ -57,16 +57,16 @@ describe("Web ui on one node cluster", () => {
       await dashboard.goToCluster(clusterName);
 
       await fenceDevices.selectTab();
-      await fenceDevices.empty();
+      await fenceDevices.assertEmptyList();
       await fenceDevices.create(fenceDeviceId, fenceAgentName);
-      await fenceDevices.visibleInList(fenceDeviceId);
+      await fenceDevices.assertVisibleInList(fenceDeviceId);
 
       await resources.selectTab();
-      await resources.empty();
+      await resources.assertEmptyTree();
       await resources.create(resourceId, resourceAgentName);
-      await resources.visibleInTree(resourceId);
+      await resources.assertVisibleInTree(resourceId);
       await resources.openDetail(resourceId);
-      await resources.agentInfoInDetail();
+      await resources.assertAgentInfoInDetail();
 
       // destroy cluster
       await clusterToDashboardTransition();
