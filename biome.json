@@ -9,7 +9,7 @@
     "lineWidth": 80,
     "attributePosition": "auto",
     "bracketSpacing": false,
-    "ignore": ["**/node_modules", "./pcs-web-ui-*"]
+    "ignore": ["**/node_modules", "./pcs-web-ui-*", "./build/*"]
   },
   "linter": {
     "rules": {
@@ -270,7 +270,7 @@
         "useValidTypeof": "warn"
       }
     },
-    "ignore": ["**/node_modules", "./pcs-web-ui-*"]
+    "ignore": ["**/node_modules", "./pcs-web-ui-*", "./build/*"]
   },
   "files": {
     "ignore": ["**/package-*lock.json", "packages/app/src/react-app-env.d.ts"]
