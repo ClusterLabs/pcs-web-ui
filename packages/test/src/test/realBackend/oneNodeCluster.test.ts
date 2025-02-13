@@ -15,7 +15,7 @@ const clusterName = "test-cluster";
 const fenceDeviceId = "F1";
 const fenceAgentName = "fence_xvm";
 
-const resourceAgentName = "ocf:heartbeat:Dummy";
+const resourceAgentName = "systemd:crond";
 const resourceId = "A";
 
 const {clusterList} = marks.dashboard;
@@ -65,6 +65,8 @@ describe("Web ui on one node cluster", () => {
       await resources.empty();
       await resources.create(resourceId, resourceAgentName);
       await resources.visibleInTree(resourceId);
+      await resources.openDetail(resourceId);
+      await resources.agentInfoInDetail();
 
       // destroy cluster
       await clusterToDashboardTransition();

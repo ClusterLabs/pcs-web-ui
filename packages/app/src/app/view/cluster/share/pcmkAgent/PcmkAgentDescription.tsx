@@ -1,29 +1,26 @@
 import {ExpandableSection, Text} from "@patternfly/react-core";
 
-export const PcmkAgentDescription = ({
-  name,
-  shortdesc,
-  longdesc,
-}: {
+export const PcmkAgentDescription = (props: {
   name: string;
   shortdesc: string | null;
   longdesc: string | null;
+  "data-test"?: string;
 }) => {
-  const lastIndex = name.lastIndexOf(":");
+  const lastIndex = props.name.lastIndexOf(":");
 
   return (
-    <div className="pf-v5-c-content">
+    <div className="pf-v5-c-content" data-test={props["data-test"]}>
       <dl>
         <dt>Type</dt>
         <dd>
-          <strong>{name.substring(lastIndex + 1)}</strong>
-          {` (${name.substring(0, lastIndex)})`}
+          <strong>{props.name.substring(lastIndex + 1)}</strong>
+          {` (${props.name.substring(0, lastIndex)})`}
         </dd>
         <dt>Description</dt>
         <dd>
-          {shortdesc}
+          {props.shortdesc}
           <ExpandableSection toggleText="Full description">
-            {(longdesc || "").split("\n\n").map((line, i) => (
+            {(props.longdesc || "").split("\n\n").map((line, i) => (
               <Text component="p" key={i}>
                 {line}
               </Text>

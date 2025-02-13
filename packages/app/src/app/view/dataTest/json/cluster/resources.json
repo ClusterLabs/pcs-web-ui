@@ -62,7 +62,9 @@
   },
   "currentPrimitive": {
     "attributes": {},
-    "detail": {},
+    "detail": {
+      "pcmkAgent": {}
+    },
     "id": {},
     "meta": {
       "pair": {

@@ -103,7 +103,10 @@ export const toPrimitive = (
     class: apiResource.class,
     provider: apiResource.provider,
     type: apiResource.type,
-    agentName: `${apiResource.class}:${apiResource.provider}:${apiResource.type}`,
+    agentName:
+      apiResource.provider !== null
+        ? `${apiResource.class}:${apiResource.provider}:${apiResource.type}`
+        : `${apiResource.class}:${apiResource.type}`,
     // Decision: Last instance_attr wins!
     instanceAttributes: apiResource.instance_attr.reduce(
       (attrMap, nvpair) => ({

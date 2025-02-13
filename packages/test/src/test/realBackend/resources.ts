@@ -31,6 +31,14 @@ export const visibleInTree = async (resourceId: string) => {
   await isVisible(item.byId(resources.tree.primitive, resourceId, p => p.id));
 };
 
+export const openDetail = async (resourceId: string) => {
+  await click(item.byId(resources.tree.primitive, resourceId, p => p.id));
+};
+
+export const agentInfoInDetail = async () => {
+  await isVisible(resources.currentPrimitive.detail.pcmkAgent);
+};
+
 export const selectTab = async () => {
   await click(marks.clusterTabs.resources);
 };

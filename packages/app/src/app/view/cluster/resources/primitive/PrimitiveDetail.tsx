@@ -28,6 +28,7 @@ export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
               name={agent.name}
               shortdesc={agent.shortdesc}
               longdesc={agent.longdesc}
+              {...detail.pcmkAgent.mark}
             />
           )}
         </LoadedPcmkAgent>
