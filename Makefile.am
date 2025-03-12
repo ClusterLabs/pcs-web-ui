@@ -73,13 +73,15 @@ build:
 		mkdir -p $(APP_BUILD); \
 	  cp $(APP_SRC)/package.json $(APP_BUILD)/package.json; \
 	  cp $(APP_SRC)/package-lock.json $(APP_BUILD)/package-lock.json; \
+	  mkdir -p $(APP_BUILD)/.bin; \
+	  cp -rf $(APP_SRC)/.bin/build $(APP_BUILD)/.bin/; \
 	fi
 
 	if [ ! -d $(APP_BUILD)/node_modules ]; then \
 		npm ci --no-progress --prefix $(APP_BUILD); \
 	fi
 
-	$(abs_top_srcdir)/packages/app/.bin/build/main.sh \
+	${abs_top_builddir}/packages/app/.bin/build/main.sh \
 		${APP_SRC} \
 		$(APP_BUILD)/node_modules \
 		$(BUILD_DIR) \
@@ -168,6 +170,7 @@ uninstall-local:
 clean-local:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
 		rm -rf $(APP_BUILD)/node_modules; \
+		rm -rf $(APP_BUILD)/.bin; \
 		rm -rf $(APP_BUILD)//package*.json; \
 		rm -rf $(BUILD_DIR); \
 		rm -f ${abs_top_builddir}/.version; \

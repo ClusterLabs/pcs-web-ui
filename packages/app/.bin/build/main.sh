@@ -15,9 +15,6 @@ pcsd_unix_socket="${4:-"/var/run/pcsd.socket"}"
 
 in_json="$exec"/in-json.sh
 
-# Export node_modules location for js files.
-export NODE_PATH="$node_modules"
-
 structure() {
   "$in_json" "$exec"/structure.json "$1"."$2"
 }
@@ -97,7 +94,7 @@ app_dir_init() {
 minimize_adapter() {
   _build_dir=$1
 
-  "$node_modules"/node_modules/.bin/esbuild "$_build_dir"/"$template_adapter" \
+  "$node_modules"/.bin/esbuild "$_build_dir"/"$template_adapter" \
     --minify \
     --format=iife \
     --allow-overwrite \
