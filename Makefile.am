@@ -56,6 +56,7 @@ APP_SRC = $(abs_top_srcdir)/packages/app
 APP_BUILD = $(abs_top_builddir)/packages/app
 RPM_DIR = $(abs_top_builddir)/rpm
 BUILD_DIR = $(abs_top_builddir)/build
+DEV_BUILD_DIR = $(abs_top_builddir)/build-dev
 METAINFO_FILE = org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml
 
 app:
@@ -85,7 +86,10 @@ build:
 		$(PCSD_UNIX_SOCKET)
 
 dev:
-	@cd ./packages/dev-backend && .bin/dev-backend.sh
+	@cd ./packages/dev-backend && .bin/dev-backend.sh \
+		${APP_SRC} \
+		$(DEV_BUILD_DIR) \
+		$(APP_SRC)/node_modules
 
 test:
 	@cd ./packages/test && .bin/run-dev-tests.sh
