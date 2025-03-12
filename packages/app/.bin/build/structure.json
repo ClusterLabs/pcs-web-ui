@@ -15,8 +15,7 @@
     "ico": "static/media/favicon.png"
   },
   "output": {
-    "js": "static/js",
-    "css": "static/css",
+    "static": "static",
     "media": "static/media",
     "main": "main",
     "marks": "manifest_test_marks.json"
