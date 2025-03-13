@@ -19,8 +19,8 @@ EXTRA_DIST		= \
 			  public/index.html \
 			  public/manifestCockpit.json \
 			  public/manifest.json \
-			  public/static/js/adapterCockpit.js \
-			  public/static/js/adapter.js \
+			  public/static/adapterCockpit.js \
+			  public/static/adapter.js \
 			  public/static/media/favicon.png \
 			  src/app/backend/apiLib.ts \
 			  src/app/backend/api.ts \
