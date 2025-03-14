@@ -43,6 +43,7 @@ build_output_dir="$output_dir"/build-output
 mkdir -p "$build_output_dir"
 node --no-warnings=ExperimentalWarning "$exec"/esbuild.js \
   "$src_dir" \
+  "$node_modules" \
   "$build_output_dir"
 
 # measure sizes of compiled assets
