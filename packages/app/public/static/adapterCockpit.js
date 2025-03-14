@@ -68,9 +68,7 @@ var superuser = Superuser();
 
 // Variable pcsUiEnvAdapter will be used by main application included by another
 // javascript file
-// biome-ignore lint/correctness/noUnusedVariables:see in comment above
-// biome-ignore lint/style/noVar:
-var pcsUiEnvAdapter = {
+window.pcsUiEnvAdapter = {
   showMasthead: false,
   request: async (path, headers, postBody) => {
     const dispatchPcsdResponse = () =>
