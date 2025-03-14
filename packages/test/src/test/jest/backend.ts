@@ -2,7 +2,7 @@ import type {EnvType} from "./envType";
 
 const protocol = process.env.PCSD_PROTOCOL_1 || "https";
 const host = process.env.PCSD_HOST_1 || "";
-const port = process.env.PCSD_PORT_1 || 2224;
+const port = process.env.PCSD_PORT_1 || 5000;
 
 const rootUrl = (envType: EnvType) => {
   if (envType === "cockpit") {
@@ -10,7 +10,7 @@ const rootUrl = (envType: EnvType) => {
   }
 
   if (envType === "mocked") {
-    return "http://localhost:3000/ui/";
+    return `http://localhost:${port}/ui/`;
   }
 
   return `${protocol}://${host}:${port}/`;
