@@ -36,20 +36,6 @@ echo Fetching node_modules:
 npm ci --prefix="$temp_app_dir"
 
 echo
-echo Patching node_modules:
-files_to_patch="\
-    babel-loader/lib/cache.js \
-  "
-substitution="s/md\(4\|5\)/sha256/g"
-for file in $files_to_patch; do
-  printf "\n[%s]:\n\n" "$file"
-  set +e
-  sed "$substitution" "$node_modules/$file" | diff "$node_modules/$file" -
-  set -e
-  sed --in-place "$substitution" "$node_modules/$file"
-done
-
-echo
 echo Packing node_modules to "$archive_path":
 tar --create --xz \
   --file "$archive_path" \

@@ -27,7 +27,6 @@ EXTRA_DIST		= \
 			  .bin/init.sh \
 			  .bin/npm_install.sh \
 			  .bin/render-spec.sh \
-			  .browserslistrc \
 			  rpm/pcs-web-ui.spec.in \
 			  COPYING \
 			  .gitlab-ci.yml \

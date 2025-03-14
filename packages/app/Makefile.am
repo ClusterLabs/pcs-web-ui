@@ -7,11 +7,6 @@ EXTRA_DIST		= \
 				.bin/build/in-json.sh \
 				.bin/build/main.sh \
 				.bin/build/structure.json \
-				.bin/build/webpack.config.js \
-				.bin/build/webpack.js \
-				.bin/build/webpack-minify-css.js \
-				.bin/build/webpack.plugins.js \
-				.bin/build/webpack.rules.js \
 				.bin/fetch-and-pack-node-modules.sh \
 			  org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml \
 			  package.json \
