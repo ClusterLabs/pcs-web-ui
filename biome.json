@@ -14,7 +14,7 @@
       "./pcs-web-ui-*",
       "./build/for-cockpit/*",
       "./build/for-standalone/*",
-      "./build/webpack-output/*",
+      "./build/build-output/*",
       "./build-dev/*"
     ]
   },
@@ -282,7 +282,7 @@
       "./pcs-web-ui-*",
       "./build/for-cockpit/*",
       "./build/for-standalone/*",
-      "./build/webpack-output/*",
+      "./build/build-output/*",
       "./build-dev/*"
     ]
   },
