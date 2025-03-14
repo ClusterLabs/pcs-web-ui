@@ -5,7 +5,6 @@ files_with_nexus=""
 for lockDir in \
   "." \
   "./packages/app" \
-  "./packages/dev" \
   "./packages/dev-backend" \
   "./packages/test"; do
 

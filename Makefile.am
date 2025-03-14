@@ -58,15 +58,6 @@ BUILD_DIR = $(abs_top_builddir)/build
 DEV_BUILD_DIR = $(abs_top_builddir)/build-dev
 METAINFO_FILE = org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml
 
-app:
-	if [ ! -d $(APP_BUILD)/node_modules ]; then \
-		npm ci --no-progress --prefix $(APP_BUILD); \
-	fi
-	@$(abs_top_srcdir)/packages/dev/.bin/dev-server.sh \
-		${APP_SRC} \
-		$(APP_BUILD)/node_modules \
-		$(BUILD_DIR)
-
 build:
 	if [ "${abs_top_builddir}" != "${abs_top_srcdir}" ]; then \
 		mkdir -p $(APP_BUILD); \
