@@ -40,7 +40,7 @@ if [ -x "$(command -v inotifywait)" ]; then
   run
   while inotifywait -r -e MODIFY -e CREATE -e MOVE -e DELETE \
     "$package_dir"/app/src/ \
-    "$package_dir"/dev-backend/src/ \
+    "$package_dir"/dev/src/ \
     "$package_dir"/test/src/ \
     "$dev_dir"/ \
     "$dev_config" \

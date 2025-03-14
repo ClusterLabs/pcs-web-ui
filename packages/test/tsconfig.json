@@ -20,7 +20,7 @@
     "typeRoots": ["./node_modules/@types"],
     "paths": {
       "app/*": ["../../app/src/app/*"],
-      "dev/*": ["../../dev-backend/src/dev/*"]
+      "dev/*": ["../../dev/src/dev/*"]
     }
   },
   "include": ["src"]

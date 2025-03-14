@@ -78,7 +78,7 @@ build:
 		$(PCSD_UNIX_SOCKET)
 
 dev:
-	@cd ./packages/dev-backend && .bin/dev-backend.sh \
+	@cd ./packages/dev && .bin/dev.sh \
 		${APP_SRC} \
 		$(DEV_BUILD_DIR) \
 		$(APP_SRC)/node_modules
@@ -89,7 +89,7 @@ test:
 test-modules-prepare:
 	@cd ./packages/app && npm ci
 	@cd ./packages/test && npm ci
-	@cd ./packages/dev-backend && npm ci
+	@cd ./packages/dev && npm ci
 
 ci-cluster-test:
 	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/realBackend

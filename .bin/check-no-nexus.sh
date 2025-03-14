@@ -5,7 +5,7 @@ files_with_nexus=""
 for lockDir in \
   "." \
   "./packages/app" \
-  "./packages/dev-backend" \
+  "./packages/dev" \
   "./packages/test"; do
 
   lock="$lockDir"/package-lock.json

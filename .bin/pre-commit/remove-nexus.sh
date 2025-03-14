@@ -12,7 +12,6 @@ for lockDir in \
   "./" \
   "./packages/app" \
   "./packages/dev" \
-  "./packages/dev-backend" \
   "./packages/test"; do
 
   fix_lock "$lockDir"/package-lock.json
