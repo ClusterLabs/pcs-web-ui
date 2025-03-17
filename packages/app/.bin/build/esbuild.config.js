@@ -48,11 +48,12 @@ export const getConfig = async ({
       ".woff": "file",
       ".woff2": "file",
     },
-    metafile: true,
     tsconfig: tsConfigPath,
     logLevel: "error",
     resolveExtensions: [".tsx", ".ts", ".jsx", ".js", ".mjs", ".cjs"],
     absWorkingDir: path.join(srcDir, tsConfig.compilerOptions.baseUrl),
     nodePaths: [nodeModules],
+    legalComments: "external", // Move all legal comments to a .LEGAL.txt file
+    target: "es6",
   };
 };
