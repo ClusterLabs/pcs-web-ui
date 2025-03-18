@@ -92,10 +92,29 @@ app_dir_init() {
   cp -rf "${build_output_dir:?}/"* "$_app_dir"
 }
 
+esbuild() {
+  case $(uname -m) in
+    x86_64)
+      arch=x64 ;;
+    aarch64)
+      arch=arm64 ;;
+    ppc64le)
+      arch=ppc64 ;;
+    s390x)
+      arch=s390x ;;
+    *)
+      echo "Unsupported architecture: $arch" >&2
+      exit 1
+      ;;
+  esac
+
+  "$node_modules"/@esbuild/linux-"$arch"/bin/esbuild "$@"
+}
+
 minimize_adapter() {
   _build_dir=$1
 
-  "$node_modules"/.bin/esbuild "$_build_dir"/"$template_adapter" \
+  esbuild "$_build_dir"/"$template_adapter" \
     --minify \
     --format=iife \
     --allow-overwrite \
