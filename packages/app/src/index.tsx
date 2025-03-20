@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "@patternfly/react-core/dist/styles/base.css";
 // Official patternfly react table is a bit complex. So direct css is sometimes
 // used for more lightweight components.  But styles are not loaded when
@@ -21,4 +21,6 @@ import {App} from "app/view";
 import * as colorScheme from "app/view/colorScheme";
 
 colorScheme.setup();
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <App />,
+);
