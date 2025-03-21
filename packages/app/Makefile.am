@@ -667,6 +667,7 @@ EXTRA_DIST		= \
 			  src/app/view/share/lib/reports.ts \
 			  src/app/view/share/LoadedPcmkAgent.tsx \
 			  src/app/view/share/location.ts \
+			  src/app/view/share/Modal.tsx \
 			  src/app/view/share/nodeAuthForm/index.ts \
 			  src/app/view/share/nodeAuthForm/NodesAuthCustomAddrSwitch.tsx \
 			  src/app/view/share/nodeAuthForm/NodesAuthForm.tsx \

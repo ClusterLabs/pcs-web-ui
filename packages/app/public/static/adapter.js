@@ -30,6 +30,7 @@ const colorSchemeChangeEventName = "pcsd-standalone-style";
 // javascript file
 window.pcsUiEnvAdapter = {
   showMasthead: true,
+  topModal: false,
   request: async (path, headers, postBody) => {
     const response = await fetch(path, {
       headers,

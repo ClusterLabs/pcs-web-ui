@@ -1,4 +1,5 @@
-import {Button, Modal} from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
+import {Modal} from "app/view/share/Modal";
 
 import type {LauncherItem} from "./types";
 

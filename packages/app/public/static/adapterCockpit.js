@@ -70,6 +70,7 @@ var superuser = Superuser();
 // javascript file
 window.pcsUiEnvAdapter = {
   showMasthead: false,
+  topModal: true,
   request: async (path, headers, postBody) => {
     const dispatchPcsdResponse = () =>
       document.dispatchEvent(

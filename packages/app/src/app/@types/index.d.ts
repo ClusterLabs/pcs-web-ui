@@ -6,6 +6,7 @@ export {};
 declare global {
   var pcsUiEnvAdapter: {
     showMasthead: boolean;
+    topModal: boolean;
     request: (
       _path: string,
       _headers: Record<string, string>,

@@ -7,8 +7,8 @@ import {
   DataListItemCells,
   DataListItemRow,
   DataListToggle,
-  Modal,
 } from "@patternfly/react-core";
+import {Modal} from "app/view/share";
 import {TrashIcon} from "@patternfly/react-icons";
 
 import type {Action} from "app/store";

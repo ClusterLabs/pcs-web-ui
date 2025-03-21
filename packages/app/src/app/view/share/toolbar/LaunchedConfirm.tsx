@@ -1,5 +1,6 @@
 import {useDispatch} from "react-redux";
-import {Button, Modal} from "@patternfly/react-core";
+import {Button} from "@patternfly/react-core";
+import {Modal} from "app/view/share/Modal";
 
 import {testMarks} from "app/view/dataTest";
 import {tools} from "app/store";

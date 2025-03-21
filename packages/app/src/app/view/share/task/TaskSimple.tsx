@@ -1,5 +1,5 @@
 import React from "react";
-import {Modal} from "@patternfly/react-core";
+import {Modal} from "app/view/share/Modal";
 
 import type {selectors} from "app/store";
 
