@@ -41,12 +41,10 @@ First, create `Makefile`
 ./configure
 ```
 
-Then run
-* `make app` to run server providing application
-  - open <http://localhost:3000> to view it in the browser
-* `make dev` (in another terminal) to run server mocking `pcsd` responses
-  - dev backend doesn't run fully featured backend mock
-  - it runs only scenario with limited features
+Then run `make dev` to run server mocking `pcsd` responses:
+* open <http://localhost:5000> to view it in the browser
+* dev backend doesn't run fully featured backend mock
+* it runs only scenario with limited features
 
 ## Running tests
 

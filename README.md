@@ -9,7 +9,7 @@ It can run in two modes:
 
 ## Prerequisites
 
-* [Node.js](http://nodejs.org/) (with NPM)
+* [Node.js](http://nodejs.org/) v16.14.0+ (with NPM)
 * autoconf, automake
 * pkgconf
 * [pcs](https://github.com/ClusterLabs/pcs)

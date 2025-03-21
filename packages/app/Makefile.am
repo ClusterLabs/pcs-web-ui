@@ -1,14 +1,12 @@
 MAINTAINERCLEANFILES	= Makefile.in
 EXTRA_DIST		= \
-				.bin/build/webpack.rules.js \
-				.bin/build/webpack-minify-css.js \
-				.bin/build/main.sh \
 				.bin/build/app-merge-test-marks.js \
+				.bin/build/esbuild.config.js \
+				.bin/build/esbuild.js \
+				.bin/build/fix_assets_in_index.js \
 				.bin/build/in-json.sh \
-				.bin/build/webpack.js \
+				.bin/build/main.sh \
 				.bin/build/structure.json \
-				.bin/build/webpack.config.js \
-				.bin/build/webpack.plugins.js \
 				.bin/fetch-and-pack-node-modules.sh \
 			  org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml \
 			  package.json \
@@ -16,8 +14,8 @@ EXTRA_DIST		= \
 			  public/index.html \
 			  public/manifestCockpit.json \
 			  public/manifest.json \
-			  public/static/js/adapterCockpit.js \
-			  public/static/js/adapter.js \
+			  public/static/adapterCockpit.js \
+			  public/static/adapter.js \
 			  public/static/media/favicon.png \
 			  src/app/backend/apiLib.ts \
 			  src/app/backend/api.ts \

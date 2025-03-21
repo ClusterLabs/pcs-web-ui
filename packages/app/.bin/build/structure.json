@@ -8,15 +8,14 @@
   "template": {
     "dir": "public",
     "index": "index.html",
-    "adapter": "static/js/adapter.js",
-    "adapterCockpit": "static/js/adapterCockpit.js",
+    "adapter": "static/adapter.js",
+    "adapterCockpit": "static/adapterCockpit.js",
     "manifest": "manifest.json",
     "manifestCockpit": "manifestCockpit.json",
     "ico": "static/media/favicon.png"
   },
   "output": {
-    "js": "static/js",
-    "css": "static/css",
+    "static": "static",
     "media": "static/media",
     "main": "main",
     "marks": "manifest_test_marks.json"

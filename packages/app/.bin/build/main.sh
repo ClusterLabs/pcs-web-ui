@@ -15,9 +15,6 @@ pcsd_unix_socket="${4:-"/var/run/pcsd.socket"}"
 
 in_json="$exec"/in-json.sh
 
-# Export node_modules location for js files. E.g. webpack-minify-css.js etc.
-export NODE_PATH="$node_modules"
-
 structure() {
   "$in_json" "$exec"/structure.json "$1"."$2"
 }
@@ -32,36 +29,26 @@ template_adapter=$(structure template adapter)
 template_adapter_cockpit=$(structure template adapterCockpit)
 template_manifest=$(structure template manifest)
 template_manifest_cockpit=$(structure template manifestCockpit)
-template_ico=$(structure template ico)
 
-out_js=$(structure output js)
-out_css=$(structure output css)
 out_media=$(structure output media)
-out_main=$(structure output main)
 out_marks=$(structure output marks)
 
-# Webpack compiles assets for all apps
+# esbuild compiles assets for all apps
 # ------------------------------------------------------------------------------
 mkdir -p "$output_dir"
 rm -rf "${output_dir:?}/"*
 
 echo "Starting build"
-webpack_output_dir="$output_dir"/webpack-output
-mkdir -p "$webpack_output_dir"
-node "$exec"/webpack.js \
+build_output_dir="$output_dir"/build-output
+mkdir -p "$build_output_dir"
+node --no-warnings=ExperimentalWarning "$exec"/esbuild.js \
   "$src_dir" \
-  "$webpack_output_dir" \
-  "$out_js" \
-  "$out_css" \
-  "$out_media" \
-  "$out_main"
-
-node "$exec"/webpack-minify-css.js \
-  "$(ls "$webpack_output_dir"/"$out_css"/"$out_main".*.css)"
+  "$node_modules" \
+  "$build_output_dir"
 
 # measure sizes of compiled assets
-find "$webpack_output_dir" -type f \
-    -not -path "$webpack_output_dir/$out_media/*" \
+find "$build_output_dir" -type f \
+    -not -path "$build_output_dir/$out_media/*" \
     -not -name "*.txt" \
     -not -name "*.map" |
   while read -r file; do
@@ -102,76 +89,57 @@ app_dir_init() {
   chmod --recursive ug+w "$_app_dir"
 
   # Copy compiled assets
-  cp -rf "${webpack_output_dir:?}/"* "$_app_dir"
+  cp -rf "${build_output_dir:?}/"* "$_app_dir"
 }
 
-app_link() {
+esbuild() {
+  case $(uname -m) in
+    x86_64)
+      arch=x64 ;;
+    aarch64)
+      arch=arm64 ;;
+    ppc64le)
+      arch=ppc64 ;;
+    s390x)
+      arch=s390x ;;
+    *)
+      echo "Unsupported architecture: $arch" >&2
+      exit 1
+      ;;
+  esac
+
+  "$node_modules"/@esbuild/linux-"$arch"/bin/esbuild "$@"
+}
+
+minimize_adapter() {
   _build_dir=$1
-  _path_prefix=$2
-  make_asset() {
-    _path=$1
-    _ext=$2
 
-    echo "/$_path/$(basename "$(ls "$_build_dir/$_path/$out_main".*"$_ext")")"
-  }
-  # Inject compiled assets
-  # --------------------------------------------------------------------------
-  # There is a tag <script src="static/js/main.js"></script> in index.html.
-  # This function:
-  # * append link to built css after the tag
-  # * change source of the tag to built javascript
+  esbuild "$_build_dir"/"$template_adapter" \
+    --minify \
+    --format=iife \
+    --allow-overwrite \
+    --log-level=error \
+    --outfile="$_build_dir"/"$template_adapter"
+}
 
-  # Find script tag by src attribute.
-  script_src=$(echo "src=\"/$out_js/$out_main.js\"" | sed 's#/#\\/#g')
-
-  # Append css link.
-  css_link="<link href=\"$(make_asset "$out_css" .css)\" rel=\"stylesheet\">"
-  sed --in-place \
-    "/$script_src/a \    $css_link" \
-    "$_build_dir"/"$template_index"
-
-  # Set correct correct src.
-  sed --in-place \
-    "s#$script_src#src=\"$(make_asset "$out_js" .js)\"#" \
-    "$_build_dir"/"$template_index"
-
-  # Fix assets path
-  # --------------------------------------------------------------------------
-  # All assets in index.html uses absolute path. The index.html is also used by
-  # development server which needs absolute paths. There is no copy/edit phase
-  # in development server, so it is done here.
-  # Here is the absolute path prefixed according to pcsd url namespace for
-  # webui.
-  # WARNING: Don't use relative path. It works well in dashboard but in the
-  # cluster detail the resulting url contains word "cluster" inside, so instead
-  # of "/ui/static/..." we get "/ui/cluster/static" and asset loading fails.
-  # see: https://bugzilla.redhat.com/show_bug.cgi?id=2222788
-  paths="$out_js|$out_css|$template_manifest|$template_ico"
-  sed --regexp-extended --in-place \
-    "s#(src|href)=\"/($paths)#\1=\"$_path_prefix/\2#" \
-    "$_build_dir"/"$template_index"
-
-  # Minimize adapter
-  # --------------------------------------------------------------------------
-  "$node_modules"/.bin/terser "$_build_dir"/"$template_adapter" \
-    --compress ecma=5,warnings=false,comparisons=false,inline=2 \
-    --output "$_build_dir"/"$template_adapter"
-
-  # Build marks
-  # --------------------------------------------------------------------------
+build_marks() {
+  _build_dir=$1
   node "$exec"/app-merge-test-marks.js "$app_marks" > "$_build_dir"/"$out_marks"
 }
 
-# Make standalone application from webpack output
+# Make standalone application from build output
 # ------------------------------------------------------------------------------
 standalone_dir="$output_dir"/for-standalone
 app_dir_init "$standalone_dir"
 rm -f "$standalone_dir"/"$template_adapter_cockpit"
 rm -f "$standalone_dir"/"$template_manifest_cockpit"
-app_link "$standalone_dir" "/ui"
+node --no-warnings=ExperimentalWarning \
+  "$exec"/fix_assets_in_index.js  "$standalone_dir" "/ui"
+build_marks "$standalone_dir"
+minimize_adapter "$standalone_dir"
 echo "Build prepared: ${standalone_dir}."
 
-# Make cockpit application from webpack output
+# Make cockpit application from build output
 # ------------------------------------------------------------------------------
 cockpit_dir="$output_dir"/for-cockpit
 app_dir_init "$cockpit_dir"
@@ -187,5 +155,8 @@ mv -f \
 mv -f \
   "$cockpit_dir"/"$template_manifest_cockpit" \
   "$cockpit_dir"/"$template_manifest"
-app_link "$cockpit_dir" "."
+node  --no-warnings=ExperimentalWarning \
+  "$exec"/fix_assets_in_index.js "$cockpit_dir" "."
+build_marks "$cockpit_dir"
+minimize_adapter "$cockpit_dir"
 echo "Build prepared: ${cockpit_dir}."

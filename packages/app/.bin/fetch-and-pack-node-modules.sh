@@ -34,20 +34,11 @@ fi
 # Fetch node_modules.
 echo Fetching node_modules:
 npm ci --prefix="$temp_app_dir"
-
-echo
-echo Patching node_modules:
-files_to_patch="\
-    babel-loader/lib/cache.js \
-  "
-substitution="s/md\(4\|5\)/sha256/g"
-for file in $files_to_patch; do
-  printf "\n[%s]:\n\n" "$file"
-  set +e
-  sed "$substitution" "$node_modules/$file" | diff "$node_modules/$file" -
-  set -e
-  sed --in-place "$substitution" "$node_modules/$file"
-done
+# We need all supported achitectures of esbuild
+npm install --prefix="$temp_app_dir" esbuild --cpu x64 --os linux
+npm install --prefix="$temp_app_dir" esbuild --cpu arm64 --os linux
+npm install --prefix="$temp_app_dir" esbuild --cpu s390x --os linux
+npm install --prefix="$temp_app_dir" esbuild --cpu ppc64 --os linux
 
 echo
 echo Packing node_modules to "$archive_path":

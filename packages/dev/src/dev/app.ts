@@ -1,10 +1,23 @@
-import {dirname} from "node:path";
+import path from "node:path";
 
 import express, {type Express, type Request, type Response} from "express";
+
+import {startBuild} from "./build";
+import {prepareLiveReloadServer} from "./live-reload-server";
 
 // import endpoints from "app/backend/calls";
 import {type LibClusterCommands, endpoints} from "app/backend/endpoints";
 // import {endpoints} from "app";
+//
+
+const selectedScenarion = process.argv[1];
+const srcDir = process.argv[2];
+const outputDir = process.argv[3];
+const app_node_modules = process.argv[4];
+
+const port = process.env.PORT || 5000;
+
+startBuild({srcDir, outputDir, app_node_modules, port});
 
 const parserUrlEncoded = express.urlencoded({extended: false});
 const parserJson = express.json();
@@ -14,11 +27,10 @@ export type Handler = (_req: Request, _res: Response) => void;
 // biome-ignore lint/suspicious/noExplicitAny:
 type R = any;
 const application = express();
-const port = process.env.PORT || 5000;
-application.listen(port, () => {
+const server = application.listen(port, () => {
   console.log(
-    `${process.argv[1]
-      .slice(dirname(process.argv[1]).length + 1)
+    `${selectedScenarion
+      .slice(path.dirname(selectedScenarion).length + 1)
       .replace(/\.[^/.]+$/, "")}: Listening on port ${port}`,
   );
   console.log(
@@ -37,6 +49,12 @@ application.use((req, _res, next) => {
   );
   next();
 });
+application.use("/ui", express.static(outputDir));
+application.get("/ui/*", (_req, res) => {
+  res.sendFile(path.resolve(outputDir, "index.html"));
+});
+
+prepareLiveReloadServer(server, outputDir);
 
 const getDelay = (envDelay: string | undefined, defaultDelay: number) => {
   const delay = Number.parseInt(envDelay || `${defaultDelay}`, 10);

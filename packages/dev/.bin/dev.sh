@@ -2,13 +2,18 @@
 
 name=$0
 
+src_dir=$(realpath "$1")
+output_dir=$(realpath "$2")
+app_node_modules=$(realpath "$3")
+
 dev_root_dir=$(realpath "$(dirname "$0")"/..)
-scenario_dir="$dev_root_dir"/src/dev/scenarios
 dev_config="$(realpath "$(dirname "$0")"/../../..)"/.dev/cluster-test-conf.sh
+scenario_dir="$dev_root_dir"/src/dev/scenarios
 
 usage() {
   echo "Usage: $name" >&2
-  echo "Example: PCSD_SCENARIO=login $name" >&2
+  echo "Example: "
+  echo "PCSD_SCENARIO=login $name" "<src_dir> <output_dir> <node_modules>" >&2
 }
 
 run() {
@@ -17,9 +22,13 @@ run() {
     # shellcheck disable=SC1090
     . "$dev_config"
   fi
+  mkdir -p "$output_dir"
   npx tsx watch \
     -r tsconfig-paths/register \
-    "$scenario_dir/$scenario_name_selected"
+    "$scenario_dir/$scenario_name_selected" \
+    "$src_dir" \
+    "$output_dir" \
+    "$app_node_modules"
 }
 
 list_scenarios() {

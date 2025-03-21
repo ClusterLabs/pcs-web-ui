@@ -9,7 +9,14 @@
     "lineWidth": 80,
     "attributePosition": "auto",
     "bracketSpacing": false,
-    "ignore": ["**/node_modules", "./pcs-web-ui-*", "./build/*"]
+    "ignore": [
+      "**/node_modules",
+      "./pcs-web-ui-*",
+      "./build/for-cockpit/*",
+      "./build/for-standalone/*",
+      "./build/build-output/*",
+      "./build-dev/*"
+    ]
   },
   "linter": {
     "rules": {
@@ -270,7 +277,14 @@
         "useValidTypeof": "warn"
       }
     },
-    "ignore": ["**/node_modules", "./pcs-web-ui-*", "./build/*"]
+    "ignore": [
+      "**/node_modules",
+      "./pcs-web-ui-*",
+      "./build/for-cockpit/*",
+      "./build/for-standalone/*",
+      "./build/build-output/*",
+      "./build-dev/*"
+    ]
   },
   "files": {
     "ignore": ["**/package-*lock.json", "packages/app/src/react-app-env.d.ts"]
