@@ -1,7 +1,7 @@
 import type React from "react";
 
 import {useLocation} from "./Router";
-import {SimpleLink} from "./SimpleLink";
+import {Button} from "@patternfly/react-core";
 
 export const Link = (props: {
   "data-test"?: string;
@@ -18,13 +18,23 @@ export const Link = (props: {
     const parts = props.to.split("/");
     label = parts[parts.length - 1];
   }
+
+  let decoratedLabel = label;
+  if (props["data-test"]) {
+    decoratedLabel = (
+      <span data-test={props["data-test"]}>{decoratedLabel}</span>
+    );
+  }
+  if (props.strong) {
+    decoratedLabel = <strong>{decoratedLabel}</strong>;
+  }
   return (
-    <SimpleLink
+    <Button
+      variant="link"
       onClick={() => navigate(props.to)}
-      label={label}
-      data-test={props["data-test"]}
-      strong={props.strong}
       isInline={props.isInline}
-    />
+    >
+      {decoratedLabel}
+    </Button>
   );
 };

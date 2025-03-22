@@ -706,7 +706,6 @@ EXTRA_DIST		= \
 			  src/app/view/share/router/Link.tsx \
 			  src/app/view/share/router/match.ts \
 			  src/app/view/share/router/Router.tsx \
-			  src/app/view/share/router/SimpleLink.tsx \
 			  src/app/view/share/router/types.ts \
 			  src/app/view/share/router/useLocation.ts \
 			  src/app/view/share/StatusIco.tsx \
