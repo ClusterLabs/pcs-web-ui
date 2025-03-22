@@ -13,15 +13,17 @@ export const ClusterAppBreadcrumbs = ({
   clusterName: string;
   status: React.ReactNode;
 }) => {
-  const {navigate} = useLocation();
+  const {navigate, resolveLocation} = useLocation();
   return (
     <Breadcrumb {...breadcrumbs.mark} className="pf-v5-u-pb-xs">
       <BreadcrumbItem
-        to={location.dashboard}
+        to={resolveLocation(location.dashboard)}
         component="a"
-        onClick={(e: React.SyntheticEvent) => {
-          e.preventDefault();
-          navigate(location.dashboard);
+        onClick={e => {
+          if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+            e.preventDefault();
+            navigate(location.dashboard);
+          }
         }}
         {...breadcrumbs.dashboard.mark}
       >
