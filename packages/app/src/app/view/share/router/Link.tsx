@@ -1,7 +1,6 @@
 import type React from "react";
 
 import {useLocation} from "./Router";
-import {Button} from "@patternfly/react-core";
 
 export const Link = (props: {
   "data-test"?: string;
@@ -10,7 +9,7 @@ export const Link = (props: {
   to: string;
   children?: React.ReactNode;
 }) => {
-  const {navigate} = useLocation();
+  const {navigate, resolveLocation} = useLocation();
 
   let label = props.children;
 
@@ -29,12 +28,16 @@ export const Link = (props: {
     decoratedLabel = <strong>{decoratedLabel}</strong>;
   }
   return (
-    <Button
-      variant="link"
-      onClick={() => navigate(props.to)}
-      isInline={props.isInline}
+    <a
+      href={resolveLocation(props.to)}
+      onClick={e => {
+        if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+          e.preventDefault();
+          navigate(props.to);
+        }
+      }}
     >
       {decoratedLabel}
-    </Button>
+    </a>
   );
 };

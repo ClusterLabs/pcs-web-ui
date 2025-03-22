@@ -27,6 +27,7 @@ declare global {
       getSearch: () => string;
       getPath: () => string;
       navigate: (_to: string, _options?: {replace?: boolean}) => void;
+      resolve: (_to: string) => string;
       addEventsListener: (_listener: () => void) => void;
       removeEventsListener: (_listener: () => void) => void;
     };
