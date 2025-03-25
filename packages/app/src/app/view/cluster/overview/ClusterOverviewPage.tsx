@@ -1,4 +1,5 @@
 import {
+  Divider,
   Flex,
   FlexItem,
   type FlexProps,
@@ -51,23 +52,53 @@ export const ClusterOverviewPage = () => {
       />
 
       <PageSection {...testMarks.cluster.mark}>
-        <Flex {...overview.mark}>
-          {cluster.issueList.length > 0 && (
-            <FlexItem grow={grow} className="pf-v5-u-m-0">
-              <IssuesCard issueList={cluster.issueList} />
+        <Card>
+          <Flex {...overview.mark}>
+            {cluster.issueList.length > 0 && (
+              <>
+                <FlexItem grow={grow}>
+                  <IssuesCard issueList={cluster.issueList} />
+                </FlexItem>
+
+                <Divider
+                  orientation={{
+                    default: "horizontal",
+                    "2xl": "vertical",
+                    xl: "vertical",
+                    lg: "vertical",
+                    md: "horizontal",
+                    sm: "horizontal",
+                  }}
+                />
+              </>
+            )}
+
+            <FlexItem grow={grow}>
+              <Card title="Nodes" isPlain>
+                <NodesCard nodeList={cluster.nodeList} />
+              </Card>
             </FlexItem>
-          )}
-          <FlexItem grow={grow} className="pf-v5-u-m-0">
-            <Card title="Nodes">
-              <NodesCard nodeList={cluster.nodeList} />
-            </Card>
-          </FlexItem>
-          <FlexItem grow={grow} className="pf-v5-u-m-0">
-            <Card title="Resources">
-              <ResourcesCard resourceTree={cluster.resourceTree} />
-            </Card>
-          </FlexItem>
-        </Flex>
+
+            <Divider
+              orientation={{
+                // Divider orientations thresholds are different because the
+                // second must go horizontal earlier than the first.
+                default: "horizontal",
+                "2xl": "vertical",
+                xl: "horizontal",
+                lg: "horizontal",
+                md: "horizontal",
+                sm: "horizontal",
+              }}
+            />
+
+            <FlexItem grow={grow}>
+              <Card title="Resources" isPlain>
+                <ResourcesCard resourceTree={cluster.resourceTree} />
+              </Card>
+            </FlexItem>
+          </Flex>
+        </Card>
       </PageSection>
     </>
   );

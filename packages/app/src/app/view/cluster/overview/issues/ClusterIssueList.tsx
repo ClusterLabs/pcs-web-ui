@@ -23,7 +23,7 @@ export const IssuesCard = ({issueList}: {issueList: Issue[]}) => {
     return null;
   }
   return (
-    <Card title="Issues">
+    <Card title="Issues" isPlain>
       <IssueList
         issueList={issueList.sort(compareIssuesOrder)}
         hideEmpty
