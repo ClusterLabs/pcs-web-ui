@@ -4,9 +4,11 @@ import {
   type LauncherItem as ToolbarItem,
 } from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {useOpenTask} from "app/view/task";
 
 export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
   const refresh: ToolbarItem = {
     name: "refresh",
     confirm: {
@@ -52,18 +54,12 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
 
   const deleteItem: ToolbarItem = {
     name: "delete",
-    confirm: {
-      title: "Delete resource?",
-      description: <>This deletes the resource</>,
-      action: {
-        type: "RESOURCE.DELETE",
+    run: () =>
+      openTask("resourceDelete", {
+        type: "RESOURCE.DELETE.INIT",
         key: {clusterName},
-        payload: {
-          resourceId: fenceDevice.id,
-          resourceType: "fence-device",
-        },
-      },
-    },
+        payload: {resourceId: fenceDevice.id, resourceType: "fence-device"},
+      }),
   };
   return (
     <DetailToolbar

@@ -65,6 +65,7 @@ const stonithList = [
   stonith("FD_missing-key"),
   stonith("FD_unknown-cmd"),
   stonith("FD_error"),
+  stonith("FD_forceable-error"),
 ];
 
 const cloneList = [

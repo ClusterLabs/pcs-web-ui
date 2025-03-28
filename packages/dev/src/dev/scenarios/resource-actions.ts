@@ -59,7 +59,10 @@ app.removeResource((req, res) => {
     res.status(400).send("Unable to stop resource(s).");
     return;
   }
-  if ("resid-forceable-error" in req.body) {
+  if (
+    "resid-forceable-error" in req.body ||
+    "resid-FD_forceable-error" in req.body
+  ) {
     res
       .status(400)
       .send("Unable to stop resource(s), use --force to override.");
