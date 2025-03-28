@@ -59,7 +59,7 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
         type: "RESOURCE.DELETE",
         key: {clusterName},
         payload: {
-          resourceIds: [fenceDevice.id],
+          resourceId: fenceDevice.id,
           resourceType: "fence-device",
         },
       },

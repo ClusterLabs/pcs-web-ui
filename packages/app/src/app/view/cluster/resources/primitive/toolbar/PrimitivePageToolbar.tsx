@@ -86,7 +86,7 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
         type: "RESOURCE.DELETE",
         key: {clusterName},
         payload: {
-          resourceIds: [primitive.id],
+          resourceId: primitive.id,
           resourceType: "resource",
         },
       },

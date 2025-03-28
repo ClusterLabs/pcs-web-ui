@@ -30,7 +30,7 @@ export type ResourceActionsActions = {
     type: "RESOURCE.DELETE";
     key: {clusterName: string};
     payload: {
-      resourceIds: string[];
+      resourceId: string;
       resourceType: "resource" | "fence-device";
     };
   };
