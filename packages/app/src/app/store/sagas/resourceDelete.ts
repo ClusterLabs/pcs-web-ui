@@ -9,9 +9,12 @@ export function* deleteResource({
 }: ActionMap["RESOURCE.DELETE"]) {
   const result: api.ResultOf<typeof removeResource> = yield api.authSafe(
     removeResource,
-    key.clusterName,
-    resourceId,
-    resourceType === "fence-device",
+    {
+      clusterName: key.clusterName,
+      resourceId,
+      isStonith: resourceType === "fence-device",
+      force: false,
+    },
   );
 
   yield processClusterResultBasic(
