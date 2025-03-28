@@ -170,6 +170,7 @@ EXTRA_DIST		= \
 			  src/app/store/actions/resource/ban.ts \
 			  src/app/store/actions/resource/clear.ts \
 			  src/app/store/actions/resource/create.ts \
+			  src/app/store/actions/resource/delete.ts \
 			  src/app/store/actions/resource/groupChange.ts \
 			  src/app/store/actions/resource/groupCreate.ts \
 			  src/app/store/actions/resource/index.ts \
@@ -240,6 +241,7 @@ EXTRA_DIST		= \
 			  src/app/store/reducers/tasks/resourceBan.ts \
 			  src/app/store/reducers/tasks/resourceClear.ts \
 			  src/app/store/reducers/tasks/resourceCreate.ts \
+			  src/app/store/reducers/tasks/resourceDelete.ts \
 			  src/app/store/reducers/tasks/resourceGroup.ts \
 			  src/app/store/reducers/tasks/resourceMove.ts \
 			  src/app/store/reducers/tasks/resourceSet.ts \
@@ -570,6 +572,7 @@ EXTRA_DIST		= \
 			  src/app/view/dataTest/json/cluster/permissions.json \
 			  src/app/view/dataTest/json/cluster/permissionsToolbar.json \
 			  src/app/view/dataTest/json/cluster/properties.json \
+			  src/app/view/dataTest/json/cluster/resourceDelete.json \
 			  src/app/view/dataTest/json/cluster/resources.json \
 			  src/app/view/dataTest/json/cluster/resourcesToolbar.json \
 			  src/app/view/dataTest/json/cluster/sbd.json \
@@ -990,6 +993,10 @@ EXTRA_DIST		= \
 			  src/app/view/task/resourceCreate/SettingsGroup.tsx \
 			  src/app/view/task/resourceCreate/Settings.tsx \
 			  src/app/view/task/resourceCreate/useTask.ts \
+			  src/app/view/task/resourceDelete/index.ts \
+			  src/app/view/task/resourceDelete/ResourceDelete.tsx \
+			  src/app/view/task/resourceDelete/Success.tsx \
+			  src/app/view/task/resourceDelete/useTask.ts \
 			  src/app/view/task/resourceGroupCreate/Finish.tsx \
 			  src/app/view/task/resourceGroupCreate/Footer.tsx \
 			  src/app/view/task/resourceGroupCreate/Form.tsx \

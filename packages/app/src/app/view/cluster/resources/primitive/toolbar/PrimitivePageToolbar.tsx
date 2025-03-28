@@ -6,6 +6,7 @@ import {
 } from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 import {useOpenMoveBanTask} from "app/view/cluster/resources";
+import {useOpenTask} from "app/view/task";
 
 import {useToolbarItemMoveBan} from "./useToolbarItemMoveBan";
 import {useToolbarItemGroupChange} from "./useToolbarItemGroupChange";
@@ -26,6 +27,7 @@ const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   const {clusterName} = useLoadedCluster();
+  const openTask = useOpenTask();
   const openMoveBanTask = useOpenMoveBanTask();
 
   const move = useToolbarItemMoveBan(primitive, "move");
@@ -79,18 +81,12 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
 
   const deleteItem: ToolbarItem = {
     name: "delete",
-    confirm: {
-      title: "Delete resource?",
-      description: <>This deletes the resource</>,
-      action: {
-        type: "RESOURCE.DELETE",
+    run: () =>
+      openTask("resourceDelete", {
+        type: "RESOURCE.DELETE.INIT",
         key: {clusterName},
-        payload: {
-          resourceId: primitive.id,
-          resourceType: "resource",
-        },
-      },
-    },
+        payload: {resourceId: primitive.id, resourceType: "resource"},
+      }),
     ...toolbar.dropdown.delete.mark,
   };
 

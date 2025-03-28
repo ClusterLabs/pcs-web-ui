@@ -24,6 +24,7 @@ import {constraintTicketCreate} from "./constraintTicketCreate";
 import {constraintTicketSetCreate} from "./constraintTicketSetCreate";
 import {constraintColocationCreate} from "./constraintColocationCreate";
 import {constraintColocationSetCreate} from "./constraintColocationSetCreate";
+import {resourceDelete} from "./resourceDelete";
 import {resourceGroup} from "./resourceGroup";
 import {nodeAdd} from "./nodeAdd";
 import {nodeStop} from "./nodeStop";
@@ -74,6 +75,7 @@ export const tasks = combineReducers(
     constraintTicketSetCreate,
     constraintColocationCreate,
     constraintColocationSetCreate,
+    resourceDelete,
     resourceGroup,
     nodeAdd,
     nodeStop,

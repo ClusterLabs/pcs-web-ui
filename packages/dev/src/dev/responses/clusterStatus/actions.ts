@@ -54,6 +54,7 @@ const actionResourceList = [
   actionResource("missing-key"),
   actionResource("unknown-cmd"),
   actionResource("error"),
+  actionResource("forceable-error"),
 ];
 
 const stonithList = [
