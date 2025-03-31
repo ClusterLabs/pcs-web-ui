@@ -12,14 +12,10 @@ export const ResourceLink = ({
     return (
       <Link
         isInline
-        onClick={navigate => {
-          navigate(
-            location.resource({
-              clusterName,
-              resourceId: resourceIdMixed[resourceIdMixed.length - 1],
-            }),
-          );
-        }}
+        to={location.resource({
+          clusterName,
+          resourceId: resourceIdMixed[resourceIdMixed.length - 1],
+        })}
       >
         {resourceIdMixed.join("/")}
       </Link>

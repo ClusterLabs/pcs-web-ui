@@ -13,6 +13,7 @@ export const useLocation = (
   {base}: {base: Path} = {base: ""},
 ): {
   path: Path;
+  resolveLocation: (_to: Path) => string;
   navigate: (_to: Path, _options?: {replace?: boolean}) => void;
   search: string;
 } => {
@@ -49,6 +50,16 @@ export const useLocation = (
     return () => location.removeEventsListener(checkForUpdates);
   }, [base]);
 
+  const translateLocation = useCallback(
+    (to: string) => (to[0] === "~" ? to.slice(1) : base + to),
+    [base],
+  );
+
+  const resolveLocation = useCallback(
+    (to: string) => location.resolve(translateLocation(to)),
+    [translateLocation],
+  );
+
   // the 2nd argument of the `useLocation` return value is a function
   // that allows to perform a navigation.
   //
@@ -56,11 +67,9 @@ export const useLocation = (
   // it can be passed down as an element prop without any performance concerns.
   const navigate = useCallback(
     (to: string, {replace = false} = {}) =>
-      location.navigate(to[0] === "~" ? to.slice(1) : base + to, {
-        replace,
-      }),
-    [base],
+      location.navigate(translateLocation(to), {replace}),
+    [translateLocation],
   );
 
-  return {path, navigate, search};
+  return {path, resolveLocation, navigate, search};
 };

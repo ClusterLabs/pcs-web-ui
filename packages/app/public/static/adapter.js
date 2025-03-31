@@ -62,6 +62,8 @@ window.pcsUiEnvAdapter = {
 
       navigate: (to, {replace = false} = {}) =>
         window.history[replace ? replaceState : pushState](null, "", to),
+
+      resolve: to => to,
     };
   })(),
   user: {
