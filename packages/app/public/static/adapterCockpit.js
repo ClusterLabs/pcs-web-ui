@@ -132,8 +132,8 @@ window.pcsUiEnvAdapter = {
     navigate: (to, {replace = false} = {}) =>
       cockpit.location[replace ? "replace" : "go"](to),
 
-    // resolve: to => `#${to}`,
-    resolve: to => `${window.top.location.href.split("#")[0]}#${to}`,
+    resolve: to => `#${to}`,
+    // resolve: to => `${window.top.location.href.split("#")[0]}#${to}`,
   },
   user: {
     isHaclient: async () => (await cockpit.user()).groups.includes("haclient"),
