@@ -5,19 +5,17 @@ import {assert, mock} from "test/tools";
 import {goToResources, openClone, openGroup} from "./common";
 import {openPrimitive} from "./commonPrimitive";
 
-const clusterStatus = {
-  clusterStatus: cs.cluster("test-cluster", "ok", {
-    resource_list: [
-      cs.primitive("A"),
-      cs.group("G1", [cs.primitive("G1_A"), cs.primitive("G1_B")]),
-      cs.clone("CL1", cs.primitive("CL1_A")),
-      cs.clone(
-        "CL2",
-        cs.group("G2", [cs.primitive("G2_A"), cs.primitive("G2_B")]),
-      ),
-    ],
-  }),
-};
+const clusterStatus = cs.cluster("test-cluster", "ok", {
+  resource_list: [
+    cs.primitive("A"),
+    cs.group("G1", [cs.primitive("G1_A"), cs.primitive("G1_B")]),
+    cs.clone("CL1", cs.primitive("CL1_A")),
+    cs.clone(
+      "CL2",
+      cs.group("G2", [cs.primitive("G2_A"), cs.primitive("G2_B")]),
+    ),
+  ],
+});
 
 const resourceMoveTitleIs = async (title: string) => {
   await assert.textIs(taskTitle(marks.task.resourceMove), title);
@@ -32,7 +30,7 @@ const resourceClearTitleIs = async (title: string) => {
 };
 
 beforeEach(async () => {
-  mock.shortcuts.withCluster(clusterStatus);
+  mock.shortcuts.withCluster({clusterStatus});
   await goToResources();
 });
 
