@@ -17,11 +17,13 @@ export const ResourceDelete = () => {
   const {name: taskName, close, resourceDelete, state} = useTask();
 
   const isForceable = state.response === "fail" && state.isForceable;
-  const taskLabel = "Delete resource";
+  const resourceTypeLabel =
+    state.resourceType === "resource" ? "resource" : "fence device";
+  const taskLabel = `Delete ${resourceTypeLabel}`;
 
   return (
     <TaskSimpleOldApi
-      title={`${taskLabel}?`}
+      title={`${taskLabel} "${state.resourceId}"?`}
       taskLabel={taskLabel}
       task={taskName}
       close={close}
@@ -38,7 +40,7 @@ export const ResourceDelete = () => {
           <TaskButtonCancel {...task.cancel.mark} />
         </>
       }
-      configure={<>Delete resource</>}
+      configure={<>Deletes the specified resource</>}
       success={<Success />}
       fail={
         <TaskFinishError
