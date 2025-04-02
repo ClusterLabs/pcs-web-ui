@@ -13,9 +13,9 @@ EXTRA_DIST		= \
 			  src/test/jest/login.ts \
 			  src/test/jest/page.ts \
 			  src/test/jest/preset.ts \
-			  src/test/realBackend/oneNodeCluster.test.ts \
 			  src/test/realBackend/dashboard.ts \
 			  src/test/realBackend/fenceDevices.ts \
+			  src/test/realBackend/oneNodeCluster.test.ts \
 			  src/test/realBackend/resources.ts \
 			  src/test/realBackend/waitForResponse.ts \
 			  src/test/scenes/acl/commonRole.ts \
@@ -64,6 +64,7 @@ EXTRA_DIST		= \
 			  src/test/scenes/resources/commonPrimitive.ts \
 			  src/test/scenes/resources/common.ts \
 			  src/test/scenes/resources/create-resource.test.ts \
+			  src/test/scenes/resources/delete.test.ts \
 			  src/test/scenes/resources/launch-move-ban-clear.test.ts \
 			  src/test/scenes/resources/primitive-group-change.test.ts \
 			  src/test/scenes/resources/primitive-meta-create.test.ts \
@@ -110,6 +111,7 @@ EXTRA_DIST		= \
 			  src/test/tools/mock/routes/permissionsSave.ts \
 			  src/test/tools/mock/routes/rememberCluster.ts \
 			  src/test/tools/mock/routes/removeCluster.ts \
+			  src/test/tools/mock/routes/removeResource.ts \
 			  src/test/tools/mock/routes/resourceAgentDescribeAgent.ts \
 			  src/test/tools/mock/routes/resourceAgentListAgents.ts \
 			  src/test/tools/mock/routes/resourceBan.ts \

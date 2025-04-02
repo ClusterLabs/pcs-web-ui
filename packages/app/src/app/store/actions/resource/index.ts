@@ -1,4 +1,5 @@
 import type {ResourceCreateActions} from "./create";
+import type {ResourceDeleteActions} from "./delete";
 import type {ResourceMoveActions} from "./move";
 import type {ResourceBanActions} from "./ban";
 import type {ResourceClearActions} from "./clear";
@@ -10,6 +11,7 @@ import type {ResourceGroupChangeActions} from "./groupChange";
 // biome-ignore format:
 export type ResourceActions = (
   & ResourceCreateActions
+  & ResourceDeleteActions
   & ResourceMoveActions
   & ResourceBanActions
   & ResourceClearActions

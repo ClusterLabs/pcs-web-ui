@@ -54,6 +54,7 @@ const actionResourceList = [
   actionResource("missing-key"),
   actionResource("unknown-cmd"),
   actionResource("error"),
+  actionResource("forceable-error"),
 ];
 
 const stonithList = [
@@ -64,6 +65,7 @@ const stonithList = [
   stonith("FD_missing-key"),
   stonith("FD_unknown-cmd"),
   stonith("FD_error"),
+  stonith("FD_forceable-error"),
 ];
 
 const cloneList = [

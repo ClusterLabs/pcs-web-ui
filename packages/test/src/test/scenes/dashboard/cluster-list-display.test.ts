@@ -47,7 +47,11 @@ describe("Dashboard scene", () => {
 
   it("should render multiple cluster information", async () => {
     await goToDashboard();
-
+    // TODO After upgrade React and change setting render in commit 71f03936 the
+    // following asertion (count) occasionally failed. Adding timeout before
+    // fixed it. Need to do deeper inspection (hint: what about upgrading
+    // playwright?).
+    await page.waitForTimeout(50);
     await assert.countIs(cluster, 2);
 
     const first = item.byName(cluster, firstName);

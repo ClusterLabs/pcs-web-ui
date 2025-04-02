@@ -45,6 +45,7 @@ import permissions from "./json/cluster/permissions.json";
 import permissionsToolbar from "./json/cluster/permissionsToolbar.json";
 import properties from "./json/cluster/properties.json";
 import resources from "./json/cluster/resources.json";
+import resourceDelete from "./json/cluster/resourceDelete.json";
 import resourcesToolbar from "./json/cluster/resourcesToolbar.json";
 import sbd from "./json/cluster/sbd.json";
 import sbdToolbar from "./json/cluster/sbdToolbar.json";
@@ -104,6 +105,7 @@ export const structure = {
     nvsetEdit,
     permissionEdit,
     resourceCreate,
+    resourceDelete,
     resourceMove,
     resourceBan,
     resourceClear,

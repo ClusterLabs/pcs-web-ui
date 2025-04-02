@@ -27,6 +27,7 @@ import {ResourceCreate} from "./resourceCreate";
 import {ResourceMove} from "./resourceMove";
 import {ResourceBan} from "./resourceBan";
 import {ResourceClear} from "./resourceClear";
+import {ResourceDelete} from "./resourceDelete";
 import {ResourceGroupCreate} from "./resourceGroupCreate";
 import {SbdConfigure} from "./sbdConfigure";
 import {SbdDisable} from "./sbdDisable";
@@ -60,6 +61,7 @@ export const taskMap = {
   resourceMove: ResourceMove,
   resourceBan: ResourceBan,
   resourceClear: ResourceClear,
+  resourceDelete: ResourceDelete,
   resourceGroup: ResourceGroupCreate,
   sbdConfigure: SbdConfigure,
   sbdDisable: SbdDisable,

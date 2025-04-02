@@ -1,16 +1,19 @@
 import {type CallResult, endpoints, http} from "./tools";
 
-const {url} = endpoints.removeResource;
+const {url, params} = endpoints.removeResource;
 
-export const removeResource = (
-  clusterName: string,
-  resourceIds: string[],
-  isStonith: boolean,
-): CallResult =>
-  http.post(url({clusterName}), {
-    params: [
-      ["no_error_if_not_exists", "true"],
-      ...resourceIds.map(id => [`resid-${id}`, "true"] as [string, string]),
-      ...[(isStonith ? ["is-stonith", "true"] : []) as [string, string]],
-    ],
+export const removeResource = ({
+  clusterName,
+  resourceId,
+  isStonith,
+  force,
+}: {
+  clusterName: string;
+  resourceId: string;
+  isStonith: boolean;
+  force: boolean;
+}): CallResult => {
+  return http.post(url({clusterName}), {
+    params: params({resourceId, isStonith, force}),
   });
+};
