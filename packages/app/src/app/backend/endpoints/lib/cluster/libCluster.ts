@@ -340,6 +340,7 @@ export type Commands = [
     name: "sbd-disable-sbd";
     payload: {
       ignore_offline_nodes?: boolean;
+      force_flags?: string[];
     };
   },
   {

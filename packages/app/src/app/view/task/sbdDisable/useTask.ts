@@ -33,6 +33,7 @@ export const useTask = () => {
             name: "sbd-disable-sbd",
             payload: {
               ignore_offline_nodes: force,
+              ...(force ? {force_flags: ["FORCE"]} : {}),
             },
           },
         },
