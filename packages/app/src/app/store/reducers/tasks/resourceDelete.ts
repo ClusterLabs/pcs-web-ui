@@ -26,6 +26,7 @@ export const resourceDelete: AppReducer<typeof initialState> = (
       return {
         ...state,
         resourceId: action.payload.resourceId,
+        resourceType: action.payload.resourceType,
         clusterName: action.key.clusterName,
       };
 
