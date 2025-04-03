@@ -38,15 +38,44 @@ app.libCluster("sbd-disable-sbd", (req, res) => {
     res.status(400).send("Error disabling sbd");
     return;
   }
+
+  const nameErrMap = {
+    "error-offline": "offline-nodes",
+    "forceable-sbd-disable": "no-stonith-means-would-be-left",
+  };
+
   shortcut.libStd({
-    code: req.params.clusterName === "error-offline" ? "offline-nodes" : "ok",
+    code: nameErrMap[req.params.clusterName as keyof typeof nameErrMap] ?? "ok",
     res,
-    errors: {"offline-nodes": [offlineNodesReport]},
+    errors: {
+      "offline-nodes": [offlineNodesReport],
+      "no-stonith-means-would-be-left": [
+        {
+          severity: {level: "ERROR", force_code: "FORCE"},
+          message: {
+            code: "NO_STONITH_MEANS_WOULD_BE_LEFT",
+            message:
+              "Requested action lefts the cluster with no enabled means to" +
+              " fence nodes, resulting in the cluster not being able to recover" +
+              " from certain failure conditions",
+            payload: {},
+          },
+          context: null,
+        },
+      ],
+    },
   });
 });
 
 shortcut.dashboard([
   t.cluster("error", "error", {
+    node_list: [
+      t.node("1", {sbd_config: null}),
+      t.node("2", {status: "offline", quorum: false}),
+      t.node("3", {status: "unknown"}),
+    ],
+  }),
+  t.cluster("forceable-sbd-disable", "error", {
     node_list: [
       t.node("1", {sbd_config: null}),
       t.node("2", {status: "offline", quorum: false}),
