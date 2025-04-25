@@ -5,6 +5,7 @@ EXTRA_DIST		= \
 				.bin/build/esbuild.js \
 				.bin/build/fix_assets_in_index.js \
 				.bin/build/main.sh \
+				.bin/build/minimize-adapter.js \
 				.bin/build/structure.js \
 				.bin/fetch-and-pack-node-modules.sh \
 			  org.clusterlabs.cockpit_pcs_web_ui.metainfo.xml \
