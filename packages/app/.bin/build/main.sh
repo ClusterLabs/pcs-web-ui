@@ -13,10 +13,11 @@ node_modules=$(realpath "$2")
 output_dir=$(realpath "$3")
 pcsd_unix_socket="${4:-"/var/run/pcsd.socket"}"
 
-in_json="$exec"/in-json.sh
 
 structure() {
-  "$in_json" "$exec"/structure.json "$1"."$2"
+  node \
+    --input-type=module \
+    --eval="import {structure} from '$exec/structure.js'; console.log(structure.$1.$2)"
 }
 
 # Source / output files structure
