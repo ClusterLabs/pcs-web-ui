@@ -1,6 +1,6 @@
 import path from "node:path";
 import {readFile} from "node:fs/promises";
-import structure from "./structure.json" with {type: "json"};
+import {structure} from "./structure.js";
 
 export const getConfig = async ({
   srcDir,
