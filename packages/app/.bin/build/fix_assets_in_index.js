@@ -2,7 +2,7 @@ import path from "node:path";
 import fs from "node:fs";
 import {fileURLToPath} from "node:url";
 
-import structure from "./structure.json" with {type: "json"};
+import {structure} from "./structure.js";
 
 export const applyReplacements = (file, replacementPairs) =>
   fs.writeFileSync(

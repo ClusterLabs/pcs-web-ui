@@ -39,6 +39,7 @@ npm install --prefix="$temp_app_dir" esbuild --cpu x64 --os linux
 npm install --prefix="$temp_app_dir" esbuild --cpu arm64 --os linux
 npm install --prefix="$temp_app_dir" esbuild --cpu s390x --os linux
 npm install --prefix="$temp_app_dir" esbuild --cpu ppc64 --os linux
+npm install --prefix="$temp_app_dir" esbuild --cpu ia32 --os linux
 
 echo
 echo Packing node_modules to "$archive_path":
