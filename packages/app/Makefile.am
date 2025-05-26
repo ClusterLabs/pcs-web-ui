@@ -414,6 +414,7 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/nodes/NodeAttributes.tsx \
 			  src/app/view/cluster/nodes/NodeDaemonTable.tsx \
 			  src/app/view/cluster/nodes/NodeDaemonTr.tsx \
+			  src/app/view/cluster/nodes/NodeDetailCrmStatusTable.tsx \
 			  src/app/view/cluster/nodes/NodeDetailPageToolbar.tsx \
 			  src/app/view/cluster/nodes/NodeDetailPage.tsx \
 			  src/app/view/cluster/nodes/NodeDetailView.tsx \
