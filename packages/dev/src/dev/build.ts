@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import * as esbuild from "esbuild";
 import {getConfig} from "../../../app/.bin/build/esbuild.config.js";
-import structure from "../../../app/.bin/build/structure.json";
+import {structure} from "../../../app/.bin/build/structure.js";
 import * as indexBuild from "./build-assets-from-templates.js";
 
 process.env.NODE_ENV = "development";
