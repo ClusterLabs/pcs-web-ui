@@ -787,6 +787,7 @@ EXTRA_DIST		= \
 			  src/app/view/share/useRunOnEnter.ts \
 			  src/app/view/share/useUrlTabs.ts \
 			  src/app/view/share/useUsername.ts \
+			  src/app/view/share/useWindowWidth.ts \
 			  src/app/view/share/utils.ts \
 			  src/app/view/task/aclAssignSubjectToRole/AclAssignSubjectToRole.tsx \
 			  src/app/view/task/aclAssignSubjectToRole/ChooseAssignee.tsx \
