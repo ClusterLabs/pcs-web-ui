@@ -7,7 +7,7 @@ if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]; then
   exit 1
 fi
 
-exec="$(dirname "$0")"
+exec="$(realpath "$(dirname "$0")")"
 src_dir=$(realpath "$1")
 node_modules=$(realpath "$2")
 output_dir=$(realpath "$3")
