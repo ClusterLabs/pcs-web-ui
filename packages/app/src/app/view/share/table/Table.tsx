@@ -9,16 +9,19 @@ const Table = ({
   children,
   isCompact = false,
   isBorderless = false,
+  className,
   ...rest
 }: React.PropsWithChildren<{
   isCompact?: boolean;
   isBorderless?: boolean;
+  className?: string;
 }>) => {
   return (
     <PfTable
       role="grid"
       borders={!isBorderless}
       {...(isCompact ? {variant: "compact"} : {})}
+      {...(className ? {className} : {})}
       {...rest}
     >
       {children}

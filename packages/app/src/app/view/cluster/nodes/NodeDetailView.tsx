@@ -1,18 +1,13 @@
-import {
-  CrmStatusTable,
-  EmptyStateError,
-  IssueList,
-  Link,
-  location,
-} from "app/view/share";
+import {EmptyStateError, EmptyStateNoItem, IssueList} from "app/view/share";
 import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 import type {Node} from "app/view/cluster/types";
 
 import {NodeDaemonTable} from "./NodeDaemonTable";
 import {NodeClusterServicesView} from "./services";
+import {NodeDetailCrmStatusTable} from "./NodeDetailCrmStatusTable";
 
 export const NodeDetailView = ({node}: {node: Node}) => {
-  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
+  const {resourceOnNodeStatusList} = useLoadedCluster();
   const crmStatusList = resourceOnNodeStatusList.filter(
     s => s.node?.name === node.name,
   );
@@ -23,21 +18,14 @@ export const NodeDetailView = ({node}: {node: Node}) => {
         <IssueList issueList={node.issueList} hideEmpty />
       </DetailViewSection>
       <DetailViewSection caption="Resource status">
-        <CrmStatusTable
-          crmStatusList={crmStatusList}
-          emptyMessage={`No resource running on node "${node.name}".`}
-          rowObject={{
-            header: "Resource",
-            cell: crmStatus => (
-              <Link
-                to={location.resource({
-                  clusterName,
-                  resourceId: crmStatus.resource.id,
-                })}
-              />
-            ),
-          }}
-        />
+        {crmStatusList.length === 0 ? (
+          <EmptyStateNoItem
+            title={`No resource running on node "${node.name}".`}
+            canAdd={false}
+          />
+        ) : (
+          <NodeDetailCrmStatusTable crmStatusList={crmStatusList} />
+        )}
       </DetailViewSection>
       {node.status === "DATA_NOT_PROVIDED" && (
         <DetailViewSection caption="Node Daemons">

@@ -414,6 +414,7 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/nodes/NodeAttributes.tsx \
 			  src/app/view/cluster/nodes/NodeDaemonTable.tsx \
 			  src/app/view/cluster/nodes/NodeDaemonTr.tsx \
+			  src/app/view/cluster/nodes/NodeDetailCrmStatusTable.tsx \
 			  src/app/view/cluster/nodes/NodeDetailPageToolbar.tsx \
 			  src/app/view/cluster/nodes/NodeDetailPage.tsx \
 			  src/app/view/cluster/nodes/NodeDetailView.tsx \
@@ -786,6 +787,7 @@ EXTRA_DIST		= \
 			  src/app/view/share/useRunOnEnter.ts \
 			  src/app/view/share/useUrlTabs.ts \
 			  src/app/view/share/useUsername.ts \
+			  src/app/view/share/useWindowWidth.ts \
 			  src/app/view/share/utils.ts \
 			  src/app/view/task/aclAssignSubjectToRole/AclAssignSubjectToRole.tsx \
 			  src/app/view/task/aclAssignSubjectToRole/ChooseAssignee.tsx \
