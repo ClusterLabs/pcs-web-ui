@@ -33,6 +33,7 @@ EXTRA_DIST		= \
 			  make/git-version-gen \
 			  README.md \
 			  CONTRIBUTING.md \
+			  CHANGELOG.md \
 			  typos.toml 
 			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz\
 			  .version
