@@ -22,6 +22,8 @@ MAINTAINERCLEANFILES	= \
 
 EXTRA_DIST		= \
 			  autogen.sh \
+			  .bin/bump-version.sh \
+			  .bin/bump-version.js \
 			  .bin/check-no-nexus.sh \
 			  .bin/init_nexus.sh \
 			  .bin/init.sh \
@@ -127,9 +129,7 @@ fmt:
 
 .PHONY: bump-version
 bump-version:
-	@node .bin/bump-version.js $(version)
-	@git commit -a -m "bump new version ($(version))"
-	@git tag -a -m "$(version) release" $(version) HEAD
+	.bin/bump-version.sh $(version)
 
 dist-hook:
 	$(abs_top_srcdir)/packages/app/.bin/fetch-and-pack-node-modules.sh \

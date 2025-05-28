@@ -25,7 +25,8 @@ const updateVersion = packageFile => {
       : {}),
   };
 
-  return fs.writeFileSync(packageFile, JSON.stringify(updated, null, 2));
+  // New line to make lintter hapy...
+  return fs.writeFileSync(packageFile, `${JSON.stringify(updated, null, 2)}\n`);
 };
 
 updateVersion("./package.json");
