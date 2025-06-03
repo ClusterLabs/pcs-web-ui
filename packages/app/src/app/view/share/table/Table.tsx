@@ -9,11 +9,13 @@ const Table = ({
   children,
   isCompact = false,
   isBorderless = false,
+  isStriped = true,
   className,
   ...rest
 }: React.PropsWithChildren<{
   isCompact?: boolean;
   isBorderless?: boolean;
+  isStriped?: boolean;
   className?: string;
 }>) => {
   return (
@@ -21,6 +23,7 @@ const Table = ({
       role="grid"
       borders={!isBorderless}
       {...(isCompact ? {variant: "compact"} : {})}
+      {...(isStriped ? {isStriped} : {})}
       {...(className ? {className} : {})}
       {...rest}
     >
