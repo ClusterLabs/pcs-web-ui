@@ -23,7 +23,8 @@ export const DashboardClusterList = ({
   return (
     <DashboardClusterListSorting clusterInfoList={clusterInfoList}>
       {sortedClusterInfoList =>
-        sortedClusterInfoList.map(clusterInfo => {
+        sortedClusterInfoList.map((clusterInfo, i) => {
+          const isEven = i % 2 === 0;
           if (clusterInfo.isRegistered && clusterInfo.isFetched) {
             const {clusterStatus} = clusterInfo;
             return (
@@ -43,6 +44,7 @@ export const DashboardClusterList = ({
                     />
                   </>
                 }
+                isEven={isEven}
               />
             );
           }
@@ -75,6 +77,7 @@ export const DashboardClusterList = ({
                     )}
                   </td>
                 }
+                isEven={isEven}
               />
             );
           }
@@ -88,6 +91,7 @@ export const DashboardClusterList = ({
                   <Spinner size="md" />
                 </td>
               }
+              isEven={isEven}
             />
           );
         })

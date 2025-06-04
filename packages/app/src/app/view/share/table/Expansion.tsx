@@ -11,12 +11,22 @@ const useExpansion = ({
   const [expanded, setExpanded] = React.useState("");
 
   const Toggle = React.useCallback(
-    ({expandKey, children, ...rest}) => {
+    ({
+      expandKey,
+      children,
+      "data-test": dataTest,
+      ...rest
+    }: {
+      expandKey: string;
+      children: React.ReactNode;
+      "data-test": string;
+    }) => {
       return (
         <ExpansionToggle
           expanded={expanded}
           setExpanded={setExpanded}
           expandKey={expandKey}
+          data-test={dataTest}
           {...rest}
         >
           {children}
@@ -27,9 +37,19 @@ const useExpansion = ({
   );
 
   const Content = React.useCallback(
-    ({expandKey, children}) =>
+    ({
+      expandKey,
+      isEven,
+      children,
+    }: {
+      isEven: boolean;
+      expandKey: string;
+      children: React.ReactNode;
+    }) =>
       expanded !== expandKey ? null : (
-        <ExpandedContent colSpan={contentSpan}>{children}</ExpandedContent>
+        <ExpandedContent colSpan={contentSpan} isEven={isEven}>
+          {children}
+        </ExpandedContent>
       ),
     [expanded, contentSpan],
   );

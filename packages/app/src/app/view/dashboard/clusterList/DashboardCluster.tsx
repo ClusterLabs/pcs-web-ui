@@ -14,10 +14,11 @@ export const DashboardCluster = (props: {
   isLoading?: boolean;
   isExpanded?: boolean;
   expandedContent?: React.ReactNode;
+  isEven?: boolean;
 }) => {
   return (
     <Table.Body isExpanded={props.isExpanded} {...clusterMark.mark}>
-      <Tr>
+      <Tr isStriped={!props.isEven}>
         <Th>
           <Link to={location.cluster({clusterName: props.clusterName})}>
             <strong {...name.mark}>{props.clusterName}</strong>{" "}

@@ -28,6 +28,7 @@ const {cluster} = testMarks.dashboard.clusterList;
 export const DashboardClusterLoaded = (props: {
   cluster: Cluster;
   status: React.ReactNode;
+  isEven: boolean;
 }) => {
   const {expanded, Toggle, Content} = Table.Expansion.useExpansion({
     contentSpan: CELL_COUNT,
@@ -37,6 +38,7 @@ export const DashboardClusterLoaded = (props: {
     <DashboardCluster
       clusterName={props.cluster.name}
       status={props.status}
+      isEven={props.isEven}
       columns={
         <>
           <Toggle expandKey={COLUMNS.ISSUES} {...cluster.issuesCount.mark}>
@@ -82,7 +84,7 @@ export const DashboardClusterLoaded = (props: {
       isExpanded={EXPANDABLE_COLUMNS.includes(expanded)}
       expandedContent={
         <>
-          <Content expandKey={COLUMNS.ISSUES}>
+          <Content expandKey={COLUMNS.ISSUES} isEven={props.isEven}>
             <IssueList
               margin
               issueList={props.cluster.issueList}
@@ -98,13 +100,13 @@ export const DashboardClusterLoaded = (props: {
               )}
             />
           </Content>
-          <Content expandKey={COLUMNS.NODES}>
+          <Content expandKey={COLUMNS.NODES} isEven={props.isEven}>
             <DashboardClusterNodes cluster={props.cluster} />
           </Content>
-          <Content expandKey={COLUMNS.RESOURCES}>
+          <Content expandKey={COLUMNS.RESOURCES} isEven={props.isEven}>
             <DashboardClusterResources cluster={props.cluster} />
           </Content>
-          <Content expandKey={COLUMNS.FENCE_DEVICES}>
+          <Content expandKey={COLUMNS.FENCE_DEVICES} isEven={props.isEven}>
             <DashboardClusterFenceDevices cluster={props.cluster} />
           </Content>
         </>

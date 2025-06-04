@@ -80,7 +80,11 @@ export const DashboardClusterListSorting = ({
 }) => {
   const {sortState, compareItems} = SortableTh.useSorting(columnList);
   return (
-    <Table aria-label="Cluster list" {...testMarks.dashboard.clusterList.mark}>
+    <Table
+      aria-label="Cluster list"
+      {...testMarks.dashboard.clusterList.mark}
+      isStriped={false}
+    >
       <Thead>
         <Tr>
           <SortableTh columnName="NAME" sortState={sortState} data-label="name">

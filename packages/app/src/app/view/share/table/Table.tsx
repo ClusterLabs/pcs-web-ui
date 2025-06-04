@@ -9,6 +9,7 @@ const Table = ({
   children,
   isCompact = false,
   isBorderless = false,
+  isExpandable = false,
   isStriped = true,
   className,
   ...rest
@@ -16,6 +17,7 @@ const Table = ({
   isCompact?: boolean;
   isBorderless?: boolean;
   isStriped?: boolean;
+  isExpandable?: boolean;
   className?: string;
 }>) => {
   return (
@@ -24,6 +26,7 @@ const Table = ({
       borders={!isBorderless}
       {...(isCompact ? {variant: "compact"} : {})}
       {...(isStriped ? {isStriped} : {})}
+      {...(isExpandable ? {isExpandable} : {})}
       {...(className ? {className} : {})}
       {...rest}
     >
