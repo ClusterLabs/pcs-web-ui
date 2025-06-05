@@ -1,10 +1,11 @@
 import React from "react";
-import {DropdownItem} from "@patternfly/react-core";
 import {
   Dropdown,
-  DropdownPosition,
-  KebabToggle,
-} from "@patternfly/react-core/deprecated";
+  DropdownItem,
+  DropdownList,
+  MenuToggle,
+} from "@patternfly/react-core";
+import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 
 import {testMarks} from "app/view/dataTest";
 import {useDispatch} from "app/view/share/useDispatch";
@@ -17,34 +18,41 @@ export const DrawerDropdown = () => {
 
   return (
     <Dropdown
-      onSelect={() => setHeaderDropdownOpen(!isHeaderDropdownOpen)}
-      toggle={
-        <KebabToggle
-          onToggle={() => setHeaderDropdownOpen(!isHeaderDropdownOpen)}
+      onSelect={() => setHeaderDropdownOpen(false)}
+      toggle={toggleRef => (
+        <MenuToggle
+          ref={toggleRef}
           id="notification-toggle"
-        />
-      }
+          aria-label="notification menu toggle"
+          variant="plain"
+          onClick={() => setHeaderDropdownOpen(!isHeaderDropdownOpen)}
+          isExpanded={isHeaderDropdownOpen}
+        >
+          <EllipsisVIcon />
+        </MenuToggle>
+      )}
       isOpen={isHeaderDropdownOpen}
-      isPlain
-      dropdownItems={[
+      onOpenChange={isOpen => setHeaderDropdownOpen(isOpen)}
+      shouldFocusToggleOnSelect
+      id="notification-dropdown"
+      popperProps={{position: "right"}}
+    >
+      <DropdownList>
         <DropdownItem
           key="markAllRead"
           onClick={() => dispatch({type: "NOTIFICATION.READ.ALL"})}
           {...drawer.markAllRead.mark}
         >
           Mark all read
-        </DropdownItem>,
-
+        </DropdownItem>
         <DropdownItem
           key="clearAll"
           onClick={() => dispatch({type: "NOTIFICATION.DESTROY.ALL"})}
           {...drawer.clearAll.mark}
         >
           Clear all
-        </DropdownItem>,
-      ]}
-      id="notification-dropdown"
-      position={DropdownPosition.right}
-    />
+        </DropdownItem>
+      </DropdownList>
+    </Dropdown>
   );
 };

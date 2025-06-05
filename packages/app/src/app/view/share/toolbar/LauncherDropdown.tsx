@@ -2,8 +2,10 @@ import React from "react";
 import {
   Dropdown,
   DropdownItem,
-  KebabToggle,
-} from "@patternfly/react-core/deprecated";
+  DropdownList,
+  MenuToggle,
+} from "@patternfly/react-core";
+import EllipsisVIcon from "@patternfly/react-icons/dist/esm/icons/ellipsis-v-icon";
 
 import {tools} from "app/store";
 
@@ -20,26 +22,41 @@ export const LauncherDropdown = (props: {
   return (
     <LauncherGroup items={props.items}>
       <Dropdown
-        data-test={props["data-test"]}
-        toggle={<KebabToggle onToggle={() => setKebabOpen(!kebabOpen)} />}
-        onSelect={() => setKebabOpen(false)}
+        toggle={toggleRef => (
+          <MenuToggle
+            ref={toggleRef}
+            variant="plain"
+            onClick={() => setKebabOpen(!kebabOpen)}
+            isExpanded={kebabOpen}
+            data-test={props["data-test"]}
+          >
+            <EllipsisVIcon />
+          </MenuToggle>
+        )}
+        onSelect={(_event, _value) => setKebabOpen(false)}
         isOpen={kebabOpen}
-        isPlain
-        dropdownItems={props.items.map((item, i) => (
-          <Launcher key={i} item={item}>
-            {launch => (
-              <DropdownItem
-                component="button"
-                onClick={launch}
-                data-test={"data-test" in item ? item["data-test"] : item.name}
-                isDisabled={item.disabled ?? false}
-              >
-                {tools.labelize(item.label || item.name)}
-              </DropdownItem>
-            )}
-          </Launcher>
-        ))}
-      />
+        onOpenChange={isOpen => setKebabOpen(isOpen)}
+        shouldFocusToggleOnSelect
+      >
+        <DropdownList>
+          {props.items.map((item, i) => (
+            <Launcher key={i} item={item}>
+              {launch => (
+                <DropdownItem
+                  value={item.name}
+                  onClick={launch}
+                  {...("data-test" in item
+                    ? {"data-test": item["data-test"]}
+                    : {})}
+                  isDisabled={item.disabled ?? false}
+                >
+                  {tools.labelize(item.label || item.name)}
+                </DropdownItem>
+              )}
+            </Launcher>
+          ))}
+        </DropdownList>
+      </Dropdown>
     </LauncherGroup>
   );
 };
