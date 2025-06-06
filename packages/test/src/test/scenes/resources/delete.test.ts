@@ -38,7 +38,7 @@ describe("Resource delete", () => {
 
     await goToPrimitive("A");
     await runPrimitiveDelete();
-    await assert.textIs(task, "Delete resource");
+    await assert.textIs(task, "Deletes the specified resource");
     await click(task.run);
     await isVisible(task.success);
     await click(task.success.close);
@@ -61,7 +61,7 @@ describe("Resource delete", () => {
 
     await goToPrimitive("A");
     await runPrimitiveDelete();
-    await assert.textIs(task, "Delete resource");
+    await assert.textIs(task, "Deletes the specified resource");
     await click(task.run);
     await isVisible(task.fail);
     await assert.textIs(task.fail.tryAgain, "Try again");
@@ -86,7 +86,7 @@ describe("Resource delete", () => {
 
     await goToPrimitive("A");
     await runPrimitiveDelete();
-    await assert.textIs(task, "Delete resource");
+    await assert.textIs(task, "Deletes the specified resource");
     await click(task.run);
     await isVisible(task.fail);
     await assert.textIs(task.fail.tryAgain, "Proceed anyway");
