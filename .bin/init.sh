@@ -10,6 +10,6 @@ if [ "$#" -eq 1 ]; then
   "$(dirname "$0")"/init_nexus.sh packages "$registry" "$cafile"
 fi
 
-cp "$(dirname "$0")"/pre-commit.sh .git/hooks/pre-commit
+cp "$(dirname "$0")"/pre-commit/pre-commit.sh .git/hooks/pre-commit
 "$(dirname "$0")"/npm_install.sh packages
 .git/hooks/pre-commit
