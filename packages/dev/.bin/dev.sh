@@ -7,7 +7,6 @@ output_dir=$(realpath "$2")
 app_node_modules=$(realpath "$3")
 
 dev_root_dir=$(realpath "$(dirname "$0")"/..)
-dev_config="$(realpath "$(dirname "$0")"/../../..)"/.dev/cluster-test-conf.sh
 scenario_dir="$dev_root_dir"/src/dev/scenarios
 
 usage() {
@@ -18,9 +17,9 @@ usage() {
 
 run() {
   scenario_name_selected="$1"
-  if [ -f "$dev_config" ]; then
+  if [ -f "$PCS_WUI_DEV_CONF" ]; then
     # shellcheck disable=SC1090
-    . "$dev_config"
+    . "$PCS_WUI_DEV_CONF"
   fi
   mkdir -p "$output_dir"
   npx tsx watch \

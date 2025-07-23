@@ -1,8 +1,6 @@
 #!/bin/sh
 
 package_dir=$(realpath "$(dirname "$0")"/../..)
-dev_dir=$(realpath "$(dirname "$0")"/../../../.dev)
-dev_config="$dev_dir"/cluster-test-conf.sh
 
 run_jest=$(dirname "$0")/run-jest.sh
 if [ -z ${PCS_WUI_TEST_TYPE+x} ]; then
@@ -19,10 +17,10 @@ scenes_path_pattern() {
 }
 
 run() {
-  if [ -f "$dev_config" ]; then
+  if [ -f "$PCS_WUI_DEV_CONF" ]; then
     # In POSIX sh, source in place of . is undefined.
     # shellcheck source=/dev/null
-    . "$dev_config"
+    . "$PCS_WUI_DEV_CONF"
   fi
 
   echo Launching "$PCS_WUI_TEST_TYPE" tests
@@ -42,8 +40,7 @@ if [ -x "$(command -v inotifywait)" ]; then
     "$package_dir"/app/src/ \
     "$package_dir"/dev/src/ \
     "$package_dir"/test/src/ \
-    "$dev_dir"/ \
-    "$dev_config" \
+    "$PCS_WUI_DEV_CONF" \
     ; do
     run
   done
