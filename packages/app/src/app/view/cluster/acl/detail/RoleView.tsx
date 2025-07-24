@@ -1,5 +1,6 @@
+import {Tab, Tabs} from "@patternfly/react-core";
 import {testMarks} from "app/view/dataTest";
-import {Router, UrlTabs, useUrlTabs} from "app/view/share";
+import {Router, useUrlTabs} from "app/view/share";
 import {DetailLayout, useLoadedCluster} from "app/view/cluster/share";
 
 import type {AclType} from "../types";
@@ -13,6 +14,12 @@ export const aclRolePageTabList = ["detail", "users", "groups"] as const;
 
 const {currentRole} = testMarks.cluster.acl;
 
+const tabMap = {
+  detail: <Tab eventKey="detail" key="detail" title={"Detail"} />,
+  users: <Tab eventKey="users" key="users" title="Users" />,
+  groups: <Tab eventKey="groups" key="groups" title="Groups" />,
+};
+
 export const RoleView = ({
   roleId,
   role,
@@ -21,7 +28,9 @@ export const RoleView = ({
   role: AclType<"role">;
 }) => {
   const {acls} = useLoadedCluster();
-  const {currentTab, matchedContext} = useUrlTabs(aclRolePageTabList);
+  const {currentTab, matchedContext, onSelect} = useUrlTabs(
+    Object.keys(tabMap) as (keyof typeof tabMap)[],
+  );
 
   return (
     <DetailLayout
@@ -31,7 +40,11 @@ export const RoleView = ({
         </span>
       }
       toolbar={<RoleViewToolbar roleId={roleId} />}
-      tabs={<UrlTabs tabList={aclRolePageTabList} currentTab={currentTab} />}
+      tabs={
+        <Tabs activeKey={currentTab} onSelect={onSelect}>
+          {Object.values(tabMap)}
+        </Tabs>
+      }
       {...currentRole.mark}
     >
       <Router base={matchedContext}>

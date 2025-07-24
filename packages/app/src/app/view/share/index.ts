@@ -20,7 +20,6 @@ export * from "./StatusIco";
 export * from "./StatusSign";
 export * from "./table";
 export * from "./toolbar";
-export * from "./UrlTabs";
 export * from "./useUrlTabs";
 export * from "./useUsername";
 export * from "./utils";

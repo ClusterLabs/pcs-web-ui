@@ -782,7 +782,6 @@ EXTRA_DIST		= \
 			  src/app/view/share/toolbar/tools.ts \
 			  src/app/view/share/toolbar/types.ts \
 			  src/app/view/share/toolbar/useLauncherDisableClusterNotRunning.tsx \
-			  src/app/view/share/UrlTabs.tsx \
 			  src/app/view/share/useDispatch.ts \
 			  src/app/view/share/useRunOnEnter.ts \
 			  src/app/view/share/useUrlTabs.ts \
