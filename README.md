@@ -1,23 +1,23 @@
-# PCS WEB UI
+# PCS Web UI
 
-Web interface for [pcs] - a Corosync and
+Web interface for [PCS] - a Corosync and
 Pacemaker configuration tool.
 
 It can run in two modes:
 * a standalone application (provided by `pcsd` backend from [pcs])
-* a [cockpit] plugin
+* a [Cockpit] plugin
 
 ## Prerequisites
 
 * [Node.js](http://nodejs.org/) v18+ (with NPM)
 * autoconf, automake
 * pkgconf
-* [pcs]
-* [cockpit] (optional)
+* [PCS]
+* [Cockpit] (optional)
 
 ## Building and installation
 
-To install pcs-web-ui run the following in terminal:
+To install PCS Web UI run the following in terminal:
 
 ```sh
 ./autogen.sh
@@ -35,10 +35,10 @@ You can add following flags to `./configure`:
 * `--with-pcsd-webui-dir` to specify standalone installation directory
 * `--with-cockpit-dir` to specify cockpit plugin installation directory
 
-Make sure to also install pcs if you haven't installed it yet. Pcsd needs to be running in order for pcs-web-ui to work, even for the cockpit plugin:
+Make sure to also install PCS if you haven't installed it yet. Pcsd needs to be running in order for PCS Web UI to work, even for the Cockpit plugin:
 ```sh
 systemctl enable --now pcsd
 ```
 
-[pcs]: https://github.com/ClusterLabs/pcs
-[cockpit]: https://cockpit-project.org/
+[PCS]: https://github.com/ClusterLabs/pcs
+[Cockpit]: https://cockpit-project.org/
