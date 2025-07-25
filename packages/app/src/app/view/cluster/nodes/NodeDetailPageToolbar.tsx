@@ -43,7 +43,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
   const unstandby: ToolbarItem = {
     name: "unstandby",
     confirm: {
-      title: "Untandby node?",
+      title: "Unstandby node?",
       description: (
         <>
           Remove the node from standby mode. The node specified will now be able
