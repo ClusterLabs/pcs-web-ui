@@ -84,7 +84,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
     name: "unmaintenance",
     confirm: {
       title: "Unmaintenance node?",
-      description: "Remove the node into maintenance mode",
+      description: "Remove the node from maintenance mode",
       action: maintenanceUnmanintenanceAction(false),
     },
     ...toolbar.dropdown.unmaintenance.mark,
