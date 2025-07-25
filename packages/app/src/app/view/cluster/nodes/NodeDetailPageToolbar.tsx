@@ -47,7 +47,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       description: (
         <>
           Remove the node from standby mode. The node specified will now be able
-          to to host resources
+          to host resources
         </>
       ),
       action: standbyUnstandbyAction(false),
