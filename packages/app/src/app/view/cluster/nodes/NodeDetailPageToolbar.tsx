@@ -55,7 +55,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
     ...toolbar.dropdown.unstandby.mark,
   };
 
-  const maintenanceUnmanintenanceAction = (maintenance: boolean): Action => ({
+  const maintenanceUnmaintenanceAction = (maintenance: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
     key: {clusterName},
     payload: {
@@ -75,7 +75,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
     confirm: {
       title: "Maintenance node?",
       description: "Put the node into maintenance mode",
-      action: maintenanceUnmanintenanceAction(true),
+      action: maintenanceUnmaintenanceAction(true),
     },
     ...toolbar.dropdown.maintenance.mark,
   };
@@ -85,7 +85,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
     confirm: {
       title: "Unmaintenance node?",
       description: "Remove the node from maintenance mode",
-      action: maintenanceUnmanintenanceAction(false),
+      action: maintenanceUnmaintenanceAction(false),
     },
     ...toolbar.dropdown.unmaintenance.mark,
   };
