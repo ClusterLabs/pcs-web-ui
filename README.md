@@ -4,8 +4,11 @@ Web interface for [PCS] - a Corosync and
 Pacemaker configuration tool.
 
 It can run in two modes:
-* a standalone application (provided by `pcsd` backend from [pcs])
-* a [Cockpit] plugin
+| a standalone application <br> (provided by `pcsd` backend from [pcs]) | a [Cockpit] plugin |
+|:---:|:---:|
+| <img width="400" height="auto" alt="Image" src="https://github.com/user-attachments/assets/af54d3d2-d5d6-4f51-b8f3-8c1dc502f575" /> | <img width="400" height="auto" alt="Image" src="https://github.com/user-attachments/assets/fc638b75-7d0e-4cc4-be53-b3f155aadd5a" /> |
+
+More screenshots can be found here: https://github.com/ClusterLabs/pcs-web-ui/issues/81
 
 ## Prerequisites
 
