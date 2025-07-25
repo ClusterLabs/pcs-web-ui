@@ -5,7 +5,7 @@ Pacemaker configuration tool.
 
 It can run in two modes:
 * a standalone application (provided by `pcsd` backend from [pcs])
-* a cockpit plugin
+* a [cockpit] plugin
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ It can run in two modes:
 * autoconf, automake
 * pkgconf
 * [pcs]
-* [cockpit](https://cockpit-project.org/) (optional)
+* [cockpit] (optional)
 
 ## Building and installation
 
@@ -41,3 +41,4 @@ systemctl enable --now pcsd
 ```
 
 [pcs]: https://github.com/ClusterLabs/pcs
+[cockpit]: https://cockpit-project.org/
