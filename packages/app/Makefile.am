@@ -622,6 +622,8 @@ EXTRA_DIST		= \
 			  src/app/view/share/compareStatusSeverity.ts \
 			  src/app/view/share/constraints.ts \
 			  src/app/view/share/CrmStatusTable.tsx \
+			  src/app/view/share/dataList/DataListItemWithMenu.tsx \
+			  src/app/view/share/dataList/DataListWithMenuContext.ts \
 			  src/app/view/share/dataList/DataListWithMenu.tsx \
 			  src/app/view/share/dataList/index.ts \
 			  src/app/view/share/dataLoadingLabel/ClusterStatusLabel.tsx \
