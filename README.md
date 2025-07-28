@@ -6,7 +6,7 @@ Pacemaker configuration tool.
 It can run in two modes:
 | a standalone application <br> (provided by `pcsd` backend from [pcs]) | a [Cockpit] plugin |
 |:---:|:---:|
-| <img width="400" height="auto" alt="Image" src="https://github.com/user-attachments/assets/af54d3d2-d5d6-4f51-b8f3-8c1dc502f575" /> | <img width="400" height="auto" alt="Image" src="https://github.com/user-attachments/assets/fc638b75-7d0e-4cc4-be53-b3f155aadd5a" /> |
+| <img width="400" height="auto" alt="Image" src="https://github.com/user-attachments/assets/ccfe713f-291a-4513-bb7a-0da092028d55" /> | <img width="400" height="auto" alt="Image" src="https://github.com/user-attachments/assets/5552ed10-f63a-4106-b279-249ab51f8ef5" /> |
 
 More screenshots can be found here: https://github.com/ClusterLabs/pcs-web-ui/issues/81
 
