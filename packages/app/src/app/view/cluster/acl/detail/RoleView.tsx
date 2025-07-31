@@ -13,11 +13,23 @@ import {RoleViewSubjects} from "./RoleViewSubjects";
 export const aclRolePageTabList = ["detail", "users", "groups"] as const;
 
 const {currentRole} = testMarks.cluster.acl;
+const {tabs} = currentRole;
 
 const tabMap = {
-  detail: <Tab eventKey="detail" key="detail" title={"Detail"} />,
-  users: <Tab eventKey="users" key="users" title="Users" />,
-  groups: <Tab eventKey="groups" key="groups" title="Groups" />,
+  detail: (
+    <Tab
+      eventKey="detail"
+      key="detail"
+      title={"Detail"}
+      {...tabs.detail.mark}
+    />
+  ),
+  users: (
+    <Tab eventKey="users" key="users" title="Users" {...tabs.users.mark} />
+  ),
+  groups: (
+    <Tab eventKey="groups" key="groups" title="Groups" {...tabs.groups.mark} />
+  ),
 };
 
 export const RoleView = ({
@@ -41,7 +53,7 @@ export const RoleView = ({
       }
       toolbar={<RoleViewToolbar roleId={roleId} />}
       tabs={
-        <Tabs activeKey={currentTab} onSelect={onSelect}>
+        <Tabs activeKey={currentTab} onSelect={onSelect} {...tabs.mark}>
           {Object.values(tabMap)}
         </Tabs>
       }

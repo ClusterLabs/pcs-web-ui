@@ -11,6 +11,21 @@
         "assignGroup": {},
         "deleteRole": {}
       }
+    },
+    "tabs": {
+      "detail": {},
+      "users": {},
+      "groups": {}
+    },
+    "detail": {
+      "permissionList": {
+        "permission": {
+          "actions": {
+            "remove": {}
+          },
+          "label": {}
+        }
+      }
     }
   },
   "currentUser": {

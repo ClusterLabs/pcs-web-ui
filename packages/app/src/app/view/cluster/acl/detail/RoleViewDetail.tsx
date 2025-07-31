@@ -3,9 +3,13 @@ import {
   DataListItemWithMenu,
   LauncherDropdown,
 } from "app/view/share";
+import {testMarks} from "app/view/dataTest";
 import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
 import type {AclType} from "../types";
+
+const {detail} = testMarks.cluster.acl.currentRole;
+const {actions, label} = detail.permissionList.permission;
 
 export const RoleViewDetail = ({
   roleId,
@@ -16,7 +20,7 @@ export const RoleViewDetail = ({
 }) => {
   const {clusterName} = useLoadedCluster();
   return (
-    <>
+    <span {...detail.mark}>
       <DetailViewSection caption="Description">
         <p>{role.description}</p>
       </DetailViewSection>
@@ -26,6 +30,7 @@ export const RoleViewDetail = ({
           name="permission"
           emptyTitle={`No permission assigned to role "${roleId}".`}
           itemList={role.permissions}
+          {...detail.permissionList.mark}
         >
           {permission => (
             <DataListItemWithMenu
@@ -50,16 +55,19 @@ export const RoleViewDetail = ({
                           },
                         },
                       },
+                      ...actions.remove.mark,
                     },
                   ]}
+                  {...actions.mark}
                 />
               }
+              {...detail.permissionList.permission.mark}
             >
-              <span>{permission}</span>
+              <span {...label.mark}>{permission}</span>
             </DataListItemWithMenu>
           )}
         </DataListWithMenu>
       </DetailViewSection>
-    </>
+    </span>
   );
 };
