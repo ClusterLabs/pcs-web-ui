@@ -16,6 +16,10 @@ More screenshots can be found here: https://github.com/ClusterLabs/pcs-web-ui/is
 * autoconf, automake
 * pkgconf
 * [PCS]
+  - PCS Web UI main branch can be delayed compared to PCS main branch
+  - please use
+    [released PCS Web UI version](https://github.com/ClusterLabs/pcs-web-ui/releases)
+    and [compatible PCS version](/doc/pcs-compatibility.md)
 * [Cockpit] (optional)
 
 ## Building and installation
