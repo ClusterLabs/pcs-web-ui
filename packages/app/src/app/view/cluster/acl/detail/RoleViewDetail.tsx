@@ -11,6 +11,11 @@ import type {AclType} from "../types";
 const {detail} = testMarks.cluster.acl.currentRole;
 const {actions, label} = detail.permissionList.permission;
 
+const extractId = (permission: string): string => {
+  const match = permission.match(/\(([^)]+)\)$/);
+  return match ? match[1] : permission;
+};
+
 export const RoleViewDetail = ({
   roleId,
   role,
@@ -50,7 +55,7 @@ export const RoleViewDetail = ({
                             taskLabel: `remove permission "${permission}"`,
                             call: {
                               name: "acl-remove-permission",
-                              payload: {permission_id: permission},
+                              payload: {permission_id: extractId(permission)},
                             },
                           },
                         },
