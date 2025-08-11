@@ -10,16 +10,16 @@ default:
   parallel:
     matrix:
       - COMPOSE_ALIAS: "PcsRhel10Next"
+        COMPOSE_NAME: Rhel10Next
         BASE_IMAGE_NAME: "PcsWebUiRhel10Next"
         PCS_BRANCH: "main"
         OS_TAG: "centos10"
   rules:
-    - if: $OS_TAG != ""
+    - if: $COMPOSE_NAME == "Rhel10Next"
       variables:
-        PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/${PCS_BRANCH}/download?job=rpm_build%3A%20%5B${COMPOSE_ALIAS}%2C%20${OS_TAG}%5D"
-    - if: $OS_TAG == ""
-      variables:
-        PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/artifacts/${PCS_BRANCH}/download?job=rpm_build%3A%20%5B${COMPOSE_ALIAS}%5D"
+        PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/\
+          artifacts/${PCS_BRANCH}/download?\
+          job=tf_tests%3A%20%5B${COMPOSE_NAME}%5D"
 
 stages:
   - stage1
