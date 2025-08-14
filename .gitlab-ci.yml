@@ -1,196 +1,184 @@
-default:
-  before_script:
-    # The annotated tags are fetched from upstream here for autotools to be able
-    # generate version.
-    - git remote add upstream https://github.com/ClusterLabs/pcs-web-ui.git
-    - git fetch upstream
-    - export MAX_LOG_SIZE=52428800
+---
+# Keep the previos behavior when jobs are not run in merge request pipelines.
+# https://docs.gitlab.com/ci/jobs/job_rules/#avoid-duplicate-pipelines
+# https://docs.gitlab.com/ci/yaml/workflow/
+# https://docs.gitlab.com/ci/pipelines/merge_request_pipelines/
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - when: always
 
+variables:
+  # override these by CI variables if needed
+  ENABLE_FIPS:
+    description: Enable FIPS mode in testing farm. Set to empty to disable FIPS
+    value: --insert --order 0 --how feature --fips enabled
+    options:
+      - --insert --order 0 --how feature --fips enabled
+      - ""
+  PLAN_FILTER:
+    description: Predefined plan filters for testing farm. Default is empty
+      which means run all plans.
+    value: ""
+    options:
+      - ""
+      - "name:.*ci-tests"
+  TEST_FILTER:
+    description: Predefined test filters for testing farm. Default is empty
+      which means run all test.
+    value: ""
+    options:
+      - ""
+      - "tag:prevent_dev_mistakes"
+      - "tag:distcheck"
+      - "tag:rpm_build"
+      - "tag:pcsd_integration_test_standalone"
+      - "tag:pcsd_integration_test_cockpit"
+  TFCLI_PLAN_FILTER:
+    description: Set to $PLAN_FILTER to use a predefined plan filter or specify
+      a custom one.
+    value: $PLAN_FILTER
+  TFCLI_TEST_FILTER:
+    description: Set to $TEST_FILTER to use a predefined test filter or specify
+      a custom one.
+    value: $TEST_FILTER
+  TFCLI_TMT_PREPARE: $ENABLE_FIPS
+  TF_REQUEST_ID_FILE: /tmp/tf_request_id-$CI_JOB_ID
+  TF_EXIT_CODE_FILE: /tmp/tf_exit_code-$CI_JOB_ID
+  ARTIFACTS_DIRS: rpms dist test-records pcsd_logs
+
+
+# https://docs.gitlab.com/ci/yaml/#parallelmatrix
+# COPMOSE_NAME
+#   * values must use only letters and numbers because they are used as part
+#     of rpm name
+#   * must be kept short because they are used in job names
+#   * other pipelines use a job name to download the job's artifacts
+# TF_COMPOSE
+#   * name of a testing farm compose
+#   * list of composes:
+#     https://api.testing-farm.io/v0.1/composes/public
+#     https://api.testing-farm.io/v0.1/composes/redhat
+# TMT_DISTRO
+#   * value for the tmt context variable distro:
+#     https://tmt.readthedocs.io/en/stable/spec/context.html
+#     https://fmf.readthedocs.io/en/latest/context.html
+#
 .parallel:
   parallel:
     matrix:
-      - COMPOSE_ALIAS: "PcsRhel10Next"
-        COMPOSE_NAME: Rhel10Next
-        BASE_IMAGE_NAME: "PcsWebUiRhel10Next"
-        PCS_BRANCH: "main"
-        OS_TAG: "centos10"
+      - COMPOSE_NAME:
+          - Rhel10Next
+          - Rhel10CurrentRelease
+          - FedoraCurrentRelease
+          - Rhel9Next
+          - Rhel9CurrentRelease
   rules:
     - if: $COMPOSE_NAME == "Rhel10Next"
       variables:
+        TF_COMPOSE: RHEL-10-Nightly
+        TMT_DISTRO: rhel-10.1
+        PCS_BRANCH: "main"
+        PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/\
+          artifacts/${PCS_BRANCH}/download?\
+          job=tf_tests%3A%20%5B${COMPOSE_NAME}%5D"
+    - if: $COMPOSE_NAME == "Rhel10CurrentRelease"
+      variables:
+        TF_COMPOSE: RHEL-10.0-Nightly
+        TMT_DISTRO: rhel-10.0
+        PCS_BRANCH: main
+        PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/\
+          artifacts/${PCS_BRANCH}/download?\
+          job=tf_tests%3A%20%5B${COMPOSE_NAME}%5D"
+    - if: $COMPOSE_NAME == "FedoraCurrentRelease"
+      variables:
+        TF_COMPOSE: Fedora-42
+        TMT_DISTRO: fedora-42
+        PCS_BRANCH: main
+        PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/\
+          artifacts/${PCS_BRANCH}/download?\
+          job=tf_tests%3A%20%5B${COMPOSE_NAME}%5D"
+        # FIPS is not supported on Fedora
+        TFCLI_TMT_PREPARE: ""
+    - if: $COMPOSE_NAME == "Rhel9Next"
+      variables:
+        TF_COMPOSE: RHEL-9-Nightly
+        TMT_DISTRO: rhel-9.7
+        PCS_BRANCH: pcs-0.11
+        PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/\
+          artifacts/${PCS_BRANCH}/download?\
+          job=tf_tests%3A%20%5B${COMPOSE_NAME}%5D"
+    - if: $COMPOSE_NAME == "Rhel9CurrentRelease"
+      variables:
+        TF_COMPOSE: RHEL-9.6.0-Nightly
+        TMT_DISTRO: rhel-9.6
+        PCS_BRANCH: pcs-0.11
         PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/\
           artifacts/${PCS_BRANCH}/download?\
           job=tf_tests%3A%20%5B${COMPOSE_NAME}%5D"
 
-stages:
-  - stage1
-  - stage2
-
-# avoid running duplicate pipelines
-workflow:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_PIPELINE_SOURCE == "web"
-    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
-      when: never
-    - if: $CI_COMMIT_BRANCH
-
-.essential_preparation: &essential_preparation
-  - dnf install -y nodejs
-  - ./autogen.sh
-  - ./configure
-
-.install_artifacts_rpms: &install_artifacts_rpms
-  # Create pcs-web-ui rpm installable to pcsd
-  # Unlike in pcs, there is no CI_BRANCH environment variable. In pcs,
-  # CI_BRANCH helps a user to differentiate between rpm for e.g. fedora and
-  # RHEL. Webui is running inside a browser and currently does not matter what
-  # OS is used.
+.download_artifacts_from_tf: &download_artifacts_from_tf
+  - UUID_REGEX="[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}"
+  - REQUEST_ID=$(sed -n -E "s/.*($UUID_REGEX).*/\1/p" output.txt | head -n 1)
+  - echo "$REQUEST_ID" > "$TF_REQUEST_ID_FILE"
+  - echo "Testing Farm request id is $REQUEST_ID"
+  - EXIT_CODE=0
+  - testing-farm watch --id "$REQUEST_ID" || EXIT_CODE=$?
+  - echo $EXIT_CODE > "$TF_EXIT_CODE_FILE"
   - >
-      curl \
-        --fail-with-body \
-        --location \
-        --insecure \
-        --output artifacts.zip \
-        --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
-        "${PCS_ARTIFACTS_URL}"
-  - unzip artifacts.zip
-  # in rpms/, there can be already also rpm of pcs-web-ui
-  - dnf install -y rpms/*.rpm
-  - rm -rf rpms/ artifacts.zip
+    curl --insecure --location --remote-name \
+      "https://artifacts.osci.redhat.com/testing-farm/$REQUEST_ID/results.xml"
+  - >
+    for ARTIFACT_DIR in $ARTIFACTS_DIRS; do
+      for ARTIFACT_URL in $(
+        xmllint \
+          --xpath "//log[starts-with(@name, 'data/$ARTIFACT_DIR')]/@href" \
+          results.xml \
+        | sed "s/.*=\"\(.*\)\"/\1/"
+      ); do
+        echo $ARTIFACT_URL >&2;
+        curl --insecure --remote-name --create-dirs --no-clobber \
+          --output-dir "$ARTIFACT_DIR" "$ARTIFACT_URL";
+      done
+    done
+  - exit $EXIT_CODE
 
-prevent_dev_mistakes:
-  # checks for potential issues:
-  # * no nexus proxy in resoulved urls in package-lock.json files
-  # * lint/format issues
+tf_tests:
   extends: .parallel
-  stage: stage1
+  image: $SHARED_RUNNER_CONTAINER_IMAGE
   script:
-    - *essential_preparation
-    - npm ci
-    - make prevent_dev_mistakes
-
-distcheck:
-  extends: .parallel
-  stage: stage1
-  script:
-    - *essential_preparation
-    - make distcheck
-    - rename --verbose .tar. ".${BASE_IMAGE_NAME}.tar." pcs-web-ui*.tar.*
-    - mkdir -p dist && cp -v pcs-web-ui*.tar.* dist/
-  artifacts:
-    paths:
-      - npm_logs_distcheck/
-    exclude:
-      - node_modules/
-      - .npmrc
-    expire_in: 1 week
-    # expire_in: 1 week
-    # paths:
-    #   - dist
-#
-rpm_build:
-  extends: .parallel
-  stage: stage1
-  script:
-    - *install_artifacts_rpms
-    - *essential_preparation
-    - dnf install -y rpm-build
-    # - make init_nexus NEXUS_CERT_PATH="${NEXUS_CERT_PATH}"
-    - make rpm/pcs-web-ui.spec
-    - dnf builddep -y rpm/pcs-web-ui.spec
-    - make rpm
-    - mkdir -p rpms
-    - cp -v $(find rpm  -type f -name '*.rpm' -not -name '*.src.rpm') rpms/
+    - testing-farm request
+      --git-url
+      https://gitlab-ci-token:$CI_JOB_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH
+      --git-ref $CI_COMMIT_REF_NAME
+      --compose $TF_COMPOSE
+      --context distro=$TMT_DISTRO
+      --context initiator=gitlab-ci
+      --secret CI_JOB_TOKEN="$CI_JOB_TOKEN"
+      --environment PCS_ARTIFACTS_URL="$PCS_ARTIFACTS_URL"
+      --plan-filter "$TFCLI_PLAN_FILTER"
+      --test-filter "$TFCLI_TEST_FILTER"
+      --tmt-prepare "$TFCLI_TMT_PREPARE"
+      --no-wait
+      | tee output.txt
+    - *download_artifacts_from_tf
+  after_script:
+    - REQUEST_ID=$(<"$TF_REQUEST_ID_FILE")
+    - EXIT_CODE=$(<"$TF_EXIT_CODE_FILE")
+    - echo "CI_JOB_STATUS=$CI_JOB_STATUS EXIT_CODE=$EXIT_CODE"
+    - >
+      if [[ "$CI_JOB_STATUS" != "success" && "$EXIT_CODE" != "1" ]]; then \
+        echo "Canceling testing farm request $REQUEST_ID"; \
+        testing-farm cancel "$REQUEST_ID"; \
+      fi
+  tags:
+    - "shared-podman"
   artifacts:
     expire_in: 1 week
+    when: always
     paths:
       - rpms
-
-.pcsd_integration_test: &pcsd_integration_test
-  - *install_artifacts_rpms
-  - *essential_preparation
-  #
-  # install playwright dependencies
-  - dnf install -y
-    alsa-lib
-    atk
-    at-spi2-atk
-    at-spi2-core
-    cairo
-    cups-libs
-    libdrm
-    libwayland-client
-    libX11
-    libxcb
-    libXcomposite
-    libXdamage
-    libXext
-    libXfixes
-    libxkbcommon
-    libXrandr
-    mesa-libgbm
-    pango
-  #
-  # install other dependencies
-  - dnf install -y fence-agents-all
-  #
-  # prepare environment for test (all)
-  # - make init_nexus NEXUS_CERT_PATH="${NEXUS_CERT_PATH}"
-  - make test-modules-prepare
-  - export PCSD_PROTOCOL_1=https
-  - export PCSD_HOST_1=localhost
-  - export PCSD_NODE_1=wuitest
-  - export PCSD_USERNAME_1="hacluster"
-  - export PCSD_PASSWORD_1=hh
-  - export PCS_WUI_TESTS_HEADLESS=true
-  - export PCS_WUI_TESTS_VIDEO_DIR=.test-records
-  - export PCS_WUI_TEST_TIMEOUT=1000000
-  - systemctl enable pcsd --now
-  # hacluster user should already exists
-  - echo "$PCSD_PASSWORD_1" | passwd "$PCSD_USERNAME_1" --stdin
-  # tests expects that pcs is authenticated against the node
-  - echo "127.0.0.1 $PCSD_NODE_1" >> /etc/hosts
-  - pcs host auth "$PCSD_NODE_1" -u "$PCSD_USERNAME_1" -p "$PCSD_PASSWORD_1"
-  - mkdir "$PCS_WUI_TESTS_VIDEO_DIR"
-  - ln /var/log/pcsd/pcsd.log "$PCS_WUI_TESTS_VIDEO_DIR/pcsd.log"
-
-pcsd_integration_test_standalone:
-  extends: .parallel
-  stage: stage2
-  needs:
-    - rpm_build
-  script:
-    - *pcsd_integration_test
-    - export PCS_WUI_TEST_TYPE="standalone"
-    - export PCSD_PORT_1=2224
-    - make ci-cluster-test
-  artifacts:
-    when: on_failure
-    paths:
-      - .test-records/
-    exclude:
-      - node_modules/
-      - .npmrc
-    expire_in: 1 week
-
-pcsd_integration_test_cockpit:
-  extends: .parallel
-  stage: stage2
-  needs:
-    - rpm_build
-  script:
-    - *pcsd_integration_test
-    - dnf install -y cockpit-bridge
-    - systemctl enable cockpit --now
-    - usermod --shell /bin/bash "$PCSD_USERNAME_1"
-    - export PCS_WUI_TEST_TYPE="cockpit"
-    - export PCSD_PORT_1=9090
-    - make ci-cluster-test
-  artifacts:
-    when: on_failure
-    paths:
-      - .test-records/
-    exclude:
-      - node_modules/
-      - .npmrc
-    expire_in: 1 week
+      - dist
+      - test-records
+      - pcsd_logs

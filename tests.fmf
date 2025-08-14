@@ -1,0 +1,98 @@
+# https://tmt.readthedocs.io/en/stable/spec/tests.html
+component: pcs-web-ui
+duration: 30m
+path: /
+
+/autotools:
+  summary: Build pcs-web-ui to run tests
+  tag:
+    - autotools
+    - distcheck
+    - pcsd_integration_test_cockpit
+    - pcsd_integration_test_standalone
+    - prevent_dev_mistakes
+    - rpm_build
+  test: |
+    ( git remote add upstream https://github.com/ClusterLabs/pcs-web-ui.git &&
+      git fetch upstream ) || true &&
+    ./autogen.sh &&
+    ./configure
+
+/prevent_dev_mistakes:
+  summary: Run make prevent_dev_mistakes
+  tag: [prevent_dev_mistakes]
+  test: npm ci && make prevent_dev_mistakes
+
+/distcheck:
+  summary: Run make distcheck
+  tag: [distcheck]
+  test: |
+    make distcheck &&
+    rename --verbose .tar. ".${COMPOSE_NAME}.tar." pcs-web-ui*.tar.* &&
+    mkdir -p dist &&
+    cp -v pcs-web-ui*.tar.* dist/ &&
+    cp -rv dist "$TMT_PLAN_DATA" &&
+    cp -rv dist "$TMT_TEST_DATA"
+
+/rpm_build:
+  summary: Run make rpm to build a pcs-web-ui and cockpit-ha-cluster packages
+  tag:
+    - pcsd_integration_test_cockpit
+    - pcsd_integration_test_standalone
+    - rpm_build
+  test: |
+    make rpm/pcs-web-ui.spec &&
+    dnf builddep -y rpm/pcs-web-ui.spec &&
+    make rpm &&
+    mkdir -p rpms &&
+    cp -v $(find rpm  -type f -name '*.rpm' -not -name '*.src.rpm') rpms/ &&
+    cp -rv rpms "$TMT_PLAN_DATA" &&
+    cp -rv rpms "$TMT_TEST_DATA"
+
+/pcsd_integration_test_standalone:
+  summary: Install wui packages and run pcs-web-ui standalone integration tests
+  environment+:
+    PCS_WUI_TEST_TYPE: standalone
+    PCSD_PORT_1: 2224
+  tag: [pcsd_integration_test_standalone]
+  test: |
+    export PCS_WUI_TESTS_VIDEO_DIR="$TMT_TEST_DATA/test-records" &&
+    dnf install -y \
+      "$TMT_PLAN_DATA"/rpms/pcs-web-ui-*.rpm \
+      "$TMT_PLAN_DATA"/rpms/cockpit-ha-cluster-*.rpm &&
+    ( [[ -f /etc/corosync/corosync.conf ]] &&
+      pcs cluster destroy $PCS_DESTROY_OPTION ) || true &&
+    make test-modules-prepare &&
+    EXIT_CODE=0 &&
+    make ci-cluster-test || EXIT_CODE=$? &&
+    mkdir -p {"$TMT_PLAN_DATA","$TMT_TEST_DATA"}/pcsd_logs/ &&
+    cp -rv /var/log/pcsd/pcsd.log \
+      "$TMT_PLAN_DATA/pcsd_logs/pcsd-$PCS_WUI_TEST_TYPE.log" &&
+    cp -rv /var/log/pcsd/pcsd.log \
+      "$TMT_TEST_DATA/pcsd_logs/pcsd-$PCS_WUI_TEST_TYPE.log" &&
+    cp -rv "$TMT_TEST_DATA"/test-records/* "$TMT_PLAN_DATA"/test-records/ &&
+    exit $EXIT_CODE
+
+/pcsd_integration_test_cockpit:
+  summary: Install wui packages and run pcs-web-ui cockpit integration tests
+  environment+:
+    PCS_WUI_TEST_TYPE: cockpit
+    PCSD_PORT_1: 9090
+  tag: [pcsd_integration_test_cockpit]
+  test: |
+    export PCS_WUI_TESTS_VIDEO_DIR="$TMT_TEST_DATA/test-records" &&
+    dnf install -y \
+      "$TMT_PLAN_DATA"/rpms/pcs-web-ui-*.rpm \
+      "$TMT_PLAN_DATA"/rpms/cockpit-ha-cluster-*.rpm &&
+    ( [[ -f /etc/corosync/corosync.conf ]] &&
+      pcs cluster destroy $PCS_DESTROY_OPTION ) || true &&
+    make test-modules-prepare &&
+    EXIT_CODE=0 &&
+    make ci-cluster-test || EXIT_CODE=$? &&
+    mkdir -p {"$TMT_PLAN_DATA","$TMT_TEST_DATA"}/pcsd_logs/ &&
+    cp -rv /var/log/pcsd/pcsd.log \
+      "$TMT_PLAN_DATA/pcsd_logs/pcsd-$PCS_WUI_TEST_TYPE.log" &&
+    cp -rv /var/log/pcsd/pcsd.log \
+      "$TMT_TEST_DATA/pcsd_logs/pcsd-$PCS_WUI_TEST_TYPE.log" &&
+    cp -rv "$TMT_TEST_DATA"/test-records/* "$TMT_PLAN_DATA"/test-records/ &&
+    exit $EXIT_CODE

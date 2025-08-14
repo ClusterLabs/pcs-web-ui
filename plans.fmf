@@ -1,0 +1,176 @@
+# https://tmt.readthedocs.io/en/stable/spec/plans.html
+# https://tmt.readthedocs.io/en/stable/spec/plans.html#discover
+discover:
+  how: fmf
+
+# https://tmt.readthedocs.io/en/stable/spec/plans.html#environment
+environment:
+  PCS_ARTIFACTS_HEADER: "JOB-TOKEN: ${CI_JOB_TOKEN}"
+  PCSD_PROTOCOL_1: https
+  PCSD_HOST_1: localhost
+  PCSD_NODE_1: wuitest
+  PCSD_USERNAME_1: hacluster
+  PCSD_PASSWORD_1: hh
+  PCS_WUI_TESTS_HEADLESS: true
+  PCS_WUI_TEST_TIMEOUT: 200000
+  PCS_DESTROY_OPTION: --yes
+
+adjust:
+  - when: initiator != gitlab-ci
+    environment+:
+      PCS_ARTIFACTS_HEADER: "PRIVATE-TOKEN: ${PRIVATE_TOKEN}"
+  - when: distro == rhel-9
+    environment+:
+      PCS_DESTROY_OPTION: --force
+
+# https://tmt.readthedocs.io/en/stable/spec/plans.html#prepare
+prepare:
+  # https://docs.testing-farm.io/Testing%20Farm/0.1/test-environment.html#_tag_repository
+  - name: Disable testing-farm RHEL repos that may contain packages of
+          different versions than we want
+    when: distro == rhel
+    how: shell
+    script:
+      - |
+        for repo in testing-farm-tag-repository \
+            testing-farm-tag-repository-mainline \
+            testing-farm-tag-repository-z-stream; do
+          if dnf repolist --enabled -v | grep "^Repo-id\s*:\s*${repo}$"; then
+            dnf config-manager --set-disabled "${repo}"
+          fi;
+        done
+
+  - name: Enable testing-farm HighAvailability RHEL repo
+    when: distro == rhel
+    how: shell
+    script:
+      - |
+        if dnf repolist --disabled -v |
+            grep "^Repo-id\s*:\s*rhel-HighAvailability$"; then
+          dnf config-manager --set-enabled rhel-HighAvailability
+        fi
+
+  - name: Install nodejs package from module stream on rhel-9 distros
+    when: distro == rhel-9
+    how: shell
+    script:
+      - dnf module install -y nodejs:18
+
+  - name: Install nodejs package
+    when: distro >= rhel-10, fedora
+    how: install
+    package:
+      - nodejs
+
+  - name: Install common packages required for pcs-web-ui
+    how: install
+    package:
+      # dependencies for prepare
+      - curl
+      - shadow-utils
+      - unzip
+      # dependencies for autotools
+      - autoconf
+      - automake
+      - coreutils
+      - gawk
+      - git-core
+      - grep
+      - make
+      - pkgconf-pkg-config
+      - sed
+      - tar
+      # dependencies for rpm build
+      - rpm-build
+      # dependencies for tests
+      - alsa-lib
+      - at-spi2-atk
+      - at-spi2-core
+      - atk
+      - cairo
+      - cups-libs
+      - libX11
+      - libXcomposite
+      - libXdamage
+      - libXext
+      - libXfixes
+      - libXrandr
+      - libdrm
+      - libxcb
+      - mesa-libgbm
+      - pango
+      # extra dependencies needed on rhel-9
+      - libxkbcommon
+      - libwayland-client
+      # extra dependencies for pcsd_integration_test
+      - fence-agents-all
+      - cronie
+      # extra dependencies for pcsd_integration_test_cockpit
+      - cockpit
+
+  - name: Download and install pcs rpms from a CI using job/private token
+    when: initiator is defined
+    how: shell
+    script:
+      - >
+        curl --fail-with-body --location --insecure --output artifacts.zip \
+          --header "${PCS_ARTIFACTS_HEADER}" "${PCS_ARTIFACTS_URL}"
+      - unzip artifacts.zip
+      - dnf install -y rpms/pcs-*.rpm
+      - rm -rf rpms/ artifacts.zip
+
+  - name: Install pcs from system repository if CI version is not available
+    when: initiator is not defined
+    how: install
+    package:
+      - pcs
+
+  - name: Prepare node test environment
+    how: shell
+    script:
+      - grep "$PCSD_NODE_1" /etc/hosts ||
+        echo "127.0.0.1 $PCSD_NODE_1" >> /etc/hosts
+      - passwd "$PCSD_USERNAME_1" --stdin <<<"$PCSD_PASSWORD_1"
+      - rm -rf /var/lib/pcsd/*
+      - systemctl enable pcsd
+      - systemctl restart pcsd
+      - pcs host auth "$PCSD_NODE_1" -u "$PCSD_USERNAME_1" -p "$PCSD_PASSWORD_1"
+      # additional setup for cockpit tests
+      - usermod --shell /bin/bash "$PCSD_USERNAME_1"
+      - grep hacluster /etc/passwd
+      - systemctl enable cockpit.socket --now
+      - mkdir -p $TMT_PLAN_DATA/test-records
+
+# https://tmt.readthedocs.io/en/stable/spec/plans.html#execute
+execute:
+  how: tmt
+
+# https://tmt.readthedocs.io/en/stable/spec/plans.html#finish
+finish:
+  - name: Gather some system info
+    how: shell
+    script:
+      - mkdir -p $TMT_PLAN_DATA/misc
+      - cp -r /etc/yum.repos.d/ $TMT_PLAN_DATA/misc/repo_files
+      - rpm -qa booth* corosync* fence-agents* pacemaker* resource-agents* sbd
+        | tee $TMT_PLAN_DATA/misc/cluster_packages.log
+      - dnf repolist --all | tee $TMT_PLAN_DATA/misc/repolist.log
+      - dnf list --installed | tee $TMT_PLAN_DATA/misc/installed.log
+      - rpm -qa | sort | tee $TMT_PLAN_DATA/misc/packages.log
+      - lscpu | tee $TMT_PLAN_DATA/misc/lscpu.log
+      - free -h | tee $TMT_PLAN_DATA/misc/free.log
+      - "ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts boot || : \
+        | tee $TMT_PLAN_DATA/misc/ausearch.log"
+      - sysctl crypto.fips_enabled | tee $TMT_PLAN_DATA/misc/fips_status.log
+
+/ci-tests:
+  summary: Run all ci tests for pcs-web-ui
+
+  discover+:
+    test:
+      - autotools
+      - prevent_dev_mistakes
+      - distcheck
+      - rpm_build
+      - pcsd_integration_test_standalone
+      - pcsd_integration_test_cockpit
