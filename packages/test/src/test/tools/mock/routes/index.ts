@@ -1,6 +1,7 @@
 export * from "./aclAddPermission";
 export * from "./aclAssignRoleToTarget";
 export * from "./aclAssignRoleToGroup";
+export * from "./aclRemovePermission";
 export * from "./aclRoleCreate";
 export * from "./addMetaAttrRemote";
 export * from "./addNodeAttrRemote";

@@ -25,6 +25,7 @@ EXTRA_DIST		= \
 			  src/test/scenes/acl/role-assign-group.test.ts \
 			  src/test/scenes/acl/role-assign-user.test.ts \
 			  src/test/scenes/acl/role-create.test.ts \
+			  src/test/scenes/acl/role-remove-permission.test.ts \
 			  src/test/scenes/cluster/displayAdvancedStatus.test.ts \
 			  src/test/scenes/cluster/setup/common.ts \
 			  src/test/scenes/cluster/setup/setup-cluster-maximal.test.ts \
@@ -86,6 +87,7 @@ EXTRA_DIST		= \
 			  src/test/tools/mock/routes/aclAddPermission.ts \
 			  src/test/tools/mock/routes/aclAssignRoleToGroup.ts \
 			  src/test/tools/mock/routes/aclAssignRoleToTarget.ts \
+			  src/test/tools/mock/routes/aclRemovePermission.ts \
 			  src/test/tools/mock/routes/aclRoleCreate.ts \
 			  src/test/tools/mock/routes/addConstraintRemote.ts \
 			  src/test/tools/mock/routes/addMetaAttrRemote.ts \

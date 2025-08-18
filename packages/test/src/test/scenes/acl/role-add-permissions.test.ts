@@ -1,6 +1,6 @@
 import {mock} from "test/tools";
 
-import {clusterStatus} from "./common";
+import {clusterStatus, rolesForUser1} from "./common";
 import {goToRole} from "./commonRole";
 
 type Permission = Parameters<
@@ -9,7 +9,7 @@ type Permission = Parameters<
 
 const {aclRoleAddPermission: task} = marks.task;
 
-const roleId = "first";
+const roleId = rolesForUser1[0];
 const permission_1: Permission = ["read", "id", "some-id"];
 const permission_2: Permission = ["write", "xpath", "some-xpath"];
 

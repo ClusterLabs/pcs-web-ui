@@ -1,9 +1,11 @@
 import * as t from "dev/responses/clusterStatus/tools";
 
 export const clusterName = "test-cluster";
+export const permissionXpath1Id = "xpath1";
+export const permissionXpath1Label = `deny xpath //xyz (${permissionXpath1Id})`;
 export const permissionsForFirst = [
   "read id abc (id1)",
-  "deny xpath //xyz (xpath1)",
+  permissionXpath1Label,
   "write id xyz (id2)",
 ];
 export const rolesForUser1 = ["first", "second"];

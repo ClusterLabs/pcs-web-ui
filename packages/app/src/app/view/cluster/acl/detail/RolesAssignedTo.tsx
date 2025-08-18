@@ -1,5 +1,11 @@
 import type {ActionPayload} from "app/store";
-import {DataListWithMenu, Link, location} from "app/view/share";
+import {
+  DataListWithMenu,
+  DataListItemWithMenu,
+  LauncherDropdown,
+  Link,
+  location,
+} from "app/view/share";
 import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
 import type {AclType} from "../types";
@@ -18,27 +24,36 @@ export const RolesAssignedTo = (props: {
         name="role"
         emptyTitle={`No role assigned to "${props.subjectId}".`}
         itemList={props.roleIdList}
-        formatItem={roleId => (
-          <Link to={location.aclRole({clusterName, roleId})}>{roleId}</Link>
+      >
+        {roleId => (
+          <DataListItemWithMenu
+            item={roleId}
+            menu={
+              <LauncherDropdown
+                items={[
+                  {
+                    name: "unassign",
+                    confirm: {
+                      title: "Unassign role?",
+                      description: `This unassigns the role ${roleId}`,
+                      action: {
+                        type: "LIB.CALL.CLUSTER",
+                        key: {clusterName},
+                        payload: {
+                          taskLabel: `unassign role "${roleId}"`,
+                          call: props.unassignCall(roleId),
+                        },
+                      },
+                    },
+                  },
+                ]}
+              />
+            }
+          >
+            <Link to={location.aclRole({clusterName, roleId})}>{roleId}</Link>
+          </DataListItemWithMenu>
         )}
-        menuItems={[
-          roleId => ({
-            name: "unassign",
-            confirm: {
-              title: "Unassign role?",
-              description: `This unassigns the role ${roleId}`,
-              action: {
-                type: "LIB.CALL.CLUSTER",
-                key: {clusterName},
-                payload: {
-                  taskLabel: `unassign role "${roleId}"`,
-                  call: props.unassignCall(roleId),
-                },
-              },
-            },
-          }),
-        ]}
-      />
+      </DataListWithMenu>
     </DetailViewSection>
   );
 };
