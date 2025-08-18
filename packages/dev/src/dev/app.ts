@@ -24,7 +24,7 @@ const parserJson = express.json();
 
 export type Handler = (_req: Request, _res: Response) => void;
 
-// biome-ignore lint/suspicious/noExplicitAny:
+// biome-ignore lint/suspicious/noExplicitAny: don't care
 type R = any;
 const application = express();
 const server = application.listen(port, () => {

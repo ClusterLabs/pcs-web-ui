@@ -57,11 +57,11 @@ function useSorting<COLUMN extends string>(
   );
 
   const compareItems = (
-    // biome-ignore lint/suspicious/noExplicitAny:
+    // biome-ignore lint/suspicious/noExplicitAny: no worth to improve any now
     compareByColumn: (_column: COLUMN) => (_a: any, _b: any) => number,
   ) => {
     const compare = compareByColumn(column);
-    // biome-ignore lint/suspicious/noExplicitAny:
+    // biome-ignore lint/suspicious/noExplicitAny: no worth to improve any now
     return direction === "desc" ? (a: any, b: any) => compare(b, a) : compare;
   };
 

@@ -34,7 +34,7 @@ const collectUpdatedAttrs = (
       }
       return a;
     },
-    // biome-ignore lint/suspicious/noExplicitAny:
+    // biome-ignore lint/suspicious/noExplicitAny: no worth to improve any now
     {} as Record<string, any>,
   );
 

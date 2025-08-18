@@ -86,21 +86,19 @@ export const ToolbarFilterTextGroupPair = ({
       clearAllFilters={clearAllFilters}
       buttonsItems={buttonsItems}
     >
-      <>
-        <ToolbarItem>
-          <ToolbarTextSearchFilter
-            id={textSearchId}
-            name={textSearchId}
-            filterState={filterState.textSearchState}
-          />
-        </ToolbarItem>
-        <ToolbarItem>
-          <ToolbarFilterGroups
-            name={groupName}
-            filterState={filterState.groupState}
-          />
-        </ToolbarItem>
-      </>
+      <ToolbarItem>
+        <ToolbarTextSearchFilter
+          id={textSearchId}
+          name={textSearchId}
+          filterState={filterState.textSearchState}
+        />
+      </ToolbarItem>
+      <ToolbarItem>
+        <ToolbarFilterGroups
+          name={groupName}
+          filterState={filterState.groupState}
+        />
+      </ToolbarItem>
     </ToolbarFilterAction>
   );
 };

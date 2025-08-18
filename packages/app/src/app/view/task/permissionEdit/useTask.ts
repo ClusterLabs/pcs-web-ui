@@ -49,7 +49,7 @@ export const useTask = () => {
         type: state.type,
         allow,
       };
-      // biome-ignore lint/suspicious/noImplicitAnyLet:
+      // biome-ignore lint/suspicious/noImplicitAnyLet: can refactor to ternary
       let permissionList;
       if (initialPermission === null) {
         permissionList = [...currentPermissionList, editPermission];

@@ -8,7 +8,7 @@ import type {TicketSetCreateActions} from "./ticketSetCreate";
 import type {SingleCreateActions} from "./singleCreate";
 import type {ConstraintDeleteActions} from "./delete";
 
-// biome-ignore format:
+// biome-ignore format: this is better formating
 export type ConstraintAction = (
   & LocationCreateActions
   & OrderCreateActions

@@ -1,6 +1,6 @@
 import * as result from "./calls/tools/result";
 
-// biome-ignore lint/suspicious/noExplicitAny:
+// biome-ignore lint/suspicious/noExplicitAny: Any is here expected
 type Call<PAYLOAD> = (..._args: any[]) => Promise<result.Overall<PAYLOAD>>;
 
 export type ResultOf<APICALL> = APICALL extends Call<infer PAYLOAD>

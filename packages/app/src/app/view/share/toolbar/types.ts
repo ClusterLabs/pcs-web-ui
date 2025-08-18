@@ -6,7 +6,7 @@ import type {Action} from "app/store";
 type Task = {
   component: React.FunctionComponent;
   useTask: () => {
-    // biome-ignore lint/suspicious/noExplicitAny:
+    // biome-ignore lint/suspicious/noExplicitAny: no worth to improve any now
     open: (..._args: any[]) => void;
     isOpened: boolean;
     close: () => void;

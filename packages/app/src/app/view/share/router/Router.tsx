@@ -19,7 +19,7 @@ export const useRouter = (): RouterProps => {
 
   // either obtain the router from the outer context (provided by the
   // `<Router /> component) or create an implicit one on demand.
-  // biome-ignore lint/suspicious/noAssignInExpressions:
+  // biome-ignore lint/suspicious/noAssignInExpressions: see above
   return globalRef.v || (globalRef.v = {base: ""});
 };
 

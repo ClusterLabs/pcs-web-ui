@@ -47,9 +47,9 @@ describe("Validation for cluster status", () => {
   let nodeStatus: any;
 
   beforeEach(() => {
-    // biome-ignore lint/suspicious/noExplicitAny:
+    // biome-ignore lint/suspicious/noExplicitAny: no worth improve any now
     clusterStatus = cluster("Cluster name", "ok", {}) as any;
-    // biome-ignore lint/suspicious/noExplicitAny:
+    // biome-ignore lint/suspicious/noExplicitAny: no worth improve any now
     nodeStatus = node("1") as any;
   });
 

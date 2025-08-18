@@ -1,4 +1,4 @@
-// biome-ignore lint/suspicious/noExplicitAny:
+// biome-ignore lint/suspicious/noExplicitAny: don't care
 export async function waitForResponse(urlPattern: RegExp): Promise<any> {
   return page.evaluate(
     pattern =>

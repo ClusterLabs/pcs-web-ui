@@ -11,7 +11,7 @@ export const importedClusterList = (
     | {clusterNameList?: string[]}
     | {response: RouteResponse} = {},
 ) => {
-  // biome-ignore lint/suspicious/noImplicitAnyLet:
+  // biome-ignore lint/suspicious/noImplicitAnyLet: can refeactor to ternary
   let response;
   if ("response" in props) {
     response = props.response;

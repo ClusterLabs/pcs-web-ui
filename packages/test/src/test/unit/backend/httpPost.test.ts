@@ -20,7 +20,7 @@ const mockFetch = (
   };
 
   return jest.spyOn(global, "fetch").mockImplementation(
-    // biome-ignore lint/suspicious/noExplicitAny:
+    // biome-ignore lint/suspicious/noExplicitAny: No worth to improve.
     (): Promise<any> =>
       Promise.resolve({
         ...response,
