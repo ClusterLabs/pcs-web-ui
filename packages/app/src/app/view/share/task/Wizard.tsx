@@ -12,7 +12,7 @@ import {TaskContextProvider} from "./TaskContext";
 import {WizardFooter} from "./WizardFooter";
 
 const DefaultWizardStep = () => {
-  return <>DEFAULT WIZARD STEP</>;
+  return "DEFAULT WIZARD STEP";
 };
 
 type Step = WizardStep & {footer?: React.ReactNode; steps?: Step[]};
@@ -29,7 +29,7 @@ const separateStepsAndFooters = (steps: Step[]) => {
   const stepList: WizardStep[] = [];
   let footerList: Footer[] = [];
   steps.forEach(stepWithFooter => {
-    // biome-ignore lint/suspicious/noImplicitAnyLet:
+    // biome-ignore lint/suspicious/noImplicitAnyLet: can refactor to ternary
     let pfStep;
     if ("footer" in stepWithFooter) {
       const {footer, ...rest} = stepWithFooter;

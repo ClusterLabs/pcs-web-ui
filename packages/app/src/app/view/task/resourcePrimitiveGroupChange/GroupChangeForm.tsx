@@ -25,10 +25,9 @@ export const GroupChangeForm = () => {
   if (oldGroupId === "") {
     if (candidateGroupsIds.length === 0) {
       return (
-        <>
-          Nothing to do. The resource is not in a group and there is no group
-          into which the resource could be added.
-        </>
+        "Nothing to do. " +
+        "The resource is not in a group and there is no group into which the" +
+        " resource could be added."
       );
     }
 

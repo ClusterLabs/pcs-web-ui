@@ -8,7 +8,7 @@ type PartialReport = {
   [KEY in keyof Report]?: Partial<Report[KEY]>;
 };
 
-// biome-ignore lint/suspicious/noExplicitAny:
+// biome-ignore lint/suspicious/noExplicitAny: no worth to improve any now
 export const success = (props: {data?: any} = {data: null}): Response => ({
   status: "success",
   report_list: [],

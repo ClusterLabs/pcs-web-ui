@@ -220,31 +220,29 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
   };
 
   return (
-    <>
-      <DetailToolbar
-        buttonsItems={[
-          ...[isPrimitiveManaged(primitive) ? unmanage : manage],
-          ...[isPrimitiveEnabled(primitive) ? disable : enable],
-        ]}
-        dropdown={
-          <LauncherDropdown
-            items={[
-              changeGroup,
-              refresh,
-              cleanup,
-              ...(primitive.inGroup !== null
-                ? []
-                : [primitive.inClone !== null ? unclone : clone]),
-              {...move, ...toolbar.dropdown.move.mark},
-              {...ban, ...toolbar.dropdown.ban.mark},
-              {...clear, ...toolbar.dropdown.clear.mark},
-              deleteItem,
-            ]}
-            {...toolbar.dropdown.mark}
-          />
-        }
-        {...toolbar.mark}
-      />
-    </>
+    <DetailToolbar
+      buttonsItems={[
+        ...[isPrimitiveManaged(primitive) ? unmanage : manage],
+        ...[isPrimitiveEnabled(primitive) ? disable : enable],
+      ]}
+      dropdown={
+        <LauncherDropdown
+          items={[
+            changeGroup,
+            refresh,
+            cleanup,
+            ...(primitive.inGroup !== null
+              ? []
+              : [primitive.inClone !== null ? unclone : clone]),
+            {...move, ...toolbar.dropdown.move.mark},
+            {...ban, ...toolbar.dropdown.ban.mark},
+            {...clear, ...toolbar.dropdown.clear.mark},
+            deleteItem,
+          ]}
+          {...toolbar.dropdown.mark}
+        />
+      }
+      {...toolbar.mark}
+    />
   );
 };

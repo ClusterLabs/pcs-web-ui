@@ -14,7 +14,7 @@ import type {UsernameActions} from "./username";
 import type {UserActions} from "./user";
 import type {TaskActions} from "./task";
 
-// biome-ignore format:
+// biome-ignore format: this is better formating
 type LeafActionMap = (
   & AuthActions
   & ClusterActions

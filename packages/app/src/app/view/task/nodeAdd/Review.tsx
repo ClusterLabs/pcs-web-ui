@@ -29,15 +29,13 @@ export const Review = () => {
         <ReviewItem
           label="Node addresses"
           value={
-            filledNodeAddresses.length === 0 ? (
-              <>No address configured</>
-            ) : (
-              filledNodeAddresses.map((a, i) => (
-                <div {...review.address.mark} key={i}>
-                  {a}
-                </div>
-              ))
-            )
+            filledNodeAddresses.length === 0
+              ? "No address configured"
+              : filledNodeAddresses.map((a, i) => (
+                  <div {...review.address.mark} key={i}>
+                    {a}
+                  </div>
+                ))
           }
         />
 
@@ -61,15 +59,13 @@ export const Review = () => {
             <ReviewItem
               label="Sbd devices"
               value={
-                filledSbdDevices.length === 0 ? (
-                  <>No sbd devices configured</>
-                ) : (
-                  filledSbdDevices.map((a, i) => (
-                    <div {...review.sbdDevice.mark} key={i}>
-                      {a}
-                    </div>
-                  ))
-                )
+                filledSbdDevices.length === 0
+                  ? "No sbd devices configured"
+                  : filledSbdDevices.map((a, i) => (
+                      <div {...review.sbdDevice.mark} key={i}>
+                        {a}
+                      </div>
+                    ))
               }
             />
           </>

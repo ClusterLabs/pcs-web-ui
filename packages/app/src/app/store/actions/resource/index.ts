@@ -8,7 +8,7 @@ import type {ResourceGroupCreateActions} from "./groupCreate";
 import type {ResourceSetActions} from "./resourceSet";
 import type {ResourceGroupChangeActions} from "./groupChange";
 
-// biome-ignore format:
+// biome-ignore format: this is better formating
 export type ResourceActions = (
   & ResourceCreateActions
   & ResourceDeleteActions

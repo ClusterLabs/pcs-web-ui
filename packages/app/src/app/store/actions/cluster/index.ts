@@ -10,7 +10,7 @@ import type {ClusterNVPairListActions} from "./nvpairList";
 import type {ClusterAclActions} from "./acl";
 import type {ClusterStopActions} from "./stop";
 
-// biome-ignore format:
+// biome-ignore format: this is better formating
 export type ClusterActions = (
   & ClusterAclActions
   & ClusterAddActions

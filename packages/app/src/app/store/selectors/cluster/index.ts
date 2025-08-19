@@ -20,7 +20,7 @@ export type ClusterSelector<
 > = TClusterSelector<ARGS, SELECTED>;
 
 export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
-  // biome-ignore lint/suspicious/noExplicitAny:
+  // biome-ignore lint/suspicious/noExplicitAny: No worth to improve any now
   any[],
   infer SELECTED
 >

@@ -11,7 +11,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     <PfModal
       position={topModal ? "top" : "default"}
       {...props}
-      // biome-ignore lint/suspicious/noExplicitAny:
+      // biome-ignore lint/suspicious/noExplicitAny: no worth to improve any now
       ref={ref as any}
     />
   );

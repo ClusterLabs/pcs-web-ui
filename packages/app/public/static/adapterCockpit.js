@@ -3,7 +3,7 @@
 
 // The following can be replaced by sed in build script. Don't change it
 // blindly!
-// biome-ignore lint/style/noVar:
+// biome-ignore lint/suspicious/noVar: should be visible in main app
 var pcsdSocket = "/var/run/pcsd.socket";
 
 // Variable pcsUiEnvAdapter will be used by main application included by another
@@ -63,7 +63,7 @@ function Superuser() {
   return self;
 }
 
-// biome-ignore lint/style/noVar:
+// biome-ignore lint/suspicious/noVar: should be visible in main app
 var superuser = Superuser();
 
 // Variable pcsUiEnvAdapter will be used by main application included by another

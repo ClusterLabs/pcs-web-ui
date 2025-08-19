@@ -21,32 +21,30 @@ export const LoginPage = () => {
   const isAcceptingLoginData = useSelector(selectors.loginIsAcceptingData);
   const dispatch = useDispatch();
   return (
-    <>
-      <PfLoginPage
-        loginTitle="Please log in"
-        textContent="HA Cluster Management"
-        style={{
-          backgroundColor: "var(--pf-v5-global--BackgroundColor--dark-100)",
+    <PfLoginPage
+      loginTitle="Please log in"
+      textContent="HA Cluster Management"
+      style={{
+        backgroundColor: "var(--pf-v5-global--BackgroundColor--dark-100)",
+      }}
+      {...testMarks.login.mark}
+    >
+      {failed && <Alert variant="danger" isInline title={failMessage} />}
+      <LoginForm
+        usernameValue={username}
+        onChangeUsername={value => setUsername(value)}
+        passwordValue={password}
+        onChangePassword={value => setPassword(value)}
+        isLoginButtonDisabled={!isAcceptingLoginData}
+        onLoginButtonClick={e => {
+          e.preventDefault();
+          dispatch({
+            type: "LOGIN.ENTER_CREDENTIALS",
+            payload: {username, password},
+          });
         }}
-        {...testMarks.login.mark}
-      >
-        {failed && <Alert variant="danger" isInline title={failMessage} />}
-        <LoginForm
-          usernameValue={username}
-          onChangeUsername={value => setUsername(value)}
-          passwordValue={password}
-          onChangePassword={value => setPassword(value)}
-          isLoginButtonDisabled={!isAcceptingLoginData}
-          onLoginButtonClick={e => {
-            e.preventDefault();
-            dispatch({
-              type: "LOGIN.ENTER_CREDENTIALS",
-              payload: {username, password},
-            });
-          }}
-          {...testMarks.login.form.mark}
-        />
-      </PfLoginPage>
-    </>
+        {...testMarks.login.form.mark}
+      />
+    </PfLoginPage>
   );
 };

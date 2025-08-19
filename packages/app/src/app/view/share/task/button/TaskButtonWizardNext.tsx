@@ -27,7 +27,7 @@ export const TaskButtonWizardNext = (
     );
   }
 
-  // biome-ignore lint/suspicious/noImplicitAnyLet:
+  // biome-ignore lint/suspicious/noImplicitAnyLet: can refactor to ternary
   let action;
   if ("action" in props && props.action) {
     action = props.action;

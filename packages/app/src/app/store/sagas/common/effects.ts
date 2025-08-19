@@ -22,7 +22,7 @@ export const put = (action: Action): PutEffect<Action> =>
 
 export function takeEvery<A extends Action>(
   typeOfAction: A["type"],
-  // biome-ignore lint/suspicious/noExplicitAny:
+  // biome-ignore lint/suspicious/noExplicitAny: We accept any here
   worker: (_action: A) => any,
 ): ForkEffect<never> {
   return sagaTakeEvery(typeOfAction, worker);

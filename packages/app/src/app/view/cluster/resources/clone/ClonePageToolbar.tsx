@@ -9,34 +9,32 @@ const {toolbar} = testMarks.cluster.resources.currentClone;
 export const ClonePageToolbar = ({clone}: {clone: Clone}) => {
   const openMoveTask = useOpenMoveBanTask();
   return (
-    <>
-      <DetailToolbar
-        buttonsItems={[
-          {
-            name: "move",
-            run: () => openMoveTask("clone", clone.id, "move"),
-            ...toolbar.move.mark,
-          },
-          {
-            name: "ban",
-            run: () => openMoveTask("clone", clone.id, "ban"),
-            ...toolbar.ban.mark,
-          },
-        ]}
-        dropdown={
-          <LauncherDropdown
-            items={[
-              {
-                name: "clear",
-                run: () => openMoveTask("clone", clone.id, "clear"),
-                ...toolbar.dropdown.clear.mark,
-              },
-            ]}
-            {...toolbar.dropdown.mark}
-          />
-        }
-        {...toolbar.mark}
-      />
-    </>
+    <DetailToolbar
+      buttonsItems={[
+        {
+          name: "move",
+          run: () => openMoveTask("clone", clone.id, "move"),
+          ...toolbar.move.mark,
+        },
+        {
+          name: "ban",
+          run: () => openMoveTask("clone", clone.id, "ban"),
+          ...toolbar.ban.mark,
+        },
+      ]}
+      dropdown={
+        <LauncherDropdown
+          items={[
+            {
+              name: "clear",
+              run: () => openMoveTask("clone", clone.id, "clear"),
+              ...toolbar.dropdown.clear.mark,
+            },
+          ]}
+          {...toolbar.dropdown.mark}
+        />
+      }
+      {...toolbar.mark}
+    />
   );
 };
