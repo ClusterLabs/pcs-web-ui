@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+* ACL permissions can be deleted (RHEL-104371)
+
+[RHEL-104371]: https://issues.redhat.com/browse/RHEL-104371
+
 ## [0.1.23] - 2025-07-07
 
 ### Changed
