@@ -28,13 +28,17 @@ EXTRA_DIST		= \
 			  .bin/init_nexus.sh \
 			  .bin/init.sh \
 			  .bin/npm_install.sh \
+			  .bin/pcs-compatibility-add.js \
+			  .bin/pcs-compatibility-export.js \
+			  .bin/pcs-compatibility.json \
 			  .bin/render-spec.sh \
 			  rpm/pcs-web-ui.spec.in \
 			  COPYING \
 			  .gitlab-ci.yml \
 			  make/git-version-gen \
 			  README.md \
-			  CONTRIBUTING.md \
+			  doc/CONTRIBUTING.md \
+			  doc/pcs-compatibility.md \
 			  CHANGELOG.md \
 			  typos.toml 
 			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz\
@@ -129,7 +133,13 @@ fmt:
 
 .PHONY: bump-version
 bump-version:
-	.bin/bump-version.sh $(version)
+	@if test -z "$(version)" || test -z "$(pcs-versions)"; then \
+		echo "Error: 'version' and 'pcs-versions' must be provided." >&2; \
+		echo "Example:" >&2; \
+		echo "  make bump-version version=0.1.23 pcs-versions=v0.12.1,v0.11.10" >&2; \
+		exit 1; \
+	fi
+	.bin/bump-version.sh $(version) $(pcs-versions)
 
 dist-hook:
 	$(abs_top_srcdir)/packages/app/.bin/fetch-and-pack-node-modules.sh \

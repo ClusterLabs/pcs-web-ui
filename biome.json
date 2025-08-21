@@ -16,7 +16,8 @@
       "!build/for-cockpit/**/*",
       "!build/for-standalone/**/*",
       "!build/build-output/**/*",
-      "!build-dev/**/*"
+      "!build-dev/**/*",
+      "!.bin/pcs-compatibility.json"
     ]
   },
   "linter": {
