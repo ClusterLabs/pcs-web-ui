@@ -32,7 +32,9 @@ License: GPL-2.0-only AND CC0-1.0
 BuildRequires: libappstream-glib
 
 Requires: cockpit
+%if 0%{?rhel} >= 10
 Requires: pcs-standalone-webui-provider
+%endif
 
 %description -n %{pkg_cockpit_ha_cluster}
 Cockpit application for managing Pacemaker based clusters. Uses
@@ -42,7 +44,7 @@ Pacemaker/Corosync Configuration System (pcs) in the background.
 # documentation for setup/autosetup/autopatch:
 #   * http://ftp.rpm.org/max-rpm/s1-rpm-inside-macros.html
 #   * https://rpm-software-management.github.io/rpm/manual/autosetup.html
-# -q limits verbosity of %setup macro. Only tar -xof is executed instead of tar
+# -q limits verbosity of %%setup macro. Only tar -xof is executed instead of tar
 #    -xvvof. This option has to be used as first.
 #    This option is used to suppress a listing of all node_modules files that is
 #    too long and exceeds capacity of CI log
