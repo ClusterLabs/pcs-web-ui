@@ -1,13 +1,9 @@
 ---
-# Keep the previos behavior when jobs are not run in merge request pipelines.
-# https://docs.gitlab.com/ci/jobs/job_rules/#avoid-duplicate-pipelines
 # https://docs.gitlab.com/ci/yaml/workflow/
-# https://docs.gitlab.com/ci/pipelines/merge_request_pipelines/
 workflow:
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "web"
 
 variables:
   # override these by CI variables if needed
