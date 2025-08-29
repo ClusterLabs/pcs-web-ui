@@ -77,6 +77,10 @@ describe("Web ui on one node cluster", () => {
   );
 });
 
+afterAll(async () => {
+  await page.close();
+});
+
 const clusterToDashboardTransition = async () => {
   await click(marks.clusterBreadcrumbs.dashboard);
 };
