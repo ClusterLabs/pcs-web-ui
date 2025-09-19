@@ -5,9 +5,23 @@
       "edit": {}
     },
     "id": {},
+    "meta": {
+      "pair": {
+        "menu": {
+          "edit": {},
+          "remove": {}
+        },
+        "name": {},
+        "value": {}
+      },
+      "toolbar": {
+        "create": {}
+      }
+    },
     "tabs": {
       "arguments": {},
-      "detail": {}
+      "detail": {},
+      "meta": {}
     }
   },
   "empty": {},

@@ -58,6 +58,7 @@ type FenceDevice = {
   id: string;
   itemType: "fence-device";
   status: "RUNNING" | "BLOCKED" | "FAILED" | "DISABLED";
+  metaAttributes: NVPair[];
   statusSeverity: StatusSeverity;
   issueList: Issue[];
   agentName: string;

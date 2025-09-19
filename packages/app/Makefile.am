@@ -398,6 +398,7 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/fenceDevices/FenceDeviceDetailPage.tsx \
 			  src/app/view/cluster/fenceDevices/FenceDeviceDetailView.tsx \
 			  src/app/view/cluster/fenceDevices/FenceDeviceDoesNotExists.tsx \
+			  src/app/view/cluster/fenceDevices/FenceDeviceMetaView.tsx \
 			  src/app/view/cluster/fenceDevices/FenceDevicePage.tsx \
 			  src/app/view/cluster/fenceDevices/FenceDeviceView.tsx \
 			  src/app/view/cluster/fenceDevices/FencePageToolbar.tsx \

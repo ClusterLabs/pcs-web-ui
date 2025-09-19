@@ -58,6 +58,15 @@ export function* nvpairSave({key, payload: {name, value, owner}}: SaveAction) {
     result = yield api.authSafe(addMetaAttrRemote, {
       clusterName: key.clusterName,
       resourceId: owner.id,
+      isStonith: false,
+      name,
+      value,
+    });
+  } else if (owner.type === "fence-device-meta") {
+    result = yield api.authSafe(addMetaAttrRemote, {
+      clusterName: key.clusterName,
+      resourceId: owner.id,
+      isStonith: true,
       name,
       value,
     });

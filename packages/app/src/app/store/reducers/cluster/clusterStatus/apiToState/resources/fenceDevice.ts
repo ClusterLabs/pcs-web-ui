@@ -43,4 +43,5 @@ export const toFenceDevice = (apiFenceDevice: ApiStonith): FenceDevice => ({
     }),
     {},
   ),
+  metaAttributes: apiFenceDevice.meta_attr,
 });

@@ -21,6 +21,7 @@ export const getNVPairTypeLabel = (
 ) => {
   switch (owner.type) {
     case "resource-meta":
+    case "fence-device-meta":
       return "meta";
     case "node-attr":
       return "node";

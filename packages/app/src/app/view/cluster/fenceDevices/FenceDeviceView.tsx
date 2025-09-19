@@ -9,6 +9,7 @@ import {useClusterFenceAgent} from "./useFenceAgent";
 import {FenceDeviceDetailView} from "./FenceDeviceDetailView";
 import {FenceDeviceArgumentsView} from "./FenceDeviceArgumentsView";
 import {FencePageToolbar} from "./FencePageToolbar";
+import {FenceDeviceMetaView} from "./FenceDeviceMetaView";
 
 const {currentFenceDevice} = testMarks.cluster.fenceDevices;
 const {tabs} = currentFenceDevice;
@@ -30,6 +31,7 @@ const tabMap = {
       {...tabs.arguments.mark}
     />
   ),
+  meta: <Tab eventKey="meta" key="meta" title="Meta" {...tabs.meta.mark} />,
 };
 
 export const FenceDeviceView = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
@@ -56,6 +58,9 @@ export const FenceDeviceView = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
         )}
         {currentTab === "arguments" && (
           <FenceDeviceArgumentsView fenceDevice={fenceDevice} />
+        )}
+        {currentTab === "meta" && (
+          <FenceDeviceMetaView fenceDevice={fenceDevice} />
         )}
       </Router>
     </DetailLayout>
