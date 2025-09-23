@@ -537,6 +537,7 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/share/pcmkAgent/types.ts \
 			  src/app/view/cluster/share/useClusterInfo.ts \
 			  src/app/view/cluster/share/useClusterLoad.ts \
+			  src/app/view/cluster/share/useHasCapabilities.ts \
 			  src/app/view/cluster/share/utilization/index.ts \
 			  src/app/view/cluster/share/utilization/UtilizationView.tsx \
 			  src/app/view/cluster/types.ts \

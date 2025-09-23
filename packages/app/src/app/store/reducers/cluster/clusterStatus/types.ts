@@ -155,6 +155,7 @@ export type Cluster = {
   clusterProperties: Record<string, string>;
   nodeAttr: Record<string, NVPair[]>;
   nodesUtilization: Record<string, NVPair[]>;
+  pcsdCapabilities: string[];
 };
 
 export type ClusterStatusService = {
