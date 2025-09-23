@@ -16,7 +16,8 @@
       },
       "toolbar": {
         "create": {}
-      }
+      },
+      "noCapabilityWarning": {}
     },
     "tabs": {
       "arguments": {},
