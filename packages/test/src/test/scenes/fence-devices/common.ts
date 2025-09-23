@@ -10,12 +10,15 @@ export const mockWithStonith = (
     additionalRouteList?: Parameters<
       typeof mock.shortcuts.withCluster
     >[0]["additionalRouteList"];
-  } = {fenceDeviceIdList: [], additionalRouteList: []},
+    pcsdCapabilities?: string[];
+  } = {fenceDeviceIdList: [], additionalRouteList: [], pcsdCapabilities: []},
 ) => {
   const fenceDeviceIdList = props.fenceDeviceIdList ?? [];
+  const pcsdCapabilities = props.pcsdCapabilities ?? [];
   return mock.shortcuts.withCluster({
     clusterStatus: cs.cluster(clusterName, "ok", {
       resource_list: fenceDeviceIdList.map(id => cs.stonith(id)),
+      pcsd_capabilities: pcsdCapabilities,
     }),
     ...(props.additionalRouteList
       ? {additionalRouteList: props.additionalRouteList}
@@ -32,4 +35,9 @@ export const openFenceDevice = async (fenceDeviceId: string) => {
   await click(
     item.byId(marks.cluster.fenceDevices.list.item, fenceDeviceId, f => f.id),
   );
+};
+
+export const goToFenceDevice = async (fenceDeviceId: string) => {
+  await goToFenceDevices();
+  await openFenceDevice(fenceDeviceId);
 };

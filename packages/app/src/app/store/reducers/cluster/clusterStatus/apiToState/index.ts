@@ -44,5 +44,6 @@ export const apiToState = (apiClusterStatus: ApiCluster): Cluster => {
     clusterProperties: apiClusterStatus.cluster_settings ?? {},
     nodeAttr: apiClusterStatus.node_attr ?? {},
     nodesUtilization: apiClusterStatus.nodes_utilization ?? {},
+    pcsdCapabilities: apiClusterStatus.pcsd_capabilities,
   };
 };

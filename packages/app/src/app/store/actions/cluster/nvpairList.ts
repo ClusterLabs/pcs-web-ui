@@ -3,6 +3,7 @@ type Owner = {
     | "node-utilization"
     | "resource-utilization"
     | "node-attr"
+    | "fence-device-meta"
     | "resource-meta";
   id: string;
 };

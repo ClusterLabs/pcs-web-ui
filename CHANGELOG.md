@@ -2,11 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+
+* Added meta attributes management for fence device ([RHEL-84113])
+
 ### Fixed
 
-* ACL permissions can be deleted (RHEL-104371)
+* ACL permissions can be deleted ([RHEL-104371])
 
 [RHEL-104371]: https://issues.redhat.com/browse/RHEL-104371
+[RHEL-84113]: https://issues.redhat.com/browse/RHEL-84113
 
 ## [0.1.23] - 2025-07-07
 

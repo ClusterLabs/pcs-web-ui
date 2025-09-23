@@ -58,6 +58,7 @@ type FenceDevice = {
   id: string;
   itemType: "fence-device";
   status: "RUNNING" | "BLOCKED" | "FAILED" | "DISABLED";
+  metaAttributes: NVPair[];
   statusSeverity: StatusSeverity;
   issueList: Issue[];
   agentName: string;
@@ -154,6 +155,7 @@ export type Cluster = {
   clusterProperties: Record<string, string>;
   nodeAttr: Record<string, NVPair[]>;
   nodesUtilization: Record<string, NVPair[]>;
+  pcsdCapabilities: string[];
 };
 
 export type ClusterStatusService = {
