@@ -49,6 +49,7 @@ EXTRA_DIST		= \
 			  src/test/scenes/fence-devices/create-fence-device.test.ts \
 			  src/test/scenes/fence-devices/edit-args.test.ts \
 			  src/test/scenes/fence-devices/list.test.ts \
+			  src/test/scenes/fence-devices/meta-management.test.ts \
 			  src/test/scenes/login.test.ts \
 			  src/test/scenes/nodes/add-node.test.ts \
 			  src/test/scenes/nodes/common.ts \

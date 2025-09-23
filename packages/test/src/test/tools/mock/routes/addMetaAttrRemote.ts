@@ -10,16 +10,23 @@ export const addMetaAttrRemote = ({
   name,
   value,
   response,
+  isStonith,
 }: {
   clusterName: string;
   resourceId: string;
   name: string;
   value: string;
   response?: RouteResponse;
+  isStonith?: boolean;
 }) => ({
   url: endpoints.addMetaAttrRemote.url({clusterName}),
   body: paramsToBody(
-    endpoints.addMetaAttrRemote.params({resourceId, name, value}),
+    endpoints.addMetaAttrRemote.params({
+      resourceId,
+      name,
+      value,
+      isStonith: !!isStonith,
+    }),
   ),
   ...(response ?? {text: ""}),
 });

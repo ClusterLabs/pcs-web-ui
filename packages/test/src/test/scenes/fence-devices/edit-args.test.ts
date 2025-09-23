@@ -1,11 +1,6 @@
 import {mock} from "test/tools";
 
-import {
-  clusterName,
-  goToFenceDevices,
-  mockWithStonith,
-  openFenceDevice,
-} from "./common";
+import {clusterName, goToFenceDevice, mockWithStonith} from "./common";
 
 const {tabs, argumentsToolbar} = marks.cluster.fenceDevices.currentFenceDevice;
 const {fenceDeviceArgumentsEdit: task} = marks.task;
@@ -17,8 +12,7 @@ const attributes = {
 };
 
 const launchTask = async (id: string) => {
-  await goToFenceDevices();
-  await openFenceDevice(id);
+  await goToFenceDevice(id);
   await click(tabs.arguments);
   await click(argumentsToolbar.edit);
 };
