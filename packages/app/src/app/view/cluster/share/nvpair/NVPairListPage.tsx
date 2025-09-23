@@ -1,4 +1,4 @@
-import type * as React from "react";
+import React from "react";
 import {StackItem} from "@patternfly/react-core";
 
 import {
@@ -49,7 +49,11 @@ export const NVPairListPage = (props: {
         {hasCibInfo && props.nvPairList.length > 0 && (
           <Table>
             <Table.Body>
-              {props.nvPairList.map(nvPair => props.listItem(nvPair))}
+              {props.nvPairList.map((nvPair, i) => (
+                <React.Fragment key={i}>
+                  {props.listItem(nvPair)}
+                </React.Fragment>
+              ))}
             </Table.Body>
           </Table>
         )}
