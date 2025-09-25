@@ -4,7 +4,7 @@ import {
 } from "app/backend";
 import type {ActionMap} from "app/store/actions";
 
-import {api, processClusterResultBasic, put} from "./common";
+import {api, errorMessage, log, put} from "./common";
 
 export function* load({key}: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
   const result: api.ResultOf<typeof getClusterPropertiesDefinition> =
@@ -38,9 +38,28 @@ export function* update({
     {clusterName, settingsMap: propertyMap},
   );
 
-  yield processClusterResultBasic(
-    clusterName,
-    "update cluster properties",
-    result,
-  );
+  const taskLabel = "update cluster properties";
+  if (result.type !== "OK") {
+    if (result.type !== "BAD_HTTP_STATUS") {
+      log.error(result, taskLabel);
+    }
+    yield put({
+      type: "CLUSTER.PROPERTIES.UPDATE.FAIL",
+      key: {clusterName},
+      payload: {
+        message: errorMessage(result, taskLabel),
+      },
+    });
+    return;
+  }
+
+  yield put({
+    type: "CLUSTER.STATUS.REFRESH",
+    key: {clusterName},
+  });
+
+  yield put({
+    type: "CLUSTER.PROPERTIES.UPDATE.OK",
+    key: {clusterName},
+  });
 }

@@ -22,6 +22,7 @@ import nodeAdd from "./json/task/nodeAdd.json";
 import nodeStop from "./json/task/nodeStop.json";
 import nvsetEdit from "./json/task/nvsetEdit.json";
 import permissionEdit from "./json/task/permissionEdit.json";
+import propertiesUpdate from "./json/task/propertiesUpdate.json";
 import resourceCreate from "./json/task/resourceCreate.json";
 import resourceMove from "./json/task/resourceMove.json";
 import resourceBan from "./json/task/resourceBan.json";
@@ -104,6 +105,7 @@ export const structure = {
     nodeStop,
     nvsetEdit,
     permissionEdit,
+    propertiesUpdate,
     resourceCreate,
     resourceDelete,
     resourceMove,

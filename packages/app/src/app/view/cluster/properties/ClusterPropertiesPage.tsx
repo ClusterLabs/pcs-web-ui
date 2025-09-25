@@ -19,6 +19,7 @@ import {
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
 import {useLoadedCluster} from "app/view/cluster/share";
+import {useOpenTask} from "app/view/task";
 
 import {PropertiesForm} from "./PropertiesForm";
 import {
@@ -51,6 +52,7 @@ export const ClusterPropertiesPage = () => {
   const {hasCibInfo, clusterProperties, clusterName} = useLoadedCluster();
   const {filterState, filterParameters} = useFilter();
   const [isEditing, setIsEditing] = React.useState(false);
+  const openTask = useOpenTask();
 
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
@@ -66,6 +68,21 @@ export const ClusterPropertiesPage = () => {
                   {
                     name: "edit-attributes",
                     run: () => setIsEditing(true),
+                    launchDisable: launchDisable(
+                      "Cannot edit cluster properties on stopped cluster",
+                    ),
+                  },
+                  {
+                    name: "edit-attributes",
+                    run: () =>
+                      openTask("propertiesUpdate", {
+                        type: "CLUSTER.PROPERTIES.UPDATE.INIT",
+                        key: {clusterName},
+                        payload: {
+                          clusterName,
+                          propertyMap: clusterProperties,
+                        },
+                      }),
                     launchDisable: launchDisable(
                       "Cannot edit cluster properties on stopped cluster",
                     ),
