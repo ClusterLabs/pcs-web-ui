@@ -1,6 +1,7 @@
 import type React from "react";
 
 import {EmptyStateNoItem} from "app/view/share/emptyState";
+import {DescriptionList} from "@patternfly/react-core";
 
 export function AttributeList<T>({
   attributes,
@@ -18,8 +19,11 @@ export function AttributeList<T>({
     );
   }
   return (
-    <div className="pf-v5-c-content">
-      <dl>{attributes.map(a => children(a))}</dl>
-    </div>
+    <DescriptionList
+      isHorizontal
+      horizontalTermWidthModifier={{default: "180px"}}
+    >
+      {attributes.map(a => children(a))}
+    </DescriptionList>
   );
 }

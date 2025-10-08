@@ -45,6 +45,7 @@ import overviewToolbar from "./json/cluster/overviewToolbar.json";
 import permissions from "./json/cluster/permissions.json";
 import permissionsToolbar from "./json/cluster/permissionsToolbar.json";
 import properties from "./json/cluster/properties.json";
+import propertiesToolbar from "./json/cluster/propertiesToolbar.json";
 import resources from "./json/cluster/resources.json";
 import resourceDelete from "./json/cluster/resourceDelete.json";
 import resourcesToolbar from "./json/cluster/resourcesToolbar.json";
@@ -83,6 +84,7 @@ export const structure = {
     constraints,
     constraintsToolbar,
     properties,
+    propertiesToolbar,
     acl,
     aclToolbar,
     permissions,

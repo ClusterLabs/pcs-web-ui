@@ -1,7 +1,6 @@
-import React from "react";
-
 import type {Primitive} from "app/view/cluster/types";
 import {
+  AttributeGroup,
   AttributeHelpPopover,
   AttributeList,
   AttributeName,
@@ -20,7 +19,7 @@ export const PcmkAgentAttrsList = ({
   return (
     <AttributeList attributes={resourceAgentParameters}>
       {parameter => (
-        <React.Fragment key={parameter.name}>
+        <AttributeGroup key={parameter.name}>
           <AttributeName name={parameter.name}>
             <AttributeHelpPopover
               header={parameter.shortdesc}
@@ -32,7 +31,7 @@ export const PcmkAgentAttrsList = ({
             value={agentAttributes[parameter.name]?.value}
             defaultValue={parameter.default}
           />
-        </React.Fragment>
+        </AttributeGroup>
       )}
     </AttributeList>
   );

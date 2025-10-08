@@ -574,6 +574,7 @@ EXTRA_DIST		= \
 			  src/app/view/dataTest/json/cluster/permissions.json \
 			  src/app/view/dataTest/json/cluster/permissionsToolbar.json \
 			  src/app/view/dataTest/json/cluster/properties.json \
+			  src/app/view/dataTest/json/cluster/propertiesToolbar.json \
 			  src/app/view/dataTest/json/cluster/resourceDelete.json \
 			  src/app/view/dataTest/json/cluster/resources.json \
 			  src/app/view/dataTest/json/cluster/resourcesToolbar.json \
@@ -613,6 +614,7 @@ EXTRA_DIST		= \
 			  src/app/view/dataTest/json/task/sbdDisable.json \
 			  src/app/view/dataTest/structure.ts \
 			  src/app/view/index.ts \
+			  src/app/view/share/attributes/AttributeGroup.tsx \
 			  src/app/view/share/attributes/AttributeHelpPopover.tsx \
 			  src/app/view/share/attributes/AttributeList.tsx \
 			  src/app/view/share/attributes/AttributeName.tsx \

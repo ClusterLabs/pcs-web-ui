@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Alert,
   Card,
@@ -10,6 +9,7 @@ import {
 
 import {testMarks} from "app/view/dataTest";
 import {
+  AttributeGroup,
   AttributeHelpPopover,
   AttributeList,
   AttributeName,
@@ -44,7 +44,7 @@ const useFilter = (): {
     p => p.readable_name,
   );
 
-const {properties} = testMarks.cluster;
+const {properties, propertiesToolbar} = testMarks.cluster;
 
 export const ClusterPropertiesPage = () => {
   const {clusterPropertiesDefinition} = useClusterProperties();
@@ -75,6 +75,7 @@ export const ClusterPropertiesPage = () => {
               launchDisable: launchDisable(
                 "Cannot edit cluster properties on stopped cluster",
               ),
+              ...propertiesToolbar.edit.mark,
             },
           ]}
         />
@@ -99,12 +100,19 @@ export const ClusterPropertiesPage = () => {
                         />
                       </Alert>
                     )}
+
                     <AttributeList
                       attributes={filterParameters(clusterPropertiesDefinition)}
                     >
                       {property => (
-                        <React.Fragment key={property.name}>
-                          <AttributeName name={property.readable_name}>
+                        <AttributeGroup
+                          key={property.name}
+                          {...properties.property.mark}
+                        >
+                          <AttributeName
+                            name={property.readable_name}
+                            {...properties.property.name.mark}
+                          >
                             <AttributeHelpPopover
                               header={property.shortdesc}
                               body={property.longdesc}
@@ -115,8 +123,9 @@ export const ClusterPropertiesPage = () => {
                             {...(property.name in clusterProperties
                               ? {value: clusterProperties[property.name]}
                               : {defaultValue: property.default})}
+                            {...properties.property.value.mark}
                           />
-                        </React.Fragment>
+                        </AttributeGroup>
                       )}
                     </AttributeList>
                   </>
