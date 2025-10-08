@@ -8,12 +8,8 @@ export type ClusterProperties = selectors.ExtractClusterSelector<
   typeof getClusterProperties
 >;
 
-export const useClusterProperties = () => {
-  const {clusterName} = useLoadedCluster();
-  const clusterPropertiesDefinition = useSelector(
-    getClusterProperties(clusterName),
-  );
-  return {
-    clusterPropertiesDefinition,
-  };
-};
+export const useClusterProperties = () => ({
+  clusterPropertiesDefinition: useSelector(
+    getClusterProperties(useLoadedCluster().clusterName),
+  ),
+});
