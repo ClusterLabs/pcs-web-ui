@@ -5,7 +5,7 @@ import {useTask} from "./useTask";
 
 type FormRadiosProps = React.ComponentProps<typeof FormRadios>;
 
-const {property: propertyMark} = testMarks.cluster.properties;
+const {property} = testMarks.task.propertiesUpdate.propertiesForm;
 const DEFAULT = "DEFAULT";
 
 export const PropertyFormFielChoose = (props: {
@@ -34,7 +34,7 @@ export const PropertyFormFielChoose = (props: {
         selected={selected}
         onChange={modify}
         popover={props.popover}
-        {...propertyMark.value.mark}
+        {...property.value.mark}
       />
     );
   }
@@ -46,7 +46,7 @@ export const PropertyFormFielChoose = (props: {
       selected={selected}
       onSelect={modify}
       popover={props.popover}
-      {...propertyMark.value.mark}
+      {...property.value.mark}
     />
   );
 };

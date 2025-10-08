@@ -4,7 +4,9 @@ import {FormText} from "app/view/share";
 import {PropertyFormFielChoose} from "./PropertyFormFieldChoose";
 import {type ClusterProperties, useTask} from "./useTask";
 
-const {property: propertyMark} = testMarks.cluster.properties;
+const {
+  property: {name: propertyName, value: propertyValue},
+} = testMarks.task.propertiesUpdate.propertiesForm;
 
 export const PropertyFormField = ({
   property,
@@ -21,9 +23,7 @@ export const PropertyFormField = ({
     defaultValue: property.default,
   };
 
-  const label = (
-    <span {...propertyMark.name.mark}>{property.readable_name}</span>
-  );
+  const label = <span {...propertyName.mark}>{property.readable_name}</span>;
 
   const id = `cluster-property-${property.name}`;
   if ("enum" in property) {
@@ -60,7 +60,7 @@ export const PropertyFormField = ({
       onChange={value => modifyProperty(property.name, value)}
       value={userProperty ?? ""}
       placeholder={property.default as string}
-      {...propertyMark.value.mark}
+      {...propertyValue.mark}
     />
   );
 };

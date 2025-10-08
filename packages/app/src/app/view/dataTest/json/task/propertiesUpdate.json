@@ -1,6 +1,15 @@
 {
   "review": {
-    "property": {}
+    "property": {
+      "name": {},
+      "value": {}
+    }
+  },
+  "propertiesForm": {
+    "property": {
+      "name": {},
+      "value": {}
+    }
   },
   "propertiesFooter": {
     "next": {},

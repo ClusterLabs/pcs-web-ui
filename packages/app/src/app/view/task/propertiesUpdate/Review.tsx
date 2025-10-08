@@ -30,12 +30,17 @@ export const Review = () => {
       <StackItem>
         <ReviewList>
           {Object.entries(propertyMap).map(([name, value]) => (
-            <ReviewItem
-              key={name}
-              label={propertyNameMap[name]}
-              value={value}
-              {...review.property.mark}
-            />
+            <span key={name} {...review.property.mark}>
+              <ReviewItem
+                label={
+                  <span {...review.property.name.mark}>
+                    {propertyNameMap[name]}
+                  </span>
+                }
+                value={value}
+                {...review.property.value.mark}
+              />
+            </span>
           ))}
         </ReviewList>
       </StackItem>

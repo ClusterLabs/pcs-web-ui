@@ -3,6 +3,10 @@ import {useTask, type ClusterProperties} from "./useTask";
 import {PropertyFormField} from "./PropertyFormField";
 import {ToolbarFilterTextGroupPair} from "app/view/share";
 
+import {testMarks} from "app/view/dataTest";
+
+const {propertiesForm} = testMarks.task.propertiesUpdate;
+
 const useFilter = (): {
   filterState: ReturnType<
     typeof ToolbarFilterTextGroupPair.useState
@@ -49,7 +53,7 @@ export const Properties = () => {
       <StackItem>
         <Form isHorizontal>
           {filterParameters(clusterPropertiesDefinition).map(property => (
-            <span key={property.name}>
+            <span key={property.name} {...propertiesForm.property.mark}>
               <PropertyFormField property={property} />
             </span>
           ))}
