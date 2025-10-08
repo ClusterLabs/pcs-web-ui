@@ -16,7 +16,7 @@ export const ReviewFooter = () => {
     <TaskFooter {...testMarks.task.resourceCreate.reviewFooter.mark}>
       <TaskButtonWizardNext
         label="Edit cluster properties"
-        preAction={() => propertiesUpdate()}
+        preAction={() => propertiesUpdate({force: false})}
         {...next.mark}
       />
       <TaskButtonBack {...back.mark} />

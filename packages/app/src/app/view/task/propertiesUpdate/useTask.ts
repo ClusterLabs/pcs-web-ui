@@ -41,12 +41,13 @@ export const useTask = () => {
     hasChanges: Object.keys(propertyMap).length > 0,
     propertyMap,
 
-    propertiesUpdate: () => {
+    propertiesUpdate: ({force}: {force: boolean}) => {
       dispatch({
         type: "CLUSTER.PROPERTIES.UPDATE",
         key: {clusterName},
         payload: {
           propertyMap,
+          force,
         },
       });
     },

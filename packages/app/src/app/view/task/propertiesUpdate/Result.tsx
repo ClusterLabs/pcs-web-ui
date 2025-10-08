@@ -21,7 +21,8 @@ export const Result = ({
   taskLabel: string;
 }) => {
   const {
-    state: {response, resultMessage},
+    state: {response, resultMessage, isForceable},
+    propertiesUpdate,
   } = useTask();
 
   switch (response) {
@@ -42,7 +43,9 @@ export const Result = ({
               isInline
               title={
                 "Operation has not completed successfully. " +
-                "You can return back, change settings and try again."
+                "You can return back, change settings and try again. " +
+                "Or you can proceed anyway with the current settings since" +
+                " error can be overridden"
               }
             >
               {resultMessage}
@@ -55,7 +58,15 @@ export const Result = ({
             />
           }
           secondaryActions={
-            <TaskButtonResultCancel {...unsuccess.cancel.mark} />
+            <>
+              <TaskButtonResult
+                variant="secondary"
+                label={isForceable ? "Proceed anyway" : "Try again"}
+                action={() => propertiesUpdate({force: isForceable})}
+                {...unsuccess.tryAgain.mark}
+              />
+              <TaskButtonResultCancel {...unsuccess.cancel.mark} />
+            </>
           }
           {...unsuccess.mark}
         />

@@ -35,6 +35,7 @@ export type ClusterPropertiesActions = {
     key: {clusterName: string};
     payload: {
       propertyMap: Record<string, string>;
+      force: boolean;
     };
   };
   "CLUSTER.PROPERTIES.UPDATE.MODIFY_ITEM": {
@@ -56,7 +57,7 @@ export type ClusterPropertiesActions = {
   "CLUSTER.PROPERTIES.UPDATE.FAIL": {
     type: "CLUSTER.PROPERTIES.UPDATE.FAIL";
     key: {clusterName: string};
-    payload: {message: string};
+    payload: {message: string; isForceable: boolean};
   };
   "CLUSTER.PROPERTIES.UPDATE.ERROR.RECOVER": {
     type: "CLUSTER.PROPERTIES.UPDATE.ERROR.RECOVER";

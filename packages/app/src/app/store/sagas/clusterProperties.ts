@@ -5,6 +5,7 @@ import {
 import type {ActionMap} from "app/store/actions";
 
 import {api, errorMessage, log, put} from "./common";
+import {stripForceText} from "./clusterStopUtils";
 
 export function* load({key}: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
   const result: api.ResultOf<typeof getClusterPropertiesDefinition> =
@@ -31,11 +32,11 @@ export function* load({key}: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
 
 export function* update({
   key: {clusterName},
-  payload: {propertyMap},
+  payload: {propertyMap, force},
 }: ActionMap["CLUSTER.PROPERTIES.UPDATE"]) {
   const result: api.ResultOf<typeof updateClusterSettings> = yield api.authSafe(
     updateClusterSettings,
-    {clusterName, settingsMap: propertyMap},
+    {clusterName, settingsMap: propertyMap, force},
   );
 
   const taskLabel = "update cluster properties";
@@ -47,7 +48,8 @@ export function* update({
       type: "CLUSTER.PROPERTIES.UPDATE.FAIL",
       key: {clusterName},
       payload: {
-        message: errorMessage(result, taskLabel),
+        message: errorMessage(stripForceText(result), taskLabel),
+        isForceable: "text" in result && result.text.includes("--force"),
       },
     });
     return;

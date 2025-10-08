@@ -7,6 +7,7 @@ const initialState: {
   showValidationErrors: boolean;
   response: "" | "sending" | "ok" | "fail";
   resultMessage: string;
+  isForceable: boolean;
 } = {
   clusterName: "",
   originalPropertyMap: {},
@@ -14,6 +15,7 @@ const initialState: {
   showValidationErrors: false,
   response: "",
   resultMessage: "",
+  isForceable: false,
 };
 
 export const propertiesUpdate: AppReducer<typeof initialState> = (
@@ -42,24 +44,28 @@ export const propertiesUpdate: AppReducer<typeof initialState> = (
         ...state,
         response: "",
         resultMessage: "",
+        isForceable: false,
       };
     case "CLUSTER.PROPERTIES.UPDATE.OK":
       return {
         ...state,
         response: "ok",
         resultMessage: "",
+        isForceable: false,
       };
     case "CLUSTER.PROPERTIES.UPDATE.FAIL":
       return {
         ...state,
         response: "fail",
         resultMessage: action.payload.message,
+        isForceable: action.payload.isForceable,
       };
     case "CLUSTER.PROPERTIES.UPDATE.ERROR.RECOVER":
       return {
         ...state,
         response: "",
         resultMessage: "",
+        isForceable: false,
       };
 
     case "TASK.VALIDATION.SHOW":
