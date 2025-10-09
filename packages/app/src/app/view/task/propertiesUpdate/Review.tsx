@@ -1,3 +1,4 @@
+import React from "react";
 import {testMarks} from "app/view/dataTest";
 import {ReviewItem, ReviewList} from "app/view/share";
 
@@ -7,7 +8,18 @@ import {Stack, StackItem, Text, TextContent} from "@patternfly/react-core";
 const {review} = testMarks.task.propertiesUpdate;
 
 export const Review = () => {
-  const {propertyMap} = useTask();
+  const {propertyMap, clusterPropertiesDefinition} = useTask();
+  const propertyNameMap = React.useMemo(
+    () =>
+      clusterPropertiesDefinition.reduce(
+        (nameMap, property) => ({
+          ...nameMap,
+          [property.name]: property.readable_name,
+        }),
+        {} as Record<string, string>,
+      ),
+    [clusterPropertiesDefinition],
+  );
   return (
     <Stack hasGutter>
       <StackItem>
@@ -20,7 +32,7 @@ export const Review = () => {
           {Object.entries(propertyMap).map(([name, value]) => (
             <ReviewItem
               key={name}
-              label={name}
+              label={propertyNameMap[name]}
               value={value}
               {...review.property.mark}
             />
