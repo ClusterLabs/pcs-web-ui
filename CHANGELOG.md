@@ -5,6 +5,8 @@
 ### Added
 
 * Added meta attributes management for fence device ([RHEL-84113])
+* It is possible to override validation errors when updating cluster properties
+  ([RHEL-84135])
 
 ### Fixed
 
@@ -12,6 +14,7 @@
 
 [RHEL-104371]: https://issues.redhat.com/browse/RHEL-104371
 [RHEL-84113]: https://issues.redhat.com/browse/RHEL-84113
+[RHEL-84135]: https://issues.redhat.com/browse/RHEL-84135
 
 ## [0.1.23] - 2025-07-07
 
