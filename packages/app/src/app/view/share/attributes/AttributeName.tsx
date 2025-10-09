@@ -1,16 +1,20 @@
 import type React from "react";
+import {DescriptionListTerm} from "@patternfly/react-core";
 
 export const AttributeName = ({
   name,
+  "data-test": dataTest,
   children,
-}: React.PropsWithChildren<{name: string}>) => {
+}: React.PropsWithChildren<{name: string; "data-test"?: string}>) => {
   if (!children) {
-    return <dt>{name}</dt>;
+    return (
+      <DescriptionListTerm data-test={dataTest}>{name}</DescriptionListTerm>
+    );
   }
   return (
-    <dt>
+    <DescriptionListTerm data-test={dataTest}>
       {`${name} `}
       {children}
-    </dt>
+    </DescriptionListTerm>
   );
 };

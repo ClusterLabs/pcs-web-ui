@@ -2,6 +2,7 @@ import type React from "react";
 import {
   EmptyState,
   EmptyStateActions,
+  EmptyStateFooter,
   EmptyStateIcon,
   Title,
 } from "@patternfly/react-core";
@@ -27,8 +28,10 @@ export const TaskSuccess = (props: {
         {`Task "${taskLabel}" has been done successfully`}
       </Title>
 
-      <EmptyStateActions>{props.primaryAction}</EmptyStateActions>
-      <EmptyStateActions>{props.secondaryActions}</EmptyStateActions>
+      <EmptyStateFooter>
+        <EmptyStateActions>{props.primaryAction}</EmptyStateActions>
+        <EmptyStateActions>{props.secondaryActions}</EmptyStateActions>
+      </EmptyStateFooter>
     </EmptyState>
   );
 };

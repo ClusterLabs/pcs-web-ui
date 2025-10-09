@@ -3,6 +3,7 @@ import {
   EmptyState,
   EmptyStateActions,
   EmptyStateBody,
+  EmptyStateFooter,
   EmptyStateIcon,
   Title,
 } from "@patternfly/react-core";
@@ -25,8 +26,10 @@ export const TaskFinishError = (props: {
       </Title>
       <EmptyStateBody>{props.message}</EmptyStateBody>
 
-      <EmptyStateActions>{props.primaryAction}</EmptyStateActions>
-      <EmptyStateActions>{props.secondaryActions}</EmptyStateActions>
+      <EmptyStateFooter>
+        <EmptyStateActions>{props.primaryAction}</EmptyStateActions>
+        <EmptyStateActions>{props.secondaryActions}</EmptyStateActions>
+      </EmptyStateFooter>
     </EmptyState>
   );
 };

@@ -14,5 +14,15 @@ app.updateClusterSettings((req, res) => {
     res.status(400).send("Something wrong");
     return;
   }
+  if (batchLimit === "err") {
+    res
+      .status(400)
+      .send(
+        "Error: 'err' is not a valid batch-limit value, use number," +
+          " use --force to override\n" +
+          "Error: Errors have occurred, therefore pcs is unable to continue ",
+      );
+    return;
+  }
   res.send("Update Successful");
 });

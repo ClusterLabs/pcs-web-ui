@@ -22,6 +22,7 @@ import {NodeAdd} from "./nodeAdd";
 import {NodeStop} from "./nodeStop";
 import {NvPairEdit} from "./nvpairEdit";
 import {PermissionEdit} from "./permissionEdit";
+import {PropertiesUpdate} from "./propertiesUpdate";
 import {ResourcePrimitiveGroupChange} from "./resourcePrimitiveGroupChange";
 import {ResourceCreate} from "./resourceCreate";
 import {ResourceMove} from "./resourceMove";
@@ -56,6 +57,7 @@ export const taskMap = {
   nodeStop: NodeStop,
   nvpairEdit: NvPairEdit,
   permissionEdit: PermissionEdit,
+  propertiesUpdate: PropertiesUpdate,
   primitiveGroupChange: ResourcePrimitiveGroupChange,
   resourceCreate: ResourceCreate,
   resourceMove: ResourceMove,

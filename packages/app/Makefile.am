@@ -238,6 +238,7 @@ EXTRA_DIST		= \
 			  src/app/store/reducers/tasks/nvpairEdit.ts \
 			  src/app/store/reducers/tasks/permissionEdit.ts \
 			  src/app/store/reducers/tasks/primitiveGroupChange.ts \
+			  src/app/store/reducers/tasks/propertiesUpdate.ts \
 			  src/app/store/reducers/tasks/resourceBan.ts \
 			  src/app/store/reducers/tasks/resourceClear.ts \
 			  src/app/store/reducers/tasks/resourceCreate.ts \
@@ -451,8 +452,6 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/permissions/types.ts \
 			  src/app/view/cluster/properties/ClusterPropertiesPage.tsx \
 			  src/app/view/cluster/properties/index.ts \
-			  src/app/view/cluster/properties/PropertiesForm.tsx \
-			  src/app/view/cluster/properties/PropertyFormField.tsx \
 			  src/app/view/cluster/properties/useClusterProperties.ts \
 			  src/app/view/cluster/resources/clone/CloneDetail.tsx \
 			  src/app/view/cluster/resources/clone/CloneMeta.tsx \
@@ -575,6 +574,7 @@ EXTRA_DIST		= \
 			  src/app/view/dataTest/json/cluster/permissions.json \
 			  src/app/view/dataTest/json/cluster/permissionsToolbar.json \
 			  src/app/view/dataTest/json/cluster/properties.json \
+			  src/app/view/dataTest/json/cluster/propertiesToolbar.json \
 			  src/app/view/dataTest/json/cluster/resourceDelete.json \
 			  src/app/view/dataTest/json/cluster/resources.json \
 			  src/app/view/dataTest/json/cluster/resourcesToolbar.json \
@@ -604,6 +604,7 @@ EXTRA_DIST		= \
 			  src/app/view/dataTest/json/task/nodeStop.json \
 			  src/app/view/dataTest/json/task/nvsetEdit.json \
 			  src/app/view/dataTest/json/task/permissionEdit.json \
+			  src/app/view/dataTest/json/task/propertiesUpdate.json \
 			  src/app/view/dataTest/json/task/resourceBan.json \
 			  src/app/view/dataTest/json/task/resourceClear.json \
 			  src/app/view/dataTest/json/task/resourceCreate.json \
@@ -613,6 +614,7 @@ EXTRA_DIST		= \
 			  src/app/view/dataTest/json/task/sbdDisable.json \
 			  src/app/view/dataTest/structure.ts \
 			  src/app/view/index.ts \
+			  src/app/view/share/attributes/AttributeGroup.tsx \
 			  src/app/view/share/attributes/AttributeHelpPopover.tsx \
 			  src/app/view/share/attributes/AttributeList.tsx \
 			  src/app/view/share/attributes/AttributeName.tsx \
@@ -963,6 +965,16 @@ EXTRA_DIST		= \
 			  src/app/view/task/permissionEdit/PermissionEdit.tsx \
 			  src/app/view/task/permissionEdit/Success.tsx \
 			  src/app/view/task/permissionEdit/useTask.ts \
+			  src/app/view/task/propertiesUpdate/index.ts \
+			  src/app/view/task/propertiesUpdate/PropertiesFooter.tsx \
+			  src/app/view/task/propertiesUpdate/Properties.tsx \
+			  src/app/view/task/propertiesUpdate/PropertiesUpdate.tsx \
+				src/app/view/task/propertiesUpdate/PropertyFormField.tsx \
+				src/app/view/task/propertiesUpdate/PropertyFormFieldChoose.tsx \
+			  src/app/view/task/propertiesUpdate/Result.tsx \
+			  src/app/view/task/propertiesUpdate/ReviewFooter.tsx \
+			  src/app/view/task/propertiesUpdate/Review.tsx \
+			  src/app/view/task/propertiesUpdate/useTask.ts \
 			  src/app/view/task/resourceBan/AdvancedFooter.tsx \
 			  src/app/view/task/resourceBan/AdvancedLifetime.tsx \
 			  src/app/view/task/resourceBan/Advanced.tsx \

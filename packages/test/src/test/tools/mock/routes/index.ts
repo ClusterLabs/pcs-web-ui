@@ -33,6 +33,7 @@ export * from "./clusterNodeAdd";
 export * from "./removeCluster";
 export * from "./destroyCluster";
 export * from "./getClusterPropertiesDefinition";
+export * from "./updateClusterSettings";
 export * from "./getPermissions";
 export * from "./permissionsSave";
 export * from "./setResourceUtilization";

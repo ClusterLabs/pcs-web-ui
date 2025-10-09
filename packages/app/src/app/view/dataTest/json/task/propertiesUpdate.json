@@ -1,0 +1,34 @@
+{
+  "review": {
+    "property": {
+      "name": {},
+      "value": {}
+    }
+  },
+  "propertiesForm": {
+    "property": {
+      "name": {},
+      "value": {}
+    }
+  },
+  "propertiesFooter": {
+    "next": {},
+    "back": {},
+    "cancel": {}
+  },
+  "reviewFooter": {
+    "next": {},
+    "back": {},
+    "cancel": {}
+  },
+  "run": {},
+  "cancel": {},
+  "success": {
+    "close": {}
+  },
+  "unsuccess": {
+    "cancel": {},
+    "back": {},
+    "tryAgain": {}
+  }
+}

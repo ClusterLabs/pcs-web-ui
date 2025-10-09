@@ -22,6 +22,7 @@ import nodeAdd from "./json/task/nodeAdd.json";
 import nodeStop from "./json/task/nodeStop.json";
 import nvsetEdit from "./json/task/nvsetEdit.json";
 import permissionEdit from "./json/task/permissionEdit.json";
+import propertiesUpdate from "./json/task/propertiesUpdate.json";
 import resourceCreate from "./json/task/resourceCreate.json";
 import resourceMove from "./json/task/resourceMove.json";
 import resourceBan from "./json/task/resourceBan.json";
@@ -44,6 +45,7 @@ import overviewToolbar from "./json/cluster/overviewToolbar.json";
 import permissions from "./json/cluster/permissions.json";
 import permissionsToolbar from "./json/cluster/permissionsToolbar.json";
 import properties from "./json/cluster/properties.json";
+import propertiesToolbar from "./json/cluster/propertiesToolbar.json";
 import resources from "./json/cluster/resources.json";
 import resourceDelete from "./json/cluster/resourceDelete.json";
 import resourcesToolbar from "./json/cluster/resourcesToolbar.json";
@@ -82,6 +84,7 @@ export const structure = {
     constraints,
     constraintsToolbar,
     properties,
+    propertiesToolbar,
     acl,
     aclToolbar,
     permissions,
@@ -104,6 +107,7 @@ export const structure = {
     nodeStop,
     nvsetEdit,
     permissionEdit,
+    propertiesUpdate,
     resourceCreate,
     resourceDelete,
     resourceMove,

@@ -63,6 +63,8 @@ EXTRA_DIST		= \
 			  src/test/scenes/permissions/create.test.ts \
 			  src/test/scenes/permissions/displayList.test.ts \
 			  src/test/scenes/permissions/remove.test.ts \
+			  src/test/scenes/properties/display.test.ts \
+			  src/test/scenes/properties/edit.test.ts \
 			  src/test/scenes/resources/commonPrimitive.ts \
 			  src/test/scenes/resources/common.ts \
 			  src/test/scenes/resources/create-resource.test.ts \
@@ -133,6 +135,7 @@ EXTRA_DIST		= \
 			  src/test/tools/mock/routes/stonithAgentListAgents.ts \
 			  src/test/tools/mock/routes/stonithCreate.ts \
 			  src/test/tools/mock/routes/tools.ts \
+			  src/test/tools/mock/routes/updateClusterSettings.ts \
 			  src/test/tools/mock/routes/updateFenceDevice.ts \
 			  src/test/tools/mock/shortcuts.ts \
 			  src/test/unit/backend/endpoints/getPermissions.test.ts \
