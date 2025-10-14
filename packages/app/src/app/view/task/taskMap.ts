@@ -18,6 +18,7 @@ import {ConstraintTicketCreate} from "./constraintTicketCreate";
 import {ConstraintTicketSetCreate} from "./constraintTicketSetCreate";
 import {FenceDeviceArgumentsEdit} from "./fenceDeviceArgumentsEdit";
 import {FenceDeviceCreate} from "./fenceDeviceCreate";
+import {FenceDeviceDisable} from "./fenceDeviceDisable";
 import {NodeAdd} from "./nodeAdd";
 import {NodeStop} from "./nodeStop";
 import {NvPairEdit} from "./nvpairEdit";
@@ -53,6 +54,7 @@ export const taskMap = {
   constraintTicketSetCreate: ConstraintTicketSetCreate,
   fenceDeviceArgsEdit: FenceDeviceArgumentsEdit,
   fenceDeviceCreate: FenceDeviceCreate,
+  fenceDeviceDisable: FenceDeviceDisable,
   nodeAdd: NodeAdd,
   nodeStop: NodeStop,
   nvpairEdit: NvPairEdit,
