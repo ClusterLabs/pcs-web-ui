@@ -7,12 +7,14 @@
 * Added meta attributes management for fence device ([RHEL-84113])
 * It is possible to override validation errors when updating cluster properties
   ([RHEL-84135])
+* Added button for enable/disable fence device ([RHEL-84112])
 
 ### Fixed
 
 * ACL permissions can be deleted ([RHEL-104371])
 
 [RHEL-104371]: https://issues.redhat.com/browse/RHEL-104371
+[RHEL-84112]: https://issues.redhat.com/browse/RHEL-84112
 [RHEL-84113]: https://issues.redhat.com/browse/RHEL-84113
 [RHEL-84135]: https://issues.redhat.com/browse/RHEL-84135
 
