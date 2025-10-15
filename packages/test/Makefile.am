@@ -47,7 +47,9 @@ EXTRA_DIST		= \
 			  src/test/scenes/dashboard/to-cluster-transition.test.ts \
 			  src/test/scenes/fence-devices/common.ts \
 			  src/test/scenes/fence-devices/create-fence-device.test.ts \
+        src/test/scenes/fence-devices/disable.test.ts \
 			  src/test/scenes/fence-devices/edit-args.test.ts \
+        src/test/scenes/fence-devices/enable.test.ts \
 			  src/test/scenes/fence-devices/list.test.ts \
 			  src/test/scenes/fence-devices/meta-management.test.ts \
 			  src/test/scenes/login.test.ts \
@@ -123,6 +125,8 @@ EXTRA_DIST		= \
 			  src/test/tools/mock/routes/resourceChangeGroup.ts \
 			  src/test/tools/mock/routes/resourceClear.ts \
 			  src/test/tools/mock/routes/resourceCreate.ts \
+        src/test/tools/mock/routes/resourceDisable.ts \
+        src/test/tools/mock/routes/resourceEnable.ts \
 			  src/test/tools/mock/routes/resourceMoveAutoclean.ts \
 			  src/test/tools/mock/routes/resourceMove.ts \
 			  src/test/tools/mock/routes/sbdConfigure.ts \
