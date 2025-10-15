@@ -1,3 +1,4 @@
+import {testMarks} from "app/view/dataTest";
 import type {FenceDevice} from "app/view/cluster/types";
 import {
   LauncherDropdown,
@@ -5,6 +6,14 @@ import {
 } from "app/view/share";
 import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
+
+const {toolbar} = testMarks.cluster.fenceDevices.currentFenceDevice;
+
+const isFenceDeviceEnabled = (fenceDevice: FenceDevice) =>
+  fenceDevice.metaAttributes.every(
+    metaAttribute =>
+      metaAttribute.name !== "target-role" || metaAttribute.value !== "Stopped",
+  );
 
 export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
   const {clusterName} = useLoadedCluster();
@@ -29,6 +38,7 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
         },
       },
     },
+    ...toolbar.refresh.mark,
   };
 
   const cleanup: ToolbarItem = {
@@ -50,6 +60,7 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
         },
       },
     },
+    ...toolbar.dropdown.cleanup.mark,
   };
 
   const deleteItem: ToolbarItem = {
@@ -60,11 +71,49 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
         key: {clusterName},
         payload: {resourceId: fenceDevice.id, resourceType: "fence-device"},
       }),
+    ...toolbar.dropdown.delete.mark,
   };
+
+  const disable: ToolbarItem = {
+    name: "disable",
+    run: () =>
+      openTask("fenceDeviceDisable", {
+        type: "FENCE_DEVICE.DISABLE.INIT",
+        key: {clusterName},
+        payload: {
+          fenceDeviceName: fenceDevice.id,
+        },
+      }),
+    ...toolbar.disable.mark,
+  };
+
+  const enable: ToolbarItem = {
+    name: "enable",
+    confirm: {
+      title: "Enable fence device?",
+      description: "Allow the cluster to use the stonith devices.",
+      action: {
+        type: "LIB.CALL.CLUSTER",
+        key: {clusterName},
+        payload: {
+          taskLabel: `enable "${fenceDevice.id}"`,
+          call: {
+            name: "resource-enable",
+            payload: {resource_or_tag_ids: [fenceDevice.id]},
+          },
+        },
+      },
+    },
+    ...toolbar.enable.mark,
+  };
+
   return (
     <DetailToolbar
-      buttonsItems={[refresh, cleanup]}
-      dropdown={<LauncherDropdown items={[deleteItem]} />}
+      buttonsItems={[
+        ...[isFenceDeviceEnabled(fenceDevice) ? disable : enable],
+        refresh,
+      ]}
+      dropdown={<LauncherDropdown items={[cleanup, deleteItem]} />}
     />
   );
 };

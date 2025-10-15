@@ -152,6 +152,7 @@ EXTRA_DIST		= \
 			  src/app/store/actions/fenceAgent/index.ts \
 			  src/app/store/actions/fenceAgent/list.ts \
 			  src/app/store/actions/fenceDevice/create.ts \
+			  src/app/store/actions/fenceDevice/disable.ts \
 			  src/app/store/actions/fenceDevice/editArgs.ts \
 			  src/app/store/actions/fenceDevice/index.ts \
 			  src/app/store/actions/index.ts \
@@ -229,6 +230,7 @@ EXTRA_DIST		= \
 			  src/app/store/reducers/tasks/constraintTicketSetCreate.ts \
 			  src/app/store/reducers/tasks/fenceDeviceArgsEdit.ts \
 			  src/app/store/reducers/tasks/fenceDeviceCreate.ts \
+			  src/app/store/reducers/tasks/fenceDeviceDisable.ts \
 			  src/app/store/reducers/tasks/fixAuth.ts \
 			  src/app/store/reducers/tasks/importExistingCluster.ts \
 			  src/app/store/reducers/tasks/index.ts \
@@ -599,6 +601,7 @@ EXTRA_DIST		= \
 			  src/app/view/dataTest/json/task/constraintTicketCreate.json \
 			  src/app/view/dataTest/json/task/fenceDeviceArgumentsEdit.json \
 			  src/app/view/dataTest/json/task/fenceDeviceCreate.json \
+			  src/app/view/dataTest/json/task/fenceDeviceDisable.json \
 			  src/app/view/dataTest/json/task/forceableConfirm.json \
 			  src/app/view/dataTest/json/task/nodeAdd.json \
 			  src/app/view/dataTest/json/task/nodeStop.json \
@@ -926,6 +929,13 @@ EXTRA_DIST		= \
 			  src/app/view/task/fenceDeviceCreate/SettingsFooter.tsx \
 			  src/app/view/task/fenceDeviceCreate/Settings.tsx \
 			  src/app/view/task/fenceDeviceCreate/useTask.ts \
+			  src/app/view/task/fenceDeviceDisable/CommunicationError.tsx \
+			  src/app/view/task/fenceDeviceDisable/FenceDeviceDisable.tsx \
+			  src/app/view/task/fenceDeviceDisable/Footer.tsx \
+			  src/app/view/task/fenceDeviceDisable/index.ts \
+			  src/app/view/task/fenceDeviceDisable/Success.tsx \
+			  src/app/view/task/fenceDeviceDisable/Unsuccess.tsx \
+			  src/app/view/task/fenceDeviceDisable/useTask.ts \
 			  src/app/view/task/fixAuth/ClusterIssueNotAuthButton.tsx \
 			  src/app/view/task/fixAuth/ClusterIssueNotAuthFinish.tsx \
 			  src/app/view/task/fixAuth/ClusterIssueNotAuthFooter.tsx \

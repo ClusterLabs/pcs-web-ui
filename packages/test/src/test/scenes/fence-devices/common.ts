@@ -6,7 +6,7 @@ export const clusterName = "test-cluster";
 
 export const mockWithStonith = (
   props: {
-    fenceDeviceIdList?: string[];
+    fenceDeviceIdList?: (string | Parameters<typeof cs.stonith>)[];
     additionalRouteList?: Parameters<
       typeof mock.shortcuts.withCluster
     >[0]["additionalRouteList"];
@@ -17,7 +17,11 @@ export const mockWithStonith = (
   const pcsdCapabilities = props.pcsdCapabilities ?? [];
   return mock.shortcuts.withCluster({
     clusterStatus: cs.cluster(clusterName, "ok", {
-      resource_list: fenceDeviceIdList.map(id => cs.stonith(id)),
+      resource_list: fenceDeviceIdList.map(id =>
+        typeof id === "string" || id instanceof String
+          ? cs.stonith(id as string)
+          : cs.stonith(id[0], id[1]),
+      ),
       pcsd_capabilities: pcsdCapabilities,
     }),
     ...(props.additionalRouteList

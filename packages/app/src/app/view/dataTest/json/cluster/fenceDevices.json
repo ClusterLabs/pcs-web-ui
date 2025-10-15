@@ -23,6 +23,15 @@
       "arguments": {},
       "detail": {},
       "meta": {}
+    },
+    "toolbar": {
+      "disable": {},
+      "enable": {},
+      "refresh": {},
+      "dropdown": {
+        "cleanup": {},
+        "delete": {}
+      }
     }
   },
   "empty": {},
