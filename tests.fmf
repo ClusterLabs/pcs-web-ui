@@ -16,7 +16,8 @@ path: /
     ( git remote add upstream https://github.com/ClusterLabs/pcs-web-ui.git &&
       git fetch upstream ) || true &&
     ./autogen.sh &&
-    ./configure
+    ./configure &&
+    make init_nexus NEXUS_CERT_PATH="$NPM_CAFILE"
 
 /prevent_dev_mistakes:
   summary: Run make prevent_dev_mistakes

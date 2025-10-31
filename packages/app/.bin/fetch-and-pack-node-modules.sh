@@ -32,6 +32,8 @@ if [ -f "$npmrc" ]; then
 fi
 
 # Fetch node_modules.
+echo "Npm registry:"
+npm config get registry --prefix="$temp_app_dir"
 echo Fetching node_modules:
 npm ci --prefix="$temp_app_dir"
 # We need all supported achitectures of esbuild

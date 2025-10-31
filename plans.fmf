@@ -14,6 +14,9 @@ environment:
   PCS_WUI_TESTS_HEADLESS: true
   PCS_WUI_TEST_TIMEOUT: 200000
   PCS_DESTROY_OPTION: --yes
+  NPM_REGISTRY: https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org
+  NPM_CAFILE_URL: https://certs.corp.redhat.com/certs/Current-IT-Root-CAs.pem
+  NPM_CAFILE: "$TMT_PLAN_DATA/Current-IT-Root-CAs.pem"
 
 adjust:
   - when: initiator != gitlab-ci
@@ -27,7 +30,7 @@ adjust:
 prepare:
   # https://docs.testing-farm.io/Testing%20Farm/0.1/test-environment.html#_tag_repository
   - name: Disable testing-farm RHEL repos that may contain packages of
-          different versions than we want
+      different versions than we want
     when: distro == rhel
     how: shell
     script:
@@ -140,6 +143,8 @@ prepare:
       - grep hacluster /etc/passwd
       - systemctl enable cockpit.socket --now
       - mkdir -p $TMT_PLAN_DATA/test-records
+      - echo "NPM_CAFILE"
+      - curl --create-dirs -o "$NPM_CAFILE" "$NPM_CAFILE_URL"
 
 # https://tmt.readthedocs.io/en/stable/spec/plans.html#execute
 execute:

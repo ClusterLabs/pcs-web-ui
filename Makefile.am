@@ -70,11 +70,20 @@ build:
 		mkdir -p $(APP_BUILD); \
 	  cp $(APP_SRC)/package.json $(APP_BUILD)/package.json; \
 	  cp $(APP_SRC)/package-lock.json $(APP_BUILD)/package-lock.json; \
+		if [ -n "$$NPM_REGISTRY" ]; then \
+        echo "Generating .npmrc in $(APP_BUILD)"; \
+        echo "registry=$$NPM_REGISTRY" > $(APP_BUILD)/.npmrc; \
+        if [ -n "$$NPM_CAFILE" ]; then \
+            echo "cafile=$$NPM_CAFILE" >> $(APP_BUILD)/.npmrc; \
+        fi; \
+    fi; \
 	  mkdir -p $(APP_BUILD)/.bin; \
 	  cp -rf $(APP_SRC)/.bin/build $(APP_BUILD)/.bin/; \
 	fi
 
 	if [ ! -d $(APP_BUILD)/node_modules ]; then \
+		echo "Npm registry:"; \
+		npm config get registry --prefix $(APP_BUILD);  \
 		npm ci --no-progress --prefix $(APP_BUILD); \
 	fi
 
@@ -94,9 +103,9 @@ test:
 	@cd ./packages/test && .bin/run-dev-tests.sh
 
 test-modules-prepare:
-	@cd ./packages/app && npm ci
-	@cd ./packages/test && npm ci
-	@cd ./packages/dev && npm ci
+	@cd ./packages/app && echo "Npm registry:" && npm config get registry && npm ci
+	@cd ./packages/test && echo "Npm registry:" && npm config get registry && npm ci
+	@cd ./packages/dev && echo "Npm registry:" && npm config get registry && npm ci
 
 ci-cluster-test:
 	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/realBackend
@@ -142,7 +151,14 @@ bump-version:
 	.bin/bump-version.sh $(version) $(pcs-versions)
 
 dist-hook:
-	$(abs_top_srcdir)/packages/app/.bin/fetch-and-pack-node-modules.sh \
+	if [ -n "$$NPM_REGISTRY" ] && [ ! -f $(APP_SRC)/.npmrc ]; then \
+      echo "Generating .npmrc in $(APP_SRC)"; \
+      echo "registry=$$NPM_REGISTRY" > $(APP_SRC)/.npmrc; \
+      if [ -n "$$NPM_CAFILE" ]; then \
+          echo "cafile=$$NPM_CAFILE" >> $(APP_SRC)/.npmrc; \
+      fi; \
+  fi; \
+	$(APP_SRC)/.bin/fetch-and-pack-node-modules.sh \
 		$(APP_SRC) \
 		packages/app \
 		$(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
@@ -173,6 +189,7 @@ clean-local:
 		rm -rf $(APP_BUILD)/node_modules; \
 		rm -rf $(APP_BUILD)/.bin; \
 		rm -rf $(APP_BUILD)//package*.json; \
+		rm -rf $(APP_BUILD)/.npmrc; \
 		rm -rf $(BUILD_DIR); \
 		rm -f ${abs_top_builddir}/.version; \
 	fi
