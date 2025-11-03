@@ -24,7 +24,8 @@ EXTRA_DIST		= \
 			  autogen.sh \
 			  .bin/bump-version.sh \
 			  .bin/bump-version.js \
-			  .bin/check-no-nexus.sh \
+			  .bin/config.sh \
+			  .bin/check-std-npm-registry.sh \
 			  .bin/init_nexus.sh \
 			  .bin/init.sh \
 			  .bin/npm_install.sh \
@@ -130,7 +131,7 @@ init:
 	fi
 
 prevent_dev_mistakes:
-	.bin/check-no-nexus.sh
+	.bin/check-std-npm-registry.sh
 	npx biome lint --error-on-warnings ./
 	npx biome format ./
 
