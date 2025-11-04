@@ -33,6 +33,7 @@ EXTRA_DIST		= \
 			  .bin/pcs-compatibility-export.js \
 			  .bin/pcs-compatibility.json \
 			  .bin/render-spec.sh \
+			  .bin/set_npm_registry.sh \
 			  rpm/pcs-web-ui.spec.in \
 			  COPYING \
 			  .gitlab-ci.yml \
@@ -72,11 +73,10 @@ build:
 	  cp $(APP_SRC)/package.json $(APP_BUILD)/package.json; \
 	  cp $(APP_SRC)/package-lock.json $(APP_BUILD)/package-lock.json; \
 		if [ -n "$$NPM_REGISTRY" ]; then \
-        echo "Generating .npmrc in $(APP_BUILD)"; \
-        echo "registry=$$NPM_REGISTRY" > $(APP_BUILD)/.npmrc; \
-        if [ -n "$$NPM_CAFILE" ]; then \
-            echo "cafile=$$NPM_CAFILE" >> $(APP_BUILD)/.npmrc; \
-        fi; \
+		  .bin/set_npm_registry.sh \
+			  $(APP_BUILD)/.npmrc \
+				"$$NPM_REGISTRY" \
+				"$$NPM_CAFILE"; \
     fi; \
 	  mkdir -p $(APP_BUILD)/.bin; \
 	  cp -rf $(APP_SRC)/.bin/build $(APP_BUILD)/.bin/; \
@@ -153,11 +153,10 @@ bump-version:
 
 dist-hook:
 	if [ -n "$$NPM_REGISTRY" ] && [ ! -f $(APP_SRC)/.npmrc ]; then \
-      echo "Generating .npmrc in $(APP_SRC)"; \
-      echo "registry=$$NPM_REGISTRY" > $(APP_SRC)/.npmrc; \
-      if [ -n "$$NPM_CAFILE" ]; then \
-          echo "cafile=$$NPM_CAFILE" >> $(APP_SRC)/.npmrc; \
-      fi; \
+		  .bin/set_npm_registry.sh \
+			  $(APP_SRC)/.npmrc \
+				"$$NPM_REGISTRY" \
+				"$$NPM_CAFILE"; \
   fi; \
 	$(APP_SRC)/.bin/fetch-and-pack-node-modules.sh \
 		$(APP_SRC) \
