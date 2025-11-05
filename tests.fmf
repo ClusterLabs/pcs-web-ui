@@ -28,7 +28,7 @@ path: /
   summary: Run make distcheck
   tag: [distcheck]
   test: |
-    make distcheck &&
+    make distcheck NPM_CONFIG_FILE_PATH="$PWD/packages/app/.npmrc" &&
     rename --verbose .tar. ".${COMPOSE_NAME}.tar." pcs-web-ui*.tar.* &&
     mkdir -p dist &&
     cp -v pcs-web-ui*.tar.* dist/ &&
@@ -42,9 +42,9 @@ path: /
     - pcsd_integration_test_standalone
     - rpm_build
   test: |
-    make rpm/pcs-web-ui.spec &&
+    make rpm/pcs-web-ui.spec NPM_CONFIG_FILE_PATH="$PWD/packages/app/.npmrc" &&
     dnf builddep -y rpm/pcs-web-ui.spec &&
-    make rpm &&
+    make rpm NPM_CONFIG_FILE_PATH="$PWD/packages/app/.npmrc" &&
     mkdir -p rpms &&
     cp -v $(find rpm  -type f -name '*.rpm' -not -name '*.src.rpm') rpms/ &&
     cp -rv rpms "$TMT_PLAN_DATA" &&

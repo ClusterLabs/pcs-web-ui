@@ -72,11 +72,8 @@ build:
 		mkdir -p $(APP_BUILD); \
 	  cp $(APP_SRC)/package.json $(APP_BUILD)/package.json; \
 	  cp $(APP_SRC)/package-lock.json $(APP_BUILD)/package-lock.json; \
-		if [ -n "$$NPM_REGISTRY" ]; then \
-		  .bin/set_npm_registry.sh \
-			  $(APP_BUILD)/.npmrc \
-				"$$NPM_REGISTRY" \
-				"$$NPM_CAFILE"; \
+		if [ -n "$$NPM_CONFIG_FILE_PATH" ]; then \
+	    cp $$NPM_CONFIG_FILE_PATH $(APP_BUILD)/.npmrc; \
     fi; \
 	  mkdir -p $(APP_BUILD)/.bin; \
 	  cp -rf $(APP_SRC)/.bin/build $(APP_BUILD)/.bin/; \
@@ -152,11 +149,8 @@ bump-version:
 	.bin/bump-version.sh $(version) $(pcs-versions)
 
 dist-hook:
-	if [ -n "$$NPM_REGISTRY" ] && [ ! -f $(APP_SRC)/.npmrc ]; then \
-		  .bin/set_npm_registry.sh \
-			  $(APP_SRC)/.npmrc \
-				"$$NPM_REGISTRY" \
-				"$$NPM_CAFILE"; \
+	if [ -n "$$NPM_CONFIG_FILE_PATH" ]; then \
+	    cp $$NPM_CONFIG_FILE_PATH $(APP_SRC)/.npmrc; \
   fi; \
 	$(APP_SRC)/.bin/fetch-and-pack-node-modules.sh \
 		$(APP_SRC) \
