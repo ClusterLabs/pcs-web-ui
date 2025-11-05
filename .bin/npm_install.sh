@@ -1,15 +1,9 @@
 #!/bin/sh
 
-packages_dir=$1
+. "$(dirname "$0")/config.sh"
 
-printf "%s\n" "----- root -----"
-npm install
-printf "\n\n"
-
-package_list=${PCS_UI_PACKAGES:-"app dev test"}
-
-for package in $package_list; do
-  printf "%s\n" "----- $package -----"
-  npm --prefix="$packages_dir"/"$package" install
+for npm_dir in $NPM_DIRS; do
+  printf "%s\n" "----- $npm_dir -----"
+  npm --prefix="$npm_dir" install
   printf "\n\n"
 done

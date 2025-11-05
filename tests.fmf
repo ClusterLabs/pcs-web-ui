@@ -17,7 +17,7 @@ path: /
       git fetch upstream ) || true &&
     ./autogen.sh &&
     ./configure &&
-    make init_nexus NEXUS_CERT_PATH="$NPM_CAFILE"
+    make init_registry NPM_REGISTRY="$NPM_REGISTRY" NPM_CAFILE="$NPM_CAFILE"
 
 /prevent_dev_mistakes:
   summary: Run make prevent_dev_mistakes

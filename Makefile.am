@@ -26,8 +26,7 @@ EXTRA_DIST		= \
 			  .bin/bump-version.js \
 			  .bin/config.sh \
 			  .bin/check-std-npm-registry.sh \
-			  .bin/init_nexus.sh \
-			  .bin/init.sh \
+			  .bin/init_registry.sh \
 			  .bin/npm_install.sh \
 			  .bin/pcs-compatibility-add.js \
 			  .bin/pcs-compatibility-export.js \
@@ -56,7 +55,6 @@ TARFILES		= \
 			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
 SPEC			= rpm/$(PACKAGE_NAME).spec
 
-NEXUS = "https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
 PROJECT_DIR = $(shell pwd)
 APP_MODULES_DIR = $(shell realpath ${PROJECT_DIR}/packages/app/node_modules)
 
@@ -112,20 +110,23 @@ clean:
 	rm -rf build
 	rm -f pcs-web-ui-node-modules-*.tar.xz
 
-init_nexus:
-	@[ "${NEXUS_CERT_PATH}" ] || ( \
-	  echo "Specify path of nexus certificate via NEXUS_CERT_PATH parameter, please"; \
-		exit 1 )
-	@.bin/init_nexus.sh ./packages ${NEXUS} ${NEXUS_CERT_PATH}
+init_registry:
+	@if test -z "$(NPM_REGISTRY)"; then \
+		echo "Error: 'NPM_REGISTRY' must be provided. Example:" >&2; \
+		echo "  make init_registry NPM_REGISTRY=https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org" >&2; \
+		echo "  make init_registry NPM_REGISTRY=https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org NPM_CAFILE=/path/to/ca.pem" >&2; \
+		exit 1; \
+	fi
+	@.bin/init_registry.sh ${NPM_REGISTRY} ${NPM_CAFILE}
 
 init:
-	@if [ "${NEXUS_REPO}" ] && [ "${NEXUS_REPO}" = "false" ]; then \
-		echo "If you will need reinit with the Nexus repo run \`make init\`"; \
-		.bin/init.sh; \
-	else \
-		echo "Use \`make init NEXUS_REPO=false\` not to use the Nexus repo."; \
-		.bin/init.sh ${NEXUS}; \
+	@if [ "${NPM_REGISTRY}" ]; then \
+		.bin/init_registry.sh ${NPM_REGISTRY} ${NPM_CAFILE}; \
 	fi
+	@.bin/npm_install.sh
+	@cp .bin/pre-commit/pre-commit.sh .git/hooks/pre-commit
+	@.git/hooks/pre-commit
+
 
 prevent_dev_mistakes:
 	.bin/check-std-npm-registry.sh
@@ -189,7 +190,7 @@ clean-local:
 	fi
 
 npm_install:
-	@.bin/npm_install.sh ./packages
+	@.bin/npm_install.sh
 
 all: build
 

@@ -5,16 +5,11 @@
 
 files_with_non_std_registry=""
 
-for lockDir in \
-  "." \
-  "./packages/app" \
-  "./packages/dev" \
-  "./packages/test"; do
-
-  lock="$lockDir"/package-lock.json
+for npm_dir in $NPM_DIRS; do
+  lock="$npm_dir"/package-lock.json
 
   # Check 1: Search for non-standard registry currently configured.
-  registry="$(npm config get registry --prefix "$lockDir")"
+  registry="$(npm config get registry --prefix "$npm_dir")"
   if [ "$registry" != "$STD_NPM_REGISTRY" ]; then
     if grep -q "$registry" "$lock"; then
       files_with_non_std_registry="$files_with_non_std_registry""\n  ""$lock"
