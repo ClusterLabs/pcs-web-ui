@@ -17,7 +17,7 @@ path: /
       git fetch upstream ) || true &&
     ./autogen.sh &&
     ./configure &&
-    make init_nexus NEXUS_CERT_PATH="$NPM_CAFILE"
+    make init_registry NPM_REGISTRY="$NPM_REGISTRY" NPM_CAFILE="$NPM_CAFILE"
 
 /prevent_dev_mistakes:
   summary: Run make prevent_dev_mistakes
@@ -28,7 +28,7 @@ path: /
   summary: Run make distcheck
   tag: [distcheck]
   test: |
-    make distcheck &&
+    make distcheck NPM_REGISTRY="$NPM_REGISTRY" NPM_CAFILE="$NPM_CAFILE" &&
     rename --verbose .tar. ".${COMPOSE_NAME}.tar." pcs-web-ui*.tar.* &&
     mkdir -p dist &&
     cp -v pcs-web-ui*.tar.* dist/ &&
@@ -42,9 +42,11 @@ path: /
     - pcsd_integration_test_standalone
     - rpm_build
   test: |
-    make rpm/pcs-web-ui.spec &&
+    make rpm/pcs-web-ui.spec 
+      NPM_REGISTRY="$NPM_REGISTRY"
+      NPM_CAFILE="$NPM_CAFILE" &&
     dnf builddep -y rpm/pcs-web-ui.spec &&
-    make rpm &&
+    make rpm NPM_REGISTRY="$NPM_REGISTRY" NPM_CAFILE="$NPM_CAFILE" &&
     mkdir -p rpms &&
     cp -v $(find rpm  -type f -name '*.rpm' -not -name '*.src.rpm') rpms/ &&
     cp -rv rpms "$TMT_PLAN_DATA" &&

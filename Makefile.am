@@ -24,14 +24,15 @@ EXTRA_DIST		= \
 			  autogen.sh \
 			  .bin/bump-version.sh \
 			  .bin/bump-version.js \
-			  .bin/check-no-nexus.sh \
-			  .bin/init_nexus.sh \
-			  .bin/init.sh \
+			  .bin/config.sh \
+			  .bin/check-std-npm-registry.sh \
+			  .bin/init_registry.sh \
 			  .bin/npm_install.sh \
 			  .bin/pcs-compatibility-add.js \
 			  .bin/pcs-compatibility-export.js \
 			  .bin/pcs-compatibility.json \
 			  .bin/render-spec.sh \
+			  .bin/set_npm_registry.sh \
 			  rpm/pcs-web-ui.spec.in \
 			  COPYING \
 			  .gitlab-ci.yml \
@@ -54,7 +55,6 @@ TARFILES		= \
 			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz
 SPEC			= rpm/$(PACKAGE_NAME).spec
 
-NEXUS = "https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
 PROJECT_DIR = $(shell pwd)
 APP_MODULES_DIR = $(shell realpath ${PROJECT_DIR}/packages/app/node_modules)
 
@@ -70,12 +70,11 @@ build:
 		mkdir -p $(APP_BUILD); \
 	  cp $(APP_SRC)/package.json $(APP_BUILD)/package.json; \
 	  cp $(APP_SRC)/package-lock.json $(APP_BUILD)/package-lock.json; \
-		if [ -n "$$NPM_REGISTRY" ]; then \
-        echo "Generating .npmrc in $(APP_BUILD)"; \
-        echo "registry=$$NPM_REGISTRY" > $(APP_BUILD)/.npmrc; \
-        if [ -n "$$NPM_CAFILE" ]; then \
-            echo "cafile=$$NPM_CAFILE" >> $(APP_BUILD)/.npmrc; \
-        fi; \
+		if [ -n "$(NPM_REGISTRY)" ]; then \
+	    $(abs_top_srcdir)/.bin/set_npm_registry.sh \
+			  $(APP_BUILD)/.npmrc \
+				$(NPM_REGISTRY) \
+				$(NPM_CAFILE); \
     fi; \
 	  mkdir -p $(APP_BUILD)/.bin; \
 	  cp -rf $(APP_SRC)/.bin/build $(APP_BUILD)/.bin/; \
@@ -114,23 +113,26 @@ clean:
 	rm -rf build
 	rm -f pcs-web-ui-node-modules-*.tar.xz
 
-init_nexus:
-	@[ "${NEXUS_CERT_PATH}" ] || ( \
-	  echo "Specify path of nexus certificate via NEXUS_CERT_PATH parameter, please"; \
-		exit 1 )
-	@.bin/init_nexus.sh ./packages ${NEXUS} ${NEXUS_CERT_PATH}
+init_registry:
+	@if test -z "$(NPM_REGISTRY)"; then \
+		echo "Error: 'NPM_REGISTRY' must be provided. Example:" >&2; \
+		echo "  make init_registry NPM_REGISTRY=https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org" >&2; \
+		echo "  make init_registry NPM_REGISTRY=https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org NPM_CAFILE=/path/to/ca.pem" >&2; \
+		exit 1; \
+	fi
+	@.bin/init_registry.sh ${NPM_REGISTRY} ${NPM_CAFILE}
 
 init:
-	@if [ "${NEXUS_REPO}" ] && [ "${NEXUS_REPO}" = "false" ]; then \
-		echo "If you will need reinit with the Nexus repo run \`make init\`"; \
-		.bin/init.sh; \
-	else \
-		echo "Use \`make init NEXUS_REPO=false\` not to use the Nexus repo."; \
-		.bin/init.sh ${NEXUS}; \
+	@if [ "${NPM_REGISTRY}" ]; then \
+		.bin/init_registry.sh ${NPM_REGISTRY} ${NPM_CAFILE}; \
 	fi
+	@.bin/npm_install.sh
+	@cp .bin/pre-commit/pre-commit.sh .git/hooks/pre-commit
+	@.git/hooks/pre-commit
+
 
 prevent_dev_mistakes:
-	.bin/check-no-nexus.sh
+	.bin/check-std-npm-registry.sh
 	npx biome lint --error-on-warnings ./
 	npx biome format ./
 
@@ -151,12 +153,11 @@ bump-version:
 	.bin/bump-version.sh $(version) $(pcs-versions)
 
 dist-hook:
-	if [ -n "$$NPM_REGISTRY" ] && [ ! -f $(APP_SRC)/.npmrc ]; then \
-      echo "Generating .npmrc in $(APP_SRC)"; \
-      echo "registry=$$NPM_REGISTRY" > $(APP_SRC)/.npmrc; \
-      if [ -n "$$NPM_CAFILE" ]; then \
-          echo "cafile=$$NPM_CAFILE" >> $(APP_SRC)/.npmrc; \
-      fi; \
+	if [ -n "$(NPM_REGISTRY)" ]; then \
+	    $(abs_top_srcdir)/.bin/set_npm_registry.sh \
+			  $(APP_SRC)/.npmrc \
+				$(NPM_REGISTRY) \
+				$(NPM_CAFILE); \
   fi; \
 	$(APP_SRC)/.bin/fetch-and-pack-node-modules.sh \
 		$(APP_SRC) \
@@ -195,7 +196,7 @@ clean-local:
 	fi
 
 npm_install:
-	@.bin/npm_install.sh ./packages
+	@.bin/npm_install.sh
 
 all: build
 
