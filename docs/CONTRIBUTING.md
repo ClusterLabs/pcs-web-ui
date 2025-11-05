@@ -10,28 +10,34 @@ Clone this repository (`git clone <repository-url>`) and cd into it. Then run:
 make init
 ```
 
-The command `make init` (without parameters) will do 3 things:
-* setup workspace to use Nexus repository (see bellow)
-* setup git pre-commit hook with various checks
+The command `make init` (without parameters) will perform 3 tasks:
+* set up the workspace to use a non-standard registry if requested (see below)
+* install the git pre-commit hook with various checks
 * install necessary `npm` packages
 
-### Nexus repository
+### Non-standard npm registry
 
-There is a Nexus repository mirroring Npmjs repository to reduce
-`registry.npmjs.org` load. The command `make init` setup everything necessary
-for using Nexus repository.
+To use an npm registry other than the default `https://registry.npmjs.org`,
+provide the registry URL and optionally the path to a certificate file as
+parameters. For example:
+```sh
+make init \
+  NPM_REGISTRY=https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org \
+  NPM_CAFILE=/path/to/ca.pem
+```
+You can also configure the registry after running `make init`. The following
+commands are equivalent to the previous example:
+```sh
+make init
+make init_registry \
+  NPM_REGISTRY=https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org \
+  NPM_CAFILE=/path/to/ca.pem
+```
 
-For the setup, the certificate is necessary. The `make init` command will ask
-for it.
-
-With this setup, `npm` packages in files `package-lock.json` will be resolved
-with Nexus urls. The installed git pre-commit hook changes such urls to direct
-`registry.npmjs.org` urls.
-
-### Initialization without Nexus
-
-Run `make init NEXUS_REPO=false`. Nexus can be added in the future by
-`make init_nexus NEXUS_CERT_PATH=/path/to/certificate`.
+When using a custom registry, package URLs in `package-lock.json` files will
+reference your chosen proxy registry. The installed git pre-commit hook
+automatically normalizes these URLs back to the standard `registry.npmjs.org`
+format before committing.
 
 ## Running dev environment
 
