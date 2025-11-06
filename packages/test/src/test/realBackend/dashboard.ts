@@ -36,7 +36,9 @@ export const removeCluster = async (clusterName: string) => {
   await Promise.all([
     waitForImportedClusterList(),
     waitForResponse(/.*\/manage\/removecluster$/),
-    isVisible(marks.notifications.toast.success),
+    isVisible(
+      marks.notifications.toast.success.locator.getByText("Cluster removed"),
+    ),
     appConfirm.run(`Remove the cluster "${clusterName}"?`),
   ]);
   // give page chance to redraw after loading imported-cluster-list

@@ -37,6 +37,8 @@ describe("Web ui on one node cluster", () => {
     "should succeed with essential features",
     async () => {
       await goToDashboard();
+      // It seems login starts before cockpit login screen is fully prepared.
+      await page.waitForTimeout(200);
       await login(username, password);
 
       await dashboard.loaded();
