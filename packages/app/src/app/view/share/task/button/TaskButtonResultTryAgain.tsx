@@ -4,7 +4,7 @@ export const TaskButtonResultTryAgain = (props: {action: () => void}) => {
   return (
     <TaskButtonResult
       variant="secondary"
-      label="Try again"
+      label="Try Again"
       action={props.action}
     />
   );

@@ -6,7 +6,7 @@ export const TaskResultActionWizardTryAgain = (props: {
 }) => {
   return (
     <TaskButtonWizardResult
-      label="TryAgain"
+      label="Try Again"
       stepName={props.stepName}
       data-test={props["data-test"]}
     />
