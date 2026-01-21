@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.24.1] - 2026-01-21
+
+### Fixed
+
+* pcs-web-ui-node-modules tarball rebuilt to include RISC-V 64-bit support
+
 ## [0.1.24] - 2026-01-07
 
 ### Added

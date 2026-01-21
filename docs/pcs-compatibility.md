@@ -1,6 +1,7 @@
 # PCS version compatibility
 | pcs-web-ui | pcs |
 |------------|-----|
+|[0.1.24.1]|[v0.12.2], [v0.11.11]|
 |[0.1.24]|[v0.12.2], [v0.11.11]|
 |[0.1.23]|[v0.12.1], [v0.11.10]|
 |[0.1.22]|[v0.12.0], [v0.11.9]|
@@ -27,6 +28,7 @@
 |[0.1.2]|[v0.10.5], [v0.10.4]|
 |[0.1.1]|[v0.10.2], [v0.10.3]|
 
+[0.1.24.1]: https://github.com/ClusterLabs/pcs-web-ui/releases/tag/0.1.24.1
 [0.1.24]: https://github.com/ClusterLabs/pcs-web-ui/releases/tag/0.1.24
 [0.1.23]: https://github.com/ClusterLabs/pcs-web-ui/releases/tag/0.1.23
 [0.1.22]: https://github.com/ClusterLabs/pcs-web-ui/releases/tag/0.1.22
