@@ -16,7 +16,7 @@ export const DashboardClusterMenu = ({clusterName}: {clusterName: string}) => {
           name: "start",
           confirm: {
             title: "Start cluster?",
-            description: "Start the on all nodes",
+            description: "Start the cluster on all nodes",
             action: {
               type: "DASHBOARD.CLUSTER.START",
               payload: {clusterName},
