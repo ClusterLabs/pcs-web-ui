@@ -38,8 +38,10 @@ EXTRA_DIST		= \
 			  .gitlab-ci.yml \
 			  make/git-version-gen \
 			  README.md \
+			  docs/architecture.md \
 			  docs/CONTRIBUTING.md \
 			  docs/pcs-compatibility.md \
+			  docs/README.md \
 			  CHANGELOG.md \
 			  typos.toml 
 			  $(PACKAGE_NAME)-node-modules-$(VERSION).tar.xz\
