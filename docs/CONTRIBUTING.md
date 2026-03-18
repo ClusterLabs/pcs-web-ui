@@ -1,5 +1,9 @@
 # Contributing to PCS WEB UI
 
+## Applicable policies
+Pull request must comply with the following policies:
+* [AI policy](https://github.com/ClusterLabs/pcs/wiki/Policy-on-Use-of-Artificial-Intelligence-in-Pull-Requests)
+
 ## Basic workspace preparation
 
 Clone this repository (`git clone <repository-url>`) and cd into it. Then run:

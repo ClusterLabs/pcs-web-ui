@@ -37,3 +37,4 @@ install-sh
 .version
 
 /.tmp
+.claude
