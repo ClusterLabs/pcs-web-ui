@@ -22,16 +22,8 @@ below.
 ### `packages/test`
 
 End-to-end tests using Playwright for browser automation and Jest as the test
-runner. Tests are organized by feature in `src/test/scenes/` (e.g. `acl/`,
-`cluster/`, `resources/`, `dashboard/`).
-
-Tests use a custom locator system based on `data-test` attributes and can run in
-three modes:
-- **mocked** (default) — fully mocked backend responses
-- **standalone** — against a real pcsd backend
-- **cockpit** — against a real backend via Cockpit
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for how to run tests.
+runner. See [testing.md](testing.md) for details on test infrastructure and
+patterns.
 
 ### `packages/dev`
 
@@ -41,8 +33,6 @@ develop and test UI states that are hard to reproduce on a real cluster (errors,
 edge cases, specific configurations).
 
 Run with `make dev`, then open http://localhost:5000.
-
----
 
 ## Application architecture
 
@@ -113,9 +103,100 @@ view/
                  fence devices, SBD, properties, permissions
   task/        — modal wizard dialogs for multi-step operations
   share/       — reusable components, hooks, and utilities
+  dataTest/    — data-test attribute definitions (see below)
 ```
 
 **Tasks** are a central UI concept — modal wizard dialogs that guide users
 through complex operations (e.g. cluster setup, adding a node, creating a
 resource). Each task has its own folder with a component and a `useTask` hook for
 state management. All tasks are registered in `task/taskMap.ts`.
+
+##### Two kinds of components
+
+Components in the view layer fall into two categories:
+
+- **Structural components** have a unique, fixed place in the page hierarchy.
+  For example, `PrimitiveAttrsView` renders the attributes tab of a specific
+  primitive resource. They are not reusable — their identity comes from *where*
+  they appear.
+
+- **Shared components** (`view/share/`, `view/cluster/share/`) are reusable
+  building blocks with no inherent position in the page structure. They render
+  whatever data they receive.
+
+This distinction matters for the data-test system (see below): only structural
+components know *where* they sit in the page, so only they can assign the
+correct data-test marks. A shared component cannot decide which mark to use
+because it does not know which structural context it is in.
+
+When a data-test mark needs to be placed on an element deep inside a shared
+component, the preferred strategy is to **pull that element up** into the
+structural component (inline it or extract it so the structural component can
+mark it directly). This avoids threading mark props through shared components
+and, as a side effect, makes the structural component more explicit about what
+it renders.
+
+### Data-test system
+
+Source: `packages/app/src/app/view/dataTest/`
+
+The data-test system provides stable, unique locators for UI elements. It was
+introduced for QA — external test suites use these attributes to locate elements,
+and a generated JSON manifest lets QA detect what changed between versions. The
+project's own end-to-end tests also use these marks (see
+[testing.md](testing.md)).
+
+#### Structure
+
+Marks are defined as a static JSON tree in `dataTest/json/`. The tree mirrors the
+page hierarchy:
+
+```
+cluster
+  resources
+    currentPrimitive
+      attributes
+        pair
+          name
+          value
+      tabs
+        attributes
+        detail
+        meta
+        utilization
+  fenceDevices
+    currentFenceDevice
+      arguments
+        pair
+          name
+          value
+```
+
+Both inner nodes and leaves can serve as marks. Each produces a unique
+`data-test` attribute value by joining the path, e.g.
+`cluster.resources.currentPrimitive.attributes.pair` (an inner node) or
+`cluster.resources.currentPrimitive.attributes.pair.name` (a leaf). These paths
+are **static** — they must never be composed dynamically at runtime.
+
+The tree preserves DOM hierarchy: an element marked with an inner node is
+expected to be an ancestor of elements marked with that node's subtree. For
+example, under an element marked `...pair` you would find `...pair.name` and
+`...pair.value`, but not `...currentGroup`. The goal is to mark every node in
+the tree, though this is not always possible (e.g. a `dt`/`dd` pair may not
+share a common parent element).
+
+`dataTest/index.ts` transforms the JSON tree into a typed `testMarks` object.
+Components use it as `{...testMarks.cluster.resources.currentPrimitive.id.mark}`
+to spread the `data-test` attribute onto a DOM element.
+
+#### Rules
+
+1. **Each component receives at most one mark.** If a component needs to mark
+   multiple internal elements, the inner elements should be factored out so that
+   structural components can mark them individually.
+
+2. **Only structural components assign marks.** Shared components do not know
+   which mark to use (see "Two kinds of components" above).
+
+3. **Marks are static.** Never concatenate or compute mark paths at runtime.
+   The JSON definition is the single source of truth.
