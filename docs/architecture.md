@@ -129,12 +129,32 @@ components know *where* they sit in the page, so only they can assign the
 correct data-test marks. A shared component cannot decide which mark to use
 because it does not know which structural context it is in.
 
+The same reasoning extends beyond marks: **do not narrow the scope of an
+existing shared component by adding domain-specific behavior.** If a shared
+component is already used across contexts with different semantics, adding logic
+that only applies to some of them couples it to a context it was not designed
+for and breaks it elsewhere. Instead, create a new purpose-built shared
+component for the specialized case — a shared component *can* contain domain
+logic as long as it is designed and named for that purpose from the start.
+
 When a data-test mark needs to be placed on an element deep inside a shared
 component, the preferred strategy is to **pull that element up** into the
 structural component (inline it or extract it so the structural component can
 mark it directly). This avoids threading mark props through shared components
 and, as a side effect, makes the structural component more explicit about what
 it renders.
+
+##### Shared component hierarchy
+
+Shared components live at two levels:
+
+- **`view/share/`** — general-purpose components with no knowledge of the
+  cluster domain (e.g. `AttributeValue`, `AttributeName`). These are purely
+  presentational building blocks.
+
+- **`view/cluster/share/`** — components that understand cluster-domain concepts
+  (e.g. pcmk agent parameters, NV pairs) but are still reusable across multiple
+  structural components within the cluster context.
 
 ### Data-test system
 
@@ -159,6 +179,7 @@ cluster
         pair
           name
           value
+          secret
       tabs
         attributes
         detail
@@ -170,6 +191,7 @@ cluster
         pair
           name
           value
+          secret
 ```
 
 Both inner nodes and leaves can serve as marks. Each produces a unique

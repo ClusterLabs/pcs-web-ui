@@ -2,13 +2,16 @@
 
 ## Before you start
 
-Before working on a task, read the relevant parts of `docs/` to understand the
-project structure, conventions, and design intent. Start from
-[docs/README.md](docs/README.md) and follow links as needed.
+**You MUST read the relevant parts of `docs/` before starting any task.** Start
+from [docs/README.md](docs/README.md) and follow links as needed. Do this before
+exploring the codebase — the documentation contains rules and constraints that
+are not visible from code alone and cannot be reliably inferred by reading
+source files.
 
 You don't need to read everything every time — pick what relates to your current
-task. The documentation provides orientation and context; it does not replace
-exploring the actual code.
+task. For example: writing tests → read `docs/testing.md`; adding files → read
+`docs/CONTRIBUTING.md`; working with components or data-test marks → read
+`docs/architecture.md`.
 
 ## Code maturity
 
@@ -22,6 +25,13 @@ When looking for implementation guidance:
 - When in doubt, look at the most recently written code for style reference.
 - If you spot a conflict between documentation and code, follow the
   documentation and flag the discrepancy.
+
+## Verifying code
+
+Use `npx biome lint --error-on-warnings ./` and `npx biome format ./` to check
+code quality. There is no separate TypeScript type-checking step — type errors
+surface during `make build` or `make test`. See
+[docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for details.
 
 ## Key architectural rules
 

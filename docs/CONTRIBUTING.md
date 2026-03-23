@@ -56,6 +56,28 @@ Then run `make dev` to run server mocking `pcsd` responses:
 * dev backend doesn't run fully featured backend mock
 * it runs only scenario with limited features
 
+## Verifying code
+
+To check code quality quickly without running a full build or test suite:
+
+```sh
+npx biome lint --error-on-warnings ./
+npx biome format ./
+```
+
+The project uses [Biome](https://biomejs.dev/) for linting and formatting. There
+is no separate TypeScript type-checking step — type errors surface during `make
+build` or indirectly through tests (`make test`).
+
+## Adding new source files
+
+The project uses autotools for distribution. Source files are listed in
+`Makefile.am` within each package directory (`packages/app/Makefile.am`,
+`packages/test/Makefile.am`). When adding a new source file — whether application
+code or a test — register it in the corresponding `Makefile.am` (alphabetically
+sorted within the existing list). Files not listed there will not be included in
+the distribution tarball.
+
 ## Running tests
 
 * `make test`
