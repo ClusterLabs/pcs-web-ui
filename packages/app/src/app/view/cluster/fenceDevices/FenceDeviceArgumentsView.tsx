@@ -2,11 +2,14 @@ import {StackItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import type {FenceDevice} from "app/view/cluster/types";
+import {PcmkAgentAttrsToolbar, useLoadedCluster} from "app/view/cluster/share";
 import {
-  PcmkAgentAttrsList,
-  PcmkAgentAttrsToolbar,
-  useLoadedCluster,
-} from "app/view/cluster/share";
+  AttributeGroup,
+  AttributeHelpPopover,
+  AttributeList,
+  AttributeName,
+  AttributeValue,
+} from "app/view/share/attributes";
 import {LoadedPcmkAgent} from "app/view/share";
 import {useOpenTask} from "app/view/task";
 
@@ -57,10 +60,23 @@ export const FenceDeviceArgumentsView = ({
               />
             </StackItem>
             <StackItem>
-              <PcmkAgentAttrsList
-                agentAttributes={fenceDevice.arguments}
-                resourceAgentParameters={filterParameters(agent.parameters)}
-              />
+              <AttributeList attributes={filterParameters(agent.parameters)}>
+                {parameter => (
+                  <AttributeGroup key={parameter.name}>
+                    <AttributeName name={parameter.name}>
+                      <AttributeHelpPopover
+                        header={parameter.shortdesc}
+                        body={parameter.longdesc}
+                        defaultValue={parameter.default}
+                      />
+                    </AttributeName>
+                    <AttributeValue
+                      value={fenceDevice.arguments[parameter.name]?.value}
+                      defaultValue={parameter.default}
+                    />
+                  </AttributeGroup>
+                )}
+              </AttributeList>
             </StackItem>
           </>
         );

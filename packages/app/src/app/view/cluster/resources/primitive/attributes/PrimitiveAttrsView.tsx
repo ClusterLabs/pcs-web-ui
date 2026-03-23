@@ -3,11 +3,14 @@ import {StackItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
 import type {Primitive} from "app/view/cluster/types";
+import {PcmkAgentAttrsToolbar, useLoadedCluster} from "app/view/cluster/share";
 import {
-  PcmkAgentAttrsList,
-  PcmkAgentAttrsToolbar,
-  useLoadedCluster,
-} from "app/view/cluster/share";
+  AttributeGroup,
+  AttributeHelpPopover,
+  AttributeList,
+  AttributeName,
+  AttributeValue,
+} from "app/view/share/attributes";
 import {LoadedPcmkAgent} from "app/view/share";
 
 import {PrimitiveAttrsForm} from "./PrimitiveAttrsForm";
@@ -55,10 +58,25 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
               />
             </StackItem>
             <StackItem>
-              <PcmkAgentAttrsList
-                agentAttributes={primitive.instanceAttributes}
-                resourceAgentParameters={filterParameters(agent.parameters)}
-              />
+              <AttributeList attributes={filterParameters(agent.parameters)}>
+                {parameter => (
+                  <AttributeGroup key={parameter.name}>
+                    <AttributeName name={parameter.name}>
+                      <AttributeHelpPopover
+                        header={parameter.shortdesc}
+                        body={parameter.longdesc}
+                        defaultValue={parameter.default}
+                      />
+                    </AttributeName>
+                    <AttributeValue
+                      value={
+                        primitive.instanceAttributes[parameter.name]?.value
+                      }
+                      defaultValue={parameter.default}
+                    />
+                  </AttributeGroup>
+                )}
+              </AttributeList>
             </StackItem>
           </span>
         );
