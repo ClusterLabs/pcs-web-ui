@@ -1,6 +1,12 @@
 {
   "currentFenceDevice": {
-    "arguments": {},
+    "arguments": {
+      "pair": {
+        "name": {},
+        "value": {},
+        "secret": {}
+      }
+    },
     "argumentsToolbar": {
       "edit": {}
     },

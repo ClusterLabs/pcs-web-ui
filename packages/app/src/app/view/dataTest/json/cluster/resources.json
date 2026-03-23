@@ -61,7 +61,13 @@
     }
   },
   "currentPrimitive": {
-    "attributes": {},
+    "attributes": {
+      "pair": {
+        "name": {},
+        "value": {},
+        "secret": {}
+      }
+    },
     "detail": {
       "pcmkAgent": {}
     },
