@@ -3,14 +3,24 @@ import {StackItem} from "@patternfly/react-core";
 import {testMarks} from "app/view/dataTest";
 import type {FenceDevice} from "app/view/cluster/types";
 import {
-  PcmkAgentAttrsList,
+  AttributeValueSecret,
+  PcmkAgentAttrName,
   PcmkAgentAttrsToolbar,
+  isCibSecret,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {
+  AttributeGroup,
+  AttributeList,
+  AttributeValue,
+} from "app/view/share/attributes";
 import {LoadedPcmkAgent} from "app/view/share";
 import {useOpenTask} from "app/view/task";
 
-const {argumentsToolbar} = testMarks.cluster.fenceDevices.currentFenceDevice;
+const {
+  argumentsToolbar,
+  arguments: {pair},
+} = testMarks.cluster.fenceDevices.currentFenceDevice;
 
 export const FenceDeviceArgumentsView = ({
   fenceDevice,
@@ -57,10 +67,27 @@ export const FenceDeviceArgumentsView = ({
               />
             </StackItem>
             <StackItem>
-              <PcmkAgentAttrsList
-                agentAttributes={fenceDevice.arguments}
-                resourceAgentParameters={filterParameters(agent.parameters)}
-              />
+              <AttributeList attributes={filterParameters(agent.parameters)}>
+                {parameter => (
+                  <AttributeGroup key={parameter.name} {...pair.mark}>
+                    <PcmkAgentAttrName
+                      parameter={parameter}
+                      {...pair.name.mark}
+                    />
+                    {isCibSecret(
+                      fenceDevice.arguments[parameter.name]?.value,
+                    ) ? (
+                      <AttributeValueSecret {...pair.secret.mark} />
+                    ) : (
+                      <AttributeValue
+                        value={fenceDevice.arguments[parameter.name]?.value}
+                        defaultValue={parameter.default}
+                        {...pair.value.mark}
+                      />
+                    )}
+                  </AttributeGroup>
+                )}
+              </AttributeList>
             </StackItem>
           </>
         );

@@ -62,7 +62,7 @@ export const resourceTree = [
       {
         id: "A-instance_attributes-configfile",
         name: "configfile",
-        value: "/etc/apache/httpd.conf",
+        value: "lrm://",
       },
       {
         id: "A-instance_attributes-httpd",
@@ -230,6 +230,11 @@ export const resourceTree = [
         id: "cmd_prompt-ia",
         name: "cmd_prompt",
         value: "['\n->', '\napc->']",
+      },
+      {
+        id: "F1-ia-password",
+        name: "password",
+        value: "lrm://",
       },
     ],
   }),

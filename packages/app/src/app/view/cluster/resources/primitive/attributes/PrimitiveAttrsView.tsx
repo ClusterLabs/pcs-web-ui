@@ -4,15 +4,23 @@ import {StackItem} from "@patternfly/react-core";
 import {testMarks} from "app/view/dataTest";
 import type {Primitive} from "app/view/cluster/types";
 import {
-  PcmkAgentAttrsList,
+  AttributeValueSecret,
+  PcmkAgentAttrName,
   PcmkAgentAttrsToolbar,
+  isCibSecret,
   useLoadedCluster,
 } from "app/view/cluster/share";
+import {
+  AttributeGroup,
+  AttributeList,
+  AttributeValue,
+} from "app/view/share/attributes";
 import {LoadedPcmkAgent} from "app/view/share";
 
 import {PrimitiveAttrsForm} from "./PrimitiveAttrsForm";
 
 const {attributes} = testMarks.cluster.resources.currentPrimitive;
+const {pair} = attributes;
 
 export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
   const {clusterName} = useLoadedCluster();
@@ -55,10 +63,29 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
               />
             </StackItem>
             <StackItem>
-              <PcmkAgentAttrsList
-                agentAttributes={primitive.instanceAttributes}
-                resourceAgentParameters={filterParameters(agent.parameters)}
-              />
+              <AttributeList attributes={filterParameters(agent.parameters)}>
+                {parameter => (
+                  <AttributeGroup key={parameter.name} {...pair.mark}>
+                    <PcmkAgentAttrName
+                      parameter={parameter}
+                      {...pair.name.mark}
+                    />
+                    {isCibSecret(
+                      primitive.instanceAttributes[parameter.name]?.value,
+                    ) ? (
+                      <AttributeValueSecret {...pair.secret.mark} />
+                    ) : (
+                      <AttributeValue
+                        value={
+                          primitive.instanceAttributes[parameter.name]?.value
+                        }
+                        defaultValue={parameter.default}
+                        {...pair.value.mark}
+                      />
+                    )}
+                  </AttributeGroup>
+                )}
+              </AttributeList>
             </StackItem>
           </span>
         );

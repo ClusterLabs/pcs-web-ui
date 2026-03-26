@@ -45,6 +45,7 @@ EXTRA_DIST		= \
 			  src/test/scenes/dashboard/common.ts \
 			  src/test/scenes/dashboard/import-existring-cluster.test.ts \
 			  src/test/scenes/dashboard/to-cluster-transition.test.ts \
+			  src/test/scenes/fence-devices/arguments-view.test.ts \
 			  src/test/scenes/fence-devices/common.ts \
 			  src/test/scenes/fence-devices/create-fence-device.test.ts \
         src/test/scenes/fence-devices/disable.test.ts \
@@ -74,6 +75,7 @@ EXTRA_DIST		= \
 			  src/test/scenes/resources/launch-move-ban-clear.test.ts \
 			  src/test/scenes/resources/primitive-group-change.test.ts \
 			  src/test/scenes/resources/primitive-meta-create.test.ts \
+			  src/test/scenes/resources/primitive-attributes-view.test.ts \
 			  src/test/scenes/resources/primitive-meta-view.test.ts \
 			  src/test/scenes/resources/primitive-utilization-create.test.ts \
 			  src/test/scenes/resources/primitive-utilization-view.test.ts \

@@ -530,8 +530,9 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/share/nvpair/NVPairListItem.tsx \
 			  src/app/view/cluster/share/nvpair/NVPairListPage.tsx \
 			  src/app/view/cluster/share/nvpair/NVPairToolbar.tsx \
+			  src/app/view/cluster/share/pcmkAgent/attributes/AttributeValueSecret.tsx \
 			  src/app/view/cluster/share/pcmkAgent/attributes/index.ts \
-			  src/app/view/cluster/share/pcmkAgent/attributes/PcmkAgentAttrsList.tsx \
+			  src/app/view/cluster/share/pcmkAgent/attributes/PcmkAgentAttrName.tsx \
 			  src/app/view/cluster/share/pcmkAgent/attributes/PcmkAgentAttrsToolbar.tsx \
 			  src/app/view/cluster/share/pcmkAgent/index.ts \
 			  src/app/view/cluster/share/pcmkAgent/PcmkAgentDescription.tsx \

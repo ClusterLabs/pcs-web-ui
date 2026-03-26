@@ -1,2 +1,3 @@
-export * from "./PcmkAgentAttrsList";
+export * from "./AttributeValueSecret";
+export * from "./PcmkAgentAttrName";
 export * from "./PcmkAgentAttrsToolbar";
