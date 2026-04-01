@@ -9,7 +9,15 @@ structure, design intent, and implementation choices.
 2. [CONTRIBUTING.md](CONTRIBUTING.md) — workspace setup, dev server,
    contribution policies
 3. [architecture.md](architecture.md) — project structure, application
-   architecture, component types, data-test system
+   architecture overview, deployment modes
+   - [architecture_backend.md](architecture_backend.md) — API communication
+     layer (endpoints, call functions, response validation)
+   - [architecture_store.md](architecture_store.md) — Redux state management
+     (actions, sagas, reducers, selectors)
+   - [architecture_view.md](architecture_view.md) — React components
+     (structural vs. shared, tasks, data-test system)
+   - [architecture_dev.md](architecture_dev.md) — development server
+     (scenarios, response builders, shortcuts)
 4. [testing.md](testing.md) — running tests, configuration, test
    infrastructure, locators and assertions
 
