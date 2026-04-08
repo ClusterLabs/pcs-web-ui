@@ -23,6 +23,7 @@ export function* callLib({
   const errorAction: Action = {
     type: "LIB.CALL.CLUSTER.TASK.ERROR",
     key,
+    payload: {commandName: command.name},
   };
 
   if (result.type !== "OK") {
@@ -45,7 +46,7 @@ export function* callLib({
     yield put({
       type: "LIB.CALL.CLUSTER.TASK.FAIL",
       key,
-      payload: {reports: payload.report_list},
+      payload: {commandName: command.name, reports: payload.report_list},
     });
     return;
   }
@@ -54,6 +55,10 @@ export function* callLib({
   yield put({
     type: "LIB.CALL.CLUSTER.TASK.OK",
     key,
-    payload: {reports: payload.report_list},
+    payload: {
+      commandName: command.name,
+      reports: payload.report_list,
+      data: payload.data,
+    } as ActionMap["LIB.CALL.CLUSTER.TASK.OK"]["payload"],
   });
 }

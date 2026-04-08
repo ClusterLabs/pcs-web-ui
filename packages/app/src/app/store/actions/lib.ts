@@ -1,5 +1,17 @@
 import type {api} from "app/backend";
+import type {
+  CommandResponseData,
+  Commands,
+} from "app/backend/endpoints/lib/cluster/libCluster";
 import type {LibReport} from "app/store/types";
+
+type TaskOkPayloadFor<C> = C extends Commands[number]
+  ? {
+      commandName: C["name"];
+      reports: LibReport[];
+      data: CommandResponseData[C["name"]];
+    }
+  : never;
 
 export type LibActions = {
   "LIB.CALL.CLUSTER": {
@@ -36,15 +48,14 @@ export type LibActions = {
   "LIB.CALL.CLUSTER.TASK.OK": {
     type: "LIB.CALL.CLUSTER.TASK.OK";
     key: {clusterName: string; task: string};
-    payload: {
-      reports: LibReport[];
-    };
+    payload: TaskOkPayloadFor<Commands[number]>;
   };
 
   "LIB.CALL.CLUSTER.TASK.FAIL": {
     type: "LIB.CALL.CLUSTER.TASK.FAIL";
     key: {clusterName: string; task: string};
     payload: {
+      commandName: Commands[number]["name"];
       reports: LibReport[];
     };
   };
@@ -52,6 +63,9 @@ export type LibActions = {
   "LIB.CALL.CLUSTER.TASK.ERROR": {
     type: "LIB.CALL.CLUSTER.TASK.ERROR";
     key: {clusterName: string; task: string};
+    payload: {
+      commandName: Commands[number]["name"];
+    };
   };
 
   "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET": {

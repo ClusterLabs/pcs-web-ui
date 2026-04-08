@@ -437,6 +437,16 @@ export type Commands = [
   },
 ];
 
+const commandDataCodecs = {} satisfies {
+  [K in Commands[number]["name"]]?: t.Any;
+};
+
+export type CommandResponseData = {
+  [K in Commands[number]["name"]]: K extends keyof typeof commandDataCodecs
+    ? t.TypeOf<(typeof commandDataCodecs)[K]>
+    : null;
+};
+
 export const libCluster = endpoint({
   url: ({
     clusterName,
@@ -449,5 +459,6 @@ export const libCluster = endpoint({
   params: undefined,
   payload: undefined,
   validate: undefined,
-  shape: libShape(t.null),
+  shape: (command: Commands[number]["name"]) =>
+    libShape((commandDataCodecs as Record<string, t.Any>)[command] ?? t.null),
 });

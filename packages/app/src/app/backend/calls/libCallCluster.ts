@@ -10,9 +10,9 @@ export const libCallCluster = async ({
 }: {
   clusterName: string;
   command: LibClusterCommands[number];
-}): CallResult<typeof shape> => {
+}): CallResult<ReturnType<typeof shape>> => {
   return http.post(url({clusterName, command: command.name}), {
     payload: command.payload,
-    shape,
+    shape: shape(command.name),
   });
 };
