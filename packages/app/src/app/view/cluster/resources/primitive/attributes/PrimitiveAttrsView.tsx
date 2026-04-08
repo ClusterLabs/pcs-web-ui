@@ -5,6 +5,7 @@ import {testMarks} from "app/view/dataTest";
 import type {Primitive} from "app/view/cluster/types";
 import {
   AttributeValueSecret,
+  CibSecretsToggle,
   PcmkAgentAttrName,
   PcmkAgentAttrsToolbar,
   isCibSecret,
@@ -26,6 +27,21 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
   const {clusterName} = useLoadedCluster();
   const [isEditing, setIsEditing] = React.useState(false);
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
+
+  const hasCibSecrets = Object.values(primitive.instanceAttributes).some(attr =>
+    isCibSecret(attr.value),
+  );
+
+  const secretsToggle = hasCibSecrets ? (
+    <CibSecretsToggle
+      resourceId={primitive.id}
+      attributeNames={Object.entries(primitive.instanceAttributes)
+        .filter(([, attr]) => isCibSecret(attr.value))
+        .map(([name]) => name)}
+      {...attributes.secretsToggle.mark}
+    />
+  ) : undefined;
+
   return (
     <LoadedPcmkAgent clusterName={clusterName} agentName={primitive.agentName}>
       {agent => {
@@ -60,6 +76,7 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
                   },
                 ]}
                 filterState={filterState}
+                additionalItems={secretsToggle}
               />
             </StackItem>
             <StackItem>
@@ -73,7 +90,16 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
                     {isCibSecret(
                       primitive.instanceAttributes[parameter.name]?.value,
                     ) ? (
-                      <AttributeValueSecret {...pair.secret.mark} />
+                      <AttributeValueSecret
+                        resourceId={primitive.id}
+                        parameterName={parameter.name}
+                        revealed={value => (
+                          <span {...pair.secretRevealed.mark}>{value}</span>
+                        )}
+                        hidden={value => (
+                          <span {...pair.secret.mark}>{value}</span>
+                        )}
+                      />
                     ) : (
                       <AttributeValue
                         value={

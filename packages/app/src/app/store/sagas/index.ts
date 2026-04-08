@@ -33,6 +33,7 @@ import * as nodeAuth from "./nodeAuth";
 import * as fixAuth from "./fixAuth";
 import * as resourceGroupCreate from "./resourceGroupCreate";
 import * as resourceGroupChange from "./resourceGroupChange";
+import * as cibSecrets from "./cibSecrets";
 import * as constraints from "./constraints";
 import * as clusterStart from "./clusterStart";
 import * as clusterStop from "./clusterStop";
@@ -92,6 +93,7 @@ function* rootSaga() {
     takeEvery("RESOURCE_AGENT.LOAD", resourceAgent.load),
     takeEvery("RESOURCE_AGENT.ENSURE", resourceAgent.ensure),
     takeEvery("RESOURCE_AGENT.LIST.LOAD", resourceAgentList.load),
+    takeEvery("RESOURCE.CIB_SECRETS.LOAD", cibSecrets.load),
     takeEvery("RESOURCE.DELETE", resourceDelete.deleteResource),
     takeEvery("RESOURCE.REFRESH", resourceRefreshCleanup.refreshSaga),
     takeEvery("RESOURCE.CLEANUP", resourceRefreshCleanup.cleanupSaga),

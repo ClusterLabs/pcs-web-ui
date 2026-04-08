@@ -5,6 +5,11 @@ import {
   clusterStorageItemSelector,
 } from "./selectorsHelpers";
 
+export const getCibSecrets = clusterStorageItemSelector(
+  (clusterStorageItem, resourceId: string) =>
+    clusterStorageItem.cibSecrets[resourceId],
+);
+
 export const getPcmkAgent = clusterStorageItemSelector(
   (clusterStorageItem, agentName: string) =>
     clusterStorageItem.pcmkAgents[agentName],

@@ -435,11 +435,25 @@ export type Commands = [
       group_id: string;
     };
   },
+  {
+    name: "resource-get-cibsecrets";
+    payload: {
+      queries: [string, string][];
+    };
+  },
 ];
 
-const commandDataCodecs = {} satisfies {
-  [K in Commands[number]["name"]]?: t.Any;
-};
+const commandDataCodecs = {
+  "resource-get-cibsecrets": t.type({
+    resource_secrets: t.array(
+      t.type({
+        resource_id: t.string,
+        name: t.string,
+        value: t.string,
+      }),
+    ),
+  }),
+} satisfies {[K in Commands[number]["name"]]?: t.Any};
 
 export type CommandResponseData = {
   [K in Commands[number]["name"]]: K extends keyof typeof commandDataCodecs

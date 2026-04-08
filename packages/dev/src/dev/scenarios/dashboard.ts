@@ -1,6 +1,29 @@
+import {app} from "dev/app";
 import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
 import * as t from "dev/responses/clusterStatus/tools";
+
+app.libCluster("resource-get-cibsecrets", (req, res) => {
+  const queries: [string, string][] = req.body.queries ?? [];
+  const resourceId = queries[0]?.[0];
+
+  if (resourceId === "C2") {
+    res.json(response.lib.error([response.lib.report.error()]));
+    return;
+  }
+
+  res.json(
+    response.lib.success({
+      data: {
+        resource_secrets: queries.map(([resource_id, name]) => ({
+          resource_id,
+          name,
+          value: `secret-${resource_id}-${name}-${Math.random().toString(36).slice(2, 8)}`,
+        })),
+      },
+    }),
+  );
+});
 
 shortcut.dashboard([
   response.clusterStatus.ok,

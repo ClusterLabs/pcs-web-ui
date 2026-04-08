@@ -1,3 +1,4 @@
+import type {CibSecretsActions} from "./cibSecrets";
 import type {ResourceCreateActions} from "./create";
 import type {ResourceDeleteActions} from "./delete";
 import type {ResourceMoveActions} from "./move";
@@ -10,6 +11,7 @@ import type {ResourceGroupChangeActions} from "./groupChange";
 
 // biome-ignore format: this is better formating
 export type ResourceActions = (
+  & CibSecretsActions
   & ResourceCreateActions
   & ResourceDeleteActions
   & ResourceMoveActions
