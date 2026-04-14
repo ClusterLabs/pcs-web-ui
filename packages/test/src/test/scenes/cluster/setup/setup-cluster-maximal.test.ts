@@ -142,7 +142,7 @@ describe("Cluster setup", () => {
               {name: nodeNameList[1], addrs: [addrs[0][1], addrs[1][1]]},
             ],
             transport_type: "knet",
-            link_list: [{linknumber: 0, ...link}, {linknumber: 1}],
+            link_list: [{linknumber: "0", ...link}, {linknumber: "1"}],
             quorum_options: quorumOpts,
             totem_options: totemOpts,
             transport_options: transportOpts,
