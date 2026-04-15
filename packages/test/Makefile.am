@@ -43,6 +43,7 @@ EXTRA_DIST		= \
 			  src/test/scenes/dashboard/cluster-status.test.ts \
 			  src/test/scenes/dashboard/cluster-stop.test.ts \
 			  src/test/scenes/dashboard/common.ts \
+			  src/test/scenes/dashboard/deprecation-alert.test.ts \
 			  src/test/scenes/dashboard/import-existring-cluster.test.ts \
 			  src/test/scenes/dashboard/to-cluster-transition.test.ts \
 			  src/test/scenes/fence-devices/arguments-view.test.ts \

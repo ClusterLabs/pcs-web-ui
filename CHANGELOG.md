@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Deprecated
+
+* Multi-cluster management is deprecated and will be removed in a future version
+
 ## [0.1.24.1] - 2026-01-21
 
 ### Fixed

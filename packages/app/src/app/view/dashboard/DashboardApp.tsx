@@ -1,12 +1,16 @@
 import React from "react";
 import {useSelector} from "react-redux";
 import {
+  Alert,
+  AlertActionCloseButton,
   Breadcrumb,
   BreadcrumbItem,
+  Button,
   PageSection,
   Stack,
   StackItem,
 } from "@patternfly/react-core";
+import {InfoCircleIcon} from "@patternfly/react-icons";
 
 import {testMarks} from "app/view/dataTest";
 import {selectors} from "app/store";
@@ -21,6 +25,7 @@ import {
 
 import {DashboardClusterList} from "./clusterList";
 import {DashboardToolbar} from "./DashboardToolbar";
+import {useDashboardDeprecationDismiss} from "./useDashboardDeprecationDismiss";
 
 const useDashboardSync = () => {
   const dispatch = useDispatch();
@@ -46,6 +51,7 @@ export const DashboardApp = () => {
   const dispatch = useDispatch();
   const importedClusterNameList = useSelector(selectors.getImportedClusterList);
   const loading = useSelector(selectors.dashboardGetLoadingStatus);
+  const {dismissed, dismiss, restore} = useDashboardDeprecationDismiss();
 
   return (
     <Page>
@@ -63,6 +69,17 @@ export const DashboardApp = () => {
                         when={loading.when}
                         isLoading={loading.currently}
                       />
+                      {dismissed && (
+                        <Button
+                          variant="link"
+                          icon={<InfoCircleIcon />}
+                          onClick={restore}
+                          {...testMarks.dashboard.deprecationAlert.showNotices
+                            .mark}
+                        >
+                          Deprecation
+                        </Button>
+                      )}
                     </BreadcrumbItem>
                   </Breadcrumb>
                 }
@@ -73,6 +90,27 @@ export const DashboardApp = () => {
               </StackItem>
             </Stack>
           </PageSection>
+          {!dismissed && (
+            <PageSection>
+              <Alert
+                variant="info"
+                isInline
+                title="Multi-cluster management is deprecated"
+                actionClose={
+                  <AlertActionCloseButton
+                    {...testMarks.dashboard.deprecationAlert.close.mark}
+                    onClose={dismiss}
+                  />
+                }
+                {...testMarks.dashboard.deprecationAlert.mark}
+              >
+                Management of multiple clusters from this interface will be
+                removed in a future version. The web UI will be focused on
+                managing only the cluster on which the web UI backend is
+                running.
+              </Alert>
+            </PageSection>
+          )}
           <PageSection {...testMarks.dashboard.mark}>
             {loading.status === "SUCCESS" && (
               <DashboardClusterList

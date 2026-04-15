@@ -559,6 +559,7 @@ EXTRA_DIST		= \
 			  src/app/view/dashboard/DashboardApp.tsx \
 			  src/app/view/dashboard/DashboardToolbar.tsx \
 			  src/app/view/dashboard/index.ts \
+			  src/app/view/dashboard/useDashboardDeprecationDismiss.ts \
 			  src/app/view/dataTest/index.ts \
 			  src/app/view/dataTest/json/cluster/acl.json \
 			  src/app/view/dataTest/json/cluster/aclToolbar.json \
