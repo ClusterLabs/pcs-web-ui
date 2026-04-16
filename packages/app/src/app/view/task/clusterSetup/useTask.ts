@@ -313,14 +313,28 @@ export const useTask = () => {
             transport_type: state.transportType,
             link_list: state.linkList.map(l => ({
               linknumber: `${l.linknumber}`,
-              link_priority: l.link_priority,
-              mcastport: l.mcastport,
-              ping_interval: l.ping_interval,
-              ping_precision: l.ping_precision,
-              ping_timeout: l.ping_timeout,
-              pong_count: l.pong_count,
-              transport: l.transport,
-            })), // TODO vynechat optional
+              ...prepareOptionalOptions(
+                {
+                  link_priority: l.link_priority,
+                  mcastport: l.mcastport,
+                  ping_interval: l.ping_interval,
+                  ping_precision: l.ping_precision,
+                  ping_timeout: l.ping_timeout,
+                  pong_count: l.pong_count,
+                  transport: l.transport,
+                },
+                {
+                  omitValues: {
+                    link_priority: "",
+                    mcastport: "",
+                    ping_interval: "",
+                    ping_precision: "",
+                    ping_timeout: "",
+                    pong_count: "",
+                  },
+                },
+              ),
+            })),
             ...(Object.keys(quorumOptions).length > 0
               ? {quorum_options: quorumOptions}
               : {}),
