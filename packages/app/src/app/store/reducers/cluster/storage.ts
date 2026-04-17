@@ -2,6 +2,7 @@ import {combineReducers} from "redux";
 
 import type {AppReducer} from "app/store/reducers/appReducer";
 
+import {cibSecrets} from "./cibSecrets";
 import {clusterStatus} from "./clusterStatus";
 import {pcmkAgents} from "./pcmkAgents";
 import {clusterProperties} from "./properties";
@@ -10,6 +11,7 @@ import {resourceAgentMap} from "./resourceAgentMap";
 import {fenceAgentList} from "./fenceAgentList";
 
 const clusterStorageItem = combineReducers({
+  cibSecrets,
   clusterStatus,
   pcmkAgents,
   clusterProperties,

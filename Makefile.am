@@ -39,6 +39,10 @@ EXTRA_DIST		= \
 			  make/git-version-gen \
 			  README.md \
 			  docs/architecture.md \
+			  docs/architecture_backend.md \
+			  docs/architecture_dev.md \
+			  docs/architecture_store.md \
+			  docs/architecture_view.md \
 			  docs/CONTRIBUTING.md \
 			  docs/pcs-compatibility.md \
 			  docs/README.md \

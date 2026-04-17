@@ -130,6 +130,7 @@ EXTRA_DIST		= \
 			  src/test/tools/mock/routes/resourceCreate.ts \
         src/test/tools/mock/routes/resourceDisable.ts \
         src/test/tools/mock/routes/resourceEnable.ts \
+        src/test/tools/mock/routes/resourceGetCibSecrets.ts \
 			  src/test/tools/mock/routes/resourceMoveAutoclean.ts \
 			  src/test/tools/mock/routes/resourceMove.ts \
 			  src/test/tools/mock/routes/sbdConfigure.ts \

@@ -68,11 +68,13 @@ export const ToolbarFilterTextGroupPair = ({
   groupName,
   filterState,
   buttonsItems,
+  additionalItems,
 }: {
   textSearchId: string;
   groupName: string;
   filterState: ReturnType<typeof useState>["filterState"];
   buttonsItems?: LauncherItem[];
+  additionalItems?: React.ReactNode;
 }) => {
   const clearAllFilters = () => {
     const [groupInclusionMap, setGroupInclusionMap] = filterState.groupState;
@@ -85,6 +87,7 @@ export const ToolbarFilterTextGroupPair = ({
     <ToolbarFilterAction
       clearAllFilters={clearAllFilters}
       buttonsItems={buttonsItems}
+      additionalItems={additionalItems}
     >
       <ToolbarItem>
         <ToolbarTextSearchFilter

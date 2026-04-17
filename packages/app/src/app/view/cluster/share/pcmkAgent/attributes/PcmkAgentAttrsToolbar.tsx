@@ -1,3 +1,5 @@
+import type React from "react";
+
 import {
   type LauncherItem,
   ToolbarFilterTextGroupPair,
@@ -34,9 +36,11 @@ const useState = (
 export const PcmkAgentAttrsToolbar = ({
   buttonsItems,
   filterState,
+  additionalItems,
 }: {
   buttonsItems?: LauncherItem[];
   filterState: ReturnType<typeof useState>["filterState"];
+  additionalItems?: React.ReactNode;
 }) => {
   return (
     <ToolbarFilterTextGroupPair
@@ -44,6 +48,7 @@ export const PcmkAgentAttrsToolbar = ({
       groupName="Importance"
       filterState={filterState}
       buttonsItems={buttonsItems}
+      additionalItems={additionalItems}
     />
   );
 };

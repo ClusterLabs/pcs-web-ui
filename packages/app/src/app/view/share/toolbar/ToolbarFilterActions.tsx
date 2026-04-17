@@ -14,9 +14,11 @@ export const ToolbarFilterAction = ({
   children,
   clearAllFilters,
   buttonsItems,
+  additionalItems,
 }: React.PropsWithChildren<{
   clearAllFilters: () => void;
   buttonsItems?: LauncherItem[];
+  additionalItems?: React.ReactNode;
 }>) => {
   return (
     <Toolbar
@@ -34,6 +36,11 @@ export const ToolbarFilterAction = ({
             </ToolbarItem>
           )}
         </ToolbarGroup>
+        {additionalItems && (
+          <ToolbarGroup>
+            <ToolbarItem>{additionalItems}</ToolbarItem>
+          </ToolbarGroup>
+        )}
       </ToolbarContent>
     </Toolbar>
   );

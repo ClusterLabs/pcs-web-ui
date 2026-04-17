@@ -48,3 +48,4 @@ export * from "./clusterStop";
 export * from "./constraintTicketCreate";
 export * from "./addConstraintRemote";
 export * from "./resourceChangeGroup";
+export * from "./resourceGetCibSecrets";

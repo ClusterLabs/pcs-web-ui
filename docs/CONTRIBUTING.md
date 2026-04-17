@@ -75,8 +75,9 @@ The project uses autotools for distribution. Source files are listed in
 `Makefile.am` within each package directory (`packages/app/Makefile.am`,
 `packages/test/Makefile.am`). When adding a new source file — whether application
 code or a test — register it in the corresponding `Makefile.am` (alphabetically
-sorted within the existing list). Files not listed there will not be included in
-the distribution tarball.
+sorted within the existing list). The same applies to documentation files in
+`docs/` — they are listed in the root `Makefile.am`. Files not listed in the
+appropriate `Makefile.am` will not be included in the distribution tarball.
 
 ## Running tests
 

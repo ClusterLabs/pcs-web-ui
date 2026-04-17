@@ -4,6 +4,7 @@ import {testMarks} from "app/view/dataTest";
 import type {FenceDevice} from "app/view/cluster/types";
 import {
   AttributeValueSecret,
+  CibSecretsToggle,
   PcmkAgentAttrName,
   PcmkAgentAttrsToolbar,
   isCibSecret,
@@ -35,6 +36,20 @@ export const FenceDeviceArgumentsView = ({
     {},
   );
 
+  const hasCibSecrets = Object.values(fenceDevice.arguments).some(arg =>
+    isCibSecret(arg.value),
+  );
+
+  const secretsToggle = hasCibSecrets ? (
+    <CibSecretsToggle
+      resourceId={fenceDevice.id}
+      attributeNames={Object.entries(fenceDevice.arguments)
+        .filter(([, arg]) => isCibSecret(arg.value))
+        .map(([name]) => name)}
+      {...argumentsToolbar.secretsToggle.mark}
+    />
+  ) : undefined;
+
   return (
     <LoadedPcmkAgent
       clusterName={clusterName}
@@ -64,6 +79,7 @@ export const FenceDeviceArgumentsView = ({
                     ...argumentsToolbar.edit.mark,
                   },
                 ]}
+                additionalItems={secretsToggle}
               />
             </StackItem>
             <StackItem>
@@ -77,7 +93,16 @@ export const FenceDeviceArgumentsView = ({
                     {isCibSecret(
                       fenceDevice.arguments[parameter.name]?.value,
                     ) ? (
-                      <AttributeValueSecret {...pair.secret.mark} />
+                      <AttributeValueSecret
+                        resourceId={fenceDevice.id}
+                        parameterName={parameter.name}
+                        revealed={content => (
+                          <span {...pair.secretRevealed.mark}>{content}</span>
+                        )}
+                        hidden={content => (
+                          <span {...pair.secret.mark}>{content}</span>
+                        )}
+                      />
                     ) : (
                       <AttributeValue
                         value={fenceDevice.arguments[parameter.name]?.value}

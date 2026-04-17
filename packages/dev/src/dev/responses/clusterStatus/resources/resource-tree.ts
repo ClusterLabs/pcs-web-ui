@@ -116,6 +116,13 @@ export const resourceTree = [
             value: "Stopped",
           },
         ],
+        instance_attr: [
+          {
+            id: "B-instance_attributes-secret-token",
+            name: "fake",
+            value: "lrm://",
+          },
+        ],
         crm_status: [
           resourceStatus("B", {
             resource_agent: "ocf:heartbeat:Dummy",
@@ -163,6 +170,13 @@ export const resourceTree = [
       }),
       primitive("C2", {
         crm_status: [resourceStatus("C2-ok")],
+        instance_attr: [
+          {
+            id: "C2-instance_attributes-db-password",
+            name: "fake",
+            value: "lrm://",
+          },
+        ],
       }),
     ],
     {

@@ -4,11 +4,13 @@
       "pair": {
         "name": {},
         "value": {},
-        "secret": {}
+        "secret": {},
+        "secretRevealed": {}
       }
     },
     "argumentsToolbar": {
-      "edit": {}
+      "edit": {},
+      "secretsToggle": {}
     },
     "id": {},
     "meta": {
