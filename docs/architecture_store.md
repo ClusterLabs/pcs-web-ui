@@ -54,6 +54,25 @@ Note: `LIB.CALL.CLUSTER.TASK` is designed for task wizard flows. For loading
 data into cluster storage, use dedicated actions instead — see
 [Techniques](#data-loading-with-dedicated-actions) below.
 
+## Notifications
+
+The store provides a centralized notification system for communicating operation
+results to the user.
+
+**Creating notifications** — sagas use `putNotification(severity, message)` from
+`sagas/common/notifications.ts`. The severity is one of `INFO`, `SUCCESS`, or
+`ERROR`. This dispatches a `NOTIFICATION.CREATE` action that adds the
+notification to the store.
+
+**Automatic error notifications** — `processError(result, taskLabel)` handles
+non-OK API results by logging details to the console and creating an ERROR
+notification via `putNotification`. Most sagas use this as the standard path for
+failed requests.
+
+**Toast lifecycle** — each notification appears as a toast alert (auto-dismissed
+after 8 seconds) and persists in the notification drawer accessible from the
+page header.
+
 ## Techniques
 
 Patterns for specific situations that arise from the concepts above. Read when

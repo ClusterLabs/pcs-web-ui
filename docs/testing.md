@@ -77,6 +77,34 @@ export PCS_WUI_TESTS=$*
 
 See also [gitlab-ci.yml](../.gitlab-ci.yml) for more examples.
 
+## Test preset and globals
+
+The Jest preset (`packages/test/src/test/jest/preset.ts`) runs once before all
+tests. It launches a single Chromium browser instance with a single shared
+`page` and injects a set of **global variables** — these are available in every
+test file without imports:
+
+- **`page`** — the shared Playwright Page instance
+- **`marks`** — typed data-test locator tree (mirrors the application's mark
+  structure)
+- **`item`** — utilities for finding items in lists by name, key, id, or index
+- **DOM interaction**: `click`, `fill`, `select`, `isVisible`, `isAbsent`,
+  `radioGroup`, `appConfirm`, `fieldError`, `locatorFor`, `locatorRelativeFor`
+- **Navigation**: `goToDashboard`, `goToCluster`
+- **`login`** — authentication helper
+
+**Not globals** — `mock` and `assert` are imported explicitly from `test/tools`
+in each test file.
+
+### Shared page and state isolation
+
+All tests share the same browser page instance. The `afterEach(mock.stop)`
+teardown cleans up route mocks and verifies that no unexpected URLs were called,
+but it does **not** clean up browser state (localStorage, sessionStorage,
+cookies). Tests that modify browser state must handle their own cleanup —
+typically via `page.evaluate(() => localStorage.removeItem(...))` in
+`beforeEach`.
+
 ## Mock infrastructure
 
 Mocked tests intercept HTTP requests using Playwright's `page.route()` API. The

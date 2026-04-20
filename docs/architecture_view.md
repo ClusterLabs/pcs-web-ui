@@ -14,10 +14,35 @@ view/
   dataTest/    — data-test attribute definitions (see below)
 ```
 
+The application has two main views. The **dashboard** shows an overview of all
+managed clusters (list with summary status). The **cluster detail** view shows
+a single cluster's configuration organized into tabs (resources, nodes,
+constraints, etc.). The dashboard links to cluster detail; the cluster detail
+has a breadcrumb back to the dashboard. Navigation uses a custom router
+(`view/share/router/`) with URL patterns defined in `view/share/location.ts`.
+
 **Tasks** are a central UI concept — modal wizard dialogs that guide users
 through complex operations (e.g. cluster setup, adding a node, creating a
-resource). Each task has its own folder with a component and a `useTask` hook for
-state management. All tasks are registered in `task/taskMap.ts`.
+resource). Each task has its own folder with a set of components — typically one
+per wizard step plus footers and result screens — and a `useTask` hook. All
+tasks are registered in `task/taskMap.ts`.
+
+Each task's `useTask` hook builds on `useTaskCommon` (which provides lifecycle
+methods and task state selection) and serves as the single interface between the
+task's components and the store layer. It typically provides:
+
+- **Derived data** — selects and computes values from Redux state for the task's
+  components (e.g. filtered lists, loaded agent info).
+- **Validation** — boolean flags indicating whether form inputs are valid
+  (e.g. `isNameValid`, `areLinksValid`).
+- **State updates** — functions that dispatch actions to mutate the task's form
+  state as the user fills in the wizard.
+- **Execution** — functions that prepare the final payload from form state and
+  dispatch the action that triggers the operation. The dispatched action depends
+  on the task — library commands use `LIB.CALL.CLUSTER.TASK` (see
+  [Library command actions](architecture_store.md#library-command-actions)),
+  while other tasks dispatch domain-specific actions directly
+  (e.g. `CLUSTER.STOP`, `NODE.ADD`).
 
 ## Component file organization
 
