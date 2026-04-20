@@ -104,10 +104,8 @@ export const DashboardApp = () => {
                 }
                 {...testMarks.dashboard.deprecationAlert.mark}
               >
-                Management of multiple clusters from this interface will be
-                removed in a future version. The web UI will be focused on
-                managing only the cluster on which the web UI backend is
-                running.
+                Management of multiple clusters will be removed in a future
+                version.
               </Alert>
             </PageSection>
           )}
