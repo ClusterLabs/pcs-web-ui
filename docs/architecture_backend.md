@@ -3,7 +3,8 @@
 Source: `packages/app/src/app/backend/`
 
 Handles all communication with the pcsd backend. All HTTP goes through
-`pcsUiEnvAdapter.request()`, keeping the layer mode-agnostic. The layer is
+`pcsUiEnvAdapter.request()`, keeping the layer
+[mode](architecture.md#two-deployment-modes)-agnostic. The layer is
 split into two parts that separate what is expected from how it is called:
 
 - **Endpoints** (`endpoints/`) define the HTTP contract: URL, method, io-ts
