@@ -2,9 +2,21 @@
 
 ## [Unreleased]
 
+### Added
+
+* Support for pacemaker CIB secrets ([RHEL-7604])
+
 ### Deprecated
 
 * Multi-cluster management is deprecated and will be removed in a future version
+  ([RHEL-148956])
+
+### Fixed
+
+* Omit empty link options in cluster setup request
+
+[RHEL-7604]: https://redhat.atlassian.net/browse/RHEL-7604
+[RHEL-148956]: https://redhat.atlassian.net/browse/RHEL-148956
 
 ## [0.1.24.1] - 2026-01-21
 
