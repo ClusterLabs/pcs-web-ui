@@ -45,9 +45,8 @@ When looking for implementation guidance:
 
 ## Verifying code
 
-Use `npx biome lint --error-on-warnings ./` and `npx biome format ./` to check
-code quality. There is no separate TypeScript type-checking step — type errors
-surface during `make build` or `make test`. See
+Use `npx biome lint --error-on-warnings ./`, `npx biome format ./`, and
+`make typecheck` to check code quality. See
 [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for details.
 
 ## Key architectural rules

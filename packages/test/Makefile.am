@@ -150,5 +150,4 @@ EXTRA_DIST		= \
 			  src/test/unit/backend/httpPost.test.ts \
 			  src/test/unit/backend/lessStrictValidation.test.ts \
 			  src/test/unit/router/match.test.ts \
-			  src/test/unit/store/sagas/dataLoad.test.ts \
 			  tsconfig.json

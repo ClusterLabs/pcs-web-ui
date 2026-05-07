@@ -26,6 +26,7 @@ EXTRA_DIST		= \
 			  .bin/bump-version.js \
 			  .bin/config.sh \
 			  .bin/check-std-npm-registry.sh \
+			  .bin/typecheck.sh \
 			  .bin/init_registry.sh \
 			  .bin/npm_install.sh \
 			  .bin/pcs-compatibility-add.js \
@@ -137,8 +138,12 @@ init:
 	@.git/hooks/pre-commit
 
 
+typecheck:
+	.bin/typecheck.sh
+
 prevent_dev_mistakes:
 	.bin/check-std-npm-registry.sh
+	.bin/typecheck.sh
 	npx biome lint --error-on-warnings ./
 	npx biome format ./
 
@@ -249,4 +254,4 @@ rpm: clean
 	$(MAKE) $(SPEC) $(TARFILES)
 	rpmbuild $(RPMBUILDOPTS) -ba $(SPEC)
 
-.PHONY: test build
+.PHONY: test build typecheck

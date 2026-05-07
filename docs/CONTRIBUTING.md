@@ -63,11 +63,20 @@ To check code quality quickly without running a full build or test suite:
 ```sh
 npx biome lint --error-on-warnings ./
 npx biome format ./
+make typecheck
 ```
 
-The project uses [Biome](https://biomejs.dev/) for linting and formatting. There
-is no separate TypeScript type-checking step — type errors surface during `make
-build` or indirectly through tests (`make test`).
+The project uses [Biome](https://biomejs.dev/) for linting and formatting.
+TypeScript type checking is available via `make typecheck`, which runs
+`tsc --noEmit` across all packages (app, dev, test). To check only a specific
+package, run the underlying script directly:
+
+```sh
+.bin/typecheck.sh packages/app
+```
+
+Type checking also runs automatically in CI as part of `make
+prevent_dev_mistakes`.
 
 ## Adding new source files
 

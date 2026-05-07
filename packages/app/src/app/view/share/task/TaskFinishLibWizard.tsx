@@ -9,6 +9,7 @@ import {
 import {TaskResultLib} from "./TaskResultLib";
 import {TaskFinishLibUnsuccess} from "./TaskFinishLibUnsuccess";
 import {TaskFinishLibCommunicationError} from "./TaskFinishLibCommunicationError";
+import {TaskLibReportList} from "./TaskLibReportList";
 
 export const TaskFinishLibWizard = ({
   response,
@@ -46,7 +47,7 @@ export const TaskFinishLibWizard = ({
           cancel={<TaskButtonResultCancel />}
         />
       }
-      reports={reports}
+      reports={<TaskLibReportList reports={reports} />}
       communicationError={
         <TaskFinishLibCommunicationError
           tryAgain={

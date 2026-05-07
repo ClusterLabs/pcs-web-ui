@@ -22,7 +22,7 @@ path: /
 /prevent_dev_mistakes:
   summary: Run make prevent_dev_mistakes
   tag: [prevent_dev_mistakes]
-  test: npm ci && make prevent_dev_mistakes
+  test: npm ci && make test-modules-prepare && make prevent_dev_mistakes
 
 /distcheck:
   summary: Run make distcheck

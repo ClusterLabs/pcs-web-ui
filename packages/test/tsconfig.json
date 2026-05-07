@@ -23,5 +23,5 @@
       "dev/*": ["../../dev/src/dev/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "../app/src/app/@types"]
 }
