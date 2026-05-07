@@ -43,6 +43,19 @@ reference your chosen proxy registry. The installed git pre-commit hook
 automatically normalizes these URLs back to the standard `registry.npmjs.org`
 format before committing.
 
+### Pre-commit hook
+
+The git pre-commit hook installed by `make init` performs two actions:
+
+1. **Registry normalization** — rewrites any non-standard npm registry URLs in
+   `package-lock.json` files to the standard `registry.npmjs.org` and stages the
+   changes automatically.
+
+2. **Code quality checks** — runs Biome lint, Biome format, and a Makefile file
+   listing check (verifies that newly added files are registered in the
+   corresponding `Makefile.am`). If any check fails, the hook prompts to continue
+   or abort the commit.
+
 ## Running dev environment
 
 First, create `Makefile`
@@ -88,9 +101,43 @@ sorted within the existing list). The same applies to documentation files in
 `docs/` — they are listed in the root `Makefile.am`. Files not listed in the
 appropriate `Makefile.am` will not be included in the distribution tarball.
 
+## Adding dependencies
+
+Every npm dependency is a tradeoff. Each package adds maintenance burden, widens
+the attack surface for CVEs, and increases the risk of supply-chain issues.
+Prefer local solutions when the scope is small enough — a short utility function
+is often better than pulling in a new package. When a dependency is genuinely
+needed, the choice should be conscious and justified.
+
 ## Running tests
 
 * `make test`
 
 See [testing.md](testing.md) for test categories, configuration options, and
 infrastructure details.
+
+## Continuous integration
+
+CI runs on GitLab CI and delegates test execution to
+[Testing Farm](https://docs.testing-farm.io), which provisions VMs and runs
+[TMT](https://tmt.readthedocs.io) plans. Tests run on multiple RHEL and Fedora
+versions (see the compose matrix in `.gitlab-ci.yml`).
+
+The TMT pipeline executes these steps in order (defined in `tests.fmf`):
+
+1. **autotools** — `autogen.sh`, `configure`, `make init_registry`
+2. **prevent_dev_mistakes** — npm registry check, TypeScript type check, Biome
+   lint and format (`make prevent_dev_mistakes`)
+3. **distcheck** — `make distcheck` (builds distribution tarball)
+4. **rpm_build** — builds RPM packages
+5. **pcsd_integration_test_standalone** — installs built RPMs and runs end-to-end
+   tests against a real pcsd instance in standalone mode
+6. **pcsd_integration_test_cockpit** — same as above but through Cockpit
+
+The `prevent_dev_mistakes` step provides fast feedback on code quality issues.
+It is the CI equivalent of the checks described in
+[Verifying code](#verifying-code), with the addition of the npm registry check.
+
+Configuration files: `.gitlab-ci.yml` (GitLab CI job definition), `plans.fmf`
+(TMT plan — environment, preparation, execution), `tests.fmf` (individual TMT
+test steps).
