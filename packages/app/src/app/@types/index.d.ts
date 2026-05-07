@@ -4,6 +4,10 @@
 export {};
 
 declare global {
+  // esbuild replaces process.env.NODE_ENV at build time; this minimal
+  // declaration avoids pulling in @types/node (and its transitive deps).
+  var process: {env: {NODE_ENV: string}};
+
   var pcsUiEnvAdapter: {
     showMasthead: boolean;
     topModal: boolean;

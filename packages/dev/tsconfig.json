@@ -22,5 +22,5 @@
       "app/*": ["../../app/src/app/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "../app/src/app/@types"]
 }

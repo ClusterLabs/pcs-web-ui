@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2019",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["node"],
+    "types": [],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
