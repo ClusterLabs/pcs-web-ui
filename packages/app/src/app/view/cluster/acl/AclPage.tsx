@@ -102,6 +102,7 @@ export const AclPage = () => {
                       propertyMap: {
                         "enable-acl": aclEnabled ? "false" : "true",
                       },
+                      force: false,
                     },
                   },
                 },

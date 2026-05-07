@@ -1,8 +1,13 @@
+import type React from "react";
 import {ReviewItem} from "app/view/share";
 
 import type {useTask} from "./useTask";
 
 type Link = Parameters<ReturnType<typeof useTask>["updateLinkKnet"]>[0];
+
+type ReactNodeField<T> = {
+  [K in keyof T]-?: T[K] extends React.ReactNode ? K : never;
+}[keyof T];
 
 export const ReviewLink = ({
   link,
@@ -11,7 +16,7 @@ export const ReviewLink = ({
   "data-test": dataTest,
 }: {
   link: Link;
-  field: keyof Link;
+  field: ReactNodeField<Link>;
   label: string;
   "data-test"?: string;
 }) => {
