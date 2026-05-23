@@ -31,7 +31,7 @@ const server = application.listen(port, () => {
   console.log(
     `${selectedScenarion
       .slice(path.dirname(selectedScenarion).length + 1)
-      .replace(/\.[^/.]+$/, "")}: Listening on port ${port}`,
+      .replace(/\.[^/.]+$/, "")}: http://localhost:${port}`,
   );
   console.log(
     application._router.stack

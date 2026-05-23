@@ -6,6 +6,14 @@ src_dir=$(realpath "$1")
 output_dir=$(realpath "$2")
 app_node_modules=$(realpath "$3")
 
+if [ -z "$PORT" ]; then
+  PORT=5000
+  while ss -tln | grep -q ":${PORT} "; do
+    PORT=$((PORT + 1))
+  done
+  export PORT
+fi
+
 dev_root_dir=$(realpath "$(dirname "$0")"/..)
 scenario_dir="$dev_root_dir"/src/dev/scenarios
 
