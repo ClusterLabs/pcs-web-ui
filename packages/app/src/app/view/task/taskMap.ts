@@ -17,6 +17,7 @@ import {ConstraintOrderSetCreate} from "./constraintOrderSetCreate";
 import {ConstraintTicketCreate} from "./constraintTicketCreate";
 import {ConstraintTicketSetCreate} from "./constraintTicketSetCreate";
 import {FenceDeviceArgumentsEdit} from "./fenceDeviceArgumentsEdit";
+import {PrimitiveAttrsEdit} from "./primitiveAttrsEdit";
 import {FenceDeviceCreate} from "./fenceDeviceCreate";
 import {FenceDeviceDisable} from "./fenceDeviceDisable";
 import {NodeAdd} from "./nodeAdd";
@@ -60,6 +61,7 @@ export const taskMap = {
   nvpairEdit: NvPairEdit,
   permissionEdit: PermissionEdit,
   propertiesUpdate: PropertiesUpdate,
+  primitiveAttrsEdit: PrimitiveAttrsEdit,
   primitiveGroupChange: ResourcePrimitiveGroupChange,
   resourceCreate: ResourceCreate,
   resourceMove: ResourceMove,
