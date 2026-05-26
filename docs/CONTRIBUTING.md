@@ -103,11 +103,9 @@ appropriate `Makefile.am` will not be included in the distribution tarball.
 
 ## Adding dependencies
 
-Every npm dependency is a tradeoff. Each package adds maintenance burden, widens
-the attack surface for CVEs, and increases the risk of supply-chain issues.
-Prefer local solutions when the scope is small enough — a short utility function
-is often better than pulling in a new package. When a dependency is genuinely
-needed, the choice should be conscious and justified.
+The project follows a strategy of dependency minimization — prefer local
+solutions over new packages. See [dependencies.md](dependencies.md) for the
+rationale, current dependency inventory, and reduction history.
 
 ## Running tests
 

@@ -20,6 +20,8 @@ structure, design intent, and implementation choices.
      (scenarios, response builders, shortcuts)
 4. [testing.md](testing.md) — running tests, configuration, test
    infrastructure, locators and assertions
+5. [dependencies.md](dependencies.md) — dependency strategy, history, and
+   package-lock file locations
 
 ## Documentation philosophy
 

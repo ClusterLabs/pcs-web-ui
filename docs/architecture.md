@@ -2,10 +2,10 @@
 
 ## Project structure
 
-The repository is organized as a multi-package project. The main motivation is
-to separate the application's runtime dependencies from development and testing
-tooling. This allows distributing the application without unnecessary
-dependencies.
+The repository is organized as a multi-package project to separate the
+application's runtime dependencies from development and testing tooling. See
+[dependencies.md](dependencies.md) for the full dependency strategy, reduction
+milestones, and package-lock file locations.
 
 ```
 packages/

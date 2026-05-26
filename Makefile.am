@@ -45,6 +45,7 @@ EXTRA_DIST		= \
 			  docs/architecture_store.md \
 			  docs/architecture_view.md \
 			  docs/CONTRIBUTING.md \
+			  docs/dependencies.md \
 			  docs/pcs-compatibility.md \
 			  docs/README.md \
 			  CHANGELOG.md \
