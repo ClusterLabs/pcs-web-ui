@@ -76,6 +76,7 @@ EXTRA_DIST		= \
 			  src/test/scenes/resources/launch-move-ban-clear.test.ts \
 			  src/test/scenes/resources/primitive-group-change.test.ts \
 			  src/test/scenes/resources/primitive-meta-create.test.ts \
+			  src/test/scenes/resources/primitive-attrs-edit.test.ts \
 			  src/test/scenes/resources/primitive-attributes-view.test.ts \
 			  src/test/scenes/resources/primitive-meta-view.test.ts \
 			  src/test/scenes/resources/primitive-utilization-create.test.ts \
@@ -145,6 +146,7 @@ EXTRA_DIST		= \
 			  src/test/tools/mock/routes/tools.ts \
 			  src/test/tools/mock/routes/updateClusterSettings.ts \
 			  src/test/tools/mock/routes/updateFenceDevice.ts \
+			  src/test/tools/mock/routes/updateResource.ts \
 			  src/test/tools/mock/shortcuts.ts \
 			  src/test/unit/backend/endpoints/getPermissions.test.ts \
 			  src/test/unit/backend/httpPost.test.ts \

@@ -18,7 +18,8 @@ import {
 import {LoadedPcmkAgent} from "app/view/share";
 import {useOpenTask} from "app/view/task";
 
-const {attributes} = testMarks.cluster.resources.currentPrimitive;
+const {attributes, attributesToolbar} =
+  testMarks.cluster.resources.currentPrimitive;
 const {pair} = attributes;
 
 export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
@@ -66,6 +67,7 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
                         },
                       }),
                     button: {variant: "primary"},
+                    ...attributesToolbar.edit.mark,
                   },
                 ]}
                 filterState={filterState}

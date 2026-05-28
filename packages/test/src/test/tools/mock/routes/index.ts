@@ -29,6 +29,7 @@ export * from "./resourceClear";
 export * from "./removeResource";
 export * from "./stonithAgentDescribeAgent";
 export * from "./updateFenceDevice";
+export * from "./updateResource";
 export * from "./stonithCreate";
 export * from "./clusterSetup";
 export * from "./clusterNodeAdd";
