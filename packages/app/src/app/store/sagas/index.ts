@@ -102,7 +102,7 @@ function* rootSaga() {
     takeEvery("RESOURCE.GROUP.CREATE", resourceGroupCreate.create),
     takeEvery("RESOURCE.GROUP.CHANGE", resourceGroupChange.change),
     takeEvery(
-      "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES",
+      "RESOURCE.EDIT_ATTRS.RUN",
       resourceUpdate.updateInstanceAttributes,
     ),
     takeEvery("FENCE_DEVICE.EDIT_ARGS.RUN", fenceDeviceUpdate.updateArguments),

@@ -1,4 +1,3 @@
-import React from "react";
 import {StackItem} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
@@ -17,16 +16,20 @@ import {
   AttributeValue,
 } from "app/view/share/attributes";
 import {LoadedPcmkAgent} from "app/view/share";
+import {useOpenTask} from "app/view/task";
 
-import {PrimitiveAttrsForm} from "./PrimitiveAttrsForm";
-
-const {attributes} = testMarks.cluster.resources.currentPrimitive;
+const {attributes, attributesToolbar} =
+  testMarks.cluster.resources.currentPrimitive;
 const {pair} = attributes;
 
 export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
   const {clusterName} = useLoadedCluster();
-  const [isEditing, setIsEditing] = React.useState(false);
+  const openTask = useOpenTask();
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
+  const resourceAttrs = Object.entries(primitive.instanceAttributes).reduce(
+    (nameValueMap, [name, {value}]) => ({...nameValueMap, [name]: value}),
+    {},
+  );
 
   const hasCibSecrets = Object.values(primitive.instanceAttributes).some(attr =>
     isCibSecret(attr.value),
@@ -45,26 +48,6 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
   return (
     <LoadedPcmkAgent clusterName={clusterName} agentName={primitive.agentName}>
       {agent => {
-        if (isEditing) {
-          return (
-            <span {...attributes.mark}>
-              <StackItem>
-                <PcmkAgentAttrsToolbar filterState={filterState} />
-              </StackItem>
-              <StackItem>
-                <PrimitiveAttrsForm
-                  primitive={primitive}
-                  resourceAgentParams={agent.parameters}
-                  displayNames={filterParameters(agent.parameters).map(
-                    p => p.name,
-                  )}
-                  close={() => setIsEditing(false)}
-                />
-              </StackItem>
-            </span>
-          );
-        }
-
         return (
           <span {...attributes.mark}>
             <StackItem>
@@ -72,7 +55,19 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
                 buttonsItems={[
                   {
                     name: "edit-attributes",
-                    run: () => setIsEditing(true),
+                    run: () =>
+                      openTask("primitiveAttrsEdit", {
+                        type: "RESOURCE.EDIT_ATTRS.OPEN",
+                        key: {clusterName},
+                        payload: {
+                          clusterName,
+                          resourceId: primitive.id,
+                          resourceAttrs,
+                          agentParameters: agent.parameters,
+                        },
+                      }),
+                    button: {variant: "primary"},
+                    ...attributesToolbar.edit.mark,
                   },
                 ]}
                 filterState={filterState}

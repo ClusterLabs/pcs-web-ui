@@ -173,6 +173,7 @@ EXTRA_DIST		= \
 			  src/app/store/actions/resource/clear.ts \
 			  src/app/store/actions/resource/create.ts \
 			  src/app/store/actions/resource/delete.ts \
+			  src/app/store/actions/resource/editAttrs.ts \
 			  src/app/store/actions/resource/groupChange.ts \
 			  src/app/store/actions/resource/groupCreate.ts \
 			  src/app/store/actions/resource/index.ts \
@@ -241,6 +242,7 @@ EXTRA_DIST		= \
 			  src/app/store/reducers/tasks/nodeStop.ts \
 			  src/app/store/reducers/tasks/nvpairEdit.ts \
 			  src/app/store/reducers/tasks/permissionEdit.ts \
+			  src/app/store/reducers/tasks/primitiveAttrsEdit.ts \
 			  src/app/store/reducers/tasks/primitiveGroupChange.ts \
 			  src/app/store/reducers/tasks/propertiesUpdate.ts \
 			  src/app/store/reducers/tasks/resourceBan.ts \
@@ -473,12 +475,6 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/resources/group/toolbar/useToolbarItemMoveBan.ts \
 			  src/app/view/cluster/resources/index.ts \
 			  src/app/view/cluster/resources/primitive/attributes/index.ts \
-			  src/app/view/cluster/resources/primitive/attributes/PrimitiveAttrsFormItemLabel.tsx \
-			  src/app/view/cluster/resources/primitive/attributes/PrimitiveAttrsFormItemLayout.tsx \
-			  src/app/view/cluster/resources/primitive/attributes/PrimitiveAttrsFormItemRadio.tsx \
-			  src/app/view/cluster/resources/primitive/attributes/PrimitiveAttrsFormItem.tsx \
-			  src/app/view/cluster/resources/primitive/attributes/PrimitiveAttrsFormItemWarning.tsx \
-			  src/app/view/cluster/resources/primitive/attributes/PrimitiveAttrsForm.tsx \
 			  src/app/view/cluster/resources/primitive/attributes/PrimitiveAttrsView.tsx \
 			  src/app/view/cluster/resources/primitive/index.ts \
 			  src/app/view/cluster/resources/primitive/PrimitiveDetail.tsx \
@@ -614,6 +610,7 @@ EXTRA_DIST		= \
 			  src/app/view/dataTest/json/task/nodeStop.json \
 			  src/app/view/dataTest/json/task/nvsetEdit.json \
 			  src/app/view/dataTest/json/task/permissionEdit.json \
+			  src/app/view/dataTest/json/task/primitiveAttrsEdit.json \
 			  src/app/view/dataTest/json/task/propertiesUpdate.json \
 			  src/app/view/dataTest/json/task/resourceBan.json \
 			  src/app/view/dataTest/json/task/resourceClear.json \
@@ -983,6 +980,13 @@ EXTRA_DIST		= \
 			  src/app/view/task/permissionEdit/PermissionEdit.tsx \
 			  src/app/view/task/permissionEdit/Success.tsx \
 			  src/app/view/task/permissionEdit/useTask.ts \
+			  src/app/view/task/primitiveAttrsEdit/EditArgsForm.tsx \
+			  src/app/view/task/primitiveAttrsEdit/Fail.tsx \
+			  src/app/view/task/primitiveAttrsEdit/Footer.tsx \
+			  src/app/view/task/primitiveAttrsEdit/index.ts \
+			  src/app/view/task/primitiveAttrsEdit/PrimitiveAttrsEdit.tsx \
+			  src/app/view/task/primitiveAttrsEdit/Success.tsx \
+			  src/app/view/task/primitiveAttrsEdit/useTask.ts \
 			  src/app/view/task/propertiesUpdate/index.ts \
 			  src/app/view/task/propertiesUpdate/PropertiesFooter.tsx \
 			  src/app/view/task/propertiesUpdate/Properties.tsx \

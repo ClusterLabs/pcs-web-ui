@@ -1,6 +1,7 @@
 import type {CibSecretsActions} from "./cibSecrets";
 import type {ResourceCreateActions} from "./create";
 import type {ResourceDeleteActions} from "./delete";
+import type {ResourceEditAttrsActions} from "./editAttrs";
 import type {ResourceMoveActions} from "./move";
 import type {ResourceBanActions} from "./ban";
 import type {ResourceClearActions} from "./clear";
@@ -14,6 +15,7 @@ export type ResourceActions = (
   & CibSecretsActions
   & ResourceCreateActions
   & ResourceDeleteActions
+  & ResourceEditAttrsActions
   & ResourceMoveActions
   & ResourceBanActions
   & ResourceClearActions

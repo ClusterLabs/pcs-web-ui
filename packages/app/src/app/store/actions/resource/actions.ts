@@ -1,13 +1,4 @@
 export type ResourceActionsActions = {
-  "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES": {
-    type: "RESOURCE.UPDATE_INSTANCE_ATTRIBUTES";
-    key: {clusterName: string};
-    payload: {
-      resourceId: string;
-      attributes: Record<string, string>;
-    };
-  };
-
   "RESOURCE.REFRESH": {
     type: "RESOURCE.REFRESH";
     key: {clusterName: string};

@@ -32,6 +32,7 @@ import {nodeAdd} from "./nodeAdd";
 import {nodeStop} from "./nodeStop";
 import {fixAuth} from "./fixAuth";
 import {permissionEdit} from "./permissionEdit";
+import {primitiveAttrsEdit} from "./primitiveAttrsEdit";
 import {nvpairEdit} from "./nvpairEdit";
 import {sbdDisable} from "./sbdDisable";
 import {sbdConfigure} from "./sbdConfigure";
@@ -70,6 +71,7 @@ export const tasks = combineReducers(
     fenceDeviceCreate,
     fenceDeviceArgsEdit,
     fenceDeviceDisable,
+    primitiveAttrsEdit,
     primitiveGroupChange,
     constraintLocationCreate,
     constraintOrderCreate,
