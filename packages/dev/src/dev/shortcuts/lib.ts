@@ -29,6 +29,12 @@ const getLibResponses = (res: Response): Record<string, () => void> => ({
   "unknown-cmd": () => {
     res.json(response.lib.unknownCmd);
   },
+  "permission-denied": () => {
+    res.json(response.lib.permissionDenied);
+  },
+  "not-authorized": () => {
+    res.json(response.lib.notAuthorized);
+  },
   fail: () => {
     res.json(
       response.lib.error([
