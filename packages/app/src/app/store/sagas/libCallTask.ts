@@ -42,6 +42,18 @@ export function* callLib({
     return;
   }
 
+  if (payload.status === "permission_denied") {
+    // ignore payload.status_msg since no useful information there
+    yield put({
+      type: "LIB.CALL.CLUSTER.TASK.PERMISSION_DENIED",
+      key,
+      payload: {
+        commandName: command.name,
+      },
+    });
+    return;
+  }
+
   if (payload.status === "error") {
     yield put({
       type: "LIB.CALL.CLUSTER.TASK.FAIL",

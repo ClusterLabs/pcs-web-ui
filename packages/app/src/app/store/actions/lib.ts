@@ -68,6 +68,14 @@ export type LibActions = {
     };
   };
 
+  "LIB.CALL.CLUSTER.TASK.PERMISSION_DENIED": {
+    type: "LIB.CALL.CLUSTER.TASK.PERMISSION_DENIED";
+    key: {clusterName: string; task: string};
+    payload: {
+      commandName: Commands[number]["name"];
+    };
+  };
+
   "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET": {
     type: "LIB.CALL.CLUSTER.TASK.RESPONSE.RESET";
     key: {task: string};

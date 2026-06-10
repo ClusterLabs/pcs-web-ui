@@ -69,7 +69,7 @@ const errorReport = (partialReport: PartialReport = {}): Report =>
   );
 
 export const permissionDenied: Response = {
-  status: "permission_denied" as Response["status"],
+  status: "permission_denied",
   report_list: [],
   status_msg: "Permission denied",
   data: null,

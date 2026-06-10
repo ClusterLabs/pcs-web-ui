@@ -759,6 +759,7 @@ EXTRA_DIST		= \
 			  src/app/view/share/task/TaskContext.ts \
 			  src/app/view/share/task/TaskFinishError.tsx \
 			  src/app/view/share/task/TaskFinishLibCommunicationError.tsx \
+			  src/app/view/share/task/TaskFinishLibPermissionDenied.tsx \
 			  src/app/view/share/task/TaskFinishLibUnsuccess.tsx \
 			  src/app/view/share/task/TaskFinishLibWizard.tsx \
 			  src/app/view/share/task/TaskFooter.tsx \

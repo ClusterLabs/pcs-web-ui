@@ -1,14 +1,16 @@
-import type {api, libCallCluster} from "app/backend";
+const communicationErrorStatuses = [
+  "input_error",
+  "exception",
+  "unknown_cmd",
+  "not_authorized",
+] as const;
 
-type LibPayload = api.PayloadOf<typeof libCallCluster>;
+type CommunicationErrorStatus = (typeof communicationErrorStatuses)[number];
 
-type CommunicationError = Extract<
-  LibPayload,
-  {status: "input_error"} | {status: "exception"} | {status: "unknown_cmd"}
->;
-
-export function isCommunicationError<
-  PAYLOAD extends {status: "success" | "error"},
->(payload: CommunicationError | PAYLOAD): payload is CommunicationError {
-  return ["input_error", "exception", "unknown_cmd"].includes(payload.status);
+export function isCommunicationError<PAYLOAD extends {status: string}>(
+  payload: PAYLOAD,
+): payload is PAYLOAD & {status: CommunicationErrorStatus} {
+  return (communicationErrorStatuses as readonly string[]).includes(
+    payload.status,
+  );
 }

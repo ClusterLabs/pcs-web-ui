@@ -8,6 +8,7 @@ export const initialState: {
     | "forceable-fail"
     | "fail"
     | "communication-error"
+    | "permission-denied"
     | "progress";
   reports: LibReport[];
   forceFlags: string[];
@@ -46,6 +47,12 @@ export const libCall: AppReducer<typeof initialState> = (
 
     case "LIB.CALL.CLUSTER.TASK.ERROR":
       return {...state, response: "communication-error"};
+
+    case "LIB.CALL.CLUSTER.TASK.PERMISSION_DENIED":
+      return {
+        ...state,
+        response: "permission-denied",
+      };
 
     case "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD":
       return {

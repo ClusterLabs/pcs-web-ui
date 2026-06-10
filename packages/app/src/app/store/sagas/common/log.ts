@@ -1,21 +1,21 @@
-import type {api, libCallCluster} from "app/backend";
+import type {api} from "app/backend";
 
-type LibPayload = api.PayloadOf<typeof libCallCluster>;
-type CommunicationError = Extract<
-  LibPayload,
-  {status: "input_error"} | {status: "exception"} | {status: "unknown_cmd"}
->;
+type CommunicationErrorStatus =
+  | "input_error"
+  | "exception"
+  | "unknown_cmd"
+  | "not_authorized";
 
-const libInputErrorStatusMsgMap: Record<CommunicationError["status"], string> =
-  {
-    input_error: "Backend cannot read the request",
-    exception: "Exception during processing request on backend",
-    unknown_cmd: "Backend does not recognize command",
-  };
+const libInputErrorStatusMsgMap: Record<CommunicationErrorStatus, string> = {
+  input_error: "Backend cannot read the request",
+  exception: "Exception during processing request on backend",
+  unknown_cmd: "Backend does not recognize command",
+  not_authorized: "Not authorized to perform this operation",
+};
 
 export const libInputError = (
-  status: CommunicationError["status"],
-  statusMessage: CommunicationError["status_msg"],
+  status: CommunicationErrorStatus,
+  statusMessage: string | null,
   taskLabel: string,
 ) => {
   console.error(

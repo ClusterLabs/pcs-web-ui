@@ -9,6 +9,7 @@ import {
 import {TaskResultLib} from "./TaskResultLib";
 import {TaskFinishLibUnsuccess} from "./TaskFinishLibUnsuccess";
 import {TaskFinishLibCommunicationError} from "./TaskFinishLibCommunicationError";
+import {TaskFinishLibPermissionDenied} from "./TaskFinishLibPermissionDenied";
 import {TaskLibReportList} from "./TaskLibReportList";
 
 export const TaskFinishLibWizard = ({
@@ -50,6 +51,17 @@ export const TaskFinishLibWizard = ({
       reports={<TaskLibReportList reports={reports} />}
       communicationError={
         <TaskFinishLibCommunicationError
+          tryAgain={
+            <TaskResultActionWizardTryAgain
+              stepName={tryAgainStepName}
+              data-test="task-try-again"
+            />
+          }
+          cancel={<TaskButtonResultCancel />}
+        />
+      }
+      permissionDenied={
+        <TaskFinishLibPermissionDenied
           tryAgain={
             <TaskResultActionWizardTryAgain
               stepName={tryAgainStepName}
