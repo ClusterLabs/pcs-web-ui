@@ -5,6 +5,7 @@ import {
   TaskButtonResultProceedAnyway,
   TaskButtonWizardResultBack,
   TaskFinishLibCommunicationError,
+  TaskFinishLibPermissionDenied,
   TaskFinishLibUnsuccess,
   TaskLibReport,
   TaskLibReportList,
@@ -91,6 +92,17 @@ export const Result = ({
             <TaskButtonResultCancel {...communicationError.cancel.mark} />
           }
           {...communicationError.mark}
+        />
+      }
+      permissionDenied={
+        <TaskFinishLibPermissionDenied
+          tryAgain={
+            <TaskResultActionWizardTryAgain
+              stepName={reviewStep}
+              data-test="task-try-again"
+            />
+          }
+          cancel={<TaskButtonResultCancel />}
         />
       }
     />

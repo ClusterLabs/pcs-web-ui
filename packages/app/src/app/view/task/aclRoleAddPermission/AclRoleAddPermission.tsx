@@ -7,6 +7,7 @@ import {Footer} from "./Footer";
 import {Success} from "./Success";
 import {Unsuccess} from "./Unsuccess";
 import {CommunicationError} from "./CommunicationError";
+import {PermissionDenied} from "./PermissionDenied";
 
 const {aclRoleAddPermission: task} = testMarks.task;
 
@@ -30,6 +31,7 @@ export const AclRoleAddPermission = () => {
       success={<Success />}
       unsuccess={<Unsuccess />}
       communicationError={<CommunicationError />}
+      permissionDenied={<PermissionDenied />}
       reports={<TaskLibReportList reports={reports} {...task.report.mark} />}
       {...task.mark}
     />
