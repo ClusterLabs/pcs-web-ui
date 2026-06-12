@@ -34,16 +34,21 @@ export function* load({
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
       action: () => put(errorAction),
+      useNotification: true,
     });
     return;
   }
 
   const {payload} = result;
 
-  if (lib.isCommunicationError(payload)) {
+  if (lib.isCommandRejected(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
     yield put(errorAction);
-    yield putNotification("ERROR", `Task: ${taskLabel} failed.`);
+    if (payload.status === "permission_denied") {
+      yield putNotification("ERROR", `Permission denied while: ${taskLabel}`);
+    } else {
+      yield putNotification("ERROR", `Task: ${taskLabel} failed.`);
+    }
     return;
   }
 

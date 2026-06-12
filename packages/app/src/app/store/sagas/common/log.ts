@@ -1,20 +1,22 @@
 import type {api} from "app/backend";
 
-type CommunicationErrorStatus =
+type CommandRejectedStatus =
   | "input_error"
   | "exception"
   | "unknown_cmd"
-  | "not_authorized";
+  | "not_authorized"
+  | "permission_denied";
 
-const libInputErrorStatusMsgMap: Record<CommunicationErrorStatus, string> = {
+const libInputErrorStatusMsgMap: Record<CommandRejectedStatus, string> = {
   input_error: "Backend cannot read the request",
   exception: "Exception during processing request on backend",
   unknown_cmd: "Backend does not recognize command",
   not_authorized: "Not authorized to perform this operation",
+  permission_denied: "Permission denied for this operation",
 };
 
 export const libInputError = (
-  status: CommunicationErrorStatus,
+  status: CommandRejectedStatus,
   statusMessage: string | null,
   taskLabel: string,
 ) => {

@@ -1,16 +1,17 @@
-const communicationErrorStatuses = [
+const commandRejectedStatuses = [
   "input_error",
   "exception",
   "unknown_cmd",
   "not_authorized",
+  "permission_denied",
 ] as const;
 
-type CommunicationErrorStatus = (typeof communicationErrorStatuses)[number];
+type CommandRejectedStatus = (typeof commandRejectedStatuses)[number];
 
-export function isCommunicationError<PAYLOAD extends {status: string}>(
+export function isCommandRejected<PAYLOAD extends {status: string}>(
   payload: PAYLOAD,
-): payload is PAYLOAD & {status: CommunicationErrorStatus} {
-  return (communicationErrorStatuses as readonly string[]).includes(
+): payload is PAYLOAD & {status: CommandRejectedStatus} {
+  return (commandRejectedStatuses as readonly string[]).includes(
     payload.status,
   );
 }
