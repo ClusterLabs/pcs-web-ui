@@ -42,9 +42,26 @@ commands — it takes a command object (`{name, payload}`) and posts it to the
 appropriate URL, validating the response against the endpoint's io-ts shape.
 
 All library command responses share a common envelope defined in
-`endpoints/lib/shape.ts`: `{status, data, report_list, status_msg}`. The `data`
-field carries command-specific output (or `null` for commands with no return
-value). Commands that return data register an io-ts codec in
+`endpoints/lib/shape.ts`: `{status, data, report_list, status_msg}`. The
+`status` field carries one of two groups of values:
+
+- **Operational statuses** — the command was understood and attempted:
+  - `success` — command succeeded; `data` carries the typed result.
+  - `error` — command failed (e.g. constraint violation, forceable error);
+    `data` may carry partial results, `report_list` contains details.
+
+- **Rejected statuses** — the command was not executed; `data` is always `null`:
+  - `exception` — unexpected error during backend processing.
+  - `input_error` — backend could not parse the request.
+  - `unknown_cmd` — backend does not recognize the command.
+  - `not_authorized` — user is not authorized for the operation.
+  - `permission_denied` — user lacks permission for the operation.
+
+The saga layer uses `isCommandRejected()` to branch on this grouping — see
+[Task response lifecycle](architecture_store.md#task-response-lifecycle).
+
+The `data` field carries command-specific output (or `null` for commands with no
+return value). Commands that return data register an io-ts codec in
 `commandDataCodecs` (in `libCluster.ts`), which maps command names to their
 response codecs. The `CommandResponseData` type automatically derives the typed
 data shape for each command — commands with a codec get the decoded type, others

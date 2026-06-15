@@ -110,11 +110,25 @@ reducing boilerplate in scenarios.
   list endpoint.
 - **`shortcut.libStd({code, res})`** — a handler helper (not a registration
   shortcut) for library command scenarios. It maps a `code` value from the
-  request body to a standard response: `"success"` / `"ok"` → success,
-  `"fail"` → error with reports, `"force"` → forcible error, `"error"` → HTTP
-  500, and others. This lets a single scenario handler produce different outcomes
-  based on user input (e.g. a resource name that determines whether creation
-  succeeds or fails).
+  request body to a standard response. This lets a single scenario handler
+  produce different outcomes based on user input (e.g. a resource name that
+  determines whether creation succeeds or fails). Supported codes:
+
+  | Code                | Response                                    |
+  |---------------------|---------------------------------------------|
+  | `"success"` / `"ok"`| success                                     |
+  | `"fail"`            | error with reports                          |
+  | `"force"`           | forcible error (error with `force_code`)     |
+  | `"error"`           | HTTP 500                                    |
+  | `"invalid"`         | invalid response (malformed shape)           |
+  | `"invalid-json"`    | input error (JSON parse failure)             |
+  | `"missing-key"`     | input error (missing `cmd` key)              |
+  | `"unknown-cmd"`     | rejected: unknown command                   |
+  | `"permission-denied"`| rejected: permission denied                 |
+  | `"not-authorized"`  | not authorized (HTTP-level auth failure)     |
+
+  Any unrecognized code falls through to success. The helper also accepts an
+  `errors` map for custom error responses keyed by code.
 
 ## Response builders
 
@@ -131,7 +145,8 @@ These response builders are **shared with the test mock infrastructure** — see
 Key areas:
 
 - **`lib`** — library command responses: `success()`, `error([…reports])`,
-  `report.error({…})`, and edge-case shapes (`invalid`, `unknownCmd`, etc.).
+  `report.error({…})`, rejected status shapes (`unknownCmd`,
+  `permissionDenied`, etc.), and malformed edge cases (`invalid`).
 - **`clusterStatus`** — preconfigured cluster status objects (`ok`, `error`,
   `big`, `empty`, `resourceTree`, etc.).
 - **`clusterStatus/tools`** — factory functions for composing cluster status from

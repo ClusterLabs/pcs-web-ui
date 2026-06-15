@@ -38,9 +38,10 @@ the [libCluster mechanism](architecture_backend.md#library-command-mechanism-lib
 - **`LIB.CALL.CLUSTER`** — fire-and-forget: the saga calls the backend, shows a
   success/error notification, and refreshes cluster status.
 - **`LIB.CALL.CLUSTER.TASK`** — task-wizard-based: the saga calls the backend
-  and dispatches `TASK.OK` / `TASK.FAIL` / `TASK.ERROR` so the **task wizard
-  UI** (modal dialog registered in `task/taskMap.ts`) can react. The `key.task`
-  field routes responses to the matching task reducer in `reducers/tasks/`.
+  and dispatches a response action so the **task wizard UI** (modal dialog
+  registered in `task/taskMap.ts`) can react. The `key.task` field routes
+  responses to the matching task reducer in `reducers/tasks/`. See
+  [Task response lifecycle](#task-response-lifecycle) for the full state machine.
 
 Both carry `{taskLabel, call: {name, payload}}` where `call` is a command from
 the `Commands` type. The command object passes through Redux (from the
@@ -53,6 +54,31 @@ layer, not in actions or the store.
 Note: `LIB.CALL.CLUSTER.TASK` is designed for task wizard flows. For loading
 data into cluster storage, use dedicated actions instead — see
 [Techniques](#data-loading-with-dedicated-actions) below.
+
+### Task response lifecycle
+
+The `LIB.CALL.CLUSTER.TASK` saga maps the backend result to a response action
+that sets a distinct state in the task reducer (`reducers/tasks/libCall.ts`):
+
+| Action                   | Reducer state         | Meaning                                            |
+|--------------------------|-----------------------|----------------------------------------------------|
+| *(initial)*              | `no-response`         | No request has been made yet                       |
+| `LIB.CALL.CLUSTER.TASK`  | `progress`            | Request in flight                                  |
+| `TASK.OK`                | `success`             | Command succeeded; carries `reports` and `data`    |
+| `TASK.FAIL`              | `fail`                | Command returned `error` status; carries `reports` |
+| `TASK.ERROR`             | `communication-error` | HTTP/validation failure or rejected status         |
+| `TASK.PERMISSION_DENIED` | `permission-denied`   | Backend returned `permission_denied`               |
+
+The saga decides which action to dispatch in two steps. First it checks the
+HTTP-level result — if it is not `OK` (i.e. `InvalidPayload`, `HttpFail`, or
+`NotJson`), it dispatches `TASK.ERROR`. If the HTTP result is `OK`, the saga
+inspects the payload's
+[`status` field](architecture_backend.md#library-command-mechanism-libcluster):
+rejected statuses produce `TASK.ERROR` or `TASK.PERMISSION_DENIED`, `error`
+produces `TASK.FAIL`, and `success` produces `TASK.OK`.
+
+The task wizard UI reads the `response` field from the reducer to decide which
+screen to show (progress spinner, success message, error with reports, etc.).
 
 ## Notifications
 
