@@ -16,7 +16,7 @@ import {
 
 import {useTask} from "./useTask";
 
-const {success, unsuccess, communicationError} =
+const {success, unsuccess, communicationError, permissionDenied} =
   testMarks.task.fenceDeviceCreate;
 
 export const Result = ({
@@ -91,10 +91,11 @@ export const Result = ({
           tryAgain={
             <TaskResultActionWizardTryAgain
               stepName={reviewStep}
-              data-test="task-try-again"
+              {...permissionDenied.tryAgain.mark}
             />
           }
-          cancel={<TaskButtonResultCancel />}
+          cancel={<TaskButtonResultCancel {...permissionDenied.cancel.mark} />}
+          {...permissionDenied.mark}
         />
       }
     />

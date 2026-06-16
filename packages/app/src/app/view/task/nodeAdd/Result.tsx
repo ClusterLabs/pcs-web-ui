@@ -17,7 +17,8 @@ import {
 
 import {useTask} from "./useTask";
 
-const {success, unsuccess, communicationError} = testMarks.task.nodeAdd;
+const {success, unsuccess, communicationError, permissionDenied} =
+  testMarks.task.nodeAdd;
 
 export const Result = ({
   backStep,
@@ -106,10 +107,11 @@ export const Result = ({
           tryAgain={
             <TaskResultActionWizardTryAgain
               stepName={reviewStep}
-              data-test="task-try-again"
+              {...permissionDenied.tryAgain.mark}
             />
           }
-          cancel={<TaskButtonResultCancel />}
+          cancel={<TaskButtonResultCancel {...permissionDenied.cancel.mark} />}
+          {...permissionDenied.mark}
         />
       }
     />

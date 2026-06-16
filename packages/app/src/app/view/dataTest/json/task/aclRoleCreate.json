@@ -17,6 +17,10 @@
     "cancel": {},
     "tryAgain": {}
   },
+  "permissionDenied": {
+    "cancel": {},
+    "tryAgain": {}
+  },
   "report": {},
   "review": {
     "permission": {

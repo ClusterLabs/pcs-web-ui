@@ -69,6 +69,10 @@
     "cancel": {},
     "tryAgain": {}
   },
+  "permissionDenied": {
+    "cancel": {},
+    "tryAgain": {}
+  },
   "nameAndNodes": {
     "clusterName": {},
     "node": {

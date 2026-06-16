@@ -3,6 +3,10 @@
     "cancel": {},
     "tryAgain": {}
   },
+  "permissionDenied": {
+    "cancel": {},
+    "tryAgain": {}
+  },
   "instanceAttrs": {
     "attr": {
       "name": {},
