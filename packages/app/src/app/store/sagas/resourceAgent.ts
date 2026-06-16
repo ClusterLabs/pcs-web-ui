@@ -8,6 +8,7 @@ import {
   log,
   processError,
   put,
+  putNotification,
   putTaskFailed,
   select,
 } from "./common";
@@ -34,15 +35,20 @@ export function* load({
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
       action: () => put(errorAction),
+      useNotification: true,
     });
     return;
   }
 
   const {payload} = result;
 
-  if (lib.isCommunicationError(payload)) {
+  if (lib.isCommandRejected(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
-    yield putTaskFailed(taskLabel, payload.status_msg);
+    if (payload.status === "permission_denied") {
+      yield putNotification("ERROR", `Permission denied while: ${taskLabel}`);
+    } else {
+      yield putTaskFailed(taskLabel, payload.status_msg);
+    }
     yield put(errorAction);
     return;
   }

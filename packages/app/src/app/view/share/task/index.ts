@@ -8,6 +8,7 @@ export * from "./TaskContext";
 export * from "./WizardFooter";
 export * from "./TaskFinishLibUnsuccess";
 export * from "./TaskFinishLibCommunicationError";
+export * from "./TaskFinishLibPermissionDenied";
 export * from "./TaskFinishLibWizard";
 export * from "./TaskFinishError";
 export * from "./TaskResultLib";

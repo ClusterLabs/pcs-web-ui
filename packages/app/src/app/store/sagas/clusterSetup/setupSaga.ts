@@ -57,9 +57,12 @@ export function* setup({
 
   const {payload} = result;
 
-  if (lib.isCommunicationError(payload)) {
+  if (lib.isCommandRejected(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
     yield put(errorAction);
+    if (payload.status === "permission_denied") {
+      yield putNotification("ERROR", `Permission denied while: ${taskLabel}`);
+    }
     return;
   }
 

@@ -178,6 +178,26 @@ export const resourceTree = [
           },
         ],
       }),
+      primitive("C3", {
+        crm_status: [resourceStatus("C3-ok")],
+        instance_attr: [
+          {
+            id: "C3-instance_attributes-db-password",
+            name: "fake",
+            value: "lrm://",
+          },
+        ],
+      }),
+      primitive("C4", {
+        crm_status: [resourceStatus("C4-ok")],
+        instance_attr: [
+          {
+            id: "C4-instance_attributes-db-password",
+            name: "fake",
+            value: "lrm://",
+          },
+        ],
+      }),
     ],
     {
       meta_attr: [

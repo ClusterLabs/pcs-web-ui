@@ -10,10 +10,12 @@ export const TaskResultLib = (props: {
     | "forceable-fail"
     | "fail"
     | "communication-error"
+    | "permission-denied"
     | "progress";
   success: React.ReactNode;
   unsuccess: React.ReactNode;
   communicationError: React.ReactNode;
+  permissionDenied: React.ReactNode;
   reports: React.ReactNode;
 }) => {
   const {taskLabel} = useTaskContext();
@@ -36,6 +38,9 @@ export const TaskResultLib = (props: {
 
     case "communication-error":
       return <>{props.communicationError}</>;
+
+    case "permission-denied":
+      return <>{props.permissionDenied}</>;
 
     default:
       return <TaskProgress title={`Processing task "${taskLabel}".`} />;

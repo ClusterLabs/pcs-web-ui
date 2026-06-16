@@ -37,6 +37,8 @@ export const shape = <DATA extends t.Any>(data: DATA) =>
           exception: null,
           input_error: null,
           unknown_cmd: null,
+          not_authorized: null,
+          permission_denied: null,
         }),
         data: t.null,
       }),

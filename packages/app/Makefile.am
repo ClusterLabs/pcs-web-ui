@@ -759,6 +759,7 @@ EXTRA_DIST		= \
 			  src/app/view/share/task/TaskContext.ts \
 			  src/app/view/share/task/TaskFinishError.tsx \
 			  src/app/view/share/task/TaskFinishLibCommunicationError.tsx \
+			  src/app/view/share/task/TaskFinishLibPermissionDenied.tsx \
 			  src/app/view/share/task/TaskFinishLibUnsuccess.tsx \
 			  src/app/view/share/task/TaskFinishLibWizard.tsx \
 			  src/app/view/share/task/TaskFooter.tsx \
@@ -807,6 +808,7 @@ EXTRA_DIST		= \
 			  src/app/view/task/aclAssignSubjectToRole/CommunicationError.tsx \
 			  src/app/view/task/aclAssignSubjectToRole/Footer.tsx \
 			  src/app/view/task/aclAssignSubjectToRole/index.ts \
+			  src/app/view/task/aclAssignSubjectToRole/PermissionDenied.tsx \
 			  src/app/view/task/aclAssignSubjectToRole/Success.tsx \
 			  src/app/view/task/aclAssignSubjectToRole/Unsuccess.tsx \
 			  src/app/view/task/aclAssignSubjectToRole/useTask.ts \
@@ -815,6 +817,7 @@ EXTRA_DIST		= \
 			  src/app/view/task/aclRoleAddPermission/Configure.tsx \
 			  src/app/view/task/aclRoleAddPermission/Footer.tsx \
 			  src/app/view/task/aclRoleAddPermission/index.ts \
+			  src/app/view/task/aclRoleAddPermission/PermissionDenied.tsx \
 			  src/app/view/task/aclRoleAddPermission/Success.tsx \
 			  src/app/view/task/aclRoleAddPermission/Unsuccess.tsx \
 			  src/app/view/task/aclRoleAddPermission/useTask.ts \
@@ -905,6 +908,7 @@ EXTRA_DIST		= \
 			  src/app/view/task/constraintTicketCreate/ConstraintTicketCreate.tsx \
 			  src/app/view/task/constraintTicketCreate/Footer.tsx \
 			  src/app/view/task/constraintTicketCreate/index.ts \
+			  src/app/view/task/constraintTicketCreate/PermissionDenied.tsx \
 			  src/app/view/task/constraintTicketCreate/Success.tsx \
 			  src/app/view/task/constraintTicketCreate/Unsuccess.tsx \
 			  src/app/view/task/constraintTicketCreate/useTask.ts \
@@ -938,6 +942,7 @@ EXTRA_DIST		= \
 			  src/app/view/task/fenceDeviceDisable/FenceDeviceDisable.tsx \
 			  src/app/view/task/fenceDeviceDisable/Footer.tsx \
 			  src/app/view/task/fenceDeviceDisable/index.ts \
+			  src/app/view/task/fenceDeviceDisable/PermissionDenied.tsx \
 			  src/app/view/task/fenceDeviceDisable/Success.tsx \
 			  src/app/view/task/fenceDeviceDisable/Unsuccess.tsx \
 			  src/app/view/task/fenceDeviceDisable/useTask.ts \
@@ -1076,6 +1081,7 @@ EXTRA_DIST		= \
 			  src/app/view/task/sbdDisable/CommunicationError.tsx \
 			  src/app/view/task/sbdDisable/Footer.tsx \
 			  src/app/view/task/sbdDisable/index.ts \
+			  src/app/view/task/sbdDisable/PermissionDenied.tsx \
 			  src/app/view/task/sbdDisable/SbdDisable.tsx \
 			  src/app/view/task/sbdDisable/Success.tsx \
 			  src/app/view/task/sbdDisable/Unsuccess.tsx \

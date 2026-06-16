@@ -22,6 +22,7 @@ export const TaskSimpleLib = (props: {
   success: TaskResultProps["success"];
   unsuccess: TaskResultProps["unsuccess"];
   communicationError: TaskResultProps["communicationError"];
+  permissionDenied: TaskResultProps["permissionDenied"];
   reports: TaskResultProps["reports"];
 
   title?: ModalProps["title"];
@@ -54,6 +55,7 @@ export const TaskSimpleLib = (props: {
             success={props.success}
             unsuccess={props.unsuccess}
             communicationError={props.communicationError}
+            permissionDenied={props.permissionDenied}
             reports={props.reports}
           />
         )}

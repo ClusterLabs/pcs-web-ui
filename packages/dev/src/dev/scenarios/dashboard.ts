@@ -12,6 +12,16 @@ app.libCluster("resource-get-cibsecrets", (req, res) => {
     return;
   }
 
+  if (resourceId === "C3") {
+    res.json(response.lib.permissionDenied);
+    return;
+  }
+
+  if (resourceId === "C4") {
+    res.json(response.lib.notAuthorized);
+    return;
+  }
+
   res.json(
     response.lib.success({
       data: {

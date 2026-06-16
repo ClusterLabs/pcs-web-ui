@@ -1,7 +1,16 @@
 import {libCallCluster} from "app/backend";
 import type {Action, ActionMap} from "app/store";
 
-import {api, lib, log, processError, put, race, take} from "./common";
+import {
+  api,
+  lib,
+  log,
+  processError,
+  put,
+  putNotification,
+  race,
+  take,
+} from "./common";
 
 export function* create({
   key,
@@ -41,9 +50,12 @@ export function* create({
   }
 
   const {payload} = result;
-  if (lib.isCommunicationError(payload)) {
+  if (lib.isCommandRejected(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
     yield put(errorAction);
+    if (payload.status === "permission_denied") {
+      yield putNotification("ERROR", `Permission denied while: ${taskLabel}`);
+    }
     return;
   }
 

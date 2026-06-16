@@ -1,7 +1,15 @@
 import {libClusterStonithAgentListAgents} from "app/backend";
 import type {Action, ActionMap} from "app/store/actions";
 
-import {api, lib, log, processError, put, putTaskFailed} from "./common";
+import {
+  api,
+  lib,
+  log,
+  processError,
+  put,
+  putNotification,
+  putTaskFailed,
+} from "./common";
 
 type ApiCallResult = api.ResultOf<typeof libClusterStonithAgentListAgents>;
 export function* load({key}: ActionMap["FENCE_AGENT.LIST.LOAD"]) {
@@ -19,16 +27,20 @@ export function* load({key}: ActionMap["FENCE_AGENT.LIST.LOAD"]) {
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
       action: () => put(errorAction),
-      useNotification: false,
+      useNotification: true,
     });
     return;
   }
 
   const {payload} = result;
 
-  if (lib.isCommunicationError(payload)) {
+  if (lib.isCommandRejected(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
-    yield putTaskFailed(taskLabel, payload.status_msg);
+    if (payload.status === "permission_denied") {
+      yield putNotification("ERROR", `Permission denied while: ${taskLabel}`);
+    } else {
+      yield putTaskFailed(taskLabel, payload.status_msg);
+    }
     yield put(errorAction);
     return;
   }

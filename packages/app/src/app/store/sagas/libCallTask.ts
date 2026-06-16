@@ -36,9 +36,19 @@ export function* callLib({
 
   const {payload} = result;
 
-  if (lib.isCommunicationError(payload)) {
+  if (lib.isCommandRejected(payload)) {
     log.libInputError(payload.status, payload.status_msg, taskLabel);
-    yield put(errorAction);
+    if (payload.status === "permission_denied") {
+      yield put({
+        type: "LIB.CALL.CLUSTER.TASK.PERMISSION_DENIED",
+        key,
+        payload: {
+          commandName: command.name,
+        },
+      });
+    } else {
+      yield put(errorAction);
+    }
     return;
   }
 

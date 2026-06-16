@@ -21,29 +21,6 @@ constraints, etc.). The dashboard links to cluster detail; the cluster detail
 has a breadcrumb back to the dashboard. Navigation uses a custom router
 (`view/share/router/`) with URL patterns defined in `view/share/location.ts`.
 
-**Tasks** are a central UI concept — modal wizard dialogs that guide users
-through complex operations (e.g. cluster setup, adding a node, creating a
-resource). Each task has its own folder with a set of components — typically one
-per wizard step plus footers and result screens — and a `useTask` hook. All
-tasks are registered in `task/taskMap.ts`.
-
-Each task's `useTask` hook builds on `useTaskCommon` (which provides lifecycle
-methods and task state selection) and serves as the single interface between the
-task's components and the store layer. It typically provides:
-
-- **Derived data** — selects and computes values from Redux state for the task's
-  components (e.g. filtered lists, loaded agent info).
-- **Validation** — boolean flags indicating whether form inputs are valid
-  (e.g. `isNameValid`, `areLinksValid`).
-- **State updates** — functions that dispatch actions to mutate the task's form
-  state as the user fills in the wizard.
-- **Execution** — functions that prepare the final payload from form state and
-  dispatch the action that triggers the operation. The dispatched action depends
-  on the task — library commands use `LIB.CALL.CLUSTER.TASK` (see
-  [Library command actions](architecture_store.md#library-command-actions)),
-  while other tasks dispatch domain-specific actions directly
-  (e.g. `CLUSTER.STOP`, `NODE.ADD`).
-
 ## Component file organization
 
 Each React component has a unique name and lives in its own file. The file name
@@ -171,6 +148,54 @@ to spread the `data-test` attribute onto a DOM element.
    component has multiple visual states requiring different marks, the
    structural component must control the marking — not the shared component
    (which does not know which state will render).
+
+## Tasks
+
+Tasks are modal wizard dialogs that guide users through complex operations
+(e.g. cluster setup, adding a node, creating a resource). Each task has its own
+folder with a set of components — typically one per wizard step plus footers and
+result screens — and a `useTask` hook. All tasks are registered in
+`task/taskMap.ts`.
+
+Each task's `useTask` hook builds on `useTaskCommon` (which provides lifecycle
+methods and task state selection) and serves as the single interface between the
+task's components and the store layer. It typically provides:
+
+- **Derived data** — selects and computes values from Redux state for the task's
+  components (e.g. filtered lists, loaded agent info).
+- **Validation** — boolean flags indicating whether form inputs are valid
+  (e.g. `isNameValid`, `areLinksValid`).
+- **State updates** — functions that dispatch actions to mutate the task's form
+  state as the user fills in the wizard.
+- **Execution** — functions that prepare the final payload from form state and
+  dispatch the action that triggers the operation. The dispatched action depends
+  on the task — library commands use `LIB.CALL.CLUSTER.TASK` (see
+  [Library command actions](architecture_store.md#library-command-actions)),
+  while other tasks dispatch domain-specific actions directly
+  (e.g. `CLUSTER.STOP`, `NODE.ADD`).
+
+### Task result screens
+
+Tasks that use `LIB.CALL.CLUSTER.TASK` must provide a result screen for each
+response state from the [task response
+lifecycle](architecture_store.md#task-response-lifecycle). The `TaskResultLib`
+shared component switches on the response state and renders the appropriate
+screen:
+
+- **success** — operation completed; typically shows a success message.
+- **fail / forceable-fail** — command returned an error; shows reports and
+  recovery options (back to edit, force proceed).
+- **communication-error** — HTTP/validation failure or rejected status; offers
+  retry.
+- **permission-denied** — user lacks permission; offers retry.
+- **progress** — request in flight; shows a spinner (handled by default).
+
+Wizard-style tasks can use `TaskFinishLibWizard` which provides default
+implementations for unsuccess, communication error, and permission denied
+screens. Simple (non-wizard) tasks compose these screens individually via
+`TaskSimpleLib` or `TaskResultLib` directly, typically with a task-specific
+`PermissionDenied` component that wires the retry action from the task's
+`useTask` hook.
 
 ## Techniques
 
