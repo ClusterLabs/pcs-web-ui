@@ -9,7 +9,7 @@ export const libClusterStonithAgentDescribeAgent = async ({
   clusterName: string;
   agentName: string;
 }): CallResult<typeof shape> => {
-  return http.post(url({clusterName}), {
+  return http.post(url, {
     payload: payload(agentName),
     shape: shape,
   });

@@ -6,17 +6,11 @@ import {
 } from "@patternfly/react-icons";
 
 import {Link, location} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
 import type {Node} from "app/view/cluster/types";
 
 export const SingleNodeView = ({singleNode}: {singleNode: Node}) => {
-  const {clusterName} = useLoadedCluster();
   const nodeNameLink = (
-    <Link
-      isInline
-      strong
-      to={location.node({clusterName, nodeName: singleNode.name})}
-    >
+    <Link isInline strong to={location.node({nodeName: singleNode.name})}>
       {singleNode.name}
     </Link>
   );

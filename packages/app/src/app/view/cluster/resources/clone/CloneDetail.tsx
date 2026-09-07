@@ -15,7 +15,7 @@ export const CloneDetail = ({
   member: Member;
   issueList: Clone["issueList"];
 }) => {
-  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
+  const {resourceOnNodeStatusList} = useLoadedCluster();
 
   const primitiveIds =
     member.itemType === "primitive"
@@ -53,19 +53,13 @@ export const CloneDetail = ({
               <>
                 <Link
                   to={location.resource({
-                    clusterName,
                     resourceId: crmStatus.resource.id,
                   })}
                 />
                 {crmStatus.node && (
                   <>
                     <span>{" / "}</span>
-                    <Link
-                      to={location.node({
-                        clusterName,
-                        nodeName: crmStatus.node.name,
-                      })}
-                    />
+                    <Link to={location.node({nodeName: crmStatus.node.name})} />
                   </>
                 )}
               </>

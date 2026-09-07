@@ -50,7 +50,6 @@ export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
               !crmStatus.node ? null : (
                 <Link
                   to={location.node({
-                    clusterName,
                     nodeName: crmStatus.node.name,
                   })}
                 />

@@ -7,7 +7,7 @@ export const libClusterResourceAgentListAgents = async ({
 }: {
   clusterName: string;
 }): CallResult<typeof shape> => {
-  return http.post(url({clusterName}), {
+  return http.post(url, {
     payload,
     shape: shape,
   });

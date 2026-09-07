@@ -12,7 +12,7 @@ export const getPermissions = async ({
 }: {
   clusterName: string;
 }): CallResult<typeof shape> =>
-  http.get(url({clusterName}), {
+  http.get(url, {
     validate: payload => {
       const errors = validatePayload.shape(payload, shape);
       if (errors.length > 0) {

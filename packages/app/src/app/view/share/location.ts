@@ -1,74 +1,34 @@
 const root = "~/ui";
 export const dashboard = root;
 
-export const cluster = ({clusterName}: {clusterName: string}) =>
-  `${root}/cluster/${clusterName}`;
+export const nodeList = () => `${root}/nodes`;
 
-export const nodeList = ({clusterName}: {clusterName: string}) =>
-  `${cluster({clusterName})}/nodes`;
+export const node = ({nodeName}: {nodeName: string}) =>
+  `${nodeList()}/${nodeName}`;
 
-export const node = ({
-  clusterName,
-  nodeName,
-}: {
-  clusterName: string;
-  nodeName: string;
-}) => `${nodeList({clusterName})}/${nodeName}`;
+export const resourceList = () => `${root}/resources`;
 
-export const resourceList = ({clusterName}: {clusterName: string}) =>
-  `${cluster({clusterName})}/resources`;
+export const resource = ({resourceId}: {resourceId: string}) =>
+  `${resourceList()}/${resourceId}`;
 
-export const resource = ({
-  clusterName,
-  resourceId,
-}: {
-  clusterName: string;
-  resourceId: string;
-}) => `${resourceList({clusterName})}/${resourceId}`;
+export const fenceDeviceList = () => `${root}/fence-devices`;
 
-export const fenceDeviceList = ({clusterName}: {clusterName: string}) =>
-  `${cluster({clusterName})}/fence-devices`;
+export const properties = () => `${root}/properties`;
 
-export const properties = ({clusterName}: {clusterName: string}) =>
-  `${cluster({clusterName})}/properties`;
+export const fenceDevice = ({fenceDeviceId}: {fenceDeviceId: string}) =>
+  `${fenceDeviceList()}/${fenceDeviceId}`;
 
-export const fenceDevice = ({
-  clusterName,
-  fenceDeviceId,
-}: {
-  clusterName: string;
-  fenceDeviceId: string;
-}) => `${fenceDeviceList({clusterName})}/${fenceDeviceId}`;
+export const sbdList = () => `${root}/sbd`;
 
-export const sbdList = ({clusterName}: {clusterName: string}) =>
-  `${cluster({clusterName})}/sbd`;
+export const permissionList = () => `${root}/permissions`;
 
-export const permissionList = ({clusterName}: {clusterName: string}) =>
-  `${cluster({clusterName})}/permissions`;
+export const acl = () => `${root}/acl`;
 
-export const acl = ({clusterName}: {clusterName: string}) =>
-  `${cluster({clusterName})}/acl`;
+export const aclGroup = ({groupId}: {groupId: string}) =>
+  `${acl()}/group/${groupId}`;
 
-export const aclGroup = ({
-  clusterName,
-  groupId,
-}: {
-  clusterName: string;
-  groupId: string;
-}) => `${cluster({clusterName})}/acl/group/${groupId}`;
+export const aclUser = ({userId}: {userId: string}) =>
+  `${acl()}/user/${userId}`;
 
-export const aclUser = ({
-  clusterName,
-  userId,
-}: {
-  clusterName: string;
-  userId: string;
-}) => `${cluster({clusterName})}/acl/user/${userId}`;
-
-export const aclRole = ({
-  clusterName,
-  roleId,
-}: {
-  clusterName: string;
-  roleId: string;
-}) => `${cluster({clusterName})}/acl/role/${roleId}`;
+export const aclRole = ({roleId}: {roleId: string}) =>
+  `${acl()}/role/${roleId}`;
