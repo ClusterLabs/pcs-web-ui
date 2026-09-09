@@ -9,7 +9,6 @@ export function* clone({
 }: ActionMap["RESOURCE.CLONE"]) {
   const result: api.ResultOf<typeof resourceClone> = yield api.authSafe(
     resourceClone,
-    key.clusterName,
     resourceId,
   );
 
@@ -26,7 +25,6 @@ export function* unclone({
 }: ActionMap["RESOURCE.UNCLONE"]) {
   const result: api.ResultOf<typeof resourceUnclone> = yield api.authSafe(
     resourceUnclone,
-    key.clusterName,
     resourceId,
   );
 

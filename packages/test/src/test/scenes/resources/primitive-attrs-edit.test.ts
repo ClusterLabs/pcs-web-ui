@@ -39,11 +39,7 @@ describe("Edit primitive attrs", () => {
         resource_list: [cs.primitive(resourceId)],
       }),
       additionalRouteList: [
-        mock.route.updateResource({
-          clusterName,
-          resourceId,
-          attributes,
-        }),
+        mock.route.updateResource({resourceId, attributes}),
       ],
     });
     await launchTask(resourceId);
@@ -62,7 +58,6 @@ describe("Edit primitive attrs", () => {
       }),
       additionalRouteList: [
         mock.route.updateResource({
-          clusterName,
           resourceId,
           attributes,
           response: {

@@ -15,7 +15,6 @@ type ApiCallResult = api.ResultOf<typeof libClusterStonithAgentListAgents>;
 export function* load({key}: ActionMap["FENCE_AGENT.LIST.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
     libClusterStonithAgentListAgents,
-    {clusterName: key.clusterName},
   );
 
   const errorAction: Action = {

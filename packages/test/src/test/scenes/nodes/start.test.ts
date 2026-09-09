@@ -20,7 +20,7 @@ describe("Node start", () => {
   it("should successfully start", async () => {
     mock.shortcuts.withCluster({
       clusterStatus,
-      additionalRouteList: [mock.route.clusterStart({clusterName, nodeName})],
+      additionalRouteList: [mock.route.clusterStart({nodeName})],
     });
 
     await launchAction();
@@ -41,7 +41,6 @@ describe("Node start", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.clusterStart({
-          clusterName,
           nodeName,
           response: {status: [400, "Unable to start node."]},
         }),

@@ -7,7 +7,6 @@ import * as responses from "dev/responses";
 const {url, payload, shape} = endpoints.libClusterStonithAgentDescribeAgent;
 
 export const stonithAgentDescribeAgent = ({
-  clusterName,
   agentName,
   agentData,
 }: {
@@ -15,7 +14,7 @@ export const stonithAgentDescribeAgent = ({
   agentName: string;
   agentData: Extract<t.TypeOf<typeof shape>, {status: "success"}>["data"];
 }) => ({
-  url: url({clusterName}),
+  url,
   payload: payload(agentName),
   json: responses.lib.success({data: agentData}),
 });

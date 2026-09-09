@@ -6,10 +6,8 @@ import {api, put, putNotification} from "./common";
 export function* clusterStartSaga({
   payload: {clusterName},
 }: ActionMap["DASHBOARD.CLUSTER.START"]) {
-  const result: api.ResultOf<typeof clusterStart> = yield api.authSafe(
-    clusterStart,
-    clusterName,
-  );
+  const result: api.ResultOf<typeof clusterStart> =
+    yield api.authSafe(clusterStart);
 
   if (result.type !== "OK") {
     yield putNotification("ERROR", "Cluster start failed");

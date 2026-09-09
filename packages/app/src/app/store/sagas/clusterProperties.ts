@@ -9,7 +9,7 @@ import {stripForceText} from "./clusterStopUtils";
 
 export function* load({key}: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
   const result: api.ResultOf<typeof getClusterPropertiesDefinition> =
-    yield api.authSafe(getClusterPropertiesDefinition, key.clusterName);
+    yield api.authSafe(getClusterPropertiesDefinition);
 
   const taskLabel = `load cluster properties of cluster ${key.clusterName}`;
   if (result.type !== "OK") {
@@ -36,7 +36,7 @@ export function* update({
 }: ActionMap["CLUSTER.PROPERTIES.UPDATE"]) {
   const result: api.ResultOf<typeof updateClusterSettings> = yield api.authSafe(
     updateClusterSettings,
-    {clusterName, settingsMap: propertyMap, force},
+    {settingsMap: propertyMap, force},
   );
 
   const taskLabel = "update cluster properties";

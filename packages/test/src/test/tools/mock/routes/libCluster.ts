@@ -10,12 +10,12 @@ export const libCluster = (
     response?: RouteResponse;
   },
 ) => {
-  const {clusterName, payload, name: command} = props;
+  const {payload, name: command} = props;
   const response: RouteResponse = props?.response ?? {
     json: responses.lib.success(),
   };
   return {
-    url: endpoints.libCluster.url({clusterName, command}),
+    url: endpoints.libCluster.url({command}),
     payload,
     ...response,
   };

@@ -6,14 +6,8 @@ export function* create({key, payload}: ActionMap["CONSTRAINT.SINGLE.CREATE"]) {
   const backendCall =
     "locationSpecification" in payload &&
     payload.locationSpecification === "rule"
-      ? api.authSafe(addConstraintRuleRemote, {
-          clusterName: key.clusterName,
-          constraint: payload.constraint,
-        })
-      : api.authSafe(addConstraintRemote, {
-          clusterName: key.clusterName,
-          constraint: payload.constraint,
-        });
+      ? api.authSafe(addConstraintRuleRemote, {constraint: payload.constraint})
+      : api.authSafe(addConstraintRemote, {constraint: payload.constraint});
 
   const result: api.ResultOf<
     typeof addConstraintRemote | typeof addConstraintRuleRemote

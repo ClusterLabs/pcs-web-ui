@@ -9,7 +9,7 @@ export function* clusterStopSaga({
 }: ActionMap["CLUSTER.STOP"]) {
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
     clusterStop,
-    {clusterName, force},
+    {force},
   );
 
   const taskLabel = `Stop cluster "${clusterName}"`;

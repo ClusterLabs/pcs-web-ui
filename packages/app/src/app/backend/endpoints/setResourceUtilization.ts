@@ -1,8 +1,7 @@
 import {endpoint} from "./endpoint";
 
 export const setResourceUtilization = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/set_resource_utilization`,
+  url: "/managec/set_resource_utilization",
   method: "post",
   params: ({
     resourceId,

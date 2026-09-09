@@ -21,7 +21,7 @@ export function* load({
 }: ActionMap["RESOURCE_AGENT.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
     libClusterResourceAgentDescribeAgent,
-    {clusterName: key.clusterName, agentName},
+    {agentName},
   );
 
   const taskLabel = `load resource agent ${agentName}`;

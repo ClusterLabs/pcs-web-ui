@@ -3,8 +3,7 @@ import * as t from "io-ts";
 import {endpoint} from "./endpoint";
 
 export const resourceCleanup = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/resource_cleanup`,
+  url: "/managec/resource_cleanup",
   method: "post",
   params: undefined,
   payload: undefined,

@@ -9,7 +9,6 @@ export function* refreshSaga({
 }: ActionMap["RESOURCE.REFRESH"]) {
   const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
     resourceRefresh,
-    key.clusterName,
     resourceId,
   );
   const taskLabel = `refresh ${
@@ -38,7 +37,6 @@ export function* cleanupSaga({
 }: ActionMap["RESOURCE.CLEANUP"]) {
   const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
     resourceCleanup,
-    key.clusterName,
     resourceId,
   );
   const taskLabel = `cleanup ${

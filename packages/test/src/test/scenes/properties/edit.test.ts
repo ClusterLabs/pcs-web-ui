@@ -38,7 +38,6 @@ describe("Cluster properties edit", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.updateClusterSettings({
-          clusterName,
           settingsMap: propertyMap,
           force: false,
           response: {text: "Update Successful"},
@@ -77,7 +76,6 @@ describe("Cluster properties edit", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.updateClusterSettings({
-          clusterName,
           settingsMap: propertyMap,
           force: false,
           response: {

@@ -8,10 +8,7 @@ export function* callLib({
   payload: {call: command, taskLabel},
 }: ActionMap["LIB.CALL.CLUSTER.TASK"]) {
   const {result}: {result: api.ResultOf<typeof libCallCluster>} = yield race({
-    result: api.authSafe(libCallCluster, {
-      clusterName: key.clusterName,
-      command,
-    }),
+    result: api.authSafe(libCallCluster, {command}),
     cancel: take("LIB.CALL.CLUSTER.TASK.CANCEL"),
   });
 

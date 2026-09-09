@@ -462,13 +462,8 @@ export type CommandResponseData = {
 };
 
 export const libCluster = endpoint({
-  url: ({
-    clusterName,
-    command,
-  }: {
-    clusterName: string;
-    command: Commands[number]["name"];
-  }) => `/managec/${clusterName}/api/v1/${command}`,
+  url: ({command}: {command: Commands[number]["name"]}) =>
+    `/managec/api/v1/${command}`,
   method: "post",
   params: undefined,
   payload: undefined,

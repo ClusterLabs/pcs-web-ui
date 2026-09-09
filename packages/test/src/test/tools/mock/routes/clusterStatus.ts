@@ -7,6 +7,6 @@ export const clusterStatus = ({
 }: {
   clusterStatus: types.Cluster;
 }) => ({
-  url: endpoints.clusterStatus.url({clusterName: clusterStatus.cluster_name}),
+  url: endpoints.clusterStatus.url,
   json: clusterStatus,
 });

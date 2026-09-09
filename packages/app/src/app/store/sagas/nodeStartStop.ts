@@ -10,7 +10,6 @@ export function* nodeStart({
 }: ActionMap["NODE.START"]) {
   const result: api.ResultOf<typeof clusterStart> = yield api.authSafe(
     clusterStart,
-    key.clusterName,
     nodeName,
   );
 
@@ -28,7 +27,6 @@ export function* nodeStop({
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
     clusterStop,
     {
-      clusterName: key.clusterName,
       nodeName,
       force,
     },

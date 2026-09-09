@@ -7,17 +7,15 @@ import {paramsToBody} from "./tools";
 const {url, params} = endpoints.updateFenceDevice;
 
 export const updateFenceDevice = ({
-  clusterName,
   fenceDeviceId,
   attributes,
   response,
 }: {
-  clusterName: string;
   fenceDeviceId: string;
   attributes: Record<string, string>;
   response?: RouteResponse;
 }) => ({
-  url: url({clusterName}),
+  url,
   body: paramsToBody(
     params({
       resourceId: fenceDeviceId,

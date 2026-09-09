@@ -9,7 +9,6 @@ type Constraint = Parameters<
 >[0]["constraint"];
 
 export const addConstraintRemote = ({
-  clusterName,
   constraint,
   response,
 }: {
@@ -18,7 +17,7 @@ export const addConstraintRemote = ({
   response?: RouteResponse;
 }) => {
   return {
-    url: endpoints.addConstraintRemote.url({clusterName}),
+    url: endpoints.addConstraintRemote.url,
     body: paramsToBody(endpoints.addConstraintRemote.params({constraint})),
     ...(response ?? {text: "Successfully added constraint"}),
   };

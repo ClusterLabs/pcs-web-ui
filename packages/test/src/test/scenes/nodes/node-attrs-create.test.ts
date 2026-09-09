@@ -21,7 +21,6 @@ describe("Node attributes create", () => {
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
         mock.route.addNodeAttrRemote({
-          clusterName,
           nodeName,
           name: attribute.name,
           value: attribute.value,
@@ -47,7 +46,6 @@ describe("Node attributes create", () => {
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
         mock.route.addNodeAttrRemote({
-          clusterName,
           nodeName,
           name: attribute.name,
           value: attribute.value,

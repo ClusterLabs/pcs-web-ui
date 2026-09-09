@@ -6,10 +6,8 @@ import {api, log, processError, put, putNotification} from "./common";
 export function* clusterDestroy({
   payload,
 }: ActionMap["DASHBOARD.CLUSTER.DESTROY"]) {
-  const result: api.ResultOf<typeof destroyCluster> = yield api.authSafe(
-    destroyCluster,
-    payload.clusterName,
-  );
+  const result: api.ResultOf<typeof destroyCluster> =
+    yield api.authSafe(destroyCluster);
 
   if (result.type !== "OK") {
     yield processError(result, payload.clusterName);

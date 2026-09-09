@@ -21,7 +21,6 @@ describe("Node utilization attributes create", () => {
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
         mock.route.setNodeUtilization({
-          clusterName,
           nodeName,
           name: utilizationPair.name,
           value: utilizationPair.value,
@@ -47,7 +46,6 @@ describe("Node utilization attributes create", () => {
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
         mock.route.setNodeUtilization({
-          clusterName,
           nodeName,
           name: utilizationPair.name,
           value: utilizationPair.value,

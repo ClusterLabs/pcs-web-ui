@@ -1,13 +1,7 @@
 import {endpoints} from "app/backend/endpoints";
 
-export const destroyCluster = ({
-  clusterName,
-  status,
-}: {
-  clusterName: string;
-  status?: number;
-}) => ({
-  url: endpoints.destroyCluster.url({clusterName: clusterName}),
+export const destroyCluster = ({status}: {status?: number}) => ({
+  url: endpoints.destroyCluster.url,
   body: {all: "1"},
   status: [status ?? 200, ""] as [number, string],
 });

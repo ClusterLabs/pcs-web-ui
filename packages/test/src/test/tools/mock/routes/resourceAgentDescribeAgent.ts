@@ -7,7 +7,6 @@ import * as responses from "dev/responses";
 const {url, payload, shape} = endpoints.libClusterResourceAgentDescribeAgent;
 
 export const resourceAgentDescribeAgent = ({
-  clusterName,
   agentName,
   agentData,
 }: {
@@ -15,7 +14,7 @@ export const resourceAgentDescribeAgent = ({
   agentName: string;
   agentData: Extract<t.TypeOf<typeof shape>, {status: "success"}>["data"];
 }) => ({
-  url: url({clusterName}),
+  url,
   payload: payload(agentName),
   json: responses.lib.success({data: agentData}),
 });

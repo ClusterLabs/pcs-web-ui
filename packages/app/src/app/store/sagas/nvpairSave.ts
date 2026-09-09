@@ -49,14 +49,12 @@ export function* nvpairSave({key, payload: {name, value, owner}}: SaveAction) {
 
   if (owner.type === "resource-utilization") {
     result = yield api.authSafe(setResourceUtilization, {
-      clusterName: key.clusterName,
       resourceId: owner.id,
       name,
       value,
     });
   } else if (owner.type === "resource-meta") {
     result = yield api.authSafe(addMetaAttrRemote, {
-      clusterName: key.clusterName,
       resourceId: owner.id,
       isStonith: false,
       name,
@@ -64,7 +62,6 @@ export function* nvpairSave({key, payload: {name, value, owner}}: SaveAction) {
     });
   } else if (owner.type === "fence-device-meta") {
     result = yield api.authSafe(addMetaAttrRemote, {
-      clusterName: key.clusterName,
       resourceId: owner.id,
       isStonith: true,
       name,
@@ -72,14 +69,12 @@ export function* nvpairSave({key, payload: {name, value, owner}}: SaveAction) {
     });
   } else if (owner.type === "node-attr") {
     result = yield api.authSafe(addNodeAttrRemote, {
-      clusterName: key.clusterName,
       nodeName: owner.id,
       name,
       value,
     });
   } else {
     result = yield api.authSafe(setNodeUtilization, {
-      clusterName: key.clusterName,
       nodeName: owner.id,
       name,
       value,

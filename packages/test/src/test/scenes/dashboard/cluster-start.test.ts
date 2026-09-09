@@ -24,7 +24,7 @@ describe("Cluster destroy", () => {
   afterEach(mock.stop);
 
   it("should be successfully destroyed", async () => {
-    mockWithDashboard([mock.route.clusterStart({clusterName})]);
+    mockWithDashboard([mock.route.clusterStart({})]);
 
     await launchStart();
     await appConfirm.run(confirmTitle);
@@ -39,9 +39,7 @@ describe("Cluster destroy", () => {
   });
 
   it("should deal with an error", async () => {
-    mockWithDashboard([
-      mock.route.clusterStart({clusterName, response: {status: 400}}),
-    ]);
+    mockWithDashboard([mock.route.clusterStart({response: {status: 400}})]);
 
     await launchStart();
     await appConfirm.run(confirmTitle);

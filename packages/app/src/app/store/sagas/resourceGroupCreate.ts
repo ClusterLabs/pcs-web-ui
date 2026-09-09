@@ -18,7 +18,6 @@ export function* create({
 }: ActionMap["RESOURCE.GROUP.CREATE"]) {
   const {result}: {result: api.ResultOf<typeof libCallCluster>} = yield race({
     result: api.authSafe(libCallCluster, {
-      clusterName: key.clusterName,
       command: {
         name: "resource-group-add",
         payload: {

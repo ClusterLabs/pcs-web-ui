@@ -7,7 +7,6 @@ import {paramsToBody} from "./tools";
 type Params = Parameters<typeof endpoints.resourceChangeGroup.params>[0];
 
 export const resourceChangeGroup = ({
-  clusterName,
   resourceId,
   groupId,
   oldGroupId,
@@ -15,11 +14,10 @@ export const resourceChangeGroup = ({
   adjacentResourceId,
   response,
 }: {
-  clusterName: string;
   response?: RouteResponse;
 } & Params) => {
   return {
-    url: endpoints.resourceChangeGroup.url({clusterName}),
+    url: endpoints.resourceChangeGroup.url,
     body: paramsToBody(
       endpoints.resourceChangeGroup.params({
         resourceId,

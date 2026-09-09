@@ -9,7 +9,6 @@ export function* updateArguments({
 }: ActionMap["FENCE_DEVICE.EDIT_ARGS.RUN"]) {
   const result: api.ResultOf<typeof updateFenceDevice> = yield api.authSafe(
     updateFenceDevice,
-    key.clusterName,
     fenceDeviceId,
     attributes,
   );

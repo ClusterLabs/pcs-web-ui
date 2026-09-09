@@ -3,8 +3,7 @@ import * as t from "io-ts";
 import {endpoint} from "./endpoint";
 
 export const resourceRefresh = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/resource_refresh`,
+  url: "/managec/resource_refresh",
   method: "post",
   params: undefined,
   payload: undefined,

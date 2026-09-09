@@ -10,10 +10,7 @@ export function* deleteConstraint({
 }: ActionMap["CONSTRAINT.DELETE"]) {
   const result: RemoveConstraintRemoteResult = yield api.authSafe(
     removeConstraintRemote,
-    {
-      clusterName,
-      constraintId,
-    },
+    {constraintId},
   );
 
   yield processClusterResultBasic(
@@ -32,10 +29,7 @@ export function* deleteConstraintRule({
 }: ActionMap["CONSTRAINT.DELETE.RULE"]) {
   const result: RemoveConstraintRuleRemoteResult = yield api.authSafe(
     removeConstraintRuleRemote,
-    {
-      clusterName,
-      ruleId,
-    },
+    {ruleId},
   );
 
   yield processClusterResultBasic(

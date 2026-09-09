@@ -19,10 +19,7 @@ export function* load({
   payload: {agentName},
 }: ActionMap["FENCE_AGENT.LOAD"]) {
   const result: api.ResultOf<typeof libClusterStonithAgentDescribeAgent> =
-    yield authSafe(libClusterStonithAgentDescribeAgent, {
-      clusterName: key.clusterName,
-      agentName,
-    });
+    yield authSafe(libClusterStonithAgentDescribeAgent, {agentName});
 
   const taskLabel = `load fence agent ${agentName}`;
 
