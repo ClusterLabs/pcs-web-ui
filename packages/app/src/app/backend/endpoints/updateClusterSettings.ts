@@ -1,8 +1,7 @@
 import {endpoint} from "./endpoint";
 
 export const updateClusterSettings = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/update_cluster_settings`,
+  url: "/managec/update_cluster_settings",
   method: "post",
   params: ({
     settingsMap,

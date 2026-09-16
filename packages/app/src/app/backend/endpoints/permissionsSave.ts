@@ -6,12 +6,8 @@ type Permission = {
   allow: ("read" | "write" | "grant" | "full")[];
 };
 
-const makePostData = (
-  clusterName: string,
-  permissionList: Permission[],
-): [string, string][] => {
+const makePostData = (permissionList: Permission[]): [string, string][] => {
   const postData: [string, string][] = [];
-  postData.push(["cluster_name", `${clusterName}`]);
 
   permissionList.forEach((permission, i) => {
     postData.push([`permissions[${i}][name]`, permission.name]);
@@ -30,18 +26,13 @@ const makePostData = (
 };
 
 export const permissionsSave = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/permissions_save`,
+  url: "/managec/permissions_save",
   method: "post",
   params: ({
-    clusterName,
     permissionList,
   }: {
-    clusterName: string;
     permissionList: Permission[];
-  }): [string, string][] => {
-    return makePostData(clusterName, permissionList);
-  },
+  }): [string, string][] => makePostData(permissionList),
   shape: undefined,
   payload: undefined,
   validate: undefined,

@@ -3,8 +3,7 @@ import * as t from "io-ts";
 import {endpoint} from "./endpoint";
 
 export const getClusterPropertiesDefinition = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/get_cluster_properties_definition`,
+  url: "/managec/get_cluster_properties_definition",
   method: "get",
   params: undefined,
   payload: undefined,

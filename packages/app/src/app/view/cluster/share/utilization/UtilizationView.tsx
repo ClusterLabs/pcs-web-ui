@@ -14,7 +14,7 @@ export const UtilizationView = (props: {
   listItem: PageProps["listItem"];
   "data-test": string;
 }) => {
-  const {hasCibInfo, clusterProperties, clusterName} = useLoadedCluster();
+  const {hasCibInfo, clusterProperties} = useLoadedCluster();
   const {navigate} = useLocation();
   return (
     <NVPairListPage
@@ -43,7 +43,7 @@ export const UtilizationView = (props: {
                   take effect.
                 </p>
                 <AlertActionLink
-                  onClick={() => navigate(location.properties({clusterName}))}
+                  onClick={() => navigate(location.properties())}
                 >
                   Go to properties section
                 </AlertActionLink>

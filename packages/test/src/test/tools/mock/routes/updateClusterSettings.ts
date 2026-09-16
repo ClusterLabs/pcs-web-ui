@@ -5,18 +5,16 @@ import type {RouteResponse} from "../mock";
 import {paramsToBody} from "./tools";
 
 export const updateClusterSettings = ({
-  clusterName,
   settingsMap,
   force,
   response,
 }: {
-  clusterName: string;
   settingsMap: Record<string, string>;
   force: boolean;
   response?: RouteResponse;
 }) => {
   return {
-    url: endpoints.updateClusterSettings.url({clusterName}),
+    url: endpoints.updateClusterSettings.url,
     body: paramsToBody(
       endpoints.updateClusterSettings.params({settingsMap, force}),
     ),

@@ -3,10 +3,8 @@ import {type CallResult, endpoints, http} from "./tools";
 const {url} = endpoints.addConstraintRuleRemote;
 
 export const addConstraintRuleRemote = async ({
-  clusterName,
   constraint,
 }: {
-  clusterName: string;
   constraint: {
     force?: boolean;
     location: {
@@ -24,7 +22,7 @@ export const addConstraintRuleRemote = async ({
 
   const {resourceSpecification, resourceValue, rule, score} =
     constraint.location;
-  return http.post(url({clusterName}), {
+  return http.post(url, {
     params: [
       ["c_type", "loc"],
       [

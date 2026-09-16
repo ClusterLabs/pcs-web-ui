@@ -2,11 +2,9 @@ import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 
-export const getClusterPropertiesDefinition = ({
-  clusterName,
-}: {
+export const getClusterPropertiesDefinition = (_props: {
   clusterName: string;
 }) => ({
-  url: endpoints.getClusterPropertiesDefinition.url({clusterName}),
+  url: endpoints.getClusterPropertiesDefinition.url,
   json: responses.clusterProperties.ok,
 });

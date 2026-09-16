@@ -23,9 +23,9 @@ export const RoleViewSubjects = ({
   const subjectLocation = React.useCallback(
     (subjectId: string) =>
       subjectType === "user"
-        ? location.aclUser({clusterName, userId: subjectId})
-        : location.aclGroup({clusterName, groupId: subjectId}),
-    [clusterName, subjectType],
+        ? location.aclUser({userId: subjectId})
+        : location.aclGroup({groupId: subjectId}),
+    [subjectType],
   );
   return (
     <DetailViewSection caption={`${tools.labelize(subjectType)}s assigned`}>

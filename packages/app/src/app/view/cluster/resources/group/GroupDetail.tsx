@@ -3,7 +3,7 @@ import {CrmStatusTable, IssueList, Link, location} from "app/view/share";
 import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
 
 export const GroupDetail = ({group}: {group: Group}) => {
-  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
+  const {resourceOnNodeStatusList} = useLoadedCluster();
   const primitiveIds = group.resources.map(r => r.id);
   const crmStatusList = resourceOnNodeStatusList.filter(s =>
     primitiveIds.includes(s.resource.id),
@@ -24,17 +24,13 @@ export const GroupDetail = ({group}: {group: Group}) => {
             cell: crmStatus => (
               <>
                 <Link
-                  to={location.resource({
-                    clusterName,
-                    resourceId: crmStatus.resource.id,
-                  })}
+                  to={location.resource({resourceId: crmStatus.resource.id})}
                 />
                 {crmStatus.node && (
                   <>
                     <span>{" / "}</span>
                     <Link
                       to={location.node({
-                        clusterName,
                         nodeName: crmStatus.node.name,
                       })}
                     />

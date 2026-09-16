@@ -11,7 +11,6 @@ export function* load({
   payload: {resourceId, attributeNames},
 }: ActionMap["RESOURCE.CIB_SECRETS.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(libCallCluster, {
-    clusterName: key.clusterName,
     command: {
       name: "resource-get-cibsecrets" as const,
       payload: {

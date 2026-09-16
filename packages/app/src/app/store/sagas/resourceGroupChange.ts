@@ -5,10 +5,7 @@ import {api, put} from "app/store/sagas/common";
 export function* change({key, payload}: ActionMap["RESOURCE.GROUP.CHANGE"]) {
   const result: api.ResultOf<typeof resourceChangeGroup> = yield api.authSafe(
     resourceChangeGroup,
-    {
-      clusterName: key.clusterName,
-      ...payload,
-    },
+    payload,
   );
 
   if (result.type === "OK") {

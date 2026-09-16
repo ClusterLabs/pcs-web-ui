@@ -15,7 +15,6 @@ type ApiCallResult = api.ResultOf<typeof libClusterResourceAgentListAgents>;
 export function* load({key}: ActionMap["RESOURCE_AGENT.LIST.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(
     libClusterResourceAgentListAgents,
-    {clusterName: key.clusterName},
   );
 
   const errorAction: Action = {

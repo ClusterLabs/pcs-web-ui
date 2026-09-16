@@ -1,8 +1,7 @@
 import {endpoint} from "./endpoint";
 
 export const addMetaAttrRemote = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/add_meta_attr_remote`,
+  url: "/managec/add_meta_attr_remote",
   method: "post",
   params: ({
     resourceId,

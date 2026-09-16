@@ -7,10 +7,8 @@ import {api, dataLoad, fork, put, select} from "./common";
 type ClusterStoreInfo = ReturnType<ReturnType<typeof getClusterStoreInfo>>;
 
 function* fetchClusterData(clusterName: string) {
-  const result: api.ResultOf<typeof clusterStatus> = yield api.authSafe(
-    clusterStatus,
-    clusterName,
-  );
+  const result: api.ResultOf<typeof clusterStatus> =
+    yield api.authSafe(clusterStatus);
 
   if (result.type === "OK") {
     yield put({

@@ -1,6 +1,6 @@
 import {mock} from "test/tools";
 
-import {clusterName, goToFenceDevice, mockWithStonith} from "./common";
+import {goToFenceDevice, mockWithStonith} from "./common";
 
 const {tabs, argumentsToolbar} = marks.cluster.fenceDevices.currentFenceDevice;
 const {fenceDeviceArgumentsEdit: task} = marks.task;
@@ -34,11 +34,7 @@ describe("Edit fence device args", () => {
     mockWithStonith({
       fenceDeviceIdList: [fenceDeviceId],
       additionalRouteList: [
-        mock.route.updateFenceDevice({
-          clusterName,
-          fenceDeviceId,
-          attributes,
-        }),
+        mock.route.updateFenceDevice({fenceDeviceId, attributes}),
       ],
     });
     await launchTask(fenceDeviceId);
@@ -55,7 +51,6 @@ describe("Edit fence device args", () => {
       fenceDeviceIdList: [fenceDeviceId],
       additionalRouteList: [
         mock.route.updateFenceDevice({
-          clusterName,
           fenceDeviceId,
           attributes,
           response: {

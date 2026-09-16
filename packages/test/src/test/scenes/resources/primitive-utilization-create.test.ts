@@ -24,7 +24,6 @@ describe("Primitive utilization attributes create", () => {
       }),
       additionalRouteList: [
         mock.route.setResourceUtilization({
-          clusterName,
           resourceId: resourceId,
           name: utilizationPair.name,
           value: utilizationPair.value,
@@ -52,7 +51,6 @@ describe("Primitive utilization attributes create", () => {
       }),
       additionalRouteList: [
         mock.route.setResourceUtilization({
-          clusterName,
           resourceId: resourceId,
           name: utilizationPair.name,
           value: utilizationPair.value,

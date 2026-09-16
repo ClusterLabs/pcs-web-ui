@@ -31,8 +31,7 @@ type Constraint = (
 };
 
 export const addConstraintRemote = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/add_constraint_remote`,
+  url: "/managec/add_constraint_remote",
   method: "post",
   params: ({constraint}: {constraint: Constraint}): [string, string][] => {
     const force: [string, string][] =

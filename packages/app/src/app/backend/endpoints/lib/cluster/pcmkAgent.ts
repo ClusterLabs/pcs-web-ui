@@ -68,12 +68,11 @@ type AgentType = "resource" | "fence";
 
 export const pcmkAgentDescribeAgent = (type: AgentType) =>
   endpoint({
-    url: ({clusterName}: {clusterName: string}) =>
-      `/managec/${clusterName}/api/v1/${
-        type === "resource"
-          ? "resource-agent-describe-agent"
-          : "stonith-agent-describe-agent"
-      }`,
+    url: `/managec/api/v1/${
+      type === "resource"
+        ? "resource-agent-describe-agent"
+        : "stonith-agent-describe-agent"
+    }`,
     method: "post",
     params: undefined,
     validate: undefined,
@@ -88,13 +87,11 @@ const agentListPayload: {describe?: boolean; search?: string} = {
 };
 export const pcmkAgentListAgents = (type: AgentType) =>
   endpoint({
-    url: ({clusterName}: {clusterName: string}) =>
-      `/managec/${clusterName}/api/v1/${
-        type === "resource"
-          ? "resource-agent-list-agents"
-          : "stonith-agent-list-agents"
-      }`,
-
+    url: `/managec/api/v1/${
+      type === "resource"
+        ? "resource-agent-list-agents"
+        : "stonith-agent-list-agents"
+    }`,
     method: "post",
     params: undefined,
     validate: undefined,

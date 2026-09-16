@@ -64,8 +64,7 @@ const validate = (payload: t.TypeOf<typeof shape>) => {
 };
 
 export const getPermissions = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/get_permissions`,
+  url: "/managec/get_permissions",
   method: "get",
   params: undefined,
   payload: undefined,

@@ -9,7 +9,6 @@ export function* updateInstanceAttributes({
 }: ActionMap["RESOURCE.EDIT_ATTRS.RUN"]) {
   const result: api.ResultOf<typeof updateResource> = yield api.authSafe(
     updateResource,
-    key.clusterName,
     resourceId,
     attributes,
   );

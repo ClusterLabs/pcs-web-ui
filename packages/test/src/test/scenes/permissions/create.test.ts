@@ -1,6 +1,6 @@
 import {mock} from "test/tools";
 
-import {clusterName, goToPermissions, mockForPermissions} from "./common";
+import {goToPermissions, mockForPermissions} from "./common";
 
 type Permission = Parameters<
   typeof mockForPermissions
@@ -21,7 +21,6 @@ const mockEditPermission = (allow: Permission["allow"]) =>
     usersPermissions: [basicPermission],
     additionalRouteList: [
       mock.route.permissionsSave({
-        clusterName,
         permissionList: [basicPermission, {name, type, allow}],
       }),
     ],

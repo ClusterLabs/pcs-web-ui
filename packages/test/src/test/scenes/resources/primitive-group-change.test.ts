@@ -31,7 +31,6 @@ describe("Create location counstraint", () => {
           groupId,
           oldGroupId: "",
           position: "after",
-          clusterName,
         }),
       ],
     });

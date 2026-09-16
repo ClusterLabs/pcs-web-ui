@@ -11,7 +11,6 @@ export function* deleteResource({
   const result: api.ResultOf<typeof removeResource> = yield api.authSafe(
     removeResource,
     {
-      clusterName: key.clusterName,
       resourceId,
       isStonith: resourceType === "fence-device",
       force,

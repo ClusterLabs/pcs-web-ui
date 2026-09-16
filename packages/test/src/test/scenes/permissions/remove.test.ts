@@ -2,7 +2,7 @@ import type * as responses from "dev/responses";
 
 import {mock} from "test/tools";
 
-import {clusterName, goToPermissions, mockForPermissions} from "./common";
+import {goToPermissions, mockForPermissions} from "./common";
 
 type Permission = ReturnType<
   typeof responses.permissions
@@ -39,10 +39,7 @@ describe("Permission remove", () => {
     mockForPermissions({
       usersPermissions: [haclientPermission, namePermission],
       additionalRouteList: [
-        mock.route.permissionsSave({
-          clusterName,
-          permissionList: [haclientPermission],
-        }),
+        mock.route.permissionsSave({permissionList: [haclientPermission]}),
       ],
     });
 
@@ -57,7 +54,6 @@ describe("Permission remove", () => {
       usersPermissions: [haclientPermission, namePermission],
       additionalRouteList: [
         mock.route.permissionsSave({
-          clusterName,
           permissionList: [namePermission],
           response: {status: [400, "Error removing permission haclient"]},
         }),

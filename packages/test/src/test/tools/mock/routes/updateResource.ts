@@ -7,17 +7,15 @@ import {paramsToBody} from "./tools";
 const {url, params} = endpoints.updateResource;
 
 export const updateResource = ({
-  clusterName,
   resourceId,
   attributes,
   response,
 }: {
-  clusterName: string;
   resourceId: string;
   attributes: Record<string, string>;
   response?: RouteResponse;
 }) => ({
-  url: url({clusterName}),
+  url,
   body: paramsToBody(
     params({
       resourceId,

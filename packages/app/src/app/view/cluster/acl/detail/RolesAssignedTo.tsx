@@ -50,7 +50,7 @@ export const RolesAssignedTo = (props: {
               />
             }
           >
-            <Link to={location.aclRole({clusterName, roleId})}>{roleId}</Link>
+            <Link to={location.aclRole({roleId})}>{roleId}</Link>
           </DataListItemWithMenu>
         )}
       </DataListWithMenu>

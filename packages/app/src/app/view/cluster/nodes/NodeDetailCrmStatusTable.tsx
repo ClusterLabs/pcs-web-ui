@@ -2,7 +2,6 @@ import {Td, Th, Thead, Tr} from "@patternfly/react-table";
 
 import {Table, StatusSign, Link, location} from "app/view/share";
 import type {ResourceOnNodeStatus} from "app/view/cluster/types";
-import {useLoadedCluster} from "app/view/cluster/share";
 
 const isRoleOk = (crmStatus: ResourceOnNodeStatus): boolean =>
   crmStatus.role === crmStatus.targetRole ||
@@ -16,7 +15,6 @@ export const NodeDetailCrmStatusTable = ({
 }: {
   crmStatusList: ResourceOnNodeStatus[];
 }) => {
-  const {clusterName} = useLoadedCluster();
   return (
     <Table>
       <Thead noWrap>
@@ -32,10 +30,7 @@ export const NodeDetailCrmStatusTable = ({
           <Tr key={i}>
             <Th data-label="Resource">
               <Link
-                to={location.resource({
-                  clusterName,
-                  resourceId: crmStatus.resource.id,
-                })}
+                to={location.resource({resourceId: crmStatus.resource.id})}
               />
             </Th>
             <Td data-label="Active">

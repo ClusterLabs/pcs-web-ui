@@ -1,8 +1,7 @@
 import {endpoint} from "./endpoint";
 
 export const resourceChangeGroup = endpoint({
-  url: ({clusterName}: {clusterName: string}) =>
-    `/managec/${clusterName}/resource_change_group`,
+  url: "/managec/resource_change_group",
   method: "post",
   params: ({
     resourceId,

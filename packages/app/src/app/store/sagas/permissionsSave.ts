@@ -46,11 +46,7 @@ function* processEditResult(result: ApiResult) {
 }
 
 export function* permissionsSave({key, payload: {permissionList}}: SaveAction) {
-  const result: ApiResult = yield api.authSafe(
-    savePermissions,
-    key.clusterName,
-    permissionList,
-  );
+  const result: ApiResult = yield api.authSafe(savePermissions, permissionList);
 
   if (key.task === "permissionRemove") {
     yield processRemoveResult(result);

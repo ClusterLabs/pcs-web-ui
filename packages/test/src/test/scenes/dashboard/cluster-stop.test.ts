@@ -26,7 +26,7 @@ describe("Cluster stop", () => {
   afterEach(mock.stop);
 
   it("should be successfully removed", async () => {
-    mockWithDashboard([mock.route.clusterStop({clusterName})]);
+    mockWithDashboard([mock.route.clusterStop({})]);
 
     await launchTask();
     await click(task.run);
@@ -44,9 +44,7 @@ describe("Cluster stop", () => {
   });
 
   it("should deal with an error", async () => {
-    mockWithDashboard([
-      mock.route.clusterStop({clusterName, response: {status: 400}}),
-    ]);
+    mockWithDashboard([mock.route.clusterStop({response: {status: 400}})]);
 
     await launchTask();
     await click(task.run);

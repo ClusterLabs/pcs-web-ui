@@ -5,19 +5,17 @@ import type {RouteResponse} from "../mock";
 import {paramsToBody} from "./tools";
 
 export const addNodeAttrRemote = ({
-  clusterName,
   nodeName,
   name,
   value,
   response,
 }: {
-  clusterName: string;
   nodeName: string;
   name: string;
   value: string;
   response?: RouteResponse;
 }) => ({
-  url: endpoints.addNodeAttrRemote.url({clusterName}),
+  url: endpoints.addNodeAttrRemote.url,
   body: paramsToBody(
     endpoints.addNodeAttrRemote.params({nodeName, name, value}),
   ),

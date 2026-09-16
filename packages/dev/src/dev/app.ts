@@ -74,61 +74,46 @@ const delayed =
     );
   };
 
-const prepareUrl = <KEYWORDS extends Record<string, string>>(
-  url: string | ((_keywords: KEYWORDS) => string),
-) => {
-  if (typeof url === "string") {
-    return url;
-  }
-  // TODO introspect url function and use correct keys
-  // currently just clusterName here...
-  return url({clusterName: ":clusterName"} as unknown as KEYWORDS);
-};
-
 type EndpointKeys = keyof typeof endpoints;
+// libCluster is the only endpoint with a function URL (built from a command);
+// it is handled separately so the rest of the loop works with plain string URLs.
+type NonLibClusterKeys = Exclude<EndpointKeys, "libCluster">;
 type DevEndpoints = {
   -readonly [K in EndpointKeys]: K extends "libCluster"
     ? (_c: LibClusterCommands[number]["name"], _h: Handler) => void
     : (_h: Handler) => Express;
 };
 
-export const app: DevEndpoints = (
-  Object.keys(endpoints) as Array<EndpointKeys>
-).reduce((devEndpoints, n) => {
-  const ep = endpoints[n];
-  if (n === "libCluster") {
-    devEndpoints.libCluster = (
-      command: LibClusterCommands[number]["name"],
-      handler: Handler,
-    ) => {
-      application.post(
-        endpoints.libCluster.url({clusterName: ":clusterName", command}),
-        parserJson,
-        delayed(handler),
-      );
-    };
-  } else if (
-    [
-      "libClusterResourceAgentDescribeAgent",
-      "libClusterStonithAgentDescribeAgent",
-      "libClusterResourceAgentListAgents",
-    ].includes(n)
-  ) {
-    devEndpoints[n] = (handler: Handler) => {
-      return application.post(prepareUrl(ep.url), parserJson, delayed(handler));
-    };
-  } else if (ep.method === "get") {
-    devEndpoints[n] = (handler: Handler) => {
-      return application.get(prepareUrl(ep.url), delayed(handler));
-    };
-  } else {
-    devEndpoints[n] = (handler: Handler) => {
-      return application.post(
-        prepareUrl(ep.url),
-        parserUrlEncoded,
-        delayed(handler),
-      );
-    };
-  }
-  return devEndpoints;
-}, {} as DevEndpoints);
+export const app: DevEndpoints = (Object.keys(endpoints) as Array<EndpointKeys>)
+  .filter((n): n is NonLibClusterKeys => n !== "libCluster")
+  .reduce((devEndpoints, n) => {
+    const ep = endpoints[n];
+    if (
+      [
+        "libClusterResourceAgentDescribeAgent",
+        "libClusterStonithAgentDescribeAgent",
+        "libClusterResourceAgentListAgents",
+      ].includes(n)
+    ) {
+      devEndpoints[n] = (handler: Handler) =>
+        application.post(ep.url, parserJson, delayed(handler));
+    } else if (ep.method === "get") {
+      devEndpoints[n] = (handler: Handler) =>
+        application.get(ep.url, delayed(handler));
+    } else {
+      devEndpoints[n] = (handler: Handler) =>
+        application.post(ep.url, parserUrlEncoded, delayed(handler));
+    }
+    return devEndpoints;
+  }, {} as DevEndpoints);
+
+app.libCluster = (
+  command: LibClusterCommands[number]["name"],
+  handler: Handler,
+) => {
+  application.post(
+    endpoints.libCluster.url({command}),
+    parserJson,
+    delayed(handler),
+  );
+};

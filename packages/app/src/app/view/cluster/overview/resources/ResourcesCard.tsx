@@ -5,7 +5,6 @@ import {
 
 import type {Cluster} from "app/view/cluster/types";
 import {EmptyStateNoItem, Link, location} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
 import {StatisticsIssueInfo} from "app/view/cluster/overview/StatisticsIssueInfo";
 
 import {ResourceCounts} from "./ResourceCounts";
@@ -17,7 +16,6 @@ export const ResourcesCard = ({
 }: {
   resourceTree: Cluster["resourceTree"];
 }) => {
-  const {clusterName} = useLoadedCluster();
   if (resourceTree.length === 0) {
     return (
       <EmptyStateNoItem
@@ -38,7 +36,7 @@ export const ResourcesCard = ({
       <div className="pf-v6-u-my-sm">
         There {statistics.totalCount > 1 ? "are" : "is"}{" "}
         <strong>{statistics.totalCount}</strong>{" "}
-        <Link isInline to={location.resourceList({clusterName})}>
+        <Link isInline to={location.resourceList()}>
           {statistics.totalCount > 1 ? "resources" : "resource"}
         </Link>{" "}
         in the cluster.

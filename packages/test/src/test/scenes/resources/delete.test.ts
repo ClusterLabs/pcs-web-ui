@@ -1,7 +1,6 @@
 import * as cs from "dev/responses/clusterStatus/tools";
 
 import {mock, assert} from "test/tools";
-import {clusterName} from "./common";
 import {goToPrimitive} from "./commonPrimitive";
 
 const {resourceDelete: task} = marks.task;
@@ -31,9 +30,7 @@ describe("Resource delete", () => {
   it("should finish successfully", async () => {
     mock.shortcuts.withCluster({
       clusterStatus,
-      additionalRouteList: [
-        mock.route.removeResource({clusterName, resourceId}),
-      ],
+      additionalRouteList: [mock.route.removeResource({resourceId})],
     });
 
     await goToPrimitive("A");
@@ -50,7 +47,6 @@ describe("Resource delete", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.removeResource({
-          clusterName,
           resourceId,
           response: {
             status: [400, "Unable to stop resource(s)."],
@@ -72,7 +68,6 @@ describe("Resource delete", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.removeResource({
-          clusterName,
           resourceId,
           response: {
             status: [

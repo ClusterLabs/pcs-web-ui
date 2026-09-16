@@ -5,7 +5,6 @@ import type {RouteResponse} from "../mock";
 import {paramsToBody} from "./tools";
 
 export const addMetaAttrRemote = ({
-  clusterName,
   resourceId,
   name,
   value,
@@ -19,7 +18,7 @@ export const addMetaAttrRemote = ({
   response?: RouteResponse;
   isStonith?: boolean;
 }) => ({
-  url: endpoints.addMetaAttrRemote.url({clusterName}),
+  url: endpoints.addMetaAttrRemote.url,
   body: paramsToBody(
     endpoints.addMetaAttrRemote.params({
       resourceId,

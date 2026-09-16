@@ -7,12 +7,8 @@ import {
 
 const {url, shape, validate} = endpoints.getPermissions;
 
-export const getPermissions = async ({
-  clusterName,
-}: {
-  clusterName: string;
-}): CallResult<typeof shape> =>
-  http.get(url({clusterName}), {
+export const getPermissions = async (): CallResult<typeof shape> =>
+  http.get(url, {
     validate: payload => {
       const errors = validatePayload.shape(payload, shape);
       if (errors.length > 0) {

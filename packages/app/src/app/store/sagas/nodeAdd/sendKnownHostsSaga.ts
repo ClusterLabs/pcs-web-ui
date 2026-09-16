@@ -8,7 +8,7 @@ export function* sendKnownHostsSaga({
   payload: {nodeName},
 }: ActionMap["NODE.ADD.SEND_KNOWN_HOSTS"]) {
   const {result}: {result: api.ResultOf<typeof sendKnownHosts>} = yield race({
-    result: api.authSafe(sendKnownHosts, key.clusterName, [nodeName]),
+    result: api.authSafe(sendKnownHosts, [nodeName]),
     cancel: take(["NODE.ADD.UPDATE_NODE_NAME", "NODE.ADD.CLOSE"]),
   });
 

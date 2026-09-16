@@ -5,19 +5,15 @@ import type {RouteResponse} from "../mock";
 import {paramsToBody} from "./tools";
 
 export const permissionsSave = ({
-  clusterName,
   permissionList,
   response,
 }: {
-  clusterName: string;
   permissionList: Parameters<
     typeof endpoints.permissionsSave.params
   >[0]["permissionList"];
   response?: RouteResponse;
 }) => ({
-  url: endpoints.permissionsSave.url({clusterName}),
-  body: paramsToBody(
-    endpoints.permissionsSave.params({clusterName, permissionList}),
-  ),
+  url: endpoints.permissionsSave.url,
+  body: paramsToBody(endpoints.permissionsSave.params({permissionList})),
   ...(response ?? {text: "Permissions saved"}),
 });

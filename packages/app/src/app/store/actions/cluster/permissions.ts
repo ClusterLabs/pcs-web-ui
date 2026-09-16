@@ -9,7 +9,7 @@ export type ClusterPermissionsActions = {
       clusterName: string;
       task: "permissionEdit" | "permissionRemove";
     };
-    payload: {permissionList: Parameters<typeof savePermissions>[1]};
+    payload: {permissionList: Parameters<typeof savePermissions>[0]};
   };
   "CLUSTER.PERMISSIONS.SAVE.OK": {
     type: "CLUSTER.PERMISSIONS.SAVE.OK";
