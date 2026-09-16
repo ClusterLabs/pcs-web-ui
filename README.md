@@ -10,6 +10,16 @@ It can run in two modes:
 
 More screenshots can be found here: https://github.com/ClusterLabs/pcs-web-ui/issues/81
 
+## Branches
+
+
+* main
+  - Main development happens here.
+  - This branch is not intended for production use.
+  - Compatible with [pcs main](https://github.com/ClusterLabs/pcs/tree/main/)
+* pcs-web-ui-0.12
+  - Compatible with [pcs-0.12](https://github.com/ClusterLabs/pcs/tree/pcs-0.12).
+
 ## Prerequisites
 
 * [Node.js](http://nodejs.org/) v18+ (with NPM)
