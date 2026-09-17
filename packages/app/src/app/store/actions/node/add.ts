@@ -40,30 +40,6 @@ export type NodeAddActions = {
     };
   };
 
-  "NODE.ADD.CHECK_CAN_ADD": {
-    type: "NODE.ADD.CHECK_CAN_ADD";
-    key: {clusterName: string};
-    payload: {
-      nodeName: string;
-    };
-  };
-
-  "NODE.ADD.CHECK_CAN_ADD.CANNOT": {
-    type: "NODE.ADD.CHECK_CAN_ADD.CANNOT";
-    key: {clusterName: string};
-    payload: {
-      message: string;
-    };
-  };
-
-  "NODE.ADD.CHECK_CAN_ADD.FAIL": {
-    type: "NODE.ADD.CHECK_CAN_ADD.FAIL";
-    key: {clusterName: string};
-    payload: {
-      message: string;
-    };
-  };
-
   "NODE.ADD.SEND_KNOWN_HOSTS": {
     type: "NODE.ADD.SEND_KNOWN_HOSTS";
     key: {clusterName: string};

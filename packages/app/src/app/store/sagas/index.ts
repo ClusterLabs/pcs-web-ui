@@ -83,7 +83,6 @@ function* rootSaga() {
     takeEvery("DASHBOARD.CLUSTER.DESTROY", clusterDestroy.clusterDestroy),
     takeEvery("NODE.START", nodeStartStop.nodeStart),
     takeEvery("NODE.STOP", nodeStartStop.nodeStop),
-    takeEvery("NODE.ADD.CHECK_CAN_ADD", nodeAdd.checkCanAddNodeSaga),
     takeEvery("NODE.ADD.CHECK_AUTH", nodeAdd.checkAuthSaga),
     takeEvery("NODE.ADD.SEND_KNOWN_HOSTS", nodeAdd.sendKnownHostsSaga),
     takeEvery("NODE.AUTH", nodeAuth.nodeAuthSaga),
