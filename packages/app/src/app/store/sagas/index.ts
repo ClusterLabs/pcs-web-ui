@@ -64,10 +64,6 @@ function* rootSaga() {
     ),
     takeEvery("CLUSTER.FIX_AUTH.START", fixAuth.fixAuth),
     takeEvery("CLUSTER.FIX_AUTH.AUTH_DONE", fixAuth.fixAuthDistribute),
-    takeEvery(
-      "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD",
-      clusterSetup.checkCanAddNodeSaga,
-    ),
     takeEvery("DASHBOARD.CLUSTER.SETUP.CHECK_AUTH", clusterSetup.checkAuthSaga),
     takeEvery(
       "DASHBOARD.CLUSTER.SETUP.SEND_KNOWN_HOSTS",
