@@ -13,8 +13,7 @@ export const withCluster = (
         | "resourceAgent"
         | "stonithAgent"
         | "propertiesDefinition"
-        | "permissions"
-        | "importedClusterList",
+        | "permissions",
         Parameters<typeof run>[0][number]
       >
     >;
@@ -46,9 +45,6 @@ export const withCluster = (
     }),
     permissions: route.getPermissions({
       clusterName: clusterStatus.cluster_name,
-    }),
-    importedClusterList: route.importedClusterList({
-      clusterStatusList: [clusterStatus],
     }),
   };
 
@@ -93,19 +89,5 @@ export const withCluster = (
     ...Object.values({...routeMap, ...(replaceRoutes || {})}),
     ...(additionalRouteList || []),
     ...Object.values({...optionalRouteMap}),
-  ]);
-};
-
-export const withDashboard = (props: {
-  clusterStatus: types.Cluster | types.Cluster[];
-  routeList?: Route[];
-}) => {
-  const clusterStatusList = Array.isArray(props.clusterStatus)
-    ? props.clusterStatus
-    : [props.clusterStatus];
-  run([
-    route.importedClusterList({clusterStatusList}),
-    ...clusterStatusList.map(s => route.clusterStatus({clusterStatus: s})),
-    ...(props.routeList || []),
   ]);
 };

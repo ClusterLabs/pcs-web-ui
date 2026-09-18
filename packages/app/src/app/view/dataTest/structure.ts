@@ -1,14 +1,11 @@
 import clusterBreadcrumbs from "./json/clusterBreadcrumbs.json";
 import clusterTabs from "./json/clusterTabs.json";
-import dashboard from "./json/dashboard.json";
-import dashboardToolbar from "./json/dashboardToolbar.json";
 import header from "./json/header.json";
 import login from "./json/login.json";
 import notifications from "./json/notifications.json";
 import aclAssignSubjectToRole from "./json/task/aclAssignSubjectToRole.json";
 import aclRoleAddPermission from "./json/task/aclRoleAddPermission.json";
 import aclRoleCreate from "./json/task/aclRoleCreate.json";
-import clusterImportExisting from "./json/task/clusterImportExisting.json";
 import clusterSetup from "./json/task/clusterSetup.json";
 import clusterStop from "./json/task/clusterStop.json";
 import confirm from "./json/task/confirm.json";
@@ -66,8 +63,6 @@ export const structure = {
   header,
   notifications,
   login,
-  dashboardToolbar,
-  dashboard,
   clusterBreadcrumbs,
   clusterTabs,
   cluster: {
@@ -96,7 +91,6 @@ export const structure = {
     aclAssignSubjectToRole,
     aclRoleAddPermission,
     aclRoleCreate,
-    clusterImportExisting,
     clusterSetup,
     clusterStop,
     constraintColocationCreate,
