@@ -1,7 +1,7 @@
-import {destroyCluster, removeCluster} from "app/backend";
+import {destroyCluster} from "app/backend";
 import type {ActionMap} from "app/store/actions";
 
-import {api, log, processError, put, putNotification} from "./common";
+import {api, processError, putNotification} from "./common";
 
 export function* clusterDestroy({
   payload,
@@ -14,26 +14,5 @@ export function* clusterDestroy({
     return;
   }
 
-  yield putNotification(
-    "SUCCESS",
-    "Cluster destroyed. Trying to remove it from cluster list...",
-  );
-
-  const removeResult: api.ResultOf<typeof removeCluster> = yield api.authSafe(
-    removeCluster,
-    payload.clusterName,
-  );
-
-  if (removeResult.type !== "OK") {
-    log.error(removeResult, `remove cluster ${payload.clusterName}`);
-    yield putNotification(
-      "ERROR",
-      "Cannot remove cluster from cluster list after successful cluster destroy." +
-        " You can try it later manually. Details in the browser console.",
-    );
-    return;
-  }
-
-  yield put({type: "CLUSTER.LIST.REFRESH"});
-  yield putNotification("SUCCESS", "Cluster removed from cluster list");
+  yield putNotification("SUCCESS", "Cluster destroyed");
 }

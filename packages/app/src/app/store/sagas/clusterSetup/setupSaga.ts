@@ -78,7 +78,6 @@ export function* setup({
     setupData.cluster_name,
     setupData.nodes.map(n => n.name),
   );
-  yield put({type: "CLUSTER.LIST.REFRESH"});
   yield put({
     type: "DASHBOARD.CLUSTER.SETUP.CALL.OK",
     payload: {reports: payload.report_list},

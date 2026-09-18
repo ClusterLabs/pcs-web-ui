@@ -1,11 +1,7 @@
 import {all, takeEvery as takeEverySaga} from "redux-saga/effects";
 
 import {fork, takeEvery} from "./common";
-import * as clusterImport from "./clusterImport";
 import * as cluster from "./cluster";
-import * as clusterDestroy from "./clusterDestroy";
-import * as clusterRemove from "./clusterRemove";
-import * as dashboard from "./dashboard";
 import * as dataLoad from "./common/dataLoad";
 import * as login from "./login";
 import * as notifications from "./common/notifications";
@@ -41,7 +37,6 @@ import * as clusterStop from "./clusterStop";
 function* rootSaga() {
   yield all([
     fork(dataLoad.setUpDataReading),
-    fork(dataLoad.manage, dashboard.clusterListSyncOptions),
     fork(dataLoad.manage, cluster.clusterDataSyncOptions),
     takeEvery("USERNAME.LOAD", username.usernameLoad),
     takeEvery("USER.INIT", user.init),
@@ -57,11 +52,6 @@ function* rootSaga() {
     takeEvery("CLUSTER.PERMISSIONS.SAVE", permissionsSave.permissionsSave),
     takeEvery("CLUSTER.PROPERTIES.UPDATE", clusterProperties.update),
     takeEvery("CLUSTER.NVPAIRS.SAVE", nvpairSave.nvpairSave),
-    takeEvery("DASHBOARD.CLUSTER.IMPORT.CHECK_AUTH", clusterImport.checkAuth),
-    takeEvery(
-      "DASHBOARD.CLUSTER.IMPORT.RUN",
-      clusterImport.importExistingCluster,
-    ),
     takeEvery("CLUSTER.FIX_AUTH.START", fixAuth.fixAuth),
     takeEvery("CLUSTER.FIX_AUTH.AUTH_DONE", fixAuth.fixAuthDistribute),
     takeEvery("DASHBOARD.CLUSTER.SETUP.CHECK_AUTH", clusterSetup.checkAuthSaga),
@@ -75,8 +65,6 @@ function* rootSaga() {
     takeEvery("CONSTRAINT.DELETE.RULE", constraints.deleteConstraintRule),
     takeEvery("DASHBOARD.CLUSTER.START", clusterStart.clusterStartSaga),
     takeEvery("CLUSTER.STOP", clusterStop.clusterStopSaga),
-    takeEvery("DASHBOARD.CLUSTER.REMOVE", clusterRemove.clusterRemove),
-    takeEvery("DASHBOARD.CLUSTER.DESTROY", clusterDestroy.clusterDestroy),
     takeEvery("NODE.START", nodeStartStop.nodeStart),
     takeEvery("NODE.STOP", nodeStartStop.nodeStop),
     takeEvery("NODE.ADD.CHECK_AUTH", nodeAdd.checkAuthSaga),
