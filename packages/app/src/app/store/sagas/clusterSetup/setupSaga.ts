@@ -1,4 +1,4 @@
-import {clusterSetup, rememberCluster} from "app/backend";
+import {clusterSetup} from "app/backend";
 import type {Action, ActionMap} from "app/store/actions";
 import {
   api,
@@ -10,21 +10,6 @@ import {
   race,
   take,
 } from "app/store/sagas/common";
-
-function* rememberClusterSaga(clusterName: string, nodeNameList: string[]) {
-  const result: api.ResultOf<typeof rememberCluster> = yield api.authSafe(
-    rememberCluster,
-    {clusterName, nodeNameList},
-  );
-
-  if (result.type !== "OK") {
-    yield putNotification(
-      "ERROR",
-      "Cluster setup was done successfully but adding cluster to web ui failed." +
-        " Please add cluster to web ui manually by click on Add existing cluster",
-    );
-  }
-}
 
 export function* setup({
   payload: {targetNode, setupData},
@@ -74,10 +59,6 @@ export function* setup({
     return;
   }
 
-  yield rememberClusterSaga(
-    setupData.cluster_name,
-    setupData.nodes.map(n => n.name),
-  );
   yield put({
     type: "DASHBOARD.CLUSTER.SETUP.CALL.OK",
     payload: {reports: payload.report_list},
