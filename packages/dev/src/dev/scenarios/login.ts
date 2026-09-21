@@ -13,14 +13,6 @@ const jsonOr401 =
     }
   };
 
-app.importedClusterList(
-  jsonOr401(
-    response.importedClusterList.withClusters([
-      response.clusterStatus.ok.cluster_name,
-    ]),
-  ),
-);
-
 app.clusterStatus(jsonOr401(response.clusterStatus.ok));
 
 app.login((req, res) => {

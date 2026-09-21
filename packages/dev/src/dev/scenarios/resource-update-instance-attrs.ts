@@ -45,7 +45,4 @@ app.updateResource((req, res) => {
   res.json(result);
 });
 
-shortcut.importedClusterList(
-  response.importedClusterList.withClusters([resourceTree.cluster_name]),
-);
 shortcut.clusterRelated();
