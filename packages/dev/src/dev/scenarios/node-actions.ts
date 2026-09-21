@@ -1,4 +1,3 @@
-import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
 import {app} from "dev/app";
 
@@ -58,7 +57,4 @@ app.libCluster("cluster-remove-nodes", (req, res) => {
   });
 });
 
-shortcut.dashboard([
-  response.clusterStatus.actions,
-  response.clusterStatus.actionsAlternative,
-]);
+shortcut.clusterRelated();

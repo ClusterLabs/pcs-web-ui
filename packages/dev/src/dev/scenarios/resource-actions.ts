@@ -1,4 +1,3 @@
-import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
 import {type Handler, app} from "dev/app";
 
@@ -127,9 +126,4 @@ app.resourceChangeGroup((req, res) => {
   }
 });
 
-shortcut.dashboard([
-  response.clusterStatus.actions,
-  response.clusterStatus.actionsOneGroup,
-  response.clusterStatus.actionsNoGroup,
-  response.clusterStatus.actionsAlternative,
-]);
+shortcut.clusterRelated();

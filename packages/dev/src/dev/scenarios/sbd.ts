@@ -1,6 +1,4 @@
 import {app} from "dev/app";
-import * as response from "dev/responses";
-import * as t from "dev/responses/clusterStatus/tools";
 import * as shortcut from "dev/shortcuts";
 
 type LibStdErrors = Exclude<
@@ -67,27 +65,4 @@ app.libCluster("sbd-disable-sbd", (req, res) => {
   });
 });
 
-shortcut.dashboard([
-  t.cluster("error", "error", {
-    node_list: [
-      t.node("1", {sbd_config: null}),
-      t.node("2", {status: "offline", quorum: false}),
-      t.node("3", {status: "unknown"}),
-    ],
-  }),
-  t.cluster("forceable-sbd-disable", "error", {
-    node_list: [
-      t.node("1", {sbd_config: null}),
-      t.node("2", {status: "offline", quorum: false}),
-      t.node("3", {status: "unknown"}),
-    ],
-  }),
-  t.cluster("error-offline", "error", {
-    node_list: [
-      t.node("1", {sbd_config: null}),
-      t.node("2", {status: "offline", quorum: false}),
-      t.node("3", {status: "unknown"}),
-    ],
-  }),
-  response.clusterStatus.sbd,
-]);
+shortcut.clusterRelated();

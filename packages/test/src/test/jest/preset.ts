@@ -1,7 +1,7 @@
 import type {EnvType} from "./envType";
 import {getLogin} from "./login";
 import * as locatorTools from "./locator";
-import {getGoToCluster, getGoToDashboard} from "./backend";
+import {getGoToCluster} from "./backend";
 import {getPage} from "./page";
 
 declare global {
@@ -19,11 +19,10 @@ declare global {
   var taskTitle: typeof locatorTools.taskTitle;
   var fieldError: typeof locatorTools.fieldError;
   var isLocator: typeof locatorTools.isLocator;
-  var goToCluster: ReturnType<typeof getGoToCluster>;
-  var goToDashboard: ReturnType<typeof getGoToDashboard>;
   var marks: ReturnType<typeof locatorTools.getApp>;
   var item: typeof locatorTools.item;
   var login: ReturnType<typeof getLogin>;
+  var goToCluster: ReturnType<typeof getGoToCluster>;
   type Mark = locatorTools.Mark;
   type MarkPure = locatorTools.MarkPure;
   interface DocumentEventMap {
@@ -62,7 +61,6 @@ export default async () => {
   global.isAbsent = locatorTools.isAbsent;
   global.isLocator = locatorTools.isLocator;
   global.goToCluster = getGoToCluster(envType);
-  global.goToDashboard = getGoToDashboard(envType);
 
   // page.setDefaultTimeout(5_000);
 };
