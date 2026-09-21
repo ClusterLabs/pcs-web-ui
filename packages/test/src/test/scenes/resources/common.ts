@@ -1,7 +1,7 @@
 export const clusterName = "test-cluster";
 
 export const goToResources = async () => {
-  await goToCluster(clusterName, tabs => tabs.resources);
+  await goToCluster(tabs => tabs.resources);
 };
 
 export const openGroup = async (id: string) => {

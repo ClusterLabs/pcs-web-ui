@@ -30,7 +30,7 @@ describe("Cluster with advanced status", () => {
         }),
       }),
     });
-    await goToCluster(clusterName);
+    await goToCluster();
     await isVisible(marks.cluster.overview);
   });
 });

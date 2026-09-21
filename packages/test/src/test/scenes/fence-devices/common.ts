@@ -32,7 +32,7 @@ export const mockWithStonith = (
 };
 
 export const goToFenceDevices = async () => {
-  await goToCluster(clusterName, tabs => tabs.fenceDevices);
+  await goToCluster(tabs => tabs.fenceDevices);
 };
 
 export const openFenceDevice = async (fenceDeviceId: string) => {

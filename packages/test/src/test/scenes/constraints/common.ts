@@ -7,5 +7,5 @@ export const clusterStatus = t.cluster(clusterName, "ok", {
 });
 
 export const goToConstraints = async () => {
-  await goToCluster(clusterStatus.cluster_name, tabs => tabs.constraints);
+  await goToCluster(tabs => tabs.constraints);
 };

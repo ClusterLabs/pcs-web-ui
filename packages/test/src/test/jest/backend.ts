@@ -19,7 +19,6 @@ const rootUrl = (envType: EnvType) => {
 export const getGoToCluster = (envType: EnvType) => {
   const url = rootUrl(envType);
   return async (
-    _clusterName: string,
     tab?: ((tabs: typeof marks.clusterTabs) => Mark) | undefined,
   ) => {
     await page.goto(url);
