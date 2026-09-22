@@ -9,7 +9,6 @@ import {
 
 import {clusterSetup} from "./clusterSetup";
 import {clusterStop} from "./clusterStop";
-import {importExistingCluster} from "./importExistingCluster";
 import {resourceCreate} from "./resourceCreate";
 import {resourceBan} from "./resourceBan";
 import {resourceClear} from "./resourceClear";
@@ -63,7 +62,6 @@ export const tasks = combineReducers(
   wrapTasks(wrapTaskReducer)({
     clusterSetup,
     clusterStop,
-    importExistingCluster,
     resourceCreate,
     resourceBan,
     resourceClear,

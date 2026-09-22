@@ -11,7 +11,7 @@ describe("Cluster properties display", () => {
   afterEach(mock.stop);
   it("should display batch limit", async () => {
     mock.shortcuts.withCluster({clusterStatus});
-    await goToCluster(clusterStatus.cluster_name, tabs => tabs.properties);
+    await goToCluster(tabs => tabs.properties);
 
     await assert.textIs(
       item.byKey(

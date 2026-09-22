@@ -20,7 +20,6 @@ const {success, auth} = testMarks.task.nodeAdd.prepareNode;
 export const PrepareNode = () => {
   const {
     useNodeCheck,
-    checkCanAddNode,
     checkAuth,
     sendKnownHosts,
     state: {
@@ -33,39 +32,17 @@ export const PrepareNode = () => {
   useNodeCheck();
   return (
     <TaskLibStep title="Prepare node" reports={reports}>
-      {(nodeCheck === "can-add-started" ||
-        nodeCheck === "auth-check-started" ||
+      {(nodeCheck === "auth-check-started" ||
         nodeCheck === "send-known-hosts-started") && (
         <EmptyStateSpinner
           title={
             {
-              "can-add-started":
-                "Checking if the node can be added to the cluster",
               "auth-check-started": "Checking if the node is authenticated",
               "send-known-hosts-started":
                 "Sending updated known host to the cluster",
             }[nodeCheck]
           }
         />
-      )}
-
-      {nodeCheck === "can-add-failed" && (
-        <Alert
-          variant="danger"
-          isInline
-          title="Check if the node is not a part of another cluster"
-          actionLinks={
-            <AlertActionLink onClick={checkCanAddNode}>
-              Try again
-            </AlertActionLink>
-          }
-        >
-          {nodeCheckMessage}
-        </Alert>
-      )}
-
-      {nodeCheck === "can-add-cannot" && (
-        <Alert variant="danger" isInline title={nodeCheckMessage} />
       )}
 
       {nodeCheck === "auth-check-failed" && (

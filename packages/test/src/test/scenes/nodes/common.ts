@@ -3,7 +3,7 @@ const {nodes} = marks.cluster;
 export const clusterName = "test-cluster";
 
 export const goToNodes = async () => {
-  await goToCluster(clusterName, tabs => tabs.nodes);
+  await goToCluster(tabs => tabs.nodes);
 };
 
 export const openNode = async (nodeName: string) => {

@@ -7,7 +7,7 @@ const {cluster, clusterBreadcrumbs, clusterTabs} = marks;
 const clusterName = "ok";
 
 const startOnOverview = async () => {
-  await goToCluster(clusterName);
+  await goToCluster();
   await assert.textIs(clusterBreadcrumbs.clusterName, clusterName);
   await isVisible(cluster.overview);
 };

@@ -17,7 +17,6 @@ describe("Add node task", () => {
     mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        mock.route.canAddClusterOrNodes({nodeNameList: [nodeName]}),
         mock.route.checkAuthAgainstNodes({
           nodeNameList: [nodeName],
           response: {json: {[nodeName]: "Unable to authenticate"}},

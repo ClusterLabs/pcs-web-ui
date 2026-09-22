@@ -9,9 +9,6 @@ const initialState: {
   libCall: typeof initialLibCall;
   clusterAndNodesCheck:
     | "not-started"
-    | "can-add-started"
-    | "can-add-cannot"
-    | "can-add-failed"
     | "auth-check-started"
     | "auth-check-failed"
     | "auth-in-progress"
@@ -19,7 +16,6 @@ const initialState: {
     | "send-known-hosts-fail"
     | "success";
   clusterAndNodesCheckMessage: string;
-  canAddClusterOrNodesMessages: string[];
   authProcessId: number | null;
   showValidationErrors: boolean;
   quorumOptions: Required<
@@ -94,7 +90,6 @@ const initialState: {
   linkList: [],
   clusterAndNodesCheck: "not-started",
   clusterAndNodesCheckMessage: "",
-  canAddClusterOrNodesMessages: [],
   libCall: initialLibCall,
   authProcessId: null,
   showValidationErrors: false,
@@ -183,35 +178,11 @@ export const clusterSetup: AppReducer<typeof initialState> = (
         },
       };
 
-    case "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD":
-      return {
-        ...state,
-        clusterAndNodesCheck: "can-add-started",
-        clusterAndNodesCheckMessage: "",
-        canAddClusterOrNodesMessages: [],
-      };
-
-    case "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD.FAIL":
-      return {
-        ...state,
-        clusterAndNodesCheck: "can-add-failed",
-        clusterAndNodesCheckMessage: action.payload.message,
-      };
-
-    case "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD.CANNOT":
-      return {
-        ...state,
-        clusterAndNodesCheck: "can-add-cannot",
-        clusterAndNodesCheckMessage: "",
-        canAddClusterOrNodesMessages: action.payload.errors,
-      };
-
     case "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH":
       return {
         ...state,
         clusterAndNodesCheck: "auth-check-started",
         clusterAndNodesCheckMessage: "",
-        canAddClusterOrNodesMessages: [],
       };
 
     case "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH.NO_AUTH":
@@ -235,7 +206,6 @@ export const clusterSetup: AppReducer<typeof initialState> = (
         authProcessId: null,
         clusterAndNodesCheck: "send-known-hosts-started",
         clusterAndNodesCheckMessage: "",
-        canAddClusterOrNodesMessages: [],
       };
 
     case "DASHBOARD.CLUSTER.SETUP.SEND_KNOWN_HOSTS.OK":

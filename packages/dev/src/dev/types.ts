@@ -1,9 +1,6 @@
 import type {api} from "app/backend";
 import type * as call from "app/backend";
 
-export type ImportedClusterList = api.PayloadOf<
-  typeof call.importedClusterList
->;
 // export type ClusterProperties = api.PayloadOf<typeof call.clusterProperties>;
 export type ClusterProperties = api.PayloadOf<
   typeof call.getClusterPropertiesDefinition

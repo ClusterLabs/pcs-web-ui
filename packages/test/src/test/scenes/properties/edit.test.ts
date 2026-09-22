@@ -7,7 +7,7 @@ const clusterName = "test-cluster";
 const clusterStatus = t.cluster(clusterName);
 
 const editProperties = async () => {
-  await goToCluster(clusterStatus.cluster_name, tabs => tabs.properties);
+  await goToCluster(tabs => tabs.properties);
   await click(marks.cluster.propertiesToolbar.edit);
 };
 

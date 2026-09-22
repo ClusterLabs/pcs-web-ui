@@ -1,33 +1,7 @@
 import {app} from "dev/app";
 import * as shortcut from "dev/shortcuts";
 
-shortcut.dashboard([]);
-
-app.canAddClusterOrNodes((req, res) => {
-  if (!("node_names" in req.query)) {
-    res
-      .status(500)
-      .send("Wrong request - missing node_names[] - it's a programming error!");
-  }
-  const nodeNameList: string[] = req.query.node_names as string[];
-  const errors = nodeNameList
-    .filter(nodeName => nodeName.startsWith("canNo"))
-    .map(
-      nodeName =>
-        `The node '${nodeName}' is already a part of the 'ClusterName'` +
-        " cluster. You may not add a node to two different clusters.",
-    );
-
-  if (errors.length > 0) {
-    res.status(400).send(errors.join("\n"));
-    return;
-  }
-  if (nodeNameList.some(nodeName => nodeName === "canErr")) {
-    res.status(500).send("Error during checking if can add node to cluster");
-    return;
-  }
-  res.send("");
-});
+shortcut.clusterRelated();
 
 shortcut.checkAuthAgainstNodes({
   //nodeName: checkValue
@@ -105,10 +79,6 @@ app.clusterSetup((req, res) => {
       ],
     },
   });
-});
-
-app.rememberCluster((_req, res) => {
-  res.send("");
 });
 
 app.clusterStart((req, res) => {

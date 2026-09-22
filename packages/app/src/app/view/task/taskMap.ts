@@ -4,7 +4,6 @@ import type {selectors} from "app/store";
 
 import {ClusterSetup} from "./clusterSetup";
 import {ClusterStop} from "./clusterStop";
-import {ClusterImportExisting} from "./clusterImportExisting";
 import {AclAssignSubjectToRole} from "./aclAssignSubjectToRole";
 import {AclRoleCreate} from "./aclRoleCreate";
 import {AclRoleAddPermission} from "./aclRoleAddPermission";
@@ -41,7 +40,6 @@ type TaskNames = Parameters<typeof selectors.getTask>[0];
 export const taskMap = {
   clusterSetup: ClusterSetup,
   clusterStop: ClusterStop,
-  importExistingCluster: ClusterImportExisting,
   aclRoleCreate: AclRoleCreate,
   aclRolePermissionAdd: AclRoleAddPermission,
   aclSubjectAssign: AclAssignSubjectToRole,

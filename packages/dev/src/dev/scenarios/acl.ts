@@ -1,22 +1,7 @@
 import {app} from "dev/app";
-import * as t from "dev/responses/clusterStatus/tools";
-import * as response from "dev/responses";
 import * as shortcut from "dev/shortcuts";
 
-shortcut.dashboard([
-  t.cluster("acls", "ok", {
-    node_list: [
-      t.node("1", {sbd_config: null}),
-      t.node("2", {status: "offline", quorum: false}),
-      t.node("3", {status: "unknown"}),
-    ],
-    acls: response.acl.firstSet,
-    cluster_settings: {
-      "enable-acl": "true",
-    },
-  }),
-  response.clusterStatus.ok,
-]);
+shortcut.clusterRelated();
 
 app.libCluster("acl-create-role", (req, res) => {
   shortcut.libStd({

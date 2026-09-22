@@ -1,4 +1,3 @@
-import * as t from "dev/responses/clusterStatus/tools";
 import * as shortcut from "dev/shortcuts";
 import {app} from "dev/app";
 
@@ -38,9 +37,4 @@ app.clusterStop((req, res) => {
   res.send("Some output");
 });
 
-shortcut.dashboard([
-  t.cluster("ok"),
-  t.cluster("fail"),
-  t.cluster("permission"),
-  t.cluster("error"),
-]);
+shortcut.clusterRelated();

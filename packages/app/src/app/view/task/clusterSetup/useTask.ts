@@ -1,7 +1,6 @@
 import React from "react";
 
 import type {ActionPayload} from "app/store";
-import type {TaskReport} from "app/view/share";
 
 import {useTaskCommon} from "../useTaskCommon";
 
@@ -43,13 +42,13 @@ export const useTask = () => {
   const filledNodeNameList = state.nodeNameList.filter(
     nodeName => nodeName.length > 0,
   );
-  const checkCanAddClusterOrNodes = () => {
+
+  const checkAuth = () => {
     dispatch({
-      type: "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD",
+      type: "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH",
       payload: {
-        clusterName: state.clusterName,
-        targetNode: filledNodeNameList[0],
         nodeNameList: filledNodeNameList,
+        targetNode: filledNodeNameList[0],
       },
     });
   };
@@ -57,7 +56,7 @@ export const useTask = () => {
   const useClusterAndNodesCheck = () => {
     React.useEffect(() => {
       if (state.clusterAndNodesCheck === "not-started") {
-        checkCanAddClusterOrNodes();
+        checkAuth();
       }
     });
   };
@@ -151,12 +150,7 @@ export const useTask = () => {
         payload,
       }),
 
-    allReports: (
-      state.canAddClusterOrNodesMessages.map(message => ({
-        level: "ERROR" as Extract<TaskReport, {level: unknown}>["level"],
-        message,
-      })) as TaskReport[]
-    ).concat(state.libCall.reports),
+    allReports: state.libCall.reports,
 
     // actions
     close: () => {
@@ -177,17 +171,7 @@ export const useTask = () => {
       task.close();
     },
 
-    checkCanAddClusterOrNodes,
-
-    checkAuth: () => {
-      dispatch({
-        type: "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH",
-        payload: {
-          nodeNameList: filledNodeNameList,
-          targetNode: filledNodeNameList[0],
-        },
-      });
-    },
+    checkAuth,
 
     sendKnownHosts: () => {
       dispatch({

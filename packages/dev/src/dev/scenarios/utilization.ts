@@ -1,6 +1,4 @@
 import {app} from "dev/app";
-import * as response from "dev/responses";
-import * as shortcut from "dev/shortcuts";
 
 app.setNodeUtilization((req, res) => {
   if ("err" === req.body.name) {
@@ -27,5 +25,3 @@ app.setResourceUtilization((req, res) => {
   }
   res.send("");
 });
-
-shortcut.dashboard([response.clusterStatus.ok]);

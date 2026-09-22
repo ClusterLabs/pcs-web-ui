@@ -9,9 +9,9 @@ export const useTask = () => {
   const {state, dispatch} = task;
   const {clusterName} = state;
 
-  const checkCanAddNode = () =>
+  const checkAuth = () =>
     dispatch({
-      type: "NODE.ADD.CHECK_CAN_ADD",
+      type: "NODE.ADD.CHECK_AUTH",
       key: {clusterName},
       payload: {
         nodeName: state.nodeName,
@@ -21,7 +21,7 @@ export const useTask = () => {
   const useNodeCheck = () => {
     React.useEffect(() => {
       if (state.nodeCheck === "not-started") {
-        checkCanAddNode();
+        checkAuth();
       }
     });
   };
@@ -77,14 +77,7 @@ export const useTask = () => {
       });
     },
 
-    checkAuth: () =>
-      dispatch({
-        type: "NODE.ADD.CHECK_AUTH",
-        key: {clusterName},
-        payload: {
-          nodeName: state.nodeName,
-        },
-      }),
+    checkAuth,
 
     nodeAdd: ({newForceFlags = []}: {newForceFlags?: string[]} = {}) => {
       dispatch({
@@ -137,8 +130,6 @@ export const useTask = () => {
         key: {clusterName},
         payload: {nodeName: state.nodeName},
       }),
-
-    checkCanAddNode,
 
     useNodeCheck,
   };

@@ -1,6 +1,5 @@
 import type {ClusterAddActions} from "./add";
 import type {ClusterFixAuthActions} from "./fixAuth";
-import type {ClusterListActions} from "./list";
 import type {ClusterPermissionsActions} from "./permissions";
 import type {ClusterPropertiesActions} from "./properties";
 import type {ClusterSbdActions} from "./sbd";
@@ -15,7 +14,6 @@ export type ClusterActions = (
   & ClusterAclActions
   & ClusterAddActions
   & ClusterFixAuthActions
-  & ClusterListActions
   & ClusterPermissionsActions
   & ClusterPropertiesActions
   & ClusterSbdActions

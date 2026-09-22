@@ -36,5 +36,5 @@ export const mockForPermissions = ({
 };
 
 export const goToPermissions = async () => {
-  await goToCluster(clusterName, tabs => tabs.permissions);
+  await goToCluster(tabs => tabs.permissions);
 };

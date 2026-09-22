@@ -33,5 +33,5 @@ export const clusterStatus = t.cluster("sbd", "ok", {
 });
 
 export const goToSbd = async () => {
-  await goToCluster(clusterStatus.cluster_name, tabs => tabs.sbd);
+  await goToCluster(tabs => tabs.sbd);
 };

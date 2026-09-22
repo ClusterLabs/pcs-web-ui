@@ -18,9 +18,6 @@ const initialState: {
   };
   nodeCheck:
     | "not-started"
-    | "can-add-started"
-    | "can-add-cannot"
-    | "can-add-failed"
     | "auth-check-started"
     | "auth-check-failed"
     | "auth-in-progress"
@@ -83,27 +80,6 @@ export const nodeAdd: AppReducer<typeof initialState> = (
       return {
         ...state,
         ...action.payload,
-      };
-
-    case "NODE.ADD.CHECK_CAN_ADD":
-      return {
-        ...state,
-        nodeCheck: "can-add-started",
-        nodeCheckMessage: "",
-      };
-
-    case "NODE.ADD.CHECK_CAN_ADD.FAIL":
-      return {
-        ...state,
-        nodeCheck: "can-add-failed",
-        nodeCheckMessage: action.payload.message,
-      };
-
-    case "NODE.ADD.CHECK_CAN_ADD.CANNOT":
-      return {
-        ...state,
-        nodeCheck: "can-add-cannot",
-        nodeCheckMessage: action.payload.message,
       };
 
     case "NODE.ADD.CHECK_AUTH":

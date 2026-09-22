@@ -89,29 +89,6 @@ export type DashboardClusterSetupActions = {
     };
   };
 
-  "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD": {
-    type: "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD";
-    payload: {
-      clusterName: string;
-      targetNode: string;
-      nodeNameList: string[];
-    };
-  };
-
-  "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD.CANNOT": {
-    type: "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD.CANNOT";
-    payload: {
-      errors: string[];
-    };
-  };
-
-  "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD.FAIL": {
-    type: "DASHBOARD.CLUSTER.SETUP.CHECK_CAN_ADD.FAIL";
-    payload: {
-      message: string;
-    };
-  };
-
   "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH": {
     type: "DASHBOARD.CLUSTER.SETUP.CHECK_AUTH";
     payload: {

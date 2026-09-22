@@ -3,25 +3,6 @@ import * as response from "dev/responses";
 import type * as types from "dev/types";
 
 // basic
-export const importedClusterList = (
-  importedClusters: types.ImportedClusterList,
-) =>
-  app.importedClusterList((_req, res) => {
-    res.json(importedClusters);
-  });
-
-const clusterStatus = (clusterStatusList: types.Cluster[]) =>
-  app.clusterStatus((req, res) => {
-    const cluster = clusterStatusList.find(
-      c => c.cluster_name === req.params.clusterName,
-    );
-    if (cluster) {
-      res.json(cluster);
-    } else {
-      res.status(404).send("Not found");
-    }
-  });
-
 const getAvailResourceAgents = (
   availableResourceAgents: types.ResourceAgentListAgents,
 ) =>
@@ -83,14 +64,4 @@ export const clusterRelated = () => {
   getFenceAgentMetadata([response.fenceAgentMetadata.ok]);
   getClusterPropertiesDefinition(response.clusterProperties.ok);
   getPermissions(response.permissions());
-};
-
-export const dashboard = (clusterStatusList: types.Cluster[]) => {
-  importedClusterList(
-    response.importedClusterList.withClusters(
-      clusterStatusList.map(c => c.cluster_name),
-    ),
-  );
-  clusterStatus(clusterStatusList);
-  clusterRelated();
 };
