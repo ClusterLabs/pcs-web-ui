@@ -1,8 +1,7 @@
 import React from "react";
+import type {getClusterStoreInfo} from "app/store/selectors";
 
-import type {useClusterInfo} from "app/view/cluster/share";
-
-type ClusterInfo = ReturnType<typeof useClusterInfo>;
+type ClusterInfo = ReturnType<typeof getClusterStoreInfo>;
 
 const ClusterSourcesContext = React.createContext<
   | {

@@ -4,7 +4,7 @@ import {getClusterStoreInfo} from "app/store/selectors";
 
 import {api, dataLoad, fork, put, select} from "./common";
 
-type ClusterStoreInfo = ReturnType<ReturnType<typeof getClusterStoreInfo>>;
+type ClusterStoreInfo = ReturnType<typeof getClusterStoreInfo>;
 
 function* fetchClusterData(clusterName: string) {
   const result: api.ResultOf<typeof clusterStatus> =
@@ -27,7 +27,7 @@ function* fetchClusterData(clusterName: string) {
 
   const {
     clusterStatus: {data, isBackendNotFoundCase},
-  }: ClusterStoreInfo = yield select(getClusterStoreInfo(clusterName));
+  }: ClusterStoreInfo = yield select(getClusterStoreInfo);
 
   const backendNotFoundOnStart =
     result.type === "BACKEND_NOT_FOUND" && (!data || isBackendNotFoundCase);

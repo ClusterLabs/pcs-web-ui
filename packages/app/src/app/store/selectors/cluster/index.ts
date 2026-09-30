@@ -57,40 +57,38 @@ type ClusterInfo =
       pcmkAgents: ClusterStorageItem["pcmkAgents"];
     };
 
-export const getClusterStoreInfo =
-  (_clusterName: string) =>
-  (state: Root): ClusterInfo => {
-    const clusterStoreItem = state.clusterStorage[CLUSTER_KEY];
-    if (clusterStoreItem === undefined) {
-      // A very short init period before first cluster request action is run.
-      return {
-        isRegistered: false,
-        clusterStatus: {
-          isForbidden: false,
-          isBackendNotFoundCase: false,
-          data: null,
-        },
-        permissions: null,
-        pcmkAgents: null,
-      };
-    }
-
-    const {
-      clusterData: data,
-      load: {when, currently, result},
-    } = clusterStoreItem.clusterStatus;
+export const getClusterStoreInfo = (state: Root): ClusterInfo => {
+  const clusterStoreItem = state.clusterStorage[CLUSTER_KEY];
+  if (clusterStoreItem === undefined) {
+    // A very short init period before first cluster request action is run.
     return {
-      isRegistered: true,
+      isRegistered: false,
       clusterStatus: {
-        isForbidden: result === "FORBIDDEN",
-        isBackendNotFoundCase: result === "BACKEND_NOT_FOUND",
-        data,
-        load: {when, currently},
+        isForbidden: false,
+        isBackendNotFoundCase: false,
+        data: null,
       },
-      permissions: clusterStoreItem.clusterPermissions.data,
-      pcmkAgents: clusterStoreItem.pcmkAgents,
+      permissions: null,
+      pcmkAgents: null,
     };
+  }
+
+  const {
+    clusterData: data,
+    load: {when, currently, result},
+  } = clusterStoreItem.clusterStatus;
+  return {
+    isRegistered: true,
+    clusterStatus: {
+      isForbidden: result === "FORBIDDEN",
+      isBackendNotFoundCase: result === "BACKEND_NOT_FOUND",
+      data,
+      load: {when, currently},
+    },
+    permissions: clusterStoreItem.clusterPermissions.data,
+    pcmkAgents: clusterStoreItem.pcmkAgents,
   };
+};
 
 type PcmkAgent =
   ClusterStorageItem["pcmkAgents"][keyof ClusterStorageItem["pcmkAgents"]];
