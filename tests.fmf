@@ -77,7 +77,8 @@ path: /
       "$TMT_PLAN_DATA/pcsd_logs/pcsd-$PCS_WUI_TEST_TYPE.log" &&
     cp -rv /var/log/pcsd/pcsd.log \
       "$TMT_TEST_DATA/pcsd_logs/pcsd-$PCS_WUI_TEST_TYPE.log" &&
-    cp -rv "$TMT_TEST_DATA"/test-records/* "$TMT_PLAN_DATA"/test-records/ &&
+    cp -rv "$TMT_TEST_DATA"/test-records/* "$TMT_PLAN_DATA"/test-records/ ||
+    true &&
     exit $EXIT_CODE
 
 /pcsd_integration_test_cockpit:
@@ -101,5 +102,6 @@ path: /
       "$TMT_PLAN_DATA/pcsd_logs/pcsd-$PCS_WUI_TEST_TYPE.log" &&
     cp -rv /var/log/pcsd/pcsd.log \
       "$TMT_TEST_DATA/pcsd_logs/pcsd-$PCS_WUI_TEST_TYPE.log" &&
-    cp -rv "$TMT_TEST_DATA"/test-records/* "$TMT_PLAN_DATA"/test-records/ &&
+    cp -rv "$TMT_TEST_DATA"/test-records/* "$TMT_PLAN_DATA"/test-records/ ||
+    true &&
     exit $EXIT_CODE
