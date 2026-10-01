@@ -11,6 +11,8 @@ export const getPage = async () => {
     ignoreHTTPSErrors: true,
     ...(videoDir ? {recordVideo: {dir: videoDir}} : {}),
   });
-  page.setDefaultTimeout(200000);
+  page.setDefaultTimeout(
+    Number.parseInt(process.env.PCS_WUI_ACTION_TIMEOUT ?? "150000", 10),
+  );
   return page;
 };
