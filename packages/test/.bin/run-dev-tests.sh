@@ -29,7 +29,7 @@ run() {
       "$run_jest" -p "$(scenes_path_pattern)"
       ;;
     *)
-      "$run_jest" -s -p src/test/realBackend
+      "$run_jest" -s -n -p src/test/realBackend
       ;;
   esac
 }
