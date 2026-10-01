@@ -34,11 +34,7 @@ path: /
   summary: Run make distcheck
   tag: [distcheck]
   test: |
-    cafile_arg=""
-    if [ -n "$NPM_CAFILE_URL" ]; then
-      cafile_arg="NPM_CAFILE=$NPM_CAFILE"
-    fi
-    make distcheck NPM_REGISTRY="$NPM_REGISTRY" $cafile_arg &&
+    make distcheck &&
     rename --verbose .tar. ".${COMPOSE_NAME}.tar." pcs-web-ui*.tar.* &&
     mkdir -p dist &&
     cp -v pcs-web-ui*.tar.* dist/ &&
@@ -52,13 +48,9 @@ path: /
     - pcsd_integration_test_standalone
     - rpm_build
   test: |
-    cafile_arg=""
-    if [ -n "$NPM_CAFILE_URL" ]; then
-      cafile_arg="NPM_CAFILE=$NPM_CAFILE"
-    fi
-    make rpm/pcs-web-ui.spec NPM_REGISTRY="$NPM_REGISTRY" $cafile_arg &&
+    make rpm/pcs-web-ui.spec &&
     dnf builddep -y rpm/pcs-web-ui.spec &&
-    make rpm NPM_REGISTRY="$NPM_REGISTRY" $cafile_arg &&
+    make rpm &&
     mkdir -p rpms &&
     cp -v $(find rpm  -type f -name '*.rpm' -not -name '*.src.rpm') rpms/ &&
     cp -rv rpms "$TMT_PLAN_DATA" &&
