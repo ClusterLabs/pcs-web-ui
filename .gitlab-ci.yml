@@ -43,12 +43,12 @@ variables:
     description: >-
       Npm proxy registry URL. Set to empty to use public registry.
       Deleting this variable restores the default nexus URL.
-    value: "https://repository.engineering.redhat.com/nexus/repository/registry.npmjs.org"
+    value: $CI_NPM_REGISTRY
   NPM_CAFILE_URL:
     description: >-
       URL for npm registry CA certificate. Only needed with custom registry.
       Deleting this variable restores the default certificate URL.
-    value: "https://certs.corp.redhat.com/certs/Current-IT-Root-CAs.pem"
+    value: $CI_NPM_CAFILE_URL
   TFCLI_TMT_PREPARE: $ENABLE_FIPS
   TF_REQUEST_ID_FILE: /tmp/tf_request_id-$CI_JOB_ID
   TF_EXIT_CODE_FILE: /tmp/tf_exit_code-$CI_JOB_ID
