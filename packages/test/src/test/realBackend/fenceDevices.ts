@@ -8,7 +8,7 @@ export const create = async (fenceDeviceId: string, agentName: string) => {
 
   const {fenceDeviceCreate: task} = marks.task;
   await fill(task.nameType.name, fenceDeviceId);
-  await select(task.nameType.agentName, agentName);
+  await selectTypeahead(task.nameType.agentName, agentName);
   await click(task.nameTypeFooter.next);
   await click(task.instanceAttrsFooter.next);
   await click(task.settingsFooter.next);

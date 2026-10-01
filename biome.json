@@ -333,6 +333,7 @@
           "isAbsent",
           "fill",
           "select",
+          "selectTypeahead",
           "appConfirm",
           "radioGroup",
           "taskTitle",
