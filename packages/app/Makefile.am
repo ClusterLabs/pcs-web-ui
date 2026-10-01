@@ -24,18 +24,15 @@ EXTRA_DIST		= \
 			  src/app/backend/calls/addMetaAttrRemote.ts \
 			  src/app/backend/calls/addNodeAttrRemote.ts \
 			  src/app/backend/calls/authGuiAgainstNodes.ts \
-			  src/app/backend/calls/canAddClusterOrNodes.ts \
 			  src/app/backend/calls/checkAuthAgainstNodes.ts \
 			  src/app/backend/calls/clusterSetup.ts \
 			  src/app/backend/calls/clusterStart.ts \
 			  src/app/backend/calls/clusterStatus.ts \
 			  src/app/backend/calls/clusterStop.ts \
 			  src/app/backend/calls/destroyCluster.ts \
-			  src/app/backend/calls/existingCluster.ts \
 			  src/app/backend/calls/fixAuthOfCluster.ts \
 			  src/app/backend/calls/getClusterPropertiesDefinition.ts \
 			  src/app/backend/calls/getPermissions.ts \
-			  src/app/backend/calls/importedClusterList.ts \
 			  src/app/backend/calls/index.ts \
 			  src/app/backend/calls/libCallCluster.ts \
 			  src/app/backend/calls/libClusterResourceAgentDescribeAgent.ts \
@@ -44,8 +41,6 @@ EXTRA_DIST		= \
 			  src/app/backend/calls/libClusterStonithAgentListAgents.ts \
 			  src/app/backend/calls/login.ts \
 			  src/app/backend/calls/logout.ts \
-			  src/app/backend/calls/rememberCluster.ts \
-			  src/app/backend/calls/removeCluster.ts \
 			  src/app/backend/calls/removeConstraintRemote.ts \
 			  src/app/backend/calls/removeConstraintRuleRemote.ts \
 			  src/app/backend/calls/removeResource.ts \
@@ -71,7 +66,6 @@ EXTRA_DIST		= \
 			  src/app/backend/endpoints/addMetaAttrRemote.ts \
 			  src/app/backend/endpoints/addNodeAttrRemote.ts \
 			  src/app/backend/endpoints/authGuiAgainstNodes.ts \
-			  src/app/backend/endpoints/canAddClusterOrNodes.ts \
 			  src/app/backend/endpoints/checkAuthAgainstNodes.ts \
 			  src/app/backend/endpoints/clusterStart.ts \
 			  src/app/backend/endpoints/clusterStatus/endpoint.ts \
@@ -86,11 +80,9 @@ EXTRA_DIST		= \
 			  src/app/backend/endpoints/clusterStop.ts \
 			  src/app/backend/endpoints/destroyCluster.ts \
 			  src/app/backend/endpoints/endpoint.ts \
-			  src/app/backend/endpoints/existingCluster.ts \
 			  src/app/backend/endpoints/fixAuthOfCluster.ts \
 			  src/app/backend/endpoints/getClusterPropertiesDefinition.ts \
 			  src/app/backend/endpoints/getPermissions.ts \
-			  src/app/backend/endpoints/importedClusterList.ts \
 			  src/app/backend/endpoints/index.ts \
 			  src/app/backend/endpoints/lib/cluster/index.ts \
 			  src/app/backend/endpoints/lib/cluster/libCluster.ts \
@@ -101,8 +93,6 @@ EXTRA_DIST		= \
 			  src/app/backend/endpoints/login.ts \
 			  src/app/backend/endpoints/logout.ts \
 			  src/app/backend/endpoints/permissionsSave.ts \
-			  src/app/backend/endpoints/rememberCluster.ts \
-			  src/app/backend/endpoints/removeCluster.ts \
 			  src/app/backend/endpoints/removeConstraintRemote.ts \
 			  src/app/backend/endpoints/removeConstraintRuleRemote.ts \
 			  src/app/backend/endpoints/removeResource.ts \
@@ -125,7 +115,6 @@ EXTRA_DIST		= \
 			  src/app/store/actions/cluster/add.ts \
 			  src/app/store/actions/cluster/fixAuth.ts \
 			  src/app/store/actions/cluster/index.ts \
-			  src/app/store/actions/cluster/list.ts \
 			  src/app/store/actions/cluster/nvpairList.ts \
 			  src/app/store/actions/cluster/permissions.ts \
 			  src/app/store/actions/cluster/properties.ts \
@@ -146,7 +135,6 @@ EXTRA_DIST		= \
 			  src/app/store/actions/constraint/types.ts \
 			  src/app/store/actions/dashboard/clusterSetup.ts \
 			  src/app/store/actions/dashboard/cluster.ts \
-			  src/app/store/actions/dashboard/importExistingCluster.ts \
 			  src/app/store/actions/dashboard/index.ts \
 			  src/app/store/actions/fenceAgent/agent.ts \
 			  src/app/store/actions/fenceAgent/index.ts \
@@ -210,7 +198,6 @@ EXTRA_DIST		= \
 			  src/app/store/reducers/cluster/resourceAgentMap.ts \
 			  src/app/store/reducers/cluster/storage.ts \
 			  src/app/store/reducers/currentTaskKey.ts \
-			  src/app/store/reducers/dashboard.ts \
 			  src/app/store/reducers/index.ts \
 			  src/app/store/reducers/login.ts \
 			  src/app/store/reducers/nodeAuth/index.ts \
@@ -236,7 +223,6 @@ EXTRA_DIST		= \
 			  src/app/store/reducers/tasks/fenceDeviceCreate.ts \
 			  src/app/store/reducers/tasks/fenceDeviceDisable.ts \
 			  src/app/store/reducers/tasks/fixAuth.ts \
-			  src/app/store/reducers/tasks/importExistingCluster.ts \
 			  src/app/store/reducers/tasks/index.ts \
 			  src/app/store/reducers/tasks/libCall.ts \
 			  src/app/store/reducers/tasks/nodeAdd.ts \
@@ -258,14 +244,9 @@ EXTRA_DIST		= \
 			  src/app/store/reducers/username.ts \
 			  src/app/store/reducers/user.ts \
 			  src/app/store/sagas/clusterDestroy.ts \
-			  src/app/store/sagas/clusterImport/checkAuthSaga.ts \
-			  src/app/store/sagas/clusterImport/importExistingCluster.ts \
-			  src/app/store/sagas/clusterImport/index.ts \
 			  src/app/store/sagas/clusterPermissions.ts \
 			  src/app/store/sagas/clusterProperties.ts \
-			  src/app/store/sagas/clusterRemove.ts \
 			  src/app/store/sagas/clusterSetup/checkAuthSaga.ts \
-			  src/app/store/sagas/clusterSetup/checkCanAddNodeSaga.ts \
 			  src/app/store/sagas/clusterSetup/index.ts \
 			  src/app/store/sagas/clusterSetup/sendKnownHostsSaga.ts \
 			  src/app/store/sagas/clusterSetup/setupSaga.ts \
@@ -287,7 +268,6 @@ EXTRA_DIST		= \
 			  src/app/store/sagas/constraints/create.ts \
 			  src/app/store/sagas/constraints/delete.ts \
 			  src/app/store/sagas/constraints/index.ts \
-			  src/app/store/sagas/dashboard.ts \
 			  src/app/store/sagas/fenceAgentList.ts \
 			  src/app/store/sagas/fenceAgent.ts \
 			  src/app/store/sagas/fenceDeviceUpdate.ts \
@@ -297,7 +277,6 @@ EXTRA_DIST		= \
 			  src/app/store/sagas/libCallTask.ts \
 			  src/app/store/sagas/login.ts \
 			  src/app/store/sagas/nodeAdd/checkAuthSaga.ts \
-			  src/app/store/sagas/nodeAdd/checkCanAddNodeSaga.ts \
 			  src/app/store/sagas/nodeAdd/index.ts \
 			  src/app/store/sagas/nodeAdd/sendKnownHostsSaga.ts \
 			  src/app/store/sagas/nodeAuth.ts \
@@ -316,7 +295,6 @@ EXTRA_DIST		= \
 			  src/app/store/sagas/user.ts \
 			  src/app/store/selectors/cluster/index.ts \
 			  src/app/store/selectors/cluster/selectorsHelpers.ts \
-			  src/app/store/selectors/dashboard.ts \
 			  src/app/store/selectors/index.ts \
 			  src/app/store/selectors/login.ts \
 			  src/app/store/selectors/nodeAuth.ts \
@@ -545,22 +523,6 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/share/utilization/UtilizationView.tsx \
 			  src/app/view/cluster/types.ts \
 			  src/app/view/colorScheme.ts \
-			  src/app/view/dashboard/clusterList/DashboardClusterCellSummary.tsx \
-			  src/app/view/dashboard/clusterList/DashboardClusterFenceDevices.tsx \
-			  src/app/view/dashboard/clusterList/DashboardClusterListSorting.tsx \
-			  src/app/view/dashboard/clusterList/DashboardClusterList.tsx \
-			  src/app/view/dashboard/clusterList/DashboardClusterLoaded.tsx \
-			  src/app/view/dashboard/clusterList/DashboardClusterMenu.tsx \
-			  src/app/view/dashboard/clusterList/DashboardClusterNodes.tsx \
-			  src/app/view/dashboard/clusterList/DashboardClusterResources.tsx \
-			  src/app/view/dashboard/clusterList/DashboardCluster.tsx \
-			  src/app/view/dashboard/clusterList/index.ts \
-			  src/app/view/dashboard/clusterList/types.ts \
-			  src/app/view/dashboard/clusterList/utils.ts \
-			  src/app/view/dashboard/DashboardApp.tsx \
-			  src/app/view/dashboard/DashboardToolbar.tsx \
-			  src/app/view/dashboard/index.ts \
-			  src/app/view/dashboard/useDashboardDeprecationDismiss.ts \
 			  src/app/view/dataTest/index.ts \
 			  src/app/view/dataTest/json/cluster/acl.json \
 			  src/app/view/dataTest/json/cluster/aclToolbar.json \
@@ -586,15 +548,12 @@ EXTRA_DIST		= \
 			  src/app/view/dataTest/json/cluster/sbd.json \
 			  src/app/view/dataTest/json/cluster/sbdToolbar.json \
 			  src/app/view/dataTest/json/clusterTabs.json \
-			  src/app/view/dataTest/json/dashboard.json \
-			  src/app/view/dataTest/json/dashboardToolbar.json \
 			  src/app/view/dataTest/json/header.json \
 			  src/app/view/dataTest/json/login.json \
 			  src/app/view/dataTest/json/notifications.json \
 			  src/app/view/dataTest/json/task/aclAssignSubjectToRole.json \
 			  src/app/view/dataTest/json/task/aclRoleAddPermission.json \
 			  src/app/view/dataTest/json/task/aclRoleCreate.json \
-			  src/app/view/dataTest/json/task/clusterImportExisting.json \
 			  src/app/view/dataTest/json/task/clusterSetup.json \
 			  src/app/view/dataTest/json/task/clusterStop.json \
 			  src/app/view/dataTest/json/task/confirm.json \
@@ -838,14 +797,6 @@ EXTRA_DIST		= \
 			  src/app/view/task/aclSubjectCreate/Review.tsx \
 			  src/app/view/task/aclSubjectCreate/Roles.tsx \
 			  src/app/view/task/aclSubjectCreate/useTask.ts \
-			  src/app/view/task/clusterImportExisting/ClusterImportExisting.tsx \
-			  src/app/view/task/clusterImportExisting/index.ts \
-			  src/app/view/task/clusterImportExisting/NodeNameFooter.tsx \
-			  src/app/view/task/clusterImportExisting/NodeName.tsx \
-			  src/app/view/task/clusterImportExisting/PrepareNodeFooter.tsx \
-			  src/app/view/task/clusterImportExisting/PrepareNode.tsx \
-			  src/app/view/task/clusterImportExisting/TaskFinish.tsx \
-			  src/app/view/task/clusterImportExisting/useTask.ts \
 			  src/app/view/task/clusterSetup/AdvancedOptionsFooter.tsx \
 			  src/app/view/task/clusterSetup/ClusterSetup.tsx \
 			  src/app/view/task/clusterSetup/index.ts \
