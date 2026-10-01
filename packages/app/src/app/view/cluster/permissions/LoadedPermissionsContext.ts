@@ -1,8 +1,8 @@
 import React from "react";
 
-import type {useClusterInfo} from "app/view/cluster/share";
+import type {getClusterStoreInfo} from "app/store/selectors";
 
-type ClusterInfo = ReturnType<typeof useClusterInfo>;
+type ClusterInfo = ReturnType<typeof getClusterStoreInfo>;
 
 const LoadedPermissionsContext = React.createContext<
   | {

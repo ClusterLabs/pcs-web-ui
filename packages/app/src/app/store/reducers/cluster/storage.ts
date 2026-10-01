@@ -1,5 +1,6 @@
 import {combineReducers} from "redux";
 
+import {CLUSTER_KEY} from "app/store/clusterStorageKey";
 import type {AppReducer} from "app/store/reducers/appReducer";
 
 import {cibSecrets} from "./cibSecrets";
@@ -33,22 +34,13 @@ export const clusterStorage: AppReducer<ClusterStorage> = (
     return {};
   }
   if ("key" in action && "clusterName" in action.key) {
-    if (action.key.clusterName === null) {
-      // The action is not for cluster at all when cluster name is explicitly
-      // null.
-      // It is currently used for dashboard tasks: some mechanisms are shared
-      // among cluster tasks and dashboard tasks via action types, however,
-      // every particular action is only for 1) particular task of a particular
-      // cluster or 2) particular task of dashboard. It is not possible to
-      // depend only on task key because there is not enforced unique task name.
-      return state;
-    }
+    // Single-cluster model: every keyed action collapses onto the constant
+    // CLUSTER_KEY regardless of the clusterName carried by the action. The
+    // follow-up de-keying ticket will remove clusterName from the actions
+    // entirely.
     return {
       ...state,
-      [action.key.clusterName]: clusterStorageItem(
-        state[action.key.clusterName],
-        action,
-      ),
+      [CLUSTER_KEY]: clusterStorageItem(state[CLUSTER_KEY], action),
     };
   }
   return Object.keys(state).reduce<ClusterStorage>(

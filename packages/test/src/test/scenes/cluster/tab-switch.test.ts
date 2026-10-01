@@ -8,8 +8,10 @@ const clusterName = "ok";
 
 const startOnOverview = async () => {
   await goToCluster();
-  await assert.textIs(clusterBreadcrumbs.clusterName, clusterName);
+  // The breadcrumb cluster name comes from the polled cluster status data, so
+  // it appears only once the data has loaded (overview visible), not before.
   await isVisible(cluster.overview);
+  await assert.textIs(clusterBreadcrumbs.clusterName, clusterName);
 };
 
 describe("Cluster detail tab switch", () => {

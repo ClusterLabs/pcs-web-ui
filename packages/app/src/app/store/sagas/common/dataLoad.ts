@@ -1,6 +1,6 @@
 import type {Task} from "redux-saga";
 
-import type {Action, ActionMap, ActionPayload} from "app/store/actions";
+import type {Action} from "app/store/actions";
 
 import {all, cancel, delay, fork, put, take} from "./effects";
 
@@ -25,103 +25,70 @@ export function* manage({
   FAIL,
   refresh,
   fetch,
-  getSyncId = null,
 }: {
   START: Action["type"];
   STOP: Action["type"];
   REFRESH: Action["type"];
   SUCCESS: Action["type"];
   FAIL: Action["type"];
-  refresh: (_id?: string) => Action;
+  refresh: () => Action;
   // It seems it selects definition of 'fork' with saga on 2nd place (index 1)
   fetch: Parameters<typeof fork>[1];
-  getSyncId?: ((_action: Action) => string) | null;
 }) {
-  const syncMap: Record<
-    string,
-    {
-      fetchASAP: boolean;
-      fetch: Task | null;
-      timer: Task | null;
-    }
-  > = {};
+  // Single-cluster model: this manages exactly one sync, so the per-cluster
+  // syncMap keyed by getSyncId is gone in favor of plain local state.
+  let started = false;
+  let fetchASAP = false;
+  let fetchTask: Task | null = null;
+  let timerTask: Task | null = null;
 
   while (true) {
     const action: Action = yield take([START, STOP, REFRESH, SUCCESS, FAIL]);
-    const id = getSyncId ? getSyncId(action) : "";
+
     if (action.type === START) {
-      if (id in syncMap) {
+      if (started) {
         console.warn("Sync requested when already started! Action ignored.");
         continue;
       }
-      syncMap[id] = {
-        fetchASAP: false,
-        fetch: yield fork(fetch, id),
-        timer: null,
-      };
+      started = true;
+      fetchTask = yield fork(fetch);
       continue;
     }
 
-    if (!(id in syncMap)) {
+    if (!started) {
       console.warn(`Sync not started! Action '${action.type}' ignored.`);
       continue;
     }
 
     if ([SUCCESS, FAIL].includes(action.type)) {
-      if (syncMap[id].fetchASAP) {
-        syncMap[id].fetchASAP = false;
-        syncMap[id].fetch = yield fork(fetch, id);
+      if (fetchASAP) {
+        fetchASAP = false;
+        fetchTask = yield fork(fetch);
       } else {
-        syncMap[id].fetch = null;
-        syncMap[id].timer = yield fork(timer, refresh(id));
+        fetchTask = null;
+        timerTask = yield fork(timer, refresh());
       }
     }
 
     if (action.type === REFRESH) {
-      if (syncMap[id].timer) {
-        yield cancel(syncMap[id].timer as Task);
+      if (timerTask) {
+        yield cancel(timerTask);
       }
-      if (syncMap[id].fetch) {
-        syncMap[id].fetchASAP = true;
+      if (fetchTask) {
+        fetchASAP = true;
       } else {
-        syncMap[id].fetch = yield fork(fetch, id);
+        fetchTask = yield fork(fetch);
       }
     }
 
     if (action.type === STOP) {
       yield all(
-        [syncMap[id].fetch, syncMap[id].timer]
-          .filter(t => t)
-          .map(t => cancel(t as Task)),
+        [fetchTask, timerTask].filter(t => t).map(t => cancel(t as Task)),
       );
-      delete syncMap[id];
-    }
-  }
-}
-
-export function* setUpDataReading() {
-  let currents: ActionPayload["DATA_READING.SET_UP"]["readings"] = [];
-
-  while (true) {
-    const {
-      payload: {behavior, readings},
-    }: ActionMap["DATA_READING.SET_UP"] = yield take("DATA_READING.SET_UP");
-
-    const currentIds = currents.map(s => s.id);
-    const newIds = readings.map(r => r.id);
-
-    const news = readings.filter(r => !currentIds.includes(r.id));
-
-    if (behavior === "replace") {
-      const olds = currents.filter(s => !newIds.includes(s.id));
-      currents = readings;
-      yield all([
-        ...olds.map(r => put(r.stop)),
-        ...news.map(r => put(r.start)),
-      ]);
-    } else {
-      currents = [...currents, ...news];
-      yield all([...news.map(r => put(r.start))]);
+      started = false;
+      fetchASAP = false;
+      fetchTask = null;
+      timerTask = null;
     }
   }
 }

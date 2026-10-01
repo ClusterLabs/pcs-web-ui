@@ -1,11 +1,11 @@
 import type React from "react";
+import {useSelector} from "react-redux";
+
+import {selectors} from "app/store";
+import {CLUSTER_KEY} from "app/store";
 import {testMarks} from "app/view/dataTest";
 import {ClusterStatusLabel, ClusterStatusLoadingLabel} from "app/view/share";
-import {
-  ClusterSourcesProvider,
-  useClusterInfo,
-  useClusterLoad,
-} from "app/view/cluster/share";
+import {ClusterSourcesProvider, useClusterLoad} from "app/view/cluster/share";
 
 import {ClusterPermissionsPage, LoadedPermissionsProvider} from "./permissions";
 import {ClusterAppLayout} from "./ClusterAppLayout";
@@ -24,9 +24,12 @@ import {ClusterAppBackendNotFound} from "./ClusterAppBackendNotFound";
 
 const {clusterBreadcrumbs} = testMarks;
 
-export const ClusterApp = ({clusterName}: {clusterName: string}) => {
-  useClusterLoad(clusterName);
-  const clusterInfo = useClusterInfo(clusterName);
+export const ClusterApp = () => {
+  useClusterLoad();
+  const clusterInfo = useSelector(selectors.getClusterStoreInfo);
+  // The displayed cluster name comes from the loaded data (briefly empty during
+  // the first load). The storage key itself is the constant CLUSTER_KEY.
+  const clusterName = clusterInfo.clusterStatus.data?.clusterName ?? "";
 
   return (
     <ClusterAppLayout
@@ -41,7 +44,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
                   {...clusterBreadcrumbs.clusterStatus.mark}
                 />
                 <ClusterStatusLoadingLabel
-                  clusterName={clusterName}
+                  clusterName={CLUSTER_KEY}
                   when={clusterInfo.clusterStatus.load.when}
                   isLoading={clusterInfo.clusterStatus.load.currently}
                 />
@@ -65,7 +68,7 @@ export const ClusterApp = ({clusterName}: {clusterName: string}) => {
           return (
             <LoadedPermissionsProvider
               value={{
-                clusterName,
+                clusterName: CLUSTER_KEY,
                 permissions: clusterInfo.permissions,
               }}
             >

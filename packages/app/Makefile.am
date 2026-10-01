@@ -183,6 +183,7 @@ EXTRA_DIST		= \
 			  src/app/store/actions/task/taskOpenClose.ts \
 			  src/app/store/actions/username.ts \
 			  src/app/store/actions/user.ts \
+			  src/app/store/clusterStorageKey.ts \
 			  src/app/store/index.ts \
 			  src/app/store/reducers/appReducer.ts \
 			  src/app/store/reducers/cluster/cibSecrets.ts \
@@ -538,9 +539,7 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/share/pcmkAgent/index.ts \
 			  src/app/view/cluster/share/pcmkAgent/PcmkAgentDescription.tsx \
 			  src/app/view/cluster/share/pcmkAgent/types.ts \
-			  src/app/view/cluster/share/useClusterInfo.ts \
 			  src/app/view/cluster/share/useClusterLoad.ts \
-			  src/app/view/cluster/share/useClusterNameBootstrap.ts \
 			  src/app/view/cluster/share/useHasCapabilities.ts \
 			  src/app/view/cluster/share/utilization/index.ts \
 			  src/app/view/cluster/share/utilization/UtilizationView.tsx \

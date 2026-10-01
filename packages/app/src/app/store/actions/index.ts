@@ -35,21 +35,7 @@ type LeafActionMap = (
 
 export type ActionLeaf = LeafActionMap[keyof LeafActionMap];
 
-type SetupDataReading = {
-  type: "DATA_READING.SET_UP";
-  payload: {
-    behavior: "replace" | "add";
-    readings: {
-      id: string;
-      start: ActionLeaf;
-      stop: ActionLeaf;
-    }[];
-  };
-};
-
-export type ActionMap = LeafActionMap & {
-  "DATA_READING.SET_UP": SetupDataReading;
-};
+export type ActionMap = LeafActionMap;
 
 export type ActionPayload = {
   -readonly [K in keyof ActionMap]: ActionMap[K] extends {payload: unknown}
@@ -63,7 +49,7 @@ export type ActionKey = {
     : undefined;
 };
 
-export type Action = ActionLeaf | SetupDataReading;
+export type Action = ActionLeaf;
 
 let nextId = 1;
 export const actionNewId = () => {
