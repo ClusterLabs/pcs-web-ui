@@ -56,9 +56,7 @@ path: /
     if [ -n "$NPM_CAFILE_URL" ]; then
       cafile_arg="NPM_CAFILE=$NPM_CAFILE"
     fi
-    make rpm/pcs-web-ui.spec
-      NPM_REGISTRY="$NPM_REGISTRY"
-      $cafile_arg &&
+    make rpm/pcs-web-ui.spec NPM_REGISTRY="$NPM_REGISTRY" $cafile_arg &&
     dnf builddep -y rpm/pcs-web-ui.spec &&
     make rpm NPM_REGISTRY="$NPM_REGISTRY" $cafile_arg &&
     mkdir -p rpms &&
