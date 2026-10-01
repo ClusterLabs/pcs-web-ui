@@ -1,6 +1,6 @@
 import type {Task} from "redux-saga";
 
-import type {Action, ActionMap, ActionPayload} from "app/store/actions";
+import type {Action} from "app/store/actions";
 
 import {all, cancel, delay, fork, put, take} from "./effects";
 
@@ -89,33 +89,6 @@ export function* manage({
       fetchASAP = false;
       fetchTask = null;
       timerTask = null;
-    }
-  }
-}
-
-export function* setUpDataReading() {
-  let currents: ActionPayload["DATA_READING.SET_UP"]["readings"] = [];
-
-  while (true) {
-    const {
-      payload: {behavior, readings},
-    }: ActionMap["DATA_READING.SET_UP"] = yield take("DATA_READING.SET_UP");
-
-    const currentIds = currents.map(s => s.id);
-    const newIds = readings.map(r => r.id);
-
-    const news = readings.filter(r => !currentIds.includes(r.id));
-
-    if (behavior === "replace") {
-      const olds = currents.filter(s => !newIds.includes(s.id));
-      currents = readings;
-      yield all([
-        ...olds.map(r => put(r.stop)),
-        ...news.map(r => put(r.start)),
-      ]);
-    } else {
-      currents = [...currents, ...news];
-      yield all([...news.map(r => put(r.start))]);
     }
   }
 }

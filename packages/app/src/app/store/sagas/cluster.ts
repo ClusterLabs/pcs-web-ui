@@ -2,7 +2,7 @@ import {clusterStatus} from "app/backend";
 import {CLUSTER_KEY} from "app/store/clusterStorageKey";
 import {getClusterStoreInfo} from "app/store/selectors";
 
-import {api, dataLoad, fork, put, select} from "./common";
+import {api, type dataLoad, put, select} from "./common";
 
 type ClusterStoreInfo = ReturnType<typeof getClusterStoreInfo>;
 
@@ -66,5 +66,3 @@ export const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   }),
   fetch: fetchClusterData,
 };
-
-export default [fork(dataLoad.manage, clusterDataSyncOptions)];

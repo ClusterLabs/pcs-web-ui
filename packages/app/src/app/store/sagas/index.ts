@@ -36,7 +36,6 @@ import * as clusterStop from "./clusterStop";
 
 function* rootSaga() {
   yield all([
-    fork(dataLoad.setUpDataReading),
     fork(dataLoad.manage, cluster.clusterDataSyncOptions),
     takeEvery("USERNAME.LOAD", username.usernameLoad),
     takeEvery("USER.INIT", user.init),
