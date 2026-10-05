@@ -105,6 +105,63 @@ export const select = async (
     .click();
 };
 
+// Typeahead selects (PF6 "typeahead" MenuToggle) render their options into a
+// scrollable portal menu without virtualization. With a real backend the list
+// can hold dozens of agents, so the wanted option ends up below the fold. Type
+// the value into the combobox input first to filter the menu down to the match.
+//
+// Two things make selecting the option reliably across CI composes tricky:
+//
+//   1. Locating it. PF6 renders the menu options as role="option" buttons under a
+//      role="menu" (not role="listbox") parent. That is an invalid ARIA context,
+//      and newer Chromium versions therefore omit the options from the
+//      accessibility tree - so getByRole("option", {name}) matches nothing on
+//      those composes even though the option is on screen. Match on the DOM
+//      instead: a [role="option"] attribute selector (ignores a11y-tree validity)
+//      filtered by hasText (textContent, no a11y involved).
+//
+//   2. Acting on it. The popper's fade/transform never settles on some composes,
+//      so anything that waits for the option to be "visible" or "stable"
+//      (locator.click, even with {force: true}; boundingBox; waitFor "visible")
+//      times out. So wait only for "attached" and select with dispatchEvent,
+//      which fires the click without any visibility/stability wait. The click is
+//      retried until the menu actually closes, which verifies the selection took.
+//
+// Selecting via the keyboard was rejected: Enter in the combobox also submits the
+// surrounding wizard step.
+export const selectTypeahead = async (
+  mark: Mark,
+  value: string | undefined,
+  nth = 0,
+) => {
+  await click(mark);
+  if (value !== undefined) {
+    await locatorFor(mark).getByRole("combobox").fill(value);
+  }
+  const body = () => locatorFor(mark).locator("xpath=/ancestor::body");
+  const menuOptions = () => body().locator('[role="option"]');
+  const wantedOption = () =>
+    (value === undefined
+      ? menuOptions()
+      : menuOptions().filter({hasText: value})
+    ).nth(nth);
+  await wantedOption().waitFor({state: "attached"});
+  for (let attempt = 0; attempt < 15; attempt++) {
+    await wantedOption()
+      .dispatchEvent("click")
+      .catch(() => undefined);
+    try {
+      await menuOptions().first().waitFor({state: "detached", timeout: 1000});
+      return;
+    } catch {
+      // Menu still open - the click did not register; retry.
+    }
+  }
+  throw new Error(
+    `selectTypeahead: "${value}" not selected (menu stayed open)`,
+  );
+};
+
 const appConfirmTitleIs = async (title: string) =>
   await isVisible(
     marks.task.confirm.locator.locator(

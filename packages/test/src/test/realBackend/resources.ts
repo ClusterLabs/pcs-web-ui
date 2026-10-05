@@ -7,7 +7,7 @@ export const create = async (resourceId: string, agentName: string) => {
   await click(resourcesToolbar.createResource);
 
   await fill(task.nameType.name, resourceId);
-  await select(task.nameType.agentName, agentName.split(":").at(-1));
+  await selectTypeahead(task.nameType.agentName, agentName.split(":").at(-1));
   await click([
     task.nameTypeFooter.next,
     task.instanceAttrsFooter.next,
