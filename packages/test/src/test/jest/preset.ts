@@ -14,6 +14,7 @@ declare global {
   var fill: typeof locatorTools.fill;
   var dropdown: typeof locatorTools.dropdown;
   var select: typeof locatorTools.select;
+  var selectTypeahead: typeof locatorTools.selectTypeahead;
   var appConfirm: typeof locatorTools.appConfirm;
   var radioGroup: typeof locatorTools.radioGroup;
   var taskTitle: typeof locatorTools.taskTitle;
@@ -53,6 +54,7 @@ export default async () => {
   global.fill = locatorTools.fill;
   global.dropdown = locatorTools.dropdown;
   global.select = locatorTools.select;
+  global.selectTypeahead = locatorTools.selectTypeahead;
   global.appConfirm = locatorTools.appConfirm;
   global.radioGroup = locatorTools.radioGroup;
   global.taskTitle = locatorTools.taskTitle;
