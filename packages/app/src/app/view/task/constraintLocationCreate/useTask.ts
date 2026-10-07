@@ -13,7 +13,9 @@ export const useTask = () => {
     ...task,
     clusterName,
     label: "Create location constraint",
-    isScoreValid: state.score.length === 0 || isValidScore(state.score),
+    isScoreValid:
+      state.score.length === 0 ||
+      isValidScore(state.score, state.locationSpecification === "rule"),
     isResourceValid:
       state.resourceSpecification === "pattern" || state.resourceId.length > 0,
     isPatternValid:
@@ -41,7 +43,10 @@ export const useTask = () => {
           ? state.resourcePattern
           : state.resourceId;
 
-      const score = `${state.preference === "prefer" ? "" : "-"}${state.score}`;
+      const score =
+        state.locationSpecification === "node"
+          ? `${state.preference === "prefer" ? "" : "-"}${state.score}`
+          : state.score;
       const locationSpecification = state.locationSpecification;
 
       dispatch({
