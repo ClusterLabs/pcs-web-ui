@@ -1,5 +1,7 @@
-export const isValidScore = (score: string) =>
-  score.toUpperCase() === "INFINITY" || /^(0|[1-9]\d*)$/.test(score);
+export const isValidScore = (score: string, allow_negative_values = false) =>
+  score.toUpperCase() === "INFINITY" || allow_negative_values
+    ? /^(0|-?[1-9]\d*)$/.test(score)
+    : /^(0|[1-9]\d*)$/.test(score);
 
 export const prepareScore = ({
   score,

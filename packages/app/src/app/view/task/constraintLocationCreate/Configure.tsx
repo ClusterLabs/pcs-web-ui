@@ -36,6 +36,8 @@ export const Configure = () => {
     },
   } = useTask();
 
+  const isNode = locationSpecification === "node";
+
   return (
     <Form>
       <FormGroup
@@ -90,7 +92,7 @@ export const Configure = () => {
       >
         <FormSelectOrText
           id="constraint-location-create-location"
-          checked={locationSpecification === "node" ? "select" : "text"}
+          checked={isNode ? "select" : "text"}
           onChange={checked =>
             updateState({
               locationSpecification: checked === "select" ? "node" : "rule",
@@ -127,36 +129,38 @@ export const Configure = () => {
         />
       </FormGroup>
 
-      <FormGroup
-        label="Preference"
-        isRequired
-        fieldId="constraint-location-create-preference"
-      >
-        <Flex {...task.preference.mark}>
-          <FlexItem>
-            <Radio
-              isChecked={preference === "prefer"}
-              name="preference-prefer"
-              onChange={isChecked =>
-                updateState({preference: isChecked ? "prefer" : "avoid"})
-              }
-              label="Prefer"
-              id="preference-prefer"
-            />
-          </FlexItem>
-          <FlexItem>
-            <Radio
-              isChecked={preference === "avoid"}
-              name="preference-avoid"
-              onChange={isChecked =>
-                updateState({preference: isChecked ? "avoid" : "prefer"})
-              }
-              label="Avoid"
-              id="preference-avoid"
-            />
-          </FlexItem>
-        </Flex>
-      </FormGroup>
+      {isNode && (
+        <FormGroup
+          label="Preference"
+          isRequired
+          fieldId="constraint-location-create-preference"
+        >
+          <Flex {...task.preference.mark}>
+            <FlexItem>
+              <Radio
+                isChecked={preference === "prefer"}
+                name="preference-prefer"
+                onChange={isChecked =>
+                  updateState({preference: isChecked ? "prefer" : "avoid"})
+                }
+                label="Prefer"
+                id="preference-prefer"
+              />
+            </FlexItem>
+            <FlexItem>
+              <Radio
+                isChecked={preference === "avoid"}
+                name="preference-avoid"
+                onChange={isChecked =>
+                  updateState({preference: isChecked ? "avoid" : "prefer"})
+                }
+                label="Avoid"
+                id="preference-avoid"
+              />
+            </FlexItem>
+          </Flex>
+        </FormGroup>
+      )}
 
       <FormText
         id="constraint-score"
@@ -165,7 +169,7 @@ export const Configure = () => {
         value={score}
         showValidationErrors={showValidationErrors}
         isValid={isScoreValid}
-        helperTextInvalid="Score must be integer or INFINITY"
+        helperTextInvalid={`Score must be ${isNode ? "positive " : " "}integer or INFINITY`}
         {...task.score.mark}
       />
     </Form>
