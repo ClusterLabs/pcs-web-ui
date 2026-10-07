@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+* Create location constraint does not use field `prefer/avoid` option for
+  location with rule.
+
 ## [0.1.25] - 2026-07-01
 
 ### Added
