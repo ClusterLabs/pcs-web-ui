@@ -9,6 +9,5 @@ type ExcludeMess<KEYS> = Exclude<KEYS, typeof $CombinedState>;
 type ReduxRoot = ReturnType<ReturnType<typeof root>>;
 export type Root = {[K in ExcludeMess<keyof ReduxRoot>]: ReduxRoot[K]};
 
-type ClusterStorage = Root["clusterStorage"];
-export type ClusterStorageItem = ClusterStorage[keyof ClusterStorage];
+export type ClusterData = NonNullable<Root["clusterData"]>;
 export type TaskKeys = ExcludeMess<keyof Root["tasks"]>;

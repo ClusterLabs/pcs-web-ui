@@ -1,24 +1,20 @@
-import {CLUSTER_KEY} from "app/store/clusterStorageKey";
-
-import type {ClusterStorageItem, Root} from "../types";
+import type {ClusterData, Root} from "../types";
 
 import {
   type ClusterSelector as TClusterSelector,
-  clusterStorageItemSelector,
+  clusterDataSelector,
 } from "./selectorsHelpers";
 
-export const getCibSecrets = clusterStorageItemSelector(
-  (clusterStorageItem, resourceId: string) =>
-    clusterStorageItem.cibSecrets[resourceId],
+export const getCibSecrets = clusterDataSelector(
+  (clusterData, resourceId: string) => clusterData.cibSecrets[resourceId],
 );
 
-export const getPcmkAgent = clusterStorageItemSelector(
-  (clusterStorageItem, agentName: string) =>
-    clusterStorageItem.pcmkAgents[agentName],
+export const getPcmkAgent = clusterDataSelector(
+  (clusterData, agentName: string) => clusterData.pcmkAgents[agentName],
 );
 
-export const getClusterProperties = clusterStorageItemSelector(
-  clusterStorageItem => clusterStorageItem.clusterProperties.data,
+export const getClusterProperties = clusterDataSelector(
+  clusterData => clusterData.clusterProperties.data,
 );
 
 export type ClusterSelector<
@@ -50,16 +46,16 @@ type ClusterInfo =
       clusterStatus: {
         isForbidden: boolean;
         isBackendNotFoundCase: boolean;
-        data: ClusterStorageItem["clusterStatus"]["clusterData"];
+        data: ClusterData["clusterStatus"]["clusterData"];
         load: {when: number; currently: boolean};
       };
-      permissions: ClusterStorageItem["clusterPermissions"]["data"];
-      pcmkAgents: ClusterStorageItem["pcmkAgents"];
+      permissions: ClusterData["clusterPermissions"]["data"];
+      pcmkAgents: ClusterData["pcmkAgents"];
     };
 
 export const getClusterStoreInfo = (state: Root): ClusterInfo => {
-  const clusterStoreItem = state.clusterStorage[CLUSTER_KEY];
-  if (clusterStoreItem === undefined) {
+  const clusterData = state.clusterData;
+  if (clusterData === null) {
     // A very short init period before first cluster request action is run.
     return {
       isRegistered: false,
@@ -76,7 +72,7 @@ export const getClusterStoreInfo = (state: Root): ClusterInfo => {
   const {
     clusterData: data,
     load: {when, currently, result},
-  } = clusterStoreItem.clusterStatus;
+  } = clusterData.clusterStatus;
   return {
     isRegistered: true,
     clusterStatus: {
@@ -85,23 +81,22 @@ export const getClusterStoreInfo = (state: Root): ClusterInfo => {
       data,
       load: {when, currently},
     },
-    permissions: clusterStoreItem.clusterPermissions.data,
-    pcmkAgents: clusterStoreItem.pcmkAgents,
+    permissions: clusterData.clusterPermissions.data,
+    pcmkAgents: clusterData.pcmkAgents,
   };
 };
 
-type PcmkAgent =
-  ClusterStorageItem["pcmkAgents"][keyof ClusterStorageItem["pcmkAgents"]];
+type PcmkAgent = ClusterData["pcmkAgents"][keyof ClusterData["pcmkAgents"]];
 
 export const getResourceAgentMap =
   (_clusterName: string) =>
-  (state: Root): ClusterStorageItem["resourceAgentMap"]["data"] =>
-    state.clusterStorage[CLUSTER_KEY]?.resourceAgentMap.data ?? null;
+  (state: Root): ClusterData["resourceAgentMap"]["data"] =>
+    state.clusterData?.resourceAgentMap.data ?? null;
 
 export const getFenceAgentList =
   (_clusterName: string) =>
-  (state: Root): ClusterStorageItem["fenceAgentList"]["data"] =>
-    state.clusterStorage[CLUSTER_KEY]?.fenceAgentList.data ?? null;
+  (state: Root): ClusterData["fenceAgentList"]["data"] =>
+    state.clusterData?.fenceAgentList.data ?? null;
 
 export const getAgentInfo =
   (_clusterName: string, agentName: string) =>
@@ -112,12 +107,12 @@ export const getAgentInfo =
     isAgentLoaded: boolean;
     isAgentLoadFailed: boolean;
   } | null => {
-    const clusterStoreItem = state.clusterStorage[CLUSTER_KEY];
-    if (clusterStoreItem === undefined) {
+    const clusterData = state.clusterData;
+    if (clusterData === null) {
       return null;
     }
 
-    const agent = clusterStoreItem.pcmkAgents[agentName];
+    const agent = clusterData.pcmkAgents[agentName];
     return {
       agent,
       isAgentLoaded:

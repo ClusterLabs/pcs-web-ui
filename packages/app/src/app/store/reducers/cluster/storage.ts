@@ -1,6 +1,5 @@
 import {combineReducers} from "redux";
 
-import {CLUSTER_KEY} from "app/store/clusterStorageKey";
 import type {AppReducer} from "app/store/reducers/appReducer";
 
 import {cibSecrets} from "./cibSecrets";
@@ -11,7 +10,7 @@ import {clusterPermissions} from "./permissions";
 import {resourceAgentMap} from "./resourceAgentMap";
 import {fenceAgentList} from "./fenceAgentList";
 
-const clusterStorageItem = combineReducers({
+const clusterDataItem = combineReducers({
   cibSecrets,
   clusterStatus,
   pcmkAgents,
@@ -21,33 +20,27 @@ const clusterStorageItem = combineReducers({
   fenceAgentList,
 });
 
-type ClusterStorage = Record<string, ReturnType<typeof clusterStorageItem>>;
+export type ClusterData = ReturnType<typeof clusterDataItem>;
 
-export const clusterStorage: AppReducer<ClusterStorage> = (
-  state = {},
+export const clusterData: AppReducer<ClusterData | null> = (
+  state = null,
   action,
 ) => {
   if (
     action.type === "AUTH.REQUIRED" ||
     action.type === "USER.PERMISSIONS_LOST"
   ) {
-    return {};
+    return null;
   }
   if ("key" in action && "clusterName" in action.key) {
-    // Single-cluster model: every keyed action collapses onto the constant
-    // CLUSTER_KEY regardless of the clusterName carried by the action. The
+    // Single-cluster model: the clusterName carried by the action is ignored.
+    // A keyed cluster action lazily initializes the slot and updates it. The
     // follow-up de-keying ticket will remove clusterName from the actions
     // entirely.
-    return {
-      ...state,
-      [CLUSTER_KEY]: clusterStorageItem(state[CLUSTER_KEY], action),
-    };
+    return clusterDataItem(state ?? undefined, action);
   }
-  return Object.keys(state).reduce<ClusterStorage>(
-    (newState, clusterName) => ({
-      ...newState,
-      [clusterName]: clusterStorageItem(state[clusterName], action),
-    }),
-    {} as ClusterStorage,
-  );
+  // Actions without clusterName propagate to sub-reducers only once cluster
+  // data already exists (mirrors the original Object.keys(state).reduce over
+  // existing slots). While state is null it stays null => isRegistered: false.
+  return state === null ? null : clusterDataItem(state, action);
 };
