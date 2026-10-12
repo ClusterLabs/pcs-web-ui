@@ -97,7 +97,7 @@ variables:
           job=tf_tests%3A%20%5B${COMPOSE_NAME}%5D"
     - if: $COMPOSE_NAME == "FedoraCurrentRelease"
       variables:
-        TF_COMPOSE: Fedora-45
+        TF_COMPOSE: Fedora-45-Cloud-Base
         TMT_DISTRO: fedora-45
         PCS_BRANCH: main
         PCS_ARTIFACTS_URL: "${CI_API_V4_URL}/projects/pcs%2Fpcs/jobs/\
