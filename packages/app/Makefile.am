@@ -438,7 +438,6 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/permissions/types.ts \
 			  src/app/view/cluster/properties/ClusterPropertiesPage.tsx \
 			  src/app/view/cluster/properties/index.ts \
-			  src/app/view/cluster/properties/useClusterProperties.ts \
 			  src/app/view/cluster/resources/clone/CloneDetail.tsx \
 			  src/app/view/cluster/resources/clone/CloneMeta.tsx \
 			  src/app/view/cluster/resources/clone/ClonePageToolbar.tsx \

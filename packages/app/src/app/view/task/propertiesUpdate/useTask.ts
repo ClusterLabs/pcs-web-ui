@@ -36,7 +36,7 @@ export const useTask = () => {
   return {
     ...task,
     clusterName,
-    clusterPropertiesDefinition: useSelector(getClusterProperties(clusterName)),
+    clusterPropertiesDefinition: useSelector(getClusterProperties()),
     userPropertyMap: {...originalPropertyMap, ...modifiedPropertyMap},
     hasChanges: Object.keys(propertyMap).length > 0,
     propertyMap,

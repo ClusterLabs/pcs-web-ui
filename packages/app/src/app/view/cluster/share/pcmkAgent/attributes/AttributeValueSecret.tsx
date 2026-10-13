@@ -8,7 +8,6 @@ import {
 import {LockIcon, UnlockIcon} from "@patternfly/react-icons";
 
 import {selectors} from "app/store";
-import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 
 export const isCibSecret = (value: string | undefined): boolean =>
   value === "lrm://";
@@ -24,10 +23,7 @@ export const AttributeValueSecret = ({
   revealed: (value: React.ReactNode) => React.ReactNode;
   hidden: (value: React.ReactNode) => React.ReactNode;
 }) => {
-  const {clusterName} = useLoadedCluster();
-  const cibSecretsState = useSelector(
-    selectors.getCibSecrets(clusterName, resourceId),
-  );
+  const cibSecretsState = useSelector(selectors.getCibSecrets(resourceId));
 
   if (
     cibSecretsState?.loadStatus === "LOADED" &&

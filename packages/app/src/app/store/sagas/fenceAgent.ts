@@ -70,9 +70,7 @@ export function* ensure({
   key,
   payload: {agentName},
 }: ActionMap["FENCE_AGENT.ENSURE"]) {
-  const pcmkAgent: PcmkAgent = yield select(
-    selectors.getPcmkAgent(key.clusterName, agentName),
-  );
+  const pcmkAgent: PcmkAgent = yield select(selectors.getPcmkAgent(agentName));
   if (!pcmkAgent || pcmkAgent.loadStatus === "FAILED") {
     yield put({
       type: "FENCE_AGENT.LOAD",
