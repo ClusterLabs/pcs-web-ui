@@ -11,7 +11,7 @@ import {LoadedPcmkAgent} from "app/view/share";
 const {detail} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
-  const {resourceOnNodeStatusList, clusterName} = useLoadedCluster();
+  const {resourceOnNodeStatusList} = useLoadedCluster();
   const crmStatusList = resourceOnNodeStatusList.filter(
     s => s.resource.id === primitive.id,
   );
@@ -19,10 +19,7 @@ export const PrimitiveDetail = ({primitive}: {primitive: Primitive}) => {
   return (
     <span {...detail.mark}>
       <DetailViewSection caption="Description">
-        <LoadedPcmkAgent
-          clusterName={clusterName}
-          agentName={primitive.agentName}
-        >
+        <LoadedPcmkAgent agentName={primitive.agentName}>
           {agent => (
             <PcmkAgentDescription
               name={agent.name}

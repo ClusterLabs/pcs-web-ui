@@ -5,8 +5,6 @@ import {selectors} from "app/store";
 import {testMarks} from "app/view/dataTest";
 import {SelectTypeahead} from "app/view/share";
 
-import {useTask} from "./useTask";
-
 const grow: FlexProps["grow"] = {default: "grow"};
 
 export const NameTypeTypeSelect = ({
@@ -18,10 +16,7 @@ export const NameTypeTypeSelect = ({
   onClear: () => void;
   agentName: string;
 }) => {
-  const {
-    state: {clusterName},
-  } = useTask();
-  const fenceAgentList = useSelector(selectors.getFenceAgentList(clusterName));
+  const fenceAgentList = useSelector(selectors.getFenceAgentList);
 
   return (
     <Flex>

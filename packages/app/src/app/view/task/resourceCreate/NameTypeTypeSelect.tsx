@@ -23,7 +23,7 @@ import {testMarks} from "app/view/dataTest";
 import {useTask} from "./useTask";
 
 type ResourceAgentMap = NonNullable<
-  ReturnType<ReturnType<typeof selectors.getResourceAgentMap>>
+  ReturnType<typeof selectors.getResourceAgentMap>
 >;
 
 type EnhancedAgentMap = Record<
@@ -92,13 +92,11 @@ const optionId = (fullAgentName: string) => mkId(`-opt-${fullAgentName}`);
 
 export const NameTypeTypeSelect = () => {
   const {
-    state: {clusterName, agentName},
+    state: {agentName},
     selectAgent,
   } = useTask();
 
-  const resourceAgentMap = useSelector(
-    selectors.getResourceAgentMap(clusterName),
-  );
+  const resourceAgentMap = useSelector(selectors.getResourceAgentMap);
   const [search, setSearch] = React.useState("");
   const [currIndex, setCurrIndex] = React.useState<number>(0);
   const [isOpen, setIsOpen] = React.useState(false);

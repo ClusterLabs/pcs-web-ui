@@ -8,9 +8,7 @@ export const useTask = () => {
   const task = useTaskCommon("fenceDeviceCreate");
   const {state, dispatch} = task;
   const {clusterName} = state;
-  const agentInfo = useSelector(
-    selectors.getAgentInfo(clusterName, state.agentName),
-  );
+  const agentInfo = useSelector(selectors.getAgentInfo(state.agentName));
 
   return {
     ...task,

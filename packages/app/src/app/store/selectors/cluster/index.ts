@@ -60,18 +60,14 @@ export const getClusterStoreInfo = (state: Root): ClusterInfo => {
 
 type PcmkAgent = ClusterData["pcmkAgents"][keyof ClusterData["pcmkAgents"]];
 
-export const getResourceAgentMap =
-  (_clusterName: string) =>
-  (state: Root): ClusterData["resourceAgentMap"]["data"] =>
-    state.clusterData.resourceAgentMap.data;
+export const getResourceAgentMap = (state: Root) =>
+  state.clusterData.resourceAgentMap.data;
 
-export const getFenceAgentList =
-  (_clusterName: string) =>
-  (state: Root): ClusterData["fenceAgentList"]["data"] =>
-    state.clusterData.fenceAgentList.data;
+export const getFenceAgentList = (state: Root) =>
+  state.clusterData.fenceAgentList.data;
 
 export const getAgentInfo =
-  (_clusterName: string, agentName: string) =>
+  (agentName: string) =>
   (
     state: Root,
   ): {
