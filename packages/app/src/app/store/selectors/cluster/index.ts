@@ -30,59 +30,31 @@ export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
   ? SELECTED
   : never;
 
-type ClusterInfo =
-  | {
-      isRegistered: false;
-      clusterStatus: {
-        isForbidden: false;
-        isBackendNotFoundCase: false;
-        data: null;
-      };
-      permissions: null;
-      pcmkAgents: null;
-    }
-  | {
-      isRegistered: true;
-      clusterStatus: {
-        isForbidden: boolean;
-        isBackendNotFoundCase: boolean;
-        data: ClusterData["clusterStatus"]["clusterData"];
-        load: {when: number; currently: boolean};
-      };
-      permissions: ClusterData["clusterPermissions"]["data"];
-      pcmkAgents: ClusterData["pcmkAgents"];
-    };
+type ClusterInfo = {
+  clusterStatus: {
+    isForbidden: boolean;
+    isBackendNotFoundCase: boolean;
+    data: ClusterData["clusterStatus"]["clusterData"];
+    load: {when: number; currently: boolean};
+  };
+  permissions: ClusterData["clusterPermissions"]["data"];
+  pcmkAgents: ClusterData["pcmkAgents"];
+};
 
 export const getClusterStoreInfo = (state: Root): ClusterInfo => {
-  const clusterData = state.clusterData;
-  if (clusterData === null) {
-    // A very short init period before first cluster request action is run.
-    return {
-      isRegistered: false,
-      clusterStatus: {
-        isForbidden: false,
-        isBackendNotFoundCase: false,
-        data: null,
-      },
-      permissions: null,
-      pcmkAgents: null,
-    };
-  }
-
   const {
     clusterData: data,
     load: {when, currently, result},
-  } = clusterData.clusterStatus;
+  } = state.clusterData.clusterStatus;
   return {
-    isRegistered: true,
     clusterStatus: {
       isForbidden: result === "FORBIDDEN",
       isBackendNotFoundCase: result === "BACKEND_NOT_FOUND",
       data,
       load: {when, currently},
     },
-    permissions: clusterData.clusterPermissions.data,
-    pcmkAgents: clusterData.pcmkAgents,
+    permissions: state.clusterData.clusterPermissions.data,
+    pcmkAgents: state.clusterData.pcmkAgents,
   };
 };
 
@@ -91,12 +63,12 @@ type PcmkAgent = ClusterData["pcmkAgents"][keyof ClusterData["pcmkAgents"]];
 export const getResourceAgentMap =
   (_clusterName: string) =>
   (state: Root): ClusterData["resourceAgentMap"]["data"] =>
-    state.clusterData?.resourceAgentMap.data ?? null;
+    state.clusterData.resourceAgentMap.data;
 
 export const getFenceAgentList =
   (_clusterName: string) =>
   (state: Root): ClusterData["fenceAgentList"]["data"] =>
-    state.clusterData?.fenceAgentList.data ?? null;
+    state.clusterData.fenceAgentList.data;
 
 export const getAgentInfo =
   (_clusterName: string, agentName: string) =>
@@ -106,13 +78,8 @@ export const getAgentInfo =
     agent: PcmkAgent;
     isAgentLoaded: boolean;
     isAgentLoadFailed: boolean;
-  } | null => {
-    const clusterData = state.clusterData;
-    if (clusterData === null) {
-      return null;
-    }
-
-    const agent = clusterData.pcmkAgents[agentName];
+  } => {
+    const agent = state.clusterData.pcmkAgents[agentName];
     return {
       agent,
       isAgentLoaded:

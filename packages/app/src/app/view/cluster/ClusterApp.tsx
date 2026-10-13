@@ -37,28 +37,22 @@ export const ClusterApp = () => {
         <ClusterAppBreadcrumbs
           clusterName={clusterName}
           status={
-            clusterInfo.isRegistered ? (
-              <>
-                <ClusterStatusLabel
-                  status={clusterInfo.clusterStatus.data?.status ?? "unknown"}
-                  {...clusterBreadcrumbs.clusterStatus.mark}
-                />
-                <ClusterStatusLoadingLabel
-                  clusterName={CLUSTER_KEY}
-                  when={clusterInfo.clusterStatus.load.when}
-                  isLoading={clusterInfo.clusterStatus.load.currently}
-                />
-              </>
-            ) : null
+            <>
+              <ClusterStatusLabel
+                status={clusterInfo.clusterStatus.data?.status ?? "unknown"}
+                {...clusterBreadcrumbs.clusterStatus.mark}
+              />
+              <ClusterStatusLoadingLabel
+                clusterName={CLUSTER_KEY}
+                when={clusterInfo.clusterStatus.load.when}
+                isLoading={clusterInfo.clusterStatus.load.currently}
+              />
+            </>
           }
         />
       }
     >
       {currentTab => {
-        if (!clusterInfo.isRegistered) {
-          return <ClusterAppLoading title="Preparing cluster storage" />;
-        }
-
         if (currentTab === "permissions") {
           if (!clusterInfo.permissions) {
             return (

@@ -10,7 +10,7 @@ import {clusterPermissions} from "./permissions";
 import {resourceAgentMap} from "./resourceAgentMap";
 import {fenceAgentList} from "./fenceAgentList";
 
-const clusterDataItem = combineReducers({
+const combined = combineReducers({
   cibSecrets,
   clusterStatus,
   pcmkAgents,
@@ -20,27 +20,9 @@ const clusterDataItem = combineReducers({
   fenceAgentList,
 });
 
-export type ClusterData = ReturnType<typeof clusterDataItem>;
+export type ClusterData = ReturnType<typeof combined>;
 
-export const clusterData: AppReducer<ClusterData | null> = (
-  state = null,
-  action,
-) => {
-  if (
-    action.type === "AUTH.REQUIRED" ||
-    action.type === "USER.PERMISSIONS_LOST"
-  ) {
-    return null;
-  }
-  if ("key" in action && "clusterName" in action.key) {
-    // Single-cluster model: the clusterName carried by the action is ignored.
-    // A keyed cluster action lazily initializes the slot and updates it. The
-    // follow-up de-keying ticket will remove clusterName from the actions
-    // entirely.
-    return clusterDataItem(state ?? undefined, action);
-  }
-  // Actions without clusterName propagate to sub-reducers only once cluster
-  // data already exists (mirrors the original Object.keys(state).reduce over
-  // existing slots). While state is null it stays null => isRegistered: false.
-  return state === null ? null : clusterDataItem(state, action);
-};
+export const clusterData: AppReducer<ClusterData> = (state, action) =>
+  action.type === "AUTH.REQUIRED" || action.type === "USER.PERMISSIONS_LOST"
+    ? combined(undefined, action)
+    : combined(state, action);
