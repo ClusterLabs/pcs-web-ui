@@ -25,12 +25,7 @@ export const useTask = () => {
     // actions
     updateState: (
       payload: ActionPayload["CONSTRAINT.COLOCATION.SET.CREATE.UPDATE"],
-    ) =>
-      dispatch({
-        type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+    ) => dispatch({type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE", payload}),
 
     updateSet:
       (index: number) =>
@@ -39,7 +34,6 @@ export const useTask = () => {
       ) => {
         dispatch({
           type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET",
-          key: {clusterName},
           payload: {index, set},
         });
       },
@@ -82,10 +76,7 @@ export const useTask = () => {
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
         key: {task: task.name},
       });
-      dispatch({
-        type: "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE"});
     },
   };
 };

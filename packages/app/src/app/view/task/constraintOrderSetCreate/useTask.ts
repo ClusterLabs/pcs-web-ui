@@ -24,19 +24,13 @@ export const useTask = () => {
     // actions
     updateState: (
       payload: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE"],
-    ) =>
-      dispatch({
-        type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+    ) => dispatch({type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE", payload}),
 
     updateSet:
       (index: number) =>
       (set: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]) => {
         dispatch({
           type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET",
-          key: {clusterName},
           payload: {index, set},
         });
       },
@@ -78,10 +72,7 @@ export const useTask = () => {
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
         key: {task: task.name},
       });
-      dispatch({
-        type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE"});
     },
   };
 };

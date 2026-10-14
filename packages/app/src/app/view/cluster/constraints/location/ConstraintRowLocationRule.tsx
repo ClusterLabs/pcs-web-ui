@@ -1,6 +1,5 @@
 import {DataListCell} from "@patternfly/react-core";
 
-import {useLoadedCluster} from "app/view/cluster/share";
 import {remapDeprecatedRoles} from "app/store";
 
 import type {ConstraintLocationRule} from "../types";
@@ -32,8 +31,6 @@ export const ConstraintRowLocationRule = ({
   constraint: ConstraintLocationRule;
   uniqueId: number;
 }) => {
-  const {clusterName} = useLoadedCluster();
-
   return (
     <ConstraintRow
       id={getId(constraint, uniqueId)}
@@ -74,7 +71,6 @@ export const ConstraintRowLocationRule = ({
         "id" in constraint
           ? {
               type: "CONSTRAINT.DELETE.RULE",
-              key: {clusterName},
               payload: {
                 ruleId: constraint.id,
               },

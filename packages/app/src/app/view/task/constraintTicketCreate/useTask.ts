@@ -12,12 +12,8 @@ export const useTask = () => {
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.TICKET.CREATE.UPDATE"]) =>
-      dispatch({
-        type: "CONSTRAINT.TICKET.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
-    [dispatch, clusterName],
+      dispatch({type: "CONSTRAINT.TICKET.CREATE.UPDATE", payload}),
+    [dispatch],
   );
 
   const isCustomIdValid = !state.useCustomId || state.id.length > 0;
@@ -69,10 +65,7 @@ export const useTask = () => {
 
     close: () => {
       close();
-      dispatch({
-        type: "CONSTRAINT.TICKET.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CONSTRAINT.TICKET.CREATE.CLOSE"});
     },
   };
 };

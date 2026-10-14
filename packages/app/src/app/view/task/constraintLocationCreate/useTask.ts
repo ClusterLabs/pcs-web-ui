@@ -32,7 +32,6 @@ export const useTask = () => {
     ) =>
       dispatch({
         type: "CONSTRAINT.LOCATION.CREATE.UPDATE",
-        key: {clusterName},
         payload,
       }),
 
@@ -51,7 +50,7 @@ export const useTask = () => {
 
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload:
           locationSpecification === "node"
             ? {
@@ -82,16 +81,13 @@ export const useTask = () => {
     recoverFromError: () => {
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE.FAIL.RECOVER",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
     },
 
     close: () => {
       close();
-      dispatch({
-        type: "CONSTRAINT.LOCATION.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CONSTRAINT.LOCATION.CREATE.CLOSE"});
     },
   };
 };

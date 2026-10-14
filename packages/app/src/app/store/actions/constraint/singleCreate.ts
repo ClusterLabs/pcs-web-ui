@@ -5,7 +5,7 @@ type Constraint = Parameters<typeof addConstraintRemote>[0]["constraint"];
 export type SingleCreateActions = {
   "CONSTRAINT.SINGLE.CREATE": {
     type: "CONSTRAINT.SINGLE.CREATE";
-    key: {clusterName: string; task: string};
+    key: {task: string};
     payload:
       | {constraint: Exclude<Constraint, {location: unknown}>}
       | {
@@ -22,17 +22,17 @@ export type SingleCreateActions = {
 
   "CONSTRAINT.SINGLE.CREATE.OK": {
     type: "CONSTRAINT.SINGLE.CREATE.OK";
-    key: {clusterName: string; task: string};
+    key: {task: string};
   };
 
   "CONSTRAINT.SINGLE.CREATE.FAIL": {
     type: "CONSTRAINT.SINGLE.CREATE.FAIL";
-    key: {clusterName: string; task: string};
+    key: {task: string};
     payload: {message: string};
   };
 
   "CONSTRAINT.SINGLE.CREATE.FAIL.RECOVER": {
     type: "CONSTRAINT.SINGLE.CREATE.FAIL.RECOVER";
-    key: {clusterName: string; task: string};
+    key: {task: string};
   };
 };
