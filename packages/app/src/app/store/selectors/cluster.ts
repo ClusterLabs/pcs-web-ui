@@ -1,4 +1,4 @@
-import type {ClusterData, Root} from "../types";
+import type {ClusterData, Root} from "./types";
 
 export const getCibSecrets = (resourceId: string) => (state: Root) =>
   state.clusterData.cibSecrets[resourceId];
