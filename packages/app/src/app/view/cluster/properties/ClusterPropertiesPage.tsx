@@ -24,9 +24,7 @@ import {useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
 const {getClusterProperties} = selectors;
-type ClusterProperties = selectors.ExtractClusterSelector<
-  typeof getClusterProperties
->;
+type ClusterProperties = ReturnType<typeof getClusterProperties>;
 
 const useFilter = (): {
   filterState: ReturnType<
@@ -49,7 +47,7 @@ const useFilter = (): {
 const {properties, propertiesToolbar} = testMarks.cluster;
 
 export const ClusterPropertiesPage = () => {
-  const clusterPropertiesDefinition = useSelector(getClusterProperties());
+  const clusterPropertiesDefinition = useSelector(getClusterProperties);
   const {hasCibInfo, clusterProperties, clusterName} = useLoadedCluster();
   const {filterState, filterParameters} = useFilter();
   const openTask = useOpenTask();

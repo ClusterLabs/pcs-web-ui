@@ -6,9 +6,7 @@ import {useTaskCommon} from "../useTaskCommon";
 
 const {getClusterProperties} = selectors;
 
-export type ClusterProperties = selectors.ExtractClusterSelector<
-  typeof getClusterProperties
->;
+export type ClusterProperties = ReturnType<typeof getClusterProperties>;
 
 export const useTask = () => {
   const task = useTaskCommon("propertiesUpdate");
@@ -36,7 +34,7 @@ export const useTask = () => {
   return {
     ...task,
     clusterName,
-    clusterPropertiesDefinition: useSelector(getClusterProperties()),
+    clusterPropertiesDefinition: useSelector(getClusterProperties),
     userPropertyMap: {...originalPropertyMap, ...modifiedPropertyMap},
     hasChanges: Object.keys(propertyMap).length > 0,
     propertyMap,

@@ -63,9 +63,7 @@ export function* load({
   });
 }
 
-type PcmkAgent = selectors.ExtractClusterSelector<
-  typeof selectors.getPcmkAgent
->;
+type PcmkAgent = ReturnType<ReturnType<typeof selectors.getPcmkAgent>>;
 export function* ensure({
   key,
   payload: {agentName},

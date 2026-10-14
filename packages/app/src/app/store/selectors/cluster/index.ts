@@ -1,34 +1,13 @@
 import type {ClusterData, Root} from "../types";
 
-import {
-  type ClusterSelector as TClusterSelector,
-  clusterDataSelector,
-} from "./selectorsHelpers";
+export const getCibSecrets = (resourceId: string) => (state: Root) =>
+  state.clusterData.cibSecrets[resourceId];
 
-export const getCibSecrets = clusterDataSelector(
-  (clusterData, resourceId: string) => clusterData.cibSecrets[resourceId],
-);
+export const getPcmkAgent = (agentName: string) => (state: Root) =>
+  state.clusterData.pcmkAgents[agentName];
 
-export const getPcmkAgent = clusterDataSelector(
-  (clusterData, agentName: string) => clusterData.pcmkAgents[agentName],
-);
-
-export const getClusterProperties = clusterDataSelector(
-  clusterData => clusterData.clusterProperties.data,
-);
-
-export type ClusterSelector<
-  ARGS extends unknown[],
-  SELECTED,
-> = TClusterSelector<ARGS, SELECTED>;
-
-export type ExtractClusterSelector<SELECTOR> = SELECTOR extends ClusterSelector<
-  // biome-ignore lint/suspicious/noExplicitAny: No worth to improve any now
-  any[],
-  infer SELECTED
->
-  ? SELECTED
-  : never;
+export const getClusterProperties = (state: Root) =>
+  state.clusterData.clusterProperties.data;
 
 type ClusterInfo = {
   clusterStatus: {
@@ -58,23 +37,21 @@ export const getClusterStoreInfo = (state: Root): ClusterInfo => {
   };
 };
 
-type PcmkAgent = ClusterData["pcmkAgents"][keyof ClusterData["pcmkAgents"]];
-
 export const getResourceAgentMap = (state: Root) =>
   state.clusterData.resourceAgentMap.data;
 
 export const getFenceAgentList = (state: Root) =>
   state.clusterData.fenceAgentList.data;
 
+type AgentInfo = {
+  agent: ClusterData["pcmkAgents"][keyof ClusterData["pcmkAgents"]];
+  isAgentLoaded: boolean;
+  isAgentLoadFailed: boolean;
+};
+
 export const getAgentInfo =
   (agentName: string) =>
-  (
-    state: Root,
-  ): {
-    agent: PcmkAgent;
-    isAgentLoaded: boolean;
-    isAgentLoadFailed: boolean;
-  } => {
+  (state: Root): AgentInfo => {
     const agent = state.clusterData.pcmkAgents[agentName];
     return {
       agent,

@@ -294,7 +294,6 @@ EXTRA_DIST		= \
 			  src/app/store/sagas/username.ts \
 			  src/app/store/sagas/user.ts \
 			  src/app/store/selectors/cluster/index.ts \
-			  src/app/store/selectors/cluster/selectorsHelpers.ts \
 			  src/app/store/selectors/index.ts \
 			  src/app/store/selectors/login.ts \
 			  src/app/store/selectors/nodeAuth.ts \
