@@ -4,7 +4,7 @@ import {
   LauncherDropdown,
 } from "app/view/share";
 import {testMarks} from "app/view/dataTest";
-import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
+import {DetailViewSection} from "app/view/cluster/share";
 
 import type {AclType} from "../types";
 
@@ -23,7 +23,6 @@ export const RoleViewDetail = ({
   roleId: string;
   role: AclType<"role">;
 }) => {
-  const {clusterName} = useLoadedCluster();
   return (
     <span {...detail.mark}>
       <DetailViewSection caption="Description">
@@ -50,7 +49,6 @@ export const RoleViewDetail = ({
                         description: `This removes the permission ${permission}`,
                         action: {
                           type: "LIB.CALL.CLUSTER",
-                          key: {clusterName},
                           payload: {
                             taskLabel: `remove permission "${permission}"`,
                             call: {

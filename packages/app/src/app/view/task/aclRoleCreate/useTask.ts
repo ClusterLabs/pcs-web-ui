@@ -37,7 +37,7 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "CLUSTER.ACL.ROLE.CREATE.CLOSE",
@@ -48,7 +48,7 @@ export const useTask = () => {
     aclRoleCreate: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "create acl role",
           call: {

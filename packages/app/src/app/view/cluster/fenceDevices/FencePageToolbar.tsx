@@ -94,7 +94,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
       description: "Allow the cluster to use the stonith devices.",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: {clusterName},
         payload: {
           taskLabel: `enable "${fenceDevice.id}"`,
           call: {

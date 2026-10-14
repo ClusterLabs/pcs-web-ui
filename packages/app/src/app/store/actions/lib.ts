@@ -16,7 +16,6 @@ type TaskOkPayloadFor<C> = C extends Commands[number]
 export type LibActions = {
   "LIB.CALL.CLUSTER": {
     type: "LIB.CALL.CLUSTER";
-    key: {clusterName: string};
     payload: {
       taskLabel: string;
       call: api.Lib.ClusterCall;
@@ -25,7 +24,7 @@ export type LibActions = {
 
   "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD": {
     type: "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD";
-    key: {clusterName: string; task: string};
+    key: {task: string};
     payload: {
       forceFlags: string[];
     };
@@ -33,7 +32,7 @@ export type LibActions = {
 
   "LIB.CALL.CLUSTER.TASK": {
     type: "LIB.CALL.CLUSTER.TASK";
-    key: {clusterName: string; task: string};
+    key: {task: string};
     payload: {
       taskLabel: string;
       call: api.Lib.ClusterCall;
@@ -42,18 +41,18 @@ export type LibActions = {
 
   "LIB.CALL.CLUSTER.TASK.CANCEL": {
     type: "LIB.CALL.CLUSTER.TASK.CANCEL";
-    key: {clusterName: string; task: string};
+    key: {task: string};
   };
 
   "LIB.CALL.CLUSTER.TASK.OK": {
     type: "LIB.CALL.CLUSTER.TASK.OK";
-    key: {clusterName: string; task: string};
+    key: {task: string};
     payload: TaskOkPayloadFor<Commands[number]>;
   };
 
   "LIB.CALL.CLUSTER.TASK.FAIL": {
     type: "LIB.CALL.CLUSTER.TASK.FAIL";
-    key: {clusterName: string; task: string};
+    key: {task: string};
     payload: {
       commandName: Commands[number]["name"];
       reports: LibReport[];
@@ -62,7 +61,7 @@ export type LibActions = {
 
   "LIB.CALL.CLUSTER.TASK.ERROR": {
     type: "LIB.CALL.CLUSTER.TASK.ERROR";
-    key: {clusterName: string; task: string};
+    key: {task: string};
     payload: {
       commandName: Commands[number]["name"];
     };
@@ -70,7 +69,7 @@ export type LibActions = {
 
   "LIB.CALL.CLUSTER.TASK.PERMISSION_DENIED": {
     type: "LIB.CALL.CLUSTER.TASK.PERMISSION_DENIED";
-    key: {clusterName: string; task: string};
+    key: {task: string};
     payload: {
       commandName: Commands[number]["name"];
     };

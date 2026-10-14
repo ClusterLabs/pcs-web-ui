@@ -54,7 +54,6 @@ export const GroupView = ({
                 description: `This deletes the group ${groupId}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
-                  key: {clusterName},
                   payload: {
                     taskLabel: `delete group "${groupId}"`,
                     call: {

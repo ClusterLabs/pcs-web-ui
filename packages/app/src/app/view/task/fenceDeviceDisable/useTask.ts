@@ -15,7 +15,7 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "FENCE_DEVICE.DISABLE.CLOSE",
@@ -26,7 +26,7 @@ export const useTask = () => {
     disableFenceDevice: ({force}: {force: boolean}) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "disable fence device",
           call: {

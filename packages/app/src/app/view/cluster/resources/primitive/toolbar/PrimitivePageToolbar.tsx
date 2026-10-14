@@ -141,7 +141,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       description: "This disallows the cluster to start and stop the resource",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: {clusterName},
         payload: {
           taskLabel: `unmanage "${primitive.id}"`,
           call: {
@@ -161,7 +160,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       description: "This allows the cluster to start and stop the resource",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: {clusterName},
         payload: {
           taskLabel: `manage "${primitive.id}"`,
           call: {
@@ -186,7 +184,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       ),
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: {clusterName},
         payload: {
           taskLabel: `disable "${primitive.id}"`,
           call: {
@@ -206,7 +203,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       description: "This allows the cluster to start the resource",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: {clusterName},
         payload: {
           taskLabel: `enable "${primitive.id}"`,
           call: {

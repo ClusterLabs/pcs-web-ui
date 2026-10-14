@@ -51,7 +51,7 @@ export const useTask = () => {
       });
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "create constraint colocation set",
           call: {
@@ -80,7 +80,7 @@ export const useTask = () => {
       close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE",

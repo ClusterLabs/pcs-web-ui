@@ -62,17 +62,14 @@ export type ClusterPermissionsActions = {
 
   "CLUSTER.PERMISSIONS.LOAD": {
     type: "CLUSTER.PERMISSIONS.LOAD";
-    key: {clusterName: string};
   };
 
   "CLUSTER.PERMISSIONS.LOAD.OK": {
     type: "CLUSTER.PERMISSIONS.LOAD.OK";
-    key: {clusterName: string};
     payload: {apiClusterPermissions: ApiPermissions};
   };
 
   "CLUSTER.PERMISSIONS.LOAD.ERROR": {
     type: "CLUSTER.PERMISSIONS.LOAD.ERROR";
-    key: {clusterName: string};
   };
 };

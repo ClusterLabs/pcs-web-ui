@@ -16,7 +16,6 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
-    key: {clusterName},
     payload: {
       taskLabel: `standby node "${node.name}"`,
       call: {
@@ -57,7 +56,6 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
 
   const maintenanceUnmaintenanceAction = (maintenance: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
-    key: {clusterName},
     payload: {
       taskLabel: `maintenance node "${node.name}"`,
       call: {
@@ -122,7 +120,6 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       description: "Shutdown specified nodes and remove them from the cluster.",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: {clusterName},
         payload: {
           taskLabel: `remove node "${node.name}"`,
           call: {

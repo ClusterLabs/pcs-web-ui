@@ -72,7 +72,6 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
                 description: "This deletes the role",
                 action: {
                   type: "LIB.CALL.CLUSTER",
-                  key: {clusterName},
                   payload: {
                     taskLabel: `delete role "${roleId}"`,
                     call: {

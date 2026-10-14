@@ -41,7 +41,7 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.ASSIGN.CLOSE",
@@ -52,7 +52,7 @@ export const useTask = () => {
     assign: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: `assign acl ${state.subjectType}`,
           call:

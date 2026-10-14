@@ -54,7 +54,6 @@ export const UserView = ({
                 description: `This deletes the user ${userId}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
-                  key: {clusterName},
                   payload: {
                     taskLabel: `delete user "${userId}"`,
                     call: {

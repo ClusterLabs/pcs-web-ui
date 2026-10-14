@@ -1,5 +1,5 @@
 import {libClusterStonithAgentListAgents} from "app/backend";
-import type {Action, ActionMap} from "app/store/actions";
+import type {Action} from "app/store/actions";
 
 import {
   api,
@@ -12,15 +12,12 @@ import {
 } from "./common";
 
 type ApiCallResult = api.ResultOf<typeof libClusterStonithAgentListAgents>;
-export function* load({key}: ActionMap["FENCE_AGENT.LIST.LOAD"]) {
+export function* load() {
   const result: ApiCallResult = yield api.authSafe(
     libClusterStonithAgentListAgents,
   );
 
-  const errorAction: Action = {
-    type: "FENCE_AGENT.LIST.LOAD.FAIL",
-    key,
-  };
+  const errorAction: Action = {type: "FENCE_AGENT.LIST.LOAD.FAIL"};
 
   const taskLabel = "load fence agent list";
   if (result.type !== "OK") {
@@ -52,7 +49,6 @@ export function* load({key}: ActionMap["FENCE_AGENT.LIST.LOAD"]) {
 
   yield put({
     type: "FENCE_AGENT.LIST.LOAD.OK",
-    key,
     payload: {apiFenceAgentList: payload.data},
   });
 }

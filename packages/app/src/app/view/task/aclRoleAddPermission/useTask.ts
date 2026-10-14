@@ -35,7 +35,7 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "CLUSTER.ACL.ROLE.PERMISSION.CLOSE",
@@ -46,7 +46,7 @@ export const useTask = () => {
     aclRolePermissionAdd: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "add permission to role",
           call: {

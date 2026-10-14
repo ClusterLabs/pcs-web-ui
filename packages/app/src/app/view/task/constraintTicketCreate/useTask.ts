@@ -44,7 +44,7 @@ export const useTask = () => {
       }
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "create constraint ticket set",
           call: {

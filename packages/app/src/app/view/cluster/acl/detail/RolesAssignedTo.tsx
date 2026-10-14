@@ -6,7 +6,7 @@ import {
   Link,
   location,
 } from "app/view/share";
-import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
+import {DetailViewSection} from "app/view/cluster/share";
 
 import type {AclType} from "../types";
 
@@ -17,7 +17,6 @@ export const RolesAssignedTo = (props: {
   roleIdList: AclType<"user" | "group">;
   unassignCall: (roleId: string) => LibCall;
 }) => {
-  const {clusterName} = useLoadedCluster();
   return (
     <DetailViewSection caption="Roles assigned">
       <DataListWithMenu
@@ -38,7 +37,6 @@ export const RolesAssignedTo = (props: {
                       description: `This unassigns the role ${roleId}`,
                       action: {
                         type: "LIB.CALL.CLUSTER",
-                        key: {clusterName},
                         payload: {
                           taskLabel: `unassign role "${roleId}"`,
                           call: props.unassignCall(roleId),

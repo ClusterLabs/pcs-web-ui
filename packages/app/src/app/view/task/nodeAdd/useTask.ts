@@ -48,7 +48,7 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "NODE.ADD.CLOSE",
@@ -66,7 +66,7 @@ export const useTask = () => {
     updateNodeName: (nodeName: string) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "NODE.ADD.UPDATE_NODE_NAME",
@@ -82,7 +82,7 @@ export const useTask = () => {
     nodeAdd: ({newForceFlags = []}: {newForceFlags?: string[]} = {}) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: `add node ${state.nodeName}`,
           call: {
@@ -110,7 +110,7 @@ export const useTask = () => {
       });
       dispatch({
         type: "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           forceFlags: newForceFlags,
         },

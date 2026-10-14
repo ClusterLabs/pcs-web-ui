@@ -7,25 +7,20 @@ import type {ActionMap} from "app/store/actions";
 import {api, errorMessage, log, put} from "./common";
 import {stripForceText} from "./clusterStopUtils";
 
-export function* load({key}: ActionMap["CLUSTER.PROPERTIES.LOAD"]) {
+export function* load() {
   const result: api.ResultOf<typeof getClusterPropertiesDefinition> =
     yield api.authSafe(getClusterPropertiesDefinition);
 
-  const taskLabel = `load cluster properties of cluster ${key.clusterName}`;
+  const taskLabel = "load cluster properties";
   if (result.type !== "OK") {
     yield api.processError(result, taskLabel, {
-      action: () =>
-        put({
-          type: "CLUSTER.PROPERTIES.LOAD.ERROR",
-          key,
-        }),
+      action: () => put({type: "CLUSTER.PROPERTIES.LOAD.ERROR"}),
     });
     return;
   }
 
   yield put({
     type: "CLUSTER.PROPERTIES.LOAD.OK",
-    key,
     payload: {apiClusterProperties: result.payload},
   });
 }
