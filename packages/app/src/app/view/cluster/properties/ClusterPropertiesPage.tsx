@@ -6,7 +6,9 @@ import {
   Stack,
   StackItem,
 } from "@patternfly/react-core";
+import {useSelector} from "react-redux";
 
+import {selectors} from "app/store";
 import {testMarks} from "app/view/dataTest";
 import {
   AttributeGroup,
@@ -21,10 +23,8 @@ import {
 import {useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
-import {
-  type ClusterProperties,
-  useClusterProperties,
-} from "./useClusterProperties";
+const {getClusterProperties} = selectors;
+type ClusterProperties = ReturnType<typeof getClusterProperties>;
 
 const useFilter = (): {
   filterState: ReturnType<
@@ -47,7 +47,7 @@ const useFilter = (): {
 const {properties, propertiesToolbar} = testMarks.cluster;
 
 export const ClusterPropertiesPage = () => {
-  const {clusterPropertiesDefinition} = useClusterProperties();
+  const clusterPropertiesDefinition = useSelector(getClusterProperties);
   const {hasCibInfo, clusterProperties, clusterName} = useLoadedCluster();
   const {filterState, filterParameters} = useFilter();
   const openTask = useOpenTask();

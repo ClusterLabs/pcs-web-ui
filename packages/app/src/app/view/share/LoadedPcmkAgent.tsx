@@ -10,14 +10,12 @@ type Agent = NonNullable<
 
 export const LoadedPcmkAgent = ({
   agentName,
-  clusterName,
   children,
 }: {
   agentName: string;
-  clusterName: string;
   children: (_ra: Agent) => JSX.Element;
 }) => {
-  const agentInfo = useSelector(selectors.getAgentInfo(clusterName, agentName));
+  const agentInfo = useSelector(selectors.getAgentInfo(agentName));
   // const {pcmkAgents} = useClusterSources();
   // const agent = pcmkAgents[agentName];
 

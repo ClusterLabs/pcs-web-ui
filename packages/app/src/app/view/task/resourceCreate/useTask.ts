@@ -8,9 +8,7 @@ export const useTask = () => {
   const task = useTaskCommon("resourceCreate");
   const {state, dispatch} = task;
   const {clusterName} = state;
-  const agentInfo = useSelector(
-    selectors.getAgentInfo(clusterName, state.agentName),
-  );
+  const agentInfo = useSelector(selectors.getAgentInfo(state.agentName));
   const updateState = (payload: ActionPayload["RESOURCE.CREATE.UPDATE"]) => {
     dispatch({
       type: "RESOURCE.CREATE.UPDATE",

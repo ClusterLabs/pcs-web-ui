@@ -293,16 +293,11 @@ EXTRA_DIST		= \
 			  src/app/store/sagas/resourceUpdate.ts \
 			  src/app/store/sagas/username.ts \
 			  src/app/store/sagas/user.ts \
-			  src/app/store/selectors/cluster/index.ts \
-			  src/app/store/selectors/cluster/selectorsHelpers.ts \
+			  src/app/store/selectors/cluster.ts \
 			  src/app/store/selectors/index.ts \
 			  src/app/store/selectors/login.ts \
-			  src/app/store/selectors/nodeAuth.ts \
-			  src/app/store/selectors/notifications.ts \
-			  src/app/store/selectors/task.ts \
+			  src/app/store/selectors/misc.ts \
 			  src/app/store/selectors/types.ts \
-			  src/app/store/selectors/username.ts \
-			  src/app/store/selectors/user.ts \
 			  src/app/store/store.ts \
 			  src/app/store/taskTools.ts \
 			  src/app/store/tools.ts \
@@ -438,7 +433,6 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/permissions/types.ts \
 			  src/app/view/cluster/properties/ClusterPropertiesPage.tsx \
 			  src/app/view/cluster/properties/index.ts \
-			  src/app/view/cluster/properties/useClusterProperties.ts \
 			  src/app/view/cluster/resources/clone/CloneDetail.tsx \
 			  src/app/view/cluster/resources/clone/CloneMeta.tsx \
 			  src/app/view/cluster/resources/clone/ClonePageToolbar.tsx \

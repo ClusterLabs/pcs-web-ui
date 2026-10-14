@@ -18,9 +18,7 @@ export const CibSecretsToggle = ({
 }) => {
   const {clusterName} = useLoadedCluster();
   const dispatch = useDispatch();
-  const cibSecretsState = useSelector(
-    selectors.getCibSecrets(clusterName, resourceId),
-  );
+  const cibSecretsState = useSelector(selectors.getCibSecrets(resourceId));
 
   return (
     <>

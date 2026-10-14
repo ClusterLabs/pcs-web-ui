@@ -46,7 +46,7 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
   ) : undefined;
 
   return (
-    <LoadedPcmkAgent clusterName={clusterName} agentName={primitive.agentName}>
+    <LoadedPcmkAgent agentName={primitive.agentName}>
       {agent => {
         return (
           <span {...attributes.mark}>

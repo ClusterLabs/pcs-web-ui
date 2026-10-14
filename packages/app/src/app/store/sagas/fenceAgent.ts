@@ -63,16 +63,12 @@ export function* load({
   });
 }
 
-type PcmkAgent = selectors.ExtractClusterSelector<
-  typeof selectors.getPcmkAgent
->;
+type PcmkAgent = ReturnType<ReturnType<typeof selectors.getPcmkAgent>>;
 export function* ensure({
   key,
   payload: {agentName},
 }: ActionMap["FENCE_AGENT.ENSURE"]) {
-  const pcmkAgent: PcmkAgent = yield select(
-    selectors.getPcmkAgent(key.clusterName, agentName),
-  );
+  const pcmkAgent: PcmkAgent = yield select(selectors.getPcmkAgent(agentName));
   if (!pcmkAgent || pcmkAgent.loadStatus === "FAILED") {
     yield put({
       type: "FENCE_AGENT.LOAD",

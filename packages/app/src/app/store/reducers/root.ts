@@ -5,7 +5,7 @@ import {notifications} from "./notifications";
 import {login} from "./login";
 import {username} from "./username";
 import {user} from "./user";
-import {clusterStorage} from "./cluster/storage";
+import {clusterData} from "./cluster/storage";
 import {tasks} from "./tasks";
 import {currentTaskKey} from "./currentTaskKey";
 
@@ -13,7 +13,7 @@ export const root = () =>
   combineReducers({
     username,
     user,
-    clusterStorage,
+    clusterData,
     login,
     notifications,
     nodeAuthMap,
