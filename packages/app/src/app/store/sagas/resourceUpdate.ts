@@ -42,6 +42,6 @@ export function* updateInstanceAttributes({
     return;
   }
 
-  yield put({type: "CLUSTER.STATUS.REFRESH", key});
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
   yield put({type: "RESOURCE.EDIT_ATTRS.RUN.OK", key});
 }

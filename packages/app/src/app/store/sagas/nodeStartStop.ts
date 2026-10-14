@@ -4,20 +4,13 @@ import type {ActionMap} from "app/store/actions";
 import {api, errorMessage, log, processClusterResultBasic, put} from "./common";
 import {stripForceText} from "./clusterStopUtils";
 
-export function* nodeStart({
-  key,
-  payload: {nodeName},
-}: ActionMap["NODE.START"]) {
+export function* nodeStart({payload: {nodeName}}: ActionMap["NODE.START"]) {
   const result: api.ResultOf<typeof clusterStart> = yield api.authSafe(
     clusterStart,
     nodeName,
   );
 
-  yield processClusterResultBasic(
-    key.clusterName,
-    `start node "${nodeName}"`,
-    result,
-  );
+  yield processClusterResultBasic(`start node "${nodeName}"`, result);
 }
 
 export function* nodeStop({
@@ -49,10 +42,7 @@ export function* nodeStop({
     return;
   }
 
-  yield put({
-    type: "CLUSTER.STATUS.REFRESH",
-    key: {clusterName: key.clusterName},
-  });
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
 
   yield put({
     type: "NODE.STOP.OK",

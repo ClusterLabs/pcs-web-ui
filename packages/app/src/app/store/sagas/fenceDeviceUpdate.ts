@@ -42,6 +42,6 @@ export function* updateArguments({
     return;
   }
 
-  yield put({type: "CLUSTER.STATUS.REFRESH", key});
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
   yield put({type: "FENCE_DEVICE.EDIT_ARGS.RUN.OK", key});
 }

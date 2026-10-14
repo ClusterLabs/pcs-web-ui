@@ -36,10 +36,7 @@ export function* deleteResource({
     return;
   }
 
-  yield put({
-    type: "CLUSTER.STATUS.REFRESH",
-    key: {clusterName: key.clusterName},
-  });
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
 
   yield put({
     type: "RESOURCE.DELETE.OK",

@@ -7,10 +7,7 @@ export const useClusterLoad = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch({
-      type: "CLUSTER.STATUS.SYNC",
-      key: {clusterName: CLUSTER_KEY},
-    });
+    dispatch({type: "CLUSTER.STATUS.SYNC"});
 
     dispatch({
       type: "CLUSTER.PROPERTIES.LOAD",

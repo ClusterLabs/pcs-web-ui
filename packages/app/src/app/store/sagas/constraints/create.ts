@@ -14,11 +14,8 @@ export function* create({key, payload}: ActionMap["CONSTRAINT.SINGLE.CREATE"]) {
   > = yield backendCall;
 
   if (result.type === "OK") {
-    yield put({
-      type: "CONSTRAINT.SINGLE.CREATE.OK",
-      key,
-    });
-    yield put({type: "CLUSTER.STATUS.REFRESH", key});
+    yield put({type: "CONSTRAINT.SINGLE.CREATE.OK", key});
+    yield put({type: "CLUSTER.STATUS.REFRESH"});
     return;
   }
 

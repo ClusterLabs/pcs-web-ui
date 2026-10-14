@@ -58,7 +58,7 @@ export function* callLib({
     return;
   }
 
-  yield put({type: "CLUSTER.STATUS.REFRESH", key});
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
   yield put({
     type: "LIB.CALL.CLUSTER.TASK.OK",
     key,

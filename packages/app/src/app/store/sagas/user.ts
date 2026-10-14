@@ -1,7 +1,5 @@
 import {eventChannel} from "redux-saga";
 
-import {CLUSTER_KEY} from "app/store/clusterStorageKey";
-
 import {put} from "./common";
 
 const {user} = pcsUiEnvAdapter;
@@ -17,13 +15,8 @@ export function* changed() {
     yield user.isHaclient();
 
   if (!isSuperuser && !isHaclient) {
-    yield put({
-      type: "CLUSTER.STATUS.SYNC.STOP",
-      key: {clusterName: CLUSTER_KEY},
-    });
-    yield put({
-      type: "USER.PERMISSIONS_LOST",
-    });
+    yield put({type: "CLUSTER.STATUS.SYNC.STOP"});
+    yield put({type: "USER.PERMISSIONS_LOST"});
   }
 }
 

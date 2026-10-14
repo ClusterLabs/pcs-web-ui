@@ -43,7 +43,6 @@ export const ClusterApp = () => {
                 {...clusterBreadcrumbs.clusterStatus.mark}
               />
               <ClusterStatusLoadingLabel
-                clusterName={CLUSTER_KEY}
                 when={clusterInfo.clusterStatus.load.when}
                 isLoading={clusterInfo.clusterStatus.load.currently}
               />

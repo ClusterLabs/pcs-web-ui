@@ -55,10 +55,7 @@ export function* update({
     return;
   }
 
-  yield put({
-    type: "CLUSTER.STATUS.REFRESH",
-    key: {clusterName},
-  });
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
 
   yield put({
     type: "CLUSTER.PROPERTIES.UPDATE.OK",

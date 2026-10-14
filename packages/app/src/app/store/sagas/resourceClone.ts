@@ -3,24 +3,16 @@ import type {ActionMap} from "app/store/actions";
 
 import {api, processClusterResultBasic} from "./common";
 
-export function* clone({
-  key,
-  payload: {resourceId},
-}: ActionMap["RESOURCE.CLONE"]) {
+export function* clone({payload: {resourceId}}: ActionMap["RESOURCE.CLONE"]) {
   const result: api.ResultOf<typeof resourceClone> = yield api.authSafe(
     resourceClone,
     resourceId,
   );
 
-  yield processClusterResultBasic(
-    key.clusterName,
-    `clone ${resourceId}`,
-    result,
-  );
+  yield processClusterResultBasic(`clone ${resourceId}`, result);
 }
 
 export function* unclone({
-  key,
   payload: {resourceId},
 }: ActionMap["RESOURCE.UNCLONE"]) {
   const result: api.ResultOf<typeof resourceUnclone> = yield api.authSafe(
@@ -28,9 +20,5 @@ export function* unclone({
     resourceId,
   );
 
-  yield processClusterResultBasic(
-    key.clusterName,
-    `unclone ${resourceId}`,
-    result,
-  );
+  yield processClusterResultBasic(`unclone ${resourceId}`, result);
 }

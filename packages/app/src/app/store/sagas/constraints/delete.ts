@@ -5,7 +5,6 @@ import {api, processClusterResultBasic} from "../common";
 
 type RemoveConstraintRemoteResult = api.ResultOf<typeof removeConstraintRemote>;
 export function* deleteConstraint({
-  key: {clusterName},
   payload: {constraintId},
 }: ActionMap["CONSTRAINT.DELETE"]) {
   const result: RemoveConstraintRemoteResult = yield api.authSafe(
@@ -13,18 +12,13 @@ export function* deleteConstraint({
     {constraintId},
   );
 
-  yield processClusterResultBasic(
-    clusterName,
-    `delete constraint ${constraintId}`,
-    result,
-  );
+  yield processClusterResultBasic(`delete constraint ${constraintId}`, result);
 }
 
 type RemoveConstraintRuleRemoteResult = api.ResultOf<
   typeof removeConstraintRuleRemote
 >;
 export function* deleteConstraintRule({
-  key: {clusterName},
   payload: {ruleId},
 }: ActionMap["CONSTRAINT.DELETE.RULE"]) {
   const result: RemoveConstraintRuleRemoteResult = yield api.authSafe(
@@ -32,9 +26,5 @@ export function* deleteConstraintRule({
     {ruleId},
   );
 
-  yield processClusterResultBasic(
-    clusterName,
-    `delete constraint rule ${ruleId}`,
-    result,
-  );
+  yield processClusterResultBasic(`delete constraint rule ${ruleId}`, result);
 }

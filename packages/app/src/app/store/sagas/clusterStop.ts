@@ -27,11 +27,6 @@ export function* clusterStopSaga({
     });
     return;
   }
-  yield put({
-    type: "CLUSTER.STATUS.REFRESH",
-    key: {clusterName},
-  });
-  yield put({
-    type: "CLUSTER.STOP.OK",
-  });
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
+  yield put({type: "CLUSTER.STOP.OK"});
 }
