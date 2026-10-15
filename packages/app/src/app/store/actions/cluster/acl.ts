@@ -3,13 +3,6 @@ import type {api} from "app/backend";
 type AclCreateRolePayload = api.Lib.ClusterCallPayload<"acl-create-role">;
 
 export type ClusterAclActions = {
-  "CLUSTER.ACL.ROLE.CREATE": {
-    type: "CLUSTER.ACL.ROLE.CREATE";
-    payload: {
-      clusterName: string;
-    };
-  };
-
   "CLUSTER.ACL.ROLE.CREATE.UPDATE": {
     type: "CLUSTER.ACL.ROLE.CREATE.UPDATE";
     payload: {
@@ -26,7 +19,6 @@ export type ClusterAclActions = {
   "CLUSTER.ACL.ROLE.PERMISSION": {
     type: "CLUSTER.ACL.ROLE.PERMISSION";
     payload: {
-      clusterName: string;
       roleId: string;
     };
   };
@@ -45,7 +37,6 @@ export type ClusterAclActions = {
   "CLUSTER.ACL.SUBJECT.CREATE": {
     type: "CLUSTER.ACL.SUBJECT.CREATE";
     payload: {
-      clusterName: string;
       subjectType: "user" | "group";
       roleMap: Record<
         string,
@@ -72,7 +63,6 @@ export type ClusterAclActions = {
   "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN": {
     type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN";
     payload: {
-      clusterName: string;
       subjectType: "user" | "group";
       alreadyAssigned: string[];
       assignableItems: string[];

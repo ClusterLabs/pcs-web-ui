@@ -19,7 +19,7 @@ export const GroupView = ({
   groupId: string;
   roleIdList: AclType<"user" | "group">;
 }) => {
-  const {clusterName, acls} = useLoadedCluster();
+  const {acls} = useLoadedCluster();
   const openTask = useOpenTask();
 
   return (
@@ -38,7 +38,6 @@ export const GroupView = ({
                 openTask("aclSubjectAssign", {
                   type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
                   payload: {
-                    clusterName,
                     subjectType: "group",
                     subjectId: groupId,
                     alreadyAssigned: acls.group?.[groupId] ?? [],

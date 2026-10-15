@@ -5,11 +5,9 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("aclSubjectCreate");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   return {
     ...task,
-    clusterName,
 
     isNameValid: state.subjectId.length > 0,
     availableRoles: Object.keys(state.roleMap).filter(

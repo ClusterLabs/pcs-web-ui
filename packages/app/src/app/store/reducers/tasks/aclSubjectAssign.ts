@@ -6,7 +6,6 @@ import {initialState as initialLibCall, libCall} from "./libCall";
 type AssignPayload = ActionPayload["CLUSTER.ACL.SUBJECT_ROLE.ASSIGN"];
 
 const initialState: {
-  clusterName: string;
   subjectType: AssignPayload["subjectType"];
   sourceObject: "subject" | "role";
   roleId: string;
@@ -16,7 +15,6 @@ const initialState: {
   libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
-  clusterName: "",
   subjectType: "user",
   sourceObject: "role",
   roleId: "",

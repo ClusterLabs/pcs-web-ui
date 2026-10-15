@@ -4,12 +4,10 @@ import type {AppReducer} from "app/store/reducers/appReducer";
 import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"] & {
-  clusterName: string;
   roleId: string;
   libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
-  clusterName: "",
   roleId: "",
   permissionInfoList: [["read", "id", ""]],
   libCall: initialLibCall,
@@ -24,7 +22,6 @@ export const aclRolePermissionAdd: AppReducer<typeof initialState> = (
     case "CLUSTER.ACL.ROLE.PERMISSION":
       return {
         ...state,
-        clusterName: action.payload.clusterName,
         roleId: action.payload.roleId,
       };
 

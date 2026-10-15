@@ -3,7 +3,6 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("aclSubjectAssign");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   const assigneeType =
     state.sourceObject === "role" ? state.subjectType : "role";
@@ -13,7 +12,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     label: `Assign ${assigneeType}`,
     isAssigneeValid:
       state.sourceObject === "subject"

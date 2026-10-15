@@ -9,7 +9,7 @@ const {toolbar} = testMarks.cluster.acl.currentRole;
 const {dropdown} = toolbar;
 
 export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
-  const {clusterName, acls} = useLoadedCluster();
+  const {acls} = useLoadedCluster();
   const openTask = useOpenTask();
   const alreadyAssignedSubjects = getAssignedSubjectIdList(
     acls.group ?? {},
@@ -25,7 +25,6 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
             openTask("aclSubjectAssign", {
               type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
               payload: {
-                clusterName,
                 subjectType: "user",
                 roleId,
                 alreadyAssigned: alreadyAssignedSubjects,
@@ -39,7 +38,7 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
           run: () =>
             openTask("aclRolePermissionAdd", {
               type: "CLUSTER.ACL.ROLE.PERMISSION",
-              payload: {clusterName, roleId},
+              payload: {roleId},
             }),
           ...toolbar.addPermissions.mark,
         },
@@ -53,7 +52,6 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
                 openTask("aclSubjectAssign", {
                   type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
                   payload: {
-                    clusterName,
                     subjectType: "group",
                     roleId,
                     alreadyAssigned: alreadyAssignedSubjects,

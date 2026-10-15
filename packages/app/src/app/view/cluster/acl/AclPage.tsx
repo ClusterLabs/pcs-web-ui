@@ -21,7 +21,7 @@ import {AclLists} from "./lists";
 const {acl, aclToolbar} = testMarks.cluster;
 const {dropdown} = aclToolbar;
 export const AclPage = () => {
-  const {acls, clusterProperties, hasCibInfo, clusterName} = useLoadedCluster();
+  const {acls, clusterProperties, hasCibInfo} = useLoadedCluster();
   const openTask = useOpenTask();
   const launchDisable = useLauncherDisableClusterNotRunning();
 
@@ -38,11 +38,7 @@ export const AclPage = () => {
         buttonsItems={[
           {
             name: "create-role",
-            run: () =>
-              openTask("aclRoleCreate", {
-                type: "CLUSTER.ACL.ROLE.CREATE",
-                payload: {clusterName},
-              }),
+            run: () => openTask("aclRoleCreate"),
             launchDisable: launchDisable(
               "Cannot create role on stopped cluster",
             ),
@@ -54,7 +50,6 @@ export const AclPage = () => {
               openTask("aclSubjectCreate", {
                 type: "CLUSTER.ACL.SUBJECT.CREATE",
                 payload: {
-                  clusterName,
                   subjectType: "user",
                   roleMap: acls.role || {},
                 },
@@ -74,7 +69,6 @@ export const AclPage = () => {
                   openTask("aclSubjectCreate", {
                     type: "CLUSTER.ACL.SUBJECT.CREATE",
                     payload: {
-                      clusterName,
                       subjectType: "group",
                       roleMap: acls.role || {},
                     },

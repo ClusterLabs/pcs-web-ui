@@ -19,7 +19,7 @@ export const UserView = ({
   userId: string;
   roleIdList: AclType<"user">;
 }) => {
-  const {clusterName, acls} = useLoadedCluster();
+  const {acls} = useLoadedCluster();
   const openTask = useOpenTask();
 
   return (
@@ -38,7 +38,6 @@ export const UserView = ({
                 openTask("aclSubjectAssign", {
                   type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
                   payload: {
-                    clusterName,
                     subjectType: "user",
                     subjectId: userId,
                     alreadyAssigned: acls.user?.[userId] ?? [],

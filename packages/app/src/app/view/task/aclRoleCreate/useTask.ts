@@ -6,7 +6,6 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("aclRoleCreate");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   type Permissions = typeof state.permissionInfoList;
 
@@ -16,7 +15,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     isNameValid: state.roleId.length > 0,
     invalidPermissionIndexes: getInvalidPermissionIndexes(
       state.permissionInfoList,
