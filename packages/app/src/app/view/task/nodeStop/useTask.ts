@@ -4,13 +4,12 @@ export const useTask = () => {
   const task = useTaskCommon("nodeStop");
 
   const {
-    state: {clusterName, nodeName},
+    state: {nodeName},
     dispatch,
   } = task;
 
   return {
     ...task,
-    clusterName,
 
     nodeStop: ({force}: {force: boolean}) => {
       dispatch({

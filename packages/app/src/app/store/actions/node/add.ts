@@ -2,7 +2,6 @@ export type NodeAddActions = {
   "NODE.ADD.INIT": {
     type: "NODE.ADD.INIT";
     payload: {
-      clusterName: string;
       isSbdEnabled: boolean;
     };
   };

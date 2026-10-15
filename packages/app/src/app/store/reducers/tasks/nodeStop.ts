@@ -1,13 +1,11 @@
 import type {AppReducer} from "app/store/reducers/appReducer";
 
 const initialState: {
-  clusterName: string;
   resultMessage: string;
   nodeName: string;
   response: "" | "sending" | "ok" | "fail";
   isForceable: boolean;
 } = {
-  clusterName: "",
   nodeName: "",
   response: "",
   resultMessage: "",
@@ -23,7 +21,6 @@ export const nodeStop: AppReducer<typeof initialState> = (
       return {
         ...state,
         nodeName: action.payload.nodeName,
-        clusterName: action.payload.clusterName,
       };
 
     case "NODE.STOP":

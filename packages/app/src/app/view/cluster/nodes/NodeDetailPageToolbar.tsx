@@ -5,13 +5,12 @@ import {
   type LauncherItem as ToolbarItem,
 } from "app/view/share";
 import type {Node} from "app/view/cluster/types";
-import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
 const {toolbar} = testMarks.cluster.nodes.currentNode;
 
 export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
-  const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
@@ -106,7 +105,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
     run: () =>
       openTask("nodeStop", {
         type: "NODE.STOP.INIT",
-        payload: {clusterName, nodeName: node.name},
+        payload: {nodeName: node.name},
       }),
     ...toolbar.stop.mark,
   };

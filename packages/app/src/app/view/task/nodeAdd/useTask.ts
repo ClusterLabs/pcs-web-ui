@@ -7,7 +7,6 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("nodeAdd");
   const {state, dispatch} = task;
-  const {clusterName} = state;
 
   const checkAuth = () =>
     dispatch({
@@ -32,7 +31,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
 
     filledSbdDevices,
 
