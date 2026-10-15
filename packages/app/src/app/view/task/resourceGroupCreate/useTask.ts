@@ -7,7 +7,7 @@ export const useTask = () => {
 
   const {
     dispatch,
-    state: {clusterName, topLevelPrimitiveIds},
+    state: {topLevelPrimitiveIds},
   } = task;
 
   const {
@@ -20,7 +20,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     close: () => {
       task.close();
       dispatch({

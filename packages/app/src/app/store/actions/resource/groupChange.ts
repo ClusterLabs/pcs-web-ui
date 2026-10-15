@@ -1,15 +1,11 @@
 import type {resourceChangeGroup} from "app/backend";
 
-type ChangeGroupParams = Omit<
-  Parameters<typeof resourceChangeGroup>[0],
-  "clusterName"
->;
+type ChangeGroupParams = Parameters<typeof resourceChangeGroup>[0];
 
 export type ResourceGroupChangeActions = {
   "RESOURCE.GROUP.CHANGE.INIT": {
     type: "RESOURCE.GROUP.CHANGE.INIT";
     payload: Partial<ChangeGroupParams> & {
-      clusterName: string;
       action?: "remove-group" | "set-group" | "move-in-group";
       groupIdStructureList: {id: string; resources: {id: string}[]}[];
     };

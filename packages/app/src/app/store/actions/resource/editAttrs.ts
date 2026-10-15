@@ -6,7 +6,6 @@ export type ResourceEditAttrsActions = {
     // cluster status/pcmkAgent from reducer). So, we will work with independent
     // but compatible types here
     payload: {
-      clusterName: string;
       resourceId: string;
       resourceAttrs: Record<string, string>;
       agentParameters: {

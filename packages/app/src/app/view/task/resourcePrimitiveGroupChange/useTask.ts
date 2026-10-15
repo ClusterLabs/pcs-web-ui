@@ -5,7 +5,6 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("primitiveGroupChange");
   const {dispatch, state} = task;
-  const {clusterName} = state;
   const candidateGroupsIds = state.groupIdStructureList
     .map(g => g.id)
     .filter(id => id !== state.oldGroupId);
@@ -15,7 +14,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     isGroupValid: state.groupId.length > 0 || isSetForRemove,
     isAdjacentResourceValid:
       state.adjacentResourceId.length > 0 || isSetForRemove,

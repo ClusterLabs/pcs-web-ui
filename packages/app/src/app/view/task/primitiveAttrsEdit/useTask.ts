@@ -37,11 +37,9 @@ const prepareAttributes = (
 export const useTask = () => {
   const task = useTaskCommon("primitiveAttrsEdit");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   return {
     ...task,
-    clusterName,
 
     update: (name: string, value: string) =>
       dispatch({

@@ -11,7 +11,6 @@ const initialState: OpenPayload & {
     resultMessage: string;
   };
 } = {
-  clusterName: "",
   resourceId: "",
   agentParameters: [],
   originalResourceAttrs: {},

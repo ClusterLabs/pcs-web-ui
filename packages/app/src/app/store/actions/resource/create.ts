@@ -2,7 +2,6 @@ export type ResourceCreateActions = {
   "RESOURCE.CREATE.INIT": {
     type: "RESOURCE.CREATE.INIT";
     payload: {
-      clusterName: string;
       groupIdStructureList: {id: string; resources: {id: string}[]}[];
     };
   };

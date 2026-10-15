@@ -4,7 +4,6 @@ export type ResourceGroupCreateActions = {
   "RESOURCE.GROUP.CREATE.INIT": {
     type: "RESOURCE.GROUP.CREATE.INIT";
     payload: {
-      clusterName: string;
       topLevelPrimitiveIds: string[];
     };
   };

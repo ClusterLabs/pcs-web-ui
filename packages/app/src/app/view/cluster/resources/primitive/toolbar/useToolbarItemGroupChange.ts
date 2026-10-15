@@ -7,7 +7,7 @@ import {useLoadedCluster} from "app/view/cluster/share";
 export const useToolbarItemGroupChange = (
   primitive: Primitive,
 ): ToolbarItem => {
-  const {resourceTree, clusterName} = useLoadedCluster();
+  const {resourceTree} = useLoadedCluster();
   const openTask = useOpenTask();
 
   const groupIdStructureList = selectGroups(resourceTree);
@@ -18,7 +18,6 @@ export const useToolbarItemGroupChange = (
       openTask("primitiveGroupChange", {
         type: "RESOURCE.GROUP.CHANGE.INIT",
         payload: {
-          clusterName,
           groupIdStructureList,
           resourceId: primitive.id,
           oldGroupId: primitive.inGroup ?? "",

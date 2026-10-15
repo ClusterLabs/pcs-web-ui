@@ -7,7 +7,6 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("resourceCreate");
   const {state, dispatch} = task;
-  const {clusterName} = state;
   const agentInfo = useSelector(selectors.getAgentInfo(state.agentName));
   const updateState = (payload: ActionPayload["RESOURCE.CREATE.UPDATE"]) => {
     dispatch({
@@ -18,7 +17,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     groupIdList: state.groupIdStructureList.map(g => g.id),
     isAgentLoaded: agentInfo?.isAgentLoaded,
 

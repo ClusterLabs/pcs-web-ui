@@ -2,7 +2,6 @@ export type ResourceBanActions = {
   "RESOURCE.BAN.OPEN": {
     type: "RESOURCE.BAN.OPEN";
     payload: {
-      clusterName: string;
       resourceId: string;
 
       nodeNameList: string[];
