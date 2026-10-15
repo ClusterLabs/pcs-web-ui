@@ -14,7 +14,6 @@ export function* nodeStart({payload: {nodeName}}: ActionMap["NODE.START"]) {
 }
 
 export function* nodeStop({
-  key,
   payload: {nodeName, force},
 }: ActionMap["NODE.STOP"]) {
   const result: api.ResultOf<typeof clusterStop> = yield api.authSafe(
@@ -33,7 +32,6 @@ export function* nodeStop({
     }
     yield put({
       type: "NODE.STOP.FAIL",
-      key: {clusterName: key.clusterName},
       payload: {
         message: errorMessage(stripForceText(result), taskLabel),
         isForceable: "text" in result && result.text.includes("--force"),
@@ -44,8 +42,5 @@ export function* nodeStop({
 
   yield put({type: "CLUSTER.STATUS.REFRESH"});
 
-  yield put({
-    type: "NODE.STOP.OK",
-    key: {clusterName: key.clusterName},
-  });
+  yield put({type: "NODE.STOP.OK"});
 }

@@ -95,7 +95,6 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       description: "Start a cluster on the node",
       action: {
         type: "NODE.START",
-        key: {clusterName},
         payload: {nodeName: node.name},
       },
     },
@@ -107,7 +106,6 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
     run: () =>
       openTask("nodeStop", {
         type: "NODE.STOP.INIT",
-        key: {clusterName},
         payload: {clusterName, nodeName: node.name},
       }),
     ...toolbar.stop.mark,

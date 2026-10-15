@@ -23,7 +23,6 @@ export const NodesPage = () => {
             run: () =>
               openTask("nodeAdd", {
                 type: "NODE.ADD.INIT",
-                key: {clusterName},
                 payload: {
                   clusterName,
                   isSbdEnabled: nodeList.reduce(

@@ -4,7 +4,6 @@ import type {ActionMap} from "app/store/actions";
 import {api, errorMessage, processError, put, race, take} from "../common";
 
 export function* sendKnownHostsSaga({
-  key,
   payload: {nodeName},
 }: ActionMap["NODE.ADD.SEND_KNOWN_HOSTS"]) {
   const {result}: {result: api.ResultOf<typeof sendKnownHosts>} = yield race({
@@ -23,15 +22,11 @@ export function* sendKnownHostsSaga({
       action: () =>
         put({
           type: "NODE.ADD.SEND_KNOWN_HOSTS.FAIL",
-          key,
           payload: {message: errorMessage(result, taskLabel)},
         }),
       useNotification: false,
     });
     return;
   }
-  yield put({
-    type: "NODE.ADD.SEND_KNOWN_HOSTS.OK",
-    key,
-  });
+  yield put({type: "NODE.ADD.SEND_KNOWN_HOSTS.OK"});
 }

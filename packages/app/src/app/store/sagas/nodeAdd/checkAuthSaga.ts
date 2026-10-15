@@ -14,7 +14,6 @@ import {
 import {nodeAuthWait} from "../nodeAuth";
 
 export function* checkAuthSaga({
-  key,
   payload: {nodeName},
 }: ActionMap["NODE.ADD.CHECK_AUTH"]) {
   const {result}: {result: api.ResultOf<typeof checkAuthAgainstNodes>} =
@@ -30,7 +29,6 @@ export function* checkAuthSaga({
 
   const errorAction = (message: string): Action => ({
     type: "NODE.ADD.CHECK_AUTH.FAIL",
-    key,
     payload: {message},
   });
   const taskLabel = `add node "${nodeName}": node authentication check`;
@@ -51,7 +49,6 @@ export function* checkAuthSaga({
   if (result.payload[nodeName] === "Online") {
     yield put({
       type: "NODE.ADD.SEND_KNOWN_HOSTS",
-      key,
       payload: {nodeName},
     });
     return;
@@ -67,7 +64,6 @@ export function* checkAuthSaga({
   });
   yield put({
     type: "NODE.ADD.CHECK_AUTH.NO_AUTH",
-    key,
     payload: {authProcessId},
   });
 
@@ -79,7 +75,6 @@ export function* checkAuthSaga({
   if (!cancel) {
     yield put({
       type: "NODE.ADD.SEND_KNOWN_HOSTS",
-      key,
       payload: {nodeName},
     });
     return;

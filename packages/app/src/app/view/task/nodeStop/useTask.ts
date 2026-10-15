@@ -15,16 +15,12 @@ export const useTask = () => {
     nodeStop: ({force}: {force: boolean}) => {
       dispatch({
         type: "NODE.STOP",
-        key: {clusterName},
         payload: {nodeName, force},
       });
     },
 
     close: () => {
-      dispatch({
-        type: "NODE.STOP.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "NODE.STOP.CLOSE"});
       task.close();
     },
   };

@@ -1,7 +1,6 @@
 export type NodeStopActions = {
   "NODE.STOP": {
     type: "NODE.STOP";
-    key: {clusterName: string};
     payload: {
       nodeName: string;
       force: boolean;
@@ -9,7 +8,6 @@ export type NodeStopActions = {
   };
   "NODE.STOP.INIT": {
     type: "NODE.STOP.INIT";
-    key: {clusterName: string};
     payload: {
       clusterName: string;
       nodeName: string;
@@ -18,12 +16,10 @@ export type NodeStopActions = {
 
   "NODE.STOP.OK": {
     type: "NODE.STOP.OK";
-    key: {clusterName: string};
   };
 
   "NODE.STOP.FAIL": {
     type: "NODE.STOP.FAIL";
-    key: {clusterName: string};
     payload: {
       message: string;
       isForceable: boolean;
@@ -32,6 +28,5 @@ export type NodeStopActions = {
 
   "NODE.STOP.CLOSE": {
     type: "NODE.STOP.CLOSE";
-    key: {clusterName: string};
   };
 };
