@@ -7,7 +7,6 @@ export type TicketCreateActions = {
   "CONSTRAINT.TICKET.CREATE.INIT": {
     type: "CONSTRAINT.TICKET.CREATE.INIT";
     payload: {
-      clusterName: string;
       resourceIdList: string[];
     };
   };

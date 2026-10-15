@@ -6,7 +6,6 @@ export type LocationCreateActions = {
   "CONSTRAINT.LOCATION.CREATE.INIT": {
     type: "CONSTRAINT.LOCATION.CREATE.INIT";
     payload: {
-      clusterName: string;
       nodeNameList: string[];
       resourceIdList: string[];
     };

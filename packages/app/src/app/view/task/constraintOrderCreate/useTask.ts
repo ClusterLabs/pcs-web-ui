@@ -6,11 +6,9 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("constraintOrderCreate");
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
   return {
     ...task,
-    clusterName,
     label: "Create order constraint",
     isFirstResourceValid: state.firstResourceId.length > 0,
     isThenResourceValid: state.thenResourceId.length > 0,

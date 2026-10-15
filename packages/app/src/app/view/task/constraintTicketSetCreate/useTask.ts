@@ -6,13 +6,11 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("constraintTicketSetCreate");
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
   const resourceSets = useResourceSets(task.name);
 
   return {
     ...task,
-    clusterName,
     ...resourceSets,
 
     isCustomIdValid: !state.useCustomId || state.id.length > 0,

@@ -29,7 +29,6 @@ const {
 } = resourceSetCreateFactory(initialSet);
 
 const initialState: {
-  clusterName: string;
   offeredResourceIdList: string[];
   useCustomId: boolean;
   id: string;
@@ -39,7 +38,6 @@ const initialState: {
   showValidationErrors: boolean;
   libCall: typeof initialLibCall;
 } = {
-  clusterName: "",
   offeredResourceIdList: [],
   useCustomId: false,
   id: "",
@@ -58,7 +56,6 @@ export const constraintColocationSetCreate: AppReducer<typeof initialState> = (
     case "CONSTRAINT.COLOCATION.SET.CREATE.INIT":
       return {
         ...state,
-        clusterName: action.payload.clusterName,
         offeredResourceIdList: action.payload.offeredResourceIdList,
       };
 

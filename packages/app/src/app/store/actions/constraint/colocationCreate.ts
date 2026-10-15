@@ -2,7 +2,6 @@ export type ColocationCreateActions = {
   "CONSTRAINT.COLOCATION.CREATE.INIT": {
     type: "CONSTRAINT.COLOCATION.CREATE.INIT";
     payload: {
-      clusterName: string;
       resourceIdList: string[];
     };
   };

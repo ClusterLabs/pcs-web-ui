@@ -4,7 +4,6 @@ export type OrderCreateActions = {
   "CONSTRAINT.ORDER.CREATE.INIT": {
     type: "CONSTRAINT.ORDER.CREATE.INIT";
     payload: {
-      clusterName: string;
       resourceIdList: string[];
     };
   };

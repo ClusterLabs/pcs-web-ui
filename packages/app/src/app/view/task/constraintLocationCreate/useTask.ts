@@ -7,11 +7,9 @@ export const useTask = () => {
   const task = useTaskCommon("constraintLocationCreate");
 
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
   return {
     ...task,
-    clusterName,
     label: "Create location constraint",
     isScoreValid:
       state.score.length === 0 ||

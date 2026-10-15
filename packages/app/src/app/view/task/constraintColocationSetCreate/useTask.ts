@@ -8,13 +8,11 @@ type TrueFalse = "true" | "false";
 export const useTask = () => {
   const task = useTaskCommon("constraintColocationSetCreate");
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
   const resourceSets = useResourceSets(task.name);
 
   return {
     ...task,
-    clusterName,
     ...resourceSets,
 
     areSetsValid: resourceSets.areSetsValid(state.sets),

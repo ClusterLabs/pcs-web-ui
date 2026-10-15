@@ -8,7 +8,6 @@ export const useTask = () => {
   const task = useTaskCommon("constraintTicketCreate");
 
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.TICKET.CREATE.UPDATE"]) =>
@@ -21,7 +20,6 @@ export const useTask = () => {
   const isResourceValid = state.resourceId.length > 0;
   return {
     ...task,
-    clusterName,
     label: "Create ticket constraint",
     isResourceValid,
     isCustomIdValid,

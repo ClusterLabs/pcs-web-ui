@@ -9,7 +9,6 @@ export const useTask = () => {
   const task = useTaskCommon("constraintColocationCreate");
 
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.COLOCATION.CREATE.UPDATE"]) =>
@@ -19,7 +18,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     label: "Create colocation constraint",
     isResourceValid: state.resourceId.length > 0,
     isWithResourceValid: state.withResourceId.length > 0,

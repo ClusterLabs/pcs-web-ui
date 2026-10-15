@@ -6,7 +6,6 @@ import {
 } from "./constraintSingleCall";
 
 const initialState: {
-  clusterName: string;
   nodeNameList: string[];
   resourceIdList: string[];
   resourceSpecification: "resource" | "pattern";
@@ -20,7 +19,6 @@ const initialState: {
   score: string;
   showValidationErrors: boolean;
 } = {
-  clusterName: "",
   nodeNameList: [],
   resourceIdList: [],
   resourceSpecification: "resource",
@@ -43,7 +41,6 @@ export const constraintLocationCreate: AppReducer<typeof initialState> = (
     case "CONSTRAINT.LOCATION.CREATE.INIT":
       return {
         ...state,
-        clusterName: action.payload.clusterName,
         nodeNameList: action.payload.nodeNameList,
         resourceIdList: action.payload.resourceIdList,
       };
