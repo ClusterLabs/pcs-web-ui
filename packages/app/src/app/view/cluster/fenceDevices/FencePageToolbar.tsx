@@ -4,7 +4,7 @@ import {
   LauncherDropdown,
   type LauncherItem as ToolbarItem,
 } from "app/view/share";
-import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
 const {toolbar} = testMarks.cluster.fenceDevices.currentFenceDevice;
@@ -16,7 +16,6 @@ const isFenceDeviceEnabled = (fenceDevice: FenceDevice) =>
   );
 
 export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
-  const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
   const refresh: ToolbarItem = {
     name: "refresh",
@@ -76,7 +75,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
     run: () =>
       openTask("fenceDeviceDisable", {
         type: "FENCE_DEVICE.DISABLE.INIT",
-        key: {clusterName},
         payload: {
           fenceDeviceName: fenceDevice.id,
         },

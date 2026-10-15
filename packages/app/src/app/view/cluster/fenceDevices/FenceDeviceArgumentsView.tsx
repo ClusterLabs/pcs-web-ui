@@ -64,7 +64,6 @@ export const FenceDeviceArgumentsView = ({
                     run: () =>
                       openTask("fenceDeviceArgsEdit", {
                         type: "FENCE_DEVICE.EDIT_ARGS.OPEN",
-                        key: {clusterName},
                         payload: {
                           clusterName,
                           fenceDeviceId: fenceDevice.id,

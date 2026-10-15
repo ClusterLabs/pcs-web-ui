@@ -3,11 +3,10 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("fenceDeviceDisable");
   const {dispatch, state} = task;
-  const {clusterName, fenceDeviceName} = state;
+  const {fenceDeviceName} = state;
 
   return {
     ...task,
-    clusterName,
     label: "Disable Fence Device",
 
     //actions
@@ -19,7 +18,6 @@ export const useTask = () => {
       });
       dispatch({
         type: "FENCE_DEVICE.DISABLE.CLOSE",
-        key: {clusterName},
       });
     },
 

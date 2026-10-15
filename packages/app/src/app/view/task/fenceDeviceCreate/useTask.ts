@@ -35,18 +35,11 @@ export const useTask = () => {
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
         key: {task: task.name},
       });
-      dispatch({
-        type: "FENCE_DEVICE.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "FENCE_DEVICE.CREATE.CLOSE"});
     },
 
     updateState: (payload: ActionPayload["FENCE_DEVICE.CREATE.UPDATE"]) => {
-      dispatch({
-        type: "FENCE_DEVICE.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      });
+      dispatch({type: "FENCE_DEVICE.CREATE.UPDATE", payload});
     },
 
     create: ({force}: {force: boolean}) => {

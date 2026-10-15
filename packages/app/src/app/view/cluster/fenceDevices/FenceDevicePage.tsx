@@ -28,7 +28,6 @@ export const FenceDevicePage = () => {
             run: () =>
               openTask("fenceDeviceCreate", {
                 type: "FENCE_DEVICE.CREATE.INIT",
-                key: {clusterName},
                 payload: {clusterName},
               }),
             launchDisable: launchDisable(

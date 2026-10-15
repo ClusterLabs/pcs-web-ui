@@ -38,7 +38,6 @@ export const useTask = () => {
   const task = useTaskCommon("fenceDeviceArgsEdit");
   const {dispatch, state} = task;
   const {clusterName} = state;
-  const key = {clusterName};
 
   return {
     ...task,
@@ -47,7 +46,6 @@ export const useTask = () => {
     update: (name: string, value: string) =>
       dispatch({
         type: "FENCE_DEVICE.EDIT_ARGS.UPDATE",
-        key,
         payload: {
           name,
           value,
@@ -57,7 +55,6 @@ export const useTask = () => {
     runUpdate: () =>
       dispatch({
         type: "FENCE_DEVICE.EDIT_ARGS.RUN",
-        key,
         payload: {
           fenceDeviceId: state.fenceDeviceId,
           attributes: prepareAttributes(
@@ -67,9 +64,6 @@ export const useTask = () => {
         },
       }),
     recoverFromError: () =>
-      dispatch({
-        type: "FENCE_DEVICE.EDIT_ARGS.RUN.ERROR.RECOVER",
-        key,
-      }),
+      dispatch({type: "FENCE_DEVICE.EDIT_ARGS.RUN.ERROR.RECOVER"}),
   };
 };
