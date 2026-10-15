@@ -16,7 +16,7 @@ import {FenceDeviceList} from "./list";
 const {fenceDevices, fenceDevicesToolbar} = testMarks.cluster;
 
 export const FenceDevicePage = () => {
-  const {fenceDeviceList, clusterName} = useLoadedCluster();
+  const {fenceDeviceList} = useLoadedCluster();
   const openTask = useOpenTask();
   const launchDisable = useLauncherDisableClusterNotRunning();
   return (
@@ -25,11 +25,7 @@ export const FenceDevicePage = () => {
         buttonsItems={[
           {
             name: "create-fence-device",
-            run: () =>
-              openTask("fenceDeviceCreate", {
-                type: "FENCE_DEVICE.CREATE.INIT",
-                payload: {clusterName},
-              }),
+            run: () => openTask("fenceDeviceCreate"),
             launchDisable: launchDisable(
               "Cannot create resource on stopped cluster",
             ),

@@ -6,7 +6,6 @@ export type FenceDeviceEditArgsActions = {
     // cluster status/pcmkAgent from reducer). So, we will work with independent
     // but compatible types here
     payload: {
-      clusterName: string;
       fenceDeviceId: string;
       fenceDeviceArguments: Record<string, string>;
       agentParameters: {

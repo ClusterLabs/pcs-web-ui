@@ -7,12 +7,10 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("fenceDeviceCreate");
   const {state, dispatch} = task;
-  const {clusterName} = state;
   const agentInfo = useSelector(selectors.getAgentInfo(state.agentName));
 
   return {
     ...task,
-    clusterName,
     isAgentLoaded: agentInfo?.isAgentLoaded,
 
     // validations

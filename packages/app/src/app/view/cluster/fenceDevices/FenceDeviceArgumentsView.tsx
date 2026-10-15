@@ -8,7 +8,6 @@ import {
   PcmkAgentAttrName,
   PcmkAgentAttrsToolbar,
   isCibSecret,
-  useLoadedCluster,
 } from "app/view/cluster/share";
 import {
   AttributeGroup,
@@ -28,7 +27,6 @@ export const FenceDeviceArgumentsView = ({
 }: {
   fenceDevice: FenceDevice;
 }) => {
-  const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   const fenceDeviceArguments = Object.entries(fenceDevice.arguments).reduce(
@@ -65,7 +63,6 @@ export const FenceDeviceArgumentsView = ({
                       openTask("fenceDeviceArgsEdit", {
                         type: "FENCE_DEVICE.EDIT_ARGS.OPEN",
                         payload: {
-                          clusterName,
                           fenceDeviceId: fenceDevice.id,
                           fenceDeviceArguments,
                           agentParameters: agent.parameters,
