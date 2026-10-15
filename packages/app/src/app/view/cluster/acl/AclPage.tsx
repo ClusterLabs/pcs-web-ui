@@ -41,7 +41,6 @@ export const AclPage = () => {
             run: () =>
               openTask("aclRoleCreate", {
                 type: "CLUSTER.ACL.ROLE.CREATE",
-                key: {clusterName},
                 payload: {clusterName},
               }),
             launchDisable: launchDisable(
@@ -54,7 +53,6 @@ export const AclPage = () => {
             run: () =>
               openTask("aclSubjectCreate", {
                 type: "CLUSTER.ACL.SUBJECT.CREATE",
-                key: {clusterName},
                 payload: {
                   clusterName,
                   subjectType: "user",
@@ -75,7 +73,6 @@ export const AclPage = () => {
                 run: () =>
                   openTask("aclSubjectCreate", {
                     type: "CLUSTER.ACL.SUBJECT.CREATE",
-                    key: {clusterName},
                     payload: {
                       clusterName,
                       subjectType: "group",
@@ -97,7 +94,6 @@ export const AclPage = () => {
                   } access control lists.`,
                   action: {
                     type: "CLUSTER.PROPERTIES.UPDATE",
-                    key: {clusterName},
                     payload: {
                       propertyMap: {
                         "enable-acl": aclEnabled ? "false" : "true",

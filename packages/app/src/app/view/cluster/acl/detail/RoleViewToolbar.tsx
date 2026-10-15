@@ -24,7 +24,6 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
           run: () =>
             openTask("aclSubjectAssign", {
               type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-              key: {clusterName},
               payload: {
                 clusterName,
                 subjectType: "user",
@@ -40,7 +39,6 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
           run: () =>
             openTask("aclRolePermissionAdd", {
               type: "CLUSTER.ACL.ROLE.PERMISSION",
-              key: {clusterName},
               payload: {clusterName, roleId},
             }),
           ...toolbar.addPermissions.mark,
@@ -54,7 +52,6 @@ export const RoleViewToolbar = ({roleId}: {roleId: string}) => {
               run: () =>
                 openTask("aclSubjectAssign", {
                   type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-                  key: {clusterName},
                   payload: {
                     clusterName,
                     subjectType: "group",

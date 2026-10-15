@@ -25,7 +25,7 @@ export const NVPairListItemMenu = (props: {
           run: () =>
             openTask("nvpairEdit", {
               type: "CLUSTER.NVPAIRS.EDIT",
-              key: {clusterName, task: "nvpairEdit"},
+              key: {task: "nvpairEdit"},
               payload: {
                 clusterName,
                 type: "update",
@@ -43,7 +43,7 @@ export const NVPairListItemMenu = (props: {
             description: "Removes the attribute.",
             action: {
               type: "CLUSTER.NVPAIRS.SAVE",
-              key: {clusterName, task: "nvpairEdit"},
+              key: {task: "nvpairEdit"},
               payload: {
                 owner,
                 name: nvPair.name,

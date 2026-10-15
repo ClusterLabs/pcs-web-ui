@@ -19,12 +19,7 @@ export const useTask = () => {
     //actions
     updateState: (
       payload: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE.UPDATE"],
-    ) =>
-      dispatch({
-        type: "CLUSTER.ACL.SUBJECT.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+    ) => dispatch({type: "CLUSTER.ACL.SUBJECT.CREATE.UPDATE", payload}),
 
     close: () => {
       task.close();
@@ -32,10 +27,7 @@ export const useTask = () => {
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
         key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.ACL.SUBJECT.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.ACL.SUBJECT.CREATE.CLOSE"});
     },
 
     createSubject: () => {

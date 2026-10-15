@@ -5,7 +5,6 @@ import {api, call, put, race, take} from "./common";
 import {nodeAuthWait} from "./nodeAuth";
 
 export function* fixAuth({
-  key,
   payload: {initialNodeList, clusterName},
 }: ActionMap["CLUSTER.FIX_AUTH.START"]) {
   const authProcessId = actionNewId();
@@ -18,7 +17,6 @@ export function* fixAuth({
 
   yield put({
     type: "CLUSTER.FIX_AUTH.AUTH_STARTED",
-    key,
     payload: {authProcessId, clusterName},
   });
 
@@ -28,10 +26,7 @@ export function* fixAuth({
   });
 
   if (!cancel) {
-    yield put({
-      type: "CLUSTER.FIX_AUTH.AUTH_DONE",
-      key,
-    });
+    yield put({type: "CLUSTER.FIX_AUTH.AUTH_DONE"});
   }
 
   yield put({
@@ -40,9 +35,7 @@ export function* fixAuth({
   });
 }
 
-export function* fixAuthDistribute({
-  key,
-}: ActionMap["CLUSTER.FIX_AUTH.AUTH_DONE"]) {
+export function* fixAuthDistribute() {
   const {result}: {result: api.ResultOf<typeof fixAuthOfCluster>} = yield race({
     result: api.authSafe(fixAuthOfCluster),
     cancel: take("CLUSTER.FIX_AUTH.CANCEL"),
@@ -55,20 +48,18 @@ export function* fixAuthDistribute({
   if (result.type === "BAD_HTTP_STATUS" && result.status === 400) {
     yield put({
       type: "CLUSTER.FIX_AUTH.FAIL",
-      key,
       payload: {message: result.text},
     });
     return;
   }
 
   if (result.type !== "OK") {
-    const taskLabel = `distribution authentication to cluster ${key.clusterName}`;
+    const taskLabel = "distribution authentication to cluster";
 
     yield api.processError(result, taskLabel, {
       action: () =>
         put({
           type: "CLUSTER.FIX_AUTH.ERROR",
-          key,
           payload: {message: api.errorMessage(result, taskLabel)},
         }),
       useNotification: false,
@@ -76,8 +67,5 @@ export function* fixAuthDistribute({
     return;
   }
 
-  yield put({
-    type: "CLUSTER.FIX_AUTH.OK",
-    key,
-  });
+  yield put({type: "CLUSTER.FIX_AUTH.OK"});
 }

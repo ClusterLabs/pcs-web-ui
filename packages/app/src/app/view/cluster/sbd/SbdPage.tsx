@@ -60,7 +60,6 @@ export const SbdPage = () => {
             run: () =>
               openTask("sbdConfigure", {
                 type: "CLUSTER.SBD.CONFIGURE",
-                key: {clusterName},
                 payload: {clusterName, ...configureOpenPayload},
               }),
             ...sbdToolbar.configureSbd.mark,
@@ -70,7 +69,6 @@ export const SbdPage = () => {
             run: () =>
               openTask("sbdDisable", {
                 type: "CLUSTER.SBD.DISABLE.INIT",
-                key: {clusterName},
                 payload: {clusterName},
               }),
             ...sbdToolbar.disableSbd.mark,

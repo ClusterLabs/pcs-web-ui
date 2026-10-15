@@ -17,10 +17,7 @@ export const useTask = () => {
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
         key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.SBD.DISABLE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.SBD.DISABLE.CLOSE"});
     },
 
     sbdDisable: ({force}: {force: boolean}) => {

@@ -24,7 +24,7 @@ export const ClusterPermissionsPage = () => {
             run: () =>
               openTask("permissionEdit", {
                 type: "CLUSTER.PERMISSIONS.EDIT",
-                key: {clusterName, task: "permissionEdit"},
+                key: {task: "permissionEdit"},
                 payload: {
                   clusterName,
                   currentPermissionList,

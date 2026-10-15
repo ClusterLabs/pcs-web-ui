@@ -7,18 +7,12 @@ export const useTask = () => {
     state,
 
     cancel: () => {
-      dispatch({
-        type: "CLUSTER.FIX_AUTH.CANCEL",
-        key: {clusterName: state.clusterName},
-      });
+      dispatch({type: "CLUSTER.FIX_AUTH.CANCEL"});
       close();
     },
 
     fixAuthDone: () => {
-      dispatch({
-        type: "CLUSTER.FIX_AUTH.AUTH_DONE",
-        key: {clusterName: state.clusterName},
-      });
+      dispatch({type: "CLUSTER.FIX_AUTH.AUTH_DONE"});
       close();
     },
   };

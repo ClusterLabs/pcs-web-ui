@@ -30,7 +30,7 @@ export const NVPairToolbar = (props: {
           run: () =>
             openTask("nvpairEdit", {
               type: "CLUSTER.NVPAIRS.EDIT",
-              key: {clusterName, task: "nvpairEdit"},
+              key: {task: "nvpairEdit"},
               payload: {
                 clusterName,
                 type: "create",

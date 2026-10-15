@@ -16,7 +16,6 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
           onClick={() =>
             openTask("fixAuth", {
               type: "CLUSTER.FIX_AUTH.START",
-              key: {clusterName},
               payload: {clusterName, initialNodeList: nodeList},
             })
           }

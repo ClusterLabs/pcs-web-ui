@@ -12,12 +12,7 @@ export const useTask = () => {
 
   const updateState = (
     payload: ActionPayload["CLUSTER.ACL.ROLE.CREATE.UPDATE"],
-  ) =>
-    dispatch({
-      type: "CLUSTER.ACL.ROLE.CREATE.UPDATE",
-      key: {clusterName},
-      payload,
-    });
+  ) => dispatch({type: "CLUSTER.ACL.ROLE.CREATE.UPDATE", payload});
 
   return {
     ...task,
@@ -39,10 +34,7 @@ export const useTask = () => {
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
         key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.ACL.ROLE.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.ACL.ROLE.CREATE.CLOSE"});
     },
 
     aclRoleCreate: () => {

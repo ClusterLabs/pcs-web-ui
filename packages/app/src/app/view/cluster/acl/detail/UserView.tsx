@@ -37,7 +37,6 @@ export const UserView = ({
               run: () =>
                 openTask("aclSubjectAssign", {
                   type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-                  key: {clusterName},
                   payload: {
                     clusterName,
                     subjectType: "user",

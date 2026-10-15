@@ -25,7 +25,7 @@ export const PermissionMenu = ({
           run: () =>
             openTask("permissionEdit", {
               type: "CLUSTER.PERMISSIONS.EDIT",
-              key: {clusterName, task: "permissionEdit"},
+              key: {task: "permissionEdit"},
               payload: {
                 clusterName,
                 currentPermissionList: permissionList,
@@ -42,7 +42,7 @@ export const PermissionMenu = ({
             description: "Removes the permission.",
             action: {
               type: "CLUSTER.PERMISSIONS.SAVE",
-              key: {clusterName, task: "permissionRemove"},
+              key: {task: "permissionRemove"},
               payload: {
                 permissionList: permissionList.filter(
                   p => p.name !== permission.name || p.type !== permission.type,

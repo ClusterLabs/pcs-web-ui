@@ -41,18 +41,11 @@ export const useTask = () => {
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
         key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.SBD.CONFIGURE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.SBD.CONFIGURE.CLOSE"});
     },
 
     updateState: (payload: ActionPayload["CLUSTER.SBD.CONFIGURE.UPDATE"]) =>
-      dispatch({
-        type: "CLUSTER.SBD.CONFIGURE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+      dispatch({type: "CLUSTER.SBD.CONFIGURE.UPDATE", payload}),
 
     sbdConfigure: ({force}: {force: boolean}) => {
       const sbdTimeoutAction = getSbdTimeout();

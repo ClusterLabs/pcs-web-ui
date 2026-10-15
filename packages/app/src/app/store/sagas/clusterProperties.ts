@@ -26,7 +26,6 @@ export function* load() {
 }
 
 export function* update({
-  key: {clusterName},
   payload: {propertyMap, force},
 }: ActionMap["CLUSTER.PROPERTIES.UPDATE"]) {
   const result: api.ResultOf<typeof updateClusterSettings> = yield api.authSafe(
@@ -41,7 +40,6 @@ export function* update({
     }
     yield put({
       type: "CLUSTER.PROPERTIES.UPDATE.FAIL",
-      key: {clusterName},
       payload: {
         message: errorMessage(stripForceText(result), taskLabel),
         isForceable: "text" in result && result.text.includes("--force"),
@@ -52,8 +50,5 @@ export function* update({
 
   yield put({type: "CLUSTER.STATUS.REFRESH"});
 
-  yield put({
-    type: "CLUSTER.PROPERTIES.UPDATE.OK",
-    key: {clusterName},
-  });
+  yield put({type: "CLUSTER.PROPERTIES.UPDATE.OK"});
 }

@@ -6,7 +6,6 @@ export type ClusterPermissionsActions = {
   "CLUSTER.PERMISSIONS.SAVE": {
     type: "CLUSTER.PERMISSIONS.SAVE";
     key: {
-      clusterName: string;
       task: "permissionEdit" | "permissionRemove";
     };
     payload: {permissionList: Parameters<typeof savePermissions>[0]};
@@ -24,12 +23,12 @@ export type ClusterPermissionsActions = {
 
   "CLUSTER.PERMISSIONS.SAVE.ERROR.RECOVER": {
     type: "CLUSTER.PERMISSIONS.SAVE.ERROR.RECOVER";
-    key: {clusterName: string; task: string};
+    key: {task: string};
   };
 
   "CLUSTER.PERMISSIONS.EDIT": {
     type: "CLUSTER.PERMISSIONS.EDIT";
-    key: {clusterName: string; task: string};
+    key: {task: string};
     payload: {
       clusterName: string;
       currentPermissionList: ApiPermissions["users_permissions"];
@@ -44,7 +43,7 @@ export type ClusterPermissionsActions = {
 
   "CLUSTER.PERMISSIONS.EDIT.CLOSE": {
     type: "CLUSTER.PERMISSIONS.EDIT.CLOSE";
-    key: {clusterName: string; task: string};
+    key: {task: string};
   };
 
   "CLUSTER.PERMISSION.EDIT.UPDATE": {
@@ -57,7 +56,7 @@ export type ClusterPermissionsActions = {
       grant?: boolean;
       full?: boolean;
     };
-    key: {clusterName: string; task: string};
+    key: {task: string};
   };
 
   "CLUSTER.PERMISSIONS.LOAD": {

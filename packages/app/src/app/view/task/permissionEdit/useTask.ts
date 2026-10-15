@@ -13,7 +13,7 @@ export const useTask = () => {
   const {dispatch, close, state} = task;
   const {clusterName, currentPermissionList} = state;
 
-  const key = {clusterName, task: taskName};
+  const key = {task: taskName};
 
   const isCreate = state.initialPermission === null;
   return {

@@ -31,7 +31,6 @@ export const useTask = () => {
     updateAssigneeId: (id: string) =>
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.ASSIGN.UPDATE",
-        key: {clusterName},
         payload: {
           [assigneeKey]: id,
         },
@@ -43,10 +42,7 @@ export const useTask = () => {
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
         key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.ACL.SUBJECT.ASSIGN.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.ACL.SUBJECT.ASSIGN.CLOSE"});
     },
 
     assign: () => {

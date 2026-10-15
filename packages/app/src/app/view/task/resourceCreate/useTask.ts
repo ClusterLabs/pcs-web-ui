@@ -54,7 +54,6 @@ export const useTask = () => {
     selectAgent: (value: string) => {
       dispatch({
         type: "RESOURCE_AGENT.ENSURE",
-        key: {clusterName},
         payload: {agentName: value},
       });
       updateState({agentName: value});
