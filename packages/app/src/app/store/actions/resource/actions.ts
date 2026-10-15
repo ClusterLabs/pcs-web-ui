@@ -1,7 +1,6 @@
 export type ResourceActionsActions = {
   "RESOURCE.REFRESH": {
     type: "RESOURCE.REFRESH";
-    key: {clusterName: string};
     payload: {
       resourceId: string;
       resourceType: "resource" | "fence-device";
@@ -10,7 +9,6 @@ export type ResourceActionsActions = {
 
   "RESOURCE.CLEANUP": {
     type: "RESOURCE.CLEANUP";
-    key: {clusterName: string};
     payload: {
       resourceId: string;
       resourceType: "resource" | "fence-device";
@@ -19,7 +17,6 @@ export type ResourceActionsActions = {
 
   "RESOURCE.DELETE": {
     type: "RESOURCE.DELETE";
-    key: {clusterName: string};
     payload: {
       resourceId: string;
       resourceType: "resource" | "fence-device";
@@ -28,7 +25,6 @@ export type ResourceActionsActions = {
 
   "RESOURCE.CLONE": {
     type: "RESOURCE.CLONE";
-    key: {clusterName: string};
     payload: {
       resourceId: string;
     };
@@ -36,7 +32,6 @@ export type ResourceActionsActions = {
 
   "RESOURCE.UNCLONE": {
     type: "RESOURCE.UNCLONE";
-    key: {clusterName: string};
     payload: {
       resourceId: string;
     };

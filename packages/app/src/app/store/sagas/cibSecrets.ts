@@ -7,7 +7,6 @@ import {api, lib, log, processError, put, putNotification} from "./common";
 type ApiCallResult = api.ResultOf<typeof libCallCluster>;
 
 export function* load({
-  key,
   payload: {resourceId, attributeNames},
 }: ActionMap["RESOURCE.CIB_SECRETS.LOAD"]) {
   const result: ApiCallResult = yield api.authSafe(libCallCluster, {
@@ -26,7 +25,6 @@ export function* load({
 
   const errorAction: Action = {
     type: "RESOURCE.CIB_SECRETS.LOAD.FAILED",
-    key,
     payload: {resourceId},
   };
 
@@ -67,7 +65,6 @@ export function* load({
 
   yield put({
     type: "RESOURCE.CIB_SECRETS.LOAD.SUCCESS",
-    key,
     payload: {resource_secrets: data.resource_secrets},
   });
 }

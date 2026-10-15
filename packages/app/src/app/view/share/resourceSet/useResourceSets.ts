@@ -4,7 +4,6 @@ import {useDispatch} from "app/view/share/useDispatch";
 export const useResourceSets = <
   NAME extends Parameters<typeof selectors.getTask>[0],
 >(
-  clusterName: string,
   task: NAME,
 ) => {
   const dispatch = useDispatch();
@@ -12,13 +11,13 @@ export const useResourceSets = <
     createSet: () =>
       dispatch({
         type: "RESOURCE.SET.LIST.CREATE.SET",
-        key: {clusterName, task},
+        key: {task},
       }),
 
     deleteSet: (index: number) =>
       dispatch({
         type: "RESOURCE.SET.LIST.DELETE.SET",
-        key: {clusterName, task},
+        key: {task},
         payload: {
           index,
         },
@@ -30,7 +29,7 @@ export const useResourceSets = <
     ) =>
       dispatch({
         type: "RESOURCE.SET.LIST.MOVE.SET",
-        key: {clusterName, task},
+        key: {task},
         payload: {
           index,
           direction,

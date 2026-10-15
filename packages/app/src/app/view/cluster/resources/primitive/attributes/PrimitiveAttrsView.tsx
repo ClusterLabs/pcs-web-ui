@@ -58,7 +58,6 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
                     run: () =>
                       openTask("primitiveAttrsEdit", {
                         type: "RESOURCE.EDIT_ATTRS.OPEN",
-                        key: {clusterName},
                         payload: {
                           clusterName,
                           resourceId: primitive.id,

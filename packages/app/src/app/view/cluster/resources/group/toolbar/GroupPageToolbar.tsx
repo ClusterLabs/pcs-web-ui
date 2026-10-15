@@ -4,7 +4,7 @@ import {
   LauncherDropdown,
   type LauncherItem as ToolbarItem,
 } from "app/view/share";
-import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar} from "app/view/cluster/share";
 import {useOpenMoveBanTask} from "app/view/cluster/resources";
 
 import {useToolbarItemMoveBan} from "./useToolbarItemMoveBan";
@@ -12,7 +12,6 @@ import {useToolbarItemMoveBan} from "./useToolbarItemMoveBan";
 const {toolbar} = testMarks.cluster.resources.currentGroup;
 
 export const GroupPageToolbar = ({group}: {group: Group}) => {
-  const {clusterName} = useLoadedCluster();
   const openMoveBanTask = useOpenMoveBanTask();
 
   const move = useToolbarItemMoveBan(group, "move");
@@ -34,7 +33,6 @@ export const GroupPageToolbar = ({group}: {group: Group}) => {
       ),
       action: {
         type: "RESOURCE.UNCLONE",
-        key: {clusterName},
         payload: {resourceId: group.id},
       },
     },
@@ -47,7 +45,6 @@ export const GroupPageToolbar = ({group}: {group: Group}) => {
       description: "Set up the specified resource or group as a clone.",
       action: {
         type: "RESOURCE.CLONE",
-        key: {clusterName},
         payload: {resourceId: group.id},
       },
     },

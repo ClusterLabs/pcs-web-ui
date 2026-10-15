@@ -8,7 +8,7 @@ export const useTask = () => {
   const {dispatch, state, close} = task;
   const {clusterName} = state;
 
-  const resourceSets = useResourceSets(clusterName, task.name);
+  const resourceSets = useResourceSets(task.name);
 
   return {
     ...task,

@@ -12,7 +12,6 @@ export const useTask = () => {
   const updateState = (payload: ActionPayload["RESOURCE.CREATE.UPDATE"]) => {
     dispatch({
       type: "RESOURCE.CREATE.UPDATE",
-      key: {clusterName},
       payload,
     });
   };
@@ -47,7 +46,6 @@ export const useTask = () => {
       });
       dispatch({
         type: "RESOURCE.CREATE.CLOSE",
-        key: {clusterName},
       });
     },
 

@@ -4,7 +4,7 @@ import {
   LauncherDropdown,
   type LauncherItem as ToolbarItem,
 } from "app/view/share";
-import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar} from "app/view/cluster/share";
 import {useOpenMoveBanTask} from "app/view/cluster/resources";
 import {useOpenTask} from "app/view/task";
 
@@ -26,7 +26,6 @@ const isPrimitiveEnabled = (primitive: Primitive) =>
 const {toolbar} = testMarks.cluster.resources.currentPrimitive;
 
 export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
-  const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
   const openMoveBanTask = useOpenMoveBanTask();
 
@@ -54,7 +53,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       ),
       action: {
         type: "RESOURCE.UNCLONE",
-        key: {clusterName},
         payload: {
           resourceId: primitive.id,
         },
@@ -70,7 +68,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       description: "Set up the specified resource or group as a clone.",
       action: {
         type: "RESOURCE.CLONE",
-        key: {clusterName},
         payload: {
           resourceId: primitive.id,
         },
@@ -84,7 +81,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
     run: () =>
       openTask("resourceDelete", {
         type: "RESOURCE.DELETE.INIT",
-        key: {clusterName},
         payload: {resourceId: primitive.id, resourceType: "resource"},
       }),
     ...toolbar.dropdown.delete.mark,
@@ -102,7 +98,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       ),
       action: {
         type: "RESOURCE.REFRESH",
-        key: {clusterName},
         payload: {
           resourceId: primitive.id,
           resourceType: "resource",
@@ -124,7 +119,6 @@ export const PrimitivePageToolbar = ({primitive}: {primitive: Primitive}) => {
       ),
       action: {
         type: "RESOURCE.CLEANUP",
-        key: {clusterName},
         payload: {
           resourceId: primitive.id,
           resourceType: "resource",

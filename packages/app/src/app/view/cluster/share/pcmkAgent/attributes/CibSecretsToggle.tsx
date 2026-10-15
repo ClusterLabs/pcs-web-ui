@@ -2,7 +2,6 @@ import {useSelector} from "react-redux";
 import {Switch} from "@patternfly/react-core";
 
 import {selectors} from "app/store";
-import {useLoadedCluster} from "app/view/cluster/share";
 import {useDispatch} from "app/view/share";
 
 import {SecretsAgePopover} from "./SecretsAgePopover";
@@ -16,7 +15,6 @@ export const CibSecretsToggle = ({
   attributeNames: string[];
   "data-test"?: string;
 }) => {
-  const {clusterName} = useLoadedCluster();
   const dispatch = useDispatch();
   const cibSecretsState = useSelector(selectors.getCibSecrets(resourceId));
 
@@ -33,7 +31,6 @@ export const CibSecretsToggle = ({
               checked
                 ? {
                     type: "RESOURCE.CIB_SECRETS.LOAD",
-                    key: {clusterName},
                     payload: {
                       resourceId,
                       attributeNames,
@@ -41,7 +38,6 @@ export const CibSecretsToggle = ({
                   }
                 : {
                     type: "RESOURCE.CIB_SECRETS.CLEAR",
-                    key: {clusterName},
                     payload: {resourceId},
                   },
             )

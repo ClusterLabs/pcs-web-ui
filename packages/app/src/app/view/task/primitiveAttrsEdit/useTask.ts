@@ -38,7 +38,6 @@ export const useTask = () => {
   const task = useTaskCommon("primitiveAttrsEdit");
   const {dispatch, state} = task;
   const {clusterName} = state;
-  const key = {clusterName};
 
   return {
     ...task,
@@ -47,7 +46,6 @@ export const useTask = () => {
     update: (name: string, value: string) =>
       dispatch({
         type: "RESOURCE.EDIT_ATTRS.UPDATE",
-        key,
         payload: {
           name,
           value,
@@ -57,7 +55,6 @@ export const useTask = () => {
     runUpdate: () =>
       dispatch({
         type: "RESOURCE.EDIT_ATTRS.RUN",
-        key,
         payload: {
           resourceId: state.resourceId,
           attributes: prepareAttributes(
@@ -67,9 +64,6 @@ export const useTask = () => {
         },
       }),
     recoverFromError: () =>
-      dispatch({
-        type: "RESOURCE.EDIT_ATTRS.RUN.ERROR.RECOVER",
-        key,
-      }),
+      dispatch({type: "RESOURCE.EDIT_ATTRS.RUN.ERROR.RECOVER"}),
   };
 };

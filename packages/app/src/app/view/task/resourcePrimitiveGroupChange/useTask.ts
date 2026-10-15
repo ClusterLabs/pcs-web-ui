@@ -27,17 +27,12 @@ export const useTask = () => {
 
     //actions
     updateState: (payload: ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]) => {
-      dispatch({
-        type: "RESOURCE.GROUP.CHANGE.UPDATE",
-        key: {clusterName},
-        payload,
-      });
+      dispatch({type: "RESOURCE.GROUP.CHANGE.UPDATE", payload});
     },
 
     changeGroup: () =>
       dispatch({
         type: "RESOURCE.GROUP.CHANGE",
-        key: {clusterName},
         payload: {
           resourceId: state.resourceId,
           groupId: !isSetForRemove ? state.groupId : "",
@@ -48,16 +43,10 @@ export const useTask = () => {
       }),
 
     recoverFromError: () =>
-      dispatch({
-        type: "RESOURCE.GROUP.CHANGE.FAIL.RECOVER",
-        key: {clusterName},
-      }),
+      dispatch({type: "RESOURCE.GROUP.CHANGE.FAIL.RECOVER"}),
 
     close: () => {
-      dispatch({
-        type: "RESOURCE.GROUP.CHANGE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "RESOURCE.GROUP.CHANGE.CLOSE"});
       task.close();
     },
   };

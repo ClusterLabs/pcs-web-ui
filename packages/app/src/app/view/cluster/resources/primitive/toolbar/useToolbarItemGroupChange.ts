@@ -17,7 +17,6 @@ export const useToolbarItemGroupChange = (
     run: () =>
       openTask("primitiveGroupChange", {
         type: "RESOURCE.GROUP.CHANGE.INIT",
-        key: {clusterName},
         payload: {
           clusterName,
           groupIdStructureList,

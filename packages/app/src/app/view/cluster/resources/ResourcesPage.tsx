@@ -35,7 +35,6 @@ export const ResourcesPage = () => {
             run: () =>
               openTask("resourceCreate", {
                 type: "RESOURCE.CREATE.INIT",
-                key: {clusterName},
                 payload: {
                   clusterName,
                   groupIdStructureList: selectGroups(resourceTree),
@@ -51,7 +50,6 @@ export const ResourcesPage = () => {
             run: () =>
               openTask("resourceGroup", {
                 type: "RESOURCE.GROUP.CREATE.INIT",
-                key: {clusterName},
                 payload: {
                   clusterName,
                   topLevelPrimitiveIds: resourceTree

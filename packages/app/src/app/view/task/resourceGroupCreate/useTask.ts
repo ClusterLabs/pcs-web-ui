@@ -25,7 +25,6 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "RESOURCE.GROUP.CREATE.CLOSE",
-        key: {clusterName},
       });
     },
 
@@ -35,14 +34,12 @@ export const useTask = () => {
     updateState: (payload: ActionPayload["RESOURCE.GROUP.CREATE.UPDATE"]) =>
       dispatch({
         type: "RESOURCE.GROUP.CREATE.UPDATE",
-        key: {clusterName: clusterName},
         payload,
       }),
 
     createGroup: () =>
       dispatch({
         type: "RESOURCE.GROUP.CREATE",
-        key: {clusterName: clusterName},
         payload: {
           resourceIdList: resourceIdList,
           groupId: groupId,

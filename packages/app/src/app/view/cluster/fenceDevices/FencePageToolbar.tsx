@@ -31,7 +31,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
       ),
       action: {
         type: "RESOURCE.REFRESH",
-        key: {clusterName},
         payload: {
           resourceId: fenceDevice.id,
           resourceType: "fence-device",
@@ -53,7 +52,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
       ),
       action: {
         type: "RESOURCE.CLEANUP",
-        key: {clusterName},
         payload: {
           resourceId: fenceDevice.id,
           resourceType: "fence-device",
@@ -68,7 +66,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
     run: () =>
       openTask("resourceDelete", {
         type: "RESOURCE.DELETE.INIT",
-        key: {clusterName},
         payload: {resourceId: fenceDevice.id, resourceType: "fence-device"},
       }),
     ...toolbar.dropdown.delete.mark,
