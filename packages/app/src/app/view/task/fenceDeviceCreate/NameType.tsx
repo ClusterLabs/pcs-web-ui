@@ -16,7 +16,6 @@ export const NameType = () => {
       showValidationErrors,
       libCall: {reports},
     },
-    clusterName,
     dispatch,
     updateState,
   } = useTask();
@@ -24,7 +23,6 @@ export const NameType = () => {
   const onSelect = (value: string) => {
     dispatch({
       type: "FENCE_AGENT.ENSURE",
-      key: {clusterName},
       payload: {agentName: value.toString()},
     });
     updateState({agentName: value.toString(), instanceAttrs: {}});

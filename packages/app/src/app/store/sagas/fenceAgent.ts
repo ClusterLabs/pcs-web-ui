@@ -14,10 +14,7 @@ import {
   select,
 } from "./common";
 
-export function* load({
-  key,
-  payload: {agentName},
-}: ActionMap["FENCE_AGENT.LOAD"]) {
+export function* load({payload: {agentName}}: ActionMap["FENCE_AGENT.LOAD"]) {
   const result: api.ResultOf<typeof libClusterStonithAgentDescribeAgent> =
     yield authSafe(libClusterStonithAgentDescribeAgent, {agentName});
 
@@ -25,7 +22,6 @@ export function* load({
 
   const errorAction: Action = {
     type: "FENCE_AGENT.LOAD.FAILED",
-    key,
     payload: {agentName},
   };
 
@@ -58,21 +54,18 @@ export function* load({
 
   yield put({
     type: "FENCE_AGENT.LOAD.SUCCESS",
-    key,
     payload: {apiAgentMetadata: payload.data},
   });
 }
 
 type PcmkAgent = ReturnType<ReturnType<typeof selectors.getPcmkAgent>>;
 export function* ensure({
-  key,
   payload: {agentName},
 }: ActionMap["FENCE_AGENT.ENSURE"]) {
   const pcmkAgent: PcmkAgent = yield select(selectors.getPcmkAgent(agentName));
   if (!pcmkAgent || pcmkAgent.loadStatus === "FAILED") {
     yield put({
       type: "FENCE_AGENT.LOAD",
-      key,
       payload: {agentName},
     });
   }
