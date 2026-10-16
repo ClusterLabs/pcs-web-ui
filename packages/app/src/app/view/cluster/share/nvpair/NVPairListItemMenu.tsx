@@ -1,6 +1,5 @@
 import type React from "react";
 import {LauncherDropdown} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share/LoadedClusterContext";
 import {useOpenTask} from "app/view/task";
 
 import {useNVPairListContext} from "./NVPairListContext";
@@ -13,7 +12,6 @@ export const NVPairListItemMenu = (props: {
   launcherRemove: (removeData: Launcher) => Launcher;
   "data-test"?: string;
 }) => {
-  const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
   const {nvPairList, owner} = useNVPairListContext();
   const nvPair = useNVPairListItemContext();
@@ -27,7 +25,6 @@ export const NVPairListItemMenu = (props: {
               type: "CLUSTER.NVPAIRS.EDIT",
               key: {task: "nvpairEdit"},
               payload: {
-                clusterName,
                 type: "update",
                 owner,
                 name: nvPair.name,

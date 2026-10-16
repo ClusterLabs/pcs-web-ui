@@ -20,19 +20,13 @@ type SbdConfiguration = {
 };
 
 export type ClusterSbdActions = {
-  "CLUSTER.SBD.DISABLE.INIT": {
-    type: "CLUSTER.SBD.DISABLE.INIT";
-    payload: {
-      clusterName: string;
-    };
-  };
   "CLUSTER.SBD.DISABLE.CLOSE": {
     type: "CLUSTER.SBD.DISABLE.CLOSE";
   };
 
   "CLUSTER.SBD.CONFIGURE": {
     type: "CLUSTER.SBD.CONFIGURE";
-    payload: {clusterName: string} & SbdConfiguration;
+    payload: SbdConfiguration;
   };
 
   "CLUSTER.SBD.CONFIGURE.UPDATE": {

@@ -1,11 +1,9 @@
 import {Alert, AlertActionLink} from "@patternfly/react-core";
 
 import {useOpenTask} from "app/view/task";
-import {useLoadedCluster} from "app/view/cluster/share";
 
 export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
   const openTask = useOpenTask();
-  const {clusterName} = useLoadedCluster();
   return (
     <Alert
       isInline
@@ -16,7 +14,7 @@ export const ClusterIssueNotAuth = ({nodeList}: {nodeList: string[]}) => {
           onClick={() =>
             openTask("fixAuth", {
               type: "CLUSTER.FIX_AUTH.START",
-              payload: {clusterName, initialNodeList: nodeList},
+              payload: {initialNodeList: nodeList},
             })
           }
         >

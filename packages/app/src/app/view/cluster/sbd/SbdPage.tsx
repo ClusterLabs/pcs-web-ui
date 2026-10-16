@@ -25,7 +25,7 @@ const extractTimeoutAction = <VALUE extends string>(
 
 const {sbd, sbdToolbar} = testMarks.cluster;
 export const SbdPage = () => {
-  const {nodeList, clusterName} = useLoadedCluster();
+  const {nodeList} = useLoadedCluster();
   const openTask = useOpenTask();
   const sbdConfig = selectSbdConfig(nodeList);
 
@@ -60,17 +60,13 @@ export const SbdPage = () => {
             run: () =>
               openTask("sbdConfigure", {
                 type: "CLUSTER.SBD.CONFIGURE",
-                payload: {clusterName, ...configureOpenPayload},
+                payload: configureOpenPayload,
               }),
             ...sbdToolbar.configureSbd.mark,
           },
           {
             name: "disable-SBD",
-            run: () =>
-              openTask("sbdDisable", {
-                type: "CLUSTER.SBD.DISABLE.INIT",
-                payload: {clusterName},
-              }),
+            run: () => openTask("sbdDisable"),
             ...sbdToolbar.disableSbd.mark,
           },
         ]}

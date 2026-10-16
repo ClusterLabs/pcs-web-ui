@@ -7,7 +7,6 @@ const {labelize, getNVPairTypeLabel} = tools;
 export const useTask = () => {
   const task = useTaskCommon("nvpairEdit");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   const key = {task: task.name};
   const integerIsExpectedAsValue =
@@ -20,7 +19,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     attrDesc,
     isCreate,
     label,

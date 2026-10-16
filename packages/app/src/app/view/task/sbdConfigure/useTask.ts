@@ -10,7 +10,6 @@ type SbdTimeoutAction = Extract<
 export const useTask = () => {
   const task = useTaskCommon("sbdConfigure");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   const getSbdTimeout = (): SbdTimeoutAction => {
     if (
@@ -30,7 +29,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     getSbdTimeout,
     isWatchdogTimeoutValid: /^(\d*)$/.test(state.watchdogTimeout),
 
