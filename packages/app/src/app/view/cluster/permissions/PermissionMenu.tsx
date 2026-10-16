@@ -2,7 +2,6 @@ import {testMarks} from "app/view/dataTest";
 import {LauncherDropdown} from "app/view/share";
 import {useOpenTask} from "app/view/task";
 
-import {useLoadedPermissions} from "./LoadedPermissionsContext";
 import type {Permission} from "./types";
 
 const {actions} = testMarks.cluster.permissions.permission;
@@ -14,7 +13,6 @@ export const PermissionMenu = ({
   permission: Permission;
   permissionList: Permission[];
 }) => {
-  const {clusterName} = useLoadedPermissions();
   const openTask = useOpenTask();
 
   return (
@@ -27,7 +25,6 @@ export const PermissionMenu = ({
               type: "CLUSTER.PERMISSIONS.EDIT",
               key: {task: "permissionEdit"},
               payload: {
-                clusterName,
                 currentPermissionList: permissionList,
                 type: "update",
                 permission,

@@ -11,7 +11,6 @@ const {permissionsToolbar} = testMarks.cluster;
 
 export const ClusterPermissionsPage = () => {
   const {
-    clusterName,
     permissions: {users_permissions: currentPermissionList},
   } = useLoadedPermissions();
   const openTask = useOpenTask();
@@ -26,7 +25,6 @@ export const ClusterPermissionsPage = () => {
                 type: "CLUSTER.PERMISSIONS.EDIT",
                 key: {task: "permissionEdit"},
                 payload: {
-                  clusterName,
                   currentPermissionList,
                   type: "create",
                 },

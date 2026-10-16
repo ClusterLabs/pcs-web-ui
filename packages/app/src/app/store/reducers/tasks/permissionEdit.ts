@@ -7,7 +7,6 @@ type InitialPermission = Extract<InitPayload, {type: "update"}>["permission"];
 type Competence = "read" | "write" | "grant" | "full";
 
 const initialState: Required<UpdatePayload> & {
-  clusterName: string;
   currentPermissionList: InitPayload["currentPermissionList"];
   initialPermission: InitialPermission | null;
   call: {
@@ -16,7 +15,6 @@ const initialState: Required<UpdatePayload> & {
   };
   showValidationErrors: boolean;
 } = {
-  clusterName: "",
   currentPermissionList: [],
   initialPermission: null,
   name: "",
@@ -36,7 +34,6 @@ const initToState = (initPayload: InitPayload) => {
   if (initPayload.type === "create") {
     return {
       ...initialState,
-      clusterName: initPayload.clusterName,
       currentPermissionList: initPayload.currentPermissionList,
     };
   }
@@ -44,7 +41,6 @@ const initToState = (initPayload: InitPayload) => {
   const {permission} = initPayload;
   return {
     ...initialState,
-    clusterName: initPayload.clusterName,
     currentPermissionList: initPayload.currentPermissionList,
     initialPermission: permission,
     name: permission.name,

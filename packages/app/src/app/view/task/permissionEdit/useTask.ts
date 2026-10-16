@@ -11,7 +11,7 @@ const taskName: ActionMap["CLUSTER.PERMISSIONS.SAVE"]["key"]["task"] =
 export const useTask = () => {
   const task = useTaskCommon("permissionEdit");
   const {dispatch, close, state} = task;
-  const {clusterName, currentPermissionList} = state;
+  const {currentPermissionList} = state;
 
   const key = {task: taskName};
 
@@ -22,7 +22,6 @@ export const useTask = () => {
     state,
     label: `${isCreate ? "Creating" : "Updating"} permission`,
     isCreate,
-    clusterName,
     dispatch,
 
     isNameValid: state.name.length > 0,

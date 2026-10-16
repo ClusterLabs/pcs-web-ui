@@ -6,7 +6,6 @@ type ClusterInfo = ReturnType<typeof getClusterStoreInfo>;
 
 const LoadedPermissionsContext = React.createContext<
   | {
-      clusterName: string;
       permissions: NonNullable<ClusterInfo["permissions"]>;
     }
   | undefined
