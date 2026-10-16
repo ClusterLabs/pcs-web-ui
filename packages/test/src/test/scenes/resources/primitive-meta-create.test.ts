@@ -24,7 +24,6 @@ describe("Primitive meta attributes create", () => {
       }),
       additionalRouteList: [
         mock.route.addMetaAttrRemote({
-          clusterName,
           resourceId: resourceId,
           name: metaAttr.name,
           value: metaAttr.value,
@@ -52,7 +51,6 @@ describe("Primitive meta attributes create", () => {
       }),
       additionalRouteList: [
         mock.route.addMetaAttrRemote({
-          clusterName,
           resourceId: resourceId,
           name: metaAttr.name,
           value: metaAttr.value,

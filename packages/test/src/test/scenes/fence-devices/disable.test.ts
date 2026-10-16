@@ -16,7 +16,6 @@ const mockForDisable = (response?: mock.RouteResponse) =>
     fenceDeviceIdList: [fenceDeviceId],
     additionalRouteList: [
       mock.route.resourceDisable({
-        clusterName,
         resourceOrTagIds: [fenceDeviceId],
         response,
       }),

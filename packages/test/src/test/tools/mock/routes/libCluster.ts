@@ -5,10 +5,7 @@ import * as responses from "dev/responses";
 import type {RouteResponse} from "../mock";
 
 export const libCluster = (
-  props: LibClusterCommands[number] & {
-    clusterName: string;
-    response?: RouteResponse;
-  },
+  props: LibClusterCommands[number] & {response?: RouteResponse},
 ) => {
   const {payload, name: command} = props;
   const response: RouteResponse = props?.response ?? {

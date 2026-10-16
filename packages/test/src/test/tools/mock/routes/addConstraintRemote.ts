@@ -12,7 +12,6 @@ export const addConstraintRemote = ({
   constraint,
   response,
 }: {
-  clusterName: string;
   constraint: Constraint;
   response?: RouteResponse;
 }) => {

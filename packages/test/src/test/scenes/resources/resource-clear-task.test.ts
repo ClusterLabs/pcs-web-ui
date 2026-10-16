@@ -37,10 +37,7 @@ describe("Resource clear task", () => {
     mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        mock.route.resourceClear({
-          clusterName,
-          resourceId: primitiveId,
-        }),
+        mock.route.resourceClear({resourceId: primitiveId}),
       ],
     });
 
@@ -70,7 +67,6 @@ describe("Resource clear task", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.resourceClear({
-          clusterName,
           resourceId: primitiveId,
           node: node1.name,
           expired: true,
@@ -99,11 +95,7 @@ describe("Resource clear task", () => {
     mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        mock.route.resourceClear({
-          clusterName,
-          resourceId: cloneId,
-          master: true,
-        }),
+        mock.route.resourceClear({resourceId: cloneId, master: true}),
       ],
     });
 

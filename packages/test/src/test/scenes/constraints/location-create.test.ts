@@ -17,7 +17,6 @@ describe("Create location counstraint", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.addConstraintRemote({
-          clusterName: clusterStatus.cluster_name,
           constraint: {
             location: {
               resourceSpecification,

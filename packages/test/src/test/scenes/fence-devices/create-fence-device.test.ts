@@ -16,7 +16,6 @@ describe("Fence device create task", () => {
     await mockWithStonith({
       additionalRouteList: [
         mock.route.stonithCreate({
-          clusterName,
           fenceDeviceName,
           agentName,
           instanceAttrs: {ip, username},

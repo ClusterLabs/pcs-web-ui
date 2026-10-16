@@ -18,10 +18,7 @@ describe("ACL role remove permission task", () => {
     mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        mock.route.aclRemovePermission({
-          clusterName: clusterStatus.cluster_name,
-          permissionId: permissionXpath1Id,
-        }),
+        mock.route.aclRemovePermission({permissionId: permissionXpath1Id}),
       ],
     });
 

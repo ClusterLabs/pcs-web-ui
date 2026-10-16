@@ -5,7 +5,6 @@ import {goToRole} from "./commonRole";
 
 const {aclAssignSubjectToRole: task} = marks.task;
 
-const clusterName = clusterStatus.cluster_name;
 const roleId = "first";
 const userId = "user2";
 
@@ -15,11 +14,7 @@ describe("ACL role assign user task", () => {
     mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        mock.route.aclAssignRoleToTarget({
-          clusterName,
-          roleId,
-          targetId: userId,
-        }),
+        mock.route.aclAssignRoleToTarget({roleId, targetId: userId}),
       ],
     });
     await goToRole(roleId);

@@ -5,10 +5,7 @@ import type {RouteResponse} from "../mock";
 import {libCluster} from "./libCluster";
 
 export const resourceGetCibsecrets = (
-  props: {
-    clusterName: string;
-    queries: [string, string][];
-  } & (
+  props: {queries: [string, string][]} & (
     | {
         resultData: {
           resource_secrets: {
@@ -27,7 +24,6 @@ export const resourceGetCibsecrets = (
       : {json: responses.lib.success({data: props.resultData})};
 
   return libCluster({
-    clusterName: props.clusterName,
     name: "resource-get-cibsecrets",
     payload: {queries: props.queries},
     response,

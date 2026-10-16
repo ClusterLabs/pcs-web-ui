@@ -16,7 +16,6 @@ describe("Create ticket counstraint", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.constraintTicketCreate({
-          clusterName: clusterStatus.cluster_name,
           ticketKey,
           resourceId: resourceId,
           lossPolicy,

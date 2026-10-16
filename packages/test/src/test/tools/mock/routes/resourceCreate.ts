@@ -5,7 +5,6 @@ import {type LibClusterCommandPayload, libCluster} from "./libCluster";
 type ResourceCreatePayload = LibClusterCommandPayload["resource-create"];
 
 export const resourceCreate = ({
-  clusterName,
   resourceId,
   agentName,
   instanceAttrs,
@@ -13,7 +12,6 @@ export const resourceCreate = ({
   response,
   force,
 }: {
-  clusterName: string;
   resourceId: string;
   agentName: string;
   instanceAttrs: ResourceCreatePayload["instance_attributes"];
@@ -22,7 +20,6 @@ export const resourceCreate = ({
   force?: boolean;
 }) =>
   libCluster({
-    clusterName,
     name: "resource-create",
     payload: {
       resource_id: resourceId,

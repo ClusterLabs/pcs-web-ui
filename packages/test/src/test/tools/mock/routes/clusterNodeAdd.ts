@@ -3,7 +3,6 @@ import type {RouteResponse} from "../mock";
 import {libCluster} from "./libCluster";
 
 export const clusterNodeAdd = (
-  clusterName: string,
   nodeName: string,
   response: RouteResponse = {
     json: {
@@ -15,7 +14,6 @@ export const clusterNodeAdd = (
   },
 ) =>
   libCluster({
-    clusterName,
     name: "cluster-add-nodes",
     payload: {
       nodes: [{name: nodeName}],

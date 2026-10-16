@@ -16,7 +16,6 @@ describe("Create colocation counstraint", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.addConstraintRemote({
-          clusterName: clusterStatus.cluster_name,
           constraint: {
             colocation: {
               resourceId,

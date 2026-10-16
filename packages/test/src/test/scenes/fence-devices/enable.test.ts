@@ -28,7 +28,6 @@ const mockForEnable = (response?: mock.RouteResponse) =>
     ],
     additionalRouteList: [
       mock.route.resourceEnable({
-        clusterName,
         resourceOrTagIds: [fenceDeviceId],
         response,
       }),

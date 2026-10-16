@@ -37,10 +37,7 @@ describe("Resource move task", () => {
     mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        mock.route.resourceMoveAutoclean({
-          clusterName,
-          resourceId: primitiveId,
-        }),
+        mock.route.resourceMoveAutoclean({resourceId: primitiveId}),
       ],
     });
 
@@ -74,7 +71,6 @@ describe("Resource move task", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.resourceMoveAutoclean({
-          clusterName,
           resourceId: primitiveId,
           node: node1.name,
           strict: true,
@@ -108,11 +104,7 @@ describe("Resource move task", () => {
     mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        mock.route.resourceMove({
-          clusterName,
-          resourceId: primitiveId,
-          lifetime,
-        }),
+        mock.route.resourceMove({resourceId: primitiveId, lifetime}),
       ],
     });
 
@@ -152,11 +144,7 @@ describe("Resource move task", () => {
     mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        mock.route.resourceMove({
-          clusterName,
-          resourceId: cloneId,
-          master: true,
-        }),
+        mock.route.resourceMove({resourceId: cloneId, master: true}),
       ],
     });
 

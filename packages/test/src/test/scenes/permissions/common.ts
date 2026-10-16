@@ -25,7 +25,6 @@ export const mockForPermissions = ({
     additionalRouteList,
     replaceRoutes: {
       permissions: mock.route.getPermissions({
-        clusterName,
         permissions: {
           ...responses.permissions(),
           users_permissions: usersPermissions,
