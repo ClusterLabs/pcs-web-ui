@@ -51,7 +51,6 @@ describe("Fence device arguments view", () => {
       ],
       additionalRouteList: [
         mock.route.resourceGetCibsecrets({
-          clusterName: "test-cluster",
           queries: [["F1", secretAttr]],
           resultData: {
             resource_secrets: [

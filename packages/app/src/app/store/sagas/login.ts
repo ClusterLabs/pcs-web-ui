@@ -1,6 +1,5 @@
 import {login, logout} from "app/backend";
 import type {ActionMap} from "app/store/actions";
-import {CLUSTER_KEY} from "app/store/clusterStorageKey";
 
 import {log} from "./common";
 import {
@@ -31,10 +30,7 @@ export function* logoutSaga() {
   yield putNotification("SUCCESS", "Success logout");
   yield put({type: "LOGIN.LOGOUT.SUCCESS"});
   yield put({type: "AUTH.REQUIRED"});
-  yield put({
-    type: "CLUSTER.STATUS.SYNC.STOP",
-    key: {clusterName: CLUSTER_KEY},
-  });
+  yield put({type: "CLUSTER.STATUS.SYNC.STOP"});
 }
 
 export function* loginSaga({

@@ -2,12 +2,10 @@ import {useTaskCommon} from "../useTaskCommon";
 
 export const useTask = () => {
   const task = useTaskCommon("sbdDisable");
-  const {dispatch, state} = task;
-  const {clusterName} = state;
+  const {dispatch} = task;
 
   return {
     ...task,
-    clusterName,
     label: "Disable SBD",
 
     //actions
@@ -15,18 +13,15 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.SBD.DISABLE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.SBD.DISABLE.CLOSE"});
     },
 
     sbdDisable: ({force}: {force: boolean}) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "disable sbd",
           call: {

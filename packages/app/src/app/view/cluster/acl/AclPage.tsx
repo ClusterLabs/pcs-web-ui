@@ -21,7 +21,7 @@ import {AclLists} from "./lists";
 const {acl, aclToolbar} = testMarks.cluster;
 const {dropdown} = aclToolbar;
 export const AclPage = () => {
-  const {acls, clusterProperties, hasCibInfo, clusterName} = useLoadedCluster();
+  const {acls, clusterProperties, hasCibInfo} = useLoadedCluster();
   const openTask = useOpenTask();
   const launchDisable = useLauncherDisableClusterNotRunning();
 
@@ -38,12 +38,7 @@ export const AclPage = () => {
         buttonsItems={[
           {
             name: "create-role",
-            run: () =>
-              openTask("aclRoleCreate", {
-                type: "CLUSTER.ACL.ROLE.CREATE",
-                key: {clusterName},
-                payload: {clusterName},
-              }),
+            run: () => openTask("aclRoleCreate"),
             launchDisable: launchDisable(
               "Cannot create role on stopped cluster",
             ),
@@ -54,9 +49,7 @@ export const AclPage = () => {
             run: () =>
               openTask("aclSubjectCreate", {
                 type: "CLUSTER.ACL.SUBJECT.CREATE",
-                key: {clusterName},
                 payload: {
-                  clusterName,
                   subjectType: "user",
                   roleMap: acls.role || {},
                 },
@@ -75,9 +68,7 @@ export const AclPage = () => {
                 run: () =>
                   openTask("aclSubjectCreate", {
                     type: "CLUSTER.ACL.SUBJECT.CREATE",
-                    key: {clusterName},
                     payload: {
-                      clusterName,
                       subjectType: "group",
                       roleMap: acls.role || {},
                     },
@@ -97,7 +88,6 @@ export const AclPage = () => {
                   } access control lists.`,
                   action: {
                     type: "CLUSTER.PROPERTIES.UPDATE",
-                    key: {clusterName},
                     payload: {
                       propertyMap: {
                         "enable-acl": aclEnabled ? "false" : "true",

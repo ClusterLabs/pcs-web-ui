@@ -5,7 +5,6 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("resourceMove");
   const {state, dispatch} = task;
-  const {clusterName} = state;
 
   return {
     ...task,
@@ -35,7 +34,7 @@ export const useTask = () => {
       };
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: `move resource "${state.resourceId}"`,
           call:
@@ -64,7 +63,7 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({type: "RESOURCE.MOVE.CLOSE"});
     },

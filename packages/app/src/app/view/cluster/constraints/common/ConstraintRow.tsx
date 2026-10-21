@@ -13,7 +13,6 @@ import {TrashIcon} from "@patternfly/react-icons";
 
 import type {Action} from "app/store";
 import {useDispatch} from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
 
 export const ConstraintRow = ({
   id = "",
@@ -34,7 +33,6 @@ export const ConstraintRow = ({
   const rowId = `constraint-${id}-row`;
   const [showConfirm, setShowConfirm] = React.useState(false);
   const dispatch = useDispatch();
-  const {clusterName} = useLoadedCluster();
   return (
     <DataListItem aria-labelledby={rowId} isExpanded={showDetails}>
       <DataListItemRow id={rowId}>
@@ -73,7 +71,6 @@ export const ConstraintRow = ({
                       dispatch(
                         deleteAction || {
                           type: "CONSTRAINT.DELETE",
-                          key: {clusterName},
                           payload: {constraintId: id},
                         },
                       );

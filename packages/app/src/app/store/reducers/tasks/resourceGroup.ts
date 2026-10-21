@@ -2,7 +2,6 @@ import type {LibReport} from "app/store/types";
 import type {AppReducer} from "app/store/reducers/appReducer";
 
 const initialState: {
-  clusterName: string;
   topLevelPrimitiveIds: string[];
   groupId: string;
   resourceIdList: string[];
@@ -10,7 +9,6 @@ const initialState: {
   showValidationErrors: boolean;
   response: "" | "success" | "fail";
 } = {
-  clusterName: "",
   topLevelPrimitiveIds: [],
   groupId: "",
   reports: [],
@@ -27,7 +25,6 @@ export const resourceGroup: AppReducer<typeof initialState> = (
     case "RESOURCE.GROUP.CREATE.INIT":
       return {
         ...state,
-        clusterName: action.payload.clusterName,
         topLevelPrimitiveIds: action.payload.topLevelPrimitiveIds,
       };
     case "RESOURCE.GROUP.CREATE.UPDATE":

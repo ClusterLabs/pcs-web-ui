@@ -19,7 +19,7 @@ export const UserView = ({
   userId: string;
   roleIdList: AclType<"user">;
 }) => {
-  const {clusterName, acls} = useLoadedCluster();
+  const {acls} = useLoadedCluster();
   const openTask = useOpenTask();
 
   return (
@@ -37,9 +37,7 @@ export const UserView = ({
               run: () =>
                 openTask("aclSubjectAssign", {
                   type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-                  key: {clusterName},
                   payload: {
-                    clusterName,
                     subjectType: "user",
                     subjectId: userId,
                     alreadyAssigned: acls.user?.[userId] ?? [],
@@ -54,7 +52,6 @@ export const UserView = ({
                 description: `This deletes the user ${userId}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
-                  key: {clusterName},
                   payload: {
                     taskLabel: `delete user "${userId}"`,
                     call: {

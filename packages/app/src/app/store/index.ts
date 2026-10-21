@@ -5,5 +5,4 @@ import {remapDeprecatedRoles} from "./reducers/cluster/clusterStatus/apiToState/
 
 export * as tools from "./tools";
 export * from "./actions";
-export {CLUSTER_KEY} from "./clusterStorageKey";
 export {setupStore, selectors, types, remapDeprecatedRoles};

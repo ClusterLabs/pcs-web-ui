@@ -4,27 +4,22 @@ export const useTask = () => {
   const task = useTaskCommon("nodeStop");
 
   const {
-    state: {clusterName, nodeName},
+    state: {nodeName},
     dispatch,
   } = task;
 
   return {
     ...task,
-    clusterName,
 
     nodeStop: ({force}: {force: boolean}) => {
       dispatch({
         type: "NODE.STOP",
-        key: {clusterName},
         payload: {nodeName, force},
       });
     },
 
     close: () => {
-      dispatch({
-        type: "NODE.STOP.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "NODE.STOP.CLOSE"});
       task.close();
     },
   };

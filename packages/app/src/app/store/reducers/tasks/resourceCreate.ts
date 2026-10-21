@@ -8,7 +8,6 @@ type InstanceAttrValue = string;
 type InstanceAttrs = Record<InstanceAttrName, InstanceAttrValue>;
 
 const initialState: {
-  clusterName: string;
   groupIdStructureList: ActionPayload["RESOURCE.CREATE.INIT"]["groupIdStructureList"];
   agentName: string;
   resourceName: string;
@@ -21,7 +20,6 @@ const initialState: {
   useGroup: "no" | "existing" | "new";
   group: string;
 } = {
-  clusterName: "",
   groupIdStructureList: [],
   resourceName: "",
   agentName: "",
@@ -52,7 +50,6 @@ export const resourceCreate: AppReducer<typeof initialState> = (
     case "RESOURCE.CREATE.INIT":
       return {
         ...state,
-        clusterName: action.payload.clusterName,
         groupIdStructureList: action.payload.groupIdStructureList,
       };
     case "RESOURCE.CREATE.UPDATE": {

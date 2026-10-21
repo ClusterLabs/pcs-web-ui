@@ -3,11 +3,10 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("fenceDeviceDisable");
   const {dispatch, state} = task;
-  const {clusterName, fenceDeviceName} = state;
+  const {fenceDeviceName} = state;
 
   return {
     ...task,
-    clusterName,
     label: "Disable Fence Device",
 
     //actions
@@ -15,18 +14,17 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "FENCE_DEVICE.DISABLE.CLOSE",
-        key: {clusterName},
       });
     },
 
     disableFenceDevice: ({force}: {force: boolean}) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "disable fence device",
           call: {

@@ -3,14 +3,12 @@ import type {RouteResponse} from "../mock";
 import {libCluster} from "./libCluster";
 
 export const resourceMoveAutoclean = ({
-  clusterName,
   resourceId,
   node,
   master,
   strict,
   response,
 }: {
-  clusterName: string;
   resourceId: string;
   node?: string;
   master?: boolean;
@@ -18,7 +16,6 @@ export const resourceMoveAutoclean = ({
   response?: RouteResponse;
 }) =>
   libCluster({
-    clusterName,
     name: "resource-move-autoclean",
     payload: {
       resource_id: resourceId,

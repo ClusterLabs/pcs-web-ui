@@ -8,8 +8,5 @@ export type DashboardClusterActions = {
 
   "DASHBOARD.CLUSTER.START": {
     type: "DASHBOARD.CLUSTER.START";
-    payload: {
-      clusterName: string;
-    };
   };
 };

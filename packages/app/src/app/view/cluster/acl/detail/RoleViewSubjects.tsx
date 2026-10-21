@@ -8,7 +8,7 @@ import {
   Link,
   location,
 } from "app/view/share";
-import {DetailViewSection, useLoadedCluster} from "app/view/cluster/share";
+import {DetailViewSection} from "app/view/cluster/share";
 
 export const RoleViewSubjects = ({
   roleId,
@@ -19,7 +19,6 @@ export const RoleViewSubjects = ({
   assignedSubjectIds: string[];
   subjectType: "user" | "group";
 }) => {
-  const {clusterName} = useLoadedCluster();
   const subjectLocation = React.useCallback(
     (subjectId: string) =>
       subjectType === "user"
@@ -47,7 +46,6 @@ export const RoleViewSubjects = ({
                       description: `This unassigns the ${subjectType} ${subjectId}`,
                       action: {
                         type: "LIB.CALL.CLUSTER",
-                        key: {clusterName},
                         payload: {
                           taskLabel: `unassign ${subjectType} "${subjectId}"`,
                           call:

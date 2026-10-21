@@ -4,7 +4,6 @@ import type {ActionMap} from "app/store/actions";
 import {api, processError, put} from "./common";
 
 export function* updateInstanceAttributes({
-  key,
   payload: {resourceId, attributes},
 }: ActionMap["RESOURCE.EDIT_ATTRS.RUN"]) {
   const result: api.ResultOf<typeof updateResource> = yield api.authSafe(
@@ -21,7 +20,6 @@ export function* updateInstanceAttributes({
       action: () =>
         put({
           type: "RESOURCE.EDIT_ATTRS.RUN.ERROR",
-          key,
           payload: {
             message: api.errorMessage(result, taskLabel),
           },
@@ -34,7 +32,6 @@ export function* updateInstanceAttributes({
     const {stdout, stderr} = result.payload;
     yield put({
       type: "RESOURCE.EDIT_ATTRS.RUN.ERROR",
-      key,
       payload: {
         message: `backend error:\n stdout:\n${stdout}\nstderr:\n${stderr}`,
       },
@@ -42,6 +39,6 @@ export function* updateInstanceAttributes({
     return;
   }
 
-  yield put({type: "CLUSTER.STATUS.REFRESH", key});
-  yield put({type: "RESOURCE.EDIT_ATTRS.RUN.OK", key});
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
+  yield put({type: "RESOURCE.EDIT_ATTRS.RUN.OK"});
 }

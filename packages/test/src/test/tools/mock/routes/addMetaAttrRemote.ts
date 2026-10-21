@@ -11,7 +11,6 @@ export const addMetaAttrRemote = ({
   response,
   isStonith,
 }: {
-  clusterName: string;
   resourceId: string;
   name: string;
   value: string;

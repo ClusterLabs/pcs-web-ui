@@ -31,10 +31,7 @@ export const ClusterOverviewPage = () => {
             confirm: {
               title: "Start cluster?",
               description: "Start the cluster on all nodes",
-              action: {
-                type: "DASHBOARD.CLUSTER.START",
-                payload: {clusterName: cluster.name},
-              },
+              action: {type: "DASHBOARD.CLUSTER.START"},
             },
             ...overviewToolbar.startCluster.mark,
           },

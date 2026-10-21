@@ -6,22 +6,15 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("aclRoleCreate");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   type Permissions = typeof state.permissionInfoList;
 
   const updateState = (
     payload: ActionPayload["CLUSTER.ACL.ROLE.CREATE.UPDATE"],
-  ) =>
-    dispatch({
-      type: "CLUSTER.ACL.ROLE.CREATE.UPDATE",
-      key: {clusterName},
-      payload,
-    });
+  ) => dispatch({type: "CLUSTER.ACL.ROLE.CREATE.UPDATE", payload});
 
   return {
     ...task,
-    clusterName,
     isNameValid: state.roleId.length > 0,
     invalidPermissionIndexes: getInvalidPermissionIndexes(
       state.permissionInfoList,
@@ -37,18 +30,15 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.ACL.ROLE.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.ACL.ROLE.CREATE.CLOSE"});
     },
 
     aclRoleCreate: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "create acl role",
           call: {

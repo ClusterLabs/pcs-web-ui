@@ -2,14 +2,12 @@ import type {AppReducer} from "app/store/reducers/appReducer";
 import type {ActionPayload} from "app/store/actions";
 
 const initialState: {
-  clusterName: string;
   resourceId: string;
   resourceType: ActionPayload["RESOURCE.DELETE.INIT"]["resourceType"];
   resultMessage: string;
   response: "" | "sending" | "ok" | "fail";
   isForceable: boolean;
 } = {
-  clusterName: "",
   resourceId: "",
   resourceType: "resource",
   response: "",
@@ -27,7 +25,6 @@ export const resourceDelete: AppReducer<typeof initialState> = (
         ...state,
         resourceId: action.payload.resourceId,
         resourceType: action.payload.resourceType,
-        clusterName: action.key.clusterName,
       };
 
     case "RESOURCE.DELETE":

@@ -6,22 +6,16 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("aclRolePermissionAdd");
   const {dispatch, state} = task;
-  const {clusterName, roleId} = state;
+  const {roleId} = state;
 
   type Permissions = typeof state.permissionInfoList;
 
   const updateState = (
     payload: ActionPayload["CLUSTER.ACL.ROLE.PERMISSION.UPDATE"],
-  ) =>
-    dispatch({
-      type: "CLUSTER.ACL.ROLE.PERMISSION.UPDATE",
-      key: {clusterName},
-      payload,
-    });
+  ) => dispatch({type: "CLUSTER.ACL.ROLE.PERMISSION.UPDATE", payload});
 
   return {
     ...task,
-    clusterName,
     label: "Add permissions to role",
     invalidPermissionIndexes: getInvalidPermissionIndexes(
       state.permissionInfoList,
@@ -35,18 +29,15 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.ACL.ROLE.PERMISSION.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.ACL.ROLE.PERMISSION.CLOSE"});
     },
 
     aclRolePermissionAdd: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "add permission to role",
           call: {

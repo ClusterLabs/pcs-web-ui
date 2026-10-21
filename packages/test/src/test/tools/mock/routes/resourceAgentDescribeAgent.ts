@@ -10,7 +10,6 @@ export const resourceAgentDescribeAgent = ({
   agentName,
   agentData,
 }: {
-  clusterName: string;
   agentName: string;
   agentData: Extract<t.TypeOf<typeof shape>, {status: "success"}>["data"];
 }) => ({

@@ -6,13 +6,11 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("constraintTicketSetCreate");
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
-  const resourceSets = useResourceSets(clusterName, task.name);
+  const resourceSets = useResourceSets(task.name);
 
   return {
     ...task,
-    clusterName,
     ...resourceSets,
 
     isCustomIdValid: !state.useCustomId || state.id.length > 0,
@@ -23,12 +21,7 @@ export const useTask = () => {
     // actions
     updateState: (
       payload: ActionPayload["CONSTRAINT.TICKET.SET.CREATE.UPDATE"],
-    ) =>
-      dispatch({
-        type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+    ) => dispatch({type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE", payload}),
     updateSet:
       (index: number) =>
       (
@@ -36,7 +29,6 @@ export const useTask = () => {
       ) => {
         dispatch({
           type: "CONSTRAINT.TICKET.SET.CREATE.UPDATE.SET",
-          key: {clusterName},
           payload: {index, set},
         });
       },
@@ -44,7 +36,7 @@ export const useTask = () => {
     create: ({force}: {force: boolean}) =>
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "create constraint ticket set",
           call: {
@@ -72,12 +64,9 @@ export const useTask = () => {
       close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "CONSTRAINT.TICKET.SET.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CONSTRAINT.TICKET.SET.CREATE.CLOSE"});
     },
   };
 };

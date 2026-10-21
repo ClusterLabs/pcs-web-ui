@@ -2,7 +2,6 @@ export type ResourceClearActions = {
   "RESOURCE.CLEAR.OPEN": {
     type: "RESOURCE.CLEAR.OPEN";
     payload: {
-      clusterName: string;
       resourceId: string;
 
       nodeNameList: string[];

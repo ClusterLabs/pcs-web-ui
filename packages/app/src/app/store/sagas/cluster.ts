@@ -1,5 +1,4 @@
 import {clusterStatus} from "app/backend";
-import {CLUSTER_KEY} from "app/store/clusterStorageKey";
 import {getClusterStoreInfo} from "app/store/selectors";
 
 import {api, type dataLoad, put, select} from "./common";
@@ -11,11 +10,7 @@ function* fetchClusterData() {
     yield api.authSafe(clusterStatus);
 
   if (result.type === "OK") {
-    yield put({
-      type: "CLUSTER.STATUS.FETCH.OK",
-      key: {clusterName: CLUSTER_KEY},
-      payload: result.payload,
-    });
+    yield put({type: "CLUSTER.STATUS.FETCH.OK", payload: result.payload});
     return;
   }
 
@@ -23,10 +18,7 @@ function* fetchClusterData() {
   // CLUSTER.STATUS.FETCH.FAIL because it is a signal for periodical cluster
   // status reloading.
   // Redux store reacts on CLUSTER.STATUS.BACKEND_NOT_FOUND
-  yield put({
-    type: "CLUSTER.STATUS.FETCH.FAIL",
-    key: {clusterName: CLUSTER_KEY},
-  });
+  yield put({type: "CLUSTER.STATUS.FETCH.FAIL"});
 
   const {
     clusterStatus: {data, isBackendNotFoundCase},
@@ -39,15 +31,9 @@ function* fetchClusterData() {
     result.type === "BAD_HTTP_STATUS" && result.status === 403;
 
   if (isForbidden) {
-    yield put({
-      type: "CLUSTER.STATUS.FETCH.FORBIDDEN",
-      key: {clusterName: CLUSTER_KEY},
-    });
+    yield put({type: "CLUSTER.STATUS.FETCH.FORBIDDEN"});
   } else if (backendNotFoundOnStart) {
-    yield put({
-      type: "CLUSTER.STATUS.BACKEND_NOT_FOUND",
-      key: {clusterName: CLUSTER_KEY},
-    });
+    yield put({type: "CLUSTER.STATUS.BACKEND_NOT_FOUND"});
   } else {
     yield api.processError(result, "sync status of cluster");
   }
@@ -62,7 +48,6 @@ export const clusterDataSyncOptions: Parameters<typeof dataLoad.manage>[0] = {
   FAIL: "CLUSTER.STATUS.FETCH.FAIL",
   refresh: () => ({
     type: REFRESH,
-    key: {clusterName: CLUSTER_KEY},
   }),
   fetch: fetchClusterData,
 };

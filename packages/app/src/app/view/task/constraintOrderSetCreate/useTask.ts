@@ -8,13 +8,11 @@ type TrueFalse = "true" | "false";
 export const useTask = () => {
   const task = useTaskCommon("constraintOrderSetCreate");
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
-  const resourceSets = useResourceSets(clusterName, task.name);
+  const resourceSets = useResourceSets(task.name);
 
   return {
     ...task,
-    clusterName,
     ...resourceSets,
 
     areSetsValid: resourceSets.areSetsValid(state.sets),
@@ -24,19 +22,13 @@ export const useTask = () => {
     // actions
     updateState: (
       payload: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE"],
-    ) =>
-      dispatch({
-        type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+    ) => dispatch({type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE", payload}),
 
     updateSet:
       (index: number) =>
       (set: ActionPayload["CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET"]["set"]) => {
         dispatch({
           type: "CONSTRAINT.ORDER.SET.CREATE.UPDATE.SET",
-          key: {clusterName},
           payload: {index, set},
         });
       },
@@ -44,7 +36,7 @@ export const useTask = () => {
     create: ({force}: {force: boolean}) =>
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "create constraint order set",
           call: {
@@ -76,12 +68,9 @@ export const useTask = () => {
       close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CONSTRAINT.ORDER.SET.CREATE.CLOSE"});
     },
   };
 };

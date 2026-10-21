@@ -8,13 +8,11 @@ type TrueFalse = "true" | "false";
 export const useTask = () => {
   const task = useTaskCommon("constraintColocationSetCreate");
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
-  const resourceSets = useResourceSets(clusterName, task.name);
+  const resourceSets = useResourceSets(task.name);
 
   return {
     ...task,
-    clusterName,
     ...resourceSets,
 
     areSetsValid: resourceSets.areSetsValid(state.sets),
@@ -25,12 +23,7 @@ export const useTask = () => {
     // actions
     updateState: (
       payload: ActionPayload["CONSTRAINT.COLOCATION.SET.CREATE.UPDATE"],
-    ) =>
-      dispatch({
-        type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+    ) => dispatch({type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE", payload}),
 
     updateSet:
       (index: number) =>
@@ -39,7 +32,6 @@ export const useTask = () => {
       ) => {
         dispatch({
           type: "CONSTRAINT.COLOCATION.SET.CREATE.UPDATE.SET",
-          key: {clusterName},
           payload: {index, set},
         });
       },
@@ -51,7 +43,7 @@ export const useTask = () => {
       });
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "create constraint colocation set",
           call: {
@@ -80,12 +72,9 @@ export const useTask = () => {
       close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CONSTRAINT.COLOCATION.SET.CREATE.CLOSE"});
     },
   };
 };

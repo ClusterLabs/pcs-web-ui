@@ -7,12 +7,10 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("fenceDeviceCreate");
   const {state, dispatch} = task;
-  const {clusterName} = state;
   const agentInfo = useSelector(selectors.getAgentInfo(state.agentName));
 
   return {
     ...task,
-    clusterName,
     isAgentLoaded: agentInfo?.isAgentLoaded,
 
     // validations
@@ -33,26 +31,19 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "FENCE_DEVICE.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "FENCE_DEVICE.CREATE.CLOSE"});
     },
 
     updateState: (payload: ActionPayload["FENCE_DEVICE.CREATE.UPDATE"]) => {
-      dispatch({
-        type: "FENCE_DEVICE.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      });
+      dispatch({type: "FENCE_DEVICE.CREATE.UPDATE", payload});
     },
 
     create: ({force}: {force: boolean}) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: `create fence device "${state.fenceDeviceName}"`,
           call: {

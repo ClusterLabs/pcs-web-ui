@@ -28,7 +28,6 @@ const {
 } = resourceSetCreateFactory(initialSet);
 
 const initialState: {
-  clusterName: string;
   offeredResourceIdList: string[];
   useCustomId: boolean;
   id: string;
@@ -36,7 +35,6 @@ const initialState: {
   showValidationErrors: boolean;
   libCall: typeof initialLibCall;
 } = {
-  clusterName: "",
   offeredResourceIdList: [],
   useCustomId: false,
   id: "",
@@ -60,7 +58,6 @@ export const constraintOrderSetCreate: AppReducer<typeof initialState> = (
     case "CONSTRAINT.ORDER.SET.CREATE.INIT":
       return {
         ...state,
-        clusterName: action.payload.clusterName,
         offeredResourceIdList: action.payload.offeredResourceIdList,
       };
     case "CONSTRAINT.ORDER.SET.CREATE.UPDATE": {

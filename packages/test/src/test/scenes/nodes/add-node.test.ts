@@ -21,8 +21,8 @@ describe("Add node task", () => {
           nodeNameList: [nodeName],
           response: {json: {[nodeName]: "Unable to authenticate"}},
         }),
-        mock.route.sendKnownHosts(clusterName, nodeName),
-        mock.route.clusterNodeAdd(clusterName, nodeName),
+        mock.route.sendKnownHosts(nodeName),
+        mock.route.clusterNodeAdd(nodeName),
         mock.route.authGuiAgainstNodes({
           [nodeName]: {password, dest_list: [{addr, port}]},
         }),

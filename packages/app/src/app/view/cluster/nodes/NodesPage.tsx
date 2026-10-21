@@ -12,7 +12,7 @@ import {NodeList} from "./NodeList";
 
 const {nodes, nodesToolbar} = testMarks.cluster;
 export const NodesPage = () => {
-  const {nodeList, clusterName} = useLoadedCluster();
+  const {nodeList} = useLoadedCluster();
   const openTask = useOpenTask();
   return (
     <>
@@ -23,9 +23,7 @@ export const NodesPage = () => {
             run: () =>
               openTask("nodeAdd", {
                 type: "NODE.ADD.INIT",
-                key: {clusterName},
                 payload: {
-                  clusterName,
                   isSbdEnabled: nodeList.reduce(
                     (enabled, n) =>
                       enabled ||

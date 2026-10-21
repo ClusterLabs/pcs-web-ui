@@ -3,7 +3,6 @@ import {useDispatch} from "app/view/share";
 import {LoadingDataLabel} from "./LoadingDataLabel";
 
 export const ClusterStatusLoadingLabel = (props: {
-  clusterName: string;
   when: number;
   isLoading: boolean;
 }) => {
@@ -11,12 +10,7 @@ export const ClusterStatusLoadingLabel = (props: {
 
   return (
     <LoadingDataLabel
-      onClick={() =>
-        dispatch({
-          type: "CLUSTER.STATUS.REFRESH",
-          key: {clusterName: props.clusterName},
-        })
-      }
+      onClick={() => dispatch({type: "CLUSTER.STATUS.REFRESH"})}
       when={props.when}
       isLoading={props.isLoading}
     />

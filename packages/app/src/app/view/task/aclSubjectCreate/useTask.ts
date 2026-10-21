@@ -5,11 +5,9 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("aclSubjectCreate");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   return {
     ...task,
-    clusterName,
 
     isNameValid: state.subjectId.length > 0,
     availableRoles: Object.keys(state.roleMap).filter(
@@ -19,29 +17,21 @@ export const useTask = () => {
     //actions
     updateState: (
       payload: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE.UPDATE"],
-    ) =>
-      dispatch({
-        type: "CLUSTER.ACL.SUBJECT.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+    ) => dispatch({type: "CLUSTER.ACL.SUBJECT.CREATE.UPDATE", payload}),
 
     close: () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.ACL.SUBJECT.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.ACL.SUBJECT.CREATE.CLOSE"});
     },
 
     createSubject: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: `create acl ${state.subjectType}`,
           call:

@@ -4,7 +4,6 @@ import {type ActionMap, actionNewId} from "app/store/actions";
 import {api, lib, log, processError, put, putNotification} from "./common";
 
 export function* callLib({
-  key,
   payload: {call: command, taskLabel},
 }: ActionMap["LIB.CALL.CLUSTER"]) {
   const result: api.ResultOf<typeof libCallCluster> = yield api.authSafe(
@@ -63,10 +62,7 @@ export function* callLib({
     return;
   }
 
-  yield put({
-    type: "CLUSTER.STATUS.REFRESH",
-    key,
-  });
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
   yield put({
     type: "NOTIFICATION.CREATE",
     payload: {

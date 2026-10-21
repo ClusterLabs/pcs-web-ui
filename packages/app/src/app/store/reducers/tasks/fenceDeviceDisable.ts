@@ -4,11 +4,9 @@ import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: {
   fenceDeviceName: string;
-  clusterName: string;
   libCall: typeof initialLibCall;
 } = {
   fenceDeviceName: "",
-  clusterName: "",
   libCall: initialLibCall,
 };
 
@@ -21,7 +19,6 @@ export const fenceDeviceDisable: AppReducer<typeof initialState> = (
       return {
         ...state,
         fenceDeviceName: action.payload.fenceDeviceName,
-        clusterName: action.key.clusterName,
       };
     case "FENCE_DEVICE.DISABLE.CLOSE":
       return initialState;

@@ -8,7 +8,6 @@ import {
   PcmkAgentAttrName,
   PcmkAgentAttrsToolbar,
   isCibSecret,
-  useLoadedCluster,
 } from "app/view/cluster/share";
 import {
   AttributeGroup,
@@ -23,7 +22,6 @@ const {attributes, attributesToolbar} =
 const {pair} = attributes;
 
 export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
-  const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
   const {filterState, filterParameters} = PcmkAgentAttrsToolbar.useState();
   const resourceAttrs = Object.entries(primitive.instanceAttributes).reduce(
@@ -58,9 +56,7 @@ export const PrimitiveAttrsView = ({primitive}: {primitive: Primitive}) => {
                     run: () =>
                       openTask("primitiveAttrsEdit", {
                         type: "RESOURCE.EDIT_ATTRS.OPEN",
-                        key: {clusterName},
                         payload: {
-                          clusterName,
                           resourceId: primitive.id,
                           resourceAttrs,
                           agentParameters: agent.parameters,

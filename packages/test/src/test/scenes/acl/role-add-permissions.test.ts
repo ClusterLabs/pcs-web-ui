@@ -20,7 +20,6 @@ describe("ACL role add permission task", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.aclAddPermission({
-          clusterName: clusterStatus.cluster_name,
           roleId,
           permissionInfoList: [permission_1, permission_2],
         }),

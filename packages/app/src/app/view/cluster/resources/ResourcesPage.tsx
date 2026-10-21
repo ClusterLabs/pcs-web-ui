@@ -20,7 +20,7 @@ import {selectGroups} from "./select";
 const {resources, resourcesToolbar} = testMarks.cluster;
 
 export const ResourcesPage = () => {
-  const {resourceTree, clusterName} = useLoadedCluster();
+  const {resourceTree} = useLoadedCluster();
   const [filter, setFilter] = React.useState("");
   const openTask = useOpenTask();
 
@@ -35,9 +35,7 @@ export const ResourcesPage = () => {
             run: () =>
               openTask("resourceCreate", {
                 type: "RESOURCE.CREATE.INIT",
-                key: {clusterName},
                 payload: {
-                  clusterName,
                   groupIdStructureList: selectGroups(resourceTree),
                 },
               }),
@@ -51,9 +49,7 @@ export const ResourcesPage = () => {
             run: () =>
               openTask("resourceGroup", {
                 type: "RESOURCE.GROUP.CREATE.INIT",
-                key: {clusterName},
                 payload: {
-                  clusterName,
                   topLevelPrimitiveIds: resourceTree
                     .filter(r => r.itemType === "primitive")
                     .map(r => r.id),

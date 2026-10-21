@@ -3,7 +3,6 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("aclSubjectAssign");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   const assigneeType =
     state.sourceObject === "role" ? state.subjectType : "role";
@@ -13,7 +12,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     label: `Assign ${assigneeType}`,
     isAssigneeValid:
       state.sourceObject === "subject"
@@ -31,7 +29,6 @@ export const useTask = () => {
     updateAssigneeId: (id: string) =>
       dispatch({
         type: "CLUSTER.ACL.SUBJECT.ASSIGN.UPDATE",
-        key: {clusterName},
         payload: {
           [assigneeKey]: id,
         },
@@ -41,18 +38,15 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.ACL.SUBJECT.ASSIGN.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.ACL.SUBJECT.ASSIGN.CLOSE"});
     },
 
     assign: () => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: `assign acl ${state.subjectType}`,
           call:

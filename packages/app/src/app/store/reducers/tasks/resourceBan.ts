@@ -6,7 +6,6 @@ const initialState: {
   resourceId: string;
   resourceType: "primitive resource" | "group" | "clone";
   isPromotable: boolean;
-  clusterName: string;
   useNode: boolean;
   node: string;
   nodeNameList: string[];
@@ -19,7 +18,6 @@ const initialState: {
   resourceId: "",
   resourceType: "primitive resource",
   isPromotable: false,
-  clusterName: "",
   useNode: false,
   node: "",
   nodeNameList: [],

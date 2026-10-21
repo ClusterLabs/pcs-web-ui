@@ -88,5 +88,5 @@ export function* nvpairSave({key, payload: {name, value, owner}}: SaveAction) {
     yield processEditResult(result);
   }
 
-  yield put({type: "CLUSTER.STATUS.REFRESH", key});
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
 }

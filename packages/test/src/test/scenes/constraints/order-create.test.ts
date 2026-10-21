@@ -18,7 +18,6 @@ describe("Create order counstraint", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.addConstraintRemote({
-          clusterName: clusterStatus.cluster_name,
           constraint: {
             order: {
               resourceId,

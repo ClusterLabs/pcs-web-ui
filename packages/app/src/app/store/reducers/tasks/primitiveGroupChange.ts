@@ -3,7 +3,6 @@ import type {ActionPayload} from "app/store/actions";
 
 type InitPayload = ActionPayload["RESOURCE.GROUP.CHANGE.INIT"];
 const initialState: Required<ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]> & {
-  clusterName: string;
   groupIdStructureList: InitPayload["groupIdStructureList"];
   showValidationErrors: boolean;
   call: {
@@ -11,7 +10,6 @@ const initialState: Required<ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]> & {
     resultMessage: string;
   };
 } = {
-  clusterName: "",
   groupIdStructureList: [],
   action: "remove-group",
   resourceId: "",
@@ -35,7 +33,6 @@ export const primitiveGroupChange: AppReducer<typeof initialState> = (
       return {
         ...state,
         ...action.payload,
-        clusterName: action.payload.clusterName,
         groupIdStructureList: action.payload.groupIdStructureList,
         ...(action.payload?.action === "set-group"
           ? {

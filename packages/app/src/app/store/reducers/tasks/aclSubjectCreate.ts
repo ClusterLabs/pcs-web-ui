@@ -4,7 +4,6 @@ import type {ActionPayload} from "app/store/actions";
 import {initialState as initialLibCall, libCall} from "./libCall";
 
 const initialState: {
-  clusterName: string;
   subjectType: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE"]["subjectType"];
   roleMap: ActionPayload["CLUSTER.ACL.SUBJECT.CREATE"]["roleMap"];
   subjectId: string;
@@ -12,7 +11,6 @@ const initialState: {
   libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
-  clusterName: "",
   subjectType: "user",
   roleMap: {},
   subjectId: "",
@@ -30,7 +28,6 @@ export const aclSubjectCreate: AppReducer<typeof initialState> = (
       return {
         ...state,
         subjectType: action.payload.subjectType,
-        clusterName: action.payload.clusterName,
         roleMap: action.payload.roleMap,
       };
 

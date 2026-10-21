@@ -7,9 +7,8 @@ const {labelize, getNVPairTypeLabel} = tools;
 export const useTask = () => {
   const task = useTaskCommon("nvpairEdit");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
-  const key = {clusterName, task: task.name};
+  const key = {task: task.name};
   const integerIsExpectedAsValue =
     state.owner.type === "node-utilization" ||
     state.owner.type === "resource-utilization";
@@ -20,7 +19,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     attrDesc,
     isCreate,
     label,
@@ -41,7 +39,7 @@ export const useTask = () => {
     attrSet: () => {
       dispatch({
         type: "CLUSTER.NVPAIRS.SAVE",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           owner: state.owner,
           name: state.name,

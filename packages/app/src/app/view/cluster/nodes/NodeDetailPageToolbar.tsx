@@ -5,18 +5,16 @@ import {
   type LauncherItem as ToolbarItem,
 } from "app/view/share";
 import type {Node} from "app/view/cluster/types";
-import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
 const {toolbar} = testMarks.cluster.nodes.currentNode;
 
 export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
-  const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
 
   const standbyUnstandbyAction = (standby: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
-    key: {clusterName},
     payload: {
       taskLabel: `standby node "${node.name}"`,
       call: {
@@ -57,7 +55,6 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
 
   const maintenanceUnmaintenanceAction = (maintenance: boolean): Action => ({
     type: "LIB.CALL.CLUSTER",
-    key: {clusterName},
     payload: {
       taskLabel: `maintenance node "${node.name}"`,
       call: {
@@ -97,7 +94,6 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       description: "Start a cluster on the node",
       action: {
         type: "NODE.START",
-        key: {clusterName},
         payload: {nodeName: node.name},
       },
     },
@@ -109,8 +105,7 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
     run: () =>
       openTask("nodeStop", {
         type: "NODE.STOP.INIT",
-        key: {clusterName},
-        payload: {clusterName, nodeName: node.name},
+        payload: {nodeName: node.name},
       }),
     ...toolbar.stop.mark,
   };
@@ -122,7 +117,6 @@ export const NodeDetailPageToolbar = ({node}: {node: Node}) => {
       description: "Shutdown specified nodes and remove them from the cluster.",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: {clusterName},
         payload: {
           taskLabel: `remove node "${node.name}"`,
           call: {

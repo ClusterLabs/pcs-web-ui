@@ -20,7 +20,6 @@ describe("Fence device meta attributes management", () => {
       pcsdCapabilities: ["pcmk.resource.update-meta.stonith"],
       additionalRouteList: [
         mock.route.addMetaAttrRemote({
-          clusterName,
           resourceId: fenceDeviceId,
           name: metaAttr.name,
           value: metaAttr.value,
@@ -56,7 +55,6 @@ describe("Fence device meta attributes management", () => {
       pcsdCapabilities: ["pcmk.resource.update-meta.stonith"],
       additionalRouteList: [
         mock.route.addMetaAttrRemote({
-          clusterName,
           resourceId: fenceDeviceId,
           name: metaAttr.name,
           value: metaAttr.value,

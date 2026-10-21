@@ -3,7 +3,6 @@ import type {RouteResponse} from "../mock";
 import {type LibClusterCommandPayload, libCluster} from "./libCluster";
 
 export const stonithCreate = ({
-  clusterName,
   fenceDeviceName,
   agentName,
   instanceAttrs,
@@ -11,7 +10,6 @@ export const stonithCreate = ({
   response,
   force,
 }: {
-  clusterName: string;
   fenceDeviceName: string;
   agentName: string;
   instanceAttrs: LibClusterCommandPayload["stonith-create"]["instance_attributes"];
@@ -20,7 +18,6 @@ export const stonithCreate = ({
   force?: boolean;
 }) =>
   libCluster({
-    clusterName,
     name: "stonith-create",
     payload: {
       stonith_id: fenceDeviceName,

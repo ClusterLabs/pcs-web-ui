@@ -7,12 +7,10 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("nodeAdd");
   const {state, dispatch} = task;
-  const {clusterName} = state;
 
   const checkAuth = () =>
     dispatch({
       type: "NODE.ADD.CHECK_AUTH",
-      key: {clusterName},
       payload: {
         nodeName: state.nodeName,
       },
@@ -33,7 +31,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
 
     filledSbdDevices,
 
@@ -48,29 +45,26 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "NODE.ADD.CLOSE",
-        key: {clusterName},
       });
     },
 
     updateState: (payload: ActionPayload["NODE.ADD.UPDATE"]) =>
       dispatch({
         type: "NODE.ADD.UPDATE",
-        key: {clusterName},
         payload,
       }),
 
     updateNodeName: (nodeName: string) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "NODE.ADD.UPDATE_NODE_NAME",
-        key: {clusterName},
         payload: {
           nodeName,
         },
@@ -82,7 +76,7 @@ export const useTask = () => {
     nodeAdd: ({newForceFlags = []}: {newForceFlags?: string[]} = {}) => {
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: `add node ${state.nodeName}`,
           call: {
@@ -110,7 +104,7 @@ export const useTask = () => {
       });
       dispatch({
         type: "LIB.CALL.CLUSTER.FORCE-FLAGS.ADD",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           forceFlags: newForceFlags,
         },
@@ -120,14 +114,12 @@ export const useTask = () => {
     nodeStart: () =>
       dispatch({
         type: "NODE.START",
-        key: {clusterName},
         payload: {nodeName: state.nodeName},
       }),
 
     sendKnownHosts: () =>
       dispatch({
         type: "NODE.ADD.SEND_KNOWN_HOSTS",
-        key: {clusterName},
         payload: {nodeName: state.nodeName},
       }),
 

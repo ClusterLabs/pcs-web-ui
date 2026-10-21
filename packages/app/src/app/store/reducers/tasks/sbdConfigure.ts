@@ -7,7 +7,6 @@ const initialState: ActionPayload["CLUSTER.SBD.CONFIGURE"] & {
   libCall: typeof initialLibCall;
   showValidationErrors: boolean;
 } = {
-  clusterName: "",
   watchdogDict: {},
   delayStart: "DEFAULT",
   startmode: "DEFAULT",

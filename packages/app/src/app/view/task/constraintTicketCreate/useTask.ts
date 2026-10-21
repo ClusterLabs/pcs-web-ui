@@ -8,16 +8,11 @@ export const useTask = () => {
   const task = useTaskCommon("constraintTicketCreate");
 
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.TICKET.CREATE.UPDATE"]) =>
-      dispatch({
-        type: "CONSTRAINT.TICKET.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
-    [dispatch, clusterName],
+      dispatch({type: "CONSTRAINT.TICKET.CREATE.UPDATE", payload}),
+    [dispatch],
   );
 
   const isCustomIdValid = !state.useCustomId || state.id.length > 0;
@@ -25,7 +20,6 @@ export const useTask = () => {
   const isResourceValid = state.resourceId.length > 0;
   return {
     ...task,
-    clusterName,
     label: "Create ticket constraint",
     isResourceValid,
     isCustomIdValid,
@@ -44,7 +38,7 @@ export const useTask = () => {
       }
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "create constraint ticket set",
           call: {
@@ -69,10 +63,7 @@ export const useTask = () => {
 
     close: () => {
       close();
-      dispatch({
-        type: "CONSTRAINT.TICKET.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CONSTRAINT.TICKET.CREATE.CLOSE"});
     },
   };
 };

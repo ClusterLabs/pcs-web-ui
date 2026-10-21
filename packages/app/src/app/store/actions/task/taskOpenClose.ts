@@ -12,7 +12,6 @@ export type TaskOpenCloseActions = {
 
   "TASK.CLUSTER.OPEN": {
     type: "TASK.CLUSTER.OPEN";
-    key: {clusterName: string};
     payload: {
       taskKey: string;
     };
@@ -20,6 +19,5 @@ export type TaskOpenCloseActions = {
 
   "TASK.CLUSTER.CLOSE": {
     type: "TASK.CLUSTER.CLOSE";
-    key: {clusterName: string};
   };
 };

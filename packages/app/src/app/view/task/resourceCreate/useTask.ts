@@ -7,19 +7,16 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("resourceCreate");
   const {state, dispatch} = task;
-  const {clusterName} = state;
   const agentInfo = useSelector(selectors.getAgentInfo(state.agentName));
   const updateState = (payload: ActionPayload["RESOURCE.CREATE.UPDATE"]) => {
     dispatch({
       type: "RESOURCE.CREATE.UPDATE",
-      key: {clusterName},
       payload,
     });
   };
 
   return {
     ...task,
-    clusterName,
     groupIdList: state.groupIdStructureList.map(g => g.id),
     isAgentLoaded: agentInfo?.isAgentLoaded,
 
@@ -43,11 +40,10 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
       dispatch({
         type: "RESOURCE.CREATE.CLOSE",
-        key: {clusterName},
       });
     },
 
@@ -56,7 +52,6 @@ export const useTask = () => {
     selectAgent: (value: string) => {
       dispatch({
         type: "RESOURCE_AGENT.ENSURE",
-        key: {clusterName},
         payload: {agentName: value},
       });
       updateState({agentName: value});
@@ -66,7 +61,7 @@ export const useTask = () => {
       if (state.useGroup !== "no") {
         dispatch({
           type: "LIB.CALL.CLUSTER.TASK",
-          key: {clusterName, task: task.name},
+          key: {task: task.name},
           payload: {
             taskLabel: `create resource "${state.resourceName}"`,
             call: {
@@ -93,7 +88,7 @@ export const useTask = () => {
       if (state.clone) {
         dispatch({
           type: "LIB.CALL.CLUSTER.TASK",
-          key: {clusterName, task: task.name},
+          key: {task: task.name},
           payload: {
             taskLabel: `create resource "${state.resourceName}"`,
             call: {
@@ -120,7 +115,7 @@ export const useTask = () => {
       }
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: `create resource "${state.resourceName}"`,
           call: {

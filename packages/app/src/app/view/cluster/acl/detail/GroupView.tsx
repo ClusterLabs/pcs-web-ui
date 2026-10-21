@@ -19,7 +19,7 @@ export const GroupView = ({
   groupId: string;
   roleIdList: AclType<"user" | "group">;
 }) => {
-  const {clusterName, acls} = useLoadedCluster();
+  const {acls} = useLoadedCluster();
   const openTask = useOpenTask();
 
   return (
@@ -37,9 +37,7 @@ export const GroupView = ({
               run: () =>
                 openTask("aclSubjectAssign", {
                   type: "CLUSTER.ACL.SUBJECT_ROLE.ASSIGN",
-                  key: {clusterName},
                   payload: {
-                    clusterName,
                     subjectType: "group",
                     subjectId: groupId,
                     alreadyAssigned: acls.group?.[groupId] ?? [],
@@ -54,7 +52,6 @@ export const GroupView = ({
                 description: `This deletes the group ${groupId}`,
                 action: {
                   type: "LIB.CALL.CLUSTER",
-                  key: {clusterName},
                   payload: {
                     taskLabel: `delete group "${groupId}"`,
                     call: {

@@ -3,7 +3,6 @@ import {
   LaunchersToolbar,
   useLauncherDisableClusterNotRunning,
 } from "app/view/share";
-import {useLoadedCluster} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
 import {useNVPairListContext} from "./NVPairListContext";
@@ -17,7 +16,6 @@ export const NVPairToolbar = (props: {
   launcherCreate: (createData: Launcher) => Launcher;
   "data-test"?: string;
 }) => {
-  const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
   const {owner, nvPairList} = useNVPairListContext();
   const launchDisable = useLauncherDisableClusterNotRunning();
@@ -30,9 +28,8 @@ export const NVPairToolbar = (props: {
           run: () =>
             openTask("nvpairEdit", {
               type: "CLUSTER.NVPAIRS.EDIT",
-              key: {clusterName, task: "nvpairEdit"},
+              key: {task: "nvpairEdit"},
               payload: {
-                clusterName,
                 type: "create",
                 owner,
                 nameList: nvPairList.map(pair => pair.name),

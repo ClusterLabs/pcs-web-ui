@@ -6,7 +6,6 @@ type ConstraintTicektCreatePayload =
   LibClusterCommandPayload["constraint-ticket-create"];
 
 export const constraintTicketCreate = ({
-  clusterName,
   resourceId,
   response,
   ticketKey,
@@ -15,7 +14,6 @@ export const constraintTicketCreate = ({
   lossPolicy,
   force,
 }: {
-  clusterName: string;
   ticketKey: string;
   resourceId: string;
   id?: string;
@@ -25,7 +23,6 @@ export const constraintTicketCreate = ({
   force?: boolean;
 }) =>
   libCluster({
-    clusterName,
     name: "constraint-ticket-create",
     payload: {
       ticket_key: ticketKey,

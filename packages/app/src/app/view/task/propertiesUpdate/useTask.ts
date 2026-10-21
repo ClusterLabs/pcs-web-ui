@@ -42,7 +42,6 @@ export const useTask = () => {
     propertiesUpdate: ({force}: {force: boolean}) => {
       dispatch({
         type: "CLUSTER.PROPERTIES.UPDATE",
-        key: {clusterName},
         payload: {
           propertyMap,
           force,
@@ -53,24 +52,17 @@ export const useTask = () => {
     modifyProperty: (name: string, value: string) => {
       dispatch({
         type: "CLUSTER.PROPERTIES.UPDATE.MODIFY_ITEM",
-        key: {clusterName},
         payload: {name, value},
       });
     },
 
     recoverFromError: () => {
       console.log("RECOVER");
-      dispatch({
-        type: "CLUSTER.PROPERTIES.UPDATE.ERROR.RECOVER",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.PROPERTIES.UPDATE.ERROR.RECOVER"});
     },
 
     close: () => {
-      dispatch({
-        type: "CLUSTER.PROPERTIES.UPDATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.PROPERTIES.UPDATE.CLOSE"});
       task.close();
     },
   };

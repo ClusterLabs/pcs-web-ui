@@ -5,7 +5,6 @@ import {useTaskCommon} from "../useTaskCommon";
 export const useTask = () => {
   const task = useTaskCommon("primitiveGroupChange");
   const {dispatch, state} = task;
-  const {clusterName} = state;
   const candidateGroupsIds = state.groupIdStructureList
     .map(g => g.id)
     .filter(id => id !== state.oldGroupId);
@@ -15,7 +14,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     isGroupValid: state.groupId.length > 0 || isSetForRemove,
     isAdjacentResourceValid:
       state.adjacentResourceId.length > 0 || isSetForRemove,
@@ -27,17 +25,12 @@ export const useTask = () => {
 
     //actions
     updateState: (payload: ActionPayload["RESOURCE.GROUP.CHANGE.UPDATE"]) => {
-      dispatch({
-        type: "RESOURCE.GROUP.CHANGE.UPDATE",
-        key: {clusterName},
-        payload,
-      });
+      dispatch({type: "RESOURCE.GROUP.CHANGE.UPDATE", payload});
     },
 
     changeGroup: () =>
       dispatch({
         type: "RESOURCE.GROUP.CHANGE",
-        key: {clusterName},
         payload: {
           resourceId: state.resourceId,
           groupId: !isSetForRemove ? state.groupId : "",
@@ -48,16 +41,10 @@ export const useTask = () => {
       }),
 
     recoverFromError: () =>
-      dispatch({
-        type: "RESOURCE.GROUP.CHANGE.FAIL.RECOVER",
-        key: {clusterName},
-      }),
+      dispatch({type: "RESOURCE.GROUP.CHANGE.FAIL.RECOVER"}),
 
     close: () => {
-      dispatch({
-        type: "RESOURCE.GROUP.CHANGE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "RESOURCE.GROUP.CHANGE.CLOSE"});
       task.close();
     },
   };

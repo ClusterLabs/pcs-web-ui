@@ -4,7 +4,7 @@ import {
   LauncherDropdown,
   type LauncherItem as ToolbarItem,
 } from "app/view/share";
-import {DetailToolbar, useLoadedCluster} from "app/view/cluster/share";
+import {DetailToolbar} from "app/view/cluster/share";
 import {useOpenTask} from "app/view/task";
 
 const {toolbar} = testMarks.cluster.fenceDevices.currentFenceDevice;
@@ -16,7 +16,6 @@ const isFenceDeviceEnabled = (fenceDevice: FenceDevice) =>
   );
 
 export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
-  const {clusterName} = useLoadedCluster();
   const openTask = useOpenTask();
   const refresh: ToolbarItem = {
     name: "refresh",
@@ -31,7 +30,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
       ),
       action: {
         type: "RESOURCE.REFRESH",
-        key: {clusterName},
         payload: {
           resourceId: fenceDevice.id,
           resourceType: "fence-device",
@@ -53,7 +51,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
       ),
       action: {
         type: "RESOURCE.CLEANUP",
-        key: {clusterName},
         payload: {
           resourceId: fenceDevice.id,
           resourceType: "fence-device",
@@ -68,7 +65,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
     run: () =>
       openTask("resourceDelete", {
         type: "RESOURCE.DELETE.INIT",
-        key: {clusterName},
         payload: {resourceId: fenceDevice.id, resourceType: "fence-device"},
       }),
     ...toolbar.dropdown.delete.mark,
@@ -79,7 +75,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
     run: () =>
       openTask("fenceDeviceDisable", {
         type: "FENCE_DEVICE.DISABLE.INIT",
-        key: {clusterName},
         payload: {
           fenceDeviceName: fenceDevice.id,
         },
@@ -94,7 +89,6 @@ export const FencePageToolbar = ({fenceDevice}: {fenceDevice: FenceDevice}) => {
       description: "Allow the cluster to use the stonith devices.",
       action: {
         type: "LIB.CALL.CLUSTER",
-        key: {clusterName},
         payload: {
           taskLabel: `enable "${fenceDevice.id}"`,
           call: {

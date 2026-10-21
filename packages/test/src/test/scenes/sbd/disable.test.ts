@@ -11,7 +11,7 @@ describe("Sbd disable", () => {
   it("should sucessfully disable sbd", async () => {
     mock.shortcuts.withCluster({
       clusterStatus,
-      additionalRouteList: [mock.route.sbdDisable(clusterStatus.cluster_name)],
+      additionalRouteList: [mock.route.sbdDisable()],
     });
     await goToSbd();
     await click(marks.cluster.sbdToolbar.disableSbd);
@@ -25,7 +25,7 @@ describe("Sbd disable", () => {
     mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        mock.route.sbdDisable(clusterStatus.cluster_name, {
+        mock.route.sbdDisable({
           json: responses.lib.error([
             {
               severity: {level: "ERROR", force_code: "FORCE"},

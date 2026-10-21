@@ -38,7 +38,6 @@ describe("Resource ban task", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.resourceBan({
-          clusterName,
           resourceId: primitiveId,
         }),
       ],
@@ -74,7 +73,6 @@ describe("Resource ban task", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.resourceBan({
-          clusterName,
           resourceId: primitiveId,
           node: node1.name,
           lifetime,
@@ -120,11 +118,7 @@ describe("Resource ban task", () => {
     mock.shortcuts.withCluster({
       clusterStatus,
       additionalRouteList: [
-        mock.route.resourceBan({
-          clusterName,
-          resourceId: cloneId,
-          master: true,
-        }),
+        mock.route.resourceBan({resourceId: cloneId, master: true}),
       ],
     });
 

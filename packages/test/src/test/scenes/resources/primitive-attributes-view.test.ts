@@ -56,7 +56,6 @@ describe("Primitive attributes view", () => {
       }),
       additionalRouteList: [
         mock.route.resourceGetCibsecrets({
-          clusterName,
           queries: [["A", secretAttr]],
           resultData: {
             resource_secrets: [

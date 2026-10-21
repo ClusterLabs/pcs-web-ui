@@ -14,7 +14,6 @@ describe("Sbd", () => {
       clusterStatus,
       additionalRouteList: [
         mock.route.sbdConfigure({
-          clusterName: clusterStatus.cluster_name,
           sbd_options: sbdOptions,
           watchdog_dict: {"node-1": newWatchdogName},
         }),

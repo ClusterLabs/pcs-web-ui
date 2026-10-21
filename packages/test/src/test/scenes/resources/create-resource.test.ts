@@ -18,17 +18,8 @@ describe("Create resource task", () => {
     await mock.shortcuts.withCluster({
       clusterStatus: cs.cluster(clusterName, "ok"),
       additionalRouteList: [
-        mock.route.resourceAgentDescribeAgent({
-          clusterName,
-          agentName,
-          agentData: agent,
-        }),
-        mock.route.resourceCreate({
-          clusterName,
-          resourceId,
-          agentName,
-          instanceAttrs: {},
-        }),
+        mock.route.resourceAgentDescribeAgent({agentName, agentData: agent}),
+        mock.route.resourceCreate({resourceId, agentName, instanceAttrs: {}}),
       ],
     });
   });

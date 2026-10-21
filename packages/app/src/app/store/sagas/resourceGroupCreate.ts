@@ -13,7 +13,6 @@ import {
 } from "./common";
 
 export function* create({
-  key,
   payload: {groupId, resourceIdList},
 }: ActionMap["RESOURCE.GROUP.CREATE"]) {
   const {result}: {result: api.ResultOf<typeof libCallCluster>} = yield race({
@@ -35,10 +34,7 @@ export function* create({
   }
 
   const taskLabel = `create resource group "${groupId}"`;
-  const errorAction: Action = {
-    type: "RESOURCE.GROUP.CREATE.ERROR",
-    key,
-  };
+  const errorAction: Action = {type: "RESOURCE.GROUP.CREATE.ERROR"};
 
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
@@ -61,16 +57,14 @@ export function* create({
   if (payload.status === "error") {
     yield put({
       type: "RESOURCE.GROUP.CREATE.FAIL",
-      key,
       payload: {reports: payload.report_list},
     });
     return;
   }
 
-  yield put({type: "CLUSTER.STATUS.REFRESH", key});
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
   yield put({
     type: "RESOURCE.GROUP.CREATE.SUCCESS",
-    key,
     payload: {reports: payload.report_list},
   });
 }

@@ -3,7 +3,6 @@ import type {RouteResponse} from "../mock";
 import {libCluster} from "./libCluster";
 
 export const sbdDisable = (
-  clusterName: string,
   response: RouteResponse = {
     json: {
       status: "success",
@@ -14,7 +13,6 @@ export const sbdDisable = (
   },
 ) =>
   libCluster({
-    clusterName,
     name: "sbd-disable-sbd",
     response,
     payload: {

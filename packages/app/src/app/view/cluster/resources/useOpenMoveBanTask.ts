@@ -29,7 +29,7 @@ type ActionTypes =
   (typeof operationMap)[keyof typeof operationMap]["actionType"];
 
 export const useOpenMoveBanTask = () => {
-  const {clusterName, nodeList, resourceTree} = useLoadedCluster();
+  const {nodeList, resourceTree} = useLoadedCluster();
   const openTask = useOpenTask();
   return (
     resourceType: ActionPayload[ActionTypes]["resourceType"],
@@ -40,7 +40,6 @@ export const useOpenMoveBanTask = () => {
     return openTask(taskName, {
       type: actionType,
       payload: {
-        clusterName,
         resourceId,
         ...(resourceType !== "clone"
           ? {resourceType}

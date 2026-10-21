@@ -66,7 +66,6 @@ export const ClusterPropertiesPage = () => {
               run: () =>
                 openTask("propertiesUpdate", {
                   type: "CLUSTER.PROPERTIES.UPDATE.INIT",
-                  key: {clusterName},
                   payload: {
                     clusterName,
                     propertyMap: clusterProperties,

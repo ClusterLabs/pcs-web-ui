@@ -1,20 +1,16 @@
 export type NodeAddActions = {
   "NODE.ADD.INIT": {
     type: "NODE.ADD.INIT";
-    key: {clusterName: string};
     payload: {
-      clusterName: string;
       isSbdEnabled: boolean;
     };
   };
   "NODE.ADD.CLOSE": {
     type: "NODE.ADD.CLOSE";
-    key: {clusterName: string};
   };
 
   "NODE.ADD.UPDATE": {
     type: "NODE.ADD.UPDATE";
-    key: {clusterName: string};
     payload: {
       nodeAddresses?: {
         address1: string;
@@ -34,7 +30,6 @@ export type NodeAddActions = {
 
   "NODE.ADD.UPDATE_NODE_NAME": {
     type: "NODE.ADD.UPDATE_NODE_NAME";
-    key: {clusterName: string};
     payload: {
       nodeName: string;
     };
@@ -42,14 +37,12 @@ export type NodeAddActions = {
 
   "NODE.ADD.SEND_KNOWN_HOSTS": {
     type: "NODE.ADD.SEND_KNOWN_HOSTS";
-    key: {clusterName: string};
     payload: {
       nodeName: string;
     };
   };
   "NODE.ADD.SEND_KNOWN_HOSTS.FAIL": {
     type: "NODE.ADD.SEND_KNOWN_HOSTS.FAIL";
-    key: {clusterName: string};
     payload: {
       message: string;
     };
@@ -57,12 +50,10 @@ export type NodeAddActions = {
 
   "NODE.ADD.SEND_KNOWN_HOSTS.OK": {
     type: "NODE.ADD.SEND_KNOWN_HOSTS.OK";
-    key: {clusterName: string};
   };
 
   "NODE.ADD.CHECK_AUTH": {
     type: "NODE.ADD.CHECK_AUTH";
-    key: {clusterName: string};
     payload: {
       nodeName: string;
     };
@@ -70,7 +61,6 @@ export type NodeAddActions = {
 
   "NODE.ADD.CHECK_AUTH.FAIL": {
     type: "NODE.ADD.CHECK_AUTH.FAIL";
-    key: {clusterName: string};
     payload: {
       message: string;
     };
@@ -78,7 +68,6 @@ export type NodeAddActions = {
 
   "NODE.ADD.CHECK_AUTH.NO_AUTH": {
     type: "NODE.ADD.CHECK_AUTH.NO_AUTH";
-    key: {clusterName: string};
     payload: {
       authProcessId: number;
     };
@@ -86,6 +75,5 @@ export type NodeAddActions = {
 
   "NODE.ADD.CHECK_AUTH.OK": {
     type: "NODE.ADD.CHECK_AUTH.OK";
-    key: {clusterName: string};
   };
 };

@@ -36,16 +36,10 @@ export const withCluster = (
 
   const routeMap: typeof replaceRoutes = {
     clusterStatus: route.clusterStatus({clusterStatus}),
-    resourceAgent: route.resourceAgentListAgents(clusterStatus.cluster_name),
-    stonithAgent: route.stonithAgentListAgents({
-      clusterName: clusterStatus.cluster_name,
-    }),
-    propertiesDefinition: route.getClusterPropertiesDefinition({
-      clusterName: clusterStatus.cluster_name,
-    }),
-    permissions: route.getPermissions({
-      clusterName: clusterStatus.cluster_name,
-    }),
+    resourceAgent: route.resourceAgentListAgents(),
+    stonithAgent: route.stonithAgentListAgents(),
+    propertiesDefinition: route.getClusterPropertiesDefinition(),
+    permissions: route.getPermissions({}),
   };
 
   // We have to make do with these two agents in tests
@@ -63,7 +57,6 @@ export const withCluster = (
     ...(resourceAgentList.includes("ocf:heartbeat:Dummy")
       ? {
           agentDummy: route.resourceAgentDescribeAgent({
-            clusterName: clusterStatus.cluster_name,
             agentName: "ocf:heartbeat:Dummy",
             agentData: responses.resourceAgentMetadata.ocfHeartbeatDummy,
           }),
@@ -72,14 +65,12 @@ export const withCluster = (
     ...(resourceAgentList.includes("ocf:heartbeat:apache")
       ? {
           agentApache: route.resourceAgentDescribeAgent({
-            clusterName: clusterStatus.cluster_name,
             agentName: "ocf:heartbeat:apache",
             agentData: responses.resourceAgentMetadata.ocfHeartbeatApache,
           }),
         }
       : {}),
     agentFenceApc: route.stonithAgentDescribeAgent({
-      clusterName: clusterStatus.cluster_name,
       agentName: "fence_apc",
       agentData: responses.fenceAgentMetadata.ok,
     }),

@@ -161,13 +161,8 @@ export const useTask = () => {
     },
 
     startClusterAndClose: () => {
-      dispatch({
-        type: "DASHBOARD.CLUSTER.START",
-        payload: {clusterName: state.clusterName},
-      });
-      dispatch({
-        type: "DASHBOARD.CLUSTER.SETUP.CLOSE",
-      });
+      dispatch({type: "DASHBOARD.CLUSTER.START"});
+      dispatch({type: "DASHBOARD.CLUSTER.SETUP.CLOSE"});
       task.close();
     },
 

@@ -9,21 +9,15 @@ export const useTask = () => {
   const task = useTaskCommon("constraintColocationCreate");
 
   const {dispatch, state, close} = task;
-  const {clusterName} = state;
 
   const updateState = React.useCallback(
     (payload: ActionPayload["CONSTRAINT.COLOCATION.CREATE.UPDATE"]) =>
-      dispatch({
-        type: "CONSTRAINT.COLOCATION.CREATE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
-    [dispatch, clusterName],
+      dispatch({type: "CONSTRAINT.COLOCATION.CREATE.UPDATE", payload}),
+    [dispatch],
   );
 
   return {
     ...task,
-    clusterName,
     label: "Create colocation constraint",
     isResourceValid: state.resourceId.length > 0,
     isWithResourceValid: state.withResourceId.length > 0,
@@ -39,7 +33,7 @@ export const useTask = () => {
       });
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           constraint: {
             colocation: {
@@ -55,16 +49,13 @@ export const useTask = () => {
     recoverFromError: () => {
       dispatch({
         type: "CONSTRAINT.SINGLE.CREATE.FAIL.RECOVER",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
     },
 
     close: () => {
       close();
-      dispatch({
-        type: "CONSTRAINT.COLOCATION.CREATE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CONSTRAINT.COLOCATION.CREATE.CLOSE"});
     },
   };
 };

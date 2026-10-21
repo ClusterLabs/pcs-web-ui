@@ -4,7 +4,6 @@ import type {ActionMap} from "app/store/actions";
 import {api, clusterSuccess, processError, putNotification} from "./common";
 
 export function* refreshSaga({
-  key,
   payload: {resourceId, resourceType},
 }: ActionMap["RESOURCE.REFRESH"]) {
   const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
@@ -28,11 +27,10 @@ export function* refreshSaga({
     return;
   }
 
-  yield clusterSuccess(key.clusterName, taskLabel);
+  yield clusterSuccess(taskLabel);
 }
 
 export function* cleanupSaga({
-  key,
   payload: {resourceId, resourceType},
 }: ActionMap["RESOURCE.CLEANUP"]) {
   const result: api.ResultOf<typeof resourceRefresh> = yield api.authSafe(
@@ -56,5 +54,5 @@ export function* cleanupSaga({
     return;
   }
 
-  yield clusterSuccess(key.clusterName, taskLabel);
+  yield clusterSuccess(taskLabel);
 }

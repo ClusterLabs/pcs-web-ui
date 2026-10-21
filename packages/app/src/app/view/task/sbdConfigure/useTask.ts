@@ -10,7 +10,6 @@ type SbdTimeoutAction = Extract<
 export const useTask = () => {
   const task = useTaskCommon("sbdConfigure");
   const {dispatch, state} = task;
-  const {clusterName} = state;
 
   const getSbdTimeout = (): SbdTimeoutAction => {
     if (
@@ -30,7 +29,6 @@ export const useTask = () => {
 
   return {
     ...task,
-    clusterName,
     getSbdTimeout,
     isWatchdogTimeoutValid: /^(\d*)$/.test(state.watchdogTimeout),
 
@@ -39,26 +37,19 @@ export const useTask = () => {
       task.close();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK.CANCEL",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
       });
-      dispatch({
-        type: "CLUSTER.SBD.CONFIGURE.CLOSE",
-        key: {clusterName},
-      });
+      dispatch({type: "CLUSTER.SBD.CONFIGURE.CLOSE"});
     },
 
     updateState: (payload: ActionPayload["CLUSTER.SBD.CONFIGURE.UPDATE"]) =>
-      dispatch({
-        type: "CLUSTER.SBD.CONFIGURE.UPDATE",
-        key: {clusterName},
-        payload,
-      }),
+      dispatch({type: "CLUSTER.SBD.CONFIGURE.UPDATE", payload}),
 
     sbdConfigure: ({force}: {force: boolean}) => {
       const sbdTimeoutAction = getSbdTimeout();
       dispatch({
         type: "LIB.CALL.CLUSTER.TASK",
-        key: {clusterName, task: task.name},
+        key: {task: task.name},
         payload: {
           taskLabel: "configure sbd",
           call: {

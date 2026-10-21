@@ -5,7 +5,6 @@ type Owner = ActionPayload["CLUSTER.NVPAIRS.EDIT"]["owner"];
 type OperationType = ActionPayload["CLUSTER.NVPAIRS.EDIT"]["type"];
 
 const initialState: {
-  clusterName: string;
   name: string;
   value: string;
   owner: Owner;
@@ -17,7 +16,6 @@ const initialState: {
   };
   showValidationErrors: boolean;
 } = {
-  clusterName: "",
   name: "",
   value: "",
   owner: {
@@ -41,7 +39,6 @@ export const nvpairEdit: AppReducer<typeof initialState> = (
     case "CLUSTER.NVPAIRS.EDIT":
       return {
         ...state,
-        clusterName: action.payload.clusterName,
         owner: action.payload.owner,
         type: action.payload.type,
         existingNameList: action.payload.nameList,

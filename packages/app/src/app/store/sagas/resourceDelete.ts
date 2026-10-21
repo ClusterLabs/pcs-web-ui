@@ -5,7 +5,6 @@ import {api, log, errorMessage, put} from "./common";
 import {stripForceText} from "./clusterStopUtils";
 
 export function* deleteResource({
-  key,
   payload: {resourceId, resourceType, force},
 }: ActionMap["RESOURCE.DELETE"]) {
   const result: api.ResultOf<typeof removeResource> = yield api.authSafe(
@@ -27,7 +26,6 @@ export function* deleteResource({
     }
     yield put({
       type: "RESOURCE.DELETE.FAIL",
-      key: {clusterName: key.clusterName},
       payload: {
         message: errorMessage(stripForceText(result), taskLabel),
         isForceable: "text" in result && result.text.includes("--force"),
@@ -36,13 +34,7 @@ export function* deleteResource({
     return;
   }
 
-  yield put({
-    type: "CLUSTER.STATUS.REFRESH",
-    key: {clusterName: key.clusterName},
-  });
+  yield put({type: "CLUSTER.STATUS.REFRESH"});
 
-  yield put({
-    type: "RESOURCE.DELETE.OK",
-    key: {clusterName: key.clusterName},
-  });
+  yield put({type: "RESOURCE.DELETE.OK"});
 }
