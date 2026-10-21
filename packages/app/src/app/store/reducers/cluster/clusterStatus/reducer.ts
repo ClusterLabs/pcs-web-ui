@@ -59,6 +59,13 @@ const load: AppReducer<ClusterStatusService["load"]> = (
         currently: false,
       };
 
+    case "CLUSTER.STATUS.NO_CLUSTER_DETECTED":
+      return {
+        ...state,
+        result: "NO_CLUSTER_DETECTED",
+        currently: false,
+      };
+
     case "CLUSTER.STATUS.FETCH.FORBIDDEN":
       return {
         ...state,

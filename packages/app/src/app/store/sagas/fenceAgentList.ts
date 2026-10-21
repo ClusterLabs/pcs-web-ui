@@ -10,6 +10,7 @@ import {
   putNotification,
   putTaskFailed,
 } from "./common";
+import {noClusterDetectedCase} from "./cluster";
 
 type ApiCallResult = api.ResultOf<typeof libClusterStonithAgentListAgents>;
 export function* load() {
@@ -23,7 +24,7 @@ export function* load() {
   if (result.type !== "OK") {
     yield processError(result, taskLabel, {
       action: () => put(errorAction),
-      useNotification: true,
+      useNotification: !noClusterDetectedCase(result),
     });
     return;
   }

@@ -37,6 +37,7 @@ import * as clusterStop from "./clusterStop";
 function* rootSaga() {
   yield all([
     fork(dataLoad.manage, cluster.clusterDataSyncOptions),
+    takeEvery("CLUSTER.STATIC_INFO.LOAD", cluster.loadClusterStaticInfo),
     takeEvery("USERNAME.LOAD", username.usernameLoad),
     takeEvery("USER.INIT", user.init),
     takeEverySaga(user.changeChannel, user.changed),

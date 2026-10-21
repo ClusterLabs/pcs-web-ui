@@ -24,6 +24,8 @@ export type InvalidPayload = {
   payload: unknown;
 };
 
+export type AllFails = InvalidPayload | HttpFail | NotJson;
+
 // Wrapping any naked type parameters in a 1-tuple to avoid distribution of
 // conditional types over union types. See
 // https://github.com/microsoft/TypeScript/issues/29368#issuecomment-453529532

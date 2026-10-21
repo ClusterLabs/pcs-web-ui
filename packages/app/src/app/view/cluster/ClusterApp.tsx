@@ -20,6 +20,7 @@ import {ClusterPropertiesPage} from "./properties";
 import {AclPage} from "./acl";
 import {ClusterOverviewPage} from "./overview";
 import {ClusterAppBackendNotFound} from "./ClusterAppBackendNotFound";
+import {ClusterAppNoClusterOnBackend} from "./ClusterAppNoClusterOnBackend";
 
 const {clusterBreadcrumbs} = testMarks;
 
@@ -51,6 +52,9 @@ export const ClusterApp = () => {
       }
     >
       {currentTab => {
+        if (clusterInfo.clusterStatus.noClusterDetected) {
+          return <ClusterAppNoClusterOnBackend />;
+        }
         if (currentTab === "permissions") {
           if (!clusterInfo.permissions) {
             return (

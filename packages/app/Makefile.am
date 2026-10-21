@@ -119,6 +119,7 @@ EXTRA_DIST		= \
 			  src/app/store/actions/cluster/permissions.ts \
 			  src/app/store/actions/cluster/properties.ts \
 			  src/app/store/actions/cluster/sbd.ts \
+			  src/app/store/actions/cluster/staticInfo.ts \
 			  src/app/store/actions/cluster/status.ts \
 			  src/app/store/actions/cluster/stop.ts \
 			  src/app/store/actions/cluster/task.ts \
@@ -344,6 +345,7 @@ EXTRA_DIST		= \
 			  src/app/view/cluster/ClusterAppForbidden.tsx \
 			  src/app/view/cluster/ClusterAppLayout.tsx \
 			  src/app/view/cluster/ClusterAppLoading.tsx \
+			  src/app/view/cluster/ClusterAppNoClusterOnBackend.tsx \
 			  src/app/view/cluster/ClusterApp.tsx \
 			  src/app/view/cluster/constraints/colocation/ConstraintRowColocationPair.tsx \
 			  src/app/view/cluster/constraints/colocation/ConstraintRowColocationSet.tsx \

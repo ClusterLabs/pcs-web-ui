@@ -13,6 +13,7 @@ type ClusterInfo = {
   clusterStatus: {
     isForbidden: boolean;
     isBackendNotFoundCase: boolean;
+    noClusterDetected: boolean;
     data: ClusterData["clusterStatus"]["clusterData"];
     load: {when: number; currently: boolean};
   };
@@ -27,6 +28,7 @@ export const getClusterStoreInfo = (state: Root): ClusterInfo => {
   } = state.clusterData.clusterStatus;
   return {
     clusterStatus: {
+      noClusterDetected: result === "NO_CLUSTER_DETECTED",
       isForbidden: result === "FORBIDDEN",
       isBackendNotFoundCase: result === "BACKEND_NOT_FOUND",
       data,
