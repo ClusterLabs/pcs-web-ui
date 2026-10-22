@@ -5,7 +5,7 @@ runner. There are two categories of tests:
 
 - **Mocked tests** (`packages/test/src/test/scenes/`) — use fully mocked backend
   responses. Organized by feature (e.g. `acl/`, `cluster/`, `resources/`,
-  `dashboard/`). These offer full control over the application state, making it
+  `nodes/`). These offer full control over the application state, making it
   easy to simulate edge cases and error scenarios. The tradeoff is that mocks
   can diverge from the real backend behavior.
 
@@ -91,7 +91,7 @@ test file without imports:
 - **DOM interaction**: `click`, `fill`, `select`, `dropdown`, `isVisible`,
   `isAbsent`, `radioGroup`, `appConfirm`, `fieldError`, `locatorFor`,
   `locatorRelativeFor`
-- **Navigation**: `goToDashboard`, `goToCluster`
+- **Navigation**: `goToCluster`
 - **`login`** — authentication helper
 
 **Not globals** — `mock` and `assert` are imported explicitly from `test/tools`

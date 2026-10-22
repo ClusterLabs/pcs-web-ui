@@ -50,7 +50,7 @@ A scenario typically does two things:
 2. Calls a **shortcut** to set up the common baseline (cluster status, agent
    lists, permissions, etc.).
 
-Example (`resource-create.ts`):
+Example:
 
 ```typescript
 import {app} from "dev/app";
@@ -62,9 +62,17 @@ app.libCluster("resource-create", (req, res) => {
   shortcut.libStd({code: req.body.resource_id, res});
 });
 
-// 2. Set up common cluster state
-shortcut.dashboard([response.clusterStatus.resourceTree]);
+// 2. Set up the common cluster baseline
+app.clusterStatus((_req, res) => {
+  res.json(response.clusterStatus.resourceTree);
+});
+shortcut.clusterRelated();
 ```
+
+The baseline is the cluster status plus the cluster-level handlers registered by
+`shortcut.clusterRelated()`. The `single-cluster.ts` scenario is the minimal
+reference for this baseline (status + `clusterRelated()`) with no
+workflow-specific handlers.
 
 ## The `app` object
 
@@ -75,8 +83,8 @@ defined in the application's `endpoints` module. Each method on `app` correspond
 to an endpoint and accepts an Express request handler:
 
 ```typescript
-app.importedClusterList((_req, res) => {
-  res.json(response.importedClusterList.withClusters(["my-cluster"]));
+app.clusterStatus((_req, res) => {
+  res.json(response.clusterStatus.resourceTree);
 });
 ```
 
@@ -100,14 +108,13 @@ Source: `packages/dev/src/dev/shortcuts/`
 Shortcuts are helper functions that register multiple related handlers at once,
 reducing boilerplate in scenarios.
 
-- **`shortcut.dashboard(clusterStatusList)`** — the most common shortcut. Sets up
-  imported cluster list, cluster status responses, resource/fence agent lists,
-  agent metadata, cluster properties, and permissions. Most scenarios end with a
-  call to this shortcut.
-- **`shortcut.clusterRelated()`** — registers agent lists, metadata, properties,
-  and permissions (the cluster-level handlers without dashboard/status).
-- **`shortcut.importedClusterList(…)`** — registers just the imported cluster
-  list endpoint.
+- **`shortcut.clusterRelated()`** — the most common shortcut. Registers the
+  cluster-level handlers: resource and fence agent lists, agent metadata,
+  cluster properties, and permissions. Scenarios pair it with a cluster status
+  handler (see `single-cluster.ts` for the minimal baseline).
+- **`shortcut.checkAuthAgainstNodes(…)`** / **`shortcut.authGuiAgainstNodes()`** —
+  register the node-authentication endpoints, used by scenarios that exercise
+  node auth flows.
 - **`shortcut.libStd({code, res})`** — a handler helper (not a registration
   shortcut) for library command scenarios. It maps a `code` value from the
   request body to a standard response. This lets a single scenario handler
@@ -154,7 +161,7 @@ Key areas:
   Each accepts an ID and an optional partial override that is deep-merged with
   sensible defaults.
 - **Other modules** — agent metadata, agent lists, permissions, cluster
-  properties, ACL, imported cluster list, etc.
+  properties, ACL, etc.
 
 ## Proxy scenario
 

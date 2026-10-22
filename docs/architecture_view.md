@@ -6,7 +6,6 @@ React components organized by domain:
 
 ```
 view/
-  dashboard/   — cluster list, cluster-level actions
   cluster/     — cluster detail: resources, nodes, constraints, ACL,
                  fence devices, SBD, properties, permissions
   task/        — modal wizard dialogs for multi-step operations
@@ -14,12 +13,13 @@ view/
   dataTest/    — data-test attribute definitions (see below)
 ```
 
-The application has two main views. The **dashboard** shows an overview of all
-managed clusters (list with summary status). The **cluster detail** view shows
-a single cluster's configuration organized into tabs (resources, nodes,
-constraints, etc.). The dashboard links to cluster detail; the cluster detail
-has a breadcrumb back to the dashboard. Navigation uses a custom router
-(`view/share/router/`) with URL patterns defined in `view/share/location.ts`.
+The application manages a **single cluster** — the one the backend node
+participates in (the node the web UI is served from). The application starts
+directly in the **cluster detail** view (the root route), which shows the
+cluster's configuration organized into tabs (resources, nodes, constraints,
+etc.). The cluster name comes from the backend response, not from the URL.
+Navigation uses a custom router (`view/share/router/`) with URL patterns defined
+in `view/share/location.ts`.
 
 ## Component file organization
 
