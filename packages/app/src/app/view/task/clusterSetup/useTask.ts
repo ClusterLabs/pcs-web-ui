@@ -294,7 +294,10 @@ export const useTask = () => {
                   ping_precision: l.ping_precision,
                   ping_timeout: l.ping_timeout,
                   pong_count: l.pong_count,
-                  transport: l.transport,
+                  // Originaly, transport could be udp or sctp. However, sctp is
+                  // no longer suported and udp is the only (and default) value.
+                  // So, the optional attribute `transport` is skipped.
+                  // transport: l.transport,
                 },
                 {
                   omitValues: {

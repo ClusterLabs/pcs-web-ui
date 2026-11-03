@@ -2,7 +2,7 @@ import React from "react";
 import {Form} from "@patternfly/react-core";
 
 import {testMarks} from "app/view/dataTest";
-import {FormGroup, FormSelectSimple, FormText} from "app/view/share";
+import {FormGroup, FormText} from "app/view/share";
 
 import {useTask} from "./useTask";
 import {TransportKnetLinkToggler} from "./TransportKnetLinkToggler";
@@ -161,25 +161,6 @@ export const TransportKnetLink = ({link}: {link: Link}) => {
           value={link.pong_count || ""}
           onChange={value => updateLink({pong_count: value})}
           {...knetLink.pong_count.mark}
-        />
-
-        <FormSelectSimple
-          label="transport"
-          id="transport"
-          popover={{
-            header: "Transport",
-            body: "Which IP transport knet should use.",
-            defaultValue: "udp",
-          }}
-          onSelect={value =>
-            updateLink({
-              transport: value.toString() as NonNullable<Link["transport"]>,
-            })
-          }
-          placeholderText="Select transport"
-          selected={link.transport}
-          offeredOptions={["udp", "sctp"]}
-          {...knetLink.transport.mark}
         />
       </TransportKnetLinkToggler>
     </Form>

@@ -7,6 +7,10 @@
 * Create location constraint does not use field `prefer/avoid` option for
   location with rule.
 
+### Removed
+
+* Support for knet sctp transport protocol
+
 ## [0.1.25] - 2026-07-01
 
 ### Added

@@ -75,7 +75,7 @@ export const clusterSetup = endpoint({
             ping_precision?: string; // nonnegative integer
             ping_timeout?: string; // nonnegative integer
             pong_count?: string; // nonnegative integer
-            transport?: "sctp" | "udp";
+            transport?: "udp"; // sctp option was removed, udp is the only choice
           }[];
         }
       | {
