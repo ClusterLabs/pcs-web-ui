@@ -52,15 +52,8 @@ export type ClusterSetupActions = {
       "model" | "hash" | "cipher"
     > & {
       model?: "nss" | "openssl" | "default";
-      hash?:
-        | "none"
-        | "md5"
-        | "sha1"
-        | "sha256"
-        | "sha384"
-        | "sha512"
-        | "default";
-      cipher?: "none" | "aes256" | "aes192" | "aes128" | "default";
+      hash?: "md5" | "sha1" | "sha256" | "sha384" | "sha512" | "default";
+      cipher?: "aes256" | "aes192" | "aes128" | "default";
     };
   };
 

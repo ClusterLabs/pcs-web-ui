@@ -25,8 +25,8 @@ export const clusterSetup = endpoint({
       };
       crypto_options?: {
         model?: "nss" | "openssl";
-        hash?: "none" | "md5" | "sha1" | "sha256" | "sha384" | "sha512";
-        cipher?: "none" | "aes256" | "aes192" | "aes128";
+        hash?: "md5" | "sha1" | "sha256" | "sha384" | "sha512";
+        cipher?: "aes256" | "aes192" | "aes128";
       };
       totem_options?: {
         block_unlisted_ips?: "yes" | "no";

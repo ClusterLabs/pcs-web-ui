@@ -1,5 +1,3 @@
-import {Alert} from "@patternfly/react-core";
-
 import {ReviewItem, ReviewList, TaskLibStep} from "app/view/share";
 import {testMarks} from "app/view/dataTest";
 
@@ -24,20 +22,6 @@ export const Review = () => {
   } = useTask();
   return (
     <TaskLibStep title="Review settings" reports={reports} {...review.mark}>
-      {(cryptoOptions.cipher === "none" || cryptoOptions.hash === "none") && (
-        <Alert
-          variant="warning"
-          isInline
-          title="Deprecated crypto settings detected"
-        >
-          {cryptoOptions.cipher === "none" &&
-            "Disabling cipher is deprecated. "}
-          {cryptoOptions.hash === "none" && "Disabling hash is deprecated. "}
-          {cryptoOptions.cipher === "none" && cryptoOptions.hash === "none"
-            ? "These options will be removed in a future version."
-            : "This option will be removed in a future version."}
-        </Alert>
-      )}
       <ReviewList>
         <ReviewItem
           label="Cluster name"

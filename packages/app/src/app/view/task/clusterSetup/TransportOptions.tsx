@@ -122,7 +122,6 @@ export const TransportOptions = () => {
             id={`${ID_PREFIX_CRYPTO}-hash`}
             popover={help.crypto.hash}
             offeredOptions={[
-              "none",
               "md5",
               "sha1",
               "sha256",
@@ -138,11 +137,6 @@ export const TransportOptions = () => {
                 >,
               })
             }
-            helperTextWarning={
-              cryptoOptions.hash === "none"
-                ? "Disabling hash is deprecated. This option will be removed in a future version."
-                : undefined
-            }
             {...crypto.hash.mark}
           />
 
@@ -150,7 +144,7 @@ export const TransportOptions = () => {
             label="Cipher"
             id={`${ID_PREFIX_CRYPTO}-cipher`}
             popover={help.crypto.cipher}
-            offeredOptions={["none", "aes256", "aes192", "aes128", "default"]}
+            offeredOptions={["aes256", "aes192", "aes128", "default"]}
             selected={cryptoOptions.cipher}
             onSelect={value =>
               updateCryptoOptions({
@@ -158,11 +152,6 @@ export const TransportOptions = () => {
                   typeof cryptoOptions.cipher
                 >,
               })
-            }
-            helperTextWarning={
-              cryptoOptions.cipher === "none"
-                ? "Disabling cipher is deprecated. This option will be removed in a future version."
-                : undefined
             }
             {...crypto.cipher.mark}
           />
