@@ -10,6 +10,8 @@
 ### Removed
 
 * Support for knet sctp transport protocol
+* Disabling corosync encryption during cluster setup is not possible anymore
+* Multi-cluster management is no longer supported
 
 ## [0.1.25] - 2026-07-01
 
