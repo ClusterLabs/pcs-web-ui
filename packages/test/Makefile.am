@@ -27,8 +27,11 @@ EXTRA_DIST		= \
 			  src/test/scenes/cluster/destroy.test.ts \
 			  src/test/scenes/cluster/displayAdvancedStatus.test.ts \
 			  src/test/scenes/cluster/setup/common.ts \
+			  src/test/scenes/cluster/setup/setup-cluster-maximal.test.ts \
 			  src/test/scenes/cluster/setup/setup-cluster.test.ts \
 			  src/test/scenes/cluster/setup/setup-no-cluster.test.ts \
+			  src/test/scenes/cluster/start.test.ts \
+			  src/test/scenes/cluster/stop.test.ts \
 			  src/test/scenes/cluster/tab-switch.test.ts \
 			  src/test/scenes/constraints/colocation-create.test.ts \
 			  src/test/scenes/constraints/common.ts \
@@ -43,6 +46,7 @@ EXTRA_DIST		= \
         src/test/scenes/fence-devices/enable.test.ts \
 			  src/test/scenes/fence-devices/list.test.ts \
 			  src/test/scenes/fence-devices/meta-management.test.ts \
+			  src/test/scenes/login.test.ts \
 			  src/test/scenes/nodes/add-node.test.ts \
 			  src/test/scenes/nodes/common.ts \
 			  src/test/scenes/nodes/node-attrs-create.test.ts \
@@ -50,6 +54,7 @@ EXTRA_DIST		= \
 			  src/test/scenes/nodes/node-utilization-create.test.ts \
 			  src/test/scenes/nodes/node-utilization-view.test.ts \
 			  src/test/scenes/nodes/start.test.ts \
+			  src/test/scenes/notification/drawer.test.ts \
 			  src/test/scenes/permissions/common.ts \
 			  src/test/scenes/permissions/create.test.ts \
 			  src/test/scenes/permissions/displayList.test.ts \
