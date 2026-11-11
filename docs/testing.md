@@ -63,6 +63,12 @@ export PCSD_NODE_1=node1.vm
 export PCSD_USERNAME_1=hacluster
 export PCSD_PASSWORD_1=password
 
+# Timeout of the whole real backend test (ms)
+export PCS_WUI_TEST_TIMEOUT=200000
+
+# Timeout of a single action, e.g. a click or waiting for an element (ms)
+export PCS_WUI_ACTION_TIMEOUT=30000
+
 # Directory to store video recordings (set to enable)
 # export PCS_WUI_TESTS_VIDEO_DIR="/tmp/pcs-web-ui-video"
 unset PCS_WUI_TESTS_VIDEO_DIR
@@ -76,6 +82,19 @@ export PCS_WUI_TESTS=$*
 ```
 
 See also [gitlab-ci.yml](../.gitlab-ci.yml) for more examples.
+
+### Real backend test
+
+The real backend test (`realBackend/oneNodeCluster.test.ts`) goes through the
+whole life cycle of a cluster on a single node: it sets up a cluster from the
+"no cluster" page, creates a fence device and a resource in it, and destroys
+the cluster again. It expects the following initial state of the node:
+
+- the node is not in a cluster,
+- the node is authenticated against itself (`pcs host auth`).
+
+When the test passes, it leaves the node in the same state. In CI, the state
+is prepared by `plans.fmf` and `tests.fmf`.
 
 ## Test preset and globals
 

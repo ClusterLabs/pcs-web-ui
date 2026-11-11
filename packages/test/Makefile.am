@@ -13,7 +13,9 @@ EXTRA_DIST		= \
 			  src/test/jest/login.ts \
 			  src/test/jest/page.ts \
 			  src/test/jest/preset.ts \
+			  src/test/realBackend/cluster.ts \
 			  src/test/realBackend/fenceDevices.ts \
+			  src/test/realBackend/oneNodeCluster.test.ts \
 			  src/test/realBackend/resources.ts \
 			  src/test/realBackend/waitForResponse.ts \
 			  src/test/scenes/acl/commonRole.ts \
