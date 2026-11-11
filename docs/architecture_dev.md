@@ -100,6 +100,12 @@ A handler may branch on a value from the request (e.g. a resource name passed
 to `shortcut.libStd`), which lets the developer pick the outcome in the UI. A
 response that the request cannot select belongs to its own variant.
 
+The `cluster-state-*` scenarios (e.g. `cluster-state-standby`,
+`cluster-state-big`) are a set for visually checking how the application
+renders different cluster states. Each one registers only a cluster status and
+the baseline, one state per scenario. A new state to check gets its own
+`cluster-state-<state>` scenario.
+
 ## The `app` object
 
 Source: `packages/dev/src/dev/app.ts`
