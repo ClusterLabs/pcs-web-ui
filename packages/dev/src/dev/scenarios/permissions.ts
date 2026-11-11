@@ -1,5 +1,6 @@
 import {app} from "dev/app";
 import * as response from "dev/responses";
+import * as shortcut from "dev/shortcuts";
 
 app.getPermissions((_req, res) => {
   res.json(
@@ -16,3 +17,6 @@ app.permissionsSave((req, res) => {
   }
   res.send("");
 });
+
+shortcut.clusterStatus(response.clusterStatus.ok);
+shortcut.clusterRelated();

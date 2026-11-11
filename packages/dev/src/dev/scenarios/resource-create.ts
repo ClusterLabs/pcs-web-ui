@@ -1,5 +1,6 @@
 import {app} from "dev/app";
 import * as shortcut from "dev/shortcuts";
+import * as response from "dev/responses";
 
 app.libCluster("resource-create", (req, res) => {
   shortcut.libStd({
@@ -20,3 +21,6 @@ app.libCluster("resource-create", (req, res) => {
     },
   });
 });
+
+shortcut.clusterStatus(response.clusterStatus.resourceTree);
+shortcut.clusterRelated();

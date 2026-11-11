@@ -1,4 +1,5 @@
 import * as response from "dev/responses";
+import * as shortcut from "dev/shortcuts";
 import {type Handler, app} from "dev/app";
 
 let isLoggedIn = false;
@@ -33,3 +34,5 @@ app.logout((_req, res) => {
   isLoggedIn = false;
   res.send("Ok");
 });
+
+shortcut.clusterRelated();

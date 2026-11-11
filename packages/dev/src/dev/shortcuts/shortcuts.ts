@@ -54,6 +54,11 @@ const getPermissions = (permissions: types.ClusterPermissions) =>
   });
 // advanced
 
+export const clusterStatus = (status: types.Cluster) =>
+  app.clusterStatus((_req, res) => {
+    res.json(status);
+  });
+
 export const clusterRelated = () => {
   getAvailResourceAgents(response.resourceAgentListWithoutDescribe.ok);
   getAvailStonithAgents(response.stonithAgentListWithoutDescribe.ok);

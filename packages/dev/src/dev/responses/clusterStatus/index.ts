@@ -8,7 +8,6 @@ import {
   actionsOneGroup,
 } from "./actions";
 import {noAuthNodes} from "./noAuthNodes";
-import {ok as clusterOk} from "./buildClusterStatus";
 
 export {
   resourceTree,
@@ -20,8 +19,17 @@ export {
   noAuthNodes,
 };
 
-export const ok = clusterOk("ok");
-export const ok2 = clusterOk("ok2");
+export const ok = t.cluster("ok", "ok", {
+  resource_list: [
+    t.primitive("R1", {
+      utilization: [
+        {id: "R1_test_one", name: "test_one", value: "10"},
+        {id: "R1_test_two", name: "test_two", value: "20"},
+      ],
+    }),
+    t.stonith("F1"),
+  ],
+});
 
 export const empty = t.cluster("empty", "error", {node_list: [t.node("1")]});
 export const error = t.cluster("error", "error", {
