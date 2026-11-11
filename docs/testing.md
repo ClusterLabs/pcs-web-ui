@@ -122,6 +122,13 @@ accepts additional or replacement routes for test-specific needs. Cluster status
 is built using factory functions from `dev/responses/clusterStatus/tools`
 (`cluster()`, `primitive()`, `stonith()`, `group()`, `clone()`).
 
+Tests of the state where the host is not in a cluster use
+`mock.shortcuts.withNoCluster()`. It answers the cluster status and the other
+endpoints the application calls on start with
+`400, "This host is not in a cluster - …"` (`responses.noCluster.message`),
+which makes the application display the "no cluster" page. Test-specific
+routes are passed via `additionalRouteList`.
+
 ### Routes and response builders
 
 A **route** is an object that pairs a URL pattern with request expectations

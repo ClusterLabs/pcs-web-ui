@@ -24,7 +24,11 @@ EXTRA_DIST		= \
 			  src/test/scenes/acl/role-assign-user.test.ts \
 			  src/test/scenes/acl/role-create.test.ts \
 			  src/test/scenes/acl/role-remove-permission.test.ts \
+			  src/test/scenes/cluster/destroy.test.ts \
 			  src/test/scenes/cluster/displayAdvancedStatus.test.ts \
+			  src/test/scenes/cluster/setup/common.ts \
+			  src/test/scenes/cluster/setup/setup-cluster.test.ts \
+			  src/test/scenes/cluster/setup/setup-no-cluster.test.ts \
 			  src/test/scenes/cluster/tab-switch.test.ts \
 			  src/test/scenes/constraints/colocation-create.test.ts \
 			  src/test/scenes/constraints/common.ts \

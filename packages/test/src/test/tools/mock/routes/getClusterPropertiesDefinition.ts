@@ -2,7 +2,13 @@ import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 
-export const getClusterPropertiesDefinition = () => ({
+import type {RouteResponse} from "../mock";
+
+export const getClusterPropertiesDefinition = ({
+  response,
+}: {
+  response?: RouteResponse;
+} = {}) => ({
   url: endpoints.getClusterPropertiesDefinition.url,
-  json: responses.clusterProperties.ok,
+  ...(response ?? {json: responses.clusterProperties.ok}),
 });

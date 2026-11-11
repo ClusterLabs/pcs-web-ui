@@ -2,10 +2,18 @@ import {endpoints} from "app/backend/endpoints";
 
 import * as responses from "dev/responses";
 
-export const stonithAgentListAgents = () => ({
+import type {RouteResponse} from "../mock";
+
+export const stonithAgentListAgents = ({
+  response,
+}: {
+  response?: RouteResponse;
+} = {}) => ({
   url: endpoints.libClusterStonithAgentListAgents.url,
   payload: endpoints.libClusterResourceAgentListAgents.payload,
-  json: responses.lib.success({
-    data: responses.stonithAgentListWithoutDescribe.ok,
+  ...(response ?? {
+    json: responses.lib.success({
+      data: responses.stonithAgentListWithoutDescribe.ok,
+    }),
   }),
 });
