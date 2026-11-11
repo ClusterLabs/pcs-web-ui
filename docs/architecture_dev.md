@@ -87,6 +87,19 @@ The `setup-cluster.ts` scenario is the reference for a host that is not in a
 cluster: the cluster status and the other startup endpoints respond with 400
 and `response.noCluster.message`.
 
+### Scenario variants
+
+When a workflow needs several cluster states or backend responses (e.g. a
+successful and a failing cluster start), each variant is a separate scenario
+named `<base>-<variant>` (e.g. `cluster-start-stop-error`); the default variant
+keeps the base name. Handlers shared by the variants go into a shortcut
+`<name>Related()` in `shortcuts/` (e.g. `shortcut.resourceActionsRelated()`),
+so each variant file only adds its own handlers and cluster status.
+
+A handler may branch on a value from the request (e.g. a resource name passed
+to `shortcut.libStd`), which lets the developer pick the outcome in the UI. A
+response that the request cannot select belongs to its own variant.
+
 ## The `app` object
 
 Source: `packages/dev/src/dev/app.ts`
@@ -133,6 +146,9 @@ reducing boilerplate in scenarios.
 - **`shortcut.checkAuthAgainstNodes(…)`** / **`shortcut.authGuiAgainstNodes()`** —
   register the node-authentication endpoints, used by scenarios that exercise
   node auth flows.
+- **`shortcut.<name>Related()`** (e.g. `resourceActionsRelated()`,
+  `nodeAddRelated()`) — register the workflow handlers shared by the variants
+  of one scenario (see [Scenario variants](#scenario-variants)).
 - **`shortcut.libStd({code, res})`** — a handler helper (not a registration
   shortcut) for library command scenarios. It maps a `code` value from the
   request body to a standard response. This lets a single scenario handler
