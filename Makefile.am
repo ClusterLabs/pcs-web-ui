@@ -116,6 +116,7 @@ test-modules-prepare:
 	@cd ./packages/dev && echo "Npm registry:" && npm config get registry && npm ci --no-audit
 
 ci-cluster-test:
+	@cd ./packages/test && npx playwright install --only-shell chromium
 	@cd ./packages/test && .bin/run-jest.sh -s -p src/test/realBackend
 
 clean:

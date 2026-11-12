@@ -16,6 +16,16 @@ runner. There are two categories of tests:
 
 ## Running tests
 
+Playwright does not download browsers during `npm ci`. Install Chromium once
+(and again after each Playwright upgrade) with:
+
+```sh
+cd packages/test && npx playwright install chromium
+```
+
+In headless mode, `npx playwright install --only-shell chromium` is enough. CI
+installs the browser this way in `make ci-cluster-test`.
+
 Run all tests with:
 
 ```sh
