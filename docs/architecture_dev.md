@@ -7,7 +7,10 @@ development without a running cluster. It builds the application in watch mode
 (via esbuild) and serves it with live reload — code changes are reflected in the
 browser automatically.
 
-Run with `make dev`, then open http://localhost:5000.
+Run with `make dev`. The server uses the first free port starting at 5000 (set
+`PORT` to force a specific one) and prints the actual address on startup as
+`<scenario>: http://localhost:<port>`. The application is at
+`http://localhost:<port>/ui`.
 
 ## How it works
 
@@ -43,11 +46,11 @@ The scenario is selected at startup:
 
 ### Scenario structure
 
-A scenario typically does two things:
+A scenario typically does two things, in this order:
 
 1. Registers handlers for endpoints specific to the workflow being developed
    (e.g. a `resource-create` lib command handler).
-2. Calls a **shortcut** to set up the common baseline (cluster status, agent
+2. Calls **shortcuts** to set up the common baseline (cluster status, agent
    lists, permissions, etc.).
 
 Example:
@@ -63,16 +66,45 @@ app.libCluster("resource-create", (req, res) => {
 });
 
 // 2. Set up the common cluster baseline
-app.clusterStatus((_req, res) => {
-  res.json(response.clusterStatus.resourceTree);
-});
+shortcut.clusterStatus(response.clusterStatus.resourceTree);
 shortcut.clusterRelated();
 ```
 
-The baseline is the cluster status plus the cluster-level handlers registered by
-`shortcut.clusterRelated()`. The `single-cluster.ts` scenario is the minimal
-reference for this baseline (status + `clusterRelated()`) with no
+The baseline is the cluster status (`shortcut.clusterStatus(…)`) plus the
+cluster-level handlers registered by `shortcut.clusterRelated()`. The baseline
+is required: an endpoint without a registered handler responds with 404, and
+the application then shows an error or never finishes loading. TypeScript checks
+the shape of the handlers, not whether a scenario is complete. The
+`single-cluster.ts` scenario is the minimal reference for this baseline with no
 workflow-specific handlers.
+
+The order matters because Express uses the first handler registered for a URL.
+A scenario that overrides an endpoint also registered by a shortcut (e.g. its
+own `app.getPermissions` handler) must register the override before calling
+the shortcut.
+
+The `setup-cluster.ts` scenario is the reference for a host that is not in a
+cluster: the cluster status and the other startup endpoints respond with 400
+and `response.noCluster.message`.
+
+### Scenario variants
+
+When a workflow needs several cluster states or backend responses (e.g. a
+successful and a failing cluster start), each variant is a separate scenario
+named `<base>-<variant>` (e.g. `cluster-start-stop-error`); the default variant
+keeps the base name. Handlers shared by the variants go into a shortcut
+`<name>Related()` in `shortcuts/` (e.g. `shortcut.resourceActionsRelated()`),
+so each variant file only adds its own handlers and cluster status.
+
+A handler may branch on a value from the request (e.g. a resource name passed
+to `shortcut.libStd`), which lets the developer pick the outcome in the UI. A
+response that the request cannot select belongs to its own variant.
+
+The `cluster-state-*` scenarios (e.g. `cluster-state-standby`,
+`cluster-state-big`) are a set for visually checking how the application
+renders different cluster states. Each one registers only a cluster status and
+the baseline, one state per scenario. A new state to check gets its own
+`cluster-state-<state>` scenario.
 
 ## The `app` object
 
@@ -108,13 +140,21 @@ Source: `packages/dev/src/dev/shortcuts/`
 Shortcuts are helper functions that register multiple related handlers at once,
 reducing boilerplate in scenarios.
 
+- **`shortcut.clusterStatus(status)`** — registers a cluster status handler
+  that always returns the given status (a preset from `response.clusterStatus`
+  or one composed with `clusterStatus/tools`). A scenario that needs a status
+  that changes over time registers `app.clusterStatus(…)` directly.
 - **`shortcut.clusterRelated()`** — the most common shortcut. Registers the
   cluster-level handlers: resource and fence agent lists, agent metadata,
-  cluster properties, and permissions. Scenarios pair it with a cluster status
-  handler (see `single-cluster.ts` for the minimal baseline).
+  cluster properties, and permissions. Scenarios pair it with
+  `shortcut.clusterStatus(…)` (see `single-cluster.ts` for the minimal
+  baseline).
 - **`shortcut.checkAuthAgainstNodes(…)`** / **`shortcut.authGuiAgainstNodes()`** —
   register the node-authentication endpoints, used by scenarios that exercise
   node auth flows.
+- **`shortcut.<name>Related()`** (e.g. `resourceActionsRelated()`,
+  `nodeAddRelated()`) — register the workflow handlers shared by the variants
+  of one scenario (see [Scenario variants](#scenario-variants)).
 - **`shortcut.libStd({code, res})`** — a handler helper (not a registration
   shortcut) for library command scenarios. It maps a `code` value from the
   request body to a standard response. This lets a single scenario handler

@@ -16,6 +16,16 @@ runner. There are two categories of tests:
 
 ## Running tests
 
+Playwright does not download browsers during `npm ci`. Install Chromium once
+(and again after each Playwright upgrade) with:
+
+```sh
+cd packages/test && npx playwright install chromium
+```
+
+In headless mode, `npx playwright install --only-shell chromium` is enough. CI
+installs the browser this way in `make ci-cluster-test`.
+
 Run all tests with:
 
 ```sh
@@ -63,6 +73,12 @@ export PCSD_NODE_1=node1.vm
 export PCSD_USERNAME_1=hacluster
 export PCSD_PASSWORD_1=password
 
+# Timeout of the whole real backend test (ms)
+export PCS_WUI_TEST_TIMEOUT=200000
+
+# Timeout of a single action, e.g. a click or waiting for an element (ms)
+export PCS_WUI_ACTION_TIMEOUT=30000
+
 # Directory to store video recordings (set to enable)
 # export PCS_WUI_TESTS_VIDEO_DIR="/tmp/pcs-web-ui-video"
 unset PCS_WUI_TESTS_VIDEO_DIR
@@ -76,6 +92,19 @@ export PCS_WUI_TESTS=$*
 ```
 
 See also [gitlab-ci.yml](../.gitlab-ci.yml) for more examples.
+
+### Real backend test
+
+The real backend test (`realBackend/oneNodeCluster.test.ts`) goes through the
+whole life cycle of a cluster on a single node: it sets up a cluster from the
+"no cluster" page, creates a fence device and a resource in it, and destroys
+the cluster again. It expects the following initial state of the node:
+
+- the node is not in a cluster,
+- the node is authenticated against itself (`pcs host auth`).
+
+When the test passes, it leaves the node in the same state. In CI, the state
+is prepared by `plans.fmf` and `tests.fmf`.
 
 ## Test preset and globals
 
@@ -121,6 +150,13 @@ standard set of routes (cluster status, agent lists, permissions, etc.) and
 accepts additional or replacement routes for test-specific needs. Cluster status
 is built using factory functions from `dev/responses/clusterStatus/tools`
 (`cluster()`, `primitive()`, `stonith()`, `group()`, `clone()`).
+
+Tests of the state where the host is not in a cluster use
+`mock.shortcuts.withNoCluster()`. It answers the cluster status and the other
+endpoints the application calls on start with
+`400, "This host is not in a cluster - …"` (`responses.noCluster.message`),
+which makes the application display the "no cluster" page. Test-specific
+routes are passed via `additionalRouteList`.
 
 ### Routes and response builders
 

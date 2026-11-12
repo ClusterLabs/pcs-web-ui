@@ -6,23 +6,19 @@ import * as shortcut from "dev/shortcuts";
 const {resourceTree} = response.clusterStatus;
 
 let clusterStatusLoadCount = 0;
-app.clusterStatus((req, res) => {
-  if (req.params.clusterName === resourceTree.cluster_name) {
-    if (clusterStatusLoadCount++ > 0) {
-      const primitive: Primitive = resourceTree.resource_list[0] as Primitive;
+app.clusterStatus((_req, res) => {
+  if (clusterStatusLoadCount++ > 0) {
+    const primitive: Primitive = resourceTree.resource_list[0] as Primitive;
 
-      primitive.instance_attr[0] = {
-        ...primitive.instance_attr[0],
-        value: "/etc/httpd/httpd.conf",
-      };
-      primitive.instance_attr = primitive.instance_attr.filter(
-        (_a: unknown, i: number) => i !== 1,
-      );
-    }
-    res.json(resourceTree);
-  } else {
-    res.status(404).send("Not found");
+    primitive.instance_attr[0] = {
+      ...primitive.instance_attr[0],
+      value: "/etc/httpd/httpd.conf",
+    };
+    primitive.instance_attr = primitive.instance_attr.filter(
+      (_a: unknown, i: number) => i !== 1,
+    );
   }
+  res.json(resourceTree);
 });
 
 app.updateResource((req, res) => {

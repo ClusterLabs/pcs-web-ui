@@ -2,11 +2,16 @@ import {endpoints} from "app/backend/endpoints";
 
 import type * as types from "dev/types";
 
-export const clusterStatus = ({
-  clusterStatus,
-}: {
-  clusterStatus: types.Cluster;
-}) => ({
-  url: endpoints.clusterStatus.url,
-  json: clusterStatus,
-});
+import type {RouteResponse} from "../mock";
+
+export const clusterStatus = (
+  props: {clusterStatus: types.Cluster} | {response: RouteResponse},
+) => {
+  const response: RouteResponse =
+    "response" in props ? props.response : {json: props.clusterStatus};
+
+  return {
+    url: endpoints.clusterStatus.url,
+    ...response,
+  };
+};

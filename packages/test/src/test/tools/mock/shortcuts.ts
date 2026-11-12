@@ -1,7 +1,7 @@
 import type * as types from "dev/types";
 import * as responses from "dev/responses";
 
-import {type Route, run} from "./mock";
+import {type Route, type RouteResponse, run} from "./mock";
 import * as route from "./routes";
 
 export const withCluster = (
@@ -80,5 +80,17 @@ export const withCluster = (
     ...Object.values({...routeMap, ...(replaceRoutes || {})}),
     ...(additionalRouteList || []),
     ...Object.values({...optionalRouteMap}),
+  ]);
+};
+
+export const withNoCluster = (props: {additionalRouteList?: Route[]} = {}) => {
+  const response: RouteResponse = {status: [400, responses.noCluster.message]};
+  return run([
+    route.clusterStatus({response}),
+    route.resourceAgentListAgents({response}),
+    route.stonithAgentListAgents({response}),
+    route.getClusterPropertiesDefinition({response}),
+    route.getPermissions({response}),
+    ...(props.additionalRouteList ?? []),
   ]);
 };

@@ -18,16 +18,15 @@ export const ClusterAppNoClusterOnBackend = () => {
         style={{margin: "auto"}}
         titleText="No cluster."
         headingLevel="h1"
+        {...testMarks.cluster.noCluster.mark}
       >
-        <EmptyStateBody {...testMarks.cluster.noCluster.mark}>
-          This host is not in a cluster.
-        </EmptyStateBody>
+        <EmptyStateBody>This host is not in a cluster.</EmptyStateBody>
         <EmptyStateFooter>
           <EmptyStateActions>
             <Button
               variant="primary"
               onClick={() => openTask("clusterSetup")}
-              {...testMarks.cluster.noCluster.mark}
+              {...testMarks.cluster.noCluster.setupCluster.mark}
             >
               Setup Cluster
             </Button>

@@ -67,13 +67,11 @@ export const ClusterOverviewPage = () => {
                       </div>
                       <Alert
                         title={
-                          <div
-                            {...overviewToolbar.dropdown.destroyCluster.mark}
-                          >
+                          <>
                             This command permanently removes any cluster
                             configuration that has been created. This action
                             cannot be undone.
-                          </div>
+                          </>
                         }
                         isPlain
                         isInline

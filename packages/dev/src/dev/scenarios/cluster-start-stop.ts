@@ -1,40 +1,14 @@
-import * as shortcut from "dev/shortcuts";
 import {app} from "dev/app";
+import * as t from "dev/responses/clusterStatus/tools";
+import * as shortcut from "dev/shortcuts";
 
-app.clusterStart((req, res) => {
-  if (req.params.clusterName === "fail") {
-    res.status(500).send("Something wrong");
-    return;
-  }
-  if (req.params.clusterName === "permission") {
-    res.status(403).send("Permission denied");
-    return;
-  }
-
-  if (req.params.clusterName === "error") {
-    res.status(400).send("Unable to start node.");
-    return;
-  }
-
+app.clusterStart((_req, res) => {
   res.send("Some output");
 });
 
-app.clusterStop((req, res) => {
-  if (req.params.clusterName === "fail") {
-    res.status(500).send("Something wrong");
-    return;
-  }
-  if (req.params.clusterName === "permission") {
-    res.status(403).send("Permission denied");
-    return;
-  }
-
-  if (req.params.clusterName === "error") {
-    res.status(400).send("Unable to stop node.");
-    return;
-  }
-
+app.clusterStop((_req, res) => {
   res.send("Some output");
 });
 
+shortcut.clusterStatus(t.cluster("ok"));
 shortcut.clusterRelated();
